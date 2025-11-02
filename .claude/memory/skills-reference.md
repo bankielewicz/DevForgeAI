@@ -1,0 +1,204 @@
+# DevForgeAI Skills Reference
+
+Detailed guidance for working with the 7 DevForgeAI skills.
+
+---
+
+## When to Invoke Skills
+
+### devforgeai-ideation
+
+**Use when:**
+- User has business idea without technical specs
+- Starting greenfield projects ("I want to build...")
+- Adding major features to existing systems
+- Exploring solution spaces and feasibility
+- User requests requirements discovery or epic creation
+- **This is the entry point - use BEFORE architecture skill**
+
+**Invocation:**
+```
+Skill(command="devforgeai-ideation")
+```
+
+---
+
+### devforgeai-architecture
+
+**Use when:**
+- Context files missing or need updates
+- Making technology decisions
+- Defining project structure
+- Documenting architectural decisions (ADRs)
+
+**Invocation:**
+```
+Skill(command="devforgeai-architecture")
+```
+
+---
+
+### devforgeai-orchestration
+
+**Use when:**
+- Starting new epics or sprints
+- Creating stories from requirements
+- Managing story workflow progression
+- Enforcing quality gates
+
+**Invocation:**
+```
+Skill(command="devforgeai-orchestration --story=STORY-001")
+```
+
+---
+
+### devforgeai-ui-generator
+
+**Use when:**
+- Story requires UI components (forms, dashboards, dialogs)
+- Generating visual specifications from requirements
+- Creating mockups-as-code for web, desktop, or terminal interfaces
+- Need to translate acceptance criteria into UI components
+- **Invoked after architecture (requires context files), before or during development**
+
+**Invocation:**
+```
+Skill(command="devforgeai-ui-generator")
+Skill(command="devforgeai-ui-generator --story=STORY-001")
+```
+
+---
+
+### devforgeai-development
+
+**Use when:**
+- Implementing user stories or features
+- Writing new code with TDD
+- Refactoring while maintaining specs
+
+**Invocation:**
+```
+Skill(command="devforgeai-development --story=STORY-001")
+```
+
+---
+
+### devforgeai-qa
+
+**Auto-invoked during development, or use manually for:**
+- Deep validation after story completion
+- Pre-release quality gates
+- Technical debt assessment
+
+**Invocation:**
+```
+Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+Skill(command="devforgeai-qa --mode=light --story=STORY-001")
+```
+
+---
+
+### devforgeai-release
+
+**Use when:**
+- Story status = "QA Approved" (ready for production)
+- Coordinated sprint releases (multiple stories together)
+- Hotfix deployments (critical bug fix, still requires QA)
+- Rollback operations (production issue detected)
+- **This is the final stage - use AFTER QA approval**
+
+**Invocation:**
+```
+Skill(command="devforgeai-release --story=STORY-001")
+Skill(command="devforgeai-release --story=STORY-001 --env=staging")
+Skill(command="devforgeai-release --story=STORY-001 --env=production")
+```
+
+---
+
+## Workflow Sequences
+
+### For New Projects or Major Features
+
+```
+1. devforgeai-ideation
+   ↓ (discover requirements, create epics)
+
+2. devforgeai-architecture
+   ↓ (create context files, make tech decisions)
+
+3. devforgeai-orchestration
+   ↓ (create sprints, generate stories)
+
+4. devforgeai-ui-generator [OPTIONAL]
+   ↓ (generate UI specs if story has UI components)
+
+5. devforgeai-development
+   ↓ (implement stories with TDD)
+
+6. devforgeai-qa
+   ↓ (validate quality, coverage, compliance)
+
+7. devforgeai-release
+   (deploy to production)
+```
+
+### For Existing Projects with Defined Context
+
+```
+1. devforgeai-orchestration
+   ↓ (create stories from requirements)
+
+2. devforgeai-ui-generator [OPTIONAL]
+   ↓ (generate UI specs if needed)
+
+3. devforgeai-development
+   ↓ (implement with TDD)
+
+4. devforgeai-qa
+   ↓ (validate)
+
+5. devforgeai-release
+   (deploy)
+```
+
+### For UI-Focused Stories
+
+```
+1. devforgeai-architecture
+   ↓ (ensure context files exist)
+
+2. devforgeai-ui-generator
+   ↓ (interactive UI spec generation)
+
+3. devforgeai-development
+   ↓ (implement UI with tests)
+
+4. devforgeai-qa
+   (validate UI implementation)
+```
+
+---
+
+## Skill Integration
+
+Skills automatically invoke each other when needed:
+- **devforgeai-development** auto-invokes **devforgeai-qa** (light mode) after each TDD phase
+- **devforgeai-ideation** auto-transitions to **devforgeai-architecture**
+- **devforgeai-orchestration** invokes other skills based on workflow state
+
+---
+
+## Skill-Specific Documentation
+
+For detailed skill documentation, see:
+- `.claude/skills/devforgeai-ideation/SKILL.md`
+- `.claude/skills/devforgeai-architecture/SKILL.md`
+- `.claude/skills/devforgeai-orchestration/SKILL.md`
+- `.claude/skills/devforgeai-ui-generator/SKILL.md`
+- `.claude/skills/devforgeai-development/SKILL.md`
+- `.claude/skills/devforgeai-qa/SKILL.md`
+- `.claude/skills/devforgeai-release/SKILL.md`
+
+**Reference Files:** Each skill has a `references/` directory with detailed guides loaded progressively as needed.

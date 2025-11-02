@@ -11,6 +11,7 @@ allowed-tools:
   - WebFetch
   - Bash(git:*)
   - Skill
+  - TodoWrite
 ---
 
 # DevForgeAI Ideation Skill
@@ -449,6 +450,19 @@ Identify risks (technical, business, team). For each: Probability, Impact, Mitig
 
 #### 6.1 Generate Epic Document(s)
 
+**Track epic creation with TodoWrite:**
+```
+At start of epic generation, create todos for each epic:
+TodoWrite([
+  "Create EPIC-001: [name]",
+  "Create EPIC-002: [name]",
+  ...
+  "Create EPIC-N: [name]",
+])
+
+Mark each epic as completed after creating the file.
+```
+
 Create epic documents in `.ai_docs/Epics/EPIC-NNN-[name].epic.md` with:
 - YAML frontmatter (id, title, status, dates, points)
 - Business goal and success metrics
@@ -456,6 +470,34 @@ Create epic documents in `.ai_docs/Epics/EPIC-NNN-[name].epic.md` with:
 - Requirements (functional, NFRs, data, integrations)
 - Architecture considerations (tier, pattern, constraints)
 - Risks and next steps
+
+**CRITICAL: Verify all planned epics are created**
+
+Before proceeding to Phase 6.2:
+```
+# Count planned epics (from decomposition phase)
+planned_epics = [count from Phase 4 decomposition]
+
+# Count created epic files
+created_epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+created_count = len(created_epic_files)
+
+# Verification gate
+if created_count < planned_epics:
+    # HALT - Incomplete work detected
+    missing_count = planned_epics - created_count
+
+    ERROR: Only {created_count}/{planned_epics} epics created
+
+    Missing epics: Review Phase 4 decomposition and create remaining epic documents
+
+    DO NOT PROCEED to Phase 6.2 until all epics are created and verified.
+
+else:
+    # All epics created, safe to proceed
+    ✓ All {planned_epics} epics created and verified
+    → Proceed to Phase 6.2
+```
 
 #### 6.2 Generate Requirements Specification
 

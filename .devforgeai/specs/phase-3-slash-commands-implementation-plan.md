@@ -726,10 +726,21 @@ allowed-tools: Read, Write, Edit, Glob, Skill(devforgeai-release), Task(deployme
 
 **Priority:** MEDIUM (Day 14)
 **Purpose:** Execute complete story lifecycle (dev → qa → release)
-**Token Budget:** <200K
+**Token Budget:** <200K (if SlashCommand isolates) OR <25K (if using Skill tool)
 **Model:** sonnet
 
-#### Frontmatter
+#### ⚠️ CRITICAL: Test SlashCommand Context Isolation First
+
+**Before implementing this command, MUST test:**
+
+1. Invoke `/test-slashcommand-isolation` command directly
+2. Check token usage delta in main conversation
+3. If delta is small (~500 tokens) → SlashCommand DOES isolate contexts → Use Approach A
+4. If delta is large (~3K tokens) → SlashCommand does NOT isolate → Use Approach B (Skill tool)
+
+#### Approach A: SlashCommand Invocation (If Context Isolation Confirmed)
+
+**Frontmatter:**
 ```yaml
 ---
 description: Execute full story lifecycle end-to-end
@@ -739,46 +750,95 @@ allowed-tools: Read, Write, Edit, SlashCommand
 ---
 ```
 
-#### Workflow Overview
-
-**Phase 1: Story Validation**
-1. Read story file
+**Workflow:**
+```markdown
+### Phase 1: Story Validation
+1. Read story file: @.ai_docs/Stories/$ARGUMENTS.story.md
 2. Verify status is "Ready for Dev" or "Backlog"
 3. Load checkpoint data if resuming
 
-**Phase 2: Development Phase**
-1. Use SlashCommand(command="/dev $STORY_ID")
-2. Monitor execution
-3. If failure, log checkpoint and HALT
-4. Verify status updated to "Dev Complete"
+### Phase 2: Development Phase
+1. Use SlashCommand(command="/dev $ARGUMENTS")
+2. Monitor execution (isolated context)
+3. Verify status updated to "Dev Complete"
 
-**Phase 3: QA Phase**
-1. Use SlashCommand(command="/qa $STORY_ID")
-2. Monitor execution
+### Phase 3: QA Phase
+1. Use SlashCommand(command="/qa $ARGUMENTS")
+2. Monitor execution (isolated context)
 3. If "QA Failed", report violations and HALT
 4. Verify status updated to "QA Approved"
 
-**Phase 4: Release Phase**
-1. Use SlashCommand(command="/release $STORY_ID --env=staging")
+### Phase 4: Release Phase
+1. Use SlashCommand(command="/release $ARGUMENTS --env=staging")
 2. Monitor staging deployment
 3. If success, proceed to production
-4. Use SlashCommand(command="/release $STORY_ID --env=production")
+4. Use SlashCommand(command="/release $ARGUMENTS --env=production")
 
-**Phase 5: Workflow History**
+### Phase 5: Workflow History
 1. Edit story file to add complete workflow history
 2. Include timestamps, durations, checkpoints
 3. Document any failures or rollbacks
+```
+
+**Token Budget:** ~25K (SlashCommand summaries only)
+
+#### Approach B: Skill Tool Invocation (Fallback if No Context Isolation)
+
+**Frontmatter:**
+```yaml
+---
+description: Execute full story lifecycle end-to-end
+argument-hint: [STORY-ID]
+model: sonnet
+allowed-tools: Read, Write, Edit, Skill
+---
+```
+
+**Workflow:**
+```markdown
+### Phase 1: Story Validation
+1. Read story file: @.ai_docs/Stories/$ARGUMENTS.story.md
+2. Verify status is "Ready for Dev" or "Backlog"
+
+### Phase 2: Development Phase
+1. Use Skill(command="devforgeai-development --story=$ARGUMENTS")
+2. Skill creates isolated context (confirmed)
+3. Returns summary (~5K tokens to main context)
+4. Verify status updated to "Dev Complete"
+
+### Phase 3: QA Phase
+1. Use Skill(command="devforgeai-qa --mode=deep --story=$ARGUMENTS")
+2. Skill creates isolated context
+3. Returns summary
+4. If "QA Failed", report violations and HALT
+5. Verify status updated to "QA Approved"
+
+### Phase 4: Release Phase
+1. Use Skill(command="devforgeai-release --story=$ARGUMENTS --env=staging")
+2. Monitor staging deployment
+3. If success, proceed to production
+4. Use Skill(command="devforgeai-release --story=$ARGUMENTS --env=production")
+
+### Phase 5: Workflow History
+1. Edit story file to add complete workflow history
+```
+
+**Token Budget:** ~20K (Skill tool summaries - confirmed isolated)
 
 #### Success Criteria
-- [ ] All three phases executed sequentially
-- [ ] Checkpoints recorded for recovery
+- [ ] All three phases executed (dev → qa → release)
+- [ ] Checkpoints recorded
 - [ ] Story progresses through all states
-- [ ] Failures handled with clear error messages
+- [ ] Failures handled with clear errors
 - [ ] Workflow history documented
 - [ ] Final status is "Released"
 
 #### Command Length Target
-**250-350 lines** (orchestration logic, checkpoint management)
+**250-300 lines** (orchestration logic, checkpoint management)
+
+**Testing Status:** Test command created at `.claude/commands/test-slashcommand-isolation.md`
+
+**Recommendation:** Use Approach B (Skill tool) as it's guaranteed to isolate contexts based on Task tool behavior.
 
 ---
 
