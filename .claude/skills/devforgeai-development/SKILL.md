@@ -101,6 +101,89 @@ Options:
 multiSelect: false
 ```
 
+#### Step 4: Extract Technology Configuration
+
+**CRITICAL: Determine test and build commands from tech-stack.md**
+
+From the tech-stack.md content (already read in Step 1), extract:
+
+```
+Programming Language: [Identify from tech-stack.md]
+  - Node.js/JavaScript/TypeScript
+  - Python
+  - C# / .NET
+  - Go
+  - Java
+  - Rust
+  - Other
+
+Test Framework: [Identify from tech-stack.md]
+  - npm test / npm run test (Node.js)
+  - pytest / python -m pytest (Python)
+  - dotnet test (. NET)
+  - go test ./... (Go)
+  - mvn test / gradle test (Java)
+  - cargo test (Rust)
+
+Build Tool: [Identify from tech-stack.md]
+  - npm / npm run build (Node.js)
+  - pip / python setup.py (Python)
+  - dotnet build / dotnet restore (.NET)
+  - go build (Go)
+  - mvn / gradle (Java)
+  - cargo build (Rust)
+```
+
+**If tech-stack.md doesn't specify test framework explicitly:**
+
+Detect via project markers using Glob:
+```
+Glob(pattern="package.json") → Node.js → TEST_COMMAND="npm test"
+Glob(pattern="*.csproj") → .NET → TEST_COMMAND="dotnet test"
+Glob(pattern="pyproject.toml") → Python → TEST_COMMAND="pytest"
+Glob(pattern="requirements.txt") → Python → TEST_COMMAND="pytest"
+Glob(pattern="go.mod") → Go → TEST_COMMAND="go test ./..."
+Glob(pattern="pom.xml") → Java/Maven → TEST_COMMAND="mvn test"
+Glob(pattern="build.gradle*") → Java/Gradle → TEST_COMMAND="gradle test"
+Glob(pattern="Cargo.toml") → Rust → TEST_COMMAND="cargo test"
+```
+
+**If detection fails (no tech-stack.md AND no project markers):**
+
+Use AskUserQuestion:
+```
+Question: "Unable to detect project technology. What command runs tests?"
+Header: "Test command"
+Options:
+  - "npm test (Node.js/JavaScript/TypeScript)"
+  - "pytest (Python)"
+  - "dotnet test (.NET/C#)"
+  - "go test ./... (Go)"
+  - "mvn test (Java/Maven)"
+  - "gradle test (Java/Gradle)"
+  - "cargo test (Rust)"
+  - "Other (specify custom command)"
+multiSelect: false
+```
+
+**Store commands as variables:**
+```
+TEST_COMMAND = [detected test command]
+BUILD_COMMAND = [detected build command if applicable]
+PACKAGE_MANAGER = [detected package manager]
+```
+
+**Validation:**
+- [ ] Technology detected successfully
+- [ ] TEST_COMMAND variable set
+- [ ] BUILD_COMMAND variable set (if needed)
+- [ ] Ready to proceed to Phase 1
+
+**Example outputs:**
+- Node.js project: TEST_COMMAND="npm test", BUILD_COMMAND="npm run build"
+- .NET project: TEST_COMMAND="dotnet test", BUILD_COMMAND="dotnet build"
+- Python project: TEST_COMMAND="pytest", BUILD_COMMAND=null
+
 ---
 
 ### Phase 1: Test-First Design (Red Phase)
@@ -155,10 +238,22 @@ Follow coding-standards.md patterns (AAA format, naming conventions).
 **Run tests to verify they fail:**
 
 ```
-Bash(command="[test command from tech-stack.md]")
+# Use TEST_COMMAND variable from Phase 0 Step 4
+Bash(command=TEST_COMMAND)
+
+# Example: If Node.js detected, executes: npm test
+# Example: If .NET detected, executes: dotnet test
+# Example: If Python detected, executes: pytest
 ```
 
 **Expected: RED (test fails) ✓**
+
+**If TEST_COMMAND not set:**
+```
+ERROR: Technology detection failed in Phase 0 Step 4
+Unable to determine test command
+Review Phase 0 logs for technology detection issues
+```
 
 ---
 
@@ -238,7 +333,8 @@ Reserve Bash ONLY for: tests, builds, git, package managers
 #### Step 6: Run Tests
 
 ```
-Bash(command="[test command]")
+# Use TEST_COMMAND variable from Phase 0 Step 4
+Bash(command=TEST_COMMAND)
 ```
 
 **Expected: GREEN (test passes) ✓**
@@ -286,8 +382,8 @@ See `references/refactoring-patterns.md` for complete catalog.
 # Refactor implementation
 Edit(file_path="...", old_string="...", new_string="...")
 
-# Verify tests still pass
-Bash(command="[test command]")
+# Verify tests still pass (use TEST_COMMAND from Phase 0)
+Bash(command=TEST_COMMAND)
 ```
 
 **HALT if tests break during refactoring**
@@ -303,7 +399,18 @@ Ensure implementation integrates correctly with existing codebase.
 #### Step 1: Run Full Test Suite
 
 ```
-Bash(command="[full test command with coverage]")
+# Use TEST_COMMAND from Phase 0 with coverage flags (if supported)
+# Technology-specific coverage commands:
+# - Node.js: npm test -- --coverage
+# - Python: pytest --cov=src --cov-report=term
+# - .NET: dotnet test --collect:"XPlat Code Coverage"
+# - Go: go test -coverprofile=coverage.out ./...
+# - Rust: cargo test -- --test-threads=1
+
+Bash(command=TEST_COMMAND_WITH_COVERAGE)
+
+# Or if simple test command:
+Bash(command=TEST_COMMAND)
 ```
 
 Validate:
@@ -357,11 +464,137 @@ Validate:
 - [ ] No secrets or credentials in code
 - [ ] All new files in correct locations (per source-tree.md)
 
-#### Step 2: Stage and Commit
+#### Step 1b: Update Story File with Implementation Notes
+
+**CRITICAL: Document implementation details in story file BEFORE committing**
+
+This step is MANDATORY - it transforms the story from requirements-only into a complete record of what was done and how it was verified.
+
+**Read story file:**
+```
+Read(file_path=".ai_docs/Stories/[story-id].story.md")
+```
+
+**Generate Implementation Notes section:**
+
+Use Edit tool to add "## Implementation Notes" section (before "## Related Stories" or at end of file):
+
+```markdown
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** [current date and time]
+**Commit:** [will update with hash after commit]
+
+### Definition of Done Status
+
+[Copy each Definition of Done item from story file above, marking completion status]
+
+- [x] Unit tests written and passing - Completed: Created X unit tests in tests/[module]/, all passing
+- [x] Integration tests for API endpoints - Completed: Created Y integration tests, verified with cargo test
+- [x] Code follows coding-standards.md - Completed: Applied cargo fmt, followed naming conventions
+- [ ] Performance benchmarks created - Not completed: Deferred to STORY-XXX (performance optimization epic)
+
+**If ALL items completed:** Mark all with [x] and brief completion note
+**If ANY items NOT completed:** Mark with [ ] and provide reason:
+  - "Deferred to STORY-XXX" (planned for future story)
+  - "Out of scope" (requirement changed, documented in ADR)
+  - "Blocked by [dependency]" (cannot complete until X resolved)
+
+### Key Implementation Decisions
+
+[Document significant technical decisions made during implementation]
+
+- **Decision 1:** Used [Technology/Pattern] instead of [Alternative]
+  - **Rationale:** tech-stack.md specifies [X], architecture-constraints.md requires [Y]
+  - **Alternatives considered:** [List alternatives and why rejected]
+
+- **Decision 2:** Placed files in [Location]
+  - **Rationale:** source-tree.md specifies [structure rule]
+
+[Include 2-5 key decisions that affect maintainability, performance, or architecture]
+
+### Files Created/Modified
+
+[List files organized by layer from source-tree.md]
+
+**Layer: [Presentation/Application/Domain/Infrastructure]**
+- `path/to/file1.ext` - [Purpose, what it does]
+- `path/to/file2.ext` - [Purpose, what it does]
+
+**Tests:**
+- `tests/unit/test_module.ext` - Unit tests for [component]
+- `tests/integration/test_api.ext` - Integration tests for [feature]
+
+### Test Results
+
+- **Unit tests:** X passing / Y total
+- **Integration tests:** X passing / Y total
+- **E2E tests:** X passing / Y total (if applicable)
+- **Coverage:** Z% (target: 95% business logic, 85% application, 80% infrastructure)
+- **All tests passing:** YES/NO
+
+**Coverage by layer:**
+- Business logic: X%
+- Application: Y%
+- Infrastructure: Z%
+
+### Acceptance Criteria Verification
+
+[For each acceptance criterion from story, document HOW it was verified]
+
+**Given/When/Then Scenario 1:**
+- [x] **Verified:** cargo test::test_scenario_1 passes - validates [specific behavior]
+- **Method:** Unit test validates [input] → [expected output]
+
+**Given/When/Then Scenario 2:**
+- [x] **Verified:** Manual testing - ran `cargo run -- [args]`, confirmed [expected result]
+- **Method:** Integration test + manual verification
+
+**Scenario 3 (if any not verified):**
+- [ ] **Not verified:** Deferred to QA - requires [specific test environment/data]
+
+### Notes
+
+[Optional: Any additional context]
+- Blockers encountered: [None / List blockers and resolutions]
+- Workarounds applied: [None / List workarounds]
+- Technical debt introduced: [None / List debt with plan to address]
+- Future improvements: [Suggestions for v2.0, optimization opportunities]
+```
+
+**Validation before proceeding to Step 2:**
+- [ ] Implementation Notes section added to story file
+- [ ] All DoD items have status ([x] or [ ] with reason)
+- [ ] Key decisions documented
+- [ ] Files listed
+- [ ] Test results recorded
+- [ ] Acceptance criteria verification documented
+
+**If any validation fails:** HALT - Complete Implementation Notes before committing
+
+---
+
+#### Step 2: Stage Implementation Files and Story File
+
+**CRITICAL: Story file MUST be included in commit**
 
 ```
-Bash(command="git add [relevant_files]")
+# Stage implementation files
+Bash(command="git add [relevant_implementation_files]")
+
+# Stage updated story file (includes Implementation Notes from Step 1b)
+Bash(command="git add .ai_docs/Stories/[story-id].story.md")
 ```
+
+**Validation:**
+- [ ] Implementation files staged
+- [ ] Story file staged (with Implementation Notes)
+- [ ] Ready for commit
+
+---
+
+#### Step 3: Create Commit
 
 **Commit message format (Conventional Commits):**
 
@@ -401,7 +634,7 @@ See `references/git-workflow-conventions.md` for:
 - Push best practices
 - Git hooks integration
 
-#### Step 3: Push to Remote
+#### Step 4: Push to Remote
 
 ```
 Bash(command="git push origin [branch-name]")

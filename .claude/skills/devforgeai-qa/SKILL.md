@@ -313,6 +313,89 @@ LOW: Code quality, documentation
 
 ## Phase 3: Spec Compliance Validation
 
+### Step 0: Validate Story Documentation (CRITICAL)
+
+**Before validating code, verify story file is properly documented**
+
+```
+Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+```
+
+**Check for Implementation Notes section:**
+
+```
+IF "## Implementation Notes" NOT found in story:
+    VIOLATION:
+      Type: "Story documentation missing"
+      Severity: HIGH
+      Message: "Story file lacks Implementation Notes section"
+      Impact: "Cannot validate spec compliance without documented implementation"
+      Remediation: "Developer must update story file with Implementation Notes before QA approval"
+
+    Record violation in QA report
+
+    IF deep mode:
+        FAIL QA - Story documentation is mandatory for deep validation
+    ELSE IF light mode:
+        WARN - Story documentation missing (not blocking for light QA)
+```
+
+**If Implementation Notes exist, validate completeness:**
+
+```
+Extract Implementation Notes section
+
+Check required subsections:
+1. Definition of Done Status
+   - Verify: Each DoD item from story has status ([x] or [ ])
+   - Verify: Incomplete items ([]) have reason (deferred/blocked/out of scope)
+
+2. Test Results
+   - Verify: Test counts present (unit/integration/e2e)
+   - Verify: Coverage percentage documented
+   - Verify: All tests passing status documented
+
+3. Acceptance Criteria Verification
+   - Verify: Each acceptance criterion has verification entry
+   - Verify: Verification method documented (test name, manual check, etc.)
+
+4. Files Created/Modified
+   - Verify: At least one file listed
+   - Verify: Files organized by layer (if applicable)
+
+IF any required subsection missing:
+    VIOLATION:
+      Type: "Story documentation incomplete"
+      Severity: MEDIUM
+      Message: "Implementation Notes missing required section: {section_name}"
+      Remediation: "Add {section_name} to Implementation Notes"
+
+    Record violation
+
+    IF deep mode:
+        WARN - Documentation incomplete (may impact compliance validation)
+```
+
+**Validation success:**
+```
+✓ Story documentation complete
+✓ Definition of Done documented
+✓ Implementation decisions preserved
+✓ Test results recorded
+✓ Acceptance criteria verification present
+
+Continue to Step 1 (Load Story Specification)
+```
+
+**Purpose of this validation:**
+- Ensures story file is complete (requirements + implementation)
+- Provides audit trail for QA validation
+- Prevents knowledge loss (implementation decisions documented)
+- Enables programmatic spec compliance checking
+- Fulfills "spec-driven development" principle
+
+---
+
 ### Step 1: Load Story Specification
 
 ```
@@ -322,9 +405,10 @@ Read(file_path=".ai_docs/Stories/{story_id}.story.md")
 # - API contracts
 # - Non-functional requirements
 # - Business rules
+# - Implementation Notes (now validated in Step 0)
 ```
 
-### Step 2: Validate Acceptance Criteria
+### Step 2: Validate Acceptance Criteria (Using Implementation Notes)
 
 ```
 FOR each acceptance_criterion:
@@ -348,6 +432,8 @@ FOR each acceptance_criterion:
 ```
 
 **Detailed procedures**: `./references/spec-validation.md` (section: Acceptance Criteria Validation)
+
+**Enhancement:** Cross-reference with Implementation Notes "Acceptance Criteria Verification" section to see how developer verified each criterion.
 
 ### Step 3: Validate API Contracts
 

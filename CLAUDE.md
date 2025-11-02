@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
 
+---
+
 ## Core Philosophy
 
 **Spec-Driven Development with AI Enforcement:**
@@ -14,176 +16,11 @@ This is **DevForgeAI**, a spec-driven development framework designed to enable A
 - Quality gates enforce standards at every workflow stage
 - Test-Driven Development (TDD) workflow: Red → Green → Refactor
 
-**Constitution**: Evidence-based only. All patterns backed by research, official documentation, or proven practices. No aspirational content.
+**Constitution:** Evidence-based only. All patterns backed by research, official documentation, or proven practices. No aspirational content.
 
-## Project Structure
+---
 
-```
-.claude/skills/              # Claude Code skills (framework implementation)
-├── devforgeai-ideation/       # Requirements discovery & epic creation (greenfield/brownfield entry point)
-├── devforgeai-orchestration/  # Workflow coordinator (Epic → Sprint → Story → Dev → QA → Release)
-├── devforgeai-architecture/   # Context file creation & architecture decision records
-├── devforgeai-ui-generator/   # Interactive UI generation (web, GUI, terminal) with context validation
-├── devforgeai-development/    # TDD implementation with constraint enforcement
-├── devforgeai-qa/             # Hybrid validation (light during dev, deep after)
-└── devforgeai-release/        # Production deployment with automated validation, smoke testing, and rollback
-
-.devforgeai/
-├── context/                 # Immutable architectural constraints (created by architecture skill)
-│   ├── tech-stack.md         # LOCKED technology choices (prevents library substitution)
-│   ├── source-tree.md        # Project structure rules (prevents chaos)
-│   ├── dependencies.md       # Approved packages (prevents unapproved dependencies)
-│   ├── coding-standards.md   # Code patterns (enforces consistency)
-│   ├── architecture-constraints.md  # Layer boundaries (prevents violations)
-│   └── anti-patterns.md      # Forbidden patterns (prevents technical debt)
-├── qa/                      # QA validation outputs
-│   ├── coverage-thresholds.md  # Coverage requirements (95%/85%/80% by layer)
-│   ├── quality-metrics.md      # Code quality thresholds
-│   └── reports/                # Per-story QA validation reports
-└── specs/requirements/      # Planning documents and implementation specs
-
-.ai_docs/                    # Project management artifacts
-├── Epics/                   # High-level business initiatives
-├── Sprints/                 # 2-week iteration plans
-└── Stories/                 # Atomic work units with acceptance criteria
-```
-
-## Architectural Workflow
-
-### 0. Ideation → Requirements (devforgeai-ideation)
-
-**Entry point for the framework - transforms ideas into structured requirements:**
-
-**Use when:**
-- Starting new projects (greenfield)
-- Adding major features to existing systems (brownfield)
-- Exploring solution spaces before architecture
-- User provides business ideas without technical specifications
-
-**6-Phase Process:**
-1. **Discovery & Problem Understanding** - Understand business context, users, success metrics
-2. **Requirements Elicitation** - Extract functional/non-functional requirements, data models, integrations
-3. **Complexity Assessment** - Score complexity (0-60) and recommend architecture tier (Simple → Enterprise)
-4. **Epic & Feature Decomposition** - Break solution into manageable epics, features, and high-level stories
-5. **Feasibility & Constraints Analysis** - Assess technical, business, and resource constraints
-6. **Requirements Documentation** - Generate epic documents and requirements specifications
-
-**Output Artifacts:**
-- Epic documents in `.ai_docs/Epics/`
-- Requirements specification in `.devforgeai/specs/requirements/`
-- Complexity assessment report
-- Automatic transition to devforgeai-architecture skill
-
-**Key Philosophy:**
-- **"Ask, Don't Assume"** - Use AskUserQuestion for ALL ambiguities
-- **"Right-size the Solution"** - Match architecture to actual complexity (don't over-engineer simple apps)
-- **"Start with Why, Then What, Then How"** - Business value first, then requirements, then technical approach
-
-### 1. Epic → Sprint → Story Hierarchy
-
-**Epic** = High-level business initiative spanning multiple sprints
-**Sprint** = 2-week iteration with specific stories
-**Story** = Atomic unit of work with testable acceptance criteria
-
-Stories flow through 11 workflow states:
-```
-Backlog → Architecture → Ready for Dev → In Development → Dev Complete →
-QA In Progress → [QA Approved | QA Failed] → Releasing → Released
-```
-
-### 2. Context-First Development
-
-**Before ANY code is written:**
-1. Check for 6 context files in `.devforgeai/context/`
-2. If missing → Auto-invoke `devforgeai-architecture` skill
-3. Context files become THE LAW for all development
-
-**Context files prevent:**
-- Library substitution (e.g., Dapper → Entity Framework)
-- Structure violations (files in wrong locations)
-- Cross-layer dependencies (Domain → Infrastructure)
-- Framework mixing (Redux in Zustand project)
-- Unapproved package additions
-
-### 3. TDD Workflow (devforgeai-development)
-
-**6-Phase Development Process:**
-1. **Context Validation**: Ensure all 6 context files exist
-2. **Test-First (Red)**: Write failing tests based on acceptance criteria
-3. **Implementation (Green)**: Write minimal code to pass tests + light QA
-4. **Refactor**: Improve code quality while keeping tests green + light QA
-5. **Integration**: Run full test suite + deep validation + light QA
-6. **Git Workflow**: Stage, commit, push
-
-**Light QA runs automatically after phases 3, 4, and 5 to block immediately on violations.**
-
-### 4. Quality Validation (devforgeai-qa)
-
-**Two Validation Modes:**
-
-**Light Validation** (during development) - ~10,000 tokens:
-- Syntax/build checks
-- Test execution
-- Quick anti-pattern scanning
-- **Blocks immediately on ANY violation**
-
-**Deep Validation** (after story completion) - ~65,000 tokens:
-- Test coverage analysis (strict thresholds: 95% business logic, 85% application, 80% infrastructure)
-- Anti-pattern detection (10+ categories with security scanning)
-- Spec compliance validation (acceptance criteria, API contracts, NFRs)
-- Code quality metrics (complexity, maintainability, duplication, documentation)
-
-### 5. Orchestration (devforgeai-orchestration)
-
-Manages story lifecycle and enforces quality gates:
-- Auto-invokes architecture skill when context missing
-- Sequences development skill for TDD implementation
-- Triggers QA skill for validation at checkpoints
-- Blocks state transitions on quality gate failures
-- Maintains complete workflow history in story documents
-
-### 6. Release Management (devforgeai-release)
-
-**Final stage of the workflow - deploys QA-approved code to production:**
-
-**6-Phase Release Process:**
-1. **Pre-Release Validation** - Verify QA approval, dependencies, environment readiness
-2. **Staging Deployment** - Deploy to staging, run smoke tests, validate
-3. **Production Deployment** - Execute deployment strategy (Blue-Green, Rolling, Canary, Recreate)
-4. **Post-Deployment Validation** - Production smoke tests, metrics monitoring
-5. **Release Documentation** - Generate release notes, update changelog, update story status
-6. **Post-Release Monitoring** - Configure alerts, schedule review, report success
-
-**Deployment Strategies:**
-- **Blue-Green**: Zero downtime, instant rollback, requires 2x resources
-- **Rolling Update**: Gradual replacement, minimal overhead, no downtime
-- **Canary**: Progressive rollout (5%→25%→50%→100%), early issue detection
-- **Recreate**: Simple stop-and-deploy, brief downtime acceptable
-
-**Platform Support:**
-- Kubernetes (kubectl/Helm)
-- Azure App Service
-- AWS ECS
-- AWS Lambda
-- Docker
-- Traditional VPS (Ansible/Terraform)
-
-**Rollback Capabilities:**
-- Automatic triggers (health check fails, smoke test fails, error rate > 2x baseline)
-- Platform-specific commands for quick reversion
-- Database rollback procedures (migrations + backups)
-- Post-rollback actions (update story status, create hotfix story)
-
-**Release Gates:**
-- Gate 1: QA Approval (story status = "QA Approved", zero critical/high violations)
-- Gate 2: Dependency Gate (prerequisite stories deployed)
-- Gate 3: Environment Readiness (staging + production available)
-
-**Integration:**
-- **Input from devforgeai-qa**: Receives QA-approved stories, QA report
-- **Output to devforgeai-orchestration**: Updates story status to "Released", workflow history
-
-## Key Constraints to Follow
+## Critical Rules - ALWAYS Follow
 
 ### 1. Technology Decisions
 
@@ -202,11 +39,11 @@ Options:
 **Use native tools (40-73% token savings vs Bash):**
 
 ✅ **CORRECT:**
-- Read(file_path="...")  NOT `cat`
-- Edit(...)  NOT `sed`
-- Write(...)  NOT `echo >` or `cat <<EOF`
-- Glob(pattern="...")  NOT `find`
-- Grep(pattern="...")  NOT `grep` command
+- `Read(file_path="...")` NOT `cat`
+- `Edit(...)` NOT `sed`
+- `Write(...)` NOT `echo >` or `cat <<EOF`
+- `Glob(pattern="...")` NOT `find`
+- `Grep(pattern="...")` NOT `grep` command
 
 ❌ **FORBIDDEN:**
 - Bash for file reading/editing/searching
@@ -221,28 +58,142 @@ Options:
 - Security-sensitive decisions
 - Performance targets unclear ("fast", "scalable" without metrics)
 
-### 4. Anti-Pattern Prevention
+### 4. Context Files Are Immutable
 
-Check anti-patterns.md before suggesting ANY:
-- Library substitutions (locked in tech-stack.md)
-- File structure changes (defined in source-tree.md)
-- Cross-layer dependencies (enforced by architecture-constraints.md)
-- Direct instantiation (use dependency injection)
+Never violate:
+- `tech-stack.md` (locked technologies)
+- `source-tree.md` (file structure rules)
+- `dependencies.md` (approved packages)
+- `coding-standards.md` (code patterns)
+- `architecture-constraints.md` (layer boundaries)
+- `anti-patterns.md` (forbidden patterns)
+
+Changes require Architecture Decision Records (ADRs).
+
+### 5. TDD Is Mandatory
+
+Tests before implementation, always:
+- Red phase: Write failing tests
+- Green phase: Minimal code to pass
+- Refactor phase: Improve while keeping tests green
+
+### 6. Quality Gates Are Strict
+
+Critical/High violations **block progression**:
+- Light QA blocks immediately during development
+- Deep QA blocks before release
+- Coverage thresholds enforced: 95%/85%/80%
+
+### 7. No Library Substitution
+
+Technologies in tech-stack.md are **locked**. Cannot swap without:
+1. User approval via AskUserQuestion
+2. Creating ADR documenting decision
+3. Updating tech-stack.md
+
+### 8. Anti-Patterns Are Forbidden
+
+Check anti-patterns.md before suggesting:
+- God Objects (classes >500 lines)
+- Direct instantiation (use DI)
 - SQL concatenation (use parameterized queries)
-- Hardcoded secrets (use configuration)
+- Hardcoded secrets (use environment variables)
+
+### 9. Document All Decisions
+
+Architecture decisions require ADRs in `.devforgeai/adrs/`:
+- Technology selections
+- Framework choices
+- Design pattern decisions
+- Structure changes
+
+### 10. Ask, Don't Assume
+
+When in doubt → **HALT and use AskUserQuestion**. Never make assumptions about:
+- Technology preferences
+- Architecture patterns
+- Security requirements
+- Performance targets
+
+---
+
+## Quick Reference - Progressive Disclosure
+
+**For detailed guidance, see:**
+
+- **Skills:** @.claude/memory/skills-reference.md
+- **Subagents:** @.claude/memory/subagents-reference.md
+- **Slash Commands:** @.claude/memory/commands-reference.md
+- **QA Automation:** @.claude/memory/qa-automation.md
+- **Context Files:** @.claude/memory/context-files-guide.md
+- **UI Generator:** @.claude/memory/ui-generator-guide.md
+- **Token Efficiency:** @.claude/memory/token-efficiency.md
+
+---
+
+## Development Workflow Overview
+
+### Complete Lifecycle
+
+```
+1. IDEATION (devforgeai-ideation)
+   ↓ Transforms business ideas → structured requirements
+
+2. ARCHITECTURE (devforgeai-architecture)
+   ↓ Creates 6 immutable context files
+
+3. ORCHESTRATION (devforgeai-orchestration)
+   ↓ Manages story lifecycle through 11 workflow states
+
+4. UI GENERATION (devforgeai-ui-generator) [OPTIONAL]
+   ↓ Generates UI specifications and code
+
+5. DEVELOPMENT (devforgeai-development)
+   ↓ TDD implementation: Write tests → Implement → Refactor
+
+6. QA (devforgeai-qa)
+   ↓ Light validation (during dev) + Deep validation (after)
+
+7. RELEASE (devforgeai-release)
+   ↓ Automated deployment with smoke tests and rollback
+```
+
+### Story Workflow States
+
+Stories progress through **11 sequential states**:
+```
+Backlog → Architecture → Ready for Dev → In Development → Dev Complete →
+QA In Progress → [QA Approved | QA Failed] → Releasing → Released
+```
+
+### Quality Gates
+
+**Gate 1: Context Validation** (Architecture → Ready for Dev)
+- All 6 context files exist and non-empty
+- No placeholder content (TODO, TBD)
+
+**Gate 2: Test Passing** (Dev Complete → QA In Progress)
+- Build succeeds
+- All tests pass (100% pass rate)
+- Light validation passed
+
+**Gate 3: QA Approval** (QA Approved → Releasing)
+- Deep validation PASSED
+- Coverage meets thresholds (95%/85%/80%)
+- Zero CRITICAL violations
+- Zero HIGH violations (or approved exceptions)
+
+**Gate 4: Release Readiness** (Releasing → Released)
+- QA approved
+- All workflow checkboxes complete
+- No blocking dependencies
+
+---
 
 ## Common Commands
 
-### Development Workflow
+### Testing
 
-**Start new story implementation:**
-```bash
-# 1. Context validation happens automatically in dev skill
-# 2. Development skill checks for context files
-# 3. If missing, auto-invokes architecture skill
-```
-
-**Running tests:**
 ```bash
 # .NET
 dotnet test
@@ -257,7 +208,8 @@ npm test
 npm test -- --coverage
 ```
 
-**Build commands:**
+### Building
+
 ```bash
 # .NET
 dotnet build
@@ -307,720 +259,113 @@ EOF
 git push origin [branch]
 ```
 
-## Working with Skills
+---
 
-### When to Invoke Skills
+## Slash Commands (User-Facing Workflows)
 
-**devforgeai-ideation** - Use when:
-- User has business idea without technical specs
-- Starting greenfield projects ("I want to build...")
-- Adding major features to existing systems
-- Exploring solution spaces and feasibility
-- User requests requirements discovery or epic creation
-- **This is the entry point - use BEFORE architecture skill**
+DevForgeAI provides **9 slash commands** for common tasks:
 
-**devforgeai-architecture** - Use when:
-- Context files missing or need updates
-- Making technology decisions
-- Defining project structure
-- Documenting architectural decisions (ADRs)
+### Planning & Setup
+- `/ideate [business-idea]` - Transform idea to requirements
+- `/create-context [project-name]` - Generate 6 context files
+- `/create-epic [epic-name]` - Create epic document
+- `/create-sprint [sprint-number]` - Plan sprint
 
-**devforgeai-development** - Use when:
-- Implementing user stories or features
-- Writing new code with TDD
-- Refactoring while maintaining specs
+### Story Development
+- `/create-story [description]` - Generate story with acceptance criteria
+- `/create-ui [STORY-ID]` - Generate UI components
+- `/dev [STORY-ID]` - Execute TDD cycle
 
-**devforgeai-qa** - Auto-invoked during development, or use manually for:
-- Deep validation after story completion
-- Pre-release quality gates
-- Technical debt assessment
+### Validation & Release
+- `/qa [STORY-ID]` - Run quality validation
+- `/release [STORY-ID]` - Deploy to production
+- `/orchestrate [STORY-ID]` - Full lifecycle (dev → qa → release)
 
-**devforgeai-release** - Use when:
-- Story status = "QA Approved" (ready for production)
-- Coordinated sprint releases (multiple stories together)
-- Hotfix deployments (critical bug fix, still requires QA)
-- Rollback operations (production issue detected)
-- **This is the final stage - use AFTER QA approval**
+**See:** @.claude/memory/commands-reference.md for complete command documentation.
 
-**devforgeai-orchestration** - Use when:
-- Starting new epics or sprints
-- Creating stories from requirements
-- Managing story workflow progression
-- Enforcing quality gates
-
-**devforgeai-ui-generator** - Use when:
-- Story requires UI components (forms, dashboards, dialogs)
-- Generating visual specifications from requirements
-- Creating mockups-as-code for web, desktop, or terminal interfaces
-- Need to translate acceptance criteria into UI components
-- **Invoked after architecture (requires context files), before or during development**
-
-### Skill Invocation Pattern
-
-Skills are invoked using the Skill tool:
-```
-Skill(command="devforgeai-ideation")
-Skill(command="devforgeai-architecture")
-Skill(command="devforgeai-ui-generator")
-Skill(command="devforgeai-ui-generator --story=STORY-001")
-Skill(command="devforgeai-development --story=STORY-001")
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-Skill(command="devforgeai-release --story=STORY-001")
-Skill(command="devforgeai-orchestration --story=STORY-001")
-```
-
-### Workflow Sequence
-
-**For new projects or major features:**
-```
-1. devforgeai-ideation (discover requirements, create epics)
-   ↓
-2. devforgeai-architecture (create context files, make tech decisions)
-   ↓
-3. devforgeai-orchestration (create sprints, generate stories)
-   ↓
-4. devforgeai-ui-generator (generate UI specs if story has UI components) [OPTIONAL]
-   ↓
-5. devforgeai-development (implement stories with TDD)
-   ↓
-6. devforgeai-qa (validate quality, coverage, compliance)
-   ↓
-7. devforgeai-release (deploy to production)
-```
-
-**For existing projects with defined context:**
-```
-1. devforgeai-orchestration (create stories from requirements)
-   ↓
-2. devforgeai-ui-generator (generate UI specs if needed) [OPTIONAL]
-   ↓
-3. devforgeai-development (implement with TDD)
-   ↓
-4. devforgeai-qa (validate)
-   ↓
-5. devforgeai-release (deploy)
-```
-
-**For UI-focused stories:**
-```
-1. devforgeai-architecture (ensure context files exist)
-   ↓
-2. devforgeai-ui-generator (interactive UI spec generation)
-   ↓
-3. devforgeai-development (implement UI with tests)
-   ↓
-4. devforgeai-qa (validate UI implementation)
-```
-
-## Working with Subagents
-
-### Overview
-
-Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **14 subagents** are available in `.claude/agents/`.
-
-### Subagent Invocation Methods
-
-#### 1. Automatic Invocation (Proactive)
-
-Subagents are automatically invoked by DevForgeAI skills at appropriate workflow phases:
-
-**During devforgeai-development:**
-- **Phase 1 (Red)**: test-automator generates failing tests from acceptance criteria
-- **Phase 2 (Green)**: backend-architect or frontend-developer implements code to pass tests
-- **Phase 2 (Validation)**: context-validator checks constraint compliance
-- **Phase 3 (Refactor)**: refactoring-specialist improves code quality, code-reviewer provides feedback
-- **Phase 4 (Integration)**: integration-tester creates cross-component tests
-
-**During devforgeai-qa:**
-- **Light Validation**: context-validator checks constraints
-- **Deep Validation**: security-auditor scans for vulnerabilities, test-automator fills coverage gaps
-
-**During devforgeai-architecture:**
-- architect-reviewer validates architecture decisions
-- api-designer defines API contract standards
-
-**During devforgeai-release:**
-- deployment-engineer handles infrastructure and deployment
-- security-auditor performs pre-release security scan
-
-#### 2. Explicit Invocation
-
-Invoke subagents directly using the Task tool with `subagent_type` parameter:
-
-```
-Task(
-  subagent_type="test-automator",
-  description="Generate tests for calculator",
-  prompt="Generate comprehensive unit tests for a calculator class with add, subtract, multiply, and divide methods. Follow TDD principles and AAA pattern."
-)
-```
-
-**Examples:**
-
-```
-# Code review
-Task(
-  subagent_type="code-reviewer",
-  description="Review authentication code",
-  prompt="Review the authentication implementation in src/auth/ for security issues, code quality, and adherence to coding standards."
-)
-
-# Frontend implementation
-Task(
-  subagent_type="frontend-developer",
-  description="Implement login component",
-  prompt="Implement a login form component in React following the design system in context files. Include email/password fields, validation, and API integration."
-)
-
-# Security audit
-Task(
-  subagent_type="security-auditor",
-  description="Audit payment processing",
-  prompt="Perform comprehensive security audit of payment processing code in src/payments/ focusing on PCI compliance and OWASP Top 10."
-)
-
-# Context validation
-Task(
-  subagent_type="context-validator",
-  description="Validate constraints",
-  prompt="Check all code changes for violations of the 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)."
-)
-```
-
-#### 3. Parallel Execution
-
-Multiple subagents can run simultaneously for different tasks:
-
-```
-# Send single message with multiple Task tool calls
-Task(subagent_type="test-automator", description="Generate tests", prompt="...")
-Task(subagent_type="documentation-writer", description="Write API docs", prompt="...")
-
-# Both execute in parallel, return results independently
-```
-
-### Available Subagents
-
-| Subagent | Purpose | Model | Token Target | When to Use |
-|----------|---------|-------|--------------|-------------|
-| **test-automator** | TDD test generation (unit, integration, E2E) | sonnet | <50K | Implementing features, filling coverage gaps |
-| **backend-architect** | Backend implementation (clean architecture, DDD) | sonnet | <50K | Implementing backend features, APIs, services |
-| **frontend-developer** | Frontend implementation (React, Vue, Angular) | sonnet | <50K | Implementing UI components, state management |
-| **context-validator** | Fast constraint enforcement (6 context files) | haiku | <5K | Before commits, after implementation |
-| **code-reviewer** | Code quality and security review | inherit | <30K | After implementation, during refactoring |
-| **security-auditor** | OWASP Top 10, auth/authz, vulnerability scanning | sonnet | <40K | After auth code, handling sensitive data |
-| **deployment-engineer** | Infrastructure, IaC, CI/CD pipelines | sonnet | <40K | Release phase, deployment configuration |
-| **requirements-analyst** | User story creation, acceptance criteria | sonnet | <30K | Epic decomposition, story planning |
-| **documentation-writer** | Technical docs, API specs, user guides | sonnet | <30K | After API implementation, when coverage <80% |
-| **architect-reviewer** | Architecture validation, design patterns | sonnet | <40K | After ADRs, major architectural changes |
-| **refactoring-specialist** | Safe refactoring, code smell removal | inherit | <40K | When complexity >10, code duplication >5% |
-| **integration-tester** | Cross-component testing, API contracts | sonnet | <40K | After unit tests pass, API endpoints ready |
-| **api-designer** | REST/GraphQL/gRPC contract design | sonnet | <30K | Creating new APIs, ensuring consistency |
-| **agent-generator** | Generate new specialized subagents | haiku | N/A | Creating custom subagents for framework |
-
-### Subagent Integration with Skills
-
-**devforgeai-development** uses:
-- test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer → integration-tester
-
-**devforgeai-qa** uses:
-- context-validator → security-auditor → test-automator (coverage gaps)
-
-**devforgeai-architecture** uses:
-- architect-reviewer → api-designer
-
-**devforgeai-release** uses:
-- security-auditor → deployment-engineer
-
-**devforgeai-orchestration** uses:
-- requirements-analyst (story creation)
-
-### Autonomous Subagent Usage
-
-**When to autonomously invoke subagents:**
-
-1. **Context Validation**: Always use `context-validator` before git commits or after implementation
-2. **Test Generation**: Use `test-automator` when implementing features (TDD Red phase)
-3. **Code Review**: Use `code-reviewer` after implementation or refactoring
-4. **Security Audits**: Use `security-auditor` after auth/security code or handling sensitive data
-5. **Documentation**: Use `documentation-writer` after API implementation or when coverage <80%
-6. **Architecture Review**: Use `architect-reviewer` after creating ADRs or major design changes
-
-**Subagent Context Isolation:**
-- Each subagent operates in a separate context window
-- Main conversation context is preserved (token efficiency)
-- Subagents return results that integrate into main workflow
-- No context leakage between parallel subagents
-
-**Token Efficiency with Subagents:**
-- Subagent work happens in isolated contexts
-- Main conversation only pays invocation cost (~5-10K) + summary
-- Total workflow can exceed 200K tokens across subagents without affecting main context
-- Example: Full dev cycle (test-automator 50K + backend-architect 50K + code-reviewer 30K + integration-tester 40K = 170K) appears as ~15K in main conversation
-
-### Subagent Best Practices
-
-1. **Use specific, detailed prompts**: Subagents work best with clear instructions
-2. **Reference context files**: Subagents respect tech-stack, source-tree, dependencies, etc.
-3. **Specify success criteria**: Define what "done" looks like in the prompt
-4. **Leverage parallelism**: Run independent subagents simultaneously for speed
-5. **Check validation results**: context-validator blocks on violations, fix before proceeding
-6. **Trust specialized expertise**: Subagents are domain experts (security, testing, architecture)
-
-## Critical Rules
-
-1. **Context files are immutable constraints** - Never violate tech-stack.md, source-tree.md, dependencies.md
-2. **Use AskUserQuestion for ambiguities** - Never make assumptions about technology, architecture, or patterns
-3. **TDD is mandatory** - Tests before implementation, always
-4. **Light QA blocks immediately** - Fix violations before continuing development
-5. **Use native tools for file operations** - 40-73% token savings, mandatory for efficiency
-6. **Quality gates are strict** - Critical/High violations block progression
-7. **Coverage thresholds are enforced** - 95% business logic, 85% application, 80% infrastructure
-8. **No library substitution** - Locked technologies in tech-stack.md cannot be swapped
-9. **Anti-patterns are forbidden** - Check anti-patterns.md before suggesting solutions
-10. **Document all decisions** - ADRs for major technology/architecture choices
-
-## Workflow State Transitions
-
-Stories must progress through workflow stages sequentially. Transitions are gated:
-
-**Gate 1: Context Validation** (Architecture → Ready for Dev)
-- All 6 context files exist and are non-empty
-- No placeholder content (TODO, TBD)
-
-**Gate 2: Test Passing** (Dev Complete → QA In Progress)
-- Build succeeds
-- All tests pass (100% pass rate)
-- Light validation passed
-
-**Gate 3: QA Approval** (QA Approved → Releasing)
-- Deep validation PASSED
-- Coverage meets strict thresholds
-- Zero CRITICAL violations
-- Zero HIGH violations (or approved exceptions)
-- All acceptance criteria validated
-
-**Gate 4: Release Readiness** (Releasing → Released)
-- QA approved
-- All workflow checkboxes complete
-- No blocking dependencies
-
-## Token Efficiency Targets
-
-- Light QA validation: ~10,000 tokens
-- Deep QA validation: ~65,000 tokens
-- Feature implementation: ~80,000 tokens
-- Total per story (dev + QA): ~155,000 tokens
-
-**Achieve efficiency by:**
-- Using native tools instead of Bash for file operations
-- Reading context files once and caching in memory
-- Parallel tool invocations when possible
-- Focused validation (don't re-validate passing components)
-
-## File Locations and Structure
-
-### Configuration and Output Directories
-
-**Context Files** (immutable constraints):
-- Location: `.devforgeai/context/`
-- Created by: devforgeai-architecture skill
-- 6 files: tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
-
-**ADRs** (Architecture Decision Records):
-- Location: `.devforgeai/adrs/`
-- Naming: `ADR-001-title.md`, `ADR-002-title.md`, etc.
-- Include README.md index
-
-**Deployment Configurations**:
-- Location: `.devforgeai/deployment/`
-- Subdirectories: `kubernetes/`, `helm/`, `terraform/`, etc.
-- Platform-specific: K8s YAML, Helm values, Docker Compose, IaC
-
-**Smoke Test Configuration**:
-- Location: `.devforgeai/smoke-tests/config.json`
-- Format: JSON with environment-specific configs (base URLs, test users, API keys)
-
-**QA Outputs**:
-- Coverage reports: `.devforgeai/qa/coverage/`
-- Anti-pattern reports: `.devforgeai/qa/anti-patterns/`
-- Spec compliance: `.devforgeai/qa/spec-compliance/`
-- Story reports: `.devforgeai/qa/reports/{story-id}-qa-report.md`
-
-**QA Automation Scripts**:
-- Location: `.claude/skills/devforgeai-qa/scripts/`
-- 6 Python scripts: generate_coverage_report.py, detect_duplicates.py, analyze_complexity.py, security_scan.py, validate_spec_compliance.py, generate_test_stubs.py
-- Install: `pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt`
-
-**Story Files**:
-- Location: `.ai_docs/Stories/` (note the dot prefix)
-- Format: `{STORY-ID}.story.md` (e.g., `STORY-001.story.md`)
-
-**Epic and Sprint Files**:
-- Epics: `.ai_docs/Epics/`
-- Sprints: `.ai_docs/Sprints/`
-
-## Important Patterns
-
-### Creating ADRs (Architecture Decision Records)
-
-When making significant technology decisions:
-1. Create ADR in `.devforgeai/adrs/ADR-NNN-title.md` (numbered sequentially)
-2. Document: Context, Decision, Rationale, Consequences, Alternatives Considered
-3. Update relevant context files (tech-stack.md, dependencies.md)
-4. Reference ADR in context files for traceability
-5. Maintain README.md index in `.devforgeai/adrs/` directory
-
-**ADR Naming Convention:**
-- `ADR-001-database-selection.md`
-- `ADR-002-orm-selection.md`
-- `ADR-003-state-management.md`
-
-### Story Structure
-
-Stories in `.ai_docs/Stories/` must include:
-- YAML frontmatter (id, title, epic, sprint, status, points, priority)
-- User story format: "As a [role], I want [feature], so that [benefit]"
-- Acceptance criteria (Given/When/Then format)
-- Technical specification (API contracts, data models, business rules)
-- Non-functional requirements (performance, security, scalability)
-
-### Context File Updates
-
-When updating context files:
-1. Use Edit tool to modify existing content
-2. Document reason for change
-3. Create ADR if significant architectural change
-4. Update dependent files (e.g., tech-stack.md → dependencies.md)
-5. Notify team if breaking change
-
-## Security and Quality Standards
-
-**Security:**
-- No hardcoded secrets (use environment variables/config)
-- Parameterized queries (prevent SQL injection)
-- Input validation (prevent XSS)
-- Strong cryptography (SHA256+, not MD5/SHA1)
-- Dependency vulnerability scanning
-
-**Code Quality:**
-- Cyclomatic complexity < 10 per method
-- Maintainability index ≥ 70
-- Code duplication < 5%
-- Documentation coverage ≥ 80% for public APIs
-- No God Objects (classes > 500 lines)
-
-**Testing:**
-- Test pyramid: 70% unit, 20% integration, 10% E2E
-- Coverage: 95% business logic, 85% application, 80% infrastructure
-- All acceptance criteria have tests
-- Tests follow AAA pattern (Arrange, Act, Assert)
+---
 
 ## Framework Status
 
-**Last Review:** 2025-10-30
-**Status:** 🟢 **PRODUCTION READY**
+**Last Review:** 2025-10-31
+**Status:** 🟢 **PHASE 3 COMPLETE - PRODUCTION READY**
 
-All 6 core DevForgeAI skills have been reviewed and aligned:
-- ✅ Story path standardization complete
-- ✅ All configuration locations documented
-- ✅ ADR storage location standardized
-- ✅ Deployment config locations specified
-- ✅ QA automation scripts documented
-- ✅ All reference files exist and validated
+### Implementation Progress
 
-See `.devforgeai/specs/reviews/skill-alignment-review.md` for detailed alignment analysis.
+**Phase 1: Core Skills** ✅ Complete (2025-10-30)
+- 7 skills implemented (devforgeai-ideation, architecture, orchestration, ui-generator, development, qa, release)
 
-## UI Generator Skill
+**Phase 2: Subagents** ✅ Complete (2025-10-31)
+- 14 specialized subagents created
+- Context isolation verified
+- Parallel execution tested
 
-The `devforgeai-ui-generator` skill generates front-end UI specifications and code through an interactive, constraint-aware workflow.
+**Phase 3: Slash Commands** ✅ Complete (2025-10-31)
+- 9 user-facing commands in `.claude/commands/`
+- All optimized for character budget (<15K limit)
+- All integrate with skills via Skill tool
 
-### When to Use
+**Phase 4: Real Project Validation** ⏳ Ready to Begin
+- Framework complete and ready for production testing
 
-Use this skill when:
-- A story requires UI components (forms, dashboards, dialogs, tables)
-- Generating visual specifications from acceptance criteria
-- Creating mockups-as-code for web (React, Blazor, ASP.NET), GUI (WPF, Tkinter), or terminal interfaces
-- Translating requirements into tangible UI components
+### Component Summary
 
-### Core Features
+- **Skills:** 7
+- **Subagents:** 14
+- **Commands:** 9
+- **Context Files:** 6 (immutable constraints)
 
-**Context Validation:**
-- Requires all 6 DevForgeAI context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
-- Halts if context missing → directs user to run `devforgeai-architecture` first
-- Validates technology choices against tech-stack.md
+---
 
-**Interactive Discovery:**
-- Uses AskUserQuestion to guide through UI type selection (Web/GUI/Terminal)
-- Technology stack selection (React, Blazor, WPF, Tkinter, etc.)
-- Styling preferences (Tailwind, Bootstrap, plain CSS)
-- Component structure definition
-
-**Story Integration:**
-- Reads story files to extract UI requirements from acceptance criteria
-- Updates story with generated UI component references
-- Creates UI-SPEC-SUMMARY.md with component inventory
-
-**Code Generation:**
-- Loads appropriate templates from `assets/` directory
-- Applies best practices from `references/` directory
-- Generates production-ready code following coding-standards.md
-- Saves to `.devforgeai/specs/ui/` (or location specified in source-tree.md)
-
-### Supported Technologies
-
-**Web:**
-- React (JSX functional components with hooks)
-- Blazor Server/WASM (Razor components with @code blocks)
-- ASP.NET Core MVC (Razor views with @model)
-- Plain HTML5 with semantic markup
-
-**Native GUI:**
-- C# WPF (XAML with MVVM pattern)
-- Python Tkinter (class-based components)
-- .NET MAUI (cross-platform)
-
-**Terminal UI:**
-- Formatted tables with box-drawing characters
-- ANSI color-coded output
-- Progress bars and status indicators
-
-### 6-Phase Workflow
-
-1. **Context Validation** - Verify 6 context files exist and are valid
-2. **Story Analysis** - Extract UI requirements from story file (optional)
-3. **Interactive Discovery** - Guide user through technology and styling decisions
-4. **Template Loading** - Load appropriate templates and best practices
-5. **Code Generation** - Generate UI components respecting all constraints
-6. **Documentation** - Update story file and create spec summary
-
-### Token Efficiency
-
-Estimated token usage per component: ~35,000 tokens
-
-**Efficiency achieved through:**
-- Native tool usage (Read/Write/Edit/Glob/Grep) instead of Bash (40-73% savings)
-- Progressive loading (only load relevant templates and references)
-- Context validation happens once at start
-- Focused generation per component
-
-### Example Usage
+## Project Structure
 
 ```
-User: "Generate a login form for STORY-042"
+.claude/
+├── skills/              # 7 framework skills
+│   ├── devforgeai-ideation/
+│   ├── devforgeai-architecture/
+│   ├── devforgeai-orchestration/
+│   ├── devforgeai-ui-generator/
+│   ├── devforgeai-development/
+│   ├── devforgeai-qa/
+│   └── devforgeai-release/
+│
+├── agents/              # 14 specialized subagents
+│   └── [14 .md files]
+│
+├── commands/            # 9 slash commands
+│   └── [9 .md files]
+│
+└── memory/              # Progressive disclosure references
+    ├── skills-reference.md
+    ├── subagents-reference.md
+    ├── commands-reference.md
+    ├── qa-automation.md
+    ├── context-files-guide.md
+    ├── ui-generator-guide.md
+    └── token-efficiency.md
 
-Workflow:
-1. ✅ Validates context files
-2. ✅ Reads STORY-042.story.md → finds "email and password fields"
-3. ❓ Asks: "What type of UI?" → User selects "Web UI"
-4. ❓ Asks: "Web technology?" → User selects "React"
-5. ❓ Asks: "Styling?" → User selects "Tailwind CSS"
-6. ❓ Asks: "Theme?" → User selects "Dark Mode"
-7. ✅ Generates LoginForm.jsx with email/password inputs
-8. ✅ Saves to .devforgeai/specs/ui/LoginForm.jsx
-9. ✅ Updates STORY-042.story.md with UI reference
-10. ✅ Creates UI-SPEC-SUMMARY.md
+.devforgeai/
+├── context/             # 6 immutable constraint files
+│   ├── tech-stack.md
+│   ├── source-tree.md
+│   ├── dependencies.md
+│   ├── coding-standards.md
+│   ├── architecture-constraints.md
+│   └── anti-patterns.md
+│
+├── adrs/                # Architecture Decision Records
+├── deployment/          # Deployment configurations
+├── qa/                  # QA outputs and reports
+└── specs/               # Requirements and planning docs
+
+.ai_docs/
+├── Epics/               # Business initiatives
+├── Sprints/             # 2-week iterations
+└── Stories/             # Work units with acceptance criteria
 ```
 
-### Conflict Resolution
-
-When user's technology choice conflicts with tech-stack.md:
-
-```
-User selects: Vue.js
-Context specifies: React
-
-Action: Use AskUserQuestion
-"You selected Vue.js, but tech-stack.md specifies React. Which should be used?"
-Options:
-  - Use React (Follow existing standard)
-  - Use Vue.js (Update tech-stack.md and create ADR)
-```
-
-### Integration with Other Skills
-
-**devforgeai-architecture:**
-- UI Generator requires context files from architecture skill
-- If missing → HALT and direct user to run architecture first
-
-**devforgeai-development:**
-- Generated UI specs serve as input for TDD implementation
-- Development skill reads specs to write tests and implementation
-
-**devforgeai-qa:**
-- QA validates generated UI matches acceptance criteria
-- Checks for accessibility, best practices, anti-patterns
-
-**devforgeai-orchestration:**
-- Orchestration can automatically invoke UI Generator when story has UI requirements
-- Workflow: detect UI story → invoke ui-generator → proceed to development
-
-### Skill Structure
-
-```
-.claude/skills/devforgeai-ui-generator/
-├── SKILL.md                          # Main skill definition
-├── scripts/
-│   ├── ensure_spec_dir.py            # Create output directory
-│   └── validate_context.py           # Validate 6 context files
-├── references/
-│   ├── devforgeai-integration-guide.md  # Framework integration details
-│   ├── web_best_practices.md           # Semantic HTML, accessibility, validation
-│   ├── gui_best_practices.md           # Layout, naming, keyboard navigation
-│   └── tui_best_practices.md           # Column alignment, colors, box drawing
-└── assets/
-    ├── web-template.html             # Plain HTML5 boilerplate
-    ├── web-template.jsx              # React functional component
-    ├── web-template.blazor.razor     # Blazor component with @code
-    ├── web-template.aspnet.cshtml    # ASP.NET MVC view
-    ├── gui-template.py               # Python Tkinter app
-    ├── gui-template.wpf.xaml         # WPF Window with Grid
-    └── tui-template.py               # Terminal formatting functions
-```
-
-### Quality Standards
-
-Generated UI code must:
-- ✅ Follow coding-standards.md conventions
-- ✅ Use technologies from tech-stack.md only
-- ✅ Place files according to source-tree.md
-- ✅ Use dependencies from dependencies.md
-- ✅ Avoid anti-patterns from anti-patterns.md
-- ✅ Include accessibility attributes (ARIA, semantic HTML)
-- ✅ Apply best practices from references/
-- ✅ Match story acceptance criteria
-
-### Invocation
-
-```bash
-# Without story (interactive discovery only)
-Skill(command="devforgeai-ui-generator")
-
-# With story (extract requirements from story file)
-Skill(command="devforgeai-ui-generator --story=STORY-042")
-```
-
-## References
-
-For detailed guidance, refer to:
-- `.claude/skills/devforgeai-ideation/SKILL.md` - Requirements discovery and epic creation
-- `.claude/skills/devforgeai-orchestration/SKILL.md` - Complete workflow documentation
-- `.claude/skills/devforgeai-architecture/SKILL.md` - Context file creation guide
-- `.claude/skills/devforgeai-ui-generator/SKILL.md` - Interactive UI generation (web/GUI/terminal)
-- `.claude/skills/devforgeai-development/SKILL.md` - TDD implementation process
-- `.claude/skills/devforgeai-qa/SKILL.md` - Quality validation procedures
-- `.claude/skills/devforgeai-release/SKILL.md` - Production deployment and release management
-- `.claude/agents/*.md` - 14 specialized subagents for domain-specific tasks
-- `.devforgeai/context/` - Project-specific architectural constraints
-- `.devforgeai/specs/requirements/` - Implementation planning documents
-- `.devforgeai/specs/phase-2-subagents-generation-report.md` - Subagent implementation report
-- `.devforgeai/specs/reviews/skill-alignment-review.md` - Framework alignment status
-
-### Ideation Skill Reference Files
-
-Load these as needed during requirements discovery:
-- `.claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md` - Probing questions by domain
-- `.claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md` - Detailed scoring rubric (0-60 points)
-- `.claude/skills/devforgeai-ideation/references/domain-specific-patterns.md` - Common patterns for e-commerce, SaaS, fintech, healthcare
-- `.claude/skills/devforgeai-ideation/references/feasibility-analysis-framework.md` - Risk assessment checklist
-
-### Release Skill Reference Files
-
-Load these as needed during production deployment:
-- `.claude/skills/devforgeai-release/references/deployment-strategies.md` - Blue-Green, Rolling, Canary, Recreate strategies
-- `.claude/skills/devforgeai-release/references/smoke-testing-guide.md` - Standard smoke tests and critical path validation
-- `.claude/skills/devforgeai-release/references/rollback-procedures.md` - Platform-specific rollback commands
-- `.claude/skills/devforgeai-release/references/monitoring-metrics.md` - Key metrics, baselines, and alert thresholds
-- `.claude/skills/devforgeai-release/references/platform-deployment-commands.md` - Platform-specific deployment commands
-- `.claude/skills/devforgeai-release/references/release-checklist.md` - Pre/during/post deployment checklists
-
-### Orchestration Skill Reference Files
-
-Load these as needed during workflow coordination:
-- `.claude/skills/devforgeai-orchestration/references/workflow-states.md` - Detailed 11-state definitions
-- `.claude/skills/devforgeai-orchestration/references/state-transitions.md` - Transition rules and validation
-- `.claude/skills/devforgeai-orchestration/references/quality-gates.md` - Gate requirements and enforcement
-- `.claude/skills/devforgeai-orchestration/references/epic-management.md` - Epic planning and decomposition
-- `.claude/skills/devforgeai-orchestration/references/sprint-planning.md` - Sprint capacity and story selection
-- `.claude/skills/devforgeai-orchestration/references/story-management.md` - Story structure and workflow history
-
-### UI Generator Skill Reference Files
-
-Load these as needed during UI generation:
-- `.claude/skills/devforgeai-ui-generator/references/devforgeai-integration-guide.md` - Framework integration and context validation
-- `.claude/skills/devforgeai-ui-generator/references/web_best_practices.md` - Semantic HTML, accessibility, responsive design
-- `.claude/skills/devforgeai-ui-generator/references/gui_best_practices.md` - Layout organization, naming, keyboard navigation
-- `.claude/skills/devforgeai-ui-generator/references/tui_best_practices.md` - Terminal formatting, box-drawing, color usage
-
-### Subagent Reference
-
-All 14 subagents available in `.claude/agents/`:
-- `test-automator.md` - TDD test generation (546 lines, sonnet, <50K tokens)
-- `backend-architect.md` - Backend implementation (728 lines, sonnet, <50K tokens)
-- `frontend-developer.md` - Frontend implementation (629 lines, sonnet, <50K tokens)
-- `context-validator.md` - Constraint enforcement (356 lines, haiku, <5K tokens)
-- `code-reviewer.md` - Code quality review (457 lines, inherit, <30K tokens)
-- `security-auditor.md` - Security scanning (550 lines, sonnet, <40K tokens)
-- `deployment-engineer.md` - Infrastructure & deployment (820 lines, sonnet, <40K tokens)
-- `requirements-analyst.md` - Story creation (473 lines, sonnet, <30K tokens)
-- `documentation-writer.md` - Technical documentation (519 lines, sonnet, <30K tokens)
-- `architect-reviewer.md` - Architecture validation (528 lines, sonnet, <40K tokens)
-- `refactoring-specialist.md` - Code refactoring (471 lines, inherit, <40K tokens)
-- `integration-tester.md` - Integration testing (502 lines, sonnet, <40K tokens)
-- `api-designer.md` - API contract design (754 lines, sonnet, <30K tokens)
-- `agent-generator.md` - Subagent generation (855 lines, haiku, meta-agent)
-
-**Invocation**: Use Task tool with `subagent_type` parameter (see "Working with Subagents" section above)
-
-## Running QA Automation Scripts
-
-The QA skill includes 6 Python scripts for automated quality analysis:
-
-### Installation
-```bash
-pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt
-```
-
-### Usage Examples
-```bash
-# Generate coverage report
-python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
-  --project-path=. \
-  --output=.devforgeai/qa/coverage/coverage-report.json
-
-# Detect code duplication
-python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
-  --project-path=. \
-  --threshold=6 \
-  --output=.devforgeai/qa/anti-patterns/duplicates-report.json
-
-# Analyze cyclomatic complexity
-python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
-  --project-path=. \
-  --max-complexity=10 \
-  --output=.devforgeai/qa/anti-patterns/complexity-report.json
-
-# Security scan
-python .claude/skills/devforgeai-qa/scripts/security_scan.py \
-  --project-path=. \
-  --output=.devforgeai/qa/anti-patterns/security-report.json
-
-# Validate spec compliance
-python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
-  --story-path=.ai_docs/Stories/STORY-001.story.md \
-  --project-path=. \
-  --output=.devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
-
-# Generate test stubs
-python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
-  --coverage-report=.devforgeai/qa/coverage/coverage-report.json \
-  --output-dir=tests/generated/ \
-  --framework=pytest
-```
-
-See `.claude/skills/devforgeai-qa/scripts/README.md` for detailed documentation.
-
-**Remember: The framework exists to prevent technical debt through explicit constraints and automated validation. When in doubt, ask the user—never make assumptions.**
+---
 
 ## What NOT to Do
 
@@ -1038,3 +383,147 @@ See `.claude/skills/devforgeai-qa/scripts/README.md` for detailed documentation.
 - Avoid language-specific recommendations in process docs
 - Examples can be language-specific (mark clearly)
 - Commands must work for Node.js, Python, C#, Go, Java, etc.
+
+### ❌ Don't Violate Context Files
+- Never swap locked technologies without approval + ADR
+- Never put files in wrong locations
+- Never add unapproved dependencies
+- Never implement forbidden anti-patterns
+
+---
+
+## When Working in This Repository
+
+### Starting New Work
+
+1. **Ensure git repository initialized with commits:**
+   ```bash
+   git rev-list -n 1 HEAD 2>/dev/null
+   # If no commits: Run /create-context (auto-creates initial commit)
+   ```
+
+2. **Check context files exist:**
+   ```
+   Glob(pattern=".devforgeai/context/*.md")
+   # Should show 6 files
+   ```
+
+3. **If missing, create them:**
+   ```
+   > /create-context [project-name]
+   # Also creates initial commit if repo is empty
+   ```
+
+4. **Then create story or epic:**
+   ```
+   > /create-story [description]
+   ```
+
+### Implementing a Story
+
+**Option 1: Full Orchestration**
+```
+> /orchestrate STORY-001
+# Executes: Dev → QA → Release automatically
+```
+
+**Option 2: Step-by-Step**
+```
+> /dev STORY-001        # Development with TDD
+> /qa STORY-001         # Quality validation
+> /release STORY-001    # Production deployment
+```
+
+### Adding UI Components
+
+```
+> /create-ui STORY-001
+# Interactive: Choose web/GUI/terminal → Choose tech → Choose styling
+# Output: UI specs and code in .devforgeai/specs/ui/
+```
+
+---
+
+## Key File Locations
+
+**Context Files:** `.devforgeai/context/` (6 constraint files)
+**Stories:** `.ai_docs/Stories/{STORY-ID}.story.md`
+**Epics:** `.ai_docs/Epics/{EPIC-ID}.epic.md`
+**Sprints:** `.ai_docs/Sprints/Sprint-{N}.md`
+**ADRs:** `.devforgeai/adrs/ADR-{NNN}-title.md`
+**QA Reports:** `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+**Deployment:** `.devforgeai/deployment/` (platform configs)
+
+---
+
+## Integration Patterns
+
+### Skills
+```
+Skill(command="devforgeai-architecture")
+Skill(command="devforgeai-development --story=STORY-001")
+Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+```
+
+### Subagents
+```
+Task(
+  subagent_type="test-automator",
+  description="Generate tests",
+  prompt="Generate comprehensive tests for..."
+)
+```
+
+### Commands
+```
+> /dev STORY-001
+> /qa STORY-001
+> /release STORY-001
+```
+
+---
+
+## Security and Quality Standards
+
+**Security:**
+- No hardcoded secrets (use environment variables)
+- Parameterized queries (prevent SQL injection)
+- Input validation (prevent XSS)
+- Strong cryptography (SHA256+, not MD5/SHA1)
+
+**Code Quality:**
+- Cyclomatic complexity <10 per method
+- Maintainability index ≥70
+- Code duplication <5%
+- Documentation coverage ≥80% for public APIs
+
+**Testing:**
+- Test pyramid: 70% unit, 20% integration, 10% E2E
+- Coverage: 95% business logic, 85% application, 80% infrastructure
+- All acceptance criteria have tests
+- Tests follow AAA pattern (Arrange, Act, Assert)
+
+---
+
+## References
+
+**For detailed guidance:**
+- Framework documentation: `ROADMAP.md`, `README.md`
+- Skills: `.claude/skills/*/SKILL.md`
+- Subagents: `.claude/agents/*.md`
+- Commands: `.claude/commands/*.md`
+- Research: `.ai_docs/` (prompt engineering, workflows, terminal best practices)
+
+**Progressive disclosure references:**
+- @.claude/memory/skills-reference.md
+- @.claude/memory/subagents-reference.md
+- @.claude/memory/commands-reference.md
+- @.claude/memory/qa-automation.md
+- @.claude/memory/context-files-guide.md
+- @.claude/memory/ui-generator-guide.md
+- @.claude/memory/token-efficiency.md
+- @.claude/memory/token-budget-guidelines.md
+
+---
+
+**The framework exists to prevent technical debt through explicit constraints and automated validation. When in doubt, ask the user—never make assumptions.**

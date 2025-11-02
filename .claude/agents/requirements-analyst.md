@@ -227,6 +227,14 @@ So that [specific business value or benefit].
 - [ ] Documentation updated
 - [ ] Deployed to staging
 - [ ] QA validation passed
+
+## Implementation Notes
+
+<!-- This section will be filled in by devforgeai-development skill during implementation -->
+<!-- Developer will document: DoD status, implementation decisions, files created, test results, AC verification -->
+
+*To be completed during development*
+
 ```
 
 ## Common Story Patterns

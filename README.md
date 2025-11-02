@@ -22,41 +22,63 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 
 ### Layer 1: Skills (Framework Implementation)
 
-Autonomous, model-invoked capabilities for each development phase:
+7 autonomous, model-invoked capabilities for each development phase:
 
 - **devforgeai-ideation** - Requirements discovery & epic creation (greenfield/brownfield entry point)
 - **devforgeai-architecture** - Context file creation & architecture decision records
 - **devforgeai-orchestration** - Workflow coordinator (Epic → Sprint → Story → Dev → QA → Release)
+- **devforgeai-ui-generator** - Interactive UI spec generation (web/GUI/terminal) with context validation
 - **devforgeai-development** - TDD implementation with constraint enforcement
 - **devforgeai-qa** - Hybrid validation (light during dev, deep after)
 - **devforgeai-release** - Production deployment with automated validation, smoke testing, and rollback
 
 ### Layer 2: Subagents (Parallel Task Execution)
 
-Specialized AI workers with separate context windows for concurrent execution:
+14 specialized AI workers with separate context windows for concurrent execution:
 
-- **requirements-analyst** - User story creation, acceptance criteria
-- **architect-reviewer** - Technical design validation
-- **backend-architect** - API/service implementation
-- **frontend-developer** - UI component development
+**Core Development:**
 - **test-automator** - TDD test generation and execution
+- **backend-architect** - API/service implementation (clean architecture, DDD)
+- **frontend-developer** - UI component development (React, Vue, Angular)
+- **integration-tester** - Cross-component testing and API contracts
+
+**Quality & Review:**
+- **context-validator** - Fast constraint enforcement (6 context files)
 - **code-reviewer** - Quality assessment and optimization
-- **deployment-engineer** - Infrastructure and deployment
-- **security-auditor** - Security scanning and validation
+- **security-auditor** - OWASP Top 10, auth/authz scanning
+- **refactoring-specialist** - Safe refactoring and code smell removal
+
+**Architecture & Planning:**
+- **requirements-analyst** - User story creation, acceptance criteria
+- **architect-reviewer** - Technical design validation and scalability
+- **api-designer** - REST/GraphQL/gRPC contract design
+
+**Operations & Documentation:**
+- **deployment-engineer** - Infrastructure, IaC, CI/CD pipelines
+- **documentation-writer** - Technical docs, API specs, user guides
+- **agent-generator** - Meta-agent for generating new specialized subagents
 
 ### Layer 3: Slash Commands (Reusable Workflows)
 
-User-invoked, parameterized workflows for common tasks:
+9 user-invoked, parameterized workflows for common tasks:
 
-- `/ideate [business-idea]` - Start new project ideation
-- `/create-context [project-name]` - Generate architectural context
+**Planning & Setup:**
+- `/ideate [business-idea]` - Transform idea to structured requirements
+- `/create-context [project-name]` - Generate 6 architectural context files
 - `/create-epic [epic-name]` - Generate epic from requirements
-- `/create-sprint [sprint-number]` - Plan 2-week sprint
-- `/create-story [story-name]` - Generate implementation story
-- `/dev [STORY-ID]` - Execute TDD development cycle
-- `/qa [STORY-ID]` - Run quality validation
-- `/release [STORY-ID]` - Deploy to production
-- `/orchestrate [STORY-ID]` - Full story lifecycle
+- `/create-sprint [sprint-number]` - Plan 2-week sprint with story selection
+
+**Story Development:**
+- `/create-story [story-name]` - Generate story with acceptance criteria
+- `/create-ui [STORY-ID]` - Generate UI component specs (web/GUI/terminal)
+- `/dev [STORY-ID]` - Execute TDD development cycle (Red→Green→Refactor)
+
+**Validation & Release:**
+- `/qa [STORY-ID]` - Run quality validation (light/deep modes)
+- `/release [STORY-ID]` - Deploy to staging and production
+
+**Orchestration:**
+- `/orchestrate [STORY-ID]` - Full lifecycle: Dev → QA → Release
 
 ## Development Workflow
 
@@ -159,30 +181,38 @@ Execute entire story lifecycle with one command:
 
 ```
 .claude/
-├── skills/              # Framework implementation (6 skills)
+├── skills/              # Framework implementation (7 skills)
 │   ├── devforgeai-ideation/
 │   ├── devforgeai-architecture/
 │   ├── devforgeai-orchestration/
+│   ├── devforgeai-ui-generator/
 │   ├── devforgeai-development/
 │   ├── devforgeai-qa/
 │   └── devforgeai-release/
 │
-├── agents/              # Specialized subagents (8+ agents)
-│   ├── requirements-analyst.md
-│   ├── architect-reviewer.md
+├── agents/              # Specialized subagents (14 agents)
+│   ├── test-automator.md
 │   ├── backend-architect.md
 │   ├── frontend-developer.md
-│   ├── test-automator.md
+│   ├── integration-tester.md
+│   ├── context-validator.md
 │   ├── code-reviewer.md
+│   ├── security-auditor.md
+│   ├── refactoring-specialist.md
+│   ├── requirements-analyst.md
+│   ├── architect-reviewer.md
+│   ├── api-designer.md
 │   ├── deployment-engineer.md
-│   └── security-auditor.md
+│   ├── documentation-writer.md
+│   └── agent-generator.md
 │
-└── commands/            # User-facing workflows (8+ commands)
+└── commands/            # User-facing workflows (9 commands)
     ├── ideate.md
     ├── create-context.md
     ├── create-epic.md
     ├── create-sprint.md
     ├── create-story.md
+    ├── create-ui.md
     ├── dev.md
     ├── qa.md
     ├── release.md
