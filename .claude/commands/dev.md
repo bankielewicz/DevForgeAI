@@ -141,7 +141,60 @@ Example outputs:
 **Validation:**
 - [ ] Technology detected successfully
 - [ ] Test command identified
-- [ ] Ready to proceed to Phase 1
+- [ ] Ready to proceed to Phase 0c
+
+---
+
+### Phase 0c: QA Failure Context Detection (NEW - RCA-006)
+
+**Check for previous QA failures:**
+
+```
+Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+
+IF QA report(s) found:
+    Read most recent report
+    Parse status: PASSED or FAILED
+
+    IF status is FAILED:
+        Parse failure type:
+
+        IF "Deferral Validation FAILED" found in report:
+            Extract deferral violations from report
+
+            Display to user:
+            "📋 QA Failure Context Detected
+
+            Previous QA attempt failed due to deferral issues:
+
+            {list deferral violations from report}
+
+            Development will focus on resolving these issues.
+
+            Options:
+            1. Complete deferred work (implement in this story)
+            2. Create proper justifications (follow-up stories, ADRs)
+
+            The skill will guide you through resolution."
+
+            Set context flags:
+            MODE = "deferral_resolution"
+            QA_ISSUES = {list of violations}
+
+        ELSE:
+            # Other QA failures (coverage, anti-patterns)
+            Display: "Previous QA failed due to: {other_issues}"
+            MODE = "normal_development"
+
+ELSE:
+    # No previous QA failures
+    MODE = "normal_development"
+    QA_ISSUES = none
+```
+
+**Pass context to skill:**
+
+The devforgeai-development skill will detect deferral_resolution mode and invoke the "Handling QA Deferral Failures" workflow to guide resolution.
 
 ---
 

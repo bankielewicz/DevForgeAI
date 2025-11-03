@@ -187,13 +187,14 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 **Invokes:** `devforgeai-development` skill
 
 **Workflow:**
-1. Story validation
-2. Context validation (6 context files)
-3. TDD Red phase (failing tests)
-4. TDD Green phase (implementation) + Light QA
-5. TDD Refactor phase + Light QA
-6. Integration testing + Light QA
-7. Git workflow (commit, push)
+1. **Phase 0c: QA Failure Detection** (NEW - RCA-006) - Checks for previous QA failures
+2. Story validation
+3. Context validation (6 context files)
+4. TDD Red phase (failing tests)
+5. TDD Green phase (implementation) + Light QA
+6. TDD Refactor phase + Light QA
+7. Integration testing + Light QA
+8. **Git workflow** (with **deferral validation** - Phase 6.1.5)
 
 **Example:**
 ```
@@ -205,6 +206,12 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 - Test files with 100% pass rate
 - Git commits
 - Story status updated to "Dev Complete"
+
+**RCA-006 Enhanced Features:**
+- Detects **QA deferral failures** (Phase 0c) and guides resolution
+- Requires **AskUserQuestion** for all incomplete DoD items (4 options)
+- Invokes **deferral-validator** before commit (HALTS on violations)
+- Creates **follow-up stories** or **ADRs** when user approves deferrals
 
 ---
 
@@ -225,9 +232,10 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 **Workflow:**
 1. Story validation
 2. Mode selection (default: deep)
-3. Quality analysis
-4. Report generation
-5. Story status update ("QA Approved" or "QA Failed")
+3. Quality analysis (includes **deferral validation** - NEW)
+4. **Phase 2: Handle QA Results** (NEW - RCA-006)
+5. Report generation
+6. Story status update ("QA Approved" or "QA Failed")
 
 **Example:**
 ```
@@ -240,6 +248,13 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 - QA report in `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 - Coverage report
 - Story status updated
+- **QA Validation History** section added to story (NEW - tracks attempts)
+
+**RCA-006 Enhanced Features:**
+- Invokes **deferral-validator** subagent (validates all deferred DoD items)
+- **FAILS QA** on CRITICAL (circular deferrals) or HIGH (unjustified deferrals) violations
+- **Phase 2: Handles QA failures** - guides user to resolution (return to dev, fix manually, or review report)
+- Tracks **QA iteration history** in story file (attempt number, violations, resolutions)
 
 ---
 
@@ -285,10 +300,11 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 **Workflow:**
 1. Story validation & checkpoint detection
 2. Development phase (invokes devforgeai-development)
-3. QA validation (invokes devforgeai-qa --mode=deep)
-4. Staging release (invokes devforgeai-release --env=staging)
-5. Production release (invokes devforgeai-release --env=production)
-6. Workflow history finalization
+3. QA validation (invokes devforgeai-qa)
+4. **Phase 3.5: QA Failure Handling** (NEW - RCA-006) - Retry loop with max 3 attempts
+5. Staging release (invokes devforgeai-release --env=staging)
+6. Production release (invokes devforgeai-release --env=production)
+7. Workflow history finalization
 
 **Checkpoint Recovery:**
 - Resumes from last successful phase if failures occur
@@ -304,6 +320,12 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 - All quality gates passed
 - Story deployed to production
 - Workflow history documented
+
+**RCA-006 Enhanced Features:**
+- **QA Failure Retry Loop** (Phase 3.5) - Automatic Dev → QA FAIL → Dev fix → QA retry (max 3 attempts)
+- **Deferral failure handling** - Creates follow-up stories or guides user to resolution
+- **Loop prevention** - HALTS after 3 QA failures (suggests story split)
+- **Tracks retry history** in story workflow history section
 
 ---
 

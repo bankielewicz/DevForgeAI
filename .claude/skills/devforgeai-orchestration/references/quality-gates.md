@@ -469,6 +469,9 @@ Critical violations (FORBIDDEN):
 ✗ Command injection
 ✗ Path traversal
 ✗ Insecure deserialization
+✗ Circular deferrals (NEW - RCA-006)
+✗ Library substitution
+✗ Layer violations
 
 Validation:
 violations = parse_violations(qa_report)
@@ -478,7 +481,10 @@ IF critical_count > 0:
     FAIL: "{critical_count} CRITICAL violations detected"
     Detail:
         {list_critical_violations_with_files_and_lines}
-    Action: Fix all critical security/architecture issues
+    Action: Fix all critical security/architecture/deferral issues
+
+Deferral-specific CRITICAL violations:
+- Circular deferral chains (STORY-A → STORY-B → STORY-A)
 ```
 
 #### Check 4: Zero HIGH Violations (or Approved Exceptions)
@@ -490,12 +496,22 @@ High violations (BLOCKED unless approved):
 - Weak cryptography
 - Missing input validation
 - High complexity (>15)
+- Unjustified deferrals (NEW - RCA-006)
+- Invalid story references in deferrals (NEW - RCA-006)
+- Unnecessary deferrals - implementation feasible (NEW - RCA-006)
+- Missing acceptance criteria tests
 
 Validation:
 high_count = count_by_severity(violations, "HIGH")
 
 IF high_count > 0:
     # Check for approved exceptions
+
+Deferral-specific HIGH violations:
+- DoD item deferred without valid technical justification
+- Referenced follow-up story doesn't exist
+- Deferred work not in referenced story's scope
+- Implementation feasible now (code pattern in spec, <50 lines, no blockers)
     exceptions = parse_approved_exceptions(qa_report)
 
     unapproved_high = high_count - exceptions.high_count
@@ -614,7 +630,21 @@ IF quality_metrics.duplication_percentage > 5:
 # Documentation
 IF quality_metrics.documentation_coverage < 80:
     WARN: "Documentation coverage {coverage}% < 80%"
+
+# Deferrals (NEW - RCA-006)
+deferral_violations_medium = count_by_type_and_severity(violations, "deferral", "MEDIUM")
+IF deferral_violations_medium > 0:
+    WARN: "{count} MEDIUM deferral issues detected"
+    Detail:
+        - Scope changes without ADR documentation
+        - External blockers missing ETA
+    Action: Document exceptions in QA report OR create ADRs
 ```
+
+**Deferral-Specific MEDIUM Violations:**
+- Scope change without ADR (DoD item removed from scope but no ADR-XXX documentation)
+- External blocker missing resolution condition (no ETA or "when available" statement)
+- Invalid deferral reason format (doesn't match required patterns)
 
 #### Check 9: QA Report Generated
 

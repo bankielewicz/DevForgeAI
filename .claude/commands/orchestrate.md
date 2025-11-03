@@ -194,24 +194,145 @@ Skill(command="devforgeai-qa")
 - All acceptance criteria validated
 - Story status = "QA Approved"
 
-**Failure Handling:**
+---
+
+### Phase 3.5: Handle QA Failure with Retry Loop (NEW - RCA-006)
+
+**IF QA validation FAILED:**
+
 ```
-QA VALIDATION FAILED
+Read QA report to determine failure type
+Grep(pattern="Deferral Validation FAILED", path=QA report)
 
-Violations: [List from QA report]
-Story status: QA Failed
+IF deferral failures found:
+    # Specific handling for deferral failures
 
-Critical: {COUNT}, High: {COUNT}, Medium: {COUNT}, Low: {COUNT}
+    Extract deferral violations from report
+    Count QA attempts from story workflow history (search for "QA Attempt" entries)
 
-Orchestration HALTED.
-Next steps:
-1. Review: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
-2. Fix CRITICAL and HIGH violations
-3. Run /dev {STORY-ID} to implement fixes
-4. Run /orchestrate {STORY-ID} to resume
+    IF qa_attempts >= 3:
+        # Loop prevention - max 3 attempts
+
+        Display:
+        "❌ QA Failed 3 Times Due to Deferral Issues
+
+        Story: {STORY_ID}
+
+        This indicates:
+        - Story scope may be too large
+        - DoD items were not properly estimated
+        - Systemic issues with story planning
+
+        Halting orchestration.
+
+        Recommended actions:
+        - Split story into smaller stories
+        - Review and correct DoD items
+        - Escalate blockers to leadership
+        - Run /dev {STORY_ID} manually to resolve
+
+        Violations from latest attempt:
+        {list deferral violations}
+        "
+
+        Exit orchestration with failure status
+
+    ELSE:
+        # Retry with dev fix (attempts 1-2)
+
+        AskUserQuestion:
+            Question: "QA failed due to deferrals (attempt {qa_attempts}/3). Fix and retry?"
+            Header: "QA deferral failure"
+            Options:
+                - "Yes - return to dev, fix deferrals, retry QA"
+                - "No - stop orchestration, I'll fix manually"
+                - "Create follow-up stories, skip retry"
+            multiSelect: false
+
+        IF user selects "Yes":
+            Display: "Returning to Phase 2 (Development) to fix deferral issues..."
+
+            # Set context for dev skill
+            **Development Mode:** deferral_resolution
+            **QA Deferral Issues:** {violations from report}
+
+            # Re-invoke Phase 2 (Development)
+            Skill(command="devforgeai-development")
+
+            # After dev completes, automatically retry QA
+            Display: "Dev fixes complete. Retrying QA validation..."
+
+            # Re-invoke Phase 3 (QA Validation)
+            Skill(command="devforgeai-qa")
+
+            # Loop continues until QA passes or 3 attempts reached
+
+        IF user selects "No":
+            Display: "Orchestration halted. Story status: QA Failed
+
+                     To resume:
+                     1. Fix issues manually
+                     2. Run /orchestrate {STORY_ID} (will resume from checkpoint)
+
+                     QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+
+            Exit with instructions
+
+        IF user selects "Create follow-up stories":
+            # Use orchestration to create tracking stories
+
+            Display: "Creating follow-up stories for deferred items..."
+
+            FOR each deferred item with violation:
+                AskUserQuestion:
+                    Question: "Create follow-up story for '{item}'?"
+                    Header: "Create story"
+                    Options: ["Yes", "Skip this one"]
+                    multiSelect: false
+
+                IF "Yes":
+                    Task(
+                        subagent_type="requirements-analyst",
+                        description="Create follow-up story",
+                        prompt="Create story for deferred DoD item: '{item}'"
+                    )
+
+            Display: "Follow-up stories created.
+
+                     Options:
+                     1. Accept story as-is with justified deferrals (update QA report)
+                     2. Complete deferred work now (/dev {STORY_ID})
+
+                     Current story status remains: QA Failed"
+
+ELSE IF other QA failures (coverage, anti-patterns):
+    # Standard failure handling
+    Display: "QA FAILED - {failure_reasons}
+
+             Violations: CRITICAL: {n}, HIGH: {n}, MEDIUM: {n}, LOW: {n}
+
+             Orchestration HALTED.
+             Next steps:
+             1. Review: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
+             2. Fix CRITICAL and HIGH violations
+             3. Run /dev {STORY-ID} to implement fixes
+             4. Run /orchestrate {STORY-ID} to resume"
+
+    Exit orchestration
 ```
 
-**Success:**
+**Track retry loop in workflow history:**
+
+```
+Append to story workflow history:
+- "QA attempt {N}: FAILED - {failure_type}"
+- "Dev iteration {N}: Fixing {issues}"
+- "QA attempt {N+1}: {PASSED/FAILED}"
+```
+
+---
+
+**Success (QA Passed):**
 ```
 Edit story:
 - Workflow history: "QA validation - APPROVED"

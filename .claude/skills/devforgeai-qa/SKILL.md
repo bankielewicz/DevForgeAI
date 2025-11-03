@@ -522,6 +522,131 @@ FOR each acceptance_criterion:
 
 **Enhancement:** Cross-reference with Implementation Notes "Acceptance Criteria Verification" section to see how developer verified each criterion.
 
+### Step 2.5: Validate Deferred Definition of Done Items (NEW - CRITICAL)
+
+**Purpose:** Ensure all incomplete DoD items have valid technical justifications
+
+**Extract incomplete DoD items:**
+
+```
+Read Implementation Notes > Definition of Done Status section
+Parse all items marked [ ] (incomplete)
+FOR each incomplete item:
+    Extract: Item description, Deferral reason
+```
+
+**IF any incomplete DoD items found:**
+
+```
+Task(
+    subagent_type="deferral-validator",
+    description="Validate deferral justifications for QA",
+    prompt="Validate all deferred DoD items for QA approval.
+
+            Story loaded in conversation.
+
+            Perform comprehensive validation:
+            - Technical blocker verification (external dependencies)
+            - Implementation feasibility check (code patterns in spec)
+            - ADR requirement for scope changes (DoD item in scope but deferred)
+            - Circular deferral detection (STORY-A → STORY-B → STORY-A)
+            - Referenced story validation (exists and includes work)
+
+            Return JSON validation report with violations by severity."
+)
+
+Parse validation results from subagent
+
+IF CRITICAL violations (circular deferrals):
+    Add to violations list:
+    VIOLATION:
+        Type: "Circular deferral detected"
+        Severity: CRITICAL
+        Details: {violation details from subagent}
+        Remediation: {remediation from subagent}
+
+    QA Status: FAILED
+    HALT QA approval
+
+IF HIGH violations (unjustified deferrals, invalid story refs, unnecessary deferrals):
+    Add to violations list:
+    FOR each HIGH violation:
+        VIOLATION:
+            Type: {type from subagent}
+            Severity: HIGH
+            Details: {details}
+            Remediation: {remediation}
+
+    QA Status: FAILED
+    HALT QA approval
+
+IF MEDIUM violations (scope change without ADR, blocker missing ETA):
+    Add to violations list:
+    FOR each MEDIUM violation:
+        VIOLATION:
+            Type: {type from subagent}
+            Severity: MEDIUM
+            Details: {details}
+            Remediation: {remediation}
+
+    # MEDIUM violations don't block approval but must be documented
+
+IF no CRITICAL or HIGH violations:
+    Display: "✓ Deferral validation passed - all deferrals justified"
+
+    IF MEDIUM violations exist:
+        Display: "⚠️ {count} MEDIUM deferral issues - document in QA report"
+```
+
+**CRITICAL: This step MUST run before approving stories with deferrals**
+
+**Deferral Validation Categories:**
+
+**Category 1: Valid Deferrals (Pass Validation)**
+
+1. **External Blocker**
+   - Pattern: "Blocked by {external_system}: {specific_reason}"
+   - Example: "Blocked by Payment API v2 (available 2025-12-01)"
+   - Validation: Check blocker is external (not internal code)
+
+2. **Scope Change with ADR**
+   - Pattern: "Out of scope: ADR-XXX"
+   - Example: "Out of scope: ADR-042 descoped performance benchmarks"
+   - Validation: Verify ADR-XXX exists, created recently, documents this change
+
+3. **Story Split**
+   - Pattern: "Deferred to STORY-XXX: {justification}"
+   - Example: "Deferred to STORY-125 (performance optimization epic)"
+   - Validation: Verify STORY-XXX exists, includes deferred work, no circular chain
+
+**Category 2: Invalid Deferrals (FAIL QA)**
+
+1. **No Justification**
+   - Pattern: "Not completed" OR "Deferred" with no reason
+   - Violation: "Missing deferral justification" (HIGH)
+
+2. **Vague Reason**
+   - Pattern: "Will add later", "Not enough time", "Too complex"
+   - Violation: "Invalid deferral reason (not technical)" (HIGH)
+
+3. **Circular Deferral**
+   - Pattern: Story A → Story B, Story B → Story A
+   - Violation: "Circular deferral detected" (CRITICAL)
+
+4. **Invalid Story Reference**
+   - Pattern: "Deferred to STORY-XXX" but STORY-XXX doesn't exist
+   - Violation: "Referenced story not found" (HIGH)
+
+5. **Scope Change Without ADR**
+   - Pattern: "Out of scope" but no ADR-XXX reference
+   - Violation: "Scope change requires ADR documentation" (MEDIUM)
+
+6. **Unnecessary Deferral**
+   - Pattern: Implementation feasible now (code pattern in spec, <50 lines, no blockers)
+   - Violation: "Unnecessary deferral - implementation feasible" (HIGH)
+
+**Continue to Step 3 (Validate API Contracts) after deferral validation**
+
 ### Step 3: Validate API Contracts
 
 ```
@@ -803,6 +928,75 @@ IF overall_status == "FAIL":
 
     # Add failure details to workflow history
     Add workflow history entry: "QA validation FAILED: {blocking_reason}"
+```
+
+### Step 5: Track QA Iteration History (NEW)
+
+**Purpose:** Maintain audit trail of QA attempts and deferral resolutions
+
+**Check if this is a re-validation:**
+
+```
+Grep(pattern="## QA Validation History", path=".ai_docs/Stories/{story-id}.story.md")
+
+IF found:
+    # This is a re-validation
+    Count previous QA attempts (search for "### QA Attempt" entries)
+    Read previous QA results
+```
+
+**Append QA iteration entry to story file:**
+
+```
+Edit story file to add/update QA history section:
+
+## QA Validation History
+
+### QA Attempt {N} - {timestamp} - {PASSED/FAILED}
+
+**Mode:** {deep/light}
+**Duration:** {duration}
+**QA Report:** `.devforgeai/qa/reports/{story-id}-qa-report{-attempt-N}.md`
+
+**Results:**
+- Test Coverage: {coverage}%
+- Violations: CRITICAL: {n}, HIGH: {n}, MEDIUM: {n}, LOW: {n}
+- Deferral Validation: {PASSED/FAILED}
+
+{IF FAILED}
+**Deferral Issues:**
+1. {item}: {violation_type} - {severity}
+   Reason: "{current_reason}"
+   Required: {remediation}
+
+**Resolution Required:**
+- {specific_actions}
+- Run /dev {story_id} to fix, then re-run /qa
+
+{IF PASSED}
+**Deferrals Validated:**
+- All {count} deferrals have valid justification
+- {count} follow-up stories created/referenced
+- {count} ADRs documented
+- {count} external blockers tracked
+```
+
+**Track cumulative metrics:**
+
+```
+Calculate and log:
+- Total QA attempts for this story: {count}
+- Deferral resolution time: {first_attempt_date} → {final_pass_date}
+- Number of deferrals resolved: {count}
+- Number of deferrals justified: {count}
+```
+
+**IF QA attempt >3:**
+```
+WARN: "Story has failed QA {count} times. Consider:
+       - Story scope too large (split into smaller stories)
+       - DoD items not properly estimated
+       - Systemic issues with story planning"
 ```
 
 ---

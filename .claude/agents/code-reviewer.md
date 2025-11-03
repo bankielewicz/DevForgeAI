@@ -208,6 +208,83 @@ const usersWithOrders = await getUsersWithOrders();  // 1 query
 - [ ] Proper dependency injection (not direct instantiation)
 - [ ] Respects layer boundaries from architecture-constraints.md
 
+### 7. Definition of Done Completeness (NEW)
+
+**Purpose:** Early detection of deferral issues before QA
+
+**When:** During Phase 3 (Refactor) of dev workflow
+
+**Check Implementation Notes:**
+
+```
+Read story file > Implementation Notes > Definition of Done Status
+
+FOR each DoD item:
+    IF marked incomplete [ ]:
+        Extract deferral reason
+
+        Apply quick validation:
+
+        ✅ Valid patterns:
+        - "Deferred to STORY-{number}: {justification}"
+        - "Blocked by {external_system}: {specific reason with ETA}"
+        - "Out of scope: ADR-{number}"
+        - "User approved via AskUserQuestion: {context}"
+
+        ❌ Invalid patterns:
+        - "Will add later"
+        - "Not enough time"
+        - "Too complex"
+        - "Optional"
+        - "Deferred" (no details)
+        - Empty reason
+
+        IF invalid pattern detected:
+            Flag in code review report:
+            "⚠️ Deferral Issue Detected: '{item}'
+             Reason: '{reason}'
+             Issue: Invalid deferral justification - will fail QA validation
+
+             Recommended action:
+             - Complete the item in refactor phase OR
+             - Get user approval to defer properly:
+               - Create follow-up story (STORY-XXX)
+               - Create ADR for scope change (ADR-XXX)
+               - Document external blocker with ETA"
+```
+
+**Add to code review report:**
+
+```markdown
+## Deferral Review
+
+**Incomplete DoD Items:** {count}
+
+{IF deferral issues found}
+**Deferral Issues (Will Fail QA):**
+1. {item}: Invalid reason '{reason}'
+   Severity: HIGH
+   Recommended: Complete now or create proper justification
+
+2. {item}: No justification provided
+   Severity: HIGH
+   Recommended: Use AskUserQuestion to get user approval
+
+{IF no issues}
+**Deferral Validation:** ✓ All deferrals appear properly justified
+Note: QA will perform full validation with deferral-validator subagent
+```
+
+**Integration in Dev Skill Phase 3:**
+
+The dev skill already invokes code-reviewer during refactor phase. This new section provides early warning before QA validation catches the same issues.
+
+**Benefits:**
+- Catch invalid deferrals early (during development, not at QA)
+- Give developers opportunity to fix before completing story
+- Reduce QA failure rate
+- Improve first-time QA pass rate
+
 ## Feedback Format
 
 ```markdown
