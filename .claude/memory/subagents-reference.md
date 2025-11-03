@@ -111,16 +111,20 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **integration-tester** | Cross-component testing, API contracts | sonnet | <40K | After unit tests pass, API endpoints ready |
 | **api-designer** | REST/GraphQL/gRPC contract design | sonnet | <30K | Creating new APIs, ensuring consistency |
 | **agent-generator** | Generate new specialized subagents | haiku | N/A | Creating custom subagents for framework |
+| **deferral-validator** | Deferral justification validation, circular detection | haiku | <5K | Before commits (dev), before QA approval (qa) |
+| **technical-debt-analyzer** | Debt trend analysis, pattern detection, reporting | sonnet | <30K | Sprint planning, retrospectives, debt reviews |
 
 ---
 
 ## Subagent Integration with Skills
 
 **devforgeai-development** uses:
-- test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer → integration-tester
+- test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer (enhanced with deferral review) → integration-tester → **deferral-validator** (NEW - Phase 6.1.5)
+- requirements-analyst (when creating follow-up stories for deferrals)
+- architect-reviewer (when creating ADRs for scope changes)
 
 **devforgeai-qa** uses:
-- context-validator → security-auditor → test-automator (coverage gaps)
+- **deferral-validator** (NEW - Phase 0 Step 2.5) → context-validator → security-auditor → test-automator (coverage gaps)
 
 **devforgeai-architecture** uses:
 - architect-reviewer → api-designer
@@ -130,6 +134,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 
 **devforgeai-orchestration** uses:
 - requirements-analyst (story creation)
+- **technical-debt-analyzer** (NEW - Phase 4.5 during sprint planning/retrospectives)
 
 ---
 
@@ -143,6 +148,8 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 4. **Security Audits**: Use `security-auditor` after auth/security code or handling sensitive data
 5. **Documentation**: Use `documentation-writer` after API implementation or when coverage <80%
 6. **Architecture Review**: Use `architect-reviewer` after creating ADRs or major design changes
+7. **Deferral Validation** (NEW - RCA-006): Always use `deferral-validator` when stories have deferred DoD items (dev Phase 6.1.5, QA Phase 0 Step 2.5)
+8. **Technical Debt Analysis** (NEW - RCA-006): Use `technical-debt-analyzer` during sprint planning or when technical-debt-register.md updates
 
 ---
 
@@ -183,7 +190,7 @@ All subagents are defined in `.claude/agents/`:
 - `frontend-developer.md` (629 lines)
 - `integration-tester.md` (502 lines)
 - `context-validator.md` (356 lines)
-- `code-reviewer.md` (457 lines)
+- `code-reviewer.md` (enhanced with deferral review - Section 7)
 - `security-auditor.md` (550 lines)
 - `refactoring-specialist.md` (471 lines)
 - `requirements-analyst.md` (473 lines)
@@ -192,5 +199,9 @@ All subagents are defined in `.claude/agents/`:
 - `deployment-engineer.md` (820 lines)
 - `documentation-writer.md` (519 lines)
 - `agent-generator.md` (855 lines)
+- **`deferral-validator.md`** (NEW - 181 lines - RCA-006)
+- **`technical-debt-analyzer.md`** (NEW - 172 lines - RCA-006)
+
+**Total:** 16 subagents (14 original + 2 new from RCA-006)
 
 Each file contains complete system prompts with tool access, model selection, and execution patterns.

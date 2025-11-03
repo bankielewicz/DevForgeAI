@@ -45,6 +45,8 @@ Skill(command="devforgeai-architecture")
 - Creating stories from requirements
 - Managing story workflow progression
 - Enforcing quality gates
+- Tracking deferred work (NEW - RCA-006)
+- Analyzing technical debt (NEW - RCA-006)
 
 **Invocation:**
 ```
@@ -53,6 +55,12 @@ Skill(command="devforgeai-architecture")
 
 Skill(command="devforgeai-orchestration")
 ```
+
+**Key Features (RCA-006 Enhanced):**
+- Tracks **deferred work** (Phase 4.5) - ensures follow-up stories/ADRs exist
+- Invokes **technical-debt-analyzer** during sprint planning (identifies stale debt, circular deferrals)
+- Validates **deferral tracking** (story references, ADR references)
+- Creates **follow-up stories** for missing references
 
 ---
 
@@ -84,6 +92,7 @@ Skill(command="devforgeai-ui-generator")
 - Implementing user stories or features
 - Writing new code with TDD
 - Refactoring while maintaining specs
+- Resolving QA deferral failures (NEW - RCA-006)
 
 **Invocation:**
 ```
@@ -93,6 +102,13 @@ Skill(command="devforgeai-ui-generator")
 Skill(command="devforgeai-development")
 ```
 
+**Key Features (RCA-006 Enhanced):**
+- Requires **AskUserQuestion for ALL deferrals** (4 options: complete now, defer to story, scope change, external blocker)
+- Invokes **deferral-validator** subagent (Phase 6.1.5) before git commit - HALTS on CRITICAL/HIGH violations
+- Handles **QA deferral failures** (detects previous QA failures, guides resolution workflow)
+- Automatically creates **follow-up stories** or **ADRs** when user approves deferrals
+- No autonomous deferrals allowed - user approval mandatory
+
 ---
 
 ### devforgeai-qa
@@ -101,6 +117,7 @@ Skill(command="devforgeai-development")
 - Deep validation after story completion
 - Pre-release quality gates
 - Technical debt assessment
+- Deferral validation (NEW - RCA-006)
 
 **Invocation:**
 ```
@@ -115,6 +132,12 @@ Skill(command="devforgeai-qa")
 **Validation mode:** light
 Skill(command="devforgeai-qa")
 ```
+
+**Key Features (RCA-006 Enhanced):**
+- Validates **deferred DoD items** via deferral-validator subagent (Phase 0 Step 2.5)
+- **FAILS QA** on CRITICAL (circular deferrals) or HIGH (unjustified deferrals) violations
+- Tracks **QA iteration history** (attempts, violations, resolutions) in story file
+- Enables **feedback loop**: QA FAIL → Dev fix → QA retry
 
 ---
 

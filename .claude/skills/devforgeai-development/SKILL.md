@@ -575,11 +575,164 @@ Use Edit tool to add "## Implementation Notes" section (before "## Related Stori
 - [x] Code follows coding-standards.md - Completed: Applied cargo fmt, followed naming conventions
 - [ ] Performance benchmarks created - Not completed: Deferred to STORY-XXX (performance optimization epic)
 
-**If ALL items completed:** Mark all with [x] and brief completion note
-**If ANY items NOT completed:** Mark with [ ] and provide reason:
-  - "Deferred to STORY-XXX" (planned for future story)
-  - "Out of scope" (requirement changed, documented in ADR)
-  - "Blocked by [dependency]" (cannot complete until X resolved)
+**For EACH DoD item, validate completion status:**
+
+```
+FOR each DoD item in story acceptance criteria:
+    IF item is complete:
+        Mark: [x] {item} - Completed: {brief_completion_note}
+
+    ELSE:
+        # Item not complete - MUST get user approval to defer
+
+        AskUserQuestion:
+            Question: "DoD item not complete: '{item}'. How should we proceed?"
+            Header: "Incomplete DoD"
+            Options:
+                - "Complete it now (continue development to finish item)"
+                - "Defer to follow-up story (create STORY-XXX for tracking)"
+                - "Scope change (requirements changed - requires ADR)"
+                - "External blocker (document dependency with ETA)"
+            multiSelect: false
+
+        BASED ON USER SELECTION:
+
+        **Option 1: "Complete it now"**
+        ```
+        Return to Phase 2-4 (TDD cycle)
+        Implement the DoD item
+        Run tests
+        Mark: [x] {item} - Completed: {note}
+        ```
+
+        **Option 2: "Defer to follow-up story"**
+        ```
+        AskUserQuestion:
+            Question: "Create follow-up story for '{item}' now or later?"
+            Header: "Follow-up"
+            Options:
+                - "Create now (I'll approve story details)"
+                - "I'll create manually later (provide story ID)"
+            multiSelect: false
+
+        IF "Create now":
+            Task(
+                subagent_type="requirements-analyst",
+                description="Create follow-up story",
+                prompt="Create follow-up story for deferred work:
+
+                        Original Story: {current_story_id}
+                        Deferred DoD Item: '{item}'
+
+                        Extract acceptance criteria from original item.
+                        Set dependency: prerequisite_stories: [{current_story_id}]
+                        Set epic: {current_epic}
+                        Set status: Backlog
+
+                        Return new story ID."
+            )
+
+            new_story_id = {result from subagent}
+
+            Mark: [ ] {item} - Deferred to {new_story_id}: Work split for focused implementation
+
+        ELSE:
+            AskUserQuestion:
+                Question: "What is the follow-up story ID?"
+                Header: "Story ID"
+                (User must provide STORY-XXX ID)
+
+            Verify story exists:
+            Glob(pattern=".ai_docs/Stories/{user_provided_id}*.md")
+            IF not found:
+                WARN: "Story doesn't exist yet. You must create it."
+
+            Mark: [ ] {item} - Deferred to {user_provided_id}: {get reason from user}
+        ```
+
+        **Option 3: "Scope change (requires ADR)"**
+        ```
+        AskUserQuestion:
+            Question: "Create ADR documenting scope change now or later?"
+            Header: "ADR creation"
+            Options:
+                - "Create now (I'll provide justification)"
+                - "I'll create manually later (provide ADR number)"
+            multiSelect: false
+
+        IF "Create now":
+            Task(
+                subagent_type="architect-reviewer",
+                description="Create scope change ADR",
+                prompt="Create ADR for scope change:
+
+                        Story: {current_story_id}
+                        Descoped Item: '{item}'
+
+                        Document:
+                        - Why requirement changed
+                        - Business justification
+                        - Impact on system
+                        - Alternatives considered
+
+                        Return ADR number."
+            )
+
+            adr_number = {result from subagent}
+
+            Mark: [ ] {item} - Out of scope: ADR-{adr_number} documents scope change
+
+        ELSE:
+            AskUserQuestion:
+                Question: "What is the ADR number?"
+                Header: "ADR number"
+                (User must provide ADR-XXX number)
+
+            Mark: [ ] {item} - Out of scope: ADR-{user_provided_adr}
+        ```
+
+        **Option 4: "External blocker"**
+        ```
+        AskUserQuestion:
+            Question: "Describe the external blocker for '{item}'"
+            Header: "Blocker details"
+            (Free-form: "Example: Payment API v2 not available until 2025-12-01")
+
+        blocker_description = {user input}
+
+        Validate blocker is external:
+        IF blocker_description contains internal terms (our code, our API, our module):
+            AskUserQuestion:
+                Question: "This seems like an internal blocker. Is it truly external (outside our control)?"
+                Header: "Blocker type"
+                Options: ["Yes - external dependency", "No - I can resolve it now"]
+                multiSelect: false
+
+            IF "No":
+                Return to "Complete it now" path
+
+        Mark: [ ] {item} - Blocked by: {blocker_description}
+
+        # Log to technical debt register
+        Read or create: .devforgeai/technical-debt-register.md
+        Append:
+            "- {item} (from {story_id}): Blocked by {blocker_description} | Date: {date} | Status: Open"
+        ```
+```
+
+**After ALL DoD items processed, display summary:**
+
+```
+Display:
+"Definition of Done Status:
+ - Complete: {complete_count}/{total_count}
+ - Deferred: {deferred_count}
+   - Story splits: {story_split_count} (follow-up stories created/referenced)
+   - Scope changes: {scope_change_count} (ADRs created/referenced)
+   - External blockers: {blocker_count} (tracked in tech debt register)
+
+All deferrals have user approval and proper justification ✓"
+```
 
 ### Key Implementation Decisions
 
@@ -655,6 +808,71 @@ Use Edit tool to add "## Implementation Notes" section (before "## Related Stori
 
 ---
 
+#### Step 1.5: Validate Deferrals (NEW - CRITICAL)
+
+**Purpose:** Automated validation of deferral justifications before git commit
+
+**IF any DoD items marked [ ] (incomplete):**
+
+```
+Task(
+    subagent_type="deferral-validator",
+    description="Validate deferral justifications",
+    prompt="Validate all deferred Definition of Done items.
+
+            Story already loaded in conversation.
+
+            Check for:
+            - Valid deferral reasons (format validation)
+            - Technical blockers documented and verified
+            - ADR for scope changes (exists and documents item)
+            - Circular deferrals (story chains)
+            - Referenced stories exist and include work
+            - Implementation feasibility (could be done now?)
+
+            Return JSON validation report with violations."
+)
+
+Parse validation results from subagent
+
+IF validation returns CRITICAL or HIGH violations:
+    Display:
+    "❌ Deferral Validation FAILED
+
+    Violations detected:
+    {list each CRITICAL and HIGH violation}
+
+    You must fix these issues before git commit:
+    1. Complete the work now (if feasible), OR
+    2. Create proper justifications:
+       - Create follow-up story (STORY-XXX)
+       - Create ADR for scope change (ADR-XXX)
+       - Document external blocker with ETA
+
+    Run /dev {story_id} again to resolve deferral issues."
+
+    HALT development
+    DO NOT proceed to git commit
+    User must fix deferrals first
+
+ELSE IF validation returns only MEDIUM violations:
+    Display:
+    "⚠️ Deferral Validation WARNINGS
+
+    Minor issues detected:
+    {list MEDIUM violations}
+
+    These won't block commit but should be addressed in future."
+
+    Proceed to Step 2 (commit allowed)
+
+ELSE:
+    Display: "✓ All deferrals validated - properly justified"
+    Proceed to Step 2
+```
+
+---
+
 #### Step 2: Stage Implementation Files and Story File
 
 **CRITICAL: Story file MUST be included in commit**
@@ -719,6 +937,94 @@ See `references/git-workflow-conventions.md` for:
 ```
 Bash(command="git push origin [branch-name]")
 ```
+
+---
+
+## Handling QA Deferral Failures
+
+**When invoked after QA failure due to deferrals:**
+
+### Step 1: Detect QA Failure Context
+
+**Check for QA report:**
+
+```
+Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
+
+IF multiple reports found (multiple QA attempts):
+    Read most recent report
+
+IF report status is "FAILED":
+    Parse failure reasons
+
+    IF failure includes "Deferral Validation FAILED":
+        # This is a deferral-specific failure
+        Extract deferral violations from report
+
+        Display to user:
+        "Previous QA attempt failed due to deferral issues:
+
+         Unjustified Deferrals:
+         1. '{item}': {violation_type}
+            Current reason: '{reason}'
+            Required: {required_action}
+
+         2. '{item}': {violation_type}
+            Current reason: '{reason}'
+            Required: {required_action}
+
+         Proceeding to resolve each deferral issue..."
+```
+
+### Step 2: Resolve Each Deferral Issue
+
+```
+FOR each deferral violation from QA report:
+    AskUserQuestion:
+        Question: "QA flagged deferral for '{item}'. How to resolve?"
+        Header: "Deferral issue"
+        Options:
+            - "Complete the work now (implement {item})"
+            - "Create follow-up story (proper tracking)"
+            - "Create ADR (document scope change)"
+            - "Document external blocker (with ETA)"
+        multiSelect: false
+
+    Based on user selection:
+        Execute appropriate resolution (same as Phase 6 Step 1 logic)
+        Update Implementation Notes with proper justification
+```
+
+### Step 3: Run Light QA to Verify Fixes
+
+```
+After resolving all deferral issues:
+    Display: "Deferral issues resolved. Running light QA validation..."
+
+    # Don't need full deep QA, just validate deferrals fixed
+    Read updated Implementation Notes
+    Verify all incomplete items now have valid justifications
+
+    IF validation passes:
+        Display: "Deferral issues resolved ✓ Ready for QA re-evaluation"
+        Update story status remains "Dev Complete"
+
+    ELSE:
+        Display: "Some deferral issues remain. Please review."
+        List remaining issues
+```
+
+**Trigger Conditions:**
+
+This workflow triggered when:
+- Story status is "Dev Complete" or "QA Failed"
+- Previous QA report shows "Deferral Validation FAILED"
+- User runs /dev {story-id} after QA failure
+
+**Exit Criteria:**
+- All deferral violations from QA report resolved
+- Implementation Notes updated with valid justifications
+- Ready for QA re-validation
 
 ---
 

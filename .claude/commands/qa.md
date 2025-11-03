@@ -163,8 +163,86 @@ The devforgeai-qa skill performs:
 2. Build verification
 3. Test suite execution
 4. Mode-specific analysis (light vs deep)
-5. QA report generation
-6. Story status update
+5. Deferral validation (NEW - RCA-006)
+6. QA report generation
+7. Story status update
+
+---
+
+### Phase 2: Handle QA Results (NEW - RCA-006)
+
+**Wait for QA skill to complete, then read QA report:**
+
+```
+Read QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+Parse report status: PASSED or FAILED
+```
+
+**IF QA PASSED:**
+
+```
+Display success summary (existing logic in Phase 4)
+Proceed to next steps (release or continue development)
+```
+
+**IF QA FAILED:**
+
+```
+Parse failure reasons from report
+
+Check if failure includes deferral validation issues:
+Grep(pattern="Deferral Validation FAILED|Unjustified Deferrals", path=QA report)
+
+IF deferral failures found:
+    # Special handling for deferral failures
+
+    Extract deferral violations from report
+
+    Display to user:
+    "❌ QA Failed: Deferral Validation Issues
+
+    Story: {STORY_ID}
+
+    Unjustified Deferrals Detected:
+    {list each deferral violation with severity, item, current reason, required action}
+
+    Required Actions:
+    1. Fix deferral justifications OR
+    2. Complete deferred work
+
+    Then re-run QA validation with /qa {STORY_ID} {MODE}"
+
+    AskUserQuestion:
+        Question: "How to proceed with deferral failures?"
+        Header: "QA deferral failure"
+        Options:
+            - "Return to development (/dev will fix deferrals)"
+            - "I'll fix manually, then re-run /qa"
+            - "Review detailed QA report first"
+        multiSelect: false
+
+    IF "Return to development":
+        Display: "Run: /dev {STORY_ID}
+                 Dev skill will read QA report and help resolve deferral issues."
+        Exit command
+
+    IF "Review detailed QA report":
+        Display: "QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+                 After review, run /dev {STORY_ID} to fix issues."
+        Exit command
+
+    IF "I'll fix manually":
+        Display: "After fixing, re-run: /qa {STORY_ID} {MODE}"
+        Exit command
+
+ELSE IF other QA failures (coverage, anti-patterns, etc.):
+    # Display standard QA failure handling (existing logic)
+    Display failure summary
+    List violations by severity
+    Provide remediation guidance
+```
+
+---
 
 ### Phase 3: Result Verification
 

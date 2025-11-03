@@ -271,6 +271,130 @@ Template: assets/templates/story-template.md
 
 ---
 
+### Phase 4.5: Deferred Work Tracking (NEW - RCA-006)
+
+**Purpose:** Ensure deferred DoD items are tracked and not lost
+
+**Triggered when:**
+- Story reaches "Dev Complete" status
+- Implementation Notes contain deferred items ([ ] status)
+- Before QA validation begins
+- During sprint planning (debt analysis)
+
+**Workflow:**
+
+#### Step 1: Scan for Deferrals
+
+```
+Read story > Implementation Notes > Definition of Done Status
+
+Extract all items marked [ ] (incomplete)
+Count deferrals by type:
+- Story splits: {count}
+- Scope changes: {count}
+- External blockers: {count}
+```
+
+#### Step 2: Validate Deferral Tracking
+
+```
+FOR each deferral:
+    reason_type = parse_deferral_type(reason)
+
+    IF reason_type == "story_split":
+        referenced_story = extract_story_id(reason)
+
+        Glob(pattern=".ai_docs/Stories/{referenced_story}*.md")
+
+        IF not found:
+            WARN: "Referenced {referenced_story} not found"
+
+            AskUserQuestion:
+                Question: "Deferral references {referenced_story} but story doesn't exist. Create it?"
+                Header: "Missing story"
+                Options:
+                    - "Yes - create tracking story now"
+                    - "No - I'll create it manually"
+                    - "Fix reference (I meant different story)"
+                multiSelect: false
+
+            IF "Yes":
+                Task(
+                    subagent_type="requirements-analyst",
+                    description="Create tracking story",
+                    prompt="Create story {referenced_story} for deferred work: '{item}'"
+                )
+
+    ELSE IF reason_type == "scope_change":
+        adr_reference = extract_adr_id(reason)
+
+        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+
+        IF not found:
+            WARN: "Referenced {adr_reference} not found"
+
+            AskUserQuestion:
+                Question: "Deferral references {adr_reference} but ADR doesn't exist. Create it?"
+                Header: "Missing ADR"
+                Options:
+                    - "Yes - document scope change in ADR"
+                    - "No - I'll create it manually"
+                    - "Change justification (not scope change)"
+                multiSelect: false
+
+            IF "Yes":
+                Task(
+                    subagent_type="architect-reviewer",
+                    description="Create scope change ADR",
+                    prompt="Create {adr_reference} documenting scope change for: '{item}'"
+                )
+
+    ELSE IF reason_type == "external_blocker":
+        # Verify logged in technical debt register
+        Read .devforgeai/technical-debt-register.md
+        Search for {story_id} and {item}
+
+        IF not found:
+            Append to register (format from template)
+```
+
+#### Step 3: Analyze Debt Trends (Periodic)
+
+```
+IF invoked during sprint planning OR retrospective:
+    Task(
+        subagent_type="technical-debt-analyzer",
+        description="Analyze accumulated technical debt",
+        prompt="Analyze current technical debt from deferrals.
+
+                Generate trends, identify oldest items, recommend actions.
+
+                Focus on:
+                - Items >90 days old (stale debt)
+                - Circular deferrals (CRITICAL - must resolve)
+                - Pattern detection (common deferral reasons)
+                - Deferral rate trends by sprint
+
+                Provide recommendations for upcoming sprint planning."
+    )
+
+    debt_analysis = {result from subagent}
+
+    Display debt analysis summary to user
+
+    IF debt_analysis.open_items > 10:
+        RECOMMEND: "High technical debt ({count} items) - schedule debt reduction sprint"
+
+    IF debt_analysis.circular_deferrals detected:
+        CRITICAL: "Circular deferrals must be resolved immediately"
+        List circular chains
+
+    IF debt_analysis.stale_items (>90 days) exist:
+        WARN: "{count} stale debt items - review and close or escalate"
+```
+
+---
+
 ### Phase 5: Determine Next Action
 
 Based on current state, determine next orchestration action:
