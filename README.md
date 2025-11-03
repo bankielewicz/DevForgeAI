@@ -34,7 +34,7 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 
 ### Layer 2: Subagents (Parallel Task Execution)
 
-14 specialized AI workers with separate context windows for concurrent execution:
+16 specialized AI workers with separate context windows for concurrent execution:
 
 **Core Development:**
 - **test-automator** - TDD test generation and execution
@@ -44,14 +44,16 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 
 **Quality & Review:**
 - **context-validator** - Fast constraint enforcement (6 context files)
-- **code-reviewer** - Quality assessment and optimization
+- **code-reviewer** - Quality assessment, optimization, and deferral review
 - **security-auditor** - OWASP Top 10, auth/authz scanning
 - **refactoring-specialist** - Safe refactoring and code smell removal
+- **deferral-validator** - Validates deferred DoD items, detects circular deferrals (NEW - RCA-006)
 
 **Architecture & Planning:**
 - **requirements-analyst** - User story creation, acceptance criteria
 - **architect-reviewer** - Technical design validation and scalability
 - **api-designer** - REST/GraphQL/gRPC contract design
+- **technical-debt-analyzer** - Debt trend analysis and pattern detection (NEW - RCA-006)
 
 **Operations & Documentation:**
 - **deployment-engineer** - Infrastructure, IaC, CI/CD pipelines
@@ -184,19 +186,23 @@ Execute entire story lifecycle with one command:
 ├── skills/              # Framework implementation (7 skills)
 │   ├── devforgeai-ideation/
 │   ├── devforgeai-architecture/
+│   │   └── assets/adr-examples/
+│   │       ├── ADR-EXAMPLE-001-database-selection.md
+│   │       └── ADR-EXAMPLE-006-scope-descope.md (NEW)
 │   ├── devforgeai-orchestration/
+│   │   └── references/quality-gates.md (enhanced with deferral validation)
 │   ├── devforgeai-ui-generator/
-│   ├── devforgeai-development/
-│   ├── devforgeai-qa/
+│   ├── devforgeai-development/ (enhanced with deferral validation)
+│   ├── devforgeai-qa/ (enhanced with deferral validation)
 │   └── devforgeai-release/
 │
-├── agents/              # Specialized subagents (14 agents)
+├── agents/              # Specialized subagents (16 agents)
 │   ├── test-automator.md
 │   ├── backend-architect.md
 │   ├── frontend-developer.md
 │   ├── integration-tester.md
 │   ├── context-validator.md
-│   ├── code-reviewer.md
+│   ├── code-reviewer.md (enhanced with DoD completeness review)
 │   ├── security-auditor.md
 │   ├── refactoring-specialist.md
 │   ├── requirements-analyst.md
@@ -204,7 +210,9 @@ Execute entire story lifecycle with one command:
 │   ├── api-designer.md
 │   ├── deployment-engineer.md
 │   ├── documentation-writer.md
-│   └── agent-generator.md
+│   ├── agent-generator.md
+│   ├── deferral-validator.md (NEW - RCA-006)
+│   └── technical-debt-analyzer.md (NEW - RCA-006)
 │
 └── commands/            # User-facing workflows (9 commands)
     ├── ideate.md
@@ -232,7 +240,12 @@ Execute entire story lifecycle with one command:
 │   ├── quality-metrics.md
 │   └── reports/
 │
-└── specs/requirements/  # Planning documents and specs
+├── specs/
+│   ├── requirements/    # Planning documents and specs
+│   └── enhancements/    # RCA documents (RCA-001 through RCA-006)
+│
+├── technical-debt-register.md (NEW - RCA-006)
+└── adrs/                # Architecture Decision Records
 
 .ai_docs/
 ├── Epics/               # High-level business initiatives
@@ -272,8 +285,9 @@ Stories must progress through workflow stages sequentially:
 **Gate 3: QA Approval** (QA Approved → Releasing)
 - Deep validation PASSED
 - Coverage meets strict thresholds (95%/85%/80%)
-- Zero CRITICAL violations
-- Zero HIGH violations (or approved exceptions)
+- Zero CRITICAL violations (includes circular deferrals)
+- Zero HIGH violations (includes unjustified deferrals, invalid story refs)
+- All deferred DoD items have valid technical justification (NEW - RCA-006)
 
 **Gate 4: Release Readiness** (Releasing → Released)
 - QA approved
