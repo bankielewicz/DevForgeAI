@@ -1,6 +1,7 @@
 ---
 description: Deploy story to staging and production
-argument-hint: [STORY-ID] [--env=staging|production]
+argument-hint: [STORY-ID] [environment]
+# Environment: 'staging' or 'production' (no -- prefix)
 model: sonnet
 allowed-tools: Read, Write, Edit, Glob, Skill, Task, Bash(docker:*), Bash(kubectl:*), Bash(git:*)
 ---
@@ -14,19 +15,112 @@ Deploy QA-approved stories to staging or production environments with automated 
 Load story file and deployment configuration:
 
 ```context
-@.ai_docs/Stories/$ARGUMENTS.story.md
+@.ai_docs/Stories/$1.story.md
 @.devforgeai/deployment/config.json
 @.devforgeai/context/tech-stack.md
 ```
 
 ## Pre-Execution Validation
 
-Before executing deployment, verify:
+### Phase 0: Argument Validation
 
-1. **Story file exists** - Parse STORY-ID from $ARGUMENTS
-2. **QA approval** - Story status must be "QA Approved"
-3. **Deployment config exists** - Check `.devforgeai/deployment/config.json`
-4. **Environment specified** - Parse `--env` flag (default: staging)
+**Extract arguments:**
+```
+STORY_ID = $1
+ENV_ARG = $2 (optional)
+```
+
+**Validate story ID format:**
+```
+IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
+  AskUserQuestion:
+  Question: "Story ID '$1' doesn't match format STORY-NNN. What story should I release?"
+  Header: "Story ID"
+  Options:
+    - "List stories in QA Approved status"
+    - "List stories in Dev Complete status"
+    - "Show correct /release command syntax"
+  multiSelect: false
+
+  Extract STORY_ID from user response
+```
+
+**Validate story file exists:**
+```
+Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+IF no matches found:
+  AskUserQuestion:
+  Question: "Story ${STORY_ID} not found. What should I do?"
+  Header: "Story not found"
+  Options:
+    - "List all available stories"
+    - "Cancel command"
+  multiSelect: false
+```
+
+**Parse environment argument:**
+```
+IF $2 provided:
+  IF $2 in ["staging", "production", "prod", "stage"]:
+    # Normalize
+    IF $2 in ["prod", "production"]:
+      ENVIRONMENT = "production"
+    ELSE:
+      ENVIRONMENT = "staging"
+
+  ELSE IF $2 starts with "--env=":
+    # User used flag syntax (educate them)
+    EXTRACTED_ENV = substring after "--env="
+
+    IF EXTRACTED_ENV in ["staging", "production"]:
+      ENVIRONMENT = EXTRACTED_ENV
+      Note to user: "Flag syntax (--env=) not needed. Use: /release STORY-001 production"
+
+    ELSE:
+      AskUserQuestion:
+      Question: "Unknown environment in flag: $2. Where should I deploy?"
+      Header: "Deployment target"
+      Options:
+        - "staging (test environment)"
+        - "production (live environment)"
+      multiSelect: false
+
+  ELSE IF $2 starts with "--":
+    # Unknown flag
+    AskUserQuestion:
+    Question: "Unknown flag: $2. Where should I deploy?"
+    Header: "Deployment target"
+    Options:
+      - "staging (test environment first)"
+      - "production (skip staging - risky!)"
+    multiSelect: false
+
+  ELSE:
+    # Unknown value
+    AskUserQuestion:
+    Question: "Unknown environment: $2. Where should I deploy?"
+    Header: "Deployment target"
+    Options:
+      - "staging (safe choice)"
+      - "production (requires QA approval)"
+    multiSelect: false
+
+ELSE:
+  # No environment specified - default to staging (safe choice)
+  ENVIRONMENT = "staging"
+  Note to user: "Defaulting to staging. Use '/release STORY-001 production' for production deployment."
+```
+
+**Validation summary:**
+```
+✓ Story ID: ${STORY_ID}
+✓ Story file: ${STORY_FILE}
+✓ Environment: ${ENVIRONMENT}
+✓ Proceeding with deployment...
+```
+
+---
 
 ## Workflow
 
@@ -85,24 +179,14 @@ Before executing deployment, verify:
 
 ---
 
-### Phase 2: Parse Environment Flag
+### Phase 2: Production Deployment Confirmation
 
-**Objective:** Determine deployment target (staging or production)
+**Objective:** Confirm production deployment if applicable
 
 **Steps:**
 
-1. **Extract Environment Flag**
-   - Parse `--env=staging` or `--env=production` from $ARGUMENTS
-   - Default to `staging` if not specified
-   - Valid values: `staging`, `production`
-
-2. **Validate Environment**
-   - Check environment exists in deployment config
-   - Verify credentials/access configured
-   - **HALT if invalid:** "Environment '{env}' not configured in deployment config"
-
-3. **Production Deployment Confirmation**
-   - If `--env=production`, display confirmation:
+1. **Check if Production Deployment**
+   - If ${ENVIRONMENT} == "production", display confirmation:
      ```
      ⚠️  PRODUCTION DEPLOYMENT
      Story: {STORY-ID}
@@ -114,8 +198,8 @@ Before executing deployment, verify:
    - Use AskUserQuestion for explicit confirmation
    - **HALT if not confirmed:** "Production deployment cancelled by user"
 
-4. **Load Environment Configuration**
-   - Extract environment-specific settings from config.json:
+2. **Load Environment Configuration**
+   - Extract environment-specific settings from config.json for ${ENVIRONMENT}:
      ```json
      {
        "staging": {
@@ -160,9 +244,17 @@ Before executing deployment, verify:
      ```
 
 2. **Invoke Release Skill**
+
+   **Context for skill:**
+   - Story content loaded via @file reference above
+   - Story ID: ${STORY_ID}
+   - Environment: ${ENVIRONMENT}
+
    ```
-   Skill(command="devforgeai-release --story={STORY-ID} --env={env}")
+   Skill(command="devforgeai-release")
    ```
+
+   **Note:** Skill will extract story ID from conversation context (YAML frontmatter) and environment from the explicit statement above
 
 3. **Monitor Skill Execution**
    - The skill will execute its 6-phase deployment process:

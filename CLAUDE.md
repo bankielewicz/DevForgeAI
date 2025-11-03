@@ -261,9 +261,64 @@ git push origin [branch]
 
 ---
 
+## CRITICAL: Skill Invocation Constraints
+
+**Skills CANNOT accept parameters at invocation time.**
+
+From official Claude documentation:
+> "Skills CANNOT accept command-line style parameters. All parameters are conveyed through natural language in the conversation."
+
+### ❌ WRONG - Skills with Parameters
+```
+Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+Skill(command="devforgeai-development --story=STORY-001")
+Skill(command="devforgeai-release --env=production")
+```
+
+### ✅ CORRECT - Context-Based Invocation
+```
+# Step 1: Load story content into conversation
+@.ai_docs/Stories/STORY-001.story.md
+
+# Step 2: Set context with explicit statements
+**Story ID:** STORY-001
+**Validation Mode:** deep
+**Environment:** staging
+
+# Step 3: Invoke skill WITHOUT arguments
+Skill(command="devforgeai-qa")
+
+# Skill extracts story ID from YAML frontmatter in loaded story file
+# Skill extracts mode/environment from explicit statements in conversation
+```
+
+### Why This Works
+
+1. **@file loads content** - Story YAML frontmatter becomes part of conversation
+2. **Explicit statements provide context** - Skills search for patterns like "Mode: deep"
+3. **Skills read conversation** - Extract information using pattern matching on conversation
+4. **No parameter mechanism** - Skills operate purely on available conversation context
+
+---
+
 ## Slash Commands (User-Facing Workflows)
 
 DevForgeAI provides **9 slash commands** for common tasks:
+
+### Command Syntax
+
+**Parameter format:**
+- Use positional arguments: `/command ARG1 ARG2 ARG3`
+- NOT flag syntax: `/command --flag=value` (will trigger clarification)
+- Access via: `$1`, `$2`, `$3` in command definitions
+
+**Examples:**
+```
+/qa STORY-001 deep        ✅ Correct
+/qa STORY-001 --mode=deep ⚠️ Works but educates to use: /qa STORY-001 deep
+/release STORY-001 production     ✅ Correct
+/release STORY-001 --env=production ⚠️ Works but educates
+```
 
 ### Planning & Setup
 - `/ideate [business-idea]` - Transform idea to requirements
@@ -277,8 +332,8 @@ DevForgeAI provides **9 slash commands** for common tasks:
 - `/dev [STORY-ID]` - Execute TDD cycle
 
 ### Validation & Release
-- `/qa [STORY-ID]` - Run quality validation
-- `/release [STORY-ID]` - Deploy to production
+- `/qa [STORY-ID] [mode]` - Run quality validation (mode: deep or light)
+- `/release [STORY-ID] [environment]` - Deploy to staging/production
 - `/orchestrate [STORY-ID]` - Full lifecycle (dev → qa → release)
 
 **See:** @.claude/memory/commands-reference.md for complete command documentation.

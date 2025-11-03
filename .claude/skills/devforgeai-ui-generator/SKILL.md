@@ -8,6 +8,98 @@ license: Complete terms in LICENSE.txt
 
 This skill generates front-end user interface specifications and code by interactively guiding users through technology and styling decisions while enforcing DevForgeAI architectural constraints.
 
+---
+
+## CRITICAL: Extracting Parameters from Conversation Context
+
+**IMPORTANT:** Skills CANNOT accept runtime parameters. All information must be extracted from conversation context.
+
+### How Slash Commands Pass "Parameters" to Skills
+
+When `/create-ui` command invokes this skill, it provides context in two modes:
+
+**Story Mode:**
+1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+2. States: "Story ID: STORY-XXX" and "Mode: story"
+3. Invokes: `Skill(command="devforgeai-ui-generator")`
+
+**Standalone Mode:**
+1. States: "Component description: Login form with validation" and "Mode: standalone"
+2. Invokes: `Skill(command="devforgeai-ui-generator")`
+
+**You must detect which mode and extract appropriate parameters from conversation.**
+
+### Mode Detection
+
+**Check conversation for indicators:**
+```
+IF conversation contains YAML frontmatter with "id: STORY-XXX":
+  MODE = "story"
+  Extract story ID from frontmatter
+
+ELSE IF conversation contains ".ai_docs/Stories/STORY-XXX":
+  MODE = "story"
+  Extract story ID from file path
+
+ELSE IF conversation contains "Component description:":
+  MODE = "standalone"
+  Extract description from statement
+
+ELSE IF conversation contains "Mode: story":
+  MODE = "story"
+  Search for story ID in conversation
+
+ELSE IF conversation contains "Mode: standalone":
+  MODE = "standalone"
+  Search for component description
+
+ELSE:
+  # Cannot determine - ask user
+  AskUserQuestion:
+  Question: "Should I generate UI for a story or standalone component?"
+  Header: "UI Generation Mode"
+  Options:
+    - "Story-based (use acceptance criteria from story)"
+    - "Standalone (I'll describe the component)"
+  multiSelect: false
+```
+
+### Story ID Extraction (Story Mode)
+
+**Methods:** Same as other skills (YAML frontmatter, file reference, explicit statement)
+
+### Component Description Extraction (Standalone Mode)
+
+**Look for description in conversation:**
+```
+Search for patterns:
+  - "Component description: [text]" → DESCRIPTION = [text]
+  - "Create UI for: [text]" → DESCRIPTION = [text]
+  - User's original argument captured in conversation
+```
+
+### Validation Before Proceeding
+
+Before starting UI generation, verify:
+- [ ] Mode determined (story or standalone)
+- [ ] If story mode: Story ID extracted, story content available
+- [ ] If standalone mode: Component description extracted
+- [ ] Ready to proceed with UI generation phases
+
+**If extraction fails:**
+```
+HALT with error:
+"Cannot determine UI generation mode from conversation context.
+
+Expected to find:
+  - Story mode: Story file loaded OR 'Story ID: STORY-XXX' stated
+  - Standalone mode: 'Component description: [text]' stated
+
+Please ensure context is provided via slash command or state explicitly."
+```
+
+---
+
 ## When to Use
 
 Use this skill when:

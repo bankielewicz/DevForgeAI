@@ -208,9 +208,13 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 
 ---
 
-### /qa [STORY-ID] [--mode=light|deep]
+### /qa [STORY-ID] [mode]
 
 **Purpose:** Run quality validation (light or deep mode)
+
+**Syntax:** `/qa [STORY-ID] [mode]`
+- Mode: `deep` or `light` (no -- prefix)
+- Default: `deep` if not specified
 
 **Invokes:** `devforgeai-qa` skill
 
@@ -227,8 +231,9 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 
 **Example:**
 ```
-> /qa STORY-042
-> /qa STORY-042 --mode=light
+> /qa STORY-042           # Defaults to deep mode
+> /qa STORY-042 deep      # Explicit deep mode
+> /qa STORY-042 light     # Explicit light mode
 ```
 
 **Output:**
@@ -238,9 +243,13 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 
 ---
 
-### /release [STORY-ID] [--env=staging|production]
+### /release [STORY-ID] [environment]
 
 **Purpose:** Deploy to staging and/or production
+
+**Syntax:** `/release [STORY-ID] [environment]`
+- Environment: `staging` or `production` (no -- prefix)
+- Default: `staging` if not specified
 
 **Invokes:** `devforgeai-release` skill
 
@@ -254,9 +263,9 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 
 **Example:**
 ```
-> /release STORY-042
-> /release STORY-042 --env=staging
-> /release STORY-042 --env=production
+> /release STORY-042              # Defaults to staging
+> /release STORY-042 staging      # Explicit staging
+> /release STORY-042 production   # Production deployment
 ```
 
 **Output:**
@@ -295,6 +304,69 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 - All quality gates passed
 - Story deployed to production
 - Workflow history documented
+
+---
+
+---
+
+## Slash Command Syntax & Limitations
+
+### What Works
+
+**Positional arguments:**
+```
+/qa STORY-001 deep           ✅ Correct
+/release STORY-001 production ✅ Correct
+```
+
+**Multiple arguments:**
+```
+$1 = First argument (e.g., STORY-001)
+$2 = Second argument (e.g., deep, production)
+$3 = Third argument (if needed)
+```
+
+**@file references with $1:**
+```
+@.ai_docs/Stories/$1.story.md  ✅ Correct
+```
+
+### What Doesn't Work
+
+**Flag syntax:**
+```
+/qa --mode=deep STORY-001      ❌ Wrong (will ask for clarification)
+/qa STORY-001 --mode=deep      ⚠️ Works but educates user
+/release STORY-001 --env=prod  ⚠️ Works but educates user
+```
+
+**@file with $ARGUMENTS:**
+```
+@.ai_docs/Stories/$ARGUMENTS.story.md  ❌ Wrong (includes all args/flags in filename)
+```
+
+**Skill invocations with arguments:**
+```
+Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
+```
+
+### Correct Parameter Passing to Skills
+
+**Skills cannot accept command-line parameters.** Use conversation context instead:
+
+```
+# Step 1: Load context (via @file or explicit text)
+@.ai_docs/Stories/STORY-001.story.md
+
+# Step 2: State parameters explicitly
+**Validation Mode:** deep
+**Environment:** staging
+
+# Step 3: Invoke skill WITHOUT arguments
+Skill(command="devforgeai-qa")
+
+# Skill extracts parameters from conversation context
+```
 
 ---
 

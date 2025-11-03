@@ -1,7 +1,7 @@
 ---
 description: Implement user story using TDD workflow
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Task, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test), Bash(git:*)
 ---
 
@@ -11,12 +11,70 @@ Execute full Test-Driven Development cycle for a user story.
 
 ## Pre-execution Context
 
-**Story:** @.ai_docs/Stories/$ARGUMENTS.story.md
+**Story:** @.ai_docs/Stories/$1.story.md
 **Git Status:** !`git status`
 
 ## Workflow
 
-### Phase 0: Technology Detection & Context Validation
+### Phase 0a: Argument Validation
+
+**Extract story ID:**
+```
+STORY_ID = $1
+```
+
+**Validate story ID format:**
+```
+IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
+  AskUserQuestion:
+  Question: "Story ID '$1' doesn't match format STORY-NNN. What story should I develop?"
+  Header: "Story ID"
+  Options:
+    - "List stories in Ready for Dev status"
+    - "List stories in Backlog status"
+    - "Show correct /dev command syntax"
+  multiSelect: false
+
+  Extract STORY_ID from user response
+```
+
+**Validate story file exists:**
+```
+Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+IF no matches found:
+  AskUserQuestion:
+  Question: "Story ${STORY_ID} not found. What should I do?"
+  Header: "Story not found"
+  Options:
+    - "List all available stories"
+    - "Create ${STORY_ID} (run /create-story first)"
+    - "Cancel command"
+  multiSelect: false
+
+  Handle based on user selection
+
+IF multiple matches found:
+  AskUserQuestion:
+  Question: "Multiple files match ${STORY_ID}. Which one?"
+  Header: "Story selection"
+  Options:
+    [List each matched filename]
+  multiSelect: false
+
+  STORY_FILE = user selection
+```
+
+**Validation summary:**
+```
+✓ Story ID: ${STORY_ID}
+✓ Story file: ${STORY_FILE}
+✓ Proceeding with development...
+```
+
+---
+
+### Phase 0b: Technology Detection & Context Validation
 
 **CRITICAL: Detect project technology before executing any test commands**
 
@@ -146,9 +204,15 @@ HALT: Update story with acceptance criteria
 
 **Delegate to devforgeai-development skill:**
 
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+
 ```bash
-Skill(command="devforgeai-development --story=$ARGUMENTS")
+Skill(command="devforgeai-development")
 ```
+
+**Note:** Skill will extract story ID from conversation context (YAML frontmatter in loaded story file)
 
 **Skill handles complete TDD cycle:**
 
@@ -199,7 +263,7 @@ Skill(command="devforgeai-development --story=$ARGUMENTS")
 
 1. **Verify story status updated:**
 ```bash
-Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+Read(file_path=".ai_docs/Stories/$1.story.md")
 ```
 
 Extract status from frontmatter:

@@ -11,7 +11,53 @@ Execute: Development → QA → Release (Staging → Production)
 
 ## Context
 
-**Story:** @.ai_docs/Stories/$ARGUMENTS.story.md
+**Story:** @.ai_docs/Stories/$1.story.md
+
+---
+
+## Phase 0: Argument Validation
+
+**Extract story ID:**
+```
+STORY_ID = $1
+```
+
+**Validate story ID format:**
+```
+IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
+  AskUserQuestion:
+  Question: "Story ID '$1' doesn't match format STORY-NNN. What story should I orchestrate?"
+  Header: "Story ID"
+  Options:
+    - "List stories in Ready for Dev status"
+    - "List stories in Dev Complete status"
+    - "List stories in QA Approved status"
+    - "Show correct /orchestrate command syntax"
+  multiSelect: false
+
+  Extract STORY_ID from user response
+```
+
+**Validate story file exists:**
+```
+Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+IF no matches found:
+  AskUserQuestion:
+  Question: "Story ${STORY_ID} not found. What should I do?"
+  Header: "Story not found"
+  Options:
+    - "List all available stories"
+    - "Cancel command"
+  multiSelect: false
+```
+
+**Validation summary:**
+```
+✓ Story ID: ${STORY_ID}
+✓ Story file: ${STORY_FILE}
+✓ Proceeding with orchestration...
+```
 
 ---
 
@@ -74,9 +120,16 @@ ELSE:
 ```
 
 **Invoke Skill:**
+
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+
 ```
-Skill(command="devforgeai-development --story=$ARGUMENTS")
+Skill(command="devforgeai-development")
 ```
+
+**Note:** Skill will extract story ID from conversation context
 
 **Expected Outcomes:**
 - All tests pass (100% pass rate)
@@ -122,9 +175,17 @@ ELSE:
 - Verify acceptance criteria exist
 
 **Invoke Skill:**
+
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+- Validation mode: deep
+
 ```
-Skill(command="devforgeai-qa --mode=deep --story=$ARGUMENTS")
+Skill(command="devforgeai-qa")
 ```
+
+**Note:** Skill will extract story ID from conversation context and use deep mode validation
 
 **Expected Outcomes:**
 - Coverage meets thresholds (95%/85%/80%)
@@ -169,9 +230,17 @@ IF status != "QA Approved": HALT (QA approval mandatory)
 ```
 
 **Invoke Skill:**
+
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+- Environment: staging
+
 ```
-Skill(command="devforgeai-release --story=$ARGUMENTS --env=staging")
+Skill(command="devforgeai-release")
 ```
+
+**Note:** Skill will extract story ID from conversation context and deploy to staging environment
 
 **Expected Outcomes:**
 - Deployed to staging
@@ -213,9 +282,17 @@ IF checkpoint != "STAGING_COMPLETE": HALT
 ```
 
 **Invoke Skill:**
+
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+- Environment: production
+
 ```
-Skill(command="devforgeai-release --story=$ARGUMENTS --env=production")
+Skill(command="devforgeai-release")
 ```
+
+**Note:** Skill will extract story ID from conversation context and deploy to production environment
 
 **Expected Outcomes:**
 - Deployed to production
