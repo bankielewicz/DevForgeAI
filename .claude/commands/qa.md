@@ -1,6 +1,7 @@
 ---
 description: Run QA validation on story implementation
-argument-hint: [STORY-ID] [--mode=light|deep]
+argument-hint: [STORY-ID] [mode]
+# Mode: 'deep' or 'light' (no -- prefix)
 model: sonnet
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Bash
 ---
@@ -13,43 +14,134 @@ Execute QA validation on story implementation using light or deep mode.
 
 **Story File:**
 ```
-@.ai_docs/Stories/$ARGUMENTS.story.md
+@.ai_docs/Stories/$1.story.md
 ```
 
 ## Command Workflow
 
-### Phase 1: Parameter Parsing & Validation
+### Phase 0: Argument Validation
 
-**Extract Arguments:**
+**Extract arguments:**
 ```
-STORY-ID: First argument (required)
---mode: Optional flag (light|deep, default: deep)
-```
-
-**Parse Story Metadata:**
-1. Read story file: `.ai_docs/Stories/{STORY-ID}.story.md`
-2. Extract YAML frontmatter (id, title, status, epic, sprint)
-3. Verify story exists and is parseable
-
-**Validate Pre-Conditions:**
-```
-✓ Story file exists
-✓ Story status is "Dev Complete" (or "In Development" for light mode)
-✓ Story has acceptance criteria
-✓ Story has technical specification
+STORY_ID = $1
+MODE_ARG = $2 (optional)
 ```
 
-**Pre-Condition Error Handling:**
-- **Story not found:** Display error, suggest using /stories to list available stories
-- **Invalid status for deep mode:** Require "Dev Complete" status
-- **Missing acceptance criteria:** Block validation, request story update
+**Validate story ID format:**
+```
+IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
+  AskUserQuestion:
+  Question: "Story ID '$1' doesn't match format STORY-NNN. What story should I validate?"
+  Header: "Story ID"
+  Options:
+    - "List stories in Dev Complete status"
+    - "List stories in In Development status"
+    - "Show correct /qa command syntax"
+  multiSelect: false
 
-### Phase 2: Invoke QA Skill
+  Extract STORY_ID from user response
+```
+
+**Validate story file exists:**
+```
+Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+IF no matches found:
+  AskUserQuestion:
+  Question: "Story ${STORY_ID} not found. What should I do?"
+  Header: "Story not found"
+  Options:
+    - "List all available stories"
+    - "Cancel command"
+  multiSelect: false
+```
+
+**Parse mode argument:**
+```
+IF $2 provided:
+  IF $2 in ["deep", "light"]:
+    MODE = $2
+
+  ELSE IF $2 starts with "--mode=":
+    # User used flag syntax (educate them)
+    EXTRACTED_MODE = substring after "--mode="
+
+    IF EXTRACTED_MODE in ["deep", "light"]:
+      MODE = EXTRACTED_MODE
+
+      Note to user: "Flag syntax (--mode=) not needed. Use: /qa STORY-001 deep"
+
+    ELSE:
+      AskUserQuestion:
+      Question: "Unknown mode in flag: $2. Which validation mode?"
+      Header: "QA Mode"
+      Options:
+        - "deep (comprehensive validation ~2 min)"
+        - "light (quick checks ~30 sec)"
+      multiSelect: false
+
+  ELSE IF $2 starts with "--":
+    # Unknown flag
+    AskUserQuestion:
+    Question: "Unknown flag: $2. Which validation mode?"
+    Header: "QA Mode"
+    Options:
+      - "deep (comprehensive validation)"
+      - "light (quick checks)"
+    multiSelect: false
+
+  ELSE:
+    # Unknown value (not deep/light, not a flag)
+    AskUserQuestion:
+    Question: "Unknown mode: $2. Which validation mode?"
+    Header: "QA Mode"
+    Options:
+      - "deep (comprehensive validation)"
+      - "light (quick checks)"
+    multiSelect: false
+
+ELSE:
+  # No mode provided - use intelligent default based on story status
+  # Story content already loaded, check status from YAML frontmatter
+
+  IF story status == "Dev Complete":
+    MODE = "deep"  # Full validation before QA approval
+  ELSE IF story status == "In Development":
+    MODE = "light"  # Quick validation during development
+  ELSE:
+    # Unclear - ask user
+    AskUserQuestion:
+    Question: "No mode specified. Which validation?"
+    Header: "QA Mode"
+    Options:
+      - "deep (comprehensive - for Dev Complete stories)"
+      - "light (quick - for In Development stories)"
+    multiSelect: false
+```
+
+**Validation summary:**
+```
+✓ Story ID: ${STORY_ID}
+✓ Story file: ${STORY_FILE}
+✓ Validation mode: ${MODE}
+✓ Proceeding with QA validation...
+```
+
+---
+
+### Phase 1: Invoke QA Skill
+
+**Context for skill:**
+- Story content loaded via @file reference above
+- Story ID: ${STORY_ID}
+- Validation mode: ${MODE}
 
 **Skill Invocation:**
 ```
-Skill(command="devforgeai-qa --mode={MODE} --story={STORY-ID}")
+Skill(command="devforgeai-qa")
 ```
+
+**Note:** Skill will extract story ID from conversation context (YAML frontmatter) and mode from the explicit statement above
 
 **Mode Selection Logic:**
 - **Light Mode (~10K tokens):**

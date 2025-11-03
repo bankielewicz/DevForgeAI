@@ -15,48 +15,63 @@ Generates UI component specifications and implementation code with framework-spe
 
 ## Workflow
 
-### Phase 1: Parse Arguments and Load Context
+### Phase 0: Argument Validation
 
 **Determine argument type:**
+```
+ARG = $1
 
-```bash
-# Check if argument matches story ID pattern
-if [[ $ARGUMENTS =~ ^STORY-[0-9]+ ]]; then
-  MODE="story"
-  STORY_ID=$ARGUMENTS
-else
-  MODE="standalone"
-  COMPONENT_DESCRIPTION=$ARGUMENTS
-fi
+IF ARG matches pattern "STORY-[0-9]+":
+  MODE = "story"
+  STORY_ID = ARG
+ELSE IF ARG is empty:
+  AskUserQuestion:
+  Question: "No argument provided. What UI should I generate?"
+  Header: "UI Generation"
+  Options:
+    - "List available stories with UI requirements"
+    - "Standalone component (I'll describe it)"
+    - "Show correct /create-ui syntax"
+  multiSelect: false
+
+  Handle based on user response
+ELSE:
+  # Treat as standalone component description
+  MODE = "standalone"
+  COMPONENT_DESCRIPTION = ARG
 ```
 
-**If story mode, load story file:**
+**If story mode, validate story:**
+```
+Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
 
-```bash
-Glob(pattern=".ai_docs/Stories/${STORY_ID}.story.md")
+IF no matches found:
+  AskUserQuestion:
+  Question: "Story ${STORY_ID} not found. What should I do?"
+  Header: "Story not found"
+  Options:
+    - "List all available stories"
+    - "Use standalone mode (describe component)"
+    - "Cancel command"
+  multiSelect: false
 ```
 
-**If story file not found:**
-- Report error: "Story ${STORY_ID} not found in .ai_docs/Stories/"
-- Exit with status message: "Use /create-story to create story first"
+**Validation summary:**
+```
+IF MODE == "story":
+  ✓ Mode: Story-based UI generation
+  ✓ Story ID: ${STORY_ID}
+  ✓ Story file: ${STORY_FILE}
+ELSE:
+  ✓ Mode: Standalone UI generation
+  ✓ Component: ${COMPONENT_DESCRIPTION}
 
-**If story found, read story:**
-
-```bash
-Read(file_path=".ai_docs/Stories/${STORY_ID}.story.md")
+✓ Proceeding with UI generation...
 ```
 
-**Extract from story:**
-- Story title and description
-- Acceptance criteria (UI-specific requirements)
-- Technical specification (component details, API contracts)
-- Non-functional requirements (accessibility, performance, responsive design)
+---
 
-**If standalone mode:**
-- COMPONENT_DESCRIPTION used for skill input
-- No story file updated
-
-### Phase 2: Validate Context Files
+### Phase 1: Validate Context Files
 
 **Check for required context files:**
 
@@ -105,19 +120,30 @@ Read(file_path=".devforgeai/context/tech-stack.md")
 - Form library (React Hook Form, Formik, VeeValidate)
 - Validation library (Zod, Yup, Joi)
 
-### Phase 3: Invoke UI Generator Skill
+### Phase 2: Invoke UI Generator Skill
 
 **Execute UI generator skill:**
 
+**Prepare context for skill:**
+
 **If story mode:**
-```bash
-Skill(command="devforgeai-ui-generator --story=${STORY_ID}")
+```
+Story content already loaded via @file reference (if argument was STORY-ID)
+Story ID: ${STORY_ID}
 ```
 
 **If standalone mode:**
-```bash
-Skill(command="devforgeai-ui-generator --description=\"${COMPONENT_DESCRIPTION}\"")
 ```
+Component description: ${COMPONENT_DESCRIPTION}
+No story file associated (standalone UI generation)
+```
+
+**Invoke skill (without parameters):**
+```bash
+Skill(command="devforgeai-ui-generator")
+```
+
+**Note:** Skill will detect mode by checking conversation for story content vs component description
 
 **The UI generator skill performs its 6-phase workflow:**
 
@@ -158,7 +184,7 @@ Skill(command="devforgeai-ui-generator --description=\"${COMPONENT_DESCRIPTION}\
 - "What form validation is required?" (Real-time, On blur, On submit, Custom rules)
 - Framework-specific questions based on tech-stack.md
 
-### Phase 4: Verify Output Files
+### Phase 3: Verify Output Files
 
 **Check UI specification created:**
 
@@ -197,7 +223,7 @@ Read(file_path=".devforgeai/specs/ui/UI-SPEC-SUMMARY.md")
 - Report warning (non-critical)
 - Skill should have created it
 
-### Phase 5: Component Structure Validation
+### Phase 4: Component Structure Validation
 
 **Read generated UI specification:**
 
@@ -253,7 +279,7 @@ Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]", path=".devforgeai/
 - Report violations to user
 - Ask if should regenerate or accept
 
-### Phase 6: Success Report
+### Phase 5: Success Report
 
 **Display detailed summary:**
 

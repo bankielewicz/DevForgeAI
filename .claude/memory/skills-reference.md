@@ -48,7 +48,10 @@ Skill(command="devforgeai-architecture")
 
 **Invocation:**
 ```
-Skill(command="devforgeai-orchestration --story=STORY-001")
+# Load story first
+@.ai_docs/Stories/STORY-001.story.md
+
+Skill(command="devforgeai-orchestration")
 ```
 
 ---
@@ -64,8 +67,13 @@ Skill(command="devforgeai-orchestration --story=STORY-001")
 
 **Invocation:**
 ```
+# Story mode - load story first
+@.ai_docs/Stories/STORY-001.story.md
 Skill(command="devforgeai-ui-generator")
-Skill(command="devforgeai-ui-generator --story=STORY-001")
+
+# Standalone mode - provide description
+**Component description:** Login form with validation
+Skill(command="devforgeai-ui-generator")
 ```
 
 ---
@@ -79,7 +87,10 @@ Skill(command="devforgeai-ui-generator --story=STORY-001")
 
 **Invocation:**
 ```
-Skill(command="devforgeai-development --story=STORY-001")
+# Load story first
+@.ai_docs/Stories/STORY-001.story.md
+
+Skill(command="devforgeai-development")
 ```
 
 ---
@@ -93,8 +104,16 @@ Skill(command="devforgeai-development --story=STORY-001")
 
 **Invocation:**
 ```
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-Skill(command="devforgeai-qa --mode=light --story=STORY-001")
+# Load story first
+@.ai_docs/Stories/STORY-001.story.md
+
+# Deep validation
+**Validation mode:** deep
+Skill(command="devforgeai-qa")
+
+# Light validation
+**Validation mode:** light
+Skill(command="devforgeai-qa")
 ```
 
 ---
@@ -110,9 +129,19 @@ Skill(command="devforgeai-qa --mode=light --story=STORY-001")
 
 **Invocation:**
 ```
-Skill(command="devforgeai-release --story=STORY-001")
-Skill(command="devforgeai-release --story=STORY-001 --env=staging")
-Skill(command="devforgeai-release --story=STORY-001 --env=production")
+# Load story first
+@.ai_docs/Stories/STORY-001.story.md
+
+# Default (staging)
+Skill(command="devforgeai-release")
+
+# Explicit staging
+**Environment:** staging
+Skill(command="devforgeai-release")
+
+# Production deployment
+**Environment:** production
+Skill(command="devforgeai-release")
 ```
 
 ---
@@ -178,6 +207,49 @@ Skill(command="devforgeai-release --story=STORY-001 --env=production")
 4. devforgeai-qa
    (validate UI implementation)
 ```
+
+---
+
+---
+
+## CRITICAL: Skills Cannot Accept Parameters
+
+**From official Claude documentation:**
+> "Skills CANNOT accept command-line style parameters. All parameters are conveyed through natural language in the conversation."
+
+### How to Pass "Parameters" to Skills
+
+**❌ WRONG:**
+```
+Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+Skill(command="devforgeai-development --story=STORY-001")
+Skill(command="devforgeai-release --env=production")
+```
+
+**✅ CORRECT:**
+```
+# Step 1: Load story content into conversation
+@.ai_docs/Stories/STORY-001.story.md
+
+# Step 2: Set context with explicit statements
+**Story ID:** STORY-001
+**Validation Mode:** deep
+**Environment:** staging
+
+# Step 3: Invoke skill WITHOUT arguments
+Skill(command="devforgeai-qa")
+
+# Skill will extract story ID from YAML frontmatter in loaded story file
+# Skill will extract mode from "Validation Mode: deep" statement
+# Skill will extract environment from "Environment: staging" statement
+```
+
+### Why This Works
+
+1. **@file loads content** - Story YAML frontmatter becomes part of conversation
+2. **Explicit statements provide context** - Skills search conversation for patterns like "Mode: deep"
+3. **Skills read conversation** - Extract needed information using pattern matching
+4. **No parameter passing** - Skills operate on available conversation context only
 
 ---
 
