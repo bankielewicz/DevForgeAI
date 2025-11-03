@@ -98,6 +98,71 @@ Please ensure story is loaded via slash command or provide parameters explicitly
 
 ---
 
+## CRITICAL RULE: Protocol Adherence
+
+**ALL validation steps are MANDATORY and CANNOT be skipped.**
+
+If you are tempted to skip a validation step:
+1. **STOP immediately**
+2. **Use AskUserQuestion** to request permission from user
+3. **Document deviation** in QA report with justification
+4. **Mark QA status** as "PASSED WITH EXCEPTIONS"
+
+### PROHIBITED Shortcuts
+
+❌ **"Manual validation is equivalent to subagent validation"**
+- **Reality:** Manual validation misses multi-level deferral chains, circular deferrals, ADR requirement checks
+- **Evidence:** RCA-007 - Manual validation missed STORY-004 → STORY-005 → STORY-006 chain
+
+❌ **"Story already QA Approved, re-validation can be lighter"**
+- **Reality:** Re-validation must be thorough to catch issues missed in previous attempts
+- **Evidence:** RCA-007 - "Already approved" status created false sense of security
+
+❌ **"Token optimization justifies skipping steps"**
+- **Reality:** Quality gates cannot be bypassed for efficiency - integrity is paramount
+- **Evidence:** Token savings irrelevant if technical debt enters production
+
+❌ **"Deferral reason exists, therefore deferral is valid"**
+- **Reality:** Deferral reason must be VALIDATED (blocker verification, story reference check, ADR requirement, chain detection)
+- **Evidence:** RCA-007 - Deferral reason existed but was invalid (chain to STORY-006 which didn't include work)
+
+### Required Actions
+
+✅ **Invoke deferral-validator subagent** when deferrals exist
+- Step 2.5 is MANDATORY
+- Subagent detects issues manual validation misses (multi-level chains, missing ADRs)
+- NO manual override allowed
+
+✅ **Fail QA** if deferral validation returns CRITICAL/HIGH violations
+- Do not proceed to approval
+- Report violations to user with remediation
+
+✅ **Document all validation steps** in QA report
+- Include whether deferral-validator was invoked
+- Include validation results with evidence
+
+✅ **Use AskUserQuestion** if uncertain about protocol
+- Example: "Should I skip deferral validation for this re-validation?"
+- Do not make autonomous protocol deviation decisions
+
+### Enforcement
+
+- **Verbal reminder** in skill prompt (makes deviation explicit, not implicit)
+- **Active decision required** to deviate (not passive shortcut)
+- **Paper trail created** if deviation occurs (visible in conversation transcript)
+- **QA Validation History** tracks whether deferral-validator invoked
+- **Audit mechanisms** catch protocol deviations via `/audit-deferrals` command
+
+### Rationale
+
+This rule exists because:
+- **RCA-007:** QA skill deviated from protocol, performed manual validation instead of invoking deferral-validator
+- **Result:** Missed multi-level deferral chain (STORY-004 → STORY-005 → STORY-006), technical debt untracked, work lost
+- **Impact:** Exit code handling disappeared in broken chain, no ADR documentation, quality gate bypassed
+- **Prevention:** Make protocol adherence mandatory, not optional - automated validation prevents human error
+
+---
+
 ## Purpose
 
 Validate code quality and enforce strict standards through:
@@ -522,7 +587,24 @@ FOR each acceptance_criterion:
 
 **Enhancement:** Cross-reference with Implementation Notes "Acceptance Criteria Verification" section to see how developer verified each criterion.
 
-### Step 2.5: Validate Deferred Definition of Done Items (NEW - CRITICAL)
+### Step 2.5: Validate Deferred Definition of Done Items (MANDATORY - CANNOT SKIP)
+
+⚠️ **CRITICAL ENFORCEMENT RULE (RCA-007):**
+This step is MANDATORY and CANNOT be skipped under any circumstances.
+
+**If you are tempted to skip this step:**
+1. **STOP immediately** - Do not proceed with manual validation
+2. **Use AskUserQuestion** to request permission from user with clear justification
+3. **Document deviation** in QA report (why protocol was not followed)
+4. **Mark QA status** as "PASSED WITH EXCEPTIONS" (not standard PASSED)
+
+**PROHIBITED Shortcuts (from RCA-007):**
+❌ "Manual validation is equivalent" - It misses multi-level chains, ADR checks
+❌ "Story already approved" - Re-validation must be thorough
+❌ "Token optimization" - Cannot bypass quality for efficiency
+❌ "Reason exists = valid" - Reason must be VALIDATED
+
+---
 
 **Purpose:** Ensure all incomplete DoD items have valid technical justifications
 
@@ -538,6 +620,25 @@ FOR each incomplete item:
 **IF any incomplete DoD items found:**
 
 ```
+HALT QA validation
+
+Display to user:
+"❌ STORY-{story_id} has {count} deferred items - deferral validation REQUIRED
+
+Deferred items found:
+{list each item with its deferral reason}
+
+Invoking deferral-validator subagent (MANDATORY)...
+This automated check validates:
+- Referenced stories exist and include deferred work
+- No multi-level deferral chains (A→B→C) ← RCA-007
+- No circular deferral chains (A→B→A)
+- ADR approval for scope changes
+- Technical justification for external blockers
+- Story reference accuracy
+
+Proceeding with automated validation..."
+
 Task(
     subagent_type="deferral-validator",
     description="Validate deferral justifications for QA",
@@ -961,24 +1062,59 @@ Edit story file to add/update QA history section:
 **Results:**
 - Test Coverage: {coverage}%
 - Violations: CRITICAL: {n}, HIGH: {n}, MEDIUM: {n}, LOW: {n}
-- Deferral Validation: {PASSED/FAILED}
+- **Deferral Validation:** {INVOKED/SKIPPED} ⭐ RCA-007
+
+{IF Deferral Validation INVOKED}
+**Deferral Validation Results:**
+- **deferral-validator subagent:** ✅ Invoked (protocol followed)
+- Total deferred items: {count}
+- Validation status: {PASSED/FAILED}
+- Multi-level chains detected: {count} ← RCA-007
+- Circular chains detected: {count}
+- Invalid story references: {count}
+- Missing ADRs: {count}
+- Unnecessary deferrals: {count}
+
+{IF Deferral Validation SKIPPED}
+⚠️ **PROTOCOL VIOLATION (RCA-007):**
+- **deferral-validator subagent:** ❌ NOT invoked (manual validation only)
+- **Issue:** Mandatory protocol not followed
+- **Risk:** Multi-level chains, missing ADRs, invalid references not detected
+- **Evidence:** RCA-007 shows manual validation misses critical issues
+- **Required:** Re-validation with proper deferral-validator invocation
+
+**Action Required:**
+This QA validation is INVALID. Must re-run with proper protocol:
+1. Re-run `/qa {story_id}` (will invoke deferral-validator)
+2. Review deferral validation results
+3. Fix any violations detected
 
 {IF FAILED}
 **Deferral Issues:**
 1. {item}: {violation_type} - {severity}
    Reason: "{current_reason}"
+   Issue: {violation_message}
    Required: {remediation}
 
 **Resolution Required:**
 - {specific_actions}
-- Run /dev {story_id} to fix, then re-run /qa
+- Run `/dev {story_id}` to fix deferrals, then re-run `/qa`
 
 {IF PASSED}
 **Deferrals Validated:**
-- All {count} deferrals have valid justification
-- {count} follow-up stories created/referenced
-- {count} ADRs documented
-- {count} external blockers tracked
+- All {count} deferrals have valid technical justification
+- {count} follow-up stories created/referenced (exist and include work)
+- {count} ADRs documented (exist and reference deferrals)
+- {count} external blockers tracked (with ETAs)
+- {count} story splits (single-hop, no chains)
+
+**Validation Evidence:**
+- deferral-validator subagent invoked: ✅ (protocol followed)
+- Multi-level chain detection: {result} ← RCA-007
+- Circular chain detection: {result}
+- Story reference validation: {result}
+- ADR requirement check: {result}
+- Technical blocker verification: {result}
 ```
 
 **Track cumulative metrics:**

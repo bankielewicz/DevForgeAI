@@ -169,7 +169,9 @@ ELSE:
             message: "{ADR_REF} doesn't describe deferral of '{ITEM}'"
 ```
 
-### Substep 6: Detect Circular Deferrals
+### Substep 6: Detect Circular and Multi-Level Deferral Chains
+
+⭐ **ENHANCED (RCA-007):** Now detects both circular (A→B→A) AND multi-level (A→B→C) chains
 
 IF reason contains "Deferred to STORY-{XXX}":
 ```
@@ -181,35 +183,66 @@ IF reason contains "Deferred to STORY-{XXX}":
            type: "Invalid story reference"
            severity: "HIGH"
            message: "Referenced STORY-{XXX} does not exist"
+           remediation: "Create STORY-{XXX} OR update deferral reference OR complete work in current story"
 
 2. Read referenced story:
-   Check story status
+   Read(file_path=".ai_docs/Stories/STORY-{XXX}*.md")
+   Extract YAML frontmatter and status
 
    IF status is "Dev Complete" or "QA Approved":
-       # Story already implemented, check what happened
-       Read Implementation Notes > DoD Status
+       # Story already implemented, check what happened to deferred work
+       Read Implementation Notes > DoD Status section
 
-       Search for incomplete items
+       Search for incomplete items marked [ ]
 
-       FOR each incomplete item in referenced story:
+       FOR each incomplete item in referenced story (STORY-{XXX}):
+           Extract item description and deferral reason
+
+           # CHECK 1: Circular deferral (STORY-XXX → current_story_id)
            IF reason contains "Deferred to {current_story_id}":
                VIOLATION:
                    type: "Circular deferral detected"
                    severity: "CRITICAL"
                    chain: "{current_story_id} → STORY-{XXX} → {current_story_id}"
-                   message: "Circular deferral chain detected"
+                   message: "Circular deferral chain detected - work loops back to original story"
+                   evidence: "Current story defers to STORY-{XXX}, but STORY-{XXX} defers back"
                    remediation: "One story must own this work - break the cycle by implementing in one story"
 
-3. Check if referenced story includes work:
-   Search acceptance criteria for {ITEM} keywords
-   Search technical spec for {ITEM} keywords
+           # CHECK 2: Multi-level deferral chain (STORY-XXX → STORY-YYY) ← RCA-007 NEW
+           IF reason contains "Deferred to STORY-":
+               Extract target_story_id from reason (STORY-YYY)
 
-   IF not found anywhere:
+               # Check if item description matches current deferred item
+               IF item_description matches {ITEM} (keyword similarity >70%):
+                   VIOLATION:
+                       type: "Multi-level deferral chain detected"
+                       severity: "CRITICAL"
+                       chain: "{current_story_id} → STORY-{XXX} → {target_story_id}"
+                       message: "Work deferred multiple times creates broken chain. Deferral chains >1 level are PROHIBITED."
+                       rationale: "Each additional deferral level increases risk of lost work (RCA-007: STORY-004 → STORY-005 → STORY-006)"
+                       evidence:
+                           - "Current story ({current_story_id}) defers '{ITEM}' to STORY-{XXX}"
+                           - "STORY-{XXX} also defers similar work to {target_story_id}"
+                           - "This creates 2-hop chain (risk of work being lost)"
+                       remediation: "Either:
+                                    1. STORY-{XXX} must implement the work (no further deferral) OR
+                                    2. Create ADR-{N} justifying why work spans 3+ stories OR
+                                    3. Complete work in current story ({current_story_id})"
+
+3. Check if referenced story (STORY-{XXX}) includes deferred work:
+   Extract item keywords from current story's deferred item
+   Search STORY-{XXX} acceptance criteria for keywords
+   Search STORY-{XXX} technical specification for keywords
+
+   IF keywords NOT found in STORY-{XXX}:
        VIOLATION:
-           type: "Referenced story doesn't include work"
+           type: "Referenced story missing deferred work"
            severity: "HIGH"
-           message: "STORY-{XXX} has no mention of '{ITEM}' in scope"
-           remediation: "Update STORY-{XXX} OR complete work in current story"
+           message: "STORY-{XXX} does not include work deferred from {current_story_id}"
+           item: "{ITEM}"
+           keywords_searched: {list keywords extracted from item}
+           evidence: "Searched STORY-{XXX} acceptance criteria and technical spec - no matches found"
+           remediation: "Add work to STORY-{XXX} acceptance criteria OR update deferral reference OR complete in current story"
 ```
 
 ### Substep 7: Generate Validation Report
