@@ -151,7 +151,7 @@ IF STORY-XXX has incomplete items:
 
 **ADR Required?** YES (always for scope changes)
 
-**Reference:** See `.devforgeai/adrs/README.md` for ADR policy and templates
+**Reference:** See devforgeai-architecture skill references (`adr-policy.md`) for complete ADR policy and deferral requirements
 
 ---
 
