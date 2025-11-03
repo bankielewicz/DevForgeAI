@@ -287,7 +287,7 @@ Chain: current → STORY-XXX → STORY-YYY
 
 ### 7. Deferral Decision Tree Reference ✅
 
-**File:** `.devforgeai/qa/deferral-decision-tree.md` (created - 385 lines)
+**File:** `.claude/skills/devforgeai-qa/references/deferral-decision-tree.md` (created - 385 lines)
 
 **Content:**
 - Step-by-step decision flowchart
@@ -595,7 +595,7 @@ IF reason contains "Deferred to STORY-":
 
 ### When Creating Deferrals
 
-1. **Reference decision tree** - `.devforgeai/qa/deferral-decision-tree.md`
+1. **Reference decision tree** - See devforgeai-qa skill references (`deferral-decision-tree.md`)
 2. **Use valid patterns** - "Deferred to STORY-XXX: {reason}" with justification
 3. **Create ADR for scope changes** - If descoping original work
 4. **Avoid deferral chains** - Implement in first target story (no A→B→C)
@@ -612,8 +612,8 @@ IF reason contains "Deferred to STORY-":
 ## Related Documents
 
 - **RCA-006:** `.devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md`
-- **ADR Policy:** `.devforgeai/adrs/README.md`
-- **Decision Tree:** `.devforgeai/qa/deferral-decision-tree.md`
+- **ADR Policy:** `.claude/skills/devforgeai-architecture/references/adr-policy.md`
+- **Decision Tree:** `.claude/skills/devforgeai-qa/references/deferral-decision-tree.md`
 - **Audit Command:** `.claude/commands/audit-deferrals.md`
 - **QA Skill:** `.claude/skills/devforgeai-qa/SKILL.md`
 - **Deferral-Validator:** `.claude/agents/deferral-validator.md`
