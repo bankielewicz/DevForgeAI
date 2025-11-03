@@ -714,8 +714,16 @@ FOR each DoD item in story acceptance criteria:
         Mark: [ ] {item} - Blocked by: {blocker_description}
 
         # Log to technical debt register
-        Read or create: .devforgeai/technical-debt-register.md
-        Append:
+
+        # Auto-create from template if doesn't exist
+        Check if .devforgeai/technical-debt-register.md exists
+        IF not found:
+            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
+            Write(.devforgeai/technical-debt-register.md, content=template)
+            Display: "Created technical debt register from template"
+
+        Read .devforgeai/technical-debt-register.md
+        Append to "Open Debt Items" section:
             "- {item} (from {story_id}): Blocked by {blocker_description} | Date: {date} | Status: Open"
         ```
 ```

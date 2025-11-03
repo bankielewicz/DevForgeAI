@@ -38,7 +38,14 @@ Read from conversation context or default sources:
 #### Phase 1: Inventory Technical Debt
 
 ```
-Read technical-debt-register.md
+# Auto-create debt register from template if doesn't exist
+Check if .devforgeai/technical-debt-register.md exists
+IF not found:
+    Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
+    Write(.devforgeai/technical-debt-register.md, content=template)
+    Display: "Created technical debt register from template (empty inventory)"
+
+Read .devforgeai/technical-debt-register.md
 
 Parse all open debt items:
 FOR each debt entry:
