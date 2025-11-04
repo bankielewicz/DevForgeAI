@@ -577,6 +577,12 @@ Use Edit tool to add "## Implementation Notes" section (before "## Related Stori
 
 **For EACH DoD item, validate completion status:**
 
+<deferral_enforcement>
+  <policy>ZERO autonomous deferrals allowed</policy>
+  <mechanism>AskUserQuestion MANDATORY for all incomplete items</mechanism>
+  <violation_consequence>Git commit BLOCKED until user approval obtained</violation_consequence>
+</deferral_enforcement>
+
 ```
 FOR each DoD item in story acceptance criteria:
     IF item is complete:
@@ -584,6 +590,12 @@ FOR each DoD item in story acceptance criteria:
 
     ELSE:
         # Item not complete - MUST get user approval to defer
+
+        <halt_condition>
+          <trigger>Incomplete DoD item detected</trigger>
+          <item>'{item}'</item>
+          <action>MANDATORY AskUserQuestion - CANNOT SKIP</action>
+        </halt_condition>
 
         AskUserQuestion:
             Question: "DoD item not complete: '{item}'. How should we proceed?"
@@ -728,18 +740,38 @@ FOR each DoD item in story acceptance criteria:
         ```
 ```
 
-**After ALL DoD items processed, display summary:**
+**After ALL DoD items processed, validate and display summary:**
+
+<validation_checkpoint>
+  <requirement>Every incomplete DoD item MUST have user-approved justification</requirement>
+  <check>Verify AskUserQuestion was invoked for each deferral</check>
+  <action_on_failure>HALT git commit - return to deferral resolution</action_on_failure>
+</validation_checkpoint>
 
 ```
-Display:
-"Definition of Done Status:
- - Complete: {complete_count}/{total_count}
- - Deferred: {deferred_count}
-   - Story splits: {story_split_count} (follow-up stories created/referenced)
-   - Scope changes: {scope_change_count} (ADRs created/referenced)
-   - External blockers: {blocker_count} (tracked in tech debt register)
+# Final enforcement check
+IF any deferred item lacks user interaction approval:
+    <error_condition>
+      <type>PROTOCOL_VIOLATION</type>
+      <message>Cannot proceed to git commit: Deferrals require user approval via AskUserQuestion</message>
+      <resolution>Return to Phase 5 Step 1b and execute AskUserQuestion for each incomplete item</resolution>
+    </error_condition>
 
-All deferrals have user approval and proper justification ✓"
+    HALT development
+    Display: "❌ ERROR: Autonomous deferrals detected. User approval required for all incomplete DoD items."
+    DO NOT proceed to Step 1.5 (deferral validation)
+
+ELSE:
+    Display:
+    "Definition of Done Status:
+     - Complete: {complete_count}/{total_count}
+     - Deferred: {deferred_count}
+       - Story splits: {story_split_count} (follow-up stories created/referenced)
+       - Scope changes: {scope_change_count} (ADRs created/referenced)
+       - External blockers: {blocker_count} (tracked in tech debt register)
+
+    All deferrals have user approval and proper justification ✓
+    Proceeding to automated deferral validation..."
 ```
 
 ### Key Implementation Decisions
@@ -816,7 +848,13 @@ All deferrals have user approval and proper justification ✓"
 
 ---
 
-#### Step 1.5: Validate Deferrals (NEW - CRITICAL)
+#### Step 1.5: Validate Deferrals (CRITICAL - Automated Quality Gate)
+
+<automated_validation>
+  <purpose>Prevent technical debt from unjustified deferrals</purpose>
+  <trigger>Any DoD items marked [ ] (incomplete)</trigger>
+  <enforcement>BLOCKS git commit on CRITICAL/HIGH violations</enforcement>
+</automated_validation>
 
 **Purpose:** Automated validation of deferral justifications before git commit
 
@@ -844,6 +882,12 @@ Task(
 Parse validation results from subagent
 
 IF validation returns CRITICAL or HIGH violations:
+    <failure_condition>
+      <severity>BLOCKING</severity>
+      <action>HALT development - git commit forbidden</action>
+      <resolution>Fix violations OR complete deferred work</resolution>
+    </failure_condition>
+
     Display:
     "❌ Deferral Validation FAILED
 
@@ -864,6 +908,11 @@ IF validation returns CRITICAL or HIGH violations:
     User must fix deferrals first
 
 ELSE IF validation returns only MEDIUM violations:
+    <warning_condition>
+      <severity>NON_BLOCKING</severity>
+      <action>Warn user, allow commit to proceed</action>
+    </warning_condition>
+
     Display:
     "⚠️ Deferral Validation WARNINGS
 
@@ -875,6 +924,11 @@ ELSE IF validation returns only MEDIUM violations:
     Proceed to Step 2 (commit allowed)
 
 ELSE:
+    <success_condition>
+      <result>All deferrals properly justified</result>
+      <action>Proceed to git commit</action>
+    </success_condition>
+
     Display: "✓ All deferrals validated - properly justified"
     Proceed to Step 2
 ```
