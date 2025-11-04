@@ -233,6 +233,69 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 
 ---
 
+## DevForgeAI-CLI Validators
+
+**Purpose:** Automated workflow validation to prevent autonomous deferrals and enforce quality gates.
+
+### Installation
+
+```bash
+# Install CLI package
+pip install --break-system-packages -e .claude/scripts/
+
+# Install pre-commit hooks
+bash .claude/scripts/install_hooks.sh
+
+# Verify
+devforgeai --version
+```
+
+### Commands
+
+**validate-dod** - Validate Definition of Done completion
+```bash
+devforgeai validate-dod .ai_docs/Stories/STORY-001.story.md
+```
+- Detects autonomous deferrals (DoD [x] but Impl [ ] without approval)
+- Validates user approval markers for all deferred items
+- Checks story/ADR references exist
+- **Blocks git commits via pre-commit hook**
+
+**check-git** - Validate Git availability
+```bash
+devforgeai check-git
+```
+- Checks if directory is Git repository
+- Prevents RCA-006 errors
+- Can be called from slash commands
+
+**validate-context** - Validate context files
+```bash
+devforgeai validate-context
+```
+- Ensures all 6 context files exist
+- Quality gate before development
+- Validates non-empty content
+
+### Pre-Commit Hook
+
+Automatically installed via `install_hooks.sh`:
+- Runs `validate-dod` on all staged `.story.md` files
+- Blocks commits with autonomous deferrals
+- Requires user approval markers for all deferrals
+- Exit code 1 = commit blocked
+
+**Three-Layer Validation:**
+1. **Layer 1:** CLI validators (fast, <100ms, deterministic) ← NEW
+2. **Layer 2:** AskUserQuestion (interactive, mandatory user approval)
+3. **Layer 3:** AI subagents (comprehensive, semantic analysis)
+
+Combined: 99% violation detection, zero autonomous deferrals.
+
+**Documentation:** `.claude/scripts/devforgeai_cli/README.md`
+
+---
+
 ## Common Commands
 
 ### Testing

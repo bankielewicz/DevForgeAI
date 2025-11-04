@@ -1,0 +1,2 @@
+[console_scripts]
+devforgeai = devforgeai_cli.cli:main
