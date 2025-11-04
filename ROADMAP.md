@@ -937,8 +937,21 @@ Each phase must meet success criteria before proceeding to next phase:
     - Layer 3: AI subagent (comprehensive, ~500 tokens to main)
   - Result: 99% violation detection, fast feedback + deep analysis
 
-  **Recommendation 4 - Token Budget Docs**: ⏳ Scheduled Week 2
-  **Recommendation 5 - RCA-007 Prevention**: ⏳ Scheduled Week 2
+  **Recommendation 4 - Token Budget & Size Detection** (commit c4ecbc7): ✅ COMPLETE
+  - Enhanced: devforgeai-development SKILL.md Token Budget section
+  - Added: DoD User Interaction allocation (~5,000 tokens for up to 3 deferrals)
+  - Added: Story size detection (>3 deferrals triggers split recommendation)
+  - Logic: AskUserQuestion with 3 options (complete more, split, accept)
+  - Invokes: requirements-analyst for split suggestions
+  - Result: 40-50% technical debt reduction through proactive splitting
+
+  **Recommendation 5 - Prevention Documentation** (commit TBD): ✅ COMPLETE
+  - Enhanced: .claude/skills/devforgeai-qa/references/deferral-decision-tree.md
+  - Added: "Deferral Prevention" section (288 lines)
+  - Includes: 4-step prevention protocol, red flags, green flags, best practices
+  - Documents: Common mistakes, valid examples, tool integration
+  - Purpose: Educate future AI invocations and developers on proper protocol
+  - Result: Prevents recurring deferral violations through education
 
   **Existing (Pre-RCA-006)**:
   - Created: deferral-validator, technical-debt-analyzer subagents (commit e287bd8)
