@@ -20,6 +20,49 @@ This is **DevForgeAI**, a spec-driven development framework designed to enable A
 
 ---
 
+## Prerequisites
+
+### Git Repository Requirement
+
+DevForgeAI workflows require Git initialization for version control and change tracking.
+
+**Initialize Git:**
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+**Commands requiring Git:**
+- `/dev` - Development workflow (TDD cycle)
+- `/qa` - Quality assurance (validation)
+- `/release` - Deployment (production)
+- `/orchestrate` - Full lifecycle (dev → qa → release)
+
+**Commands Git-independent:**
+- `/ideate` - Requirements gathering
+- `/create-context` - Architecture setup (auto-initializes Git if empty repo)
+- `/create-story` - Story generation
+- `/create-epic` - Epic planning
+- `/create-sprint` - Sprint planning
+
+**File-Based Fallback:**
+
+If Git is not available, DevForgeAI automatically uses file-based change tracking:
+- Changes documented in `.devforgeai/stories/{STORY-ID}/changes/`
+- Manual file organization required
+- Full version control features disabled
+- Recommended: Initialize Git for best experience
+
+**Error Prevention:**
+
+The `/dev` command checks `<env>` context for Git availability before execution:
+- If Git missing → Clear error message with resolution steps
+- If Git available → Full TDD workflow with version control
+- No cryptic Git errors exposed to users
+
+---
+
 ## Critical Rules - ALWAYS Follow
 
 ### 1. Technology Decisions

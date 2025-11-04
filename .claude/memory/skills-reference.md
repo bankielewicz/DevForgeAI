@@ -94,6 +94,16 @@ Skill(command="devforgeai-ui-generator")
 - Refactoring while maintaining specs
 - Resolving QA deferral failures (NEW - RCA-006)
 
+**Prerequisites:**
+- ✅ Git repository initialized (recommended, not required)
+- ✅ Context files exist (.devforgeai/context/*.md)
+- ✅ Story file exists (.ai_docs/Stories/{STORY-ID}.story.md)
+
+**Git Availability:**
+- **With Git:** Full workflow (branch management, commits, version control)
+- **Without Git:** File-based tracking (changes documented in story artifacts)
+- **Auto-detects:** Skill automatically checks Git availability and adapts workflow
+
 **Invocation:**
 ```
 # Load story first
@@ -103,6 +113,9 @@ Skill(command="devforgeai-development")
 ```
 
 **Key Features (RCA-006 Enhanced):**
+- **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
+- Same TDD cycle regardless of version control system
+- Clear warnings when Git features disabled
 - Requires **AskUserQuestion for ALL deferrals** (4 options: complete now, defer to story, scope change, external blocker)
 - Invokes **deferral-validator** subagent (Phase 6.1.5) before git commit - HALTS on CRITICAL/HIGH violations
 - Handles **QA deferral failures** (detects previous QA failures, guides resolution workflow)
