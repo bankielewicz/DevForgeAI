@@ -772,6 +772,190 @@ ELSE:
 
     All deferrals have user approval and proper justification ✓
     Proceeding to automated deferral validation..."
+
+# Story Size Detection (RCA-006 Rec 4)
+IF deferred_count > 3:
+    <story_size_warning>
+      <trigger>More than 3 deferred DoD items detected</trigger>
+      <threshold>Maximum recommended: 3 deferrals per story</threshold>
+      <implication>Excessive deferrals suggest story scope too large or poorly defined</implication>
+      <action>Recommend story splitting for better focus and reduced technical debt</action>
+    </story_size_warning>
+
+    Display:
+    "⚠️  STORY SIZE WARNING
+
+     This story has {deferred_count} deferred DoD items.
+     Recommended maximum: 3 deferrals
+
+     Excessive deferrals indicate:
+     - Story scope may be too large
+     - Work is fragmented across multiple follow-up stories
+     - Risk of deferral chains (A→B→C)
+
+     Consider splitting into focused stories to reduce technical debt."
+
+    AskUserQuestion:
+        Question: "Story has {deferred_count} deferrals (max 3 recommended). How should we proceed?"
+        Header: "Story Size"
+        Options:
+            - "Complete more items now (reduce deferrals by implementing additional work)"
+            - "Split story (AI will analyze and suggest focused splits)"
+            - "Accept as-is (I'll document reason: legacy refactor, infrastructure, etc.)"
+        multiSelect: false
+
+    BASED ON USER SELECTION:
+
+    **Option 1: "Complete more items now"**
+    ```
+    Display: "Returning to implementation to complete additional DoD items..."
+
+    AskUserQuestion:
+        Question: "Which deferred items should we complete now?"
+        Header: "Items to complete"
+        Options:
+            [List each deferred item as option]
+        multiSelect: true  # Allow selecting multiple
+
+    selected_items = user_response
+
+    FOR each selected_item:
+        Display: "Implementing: {selected_item}"
+        # Return to Phase 2 (Implementation) for this item
+        # After implementation, return to DoD validation
+
+    # After implementing selected items:
+    Display: "✓ Additional items complete. Reduced deferrals from {original_count} to {new_count}"
+
+    # Re-run DoD validation to update counts
+    ```
+
+    **Option 2: "Split story (AI will analyze)"**
+    ```
+    Display: "Analyzing story for split opportunities..."
+
+    Task(
+        subagent_type="requirements-analyst",
+        description="Suggest story split",
+        prompt="Analyze current story for splitting recommendations:
+
+                Story ID: {current_story_id}
+                Story Points: {story_points}
+                Total DoD Items: {total_count}
+                Complete: {complete_count}
+                Deferred: {deferred_count}
+
+                Deferred items:
+                {list each deferred item with justification}
+
+                Analyze and suggest:
+                1. Natural groupings of deferred work
+                2. Core story (keep in current) vs extensions (move to child stories)
+                3. Recommended split: 2-3 focused child stories
+                4. Story points distribution
+
+                Use splitting techniques:
+                - By operations (CRUD splits)
+                - By quality attributes (functionality vs performance)
+                - By testing scope (unit vs integration vs platform)
+
+                Return:
+                - Recommended split approach
+                - Child story titles and scope
+                - Acceptance criteria distribution
+                - Story points for each child"
+    )
+
+    split_recommendations = extract from subagent response
+
+    Display:
+    "Split Recommendations:
+
+     {format split recommendations from subagent}
+
+     Option A: {approach_1}
+       - STORY-{current}: {core_work} ({points} points) - KEEP
+       - STORY-{new_1}: {extension_1} ({points} points) - NEW
+       - STORY-{new_2}: {extension_2} ({points} points) - NEW
+
+     Option B: {approach_2}
+       [Alternative split...]"
+
+    AskUserQuestion:
+        Question: "Which split approach should we use?"
+        Header: "Split Strategy"
+        Options:
+            - "Option A ({count} stories)"
+            - "Option B ({count} stories)"
+            - "Custom (I'll specify different split)"
+            - "Cancel (keep original story)"
+        multiSelect: false
+
+    IF user approves split:
+        FOR each child story in approved split:
+            Task(
+                subagent_type="requirements-analyst",
+                description="Create child story from split",
+                prompt="Create focused child story:
+
+                        Parent Story: {current_story_id}
+                        Child Title: {child_title}
+                        Acceptance Criteria: {subset_criteria}
+                        Story Points: {child_points}
+
+                        Set:
+                        - prerequisite_stories: [{current_story_id}]
+                        - epic: {current_epic}
+                        - sprint: Backlog (for future sprint)
+                        - status: Backlog
+                        - priority: {inherit from parent}
+
+                        Return new story ID and file path."
+            )
+
+            new_story_id = extract from subagent
+            Display: "✓ Created {new_story_id}: {child_title}"
+
+        # Update current story with split references
+        Edit current story Implementation Notes:
+        Add: "Story split on {date} due to size ({deferred_count} deferrals)
+
+              Child stories:
+              - {new_story_1}: {title} ({points} points)
+              - {new_story_2}: {title} ({points} points)
+
+              Rationale: Reduce deferral chains, create focused stories"
+
+        Display: "✓ Story split complete. Current story focused, {count} child stories created."
+
+    ELSE:
+        Display: "Split cancelled. Continuing with original story."
+    ```
+
+    **Option 3: "Accept as-is (document reason)"**
+    ```
+    AskUserQuestion:
+        Question: "Provide reason for accepting {deferred_count} deferrals (>3 max):"
+        Header: "Justification"
+        # User provides free-form text
+        # Example: "Legacy code refactor - inherently large scope"
+        # Example: "Infrastructure story - many system touchpoints required"
+
+    reason = user_input
+
+    Edit current story Implementation Notes:
+    Add: "## Story Size Exception
+
+          Deferrals: {deferred_count} (exceeds recommended maximum of 3)
+
+          Justification: {reason}
+
+          Acknowledged: Story size accepted with documented reason"
+
+    Display: "✓ Story size exception documented. Proceeding with {deferred_count} deferrals."
+    ```
+
+ENDIF (deferred_count > 3 check)
 ```
 
 ### Key Implementation Decisions
@@ -1178,7 +1362,21 @@ Breakdown:
 - Test design & writing: ~15,000 tokens
 - Implementation: ~30,000 tokens
 - Refactoring & validation: ~20,000 tokens
-- Documentation updates: ~10,000 tokens
+- Documentation updates: ~5,000 tokens
+- **DoD User Interaction: ~5,000 tokens** ← NEW (RCA-006 Rec 4)
+  - Budgeted for AskUserQuestion dialogs (up to 3 deferrals)
+  - Includes user response processing and justification documentation
+  - Includes follow-up story/ADR creation via subagents
+
+**Story Size Guideline (RCA-006 Rec 4):**
+
+<story_size_constraint>
+  <threshold>3 incomplete DoD items (deferrals)</threshold>
+  <recommendation>If >3 deferrals detected, suggest story splitting</recommendation>
+  <rationale>Excessive deferrals indicate story scope too large or poorly defined</rationale>
+</story_size_constraint>
+
+**If >3 deferrals:** Story likely too large, recommend splitting via requirements-analyst subagent
 
 **Using native tools saves 40-73% vs Bash commands**
 
