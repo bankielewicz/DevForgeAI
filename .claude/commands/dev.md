@@ -312,19 +312,70 @@ Skill(command="devforgeai-development")
 
 ---
 
-### Phase 2.5: Definition of Done Validation Checkpoint (MANDATORY)
+### Phase 2.5: Definition of Done Validation (Three-Layer Defense)
 
-<critical_checkpoint>
-  <enforcement>Git commit BLOCKED until DoD validation passes</enforcement>
-  <purpose>Prevent autonomous deferrals - require user approval for all incomplete items</purpose>
-  <mechanism>External task file with comprehensive validation logic</mechanism>
-</critical_checkpoint>
+<defense_in_depth>
+  <architecture>Three-layer validation: Fast → Interactive → Comprehensive</architecture>
+  <layer_1>Python format validator (~200 tokens, non-blocking warnings)</layer_1>
+  <layer_2>Interactive user approval checkpoint (MANDATORY, blocking)</layer_2>
+  <layer_3>AI subagent comprehensive analysis (MANDATORY, blocking on violations)</layer_3>
+  <enforcement>Git commit BLOCKED until all layers pass</enforcement>
+  <token_cost>~7,700 total (~200 + ~7,000 + ~500 from subagent summary)</token_cost>
+</defense_in_depth>
 
-**Execute DoD validation task:**
+**Purpose:** Prevent autonomous deferrals through layered validation and mandatory user interaction.
 
-The devforgeai-development skill has completed implementation and updated the story file with Implementation Notes (Phase 5 Step 1b). Before allowing git commit, we MUST validate all incomplete Definition of Done items have user-approved justifications.
+The devforgeai-development skill has completed implementation and updated the story file with Implementation Notes (Phase 5 Step 1b). Before allowing git commit, we execute three validation layers.
 
-**Load and execute validation checkpoint:**
+---
+
+#### Phase 2.5a: Layer 1 - Quick Format Check (Speed Optimization)
+
+<layer_1_validation>
+  <purpose>Fast feedback - catch 80% of format errors in <100ms</purpose>
+  <blocking>No (warnings only, non-blocking)</blocking>
+  <token_cost>~200 tokens</token_cost>
+  <efficiency>Python stdlib (not Bash file operations) per native tools research</efficiency>
+</layer_1_validation>
+
+**Run lightweight format validator:**
+
+```bash
+# Bash usage compliant: Executing Python script (terminal operation, not file operation)
+# Per native tools research: "Reserve Bash for terminal operations (pytest, npm test)"
+# Python script execution is analogous to test execution
+
+Bash(command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet")
+```
+
+**Result handling:**
+```
+exit_code = $?
+
+# format-only mode always exits 0 (non-blocking warnings)
+# --quiet suppresses output (minimal tokens)
+
+Display: "✓ Layer 1: Quick format check complete (<100ms)"
+```
+
+**If violations detected:** Script outputs warnings but exits 0 (non-blocking)
+
+**Purpose:** Instant feedback for developers - catches obvious format errors before user interaction
+
+**Always proceed to Layer 2** (checkpoint is authoritative)
+
+---
+
+#### Phase 2.5b: Layer 2 - Interactive User Approval (MANDATORY - BLOCKING)
+
+<layer_2_validation>
+  <purpose>ZERO autonomous deferrals - require user approval for ALL incomplete items</purpose>
+  <blocking>Yes (MANDATORY checkpoint, cannot skip)</blocking>
+  <token_cost>~7,000 tokens (user interaction)</token_cost>
+  <efficiency>Uses native Grep (60% savings) and Edit tools (75% savings)</efficiency>
+</layer_2_validation>
+
+**Execute comprehensive interactive checkpoint:**
 
 See: @.claude/tasks/dod-validation-checkpoint.md
 
@@ -333,20 +384,72 @@ See: @.claude/tasks/dod-validation-checkpoint.md
 - **STORY_FILE:** .ai_docs/Stories/${STORY_ID}*.story.md (already loaded in conversation)
 
 The task file will:
-1. Extract all incomplete DoD items (using Grep)
-2. Require AskUserQuestion for EACH unjustified item
-3. Create follow-up stories or ADRs as user directs
-4. Update story file with justifications
+1. Extract all incomplete DoD items (using native Grep tool)
+2. Require AskUserQuestion for EACH unjustified item (4 options)
+3. Create follow-up stories or ADRs as user directs (via subagents)
+4. Update story file with justifications (using native Edit tool)
 5. Block git commit if any items lack user approval
 
 **This checkpoint CANNOT be skipped.**
 
 **Expected outcomes:**
-- ✅ All incomplete items have user-approved justifications → Proceed to Phase 3
+- ✅ All incomplete items have user-approved justifications → Proceed to Layer 3
 - ❌ Items lack justification → HALT, user must approve deferrals
 - 🔄 User chose "Complete it now" → Return to skill for implementation
 
-**After checkpoint completes successfully, proceed to Phase 3.**
+---
+
+#### Phase 2.5c: Layer 3 - AI Comprehensive Validation (Automatic)
+
+<layer_3_validation>
+  <purpose>Deep analysis - feasibility checks, circular detection, reference validation</purpose>
+  <blocking>Yes (blocks on CRITICAL/HIGH violations)</blocking>
+  <token_cost>~500 tokens to main conversation (subagent runs in isolated context)</token_cost>
+  <efficiency>Subagent context isolation - 5K tokens in separate window, only summary affects main</efficiency>
+</layer_3_validation>
+
+**Automatically executed by devforgeai-development skill Phase 5 Step 1.5:**
+
+After Layer 2 (user approval) completes, the skill automatically invokes:
+
+```
+Task(
+    subagent_type="deferral-validator",
+    description="Validate deferral justifications",
+    prompt="Comprehensive validation of all deferred DoD items..."
+)
+```
+
+**The subagent validates:**
+- Implementation feasibility (could be done now?)
+- Circular deferrals (A→B→A chains)
+- Story references exist and include work
+- ADR references exist and document item
+- Technical blockers are truly external
+
+**IF subagent returns CRITICAL or HIGH violations:**
+```
+HALT development
+Display: "❌ Deferral validation FAILED (Layer 3)
+
+         Comprehensive AI analysis detected issues:
+         {list violations}
+
+         Fix violations before git commit allowed."
+
+DO NOT proceed to Phase 3
+User must resolve violations via /dev command re-run
+```
+
+**IF subagent returns only MEDIUM/LOW violations or PASS:**
+```
+Display: "✓ Layer 3: Comprehensive validation complete"
+Proceed to Phase 3 (verify completion)
+```
+
+---
+
+**After all three layers pass: Proceed to Phase 3.**
 
 ---
 
