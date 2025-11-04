@@ -310,6 +310,46 @@ Skill(command="devforgeai-development")
 
 **Skill execution is comprehensive - no additional work needed in command**
 
+---
+
+### Phase 2.5: Definition of Done Validation Checkpoint (MANDATORY)
+
+<critical_checkpoint>
+  <enforcement>Git commit BLOCKED until DoD validation passes</enforcement>
+  <purpose>Prevent autonomous deferrals - require user approval for all incomplete items</purpose>
+  <mechanism>External task file with comprehensive validation logic</mechanism>
+</critical_checkpoint>
+
+**Execute DoD validation task:**
+
+The devforgeai-development skill has completed implementation and updated the story file with Implementation Notes (Phase 5 Step 1b). Before allowing git commit, we MUST validate all incomplete Definition of Done items have user-approved justifications.
+
+**Load and execute validation checkpoint:**
+
+See: @.claude/tasks/dod-validation-checkpoint.md
+
+**Context for task:**
+- **STORY_ID:** ${STORY_ID}
+- **STORY_FILE:** .ai_docs/Stories/${STORY_ID}*.story.md (already loaded in conversation)
+
+The task file will:
+1. Extract all incomplete DoD items (using Grep)
+2. Require AskUserQuestion for EACH unjustified item
+3. Create follow-up stories or ADRs as user directs
+4. Update story file with justifications
+5. Block git commit if any items lack user approval
+
+**This checkpoint CANNOT be skipped.**
+
+**Expected outcomes:**
+- ✅ All incomplete items have user-approved justifications → Proceed to Phase 3
+- ❌ Items lack justification → HALT, user must approve deferrals
+- 🔄 User chose "Complete it now" → Return to skill for implementation
+
+**After checkpoint completes successfully, proceed to Phase 3.**
+
+---
+
 ### Phase 3: Verify Completion
 
 **Check skill execution success:**
