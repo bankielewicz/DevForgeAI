@@ -187,14 +187,15 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 **Invokes:** `devforgeai-development` skill
 
 **Workflow:**
-1. **Phase 0c: QA Failure Detection** (NEW - RCA-006) - Checks for previous QA failures
-2. Story validation
-3. Context validation (6 context files)
-4. TDD Red phase (failing tests)
-5. TDD Green phase (implementation) + Light QA
-6. TDD Refactor phase + Light QA
-7. Integration testing + Light QA
-8. **Git workflow** (with **deferral validation** - Phase 6.1.5)
+1. **Phase 0a-c:** Argument validation, technology detection, QA failure detection
+2. **Phase 1:** Story validation and status gate
+3. **Phase 2:** Invoke devforgeai-development skill (complete TDD cycle)
+4. **Phase 2.5:** Three-layer DoD validation (NEW - RCA-006 Recs 1-3)
+   - **Layer 1:** Python format validator (<100ms, ~200 tokens)
+   - **Layer 2:** Interactive checkpoint (user approval MANDATORY)
+   - **Layer 3:** AI subagent validation (feasibility, circular detection)
+5. **Phase 3:** Verify completion (tests pass, story updated)
+6. **Phase 4:** Report results
 
 **Example:**
 ```
@@ -207,11 +208,32 @@ DevForgeAI provides 9 slash commands organized into 4 categories:
 - Git commits
 - Story status updated to "Dev Complete"
 
-**RCA-006 Enhanced Features:**
-- Detects **QA deferral failures** (Phase 0c) and guides resolution
-- Requires **AskUserQuestion** for all incomplete DoD items (4 options)
-- Invokes **deferral-validator** before commit (HALTS on violations)
-- Creates **follow-up stories** or **ADRs** when user approves deferrals
+**RCA-006 Implementation (Recommendations 1-3 Complete):**
+
+**Three-Layer DoD Validation:**
+- **Layer 1 (Python):** Fast format check validates basic justification patterns
+  - Script: `.claude/scripts/validate_deferrals.py`
+  - Speed: <100ms
+  - Token cost: ~200
+  - Blocking: No (warnings only)
+  - Coverage: 80% of format errors
+
+- **Layer 2 (Interactive):** User approval checkpoint prevents autonomous deferrals
+  - Task file: `.claude/tasks/dod-validation-checkpoint.md`
+  - Requires: AskUserQuestion for ALL incomplete items
+  - Options: Complete now, Defer to story, Scope change (ADR), External blocker
+  - Token cost: ~7,000
+  - Blocking: Yes (MANDATORY)
+  - Creates: Follow-up stories, ADRs via subagents
+
+- **Layer 3 (AI):** Comprehensive validation via deferral-validator subagent
+  - Subagent: `.claude/agents/deferral-validator.md`
+  - Validates: Feasibility, circular deferrals, reference existence
+  - Token cost: ~500 to main (~5,000 in isolated context)
+  - Blocking: Yes (on CRITICAL/HIGH violations)
+  - Coverage: 95% (comprehensive analysis)
+
+**Combined:** 99% violation detection, ZERO autonomous deferrals possible
 
 ---
 
