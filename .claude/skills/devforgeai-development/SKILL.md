@@ -102,6 +102,226 @@ Please ensure story is loaded via slash command or provide story ID explicitly."
 
 ---
 
+## Phase 0: Git Availability Detection & Workflow Adaptation
+
+**CRITICAL: Detect Git availability before executing any Git-dependent operations**
+
+### Step 0.1: Execute Git Detection
+
+**After extracting story ID from conversation context, check Git availability:**
+
+```bash
+Bash(command="git rev-parse --is-inside-work-tree 2>/dev/null")
+```
+
+**Parse result:**
+```
+exit_code = $?
+output = stdout
+
+IF exit_code == 0 AND output == "true":
+    GIT_AVAILABLE = true
+    WORKFLOW_MODE = "git_based"
+
+    Display: "✓ Git repository detected - full workflow enabled"
+    Display: "  - Branch management: Enabled"
+    Display: "  - Commit tracking: Enabled"
+    Display: "  - Version control: Enabled"
+
+ELSE:
+    GIT_AVAILABLE = false
+    WORKFLOW_MODE = "file_based"
+
+    Display: "⚠ Git not available - using file-based workflow"
+    Display: "  - Branch management: Disabled"
+    Display: "  - Commit tracking: Disabled (manual file organization)"
+    Display: "  - Version control: Disabled (changes tracked in story file)"
+    Display: ""
+    Display: "Note: Initialize Git to enable full DevForgeAI features:"
+    Display: "      git init && git add . && git commit -m 'Initial commit'"
+```
+
+**Store workflow flags as global variables for entire skill execution:**
+```
+$GIT_AVAILABLE (boolean: true or false)
+$WORKFLOW_MODE (string: "git_based" or "file_based")
+```
+
+**Token cost:** ~300 tokens (one-time check per skill invocation)
+
+---
+
+### Step 0.2: Adapt TDD Workflow Based on Git Availability
+
+**Workflow adaptations apply throughout all phases:**
+
+**IF WORKFLOW_MODE == "file_based":**
+
+- **Phase 0 (Context Validation):**
+  - ✅ Check context files (same as git_based)
+  - ✅ Validate story structure (same as git_based)
+  - ⚠️ SKIP: Git status checks
+  - ⚠️ SKIP: Branch validation
+
+- **Phase 1-4 (Red/Green/Refactor/Integration):**
+  - ✅ All TDD phases execute normally (test generation, implementation, refactoring)
+  - ✅ All test execution works identically
+  - ⚠️ SKIP: Any Git commands in these phases (if present)
+
+- **Phase 5 (Git Workflow):**
+  - ⚠️ REPLACE: Git commit workflow → File-based change tracking (see Step 0.3)
+
+**IF WORKFLOW_MODE == "git_based":**
+  - ✅ All phases execute normally with full Git integration
+
+---
+
+### Step 0.3: File-Based Change Tracking (Alternative to Git Workflow)
+
+**ONLY executed when WORKFLOW_MODE == "file_based"**
+
+This replaces Phase 5 (Git Workflow) with file-based artifact tracking.
+
+**Implementation (executed in Phase 5 when Git unavailable):**
+
+```markdown
+### Phase 5 Alternative: File-Based Change Tracking
+
+**ONLY when GIT_AVAILABLE == false**
+
+#### Step 1: Create Change Documentation Directory
+
+```
+# Create story-specific changes directory
+IF not exists .devforgeai/stories/${STORY_ID}/changes/:
+    # Use native Write tool to create directory marker
+    Write(
+        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+        content="# Change tracking directory for ${STORY_ID}\n"
+    )
+```
+
+#### Step 2: Generate Change Manifest
+
+```
+# Generate timestamp
+TIMESTAMP = {current_datetime in ISO8601 format}
+
+# List modified files (manual tracking since no Git)
+# Developer must identify changed files from implementation work
+
+Write(
+    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+    content="""# Implementation Changes - ${STORY_ID}
+
+**Timestamp:** ${TIMESTAMP}
+**Story:** ${STORY_TITLE}
+**Phase:** Dev Complete
+**Workflow Mode:** File-Based (Git not available)
+
+## Files Created
+
+${list_files_created_during_implementation}
+
+## Files Modified
+
+${list_files_modified_during_implementation}
+
+## Files Deleted
+
+${list_files_deleted_if_any}
+
+## Test Results
+
+- Total Tests: ${total_tests}
+- Passed: ${passed_tests}
+- Failed: ${failed_tests}
+- Coverage: ${coverage_percentage}%
+
+## Acceptance Criteria Status
+
+${copy_acceptance_criteria_completion_status_from_story}
+
+## Implementation Notes
+
+${implementation_summary_from_story_Implementation_Notes_section}
+
+## Next Steps
+
+To enable full version control:
+1. Initialize Git: git init
+2. Add files: git add .
+3. Create initial commit: git commit -m "Initial commit"
+4. Re-run /dev to use Git-based workflow
+"""
+)
+
+Display: "✓ File-based change manifest created"
+Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+```
+
+#### Step 3: Update Story File with Change Reference
+
+```
+Read(file_path=".ai_docs/Stories/${STORY_ID}.story.md")
+
+# Add to Workflow History section
+Edit(
+    file_path=".ai_docs/Stories/${STORY_ID}.story.md",
+    old_string="## Workflow History",
+    new_string="""## Workflow History
+
+### Development Complete - ${TIMESTAMP} (File-Based)
+- **Status:** Dev Complete
+- **Workflow Mode:** File-Based (Git not available)
+- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+- **Tests:** ${passed_tests}/${total_tests} passing (${coverage_percentage}% coverage)
+- **Note:** Git not available - changes tracked in story artifacts
+
+{preserve existing workflow history below}
+"""
+)
+
+Display: "✓ Story file updated with file-based tracking reference"
+```
+
+#### Step 4: Display Completion Summary
+
+```
+Display:
+"┌─────────────────────────────────────────────────────────────────┐
+│ ✅ Development Complete (File-Based Workflow)                   │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ Story: ${STORY_ID} - ${STORY_TITLE}                            │
+│ Status: Dev Complete                                            │
+│                                                                 │
+│ Tests: ${passed_tests}/${total_tests} passing                  │
+│ Coverage: ${coverage_percentage}%                               │
+│                                                                 │
+│ Changes tracked in:                                             │
+│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+│                                                                 │
+│ Git Integration: Not Available                                  │
+│                                                                 │
+│ To enable Git workflow:                                         │
+│   git init                                                      │
+│   git add .                                                     │
+│   git commit -m 'Initial commit'                               │
+│   Then re-run: /dev ${STORY_ID}                                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘"
+```
+```
+
+**Benefits of file-based tracking:**
+- Enables DevForgeAI in non-Git environments
+- Maintains traceability through file artifacts
+- Same TDD workflow, different tracking mechanism
+- Clear path to Git migration when ready
+
+---
+
 ## Purpose
 
 This skill guides feature implementation with:
@@ -529,9 +749,28 @@ If implementation affects:
 
 Prepare implementation for review and merge.
 
+**CRITICAL: Check workflow mode from Phase 0 to determine execution path**
+
+```
+IF WORKFLOW_MODE == "file_based":
+    # Git not available - execute file-based change tracking
+    # See Phase 0 Step 0.3 for complete file-based workflow
+    Execute file-based change tracking as documented in Phase 0 Step 0.3
+    SKIP Steps 1, 2, 3, 4 below (Git-specific operations)
+    Proceed directly to story status update
+
+ELSE IF WORKFLOW_MODE == "git_based":
+    # Git available - execute normal Git workflow (Steps 1-4 below)
+    Continue with Step 1
+```
+
+**The sections below (Steps 1-4) ONLY execute when WORKFLOW_MODE == "git_based"**
+
 For detailed git conventions, see `references/git-workflow-conventions.md`
 
-#### Step 1: Review Changes
+#### Step 1: Review Changes (Git-Based Only)
+
+**ONLY executed if GIT_AVAILABLE == true**
 
 ```
 Bash(command="git status")

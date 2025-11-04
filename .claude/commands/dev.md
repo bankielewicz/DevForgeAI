@@ -12,9 +12,113 @@ Execute full Test-Driven Development cycle for a user story.
 ## Pre-execution Context
 
 **Story:** @.ai_docs/Stories/$1.story.md
-**Git Status:** !`git status`
+
+**Note:** Git status will be displayed in Phase 0 after Git availability is confirmed.
 
 ## Workflow
+
+### Phase 0: Environment Validation (Pre-Flight Check)
+
+**CRITICAL: Check Git availability BEFORE executing any Git commands**
+
+#### Step 0.1: Git Repository Check
+
+**Check environment context:**
+```
+Examine <env> block from system context:
+  - Look for: "Is directory a git repo: Yes/No"
+  - Extract git availability status
+```
+
+**IF <env> indicates "Is directory a git repo: No":**
+```
+Use AskUserQuestion to provide recovery options:
+
+AskUserQuestion:
+  questions:
+    - question: "This directory is not a Git repository. The /dev command requires Git for version control. How would you like to proceed?"
+      header: "Git Required"
+      options:
+        - label: "Initialize Git now"
+          description: "Run 'git init' and create initial commit automatically (recommended)"
+        - label: "Continue without Git"
+          description: "Proceed with TDD development but use file-based change tracking instead of Git commits"
+        - label: "Use different directory"
+          description: "Cancel and navigate to a directory with Git already initialized"
+      multiSelect: false
+
+Handle user response:
+
+  IF user selected "Initialize Git now":
+    Display: "Initializing Git repository..."
+
+    Bash(command="git init")
+    Display: "✓ Git repository initialized"
+
+    Bash(command="git add .")
+    Display: "✓ Files staged"
+
+    Bash(command="git commit -m 'Initial commit'")
+    Display: "✓ Initial commit created"
+
+    Display: "✓ Git setup complete - proceeding with development workflow"
+
+    Display current status:
+    Bash(command="git status", description="Show Git repository status")
+
+    Continue to Phase 0a
+
+  ELSE IF user selected "Continue without Git":
+    Display: "⚠️  WARNING: Proceeding without Git"
+    Display: "  - File-based change tracking will be used"
+    Display: "  - No commits will be created"
+    Display: "  - Changes documented in .devforgeai/stories/{STORY-ID}/changes/"
+    Display: "  - Version history limited"
+    Display: ""
+    Display: "Note: You can initialize Git later with:"
+    Display: "      git init && git add . && git commit -m 'Initial commit'"
+
+    Set context for skill:
+    **Git Mode:** file_based
+
+    Continue to Phase 0a (skill will detect and use file-based workflow)
+
+  ELSE IF user selected "Use different directory":
+    Display: "To use a different directory with Git:"
+    Display: "  1. Navigate to your Git repository:"
+    Display: "     cd /path/to/your/git/repo"
+    Display: "  2. Re-run the command:"
+    Display: "     /dev $1"
+    Display: ""
+    Display: "Git-independent commands you can use:"
+    Display: "  - /ideate (requirements gathering)"
+    Display: "  - /create-context (architecture setup)"
+    Display: "  - /create-story (story generation)"
+
+    HALT execution
+    Exit command
+```
+
+**IF <env> indicates "Is directory a git repo: Yes":**
+```
+✓ Git repository detected
+✓ Proceeding to argument validation...
+
+Display current repository status:
+Bash(command="git status", description="Show Git repository status")
+
+Continue to Phase 0a
+```
+
+**Token cost:** ~500 tokens (one-time check per command invocation)
+
+**Benefits:**
+- Fails before Bash execution (no cryptic errors)
+- Clear, actionable error message with resolution steps
+- Guides user to proper setup or alternative workflows
+- Leverages existing <env> context (no new tools needed)
+
+---
 
 ### Phase 0a: Argument Validation
 
@@ -74,7 +178,7 @@ IF multiple matches found:
 
 ---
 
-### Phase 0b: Technology Detection & Context Validation
+### Phase 0c: Technology Detection & Context Validation
 
 **CRITICAL: Detect project technology before executing any test commands**
 
@@ -141,11 +245,11 @@ Example outputs:
 **Validation:**
 - [ ] Technology detected successfully
 - [ ] Test command identified
-- [ ] Ready to proceed to Phase 0c
+- [ ] Ready to proceed to Phase 0d
 
 ---
 
-### Phase 0c: QA Failure Context Detection (NEW - RCA-006)
+### Phase 0d: QA Failure Context Detection (NEW - RCA-006)
 
 **Check for previous QA failures:**
 
@@ -469,16 +573,22 @@ Extract status from frontmatter:
 2. **Verify git commit created:**
 ```bash
 # Check if commits exist first (handles empty repositories)
-!`git rev-list -n 1 HEAD 2>/dev/null && git log -1 --oneline || echo "Initial commit pending"`
-```
+# Only check if Git is available (WORKFLOW_MODE was set in Phase 0)
+IF Git was available in Phase 0:
+    Bash(command="git rev-list -n 1 HEAD 2>/dev/null && git log -1 --oneline || echo 'Initial commit pending'", description="Check for commits")
 
-Check commit message contains story ID (if commits exist).
+    Check commit message contains story ID (if commits exist).
+
+ELSE:
+    # File-based workflow - skip Git commit verification
+    Display: "File-based workflow - no Git commits to verify"
+```
 
 3. **Verify tests passing:**
 
-**Execute test command detected in Phase 0:**
+**Execute test command detected in Phase 0c:**
 ```bash
-# Use TEST_COMMAND variable from Phase 0 technology detection
+# Use TEST_COMMAND variable from Phase 0c technology detection
 Bash(command=TEST_COMMAND)
 
 # Examples based on detected technology:
@@ -493,7 +603,7 @@ Bash(command=TEST_COMMAND)
 **Test Gate:**
 - ✅ All tests pass → Success
 - ❌ Any test fails → Report failure
-- ❌ TEST_COMMAND not set → Error (technology detection failed in Phase 0)
+- ❌ TEST_COMMAND not set → Error (technology detection failed in Phase 0c)
 
 ### Phase 4: Report Results
 
