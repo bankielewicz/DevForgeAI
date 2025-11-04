@@ -512,6 +512,294 @@ Referenced story ALSO defers this work?
 
 ---
 
+## Deferral Prevention (Developer Workflow)
+
+**Purpose:** Educate developers and AI agents on proper deferral protocol to prevent violations BEFORE they reach QA.
+
+**Added:** RCA-006 Recommendation 5 (Prevention Guide)
+
+---
+
+### During Development (/dev Command)
+
+**MANDATORY Protocol - Before ANY DoD item is marked [ ] (deferred):**
+
+<prevention_protocol>
+  <step_1>Attempt implementation FIRST - default is to complete, not defer</step_1>
+  <step_2>If blocked, use AskUserQuestion to determine reason</step_2>
+  <step_3>Document user-approved justification - NEVER defer without user input</step_3>
+  <step_4>Automated validation - Script and subagent verify all [ ] items have proper format</step_4>
+</prevention_protocol>
+
+#### Step 1: Attempt Implementation First
+
+**Default assumption:** All DoD items CAN be completed
+
+**Before deferring, try:**
+- Research solution approaches (5-10 minutes investigation)
+- Check if dependencies are actually available
+- Estimate actual effort (may be smaller than assumed)
+- Ask user: "This seems hard, but should I try implementing it?"
+
+**Only defer if:**
+- ✅ External blocker confirmed (dependency not available)
+- ✅ Scope change approved (user agrees to remove from scope)
+- ✅ User explicitly requests deferral
+
+❌ **Never defer because:**
+- "Seems complicated" (investigate first)
+- "Don't know how" (research or ask user)
+- "Might take time" (estimate first, then ask user)
+
+---
+
+#### Step 2: Use AskUserQuestion for Blocked Work
+
+**If implementation blocked, determine reason via user interaction:**
+
+```
+AskUserQuestion:
+    Question: "Cannot complete '{item}'. What's blocking this work?"
+    Header: "Blocker Analysis"
+    Options:
+        - "Try different approach (AI suggests alternatives)"
+        - "External blocker (describe dependency with ETA)"
+        - "Out of scope (requires architecture decision/ADR)"
+        - "Actually feasible (AI will implement now)"
+    multiSelect: false
+```
+
+**Based on user selection:**
+- **Try different approach:** AI researches alternatives, implements if feasible
+- **External blocker:** Document with ETA, proceed with deferral
+- **Out of scope:** Create ADR, document scope change
+- **Actually feasible:** Return to implementation (no deferral)
+
+**NEVER make autonomous decision** about why work is blocked
+
+---
+
+#### Step 3: Document User-Approved Justification
+
+**After user interaction, format deferral correctly:**
+
+**Valid Formats:**
+```markdown
+- [ ] Item description
+    Deferred to STORY-XXX: [specific reason user provided]
+
+- [ ] Item description
+    Blocked by: [external system] (ETA: [date/condition])
+
+- [ ] Item description
+    Out of scope: ADR-XXX documents scope change decision
+```
+
+**Include:**
+- ✅ Specific story reference (STORY-XXX, not "future story")
+- ✅ Brief reason (why deferred, not just "deferred")
+- ✅ ETA for external blockers (when unblocked)
+- ✅ ADR reference for scope changes
+
+---
+
+#### Step 4: Automated Validation Layers
+
+**Three validation layers execute automatically:**
+
+**Layer 1: Format Check** (.claude/scripts/validate_deferrals.py)
+- Speed: <100ms
+- Checks: Basic justification format present
+- Result: Warnings for format issues (non-blocking)
+
+**Layer 2: Interactive Checkpoint** (.claude/tasks/dod-validation-checkpoint.md)
+- Requires: AskUserQuestion for EVERY unjustified item
+- Creates: Follow-up stories, ADRs as user directs
+- Result: BLOCKS commit until user approves all deferrals
+
+**Layer 3: AI Validation** (deferral-validator subagent)
+- Validates: Feasibility, circular chains, references exist
+- Checks: Could work be done now? Are references valid?
+- Result: BLOCKS commit on CRITICAL/HIGH violations
+
+**All layers must pass before git commit allowed**
+
+---
+
+### Red Flags (QA Will Fail)
+
+**Invalid Deferral Reasons:**
+
+❌ **Vague or Generic**
+- "Will do this later" (no story reference)
+- "Not important right now" (scope change without ADR)
+- "Too complex" (no blocker or reason)
+- "Deferred" (no details at all)
+- "Future work" (no story reference)
+
+❌ **Missing Story Reference**
+- "Deferred to performance optimization story" (no STORY-ID)
+- "Moving to follow-up" (which follow-up?)
+- "Deferred for later implementation" (when? where?)
+
+❌ **Missing ADR for Scope Change**
+- "Removing from scope" (no ADR documenting decision)
+- "Not needed anymore" (scope change without architecture review)
+- "Out of scope" (no ADR reference)
+
+❌ **Internal Blockers Treated as External**
+- "Blocked by our authentication module" (internal - YOU can fix this)
+- "Blocked by our API design" (internal decision - not external dependency)
+- "Waiting for our team to decide" (internal - not external blocker)
+
+❌ **No ETA for External Blockers**
+- "Blocked by Payment API v2" (when is it available?)
+- "Blocked by third-party service" (what's the ETA?)
+
+❌ **Circular Deferrals**
+- STORY-001 defers to STORY-002
+- STORY-002 defers back to STORY-001
+- **CRITICAL violation** - work will never complete
+
+---
+
+### Green Flags (Valid Deferrals)
+
+✅ **Story Split with Reason**
+```markdown
+- [ ] Performance benchmarking
+    Deferred to STORY-007: Criterion benchmark framework requires dedicated performance optimization story with baseline measurements
+```
+
+✅ **External Blocker with ETA**
+```markdown
+- [ ] OAuth integration
+    Blocked by: Third-party OAuth API v2 (provider ETA: January 2026, confirmed via email)
+```
+
+✅ **Scope Change with ADR**
+```markdown
+- [ ] Advanced caching
+    Out of scope: ADR-003 documents decision to defer caching to v2.0 (simplicity over performance in v1.0)
+```
+
+✅ **User-Approved via Checkpoint**
+```markdown
+- [ ] Multi-language support
+    Deferred to STORY-012: User approved split during development checkpoint (Phase 2.5b, 2025-11-04)
+```
+
+---
+
+### Best Practices
+
+**1. Default to Completing Work**
+- Try to implement before deferring
+- Estimate effort before assuming it's too large
+- Research solutions before claiming "blocked"
+
+**2. Create Follow-Up Stories Immediately**
+- Don't defer to "future story" - create STORY-XXX now
+- Use requirements-analyst subagent to generate story
+- Link stories with prerequisite_stories field
+
+**3. Document External Blockers with ETAs**
+- Specify exact dependency (API name, version, system)
+- Include ETA or resolution condition
+- Verify blocker is truly external (not internal decision)
+
+**4. Create ADRs for Scope Changes**
+- Use architect-reviewer subagent to generate ADR
+- Document WHY scope changed (not just THAT it changed)
+- Reference ADR in deferral justification
+
+**5. Leverage Three-Layer Validation**
+- Layer 1 catches format errors instantly (<100ms)
+- Layer 2 ensures user approval (no autonomous deferrals)
+- Layer 3 validates feasibility (AI prevents unnecessary deferrals)
+
+---
+
+### Tools and Integration
+
+**Prevention Tools (RCA-006 Implementation):**
+
+1. **Python Format Validator**
+   - File: `.claude/scripts/validate_deferrals.py`
+   - Usage: Invoked automatically in /dev Phase 2.5a
+   - Purpose: Fast format feedback (<100ms)
+
+2. **Interactive Checkpoint**
+   - File: `.claude/tasks/dod-validation-checkpoint.md`
+   - Usage: Invoked automatically in /dev Phase 2.5b
+   - Purpose: User approval gate (ZERO autonomous deferrals)
+
+3. **deferral-validator Subagent**
+   - File: `.claude/agents/deferral-validator.md`
+   - Usage: Invoked by skill Phase 5 Step 1.5
+   - Purpose: Comprehensive AI analysis
+
+4. **Story Size Detection** (NEW - RCA-006 Rec 4)
+   - Location: devforgeai-development skill Phase 5 Step 1b
+   - Trigger: >3 deferrals
+   - Action: Suggests story splitting to reduce debt
+
+**All tools work together to prevent deferral violations**
+
+---
+
+### Common Mistakes to Avoid
+
+**Mistake 1: Deferring Without User Interaction**
+```
+❌ BAD: AI autonomously defers work
+"This seems complex, deferring to future story"
+
+✅ GOOD: AI asks user first
+AskUserQuestion: "Item seems complex. Should I defer or try implementing?"
+```
+
+**Mistake 2: Vague Story References**
+```
+❌ BAD: "Deferred to performance story"
+✅ GOOD: "Deferred to STORY-007: Performance optimization epic"
+```
+
+**Mistake 3: Internal Blockers as External**
+```
+❌ BAD: "Blocked by our API design decision"
+✅ GOOD: "Out of scope: ADR-005 documents decision to simplify API in v1.0"
+```
+
+**Mistake 4: No Reason Provided**
+```
+❌ BAD:
+- [ ] Cross-platform testing
+    (no explanation)
+
+✅ GOOD:
+- [ ] Cross-platform testing
+    Blocked by: CI/CD matrix not configured until STORY-001 (ETA: Week 1)
+```
+
+**Mistake 5: Deferral Chains**
+```
+❌ BAD:
+STORY-001 → defers to STORY-002
+STORY-002 → defers to STORY-003
+STORY-003 → defers to STORY-004
+(Work fragmented across 4 stories - will likely never complete)
+
+✅ GOOD:
+STORY-001 → AI detects >3 deferrals
+          → Suggests split
+          → User approves
+          → Creates focused STORY-002 (grouped work)
+(Work concentrated in 2 stories - clear ownership)
+```
+
+---
+
 ## Validation Checklist (For QA Skill)
 
 Before approving story with deferrals:
