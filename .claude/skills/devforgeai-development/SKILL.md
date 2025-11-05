@@ -8,6 +8,7 @@ allowed-tools:
   - Glob
   - Grep
   - AskUserQuestion
+  - Task
   - Bash(git:*)
   - Bash(npm:*)
   - Bash(pytest:*)
@@ -15,6 +16,7 @@ allowed-tools:
   - Bash(cargo:*)
   - Bash(mvn:*)
   - Bash(gradle:*)
+  - Bash(python:*)
   - Skill
 ---
 
@@ -102,52 +104,90 @@ Please ensure story is loaded via slash command or provide story ID explicitly."
 
 ---
 
-## Phase 0: Git Availability Detection & Workflow Adaptation
+## Phase 0: Pre-Flight Validation
 
-**CRITICAL: Detect Git availability before executing any Git-dependent operations**
+**CRITICAL: Validate environment and dependencies before executing TDD workflow**
 
-### Step 0.1: Execute Git Detection
+### Step 0.1: Validate Git Repository Status
 
-**After extracting story ID from conversation context, check Git availability:**
+**Invoke git-validator subagent to check Git availability:**
 
-```bash
-Bash(command="git rev-parse --is-inside-work-tree 2>/dev/null")
+```
+Task(
+  subagent_type="git-validator",
+  description="Validate Git repository status",
+  prompt="Check the Git repository status for the current directory.
+
+  Validate:
+  1. Is Git installed and accessible?
+  2. Is this directory a Git repository?
+  3. Are there existing commits?
+  4. What is the current branch?
+  5. Are there uncommitted changes?
+
+  Return JSON with Git status, assessment, and recommendations.
+
+  CRITICAL: Always provide fallback strategy if Git unavailable - DevForgeAI must adapt gracefully."
+)
 ```
 
-**Parse result:**
-```
-exit_code = $?
-output = stdout
+**Parse subagent JSON response:**
 
-IF exit_code == 0 AND output == "true":
-    GIT_AVAILABLE = true
-    WORKFLOW_MODE = "git_based"
+```javascript
+result = parse_json(subagent_output)
 
-    Display: "✓ Git repository detected - full workflow enabled"
-    Display: "  - Branch management: Enabled"
-    Display: "  - Commit tracking: Enabled"
-    Display: "  - Version control: Enabled"
+# Extract workflow configuration
+GIT_AVAILABLE = result["git_status"]["installed"] AND result["git_status"]["repository_exists"]
+WORKFLOW_MODE = result["assessment"]["workflow_mode"]  # "full", "partial", or "fallback"
+CAN_COMMIT = result["assessment"]["can_commit"]
+CURRENT_BRANCH = result["git_status"]["current_branch"]
+UNCOMMITTED_CHANGES = result["git_status"]["uncommitted_changes"]
 
-ELSE:
-    GIT_AVAILABLE = false
-    WORKFLOW_MODE = "file_based"
+# Display status to user
+IF WORKFLOW_MODE == "full":
+    Display: "✓ Git repository validated - full workflow enabled"
+    Display: "  - Repository: Initialized with {result['git_status']['commit_count']} commits"
+    Display: "  - Branch: {CURRENT_BRANCH}"
+    Display: "  - Uncommitted changes: {UNCOMMITTED_CHANGES}"
 
-    Display: "⚠ Git not available - using file-based workflow"
-    Display: "  - Branch management: Disabled"
-    Display: "  - Commit tracking: Disabled (manual file organization)"
-    Display: "  - Version control: Disabled (changes tracked in story file)"
+    IF UNCOMMITTED_CHANGES > 0:
+        Display: "  ⚠️  Warning: {UNCOMMITTED_CHANGES} uncommitted changes detected"
+        Display: "  Recommendation: Commit or stash before proceeding"
+
+ELIF WORKFLOW_MODE == "partial":
+    Display: "⚠ Git repository needs initial commit"
+    Display: "  Repository initialized but no commits yet"
+    Display: "  Recommendation:"
+    FOR cmd in result["recommendations"]["commands"]:
+        Display: "    {cmd}"
+
+ELIF WORKFLOW_MODE == "fallback":
+    IF result["git_status"]["installed"]:
+        Display: "⚠ Git available but repository not initialized"
+        Display: "  To enable full workflow:"
+        FOR cmd in result["recommendations"]["commands"]:
+            Display: "    {cmd}"
+    ELSE:
+        Display: "⚠ Git not installed - file-based workflow enabled"
+        Display: "  Changes will be tracked in:"
+        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
+
     Display: ""
-    Display: "Note: Initialize Git to enable full DevForgeAI features:"
-    Display: "      git init && git add . && git commit -m 'Initial commit'"
+    Display: "  Fallback mode active (limited version control features)"
+
+# Store flags for workflow adaptation
+$GIT_AVAILABLE = GIT_AVAILABLE
+$WORKFLOW_MODE = WORKFLOW_MODE
+$CAN_COMMIT = CAN_COMMIT
 ```
 
-**Store workflow flags as global variables for entire skill execution:**
-```
-$GIT_AVAILABLE (boolean: true or false)
-$WORKFLOW_MODE (string: "git_based" or "file_based")
-```
+**Token cost:** ~500 tokens in main conversation (~3,000 in isolated subagent context)
 
-**Token cost:** ~300 tokens (one-time check per skill invocation)
+**Benefits:**
+- Context isolation (Git checks in separate context window)
+- Reusable validation (other skills can use git-validator)
+- Framework-aware (subagent understands fallback strategies)
+- Structured output (JSON parsing vs text interpretation)
 
 ---
 
@@ -322,6 +362,283 @@ Display:
 
 ---
 
+### Step 0.4: Validate Context Files Exist
+
+**Check for all 6 DevForgeAI context files:**
+
+```
+Read all 6 context files in PARALLEL:
+- Read(file_path=".devforgeai/context/tech-stack.md")
+- Read(file_path=".devforgeai/context/source-tree.md")
+- Read(file_path=".devforgeai/context/dependencies.md")
+- Read(file_path=".devforgeai/context/coding-standards.md")
+- Read(file_path=".devforgeai/context/architecture-constraints.md")
+- Read(file_path=".devforgeai/context/anti-patterns.md")
+```
+
+**If ANY file is missing:**
+
+```
+Display: "❌ Context files missing - architecture setup required"
+Display: "  Missing files prevent development (would cause technical debt from assumptions)"
+Display: ""
+Display: "Invoking devforgeai-architecture skill to create context files..."
+
+Skill(command="devforgeai-architecture")
+
+Display: "✓ Architecture skill completed"
+Display: "Re-validating context files..."
+
+# Re-read context files after architecture skill completes
+[Execute same parallel Read operations above]
+```
+
+**STOP development until all context files exist.** This prevents technical debt from ambiguous assumptions.
+
+**Token cost:** ~2,000 tokens (6 files × ~300 tokens each, read in parallel)
+
+---
+
+### Step 0.5: Load Story Specification
+
+**Story already loaded via @file reference from slash command.**
+
+The story file was loaded by the `/dev` command via:
+```
+@.ai_docs/Stories/STORY-XXX.story.md
+```
+
+**Verify story content accessible:**
+- [ ] YAML frontmatter with id, title, status, epic, sprint
+- [ ] Acceptance criteria section exists
+- [ ] Technical specification section exists
+- [ ] Non-functional requirements documented
+
+**If story content not available in conversation:**
+```
+HALT with error:
+"Story file not loaded in conversation context.
+
+Expected: Story loaded via @file reference from /dev command
+Actual: No story content found
+
+Please ensure /dev command properly loads story file before invoking this skill."
+```
+
+---
+
+### Step 0.6: Validate Spec vs Context Files
+
+**Check for conflicts between story requirements and context file constraints:**
+
+From story Technical Specification section, extract:
+- Required technologies (languages, frameworks, libraries)
+- Required patterns (architectures, designs)
+- File locations (where code should be placed)
+
+Compare against:
+- tech-stack.md (locked technologies)
+- architecture-constraints.md (design patterns)
+- source-tree.md (file placement rules)
+
+**If conflicts detected → Use AskUserQuestion:**
+
+```
+Question: "Spec requires [X], but tech-stack.md specifies [Y]. Which is correct?"
+Header: "Spec conflict"
+options:
+  - label: "Follow tech-stack.md (use [Y])"
+    description: "Maintain consistency with existing architecture"
+  - label: "Update tech-stack.md (use [X] + create ADR)"
+    description: "Document architecture change in ADR and update tech-stack.md"
+multiSelect: false
+```
+
+**After user response:**
+- If "Update tech-stack.md" chosen:
+  - Create ADR documenting technology decision
+  - Update tech-stack.md
+  - Proceed with development
+- If "Follow tech-stack.md" chosen:
+  - Proceed with development using tech-stack.md technologies
+
+**Token cost:** ~1,000 tokens (conflict detection) + ~3,000 (if AskUserQuestion needed)
+
+---
+
+### Step 0.7: Detect and Validate Technology Stack
+
+**Invoke tech-stack-detector subagent to detect technologies and validate against tech-stack.md:**
+
+```
+Task(
+  subagent_type="tech-stack-detector",
+  description="Detect and validate tech stack",
+  prompt="Analyze the project structure in the current directory.
+
+  Detect:
+  1. Primary programming language
+  2. Framework/runtime
+  3. Test framework
+  4. Build tool
+  5. Package manager
+
+  Then validate against .devforgeai/context/tech-stack.md if it exists.
+
+  Return JSON with detected technologies, validation results, and recommended commands.
+
+  CRITICAL: If conflicts found between detected and specified technologies, provide clear resolution options."
+)
+```
+
+**Parse subagent JSON response:**
+
+```javascript
+result = parse_json(subagent_output)
+
+# Extract detected technologies
+LANGUAGE = result["detected"]["language"]["primary"]
+FRAMEWORK = result["detected"]["framework"]["name"]
+TEST_FRAMEWORK = result["detected"]["test_framework"]["primary"]
+
+# Extract workflow commands (CRITICAL - used in subsequent phases)
+TEST_COMMAND = result["commands"]["test"]
+TEST_COVERAGE_COMMAND = result["commands"]["test_coverage"]
+BUILD_COMMAND = result["commands"]["build"]
+INSTALL_COMMAND = result["commands"]["install"]
+
+# Check validation status
+VALIDATION_STATUS = result["validation"]["status"]
+
+IF VALIDATION_STATUS == "PASS":
+    Display: "✓ Technology stack validated"
+    Display: "  - Language: {LANGUAGE}"
+    Display: "  - Framework: {FRAMEWORK}"
+    Display: "  - Test framework: {TEST_FRAMEWORK}"
+    Display: "  - Test command: {TEST_COMMAND}"
+
+ELIF VALIDATION_STATUS == "FAIL":
+    # CRITICAL conflicts detected - HALT
+    Display: "❌ Technology stack validation FAILED"
+    Display: "Conflicts detected between project and tech-stack.md"
+
+    FOR conflict in result["validation"]["conflicts"]:
+        IF conflict["severity"] == "CRITICAL":
+            # Use AskUserQuestion to resolve
+            AskUserQuestion:
+                question: "Project uses {conflict['detected']} but tech-stack.md specifies {conflict['specified']}. How to resolve?"
+                header: "Tech Conflict"
+                options:
+                    - label: "Follow spec (update project)"
+                      description: "Change project to use {conflict['specified']}"
+                    - label: "Update spec (create ADR)"
+                      description: "Update tech-stack.md, document in ADR"
+                multiSelect: false
+
+            # Handle user response
+            IF "Update spec" chosen:
+                # Create ADR, update tech-stack.md, re-validate
+
+ELIF VALIDATION_STATUS == "ERROR":
+    IF result["validation"]["context_missing"]:
+        # tech-stack.md not found - invoke architecture skill
+        Display: "❌ tech-stack.md not found"
+        Display: "Invoking devforgeai-architecture skill..."
+        Skill(command="devforgeai-architecture")
+
+        # After architecture completes, re-run tech-stack-detector
+        # [Re-invoke Task with same parameters]
+
+# Store commands for Phases 1-5
+$TEST_COMMAND = TEST_COMMAND
+$TEST_COVERAGE_COMMAND = TEST_COVERAGE_COMMAND
+$BUILD_COMMAND = BUILD_COMMAND
+```
+
+**Token cost:** ~700 tokens in skill context (~8,000 in isolated subagent context)
+
+---
+
+### Step 0.8: Detect Previous QA Failures
+
+**Check if story has failed QA due to deferral or other issues:**
+
+```
+# Search for QA reports for this story
+Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+
+IF reports found:
+    # Read most recent report
+    reports_sorted = sort_by_timestamp(reports)
+    latest_report = reports_sorted[0]
+
+    Read(file_path=latest_report)
+
+    # Parse QA status
+    IF report contains "Status: FAILED":
+        # Extract failure type
+        IF report contains "Deferral Validation FAILED":
+            # Deferral-specific failure
+            Display: "⚠ Previous QA failed due to deferral issues"
+            Display: "  QA Report: {latest_report}"
+            Display: ""
+
+            # Extract deferral violations from report
+            Grep(
+                pattern="- \\[ \\] .* - (Deferred to|Blocked by|Out of scope)",
+                path=latest_report,
+                output_mode="content",
+                -n=true
+            )
+
+            Display: "Development will focus on resolving deferral issues."
+            Display: "The 'Handling QA Deferral Failures' workflow will guide resolution."
+            Display: ""
+
+            # Set flag for later use
+            $QA_DEFERRAL_FAILURE = true
+            $QA_FAILURE_REPORT = latest_report
+
+        ELIF report contains "Coverage Below Threshold":
+            Display: "⚠ Previous QA failed due to coverage issues"
+            Display: "  Focus: Increase test coverage"
+            $QA_COVERAGE_FAILURE = true
+
+        ELIF report contains "Anti-Pattern Violations":
+            Display: "⚠ Previous QA failed due to anti-patterns"
+            Display: "  Focus: Refactor to remove violations"
+            $QA_ANTIPATTERN_FAILURE = true
+
+        ELSE:
+            Display: "⚠ Previous QA failed (review report for details)"
+            Display: "  Report: {latest_report}"
+            $QA_GENERIC_FAILURE = true
+
+    ELIF report contains "Status: PASSED":
+        # QA already passed - unusual to be in Dev again
+        Display: "Note: QA already passed for this story"
+        Display: "  Proceeding with development (may be enhancement or bug fix)"
+        $QA_PASSED = true
+
+ELSE:
+    # No QA reports found - first development iteration
+    Display: "✓ First development iteration (no previous QA attempts)"
+    $QA_FIRST_ITERATION = true
+```
+
+**Token cost:** ~1,500 tokens (Glob + Read + Grep + parsing)
+
+**Use in subsequent phases:**
+- If `$QA_DEFERRAL_FAILURE == true` → Invoke "Handling QA Deferral Failures" workflow (lines 1579-1662)
+- If `$QA_COVERAGE_FAILURE == true` → Focus on test coverage in Phase 1
+- If `$QA_ANTIPATTERN_FAILURE == true` → Extra validation in Phase 3 (Refactor)
+
+---
+
+**Phase 0 Complete.** All pre-flight validations passed. Ready to begin TDD cycle.
+
+---
+
 ## Purpose
 
 This skill guides feature implementation with:
@@ -354,394 +671,441 @@ Activate this skill when:
 
 ---
 
-## TDD Workflow (6 Phases)
+## TDD Workflow (5 Phases)
 
-### Phase 0: Context Validation (CRITICAL)
+**Phase 0 (Pre-Flight Validation) is documented above** - executed before TDD cycle begins.
 
-Before ANY code is written, validate architectural context exists.
+After Phase 0 completes successfully:
+- ✅ Git status validated (workflow mode determined)
+- ✅ Context files validated (all 6 files present)
+- ✅ Story specification loaded
+- ✅ Spec vs context conflicts resolved
+- ✅ Technology stack detected and validated
+- ✅ Test/build commands configured
 
-#### Step 1: Check for Context Files
-
-```
-Read all 6 context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
-- Read(file_path=".devforgeai/context/dependencies.md")
-- Read(file_path=".devforgeai/context/coding-standards.md")
-- Read(file_path=".devforgeai/context/architecture-constraints.md")
-- Read(file_path=".devforgeai/context/anti-patterns.md")
-```
-
-**If ANY file is missing:**
-
-```
-Skill(command="devforgeai-architecture")
-```
-
-**STOP development until context files exist.** This prevents technical debt from ambiguous assumptions.
-
-#### Step 2: Load Story/Feature Specification
-
-```
-Read(file_path=".ai_docs/Stories/[story-id].story.md")
-# OR
-Read(file_path="docs/specs/[feature-name].spec.md")
-```
-
-#### Step 3: Validate Spec Against Context
-
-**If conflicts detected → Use AskUserQuestion:**
-
-```
-Question: "Spec requires [X], but tech-stack.md specifies [Y]. Which is correct?"
-Header: "Spec conflict"
-Options:
-  - "Update spec to use [Y] from tech-stack.md (maintain consistency)"
-  - "Update tech-stack.md to [X] and document in ADR (architecture change)"
-multiSelect: false
-```
-
-#### Step 4: Extract Technology Configuration
-
-**CRITICAL: Determine test and build commands from tech-stack.md**
-
-From the tech-stack.md content (already read in Step 1), extract:
-
-```
-Programming Language: [Identify from tech-stack.md]
-  - Node.js/JavaScript/TypeScript
-  - Python
-  - C# / .NET
-  - Go
-  - Java
-  - Rust
-  - Other
-
-Test Framework: [Identify from tech-stack.md]
-  - npm test / npm run test (Node.js)
-  - pytest / python -m pytest (Python)
-  - dotnet test (. NET)
-  - go test ./... (Go)
-  - mvn test / gradle test (Java)
-  - cargo test (Rust)
-
-Build Tool: [Identify from tech-stack.md]
-  - npm / npm run build (Node.js)
-  - pip / python setup.py (Python)
-  - dotnet build / dotnet restore (.NET)
-  - go build (Go)
-  - mvn / gradle (Java)
-  - cargo build (Rust)
-```
-
-**If tech-stack.md doesn't specify test framework explicitly:**
-
-Detect via project markers using Glob:
-```
-Glob(pattern="package.json") → Node.js → TEST_COMMAND="npm test"
-Glob(pattern="*.csproj") → .NET → TEST_COMMAND="dotnet test"
-Glob(pattern="pyproject.toml") → Python → TEST_COMMAND="pytest"
-Glob(pattern="requirements.txt") → Python → TEST_COMMAND="pytest"
-Glob(pattern="go.mod") → Go → TEST_COMMAND="go test ./..."
-Glob(pattern="pom.xml") → Java/Maven → TEST_COMMAND="mvn test"
-Glob(pattern="build.gradle*") → Java/Gradle → TEST_COMMAND="gradle test"
-Glob(pattern="Cargo.toml") → Rust → TEST_COMMAND="cargo test"
-```
-
-**If detection fails (no tech-stack.md AND no project markers):**
-
-Use AskUserQuestion:
-```
-Question: "Unable to detect project technology. What command runs tests?"
-Header: "Test command"
-Options:
-  - "npm test (Node.js/JavaScript/TypeScript)"
-  - "pytest (Python)"
-  - "dotnet test (.NET/C#)"
-  - "go test ./... (Go)"
-  - "mvn test (Java/Maven)"
-  - "gradle test (Java/Gradle)"
-  - "cargo test (Rust)"
-  - "Other (specify custom command)"
-multiSelect: false
-```
-
-**Store commands as variables:**
-```
-TEST_COMMAND = [detected test command]
-BUILD_COMMAND = [detected build command if applicable]
-PACKAGE_MANAGER = [detected package manager]
-```
-
-**Validation:**
-- [ ] Technology detected successfully
-- [ ] TEST_COMMAND variable set
-- [ ] BUILD_COMMAND variable set (if needed)
-- [ ] Ready to proceed to Phase 1
-
-**Example outputs:**
-- Node.js project: TEST_COMMAND="npm test", BUILD_COMMAND="npm run build"
-- .NET project: TEST_COMMAND="dotnet test", BUILD_COMMAND="dotnet build"
-- Python project: TEST_COMMAND="pytest", BUILD_COMMAND=null
+**Now proceed with TDD cycle:**
 
 ---
 
 ### Phase 1: Test-First Design (Red Phase)
 
-Write failing tests BEFORE implementation following TDD principles.
+**Delegate test generation to test-automator subagent.**
 
-#### Step 1: Analyze Acceptance Criteria
-
-From story/spec, identify:
-- **Functional requirements** (what the code must do)
-- **Non-functional requirements** (performance, security, etc.)
-- **Edge cases** (error conditions, validation failures)
-- **Integration points** (APIs, databases, external services)
-
-#### Step 2: Design Test Cases
-
-For TDD patterns and test design, see `references/tdd-patterns.md`
-
-**Test levels:**
-- **Unit Tests** - Business logic, calculations, validation
-- **Integration Tests** - Database, API, file I/O
-- **Contract Tests** - API request/response validation
-- **E2E Tests** - Complete user workflows
-
-#### Step 3: Determine Test File Location
-
-Consult source-tree.md for test organization.
-
-**If location is ambiguous → Use AskUserQuestion:**
+#### Step 1: Invoke test-automator Subagent
 
 ```
-Question: "Where should tests for [ComponentName] be placed?"
-Header: "Test location"
-Options:
-  - "tests/Unit/[ComponentName]Tests.[ext] (separate by type)"
-  - "src/[Component]/[Component].Tests/[Component]Tests.[ext] (co-located)"
-  - "tests/[SourcePath]/[ComponentName]Tests.[ext] (mirror source)"
-multiSelect: false
+Task(
+  subagent_type="test-automator",
+  description="Generate failing tests from acceptance criteria",
+  prompt="Generate comprehensive test suite for this story.
+
+  Story content is already loaded in conversation (via @file reference from /dev command).
+
+  Extract from story:
+  1. Acceptance criteria (Given/When/Then scenarios)
+  2. Technical specification (API contracts, data models, business rules)
+  3. Non-functional requirements (performance, security)
+
+  Context files available:
+  - .devforgeai/context/source-tree.md (test file placement rules)
+  - .devforgeai/context/coding-standards.md (test patterns, AAA format)
+  - .devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
+
+  Generate tests that:
+  1. Cover all acceptance criteria
+  2. Follow AAA pattern (Arrange, Act, Assert)
+  3. Use test framework: {TEST_FRAMEWORK}
+  4. Place tests according to source-tree.md rules
+  5. Initially FAIL (Red phase of TDD)
+
+  Test command to verify: {TEST_COMMAND}
+
+  Return:
+  - Test files created (paths and content summary)
+  - Test count (unit/integration/e2e)
+  - Initial test run status (all should fail)"
+)
 ```
 
-#### Step 4: Write Failing Tests
+**Parse subagent response:**
 
-Use native tools (NOT Bash):
+```javascript
+result = extract_from_subagent_output(response)
+
+tests_created = result["test_files"]
+test_count = result["test_count"]
+
+Display: "✓ Phase 1 (Red): Tests generated by test-automator"
+Display: "  - Unit tests: {test_count['unit']}"
+Display: "  - Integration tests: {test_count['integration']}"
+Display: "  - Files created: {len(tests_created)}"
+
+FOR file in tests_created:
+    Display: "    • {file['path']}"
+```
+
+**Verify tests fail (Red phase):**
 
 ```
-Read existing test file (if exists)
-Edit or Write test file with new failing tests
-```
-
-Follow coding-standards.md patterns (AAA format, naming conventions).
-
-**Run tests to verify they fail:**
-
-```
-# Use TEST_COMMAND variable from Phase 0 Step 4
 Bash(command=TEST_COMMAND)
 
-# Example: If Node.js detected, executes: npm test
-# Example: If .NET detected, executes: dotnet test
-# Example: If Python detected, executes: pytest
+IF all tests fail (as expected):
+    Display: "✓ RED phase confirmed - all tests failing as expected"
+    Display: "  Ready for Phase 2 (Green) - implementation"
+
+ELIF some tests pass:
+    Display: "⚠️ Warning: Some tests passing unexpectedly"
+    Display: "  This may indicate existing implementation or incorrect test design"
+    Display: "  Proceeding to Phase 2..."
+
+ELSE (tests not runnable):
+    Display: "❌ ERROR: Tests not runnable"
+    Display: "  Review test-automator output for errors"
+    HALT development
 ```
 
-**Expected: RED (test fails) ✓**
-
-**If TEST_COMMAND not set:**
-```
-ERROR: Technology detection failed in Phase 0 Step 4
-Unable to determine test command
-Review Phase 0 logs for technology detection issues
-```
+**Token cost:** ~800 tokens in skill context (~40,000 in isolated subagent context)
 
 ---
 
 ### Phase 2: Implementation (Green Phase)
 
-Write minimal code to make tests pass while enforcing constraints.
+**Delegate implementation to backend-architect or frontend-developer subagent.**
 
-#### Step 1: Determine Implementation File Location
-
-Consult source-tree.md for file placement.
-
-**If location is ambiguous → Use AskUserQuestion**
-
-#### Step 2: Validate Dependencies
+#### Step 1: Determine Implementation Subagent
 
 ```
-Read(file_path=".devforgeai/context/dependencies.md")
+# Check story technical specification or framework type
+IF story involves UI/frontend work OR FRAMEWORK in ["React", "Vue", "Angular", "Blazor", "WPF"]:
+    IMPLEMENTATION_AGENT = "frontend-developer"
+
+ELIF story involves API/backend work OR FRAMEWORK in ["FastAPI", "Express", "ASP.NET Core", "Spring Boot"]:
+    IMPLEMENTATION_AGENT = "backend-architect"
+
+ELSE:
+    # Default to backend-architect for business logic
+    IMPLEMENTATION_AGENT = "backend-architect"
 ```
 
-**If implementation needs package NOT in dependencies.md → STOP and use AskUserQuestion:**
+#### Step 2: Invoke Implementation Subagent
 
 ```
-Question: "Implementation requires package '[PackageName]' for [functionality]. Should I add it?"
-Header: "New dependency"
-Options:
-  - "Yes, add [PackageName] version [X.Y.Z]"
-  - "No, use existing dependency [AlternativeName] from dependencies.md"
-  - "No, implement manually without external dependency"
-multiSelect: false
+Task(
+  subagent_type=IMPLEMENTATION_AGENT,
+  description="Implement minimal code to pass tests",
+  prompt="Implement code to make the failing tests pass (Green phase of TDD).
+
+  Story and tests are already available in conversation.
+
+  Context files to enforce:
+  - .devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
+  - .devforgeai/context/source-tree.md (file placement rules)
+  - .devforgeai/context/dependencies.md (approved packages only)
+  - .devforgeai/context/coding-standards.md (code patterns, naming conventions)
+  - .devforgeai/context/architecture-constraints.md (layer boundaries, DI patterns)
+  - .devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
+
+  Implementation requirements:
+  1. Write MINIMAL code to pass tests (no over-engineering)
+  2. Follow coding-standards.md patterns
+  3. Respect architecture-constraints.md layer boundaries
+  4. Use dependencies.md packages ONLY (ask before adding new ones)
+  5. Avoid anti-patterns.md forbidden patterns
+  6. Use native tools (Read/Edit/Write, not Bash for files)
+
+  Test command: {TEST_COMMAND}
+
+  If new dependency needed:
+  - HALT and use AskUserQuestion to get approval
+  - Update dependencies.md after approval
+  - Create ADR if significant decision
+
+  Return:
+  - Implementation files created/modified
+  - Approach taken
+  - Any assumptions made
+  - Test run status (should be GREEN)"
+)
 ```
 
-After approval:
-1. Update dependencies.md
-2. Create ADR documenting decision
-3. Install package
-4. Proceed with implementation
+**Parse subagent response:**
 
-#### Step 3: Implement Following Coding Standards
+```javascript
+result = extract_from_subagent_output(response)
 
-```
-Read(file_path=".devforgeai/context/coding-standards.md")
-```
+files_modified = result["files_modified"]
+approach = result["approach"]
 
-Enforce patterns during implementation:
-- Async/await patterns
-- Dependency injection
-- Error handling (Result Pattern, exceptions, etc.)
-- Naming conventions
-- Logging patterns
+Display: "✓ Phase 2 (Green): Implementation by {IMPLEMENTATION_AGENT}"
+Display: "  - Files modified: {len(files_modified)}"
 
-#### Step 4: Validate Architecture Constraints
+FOR file in files_modified:
+    Display: "    • {file['path']}: {file['purpose']}"
 
-```
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Display: "  - Approach: {approach}"
 ```
 
-Enforce layer boundaries (e.g., Domain NEVER references Infrastructure).
-
-**If architecture decision is ambiguous → Use AskUserQuestion**
-
-#### Step 5: Use Native Tools for File Operations
-
-**CRITICAL: Use native tools for 40-73% token savings**
-
-✅ CORRECT:
-- `Read(file_path="...")`
-- `Edit(file_path="...", old_string="...", new_string="...")`
-- `Write(file_path="...", content="...")`
-- `Glob(pattern="...")`
-- `Grep(pattern="...", type="...")`
-
-❌ FORBIDDEN:
-- Bash for cat, sed, find, grep, echo > (use native tools instead)
-
-Reserve Bash ONLY for: tests, builds, git, package managers
-
-#### Step 6: Run Tests
+**Verify tests pass (Green phase):**
 
 ```
-# Use TEST_COMMAND variable from Phase 0 Step 4
 Bash(command=TEST_COMMAND)
+
+IF all tests pass:
+    Display: "✓ GREEN phase confirmed - all tests passing"
+    Display: "  Ready for Phase 3 (Refactor)"
+
+ELIF some tests still failing:
+    Display: "⚠️ Warning: {failed_count} tests still failing"
+    Display: "  Re-invoking {IMPLEMENTATION_AGENT} to fix..."
+
+    # Re-invoke subagent with additional context about failures
+    # [Same Task call with failure details added to prompt]
+
+ELSE (tests error):
+    Display: "❌ ERROR: Test execution failed"
+    HALT development
 ```
 
-**Expected: GREEN (test passes) ✓**
+**Token cost:** ~900 tokens in skill context (~50,000 in isolated subagent context)
 
 ---
 
 ### Phase 3: Refactor (Refactor Phase)
 
-Improve code quality while keeping tests green.
+**Delegate refactoring to refactoring-specialist and code-reviewer subagents.**
 
-For detailed refactoring techniques, see `references/refactoring-patterns.md`
-
-#### Step 1: Check Anti-Patterns
+#### Step 1: Invoke refactoring-specialist Subagent
 
 ```
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Task(
+  subagent_type="refactoring-specialist",
+  description="Refactor code while keeping tests green",
+  prompt="Refactor the implementation from Phase 2 to improve code quality.
+
+  Implementation files and tests available in conversation.
+
+  Context files to enforce:
+  - .devforgeai/context/anti-patterns.md (check for violations)
+  - .devforgeai/context/coding-standards.md (apply patterns)
+  - .devforgeai/context/architecture-constraints.md (maintain layer boundaries)
+
+  Refactoring targets:
+  1. Anti-pattern violations (God objects, tight coupling, magic numbers)
+  2. Code complexity (methods >50 lines, cyclomatic complexity >10)
+  3. Code duplication (DRY principle violations)
+  4. Naming improvements (clarity, consistency)
+  5. Performance optimizations (if low-hanging fruit)
+
+  Requirements:
+  - Keep tests GREEN throughout (run {TEST_COMMAND} after each change)
+  - Use native tools (Edit for modifications, not sed)
+  - Make incremental changes (one refactoring at a time)
+  - HALT if tests break
+
+  Test command: {TEST_COMMAND}
+
+  Return:
+  - Refactorings applied (list with rationale)
+  - Files modified
+  - Test status after each refactoring (must stay GREEN)"
+)
 ```
 
-Validate implementation doesn't violate:
-- Library substitution (locked in tech-stack.md)
-- Structure violation (defined in source-tree.md)
-- Cross-layer dependencies (enforced by architecture-constraints.md)
-- Framework mixing
-- Magic numbers/strings
-- God objects (>500 lines)
-- Tight coupling (use dependency injection)
-- Security anti-patterns (SQL injection, XSS, hardcoded secrets)
+**Parse subagent response:**
 
-**If anti-pattern detected → Refactor immediately**
+```javascript
+result = extract_from_subagent_output(response)
 
-#### Step 2: Apply Refactoring Techniques
+refactorings_applied = result["refactorings"]
+tests_green = result["tests_remained_green"]
 
-Common refactorings:
-- Extract Method (methods >50 lines)
-- Extract Class (classes >500 lines)
-- Introduce Parameter Object (>4 parameters)
-- Replace Magic Numbers with Constants
-- Remove Duplication (DRY principle)
+Display: "✓ Phase 3 (Refactor): Code improved by refactoring-specialist"
+Display: "  - Refactorings applied: {len(refactorings_applied)}"
 
-See `references/refactoring-patterns.md` for complete catalog.
+FOR refactoring in refactorings_applied:
+    Display: "    • {refactoring['type']}: {refactoring['rationale']}"
 
-#### Step 3: Keep Tests Green
-
-```
-# Refactor implementation
-Edit(file_path="...", old_string="...", new_string="...")
-
-# Verify tests still pass (use TEST_COMMAND from Phase 0)
-Bash(command=TEST_COMMAND)
+IF tests_green:
+    Display: "  - Tests: ✅ GREEN (all passing after refactoring)"
+ELSE:
+    Display: "  - Tests: ❌ BROKEN during refactoring"
+    HALT development
 ```
 
-**HALT if tests break during refactoring**
+#### Step 2: Invoke code-reviewer Subagent
 
-**Expected: Tests remain GREEN ✓**
+```
+Task(
+  subagent_type="code-reviewer",
+  description="Review refactored code for quality",
+  prompt="Perform comprehensive code review of the refactored implementation.
+
+  Code and tests available in conversation.
+
+  Review checklist:
+  1. Code quality (readability, maintainability, simplicity)
+  2. Security (no vulnerabilities, input validation, secrets management)
+  3. Best practices (SOLID principles, design patterns)
+  4. Test coverage (all paths covered, edge cases tested)
+  5. Documentation (public APIs documented, complex logic explained)
+  6. Performance (no obvious bottlenecks)
+  7. Context file compliance (tech-stack.md, coding-standards.md, etc.)
+
+  Provide feedback organized by priority:
+  - CRITICAL (must fix before commit)
+  - HIGH (should fix now)
+  - MEDIUM (should fix soon)
+  - LOW (nice to have)
+
+  Return:
+  - Issues found (by priority)
+  - Positive observations
+  - Recommendations"
+)
+```
+
+**Parse subagent response:**
+
+```javascript
+result = extract_from_subagent_output(response)
+
+critical_issues = result["issues"]["critical"]
+high_issues = result["issues"]["high"]
+
+Display: "✓ Code review by code-reviewer complete"
+
+IF len(critical_issues) > 0:
+    Display: "  - CRITICAL issues: {len(critical_issues)} (must fix)"
+
+    FOR issue in critical_issues:
+        Display: "    🚨 {issue['description']}"
+
+    # Re-invoke refactoring-specialist to fix critical issues
+    Display: "Re-invoking refactoring-specialist to fix critical issues..."
+    # [Task call with critical issues in prompt]
+
+ELIF len(high_issues) > 0:
+    Display: "  - HIGH issues: {len(high_issues)} (should fix)"
+
+    FOR issue in high_issues:
+        Display: "    ⚠️ {issue['description']}"
+
+    # Ask user if they want to fix now
+    AskUserQuestion:
+        question: "{len(high_issues)} high-priority issues found. Fix now?"
+        header: "Code Review"
+        options:
+            - label: "Fix now"
+              description: "Address issues before proceeding"
+            - label: "Continue"
+              description: "Accept issues, proceed to Phase 4"
+        multiSelect: false
+
+ELSE:
+    Display: "  - No critical or high issues found ✅"
+    Display: "  Ready for Phase 4 (Integration)"
+```
+
+**Token cost:** ~1,200 tokens in skill context (~60,000 combined in isolated subagent contexts)
 
 ---
 
 ### Phase 4: Integration & Validation
 
-Ensure implementation integrates correctly with existing codebase.
+**Delegate integration testing to integration-tester subagent.**
 
-#### Step 1: Run Full Test Suite
-
-```
-# Use TEST_COMMAND from Phase 0 with coverage flags (if supported)
-# Technology-specific coverage commands:
-# - Node.js: npm test -- --coverage
-# - Python: pytest --cov=src --cov-report=term
-# - .NET: dotnet test --collect:"XPlat Code Coverage"
-# - Go: go test -coverprofile=coverage.out ./...
-# - Rust: cargo test -- --test-threads=1
-
-Bash(command=TEST_COMMAND_WITH_COVERAGE)
-
-# Or if simple test command:
-Bash(command=TEST_COMMAND)
-```
-
-Validate:
-- [ ] All existing tests still pass (no regressions)
-- [ ] New tests pass
-- [ ] Code coverage meets requirements (95%/85%/80%)
-
-#### Step 2: Static Analysis
-
-If configured:
+#### Step 1: Invoke integration-tester Subagent
 
 ```
-Bash(command="[linter command]")
+Task(
+  subagent_type="integration-tester",
+  description="Run full test suite with coverage",
+  prompt="Execute comprehensive integration testing and validation.
+
+  Implementation and tests available in conversation.
+
+  Test execution:
+  1. Run full test suite: {TEST_COVERAGE_COMMAND}
+  2. Validate coverage meets thresholds:
+     - Business logic: 95% minimum
+     - Application layer: 85% minimum
+     - Infrastructure: 80% minimum
+  3. Check for regressions (existing tests still pass)
+  4. Validate build succeeds: {BUILD_COMMAND}
+  5. Run linter if available
+  6. Check for integration issues (cross-component interactions)
+
+  Context files:
+  - .devforgeai/context/coding-standards.md (coverage requirements)
+  - .devforgeai/context/architecture-constraints.md (layer boundaries)
+
+  Return:
+  - Test results (total, passed, failed, coverage %)
+  - Coverage by layer (business/application/infrastructure)
+  - Build status (success/failure)
+  - Linter issues (if applicable)
+  - Integration issues found"
+)
 ```
 
-Fix violations using Edit tool.
+**Parse subagent response:**
 
-#### Step 3: Build Validation
+```javascript
+result = extract_from_subagent_output(response)
 
+test_results = result["test_results"]
+coverage = result["coverage"]
+build_status = result["build_status"]
+
+Display: "✓ Phase 4 (Integration): Full validation by integration-tester"
+Display: "  - Tests: {test_results['passed']}/{test_results['total']} passing"
+Display: "  - Coverage: {coverage['overall']}%"
+Display: "    • Business logic: {coverage['business']}%"
+Display: "    • Application: {coverage['application']}%"
+Display: "    • Infrastructure: {coverage['infrastructure']}%"
+Display: "  - Build: {build_status}"
+
+# Validate coverage thresholds
+IF coverage['business'] < 95:
+    Display: "  ⚠️ Business logic coverage below 95% threshold"
+    coverage_issues = true
+
+IF coverage['application'] < 85:
+    Display: "  ⚠️ Application coverage below 85% threshold"
+    coverage_issues = true
+
+IF coverage['infrastructure'] < 80:
+    Display: "  ⚠️ Infrastructure coverage below 80% threshold"
+    coverage_issues = true
+
+IF coverage_issues:
+    # Ask user how to proceed
+    AskUserQuestion:
+        question: "Coverage below thresholds. How to proceed?"
+        header: "Coverage"
+        options:
+            - label: "Add more tests now"
+              description: "Re-invoke test-automator to fill coverage gaps"
+            - label: "Defer to QA"
+              description: "Mark as incomplete DoD item, address in QA phase"
+            - label: "Accept (document why)"
+              description: "Justify why lower coverage acceptable for this story"
+        multiSelect: false
+
+    # Handle user response appropriately
+
+IF test_results['failed'] > 0:
+    Display: "❌ {test_results['failed']} tests failing"
+    HALT development
+
+IF build_status != "SUCCESS":
+    Display: "❌ Build failed"
+    HALT development
+
+Display: "✓ Ready for Phase 5 (Git Workflow / Change Tracking)"
 ```
-Bash(command="[build command]")
-```
 
-**Expected: Build succeeds ✓**
-
-#### Step 4: Update Documentation
-
-If implementation affects:
-- API contracts → Update docs/api/
-- Database schema → Update context files
-- New dependencies → Update dependencies.md (already done in Phase 2)
+**Token cost:** ~1,000 tokens in skill context (~40,000 in isolated subagent context)
 
 ---
 
@@ -783,503 +1147,168 @@ Validate:
 - [ ] No secrets or credentials in code
 - [ ] All new files in correct locations (per source-tree.md)
 
-#### Step 1b: Update Story File with Implementation Notes
+---
 
-**CRITICAL: Document implementation details in story file BEFORE committing**
+#### Step 1a: Python Format Validation (Layer 1 - Quick Check)
 
-This step is MANDATORY - it transforms the story from requirements-only into a complete record of what was done and how it was verified.
+**Execute lightweight format validator for DoD deferrals:**
 
-**Read story file:**
-```
-Read(file_path=".ai_docs/Stories/[story-id].story.md")
-```
+<layer_1_validation>
+  <purpose>Fast feedback - catch 80% of format errors in <100ms</purpose>
+  <blocking>No (warnings only, non-blocking)</blocking>
+  <token_cost>~200 tokens</token_cost>
+  <efficiency>Python stdlib (not Bash file operations)</efficiency>
+</layer_1_validation>
 
-**Generate Implementation Notes section:**
-
-Use Edit tool to add "## Implementation Notes" section (before "## Related Stories" or at end of file):
-
-```markdown
-## Implementation Notes
-
-**Developer:** DevForgeAI AI Agent
-**Implemented:** [current date and time]
-**Commit:** [will update with hash after commit]
-
-### Definition of Done Status
-
-[Copy each Definition of Done item from story file above, marking completion status]
-
-- [x] Unit tests written and passing - Completed: Created X unit tests in tests/[module]/, all passing
-- [x] Integration tests for API endpoints - Completed: Created Y integration tests, verified with cargo test
-- [x] Code follows coding-standards.md - Completed: Applied cargo fmt, followed naming conventions
-- [ ] Performance benchmarks created - Not completed: Deferred to STORY-XXX (performance optimization epic)
-
-**For EACH DoD item, validate completion status:**
-
-<deferral_enforcement>
-  <policy>ZERO autonomous deferrals allowed</policy>
-  <mechanism>AskUserQuestion MANDATORY for all incomplete items</mechanism>
-  <violation_consequence>Git commit BLOCKED until user approval obtained</violation_consequence>
-</deferral_enforcement>
-
-```
-FOR each DoD item in story acceptance criteria:
-    IF item is complete:
-        Mark: [x] {item} - Completed: {brief_completion_note}
-
-    ELSE:
-        # Item not complete - MUST get user approval to defer
-
-        <halt_condition>
-          <trigger>Incomplete DoD item detected</trigger>
-          <item>'{item}'</item>
-          <action>MANDATORY AskUserQuestion - CANNOT SKIP</action>
-        </halt_condition>
-
-        AskUserQuestion:
-            Question: "DoD item not complete: '{item}'. How should we proceed?"
-            Header: "Incomplete DoD"
-            Options:
-                - "Complete it now (continue development to finish item)"
-                - "Defer to follow-up story (create STORY-XXX for tracking)"
-                - "Scope change (requirements changed - requires ADR)"
-                - "External blocker (document dependency with ETA)"
-            multiSelect: false
-
-        BASED ON USER SELECTION:
-
-        **Option 1: "Complete it now"**
-        ```
-        Return to Phase 2-4 (TDD cycle)
-        Implement the DoD item
-        Run tests
-        Mark: [x] {item} - Completed: {note}
-        ```
-
-        **Option 2: "Defer to follow-up story"**
-        ```
-        AskUserQuestion:
-            Question: "Create follow-up story for '{item}' now or later?"
-            Header: "Follow-up"
-            Options:
-                - "Create now (I'll approve story details)"
-                - "I'll create manually later (provide story ID)"
-            multiSelect: false
-
-        IF "Create now":
-            Task(
-                subagent_type="requirements-analyst",
-                description="Create follow-up story",
-                prompt="Create follow-up story for deferred work:
-
-                        Original Story: {current_story_id}
-                        Deferred DoD Item: '{item}'
-
-                        Extract acceptance criteria from original item.
-                        Set dependency: prerequisite_stories: [{current_story_id}]
-                        Set epic: {current_epic}
-                        Set status: Backlog
-
-                        Return new story ID."
-            )
-
-            new_story_id = {result from subagent}
-
-            Mark: [ ] {item} - Deferred to {new_story_id}: Work split for focused implementation
-
-        ELSE:
-            AskUserQuestion:
-                Question: "What is the follow-up story ID?"
-                Header: "Story ID"
-                (User must provide STORY-XXX ID)
-
-            Verify story exists:
-            Glob(pattern=".ai_docs/Stories/{user_provided_id}*.md")
-            IF not found:
-                WARN: "Story doesn't exist yet. You must create it."
-
-            Mark: [ ] {item} - Deferred to {user_provided_id}: {get reason from user}
-        ```
-
-        **Option 3: "Scope change (requires ADR)"**
-        ```
-        AskUserQuestion:
-            Question: "Create ADR documenting scope change now or later?"
-            Header: "ADR creation"
-            Options:
-                - "Create now (I'll provide justification)"
-                - "I'll create manually later (provide ADR number)"
-            multiSelect: false
-
-        IF "Create now":
-            Task(
-                subagent_type="architect-reviewer",
-                description="Create scope change ADR",
-                prompt="Create ADR for scope change:
-
-                        Story: {current_story_id}
-                        Descoped Item: '{item}'
-
-                        Document:
-                        - Why requirement changed
-                        - Business justification
-                        - Impact on system
-                        - Alternatives considered
-
-                        Return ADR number."
-            )
-
-            adr_number = {result from subagent}
-
-            Mark: [ ] {item} - Out of scope: ADR-{adr_number} documents scope change
-
-        ELSE:
-            AskUserQuestion:
-                Question: "What is the ADR number?"
-                Header: "ADR number"
-                (User must provide ADR-XXX number)
-
-            Mark: [ ] {item} - Out of scope: ADR-{user_provided_adr}
-        ```
-
-        **Option 4: "External blocker"**
-        ```
-        AskUserQuestion:
-            Question: "Describe the external blocker for '{item}'"
-            Header: "Blocker details"
-            (Free-form: "Example: Payment API v2 not available until 2025-12-01")
-
-        blocker_description = {user input}
-
-        Validate blocker is external:
-        IF blocker_description contains internal terms (our code, our API, our module):
-            AskUserQuestion:
-                Question: "This seems like an internal blocker. Is it truly external (outside our control)?"
-                Header: "Blocker type"
-                Options: ["Yes - external dependency", "No - I can resolve it now"]
-                multiSelect: false
-
-            IF "No":
-                Return to "Complete it now" path
-
-        Mark: [ ] {item} - Blocked by: {blocker_description}
-
-        # Log to technical debt register
-
-        # Auto-create from template if doesn't exist
-        Check if .devforgeai/technical-debt-register.md exists
-        IF not found:
-            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-            Write(.devforgeai/technical-debt-register.md, content=template)
-            Display: "Created technical debt register from template"
-
-        Read .devforgeai/technical-debt-register.md
-        Append to "Open Debt Items" section:
-            "- {item} (from {story_id}): Blocked by {blocker_description} | Date: {date} | Status: Open"
-        ```
+```python
+# Execute Python format validator
+Bash(
+    command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet",
+    description="Run lightweight DoD format validator"
+)
 ```
 
-**After ALL DoD items processed, validate and display summary:**
-
-<validation_checkpoint>
-  <requirement>Every incomplete DoD item MUST have user-approved justification</requirement>
-  <check>Verify AskUserQuestion was invoked for each deferral</check>
-  <action_on_failure>HALT git commit - return to deferral resolution</action_on_failure>
-</validation_checkpoint>
-
+**Result handling:**
 ```
-# Final enforcement check
-IF any deferred item lacks user interaction approval:
-    <error_condition>
-      <type>PROTOCOL_VIOLATION</type>
-      <message>Cannot proceed to git commit: Deferrals require user approval via AskUserQuestion</message>
-      <resolution>Return to Phase 5 Step 1b and execute AskUserQuestion for each incomplete item</resolution>
-    </error_condition>
+exit_code = $?
 
-    HALT development
-    Display: "❌ ERROR: Autonomous deferrals detected. User approval required for all incomplete DoD items."
-    DO NOT proceed to Step 1.5 (deferral validation)
+# format-only mode always exits 0 (non-blocking warnings)
+# --quiet suppresses output (minimal tokens)
+
+IF exit_code == 0:
+    Display: "✓ Layer 1: Quick format check complete (<100ms)"
+
+    # Check if warnings were output (even with --quiet, critical issues shown)
+    IF stdout contains "WARNING":
+        Display: "  ⚠️  Format warnings detected (non-blocking):"
+        Display: "{stdout}"
+        Display: ""
+        Display: "Layer 2 (user interaction) will address these issues."
 
 ELSE:
-    Display:
-    "Definition of Done Status:
-     - Complete: {complete_count}/{total_count}
-     - Deferred: {deferred_count}
-       - Story splits: {story_split_count} (follow-up stories created/referenced)
-       - Scope changes: {scope_change_count} (ADRs created/referenced)
-       - External blockers: {blocker_count} (tracked in tech debt register)
-
-    All deferrals have user approval and proper justification ✓
-    Proceeding to automated deferral validation..."
-
-# Story Size Detection (RCA-006 Rec 4)
-IF deferred_count > 3:
-    <story_size_warning>
-      <trigger>More than 3 deferred DoD items detected</trigger>
-      <threshold>Maximum recommended: 3 deferrals per story</threshold>
-      <implication>Excessive deferrals suggest story scope too large or poorly defined</implication>
-      <action>Recommend story splitting for better focus and reduced technical debt</action>
-    </story_size_warning>
-
-    Display:
-    "⚠️  STORY SIZE WARNING
-
-     This story has {deferred_count} deferred DoD items.
-     Recommended maximum: 3 deferrals
-
-     Excessive deferrals indicate:
-     - Story scope may be too large
-     - Work is fragmented across multiple follow-up stories
-     - Risk of deferral chains (A→B→C)
-
-     Consider splitting into focused stories to reduce technical debt."
-
-    AskUserQuestion:
-        Question: "Story has {deferred_count} deferrals (max 3 recommended). How should we proceed?"
-        Header: "Story Size"
-        Options:
-            - "Complete more items now (reduce deferrals by implementing additional work)"
-            - "Split story (AI will analyze and suggest focused splits)"
-            - "Accept as-is (I'll document reason: legacy refactor, infrastructure, etc.)"
-        multiSelect: false
-
-    BASED ON USER SELECTION:
-
-    **Option 1: "Complete more items now"**
-    ```
-    Display: "Returning to implementation to complete additional DoD items..."
-
-    AskUserQuestion:
-        Question: "Which deferred items should we complete now?"
-        Header: "Items to complete"
-        Options:
-            [List each deferred item as option]
-        multiSelect: true  # Allow selecting multiple
-
-    selected_items = user_response
-
-    FOR each selected_item:
-        Display: "Implementing: {selected_item}"
-        # Return to Phase 2 (Implementation) for this item
-        # After implementation, return to DoD validation
-
-    # After implementing selected items:
-    Display: "✓ Additional items complete. Reduced deferrals from {original_count} to {new_count}"
-
-    # Re-run DoD validation to update counts
-    ```
-
-    **Option 2: "Split story (AI will analyze)"**
-    ```
-    Display: "Analyzing story for split opportunities..."
-
-    Task(
-        subagent_type="requirements-analyst",
-        description="Suggest story split",
-        prompt="Analyze current story for splitting recommendations:
-
-                Story ID: {current_story_id}
-                Story Points: {story_points}
-                Total DoD Items: {total_count}
-                Complete: {complete_count}
-                Deferred: {deferred_count}
-
-                Deferred items:
-                {list each deferred item with justification}
-
-                Analyze and suggest:
-                1. Natural groupings of deferred work
-                2. Core story (keep in current) vs extensions (move to child stories)
-                3. Recommended split: 2-3 focused child stories
-                4. Story points distribution
-
-                Use splitting techniques:
-                - By operations (CRUD splits)
-                - By quality attributes (functionality vs performance)
-                - By testing scope (unit vs integration vs platform)
-
-                Return:
-                - Recommended split approach
-                - Child story titles and scope
-                - Acceptance criteria distribution
-                - Story points for each child"
-    )
-
-    split_recommendations = extract from subagent response
-
-    Display:
-    "Split Recommendations:
-
-     {format split recommendations from subagent}
-
-     Option A: {approach_1}
-       - STORY-{current}: {core_work} ({points} points) - KEEP
-       - STORY-{new_1}: {extension_1} ({points} points) - NEW
-       - STORY-{new_2}: {extension_2} ({points} points) - NEW
-
-     Option B: {approach_2}
-       [Alternative split...]"
-
-    AskUserQuestion:
-        Question: "Which split approach should we use?"
-        Header: "Split Strategy"
-        Options:
-            - "Option A ({count} stories)"
-            - "Option B ({count} stories)"
-            - "Custom (I'll specify different split)"
-            - "Cancel (keep original story)"
-        multiSelect: false
-
-    IF user approves split:
-        FOR each child story in approved split:
-            Task(
-                subagent_type="requirements-analyst",
-                description="Create child story from split",
-                prompt="Create focused child story:
-
-                        Parent Story: {current_story_id}
-                        Child Title: {child_title}
-                        Acceptance Criteria: {subset_criteria}
-                        Story Points: {child_points}
-
-                        Set:
-                        - prerequisite_stories: [{current_story_id}]
-                        - epic: {current_epic}
-                        - sprint: Backlog (for future sprint)
-                        - status: Backlog
-                        - priority: {inherit from parent}
-
-                        Return new story ID and file path."
-            )
-
-            new_story_id = extract from subagent
-            Display: "✓ Created {new_story_id}: {child_title}"
-
-        # Update current story with split references
-        Edit current story Implementation Notes:
-        Add: "Story split on {date} due to size ({deferred_count} deferrals)
-
-              Child stories:
-              - {new_story_1}: {title} ({points} points)
-              - {new_story_2}: {title} ({points} points)
-
-              Rationale: Reduce deferral chains, create focused stories"
-
-        Display: "✓ Story split complete. Current story focused, {count} child stories created."
-
-    ELSE:
-        Display: "Split cancelled. Continuing with original story."
-    ```
-
-    **Option 3: "Accept as-is (document reason)"**
-    ```
-    AskUserQuestion:
-        Question: "Provide reason for accepting {deferred_count} deferrals (>3 max):"
-        Header: "Justification"
-        # User provides free-form text
-        # Example: "Legacy code refactor - inherently large scope"
-        # Example: "Infrastructure story - many system touchpoints required"
-
-    reason = user_input
-
-    Edit current story Implementation Notes:
-    Add: "## Story Size Exception
-
-          Deferrals: {deferred_count} (exceeds recommended maximum of 3)
-
-          Justification: {reason}
-
-          Acknowledged: Story size accepted with documented reason"
-
-    Display: "✓ Story size exception documented. Proceeding with {deferred_count} deferrals."
-    ```
-
-ENDIF (deferred_count > 3 check)
+    # Unexpected error (script crash)
+    Display: "⚠️ Format validator script error (non-critical)"
+    Display: "Proceeding with Layer 2 validation..."
 ```
 
-### Key Implementation Decisions
+**Purpose:**
+- Instant feedback for developers
+- Catches obvious format errors before user interaction
+- Non-blocking (Layer 2 is authoritative)
+- Minimal token cost (~200 tokens)
 
-[Document significant technical decisions made during implementation]
-
-- **Decision 1:** Used [Technology/Pattern] instead of [Alternative]
-  - **Rationale:** tech-stack.md specifies [X], architecture-constraints.md requires [Y]
-  - **Alternatives considered:** [List alternatives and why rejected]
-
-- **Decision 2:** Placed files in [Location]
-  - **Rationale:** source-tree.md specifies [structure rule]
-
-[Include 2-5 key decisions that affect maintainability, performance, or architecture]
-
-### Files Created/Modified
-
-[List files organized by layer from source-tree.md]
-
-**Layer: [Presentation/Application/Domain/Infrastructure]**
-- `path/to/file1.ext` - [Purpose, what it does]
-- `path/to/file2.ext` - [Purpose, what it does]
-
-**Tests:**
-- `tests/unit/test_module.ext` - Unit tests for [component]
-- `tests/integration/test_api.ext` - Integration tests for [feature]
-
-### Test Results
-
-- **Unit tests:** X passing / Y total
-- **Integration tests:** X passing / Y total
-- **E2E tests:** X passing / Y total (if applicable)
-- **Coverage:** Z% (target: 95% business logic, 85% application, 80% infrastructure)
-- **All tests passing:** YES/NO
-
-**Coverage by layer:**
-- Business logic: X%
-- Application: Y%
-- Infrastructure: Z%
-
-### Acceptance Criteria Verification
-
-[For each acceptance criterion from story, document HOW it was verified]
-
-**Given/When/Then Scenario 1:**
-- [x] **Verified:** cargo test::test_scenario_1 passes - validates [specific behavior]
-- **Method:** Unit test validates [input] → [expected output]
-
-**Given/When/Then Scenario 2:**
-- [x] **Verified:** Manual testing - ran `cargo run -- [args]`, confirmed [expected result]
-- **Method:** Integration test + manual verification
-
-**Scenario 3 (if any not verified):**
-- [ ] **Not verified:** Deferred to QA - requires [specific test environment/data]
-
-### Notes
-
-[Optional: Any additional context]
-- Blockers encountered: [None / List blockers and resolutions]
-- Workarounds applied: [None / List workarounds]
-- Technical debt introduced: [None / List debt with plan to address]
-- Future improvements: [Suggestions for v2.0, optimization opportunities]
-```
-
-**Validation before proceeding to Step 2:**
-- [ ] Implementation Notes section added to story file
-- [ ] All DoD items have status ([x] or [ ] with reason)
-- [ ] Key decisions documented
-- [ ] Files listed
-- [ ] Test results recorded
-- [ ] Acceptance criteria verification documented
-
-**If any validation fails:** HALT - Complete Implementation Notes before committing
+**Always proceed to Step 1b (Layer 2) regardless of Layer 1 results.**
 
 ---
 
-#### Step 1.5: Validate Deferrals (CRITICAL - Automated Quality Gate)
+#### Step 1b: Definition of Done Validation Checkpoint (Layer 2)
 
-<automated_validation>
-  <purpose>Prevent technical debt from unjustified deferrals</purpose>
-  <trigger>Any DoD items marked [ ] (incomplete)</trigger>
-  <enforcement>BLOCKS git commit on CRITICAL/HIGH violations</enforcement>
-</automated_validation>
+<layer_2_validation>
+  <purpose>ZERO autonomous deferrals - require user approval for ALL incomplete items</purpose>
+  <blocking>Yes (MANDATORY checkpoint, cannot skip)</blocking>
+  <delegation>Progressive loading via reference file</delegation>
+  <token_cost>~7,000 tokens (loaded only when needed)</token_cost>
+  <efficiency>Reference file isolation - loaded on-demand, not always in context</efficiency>
+</layer_2_validation>
 
-**Purpose:** Automated validation of deferral justifications before git commit
+**CRITICAL: Execute mandatory DoD validation checkpoint**
+
+This step enforces user approval for all incomplete Definition of Done items through a comprehensive validation procedure documented in a dedicated reference file.
+
+**Load DoD validation reference:**
+
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-validation-checkpoint.md")
+```
+
+**Follow the validation procedure documented in the reference file.**
+
+**Context provided to reference:**
+- **STORY_ID:** ${STORY_ID} (already extracted from conversation)
+- **STORY_FILE:** .ai_docs/Stories/${STORY_ID}*.story.md (loaded in conversation)
+- **Story content:** Available for extraction and updates
+- **Variables:** $WORKFLOW_MODE, $GIT_AVAILABLE, $TEST_COMMAND (from Phase 0)
+
+**The reference file implements:**
+
+1. **Extract Incomplete Items** (Step 1)
+   - Uses Grep tool to find DoD items marked `- [ ]`
+   - Identifies items lacking justifications
+   - Parses context lines for existing deferrals
+
+2. **Mandatory User Interaction** (Step 2)
+   - AskUserQuestion for EACH unjustified incomplete item
+   - Four resolution options:
+     - **Complete it now:** Return to Phase 2 (implementation)
+     - **Defer to story:** Create/reference follow-up story
+     - **Scope change:** Create/reference ADR
+     - **External blocker:** Document dependency + track in tech debt
+   - Invokes subagents as needed:
+     - requirements-analyst (follow-up story creation)
+     - architect-reviewer (ADR creation)
+   - Updates story file with user-approved justifications
+
+3. **Story Size Detection** (RCA-006 Rec 4)
+   - If >3 deferrals detected, triggers story size warning
+   - Offers options: Complete more now / Split story / Accept as-is
+   - Invokes requirements-analyst for split analysis if chosen
+   - Creates focused child stories with reduced scope
+
+4. **Final Validation** (Step 3)
+   - Verifies all items processed through user interaction
+   - Generates summary of deferrals with justifications
+   - Confirms checkpoint passed
+
+**Expected outcomes:**
+
+```
+✅ PASS: All incomplete items have user-approved justifications
+   → Proceed to Step 1.5 (Layer 3 - AI validation)
+
+❌ HALT: Items still lack justification
+   → Reference file enforces checkpoint, blocks progression
+
+🔄 RETURN: User chose "Complete it now" for one or more items
+   → Return to Phase 2 (Green) to implement deferred work
+   → After implementation, return here to revalidate
+```
+
+**After checkpoint completes successfully:**
+
+```
+# Verify story file updated
+Read(file_path=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+# Validate DoD section has justifications
+Check that each incomplete item [ ] has one of:
+  - "Deferred to STORY-XXX: {reason}"
+  - "Out of scope: ADR-XXX {reason}"
+  - "Blocked by: {external_dependency}"
+  - "Technical debt: {reason}"
+
+# Confirm all deferrals justified
+Display: "✓ Layer 2 (DoD Checkpoint): All deferrals have user approval and proper justification"
+
+# Proceed to Layer 3
+Continue to Step 1.5 (AI Deferral Validation)
+```
+
+**Progressive Disclosure:** The reference file is only loaded when the story has incomplete DoD items, achieving token efficiency. Stories with all DoD items complete skip this step entirely.
+
+**This checkpoint CANNOT be skipped. User approval required for EVERY incomplete item.**
+
+---
+
+#### Step 1.5: AI Deferral Validation (Layer 3 - Comprehensive)
+
+<layer_3_validation>
+  <purpose>Deep analysis - feasibility checks, circular detection, reference validation</purpose>
+  <blocking>Yes (blocks on CRITICAL/HIGH violations)</blocking>
+  <token_cost>~500 tokens to main conversation (subagent runs in isolated context)</token_cost>
+  <efficiency>Subagent context isolation - 5K tokens in separate window, only summary affects main</efficiency>
+</layer_3_validation>
+
+**Purpose:** Comprehensive AI validation of deferral justifications via deferral-validator subagent
 
 **IF any DoD items marked [ ] (incomplete):**
 

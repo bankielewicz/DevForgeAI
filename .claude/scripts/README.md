@@ -349,7 +349,7 @@ ERROR: Story file not found: .ai_docs/Stories/STORY-006.story.md
 ## Related Documentation
 
 **RCA-006 Implementation:**
-- Recommendation 1: `.claude/tasks/dod-validation-checkpoint.md` (Layer 2)
+- Recommendation 1: `.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md` (Layer 2)
 - Recommendation 2: `.claude/skills/devforgeai-development/SKILL.md` (XML enforcement)
 - Recommendation 3: This script (Layer 1) + `.claude/agents/deferral-validator.md` (Layer 3)
 

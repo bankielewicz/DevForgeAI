@@ -1,20 +1,52 @@
 # Definition of Done Validation Checkpoint
 
+**Skill Reference:** devforgeai-development
+**Phase:** Phase 5, Step 1b (Git Workflow - Layer 2 Validation)
+**Loaded:** On-demand via progressive disclosure (only when DoD items incomplete)
+**Token Cost:** ~5,000-10,000 tokens (separate from main skill context)
+
 **Purpose:** Mandatory user interaction gate for all incomplete Definition of Done items. Prevents autonomous deferrals and ensures user approval for all deferred work.
 
-**Context:** This task is invoked by the /dev command after the devforgeai-development skill completes implementation but BEFORE git commit is created.
+**Integration Pattern:** The devforgeai-development skill loads this reference via:
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-validation-checkpoint.md")
+```
+
+**Progressive Disclosure:** This reference is NOT loaded unless the story has incomplete DoD items, optimizing token usage. Only loaded after TDD cycle completes (Phases 1-4) and Layer 1 validation (Python format check) passes.
 
 **Enforcement:** Git commit is BLOCKED until this checkpoint passes.
 
 ---
 
+## Skill Context Available
+
+When this reference is loaded by the skill, the following context is available:
+
+- **STORY_ID:** Extracted from conversation (e.g., STORY-006)
+- **STORY_FILE:** Path to story file (.ai_docs/Stories/STORY-006.story.md)
+- **Story Content:** Already loaded in conversation via @ reference from /dev command
+- **Completion Status:** TDD cycle complete, Layer 1 validation passed
+- **Variables from Phase 0:**
+  - `$WORKFLOW_MODE` (git_based or file_based)
+  - `$GIT_AVAILABLE` (true or false)
+  - `$TEST_COMMAND` (detected test framework command)
+
+**The skill has already completed:**
+- ✅ Phase 0: Pre-Flight Validation (Git, context files, tech stack)
+- ✅ Phase 1-4: TDD Cycle (Red → Green → Refactor → Integration)
+- ✅ Phase 5 Step 1a: Layer 1 validation (Python format check)
+- ⏳ Phase 5 Step 1b: NOW - This checkpoint (Layer 2)
+
+---
+
 ## Input Requirements
 
-From invoking command (passed via conversation context):
-- **STORY_ID:** Story identifier (e.g., STORY-006)
+From skill context (available in conversation when this reference loads):
+- **STORY_ID:** Story identifier (e.g., STORY-006) - extracted by skill from conversation
 - **STORY_FILE:** Full path to story file (e.g., .ai_docs/Stories/STORY-006-feature.story.md)
+- **Story content:** Already loaded in conversation via @ reference from /dev command
 
-Story file MUST already be loaded in conversation context (via @ reference or Read tool).
+**Note:** The skill has already extracted story ID and validated story file exists before loading this reference.
 
 ---
 

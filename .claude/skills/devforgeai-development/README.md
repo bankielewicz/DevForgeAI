@@ -291,12 +291,51 @@ After using this skill, consider:
 3. **Create PR** - Use devforgeai-release skill for PR creation
 4. **Iterate** - Refine based on code review feedback
 
+## Reference Files
+
+The skill uses **progressive disclosure** via reference files loaded on-demand:
+
+### Workflow References (Loaded When Needed)
+
+1. **`references/dod-validation-checkpoint.md`** (487 lines)
+   - **When loaded:** Phase 5 Step 1b - Only if story has incomplete DoD items
+   - **Purpose:** Mandatory user interaction for all deferrals (Layer 2 validation)
+   - **Enforcement:** Blocks git commit until user approval obtained
+   - **Invokes:** requirements-analyst, architect-reviewer subagents
+   - **Token cost:** ~5,000-10,000 tokens (isolated context)
+   - **Progressive:** NOT loaded if all DoD items complete (token optimization)
+
+2. **`references/tdd-patterns.md`** (1,013 lines)
+   - **When loaded:** As needed for TDD guidance during Phases 1-4
+   - **Purpose:** Red-Green-Refactor patterns, test structure, mocking
+
+3. **`references/refactoring-patterns.md`** (797 lines)
+   - **When loaded:** Phase 3 (Refactor) for code improvement techniques
+   - **Purpose:** Extract method, remove duplication, improve naming
+
+4. **`references/git-workflow-conventions.md`** (885 lines)
+   - **When loaded:** Phase 5 (Git Workflow) for commit conventions
+   - **Purpose:** Conventional commits, branch naming, staging strategies
+
+5. **`references/story-documentation-pattern.md`** (792 lines)
+   - **When loaded:** Phase 5 Step 1b for Implementation Notes templates
+   - **Purpose:** Document decisions, files, tests, acceptance verification
+
+6. **`references/slash-command-argument-validation-pattern.md`** (812 lines)
+   - **When loaded:** For slash command integration patterns
+   - **Purpose:** Argument handling, error messages, validation
+
+**Total references:** 4,786 lines of detailed guidance
+**Progressive loading:** Only loaded when specific phase/step needs them
+**Token efficiency:** Prevents loading all guidance upfront (40-73% savings)
+
 ## Related Skills
 
 - **devforgeai-architecture** - Creates context files this skill enforces
-- **devforgeai-qa** (future) - Validates implementation quality
-- **devforgeai-release** (future) - Handles PR creation and deployment
-- **devforgeai-orchestration** (future) - Coordinates multi-skill workflows
+- **devforgeai-qa** - Validates implementation quality (light/deep modes)
+- **devforgeai-release** - Handles deployment to staging/production
+- **devforgeai-orchestration** - Coordinates multi-skill workflows
+- **devforgeai-story-creation** - Creates stories that this skill implements
 
 ## Feedback & Iteration
 
