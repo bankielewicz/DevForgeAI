@@ -1,6 +1,6 @@
 # DevForgeAI Skills Reference
 
-Detailed guidance for working with the 7 DevForgeAI skills.
+Detailed guidance for working with the 8 DevForgeAI skills.
 
 ---
 
@@ -64,6 +64,61 @@ Skill(command="devforgeai-orchestration")
 
 ---
 
+### devforgeai-story-creation
+
+**Use when:**
+- User runs `/create-story [feature-description]` command
+- Orchestration skill creates stories from epic features
+- Development skill creates tracking stories for deferred DoD items
+- Sprint planning requires story generation
+- Transforming feature descriptions into structured stories
+- **Use after ideation/architecture, before development**
+
+**Invocation:**
+```
+# Feature description in conversation context
+**Feature Description:** {description}
+
+Skill(command="devforgeai-story-creation")
+```
+
+**Workflow (8 Phases):**
+1. **Story Discovery** - Generate story ID, discover epic/sprint context, collect metadata
+2. **Requirements Analysis** - Invoke requirements-analyst subagent, generate user story + AC
+3. **Technical Specification** - Invoke api-designer subagent (if API), define data models, business rules
+4. **UI Specification** - Document components, mockups, interfaces, accessibility (if UI detected)
+5. **Story File Creation** - Build YAML frontmatter + all markdown sections, write to disk
+6. **Epic/Sprint Linking** - Update parent documents with story references
+7. **Self-Validation** - Validate quality, self-heal issues, ensure completeness
+8. **Completion Report** - Present summary, guide user to next actions
+
+**Output:**
+- Complete story document in `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- All sections: User story, AC (3+ Given/When/Then), tech spec, UI spec (if applicable), NFRs, edge cases, DoD
+- Epic/sprint files updated (if associated)
+- Self-validated for quality
+
+**Subagents Used:**
+- requirements-analyst (Phase 2) - User story and acceptance criteria
+- api-designer (Phase 3, conditional) - API contracts if endpoints detected
+
+**Reference Files (6 files, 7,477 lines):**
+- story-structure-guide.md - YAML frontmatter, sections, formatting
+- acceptance-criteria-patterns.md - Given/When/Then patterns by story type
+- technical-specification-guide.md - API contracts, data models, business rules
+- ui-specification-guide.md - ASCII mockups, components, accessibility (WCAG AA)
+- validation-checklists.md - Quality validation, self-healing
+- story-examples.md - 4 complete examples (CRUD, auth, workflow, reporting)
+
+**Key Features:**
+- **Self-validation** (Phase 7) - Ensures quality before completion
+- **Progressive disclosure** - 6 reference files loaded only when needed
+- **Framework-aware** - Respects context files, integrates with other skills
+- **Reusable** - Invoked by command, orchestration, development, sprint planning
+- **Complete specifications** - API contracts, data models, UI mockups, accessibility
+
+---
+
 ### devforgeai-ui-generator
 
 **Use when:**
@@ -112,15 +167,28 @@ Skill(command="devforgeai-ui-generator")
 Skill(command="devforgeai-development")
 ```
 
-**Key Features (RCA-006 Enhanced):**
+**Key Features (Enhanced 2025-11-05):**
+- **Lean skill architecture:** SKILL.md delegates to reference files (1,740 lines, down from 2,130)
+- **Progressive disclosure:** DoD validation reference loaded on-demand only (token efficiency)
+- **Subagent-powered validation:**
+  - **git-validator** subagent (Phase 0 Step 1) - Git status and workflow strategy
+  - **tech-stack-detector** subagent (Phase 0 Step 7) - Technology detection and validation
 - **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
-- Same TDD cycle regardless of version control system
-- Clear warnings when Git features disabled
-- Requires **AskUserQuestion for ALL deferrals** (4 options: complete now, defer to story, scope change, external blocker)
-- Invokes **deferral-validator** subagent (Phase 6.1.5) before git commit - HALTS on CRITICAL/HIGH violations
-- Handles **QA deferral failures** (detects previous QA failures, guides resolution workflow)
-- Automatically creates **follow-up stories** or **ADRs** when user approves deferrals
-- No autonomous deferrals allowed - user approval mandatory
+- **Three-layer DoD validation** (Phase 5):
+  - Layer 1: Python format validator (~200 tokens, <100ms)
+  - Layer 2: DoD checkpoint via `references/dod-validation-checkpoint.md` (progressive loading)
+  - Layer 3: deferral-validator subagent (comprehensive analysis)
+- **QA failure recovery:** Detects previous QA failures, guides resolution workflow (Phase 0 Step 8)
+- **Framework-aware subagents:** All subagents understand DevForgeAI constraints (prevent silos)
+- **Zero autonomous deferrals:** User approval mandatory for all incomplete DoD items
+
+**Reference Files (6 files):**
+- `references/dod-validation-checkpoint.md` (487 lines) - Layer 2 DoD validation procedure
+- `references/tdd-patterns.md` (1,013 lines) - TDD workflow patterns
+- `references/refactoring-patterns.md` (797 lines) - Code improvement techniques
+- `references/git-workflow-conventions.md` (885 lines) - Version control best practices
+- `references/story-documentation-pattern.md` (792 lines) - Implementation notes templates
+- `references/slash-command-argument-validation-pattern.md` (812 lines) - Argument handling
 
 ---
 
@@ -212,8 +280,9 @@ Skill(command="devforgeai-release")
 ### For Existing Projects with Defined Context
 
 ```
-1. devforgeai-orchestration
-   ↓ (create stories from requirements)
+1. devforgeai-orchestration OR devforgeai-story-creation
+   ↓ (orchestration: create stories from epics)
+   ↓ (story-creation: create individual story from feature description)
 
 2. devforgeai-ui-generator [OPTIONAL]
    ↓ (generate UI specs if needed)
@@ -226,6 +295,25 @@ Skill(command="devforgeai-release")
 
 5. devforgeai-release
    (deploy)
+```
+
+### For Individual Story Creation
+
+```
+1. devforgeai-story-creation
+   ↓ (transform feature description → complete story)
+
+2. devforgeai-ui-generator [OPTIONAL]
+   ↓ (add UI specifications if needed)
+
+3. devforgeai-development
+   ↓ (implement story with TDD)
+
+4. devforgeai-qa
+   ↓ (validate implementation)
+
+5. devforgeai-release
+   (deploy to production)
 ```
 
 ### For UI-Focused Stories

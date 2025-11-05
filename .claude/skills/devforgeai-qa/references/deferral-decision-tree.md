@@ -612,7 +612,7 @@ AskUserQuestion:
 - Checks: Basic justification format present
 - Result: Warnings for format issues (non-blocking)
 
-**Layer 2: Interactive Checkpoint** (.claude/tasks/dod-validation-checkpoint.md)
+**Layer 2: Interactive Checkpoint** (.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md)
 - Requires: AskUserQuestion for EVERY unjustified item
 - Creates: Follow-up stories, ADRs as user directs
 - Result: BLOCKS commit until user approves all deferrals
@@ -730,8 +730,8 @@ AskUserQuestion:
    - Purpose: Fast format feedback (<100ms)
 
 2. **Interactive Checkpoint**
-   - File: `.claude/tasks/dod-validation-checkpoint.md`
-   - Usage: Invoked automatically in /dev Phase 2.5b
+   - File: `.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md`
+   - Usage: Invoked automatically in /dev Phase 5 Step 1b (via progressive loading)
    - Purpose: User approval gate (ZERO autonomous deferrals)
 
 3. **deferral-validator Subagent**
