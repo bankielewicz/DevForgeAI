@@ -1,6 +1,6 @@
 # DevForgeAI Skills Reference
 
-Detailed guidance for working with the 8 DevForgeAI skills.
+Detailed guidance for working with the 8 DevForgeAI skills + 1 infrastructure skill.
 
 ---
 
@@ -47,8 +47,9 @@ Skill(command="devforgeai-architecture")
 - Enforcing quality gates
 - Tracking deferred work (NEW - RCA-006)
 - Analyzing technical debt (NEW - RCA-006)
+- **Creating epics with feature decomposition** (NEW - 2025-11-06)
 
-**Invocation:**
+**Invocation (Story Management Mode):**
 ```
 # Load story first
 @.ai_docs/Stories/STORY-001.story.md
@@ -56,11 +57,85 @@ Skill(command="devforgeai-architecture")
 Skill(command="devforgeai-orchestration")
 ```
 
-**Key Features (RCA-006 Enhanced):**
+**Invocation (Epic Creation Mode):**
+```
+# Set context markers
+**Epic name:** User Authentication System
+**Command:** create-epic
+
+Skill(command="devforgeai-orchestration")
+```
+
+**Invocation (Sprint Planning Mode):**
+```
+# Set context markers
+**Sprint Name:** Sprint-1
+**Command:** create-sprint
+**Selected Stories:** STORY-001, STORY-002, STORY-003
+
+Skill(command="devforgeai-orchestration")
+```
+
+**Key Features:**
 - Tracks **deferred work** (Phase 4.5) - ensures follow-up stories/ADRs exist
 - Invokes **technical-debt-analyzer** during sprint planning (identifies stale debt, circular deferrals)
 - Validates **deferral tracking** (story references, ADR references)
 - Creates **follow-up stories** for missing references
+- **Epic creation workflow** (Phase 4A - NEW 2025-11-06) - 8-phase comprehensive epic creation
+- **Sprint planning workflow** (Phase 3 - 2025-11-05) - Sprint creation with capacity validation
+
+**Epic Creation Workflow (8 Phases - NEW):**
+1. Epic Discovery - Generate EPIC-ID, check duplicates
+2. Context Gathering - Goal, timeline, priority, stakeholders, success criteria (4 AskUserQuestion flows)
+3. Feature Decomposition - requirements-analyst subagent, 3-8 features, user review loop
+4. Technical Assessment - architect-reviewer subagent, complexity 0-10, risk identification, context file validation
+5. Epic File Creation - Populate epic-template.md, write to .ai_docs/Epics/{EPIC-ID}.epic.md
+6. Requirements Spec - Optional requirements-analyst subagent, write to .devforgeai/specs/requirements/
+7. Validation & Self-Healing - 9 validation checks, auto-correct correctable issues, HALT on critical failures
+8. Completion Summary - Return structured JSON to command
+
+**Reference Files (Progressive Loading - REFACTORED 2025-01-06):**
+
+**Core Workflow (9 files):**
+- mode-detection.md (329 lines) - 4 modes detection logic
+- checkpoint-detection.md (474 lines) - Resume functionality
+- story-validation.md (345 lines) - Pre-execution validation
+- skill-invocation.md (509 lines) - 4 skill coordination
+- story-status-update.md (278 lines) - Status transitions
+- qa-retry-workflow.md (919 lines) - Max 3 attempts with recovery
+- deferred-tracking.md (714 lines) - Technical debt tracking
+- next-action-determination.md (287 lines) - Workflow guidance
+- orchestration-finalization.md (513 lines) - Completion summary
+
+**Epic Management (4 files):**
+- epic-management.md (496 lines - Phases 1-2)
+- feature-decomposition-patterns.md (903 lines - Phase 3)
+- technical-assessment-guide.md (914 lines - Phase 4)
+- epic-validation-checklist.md (760 lines - Phase 7)
+
+**Sprint Management (1 file):**
+- sprint-planning-guide.md (631 lines)
+
+**State Management (2 files):**
+- workflow-states.md (585 lines)
+- state-transitions.md (1,105 lines)
+
+**Supporting (4 files):**
+- quality-gates.md (1,017 lines)
+- story-management.md (633 lines)
+- user-interaction-patterns.md (513 lines) - 12 AskUserQuestion patterns
+- troubleshooting.md (935 lines) - 13 common issues + solutions
+
+**Total Reference Content:** 20 files, 12,860 lines (loaded progressively on-demand)
+
+**Entry Point:** SKILL.md - 230 lines (93% reduction from 3,249)
+**Token Efficiency:** 14.1x improvement (25,992→1,840 tokens on activation)
+
+**Subagents Used:**
+- requirements-analyst (Epic Phase 3 feature decomposition, Phase 6 optional requirements spec)
+- architect-reviewer (Epic Phase 4 technical assessment)
+- sprint-planner (Sprint Phase 3 complete workflow)
+- technical-debt-analyzer (Phase 4.5 debt trend analysis)
 
 ---
 
@@ -168,27 +243,18 @@ Skill(command="devforgeai-development")
 ```
 
 **Key Features (Enhanced 2025-11-05):**
-- **Lean skill architecture:** SKILL.md delegates to reference files (1,740 lines, down from 2,130)
-- **Progressive disclosure:** DoD validation reference loaded on-demand only (token efficiency)
+- **Lean command architecture:** /dev command delegates to skill (513 lines, down from 860)
 - **Subagent-powered validation:**
   - **git-validator** subagent (Phase 0 Step 1) - Git status and workflow strategy
   - **tech-stack-detector** subagent (Phase 0 Step 7) - Technology detection and validation
 - **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
 - **Three-layer DoD validation** (Phase 5):
   - Layer 1: Python format validator (~200 tokens, <100ms)
-  - Layer 2: DoD checkpoint via `references/dod-validation-checkpoint.md` (progressive loading)
+  - Layer 2: Interactive checkpoint (AskUserQuestion for ALL deferrals)
   - Layer 3: deferral-validator subagent (comprehensive analysis)
 - **QA failure recovery:** Detects previous QA failures, guides resolution workflow (Phase 0 Step 8)
 - **Framework-aware subagents:** All subagents understand DevForgeAI constraints (prevent silos)
 - **Zero autonomous deferrals:** User approval mandatory for all incomplete DoD items
-
-**Reference Files (6 files):**
-- `references/dod-validation-checkpoint.md` (487 lines) - Layer 2 DoD validation procedure
-- `references/tdd-patterns.md` (1,013 lines) - TDD workflow patterns
-- `references/refactoring-patterns.md` (797 lines) - Code improvement techniques
-- `references/git-workflow-conventions.md` (885 lines) - Version control best practices
-- `references/story-documentation-pattern.md` (792 lines) - Implementation notes templates
-- `references/slash-command-argument-validation-pattern.md` (812 lines) - Argument handling
 
 ---
 
@@ -398,3 +464,50 @@ For detailed skill documentation, see:
 - `.claude/skills/devforgeai-release/SKILL.md`
 
 **Reference Files:** Each skill has a `references/` directory with detailed guides loaded progressively as needed.
+
+---
+
+### claude-code-terminal-expert
+
+**Use when:**
+- User asks about Claude Code Terminal features ("Can Claude Code...?" / "Does Claude Code have...?")
+- Creating subagents, skills, slash commands, plugins, or hooks
+- Configuring settings, models, permissions, or MCP servers
+- Setting up CI/CD integration (GitHub Actions, GitLab)
+- Troubleshooting Claude Code issues (installation, auth, performance)
+- Any questions about Claude Code Terminal capabilities
+- **This is infrastructure support - provides terminal expertise**
+
+**Invocation:**
+```
+# Skill automatically triggers on Claude Code Terminal questions
+# No special invocation needed - model-invoked based on question context
+```
+
+**Key Features:**
+- **Comprehensive knowledge:** 28 topics covering all Claude Code Terminal features
+- **Self-updating:** Can fetch latest docs from code.claude.com when needed
+- **Progressive disclosure:** 6 reference files + 2 assets loaded as needed
+- **100% official:** All content from official Anthropic documentation
+- **Token efficient:** 95% savings vs loading all docs (2,100-6,000 tokens typical)
+
+**Reference Files (Progressive Loading):**
+- core-features.md (2,428 lines - Subagents, Skills, Commands, Plugins, MCP)
+- configuration-guide.md (1,513 lines - Settings, Models, CLI, Permissions)
+- integration-patterns.md (2,790 lines - CI/CD, Hooks, Headless, Containers)
+- troubleshooting-guide.md (2,128 lines - Installation, Auth, Performance, Errors)
+- advanced-features.md (3,553 lines - Sandboxing, Network, Monitoring, Security)
+- best-practices.md (1,230 lines - Workflows, Efficiency, Prompts, Token Optimization)
+
+**Asset Files:**
+- quick-reference.md (726 lines - Command cheat sheet, keyboard shortcuts)
+- comparison-matrix.md (600 lines - Feature comparison, decision matrices)
+
+**Documentation URLs (Self-Updating):**
+All 29 official code.claude.com URLs embedded for auto-updates
+
+**Skill Type:** Knowledge/expertise skill (not workflow execution)
+
+**Integration:** Complements DevForgeAI by providing Claude Code Terminal knowledge, reducing "Claude doesn't know this feature" friction
+
+---
