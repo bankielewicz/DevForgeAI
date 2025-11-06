@@ -12,6 +12,7 @@ allowed-tools:
   - Bash(git:*)
   - Skill
   - TodoWrite
+model: sonnet
 ---
 
 # DevForgeAI Ideation Skill
@@ -20,17 +21,11 @@ Transform raw business ideas, problems, and opportunities into structured, actio
 
 ## Purpose
 
-This skill serves as the **entry point** for the entire DevForgeAI framework. Transform business ideas into structured requirements through systematic discovery, requirements elicitation, complexity assessment, and feasibility analysis.
+This skill serves as the **entry point** for the entire DevForgeAI framework. It transforms vague business ideas into concrete, implementable requirements through systematic discovery, requirements elicitation, complexity assessment, and feasibility analysis.
 
-**Core Capabilities:**
-1. **Discovery & Exploration** - Understand problem space through structured questioning
-2. **Requirements Elicitation** - Extract functional and non-functional requirements
-3. **Complexity Assessment** - Determine appropriate architecture tier (Simple → Enterprise)
-4. **Epic/Feature Decomposition** - Break large ideas into manageable work units
-5. **Feasibility Analysis** - Assess technical, business, and resource constraints
-6. **Greenfield/Brownfield Support** - Handle both new projects and existing codebases
+**Use BEFORE architecture and development skills.**
 
-## Core Philosophy
+### Core Philosophy
 
 **"Start with Why, Then What, Then How"**
 - **Why:** Business value, user needs, success metrics
@@ -43,632 +38,158 @@ This skill serves as the **entry point** for the entire DevForgeAI framework. Tr
 - Validate assumptions explicitly
 
 **"Right-size the Solution"**
-- Progressive complexity assessment (simple → moderate → complex → enterprise)
+- Progressive complexity assessment (simple → enterprise)
 - Don't over-engineer simple problems
 - Don't under-architect complex platforms
+
+---
 
 ## When to Use This Skill
 
 ### ✅ Trigger Scenarios
 
-- "I want to build a new application for [purpose]" (Greenfield)
-- "Add multi-factor authentication to our existing system" (Brownfield)
-- "Our current system has [problem], how can we fix it?" (Problem-solving)
-- "We want to migrate from [old tech] to [new tech]" (Strategic planning)
+- User has business idea without technical specs
+- Starting greenfield projects ("I want to build...")
+- Adding major features to existing systems
+- Exploring solution spaces and feasibility
+- User requests requirements discovery or epic creation
 
 ### ❌ When NOT to Use
 
-- Implementation of well-defined stories (use devforgeai-development)
-- Architecture decisions with clear requirements (use devforgeai-architecture)
-- Code quality validation (use devforgeai-qa)
-- Deployment and release (use devforgeai-release)
+- Context files already exist (use devforgeai-architecture to update)
+- Story-level work (use devforgeai-story-creation)
+- Technical implementation (use devforgeai-development)
 
 ---
 
 ## Ideation Workflow (6 Phases)
 
+Each phase loads its reference file on-demand for detailed implementation.
+
 ### Phase 1: Discovery & Problem Understanding
+**Reference:** `discovery-workflow.md` | **Questions:** 5-10 | **Output:** Problem statement, user personas, scope boundaries
 
-**Objective:** Understand the business context, problem space, and desired outcomes
+Determine project type (greenfield/brownfield), analyze existing system, explore problem space, define scope.
 
-#### 1.1 Project Context Discovery
-
-Use AskUserQuestion to establish foundation:
-
-```
-Question: "What type of project is this?"
-Header: "Project type"
-Options:
-  - "Greenfield - New project/product from scratch"
-  - "Brownfield - Adding features to existing system"
-  - "Modernization - Replacing/upgrading legacy system"
-  - "Problem-solving - Fixing issues in current system"
-```
-
-#### 1.2 Existing System Analysis (Brownfield/Modernization Only)
-
-**Discover codebase structure:**
-```
-Glob(pattern="**/*.sln")          # .NET solutions
-Glob(pattern="**/package.json")   # Node.js projects
-Glob(pattern="**/requirements.txt") # Python projects
-```
-
-**Check for existing DevForgeAI context:**
-```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-```
-
-**Analyze current architecture:**
-```
-Grep(pattern="class.*Controller", type="cs")
-Grep(pattern="interface I.*Repository", type="cs")
-```
-
-Document: technology stack, architecture patterns, database schema, pain points
-
-#### 1.3 Problem Space Exploration
-
-Use AskUserQuestion for open-ended discovery:
-
-```
-Question: "What business problem are you trying to solve?"
-Question: "Who are the primary users or beneficiaries?"
-Options:
-  - "End customers/consumers"
-  - "Internal employees"
-  - "Business partners/vendors"
-  - "Administrators/operators"
-multiSelect: true
-
-Question: "What is the primary goal or success metric?"
-Options:
-  - "Increase revenue/conversions"
-  - "Reduce costs/inefficiency"
-  - "Improve user experience"
-  - "Enable new capabilities"
-  - "Compliance/regulatory requirement"
-multiSelect: true
-```
-
-#### 1.4 Scope Boundary Definition
-
-```
-Question: "What is the initial scope for the MVP or first release?"
-Options:
-  - "Core feature only (single user flow)"
-  - "Core + 2-3 secondary features"
-  - "Full feature set (comprehensive solution)"
-  - "Not sure - need help defining MVP"
-```
-
-Document: In Scope (included), Out of Scope (excluded), Future Scope (deferred)
-
----
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/discovery-workflow.md")`
 
 ### Phase 2: Requirements Elicitation
+**Reference:** `requirements-elicitation-workflow.md` + `requirements-elicitation-guide.md` | **Questions:** 10-60 | **Output:** Functional/NFR requirements, data models, integrations
 
-**Objective:** Extract functional and non-functional requirements systematically
+Systematic questioning to extract user stories, data entities, external integrations, and quantified NFRs.
 
-#### 2.1 Functional Requirements Discovery
-
-Use structured questioning to uncover features. Capture requirements as user stories:
-
-```markdown
-As a [user type],
-I want to [action/capability],
-So that [business value/benefit].
-```
-
-**Load domain-specific elicitation patterns:**
-```
-Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md")
-```
-
-This reference provides comprehensive probing questions for:
-- E-commerce platforms
-- SaaS applications
-- Fintech systems
-- Healthcare platforms
-- Content management
-- Workflow/automation tools
-
-**Example questioning approach:**
-```
-Question: "What [domain-specific] capabilities should the platform support?"
-Options: [Domain-specific feature list]
-multiSelect: true
-```
-
-#### 2.2 Data Requirements Discovery
-
-Identify core entities and relationships:
-
-```
-Question: "What are the main data entities this system will manage?"
-Options:
-  - "Users/Accounts"
-  - "Products/Inventory"
-  - "Orders/Transactions"
-  - "Content/Documents"
-  - "Events/Activities"
-multiSelect: true
-```
-
-Probe for attributes and document relationships (one-to-many, many-to-many, one-to-one)
-
-#### 2.3 Integration Requirements
-
-```
-Question: "Does this system need to integrate with external services?"
-Options:
-  - "Payment gateway (Stripe, PayPal, etc.)"
-  - "Email service (SendGrid, AWS SES, etc.)"
-  - "Authentication provider (Auth0, OAuth, etc.)"
-  - "Cloud storage (S3, Azure Blob, etc.)"
-  - "Analytics (Google Analytics, Mixpanel, etc.)"
-  - "No external integrations"
-multiSelect: true
-```
-
-#### 2.4 Non-Functional Requirements (NFRs)
-
-**Performance:**
-```
-Question: "What are the performance requirements?"
-Options:
-  - "High performance (<100ms response time, >10k concurrent users)"
-  - "Standard performance (<500ms response time, 1k-10k users)"
-  - "Moderate performance (<2s response time, <1k users)"
-  - "Performance not critical (internal tool, low usage)"
-```
-
-**Security:**
-```
-Question: "What security requirements apply?"
-Options:
-  - "Authentication required (user login)"
-  - "Authorization/role-based access control"
-  - "Data encryption (at rest and in transit)"
-  - "Compliance (GDPR, HIPAA, SOC2, PCI-DSS)"
-  - "Audit logging"
-  - "Standard security practices"
-multiSelect: true
-```
-
-**Scalability:**
-```
-Question: "What scalability is needed?"
-Options:
-  - "Small scale (100s of users, single server)"
-  - "Medium scale (1000s of users, horizontal scaling)"
-  - "Large scale (10k+ concurrent users, multi-region)"
-  - "Massive scale (millions of users, global CDN)"
-```
-
-**Availability:**
-```
-Question: "What availability is required?"
-Options:
-  - "High availability (99.9% uptime, 24/7 monitoring)"
-  - "Business hours only (99% uptime during work hours)"
-  - "Best effort (no SLA)"
-```
-
----
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-workflow.md")`
 
 ### Phase 3: Complexity Assessment & Architecture Planning
+**Reference:** `complexity-assessment-workflow.md` + `complexity-assessment-matrix.md` | **Output:** Complexity score (0-60), tier (1-4), tech recommendations
 
-**Objective:** Assess solution complexity and determine appropriate architecture tier
+Score across 4 dimensions: Functional (0-20), Technical (0-20), Team/Org (0-10), NFR (0-10). Maps to architecture tier.
 
-#### 3.1 Complexity Scoring
-
-Load comprehensive assessment matrix:
-```
-Read(file_path=".claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md")
-```
-
-**Score across 4 dimensions (0-60 total):**
-
-**Functional Complexity (0-20 points):**
-- User roles: 1-2 (Low=5), 3-5 (Medium=10), 6+ (High=15)
-- Core entities: 1-3 (Low=5), 4-10 (Medium=10), 11+ (High=15)
-- Integrations: 0-1 (Low=3), 2-4 (Medium=7), 5+ (High=10)
-- Workflow complexity: Linear (Low=3), Branching (Medium=7), State machines (High=10)
-
-**Technical Complexity (0-20 points):**
-- Data volume: <10k (Low=5), 10k-1M (Medium=10), >1M (High=15)
-- Concurrency: <100 (Low=5), 100-10k (Medium=10), >10k (High=15)
-- Real-time requirements: None (Low=3), Polling (Medium=7), WebSockets/Events (High=10)
-
-**Team/Organizational Complexity (0-10 points):**
-- Team size: 1-3 (Low=3), 4-10 (Medium=6), 11+ (High=10)
-- Team distribution: Co-located (Low=2), Remote (Medium=5), Multi-timezone (High=8)
-
-**Non-Functional Complexity (0-10 points):**
-- Performance: Moderate (Low=3), Standard (Medium=6), High (High=10)
-- Compliance: None (Low=0), Standard (Medium=5), Strict (High=10)
-
-#### 3.2 Architecture Tier Recommendation
-
-**Tier 1: Simple Application (0-15 points)**
-- Architecture: Monolithic
-- Layers: 2-3 (API, Business Logic, Data)
-- Database: Single database
-- Deployment: Single server or serverless
-- Example: Todo app, blog, portfolio site
-
-**Tier 2: Moderate Application (16-30 points)**
-- Architecture: Modular Monolith
-- Layers: 3-4 (API, Application, Domain, Infrastructure)
-- Database: Primary + read replicas
-- Deployment: Load-balanced multi-instance
-- Example: E-commerce site, SaaS tool
-
-**Tier 3: Complex Platform (31-45 points)**
-- Architecture: Microservices or Clean Architecture
-- Layers: 4-5 with domain separation
-- Database: Polyglot persistence
-- Deployment: Kubernetes, service mesh
-- Example: Multi-tenant SaaS, marketplace
-
-**Tier 4: Enterprise Platform (46-60 points)**
-- Architecture: Distributed microservices with event-driven patterns
-- Layers: 5+ with DDD
-- Database: Polyglot + event sourcing + CQRS
-- Deployment: Multi-region, auto-scaling
-- Example: Global fintech, streaming service
-
-**Validate recommendation:**
-```
-Question: "Based on requirements, this appears to be [Tier] with complexity score [X]. Does this match expectations?"
-Options:
-  - "Yes, that's correct"
-  - "No, it should be simpler (explain why)"
-  - "No, it should be more complex (explain why)"
-```
-
----
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/complexity-assessment-workflow.md")`
 
 ### Phase 4: Epic & Feature Decomposition
+**Reference:** `epic-decomposition-workflow.md` + `domain-specific-patterns.md` | **Output:** 1-3 epics, 3-8 features/epic, roadmap
 
-**Objective:** Break down solution into manageable work units
+Break initiative into epics (4-8 week efforts), features (1-2 sprints), and high-level stories (1-5 days).
 
-#### 4.1 Epic Identification
-
-Group features into business-value themes.
-
-**Epic Definition:**
-- High-level business capability
-- Spans multiple sprints (4-8 weeks)
-- Delivers measurable business value
-- Prioritized independently
-
-**Load domain patterns for decomposition guidance:**
-```
-Read(file_path=".claude/skills/devforgeai-ideation/references/domain-specific-patterns.md")
-```
-
-**Example decomposition (E-commerce):**
-- Epic 1: User Management
-- Epic 2: Product Catalog
-- Epic 3: Shopping & Checkout
-- Epic 4: Order Management
-- Epic 5: Admin Dashboard
-
-**Prioritize epics:**
-```
-Question: "Which epics should be prioritized for initial implementation?"
-Options:
-  - "Epic 1: [Name] (Est: [X] story points)"
-  - "Epic 2: [Name] (Est: [X] story points)"
-  - "Epic 3: [Name] (Est: [X] story points)"
-multiSelect: true
-```
-
-#### 4.2 Feature Breakdown
-
-For each epic, identify features (user-facing capabilities).
-
-Example - Epic: "User Management"
-- Feature 1: User Registration
-- Feature 2: User Login/Authentication
-- Feature 3: Profile Management
-- Feature 4: Password Reset
-
-#### 4.3 Story Decomposition (High-Level)
-
-For priority features, outline stories (atomic units of work, 1-3 days each).
-
-Example - Feature: "User Registration"
-- Story 1: Registration form with email/password
-- Story 2: Email verification workflow
-- Story 3: Registration validation rules
-
-**Note:** Detailed story creation happens in devforgeai-orchestration skill
-
----
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/epic-decomposition-workflow.md")`
 
 ### Phase 5: Feasibility & Constraints Analysis
+**Reference:** `feasibility-analysis-workflow.md` + `feasibility-analysis-framework.md` | **Output:** Feasibility assessment, risk register
 
-**Objective:** Identify technical, business, and resource constraints
+Evaluate technical/business/resource feasibility, identify risks with mitigations, validate brownfield constraints.
 
-#### 5.1 Technical Feasibility
-
-Load feasibility framework:
-```
-Read(file_path=".claude/skills/devforgeai-ideation/references/feasibility-analysis-framework.md")
-```
-
-**Assess technical risks:**
-```
-Question: "Are there any technical constraints or concerns?"
-Options:
-  - "Must integrate with legacy systems"
-  - "Must support offline functionality"
-  - "Must work on low-bandwidth networks"
-  - "Requires real-time data synchronization"
-  - "Requires complex algorithms/ML"
-  - "No major technical constraints"
-multiSelect: true
-```
-
-Document each: nature, impact on architecture, mitigation, risk level
-
-#### 5.2 Business Constraints
-
-**Budget & Resources:**
-```
-Question: "What are the budget and resource constraints?"
-Options:
-  - "Limited budget - minimize cloud/licensing costs"
-  - "Limited team - simple, maintainable architecture"
-  - "Time-constrained - MVP in [X weeks/months]"
-  - "No major resource constraints"
-multiSelect: true
-```
-
-**Timeline:**
-```
-Question: "What is the target timeline?"
-Options:
-  - "Urgent - MVP in 4-6 weeks"
-  - "Standard - MVP in 2-3 months"
-  - "Flexible - 4-6 months or longer"
-```
-
-#### 5.3 Risk Assessment
-
-Identify risks (technical, business, team). For each: Probability, Impact, Mitigation
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/feasibility-analysis-workflow.md")`
 
 ---
 
 ### Phase 6: Requirements Documentation & Handoff
+**Workflow:** 3 sub-phases | **Output:** Epic documents, requirements spec (optional), completion summary
 
-**Objective:** Generate structured requirements documents for downstream skills
+**6.1-6.3 Artifact Generation:** Generate epics, optional requirements spec, verify creation, transition to architecture
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/artifact-generation.md")`
 
-#### 6.1 Generate Epic Document(s)
+**6.4 Self-Validation:** Validate artifacts, auto-correct issues, HALT on critical failures
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/self-validation-workflow.md")`
 
-**Track epic creation with TodoWrite:**
-```
-At start of epic generation, create todos for each epic:
-TodoWrite([
-  "Create EPIC-001: [name]",
-  "Create EPIC-002: [name]",
-  ...
-  "Create EPIC-N: [name]",
-])
-
-Mark each epic as completed after creating the file.
-```
-
-Create epic documents in `.ai_docs/Epics/EPIC-NNN-[name].epic.md` with:
-- YAML frontmatter (id, title, status, dates, points)
-- Business goal and success metrics
-- Features breakdown
-- Requirements (functional, NFRs, data, integrations)
-- Architecture considerations (tier, pattern, constraints)
-- Risks and next steps
-
-**CRITICAL: Verify all planned epics are created**
-
-Before proceeding to Phase 6.2:
-```
-# Count planned epics (from decomposition phase)
-planned_epics = [count from Phase 4 decomposition]
-
-# Count created epic files
-created_epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
-created_count = len(created_epic_files)
-
-# Verification gate
-if created_count < planned_epics:
-    # HALT - Incomplete work detected
-    missing_count = planned_epics - created_count
-
-    ERROR: Only {created_count}/{planned_epics} epics created
-
-    Missing epics: Review Phase 4 decomposition and create remaining epic documents
-
-    DO NOT PROCEED to Phase 6.2 until all epics are created and verified.
-
-else:
-    # All epics created, safe to proceed
-    ✓ All {planned_epics} epics created and verified
-    → Proceed to Phase 6.2
-```
-
-#### 6.2 Generate Requirements Specification
-
-Create requirements spec in `.devforgeai/specs/requirements/[project]-requirements.md` with:
-- Project context (type, complexity, timeline)
-- Problem statement and solution overview
-- User roles and personas
-- Complete requirements (functional, NFRs, data model, integrations)
-- Architecture recommendations
-- Risks, assumptions, success criteria
-
-#### 6.3 Transition to Architecture Skill
-
-**Check if architecture context exists:**
-```
-Glob(pattern=".devforgeai/context/*.md")
-```
-
-**If context files don't exist:**
-```
-Report: """
-✅ Requirements documentation complete
-
-Generated Documents:
-- [N] Epic documents in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
-
-Next Steps:
-1. Invoking devforgeai-architecture skill to create context files
-2. After context creation, use devforgeai-orchestration to create Sprint 1
-"""
-
-Skill(command="devforgeai-architecture")
-```
-
-**If context files exist (brownfield):**
-```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-
-# Validate requirements against existing constraints
-# Use AskUserQuestion to resolve any conflicts
-
-Report: """
-✅ Requirements documentation complete
-
-Context files exist. Requirements validated against constraints.
-
-Ready to proceed with:
-1. devforgeai-orchestration (create sprints/stories)
-2. devforgeai-development (implement features)
-"""
-```
+**6.5-6.6 Completion & Handoff:** Present summary, determine next action (greenfield→architecture, brownfield→orchestration)
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/completion-handoff.md")`
 
 ---
 
-## AskUserQuestion Best Practices
+## AskUserQuestion Usage
 
-This skill relies heavily on AskUserQuestion to prevent ambiguity.
+**10-60 strategic questions** across 6 phases (Phase 1: 5-10, Phase 2: 10-60, Phases 3-6: 1-8 each). All question patterns, templates, and best practices in `user-interaction-patterns.md`.
 
-### Key Patterns
-
-**Ambiguous Business Goal:**
-```
-Question: "What does 'faster' mean for this project?"
-Header: "Performance target"
-Options:
-  - "Page load <1 second (high performance)"
-  - "API response <500ms (standard performance)"
-  - "User-perceived speed (no specific metric)"
-```
-
-**MVP Scope Negotiation:**
-```
-Question: "Full feature set would take ~6 months. What's minimum for initial release?"
-Header: "MVP definition"
-Options:
-  - "Core workflow only (2-3 months)"
-  - "Core + 2 secondary features (3-4 months)"
-  - "Full feature set required (6+ months)"
-  - "Help me prioritize"
-```
-
-**Technology Preference:**
-```
-Question: "Does your team have experience with any of these technologies?"
-Header: "Team expertise"
-Options: [Technology options based on requirements]
-multiSelect: true
-```
-
-**Compliance Uncertainty:**
-```
-Question: "What type of data will this system handle?"
-Header: "Data sensitivity"
-Options:
-  - "Health information (HIPAA required)"
-  - "Payment data (PCI-DSS required)"
-  - "Personal data - EU users (GDPR required)"
-  - "Public/non-sensitive data"
-multiSelect: true
-```
-
-**For complete elicitation patterns, load:**
-```
-Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md")
-```
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/user-interaction-patterns.md")`
 
 ---
 
-## Integration with Other Skills
+## Error Handling
 
-### Flow to devforgeai-architecture
+**6 error types:** Incomplete answers, artifact failures, complexity errors, validation failures, constraint conflicts, directory issues. Each has detection logic and recovery procedures (self-heal → retry → report).
 
-Handoff: requirements spec, complexity tier, technology constraints, compliance
-Architecture skill creates 6 context files, makes technology decisions, documents ADRs
+**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/error-handling.md")`
 
-### Flow to devforgeai-orchestration
+---
 
-Handoff: epic documents, requirements spec, success metrics
-Orchestration skill creates Sprint 1, generates stories, manages workflow
+## Integration
+
+**→ devforgeai-architecture** (greenfield: create context files) | **→ devforgeai-orchestration** (brownfield: sprint planning)
+
+**Outputs:** Epic documents, requirements specs, complexity tier, technology recommendations
 
 ---
 
 ## Success Criteria
 
-This skill succeeds when:
+- [ ] Business problem defined (measurable)
+- [ ] 1-3 epics with 3-8 features each
+- [ ] Complexity scored (0-60, tier 1-4)
+- [ ] Feasibility confirmed, risks mitigated
+- [ ] Epic documents generated, validated
+- [ ] Next action determined
+- [ ] No critical ambiguities
 
-- [ ] Business problem clearly articulated (measurable)
-- [ ] Requirements complete and unambiguous
-- [ ] All NFRs documented with specific targets
-- [ ] Complexity tier determined with rationale
-- [ ] Epics created with features breakdown
-- [ ] Risks and constraints identified
-- [ ] Requirements documents generated
-- [ ] No ambiguities remain (resolved via AskUserQuestion)
-- [ ] Ready for architecture skill (clear handoff)
-
-**Output Artifacts:**
-- 1+ Epic documents (`.ai_docs/Epics/`)
-- Requirements specification (`.devforgeai/specs/requirements/`)
-- Complexity assessment report
-
-**Transition Point:**
-- Architecture context files created (or exist)
-- Orchestration can begin sprint planning
-- Development can start on first stories
+**Token Budget:** ~35K-100K (isolated context)
 
 ---
 
 ## Reference Files
 
-Load these as needed during ideation:
+Load these on-demand during workflow execution:
 
-- **[Requirements Elicitation Guide](./references/requirements-elicitation-guide.md)** - Comprehensive probing questions by domain (e-commerce, SaaS, fintech, healthcare), user story templates, NFR checklists, interview techniques (723 lines)
+### Phase Workflows (10 files - NEW)
+- **discovery-workflow.md** - Phase 1: Problem understanding (274 lines)
+- **requirements-elicitation-workflow.md** - Phase 2: Question flow (368 lines)
+- **complexity-assessment-workflow.md** - Phase 3: Scoring algorithm (308 lines)
+- **epic-decomposition-workflow.md** - Phase 4: Feature breakdown (309 lines)
+- **feasibility-analysis-workflow.md** - Phase 5: Constraints check (378 lines)
+- **artifact-generation.md** - Phase 6.1-6.3: Document generation (689 lines)
+- **self-validation-workflow.md** - Phase 6.4: Quality checks (351 lines)
+- **completion-handoff.md** - Phase 6.5-6.6: Summary and next action (721 lines)
+- **user-interaction-patterns.md** - AskUserQuestion templates (411 lines)
+- **error-handling.md** - Recovery procedures for 6 error types (1,062 lines)
 
-- **[Complexity Assessment Matrix](./references/complexity-assessment-matrix.md)** - Detailed 0-60 scoring rubric across 4 dimensions with examples, architecture tier definitions, technology recommendations (700 lines)
+### Supporting Guides (6 files - existing)
+- **requirements-elicitation-guide.md** - Domain-specific question patterns (659 lines)
+- **complexity-assessment-matrix.md** - Complete 0-60 scoring rubric (617 lines)
+- **domain-specific-patterns.md** - Decomposition patterns by domain (744 lines)
+- **feasibility-analysis-framework.md** - Feasibility checklists (587 lines)
+- **validation-checklists.md** - Quality validation procedures (604 lines)
+- **output-templates.md** - Summary templates, tech recommendations (780 lines)
 
-- **[Domain-Specific Patterns](./references/domain-specific-patterns.md)** - Common features, user flows, data models, and regulatory considerations for major domains (e-commerce, SaaS, fintech, healthcare, CMS, marketplaces, workflow tools) (975 lines)
-
-- **[Feasibility Analysis Framework](./references/feasibility-analysis-framework.md)** - Technical/business/resource feasibility checklists, risk assessment templates, MVP scoping techniques, decision frameworks (649 lines)
+**Total:** 16 reference files, 8,862 lines (loaded progressively, not upfront)
 
 ---
 
 ## Best Practices
 
-- **Progressive Disclosure:** Start broad, narrow to specifics, ask 2-3 questions per interaction
-- **Validation:** Summarize after each phase, confirm correctness, allow correction
-- **Avoid Over-Engineering:** Match architecture to requirements, simpler is better
-- **Document Assumptions:** Flag guesses for validation during architecture phase
-- **Brownfield Respect:** Understand patterns before changes, propose incremental improvements
+1. **Ask strategic questions** - User-guided discovery
+2. **Progressive questioning** - Broad→specific (5→60 questions)
+3. **Validate assumptions** - Confirm before documenting
+4. **Document early risks** - Phase 5 feasibility analysis
+5. **Clear handoff** - Next action: architecture or orchestration
 
 ---
 
