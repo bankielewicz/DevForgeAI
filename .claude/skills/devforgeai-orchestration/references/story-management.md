@@ -47,136 +47,78 @@ Contains:
 
 ---
 
-## Story Creation Process
+## Story Creation
 
-### Step 1: Generate Story ID
-
-```
-# Auto-increment story number
-last_story = find_latest_story()
-new_story_number = last_story.number + 1
-story_id = f"STORY-{new_story_number:03d}"  # STORY-001, STORY-002, etc.
-```
-
-### Step 2: Create Story Document
+**For creating new story documents, use the devforgeai-story-creation skill:**
 
 ```
-Read(file_path=".claude/skills/devforgeai-orchestration/assets/templates/story-template.md")
-
-slug = slugify(story_title)  # "user-authentication" from "User Authentication"
-file_path = f".ai_docs/Stories/{story_id}-{slug}.md"
-
-Write(file_path=file_path, content=template)
+Skill(command="devforgeai-story-creation")
 ```
 
-### Step 3: Fill YAML Frontmatter
+**The story-creation skill handles:**
+- Story ID generation (sequential STORY-XXX numbering)
+- Requirements analysis (requirements-analyst subagent)
+- Technical specification (api-designer subagent, data models, business rules)
+- UI specification (components, mockups, interfaces, accessibility)
+- Story file creation (YAML frontmatter + all markdown sections)
+- Epic/sprint linking (updates parent documents)
+- Quality validation (self-validation with validation-checklists.md)
+- Completion reporting (summary and next actions)
 
-**Required Fields:**
-```yaml
+**Complete story creation documentation:**
+`.claude/skills/devforgeai-story-creation/SKILL.md`
+
+**Story creation reference files:**
+- story-structure-guide.md - YAML frontmatter fields, required sections
+- acceptance-criteria-patterns.md - Given/When/Then patterns by story type
+- technical-specification-guide.md - API contracts, data models, business rules
+- ui-specification-guide.md - Component mockups, interfaces, accessibility
+- validation-checklists.md - Quality validation procedures
+- story-examples.md - Complete story examples (CRUD, auth, workflow, reporting)
+
+**This reference (story-management.md) focuses on story lifecycle management:**
+- Story status updates (workflow state transitions)
+- Workflow history tracking
+- Story estimation
+- QA results integration
+- Lifecycle best practices
+
 ---
-id: STORY-001                    # Auto-generated
-title: User Authentication       # Brief, descriptive title
-epic: EPIC-001                   # Parent epic
-sprint: SPRINT-001               # Current sprint (or "Backlog")
-status: Backlog                  # Initial status always "Backlog"
-points: 5                        # Story points (Fibonacci: 1, 2, 3, 5, 8, 13)
-priority: High                   # High / Medium / Low
-assigned_to: Developer Name      # Team member or "Unassigned"
-created: 2025-10-30             # Creation date (YYYY-MM-DD)
+
+## Story Document Structure (Reference)
+
+### Required Sections
+
+Every story MUST include these sections:
+
+1. **YAML Frontmatter** - Metadata (id, title, epic, sprint, status, points, priority, dates)
+2. **User Story** - As a/I want/So that format
+3. **Acceptance Criteria** - Testable conditions (Given/When/Then, minimum 3)
+4. **Technical Specification** - API contracts, data models, business rules, dependencies
+5. **Non-Functional Requirements** - Performance, security, scalability (measurable)
+6. **Edge Cases & Error Handling** - Boundary conditions, error scenarios
+7. **Definition of Done** - Implementation, testing, documentation, security checklists
+8. **Workflow History** - Status change log with timestamps
+
+**Optional Sections:**
+- **UI Specification** - Components, mockups, interfaces, accessibility (if UI story)
+
+### Story Template Location
+
+```
+Primary Template: .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
+Backup Template: .claude/skills/devforgeai-orchestration/assets/templates/story-template.md
+
+Template contains:
+- Complete YAML frontmatter with all fields
+- All required markdown sections
+- Placeholders for content
+- Format guidance and examples
+```
+
 ---
-```
 
-**Optional Fields:**
-```yaml
-labels: [feature, security]      # Tags for categorization
-blocked_by: STORY-002           # Blocking story ID
-estimated_hours: 16             # Hour estimate (optional)
-actual_hours: 18                # Actual time spent (filled later)
-completed: 2025-11-05           # Completion date (added when Released)
-```
-
-### Step 4: Write User Story Description
-
-**Format:**
-```markdown
-## Description
-
-**As a** [user role/persona],
-**I want** [capability/feature],
-**so that** [business value/benefit].
-```
-
-**Examples:**
-```
-✓ Good:
-As a returning customer, I want to use my saved payment method during checkout,
-so that I can complete purchases faster without re-entering card details.
-
-✓ Good:
-As an admin, I want to view user activity logs,
-so that I can audit security events and troubleshoot user issues.
-
-✗ Bad (technical, not user-focused):
-As a developer, I want to implement a payment API,
-so that the system can process payments.
-
-✗ Bad (missing benefit):
-As a user, I want to login.
-```
-
-### Step 5: Define Acceptance Criteria
-
-**Format (Given/When/Then):**
-```markdown
-### 1. [ ] [Criterion Title]
-
-**Given** [initial context/state],
-**When** [action/event occurs],
-**Then** [expected outcome].
-```
-
-**Criteria Checklist:**
-- [ ] At least 3 acceptance criteria per story
-- [ ] Each criterion is testable
-- [ ] Covers happy path
-- [ ] Covers edge cases
-- [ ] Covers error cases
-- [ ] Includes validation rules
-- [ ] Specifies expected behavior
-
-**Example Acceptance Criteria:**
-```markdown
-### 1. [ ] Valid Login
-**Given** a registered user with correct credentials,
-**When** the user submits the login form,
-**Then** the user is authenticated and redirected to dashboard.
-
-### 2. [ ] Invalid Password
-**Given** a registered user with incorrect password,
-**When** the user submits the login form,
-**Then** an error message "Invalid credentials" is displayed and login fails.
-
-### 3. [ ] Account Lockout
-**Given** a user has failed login 5 times in 10 minutes,
-**When** the user attempts to login again,
-**Then** the account is locked for 30 minutes and user notified.
-
-### 4. [ ] Password Reset
-**Given** a user who forgot their password,
-**When** the user clicks "Forgot Password" and enters email,
-**Then** a password reset link is emailed and expires in 24 hours.
-```
-
-### Step 6: Complete Technical Specification
-
-**Sections to Fill:**
-
-**API Endpoints:**
-- HTTP method and path
-- Request/response models
-- Status codes (200, 400, 401, 404, 500)
-- Authentication requirements
-- Validation rules
+## Story Lifecycle Management
 
 **Data Models:**
 - Entity classes/tables
