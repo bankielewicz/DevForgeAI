@@ -171,6 +171,10 @@ When in doubt → **HALT and use AskUserQuestion**. Never make assumptions about
 - **Context Files:** @.claude/memory/context-files-guide.md
 - **UI Generator:** @.claude/memory/ui-generator-guide.md
 - **Token Efficiency:** @.claude/memory/token-efficiency.md
+- **Epic Creation:** @.claude/memory/epic-creation-guide.md
+- **Lean Orchestration:** @.devforgeai/protocols/lean-orchestration-pattern.md (core principles)
+  - Case Studies: @.devforgeai/protocols/refactoring-case-studies.md
+  - Budget Reference: @.devforgeai/protocols/command-budget-reference.md
 
 ---
 
@@ -187,6 +191,9 @@ When in doubt → **HALT and use AskUserQuestion**. Never make assumptions about
 
 3. ORCHESTRATION (devforgeai-orchestration)
    ↓ Manages story lifecycle through 11 workflow states
+
+3.5. STORY CREATION (devforgeai-story-creation) [AS NEEDED]
+   ↓ Generates complete stories with AC, tech/UI specs, self-validation
 
 4. UI GENERATION (devforgeai-ui-generator) [OPTIONAL]
    ↓ Generates UI specifications and code
@@ -409,7 +416,7 @@ Skill(command="devforgeai-qa")
 
 ## Slash Commands (User-Facing Workflows)
 
-DevForgeAI provides **9 slash commands** for common tasks:
+DevForgeAI provides **11 slash commands** for common tasks:
 
 ### Command Syntax
 
@@ -442,39 +449,57 @@ DevForgeAI provides **9 slash commands** for common tasks:
 - `/release [STORY-ID] [environment]` - Deploy to staging/production
 - `/orchestrate [STORY-ID]` - Full lifecycle (dev → qa → release)
 
+### Framework Maintenance
+- `/audit-deferrals` - Audit all stories for deferral violations
+- `/audit-budget` - Audit commands for character budget compliance
+
 **See:** @.claude/memory/commands-reference.md for complete command documentation.
 
 ---
 
 ## Framework Status
 
-**Last Review:** 2025-10-31
-**Status:** 🟢 **PHASE 3 COMPLETE - PRODUCTION READY**
+**Last Review:** 2025-11-04
+**Version:** 1.0.1
+**Status:** 🟢 **PRODUCTION READY** (Phase 3 Complete + RCA-006 Enhancements)
 
 ### Implementation Progress
 
-**Phase 1: Core Skills** ✅ Complete (2025-10-30)
-- 7 skills implemented (devforgeai-ideation, architecture, orchestration, ui-generator, development, qa, release)
+**Phase 1: Core Skills** ✅ Enhanced (2025-11-05)
+- 8 skills implemented (devforgeai-ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release)
+- New: devforgeai-story-creation (complete story generation with self-validation)
 
-**Phase 2: Subagents** ✅ Complete (2025-10-31)
-- 14 specialized subagents created
+**Phase 2: Subagents** ✅ Enhanced (2025-11-05)
+- 20 specialized subagents created (14 original + 2 from RCA-006 + 2 from /dev refactoring + 1 from /qa refactoring + 1 from /create-ui refactoring)
+- New: tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter
 - Context isolation verified
 - Parallel execution tested
+- Framework-aware subagents (prevent silos)
 
-**Phase 3: Slash Commands** ✅ Complete (2025-10-31)
+**Phase 3: Slash Commands** ✅ Enhanced (2025-11-05)
 - 9 user-facing commands in `.claude/commands/`
-- All optimized for character budget (<15K limit)
+- /dev refactored: 860 → 513 lines (40% reduction, lean orchestration)
+- All optimized for character budget (~16K, close to 15K limit)
 - All integrate with skills via Skill tool
+- Clear separation: commands delegate to skills, skills delegate to subagents
+
+**RCA-006: Deferral Validation** ✅ Complete (2025-11-04)
+- Three-layer validation: Python format check + Interactive checkpoint + AI subagent
+- Zero autonomous deferrals possible (100% user approval required)
+- QA feedback loop with max 3 retry attempts
+- Story size detection prevents oversized stories (>3 deferrals triggers split)
 
 **Phase 4: Real Project Validation** ⏳ Ready to Begin
 - Framework complete and ready for production testing
 
 ### Component Summary
 
-- **Skills:** 7
-- **Subagents:** 14
-- **Commands:** 9
+- **Skills:** 9 (8 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, **claude-code-terminal-expert NEW**)
+- **Subagents:** 20 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner)
+- **Commands:** 11 (7 refactored to lean orchestration: /dev, /qa, /ideate, /create-story, /create-sprint, /create-epic, /orchestrate; 1 new: /audit-budget)
 - **Context Files:** 6 (immutable constraints)
+- **Quality Gates:** 4 (Gate 3 enhanced with deferral validation)
+- **Protocols:** 1 (lean-orchestration-pattern.md - defines command architecture)
 
 ---
 
@@ -482,20 +507,22 @@ DevForgeAI provides **9 slash commands** for common tasks:
 
 ```
 .claude/
-├── skills/              # 7 framework skills
+├── skills/              # 9 skills (8 DevForgeAI + 1 infrastructure)
 │   ├── devforgeai-ideation/
 │   ├── devforgeai-architecture/
 │   ├── devforgeai-orchestration/
+│   ├── devforgeai-story-creation/
 │   ├── devforgeai-ui-generator/
 │   ├── devforgeai-development/
 │   ├── devforgeai-qa/
-│   └── devforgeai-release/
+│   ├── devforgeai-release/
+│   └── claude-code-terminal-expert/  # Claude Code Terminal knowledge
 │
-├── agents/              # 14 specialized subagents
-│   └── [14 .md files]
+├── agents/              # 20 specialized subagents
+│   └── [20 .md files]
 │
-├── commands/            # 9 slash commands
-│   └── [9 .md files]
+├── commands/            # 11 slash commands
+│   └── [11 .md files]
 │
 └── memory/              # Progressive disclosure references
     ├── skills-reference.md
@@ -514,6 +541,9 @@ DevForgeAI provides **9 slash commands** for common tasks:
 │   ├── coding-standards.md
 │   ├── architecture-constraints.md
 │   └── anti-patterns.md
+│
+├── protocols/           # Framework protocols and patterns
+│   └── lean-orchestration-pattern.md
 │
 ├── adrs/                # Architecture Decision Records
 ├── deployment/          # Deployment configurations
@@ -684,6 +714,9 @@ Task(
 - @.claude/memory/ui-generator-guide.md
 - @.claude/memory/token-efficiency.md
 - @.claude/memory/token-budget-guidelines.md
+
+**Framework protocols:**
+- @.devforgeai/protocols/lean-orchestration-pattern.md - Command architecture and refactoring
 
 ---
 
