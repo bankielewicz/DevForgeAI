@@ -30,11 +30,50 @@ Skill(command="devforgeai-ideation")
 - Making technology decisions
 - Defining project structure
 - Documenting architectural decisions (ADRs)
+- Brownfield projects need architectural documentation
+- **Use after ideation, before orchestration/development**
 
 **Invocation:**
 ```
 Skill(command="devforgeai-architecture")
 ```
+
+**Workflow (5 Phases - Progressive Disclosure):**
+1. Project Context Discovery (greenfield vs brownfield, technology inventory)
+2. Create Immutable Context Files (6 files: tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
+3. Create Architecture Decision Records (document all major decisions with ADRs)
+4. Create Technical Specifications (optional: use cases, API specs, database schemas, NFRs)
+5. Validate Spec Against Context (ensure no conflicts)
+
+**Reference Files (REFACTORED 2025-01-06 - Progressive Loading):**
+
+**Workflow Files (6 files, 2,964 lines):**
+- context-discovery-workflow.md (169 lines) - Phase 1
+- context-file-creation-workflow.md (1,050 lines) - Phase 2 (MASSIVE consolidation of all 6 context file workflows)
+- adr-creation-workflow.md (386 lines) - Phase 3
+- technical-specification-workflow.md (392 lines) - Phase 4
+- architecture-validation.md (200 lines) - Phase 5
+- brownfield-integration.md (767 lines) - Existing project adoption
+
+**Guide Files (4 files, 2,153 lines):**
+- adr-policy.md (324 lines) - When to create ADRs
+- adr-template.md (217 lines) - ADR structure
+- ambiguity-detection-guide.md (540 lines) - When to use AskUserQuestion
+- system-design-patterns.md (1,072 lines) - Architecture patterns
+
+**Asset Files (12 files, 9,079 lines):**
+- 6 context templates (3,922 lines)
+- 6 ADR examples (5,157 lines)
+
+**Entry Point:** SKILL.md - 212 lines (78% reduction from 978)
+**Token Efficiency:** 4.6x improvement (7,824→1,696 tokens on activation)
+
+**Key Features:**
+- **Progressive disclosure** - Each phase loads its workflow file on-demand
+- **Template-based** - Uses comprehensive asset templates (no inline workflows)
+- **Ambiguity resolution** - MUST use AskUserQuestion for all technology/pattern decisions
+- **Brownfield support** - Discovery → gap analysis → migration strategy
+- **Immutable constraints** - 6 context files serve as "the law" for all AI agents
 
 ---
 

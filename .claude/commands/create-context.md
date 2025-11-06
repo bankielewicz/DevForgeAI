@@ -37,17 +37,14 @@ Glob(pattern=".devforgeai/context/*.md")
 
 **Ensure repository has initial commit:**
 
-```bash
-# Check if repository has commits
-!`git rev-list -n 1 HEAD 2>/dev/null`
-```
+Check if repository has commits by examining the environment context (`<env>Is directory a git repo: Yes/No</env>`).
 
-**If no commits exist (empty repository):**
+**If git repository exists but no commits yet:**
 
 1. **Create initial commit with framework files:**
 ```bash
-git add .claude/ .devforgeai/ .ai_docs/ CLAUDE.md README.md 2>/dev/null || true
-git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || true
+Bash(git add .claude/ .devforgeai/ .ai_docs/ CLAUDE.md README.md)
+Bash(git commit -m "chore: Initialize DevForgeAI framework structure")
 ```
 
 **Rationale:**
@@ -59,6 +56,8 @@ git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || 
 - Continue anyway (git may not be initialized)
 - /dev command will handle empty repos gracefully
 
+**Note:** Use the environment context to check git status instead of running `git rev-list` which requires special approval.
+
 ---
 
 ### Phase 3: Invoke Architecture Skill
@@ -69,20 +68,21 @@ git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || 
 Skill(command="devforgeai-architecture")
 ```
 
-The architecture skill performs its complete 6-phase workflow:
+The architecture skill performs its complete 5-phase workflow (REFACTORED 2025-01-06):
 
-1. **Project Discovery** - Detect greenfield vs brownfield, analyze existing code
-2. **Technology Stack Selection** - Interactive Q&A (13-80 questions based on complexity)
-3. **Context File Generation** - Creates all 6 files:
-   - `tech-stack.md` - Technology choices and versions
-   - `source-tree.md` - Project structure rules
-   - `dependencies.md` - Approved packages
-   - `coding-standards.md` - Code patterns and conventions
-   - `architecture-constraints.md` - Layer boundaries and rules
-   - `anti-patterns.md` - Forbidden patterns
-4. **ADR Creation** - Documents significant decisions
-5. **Validation** - Ensures completeness and consistency
-6. **Output** - Displays summary and next steps
+1. **Project Context Discovery** - Determine greenfield vs brownfield, discover existing tech/structure, analyze gaps
+2. **Create Immutable Context Files** - Generate all 6 files from templates:
+   - `tech-stack.md` - Locked technologies (prevents library substitution)
+   - `source-tree.md` - Project structure (prevents chaos)
+   - `dependencies.md` - Approved packages (prevents unapproved additions)
+   - `coding-standards.md` - Code patterns (enforces consistency)
+   - `architecture-constraints.md` - Layer boundaries (prevents violations)
+   - `anti-patterns.md` - Forbidden patterns (prevents technical debt)
+3. **Create Architecture Decision Records** - Document all major decisions with ADRs
+4. **Create Technical Specifications** - Optional: Use cases, API specs, database schemas, NFRs
+5. **Validate Spec Against Context** - Ensure no conflicts, all constraints respected
+
+**Progressive disclosure:** Each phase loads its workflow file on-demand (78% token efficiency improvement)
 
 **Expected output location:**
 - All files in `.devforgeai/context/`
