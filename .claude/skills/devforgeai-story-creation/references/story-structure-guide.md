@@ -339,6 +339,169 @@ interface ComponentProps {
 - Modified for story-specific requirements
 - Validated during /qa workflow
 
+---
+
+## ⚠️ CRITICAL: Deferral Anti-Pattern (RCA-006)
+
+### ❌ ANTI-PATTERN: Pre-Deferring DoD Items
+
+**DO NOT do this during story creation:**
+
+```markdown
+## Definition of Done
+
+### Implementation
+- [ ] All acceptance criteria implemented
+- [ ] Unit tests written and passing
+- [ ] Performance benchmarks (P95 < 50ms)
+  - **Deferred to STORY-009:** Requires benchmarking infrastructure
+  - **Justification:** No infrastructure exists yet
+```
+
+**Why this is WRONG:**
+1. **Deferrals made BEFORE attempting implementation** - Violates "attempt first" principle
+2. **Assumes blockers exist without verifying** - May be based on incorrect assumptions
+3. **Bypasses Phase 4.5 Deferral Challenge Checkpoint** - Pre-justified deferrals appear valid
+4. **Accumulates premature technical debt** - Creates debt that may not be necessary
+
+---
+
+### ✅ CORRECT PATTERN: Attempt First, Defer Only If Blocked
+
+**Do this during story creation:**
+
+```markdown
+## Definition of Done
+
+### Implementation
+- [ ] All acceptance criteria implemented
+- [ ] Unit tests written and passing
+- [ ] Performance benchmarks (P95 < 50ms, P50 < 20ms)
+  - **Benchmark file:** benches/api_performance.rs
+  - **Success criteria:** Criterion report shows targets met
+  - **Note:** If blocked during implementation, document blocker via /dev Phase 4.5
+```
+
+**During /dev workflow (Phase 4.5 - Deferral Challenge Checkpoint):**
+
+If developer discovers an ACTUAL blocker during implementation:
+
+1. Developer attempts to implement performance benchmark
+2. Discovers blocker: "Cache directory empty, need artifacts from STORY-008"
+3. Phase 4.5 prompts user: "How should we handle this incomplete item?"
+4. User selects: "Defer to story"
+5. User provides: Target story (STORY-009) and reason
+6. System updates story file:
+   ```markdown
+   - [ ] Performance benchmarks (P95 < 50ms, P50 < 20ms)
+     - **Deferred to STORY-009:** Requires cached grammar artifacts from STORY-008
+     - **Blocker verified:** 2024-11-06 15:30:00 UTC
+     - **User approved:** 2024-11-06 15:30:00 UTC
+   ```
+
+**Benefits of this approach:**
+- ✅ Deferrals based on ACTUAL blockers encountered during implementation
+- ✅ "Attempt first" principle enforced automatically
+- ✅ User approval required for ALL deferrals (zero autonomous deferrals)
+- ✅ Accurate technical debt tracking (only real blockers)
+- ✅ Prevents assumptions from becoming permanent debt
+
+---
+
+### Deferral Budget Limits
+
+**Per-Story Constraints:**
+- **Maximum 3 deferred items** per story
+- **Maximum 20% of total DoD items** can be deferred
+- **No circular deferrals** (STORY-A → STORY-B → STORY-A)
+
+**Example:**
+
+```
+Total DoD items: 14
+Deferred items: 3
+Deferral percentage: (3 / 14) * 100 = 21.4%
+
+Status: ❌ OVER BUDGET (exceeds 20% limit)
+
+Recommendation:
+- Complete more items to reduce deferrals below 20%
+- OR split story into multiple smaller stories
+```
+
+**Enforcement:**
+- **During /create-story:** Warning if template has pre-deferrals
+- **During /dev Phase 4.5:** User challenged on ALL deferrals
+- **During /dev Phase 5:** Budget check blocks "Dev Complete" if over limit
+- **During /qa:** Stories with excessive deferrals flagged
+
+---
+
+### When Deferrals Are Appropriate
+
+**Valid reasons to defer DoD items:**
+
+1. **External dependency blocking work:**
+   - Third-party API not available until specific date
+   - Vendor library upgrade required (outside team control)
+   - Production environment not ready
+
+2. **Prerequisite story not complete:**
+   - Current story requires artifacts from STORY-XXX
+   - Cannot test without STORY-XXX deployed
+   - Dependency story in "In Development" status
+
+3. **Toolchain/infrastructure unavailable:**
+   - Nightly toolchain required but not installed
+   - Performance testing infrastructure not set up
+   - Security scanning tools not configured
+
+4. **Scope change documented in ADR:**
+   - Requirement removed from scope via ADR-XXX
+   - Feature descoped due to timeline constraints
+   - Business decision to defer feature
+
+**Invalid reasons to defer:**
+
+1. ❌ "Looks hard, will do later"
+2. ❌ "Don't know how to implement this"
+3. ❌ "Not enough time in sprint"
+4. ❌ "Will add tests after release"
+5. ❌ "Documentation can wait"
+
+**If reason is invalid:** Complete the work now or split the story.
+
+---
+
+### Template Best Practices
+
+**When creating story templates:**
+
+1. **Start with complete DoD checklist** - All items marked `[ ]` incomplete
+2. **Do NOT pre-justify deferrals** - Leave justifications blank
+3. **Add notes for guidance** - E.g., "Note: If blocked, document via /dev Phase 4.5"
+4. **Focus on success criteria** - Define what "done" looks like
+5. **Trust the process** - Phase 4.5 will handle blockers discovered during implementation
+
+**Example of well-structured DoD item:**
+
+```markdown
+- [ ] Performance benchmarks meet SLA
+  - **Target:** P95 < 50ms, P50 < 20ms
+  - **Test file:** benches/api_performance.rs
+  - **Success criteria:** Criterion report shows all targets met
+  - **Note:** If infrastructure unavailable, Phase 4.5 will prompt for deferral
+```
+
+**NOT:**
+
+```markdown
+- [ ] Performance benchmarks
+  - Deferred to STORY-009: No infrastructure  ← PRE-JUSTIFIED (WRONG)
+```
+
+---
+
 ### 8. Workflow History
 ```markdown
 ## Workflow History

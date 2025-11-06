@@ -74,7 +74,7 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 ---
 
-## TDD Workflow (5 Phases)
+## TDD Workflow (6 Phases)
 
 ### Phase 1: Test-First Design (Red Phase)
 Write failing tests from AC → test-automator subagent → Tests RED
@@ -92,8 +92,13 @@ Improve quality, keep tests green → refactoring-specialist, code-reviewer → 
 Cross-component testing, coverage validation → integration-tester → Thresholds met
 **Reference:** `integration-testing.md`
 
+### Phase 4.5: Deferral Challenge Checkpoint (NEW - RCA-006)
+Challenge ALL deferrals (pre-existing + new) → deferral-validator → User approval required
+**Reference:** `phase-4.5-deferral-challenge.md`
+**Purpose:** Prevent autonomous deferrals, enforce "Attempt First, Defer Only If Blocked" pattern
+
 ### Phase 5: Git Workflow & DoD Validation
-Commit changes, 3-layer DoD validation → deferral-validator → Story complete
+Commit changes, 3-layer DoD validation → incomplete items handled → Story complete
 **References:** `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
@@ -123,7 +128,8 @@ Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step 
 **Phase 2:** backend-architect/frontend-developer, context-validator
 **Phase 3:** refactoring-specialist, code-reviewer
 **Phase 4:** integration-tester
-**Phase 5:** deferral-validator
+**Phase 4.5:** deferral-validator (blocker validation)
+**Phase 5:** (Phase 4.5 handles deferrals, Phase 5 handles new incomplete items)
 
 **See phase-specific reference files for coordination details.**
 
@@ -141,9 +147,10 @@ Load these on-demand during workflow execution:
 - **tdd-refactor-phase.md** (202 lines) - Phase 3: Code improvement
 - **integration-testing.md** (189 lines) - Phase 4: Cross-component tests
 
-### Phase 5 (Git/DoD)
+### Phase 4.5 & 5 (Deferrals & Git)
+- **phase-4.5-deferral-challenge.md** (340 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006)
 - **git-workflow-conventions.md** (885 lines) - Git operations and conventions
-- **dod-validation-checkpoint.md** (519 lines) - 3-layer DoD validation
+- **dod-validation-checkpoint.md** (519 lines) - Phase 5: Handle new incomplete items
 
 ### Supporting Files
 - **tdd-patterns.md** (1,013 lines) - Comprehensive TDD guidance (all phases)
