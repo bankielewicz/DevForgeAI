@@ -14,948 +14,182 @@ allowed-tools:
 
 # DevForgeAI Architecture Skill
 
-Create comprehensive technical architecture and project constraints that prevent technical debt through explicit documentation and AI-enforced compliance.
+Create immutable context files and architecture documentation that prevents technical debt through explicit constraints.
 
 ## Purpose
 
-This skill guides the creation of:
-1. **Project context files** - Immutable constraints (6 critical files)
-   - tech-stack.md - Locks technology choices
-   - source-tree.md - Enforces project structure
-   - dependencies.md - Locks approved packages
-   - coding-standards.md - Project-specific code patterns
-   - architecture-constraints.md - Layer boundaries and design rules
-   - anti-patterns.md - Explicitly forbidden patterns
-2. **Architecture Decision Records (ADRs)** - Documented technology choices
-3. **Technical specifications** - Detailed implementation guidance
-4. **System design documents** - Architecture diagrams and patterns
+This skill creates the **architectural foundation** for the DevForgeAI framework: 6 context files that define boundaries AI agents must never violate.
 
-These artifacts serve as "the law" for AI agents during development, preventing ambiguity-driven technical debt.
+**Generated artifacts:**
+- **6 Context Files** (immutable constraints in `.devforgeai/context/`)
+- **ADRs** (architecture decisions in `.devforgeai/adrs/`)
+- **Technical Specifications** (optional, in `.devforgeai/specs/`)
+
+**Core Principle:** Prevent technical debt through explicit, enforceable constraints.
+
+**Philosophy:**
+- Locked technologies (no library substitution without ADR)
+- Explicit structure (files belong in defined locations)
+- Approved dependencies (no unapproved packages)
+- Enforced patterns (anti-patterns forbidden)
+- Documented decisions (ADRs for traceability)
+
+---
 
 ## When to Use This Skill
 
-Activate this skill when:
-- Starting a new project (greenfield)
-- Adding features to existing projects (brownfield)
-- Making technology decisions (framework, database, library choices)
-- Defining project structure and organization
-- Resolving architectural ambiguities
-- Creating technical specifications from requirements
+**Use when:**
+- Starting new projects (create initial context)
+- Making technology decisions (update tech-stack + create ADR)
+- Defining project structure (create/update source-tree)
+- Establishing coding standards
+- Context files missing (auto-invoked by development skill)
+- Brownfield projects need architectural documentation
 
-## Core Principle: Prevent Technical Debt Through Explicit Constraints
+**Prerequisites:**
+- None (this is typically the first skill invoked)
 
-**Technical debt occurs when AI agents:**
-- Substitute approved libraries (Dapper → Entity Framework)
-- Create files in wrong locations (violate source-tree.md)
-- Make assumptions about tech choices (add Redis without asking)
-- Mix frameworks (introduce Redux in Zustand project)
-
-**This skill prevents debt by:**
-- Creating immutable constraint files before development
-- Using AskUserQuestion for ALL ambiguous decisions
-- Documenting decisions in ADRs with rationale
-- Establishing enforceable project structure
+**Invoked by:**
+- `/create-context` command
+- devforgeai-ideation skill (after requirements discovery)
+- devforgeai-development skill (if context files missing)
 
 ---
 
-## Architecture Workflow
+## Architecture Workflow (5 Phases)
+
+Each phase loads its reference file on-demand for detailed implementation.
 
 ### Phase 1: Project Context Discovery
 
-#### 1.1 Determine Project Type
+**Purpose:** Gather project information through strategic questions
 
-Use AskUserQuestion to understand context:
+**Reference:** `context-discovery-workflow.md`
 
+Determine project type (greenfield vs brownfield), discover existing technologies/structure if brownfield, check for existing context files, analyze gaps.
+
+**Load detailed workflow:**
 ```
-Question: "Is this a new project or existing codebase?"
-Header: "Project type"
-Options:
-  - "Greenfield - New project from scratch"
-  - "Brownfield - Adding to existing codebase"
-multiSelect: false
+Read(file_path=".claude/skills/devforgeai-architecture/references/context-discovery-workflow.md")
 ```
 
-#### 1.2 Analyze Existing Project (Brownfield Only)
-
-If brownfield, discover current state:
-
-```
-# Discover project structure
-Glob(pattern="**/*.sln")          # Find solution files
-Glob(pattern="**/*.csproj")       # Find C# projects
-Glob(pattern="**/package.json")   # Find Node.js projects
-Glob(pattern="**/requirements.txt") # Find Python projects
-
-# Check for existing context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/dependencies.md")
-
-# Analyze technology stack
-Grep(pattern="<PackageReference", glob="**/*.csproj")  # NuGet packages
-Read(file_path="package.json")                         # npm packages
-
-# Understand structure
-Glob(pattern="src/**/*")  # Source organization
-Glob(pattern="tests/**/*") # Test organization
-```
-
-**If context files exist:**
-- Load them as immutable constraints
-- Validate spec against existing constraints
-- Use AskUserQuestion if spec conflicts with constraints
-
-**If context files DON'T exist (technical debt risk!):**
-- Create them from discovered project state
-- Document current architecture as baseline
-- Proceed with creating missing context files
+---
 
 ### Phase 2: Create Immutable Context Files
 
-Context files are THE LAW for this project. AI agents MUST follow them.
+**Purpose:** Generate all 6 context files from templates
 
-#### 2.1 Create tech-stack.md
+**Reference:** `context-file-creation-workflow.md`
 
-This file locks technology choices to prevent substitution.
+Load template for each file from `assets/context-templates/`, gather decisions via AskUserQuestion, customize with project-specific info, add enforcement rules (✅/❌ examples), write to `.devforgeai/context/`.
 
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/tech-stack.md")
-```
-
-**Use AskUserQuestion for ALL technology decisions:**
-
-**Backend Technology:**
-```
-Question: "What backend technology stack should this project use?"
-Header: "Backend stack"
-Options:
-  - "C# with .NET 8.0"
-  - "Python with FastAPI"
-  - "Node.js with Express"
-  - "Java with Spring Boot"
-multiSelect: false
-```
-
-**Database Technology:**
-```
-Question: "Which database should this project use?"
-Header: "Database"
-Options:
-  - "Microsoft SQL Server"
-  - "PostgreSQL"
-  - "MySQL"
-  - "MongoDB"
-multiSelect: false
-```
-
-**ORM/Data Access (if SQL database selected):**
-```
-Question: "Which ORM or data access library should be used?"
-Header: "ORM"
-Description: "This choice will be LOCKED. AI agents cannot substitute alternatives."
-Options:
-  - "Dapper (micro-ORM, explicit SQL)"
-  - "Entity Framework Core (full ORM)"
-  - "NHibernate"
-  - "ADO.NET (no ORM)"
-multiSelect: false
-```
-
-**Frontend Framework:**
-```
-Question: "Which frontend framework should this project use?"
-Header: "Frontend"
-Options:
-  - "React with TypeScript"
-  - "Vue.js with TypeScript"
-  - "Angular"
-  - "Svelte"
-multiSelect: false
-```
-
-**State Management (if React selected):**
-```
-Question: "Which state management library for React?"
-Header: "State mgmt"
-Description: "This will prevent AI from introducing Redux/MobX alternatives."
-Options:
-  - "Zustand (lightweight, simple)"
-  - "Redux Toolkit (full-featured)"
-  - "Jotai (atomic state)"
-  - "React Context API (built-in)"
-multiSelect: false
-```
-
-**After gathering all decisions:**
-1. Customize tech-stack.md template with choices
-2. Add "CRITICAL RULE" sections for each technology
-3. Document "PROHIBITED" alternatives explicitly
-4. Include "Ambiguity Resolution Protocol"
-5. Write to: `.devforgeai/context/tech-stack.md`
-
-**Example output:**
-```
-Write(file_path=".devforgeai/context/tech-stack.md", content="...")
-```
-
-#### 2.2 Create source-tree.md
-
-This file defines project structure to prevent chaos.
-
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/source-tree.md")
-```
-
-**Use AskUserQuestion for structure decisions:**
-
-**Backend Architecture Pattern:**
-```
-Question: "Which backend architecture pattern should be used?"
-Header: "Architecture"
-Options:
-  - "Clean Architecture (Domain/Application/Infrastructure layers)"
-  - "N-Tier (Presentation/Business/Data layers)"
-  - "Vertical Slice (feature-based organization)"
-  - "Simple layered (minimal structure)"
-multiSelect: false
-```
-
-**Test Organization:**
-```
-Question: "How should tests be organized?"
-Header: "Test structure"
-Options:
-  - "Mirror source structure (tests/UnitTests/Application.Tests/)"
-  - "Separate by test type (tests/Unit/, tests/Integration/)"
-  - "Co-located with source (src/Module/Module.Tests/)"
-multiSelect: false
-```
-
-**After gathering structure decisions:**
-1. Customize source-tree.md template with chosen pattern
-2. Document naming conventions (PascalCase, camelCase, etc.)
-3. Define file placement rules
-4. Add enforcement checklist
-5. Write to: `.devforgeai/context/source-tree.md`
-
-#### 2.3 Create dependencies.md
-
-This file locks approved packages to prevent substitution.
-
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/dependencies.md")
-```
-
-**Use AskUserQuestion for package decisions:**
-
-**For Greenfield Projects:**
-
-After tech-stack.md is created, gather initial dependencies for each technology layer.
-
-**Backend Core Packages:**
-```
-Question: "Which migration tool should be used for database schema management?"
-Header: "Migrations"
-Options:
-  - "FluentMigrator (code-first migrations)"
-  - "DbUp (script-based migrations)"
-  - "Entity Framework Migrations (if using EF Core)"
-  - "Manual SQL scripts (no migration tool)"
-multiSelect: false
-```
-
-**Validation Library:**
-```
-Question: "Which validation library should be used?"
-Header: "Validation"
-Options:
-  - "FluentValidation (expressive, testable)"
-  - "DataAnnotations (built-in, simpler)"
-  - "Custom validation (no library)"
-multiSelect: false
-```
-
-**Testing Packages:**
-```
-Question: "Which testing framework should be used?"
-Header: "Test framework"
-Options:
-  - "xUnit (modern, extensible)"
-  - "NUnit (mature, feature-rich)"
-  - "MSTest (Microsoft's framework)"
-multiSelect: false
-```
-
-**Mocking Library:**
-```
-Question: "Which mocking library for unit tests?"
-Header: "Mocking"
-Options:
-  - "NSubstitute (clean syntax)"
-  - "Moq (popular, mature)"
-  - "FakeItEasy (expressive API)"
-multiSelect: false
-```
-
-**Frontend Testing:**
-```
-Question: "Which E2E testing framework for frontend?"
-Header: "E2E testing"
-Options:
-  - "Playwright (cross-browser, modern)"
-  - "Cypress (developer-friendly)"
-  - "Selenium (established standard)"
-multiSelect: false
-```
-
-**After gathering decisions:**
-1. Customize dependencies.md template with approved packages
-2. Mark LOCKED packages with version constraints
-3. Add "CRITICAL" comments for packages that must not be swapped
-4. Document "FORBIDDEN" alternatives explicitly
-5. Include "Dependency Addition Protocol"
-6. Write to: `.devforgeai/context/dependencies.md`
-
-**For Brownfield Projects:**
-
-Discover and document existing dependencies:
-
-```
-# Extract .NET dependencies
-Grep(pattern="<PackageReference", glob="**/*.csproj", output_mode="content")
-
-# Extract npm dependencies
-Read(file_path="package.json")
-
-# Check for lock files
-Read(file_path="package-lock.json")  # or yarn.lock, pnpm-lock.yaml
-```
-
-**After discovery:**
-1. Populate dependencies.md with current packages
-2. Identify core packages that should be LOCKED
-3. Add rationale for each major dependency
-4. Document any technical debt (duplicate packages, outdated versions)
-5. Create migration plan if dependencies need updating
-6. Write to: `.devforgeai/context/dependencies.md`
-
-**Include "Dependency Addition Protocol":**
-```markdown
-Before adding ANY package, AI agents MUST:
-1. Check if package is listed in dependencies.md
-2. If listed → Use exact version specified
-3. If NOT listed → STOP and use AskUserQuestion
-4. After approval → Update dependencies.md + create ADR
-```
-
-**Example AskUserQuestion for new package:**
-```
-Question: "I need to add package [PackageName] for [functionality].
-          It's not in dependencies.md. Should I add it?"
-Header: "New package"
-Options:
-  - "Yes, add [PackageName] version [X.Y.Z]"
-  - "No, use existing dependency [AlternativeName]"
-  - "No, implement manually without external dependency"
-Description: "This will update dependencies.md and require ADR documentation"
-multiSelect: false
-```
-
-#### 2.4 Create coding-standards.md
-
-This file documents HOW to write code for this specific project.
-
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/coding-standards.md")
-```
-
-**Use AskUserQuestion for coding patterns:**
-
-**Async/Await Standards:**
-```
-Question: "Should async methods use ConfigureAwait(false) in library code?"
-Header: "ConfigureAwait"
-Options:
-  - "Yes, always use ConfigureAwait(false) in library code"
-  - "No, ASP.NET Core doesn't need it"
-  - "Use only in libraries, not in application code"
-multiSelect: false
-```
-
-**Dependency Injection Lifetime:**
-```
-Question: "What is the default service lifetime for most application services?"
-Header: "DI lifetime"
-Options:
-  - "Scoped (per HTTP request - recommended for most services)"
-  - "Transient (new instance each time)"
-  - "Singleton (single instance for app lifetime)"
-Description: "This will be documented as the standard pattern"
-multiSelect: false
-```
-
-**Error Handling Pattern:**
-```
-Question: "Which error handling pattern should be used?"
-Header: "Error handling"
-Options:
-  - "Result Pattern (return Result<T> for business logic errors)"
-  - "Exceptions (throw exceptions for all errors)"
-  - "Hybrid (Result for business logic, exceptions for technical errors)"
-multiSelect: false
-```
-
-**Logging Pattern:**
-```
-Question: "Which logging library should be used?"
-Header: "Logging"
-Options:
-  - "Serilog (structured logging, multiple sinks)"
-  - "NLog (mature, configurable)"
-  - "Microsoft.Extensions.Logging (built-in)"
-multiSelect: false
-```
-
-**After gathering coding pattern decisions:**
-1. Customize coding-standards.md with technology-specific patterns
-2. Add ✅ CORRECT vs ❌ FORBIDDEN examples for each pattern
-3. Document patterns for:
-   - Data access (Dapper/EF Core specific patterns)
-   - State management (Zustand/Redux specific patterns)
-   - Async/await conventions
-   - Dependency injection
-   - Validation (FluentValidation patterns)
-   - Error handling and logging
-   - Naming conventions (PascalCase, camelCase, etc.)
-   - File organization (one class per file)
-4. Add "AI Agent Integration Rules" section
-5. Add "Pattern Enforcement Checklist"
-6. Write to: `.devforgeai/context/coding-standards.md`
-
-**Technology-Specific Pattern Examples:**
-
-For Dapper projects, include patterns for:
-- Parameterized queries (security)
-- Multi-mapping (joins)
-- Transactions (multi-table operations)
-
-For Zustand projects, include patterns for:
-- Basic stores (direct actions, no Redux patterns)
-- Derived state (selectors)
-- Middleware (persistence, devtools)
-
-For validation, include patterns for:
-- Validator classes (FluentValidation)
-- Registration (DI integration)
-- Usage in services
-
-#### 2.5 Create architecture-constraints.md
-
-This file enforces layer boundaries and design patterns.
-
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/architecture-constraints.md")
-```
-
-**Use AskUserQuestion for architecture decisions:**
-
-**Layer Dependency Rules (for Clean Architecture):**
-```
-Question: "Should the Domain layer be allowed to reference any infrastructure concerns?"
-Header: "Domain purity"
-Options:
-  - "No, Domain must be 100% pure (no infrastructure references)"
-  - "Allow minimal infrastructure (e.g., IRepository interfaces)"
-Description: "This enforces Clean Architecture principles"
-multiSelect: false
-```
-
-**Data Access Pattern:**
-```
-Question: "Should all data access go through repositories, or allow direct database access from services?"
-Header: "Data access"
-Options:
-  - "Repository Pattern (all data access through repositories)"
-  - "Direct access (services can query database directly)"
-  - "Hybrid (repositories for complex queries, direct for simple)"
-multiSelect: false
-```
-
-**DTO Usage:**
-```
-Question: "Should API controllers expose domain entities directly, or use DTOs?"
-Header: "API pattern"
-Options:
-  - "DTO Pattern (never expose domain entities to API)"
-  - "Direct entities (controllers can return domain objects)"
-  - "Hybrid (DTOs for input, entities for output)"
-Description: "DTOs prevent over-posting and decouple API from domain"
-multiSelect: false
-```
-
-**Service Layer Pattern:**
-```
-Question: "Should business logic be in controllers or services?"
-Header: "Business logic"
-Options:
-  - "Service Pattern (controllers are thin, services contain logic)"
-  - "Controller-heavy (controllers can contain business logic)"
-Description: "Service pattern improves testability and reusability"
-multiSelect: false
-```
-
-**Transaction Management:**
-```
-Question: "Where should database transactions be managed?"
-Header: "Transactions"
-Options:
-  - "Service layer (orchestrates multiple repositories)"
-  - "Repository layer (each repository manages its own transactions)"
-  - "Controller layer (API endpoints manage transactions)"
-multiSelect: false
-```
-
-**After gathering architecture decisions:**
-1. Customize architecture-constraints.md with chosen patterns
-2. Document layer dependency matrix (which layers can reference which)
-3. Add mandatory patterns:
-   - Repository Pattern (if chosen)
-   - Service Pattern (if chosen)
-   - DTO Pattern (if chosen)
-   - Unit of Work (if using transactions)
-4. Add forbidden patterns:
-   - Cross-layer violations (e.g., Domain → Infrastructure)
-   - Business logic in controllers (if Service Pattern chosen)
-   - Exposing domain entities to API (if DTO Pattern chosen)
-5. Add architecture unit tests examples (NetArchTest.Rules)
-6. Add enforcement checklist
-7. Write to: `.devforgeai/context/architecture-constraints.md`
-
-**Include Layer Dependency Matrix:**
-```markdown
-| From ↓ To → | API | Application | Domain | Infrastructure |
-|-------------|-----|-------------|--------|----------------|
-| API         | ✓   | ✓           | ❌     | ❌             |
-| Application | ❌  | ✓           | ✓      | ❌             |
-| Domain      | ❌  | ❌          | ✓      | ❌             |
-| Infrastructure | ❌ | ❌        | ✓      | ✓              |
-```
-
-#### 2.6 Create anti-patterns.md
-
-This file explicitly forbids patterns that cause technical debt.
-
-**Load template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/anti-patterns.md")
-```
-
-**Customize based on project context:**
-
-**For projects using Dapper:**
-Add anti-pattern for ORM substitution:
-```markdown
-### Category 1: Library Substitution (SEVERITY: CRITICAL)
-
-❌ FORBIDDEN: Switching from Dapper to Entity Framework due to complexity
-
-**Wrong Behavior:**
-AI encounters complex Dapper query → Suggests EF Core → Adds EF packages
+**Output:** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
 
-**Correct Behavior:**
-AI checks tech-stack.md → Sees Dapper is LOCKED → Uses AskUserQuestion
-```
-
-**For projects using Zustand:**
-Add anti-pattern for framework mixing:
-```markdown
-### Category 4: Framework Mixing (SEVERITY: CRITICAL)
+**This phase was 52% of the original SKILL.md - now progressively loaded.**
 
-❌ FORBIDDEN: Introducing Redux patterns in Zustand project
-
-**Wrong Behavior:**
-AI needs complex state → Adds Redux Toolkit → Creates mixed state management
-
-**Correct Behavior:**
-AI checks dependencies.md → Sees Zustand is LOCKED → Uses AskUserQuestion
+**Load detailed workflow:**
 ```
-
-**For projects using Clean Architecture:**
-Add anti-pattern for layer violations:
-```markdown
-### Category 3: Cross-Layer Dependency Violations (SEVERITY: HIGH)
-
-❌ FORBIDDEN: Domain layer referencing Infrastructure
-
-**Wrong Behavior:**
-Domain/Entities/User.cs imports Infrastructure.Repositories
-
-**Correct Behavior:**
-Domain stays pure, Application orchestrates via interfaces
+Read(file_path=".claude/skills/devforgeai-architecture/references/context-file-creation-workflow.md")
 ```
-
-**After customizing anti-patterns.md:**
-1. Add all 10 anti-pattern categories with project-specific examples
-2. For each category, provide:
-   - ❌ FORBIDDEN example (what NOT to do)
-   - ✅ CORRECT example (what to do instead)
-   - AskUserQuestion pattern for when pattern is encountered
-3. Add severity levels (CRITICAL, HIGH, MEDIUM, LOW)
-4. Add "Detection and Prevention" checklist
-5. Add "AI Agent Anti-Pattern Avoidance Protocol"
-6. Write to: `.devforgeai/context/anti-patterns.md`
-
-**Key anti-pattern categories to customize:**
-1. Library Substitution (tech-stack violations)
-2. Structure Violation (source-tree violations)
-3. Cross-Layer Dependencies (architecture violations)
-4. Framework Mixing (state management, CSS-in-JS)
-5. Magic Numbers/Strings (hard-coded values)
-6. God Objects (classes that do too much)
-7. Tight Coupling (direct instantiation instead of DI)
-8. Security Anti-Patterns (SQL injection, XSS, secrets in code)
-9. Performance Anti-Patterns (N+1 queries, synchronous blocking)
-10. Test Anti-Patterns (test interdependence, fragile tests)
 
-### Phase 3: Create Architecture Decision Records (ADRs)
+---
 
-For each significant technology decision, create an ADR.
+### Phase 3: Create Architecture Decision Records
 
-**Load ADR template:**
-```
-Read(file_path=".claude/skills/devforgeai-architecture/references/adr-template.md")
-```
-
-**Review ADR examples for guidance:**
-
-For database decisions:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md")
-```
+**Purpose:** Document significant technical decisions
 
-For ORM/data access decisions:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-002-orm-selection.md")
-```
+**Reference:** `adr-creation-workflow.md` | **Policy:** `adr-policy.md` | **Template:** `adr-template.md`
 
-For state management decisions:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-003-state-management.md")
-```
+Identify decisions requiring ADRs (database, ORM, framework, patterns), load template and examples from `assets/adr-examples/`, create ADR with context/decision/rationale/consequences/alternatives/enforcement sections.
 
-For architecture pattern decisions:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-004-clean-architecture.md")
-```
+**Output:** ADR files in `.devforgeai/adrs/`
 
-For deployment strategy decisions:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-005-deployment-strategy.md")
+**Load detailed workflow:**
 ```
-
-**Create ADR for each major decision:**
-- Database choice
-- ORM selection
-- State management library
-- Architecture pattern
-- Testing strategy
-
-**ADR Structure:**
-```markdown
-# ADR-001: Use Dapper for Data Access
-
-Date: 2025-10-29
-Status: Accepted
-Deciders: [Team Lead, Architect]
-
-## Context
-We need a data access strategy for the new e-commerce platform.
-
-## Decision
-We will use Dapper 2.1.x as our ORM.
-
-## Rationale
-- Performance: 10x faster than EF Core for our read-heavy workload
-- Control: Team prefers explicit SQL for complex queries
-- Experience: Team has 5 years Dapper experience
-
-## Consequences
-**Positive:**
-- Superior performance for data access
-- Full control over SQL optimization
-- Minimal learning curve for team
-
-**Negative:**
-- No automatic change tracking
-- More manual mapping code
-- Less abstraction than full ORMs
-
-## Alternatives Considered
-- Entity Framework Core: Rejected due to performance overhead
-- NHibernate: Rejected due to complexity and learning curve
-- Raw ADO.NET: Rejected due to excessive boilerplate
-
-## Enforcement
-- Added to tech-stack.md as LOCKED choice
-- dependencies.md lists "Dapper 2.1.28 (NOT Entity Framework)"
-- anti-patterns.md forbids ORM substitution
+Read(file_path=".claude/skills/devforgeai-architecture/references/adr-creation-workflow.md")
 ```
-
-**Write ADRs to:** `.devforgeai/adrs/`
 
-**ADR Naming Convention:**
-- `ADR-001-database-selection.md` (numbered sequentially)
-- `ADR-002-orm-selection.md`
-- `ADR-003-state-management.md`
-
-**ADR Directory Structure:**
-```
-.devforgeai/adrs/
-  ├── ADR-001-database-selection.md
-  ├── ADR-002-orm-selection.md
-  ├── ADR-003-state-management.md
-  └── README.md (index of all ADRs)
-```
+---
 
 ### Phase 4: Create Technical Specifications
 
-Transform requirements into detailed technical specs.
+**Purpose:** Generate high-level architecture documentation
 
-**Spec Components:**
+**Reference:** `technical-specification-workflow.md` | **Patterns:** `system-design-patterns.md`
 
-1. **Functional Specifications:**
-   - Use cases with actors and flows
-   - Acceptance criteria (measurable)
-   - Business rules and validation
-   - Data models and relationships
+Create functional specs (use cases, business rules, data models), API specs (endpoints, auth), database specs (schemas, indexes), NFRs (performance, security). Use AskUserQuestion for ambiguous requirements.
 
-2. **API Specifications:**
-   - Endpoint definitions (OpenAPI/Swagger)
-   - Request/response formats
-   - Authentication/authorization
-   - Error codes and handling
+**Output:** Technical spec in `.devforgeai/specs/` (optional)
 
-3. **Database Specifications:**
-   - Entity-Relationship Diagrams (ERD)
-   - Table schemas with types and constraints
-   - Indexes and performance considerations
-   - Migration strategy
-
-4. **Non-Functional Requirements:**
-   - Performance targets (response time, throughput)
-   - Scalability requirements (concurrent users, data volume)
-   - Security requirements (authentication, encryption, compliance)
-   - Availability and reliability (uptime, disaster recovery)
-
-**Use AskUserQuestion for Ambiguous Requirements:**
-
-When spec says "handle authentication" without details:
+**Load detailed workflow:**
 ```
-Question: "The spec requires authentication. Which method should be used?"
-Header: "Auth method"
-Description: "This will be documented in tech-stack.md"
-Options:
-  - "JWT tokens (stateless)"
-  - "OAuth 2.0 (third-party auth)"
-  - "Session-based (stateful)"
-  - "Passkeys/WebAuthn (passwordless)"
-multiSelect: false
+Read(file_path=".claude/skills/devforgeai-architecture/references/technical-specification-workflow.md")
 ```
 
-When performance requirements are vague:
-```
-Question: "What are the performance targets for this API?"
-Header: "Performance"
-Options:
-  - "High performance (< 100ms response time)"
-  - "Standard (< 500ms response time)"
-  - "Acceptable (< 2s response time)"
-multiSelect: false
-```
-
-**Write specs to:** `docs/specs/` or `docs/architecture/`
+---
 
 ### Phase 5: Validate Spec Against Context
 
-Before finalizing, validate consistency:
+**Purpose:** Ensure specifications respect all constraints
 
+**Reference:** `architecture-validation.md`
+
+Load all 6 context files, validate spec compliance (technologies, packages, structure, layer boundaries, anti-patterns). Use AskUserQuestion to resolve conflicts.
+
+**Output:** Validated specification ready for implementation
+
+**Load detailed workflow:**
 ```
-# Check tech-stack.md compliance
-Read(file_path=".devforgeai/context/tech-stack.md")
-# Ensure spec doesn't contradict locked choices
-
-# Check dependencies.md compliance
-Read(file_path=".devforgeai/context/dependencies.md")
-# Ensure spec doesn't require unapproved packages
-
-# Check source-tree.md compliance
-Read(file_path=".devforgeai/context/source-tree.md")
-# Ensure proposed structure matches conventions
-
-# If conflicts detected → Use AskUserQuestion to resolve
+Read(file_path=".claude/skills/devforgeai-architecture/references/architecture-validation.md")
 ```
 
 ---
 
-## Ambiguity Detection and Resolution
+## Ambiguity Detection
 
-**CRITICAL:** This skill MUST use AskUserQuestion for ANY ambiguity.
+**CRITICAL:** Use AskUserQuestion for ANY ambiguity - technology choices unclear, multiple valid options, conflicting requirements, version/security/performance/compliance decisions.
 
-### Ambiguity Triggers
-
-Load the ambiguity detection guide:
-```
-Read(file_path=".claude/skills/devforgeai-architecture/references/ambiguity-detection-guide.md")
-```
-
-**Always use AskUserQuestion when:**
-
-1. **Technology not specified:** Spec mentions "caching" without technology
-2. **Multiple valid options:** Two frameworks could work equally well
-3. **Conflicting requirements:** Spec contradicts existing context files
-4. **Version ambiguity:** Package version not specified
-5. **Brownfield conflicts:** Legacy code uses different tech than preferred
-6. **Security sensitive:** Authentication, encryption, data protection
-7. **Performance targets:** "Fast" or "scalable" without metrics
-8. **Structure ambiguous:** New file type not in source-tree.md
-9. **Pattern unclear:** Implementation approach not specified
-10. **Compliance requirements:** GDPR, HIPAA, SOC2 implications
-
-### AskUserQuestion Patterns
-
-**Technology Choice:**
-```
-Question: "Spec requires [feature] but doesn't specify technology.
-          Which should be used?"
-Header: "[Category]"
-Options: [2-4 technology choices]
-Description: "This decision will be locked in tech-stack.md"
-multiSelect: false
-```
-
-**Architecture Pattern:**
-```
-Question: "Which architecture pattern should be used for [feature]?"
-Header: "Pattern"
-Options: [2-4 pattern choices]
-Description: "This will be documented in architecture-constraints.md"
-multiSelect: false
-```
-
-**Conflict Resolution:**
-```
-Question: "Spec says [X], but tech-stack.md specifies [Y]. Which is correct?"
-Header: "Conflict"
-Options:
-  - "Use spec requirement [X] (update tech-stack.md)"
-  - "Use existing standard [Y] (spec is incorrect)"
-  - "Other approach (specify)"
-multiSelect: false
-```
+**See `references/ambiguity-detection-guide.md` for complete scenarios.**
 
 ---
 
-## Brownfield-Specific Guidance
+## Brownfield Projects
 
-### Working with Existing Projects
+Existing codebases require discovery → gap analysis → migration strategy decision (gradual/full refactor/accept current) → transitional context files.
 
-**Discovery Phase:**
-1. Check for existing context files in `.devforgeai/context/`
-2. If missing, analyze project to create baseline context
-3. Document current state as-is before proposing changes
-
-**Gap Analysis:**
-```
-Current State (discovered):
-- Uses Entity Framework Core 8.0
-- No consistent folder structure
-- Mix of patterns (some services, some repositories)
-
-Desired State (from spec):
-- Should use Dapper for performance
-- Need Clean Architecture structure
-- Consistent DI patterns
-
-Gap: Major refactoring required
-```
-
-**Use AskUserQuestion for Migration Strategy:**
-```
-Question: "Project currently uses EF Core, but Dapper is preferred. How should we proceed?"
-Header: "Migration"
-Options:
-  - "Gradual migration (new code uses Dapper, old stays EF)"
-  - "Full refactor (convert all to Dapper)"
-  - "Accept technical debt (continue with EF Core)"
-  - "Reassess preference (maybe EF is better for this project)"
-multiSelect: false
-```
-
-**Document Migration Plan:**
-- Create ADR for migration decision
-- Update tech-stack.md with transitional state
-- Document refactoring roadmap
-- Add timeline and milestones
+**See `references/brownfield-integration.md` for complete workflow.**
 
 ---
 
 ## Integration with Other Skills
 
-This architecture skill creates the foundation for other DevForgeAI skills:
+**From:** devforgeai-ideation (requirements → architecture)
+**To:** devforgeai-orchestration (story planning), devforgeai-development (implementation)
+**Provides:** 6 context files (enforced by all skills), ADRs (traceability), Technical specs (guidance)
 
-**devforgeai-development** will:
-- Load context files created by this skill
-- Enforce constraints during implementation
-- Validate code against tech-stack.md and source-tree.md
+---
 
-**devforgeai-qa** will:
-- Validate implementation matches specs
-- Check compliance with context files
-- Verify no anti-patterns introduced
+## Asset Templates
 
-**devforgeai-release** will:
-- Use architecture docs for deployment planning
-- Validate production readiness against specs
+**Context Templates (6 files, 3,922 lines):**
+- tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
+
+**ADR Examples (6 files, 5,157 lines):**
+- Database selection, ORM selection, State management, Clean Architecture, Deployment strategy, Scope changes
+
+**All templates in `assets/` load on-demand.**
 
 ---
 
 ## Reference Files
 
-Load these as needed during architecture work:
+**Workflow Files (6 files - Load per phase):**
+- context-discovery-workflow.md, context-file-creation-workflow.md, adr-creation-workflow.md, technical-specification-workflow.md, architecture-validation.md, brownfield-integration.md
 
-- [ADR Template](./references/adr-template.md) - Architecture Decision Record format
-- [Tech Stack Template](./assets/context-templates/tech-stack.md) - Technology documentation
-- [Source Tree Template](./assets/context-templates/source-tree.md) - Structure documentation
-- [System Design Patterns](./references/system-design-patterns.md) - Common patterns
-- [Ambiguity Detection Guide](./references/ambiguity-detection-guide.md) - When to ask questions
+**Guide Files (4 files - Load as needed):**
+- adr-policy.md, adr-template.md, ambiguity-detection-guide.md, system-design-patterns.md
 
-## ADR Examples
-
-Example Architecture Decision Records showing real-world decision scenarios:
-
-- [ADR-EXAMPLE-001: Database Selection](./assets/adr-examples/ADR-EXAMPLE-001-database-selection.md) - PostgreSQL vs MySQL vs MongoDB for e-commerce platform
-- [ADR-EXAMPLE-002: ORM Selection](./assets/adr-examples/ADR-EXAMPLE-002-orm-selection.md) - Dapper vs Entity Framework Core for data access layer
-- [ADR-EXAMPLE-003: State Management](./assets/adr-examples/ADR-EXAMPLE-003-state-management.md) - Zustand vs Redux for React state management
-- [ADR-EXAMPLE-004: Architecture Pattern](./assets/adr-examples/ADR-EXAMPLE-004-clean-architecture.md) - Clean Architecture vs N-Tier vs Vertical Slice
-- [ADR-EXAMPLE-005: Deployment Strategy](./assets/adr-examples/ADR-EXAMPLE-005-deployment-strategy.md) - Kubernetes vs Azure App Service vs AWS ECS
-
-These examples demonstrate how to document architectural decisions with proper context, rationale, trade-offs, and alternatives analysis. Use them as reference when creating ADRs for your project.
-
-## Asset Templates
-
-Complete set of context file templates:
-
-- `assets/context-templates/tech-stack.md` - Comprehensive tech stack template
-- `assets/context-templates/source-tree.md` - Project structure template
-- `assets/context-templates/dependencies.md` - Dependency management template
-- `assets/context-templates/coding-standards.md` - Code patterns template
-- `assets/context-templates/architecture-constraints.md` - Design rules template
-- `assets/context-templates/anti-patterns.md` - Forbidden patterns template
+---
 
 ## Scripts
 
@@ -966,13 +200,13 @@ Complete set of context file templates:
 
 ## Success Criteria
 
-This skill succeeds when:
+Architecture phase complete when:
 
-- [ ] All context files created and populated (tech-stack.md, source-tree.md, dependencies.md)
-- [ ] All technology decisions documented in ADRs
-- [ ] All ambiguities resolved via AskUserQuestion (no assumptions)
-- [ ] Technical specifications are complete and unambiguous
-- [ ] Specs validated against context files (no conflicts)
-- [ ] Development team can proceed without needing to make tech decisions
+- [ ] All 6 context files exist in `.devforgeai/context/`
+- [ ] Context files non-empty (no placeholders)
+- [ ] At least 1 ADR created (initial architecture decision)
+- [ ] All ambiguities resolved (via AskUserQuestion)
+- [ ] Validation passes (Phase 5)
+- [ ] Ready for story planning (next: devforgeai-orchestration)
 
 **The goal:** Zero ambiguity = Zero technical debt from wrong assumptions.
