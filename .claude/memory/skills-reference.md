@@ -281,19 +281,25 @@ Skill(command="devforgeai-ui-generator")
 Skill(command="devforgeai-development")
 ```
 
-**Key Features (Enhanced 2025-11-05):**
+**Key Features (Enhanced 2025-11-06 - RCA-006):**
 - **Lean command architecture:** /dev command delegates to skill (513 lines, down from 860)
 - **Subagent-powered validation:**
   - **git-validator** subagent (Phase 0 Step 1) - Git status and workflow strategy
   - **tech-stack-detector** subagent (Phase 0 Step 7) - Technology detection and validation
 - **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
-- **Three-layer DoD validation** (Phase 5):
+- **Phase 4.5: Deferral Challenge Checkpoint** (RCA-006 - NEW):
+  - Challenges ALL deferrals (pre-existing from template + new from TDD)
+  - Invokes deferral-validator subagent for blocker validation
+  - Requires user approval for EVERY deferred item (zero autonomous deferrals)
+  - Timestamps all approvals for audit trail
+  - Enforces "Attempt First, Defer Only If Blocked" pattern
+- **Phase 5: New Incomplete Items:**
   - Layer 1: Python format validator (~200 tokens, <100ms)
-  - Layer 2: Interactive checkpoint (AskUserQuestion for ALL deferrals)
-  - Layer 3: deferral-validator subagent (comprehensive analysis)
+  - Layer 2: Interactive checkpoint (AskUserQuestion for new items only)
+  - Layer 3: Git commit or file-based tracking
 - **QA failure recovery:** Detects previous QA failures, guides resolution workflow (Phase 0 Step 8)
 - **Framework-aware subagents:** All subagents understand DevForgeAI constraints (prevent silos)
-- **Zero autonomous deferrals:** User approval mandatory for all incomplete DoD items
+- **Zero autonomous deferrals:** User approval mandatory for all deferred/incomplete DoD items
 
 ---
 
