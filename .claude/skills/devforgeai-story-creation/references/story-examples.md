@@ -1902,4 +1902,296 @@ interface ChartDataPoint {
 
 ---
 
+## Example 5: Authentication Story with Email Verification
+
+**Source:** Migrated from /create-story command (original educational reference)
+
+**Domain:** Authentication/Security
+**Complexity:** Medium (API + UI + Security)
+**Story Points:** 5
+
+**Key Features Demonstrated:**
+- Complete authentication flow (registration + email verification)
+- Dual API endpoints (POST register, GET verify-email)
+- Security-focused data model (verification tokens, expiration)
+- Complex UI with real-time validation (password strength indicator)
+- Comprehensive WCAG AA accessibility requirements
+- Measurable NFRs (response times, rate limiting, queue capacity)
+- Security edge cases (SQL injection, token reuse, service failures)
+
+**Use this example for:** Authentication stories, email workflows, security requirements, complex forms, accessibility compliance
+
+---
+
+**File:** `.ai_docs/Stories/STORY-042-user-registration-email-verification.story.md`
+
+```markdown
+---
+id: STORY-042
+title: User registration with email verification
+epic: EPIC-003
+sprint: SPRINT-005
+status: Backlog
+priority: High
+points: 5
+created: 2025-10-31
+updated: 2025-10-31
+assigned_to: null
+tags: [authentication, security]
+---
+
+## User Story
+
+As a new user,
+I want to register with my email and verify it,
+So that I can access the platform securely and receive important notifications.
+
+## Acceptance Criteria
+
+### AC1: User submits registration form
+**Given** I am on the registration page
+**When** I submit valid email, password, and name
+**Then** I receive a success message and verification email
+
+### AC2: Email verification link
+**Given** I received a verification email
+**When** I click the verification link
+**Then** My account is activated and I am redirected to login
+
+### AC3: Password strength validation
+**Given** I am filling the registration form
+**When** I enter a password
+**Then** Real-time feedback shows strength (weak/medium/strong)
+
+### AC4: Duplicate email handling
+**Given** An account exists with my email
+**When** I try to register with the same email
+**Then** I see an error "Email already registered"
+
+## Technical Specification
+
+### API Contracts
+
+#### Endpoint: POST /api/auth/register
+
+**Request:**
+```json
+{
+  "email": "user@example.com",
+  "password": "SecurePass123!",
+  "name": "John Doe"
+}
+```
+
+**Response (201):**
+```json
+{
+  "user_id": "uuid",
+  "email": "user@example.com",
+  "verification_sent": true,
+  "message": "Verification email sent"
+}
+```
+
+**Response (400):**
+```json
+{
+  "error": "Validation failed",
+  "details": ["Password must be at least 8 characters"]
+}
+```
+
+#### Endpoint: GET /api/auth/verify-email?token={token}
+
+**Response (200):**
+```json
+{
+  "verified": true,
+  "redirect_url": "/login"
+}
+```
+
+**Response (400):**
+```json
+{
+  "error": "Invalid or expired token"
+}
+```
+
+### Data Models
+
+#### Model: User
+| Field | Type | Constraints | Description |
+|-------|------|-------------|-------------|
+| id | UUID | Required, PK | Unique identifier |
+| email | String | Required, Unique, Email format | User email |
+| password_hash | String | Required | Bcrypt hashed password |
+| name | String | Required, 2-100 chars | Full name |
+| verified | Boolean | Default: false | Email verification status |
+| verification_token | String | Nullable | Email verification token |
+| token_expires_at | DateTime | Nullable | Token expiration time |
+| created_at | DateTime | Auto | Account creation timestamp |
+
+### Business Rules
+
+1. Password must be 8+ characters with uppercase, lowercase, number, special char
+2. Verification token expires after 24 hours
+3. Verification email sent asynchronously (background job)
+4. Unverified users cannot log in
+5. Email is case-insensitive (stored lowercase)
+
+### Dependencies
+
+- Email service: SendGrid or SMTP
+- Background job queue: Redis/Bull or similar
+- Password hashing: Bcrypt library
+
+## UI Specification
+
+### Components
+
+#### Component: RegistrationForm
+**Type:** Form
+**Purpose:** Collect user registration details
+**Data Bindings:** email, password, name, passwordStrength
+
+#### Component: PasswordStrengthIndicator
+**Type:** Visual feedback
+**Purpose:** Show real-time password strength
+**Data Bindings:** password (input), strength (computed)
+
+### Layout Mockup
+
+```
++------------------------------------------+
+|           Create Your Account            |
++------------------------------------------+
+| Email Address                            |
+| [ user@example.com                    ]  |
+|                                          |
+| Full Name                                |
+| [ John Doe                            ]  |
+|                                          |
+| Password                                 |
+| [ ••••••••••                          ]  |
+| [####--------] Medium strength           |
+| Must be 8+ chars with uppercase, number  |
+|                                          |
+| [ ] I agree to Terms of Service          |
+|                                          |
+| [        Create Account       ]          |
+|                                          |
+| Already have an account? [Log in]        |
++------------------------------------------+
+```
+
+### Component Interface
+
+```typescript
+interface RegistrationFormProps {
+  onSubmit: (data: RegistrationData) => Promise<void>;
+  isLoading: boolean;
+  error: string | null;
+}
+
+interface RegistrationData {
+  email: string;
+  password: string;
+  name: string;
+  agreedToTerms: boolean;
+}
+
+interface PasswordStrengthIndicatorProps {
+  password: string;
+  onChange?: (strength: 'weak' | 'medium' | 'strong') => void;
+}
+```
+
+### User Interactions
+
+1. User navigates to /register
+2. Form displays with empty fields
+3. User types email → Real-time validation (email format)
+4. User types password → Strength indicator updates
+5. User types name → Validation (2+ chars)
+6. User checks "Terms" checkbox
+7. User clicks "Create Account"
+8. Loading state: Button shows spinner, form disabled
+9. Success: Redirect to /verify-email-sent page
+10. Error: Error message displays above form, form remains editable
+
+### Accessibility
+
+- **Keyboard:** Tab through fields, Enter to submit
+- **Screen reader:**
+  - aria-label="Email address" on email input
+  - aria-describedby="password-requirements" on password field
+  - aria-live="polite" on error messages
+- **Focus:** Blue outline on focused field (3px solid)
+- **Contrast:** Error text #D32F2F on #FFFFFF (7:1 ratio)
+- **Error announcements:** Screen reader announces validation errors
+
+## Non-Functional Requirements
+
+### Performance
+- Registration API response < 200ms (excluding email send)
+- Email delivery within 30 seconds
+- Password strength calculation < 50ms
+
+### Security
+- HTTPS required for registration endpoint
+- Password hashed with Bcrypt (cost factor 10)
+- Verification tokens cryptographically random (32 bytes)
+- Rate limiting: 5 registration attempts per IP per hour
+- CSRF protection enabled
+
+### Usability
+- Clear password requirements shown upfront
+- Real-time validation feedback (not just on submit)
+- Success message confirms email sent
+- Verify-email-sent page includes resend option
+
+### Scalability
+- Support 1,000 concurrent registrations
+- Email queue handles 10,000 messages/hour
+- Database indexes on email (unique) and verification_token
+
+## Edge Cases & Error Handling
+
+1. **Case:** User closes browser before verification
+   **Expected:** Token remains valid for 24 hours, resend option available
+
+2. **Case:** Verification link clicked twice
+   **Expected:** Second click shows "Already verified" message
+
+3. **Case:** Email service is down
+   **Expected:** Registration succeeds, email queued for retry (max 3 attempts)
+
+4. **Case:** Token expired
+   **Expected:** User can request new verification email from login page
+
+5. **Case:** SQL injection attempt in email field
+   **Expected:** Parameterized queries prevent injection, validation rejects
+
+## Workflow History
+
+- **2025-10-31 14:32** - Story created, status: Backlog
+```
+
+---
+
+## Progressive Disclosure
+
+**When to load this reference:**
+- Phase 2: Requirements Analysis (as examples for requirements-analyst subagent)
+- When user needs reference for specific story type
+- During validation (compare against best practices)
+
+**Why progressive:**
+- Large file (~2,200 lines after Example 5 added)
+- Examples are reference material (not always needed)
+- Loaded selectively based on story type being created
+
+---
+
 **These examples demonstrate complete, production-ready stories with all required sections, serving as templates for story creation.**

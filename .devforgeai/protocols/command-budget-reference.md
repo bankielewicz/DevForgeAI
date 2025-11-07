@@ -27,9 +27,9 @@ This document provides current command budget status, monitoring procedures, and
 | Category | Count | Commands |
 |----------|-------|----------|
 | **✅ Compliant** (<12K) | 5 | qa, create-sprint, create-epic, 3 test commands |
-| **⚠️ High Usage** (12-15K) | 5 | ideate, create-context, dev, audit-deferrals, orchestrate |
-| **❌ Over Budget** (>15K) | 4 | create-story, create-ui, release, (orchestrate was here) |
-| **✅ Refactored** | 6 | dev, qa, ideate, create-sprint, create-epic, orchestrate |
+| **⚠️ High Usage** (12-15K) | 6 | ideate, create-context, dev, audit-deferrals, orchestrate, create-story |
+| **❌ Over Budget** (>15K) | 3 | create-ui, release |
+| **✅ Refactored** | 7 | dev, qa, ideate, create-sprint, create-epic, orchestrate, create-story |
 
 ### Detailed Command Budget Table
 
@@ -46,17 +46,18 @@ This document provides current command budget status, monitoring procedures, and
 | **dev** | **513** | **12,630** | **84%** | ⚠️ High | ✅ **Refactored** |
 | audit-deferrals | 452 | 13,088 | 87% | ⚠️ High | 🟡 Watch |
 | **orchestrate** | **527** | **14,422** | **96%** | ⚠️ High | ✅ **Refactored** |
+| **create-story** | **477** | **14,163** | **94%** | ⚠️ High | ✅ **Refactored** |
 | **release** | **655** | **18,166** | **121%** | ❌ OVER | 🔴 **HIGH** |
-| **create-ui** | **614** | **18,908** | **126%** | ❌ OVER | 🔴 **HIGH** |
-| **create-story** | **857** | **23,006** | **153%** | ❌ OVER | 🔴 **CRITICAL** |
+| **create-ui** | **614** | **18,908** | **126%** | ❌ OVER | 🔴 **CRITICAL** |
 
 ### Refactoring Priority Queue
 
 **Priority 1: CRITICAL (Over Budget)**
-- **create-story** (23K chars, 153% over)
-  - Requires: 57% reduction to reach 10K target
+- **create-ui** (19K chars, 126% over) - ELEVATED to CRITICAL
+  - Requires: 47% reduction to reach 10K target
   - Estimated effort: 3-4 hours
-  - Subagent candidate: story-formatter (YAML + markdown generation)
+  - Already uses devforgeai-ui-generator skill
+  - Extract: Integration logic to subagent (or further delegation)
 
 **Priority 2: HIGH (Over Budget)**
 - **create-ui** (19K chars, 126% over)

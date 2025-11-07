@@ -1,857 +1,467 @@
 ---
 description: Create user story with acceptance criteria and technical specification
-argument-hint: [feature-description]
+argument-hint: [feature-description | epic-id]
 model: sonnet
-allowed-tools: Read, Write, Edit, Glob, Grep, Task, AskUserQuestion
+allowed-tools: Read, Glob, Grep, Skill, AskUserQuestion, TodoWrite
 ---
 
-# Create Story Command
+# /create-story - Create User Story
 
-Generate a complete user story with acceptance criteria, technical specifications, and UI specifications (if applicable).
+**Purpose:** Transform feature description into complete user story with acceptance criteria, technical specifications, and UI specifications (if applicable).
 
-## Purpose
+**Modes:**
+- **Single Story:** `/create-story [feature-description]` - Create one story
+- **Batch from Epic:** `/create-story [epic-id]` - Create multiple stories from epic features
 
-Transform feature descriptions into structured user stories following DevForgeAI standards:
-- User story format (As a/I want/So that)
-- Acceptance criteria (Given/When/Then)
-- Technical specifications (API contracts, data models)
-- UI specifications (components, layouts, interactions)
-- Non-functional requirements
+**Output:** Story document(s) in `.ai_docs/Stories/`
 
-## Usage
+**Process:** Invokes `devforgeai-story-creation` skill which handles complete story generation workflow.
 
-```bash
-/create-story [feature-description]
+---
+
+## Phase 0: Mode Detection (NEW - Batch Support)
+
+**Parse argument and detect mode:**
+```
+ARG=$1
+
+# Mode 1: Epic reference (epic-001, EPIC-001, Epic-001)
+if ARG matches ^[Ee][Pp][Ii][Cc]-\d{3}$:
+    MODE="EPIC_BATCH"
+    EPIC_ID=$(normalize to EPIC-XXX format)
+    → Proceed to Epic Batch Workflow (below)
+
+# Mode 2: Feature description (10+ words)
+elif word_count(ARG) >= 10:
+    MODE="SINGLE_STORY"
+    → Proceed to Phase 1 (Single Story Workflow)
+
+# Mode 3: Ambiguous or no argument
+else:
+    AskUserQuestion: "Single story or batch from epic?"
+    Based on response → MODE="SINGLE_STORY" or "EPIC_BATCH"
 ```
 
-**Examples:**
-```bash
-/create-story Add user registration with email verification
-/create-story Shopping cart checkout with payment processing
-/create-story Dashboard analytics with real-time metrics
+**If EPIC_BATCH, validate epic exists:**
+```
+Glob(pattern=".ai_docs/Epics/${EPIC_ID}*.epic.md")
+if not found:
+    AskUserQuestion: "Epic ${EPIC_ID} not found. Enter different ID or cancel?"
 ```
 
-## Workflow
+---
 
-### Phase 1: Story Discovery
+## Epic Batch Workflow (NEW)
 
-**Objective:** Determine next story ID and collect metadata
+**Triggered:** MODE="EPIC_BATCH"
 
 **Steps:**
+1. Read epic, extract features (Grep for "### Feature X.Y:")
+2. Multi-select features (AskUserQuestion, multiSelect: true)
+3. Batch metadata: sprint (Backlog/Sprint-1/per-story), priority (High/Medium/inherit/per-story)
+4. Loop: For each feature → Calculate next ID (gap-aware) → Set markers → Skill(command="devforgeai-story-creation") → Track progress
+5. Display summary: Created count, failed count, story list
 
-1. **Find existing stories**
-   - Use Glob to search `.ai_docs/Stories/*.story.md`
-   - Parse story IDs from filenames
-   - Determine next sequential ID (e.g., STORY-001, STORY-002)
+**Context markers for each story:**
+```
+**Story ID:** STORY-007
+**Epic ID:** EPIC-001
+**Feature Description:** {feature.description}
+**Priority:** {priority}
+**Points:** {feature.points}
+**Sprint:** {sprint}
+**Batch Mode:** true
+```
 
-2. **Read epic and sprint context**
-   - Use Glob to find `.ai_docs/Epics/*.md`
-   - Use Glob to find `.ai_docs/Sprints/*.md`
-   - Present available options to user
+**Batch completion:**
+```
+============================================================
+Batch Complete: ${EPIC_ID}
+============================================================
+✓ Created: ${count} stories (${total_pts} pts)
+${if failed: ✗ Failed: ${failed_count} stories}
 
-3. **Collect metadata via AskUserQuestion**
-   - Epic association (dropdown of available epics or "None")
-   - Sprint association (dropdown of available sprints or "Backlog")
-   - Priority (Critical, High, Medium, Low)
-   - Story points estimate (1, 2, 3, 5, 8, 13, 21)
-
-**Output:**
-- Next story ID
-- Epic reference (or null)
-- Sprint reference (or "Backlog")
-- Priority and points
+Stories: STORY-007, STORY-008, STORY-009 (list all)
+Next: /dev STORY-007
+```
 
 ---
 
-### Phase 2: Requirements Analysis
+## Phase 1: Single Story Workflow
 
-**Objective:** Transform feature description into structured requirements
+**Triggered:** MODE="SINGLE_STORY"
 
-**Steps:**
+### 1.1 Capture Feature Description
 
-1. **Invoke requirements analyst subagent**
-   ```
-   Task(
-     subagent_type="requirements-analyst",
-     prompt="Transform feature description into structured user story:
+**Feature description from user:**
+```
+$ARGUMENTS
+```
 
-     Feature: {user-provided-description}
+**If no arguments provided:**
 
-     Generate:
-     1. User story (As a [role], I want [feature], so that [benefit])
-     2. Acceptance criteria (Given/When/Then format, minimum 3)
-     3. Edge cases and error conditions
-     4. Data validation rules
-     5. Non-functional requirements (performance, security, usability)
+Use AskUserQuestion to capture feature description:
 
-     Context: DevForgeAI framework, spec-driven development"
-   )
-   ```
+```
+AskUserQuestion(
+  questions=[{
+    question: "Please describe the feature you want to create a story for",
+    header: "Feature description",
+    options: [
+      {
+        label: "CRUD operation",
+        description: "Create, read, update, or delete data (e.g., manage users, manage products)"
+      },
+      {
+        label: "Authentication/Authorization",
+        description: "Login, signup, password reset, permissions, access control"
+      },
+      {
+        label: "Workflow/Process",
+        description: "Multi-step process or state transitions (e.g., order processing, approvals)"
+      },
+      {
+        label: "Reporting/Analytics",
+        description: "Data visualization, reports, dashboards, charts"
+      },
+      {
+        label: "Integration",
+        description: "Connect to external services (payment gateway, email, etc.)"
+      },
+      {
+        label: "Other",
+        description: "Different type of feature - I'll describe it"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
 
-2. **Validate subagent output**
-   - Ensure user story follows format
-   - Verify acceptance criteria are testable
-   - Check for missing edge cases
-   - Validate NFRs are measurable
+**Then ask for detailed description:**
+```
+"Please provide a detailed description of the {feature_type} feature:
+- What should users be able to do?
+- What is the expected outcome?
+- Any specific requirements or constraints?"
+```
 
-3. **Refine if needed**
-   - If output incomplete, use AskUserQuestion for clarification
-   - If ambiguous, request specific details
+**Wait for user response before proceeding to Phase 2.**
 
-**Output:**
-- User story statement
-- Acceptance criteria (Given/When/Then)
-- Edge cases list
-- Non-functional requirements
+### 1.2 Validate Description
 
----
+**Minimum requirements:**
+- Description has at least 10 words
+- Describes user capability or business feature (not purely technical implementation)
 
-### Phase 3: Technical Specification
+**If description too vague or technical:**
+```
+Prompt user: "Please describe the feature from a user perspective:
+- What user need does this address?
+- What actions will users perform?
+- What value does this provide?"
 
-**Objective:** Define technical implementation details
-
-**Steps:**
-
-1. **Detect API requirements**
-   - Check if feature involves HTTP endpoints
-   - Keywords: "API", "endpoint", "REST", "GraphQL", "request", "response"
-
-2. **If API detected, invoke API designer**
-   ```
-   Task(
-     subagent_type="api-designer",
-     prompt="Design API contracts for feature:
-
-     Feature: {user-story}
-     Acceptance Criteria: {ac-list}
-
-     Generate:
-     1. HTTP method and endpoint path
-     2. Request schema (headers, query params, body)
-     3. Response schema (success and error cases)
-     4. Status codes
-     5. Authentication requirements
-     6. Validation rules
-
-     Format: OpenAPI 3.0 style"
-   )
-   ```
-
-3. **Identify data models**
-   - Extract entities from user story
-   - Define properties, types, constraints
-   - Document relationships
-
-4. **Define business rules**
-   - Extract logic from acceptance criteria
-   - Document validation rules
-   - Specify calculation formulas (if applicable)
-
-5. **Identify dependencies**
-   - External services
-   - Third-party APIs
-   - Database requirements
-   - Infrastructure needs
-
-**Output:**
-- API contract (if applicable)
-- Data models with properties
-- Business rules
-- Dependencies list
+Avoid implementation details like "implement REST API" or "create database table"
+Focus on user-facing capabilities like "users can register accounts" or "admins can view reports"
+```
 
 ---
 
-### Phase 4: UI Specification
+## Phase 2: Invoke Story Creation Skill
 
-**Objective:** Document user interface requirements (if applicable)
+### 2.1 Set Context for Skill
 
-**Steps:**
+**Prepare context markers for skill execution:**
 
-1. **Detect UI requirements**
-   - Keywords: "screen", "page", "form", "button", "display", "show", "view"
-   - Check acceptance criteria for user interactions
+```
+**Feature Description:** $ARGUMENTS (or user-provided description)
 
-2. **Ask user confirmation**
-   ```
-   AskUserQuestion(
-     question="Does this story require UI components or screens?",
-     options=["Yes", "No"],
-     context="Detected potential UI elements in story. UI spec includes component descriptions, layouts, and interactions."
-   )
-   ```
+**Feature Type:** {CRUD|Authentication|Workflow|Reporting|Integration|Other}
+```
 
-3. **If UI required, document specification**
+### 2.2 Skill Invocation
 
-   **Component Descriptions:**
-   - List UI components (forms, tables, modals, cards)
-   - Describe purpose and behavior
-   - Specify data bindings
+**The devforgeai-story-creation skill handles complete workflow:**
 
-   **ASCII Layout Mockup:**
-   ```
-   +------------------------------------------+
-   |  [Header: Page Title]                   |
-   +------------------------------------------+
-   |  [ Input Field: Label       ]           |
-   |  [ Dropdown: Options       v]           |
-   |  [ Checkbox ] Option text               |
-   |  [Button: Submit]  [Button: Cancel]     |
-   +------------------------------------------+
-   |  [ Data Table                         ] |
-   |  | Column 1 | Column 2 | Actions      | |
-   |  | Value A  | Value B  | [Edit][Del]  | |
-   +------------------------------------------+
-   ```
+- **Phase 1:** Story Discovery & Context (ID generation, epic/sprint, metadata)
+- **Phase 2:** Requirements Analysis (requirements-analyst subagent, AC generation)
+- **Phase 3:** Technical Specification (api-designer subagent, data models, business rules)
+- **Phase 4:** UI Specification (components, mockups, interfaces, accessibility)
+- **Phase 5:** Story File Creation (YAML + markdown construction)
+- **Phase 6:** Epic/Sprint Linking (update parent documents)
+- **Phase 7:** Self-Validation (quality checks, self-healing)
+- **Phase 8:** Completion Report (summary, next actions)
 
-   **Component Props/Interface:**
-   - Component name and type
-   - Props (inputs, outputs, state)
-   - Event handlers
-   - Example:
-     ```typescript
-     interface UserFormProps {
-       initialData?: User;
-       onSubmit: (user: User) => void;
-       onCancel: () => void;
-       isLoading: boolean;
-     }
-     ```
+**Expected interaction:**
+- Skill asks 5-10 questions for epic/sprint association, priority, story points
+- Skill invokes requirements-analyst subagent (generates user story + AC)
+- Skill invokes api-designer subagent if API detected
+- Skill may ask UI confirmation if UI components detected
+- Skill validates story quality internally (Phase 7)
+- Skill presents detailed summary (Phase 8)
+- Skill asks user for next action (Phase 8)
 
-   **User Interaction Flows:**
-   - Step-by-step interaction sequences
-   - State changes per action
-   - Navigation flow
-   - Example:
-     1. User clicks "Add User" button
-     2. Modal opens with empty form
-     3. User fills fields, validation shows inline
-     4. User clicks "Submit"
-     5. Loading state displays
-     6. Success: Modal closes, table refreshes
-     7. Error: Error message displays, form remains
+**Invoke skill:**
 
-   **Accessibility Requirements:**
-   - Keyboard navigation support
-   - Screen reader labels (aria-label, aria-describedby)
-   - Focus management
-   - Color contrast requirements (WCAG AA)
-   - Error message announcements
+```
+Skill(command="devforgeai-story-creation")
+```
 
-4. **Responsive behavior (if applicable)**
-   - Mobile breakpoints
-   - Layout adjustments
-   - Touch interactions
-
-**Output:**
-- Component list with descriptions
-- ASCII layout mockup
-- Component interfaces
-- Interaction flows
-- Accessibility requirements
+**IMPORTANT:** Skill executes autonomously and handles all discovery, subagent orchestration, file creation, validation, and user interaction. Do NOT interrupt skill execution - skill performs self-validation in Phase 7 and reports completion in Phase 8.
 
 ---
 
-### Phase 5: Story File Creation
+## Phase 3: Verify Story Created
 
-**Objective:** Generate complete story document
+### 3.1 Check Skill Completion Status
 
-**Steps:**
+**After skill returns control:**
 
-1. **Construct YAML frontmatter**
-   ```yaml
-   ---
-   id: STORY-XXX
-   title: [Brief title]
-   epic: [EPIC-ID or null]
-   sprint: [SPRINT-ID or "Backlog"]
-   status: Backlog
-   priority: [Critical|High|Medium|Low]
-   points: [1|2|3|5|8|13|21]
-   created: [YYYY-MM-DD]
-   updated: [YYYY-MM-DD]
-   assigned_to: null
-   tags: []
-   ---
-   ```
+Verify skill completed successfully by checking for story file:
 
-2. **Write story sections**
+```
+# Find all story files
+story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
 
-   **Section 1: User Story**
-   ```markdown
-   ## User Story
+# Identify newest story (should be the one just created)
+# Story files are named STORY-XXX-{slug}.story.md
+# Find highest number
+```
 
-   As a [role],
-   I want [feature],
-   So that [benefit].
-   ```
+**Expected artifact:**
+- 1 new story file in `.ai_docs/Stories/`
+- Filename format: `STORY-XXX-{slug}.story.md`
 
-   **Section 2: Acceptance Criteria**
-   ```markdown
-   ## Acceptance Criteria
+### 3.2 Handle Incomplete Execution
 
-   ### AC1: [Criterion title]
-   **Given** [context/precondition]
-   **When** [action/trigger]
-   **Then** [expected outcome]
+**If no new story file detected:**
 
-   ### AC2: [Criterion title]
-   ...
-   ```
+```
+# Compare story count before and after skill execution
+# If count unchanged:
 
-   **Section 3: Technical Specification**
-   ```markdown
-   ## Technical Specification
+Report: """
+⚠️ Story Creation Incomplete
 
-   ### API Contracts (if applicable)
+Expected story file not found in `.ai_docs/Stories/`
 
-   #### Endpoint: [METHOD] /api/path
+Possible causes:
+1. Skill execution interrupted
+2. User exited during discovery questions
+3. File system write permissions issue
+4. Validation failed and skill halted
 
-   **Request:**
-   ```json
-   {
-     "field": "value"
-   }
-   ```
+Recommended actions:
+- Re-run `/create-story [feature-description]` to retry
+- Check `.ai_docs/Stories/` directory for partial files
+- Verify write permissions to .ai_docs/ directory
 
-   **Response (200):**
-   ```json
-   {
-     "result": "success"
-   }
-   ```
+If issue persists, create story manually or contact support.
+"""
 
-   **Response (400):**
-   ```json
-   {
-     "error": "message"
-   }
-   ```
+HALT - Do not proceed to Phase 4
+```
 
-   ### Data Models
+**If story file found:**
 
-   #### Model: EntityName
-   | Field | Type | Constraints | Description |
-   |-------|------|-------------|-------------|
-   | id | UUID | Required, PK | Unique identifier |
-   | field | String | Required | Description |
+```
+✓ Skill completed successfully
+✓ Story file created
 
-   ### Business Rules
-
-   1. Rule description
-   2. Validation logic
-   3. Calculation formulas
-
-   ### Dependencies
-
-   - External service: Purpose
-   - Database: Requirements
-   ```
-
-   **Section 4: UI Specification (if applicable)**
-   ```markdown
-   ## UI Specification
-
-   ### Components
-
-   #### Component: ComponentName
-   **Type:** [Form|Table|Modal|Card]
-   **Purpose:** Description
-   **Data Bindings:** Fields bound to state
-
-   ### Layout Mockup
-
-   ```
-   [ASCII mockup]
-   ```
-
-   ### Component Interface
-
-   ```typescript
-   interface ComponentProps {
-     // props
-   }
-   ```
-
-   ### User Interactions
-
-   1. Step-by-step flow
-   2. State changes
-   3. Navigation
-
-   ### Accessibility
-
-   - Keyboard: Tab navigation, Enter/Space actions
-   - Screen reader: aria-label, role attributes
-   - Focus: Visual indicators, focus trap in modals
-   - Contrast: WCAG AA compliant (4.5:1 text, 3:1 UI)
-   ```
-
-   **Section 5: Non-Functional Requirements**
-   ```markdown
-   ## Non-Functional Requirements
-
-   ### Performance
-   - Response time < [X]ms
-   - Throughput: [X] requests/second
-
-   ### Security
-   - Authentication required
-   - Input validation rules
-   - Data encryption
-
-   ### Usability
-   - Intuitive interface
-   - Clear error messages
-   - Help text/tooltips
-
-   ### Scalability
-   - Concurrent users: [X]
-   - Data volume: [X] records
-   ```
-
-   **Section 6: Edge Cases**
-   ```markdown
-   ## Edge Cases & Error Handling
-
-   1. **Case:** Description
-      **Expected:** Behavior
-
-   2. **Case:** Description
-      **Expected:** Behavior
-   ```
-
-   **Section 7: Workflow History**
-   ```markdown
-   ## Workflow History
-
-   - **[YYYY-MM-DD HH:MM]** - Status changed to Backlog
-   ```
-
-3. **Write file to disk**
-   ```
-   Write(
-     file_path="C:\\Projects\\DevForgeAI2\\.ai_docs\\Stories\\{STORY-ID}.story.md",
-     content={constructed-markdown}
-   )
-   ```
-
-4. **Verify file creation**
-   - Use Read to confirm file exists
-   - Validate YAML frontmatter parses correctly
-
-**Output:**
-- Story file created at `.ai_docs/Stories/{STORY-ID}.story.md`
+→ Proceed to Phase 4
+```
 
 ---
 
-### Phase 6: Linking & Integration
+## Phase 4: Brief Confirmation
 
-**Objective:** Link story to epic and sprint
+**Note:** Skill already presented detailed summary in Phase 8. This phase provides brief command-level confirmation only.
 
-**Steps:**
+### 4.1 Read Story Frontmatter
 
-1. **Update epic file (if associated)**
-   - Read epic file: `.ai_docs/Epics/{EPIC-ID}.md`
-   - Use Edit to add story reference to "Stories" section
-   - Format: `- [{STORY-ID}] {Story Title} - {Status} ({Points} points)`
+**Read just the frontmatter for quick validation:**
 
-2. **Update sprint file (if associated)**
-   - Read sprint file: `.ai_docs/Sprints/{SPRINT-ID}.md`
-   - Use Edit to add story to "Sprint Backlog" section
-   - Update sprint statistics (total points)
+```
+# Get newest story file
+newest_story = story_files[-1]  # Last in sorted list
 
-3. **Create story directory structure (if needed)**
-   - Ensure `.ai_docs/Stories/` exists
-   - Ensure `.devforgeai/qa/reports/` exists (for future QA)
+# Read first 20 lines (frontmatter only)
+Read(file_path=newest_story, limit=20)
+```
 
-**Output:**
-- Epic updated with story reference
-- Sprint updated with story reference
-- Directory structure validated
+**Extract:**
+- Story ID (e.g., STORY-042)
+- Title
+- Epic association (if any)
+- Sprint association
+- Priority
+- Story points
+
+### 4.2 Brief Confirmation Message
+
+**Present concise confirmation:**
+
+```
+✅ Story created successfully
+
+**Story:** {story_id}
+**Title:** {title}
+**Epic:** {epic_id or "None"}
+**Sprint:** {sprint_id or "Backlog"}
+**Priority:** {priority}
+**Points:** {points}
+**Status:** Backlog
+
+**File location:**
+`.ai_docs/Stories/{story_id}-{slug}.story.md`
+
+The devforgeai-story-creation skill has:
+✓ Generated user story and acceptance criteria
+✓ Created technical specification {and API contracts if applicable}
+✓ Documented UI specification {if UI components detected}
+✓ Defined non-functional requirements
+✓ Validated story quality (Phase 7)
+✓ Linked to epic/sprint {if applicable}
+
+{The skill should have asked you for next action in Phase 8.}
+```
+
+---
+
+## Phase 5: Next Steps
+
+**Skill Phase 8 already asked user for next action.** This is a backup if user needs clarification.
+
+**Common next actions:**
+- `/create-story [description]` - Create another story
+- `/dev {story_id}` - Start development (requires context files)
+- Review story file in editor
+- `/create-sprint` to assign story to sprint
+
+---
+
+## Error Handling
+
+### Skill Invocation Failed
+```
+ERROR: devforgeai-story-creation skill invocation failed
+
+Troubleshooting:
+1. Verify: Glob(pattern=".claude/skills/devforgeai-story-creation/SKILL.md")
+2. Restart terminal (skill may need re-registration)
+3. Check skill frontmatter is valid YAML
+```
+
+### Story File Not Created
+```
+⚠️ Skill completed but story file not found
+
+Possible causes: Skill error, permissions issue, user exit, validation failure
+
+Actions:
+- Check skill error messages
+- Verify `.ai_docs/Stories/` is writable
+- Re-run `/create-story [feature-description]`
+```
+
+### Insufficient Description
+```
+⚠️ Feature description too brief
+
+Requirements: 10+ words, user-focused (not technical)
+
+Good: "Admin users can manage product listings with images and pricing"
+Bad: "Add products" or "Implement API endpoints"
+
+Provide more detail and re-run.
+```
+
+---
+
+## Command Complete
+
+**This command delegates all implementation logic to the devforgeai-story-creation skill.**
+
+**Command responsibilities:**
+- ✅ Argument validation and capture
+- ✅ Skill invocation with context markers
+- ✅ Basic story file existence verification
+- ✅ Brief completion confirmation
+- ✅ Next steps guidance (backup to skill's Phase 8)
+
+**Skill responsibilities:**
+- ✅ Complete 8-phase story creation workflow
+- ✅ User interaction (epic/sprint selection, metadata collection)
+- ✅ Subagent orchestration (requirements-analyst, api-designer)
+- ✅ Story file generation with all sections
+- ✅ Epic/sprint linking
+- ✅ Self-validation (Phase 7)
+- ✅ Detailed completion report (Phase 8)
+- ✅ Error handling and recovery
+
+**Architecture principle:** Commands orchestrate, skills implement, references provide deep knowledge through progressive disclosure.
+
+---
+
+## Integration
+
+**Workflow:** /ideate → /create-context → /create-sprint → **/create-story** → /create-ui → /dev → /qa → /release
+
+**Used by:** Users, orchestration skill, development skill, sprint planning
+
+**Triggers:** /create-ui, /dev, /create-sprint
 
 ---
 
 ## Success Criteria
 
-- [ ] Story ID generated sequentially (STORY-XXX)
-- [ ] User story follows "As a/I want/So that" format
-- [ ] Minimum 3 acceptance criteria in Given/When/Then format
-- [ ] Technical specification complete (API contracts if applicable)
-- [ ] UI specification included (if UI story)
-- [ ] Non-functional requirements defined
+Story created with:
+- [ ] Valid story ID (STORY-NNN format)
+- [ ] User story (As a/I want/So that)
+- [ ] 3+ acceptance criteria (Given/When/Then)
+- [ ] Technical specification (complete)
+- [ ] UI specification (if applicable)
+- [ ] Non-functional requirements (measurable)
 - [ ] Edge cases documented
-- [ ] File created at `.ai_docs/Stories/{STORY-ID}.story.md`
-- [ ] YAML frontmatter valid
-- [ ] Status set to "Backlog"
-- [ ] Epic reference added (if applicable)
-- [ ] Sprint reference added (if applicable)
-- [ ] Workflow history initialized
-
-## Quality Gates
-
-**Gate 1: Requirements Complete**
-- User story clearly states role, feature, benefit
-- Acceptance criteria are testable (no vague terms)
-- Edge cases cover error conditions
-- NFRs are measurable (no "should be fast")
-
-**Gate 2: Technical Specification**
-- API contracts include all CRUD operations
-- Data models have constraints defined
-- Business rules are explicit (no ambiguity)
-- Dependencies listed with purpose
-
-**Gate 3: UI Specification (if applicable)**
-- All interactive elements documented
-- Layout mockup shows component arrangement
-- Accessibility requirements specific (not generic)
-- Interaction flows complete (happy + error paths)
-
-**Gate 4: File Structure**
-- File saved in correct directory
-- YAML frontmatter parsable
-- Markdown syntax valid
-- Links to epic/sprint functional
-
-## Error Handling
-
-**Error 1: No feature description provided**
-- Action: Use AskUserQuestion("Provide feature description")
-- Do not proceed until description provided
-
-**Error 2: Story ID conflict (file exists)**
-- Action: Increment ID and retry
-- Check for gaps in sequence (e.g., STORY-001, STORY-003)
-- Use next available ID
-
-**Error 3: Epic/Sprint not found**
-- Action: Use AskUserQuestion with updated list
-- Option to proceed without epic/sprint association
-
-**Error 4: Subagent output incomplete**
-- Action: Re-invoke subagent with specific prompt
-- Use AskUserQuestion to fill gaps
-- Do not proceed with incomplete specification
-
-**Error 5: UI specification ambiguous**
-- Action: Use AskUserQuestion for clarification
-- Request mockup details, interaction flows
-- Do not use placeholder content (e.g., "TBD")
-
-## Token Efficiency
-
-**Target:** < 40,000 tokens per invocation
-
-**Optimization Strategies:**
-
-1. **Use native tools**
-   - Glob for file discovery (not Bash find)
-   - Read for file content (not cat)
-   - Edit for updates (not sed/awk)
-
-2. **Parallel operations**
-   - Read epic/sprint files simultaneously
-   - Invoke multiple Glob patterns in one call
-
-3. **Subagent focus**
-   - Provide specific prompts to subagents
-   - Request structured output (JSON/YAML)
-   - Avoid open-ended generation
-
-4. **Conditional processing**
-   - Skip API design if no endpoints
-   - Skip UI spec if no interface
-   - Only read context files when needed
-
-5. **Caching**
-   - Load epic/sprint list once
-   - Reuse story template structure
-   - Cache file paths in memory
-
-## Example Output
-
-**File:** `.ai_docs/Stories/STORY-042.story.md`
-
-```markdown
----
-id: STORY-042
-title: User registration with email verification
-epic: EPIC-003
-sprint: SPRINT-005
-status: Backlog
-priority: High
-points: 5
-created: 2025-10-31
-updated: 2025-10-31
-assigned_to: null
-tags: [authentication, security]
----
-
-## User Story
-
-As a new user,
-I want to register with my email and verify it,
-So that I can access the platform securely and receive important notifications.
-
-## Acceptance Criteria
-
-### AC1: User submits registration form
-**Given** I am on the registration page
-**When** I submit valid email, password, and name
-**Then** I receive a success message and verification email
-
-### AC2: Email verification link
-**Given** I received a verification email
-**When** I click the verification link
-**Then** My account is activated and I am redirected to login
-
-### AC3: Password strength validation
-**Given** I am filling the registration form
-**When** I enter a password
-**Then** Real-time feedback shows strength (weak/medium/strong)
-
-### AC4: Duplicate email handling
-**Given** An account exists with my email
-**When** I try to register with the same email
-**Then** I see an error "Email already registered"
-
-## Technical Specification
-
-### API Contracts
-
-#### Endpoint: POST /api/auth/register
-
-**Request:**
-```json
-{
-  "email": "user@example.com",
-  "password": "SecurePass123!",
-  "name": "John Doe"
-}
-```
-
-**Response (201):**
-```json
-{
-  "user_id": "uuid",
-  "email": "user@example.com",
-  "verification_sent": true,
-  "message": "Verification email sent"
-}
-```
-
-**Response (400):**
-```json
-{
-  "error": "Validation failed",
-  "details": ["Password must be at least 8 characters"]
-}
-```
-
-#### Endpoint: GET /api/auth/verify-email?token={token}
-
-**Response (200):**
-```json
-{
-  "verified": true,
-  "redirect_url": "/login"
-}
-```
-
-**Response (400):**
-```json
-{
-  "error": "Invalid or expired token"
-}
-```
-
-### Data Models
-
-#### Model: User
-| Field | Type | Constraints | Description |
-|-------|------|-------------|-------------|
-| id | UUID | Required, PK | Unique identifier |
-| email | String | Required, Unique, Email format | User email |
-| password_hash | String | Required | Bcrypt hashed password |
-| name | String | Required, 2-100 chars | Full name |
-| verified | Boolean | Default: false | Email verification status |
-| verification_token | String | Nullable | Email verification token |
-| token_expires_at | DateTime | Nullable | Token expiration time |
-| created_at | DateTime | Auto | Account creation timestamp |
-
-### Business Rules
-
-1. Password must be 8+ characters with uppercase, lowercase, number, special char
-2. Verification token expires after 24 hours
-3. Verification email sent asynchronously (background job)
-4. Unverified users cannot log in
-5. Email is case-insensitive (stored lowercase)
-
-### Dependencies
-
-- Email service: SendGrid or SMTP
-- Background job queue: Redis/Bull or similar
-- Password hashing: Bcrypt library
-
-## UI Specification
-
-### Components
-
-#### Component: RegistrationForm
-**Type:** Form
-**Purpose:** Collect user registration details
-**Data Bindings:** email, password, name, passwordStrength
-
-#### Component: PasswordStrengthIndicator
-**Type:** Visual feedback
-**Purpose:** Show real-time password strength
-**Data Bindings:** password (input), strength (computed)
-
-### Layout Mockup
-
-```
-+------------------------------------------+
-|           Create Your Account            |
-+------------------------------------------+
-| Email Address                            |
-| [ user@example.com                    ]  |
-|                                          |
-| Full Name                                |
-| [ John Doe                            ]  |
-|                                          |
-| Password                                 |
-| [ ••••••••••                          ]  |
-| [####--------] Medium strength           |
-| Must be 8+ chars with uppercase, number  |
-|                                          |
-| [ ] I agree to Terms of Service          |
-|                                          |
-| [        Create Account       ]          |
-|                                          |
-| Already have an account? [Log in]        |
-+------------------------------------------+
-```
-
-### Component Interface
-
-```typescript
-interface RegistrationFormProps {
-  onSubmit: (data: RegistrationData) => Promise<void>;
-  isLoading: boolean;
-  error: string | null;
-}
-
-interface RegistrationData {
-  email: string;
-  password: string;
-  name: string;
-  agreedToTerms: boolean;
-}
-
-interface PasswordStrengthIndicatorProps {
-  password: string;
-  onChange?: (strength: 'weak' | 'medium' | 'strong') => void;
-}
-```
-
-### User Interactions
-
-1. User navigates to /register
-2. Form displays with empty fields
-3. User types email → Real-time validation (email format)
-4. User types password → Strength indicator updates
-5. User types name → Validation (2+ chars)
-6. User checks "Terms" checkbox
-7. User clicks "Create Account"
-8. Loading state: Button shows spinner, form disabled
-9. Success: Redirect to /verify-email-sent page
-10. Error: Error message displays above form, form remains editable
-
-### Accessibility
-
-- **Keyboard:** Tab through fields, Enter to submit
-- **Screen reader:**
-  - aria-label="Email address" on email input
-  - aria-describedby="password-requirements" on password field
-  - aria-live="polite" on error messages
-- **Focus:** Blue outline on focused field (3px solid)
-- **Contrast:** Error text #D32F2F on #FFFFFF (7:1 ratio)
-- **Error announcements:** Screen reader announces validation errors
-
-## Non-Functional Requirements
-
-### Performance
-- Registration API response < 200ms (excluding email send)
-- Email delivery within 30 seconds
-- Password strength calculation < 50ms
-
-### Security
-- HTTPS required for registration endpoint
-- Password hashed with Bcrypt (cost factor 10)
-- Verification tokens cryptographically random (32 bytes)
-- Rate limiting: 5 registration attempts per IP per hour
-- CSRF protection enabled
-
-### Usability
-- Clear password requirements shown upfront
-- Real-time validation feedback (not just on submit)
-- Success message confirms email sent
-- Verify-email-sent page includes resend option
-
-### Scalability
-- Support 1,000 concurrent registrations
-- Email queue handles 10,000 messages/hour
-- Database indexes on email (unique) and verification_token
-
-## Edge Cases & Error Handling
-
-1. **Case:** User closes browser before verification
-   **Expected:** Token remains valid for 24 hours, resend option available
-
-2. **Case:** Verification link clicked twice
-   **Expected:** Second click shows "Already verified" message
-
-3. **Case:** Email service is down
-   **Expected:** Registration succeeds, email queued for retry (max 3 attempts)
-
-4. **Case:** Token expired
-   **Expected:** User can request new verification email from login page
-
-5. **Case:** SQL injection attempt in email field
-   **Expected:** Parameterized queries prevent injection, validation rejects
-
-## Workflow History
-
-- **2025-10-31 14:32** - Story created, status: Backlog
-```
+- [ ] Definition of Done (checkboxes)
+- [ ] File written to .ai_docs/Stories/
+- [ ] Epic/sprint linked (if applicable)
+- [ ] Skill Phase 7 validation passed
 
 ---
 
-## Integration with DevForgeAI
+## Performance
 
-**Triggers next:**
-- devforgeai-orchestration (add story to sprint)
-- devforgeai-architecture (if context files missing)
-- devforgeai-development (when status → Ready for Dev)
-
-**Context files used:**
-- None directly (story creation is pre-architecture)
-- Story informs architecture skill if invoked
-
-**Quality validation:**
-- Not validated until development begins
-- devforgeai-qa validates against story acceptance criteria
+**Token Budget:** Command ~3.5K tokens (single), ~6K tokens (batch), Skill ~90K tokens/story (isolated)
+**Execution Time:** Single 2-5 min, Batch 10-15 min for 5 stories (sequential)
+**Character Budget:** 14,163 chars (94% of 15K limit) ✅
 
 ---
 
 ## References
 
-- `.claude/skills/devforgeai-orchestration/SKILL.md` - Workflow states
-- `.claude/skills/devforgeai-orchestration/references/story-management.md` - Story structure
-- `.ai_docs/Stories/` - Story storage location
-- `.ai_docs/Epics/` - Epic files
-- `.ai_docs/Sprints/` - Sprint files
+**Skill documentation:**
+- `.claude/skills/devforgeai-story-creation/SKILL.md` - 8-phase workflow overview
 
-**Token Budget:** < 40,000 tokens
-**Priority:** HIGH
-**Model:** Sonnet (structured reasoning)
+**Skill reference files (loaded by skill):**
+- `references/story-discovery.md` - Phase 1: ID generation, context discovery
+- `references/requirements-analysis.md` - Phase 2: User story, AC (with RCA-007 enhancements)
+- `references/technical-specification-creation.md` - Phase 3: APIs, data models, business rules
+- `references/ui-specification-creation.md` - Phase 4: Components, mockups, accessibility
+- `references/story-file-creation.md` - Phase 5: Document assembly, template usage
+- `references/epic-sprint-linking.md` - Phase 6: Parent document updates
+- `references/story-validation-workflow.md` - Phase 7: Quality checks, self-healing
+- `references/completion-report.md` - Phase 8: Summary generation, next actions
+
+**Supporting references:**
+- `references/story-examples.md` - 5 complete examples (CRUD, auth, workflow, reporting, integration)
+- `references/acceptance-criteria-patterns.md` - Given/When/Then templates
+- `references/story-structure-guide.md` - YAML frontmatter, section formatting
+- `references/validation-checklists.md` - Quality validation procedures
+
+**Template:**
+- `assets/templates/story-template.md` - Base story template
+
+---
+
+**Command follows lean orchestration pattern: Argument validation → Skill invocation → Results verification → Completion confirmation**

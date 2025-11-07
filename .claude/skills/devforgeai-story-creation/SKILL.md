@@ -66,6 +66,45 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 
 ---
 
+## Batch Mode Support (NEW - Enhancement)
+
+**Batch mode triggered when:**
+- Context marker `**Batch Mode:** true` present in conversation
+
+**Batch mode behavior:**
+- **Phase 1 modified:** Skip interactive questions, extract metadata from context markers
+- **Phases 2-7:** Execute normally (requirements, tech spec, UI spec, file creation, linking, validation)
+- **Phase 8 modified:** Skip next action AskUserQuestion, return immediately to batch loop
+
+**Required context markers for batch mode:**
+```
+**Story ID:** STORY-009
+**Epic ID:** EPIC-001
+**Feature Number:** 1.1
+**Feature Name:** User Registration Form
+**Feature Description:** Implement user registration form with email validation...
+**Priority:** High
+**Points:** 5
+**Sprint:** Sprint-1
+**Batch Mode:** true
+**Batch Index:** 0
+```
+
+**When batch mode detected:**
+1. Extract all metadata from conversation context
+2. Validate all required markers present (Story ID, Epic ID, Feature Description, Priority, Points, Sprint)
+3. Skip Phase 1 interactive questions (epic/sprint/priority/points selection)
+4. Use provided values instead of asking user
+5. Execute Phases 2-7 normally (full story generation)
+6. Skip Phase 8 next action question (batch loop handles this)
+7. Return control to command for next feature in batch
+
+**Fallback:** If required markers missing, switch to interactive mode and ask questions
+
+**See `references/story-discovery.md` for batch mode detection and metadata extraction logic.**
+
+---
+
 ## Story Creation Workflow (8 Phases)
 
 Each phase loads its reference file on-demand for detailed implementation.
