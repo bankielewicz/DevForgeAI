@@ -73,6 +73,164 @@ Display: "Found {count} stories with deferrals"
 
 ---
 
+### Phase 2.5: Blocker Validation (RCA-006 Phase 2 - NEW)
+
+**Purpose:** Identify deferrals that can be resolved NOW vs deferrals with valid blockers
+
+**For each story with deferrals:**
+
+```
+FOR each story in deferred_stories:
+    FOR each deferral in story.deferrals:
+
+        # Extract deferral details
+        IF "Deferred to STORY-" in deferral.reason:
+            target_story = extract STORY-ID from reason
+            blocker_type = "dependency"
+
+        ELIF "Blocked by:" in deferral.reason:
+            blocker_description = extract text after "Blocked by:"
+            blocker_type = "external"
+
+        ELIF "Out of scope: ADR-" in deferral.reason:
+            adr_reference = extract ADR-XXX
+            blocker_type = "scope_change"
+
+        # Validate blocker is still valid
+        SWITCH blocker_type:
+
+        CASE "dependency":
+            # Check if dependency story is complete
+            Bash(command="git log --grep='${target_story}' --oneline")
+
+            IF git log shows commits:
+                blocker_status = "RESOLVED (story committed)"
+                action = "Re-run /dev ${story.id} to attempt item"
+                resolvable = true
+
+            ELSE:
+                # Check story file status
+                Glob(pattern=".ai_docs/Stories/${target_story}*.story.md")
+
+                IF file found:
+                    Read YAML frontmatter
+                    Extract: status
+
+                    IF status in ["Released", "QA Approved", "Dev Complete"]:
+                        blocker_status = "RESOLVED (story ${status})"
+                        action = "Re-run /dev ${story.id} to attempt item"
+                        resolvable = true
+
+                    ELSE:
+                        blocker_status = "VALID (story ${status})"
+                        action = "Wait for ${target_story} completion"
+                        resolvable = false
+
+                ELSE:
+                    blocker_status = "INVALID (story not found)"
+                    action = "Create ${target_story} OR remove deferral"
+                    violation = "HIGH"
+
+        CASE "external":
+            # Check if blocker mentions toolchain
+            IF "toolchain" in blocker_description.lower() OR "nightly" in blocker_description.lower():
+                # Detect language and check toolchain
+                IF blocker_description contains "Rust" OR "nightly":
+                    Bash(command="rustup toolchain list 2>/dev/null || echo 'not installed'")
+
+                    IF output contains "nightly":
+                        blocker_status = "RESOLVED (nightly installed)"
+                        action = "cargo +nightly [command]"
+                        resolvable = true
+                    ELSE:
+                        blocker_status = "VALID (nightly not installed)"
+                        action = "rustup toolchain install nightly"
+                        resolvable = false
+
+                ELIF blocker_description contains "Node" OR "npm":
+                    Bash(command="npm --version 2>/dev/null || echo 'not installed'")
+
+                    IF output shows version:
+                        blocker_status = "RESOLVED (npm available)"
+                        action = "npm install [packages]"
+                        resolvable = true
+                    ELSE:
+                        blocker_status = "VALID (npm not installed)"
+                        action = "Install Node.js"
+                        resolvable = false
+
+                ELIF blocker_description contains ".NET" OR "dotnet":
+                    Bash(command="dotnet --list-sdks 2>/dev/null || echo 'not installed'")
+
+                    IF output shows SDKs:
+                        blocker_status = "RESOLVED (dotnet available)"
+                        action = "dotnet [command]"
+                        resolvable = true
+                    ELSE:
+                        blocker_status = "VALID (dotnet not installed)"
+                        action = "Install .NET SDK"
+                        resolvable = false
+
+            # Check if blocker mentions artifacts
+            ELIF "artifact" in blocker_description.lower() OR "cache" in blocker_description.lower():
+                # Extract expected paths from blocker description
+                # Common patterns: "~/.cache/", "/var/lib/", "~/.local/share/"
+
+                IF blocker_description contains path pattern:
+                    artifact_path = extract path
+
+                    Bash(command="ls -la ${artifact_path} 2>/dev/null || echo 'not found'")
+
+                    IF output != "not found" AND output has files:
+                        blocker_status = "RESOLVED (artifacts exist)"
+                        action = "Re-run /dev ${story.id}"
+                        resolvable = true
+                    ELSE:
+                        blocker_status = "VALID (artifacts missing)"
+                        action = "Generate artifacts first"
+                        resolvable = false
+
+            ELSE:
+                # Generic external blocker
+                blocker_status = "UNKNOWN (manual verification needed)"
+                action = "Manually verify: ${blocker_description}"
+                resolvable = "unknown"
+
+        CASE "scope_change":
+            # Check if ADR exists
+            Glob(pattern=".devforgeai/adrs/${adr_reference}*.md")
+
+            IF file found:
+                blocker_status = "RESOLVED (ADR documented)"
+                action = "No action needed (scope change documented)"
+                resolvable = false  # Not resolvable, but valid
+
+            ELSE:
+                blocker_status = "INVALID (ADR missing)"
+                action = "Create ${adr_reference} to document scope change"
+                violation = "HIGH"
+                resolvable = false
+
+        # Store blocker validation result
+        deferral.blocker_status = blocker_status
+        deferral.action = action
+        deferral.resolvable = resolvable
+        deferral.age_days = calculate_days_since_deferral(deferral)
+
+# Categorize all deferrals
+resolvable_deferrals = deferrals where resolvable == true
+valid_deferrals = deferrals where resolvable == false AND blocker_status != "INVALID"
+invalid_deferrals = deferrals where blocker_status contains "INVALID"
+
+Display:
+"Blocker Validation Complete:
+- Resolvable deferrals: ${len(resolvable_deferrals)}
+- Valid deferrals: ${len(valid_deferrals)}
+- Invalid deferrals: ${len(invalid_deferrals)}"
+```
+
+---
+
 ### Phase 3: Validate Each Deferral
 
 **For each story WITH deferrals, invoke deferral-validator:**
@@ -394,11 +552,98 @@ Write(
 - Create {adr_count} missing ADRs for scope changes
 - Fix {chain_count} deferral chains
 
+---
+
+## Actionable Insights (RCA-006 Phase 2 - NEW)
+
+### 🟡 Resolvable Deferrals: {len(resolvable_deferrals)}
+
+**These deferrals can be resolved NOW:**
+
+{FOR each deferral in resolvable_deferrals}:
+  **{deferral.story_id}:** {deferral.item}
+  - Age: {deferral.age_days} days
+  - Blocker: {deferral.original_blocker}
+  - Status: ✅ {deferral.blocker_status}
+  - Action: {deferral.action}
+
+**Recommended Actions:**
+1. Re-run /dev for stories with resolvable deferrals:
+   {FOR each story with resolvable deferrals}:
+     /dev {story_id}
+
+2. During Phase 4.5, select "Attempt now" for resolved items
+
+---
+
+### 🟢 Valid Deferrals: {len(valid_deferrals)}
+
+**These deferrals have confirmed valid blockers:**
+
+{FOR each deferral in valid_deferrals}:
+  **{deferral.story_id}:** {deferral.item}
+  - Age: {deferral.age_days} days
+  - Blocker: {deferral.blocker_description}
+  - Status: ⏸️ {deferral.blocker_status}
+  - Action: {deferral.action}
+
+**No immediate action required** - blockers are still valid
+
+{IF any deferral.age_days > 30}:
+  ⚠️  **Stale Deferrals Detected:**
+  {FOR each stale in deferrals where age_days > 30}:
+    - {stale.story_id}: {stale.item} ({stale.age_days} days old)
+
+  **Recommendation:** Review stale deferrals (>30 days). Consider:
+  - Is blocker still relevant?
+  - Can we find alternative approach?
+  - Should we create debt reduction sprint?
+
+---
+
+### 🔴 Invalid Deferrals: {len(invalid_deferrals)}
+
+**These deferrals have invalid blockers (MUST FIX):**
+
+{FOR each deferral in invalid_deferrals}:
+  **{deferral.story_id}:** {deferral.item}
+  - Blocker: {deferral.blocker_description}
+  - Status: ❌ {deferral.blocker_status}
+  - Severity: HIGH
+  - Action: {deferral.action}
+
+**Required Actions:**
+{FOR each invalid in invalid_deferrals}:
+  1. {invalid.action}
+  2. Re-run /dev {invalid.story_id}
+
+---
+
+### Technical Debt Metrics
+
+**Total Debt Age:** {sum of all deferral.age_days} days
+**Average Deferral Age:** {total_debt_age / total_deferrals} days
+**Oldest Deferral:** {max age_days} days (Story {story_id})
+
+**Debt Trend:**
+{IF average age > 14 days}:
+  ⚠️  Deferrals aging beyond 2 weeks. Consider debt reduction sprint.
+{ELIF average age > 7 days}:
+  ℹ️  Deferrals at reasonable age. Monitor for growth.
+{ELSE}:
+  ✅ Deferrals are fresh. Good debt management.
+
+---
+
 **Next Steps:**
-1. Review detailed report
-2. Prioritize corrective actions
-3. Re-run `/qa {STORY-ID}` for affected stories
+1. Review detailed report above
+2. Prioritize corrective actions by severity:
+   - CRITICAL violations (chains, circular) - Fix immediately
+   - Resolvable deferrals ({count}) - Re-run /dev to attempt
+   - Invalid deferrals ({count}) - Create missing stories/ADRs
+3. Re-run `/qa {STORY-ID}` for affected stories after fixes
 4. Create ADRs for scope changes
+5. Create debt reduction sprint if {resolvable_count} ≥ 3
 
 {ELSE}
 ✅ **All deferrals validated successfully**

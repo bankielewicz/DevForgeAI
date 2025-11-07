@@ -483,15 +483,20 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - All integrate with skills via Skill tool
 - Clear separation: commands delegate to skills, skills delegate to subagents
 
-**RCA-006: Deferral Validation** ✅ Enhanced (2025-11-06)
-- **Phase 1 Complete:** Phase 4.5 Deferral Challenge Checkpoint added to /dev workflow
-- **Prevents autonomous deferrals:** All deferrals (pre-existing + new) require user approval
-- **Three-layer validation:** Python format check + Interactive checkpoint + AI subagent
-- **Blocker validation:** deferral-validator subagent checks if dependencies resolved
-- **Timestamp approvals:** All user approvals logged with UTC timestamp
-- **Deferral budget limits:** Max 3 deferrals, max 20% of DoD items
-- **QA feedback loop:** Max 3 retry attempts with deferral-specific handling
+**RCA-006: Deferral Validation** ✅ Complete (2025-11-06 - Phase 1 & 2)
+- **Phase 1 (CRITICAL):** Phase 4.5 Deferral Challenge Checkpoint prevents autonomous deferrals
+  - All deferrals (pre-existing + new) require user approval
+  - deferral-validator subagent checks blocker validity
+  - Timestamp all approvals for audit trail
+  - "Attempt First, Defer Only If Blocked" pattern enforced
+- **Phase 2 (HIGH):** Quality improvements and proactive monitoring
+  - Deferral budget limits (max 3, max 20% of DoD items) enforced in Phase 5 Step 1.6
+  - Enhanced /audit-deferrals with blocker validation (dependency, toolchain, artifact, ADR checks)
+  - Auto-invoke /audit-deferrals at sprint retrospective with debt reduction sprint creation
+  - Actionable insights (resolvable vs valid deferrals with specific commands)
+  - Technical debt metrics (age tracking, trend analysis, stale deferral detection)
 - **Story template guidance:** Anti-pattern documentation prevents pre-deferrals
+- **Three-layer validation:** Python format check + Interactive checkpoint + AI subagent
 - **See:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` for complete analysis
 
 **Phase 4: Real Project Validation** ⏳ Ready to Begin
