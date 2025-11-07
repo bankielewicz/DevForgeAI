@@ -717,6 +717,56 @@ All command files are in `.claude/commands/`:
 
 ---
 
+### /audit-deferrals
+
+**Purpose:** Audit all stories for deferral violations, circular chains, and resolvable deferrals
+
+**Invokes:** deferral-validator subagent (for each story with deferrals)
+
+**Workflow:**
+1. **Phase 1:** Discover QA Approved/Released stories
+2. **Phase 2:** Scan for deferrals in each story
+3. **Phase 2.5:** Blocker validation (RCA-006 Phase 2 - NEW)
+   - Check dependency stories (git log, story status)
+   - Check toolchains (rustup, npm, dotnet)
+   - Check artifacts (file system validation)
+   - Check ADRs (file existence)
+   - Categorize: Resolvable vs Valid vs Invalid
+4. **Phase 3:** Validate deferrals (deferral-validator subagent)
+5. **Phase 4:** Aggregate results by severity
+6. **Phase 5:** Generate audit report with actionable insights
+
+**Example:**
+```
+> /audit-deferrals
+```
+
+**Output:**
+- Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
+- Resolvable deferrals (can be attempted now)
+- Valid deferrals (blockers still present)
+- Invalid deferrals (missing targets, circular chains)
+- Technical debt metrics (age, trends)
+- Actionable recommendations
+
+**Enhanced Features (RCA-006 Phase 2):**
+- **Blocker validation:** Automatically checks if blockers resolved
+- **Actionable insights:** Specific commands to resolve deferrals
+- **Debt metrics:** Total age, average age, oldest deferral
+- **Trend analysis:** Flags aging deferrals (>30 days)
+- **Recommendations:** Debt reduction sprint creation if ≥3 resolvable
+
+**Integration:**
+- **Auto-invoked:** Sprint retrospective (Phase 7 of orchestration skill)
+- **Recommended schedule:** End of each sprint, quarterly, after major changes
+
+**Architecture:**
+- Command: 610 lines (comprehensive audit logic)
+- Invokes: deferral-validator subagent
+- Output: Markdown report, console summary
+
+---
+
 ### /audit-budget
 
 **Purpose:** Automated command budget compliance audit

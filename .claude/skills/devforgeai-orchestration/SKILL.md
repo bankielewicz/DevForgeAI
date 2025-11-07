@@ -147,6 +147,12 @@ This skill executes workflows in **distinct phases**. Each phase loads its refer
 **Reference:** `orchestration-finalization.md`
 **Output:** Timeline, phases executed, quality gates passed, metrics summary
 
+### Phase 7: Sprint Retrospective (RCA-006 Phase 2 - NEW)
+**Purpose:** Auto-audit technical debt at sprint completion, create debt reduction sprints
+**Reference:** `sprint-retrospective.md`
+**Trigger:** Last story in sprint reaches "Released" status
+**Output:** Sprint metrics, resolvable deferrals, debt reduction recommendations
+
 ---
 
 ## Quality Gate Enforcement
@@ -196,8 +202,9 @@ This skill delegates specialized tasks to **4 subagents:**
 - `technical-assessment-guide.md` - Phase 4 complexity scoring (914 lines)
 - `epic-validation-checklist.md` - Phase 7 validation and self-healing (760 lines)
 
-### Sprint Management (1 file)
+### Sprint Management (2 files)
 - `sprint-planning-guide.md` - Sprint creation and capacity (631 lines)
+- `sprint-retrospective.md` - Sprint retrospective and debt audit (390 lines - RCA-006 Phase 2)
 
 ### State Management (2 files)
 - `workflow-states.md` - 11 state definitions (585 lines)

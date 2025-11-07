@@ -122,6 +122,7 @@ Skill(command="devforgeai-orchestration")
 - Creates **follow-up stories** for missing references
 - **Epic creation workflow** (Phase 4A - NEW 2025-11-06) - 8-phase comprehensive epic creation
 - **Sprint planning workflow** (Phase 3 - 2025-11-05) - Sprint creation with capacity validation
+- **Sprint retrospective** (Phase 7 - RCA-006 Phase 2 NEW 2025-11-06) - Auto-audit technical debt, create debt reduction sprints
 
 **Epic Creation Workflow (8 Phases - NEW):**
 1. Epic Discovery - Generate EPIC-ID, check duplicates

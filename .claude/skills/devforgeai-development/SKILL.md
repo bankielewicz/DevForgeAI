@@ -98,8 +98,9 @@ Challenge ALL deferrals (pre-existing + new) → deferral-validator → User app
 **Purpose:** Prevent autonomous deferrals, enforce "Attempt First, Defer Only If Blocked" pattern
 
 ### Phase 5: Git Workflow & DoD Validation
-Commit changes, 3-layer DoD validation → incomplete items handled → Story complete
-**References:** `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
+Budget enforcement → Handle incomplete items → Git commit → Story complete
+**References:** `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
+**Steps:** 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
 
@@ -148,9 +149,10 @@ Load these on-demand during workflow execution:
 - **integration-testing.md** (189 lines) - Phase 4: Cross-component tests
 
 ### Phase 4.5 & 5 (Deferrals & Git)
-- **phase-4.5-deferral-challenge.md** (340 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006)
+- **phase-4.5-deferral-challenge.md** (340 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
+- **deferral-budget-enforcement.md** (290 lines) - Phase 5 Step 1.6: Budget limits (RCA-006 Phase 2)
 - **git-workflow-conventions.md** (885 lines) - Git operations and conventions
-- **dod-validation-checkpoint.md** (519 lines) - Phase 5: Handle new incomplete items
+- **dod-validation-checkpoint.md** (519 lines) - Phase 5 Step 1.7: Handle new incomplete items
 
 ### Supporting Files
 - **tdd-patterns.md** (1,013 lines) - Comprehensive TDD guidance (all phases)
