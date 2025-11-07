@@ -6,9 +6,100 @@ This phase generates story ID, discovers epic/sprint context, and collects metad
 
 Story creation begins with discovery: assigning a unique ID, determining relationships to epics/sprints, and gathering essential metadata through user interaction.
 
+**Execution Modes:**
+- **Interactive Mode:** Ask user questions for all metadata (normal)
+- **Batch Mode:** Extract metadata from context markers (batch creation from epics)
+
 ---
 
-## Step 1.1: Feature Description Capture
+## Step 1.0: Detect Execution Mode (NEW - Batch Support)
+
+**Check for batch mode marker:**
+```
+if conversation contains "**Batch Mode:** true":
+    BATCH_MODE = true
+    → Proceed to Step 1.0.1 (Batch Mode Branch)
+else:
+    BATCH_MODE = false
+    → Proceed to Step 1.1 (Interactive Mode Branch - normal workflow)
+```
+
+---
+
+## Step 1.0.1: Batch Mode Branch (NEW)
+
+**Extract all metadata from context markers:**
+```
+# Required markers
+STORY_ID = extract_from_conversation("**Story ID:**")
+EPIC_ID = extract_from_conversation("**Epic ID:**")
+FEATURE_DESC = extract_from_conversation("**Feature Description:**")
+PRIORITY = extract_from_conversation("**Priority:**")
+POINTS = extract_from_conversation("**Points:**")
+SPRINT = extract_from_conversation("**Sprint:**")
+
+# Optional markers
+FEATURE_NUM = extract_from_conversation("**Feature Number:**")
+FEATURE_NAME = extract_from_conversation("**Feature Name:**")
+BATCH_INDEX = extract_from_conversation("**Batch Index:**")
+```
+
+**Validate all required markers present:**
+```
+required_markers = [STORY_ID, EPIC_ID, FEATURE_DESC, PRIORITY, POINTS, SPRINT]
+
+if not all(required_markers):
+    Display: """
+    ⚠️ Batch mode requires all metadata markers
+    Missing: {list_missing_markers}
+
+    Fallback: Switching to interactive mode to ask questions
+    """
+    BATCH_MODE = false
+    → Proceed to Step 1.1 (Interactive Mode)
+```
+
+**Convert Points to integer:**
+```
+POINTS = int(POINTS)  # "5" → 5
+
+# Validate Fibonacci
+if POINTS not in [1, 2, 3, 5, 8, 13, 21]:
+    WARNING: f"Non-Fibonacci points: {POINTS}"
+```
+
+**Log batch mode activation:**
+```
+Display: f"""
+ℹ️ Batch Mode Activated
+- Story: {STORY_ID} (Feature {FEATURE_NUM}: {FEATURE_NAME})
+- Epic: {EPIC_ID}
+- Priority: {PRIORITY}, Points: {POINTS}, Sprint: {SPRINT}
+- Skipping interactive questions (using provided metadata)
+"""
+```
+
+**Return Phase 1 output (skip all AskUserQuestion flows):**
+```
+phase1_result = {
+    "story_id": STORY_ID,
+    "epic_id": EPIC_ID,
+    "feature_description": FEATURE_DESC,
+    "feature_number": FEATURE_NUM,
+    "feature_name": FEATURE_NAME,
+    "priority": PRIORITY,
+    "points": POINTS,
+    "sprint": SPRINT,
+    "batch_mode": true,
+    "batch_index": BATCH_INDEX
+}
+
+→ Proceed directly to Phase 2 (Requirements Analysis)
+```
+
+---
+
+## Step 1.1: Feature Description Capture (Interactive Mode)
 
 **Objective:** Extract feature description from conversation context
 
@@ -57,34 +148,69 @@ Then ask: "Provide detailed description of the {feature_type} feature"
 
 ---
 
-## Step 1.2: Generate Next Story ID
+## Step 1.2: Generate Next Story ID (Enhanced - Gap-Aware)
 
-**Objective:** Generate sequential story ID (STORY-NNN format)
+**Objective:** Generate sequential story ID (STORY-NNN format) with gap detection and filling
 
-**Find latest story:**
+**Find all existing stories:**
 ```
 story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
 
 # Parse story numbers from filenames
-# Example: STORY-042.story.md → 42
-story_numbers = [extract_number(filename) for filename in story_files]
+# Example: STORY-042-user-login.story.md → 42
+story_numbers = []
+for filename in story_files:
+    # Extract number using regex: STORY-(\d{3})
+    match = re.search(r'STORY-(\d{3})', filename)
+    if match:
+        story_numbers.append(int(match.group(1)))
 
-if story_numbers:
-    max_number = max(story_numbers)
-    next_number = max_number + 1
-else:
-    next_number = 1
-
-story_id = f"STORY-{next_number:03d}"  # STORY-001, STORY-002, etc.
+# Sort numbers for gap detection
+story_numbers.sort()
 ```
+
+**Gap-Aware ID Calculation:**
+```
+if not story_numbers:
+    # No existing stories, start at 1
+    next_number = 1
+    gap_filled = False
+else:
+    max_number = max(story_numbers)
+
+    # Check for gaps in sequence
+    # Example: [1, 2, 3, 5, 7] → gaps at 4, 6
+    all_numbers = set(range(1, max_number + 1))
+    existing_set = set(story_numbers)
+    gaps = sorted(all_numbers - existing_set)
+
+    if gaps:
+        # Fill first gap
+        next_number = gaps[0]
+        gap_filled = True
+        Display: f"ℹ️ Filling gap at STORY-{next_number:03d}"
+    else:
+        # No gaps, increment from max
+        next_number = max_number + 1
+        gap_filled = False
+
+story_id = f"STORY-{next_number:03d}"
+```
+
+**Examples:**
+- Existing: [] → Next: STORY-001 (first story)
+- Existing: [1, 2, 3] → Next: STORY-004 (sequential, no gaps)
+- Existing: [1, 2, 5, 7] → Next: STORY-003 (fills gap at 3)
+- After creating STORY-003: [1, 2, 3, 5, 7] → Next: STORY-004 (fills gap at 4)
+- After creating STORY-004: [1, 2, 3, 4, 5, 7] → Next: STORY-006 (fills gap at 6)
+- After creating STORY-006: [1, 2, 3, 4, 5, 6, 7] → Next: STORY-008 (no gaps, increment)
 
 **ID Format:** STORY-NNN where NNN is zero-padded 3-digit number
 
 **Conflict Detection:**
-- Glob returns all existing STORY-*.story.md files
-- Extract highest number
-- Increment by 1
-- No ID conflicts possible (sequential generation)
+- Gap filling ensures gaps are filled before incrementing
+- Maintains sequential numbering (prevents fragmentation)
+- Recalculate ID for each story in batch mode (accounts for just-created stories)
 
 **Track with TodoWrite:**
 ```

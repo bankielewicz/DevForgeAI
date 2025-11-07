@@ -6,9 +6,58 @@ Generate structured completion summary and guide user to next actions.
 
 This phase presents the completed story to the user with a summary and actionable next steps.
 
+**Execution Modes:**
+- **Interactive Mode:** Full summary + next action AskUserQuestion (normal)
+- **Batch Mode:** Minimal summary, skip next action question (batch loop controls flow)
+
 ---
 
-## Step 8.1: Generate Completion Summary
+## Step 8.0: Detect Batch Mode (NEW)
+
+**Check if batch mode is active:**
+```
+if phase1_result["batch_mode"] == true:
+    BATCH_MODE = true
+    BATCH_INDEX = phase1_result.get("batch_index", 0)
+    → Proceed to Step 8.0.1 (Batch Mode Completion)
+else:
+    BATCH_MODE = false
+    → Proceed to Step 8.1 (Interactive Mode Completion - normal)
+```
+
+---
+
+## Step 8.0.1: Batch Mode Completion (NEW)
+
+**Generate minimal summary (batch loop displays comprehensive summary):**
+```markdown
+✓ Story created: {story_id}
+
+**Title:** {story_title}
+**Points:** {points}
+**Status:** Backlog
+```
+
+**Skip next action question:**
+```
+# Do NOT execute Step 8.2 (AskUserQuestion for next action)
+# Batch loop in command handles next action (next feature or batch summary)
+```
+
+**Return immediately to command:**
+```
+Return control to /create-story command batch loop
+Batch loop will proceed to next feature or display batch completion summary
+```
+
+**DO NOT DISPLAY:**
+- Full completion summary (command will show batch summary)
+- Next action AskUserQuestion (command controls batch flow)
+- Workflow recommendations (batch handles this)
+
+---
+
+## Step 8.1: Generate Completion Summary (Interactive Mode)
 
 **Objective:** Present structured summary of created story
 
