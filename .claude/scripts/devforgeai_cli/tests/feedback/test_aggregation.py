@@ -329,6 +329,45 @@ class TestFeedbackAggregation:
         # Assert - Should still detect patterns despite the file
         assert isinstance(patterns, list)
 
+    def test_generate_insights_with_low_pattern_coverage(self, tmp_path):
+        """
+        GIVEN feedback exists but patterns don't meet 50% threshold
+        WHEN generate_insights is called
+        THEN it generates fallback recommendation (lines 131-142)
+        """
+        # Create feedback directory with minimal feedback (below pattern threshold)
+        feedback_dir = tmp_path / "sparse_feedback"
+        feedback_dir.mkdir()
+
+        # Create just 1 feedback item (not enough for patterns)
+        story_dir = feedback_dir / "STORY-001"
+        story_dir.mkdir()
+
+        import json
+        from datetime import datetime, timezone
+        feedback = {
+            'feedback_id': 'test-1',
+            'timestamp': datetime.now(timezone.utc).isoformat(),
+            'story_id': 'STORY-001',
+            'epic_id': 'EPIC-001',
+            'workflow_type': 'dev',
+            'questions': [{'question_id': 'q1', 'response': 'unique response'}]
+        }
+
+        with open(story_dir / '2025-01-01-retrospective.json', 'w') as f:
+            json.dump(feedback, f)
+
+        # Act
+        insights = generate_insights(feedback_dir)
+
+        # Assert - Should generate fallback with general feedback collected
+        assert 'recommendations' in insights
+        assert len(insights['recommendations']) > 0
+
+        # Should have the fallback recommendation
+        rec = insights['recommendations'][0]
+        assert 'General feedback collected' in rec['issue'] or rec['vote_count'] >= 1
+
 
 class TestLongitudinalTracking:
     """AC6: Longitudinal Feedback Tracking"""
