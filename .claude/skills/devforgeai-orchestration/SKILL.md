@@ -1,6 +1,7 @@
 ---
 name: devforgeai-orchestration
 description: Coordinates spec-driven development workflow from Epic → Sprint → Story → Architecture → Development → QA → Release. Manages story lifecycle, enforces quality gates, and orchestrates skill invocation. Use when starting epics/sprints, creating stories, managing workflow progression, or enforcing quality checkpoints.
+model: claude-sonnet-4-5-20250929
 allowed-tools:
   - Read
   - Write

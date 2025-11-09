@@ -2,462 +2,409 @@
 description: Transform business idea into structured requirements
 argument-hint: [business-idea-description]
 model: sonnet
-allowed-tools: Read, Write, Edit, Skill, Task, AskUserQuestion
+allowed-tools: Read, Write, Edit, Glob, Skill, AskUserQuestion
 ---
 
 # /ideate - Transform Business Idea into Structured Requirements
 
-**Purpose:** Entry point for DevForgeAI framework - transforms business ideas into structured epics and requirements specifications through comprehensive discovery.
+**Purpose:** Entry point for DevForgeAI framework - transforms business ideas into structured epics and requirements through comprehensive discovery.
 
-**When to Use:**
-- Starting new projects (greenfield)
-- Adding major features to existing systems (brownfield)
-- Exploring solution spaces before architecture decisions
-- User provides business ideas without technical specifications
+**Output:** Epic documents, requirements specification, complexity assessment
 
-**Process:** Invokes `devforgeai-ideation` skill which executes 6-phase discovery with 10-60 detailed questions.
+**Process:** Invokes `devforgeai-ideation` skill which executes 6-phase discovery with 10-60 interactive questions.
 
 ---
 
-## Command Workflow
+## Phase 1: Argument Validation
 
-### Phase 1: Invoke Ideation Skill
+### 1.1 Capture Business Idea
 
-**Action:** Execute the ideation skill to begin requirements discovery.
+**Business idea from user:**
+```
+$ARGUMENTS
+```
 
-**Expected Interaction:**
-- Skill will ask 10-60 questions across 6 phases
-- Questions cover business context, users, requirements, constraints
-- User must answer questions to guide discovery process
-- Each phase builds on previous answers
+**If no arguments provided:**
 
-**Invocation:**
+Use AskUserQuestion to capture business idea:
+
+```
+AskUserQuestion(
+  questions=[{
+    question: "Please describe the business idea, feature, or problem you want to explore",
+    header: "Business idea",
+    options: [
+      {
+        label: "New project/product",
+        description: "Starting from scratch (greenfield)"
+      },
+      {
+        label: "Feature for existing system",
+        description: "Adding to existing codebase (brownfield)"
+      },
+      {
+        label: "Modernization/migration",
+        description: "Replacing or upgrading legacy system"
+      },
+      {
+        label: "Problem-solving",
+        description: "Fixing issues in current system"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**Then ask for description:**
+```
+"Please provide a detailed description of the {project_type} you want to explore"
+```
+
+**Wait for user response before proceeding to Phase 2.**
+
+### 1.2 Validate Description
+
+**Minimum requirements:**
+- Description has at least 10 words
+- Describes a business capability or problem (not purely technical)
+
+**If description too vague:**
+```
+Prompt user: "Please provide more details about:
+- What business problem this solves
+- Who the primary users/beneficiaries are
+- What success looks like"
+```
+
+---
+
+## Phase 2: Invoke Ideation Skill
+
+### 2.1 Set Context for Skill
+
+**Prepare context markers for skill execution:**
+
+```
+**Business Idea:** $ARGUMENTS (or user-provided description)
+
+**Project Type:** {Greenfield|Brownfield|Modernization|Problem-solving}
+```
+
+### 2.2 Skill Invocation
+
+**The devforgeai-ideation skill handles complete workflow:**
+
+- **Phase 1:** Discovery & Problem Understanding (5-10 questions)
+- **Phase 2:** Requirements Elicitation (15-25 questions)
+- **Phase 3:** Complexity Assessment (0-60 scoring)
+- **Phase 4:** Epic & Feature Decomposition
+- **Phase 5:** Feasibility & Constraints Analysis
+- **Phase 6:** Requirements Documentation (epics, requirements spec, validation, summary, next action)
+
+**Expected interaction:**
+- Skill asks 10-60 questions across 6 phases
+- User answers guide requirements discovery
+- Skill validates completeness internally (Phase 6.4)
+- Skill generates all output artifacts
+- Skill presents completion summary (Phase 6.5)
+- Skill asks user for next action (Phase 6.6)
+
+**Invoke skill:**
 
 ```
 Skill(command="devforgeai-ideation")
 ```
 
-**The skill executes:**
-
-1. **Discovery & Problem Understanding** (5-10 questions)
-   - Business context and goals
-   - Target users and stakeholders
-   - Success metrics and KPIs
-   - Current pain points
-
-2. **Requirements Elicitation** (15-25 questions)
-   - Functional requirements by domain
-   - Non-functional requirements (performance, security, scalability)
-   - Data models and entities
-   - Integration requirements
-   - User workflows
-
-3. **Complexity Assessment** (5-8 questions)
-   - Technical complexity factors
-   - Data complexity
-   - Integration complexity
-   - User base scale
-   - Regulatory requirements
-
-4. **Epic & Feature Decomposition** (8-12 questions)
-   - Feature prioritization
-   - MVP scope definition
-   - Epic boundaries
-   - Story-level breakdown
-
-5. **Feasibility & Constraints Analysis** (5-10 questions)
-   - Technical constraints
-   - Business constraints
-   - Resource constraints
-   - Risk assessment
-
-6. **Requirements Documentation** (automatic)
-   - Generate epic documents
-   - Create requirements specification
-   - Document complexity assessment
-   - Recommend architecture tier
+**IMPORTANT:** Skill executes autonomously and handles all validation, error recovery, and user interaction. Do NOT interrupt skill execution or attempt to validate artifacts - skill performs self-validation in Phase 6.4.
 
 ---
 
-### Phase 2: Validate Output Artifacts
+## Phase 3: Verify Skill Completion
 
-**Once ideation skill completes, verify all artifacts were created:**
+### 3.1 Check Skill Completion Status
 
-#### 2.1 Epic Documents
+**After skill returns control:**
 
-**Location:** `.ai_docs/Epics/`
-
-**Validation Steps:**
+Verify skill completed successfully by checking for expected artifacts:
 
 ```
-# Check for epic files
-Glob(pattern=".ai_docs/Epics/*.epic.md")
+# Check for epic documents
+epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
 
-# Read each epic to verify structure
-Read(file_path=".ai_docs/Epics/{EPIC-ID}.epic.md")
+# Check for requirements specification
+req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
 ```
 
-**Expected Epic Structure:**
-- YAML frontmatter (id, title, business-value, status, priority)
-- Epic description and business context
-- Success metrics and KPIs
-- Features list with priorities
-- Acceptance criteria
-- Dependencies and risks
-- Timeline and milestones
+**Expected artifacts:**
+- 1+ epic documents in `.ai_docs/Epics/`
+- 1 requirements specification in `.devforgeai/specs/requirements/`
+- Complexity assessment (embedded in requirements spec)
 
-**Validation Checklist:**
-- [ ] At least 1 epic document exists
-- [ ] Epic ID follows naming convention (EPIC-001, EPIC-002, etc.)
-- [ ] YAML frontmatter complete
-- [ ] Business value articulated
-- [ ] Success metrics defined
-- [ ] Features decomposed with priorities
-- [ ] Acceptance criteria clear and testable
+### 3.2 Handle Incomplete Execution
 
-#### 2.2 Requirements Specification
-
-**Location:** `.devforgeai/specs/requirements/`
-
-**Validation Steps:**
+**If artifacts missing:**
 
 ```
-# Check for requirements spec
-Glob(pattern=".devforgeai/specs/requirements/*.md")
+if len(epic_files) == 0 or len(req_files) == 0:
+    Report: """
+    ⚠️ Ideation Skill Incomplete
 
-# Read requirements spec
-Read(file_path=".devforgeai/specs/requirements/requirements-spec.md")
+    Expected artifacts not found:
+    - Epic documents: {len(epic_files)} found (expected: 1+)
+    - Requirements spec: {len(req_files)} found (expected: 1)
+
+    Possible causes:
+    1. Skill execution interrupted
+    2. File system write permissions issue
+    3. User exited during discovery questions
+
+    Recommended action:
+    - Re-run `/ideate [business-idea]` to complete ideation
+    - Or check `.ai_docs/Epics/` and `.devforgeai/specs/requirements/` for partial files
+    """
+
+    HALT - Do not proceed to Phase 4
 ```
 
-**Expected Requirements Spec Structure:**
-- Project overview and vision
-- Functional requirements (categorized by domain)
-- Non-functional requirements (performance, security, scalability, reliability)
-- Data models and entity relationships
-- Integration requirements (external systems, APIs)
-- User workflows and user stories
-- Constraints and assumptions
-- Out-of-scope items
-
-**Validation Checklist:**
-- [ ] Requirements spec exists
-- [ ] Functional requirements comprehensive
-- [ ] Non-functional requirements quantified
-- [ ] Data models documented
-- [ ] Integration points identified
-- [ ] User workflows mapped
-- [ ] Constraints documented
-
-#### 2.3 Complexity Assessment
-
-**Location:** Within requirements spec or separate complexity report
-
-**Validation Steps:**
+**If artifacts present:**
 
 ```
-# Check for complexity assessment
-Grep(pattern="Complexity Score|Complexity Assessment", path=".devforgeai/specs/requirements/")
+✓ Skill completed successfully
+✓ {len(epic_files)} epic document(s) created
+✓ Requirements specification created
+
+→ Proceed to Phase 4
 ```
-
-**Expected Complexity Assessment:**
-- **Technical Complexity** (0-20 points): Algorithm complexity, integration complexity, data transformations
-- **Data Complexity** (0-15 points): Data model complexity, volume, consistency requirements
-- **Integration Complexity** (0-10 points): Number of integrations, protocol complexity
-- **Scale Complexity** (0-10 points): User base, transaction volume, geographic distribution
-- **Regulatory Complexity** (0-5 points): Compliance requirements, audit trails
-
-**Total Score:** 0-60 points
-
-**Architecture Tier Recommendations:**
-- **0-15 points:** Simple (Single-tier, monolith, minimal infrastructure)
-- **16-30 points:** Standard (2-3 tiers, modular monolith, standard patterns)
-- **31-45 points:** Advanced (Microservices, event-driven, distributed systems)
-- **46-60 points:** Enterprise (Multi-region, high availability, complex orchestration)
-
-**Validation Checklist:**
-- [ ] Complexity score calculated (0-60)
-- [ ] Score breakdown documented by category
-- [ ] Architecture tier recommended
-- [ ] Technology stack guidance provided
-- [ ] Scalability requirements identified
 
 ---
 
-### Phase 3: Review and Next Steps
+## Phase 4: Quick Summary
 
-#### 3.1 Present Summary to User
+**Note:** Skill already presented detailed summary in Phase 6.5. This phase provides brief confirmation only.
 
-**Output Format:**
+### 4.1 Confirm Completion
 
-```markdown
-## Ideation Complete
+**Read first epic for quick validation:**
 
-### Generated Artifacts
-
-**Epic Documents:**
-- {EPIC-ID}: {Epic Title} ({Feature Count} features)
-- Location: .ai_docs/Epics/{EPIC-ID}.epic.md
-
-**Requirements Specification:**
-- Location: .devforgeai/specs/requirements/requirements-spec.md
-- Functional Requirements: {count}
-- Non-Functional Requirements: {count}
-- Data Models: {count}
-- Integration Points: {count}
-
-**Complexity Assessment:**
-- Total Score: {score}/60
-- Architecture Tier: {Simple|Standard|Advanced|Enterprise}
-- Technical Complexity: {score}/20
-- Data Complexity: {score}/15
-- Integration Complexity: {score}/10
-- Scale Complexity: {score}/10
-- Regulatory Complexity: {score}/5
-
-### Recommended Technology Stack (based on complexity)
-
-{Technology recommendations based on assessment}
-
-### Next Steps
-
-1. Review generated epics and requirements specification
-2. Validate complexity assessment and architecture tier
-3. Proceed to architecture phase (create context files)
+```
+Read(file_path=epic_files[0], limit=20)  # Read frontmatter only
 ```
 
-#### 3.2 Ask User for Next Action
+**Extract:**
+- Epic count: {len(epic_files)}
+- First epic title
+- Complexity score (from requirements spec if needed)
 
-**Use AskUserQuestion to determine next steps:**
+**Brief confirmation:**
+
+```
+✅ Ideation phase complete
+
+Generated:
+- {epic_count} epic document(s) in .ai_docs/Epics/
+- Requirements specification in .devforgeai/specs/requirements/
+
+The devforgeai-ideation skill has:
+✓ Discovered and documented requirements
+✓ Assessed complexity and recommended architecture tier
+✓ Generated epic and requirements artifacts
+✓ Validated all outputs (Phase 6.4)
+✓ Presented detailed summary (Phase 6.5)
+✓ Asked you for next action (Phase 6.6)
+```
+
+**Note:** If user missed skill's summary or next action prompt, they can review:
+- Epic documents: `.ai_docs/Epics/EPIC-*.epic.md`
+- Requirements spec: `.devforgeai/specs/requirements/*.md`
+
+---
+
+## Phase 5: Verify Next Steps Communicated
+
+### 5.1 Ensure User Understands Next Action
+
+**Skill already asked user in Phase 6.6, but confirm understanding:**
+
+```
+The ideation skill should have asked you to choose next action:
+- Create context files (run /create-context)
+- Review requirements first
+- Skip to orchestration (if context files exist)
+
+If you didn't respond to that question or need clarification:
+```
+
+**Ask again:**
 
 ```
 AskUserQuestion(
-  question="Ideation phase complete. Proceed to architecture phase?",
-  options=[
-    "Yes - invoke /create-context to define architectural constraints",
-    "No - review requirements first, I may have changes",
-    "Skip context creation - I have existing context files"
-  ]
+  questions=[{
+    question: "Ready to proceed with next phase?",
+    header: "Next step",
+    options: [
+      {
+        label: "Yes - create context files",
+        description: "Run /create-context to define architectural constraints (6 context files)"
+      },
+      {
+        label: "Review requirements first",
+        description: "I want to review/edit the generated requirements before proceeding"
+      },
+      {
+        label: "Help - what are context files?",
+        description: "Explain what /create-context does and why it's needed"
+      }
+    ],
+    multiSelect: false
+  }]
 )
 ```
 
-**Based on User Response:**
+**Based on response:**
 
-**Option 1: "Yes - invoke /create-context"**
-- Inform user: "Run `/create-context` command to generate 6 context files"
-- Explain: Context files will define tech stack, project structure, dependencies, coding standards, architecture constraints, and anti-patterns
-- Note: Architecture skill will reference requirements spec and complexity assessment
+**"Yes - create context files":**
+```
+Run: `/create-context [project-name]`
 
-**Option 2: "No - review requirements first"**
-- Inform user: "Review files in .ai_docs/Epics/ and .devforgeai/specs/requirements/"
-- Suggest: User can manually edit files or request specific changes
-- Wait: User to indicate when ready to proceed to architecture phase
+Replace `[project-name]` with a short identifier (e.g., `task-manager`, `inventory-system`)
 
-**Option 3: "Skip context creation"**
-- Validate: Check if context files exist in .devforgeai/context/
-- If missing: Warn that development cannot proceed without context files
-- If exist: Suggest proceeding to orchestration phase (/create-sprint)
+The architecture skill will:
+1. Reference your requirements and complexity tier
+2. Ask technology preference questions
+3. Generate 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
+4. Create initial ADR
+5. Validate requirements against constraints
+```
 
----
+**"Review requirements first":**
+```
+Review these files:
+- Epics: `.ai_docs/Epics/EPIC-*.epic.md`
+- Requirements: `.devforgeai/specs/requirements/[project]-requirements.md`
 
-## Success Criteria Validation
+You can:
+- Manually edit files with your editor
+- Ask me to make specific changes
+- Run `/create-context [project-name]` when ready
+```
 
-**Before completing /ideate command, verify:**
+**"Help - what are context files?":**
+```
+Context files are 6 immutable constraint documents that prevent technical debt:
 
-### Artifact Creation
-- [ ] Epic documents created in .ai_docs/Epics/
-- [ ] Epic IDs follow naming convention
-- [ ] Epic frontmatter complete with all required fields
-- [ ] Requirements specification created in .devforgeai/specs/requirements/
-- [ ] Functional requirements documented and categorized
-- [ ] Non-functional requirements quantified with metrics
+1. **tech-stack.md** - Locked technology choices
+   - Prevents library substitution
+   - Example: "Use React 18+, not Vue"
 
-### Complexity Assessment
-- [ ] Complexity score calculated (0-60)
-- [ ] Score breakdown documented by all 5 categories
-- [ ] Architecture tier recommended (Simple/Standard/Advanced/Enterprise)
-- [ ] Technology stack guidance provided based on tier
-- [ ] Scalability and performance targets identified
+2. **source-tree.md** - Project structure rules
+   - Prevents chaos
+   - Example: "Tests in tests/, source in src/"
 
-### Quality Checks
-- [ ] All epics have business value statements
-- [ ] Success metrics are measurable (not vague)
-- [ ] Acceptance criteria follow Given/When/Then format
-- [ ] Data models include entities, attributes, relationships
-- [ ] Integration requirements specify protocols and data formats
-- [ ] Constraints and assumptions explicitly documented
-- [ ] Out-of-scope items clearly listed
+3. **dependencies.md** - Approved packages
+   - Prevents bloat
+   - Example: "Express ^4.18.0 for web framework"
 
-### User Guidance
-- [ ] Summary presented to user with artifact locations
-- [ ] Complexity assessment explained
-- [ ] Next steps clearly communicated
-- [ ] User asked whether to proceed to architecture phase
+4. **coding-standards.md** - Code patterns
+   - Enforces consistency
+   - Example: "PascalCase for classes, camelCase for functions"
+
+5. **architecture-constraints.md** - Layer boundaries
+   - Prevents violations
+   - Example: "Domain cannot import Infrastructure"
+
+6. **anti-patterns.md** - Forbidden patterns
+   - Prevents technical debt
+   - Example: "No God Objects (classes >500 lines)"
+
+These files ensure all development follows defined standards, preventing technical debt accumulation.
+
+Once created, run:
+- `/create-sprint 1` to plan first sprint
+- `/create-story [description]` to create individual stories
+- `/dev STORY-ID` to implement stories with TDD
+```
 
 ---
 
 ## Error Handling
 
-### If Ideation Skill Fails
+### Skill Invocation Failed
 
-**Error:** Skill invocation fails or throws exception
-
-**Action:**
-1. Check if skill file exists: `.claude/skills/devforgeai-ideation/SKILL.md`
-2. Verify skill is properly registered
-3. Report error to user with troubleshooting steps
-4. Suggest manual requirements creation if skill unavailable
-
-### If Output Artifacts Missing
-
-**Error:** Expected files not created after skill execution
-
-**Action:**
-1. Check if skill completed all 6 phases
-2. Verify user answered all required questions
-3. Check for write permission errors in .ai_docs/ or .devforgeai/ directories
-4. Re-run skill if partial output generated
-5. Report specific missing artifacts to user
-
-### If Complexity Assessment Invalid
-
-**Error:** Complexity score not in valid range (0-60) or breakdown missing
-
-**Action:**
-1. Recalculate complexity score manually using assessment matrix
-2. Read `.claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md`
-3. Verify all 5 categories scored
-4. Update requirements spec with corrected assessment
-
-### If User Provides Incomplete Answers
-
-**Error:** User responses too vague for requirements elicitation
-
-**Action:**
-1. Skill should automatically ask follow-up questions
-2. If still unclear, use AskUserQuestion to probe deeper
-3. Refer to `.claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md`
-4. Document assumptions if user cannot provide specifics
-
----
-
-## Token Efficiency Guidelines
-
-**Target Token Budget:** <60K tokens total
-
-**Optimization Strategies:**
-
-1. **Use Native Tools** (not Bash):
-   - Read(file_path="...") for file reading
-   - Glob(pattern="...") for file discovery
-   - Grep(pattern="...") for content search
-
-2. **Avoid Redundant Reads**:
-   - Cache epic and requirements content in memory
-   - Only re-read if validation fails and re-generation needed
-
-3. **Focused Validation**:
-   - Check file existence with Glob before reading
-   - Read only frontmatter for quick validation (use line limits)
-   - Full read only if structure validation needed
-
-4. **Parallel Operations**:
-   - Check all epic files in single Glob call
-   - Read multiple epics in parallel if verification needed
-
-5. **Efficient Output**:
-   - Present summary with key metrics, not full content
-   - Provide file paths for user to review details
-   - Avoid echoing entire requirements spec back to user
-
-**Token Budget Breakdown:**
-- Skill invocation and execution: ~40K tokens (skill handles user questions)
-- Output validation: ~10K tokens (file checks, structure validation)
-- Summary presentation: ~5K tokens (formatted output to user)
-- User interaction: ~5K tokens (AskUserQuestion, next steps)
-
----
-
-## Integration with Framework Workflow
-
-**Ideation Command Position:**
+**If skill does not execute or throws error:**
 
 ```
-/ideate (YOU ARE HERE)
-   ↓
-/create-context (architecture phase)
-   ↓
-/create-sprint (orchestration phase)
-   ↓
-/implement-story (development phase)
-   ↓
-/validate-story (QA phase)
-   ↓
-/release-story (deployment phase)
+ERROR: devforgeai-ideation skill invocation failed
+
+Troubleshooting steps:
+1. Verify skill file exists:
+   Glob(pattern=".claude/skills/devforgeai-ideation/SKILL.md")
+
+2. Check skill is properly registered (restart Claude Code terminal if needed)
+
+3. Verify allowed-tools permissions include Skill tool
+
+If issue persists:
+- Review skill file for syntax errors
+- Check skill frontmatter is valid YAML
+- Try invoking skill directly: Skill(command="devforgeai-ideation")
 ```
 
-**Outputs Used By:**
-- **devforgeai-architecture**: References requirements spec for technology decisions
-- **devforgeai-orchestration**: Uses epic documents for sprint planning and story creation
-- **devforgeai-development**: Implements features defined in requirements
-- **devforgeai-qa**: Validates implementation against requirements and acceptance criteria
+### Artifacts Missing After Skill Completion
 
-**Key Philosophy:**
-- **Ask, Don't Assume** - Skill asks 10-60 questions to eliminate ambiguity
-- **Right-size the Solution** - Complexity assessment prevents over-engineering
-- **Start with Why, Then What, Then How** - Business value first, requirements second, technology third
+**If skill completes but artifacts missing:**
+
+```
+⚠️ Skill completed but expected artifacts not found
+
+This indicates either:
+1. Skill encountered errors during artifact generation
+2. File system write permissions issue
+3. Incorrect directory paths
+
+Recommended action:
+1. Check if skill reported any errors during execution
+2. Verify directories exist and are writable:
+   - .ai_docs/Epics/
+   - .devforgeai/specs/requirements/
+3. Re-run `/ideate [business-idea]` to retry artifact generation
+4. If persistent: Create artifacts manually and proceed to /create-context
+```
+
+### User Exits During Discovery
+
+**If user cancels during skill's 10-60 question discovery:**
+
+```
+Ideation incomplete - user exited during discovery phase
+
+To complete ideation:
+- Re-run `/ideate [business-idea]` and answer all discovery questions
+- Or skip ideation and create requirements manually
+
+Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing technical debt downstream.
+```
 
 ---
 
-## Example Usage
+## Command Complete
 
-**User Command:**
-```
-/ideate Build a task management SaaS application
-```
+**This command delegates all implementation logic to the devforgeai-ideation skill.**
 
-**Expected Flow:**
+**Command responsibilities:**
+- ✅ Argument validation and capture
+- ✅ Skill invocation with context markers
+- ✅ Basic artifact existence verification
+- ✅ Brief completion confirmation
+- ✅ Next steps guidance
 
-1. **Skill Invocation**
-   - Command invokes devforgeai-ideation skill
-   - Skill asks 30-50 questions about business context, users, features, constraints
+**Skill responsibilities:**
+- ✅ Complete 6-phase discovery workflow
+- ✅ User interaction (10-60 questions)
+- ✅ Epic and requirements generation
+- ✅ Self-validation (Phase 6.4)
+- ✅ Detailed summary presentation (Phase 6.5)
+- ✅ Next action determination (Phase 6.6)
+- ✅ Error handling and recovery
 
-2. **Artifacts Generated**
-   - Epic: EPIC-001.epic.md (User Management, Task Management, Collaboration features)
-   - Requirements: requirements-spec.md (15 functional reqs, 8 non-functional reqs)
-   - Complexity: 28/60 (Standard tier - modular monolith recommended)
-
-3. **Summary Presented**
-   ```
-   Ideation Complete
-   - Epic: EPIC-001 (Task Management SaaS) with 8 features
-   - Requirements: 15 functional, 8 non-functional
-   - Complexity: 28/60 (Standard tier)
-   - Recommended: Node.js + React + PostgreSQL, modular monolith
-   ```
-
-4. **Next Steps**
-   - User asked: "Proceed to architecture phase?"
-   - If yes: "Run /create-context to define tech stack and project structure"
-
----
-
-## References
-
-**Skill Documentation:**
-- `.claude/skills/devforgeai-ideation/SKILL.md` - Complete skill implementation
-- `.claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md` - Probing questions by domain
-- `.claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md` - Detailed scoring rubric
-- `.claude/skills/devforgeai-ideation/references/domain-specific-patterns.md` - Common patterns for e-commerce, SaaS, fintech
-- `.claude/skills/devforgeai-ideation/references/feasibility-analysis-framework.md` - Risk assessment checklist
-
-**Framework Documentation:**
-- `CLAUDE.md` - Framework overview and workflow sequence
-- `.claude/skills/devforgeai-architecture/SKILL.md` - Next phase documentation
-
-**Output Locations:**
-- Epics: `.ai_docs/Epics/` (created if not exists)
-- Requirements: `.devforgeai/specs/requirements/` (created if not exists)
-
----
-
-**End of /ideate Command**
+**Architecture principle:** Commands orchestrate, skills implement, references provide deep knowledge through progressive disclosure.

@@ -22,11 +22,12 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 
 ### Layer 1: Skills (Framework Implementation)
 
-7 autonomous, model-invoked capabilities for each development phase:
+8 autonomous, model-invoked capabilities for each development phase:
 
 - **devforgeai-ideation** - Requirements discovery & epic creation (greenfield/brownfield entry point)
 - **devforgeai-architecture** - Context file creation & architecture decision records
 - **devforgeai-orchestration** - Workflow coordinator (Epic → Sprint → Story → Dev → QA → Release)
+- **devforgeai-story-creation** - Complete story generation with AC, tech/UI specs, and self-validation
 - **devforgeai-ui-generator** - Interactive UI spec generation (web/GUI/terminal) with context validation
 - **devforgeai-development** - TDD implementation with constraint enforcement
 - **devforgeai-qa** - Hybrid validation (light during dev, deep after)
@@ -183,7 +184,7 @@ Execute entire story lifecycle with one command:
 
 ```
 .claude/
-├── skills/              # Framework implementation (7 skills)
+├── skills/              # Framework implementation (8 skills)
 │   ├── devforgeai-ideation/
 │   ├── devforgeai-architecture/
 │   │   └── assets/adr-examples/
@@ -196,12 +197,14 @@ Execute entire story lifecycle with one command:
 │   ├── devforgeai-qa/ (enhanced with deferral validation)
 │   └── devforgeai-release/
 │
-├── agents/              # Specialized subagents (16 agents)
+├── agents/              # Specialized subagents (18 agents)
 │   ├── test-automator.md
 │   ├── backend-architect.md
 │   ├── frontend-developer.md
 │   ├── integration-tester.md
 │   ├── context-validator.md
+│   ├── tech-stack-detector.md (NEW - 2025-11-05)
+│   ├── git-validator.md (NEW - 2025-11-05)
 │   ├── code-reviewer.md (enhanced with DoD completeness review)
 │   ├── security-auditor.md
 │   ├── refactoring-specialist.md

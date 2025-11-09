@@ -18,7 +18,7 @@ allowed-tools:
   - Bash(gradle:*)
   - Bash(python:*)
   - Skill
-model: sonnet
+model: claude-haiku-4-5-20251001
 ---
 
 # DevForgeAI Development Skill

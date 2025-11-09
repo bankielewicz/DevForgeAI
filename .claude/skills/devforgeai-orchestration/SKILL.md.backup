@@ -21,29 +21,10 @@ This skill is the **workflow coordinator** for the entire spec-driven developmen
 
 ### Core Responsibilities
 
-1. **Project Management Integration**
-   - Support Epic → Sprint → Story hierarchy
-   - Stories are the atomic unit of work for developers
-   - Track story status through all workflow stages
-   - Enforce sequential workflow progression
-
-2. **Skill Coordination**
-   - Auto-invoke `devforgeai-architecture` when context files missing
-   - Sequence `devforgeai-development` for TDD implementation
-   - Trigger `devforgeai-qa` for quality validation (light + deep)
-   - Hand off to `devforgeai-release` when approved
-
-3. **State Management**
-   - Track current story status across 11 workflow states
-   - Validate state transitions before allowing progression
-   - Prevent skipping workflow stages (no shortcuts)
-   - Maintain complete workflow history
-
-4. **Quality Gate Enforcement**
-   - Context validation gate (before development starts)
-   - Test passing gate (before QA validation)
-   - QA approval gate (before release)
-   - Release readiness gate (before production)
+1. **Project Management Integration** - Support Epic → Sprint → Story hierarchy with stories as atomic work units
+2. **Skill Coordination** - Auto-invoke architecture, development, QA, and release skills at appropriate workflow stages
+3. **State Management** - Track and validate story status across 11 workflow states with sequential progression
+4. **Quality Gate Enforcement** - Block transitions when quality standards not met (context validation, test passing, QA approval, release readiness)
 
 ### Philosophy
 
@@ -66,19 +47,10 @@ This skill is the **workflow coordinator** for the entire spec-driven developmen
 
 **Entry points:**
 ```
-# Start new epic
-Skill(command="devforgeai-orchestration --create-epic --title='User Management System'")
-
-# Plan sprint
+Skill(command="devforgeai-orchestration --create-epic --title='User Management'")
 Skill(command="devforgeai-orchestration --plan-sprint --epic=EPIC-001")
-
-# Create story
 Skill(command="devforgeai-orchestration --create-story --sprint=SPRINT-001")
-
-# Execute story workflow
 Skill(command="devforgeai-orchestration --story=STORY-001")
-
-# Check story status
 Skill(command="devforgeai-orchestration --status=STORY-001")
 ```
 
@@ -86,1504 +58,824 @@ Skill(command="devforgeai-orchestration --status=STORY-001")
 
 ## Workflow States
 
-### 11 Story States
+### 11 Story States (Brief Overview)
 
 ```
-1. Backlog        → Not started, awaiting prioritization
-2. Architecture   → Context files being created/validated
-3. Ready for Dev  → Context complete, can start development
-4. In Development → Implementing with TDD workflow
-5. Dev Complete   → All tests pass, ready for QA
-6. QA In Progress → Light or deep validation running
-7. QA Failed      → Quality violations detected, requires fixes
-8. QA Approved    → All quality gates passed, ready for release
-9. Releasing      → Deployment in progress
-10. Released      → Deployed to production, story complete
-11. Blocked       → Waiting for external dependency/decision
+1. Backlog → 2. Architecture → 3. Ready for Dev → 4. In Development →
+5. Dev Complete → 6. QA In Progress → 7. QA Failed/QA Approved →
+8. Releasing → 9. Released
+(11. Blocked - can occur from any state)
 ```
 
-### State Transition Matrix
-
-```
-FROM           TO              TRIGGER                      VALIDATION
-───────────────────────────────────────────────────────────────────────────
-Backlog     → Architecture     Story assigned to sprint     Has acceptance criteria
-Architecture → Ready for Dev   Context files complete       All 6 context files exist
-Ready for Dev → In Development Developer starts work        Context files valid
-In Development → Dev Complete  Dev workflow Phase 5 done   All tests pass, build succeeds
-Dev Complete → QA In Progress  QA validation triggered      No compilation errors
-QA In Progress → QA Approved   Deep validation PASS         All quality gates passed
-QA In Progress → QA Failed     Deep validation FAIL         Violations detected
-QA Failed   → In Development   Developer fixes issues       Action items documented
-QA Approved → Releasing        Release initiated            QA report exists with PASS
-Releasing   → Released         Deployment successful        Deployment confirmed
-ANY STATE   → Blocked          External dependency needed   Blocker documented
-```
+**For detailed state definitions:** See `references/workflow-states.md`
+**For transition rules and validation:** See `references/state-transitions.md`
 
 ---
 
-## Epic → Sprint → Story Workflow
+## Orchestration Workflow
 
-### Epic Creation
+### Phase 1: Load and Validate Story
 
-**Purpose:** Define high-level business initiative
-
-**Process:**
+#### Step 1: Load Story Document
 ```
-1. Create epic document: ai_docs/Epics/[epic-id].epic.md
-2. Define business goals and success metrics
-3. Estimate overall scope (story points)
-4. Identify target sprints
-5. Break down into high-level features
-```
+Read(file_path=".ai_docs/Stories/{story_id}.story.md")
 
-**Epic Template:**
-```markdown
----
-id: EPIC-001
-title: [Epic Title]
-status: Planning
-start_date: 2025-11-01
-target_date: 2025-12-15
-total_points: 50
-created: 2025-10-30
----
-
-# Epic: [Title]
-
-## Business Goal
-[What business problem does this solve?]
-
-## Success Metrics
-- [Metric 1: e.g., Reduce checkout time by 30%]
-- [Metric 2: e.g., Increase conversion rate by 15%]
-- [Metric 3: e.g., Support 10,000 concurrent users]
-
-## Scope
-[High-level features included in this epic]
-
-### Features
-1. Feature 1
-2. Feature 2
-3. Feature 3
-
-## Target Sprints
-- Sprint 1: Features 1-2
-- Sprint 2: Features 3-4
-- Sprint 3: Polish & performance
-
-## Dependencies
-- [External dependencies or prerequisites]
-
-## Stakeholders
-- Product Owner: [Name]
-- Tech Lead: [Name]
-- Team: [Team name]
-```
-
-### Sprint Planning
-
-**Purpose:** Plan 2-week iteration with specific stories
-
-**Process:**
-```
-1. Create sprint document: ai_docs/Sprints/[sprint-id].sprint.md
-2. Select stories from epic backlog
-3. Estimate team capacity (velocity)
-4. Prioritize stories based on business value
-5. Assign story points to each story
-6. Define sprint goals
-```
-
-**Sprint Template:**
-```markdown
----
-id: SPRINT-001
-epic: EPIC-001
-start_date: 2025-11-01
-end_date: 2025-11-15
-capacity: 20 points
-status: Planning
----
-
-# Sprint 1: [Sprint Name]
-
-## Sprint Goal
-[What will we achieve this sprint?]
-
-## Stories
-
-### High Priority (Must Have)
-- [ ] STORY-001: User registration (5 points)
-- [ ] STORY-002: User login (3 points)
-
-### Medium Priority (Should Have)
-- [ ] STORY-003: Password reset (3 points)
-
-### Low Priority (Nice to Have)
-- [ ] STORY-004: Social login (5 points)
-
-## Total Points: 16 / 20 capacity
-
-## Daily Standup Notes
-[Track daily progress]
-
-## Sprint Retrospective
-[To be completed at end of sprint]
-```
-
-### Story Creation
-
-**Purpose:** Define atomic unit of work with testable acceptance criteria
-
-**Process:**
-```
-1. Use story template
-2. Write user story (As a [role], I want [feature], so that [benefit])
-3. Define testable acceptance criteria (Given/When/Then format)
-4. Define technical specification (API contracts, data models)
-5. Define non-functional requirements (performance, security)
-6. Estimate story points
-7. Set priority
-8. Initialize status: Backlog
-```
-
-**Story Template:**
-```markdown
----
-id: STORY-001
-title: User Registration
-epic: EPIC-001
-sprint: SPRINT-001
-status: Backlog
-points: 5
-priority: High
-assigned_to: Developer Name
-created: 2025-10-30
----
-
-# Story: User Registration
-
-## Description
-As a new user, I want to register an account with email and password, so that I can access the platform.
-
-## Acceptance Criteria
-
-1. [ ] **Valid Registration**
-   - Given a user with valid email and password
-   - When the user submits registration form
-   - Then account is created and confirmation email sent
-
-2. [ ] **Email Validation**
-   - Given a user with invalid email format
-   - When the user submits registration form
-   - Then validation error is displayed
-
-3. [ ] **Password Requirements**
-   - Given a user with password < 8 characters
-   - When the user submits registration form
-   - Then password strength error is displayed
-
-4. [ ] **Duplicate Email**
-   - Given an email already registered
-   - When the user attempts to register
-   - Then error message indicates email already exists
-
-## Technical Specification
-
-### API Endpoints
-
-**POST /api/auth/register**
-- **Request:**
-  ```json
-  {
-    "email": "user@example.com",
-    "password": "SecurePass123!",
-    "firstName": "John",
-    "lastName": "Doe"
-  }
-  ```
-- **Response (201 Created):**
-  ```json
-  {
-    "userId": "uuid",
-    "email": "user@example.com",
-    "message": "Registration successful. Please check your email."
-  }
-  ```
-- **Response (400 Bad Request):**
-  ```json
-  {
-    "error": "ValidationError",
-    "details": {
-      "email": "Invalid email format",
-      "password": "Password must be at least 8 characters"
-    }
-  }
-  ```
-
-### Data Models
-
-**User Entity:**
-```csharp
-public class User
-{
-    public Guid Id { get; set; }
-    public string Email { get; set; }
-    public string PasswordHash { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public bool EmailVerified { get; set; }
-}
-```
-
-### Business Rules
-1. Email must be unique across all users
-2. Password must be hashed using bcrypt (minimum 10 rounds)
-3. Email verification required before full account access
-4. Confirmation email expires after 24 hours
-
-## Non-Functional Requirements
-
-### Performance
-- Registration endpoint must respond within 500ms (p95)
-- Support 100 concurrent registrations
-
-### Security
-- Passwords must be hashed with bcrypt
-- No plaintext passwords in logs or error messages
-- Rate limiting: 5 registration attempts per IP per hour
-- HTTPS required for all auth endpoints
-
-### Scalability
-- Database must support 1M user records
-- Email queue must handle 1000 emails/minute
-
-## Dependencies
-- Email service (SendGrid/AWS SES) must be configured
-- Database migrations for User table
-- None (can be implemented independently)
-
-## Workflow Status
-- [ ] Architecture phase complete
-- [ ] Development phase complete
-- [ ] QA phase complete
-- [ ] Released
-
-## Notes
-[Additional context, design decisions, or clarifications]
-```
-
----
-
-## Workflow Orchestration Logic
-
-### Entry Point: Execute Story Workflow
-
-**Command:**
-```
-Skill(command="devforgeai-orchestration --story=STORY-001")
-```
-
-**Orchestration Process:**
-
-```
-┌─────────────────────────────────────┐
-│   Phase 1: Load Story Document      │
-├─────────────────────────────────────┤
-│ Read story file                     │
-│ Extract current status              │
-│ Parse acceptance criteria           │
-│ Load technical spec                 │
-│ Check dependencies                  │
-└──────────────┬──────────────────────┘
-               ↓
-┌─────────────────────────────────────┐
-│   Phase 2: Validate Prerequisites   │
-├─────────────────────────────────────┤
-│ Check state transition rules        │
-│ Validate required files exist       │
-│ Verify dependencies resolved        │
-│ Confirm no blockers                 │
-└──────────────┬──────────────────────┘
-               ↓
-┌─────────────────────────────────────┐
-│   Phase 3: Execute Workflow Stage   │
-├─────────────────────────────────────┤
-│ Invoke appropriate skill            │
-│ Monitor progress                    │
-│ Handle errors/blockers              │
-│ Collect results                     │
-└──────────────┬──────────────────────┘
-               ↓
-┌─────────────────────────────────────┐
-│   Phase 4: Update Story Status      │
-├─────────────────────────────────────┤
-│ Transition to next state            │
-│ Update workflow checkboxes          │
-│ Append workflow history             │
-│ Update timestamps                   │
-└──────────────┬──────────────────────┘
-               ↓
-┌─────────────────────────────────────┐
-│   Phase 5: Determine Next Action    │
-├─────────────────────────────────────┤
-│ Check if more stages needed         │
-│ Report current status               │
-│ Provide next steps                  │
-└─────────────────────────────────────┘
-```
-
-### Phase 1: Load Story Document
-
-```
-Read(file_path="ai_docs/Stories/{story_id}.story.md")
-
-# Extract frontmatter
-story_metadata = parse_yaml_frontmatter(content)
-  - id
-  - title
-  - epic
-  - sprint
+Extract YAML frontmatter:
+  - id, title, epic, sprint
   - status (current state)
-  - points
-  - priority
-  - assigned_to
-  - created date
+  - points, priority
+  - assigned_to, created
 
-# Parse content sections
-acceptance_criteria = extract_section("Acceptance Criteria")
-technical_spec = extract_section("Technical Specification")
-nfrs = extract_section("Non-Functional Requirements")
-dependencies = extract_section("Dependencies")
-workflow_status = extract_section("Workflow Status")
-
-# Validate story structure
-IF missing_required_sections:
-    Report: "Story malformed - missing required sections"
-    Action: Guide user to fix story structure
-    BLOCK
-
-# Store in memory for workflow execution
-story_context = {
-    "metadata": story_metadata,
-    "criteria": acceptance_criteria,
-    "spec": technical_spec,
-    "nfrs": nfrs,
-    "dependencies": dependencies,
-    "current_status": story_metadata.status
-}
+Extract content sections:
+  - Acceptance criteria
+  - Technical specification
+  - NFRs
+  - Dependencies
+  - Workflow status
 ```
 
-### Phase 2: Validate Prerequisites
-
-**Status-specific validation logic:**
-
+#### Step 2: Validate Current State
 ```
-CASE status == "Backlog":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ Story assigned to sprint?
-      ✓ Has acceptance criteria (at least 1)?
-      ✓ Has technical specification?
-      ✓ Dependencies resolved?
+Check status is valid workflow state
+Verify prerequisites for requested transition
 
-    IF all_checks_pass:
-        READY: Transition to Architecture
-    ELSE:
-        BLOCK: Document missing prerequisites
-        AskUserQuestion: How to resolve? (Add to backlog, clarify spec, etc.)
-
-CASE status == "Architecture":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ All 6 context files exist?
-
-    # Check for context files
-    context_files = [
-        ".devforgeai/context/tech-stack.md",
-        ".devforgeai/context/source-tree.md",
-        ".devforgeai/context/dependencies.md",
-        ".devforgeai/context/coding-standards.md",
-        ".devforgeai/context/architecture-constraints.md",
-        ".devforgeai/context/anti-patterns.md"
-    ]
-
-    missing_files = []
-    FOR each file in context_files:
-        IF NOT file_exists(file):
-            missing_files.append(file)
-
-    IF missing_files.empty:
-        READY: Transition to Ready for Dev
-    ELSE:
-        ACTION: Invoke devforgeai-architecture to create missing files
-        WAIT: For architecture skill completion
-
-CASE status == "Ready for Dev":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ Context files up to date (modified recently)?
-      ✓ No architecture violations flagged?
-      ✓ Developer ready to start?
-
-    # Validate context files are not stale
-    FOR each context_file:
-        age_days = (now - file_modified_time(context_file)).days
-        IF age_days > 30:
-            WARNING: Context file may be stale: {context_file}
-            AskUserQuestion: Review architecture before development?
-
-    IF ready:
-        READY: Transition to In Development
-    ELSE:
-        WAIT: For developer to start work
-
-CASE status == "In Development":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ Development workflow in progress?
-      ✓ No blockers reported?
-
-    # Check if dev workflow complete (Phase 5 Git done)
-    IF dev_workflow_complete:
-        READY: Transition to Dev Complete
-    ELSE:
-        STATUS: Development in progress
-        MONITOR: Continue tracking
-
-CASE status == "Dev Complete":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ All tests pass?
-      ✓ Build succeeds?
-      ✓ Light validation passed?
-
-    # Run quick validation
-    TRY:
-        # Check build status (read recent build output or run build)
-        build_status = check_build_status()
-        test_status = check_test_status()
-
-        IF build_status == "failed" OR test_status == "failed":
-            BLOCK: Fix build/test failures before QA
-            ACTION: Return to In Development
-        ELSE:
-            READY: Transition to QA In Progress
-
-CASE status == "QA In Progress":
-    ──────────────────────────────────────────────
-    STATUS: QA validation running
-    WAIT: For devforgeai-qa skill to complete
-    MONITOR: Track QA progress
-
-    # This state transitions automatically when QA completes
-    # (either to QA Approved or QA Failed)
-
-CASE status == "QA Failed":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ Action items documented?
-      ✓ Developer ready to fix?
-
-    # Read QA report to show developer what failed
-    Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
-
-    Report: "QA Failed - {violation_count} violations detected"
-    Show: Critical and high violations with fix guidance
-
-    IF developer_ready_to_fix:
-        READY: Transition to In Development
-        ACTION: Re-invoke devforgeai-development with context
-    ELSE:
-        WAIT: For developer to start fixes
-
-CASE status == "QA Approved":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ QA report exists with PASS status?
-      ✓ All acceptance criteria validated?
-      ✓ Ready for release?
-
-    # Verify QA approval
-    qa_report_exists = file_exists(f".devforgeai/qa/reports/{story_id}-qa-report.md")
-
-    IF qa_report_exists:
-        Read(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md")
-        # Parse status from report
-
-        IF qa_status == "PASS":
-            READY: Transition to Releasing (when release triggered)
-        ELSE:
-            ERROR: Inconsistent state (status=QA Approved but report=FAIL)
-            ACTION: Fix state inconsistency
-    ELSE:
-        ERROR: QA report missing
-        ACTION: Re-run QA validation
-
-CASE status == "Releasing":
-    ──────────────────────────────────────────────
-    STATUS: Release in progress
-    WAIT: For devforgeai-release skill to complete
-    MONITOR: Deployment status
-
-CASE status == "Released":
-    ──────────────────────────────────────────────
-    STATUS: Story complete
-    Report: "Story {story_id} successfully released to production"
-    Action: Close story, update sprint progress
-    COMPLETE
-
-CASE status == "Blocked":
-    ──────────────────────────────────────────────
-    CHECKS:
-      ✓ Blocker documented?
-      ✓ Resolution plan exists?
-
-    # Read blocker notes from story
-    blocker_info = extract_blocker_info(story)
-
-    Report: "Story blocked: {blocker_reason}"
-    AskUserQuestion: "How to resolve blocker?"
-      - Wait for dependency
-      - Create workaround/mock
-      - De-prioritize story
-      - Escalate
-
-    WAIT: Until blocker resolved
+For validation rules: See references/state-transitions.md
 ```
 
-### Phase 3: Execute Workflow Stage
-
-**Skill invocation based on current status:**
-
+#### Step 3: Validate Quality Gates
 ```
-──────────────────────────────────────────────────
-ARCHITECTURE PHASE
-──────────────────────────────────────────────────
+Check gate requirements for current → next transition
 
-IF status == "Architecture" AND context_files_missing:
+Gate 1: Context Validation (Architecture → Ready for Dev)
+Gate 2: Test Passing (Dev Complete → QA In Progress)
+Gate 3: QA Approval (QA Approved → Releasing)
+Gate 4: Release Readiness (Releasing → Released)
 
-    Report: "Context files missing. Invoking architecture skill..."
+For gate requirements: See references/quality-gates.md
 
-    # Invoke architecture skill
-    Skill(command="devforgeai-architecture")
-
-    # Architecture skill will:
-    #   1. Create/validate all 6 context files
-    #   2. Create ADRs for major decisions
-    #   3. Validate no architecture violations
-
-    WAIT for architecture skill completion
-
-    # Parse results
-    context_files_created = verify_context_files_exist()
-
-    IF context_files_created:
-        Report: "✅ Architecture phase complete"
-        UPDATE story:
-            - Check workflow box: "Architecture phase complete"
-            - Transition status: Architecture → Ready for Dev
-            - Append workflow history entry
-    ELSE:
-        Report: "❌ Architecture phase failed"
-        BLOCK: Cannot proceed without context files
-
-──────────────────────────────────────────────────
-DEVELOPMENT PHASE
-──────────────────────────────────────────────────
-
-IF status == "In Development":
-
-    Report: "Starting TDD development workflow..."
-
-    # Invoke development skill with story context
-    Skill(command="devforgeai-development --story={story_id}")
-
-    # Development skill will execute 5 phases:
-    #   Phase 1: Context Validation
-    #   Phase 2: Test-First (Red)
-    #   Phase 3: Implementation (Green)
-    #   Phase 4: Refactor
-    #   Phase 5: Integration
-    #   Phase 6: Git workflow
-
-    # During development, devforgeai-qa is invoked automatically for light validation:
-    #   - After Phase 3 (Implementation): light validation
-    #   - After Phase 4 (Refactor): light validation
-    #   - After Phase 5 (Integration): light validation
-
-    MONITOR development progress
-
-    # Development skill will update story when complete
-    # (This is monitored, not blocking)
-
-    WHEN development_complete:
-        # Development skill marks Phase 6 complete
-        Report: "✅ Development phase complete"
-
-        UPDATE story:
-            - Check workflow box: "Development phase complete"
-            - Transition status: In Development → Dev Complete
-            - Append workflow history entry
-
-──────────────────────────────────────────────────
-QA VALIDATION PHASE
-──────────────────────────────────────────────────
-
-IF status == "Dev Complete":
-
-    Report: "Development complete. Starting deep QA validation..."
-
-    # Invoke QA skill for comprehensive validation
-    Skill(command="devforgeai-qa --mode=deep --story={story_id}")
-
-    # QA skill will execute 5 phases:
-    #   Phase 1: Test Coverage Analysis
-    #   Phase 2: Anti-Pattern Detection
-    #   Phase 3: Spec Compliance Validation
-    #   Phase 4: Code Quality Metrics
-    #   Phase 5: Generate QA Report
-
-    WAIT for QA completion
-
-    # Parse QA results
-    Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
-
-    qa_status = parse_qa_status(qa_report)
-    critical_count = count_violations(qa_report, severity="CRITICAL")
-    high_count = count_violations(qa_report, severity="HIGH")
-    coverage = parse_coverage_percentage(qa_report)
-
-    IF qa_status == "PASS":
-        Report: "✅ QA validation PASSED"
-        Report: f"  Coverage: {coverage}%"
-        Report: f"  Critical issues: 0"
-        Report: f"  High issues: 0"
-
-        UPDATE story:
-            - Check workflow box: "QA phase complete"
-            - Transition status: QA In Progress → QA Approved
-            - Append QA report section to story
-            - Append workflow history entry
-
-    ELSE:  # qa_status == "FAIL"
-        Report: "❌ QA validation FAILED"
-        Report: f"  Critical issues: {critical_count}"
-        Report: f"  High issues: {high_count}"
-        Report: f"  Coverage: {coverage}% (thresholds: 95%/85%/80%)"
-
-        # Extract action items from QA report
-        action_items = parse_action_items(qa_report)
-
-        Report: "Action Items:"
-        FOR each item in action_items:
-            Report: f"  - {item.priority}: {item.action}"
-
-        UPDATE story:
-            - Transition status: QA In Progress → QA Failed
-            - Append QA report section to story
-            - Append action items
-            - Append workflow history entry
-
-        NEXT: Return to development to fix issues
-
-──────────────────────────────────────────────────
-RELEASE PHASE (Future - devforgeai-release skill)
-──────────────────────────────────────────────────
-
-IF status == "QA Approved" AND release_triggered:
-
-    Report: "QA approved. Starting release process..."
-
-    # Invoke release skill
-    Skill(command="devforgeai-release --story={story_id}")
-
-    # Release skill will:
-    #   1. Verify QA approval
-    #   2. Create release branch/tag
-    #   3. Run deployment pipeline
-    #   4. Verify deployment health
-    #   5. Update release notes
-
-    WAIT for release completion
-
-    # Parse release results
-    IF release_successful:
-        Report: "✅ Release successful"
-
-        UPDATE story:
-            - Check workflow box: "Released"
-            - Transition status: Releasing → Released
-            - Append release info (version, environment, timestamp)
-            - Append workflow history entry
-
-        # Update sprint progress
-        update_sprint_progress(story.sprint)
-
-    ELSE:
-        Report: "❌ Release failed"
-        BLOCK: Rollback or fix deployment issues
+HALT if gate requirements not met
 ```
 
-### Phase 4: Update Story Status
+---
+
+### Phase 2: Orchestrate Skill Invocation
+
+#### Architecture Phase (Backlog → Ready for Dev)
+```
+Check for context files (.devforgeai/context/*.md)
+
+IF missing:
+    Invoke: Skill(command="devforgeai-architecture")
+    Wait for completion
+    Validate all 6 context files created
+    Update story status: Architecture → Ready for Dev
+
+For context validation gate details: See references/quality-gates.md
+```
+
+#### Development Phase (Ready for Dev → Dev Complete)
+```
+Invoke: Skill(command="devforgeai-development --story={story_id}")
+
+Development skill executes TDD workflow:
+  - Phase 1: Context Validation
+  - Phase 2: Test-First (Red)
+  - Phase 3: Implementation (Green) + light QA
+  - Phase 4: Refactor + light QA
+  - Phase 5: Integration + light QA
+  - Phase 6: Git workflow
+
+Update story status: In Development → Dev Complete
+Check workflow box: "Development phase complete"
+
+For test passing gate details: See references/quality-gates.md
+```
+
+#### QA Phase (Dev Complete → QA Approved/Failed)
+```
+Invoke: Skill(command="devforgeai-qa --mode=deep --story={story_id}")
+
+QA skill executes 5 phases:
+  - Phase 1: Test Coverage Analysis
+  - Phase 2: Anti-Pattern Detection
+  - Phase 3: Spec Compliance Validation
+  - Phase 4: Code Quality Metrics
+  - Phase 5: Generate QA Report
+
+Parse QA report:
+Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+
+IF qa_status == "PASS":
+    Update status: QA In Progress → QA Approved
+    Check workflow box: "QA phase complete"
+    Append QA report section to story
+ELSE:
+    Update status: QA In Progress → QA Failed
+    Extract action items
+    Return to In Development
+
+For QA approval gate details: See references/quality-gates.md
+```
+
+#### Release Phase (QA Approved → Released)
+```
+Invoke: Skill(command="devforgeai-release --story={story_id}")
+
+Release skill executes deployment
+
+IF successful:
+    Update status: Releasing → Released
+    Check workflow box: "Released"
+    Append release info
+    Update sprint progress
+    Update epic progress
+
+For release readiness gate details: See references/quality-gates.md
+```
+
+---
+
+### Phase 3: Sprint Planning Workflow
+
+**Purpose:** Execute complete sprint planning with story selection, capacity validation, and sprint file creation.
+
+**Triggered when conversation contains:**
+- "Operation: plan-sprint"
+- Sprint planning parameters (sprint name, selected stories, duration, epic)
+
+**Prerequisites:**
+- At least 1 story in Backlog status
+- Valid epic linkage (optional but recommended)
+- Sprint name provided by user
+- Story selection completed (via command's AskUserQuestion)
+
+---
+
+#### Step 1: Extract Sprint Planning Context
+
+**Parse conversation for sprint parameters:**
 
 ```
-# Update frontmatter status
-Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-     old_string=f"status: {old_status}",
-     new_string=f"status: {new_status}")
+SPRINT_NAME = extract from "Sprint Name: (.*)" pattern
+SELECTED_STORIES = extract from "Selected Stories: (.*)" pattern (comma-separated STORY-\d+ IDs)
+DURATION_DAYS = extract from "Duration: (\d+) days" pattern (default: 14)
+EPIC_ID = extract from "Epic: (.*)" pattern (optional)
+START_DATE = extract from "Start Date: (.*)" pattern (default: today)
+```
 
-# Update workflow checkboxes
-workflow_updates = {
-    "Architecture → Ready for Dev": "- [x] Architecture phase complete",
-    "In Development → Dev Complete": "- [x] Development phase complete",
-    "QA In Progress → QA Approved": "- [x] QA phase complete",
-    "Releasing → Released": "- [x] Released"
+**Validate extracted parameters:**
+
+```
+IF SPRINT_NAME is empty:
+    HALT: "Sprint name required. Set context marker: Sprint Name: {name}"
+
+IF SELECTED_STORIES is empty:
+    HALT: "No stories selected. Set context marker: Selected Stories: STORY-001, STORY-002"
+
+IF DURATION_DAYS not in [7, 14, 21] and not custom:
+    Use default: 14 days
+```
+
+**Validate stories exist and in correct status:**
+
+```
+FOR each story_id in SELECTED_STORIES:
+    Glob(pattern=".ai_docs/Stories/${story_id}*.story.md")
+
+    IF not found:
+        HALT: "Story ${story_id} does not exist"
+
+    Read YAML frontmatter
+
+    IF status != "Backlog":
+        HALT: "Story ${story_id} status is '${status}', not 'Backlog'. Only Backlog stories can be added to sprints."
+```
+
+---
+
+#### Step 2: Invoke sprint-planner Subagent
+
+**Purpose:** Execute sprint creation workflow in isolated context for token efficiency
+
+**Invocation:**
+
+```
+Task(
+  subagent_type="sprint-planner",
+  description="Create sprint with selected stories",
+  prompt="Execute complete sprint planning workflow:
+
+**Sprint Parameters:**
+- Sprint Name: ${SPRINT_NAME}
+- Selected Stories: ${SELECTED_STORIES}
+- Duration: ${DURATION_DAYS} days
+- Start Date: ${START_DATE}
+- Epic: ${EPIC_ID}
+
+**Workflow Steps:**
+
+1. **Sprint Discovery** - Glob existing sprints, parse numbers, calculate next sequential ID
+2. **Story Validation** - Read each selected story, verify Backlog status, extract metadata
+3. **Metrics Calculation** - Sum story points, calculate end date (start + duration), validate capacity
+4. **Sprint Document Generation** - Create YAML frontmatter + markdown sections (goals, stories, metrics)
+5. **Story Status Updates** - Edit each story: status Backlog → Ready for Dev, add sprint reference, workflow history
+6. **Summary Report** - Return structured JSON with sprint details and next steps
+
+**Framework Constraints:**
+
+Load reference file for sprint planning guidelines:
+Read(file_path=\".claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md\")
+
+This provides:
+- Capacity thresholds (20-40 points for 2-week sprints)
+- Status transition rules (Backlog → Ready for Dev prerequisites)
+- Sprint file structure (YAML frontmatter, markdown sections)
+- Workflow history format
+- Integration patterns
+
+**Expected Output:**
+
+Return JSON with:
+{
+  \"sprint_id\": \"SPRINT-N\",
+  \"file_path\": \".ai_docs/Sprints/Sprint-N.md\",
+  \"stories_updated\": [\"STORY-001\", \"STORY-002\", ...],
+  \"total_points\": 28,
+  \"capacity_status\": \"OPTIMAL|OVER|UNDER\",
+  \"start_date\": \"YYYY-MM-DD\",
+  \"end_date\": \"YYYY-MM-DD\",
+  \"epic\": \"EPIC-ID or Multiple or Standalone\",
+  \"next_steps\": [\"Action 1\", \"Action 2\", ...]
 }
 
-IF transition in workflow_updates:
-    Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-         old_string="- [ ] " + workflow_updates[transition].replace("- [x] ", ""),
-         new_string=workflow_updates[transition])
+Execute sprint planning workflow following all DevForgeAI constraints."
+)
+```
 
-# Append workflow history entry
-history_entry = f"""
+**Why use subagent:**
+- Token efficiency (35K tokens in isolated context vs main conversation)
+- Framework-aware (references sprint-planning-guide.md)
+- Reusable (can be invoked from multiple sources)
+- Comprehensive (handles all file operations and validation)
+
+---
+
+#### Step 3: Process Subagent Result
+
+**Parse returned JSON:**
+
+```
+result = subagent_output
+
+sprint_id = result["sprint_id"]
+file_path = result["file_path"]
+stories_updated = result["stories_updated"]
+total_points = result["total_points"]
+capacity_status = result["capacity_status"]
+start_date = result["start_date"]
+end_date = result["end_date"]
+epic = result["epic"]
+next_steps = result["next_steps"]
+```
+
+**Validate sprint creation:**
+
+```
+Read(file_path="${file_path}")
+
+Verify:
+- YAML frontmatter present and valid
+- Sprint ID matches expected pattern (SPRINT-\d+)
+- All selected stories listed
+- Capacity calculated correctly
+```
+
+**Verify story updates:**
+
+```
+FOR each story_id in stories_updated:
+    Read(file_path=".ai_docs/Stories/${story_id}.story.md")
+
+    Verify:
+    - status == "Ready for Dev"
+    - sprint == sprint_id
+    - Workflow history entry added with timestamp
+```
+
+---
+
+#### Step 4: Return Sprint Summary to Command
+
+**Format result for command display:**
+
+```
+✅ Sprint Created Successfully
+
+Sprint Details:
+  📋 ${sprint_id}: ${SPRINT_NAME}
+  📅 Duration: ${start_date} to ${end_date} (${DURATION_DAYS} days)
+  🎯 Epic: ${epic}
+  📊 Capacity: ${total_points} points (${capacity_status})
+  📝 Stories: ${stories_updated.length} stories selected
+
+Stories Added to Sprint:
+  ${FOR each story in stories_updated:
+    ✓ ${story}: ${title} (${points} points) - ${priority}
+  }
+
+Sprint File Created:
+  📁 ${file_path}
+
+Next Steps:
+  ${FOR each step in next_steps:
+    ${step}
+  }
+```
+
+---
+
+#### Error Handling: Sprint Planning
+
+**Error: No Backlog Stories**
+
+```
+IF subagent returns error.type == "NO_BACKLOG_STORIES":
+
+    Display:
+    ⚠️ No Stories Available for Sprint
+
+    Story Status Breakdown:
+      ${error.status_breakdown}
+
+    Recommendations:
+      1. Create new stories: /create-story
+      2. Check story statuses (may need to move back to Backlog)
+      3. Plan next epic: /create-epic
+
+    Cannot create sprint without Backlog stories.
+
+    HALT
+```
+
+**Error: Invalid Story Selection**
+
+```
+IF subagent returns error.type == "INVALID_STORIES":
+
+    Display:
+    ❌ Invalid Story Selection
+
+    Issues Found:
+      ${FOR each invalid in error.invalid_ids:
+        - ${invalid}: Does not exist
+      }
+      ${FOR each wrong in error.wrong_status:
+        - ${wrong.id}: Status is "${wrong.status}" (not Backlog)
+      }
+
+    Valid Stories Available:
+      ${error.valid_stories}
+
+    Please provide valid story IDs in Backlog status.
+
+    HALT
+```
+
+**Error: Capacity Validation Failed**
+
+```
+IF capacity_status == "OVER":
+
+    Display:
+    ⚠️ Sprint Over Capacity
+
+    Selected Stories: ${total_points} points
+    Recommended Maximum: 40 points
+    Overage: ${total_points - 40} points
+
+    Sprint created but consider:
+    - Removing lower priority stories
+    - Adjusting team capacity expectations
+    - Extending sprint duration
+```
+
+**Error: Sprint File Creation Failed**
+
+```
+IF subagent returns error.type == "FILE_WRITE_FAILED":
+
+    Display:
+    ❌ Sprint File Creation Failed
+
+    Cause: ${error.cause}
+
+    Recovery attempted: ${error.recovery_steps}
+
+    Status: ${error.recovery_success ? "Recovered" : "Failed"}
+
+    ${IF not recovered:
+        Manual action required:
+        ${error.manual_steps}
+    }
+
+    HALT
+```
+
+---
+
+### Phase 3A: Update Story Status
+
+#### Update Frontmatter
+```
+Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+     old_string="status: {old_status}",
+     new_string="status: {new_status}")
+```
+
+#### Update Workflow Checkboxes
+```
+Mark phase as complete: - [ ] → - [x]
+
+Checkboxes:
+- Architecture phase complete
+- Development phase complete
+- QA phase complete
+- Released
+```
+
+#### Append Workflow History
+```
+Add entry (format):
 ### {timestamp} - {new_status}
 - **Previous Status:** {old_status}
-- **Action Taken:** {action_description}
-- **Result:** {result_summary}
+- **Action Taken:** {description}
+- **Result:** {summary}
 - **Next Steps:** {next_steps}
-"""
 
-# Add history section if it doesn't exist
-IF "## Workflow History" not in story_content:
-    Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-         old_string="## Notes",
-         new_string="## Workflow History\n\n" + history_entry + "\n\n## Notes")
-ELSE:
-    # Append to existing history
-    Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-         old_string="## Workflow History\n\n",
-         new_string="## Workflow History\n\n" + history_entry + "\n")
-
-# Update timestamps
-IF new_status == "Released":
-    # Add completed timestamp to frontmatter
-    Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-         old_string="created: {created_date}",
-         new_string=f"created: {created_date}\ncompleted: {timestamp}")
+For workflow history format and examples: See references/story-management.md
 ```
+
+---
+
+### Phase 4: Epic and Sprint Management
+
+#### Epic Creation
+```
+Load requirements from ideation phase
+Create epic document with YAML frontmatter
+Decompose into features
+Estimate epic effort
+
+For epic planning procedures: See references/epic-management.md
+
+Template: assets/templates/epic-template.md
+```
+
+#### Sprint Planning
+
+**NOTE:** Sprint planning workflow is now handled by Phase 3 (above).
+
+**Phase 3 provides:**
+- Complete sprint creation workflow
+- Story selection and capacity validation
+- Sprint file generation
+- Story status updates (Backlog → Ready for Dev)
+- Framework-aware via sprint-planner subagent
+
+**Legacy reference:** See references/sprint-planning-guide.md
+
+#### Story Creation
+
+**Delegate to story-creation skill:**
+
+```
+Skill(command="devforgeai-story-creation")
+```
+
+**The story-creation skill handles:**
+- Story ID generation, epic/sprint association, metadata collection
+- Requirements analysis (requirements-analyst subagent)
+- Technical specification (api-designer subagent, data models, business rules)
+- UI specification (components, mockups, accessibility)
+- Story file creation with all sections
+- Epic/sprint linking
+- Quality validation
+
+**For story lifecycle management** (status updates, workflow history):
+See references/story-management.md
+
+---
+
+### Phase 4.5: Deferred Work Tracking (NEW - RCA-006)
+
+**Purpose:** Ensure deferred DoD items are tracked and not lost
+
+**Triggered when:**
+- Story reaches "Dev Complete" status
+- Implementation Notes contain deferred items ([ ] status)
+- Before QA validation begins
+- During sprint planning (debt analysis)
+
+**Workflow:**
+
+#### Step 1: Scan for Deferrals
+
+```
+Read story > Implementation Notes > Definition of Done Status
+
+Extract all items marked [ ] (incomplete)
+Count deferrals by type:
+- Story splits: {count}
+- Scope changes: {count}
+- External blockers: {count}
+```
+
+#### Step 2: Validate Deferral Tracking
+
+```
+FOR each deferral:
+    reason_type = parse_deferral_type(reason)
+
+    IF reason_type == "story_split":
+        referenced_story = extract_story_id(reason)
+
+        Glob(pattern=".ai_docs/Stories/{referenced_story}*.md")
+
+        IF not found:
+            WARN: "Referenced {referenced_story} not found"
+
+            AskUserQuestion:
+                Question: "Deferral references {referenced_story} but story doesn't exist. Create it?"
+                Header: "Missing story"
+                Options:
+                    - "Yes - create tracking story now"
+                    - "No - I'll create it manually"
+                    - "Fix reference (I meant different story)"
+                multiSelect: false
+
+            IF "Yes":
+                # Set context for story-creation skill
+                **Feature Description:** Create tracking story for deferred work: {item}
+                **Story ID:** {referenced_story} (specific ID requested)
+                **Epic:** {current_story.epic} (same epic as original story)
+                **Sprint:** Backlog (will be planned later)
+
+                # Invoke story-creation skill
+                Skill(command="devforgeai-story-creation")
+
+    ELSE IF reason_type == "scope_change":
+        adr_reference = extract_adr_id(reason)
+
+        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+
+        IF not found:
+            WARN: "Referenced {adr_reference} not found"
+
+            AskUserQuestion:
+                Question: "Deferral references {adr_reference} but ADR doesn't exist. Create it?"
+                Header: "Missing ADR"
+                Options:
+                    - "Yes - document scope change in ADR"
+                    - "No - I'll create it manually"
+                    - "Change justification (not scope change)"
+                multiSelect: false
+
+            IF "Yes":
+                Task(
+                    subagent_type="architect-reviewer",
+                    description="Create scope change ADR",
+                    prompt="Create {adr_reference} documenting scope change for: '{item}'"
+                )
+
+    ELSE IF reason_type == "external_blocker":
+        # Verify logged in technical debt register
+
+        # Auto-create debt register from template if doesn't exist
+        Check if .devforgeai/technical-debt-register.md exists
+        IF not found:
+            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
+            Write(.devforgeai/technical-debt-register.md, content=template)
+            Display: "Created technical debt register from template"
+
+        Read .devforgeai/technical-debt-register.md
+        Search for {story_id} and {item}
+
+        IF not found:
+            Append to register (format from template)
+```
+
+#### Step 3: Analyze Debt Trends (Periodic)
+
+```
+IF invoked during sprint planning OR retrospective:
+    Task(
+        subagent_type="technical-debt-analyzer",
+        description="Analyze accumulated technical debt",
+        prompt="Analyze current technical debt from deferrals.
+
+                Generate trends, identify oldest items, recommend actions.
+
+                Focus on:
+                - Items >90 days old (stale debt)
+                - Circular deferrals (CRITICAL - must resolve)
+                - Pattern detection (common deferral reasons)
+                - Deferral rate trends by sprint
+
+                Provide recommendations for upcoming sprint planning."
+    )
+
+    debt_analysis = {result from subagent}
+
+    Display debt analysis summary to user
+
+    IF debt_analysis.open_items > 10:
+        RECOMMEND: "High technical debt ({count} items) - schedule debt reduction sprint"
+
+    IF debt_analysis.circular_deferrals detected:
+        CRITICAL: "Circular deferrals must be resolved immediately"
+        List circular chains
+
+    IF debt_analysis.stale_items (>90 days) exist:
+        WARN: "{count} stale debt items - review and close or escalate"
+```
+
+---
 
 ### Phase 5: Determine Next Action
 
+Based on current state, determine next orchestration action:
+
 ```
-# Decision tree for next action
-DECISION_TREE = {
-    "Backlog": {
-        "next": "Architecture",
-        "action": "Invoke devforgeai-architecture",
-        "message": "Story moved to Architecture phase"
-    },
-    "Architecture": {
-        "next": "Ready for Dev",
-        "action": "Context files created",
-        "message": "Story ready for development"
-    },
-    "Ready for Dev": {
-        "next": "In Development",
-        "action": "Awaiting developer to start",
-        "message": "Story ready - developer can begin TDD workflow"
-    },
-    "In Development": {
-        "next": "Dev Complete",
-        "action": "Continue TDD workflow",
-        "message": "Development in progress (monitoring)"
-    },
-    "Dev Complete": {
-        "next": "QA In Progress",
-        "action": "Invoke devforgeai-qa deep validation",
-        "message": "Starting comprehensive QA validation"
-    },
-    "QA In Progress": {
-        "next": "QA Approved or QA Failed",
-        "action": "Wait for QA completion",
-        "message": "QA validation running..."
-    },
-    "QA Failed": {
-        "next": "In Development",
-        "action": "Developer fixes violations",
-        "message": "Return to development to address QA issues"
-    },
-    "QA Approved": {
-        "next": "Releasing",
-        "action": "Trigger release when ready",
-        "message": "Story approved - ready for release"
-    },
-    "Releasing": {
-        "next": "Released",
-        "action": "Deploy to production",
-        "message": "Release in progress"
-    },
-    "Released": {
-        "next": "COMPLETE",
-        "action": "None",
-        "message": "Story successfully released to production"
-    },
-    "Blocked": {
-        "next": "Previous state when unblocked",
-        "action": "Resolve blocker",
-        "message": "Story blocked - waiting for resolution"
-    }
-}
-
-current_decision = DECISION_TREE[new_status]
-
-Report: f"""
-════════════════════════════════════════════════
-Story {story_id}: {story_title}
-════════════════════════════════════════════════
-
-Current Status: {new_status}
-Next State: {current_decision["next"]}
-Action Required: {current_decision["action"]}
-
-{current_decision["message"]}
-
-────────────────────────────────────────────────
-"""
-
-# Provide specific next steps based on state
-IF new_status == "Ready for Dev":
-    Report: """
-Next Steps:
-1. Developer: Invoke devforgeai-development --story={story_id}
-2. Follow TDD workflow (Red → Green → Refactor)
-3. Light QA validation will run automatically during development
-4. When complete, story will move to QA validation
-"""
-
-IF new_status == "QA Failed":
-    Report: f"""
-QA Failures:
-- Critical: {critical_count}
-- High: {high_count}
-- Coverage: {coverage}%
-
-Action Items:
-{format_action_items(action_items)}
-
-Next Steps:
-1. Review QA report: .devforgeai/qa/reports/{story_id}-qa-report.md
-2. Fix violations according to priority
-3. Re-run development workflow
-4. QA will automatically re-validate
-"""
-
-IF new_status == "QA Approved":
-    Report: """
-✅ Story approved for release!
-
-Quality Metrics:
-- Coverage: {coverage}%
-- Zero critical violations
-- Zero high violations
-- All acceptance criteria validated
-
-Next Steps:
-1. Review QA report for any medium/low recommendations
-2. When ready: Invoke devforgeai-release --story={story_id}
-3. Or wait for coordinated sprint release
-"""
-
-IF new_status == "Released":
-    Report: """
-🎉 Story successfully released!
-
-Release Info:
-- Version: {version}
-- Environment: {environment}
-- Timestamp: {timestamp}
-
-Next Steps:
-1. Monitor production for issues
-2. Update sprint progress
-3. Start next story
-"""
+Backlog → Architecture: Invoke devforgeai-architecture
+Architecture → Ready for Dev: Context files created, ready for developer
+Ready for Dev → In Development: Developer starts work
+In Development → Dev Complete: TDD workflow complete
+Dev Complete → QA In Progress: Invoke devforgeai-qa
+QA Approved → Releasing: Invoke devforgeai-release when ready
+Releasing → Released: Deployment complete
+QA Failed → In Development: Developer fixes violations
+Blocked → Previous State: When blocker resolved
 ```
+
+**For complete decision tree:** See `references/state-transitions.md`
 
 ---
 
-## Quality Gates
+## Quality Gate Enforcement
 
-### Gate 1: Context Validation Gate
+### Four Gates Block Workflow Progression
 
-**Purpose:** Ensure architectural foundation exists before development
+1. **Context Validation Gate** (Architecture → Ready for Dev)
+   - All 6 context files exist and valid
+   - No placeholder content
+   - Tech stack locked
 
-**When:** Before transitioning from Architecture → Ready for Dev
+2. **Test Passing Gate** (Dev Complete → QA In Progress)
+   - Build succeeds
+   - All tests pass (100% pass rate)
+   - Light validation clean
 
-**Checks:**
-```
-1. All 6 context files exist:
-   ✓ tech-stack.md
-   ✓ source-tree.md
-   ✓ dependencies.md
-   ✓ coding-standards.md
-   ✓ architecture-constraints.md
-   ✓ anti-patterns.md
+3. **QA Approval Gate** (QA Approved → Releasing)
+   - Deep validation PASSED
+   - Coverage meets thresholds (95%/85%/80%)
+   - Zero CRITICAL violations
+   - Zero HIGH violations (or approved exceptions)
 
-2. Files are not empty (> 100 characters each)
+4. **Release Readiness Gate** (Releasing → Released)
+   - Deployment successful
+   - Health checks pass
+   - All workflow checkboxes complete
 
-3. No placeholder content:
-   ✗ "TODO", "TBD", "To be determined"
-   ✗ Template boilerplate not replaced
-
-4. Architecture constraints defined:
-   ✓ Layer boundaries documented
-   ✓ Dependency rules specified
-   ✓ Design patterns identified
-
-5. Tech stack locked:
-   ✓ All technology choices documented
-   ✓ Versions specified
-   ✓ Rationale provided (in ADRs)
-
-6. Source tree documented:
-   ✓ Folder structure defined
-   ✓ File organization rules specified
-   ✓ Naming conventions documented
-```
-
-**Pass Criteria:** All 6 checks pass
-
-**Fail Action:**
-- BLOCK transition
-- Invoke devforgeai-architecture to create/update context files
-- Re-validate after architecture skill completes
-
-### Gate 2: Test Passing Gate
-
-**Purpose:** Ensure basic quality before comprehensive QA
-
-**When:** Before transitioning from Dev Complete → QA In Progress
-
-**Checks:**
-```
-1. Build succeeds:
-   ✓ No compilation errors
-   ✓ No missing dependencies
-   ✓ All projects build successfully
-
-2. All tests pass:
-   ✓ Unit tests: 100% pass rate
-   ✓ Integration tests: 100% pass rate
-   ✓ E2E tests: 100% pass rate
-
-3. No syntax errors:
-   ✓ Linting passes (or auto-fixed)
-   ✓ No critical linting violations
-
-4. Light validation passed:
-   ✓ Quick anti-pattern scan clean
-   ✓ No critical security issues
-   ✓ No obvious architecture violations
-```
-
-**Pass Criteria:** All tests pass, build succeeds
-
-**Fail Action:**
-- BLOCK transition
-- Report test failures to developer
-- Return to In Development status
-- Require fixes before QA validation
-
-### Gate 3: QA Approval Gate
-
-**Purpose:** Ensure production readiness and quality standards
-
-**When:** Before transitioning from QA Approved → Releasing
-
-**Checks:**
-```
-1. Deep validation PASSED:
-   ✓ Overall status = PASS
-   ✓ QA report generated
-
-2. Coverage meets strict thresholds:
-   ✓ Business logic: ≥ 95%
-   ✓ Application layer: ≥ 85%
-   ✓ Infrastructure: ≥ 80%
-   ✓ Overall project: ≥ 80%
-
-3. Zero CRITICAL violations:
-   ✗ SQL injection
-   ✗ XSS vulnerabilities
-   ✗ Hardcoded secrets
-   ✗ Layer boundary violations
-   ✗ Library substitution
-
-4. Zero HIGH violations (or approved exceptions):
-   ✓ All high violations fixed OR
-   ✓ Exceptions documented with approval
-
-5. All acceptance criteria validated:
-   ✓ Tests exist for each criterion
-   ✓ Tests pass
-   ✓ Coverage adequate
-
-6. API contracts match spec:
-   ✓ Endpoints exist as specified
-   ✓ Request/response models match
-   ✓ Error handling compliant
-
-7. NFRs validated:
-   ✓ Performance tests pass (if applicable)
-   ✓ Security scan clean
-   ✓ Scalability requirements met
-
-8. Code quality metrics within thresholds:
-   ✓ Cyclomatic complexity < limits
-   ✓ Maintainability index ≥ 70
-   ✓ Code duplication < 5%
-   ✓ Documentation coverage ≥ 80%
-
-9. QA report generated:
-   ✓ Report exists at .devforgeai/qa/reports/{story-id}-qa-report.md
-   ✓ Contains all 5 validation phases
-   ✓ Action items documented
-```
-
-**Pass Criteria:** All 9 checks pass
-
-**Fail Action:**
-- BLOCK release
-- Transition to QA Failed status
-- Create action items from QA report
-- Return to In Development
-- Require fixes and re-validation
-
-### Gate 4: Release Readiness Gate
-
-**Purpose:** Final safety check before production deployment
-
-**When:** Before transitioning from Releasing → Released
-
-**Checks:**
-```
-1. QA approved:
-   ✓ Story status = QA Approved
-   ✓ QA report status = PASS
-
-2. All workflow checkboxes complete:
-   ✓ Architecture phase complete
-   ✓ Development phase complete
-   ✓ QA phase complete
-
-3. No blocking dependencies:
-   ✓ All prerequisite stories released
-   ✓ External dependencies available
-   ✓ No unresolved blockers
-
-4. Deployment plan exists:
-   ✓ Deployment steps documented
-   ✓ Environment configuration ready
-   ✓ Database migrations prepared (if needed)
-
-5. Rollback plan exists:
-   ✓ Rollback procedure documented
-   ✓ Rollback tested
-   ✓ Rollback triggers defined
-
-6. Stakeholder approval:
-   ✓ Product owner notified
-   ✓ Release window confirmed
-   ✓ Communication plan ready
-```
-
-**Pass Criteria:** All 6 checks pass
-
-**Fail Action:**
-- BLOCK deployment
-- Document missing requirements
-- Resolve issues before release
-- Re-validate when ready
+**For detailed gate requirements and enforcement:** See `references/quality-gates.md`
 
 ---
 
 ## AskUserQuestion Patterns
 
 ### Pattern 1: Story Priority Conflict
-
-**Scenario:** Multiple stories ready, limited capacity
-
 ```
-CONTEXT:
-- Sprint capacity: 20 points
-- Stories ready: 3 (totaling 25 points)
-- Must prioritize
+Sprint capacity: 20 points
+Stories ready: 3 (totaling 25 points)
 
 AskUserQuestion:
-Question: "Sprint SPRINT-001 has 3 stories ready (25 points) but capacity for 20 points. Which stories should be included?"
-Header: "Sprint capacity"
-Description: "Remaining capacity: 20 points. Select stories to include in sprint."
-Options:
-  - label: "STORY-001: User registration (5 points, High priority)"
-    description: "Critical for MVP - enables user accounts"
-  - label: "STORY-002: Order history (8 points, Medium priority)"
-    description: "Important but can be deferred to next sprint"
-  - label: "STORY-003: Admin dashboard (12 points, Low priority)"
-    description: "Nice to have, not critical for release"
-multiSelect: true
-
-PARSE answer:
-  - Selected stories added to sprint
-  - Unselected stories returned to backlog
-  - Sprint total updated
+  Question: "Sprint has 3 stories (25 points) but capacity for 20 points. Which stories to include?"
+  Header: "Sprint capacity"
+  Options:
+    - STORY-001: User registration (5 points, High priority)
+    - STORY-002: Order history (8 points, Medium priority)
+    - STORY-003: Admin dashboard (12 points, Low priority)
+  multiSelect: true
 ```
 
-### Pattern 2: Workflow Skip Request
-
-**Scenario:** Developer requests to skip QA for "minor change"
-
+### Pattern 2: Blocked Story Resolution
 ```
-CONTEXT:
-- Story: STORY-001
-- Developer claims: "Just a typo fix, no need for QA"
-- Policy: Quality gates enforced for ALL changes
+Story blocked on external dependency (email service API not ready)
 
 AskUserQuestion:
-Question: "Developer requested to skip QA validation for STORY-001 (claims minor typo fix). Allow skip?"
-Header: "Skip QA?"
-Description: "Skipping QA violates quality gate policy. Exception requires documentation."
-Options:
-  - label: "No, enforce QA (recommended)"
-    description: "Run full QA validation per policy"
-  - label: "Yes, allow skip with documented exception"
-    description: "Skip QA but document reason and assume risk"
-  - label: "Run light validation only (compromise)"
-    description: "Quick validation without deep analysis"
-multiSelect: false
-
-PARSE answer:
-  IF "No, enforce QA":
-      Proceed with normal QA workflow
-      Report: "Enforcing QA validation per policy"
-
-  IF "Yes, allow skip":
-      Document exception in story
-      Transition directly to QA Approved
-      Add note: "QA skipped - typo fix exception granted {timestamp}"
-      WARN: Exception noted for audit trail
-
-  IF "Run light validation only":
-      Invoke: devforgeai-qa --mode=light --phase=integration
-      Skip deep validation
-      Document: "Light validation only per exception"
+  Question: "STORY-001 blocked waiting for email API (ETA: 7 days, beyond sprint). How to proceed?"
+  Header: "Story blocker"
+  Options:
+    - "Wait for dependency (keep blocked)"
+    - "Create mock/stub to unblock"
+    - "De-prioritize, start different story"
+    - "Escalate to tech lead"
+  multiSelect: false
 ```
 
-### Pattern 3: Blocked Story Resolution
-
-**Scenario:** Story blocked on external dependency
-
+### Pattern 3: QA Threshold Exception Request
 ```
-CONTEXT:
-- Story: STORY-001 (User registration)
-- Blocker: Email service API not ready (Team B)
-- Sprint deadline: 5 days
+Infrastructure coverage: 68% (threshold: 80%)
+Uncovered code: Logging utilities (non-critical)
+Business logic: 97% (exceeds 95%)
 
 AskUserQuestion:
-Question: "STORY-001 is blocked waiting for email service API from Team B (ETA: 7 days, beyond sprint). How should we proceed?"
-Header: "Story blocker"
-Description: "Story blocked for 2 days beyond sprint deadline"
-Options:
-  - label: "Wait for dependency (keep blocked)"
-    description: "Accept sprint delay, wait for Team B"
-  - label: "Create mock/stub email service to unblock"
-    description: "Implement mock for now, swap later when API ready"
-  - label: "De-prioritize, start different story"
-    description: "Move STORY-001 to next sprint, start STORY-002"
-  - label: "Escalate to tech lead for priority decision"
-    description: "Let leadership decide (Team B priority vs. workaround)"
-multiSelect: false
-
-PARSE answer:
-  IF "Wait for dependency":
-      Keep status: Blocked
-      Update blocker note: "Waiting for Team B email API (ETA +7 days)"
-      Notify: Sprint may be delayed
-
-  IF "Create mock/stub":
-      Transition: Blocked → In Development
-      Create subtask: "Implement mock email service"
-      Add note: "Using mock - swap for real API in STORY-XXX"
-      Create follow-up story: "Integrate real email API"
-
-  IF "De-prioritize":
-      Remove from current sprint
-      Add to next sprint
-      Start next priority story
-      Update sprint plan
-
-  IF "Escalate":
-      Create escalation note
-      Notify tech lead
-      Wait for decision
-```
-
-### Pattern 4: QA Threshold Exception Request
-
-**Scenario:** Coverage below threshold for valid reason
-
-```
-CONTEXT:
-- Story: STORY-001
-- Infrastructure coverage: 68% (threshold: 80%)
-- Uncovered code: Logging utilities, diagnostic helpers (non-critical)
-- Business logic coverage: 97% (exceeds 95% threshold)
-
-AskUserQuestion:
-Question: "Infrastructure coverage is 68%, below 80% threshold. Uncovered code is non-critical (logging, diagnostics). Business logic coverage is 97%. Accept exception?"
-Header: "Coverage exception"
-Description: "This decision will be documented in QA report and story history"
-Options:
-  - label: "Fail QA - Require tests for all infrastructure (strict)"
-    description: "Enforce threshold, add tests for logging/diagnostics"
-  - label: "Pass with waiver - Document reason, accept 68%"
-    description: "Accept coverage with documented exception"
-  - label: "Require public API tests only - Skip internal utilities"
-    description: "Test public interfaces, allow low coverage for internals"
-  - label: "Lower infrastructure threshold to 68% permanently"
-    description: "Update coverage-thresholds.md (affects all stories)"
-multiSelect: false
-
-PARSE answer:
-  IF "Fail QA":
-      Maintain strict enforcement
-      QA status: FAIL
-      Action item: "Add tests for logging utilities to meet 80% threshold"
-
-  IF "Pass with waiver":
-      QA status: PASS (with exception)
-      Add to QA report:
-          """
-          ## Coverage Exception Granted
-          - Layer: Infrastructure
-          - Actual: 68%
-          - Threshold: 80%
-          - Reason: Uncovered code is non-critical (logging, diagnostics)
-          - Business logic: 97% (exceeds threshold)
-          - Approved: {timestamp}
-          - Documented as accepted technical debt
-          """
-
-  IF "Require public API tests only":
-      Recalculate coverage excluding internal utilities
-      IF adjusted_coverage >= 80%:
-          QA status: PASS
-      ELSE:
-          QA status: FAIL
-          Action: Test public APIs
-
-  IF "Lower threshold permanently":
-      Edit(file_path=".devforgeai/qa/coverage-thresholds.md",
-           old_string="Infrastructure layer: 80% minimum",
-           new_string="Infrastructure layer: 68% minimum")
-      Document: ADR for threshold change
-      QA status: PASS
-```
-
-### Pattern 5: Ambiguous Acceptance Criterion
-
-**Scenario:** Acceptance criterion unclear during validation
-
-```
-CONTEXT:
-- Criterion: "User can view order history"
-- Implementation: Returns last 10 orders
-- Question: Does "history" mean ALL orders or recent orders?
-
-AskUserQuestion:
-Question: "Acceptance criterion 'User can view order history' is ambiguous. Implementation returns last 10 orders. Is this compliant?"
-Header: "Spec clarification"
-Description: "Need to clarify what 'order history' means for validation"
-Options:
-  - label: "Yes, compliant - 'History' means recent orders (last 10)"
-    description: "Accept implementation as meeting criterion"
-  - label: "No, non-compliant - 'History' should be ALL orders with pagination"
-    description: "Require pagination to show all historical orders"
-  - label: "Clarify with stakeholder - Pause QA until resolved"
-    description: "Contact product owner for clarification"
-  - label: "Update spec - Document 'history' as last 10 orders"
-    description: "Update story to explicitly state 'last 10 orders'"
-multiSelect: false
-
-PARSE answer:
-  IF "Yes, compliant":
-      Mark criterion as validated
-      Add note: "Interpreted 'history' as recent orders (10)"
-
-  IF "No, non-compliant":
-      QA status: FAIL
-      Action item: "Implement pagination for full order history"
-      Update spec: Add pagination requirement
-
-  IF "Clarify with stakeholder":
-      Transition: QA In Progress → Blocked
-      Blocker: "Awaiting stakeholder clarification on 'order history' definition"
-      Create clarification request
-      Pause QA until resolved
-
-  IF "Update spec":
-      Edit(file_path="ai_docs/Stories/{story_id}.story.md",
-           old_string="User can view order history",
-           new_string="User can view order history (last 10 orders)")
-      Mark criterion as validated
-      Document: Spec updated for clarity
+  Question: "Infrastructure coverage 68% < 80%. Uncovered: non-critical utilities. Business logic: 97%. Accept exception?"
+  Header: "Coverage exception"
+  Options:
+    - "Fail QA - Require tests for all infrastructure"
+    - "Pass with waiver - Document reason"
+    - "Require public API tests only - Skip internals"
+  multiSelect: false
 ```
 
 ---
 
 ## Integration with Other Skills
 
-### Integration with devforgeai-architecture
-
+### devforgeai-architecture
 **When:** Architecture → Ready for Dev transition
+**Invocation:** `Skill(command="devforgeai-architecture")`
+**Process:** Creates/validates all 6 context files, creates ADRs
+**Result:** Update story status, check workflow box
 
-```
-TRIGGER:
-- Story enters Architecture state
-- Context files missing or invalid
-
-INVOCATION:
-Skill(command="devforgeai-architecture")
-
-PROCESS:
-1. Architecture skill creates/validates all 6 context files
-2. Creates ADRs for major architectural decisions
-3. Validates no architecture violations
-4. Returns control to orchestration
-
-ORCHESTRATION ACTION:
-- Verify all context files exist
-- Update story status: Architecture → Ready for Dev
-- Check workflow box: "Architecture phase complete"
-- Append workflow history
-```
-
-### Integration with devforgeai-development
-
+### devforgeai-development
 **When:** In Development workflow execution
+**Invocation:** `Skill(command="devforgeai-development --story={story_id}")`
+**Process:** Executes TDD workflow (6 phases), light QA automatic
+**Result:** Update story status when Phase 6 complete
 
+### devforgeai-qa
+**When 1 (Light):** During development (Phases 3, 4, 5) - automatic
+**When 2 (Deep):** After Dev Complete
+**Invocation:** `Skill(command="devforgeai-qa --mode=deep --story={story_id}")`
+**Process:** 5 comprehensive validation phases, generates QA report
+**Result:** Update status to QA Approved or QA Failed
+
+### devforgeai-release
+**When:** QA Approved → Releasing transition
+**Invocation:** `Skill(command="devforgeai-release --story={story_id}")`
+**Process:** Deployment to production, health checks
+**Result:** Update status to Released, update progress
+
+---
+
+## Tool Usage Protocol
+
+### Use Native Tools for File Operations
+
+✅ **CORRECT:**
 ```
-TRIGGER:
-- Story enters In Development state
-- Developer ready to start
-
-INVOCATION:
-Skill(command="devforgeai-development --story={story_id}")
-
-PROCESS:
-1. Development skill loads context files
-2. Executes TDD workflow (6 phases):
-   - Phase 1: Context Validation
-   - Phase 2: Test-First (Red)
-   - Phase 3: Implementation (Green) + light QA
-   - Phase 4: Refactor + light QA
-   - Phase 5: Integration + light QA
-   - Phase 6: Git workflow
-3. Returns control when Phase 6 complete
-
-ORCHESTRATION ACTION:
-- Monitor development progress (non-blocking)
-- When complete:
-  - Update story status: In Development → Dev Complete
-  - Check workflow box: "Development phase complete"
-  - Trigger QA validation
-```
-
-### Integration with devforgeai-qa
-
-**When:** Two invocation points
-
-**1. Light Validation (During Development)**
-```
-TRIGGER:
-- Automatically during devforgeai-development workflow
-- After Phase 3 (Implementation - Green)
-- After Phase 4 (Refactor)
-- After Phase 5 (Integration)
-
-INVOCATION:
-Skill(command="devforgeai-qa --mode=light --phase={phase}")
-
-PROCESS:
-- Quick validation (syntax, tests, anti-patterns)
-- BLOCKS immediately if violations found
-- Returns control to development skill
-
-ORCHESTRATION ACTION:
-- Not directly invoked by orchestration (dev skill handles it)
-- Orchestration monitors for blocks
+Read(file_path="story.md")
+Edit(file_path="story.md", old_string="old", new_string="new")
+Glob(pattern="**/*.story.md")
+Grep(pattern="epic: EPIC-001", glob="**/*.md")
 ```
 
-**2. Deep Validation (After Development)**
+❌ **FORBIDDEN:**
 ```
-TRIGGER:
-- Story enters Dev Complete state
-- All tests passing
-
-INVOCATION:
-Skill(command="devforgeai-qa --mode=deep --story={story_id}")
-
-PROCESS:
-1. QA skill executes 5 comprehensive phases
-2. Generates QA report
-3. Returns overall status (PASS/FAIL)
-
-ORCHESTRATION ACTION:
-- WAIT for QA completion
-- Parse QA report
-- IF PASS:
-  - Update status: QA In Progress → QA Approved
-  - Check workflow box: "QA phase complete"
-  - Append QA report section
-- IF FAIL:
-  - Update status: QA In Progress → QA Failed
-  - Create action items
-  - Return to In Development
+Bash(command="cat story.md")
+Bash(command="sed -i 's/old/new/' story.md")
+Bash(command="find . -name '*.story.md'")
+Bash(command="grep 'epic: EPIC-001' **/*.md")
 ```
 
-### Integration with devforgeai-release (Future)
+**Use Bash ONLY for:**
+- Git operations: `git status`, `git commit`, `git push`
+- Test execution: `pytest`, `npm test`, `dotnet test`
+- Build commands: `npm run build`, `dotnet build`
 
-**When:** Releasing → Released transition
+---
 
-```
-TRIGGER:
-- Story status = QA Approved
-- Release initiated
+## Reference Materials
 
-INVOCATION:
-Skill(command="devforgeai-release --story={story_id}")
+Load these on demand during orchestration:
 
-PROCESS:
-1. Release skill verifies QA approval
-2. Creates release branch/tag
-3. Runs deployment pipeline
-4. Verifies deployment health
-5. Updates release notes
+### State Management
+- **`./references/workflow-states.md`** - Detailed 11-state definitions (585 lines)
+- **`./references/state-transitions.md`** - Transition rules, validations, decision trees (1,105 lines)
+- **`./references/quality-gates.md`** - Gate requirements and enforcement procedures (987 lines)
 
-ORCHESTRATION ACTION:
-- WAIT for release completion
-- IF successful:
-  - Update status: Releasing → Released
-  - Check workflow box: "Released"
-  - Append release info
-  - Update sprint progress
-- IF failed:
-  - BLOCK, investigate deployment failure
-  - Execute rollback if needed
-```
+### Project Management
+- **`./references/epic-management.md`** - Epic planning, decomposition, estimation (496 lines)
+- **`./references/sprint-planning.md`** - Sprint capacity, story selection, tracking (620 lines)
+
+### Story Operations
+- **`./references/story-management.md`** - Story structure, status updates, workflow history (691 lines)
+
+### Templates (Assets)
+- **`./assets/templates/epic-template.md`** - Epic document structure (265 lines)
+- **`./assets/templates/sprint-template.md`** - Sprint planning template (366 lines)
+- **`./assets/templates/story-template.md`** - Story specification format (610 lines)
 
 ---
 
@@ -1628,24 +920,6 @@ ORCHESTRATION ACTION:
 - [x] Developer experience smooth (minimal friction)
 - [x] Transparency into workflow status
 - [x] Audit trail for compliance/review
-
----
-
-## Reference Materials
-
-Load these as needed during orchestration:
-
-- [Workflow States](./references/workflow-states.md) - Detailed state definitions
-- [State Transitions](./references/state-transitions.md) - Transition rules and validations
-- [Quality Gates](./references/quality-gates.md) - Gate requirements and enforcement
-- [Epic Management](./references/epic-management.md) - Epic planning and breakdown
-- [Sprint Planning](./references/sprint-planning.md) - Sprint capacity and story selection
-
-## Templates
-
-- [Epic Template](./assets/templates/epic-template.md) - Epic document structure
-- [Sprint Template](./assets/templates/sprint-template.md) - Sprint planning template
-- [Story Template](./assets/templates/story-template.md) - Story specification format
 
 ---
 

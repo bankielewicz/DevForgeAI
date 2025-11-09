@@ -1,0 +1,143 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║              PHASE 2 CRITICAL GAP FIX - COMPLETE                          ║
+║           Skill v2.0 Integration for Auto-Generated Stories               ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ PROBLEM IDENTIFIED                                                      │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Phase 2 agent created excellent v2.0 tooling BUT:                       │
+│ • Only updated 15% of planned skill integrations                        │
+│ • 6 of 8 skill files NOT modified                                       │
+│ • Skills might generate v1.0 format (freeform text)                     │
+│ • Risk: Inconsistent story format across framework                      │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ SOLUTION IMPLEMENTED                                                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Updated 5 critical skill files (+326 lines):                            │
+│                                                                         │
+│ 1. devforgeai-story-creation/SKILL.md (+24 lines)                       │
+│    • Declares v2.0 as mandatory default                                 │
+│    • References STRUCTURED-FORMAT-SPECIFICATION.md                      │
+│    • Instructs to load technical-specification-creation.md              │
+│                                                                         │
+│ 2. story-requirements-analyst.md (+75 lines)                            │
+│    • Outputs structured component information                           │
+│    • Component type selection guide (7 types)                           │
+│    • Example YAML conversion                                            │
+│                                                                         │
+│ 3. story-structure-guide.md (+75 lines)                                 │
+│    • Documents v2.0 YAML structure                                      │
+│    • Frontmatter requirement (format_version: "2.0")                    │
+│    • Complete schema template                                           │
+│                                                                         │
+│ 4. validation-checklists.md (+114 lines)                                │
+│    • Format version detection logic                                     │
+│    • YAML syntax validation                                             │
+│    • Component field validation                                         │
+│    • Automated script integration                                       │
+│                                                                         │
+│ 5. acceptance-criteria-patterns.md (+38 lines)                          │
+│    • AC to v2.0 component mapping                                       │
+│    • Example Given/When/Then → YAML conversion                          │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ DELIVERABLES                                                            │
+├─────────────────────────────────────────────────────────────────────────┤
+│ Code:             5 files modified (+326 lines)                          │
+│ Documentation:    3 files created (~1,400 lines)                        │
+│ Backups:          5 files (rollback ready)                              │
+│ Time:             45 minutes                                            │
+│                                                                         │
+│ Files Modified:                                                         │
+│ • .claude/skills/devforgeai-story-creation/SKILL.md                     │
+│ • .claude/agents/story-requirements-analyst.md                          │
+│ • .claude/skills/devforgeai-story-creation/references/                  │
+│   - story-structure-guide.md                                            │
+│   - validation-checklists.md                                            │
+│   - acceptance-criteria-patterns.md                                     │
+│                                                                         │
+│ Backups Location:                                                       │
+│ • .devforgeai/backups/phase2-gap-fix/*.backup                           │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ EXPECTED BEHAVIOR AFTER FIXES                                           │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ User: /create-story "New feature"                                       │
+│   ↓                                                                     │
+│ Skill: Loads SKILL.md (knows v2.0 is default)                           │
+│   ↓                                                                     │
+│ Skill: Loads technical-specification-creation.md (v2.0 instructions)    │
+│   ↓                                                                     │
+│ Subagent: story-requirements-analyst outputs structured components      │
+│   ↓                                                                     │
+│ Skill: Assembles into v2.0 YAML format                                  │
+│   ↓                                                                     │
+│ Skill: Phase 7 validates with validate_tech_spec.py                     │
+│   ↓                                                                     │
+│ Result: Story with format_version: "2.0" and YAML tech spec ✅          │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ VALIDATION REQUIRED (USER ACTION)                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ ⚠️ CRITICAL: Must restart terminal before testing!                      │
+│                                                                         │
+│ 1. Restart Claude Code Terminal (load updated skills)                   │
+│ 2. Run: /create-story "User login with email and password"              │
+│ 3. Check: format_version: "2.0" in frontmatter                          │
+│ 4. Check: Technical Specification uses YAML                             │
+│ 5. Run: python3 validate_tech_spec.py STORY-XXX.story.md                │
+│ 6. Verify: Exit code 0 (PASS)                                           │
+│                                                                         │
+│ See: PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md                          │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ROLLBACK (IF NEEDED)                                                    │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ If validation fails or /create-story breaks:                            │
+│                                                                         │
+│ # Restore original files (10 minutes)                                   │
+│ cp .devforgeai/backups/phase2-gap-fix/*.backup [original-locations]     │
+│                                                                         │
+│ # Restart terminal                                                      │
+│ # Test /create-story (should work with old behavior)                    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ DOCUMENTS CREATED                                                       │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│ Analysis:                                                               │
+│ • PHASE2-AUDIT-REPORT.md - Agent work compliance scorecard              │
+│ • PHASE2-DEVIATION-AUDIT.md - Detailed deviation analysis               │
+│ • MIGRATION-OPTIONS-GUIDE.md - Migration without API key                │
+│                                                                         │
+│ Implementation:                                                         │
+│ • PHASE2-CRITICAL-GAP-FIX-PLAN.md - Complete fix plan (900 lines)       │
+│ • PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md - Validation steps          │
+│ • PHASE2-GAP-FIX-COMPLETE.md - Implementation summary                   │
+│ • PHASE2-GAP-FIX-SUMMARY.txt - This visual summary                      │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                          READY FOR TESTING                                ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+NEXT ACTION: Restart terminal, test /create-story, report results
+
+Implementation complete. Your validation determines success.

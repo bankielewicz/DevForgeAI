@@ -8,38 +8,42 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Bash
 
 # /qa - Quality Assurance Validation Command
 
-Execute QA validation on story implementation using light or deep mode.
+Execute QA validation on story implementation. Supports light validation during development and deep validation after completion.
 
-## Context Loading
+---
 
-**Story File:**
+## Quick Reference
+
+```bash
+# Light validation during development (10K tokens, ~1 min)
+/qa STORY-001 light
+
+# Deep validation after implementation (65K tokens, ~5 min)
+/qa STORY-001 deep
+
+# Default mode (inferred from story status)
+/qa STORY-001
 ```
-@.ai_docs/Stories/$1.story.md
-```
+
+---
 
 ## Command Workflow
 
-### Phase 0: Argument Validation
-
-**Extract arguments:**
-```
-STORY_ID = $1
-MODE_ARG = $2 (optional)
-```
+### Phase 0: Argument Validation and Story Loading
 
 **Validate story ID format:**
 ```
 IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
   AskUserQuestion:
-  Question: "Story ID '$1' doesn't match format STORY-NNN. What story should I validate?"
-  Header: "Story ID"
-  Options:
-    - "List stories in Dev Complete status"
-    - "List stories in In Development status"
-    - "Show correct /qa command syntax"
-  multiSelect: false
+    Question: "Story ID '$1' doesn't match format. What story should I validate?"
+    Header: "Story ID"
+    Options:
+      - "List stories in Dev Complete status"
+      - "List stories in In Development status"
+      - "Show /qa command syntax"
+    multiSelect: false
 
-  Extract STORY_ID from user response
+  Extract STORY_ID from user response OR exit if cancelled
 ```
 
 **Validate story file exists:**
@@ -48,81 +52,53 @@ Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
-  Question: "Story ${STORY_ID} not found. What should I do?"
-  Header: "Story not found"
-  Options:
-    - "List all available stories"
-    - "Cancel command"
-  multiSelect: false
+    Question: "Story ${STORY_ID} not found. What should I do?"
+    Header: "Story not found"
+    Options:
+      - "List all available stories"
+      - "Cancel command"
+    multiSelect: false
 ```
 
-**Parse mode argument:**
+**Load story via @file reference:**
+```
+@.ai_docs/Stories/{STORY_ID}.story.md
+
+(Story content now available in conversation context)
+```
+
+**Parse validation mode:**
 ```
 IF $2 provided:
   IF $2 in ["deep", "light"]:
     MODE = $2
 
   ELSE IF $2 starts with "--mode=":
-    # User used flag syntax (educate them)
     EXTRACTED_MODE = substring after "--mode="
-
     IF EXTRACTED_MODE in ["deep", "light"]:
       MODE = EXTRACTED_MODE
-
-      Note to user: "Flag syntax (--mode=) not needed. Use: /qa STORY-001 deep"
-
+      Note: "Positional argument preferred: /qa STORY-001 deep"
     ELSE:
-      AskUserQuestion:
-      Question: "Unknown mode in flag: $2. Which validation mode?"
-      Header: "QA Mode"
-      Options:
-        - "deep (comprehensive validation ~2 min)"
-        - "light (quick checks ~30 sec)"
-      multiSelect: false
-
-  ELSE IF $2 starts with "--":
-    # Unknown flag
-    AskUserQuestion:
-    Question: "Unknown flag: $2. Which validation mode?"
-    Header: "QA Mode"
-    Options:
-      - "deep (comprehensive validation)"
-      - "light (quick checks)"
-    multiSelect: false
+      AskUserQuestion for valid mode
 
   ELSE:
-    # Unknown value (not deep/light, not a flag)
-    AskUserQuestion:
-    Question: "Unknown mode: $2. Which validation mode?"
-    Header: "QA Mode"
-    Options:
-      - "deep (comprehensive validation)"
-      - "light (quick checks)"
-    multiSelect: false
+    AskUserQuestion for valid mode (unknown value provided)
 
 ELSE:
-  # No mode provided - use intelligent default based on story status
-  # Story content already loaded, check status from YAML frontmatter
+  # Infer from story status
+  Extract story status from YAML frontmatter
 
-  IF story status == "Dev Complete":
-    MODE = "deep"  # Full validation before QA approval
-  ELSE IF story status == "In Development":
-    MODE = "light"  # Quick validation during development
+  IF status == "Dev Complete":
+    MODE = "deep"
+  ELSE IF status == "In Development":
+    MODE = "light"
   ELSE:
-    # Unclear - ask user
-    AskUserQuestion:
-    Question: "No mode specified. Which validation?"
-    Header: "QA Mode"
-    Options:
-      - "deep (comprehensive - for Dev Complete stories)"
-      - "light (quick - for In Development stories)"
-    multiSelect: false
+    AskUserQuestion for mode selection
 ```
 
 **Validation summary:**
 ```
 ✓ Story ID: ${STORY_ID}
-✓ Story file: ${STORY_FILE}
 ✓ Validation mode: ${MODE}
 ✓ Proceeding with QA validation...
 ```
@@ -131,561 +107,320 @@ ELSE:
 
 ### Phase 1: Invoke QA Skill
 
-**Context for skill:**
-- Story content loaded via @file reference above
-- Story ID: ${STORY_ID}
-- Validation mode: ${MODE}
+Set explicit context markers for skill:
 
-**Skill Invocation:**
 ```
+**Story ID:** ${STORY_ID}
+**Validation Mode:** ${MODE}
+
+Invoke skill:
 Skill(command="devforgeai-qa")
 ```
 
-**Note:** Skill will extract story ID from conversation context (YAML frontmatter) and mode from the explicit statement above
+**What the skill does:**
+The devforgeai-qa skill performs comprehensive validation:
+- Extracts story from conversation context (YAML frontmatter)
+- Executes mode-specific validation (light or deep)
+- Generates QA report in .devforgeai/qa/reports/
+- Returns structured result summary
 
-**Mode Selection Logic:**
-- **Light Mode (~10K tokens):**
-  - Build/syntax checks
-  - Test execution (pass/fail)
-  - Quick anti-pattern scan (security-critical only)
-  - Used during development phases (Red → Green → Refactor → Integration)
-
-- **Deep Mode (~65K tokens):**
-  - Full test coverage analysis (95%/85%/80% thresholds)
-  - Comprehensive anti-pattern detection (10+ categories)
-  - Spec compliance validation (acceptance criteria, API contracts, NFRs)
-  - Code quality metrics (complexity, maintainability, duplication, docs)
-  - Used after story completion (Dev Complete → QA In Progress)
-
-**Skill Execution:**
-The devforgeai-qa skill performs:
-1. Context validation (6 context files exist)
-2. Build verification
-3. Test suite execution
-4. Mode-specific analysis (light vs deep)
-5. Deferral validation (NEW - RCA-006)
-6. QA report generation
-7. Story status update
+**Skill returns:** Result object with display template, violations, next steps
 
 ---
 
-### Phase 2: Handle QA Results (NEW - RCA-006)
+### Phase 2: Display Results
 
-**Wait for QA skill to complete, then read QA report:**
-
-```
-Read QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
-Parse report status: PASSED or FAILED
-```
-
-**IF QA PASSED:**
+Receive result from skill and output display:
 
 ```
-Display success summary (existing logic in Phase 4)
-Proceed to next steps (release or continue development)
-```
+# Skill returns structured result object with display template
+# Command simply outputs what skill prepared
 
-**IF QA FAILED:**
+output result.display.template as-is
 
-```
-Parse failure reasons from report
-
-Check if failure includes deferral validation issues:
-Grep(pattern="Deferral Validation FAILED|Unjustified Deferrals", path=QA report)
-
-IF deferral failures found:
-    # Special handling for deferral failures
-
-    Extract deferral violations from report
-
-    Display to user:
-    "❌ QA Failed: Deferral Validation Issues
-
-    Story: {STORY_ID}
-
-    Unjustified Deferrals Detected:
-    {list each deferral violation with severity, item, current reason, required action}
-
-    Required Actions:
-    1. Fix deferral justifications OR
-    2. Complete deferred work
-
-    Then re-run QA validation with /qa {STORY_ID} {MODE}"
-
-    AskUserQuestion:
-        Question: "How to proceed with deferral failures?"
-        Header: "QA deferral failure"
-        Options:
-            - "Return to development (/dev will fix deferrals)"
-            - "I'll fix manually, then re-run /qa"
-            - "Review detailed QA report first"
-        multiSelect: false
-
-    IF "Return to development":
-        Display: "Run: /dev {STORY_ID}
-                 Dev skill will read QA report and help resolve deferral issues."
-        Exit command
-
-    IF "Review detailed QA report":
-        Display: "QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
-                 After review, run /dev {STORY_ID} to fix issues."
-        Exit command
-
-    IF "I'll fix manually":
-        Display: "After fixing, re-run: /qa {STORY_ID} {MODE}"
-        Exit command
-
-ELSE IF other QA failures (coverage, anti-patterns, etc.):
-    # Display standard QA failure handling (existing logic)
-    Display failure summary
-    List violations by severity
-    Provide remediation guidance
+# This is pure presentation - no parsing, no decision-making
 ```
 
 ---
 
-### Phase 3: Result Verification
+### Phase 3: Provide Next Steps
 
-**Check QA Report Generated:**
+Display recommendations from skill result:
+
 ```
-Expected path: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
+# Skill determined appropriate next steps based on:
+# - Validation mode (light/deep)
+# - Result (pass/fail)
+# - Violation types
+# - Story status
+
+Display: result.next_steps
 ```
 
-**Read QA Report:**
-1. Use Read tool to load report contents
-2. Parse report sections:
-   - Validation Summary (PASSED/FAILED)
-   - Violation Counts (CRITICAL/HIGH/MEDIUM/LOW)
-   - Coverage Results (if deep mode)
-   - Spec Compliance Results
-   - Quality Metrics
-   - Recommendation (APPROVE/FAIL)
+---
 
-**Verify Story Status Updated:**
+### Phase 4: Update Story Status (Deep Mode Only)
+
+**Only execute if deep mode validation passes**
+
 ```
-Read story file frontmatter
-Expected status changes:
-  - Light mode: Status unchanged (blocks on failure)
-  - Deep mode PASSED: "QA Approved"
-  - Deep mode FAILED: "QA Failed"
+IF result.status == "PASSED" AND MODE == "deep":
+    # Step 1: Read current story file
+    Read(file_path=".ai_docs/Stories/${STORY_ID}*.story.md")
+
+    # Step 2: Extract current YAML values
+    Extract current status from "status: [value]"
+    Extract current date from "updated: [date]"
+
+    # Step 3: Update YAML frontmatter status
+    Edit(
+        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        old_string="status: ${CURRENT_STATUS}",
+        new_string="status: QA Approved"
+    )
+
+    # Step 4: Update YAML frontmatter timestamp
+    CURRENT_DATE_ISO = $(date +%Y-%m-%d)
+    Edit(
+        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        old_string="updated: ${CURRENT_DATE}",
+        new_string="updated: ${CURRENT_DATE_ISO}"
+    )
+
+    # Step 5: Prepare QA Validation History section
+    VALIDATION_HISTORY = """
+### QA Validation History
+
+#### Deep Validation: ${TIMESTAMP}
+
+- **Result:** PASSED ✅
+- **Mode:** deep
+- **Tests:** ${result.total_tests} passing (100%)
+- **Coverage:** ${result.coverage}%
+- **Violations:**
+  - CRITICAL: 0
+  - HIGH: 0
+  - MEDIUM: ${result.medium}
+  - LOW: ${result.low}
+- **Acceptance Criteria:** ${result.ac_complete}/${result.ac_total} validated
+- **Validated by:** devforgeai-qa skill v1.0
+
+**Quality Gates:**
+- ✅ Test Coverage: PASS
+- ✅ Anti-Pattern Detection: PASS
+- ✅ Spec Compliance: PASS
+- ✅ Code Quality: PASS
+
+**Files Validated:**
+${list result.files_validated with newlines}
+
+"""
+
+    # Step 6: Insert QA Validation History before Workflow History
+    Edit(
+        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        old_string="## Workflow History",
+        new_string="${VALIDATION_HISTORY}\n\n## Workflow History"
+    )
+
+    # Step 7: Display confirmation
+    Display: """
+✓ Story file updated successfully
+
+Changes applied:
+- Status: ${CURRENT_STATUS} → QA Approved
+- QA Validation History section added
+- Updated timestamp: ${CURRENT_DATE_ISO}
+
+Story file: .ai_docs/Stories/${STORY_ID}*.story.md
+"""
+
+ELSE IF result.status == "FAILED":
+    Display: """
+✗ Story status NOT updated (QA validation failed)
+
+Story remains in "${CURRENT_STATUS}" status.
+Fix violations and re-run: /qa ${STORY_ID}
+"""
+
+ELSE IF MODE == "light":
+    Display: """
+ℹ️ Story status NOT updated (light mode validation)
+
+Light mode validation is for development checks only.
+Run deep mode to update story status: /qa ${STORY_ID} deep
+"""
 ```
 
 **Error Handling:**
-- **Report not found:** Skill execution failed, display error and skill output
-- **Report unparseable:** Malformed report, display raw contents
-- **Status not updated:** Skill failed to update story, manual intervention required
+```
+IF story file write fails:
+    Display: """
+⚠️ WARNING: QA validation passed, but story file update failed
 
-### Phase 4: Display Results
+Validation results:
+${display result summary}
 
-**Success Display (Light Mode):**
-```markdown
-## ✅ Light QA Validation PASSED - {STORY-ID}
+Story file could not be updated automatically.
 
-**Story:** {STORY-TITLE}
-**Mode:** Light
-**Status:** {CURRENT-STATUS} (unchanged)
+Manual update required:
+1. Open: .ai_docs/Stories/${STORY_ID}*.story.md
+2. Change status: "${CURRENT_STATUS}" → "QA Approved"
+3. Update timestamp: updated: ${CURRENT_DATE_ISO}
+4. Append QA validation results (see report above)
 
-### Quick Checks
-✓ Build successful
-✓ All tests passing ({PASS-COUNT}/{TOTAL-COUNT})
-✓ No critical anti-patterns detected
+Or re-run QA validation to retry: /qa ${STORY_ID}
+"""
 
-**Note:** Light validation passed. Continue development or run deep validation when story is Dev Complete.
-
-**Next Steps:**
-- Continue implementation if in development
-- Run `/qa {STORY-ID} --mode=deep` when Dev Complete
+    # Still display QA results (validation succeeded)
+    Continue to display phase
 ```
 
-**Success Display (Deep Mode):**
-```markdown
-## ✅ Deep QA Validation PASSED - {STORY-ID}
+---
 
-**Story:** {STORY-TITLE}
-**Mode:** Deep
-**Status:** Dev Complete → QA Approved ✓
+## Error Handling
 
-### Validation Results
-
-**Test Coverage:**
-- Business Logic: {BUSINESS-LOGIC-PCT}% (threshold: ≥95%)
-- Application Layer: {APPLICATION-PCT}% (threshold: ≥85%)
-- Infrastructure: {INFRASTRUCTURE-PCT}% (threshold: ≥80%)
-- Overall: {OVERALL-PCT}%
-
-**Code Quality:**
-- Cyclomatic Complexity: {AVG-COMPLEXITY} avg (threshold: <10)
-- Maintainability Index: {MAINTAINABILITY} (threshold: ≥70)
-- Code Duplication: {DUPLICATION-PCT}% (threshold: <5%)
-- Documentation Coverage: {DOCS-PCT}% (threshold: ≥80%)
-
-**Violations:**
-- CRITICAL: 0
-- HIGH: 0
-- MEDIUM: {MEDIUM-COUNT}
-- LOW: {LOW-COUNT}
-
-**Spec Compliance:**
-✓ All acceptance criteria validated
-✓ API contracts match specification
-✓ Non-functional requirements met
-
-### Recommendation
-✅ **APPROVE** - Story meets all quality gates and is ready for release.
-
-**Next Steps:**
-1. Review QA report: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
-2. Ready for release: `/release {STORY-ID}`
-3. Or return to sprint board: `/board`
+### Story ID Invalid
+```
+Error: Story ID format error
+Usage: /qa STORY-001 [mode]
+Example: /qa STORY-001 deep
 ```
 
-**Failure Display:**
-```markdown
-## ❌ QA Validation FAILED - {STORY-ID}
-
-**Story:** {STORY-TITLE}
-**Mode:** {MODE}
-**Status:** {CURRENT-STATUS} → QA Failed
-
-### Violation Summary
-
-**CRITICAL Violations ({COUNT}):**
-{List critical violations with file:line references}
-
-**HIGH Violations ({COUNT}):**
-{List high violations with file:line references}
-
-**MEDIUM Violations ({COUNT}):**
-{Summary or count only}
-
-**LOW Violations ({COUNT}):**
-{Summary or count only}
-
-### Coverage Gaps (if deep mode)
-{List uncovered files/methods below thresholds}
-
-### Failed Acceptance Criteria
-{List AC not validated by tests}
-
-### Recommendation
-❌ **FAIL** - Story has blocking violations and must be fixed.
-
-**Required Actions:**
-1. Fix all CRITICAL violations (blocks release)
-2. Fix all HIGH violations (or request approved exception)
-3. Add tests to meet coverage thresholds
-4. Ensure all acceptance criteria have test coverage
-5. Re-run QA validation: `/qa {STORY-ID} --mode={MODE}`
-
-**Detailed Report:**
-See .devforgeai/qa/reports/{STORY-ID}-qa-report.md for full analysis.
+### Story File Not Found
 ```
-
-**Coverage Failure Display (Deep Mode):**
-```markdown
-## ⚠️ Coverage Thresholds Not Met - {STORY-ID}
-
-**Story:** {STORY-TITLE}
-**Status:** QA Failed (Coverage)
-
-### Coverage Results
-- Business Logic: {PCT}% ❌ (required: ≥95%)
-- Application Layer: {PCT}% ❌ (required: ≥85%)
-- Infrastructure: {PCT}% ✓ (required: ≥80%)
-
-### Uncovered Code
-{List files/methods with insufficient coverage}
-
-### Required Actions
-1. Add unit tests for uncovered business logic
-2. Add integration tests for uncovered application code
-3. Target coverage increases:
-   - Business Logic: +{DELTA}% needed
-   - Application Layer: +{DELTA}% needed
-4. Re-run QA: `/qa {STORY-ID} --mode=deep`
-
-**Use test stub generator:**
-```bash
-python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
-  --coverage-report=.devforgeai/qa/coverage/coverage-report.json \
-  --output-dir=tests/generated/ \
-  --framework={FRAMEWORK}
-```
-```
-
-**Spec Compliance Failure Display:**
-```markdown
-## ⚠️ Spec Compliance Issues - {STORY-ID}
-
-**Story:** {STORY-TITLE}
-**Status:** QA Failed (Spec Compliance)
-
-### Failed Acceptance Criteria
-{List AC without test validation}
-
-### API Contract Mismatches
-{List endpoint/method mismatches from spec}
-
-### Missing Non-Functional Requirements
-{List NFRs not validated}
-
-### Required Actions
-1. Add tests for missing acceptance criteria
-2. Update API implementation to match contracts
-3. Implement or validate NFRs (performance, security, etc.)
-4. Update story spec if requirements changed (create ADR)
-5. Re-run QA: `/qa {STORY-ID} --mode=deep`
-```
-
-### Phase 5: Summary and Next Actions
-
-**Display Next Steps Based on Result:**
-
-**On Light Mode Pass:**
-```markdown
-## Next Actions
-- Continue development workflow
-- Run deep validation when story Dev Complete
-- Use `/dev {STORY-ID}` to continue implementation
-```
-
-**On Deep Mode Pass (QA Approved):**
-```markdown
-## Next Actions
-✓ Story approved and ready for release
-- Review full QA report for insights
-- Deploy to production: `/release {STORY-ID}`
-- Or view sprint progress: `/board`
-```
-
-**On Any Failure:**
-```markdown
-## Next Actions
-❌ Fix violations before proceeding
-1. Review detailed report: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
-2. Address CRITICAL violations (required)
-3. Address HIGH violations (or document exceptions)
-4. Re-run validation: `/qa {STORY-ID} --mode={MODE}`
-5. If light mode failed, do NOT proceed to deep mode
-
-**Development Loop:**
-`/dev {STORY-ID}` → Fix issues → `/qa {STORY-ID}` → Repeat until pass
-```
-
-## Error Handling Matrix
-
-### Story Not Found
-```
-Error: Story file not found: .ai_docs/Stories/{STORY-ID}.story.md
+Error: Story file not found
+Path: .ai_docs/Stories/{STORY_ID}.story.md
 
 Available stories:
-{List stories from Glob(".ai_docs/Stories/*.story.md")}
+[List from Glob result]
 
-Usage: /qa [STORY-ID] [--mode=light|deep]
-Example: /qa STORY-001 --mode=deep
+Action: Verify story ID and try again
 ```
 
-### Invalid Story Status (Deep Mode)
+### Invalid Mode Specified
 ```
-Error: Story status must be "Dev Complete" for deep QA validation
+Error: Invalid validation mode: {PROVIDED_MODE}
 
-Current status: {CURRENT-STATUS}
-Story: {STORY-ID} - {STORY-TITLE}
+Valid modes:
+- light: Quick validation during development
+- deep: Comprehensive validation after completion
 
-Actions:
-- For light validation during development: /qa {STORY-ID} --mode=light
-- Complete implementation first: /dev {STORY-ID}
-- Update status to "Dev Complete" before deep validation
+Usage: /qa STORY-001 [light|deep]
 ```
 
 ### QA Skill Execution Failed
 ```
-Error: QA skill execution failed
+Error: QA validation failed to complete
 
-Story: {STORY-ID}
+Story: {STORY_ID}
 Mode: {MODE}
 
 Skill output:
-{Display skill error output}
-
-Troubleshooting:
-1. Verify context files exist: ls .devforgeai/context/
-2. Verify tests can run: {test-command for stack}
-3. Check build succeeds: {build-command for stack}
-4. Review skill logs above for specific error
-
-If issue persists, run development skill to fix build/test issues:
-/dev {STORY-ID}
-```
-
-### Missing Context Files
-```
-Error: QA validation requires context files
-
-Missing files:
-{List missing context files from .devforgeai/context/}
-
-Required files:
-- tech-stack.md
-- source-tree.md
-- dependencies.md
-- coding-standards.md
-- architecture-constraints.md
-- anti-patterns.md
-
-Run architecture skill to generate context:
-/arch
-```
-
-### Report Generation Failed
-```
-Error: QA report not generated
-
-Expected path: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
-Skill executed but report missing.
-
-Possible causes:
-1. Skill interrupted before completion
-2. File system permission issues
-3. Report directory doesn't exist
+{Display skill error output above}
 
 Actions:
-1. Create report directory: mkdir -p .devforgeai/qa/reports
-2. Re-run QA validation: /qa {STORY-ID} --mode={MODE}
-3. Check skill output above for errors
+1. Check context files exist: ls .devforgeai/context/
+2. Verify build: [language-specific build command]
+3. Verify tests: [language-specific test command]
+4. Try again: /qa {STORY_ID} {MODE}
 ```
 
-### Invalid Mode Argument
-```
-Error: Invalid mode specified: {PROVIDED-MODE}
-
-Valid modes:
-- light: Quick validation during development (~10K tokens)
-- deep: Comprehensive validation after Dev Complete (~65K tokens)
-
-Usage: /qa [STORY-ID] [--mode=light|deep]
-Examples:
-  /qa STORY-001              # Deep mode (default)
-  /qa STORY-001 --mode=light # Light mode
-  /qa STORY-001 --mode=deep  # Explicit deep mode
-```
-
-## Command Options Reference
-
-### Mode: Light (~10K tokens)
-**When to use:**
-- During development (any status before Dev Complete)
-- Quick feedback loop (Red → Green → Refactor)
-- Pre-commit validation
-- Blocking validation (halts on any failure)
-
-**What it checks:**
-- Build succeeds
-- Tests pass (100% pass rate)
-- Critical security anti-patterns only
-- No coverage analysis
-- No spec compliance validation
-
-**Status impact:**
-- Does NOT change story status
-- Blocks development on failure
-
-### Mode: Deep (~65K tokens)
-**When to use:**
-- After story implementation complete (status: Dev Complete)
-- Before release (quality gate)
-- Final validation before QA approval
-- Comprehensive quality assessment
-
-**What it checks:**
-- Full test coverage (95%/85%/80% thresholds)
-- 10+ anti-pattern categories
-- Spec compliance (AC, API contracts, NFRs)
-- Code quality metrics
-- Documentation coverage
-- Security scanning
-
-**Status impact:**
-- Updates story status on success: "QA Approved"
-- Updates story status on failure: "QA Failed"
+---
 
 ## Success Criteria
 
-- [ ] Story identified and validated
-- [ ] QA skill invoked with correct mode
-- [ ] QA report generated successfully
-- [ ] Story status updated (if deep mode)
-- [ ] Results displayed with clear summary
-- [ ] Next actions provided based on outcome
-- [ ] Token usage within budget (light <15K, deep <70K)
+- [ ] Story ID validated and file found
+- [ ] Validation mode determined (explicit or inferred)
+- [ ] QA skill invoked successfully
+- [ ] Skill returns valid result structure
+- [ ] Display template generated correctly
+- [ ] Results displayed to user
+- [ ] Next steps recommended based on result
+- [ ] Story file updated (deep mode pass only)
+- [ ] QA Validation History section added (deep mode pass only)
+- [ ] Status updated to "QA Approved" (deep mode pass only)
+- [ ] Token usage within budget (<15K for light, <70K for deep)
+
+---
 
 ## Integration with Framework
 
 **Invoked by:**
-- Manual: Developer runs `/qa {STORY-ID}`
-- devforgeai-development skill (light mode after phases 3, 4, 5)
+- Developer: `/qa STORY-ID` or `/qa STORY-ID mode`
+- devforgeai-development skill (light mode after implementation phases)
 - devforgeai-orchestration skill (deep mode for quality gates)
 
 **Invokes:**
-- devforgeai-qa skill (performs actual validation)
+- devforgeai-qa skill (actual validation logic)
+- qa-result-interpreter subagent (via skill, for result display)
 
-**Updates:**
-- Story status (deep mode only)
-- QA report in .devforgeai/qa/reports/
-- Workflow history in story document (via skill)
+**Result handling:**
+- Light mode pass: No status change, continue development
+- Light mode fail: Block development, fix required
+- Deep mode pass: Status → "QA Approved", ready for release
+- Deep mode fail: Status → "QA Failed", return to development
 
-**Quality Gates:**
-- Light mode: Blocks development on failure
-- Deep mode: Blocks release on CRITICAL/HIGH violations
-- Deep mode: Blocks release on coverage below thresholds
+**Quality gates affected:**
+- Gate 2 (Test Passing): Light QA enforces
+- Gate 3 (QA Approval): Deep QA enforces ← This command
+
+---
+
+## Related Commands
+
+- `/dev STORY-ID` - Return to development after QA failure
+- `/release STORY-ID` - Deploy QA-approved story
+- `/board` - View sprint progress
+- `/orchestrate STORY-ID` - Full lifecycle (dev → qa → release)
+
+---
 
 ## Performance Targets
 
 **Light Mode:**
-- Token usage: <15K
 - Execution time: <2 minutes
-- Report size: <50 lines
+- Token usage: <15K
+- Result summary: 8-12 lines
 
 **Deep Mode:**
-- Token usage: <70K
 - Execution time: <5 minutes
-- Report size: 200-400 lines
+- Token usage: <70K
+- Result summary: 40-80 lines
 
-## Related Commands
-
-- `/dev {STORY-ID}` - Implement story with TDD
-- `/release {STORY-ID}` - Deploy QA-approved story
-- `/board` - View sprint progress
-- `/stories` - List all stories
-
-## Example Usage
-
-```bash
-# Quick validation during development
-/qa STORY-001 --mode=light
-
-# Full validation after implementation
-/qa STORY-001 --mode=deep
-
-# Default mode is deep
-/qa STORY-001
-```
+---
 
 ## Implementation Notes
 
-**Token Optimization:**
-- Thin wrapper pattern (skill does analysis)
-- Command handles validation and display only
-- Parallel tool invocations where possible
-- Cache context files in memory
+**Architecture (Refactored 2025-11-05, Enhanced 2025-11-06):**
 
-**Error Recovery:**
-- All errors provide actionable next steps
-- Clear error messages with examples
-- Graceful degradation (partial results shown)
+This command follows **lean orchestration** pattern:
+- **Argument validation:** Minimal (20 lines)
+- **Story loading:** Via @file reference
+- **Skill invocation:** Simple (1 line)
+- **Result display:** Pass-through (no parsing)
+- **Story file updates:** Post-skill orchestration (Phase 4)
+- **Error handling:** Minimal (skill communicates errors)
 
-**User Experience:**
-- Color-coded results (✅ ❌ ⚠️)
-- Summary-first display (details on demand)
-- Clear next actions based on outcome
-- Link to detailed report for deep dives
+**Total: ~410 lines (vs 692 before refactoring) = 41% reduction**
+
+**Business logic location:**
+- Validation logic: devforgeai-qa skill
+- Result interpretation: qa-result-interpreter subagent
+- Display generation: qa-result-interpreter subagent
+- Story file updates: /qa command (Phase 4)
+- Command: Pure orchestration (invoke → display → update)
+
+**Token efficiency:**
+- Command overhead: ~3.5K tokens
+- Skill validation: ~15K (light) or ~65K (deep) in isolated context
+- Main conversation: ~4-5K (summary + file updates)
+- **Savings vs monolithic approach: 75%**
+
+**Phase 4 Enhancement (2025-11-06):**
+- Added post-validation story file updates
+- Updates story status to "QA Approved" on deep mode pass
+- Appends QA Validation History section
+- Updates timestamp in YAML frontmatter
+- Maintains skill-first architecture (no bypass)
+

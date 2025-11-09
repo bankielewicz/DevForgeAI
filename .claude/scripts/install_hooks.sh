@@ -69,8 +69,8 @@ echo ""
 echo "🔍 DevForgeAI Validators Running..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# Find story files in staging area
-STORY_FILES=$(git diff --cached --name-only | grep '\.story\.md$' || true)
+# Find story files in staging area (exclude deleted files)
+STORY_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.story\.md$' || true)
 
 if [ -z "$STORY_FILES" ]; then
     echo "  No story files to validate"
@@ -83,10 +83,17 @@ fi
 VALIDATION_FAILED=0
 
 for file in $STORY_FILES; do
+    # Skip if file doesn't exist (shouldn't happen with --diff-filter=d, but safety check)
+    if [ ! -f "$file" ]; then
+        echo "  ⚠️  Skipping (file not found): $file"
+        continue
+    fi
+
     echo "  📋 Validating: $file"
 
-    # Run DoD validator
-    if python3 .claude/scripts/devforgeai_cli/validators/dod_validator.py "$file"; then
+    # Run DoD validator with PYTHONPATH set (fixes relative import issue)
+    # This allows the validator to import from parent package without pip install
+    if PYTHONPATH=".claude/scripts:$PYTHONPATH" python3 -m devforgeai_cli.validators.dod_validator "$file" --project-root .; then
         echo "     ✅ Passed"
     else
         echo "     ❌ Failed"

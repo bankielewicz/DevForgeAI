@@ -8,6 +8,7 @@ points: [Story points: 1, 2, 3, 5, 8, 13]
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
+format_version: "2.0"
 ---
 
 # Story: [Title]
@@ -66,271 +67,168 @@ Define testable, specific conditions that must be met for story completion. Use 
 
 ## Technical Specification
 
-### API Endpoints
+**Format Version:** 2.0 (Structured YAML)
 
-Define all API endpoints created or modified by this story.
+Define all technical implementation details using structured YAML format for machine-readable parsing and automated validation.
 
-#### Endpoint 1: [Method] [Path]
+```yaml
+technical_specification:
+  format_version: "2.0"
 
-**POST** `/api/[resource]/[action]`
+  components:
+    # Service Component Example
+    - type: "Service"
+      name: "[ServiceName]"
+      file_path: "src/[path]/[ServiceName].cs"
+      interface: "[IServiceInterface]"
+      lifecycle: "Singleton|Scoped|Transient"
+      dependencies:
+        - "[IDependency1]"
+        - "[IDependency2]"
+      requirements:
+        - id: "SVC-001"
+          description: "[What this service must do]"
+          testable: true
+          test_requirement: "Test: [Specific test for this requirement]"
+          priority: "Critical|High|Medium|Low"
 
-**Description:** [What this endpoint does]
+    # Worker Component Example
+    - type: "Worker"
+      name: "[WorkerName]"
+      file_path: "src/[path]/[WorkerName].cs"
+      interface: "BackgroundService|IHostedService"
+      polling_interval_ms: 30000
+      dependencies:
+        - "[IDependency]"
+      requirements:
+        - id: "WKR-001"
+          description: "[What this worker must do]"
+          testable: true
+          test_requirement: "Test: [Specific test for this requirement]"
+          priority: "Critical|High|Medium|Low"
 
-**Authentication:** [Required / Optional / None]
+    # Configuration Component Example
+    - type: "Configuration"
+      name: "appsettings.json"
+      file_path: "src/[path]/appsettings.json"
+      required_keys:
+        - key: "[ConfigSection.KeyName]"
+          type: "string|int|bool|array|object"
+          example: "[Example value]"
+          required: true|false
+          default: "[Default value if any]"
+          validation: "[Validation rules]"
+          test_requirement: "Test: [How to verify this config loads]"
 
-**Request:**
-```json
-{
-  "field1": "type (string)",
-  "field2": "type (number)",
-  "field3": {
-    "nestedField": "type"
-  }
-}
+    # Logging Component Example
+    - type: "Logging"
+      name: "Serilog|NLog|log4net"
+      file_path: "src/[path]/Program.cs"
+      sinks:
+        - name: "File|EventLog|Database|Console"
+          path: "[Log file path]"
+          test_requirement: "Test: [How to verify this sink works]"
+
+    # Repository Component Example
+    - type: "Repository"
+      name: "[RepositoryName]"
+      file_path: "src/Infrastructure/Repositories/[RepositoryName].cs"
+      interface: "[IRepositoryInterface]"
+      data_access: "Dapper|EF Core|Prisma|Raw SQL"
+      entity: "[EntityName]"
+      table: "[dbo].[TableName]"
+      requirements:
+        - id: "REPO-001"
+          description: "[What this repository must do]"
+          testable: true
+          test_requirement: "Test: [Specific test for this requirement]"
+          priority: "Critical|High|Medium|Low"
+
+    # API Endpoint Component Example
+    - type: "API"
+      name: "[EndpointName]"
+      endpoint: "/api/[resource]/[action]"
+      method: "GET|POST|PUT|PATCH|DELETE"
+      authentication:
+        required: true|false
+        method: "Bearer Token|API Key|OAuth2"
+        scopes: ["scope1", "scope2"]
+      request:
+        content_type: "application/json"
+        schema:
+          field1:
+            type: "string|number|boolean|object|array"
+            required: true|false
+            validation: "[Validation rules]"
+      response:
+        success:
+          status_code: 200|201|204
+          schema:
+            id: "UUID"
+            field: "string"
+        errors:
+          - status_code: 400|401|403|404|422|500
+            condition: "[When this error occurs]"
+            schema:
+              error: "string"
+              message: "string"
+      requirements:
+        - id: "API-001"
+          description: "[What this API must do]"
+          testable: true
+          test_requirement: "Test: [Specific test for this requirement]"
+          priority: "Critical|High|Medium|Low"
+
+    # DataModel Component Example
+    - type: "DataModel"
+      name: "[EntityName]"
+      table: "[dbo].[TableName]"
+      purpose: "[What this model represents]"
+      fields:
+        - name: "[FieldName]"
+          type: "UUID|String|Int|DateTime|Enum|etc"
+          constraints: "Primary Key|Required|Unique|etc"
+          description: "[Purpose of this field]"
+          test_requirement: "Test: [How to validate this field]"
+      indexes:
+        - name: "IX_[Table]_[Field]"
+          fields: ["[Field1]", "[Field2]"]
+          unique: true|false
+          purpose: "[Why this index exists]"
+      relationships:
+        - type: "One-to-Many|Many-to-One|Many-to-Many"
+          related_entity: "[RelatedEntity]"
+          foreign_key: "[FK_Field]"
+          cascade: "Cascade|Restrict|SetNull"
+          description: "[Relationship purpose]"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "[Business rule description]"
+      trigger: "[When this rule is evaluated]"
+      validation: "[How to validate compliance]"
+      error_handling: "[What happens if violated]"
+      test_requirement: "Test: [How to test this rule]"
+      priority: "Critical|High|Medium|Low"
+
+  non_functional_requirements:
+    - id: "NFR-001"
+      category: "Performance|Security|Scalability|Reliability"
+      requirement: "[NFR description]"
+      metric: "[Measurable target with numbers]"
+      test_requirement: "Test: [How to verify this NFR]"
+      priority: "Critical|High|Medium|Low"
 ```
 
-**Request Validation:**
-- `field1`: Required, max length 100, valid email format
-- `field2`: Required, min 0, max 999999
-- `field3.nestedField`: Optional, enum [value1, value2, value3]
+**Instructions for AI Story Creation:**
+1. Use appropriate component types based on what's being built
+2. Every requirement/key/sink/field should have a `test_requirement`
+3. IDs should be unique and follow pattern: SVC-001, WKR-001, API-001, etc.
+4. Priorities: Critical (must have), High (should have), Medium (nice to have), Low (optional)
+5. All test requirements start with "Test: " prefix
+6. Metrics must be measurable (include numbers, thresholds, or ranges)
 
-**Response (200 OK):**
-```json
-{
-  "id": "uuid",
-  "field1": "string",
-  "field2": "number",
-  "createdAt": "ISO8601 timestamp"
-}
-```
-
-**Response (400 Bad Request):**
-```json
-{
-  "error": "ValidationError",
-  "message": "Validation failed",
-  "details": {
-    "field1": "Invalid email format",
-    "field2": "Value must be between 0 and 999999"
-  }
-}
-```
-
-**Response (401 Unauthorized):**
-```json
-{
-  "error": "Unauthorized",
-  "message": "Authentication required"
-}
-```
-
-**Response (500 Internal Server Error):**
-```json
-{
-  "error": "InternalServerError",
-  "message": "An unexpected error occurred",
-  "requestId": "uuid"
-}
-```
-
----
-
-#### Endpoint 2: [Method] [Path]
-
-**GET** `/api/[resource]/{id}`
-
-**Description:** [What this endpoint does]
-
-**Path Parameters:**
-- `id`: [Type, description]
-
-**Query Parameters:**
-- `param1`: [Optional/Required, type, description]
-- `param2`: [Optional/Required, type, description]
-
-**Response (200 OK):**
-```json
-{
-  "id": "uuid",
-  "data": { }
-}
-```
-
-**Response (404 Not Found):**
-```json
-{
-  "error": "NotFound",
-  "message": "Resource not found"
-}
-```
-
----
-
-### Data Models
-
-Define all data models (database entities, DTOs, domain objects).
-
-#### Model 1: [EntityName]
-
-**Type:** [Entity / DTO / Domain Object / Value Object]
-
-**Purpose:** [What this model represents]
-
-**C# Example:**
-```csharp
-public class EntityName
-{
-    public Guid Id { get; set; }
-    public string Field1 { get; set; }  // Required, max 100 chars
-    public int Field2 { get; set; }     // Required, min 0
-    public DateTime CreatedAt { get; set; }  // Auto-generated
-    public DateTime? UpdatedAt { get; set; }  // Nullable, auto-updated
-
-    // Navigation properties
-    public List<RelatedEntity> RelatedItems { get; set; }
-}
-```
-
-**Database Table:** `[TableName]`
-
-**Indexes:**
-- Primary Key: `Id` (clustered)
-- Unique Index: `Field1` (non-clustered)
-- Index: `CreatedAt` (non-clustered)
-
-**Relationships:**
-- One-to-Many: `EntityName` → `RelatedEntity` (via foreign key `EntityNameId`)
-
----
-
-#### Model 2: [RequestDTO]
-
-**Type:** DTO (Request)
-
-**Purpose:** [What this DTO represents]
-
-```csharp
-public class RequestDTO
-{
-    [Required]
-    [MaxLength(100)]
-    [EmailAddress]
-    public string Email { get; set; }
-
-    [Required]
-    [Range(0, 999999)]
-    public int Amount { get; set; }
-}
-```
-
----
-
-### Business Rules
-
-Define domain logic and business constraints.
-
-#### Rule 1: [Rule Name]
-
-**Description:** [What the rule enforces]
-
-**Logic:**
-- IF [condition]
-- THEN [action]
-- ELSE [alternative action]
-
-**Example:**
-- IF user has saved payment method AND it's not expired
-- THEN allow selection of saved payment method
-- ELSE prompt for new payment method
-
----
-
-#### Rule 2: [Rule Name]
-
-**Description:** [What the rule enforces]
-
-**Validation:**
-- [Constraint 1]
-- [Constraint 2]
-
-**Error Handling:**
-- IF rule violated: Return [error type] with message "[error message]"
-
----
-
-### Database Changes
-
-#### Migrations
-
-**Migration 1: Add[TableName]Table**
-
-**SQL (up migration):**
-```sql
-CREATE TABLE [dbo].[TableName]
-(
-    [Id] UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
-    [Field1] NVARCHAR(100) NOT NULL,
-    [Field2] INT NOT NULL,
-    [CreatedAt] DATETIME2 NOT NULL DEFAULT GETUTCDATE(),
-    [UpdatedAt] DATETIME2 NULL
-);
-
-CREATE UNIQUE INDEX IX_TableName_Field1 ON [TableName]([Field1]);
-CREATE INDEX IX_TableName_CreatedAt ON [TableName]([CreatedAt]);
-```
-
-**SQL (down migration):**
-```sql
-DROP INDEX IX_TableName_CreatedAt ON [TableName];
-DROP INDEX IX_TableName_Field1 ON [TableName];
-DROP TABLE [dbo].[TableName];
-```
-
----
-
-**Migration 2: AlterExistingTable**
-
-**SQL (up migration):**
-```sql
-ALTER TABLE [dbo].[ExistingTable]
-ADD [NewColumn] NVARCHAR(50) NULL;
-```
-
-**SQL (down migration):**
-```sql
-ALTER TABLE [dbo].[ExistingTable]
-DROP COLUMN [NewColumn];
-```
-
----
-
-### Architecture
-
-#### Layer Assignment
-
-Based on source-tree.md:
-
-- **Domain Layer:** `src/Domain/Entities/[EntityName].cs`
-- **Application Layer:** `src/Application/Services/[ServiceName].cs`
-- **Infrastructure Layer:** `src/Infrastructure/Repositories/[RepositoryName].cs`
-- **API Layer:** `src/API/Controllers/[ControllerName].cs`
-
-#### Components Created/Modified
-
-**New Components:**
-- `[ComponentName]` - [Purpose]
-
-**Modified Components:**
-- `[ComponentName]` - [What changes]
-
-#### Design Patterns
-
-- **Pattern 1:** [Pattern name] - [Where used and why]
-- **Pattern 2:** [Pattern name] - [Where used and why]
-
-**Example:**
-- **Repository Pattern:** Used for data access abstraction in `[RepositoryName]`
-- **Result Pattern:** Used for error handling in business logic (per coding-standards.md)
+**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
 
 ---
 

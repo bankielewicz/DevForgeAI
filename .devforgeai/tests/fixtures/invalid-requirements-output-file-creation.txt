@@ -1,0 +1,22 @@
+## User Story
+**As a** database administrator,
+**I want** to capture index characteristics,
+**so that** rebuilds preserve settings.
+
+## Acceptance Criteria
+
+### AC1: Test criterion
+**Given** index exists
+**When** function called
+**Then** returns JSON
+
+File created: STORY-009-SUMMARY.md
+Successfully wrote STORY-009-QUICK-START.md
+
+## Edge Cases
+1. **Test edge case:** Description
+
+## Non-Functional Requirements
+
+### Performance
+- Response time: < 100ms

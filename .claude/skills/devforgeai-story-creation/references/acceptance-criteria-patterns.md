@@ -1242,6 +1242,47 @@ Additional: Integration tests, E2E tests
 
 ---
 
+## Integration with Technical Specification (v2.0)
+
+**For stories using v2.0 structured YAML format:**
+
+**Acceptance criteria drive tech spec components:**
+
+**Example mapping:**
+
+**AC:** "Given user submits registration form, When validation passes, Then account created"
+
+**Generates components:**
+```yaml
+components:
+  - type: "API"
+    name: "UserRegistration"
+    endpoint: "/api/users/register"
+    method: "POST"
+    requirements:
+      - id: "API-001"
+        description: "Must validate email format before account creation"
+        test_requirement: "Test: POST with invalid email returns 400 Bad Request"
+        priority: "Critical"
+
+  - type: "Service"
+    name: "UserRegistrationService"
+    file_path: "src/Application/Services/UserRegistrationService.cs"
+    requirements:
+      - id: "SVC-001"
+        description: "Must create user account when validation passes"
+        test_requirement: "Test: Valid request creates user in database"
+        priority: "Critical"
+```
+
+**Each Given/When/Then should map to:**
+- Component requirement (what must be built)
+- Test requirement (how to verify it)
+
+**See:** `technical-specification-creation.md` for complete v2.0 generation guide
+
+---
+
 ## Progressive Disclosure
 
 **When to load this reference:**

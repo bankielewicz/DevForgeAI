@@ -71,7 +71,7 @@
 
 **Skills Reference** (@.claude/memory/skills-reference.md)
 - Loaded when: Working with skills, planning workflows
-- Contains: All 7 skills, invocation patterns, workflow sequences
+- Contains: All 8 skills, invocation patterns, workflow sequences
 
 **Subagents Reference** (@.claude/memory/subagents-reference.md)
 - Loaded when: Using Task tool, parallel execution needed
