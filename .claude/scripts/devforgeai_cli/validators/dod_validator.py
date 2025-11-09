@@ -41,7 +41,7 @@ class DoDValidator:
         Validate DoD completion for a story file.
 
         Args:
-            story_file: Path to story file
+            story_file: Path to story file (relative to project root or absolute)
 
         Returns:
             Tuple of (is_valid, violations)
@@ -55,8 +55,13 @@ class DoDValidator:
         """
         violations = []
 
+        # Resolve story file path relative to project root
+        story_path = Path(story_file)
+        if not story_path.is_absolute():
+            story_path = self.project_root / story_path
+
         try:
-            frontmatter, content = load_story_file(story_file)
+            frontmatter, content = load_story_file(str(story_path))
         except FileNotFoundError as e:
             return False, [{'severity': 'CRITICAL', 'error': str(e)}]
 
@@ -239,13 +244,14 @@ def validate_dod(story_file: str, output_format: str = 'text', project_root: str
                 if critical:
                     print("CRITICAL VIOLATIONS:")
                     for v in critical:
-                        print(f"  • {v['item']}")
+                        print(f"  • {v.get('item', v.get('story_id', 'N/A'))}")
                         print(f"    Error: {v['error']}")
                         if 'dod_status' in v:
                             print(f"    DoD: {v['dod_status']} | Impl: {v['impl_status']}")
                         if 'justification' in v and v['justification']:
                             print(f"    Found: {v['justification']}")
-                        print(f"    Fix: {v['fix']}")
+                        if 'fix' in v:
+                            print(f"    Fix: {v['fix']}")
                         print()
 
                 if high:
@@ -259,8 +265,10 @@ def validate_dod(story_file: str, output_format: str = 'text', project_root: str
                 if medium:
                     print("MEDIUM VIOLATIONS:")
                     for v in medium:
-                        print(f"  • {v['item']}")
+                        print(f"  • {v.get('item', v.get('story_id', 'N/A'))}")
                         print(f"    Error: {v['error']}")
+                        if 'fix' in v:
+                            print(f"    Fix: {v['fix']}")
                         print()
 
                 print("=" * 80)

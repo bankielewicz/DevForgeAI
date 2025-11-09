@@ -213,6 +213,76 @@ So that [specific benefit/business value].
 - Business rules required if story has validation/calculation logic
 - Dependencies list all external services, libraries, infrastructure
 
+---
+
+## Technical Specification Section (v2.0 Structured YAML)
+
+**Format Version:** 2.0 (Current) - Structured YAML format
+
+**Since:** 2025-11-07 (RCA-006 Phase 2)
+
+**Purpose:** Machine-readable technical specifications enabling automated validation and test generation
+
+**Structure:**
+
+````markdown
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:
+    - type: "Service|Worker|Configuration|Logging|Repository|API|DataModel"
+      name: "[ComponentName]"
+      file_path: "src/[path]/[file]"
+      requirements:
+        - id: "[COMP-001]"
+          description: "[What must be implemented]"
+          testable: true
+          test_requirement: "Test: [Specific test assertion]"
+          priority: "Critical|High|Medium|Low"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "[Business rule description]"
+      test_requirement: "Test: [Validation test]"
+
+  non_functional_requirements:
+    - id: "NFR-001"
+      category: "Performance|Security|Scalability|Reliability"
+      requirement: "[NFR description]"
+      metric: "[Measurable target with numbers]"
+      test_requirement: "Test: [How to verify]"
+```
+````
+
+**Complete schema:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+
+**Legacy v1.0 Format (Deprecated):**
+
+Stories created before 2025-11-07 may use freeform text format. These are still supported (backward compatibility) but should be migrated to v2.0 for Phase 3 automated validation.
+
+**Frontmatter Requirement:**
+
+All v2.0 stories MUST have `format_version: "2.0"` in YAML frontmatter:
+
+```yaml
+---
+id: STORY-XXX
+format_version: "2.0"  # <-- REQUIRED for v2.0
+---
+```
+
+**Validation:**
+
+Run `validate_tech_spec.py` to verify v2.0 format:
+```bash
+python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py STORY-XXX.story.md
+```
+
+---
+
 ### 4. UI Specification (if applicable)
 ```markdown
 ## UI Specification

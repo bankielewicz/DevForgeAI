@@ -214,7 +214,10 @@ Skill(command="devforgeai-story-creation")
 - Self-validated for quality
 
 **Subagents Used:**
-- requirements-analyst (Phase 2) - User story and acceptance criteria
+- **story-requirements-analyst** (Phase 2) - User story and acceptance criteria (RCA-007 Phase 3 - skill-specific, content-only)
+  - Replaces general-purpose requirements-analyst
+  - Cannot create files (no Write/Edit tools by design)
+  - Returns markdown content for assembly into story-template.md
 - api-designer (Phase 3, conditional) - API contracts if endpoints detected
 
 **Reference Files (6 files, 7,477 lines):**

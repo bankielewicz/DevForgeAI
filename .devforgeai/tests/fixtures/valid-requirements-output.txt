@@ -1,0 +1,46 @@
+## User Story
+**As a** database administrator,
+**I want** to capture all index characteristics before rebuild operations,
+**so that** performance tuning settings are preserved and data loss prevented.
+
+## Acceptance Criteria
+
+### AC1: Capture standard index properties
+**Given** a clustered or non-clustered index exists in the database
+**When** fn_GetIndexDefinition() is called with database, schema, table, and index names
+**Then** the function returns JSON containing IndexType, FillFactor, IsPadded, IgnoreDupKey, AllowRowLocks, AllowPageLocks, DataCompression, KeyColumns (with ASC/DESC), IncludedColumns, and FileGroupOrPartitionScheme
+
+### AC2: Preserve filtered index predicates
+**Given** a filtered index with WHERE clause exists
+**When** fn_GetIndexDefinition() is called
+**Then** the JSON includes FilterDefinition field with complete WHERE clause text
+
+### AC3: Performance requirement
+**Given** a database with 1000+ indexes
+**When** fn_GetIndexDefinition() is called for any single index
+**Then** the function completes in less than 100 milliseconds
+
+## Edge Cases
+1. **Partitioned indexes (Enterprise Edition only):** Capture partition scheme name and partition function details
+2. **Columnstore indexes:** No key columns (return NULL for KeyColumns/IncludedColumns)
+
+## Non-Functional Requirements
+
+### Performance
+- Response time: < 100ms per call (p95 and p99)
+- Batch performance: < 5 seconds for 100 indexes
+
+### Security
+- Authentication: Inherits caller's SQL authentication
+- Authorization: Requires VIEW DEFINITION on target database
+- SQL injection prevention: QUOTENAME() + sp_executesql
+- No privilege elevation (caller's permissions only)
+
+### Reliability
+- Error handling: Return NULL on errors (no exceptions)
+- No retry logic needed (read-only, safe to retry)
+
+### Scalability
+- Stateless function (no session state)
+- Supports concurrent callers (read-only)
+- Scales with sys.indexes row count (10,000+ indexes)

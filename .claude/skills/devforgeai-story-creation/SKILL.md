@@ -1,6 +1,7 @@
 ---
 name: devforgeai-story-creation
 description: Create user stories with acceptance criteria, technical specifications, and UI specifications. Use when transforming feature descriptions into structured stories, generating stories from epic features, or creating follow-up stories for deferred work. Supports CRUD, authentication, workflow, and reporting story types with complete technical and UI specifications.
+model: claude-sonnet-4-5-20250929[1m]
 allowed-tools:
   - Read
   - Write
@@ -128,6 +129,30 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Subagent:** api-designer (conditional - if API endpoints detected)
 **Steps:** Detect API needs, generate contracts, define data models, document rules, identify dependencies
 **Output:** API contracts, data models, business rules, dependencies
+
+**Format Version:** 2.0 (Structured YAML) - **Default for all stories created after 2025-11-07**
+
+**Critical:** All new stories MUST use v2.0 structured YAML format in Technical Specification section. This enables:
+- 95%+ parsing accuracy (vs 85% with v1.0 freeform text)
+- Automated validation in Phase 3 (implementation-validator requires v2.0)
+- Deterministic coverage gap detection in Phase 1 Step 4
+
+**v2.0 Format Overview:**
+Technical Specification section contains YAML code block with:
+- `components`: Array of Service, Worker, Configuration, Logging, Repository, API, DataModel
+- `business_rules`: Array of domain rules with test_requirement
+- `non_functional_requirements`: Array of NFRs with measurable metrics
+
+**Complete schema reference:**
+`.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+
+**The reference file `technical-specification-creation.md` contains:**
+- Complete v2.0 generation instructions
+- Component type selection guide
+- Test requirement format
+- api-designer integration for API components
+
+**Load and follow technical-specification-creation.md for Phase 3 execution.**
 
 ### Phase 4: UI Specification
 **Purpose:** Document UI components, mockups, accessibility

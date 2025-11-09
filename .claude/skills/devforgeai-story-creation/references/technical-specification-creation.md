@@ -1,10 +1,111 @@
 # Phase 3: Technical Specification Creation
 
-Generate technical specifications including API contracts, data models, business rules, and dependencies.
+Generate technical specifications using **structured YAML format (v2.0)** for machine-readable parsing and automated validation.
 
 ## Overview
 
-This phase creates the technical foundation for implementation, defining APIs, data structures, business logic, and external dependencies.
+This phase creates the technical foundation for implementation using structured YAML that enables:
+- **Deterministic parsing:** 95%+ accuracy (vs 85% with freeform text)
+- **Automated validation:** Component coverage validation in Phase 3
+- **Comprehensive test generation:** Every component has explicit test requirements
+- **Zero ambiguity:** Machine-readable schema eliminates interpretation errors
+
+**Format Version:** 2.0 (Structured YAML) - **Default for all new stories**
+
+**See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference
+
+**RCA-006 Phase 2: Structured Technical Specifications**
+
+Starting with v2.0, technical specifications use structured YAML format instead of freeform text. This enables:
+- **Phase 1 Step 4:** 95%+ accuracy in coverage gap detection (vs 85% with freeform)
+- **Phase 3 (Future):** Automated implementation validation
+- **Test Generation:** Direct mapping from component requirements to tests
+
+**v2.0 Format Overview:**
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:  # 7 component types: Service, Worker, Configuration, Logging, Repository, API, DataModel
+    - type: "[ComponentType]"
+      name: "[ComponentName]"
+      file_path: "src/[path]/[file]"
+      requirements:
+        - id: "[COMP-001]"
+          description: "[What must be implemented]"
+          testable: true
+          test_requirement: "Test: [Specific test assertion]"
+          priority: "Critical|High|Medium|Low"
+
+  business_rules:  # Domain logic and constraints
+    - id: "BR-001"
+      rule: "[Business rule]"
+      test_requirement: "Test: [How to validate]"
+
+  non_functional_requirements:  # Performance, security, scalability
+    - id: "NFR-001"
+      category: "Performance|Security|Scalability|Reliability"
+      requirement: "[NFR description]"
+      metric: "[Measurable target with numbers]"
+      test_requirement: "Test: [How to verify]"
+```
+
+**Component Type Selection:**
+- **Service:** Hosted services, application services with lifecycle
+- **Worker:** Background tasks, polling loops, scheduled jobs
+- **Configuration:** appsettings.json, environment variables, config files
+- **Logging:** Log sinks, logging configuration
+- **Repository:** Data access layer, database interactions
+- **API:** HTTP endpoints (REST, GraphQL, gRPC)
+- **DataModel:** Database entities, DTOs, domain objects
+
+**RCA-007 Enhancements (Phase 2):**
+- Step 3.0: Pre-invocation file system snapshot (NEW - for api-designer)
+- Step 3.2: Enhanced api-designer prompt with 4-section template (Phase 1)
+- Step 3.2.5: Contract-based validation (NEW - Phase 2)
+- Step 3.2.7: Post-invocation file system diff (NEW - Phase 2)
+
+---
+
+## Step 3.0: Pre-Invocation File System Snapshot (NEW - RCA-007 Phase 2)
+
+**Objective:** Capture file system state before api-designer execution
+
+**NOTE:** This step only runs if API requirements detected (Step 3.1) and api-designer will be invoked (Step 3.2).
+
+**Take snapshot (same as Step 2.0):**
+```python
+# Capture current .story.md and API spec files
+files_before_api_designer = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+
+# Capture potential API spec files
+api_spec_patterns = [
+    f".devforgeai/specs/api/{story_id}-api-spec.yaml",
+    f".ai_docs/Stories/{story_id}-api-spec.yaml",
+    f".ai_docs/Stories/*-api-spec.yaml",
+    f".devforgeai/specs/api/*.yaml"
+]
+
+api_files_before = []
+for pattern in api_spec_patterns:
+    matching_files = Glob(pattern=pattern)
+    api_files_before.extend(matching_files)
+
+# Store snapshot
+api_snapshot = {
+    "timestamp": datetime.now().isoformat(),
+    "story_id": story_id,
+    "api_files_count": len(api_files_before),
+    "api_files": api_files_before
+}
+
+Display: f"""
+Step 3.0: File System Snapshot (Before api-designer)
+- Existing API spec files: {len(api_files_before)}
+
+Snapshot captured. Proceeding to Step 3.2 (api-designer invocation)...
+"""
+```
 
 ---
 
@@ -50,9 +151,11 @@ AskUserQuestion(
 
 ---
 
-## Step 3.2: Generate API Contracts (If Needed)
+## Step 3.2: Generate API Contracts (If Needed) (ENHANCED - RCA-007 Fix)
 
 **Objective:** Design API contracts using api-designer subagent
+
+**IMPORTANT:** This prompt has been enhanced to prevent RCA-007 violations. The api-designer MUST return YAML/markdown content only (no separate api-spec.yaml file).
 
 **Invoke API designer subagent:**
 
@@ -60,15 +163,142 @@ AskUserQuestion(
 if requires_api:
     Task(
       subagent_type="api-designer",
-      description="Design API contracts",
+      description="Design API contracts (content only)",
       prompt="""Design API contracts for user story following DevForgeAI standards.
 
-User Story: {user_story}
+**═══════════════════════════════════════════════════════════════════════════**
+**PRE-FLIGHT BRIEFING:**
+**═══════════════════════════════════════════════════════════════════════════**
 
-Acceptance Criteria:
+You are being invoked by the devforgeai-story-creation skill.
+This skill will embed your API specification into the Technical Specification section of .story.md.
+
+**YOUR ROLE:**
+- Generate OpenAPI 3.0 specification
+- Return specification as YAML text
+- Do NOT create files
+- Parent skill embeds this in story document (Phase 5: Story File Creation)
+
+**OUTPUT WILL BE USED IN:**
+- Phase 5: Story File Creation (embedded in Technical Specification section)
+- Your output is CONTENT for embedding, not a standalone API spec file
+
+**WORKFLOW CONTEXT:**
+- Current workflow: Story creation (8-phase process)
+- Current phase: Phase 3 (Technical Specification)
+- Next phase: Phase 4 (UI Specification)
+- Final artifact: .ai_docs/Stories/{story_id}-{slug}.story.md
+
+**═══════════════════════════════════════════════════════════════════════════**
+**CRITICAL OUTPUT CONSTRAINTS:**
+**═══════════════════════════════════════════════════════════════════════════**
+
+1. **Format:** Return ONLY OpenAPI 3.0 YAML text (no file creation)
+2. **Content:** Output will be embedded in Technical Specification section of .story.md
+3. **Files:** Do NOT create separate files (api-spec.yaml, endpoints.md, schemas.md, models.md)
+4. **Structure:** Single OpenAPI YAML document with paths, components, security, info
+5. **Assembly:** Parent skill will wrap this in ```yaml code fence and insert into story
+6. **Size:** Maximum 30,000 characters (fits in story technical spec section)
+
+**Contract Reference:** .claude/skills/devforgeai-story-creation/contracts/api-designer-contract.yaml
+
+**═══════════════════════════════════════════════════════════════════════════**
+**PROHIBITED ACTIONS:**
+**═══════════════════════════════════════════════════════════════════════════**
+
+You MUST NOT:
+1. ❌ Create api-spec.yaml file
+2. ❌ Create separate schema files (user-schema.yaml, request-schemas.yaml)
+3. ❌ Create endpoint documentation files (endpoints.md, api-docs.md)
+4. ❌ Return file paths (e.g., "Created: api-spec.yaml")
+5. ❌ Use Write or Edit tools
+6. ❌ Use Bash for file creation
+7. ❌ Generate multi-file API documentation
+8. ❌ Create Postman collections or other artifacts
+
+**Why prohibited:**
+- Parent skill handles all file creation (Phase 5)
+- Your output is embedded in story document (not standalone file)
+- Multi-file output violates DevForgeAI single-file design
+- Creates framework specification violations (RCA-007)
+
+**What to do instead:**
+- ✅ Return OpenAPI YAML as text string
+- ✅ Include all schemas inline (components.schemas section)
+- ✅ Document all endpoints in single YAML
+- ✅ Let parent skill embed this in story document
+
+**═══════════════════════════════════════════════════════════════════════════**
+**EXPECTED OUTPUT FORMAT:**
+**═══════════════════════════════════════════════════════════════════════════**
+
+Your output should look like this (YAML TEXT, not files):
+
+```yaml
+openapi: 3.0.0
+info:
+  title: {Feature Name} API
+  version: 1.0.0
+
+paths:
+  /api/endpoint:
+    post:
+      summary: {Description}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseModel'
+
+components:
+  schemas:
+    RequestModel:
+      type: object
+      properties:
+        field1: {type: string}
+        field2: {type: integer}
+
+    ResponseModel:
+      type: object
+      properties:
+        result: {type: string}
+```
+
+**What your output will become:**
+Parent skill will embed your YAML in Technical Specification section:
+
+```markdown
+## Technical Specification
+
+### API Contract
+
+```yaml
+{YOUR OUTPUT: OpenAPI YAML specification}
+```
+
+### Data Models
+(Extracted from your components.schemas)
+```
+
+**Final result:** Single .story.md file with embedded API spec (not separate api-spec.yaml file)
+
+**═══════════════════════════════════════════════════════════════════════════**
+**NOW PROCEED WITH API DESIGN:**
+**═══════════════════════════════════════════════════════════════════════════**
+
+**User Story:** {user_story}
+
+**Acceptance Criteria:**
 {acceptance_criteria_list}
 
-Generate API contracts in OpenAPI 3.0 style:
+**Generate API contracts in OpenAPI 3.0 YAML format (as TEXT, not file):**
 
 1. **HTTP Method and Endpoint Path**
    - RESTful conventions (nouns for resources, verbs for actions)
@@ -92,9 +322,9 @@ Generate API contracts in OpenAPI 3.0 style:
    - Input validation (required fields, formats, ranges)
    - Business rule validation
 
-Context: DevForgeAI framework, tech-stack.md compliance required
+**Context:** DevForgeAI framework, tech-stack.md compliance required
 
-Output Format: Markdown with JSON schemas
+**REMINDER:** Return OpenAPI YAML TEXT only. No file creation (no api-spec.yaml file).
 """
     )
 ```
@@ -115,6 +345,168 @@ API contract must include:
 **Load technical specification guide for templates:**
 ```
 Read(file_path=".claude/skills/devforgeai-story-creation/references/technical-specification-guide.md")
+```
+
+---
+
+## Step 3.2.5: Contract-Based Validation for API Designer (NEW - RCA-007 Phase 2)
+
+**Objective:** Enforce api-designer contract specifications
+
+**NOTE:** This step only runs if api-designer was invoked (API requirements detected).
+
+**Load contract:**
+```python
+contract_path = ".claude/skills/devforgeai-story-creation/contracts/api-designer-contract.yaml"
+
+if file_exists(contract_path):
+    import yaml
+    contract_content = Read(file_path=contract_path)
+    contract = yaml.safe_load(contract_content)
+
+    Display: f"""
+Validating API designer output against contract:
+- Contract: {contract['skill']} <-> {contract['subagent']}
+- Version: {contract['contract_version']}
+- Phase: {contract['phase']}
+"""
+
+    # Validate API designer output
+    violations = []
+
+    # Check 1: No file creation (api-spec.yaml, etc.)
+    prohibited_patterns = contract['validation']['check_no_file_references']['prohibited_patterns']
+
+    for pattern in prohibited_patterns:
+        import re
+        if re.search(pattern, api_designer_output, re.IGNORECASE):
+            violations.append({
+                "type": "FILE_CREATION",
+                "pattern": pattern,
+                "severity": "CRITICAL"
+            })
+
+    # Check 2: Valid OpenAPI YAML
+    if contract['validation']['check_yaml_validity']['enabled']:
+        try:
+            # Attempt to parse YAML
+            yaml.safe_load(api_designer_output)
+        except yaml.YAMLError as e:
+            violations.append({
+                "type": "INVALID_YAML",
+                "error": str(e),
+                "severity": "CRITICAL"
+            })
+
+    # Check 3: OpenAPI version
+    if contract['validation']['check_openapi_version']['enabled']:
+        if "openapi: 3.0" not in api_designer_output:
+            violations.append({
+                "type": "INVALID_OPENAPI_VERSION",
+                "severity": "HIGH"
+            })
+
+    # Display results
+    if violations:
+        Display: f"""
+⚠️ API Designer Contract Validation FAILED
+
+Violations: {len(violations)}
+{format_violations(violations)}
+
+Recovery: Apply error handling from contract
+"""
+    else:
+        Display: f"""
+✓ API Designer Contract Validation PASSED
+
+OpenAPI YAML valid ✅
+No file references ✅
+Version 3.0.0 ✅
+
+Proceeding to Step 3.2.7 (file system diff)...
+"""
+```
+
+---
+
+## Step 3.2.7: Post-Invocation File System Diff for API Designer (NEW - RCA-007 Phase 2)
+
+**Objective:** Detect unauthorized API spec files created during api-designer execution
+
+**NOTE:** This step only runs if api-designer was invoked.
+
+**Compare file system:**
+```python
+# Capture current state (after api-designer)
+api_files_after = []
+for pattern in api_spec_patterns:
+    matching_files = Glob(pattern=pattern)
+    api_files_after.extend(matching_files)
+
+# Calculate diff
+new_api_files = list(set(api_files_after) - set(api_files_before))
+
+# Check for unauthorized files
+if len(new_api_files) > 0:
+    # CRITICAL: API spec files created
+    Display: f"""
+❌ CRITICAL: Unauthorized API Spec Files Created
+
+The api-designer subagent created separate API spec files.
+This violates single-file design (API should be embedded in .story.md).
+
+Unauthorized files:
+{chr(10).join(f"  - {f}" for f in new_api_files)}
+
+Recovery: Delete files and log violation
+"""
+
+    # Delete unauthorized files
+    for file in new_api_files:
+        Bash(command=f"rm '{file}'")
+        Display: f"  Deleted: {file}"
+
+    # Log violation
+    import datetime
+    log_entry = f"""
+[FILE CREATION VIOLATION - API Designer]
+Timestamp: {datetime.datetime.now().isoformat()}
+Story ID: {story_id}
+Phase: Phase 3 (Technical Specification)
+Subagent: api-designer
+Unauthorized files: {len(new_api_files)}
+{chr(10).join(f"  - {f}" for f in new_api_files)}
+Action: Files deleted
+---
+"""
+
+    current_log = Read(file_path=".devforgeai/logs/rca-007-violations.log")
+    Write(file_path=".devforgeai/logs/rca-007-violations.log", content=current_log + log_entry)
+
+    # HALT (critical violation)
+    HALT: """
+❌ CRITICAL: api-designer created separate API spec files
+
+Files have been deleted (rollback).
+API specification should be embedded in .story.md (not separate file).
+
+Manual intervention required.
+"""
+
+else:
+    # No unauthorized files
+    Display: f"""
+✓ Step 3.2.7: File System Diff PASSED (api-designer)
+
+API files before: {len(api_files_before)}
+API files after: {len(api_files_after)}
+New files: 0
+
+api-designer returned YAML text (no file creation) ✅
+
+Proceeding to Step 3.3 (Define Data Models)...
+"""
 ```
 
 ---

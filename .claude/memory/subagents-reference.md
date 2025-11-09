@@ -1,12 +1,12 @@
 # DevForgeAI Subagents Reference
 
-Detailed guidance for working with the 14 specialized subagents.
+Detailed guidance for working with the 20 specialized subagents.
 
 ---
 
 ## Overview
 
-Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **14 subagents** are available in `.claude/agents/`.
+Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **20 subagents** are available in `.claude/agents/`.
 
 ---
 
@@ -24,8 +24,13 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 - **Phase 4 (Integration)**: integration-tester creates cross-component tests
 
 **During devforgeai-qa:**
+- **Phase 0 Step 2.5**: deferral-validator validates deferred DoD items (MANDATORY)
 - **Light Validation**: context-validator checks constraints
 - **Deep Validation**: security-auditor scans for vulnerabilities, test-automator fills coverage gaps
+- **Phase 5 Step 6**: qa-result-interpreter interprets results and generates user-facing display (NEW - QA Refactoring)
+
+**During devforgeai-ui-generator:**
+- **Phase 6 Step 3.5**: ui-spec-formatter formats and validates generated UI specifications (NEW - UI Refactoring)
 
 **During devforgeai-architecture:**
 - architect-reviewer validates architecture decisions
@@ -105,6 +110,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **security-auditor** | OWASP Top 10, auth/authz, vulnerability scanning | sonnet | <40K | After auth code, handling sensitive data |
 | **deployment-engineer** | Infrastructure, IaC, CI/CD pipelines | sonnet | <40K | Release phase, deployment configuration |
 | **requirements-analyst** | User story creation, acceptance criteria | sonnet | <30K | Epic decomposition, story planning |
+| **story-requirements-analyst** | Story requirements (content-only, RCA-007 fix) | sonnet | <50K | devforgeai-story-creation Phase 2 (replaces general-purpose) |
 | **documentation-writer** | Technical docs, API specs, user guides | sonnet | <30K | After API implementation, when coverage <80% |
 | **architect-reviewer** | Architecture validation, design patterns | sonnet | <40K | After ADRs, major architectural changes |
 | **refactoring-specialist** | Safe refactoring, code smell removal | inherit | <40K | When complexity >10, code duplication >5% |
@@ -113,18 +119,30 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **agent-generator** | Generate new specialized subagents | haiku | N/A | Creating custom subagents for framework |
 | **deferral-validator** | Deferral justification validation, circular detection | haiku | <5K | Before commits (dev), before QA approval (qa) |
 | **technical-debt-analyzer** | Debt trend analysis, pattern detection, reporting | sonnet | <30K | Sprint planning, retrospectives, debt reviews |
+| **tech-stack-detector** | Technology detection and tech-stack.md validation | haiku | <10K | Development workflow init, architecture validation |
+| **git-validator** | Git availability check and workflow strategy | haiku | <5K | Before development workflows, release validation |
+| **qa-result-interpreter** | QA result interpretation and display generation | haiku | <8K | After QA report generation, before user display (NEW - QA Refactoring) |
+| **sprint-planner** | Sprint creation and capacity validation | sonnet | <40K | Sprint planning, story selection, capacity validation (NEW - Sprint Refactoring) |
+| **ui-spec-formatter** | UI spec validation and display generation | haiku | <10K | After UI spec generation, before user display (NEW - UI Refactoring 2025-11-05) |
 
 ---
 
 ## Subagent Integration with Skills
 
 **devforgeai-development** uses:
-- test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer (enhanced with deferral review) → integration-tester → **deferral-validator** (NEW - Phase 6.1.5)
+- **git-validator** (NEW - Phase 0 Step 1)
+- **tech-stack-detector** (NEW - Phase 0 Step 7)
+- test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer (enhanced with deferral review) → integration-tester → **deferral-validator** (Phase 5 Step 1.5)
 - requirements-analyst (when creating follow-up stories for deferrals)
 - architect-reviewer (when creating ADRs for scope changes)
 
 **devforgeai-qa** uses:
-- **deferral-validator** (NEW - Phase 0 Step 2.5) → context-validator → security-auditor → test-automator (coverage gaps)
+- **deferral-validator** (Phase 0 Step 2.5 - validates deferred DoD items)
+- context-validator → security-auditor → test-automator (coverage gaps)
+- **qa-result-interpreter** (NEW - Phase 5 Step 6 - interprets results and generates display)
+
+**devforgeai-ui-generator** uses:
+- **ui-spec-formatter** (NEW - Phase 6 Step 3.5 - formats and validates UI spec results)
 
 **devforgeai-architecture** uses:
 - architect-reviewer → api-designer
@@ -133,8 +151,17 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 - security-auditor → deployment-engineer
 
 **devforgeai-orchestration** uses:
-- requirements-analyst (story creation)
+- requirements-analyst (epic feature decomposition, sprint planning)
 - **technical-debt-analyzer** (NEW - Phase 4.5 during sprint planning/retrospectives)
+- **sprint-planner** (NEW - Phase 3 sprint planning workflow)
+
+**devforgeai-story-creation** uses:
+- **story-requirements-analyst** (NEW - RCA-007 Phase 3) - Phase 2 (Requirements Analysis)
+  - Skill-specific subagent for content-only output
+  - Replaces general-purpose requirements-analyst
+  - Cannot create files (no Write/Edit tools)
+  - Returns markdown sections for assembly into story-template.md
+- api-designer (conditional - Phase 3 if API endpoints detected)
 
 ---
 
@@ -148,8 +175,10 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 4. **Security Audits**: Use `security-auditor` after auth/security code or handling sensitive data
 5. **Documentation**: Use `documentation-writer` after API implementation or when coverage <80%
 6. **Architecture Review**: Use `architect-reviewer` after creating ADRs or major design changes
-7. **Deferral Validation** (NEW - RCA-006): Always use `deferral-validator` when stories have deferred DoD items (dev Phase 6.1.5, QA Phase 0 Step 2.5)
-8. **Technical Debt Analysis** (NEW - RCA-006): Use `technical-debt-analyzer` during sprint planning or when technical-debt-register.md updates
+7. **Deferral Validation** (RCA-006): Always use `deferral-validator` when stories have deferred DoD items (dev Phase 6.1.5, QA Phase 0 Step 2.5)
+8. **Technical Debt Analysis** (RCA-006): Use `technical-debt-analyzer` during sprint planning or when technical-debt-register.md updates
+9. **QA Result Interpretation** (NEW - QA Refactoring): Always use `qa-result-interpreter` after QA report generation to prepare user-facing display
+10. **UI Spec Formatting** (NEW - UI Refactoring 2025-11-05): Always use `ui-spec-formatter` after UI spec generation to validate and format results
 
 ---
 
@@ -201,7 +230,13 @@ All subagents are defined in `.claude/agents/`:
 - `agent-generator.md` (855 lines)
 - **`deferral-validator.md`** (NEW - 181 lines - RCA-006)
 - **`technical-debt-analyzer.md`** (NEW - 172 lines - RCA-006)
+- **`story-requirements-analyst.md`** (NEW - ~500 lines - RCA-007 Phase 3)
 
-**Total:** 16 subagents (14 original + 2 new from RCA-006)
+- **`tech-stack-detector.md`** (NEW - ~300 lines - Command Refactoring)
+- **`git-validator.md`** (NEW - ~250 lines - Command Refactoring)
+- **`qa-result-interpreter.md`** (NEW - 300 lines - QA Command Refactoring 2025-11-05)
+- **`ui-spec-formatter.md`** (NEW - 507 lines - UI Command Refactoring 2025-11-05)
+
+**Total:** 21 subagents (14 original + 2 from RCA-006 + 2 from /dev refactoring + 1 from /qa refactoring + 1 from /create-sprint refactoring + 1 from RCA-007 Phase 3)
 
 Each file contains complete system prompts with tool access, model selection, and execution patterns.

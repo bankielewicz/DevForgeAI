@@ -12,7 +12,7 @@ allowed-tools:
   - Bash(git:*)
   - Skill
   - TodoWrite
-model: sonnet
+model: claude-sonnet-4-5-20250929
 ---
 
 # DevForgeAI Ideation Skill

@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
+If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback with the "human in the middle".
+
 This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
 
 ---
@@ -483,13 +485,13 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - All integrate with skills via Skill tool
 - Clear separation: commands delegate to skills, skills delegate to subagents
 
-**RCA-006: Deferral Validation** ✅ Complete (2025-11-06 - Phase 1 & 2)
+**RCA-006: Deferral Validation** ✅ Phase 1 & Original Phase 2 Complete (2025-11-06)
 - **Phase 1 (CRITICAL):** Phase 4.5 Deferral Challenge Checkpoint prevents autonomous deferrals
   - All deferrals (pre-existing + new) require user approval
   - deferral-validator subagent checks blocker validity
   - Timestamp all approvals for audit trail
   - "Attempt First, Defer Only If Blocked" pattern enforced
-- **Phase 2 (HIGH):** Quality improvements and proactive monitoring
+- **Original Phase 2 (HIGH):** Quality improvements and proactive monitoring
   - Deferral budget limits (max 3, max 20% of DoD items) enforced in Phase 5 Step 1.6
   - Enhanced /audit-deferrals with blocker validation (dependency, toolchain, artifact, ADR checks)
   - Auto-invoke /audit-deferrals at sprint retrospective with debt reduction sprint creation
@@ -499,13 +501,61 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - **Three-layer validation:** Python format check + Interactive checkpoint + AI subagent
 - **See:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` for complete analysis
 
+**RCA-006: Structured Technical Specifications (Phase 2 - NEW Phasing)** 🟢 Weeks 2-3/4 Complete (2025-11-07)
+- **Purpose:** Machine-readable tech specs for deterministic parsing and automated validation
+- **Status:** Weeks 2-3 implementation complete (code ready), Weeks 4-5 testing pending
+- **Phase 2 New Implementation (4-week plan):**
+  - **Week 2 ✅ COMPLETE:** Structured YAML format v2.0 defined (7 component types: Service, Worker, Configuration, Logging, Repository, API, DataModel)
+  - **Week 2 ✅ COMPLETE:** Validation library created (validate_tech_spec.py - 235 lines)
+  - **Week 2 ✅ COMPLETE:** Basic migration script (migrate_story_v1_to_v2.py - 165 lines, 60-70% accuracy)
+  - **Week 2 ✅ COMPLETE:** Story template updated to v2.0 (YAML code blocks, test requirements)
+  - **Week 2 ✅ COMPLETE:** Dual format detection in /dev (Step 4.1 parses v1.0 or v2.0)
+  - **Week 3 ✅ CODE COMPLETE:** AI-assisted migration enhancement (migrate_story_v1_to_v2.py enhanced to 659 lines)
+    - AIConverter class with Claude API integration (+100 lines)
+    - Conversion prompt template (660 lines with examples, quality standards)
+    - Hybrid strategy (AI 95%+ → Pattern matching 60-70% fallback)
+    - 27 test fixtures (5 test stories + ground truth, 12 validator tests)
+    - Accuracy measurement script (measure_accuracy.py - 141 lines)
+    - Automated test runner (run_all_tests.sh)
+    - Requires: ANTHROPIC_API_KEY for AI mode, works without (fallback)
+  - **Week 3 ⏳ TESTING PENDING:** External validation with Claude API key (expected 95%+ accuracy)
+  - **Week 4 ⏳ PENDING:** Pilot migration (10 stories), manual review, GO/NO-GO decision
+  - **Week 5 ⏳ PENDING:** Full migration (all stories), Decision Point 2
+- **Impact (projected):** Coverage gap detection 85% → 95%+, enables Phase 3 implementation validation
+- **Backward compatibility:** v1.0 freeform stories still supported (dual format)
+- **Migration:** Optional (gradual path), AI-assisted tool ready for use
+- **See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`, `AI-ASSISTED-MIGRATION-GUIDE.md`, `PHASE2-WEEK3-DELIVERY-PACKAGE.md`
+
+**RCA-007: Multi-File Story Creation** ✅ Complete (2025-11-06 - All 3 Phases)
+- **Phase 1 (HIGH):** Enhanced subagent prompts with 4-section template
+  - Pre-Flight Briefing explains workflow context
+  - Critical Output Constraints prohibit file creation
+  - Prohibited Actions list (8 forbidden operations)
+  - Expected Output Format with examples
+  - Validation checkpoint (Step 2.1.5) detects file creation attempts
+  - Automatic recovery (re-invoke with STRICT MODE)
+- **Phase 2 (MEDIUM):** Contract-based validation and file system monitoring
+  - YAML contracts (requirements-analyst-contract.yaml, api-designer-contract.yaml)
+  - Contract validation (Step 2.2.5, Step 3.2.5)
+  - File system diff check (Steps 2.0, 2.2.7, 3.0, 3.2.7)
+  - Validation script (validate_contract.py) with test fixtures
+  - 4-layer defense in depth (prompt → output → contract → file system)
+- **Phase 3 (MEDIUM):** Skill-specific subagent creation
+  - story-requirements-analyst subagent (21st subagent)
+  - No Write/Edit tools (file creation impossible by design)
+  - Tight coupling to devforgeai-story-creation workflow
+  - Content-only output (returns markdown for assembly)
+  - 99.9% violation prevention (architectural constraint)
+- **Result:** Single-file design enforced, zero extra files (SUMMARY.md, QUICK-START.md, etc.)
+- **See:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` for complete analysis
+
 **Phase 4: Real Project Validation** ⏳ Ready to Begin
 - Framework complete and ready for production testing
 
 ### Component Summary
 
-- **Skills:** 9 (8 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, **claude-code-terminal-expert NEW**)
-- **Subagents:** 20 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner)
+- **Skills:** 9 (8 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, **claude-code-terminal-expert**)
+- **Subagents:** 21 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, **story-requirements-analyst** NEW - RCA-007 Phase 3)
 - **Commands:** 11 (7 refactored to lean orchestration: /dev, /qa, /ideate, /create-story, /create-sprint, /create-epic, /orchestrate; 1 new: /audit-budget)
 - **Context Files:** 6 (immutable constraints)
 - **Quality Gates:** 4 (Gate 3 enhanced with deferral validation)

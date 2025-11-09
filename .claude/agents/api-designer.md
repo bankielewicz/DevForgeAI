@@ -10,9 +10,26 @@ color: green
 
 Design consistent, well-documented API contracts following REST, GraphQL, or gRPC best practices.
 
+**RCA-006 Phase 2: Structured YAML Output (v2.0)**
+
+When invoked by devforgeai-story-creation skill, this subagent generates **structured YAML format** for API components (not freeform markdown).
+
+**Output Format:** YAML text for API components matching schema:
+```yaml
+- type: "API"
+  name: "[EndpointName]"
+  endpoint: "/api/[resource]"
+  method: "GET|POST|PUT|PATCH|DELETE"
+  requirements:
+    - id: "API-001"
+      test_requirement: "Test: [Specific test]"
+```
+
+**See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete API component schema
+
 ## Purpose
 
-Create API contracts with proper endpoints, methods, request/response schemas, error handling, versioning strategies, and OpenAPI/GraphQL schema documentation. Ensure API consistency, naming conventions, and adherence to standards.
+Create API contracts with proper endpoints, methods, request/response schemas, error handling, versioning strategies, and structured YAML specifications. Ensure API consistency, naming conventions, and adherence to standards.
 
 ## When Invoked
 

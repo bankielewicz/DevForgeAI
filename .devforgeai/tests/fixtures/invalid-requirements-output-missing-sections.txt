@@ -1,0 +1,23 @@
+## User Story
+**As a** user,
+**I want** a feature,
+**so that** I get value.
+
+## Acceptance Criteria
+
+### AC1: Test
+**Given** context
+**When** action
+**Then** outcome
+
+### AC2: Test 2
+**Given** context
+**When** action
+**Then** outcome
+
+### AC3: Test 3
+**Given** context
+**When** action
+**Then** outcome
+
+(Missing: Edge Cases and Non-Functional Requirements sections)

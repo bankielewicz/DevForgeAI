@@ -828,6 +828,310 @@ Generate a subagent for database migration management
 4. Validate
 5. Report: "Generated database-migration-manager.md"
 
+---
+
+## Slash Command Refactoring Subagents
+
+When generating subagents for **slash command refactoring or optimization**, follow the lean orchestration protocol to ensure framework compliance.
+
+### When This Applies
+
+**Trigger conditions:**
+- User requests: "Create subagent for /[command] refactoring"
+- User requests: "Generate [topic]-formatter subagent"
+- User requests: "Create [topic]-interpreter subagent"
+- Analysis shows command over budget (>15K characters)
+- Command has display templates, parsing logic, or result interpretation
+
+**Examples:**
+- qa-result-interpreter (QA report interpretation)
+- story-formatter (story YAML/markdown generation)
+- ui-spec-formatter (UI template generation)
+- release-orchestrator (deployment sequence coordination)
+
+### Mandatory Protocol Reference
+
+**BEFORE generating command-related subagents:**
+
+```
+Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+```
+
+**Extract from protocol:**
+- **Subagent Responsibilities** (lines 81-96)
+- **Subagent Creation Guidelines** (lines 783-916)
+- **Subagent Template** (lines 800-916)
+- **Reference File Template** (lines 933-1040)
+- **Case Studies** (lines 1216-1264)
+
+### Subagent Design for Command Refactoring
+
+**Follow this pattern:**
+
+**1. Purpose: Specialized Task Extraction**
+
+Extract logic from over-budget command:
+- Report parsing and interpretation
+- Display template generation
+- Result formatting and presentation
+- Sequence coordination
+
+**2. Model Selection: Fast and Deterministic**
+
+```
+model: haiku    # For parsing, formatting, interpretation (<8K tokens)
+model: sonnet   # For complex coordination (8-50K tokens)
+```
+
+**3. Tool Access: Minimal (View-Only Preferred)**
+
+```
+tools: Read, Grep, Glob    # For parsing/analysis
+tools: Read, Write         # If generating files
+```
+
+Avoid: Edit, Bash unless absolutely necessary
+
+**4. Framework-Aware: NOT Siloed**
+
+**CRITICAL:** Create companion reference file with framework guardrails
+
+```
+Reference file location:
+.claude/skills/[related-skill]/references/[subagent-topic]-guide.md
+
+Purpose:
+- Provide DevForgeAI context (workflow states, quality gates)
+- Define immutable constraints (thresholds, rules, patterns)
+- Specify display guidelines (templates, tone, structure)
+- Prevent autonomous decisions (explicit boundaries)
+```
+
+**5. Structured Output: Reliable Parsing**
+
+```json
+{
+  "status": "...",
+  "display": {
+    "template": "...",
+    "sections": [...]
+  },
+  "data": {...},
+  "recommendations": [...]
+}
+```
+
+### Required Sections in Command Refactoring Subagents
+
+**When generating subagent for command refactoring, include:**
+
+#### Section 1: Purpose
+
+```markdown
+## Purpose
+
+This subagent extracts [specific responsibility] from the /[command] slash command to achieve lean orchestration.
+
+**Original issue:**
+- Command was [XXX] lines, [YYK] characters ([ZZ]% over 15K budget)
+- [Specific logic] was in command (should be in subagent)
+
+**This subagent handles:**
+1. [Primary responsibility]
+2. [Secondary responsibility]
+3. [Returns structured result for command to display]
+```
+
+#### Section 2: Framework Integration
+
+```markdown
+## Framework Integration
+
+**Invoked by:** devforgeai-[skill] skill, Phase [X] Step [Y]
+**Timing:** After [what completes], before [what happens next]
+**Context required:** Story content (via conversation), [other context]
+**Returns:** Structured JSON with [fields]
+
+**Framework constraints:**
+Load reference file for complete guardrails:
+```
+Read(file_path=".claude/skills/[skill]/references/[topic]-guide.md")
+```
+
+**Key constraints from reference:**
+- [Constraint 1] (immutable)
+- [Constraint 2] (deterministic)
+- [Constraint 3] (from RCA-XXX)
+```
+
+#### Section 3: Structured Output Contract
+
+```markdown
+## Output Format
+
+Return JSON with this exact structure:
+
+```json
+{
+  "status": "SUCCESS|ERROR",
+  "result_type": "[specific_type]",
+  "display": {
+    "template": "[markdown template for user]",
+    "title": "...",
+    "sections": [...]
+  },
+  "data": {
+    "[extracted_field_1]": "...",
+    "[extracted_field_2]": "..."
+  },
+  "recommendations": {
+    "next_steps": [...],
+    "remediation": [...]
+  }
+}
+```
+
+**Command uses this output to:**
+- Display: result.display.template
+- Next steps: result.recommendations.next_steps
+```
+
+### Reference File for Command Refactoring Subagents
+
+**MANDATORY: Create companion reference file**
+
+**Template structure:**
+
+```markdown
+# [Topic] Guide
+
+**Purpose:** Framework guardrails for [subagent-name] subagent
+
+Prevents "bull in china shop" behavior by providing:
+- DevForgeAI workflow context
+- Immutable constraints
+- Decision boundaries
+
+---
+
+## DevForgeAI Context
+
+### Story Workflow States
+[11-state workflow diagram]
+
+### Quality Gates
+[4 gates with QA role specified]
+
+### [Domain-Specific Context]
+[Relevant framework context for this subagent's domain]
+
+---
+
+## Framework Constraints
+
+### 1. [Constraint Category 1] (Strict, Immutable)
+
+[Define what CANNOT change]
+
+**Rules:**
+- [Rule 1]
+- [Rule 2]
+
+**Never say:** "[Relaxation example]"
+**Always enforce:** "[Strict enforcement example]"
+
+### 2. [Constraint Category 2] (Deterministic)
+
+[Define classification/categorization rules]
+
+[Continue for all relevant constraints]
+
+---
+
+## [Subagent Task] Guidelines
+
+### [Specific Task Guideline 1]
+
+[How to perform task within framework constraints]
+
+**Template:**
+```
+[Example output template]
+```
+
+---
+
+## Framework Integration Points
+
+### Context Files to Reference
+- tech-stack.md - [When to check]
+- anti-patterns.md - [When to check]
+
+### Related Skills/Subagents
+- [Component 1] - [When to coordinate]
+
+---
+
+## Error Scenarios
+
+### [Error Type 1]
+**Detection:** [How to detect]
+**Response:** [What to return]
+**Guidance:** [How caller handles]
+```
+
+### Token Budget for Command Refactoring Subagents
+
+**Subagent token targets:**
+- Parsing/interpretation: <8K (haiku model)
+- Formatting/template generation: <10K (haiku model)
+- Coordination/orchestration: <20K (sonnet model)
+
+**Reference file size:**
+- Target: 200-400 lines
+- Purpose: Framework guardrails, not comprehensive docs
+- Content: Constraints, guidelines, templates, examples
+
+### Validation Checklist
+
+Before writing command refactoring subagent file:
+
+- [ ] Protocol reference loaded (.devforgeai/protocols/lean-orchestration-pattern.md)
+- [ ] Subagent responsibilities clear (lines 81-96 of protocol)
+- [ ] Character budget validated (command will be <15K after refactoring)
+- [ ] Framework-aware design (NOT siloed)
+- [ ] Reference file planned (framework guardrails)
+- [ ] Structured output defined (JSON schema)
+- [ ] Tool access minimal (principle of least privilege)
+- [ ] Integration points documented (which skill invokes, when)
+
+### Example: qa-result-interpreter Subagent
+
+**Reference implementation:**
+- File: `.claude/agents/qa-result-interpreter.md` (300 lines)
+- Purpose: Interpret QA reports, generate user-facing displays
+- Model: haiku (<8K tokens)
+- Tools: Read, Grep, Glob (view-only)
+- Framework guardrails: `.claude/skills/devforgeai-qa/references/qa-result-formatting-guide.md`
+- Output: Structured JSON with display template
+- Result: /qa command reduced from 692 to 295 lines (57% reduction)
+
+**Key features that made it effective:**
+1. **Protocol-compliant:** Followed lean orchestration subagent template
+2. **Framework-aware:** Reference file provides DevForgeAI context
+3. **Structured output:** JSON enables reliable parsing by command
+4. **Isolated context:** 8K tokens don't impact main conversation
+5. **Explicit constraints:** Coverage thresholds, violation rules documented
+
+**Use as reference when generating similar subagents for:**
+- create-story (story-formatter) - 23K chars, 153% over budget
+- create-ui (ui-spec-formatter) - 19K chars, 126% over budget
+- release (release-orchestrator) - 18K chars, 121% over budget
+- ideate (requirements-formatter) - 15K chars, 102% over budget
+- orchestrate (workflow-coordinator) - 15K chars, 100% over budget
+
+---
+
 ## References
 
 **Requirements Document:**
@@ -838,6 +1142,9 @@ Generate a subagent for database migration management
 
 **Subagent Architecture:**
 - `.ai_docs/Terminal/sub-agents.md` - Claude Code subagent documentation and format
+
+**Slash Command Architecture:**
+- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command refactoring protocol and character budget management
 
 **Tool Efficiency:**
 - `.ai_docs/native-tools-vs-bash-efficiency-analysis.md` - Token savings analysis (40-73% with native tools)

@@ -265,6 +265,121 @@ If missing critical scenarios:
 
 ## Technical Specification Validation
 
+### Format Version Validation (RCA-006 Phase 2)
+
+**For stories created after 2025-11-07, validate v2.0 structured format:**
+
+```python
+# Check frontmatter
+frontmatter = extract_yaml_frontmatter(story_content)
+format_version = frontmatter.get("format_version", "1.0")
+
+if format_version == "2.0":
+    # v2.0 validation required
+    validate_structured_yaml(story_content)
+elif format_version == "1.0":
+    # Legacy format (acceptable for backward compatibility)
+    log_warning("Story uses legacy v1.0 format (consider migration)")
+else:
+    error("Unknown format version: {format_version}")
+```
+
+**Expected:** `format_version: "2.0"` for all new stories
+
+### YAML Syntax Validation (v2.0 Stories)
+
+**For v2.0 stories, validate YAML syntax:**
+
+```python
+# Extract YAML block
+yaml_match = re.search(r"## Technical Specification\s+```yaml\s+(.*?)\s+```",
+                        story_content, re.DOTALL)
+
+if not yaml_match:
+    error("v2.0 story missing YAML block in Technical Specification")
+
+# Parse YAML
+try:
+    tech_spec = yaml.safe_load(yaml_match.group(1))
+except yaml.YAMLError as e:
+    error(f"Invalid YAML syntax: {e}")
+```
+
+**Expected:** Valid YAML, parseable without errors
+
+### Structured Content Validation (v2.0 Stories)
+
+**Validate technical_specification contains required sections:**
+
+```python
+required_sections = ["format_version", "components"]
+tech_spec = tech_spec.get("technical_specification", {})
+
+for section in required_sections:
+    if section not in tech_spec:
+        error(f"Missing required section: {section}")
+```
+
+**Expected:**
+- `format_version: "2.0"` within YAML
+- `components: [...]` array with at least 1 component
+
+### Component Validation (v2.0 Stories)
+
+**For each component, validate required fields:**
+
+```python
+for idx, component in enumerate(tech_spec["components"]):
+    # Validate type
+    if "type" not in component:
+        error(f"Component {idx}: Missing 'type' field")
+
+    comp_type = component["type"]
+    if comp_type not in ["Service", "Worker", "Configuration", "Logging", "Repository", "API", "DataModel"]:
+        error(f"Component {idx}: Invalid type '{comp_type}'")
+
+    # Validate required fields by type
+    required_fields = get_required_fields(comp_type)
+    for field in required_fields:
+        if field not in component:
+            error(f"Component {idx} ({comp_type}): Missing '{field}'")
+```
+
+**Expected:** All components have type, name, file_path, and type-specific required fields
+
+### Test Requirement Validation (v2.0 Stories)
+
+**Validate every requirement has test_requirement:**
+
+```python
+for component in tech_spec["components"]:
+    if "requirements" in component:
+        for req_idx, req in enumerate(component["requirements"]):
+            if "test_requirement" not in req:
+                warning(f"{component['name']}: Requirement {req_idx} missing test_requirement")
+            elif not req["test_requirement"].startswith("Test:"):
+                warning(f"{component['name']}: test_requirement should start with 'Test:'")
+```
+
+**Expected:** All requirements have `test_requirement: "Test: [assertion]"`
+
+### Automated Validation with validate_tech_spec.py (v2.0 Stories)
+
+**Run validation script:**
+
+```bash
+python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py {story_file}
+```
+
+**Expected exit codes:**
+- 0: PASS (v2.0 format valid)
+- 1: FAIL (errors found)
+- 2: Invalid arguments
+
+**Integration:** Phase 7 self-validation should run this script automatically for v2.0 stories.
+
+---
+
 ### API Contract Validation (If Applicable)
 
 ```

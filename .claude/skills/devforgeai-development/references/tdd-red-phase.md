@@ -97,6 +97,597 @@ ELSE (tests not runnable):
 
 ---
 
+### Step 4: Technical Specification Coverage Validation & Deferral Pre-Approval
+
+**Purpose:** Ensure ALL components in Technical Specification have corresponding tests, and obtain explicit user approval for any coverage gaps.
+
+**Why this step exists:** Prevents autonomous deferrals where implementation details are skipped without user knowledge, leading to minimal stub implementations that pass tests but don't match the story specification.
+
+**Execution:** After tests generated (Step 1-3), before proceeding to Phase 2 (Green).
+
+---
+
+#### 4.1 Extract Technical Specification Components
+
+Parse the story file's Technical Specification section to identify all required components.
+
+**Story file already loaded:** The @file reference from /dev command loaded story content into conversation context.
+
+**RCA-006 Phase 2: Dual Format Support**
+
+**Detect format version:**
+```python
+# Check frontmatter for format_version
+frontmatter = extract_yaml_frontmatter(story_content)
+format_version = frontmatter.get("format_version", "1.0")
+
+Display: f"Detected story format: v{format_version}"
+```
+
+**Parse accordingly:**
+
+**If format_version == "2.0" (Structured YAML):**
+```python
+# Parse YAML directly (95%+ accuracy)
+tech_spec_match = re.search(r"## Technical Specification\s+```yaml\s+(.*?)\s+```",
+                             story_content, re.DOTALL)
+tech_spec = yaml.safe_load(tech_spec_match.group(1))
+components = tech_spec["technical_specification"]["components"]
+
+# Direct extraction (no pattern matching needed)
+for component in components:
+    component_type = component["type"]          # Service, Worker, API, etc.
+    component_name = component["name"]          # AlertDetectionWorker
+    file_path = component["file_path"]          # src/Workers/AlertDetectionWorker.cs
+    requirements = component.get("requirements", [])  # Structured requirements
+
+    # Add to checklist
+    component_checklist.append({
+        "type": component_type,
+        "name": component_name,
+        "path": file_path,
+        "requirements": requirements
+    })
+
+# Also extract business_rules and non_functional_requirements
+business_rules = tech_spec["technical_specification"].get("business_rules", [])
+nfrs = tech_spec["technical_specification"].get("non_functional_requirements", [])
+```
+
+**Benefit:** Deterministic parsing, 95%+ accuracy, no ambiguity
+
+**If format_version == "1.0" (Freeform Text) - LEGACY:**
+
+Use existing freeform parsing (below). Extract components from these subsections:
+
+1. **File Structure** - Parse directory tree for file paths
+   ```
+   Example:
+   src/
+   └── Workers/
+       ├── AlertDetectionWorker.cs
+       └── EmailSenderWorker.cs
+
+   Components identified: 2 workers
+   ```
+
+2. **Service Implementation Pattern** - Extract classes/methods from code examples
+   ```
+   Example:
+   "AlertDetectionWorker.cs - Poll database for alerts"
+
+   Components identified: AlertDetectionWorker class with polling logic
+   ```
+
+3. **Configuration Requirements** - Identify config files needed
+   ```
+   Example:
+   "appsettings.json must contain ConnectionStrings.OmniWatchDb"
+
+   Components identified: appsettings.json file, ConnectionStrings section
+   ```
+
+4. **Logging Requirements** - Identify logging setup
+   ```
+   Example:
+   "Configure Serilog with File, EventLog, Database sinks"
+
+   Components identified: Serilog configuration, 3 sinks
+   ```
+
+5. **Data Models** - Extract entities/tables
+   ```
+   Example:
+   "Alert table with Id, Message, Severity, CreatedAt"
+
+   Components identified: Alert entity, database schema
+   ```
+
+6. **Business Rules** - Extract numbered rules requiring validation
+   ```
+   Example:
+   "Rule 1: Alert severity must be Info/Warning/Error"
+
+   Components identified: Severity validation logic
+   ```
+
+**Build component checklist:**
+```python
+TECH_SPEC_COMPONENTS = [
+    {
+        "type": "Worker",
+        "name": "AlertDetectionWorker",
+        "file": "src/Workers/AlertDetectionWorker.cs",
+        "requirements": [
+            "Must poll database for alerts",
+            "Must run continuous loop with cancellation",
+            "Must handle exceptions without stopping"
+        ]
+    },
+    {
+        "type": "Configuration",
+        "name": "appsettings.json",
+        "file": "src/Project.Service/appsettings.json",
+        "requirements": [
+            "Must contain ConnectionStrings.OmniWatchDb",
+            "Must contain AlertingService.PollingIntervalSeconds"
+        ]
+    },
+    {
+        "type": "Logging",
+        "name": "Serilog",
+        "file": "Program.cs",
+        "requirements": [
+            "Must configure Serilog with File sink",
+            "Must configure Serilog with EventLog sink",
+            "Must configure Serilog with Database sink"
+        ]
+    }
+]
+```
+
+---
+
+#### 4.2 Compare Generated Tests vs. Technical Specification
+
+For each component in `TECH_SPEC_COMPONENTS`, check if tests exist.
+
+**Scan test files generated in Steps 1-2:**
+```
+Glob(pattern="tests/**/*.cs")  # or *.py, *.js based on tech stack
+```
+
+**For each test file, search for component coverage:**
+```
+Read(file_path="{test_file}")
+Grep(pattern="AlertDetectionWorker", path="{test_file}")
+```
+
+**Build coverage map:**
+```python
+COVERAGE_MAP = {
+    "AlertDetectionWorker": {
+        "tests_found": [
+            "AlertDetectionWorkerTests.cs: StartAsync_WithValidConfig_ShouldStartPolling"
+        ],
+        "requirements_covered": [
+            "✅ Must start polling (interface test exists)"
+        ],
+        "requirements_missing": [
+            "❌ Must run continuous loop with cancellation",
+            "❌ Must handle exceptions without stopping"
+        ],
+        "coverage_percentage": 33  # 1 of 3 requirements covered
+    },
+    "appsettings.json": {
+        "tests_found": [],
+        "requirements_covered": [],
+        "requirements_missing": [
+            "❌ Must contain ConnectionStrings.OmniWatchDb",
+            "❌ Must contain AlertingService.PollingIntervalSeconds"
+        ],
+        "coverage_percentage": 0  # 0 of 2 requirements covered
+    },
+    "Serilog": {
+        "tests_found": [],
+        "requirements_covered": [],
+        "requirements_missing": [
+            "❌ Must configure File sink",
+            "❌ Must configure EventLog sink",
+            "❌ Must configure Database sink"
+        ],
+        "coverage_percentage": 0  # 0 of 3 requirements covered
+    }
+}
+```
+
+**Calculate overall coverage:**
+```python
+TOTAL_REQUIREMENTS = 8
+REQUIREMENTS_COVERED = 1
+COVERAGE_GAP_COUNT = 7
+COVERAGE_PERCENTAGE = 12.5%
+```
+
+---
+
+#### 4.3 Present Coverage Analysis to User
+
+**If coverage gaps detected (COVERAGE_GAP_COUNT > 0):**
+
+Display comprehensive analysis:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  🔍 TECHNICAL SPECIFICATION COVERAGE ANALYSIS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Story: {STORY_ID}
+Phase: 1 (RED - Test Generation)
+
+Technical Specification Components: 3
+Total Requirements: 8
+Tests Generated: 1
+Coverage: 12.5% ⚠️
+
+COVERAGE GAPS DETECTED: 7 requirements lack tests
+
+Gap Summary:
+1. AlertDetectionWorker (2 gaps)
+   ✅ Polling starts (interface test exists)
+   ❌ Continuous loop with cancellation (NO TEST)
+   ❌ Exception handling (NO TEST)
+
+2. appsettings.json (2 gaps)
+   ❌ ConnectionStrings.OmniWatchDb (NO TEST)
+   ❌ AlertingService.PollingIntervalSeconds (NO TEST)
+
+3. Serilog Configuration (3 gaps)
+   ❌ File sink configured (NO TEST)
+   ❌ EventLog sink configured (NO TEST)
+   ❌ Database sink configured (NO TEST)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ PHASE 1 INCOMPLETE: Technical specification not fully covered by tests
+
+Proceeding to Phase 2 with these gaps will result in:
+• Minimal implementations (stubs that pass interface tests only)
+• Deferred work accumulating silently
+• Technical debt not documented
+
+USER DECISION REQUIRED for each gap (next step).
+```
+
+---
+
+#### 4.4 Request User Decision for EACH Gap
+
+**MANDATORY:** Use AskUserQuestion for EVERY coverage gap.
+
+**Strategy:** Batch gaps by component to reduce question count (recommended: max 5 questions total).
+
+**For each component with gaps:**
+
+```python
+AskUserQuestion(
+    questions=[
+        {
+            "question": "AlertDetectionWorker has 2 missing tests. How should we proceed?",
+            "header": "Worker Tests",
+            "multiSelect": False,
+            "options": [
+                {
+                    "label": "Generate tests now",
+                    "description": "Add tests for continuous loop and exception handling (~15 min). RECOMMENDED - Prevents technical debt."
+                },
+                {
+                    "label": "Defer to follow-up story",
+                    "description": "Skip tests now, create tracking story for later implementation. Creates technical debt."
+                },
+                {
+                    "label": "Remove from scope",
+                    "description": "Update story to remove these requirements. Requires ADR for scope change."
+                }
+            ]
+        }
+    ]
+)
+```
+
+**Capture user response:**
+```python
+USER_DECISION = {
+    "component": "AlertDetectionWorker",
+    "gaps": [
+        "Continuous loop with cancellation",
+        "Exception handling"
+    ],
+    "decision": "generate_tests_now" | "defer" | "remove_scope",
+    "timestamp": "2025-11-07T10:30:00Z"
+}
+```
+
+---
+
+#### 4.5 Process User Decision
+
+**Decision 1: Generate tests now**
+
+```python
+if USER_DECISION["decision"] == "generate_tests_now":
+    # Re-invoke test-automator with specific requirements
+    Task(
+        subagent_type="test-automator",
+        description="Generate missing worker tests",
+        prompt=f"""
+        Generate additional tests for AlertDetectionWorker:
+
+        Required tests:
+        1. Test: Worker runs in continuous loop until cancellation
+           - Verify: while (!cancellationToken.IsCancellationRequested) executes
+           - Verify: Worker stops when cancellation requested
+
+        2. Test: Worker handles exceptions without stopping
+           - Verify: Exception in polling doesn't crash worker
+           - Verify: Worker continues after exception
+           - Verify: Exception logged
+
+        Follow AAA pattern, use existing test file structure.
+        Add to existing test suite in tests/Workers/AlertDetectionWorkerTests.cs
+        """
+    )
+
+    # Add to Phase 1 test suite
+    # Continue to next gap
+```
+
+**Decision 2: Defer to follow-up story**
+
+```python
+elif USER_DECISION["decision"] == "defer":
+    # Ask for follow-up story reference
+    AskUserQuestion(
+        questions=[
+            {
+                "question": "Which follow-up story will handle AlertDetectionWorker tests?",
+                "header": "Deferral Tracking",
+                "multiSelect": False,
+                "options": [
+                    {
+                        "label": "Create new story",
+                        "description": "Auto-generate STORY-XXX for deferred work"
+                    },
+                    {
+                        "label": "Existing story",
+                        "description": "I'll provide story ID (STORY-XXX)"
+                    }
+                ]
+            }
+        ]
+    )
+
+    if response == "create_new_story":
+        FOLLOW_UP_STORY_ID = generate_next_story_id()  # e.g., STORY-003
+
+        # Create tracking story
+        Skill(command="devforgeai-story-creation")
+        # With context: Deferred work from STORY-002
+
+    elif response == "existing_story":
+        # Ask for story ID
+        FOLLOW_UP_STORY_ID = user_input("Enter story ID: ")
+
+    # Document deferral
+    DEFERRAL_RECORD = {
+        "component": "AlertDetectionWorker",
+        "requirements": [
+            "Continuous loop with cancellation",
+            "Exception handling"
+        ],
+        "reason": "User deferred to follow-up story",
+        "follow_up_story": FOLLOW_UP_STORY_ID,
+        "approved_by": "user",
+        "approved_at": "2025-11-07T10:30:00Z"
+    }
+
+    # Add to Phase 4.5 tracking
+    # Continue to next gap
+```
+
+**Decision 3: Remove from scope**
+
+```python
+elif USER_DECISION["decision"] == "remove_scope":
+    # Require ADR for scope change
+    Display: """
+    ⚠️ SCOPE CHANGE REQUIRES ADR
+
+    Removing requirements from Technical Specification is an architectural decision.
+
+    Next steps:
+    1. Create ADR documenting why requirements removed
+    2. Update story Technical Specification section
+    3. Update Definition of Done checklist
+
+    Proceed with ADR creation? (Y/n)
+    """
+
+    if user_confirms():
+        # Guide ADR creation
+        Display: """
+        Create ADR with:
+        - Title: "Remove AlertDetectionWorker continuous loop requirement"
+        - Context: Why requirement was in original spec
+        - Decision: Why removing it now
+        - Consequences: Impact on system behavior
+
+        After ADR created, update story file manually.
+        """
+
+        # HALT Phase 1, wait for manual updates
+        raise RequiresManualIntervention(
+            "Scope change requires ADR creation and story update. "
+            "Re-run /dev after updates complete."
+        )
+```
+
+---
+
+#### 4.6 Repeat for All Gaps
+
+**Process EACH component with gaps:**
+
+```python
+for component in COVERAGE_MAP:
+    if component["requirements_missing"]:
+        user_decision = ask_user_question_for_component(component)
+        process_decision(user_decision)
+
+        # Update coverage map after processing
+        COVERAGE_MAP[component]["decision"] = user_decision
+```
+
+**Track decisions:**
+```python
+DECISIONS_LOG = [
+    {
+        "component": "AlertDetectionWorker",
+        "decision": "generate_tests_now",
+        "timestamp": "2025-11-07T10:30:00Z"
+    },
+    {
+        "component": "appsettings.json",
+        "decision": "defer",
+        "follow_up_story": "STORY-003",
+        "timestamp": "2025-11-07T10:32:00Z"
+    },
+    {
+        "component": "Serilog",
+        "decision": "defer",
+        "follow_up_story": "STORY-003",
+        "timestamp": "2025-11-07T10:33:00Z"
+    }
+]
+```
+
+---
+
+#### 4.7 Validate All Gaps Addressed
+
+**Enforcement check:**
+
+```python
+unapproved_gaps = [
+    gap for gap in COVERAGE_MAP.values()
+    if gap["requirements_missing"] and "decision" not in gap
+]
+
+if unapproved_gaps:
+    raise ValidationError(
+        f"❌ CANNOT PROCEED TO PHASE 2: {len(unapproved_gaps)} unapproved coverage gaps\n\n"
+        f"All gaps must have user decision (generate/defer/remove).\n\n"
+        f"Gaps without decisions:\n" +
+        "\n".join([f"- {gap['name']}" for gap in unapproved_gaps])
+    )
+```
+
+**Success message:**
+```
+✅ STEP 4 COMPLETE: Technical Specification Coverage Validated
+
+All {COVERAGE_GAP_COUNT} gaps addressed:
+- {generate_count} tests generated
+- {defer_count} deferred to follow-up stories
+- {remove_count} removed from scope (ADR required)
+
+Decisions documented in workflow history.
+Proceeding to Phase 2 (GREEN - Implementation)...
+```
+
+---
+
+#### 4.8 Document Decisions in Story File
+
+**Update story workflow history:**
+
+```markdown
+## Workflow History
+
+### 2025-11-07 10:30 - Phase 1 (RED) - Coverage Validation
+- Technical Specification components: 3
+- Total requirements: 8
+- Coverage gaps detected: 7
+
+**User Decisions:**
+1. AlertDetectionWorker (2 gaps)
+   - Decision: Generate tests now
+   - Tests added: Continuous loop test, Exception handling test
+   - Duration: 15 minutes
+
+2. appsettings.json (2 gaps)
+   - Decision: Defer to STORY-003
+   - Reason: Configuration setup deferred to infrastructure story
+   - Follow-up story: STORY-003
+
+3. Serilog (3 gaps)
+   - Decision: Defer to STORY-003
+   - Reason: Logging setup deferred to infrastructure story
+   - Follow-up story: STORY-003
+
+**Phase 1 Result:** PASSED with 1 deferral decision (deferred 5/8 requirements)
+```
+
+---
+
+#### 4.9 Special Case: Zero Gaps
+
+**If COVERAGE_GAP_COUNT == 0:**
+
+```
+✅ EXCELLENT: Technical Specification 100% Covered
+
+All components in Technical Specification have corresponding tests:
+- AlertDetectionWorker (3/3 requirements tested)
+- appsettings.json (2/2 requirements tested)
+- Serilog (3/3 requirements tested)
+
+No deferrals needed. Proceeding to Phase 2...
+```
+
+**Skip Steps 4.4-4.7** (no user interaction needed, proceed directly to Phase 2)
+
+---
+
+#### Step 4 Success Criteria
+
+- [ ] All Technical Specification components extracted
+- [ ] Coverage map built comparing tests vs. requirements
+- [ ] User presented with clear coverage analysis
+- [ ] User made decision for EVERY coverage gap
+- [ ] All decisions documented in workflow history
+- [ ] Zero unapproved gaps remaining
+- [ ] Phase 1 completes successfully
+
+---
+
+#### Implementation Notes
+
+**Token budget:** Step 4 adds ~5-10K tokens to Phase 1 (coverage analysis + user interaction)
+
+**Time impact:** Adds 10-20 minutes to Phase 1 (user decision time)
+
+**User experience:**
+- **Positive:** Full transparency, explicit control
+- **Negative:** More questions to answer
+- **Mitigation:** Batch questions by component (max 5 total)
+
+**Edge cases:**
+- Technical Specification empty/incomplete → HALT, require story update
+- User selects "defer" for ALL gaps → Allow but warn about 100% deferral
+- User cancels mid-step → Save partial decisions, allow resume
+
+---
+
 ## Subagents Invoked
 
 **test-automator:**
@@ -115,6 +706,9 @@ Phase 1 succeeds when:
 - [ ] Tests placed correctly (per source-tree.md)
 - [ ] All tests FAIL initially (Red phase verified)
 - [ ] Test command executable ({TEST_COMMAND} runs)
+- [ ] Technical Specification coverage validated (Step 4)
+- [ ] All coverage gaps have user-approved decisions
+- [ ] Zero autonomous deferrals (all user-controlled)
 
 ---
 
