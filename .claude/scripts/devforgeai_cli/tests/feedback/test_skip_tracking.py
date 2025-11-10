@@ -37,12 +37,12 @@ class TestSkipTracking:
         THEN skip count increases by 1
         """
         # Arrange
-        user_id = 'test-user'
+        operation_type = 'skill_invocation'
 
         # Act
-        count1 = increment_skip(user_id, config_dir=temp_config_dir)
-        count2 = increment_skip(user_id, config_dir=temp_config_dir)
-        count3 = increment_skip(user_id, config_dir=temp_config_dir)
+        count1 = increment_skip(operation_type, config_dir=temp_config_dir)
+        count2 = increment_skip(operation_type, config_dir=temp_config_dir)
+        count3 = increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Assert
         assert count1 == 1
@@ -56,27 +56,27 @@ class TestSkipTracking:
         THEN it returns current count
         """
         # Arrange
-        user_id = 'test-user'
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
+        operation_type = 'skill_invocation'
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Act
-        count = get_skip_count(user_id, config_dir=temp_config_dir)
+        count = get_skip_count(operation_type, config_dir=temp_config_dir)
 
         # Assert
         assert count == 2
 
-    def test_get_skip_count_returns_zero_for_new_user(self, temp_config_dir):
+    def test_get_skip_count_returns_zero_for_new_operation_type(self, temp_config_dir):
         """
-        GIVEN new user with no skip history
+        GIVEN operation type with no skip history
         WHEN get_skip_count is called
         THEN it returns 0
         """
         # Arrange
-        user_id = 'new-user'
+        operation_type = 'subagent_invocation'
 
         # Act
-        count = get_skip_count(user_id, config_dir=temp_config_dir)
+        count = get_skip_count(operation_type, config_dir=temp_config_dir)
 
         # Assert
         assert count == 0
@@ -88,51 +88,51 @@ class TestSkipTracking:
         THEN count resets to 0
         """
         # Arrange
-        user_id = 'test-user'
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
+        operation_type = 'command_execution'
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Act
-        reset_skip_count(user_id, config_dir=temp_config_dir)
-        count = get_skip_count(user_id, config_dir=temp_config_dir)
+        reset_skip_count(operation_type, config_dir=temp_config_dir)
+        count = get_skip_count(operation_type, config_dir=temp_config_dir)
 
         # Assert
         assert count == 0
 
     def test_check_skip_threshold_returns_true_at_3_skips(self, temp_config_dir):
         """
-        GIVEN user has skipped 3+ consecutive times
+        GIVEN operation type has skipped 3+ consecutive times
         WHEN check_skip_threshold is called
         THEN it returns True (trigger suggestion)
         """
         # Arrange
-        user_id = 'test-user'
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
+        operation_type = 'context_loading'
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Act
-        reached_threshold = check_skip_threshold(user_id, threshold=3, config_dir=temp_config_dir)
+        reached_threshold = check_skip_threshold(operation_type, threshold=3, config_dir=temp_config_dir)
 
         # Assert
         assert reached_threshold is True
 
     def test_check_skip_threshold_returns_false_below_threshold(self, temp_config_dir):
         """
-        GIVEN user has skipped 2 times (below threshold)
+        GIVEN operation type has skipped 2 times (below threshold)
         WHEN check_skip_threshold is called
         THEN it returns False
         """
         # Arrange
-        user_id = 'test-user'
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
+        operation_type = 'skill_invocation'
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Act
-        reached_threshold = check_skip_threshold(user_id, threshold=3, config_dir=temp_config_dir)
+        reached_threshold = check_skip_threshold(operation_type, threshold=3, config_dir=temp_config_dir)
 
         # Assert
         assert reached_threshold is False
@@ -144,16 +144,16 @@ class TestSkipTracking:
         THEN count persists from previous session
         """
         # Arrange
-        user_id = 'test-user'
-        increment_skip(user_id, config_dir=temp_config_dir)
-        increment_skip(user_id, config_dir=temp_config_dir)
+        operation_type = 'subagent_invocation'
+        increment_skip(operation_type, config_dir=temp_config_dir)
+        increment_skip(operation_type, config_dir=temp_config_dir)
 
         # Act - Simulate new session (re-read from disk)
-        count = get_skip_count(user_id, config_dir=temp_config_dir)
+        count = get_skip_count(operation_type, config_dir=temp_config_dir)
 
         # Assert
         assert count == 2
 
         # Verify config file exists
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         assert config_file.exists()
