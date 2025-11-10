@@ -20,7 +20,7 @@ Total: 45+ test functions covering happy path, edge cases, error cases.
 
 import json
 import pytest
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from typing import Dict, List, Any, Optional
 from unittest.mock import Mock, MagicMock
 
@@ -663,7 +663,7 @@ def sample_operation_history() -> List[Dict[str, Any]]:
     Returns operations with:
     - operation_id, operation_type, success_status, timestamp, user_id
     """
-    now = datetime.utcnow()
+    now = datetime.now(UTC)
     return [
         {
             'operation_id': 'op_1',
@@ -748,7 +748,7 @@ def sample_question_history() -> List[Dict[str, Any]]:
     Returns answered questions with:
     - question_id, timestamp, user_id, response
     """
-    now = datetime.utcnow()
+    now = datetime.now(UTC)
     return [
         # Recent questions (within 30 days) - should be skipped
         {
@@ -845,7 +845,7 @@ def sample_selection_context() -> Dict[str, Any]:
     - operation_type, success_status, user_id
     - operation_history, question_history, performance_metrics
     """
-    now = datetime.utcnow()
+    now = datetime.now(UTC)
     return {
         'operation_type': 'dev',
         'success_status': 'passed',
@@ -1301,7 +1301,7 @@ class TestFirstTimeOperationDetection:
                 'operation_id': f'op_{i}',
                 'operation_type': 'dev',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=30-i*10)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=30-i*10)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(4)
@@ -1509,7 +1509,7 @@ class TestGracefulDegradationUnderConstraints:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         # Create 3 operations in 10 minutes
         context = sample_selection_context.copy()
@@ -1538,7 +1538,7 @@ class TestGracefulDegradationUnderConstraints:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         context = sample_selection_context.copy()
         context['operation_history'] = [
@@ -1567,7 +1567,7 @@ class TestGracefulDegradationUnderConstraints:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         context = sample_selection_context.copy()
         context['operation_history'] = [
@@ -1595,7 +1595,7 @@ class TestGracefulDegradationUnderConstraints:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         context = sample_selection_context.copy()
         context['operation_history'] = [
@@ -1746,7 +1746,7 @@ class TestDataValidationRules:
             'operation_type': 'invalid_type',
             'success_status': 'passed',
             'user_id': 'user_1',
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'operation_history': [],
             'question_history': [],
             'performance_metrics': {},
@@ -1781,7 +1781,7 @@ class TestDataValidationRules:
                 'operation_id': f'op_{i}',
                 'operation_type': 'dev',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=i)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=i)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(3)
@@ -1797,7 +1797,7 @@ class TestDataValidationRules:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         context = sample_selection_context.copy()
         context['operation_history'] = [
@@ -1855,7 +1855,7 @@ class TestDataValidationRules:
         engine = AdaptiveQuestioningEngine(sample_question_bank)
 
         # Fresh context
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
         context = sample_selection_context.copy()
         context['timestamp'] = (now - timedelta(minutes=30)).isoformat()  # Fresh
 
@@ -1982,7 +1982,7 @@ class TestWeightedDecisionMatrix:
                 'operation_id': f'op_{i}',
                 'operation_type': 'dev',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=i)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=i)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(4)
@@ -2017,7 +2017,7 @@ class TestQuestionCountModifiers:
                 'operation_id': f'op_{i}',
                 'operation_type': 'dev',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=i*20)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=i*20)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(2)  # Only 2, not repeat user
@@ -2056,7 +2056,7 @@ class TestQuestionCountModifiers:
                 'operation_id': f'op_{i}',
                 'operation_type': 'dev',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=i*10)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=i*10)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(4)  # Repeat user
@@ -2074,7 +2074,7 @@ class TestQuestionCountModifiers:
         from devforgeai_cli.feedback.adaptive_questioning_engine import AdaptiveQuestioningEngine
 
         engine = AdaptiveQuestioningEngine(sample_question_bank)
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
 
         context = sample_selection_context.copy()
         context['operation_history'] = [
@@ -2121,7 +2121,7 @@ class TestQuestionCountModifiers:
                 'operation_id': f'op_{i}',
                 'operation_type': 'qa',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(days=i)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(days=i)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(10)
@@ -2130,7 +2130,7 @@ class TestQuestionCountModifiers:
                 'operation_id': f'op_rapid_{i}',
                 'operation_type': 'qa',
                 'success_status': 'passed',
-                'timestamp': (datetime.utcnow() - timedelta(seconds=i*20)).isoformat(),
+                'timestamp': (datetime.now(UTC) - timedelta(seconds=i*20)).isoformat(),
                 'user_id': 'user_1',
             }
             for i in range(4)

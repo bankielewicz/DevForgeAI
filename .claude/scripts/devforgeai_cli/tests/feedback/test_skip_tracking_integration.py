@@ -27,7 +27,7 @@ import shutil
 import json
 import yaml
 from pathlib import Path
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, UTC, timezone
 from unittest.mock import Mock, patch, MagicMock
 
 from devforgeai_cli.feedback.skip_tracking import (
@@ -106,7 +106,7 @@ class TestSkipTrackingAdaptiveQuestioningIntegration:
             'operation_type': 'dev',
             'success_status': 'passed',
             'user_id': user_id,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'operation_history': [],
             'question_history': [],
             'skip_pattern': {
@@ -141,7 +141,7 @@ class TestSkipTrackingAdaptiveQuestioningIntegration:
             'operation_type': 'dev',
             'success_status': 'passed',
             'user_id': user_id,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'operation_history': [],
             'question_history': [],
             'skip_pattern': {
@@ -208,7 +208,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         """
         GIVEN skip tracking is invoked
         WHEN tracking a user
-        THEN config file created at .devforgeai/config/feedback.yaml
+        THEN config file created at .devforgeai/config/feedback-preferences.yaml
         """
         # Arrange
         user_id = 'test_user'
@@ -217,7 +217,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         increment_skip(user_id, config_dir=temp_config_dir)
 
         # Assert - Config file created
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         assert config_file.exists()
 
         # Verify YAML structure
@@ -252,7 +252,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         assert count5 == 3
 
         # Verify file still has correct data
-        with open(temp_config_dir / 'feedback.yaml', 'r') as f:
+        with open(temp_config_dir / 'feedback-preferences.yaml', 'r') as f:
             config = yaml.safe_load(f)
         assert config['skip_counts'][user_id] == 3
 
@@ -266,7 +266,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         graceful recovery by moving corrupted file to backup and creating fresh config.
         """
         # Arrange - Create corrupted config
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         config_file.write_text("invalid: yaml: content: [")  # Invalid YAML
 
         # Act - Try to use skip tracking
@@ -286,7 +286,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         Future enhancement: backup corrupted file and create fresh config
         """
         # Arrange
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         corrupt_content = "bad: [yaml:"
         config_file.write_text(corrupt_content)
 
@@ -317,7 +317,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         reset_skip_count(user2, config_dir=temp_config_dir)
 
         # Assert - All users retained
-        with open(temp_config_dir / 'feedback.yaml', 'r') as f:
+        with open(temp_config_dir / 'feedback-preferences.yaml', 'r') as f:
             config = yaml.safe_load(f)
 
         assert config['skip_counts'][user1] == 1
@@ -358,7 +358,7 @@ class TestMultiOperationTypeIndependence:
                 assert count == i + 1
 
         # Assert - Each has independent count of 3
-        with open(temp_config_dir / 'feedback.yaml', 'r') as f:
+        with open(temp_config_dir / 'feedback-preferences.yaml', 'r') as f:
             config = yaml.safe_load(f)
 
         for op_type in operation_types:
@@ -513,7 +513,7 @@ class TestSkipCounterResetWorkflows:
         reset_skip_count(user_id, config_dir=temp_config_dir)
 
         # Add audit information to config
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         with open(config_file, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -524,7 +524,7 @@ class TestSkipCounterResetWorkflows:
             'user_id': user_id,
             'action': 'reset_skip_count',
             'reason': 'user_disabled_feedback',
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'previous_count': 3,
             'new_count': 0,
         })
@@ -558,7 +558,7 @@ class TestSkipCounterResetWorkflows:
             reset_skip_count(user, config_dir=temp_config_dir)
 
         # Assert - All reset correctly
-        with open(temp_config_dir / 'feedback.yaml', 'r') as f:
+        with open(temp_config_dir / 'feedback-preferences.yaml', 'r') as f:
             config = yaml.safe_load(f)
 
         for user in users:
@@ -835,11 +835,11 @@ class TestSessionPersistenceWorkflows:
         op_type = 'skill_invocation'
 
         # Session 1
-        session1_time = datetime.utcnow().isoformat()
+        session1_time = datetime.now(UTC).isoformat()
         increment_skip(op_type, config_dir=temp_config_dir)
 
         # Add session metadata
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         with open(config_file, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -856,7 +856,7 @@ class TestSessionPersistenceWorkflows:
             yaml.safe_dump(config, f)
 
         # Session 2
-        session2_time = datetime.utcnow().isoformat()
+        session2_time = datetime.now(UTC).isoformat()
         increment_skip(op_type, config_dir=temp_config_dir)
 
         # Update session metadata
@@ -909,7 +909,7 @@ class TestErrorRecoveryIntegration:
         Future enhancement: could add backup/recovery mechanism if desired.
         """
         # Arrange - Corrupt config
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         config_file.write_text("invalid: [yaml: {content")
 
         # Act - Try to use skip tracking
@@ -928,7 +928,7 @@ class TestErrorRecoveryIntegration:
         Current implementation raises YAML errors which indicate the problem.
         """
         # Arrange
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         corrupt_content = "bad: yaml: [content"
         config_file.write_text(corrupt_content)
 
@@ -955,7 +955,7 @@ class TestErrorRecoveryIntegration:
         THEN fresh config generated on next operation
         """
         # Arrange
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         config_file.write_text("corrupted content here")
 
         # Act - User manually deletes corrupted file
@@ -982,7 +982,7 @@ class TestErrorRecoveryIntegration:
         THEN fresh config created with correct structure
         """
         # Arrange
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         assert not config_file.exists()
 
         # Act
@@ -1082,7 +1082,7 @@ class TestMultiComponentWorkflows:
         reset_skip_count(user_id, config_dir=temp_config_dir)
 
         # Save preference
-        config_file = temp_config_dir / 'feedback.yaml'
+        config_file = temp_config_dir / 'feedback-preferences.yaml'
         with open(config_file, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -1091,7 +1091,7 @@ class TestMultiComponentWorkflows:
 
         config['user_preferences'][user_id] = {
             'feedback_enabled': False,
-            'set_at': datetime.utcnow().isoformat(),
+            'set_at': datetime.now(UTC).isoformat(),
         }
 
         with open(config_file, 'w') as f:
@@ -1131,7 +1131,7 @@ class TestMultiComponentWorkflows:
             'operation_type': 'dev',
             'success_status': 'passed',
             'user_id': user_id,
-            'timestamp': datetime.utcnow().isoformat(),
+            'timestamp': datetime.now(UTC).isoformat(),
             'operation_history': [],
             'question_history': [],
             'skip_pattern': {
