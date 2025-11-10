@@ -269,36 +269,36 @@ None - Configuration management only (no HTTP API)
 ## Definition of Done
 
 ### Implementation
-- [ ] Skip counter increments per operation type
-- [ ] Pattern detection triggers at 3+ consecutive skips
-- [ ] AskUserQuestion appears with disable/keep/ask-later options
-- [ ] User preference stored in `.devforgeai/config/feedback-preferences.yaml`
-- [ ] Preferences persist across sessions
-- [ ] Disabled feedback types enforced (no prompts)
-- [ ] Token waste calculation accurate
-- [ ] Multi-operation-type tracking independent
-- [ ] Config file created if missing
-- [ ] Corrupted config: backup + fresh config
-- [ ] Consecutive count maintained across sessions
+- [x] Skip counter increments per operation type
+- [x] Pattern detection triggers at 3+ consecutive skips
+- [x] AskUserQuestion appears with disable/keep/ask-later options
+- [x] User preference stored in `.devforgeai/config/feedback-preferences.yaml`
+- [x] Preferences persist across sessions
+- [x] Disabled feedback types enforced (no prompts)
+- [x] Token waste calculation accurate
+- [x] Multi-operation-type tracking independent
+- [x] Config file created if missing
+- [x] Corrupted config: backup + fresh config
+- [x] Consecutive count maintained across sessions
 
 ### Quality
-- [ ] All 6 acceptance criteria have passing tests
-- [ ] Edge cases covered (non-consecutive resets, missing config, corrupted config, session persistence)
-- [ ] Data validation enforced (4 validation categories)
-- [ ] NFRs met (<500ms combined, 100% persistence, <5KB storage)
-- [ ] Code coverage >95% for skip tracking module
+- [x] All 6 acceptance criteria have passing tests
+- [x] Edge cases covered (non-consecutive resets, missing config, corrupted config, session persistence)
+- [x] Data validation enforced (4 validation categories)
+- [x] NFRs met (<500ms combined, 100% persistence, <5KB storage)
+- [x] Code coverage >95% for skip tracking module
 
 ### Testing
-- [ ] Unit tests: 25+ cases (counter logic, pattern detection, config parsing, edge cases)
-- [ ] Integration tests: 10+ cases (skip → pattern → preference → enforcement)
-- [ ] E2E test: First skip (counter=1, no pattern)
-- [ ] E2E test: 3rd consecutive skip (pattern detected, AskUserQuestion)
-- [ ] E2E test: Non-consecutive skips (counter resets)
-- [ ] E2E test: Disable preference (no prompts shown)
-- [ ] E2E test: Re-enable preference (counter resets, prompts resume)
-- [ ] E2E test: Missing config file (auto-created)
-- [ ] E2E test: Corrupted config (backup, fresh config)
-- [ ] E2E test: Cross-session persistence (skip in Session 1, pattern in Session 2)
+- [x] Unit tests: 25+ cases (counter logic, pattern detection, config parsing, edge cases)
+- [x] Integration tests: 10+ cases (skip → pattern → preference → enforcement)
+- [x] E2E test: First skip (counter=1, no pattern)
+- [x] E2E test: 3rd consecutive skip (pattern detected, AskUserQuestion)
+- [x] E2E test: Non-consecutive skips (counter resets)
+- [x] E2E test: Disable preference (no prompts shown)
+- [x] E2E test: Re-enable preference (counter resets, prompts resume)
+- [x] E2E test: Missing config file (auto-created)
+- [x] E2E test: Corrupted config (backup, fresh config)
+- [x] E2E test: Cross-session persistence (skip in Session 1, pattern in Session 2)
 
 ### Documentation
 - [ ] Config file schema documented
@@ -309,11 +309,14 @@ None - Configuration management only (no HTTP API)
 
 ### Release Readiness
 - [ ] Feature flag: `enable_skip_tracking` (default: enabled)
+  > **Deferred to STORY-008:** Feature flag belongs to Adaptive Questioning Engine story scope (user-approved 2025-11-09)
 - [ ] Config file permissions validated (mode 600)
-- [ ] No sensitive data in config verified
-- [ ] Operation type whitelist enforced
-- [ ] Backup strategy tested
+  > **Deferred:** Needs implementation before QA (estimated 5 min)
+- [x] No sensitive data in config verified
+- [x] Operation type whitelist enforced
+- [x] Backup strategy tested
 - [ ] Audit trail logging validated
+  > **Deferred:** Needs verification before QA (estimated 5 min)
 
 ## Workflow History
 
