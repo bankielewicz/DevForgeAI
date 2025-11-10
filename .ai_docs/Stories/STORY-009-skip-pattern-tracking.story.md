@@ -301,22 +301,20 @@ None - Configuration management only (no HTTP API)
 - [x] E2E test: Cross-session persistence (skip in Session 1, pattern in Session 2)
 
 ### Documentation
-- [ ] Config file schema documented
-- [ ] Skip event schema documented
-- [ ] Token waste calculation formula explained
-- [ ] User guide: How to re-enable feedback manually
-- [ ] Developer guide: How to add new operation types
+- [x] Config file schema documented
+- [x] Skip event schema documented
+- [x] Token waste calculation formula explained
+- [x] User guide: How to re-enable feedback manually
+- [x] Developer guide: How to add new operation types
 
 ### Release Readiness
 - [ ] Feature flag: `enable_skip_tracking` (default: enabled)
   > **Deferred to STORY-008:** Feature flag belongs to Adaptive Questioning Engine story scope (user-approved 2025-11-09)
-- [ ] Config file permissions validated (mode 600)
-  > **Deferred:** Needs implementation before QA (estimated 5 min)
+- [x] Config file permissions validated (mode 600)
 - [x] No sensitive data in config verified
 - [x] Operation type whitelist enforced
 - [x] Backup strategy tested
-- [ ] Audit trail logging validated
-  > **Deferred:** Needs verification before QA (estimated 5 min)
+- [x] Audit trail logging validated
 
 ## Workflow History
 
@@ -356,3 +354,19 @@ None - Configuration management only (no HTTP API)
   - Test Results: 66/66 passing (100% pass rate)
   - Coverage: >95% (measured with pytest --cov)
   - Integration Tests: 32/32 passing
+- **2025-11-09:** Deferred items completed
+  - Phase 1 (Red): Generated 18 additional tests for release readiness items
+    - Config file permissions validation (9 tests)
+    - Audit trail logging verification (9 tests)
+  - Phase 2 (Green): Implemented deferred features
+    - Enhanced _save_config() to set mode 600 permissions
+    - Added validate_config_permissions() function
+    - Verified audit trail logging (already functional from initial implementation)
+  - Created documentation (5 files):
+    - config-schema-reference.md (complete YAML schema)
+    - skip-event-schema.md (skip event data structure)
+    - token-waste-formula.md (calculation formula and examples)
+    - user-guide-feedback-preferences.md (user guide for managing preferences)
+    - developer-guide-operation-types.md (guide for adding new operation types)
+  - All tests passing: 84/84 (100% pass rate)
+  - DoD completion: 36/37 items (97% - only feature flag deferred to STORY-008)

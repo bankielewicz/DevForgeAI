@@ -5,8 +5,14 @@ Tracks when users skip feedback and triggers suggestions after 3+ consecutive sk
 """
 
 import yaml
+import os
+import logging
 from pathlib import Path
 from typing import Optional, Callable
+
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 
 # ============================================================================
@@ -51,7 +57,9 @@ def _load_config(config_file: Path) -> dict:
 
 def _save_config(config: dict, config_file: Path) -> None:
     """
-    Save config to YAML file.
+    Save config to YAML file with proper permissions.
+
+    Sets file permissions to mode 600 (user-readable/writable only).
 
     Args:
         config: Config dictionary
@@ -59,6 +67,44 @@ def _save_config(config: dict, config_file: Path) -> None:
     """
     with open(config_file, 'w') as f:
         yaml.safe_dump(config, f, default_flow_style=False)
+
+    # Set file permissions to 600 (user read/write only)
+    try:
+        os.chmod(config_file, 0o600)
+        logger.debug(f"Set config file permissions to 600: {config_file}")
+    except OSError as e:
+        logger.warning(f"Could not set config file permissions: {e}")
+
+
+def validate_config_permissions(config_file: Path) -> bool:
+    """
+    Validate that config file has appropriate permissions (mode 600).
+
+    Args:
+        config_file: Path to config file
+
+    Returns:
+        True if permissions are 600, False otherwise
+    """
+    if not config_file.exists():
+        return True  # File doesn't exist yet
+
+    try:
+        file_stat = config_file.stat()
+        # Extract permission bits
+        permissions = file_stat.st_mode & 0o777
+        is_valid = permissions == 0o600
+
+        if not is_valid:
+            logger.warning(
+                f"Config file has insecure permissions: "
+                f"{oct(permissions)} (should be 0o600)"
+            )
+
+        return is_valid
+    except OSError as e:
+        logger.warning(f"Could not validate config file permissions: {e}")
+        return False
 
 
 def _apply_config_modification(config_file: Path, modifier_fn: Callable[[dict], dict]) -> None:
@@ -80,12 +126,12 @@ def _apply_config_modification(config_file: Path, modifier_fn: Callable[[dict], 
 # SKIP COUNTER OPERATIONS (Public)
 # ============================================================================
 
-def increment_skip(user_id: str, config_dir: Optional[Path] = None) -> int:
+def increment_skip(operation_type: str, config_dir: Optional[Path] = None) -> int:
     """
-    Increment skip count for user.
+    Increment skip count for operation type.
 
     Args:
-        user_id: User ID
+        operation_type: Operation type (e.g., 'skill_invocation', 'subagent_invocation')
         config_dir: Config directory
 
     Returns:
@@ -97,24 +143,24 @@ def increment_skip(user_id: str, config_dir: Optional[Path] = None) -> int:
         if 'skip_counts' not in config:
             config['skip_counts'] = {}
 
-        current_count = config['skip_counts'].get(user_id, 0)
+        current_count = config['skip_counts'].get(operation_type, 0)
         new_count = current_count + 1
-        config['skip_counts'][user_id] = new_count
+        config['skip_counts'][operation_type] = new_count
         return config
 
     _apply_config_modification(config_file, modify_config)
 
     # Reload to get updated count
     config = _load_config(config_file)
-    return config['skip_counts'][user_id]
+    return config['skip_counts'][operation_type]
 
 
-def get_skip_count(user_id: str, config_dir: Optional[Path] = None) -> int:
+def get_skip_count(operation_type: str, config_dir: Optional[Path] = None) -> int:
     """
-    Get current skip count for user.
+    Get current skip count for operation type.
 
     Args:
-        user_id: User ID
+        operation_type: Operation type (e.g., 'skill_invocation', 'subagent_invocation')
         config_dir: Config directory
 
     Returns:
@@ -122,15 +168,15 @@ def get_skip_count(user_id: str, config_dir: Optional[Path] = None) -> int:
     """
     config_file = _get_config_file(config_dir)
     config = _load_config(config_file)
-    return config.get('skip_counts', {}).get(user_id, 0)
+    return config.get('skip_counts', {}).get(operation_type, 0)
 
 
-def reset_skip_count(user_id: str, config_dir: Optional[Path] = None) -> None:
+def reset_skip_count(operation_type: str, config_dir: Optional[Path] = None) -> None:
     """
-    Reset skip count for user to 0.
+    Reset skip count for operation type to 0.
 
     Args:
-        user_id: User ID
+        operation_type: Operation type (e.g., 'skill_invocation', 'subagent_invocation')
         config_dir: Config directory
     """
     config_file = _get_config_file(config_dir)
@@ -139,24 +185,37 @@ def reset_skip_count(user_id: str, config_dir: Optional[Path] = None) -> None:
         if 'skip_counts' not in config:
             config['skip_counts'] = {}
 
-        config['skip_counts'][user_id] = 0
+        config['skip_counts'][operation_type] = 0
         return config
 
     _apply_config_modification(config_file, modify_config)
 
 
-def check_skip_threshold(user_id: str, threshold: int = 3, config_dir: Optional[Path] = None) -> bool:
+def check_skip_threshold(operation_type: str, threshold: int = 3, config_dir: Optional[Path] = None) -> bool:
     """
-    Check if user has reached skip threshold.
+    Check if operation type has reached skip threshold.
 
     Args:
-        user_id: User ID
+        operation_type: Operation type (e.g., 'skill_invocation', 'subagent_invocation')
         threshold: Skip threshold (default: 3)
         config_dir: Config directory
 
     Returns:
         True if threshold reached, False otherwise
     """
-    count = get_skip_count(user_id, config_dir)
+    count = get_skip_count(operation_type, config_dir)
     return count >= threshold
+
+
+# ============================================================================
+# PUBLIC API (Export for external use)
+# ============================================================================
+
+__all__ = [
+    'increment_skip',
+    'get_skip_count',
+    'reset_skip_count',
+    'check_skip_threshold',
+    'validate_config_permissions',
+]
 
