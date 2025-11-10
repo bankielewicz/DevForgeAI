@@ -29,7 +29,7 @@ import tempfile
 import shutil
 import json
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, UTC
 from unittest.mock import Mock, patch, MagicMock
 import yaml
 
@@ -315,7 +315,7 @@ class TestPatternDetection:
         # Act - First pattern detection at skip 3
         sample_config['skip_counters'][operation_type] = 3
         if sample_config['pattern_detection_session'] is None:
-            sample_config['pattern_detection_session'] = {'timestamp': datetime.utcnow().isoformat()}
+            sample_config['pattern_detection_session'] = {'timestamp': datetime.now(UTC).isoformat()}
 
         first_pattern_time = sample_config['pattern_detection_session']['timestamp']
 
@@ -402,7 +402,7 @@ class TestPreferenceStorage:
         operation_type = 'skill_invocation'
 
         # Act
-        reason = f'User disabled after 3+ skips on {datetime.utcnow().isoformat()}'
+        reason = f'User disabled after 3+ skips on {datetime.now(UTC).isoformat()}'
         sample_config['disabled_feedback'][operation_type] = True
         sample_config['disable_reasons'][operation_type] = reason
 
@@ -834,7 +834,7 @@ class TestConfigFileManagement:
 
         # Act - Create backup before modification
         import shutil
-        timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+        timestamp = datetime.now(UTC).strftime('%Y%m%d_%H%M%S')
         backup_file = backup_dir / f'feedback-preferences-{timestamp}.yaml.backup'
         shutil.copy2(config_file, backup_file)
 
@@ -857,7 +857,7 @@ class TestConfigFileManagement:
             f.write(corrupted_yaml)
 
         # Act - Backup corrupted file
-        timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+        timestamp = datetime.now(UTC).strftime('%Y%m%d_%H%M%S')
         backup_file = backup_dir / f'feedback-preferences-{timestamp}.yaml.backup'
         import shutil
         shutil.copy2(config_file, backup_file)
@@ -1048,7 +1048,7 @@ class TestEdgeCases:
         # Act - Backup and recovery
         if corruption_detected:
             import shutil
-            timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+            timestamp = datetime.now(UTC).strftime('%Y%m%d_%H%M%S')
             backup_file = backup_dir / f'feedback-preferences-{timestamp}.yaml.backup'
             shutil.copy2(config_file, backup_file)
 
@@ -1281,7 +1281,7 @@ class TestIntegrationWorkflow:
 
         # Act - Step 2: User disables (simulation of AskUserQuestion response)
         sample_config['disabled_feedback'][operation_type] = True
-        sample_config['disable_reasons'][operation_type] = f'User disabled after 3+ skips on {datetime.utcnow().isoformat()}'
+        sample_config['disable_reasons'][operation_type] = f'User disabled after 3+ skips on {datetime.now(UTC).isoformat()}'
 
         with open(config_file, 'w') as f:
             yaml.dump(sample_config, f)
@@ -1575,7 +1575,7 @@ class TestEndToEndWorkflows:
 
         if corrupted_detected:
             import shutil
-            timestamp = datetime.utcnow().strftime('%Y%m%d_%H%M%S')
+            timestamp = datetime.now(UTC).strftime('%Y%m%d_%H%M%S')
             backup_file = backup_dir / f'feedback-preferences-{timestamp}.yaml.backup'
             shutil.copy2(config_file, backup_file)
 
@@ -1997,7 +1997,7 @@ class TestReleaseReadiness:
         import logging
         logger = logging.getLogger('skip_tracking')
 
-        timestamp = datetime.utcnow().isoformat()
+        timestamp = datetime.now(UTC).isoformat()
 
         # Act
         logger.info("Skip counter incremented", extra={
@@ -2054,7 +2054,7 @@ class TestReleaseReadiness:
             'action': 'increment',
             'operation_type': 'skill_invocation',
             'skip_count': 2,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(UTC).isoformat()
         })
 
         logger.info("Pattern detected", extra={
@@ -2062,7 +2062,7 @@ class TestReleaseReadiness:
             'operation_type': 'subagent_invocation',
             'skip_count': 3,
             'token_waste': 4500,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(UTC).isoformat()
         })
 
         # Assert - Logger called multiple times
@@ -2095,7 +2095,7 @@ class TestReleaseReadiness:
             'action': 'disable_feedback',
             'operation_type': operation_type,
             'reason': reason,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(UTC).isoformat()
         })
 
         # Assert
@@ -2126,7 +2126,7 @@ class TestReleaseReadiness:
             'action': 're_enable_feedback',
             'operation_type': operation_type,
             'counter_reset': True,
-            'timestamp': datetime.utcnow().isoformat()
+            'timestamp': datetime.now(UTC).isoformat()
         })
 
         # Assert
