@@ -387,3 +387,12 @@ None - Configuration management only (no HTTP API)
     - Git commit: fix(story-009): Complete integration test failures - config file I/O and datetime API
     - Pre-commit hooks: PASSED
   - Status: Ready for QA re-validation
+- **2025-11-10:** Deprecated datetime API cleanup in comprehensive test file
+  - Issue: 12 remaining datetime.utcnow() deprecation warnings in tests/test_skip_tracking.py
+  - Root Cause: Comprehensive test file (84 tests, 2141 lines) not updated in previous fix
+  - Fix Applied:
+    - Updated import: Added UTC to datetime import
+    - Replaced all 12 datetime.utcnow() calls with datetime.now(UTC)
+  - Test Results: 84/84 passing with ZERO warnings ✅
+  - Git commit: fix(story-009): Replace deprecated datetime.utcnow() with datetime.now(UTC) in tests
+  - Status: All implementation and tests complete, ready for QA
