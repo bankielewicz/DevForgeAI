@@ -13,7 +13,7 @@ The engine uses a weighted decision matrix and applies modifiers to determine
 the optimal set of questions to ask.
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC, timezone
 from typing import Dict, List, Any, Optional
 import logging
 
@@ -115,7 +115,7 @@ class AdaptiveQuestioningEngine:
         operation_history = context.get('operation_history', [])
         question_history = context.get('question_history', [])
         performance_metrics = context.get('performance_metrics', {})
-        timestamp = context.get('timestamp', datetime.utcnow().isoformat())
+        timestamp = context.get('timestamp', datetime.now(UTC).isoformat())
 
         # Step 1: Get base question count
         base_count = self._get_base_question_count(operation_type, success_status)
@@ -319,7 +319,7 @@ class AdaptiveQuestioningEngine:
         try:
             current_time = datetime.fromisoformat(current_timestamp.replace('Z', '+00:00'))
         except (ValueError, AttributeError):
-            current_time = datetime.utcnow()
+            current_time = datetime.now(UTC)
 
         # Count operations within 10-minute window
         rapid_ops = 0
@@ -395,7 +395,7 @@ class AdaptiveQuestioningEngine:
         if not question_history:
             return False
 
-        now = datetime.utcnow()
+        now = datetime.now(UTC)
         cutoff_date = now - timedelta(days=self.DEDUP_WINDOW_DAYS)
 
         for answered in question_history:
