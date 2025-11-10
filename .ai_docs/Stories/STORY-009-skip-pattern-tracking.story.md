@@ -370,3 +370,20 @@ None - Configuration management only (no HTTP API)
     - developer-guide-operation-types.md (guide for adding new operation types)
   - All tests passing: 84/84 (100% pass rate)
   - DoD completion: 36/37 items (97% - only feature flag deferred to STORY-008)
+- **2025-11-09:** QA Failure Recovery - Integration Test Fixes
+  - QA Failure: 14/39 integration tests failing (36% failure rate) - Config file I/O not working
+  - Root Cause Analysis:
+    - Test file naming mismatch: Tests expected `feedback.yaml` but implementation uses `feedback-preferences.yaml` (per STORY spec)
+    - Deprecated datetime API: `datetime.utcnow()` deprecated in Python 3.12+ (need `datetime.now(UTC)`)
+  - Phase 1 (Red): Analyzed test failures, identified root causes
+  - Phase 2 (Green): Applied fixes
+    - Fixed test file references: Updated all 12 references in test_skip_tracking_integration.py
+    - Fixed deprecated datetime: Replaced 3 calls in adaptive_questioning_engine.py + 30+ in test files
+  - Phase 3 (Refactor): Verified all tests pass
+    - Skip tracking unit tests: 7/7 passing ✅
+    - Skip tracking integration tests: 32/32 passing ✅
+    - Total: 39/39 passing (100% pass rate)
+  - Phase 4 (Integration): Committed all fixes
+    - Git commit: fix(story-009): Complete integration test failures - config file I/O and datetime API
+    - Pre-commit hooks: PASSED
+  - Status: Ready for QA re-validation
