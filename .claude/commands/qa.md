@@ -117,14 +117,18 @@ Invoke skill:
 Skill(command="devforgeai-qa")
 ```
 
-**What the skill does:**
-The devforgeai-qa skill performs comprehensive validation:
-- Extracts story from conversation context (YAML frontmatter)
-- Executes mode-specific validation (light or deep)
-- Generates QA report in .devforgeai/qa/reports/
-- Returns structured result summary
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
 
-**Skill returns:** Result object with display template, violations, next steps
+**The skill instructs you to:**
+- Extract story from conversation context (YAML frontmatter)
+- Execute mode-specific validation (light or deep)
+- Generate QA report in .devforgeai/qa/reports/
+- Invoke qa-result-interpreter subagent to format results
+- Return structured result summary with display template, violations, next steps
 
 ---
 

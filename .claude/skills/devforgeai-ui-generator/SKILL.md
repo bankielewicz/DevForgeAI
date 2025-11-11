@@ -11,6 +11,25 @@ Generate front-end user interface specifications and code through interactive, c
 
 ---
 
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Parameter Extraction" section below and begin execution.**
+
+---
+
 ## Parameter Extraction
 
 This skill operates in two modes:
@@ -37,6 +56,8 @@ This skill operates in two modes:
 ---
 
 ## Core Workflow (7 Phases)
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Each phase loads its reference file on-demand for detailed implementation.
 

@@ -96,15 +96,19 @@ These markers trigger the skill's epic creation mode (Phase 4A in orchestration 
 
 ### Phase 2: Invoke Orchestration Skill
 
-**Delegate to skill:**
+**Invoke skill and execute its expanded instructions:**
 
 ```
 Skill(command="devforgeai-orchestration")
 ```
 
-**What the skill does:**
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
 
-The orchestration skill will execute an 8-phase epic creation workflow:
+**The skill instructs you to execute 8-phase epic creation workflow:**
 
 1. **Epic Discovery** - Generate EPIC-ID (EPIC-001, EPIC-002, etc.), check for duplicate names via Grep, handle duplicates via AskUserQuestion
 2. **Context Gathering** - Collect epic goal, timeline, priority, business value, stakeholders, success criteria (4 interactive AskUserQuestion flows)

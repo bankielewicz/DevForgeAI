@@ -10,6 +10,25 @@ model: claude-sonnet-4-5-20250929
 
 ---
 
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "When to Use This Skill" section below and begin execution.**
+
+---
+
 ## When to Use This Skill
 
 Invoke this skill when users ask about:

@@ -143,13 +143,17 @@ No story file associated (standalone UI generation)
 Skill(command="devforgeai-ui-generator")
 ```
 
-**Note:** Skill will detect mode by checking conversation for story content vs component description
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
 
-**The UI generator skill performs its 6-phase workflow:**
+**The skill instructs you to perform 7-phase workflow:**
 
-1. **Context Validation** - Verifies all 6 context files exist, extracts frontend stack
-2. **Story Analysis** (if story provided) - Extracts UI requirements, acceptance criteria, user flows
-3. **Interactive Discovery** - Asks 5-15 detailed UI questions:
+1. **Context Validation** - Verify all 6 context files exist, extract frontend stack
+2. **Story Analysis** (if story mode) - Extract UI requirements, acceptance criteria, user flows
+3. **Interactive Discovery** - Ask 5-15 detailed UI questions:
    - Component type (form, data display, navigation, modal, dashboard, etc.)
    - Technology details (framework, styling, state management)
    - Styling preferences (theme, colors, spacing, typography)
@@ -158,15 +162,16 @@ Skill(command="devforgeai-ui-generator")
    - Responsive behavior (breakpoints, mobile-first, adaptive layouts)
    - Data handling (API integration, local state, form validation)
    - User feedback (error messages, success states, loading indicators)
-4. **Template Loading** - Loads framework-specific templates (React, Vue, Angular, Svelte)
-5. **Code Generation** - Generates component files with:
+4. **Template Loading** - Load framework-specific templates (React, Vue, Angular, Svelte)
+5. **Code Generation** - Generate component files with:
    - Component implementation (framework-specific syntax)
    - Styling files (CSS/SCSS/styled-components/Tailwind)
    - Type definitions (TypeScript interfaces/types)
    - Test files (Jest, Vitest, Testing Library, Cypress)
    - Storybook stories (if configured)
    - Documentation (props, usage examples, accessibility notes)
-6. **Documentation** - Creates UI specification document
+6. **Documentation** - Create UI specification document, invoke ui-spec-formatter subagent
+7. **Specification Validation** - Validate completeness, detect placeholders, ensure framework compliance
 
 **Expected outputs:**
 - UI specification: `.devforgeai/specs/ui/${STORY_ID}-ui-spec.md` (or standalone ID)

@@ -1,794 +1,527 @@
-perform a RCA with the 5 whys and tell me why the subagent didn't implement the stories as per DevForgeAI Spec design when invoked by the /dev         
-command?  Deferrals are never to be auto approved.  Did they not thoroughly complete the initial phase 1 of test driven development?
+● Root Cause Analysis: Skills Misconception and Workflow Interruption
 
-   **Tests DO NOT Cover (Due to Deferrals):**
-   - ❌ ServiceLifecycleManager coordination
-   - ❌ GracefulShutdownHandler timeout logic
-   - ❌ Worker polling mechanisms
-   - ❌ Serilog multi-sink logging
-   - ❌ Configuration file loading
+  Problem Statement
 
-Provide recommendations/solutions so this doesn't occur in the future while ensuring what you recommend isn't aspirational and works within the 
-confines of claude code terminal.  Do not perform any actions - give recommendations/solutions to improve the DevForgeAI Spec-Driven Framework. 
-
-● Excellent question. Let me perform a thorough Root Cause Analysis using the 5 Whys methodology to understand why the implementation deviated from    
-   the DevForgeAI spec.
-
-  🔍 Root Cause Analysis: Implementation Deferrals in STORY-002
-
-  The Core Problem
-
-  Observable Issue: Despite following the TDD workflow, significant components were deferred:
-  - ServiceLifecycleManager coordination logic (minimal stub)
-  - GracefulShutdownHandler timeout logic (minimal stub)
-  - Worker polling mechanisms (placeholders)
-  - Serilog multi-sink logging (added in Phase 4.5, not Phase 2)
-  - Configuration file loading (added in Phase 4.5, not Phase 2)
-
-  Impact: 70% initial deferral rate, requiring Phase 4.5 recovery work
+  When /dev STORY-010 was executed, I invoked the devforgeai-development skill correctly, but then:
+  1. Incorrectly stated skills run "in the background" or "asynchronously"
+  2. Stopped executing the workflow instead of continuing
+  3. Waited passively for skill completion instead of actively executing the skill's instructions
 
   ---
   5 Whys Analysis
 
-  Why #1: Why were these components deferred initially?
+  Why #1: Why did I believe skills run in the background?
 
-  Answer: The backend-architect subagent created minimal implementations that passed the tests, rather than full implementations matching the story    
-   specification.
+  Answer: I misinterpreted the Skill tool's behavior based on the launch message "The
+  'devforgeai-development' skill is running" and the fact that I saw a <function_results> response.
 
-  Evidence:
-  - GracefulShutdownHandler.cs (32 lines) - Just logs and delays, no actual coordination
-  - ServiceLifecycleManager.cs (34 lines) - Just logs, no actual lifecycle management
-  - EmailSenderWorker.cs (43 lines) - Placeholder comment: "actual implementation will query pending emails"
-  - No appsettings.json created initially
-  - No Serilog configuration initially
+  Evidence: After Skill(command="devforgeai-development"), I received:
+  <function_results>Launching skill: devforgeai-development</function_results>
 
-  ---
-  Why #2: Why did the backend-architect create minimal implementations instead of full ones?
-
-  Answer: The test-automator subagent created tests that only validated interfaces and contracts, not the actual business logic and implementation     
-  details specified in the story.
-
-  Evidence from Phase 1 (RED Phase):
-
-  Looking at the tests created:
-  - GracefulShutdownHandlerTests.cs - Tests mock the behavior, don't validate actual shutdown coordination
-  - AlertDetectionWorker tests - Test that IAlertDetectionService is called, not worker-specific logic
-  - No tests for "worker polls every 30 seconds"
-  - No tests for "Serilog writes to File, EventLog, Database"
-  - No tests for "Configuration loads from appsettings.json"
-
-  The tests verified:
-  - ✅ "Does AlertDetectionService.StartDetectionAsync get called?"
-  - ✅ "Does the service start without throwing?"
-
-  The tests did NOT verify:
-  - ❌ "Does AlertDetectionWorker poll in a background loop?"
-  - ❌ "Does Serilog actually write to File sink?"
-  - ❌ "Does configuration load from appsettings.json file?"
+  I incorrectly assumed this meant the skill was executing elsewhere, similar to how subagents execute in       
+  isolated contexts via the Task tool.
 
   ---
-  Why #3: Why did test-automator create interface-level tests instead of implementation-detail tests?
+  Why #2: Why did I confuse Skill tool behavior with Task tool behavior?
 
-  Answer: The test-automator followed acceptance criteria (behavioral requirements) but didn't translate the technical specification
-  (implementation requirements) into tests.
+  Answer: The Skill tool and Task tool have similar invocation patterns, and I incorrectly generalized Task     
+  tool's isolated context execution model to the Skill tool.
 
-  Evidence from STORY-002:
+  Evidence from CLAUDE.md and documentation:
+  - Task tool (subagents): "Each agent invocation is stateless... the agent will return a single message        
+  back to you" - Operates in isolated context
+  - Skill tool: Skills expand prompts inline in the current conversation - NOT isolated
 
-  Acceptance Criteria (AC1):
-  "Service transitions to 'Running' state within 5 seconds"
-  "Startup log entry recorded with service version"
-  "Alert detection worker and email sender worker initialized"
-
-  Test Created:
-  [Fact]
-  public void OnStart_WithValidConfiguration_ShouldInitializeWorkersAndTransitionToRunning()
-  {
-      // Verifies: StartDetectionAsync was called (mock verification)
-      // Does NOT verify: Worker actually polls in background loop
-  }
-
-  Technical Specification (Lines 231-254):
-  "AlertDetectionWorker.cs - Poll database for alerts"
-  "Workers/AlertDetectionWorker.cs"
-  "Serilog configured with File, Event Log, Database sinks"
-
-  Tests NOT Created:
-  - ❌ Test that worker runs continuous polling loop
-  - ❌ Test that Serilog file sink writes to disk
-  - ❌ Test that appsettings.json is loaded
-
-  Root Issue: Test-automator prioritized WHAT the service does (acceptance criteria) over HOW it's implemented (technical specification).
+  The confusion: Both tools use similar syntax:
+  Skill(command="devforgeai-development")  ← Expands inline
+  Task(subagent_type="test-automator", ...)  ← Isolated context
 
   ---
-  Why #4: Why did test-automator prioritize acceptance criteria over technical specification?
+  Why #3: Why didn't I recognize that skills expand inline in the conversation?
 
-  Answer: The /dev command workflow and test-automator agent instructions emphasize acceptance criteria for test generation, but don't explicitly      
-  require technical specification validation in Phase 1.
+  Answer: I didn't properly process the system message format for skills vs the actual skill content
+  expansion.
 
-  Evidence from devforgeai-development SKILL.md:
+  What actually happens with skills:
+  1. User invokes: Skill(command="devforgeai-development")
+  2. System responds: <command-message>The "devforgeai-development" skill is running</command-message>
+  3. Skill content expands INLINE - The skill's SKILL.md file content becomes part of the current
+  conversation
+  4. I should then execute the skill's instructions as if they were direct instructions in the conversation     
 
-  The Phase 1 (RED) instructions likely say:
-  - "Generate tests from acceptance criteria"
-  - "Create failing tests for each AC"
-  - "Follow AAA pattern"
+  What I incorrectly thought:
+  - Skill launches → Executes elsewhere → Returns result later
 
-  But may NOT say:
-  - "Validate technical specification file structure"
-  - "Create tests for each component in Technical Specification"
-  - "Verify implementation details match tech spec"
-
-  Gap: Technical specification is treated as guidance for implementation, not as test requirements.
-
-  ---
-  Why #5 (Root Cause): Why doesn't the framework enforce technical specification as test requirements?
-
-  Answer: The DevForgeAI framework has a conceptual gap between:
-  1. Acceptance Criteria (user-facing behavior) → drives test-automator
-  2. Technical Specification (implementation details) → drives backend-architect
-
-  There's no validation checkpoint that ensures:
-  - Tests cover ALL components listed in "File Structure" section
-  - Tests verify configuration loading mechanisms
-  - Tests validate logging sinks actually work
-  - Tests check worker polling loops actually execute
-
-  Root Cause Summary:
-  The framework treats Technical Specification as implementation guidance, not testable requirements, allowing backend-architect to create minimal     
-  implementations that satisfy interface-level tests but skip implementation-detail tests.
+  What actually happens:
+  - Skill launches → Prompt expands inline → I execute the expanded instructions
 
   ---
-  🎯 Recommendations & Solutions
+  Why #4: Why did I stop executing instead of continuing with the skill's workflow?
 
-  Recommendation 1: Add Technical Specification Validation Checkpoint (HIGH PRIORITY)
+  Answer: I treated the skill invocation as a "handoff" to another process rather than recognizing it as        
+  prompt expansion that I need to execute.
 
-  Problem: test-automator doesn't validate that tests cover technical specification components
+  The fundamental misunderstanding:
+  - Skills are NOT separate agents - They are prompt expansions
+  - When a skill is invoked, its SKILL.md content is injected into the conversation
+  - I am responsible for executing those instructions
 
-  Solution: Add a validation step in Phase 1 (RED phase) after test generation:
-
-  File: .claude/skills/devforgeai-development/references/tdd-red-phase.md
-
-  Add Section:
-  ## Step 4: Technical Specification Coverage Validation
-
-  After generating tests from acceptance criteria, validate test coverage
-  against Technical Specification:
-
-  ### 4.1 Extract Required Components from Tech Spec
-
-  Parse story file sections:
-  - "File Structure" (lines showing directory tree with file names)
-  - "Service Implementation Pattern" (code examples showing classes/methods)
-  - "Data Model" (tables, entities required)
-  - "Business Rules" (numbered rules requiring validation)
-
-  ### 4.2 Checklist Validation
-
-  For EACH component in Technical Specification:
-  - [ ] Does a test file exist for this component?
-  - [ ] Does a test validate this component's core behavior?
-  - [ ] Does a test verify configuration/setup for this component?
-
-  Example:
-  Tech Spec: "Workers/AlertDetectionWorker.cs - Poll database for alerts"
-
-  Required Tests:
-  ✅ Test that worker starts background polling loop
-  ✅ Test that worker polls at configured interval
-  ✅ Test that worker handles exceptions without crashing
-  ✅ Test that worker stops gracefully on cancellation
-
-  ### 4.3 Generate Missing Tests
-
-  If components from Tech Spec lack tests, generate additional tests:
-  - Worker polling loop tests (verify continuous execution)
-  - Configuration loading tests (verify appsettings.json parsing)
-  - Logging sink tests (verify File/EventLog/Database writes)
-  - Background task tests (verify actual async execution)
-
-  ### 4.4 Fail Phase 1 if Coverage Gaps Exist
-
-  If technical specification components lack tests, HALT and report:
-  ❌ PHASE 1 INCOMPLETE: Technical specification coverage gaps detected
-
-  Missing tests for:
-  - AlertDetectionWorker polling loop
-  - Serilog File sink writes
-  - appsettings.json loading
-
-  ACTION REQUIRED: Generate tests for missing components before Phase 2
-
-
-  Implementation Location: .claude/skills/devforgeai-development/references/tdd-red-phase.md
-
-  Effort: Add ~200 lines to RED phase reference document
-
-  Impact: Prevents minimal implementations by ensuring tests validate ALL technical spec components
+  Correct mental model:
+  Skill invocation = "Load this additional prompt and execute it"
+  NOT = "Launch separate process and wait"
 
   ---
-  Recommendation 2: Update test-automator Agent Instructions (HIGH PRIORITY)
+  Why #5: Why do I have this mental model confusion between skills and subagents?
 
-  Problem: test-automator focuses only on acceptance criteria, ignores technical specification
+  Answer: The DevForgeAI documentation uses similar terminology ("invoke", "launch", "execute") for both        
+  skills and subagents, and the system messages look similar, but the underlying execution models are
+  fundamentally different.
 
-  Solution: Modify test-automator agent prompt to explicitly include technical specification
+  Root cause: Insufficient distinction in my understanding between:
 
-  File: .claude/agents/test-automator.md
-
-  Add to Input Analysis Section:
-  ## Input Analysis Requirements
-
-  When generating tests, extract from story file:
-
-  1. **Acceptance Criteria** (primary test source)
-     - User-facing behavior requirements
-     - Given/When/Then scenarios
-
-  2. **Technical Specification** (REQUIRED - secondary test source)
-     - File Structure section → Component existence tests
-     - Service Implementation Pattern → Method behavior tests
-     - Data Model section → Entity/repository tests
-     - Business Rules → Rule validation tests
-     - Non-Functional Requirements → Performance/reliability tests
-
-  ### Technical Specification Test Matrix
-
-  For EACH file/class in "File Structure":
-  Component: Workers/AlertDetectionWorker.cs
-  Tests Required:
-  - Unit test: Worker starts and runs polling loop
-  - Unit test: Worker respects configured interval
-  - Unit test: Worker handles exceptions gracefully
-  - Integration test: Worker actually polls database
-
-  ### Validation Before Test Generation
-
-  HALT if Technical Specification is incomplete:
-  - [ ] File Structure section exists
-  - [ ] Each file has implementation notes or pattern
-  - [ ] Configuration requirements specified
-  - [ ] Logging requirements specified
-
-  Generate tests for BOTH acceptance criteria AND technical specification.
-
-  Implementation Location: .claude/agents/test-automator.md
-
-  Effort: Add ~150 lines to agent instructions
-
-  Impact: Ensures test coverage includes implementation details, not just interfaces
+  | Aspect       | Skills (Skill tool)                        | Subagents (Task tool)           |
+  |--------------|--------------------------------------------|---------------------------------|
+  | Execution    | Inline prompt expansion                    | Isolated context                |
+  | Who executes | Me (current Claude instance)               | Separate agent instance         |
+  | Context      | Current conversation                       | Isolated, separate              |
+  | Output       | I produce output by following instructions | Agent returns structured result |
+  | Mental model | "Load additional instructions"             | "Delegate to specialist"        |
 
   ---
-  Recommendation 3: Add Phase 1 Technical Specification Checklist (MEDIUM PRIORITY)
+  Root Cause Summary
 
-  Problem: No explicit validation that technical spec is testable before generating tests
+  Primary Root Cause:
+  I conflated the Skill tool's inline prompt expansion model with the Task tool's isolated context 
+  delegation model, leading me to incorrectly wait for a skill to "return results" instead of recognizing       
+  that I needed to execute the skill's instructions myself.
 
-  Solution: Add pre-test-generation checklist
-
-  File: .claude/skills/devforgeai-development/references/tdd-red-phase.md
-
-  Add Before Test Generation:
-  ## Phase 1 Pre-Flight: Technical Specification Testability
-
-  Before generating tests, validate story has testable technical specification:
-
-  ### Required Tech Spec Sections
-
-  - [ ] **File Structure** - Shows directory tree with all files to be created
-  - [ ] **Service Implementation Pattern** - Shows code structure/methods
-  - [ ] **Configuration Requirements** - appsettings.json structure shown
-  - [ ] **Logging Requirements** - Serilog sinks specified
-  - [ ] **Data Access Pattern** - Repository/Dapper usage shown
-  - [ ] **Worker Patterns** - Background task implementation shown
-
-  ### If Technical Specification is Incomplete
-
-  **ASK USER:**
-  ⚠️ Technical Specification Incomplete
-
-  Story lacks detailed technical specification for:
-  - [List missing items]
-
-  Options:
-  1. Generate tests from acceptance criteria only (may result in minimal implementation)
-  2. Ask user to clarify technical specification
-  3. Infer technical specification from similar stories (STORY-001)
-
-  Which approach do you prefer?
-
-  **Recommended:** Always validate tech spec completeness in Phase 1
-
-  Implementation Location: .claude/skills/devforgeai-development/references/tdd-red-phase.md
-
-  Effort: ~100 lines
-
-  Impact: Prevents test generation when tech spec is incomplete
+  Contributing Factors:
+  1. Similar invocation syntax between Skill and Task tools
+  2. Similar system messages ("skill is running" vs "agent is running")
+  3. Documentation using similar verbs ("invoke", "execute", "launch") for both
+  4. Lack of explicit "you must now execute these instructions" marker when skill expands
 
   ---
-  Recommendation 4: Add backend-architect Validation Against Tests (HIGH PRIORITY)
+  Recommendations for DevForgeAI Framework
 
-  Problem: backend-architect creates minimal code to pass tests, doesn't validate against technical specification
+  Recommendation 1: Add Explicit Skill Execution Reminder to CLAUDE.md
 
-  Solution: Add technical specification validation step in GREEN phase
+  Problem: CLAUDE.md line 19 states "Claude skills do not run asynchronously or in the background" but
+  doesn't explicitly say "you must execute the skill's instructions."
 
-  File: .claude/skills/devforgeai-development/references/tdd-green-phase.md
+  Solution: Add clarifying section to CLAUDE.md:
 
-  Add After Implementation:
-  ## Step 3: Technical Specification Compliance Validation
+  ## CRITICAL: How Skills Work
 
-  After creating implementation to pass tests, validate against Technical Specification:
+  **Skills are INLINE PROMPT EXPANSIONS, not background processes.**
 
-  ### 3.1 Component Checklist
+  When you invoke a skill:
+  1. `Skill(command="devforgeai-development")` ← You invoke
+  2. System message: "The skill is running" ← Confirmation only
+  3. **Skill's SKILL.md content expands INLINE** ← This is the key
+  4. **YOU execute the skill's instructions** ← Your responsibility
+  5. You produce output following skill workflow ← Not waiting for external result
 
-  For EACH component in "File Structure" section:
-  - [ ] File exists at specified path
-  - [ ] Class/interface matches specified name
-  - [ ] Methods match implementation pattern examples
-  - [ ] Dependencies match tech spec (e.g., uses Dapper, not EF Core)
+  **Mental model:**
+  - ✅ CORRECT: "Load additional instructions file and execute it"
+  - ❌ WRONG: "Launch separate process and wait for result"
 
-  ### 3.2 Configuration Validation
+  **Comparison:**
+  - **Skills (Skill tool):** You execute instructions inline
+  - **Subagents (Task tool):** Separate agent executes in isolated context
 
-  If story specifies configuration:
-  - [ ] appsettings.json file exists
-  - [ ] appsettings.Production.json exists (if multi-environment)
-  - [ ] All settings from tech spec present
-  - [ ] Configuration is loaded in Program.cs/Startup
+  **When skill invoked:**
+  What you should do:
 
-  ### 3.3 Logging Validation
+  1. Read the skill's SKILL.md content (now in conversation)
+  2. Follow the skill's workflow phases
+  3. Execute each phase's instructions
+  4. Produce output as you work
+  5. Complete with skill's success criteria
 
-  If story specifies Serilog:
-  - [ ] Serilog NuGet packages added
-  - [ ] Serilog configured in Program.cs
-  - [ ] All specified sinks configured (File, EventLog, Database)
-  - [ ] Log configuration in appsettings.json
+  What you should NOT do:
 
-  ### 3.4 Worker/Background Task Validation
+  1. ❌ Wait for skill to "return results"
+  2. ❌ Assume skill is executing elsewhere
+  3. ❌ Stop workflow and wait passively
 
-  If story specifies workers:
-  - [ ] Worker class exists
-  - [ ] Worker has StartAsync method with CancellationToken
-  - [ ] Worker runs continuous loop (while !cancellationToken.IsCancellationRequested)
-  - [ ] Worker has configurable polling interval
-  - [ ] Worker handles exceptions without crashing
+  **Example:**
+  User: /dev STORY-001
+  You: Skill(command="devforgeai-development")
+  System: "The devforgeai-development skill is running"
 
-  ### 3.5 HALT if Tech Spec Not Met
+  Correct action:
 
-  If implementation doesn't match tech spec, FAIL Green phase:
-  ❌ PHASE 2 INCOMPLETE: Implementation doesn't match Technical Specification
+  You: [Read skill's Phase 0 instructions]
+  You: [Execute Phase 0: Git validation, context checks]
+  You: [Display Phase 0 results]
+  You: [Continue to Phase 1: Red phase]
+  You: [Invoke test-automator subagent]
+  You: [Wait for subagent result]
+  You: [Continue to Phase 2...]
+  ... [Complete all phases]
+  You: [Display final completion report]
 
-  Missing components:
-  - appsettings.json not created (required by tech spec line 245)
-  - Serilog not configured (required by tech spec line 409-412)
-  - AlertDetectionWorker doesn't poll (placeholder only)
+  Incorrect action:
 
-  ACTION REQUIRED: Implement missing components or update story tech spec
+  You: "The skill is running, I'll wait for it to complete"
+  You: [Stops and waits passively] ← THIS IS WRONG
 
 
-  Implementation Location: .claude/skills/devforgeai-development/references/tdd-green-phase.md
+  Location: Add this section after line 19 in CLAUDE.md, before "## Core Philosophy"
 
-  Effort: ~250 lines
-
-  Impact: Prevents minimal implementations from passing GREEN phase
+  Impact: Makes execution model crystal clear
 
   ---
-  Recommendation 5: Add Deferral Pre-Approval in Phase 1 (CRITICAL)
+  Recommendation 2: Add Skill Execution Checklist to Skills-Reference.md
 
-  Problem: Deferrals discovered in Phase 4.5, not challenged during development
+  Problem: .claude/memory/skills-reference.md explains when to invoke skills but not how to execute them        
+  after invocation.
 
-  Solution: Require explicit user approval for ANY deferral during Phase 1 test design
+  Solution: Add "Skill Execution Model" section at the top:
 
-  File: .claude/skills/devforgeai-development/references/tdd-red-phase.md
+  ## CRITICAL: Skill Execution Model
 
-  Add After Test Generation:
-  ## Step 5: Deferral Pre-Approval (REQUIRED)
+  **Skills expand inline. YOU execute the instructions.**
 
-  Before proceeding to Phase 2, identify potential deferrals:
+  ### After Invoking a Skill
 
-  ### 5.1 Compare Generated Tests vs Tech Spec
+  When you use `Skill(command="devforgeai-[name]")`:
 
-  Identify components in Technical Specification that lack tests:
-  Tech Spec Components: 15
-  Tests Covering Components: 10
-  Potential Deferrals: 5
+  **Step 1: Skill Content Expands**
+  - The skill's SKILL.md file is injected into conversation
+  - You now have access to skill's workflow instructions
 
-  ### 5.2 ASK USER for Each Potential Deferral
+  **Step 2: Execute Skill Workflow**
+  - Read the skill's Phase 0 instructions
+  - Execute Phase 0 (validation, setup)
+  - Display Phase 0 results
+  - Continue to Phase 1
+  - Execute each phase sequentially
+  - Display results as you go
 
-  **MANDATORY:** Use AskUserQuestion for EACH missing component:
+  **Step 3: Complete Workflow**
+  - Execute all phases through completion
+  - Display final success/failure report
+  - Update files as skill instructs (story status, etc.)
 
-  ```markdown
-  ⚠️ Test Coverage Gap Detected
+  ### Common Mistake: Passive Waiting
 
-  Component: AlertDetectionWorker background polling loop
-  Location: Technical Specification line 239-240
-  Issue: No test validates continuous polling behavior
+  **❌ WRONG:**
+  Skill(command="devforgeai-development")
+  "The skill is running, I'll wait for results"
 
-  Generated tests only verify:
-  ✅ StartDetectionAsync is called (mock verification)
+  [Stops and waits] ← THIS IS WRONG
 
-  Missing tests:
-  ❌ Worker runs in continuous loop
-  ❌ Worker polls at 30-second intervals
-  ❌ Worker handles exceptions without stopping
 
-  Options:
-  1. Generate additional tests for worker polling (15 min) - RECOMMENDED
-  2. Defer to follow-up story (creates technical debt)
-  3. Remove from technical specification (scope change - requires ADR)
+  **✅ CORRECT:**
+  Skill(command="devforgeai-development")
+  "Skill expanded, now executing its instructions"
 
-  Which option do you prefer?
+  [Reads Phase 0 from expanded skill content]
 
-  5.3 Deferral Decision Tree
+  [Executes Phase 0: Git validation]
 
-  User selects Option 1 (Generate tests)?
-    → Generate additional tests
-    → Add to Phase 1 test suite
-    → Continue to Phase 2
+  [Displays Phase 0 results]
 
-  User selects Option 2 (Defer)?
-    → ASK: "Which follow-up story should handle this? (STORY-XXX)"
-    → Document deferral with story reference
-    → Add to Phase 4.5 deferral tracking
-    → Continue to Phase 2
+  [Continues to Phase 1...]
 
-  User selects Option 3 (Scope change)?
-    → Require ADR creation
-    → Update story technical specification
-    → Remove from DoD checklist
-    → Continue to Phase 2
+  [Completes all phases]
 
-  5.3 Zero Auto-Deferrals
+  [Displays final report]
 
-  ENFORCEMENT:
-  if potential_deferrals and not user_approved_all:
-      raise ValidationError(
-          "❌ CANNOT PROCEED TO PHASE 2: Unapproved deferrals detected\n"
-          "All deferrals must be explicitly approved by user via AskUserQuestion"
-      )
 
-  NO exceptions. Every deferral requires user decision.
+  ### Skills vs Subagents
 
-  **Implementation Location:** `.claude/skills/devforgeai-development/references/tdd-red-phase.md`
+  | Aspect | Skills | Subagents |
+  |--------|--------|-----------|
+  | **Tool** | Skill tool | Task tool |
+  | **Execution** | You execute inline | Agent executes isolated |
+  | **Output** | You produce by following instructions | Agent returns structured result |
+  | **Waiting** | Never wait (you're doing the work) | Wait for agent result |
 
-  **Effort:** ~300 lines + AskUserQuestion integration
+  Location: Add at top of .claude/memory/skills-reference.md, before "When to Invoke Skills"
 
-  **Impact:** **Eliminates autonomous deferrals entirely**
+  Impact: Prevents passive waiting behavior
+
+  ---
+  Recommendation 3: Update Command Files to Emphasize Execution Responsibility
+
+  Problem: Command files like /dev say "The skill handles all implementation logic" which could be
+  misinterpreted as "skill runs automatically."
+
+  Solution: Clarify in each command's "Phase 1: Invoke Skill" section:
+
+  Current text (in /dev command):
+  ### Phase 1: Set Context and Invoke Skill
+
+  **Delegate all implementation logic to skill:**
+
+  Skill(command="devforgeai-development")
+
+  **The skill will:**
+  1. Extract story ID from conversation context
+  2. Execute Phase 0 (Pre-Flight Validation)
+  ...
+
+  Revised text:
+  ### Phase 1: Set Context and Invoke Skill
+
+  **Invoke skill and execute its expanded instructions:**
+
+  Skill(command="devforgeai-development")
+
+  **After skill invocation:**
+  - Skill's SKILL.md content expands inline in conversation
+  - **YOU execute the skill's workflow phases** (not waiting for external result)
+  - Follow the skill's instructions phase by phase
+  - Produce output as skill instructs
+
+  **The skill instructs you to:**
+  1. Extract story ID from conversation context
+  2. Execute Phase 0 (Pre-Flight Validation)
+  ...
+
+  Apply to: All 11 command files that invoke skills (/dev, /qa, /create-story, /create-epic, etc.)
+
+  Impact: Removes ambiguity about who executes the skill
+
+  ---
+  Recommendation 4: Add Execution Pattern to Skill SKILL.md Files
+
+  Problem: Skill SKILL.md files provide workflow instructions but don't explicitly say "Claude, you must        
+  execute these phases."
+
+  Solution: Add execution reminder at the top of each skill's SKILL.md:
+
+  # DevForgeAI [Skill Name] Skill
+
+  **EXECUTION MODEL:** This skill expands inline. You (Claude) execute these instructions phase by phase.       
+
+  **After invocation:**
+  1. Read this SKILL.md content (now in your conversation)
+  2. Execute each phase sequentially
+  3. Display results as you work through phases
+  4. Complete with success/failure report
+
+  **Do NOT:**
+  - ❌ Wait passively for skill to "return results"
+  - ❌ Assume skill is executing elsewhere
+  - ❌ Stop workflow after invocation
+
+  **Proceed to Phase 0 below and begin execution.**
 
   ---
 
-  ### Recommendation 6: Update Story Template to Enforce Testable Tech Specs (MEDIUM PRIORITY)
+  ## Parameter Extraction
+  ...
 
-  **Problem:** Technical Specification section in story template is freeform text, not structured/parseable
+  Apply to: All 9 skill SKILL.md files
 
-  **Solution:** Create structured technical specification template
-
-  **File:** `.claude/skills/devforgeai-story-creation/references/story-template.md`
-
-  **Replace Freeform Tech Spec With:**
-  ```markdown
-  ## Technical Specification
-
-  ### Required Components (Machine-Readable)
-
-  **Format:** `ComponentType | FilePath | TestRequirement`
-
-  ```csv
-  Service,src/Project.Service/ServiceName.cs,Must implement ServiceBase with OnStart/OnStop
-  Worker,src/Project.Service/Workers/WorkerName.cs,Must run continuous loop with cancellation
-  Repository,src/Project.Infrastructure/Repositories/RepoName.cs,Must use Dapper with parameterized queries
-  Config,src/Project.Service/appsettings.json,Must contain [list required settings]
-  Logging,Program.cs,Must configure Serilog with File+EventLog+Database sinks
-
-  Test Requirements (Machine-Readable)
-
-  For each component, specify testable requirements:
-
-  AlertDetectionWorker:
-    tests:
-      - "Worker starts background task"
-      - "Worker polls at configured interval (30s default)"
-      - "Worker handles exceptions without stopping"
-      - "Worker stops gracefully on cancellation"
-    coverage: "Must have unit test for polling loop + integration test with real delay"
-
-  Configuration Requirements (Machine-Readable)
-
-  {
-    "required_in_appsettings": [
-      "ConnectionStrings.OmniWatchDb",
-      "AlertingService.PollingIntervalSeconds",
-      "Smtp.Host",
-      "Smtp.Port",
-      "Serilog.WriteTo[File]",
-      "Serilog.WriteTo[EventLog]"
-    ]
-  }
-
-  Why This Helps:
-  - test-automator can PARSE structured spec, not interpret freeform text
-  - Validation scripts can CHECK implementation against machine-readable spec
-  - No ambiguity about what needs tests vs. what's optional
-
-  **Implementation Location:** Story creation templates
-
-  **Effort:** ~500 lines (new template format + parser)
-
-  **Impact:** Makes technical specifications machine-readable and enforceable
+  Impact: Makes execution responsibility explicit at skill level
 
   ---
+  Recommendation 5: Create Skill Execution Troubleshooting Guide
 
-  ### Recommendation 7: Add Phase 2 Implementation Checklist Agent (MEDIUM PRIORITY)
+  Problem: No documentation exists to help diagnose "why did I stop executing the skill?"
 
-  **Problem:** backend-architect interprets "make tests pass" as "minimal code", not "complete implementation"
+  Solution: Create .claude/memory/skill-execution-troubleshooting.md:
 
-  **Solution:** Add validation subagent that runs AFTER backend-architect completes Phase 2
+  # Skill Execution Troubleshooting Guide
 
-  **New Agent:** `implementation-validator`
+  ## Symptom: I Invoked a Skill But Stopped Working
 
-  **File:** `.claude/agents/implementation-validator.md`
+  **Problem:** After `Skill(command="...")`, you stopped and waited instead of executing.
 
-  ```markdown
-  # Implementation Validator Agent
+  **Root Cause:** Confusion between Skill tool (inline expansion) and Task tool (isolated execution).
 
-  ## Purpose
-  Validates that Phase 2 (GREEN) implementation matches Technical Specification,
-  not just makes tests pass.
+  ### Correct Behavior After Skill Invocation
 
-  ## When to Use
-  - After backend-architect completes Phase 2 implementation
-  - Before proceeding to Phase 3 (Refactoring)
-  - Proactively validate against technical spec
+  1. **Skill content expands inline** - SKILL.md is now in conversation
+  2. **You read the skill's Phase 0 instructions**
+  3. **You execute Phase 0** - Run validations, setup, checks
+  4. **You display Phase 0 results** - Show user what you did
+  5. **You continue to Phase 1** - Read Phase 1 instructions
+  6. **You execute Phase 1** - Follow instructions
+  7. **You continue through all phases** - Sequential execution
+  8. **You display final report** - Success/failure summary
 
-  ## Validation Checklist
+  ### What to Do If You Catch Yourself Waiting
 
-  ### 1. File Structure Compliance
-  For each file in Technical Specification "File Structure":
-  ```python
-  required_files = parse_file_structure(story_tech_spec)
-  actual_files = glob_source_files(project_root)
+  **If you notice you've stopped after skill invocation:**
 
-  missing = required_files - actual_files
-  if missing:
-      fail(f"Missing files: {missing}")
+  1. **Recognize the error:** "I invoked the skill but stopped - that's wrong"
+  2. **Correct course:** "Skills expand inline, I need to execute the instructions"
+  3. **Resume execution:** Read the skill's Phase 0 from the expanded content
+  4. **Continue workflow:** Execute each phase sequentially
+  5. **Complete normally:** Finish all phases and report results
 
-  2. Configuration File Validation
+  ### Quick Check: Am I Executing Correctly?
 
-  if "appsettings.json" in required_files:
-      assert file_exists("appsettings.json")
+  **Ask yourself after skill invocation:**
+  - ✅ Am I reading the skill's phase instructions?
+  - ✅ Am I executing those instructions?
+  - ✅ Am I displaying results as I work?
+  - ✅ Am I progressing through phases sequentially?
 
-      config = load_json("appsettings.json")
-      for required_key in tech_spec.required_config_keys:
-          assert required_key in config, f"Missing config: {required_key}"
+  **If answer is "no" to any:** You've stopped incorrectly. Resume execution.
 
-  3. Logging Configuration Validation
+  ### Mental Model Correction
 
-  if "Serilog" in tech_spec.logging_requirements:
-      program_cs = read_file("Program.cs")
+  **WRONG mental model:**
+  Skill invocation → Wait for result → Display result
 
-      assert "Log.Logger = new LoggerConfiguration()" in program_cs
-      assert ".ReadFrom.Configuration" in program_cs
+  **CORRECT mental model:**
+  Skill invocation → Load instructions → Execute instructions → Display your work
 
-      for sink in ["File", "EventLog", "Console"]:
-          if sink in tech_spec.required_sinks:
-              assert f".WriteTo.{sink}" in appsettings or sink in program_cs
+  ### Comparison: Skills vs Subagents
 
-  4. Worker Implementation Validation
+  | When to Wait | Skills (Skill tool) | Subagents (Task tool) |
+  |--------------|--------------------|-----------------------|
+  | After invocation | ❌ NEVER - You execute | ✅ YES - Agent executes |
+  | Who produces output | You | Agent |
+  | Where execution happens | Current conversation | Isolated context |
 
-  for worker in tech_spec.workers:
-      worker_code = read_file(worker.file_path)
+  ### Emergency Recovery
 
-      # Must have continuous loop
-      assert "while (" in worker_code and "!cancellationToken.IsCancellationRequested" in worker_code
+  **If you've already stopped and are reading this:**
 
-      # Must have polling interval
-      assert "Task.Delay" in worker_code or "Timer" in worker_code
+  1. Apologize to user: "I incorrectly stopped after skill invocation"
+  2. Explain: "Skills expand inline - I should have executed the instructions"
+  3. Resume: "Let me now execute the skill's workflow starting from Phase 0"
+  4. Continue: Execute all phases to completion
+  5. Learn: Remember this for future skill invocations
 
-      # Must delegate to service
-      assert worker.service_interface in worker_code
+  Location: .claude/memory/skill-execution-troubleshooting.md
 
-  5. Halt on Validation Failures
+  Reference from: CLAUDE.md, skills-reference.md, all skill SKILL.md files
 
-  If any validation fails:
-  ❌ IMPLEMENTATION INCOMPLETE
-
-  Backend-architect created minimal stubs for:
-  - AlertDetectionWorker (no polling loop)
-  - appsettings.json (not created)
-  - Serilog (not configured)
-
-  These are REQUIRED by Technical Specification.
-
-  Options:
-  1. Complete implementation now (recommended)
-  2. Update story to remove these requirements (requires ADR)
-  3. Defer with explicit user approval (use AskUserQuestion)
-
-  Tools Available
-
-  - Read, Grep, Glob (for file validation)
-  - Bash (for running config parsers)
-
-  **Implementation Location:** `.claude/agents/implementation-validator.md` (NEW)
-
-  **Integration Point:** Add to Phase 2 in `/dev` workflow:
-  ```markdown
-  Phase 2 (GREEN):
-  1. Invoke backend-architect
-  2. **NEW:** Invoke implementation-validator
-  3. If validation fails → Fix or defer with user approval
-  4. If validation passes → Proceed to Phase 3
-
-  Effort: ~400 lines (new agent + integration)
-
-  Impact: Catches minimal implementations before they become technical debt
+  Impact: Provides recovery path when error occurs
 
   ---
-  Recommendation 8: Add "Implementation Completeness Score" to Phase Reports (LOW PRIORITY)
+  Recommendation 6: Add Visual Marker When Skills Expand
 
-  Problem: No visibility into implementation completeness during development
+  Problem: System message "The skill is running" doesn't signal "now execute the expanded instructions."        
 
-  Solution: Add scoring to each phase report
+  Solution: This requires Claude Code Terminal changes (outside framework control), but document the current    
+   behavior clearly.
 
-  Example Output:
-  ✅ PHASE 2 (GREEN) COMPLETE
+  Add to CLAUDE.md:
 
-  Tests Passing: 25/25 (100%)
-  Build Status: Success
+  ## Understanding Skill Invocation Messages
 
-  Implementation Completeness: 6/10 (60%) ⚠️
+  When you invoke a skill:
+  Skill(command="devforgeai-development")
 
-  Components Implemented:
-  ✅ AlertingService.cs (full implementation)
-  ✅ AlertDetectionService.cs (full implementation)
-  ✅ EmailService.cs (full implementation)
-  ⚠️ AlertDetectionWorker.cs (stub only - no polling loop)
-  ⚠️ GracefulShutdownHandler.cs (stub only - no timeout logic)
-  ❌ appsettings.json (not created)
-  ❌ Serilog configuration (not created)
+  You'll see:
+  The "devforgeai-development" skill is running
 
-  WARNING: 4/10 components are stubs or missing.
-  Recommendation: Complete implementations now or defer with user approval.
+  **This message means:**
+  - ✅ Skill invocation successful
+  - ✅ Skill's SKILL.md content is now in conversation
+  - ✅ **You must now execute the skill's instructions**
 
-  Implementation Location: Backend-architect agent output formatting
+  **This message does NOT mean:**
+  - ❌ Skill is executing elsewhere
+  - ❌ Wait for skill to return results
+  - ❌ Skill is running in background
 
-  Effort: ~100 lines
+  **Immediately after seeing this message:**
+  1. Locate the skill's SKILL.md content in conversation
+  2. Read Phase 0 instructions
+  3. Begin executing Phase 0
+  4. Continue through all phases
 
-  Impact: Provides visibility into implementation vs. specification gaps
-
-  ---
-  🎯 Prioritized Implementation Roadmap
-
-  Phase 1: Critical Fixes (Week 1)
-
-  Priority 1: Recommendation 5 - Deferral Pre-Approval in Phase 1
-  - Why: Prevents autonomous deferrals (your main concern)
-  - Effort: ~300 lines + AskUserQuestion integration
-  - Impact: Eliminates silent deferrals
-
-  Priority 2: Recommendation 1 - Technical Specification Validation
-  - Why: Ensures tests cover implementation details
-  - Effort: ~200 lines
-  - Impact: Prevents minimal implementations
-
-  Phase 2: Enforcement (Week 2)
-
-  Priority 3: Recommendation 2 - Update test-automator Instructions
-  - Why: Fixes root cause (test-automator ignores tech spec)
-  - Effort: ~150 lines
-  - Impact: Better initial test generation
-
-  Priority 4: Recommendation 7 - Implementation Validator Agent
-  - Why: Automated validation prevents human oversight
-  - Effort: ~400 lines (new agent)
-  - Impact: Catches issues before Phase 3
-
-  Phase 3: Improvement (Week 3)
-
-  Priority 5: Recommendation 6 - Structured Tech Spec Template
-  - Why: Makes specs machine-readable
-  - Effort: ~500 lines (template + parser)
-  - Impact: Long-term structural improvement
-
-  Priority 6: Recommendation 8 - Completeness Scoring
-  - Why: Visibility improvement
-  - Effort: ~100 lines
-  - Impact: Better decision-making during development
+  Impact: Clarifies what system message actually indicates
 
   ---
-  ✅ Validation: All Recommendations Are Non-Aspirational
+  Recommendation 7: Add "Execution Start" Reminder to Each Skill's Phase 0
 
-  Feasibility within Claude Code Terminal
+  Problem: Skills list Phase 0 instructions but don't explicitly say "Start executing now."
 
-  All recommendations use:
-  - ✅ File operations: Read, Write, Edit, Grep, Glob (available)
-  - ✅ AskUserQuestion: Built-in tool for user decisions
-  - ✅ Agent invocation: Task tool with subagents (available)
-  - ✅ Validation logic: Python validators already exist
-  - ✅ Markdown parsing: Already implemented in validators
+  Solution: Add explicit execution trigger at start of Phase 0 in each skill:
 
-  No external dependencies required.
+  ## Pre-Flight Validation (Phase 0)
 
-  Implementation Complexity
+  **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
-  | Recommendation            | Lines of Code | Files Modified   | Complexity | Feasible? |
-  |---------------------------|---------------|------------------|------------|-----------|
-  | #1: Tech Spec Validation  | ~200          | 1 reference file | Medium     | ✅ Yes     |
-  | #2: test-automator Update | ~150          | 1 agent file     | Low        | ✅ Yes     |
-  | #3: Phase 1 Checklist     | ~100          | 1 reference file | Low        | ✅ Yes     |
-  | #5: Deferral Pre-Approval | ~300          | 1 reference file | Medium     | ✅ Yes     |
-  | #6: Structured Template   | ~500          | Multiple         | High       | ✅ Yes     |
-  | #7: Validator Agent       | ~400          | 1 new agent      | Medium     | ✅ Yes     |
-  | #8: Completeness Score    | ~100          | 1 agent          | Low        | ✅ Yes     |
+  **This is Phase 0. Execute these steps now:**
 
-  Total Effort: ~1,750 lines across 6-8 files
+  8-step validation before TDD begins:
 
-  Timeframe: 2-3 weeks for full implementation
+  1. Validate Git status (git-validator subagent)
+     **Action:** Invoke git-validator now:
+     Task(subagent_type="git-validator", ...)
+
+  2. Adapt workflow (Git vs file-based)
+  **Action:** Based on git-validator result, set CAN_COMMIT flag
+  ...
+
+  Apply to: All 9 skills' Phase 0 sections
+
+  Impact: Removes any ambiguity about when to start executing
 
   ---
-  💡 Quick Win: Immediate Improvement (Today)
+  Summary of Recommendations
 
-  If you want an immediate improvement, implement Recommendation #5 (Deferral Pre-Approval) first:
+  | #   | Recommendation                                    | File(s) to Update                       |
+  Impact                           | Effort |
+  |-----|---------------------------------------------------|-----------------------------------------|-----    
+  -----------------------------|--------|
+  | 1   | Add explicit skill execution section to CLAUDE.md | CLAUDE.md                               | High    
+   - Fundamental understanding | Low    |
+  | 2   | Add execution model to skills-reference.md        | skills-reference.md                     | High    
+   - Reference clarity         | Low    |
+  | 3   | Clarify command delegation language               | All 11 command .md files                |
+  Medium - Removes ambiguity       | Medium |
+  | 4   | Add execution reminder to skill SKILL.md          | All 9 skill SKILL.md files              |
+  Medium - Explicit instruction    | Medium |
+  | 5   | Create troubleshooting guide                      | NEW: skill-execution-troubleshooting.md | High    
+   - Recovery path             | Low    |
+  | 6   | Document system message meaning                   | CLAUDE.md                               |
+  Medium - Clarification           | Low    |
+  | 7   | Add "execution starts here" markers               | All 9 skills' Phase 0                   |
+  Medium - Clear trigger           | Medium |
 
-  Steps:
-  1. Add AskUserQuestion call in Phase 1 after test generation
-  2. Compare generated tests vs. technical specification
-  3. For each gap, ask user: "Generate tests now or defer?"
-  4. Document user's decision
-  5. Proceed to Phase 2 only after all decisions made
+  Total effort: 2-3 hours of documentation updates
 
-  Impact: Eliminates autonomous deferrals immediately
-
-  Example:
-  After test generation in Phase 1:
-
-  🔍 Technical Specification Coverage Analysis:
-
-  Components in Tech Spec: 10
-  Tests Generated: 7
-  Coverage Gaps: 3
-
-  Gap 1: AlertDetectionWorker polling loop
-    Tests created: ✅ StartAsync called
-    Tests missing: ❌ Continuous polling, ❌ Interval timing
-
-    Generate missing tests now? (Y/N)
-    [If N: Ask which follow-up story + document deferral]
-
-  Gap 2: Serilog File sink
-    Tests created: ❌ None
-    Tests missing: ❌ File writes, ❌ Rolling, ❌ Retention
-
-    Generate missing tests now? (Y/N)
-    [If N: Ask for deferral justification]
+  All recommendations are actionable within DevForgeAI framework (no aspirational features, no Claude Code      
+  Terminal changes required).
 
   ---
-  📋 Summary of Root Cause
+  Implementation Priority
 
-  Root Cause (5th Why):
-  The DevForgeAI framework treats Technical Specification as implementation guidance for developers, not testable requirements for test generation.    
-   This allows:
-  1. test-automator to skip tech spec components (focuses on ACs only)
-  2. backend-architect to create minimal stubs (tests pass = good enough)
-  3. Deferrals to accumulate silently (no validation until Phase 4.5)
+  Priority 1 (Critical - Implement Immediately):
+  1. Recommendation 1: CLAUDE.md skill execution section
+  2. Recommendation 5: Troubleshooting guide
+  3. Recommendation 2: Skills-reference.md execution model
 
-  Solution:
-  Make Technical Specification first-class testable requirements by:
-  1. Validating test coverage against tech spec in Phase 1
-  2. Requiring user approval for ANY test coverage gap
-  3. Validating implementation completeness in Phase 2
-  4. Failing phases if tech spec not met
+  Priority 2 (High - Implement This Week):
+  4. Recommendation 7: "Execution starts here" markers in skills
+  5. Recommendation 6: System message documentation
 
-  ---
-  🎯 Recommended Action Plan
-
-  For Your Next Story:
-  1. ✅ Manually review tech spec before /dev command
-  2. ✅ In Phase 1, verify tests cover ALL tech spec components
-  3. ✅ Use AskUserQuestion to approve any gaps
-  4. ✅ In Phase 2, verify implementation matches tech spec (not just passes tests)
-  5. ✅ Challenge minimal implementations immediately
-
-  For Framework Improvement:
-  1. Implement Recommendation #5 (Deferral Pre-Approval) first
-  2. Then Recommendation #1 (Tech Spec Validation)
-  3. Then Recommendation #7 (Implementation Validator)
-  4. Long-term: Recommendation #6 (Structured Templates)
+  Priority 3 (Medium - Implement This Sprint):
+  6. Recommendation 3: Command file clarification
+  7. Recommendation 4: Skill SKILL.md execution reminders
 
   ---
-  Would you like me to implement any of these recommendations, starting with Recommendation #5 (Deferral Pre-Approval with AskUserQuestion)?
+  Validation Plan
+
+  After implementing recommendations:
+
+  1. Test with sample skill invocation:
+    - Invoke Skill(command="devforgeai-development") in test scenario
+    - Verify Claude immediately begins executing Phase 0 (no waiting)
+    - Verify Claude progresses through all phases
+    - Verify Claude completes with report
+  2. Review updated documentation:
+    - CLAUDE.md clearly states "skills expand inline, you execute"
+    - Skills-reference.md has execution model section
+    - Troubleshooting guide provides recovery path
+  3. Monitor for recurrence:
+    - Track future skill invocations
+    - If passive waiting occurs again, review which recommendation was missed
+    - Iterate on documentation clarity
+
+  ---
+  End of RCA and Recommendations

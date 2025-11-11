@@ -17,6 +17,27 @@ allowed-tools:
 
 Coordinate the complete spec-driven development lifecycle with automated skill orchestration and quality gate enforcement.
 
+---
+
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Purpose" section below and begin execution.**
+
+---
+
 ## Purpose
 
 This skill is the **workflow coordinator** for the entire spec-driven development framework. It manages the progression of work from high-level business initiatives (Epics) through implementation (Stories) to production release.
@@ -81,6 +102,8 @@ This skill operates in **4 modes** based on conversation context markers.
 ---
 
 ## Workflow States
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Stories progress through **11 sequential states:**
 

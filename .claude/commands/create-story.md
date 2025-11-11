@@ -207,7 +207,19 @@ Focus on user-facing capabilities like "users can register accounts" or "admins 
 Skill(command="devforgeai-story-creation")
 ```
 
-**IMPORTANT:** Skill executes autonomously and handles all discovery, subagent orchestration, file creation, validation, and user interaction. Do NOT interrupt skill execution - skill performs self-validation in Phase 7 and reports completion in Phase 8.
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
+
+**The skill instructs you to:**
+- Execute all 8 phases: Discovery, Requirements Analysis, Technical Spec, UI Spec, File Creation, Linking, Self-Validation, Completion Report
+- Invoke requirements-analyst subagent (Phase 2) and api-designer subagent (Phase 3, if needed)
+- Handle all user interactions (AskUserQuestion for metadata)
+- Create story file with complete specifications
+- Perform self-validation in Phase 7
+- Present completion summary in Phase 8
 
 ---
 

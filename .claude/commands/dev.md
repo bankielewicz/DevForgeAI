@@ -176,13 +176,19 @@ Display: ""
 
 #### Step 1.2: Invoke Development Skill
 
-**Delegate all implementation logic to skill:**
+**Invoke skill and execute its expanded instructions:**
 
 ```
 Skill(command="devforgeai-development")
 ```
 
-**The skill will:**
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
+
+**The skill instructs you to:**
 1. Extract story ID from conversation context (YAML frontmatter or explicit marker)
 2. Execute Phase 0 (Pre-Flight Validation):
    - Validate Git status (git-validator subagent)
@@ -200,8 +206,6 @@ Skill(command="devforgeai-development")
    - Create git commit OR file-based change manifest
    - Update story status to "Dev Complete"
 5. Handle any failures gracefully with clear error messages
-
-**Wait for skill to complete...**
 
 ---
 

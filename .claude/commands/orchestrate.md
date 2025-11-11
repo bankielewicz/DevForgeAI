@@ -113,18 +113,24 @@ Delegating to devforgeai-orchestration skill...
 Skill(command="devforgeai-orchestration")
 ```
 
-**What the skill does:**
-- **Phase 0:** Loads story, detects checkpoints, determines starting phase
-- **Phase 1:** Validates story and workflow state
-- **Phase 2:** Invokes devforgeai-development (TDD workflow)
-- **Phase 3:** Invokes devforgeai-qa (deep validation)
-- **Phase 3.5:** Handles QA failures with intelligent retry (max 3 attempts)
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
+
+**The skill instructs you to execute orchestration workflow:**
+- **Phase 0:** Load story, detect checkpoints, determine starting phase
+- **Phase 1:** Validate story and workflow state
+- **Phase 2:** Invoke devforgeai-development skill (execute TDD workflow)
+- **Phase 3:** Invoke devforgeai-qa skill (execute deep validation)
+- **Phase 3.5:** Handle QA failures with intelligent retry (max 3 attempts)
   - Deferral-specific recovery options
   - Follow-up story creation
   - Loop prevention (suggests story split after 3 failures)
-- **Phase 4:** Invokes devforgeai-release (staging deployment)
-- **Phase 5:** Invokes devforgeai-release (production deployment)
-- **Phase 6:** Finalizes workflow, updates story status, generates summary
+- **Phase 4:** Invoke devforgeai-release skill (execute staging deployment)
+- **Phase 5:** Invoke devforgeai-release skill (execute production deployment)
+- **Phase 6:** Finalize workflow, update story status, generate summary
 
 **Skill returns:** Structured summary with orchestration results
 
