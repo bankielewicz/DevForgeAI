@@ -316,32 +316,38 @@ class TestHookInvocationSequence:
     """Tests for hook invocation sequence and ordering."""
 
     @pytest.mark.asyncio
-    async def test_multiple_hooks_invoked_in_registration_order(self, hook_invocation_recorder, mock_operation_context):
+    async def test_multiple_hooks_invoked_in_registration_order(self, hook_system_with_config, invocation_tracker, mock_operation_context):
         """
         GIVEN multiple hooks are registered for the same operation,
         WHEN the operation completes,
         THEN hooks execute in registration order with proper dependency resolution.
         """
-        # Arrange
-        hooks = [
-            {'id': 'hook-1', 'operation_pattern': 'dev', 'trigger_status': ['success']},
-            {'id': 'hook-2', 'operation_pattern': 'dev', 'trigger_status': ['success']},
-            {'id': 'hook-3', 'operation_pattern': 'dev', 'trigger_status': ['success']},
+        # Arrange - Create HookSystem with 3 hooks in specific order
+        hook_config = [
+            {'id': 'hook-1', 'name': 'Hook 1', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
+            {'id': 'hook-2', 'name': 'Hook 2', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
+            {'id': 'hook-3', 'name': 'Hook 3', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
         ]
+        hook_system = hook_system_with_config(hook_config)
+        hook_system.set_hook_runner(invocation_tracker['mock_runner'])
 
-        # Act - Invoke hooks in registration order
-        for hook in hooks:
-            if hook['operation_pattern'] == 'dev' and mock_operation_context['status'] in hook['trigger_status']:
-                hook_invocation_recorder.record_invocation(
-                    hook['id'],
-                    mock_operation_context['operation_id']
-                )
-
-        # Assert - Verify order
-        invocations = hook_invocation_recorder.get_invocations_for_operation(
-            mock_operation_context['operation_id']
+        # Act - Invoke hooks via real HookSystem
+        results = await hook_system.invoke_hooks(
+            operation_id=mock_operation_context['operation_id'],
+            operation_type=mock_operation_context['operation_type'],
+            operation_name=mock_operation_context['operation_name'],
+            status='success',
+            duration_ms=mock_operation_context['duration_ms'],
+            result_code='success'
         )
-        assert invocations == ['hook-1', 'hook-2', 'hook-3']
+
+        # Assert - Hooks invoked in registration order
+        invoked_ids = [inv['hook_id'] for inv in invocation_tracker['invocations']]
+        assert invoked_ids == ['hook-1', 'hook-2', 'hook-3']
+        assert len(results) == 3
 
 
     @pytest.mark.asyncio
