@@ -23,11 +23,34 @@ from datetime import datetime, date
 from uuid import uuid4
 from typing import Dict, List, Optional
 import json
+import sys
+sys.path.insert(0, '/mnt/c/Projects/DevForgeAI2/src')
+
+from template_customization import (
+    create_custom_field, update_custom_field, delete_custom_field,
+    create_team_question, get_team_questions, get_story_workflow_questions,
+    create_custom_template, get_custom_template, update_custom_template,
+    share_template, get_template_library, copy_template, export_template_to_team,
+    get_rendered_template, revert_template_to_defaults,
+    simulate_framework_upgrade, simulate_framework_upgrade_with_new_section,
+    get_template_with_version_check, create_story_with_fields,
+    create_stories_with_field, get_custom_field_by_id,
+    upgrade_framework, upgrade_framework_with_conflicts,
+    clear_storage
+)
 
 
 # ============================================================================
 # FIXTURES - Test Data Setup
 # ============================================================================
+
+@pytest.fixture(autouse=True)
+def clear_test_storage():
+    """Clear storage before each test."""
+    clear_storage()
+    yield
+    clear_storage()
+
 
 @pytest.fixture
 def user_uuid():
@@ -254,9 +277,7 @@ class TestCustomFieldCreation:
     @staticmethod
     def _create_custom_field(payload, user_id, team_id):
         """Helper to mock POST /api/templates/custom-fields."""
-        # This would call the actual API endpoint
-        # For now, returns a mock response object
-        pass
+        return create_custom_field(payload, user_id, team_id)
 
 
 class TestCustomFieldUpdate:
@@ -315,7 +336,7 @@ class TestCustomFieldUpdate:
     @staticmethod
     def _update_custom_field(field_id, payload, user_id):
         """Helper to mock PUT /api/templates/custom-fields/{field_id}."""
-        pass
+        return update_custom_field(field_id, payload, user_id)
 
 
 class TestCustomFieldDeletion:
@@ -347,7 +368,7 @@ class TestCustomFieldDeletion:
     @staticmethod
     def _delete_custom_field(field_id, user_id, confirmed=False):
         """Helper to mock DELETE /api/templates/custom-fields/{field_id}."""
-        pass
+        return delete_custom_field(field_id, user_id, confirmed)
 
 
 # ============================================================================
@@ -389,7 +410,7 @@ class TestTeamQuestionCreation:
         assert response.status_code == 201
         assert response.json()["required"] is False
 
-    def test_should_store_team_question_in_configuration(self, user_uuid, team_uuid):
+    def test_should_store_team_question_in_configuration(self, valid_team_question_payload, user_uuid, team_uuid):
         """AC2: Question is stored in team configuration."""
         # Arrange
         payload = valid_team_question_payload
@@ -406,12 +427,12 @@ class TestTeamQuestionCreation:
     @staticmethod
     def _create_team_question(payload, user_id, team_id):
         """Helper to mock POST /api/templates/team-questions."""
-        pass
+        return create_team_question(payload, user_id, team_id)
 
     @staticmethod
     def _get_team_questions(team_id):
         """Helper to mock GET /api/templates/team-questions?team_id={team_id}."""
-        pass
+        return get_team_questions(team_id)
 
 
 class TestTeamQuestionOrdering:
@@ -438,12 +459,12 @@ class TestTeamQuestionOrdering:
 
     @staticmethod
     def _create_team_question(payload, user_id, team_id):
-        pass
+        return create_team_question(payload, user_id, team_id)
 
     @staticmethod
     def _get_story_workflow_questions(team_id):
         """Helper to get ordered questions from story creation workflow."""
-        pass
+        return get_story_workflow_questions(team_id)
 
 
 # ============================================================================
@@ -587,7 +608,7 @@ class TestCustomFieldValidation:
     @staticmethod
     def _create_story_with_fields(story_data, user_id):
         """Helper to mock POST /api/stories with custom field values."""
-        pass
+        return create_story_with_fields(story_data, user_id)
 
 
 # ============================================================================
@@ -755,15 +776,15 @@ class TestDataValidationRules:
 
     @staticmethod
     def _create_custom_field(payload, user_id, team_id=None):
-        pass
+        return create_custom_field(payload, user_id, team_id)
 
     @staticmethod
     def _create_team_question(payload, user_id, team_id):
-        pass
+        return create_team_question(payload, user_id, team_id)
 
     @staticmethod
     def _create_custom_template(payload, user_id, team_id):
-        pass
+        return create_custom_template(payload, user_id, team_id)
 
 
 # ============================================================================
@@ -832,8 +853,13 @@ class TestTemplateInheritance:
     def test_should_auto_update_inherited_sections_on_framework_upgrade(self, user_uuid, team_uuid):
         """AC3: Inherited sections auto-update when framework upgraded."""
         # Arrange
-        template_id = str(uuid4())
-        old_inherited = ["User Story", "Acceptance Criteria"]
+        template_payload = {
+            "name": "Test Template",
+            "inherit_sections": ["User Story", "Acceptance Criteria"],
+            "framework_version": "1.0.0"
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act
         # Simulate framework upgrade with new default template
@@ -849,8 +875,13 @@ class TestTemplateInheritance:
     def test_should_revert_custom_template_to_defaults(self, user_uuid, team_uuid):
         """AC3: Custom template can be reverted to defaults with one action."""
         # Arrange
-        template_id = str(uuid4())
-        custom_field_id = str(uuid4())
+        template_payload = {
+            "name": "Test Template",
+            "inherit_sections": ["User Story"],
+            "custom_field_ids": [str(uuid4())]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act
         response = self._revert_template_to_defaults(template_id, user_uuid)
@@ -863,19 +894,19 @@ class TestTemplateInheritance:
 
     @staticmethod
     def _create_custom_template(payload, user_id, team_id):
-        pass
+        return create_custom_template(payload, user_id, team_id)
 
     @staticmethod
     def _get_rendered_template(template_data, user_id, team_id):
-        pass
+        return get_rendered_template(template_data, user_id, team_id)
 
     @staticmethod
     def _simulate_framework_upgrade(template_id, old_version, new_version):
-        pass
+        return simulate_framework_upgrade(template_id, old_version, new_version)
 
     @staticmethod
     def _revert_template_to_defaults(template_id, user_id):
-        pass
+        return revert_template_to_defaults(template_id, user_id)
 
 
 # ============================================================================
@@ -930,15 +961,15 @@ class TestCompleteCustomFieldWorkflow:
 
     @staticmethod
     def _create_custom_field(payload, user_id, team_id):
-        pass
+        return create_custom_field(payload, user_id, team_id)
 
     @staticmethod
     def _create_custom_template(payload, user_id, team_id):
-        pass
+        return create_custom_template(payload, user_id, team_id)
 
     @staticmethod
     def _update_custom_field(field_id, payload, user_id):
-        pass
+        return update_custom_field(field_id, payload, user_id)
 
 
 class TestTeamQuestionWorkflow:
@@ -967,11 +998,11 @@ class TestTeamQuestionWorkflow:
 
     @staticmethod
     def _create_team_question(payload, user_id, team_id):
-        pass
+        return create_team_question(payload, user_id, team_id)
 
     @staticmethod
     def _get_story_creation_workflow(team_id):
-        pass
+        return get_story_workflow_questions(team_id)
 
 
 # ============================================================================
@@ -984,7 +1015,12 @@ class TestCustomTemplateSharing:
     def test_should_share_template_with_team(self, user_uuid, team_uuid):
         """AC5: Custom template can be shared with team."""
         # Arrange
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Shareable Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act
         response = self._share_template(template_id, team_uuid, user_uuid)
@@ -998,7 +1034,12 @@ class TestCustomTemplateSharing:
         """AC5: All team members see shared template in library."""
         # Arrange
         team_member_id = str(uuid4())
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Shared Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act - Share template
         self._share_template(template_id, team_uuid, user_uuid)
@@ -1015,7 +1056,12 @@ class TestCustomTemplateSharing:
         """AC5: Team members see template as read-only, cannot modify."""
         # Arrange
         team_member_id = str(uuid4())
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Read Only Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
         self._share_template(template_id, team_uuid, user_uuid)
 
         # Act - Try to modify as team member
@@ -1029,7 +1075,12 @@ class TestCustomTemplateSharing:
     def test_creator_can_modify_shared_template(self, user_uuid, team_uuid):
         """AC5: Original creator can modify/delete shared template."""
         # Arrange
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Creator Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
         self._share_template(template_id, team_uuid, user_uuid)
 
         # Act
@@ -1043,7 +1094,12 @@ class TestCustomTemplateSharing:
         """AC5: Team members can create variants by copying template."""
         # Arrange
         team_member_id = str(uuid4())
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Copy Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
         self._share_template(template_id, team_uuid, user_uuid)
 
         # Act
@@ -1063,7 +1119,12 @@ class TestCustomTemplateSharing:
         """AC5: Template copy independent - changes to original don't affect copy."""
         # Arrange
         team_member_id = str(uuid4())
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Independent Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
         self._share_template(template_id, team_uuid, user_uuid)
 
         # Act - Create copy
@@ -1085,24 +1146,28 @@ class TestCustomTemplateSharing:
         assert copy_data["name"] == "Copy"
 
     @staticmethod
+    def _create_custom_template(payload, user_id, team_id):
+        return create_custom_template(payload, user_id, team_id)
+
+    @staticmethod
     def _share_template(template_id, team_id, user_id):
-        pass
+        return share_template(template_id, team_id, user_id)
 
     @staticmethod
     def _get_template_library(user_id, team_id):
-        pass
+        return get_template_library(user_id, team_id)
 
     @staticmethod
     def _update_template(template_id, payload, user_id):
-        pass
+        return update_custom_template(template_id, payload, user_id)
 
     @staticmethod
     def _copy_template(payload, user_id):
-        pass
+        return copy_template(payload["source_template_id"], payload["name"], user_id)
 
     @staticmethod
     def _get_template(template_id, user_id):
-        pass
+        return get_custom_template(template_id, user_id)
 
 
 # ============================================================================
@@ -1146,14 +1211,20 @@ class TestEdgeCases:
     def test_edge_case_3_framework_upgrade_adds_required_section(self, user_uuid, team_uuid):
         """Edge Case 3: Framework upgrade adds new required section."""
         # Arrange
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Template for Upgrade",
+            "inherit_sections": ["User Story"],
+            "framework_version": "1.0.0"
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act
         # Simulate framework upgrade adding "Security Considerations" section
         response = self._simulate_framework_upgrade_with_new_section(
             template_id,
-            "1.0",
-            "2.0",
+            "1.0.0",
+            "2.0.0",
             new_section="Security Considerations"
         )
 
@@ -1163,11 +1234,16 @@ class TestEdgeCases:
         assert "Security Considerations" in template["inherited_sections"]
         assert template["inheritance_status"] == "active"
 
-    def test_edge_case_4_version_mismatch_auto_updates(self, user_uuid):
+    def test_edge_case_4_version_mismatch_auto_updates(self, user_uuid, team_uuid):
         """Edge Case 4: Template created in v1.0, accessed in v1.5."""
         # Arrange
-        template_id = str(uuid4())
-        template_version = "1.0.0"
+        template_payload = {
+            "name": "V1 Template",
+            "inherit_sections": ["User Story"],
+            "framework_version": "1.0.0"
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
         current_version = "1.5.0"
 
         # Act
@@ -1188,7 +1264,12 @@ class TestEdgeCases:
         # Arrange
         creator_id = user_uuid
         team_member_id = str(uuid4())
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Shared Read-Only Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, creator_id, team_uuid)
+        template_id = create_response.json()["template_id"]
         self._share_template(template_id, team_uuid, creator_id)
 
         # Act
@@ -1200,7 +1281,12 @@ class TestEdgeCases:
     def test_edge_case_6_export_template_to_different_team(self, user_uuid, team_uuid, another_team_uuid):
         """Edge Case 6: Export custom template to different team (creates copy)."""
         # Arrange
-        template_id = str(uuid4())
+        template_payload = {
+            "name": "Export Template",
+            "inherit_sections": ["User Story"]
+        }
+        create_response = self._create_custom_template(template_payload, user_uuid, team_uuid)
+        template_id = create_response.json()["template_id"]
 
         # Act
         response = self._export_template_to_team(
@@ -1219,8 +1305,19 @@ class TestEdgeCases:
     def test_edge_case_7_select_field_empty_options_list(self, user_uuid, team_uuid):
         """Edge Case 7: Detect and prevent use of select field with empty options."""
         # Arrange
+        # Create a select field with empty options (simulate database corruption)
+        from template_customization import CustomTemplateField, FieldType, _storage
         field_id = str(uuid4())
-        # Simulate database corruption: select field with empty options
+        corrupt_field = CustomTemplateField(
+            field_id=field_id,
+            field_name="Corrupt field",
+            field_type=FieldType.SELECT,
+            options=[],  # Empty options - invalid for select
+            created_by=user_uuid,
+            created_at="2024-01-01T00:00:00",
+            updated_at="2024-01-01T00:00:00"
+        )
+        _storage.fields[field_id] = corrupt_field
 
         # Act
         response = self._get_custom_field(field_id, user_uuid)
@@ -1244,39 +1341,43 @@ class TestEdgeCases:
 
     @staticmethod
     def _create_custom_field(payload, user_id, team_id):
-        pass
+        return create_custom_field(payload, user_id, team_id)
+
+    @staticmethod
+    def _create_custom_template(payload, user_id, team_id):
+        return create_custom_template(payload, user_id, team_id)
 
     @staticmethod
     def _delete_custom_field(field_id, user_id):
-        pass
+        return delete_custom_field(field_id, user_id, confirmed=True)
 
     @staticmethod
     def _create_stories_with_field(field_id, count, user_id):
-        pass
+        return create_stories_with_field(field_id, count, user_id)
 
     @staticmethod
     def _simulate_framework_upgrade_with_new_section(template_id, old_ver, new_ver, new_section):
-        pass
+        return simulate_framework_upgrade_with_new_section(template_id, old_ver, new_ver, new_section)
 
     @staticmethod
     def _get_template_with_version_check(template_id, user_id, current_version):
-        pass
+        return get_template_with_version_check(template_id, user_id, current_version)
 
     @staticmethod
     def _share_template(template_id, team_id, user_id):
-        pass
+        return share_template(template_id, team_id, user_id)
 
     @staticmethod
     def _update_template(template_id, payload, user_id):
-        pass
+        return update_custom_template(template_id, payload, user_id)
 
     @staticmethod
     def _export_template_to_team(template_id, user_id, source_team, target_team):
-        pass
+        return export_template_to_team(template_id, user_id, target_team)
 
     @staticmethod
     def _get_custom_field(field_id, user_id):
-        pass
+        return get_custom_field_by_id(field_id, user_id)
 
 
 # ============================================================================
@@ -1294,7 +1395,7 @@ class TestDataPersistence:
         template_v1 = {
             "template_id": template_id,
             "name": "Original template",
-            "inherited_sections": ["User Story"],
+            "inherit_sections": ["User Story"],
             "custom_field_ids": [field_id],
             "framework_version": "1.0.0"
         }
@@ -1371,27 +1472,39 @@ class TestDataPersistence:
 
     @staticmethod
     def _create_custom_template(template_data, user_id, team_id):
-        pass
+        return create_custom_template(template_data, user_id, team_id)
 
     @staticmethod
     def _create_custom_template_v1(template_id, user_id, team_id):
-        pass
+        payload = {
+            "template_id": template_id,
+            "name": "V1 template",
+            "inherit_sections": ["User Story"],
+            "framework_version": "1.0.0"
+        }
+        return create_custom_template(payload, user_id, team_id)
 
     @staticmethod
     def _create_custom_template_with_field(template_id, field_id, user_id, team_id):
-        pass
+        payload = {
+            "template_id": template_id,
+            "name": "Template with field",
+            "inherit_sections": ["User Story"],
+            "custom_field_ids": [field_id]
+        }
+        return create_custom_template(payload, user_id, team_id)
 
     @staticmethod
     def _get_template(template_id, user_id):
-        pass
+        return get_custom_template(template_id, user_id)
 
     @staticmethod
     def _upgrade_framework(old_version, new_version):
-        pass
+        return upgrade_framework(old_version, new_version)
 
     @staticmethod
     def _upgrade_framework_with_conflicts(old_version, new_version):
-        pass
+        return upgrade_framework_with_conflicts(old_version, new_version)
 
 
 # ============================================================================
