@@ -437,14 +437,14 @@ def _create_feedback_directory(
     conditions gracefully by using exist_ok=True.
 
     Default structure:
-        {base_path}/.devforgeai/feedback/
+        {base_path}/.devforgeai/feedback/sessions/
 
     Args:
         base_path: Base path (typically project root).
         feedback_dir: Optional custom feedback directory path.
 
     Returns:
-        Path to feedback directory (created if needed).
+        Path to feedback sessions directory (created if needed).
 
     Raises:
         PermissionError: If directory cannot be created due to permissions.
@@ -453,13 +453,13 @@ def _create_feedback_directory(
     Example:
         >>> feedback_path = _create_feedback_directory(Path("/project"))
         >>> feedback_path
-        PosixPath('/project/.devforgeai/feedback')
+        PosixPath('/project/.devforgeai/feedback/sessions')
     """
     # Determine target directory
     if feedback_dir:
         target_dir = Path(feedback_dir)
     else:
-        target_dir = base_path / ".devforgeai" / "feedback"
+        target_dir = base_path / ".devforgeai" / "feedback" / "sessions"
 
     # Create directory with parents
     try:
@@ -974,3 +974,152 @@ def persist_feedback_session(
         collision_resolved=collision_resolved,
         actual_filename=final_filename,
     )
+
+
+# ============================================================================
+# HOUSEKEEPING / MAINTENANCE FUNCTIONS
+# ============================================================================
+
+def cleanup_temp_feedback_files(base_path: Path = None) -> int:
+    """Remove all orphaned temporary feedback files (.tmp) from feedback directory.
+
+    This function should be run on application startup to clean up any temporary
+    files left behind by process crashes. Temporary files indicate incomplete
+    write operations and are safe to delete.
+
+    Args:
+        base_path: Base path for .devforgeai directory. Defaults to current directory.
+
+    Returns:
+        Number of temporary files deleted.
+
+    Example:
+        >>> # Run on application startup
+        >>> deleted = cleanup_temp_feedback_files()
+        >>> print(f"Cleaned up {deleted} orphaned temp files")
+        Cleaned up 3 orphaned temp files
+
+        >>> # Use custom base path
+        >>> deleted = cleanup_temp_feedback_files(Path("/var/lib/devforgeai"))
+        >>> print(f"Deleted {deleted} temp files from custom location")
+    """
+    if base_path is None:
+        base_path = Path(".devforgeai")
+    elif not isinstance(base_path, Path):
+        base_path = Path(base_path)
+
+    feedback_dir = base_path / "feedback" / "sessions"
+
+    # If directory doesn't exist, nothing to clean
+    if not feedback_dir.exists():
+        return 0
+
+    # Find all .tmp files recursively (handles all organization strategies)
+    temp_files = list(feedback_dir.glob("**/*.tmp"))
+
+    deleted_count = 0
+    for temp_file in temp_files:
+        try:
+            temp_file.unlink()
+            deleted_count += 1
+        except OSError:
+            # Continue even if deletion fails (file locked, permission denied)
+            pass
+
+    return deleted_count
+
+
+def get_feedback_statistics(base_path: Path = None) -> dict:
+    """Get statistics about feedback files in storage.
+
+    Provides counts by operation type, status, and time period for monitoring
+    and analytics.
+
+    Args:
+        base_path: Base path for .devforgeai directory. Defaults to current directory.
+
+    Returns:
+        Dictionary with feedback statistics:
+        {
+            "total_files": 1234,
+            "by_operation": {"command": 500, "skill": 400, ...},
+            "by_status": {"success": 1000, "failure": 100, ...},
+            "oldest_feedback": "2025-08-01T10:00:00",
+            "newest_feedback": "2025-11-11T15:00:00",
+            "total_size_bytes": 6291456,
+            "temp_files": 0
+        }
+
+    Example:
+        >>> stats = get_feedback_statistics()
+        >>> print(f"Total feedback: {stats['total_files']}")
+        Total feedback: 1234
+        >>> print(f"Command success rate: {stats['by_status']['success'] / stats['total_files'] * 100:.1f}%")
+        Command success rate: 81.0%
+    """
+    if base_path is None:
+        base_path = Path(".devforgeai")
+    elif not isinstance(base_path, Path):
+        base_path = Path(base_path)
+
+    feedback_dir = base_path / "feedback" / "sessions"
+
+    if not feedback_dir.exists():
+        return {
+            "total_files": 0,
+            "by_operation": {},
+            "by_status": {},
+            "oldest_feedback": None,
+            "newest_feedback": None,
+            "total_size_bytes": 0,
+            "temp_files": 0
+        }
+
+    # Collect all feedback files
+    all_files = list(feedback_dir.glob("**/*.md"))
+    temp_files = list(feedback_dir.glob("**/*.tmp"))
+
+    # Initialize counters
+    by_operation = {"command": 0, "skill": 0, "subagent": 0, "workflow": 0}
+    by_status = {"success": 0, "failure": 0, "partial": 0, "skipped": 0}
+    total_size = 0
+    timestamps = []
+
+    # Analyze each file
+    for filepath in all_files:
+        filename = filepath.name
+
+        # Extract operation type
+        for op_type in by_operation.keys():
+            if f"-{op_type}-" in filename:
+                by_operation[op_type] += 1
+                break
+
+        # Extract status
+        for status in by_status.keys():
+            if f"-{status}" in filename or f"-{status}-" in filename:
+                by_status[status] += 1
+                break
+
+        # Track size
+        try:
+            total_size += filepath.stat().st_size
+        except OSError:
+            pass
+
+        # Extract timestamp (first 19 chars)
+        if len(filename) >= 19:
+            timestamps.append(filename[:19])
+
+    # Sort timestamps
+    timestamps.sort()
+
+    return {
+        "total_files": len(all_files),
+        "by_operation": by_operation,
+        "by_status": by_status,
+        "oldest_feedback": timestamps[0] if timestamps else None,
+        "newest_feedback": timestamps[-1] if timestamps else None,
+        "total_size_bytes": total_size,
+        "temp_files": len(temp_files)
+    }
