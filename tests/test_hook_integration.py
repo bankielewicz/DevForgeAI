@@ -28,48 +28,37 @@ import yaml
 # ============================================================================
 
 @pytest.fixture
-def hook_invocation_recorder():
-    """Records hook invocations for testing execution order."""
-    class InvocationRecorder:
-        def __init__(self):
-            self.invocations: List[Dict[str, Any]] = []
-            self.errors: List[Dict[str, Any]] = []
+def hook_system_with_config(tmp_path):
+    """Create real HookSystem with test configuration."""
+    def _create_hook_system(hooks_config: List[Dict[str, Any]]):
+        config_file = tmp_path / 'hooks.yaml'
+        with open(config_file, 'w') as f:
+            yaml.dump({'hooks': hooks_config}, f)
+        return HookSystem(config_path=config_file)
+    return _create_hook_system
 
-        def record_invocation(self, hook_id: str, operation_id: str, status: str = 'success'):
-            """Record hook invocation."""
-            self.invocations.append({
-                'hook_id': hook_id,
-                'operation_id': operation_id,
-                'status': status,
-                'sequence': len(self.invocations),
-            })
 
-        def record_error(self, hook_id: str, error_type: str, error_msg: str):
-            """Record hook error."""
-            self.errors.append({
-                'hook_id': hook_id,
-                'error_type': error_type,
-                'error_msg': error_msg,
-            })
+@pytest.fixture
+def invocation_tracker():
+    """Track hook invocations for testing."""
+    invocations = []
+    errors = []
 
-        def get_invocations_for_operation(self, operation_id: str) -> List[str]:
-            """Get hook IDs invoked for operation, in order."""
-            return [inv['hook_id'] for inv in self.invocations if inv['operation_id'] == operation_id]
+    async def mock_runner(hook_entry, context):
+        invocations.append({'hook_id': hook_entry['id'], 'context': context})
+        return {'status': 'success'}
 
-        def get_invocation_count(self) -> int:
-            """Get total invocations recorded."""
-            return len(self.invocations)
+    async def failing_runner(hook_entry, context):
+        error_msg = f"{hook_entry['id']} failed"
+        errors.append({'hook_id': hook_entry['id'], 'error': error_msg})
+        raise Exception(error_msg)
 
-        def get_error_count(self) -> int:
-            """Get total errors recorded."""
-            return len(self.errors)
-
-        def clear(self):
-            """Clear recorded data."""
-            self.invocations.clear()
-            self.errors.clear()
-
-    return InvocationRecorder()
+    return {
+        'invocations': invocations,
+        'errors': errors,
+        'mock_runner': mock_runner,
+        'failing_runner': failing_runner,
+    }
 
 
 @pytest.fixture
@@ -94,82 +83,129 @@ class TestHookInvocationAtCompletion:
     """Tests for hook invocation at operation completion."""
 
     @pytest.mark.asyncio
-    async def test_hook_invoked_on_success_status(self, hook_invocation_recorder, mock_operation_context):
+    async def test_hook_invoked_on_success_status(self, tmp_path, mock_operation_context):
         """
         GIVEN an operation (command, skill, or subagent) completes successfully,
         WHEN the TodoWrite final status is written,
         THEN registered hooks matching the operation pattern are invoked automatically with context metadata.
         """
-        # Arrange
+        # Arrange - Create real HookSystem with test config
+        config_file = tmp_path / 'hooks.yaml'
         hook_config = {
-            'id': 'post-dev-feedback',
-            'operation_pattern': 'dev',
-            'trigger_status': ['success'],
-            'enabled': True,
+            'hooks': [{
+                'id': 'post-dev-feedback',
+                'name': 'Post Dev Feedback',
+                'operation_type': 'command',
+                'operation_pattern': 'dev',
+                'trigger_status': ['success'],
+                'feedback_type': 'conversation',
+                'enabled': True,
+            }]
         }
+        with open(config_file, 'w') as f:
+            yaml.dump(hook_config, f)
 
-        # Act - Simulate hook invocation on operation completion
-        if hook_config['enabled'] and mock_operation_context['status'] in hook_config['trigger_status']:
-            hook_invocation_recorder.record_invocation(
-                hook_config['id'],
-                mock_operation_context['operation_id'],
-                'success'
-            )
+        hook_system = HookSystem(config_path=config_file)
 
-        # Assert
-        invocations = hook_invocation_recorder.get_invocations_for_operation(
-            mock_operation_context['operation_id']
+        # Mock the hook runner to track invocations
+        invoked_hooks = []
+        async def mock_hook_runner(hook_entry, context):
+            invoked_hooks.append(hook_entry['id'])
+            return {'status': 'success'}
+
+        hook_system.set_hook_runner(mock_hook_runner)
+
+        # Act - Actually invoke hooks using real HookSystem
+        results = await hook_system.invoke_hooks(
+            operation_id=mock_operation_context['operation_id'],
+            operation_type=mock_operation_context['operation_type'],
+            operation_name=mock_operation_context['operation_name'],
+            status=mock_operation_context['status'],
+            duration_ms=mock_operation_context['duration_ms'],
+            result_code=mock_operation_context['result_code']
         )
-        assert len(invocations) == 1
-        assert invocations[0] == 'post-dev-feedback'
+
+        # Assert - Real HookSystem invoked the hook
+        assert len(invoked_hooks) == 1
+        assert invoked_hooks[0] == 'post-dev-feedback'
+        assert len(results) == 1
+        assert results[0].hook_id == 'post-dev-feedback'
 
 
     @pytest.mark.asyncio
-    async def test_hook_not_invoked_on_failure_status(self, hook_invocation_recorder, mock_operation_context):
+    async def test_hook_not_invoked_on_failure_status(self, hook_system_with_config, invocation_tracker, mock_operation_context):
         """WHEN operation status doesn't match trigger_status, THEN hook not invoked."""
-        # Arrange
-        hook_config = {
+        # Arrange - Create HookSystem with success-only hook
+        hook_config = [{
             'id': 'success-only-hook',
-            'trigger_status': ['success'],
-        }
+            'name': 'Success Only',
+            'operation_type': 'command',
+            'operation_pattern': 'dev',
+            'trigger_status': ['success'],  # Only triggers on success
+            'feedback_type': 'conversation',
+            'enabled': True,
+        }]
+        hook_system = hook_system_with_config(hook_config)
+        hook_system.set_hook_runner(invocation_tracker['mock_runner'])
+
         operation_context = mock_operation_context.copy()
-        operation_context['status'] = 'failure'  # Doesn't match
+        operation_context['status'] = 'failure'  # Doesn't match trigger_status
 
-        # Act
-        if operation_context['status'] in hook_config['trigger_status']:
-            hook_invocation_recorder.record_invocation(
-                hook_config['id'],
-                operation_context['operation_id'],
-                'success'
-            )
-
-        # Assert
-        invocations = hook_invocation_recorder.get_invocations_for_operation(
-            operation_context['operation_id']
+        # Act - Invoke hooks with failure status
+        results = await hook_system.invoke_hooks(
+            operation_id=operation_context['operation_id'],
+            operation_type=operation_context['operation_type'],
+            operation_name=operation_context['operation_name'],
+            status='failure',  # Doesn't match trigger_status
+            duration_ms=operation_context['duration_ms'],
+            result_code='failure'
         )
-        assert len(invocations) == 0
+
+        # Assert - Hook should NOT have been invoked
+        assert len(invocation_tracker['invocations']) == 0
+        assert len(results) == 0
 
 
     @pytest.mark.asyncio
-    async def test_hook_receives_operation_context(self, hook_invocation_recorder, mock_operation_context):
+    async def test_hook_receives_operation_context(self, hook_system_with_config, invocation_tracker, mock_operation_context):
         """WHEN hook invoked, THEN receives complete operation context."""
         # Arrange
-        hook_context = {
-            **mock_operation_context,
-            'hook_id': 'test-hook',
-        }
+        hook_config = [{
+            'id': 'test-hook',
+            'name': 'Test Hook',
+            'operation_type': 'command',
+            'operation_pattern': 'dev',
+            'trigger_status': ['success'],
+            'feedback_type': 'conversation',
+            'enabled': True,
+        }]
+        hook_system = hook_system_with_config(hook_config)
 
-        # Act
-        hook_invocation_recorder.record_invocation(
-            'test-hook',
-            mock_operation_context['operation_id']
+        # Track context received by hook
+        received_context = []
+        async def context_capturing_runner(hook_entry, context):
+            received_context.append(context)
+            return {'status': 'success'}
+
+        hook_system.set_hook_runner(context_capturing_runner)
+
+        # Act - Invoke hooks
+        await hook_system.invoke_hooks(
+            operation_id=mock_operation_context['operation_id'],
+            operation_type=mock_operation_context['operation_type'],
+            operation_name=mock_operation_context['operation_name'],
+            status=mock_operation_context['status'],
+            duration_ms=mock_operation_context['duration_ms'],
+            result_code=mock_operation_context['result_code']
         )
 
-        # Assert
-        assert 'operation_id' in hook_context
-        assert 'operation_type' in hook_context
-        assert 'status' in hook_context
-        assert 'duration_ms' in hook_context
+        # Assert - Context contains all required fields
+        assert len(received_context) == 1
+        context = received_context[0]
+        assert context.operation_id == mock_operation_context['operation_id']
+        assert context.operation_type == mock_operation_context['operation_type']
+        assert context.status == mock_operation_context['status']
+        assert context.duration_ms == mock_operation_context['duration_ms']
 
 
 # ============================================================================
@@ -180,51 +216,79 @@ class TestGracefulHookFailureHandling:
     """Tests for graceful handling of hook failures."""
 
     @pytest.mark.asyncio
-    async def test_hook_failure_logged_not_propagated(self, hook_invocation_recorder):
+    async def test_hook_failure_logged_not_propagated(self, hook_system_with_config, invocation_tracker, mock_operation_context):
         """
         GIVEN a registered hook fails during invocation,
         WHEN the failure occurs,
         THEN the failure is logged, does not propagate to the calling operation, and the operation completes normally.
         """
-        # Arrange
-        hook_id = 'failing-hook'
-        operation_id = 'op-001'
+        # Arrange - Create HookSystem with hook that will fail
+        hook_config = [{
+            'id': 'failing-hook',
+            'name': 'Failing Hook',
+            'operation_type': 'command',
+            'operation_pattern': 'dev',
+            'trigger_status': ['success'],
+            'feedback_type': 'conversation',
+            'enabled': True,
+        }]
+        hook_system = hook_system_with_config(hook_config)
+        hook_system.set_hook_runner(invocation_tracker['failing_runner'])
 
-        # Act - Simulate hook failure
-        try:
-            raise Exception("Hook execution failed")
-        except Exception as e:
-            hook_invocation_recorder.record_error(hook_id, 'execution_error', str(e))
+        # Act - Invoke hooks, expect failure but operation continues
+        results = await hook_system.invoke_hooks(
+            operation_id=mock_operation_context['operation_id'],
+            operation_type=mock_operation_context['operation_type'],
+            operation_name=mock_operation_context['operation_name'],
+            status='success',
+            duration_ms=mock_operation_context['duration_ms'],
+            result_code='success'
+        )
 
-        # Operation should still complete
-        operation_completed = True
-
-        # Assert
-        assert operation_completed is True
-        assert hook_invocation_recorder.get_error_count() == 1
-        error = hook_invocation_recorder.errors[0]
-        assert error['hook_id'] == hook_id
-        assert 'execution_error' in error['error_type']
+        # Assert - Hook failed but operation completed normally
+        assert len(results) == 1
+        assert results[0].status == 'error'  # Hook failed
+        assert results[0].hook_id == 'failing-hook'
+        # Operation completed normally (no exception propagated)
 
 
     @pytest.mark.asyncio
-    async def test_multiple_hook_failures_all_logged(self, hook_invocation_recorder):
+    async def test_multiple_hook_failures_all_logged(self, hook_system_with_config, mock_operation_context):
         """WHEN multiple hooks fail, THEN all failures logged independently."""
-        # Arrange
-        hook_ids = ['hook-1', 'hook-2', 'hook-3']
+        # Arrange - Create HookSystem with 3 hooks that will all fail
+        hook_config = [
+            {'id': 'hook-1', 'name': 'Hook 1', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
+            {'id': 'hook-2', 'name': 'Hook 2', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
+            {'id': 'hook-3', 'name': 'Hook 3', 'operation_type': 'command', 'operation_pattern': 'dev',
+             'trigger_status': ['success'], 'feedback_type': 'conversation', 'enabled': True},
+        ]
+        hook_system = hook_system_with_config(hook_config)
 
-        # Act - All hooks fail
-        for hook_id in hook_ids:
-            hook_invocation_recorder.record_error(
-                hook_id,
-                'timeout_error',
-                f'{hook_id} exceeded timeout'
-            )
+        # All hooks fail
+        async def failing_runner(hook_entry, context):
+            raise Exception(f"{hook_entry['id']} failed")
 
-        # Assert
-        assert hook_invocation_recorder.get_error_count() == 3
-        for i, hook_id in enumerate(hook_ids):
-            assert hook_invocation_recorder.errors[i]['hook_id'] == hook_id
+        hook_system.set_hook_runner(failing_runner)
+
+        # Act - Invoke hooks, all fail
+        results = await hook_system.invoke_hooks(
+            operation_id=mock_operation_context['operation_id'],
+            operation_type=mock_operation_context['operation_type'],
+            operation_name=mock_operation_context['operation_name'],
+            status='success',
+            duration_ms=mock_operation_context['duration_ms'],
+            result_code='success'
+        )
+
+        # Assert - All failures logged
+        assert len(results) == 3
+        failed_hooks = [r.hook_id for r in results if r.status == 'error']
+        assert len(failed_hooks) == 3
+        assert 'hook-1' in failed_hooks
+        assert 'hook-2' in failed_hooks
+        assert 'hook-3' in failed_hooks
 
 
     @pytest.mark.asyncio
