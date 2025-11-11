@@ -27,6 +27,25 @@ Implement user stories using Test-Driven Development while enforcing architectur
 
 ---
 
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Parameter Extraction" section below and begin execution.**
+
+---
+
 ## Parameter Extraction
 
 This skill extracts the story ID from conversation context (loaded story file YAML frontmatter, context markers, or natural language).
@@ -58,6 +77,10 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 ---
 
 ## Pre-Flight Validation (Phase 0)
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
+
+**This is Phase 0. Execute these steps now:**
 
 8-step validation before TDD begins:
 

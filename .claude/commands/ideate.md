@@ -116,7 +116,18 @@ Prompt user: "Please provide more details about:
 Skill(command="devforgeai-ideation")
 ```
 
-**IMPORTANT:** Skill executes autonomously and handles all validation, error recovery, and user interaction. Do NOT interrupt skill execution or attempt to validate artifacts - skill performs self-validation in Phase 6.4.
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
+
+**The skill instructs you to:**
+- Execute all 6 phases: Discovery, Requirements Elicitation, Complexity Assessment, Epic Decomposition, Feasibility Analysis, Documentation
+- Handle all validation, error recovery, and user interaction (AskUserQuestion flows)
+- Generate all output artifacts (epics, requirements spec, complexity assessment)
+- Perform self-validation in Phase 6.4
+- Present completion summary in Phase 6.5
 
 ---
 

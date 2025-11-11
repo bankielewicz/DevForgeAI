@@ -254,18 +254,21 @@ ELSE:
    Skill(command="devforgeai-release")
    ```
 
-   **Note:** Skill will extract story ID from conversation context (YAML frontmatter) and environment from the explicit statement above
+   **After skill invocation:**
+   - Skill's SKILL.md content expands inline in conversation
+   - **YOU execute the skill's workflow phases** (not waiting for external result)
+   - Follow the skill's instructions phase by phase
+   - Produce output as skill instructs
 
-3. **Monitor Skill Execution**
-   - The skill will execute its 6-phase deployment process:
-     - **Phase 1:** Pre-Release Validation
+   **The skill instructs you to execute 6-phase deployment process:**
+     - **Phase 1:** Pre-Release Validation (verify QA approval, tests passing, build success)
      - **Phase 2:** Staging Deployment (if env=staging)
      - **Phase 3:** Production Deployment (if env=production)
-     - **Phase 4:** Post-Deployment Validation
-     - **Phase 5:** Release Documentation
-     - **Phase 6:** Post-Release Monitoring
+     - **Phase 4:** Post-Deployment Validation (smoke tests, health checks)
+     - **Phase 5:** Release Documentation (release notes, changelog)
+     - **Phase 6:** Post-Release Monitoring (metrics collection, alerting setup)
 
-4. **Capture Skill Output**
+   **Expected outputs from skill execution:**
    - Deployment status (SUCCESS/FAILED)
    - Smoke test results
    - Deployment artifacts (release notes, changelog)

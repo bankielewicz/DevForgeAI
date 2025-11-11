@@ -246,9 +246,13 @@ IF response == "adjust":
 Skill(command="devforgeai-orchestration")
 ```
 
-**What the skill does:**
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
 
-The `devforgeai-orchestration` skill (Phase 3) will:
+**The skill instructs you to (Phase 3 - Sprint Planning):**
 
 1. Extract sprint parameters from context markers
 2. Validate selected stories exist and status == Backlog

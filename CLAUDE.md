@@ -4,11 +4,131 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback with the "human in the middle".
+If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback witin the "human in the middle".
 
 HALT! on deferals of implementation.  Use AskUserQuestion tool to see if user is ok with deferal.  Provide reasoning for deferal.
 
+HALT! on commit with --no-verify
+HALT! on modification of the pre-comit hook! 
+
+When I pass a command to you, create the todo list, then execute it sequentially. Report progress as you complete each major section. 
+HALT if you need clarification on any requirement or detect any ambiguity.
+
+There are no time constraints and your context window is plenty big!
+
+Claude skills do not run asynchonously or in the background.
+
 This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
+
+● Bash(chmod +x /c/Users/bryan/bin/python3 && which python3)
+  ⎿  /c/Users/bryan/bin/python3
+
+● Perfect! Now python3 is available. Let me test it:
+
+● Bash(python3 --version)
+  ⎿  Python 3.10.11
+
+---
+
+## CRITICAL: How Skills Work
+
+**Skills are INLINE PROMPT EXPANSIONS, not background processes.**
+
+When you invoke a skill:
+1. `Skill(command="devforgeai-development")` ← You invoke
+2. System message: `"The 'devforgeai-development' skill is running"` ← Confirmation only
+3. **Skill's SKILL.md content expands INLINE** ← This is the key
+4. **YOU execute the skill's instructions** ← Your responsibility
+5. You produce output following skill workflow ← Not waiting for external result
+
+### Mental Model
+
+**✅ CORRECT:** "Load additional instructions file and execute it"
+**❌ WRONG:** "Launch separate process and wait for result"
+
+### Comparison: Skills vs Subagents
+
+| Aspect | Skills (Skill tool) | Subagents (Task tool) |
+|--------|--------------------|-----------------------|
+| **Execution** | You execute instructions inline | Separate agent executes in isolated context |
+| **Who produces output** | You | Agent |
+| **Where execution happens** | Current conversation | Isolated context |
+| **When to wait** | ❌ NEVER - You execute | ✅ YES - Agent executes |
+
+### When Skill Invoked
+
+**What you SHOULD do:**
+1. Read the skill's SKILL.md content (now in conversation)
+2. Follow the skill's workflow phases
+3. Execute each phase's instructions
+4. Produce output as you work
+5. Complete with skill's success criteria
+
+**What you should NOT do:**
+1. ❌ Wait for skill to "return results"
+2. ❌ Assume skill is executing elsewhere
+3. ❌ Stop workflow and wait passively
+
+### Example
+
+```
+User: /dev STORY-001
+You: Skill(command="devforgeai-development")
+System: "The devforgeai-development skill is running"
+```
+
+**✅ Correct action:**
+```
+You: [Read skill's Phase 0 instructions]
+You: [Execute Phase 0: Git validation, context checks]
+You: [Display Phase 0 results]
+You: [Continue to Phase 1: Red phase]
+You: [Invoke test-automator subagent]
+You: [Wait for subagent result]
+You: [Continue to Phase 2...]
+... [Complete all phases]
+You: [Display final completion report]
+```
+
+**❌ Incorrect action:**
+```
+You: "The skill is running, I'll wait for it to complete"
+You: [Stops and waits passively] ← THIS IS WRONG
+```
+
+### Understanding System Messages
+
+When you see:
+```
+<command-message>The "devforgeai-development" skill is running</command-message>
+```
+
+**This message means:**
+- ✅ Skill invocation successful
+- ✅ Skill's SKILL.md content is now in conversation
+- ✅ **You must now execute the skill's instructions**
+
+**This message does NOT mean:**
+- ❌ Skill is executing elsewhere
+- ❌ Wait for skill to return results
+- ❌ Skill is running in background
+
+**Immediately after seeing this message:**
+1. Locate the skill's SKILL.md content in conversation
+2. Read Phase 0 instructions
+3. Begin executing Phase 0
+4. Continue through all phases
+
+### Emergency Recovery
+
+**If you've already stopped and are reading this:**
+1. Apologize to user: "I incorrectly stopped after skill invocation"
+2. Explain: "Skills expand inline - I should have executed the instructions"
+3. Resume: "Let me now execute the skill's workflow starting from Phase 0"
+4. Continue: Execute all phases to completion
+5. Learn: Remember this for future skill invocations
+
+**See also:** `.claude/memory/skill-execution-troubleshooting.md` for detailed recovery procedures
 
 ---
 

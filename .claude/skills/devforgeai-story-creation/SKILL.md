@@ -17,6 +17,27 @@ allowed-tools:
 
 Generate complete user stories with acceptance criteria, technical specifications, and UI specifications through an 8-phase workflow.
 
+---
+
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Purpose" section below and begin execution.**
+
+---
+
 ## Purpose
 
 This skill transforms feature descriptions into comprehensive, implementation-ready user stories. Each generated story includes:
@@ -107,6 +128,8 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 ---
 
 ## Story Creation Workflow (8 Phases)
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Each phase loads its reference file on-demand for detailed implementation.
 

@@ -17,6 +17,27 @@ allowed-tools:
 
 Create immutable context files and architecture documentation that prevents technical debt through explicit constraints.
 
+---
+
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Purpose" section below and begin execution.**
+
+---
+
 ## Purpose
 
 This skill creates the **architectural foundation** for the DevForgeAI framework: 6 context files that define boundaries AI agents must never violate.
@@ -58,6 +79,8 @@ This skill creates the **architectural foundation** for the DevForgeAI framework
 ---
 
 ## Architecture Workflow (5 Phases)
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Each phase loads its reference file on-demand for detailed implementation.
 

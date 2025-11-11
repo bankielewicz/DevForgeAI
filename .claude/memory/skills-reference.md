@@ -4,6 +4,74 @@ Detailed guidance for working with the 8 DevForgeAI skills + 1 infrastructure sk
 
 ---
 
+## CRITICAL: Skill Execution Model
+
+**Skills expand inline. YOU execute the instructions.**
+
+### After Invoking a Skill
+
+When you use `Skill(command="devforgeai-[name]")`:
+
+**Step 1: Skill Content Expands**
+- The skill's SKILL.md file is injected into conversation
+- You now have access to skill's workflow instructions
+
+**Step 2: Execute Skill Workflow**
+- Read the skill's Phase 0 instructions
+- Execute Phase 0 (validation, setup)
+- Display Phase 0 results
+- Continue to Phase 1
+- Execute each phase sequentially
+- Display results as you go
+
+**Step 3: Complete Workflow**
+- Execute all phases through completion
+- Display final success/failure report
+- Update files as skill instructs (story status, etc.)
+
+### Common Mistake: Passive Waiting
+
+**❌ WRONG:**
+```
+Skill(command="devforgeai-development")
+"The skill is running, I'll wait for results"
+
+[Stops and waits] ← THIS IS WRONG
+```
+
+**✅ CORRECT:**
+```
+Skill(command="devforgeai-development")
+"Skill expanded, now executing its instructions"
+
+[Reads Phase 0 from expanded skill content]
+
+[Executes Phase 0: Git validation]
+
+[Displays Phase 0 results]
+
+[Continues to Phase 1...]
+
+[Completes all phases]
+
+[Displays final report]
+```
+
+### Skills vs Subagents
+
+| Aspect | Skills | Subagents |
+|--------|--------|--------------|
+| **Tool** | Skill tool | Task tool |
+| **Execution** | You execute inline | Agent executes isolated |
+| **Output** | You produce by following instructions | Agent returns structured result |
+| **Waiting** | Never wait (you're doing the work) | Wait for agent result |
+
+**See also:**
+- `CLAUDE.md` - Section "CRITICAL: How Skills Work" (complete explanation)
+- `.claude/memory/skill-execution-troubleshooting.md` (emergency recovery procedures)
+
+---
+
 ## When to Invoke Skills
 
 ### devforgeai-ideation

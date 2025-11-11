@@ -19,6 +19,27 @@ model: claude-sonnet-4-5-20250929
 
 Transform raw business ideas, problems, and opportunities into structured, actionable requirements that drive spec-driven development with zero technical debt.
 
+---
+
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
+
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
+
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
+
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
+
+**Proceed to "Purpose" section below and begin execution.**
+
+---
+
 ## Purpose
 
 This skill serves as the **entry point** for the entire DevForgeAI framework. It transforms vague business ideas into concrete, implementable requirements through systematic discovery, requirements elicitation, complexity assessment, and feasibility analysis.
@@ -63,6 +84,8 @@ This skill serves as the **entry point** for the entire DevForgeAI framework. It
 ---
 
 ## Ideation Workflow (6 Phases)
+
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Each phase loads its reference file on-demand for detailed implementation.
 

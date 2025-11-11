@@ -62,13 +62,19 @@ Bash(git commit -m "chore: Initialize DevForgeAI framework structure")
 
 ### Phase 3: Invoke Architecture Skill
 
-**Execute architecture skill:**
+**Invoke architecture skill:**
 
 ```bash
 Skill(command="devforgeai-architecture")
 ```
 
-The architecture skill performs its complete 5-phase workflow (REFACTORED 2025-01-06):
+**After skill invocation:**
+- Skill's SKILL.md content expands inline in conversation
+- **YOU execute the skill's workflow phases** (not waiting for external result)
+- Follow the skill's instructions phase by phase
+- Produce output as skill instructs
+
+**The skill instructs you to perform 5-phase workflow:**
 
 1. **Project Context Discovery** - Determine greenfield vs brownfield, discover existing tech/structure, analyze gaps
 2. **Create Immutable Context Files** - Generate all 6 files from templates:
