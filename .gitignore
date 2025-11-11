@@ -64,3 +64,6 @@ node_modules/
 *.tmp
 *.bak
 .temp/
+
+# Test exports (from STORY-017)
+.devforgeai-feedback-export-*.zip
