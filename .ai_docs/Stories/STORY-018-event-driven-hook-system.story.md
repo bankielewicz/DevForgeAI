@@ -4,6 +4,9 @@ title: Event-Driven Hook System
 epic: EPIC-005
 sprint: Sprint-3
 status: Dev Complete
+qa_status: "BLOCKED - Test coverage at 11%, requires 95%+ (Deferred to STORY-019)"
+deferral_approved: true
+deferral_reason: "Test coverage refactoring deferred with user approval (RCA-006 Phase 4.5). Implementation complete, 175 tests pass, coverage needs improvement from 11% to 95%+."
 points: 16
 priority: High
 created: 2025-11-07
