@@ -40,8 +40,9 @@ class PatternMatcher:
 
         Precedence:
         1. Regex if pattern starts with ^ or ends with $
-        2. Glob if pattern contains *, ?, [
-        3. Exact match otherwise
+        2. Glob if pattern contains *, ?, [ (check BEFORE general regex metacharacters)
+        3. Regex if pattern contains regex-only metacharacters
+        4. Exact match otherwise
 
         Args:
             pattern: Pattern string to analyze
@@ -53,13 +54,14 @@ class PatternMatcher:
         if pattern.startswith("^") or pattern.endswith("$"):
             return PatternType.REGEX
 
-        # Check for regex metacharacters
-        if any(c in pattern for c in REGEX_METACHARACTERS):
-            return PatternType.REGEX
-
-        # Check for glob patterns
+        # Check for glob patterns BEFORE regex (*, ?, [ are also glob patterns)
         if any(c in pattern for c in GLOB_METACHARACTERS):
             return PatternType.GLOB
+
+        # Check for regex-only metacharacters (not shared with glob)
+        regex_only_chars = r".+{}|()"
+        if any(c in pattern for c in regex_only_chars):
+            return PatternType.REGEX
 
         # Default to exact match
         return PatternType.EXACT
