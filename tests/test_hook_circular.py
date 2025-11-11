@@ -22,45 +22,16 @@ from src.hook_circular import CircularDependencyDetector
 
 @pytest.fixture
 def invocation_stack_tracker():
-    """Stack tracker for monitoring hook invocation chains."""
-    class StackTracker:
-        def __init__(self, max_depth: int = 3):
-            self.stack: List[str] = []
-            self.max_depth = max_depth
-            self.invocations = []
+    """REAL CircularDependencyDetector for testing."""
+    return CircularDependencyDetector(max_depth=3)
 
-        def push(self, hook_id: str) -> bool:
-            """Push hook_id onto stack. Return True if allowed, False if circular."""
-            # Check for circular dependency
-            if hook_id in self.stack:
-                return False  # Circular detected
 
-            # Check depth limit
-            if len(self.stack) >= self.max_depth:
-                return False  # Max depth exceeded
-
-            self.stack.append(hook_id)
-            self.invocations.append({'hook_id': hook_id, 'depth': len(self.stack)})
-            return True
-
-        def pop(self, hook_id: str) -> None:
-            """Pop hook_id from stack."""
-            if self.stack and self.stack[-1] == hook_id:
-                self.stack.pop()
-
-        def get_stack(self) -> List[str]:
-            """Get current invocation stack."""
-            return self.stack.copy()
-
-        def is_circular(self, hook_id: str) -> bool:
-            """Check if hook_id would create circular dependency."""
-            return hook_id in self.stack
-
-        def at_max_depth(self) -> bool:
-            """Check if at max depth."""
-            return len(self.stack) >= self.max_depth
-
-    return StackTracker()
+@pytest.fixture
+def custom_depth_detector():
+    """CircularDependencyDetector with custom max depth."""
+    def _make_detector(max_depth: int = 3):
+        return CircularDependencyDetector(max_depth=max_depth)
+    return _make_detector
 
 
 # ============================================================================
