@@ -1,0 +1,1042 @@
+openapi: 3.0.3
+info:
+  title: DevForgeAI Template Customization API
+  description: |
+    API for managing custom template fields, team questions, and custom templates with inheritance support.
+
+    **Implementation:** src/template_customization.py
+    **Tests:** tests/test_template_customization.py (65/65 passing)
+    **Story:** STORY-012 - Template Customization
+  version: 1.0.0
+  contact:
+    name: DevForgeAI Framework
+    url: https://github.com/devforgeai/framework
+
+servers:
+  - url: http://localhost:8000/api
+    description: Development server
+  - url: https://api.devforgeai.com
+    description: Production server
+
+tags:
+  - name: Custom Fields
+    description: CRUD operations for custom template fields (AC1, AC4)
+  - name: Team Questions
+    description: Team-specific questions for story workflows (AC2)
+  - name: Custom Templates
+    description: Custom template management with inheritance (AC3, AC5, AC6)
+
+paths:
+  /templates/custom-fields:
+    post:
+      tags:
+        - Custom Fields
+      summary: Create custom field
+      description: |
+        Create a new custom template field with specified type and validation rules.
+
+        **Acceptance Criteria:** AC1 - Power users can define and manage custom template fields
+        **Business Rule:** BR1 - Field names unique within team/personal scope
+        **Validation Rule:** VR1-VR5
+
+        **Supported Field Types:**
+        - text: String input with min/max length constraints
+        - select: Dropdown with predefined options (min 2 required)
+        - date: Date input in YYYY-MM-DD format
+        - number: Numeric input with min/max constraints
+        - checkbox: Boolean value
+        - textarea: Multi-line text input
+
+        **Implementation:** src/template_customization.py::create_custom_field() (line 783)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - type
+              properties:
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 100
+                  description: Field name (unique per team/personal scope)
+                  example: "Project phase"
+                type:
+                  type: string
+                  enum: [text, select, date, number, checkbox, textarea]
+                  description: Field data type
+                  example: "select"
+                description:
+                  type: string
+                  maxLength: 500
+                  description: Optional field description
+                  example: "Current phase of the project"
+                required:
+                  type: boolean
+                  default: false
+                  description: Whether field is required in story creation
+                  example: true
+                field_order:
+                  type: integer
+                  description: Display order (default: last)
+                  example: 5
+                options:
+                  type: array
+                  description: Options for select fields (required if type=select, min 2, unique values)
+                  items:
+                    type: object
+                    required:
+                      - value
+                      - label
+                    properties:
+                      value:
+                        type: string
+                        example: "planning"
+                      label:
+                        type: string
+                        example: "Planning"
+                  example:
+                    - value: "planning"
+                      label: "Planning"
+                    - value: "development"
+                      label: "Development"
+                visibility:
+                  type: string
+                  enum: [personal, team]
+                  default: "team"
+                  description: Visibility scope
+                  example: "team"
+      responses:
+        '201':
+          description: Field created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplateField'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                invalidName:
+                  value:
+                    error: "Field name must be 3-100 characters"
+                duplicateName:
+                  value:
+                    error: "Field name already exists for this team"
+                invalidType:
+                  value:
+                    error: "Field type must be one of: text, select, date, number, checkbox, textarea"
+                selectNoOptions:
+                  value:
+                    error: "Select fields must have at least 2 options"
+
+  /templates/custom-fields/{field_id}:
+    get:
+      tags:
+        - Custom Fields
+      summary: Get custom field by ID
+      description: |
+        Retrieve a custom field by its ID.
+
+        **Implementation:** src/template_customization.py::get_custom_field_by_id() (line 1065)
+        **Edge Case:** EC7 - Detects select fields with empty options
+      parameters:
+        - name: field_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Custom field ID
+      responses:
+        '200':
+          description: Field retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplateField'
+        '400':
+          description: Invalid field state detected (e.g., select field with empty options)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Field not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Custom Fields
+      summary: Update custom field
+      description: |
+        Update custom field properties. Field type cannot be changed after creation.
+
+        **Acceptance Criteria:** AC1 - Custom fields can be edited to modify options or constraints
+        **Business Rule:** BR2 - Field type immutability (cannot change after creation)
+        **Implementation:** src/template_customization.py::update_custom_field() (line 798)
+      parameters:
+        - name: field_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 3
+                  maxLength: 100
+                description:
+                  type: string
+                  maxLength: 500
+                options:
+                  type: array
+                  description: Updated options for select fields
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                      label:
+                        type: string
+                validation_rules:
+                  type: object
+                  description: Validation constraints (e.g., min_length, max_length for text)
+      responses:
+        '200':
+          description: Field updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplateField'
+        '400':
+          description: Validation error or type change attempted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Field not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      tags:
+        - Custom Fields
+      summary: Delete custom field
+      description: |
+        Delete a custom field. Requires confirmation if field is in use by stories.
+
+        **Acceptance Criteria:** AC1 - Custom field can be deleted with confirmation (no in-use stories affected)
+        **Edge Case:** EC2 - Delete field in use by 15 stories shows affected stories list
+        **Implementation:** src/template_customization.py::delete_custom_field() (line 822)
+      parameters:
+        - name: field_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: confirmed
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+          description: Confirmation flag for fields in use
+      responses:
+        '204':
+          description: Field deleted successfully
+        '400':
+          description: Field in use, confirmation required
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Cannot delete field in use by 15 stories"
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: "Cannot delete field in use by 15 stories"
+        '404':
+          description: Field not found
+
+  /templates/team-questions:
+    post:
+      tags:
+        - Team Questions
+      summary: Create team question
+      description: |
+        Add a custom question to the story creation workflow for a team.
+
+        **Acceptance Criteria:** AC2 - Team leads can inject team-specific questions
+        **Business Rule:** BR8 - Custom questions appear AFTER framework questions
+        **Validation Rule:** VR7 - Question text 10-500 characters
+        **Implementation:** src/template_customization.py::create_team_question() (line 848)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - question
+                - team_id
+              properties:
+                question:
+                  type: string
+                  minLength: 10
+                  maxLength: 500
+                  description: Question text
+                  example: "Did you follow our coding conventions?"
+                expected_answer:
+                  type: string
+                  maxLength: 1000
+                  description: Optional expected answer for guidance
+                  example: "Yes (link to standards)"
+                required:
+                  type: boolean
+                  default: false
+                  description: Whether question is required (blocks story creation if not answered)
+                  example: true
+                order:
+                  type: integer
+                  description: Question order within custom questions (framework questions always first)
+                  example: 1
+                team_id:
+                  type: string
+                  format: uuid
+                  description: Team ID this question belongs to
+      responses:
+        '201':
+          description: Question created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamQuestion'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      tags:
+        - Team Questions
+      summary: Get team questions
+      description: |
+        Retrieve all custom questions for a team.
+
+        **Acceptance Criteria:** AC2 - Questions stored in team configuration
+        **Implementation:** src/template_customization.py::get_team_questions() (line 857)
+      parameters:
+        - name: team_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+          description: Team ID to filter questions
+      responses:
+        '200':
+          description: Questions retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TeamQuestion'
+        '500':
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /stories/workflow/questions:
+    get:
+      tags:
+        - Team Questions
+      summary: Get workflow questions
+      description: |
+        Retrieve framework questions followed by custom team questions for story creation workflow.
+
+        **Acceptance Criteria:** AC2 - Questions appear AFTER default framework questions
+        **Business Rule:** BR8 - Question ordering (framework first, custom after)
+        **Implementation:** src/template_customization.py::get_story_workflow_questions() (line 866)
+      parameters:
+        - name: team_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Workflow questions retrieved (framework + custom)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  questions:
+                    type: array
+                    description: Framework questions followed by custom team questions
+                    items:
+                      type: object
+                      properties:
+                        question_id:
+                          type: string
+                        question_text:
+                          type: string
+                        required:
+                          type: boolean
+                        source:
+                          type: string
+                          enum: [framework, custom]
+        '500':
+          description: Server error
+
+  /templates/custom:
+    post:
+      tags:
+        - Custom Templates
+      summary: Create custom template
+      description: |
+        Create a custom story template that inherits from framework defaults.
+
+        **Acceptance Criteria:** AC3 - Custom templates extend default templates via inheritance
+        **Business Rule:** BR4 - Core framework sections always inherited (cannot remove)
+        **Validation Rule:** VR8-VR10 - Template name, inherited sections, framework version
+        **Implementation:** src/template_customization.py::create_custom_template() (line 875)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - inherit_sections
+              properties:
+                name:
+                  type: string
+                  minLength: 5
+                  maxLength: 100
+                  description: Template name (unique per team)
+                  example: "Our Standard Story"
+                description:
+                  type: string
+                  maxLength: 500
+                  example: "Custom story template with team fields"
+                inherit_sections:
+                  type: array
+                  minItems: 1
+                  description: Framework sections to inherit (must exist in defaults)
+                  items:
+                    type: string
+                  example: ["User Story", "Acceptance Criteria", "Technical Spec"]
+                custom_field_ids:
+                  type: array
+                  description: Custom fields to include as new sections
+                  items:
+                    type: string
+                    format: uuid
+                  example: ["field-uuid-1", "field-uuid-2"]
+                custom_question_ids:
+                  type: array
+                  description: Custom questions to inject in workflow
+                  items:
+                    type: string
+                    format: uuid
+                  example: ["question-uuid-1"]
+                framework_version:
+                  type: string
+                  pattern: '^\d+\.\d+\.\d+$'
+                  description: Framework version (semantic versioning)
+                  example: "1.0.1"
+                team_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  description: Team ID for team-scoped templates (null for personal)
+      responses:
+        '201':
+          description: Template created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplate'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /templates/custom/{template_id}:
+    get:
+      tags:
+        - Custom Templates
+      summary: Get custom template
+      description: |
+        Retrieve a custom template by ID.
+
+        **Implementation:** src/template_customization.py::get_custom_template() (line 888)
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Template retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplate'
+        '404':
+          description: Template not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      tags:
+        - Custom Templates
+      summary: Update custom template
+      description: |
+        Update template properties. Only creator can modify shared templates.
+
+        **Acceptance Criteria:** AC5 - Creator can modify shared template
+        **Business Rule:** BR6 - Team visibility = modifiable by creator/admins only
+        **Implementation:** src/template_customization.py::update_custom_template() (line 897)
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  minLength: 5
+                  maxLength: 100
+                description:
+                  type: string
+                  maxLength: 500
+                custom_field_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+      responses:
+        '200':
+          description: Template updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTemplate'
+        '400':
+          description: Validation error
+        '403':
+          description: Permission denied (non-creator trying to modify)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Template is read-only for non-creators"
+        '404':
+          description: Template not found
+
+  /templates/library:
+    get:
+      tags:
+        - Custom Templates
+      summary: Get template library
+      description: |
+        Retrieve all templates accessible to user (personal + shared team templates).
+
+        **Acceptance Criteria:** AC5 - Team members see shared templates in template library
+        **Business Rule:** BR7 - Shared templates read-only for team, copyable to personal
+        **Implementation:** src/template_customization.py::get_template_library() (line 919)
+      parameters:
+        - name: user_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: team_id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Template library retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  templates:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: '#/components/schemas/CustomTemplate'
+                        - type: object
+                          properties:
+                            can_modify:
+                              type: boolean
+                              description: Whether user can modify this template
+
+  /templates/render:
+    post:
+      tags:
+        - Custom Templates
+      summary: Render template
+      description: |
+        Render template sections in correct order (default sections first, custom sections after).
+
+        **Acceptance Criteria:** AC3 - Custom template renders with default sections first, custom after
+        **Implementation:** src/template_customization.py::get_rendered_template() (line 946)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - inherit_sections
+              properties:
+                inherit_sections:
+                  type: array
+                  items:
+                    type: string
+                  example: ["User Story", "Acceptance Criteria"]
+                custom_field_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  example: ["field-uuid-1"]
+      responses:
+        '200':
+          description: Template rendered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sections:
+                    type: array
+                    description: Ordered sections (defaults first, customs after)
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: "User Story"
+                        type:
+                          type: string
+                          enum: [default, custom]
+                          example: "default"
+                        field_id:
+                          type: string
+                          format: uuid
+                          description: Only present for custom fields
+
+  /templates/version-check/{template_id}:
+    get:
+      tags:
+        - Custom Templates
+      summary: Get template with version check
+      description: |
+        Retrieve template and check if framework version changed. Auto-update inherited sections if version mismatch detected.
+
+        **Acceptance Criteria:** AC3, AC6 - Auto-update inherited sections on framework upgrade
+        **Edge Case:** EC4 - Version mismatch auto-updates template
+        **Implementation:** src/template_customization.py::get_template_with_version_check() (line 986)
+      parameters:
+        - name: template_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: current_version
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: '^\d+\.\d+\.\d+$'
+          description: Current framework version (semantic versioning)
+          example: "1.0.0"
+      responses:
+        '200':
+          description: Template retrieved with version check performed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CustomTemplate'
+                  - type: object
+                    properties:
+                      version_updated:
+                        type: boolean
+                        description: Whether inherited sections were auto-updated
+
+  /stories/create-with-fields:
+    post:
+      tags:
+        - Custom Templates
+      summary: Create story with custom fields
+      description: |
+        Create a story with custom field values, validating against field types and constraints.
+
+        **Acceptance Criteria:** AC4 - Custom fields validated with multiple data types support
+        **Business Rule:** BR3, BR9 - Required field enforcement, data persistence in YAML
+        **Implementation:** src/template_customization.py::create_story_with_fields() (line 995)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+              properties:
+                title:
+                  type: string
+                  description: Story title
+                  example: "Implement user login"
+                custom_fields:
+                  type: object
+                  description: Map of field_id to field value
+                  additionalProperties: true
+                  example:
+                    "field-uuid-1": "planning"
+                    "field-uuid-2": "2025-12-01"
+                    "field-uuid-3": 42
+      responses:
+        '201':
+          description: Story created successfully with validated custom field values
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story_id:
+                    type: string
+                  title:
+                    type: string
+                  custom_fields:
+                    type: object
+        '400':
+          description: Validation error (invalid field value, missing required field, constraint violation)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                requiredFieldMissing:
+                  value:
+                    error: "Required field 'Project phase' not provided"
+                invalidDate:
+                  value:
+                    error: "Date field must be in YYYY-MM-DD format"
+                textTooShort:
+                  value:
+                    error: "Text length must be at least 10 characters"
+                numberBelowMin:
+                  value:
+                    error: "Number minimum constraint: must be >= 0"
+                invalidSelectOption:
+                  value:
+                    error: "Value must be one of: planning, development, testing, release"
+
+components:
+  schemas:
+    CustomTemplateField:
+      type: object
+      description: Custom template field data model (AC1, AC4)
+      required:
+        - field_id
+        - field_name
+        - field_type
+        - created_at
+        - created_by
+      properties:
+        field_id:
+          type: string
+          format: uuid
+          example: "uuid-v4"
+        field_name:
+          type: string
+          minLength: 3
+          maxLength: 100
+          example: "Project phase"
+        field_type:
+          type: string
+          enum: [text, select, date, number, checkbox, textarea]
+          example: "select"
+        description:
+          type: string
+          maxLength: 500
+          nullable: true
+          example: "Current phase of the project"
+        is_required:
+          type: boolean
+          default: false
+          example: true
+        field_order:
+          type: integer
+          nullable: true
+          example: 5
+        validation_rules:
+          type: object
+          description: Constraints (e.g., min_length, max_length for text, min/max for number)
+          additionalProperties: true
+          example:
+            min_length: 10
+            max_length: 100
+        options:
+          type: array
+          description: Options for select fields (min 2, unique values)
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+              label:
+                type: string
+          example:
+            - value: "planning"
+              label: "Planning"
+            - value: "development"
+              label: "Development"
+        visibility:
+          type: string
+          enum: [personal, team]
+          default: "team"
+          example: "team"
+        team_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Required if visibility=team
+          example: "team-uuid"
+        created_by:
+          type: string
+          format: uuid
+          example: "user-uuid"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+
+    TeamQuestion:
+      type: object
+      description: Team-specific question for story workflow (AC2)
+      required:
+        - question_id
+        - question_text
+        - team_id
+        - created_at
+        - created_by
+      properties:
+        question_id:
+          type: string
+          format: uuid
+          example: "uuid-v4"
+        question_text:
+          type: string
+          minLength: 10
+          maxLength: 500
+          example: "Did you follow our coding conventions?"
+        expected_answer:
+          type: string
+          maxLength: 1000
+          nullable: true
+          example: "Yes (link to standards)"
+        is_required:
+          type: boolean
+          default: false
+          example: true
+        question_order:
+          type: integer
+          nullable: true
+          example: 1
+        team_id:
+          type: string
+          format: uuid
+          example: "team-uuid"
+        created_by:
+          type: string
+          format: uuid
+          example: "user-uuid"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+
+    CustomTemplate:
+      type: object
+      description: Custom story template with inheritance (AC3, AC5, AC6)
+      required:
+        - template_id
+        - template_name
+        - inherited_sections
+        - framework_version
+        - created_at
+        - created_by
+      properties:
+        template_id:
+          type: string
+          format: uuid
+          example: "uuid-v4"
+        template_name:
+          type: string
+          minLength: 5
+          maxLength: 100
+          example: "Our Standard Story"
+        description:
+          type: string
+          maxLength: 500
+          nullable: true
+          example: "Custom story template with team fields"
+        inherited_sections:
+          type: array
+          minItems: 1
+          description: Sections inherited from framework defaults
+          items:
+            type: string
+          example: ["User Story", "Acceptance Criteria", "Technical Spec"]
+        custom_field_ids:
+          type: array
+          description: Custom fields added as new sections
+          items:
+            type: string
+            format: uuid
+          example: ["field-uuid-1", "field-uuid-2"]
+        custom_question_ids:
+          type: array
+          description: Custom questions injected in workflow
+          items:
+            type: string
+            format: uuid
+          example: ["question-uuid-1"]
+        framework_version:
+          type: string
+          pattern: '^\d+\.\d+\.\d+$'
+          example: "1.0.1"
+        inheritance_status:
+          type: string
+          enum: [active, pending_update, conflict]
+          description: Inheritance status (AC6 - framework upgrade handling)
+          example: "active"
+        inheritance_updated_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last time inherited sections were updated
+          example: "2025-11-07T10:35:00Z"
+        team_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Team ID for team-scoped templates
+          example: "team-uuid"
+        visibility:
+          type: string
+          enum: [personal, team, read-only]
+          description: Visibility scope (AC5 - template sharing)
+          example: "team"
+        created_by:
+          type: string
+          format: uuid
+          example: "user-uuid"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2025-11-07T10:30:00Z"
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Human-readable error message
+          example: "Field name must be 3-100 characters"
+        data:
+          type: object
+          description: Additional error context (optional)
+          nullable: true
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token with user_id and team_id claims
+
+security:
+  - BearerAuth: []
