@@ -16,6 +16,9 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 from unittest.mock import Mock, patch
 
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_registry import HookRegistry, HookRegistryEntry
+
 
 # ============================================================================
 # Test Fixtures

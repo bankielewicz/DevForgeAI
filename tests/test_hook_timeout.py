@@ -14,6 +14,9 @@ from unittest.mock import Mock, AsyncMock, patch
 from typing import Optional, Dict, Any
 import time
 
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_invocation import HookInvoker
+
 
 # ============================================================================
 # Test Fixtures

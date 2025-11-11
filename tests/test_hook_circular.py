@@ -12,6 +12,9 @@ import pytest
 from typing import List, Dict, Any
 from unittest.mock import Mock, patch
 
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_circular import CircularDependencyDetector
+
 
 # ============================================================================
 # Test Fixtures

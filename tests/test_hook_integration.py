@@ -16,6 +16,10 @@ import asyncio
 from typing import List, Dict, Any, Optional
 from unittest.mock import Mock, AsyncMock, patch, call
 from pathlib import Path
+
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_system import HookSystem
+from src.hook_registry import HookRegistry
 import yaml
 
 
