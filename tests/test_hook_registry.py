@@ -18,6 +18,7 @@ from unittest.mock import Mock, patch
 
 # REAL IMPORTS - Test actual implementation, not mocks
 from src.hook_registry import HookRegistry, HookRegistryEntry
+from src.hook_conditions import TriggerConditionEvaluator
 
 
 # ============================================================================
@@ -619,58 +620,64 @@ class TestOptionalFieldValidation:
 class TestTriggerConditionsValidation:
     """Tests for trigger_conditions optional field."""
 
-    def test_operation_duration_min_max_consistency(self, valid_hook_entry):
-        """WHEN both duration_min and duration_max specified, THEN min <= max."""
+    def test_operation_duration_min_max_consistency(self):
+        """WHEN both duration_min and duration_max specified, THEN min <= max validates."""
         # Arrange
-        hook = valid_hook_entry.copy()
-        hook['trigger_conditions'] = {
+        evaluator = TriggerConditionEvaluator()
+        context = {'duration_ms': 3000}
+        conditions = {
             'operation_duration_min_ms': 1000,
             'operation_duration_max_ms': 5000,
         }
 
-        # Act
-        is_valid = hook['trigger_conditions']['operation_duration_min_ms'] <= \
-                   hook['trigger_conditions']['operation_duration_max_ms']
+        # Act - Use real TriggerConditionEvaluator
+        matches = evaluator.evaluate(context, conditions)
 
-        # Assert
-        assert is_valid is True
+        # Assert - Context duration 3000ms is within 1000-5000ms range
+        assert matches is True
 
-    def test_operation_duration_min_max_inconsistency(self, valid_hook_entry):
-        """WHEN min > max, THEN validation fails."""
+    def test_operation_duration_min_max_inconsistency(self):
+        """WHEN min > max, THEN validation should handle gracefully."""
         # Arrange
-        hook = valid_hook_entry.copy()
-        hook['trigger_conditions'] = {
-            'operation_duration_min_ms': 5000,
+        evaluator = TriggerConditionEvaluator()
+        context = {'duration_ms': 3000}
+        conditions = {
+            'operation_duration_min_ms': 5000,  # Min > Max (invalid config)
             'operation_duration_max_ms': 1000,
         }
 
-        # Act
-        is_valid = hook['trigger_conditions']['operation_duration_min_ms'] <= \
-                   hook['trigger_conditions']['operation_duration_max_ms']
+        # Act - Use real TriggerConditionEvaluator
+        # Evaluator checks min first, so 3000 < 5000 fails
+        matches = evaluator.evaluate(context, conditions)
 
-        # Assert
-        assert is_valid is False
+        # Assert - Should not match (duration 3000 < min 5000)
+        assert matches is False
 
-    def test_token_usage_percent_range(self, valid_hook_entry):
-        """WHEN token_usage_percent between 0-100, THEN valid."""
+    def test_token_usage_percent_range(self):
+        """WHEN token usage within specified range, THEN matches."""
         # Arrange
-        hook = valid_hook_entry.copy()
-        hook['trigger_conditions'] = {'token_usage_percent': 75}
+        evaluator = TriggerConditionEvaluator()
+        context = {'token_usage': 75}
+        conditions = {
+            'token_usage_percent_min': 50,  # Min threshold
+            'token_usage_percent_max': 90,  # Max threshold
+        }
 
-        # Act
-        is_valid = 0 <= hook['trigger_conditions']['token_usage_percent'] <= 100
+        # Act - Use real TriggerConditionEvaluator
+        matches = evaluator.evaluate(context, conditions)
 
-        # Assert
-        assert is_valid is True
+        # Assert - 75% is within 50-90% range, should match
+        assert matches is True
 
-    def test_token_usage_percent_out_of_range(self, valid_hook_entry):
-        """WHEN token_usage_percent > 100, THEN invalid."""
+    def test_token_usage_percent_out_of_range(self):
+        """WHEN token usage exceeds max threshold, THEN doesn't match."""
         # Arrange
-        hook = valid_hook_entry.copy()
-        hook['trigger_conditions'] = {'token_usage_percent': 150}
+        evaluator = TriggerConditionEvaluator()
+        context = {'token_usage': 95}
+        conditions = {'token_usage_percent_max': 80}  # Max threshold
 
-        # Act
-        is_valid = hook['trigger_conditions']['token_usage_percent'] <= 100
+        # Act - Use real TriggerConditionEvaluator
+        matches = evaluator.evaluate(context, conditions)
 
-        # Assert
-        assert is_valid is False
+        # Assert - 95% > 80% max, should not match
+        assert matches is False
