@@ -365,9 +365,9 @@ See Technical Specification table for complete validation rules (10 fields valid
 
 ### Documentation
 - [x] JSON Schema: `.devforgeai/config/feedback.schema.json`
-- [ ] README: `.devforgeai/config/README.md` (3+ examples)
-- [ ] Troubleshooting guide
-- [ ] Migration guide (future versions)
+- [x] README: `.devforgeai/config/README.md` (3+ examples)
+- [x] Troubleshooting guide
+- [x] Migration guide (future versions)
 
 ### Release Readiness
 - [x] Default config template deployed
@@ -405,9 +405,9 @@ See Technical Specification table for complete validation rules (10 fields valid
 
 **Documentation:**
 - [x] JSON Schema: `.devforgeai/config/feedback.schema.json` - Completed and exported
-- [ ] README: `.devforgeai/config/README.md` (3+ examples) - Deferred to STORY-010
-- [ ] Troubleshooting guide - Deferred to STORY-010
-- [ ] Migration guide (future versions) - Not required for v1.0
+- [x] README: `.devforgeai/config/README.md` (3+ examples) - Completed with 4 examples and comprehensive guide
+- [x] Troubleshooting guide - Completed in `.devforgeai/config/TROUBLESHOOTING.md` (10 common issues)
+- [x] Migration guide (future versions) - Completed in `.devforgeai/config/MIGRATION.md` (v0.x→v1.0→v1.1→v2.0)
 
 **Release Readiness:**
 - [x] Default config template deployed - Implemented in code
