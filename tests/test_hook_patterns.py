@@ -13,6 +13,9 @@ import re
 from fnmatch import fnmatch
 from typing import Tuple
 
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_patterns import PatternMatcher
+
 
 # ============================================================================
 # Test Fixtures

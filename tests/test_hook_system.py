@@ -14,9 +14,15 @@ import pytest
 import uuid
 from pathlib import Path
 from typing import Optional, Dict, Any, List
-from unittest.mock import Mock, MagicMock, patch, call
+from unittest.mock import Mock, MagicMock, patch, call, AsyncMock
 import yaml
 import asyncio
+
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_system import HookSystem
+from src.hook_registry import HookRegistry, HookRegistryEntry
+from src.hook_invocation import HookInvocationContext
+from src.hook_patterns import PatternMatcher
 
 
 # ============================================================================
@@ -81,6 +87,18 @@ def mock_feedback_skill():
     return mock
 
 
+@pytest.fixture
+def real_hook_system(hook_system_config_file):
+    """Create real HookSystem instance with test config."""
+    return HookSystem(config_path=hook_system_config_file)
+
+
+@pytest.fixture
+def real_hook_registry(hook_system_config_file):
+    """Create real HookRegistry instance with test config."""
+    return HookRegistry(config_path=hook_system_config_file)
+
+
 # ============================================================================
 # AC1: Hook Registration and Discovery Tests
 # ============================================================================
@@ -88,23 +106,20 @@ def mock_feedback_skill():
 class TestHookRegistrationAndDiscovery:
     """Tests for hook registration and discovery."""
 
-    def test_load_hook_registry_from_yaml(self, hook_system_config_file):
+    def test_load_hook_registry_from_yaml(self, real_hook_registry):
         """
         GIVEN the devforgeai-feedback skill is initialized,
         WHEN the hook registry is loaded from configuration,
         THEN all registered hooks are validated against the schema and available for invocation.
         """
-        # Arrange - config file created by fixture
+        # Arrange - real registry loaded by fixture
 
         # Act
-        # Hook system loads registry
-        with open(hook_system_config_file) as f:
-            registry_data = yaml.safe_load(f)
+        hooks = real_hook_registry.get_all_hooks()
 
         # Assert
-        assert 'hooks' in registry_data
-        assert len(registry_data['hooks']) == 1
-        hook = registry_data['hooks'][0]
+        assert len(hooks) == 1
+        hook = hooks[0]
         assert hook['id'] == 'test-hook-1'
         assert hook['operation_type'] == 'command'
         assert hook['enabled'] is True

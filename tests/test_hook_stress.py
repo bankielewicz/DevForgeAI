@@ -17,6 +17,10 @@ from typing import List, Dict, Any
 from concurrent.futures import ThreadPoolExecutor
 import uuid
 
+# REAL IMPORTS - Test actual implementation, not mocks
+from src.hook_system import HookSystem
+from src.hook_registry import HookRegistry
+
 
 # ============================================================================
 # Test Fixtures
