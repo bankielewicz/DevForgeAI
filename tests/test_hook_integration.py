@@ -546,9 +546,10 @@ class TestDisabledHookConfiguration:
         # Reload config using real HookSystem method
         hook_system.reload_config()
 
-        # Assert - Hook is now disabled
+        # Assert - Hook still exists but is now disabled
         hooks_after = hook_system.get_hooks()
-        assert len(hooks_after) == 0  # Disabled hooks filtered out
+        assert len(hooks_after) == 1  # Hook still in registry
+        assert hooks_after[0]['enabled'] is False  # But now disabled
 
 
 # ============================================================================

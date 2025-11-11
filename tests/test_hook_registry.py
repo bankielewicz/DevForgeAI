@@ -681,3 +681,126 @@ class TestTriggerConditionsValidation:
 
         # Assert - 95% > 80% max, should not match
         assert matches is False
+
+    def test_validate_conditions_duration_min_greater_than_max(self):
+        """WHEN duration min > max, THEN validation fails."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        conditions = {
+            'operation_duration_min_ms': 5000,
+            'operation_duration_max_ms': 1000,
+        }
+
+        # Act
+        is_valid, error = evaluator.validate_conditions(conditions)
+
+        # Assert
+        assert is_valid is False
+        assert 'min' in error.lower() and 'max' in error.lower()
+
+    def test_validate_conditions_token_usage_invalid_range(self):
+        """WHEN token usage percent invalid, THEN validation fails."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        conditions = {'token_usage_percent_min': 150}  # > 100
+
+        # Act
+        is_valid, error = evaluator.validate_conditions(conditions)
+
+        # Assert
+        assert is_valid is False
+        assert '0-100' in error or '100' in error
+
+    def test_validate_conditions_result_code_not_string(self):
+        """WHEN result_code not string, THEN validation fails."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        conditions = {'result_code': 123}  # Should be string
+
+        # Act
+        is_valid, error = evaluator.validate_conditions(conditions)
+
+        # Assert
+        assert is_valid is False
+        assert 'string' in error.lower()
+
+    def test_validate_conditions_empty_conditions_valid(self):
+        """WHEN conditions empty/None, THEN validation passes."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+
+        # Act
+        is_valid1, error1 = evaluator.validate_conditions(None)
+        is_valid2, error2 = evaluator.validate_conditions({})
+
+        # Assert
+        assert is_valid1 is True
+        assert error1 is None
+        assert is_valid2 is True
+        assert error2 is None
+
+    def test_evaluate_result_code_matching(self):
+        """WHEN result_code matches condition, THEN evaluates True."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        context = {'result_code': 'success'}
+        conditions = {'result_code': 'success'}
+
+        # Act
+        matches = evaluator.evaluate(context, conditions)
+
+        # Assert
+        assert matches is True
+
+    def test_evaluate_result_code_not_matching(self):
+        """WHEN result_code doesn't match condition, THEN evaluates False."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        context = {'result_code': 'success'}
+        conditions = {'result_code': 'failure'}
+
+        # Act
+        matches = evaluator.evaluate(context, conditions)
+
+        # Assert
+        assert matches is False
+
+    def test_evaluate_execution_order_matching(self):
+        """WHEN execution_order matches condition, THEN evaluates True."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        context = {'execution_order': 1}
+        conditions = {'execution_order': 1}
+
+        # Act
+        matches = evaluator.evaluate(context, conditions)
+
+        # Assert
+        assert matches is True
+
+    def test_evaluate_execution_order_not_matching(self):
+        """WHEN execution_order doesn't match condition, THEN evaluates False."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        context = {'execution_order': 1}
+        conditions = {'execution_order': 2}
+
+        # Act
+        matches = evaluator.evaluate(context, conditions)
+
+        # Assert
+        assert matches is False
+
+    def test_evaluate_no_conditions_always_true(self):
+        """WHEN no conditions specified, THEN always evaluates True."""
+        # Arrange
+        evaluator = TriggerConditionEvaluator()
+        context = {'duration_ms': 1000, 'token_usage': 50}
+
+        # Act
+        matches1 = evaluator.evaluate(context, None)
+        matches2 = evaluator.evaluate(context, {})
+
+        # Assert
+        assert matches1 is True
+        assert matches2 is True
