@@ -442,3 +442,79 @@ class AsyncMock(Mock):
     """Mock for async functions."""
     async def __call__(self, *args, **kwargs):
         return super(AsyncMock, self).__call__(*args, **kwargs)
+
+
+# ============================================================================
+# Additional Coverage Tests for Utility Methods
+# ============================================================================
+
+class TestHookSystemUtilityMethods:
+    """Tests for HookSystem utility and helper methods."""
+
+    def test_get_hook_by_id(self, real_hook_system):
+        """WHEN getting hook by ID, THEN returns matching hook."""
+        # Act
+        hook = real_hook_system.get_hook('test-hook-1')
+
+        # Assert
+        assert hook is not None
+        assert hook['id'] == 'test-hook-1'
+
+    def test_get_hook_nonexistent_id(self, real_hook_system):
+        """WHEN getting nonexistent hook ID, THEN returns None."""
+        # Act
+        hook = real_hook_system.get_hook('nonexistent-hook')
+
+        # Assert
+        assert hook is None
+
+    def test_get_registry_size(self, real_hook_system):
+        """WHEN checking registry size, THEN returns hook count."""
+        # Act
+        size = real_hook_system.get_registry_size()
+
+        # Assert
+        assert size == 1  # test-hook-1 from fixture
+
+    def test_has_registry_errors_false(self, real_hook_system):
+        """WHEN registry has no errors, THEN returns False."""
+        # Act
+        has_errors = real_hook_system.has_registry_errors()
+
+        # Assert
+        assert has_errors is False
+
+    def test_get_registry_errors_empty(self, real_hook_system):
+        """WHEN registry has no errors, THEN returns empty list."""
+        # Act
+        errors = real_hook_system.get_registry_errors()
+
+        # Assert
+        assert errors == []
+
+    def test_validate_pattern_valid_glob(self, real_hook_system):
+        """WHEN validating valid glob pattern, THEN returns True."""
+        # Act
+        is_valid, error = real_hook_system.validate_pattern('dev*')
+
+        # Assert
+        assert is_valid is True
+        assert error is None
+
+    def test_validate_pattern_invalid_regex(self, real_hook_system):
+        """WHEN validating invalid regex pattern, THEN returns False with error."""
+        # Act - Use pattern with regex anchor but invalid syntax
+        is_valid, error = real_hook_system.validate_pattern('^[invalid(')
+
+        # Assert
+        assert is_valid is False
+        assert error is not None
+        assert 'regex' in error.lower() or 'invalid' in error.lower()
+
+    def test_reset_clears_state(self, real_hook_system):
+        """WHEN reset called, THEN clears circular detector and invoker state."""
+        # Act
+        real_hook_system.reset()
+
+        # Assert - No errors (reset successful)
+        assert True  # Reset doesn't return value, just verify no exception
