@@ -1,5 +1,5 @@
 /tmp
-.ai_docs/
+# .ai_docs/ should be tracked (contains stories, epics, sprints)
 
 # Python
 __pycache__/
