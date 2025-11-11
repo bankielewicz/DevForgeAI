@@ -1,4 +1,5 @@
 /tmp
+.ai_docs/
 
 # Python
 __pycache__/

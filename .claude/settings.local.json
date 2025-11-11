@@ -114,7 +114,8 @@
       "Bash(else echo \"  ❌ Missing execution clarification\")",
       "Bash(if grep -q \"The skill instructs you to\" .claude/commands/$cmd.md)",
       "Bash(then echo \"  ✅ ''Instructs you to'' pattern found\")",
-      "Bash(else echo \"  ❌ Missing pattern\")"
+      "Bash(else echo \"  ❌ Missing pattern\")",
+      "Bash(tests/test_feedback_persistence.py.tmp)"
     ],
     "deny": [],
     "ask": []
