@@ -188,8 +188,10 @@ class HookInvoker:
         matching = []
 
         # Get all hooks for this operation type and status
+        # Note: Pass '*' as operation_pattern to get all hooks, then filter by pattern below
         candidates = self.registry.get_hooks_for_operation(
             operation_type=context.operation_type,
+            operation_pattern='*',  # Get all hooks, filter by pattern matching below
             trigger_status=context.status,
         )
 
