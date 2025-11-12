@@ -69,3 +69,166 @@ Details about the operation execution and feedback...
         if (Path(".devforgeai/feedback")).exists():
             shutil.rmtree(Path(".devforgeai/feedback"))
 
+
+# ========== STORY-019: Operation Context Extraction Fixtures ==========
+
+from uuid import uuid4
+
+
+@pytest.fixture
+def simple_operation_context():
+    """Fixture: Simple completed operation with 5 todos"""
+    return {
+        "operation_id": str(uuid4()),
+        "operation_type": "dev",
+        "story_id": "STORY-001",
+        "start_time": "2025-11-07T10:00:00Z",
+        "end_time": "2025-11-07T10:35:42Z",
+        "duration_seconds": 2142,
+        "status": "completed",
+        "todo_summary": {
+            "total": 5,
+            "completed": 5,
+            "failed": 0,
+            "skipped": 0,
+            "completion_rate": 1.0,
+        },
+        "todos": [
+            {
+                "id": 1,
+                "name": "Generate failing tests",
+                "status": "done",
+                "timestamp": "2025-11-07T10:00:00Z",
+            },
+            {
+                "id": 2,
+                "name": "Implement red phase",
+                "status": "done",
+                "timestamp": "2025-11-07T10:10:00Z",
+            },
+            {
+                "id": 3,
+                "name": "Run test suite",
+                "status": "done",
+                "timestamp": "2025-11-07T10:20:00Z",
+            },
+            {
+                "id": 4,
+                "name": "Refactor code",
+                "status": "done",
+                "timestamp": "2025-11-07T10:30:00Z",
+            },
+            {
+                "id": 5,
+                "name": "Final validation",
+                "status": "done",
+                "timestamp": "2025-11-07T10:35:42Z",
+            },
+        ],
+        "error": None,
+        "phases": {
+            "red": {"duration_seconds": 420, "success": True},
+            "green": {"duration_seconds": 480, "success": True},
+            "refactor": {"duration_seconds": 1242, "success": True},
+        },
+    }
+
+
+@pytest.fixture
+def failed_operation_context():
+    """Fixture: Failed operation with error context"""
+    return {
+        "operation_id": str(uuid4()),
+        "operation_type": "dev",
+        "story_id": "STORY-002",
+        "start_time": "2025-11-07T10:00:00Z",
+        "end_time": "2025-11-07T10:25:30Z",
+        "duration_seconds": 1530,
+        "status": "failed",
+        "todo_summary": {
+            "total": 5,
+            "completed": 3,
+            "failed": 1,
+            "skipped": 1,
+            "completion_rate": 0.6,
+        },
+        "todos": [
+            {"id": 1, "name": "Generate failing tests", "status": "done", "timestamp": "2025-11-07T10:00:00Z"},
+            {"id": 2, "name": "Implement red phase", "status": "done", "timestamp": "2025-11-07T10:10:00Z"},
+            {"id": 3, "name": "Run test suite", "status": "done", "timestamp": "2025-11-07T10:20:00Z"},
+            {"id": 4, "name": "Git commit", "status": "failed", "timestamp": "2025-11-07T10:25:30Z", "notes": "Authentication failed"},
+            {"id": 5, "name": "Push to remote", "status": "skipped", "timestamp": None},
+        ],
+        "error": {
+            "message": "Git commit failed: authentication required",
+            "type": "GitAuthenticationError",
+            "timestamp": "2025-11-07T10:25:30Z",
+            "failed_todo_id": 4,
+            "stack_trace": "GitAuthenticationError: Authentication required",
+        },
+        "phases": {
+            "red": {"duration_seconds": 420, "success": True},
+            "green": {"duration_seconds": 480, "success": True},
+            "refactor": {"duration_seconds": 630, "success": False},
+        },
+    }
+
+
+@pytest.fixture
+def feedback_session_id():
+    """Fixture: Generate a feedback session ID"""
+    return str(uuid4())
+
+
+@pytest.fixture
+def extraction_options():
+    """Fixture: Standard extraction options"""
+    return {
+        "includeSanitization": True,
+        "includeSummary": True,
+        "maxContextSize": 50000,
+    }
+
+
+@pytest.fixture
+def iso8601_timestamp():
+    """Fixture: Generate ISO8601 timestamp"""
+    return datetime.utcnow().isoformat() + "Z"
+
+
+@pytest.fixture
+def uuid_id():
+    """Fixture: Generate UUID"""
+    return str(uuid4())
+
+
+@pytest.fixture(autouse=True)
+def clear_operation_store():
+    """Automatically clear operation store before each test"""
+    try:
+        from devforgeai.operation_context import clearOperationStore
+        clearOperationStore()
+    except ImportError:
+        pass  # Module not yet implemented
+    yield
+    try:
+        from devforgeai.operation_context import clearOperationStore
+        clearOperationStore()
+    except ImportError:
+        pass
+
+
+def pytest_configure(config):
+    """Configure pytest with custom markers for STORY-019 tests"""
+    markers = [
+        "unit: mark test as a unit test (isolated from external dependencies)",
+        "integration: mark test as an integration test (tests component interactions)",
+        "edge_case: mark test as testing edge cases or boundary conditions",
+        "security: mark test as testing security requirements or data protection",
+        "performance: mark test as testing performance requirements and timeouts",
+        "acceptance_criteria: mark test as directly testing AC requirement",
+    ]
+
+    for marker_line in markers:
+        config.addinivalue_line("markers", marker_line)
+
