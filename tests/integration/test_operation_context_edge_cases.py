@@ -35,6 +35,42 @@ except ImportError:
 class TestSanitizationBehavior:
     """Tests for data sanitization rules (AC2, NFR: Security)"""
 
+    def test_sanitize_context_with_error_messages(self):
+        """Security: sanitize_context() redacts secrets in error messages and stack traces"""
+        # Arrange
+        from devforgeai.sanitization import sanitize_context
+
+        context_dict = {
+            "operation_id": "550e8400-e29b-41d4-a716-446655440000",
+            "status": "failed",
+            "error": {
+                "message": "Git auth failed: password=SuperSecret123 for user@github.com",
+                "stack_trace": "GitError: api_key=sk-1234567890abcdef at 192.168.1.100\n  File: /home/user/project/secret.py"
+            }
+        }
+
+        # Act
+        sanitized, metadata = sanitize_context(context_dict)
+
+        # Assert - verify secrets redacted
+        assert "[REDACTED]" in sanitized["error"]["message"]
+        assert "SuperSecret123" not in sanitized["error"]["message"]
+        assert "[email@example.com]" in sanitized["error"]["message"]
+        assert "user@github.com" not in sanitized["error"]["message"]
+
+        assert "[REDACTED]" in sanitized["error"]["stack_trace"]
+        assert "sk-1234567890abcdef" not in sanitized["error"]["stack_trace"]
+        assert "XXX.XXX.XXX.XXX" in sanitized["error"]["stack_trace"]
+        assert "192.168.1.100" not in sanitized["error"]["stack_trace"]
+        assert "secret.py" in sanitized["error"]["stack_trace"]  # Filename preserved
+        assert "/home/user/project/" not in sanitized["error"]["stack_trace"]  # Path removed
+
+        # Verify metadata tracks sanitization
+        assert metadata["sanitization_applied"] == True
+        assert metadata["fields_sanitized"] == 2
+        assert "error.message" in metadata["sanitized_fields"]
+        assert "error.stack_trace" in metadata["sanitized_fields"]
+
     def test_sanitize_passwords_in_error_logs(self):
         """Security: Remove passwords from error logs"""
         # Arrange
@@ -554,7 +590,54 @@ class TestSensitiveDataDetection:
         for pattern in patterns:
             result = detectSensitivePatterns(pattern)
             # Should detect password in various formats
-            assert result is not None or "password" in pattern.lower()
+            assert result is not None
+            assert "passwords" in result
+            assert len(result["passwords"]) > 0
+
+    def test_detect_ip_addresses_with_messages(self):
+        """Security: Verify IP detection returns proper messages"""
+        # Arrange
+        test_ipv4 = "Connected to 192.168.1.100:8080"
+        test_ipv6 = "Server at 2001:0db8:85a3:0000"
+
+        # Act
+        result_ipv4 = detectSensitivePatterns(test_ipv4)
+        result_ipv6 = detectSensitivePatterns(test_ipv6)
+
+        # Assert - verify detection messages (covers lines 103, 106)
+        assert result_ipv4 is not None
+        assert "ips" in result_ipv4
+        assert "Found IPv4 address" in result_ipv4["ips"]
+
+        assert result_ipv6 is not None
+        assert "ips" in result_ipv6
+        assert "Found IPv6 address" in result_ipv6["ips"]
+
+    def test_detect_emails_with_messages(self):
+        """Security: Verify email detection returns proper messages"""
+        # Arrange
+        test_data = "Error for user@company.com failed"
+
+        # Act
+        result = detectSensitivePatterns(test_data)
+
+        # Assert - verify detection message (covers line 110)
+        assert result is not None
+        assert "emails" in result
+        assert "Found email address" in result["emails"]
+
+    def test_detect_internal_domains_with_messages(self):
+        """Security: Verify internal domain detection returns proper messages"""
+        # Arrange
+        test_data = "Service failed: https://myservice.internal/v1/users"
+
+        # Act
+        result = detectSensitivePatterns(test_data)
+
+        # Assert - verify detection message (covers line 114)
+        assert result is not None
+        assert "internal_domains" in result
+        assert "Found internal domain" in result["internal_domains"]
 
 
 class TestDataRetentionCompliance:

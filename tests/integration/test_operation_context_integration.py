@@ -272,16 +272,123 @@ class TestFeedbackTemplatePopulation:
         """AC3: Feedback template includes error details for failed operations"""
         # Arrange
         operation_id = str(uuid4())
+        start_time = "2025-11-12T10:00:00Z"
+        error_time = "2025-11-12T10:25:30Z"
+
+        # Register failed operation
+        from devforgeai.operation_context import registerOperation
+        registerOperation(operation_id, {
+            "operation_type": "dev",
+            "story_id": "STORY-002",
+            "start_time": start_time,
+            "end_time": error_time,
+            "status": "failed",
+            "todos": [
+                TodoItem(id=1, name="Generate tests", status="done", timestamp=start_time),
+                TodoItem(id=2, name="Git commit", status="failed", timestamp=error_time),
+            ],
+            "error": ErrorContext(
+                message="Git commit failed: authentication required",
+                type="GitAuthenticationError",
+                timestamp=error_time,
+                failed_todo_id=2,
+                stack_trace="GitAuthenticationError: Authentication required\n  at git.commit()"
+            ),
+            "phases": {"red": {"duration_seconds": 600, "success": True}}
+        })
+
         context = extractOperationContext(operation_id)
 
         # Act
-        if context.status == "failed":
-            template = prepopulateFeedbackTemplate(context)
+        template = prepopulateFeedbackTemplate(context)
 
-            # Assert
-            assert template["metadata"]["status"] == "failed"
-            assert "error" in template["metadata"]
-            assert template["metadata"]["error"]["message"] is not None
+        # Assert - verify failed operation template
+        assert template["metadata"]["status"] == "failed"
+        assert "error" in template["metadata"]
+        assert template["metadata"]["error"]["message"] == "Git commit failed: authentication required"
+        assert template["metadata"]["error"]["type"] == "GitAuthenticationError"
+        assert template["metadata"]["error"]["failed_todo_id"] == 2
+
+        # Verify questions are failure-focused
+        assert any("failure" in q.lower() or "Git commit" in q for q in template["questions"])
+        assert any("root cause" in q.lower() for q in template["questions"])
+
+    def test_prepopulate_feedback_template_partial(self):
+        """AC3: Feedback template for partial completion operations"""
+        # Arrange
+        operation_id = str(uuid4())
+        start_time = "2025-11-12T10:00:00Z"
+        end_time = "2025-11-12T10:30:00Z"
+
+        # Register partial operation (some todos done, some failed/skipped)
+        from devforgeai.operation_context import registerOperation
+        registerOperation(operation_id, {
+            "operation_type": "dev",
+            "story_id": "STORY-003",
+            "start_time": start_time,
+            "end_time": end_time,
+            "status": "partial",
+            "todos": [
+                TodoItem(id=1, name="Generate tests", status="done", timestamp=start_time),
+                TodoItem(id=2, name="Implement", status="done", timestamp="2025-11-12T10:15:00Z"),
+                TodoItem(id=3, name="Refactor", status="failed", timestamp="2025-11-12T10:25:00Z"),
+                TodoItem(id=4, name="Commit", status="skipped", timestamp=end_time),
+            ],
+            "error": None,
+        })
+
+        context = extractOperationContext(operation_id)
+
+        # Act
+        template = prepopulateFeedbackTemplate(context)
+
+        # Assert - verify partial operation template
+        assert template["metadata"]["status"] == "partial"
+        assert template["metadata"]["todo_count"] == 4
+
+        # Verify completion rate in summary
+        assert "partial" in template["summary"].lower()
+
+        # Verify questions ask about partial completion
+        assert any("completed successfully" in q.lower() for q in template["questions"])
+        assert any("failed" in q.lower() for q in template["questions"])
+
+    def test_prepopulate_feedback_template_cancelled(self):
+        """AC3: Feedback template for cancelled operations"""
+        # Arrange
+        operation_id = str(uuid4())
+        start_time = "2025-11-12T10:00:00Z"
+        end_time = "2025-11-12T10:10:00Z"
+
+        # Register cancelled operation
+        from devforgeai.operation_context import registerOperation
+        registerOperation(operation_id, {
+            "operation_type": "dev",
+            "story_id": "STORY-004",
+            "start_time": start_time,
+            "end_time": end_time,
+            "status": "cancelled",
+            "todos": [
+                TodoItem(id=1, name="Generate tests", status="done", timestamp=start_time),
+                TodoItem(id=2, name="Implement", status="skipped", timestamp=end_time),
+            ],
+            "error": None,
+        })
+
+        context = extractOperationContext(operation_id)
+
+        # Act
+        template = prepopulateFeedbackTemplate(context)
+
+        # Assert - verify cancelled operation template
+        assert template["metadata"]["status"] == "cancelled"
+
+        # Verify summary mentions cancellation
+        assert "cancelled" in template["summary"].lower()
+
+        # Verify questions ask about cancellation
+        assert any("cancelled" in q.lower() for q in template["questions"])
+        assert any("resumed" in q.lower() or "resume" in q.lower() for q in template["questions"])
 
     def test_feedback_template_metadata_readonly(self):
         """AC3: Template metadata is read-only (for context, not editing)"""
@@ -491,6 +598,90 @@ class TestOperationHistoryUpdate:
         if history2 is not None:
             assert history2.get("feedback_session_id") is None
         # else: history2 is None (operation not tracked), which also means no feedback
+
+    def test_history_query_with_feedback_linked_filter(self):
+        """AC5: Query operations by feedback_linked status"""
+        # Arrange
+        op_with_feedback = str(uuid4())
+        op_without_feedback = str(uuid4())
+
+        # Create operation with feedback
+        from devforgeai.operation_context import registerOperation
+        registerOperation(op_with_feedback, {
+            "operation_type": "dev",
+            "start_time": "2025-11-12T10:00:00Z",
+            "end_time": "2025-11-12T10:30:00Z",
+            "status": "completed",
+            "todos": [TodoItem(id=1, name="Test", status="done", timestamp="2025-11-12T10:00:00Z")],
+        })
+        updateOperationHistory(op_with_feedback, feedback_session_id=str(uuid4()), feedback_status="collected")
+
+        # Create operation without feedback (must call updateOperationHistory to store in history)
+        registerOperation(op_without_feedback, {
+            "operation_type": "qa",
+            "start_time": "2025-11-12T11:00:00Z",
+            "end_time": "2025-11-12T11:15:00Z",
+            "status": "completed",
+            "todos": [TodoItem(id=1, name="Test", status="done", timestamp="2025-11-12T11:00:00Z")],
+        })
+        OperationHistory.update(op_without_feedback, status="completed")  # Store in history without feedback
+
+        # Act
+        linked_ops = OperationHistory.query(feedback_linked=True)
+        unlinked_ops = OperationHistory.query(feedback_linked=False)
+
+        # Assert
+        linked_ids = [op["operation_id"] for op in linked_ops]
+        unlinked_ids = [op["operation_id"] for op in unlinked_ops]
+
+        assert op_with_feedback in linked_ids
+        assert op_with_feedback not in unlinked_ids
+        assert op_without_feedback not in linked_ids
+        assert op_without_feedback in unlinked_ids
+
+    def test_history_query_with_status_filter(self):
+        """AC5: Query operations by status"""
+        # Arrange
+        completed_op = str(uuid4())
+        failed_op = str(uuid4())
+
+        # Use OperationHistory.update() for status field
+        OperationHistory.update(completed_op, status="completed")
+        OperationHistory.update(failed_op, status="failed")
+
+        # Act
+        completed_results = OperationHistory.query(status="completed")
+        failed_results = OperationHistory.query(status="failed")
+
+        # Assert
+        completed_ids = [op["operation_id"] for op in completed_results]
+        failed_ids = [op["operation_id"] for op in failed_results]
+
+        assert completed_op in completed_ids
+        assert completed_op not in failed_ids
+        assert failed_op in failed_ids
+        assert failed_op not in completed_ids
+
+    def test_history_query_with_combined_filters(self):
+        """AC5: Query with multiple filters (feedback_linked + status)"""
+        # Arrange
+        completed_with_feedback = str(uuid4())
+        failed_with_feedback = str(uuid4())
+        completed_no_feedback = str(uuid4())
+
+        # Use OperationHistory.update() for combined fields
+        OperationHistory.update(completed_with_feedback, feedback_session_id=str(uuid4()), status="completed")
+        OperationHistory.update(failed_with_feedback, feedback_session_id=str(uuid4()), status="failed")
+        OperationHistory.update(completed_no_feedback, status="completed")
+
+        # Act
+        results = OperationHistory.query(feedback_linked=True, status="completed")
+
+        # Assert - should only return completed operations with feedback
+        result_ids = [op["operation_id"] for op in results]
+        assert completed_with_feedback in result_ids
+        assert failed_with_feedback not in result_ids  # Has feedback but wrong status
+        assert completed_no_feedback not in result_ids  # Right status but no feedback
 
 
 class TestGracefulHandlingIncompleteContext:
