@@ -50,7 +50,7 @@ class OperationHistory:
         for op_id, history in cls._storage.items():
             match = True
             if "feedback_linked" in filters:
-                has_feedback = "feedback_session_id" in history and history["feedback_session_id"]
+                has_feedback = "feedback_session_id" in history and bool(history["feedback_session_id"])
                 if filters["feedback_linked"] != has_feedback:
                     match = False
             if "status" in filters:
