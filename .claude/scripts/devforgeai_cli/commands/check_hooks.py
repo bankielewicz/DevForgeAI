@@ -28,7 +28,7 @@ EXIT_CODE_TRIGGER = 0
 EXIT_CODE_DONT_TRIGGER = 1
 EXIT_CODE_ERROR = 2
 
-# Configure logger
+# Configure logger - uses logger hierarchy for DevForgeAI CLI context
 logger = logging.getLogger("devforgeai_cli.commands.check_hooks")
 
 
@@ -52,6 +52,22 @@ class CheckHooksValidator:
         self.global_rules = self.config.get("global_rules") or {}
         self.operations = self.config.get("operations") or {}
 
+    def _is_valid_enum(self, value: str, allowed_set: set, field_name: str) -> bool:
+        """
+        Validate that value is in allowed set of enum values.
+
+        Helper method to reduce duplication in enum validation.
+
+        Args:
+            value: Value to validate
+            allowed_set: Set of allowed enum values
+            field_name: Name of field being validated (for error messages)
+
+        Returns:
+            True if valid, False otherwise
+        """
+        return value in allowed_set
+
     def validate_status(self, status: str) -> bool:
         """
         Validate that status is one of the allowed values.
@@ -62,7 +78,7 @@ class CheckHooksValidator:
         Returns:
             True if valid, False otherwise
         """
-        return status in self.VALID_STATUSES
+        return self._is_valid_enum(status, self.VALID_STATUSES, "status")
 
     def validate_trigger_on(self, trigger_on: str) -> bool:
         """
@@ -74,7 +90,7 @@ class CheckHooksValidator:
         Returns:
             True if valid, False otherwise
         """
-        return trigger_on in self.VALID_TRIGGER_ON
+        return self._is_valid_enum(trigger_on, self.VALID_TRIGGER_ON, "trigger_on")
 
     def validate(self) -> None:
         """
@@ -183,13 +199,29 @@ def load_config(config_path: Optional[str] = None) -> Optional[Dict[str, Any]]:
 
         return config
 
-    except yaml.YAMLError as e:
-        logger.error(f"Failed to parse hooks config: {e}")
+    except Exception as e:
+        # Consolidated exception handling for YAML parsing, file I/O, and unexpected errors
+        logger.error(f"Failed to load hooks config from {config_path}: {e}")
         return None
 
-    except Exception as e:
-        logger.error(f"Error loading hooks config: {e}")
+
+def _validate_required_string_arg(arg_value: Any, arg_name: str) -> Optional[str]:
+    """
+    Validate that argument is a non-empty string.
+
+    Helper to reduce duplication in argument validation.
+
+    Args:
+        arg_value: Argument value to validate
+        arg_name: Name of argument for error messages
+
+    Returns:
+        Stripped string if valid, None if invalid
+    """
+    if not arg_value or not isinstance(arg_value, str) or not arg_value.strip():
+        logger.error(f"Invalid {arg_name}: {arg_name} is required and must be non-empty")
         return None
+    return arg_value.strip()
 
 
 def check_hooks_command(
@@ -218,17 +250,15 @@ def check_hooks_command(
         logger.warning("Circular invocation detected (DEVFORGEAI_HOOK_ACTIVE set), skipping hook")
         return EXIT_CODE_DONT_TRIGGER
 
-    # AC6: Validate arguments
-    if not operation or not isinstance(operation, str) or not operation.strip():
-        logger.error("Invalid operation: operation is required and must be non-empty")
+    # AC6: Validate arguments - operation must be non-empty string
+    operation = _validate_required_string_arg(operation, "operation")
+    if operation is None:
         return EXIT_CODE_ERROR
 
-    if not status or not isinstance(status, str) or not status.strip():
-        logger.error("Invalid status: status is required and must be non-empty")
+    # AC6: Validate arguments - status must be non-empty string
+    status = _validate_required_string_arg(status, "status")
+    if status is None:
         return EXIT_CODE_ERROR
-
-    operation = operation.strip()
-    status = status.strip()
 
     # Validate status against allowed values
     if status not in CheckHooksValidator.VALID_STATUSES:
@@ -264,8 +294,13 @@ def check_hooks_command(
         return EXIT_CODE_DONT_TRIGGER
 
 
-def main():
-    """CLI entry point for check-hooks command."""
+def _create_argument_parser() -> "argparse.ArgumentParser":
+    """
+    Create and configure argument parser for check-hooks command.
+
+    Returns:
+        Configured ArgumentParser instance
+    """
     import argparse
 
     parser = argparse.ArgumentParser(
@@ -292,6 +327,12 @@ def main():
         help="Path to hooks.yaml config file (default: .devforgeai/config/hooks.yaml)",
     )
 
+    return parser
+
+
+def main():
+    """CLI entry point for check-hooks command."""
+    parser = _create_argument_parser()
     args = parser.parse_args()
 
     exit_code = check_hooks_command(
