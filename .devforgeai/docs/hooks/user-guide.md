@@ -1,8 +1,29 @@
-# User Guide: How to Enable/Disable Hooks for /dev
+# User Guide: Phase 6 Hook Integration Design for /dev Command
 
-## Enabling Hooks
+**Status:** DESIGN DOCUMENTATION ONLY - Not yet implemented in executable code
+**Story:** STORY-023 (Design phase complete, implementation pending)
 
-**Default Configuration** (`.devforgeai/config/hooks.yaml`):
+---
+
+## Current Implementation Status
+
+**What exists:**
+- ✅ Design documentation in `.claude/commands/dev.md` (Phase 2.3)
+- ✅ Integration test suite (23 tests) - tests the design pattern
+- ✅ CLI tools available: `devforgeai check-hooks`, `devforgeai invoke-hooks`
+
+**What does NOT exist yet:**
+- ❌ Actual executable Phase 6 code in devforgeai-development skill
+- ❌ Live hook triggering when running `/dev` command
+- ❌ Configuration file `.devforgeai/config/hooks.yaml` (will be created during implementation)
+
+**Next step:** Actual implementation in devforgeai-development skill
+
+---
+
+## Planned Configuration (Design)
+
+**When implemented, configuration will be** (`.devforgeai/config/hooks.yaml`):
 ```yaml
 hooks:
   enabled: true           # Master switch for all hooks
@@ -14,67 +35,40 @@ hooks:
       on_failure: false   # Don't trigger on failure
 ```
 
-**To enable feedback hooks for /dev:**
-1. Ensure `.devforgeai/config/hooks.yaml` has `hooks.enabled: true`
-2. Set `hooks.operations.dev.enabled: true`
-3. Configure trigger conditions:
-   - `on_success: true` - Feedback after successful /dev completion
-   - `on_failure: true` - Feedback after /dev failure
-4. Run `/dev STORY-ID` - feedback will trigger automatically if configured
+**Planned behavior:**
+1. When `.devforgeai/config/hooks.yaml` has `hooks.enabled: true`
+2. And `hooks.operations.dev.enabled: true`
+3. And trigger conditions match (on_success or on_failure)
+4. Then `/dev STORY-ID` will trigger feedback conversation automatically
 
-## Disabling Hooks
+## Planned Disable Options (Design)
 
-**Option 1: Disable all hooks globally**
-```yaml
-hooks:
-  enabled: false    # Master switch OFF
-```
+**These are planned configurations for when Phase 6 is implemented:**
 
-**Option 2: Disable only /dev hooks**
-```yaml
-hooks:
-  enabled: true
-  operations:
-    dev:
-      enabled: false    # /dev hooks OFF, other commands unaffected
-```
+**Option 1:** Disable all hooks globally (not yet testable)
+**Option 2:** Disable only /dev hooks (not yet testable)
+**Option 3:** Use failures-only mode (not yet testable)
+**Option 4:** Skip tracking auto-disable (not yet testable)
 
-**Option 3: Use failures-only mode**
-```yaml
-hooks:
-  mode: "failures_only"    # Only trigger on failures
-  operations:
-    dev:
-      on_success: false    # Skip feedback on success
-      on_failure: true     # Feedback only when /dev fails
-```
+## Actual Current State
 
-**Option 4: Use skip tracking to auto-disable**
-- Skip feedback 3 times in a row
-- System will prompt: "You've skipped 3 times - disable hooks?"
-- Select "Yes" to automatically update config to `enabled: false`
+**What you can do NOW:**
+- Test the CLI tools directly:
+  ```bash
+  devforgeai check-hooks --operation=dev --status=completed
+  devforgeai invoke-hooks --operation=dev --story=STORY-023
+  ```
 
-## Configuration Reference
+**What you CANNOT do yet:**
+- Hooks don't automatically trigger from `/dev` command
+- Configuration file doesn't affect `/dev` behavior yet
+- Skip tracking not active in live `/dev` runs
 
-**File:** `.devforgeai/config/hooks.yaml`
+## Design Reference
 
-**Key Settings:**
-- `hooks.enabled` - Master switch (true/false)
-- `hooks.mode` - Global mode ("all", "failures_only", "none")
-- `hooks.operations.dev.enabled` - /dev-specific switch
-- `hooks.operations.dev.on_success` - Trigger on success
-- `hooks.operations.dev.on_failure` - Trigger on failure
-- `hooks.operations.dev.skip_tracking.enabled` - Enable skip tracking
-- `hooks.operations.dev.skip_tracking.threshold` - Skip count before disable prompt (default: 3)
-
-**To verify configuration:**
-```bash
-# Check if hooks enabled for /dev
-devforgeai check-hooks --operation=dev --status=completed
-
-# Exit code 0 = hooks will trigger
-# Exit code 1 = hooks will skip
-```
+For the complete planned design, see:
+- `.claude/commands/dev.md` (Phase 2.3) - Shows intended Phase 6 code
+- Test suite validates the design pattern will work when implemented
 
 ---
 
