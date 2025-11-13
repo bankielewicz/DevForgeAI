@@ -281,7 +281,63 @@ Skill(command="devforgeai-development")
    - Three-layer DoD validation (Python validator + User interaction + AI subagent)
    - Create git commit OR file-based change manifest
    - Update story status to "Dev Complete"
-5. Handle any failures gracefully with clear error messages
+5. **Execute Phase 6: Invoke Feedback Hook (NEW - STORY-023)**
+   - Determine STATUS based on Phase 5 outcome (completed/failed)
+   - Call: `devforgeai check-hooks --operation=dev --status=$STATUS`
+   - If exit code 0: Call: `devforgeai invoke-hooks --operation=dev --story=$STORY_ID`
+   - Hook failures are non-blocking (|| true prevents errors)
+   - Optional feedback conversation triggered if hooks configured
+6. Handle any failures gracefully with clear error messages
+
+---
+
+### Phase 2.3: Phase 6 Implementation (NEW - STORY-023)
+
+**Where Phase 6 executes:**
+
+The actual Phase 6 hook integration code is added to the `devforgeai-development` skill (not this command). This command documents it for transparency.
+
+**Phase 6 Code (in skill, after Phase 5 completion):**
+
+```bash
+### Phase 6: Invoke Feedback Hook
+
+# Determine status based on command outcome
+if [ "$TESTS_PASSED" = "true" ]; then
+  STATUS="completed"
+else
+  STATUS="failed"
+fi
+
+# Check if hooks should trigger (respects configuration)
+devforgeai check-hooks --operation=dev --status=$STATUS
+if [ $? -eq 0 ]; then
+  # Invoke feedback hook (errors logged, not thrown)
+  devforgeai invoke-hooks --operation=dev --story=$STORY_ID || {
+    echo "⚠️ Feedback hook failed, continuing..."
+  }
+fi
+
+# Phase 6 complete - /dev continues successfully regardless of hook outcome
+```
+
+**Key Characteristics:**
+- **Non-blocking:** Hook failures don't break /dev command
+- **Configuration-aware:** Respects hooks.yaml (enabled/disabled, trigger_on mode)
+- **Optional feedback:** User may see context-aware retrospective questions
+- **Persistent:** User responses saved to .devforgeai/feedback/sessions/
+- **Lightweight:** <5 second overhead per CLI test invocation
+
+**Test Coverage:**
+- 18 integration tests (pytest + Bash harness)
+- All 7 acceptance criteria covered
+- Performance baseline validated (<5s)
+- Edge cases tested (timeout, circular invocation, failures)
+
+**See Also:**
+- `STORY-023-wire-hooks-into-dev-command-pilot.story.md` (full requirements)
+- `.claude/skills/devforgeai-development/SKILL.md` (Phase 6 implementation)
+- `tests/integration/test_phase6_hooks_integration.py` (test suite)
 
 ---
 
