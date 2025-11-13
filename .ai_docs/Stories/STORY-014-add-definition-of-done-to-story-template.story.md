@@ -495,12 +495,12 @@ test_full_update_workflow() {
 ## Definition of Done
 
 ### Implementation
-- [ ] Template file updated with DoD section (4 subsections: Implementation, Quality, Testing, Documentation)
-- [ ] DoD section appears after Test Strategy section in template
-- [ ] STORY-027 updated with story-specific DoD criteria (hook integration for /create-story)
-- [ ] STORY-028 updated with story-specific DoD criteria (hook integration for /create-epic)
-- [ ] STORY-029 updated with story-specific DoD criteria (hook integration for /create-sprint)
-- [ ] All 4 files committed to Git with descriptive commit message
+- [x] Template file updated with DoD section (4 subsections: Implementation, Quality, Testing, Documentation)
+- [x] DoD section appears after Test Strategy section in template
+- [x] STORY-027 updated with story-specific DoD criteria (hook integration for /create-story)
+- [x] STORY-028 updated with story-specific DoD criteria (hook integration for /create-epic)
+- [x] STORY-029 updated with story-specific DoD criteria (hook integration for /create-sprint)
+- [x] All 4 files committed to Git with descriptive commit message
 
 ### Quality
 - [ ] All 7 acceptance criteria have passing tests
@@ -527,13 +527,39 @@ test_full_update_workflow() {
 
 ## Implementation Notes
 
-**This story implements Definition of Done section framework for all stories. See Design Decisions section for rationale.**
+### Core Implementation
+- [x] Template file updated with DoD section (4 subsections: Implementation, Quality, Testing, Documentation) - Completed: Updated `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md` with DoD section after Test Strategy section (commit 423c271)
+- [x] DoD section appears after Test Strategy section in template - Completed: Verified placement between Test Strategy and Workflow Status sections, matches reference stories STORY-007-013 structure
+- [x] STORY-027 updated with story-specific DoD criteria (hook integration for /create-story) - Completed: Added 4-subsection DoD tailored to hook integration architecture with graceful degradation patterns
+- [x] STORY-028 updated with story-specific DoD criteria (hook integration for /create-epic) - Completed: Added 4-subsection DoD focused on orchestration skill integration and epic-specific context
+- [x] STORY-029 updated with story-specific DoD criteria (hook integration for /create-sprint) - Completed: Added 4-subsection DoD emphasizing sprint context assembly and non-blocking hook integration
+- [x] All 4 files committed to Git with descriptive commit message - Completed: Git commits 423c271 (feat) and 7f1f4ca (status update)
 
-**Completion Pattern:**
-For new stories created with updated template, the DoD section will be auto-populated with task template items that users customize per story scope. Each story's Implementation Notes documents actual completion of DoD items.
+### Quality Assurance
+- [ ] All 7 acceptance criteria have passing tests - Deferred to STORY-015: Comprehensive testing deferred to dedicated testing story (see ADR-007)
+- [ ] Edge cases covered (template variables preserved, YAML frontmatter intact, section ordering correct) - Deferred to STORY-015: Edge case testing (template variable preservation, YAML integrity)
+- [ ] Data validation enforced (DoD section format, checkbox format, subsection headers) - Deferred to STORY-015: Format validation testing
+- [ ] NFRs met (template update <5s, story updates <30s, validation passes) - Deferred to STORY-015: Performance testing
+- [ ] Code coverage >95% for file edit operations - Deferred to STORY-015: Coverage measurement and gap analysis
 
-**Reference Pattern:**
-See STORY-007 through STORY-013 for examples of completed DoD sections with corresponding Implementation Notes documenting each completed item.
+### Testing
+- [ ] Unit tests for template DoD section insertion - Deferred to STORY-015: Unit testing (8 test scenarios)
+- [ ] Unit tests for story DoD section insertion (x3 stories) - Deferred to STORY-015: Story update unit tests
+- [ ] Unit tests for YAML frontmatter preservation validation - Deferred to STORY-015: YAML validation tests
+- [ ] Unit tests for section ordering validation - Deferred to STORY-015: Section order validation tests
+- [ ] Integration test: Full update workflow (template + 3 stories + validation) - Deferred to STORY-015: End-to-end integration test
+- [ ] Integration test: Template structure matches STORY-007 reference - Deferred to STORY-015: Reference comparison test
+- [ ] E2E test: Future story created from updated template includes DoD section - Deferred to STORY-015: Template usage validation
+- [ ] Validation test: validate_deferrals.py passes for all 3 updated stories - Deferred to STORY-015: Validator integration test
+
+### Documentation
+- [ ] Template includes comment explaining DoD section purpose - Deferred to STORY-015: Template documentation enhancement
+- [ ] This story (STORY-014) documents template update rationale - Completed: Design Decisions section documents rationale
+- [ ] Validation script documentation references DoD section structure requirements - Deferred to STORY-015: Validator documentation update
+- [ ] Framework maintainer guide updated (if applicable) - Deferred to STORY-015: Maintainer guide update
+
+**Deferral Justification:**
+Testing and documentation deferred per ADR-007: "Defer STORY-014 Testing to Dedicated Story". Rationale: Template modification is low-risk change (file edits only, no business logic), manual verification confirms correctness, comprehensive testing better suited for dedicated testing sprint. User approved deferral: 2025-11-13 via QA fast-path resolution.
 
 ## Notes
 
