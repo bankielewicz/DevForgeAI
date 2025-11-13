@@ -16,7 +16,7 @@ Execute full Test-Driven Development cycle for a user story.
 **Story File:** @.ai_docs/Stories/$1.story.md
 
 **Note:** The `devforgeai-development` skill handles all implementation logic including:
-- Git validation and workflow adaptation
+- Git validation and workflow adaptation (with user consent for operations affecting >10 files - RCA-008)
 - Technology detection and validation
 - Context file validation
 - Complete TDD cycle (Red → Green → Refactor)
@@ -24,15 +24,91 @@ Execute full Test-Driven Development cycle for a user story.
 - QA failure recovery
 - Git commits and story updates
 
-This command is a **thin orchestration layer** that delegates to the skill.
+This command is a **thin orchestration layer** that:
+- Phase 0: Shows pre-flight checklist and gets user confirmation
+- Phase 1-2: Validates arguments and invokes skill
+- Phase 3-4: Verifies completion and reports results
+
+**RCA-008 Safeguards:** User consent required before any git operation that hides/modifies files. See Critical Rule #11 in CLAUDE.md.
 
 ---
 
 ## Workflow
 
-### Phase 0: Argument Validation
+### Phase 0: Pre-Flight Checklist (RCA-008)
 
-#### Step 0.1: Validate Story ID Format
+**Display brief checklist and get user confirmation before proceeding.**
+
+```
+Display: ""
+Display: "📋 Pre-Flight Checklist for /dev $1"
+Display: ""
+Display: "Prerequisites to be checked:"
+Display: "  • Git repository status"
+Display: "  • Context files (.devforgeai/context/)"
+Display: "  • Story file existence"
+Display: "  • Working tree cleanliness"
+Display: ""
+Display: "⚠️  Important: If uncommitted changes detected, you'll be asked"
+Display: "    how to handle them (commit, stash, or continue)."
+Display: ""
+Display: "All files stay visible unless you explicitly choose to stash."
+Display: ""
+
+AskUserQuestion(
+    questions=[{
+        question: "Ready to proceed with development workflow?",
+        header: "Start Dev",
+        multiSelect: false,
+        options: [
+            {
+                label: "Yes, proceed",
+                description: "Start TDD workflow. I'll be asked about uncommitted changes if any exist."
+            },
+            {
+                label: "Show git status first",
+                description: "Review uncommitted changes before deciding."
+            },
+            {
+                label: "Cancel",
+                description: "Exit. I'll prepare manually before re-running /dev."
+            }
+        ]
+    }]
+)
+
+IF user selects "Show git status first":
+    Display: ""
+    Bash(command="git status", description="Show git status")
+    Display: ""
+
+    # Ask again
+    AskUserQuestion(
+        questions=[{
+            question: "Proceed with /dev $1?",
+            header: "Start Dev",
+            options: [
+                {label: "Yes, proceed", description: "Start workflow."},
+                {label: "Cancel", description: "Exit and prepare manually."}
+            ]
+        }]
+    )
+
+IF user selects "Cancel":
+    Display: "Development cancelled."
+    HALT execution
+    Exit command
+
+# Otherwise continue to Phase 1
+Display: "✅ Proceeding to argument validation..."
+Display: ""
+```
+
+---
+
+### Phase 1: Argument Validation
+
+#### Step 1.1: Validate Story ID Format
 
 **Extract story ID from argument:**
 ```
@@ -62,7 +138,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 ---
 
-#### Step 0.2: Validate Story File Exists
+#### Step 1.2: Validate Story File Exists
 
 **Check if story file exists:**
 ```
@@ -107,7 +183,7 @@ ELSE:
 
 ---
 
-#### Step 0.3: Validate Story Status
+#### Step 1.3: Validate Story Status
 
 **Read story file to check status:**
 ```
@@ -152,9 +228,9 @@ ELSE:
 
 ---
 
-### Phase 1: Set Context and Invoke Skill
+### Phase 2: Set Context and Invoke Skill
 
-#### Step 1.1: Set Context Markers
+#### Step 2.1: Set Context Markers
 
 **Provide context for skill (Skills extract info from conversation):**
 
@@ -174,7 +250,7 @@ Display: ""
 
 ---
 
-#### Step 1.2: Invoke Development Skill
+#### Step 2.2: Invoke Development Skill
 
 **Invoke skill and execute its expanded instructions:**
 
@@ -209,11 +285,11 @@ Skill(command="devforgeai-development")
 
 ---
 
-### Phase 2: Verify Completion
+### Phase 3: Verify Completion
 
 **After skill completes, verify results:**
 
-#### Step 2.1: Check Story Status Updated
+#### Step 3.1: Check Story Status Updated
 
 ```
 Read(file_path="{STORY_FILE}")
@@ -249,7 +325,7 @@ ELSE:
 
 ---
 
-#### Step 2.2: Verify Tests Passing (Optional Check)
+#### Step 3.2: Verify Tests Passing (Optional Check)
 
 **This step is optional - the skill already validated tests.**
 
@@ -280,7 +356,7 @@ ELSE:
 
 ---
 
-### Phase 3: Report Results
+### Phase 4: Report Results
 
 #### Success Report
 

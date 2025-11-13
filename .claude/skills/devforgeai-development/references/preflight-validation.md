@@ -107,6 +107,421 @@ $CAN_COMMIT = CAN_COMMIT
 
 ---
 
+## Step 0.1.5: User Consent for Git State Changes (RCA-008)
+
+**CRITICAL: This step prevents autonomous file hiding (RCA-008 incident - 2025-11-13).**
+
+**When to execute:** After git-validator returns results from Step 0.1
+
+**Trigger condition:**
+- `uncommitted_changes > 10` OR
+- `untracked_files > 0` (if git-validator provides this data)
+
+**Purpose:** Obtain explicit user consent before any git operation that would hide/modify files, preventing the autonomous stashing incident where 21 story files were hidden without user knowledge.
+
+**Implementation:**
+
+```
+IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
+   (git_validator_result["file_analysis"] AND git_validator_result["file_analysis"]["untracked_files"] > 0):
+
+    # Extract counts from git-validator result
+    total_changes = git_validator_result["git_status"]["uncommitted_changes"]
+
+    # If git-validator provides file_analysis (Phase 2 enhancement), use it
+    IF git_validator_result["file_analysis"] exists:
+        untracked_count = git_validator_result["file_analysis"]["untracked_files"]
+        modified_count = git_validator_result["file_analysis"]["modified_files"]
+        file_breakdown = git_validator_result["file_analysis"]["file_breakdown"]
+    ELSE:
+        # Fallback: Calculate ourselves
+        untracked_count = count uncommitted files marked "??" in git status
+        modified_count = total_changes - untracked_count
+        file_breakdown = null
+
+    # Display status summary box
+    Display: ""
+    Display: "╔═══════════════════════════════════════════════════════════════╗"
+    Display: "║  ⚠️  UNCOMMITTED CHANGES DETECTED                             ║"
+    Display: "╠═══════════════════════════════════════════════════════════════╣"
+    Display: "║                                                               ║"
+    Display: "║  Total files: {total_changes}                                ║"
+
+    IF untracked_count > 0 AND modified_count > 0:
+        Display: "║    • {modified_count} modified files (tracked by git)        ║"
+        Display: "║    • {untracked_count} untracked files (new, not in git)     ║"
+    ELIF untracked_count > 0:
+        Display: "║    • {untracked_count} untracked files (new, not in git)     ║"
+    ELSE:
+        Display: "║    • {modified_count} modified files                         ║"
+
+    # Display file breakdown if available (Phase 2 enhancement)
+    IF file_breakdown exists AND file_breakdown is not empty:
+        Display: "║                                                               ║"
+        Display: "║  Breakdown:                                                   ║"
+
+        IF file_breakdown["story_files"] > 0:
+            Display: "║    • {file_breakdown.story_files} story files (.story.md)    ║"
+            Display: "║      ⚠️  User-created content - should not be hidden         ║"
+
+        IF file_breakdown["python_cache"] > 0:
+            Display: "║    • {file_breakdown.python_cache} Python cache files        ║"
+
+        IF file_breakdown["config_files"] > 0:
+            Display: "║    • {file_breakdown.config_files} config files              ║"
+
+        IF file_breakdown["documentation"] > 0:
+            Display: "║    • {file_breakdown.documentation} documentation files      ║"
+
+        IF file_breakdown["code"] > 0:
+            Display: "║    • {file_breakdown.code} code files                        ║"
+
+        IF file_breakdown["other"] > 0:
+            Display: "║    • {file_breakdown.other} other files                      ║"
+
+    Display: "║                                                               ║"
+    Display: "║  The development workflow can proceed in multiple ways:       ║"
+    Display: "║                                                               ║"
+    Display: "╚═══════════════════════════════════════════════════════════════╝"
+    Display: ""
+
+    # Ask user for strategy
+    AskUserQuestion(
+        questions=[{
+            question: "How should we handle these uncommitted changes?",
+            header: "Git Strategy",
+            multiSelect: false,
+            options: [
+                {
+                    label: "Continue anyway (safe - file-based tracking)",
+                    description: "Proceed without touching git. Framework uses file-based change tracking in .devforgeai/stories/{STORY-ID}/changes/. All your files stay visible."
+                },
+                {
+                    label: "Stash ONLY modified files, keep untracked visible ⭐ Recommended",
+                    description: "Hide {modified_count} modified (tracked) files in stash, but keep {untracked_count} untracked files visible. Best of both worlds - clean tracked files, preserve new content."
+                },
+                {
+                    label: "Show me the files first",
+                    description: "Display list of all {total_changes} files so I can review what would be affected. I'll be asked again after seeing the list."
+                },
+                {
+                    label: "Commit my changes first",
+                    description: "Pause development. I'll commit these changes manually, then re-run /dev {STORY-ID}."
+                },
+                {
+                    label: "Stash ALL files (modified + untracked) - Advanced",
+                    description: "⚠️ Hide ALL {total_changes} files including {untracked_count} untracked. Requires 'git stash pop' to restore. Use with caution."
+                }
+            ]
+        }]
+    )
+
+    # Handle user response
+    SWITCH user_response_answers["Git Strategy"]:
+
+        CASE "Continue anyway (safe - file-based tracking)":
+            SET workflow_mode = "file-based"
+            Display: "✅ Proceeding with file-based tracking. Your files remain visible."
+            Display: "   Changes will be tracked in .devforgeai/stories/{STORY-ID}/changes/"
+            Display: ""
+            # Continue to Step 0.2 (adapt workflow)
+
+        CASE "Stash ONLY modified files, keep untracked visible ⭐ Recommended":
+            Display: ""
+            Display: "Stashing {modified_count} modified files (keeping {untracked_count} untracked files visible)..."
+            Display: ""
+
+            # Use git stash WITHOUT --include-untracked flag
+            # This is the KEY: default git stash behavior preserves untracked files
+            Bash(
+                command="git stash push -m 'WIP: Modified files only (by /dev {STORY-ID} at $(date +%Y-%m-%d_%H:%M:%S))'",
+                description="Stash modified files only, preserve untracked"
+            )
+
+            # Verify untracked files still visible
+            Bash(command="git status --short | grep '^??' | wc -l || echo '0'", description="Count remaining untracked files")
+            remaining_untracked = result
+
+            Display: ""
+            Display: "✅ Stashed {modified_count} modified files to stash@{0}"
+            Display: "✅ {remaining_untracked} untracked files remain visible"
+
+            IF file_breakdown AND file_breakdown["story_files"] > 0:
+                Display: "   (includes {file_breakdown.story_files} story files)"
+
+            Display: ""
+            Display: "To restore modified files later:"
+            Display: "  git stash pop"
+            Display: ""
+
+            SET workflow_mode = "git"
+            # Continue to Step 0.2
+
+        CASE "Show me the files first":
+            Display: ""
+            Display: "Files that would be affected by git operations:"
+            Display: ""
+            Bash(command="git status --short", description="Show uncommitted files")
+            Display: ""
+            Display: "File status codes:"
+            Display: "  M  = Modified (tracked files with changes)"
+            Display: "  ?? = Untracked (new files not yet in git)"
+            Display: "  D  = Deleted"
+            Display: "  A  = Added (staged for commit)"
+            Display: ""
+
+            # Re-ask the question with file context now visible
+            AskUserQuestion(
+                questions=[{
+                    question: "Now that you've seen the files, how should we proceed?",
+                    header: "Git Strategy",
+                    multiSelect: false,
+                    options: [
+                        {
+                            label: "Continue anyway (safe - file-based tracking)",
+                            description: "Proceed without touching git. All {total_changes} files stay visible."
+                        },
+                        {
+                            label: "Stash ONLY modified files, keep untracked visible ⭐ Recommended",
+                            description: "Hide modified files, keep untracked files visible. Preserves story files and new content."
+                        },
+                        {
+                            label: "Commit my changes first",
+                            description: "Pause development. I'll commit these changes manually."
+                        },
+                        {
+                            label: "Stash ALL files (modified + untracked) - Advanced",
+                            description: "⚠️ Hide ALL files temporarily. Requires 'git stash pop' to restore."
+                        }
+                    ]
+                }]
+            )
+            # Handle response recursively (will hit one of the other cases)
+
+        CASE "Commit my changes first":
+            Display: ""
+            Display: "╔═══════════════════════════════════════════════════════════════╗"
+            Display: "║  📝 RECOMMENDED WORKFLOW                                      ║"
+            Display: "╠═══════════════════════════════════════════════════════════════╣"
+            Display: "║                                                               ║"
+            Display: "║  1. Review your changes:                                      ║"
+            Display: "║     git status                                                ║"
+            Display: "║     git diff                                                  ║"
+            Display: "║                                                               ║"
+            Display: "║  2. Stage all changes:                                        ║"
+            Display: "║     git add .                                                 ║"
+            Display: "║                                                               ║"
+            Display: "║  3. Commit with descriptive message:                          ║"
+            Display: "║     git commit -m \"WIP: Checkpoint before {STORY-ID}\"       ║"
+            Display: "║                                                               ║"
+            Display: "║  4. Re-run development:                                       ║"
+            Display: "║     /dev {STORY-ID}                                           ║"
+            Display: "║                                                               ║"
+            Display: "╚═══════════════════════════════════════════════════════════════╝"
+            Display: ""
+            HALT execution with message: "Development paused. Commit changes and re-run /dev {STORY-ID}."
+            Exit workflow
+
+        CASE "Stash ALL files (modified + untracked) - Advanced":
+            # Delegate to Step 0.1.6 (Stash Warning Workflow)
+            # This is implemented in Story 1.2
+            Display: ""
+            Display: "Proceeding to stash warning workflow..."
+            Display: ""
+            # GOTO Step 0.1.6 (will be added in Story 1.2)
+            INVOKE: Step 0.1.6 (Stash Warning and Confirmation)
+
+ELSE:
+    # No uncommitted changes, or below threshold
+    Display: "✓ Working tree: Clean (or below threshold)"
+    # Continue to Step 0.2
+```
+
+**Success Criteria:**
+- User ALWAYS prompted when uncommitted_changes > 10 or untracked_files > 0
+- User can see file list before deciding (via "Show me files first" option)
+- "Continue anyway" option preserves all files via file-based tracking
+- "Commit first" provides clear instructions and HALTS workflow
+- "Stash" delegates to Step 0.1.6 warning workflow (implemented in Story 1.2)
+- No files ever hidden without explicit user confirmation
+
+**Token cost:** ~1,500 tokens (includes AskUserQuestion and display logic)
+
+**Rationale:** RCA-008 incident (2025-11-13) occurred when AI agent autonomously ran `git stash --include-untracked` without user consent, hiding 21 user-created story files. This checkpoint ensures user always knows what will happen before any git operation executes.
+
+---
+
+## Step 0.1.6: Stash Warning and Confirmation (RCA-008)
+
+**When to execute:** User selected "Stash changes (advanced)" in Step 0.1.5
+
+**Purpose:** Provide clear warning about file visibility consequences before stashing untracked files
+
+**Implementation:**
+
+```
+# Called from Step 0.1.5 when user selects "Stash changes (advanced)"
+
+# Get file counts from git-validator result (or calculate)
+total_files = git_validator_result["git_status"]["uncommitted_changes"]
+
+IF git_validator_result["file_analysis"] exists:
+    untracked_count = git_validator_result["file_analysis"]["untracked_files"]
+    modified_count = git_validator_result["file_analysis"]["modified_files"]
+ELSE:
+    # Fallback: Count ourselves
+    Bash(command="git status --short | grep '^??' | wc -l", description="Count untracked files")
+    untracked_count = result
+    modified_count = total_files - untracked_count
+
+# Show detailed file breakdown
+IF untracked_count > 0:
+    Display: ""
+    Display: "Preparing to show untracked files that would be stashed..."
+    Display: ""
+
+    # Show first 10 untracked files
+    Bash(command="git status --short | grep '^??' | head -10", description="Show untracked files")
+
+    IF untracked_count > 10:
+        Display: ""
+        Display: "... and {untracked_count - 10} more untracked files"
+        Display: ""
+
+    # Check for story files specifically
+    Bash(command="git status --short | grep '^??' | grep -c 'STORY-' || echo '0'", description="Count story files")
+    story_file_count = result
+
+    IF story_file_count > 0:
+        Display: ""
+        Display: "⚠️  {story_file_count} STORY files detected in untracked files:"
+        Display: ""
+        Bash(command="git status --short | grep '^??' | grep 'STORY-'", description="Show story files")
+        Display: ""
+
+# Display warning box
+Display: ""
+Display: "╔═══════════════════════════════════════════════════════════════╗"
+Display: "║  ⚠️  WARNING: STASHING {total_files} FILES                    ║"
+Display: "╠═══════════════════════════════════════════════════════════════╣"
+Display: "║                                                               ║"
+Display: "║  What 'git stash' does:                                       ║"
+Display: "║    • Temporarily HIDES files from your filesystem             ║"
+Display: "║    • Files are stored in git's stash storage                  ║"
+Display: "║    • They are NOT deleted (recoverable)                       ║"
+Display: "║    • They will NOT be visible until you restore them          ║"
+Display: "║                                                               ║"
+
+IF untracked_count > 0:
+    Display: "║  ⚠️  {untracked_count} UNTRACKED FILES WILL BE HIDDEN:        ║"
+    Display: "║    These are NEW files you created that aren't in git yet.    ║"
+    IF story_file_count > 0:
+        Display: "║    This includes {story_file_count} STORY files!              ║"
+    Display: "║                                                               ║"
+
+Display: "║  To recover stashed files later:                              ║"
+Display: "║    git stash pop        # Restores and removes from stash     ║"
+Display: "║    git stash apply      # Restores but keeps in stash         ║"
+Display: "║                                                               ║"
+Display: "║  To preview what's stashed:                                   ║"
+Display: "║    git stash show stash@{0} --name-only                      ║"
+Display: "║                                                               ║"
+Display: "╚═══════════════════════════════════════════════════════════════╝"
+Display: ""
+
+# Second confirmation required for safety
+AskUserQuestion(
+    questions=[{
+        question: "Are you SURE you want to stash {total_files} files (including {untracked_count} untracked)?",
+        header: "Confirm Stash",
+        multiSelect: false,
+        options: [
+            {
+                label: "Yes, stash them (I understand they'll be hidden)",
+                description: "Proceed with stashing. Files will be recoverable with 'git stash pop'."
+            },
+            {
+                label: "No, continue without stashing instead",
+                description: "Cancel stashing. Use file-based tracking instead. All files stay visible."
+            },
+            {
+                label: "No, let me commit them first",
+                description: "Cancel development. I'll commit these files properly before re-running /dev."
+            }
+        ]
+    }]
+)
+
+# Handle confirmation response
+SWITCH confirmation_response_answers["Confirm Stash"]:
+
+    CASE "Yes, stash them (I understand they'll be hidden)":
+        Display: "Executing git stash..."
+        Display: ""
+
+        # Execute stash with clear message
+        current_timestamp = current date/time
+        Bash(
+            command="git stash push -m 'WIP: Stashed by /dev {STORY-ID} at {current_timestamp}' --include-untracked",
+            description="Stash all changes including untracked files"
+        )
+
+        Display: ""
+        Display: "✅ Stashed {total_files} files to stash@{0}"
+        Display: ""
+        Display: "╔═══════════════════════════════════════════════════════════════╗"
+        Display: "║  📝 IMPORTANT: TO RESTORE YOUR FILES                          ║"
+        Display: "╠═══════════════════════════════════════════════════════════════╣"
+        Display: "║                                                               ║"
+        Display: "║  After this development session completes, run:               ║"
+        Display: "║                                                               ║"
+        Display: "║    git stash pop                                              ║"
+        Display: "║                                                               ║"
+        Display: "║  This will restore your {total_files} files.                 ║"
+        Display: "║                                                               ║"
+        Display: "╚═══════════════════════════════════════════════════════════════╝"
+        Display: ""
+
+        SET workflow_mode = "git"
+        RETURN workflow_mode to Step 0.1.5
+
+    CASE "No, continue without stashing instead":
+        Display: "✅ Cancelled stashing. Proceeding with file-based tracking."
+        Display: "   All {total_files} files remain visible."
+        Display: ""
+
+        SET workflow_mode = "file-based"
+        RETURN workflow_mode to Step 0.1.5
+
+    CASE "No, let me commit them first":
+        Display: "✅ Cancelled stashing. Development paused."
+        Display: ""
+        Display: "Please commit your changes:"
+        Display: "  git add ."
+        Display: "  git commit -m 'WIP: Checkpoint before {STORY-ID}'"
+        Display: ""
+        Display: "Then re-run: /dev {STORY-ID}"
+        Display: ""
+
+        HALT execution
+        Exit workflow
+```
+
+**Success Criteria:**
+- Warning box displays BEFORE stashing
+- User sees list of files that will be hidden (first 10 untracked shown)
+- Story files explicitly called out if present (with count)
+- Recovery commands shown before AND after stashing
+- Double confirmation required (Step 0.1.5 asks once, Step 0.1.6 confirms again)
+- User can cancel and choose file-based tracking instead (via "No, continue without stashing")
+- User can cancel and commit first (via "No, let me commit them first")
+
+**Token cost:** ~2,000 tokens (includes file listing, warning box, second AskUserQuestion)
+
+**Rationale:** The RCA-008 incident showed users don't understand git stash behavior with `--include-untracked`. This double-confirmation with clear warnings prevents accidental file hiding.
+
+---
+
 ## Step 0.2: Adapt TDD Workflow Based on Git Availability
 
 **Workflow adaptations apply throughout all phases:**

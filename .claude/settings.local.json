@@ -115,7 +115,22 @@
       "Bash(if grep -q \"The skill instructs you to\" .claude/commands/$cmd.md)",
       "Bash(then echo \"  ✅ ''Instructs you to'' pattern found\")",
       "Bash(else echo \"  ❌ Missing pattern\")",
-      "Bash(tests/test_feedback_persistence.py.tmp)"
+      "Bash(tests/test_feedback_persistence.py.tmp)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/src:$PYTHONPATH python3 -m pytest:*)",
+      "Bash(PYTHONPATH=src:$PYTHONPATH python3 -m pytest:*)",
+      "Bash(do echo \"=== $f ===\")",
+      "Bash(DEVFORGEAI_SKIP_TODO_VALIDATION=1 python3 -m pytest:*)",
+      "Bash(tee:*)",
+      "Bash(PYTHONPATH=src python3:*)",
+      "Bash(devforgeai feedback:*)",
+      "Bash(devforgeai feedback-config view:*)",
+      "Bash(devforgeai feedback-search:*)",
+      "Bash(devforgeai feedback-export-data:*)",
+      "Bash(devforgeai export-feedback:*)",
+      "Skill(devforgeai-story-creation)",
+      "Bash(file=\".ai_docs/Stories/STORY-0$i\"*.story.md)",
+      "Bash(__NEW_LINE__ if [ -f $file 2)",
+      "Bash(/dev/null ])"
     ],
     "deny": [],
     "ask": []

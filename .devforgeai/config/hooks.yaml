@@ -21,17 +21,17 @@ hooks:
     trigger_status: [success, partial]
     trigger_conditions:
       operation_duration_min_ms: 300000  # Only if >5 minutes
-      user_approval_required: false
+      user_approval_required: true       # PILOT: Ask user before triggering
     feedback_type: conversation
     feedback_config:
-      mode: "comprehensive"
+      mode: "focused"  # PILOT: Use focused mode (3-5 questions) instead of comprehensive
       questions:
         - "What challenges did you encounter during TDD?"
         - "Were acceptance criteria clear and testable?"
         - "Did you defer any DoD items? Why?"
     max_duration_ms: 5000
-    enabled: false  # Disabled by default - enable when ready
-    tags: [development, feedback, tdd]
+    enabled: true  # PILOT ENABLED (2025-11-12)
+    tags: [development, feedback, tdd, pilot]
 
   # Example 2: Post-QA Retrospective
   # Triggers after /qa command with deep validation
@@ -39,9 +39,10 @@ hooks:
     name: "Post-QA Retrospective"
     operation_type: command
     operation_pattern: "qa"
-    trigger_status: [success, failure]
+    trigger_status: [failure]  # PILOT: Failures only initially
     trigger_conditions:
       result_code: partial  # Only on partial success (with deferrals)
+      user_approval_required: true  # PILOT: Ask user before triggering
     feedback_type: conversation
     feedback_config:
       mode: "focused"
@@ -49,8 +50,8 @@ hooks:
         - "Were QA failures expected or surprising?"
         - "How can we prevent similar issues in future stories?"
     max_duration_ms: 5000
-    enabled: false
-    tags: [qa, feedback, quality]
+    enabled: true  # PILOT ENABLED (2025-11-12)
+    tags: [qa, feedback, quality, pilot]
 
   # Example 3: Post-Release Monitoring
   # Triggers after production releases
