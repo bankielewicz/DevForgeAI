@@ -3,7 +3,7 @@ id: STORY-014
 title: Add Definition of Done Section to Story Template
 epic: None
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 5
 priority: Medium
 assigned_to: Unassigned
