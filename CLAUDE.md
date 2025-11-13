@@ -284,6 +284,69 @@ When in doubt → **HALT and use AskUserQuestion**. Never make assumptions about
 
 ---
 
+### 11. Git Operations Require User Approval (RCA-008)
+
+**NEVER execute git commands autonomously that:**
+- Stash files (especially with `--include-untracked`)
+- Reset uncommitted changes (`git reset --hard`)
+- Delete branches (`git branch -D`)
+- Force push (`git push --force`)
+- Amend commits not created in current session (`git commit --amend`)
+- Affect >10 files without user knowledge
+
+**ALWAYS use AskUserQuestion before git operations that:**
+- Hide files from filesystem
+- Permanently delete uncommitted work
+- Modify git history
+- Affect user-created files outside current story
+
+**Required approval pattern:**
+```
+AskUserQuestion(
+    questions=[{
+        question: "Git operation will affect {N} files. How should we proceed?",
+        header: "Git Action",
+        multiSelect: false,
+        options: [
+            {
+                label: "Show me the files first",
+                description: "Display file list before deciding."
+            },
+            {
+                label: "Proceed (I understand the consequences)",
+                description: "[Clear explanation of what will happen]"
+            },
+            {
+                label: "Cancel (use alternative approach)",
+                description: "[What alternative will be used instead]"
+            }
+        ]
+    }]
+)
+```
+
+**Exceptions (NO user approval needed):**
+- `git status` (read-only)
+- `git diff` (read-only)
+- `git log` (read-only)
+- `git add` for current story files (≤5 files created in this session)
+- `git commit` for current story implementation (TDD workflow)
+
+**File-Based Fallback:**
+When git operations are declined or unavailable:
+- Use `.devforgeai/stories/{STORY-ID}/changes/` directory
+- Document changes in `changes-manifest.md`
+- Preserve all user files (nothing hidden)
+
+**Rationale:** RCA-008 incident (2025-11-13) showed autonomous `git stash --include-untracked` hid 21 user-created story files without consent, causing confusion and workflow disruption. User approval prevents data loss and maintains trust.
+
+**See also:**
+- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
+- `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (stash safety protocol)
+- `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5 and 0.1.6)
+
+---
+
 ## Quick Reference - Progressive Disclosure
 
 **For detailed guidance, see:**
@@ -762,6 +825,13 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - Never put files in wrong locations
 - Never add unapproved dependencies
 - Never implement forbidden anti-patterns
+
+### ❌ Don't Execute Destructive Git Operations Without Approval
+- Never stash files without showing user what will be hidden
+- Never reset uncommitted changes without confirmation
+- Never force push without explicit user request
+- Never amend commits not created in current session
+- See Critical Rule #11 for complete git operation policy
 
 ---
 

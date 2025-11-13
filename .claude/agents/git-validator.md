@@ -281,6 +281,100 @@ Limitation: Significantly reduced functionality - Git strongly recommended.
 
 ---
 
+### Phase 2.5: Enhanced File Analysis (RCA-008)
+
+**NEW:** Categorize uncommitted files by type to enable informed user decisions about git operations.
+
+**When to execute:** After Phase 2 assessment, when `uncommitted_changes > 0`
+
+**Purpose:** Provide detailed breakdown of what files would be affected by git operations (stash, reset, etc.), especially highlighting user-created content like story files.
+
+#### Step 2.5.1: Count and Categorize Files
+
+**Run detailed file status analysis:**
+
+```bash
+# Get comprehensive file status
+Bash(
+    command="git status --short --untracked-files=all",
+    description="Get detailed file status with categories"
+)
+
+# Parse output and categorize
+modified_count = count lines starting with "M " or " M"
+untracked_count = count lines starting with "??"
+deleted_count = count lines starting with "D " or " D"
+added_count = count lines starting with "A "
+
+# Categorize untracked files by type
+IF untracked_count > 0:
+    Bash(command="git status --short | grep '^??' | grep -c '\.story\.md$' || echo '0'", description="Count story files")
+    story_files = result
+
+    Bash(command="git status --short | grep '^??' | grep -c '__pycache__\|\.pyc$' || echo '0'", description="Count Python cache")
+    python_cache = result
+
+    Bash(command="git status --short | grep '^??' | grep -c '\.yaml$\|\.json$\|\.toml$\|\.ini$' || echo '0'", description="Count config files")
+    config_files = result
+
+    Bash(command="git status --short | grep '^??' | grep -c '\.md$\|\.rst$\|\.txt$' | grep -v '\.story\.md' || echo '0'", description="Count doc files")
+    documentation = result
+
+    Bash(command="git status --short | grep '^??' | grep -c '\.py$\|\.js$\|\.ts$\|\.java$\|\.cs$\|\.go$' || echo '0'", description="Count code files")
+    code_files = result
+
+    # Calculate "other" (files not matching above categories)
+    categorized_total = story_files + python_cache + config_files + documentation + code_files
+    other = untracked_count - categorized_total
+```
+
+#### Step 2.5.2: Extract Notable Untracked Files
+
+**Get first 10 important files (prioritize story files):**
+
+```bash
+# If story files exist, show them first
+IF story_files > 0:
+    Bash(
+        command="git status --short | grep '^??' | grep 'STORY-' | head -10",
+        description="Get first 10 story files"
+    )
+    notable_files = parse result into list
+ELSE:
+    # Show first 10 untracked files regardless of type
+    Bash(
+        command="git status --short | grep '^??' | head -10 | sed 's/^?? //'",
+        description="Get first 10 untracked files"
+    )
+    notable_files = parse result into list
+```
+
+#### Step 2.5.3: Build file_analysis Object
+
+```
+file_analysis = {
+    "modified_files": modified_count,
+    "untracked_files": untracked_count,
+    "deleted_files": deleted_count,
+    "added_files": added_count,
+    "file_breakdown": {
+        "story_files": story_files,
+        "python_cache": python_cache,
+        "config_files": config_files,
+        "documentation": documentation,
+        "code": code_files,
+        "other": other
+    },
+    "notable_untracked": notable_files
+}
+
+# Enhance warnings if story files present
+IF story_files > 0:
+    Add to warnings: "{story_files} untracked story files detected - user-created content"
+```
+
+---
+
 ### Phase 3: Output Generation
 
 **ALWAYS return structured JSON (not prose).**
@@ -297,6 +391,25 @@ Limitation: Significantly reduced functionality - Git strongly recommended.
     "current_branch": "main",
     "uncommitted_changes": 3,
     "detached_head": false
+  },
+  "file_analysis": {
+    "modified_files": 68,
+    "untracked_files": 21,
+    "deleted_files": 0,
+    "added_files": 0,
+    "file_breakdown": {
+      "story_files": 21,
+      "python_cache": 15,
+      "config_files": 3,
+      "documentation": 20,
+      "code": 30,
+      "other": 0
+    },
+    "notable_untracked": [
+      ".ai_docs/Stories/STORY-007-*.story.md",
+      ".ai_docs/Stories/STORY-021-*.story.md",
+      "... (first 10 files)"
+    ]
   },
   "assessment": {
     "status": "READY" | "UNCOMMITTED" | "INIT_REQUIRED" | "NOT_INITIALIZED" | "GIT_MISSING",

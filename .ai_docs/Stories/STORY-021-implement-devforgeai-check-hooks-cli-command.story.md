@@ -1,0 +1,335 @@
+---
+id: STORY-021
+title: Implement devforgeai check-hooks CLI command
+epic: EPIC-006
+sprint: Sprint-2
+status: Backlog
+points: 5
+priority: Critical
+assigned_to: TBD
+created: 2025-11-12
+format_version: "2.0"
+---
+
+# Story: Implement devforgeai check-hooks CLI command
+
+## Description
+
+**As a** DevForgeAI command implementer,
+**I want** a simple CLI command to check if feedback hooks should trigger for a given operation and status,
+**so that** I don't duplicate hook evaluation logic across all 11 commands and ensure consistent feedback triggering behavior.
+
+## Acceptance Criteria
+
+### 1. [ ] Configuration Check
+
+**Given** the feedback system configuration file exists at `.devforgeai/config/hooks.yaml`,
+**When** I run `devforgeai check-hooks --operation=dev --status=completed`,
+**Then** the command reads the `enabled` field from configuration,
+**And** returns exit code 1 (don't trigger) if `enabled: false`,
+**And** continues evaluation if `enabled: true`.
+
+---
+
+### 2. [ ] Trigger Rule Matching
+
+**Given** feedback hooks are enabled,
+**When** I run `devforgeai check-hooks --operation=qa --status=failed`,
+**Then** the command evaluates the `trigger_on` rule from configuration,
+**And** returns exit code 0 (trigger) if `trigger_on: all`,
+**And** returns exit code 0 (trigger) if `trigger_on: failures-only` and status is `failed`,
+**And** returns exit code 1 (don't trigger) if `trigger_on: failures-only` and status is `completed`,
+**And** returns exit code 1 (don't trigger) if `trigger_on: none`.
+
+---
+
+### 3. [ ] Operation-Specific Rules
+
+**Given** feedback hooks are enabled with operation-specific overrides,
+**When** I run `devforgeai check-hooks --operation=dev --status=completed`,
+**Then** the command checks if operation `dev` has a specific rule in `operations` section,
+**And** uses operation-specific `trigger_on` if defined,
+**And** falls back to global `trigger_on` if operation not specified,
+**And** returns appropriate exit code based on matched rule.
+
+---
+
+### 4. [ ] Performance Requirement
+
+**Given** I need to check hooks without delaying command completion,
+**When** I run `devforgeai check-hooks` with any valid arguments,
+**Then** the command completes in less than 100ms,
+**And** logs execution time for monitoring,
+**And** does not perform any heavy I/O operations (parsing config only).
+
+---
+
+### 5. [ ] Error Handling - Missing Config
+
+**Given** the configuration file does not exist at `.devforgeai/config/hooks.yaml`,
+**When** I run `devforgeai check-hooks --operation=dev --status=completed`,
+**Then** the command logs a warning "Hooks config not found, assuming disabled",
+**And** returns exit code 1 (don't trigger),
+**And** does not throw an exception or crash.
+
+---
+
+### 6. [ ] Error Handling - Invalid Arguments
+
+**Given** I provide invalid arguments to the command,
+**When** I run `devforgeai check-hooks --operation=invalid-op --status=completed`,
+**Then** the command logs a warning "Unknown operation 'invalid-op', using global rules",
+**And** evaluates using global trigger rules.
+
+**When** I run `devforgeai check-hooks --operation=dev --status=invalid-status`,
+**Then** the command returns exit code 2 (error) with message "Invalid status: must be completed|failed|partial",
+**And** does not trigger feedback.
+
+---
+
+### 7. [ ] Circular Invocation Detection
+
+**Given** feedback hooks are currently active (hook invocation in progress),
+**When** I run `devforgeai check-hooks` from within a feedback conversation,
+**Then** the command detects the active hook via environment variable or lock file,
+**And** returns exit code 1 (don't trigger) to prevent circular invocation,
+**And** logs "Circular invocation detected, skipping hook".
+
+---
+
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:
+    - type: "Service"
+      name: "HookCheckService"
+      file_path: ".claude/scripts/devforgeai_cli/hooks.py"
+      requirements:
+        - id: "COMP-001"
+          description: "Implement check_hooks() function that accepts operation and status arguments"
+          testable: true
+          test_requirement: "Test: Verify function accepts 'dev' operation and 'completed' status, returns boolean"
+          priority: "Critical"
+        - id: "COMP-002"
+          description: "Read and parse hooks.yaml configuration file"
+          testable: true
+          test_requirement: "Test: Mock config file read, verify YAML parsing returns dict with 'enabled' and 'trigger_on' keys"
+          priority: "Critical"
+        - id: "COMP-003"
+          description: "Evaluate global trigger rules (all/failures-only/none)"
+          testable: true
+          test_requirement: "Test: Given trigger_on='failures-only', verify returns true for status='failed', false for status='completed'"
+          priority: "High"
+        - id: "COMP-004"
+          description: "Evaluate operation-specific trigger rules if defined"
+          testable: true
+          test_requirement: "Test: Given dev-specific rule 'all', verify overrides global 'failures-only' rule"
+          priority: "High"
+        - id: "COMP-005"
+          description: "Detect circular invocation via environment variable or lock file"
+          testable: true
+          test_requirement: "Test: Set DEVFORGEAI_HOOK_ACTIVE=1, verify check_hooks returns false"
+          priority: "Medium"
+
+    - type: "Configuration"
+      name: "HooksConfiguration"
+      file_path: ".devforgeai/config/hooks.yaml"
+      requirements:
+        - id: "CONF-001"
+          description: "Define schema: enabled (bool), trigger_on (enum), operations (dict)"
+          testable: true
+          test_requirement: "Test: Validate example config against schema, verify all fields present"
+          priority: "Critical"
+        - id: "CONF-002"
+          description: "Provide default values if fields missing: enabled=false, trigger_on=failures-only"
+          testable: true
+          test_requirement: "Test: Load config with missing 'trigger_on', verify defaults to 'failures-only'"
+          priority: "High"
+
+    - type: "API"
+      name: "CheckHooksCLI"
+      file_path: ".claude/scripts/devforgeai_cli/cli.py"
+      requirements:
+        - id: "API-001"
+          description: "Implement CLI command 'devforgeai check-hooks' with Click framework"
+          testable: true
+          test_requirement: "Test: Run 'devforgeai check-hooks --help', verify help text displays"
+          priority: "Critical"
+        - id: "API-002"
+          description: "Accept --operation argument (required, string)"
+          testable: true
+          test_requirement: "Test: Run without --operation, verify error message 'Missing required argument'"
+          priority: "Critical"
+        - id: "API-003"
+          description: "Accept --status argument (required, enum: completed|failed|partial)"
+          testable: true
+          test_requirement: "Test: Run with --status=invalid, verify exit code 2 and error message"
+          priority: "Critical"
+        - id: "API-004"
+          description: "Return exit code 0 if hooks should trigger, 1 if not, 2 on error"
+          testable: true
+          test_requirement: "Test: Verify exit codes using subprocess.run() capture"
+          priority: "Critical"
+
+    - type: "Logging"
+      name: "HookCheckLogging"
+      file_path: ".claude/scripts/devforgeai_cli/hooks.py"
+      requirements:
+        - id: "LOG-001"
+          description: "Log warning if config file not found"
+          testable: true
+          test_requirement: "Test: Remove config file, run check-hooks, verify warning in logs"
+          priority: "Medium"
+        - id: "LOG-002"
+          description: "Log debug execution time for performance monitoring"
+          testable: true
+          test_requirement: "Test: Enable debug logging, verify log contains 'check-hooks completed in Xms'"
+          priority: "Low"
+        - id: "LOG-003"
+          description: "Log circular invocation detection"
+          testable: true
+          test_requirement: "Test: Simulate circular call, verify log 'Circular invocation detected, skipping hook'"
+          priority: "Medium"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "If config file missing or unreadable, assume hooks disabled (return false/exit 1)"
+      test_requirement: "Test: Delete config file, verify check_hooks() returns false"
+    - id: "BR-002"
+      rule: "Operation-specific rules override global rules"
+      test_requirement: "Test: Set global=failures-only, dev=all, verify dev operations trigger on completed status"
+    - id: "BR-003"
+      rule: "Circular invocation always returns false (prevent infinite loops)"
+      test_requirement: "Test: Set active hook flag, verify all check_hooks() calls return false"
+
+  non_functional_requirements:
+    - id: "NFR-P1"
+      category: "Performance"
+      requirement: "Command execution completes in less than 100ms"
+      metric: "95th percentile latency < 100ms measured over 100 invocations"
+      test_requirement: "Test: Run check-hooks 100 times, measure latency, assert p95 < 100ms"
+    - id: "NFR-R1"
+      category: "Reliability"
+      requirement: "No crashes or exceptions, graceful error handling"
+      metric: "99.9% success rate (exit codes 0 or 1, not 2) over 1000 invocations"
+      test_requirement: "Test: Inject 20 error conditions (missing config, malformed YAML, etc), verify exit code 1, no exceptions"
+    - id: "NFR-M1"
+      category: "Maintainability"
+      requirement: "Code coverage above 90% for check-hooks logic"
+      metric: "Line coverage ≥90%, branch coverage ≥85%"
+      test_requirement: "Test: Run pytest --cov, verify coverage metrics meet thresholds"
+```
+
+## Edge Cases
+
+1. **Malformed configuration file** (invalid YAML syntax)
+   - Log error, assume hooks disabled, return exit code 1
+
+2. **Config file with missing required fields** (no `enabled` or `trigger_on`)
+   - Use defaults: `enabled: false`, `trigger_on: failures-only`
+   - Log warning about missing fields
+
+3. **Multiple status values** (should only accept one)
+   - Return exit code 2 with usage message
+
+4. **Config file permissions issue** (not readable)
+   - Log permission error, assume disabled, return exit code 1
+
+5. **Very large config file** (>1MB, potential performance issue)
+   - Log warning, continue parsing (YAML parser handles)
+
+## Non-Functional Requirements
+
+**NFR-P1: Performance**
+- Target: <100ms execution time (95th percentile)
+- Measurement: Log execution duration in debug mode
+- Optimization: Cache parsed config for 60 seconds (avoid re-parsing)
+
+**NFR-R1: Reliability**
+- Target: 99.9% success rate (no crashes or exceptions)
+- Measurement: Track exit code 2 (error) vs 0/1 (success) over 1000 invocations
+- Graceful degradation: All errors return exit code 1 (safe default: don't trigger)
+
+**NFR-M1: Maintainability**
+- Code coverage: >90% for check-hooks logic
+- Unit tests: 15+ test cases covering all AC and edge cases
+- Documentation: Inline docstrings, CLI help text, integration guide
+
+**NFR-S1: Security**
+- Config file validation: Reject configs with embedded shell commands
+- Path traversal prevention: Resolve config path canonically
+- No credential leakage: Don't log config values in production
+
+## Definition of Done
+
+### Implementation
+- [ ] `check_hooks()` function implemented in `.claude/scripts/devforgeai_cli/hooks.py`
+- [ ] CLI command `devforgeai check-hooks` registered in `cli.py` with Click
+- [ ] Configuration schema defined and documented
+- [ ] Default values applied when config fields missing
+- [ ] Circular invocation detection implemented
+- [ ] All 7 acceptance criteria implemented
+
+### Quality
+- [ ] 15+ unit tests cover all AC and edge cases
+- [ ] Code coverage >90% (line), >85% (branch)
+- [ ] All tests pass (100% pass rate)
+- [ ] No linting errors or warnings
+- [ ] Performance verified: <100ms execution time
+
+### Testing
+- [ ] Manual test: Config enabled, trigger_on=all → exit code 0
+- [ ] Manual test: Config disabled → exit code 1
+- [ ] Manual test: Invalid arguments → exit code 2 with error message
+- [ ] Manual test: Missing config → exit code 1 with warning
+- [ ] Integration test: Called from /dev command successfully
+
+### Documentation
+- [ ] CLI help text complete (`devforgeai check-hooks --help`)
+- [ ] Inline docstrings for all functions
+- [ ] Integration guide updated (how commands call check-hooks)
+- [ ] Configuration schema documented in hooks.yaml comments
+- [ ] Exit codes documented (0=trigger, 1=no-trigger, 2=error)
+
+## Dependencies
+
+### Prerequisites
+- EPIC-006 Feature 6.1 started
+- `.devforgeai/config/hooks.yaml` configuration schema defined
+- `devforgeai_cli` Python package structure exists
+
+### Blocked By
+- None (first story in Feature 6.1)
+
+### Blocks
+- STORY-022 (invoke-hooks depends on check-hooks)
+- STORY-023 through STORY-033 (all command integrations call check-hooks)
+
+## Notes
+
+**Design Decisions:**
+- Exit code convention: 0=trigger, 1=don't trigger, 2=error
+- Graceful degradation: All errors default to "don't trigger" (safe behavior)
+- Circular detection: Use environment variable DEVFORGEAI_HOOK_ACTIVE=1
+- Config caching: 60-second TTL to avoid re-parsing on rapid successive calls
+
+**Integration Pattern:**
+```bash
+# Pattern used in all 11 commands
+devforgeai check-hooks --operation=dev --status=completed
+if [ $? -eq 0 ]; then
+  devforgeai invoke-hooks --operation=dev --story=$STORY_ID
+fi
+```
+
+**Performance Optimization:**
+- Config parsing cached in memory (avoid disk I/O)
+- Simple boolean logic (no complex computation)
+- Target: <100ms ensures no noticeable command delay
+
+## Workflow History
+
+- **2025-11-12:** Story created (STORY-021) - Batch mode from EPIC-006 Feature 6.1

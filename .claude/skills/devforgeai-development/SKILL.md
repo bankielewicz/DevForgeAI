@@ -82,9 +82,11 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 **This is Phase 0. Execute these steps now:**
 
-8-step validation before TDD begins:
+10-step validation before TDD begins:
 
 1. Validate Git status (git-validator subagent)
+1.5. **User consent for git operations (if uncommitted changes >10)** ← NEW (RCA-008)
+1.6. **Stash warning and confirmation (if user chooses to stash)** ← NEW (RCA-008)
 2. Adapt workflow (Git vs file-based)
 3. File-based tracking setup (if no Git)
 4. Validate 6 context files exist
@@ -165,7 +167,7 @@ Load these on-demand during workflow execution:
 
 ### Core Workflow
 - **parameter-extraction.md** (92 lines) - Story ID extraction from conversation
-- **preflight-validation.md** (567 lines) - Phase 0: 8-step validation (git, context, tech stack)
+- **preflight-validation.md** (982 lines) - Phase 0: 10-step validation (git, user consent, stash warning, context, tech stack)
 - **tdd-red-phase.md** (125 lines) - Phase 1: Test-first design
 - **tdd-green-phase.md** (167 lines) - Phase 2: Minimal implementation
 - **tdd-refactor-phase.md** (202 lines) - Phase 3: Code improvement
@@ -174,7 +176,7 @@ Load these on-demand during workflow execution:
 ### Phase 4.5 & 5 (Deferrals & Git)
 - **phase-4.5-deferral-challenge.md** (340 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
 - **deferral-budget-enforcement.md** (290 lines) - Phase 5 Step 1.6: Budget limits (RCA-006 Phase 2)
-- **git-workflow-conventions.md** (885 lines) - Git operations and conventions
+- **git-workflow-conventions.md** (1,239 lines) - Git operations, stash safety protocol (RCA-008), smart stash strategy
 - **dod-validation-checkpoint.md** (519 lines) - Phase 5 Step 1.7: Handle new incomplete items
 
 ### Supporting Files
@@ -184,7 +186,7 @@ Load these on-demand during workflow execution:
 - **qa-deferral-recovery.md** (218 lines) - QA failure resolution
 - **ambiguity-protocol.md** (234 lines) - When to ask user questions
 
-**Total reference content:** ~5,540 lines (loaded progressively as needed)
+**Total reference content:** ~6,250 lines (loaded progressively as needed - includes RCA-008 safeguards)
 
 ---
 

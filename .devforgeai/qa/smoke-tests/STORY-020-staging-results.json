@@ -1,0 +1,56 @@
+{
+  "story_id": "STORY-020",
+  "environment": "staging",
+  "timestamp": "2025-11-12T09:59:00Z",
+  "status": "PASSED",
+  "tests": [
+    {
+      "name": "CLI Installation Check",
+      "command": "devforgeai --version",
+      "expected": "version number displayed",
+      "actual": "devforgeai 0.1.0",
+      "status": "PASSED"
+    },
+    {
+      "name": "Feedback Command Execution",
+      "command": "devforgeai feedback test-context",
+      "expected": "feedback captured with unique ID",
+      "actual": "FB-2025-11-12-001 created successfully",
+      "status": "PASSED"
+    },
+    {
+      "name": "Config View Command",
+      "command": "devforgeai feedback-config view",
+      "expected": "configuration displayed",
+      "actual": "JSON config returned with all fields",
+      "status": "PASSED"
+    },
+    {
+      "name": "Search Command",
+      "command": "devforgeai feedback-search test --limit=1",
+      "expected": "search results returned",
+      "actual": "Empty results with proper JSON structure",
+      "status": "PASSED"
+    },
+    {
+      "name": "Export Command",
+      "command": "devforgeai export-feedback --format=json",
+      "expected": "export file created",
+      "actual": "Export file created at /tmp/test-export/test.json",
+      "status": "PASSED"
+    },
+    {
+      "name": "Help Text Availability",
+      "command": "devforgeai feedback --help",
+      "expected": "help text displayed",
+      "actual": "Usage and options displayed correctly",
+      "status": "PASSED"
+    }
+  ],
+  "summary": {
+    "total_tests": 6,
+    "passed": 6,
+    "failed": 0,
+    "pass_rate": "100%"
+  }
+}

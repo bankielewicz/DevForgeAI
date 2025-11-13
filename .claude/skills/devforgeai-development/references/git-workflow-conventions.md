@@ -14,6 +14,360 @@ This reference provides conventions for:
 
 ---
 
+## Git Stash Safety Protocol (RCA-008)
+
+**CRITICAL RULE:** Never stash files without user consent and clear warnings.
+
+**Incident Reference:** RCA-008 (2025-11-13) - Autonomous git stash operation hid 21 user-created story files without consent, causing workflow disruption and user confusion.
+
+### Prohibited Actions
+
+❌ **NEVER do this:**
+```bash
+git stash push --include-untracked   # Without warning or consent!
+```
+
+**Why prohibited:**
+- Hides untracked files (user-created content) from filesystem
+- Files become invisible until `git stash pop` is executed
+- Non-git-experts don't understand this behavior
+- High risk of perceived data loss
+
+✅ **ALWAYS do this instead:**
+1. Show user what will be stashed (file list with categories)
+2. Display warning about file visibility consequences
+3. Get explicit confirmation via AskUserQuestion
+4. Execute stash only if user confirms
+5. Display recovery instructions immediately after stashing
+
+### Stash Warning Template
+
+**When user chooses to stash, display this warning:**
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║  ⚠️  WARNING: STASHING {total_files} FILES                    ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  What 'git stash' does:                                       ║
+║    • Temporarily HIDES files from your filesystem             ║
+║    • Files are stored in git's stash storage                  ║
+║    • They are NOT deleted (recoverable)                       ║
+║    • They will NOT be visible until you restore them          ║
+║                                                               ║
+║  ⚠️  {untracked_count} UNTRACKED FILES WILL BE HIDDEN:        ║
+║    These are NEW files you created that aren't in git yet.    ║
+║    This includes {story_file_count} STORY files!              ║
+║                                                               ║
+║  To recover stashed files later:                              ║
+║    git stash pop        # Restores and removes from stash     ║
+║    git stash apply      # Restores but keeps in stash         ║
+║                                                               ║
+║  To preview what's stashed:                                   ║
+║    git stash show stash@{0} --name-only                      ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+**Then require double confirmation:**
+
+```
+AskUserQuestion(
+    questions=[{
+        question: "Are you SURE you want to stash {total_files} files (including {untracked_count} untracked)?",
+        header: "Confirm Stash",
+        options: [
+            {
+                label: "Yes, stash them (I understand they'll be hidden)",
+                description: "Proceed with stashing. Files recoverable with 'git stash pop'."
+            },
+            {
+                label: "No, continue without stashing instead",
+                description: "Cancel stashing. Use file-based tracking. All files stay visible."
+            },
+            {
+                label: "No, let me commit them first",
+                description: "Cancel development. I'll commit files before re-running."
+            }
+        ]
+    }]
+)
+```
+
+### Recovery Instructions
+
+**After stashing, ALWAYS display:**
+
+```
+✅ Stashed {total_files} files to stash@{0}
+
+╔═══════════════════════════════════════════════════════════════╗
+║  📝 IMPORTANT: TO RESTORE YOUR FILES                          ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  After this development session completes, run:               ║
+║                                                               ║
+║    git stash pop                                              ║
+║                                                               ║
+║  This will restore your {total_files} files.                 ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### Untracked Files Special Handling
+
+**IF stashing untracked files (--include-untracked flag):**
+
+1. **Count untracked files:**
+   ```bash
+   git status --short | grep "^??" | wc -l
+   ```
+
+2. **Show first 10 untracked files:**
+   ```bash
+   git status --short | grep "^??" | head -10
+   ```
+
+3. **Highlight story files if present:**
+   ```bash
+   git status --short | grep "^??" | grep "STORY-"
+   ```
+
+4. **Require double confirmation:**
+   - First: User selects "Stash changes (advanced)" from git strategy question
+   - Second: User confirms after seeing warning box and file list
+
+5. **Provide clear recovery path:**
+   - Show recovery commands BEFORE stashing
+   - Show recovery reminder AFTER stashing
+   - Include in post-workflow summary
+
+**Rationale:** RCA-008 incident showed that stashing untracked files without warning caused user confusion when 21 story files disappeared unexpectedly. The `--include-untracked` flag behavior is not intuitive for non-git-experts.
+
+### Safe Stash Commands
+
+**Stash modified files only (DEFAULT - RECOMMENDED):**
+```bash
+git stash push -m "WIP: Modified files only"
+# Does NOT use --include-untracked
+# Modified files (M) → stashed
+# Untracked files (??) → remain visible
+```
+
+**Stash everything (USE WITH CAUTION):**
+```bash
+git stash push -m "WIP: All files" --include-untracked
+# Requires: Steps 0.1.5 and 0.1.6 user consent workflow
+# Modified files (M) → stashed
+# Untracked files (??) → stashed (HIDDEN from filesystem)
+```
+
+**Restore stashed files:**
+```bash
+git stash pop      # Restore and remove from stash
+git stash apply    # Restore but keep in stash (for reuse)
+git stash drop     # Delete stash permanently (use with caution)
+```
+
+### When to Use Each Stash Strategy
+
+**Use "Stash modified only" (default) when:**
+- User has untracked files (story files, new code, documentation)
+- Want clean working tree for tracked files only
+- Untracked files are user-created content (high value)
+- DEFAULT RECOMMENDATION in Step 0.1.5
+
+**Use "Stash all (--include-untracked)" when:**
+- User explicitly requests it after seeing warning
+- All files are regenerable (cache, build artifacts, temp files)
+- User has been warned about file visibility consequences
+- User confirmed via Step 0.1.6 double-confirmation flow
+
+**Use "File-based tracking" when:**
+- User wants all files visible (safest option)
+- Git operations declined
+- No git repository available
+- User is uncertain about git stash behavior
+
+### Stash Safety Checklist
+
+**Before executing git stash --include-untracked:**
+- [ ] User has been shown file list (via Step 0.1.5 "Show files" option or Step 0.1.6)
+- [ ] Warning box displayed explaining visibility consequences
+- [ ] Untracked file count shown (especially story files)
+- [ ] Recovery commands provided BEFORE stashing
+- [ ] User explicitly confirmed via AskUserQuestion
+- [ ] Alternative options offered (continue without stashing, commit first)
+
+**After executing git stash:**
+- [ ] Success message displayed
+- [ ] Recovery instructions shown again
+- [ ] Stash reference provided (stash@{0})
+- [ ] File count confirmed ({N} files stashed)
+
+**If user cancels stashing:**
+- [ ] Alternative path taken (file-based tracking or commit first)
+- [ ] User informed of choice made
+- [ ] Workflow continues or halts appropriately
+
+---
+
+## Smart Stash Strategy (RCA-008)
+
+**Default Recommendation:** Stash modified files only, preserve untracked files.
+
+**Rationale:** Untracked files are typically user-created content (story files, new code) with no git backup. Modified files can be recovered from git history. Separating them reduces risk of perceived data loss.
+
+### Strategy Matrix
+
+| File Status | Git Tracking | Stash Command | User-Created? | Recommendation | Risk Level |
+|-------------|--------------|---------------|---------------|----------------|------------|
+| Modified (M) | ✅ Tracked | Default `git stash` | Maybe | **Stash** | LOW (recoverable from git) |
+| Untracked (??) | ❌ Not tracked | Needs `--include-untracked` | Usually | **Keep visible** | HIGH (no backup) |
+| Deleted (D) | ✅ Tracked | Default `git stash` | N/A | Stash | LOW (tracked in git) |
+| Added (A) | ✅ Staged | Default `git stash` | Yes | Stash or keep | MEDIUM |
+
+### Stash Commands by Strategy
+
+**Strategy 1: Stash Modified Only (RECOMMENDED - Default)**
+```bash
+git stash push -m "WIP: Modified files only"
+# Does NOT use --include-untracked flag
+# Result:
+#   Modified files (M) → Stashed (hidden)
+#   Untracked files (??) → Remain visible
+#   User can continue working with untracked files visible
+```
+
+**Benefits:**
+- ✅ Preserves user-created untracked files (story files, new code)
+- ✅ Clean working tree for tracked files
+- ✅ Low risk (untracked files have no backup, so keeping them visible is safer)
+- ✅ Faster (no need to stash large untracked directories)
+
+**Use when:**
+- User has untracked files (especially story files, new code, documentation)
+- Want clean working tree for tracked files only
+- Untracked files are user-created content (high value)
+- DEFAULT in Step 0.1.5 (marked with ⭐ Recommended)
+
+---
+
+**Strategy 2: Stash Everything (USE WITH CAUTION)**
+```bash
+git stash push -m "WIP: All files" --include-untracked
+# Requires: Steps 0.1.5 and 0.1.6 user consent workflow
+# Result:
+#   Modified files (M) → Stashed (hidden)
+#   Untracked files (??) → Stashed (HIDDEN from filesystem)
+#   Filesystem appears clean, all uncommitted work hidden
+```
+
+**Risks:**
+- ⚠️ Hides user-created content with no git backup
+- ⚠️ Files invisible until `git stash pop` executed
+- ⚠️ User may forget to restore stash
+- ⚠️ Confusing for non-git-experts
+
+**Use when:**
+- User explicitly requests it after seeing full warning (Step 0.1.6)
+- All files are regenerable (cache, build artifacts, temp files)
+- User understands git stash behavior
+- User confirmed via double-confirmation flow
+
+**Required safeguards (MANDATORY):**
+- Step 0.1.5: Initial choice warning
+- Step 0.1.6: Second confirmation with file list
+- Warning box explaining visibility consequences
+- Recovery instructions shown before AND after stashing
+
+---
+
+**Strategy 3: File-Based Tracking (SAFEST)**
+```bash
+# No git commands executed
+# All files remain visible in filesystem
+# Changes tracked in .devforgeai/stories/{STORY-ID}/changes/
+```
+
+**Benefits:**
+- ✅ Zero risk of data loss
+- ✅ All files always visible
+- ✅ No git knowledge required
+- ✅ Works without git repository
+
+**Use when:**
+- User wants all files visible (highest certainty)
+- User declines git operations
+- No git repository available
+- User is uncertain about git stash behavior
+
+**Limitations:**
+- ⚠️ No version control features (branching, history, diffing)
+- ⚠️ Manual file organization required
+- ⚠️ Collaboration features disabled
+
+---
+
+### Recovery Commands Reference
+
+**List stashes:**
+```bash
+git stash list
+```
+
+**Preview stash contents:**
+```bash
+git stash show stash@{0} --name-only           # File names only
+git stash show stash@{0} --stat                # File stats
+git stash show stash@{0} -p                    # Full diff
+```
+
+**Restore stashed files:**
+```bash
+git stash pop          # Restore and remove from stash (most common)
+git stash apply        # Restore but keep in stash (for reuse)
+git stash apply stash@{1}   # Restore specific stash
+```
+
+**Delete stash:**
+```bash
+git stash drop stash@{0}    # Delete specific stash
+git stash clear             # Delete all stashes (DANGEROUS)
+```
+
+### Strategy Selection Decision Tree
+
+```
+Do you have uncommitted changes?
+  ├─ NO → Proceed with clean workflow
+  │
+  └─ YES → Are there untracked files?
+        ├─ NO (only modified files) → Stash modified files (safe)
+        │
+        └─ YES → What type of untracked files?
+              ├─ Story files / User-created → Recommend: Keep visible OR Commit first
+              ├─ Cache / Build artifacts → OK to stash all
+              └─ Mixed → Recommend: Stash modified only, keep untracked visible ⭐
+```
+
+### Implementation in Step 0.1.5
+
+The smart stash strategy is implemented in Step 0.1.5 of preflight-validation.md with these options (in order of safety):
+
+1. **Continue anyway** - File-based tracking (safest, all files visible)
+2. **Stash ONLY modified** - Recommended (clean tracked files, preserve untracked)
+3. **Show files first** - Review before deciding
+4. **Commit first** - Most organized (creates proper git history)
+5. **Stash ALL** - Use with caution (requires Step 0.1.6 warning)
+
+**Default selection logic:**
+- IF story_files > 0: Recommend option 2 (stash modified only) or option 1 (continue anyway)
+- IF all files are cache: Option 5 (stash all) acceptable
+- IF uncertain: Option 3 (show files first) to see what's affected
+
+---
+
 ## Branch Naming Conventions
 
 ### Feature Branches
