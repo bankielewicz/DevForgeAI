@@ -335,6 +335,64 @@ echo "✅ Integration test passed"
 
 ---
 
+## Definition of Done
+
+### Implementation
+- [ ] Hook integration phase added to /create-sprint command workflow (Phase N after Phase 4 result display)
+- [ ] `devforgeai check-hooks --operation=sprint-create` command functional (<100ms execution)
+- [ ] `devforgeai invoke-hooks --operation=sprint-create` command functional with sprint context
+- [ ] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+- [ ] Sprint context provided in hook (sprint name, selected story IDs, capacity, dates, team)
+- [ ] Graceful degradation implemented (hook failures don't break sprint creation, exit code 0)
+
+### Quality
+- [ ] All 6 acceptance criteria have passing tests
+- [ ] Edge cases covered (hook timeout, hook CLI error, hook script crash, missing config)
+- [ ] Data validation enforced (sprint context metadata complete, hook config format valid)
+- [ ] NFRs met (hook check <100ms, hook invocation <500ms, graceful failure handling)
+- [ ] Code coverage >95% for hook integration logic
+
+### Testing
+- [ ] Unit tests for hook configuration reading and enabled/disabled state
+- [ ] Unit tests for sprint context metadata assembly (sprint ID, name, story IDs, capacity, dates)
+- [ ] Unit tests for graceful degradation (hook failure doesn't crash workflow)
+- [ ] Integration test: /create-sprint hook triggers successfully
+- [ ] Integration test: /create-sprint with hooks disabled skips hook invocation
+- [ ] Integration test: Sprint-specific questions received by user during feedback
+- [ ] E2E test: Complete sprint creation workflow with hook triggering and feedback
+
+### Documentation
+- [ ] Hook integration documentation added to sprint planning guide
+- [ ] Configuration example added to `.devforgeai/config/hooks.yaml.example` for sprint-create
+- [ ] Troubleshooting guide: "Hook not triggering after sprint creation" - resolution steps
+- [ ] Framework maintainer guide updated with hook lifecycle for sprint creation
+
+---
+
+## Implementation Notes
+
+**This story wires hook integration into /create-sprint command workflow. See Technical Specification for hook architecture details.**
+
+**Hook Integration Point:**
+- Hook integration phase (Phase N) added to /create-sprint command
+- Placement: After Phase 4 (result display) ensures hooks only run when sprint creation succeeds
+- Hooks invoked via `devforgeai invoke-hooks --operation=sprint-create`
+
+**Sprint Context for Hooks:**
+- Sprint metadata passed: name, ID, selected story IDs, capacity, dates, team
+- Sprint-specific questions focus on goal clarity, story selection, capacity appropriateness
+- Graceful degradation: Failures logged/warned but exit 0
+
+**Configuration:**
+- Enabled/disabled state controlled via `.devforgeai/config/hooks.yaml`
+- Hook check executes in <100ms
+- Hook invocation non-blocking
+
+**Related Stories:**
+- STORY-021: devforgeai check-hooks implementation
+- STORY-022: devforgeai invoke-hooks implementation
+- STORY-027: Hook integration for /create-story command
+
 ## Workflow Status
 
 - [ ] Architecture phase complete

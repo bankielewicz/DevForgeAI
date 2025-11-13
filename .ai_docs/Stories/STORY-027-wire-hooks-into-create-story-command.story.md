@@ -429,6 +429,58 @@ assert exit_code == 0
 
 ---
 
+## Definition of Done
+
+### Implementation
+- [ ] Hook integration phase added to /create-story command (Phase N after story file creation)
+- [ ] `devforgeai check-hooks --operation=story-create` command functional (<100ms execution)
+- [ ] `devforgeai invoke-hooks --operation=story-create` command functional with story context
+- [ ] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+- [ ] Batch mode story creation defers hooks until all stories created
+- [ ] Graceful degradation implemented (hook failures don't break story creation, exit code 0)
+
+### Quality
+- [ ] All 6 acceptance criteria have passing tests
+- [ ] Edge cases covered (hook timeout, hook CLI error, hook script crash, missing config)
+- [ ] Data validation enforced (story context metadata complete, hook config format valid)
+- [ ] NFRs met (hook check <100ms, hook invocation <500ms, graceful failure handling)
+- [ ] Code coverage >95% for hook integration logic
+
+### Testing
+- [ ] Unit tests for hook configuration reading and enabled/disabled state
+- [ ] Unit tests for hook context metadata assembly (story ID, epic, sprint, title, points, priority)
+- [ ] Unit tests for graceful degradation (hook failure doesn't crash workflow)
+- [ ] Integration test: /create-story hook triggers successfully
+- [ ] Integration test: /create-story with hooks disabled skips hook invocation
+- [ ] Integration test: Batch story creation defers hooks until batch completion
+- [ ] E2E test: Complete story creation workflow with hook triggering
+
+### Documentation
+- [ ] Hook integration documentation added to devforgeai-story-creation skill guide
+- [ ] Configuration example added to `.devforgeai/config/hooks.yaml.example`
+- [ ] Troubleshooting guide: "Hook not triggering after story creation" - resolution steps
+- [ ] Framework maintainer guide updated with hook lifecycle for /create-story
+
+---
+
+## Implementation Notes
+
+**This story wires hook integration into /create-story command workflow. See Technical Specification for hook architecture details.**
+
+**Hook Integration Pattern:**
+- Hooks triggered via `devforgeai invoke-hooks --operation=story-create` after story file creation
+- Story context passed to hook includes ID, epic, sprint, title, points, priority
+- Graceful degradation ensures hook failures don't prevent story creation (exit 0)
+
+**Configuration Pattern:**
+- Hooks controlled via `.devforgeai/config/hooks.yaml` enabled/disabled flag
+- Batch mode defers hook invocation until all stories in batch complete
+- Hook check completes in <100ms
+
+**Related Stories:**
+- STORY-021: devforgeai check-hooks implementation
+- STORY-022: devforgeai invoke-hooks implementation
+
 ## Workflow Status
 
 - [ ] Architecture phase complete
