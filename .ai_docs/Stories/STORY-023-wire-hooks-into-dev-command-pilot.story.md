@@ -241,34 +241,34 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [x] Phase 6 added to `.claude/commands/dev.md` after existing Phase 5
-- [x] STATUS variable determined from /dev outcome
-- [x] check-hooks called with correct arguments
-- [x] invoke-hooks conditionally called based on exit code
-- [x] Error handling prevents hook failures from breaking /dev
-- [x] All 7 acceptance criteria implemented
+- [x] Phase 6 design documented in `.claude/commands/dev.md` after existing Phase 5
+- [x] STATUS variable determination logic designed
+- [x] check-hooks call pattern documented with correct arguments
+- [x] invoke-hooks conditional call pattern documented
+- [x] Error handling pattern documented (non-blocking failures)
+- [ ] All 7 acceptance criteria implemented - **DEFERRED**: Design + tests complete, actual implementation in skill pending
 
 ### Quality
-- [x] 10+ integration tests covering pilot scenarios
-- [ ] Manual testing with real stories (5+ test cases) - **DEFERRED**: Requires pilot testing with real /dev runs, user approval needed
-- [x] Performance verified: <5s overhead measured
-- [ ] Reliability verified: 20 /dev runs, 100% success with hooks - **DEFERRED**: Requires pilot phase testing, user approval needed
-- [ ] No regression in /dev command functionality - **DEFERRED**: Requires pilot phase testing with real stories, user approval needed
+- [x] 10+ integration tests covering pilot scenarios (23 tests created)
+- [ ] Manual testing with real stories (5+ test cases) - **DEFERRED**: Requires actual Phase 6 code implementation
+- [x] Performance verified in tests: <5s overhead measured (<350ms in test mocks)
+- [ ] Reliability verified: 20 /dev runs, 100% success with hooks - **DEFERRED**: Requires actual Phase 6 code implementation
+- [ ] No regression in /dev command functionality - **DEFERRED**: Requires actual Phase 6 code implementation
 
 ### Testing
-- [x] Test: /dev with hooks enabled → feedback triggers
-- [x] Test: /dev with hooks disabled → no feedback
-- [x] Test: /dev with failures-only mode + success → no feedback
-- [x] Test: /dev with failures-only mode + failure → feedback triggers
-- [x] Test: /dev with hook failure → /dev still succeeds
-- [x] Test: Skip 3 times → disable prompt appears
-- [x] Test: Measure overhead → <5s confirmed
+- [x] Test: /dev with hooks enabled → feedback triggers (design pattern tested)
+- [x] Test: /dev with hooks disabled → no feedback (design pattern tested)
+- [x] Test: /dev with failures-only mode + success → no feedback (design pattern tested)
+- [x] Test: /dev with failures-only mode + failure → feedback triggers (design pattern tested)
+- [x] Test: /dev with hook failure → /dev still succeeds (design pattern tested)
+- [x] Test: Skip 3 times → disable prompt appears (design pattern tested)
+- [x] Test: Measure overhead → <5s confirmed (mocked performance baseline)
 
 ### Documentation
-- [x] /dev command documentation updated (Phase 6 described)
-- [ ] User guide: How to enable/disable hooks for /dev - **DEFERRED**: Design docs created, actual user guide requires live implementation
-- [ ] Integration pattern documented for remaining 10 commands - **DEFERRED**: Design spec created, actual pattern requires pilot validation
-- [ ] Troubleshooting: Hook failures, timeout, circular invocation - **DEFERRED**: Test-based scenarios documented, real troubleshooting requires production use
+- [x] /dev command documentation updated (Phase 6 design described)
+- [ ] User guide: How to enable/disable hooks for /dev - **DEFERRED**: Design spec created, requires live implementation to be accurate
+- [ ] Integration pattern documented for remaining 10 commands - **DEFERRED**: Design spec created, requires pilot validation
+- [ ] Troubleshooting: Hook failures, timeout, circular invocation - **DEFERRED**: Test scenarios documented, requires production experience
 
 ## Dependencies
 
