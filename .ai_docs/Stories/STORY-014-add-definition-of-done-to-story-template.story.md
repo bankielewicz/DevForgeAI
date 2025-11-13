@@ -574,12 +574,14 @@ Testing and documentation deferred per ADR-007: "Defer STORY-014 Testing to Dedi
   - **Recommendation:** YES - DoD provides consistent quality gates
 
 **Related ADRs:**
-- None
+- ADR-002: Defer STORY-014 Testing to Dedicated Story
 
 **References:**
 - STORY-007 through STORY-013: Reference stories with complete DoD sections
+- STORY-015: Comprehensive testing story for deferred testing/documentation items
 - `.claude/scripts/validate_deferrals.py`: Python validator for DoD format
 - `.claude/agents/deferral-validator.md`: AI subagent for comprehensive DoD validation
+- ADR-002: Deferral justification document
 - RCA-006: Autonomous deferrals incident (motivates strict DoD validation)
 
 ---
