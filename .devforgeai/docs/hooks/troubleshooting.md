@@ -1,6 +1,26 @@
-# Troubleshooting: Hook Failures, Timeouts, Circular Invocation
+# Troubleshooting: Hook Integration Issues (Design Reference)
 
-## Common Issues and Solutions
+**Status:** DESIGN DOCUMENTATION - Based on test scenarios, not production issues
+**Story:** STORY-023 (Tests validate these scenarios, implementation pending)
+
+---
+
+## Important Note
+
+This troubleshooting guide is based on **integration test scenarios** (23 tests in test_phase6_hooks_integration.py), NOT actual production issues, since Phase 6 is not yet implemented in live commands.
+
+**What this covers:**
+- Issues that WOULD occur if/when Phase 6 is implemented
+- Based on test cases (all 23 tests currently passing)
+- Validated resolution approaches
+
+**What this does NOT cover:**
+- Actual production issues (Phase 6 not live yet)
+- Real user reports (pilot phase hasn't started)
+
+---
+
+## Tested Scenarios and Resolutions
 
 ### Issue 1: Hooks Not Triggering (check-hooks returns 1)
 

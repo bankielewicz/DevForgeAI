@@ -1,28 +1,40 @@
-# Hook Integration Pattern for DevForgeAI Commands
+# Hook Integration Pattern for DevForgeAI Commands (Design Specification)
 
-## Overview
-
-Standard pattern for integrating feedback hooks into DevForgeAI slash commands.
-
-**Proven in:** `/dev` command (STORY-023)
-**Applies to:** 10 remaining commands
+**Status:** DESIGN SPECIFICATION - Not yet implemented in live commands
+**Story:** STORY-023 (Design validated via tests, implementation pending)
 
 ---
 
-## Commands Requiring Integration
+## Overview
 
-| Command | Hook Operation | Status Values | Priority | Story |
-|---------|----------------|---------------|----------|-------|
-| `/qa` | qa | completed, failed | High | STORY-024 |
-| `/release` | release | completed, failed | High | STORY-025 |
-| `/orchestrate` | orchestrate | completed, failed | High | STORY-026 |
-| `/create-story` | create-story | completed, failed | Medium | STORY-027 |
-| `/create-epic` | create-epic | completed, failed | Medium | STORY-028 |
-| `/create-sprint` | create-sprint | completed, failed | Medium | STORY-029 |
-| `/ideate` | ideate | completed, failed | Low | STORY-030 |
-| `/create-context` | create-context | completed, failed | Low | STORY-031 |
-| `/create-ui` | create-ui | completed, failed | Low | STORY-032 |
-| `/audit-deferrals` | audit-deferrals | completed, failed | Low | STORY-033 |
+This document specifies the standard pattern for integrating feedback hooks into DevForgeAI slash commands.
+
+**Design status:**
+- ✅ Pattern designed and documented
+- ✅ Tests validate pattern will work (23 tests passing)
+- ❌ NOT yet implemented in any live command (including /dev)
+
+**When implemented, applies to:** All 11 DevForgeAI commands
+
+---
+
+## Commands Planned for Integration
+
+**NOTE:** None of these commands currently have Phase 6 implemented. This is the PLANNED rollout.
+
+| Command | Hook Operation | Status Values | Priority | Planned Story |
+|---------|----------------|---------------|----------|---------------|
+| `/dev` | dev | completed, failed | **PILOT** | **STORY-023 (This story - design only)** |
+| `/qa` | qa | completed, failed | High | Planned: STORY-024 |
+| `/release` | release | completed, failed | High | Planned: STORY-025 |
+| `/orchestrate` | orchestrate | completed, failed | High | Planned: STORY-026 |
+| `/create-story` | create-story | completed, failed | Medium | Planned: STORY-027 |
+| `/create-epic` | create-epic | completed, failed | Medium | Planned: STORY-028 |
+| `/create-sprint` | create-sprint | completed, failed | Medium | Planned: STORY-029 |
+| `/ideate` | ideate | completed, failed | Low | Planned: STORY-030 |
+| `/create-context` | create-context | completed, failed | Low | Planned: STORY-031 |
+| `/create-ui` | create-ui | completed, failed | Low | Planned: STORY-032 |
+| `/audit-deferrals` | audit-deferrals | completed, failed | Low | Planned: STORY-033 |
 
 ---
 

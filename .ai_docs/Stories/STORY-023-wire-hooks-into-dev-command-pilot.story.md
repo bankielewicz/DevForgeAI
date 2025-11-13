@@ -266,9 +266,9 @@ technical_specification:
 
 ### Documentation
 - [x] /dev command documentation updated (Phase 6 described)
-- [x] User guide: How to enable/disable hooks for /dev
-- [x] Integration pattern documented for remaining 10 commands
-- [x] Troubleshooting: Hook failures, timeout, circular invocation
+- [ ] User guide: How to enable/disable hooks for /dev - **DEFERRED**: Design docs created, actual user guide requires live implementation
+- [ ] Integration pattern documented for remaining 10 commands - **DEFERRED**: Design spec created, actual pattern requires pilot validation
+- [ ] Troubleshooting: Hook failures, timeout, circular invocation - **DEFERRED**: Test-based scenarios documented, real troubleshooting requires production use
 
 ## Dependencies
 
@@ -890,70 +890,77 @@ EOF
 - **Reference:** .claude/commands/dev.md lines 294-340
 - **Date:** 2025-11-13
 
-**[x] User guide: How to enable/disable hooks for /dev**
-- **Completion:** Created standalone user guide documentation file
-- **Details:** 4 disable options, configuration reference, verification commands
-- **Reference:** .devforgeai/docs/hooks/user-guide.md (2.5K)
-- **Date:** 2025-11-13
-
-**[x] Integration pattern documented for remaining 10 commands**
-- **Completion:** Created integration pattern documentation file
-- **Details:** Standard code template, 10 command table, rollout strategy, testing pattern
-- **Reference:** .devforgeai/docs/hooks/integration-pattern.md (8.9K)
-- **Date:** 2025-11-13
-
-**[x] Troubleshooting: Hook failures, timeout, circular invocation**
-- **Completion:** Created troubleshooting documentation file
-- **Details:** 6 common issues with diagnostics/resolutions, quick checklists
-- **Reference:** .devforgeai/docs/hooks/troubleshooting.md (6.9K)
-- **Date:** 2025-11-13
 
 ### Deferred Items Approval
 
 **Deferred Item 1: Manual testing with real stories (5+ test cases)**
-- **Blocker:** Requires execution of /dev command with real stories
-- **Reason:** Integration tests mock the hook system, pilot phase requires real execution
-- **User Approved:** Yes - Deferred to pilot phase (2 weeks testing with 10+ users)
-- **Follow-up:** STORY-024 (Rollout to /qa command) will validate with real execution
+- **Blocker:** Phase 6 not yet implemented in devforgeai-development skill
+- **Reason:** Cannot test live /dev command without actual executable code
+- **User Approved:** Yes - Design phase complete, implementation deferred
+- **Follow-up:** Requires actual Phase 6 code implementation (follow-up story needed)
 - **Timestamp:** 2025-11-13
 
 **Deferred Item 2: Reliability verified: 20 /dev runs with hooks (100% success)**
-- **Blocker:** Requires live /dev execution in controlled pilot environment
-- **Reason:** Cannot guarantee real-world success without pilot phase testing
-- **User Approved:** Yes - Deferred to pilot phase (minimum 20 runs validation)
-- **Follow-up:** STORY-024+ will include reliability metrics from pilot
+- **Blocker:** Phase 6 not yet implemented in devforgeai-development skill
+- **Reason:** Cannot run live /dev with hooks until code exists
+- **User Approved:** Yes - Tests validate design, implementation deferred
+- **Follow-up:** Requires actual Phase 6 code implementation
 - **Timestamp:** 2025-11-13
 
 **Deferred Item 3: No regression in /dev command functionality**
-- **Blocker:** Requires comprehensive testing with existing /dev workflows
-- **Reason:** Safety validation needed before full rollout
-- **User Approved:** Yes - Deferred to pilot phase (parallel testing with disabled hooks)
-- **Follow-up:** STORY-024+ will validate no regressions detected
+- **Blocker:** Phase 6 not yet implemented in devforgeai-development skill
+- **Reason:** No regression possible without implementation
+- **User Approved:** Yes - Design validated via tests
+- **Follow-up:** Requires actual Phase 6 code implementation
 - **Timestamp:** 2025-11-13
 
-**Deferred Item 4-6: User guide, integration patterns, troubleshooting documentation**
-- **Blocker:** Requires pilot phase learnings before documentation
-- **Reason:** Better documentation after pilot use cases identified
-- **User Approved:** Yes - Deferred to rollout phase (STORY-024+)
-- **Follow-up:** STORY-024+ will include comprehensive documentation
+**Deferred Item 4: User guide: How to enable/disable hooks for /dev**
+- **Blocker:** Design documentation created, but describes future implementation
+- **Reason:** User guide requires working implementation to be accurate
+- **User Approved:** Yes - Design spec created (.devforgeai/docs/hooks/user-guide.md)
+- **Follow-up:** Update to actual user guide after Phase 6 implementation
+- **Timestamp:** 2025-11-13
+
+**Deferred Item 5: Integration pattern documented for remaining 10 commands**
+- **Blocker:** Design specification created, but not validated in production
+- **Reason:** Pattern requires pilot validation before rollout documentation
+- **User Approved:** Yes - Design spec created (.devforgeai/docs/hooks/integration-pattern.md)
+- **Follow-up:** Validate pattern in pilot, then document actual rollout
+- **Timestamp:** 2025-11-13
+
+**Deferred Item 6: Troubleshooting: Hook failures, timeout, circular invocation**
+- **Blocker:** Design documentation based on tests, not real production issues
+- **Reason:** Real troubleshooting guide requires production deployment experience
+- **User Approved:** Yes - Test-based scenarios documented (.devforgeai/docs/hooks/troubleshooting.md)
+- **Follow-up:** Update with actual production issues after pilot phase
 - **Timestamp:** 2025-11-13
 
 ### Summary
 
-**Implementation Status:** 15 of 18 DoD items complete (Documentation added!)
-- Phase 6 added to /dev command ✅
+**Implementation Status:** 12 of 18 DoD items complete
+- Phase 6 design documented in /dev command ✅
 - 23 integration tests created and passing ✅
-- Performance validated (<5s overhead) ✅
+- Performance validated in tests (<350ms) ✅
 - Code review approved (⭐⭐⭐⭐⭐) ✅
-- All 7 ACs tested and validated ✅
-- User guide created (enable/disable hooks) ✅
-- Integration pattern documented (10 commands) ✅
-- Troubleshooting guide created (6 scenarios) ✅
+- All 7 ACs tested via integration tests ✅
 
-**Deferred Status:** 3 items deferred for pilot phase with user approval
-- Manual testing (real /dev runs) - Pilot phase
-- Reliability validation (20+ runs) - Pilot phase
-- Regression testing - Pilot phase
+**What was completed:** Design + Test phase
+- Design specification in .claude/commands/dev.md (Phase 2.3)
+- Integration test suite validates design will work (23/23 passing)
+- Design documentation files created (user guide, integration pattern, troubleshooting)
+
+**What was NOT completed:** Implementation phase
+- No actual executable Phase 6 code in devforgeai-development skill
+- Hooks don't actually trigger when running /dev command
+- Documentation describes planned behavior, not current behavior
+
+**Deferred Status:** 6 items deferred (requires actual implementation)
+- Manual testing with real /dev runs - *Requires Phase 6 implementation*
+- Reliability validation (20+ runs) - *Requires Phase 6 implementation*
+- Regression testing - *Requires Phase 6 implementation*
+- User guide - *Design spec exists, needs update after implementation*
+- Integration pattern - *Design spec exists, needs pilot validation*
+- Troubleshooting - *Test scenarios exist, needs real production experience*
 
 **Pilot Phase Plan:**
 1. Deploy Phase 6 to 10+ users for 2 weeks
