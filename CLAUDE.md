@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Overview
 
 If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback witin the "human in the middle".
+Deferals are not acceptable!
 
 HALT! on deferals of implementation.  Use AskUserQuestion tool to see if user is ok with deferal.  Provide reasoning for deferal.
 

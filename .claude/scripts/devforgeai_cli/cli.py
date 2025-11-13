@@ -5,9 +5,11 @@ DevForgeAI CLI - Main Entry Point
 Command-line interface for DevForgeAI workflow validators.
 
 Commands:
-  validate-dod    Validate Definition of Done completion
-  check-git       Check Git repository availability
+  validate-dod     Validate Definition of Done completion
+  check-git        Check Git repository availability
   validate-context Validate context files exist
+  check-hooks      Check if hooks should trigger for an operation
+  invoke-hooks     Invoke devforgeai-feedback skill for operation
 
 Based on industry research (SpecDriven AI, pre-commit patterns, DoD checkers).
 """
@@ -118,6 +120,30 @@ def main():
         help='Path to hooks.yaml config file (default: .devforgeai/config/hooks.yaml)'
     )
 
+    # ======================================================================
+    # invoke-hooks command
+    # ======================================================================
+    invoke_hooks_parser = subparsers.add_parser(
+        'invoke-hooks',
+        help='Invoke devforgeai-feedback skill for operation',
+        description='Extracts operation context and invokes devforgeai-feedback skill for retrospective feedback'
+    )
+    invoke_hooks_parser.add_argument(
+        '--operation',
+        required=True,
+        help='Operation name (e.g., dev, qa, release)'
+    )
+    invoke_hooks_parser.add_argument(
+        '--story',
+        default=None,
+        help='Story ID (format: STORY-NNN)'
+    )
+    invoke_hooks_parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='Enable verbose logging'
+    )
+
     # Parse arguments
     args = parser.parse_args()
 
@@ -146,6 +172,14 @@ def main():
                 operation=args.operation,
                 status=args.status,
                 config_path=args.config
+            )
+
+        elif args.command == 'invoke-hooks':
+            from .commands.invoke_hooks import invoke_hooks_command
+            return invoke_hooks_command(
+                operation=args.operation,
+                story_id=args.story,
+                verbose=args.verbose
             )
 
         else:
