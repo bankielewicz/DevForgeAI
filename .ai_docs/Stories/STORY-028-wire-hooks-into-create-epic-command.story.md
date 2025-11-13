@@ -405,6 +405,59 @@ assert exit_code == 0
 
 ---
 
+## Definition of Done
+
+### Implementation
+- [ ] Hook integration phase added to /create-epic command workflow (Phase 4A.9 in orchestration skill)
+- [ ] `devforgeai check-hooks --operation=epic-create` command functional (<100ms execution)
+- [ ] `devforgeai invoke-hooks --operation=epic-create` command functional with epic context
+- [ ] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+- [ ] Epic-specific questions provided in hook context (goal, timeline, success criteria)
+- [ ] Graceful degradation implemented (hook failures don't break epic creation, exit code 0)
+
+### Quality
+- [ ] All 6 acceptance criteria have passing tests
+- [ ] Edge cases covered (hook timeout, hook CLI error, hook script crash, missing config)
+- [ ] Data validation enforced (epic context metadata complete, hook config format valid)
+- [ ] NFRs met (hook check <100ms, hook invocation <500ms, graceful failure handling)
+- [ ] Code coverage >95% for hook integration logic in orchestration skill
+
+### Testing
+- [ ] Unit tests for hook configuration reading and enabled/disabled state
+- [ ] Unit tests for epic context metadata assembly (epic ID, name, goal, timeline, points estimate)
+- [ ] Unit tests for graceful degradation (hook failure doesn't crash workflow)
+- [ ] Integration test: /create-epic hook triggers successfully
+- [ ] Integration test: /create-epic with hooks disabled skips hook invocation
+- [ ] Integration test: Epic-specific questions received by user during feedback
+- [ ] E2E test: Complete epic creation workflow with hook triggering and feedback
+
+### Documentation
+- [ ] Hook integration documentation added to devforgeai-orchestration skill guide (epic creation)
+- [ ] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create
+- [ ] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps
+- [ ] Framework maintainer guide updated with hook lifecycle for epic creation
+
+---
+
+## Implementation Notes
+
+**This story wires hook integration into /create-epic command (via devforgeai-orchestration skill, Phase 4A.9). See Technical Specification for hook architecture details.**
+
+**Hook Integration in Orchestration Skill:**
+- Hook integration phase added after epic validation (Phase 4A.7) and file creation (Phase 4A.5)
+- Preserves lean orchestration pattern - command delegates to skill
+- Hooks invoked via `devforgeai invoke-hooks --operation=epic-create`
+
+**Epic Context for Hooks:**
+- Epic metadata passed: ID, name, goal, timeline, success criteria, features
+- Epic-specific questions focus on goal clarity, scope, success metrics
+- Graceful degradation: Failures logged/warned but exit 0
+
+**Related Stories:**
+- STORY-021: devforgeai check-hooks implementation
+- STORY-022: devforgeai invoke-hooks implementation
+- STORY-027: Hook integration for /create-story command
+
 ## Workflow Status
 
 - [ ] Architecture phase complete

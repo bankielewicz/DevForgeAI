@@ -470,6 +470,35 @@ public async Task PostEndpoint_ValidRequest_CreatesResource()
 
 ---
 
+## Definition of Done
+
+### Implementation
+- [ ] [Implementation checklist item 1]
+- [ ] [Implementation checklist item 2]
+- [ ] [Implementation checklist item 3]
+- [ ] [Implementation checklist item 4]
+
+### Quality
+- [ ] All [X] acceptance criteria have passing tests
+- [ ] Edge cases covered ([list specific edge cases])
+- [ ] Data validation enforced ([specify validation rules])
+- [ ] NFRs met ([specify which NFRs])
+- [ ] Code coverage >[X]% for [module/component]
+
+### Testing
+- [ ] Unit tests for [module 1]
+- [ ] Unit tests for [module 2]
+- [ ] Integration tests for [feature 1]
+- [ ] Integration tests for [feature 2]
+- [ ] E2E test: [critical user journey]
+
+### Documentation
+- [ ] [Document type 1]: [What is documented]
+- [ ] [Document type 2]: [What is documented]
+- [ ] [Document type 3]: [What is documented]
+
+---
+
 ## Workflow Status
 
 - [ ] Architecture phase complete
