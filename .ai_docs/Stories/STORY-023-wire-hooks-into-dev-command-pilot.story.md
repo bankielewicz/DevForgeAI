@@ -891,21 +891,21 @@ EOF
 - **Date:** 2025-11-13
 
 **[x] User guide: How to enable/disable hooks for /dev**
-- **Completion:** Added comprehensive user guide with 4 disable options
-- **Details:** Configuration examples, verification commands, skip tracking guide
-- **Reference:** STORY-023 lines 330-407
+- **Completion:** Created standalone user guide documentation file
+- **Details:** 4 disable options, configuration reference, verification commands
+- **Reference:** .devforgeai/docs/hooks/user-guide.md (2.5K)
 - **Date:** 2025-11-13
 
 **[x] Integration pattern documented for remaining 10 commands**
-- **Completion:** Documented standard Phase N pattern with rollout strategy
-- **Details:** Table of 10 commands, integration checklist, 3-phase rollout plan
-- **Reference:** STORY-023 lines 410-519
+- **Completion:** Created integration pattern documentation file
+- **Details:** Standard code template, 10 command table, rollout strategy, testing pattern
+- **Reference:** .devforgeai/docs/hooks/integration-pattern.md (8.9K)
 - **Date:** 2025-11-13
 
 **[x] Troubleshooting: Hook failures, timeout, circular invocation**
-- **Completion:** Created troubleshooting guide with 6 common issues and solutions
-- **Details:** Diagnostics checklists, resolution steps, quick reference
-- **Reference:** STORY-023 lines 522-792
+- **Completion:** Created troubleshooting documentation file
+- **Details:** 6 common issues with diagnostics/resolutions, quick checklists
+- **Reference:** .devforgeai/docs/hooks/troubleshooting.md (6.9K)
 - **Date:** 2025-11-13
 
 ### Deferred Items Approval
