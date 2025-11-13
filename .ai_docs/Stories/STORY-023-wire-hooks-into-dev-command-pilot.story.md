@@ -266,9 +266,9 @@ technical_specification:
 
 ### Documentation
 - [x] /dev command documentation updated (Phase 6 described)
-- [ ] User guide: How to enable/disable hooks for /dev - **DEFERRED**: Part of rollout phase (STORY-024+)
-- [ ] Integration pattern documented for remaining 10 commands - **DEFERRED**: Part of rollout phase (STORY-024+)
-- [ ] Troubleshooting: Hook failures, timeout, circular invocation - **DEFERRED**: Part of rollout phase (STORY-024+)
+- [x] User guide: How to enable/disable hooks for /dev
+- [x] Integration pattern documented for remaining 10 commands
+- [x] Troubleshooting: Hook failures, timeout, circular invocation
 
 ## Dependencies
 
@@ -324,6 +324,471 @@ fi
 2. Test with 10+ users (2 weeks)
 3. Collect feedback, refine if needed
 4. Rollout to 10 remaining commands (STORY-024 through STORY-033)
+
+---
+
+## User Guide: How to Enable/Disable Hooks for /dev
+
+### Enabling Hooks
+
+**Default Configuration** (`.devforgeai/config/hooks.yaml`):
+```yaml
+hooks:
+  enabled: true           # Master switch for all hooks
+  mode: "all"            # Options: "all", "failures_only", "none"
+  operations:
+    dev:
+      enabled: true       # Enable hooks for /dev command
+      on_success: true    # Trigger on successful completion
+      on_failure: false   # Don't trigger on failure
+```
+
+**To enable feedback hooks for /dev:**
+1. Ensure `.devforgeai/config/hooks.yaml` has `hooks.enabled: true`
+2. Set `hooks.operations.dev.enabled: true`
+3. Configure trigger conditions:
+   - `on_success: true` - Feedback after successful /dev completion
+   - `on_failure: true` - Feedback after /dev failure
+4. Run `/dev STORY-ID` - feedback will trigger automatically if configured
+
+### Disabling Hooks
+
+**Option 1: Disable all hooks globally**
+```yaml
+hooks:
+  enabled: false    # Master switch OFF
+```
+
+**Option 2: Disable only /dev hooks**
+```yaml
+hooks:
+  enabled: true
+  operations:
+    dev:
+      enabled: false    # /dev hooks OFF, other commands unaffected
+```
+
+**Option 3: Use failures-only mode**
+```yaml
+hooks:
+  mode: "failures_only"    # Only trigger on failures
+  operations:
+    dev:
+      on_success: false    # Skip feedback on success
+      on_failure: true     # Feedback only when /dev fails
+```
+
+**Option 4: Use skip tracking to auto-disable**
+- Skip feedback 3 times in a row
+- System will prompt: "You've skipped 3 times - disable hooks?"
+- Select "Yes" to automatically update config to `enabled: false`
+
+### Configuration Reference
+
+**File:** `.devforgeai/config/hooks.yaml`
+
+**Key Settings:**
+- `hooks.enabled` - Master switch (true/false)
+- `hooks.mode` - Global mode ("all", "failures_only", "none")
+- `hooks.operations.dev.enabled` - /dev-specific switch
+- `hooks.operations.dev.on_success` - Trigger on success
+- `hooks.operations.dev.on_failure` - Trigger on failure
+- `hooks.operations.dev.skip_tracking.enabled` - Enable skip tracking
+- `hooks.operations.dev.skip_tracking.threshold` - Skip count before disable prompt (default: 3)
+
+**To verify configuration:**
+```bash
+# Check if hooks enabled for /dev
+devforgeai check-hooks --operation=dev --status=completed
+
+# Exit code 0 = hooks will trigger
+# Exit code 1 = hooks will skip
+```
+
+---
+
+## Integration Pattern for Remaining 10 Commands
+
+### Pattern Overview
+
+The Phase 6 hook integration pattern proven in `/dev` can be applied to 10 remaining commands:
+
+| Command | Hook Operation | Status Values | Priority |
+|---------|----------------|---------------|----------|
+| `/qa` | qa | completed, failed | High |
+| `/release` | release | completed, failed | High |
+| `/orchestrate` | orchestrate | completed, failed | High |
+| `/create-story` | create-story | completed, failed | Medium |
+| `/create-epic` | create-epic | completed, failed | Medium |
+| `/create-sprint` | create-sprint | completed, failed | Medium |
+| `/ideate` | ideate | completed, failed | Low |
+| `/create-context` | create-context | completed, failed | Low |
+| `/create-ui` | create-ui | completed, failed | Low |
+| `/audit-deferrals` | audit-deferrals | completed, failed | Low |
+
+### Standard Integration Code
+
+**For each command, add Phase N after final phase:**
+
+```bash
+### Phase N: Invoke Feedback Hook
+
+# Determine status based on command outcome
+if [ "$COMMAND_SUCCEEDED" = "true" ]; then
+  STATUS="completed"
+else
+  STATUS="failed"
+fi
+
+# Check if hooks should trigger (respects configuration)
+devforgeai check-hooks --operation=OPERATION_NAME --status=$STATUS
+if [ $? -eq 0 ]; then
+  # Invoke feedback hook (errors logged, not thrown)
+  devforgeai invoke-hooks --operation=OPERATION_NAME --story=$STORY_ID || {
+    echo "⚠️ Feedback hook failed, continuing..."
+  }
+fi
+
+# Command completes successfully regardless of hook outcome
+```
+
+**Replace:**
+- `OPERATION_NAME` → command name (e.g., "qa", "release", "orchestrate")
+- `$COMMAND_SUCCEEDED` → command-specific success variable
+- `$STORY_ID` → story identifier from command context
+
+### Integration Checklist (per command)
+
+**For each command (STORY-024 through STORY-033):**
+
+- [ ] Add Phase N: Invoke Feedback Hook after final phase
+- [ ] Determine STATUS variable from command outcome
+- [ ] Call `devforgeai check-hooks --operation=NAME --status=$STATUS`
+- [ ] Conditionally invoke hooks based on exit code (if [ $? -eq 0 ])
+- [ ] Add error handling (|| { echo "warning..." })
+- [ ] Update command documentation showing Phase N
+- [ ] Create 18+ integration tests (2-3 per AC)
+- [ ] Verify performance <5s overhead
+- [ ] Test all configuration modes (enabled, disabled, failures-only)
+- [ ] Code review before QA
+
+### Configuration for Each Command
+
+**Add to `.devforgeai/config/hooks.yaml`:**
+
+```yaml
+hooks:
+  operations:
+    OPERATION_NAME:
+      enabled: true           # Enable hooks for this command
+      on_success: true        # Trigger on successful completion
+      on_failure: false       # Don't trigger on failure (or true if desired)
+      skip_tracking:
+        enabled: true
+        threshold: 3
+```
+
+**Customize per command needs:**
+- High-value commands (qa, release, orchestrate): `on_success: true, on_failure: true`
+- Creation commands (create-story, create-epic): `on_success: true, on_failure: false`
+- Utility commands (audit-deferrals): `on_success: false, on_failure: true` (only if issues found)
+
+### Rollout Strategy
+
+**Phase 1: High-Priority Commands** (STORY-024, 025, 026)
+- `/qa` - Most important validation hook
+- `/release` - Production deployment feedback
+- `/orchestrate` - End-to-end workflow feedback
+
+**Phase 2: Creation Commands** (STORY-027, 028, 029)
+- `/create-story` - Story creation feedback
+- `/create-epic` - Epic planning feedback
+- `/create-sprint` - Sprint planning feedback
+
+**Phase 3: Remaining Commands** (STORY-030, 031, 032, 033)
+- `/ideate` - Requirements discovery feedback
+- `/create-context` - Architecture setup feedback
+- `/create-ui` - UI generation feedback
+- `/audit-deferrals` - Audit execution feedback
+
+**Estimated Timeline:**
+- Phase 1: 2 weeks (3 commands × ~5 days each)
+- Phase 2: 2 weeks (3 commands × ~5 days each)
+- Phase 3: 2 weeks (4 commands × ~4 days each)
+- **Total: 6 weeks for complete rollout**
+
+---
+
+## Troubleshooting: Hook Failures, Timeouts, Circular Invocation
+
+### Common Issues and Solutions
+
+#### Issue 1: Hooks Not Triggering (check-hooks returns 1)
+
+**Symptom:** `/dev` completes but no feedback conversation appears
+
+**Diagnosis:**
+```bash
+# Check hook configuration
+cat .devforgeai/config/hooks.yaml
+
+# Manually test check-hooks
+devforgeai check-hooks --operation=dev --status=completed
+echo $?  # Should return 0 if hooks should trigger
+```
+
+**Common Causes:**
+1. **Hooks globally disabled**
+   - Fix: Set `hooks.enabled: true` in config
+
+2. **Operation disabled**
+   - Fix: Set `hooks.operations.dev.enabled: true`
+
+3. **Wrong trigger mode**
+   - Status=completed but `on_success: false`
+   - Fix: Set `on_success: true` for success triggers
+
+4. **Failures-only mode active**
+   - Mode="failures_only" skips success status
+   - Fix: Change `mode: "all"` or set status to "failed"
+
+**Resolution:**
+```yaml
+# Correct configuration for success triggers
+hooks:
+  enabled: true
+  mode: "all"
+  operations:
+    dev:
+      enabled: true
+      on_success: true    # ← Must be true for success triggers
+      on_failure: false
+```
+
+#### Issue 2: Hook Failures Breaking /dev Command
+
+**Symptom:** `/dev` exits with error when hooks fail
+
+**Diagnosis:**
+```bash
+# Check Phase 6 implementation in command
+grep -A 5 "invoke-hooks" .claude/commands/dev.md
+
+# Should see: || { echo "warning..." }
+```
+
+**Cause:** Missing error handling wrapper
+
+**Resolution:**
+```bash
+# WRONG (hook error breaks command):
+devforgeai invoke-hooks --operation=dev --story=$STORY_ID
+
+# CORRECT (error caught, command continues):
+devforgeai invoke-hooks --operation=dev --story=$STORY_ID || {
+  echo "⚠️ Feedback hook failed, continuing..."
+}
+```
+
+**Verification:**
+```bash
+# Simulate hook failure
+devforgeai invoke-hooks --operation=dev --story=NONEXISTENT 2>/dev/null || echo "Error caught"
+
+# Command should still exit 0
+echo $?  # Should be 0 (success)
+```
+
+#### Issue 3: Hook Timeout (>5 seconds)
+
+**Symptom:** Hook invocation hangs or takes >5 seconds
+
+**Diagnosis:**
+```bash
+# Measure hook execution time
+time devforgeai invoke-hooks --operation=dev --story=STORY-023
+```
+
+**Common Causes:**
+1. **Skill execution slow**
+   - devforgeai-feedback skill taking too long
+   - Check skill token usage (should be <50K tokens)
+
+2. **Network latency**
+   - If using external APIs
+   - Check API response times
+
+3. **File I/O bottleneck**
+   - Too many feedback session files
+   - Check `.devforgeai/feedback/sessions/` size
+
+**Resolution:**
+```yaml
+# Add timeout to check-hooks
+hooks:
+  timeout: 5    # Kill after 5 seconds
+
+# In command Phase 6:
+timeout 5 devforgeai check-hooks --operation=dev --status=$STATUS || {
+  echo "⚠️ Hook timeout, skipping feedback"
+  exit 0
+}
+```
+
+**Performance Optimization:**
+```bash
+# Clean old feedback sessions (>30 days)
+find .devforgeai/feedback/sessions/ -mtime +30 -delete
+
+# Reduce skill token usage
+# (Review devforgeai-feedback skill for optimization)
+```
+
+#### Issue 4: Circular Invocation (Hook triggers /dev which triggers hook)
+
+**Symptom:** Infinite loop, /dev keeps re-triggering itself
+
+**Diagnosis:**
+```bash
+# Check for DEVFORGEAI_HOOK_ACTIVE guard
+env | grep DEVFORGEAI_HOOK_ACTIVE
+
+# Check invocation depth
+ps aux | grep "devforgeai invoke-hooks" | wc -l
+# Should be 0 or 1, NOT >1
+```
+
+**Cause:** Missing circular invocation guard
+
+**Resolution:**
+```bash
+# Add guard in invoke-hooks implementation
+if [ "$DEVFORGEAI_HOOK_ACTIVE" = "1" ]; then
+  echo "⚠️ Circular invocation detected, skipping hook"
+  exit 1
+fi
+
+export DEVFORGEAI_HOOK_ACTIVE=1
+
+# ... invoke hook logic ...
+
+unset DEVFORGEAI_HOOK_ACTIVE
+```
+
+**Prevention:**
+```yaml
+# In hooks.yaml, ensure circular detection enabled
+hooks:
+  circular_detection: true    # Default: true
+  max_depth: 1                # Maximum hook invocation depth
+```
+
+#### Issue 5: Missing CLI Tools (check-hooks or invoke-hooks not found)
+
+**Symptom:** `command not found: devforgeai`
+
+**Diagnosis:**
+```bash
+# Check if CLI installed
+which devforgeai
+
+# Check version
+devforgeai --version
+```
+
+**Resolution:**
+```bash
+# Install DevForgeAI CLI
+pip install --break-system-packages -e .claude/scripts/
+
+# Verify installation
+devforgeai --version
+
+# Should output: devforgeai-cli version X.X.X
+```
+
+**Fallback Behavior:**
+```bash
+# Add CLI check in Phase 6
+if ! command -v devforgeai &> /dev/null; then
+  echo "⚠️ devforgeai CLI not found, skipping hooks"
+  exit 0  # Continue without hooks
+fi
+
+# Then proceed with check-hooks
+devforgeai check-hooks --operation=dev --status=$STATUS
+```
+
+#### Issue 6: Configuration File Missing or Invalid
+
+**Symptom:** `FileNotFoundError: hooks.yaml not found`
+
+**Diagnosis:**
+```bash
+# Check if config exists
+ls -la .devforgeai/config/hooks.yaml
+
+# Validate YAML syntax
+python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+```
+
+**Resolution:**
+```bash
+# Create default config if missing
+mkdir -p .devforgeai/config
+cat > .devforgeai/config/hooks.yaml << 'EOF'
+hooks:
+  enabled: true
+  mode: "all"
+  operations:
+    dev:
+      enabled: true
+      on_success: true
+      on_failure: false
+EOF
+
+# Fix YAML syntax errors
+# (Use yamllint or Python to identify issues)
+```
+
+### Quick Diagnostics Checklist
+
+**When hooks aren't working:**
+1. [ ] Check `hooks.enabled: true` in config
+2. [ ] Check `operations.dev.enabled: true`
+3. [ ] Verify `on_success` or `on_failure` matches status
+4. [ ] Run `devforgeai check-hooks` manually (exit code 0?)
+5. [ ] Check devforgeai CLI is installed (`which devforgeai`)
+6. [ ] Verify `.devforgeai/config/hooks.yaml` exists and valid
+7. [ ] Check for error messages in command output
+8. [ ] Test with `mode: "all"` to eliminate mode issues
+
+**When hooks break commands:**
+1. [ ] Verify `|| { echo "warning" }` wrapper present
+2. [ ] Check command exit code (should be 0 despite hook failure)
+3. [ ] Review Phase 6 implementation for missing error handling
+4. [ ] Add timeout wrapper if hooks hanging
+
+**Performance Issues:**
+1. [ ] Measure hook execution time (<5s target)
+2. [ ] Check skill token usage (<50K target)
+3. [ ] Clean old feedback sessions
+4. [ ] Review devforgeai-feedback skill for optimization
+
+### Support Resources
+
+**Documentation:**
+- STORY-021: devforgeai check-hooks CLI implementation
+- STORY-022: devforgeai invoke-hooks CLI implementation
+- STORY-023: Phase 6 hook integration (this story)
+
+**Testing:**
+- `tests/integration/test_phase6_hooks_integration.py` - 23 test cases
+- All edge cases covered (timeout, circular, failures)
+
+**Configuration Examples:**
+- `.devforgeai/config/hooks.yaml` - Default configuration
+- See "User Guide" section above for all configuration modes
 
 ## Implementation Notes
 
@@ -425,6 +890,24 @@ fi
 - **Reference:** .claude/commands/dev.md lines 294-340
 - **Date:** 2025-11-13
 
+**[x] User guide: How to enable/disable hooks for /dev**
+- **Completion:** Added comprehensive user guide with 4 disable options
+- **Details:** Configuration examples, verification commands, skip tracking guide
+- **Reference:** STORY-023 lines 330-407
+- **Date:** 2025-11-13
+
+**[x] Integration pattern documented for remaining 10 commands**
+- **Completion:** Documented standard Phase N pattern with rollout strategy
+- **Details:** Table of 10 commands, integration checklist, 3-phase rollout plan
+- **Reference:** STORY-023 lines 410-519
+- **Date:** 2025-11-13
+
+**[x] Troubleshooting: Hook failures, timeout, circular invocation**
+- **Completion:** Created troubleshooting guide with 6 common issues and solutions
+- **Details:** Diagnostics checklists, resolution steps, quick reference
+- **Reference:** STORY-023 lines 522-792
+- **Date:** 2025-11-13
+
 ### Deferred Items Approval
 
 **Deferred Item 1: Manual testing with real stories (5+ test cases)**
@@ -457,18 +940,20 @@ fi
 
 ### Summary
 
-**Implementation Status:** 12 of 15 DoD items complete
+**Implementation Status:** 15 of 18 DoD items complete (Documentation added!)
 - Phase 6 added to /dev command ✅
 - 23 integration tests created and passing ✅
 - Performance validated (<5s overhead) ✅
 - Code review approved (⭐⭐⭐⭐⭐) ✅
 - All 7 ACs tested and validated ✅
+- User guide created (enable/disable hooks) ✅
+- Integration pattern documented (10 commands) ✅
+- Troubleshooting guide created (6 scenarios) ✅
 
 **Deferred Status:** 3 items deferred for pilot phase with user approval
 - Manual testing (real /dev runs) - Pilot phase
 - Reliability validation (20+ runs) - Pilot phase
 - Regression testing - Pilot phase
-- Documentation (guides, patterns, troubleshooting) - Rollout phase
 
 **Pilot Phase Plan:**
 1. Deploy Phase 6 to 10+ users for 2 weeks
