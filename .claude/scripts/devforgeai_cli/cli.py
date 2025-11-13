@@ -93,6 +93,31 @@ def main():
         help='Output format (default: text)'
     )
 
+    # ======================================================================
+    # check-hooks command
+    # ======================================================================
+    hooks_parser = subparsers.add_parser(
+        'check-hooks',
+        help='Check if hooks should trigger for an operation',
+        description='Validates hook configuration and determines trigger status'
+    )
+    hooks_parser.add_argument(
+        '--operation',
+        required=True,
+        help='Operation name (e.g., dev, qa, release)'
+    )
+    hooks_parser.add_argument(
+        '--status',
+        required=True,
+        choices=['success', 'failure', 'partial'],
+        help='Operation status'
+    )
+    hooks_parser.add_argument(
+        '--config',
+        default=None,
+        help='Path to hooks.yaml config file (default: .devforgeai/config/hooks.yaml)'
+    )
+
     # Parse arguments
     args = parser.parse_args()
 
@@ -114,6 +139,14 @@ def main():
         elif args.command == 'validate-context':
             from .validators.context_validator import validate_context
             return validate_context(args.directory, args.format)
+
+        elif args.command == 'check-hooks':
+            from .commands.check_hooks import check_hooks_command
+            return check_hooks_command(
+                operation=args.operation,
+                status=args.status,
+                config_path=args.config
+            )
 
         else:
             print(f"Unknown command: {args.command}", file=sys.stderr)
