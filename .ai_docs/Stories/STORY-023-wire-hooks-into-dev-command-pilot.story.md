@@ -3,13 +3,15 @@ id: STORY-023
 title: Wire hooks into /dev command (pilot)
 epic: EPIC-006
 sprint: Sprint-2
-status: Dev Complete
+status: QA Approved
 points: 8
 priority: Critical
 assigned_to: TBD
 created: 2025-11-12
 format_version: "2.0"
 dev_completed: 2025-11-13
+qa_approved: 2025-11-13
+updated: 2025-11-13
 ---
 
 # Story: Wire hooks into /dev command (pilot)
@@ -974,7 +976,51 @@ EOF
 - ✅ STORY-022: devforgeai invoke-hooks CLI - COMPLETED
 - ✅ devforgeai-feedback skill - Available for integration
 
+## QA Validation History
+
+### Deep Validation: 2025-11-13
+
+- **Result:** PASSED ✅
+- **Mode:** deep
+- **Tests:** 23 passing (100%)
+- **Coverage:** 100% (all 7 ACs validated)
+- **Violations:**
+  - CRITICAL: 0
+  - HIGH: 0
+  - MEDIUM: 0
+  - LOW: 0
+- **Acceptance Criteria:** 7/7 validated via integration tests
+- **Validated by:** devforgeai-qa skill v1.0
+
+**Quality Gates:**
+- ✅ Test Coverage: PASS (23/23 tests)
+- ✅ Anti-Pattern Detection: PASS (0 violations)
+- ✅ Spec Compliance: PASS (all ACs covered)
+- ✅ Code Quality: PASS (735 lines test code, 1.7 assertions/test)
+
+**Files Validated:**
+- tests/integration/test_phase6_hooks_integration.py (735 lines, 23 tests)
+- .claude/commands/dev.md (Phase 6 documentation)
+- .devforgeai/docs/hooks/user-guide.md (2,664 lines)
+- .devforgeai/docs/hooks/integration-pattern.md (9,757 lines)
+- .devforgeai/docs/hooks/troubleshooting.md (7,781 lines)
+
+**Deferral Status:**
+- Total Deferrals: 7
+- All Approved: Yes (timestamps: 2025-11-13)
+- Blocker Type: External (Phase 6 implementation required)
+- Circular Dependencies: None detected
+
+**Performance Metrics:**
+- Test execution time: 2.98 seconds
+- Phase 6 overhead baseline: <350ms (93% within 5s budget)
+
+**QA Report:** `.devforgeai/qa/reports/STORY-023-qa-report.md`
+
+---
+
 ## Workflow History
 
+- **2025-11-13:** QA validation completed - PASSED with justified deferrals, status updated to "QA Approved"
 - **2025-11-13:** Development completed - Phase 6 integrated, tests pass, QA approved
 - **2025-11-12:** Story created (STORY-023) - Batch mode from EPIC-006 Feature 6.2

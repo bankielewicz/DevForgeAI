@@ -1,0 +1,340 @@
+{
+  "story_id": "STORY-014",
+  "title": "Add Definition of Done Section to Story Template",
+  "validation_date": "2025-11-13",
+  "validator": "deferral-validator",
+  "status": "FAILED",
+  "overall_result": "FAIL - Cannot proceed to QA approval",
+
+  "summary": {
+    "total_deferred": 27,
+    "deferred_items_by_category": {
+      "implementation": 6,
+      "quality": 5,
+      "testing": 8,
+      "documentation": 4
+    },
+    "violations_by_severity": {
+      "critical": 1,
+      "high": 1,
+      "medium": 1,
+      "low": 0
+    },
+    "total_violations": 3,
+    "recommendation": "HALT - Fix violations before QA approval"
+  },
+
+  "violations": [
+    {
+      "id": 1,
+      "type": "CRITICAL",
+      "category": "Unmarked Implementation",
+      "severity": "CRITICAL",
+      "count": 6,
+      "items_affected": [
+        "Template file updated with DoD section",
+        "DoD section appears after Test Strategy section",
+        "STORY-027 updated with DoD criteria",
+        "STORY-028 updated with DoD criteria",
+        "STORY-029 updated with DoD criteria",
+        "All 4 files committed with message"
+      ],
+      "description": "Work has been completed and committed (git 423c271) but story's DoD checklist remains unmarked (0/27 items). Story status shows 'Dev Complete' but DoD tracking shows 0% completion. This is a discrepancy between story status and Definition of Done tracking.",
+      "evidence": {
+        "git_commit": "423c271 - feat(STORY-014): Add Definition of Done section...",
+        "commit_message_indicates": "Closes STORY-014",
+        "story_status": "Dev Complete (line 6)",
+        "dod_status": "0/27 items marked (lines 495-526)"
+      },
+      "root_cause": "Implementation completed and committed, but story file's DoD checklist never updated to reflect completion. Story author set status to 'Dev Complete' but left all DoD items unchecked.",
+      "remediation": [
+        "Option A: Mark all 6 implementation items [x] if work is truly complete (RECOMMENDED - work IS done)",
+        "Option B: If work not complete, document deferral with justification, blocker, user approval, and follow-up story reference"
+      ],
+      "rca_impact": "RCA-006 (Autonomous Deferrals) + RCA-008 (Autonomous Git Operations) - Workflow discrepancy",
+      "blocks_qa": true
+    },
+
+    {
+      "id": 2,
+      "type": "HIGH",
+      "category": "Testing/Quality Deferred Without Justification",
+      "severity": "HIGH",
+      "count": 13,
+      "items_affected": [
+        "All 7 acceptance criteria have passing tests",
+        "Edge cases covered",
+        "Data validation enforced",
+        "NFRs met",
+        "Code coverage >95%",
+        "Unit tests for template insertion",
+        "Unit tests for story insertion (x3)",
+        "Unit tests for YAML preservation",
+        "Unit tests for section ordering",
+        "Integration test: Full workflow",
+        "Integration test: Template structure matches",
+        "E2E test: Future story includes DoD",
+        "Validation test: validate_deferrals.py passes"
+      ],
+      "description": "13 test and quality assurance items deferred without ANY justification, blocker documentation, or user approval. All items simply left unchecked with no explanation. Story has 0% test coverage (0 tests written).",
+      "evidence": {
+        "tests_written": 0,
+        "justification_provided": "NO (completely missing)",
+        "user_approval_documented": "NO (completely missing)",
+        "blocker_documented": "NO (completely missing)",
+        "adr_reference": "NONE"
+      },
+      "root_cause": "Autonomous deferral without justification. No attempt to document why testing was skipped or deferred.",
+      "remediation": [
+        "Option A: Complete testing (Phase 1 Red → Phase 2 Green → Phase 3 Refactor) - brings coverage to 95%+",
+        "Option B: Defer testing with proper justification (create ADR + follow-up story + user approval markers with timestamp)",
+        "RECOMMENDED: Option A if possible (better quality), Option B if time-constrained"
+      ],
+      "rca_impact": "RCA-006 (Autonomous Deferrals Incident) - Direct violation of deferral protocol",
+      "blocks_qa": true
+    },
+
+    {
+      "id": 3,
+      "type": "MEDIUM",
+      "category": "Documentation Deferred Without Justification",
+      "severity": "MEDIUM",
+      "count": 4,
+      "items_affected": [
+        "Template includes comment explaining DoD section",
+        "Story documents template update rationale",
+        "Validation script documentation updated",
+        "Framework maintainer guide updated"
+      ],
+      "description": "4 documentation items either missing or incomplete. Template has no explanatory comment. Validation script and maintainer guide not updated.",
+      "evidence": {
+        "comment_in_template": "MISSING",
+        "story_rationale": "PARTIAL (Implementation Notes exist but DoD not marked)",
+        "script_docs_updated": "NO",
+        "maintainer_guide_updated": "NO"
+      },
+      "root_cause": "Secondary deferral items left unmarked during primary implementation.",
+      "remediation": [
+        "Option A: Complete documentation items",
+        "Option B: Defer to follow-up story with ADR + user approval"
+      ],
+      "rca_impact": "Maintainability concern - framework constraints less clear",
+      "blocks_qa": false,
+      "note": "Secondary to CRITICAL and HIGH violations but still required for QA approval"
+    }
+  ],
+
+  "deferral_validation_details": {
+    "all_deferrals_justified": false,
+    "all_deferrals_have_user_approval": false,
+    "all_deferrals_have_blockers_documented": false,
+    "circular_deferrals_detected": false,
+    "multi_level_chains_detected": false,
+    "all_referenced_stories_exist": true,
+    "referenced_stories": [
+      { "story": "STORY-027", "status": "EXISTS", "has_dod": true },
+      { "story": "STORY-028", "status": "EXISTS", "has_dod": true },
+      { "story": "STORY-029", "status": "EXISTS", "has_dod": true },
+      { "story": "STORY-007-013", "status": "Referenced as examples", "purpose": "DoD pattern reference" }
+    ],
+    "adrs_required": 2,
+    "adrs_found": 0,
+    "adrs_missing": [
+      "ADR for scope change (why testing deferred)",
+      "ADR for documentation deferral (if applicable)"
+    ]
+  },
+
+  "implementation_completion_assessment": {
+    "status": "IMPLEMENTED - Work IS Done",
+    "git_evidence": {
+      "commit_id": "423c271ee6800ae11a171c2beb1867d82f7e8d46",
+      "author": "DevForgeAI CI/CD Engineer",
+      "date": "2025-11-13 15:23:41",
+      "message": "feat(STORY-014): Add Definition of Done section to story template and reference stories",
+      "closes": "STORY-014"
+    },
+    "files_modified": 5,
+    "files_modified_list": [
+      ".claude/skills/devforgeai-story-creation/assets/templates/story-template.md",
+      ".ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md",
+      ".ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md",
+      ".ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md"
+    ],
+    "lines_added": 754,
+    "implementation_complete": true,
+    "verification": {
+      "template_has_dod_section": {
+        "file": ".claude/skills/devforgeai-story-creation/assets/templates/story-template.md",
+        "lines": "473-499",
+        "verified": true,
+        "subsections": [
+          "Implementation",
+          "Quality",
+          "Testing",
+          "Documentation"
+        ]
+      },
+      "story_027_has_dod": {
+        "file": ".ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md",
+        "line": 432,
+        "verified": true
+      },
+      "story_028_has_dod": {
+        "file": ".ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md",
+        "line": 408,
+        "verified": true
+      },
+      "story_029_has_dod": {
+        "file": ".ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md",
+        "line": 338,
+        "verified": true
+      }
+    },
+    "conclusion": "Work IS complete and committed. The issue is that the story file's DoD checklist was never updated to reflect this completion."
+  },
+
+  "quality_gate_assessment": {
+    "gate": "Quality Gate 3 - QA Approval (devforgeai-qa Phase 0 Step 2.5)",
+    "result": "FAILED",
+    "reason": "CRITICAL, HIGH, and MEDIUM violations detected - cannot approve",
+    "blocks_progression": true,
+    "required_for_approval": [
+      "CRITICAL: Resolve unmarked implementation (mark items or defer with approval)",
+      "HIGH: Resolve testing deferrals (complete or defer with ADR + approval)",
+      "MEDIUM: Resolve documentation items (complete or defer with approval)"
+    ]
+  },
+
+  "action_plan": {
+    "priority": [
+      {
+        "order": 1,
+        "action": "Resolve Unmarked Implementation",
+        "severity": "CRITICAL",
+        "description": "Mark implementation items [x] complete since work IS done",
+        "options": [
+          {
+            "option": "A (RECOMMENDED)",
+            "description": "Mark 6 implementation items as complete - work IS done per git commit 423c271",
+            "effort": "2 minutes",
+            "outcome": "CRITICAL violation resolved"
+          },
+          {
+            "option": "B",
+            "description": "Document deferral with justification if work somehow not actually complete",
+            "requirements": [
+              "Blocker documentation",
+              "User approval marker with timestamp",
+              "Reference to follow-up story"
+            ],
+            "effort": "10 minutes"
+          }
+        ],
+        "estimated_effort": "2 minutes",
+        "blocks_qa_approval": true
+      },
+
+      {
+        "order": 2,
+        "action": "Resolve Testing Deferrals",
+        "severity": "HIGH",
+        "description": "Either complete 13 testing/quality items OR defer with ADR + follow-up story",
+        "options": [
+          {
+            "option": "A (COMPLETE TESTING)",
+            "description": "Run TDD cycle (Phase 1 Red → Phase 2 Green → Phase 3 Refactor). Implement tests and code.",
+            "estimated_effort": "3-4 hours",
+            "coverage_target": "95%+",
+            "outcome": "All HIGH violations resolved, high-quality story",
+            "recommended_for": "If team has time and wants comprehensive testing"
+          },
+          {
+            "option": "B (DEFER WITH JUSTIFICATION)",
+            "description": "Create follow-up story (STORY-XXX) for testing. Document deferral in STORY-014 with user approval.",
+            "requirements": [
+              "Create ADR documenting scope change",
+              "Create STORY-XXX for test implementation",
+              "Add user approval marker with timestamp",
+              "Update Implementation Notes explaining deferral"
+            ],
+            "estimated_effort": "30 minutes",
+            "outcome": "HIGH violations converted to justified deferrals with follow-up",
+            "recommended_for": "If time-constrained or testing better suited to different sprint"
+          }
+        ],
+        "estimated_effort": "30 minutes (Option B) or 3-4 hours (Option A)",
+        "blocks_qa_approval": true
+      },
+
+      {
+        "order": 3,
+        "action": "Resolve Documentation Deferrals",
+        "severity": "MEDIUM",
+        "description": "Complete or defer 4 documentation items",
+        "options": [
+          {
+            "option": "A",
+            "description": "Complete documentation items (add template comment, update guides)",
+            "estimated_effort": "1-2 hours"
+          },
+          {
+            "option": "B (RECOMMENDED)",
+            "description": "Defer documentation to follow-up story (same STORY-XXX as testing)",
+            "requirements": [
+              "Reference STORY-XXX in deferral items",
+              "Add user approval marker",
+              "Timestamp approval"
+            ],
+            "estimated_effort": "10 minutes"
+          }
+        ],
+        "estimated_effort": "10 minutes (Option B) or 1-2 hours (Option A)",
+        "blocks_qa_approval": true,
+        "note": "Can be bundled with testing follow-up story"
+      }
+    ],
+
+    "follow_up_stories": [
+      {
+        "suggested_story_id": "STORY-XXX",
+        "title": "Add comprehensive testing and documentation to STORY-014 DoD template framework",
+        "description": "Deferred from STORY-014 to later sprint",
+        "includes": [
+          "8 testing items from STORY-014 DoD",
+          "4 documentation items from STORY-014 DoD",
+          "5 quality items from STORY-014 DoD"
+        ],
+        "acceptance_criteria": "All 17 deferred items from STORY-014 completed and tested",
+        "link_back": "References STORY-014 as original story",
+        "planned_for": "Next sprint (when testing capacity available)"
+      }
+    ],
+
+    "required_adrs": [
+      {
+        "suggested_id": "ADR-XXX",
+        "title": "Deferral of testing and documentation for DoD template framework",
+        "decision": "Testing and documentation work deferred to follow-up story STORY-XXX",
+        "rationale": [
+          "Template changes are configuration-only (no code)",
+          "Testing better suited to dedicated sprint",
+          "Documentation requires broader framework review"
+        ],
+        "timeline": "Follow-up story planned for next sprint",
+        "impact": "DoD template available now; comprehensive testing deferred 1-2 sprints"
+      }
+    ]
+  },
+
+  "qa_recommendation": "FAIL - Do not approve. Story must resolve all violations before QA approval. Recommend Option A for implementation (mark complete + document deferral) and Option B for testing/docs (defer with proper justification).",
+
+  "validation_confidence": "99%",
+  "validated_against": [
+    "Source story file (STORY-014)",
+    "Git history (commit 423c271)",
+    "Template file (story-template.md)",
+    "Referenced stories (STORY-027, 028, 029)",
+    "Implementation Notes in story file"
+  ]
+}
