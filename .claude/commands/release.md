@@ -260,10 +260,12 @@ ELSE:
    - Follow the skill's instructions phase by phase
    - Produce output as skill instructs
 
-   **The skill instructs you to execute 6-phase deployment process:**
+   **The skill instructs you to execute 8-phase deployment process:**
      - **Phase 1:** Pre-Release Validation (verify QA approval, tests passing, build success)
      - **Phase 2:** Staging Deployment (if env=staging)
+     - **Phase 2.5:** Post-Staging Hooks (NEW - STORY-025: Retrospective feedback after staging)
      - **Phase 3:** Production Deployment (if env=production)
+     - **Phase 3.5:** Post-Production Hooks (NEW - STORY-025: Retrospective feedback after production, failures-only default)
      - **Phase 4:** Post-Deployment Validation (smoke tests, health checks)
      - **Phase 5:** Release Documentation (release notes, changelog)
      - **Phase 6:** Post-Release Monitoring (metrics collection, alerting setup)
@@ -623,21 +625,74 @@ Commands:
 
 ---
 
+## Hook Integration (STORY-025)
+
+**Retrospective feedback collection after deployments:**
+
+The devforgeai-release skill automatically triggers feedback collection after staging and production deployments complete.
+
+### Phase 2.5: Post-Staging Hooks
+
+**When:** After staging deployment completes (success or failure)
+
+**Behavior:**
+- Invokes `devforgeai check-hooks --operation=release-staging --status=$STATUS`
+- If eligible (exit code 0), invokes `devforgeai invoke-hooks --operation=release-staging --story=$STORY_ID`
+- Presents deployment-specific retrospective questions
+- Non-blocking: Hook failures never affect deployment status
+
+**Configuration:** `.devforgeai/config/hooks.yaml` (see `hooks.yaml.example-release`)
+
+**Default:** Trigger on all staging deployments (success and failure)
+
+### Phase 3.5: Post-Production Hooks
+
+**When:** After production deployment completes (primarily on failures)
+
+**Behavior:**
+- Invokes `devforgeai check-hooks --operation=release-production --status=$STATUS`
+- If eligible, invokes `devforgeai invoke-hooks --operation=release-production --story=$STORY_ID`
+- Presents critical failure questions (if production failed)
+- Non-blocking: Hook failures never affect deployment status
+
+**Configuration:** `.devforgeai/config/hooks.yaml` (see `hooks.yaml.example-release`)
+
+**Default:** Failures-only mode (skip feedback on production success, always trigger on failure)
+
+**Override:** Set `on_success: true` in hooks.yaml to trigger on production success
+
+### Graceful Degradation
+
+**Hook failures never break deployments:**
+- CLI not installed → Skip hooks, continue deployment
+- Config missing → Skip hooks, log warning
+- Hook crashes → Log error, continue deployment
+- Timeout (30s) → Abort feedback, continue deployment
+- User abort (Ctrl+C) → Save partial feedback, continue deployment
+
+**Logs:** `.devforgeai/logs/release-hooks-{STORY-ID}.log`
+
+**See:** `.devforgeai/docs/hook-integration-pattern.md` for complete integration guide
+
+---
+
 ## Example Usage
 
 **Deploy to staging (default):**
 ```
 /release STORY-001
 ```
+*May prompt for staging deployment feedback (if hooks enabled)*
 
 **Deploy to production:**
 ```
-/release STORY-001 --env=production
+/release STORY-001 production
 ```
+*May prompt for production failure feedback only (failures-only mode)*
 
 **Coordinated sprint release:**
 ```
-/release SPRINT-001 --env=production
+/release SPRINT-001 production
 ```
 (Deploys all QA-approved stories in sprint)
 
