@@ -109,7 +109,7 @@ Smoke tests config in `.devforgeai/smoke-tests/config.json` (URLs, test users, A
 
 ---
 
-## Release Workflow (6 Phases)
+## Release Workflow (8 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
@@ -129,12 +129,29 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Steps:** Deploy → Smoke test → Health check → Validate
 **Output:** Staging deployment complete, smoke tests passed
 
+### Phase 2.5: Post-Staging Hooks (NEW - STORY-025)
+**Purpose:** Trigger retrospective feedback after staging deployment
+**Reference:** `post-staging-hooks.md`
+**Invokes:** `devforgeai check-hooks --operation=release-staging --status=$STATUS`
+**Conditional:** Only invokes `devforgeai invoke-hooks` if check-hooks returns 0 (eligible)
+**Graceful Degradation:** Hook failures logged, deployment proceeds regardless
+**Output:** Feedback collected (if hooks enabled), deployment continues
+
 ### Phase 3: Production Deployment
 **Purpose:** Deploy to production with progressive rollout
 **Reference:** `production-deployment.md`
 **Guides:** `deployment-strategies.md`, `platform-deployment-commands.md`
 **Strategies:** Blue-green (zero downtime), canary (progressive), rolling (gradual), recreate (simple)
 **Output:** Production deployment complete with chosen strategy
+
+### Phase 3.5: Post-Production Hooks (NEW - STORY-025)
+**Purpose:** Trigger retrospective feedback after production deployment
+**Reference:** `post-production-hooks.md`
+**Invokes:** `devforgeai check-hooks --operation=release-production --status=$STATUS`
+**Conditional:** Only invokes `devforgeai invoke-hooks` if check-hooks returns 0 (eligible)
+**Default Behavior:** Failures-only mode (skips feedback on production success unless configured)
+**Graceful Degradation:** Hook failures logged, deployment proceeds regardless
+**Output:** Feedback collected (if hooks enabled and eligible), deployment continues
 
 ### Phase 4: Post-Deployment Validation
 **Purpose:** Execute comprehensive smoke tests on production
@@ -200,12 +217,14 @@ Release complete when:
 
 Load these on-demand during workflow execution.
 
-### Workflow Files (8 files - NEW)
+### Workflow Files (10 files)
 - **parameter-extraction.md** (104 lines) - Story ID, environment, strategy extraction algorithm
 - **configuration-guide.md** (52 lines) - Platform config requirements, schemas, examples
 - **pre-release-validation.md** (66 lines) - Phase 1: Validation checks and release gates
 - **staging-deployment.md** (75 lines) - Phase 2: Staging workflow and smoke testing
+- **post-staging-hooks.md** (NEW - STORY-025) - Phase 2.5: Hook integration after staging deployment
 - **production-deployment.md** (69 lines) - Phase 3: Production deployment with strategies
+- **post-production-hooks.md** (NEW - STORY-025) - Phase 3.5: Hook integration after production deployment
 - **post-deployment-validation.md** (58 lines) - Phase 4: Smoke tests and health checks
 - **release-documentation.md** (65 lines) - Phase 5: Release notes and audit trail
 - **monitoring-closure.md** (29 lines) - Phase 6: Monitoring setup and story closure
@@ -218,6 +237,14 @@ Load these on-demand during workflow execution.
 - **rollback-procedures.md** (178 lines) - Rollback execution procedures and recovery strategies
 - **smoke-testing-guide.md** (389 lines) - Post-deployment test procedures and validation
 
-**Total: 14 reference files, 3,601 lines of comprehensive deployment guidance.**
+**Total: 16 reference files, ~4,600 lines of comprehensive deployment guidance.**
+- 10 workflow files (phases 1-6 + 2 new hook phases)
+- 6 guide files (strategies, monitoring, platforms, checklists, rollback, smoke testing)
 
 **Progressive loading ensures only needed references consume tokens during execution.**
+
+**Hook Integration (STORY-025):**
+- Phase 2.5 and 3.5 add retrospective feedback collection
+- Non-blocking: Hook failures never affect deployment status
+- Configurable: `.devforgeai/config/hooks.yaml` controls behavior
+- See: `post-staging-hooks.md` and `post-production-hooks.md` for implementation details
