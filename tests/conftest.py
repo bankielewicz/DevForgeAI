@@ -30,8 +30,14 @@ def setup_feedback_sessions(request, monkeypatch):
         os.chdir(original_cwd)
         return
 
-    # Create temporary feedback directory with sample sessions
-    feedback_dir = Path(".devforgeai/feedback/sessions")
+    # Create SAFE temporary feedback directory with sample sessions
+    # Use /tmp/test_feedback_junk/ instead of production .devforgeai/feedback/
+    import tempfile
+    import shutil
+
+    # Create unique temporary directory for this test run
+    temp_root = Path(tempfile.gettempdir()) / "test_feedback_junk"
+    feedback_dir = temp_root / "feedback" / "sessions"
     feedback_dir.mkdir(parents=True, exist_ok=True)
 
     # Create sample feedback session files for testing
@@ -62,12 +68,10 @@ Details about the operation execution and feedback...
 
     yield
 
-    # Cleanup: remove the feedback directory after test
-    import shutil
-    if Path(".devforgeai").exists():
-        # Only remove feedback directory, not all .devforgeai
-        if (Path(".devforgeai/feedback")).exists():
-            shutil.rmtree(Path(".devforgeai/feedback"))
+    # Cleanup: SAFELY remove ONLY the test junk directory
+    # This will NEVER touch production .devforgeai/feedback/
+    if temp_root.exists():
+        shutil.rmtree(temp_root)
 
 
 # ========== STORY-019: Operation Context Extraction Fixtures ==========
