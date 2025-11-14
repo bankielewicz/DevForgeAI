@@ -69,6 +69,39 @@ hooks:
     enabled: false
     tags: [release, monitoring, deployment]
 
+  # Post-Orchestrate Workflow Retrospective
+  # Triggers after complete /orchestrate workflow (dev → qa → release)
+  # STORY-026 Implementation
+  - id: post-orchestrate-retrospective
+    name: "Post-Orchestrate Workflow Retrospective"
+    operation_type: command
+    operation_pattern: "orchestrate"
+    trigger_status: [failure]  # DEFAULT: Failures-only mode (AC4)
+    trigger_conditions:
+      user_approval_required: false  # Automatic trigger on workflow failures
+      operation_duration_min_ms: 0   # No minimum duration (all workflows eligible)
+    feedback_type: conversation
+    feedback_config:
+      mode: "comprehensive"  # Full retrospective for end-to-end workflows
+      questions:
+        # Workflow-level questions (AC5: workflow experience focus)
+        - "Which phase was the biggest bottleneck (dev, QA, or release)?"
+        - "Did quality gates catch issues effectively (coverage, compliance, deployment)?"
+        - "Were there unexpected failures or blockers during the workflow?"
+        - "How could the end-to-end workflow be improved?"
+        # Checkpoint-specific (AC3: if checkpoint resume detected)
+        - "If you resumed from a checkpoint, was the context clear about what needed to be done?"
+        # Performance reflection
+        - "Was the total workflow duration acceptable for this story complexity?"
+    max_duration_ms: 5000
+    enabled: false  # DISABLED by default until Phase N wiring complete
+    tags: [orchestrate, workflow, end-to-end, retrospective, story-026]
+    metadata:
+      story_id: "STORY-026"
+      acceptance_criteria: ["AC1", "AC2", "AC3", "AC4", "AC5", "AC6", "AC7"]
+      implementation_date: "2025-11-14"
+      notes: "Failures-only mode default (AC4). Change trigger_status to [success, failure] for all-statuses mode."
+
   # Example 4: Sprint Retrospective
   # Triggers after sprint planning completes
   - id: sprint-retrospective

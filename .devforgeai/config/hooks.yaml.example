@@ -1,0 +1,170 @@
+# DevForgeAI Hook Configuration Example
+#
+# This file shows example hook configurations for all DevForgeAI operations.
+# Copy sections to hooks.yaml and customize as needed.
+
+# ============================================================================
+# POST-ORCHESTRATE WORKFLOW RETROSPECTIVE (STORY-026)
+# ============================================================================
+
+# Triggers after complete /orchestrate workflow execution (dev → qa → release)
+# Use for capturing end-to-end workflow insights and bottleneck analysis
+
+- id: post-orchestrate-retrospective
+  name: "Post-Orchestrate Workflow Retrospective"
+  operation_type: command
+  operation_pattern: "orchestrate"
+
+  # CONFIGURATION OPTION 1: Failures-Only Mode (DEFAULT - AC4)
+  # Only triggers when workflow fails (any phase: dev, QA, or release)
+  trigger_status: [failure]
+
+  # CONFIGURATION OPTION 2: All-Statuses Mode
+  # Triggers on both success and failure for comprehensive feedback
+  # trigger_status: [success, failure]
+
+  trigger_conditions:
+    # No user approval required (automatic trigger)
+    user_approval_required: false
+
+    # No minimum duration (all workflows eligible)
+    operation_duration_min_ms: 0
+
+    # OPTIONAL: Only trigger for specific story complexities
+    # story_points_min: 5  # Only stories ≥5 points
+
+  feedback_type: conversation
+  feedback_config:
+    mode: "comprehensive"  # Full retrospective for end-to-end workflows
+
+    # Workflow-level questions (AC5: focus on phases, gates, duration)
+    questions:
+      # Bottleneck identification
+      - "Which phase was the biggest bottleneck (dev, QA, or release)?"
+
+      # Quality gate effectiveness
+      - "Did quality gates catch issues effectively (coverage, compliance, deployment)?"
+
+      # Failure analysis
+      - "Were there unexpected failures or blockers during the workflow?"
+
+      # Process improvement
+      - "How could the end-to-end workflow be improved?"
+
+      # Checkpoint-specific (AC3: if checkpoint resume detected)
+      - "If you resumed from a checkpoint, was the context clear about what needed to be done?"
+
+      # Performance reflection
+      - "Was the total workflow duration acceptable for this story complexity?"
+
+    # OPTIONAL: Custom questions for specific scenarios
+    # checkpoint_resume_questions:
+    #   - "Did the checkpoint resume preserve all necessary context?"
+    # qa_retry_questions:
+    #   - "After QA retries, were the failure reasons clear?"
+
+  # Performance targets (AC7)
+  max_duration_ms: 5000  # Feedback session initialization timeout
+
+  # Enable/disable hook
+  enabled: false  # DISABLED until Phase N wiring complete in /orchestrate.md
+
+  # Metadata for tracking and debugging
+  tags: [orchestrate, workflow, end-to-end, retrospective, story-026]
+  metadata:
+    story_id: "STORY-026"
+    acceptance_criteria: ["AC1", "AC2", "AC3", "AC4", "AC5", "AC6", "AC7"]
+    implementation_date: "2025-11-14"
+    notes: |
+      - Failures-only mode is the default (AC4)
+      - Change trigger_status to [success, failure] for all-statuses mode
+      - Hook invokes after ALL phases complete (dev, QA, release)
+      - Supports checkpoint resume scenarios (AC3)
+      - Graceful degradation on hook failures (AC6)
+      - Performance: check <100ms, invoke <3s, overhead <200ms (AC7)
+
+# ============================================================================
+# CUSTOMIZATION EXAMPLES
+# ============================================================================
+
+# Example 1: Enable for Specific Epics Only
+# - id: post-orchestrate-epic-006
+#   name: "EPIC-006 Workflow Retrospective"
+#   operation_type: command
+#   operation_pattern: "orchestrate"
+#   trigger_status: [failure]
+#   trigger_conditions:
+#     epic_id: "EPIC-006"  # Only trigger for stories in EPIC-006
+#   feedback_config:
+#     questions:
+#       - "Did hook integration work as expected for EPIC-006 stories?"
+#   enabled: true
+
+# Example 2: Long Workflow Alert
+# - id: orchestrate-duration-alert
+#   name: "Long Workflow Duration Alert"
+#   operation_type: command
+#   operation_pattern: "orchestrate"
+#   trigger_status: [success, failure]
+#   trigger_conditions:
+#     operation_duration_min_ms: 21600000  # >6 hours
+#   feedback_type: metrics
+#   feedback_config:
+#     metrics: [workflow_duration, phase_durations, bottleneck_phase]
+#   enabled: true
+
+# Example 3: Production Release Specific
+# - id: orchestrate-production-release
+#   name: "Production Release Retrospective"
+#   operation_type: command
+#   operation_pattern: "orchestrate"
+#   trigger_status: [failure]  # Only production failures
+#   trigger_conditions:
+#     release_environment: "production"
+#   feedback_config:
+#     questions:
+#       - "What caused the production release failure?"
+#       - "Should we implement additional pre-production checks?"
+#       - "Was rollback necessary? Did it work smoothly?"
+#   enabled: true
+
+# ============================================================================
+# INTEGRATION WITH OTHER COMMANDS
+# ============================================================================
+
+# The orchestrate hook works alongside other command hooks:
+# - post-dev-feedback: Triggered during /orchestrate's dev phase
+# - post-qa-retrospective: Triggered during /orchestrate's QA phase
+# - post-release-monitoring: Triggered during /orchestrate's release phase
+# - post-orchestrate-retrospective: Triggered AFTER all phases complete
+#
+# Hook invocation order in /orchestrate workflow:
+#   1. /dev executes → post-dev-feedback hook (if eligible)
+#   2. /qa executes → post-qa-retrospective hook (if eligible)
+#   3. /release executes → post-release-monitoring hook (if eligible)
+#   4. Workflow completes → post-orchestrate-retrospective hook (this hook)
+#
+# All hooks respect their individual trigger conditions and won't cause
+# feedback fatigue if configured with appropriate filters.
+
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+
+# Issue: Hook not triggering on workflow failure
+# Solution: Verify trigger_status: [failure] and enabled: true
+
+# Issue: Hook triggering on success when you want failures-only
+# Solution: Ensure trigger_status: [failure] (not [success, failure])
+
+# Issue: Hook CLI not found error
+# Solution: Install devforgeai CLI: pip install --break-system-packages -e .claude/scripts/
+
+# Issue: Context extraction fails
+# Solution: Check .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log for errors
+
+# Issue: Performance slow (>200ms overhead)
+# Solution: Ensure devforgeai CLI is installed (not running via python -m)
+
+# For more troubleshooting scenarios, see:
+# .devforgeai/specs/STORY-026-TROUBLESHOOTING-GUIDE.md
