@@ -67,3 +67,6 @@ node_modules/
 
 # Test exports (from STORY-017)
 .devforgeai-feedback-export-*.zip
+
+# Personal documentation (not for version control)
+docs/git/
