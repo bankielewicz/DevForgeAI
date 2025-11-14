@@ -130,7 +130,9 @@
       "Skill(devforgeai-story-creation)",
       "Bash(file=\".ai_docs/Stories/STORY-0$i\"*.story.md)",
       "Bash(__NEW_LINE__ if [ -f $file 2)",
-      "Bash(/dev/null ])"
+      "Bash(/dev/null ])",
+      "Bash(git restore:*)",
+      "Bash(.devforgeai/qa/measure-qa-hook-performance.sh:*)"
     ],
     "deny": [],
     "ask": []
