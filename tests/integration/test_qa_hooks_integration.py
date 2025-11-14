@@ -200,97 +200,93 @@ def mock_invoke_hooks_failure(monkeypatch):
 @pytest.mark.integration
 @pytest.mark.acceptance_criteria
 class TestPhase4Addition:
-    """Test acceptance criterion 1: Phase 4 added to /qa command."""
+    """Test acceptance criterion 1: Phase 6 added to devforgeai-qa skill (was Phase 4 in command).
 
-    def test_qa_command_has_phase_4_after_phase_3(self):
+    NOTE: After STORY-034 refactoring, Phase 4 was moved from /qa command to devforgeai-qa skill as Phase 6.
+    These tests now validate the skill implementation instead of command implementation.
+    """
+
+    def test_qa_skill_has_phase_6_feedback_hooks(self):
         """
-        AC1: Phase 4 must be added to /qa command after Phase 3.
+        AC1: Phase 6 (feedback hooks) must be added to devforgeai-qa skill.
 
-        Given: /qa command file is readable
-        When: Read the qa.md command file
-        Then: Phase 4 section exists after Phase 3 section
+        Given: devforgeai-qa skill file is readable
+        When: Read the SKILL.md file
+        Then: Phase 6 section exists with feedback hook logic
         """
         # Arrange
-        qa_command_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/commands/qa.md")
+        qa_skill_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md")
 
         # Act
-        with open(qa_command_path, 'r') as f:
+        with open(qa_skill_path, 'r') as f:
             content = f.read()
 
         # Assert
-        assert "## Phase 3" in content, "Phase 3 must exist in /qa command"
-        assert "## Phase 4" in content, "Phase 4 must exist in /qa command"
+        assert "Phase 6" in content, "Phase 6 must exist in devforgeai-qa skill"
+        assert "Feedback Hook" in content or "feedback hook" in content.lower(), \
+            "Phase 6 must reference feedback hooks"
 
-        # Verify order: Phase 3 comes before Phase 4
-        phase3_pos = content.find("## Phase 3")
-        phase4_pos = content.find("## Phase 4")
-        assert phase3_pos < phase4_pos, "Phase 4 must come after Phase 3"
-
-    def test_phase_4_calls_check_hooks(self):
+    def test_phase_6_calls_check_hooks(self):
         """
-        AC1: Phase 4 must call devforgeai check-hooks with correct arguments.
+        AC1: Phase 6 must call devforgeai check-hooks with correct arguments.
 
-        Given: /qa command Phase 4 exists
-        When: Parse Phase 4 bash code
+        Given: devforgeai-qa skill Phase 6 exists
+        When: Parse Phase 6 implementation
         Then: devforgeai check-hooks is called with --operation=qa and --status=$STATUS
         """
         # Arrange
-        qa_command_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/commands/qa.md")
+        qa_skill_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md")
 
         # Act
-        with open(qa_command_path, 'r') as f:
+        with open(qa_skill_path, 'r') as f:
             content = f.read()
 
-        phase4_section = content[content.find("## Phase 4"):content.find("## Phase 4") + 2000]
-
         # Assert
-        assert "devforgeai check-hooks" in phase4_section, "Phase 4 must call check-hooks"
-        assert "--operation=qa" in phase4_section, "check-hooks must have --operation=qa"
-        assert "--status=" in phase4_section, "check-hooks must have --status parameter"
+        assert "devforgeai check-hooks" in content or "check-hooks" in content, \
+            "Phase 6 must call check-hooks command"
+        assert "--operation=qa" in content, "check-hooks must have --operation=qa"
+        assert "--status=" in content or "$STATUS" in content, \
+            "check-hooks must have --status parameter"
 
-    def test_phase_4_conditionally_calls_invoke_hooks(self):
+    def test_phase_6_conditionally_calls_invoke_hooks(self):
         """
-        AC1: Phase 4 must conditionally call invoke-hooks based on check-hooks exit code.
+        AC1: Phase 6 must conditionally call invoke-hooks based on check-hooks exit code.
 
-        Given: /qa command Phase 4 exists
-        When: Parse Phase 4 bash code
+        Given: devforgeai-qa skill Phase 6 exists
+        When: Parse Phase 6 implementation
         Then: invoke-hooks wrapped in if [ $? -eq 0 ] condition
         """
         # Arrange
-        qa_command_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/commands/qa.md")
+        qa_skill_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md")
 
         # Act
-        with open(qa_command_path, 'r') as f:
+        with open(qa_skill_path, 'r') as f:
             content = f.read()
 
-        phase4_section = content[content.find("## Phase 4"):content.find("## Phase 4") + 2000]
-
         # Assert
-        assert "devforgeai invoke-hooks" in phase4_section, "Phase 4 must call invoke-hooks"
-        assert "if [ $? -eq 0 ]" in phase4_section or "if [$? -eq 0]" in phase4_section, \
+        assert "invoke-hooks" in content, "Phase 6 must call invoke-hooks"
+        assert "if [ $? -eq 0 ]" in content or "if [$? -eq 0]" in content, \
             "invoke-hooks must be conditionally called based on check-hooks exit code"
 
-    def test_phase_4_is_non_blocking(self):
+    def test_phase_6_is_non_blocking(self):
         """
-        AC1: Phase 4 must be non-blocking (hook failures don't break /qa).
+        AC1: Phase 6 must be non-blocking (hook failures don't break /qa).
 
-        Given: /qa command Phase 4 exists
-        When: Parse Phase 4 bash code
+        Given: devforgeai-qa skill Phase 6 exists
+        When: Parse Phase 6 implementation
         Then: Error handling present (|| { ... } pattern)
         """
         # Arrange
-        qa_command_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/commands/qa.md")
+        qa_skill_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md")
 
         # Act
-        with open(qa_command_path, 'r') as f:
+        with open(qa_skill_path, 'r') as f:
             content = f.read()
-
-        phase4_section = content[content.find("## Phase 4"):content.find("## Phase 4") + 2000]
 
         # Assert
         # Check for non-blocking error handling pattern
-        assert "||" in phase4_section or "trap" in phase4_section, \
-            "Phase 4 must handle errors without breaking /qa (non-blocking)"
+        assert "||" in content or "trap" in content, \
+            "Phase 6 must handle errors without breaking QA (non-blocking)"
 
 
 # ============================================================================

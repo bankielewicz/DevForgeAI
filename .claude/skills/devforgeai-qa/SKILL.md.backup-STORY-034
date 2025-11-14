@@ -70,7 +70,7 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 ---
 
-## QA Workflow (7 Phases)
+## QA Workflow (5 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
@@ -102,50 +102,6 @@ Load workflow references on-demand for implementation details.
 **Guide:** `references/qa-result-formatting-guide.md`
 **Subagent:** qa-result-interpreter (formats display)
 **Output:** Report, story status update, formatted display
-
-### Phase 6: Invoke Feedback Hooks
-**Ref:** `references/feedback-hooks-workflow.md` (complete implementation details)
-**Purpose:** Trigger retrospective feedback based on QA result
-**Non-blocking:** Hook failures don't affect QA result
-
-**Implementation:**
-```bash
-# Map QA result to hook status
-if [ "$QA_RESULT" = "PASSED" ]; then
-  STATUS="completed"
-elif [ "$QA_RESULT" = "FAILED" ]; then
-  STATUS="failed"
-else
-  STATUS="partial"
-fi
-
-# Check and invoke hooks
-devforgeai check-hooks --operation=qa --status=$STATUS
-if [ $? -eq 0 ]; then
-  devforgeai invoke-hooks --operation=qa --story=$STORY_ID || {
-    echo "⚠️ Feedback hook failed, QA result unchanged"
-  }
-fi
-```
-
-### Phase 7: Update Story File (Deep Mode Pass Only)
-**Ref:** `references/story-update-workflow.md` (complete implementation details)
-**Conditional:** Only executes if mode="deep" AND result="PASSED"
-
-**Implementation:**
-```
-IF mode == "deep" AND result == "PASSED":
-  Read(file_path=story_file)
-
-  Edit(file_path=story_file, old_string="status: Dev Complete", new_string="status: QA Approved")
-
-  Edit(file_path=story_file, old_string="updated: {old_date}", new_string="updated: {current_date}")
-
-  Edit(file_path=story_file, old_string="## Workflow History",
-       new_string="## QA Validation History\n\n{validation_details}\n\n## Workflow History")
-
-  Display: "✅ Story updated to QA Approved"
-```
 
 ---
 
@@ -185,9 +141,9 @@ IF mode == "deep" AND result == "PASSED":
 
 ---
 
-## Reference Files (19 total)
+## Reference Files (17 total)
 
-**Workflows (10):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
+**Workflows (8):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts
 
 **Guides (9):** coverage-analysis, anti-pattern-detection, deferral-decision-tree, language-specific-tooling, qa-result-formatting-guide, quality-metrics, security-scanning, spec-validation, validation-procedures
 

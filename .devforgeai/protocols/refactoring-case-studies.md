@@ -13,14 +13,16 @@
 
 This document contains detailed case studies of command refactorings that successfully applied the lean orchestration pattern. Each case study demonstrates the Before/After transformation, extraction strategies, and lessons learned.
 
-**Pattern proven across 5 refactorings:**
+**Pattern proven across 5 refactorings (+1 follow-up):**
 - /dev: 40% reduction
-- /qa: 57% reduction
+- /qa: 57% reduction (2025-11-05), then 40% additional (2025-11-14 STORY-034)
 - /create-sprint: 50% reduction
 - /create-epic: 25% reduction
 - /orchestrate: 12% reduction
 
 **Average:** 37% line reduction, 58% character reduction, 63% token savings
+
+**Note:** /qa underwent two-stage refactoring (initial + STORY-034 follow-up) demonstrating pattern's flexibility for iterative improvement.
 
 ---
 
@@ -293,6 +295,37 @@ Benefits:
    - Pattern works for other result-displaying commands
 
 **Implementation Time:** 2-3 hours
+
+### Addendum: STORY-034 Additional Refactoring (2025-11-14)
+
+**Continued improvement of /qa command by moving remaining business logic to skill.**
+
+**Starting Point (After 2025-11-05 Refactoring):**
+- Lines: 509 (grew from 295 due to STORY-024 Phase 4 & 5 additions)
+- Characters: 13,775 (92% of budget)
+- Issue: Phases 4 & 5 added business logic back to command (violates lean orchestration)
+
+**Actions Taken (STORY-034):**
+- Moved Phase 4 (feedback hooks) from command to skill as Phase 6
+- Moved Phase 5 (story updates) from command to skill as Phase 7
+- Created 2 reference files (feedback-hooks-workflow.md, story-update-workflow.md)
+- Merged command Phase 2 & 3 into single Display Results phase
+- Updated STORY-024 tests to check skill instead of command
+
+**Results:**
+- Lines: 509 → 307 (39.7% reduction)
+- Characters: 13,775 → 8,172 (40.7% reduction)
+- Command phases: 3 (Phase 0, 1, 2)
+- All 69 tests passing (100% pass rate)
+- Budget: 54% (well under 15K limit)
+
+**Lessons Learned:**
+1. **Business logic creep prevention:** Even after refactoring, new features can re-introduce business logic to commands if not vigilant
+2. **Two-stage refactoring successful:** Initial refactoring (2025-11-05) + follow-up (STORY-034) achieved full compliance
+3. **Reference files enable progressive disclosure:** 705 lines of implementation detail moved to references, skill entry point stayed <200 lines
+4. **Test migration straightforward:** Updating tests to check skill instead of command took <15 minutes
+
+**Implementation Time:** 90 minutes (as estimated in STORY-034)
 
 ---
 
