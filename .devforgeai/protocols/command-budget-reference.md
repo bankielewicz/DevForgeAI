@@ -38,7 +38,7 @@ This document provides current command budget status, monitoring procedures, and
 | test-slashcommand-isolation | 31 | 987 | 7% | ✅ Compliant | — |
 | test-skill-context | 57 | 1,570 | 10% | ✅ Compliant | — |
 | test-arg-validation | 180 | 4,151 | 28% | ✅ Compliant | — |
-| **qa** | **295** | **7,205** | **48%** | ✅ Compliant | ✅ **Reference** |
+| **qa** | **307** | **8,172** | **54%** | ✅ Compliant | ✅ **Reference** |
 | **create-sprint** | **250** | **~8,000** | **53%** | ✅ Compliant | ✅ **Reference** |
 | **create-epic** | **392** | **11,270** | **75%** | ✅ Compliant | ✅ **Reference** |
 | ideate | 410 | 11,717 | 78% | ⚠️ High | ✅ Refactored |

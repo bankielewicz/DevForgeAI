@@ -137,227 +137,25 @@ Skill(command="devforgeai-qa")
 Receive result from skill and output display:
 
 ```
-# Skill returns structured result object with display template
-# Command simply outputs what skill prepared
+# Skill returns structured result object with:
+# - display.template (formatted QA results)
+# - next_steps (recommendations)
+# - hook_status (triggered/skipped/failed from Phase 6)
+# - story_update (completed/skipped from Phase 7)
 
+# Command simply outputs what skill prepared
 output result.display.template as-is
 
-# This is pure presentation - no parsing, no decision-making
-```
-
----
-
-### Phase 3: Provide Next Steps
-
-Display recommendations from skill result:
-
-```
-# Skill determined appropriate next steps based on:
-# - Validation mode (light/deep)
-# - Result (pass/fail)
-# - Violation types
-# - Story status
-
+# Display next steps
+Display: ""
 Display: result.next_steps
 ```
 
----
+**Note:** The devforgeai-qa skill now handles:
+- Phase 6: Feedback hook invocation (non-blocking)
+- Phase 7: Story file updates (deep mode pass only)
 
-### Phase 4: Invoke Feedback Hook (Non-Blocking)
-
-**Execute after QA result determined, before story status update**
-
-This phase triggers retrospective feedback for QA failures (default: failures-only mode).
-
-**Step 4.1: Determine Status from QA Result**
-
-```bash
-# Map QA validation result to hook status
-if grep -q "PASSED" <<< "$RESULT_STATUS"; then
-  STATUS="completed"
-elif grep -q "FAILED" <<< "$RESULT_STATUS"; then
-  STATUS="failed"
-elif grep -q "PARTIAL" <<< "$RESULT_STATUS"; then
-  STATUS="partial"
-else
-  STATUS="unknown"
-fi
-```
-
-**Step 4.2: Check If Hooks Should Trigger and Conditionally Invoke**
-
-```bash
-# Check hook configuration (respects failures-only, always, never modes)
-devforgeai check-hooks --operation=qa --status=$STATUS
-
-# Conditionally invoke if check-hooks returned 0 (trigger conditions met)
-if [ $? -eq 0 ]; then
-  # Extract violation context from QA result for feedback
-  VIOLATIONS_CONTEXT=""
-
-  if [ "$STATUS" = "failed" ] || [ "$STATUS" = "partial" ]; then
-    # Build context with coverage, violations, duration
-    COVERAGE=$(echo "$RESULT" | grep -o "Coverage: [0-9]*%" | head -1 || echo "N/A")
-    VIOLATION_COUNT=$(echo "$RESULT" | grep -c "VIOLATION" || echo "0")
-
-    VIOLATIONS_CONTEXT="QA $MODE mode $STATUS: $COVERAGE, $VIOLATION_COUNT violations detected"
-  fi
-
-  # Invoke feedback hook (non-blocking - errors logged, not thrown)
-  devforgeai invoke-hooks \
-    --operation=qa \
-    --story=$STORY_ID \
-    --context="$VIOLATIONS_CONTEXT" || {
-    echo "⚠️ Feedback hook failed, QA result unchanged"
-  }
-else
-  # Hook check returned non-zero (don't trigger)
-  # This is normal for failures-only mode with passing QA
-  :  # No-op
-fi
-```
-
-**Key Characteristics:**
-- **Non-blocking:** Hook failures don't affect QA result
-- **Configuration-aware:** Respects hooks.yaml trigger_on mode
-- **Context-aware:** Passes violation details to feedback
-- **Performance:** Adds <5s overhead (validated in tests)
-
-**Logging:**
-
-```
-IF hook triggered:
-  Display: "ℹ️ Feedback hook invoked (qa $STATUS)"
-
-IF hook failed:
-  Display: "⚠️ Feedback hook failed, continuing..."
-  Log error details to .devforgeai/hooks/errors.log
-
-IF hook skipped (check-hooks returned non-zero):
-  # Silent skip (normal behavior for failures-only + pass)
-  No display needed
-```
-
----
-
-### Phase 5: Update Story Status (Deep Mode Only)
-
-**Only execute if deep mode validation passes**
-
-**Note:** This phase runs AFTER Phase 4 (feedback hooks), so hook failures don't prevent status updates.
-
-```
-IF result.status == "PASSED" AND MODE == "deep":
-    # Step 1: Read current story file
-    Read(file_path=".ai_docs/Stories/${STORY_ID}*.story.md")
-
-    # Step 2: Extract current YAML values
-    Extract current status from "status: [value]"
-    Extract current date from "updated: [date]"
-
-    # Step 3: Update YAML frontmatter status
-    Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
-        old_string="status: ${CURRENT_STATUS}",
-        new_string="status: QA Approved"
-    )
-
-    # Step 4: Update YAML frontmatter timestamp
-    CURRENT_DATE_ISO = $(date +%Y-%m-%d)
-    Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
-        old_string="updated: ${CURRENT_DATE}",
-        new_string="updated: ${CURRENT_DATE_ISO}"
-    )
-
-    # Step 5: Prepare QA Validation History section
-    VALIDATION_HISTORY = """
-### QA Validation History
-
-#### Deep Validation: ${TIMESTAMP}
-
-- **Result:** PASSED ✅
-- **Mode:** deep
-- **Tests:** ${result.total_tests} passing (100%)
-- **Coverage:** ${result.coverage}%
-- **Violations:**
-  - CRITICAL: 0
-  - HIGH: 0
-  - MEDIUM: ${result.medium}
-  - LOW: ${result.low}
-- **Acceptance Criteria:** ${result.ac_complete}/${result.ac_total} validated
-- **Validated by:** devforgeai-qa skill v1.0
-
-**Quality Gates:**
-- ✅ Test Coverage: PASS
-- ✅ Anti-Pattern Detection: PASS
-- ✅ Spec Compliance: PASS
-- ✅ Code Quality: PASS
-
-**Files Validated:**
-${list result.files_validated with newlines}
-
-"""
-
-    # Step 6: Insert QA Validation History before Workflow History
-    Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
-        old_string="## Workflow History",
-        new_string="${VALIDATION_HISTORY}\n\n## Workflow History"
-    )
-
-    # Step 7: Display confirmation
-    Display: """
-✓ Story file updated successfully
-
-Changes applied:
-- Status: ${CURRENT_STATUS} → QA Approved
-- QA Validation History section added
-- Updated timestamp: ${CURRENT_DATE_ISO}
-
-Story file: .ai_docs/Stories/${STORY_ID}*.story.md
-"""
-
-ELSE IF result.status == "FAILED":
-    Display: """
-✗ Story status NOT updated (QA validation failed)
-
-Story remains in "${CURRENT_STATUS}" status.
-Fix violations and re-run: /qa ${STORY_ID}
-"""
-
-ELSE IF MODE == "light":
-    Display: """
-ℹ️ Story status NOT updated (light mode validation)
-
-Light mode validation is for development checks only.
-Run deep mode to update story status: /qa ${STORY_ID} deep
-"""
-```
-
-**Error Handling:**
-```
-IF story file write fails:
-    Display: """
-⚠️ WARNING: QA validation passed, but story file update failed
-
-Validation results:
-${display result summary}
-
-Story file could not be updated automatically.
-
-Manual update required:
-1. Open: .ai_docs/Stories/${STORY_ID}*.story.md
-2. Change status: "${CURRENT_STATUS}" → "QA Approved"
-3. Update timestamp: updated: ${CURRENT_DATE_ISO}
-4. Append QA validation results (see report above)
-
-Or re-run QA validation to retry: /qa ${STORY_ID}
-"""
-
-    # Still display QA results (validation succeeded)
-    Continue to display phase
-```
+See `.claude/skills/devforgeai-qa/SKILL.md` and reference files for implementation details.
 
 ---
 
@@ -475,35 +273,37 @@ Actions:
 
 ## Implementation Notes
 
-**Architecture (Refactored 2025-11-05, Enhanced 2025-11-06):**
+**Architecture (Refactored 2025-11-05, Enhanced 2025-11-14 - STORY-034):**
 
 This command follows **lean orchestration** pattern:
-- **Argument validation:** Minimal (20 lines)
+- **Argument validation:** Minimal (30 lines)
 - **Story loading:** Via @file reference
 - **Skill invocation:** Simple (1 line)
 - **Result display:** Pass-through (no parsing)
-- **Story file updates:** Post-skill orchestration (Phase 4)
 - **Error handling:** Minimal (skill communicates errors)
 
-**Total: ~410 lines (vs 692 before refactoring) = 41% reduction**
+**Total: 307 lines (vs 509 before STORY-034) = 39.7% reduction**
 
 **Business logic location:**
-- Validation logic: devforgeai-qa skill
-- Result interpretation: qa-result-interpreter subagent
+- Validation logic: devforgeai-qa skill (Phases 1-5)
+- Result interpretation: qa-result-interpreter subagent (Phase 5 Step 6)
 - Display generation: qa-result-interpreter subagent
-- Story file updates: /qa command (Phase 4)
-- Command: Pure orchestration (invoke → display → update)
+- Feedback hooks: devforgeai-qa skill (Phase 6)
+- Story file updates: devforgeai-qa skill (Phase 7)
+- Command: Pure orchestration (validate → invoke → display)
 
 **Token efficiency:**
-- Command overhead: ~3.5K tokens
+- Command overhead: ~2.5K tokens (down from ~8K)
 - Skill validation: ~15K (light) or ~65K (deep) in isolated context
-- Main conversation: ~4-5K (summary + file updates)
-- **Savings vs monolithic approach: 75%**
+- Main conversation: ~3K (display only, no parsing)
+- **Savings vs pre-refactoring: 69%**
 
-**Phase 4 Enhancement (2025-11-06):**
-- Added post-validation story file updates
-- Updates story status to "QA Approved" on deep mode pass
-- Appends QA Validation History section
-- Updates timestamp in YAML frontmatter
-- Maintains skill-first architecture (no bypass)
+**STORY-034 Refactoring (2025-11-14):**
+- Moved Phase 4 (feedback hooks) from command to skill as Phase 6
+- Moved Phase 5 (story updates) from command to skill as Phase 7
+- Created 2 reference files (feedback-hooks-workflow.md, story-update-workflow.md)
+- Reduced command from 509 → 307 lines (40% reduction)
+- Reduced character budget from 13,775 → 8,172 chars (41% reduction)
+- Achieved 100% lean orchestration pattern compliance
+- Command now has exactly 3 phases (Phase 0, 1, 2)
 
