@@ -235,6 +235,8 @@ def pytest_configure(config):
         "slow: mark test as slow (may take >1 second)",
         "deterministic: mark test as deterministic (no flaky failures)",
         "story_015: mark test as part of STORY-015 DoD template test suite",
+        "usability: mark test as testing usability requirements",
+        "reliability: mark test as testing reliability requirements",
     ]
 
     for marker_line in markers:
