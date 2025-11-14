@@ -163,88 +163,9 @@ Display: result.next_steps
 
 ---
 
-### Phase 4: Invoke Feedback Hook (Non-Blocking)
-
-**Execute after QA result determined, before story status update**
-
-This phase triggers retrospective feedback for QA failures (default: failures-only mode).
-
-**Step 4.1: Determine Status from QA Result**
-
-```bash
-# Map QA validation result to hook status
-if grep -q "PASSED" <<< "$RESULT_STATUS"; then
-  STATUS="completed"
-elif grep -q "FAILED" <<< "$RESULT_STATUS"; then
-  STATUS="failed"
-elif grep -q "PARTIAL" <<< "$RESULT_STATUS"; then
-  STATUS="partial"
-else
-  STATUS="unknown"
-fi
-```
-
-**Step 4.2: Check If Hooks Should Trigger and Conditionally Invoke**
-
-```bash
-# Check hook configuration (respects failures-only, always, never modes)
-devforgeai check-hooks --operation=qa --status=$STATUS
-
-# Conditionally invoke if check-hooks returned 0 (trigger conditions met)
-if [ $? -eq 0 ]; then
-  # Extract violation context from QA result for feedback
-  VIOLATIONS_CONTEXT=""
-
-  if [ "$STATUS" = "failed" ] || [ "$STATUS" = "partial" ]; then
-    # Build context with coverage, violations, duration
-    COVERAGE=$(echo "$RESULT" | grep -o "Coverage: [0-9]*%" | head -1 || echo "N/A")
-    VIOLATION_COUNT=$(echo "$RESULT" | grep -c "VIOLATION" || echo "0")
-
-    VIOLATIONS_CONTEXT="QA $MODE mode $STATUS: $COVERAGE, $VIOLATION_COUNT violations detected"
-  fi
-
-  # Invoke feedback hook (non-blocking - errors logged, not thrown)
-  devforgeai invoke-hooks \
-    --operation=qa \
-    --story=$STORY_ID \
-    --context="$VIOLATIONS_CONTEXT" || {
-    echo "⚠️ Feedback hook failed, QA result unchanged"
-  }
-else
-  # Hook check returned non-zero (don't trigger)
-  # This is normal for failures-only mode with passing QA
-  :  # No-op
-fi
-```
-
-**Key Characteristics:**
-- **Non-blocking:** Hook failures don't affect QA result
-- **Configuration-aware:** Respects hooks.yaml trigger_on mode
-- **Context-aware:** Passes violation details to feedback
-- **Performance:** Adds <5s overhead (validated in tests)
-
-**Logging:**
-
-```
-IF hook triggered:
-  Display: "ℹ️ Feedback hook invoked (qa $STATUS)"
-
-IF hook failed:
-  Display: "⚠️ Feedback hook failed, continuing..."
-  Log error details to .devforgeai/hooks/errors.log
-
-IF hook skipped (check-hooks returned non-zero):
-  # Silent skip (normal behavior for failures-only + pass)
-  No display needed
-```
-
----
-
-### Phase 5: Update Story Status (Deep Mode Only)
+### Phase 4: Update Story Status (Deep Mode Only)
 
 **Only execute if deep mode validation passes**
-
-**Note:** This phase runs AFTER Phase 4 (feedback hooks), so hook failures don't prevent status updates.
 
 ```
 IF result.status == "PASSED" AND MODE == "deep":
