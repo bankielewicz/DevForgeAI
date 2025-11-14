@@ -3,11 +3,12 @@ id: STORY-014
 title: Add Definition of Done Section to Story Template
 epic: None
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 5
 priority: Medium
 assigned_to: Unassigned
 created: 2025-11-13
+updated: 2025-11-13
 format_version: "2.0"
 ---
 
@@ -485,11 +486,62 @@ test_full_update_workflow() {
 
 ---
 
+## QA Validation History
+
+### Deep Validation: 2025-11-13
+
+- **Result:** PASSED ✅ (with approved deferrals)
+- **Mode:** deep
+- **Validator:** devforgeai-qa skill v1.0
+- **Execution Time:** 8.5 minutes
+
+**Validation Summary:**
+- **Test Coverage:** DEFERRED to STORY-015 (user approved per ADR-002)
+- **Anti-Patterns:** PASS - 0 violations
+- **Spec Compliance:** PASS - 6/7 AC complete (86%), 1 deferred with approval
+- **Code Quality:** N/A (documentation story)
+- **Deferral Validation:** PASS - 17 deferrals validated and approved
+
+**Violations:**
+- CRITICAL: 0
+- HIGH: 0
+- MEDIUM: 0
+- LOW: 1 (documentation comment inconsistency - non-blocking)
+
+**Quality Gates:**
+- ✅ Anti-Pattern Detection: PASS
+- ✅ Spec Compliance: PASS (6/7 AC, 1 deferred with approval)
+- ⏭️ Test Coverage: DEFERRED to STORY-015 (user approved)
+- ✅ Deferral Validation: PASS (RCA-006 compliant)
+
+**Files Validated:**
+- .claude/skills/devforgeai-story-creation/assets/templates/story-template.md (532 lines)
+- .ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md
+- .ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md
+- .ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md
+
+**Manual Verification:**
+- ✅ Template file structure validated
+- ✅ All 3 story files contain DoD sections
+- ✅ Git commits verified (423c271, 7f1f4ca)
+- ✅ Section ordering confirmed (Test Strategy → DoD → Workflow Status)
+- ✅ 4 subsections present in all files
+
+**Deferred Work:**
+- 17 items deferred to STORY-015 (Comprehensive Testing for STORY-014 DoD Template)
+- ADR-002 documents deferral justification
+- User approval: 2025-11-13
+- Priority: High (Sprint-3 Backlog)
+
+**QA Report:** `.devforgeai/qa/reports/STORY-014-qa-report-deep-2025-11-13.md`
+
+---
+
 ## Workflow Status
 
 - [ ] Architecture phase complete
-- [ ] Development phase complete
-- [ ] QA phase complete
+- [x] Development phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ## Definition of Done
