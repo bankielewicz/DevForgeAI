@@ -755,3 +755,39 @@ Actions:
 2. Phase 5 handles new incomplete items (if any remain after Phase 4.5)
 
 **No duplication:** Phase 4.5 only processes items WITH justifications. Phase 5 only processes items WITHOUT justifications.
+
+---
+
+## Phase 4.5 Complete: Handoff to DoD Update Bridge
+
+**After all deferral validation completes, proceed to DoD format update workflow.**
+
+### Next Phase: DoD Update Workflow (Phase 4.5-5 Bridge)
+
+**Purpose:** Update Definition of Done items in correct format for git commit validation
+
+**CRITICAL:** Phase 5 git commit will FAIL if DoD items not formatted correctly. This bridge ensures format compliance.
+
+**Load and execute:**
+
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+```
+
+**What the bridge does:**
+1. Marks completed DoD items [x] in Definition of Done section
+2. Adds items to Implementation Notes (FLAT LIST - no ### subsections)
+3. Validates format: `devforgeai validate-dod ${STORY_FILE}` (must pass)
+4. Updates Workflow Status checkboxes
+
+**Pre-Phase-5 Checklist:**
+- [ ] All deferred items have user approval (Phase 4.5 validation)
+- [ ] DoD items marked [x] in Definition of Done section
+- [ ] DoD items added to Implementation Notes (flat list, no ### subsection)
+- [ ] Workflow Status updated (Development [x], QA/Release [ ])
+- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] Ready for git commit (no format blockers)
+
+**If ANY checkbox unchecked:** DO NOT proceed to Phase 5 - complete bridge workflow first
+
+**See:** `dod-update-workflow.md` for detailed DoD formatting requirements and common errors

@@ -122,10 +122,16 @@ Challenge ALL deferrals (pre-existing + new) → deferral-validator → User app
 **Reference:** `phase-4.5-deferral-challenge.md`
 **Purpose:** Prevent autonomous deferrals, enforce "Attempt First, Defer Only If Blocked" pattern
 
+### Phase 4.5-5 Bridge: DoD Update Workflow (NEW - RCA-009)
+Update DoD format for git commit → Validate format → Prepare for Phase 5
+**Reference:** `dod-update-workflow.md`
+**Purpose:** Ensure DoD items formatted correctly (flat list in Implementation Notes, no ### subsections)
+**CRITICAL:** Execute AFTER Phase 4.5, BEFORE Phase 5 - git commit will FAIL if skipped
+
 ### Phase 5: Git Workflow & DoD Validation
 Budget enforcement → Handle incomplete items → Git commit → Story complete
-**References:** `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
-**Steps:** 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit
+**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
+**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
 
@@ -174,9 +180,10 @@ Load these on-demand during workflow execution:
 - **integration-testing.md** (189 lines) - Phase 4: Cross-component tests
 
 ### Phase 4.5 & 5 (Deferrals & Git)
-- **phase-4.5-deferral-challenge.md** (340 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
+- **phase-4.5-deferral-challenge.md** (794 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
+- **dod-update-workflow.md** (NEW - ~400 lines) - Phase 4.5-5 Bridge: DoD format update and validation (RCA-009 Rec 4)
 - **deferral-budget-enforcement.md** (290 lines) - Phase 5 Step 1.6: Budget limits (RCA-006 Phase 2)
-- **git-workflow-conventions.md** (1,239 lines) - Git operations, stash safety protocol (RCA-008), smart stash strategy
+- **git-workflow-conventions.md** (1,270 lines) - Git operations, stash safety protocol (RCA-008), DoD prerequisites
 - **dod-validation-checkpoint.md** (519 lines) - Phase 5 Step 1.7: Handle new incomplete items
 
 ### Supporting Files

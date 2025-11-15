@@ -14,6 +14,33 @@ This reference provides conventions for:
 
 ---
 
+## Pre-Requisites for Phase 5 (Git Workflow)
+
+**CRITICAL:** Before executing git commit workflow, ensure DoD format is correct.
+
+### Phase 4.5-5 Bridge Workflow
+
+**Required:** Execute DoD Update Workflow BEFORE Phase 5
+
+**Load and execute:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+```
+
+**Bridge workflow ensures:**
+- [ ] All completed DoD items marked [x] in Definition of Done section
+- [ ] All completed DoD items added to Implementation Notes (FLAT LIST - no ### subsections)
+- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] Workflow Status section updated
+
+**Why mandatory:** Git commit will FAIL if DoD format incorrect. Pre-commit hook validates that all [x] items in DoD appear in Implementation Notes.
+
+**Common failure:** Placing DoD items under `### Definition of Done Status` subsection (validator's `extract_section()` stops at ### headers, doesn't see items)
+
+**See:** `dod-update-workflow.md` for detailed format requirements and error fixes
+
+---
+
 ## Git Stash Safety Protocol (RCA-008)
 
 **CRITICAL RULE:** Never stash files without user consent and clear warnings.
