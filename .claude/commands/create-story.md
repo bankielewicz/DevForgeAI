@@ -7,15 +7,7 @@ allowed-tools: Read, Glob, Grep, Skill, AskUserQuestion, TodoWrite
 
 # /create-story - Create User Story
 
-**Purpose:** Transform feature description into complete user story with acceptance criteria, technical specifications, and UI specifications (if applicable).
-
-**Modes:**
-- **Single Story:** `/create-story [feature-description]` - Create one story
-- **Batch from Epic:** `/create-story [epic-id]` - Create multiple stories from epic features
-
-**Output:** Story document(s) in `.ai_docs/Stories/`
-
-**Process:** Invokes `devforgeai-story-creation` skill which handles complete story generation workflow.
+Transform feature → complete story with AC, tech spec, UI spec. Single mode or batch from epic. Invokes `devforgeai-story-creation` skill.
 
 ---
 
@@ -55,14 +47,13 @@ if not found:
 
 **Triggered:** MODE="EPIC_BATCH"
 
-**Steps:**
-1. Read epic, extract features (Grep for "### Feature X.Y:")
+1. Extract features from epic (Grep: "### Feature X.Y:")
 2. Multi-select features (AskUserQuestion, multiSelect: true)
-3. Batch metadata: sprint (Backlog/Sprint-1/per-story), priority (High/Medium/inherit/per-story)
-4. Loop: For each feature → Calculate next ID (gap-aware) → Set markers → Skill(command="devforgeai-story-creation") → Track progress
-5. Display summary: Created count, failed count, story list
+3. Batch metadata: sprint, priority
+4. Loop: Gap-aware ID → Markers → Skill → Track
+5. Summary: Created/failed counts, story list
 
-**Context markers for each story:**
+**Context markers per story:**
 ```
 **Story ID:** STORY-007
 **Epic ID:** EPIC-001
@@ -73,17 +64,7 @@ if not found:
 **Batch Mode:** true
 ```
 
-**Batch completion:**
-```
-============================================================
-Batch Complete: ${EPIC_ID}
-============================================================
-✓ Created: ${count} stories (${total_pts} pts)
-${if failed: ✗ Failed: ${failed_count} stories}
-
-Stories: STORY-007, STORY-008, STORY-009 (list all)
-Next: /dev STORY-007
-```
+**Completion summary:** Counts, story list, next action
 
 ---
 
@@ -340,7 +321,29 @@ The devforgeai-story-creation skill has:
 
 ---
 
-## Phase 5: Next Steps
+## Phase 5: Hook Integration (STORY-027)
+
+**Purpose:** Integrate feedback hooks for story quality retrospection.
+
+**Key Workflow:**
+1. Check hooks enabled (`.devforgeai/config/hooks.yaml`, default: disabled)
+2. Detect batch mode (`**Batch Mode:** true` marker)
+3. If batch: defer until all stories created (single invocation with all IDs)
+4. If single: validate story ID (STORY-NNN regex), file exists
+5. Assemble 7 metadata fields from story YAML (story_id, epic_id, sprint, title, points, priority, timestamp)
+6. Invoke hook (timeout: 30s default, performance: <100ms p95 requirement)
+7. Log to `.devforgeai/feedback/.logs/hooks.log` (success) and `hook-errors.log` (errors)
+
+**Critical Principles:**
+- Failures never break exit code (always 0, story created successfully)
+- Story ID validation prevents command injection (STORY-\d{3} format only)
+- Batch mode invokes hook once at end with all created story IDs
+
+**For implementation details, error scenarios, and 69 passing tests, see `.claude/commands/references/hook-integration-guide.md`**
+
+---
+
+## Phase 6: Next Steps
 
 **Skill Phase 8 already asked user for next action.** This is a backup if user needs clarification.
 

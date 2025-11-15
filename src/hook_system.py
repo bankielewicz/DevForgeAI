@@ -16,7 +16,7 @@ import asyncio
 import logging
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Callable, Awaitable
-from datetime import datetime
+from datetime import datetime, timezone
 import uuid
 
 from src.hook_registry import HookRegistry, HookRegistryEntry
@@ -91,7 +91,10 @@ class HookSystem:
             List of HookInvocationResult for each invoked hook
 
         """
-        # Create invocation context
+        # Create invocation context with timezone-aware UTC timestamp
+        utc_now = datetime.now(timezone.utc)
+        iso_timestamp = utc_now.isoformat(timespec='microseconds').replace('+00:00', 'Z')
+
         context = HookInvocationContext(
             invocation_id=str(uuid.uuid4()),
             operation_id=operation_id,
@@ -102,7 +105,7 @@ class HookSystem:
             result_code=result_code,
             token_usage=token_usage,
             user_facing_output=user_facing_output,
-            timestamp=datetime.utcnow().isoformat() + "Z",
+            timestamp=iso_timestamp,
             invocation_stack=[],
             trigger_conditions=trigger_conditions,
         )
