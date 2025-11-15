@@ -1214,7 +1214,7 @@ Result: 100% compliance, 0 min rework, no user intervention
 
 | Rec | Priority | Problem Addressed | Solution | Effort | Token Cost | Evidence Base |
 |-----|----------|-------------------|----------|--------|------------|---------------|
-| 1 | CRITICAL | Steps appear optional | [MANDATORY] markers | 2-3h | +3K | GitHub Actions required steps |
+| 1 | CRITICAL | Steps appear optional | [MANDATORY] markers | 2-3h | +3K | GitHub Actions required steps | ✅ COMPLETE (2025-11-15) |
 | 2 | HIGH | Unclear agent sequence | Invocation sequences in SKILL.md | 1-2h | +1.2K | Kubernetes init containers |
 | 3 | CRITICAL | Light QA buried | Promote to explicit Phase 3 Step 5 | 30min | +300 | CI/CD pipeline stages | ✅ COMPLETE (2025-11-15) |
 | 4 | CRITICAL | DoD format unclear | Create dod-update-workflow.md | 1h | +800 | AWS CDK synthesis validation | ✅ COMPLETE (2025-11-14) |
@@ -1246,7 +1246,7 @@ The /dev command and devforgeai-development skill have excellent architecture (l
 **RCA Completed:** 2025-11-14
 **Analyzed By:** DevForgeAI AI Agent (self-analysis)
 **Reviewed By:** User (framework owner)
-**Status:** Recommendation 4 IMPLEMENTED (2025-11-14), remaining recommendations pending approval
+**Status:** Recommendations 1, 3, 4 IMPLEMENTED (Week 1 critical fixes 100% complete), remaining recommendations pending approval
 
 **Implementation Log:**
 - **Rec 4 (CRITICAL):** ✅ COMPLETE - DoD Update Workflow Bridge created (2025-11-14)
@@ -1262,4 +1262,17 @@ The /dev command and devforgeai-development skill have excellent architecture (l
   - Updated: SKILL.md (Phase 3 summary now mentions Light QA, subagent coordination updated)
   - Step 5 includes: Explicit Skill() invocation, purpose explanation, success/failure handling
   - Success criteria updated: Added "Step 5 executed (Light QA passed)" checkbox
+  - Committed: 2d29342
+
+- **Rec 1 (CRITICAL):** ✅ COMPLETE - Added [MANDATORY] Step Markers and Checkpoints (2025-11-15)
+  - Updated: All 6 TDD workflow reference files
+  - Added: 28 [MANDATORY] markers across 32 steps
+  - Added: 6 completion checkpoints (one per phase)
+  - Files modified:
+    - preflight-validation.md: 10 steps marked, +67 lines checkpoint
+    - tdd-red-phase.md: 4 steps marked, +68 lines checkpoint
+    - tdd-green-phase.md: 4 steps marked, +60 lines checkpoint
+    - tdd-refactor-phase.md: +68 lines checkpoint (steps already marked in Rec 3)
+    - integration-testing.md: 2 steps marked, +61 lines checkpoint
+    - phase-4.5-deferral-challenge.md: 6 steps marked (checkpoint from Rec 4)
   - Committed: [pending]

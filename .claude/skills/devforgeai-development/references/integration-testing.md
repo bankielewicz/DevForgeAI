@@ -22,7 +22,7 @@ Phase 4 validates that the implementation integrates correctly with other compon
 
 **Delegate integration testing to integration-tester subagent.**
 
-### Step 1: Invoke integration-tester Subagent
+### Step 1: Invoke integration-tester Subagent [MANDATORY]
 
 ```
 Task(
@@ -56,7 +56,7 @@ Task(
 )
 ```
 
-### Step 2: Parse Subagent Response
+### Step 2: Parse Subagent Response [MANDATORY]
 
 ```javascript
 result = extract_from_subagent_output(response)
@@ -161,6 +161,67 @@ Phase 4 succeeds when:
 
 ---
 
+## ✅ PHASE 4 COMPLETION CHECKPOINT
+
+**Before proceeding to Phase 4.5 (Deferral Challenge), verify ALL steps executed:**
+
+### Mandatory Steps Executed
+
+- [ ] **Step 1:** integration-tester subagent invoked
+  - Verification: Full test suite executed with coverage
+  - Output: Test results and coverage percentages displayed
+
+- [ ] **Step 2:** Integration test results parsed and validated
+  - Verification: Coverage thresholds checked (95%/85%/80%)
+  - Verification: Build status confirmed
+  - Output: Test results, coverage by layer, build status displayed
+
+### Success Criteria
+
+- [ ] All tests pass (100% pass rate)
+- [ ] Coverage meets thresholds:
+  - [ ] Business logic: ≥95%
+  - [ ] Application layer: ≥85%
+  - [ ] Infrastructure: ≥80%
+- [ ] Build succeeds
+- [ ] No integration issues detected
+- [ ] Linter passes (if applicable)
+- [ ] Ready for deferral validation
+
+### Checkpoint Validation
+
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 4 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 4.5 until all checkpoints pass
+
+Common issues:
+  - Coverage below thresholds ← Add more tests or justify lower coverage
+  - Integration test failures ← Fix API contracts, DI config, timing issues
+  - Build failures ← Check compilation errors, dependencies
+
+If coverage below thresholds:
+  - Option 1: Add more tests now (re-invoke test-automator)
+  - Option 2: Defer to QA (mark as incomplete DoD item)
+  - Option 3: Accept with justification (document why acceptable)
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 4 COMPLETE - Integration Testing Done
+
+Tests: {passed}/{total} passing (100%)
+Coverage: Business {X}%, Application {Y}%, Infrastructure {Z}%
+Build: SUCCESS
+Integration: No issues detected
+
+All quality thresholds met. Ready for deferral validation.
+
+Next: Load phase-4.5-deferral-challenge.md and execute Phase 4.5 (Deferral Challenge)
+```
+
+---
+
 ## Common Issues
 
 **Issue 1: Integration test failures**
@@ -178,12 +239,3 @@ Phase 4 succeeds when:
 - Identify uncovered branches (if/else, switch)
 - Add tests for edge cases
 - Check for unreachable code (dead code elimination)
-
----
-
-## Next Phase
-
-**Phase 5: Git Workflow & DoD Validation**
-- Commit changes (or file-based tracking)
-- Validate Definition of Done
-- See `references/git-workflow-conventions.md` and `references/dod-validation-checkpoint.md`

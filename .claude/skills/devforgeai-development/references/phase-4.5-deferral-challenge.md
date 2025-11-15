@@ -42,7 +42,7 @@ When this reference is loaded by the skill, the following context is available:
 
 ## Checkpoint Workflow
 
-### Step 1: Detect All Deferred Items
+### Step 1: Detect All Deferred Items [MANDATORY]
 
 <detection_phase>
   <method>Grep for deferred DoD items with justifications</method>
@@ -139,7 +139,7 @@ Return control to skill for Phase 5
 
 ---
 
-### Step 3: Invoke deferral-validator Subagent
+### Step 3: Invoke deferral-validator Subagent [MANDATORY IF deferrals exist]
 
 <deferral_validation>
   <purpose>Validate that blockers are still accurate and detect resolvable deferrals</purpose>
@@ -232,7 +232,7 @@ Return JSON:
 
 ---
 
-### Step 4: Handle Validation Results
+### Step 4: Handle Validation Results [MANDATORY IF deferrals exist]
 
 **Extract subagent result:**
 
@@ -274,7 +274,7 @@ DEFERRAL VALIDATION RESULTS:
 
 ---
 
-### Step 5: Handle Violations (HALT if CRITICAL)
+### Step 5: Handle Violations [MANDATORY IF violations detected]
 
 **IF violations with severity CRITICAL:**
 
@@ -347,7 +347,7 @@ ELSE IF user selects "Override and proceed":
 
 ---
 
-### Step 6: Challenge ALL Deferrals with User Approval
+### Step 6: Challenge ALL Deferrals with User Approval [MANDATORY IF deferrals exist]
 
 <user_approval_gate>
   <policy>ZERO autonomous deferrals</policy>
@@ -541,7 +541,7 @@ removed_items.append({
 
 ---
 
-### Step 7: Final Summary and Proceed
+### Step 7: Final Summary and Proceed [MANDATORY]
 
 <checkpoint_completion>
   <validation>All deferrals challenged and user-approved</validation>
