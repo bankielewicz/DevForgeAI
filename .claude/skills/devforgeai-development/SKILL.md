@@ -156,15 +156,122 @@ Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step 
 
 ## Subagent Coordination
 
-**Phase 0:** git-validator, tech-stack-detector
-**Phase 1:** test-automator
-**Phase 2:** backend-architect/frontend-developer, context-validator
-**Phase 3:** refactoring-specialist, code-reviewer, devforgeai-qa (light mode) ← NEW
-**Phase 4:** integration-tester
-**Phase 4.5:** deferral-validator (blocker validation)
-**Phase 5:** (Phase 4.5 handles deferrals, Phase 5 handles new incomplete items)
+**Subagent Invocation Sequences (Execute in Order):**
 
-**See phase-specific reference files for coordination details.**
+### Phase 0: Pre-Flight Validation
+
+1. **git-validator** (Git availability check) [MANDATORY]
+   - Purpose: Detect Git status, provide workflow strategy (Git vs file-based)
+   - Token cost: ~5K (isolated)
+   - Returns: Git status, recommended workflow
+   - Success: Git available OR file-based strategy confirmed
+
+2. **tech-stack-detector** (Technology detection) [MANDATORY AFTER CONTEXT FILES VALIDATED]
+   - Purpose: Auto-detect project technologies, validate against tech-stack.md
+   - Token cost: ~10K (isolated)
+   - Returns: Detected tech stack, validation results
+   - HALT if tech-stack.md conflicts detected
+
+**Sequence:** git-validator → tech-stack-detector (sequential)
+
+---
+
+### Phase 1: Test-First Design (Red Phase)
+
+1. **test-automator** (Test generation) [MANDATORY]
+   - Purpose: Generate failing tests from acceptance criteria
+   - Token cost: ~50K (isolated)
+   - Returns: Test files, test command, coverage analysis
+   - Success: All tests RED (failing as expected)
+
+**Note:** Phase 1 also includes Step 4 (Tech Spec Coverage Validation) - see `tdd-red-phase.md` for user approval workflow
+
+---
+
+### Phase 2: Implementation (Green Phase)
+
+1. **backend-architect OR frontend-developer** (Implementation) [MANDATORY - CHOOSE ONE]
+   - Purpose: Write minimal code to pass tests
+   - Token cost: ~50K (isolated)
+   - Returns: Implementation code, test results
+   - Success: All tests GREEN
+
+2. **context-validator** (Fast constraint validation) [MANDATORY AFTER STEP 1]
+   - Purpose: Validate against 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
+   - Token cost: ~5K (isolated)
+   - Returns: Validation report
+   - HALT if violations detected
+
+**Sequence:** (backend-architect OR frontend-developer) → context-validator (sequential)
+
+---
+
+### Phase 3: Refactor (Refactor Phase)
+
+1. **refactoring-specialist** (Code improvement) [MANDATORY]
+   - Purpose: Apply refactoring patterns, remove code smells
+   - Token cost: ~40K (isolated)
+   - Returns: Refactored code
+   - Success: Tests remain GREEN, quality improved
+
+2. **code-reviewer** (Code review) [MANDATORY AFTER STEP 1]
+   - Purpose: Review for quality, security, maintainability, standards compliance
+   - Token cost: ~30K (isolated)
+   - Returns: Review feedback
+   - Success: No critical issues
+
+3. **devforgeai-qa (light mode)** (Intermediate quality gate) [MANDATORY AFTER STEP 2]
+   - Purpose: Build validation, test execution, quick anti-pattern scan
+   - Token cost: ~10K (isolated)
+   - Returns: Light QA report
+   - HALT if validation fails
+
+**Sequence:** refactoring-specialist → code-reviewer → devforgeai-qa (light) (sequential)
+
+---
+
+### Phase 4: Integration & Validation
+
+1. **integration-tester** (Cross-component testing) [MANDATORY]
+   - Purpose: Validate cross-component interactions, API contracts, integration scenarios
+   - Token cost: ~40K (isolated)
+   - Returns: Integration test results, coverage report
+   - Success: Integration tests pass, coverage thresholds met
+
+---
+
+### Phase 4.5: Deferral Challenge Checkpoint
+
+1. **deferral-validator** (Blocker validation) [MANDATORY IF DEFERRALS EXIST]
+   - Purpose: Validate deferral justifications, detect circular deferrals, check story references
+   - Token cost: ~5K (isolated)
+   - Returns: Deferral validation report, resolvable vs valid categories
+   - Success: All deferrals have user approval OR no deferrals
+
+**Note:** User approval required for EVERY deferred item (zero autonomous deferrals)
+
+---
+
+### Phase 4.5-5 Bridge: DoD Update Workflow
+
+**No subagents** - Direct file operations to update DoD format
+
+**CRITICAL:** Execute dod-update-workflow.md AFTER Phase 4.5, BEFORE Phase 5
+
+---
+
+### Phase 5: Git Workflow & DoD Validation
+
+**No subagents** - Direct git operations and validation
+
+**Prerequisites:**
+- Phase 4.5 complete (deferrals validated)
+- DoD format validated (devforgeai validate-dod passes)
+- New incomplete items handled (AskUserQuestion if needed)
+
+---
+
+**See phase-specific reference files for detailed coordination procedures.**
 
 ---
 
