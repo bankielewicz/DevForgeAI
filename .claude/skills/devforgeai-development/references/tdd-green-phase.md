@@ -22,7 +22,7 @@ The Green phase focuses on making tests pass with minimal, clean code. No over-e
 
 **Delegate implementation to backend-architect or frontend-developer subagent.**
 
-### Step 1: Determine Implementation Subagent
+### Step 1: Determine Implementation Subagent [MANDATORY]
 
 ```
 # Check story technical specification or framework type
@@ -37,7 +37,7 @@ ELSE:
     IMPLEMENTATION_AGENT = "backend-architect"
 ```
 
-### Step 2: Invoke Implementation Subagent
+### Step 2: Invoke Implementation Subagent [MANDATORY]
 
 ```
 Task(
@@ -78,7 +78,7 @@ Task(
 )
 ```
 
-### Step 3: Parse Subagent Response
+### Step 3: Parse Subagent Response [MANDATORY]
 
 ```javascript
 result = extract_from_subagent_output(response)
@@ -95,7 +95,7 @@ FOR file in files_modified:
 Display: "  - Approach: {approach}"
 ```
 
-### Step 4: Verify Tests Pass (Green Phase)
+### Step 4: Verify Tests Pass (Green Phase) [MANDATORY]
 
 ```
 Bash(command=TEST_COMMAND)
@@ -160,8 +160,62 @@ Phase 2 succeeds when:
 
 ---
 
-## Next Phase
+## ✅ PHASE 2 COMPLETION CHECKPOINT
 
-**Phase 3: Refactor (Refactor Phase)**
-- Improve code quality while keeping tests green
-- See `references/tdd-refactor-phase.md`
+**Before proceeding to Phase 3 (Refactor), verify ALL steps executed:**
+
+### Mandatory Steps Executed
+
+- [ ] **Step 1:** Implementation subagent determined (backend-architect OR frontend-developer)
+  - Verification: Correct agent selected based on story type (UI → frontend, API → backend)
+
+- [ ] **Step 2:** Implementation subagent invoked
+  - Verification: Minimal code written to pass tests
+  - Output: Files modified list displayed
+
+- [ ] **Step 3:** Implementation response parsed
+  - Verification: Approach and files displayed to user
+
+- [ ] **Step 4:** Tests verified GREEN (all passing)
+  - Verification: Executed {TEST_COMMAND}, all tests pass
+  - Output: Green phase confirmed message displayed
+
+### Success Criteria
+
+- [ ] All tests pass (100% pass rate)
+- [ ] Minimal code written (no over-engineering)
+- [ ] All context file constraints enforced
+- [ ] No anti-patterns introduced
+- [ ] Test command executes successfully
+- [ ] Ready for refactoring
+
+### Checkpoint Validation
+
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 2 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 3 until all checkpoints pass
+
+Most commonly missed:
+  - Step 4 (Verify tests pass) ← Must confirm GREEN before refactoring
+  - Context file enforcement ← backend-architect should enforce, verify
+
+If tests still failing:
+  - Re-invoke implementation subagent with failure details
+  - Check acceptance criteria (may need clarification)
+  - Verify test setup/teardown correct
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 2 COMPLETE - Implementation (Green Phase) Done
+
+Tests: All GREEN (passing)
+Code: Minimal implementation complete
+Context: All constraints enforced
+Anti-patterns: None introduced
+
+Ready to refactor and improve code quality.
+
+Next: Load tdd-refactor-phase.md and execute Phase 3 (Refactor Phase)
+```

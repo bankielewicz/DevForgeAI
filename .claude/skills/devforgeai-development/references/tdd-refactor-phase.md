@@ -253,21 +253,72 @@ DO NOT proceed to Phase 4 until Light QA passes
 
 ---
 
-## Success Criteria
+## ✅ PHASE 3 COMPLETION CHECKPOINT
 
-Phase 3 succeeds when:
-- [ ] Step 1 executed (refactoring-specialist invoked)
-- [ ] Step 2 executed (refactoring response parsed)
-- [ ] Step 3 executed (code-reviewer invoked)
-- [ ] Step 4 executed (code review response handled)
-- [ ] Step 5 executed (Light QA passed) ← NEW: MANDATORY
+**Before proceeding to Phase 4 (Integration Testing), verify ALL steps executed:**
+
+### Mandatory Steps Executed
+
+- [ ] **Step 1:** refactoring-specialist subagent invoked
+  - Verification: Refactorings applied and listed
+  - Output: Refactoring types and rationales displayed
+
+- [ ] **Step 2:** Refactoring response parsed
+  - Verification: Files modified shown, tests remained GREEN
+
+- [ ] **Step 3:** code-reviewer subagent invoked
+  - Verification: Comprehensive code review performed
+
+- [ ] **Step 4:** Code review response handled
+  - Verification: CRITICAL issues fixed (if any)
+  - Verification: HIGH issues addressed or user-approved to skip
+
+- [ ] **Step 5:** Light QA validation executed [MANDATORY]
+  - Verification: devforgeai-qa skill invoked in light mode
+  - Verification: Build succeeds, tests pass, no anti-patterns
+  - Output: Light QA PASSED message displayed
+
+### Success Criteria
+
 - [ ] Code quality improved (complexity reduced, duplication removed)
 - [ ] All tests still GREEN (no regressions)
 - [ ] No CRITICAL issues from code review
 - [ ] Anti-patterns removed
 - [ ] Code follows coding-standards.md
-- [ ] Light QA validation passed ← Reinforced
+- [ ] Light QA validation passed
 - [ ] Ready for integration testing
+
+### Checkpoint Validation
+
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 3 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 4 until all checkpoints pass
+
+Most commonly missed:
+  - Step 5 (Light QA) ← Was buried in refactoring-patterns.md, now explicit
+  - Code review CRITICAL issues ← Must fix before advancing
+  - Tests still GREEN ← Refactoring must not break tests
+
+Proceeding without Step 5 results in:
+  - Refactoring errors not caught until Deep QA
+  - Anti-patterns escaping to integration testing
+  - Build failures discovered late
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 3 COMPLETE - Refactor Phase Done
+
+Refactorings: Applied and validated
+Tests: All GREEN (no regressions)
+Code Review: Passed (no CRITICAL issues)
+Light QA: PASSED (build, tests, anti-patterns validated)
+
+Code quality improved. Ready for integration testing.
+
+Next: Load integration-testing.md and execute Phase 4 (Integration & Validation)
+```
 
 ---
 
@@ -280,11 +331,3 @@ Phase 3 succeeds when:
 - Replace Magic Number with Constant
 - Consolidate Duplicate Code
 - Simplify Conditional Expressions
-
----
-
-## Next Phase
-
-**Phase 4: Integration & Validation**
-- Cross-component testing
-- See `references/integration-testing.md`

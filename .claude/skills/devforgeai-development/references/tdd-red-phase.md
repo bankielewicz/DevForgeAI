@@ -22,7 +22,7 @@ The Red phase is the foundation of TDD: create tests that define expected behavi
 
 **Delegate test generation to test-automator subagent.**
 
-### Step 1: Invoke test-automator Subagent
+### Step 1: Invoke test-automator Subagent [MANDATORY]
 
 ```
 Task(
@@ -58,7 +58,7 @@ Task(
 )
 ```
 
-### Step 2: Parse Subagent Response
+### Step 2: Parse Subagent Response [MANDATORY]
 
 ```javascript
 result = extract_from_subagent_output(response)
@@ -75,7 +75,7 @@ FOR file in tests_created:
     Display: "    • {file['path']}"
 ```
 
-### Step 3: Verify Tests Fail (Red Phase)
+### Step 3: Verify Tests Fail (Red Phase) [MANDATORY]
 
 ```
 Bash(command=TEST_COMMAND)
@@ -97,7 +97,7 @@ ELSE (tests not runnable):
 
 ---
 
-### Step 4: Technical Specification Coverage Validation & Deferral Pre-Approval
+### Step 4: Technical Specification Coverage Validation & Deferral Pre-Approval [MANDATORY]
 
 **Purpose:** Ensure ALL components in Technical Specification have corresponding tests, and obtain explicit user approval for any coverage gaps.
 
@@ -698,22 +698,71 @@ No deferrals needed. Proceeding to Phase 2...
 
 ---
 
-## Success Criteria
+## ✅ PHASE 1 COMPLETION CHECKPOINT
 
-Phase 1 succeeds when:
-- [ ] Tests generated for all acceptance criteria
+**Before proceeding to Phase 2 (Implementation - Green Phase), verify ALL steps executed:**
+
+### Mandatory Steps Executed
+
+- [ ] **Step 1:** test-automator subagent invoked
+  - Verification: Tests generated for all acceptance criteria
+  - Output: Test file paths and test counts displayed
+
+- [ ] **Step 2:** Subagent response parsed and displayed
+  - Verification: Test counts shown (unit/integration/e2e)
+  - Output: Files created listed
+
+- [ ] **Step 3:** Tests verified RED (all failing as expected)
+  - Verification: Executed {TEST_COMMAND}, confirmed all tests fail
+  - Output: Red phase confirmed message displayed
+
+- [ ] **Step 4:** Technical Specification Coverage Validation complete
+  - [ ] 4.1: Tech Spec components extracted
+  - [ ] 4.2: Coverage analysis generated (tests vs. components)
+  - [ ] 4.3: Coverage gaps presented to user
+  - [ ] 4.4: User decisions captured for ALL gaps (generate/defer/remove)
+  - [ ] 4.5-4.6: Decisions processed and documented
+  - [ ] 4.7: All gaps addressed (zero unapproved gaps)
+  - [ ] 4.8: Decisions documented in story file
+
+### Success Criteria
+
+- [ ] All acceptance criteria have failing tests
 - [ ] Tests follow AAA pattern (from coding-standards.md)
 - [ ] Tests placed correctly (per source-tree.md)
 - [ ] All tests FAIL initially (Red phase verified)
 - [ ] Test command executable ({TEST_COMMAND} runs)
-- [ ] Technical Specification coverage validated (Step 4)
-- [ ] All coverage gaps have user-approved decisions
-- [ ] Zero autonomous deferrals (all user-controlled)
+- [ ] Technical Specification 100% covered OR gaps explicitly approved by user
+- [ ] Zero autonomous deferrals (all coverage decisions user-controlled)
 
----
+### Checkpoint Validation
 
-## Next Phase
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 1 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 2 until all checkpoints pass
 
-**Phase 2: Implementation (Green Phase)**
-- Write minimal code to make tests pass
-- See `references/tdd-green-phase.md`
+Most commonly missed:
+  - Step 4 (Tech Spec Coverage Validation) ← 620 lines, often skipped
+  - User approval for coverage gaps ← Required for EVERY gap
+  - Documentation of decisions ← Must update story file
+
+Proceeding without Step 4 results in:
+  - Minimal stubs that pass tests but lack full implementation
+  - Deferred work accumulating silently without tracking
+  - Technical debt not documented
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 1 COMPLETE - Test-First Design (Red Phase) Done
+
+Tests generated: {test_count} tests
+Coverage: {AC_count} acceptance criteria
+Tech Spec: {component_count} components validated
+Gaps: {gap_count} addressed with user approval
+
+All tests are RED (failing). Ready to implement.
+
+Next: Load tdd-green-phase.md and execute Phase 2 (Implementation - Green Phase)
+```

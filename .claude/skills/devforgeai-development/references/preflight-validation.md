@@ -24,7 +24,7 @@ Phase 0 executes 8 validation steps before proceeding to TDD implementation. Thi
 
 ---
 
-## Step 0.1: Validate Git Repository Status
+## Step 0.1: Validate Git Repository Status [MANDATORY]
 
 **Invoke git-validator subagent to check Git availability:**
 
@@ -107,7 +107,7 @@ $CAN_COMMIT = CAN_COMMIT
 
 ---
 
-## Step 0.1.5: User Consent for Git State Changes (RCA-008)
+## Step 0.1.5: User Consent for Git State Changes [MANDATORY IF uncommitted > 10] (RCA-008)
 
 **CRITICAL: This step prevents autonomous file hiding (RCA-008 incident - 2025-11-13).**
 
@@ -351,7 +351,7 @@ ELSE:
 
 ---
 
-## Step 0.1.6: Stash Warning and Confirmation (RCA-008)
+## Step 0.1.6: Stash Warning and Confirmation [MANDATORY IF user selects stash] (RCA-008)
 
 **When to execute:** User selected "Stash changes (advanced)" in Step 0.1.5
 
@@ -522,7 +522,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.2: Adapt TDD Workflow Based on Git Availability
+## Step 0.2: Adapt TDD Workflow Based on Git Availability [MANDATORY]
 
 **Workflow adaptations apply throughout all phases:**
 
@@ -547,7 +547,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.3: File-Based Change Tracking (Alternative to Git Workflow)
+## Step 0.3: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
 
 **ONLY executed when WORKFLOW_MODE == "file_based"**
 
@@ -693,7 +693,7 @@ Display:
 
 ---
 
-## Step 0.4: Validate Context Files Exist
+## Step 0.4: Validate Context Files Exist [MANDATORY]
 
 **Check for all 6 DevForgeAI context files:**
 
@@ -730,7 +730,7 @@ Display: "Re-validating context files..."
 
 ---
 
-## Step 0.5: Load Story Specification
+## Step 0.5: Load Story Specification [MANDATORY]
 
 **Story already loaded via @file reference from slash command.**
 
@@ -758,7 +758,7 @@ Please ensure /dev command properly loads story file before invoking this skill.
 
 ---
 
-## Step 0.6: Validate Spec vs Context Files
+## Step 0.6: Validate Spec vs Context Files [MANDATORY]
 
 **Check for conflicts between story requirements and context file constraints:**
 
@@ -797,7 +797,7 @@ multiSelect: false
 
 ---
 
-## Step 0.7: Detect and Validate Technology Stack
+## Step 0.7: Detect and Validate Technology Stack [MANDATORY]
 
 **Invoke tech-stack-detector subagent to detect technologies and validate against tech-stack.md:**
 
@@ -890,7 +890,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ---
 
-## Step 0.8: Detect Previous QA Failures
+## Step 0.8: Detect Previous QA Failures [MANDATORY]
 
 **Check if story has failed QA due to deferral or other issues:**
 
@@ -966,17 +966,68 @@ ELSE:
 
 ---
 
-## Phase 0 Complete
+## ✅ PHASE 0 COMPLETION CHECKPOINT
 
-**All pre-flight validations passed. Ready to begin TDD cycle.**
+**Before proceeding to Phase 1 (Test-First Design), verify ALL pre-flight validations passed:**
 
-**Variables set for Phases 1-5:**
-- `$GIT_AVAILABLE` - Boolean
-- `$WORKFLOW_MODE` - "full", "partial", or "fallback"
-- `$CAN_COMMIT` - Boolean
-- `$TEST_COMMAND` - e.g., "pytest", "npm test", "dotnet test"
-- `$TEST_COVERAGE_COMMAND` - e.g., "pytest --cov", "npm test -- --coverage"
-- `$BUILD_COMMAND` - e.g., "dotnet build", "npm run build"
-- `$QA_*_FAILURE` - Boolean flags for QA failure context
+### Mandatory Steps Executed
 
-**Next:** Proceed to Phase 1 (Test-First Design - Red Phase)
+- [ ] **Step 0.1:** git-validator subagent invoked, Git status assessed
+- [ ] **Step 0.1.5:** User consent obtained (if uncommitted changes > 10)
+- [ ] **Step 0.1.6:** Stash warnings shown (if user selected stash)
+- [ ] **Step 0.2:** Workflow mode determined (git-based or file-based)
+- [ ] **Step 0.3:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
+- [ ] **Step 0.4:** All 6 context files validated (exist and non-empty)
+- [ ] **Step 0.5:** Story specification loaded (via @file reference)
+- [ ] **Step 0.6:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
+- [ ] **Step 0.7:** tech-stack-detector invoked, technologies validated
+- [ ] **Step 0.8:** Previous QA failures detected (recovery mode if needed)
+
+### Variables Set for Phases 1-5
+
+- [ ] `$GIT_AVAILABLE` = true/false
+- [ ] `$WORKFLOW_MODE` = "full" / "partial" / "fallback"
+- [ ] `$CAN_COMMIT` = true/false
+- [ ] `$TEST_COMMAND` = (pytest / npm test / dotnet test / etc.)
+- [ ] `$TEST_COVERAGE_COMMAND` = (with coverage flags)
+- [ ] `$BUILD_COMMAND` = (language-specific build command)
+- [ ] `$QA_*_FAILURE` = Boolean flags (if QA failure detected)
+
+### Success Criteria
+
+- [ ] All 6 context files exist
+- [ ] No conflicts between story spec and context files
+- [ ] Technology stack detected and validated
+- [ ] Test commands identified and executable
+- [ ] Git workflow mode determined
+- [ ] User consented to git operations (if applicable)
+- [ ] Ready to begin TDD workflow
+
+### Checkpoint Validation
+
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 0 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 1 until all checkpoints pass
+⚠️  Missing validations will cause failures in later phases
+
+Common issues:
+  - Context files missing → Run /create-context
+  - Git not initialized → Initialize git or use file-based mode
+  - Spec conflicts → Resolve via AskUserQuestion
+  - Tech stack mismatch → Update tech-stack.md or adjust story
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 0 COMPLETE - All Pre-Flight Validations Passed
+
+Variables set: {count} variables configured
+Context files: 6/6 validated
+Git mode: {WORKFLOW_MODE}
+Test framework: {TEST_COMMAND}
+
+Ready to begin TDD cycle.
+
+Next: Load tdd-red-phase.md and execute Phase 1 (Test-First Design - Red Phase)
+```
