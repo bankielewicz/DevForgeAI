@@ -1216,7 +1216,7 @@ Result: 100% compliance, 0 min rework, no user intervention
 |-----|----------|-------------------|----------|--------|------------|---------------|
 | 1 | CRITICAL | Steps appear optional | [MANDATORY] markers | 2-3h | +3K | GitHub Actions required steps |
 | 2 | HIGH | Unclear agent sequence | Invocation sequences in SKILL.md | 1-2h | +1.2K | Kubernetes init containers |
-| 3 | CRITICAL | Light QA buried | Promote to explicit Phase 3 Step 4 | 30min | +300 | CI/CD pipeline stages |
+| 3 | CRITICAL | Light QA buried | Promote to explicit Phase 3 Step 5 | 30min | +300 | CI/CD pipeline stages | ✅ COMPLETE (2025-11-15) |
 | 4 | CRITICAL | DoD format unclear | Create dod-update-workflow.md | 1h | +800 | AWS CDK synthesis validation | ✅ COMPLETE (2025-11-14) |
 | 5 | HIGH | No completion validation | Phase completion checkpoints | 2-3h | +2.4K | Aviation pre-flight checklists |
 | 6 | MEDIUM | No progress tracking | TodoWrite execution tracker | 2h | +1.4K | pytest --verbose progress |
@@ -1249,10 +1249,17 @@ The /dev command and devforgeai-development skill have excellent architecture (l
 **Status:** Recommendation 4 IMPLEMENTED (2025-11-14), remaining recommendations pending approval
 
 **Implementation Log:**
-- **Rec 4 (CRITICAL):** ✅ COMPLETE - DoD Update Workflow Bridge created
+- **Rec 4 (CRITICAL):** ✅ COMPLETE - DoD Update Workflow Bridge created (2025-11-14)
   - Created: dod-update-workflow.md (753 lines, ~5.5K tokens)
   - Updated: phase-4.5-deferral-challenge.md (+37 lines handoff section)
   - Updated: git-workflow-conventions.md (+27 lines prerequisites)
   - Updated: SKILL.md (Phase 4.5-5 Bridge documented)
   - Tested: STORY-027 validates successfully
-  - Committed: [pending - will commit with summary]
+  - Committed: 2ad7c04
+
+- **Rec 3 (CRITICAL):** ✅ COMPLETE - Promoted Light QA to Explicit Step (2025-11-15)
+  - Updated: tdd-refactor-phase.md (+88 lines, added Step 5 with [MANDATORY] marker)
+  - Updated: SKILL.md (Phase 3 summary now mentions Light QA, subagent coordination updated)
+  - Step 5 includes: Explicit Skill() invocation, purpose explanation, success/failure handling
+  - Success criteria updated: Added "Step 5 executed (Light QA passed)" checkbox
+  - Committed: [pending]
