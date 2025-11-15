@@ -151,8 +151,83 @@ ELIF len(high_issues) > 0:
 
 ELSE:
     Display: "  - No critical or high issues found ✅"
-    Display: "  Ready for Phase 4 (Integration)"
+    Display: "  Ready for Step 5 (Light QA Validation)"
 ```
+
+---
+
+### Step 5: Invoke Light QA Validation [MANDATORY]
+
+**Purpose:** Intermediate quality gate to validate refactored code before proceeding to integration testing.
+
+**Why Mandatory:** Light QA catches issues early (build failures, test regressions, anti-patterns) before expensive integration testing phase. Prevents propagating refactoring errors.
+
+**Timing:** After refactoring complete and code review passed, BEFORE Phase 4 (Integration)
+
+**Invoke devforgeai-qa skill in light mode:**
+
+```
+Display: ""
+Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+Display: "  Phase 3 Step 5: Light QA Validation (Intermediate Quality Gate)"
+Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+Display: ""
+Display: "Running light validation after refactoring..."
+Display: ""
+Display: "**Validation Mode:** light"
+Display: "**Story ID:** {STORY_ID}"
+Display: ""
+
+# Invoke QA skill
+Skill(command="devforgeai-qa")
+```
+
+**What Light QA validates:**
+- Build succeeds (no syntax errors introduced)
+- All tests pass (no regressions from refactoring)
+- No anti-patterns introduced (quick scan)
+- Code quality metrics acceptable
+
+**Expected outcomes:**
+
+**If Light QA PASSES:**
+```
+Display: ""
+Display: "✅ STEP 5 COMPLETE: Light QA Validation PASSED"
+Display: ""
+Display: "Refactoring validated successfully:"
+Display: "  - Build: ✅ Succeeds"
+Display: "  - Tests: ✅ All passing"
+Display: "  - Anti-patterns: ✅ None detected"
+Display: "  - Code quality: ✅ Acceptable"
+Display: ""
+Display: "Ready for Phase 4 (Integration Testing)"
+Display: ""
+
+# Proceed to Phase 4
+```
+
+**If Light QA FAILS:**
+```
+Display: ""
+Display: "❌ STEP 5 FAILED: Light QA Validation FAILED"
+Display: ""
+Display: "Refactoring introduced issues:"
+Display: "  Review Light QA report above for violations"
+Display: ""
+Display: "Common issues:"
+Display: "  - Test regressions (refactoring broke tests)"
+Display: "  - Anti-patterns introduced (code smells)"
+Display: "  - Build failures (syntax errors)"
+Display: ""
+Display: "Fix violations and re-run Phase 3 refactoring"
+Display: ""
+
+HALT development
+DO NOT proceed to Phase 4 until Light QA passes
+```
+
+**Note:** The devforgeai-qa skill will detect "light" mode from conversation context. See SKILL.md for mode detection pattern.
 
 ---
 
@@ -169,16 +244,29 @@ ELSE:
 - Best practices enforcement
 - Context file compliance verification
 
+**devforgeai-qa (light mode):** [NEW - Step 5]
+- Validates build succeeds after refactoring
+- Confirms all tests still pass (no regressions)
+- Quick anti-pattern scan
+- Code quality metrics check
+- HALTS if violations detected
+
 ---
 
 ## Success Criteria
 
 Phase 3 succeeds when:
+- [ ] Step 1 executed (refactoring-specialist invoked)
+- [ ] Step 2 executed (refactoring response parsed)
+- [ ] Step 3 executed (code-reviewer invoked)
+- [ ] Step 4 executed (code review response handled)
+- [ ] Step 5 executed (Light QA passed) ← NEW: MANDATORY
 - [ ] Code quality improved (complexity reduced, duplication removed)
 - [ ] All tests still GREEN (no regressions)
 - [ ] No CRITICAL issues from code review
 - [ ] Anti-patterns removed
 - [ ] Code follows coding-standards.md
+- [ ] Light QA validation passed ← Reinforced
 - [ ] Ready for integration testing
 
 ---

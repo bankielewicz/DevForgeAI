@@ -110,8 +110,9 @@ Minimal code to pass tests → backend-architect/frontend-developer → Tests GR
 **Reference:** `tdd-green-phase.md`
 
 ### Phase 3: Refactor (Refactor Phase)
-Improve quality, keep tests green → refactoring-specialist, code-reviewer → Code improved
+Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved
 **Reference:** `tdd-refactor-phase.md`
+**Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY]
 
 ### Phase 4: Integration & Validation
 Cross-component testing, coverage validation → integration-tester → Thresholds met
@@ -158,7 +159,7 @@ Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step 
 **Phase 0:** git-validator, tech-stack-detector
 **Phase 1:** test-automator
 **Phase 2:** backend-architect/frontend-developer, context-validator
-**Phase 3:** refactoring-specialist, code-reviewer
+**Phase 3:** refactoring-specialist, code-reviewer, devforgeai-qa (light mode) ← NEW
 **Phase 4:** integration-tester
 **Phase 4.5:** deferral-validator (blocker validation)
 **Phase 5:** (Phase 4.5 handles deferrals, Phase 5 handles new incomplete items)
