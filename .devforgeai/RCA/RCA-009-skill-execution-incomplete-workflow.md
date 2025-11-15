@@ -1215,7 +1215,7 @@ Result: 100% compliance, 0 min rework, no user intervention
 | Rec | Priority | Problem Addressed | Solution | Effort | Token Cost | Evidence Base |
 |-----|----------|-------------------|----------|--------|------------|---------------|
 | 1 | CRITICAL | Steps appear optional | [MANDATORY] markers | 2-3h | +3K | GitHub Actions required steps | ✅ COMPLETE (2025-11-15) |
-| 2 | HIGH | Unclear agent sequence | Invocation sequences in SKILL.md | 1-2h | +1.2K | Kubernetes init containers |
+| 2 | HIGH | Unclear agent sequence | Invocation sequences in SKILL.md | 1-2h | +3.8K | Kubernetes init containers | ✅ COMPLETE (2025-11-15) |
 | 3 | CRITICAL | Light QA buried | Promote to explicit Phase 3 Step 5 | 30min | +300 | CI/CD pipeline stages | ✅ COMPLETE (2025-11-15) |
 | 4 | CRITICAL | DoD format unclear | Create dod-update-workflow.md | 1h | +800 | AWS CDK synthesis validation | ✅ COMPLETE (2025-11-14) |
 | 5 | HIGH | No completion validation | Phase completion checkpoints | 2-3h | +2.4K | Aviation pre-flight checklists |
@@ -1275,4 +1275,21 @@ The /dev command and devforgeai-development skill have excellent architecture (l
     - tdd-refactor-phase.md: +68 lines checkpoint (steps already marked in Rec 3)
     - integration-testing.md: 2 steps marked, +61 lines checkpoint
     - phase-4.5-deferral-challenge.md: 6 steps marked (checkpoint from Rec 4)
+  - Committed: [pending]
+
+- **Rec 2 (HIGH):** ✅ COMPLETE - Added Subagent Invocation Sequences to SKILL.md (2025-11-15)
+  - Updated: SKILL.md Subagent Coordination section (lines 157-274)
+  - Added: Sequential invocation order for all 6 phases
+  - Details added per subagent:
+    - Purpose explanation
+    - Token cost (isolated context)
+    - Returns (expected outputs)
+    - Success criteria
+    - HALT conditions
+    - [MANDATORY] markers
+    - Sequential dependencies (AFTER markers)
+  - Character increase: +3,780 chars (44% increase, actual: +3.8K vs target: +1.2K)
+  - Justification: Comprehensive format eliminates ambiguity (RCA-009 root cause)
+  - Total SKILL.md: 324 lines, 12,319 chars (~9K tokens) - well under skill budget
+  - Backup created: SKILL.md.backup-rec2-20251115
   - Committed: [pending]
