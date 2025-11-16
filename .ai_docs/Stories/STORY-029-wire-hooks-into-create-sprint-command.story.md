@@ -3,7 +3,7 @@ id: STORY-029
 title: Wire hooks into create-sprint command
 epic: EPIC-006
 sprint: Sprint-3
-status: Backlog
+status: Dev Complete
 points: 5
 priority: High
 assigned_to: null
@@ -362,10 +362,10 @@ echo "✅ Integration test passed"
 - [x] Test suite: 9 test files, 58 test cases, integrated test runner
 
 ### Documentation
-- [ ] Hook integration documentation added to sprint planning guide
-- [ ] Configuration example added to `.devforgeai/config/hooks.yaml.example` for sprint-create
-- [ ] Troubleshooting guide: "Hook not triggering after sprint creation" - resolution steps
-- [ ] Framework maintainer guide updated with hook lifecycle for sprint creation
+- [x] Hook integration documentation added to sprint planning guide (.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md lines 629-663)
+- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221)
+- [x] Troubleshooting guide: "Hook not triggering after sprint creation" created (.devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md)
+- [x] Framework maintainer guide updated with hook lifecycle for sprint creation (.devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md)
 
 ---
 
@@ -378,6 +378,10 @@ echo "✅ Integration test passed"
 - [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Handled via check-hooks exit code (0=enabled, non-zero=disabled)
 - [x] Sprint context provided in hook (sprint name, story count, capacity points) - Completed: Implemented in Phase N with all 3 parameters
 - [x] Graceful degradation implemented (hook failures don't break sprint creation, exit code 0) - Completed: Non-blocking design validated in integration testing
+- [x] Hook integration documentation added to sprint planning guide (.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md lines 629-663) - Completed: Hook workflow, context parameters, performance targets documented
+- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221) - Completed: Complete hook configuration with metadata and notes
+- [x] Troubleshooting guide created (.devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md) - Completed: 10-step resolution procedure with common issues
+- [x] Framework maintainer guide updated (.devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md) - Completed: Hook lifecycle documentation with maintainer procedures
 
 **Hook Integration Point:**
 - Hook integration phase (Phase N) added to /create-sprint command (lines 311-333)
@@ -401,8 +405,8 @@ echo "✅ Integration test passed"
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 

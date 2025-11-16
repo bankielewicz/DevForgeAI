@@ -626,6 +626,44 @@ Benefit: Coordinate feature launch, marketing messaging, customer support
 
 ---
 
+## Hook Integration (STORY-029)
+
+**After sprint creation, feedback hooks can be triggered to capture planning insights.**
+
+### Hook Workflow
+
+**Phase N (Feedback Hook Integration):**
+- Executes after sprint file creation (Phase 4 in /create-sprint command)
+- Checks if hooks enabled: `devforgeai check-hooks --operation=create-sprint --status=success`
+- If enabled (exit code 0), invokes hooks with sprint context
+
+**Sprint Context Passed to Hooks:**
+- `--sprint-name="${SPRINT_NAME}"` (shell-escaped for security)
+- `--story-count=${STORY_COUNT}` (number of stories selected)
+- `--capacity=${CAPACITY_POINTS}` (total story points)
+
+**Non-Blocking Design:**
+- Sprint creation ALWAYS succeeds (exit code 0)
+- Hook failures logged to `.devforgeai/feedback/logs/hook-errors.log`
+- Warning displayed: "⚠️ Feedback collection failed (sprint creation succeeded)"
+
+**Performance:**
+- Hook check: <100ms (NFR-001)
+- Hook invocation setup: <3s (NFR-002)
+- Total overhead: <3.5s (NFR-003)
+
+**Use Cases:**
+- Capture retrospective insights on story selection
+- Identify capacity planning challenges
+- Track sprint goal clarity issues
+- Document team velocity trends
+
+**Configuration:**
+- Controlled via `.devforgeai/config/hooks.yaml`
+- See `hooks.yaml.example` for sprint-create configuration
+
+---
+
 **Token Budget**: Progressive disclosure (load as needed)
 **Reference Usage**: Load during sprint-planner subagent invocation
 **Framework Integration**: Core artifact in Epic → Sprint → Story hierarchy

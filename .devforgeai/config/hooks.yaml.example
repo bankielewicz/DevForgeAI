@@ -152,6 +152,75 @@
       - Performance: check <100ms, invoke <500ms, overhead <3s
 
 # ============================================================================
+# POST-SPRINT-CREATE FEEDBACK (STORY-029)
+# ============================================================================
+
+# Triggers after successful sprint creation with story selection complete
+# Use for capturing sprint planning insights, story selection rationale, and capacity feedback
+
+- id: post-sprint-create-feedback
+  name: "Post-Sprint Creation Feedback"
+  operation_type: command
+  operation_pattern: "create-sprint"
+
+  # Trigger on successful sprint creation only
+  trigger_status: [success]
+
+  trigger_conditions:
+    # No user approval required (automatic trigger)
+    user_approval_required: false
+
+    # No minimum duration (all sprint creations eligible)
+    operation_duration_min_ms: 0
+
+    # OPTIONAL: Only trigger for sprints with specific story counts
+    # story_count_min: 3  # Only sprints with ≥3 stories
+
+  feedback_type: conversation
+  feedback_config:
+    mode: "focused"  # Targeted questions for sprint planning quality
+
+    # Sprint-specific questions (AC3: sprint context available)
+    questions:
+      # Story selection rationale
+      - "You selected {story_count} stories ({capacity_points} points total). How did you decide on this selection?"
+
+      # Capacity appropriateness
+      - "Is {capacity_points} points appropriate for your team's velocity (20-40 recommended)?"
+
+      # Sprint goal clarity
+      - "Is the sprint goal clear and achievable with these {story_count} stories?"
+
+      # Story dependencies
+      - "Are there any dependencies between the selected stories that could cause sequencing issues?"
+
+      # Risk awareness
+      - "What are the biggest risks to completing this sprint successfully?"
+
+      # Empty sprint handling (AC5: adapt to zero stories)
+      - "Why create a sprint without stories? (Planning ahead, capacity constraints, etc.)"
+
+  # Performance targets (NFR-001, NFR-002, NFR-003)
+  max_duration_ms: 30000  # 30 second timeout for feedback conversation
+
+  # Enable/disable hook
+  enabled: false  # DISABLED by default - enable when ready to collect sprint feedback
+
+  # Metadata for tracking and debugging
+  tags: [create-sprint, sprint-planning, capacity-planning, retrospective, story-029]
+  metadata:
+    story_id: "STORY-029"
+    acceptance_criteria: ["AC1", "AC2", "AC3", "AC4", "AC5"]
+    implementation_date: "2025-11-16"
+    notes: |
+      - Triggers after Phase N in /create-sprint command
+      - Sprint context automatically extracted (sprint-name, story-count, capacity)
+      - Questions reference actual sprint data ({story_count}, {capacity_points})
+      - Hook failure is non-blocking (sprint creation always exits 0)
+      - Performance: check <100ms, invoke <3s, overhead <3.5s
+      - Empty sprint support: --story-count=0 --capacity=0 (AC5)
+
+# ============================================================================
 # CUSTOMIZATION EXAMPLES
 # ============================================================================
 
