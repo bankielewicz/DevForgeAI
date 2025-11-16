@@ -1,10 +1,34 @@
 # /create-agent Slash Command - Implementation Plan
 
-**Version:** 1.0
+**Version:** 1.1 (Architecture Corrected)
 **Date:** 2025-11-15
-**Status:** ✅ IMPLEMENTED - All Phases Complete
+**Status:** ✅ IMPLEMENTED - All Phases Complete (Corrected Architecture)
 **Priority:** MEDIUM (Infrastructure Enhancement)
-**Completed:** 2025-11-15 21:47 UTC
+**Completed:** 2025-11-15 23:15 UTC
+
+## Architecture Correction (v1.1 - 2025-11-15 23:00)
+
+**Issue Identified:** Original implementation incorrectly invoked claude-code-terminal-expert skill as workflow executor (it's a knowledge skill, not workflow skill)
+
+**Correction Applied:**
+- Created `devforgeai-subagent-creation` skill (proper workflow skill)
+- Updated `/create-agent` command to invoke correct skill
+- Created proper templates with {placeholders} (not example copies)
+- Templates in correct location (skill's assets/, not agent-generator/)
+- Skill delegates to agent-generator subagent v2.0 for actual generation
+
+**New Architecture:**
+```
+/create-agent (orchestrator)
+  ↓
+devforgeai-subagent-creation skill (workflow executor)
+  ↓ (references internally)
+claude-code-terminal-expert skill (knowledge/best practices)
+  ↓ (delegates generation to)
+agent-generator subagent v2.0 (specialized worker)
+```
+
+**Status:** ✅ Architecture corrected and fully implemented
 
 ---
 
