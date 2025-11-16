@@ -220,6 +220,11 @@ All quality thresholds met. Ready for deferral validation.
 **Update Progress Tracker:**
 Mark "Execute Phase 4" todo as "completed"
 
+**See Also:**
+- `phase-4.5-deferral-challenge.md` - Phase 4.5 workflow (deferral validation)
+- `integration-tester` subagent - Integration testing specialist
+- `deferral-budget-enforcement.md` - Phase 5 deferral budget limits
+
 Next: Load phase-4.5-deferral-challenge.md and execute Phase 4.5 (Deferral Challenge)
 ```
 

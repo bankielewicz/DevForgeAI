@@ -833,6 +833,13 @@ Ready to update DoD format for git commit.
 
 **Update Progress Tracker:**
 Mark "Execute Phase 4.5" todo as "completed"
+
+**See Also (CRITICAL - Phase 4.5 → 5 Handoff):**
+- `dod-update-workflow.md` - DoD formatting requirements (MUST execute before Phase 5)
+- `git-workflow-conventions.md` - Git commit workflow and conventions
+- `dod-validation-checkpoint.md` - Handle new incomplete items (Phase 5 Step 1.7)
+- `deferral-budget-enforcement.md` - Deferral budget limits (Phase 5 Step 1.6)
+- `deferral-validator` subagent - Blocker validation specialist
 ```
 
 **Next: Load dod-update-workflow.md and execute Phase 4.5-5 Bridge**

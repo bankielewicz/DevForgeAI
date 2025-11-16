@@ -1220,7 +1220,7 @@ Result: 100% compliance, 0 min rework, no user intervention
 | 4 | CRITICAL | DoD format unclear | Create dod-update-workflow.md | 1h | +800 | AWS CDK synthesis validation | ✅ COMPLETE (2025-11-14) |
 | 5 | HIGH | No completion validation | Phase completion checkpoints | 2-3h | +2.2K | Aviation pre-flight checklists | ✅ COMPLETE (2025-11-15) |
 | 6 | MEDIUM | No progress tracking | TodoWrite execution tracker | 2h | +1.8K | pytest --verbose progress | ✅ COMPLETE (2025-11-15) |
-| 7 | LOW | Missing cross-references | "See also" links | 1h | +1.2K | MDN Web Docs navigation |
+| 7 | LOW | Missing cross-references | "See also" links | 1h | +1.2K | MDN Web Docs navigation | ✅ COMPLETE (2025-11-15) |
 | 8 | LOW | Dual validator confusion | Validator comparison matrix | 30min | +600 | Terraform plan vs. apply |
 | 9 | LOW | Text workflow hard to follow | ASCII flowchart in SKILL.md | 1h | +1.5K | BPMN workflow diagrams |
 
@@ -1344,4 +1344,28 @@ The /dev command and devforgeai-development skill have excellent architecture (l
   - Target: +1,400 tokens
   - Actual: +1,763 tokens (26% over, comprehensive implementation)
   - Backup created: SKILL.md.backup-rec6-20251115-203657
+  - Committed: 09b8c2b
+
+- **Rec 7 (LOW):** ✅ COMPLETE - Added Cross-Reference Links Between Related Files (2025-11-15)
+  - Added "See Also" sections to all 6 TDD workflow reference files
+  - Cross-references added to "IF ALL ITEMS CHECKED" blocks (after TodoWrite update reminder)
+  - Links follow MDN Web Docs navigation pattern
+  - Phase 0 (preflight-validation.md): +187 chars (~140 tokens)
+    - Links: tdd-red-phase.md, parameter-extraction.md, ambiguity-protocol.md
+  - Phase 1 (tdd-red-phase.md): +193 chars (~144 tokens)
+    - Links: tdd-green-phase.md, tdd-patterns.md, test-automator subagent
+  - Phase 2 (tdd-green-phase.md): +224 chars (~168 tokens)
+    - Links: tdd-refactor-phase.md, context-validator, backend-architect/frontend-developer
+  - Phase 3 (tdd-refactor-phase.md): +263 chars (~197 tokens)
+    - Links: integration-testing.md, refactoring-patterns.md, code-reviewer, devforgeai-qa
+  - Phase 4 (integration-testing.md): +227 chars (~170 tokens)
+    - Links: phase-4.5-deferral-challenge.md, integration-tester, deferral-budget-enforcement.md
+  - Phase 4.5 (phase-4.5-deferral-challenge.md): +441 chars (~330 tokens) - CRITICAL handoff
+    - Links: dod-update-workflow.md, git-workflow-conventions.md, dod-validation-checkpoint.md, deferral-budget-enforcement.md, deferral-validator
+  - Total increase: +1,535 chars (~1,151 tokens)
+  - Target: +1,200 tokens
+  - Actual: +1,151 tokens (4% under target - excellent efficiency!)
+  - Pattern: Each phase links to next phase workflow + related references + relevant subagents
+  - Phase 4.5 has most links (5 references) - critical handoff to Phase 5
+  - Backup created: All 6 files backed up with timestamp 20251115-231343
   - Committed: [pending]

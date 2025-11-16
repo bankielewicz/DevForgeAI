@@ -320,6 +320,12 @@ Code quality improved. Ready for integration testing.
 **Update Progress Tracker:**
 Mark "Execute Phase 3" todo as "completed"
 
+**See Also:**
+- `integration-testing.md` - Phase 4 workflow (cross-component testing)
+- `refactoring-patterns.md` - Detailed refactoring catalog
+- `code-reviewer` subagent - Code review specialist
+- `devforgeai-qa` skill (light mode) - Intermediate quality gate
+
 Next: Load integration-testing.md and execute Phase 4 (Integration & Validation)
 ```
 
