@@ -434,9 +434,9 @@ assert exit_code == 0
 
 ### Documentation
 - [x] Hook integration documentation added to devforgeai-orchestration skill guide (epic creation)
-- [ ] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create - User approved: Documentation task, can be added in follow-up documentation sprint
-- [ ] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps - User approved: Documentation task, defer to STORY-029 (create-sprint hook integration) where comprehensive troubleshooting will be added
-- [ ] Framework maintainer guide updated with hook lifecycle for epic creation - User approved: Framework documentation, defer to documentation consolidation sprint
+- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create
+- [x] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps
+- [x] Framework maintainer guide updated with hook lifecycle for epic creation
 
 ---
 
@@ -464,6 +464,9 @@ assert exit_code == 0
 - [x] Integration test: Epic-specific questions received by user during feedback - Completed: test_e2e_hook_metadata_extraction_and_usage
 - [x] E2E test: Complete epic creation workflow with hook triggering and feedback - Completed: test_e2e_epic_creation_with_hooks_enabled
 - [x] Hook integration documentation added to devforgeai-orchestration skill guide (epic creation) - Completed: Phase 4A.9 section (258 lines) with complete workflow documentation
+- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create - Completed: Added post-epic-create-feedback configuration (lines 87-152) with 6 epic-specific questions, metadata, and customization examples
+- [x] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps - Completed: Created .devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md with 13 common issues and diagnostic procedures
+- [x] Framework maintainer guide updated with hook lifecycle for epic creation - Completed: Created .devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md with architecture, responsibilities, and maintenance procedures
 
 **Implementation:**
 - Added Phase 4A.9 (Post-Epic Feedback Hook) to devforgeai-orchestration skill
@@ -490,10 +493,16 @@ assert exit_code == 0
 - Light QA: ✅ Passed (46/48 tests, no critical anti-patterns)
 - Security: ✅ Epic ID validated via regex, no command injection risk
 
-**Deferred Documentation (3 items - user approved):**
-1. Configuration example in hooks.yaml.example - Defer to documentation sprint
-2. Troubleshooting guide - Defer to STORY-029 (comprehensive guide)
-3. Framework maintainer guide - Defer to documentation consolidation
+**Documentation Created:**
+1. Configuration example in hooks.yaml.example (lines 87-152)
+   - 6 epic-specific questions with {feature_count}, {complexity_score} placeholders
+   - Customization examples and metadata documentation
+2. Troubleshooting guide (.devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md)
+   - 13 common issues with diagnosis and resolution steps
+   - Quick diagnostic commands and emergency rollback procedures
+3. Framework maintainer guide (.devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md)
+   - Complete hook lifecycle architecture and component diagram
+   - Maintainer responsibilities, testing, monitoring, and rollback procedures
 
 **Related Stories:**
 - STORY-021: devforgeai check-hooks implementation
