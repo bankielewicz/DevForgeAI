@@ -1,7 +1,7 @@
 ---
 description: Search feedback history with filters and pagination
 argument-hint: [query] [--severity] [--status] [--limit] [--page]
-model: sonnet
+model: haiku
 allowed-tools: Skill
 ---
 

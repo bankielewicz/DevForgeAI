@@ -154,7 +154,8 @@
       "Bash(/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-refactor-phase.md )",
       "Bash(/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/integration-testing.md )",
       "Bash(/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md )",
-      "Bash(/mnt/c/Projects/DevForgeAI2/.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md)"
+      "Bash(/mnt/c/Projects/DevForgeAI2/.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md)",
+      "Skill(claude-code-terminal-expert)"
     ],
     "deny": [],
     "ask": []

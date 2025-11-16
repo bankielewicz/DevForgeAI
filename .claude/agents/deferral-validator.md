@@ -2,6 +2,7 @@
 name: deferral-validator
 description: Validates that deferred Definition of Done items have justified technical reasons and proper documentation. Detects circular deferrals, validates story/ADR references, checks implementation feasibility. Use during QA validation when stories have deferred DoD items.
 model: haiku
+color: green
 allowed-tools:
   - Read
   - Glob

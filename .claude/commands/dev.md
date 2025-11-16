@@ -1,7 +1,7 @@
 ---
 description: Implement user story using TDD workflow
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, Bash(git:*)
 ---
 

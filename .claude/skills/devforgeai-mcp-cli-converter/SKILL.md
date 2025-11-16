@@ -2,6 +2,7 @@
 name: devforgeai-mcp-cli-converter
 description: Convert any MCP (Model Context Protocol) server into a CLI utility and auto-generate a complementary skill. Use when you have an MCP server (Puppeteer, filesystem, weather, etc.) and need to: (1) Create a standalone CLI wrapper that Claude Code can execute, (2) Auto-generate a skill so Claude understands how to use the CLI, (3) Bridge MCP async patterns into sync CLI patterns, or (4) Rapidly prototype tool integration without MCP server overhead.
 license: Complete terms in LICENSE.txt
+model: claude-haiku-4-5-20251001
 ---
 
 # MCP-to-CLI Converter

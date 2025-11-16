@@ -1,0 +1,4 @@
+STORY-025 Backups Created: Fri Nov 14 10:15:25 EST 2025
+Files backed up:
+-rwxrwxrwx 1 bryan bryan 8.5K Nov 14 10:15 .backups/story-025/devforgeai-release-SKILL.md.backup
+-rwxrwxrwx 1 bryan bryan  19K Nov 14 10:15 .backups/story-025/release.md.backup

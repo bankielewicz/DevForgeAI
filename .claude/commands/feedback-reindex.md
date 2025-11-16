@@ -1,7 +1,7 @@
 ---
 description: Rebuild feedback session index from session files
 argument-hint:
-model: sonnet
+model: haiku
 allowed-tools: Bash, Read, Glob
 ---
 

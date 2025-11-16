@@ -1,7 +1,7 @@
 ---
 description: View and edit feedback system configuration
 argument-hint: [view|edit|reset] [field] [value]
-model: sonnet
+model: haiku
 allowed-tools: Skill
 ---
 

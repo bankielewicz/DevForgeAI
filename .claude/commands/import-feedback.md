@@ -1,7 +1,7 @@
 ---
 description: Import feedback sessions from exported ZIP package
 argument-hint: "<archive-path>"
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Bash(python3:*), Bash(ls:*), Bash(unzip:*)
 ---
 

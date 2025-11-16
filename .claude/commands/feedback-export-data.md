@@ -1,7 +1,7 @@
 ---
 description: Export feedback data with selection criteria (STORY-020 implementation)
 argument-hint: [--format] [--date-range] [--story-ids] [--severity] [--status]
-model: sonnet
+model: haiku
 allowed-tools: Skill
 ---
 

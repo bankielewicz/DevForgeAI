@@ -1,7 +1,7 @@
 ---
 description: Export feedback sessions to portable ZIP package
 argument-hint: "[--date-range RANGE] [--sanitize true/false] [--output PATH]"
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Bash(python3:*), Bash(ls:*)
 ---
 
