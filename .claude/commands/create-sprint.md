@@ -308,6 +308,31 @@ Next Steps:
 
 ---
 
+### Phase N: Feedback Hook Integration
+
+**Collect feedback after sprint creation (non-blocking):**
+
+```
+# Check hooks enabled
+Execute: devforgeai check-hooks --operation=create-sprint --status=success
+
+# Conditional invocation (non-blocking)
+IF check-hooks exit == 0:
+    Execute: devforgeai invoke-hooks --operation=create-sprint --sprint-name="${SPRINT_NAME}" --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}
+
+    IF invoke-hooks fails:
+        Log to: .devforgeai/feedback/logs/hook-errors.log
+        Display: "⚠️ Feedback collection failed (sprint creation succeeded)"
+```
+
+**Features:**
+- Non-blocking (sprint always succeeds)
+- Shell-escaped: `"${SPRINT_NAME}"` prevents injection
+- Empty sprint: `--story-count=0 --capacity=0` allowed
+- **NFR-001:** check-hooks <100ms | **NFR-002:** invoke-hooks <3s | **NFR-003:** Total <3.5s
+
+---
+
 ## Error Handling
 
 ### Error: No Arguments Provided
