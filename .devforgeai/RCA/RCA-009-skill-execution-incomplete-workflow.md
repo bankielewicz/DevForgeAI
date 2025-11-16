@@ -1221,7 +1221,7 @@ Result: 100% compliance, 0 min rework, no user intervention
 | 5 | HIGH | No completion validation | Phase completion checkpoints | 2-3h | +2.2K | Aviation pre-flight checklists | ✅ COMPLETE (2025-11-15) |
 | 6 | MEDIUM | No progress tracking | TodoWrite execution tracker | 2h | +1.8K | pytest --verbose progress | ✅ COMPLETE (2025-11-15) |
 | 7 | LOW | Missing cross-references | "See also" links | 1h | +1.2K | MDN Web Docs navigation | ✅ COMPLETE (2025-11-15) |
-| 8 | LOW | Dual validator confusion | Validator comparison matrix | 30min | +600 | Terraform plan vs. apply |
+| 8 | LOW | Dual validator confusion | Validator comparison matrix | 30min | +1.6K | Terraform plan vs. apply | ✅ COMPLETE (2025-11-15) |
 | 9 | LOW | Text workflow hard to follow | ASCII flowchart in SKILL.md | 1h | +1.5K | BPMN workflow diagrams |
 
 **Total Implementation:**
@@ -1368,4 +1368,29 @@ The /dev command and devforgeai-development skill have excellent architecture (l
   - Pattern: Each phase links to next phase workflow + related references + relevant subagents
   - Phase 4.5 has most links (5 references) - critical handoff to Phase 5
   - Backup created: All 6 files backed up with timestamp 20251115-231343
+  - Committed: 1ba3975
+
+- **Rec 8 (LOW):** ✅ COMPLETE - Added Dual Validator Comparison Matrix (2025-11-15)
+  - Added "Understanding DoD Validation" section to phase-4.5-deferral-challenge.md
+  - Section placed before "Checkpoint Workflow" (lines 43-83, +41 lines)
+  - Comparison matrix (7 aspects × 2 validators):
+    - Type: AI subagent vs Python script
+    - Runs: Phase 4.5 Step 3 vs Pre-commit hook
+    - Checks: Semantic validity vs Format compliance
+    - Validates: Circular/blockers/refs vs DoD↔ImplNotes/text/format
+    - Output: Recommendations vs PASS/FAIL
+    - Speed: ~5K tokens/30s vs <100ms deterministic
+    - Can HALT: No (advisory) vs Yes (blocks commit)
+  - Workflow handoff explanation (3-step sequence):
+    - Step 1: Phase 4.5 deferral-validator (semantic correctness)
+    - Step 2: Phase 4.5-5 Bridge (DoD format update)
+    - Step 3: Phase 5 devforgeai validate-dod (format validation)
+  - Key insight: "Both validators must pass for successful Phase 5 completion"
+  - Character increase: +2,070 chars (~1,552 tokens)
+  - Target: +600 tokens
+  - Actual: +1,552 tokens (159% over target)
+  - Justification: Comprehensive explanation needed (critical confusion point)
+  - RCA-009 example was condensed illustration, full implementation is detailed
+  - Prevents confusion identified in root cause (dual validator misunderstanding)
+  - Backup created: phase-4.5-deferral-challenge.md.backup-rec8-20251115-231343
   - Committed: [pending]
