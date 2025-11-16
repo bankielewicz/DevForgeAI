@@ -758,6 +758,84 @@ Actions:
 
 ---
 
+## ✅ PHASE 4.5 COMPLETION CHECKPOINT
+
+**Before proceeding to Phase 4.5-5 Bridge (DoD Update Workflow), verify ALL steps executed:**
+
+### Mandatory Steps Executed
+
+- [ ] **Step 1:** Detect All Deferred Items [MANDATORY]
+  - Verification: Grep scan complete for deferred DoD items
+  - Output: All deferred items identified and listed
+
+- [ ] **Step 2:** Skip If No Deferrals OR Continue
+  - Verification: IF no deferrals → Phase 4.5 skipped (proceed to bridge)
+  - Verification: IF deferrals exist → Steps 3-7 executed
+
+**If deferrals exist, also verify:**
+
+- [ ] **Step 3:** Invoke deferral-validator Subagent [MANDATORY]
+  - Verification: deferral-validator invoked for blocker validation
+  - Output: Validation report with resolvable vs. valid categories
+
+- [ ] **Step 4:** Parse Validation Results [MANDATORY]
+  - Verification: Report parsed, deferrals categorized
+  - Output: Resolvable and valid deferrals identified
+
+- [ ] **Step 5:** Present Deferrals to User [MANDATORY]
+  - Verification: All deferrals displayed with validation results
+  - Output: User presented with approval decision for EACH deferral
+
+- [ ] **Step 6:** Capture User Decisions [MANDATORY]
+  - Verification: User decisions captured for ALL deferrals
+  - Output: Approved deferrals, items to implement, items to remove
+  - HALT if user cancels (cannot proceed without approvals)
+
+- [ ] **Step 7:** Update Story File with Approvals [MANDATORY]
+  - Verification: Approval markers added to story file
+  - Output: Story file updated with timestamps and justifications
+
+### Success Criteria
+
+- [ ] All deferrals have user approval OR no deferrals exist
+- [ ] Zero autonomous deferrals (every deferral user-approved)
+- [ ] Approval timestamps recorded in story file
+- [ ] deferral-validator validation passed
+- [ ] Items to implement identified (if any)
+
+**IF ANY ITEM UNCHECKED:**
+```
+❌ PHASE 4.5 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 4.5-5 BRIDGE until all checkpoints pass
+
+Most commonly missed:
+  - Step 6 (User approval for EVERY deferral) ← Required, zero exceptions
+  - Approval timestamps ← Must update story file with timestamps
+  - Items to implement ← May need to return to Phase 2
+
+Proceeding without complete Phase 4.5 results in:
+  - Unapproved deferrals (violates RCA-006 zero autonomous policy)
+  - Missing approval audit trail (cannot verify user consent)
+  - Git commit may fail (DoD validation requires approved deferrals)
+```
+
+**IF ALL ITEMS CHECKED:**
+```
+✅ PHASE 4.5 COMPLETE - Deferral Challenge Checkpoint Done
+
+Deferrals processed: {deferral_count}
+User approvals: {approved_count}
+Items to implement: {implement_count}
+Items removed: {removed_count}
+
+All deferrals have user approval. Zero autonomous deferrals.
+Ready to update DoD format for git commit.
+```
+
+**Next: Load dod-update-workflow.md and execute Phase 4.5-5 Bridge**
+
+---
+
 ## Phase 4.5 Complete: Handoff to DoD Update Bridge
 
 **After all deferral validation completes, proceed to DoD format update workflow.**

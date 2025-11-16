@@ -626,6 +626,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - `/create-context [project-name]` - Generate 6 context files
 - `/create-epic [epic-name]` - Create epic document
 - `/create-sprint [sprint-number]` - Plan sprint
+- `/create-agent [name] [options]` - Create framework-aware subagent (NEW)
 
 ### Story Development
 - `/create-story [description]` - Generate story with acceptance criteria

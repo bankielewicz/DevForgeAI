@@ -348,6 +348,85 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 
 ---
 
+### /create-agent [name] [options]
+
+**Purpose:** Create DevForgeAI-aware Claude Code subagents following framework patterns and official best practices
+
+**Invokes:** `claude-code-terminal-expert` skill → `agent-generator` subagent v2.0
+
+**Modes:**
+- **Guided Mode:** `/create-agent [name]` - Interactive creation with questions (recommended)
+- **Domain Mode:** `/create-agent [name] --domain=[domain]` - Use domain presets
+- **Template Mode:** `/create-agent [name] --template=[name]` - Use proven template
+- **Custom Spec Mode:** `/create-agent [name] --spec=[file]` - From specification file
+
+**Workflow:**
+1. Argument validation (name format, mode detection)
+2. Load Claude Code official guidance (claude-code-terminal-expert skill)
+3. Set context markers for agent-generator
+4. Invoke agent-generator subagent (framework-aware generation)
+5. Display results (files, validation, integration)
+
+**Example:**
+```
+> /create-agent my-backend-validator --domain=backend
+```
+
+**Output:**
+- Subagent file in `.claude/agents/[name].md`
+- Reference file (if command-related, domain-specific, or decision-making)
+- Validation report (12-point framework compliance)
+- Integration guidance
+
+**Features:**
+- Framework-aware generation (references context files, quality gates, workflow states)
+- Claude Code best practice compliance (official patterns)
+- 12-point validation (6 DevForgeAI + 6 Claude Code checks)
+- Automatic reference file generation for framework guardrails
+- Template library (5 templates: code-reviewer, test-automator, documentation-writer, deployment-coordinator, requirements-analyst)
+- Domain presets (7 domains: backend, frontend, qa, security, deployment, architecture, documentation)
+
+**Architecture (2025-11-15):**
+
+**Command (282 lines, 6,755 chars, 45% budget):**
+- Argument validation and mode detection
+- claude-code-terminal-expert skill invocation
+- Context markers for agent-generator
+- agent-generator subagent invocation
+- Result display and next steps
+
+**Skill (claude-code-terminal-expert):**
+- Loads official Claude Code subagent patterns
+- Section 1: Subagents - Specialized AI Workers
+- Provides: file format, YAML fields, tool selection, model guidelines
+
+**Subagent (agent-generator v2.0):**
+- Phase 0: Load framework references (Claude Code, CLAUDE.md, lean-orchestration)
+- Execute mode-specific workflow (guided/template/domain/custom)
+- Generate framework-aware system prompt
+- Step 3.6: Validate framework compliance (12 checks)
+- Step 4.5: Generate reference file (conditional)
+- Return structured report
+
+**Token Efficiency:**
+- Command: ~4K tokens
+- Skill (isolated): ~2K tokens
+- Subagent (isolated): ~30-50K tokens
+- **Savings: 92% in isolated contexts**
+
+**Execution Time:** 1-3 minutes (varies by mode)
+
+**Integration:**
+- Created subagents are framework-aware
+- Reference DevForgeAI context files
+- Integrate with DevForgeAI skills
+- Follow Claude Code official patterns
+- Use native tools (40-73% token savings)
+
+**Status:** Production ready (2025-11-15)
+
+---
+
 ### /create-ui [STORY-ID or component-description]
 
 **Purpose:** Generate UI component specs (web/GUI/terminal)
