@@ -170,6 +170,68 @@ Budget enforcement → Handle incomplete items → Git commit → Story complete
 
 ---
 
+## Complete Workflow Execution Map
+
+**Visual guide showing all mandatory steps and common skip points:**
+
+```
+START
+  ↓
+Phase 0: Pre-Flight (preflight-validation.md)
+  ├─ Step 0.1: git-validator ✓ MANDATORY
+  ├─ Step 0.1.5: User consent (RCA-008) ✓ MANDATORY IF uncommitted > 10
+  ├─ Step 0.4: Validate 6 context files ✓ MANDATORY
+  ├─ Step 0.7: tech-stack-detector ✓ MANDATORY
+  └─ [8 more steps - all MANDATORY]
+  ↓
+Phase 1: Red (tdd-red-phase.md)
+  ├─ Step 1-3: Generate failing tests ✓ MANDATORY
+  └─ Step 4: Tech Spec Coverage Validation ✓ MANDATORY ← OFTEN MISSED
+  ↓
+Phase 2: Green (tdd-green-phase.md)
+  ├─ Step 1-2: backend-architect OR frontend-developer ✓ MANDATORY
+  └─ Step 3: context-validator ✓ MANDATORY ← OFTEN MISSED
+  ↓
+Phase 3: Refactor (tdd-refactor-phase.md + refactoring-patterns.md)
+  ├─ Step 1-2: refactoring-specialist ✓ MANDATORY
+  ├─ Step 3: code-reviewer ✓ MANDATORY
+  └─ Step 5: Light QA (devforgeai-qa --mode=light) ✓ MANDATORY ← OFTEN MISSED
+  ↓
+Phase 4: Integration (integration-testing.md)
+  └─ Step 1: integration-tester ✓ MANDATORY
+  ↓
+Phase 4.5: Deferral Challenge (phase-4.5-deferral-challenge.md)
+  ├─ Detect deferrals ✓ MANDATORY
+  ├─ deferral-validator ✓ MANDATORY IF deferrals exist
+  └─ User approval ✓ MANDATORY IF deferrals exist
+  ↓
+Phase 4.5-5 Bridge: DoD Update (dod-update-workflow.md ← NEW)
+  ├─ Mark DoD items [x] ✓ MANDATORY
+  ├─ Add items to Implementation Notes (FLAT LIST) ✓ MANDATORY
+  ├─ Validate format: devforgeai validate-dod ✓ MANDATORY
+  └─ Update Workflow Status ✓ MANDATORY
+  ↓
+Phase 5: Git Workflow (git-workflow-conventions.md)
+  ├─ Budget enforcement ✓ MANDATORY
+  ├─ Handle new incomplete items ✓ MANDATORY
+  └─ Git commit (validator passes) ✓ MANDATORY
+  ↓
+Phase 6: Feedback Hook
+  ├─ check-hooks ✓ MANDATORY
+  └─ invoke-hooks ✓ MANDATORY IF enabled
+  ↓
+END (Story Status = "Dev Complete")
+```
+
+**Legend:**
+- ✓ MANDATORY = Must execute, no exceptions
+- ✓ MANDATORY IF = Conditional execution based on state
+- ← OFTEN MISSED = Common skip points (extra attention needed)
+
+**Purpose:** Visual representation of complete TDD workflow helps prevent phase skipping and highlights critical validation steps.
+
+---
+
 ## QA Deferral Recovery
 
 Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step resolution workflow executes.
