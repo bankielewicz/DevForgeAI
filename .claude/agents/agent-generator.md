@@ -956,11 +956,11 @@ IF related_skill exists AND related_skill_directory exists:
     Report: "Creating references directory for {related_skill}"
     # Directory will be created when file is written
 ELSE:
-  # No related skill or skill doesn't exist yet - use agent-generator references
-  REFERENCE_PATH = ".claude/skills/agent-generator/references/{subagent_name}-guide.md"
+  # No related skill or skill doesn't exist yet - use devforgeai-subagent-creation references
+  REFERENCE_PATH = ".claude/skills/devforgeai-subagent-creation/references/{subagent_name}-guide.md"
 
-  # Create agent-generator references directory if doesn't exist
-  Glob(pattern=".claude/skills/agent-generator/references/")
+  # Create devforgeai-subagent-creation references directory if doesn't exist
+  Glob(pattern=".claude/skills/devforgeai-subagent-creation/references/")
   IF not found:
     Report: "Creating agent-generator references directory"
 

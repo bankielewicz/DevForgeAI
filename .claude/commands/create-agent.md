@@ -60,7 +60,7 @@ MODE = "guided"  # Default
 IF $2 starts with "--template=":
   MODE = "template"
   TEMPLATE_NAME = substring after "="
-  Validate template exists in .claude/skills/agent-generator/templates/
+  Validate template exists in .claude/skills/devforgeai-subagent-creation/assets/templates/
 
 ELSE IF $2 starts with "--domain=":
   MODE = "domain"
