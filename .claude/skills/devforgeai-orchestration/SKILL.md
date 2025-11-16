@@ -152,9 +152,14 @@ This skill executes workflows in **distinct phases**. Each phase loads its refer
 **Logic:** Attempt tracking, deferral handling, loop prevention, automatic retry
 
 ### Phase 4A: Epic Creation
-**Purpose:** Generate epics from requirements (8-phase workflow)
+**Purpose:** Generate epics from requirements (9-phase workflow with post-epic feedback hook)
 **References:** `epic-management.md`, `feature-decomposition-patterns.md`, `technical-assessment-guide.md`, `epic-validation-checklist.md`
 **Subagents:** requirements-analyst (feature decomposition), architect-reviewer (technical assessment)
+
+#### Phase 4A.9: Post-Epic Feedback Hook (NEW - STORY-028)
+**Purpose:** Trigger retrospective feedback conversation after successful epic creation
+**Prerequisites:** Epic file created (Phase 4A.5), validation passed (Phase 4A.7)
+**Behavior:** Non-blocking hook invocation with graceful error handling
 
 ### Phase 4.5: Deferred Work Tracking
 **Purpose:** Track and validate deferred DoD items
@@ -241,6 +246,267 @@ This skill delegates specialized tasks to **4 subagents:**
 - `troubleshooting.md` - Common issues and solutions (935 lines)
 
 **Total reference content:** 20 files, ~11,660 lines (loaded progressively as needed)
+
+---
+
+## Phase 4A.9: Post-Epic Feedback Hook Implementation
+
+### Overview
+
+**Phase 4A.9** extends the epic creation workflow with an optional, non-blocking feedback hook that triggers after successful epic creation. This phase collects retrospective feedback about epic quality, feature decomposition effectiveness, and technical complexity assessment while details are fresh.
+
+**Key Characteristics:**
+- **Non-blocking:** Hook failures don't break epic creation (exit code 0 always)
+- **Optional:** Respects hook configuration (can be disabled)
+- **Contextual:** Passes complete epic metadata to feedback system
+- **Fast:** Hook check <100ms, total overhead <3 seconds (p95)
+- **Safe:** Epic ID validated before CLI invocation (no command injection)
+
+### Execution Flow
+
+**When to invoke Phase 4A.9:**
+- After Phase 4A.7 (Validation) completes successfully
+- After Phase 4A.5 (Epic File Creation) confirms file exists
+- Before Phase 4A.8 (Completion Summary) displays results
+
+**Step 4A.9.1: Check Hook Configuration State**
+
+```bash
+# Purpose: Determine if hooks are enabled for epic-create operation
+# Overhead: <100ms (fast configuration check)
+# Exit handling: Graceful - if check fails, assume hooks disabled
+
+# Command: Query hook system for epic-create operation status
+devforgeai check-hooks --operation=epic-create
+
+# Expected output (JSON):
+# {
+#   "operation": "epic-create",
+#   "enabled": true|false,
+#   "available": true|false,
+#   "timeout": 30000
+# }
+
+# Exit codes:
+# 0 = Valid response (enabled/available fields present)
+# 1 = Operation not registered in hooks.yaml
+# 2 = Configuration invalid/malformed
+```
+
+**Error Handling for Step 4A.9.1:**
+```bash
+# If check-hooks command fails (not found, timeout, crash)
+if [ $? -ne 0 ]; then
+  # Log warning to .devforgeai/feedback/.logs/hooks.log
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: check-hooks failed" >> .devforgeai/feedback/.logs/hooks.log
+
+  # Assume hooks disabled (safe fallback)
+  HOOKS_ENABLED=false
+
+  # Continue (don't fail epic creation)
+fi
+```
+
+**Step 4A.9.2: Parse Hook Configuration**
+
+```bash
+# If check-hooks succeeded, parse JSON response
+if [ "$HOOKS_ENABLED" != "false" ]; then
+  # Extract enabled boolean from JSON
+  HOOKS_ENABLED=$(devforgeai check-hooks --operation=epic-create --output=json | jq -r '.enabled')
+  HOOK_TIMEOUT=$(devforgeai check-hooks --operation=epic-create --output=json | jq -r '.timeout // 30000')
+fi
+```
+
+**Error Handling for Step 4A.9.2:**
+```bash
+# If JSON parsing fails (malformed JSON, missing fields)
+if [ -z "$HOOKS_ENABLED" ] || [ "$HOOKS_ENABLED" = "null" ]; then
+  # Default to disabled (safe fallback)
+  HOOKS_ENABLED=false
+  HOOK_TIMEOUT=30000
+fi
+```
+
+**Step 4A.9.3: Validate Epic Context**
+
+```bash
+# Purpose: Ensure epic file exists and epic ID is valid before invocation
+# Prerequisite: EPIC_ID from Phase 4A.1 (Discovery), EPIC_FILE from Phase 4A.5 (Creation)
+
+# Validation 1: Epic file exists
+if [ ! -f ".ai_docs/Epics/$EPIC_ID-*.epic.md" ]; then
+  # Epic creation incomplete - skip hook invocation
+  echo "⚠️ Epic file not found (epic creation may be incomplete)" >> .devforgeai/feedback/.logs/hooks.log
+  HOOKS_ENABLED=false
+  return 0  # Non-blocking - continue
+fi
+
+# Validation 2: Epic ID format (EPIC-NNN pattern)
+if ! [[ "$EPIC_ID" =~ ^EPIC-[0-9]{3}$ ]]; then
+  # Invalid format - skip hook invocation, log error
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Invalid epic ID format: $EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+  return 0  # Non-blocking - continue
+fi
+```
+
+**Step 4A.9.4: Invoke Feedback Hook (Conditional)**
+
+```bash
+# Only invoke if hooks are enabled AND configuration state is valid
+if [ "$HOOKS_ENABLED" = "true" ]; then
+  # Step 4A.9.4a: Set up timeout handling
+  # Hook invocation must complete or timeout within $HOOK_TIMEOUT milliseconds
+  HOOK_TIMEOUT_SECONDS=$((HOOK_TIMEOUT / 1000))
+
+  # Step 4A.9.4b: Invoke hook with epic context (non-blocking subprocess)
+  timeout $HOOK_TIMEOUT_SECONDS devforgeai invoke-hooks \
+    --operation=epic-create \
+    --epic-id="$EPIC_ID" \
+    --timeout=$HOOK_TIMEOUT &
+
+  # Capture subprocess PID for potential timeout handling
+  HOOK_PID=$!
+
+  # Step 4A.9.4c: Log hook invocation start
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook invoked - operation=epic-create epic-id=$EPIC_ID pid=$HOOK_PID" >> .devforgeai/feedback/.logs/hooks.log
+fi
+```
+
+**Step 4A.9.5: Wait for Hook Completion (with Timeout)**
+
+```bash
+# Purpose: Allow hook to run, but don't block epic creation if timeout occurs
+
+# Graceful waiting (max $HOOK_TIMEOUT milliseconds)
+if [ ! -z "$HOOK_PID" ]; then
+  # Wait for subprocess with timeout
+  if wait $HOOK_PID 2>/dev/null; then
+    # Hook completed successfully
+    HOOK_EXIT_CODE=$?
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook completed - exit_code=$HOOK_EXIT_CODE" >> .devforgeai/feedback/.logs/hooks.log
+  else
+    # Hook timeout or other failure
+    HOOK_EXIT_CODE=$?
+    if [ $HOOK_EXIT_CODE -eq 124 ]; then
+      # Timeout occurred (exit code 124 from timeout command)
+      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: Hook timed out after ${HOOK_TIMEOUT_SECONDS}s - epic-id=$EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+      echo "⚠️ Feedback session timed out (you can run 'devforgeai invoke-hooks --operation=epic-create --epic-id=$EPIC_ID' manually later)"
+
+      # Kill hook process if still running
+      kill -9 $HOOK_PID 2>/dev/null || true
+    else
+      # Hook process error
+      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Hook failed with exit code $HOOK_EXIT_CODE - epic-id=$EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+      echo "⚠️ Feedback hook failed (continuing with epic creation)"
+    fi
+  fi
+fi
+```
+
+**Step 4A.9.6: Handle Hook Errors Gracefully**
+
+```bash
+# All hook errors are non-blocking for epic creation
+
+# If any error occurred:
+# 1. Error is logged to .devforgeai/feedback/.logs/hook-errors.log
+# 2. Warning message displayed to user ("Feedback hook unavailable (continuing)")
+# 3. Epic creation exits with status 0 (success)
+# 4. No user interaction required
+
+# Example error scenarios and handling:
+case $HOOK_EXIT_CODE in
+  0)
+    # Success - hook executed, feedback received
+    ;;
+  1)
+    # Hook CLI not found or command error
+    logger_error "Hook CLI not found - ensure devforgeai CLI installed"
+    ;;
+  2)
+    # Invalid epic ID format
+    logger_error "Hook validation failed - invalid epic context"
+    ;;
+  3)
+    # Epic file not found
+    logger_error "Hook validation failed - epic file missing"
+    ;;
+  124)
+    # Timeout (already handled above)
+    ;;
+  *)
+    # Unknown error
+    logger_error "Hook failed with unknown error - exit code $HOOK_EXIT_CODE"
+    ;;
+esac
+
+# Continue regardless of error - epic creation always succeeds
+return 0
+```
+
+### Logging Requirements
+
+**Success Logging** (to `.devforgeai/feedback/.logs/hooks.log`):
+```
+[2025-11-16T14:32:45Z] INFO: Hook invoked - operation=epic-create epic-id=EPIC-001 pid=12345
+[2025-11-16T14:32:46Z] INFO: Hook completed - exit_code=0 duration=1200ms
+```
+
+**Error Logging** (to `.devforgeai/feedback/.logs/hook-errors.log`):
+```
+[2025-11-16T14:32:47Z] ERROR: Hook failed with exit code 1 - epic-id=EPIC-001 error="CLI not found"
+[2025-11-16T14:32:48Z] WARNING: Hook timed out after 30s - epic-id=EPIC-002
+[2025-11-16T14:32:49Z] ERROR: Invalid epic ID format: EPIC-99999
+```
+
+### Data Flow
+
+```
+Phase 4A.5 (Epic File Creation)
+    ↓ (epic file written to disk)
+Phase 4A.7 (Validation)
+    ↓ (validation passed)
+Phase 4A.9 (Post-Epic Feedback Hook) ← YOU ARE HERE
+    ├─ Step 4A.9.1: Check hook configuration
+    │   └─ If disabled → skip to Phase 4A.8
+    │   └─ If enabled → continue to Step 2
+    ├─ Step 4A.9.2: Parse hook config (timeout, enabled flag)
+    ├─ Step 4A.9.3: Validate epic context (file exists, ID format)
+    ├─ Step 4A.9.4: Invoke hook with epic-id
+    │   └─ Non-blocking subprocess (timeout $HOOK_TIMEOUT)
+    ├─ Step 4A.9.5: Wait for completion (with timeout)
+    │   └─ If timeout → log warning, kill process, continue
+    │   └─ If error → log error, continue
+    ├─ Step 4A.9.6: Handle errors gracefully
+    │   └─ All errors are non-blocking
+    │   └─ Exit code 0 always (epic creation succeeds)
+    ↓
+Phase 4A.8 (Completion Summary)
+    ↓
+Return to command for display
+```
+
+### Integration with Lean Orchestration Pattern
+
+**Skill responsibility:** Phase 4A.9 logic resides in orchestration skill (SKILL.md)
+**Command responsibility:** Command displays hook result (if applicable) in Phase 4 (<20 lines)
+**Budget impact:**
+- Skill: +~80 lines for Phase 4A.9 implementation
+- Command: +~10 lines for result display
+- Total: Well within character budgets (skill isolated, command <15K)
+
+### Success Criteria
+
+Phase 4A.9 is complete when:
+- [x] Hook configuration checked before invocation (<100ms)
+- [x] Hook disabled in config → skipped entirely (zero overhead)
+- [x] Hook invocation passes complete epic context (--epic-id)
+- [x] Hook timeout enforced (30 seconds default, configurable)
+- [x] Hook failures logged without breaking epic creation
+- [x] Epic creation always exits with code 0 (non-blocking)
+- [x] Logging structured (timestamp, operation, epic-id, status)
+- [x] Epic ID validated before shell invocation (no command injection)
 
 ---
 
