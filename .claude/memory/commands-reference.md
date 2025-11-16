@@ -26,9 +26,10 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 **Orchestration (1 command):**
 - `/orchestrate` - Full lifecycle: Dev → QA → Release
 
-**Framework Maintenance (2 commands):**
+**Framework Maintenance (3 commands):**
 - `/audit-deferrals` - Audit deferred work in stories for circular chains and invalid references
 - `/audit-budget` - Audit command character budgets against lean orchestration protocol
+- `/rca` - Perform Root Cause Analysis with 5 Whys methodology for framework breakdowns
 
 ---
 
@@ -926,6 +927,87 @@ This command exemplifies lean orchestration for simple tasks:
 **Related:**
 - `/audit-deferrals` - Audits deferred work in stories
 - This complements with command architecture audit
+
+---
+
+### /rca [issue-description] [severity]
+
+**Purpose:** Perform Root Cause Analysis with 5 Whys methodology for framework breakdowns
+
+**Syntax:** `/rca [issue-description] [severity]`
+- Issue description: Brief description of framework breakdown (required)
+- Severity: CRITICAL | HIGH | MEDIUM | LOW (optional, defaults to inferred)
+
+**Invokes:** `devforgeai-rca` skill
+
+**Workflow:**
+1. Argument validation (issue description, optional severity)
+2. Auto-read relevant files (skills, commands, subagents, context)
+3. Perform 5 Whys analysis (progressive questioning to root cause)
+4. Collect evidence with file excerpts
+5. Generate recommendations (CRITICAL → LOW priority)
+6. Create RCA document in .devforgeai/RCA/
+7. Display completion report
+
+**Example:**
+```bash
+/rca "devforgeai-development didn't validate context files" CRITICAL
+/rca "QA skill accepted pre-existing deferrals without challenge" HIGH
+/rca "orchestration skipped checkpoint detection"
+/rca "/dev command contains business logic"
+```
+
+**Output:**
+- RCA document in `.devforgeai/RCA/RCA-XXX-{slug}.md`
+- Comprehensive 5 Whys analysis with evidence
+- Files examined (with excerpts and line numbers)
+- Prioritized recommendations (CRITICAL/HIGH/MEDIUM/LOW)
+- Exact implementation code/text (copy-paste ready)
+- Testing procedures for each recommendation
+- Implementation checklist
+- Prevention strategy (short-term and long-term)
+- Related RCAs linked
+
+**Architecture (2025-11-16):**
+
+**Command (350 lines, ~9,500 chars - Lean Orchestration):**
+- Phase 0: Argument validation (issue description, severity)
+- Phase 1: Context markers for skill
+- Phase 2: Skill invocation
+- Phase 3: Result display (completion report)
+
+**Skill (devforgeai-rca - Comprehensive RCA Workflow):**
+- Phase 0: Issue Clarification (extract details, generate RCA number)
+- Phase 1: Auto-Read Files (skills, commands, subagents, context files)
+- Phase 2: 5 Whys Analysis (progressive questioning with evidence)
+- Phase 3: Evidence Collection (organize excerpts, validate context)
+- Phase 4: Recommendation Generation (prioritized, exact implementation)
+- Phase 5: RCA Document Creation (auto-generate in .devforgeai/RCA/)
+- Phase 6: Validation & Self-Check (verify completeness, self-heal)
+- Phase 7: Completion Report (return summary to command)
+
+**Token Efficiency:**
+- Command: ~3K tokens
+- Skill: ~50-80K tokens (isolated context)
+- References: ~4,000 lines (loaded progressively)
+- **Savings: 94% of work in isolated context**
+
+**Features:**
+- **Auto-reads relevant files** - Based on affected component type
+- **Evidence-based analysis** - All answers backed by file examination
+- **Comprehensive evidence** - File excerpts with line numbers
+- **Exact implementation** - Copy-paste ready code/text in recommendations
+- **Framework-aware** - Understands context files, quality gates, workflow states
+- **Progressive disclosure** - 5 reference files loaded as needed
+
+**Character Budget:** 9,500 chars (63% of 15K budget) - COMPLIANT
+
+**Execution Time:** 3-10 minutes (depends on complexity)
+
+**Related:**
+- `/audit-deferrals` - Audit technical debt
+- `/audit-budget` - Audit command budgets
+- Framework breakdowns can be analyzed systematically
 
 ---
 

@@ -584,6 +584,73 @@ For detailed skill documentation, see:
 
 ---
 
+### devforgeai-rca
+
+**Use when:**
+- User reports framework breakdown or process failure
+- Workflow didn't follow intended process
+- Skill/command violated lean orchestration pattern
+- Quality gate was bypassed unexpectedly
+- Context file constraints were ignored
+- Workflow state transition was invalid
+- User says "Perform RCA: [issue description]"
+
+**Invocation:**
+```
+# User reports issue
+**Issue Description:** {description}
+**Severity:** {CRITICAL/HIGH/MEDIUM/LOW}
+
+Skill(command="devforgeai-rca")
+```
+
+**Workflow (8 Phases):**
+1. **Phase 0:** Issue Clarification - Extract details or use AskUserQuestion, generate RCA number/title
+2. **Phase 1:** Auto-Read Files - Read skills, commands, subagents, context files based on component type
+3. **Phase 2:** 5 Whys Analysis - Progressive questioning with evidence backing
+4. **Phase 3:** Evidence Collection - Organize excerpts, validate context files, analyze workflow state
+5. **Phase 4:** Recommendation Generation - Prioritized fixes with exact implementation
+6. **Phase 5:** RCA Document Creation - Write to .devforgeai/RCA/RCA-XXX-slug.md
+7. **Phase 6:** Validation & Self-Check - Verify completeness, self-heal issues
+8. **Phase 7:** Completion Report - Return summary to command
+
+**Key Features:**
+- **5 Whys methodology** - Systematic root cause identification
+- **Auto-reads relevant files** - Based on affected component (skill/command/subagent)
+- **Evidence collection** - File excerpts with line numbers and significance
+- **Exact implementation** - Copy-paste ready code/text in recommendations
+- **Framework-aware** - Understands context files, quality gates, workflow states
+- **Progressive disclosure** - 5 reference files (~4,000 lines) loaded as needed
+- **Evidence-based only** - No aspirational recommendations
+- **Auto-generates RCA document** - Complete formatted document
+
+**Output:**
+- `.devforgeai/RCA/RCA-XXX-{slug}.md` (complete RCA document)
+- Completion report (RCA number, root cause, recommendation counts, next steps)
+
+**Reference Files (Progressive Loading):**
+- 5-whys-methodology.md (800 lines) - 5 Whys technique and patterns
+- evidence-collection-guide.md (700 lines) - What to examine and how
+- recommendation-framework.md (900 lines) - Priority criteria, implementation details
+- rca-writing-guide.md (600 lines) - Document structure and formatting
+- framework-integration-points.md (1,000 lines) - DevForgeAI component relationships
+
+**Asset Templates:**
+- rca-document-template.md - Complete RCA structure
+- 5-whys-template.md - 5 Whys formatting
+- evidence-section-template.md - Evidence organization
+- recommendation-template.md - Recommendation structure
+
+**Integration:**
+- Invoked by: `/rca` command
+- Analyzes: All devforgeai-* skills, all commands, all subagents
+- References: Context files, quality gates, workflow states, lean orchestration pattern
+- Outputs to: `.devforgeai/RCA/` directory
+
+**Character Budget:** Command 9,500 chars (63%), Skill 1,326 lines
+
+---
+
 ### claude-code-terminal-expert
 
 **Use when:**

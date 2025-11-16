@@ -805,6 +805,90 @@ DevForgeAI provides **11 slash commands** for common tasks:
 
 ---
 
+## Root Cause Analysis Protocol
+
+When you encounter a framework breakdown, use the RCA capability to systematically analyze and prevent recurrence.
+
+### Trigger Command
+
+```bash
+/rca [issue-description] [severity]
+```
+
+**Examples:**
+- `/rca "devforgeai-development didn't validate context files" CRITICAL`
+- `/rca "QA skill accepted pre-existing deferrals without challenge" HIGH`
+- `/rca "orchestration skill skipped checkpoint detection" MEDIUM`
+- `/rca "/dev command contains business logic"`
+
+### What Happens
+
+**8-Phase RCA Workflow:**
+
+1. **Auto-Read Files** - Relevant skills, commands, subagents, context files
+2. **5 Whys Analysis** - Progressive questioning to root cause
+3. **Evidence Collection** - File excerpts, line numbers, quotes
+4. **Recommendations** - Exact implementation (CRITICAL → LOW priority)
+5. **RCA Document** - Created in `.devforgeai/RCA/RCA-XXX-title.md`
+6. **Validation** - Self-check for completeness
+7. **Completion Report** - Summary with next steps
+
+### Output Format
+
+**RCA document includes:**
+- Issue description and metadata (date, component, severity)
+- 5 Whys analysis with evidence backing each answer
+- Files examined (comprehensive excerpts with line numbers)
+- Recommendations by priority (CRITICAL/HIGH/MEDIUM/LOW)
+- Exact implementation code/text (copy-paste ready)
+- Testing procedures for each recommendation
+- Implementation checklist
+- Prevention strategy (short-term and long-term)
+- Related RCAs
+
+### Protocol Rules
+
+**Evidence-Based Only:**
+- No aspirational recommendations
+- All solutions backed by file evidence
+- Works within Claude Code Terminal capabilities
+- References actual files examined during analysis
+
+**Framework-Aware:**
+- Respects 6 immutable context files
+- Understands quality gates and workflow states
+- Applies lean orchestration pattern
+- References existing RCA patterns (RCA-006, RCA-007, RCA-008, RCA-009)
+
+**Actionable:**
+- Exact file paths and sections (Phase X, Step Y)
+- Copy-paste ready implementation
+- Clear testing procedures (3+ verification steps)
+- Effort estimates (time and complexity)
+
+**User Preferences (Confirmed):**
+- ✅ Auto-read relevant files during RCA
+- ✅ Create RCA document automatically
+- ✅ Comprehensive evidence with file excerpts
+- ✅ Include exact implementation code/text
+
+### When to Trigger RCA
+
+**Strong indicators:**
+- Process failures (skill/command didn't work as intended)
+- Workflow violations (quality gate bypassed, state incorrect)
+- Constraint violations (context files ignored)
+- Autonomous operations (without user approval)
+- Recurrent issues (happened before)
+
+**Examples from existing RCAs:**
+- RCA-006: Autonomous deferrals without user approval
+- RCA-007: Subagent created multiple files (should return content only)
+- RCA-008: Autonomous git stashing without user consent
+- RCA-009: Skill invoked but workflow stopped prematurely
+
+---
+
 ## What NOT to Do
 
 ### ❌ No Aspirational Content
