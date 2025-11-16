@@ -127,6 +127,38 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 
 ---
 
+### agent-generator v2.0 Enhancement (2025-11-15)
+
+The **agent-generator** subagent has been significantly enhanced to be DevForgeAI framework-aware and Claude Code best practice compliant:
+
+**New Capabilities:**
+- **Phase 0: Framework Reference Loading** - Automatically loads claude-code-terminal-expert skill, CLAUDE.md, and lean-orchestration-pattern.md
+- **Enhanced System Prompt Generation** - Uses Claude Code official patterns + DevForgeAI context for comprehensive subagent creation
+- **Framework Compliance Validation** - 12-point validation (6 DevForgeAI + 6 Claude Code checks) with auto-fix logic
+- **Reference File Generation** - Automatically creates framework guardrail files for command-related, domain-specific, and decision-making subagents
+
+**Key Features:**
+- **Claude Code Integration:** Leverages claude-code-terminal-expert skill for official subagent patterns
+- **DevForgeAI Awareness:** References context files, quality gates, workflow states
+- **Lean Orchestration Compliance:** Follows protocol for command refactoring subagents
+- **Auto-Fix Logic:** Suggests and applies corrections for validation failures
+- **Reference File Templates:** 4 types (command-refactoring, domain-constraints, decision-guidance, custom)
+
+**Generated Subagents Now Include:**
+- Framework Integration section (context files, quality gates, skill coordination)
+- Tool Usage Protocol section (native tools mandate with 40-73% savings rationale)
+- Enhanced token efficiency strategies
+- Structured output contracts (for result-returning subagents)
+- Framework constraint awareness
+
+**Backward Compatibility:** ✅ Phase 2 requirements workflow unchanged
+
+**File Size:** 2,343 lines (was 855 lines - 174% growth for comprehensive framework awareness)
+
+**See:** `.devforgeai/specs/enhancements/AGENT-GENERATOR-FRAMEWORK-AWARENESS-UPDATES.md` for complete enhancement details
+
+---
+
 ## Subagent Integration with Skills
 
 **devforgeai-development** uses:
@@ -227,7 +259,7 @@ All subagents are defined in `.claude/agents/`:
 - `api-designer.md` (754 lines)
 - `deployment-engineer.md` (820 lines)
 - `documentation-writer.md` (519 lines)
-- `agent-generator.md` (855 lines)
+- `agent-generator.md` (2,343 lines - ENHANCED 2025-11-15: Framework-aware v2.0)
 - **`deferral-validator.md`** (NEW - 181 lines - RCA-006)
 - **`technical-debt-analyzer.md`** (NEW - 172 lines - RCA-006)
 - **`story-requirements-analyst.md`** (NEW - ~500 lines - RCA-007 Phase 3)
