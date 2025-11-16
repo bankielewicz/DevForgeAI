@@ -767,5 +767,10 @@ All tests are RED (failing). Ready to implement.
 **Update Progress Tracker:**
 Mark "Execute Phase 1" todo as "completed"
 
+**See Also:**
+- `tdd-green-phase.md` - Phase 2 workflow (minimal implementation)
+- `tdd-patterns.md` - Comprehensive TDD guidance
+- `test-automator` subagent - Test generation specialist
+
 Next: Load tdd-green-phase.md and execute Phase 2 (Implementation - Green Phase)
 ```

@@ -220,5 +220,10 @@ Ready to refactor and improve code quality.
 **Update Progress Tracker:**
 Mark "Execute Phase 2" todo as "completed"
 
+**See Also:**
+- `tdd-refactor-phase.md` - Phase 3 workflow (code improvement)
+- `context-validator` subagent - Fast constraint enforcement
+- `backend-architect` / `frontend-developer` subagents - Implementation specialists
+
 Next: Load tdd-refactor-phase.md and execute Phase 3 (Refactor Phase)
 ```

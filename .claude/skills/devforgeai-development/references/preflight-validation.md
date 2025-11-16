@@ -1032,5 +1032,10 @@ Ready to begin TDD cycle.
 **Update Progress Tracker:**
 Mark "Execute Phase 0" todo as "completed"
 
+**See Also:**
+- `tdd-red-phase.md` - Phase 1 workflow (test generation)
+- `parameter-extraction.md` - Story ID extraction details
+- `ambiguity-protocol.md` - When to use AskUserQuestion
+
 Next: Load tdd-red-phase.md and execute Phase 1 (Test-First Design - Red Phase)
 ```
