@@ -3,7 +3,7 @@ id: STORY-027
 title: Wire Hooks Into /create-story Command
 epic: EPIC-006
 sprint: Sprint-3
-status: Dev Complete
+status: QA Approved
 points: 5
 priority: High
 assigned_to: Unassigned
@@ -579,11 +579,50 @@ assert exit_code == 0
 - STORY-021: devforgeai check-hooks implementation
 - STORY-022: devforgeai invoke-hooks implementation
 
+## QA Validation History
+
+### QA Validation #1 - 2025-11-16 (PASSED ✅)
+
+**Mode:** Deep Validation
+**Result:** PASSED
+**Validator:** devforgeai-qa skill v1.0
+
+**Test Coverage:**
+- Overall: 81.4% (158/194 lines) ✓
+- Test Pass Rate: 100% (69/69 tests) ✓
+- Unit Tests: 39 ✓
+- Integration Tests: 23 ✓
+- E2E Tests: 7 ✓
+
+**Quality Metrics:**
+- Cyclomatic Complexity: A rating (2.03 avg) ✓
+- Code Duplication: <5% ✓
+- Acceptance Criteria: 6/6 passing (100%) ✓
+- Definition of Done: 22/22 complete (0 deferrals) ✓
+
+**Violations:**
+- CRITICAL: 0 ✓
+- HIGH: 0 ✓
+- MEDIUM: 0 ✓
+- LOW: 0 ✓
+
+**Framework Compliance:**
+- Context files: All valid ✓
+- Security scan: Passed ✓
+- Anti-patterns: None detected ✓
+- Architecture constraints: Respected ✓
+
+**Recommendation:** ✅ APPROVED for release
+
+**Report:** `.devforgeai/qa/reports/STORY-027-qa-report.md`
+
+---
+
 ## Workflow Status
 
 - [x] Architecture phase complete - Not required (framework-level story, architecture already exists)
 - [x] Development phase complete - Completed: 2025-11-14, commit 064e0f2, all TDD phases executed
-- [ ] QA phase complete - Pending: Run /qa STORY-027 for quality validation
+- [x] QA phase complete - Completed: 2025-11-16, deep validation passed, 0 violations, 81.4% coverage, 100% test pass rate
 - [ ] Released - Pending: Run /release STORY-027 after QA approval
 
 ## Notes
