@@ -101,26 +101,13 @@ IF found:
 
 ---
 
-### Phase 1: Load Claude Code Guidance
+### Phase 1: Set Context Markers and Invoke Skill
 
-**Invoke skill for official patterns:**
-```
-Skill(command="claude-code-terminal-expert")
-
-# Skill loads official Claude Code subagent patterns
-# Provides: file format, YAML fields, tool selection, model guidelines
-```
-
----
-
-### Phase 2: Set Context Markers
-
-**Prepare for agent-generator:**
+**Prepare context for devforgeai-subagent-creation skill:**
 ```
 **Subagent Name:** ${NAME}
 **Creation Mode:** ${MODE}
 **Framework:** DevForgeAI
-**Claude Code Guidance:** Available (from skill)
 
 IF MODE == "template":
   **Template:** ${TEMPLATE_NAME}
@@ -128,47 +115,33 @@ ELSE IF MODE == "domain":
   **Domain:** ${DOMAIN}
 ELSE IF MODE == "custom":
   **Spec File:** ${SPEC_FILE}
+
+Invoke skill:
+Skill(command="devforgeai-subagent-creation")
 ```
+
+**After skill invocation:**
+- Skill's SKILL.md content expands inline
+- **YOU execute the skill's workflow phases** (not waiting)
+- Follow skill's 6-phase workflow
+- Skill orchestrates agent-generator subagent for actual generation
+- Return results as skill instructs
+
+**The skill will:**
+1. Extract context markers from conversation
+2. Load DevForgeAI framework references
+3. Load mode-specific templates (if template mode)
+4. Prepare specification for agent-generator
+5. Invoke agent-generator subagent v2.0 (framework-aware generation)
+6. Process and return structured results
 
 ---
 
-### Phase 3: Invoke agent-generator
+### Phase 2: Display Results
 
-**Delegate to subagent:**
-```
-Task(
-  subagent_type="agent-generator",
-  description="Generate ${NAME} subagent",
-  prompt="Generate DevForgeAI-aware Claude Code subagent '${NAME}' in ${MODE} mode.
+**Note:** This phase executes AFTER you complete the skill's workflow.
 
-Context markers in conversation:
-- Subagent Name: ${NAME}
-- Creation Mode: ${MODE}
-- Claude Code patterns loaded from skill
-- Framework: DevForgeAI
-
-Requirements:
-- Use Phase 0 loaded references (Claude Code patterns, CLAUDE.md, lean-orchestration if needed)
-- Execute ${MODE} mode workflow
-- Generate framework-aware system prompt
-- Run Step 3.6 validation (12-point framework compliance)
-- Generate reference file if needed (Step 4.5)
-- Return structured report
-
-Return:
-- Generated files (paths, line counts)
-- Validation results (12-point compliance)
-- Integration guidance
-- Next steps
-"
-)
-```
-
----
-
-### Phase 4: Display Results
-
-**Output agent-generator report:**
+**Output skill results:**
 ```
 Report: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Report: "✅ Subagent Generation Complete"
@@ -181,18 +154,19 @@ Display: result.integration
 
 ---
 
-### Phase 5: Next Steps
+### Phase 3: Display Next Steps
 
-**Guide user:**
+**Note:** This phase executes AFTER displaying results.
+
+**Guide user on next steps:**
 ```
-Report: "📋 Next Steps:"
-Report: "1. Restart terminal to load subagent"
-Report: "2. Verify: /agents (should show '${NAME}')"
-Report: "3. Test: Use ${NAME} subagent to [task]"
-IF result.has_reference:
-  Report: "4. Review: ${result.reference_path}"
-Report: ""
-Report: "✅ Subagent '${NAME}' created!"
+Display: result.next_steps (from skill)
+
+# Skill provides formatted next steps including:
+# 1. Restart terminal
+# 2. Verify with /agents
+# 3. Test invocation
+# 4. Review reference file (if generated)
 ```
 
 ---
