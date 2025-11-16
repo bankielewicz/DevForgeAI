@@ -84,6 +84,74 @@
       - Performance: check <100ms, invoke <3s, overhead <200ms (AC7)
 
 # ============================================================================
+# POST-EPIC-CREATE FEEDBACK (STORY-028)
+# ============================================================================
+
+# Triggers after successful epic creation with feature decomposition complete
+# Use for capturing epic quality, feature granularity, and complexity assessment feedback
+
+- id: post-epic-create-feedback
+  name: "Post-Epic Creation Feedback"
+  operation_type: command
+  operation_pattern: "create-epic"
+
+  # Trigger on successful epic creation only
+  trigger_status: [success]
+
+  trigger_conditions:
+    # No user approval required (automatic trigger)
+    user_approval_required: false
+
+    # No minimum duration (all epic creations eligible)
+    operation_duration_min_ms: 0
+
+    # OPTIONAL: Only trigger for epics with specific complexity scores
+    # complexity_score_min: 6  # Only epics rated ≥6 complexity
+
+  feedback_type: conversation
+  feedback_config:
+    mode: "focused"  # Targeted questions for epic creation quality
+
+    # Epic-specific questions (AC4: goal clarity, scope, success metrics)
+    questions:
+      # Feature decomposition quality
+      - "You created {feature_count} features for this epic. Was this the right granularity (3-8 recommended)?"
+
+      # Complexity assessment confidence
+      - "The complexity score was {complexity_score}/10. How confident are you in this assessment?"
+
+      # Goal clarity
+      - "Was the epic goal statement clear and measurable?"
+
+      # Risk identification
+      - "Were the identified risks comprehensive? Any missing risks?"
+
+      # Success criteria
+      - "Are the success criteria measurable and achievable?"
+
+      # Technical feasibility
+      - "Do you foresee any technical challenges not captured in the assessment?"
+
+  # Performance targets (AC: hook check <100ms, invoke <500ms)
+  max_duration_ms: 30000  # 30 second timeout for feedback conversation
+
+  # Enable/disable hook
+  enabled: false  # DISABLED by default - enable when ready to collect epic feedback
+
+  # Metadata for tracking and debugging
+  tags: [create-epic, epic-creation, planning, retrospective, story-028]
+  metadata:
+    story_id: "STORY-028"
+    acceptance_criteria: ["AC1", "AC2", "AC3", "AC4", "AC5"]
+    implementation_date: "2025-11-16"
+    notes: |
+      - Triggers after Phase 4A.9 in devforgeai-orchestration skill
+      - Epic context automatically extracted (epic-id, features, complexity, risks)
+      - Questions reference actual epic data ({feature_count}, {complexity_score})
+      - Hook failure is non-blocking (epic creation always exits 0)
+      - Performance: check <100ms, invoke <500ms, overhead <3s
+
+# ============================================================================
 # CUSTOMIZATION EXAMPLES
 # ============================================================================
 
