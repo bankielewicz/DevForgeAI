@@ -70,6 +70,7 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 - `/create-context [project-name]` - Generate 6 architectural context files
 - `/create-epic [epic-name]` - Generate epic from requirements
 - `/create-sprint [sprint-number]` - Plan 2-week sprint with story selection
+- `/create-agent [name] [options]` - Create framework-aware subagent (NEW 2025-11-15)
 
 **Story Development:**
 - `/create-story [story-name]` - Generate story with acceptance criteria
