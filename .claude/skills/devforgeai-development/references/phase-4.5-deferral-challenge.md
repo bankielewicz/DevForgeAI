@@ -40,6 +40,48 @@ When this reference is loaded by the skill, the following context is available:
 
 ---
 
+## Understanding DoD Validation (Two Validators, Different Purposes)
+
+**This phase uses TWO validators with different purposes. Understanding the distinction prevents confusion.**
+
+### Validator Comparison
+
+| Aspect | deferral-validator (AI) | devforgeai validate-dod (CLI) |
+|--------|------------------------|--------------------------------|
+| **Type** | AI subagent (Claude) | Python script (deterministic) |
+| **Runs** | Phase 4.5 Step 3 | Pre-commit hook (Phase 5) |
+| **Checks** | Semantic justification validity | Format compliance (DoD ↔ Impl Notes) |
+| **Validates** | • Circular deferrals<br>• Blocker accuracy<br>• Story references exist | • DoD [x] items in Impl Notes<br>• Text match exact<br>• Format (flat list, no subsections) |
+| **Output** | Recommendations, resolvable vs. valid | PASS/FAIL, fix instructions |
+| **Speed** | ~5K tokens, ~30 seconds | <100ms, deterministic |
+| **Can HALT** | No (advisory) | Yes (blocks git commit) |
+
+### Workflow Handoff
+
+The two validators work together in sequence:
+
+1. **Phase 4.5 (This checkpoint):** deferral-validator validates semantic correctness
+   - Are blockers real? (dependency stories exist, toolchains missing, etc.)
+   - Are deferrals circular? (STORY-A defers to STORY-B which defers to STORY-A)
+   - Do story/ADR references exist?
+   - Returns: Resolvable vs. valid categories
+
+2. **Phase 4.5-5 Bridge (DoD Update):** Update DoD items in correct format
+   - Mark completed items [x] in Definition of Done section
+   - Add items to Implementation Notes (FLAT LIST - no ### subsections)
+   - See: `dod-update-workflow.md` for detailed formatting requirements
+
+3. **Phase 5 (Git Commit):** devforgeai validate-dod validates format before commit
+   - Runs as pre-commit hook (automatic)
+   - Checks DoD [x] items appear in Implementation Notes
+   - Checks text matches exactly
+   - Checks format (no subsection headers)
+   - BLOCKS commit if validation fails (exit code 1)
+
+**Both validators must pass for successful Phase 5 completion.**
+
+---
+
 ## Checkpoint Workflow
 
 ### Step 1: Detect All Deferred Items [MANDATORY]
