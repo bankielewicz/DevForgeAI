@@ -54,6 +54,38 @@ This skill extracts the story ID from conversation context (loaded story file YA
 
 ---
 
+## Workflow Execution Checklist
+
+**After parameter extraction, BEFORE Phase 0, create execution tracker:**
+
+TodoWrite(
+  todos=[
+    {content: "Execute Phase 0: Pre-Flight Validation (10 steps)", status: "pending", activeForm: "Executing Phase 0 Pre-Flight Validation"},
+    {content: "Execute Phase 1: Test-First Design (4 steps + Tech Spec Coverage)", status: "pending", activeForm: "Executing Phase 1 Test-First Design"},
+    {content: "Execute Phase 2: Implementation (backend-architect + context-validator)", status: "pending", activeForm: "Executing Phase 2 Implementation"},
+    {content: "Execute Phase 3: Refactoring (refactoring-specialist + code-reviewer + Light QA)", status: "pending", activeForm: "Executing Phase 3 Refactoring"},
+    {content: "Execute Phase 4: Integration Testing (integration-tester)", status: "pending", activeForm: "Executing Phase 4 Integration Testing"},
+    {content: "Execute Phase 4.5: Deferral Challenge (deferral-validator + DoD updates)", status: "pending", activeForm: "Executing Phase 4.5 Deferral Challenge"},
+    {content: "Execute Phase 5: Git Workflow (validate DoD format + commit)", status: "pending", activeForm: "Executing Phase 5 Git Workflow"},
+    {content: "Execute Phase 6: Feedback Hook (check-hooks + invoke-hooks)", status: "pending", activeForm: "Executing Phase 6 Feedback Hook"}
+  ]
+)
+
+**Usage During Workflow:**
+- Mark phase "in_progress" when starting each phase
+- Mark phase "completed" when checkpoint validation passes
+- Update user on progress as phases complete
+- User can see visual progress through TDD cycle
+- Self-monitoring: If Phase 3 todo still "pending" when trying Phase 5, something is wrong
+
+**Benefits:**
+- Visual progress tracking for user
+- Forces Claude to consciously mark phases complete
+- Self-monitoring mechanism (detects skipped phases)
+- Audit trail of workflow execution
+
+---
+
 ## Purpose
 
 Implement features following strict TDD workflow (Red → Green → Refactor) while enforcing all 6 context file constraints.

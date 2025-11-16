@@ -1029,5 +1029,8 @@ Test framework: {TEST_COMMAND}
 
 Ready to begin TDD cycle.
 
+**Update Progress Tracker:**
+Mark "Execute Phase 0" todo as "completed"
+
 Next: Load tdd-red-phase.md and execute Phase 1 (Test-First Design - Red Phase)
 ```
