@@ -116,7 +116,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **refactoring-specialist** | Safe refactoring, code smell removal | inherit | <40K | When complexity >10, code duplication >5% |
 | **integration-tester** | Cross-component testing, API contracts | sonnet | <40K | After unit tests pass, API endpoints ready |
 | **api-designer** | REST/GraphQL/gRPC contract design | sonnet | <30K | Creating new APIs, ensuring consistency |
-| **agent-generator** | Generate new specialized subagents | haiku | N/A | Creating custom subagents for framework |
+| **agent-generator** | Generate framework-aware Claude Code subagents (ENHANCED v2.0) | haiku | <50K | Creating subagents for DevForgeAI, command refactoring, custom domains |
 | **deferral-validator** | Deferral justification validation, circular detection | haiku | <5K | Before commits (dev), before QA approval (qa) |
 | **technical-debt-analyzer** | Debt trend analysis, pattern detection, reporting | sonnet | <30K | Sprint planning, retrospectives, debt reviews |
 | **tech-stack-detector** | Technology detection and tech-stack.md validation | haiku | <10K | Development workflow init, architecture validation |
