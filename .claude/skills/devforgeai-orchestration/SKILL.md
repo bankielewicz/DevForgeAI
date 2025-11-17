@@ -80,13 +80,14 @@ Skill(command="devforgeai-orchestration")
 **Context markers determine mode:**
 - `**Command:** create-epic` + `**Epic name:** {name}` → Epic Creation Mode
 - `**Command:** create-sprint` + `**Sprint Name:** {name}` → Sprint Planning Mode
+- `**Command:** audit-deferrals` → Audit Deferrals Mode (STORY-050)
 - `**Story ID:** STORY-NNN` → Story Management Mode (default)
 
 ---
 
 ## Mode Detection
 
-This skill operates in **4 modes** based on conversation context markers.
+This skill operates in **5 modes** based on conversation context markers.
 
 **See `references/mode-detection.md` for complete detection logic.**
 
@@ -94,10 +95,11 @@ This skill operates in **4 modes** based on conversation context markers.
 
 1. **Epic Creation Mode** - Phase 4A workflow (8-phase comprehensive process)
 2. **Sprint Planning Mode** - Phase 3 workflow (capacity validation, story selection)
-3. **Story Management Mode** - Complete story lifecycle orchestration (default)
-4. **Default Mode** - Analyze context to infer operation OR HALT if ambiguous
+3. **Audit Deferrals Mode** - Phase 7 workflow (deferral audit + hook integration) - NEW (STORY-050)
+4. **Story Management Mode** - Complete story lifecycle orchestration (default)
+5. **Default Mode** - Analyze context to infer operation OR HALT if ambiguous
 
-**Mode priority:** Epic > Sprint > Story > Default
+**Mode priority:** Epic > Sprint > Audit > Story > Default
 
 ---
 
@@ -176,7 +178,34 @@ This skill executes workflows in **distinct phases**. Each phase loads its refer
 **Reference:** `orchestration-finalization.md`
 **Output:** Timeline, phases executed, quality gates passed, metrics summary
 
-### Phase 7: Sprint Retrospective (RCA-006 Phase 2 - NEW)
+### Phase 7: Hook Integration for Audit Deferrals (STORY-050 - NEW)
+**Purpose:** Execute complete deferral audit workflow with feedback hook integration (7 substeps)
+**Reference:** `audit-deferrals-workflow.md`
+**Trigger:** `/audit-deferrals` command invocation
+**Output:** Deferral audit report, resolvable/valid/invalid categorization, hook invocation (if eligible)
+
+#### Step 7.1: Check Eligibility
+Validate hooks.yaml config and operation enabled status.
+
+#### Step 7.2: Prepare Context
+Extract audit metadata from generated report (resolvable/valid/invalid counts, oldest age, circular chains).
+
+#### Step 7.3: Sanitization
+Remove sensitive information (credentials, API keys) before passing to hooks. Sanitize audit metadata.
+
+#### Step 7.4: Invocation
+Call `devforgeai invoke-hooks` with audit context and metadata. Invoke feedback hooks.
+
+#### Step 7.5: Logging
+Append hook invocation record to `.devforgeai/feedback/logs/hook-invocations.log`. Log all hook operations.
+
+#### Step 7.6: Handle Errors Gracefully
+Non-blocking error handling - log failures, audit continues successfully.
+
+#### Step 7.7: Prevent Circular Invocations
+Depth tracking to prevent command → hook → command → hook loops.
+
+### Phase 7A: Sprint Retrospective (RCA-006 Phase 2)
 **Purpose:** Auto-audit technical debt at sprint completion, create debt reduction sprints
 **Reference:** `sprint-retrospective.md`
 **Trigger:** Last story in sprint reaches "Released" status
@@ -235,6 +264,9 @@ This skill delegates specialized tasks to **4 subagents:**
 - `sprint-planning-guide.md` - Sprint creation and capacity (631 lines)
 - `sprint-retrospective.md` - Sprint retrospective and debt audit (390 lines - RCA-006 Phase 2)
 
+### Audit Management (1 file) - NEW (STORY-050)
+- `audit-deferrals-workflow.md` - Complete deferral audit + hook integration (10.2K chars - Phase 8)
+
 ### State Management (2 files)
 - `workflow-states.md` - 11 state definitions (585 lines)
 - `state-transitions.md` - Valid transitions and rules (1,105 lines)
@@ -245,7 +277,7 @@ This skill delegates specialized tasks to **4 subagents:**
 - `user-interaction-patterns.md` - AskUserQuestion templates (513 lines)
 - `troubleshooting.md` - Common issues and solutions (935 lines)
 
-**Total reference content:** 20 files, ~11,660 lines (loaded progressively as needed)
+**Total reference content:** 21 files, ~12,000 lines (loaded progressively as needed)
 
 ---
 
