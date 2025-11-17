@@ -102,6 +102,9 @@ Prompt user: "Please provide more details about:
 - **Phase 5:** Feasibility & Constraints Analysis
 - **Phase 6:** Requirements Documentation (epics, requirements spec, validation, summary, next action)
 
+**After skill completes:**
+- **Phase N:** Hook Integration - Triggers post-ideation feedback (if configured)
+
 **Expected interaction:**
 - Skill asks 10-60 questions across 6 phases
 - User answers guide requirements discovery
@@ -338,6 +341,37 @@ Once created, run:
 
 ---
 
+## Phase N: Hook Integration
+
+**Invoke reusable helper function for feedback hook integration:**
+
+```bash
+# Collect ideation artifacts for context
+EPIC_FILES=$(ls -1 .ai_docs/Epics/EPIC-*.epic.md 2>/dev/null | tr '\n' ',' | sed 's/,$//' || echo "")
+
+# Invoke helper function (handles check-hooks + invoke-hooks)
+# Helper returns: exit 0 (success or graceful skip), never fails
+.claude/scripts/invoke_feedback_hooks.sh ideate completed \
+  --operation-type=ideation \
+  --artifacts="$EPIC_FILES" || true
+```
+
+**Helper function handles:**
+- N.1: Check hook eligibility (`devforgeai check-hooks --operation=ideate --status=completed`)
+- N.2: Invoke hooks if eligible (`devforgeai invoke-hooks --operation=ideate ...`)
+- N.3: Display status ("✓ Post-ideation feedback initiated" or "⚠ skipped")
+- Error handling: All failures are non-blocking, command always succeeds
+
+**Parameters passed to hooks:**
+- `--operation-type=ideation` - Identifies this as ideation operation
+- `--artifacts` - Comma-separated list of created epic files
+
+**Note:** Complexity score and questions-asked count are captured by the ideation skill internally (Phase 6 summary) and passed via environment if needed.
+
+**Next:** Proceed to Phase completion
+
+---
+
 ## Error Handling
 
 ### Skill Invocation Failed
@@ -408,6 +442,7 @@ Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing
 - ✅ Basic artifact existence verification
 - ✅ Brief completion confirmation
 - ✅ Next steps guidance
+- ✅ Hook eligibility checking and feedback invocation (Phase N)
 
 **Skill responsibilities:**
 - ✅ Complete 6-phase discovery workflow
