@@ -173,9 +173,9 @@ test_feedback_file_created() {
 test_workflow_resilient_to_hook_failure() {
     echo -n "Test I6: Workflow resilient to hook failures... "
 
-    # Verify no HALT statements in Phase N
-    if grep -A 100 "### Phase N: Feedback Hook Integration" "$PROJECT_ROOT/.claude/commands/create-sprint.md" | \
-       grep -q "^[[:space:]]*HALT"; then
+    # Verify no HALT statements in Phase N (extract only Phase N section until next ### header)
+    if sed -n '/### Phase N: Feedback Hook Integration/,/^###/p' "$PROJECT_ROOT/.claude/commands/create-sprint.md" | \
+       grep -v "^###" | grep -q "^[[:space:]]*HALT"; then
         echo -e "${RED}FAIL${NC}"
         echo "  Expected: No HALT in Phase N"
         echo "  Actual: Found HALT statement"

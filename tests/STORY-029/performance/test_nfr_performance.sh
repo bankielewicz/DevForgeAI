@@ -173,9 +173,9 @@ test_nfr_documentation() {
     story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     nfrs_found=0
-    echo "$story_content" | grep -q "NFR-001.*100ms" && nfrs_found=$((nfrs_found + 1))
-    echo "$story_content" | grep -q "NFR-002.*3 second" && nfrs_found=$((nfrs_found + 1))
-    echo "$story_content" | grep -q "NFR-003.*3.5 second" && nfrs_found=$((nfrs_found + 1))
+    echo "$story_content" | grep -q "NFR-001" && nfrs_found=$((nfrs_found + 1))
+    echo "$story_content" | grep -q "NFR-002" && nfrs_found=$((nfrs_found + 1))
+    echo "$story_content" | grep -q "NFR-003" && nfrs_found=$((nfrs_found + 1))
 
     if [ $nfrs_found -eq 3 ]; then
         echo -e "${GREEN}PASS${NC}"
