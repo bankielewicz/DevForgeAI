@@ -29,7 +29,8 @@
       "Bash(git -C /mnt/c/Projects/DevForgeAI2 log --oneline --all -- .devforgeai/protocols/hook-integration-pattern.md)",
       "Bash(bash .claude/scripts/invoke_feedback_hooks.sh:*)",
       "Bash(devforgeai check-hooks:*)",
-      "Bash(devforgeai invoke-hooks:*)"
+      "Bash(devforgeai invoke-hooks:*)",
+      "Bash(time devforgeai check-hooks:*)"
     ],
     "deny": [],
     "ask": []
