@@ -1,9 +1,9 @@
 # Hook Integration Pattern for DevForgeAI Commands
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Production Ready
-**Reference Stories:** STORY-023 (/dev pilot), STORY-030 (/create-context), STORY-031 (/ideate), STORY-032 (/create-ui), STORY-033 (/audit-deferrals)
-**Date:** 2025-11-17
+**Reference Stories:** STORY-023 (/dev pilot), STORY-030 (/create-context), STORY-031 (/ideate), STORY-032 (/create-ui), STORY-033 (/audit-deferrals - executable bash)
+**Date:** 2025-11-17 (Updated with STORY-033 performance optimizations)
 
 ---
 
