@@ -69,7 +69,7 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 ---
 
 ### Feature 2: Audit All Commands for Pattern Compliance
-**Status:** Not Started
+**Status:** Backlog
 **Story Points:** 3
 **Description:** Run `/audit-budget` to identify all over-budget commands. Review all 11 commands against lean-orchestration-pattern.md. Document violations and create refactoring stories for backlog.
 
@@ -78,6 +78,8 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 - All 11 commands reviewed against 5-responsibility checklist
 - Violations documented with severity (critical/high/medium/low)
 - Refactoring stories created for each violation
+
+**Story:** STORY-037-audit-commands-pattern-compliance.story.md
 - Priority queue established
 
 **Deliverables:**
@@ -103,7 +105,7 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 ---
 
 ### Feature 4: Refactor /release Command
-**Status:** Not Started
+**Status:** Backlog
 **Story Points:** 13
 **Description:** Refactor /release command (currently 18K chars, 121% over budget) to delegate deployment logic to devforgeai-release skill. Apply lean pattern.
 
@@ -116,10 +118,12 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 
 **Dependencies:** Feature 2 (audit) provides detailed violation analysis
 
+**Story:** STORY-038-refactor-release-command-lean-orchestration.story.md
+
 ---
 
 ### Feature 5: Update Framework Documentation
-**Status:** Not Started
+**Status:** Backlog
 **Story Points:** 3
 **Description:** Update all framework documentation to reflect lean orchestration pattern as standard. Add pattern to command templates, update reference docs, create troubleshooting guide.
 
@@ -134,6 +138,27 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 - Updated protocol documentation
 - Command creation template with lean pattern built-in
 - Pattern violation troubleshooting guide
+
+**Story:** STORY-039-update-framework-documentation-lean-orchestration.story.md
+
+---
+
+### Feature 6: Refactor /create-context Command Budget Compliance
+**Status:** Backlog
+**Story Points:** 3
+**Description:** Refactor /create-context command (currently 16.2K chars, 108% over budget) by extracting pattern documentation to references and condensing Phase N inline documentation. Target: ≤14K characters (93% of budget).
+
+**Acceptance Criteria:**
+- Character count reduced to ≤14,000 (from 16,210)
+- Phase N pattern docs externalized to `.devforgeai/protocols/hook-integration-pattern.md`
+- All workflow steps preserved (functionality unchanged)
+- Budget audit passes (✅ COMPLIANT status)
+- Zero functional regressions
+
+**Dependencies:**
+- STORY-030 complete (pattern file already created) ✅
+
+**Story:** STORY-049-refactor-create-context-budget-compliance.story.md
 
 ---
 

@@ -901,12 +901,11 @@ project-root/
 - [x] User can export and share feedback without exposing sensitive data - Completed: Mandatory sanitization
 - [x] Framework maintainers can import and analyze aggregate feedback - Completed: import_feedback_sessions()
 
-**Implementation Files:**
-- `src/feedback_export_import.py` (1,162 lines, 36 functions)
-- `tests/test_feedback_export_import.py` (2,039 lines, 117 tests)
-- `tests/conftest.py` (71 lines, test fixtures)
-- `.claude/commands/export-feedback.md` (154 lines)
-- `.claude/commands/import-feedback.md` (224 lines)
+**Implementation Files [PROTOTYPES - REMOVED 2025-11-16]:**
+- Prototype: (backed up to .backups/orphaned-src-20251116/src/feedback_export_import.py)
+- Tests: (removed with implementation)
+- Commands: `.claude/commands/export-feedback.md`, `.claude/commands/import-feedback.md` (retained - framework components)
+- **Note:** Python implementation removed to restore framework language-agnostic purity
 
 **Test Command:**
 ```bash
@@ -1038,12 +1037,11 @@ Time elapsed: 1m 23s | Estimated remaining: 2m 34s
 - ✅ Spec Compliance: PASS (all AC covered)
 - ✅ Code Quality: PASS (CC avg=2.6, 0% duplication)
 
-**Files Validated:**
-- src/feedback_export_import.py (1,162 lines, 92% coverage)
-- tests/test_feedback_export_import.py (2,039 lines, 117 tests)
-- tests/conftest.py (71 lines)
-- .claude/commands/export-feedback.md
-- .claude/commands/import-feedback.md
+**Files Validated [PROTOTYPES - REMOVED 2025-11-16]:**
+- Prototype: (backed up to .backups/orphaned-src-20251116/src/feedback_export_import.py)
+- Tests: (removed with implementation)
+- Commands: .claude/commands/export-feedback.md, .claude/commands/import-feedback.md (retained)
+- **Note:** Python files removed to restore framework language-agnostic purity
 
 **Edge Cases:** All 15 scenarios tested and passing
 
