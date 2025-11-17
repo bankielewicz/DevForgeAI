@@ -21,7 +21,15 @@
       "SlashCommand(/create-epic DevForgeAI src/ Migration and Installer System)",
       "Skill(devforgeai-orchestration)",
       "SlashCommand(/create-story Refactor /create-context command budget compliance - reduce from 16.2K to under 14K characters by extracting pattern documentation to references and condensing Phase N inline documentation)",
-      "Bash(if grep -q \"## Implementation Notes\" /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/$story*.story.md)"
+      "Bash(if grep -q \"## Implementation Notes\" /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/$story*.story.md)",
+      "Skill(devforgeai-qa)",
+      "Bash(pytest:*)",
+      "Bash(shellcheck:*)",
+      "Bash(python3:*)",
+      "Bash(git -C /mnt/c/Projects/DevForgeAI2 log --oneline --all -- .devforgeai/protocols/hook-integration-pattern.md)",
+      "Bash(bash .claude/scripts/invoke_feedback_hooks.sh:*)",
+      "Bash(devforgeai check-hooks:*)",
+      "Bash(devforgeai invoke-hooks:*)"
     ],
     "deny": [],
     "ask": []
