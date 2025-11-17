@@ -432,82 +432,29 @@ Action Required:
 
 **After Phase 6 (Final Validation) completes successfully.**
 
-**Position in workflow:**
-- Phase 0: Pre-Flight Check
-- Phase 1-2: Architecture Skill & Context File Creation
-- Phase 3-5: Architecture Validation
-- Phase 6: Final Validation
-- **Phase N: Feedback Hook Integration** ← You are here
-- Phase 7: Success Report (displays completion summary)
+Triggers optional feedback conversation (non-blocking, configuration-aware).
 
-#### Step 1: Determine Operation Status
+**See:** `Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")` for complete implementation pattern including:
+- Step 1: Determine operation status
+- Step 2: Check hook eligibility
+- Step 3: Invoke hooks if eligible
+- Step 4: Phase complete (context files created, hook outcome independent)
+- Code examples for /create-context, /create-epic, /dev
+- Key characteristics and testing guidance
 
-Verify that all 6 context files were created successfully:
-
+**Quick Implementation:**
 ```bash
-# Check all 6 context files exist
+# Verify context files created
 if [ -f ".devforgeai/context/tech-stack.md" ] && \
-   [ -f ".devforgeai/context/dependencies.md" ] && \
-   [ -f ".devforgeai/context/coding-standards.md" ] && \
-   [ -f ".devforgeai/context/architecture-constraints.md" ] && \
-   [ -f ".devforgeai/context/anti-patterns.md" ] && \
    [ -f ".devforgeai/context/source-tree.md" ]; then
-  OPERATION_STATUS="completed"
+  STATUS="completed"
 else
-  OPERATION_STATUS="failed"
-fi
-```
-
-#### Step 2: Check Hook Eligibility
-
-Check if user is eligible for feedback hooks:
-
-```bash
-# Query hook configuration (respects hooks.yaml rules)
-devforgeai check-hooks --operation=create-context --status=$OPERATION_STATUS
-HOOK_CHECK_EXIT=$?
-
-# Exit code 0 = eligible for feedback
-# Exit code 1 = not eligible (skip patterns, rate limits, configuration)
-```
-
-#### Step 3: Invoke Hooks if Eligible
-
-If eligible, trigger the feedback conversation:
-
-```bash
-if [ $HOOK_CHECK_EXIT -eq 0 ]; then
-  # Invoke feedback hook (errors are non-blocking, see Step 4)
-  devforgeai invoke-hooks --operation=create-context || {
-    # Hook invocation failed, but continue anyway
-    # Context files remain created (primary success criteria met)
-    # Failure is logged to .devforgeai/feedback/sessions/ (if applicable)
-  }
+  STATUS="failed"
 fi
 
-# Step 3 complete - user may have provided optional feedback
+# Check eligibility and invoke (non-blocking)
+devforgeai check-hooks --operation=create-context --status=$STATUS && \
+  devforgeai invoke-hooks --operation=create-context || true
 ```
 
-#### Step 4: Phase Complete
-
-Regardless of hook outcome, /create-context proceeds to Phase 7 (Success Report):
-
-```bash
-# All context files remain created (✅ primary success criteria)
-# Hook failures don't prevent command completion (✅ non-blocking)
-# Command continues to Phase 7 success report
-```
-
-**Key Characteristics:**
-- **Non-blocking:** Hook failures don't interrupt /create-context completion
-- **Configuration-aware:** Respects hooks.yaml (enabled/disabled, trigger_on mode)
-- **Optional feedback:** User may see context-aware survey if configured and eligible
-- **Persistent:** User responses saved to .devforgeai/feedback/sessions/
-- **Lightweight:** <100ms overhead per hook check (when skipped)
-
-**Pattern Consistency:**
-- ✅ Follows same implementation pattern as /dev pilot (STORY-023)
-- ✅ Maintains backward compatibility (existing /create-context usage unchanged)
-- ✅ Hook invocation is secondary (context file creation is primary success criteria)
-- ✅ Output separates context creation from optional feedback
-- ✅ All context files remain created regardless of hook outcome
+**Note:** Hook failures don't prevent command completion. Context files created = primary success criteria.

@@ -539,9 +539,8 @@ assert exit_code == 0
 ### Files Created/Modified
 
 **Modified:**
-- .claude/commands/create-story.md (Phase 5: Hook Integration)
-- src/hook_invocation.py (Hook invocation logic + refactoring)
-- src/hook_system.py (System orchestration + datetime fix)
+- .claude/commands/create-story.md (Phase 5: Hook Integration) - Retained (framework component)
+- Prototypes: (removed - backed up to .backups/orphaned-src-20251116/src/hook_*.py) [2025-11-16]
 
 **Created:**
 - tests/unit/test_hook_integration_phase.py (39 unit tests)
