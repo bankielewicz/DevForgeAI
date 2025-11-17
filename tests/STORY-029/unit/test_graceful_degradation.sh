@@ -48,7 +48,7 @@ test_check_hooks_disabled_exit_code() {
     setup_disabled_hooks
 
     # Execute check-hooks with disabled config
-    if devforgeai check-hooks --operation=create-sprint --status=completed --config="$TEMP_HOOKS_CONFIG" 2>/dev/null; then
+    if devforgeai check-hooks --operation=create-sprint --status=success --config="$TEMP_HOOKS_CONFIG" 2>/dev/null; then
         echo -e "${RED}FAIL${NC}"
         echo "  Expected: Non-zero exit code"
         echo "  Actual: Exit code 0 (hooks reported as enabled)"
@@ -90,8 +90,9 @@ test_sprint_creation_succeeds() {
 
     # Simulate sprint creation with disabled hooks
     # This would require full command execution - for now, verify command structure
-    if grep -A 50 "### Phase N: Feedback Hook Integration" "$PROJECT_ROOT/.claude/commands/create-sprint.md" | \
-       grep -q "HALT\|exit 1\|return 1"; then
+    # Extract ONLY Phase N section (until next ### header)
+    if sed -n '/### Phase N: Feedback Hook Integration/,/^###/p' "$PROJECT_ROOT/.claude/commands/create-sprint.md" | \
+       grep -v "^###" | grep -q "HALT\|exit 1\|return 1"; then
         echo -e "${RED}FAIL${NC}"
         echo "  Expected: No HALT/exit in Phase N"
         echo "  Actual: Found blocking command (HALT/exit/return)"
@@ -126,7 +127,7 @@ test_disabled_hook_logging() {
     setup_disabled_hooks
 
     # Execute check-hooks and verify log output
-    output=$(devforgeai check-hooks --operation=create-sprint --status=completed --config="$TEMP_HOOKS_CONFIG" 2>&1 || true)
+    output=$(devforgeai check-hooks --operation=create-sprint --status=success --config="$TEMP_HOOKS_CONFIG" 2>&1 || true)
 
     if echo "$output" | grep -q "disabled\|not enabled\|skipped"; then
         echo -e "${GREEN}PASS${NC}"

@@ -222,8 +222,8 @@ test_br003_compliance() {
 
     story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
-    # Verify BR-003 exists in story
-    if echo "$story_content" | grep -q "BR-003.*shell.*escap"; then
+    # Verify BR-003 exists in story (check for BR-003 AND shell-escaped anywhere in story)
+    if echo "$story_content" | grep -q "BR-003" && echo "$story_content" | grep -q "shell-escaped"; then
         echo -e "${GREEN}PASS${NC}"
         echo "  Note: BR-003 documented in story"
         return 0

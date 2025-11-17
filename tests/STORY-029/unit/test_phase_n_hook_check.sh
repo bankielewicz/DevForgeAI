@@ -43,7 +43,7 @@ test_check_hooks_invocation() {
     echo -n "Test 1.2: Phase N invokes check-hooks command... "
 
     # Check if create-sprint.md contains check-hooks invocation
-    if grep -q "devforgeai check-hooks --operation=create-sprint --status=completed" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
+    if grep -q "devforgeai check-hooks --operation=create-sprint --status=success" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
         echo -e "${GREEN}PASS${NC}"
         return 0
     else
@@ -79,12 +79,12 @@ test_check_hooks_parameters() {
 
     # Check for required parameters
     if grep -q "\-\-operation=create-sprint" "$PROJECT_ROOT/.claude/commands/create-sprint.md" && \
-       grep -q "\-\-status=completed" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
+       grep -q "\-\-status=success" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
         echo -e "${GREEN}PASS${NC}"
         return 0
     else
         echo -e "${RED}FAIL${NC}"
-        echo "  Expected: --operation=create-sprint --status=completed"
+        echo "  Expected: --operation=create-sprint --status=success"
         echo "  Actual: Parameters not found or incorrect"
         return 1
     fi
