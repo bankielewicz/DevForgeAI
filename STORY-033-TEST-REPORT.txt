@@ -1,0 +1,122 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/c/Projects/DevForgeAI2/tests
+configfile: pytest.ini
+plugins: mock-3.15.0, cov-4.1.0, asyncio-0.21.2, anyio-4.10.0
+asyncio: mode=Mode.STRICT
+collecting ... collected 84 items
+
+tests/integration/test_hook_integration_story033.py::TestHookEligibilityCheck::test_phase_n_exists_after_phase_5 FAILED [  1%]
+tests/integration/test_hook_integration_story033.py::TestHookEligibilityCheck::test_check_hooks_call_with_correct_arguments FAILED [  2%]
+tests/integration/test_hook_integration_story033.py::TestConditionalInvocation::test_invoke_hooks_conditional_on_exit_code_0 FAILED [  3%]
+tests/integration/test_hook_integration_story033.py::TestAuditContextParsing::test_audit_summary_has_all_5_fields PASSED [  4%]
+tests/integration/test_hook_integration_story033.py::TestAuditContextParsing::test_context_json_structure_valid PASSED [  5%]
+tests/integration/test_hook_integration_story033.py::TestSensitiveDataSanitization::test_api_key_sanitized PASSED [  7%]
+tests/integration/test_hook_integration_story033.py::TestSensitiveDataSanitization::test_password_sanitized PASSED [  8%]
+tests/integration/test_hook_integration_story033.py::TestSensitiveDataSanitization::test_token_sanitized PASSED [  9%]
+tests/integration/test_hook_integration_story033.py::TestSensitiveDataSanitization::test_secret_sanitized PASSED [ 10%]
+tests/integration/test_hook_integration_story033.py::TestErrorHandling::test_command_succeeds_on_check_hooks_failure PASSED [ 11%]
+tests/integration/test_hook_integration_story033.py::TestErrorHandling::test_hook_failure_logs_warning PASSED [ 13%]
+tests/integration/test_hook_integration_story033.py::TestErrorHandling::test_audit_report_created_despite_hook_failure PASSED [ 14%]
+tests/integration/test_hook_integration_story033.py::TestLogFileCreation::test_log_file_created PASSED [ 15%]
+tests/integration/test_hook_integration_story033.py::TestLogFileCreation::test_log_entry_format_valid PASSED [ 16%]
+tests/integration/test_hook_integration_story033.py::TestFullAuditWithEligibleHooks::test_audit_complete_check_hooks_returns_0_invoke_hooks_called SKIPPED [ 17%]
+tests/integration/test_hook_integration_story033.py::TestFullAuditWithEligibleHooks::test_hook_context_includes_all_metadata SKIPPED [ 19%]
+tests/integration/test_hook_integration_story033.py::TestAuditWithIneligibleHooks::test_audit_complete_check_hooks_returns_1_invoke_hooks_skipped SKIPPED [ 20%]
+tests/integration/test_hook_integration_story033.py::TestCLIMissing::test_cli_missing_graceful_degradation SKIPPED [ 21%]
+tests/integration/test_hook_integration_story033.py::TestConfigInvalid::test_config_invalid_graceful_degradation SKIPPED [ 22%]
+tests/integration/test_hook_integration_story033.py::TestHookCrashes::test_hook_crash_graceful_degradation SKIPPED [ 23%]
+tests/integration/test_hook_integration_story033.py::TestUserInterruptsFeeback::test_user_cancel_during_feedback SKIPPED [ 25%]
+tests/integration/test_hook_integration_story033.py::TestEmptyAudit::test_no_deferrals_hook_still_invoked_if_eligible SKIPPED [ 26%]
+tests/integration/test_hook_integration_story033.py::TestMassiveAuditSummarization::test_audit_truncated_to_top_20 PASSED [ 27%]
+tests/integration/test_hook_integration_story033.py::TestVeryOldDeferrals::test_very_old_deferral_age_tracking PASSED [ 28%]
+tests/integration/test_hook_integration_story033.py::TestConcurrentAudits::test_concurrent_audits_unique_filenames PASSED [ 29%]
+tests/integration/test_hook_integration_story033.py::TestPatternConsistencyWithDevPilot::test_phase_n_structure_matches_dev_pilot SKIPPED [ 30%]
+tests/integration/test_hook_integration_story033.py::TestPerformance::test_check_hooks_latency_under_100ms SKIPPED [ 32%]
+tests/integration/test_hook_integration_story033.py::TestPerformance::test_context_extraction_under_300ms SKIPPED [ 33%]
+tests/integration/test_hook_integration_story033.py::TestPerformance::test_total_overhead_under_2_seconds SKIPPED [ 34%]
+tests/integration/test_hook_integration_story033.py::TestReliability::test_100_percent_success_rate_with_hook_failures SKIPPED [ 35%]
+tests/integration/test_hook_integration_story033.py::TestReliability::test_all_invocations_logged PASSED [ 36%]
+tests/integration/test_hook_integration_story033.py::TestSecurity::test_comprehensive_sensitive_data_sanitization PASSED [ 38%]
+tests/integration/test_hook_integration_story033.py::TestCircularInvocationPrevention::test_circular_invocation_guard PASSED [ 39%]
+tests/integration/test_hook_integration_story033.py::TestContextSizeValidation::test_context_size_under_50kb PASSED [ 40%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_cli_not_installed PASSED [ 41%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_config_corrupted PASSED [ 42%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_no_deferrals PASSED [ 44%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_massive_deferrals PASSED [ 45%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_user_interrupt PASSED [ 46%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_circular_invocation PASSED [ 47%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_concurrent_execution PASSED [ 48%]
+tests/integration/test_hook_integration_story033.py::TestEdgeCaseDocumentation::test_edge_case_very_old_deferrals PASSED [ 50%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac1_hook_eligibility_check PASSED [ 51%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac2_automatic_feedback_invocation PASSED [ 52%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac3_graceful_degradation PASSED [ 53%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac4_context_aware_feedback PASSED [ 54%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac5_pilot_pattern_consistency PASSED [ 55%]
+tests/integration/test_hook_integration_story033.py::TestAcceptanceCriteriaSummary::test_ac6_invocation_tracking PASSED [ 57%]
+tests/unit/test_story033_conf_requirements.py::TestCONF001PhaseNExists::test_phase_n_section_exists PASSED [ 58%]
+tests/unit/test_story033_conf_requirements.py::TestCONF001PhaseNExists::test_phase_n_comes_after_phase_5 PASSED [ 59%]
+tests/unit/test_story033_conf_requirements.py::TestCONF001PhaseNExists::test_phase_n_has_description PASSED [ 60%]
+tests/unit/test_story033_conf_requirements.py::TestCONF002CheckHooksCall::test_check_hooks_call_exists PASSED [ 61%]
+tests/unit/test_story033_conf_requirements.py::TestCONF002CheckHooksCall::test_check_hooks_operation_argument PASSED [ 63%]
+tests/unit/test_story033_conf_requirements.py::TestCONF002CheckHooksCall::test_check_hooks_status_argument PASSED [ 64%]
+tests/unit/test_story033_conf_requirements.py::TestCONF003ConditionalInvocation::test_invoke_hooks_exists PASSED [ 65%]
+tests/unit/test_story033_conf_requirements.py::TestCONF003ConditionalInvocation::test_conditional_logic_exists PASSED [ 66%]
+tests/unit/test_story033_conf_requirements.py::TestCONF003ConditionalInvocation::test_invoke_hooks_operation_argument PASSED [ 67%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_context_includes_resolvable_count PASSED [ 69%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_context_includes_valid_count PASSED [ 70%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_context_includes_invalid_count PASSED [ 71%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_context_includes_oldest_age PASSED [ 72%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_context_includes_circular_chains PASSED [ 73%]
+tests/unit/test_story033_conf_requirements.py::TestCONF004AuditContext::test_all_5_fields_required_together PASSED [ 75%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_api_key_pattern_sanitized PASSED [ 76%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_secret_pattern_sanitized PASSED [ 77%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_password_pattern_sanitized PASSED [ 78%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_token_pattern_sanitized PASSED [ 79%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_multiple_patterns_in_single_string PASSED [ 80%]
+tests/unit/test_story033_conf_requirements.py::TestCONF005SensitiveDataSanitization::test_100_percent_redaction_rate PASSED [ 82%]
+tests/unit/test_story033_conf_requirements.py::TestCONF006NonBlockingBehavior::test_hook_failure_does_not_break_command PASSED [ 83%]
+tests/unit/test_story033_conf_requirements.py::TestCONF006NonBlockingBehavior::test_error_logging_message PASSED [ 84%]
+tests/unit/test_story033_conf_requirements.py::TestCONF006NonBlockingBehavior::test_audit_report_created_on_hook_failure PASSED [ 85%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_file_path_correct PASSED [ 86%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_entry_has_timestamp PASSED [ 88%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_entry_has_operation PASSED [ 89%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_entry_has_status PASSED [ 90%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_entry_has_outcome PASSED [ 91%]
+tests/unit/test_story033_conf_requirements.py::TestCONF007HookInvocationLogging::test_log_entry_structured_json PASSED [ 92%]
+tests/unit/test_story033_conf_requirements.py::TestCONF008CircularInvocationPrevention::test_guard_checks_parent_operation PASSED [ 94%]
+tests/unit/test_story033_conf_requirements.py::TestCONF008CircularInvocationPrevention::test_circular_prevention_logs_warning PASSED [ 95%]
+tests/unit/test_story033_conf_requirements.py::TestCONF008CircularInvocationPrevention::test_no_infinite_loop PASSED [ 96%]
+tests/unit/test_story033_conf_requirements.py::TestCONF009ContextSizeLimit::test_truncation_to_top_20 PASSED [ 97%]
+tests/unit/test_story033_conf_requirements.py::TestCONF009ContextSizeLimit::test_context_size_enforced PASSED [ 98%]
+tests/unit/test_story033_conf_requirements.py::TestCONF009ContextSizeLimit::test_full_report_available_on_disk PASSED [100%]/home/bryan/.local/lib/python3.12/site-packages/coverage/control.py:945: CoverageWarning: No data was collected. (no-data-collected)
+  self._warn("No data was collected.", slug="no-data-collected")
+/home/bryan/.local/lib/python3.12/site-packages/pytest_cov/plugin.py:312: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message))
+WARNING: Failed to generate report: No data to report.
+
+
+
+=================================== FAILURES ===================================
+__________ TestHookEligibilityCheck.test_phase_n_exists_after_phase_5 __________
+tests/integration/test_hook_integration_story033.py:194: in test_phase_n_exists_after_phase_5
+    with open(audit_deferrals_command_path, 'r') as f:
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/devforgeai_test_dolmf5uh/.claude/commands/audit-deferrals.md'
+____ TestHookEligibilityCheck.test_check_hooks_call_with_correct_arguments _____
+tests/integration/test_hook_integration_story033.py:212: in test_check_hooks_call_with_correct_arguments
+    with open(audit_deferrals_command_path, 'r') as f:
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/devforgeai_test_i7lqi8co/.claude/commands/audit-deferrals.md'
+____ TestConditionalInvocation.test_invoke_hooks_conditional_on_exit_code_0 ____
+tests/integration/test_hook_integration_story033.py:236: in test_invoke_hooks_conditional_on_exit_code_0
+    with open(audit_deferrals_command_path, 'r') as f:
+E   FileNotFoundError: [Errno 2] No such file or directory: '/tmp/devforgeai_test_ut_0s27g/.claude/commands/audit-deferrals.md'
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+
+=========================== short test summary info ============================
+FAILED tests/integration/test_hook_integration_story033.py::TestHookEligibilityCheck::test_phase_n_exists_after_phase_5
+FAILED tests/integration/test_hook_integration_story033.py::TestHookEligibilityCheck::test_check_hooks_call_with_correct_arguments
+FAILED tests/integration/test_hook_integration_story033.py::TestConditionalInvocation::test_invoke_hooks_conditional_on_exit_code_0
+=================== 3 failed, 68 passed, 13 skipped in 1.33s ===================

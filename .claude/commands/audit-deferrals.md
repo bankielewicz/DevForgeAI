@@ -659,6 +659,134 @@ Deferral quality: EXCELLENT
 
 ---
 
+### Phase 6: Invoke Feedback Hooks (NEW - STORY-033)
+
+**After audit report generation (Phase 5), invoke feedback hooks to capture insights about audit findings.**
+
+**Purpose:** Capture user insights about deferral patterns, debt reduction strategies, and process improvements while analysis is fresh.
+
+**Pattern:** Follows STORY-023 (/dev pilot) pattern - eligibility check → conditional invocation → graceful degradation (non-blocking)
+
+#### Step 6.1: Check Hook Eligibility
+
+```bash
+# Determine if feedback hooks should be triggered
+devforgeai check-hooks --operation=audit-deferrals --status=completed
+
+IF exit_code == 0:
+  # Hooks are eligible, proceed to Step 6.2
+  ELIGIBLE = true
+ELSE:
+  # Hooks not eligible (disabled, config issue, etc.)
+  ELIGIBLE = false
+```
+
+#### Step 6.2: Prepare Audit Context (Conditional)
+
+**IF ELIGIBLE is true, extract audit_summary from report:**
+
+```bash
+# Parse audit report to extract summary metadata
+audit_summary = {
+  "resolvable_count": {number of deferrals that can be attempted now},
+  "valid_count": {number of deferrals with justified blockers},
+  "invalid_count": {number of deferrals with violations},
+  "oldest_age": {age in days of oldest deferral, null if no deferrals},
+  "circular_chains": [{STORY-IDs in circular chains, empty if none}]
+}
+
+# Enforce context size limit: ≤50KB
+# If audit_summary > 100 deferrals, truncate to top 20 by priority:
+#   1. Circular dependencies (CRITICAL)
+#   2. Oldest resolvable items (HIGH)
+#   3. Remaining by age (MEDIUM)
+# Full report remains on disk at report_path
+```
+
+#### Step 6.3: Sanitize Sensitive Data
+
+**Remove credentials from all story descriptions in operation_metadata:**
+
+```bash
+FOR each story in audit_summary.stories:
+  story.description = sanitize(story.description)
+    # Replace: api_key=... → api_key=[REDACTED]
+    # Replace: secret=... → secret=[REDACTED]
+    # Replace: password=... → password=[REDACTED]
+    # Replace: token=... → token=[REDACTED]
+    # Regex: \b(?:api_key|secret|password|token)\s*=\s*"?[^\s"]+
+```
+
+#### Step 6.4: Invoke Feedback Hooks
+
+**IF ELIGIBLE is true, invoke hooks with audit context:**
+
+```bash
+devforgeai invoke-hooks \
+  --operation=audit-deferrals \
+  --operation_metadata="{audit_summary json}" \
+  --story_ids="{comma-separated affected story IDs}" \
+  --context="Audit complete. Found: {resolvable_count} resolvable, {valid_count} valid, {invalid_count} invalid deferrals. Oldest: {oldest_age} days."
+
+# Expected: Feedback conversation launches with audit-specific context
+# Questions adapt to reference audit findings (e.g., "You found X resolvable deferrals...")
+```
+
+#### Step 6.5: Log Hook Invocation
+
+**Log all hook operations to `.devforgeai/feedback/logs/hook-invocations.log`:**
+
+```bash
+# Create log directory if doesn't exist
+mkdir -p .devforgeai/feedback/logs
+
+# Append structured log entry with file locking
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+LOG_ENTRY="$TIMESTAMP | operation=audit-deferrals | status=completed | exit_code=$? | session_id=$(uuidgen) | resolvable=$resolvable_count | valid=$valid_count | invalid=$invalid_count"
+
+# Use file locking to prevent write conflicts in concurrent audits
+(flock -x 200
+echo "$LOG_ENTRY" >> .devforgeai/feedback/logs/hook-invocations.log
+) 200>.devforgeai/feedback/logs/hook-invocations.log.lock
+```
+
+#### Step 6.6: Error Handling & Graceful Degradation
+
+**Hook invocation is non-blocking. If any step fails, log warning and continue:**
+
+```bash
+IF devforgeai command not found:
+  WARN "Feedback system unavailable (devforgeai CLI not found). Install with: pip install --break-system-packages -e .claude/scripts/"
+  CONTINUE (exit code 0)
+
+ELIF hooks.yaml invalid or missing:
+  WARN "Hook configuration invalid or missing. Validate with: devforgeai check-hooks --validate"
+  CONTINUE (exit code 0)
+
+ELIF invoke-hooks fails (timeout, crash, permission error):
+  WARN "Feedback invocation failed: {error_type}. Audit report available at {report_path}"
+  CONTINUE (exit code 0)
+
+ELIF user cancels feedback (Ctrl+C):
+  INFO "Feedback session interrupted by user. Partial responses saved."
+  CONTINUE (exit code 0)
+
+# In all cases: Command completes successfully (exit 0) with audit report created
+```
+
+#### Step 6.7: Circular Invocation Prevention
+
+**Prevent theoretical recursive invocation (feedback → audit-deferrals → feedback):**
+
+```bash
+# Check if parent_operation already equals audit-deferrals
+IF operation_context.parent_operation == "audit-deferrals":
+  WARN "Circular hook invocation detected (audit-deferrals → feedback → audit-deferrals). Skipping nested feedback to prevent infinite loop."
+  RETURN
+```
+
+---
+
 ## Usage
 
 **Manual Invocation:**
@@ -676,6 +804,7 @@ Deferral quality: EXCELLENT
 - Small projects (<10 stories): 2-3 minutes
 - Medium projects (10-50 stories): 5-10 minutes
 - Large projects (50+ stories): 15-20 minutes
+- Plus Phase 6 overhead: <2 seconds (with skip_all:true configuration)
 
 ---
 
@@ -684,14 +813,24 @@ Deferral quality: EXCELLENT
 **Invokes:**
 - deferral-validator subagent (for each story with deferrals)
 
+**Phase 6 (NEW - STORY-033):**
+- devforgeai check-hooks (eligibility determination)
+- devforgeai invoke-hooks (feedback conversation - if eligible)
+
 **Generates:**
 - Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
 - Violation summary by severity
 - Recommended corrective actions
+- Hook invocation log in `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
 
 **Updates:**
 - None (read-only audit, doesn't modify stories)
 
+**Feedback Integration (Phase 6 - NEW):**
+- Captures insights about deferral patterns discovered
+- Documents user's perspective on debt reduction strategies
+- Session data saved to `.devforgeai/feedback/sessions/` (if user accepts feedback)
+
 ---
 
-**Note:** This command performs comprehensive audit of deferral quality across all completed stories. Run regularly to ensure deferral validation protocol is being followed consistently.
+**Note:** This command performs comprehensive audit of deferral quality across all completed stories. Phase 6 (NEW - STORY-033) integrates feedback hooks following the /dev pilot pattern (STORY-023), capturing actionable insights about technical debt management while analysis is fresh. Run regularly to ensure deferral validation protocol is being followed consistently.
