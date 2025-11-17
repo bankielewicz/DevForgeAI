@@ -30,7 +30,9 @@
       "Bash(bash .claude/scripts/invoke_feedback_hooks.sh:*)",
       "Bash(devforgeai check-hooks:*)",
       "Bash(devforgeai invoke-hooks:*)",
-      "Bash(time devforgeai check-hooks:*)"
+      "Bash(time devforgeai check-hooks:*)",
+      "Bash(.claude/scripts/check-hooks-fast.sh:*)",
+      "SlashCommand(/create-story:*)"
     ],
     "deny": [],
     "ask": []
