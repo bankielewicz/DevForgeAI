@@ -33,7 +33,11 @@
       "Bash(time devforgeai check-hooks:*)",
       "Bash(.claude/scripts/check-hooks-fast.sh:*)",
       "SlashCommand(/create-story:*)",
-      "Bash(devforgeai validate-dod:*)"
+      "Bash(devforgeai validate-dod:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(for file in tests/unit/test_internet_sleuth_ac*.py)",
+      "Bash(do echo \"=== Testing $file ===\")",
+      "Bash(done)"
     ],
     "deny": [],
     "ask": []
