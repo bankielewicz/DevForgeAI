@@ -107,6 +107,18 @@ Each phase loads its reference file on-demand for detailed implementation.
 
 **See individual phase reference files for complete implementation details.**
 
+### Phase N: Feedback Hook Integration
+**Purpose:** Collect feedback on UI design, technology fit, and component complexity (NEW - RCA-009 STORY-032)
+**Pattern:** Follows STORY-023 (/dev) and STORY-031 (/ideate) implementation
+**Steps:**
+1. **Step N.1:** Call `devforgeai check-hooks --operation=create-ui --status=completed`
+2. **Step N.2:** If eligible (exit code 0), call `devforgeai invoke-hooks --operation=create-ui`
+3. **Step N.3:** Pass context: ui_type, technology, components, styling, story ID (if applicable)
+4. **Step N.4:** Handle failures gracefully (log warning, continue - non-blocking)
+5. **Step N.5:** Display status message (feedback enabled/unavailable)
+
+**Output:** Feedback conversation may trigger if hooks configured, or silent success if not enabled
+
 ---
 
 ## Subagent Coordination

@@ -346,6 +346,61 @@ Next Steps:
   5. Preview in Storybook: [storybook command if configured]
 ```
 
+### Phase N: Feedback Hook Integration
+
+**Purpose:** Collect feedback on UI design decisions and component complexity (follows STORY-023 /dev pattern)
+**Pattern Source:** devforgeai-qa/references/feedback-hooks-workflow.md (5-step non-blocking pattern)
+**Requirement:** devforgeai CLI must be installed (from tech-stack.md approved tools)
+
+**After UI specification generation completes (Phase 5), invoke feedback hooks:**
+
+```bash
+# Step N.1: Check hook eligibility
+devforgeai check-hooks --operation=create-ui --status=completed
+HOOK_EXIT=$?
+
+# Step N.2: Only invoke if eligible (exit code 0)
+IF HOOK_EXIT == 0:
+  devforgeai invoke-hooks --operation=create-ui --story=${STORY_ID} \
+    --context="ui_type=${UI_TYPE}&technology=${FRAMEWORK}&components=${COMPONENT_COUNT}&styling=${STYLING_APPROACH}" || {
+    Log: "⚠️ Feedback system unavailable, continuing..."
+  }
+ELSE:
+  Log: "Feedback hooks not configured for create-ui operation"
+ENDIF
+
+# Step N.3: Handle failures gracefully (non-blocking)
+# Note: Errors logged but not thrown - /create-ui always succeeds
+```
+
+**Context passed to feedback:**
+- `operation`: "create-ui"
+- `story`: STORY ID (if story mode)
+- `ui_type`: "web" | "GUI" | "terminal"
+- `technology`: Framework name (React, Vue, WPF, Tkinter, etc.)
+- `components`: Number of components generated
+- `styling`: Styling approach (Tailwind, CSS Modules, etc.)
+
+**Behavior:**
+- ✅ Check hook eligibility (non-blocking)
+- ✅ Invoke if eligible (non-blocking)
+- ✅ Display message: "Feedback system ready" or "Feedback system unavailable"
+- ✅ Continue regardless of hook outcome
+- ✅ /create-ui always succeeds (spec generated, hooks optional)
+
+**When hooks unavailable:**
+```
+⚠️ Feedback system unavailable
+
+Possible causes:
+  - devforgeai CLI not installed
+  - hooks.yaml not configured
+  - Hook trigger disabled for create-ui
+
+UI specifications have been generated successfully.
+Continue with: /dev [STORY-ID] or edit components as needed.
+```
+
 ## Error Handling
 
 ### Error: Story Not Found
