@@ -32,7 +32,8 @@
       "Bash(devforgeai invoke-hooks:*)",
       "Bash(time devforgeai check-hooks:*)",
       "Bash(.claude/scripts/check-hooks-fast.sh:*)",
-      "SlashCommand(/create-story:*)"
+      "SlashCommand(/create-story:*)",
+      "Bash(devforgeai validate-dod:*)"
     ],
     "deny": [],
     "ask": []
