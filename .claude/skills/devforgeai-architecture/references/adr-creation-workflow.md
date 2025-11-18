@@ -206,7 +206,60 @@ We will use Dapper 2.1.x as our ORM for data access.
 - Learning investment for new team members vs current team efficiency
 ```
 
-**6. Alternatives Considered Section:**
+**6. Alternatives Considered Section (ENHANCED with Research Integration - STORY-036):**
+
+**If internet-sleuth research available:**
+```python
+# Check if research was conducted during Phase 2 Step 2.0.5
+if research_result exists:
+    # Use research findings for alternatives section
+    alternatives = research_result.top_recommendations[1:]  # Exclude top (that's the Decision)
+
+    for alt in alternatives:
+        add_alternative_section(
+            name=alt.approach,
+            pros=alt.pros,
+            cons=alt.cons,
+            decision_rationale=alt.rejection_reason,
+            research_reference=research_result.research_id
+        )
+
+    # Add research attribution
+    adr_content += f"""
+**Research Evidence:** [{research_result.research_id}]({research_result.report_path})
+**Repository Examples:** {format_repos(research_result.repositories)}
+"""
+```
+
+**Example with research:**
+```markdown
+## Alternatives Considered
+
+*Evidence from repository archaeology research: [RESEARCH-002](.devforgeai/research/shared/RESEARCH-002-backend-framework-evaluation.md)*
+
+### Entity Framework Core
+
+**Pros:**
+- Automatic change tracking (reduces boilerplate code)
+- LINQ queries (more C#-like, type-safe)
+- Code-first migrations (schema versioning built-in)
+- Navigation properties for relationships (easier joins)
+
+**Cons:**
+- 10x slower for read-heavy workloads (benchmarked in production repos)
+- Generated SQL often suboptimal for complex queries
+- Abstraction hides query execution details (debugging harder)
+- Harder to optimize performance (requires deep EF knowledge)
+
+**Decision:** Rejected due to performance overhead (10x slower) documented in 3 high-quality repositories (avg quality: 8.5/10). Our read-heavy workload (95% reads) prioritizes query performance over development speed.
+
+**Evidence:**
+- Repository: [aspnetcore-realworld](https://github.com/gothinkster/aspnetcore-realworld-example-app) (Quality: 9/10, 1.8K stars)
+- Benchmark: SELECT with 5 JOINs: Dapper 15ms, EF Core 147ms (9.8x slower)
+- Source: RESEARCH-002 Section 4.2.3 (Performance Analysis)
+```
+
+**Example without research (traditional):**
 ```markdown
 ## Alternatives Considered
 
