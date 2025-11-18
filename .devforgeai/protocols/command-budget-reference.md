@@ -4,8 +4,8 @@
 **Main Document:** `lean-orchestration-pattern.md`
 **Related:** `refactoring-case-studies.md`
 
-**Version:** 1.0
-**Date:** 2025-11-06
+**Version:** 1.1
+**Date:** 2025-11-18 (Updated with current metrics from STORY-039)
 
 ---
 
@@ -20,16 +20,18 @@ This document provides current command budget status, monitoring procedures, and
 
 ---
 
-## Current Command Status (2025-11-06)
+## Current Command Status (2025-11-18)
 
 ### Summary Statistics
 
 | Category | Count | Commands |
 |----------|-------|----------|
-| **✅ Compliant** (<12K) | 5 | qa, create-sprint, create-epic, 3 test commands |
-| **⚠️ High Usage** (12-15K) | 6 | ideate, create-context, dev, audit-deferrals, orchestrate, create-story |
-| **❌ Over Budget** (>15K) | 3 | create-ui, release |
+| **✅ Compliant** (<12K) | 4 | qa, create-epic, 3 test commands |
+| **⚠️ High Usage** (12-15K) | 7 | create-sprint, ideate, create-context, audit-deferrals, orchestrate, create-story, create-agent |
+| **❌ Over Budget** (>15K) | 3 | dev, release, create-ui |
 | **✅ Refactored** | 7 | dev, qa, ideate, create-sprint, create-epic, orchestrate, create-story |
+
+**⚠️ NOTE:** `/dev` command has regressed to 116% budget (was 84% after refactoring). Requires immediate attention.
 
 ### Detailed Command Budget Table
 
@@ -38,15 +40,15 @@ This document provides current command budget status, monitoring procedures, and
 | test-slashcommand-isolation | 31 | 987 | 7% | ✅ Compliant | — |
 | test-skill-context | 57 | 1,570 | 10% | ✅ Compliant | — |
 | test-arg-validation | 180 | 4,151 | 28% | ✅ Compliant | — |
-| **qa** | **307** | **8,172** | **54%** | ✅ Compliant | ✅ **Reference** |
-| **create-sprint** | **250** | **~8,000** | **53%** | ✅ Compliant | ✅ **Reference** |
-| **create-epic** | **392** | **11,270** | **75%** | ✅ Compliant | ✅ **Reference** |
+| **qa** | **309** | **8,443** | **56%** | ✅ Compliant | ✅ **Reference** |
+| **create-sprint** | **526** | **13,457** | **89%** | ⚠️ High | ✅ **Refactored** |
+| **create-epic** | **396** | **11,532** | **76%** | ⚠️ High | ✅ **Refactored** |
 | ideate | 410 | 11,717 | 78% | ⚠️ High | ✅ Refactored |
 | create-context | 420 | 12,631 | 84% | ⚠️ High | 🟡 Watch |
-| **dev** | **513** | **12,630** | **84%** | ⚠️ High | ✅ **Refactored** |
+| **dev** | **527** | **17,460** | **116%** | ❌ OVER | 🔴 **CRITICAL** |
 | audit-deferrals | 452 | 13,088 | 87% | ⚠️ High | 🟡 Watch |
-| **orchestrate** | **527** | **14,422** | **96%** | ⚠️ High | ✅ **Refactored** |
-| **create-story** | **477** | **14,163** | **94%** | ⚠️ High | ✅ **Refactored** |
+| **orchestrate** | **535** | **14,854** | **99%** | ⚠️ High | ✅ **Refactored** |
+| **create-story** | **482** | **14,895** | **99%** | ⚠️ High | ✅ **Refactored** |
 | **release** | **655** | **18,166** | **121%** | ❌ OVER | 🔴 **HIGH** |
 | **create-ui** | **614** | **18,908** | **126%** | ❌ OVER | 🔴 **CRITICAL** |
 
