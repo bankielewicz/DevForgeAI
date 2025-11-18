@@ -1,0 +1,437 @@
+---
+id: STORY-051
+title: Refactor /dev Command to Lean Orchestration Pattern
+epic: null
+sprint: Backlog
+status: Backlog
+points: 8
+priority: Critical
+assigned_to: Unassigned
+created: 2025-11-18
+format_version: "2.0"
+---
+
+# Story: Refactor /dev Command to Lean Orchestration Pattern
+
+## Description
+
+**As a** DevForgeAI framework maintainer,
+**I want** to refactor the /dev command to follow the lean orchestration pattern,
+**so that** the command stays within the 15K character budget (target 33% usage), improves token efficiency by 60-70%, and maintains a single source of truth for development workflow logic in the devforgeai-development skill.
+
+## Acceptance Criteria
+
+### AC#1: dev-result-interpreter Subagent Created
+**Given** the /dev refactoring requires result interpretation,
+**When** the dev-result-interpreter subagent is created,
+**Then** the subagent exists at `.claude/agents/dev-result-interpreter.md` with complete system prompt and tool access configuration.
+
+**Test Evidence:** File exists, contains valid YAML frontmatter, specifies tools (Read, Grep, Edit), includes workflow phases, returns structured JSON output.
+
+### AC#2: dev-result-formatting-guide.md Reference Created
+**Given** the dev-result-interpreter subagent needs framework guardrails,
+**When** the reference file is created,
+**Then** the file exists at `.claude/skills/devforgeai-development/references/dev-result-formatting-guide.md` with 500+ lines of framework-specific guidance.
+
+**Test Evidence:** File exists, contains DevForgeAI context (workflow states, quality gates, deferral handling), specifies display guidelines, documents framework constraints, includes error scenarios.
+
+### AC#3: devforgeai-development Skill Phase 7 Added
+**Given** the skill needs to invoke the result interpreter subagent,
+**When** Phase 7 is added to the skill,
+**Then** Phase 7 (Finalization & Result Interpretation) calls dev-result-interpreter subagent and integrates returned display template.
+
+**Test Evidence:** Skill Phase 7 exists, invokes subagent with structured prompt, processes subagent output, returns display template to command.
+
+### AC#4: /dev Command Refactored to ≤150-Line Lean Structure
+**Given** the command is currently 513 lines (84% of budget),
+**When** the command is refactored,
+**Then** the command contains exactly 3 phases (Argument Validation, Invoke Skill, Display Results) with ≤150 lines total.
+
+**Test Evidence:** wc -l shows ≤150 lines, all business logic removed, skill invocation is only action, no display templates, minimal error handling (3-5 error types).
+
+### AC#5: Character Budget ≤8,000 Characters Achieved
+**Given** the budget target is 8K characters (53% of 15K limit),
+**When** the command is complete,
+**Then** character count is exactly ≤8,000 (verified by `wc -c`).
+
+**Test Evidence:** `wc -c .claude/commands/dev.md` returns value ≤8,000.
+
+### AC#6: All 37 Tests Passing (100% Pass Rate)
+**Given** the refactoring test suite (15 unit + 12 integration + 10 regression tests),
+**When** all tests execute,
+**Then** 37/37 tests pass with 100% pass rate.
+
+**Test Evidence:** `bash .devforgeai/tests/commands/test-dev.sh` output shows 37/37 passed.
+
+### AC#7: RCA-008 Safeguards Preserved (Git Operations Protected)
+**Given** RCA-008 established user approval requirement for destructive git operations,
+**When** the refactored command is tested,
+**Then** no autonomous `git stash`, `git reset`, or other destructive operations occur without explicit user approval via AskUserQuestion.
+
+**Test Evidence:** Code inspection shows no autonomous git stash/reset calls, AskUserQuestion present for any git operations affecting uncommitted work.
+
+### AC#8: 100% Backward Compatibility with Original Behavior
+**Given** the original /dev command produces specific workflow sequence,
+**When** the refactored command executes,
+**Then** user experience is identical (same phases, same outputs, same error handling), no functional changes visible to end user.
+
+**Test Evidence:** Side-by-side execution of original and refactored on same story produces identical workflow progression.
+
+## Technical Specification
+
+```yaml
+version: "2.0"
+component_type: "command"
+name: "dev"
+purpose: "Execute TDD development workflow (Red → Green → Refactor)"
+
+dependencies:
+  skills:
+    - name: "devforgeai-development"
+      version: ">=1.0"
+      purpose: "Comprehensive TDD workflow implementation"
+      phases:
+        - "Phase 0: Pre-Flight Validation (git, tech stack, context)"
+        - "Phase 1-4: TDD Cycle (Red → Green → Refactor → Integration)"
+        - "Phase 4.5: Deferral Challenge Checkpoint (RCA-006)"
+        - "Phase 5: Git/Tracking (commits or file-based)"
+        - "Phase 7: Finalization & Result Interpretation (NEW)"
+
+  subagents:
+    - name: "dev-result-interpreter"
+      version: ">=1.0"
+      purpose: "Parse development results, generate display template, provide remediation"
+      invocation_phase: "Phase 7"
+      returns: "structured JSON with display.template, violations, recommendations"
+
+  references:
+    - path: ".claude/skills/devforgeai-development/references/dev-result-formatting-guide.md"
+      purpose: "Framework guardrails for result interpretation (DevForgeAI context, constraints, display guidelines)"
+
+architecture:
+  phases:
+    phase_0:
+      name: "Argument Validation & Context Loading"
+      lines: "30-35"
+      responsibilities:
+        - "Validate story ID format (STORY-NNN)"
+        - "Load story file via @file reference"
+        - "Set context markers (**Story ID:**, etc.)"
+
+    phase_1:
+      name: "Invoke Skill"
+      lines: "15-20"
+      responsibilities:
+        - "Invoke devforgeai-development skill"
+        - "Pass story ID via context markers"
+
+    phase_2:
+      name: "Display Results"
+      lines: "10-15"
+      responsibilities:
+        - "Output skill result summary"
+        - "Display execution timeline"
+
+quality_targets:
+  lines: "<150 (lean orchestration)"
+  characters: "<8000 (53% of 15K budget)"
+  token_overhead: "<2.5K in main conversation"
+  test_coverage: "37/37 tests passing (100%)"
+  backward_compatibility: "100% behavior preserved"
+
+constraints:
+  - "Respect RCA-008 (no autonomous git operations without approval)"
+  - "Preserve all AskUserQuestion interactions"
+  - "No business logic in command (all in skill)"
+  - "No display templates in command (generated by subagent)"
+  - "All error handling minimal (3-5 error types max)"
+
+integration_points:
+  - "Context files: tech-stack.md, coding-standards.md, architecture-constraints.md, anti-patterns.md"
+  - "Story files: .ai_docs/Stories/{STORY-ID}.story.md (read, update status)"
+  - "Workflow states: Backlog → In Development → Dev Complete"
+  - "Quality gates: Light QA during dev (Phase 4), Deep QA after (separate /qa command)"
+
+success_metrics:
+  - "Character budget: 53% of limit (8K of 15K)"
+  - "Token savings: 60-70% vs pre-refactoring"
+  - "Line reduction: 40% (513 → 150 lines)"
+  - "User experience: Unchanged (backward compatible)"
+  - "Framework compliance: 100% lean orchestration pattern"
+```
+
+## Edge Cases
+
+### Edge Case 1: Story File Missing or Corrupted
+**Scenario:** User specifies STORY-042 but file doesn't exist or contains invalid YAML frontmatter.
+
+**Expected Behavior:** Command displays clear error message "Story file not found: .ai_docs/Stories/STORY-042.story.md" with AskUserQuestion offering: (1) Show available stories, (2) Create new story, (3) Enter different story ID.
+
+**Test Command:** `/dev STORY-999` (non-existent story)
+
+### Edge Case 2: Story in Invalid Status for Development
+**Scenario:** Story status is "Released" (already complete) but user attempts `/dev STORY-001`.
+
+**Expected Behavior:** Command detects story status, displays warning "Story STORY-001 is already Released. Cannot execute development workflow on completed story." Offers options: (1) Archive/Mark obsolete, (2) Create tracking story for modifications, (3) Cancel.
+
+**Test Story:** Use story with status "Released"
+
+### Edge Case 3: Multiple Failed QA Attempts (Max 3 Retry Loop)
+**Scenario:** Development completes but QA fails 3 times (deferral handling exceeds threshold, coverage not met, etc.).
+
+**Expected Behavior:** Skill detects max attempts reached, skill returns result with status "QA_MAX_ATTEMPTS_EXCEEDED". Command displays "QA validation failed after 3 attempts. Recommend: (1) Review deferral justifications, (2) Attempt coverage improvements, (3) Create follow-up story for pending work."
+
+**Test Story:** Story with known coverage gaps
+
+### Edge Case 4: Skill Invocation Fails (Network, Timeout, Error)
+**Scenario:** devforgeai-development skill fails to initialize or execute (rare but possible).
+
+**Expected Behavior:** Command captures skill error, displays "Development workflow failed: {error message}". Offers options: (1) Retry (max 2 times), (2) Check story status, (3) Cancel and review logs.
+
+**Test Method:** Mock skill failure or use invalid context
+
+### Edge Case 5: Git Operations Blocked (RCA-008 Safeguard)
+**Scenario:** During Phase 5, git commit is required but user doesn't approve destructive git operations.
+
+**Expected Behavior:** Skill detects missing approval, switches to file-based tracking (changes documented in .devforgeai/stories/{STORY-ID}/changes/). Command displays "Git approval not provided. Using file-based change tracking instead."
+
+**Test Method:** Simulate RCA-008 approval block
+
+### Edge Case 6: Context Files Missing or Incomplete
+**Scenario:** .devforgeai/context/ directory missing some files or files contain placeholder content (TODO, TBD).
+
+**Expected Behavior:** Pre-flight validation detects issue, command displays "Context files incomplete. Run /create-context to generate missing files before development." Blocks workflow.
+
+**Test Method:** Temporarily remove one context file or corrupt tech-stack.md
+
+## Non-Functional Requirements
+
+### NFR#1: Token Efficiency (Main Conversation)
+**Requirement:** Command overhead shall be <2.5K tokens in main conversation (vs 5K pre-refactoring), achieving 60-70% reduction.
+
+**Rationale:** Token efficiency enables more concurrent stories in single session. Main conversation tokens freed from command overhead can be used for skill/subagent work.
+
+**Measurement:** Compare token usage of original vs refactored command on identical story. Track main conversation context before/after command execution.
+
+### NFR#2: Character Budget Compliance
+**Requirement:** Command shall not exceed 8,000 characters (53% of 15K limit), with hard constraint of <15,000 characters.
+
+**Rationale:** Budget compliance enables scalability (new commands don't exceed limit). 53% target leaves margin for future enhancements without refactoring.
+
+**Measurement:** `wc -c .claude/commands/dev.md` must return ≤8,000. Monitored via `/audit-budget` command.
+
+### NFR#3: Backward Compatibility (User Experience)
+**Requirement:** Refactored command shall produce identical user experience to pre-refactored version. No visible behavior changes.
+
+**Rationale:** Users should not need to learn new workflow or adjust existing scripts. Backward compatibility ensures smooth transition.
+
+**Measurement:** Execute original and refactored on same story, compare outputs (same phases, same outputs, same error messages, same success criteria).
+
+### NFR#4: Framework Compliance (Lean Orchestration)
+**Requirement:** Command shall strictly adhere to lean orchestration pattern: Command orchestrates, Skill validates, Subagents specialize. No business logic in command.
+
+**Rationale:** Framework compliance ensures maintainability, prevents regressions (no duplication), enables consistent architecture across all commands.
+
+**Measurement:** Code inspection: 0 lines of business logic in command, 3 phases only (validate/invoke/display), all error handling minimal.
+
+### NFR#5: RCA-008 Safeguard Preservation
+**Requirement:** Refactored command shall preserve RCA-008 protections: no autonomous git stash/reset without user approval, user consent required for destructive operations.
+
+**Rationale:** RCA-008 prevents data loss incidents. Safeguards must survive refactoring unchanged.
+
+**Measurement:** Code inspection for autonomous git operations, test for AskUserQuestion presence before any git stash/reset, regression test comparing original's git behavior.
+
+## Definition of Done
+
+### Code & Refactoring
+- [ ] dev-result-interpreter subagent created (AC#1)
+  - File: `.claude/agents/dev-result-interpreter.md`
+  - Size: 300-400 lines
+  - Tools: Read, Grep (minimal access)
+  - Phases: 1-4 (parse → analyze → format → return)
+  - Test: 3+ unit tests, 100% passing
+
+- [ ] dev-result-formatting-guide.md reference created (AC#2)
+  - File: `.claude/skills/devforgeai-development/references/dev-result-formatting-guide.md`
+  - Size: 500+ lines
+  - Sections: DevForgeAI Context, Framework Constraints, Display Guidelines, Error Scenarios
+  - Evidence: File exists, non-empty, contains explicit guardrails
+
+- [ ] devforgeai-development skill Phase 7 added (AC#3)
+  - Phase 7: Finalization & Result Interpretation (150-200 lines)
+  - Invokes: dev-result-interpreter subagent with structured prompt
+  - Returns: Display template, violations, recommendations
+  - Test: Unit test for Phase 7, integration test with subagent
+
+- [ ] /dev command refactored to ≤150 lines (AC#4)
+  - Phase 0: Argument Validation (30-35 lines)
+  - Phase 1: Invoke Skill (15-20 lines)
+  - Phase 2: Display Results (10-15 lines)
+  - Test: wc -l shows ≤150, all 37 tests passing
+
+- [ ] Character budget ≤8,000 chars achieved (AC#5)
+  - Verify: `wc -c .claude/commands/dev.md` ≤8,000
+  - Budget status: 53% of 15K limit
+  - Margin: 7,000 chars available for future enhancements
+  - Monitor: `/audit-budget` includes /dev in compliant list
+
+- [ ] All tests passing 37/37 (AC#6)
+  - Unit tests: 15 passing (argument validation, context loading, skill invocation)
+  - Integration tests: 12 passing (full workflows with various story states)
+  - Regression tests: 10 passing (backward compatibility, RCA-008 preservation)
+  - Test command: `bash .devforgeai/tests/commands/test-dev.sh`
+
+- [ ] RCA-008 safeguards preserved (AC#7)
+  - Code inspection: 0 autonomous git stash/reset
+  - AskUserQuestion: Present for all destructive git operations
+  - Git commit: Uses approval-checked mechanism (not autonomous)
+  - Test: RCA-008 regression test passes
+
+- [ ] Backward compatibility 100% (AC#8)
+  - Behavior: Identical to pre-refactored version
+  - User experience: Same workflow phases, outputs, error messages
+  - Test: Side-by-side execution produces matching results
+
+### Quality Assurance
+- [ ] Unit tests: 15+ passed
+  - Story ID validation (valid, invalid, missing)
+  - Story file loading (found, not found, corrupt)
+  - Context marker extraction
+  - Skill invocation with different inputs
+  - Error handling paths (3-5 scenarios)
+
+- [ ] Integration tests: 12+ passed
+  - Full workflow with Backlog story
+  - Full workflow with In Development story
+  - Mode variations (if applicable)
+  - Skill success path
+  - Skill failure recovery
+  - Status transition validation
+
+- [ ] Regression tests: 10+ passed
+  - Original behavior preserved (execute original vs refactored)
+  - Same phase sequence
+  - Same outputs/error messages
+  - RCA-008 git safeguards intact
+  - Token usage improvements verified
+
+- [ ] Performance tests: 4+ passed
+  - Token budget: <2.5K main conversation
+  - Character budget: <8,000 total
+  - Execution time: <10 minutes typical
+  - Subagent overhead: <30 seconds
+
+- [ ] Light QA validation passed
+  - Build/syntax check: PASS
+  - Code quality: No CRITICAL/HIGH violations
+  - Coverage: All tests passing (100%)
+  - Anti-patterns: None detected
+
+- [ ] Deep QA validation passed
+  - Comprehensive quality metrics: PASS
+  - Coverage thresholds: 95% business logic, 85% app, 80% infra
+  - Architecture compliance: All 6 context files respected
+  - Framework pattern: 100% lean orchestration compliance
+
+### Integration & Deployment
+- [ ] Subagent file created and tested
+  - Location: `.claude/agents/dev-result-interpreter.md`
+  - Verification: File exists, syntax valid, tests pass
+  - Framework-aware: References context files, quality gates
+
+- [ ] Reference file provides framework guardrails
+  - Location: `.claude/skills/devforgeai-development/references/dev-result-formatting-guide.md`
+  - Content: DevForgeAI context, constraints, display guidelines
+  - Verification: 500+ lines, complete guardrails
+
+- [ ] Skill Phase 7 integrates subagent
+  - Integration: Skill Phase 7 invokes dev-result-interpreter
+  - Output: Skill returns display template to command
+  - Verification: Integration test passes
+
+- [ ] Command follows lean pattern (3 phases)
+  - Phase 0: Argument validation only
+  - Phase 1: Skill invocation only
+  - Phase 2: Result display only
+  - No business logic, no templates, minimal errors
+
+- [ ] Documentation updated (command-budget-reference.md)
+  - Update: /dev command status table (513 → ≤150 lines, 84% → 53% budget)
+  - Case Study 6: Added to refactoring-case-studies.md with before/after metrics
+  - Lessons Learned: 5+ key insights captured
+
+- [ ] Git commit with refactoring changes
+  - Message: "refactor(/dev): Apply lean orchestration pattern"
+  - Include: Subagent, reference file, skill Phase 7, command refactor
+  - Files: 4-5 files (command, subagent, reference, skill, memory)
+
+- [ ] Terminal restarted, command discoverable
+  - Verification: `/help` shows `/dev` command
+  - Execution: `/dev --help` displays command usage
+  - Functional: `/dev STORY-001` executes without errors
+
+### Delivery
+- [ ] Refactoring analysis document created
+  - Location: `.devforgeai/specs/enhancements/DEV-COMMAND-REFACTORING-ANALYSIS.md`
+  - Content: 5 Whys analysis, extraction strategy, lessons learned (1,500+ lines)
+  - Sections: Before/After metrics, Technical Approach, Validation Results
+
+- [ ] Before/After metrics documented
+  - Lines: 513 → ≤150 (70% reduction)
+  - Characters: 12,630 → ≤8,000 (36% reduction)
+  - Tokens: 5K → 2K main conversation (60% reduction)
+  - Budget: 84% → 53% (well within compliance)
+
+- [ ] Case Study 6 added to refactoring-case-studies.md
+  - Title: "Case Study 6: /dev Command Refactoring (2025-11-18)"
+  - Sections: Before/After, Actions, Lessons Learned
+  - Metrics table: Included in summary statistics
+  - Pattern comparison: Added to consistency analysis
+
+- [ ] Lessons learned captured
+  - Technical insights: 3-5 key learnings
+  - Framework patterns: Confirmed/new patterns discovered
+  - Tooling improvements: Recommendations for future refactorings
+  - Timeline: 3-4 hours estimated actual
+
+## Implementation Notes
+
+**References:**
+- Pattern: `.devforgeai/protocols/lean-orchestration-pattern.md`
+- Case Studies: `.devforgeai/protocols/refactoring-case-studies.md`
+- Budget Reference: `.devforgeai/protocols/command-budget-reference.md`
+- Previous Refactoring: `/qa` command refactoring (Case Study 2, 57% reduction, 295 lines)
+
+**Key Constraints:**
+- RCA-008 (git safeguards): No autonomous destructive operations
+- Backward compatibility: 100% behavior preserved
+- Framework compliance: Lean orchestration pattern mandatory
+- Quality gates: All 37 tests must pass before merge
+
+**Success Criteria:**
+- Character budget: ≤8,000 (53% of 15K limit)
+- Token efficiency: 60-70% reduction in main conversation
+- Test coverage: 37/37 passing (100%)
+- Backward compatibility: Identical user experience
+
+**Estimated Effort:**
+- Analysis & Planning: 30 minutes
+- Subagent Creation: 60 minutes
+- Reference File: 45 minutes
+- Skill Enhancement: 45 minutes
+- Command Refactoring: 45 minutes
+- Testing & Validation: 60 minutes
+- Documentation: 30 minutes
+- **Total: 4-5 hours**
+
+
+---
+
+## Implementation Notes
+
+**Status:** Ready for implementation
+**Created:** 2025-11-18
+**Developer:** Unassigned (pending /dev STORY-051 execution)
+
+*This section will be populated during TDD development workflow.*
+
