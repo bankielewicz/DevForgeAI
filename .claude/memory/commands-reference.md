@@ -2,6 +2,8 @@
 
 Complete guide to the 11 slash commands for DevForgeAI workflows.
 
+**📊 Pattern Compliance Status:** See `command-pattern-compliance.md` for lean orchestration pattern compliance status of all commands (budget %, refactoring status, token efficiency).
+
 ---
 
 ## Command Overview
@@ -64,13 +66,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Complexity assessment (0-60 score, architecture tier)
 - Technology recommendations by tier
 
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (78% budget, within limit)
-- **Structure:** 5 phases (validate → invoke → verify → confirm → next steps)
-- **Business Logic:** Delegated to `devforgeai-ideation` skill (6-phase discovery)
-- **Token Efficiency:** Before: ~3,837 tokens → After: ~2,929 tokens (24% savings)
-- **Refactoring:** ✅ Complete (2025-11-05)
-
 **Architecture (Post-Refactoring 2025-11-05):**
 
 **Command (410 lines - Lean Orchestration):**
@@ -126,13 +121,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - `architecture-constraints.md` - Layer boundaries
 - `anti-patterns.md` - Forbidden patterns
 
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (84% budget, within limit)
-- **Structure:** 4 phases (validate → invoke → verify → guidance)
-- **Business Logic:** Delegated to `devforgeai-architecture` skill (5-phase context creation)
-- **Token Efficiency:** Command: ~2K tokens, Skill: ~150K tokens (isolated)
-- **Refactoring:** 🟡 Not yet refactored (stable, no violations)
-
 ---
 
 ### /create-epic [epic-name]
@@ -163,13 +151,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Feature list with descriptions (3-8 features)
 - Technical assessment (complexity, risks, prerequisites)
 - Optional requirements specification
-
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (76% budget, within limit)
-- **Structure:** 4 phases (validate → set markers → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill (8-phase epic workflow)
-- **Token Efficiency:** Before: ~10K tokens → After: ~2K tokens (80% savings)
-- **Refactoring:** ✅ Complete (2025-11-06, Case Study 4)
 
 **Architecture (Post-Refactoring 2025-11-06):**
 
@@ -235,13 +216,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Subagent: ~35K tokens (isolated)
 - **Savings: 58% reduction in main conversation tokens**
 - **Character budget: 13,457 chars (89% of limit) - HIGH USAGE**
-
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (89% budget, approaching limit)
-- **Structure:** 4 phases (user interaction → invoke → display → verify)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill + `sprint-planner` subagent
-- **Token Efficiency:** Before: ~12K tokens → After: ~5K tokens (58% savings)
-- **Refactoring:** ✅ Complete (2025-11-05, Case Study 3)
 
 **Example:**
 ```
@@ -357,13 +331,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - **Batch savings: 66% reduction (vs. 5 separate commands)**
 - **Character budget: 14,895 chars (99% of 15K limit) - HIGH USAGE** (was 153% - **CRITICAL FIX**)
 
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (99% budget, at limit)
-- **Structure:** 5 phases (validate → detect mode → invoke → verify → next steps)
-- **Business Logic:** Delegated to `devforgeai-story-creation` skill (8-phase story generation)
-- **Token Efficiency:** Before: ~5,752 tokens → After: ~2,500 tokens (56% savings)
-- **Refactoring:** ✅ Complete (2025-11-05 + batch mode 2025-11-07)
-
 **Batch Mode Benefits (NEW):**
 - Question reduction: 20 questions → 4 questions (for 5 stories)
 - Command executions: 5 → 1 (80% reduction)
@@ -450,13 +417,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Subagent (isolated): ~30-50K tokens
 - **Savings: 92% in isolated contexts**
 
-**Pattern Compliance:**
-- **Status:** ✅ Compliant (45% budget, well under limit)
-- **Structure:** 5 phases (validate → load → set markers → invoke → display)
-- **Business Logic:** Delegated to `claude-code-terminal-expert` skill + `agent-generator` subagent
-- **Token Efficiency:** Command: ~4K tokens (92% in isolated contexts)
-- **Refactoring:** ✅ Complete (2025-11-15, agent-generator v2.0 enhancement)
-
 **Execution Time:** 1-3 minutes (varies by mode)
 
 **Integration:**
@@ -535,13 +495,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Subagent (ui-spec-formatter): ~8,000 tokens (isolated context)
 - **Savings: 62% reduction in main conversation tokens**
 
-**Pattern Compliance:**
-- **Status:** ❌ Over Budget (126% budget, requires refactoring)
-- **Structure:** 4 phases (validate → invoke → display → verify)
-- **Business Logic:** Delegated to `devforgeai-ui-generator` skill (7-phase UI generation)
-- **Token Efficiency:** Projected: ~3K tokens (62% savings after refactoring)
-- **Refactoring:** 🔴 Pending (Priority: CRITICAL, planned refactoring)
-
 **Key Features:**
 - **No self-healing:** All ambiguities resolved via AskUserQuestion
 - **User authority:** User makes all decisions (fix/accept/defaults/regenerate)
@@ -610,13 +563,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Skill: ~85,000 tokens (isolated context)
 - **Savings: 67% reduction in main conversation tokens**
 
-**Pattern Compliance:**
-- **Status:** ❌ Over Budget (116% budget, CRITICAL - regression detected)
-- **Structure:** 4 phases (validate → invoke → verify → report)
-- **Business Logic:** Delegated to `devforgeai-development` skill (6-phase TDD workflow)
-- **Token Efficiency:** Before: ~15K tokens → After: ~5K tokens (67% savings)
-- **Refactoring:** ⚠️ Regression (was 84% after 2025-11-05 refactoring, now 116% - requires immediate attention, Case Study 1)
-
 ---
 
 ### /qa [STORY-ID] [mode]
@@ -666,13 +612,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Skill: ~65,000 tokens (isolated context)
 - Subagent (qa-result-interpreter): ~8,000 tokens (isolated context)
 - **Savings: 56% reduction in main conversation tokens**
-
-**Pattern Compliance:**
-- **Status:** ✅ Compliant (56% budget, well under limit)
-- **Structure:** 4 phases (validate → invoke → display → story update)
-- **Business Logic:** Delegated to `devforgeai-qa` skill + `qa-result-interpreter` subagent
-- **Token Efficiency:** Before: ~8K tokens → After: ~3.5K tokens (56% savings)
-- **Refactoring:** ✅ Complete (2025-11-05 Case Study 2 + 2025-11-06 Phase 4 enhancement)
 
 **Example:**
 ```
@@ -732,13 +671,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Release notes generated
 - Story status = "Released"
 
-**Pattern Compliance:**
-- **Status:** ❌ Over Budget (121% budget, requires refactoring)
-- **Structure:** 6 phases (validate → staging → smoke → production → validate → document)
-- **Business Logic:** Delegated to `devforgeai-release` skill (deployment workflow)
-- **Token Efficiency:** TBD (pending refactoring)
-- **Refactoring:** 🔴 Pending (Priority: HIGH, requires 45% reduction to reach target)
-
 ---
 
 ### /orchestrate [STORY-ID]
@@ -791,13 +723,6 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - Command: ~2.5K tokens (down from ~4K)
 - Skill: ~155K-175K tokens (isolated context)
 - **Savings: 37% reduction in main conversation tokens**
-
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (99% budget, at limit)
-- **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill (6-phase lifecycle coordination)
-- **Token Efficiency:** Before: ~4K tokens → After: ~2.5K tokens (37% savings)
-- **Refactoring:** ✅ Complete (2025-11-06, Case Study 5)
 
 **Enhanced Features:**
 - **Checkpoint Resume** (Phase 0) - Skill detects and resumes from DEV_COMPLETE, QA_APPROVED, STAGING_COMPLETE
@@ -952,13 +877,6 @@ All command files are in `.claude/commands/`:
 - Invokes: deferral-validator subagent
 - Output: Markdown report, console summary
 
-**Pattern Compliance:**
-- **Status:** ⚠️ High Usage (87% budget, approaching limit)
-- **Structure:** 5 phases (discover → scan → validate → aggregate → report)
-- **Business Logic:** Contained in command (no skill layer needed for utility)
-- **Token Efficiency:** Command: ~3K tokens (audit logic + subagent coordination)
-- **Refactoring:** 🟡 Not needed (utility command, different pattern)
-
 ---
 
 ### /audit-budget
@@ -1002,13 +920,6 @@ This command exemplifies lean orchestration for simple tasks:
 - Command overhead: ~2K tokens
 - Execution: ~1K tokens (wc operations)
 - Total: ~3K tokens
-
-**Pattern Compliance:**
-- **Status:** ✅ Compliant (66% budget, demonstrates compliance)
-- **Structure:** 5 phases (load → scan → calculate → categorize → display)
-- **Business Logic:** Contained in command (utility pattern - no skill needed)
-- **Token Efficiency:** ~3K tokens (minimal overhead, read-only)
-- **Refactoring:** ✅ Compliant (exemplifies lean orchestration for simple tasks)
 
 **Current Audit Results (2025-11-05):**
 - Over-budget: 4 commands (create-story 153%, create-ui 126%, release 121%, orchestrate 100%)
@@ -1092,13 +1003,6 @@ This command exemplifies lean orchestration for simple tasks:
 - **Progressive disclosure** - 5 reference files loaded as needed
 
 **Character Budget:** 9,500 chars (63% of 15K budget) - COMPLIANT
-
-**Pattern Compliance:**
-- **Status:** ✅ Compliant (63% budget, well under limit)
-- **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-rca` skill (8-phase RCA workflow)
-- **Token Efficiency:** Command: ~3K tokens, Skill: ~50-80K tokens (94% in isolated context)
-- **Refactoring:** ✅ Complete (2025-11-16, lean orchestration pattern)
 
 **Execution Time:** 3-10 minutes (depends on complexity)
 
