@@ -862,6 +862,111 @@ Read(file_path=".claude/skills/[skill]/references/[guide].md")
 
 ---
 
+## Pattern Consistency Analysis
+
+### Overview
+
+This section analyzes all 5 completed command refactorings to identify consistent patterns and successful techniques. For detailed Before/After code comparisons, see `refactoring-case-studies.md`.
+
+**Refactorings analyzed:**
+- Case Study 1: /dev refactoring (860 → 513 lines, 40% reduction)
+- Case Study 2: /qa refactoring (692 → 295 lines, 57% reduction)
+- Case Study 3: /create-sprint refactoring (497 → 250 lines, 50% reduction)
+- Case Study 4: /create-epic refactoring (526 → 392 lines, 25% reduction)
+- Case Study 5: /orchestrate refactoring (599 → 527 lines, 12% reduction)
+
+### Metrics Across All Refactorings
+
+Comprehensive comparison of all 5 completed command refactorings:
+
+| Command | Before Lines | After Lines | Reduction | Before Chars | After Chars | Char Reduction | Token Savings |
+|---------|--------------|-------------|-----------|--------------|-------------|----------------|---------------|
+| /dev | 860 | 513 | 40% | 38,000 | 12,630 | 67% | 67% |
+| /qa | 692 | 295 | 57% | 31,000 | 7,205 | 77% | 66% |
+| /create-sprint | 497 | 250 | 50% | 12,525 | 8,000 | 36% | 58% |
+| /create-epic | 526 | 392 | 25% | 14,309 | 11,270 | 21% | 80% |
+| /orchestrate | 599 | 527 | 12% | 15,012 | 14,422 | 4% | 37% |
+| **AVERAGE** | **635** | **395** | **37%** | **22,169** | **10,705** | **41%** | **62%** |
+
+### Success Patterns
+
+**All 5 refactorings achieved:**
+- ✅ Budget compliance (<15K chars)
+- ✅ Token efficiency improvement (37-80% savings)
+- ✅ 100% backward compatibility (behavior unchanged)
+- ✅ Clearer architecture (skills-first restored where violated)
+- ✅ Framework-aware subagents (no silos)
+
+**Variation in reduction percentages:**
+- High reduction (57%): Display-heavy commands (/qa with 161-line templates)
+- Moderate reduction (40-50%): Logic-heavy commands (/dev, /create-sprint)
+- Low reduction (12-25%): Already had skill invocation, just moved phases (/orchestrate, /create-epic)
+
+**Key insight:** Success = compliance, not maximum reduction. Commands at 96% budget (orchestrate) are compliant and successful.
+
+### Common Refactoring Techniques
+
+**Technique 1: Extract Display Templates to Subagent**
+- **Used in:** /qa refactoring
+- **Before:** 161 lines of templates in command
+- **After:** qa-result-interpreter subagent generates templates
+- **Savings:** 161 lines extracted, command displays result.template
+- **When to use:** Command has >50 lines of display templates with multiple variants
+
+**Technique 2: Extract Pre-Flight Validation to Subagent**
+- **Used in:** /dev refactoring
+- **Before:** Git detection (84 lines), tech detection (93 lines) in command
+- **After:** git-validator subagent, tech-stack-detector subagent
+- **Savings:** 177 lines extracted to 2 subagents
+- **When to use:** Command has >50 lines of validation logic that's reusable across commands
+
+**Technique 3: Extract Workflow Phases to Skill**
+- **Used in:** /create-sprint, /create-epic, /orchestrate refactorings
+- **Before:** All phases in command
+- **After:** Phases in skill, command delegates
+- **Savings:** 134-410 lines per command moved to skill
+- **When to use:** Command has detailed phase logic, skill layer exists but underutilized
+
+**Technique 4: Preserve User Interaction in Command**
+- **Used in:** All 5 refactorings
+- **Pattern:** AskUserQuestion stays in commands, not skills
+- **Rationale:** Commands handle UX decisions, skills handle business logic
+- **Examples:** /create-sprint (11 AskUserQuestion instances), /create-epic (4 instances), /qa (1 instance)
+
+**Technique 5: Two-Pass Trimming**
+- **Used in:** /create-epic refactoring
+- **First pass:** Extract business logic (526 → 498 lines, 5% reduction, still 104% budget)
+- **Second pass:** Externalize educational content (498 → 392 lines, 21% more, 75% budget)
+- **When to use:** First pass doesn't achieve compliance, command has substantial educational content
+
+### Extraction Strategy Patterns
+
+**Subagent Creation Decisions:**
+
+| Command | Subagent Created? | Rationale |
+|---------|-------------------|-----------|
+| /dev | ✅ YES (2) | git-validator, tech-stack-detector (pre-flight checks) |
+| /qa | ✅ YES (1) | qa-result-interpreter (display template generation) |
+| /create-sprint | ✅ YES (1) | sprint-planner (document generation) |
+| /create-epic | ❌ NO | Existing subagents sufficient (requirements-analyst, architect-reviewer) |
+| /orchestrate | ❌ NO | Coordination logic stays in skill |
+
+**Pattern:** Create subagent when task is specialized and reusable. Use existing subagents when suitable.
+
+**Skill Enhancement Decisions:**
+
+| Command | Skill Enhanced? | Lines Added | Rationale |
+|---------|-----------------|-------------|-----------|
+| /dev | ❌ NO | 0 | Skill already comprehensive |
+| /qa | ❌ NO | 0 | Skill already comprehensive |
+| /create-sprint | ✅ YES | +289 | Added Phase 3 to orchestration skill |
+| /create-epic | ✅ YES | +1,424 | Added Phase 4A (8-phase epic workflow) |
+| /orchestrate | ✅ YES | +898 | Added Phases 0, 3.5, 6 + 3 skill integrations |
+
+**Pattern:** Enhance skill when command has business logic that belongs in skill layer.
+
+---
+
 ## Best Practices
 
 ### Do's ✅
