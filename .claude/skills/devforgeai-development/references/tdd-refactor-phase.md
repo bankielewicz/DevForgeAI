@@ -290,6 +290,11 @@ DO NOT proceed to Phase 4 until Light QA passes
   - Verification: Build succeeds, tests pass, no anti-patterns
   - Output: Light QA PASSED message displayed
 
+- [ ] **Step 6:** AC Verification Checklist updated (Phase 3 items) [NEW - RCA-011]
+  - Verification: All Phase 3 AC items checked off (quality/refactoring items)
+  - Output: "AC Progress: X/Y items complete" displayed
+  - Graceful: Skipped if story doesn't have AC Checklist section
+
 ### Success Criteria
 
 - [ ] Code quality improved (complexity reduced, duplication removed)
@@ -298,6 +303,7 @@ DO NOT proceed to Phase 4 until Light QA passes
 - [ ] Anti-patterns removed
 - [ ] Code follows coding-standards.md
 - [ ] Light QA validation passed
+- [ ] AC Checklist updated (Phase 3 items checked)
 - [ ] Ready for integration testing
 
 ### Checkpoint Validation

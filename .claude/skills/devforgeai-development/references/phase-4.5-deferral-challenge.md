@@ -873,6 +873,11 @@ Proceeding without complete Phase 4.5 results in:
   - Git commit may fail (DoD validation requires approved deferrals)
 ```
 
+- [ ] **Step 7:** AC Verification Checklist updated (Phase 4.5 items) [NEW - RCA-011]
+  - Verification: All Phase 4.5 AC items checked off (deferral validation items)
+  - Output: "AC Progress: X/Y items complete" displayed
+  - Graceful: Skipped if story doesn't have AC Checklist section
+
 **IF ALL ITEMS CHECKED:**
 ```
 ✅ PHASE 4.5 COMPLETE - Deferral Challenge Checkpoint Done
@@ -883,6 +888,7 @@ Items to implement: {implement_count}
 Items removed: {removed_count}
 
 All deferrals have user approval. Zero autonomous deferrals.
+AC Checklist updated with deferral validation results.
 Ready to update DoD format for git commit.
 
 **Update Progress Tracker:**

@@ -470,6 +470,39 @@ public async Task PostEndpoint_ValidRequest_CreatesResource()
 
 ---
 
+## Acceptance Criteria Verification Checklist
+
+**Purpose:** Real-time progress tracking during TDD implementation. Check off items as each sub-task completes.
+
+**Usage:** The devforgeai-development skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.
+
+**Tracking Mechanisms:**
+- **TodoWrite:** Phase-level tracking (AI monitors workflow position)
+- **AC Checklist:** AC sub-item tracking (user sees granular progress) ← YOU ARE HERE
+- **Definition of Done:** Official completion record (quality gate validation)
+
+### AC#1: [First Acceptance Criterion Title]
+
+- [ ] [Sub-item 1] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+- [ ] [Sub-item 2] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+- [ ] [Sub-item 3] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+
+### AC#2: [Second Acceptance Criterion Title]
+
+- [ ] [Sub-item 1] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+- [ ] [Sub-item 2] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+
+### AC#3: [Third Acceptance Criterion Title]
+
+- [ ] [Sub-item 1] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+- [ ] [Sub-item 2] - **Phase:** [1-5] - **Evidence:** [test file or implementation location]
+
+---
+
+**Checklist Progress:** {checked}/{total} items complete ({percentage}%)
+
+---
+
 ## Definition of Done
 
 ### Implementation

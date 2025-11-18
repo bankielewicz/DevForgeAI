@@ -55,6 +55,54 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 
 ---
 
+## AC Verification Checklist Updates (Phase 5) [NEW - RCA-011]
+
+**Purpose:** Check off final AC items related to deployment readiness after git commit
+
+**Execution:** After git commit succeeds, before Phase 6 (Feedback Hook)
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 5 AC Items:**
+```
+Grep(pattern="Phase.*: 5", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 5 items:**
+- [ ] Git commit created with semantic message
+- [ ] Story status updated to "Dev Complete"
+- [ ] Backward compatibility verified
+- [ ] Deployment readiness confirmed
+- [ ] Integration notes documented
+
+**Update Procedure:** Batch-update all Phase 5 items after commit succeeds
+
+**Display:** "Phase 5 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y} (100%)"
+
+**Final Checklist Summary:**
+```
+Display:
+"
+✅ AC Verification Checklist Complete
+   Total: {total} items
+   Checked: {checked} ({100}%)
+
+   Phase 1 (Test Generation): {count1} items ✓
+   Phase 2 (Implementation): {count2} items ✓
+   Phase 3 (Refactoring): {count3} items ✓
+   Phase 4 (Integration): {count4} items ✓
+   Phase 4.5 (Deferral): {count4.5} items ✓
+   Phase 5 (Git Workflow): {count5} items ✓
+
+   All acceptance criteria validated real-time during TDD workflow.
+"
+```
+
+---
+
 ## Git Stash Safety Protocol (RCA-008)
 
 **CRITICAL RULE:** Never stash files without user consent and clear warnings.

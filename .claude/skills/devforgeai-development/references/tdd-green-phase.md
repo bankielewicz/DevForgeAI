@@ -172,6 +172,38 @@ Phase 2 succeeds when:
 
 ---
 
+### Step 4: Update AC Verification Checklist (Phase 2 Items) [NEW - RCA-011]
+
+**Purpose:** Check off AC items related to implementation (real-time progress tracking)
+
+**Execution:** After tests verified GREEN, before Phase 2 checkpoint
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 2 AC Items:**
+```
+Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 2 items:**
+- [ ] Implementation code written
+- [ ] Business logic in correct location (skill, not command)
+- [ ] Character count ≤{target} (for refactoring stories)
+- [ ] Line count ≤{target} (for refactoring stories)
+- [ ] API endpoints created (for API stories)
+- [ ] Database models created (for CRUD stories)
+
+**Update Procedure:** Batch-update all Phase 2 items that are complete
+
+**Display:** "Phase 2 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+
+**Performance:** ~30-60 seconds for 4-8 items
+
+---
+
 ## ✅ PHASE 2 COMPLETION CHECKPOINT
 
 **Before proceeding to Phase 3 (Refactor), verify ALL steps executed:**
@@ -185,12 +217,14 @@ Phase 2 succeeds when:
   - Verification: Minimal code written to pass tests
   - Output: Files modified list displayed
 
-- [ ] **Step 3:** Implementation response parsed
-  - Verification: Approach and files displayed to user
-
-- [ ] **Step 4:** Tests verified GREEN (all passing)
+- [ ] **Step 3:** Implementation response parsed and tests verified GREEN
   - Verification: Executed {TEST_COMMAND}, all tests pass
   - Output: Green phase confirmed message displayed
+
+- [ ] **Step 4:** AC Verification Checklist updated (Phase 2 items)
+  - Verification: All Phase 2 AC items checked off (implementation items)
+  - Output: "AC Progress: X/Y items complete" displayed
+  - Graceful: Skipped if story doesn't have AC Checklist section
 
 ### Success Criteria
 
@@ -200,6 +234,7 @@ Phase 2 succeeds when:
 - [ ] No anti-patterns introduced
 - [ ] Test command executes successfully
 - [ ] Ready for refactoring
+- [ ] AC Checklist updated (Phase 2 items checked)
 
 ### Checkpoint Validation
 

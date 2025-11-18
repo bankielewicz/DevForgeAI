@@ -173,6 +173,111 @@ Example format:
    **Expected:** Error message "Email already registered", suggest login
 ```
 
+**Step 5.3.5: Generate AC Verification Checklist Section [NEW - RCA-011]**
+
+**Purpose:** Break down acceptance criteria into granular, testable sub-items mapped to TDD phases
+
+**See:** `.devforgeai/specs/enhancements/AC-CHECKLIST-TEMPLATE-DESIGN.md` for complete generation logic
+
+**Generate checklist by analyzing ACs:**
+```
+ac_verification_checklist_section = "## Acceptance Criteria Verification Checklist\n\n"
+ac_verification_checklist_section += "**Purpose:** Real-time progress tracking during TDD implementation. Check off items as each sub-task completes.\n\n"
+ac_verification_checklist_section += "**Usage:** The devforgeai-development skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.\n\n"
+ac_verification_checklist_section += "**Tracking Mechanisms:**\n"
+ac_verification_checklist_section += "- **TodoWrite:** Phase-level tracking (AI monitors workflow position)\n"
+ac_verification_checklist_section += "- **AC Checklist:** AC sub-item tracking (user sees granular progress) ← YOU ARE HERE\n"
+ac_verification_checklist_section += "- **Definition of Done:** Official completion record (quality gate validation)\n\n"
+
+FOR each AC in acceptance_criteria:
+  ac_verification_checklist_section += f"### AC#{ac.number}: {ac.title}\n\n"
+
+  # Break AC into testable sub-items
+  sub_items = generate_sub_items_from_ac(ac)
+
+  FOR each sub_item in sub_items:
+    # Infer phase mapping
+    phase = infer_phase_from_item(sub_item)
+
+    # Infer evidence location
+    evidence = infer_evidence_location(sub_item, story_type)
+
+    ac_verification_checklist_section += f"- [ ] {sub_item} - **Phase:** {phase} - **Evidence:** {evidence}\n"
+
+  ac_verification_checklist_section += "\n"
+
+ac_verification_checklist_section += "---\n\n"
+ac_verification_checklist_section += "**Checklist Progress:** 0/{total_items} items complete (0%)\n\n"
+```
+
+**Helper function: generate_sub_items_from_ac(ac):**
+```
+IF ac contains Given/When/Then:
+  Extract testable assertions from Then clause
+  Example: "Then user receives 201 Created" → "201 Created response validated"
+
+IF ac contains metrics (≤, ≥, <, >):
+  Extract metric as sub-item
+  Example: "Character count ≤15,000" → "Character count ≤15,000"
+
+IF ac contains "all", "every", "each":
+  Create sub-item for each instance
+  Example: "All 6 scenarios pass" → 6 sub-items (one per scenario)
+
+IF ac mentions implementation:
+  Create implementation sub-item
+  Example: "Business logic extracted" → "Business logic in correct location"
+```
+
+**Helper function: infer_phase_from_item(sub_item):**
+```
+IF sub_item contains "test" or "coverage":
+  RETURN 1  # Red phase (test generation)
+
+ELIF sub_item contains "implement" or "create" or "endpoint" or "code":
+  RETURN 2  # Green phase (implementation)
+
+ELIF sub_item contains "refactor" or "quality" or "complexity" or "pattern":
+  RETURN 3  # Refactor phase (code quality)
+
+ELIF sub_item contains "integration" or "scenario" or "performance" or "coverage threshold":
+  RETURN 4  # Integration phase
+
+ELIF sub_item contains "deferral" or "approval":
+  RETURN 4.5  # Deferral challenge
+
+ELIF sub_item contains "commit" or "status" or "backward":
+  RETURN 5  # Git workflow
+
+ELSE:
+  RETURN 2  # Default to implementation phase
+```
+
+**Helper function: infer_evidence_location(sub_item, story_type):**
+```
+IF sub_item contains "test":
+  IF story_type == "CRUD":
+    RETURN "tests/integration/test_{entity}_crud.py"
+  ELIF story_type == "Refactoring":
+    RETURN "tests/unit/test_{component}_refactoring.py"
+  ELSE:
+    RETURN "tests/ (test files)"
+
+ELIF sub_item contains "character count" or "line count":
+  RETURN "wc -c/-l < {file_path}"
+
+ELIF sub_item contains "endpoint":
+  RETURN "src/controllers/{entity}.controller.{ext}"
+
+ELIF sub_item contains "commit":
+  RETURN "git log -1"
+
+ELSE:
+  RETURN "{implementation_location}"
+```
+
+---
+
 **Section 7: Definition of Done**
 ```markdown
 ## Definition of Done
@@ -242,11 +347,15 @@ story_content = f"""---
 
 {edge_cases_section}
 
+{ac_verification_checklist_section}
+
 {definition_of_done_section}
 
 {workflow_history_section}
 """
 ```
+
+**Note:** `ac_verification_checklist_section` is generated in Step 5.3.5 (NEW - RCA-011)
 
 **Write to disk:**
 ```

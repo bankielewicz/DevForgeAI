@@ -889,6 +889,51 @@ When you encounter a framework breakdown, use the RCA capability to systematical
 
 ---
 
+## Story Progress Tracking (NEW - RCA-011)
+
+**DevForgeAI provides three complementary progress tracking mechanisms during TDD implementation:**
+
+### 1. TodoWrite (Phase-Level Tracking)
+**Purpose:** AI self-monitoring - tracks which TDD phase is executing
+**Updated:** Real-time as phases start/complete
+**Granularity:** Phase-level (8 phases: Phase 0, 1, 2, 3, 4, 4.5, 4.5-5 Bridge, 5, 6)
+**Visible to:** User sees visual progress bars in terminal
+**Example:** "✓ Execute Phase 2: Implementation (pending → completed)"
+
+### 2. AC Verification Checklist (Sub-Item Tracking)
+**Purpose:** User visibility into AC completion progress
+**Updated:** End of each TDD phase (batch update Phase 1-5 items)
+**Granularity:** AC sub-item level (20-50 items per story, mapped to phases)
+**Visible to:** User in story file's "Acceptance Criteria Verification Checklist" section
+**Example:** "✓ Character count ≤15,000 - Phase: 2 - Evidence: wc -c"
+
+**When items are checked:**
+- Phase 1: Test generation items (test count, coverage, file creation)
+- Phase 2: Implementation items (code written, business logic location, metrics)
+- Phase 3: Quality items (complexity, patterns, code review)
+- Phase 4: Integration items (scenarios, performance, coverage thresholds)
+- Phase 4.5: Deferral items (validations, approvals)
+- Phase 5: Deployment items (commit, status, backward compatibility)
+
+### 3. Definition of Done (Official Completion Record)
+**Purpose:** Quality gate validation - official record of what's complete
+**Updated:** Phase 4.5-5 Bridge (after deferrals validated, before git commit)
+**Granularity:** DoD item level (30-40 items per story, categorized)
+**Visible to:** User in story file's "Definition of Done" section + "Implementation Notes"
+**Example:** "- [x] All tests passing - Completed: Phase 4, 165/168 tests (98.2%)"
+
+### Why All Three?
+
+**TodoWrite** → AI knows where it is (prevents skipped phases)
+**AC Checklist** → User sees granular progress (transparency)
+**Definition of Done** → Framework validates completion (quality gate)
+
+Each serves a distinct purpose. Together they provide comprehensive progress visibility and prevent autonomous deferrals.
+
+**See:** `.claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md` for AC Checklist implementation details
+
+---
+
 ## What NOT to Do
 
 ### ❌ No Aspirational Content
