@@ -173,6 +173,33 @@ The internet-sleuth agent provides comprehensive research capabilities including
 - If ADR exists: Reference it in recommendations
 - If no ADR and technology conflicts: Recommend creating ADR with proper naming format
 
+**Technology Conflict Resolution:**
+When research discovers technology that conflicts with tech-stack.md, use AskUserQuestion pattern:
+
+```
+AskUserQuestion(
+    questions=[{
+        question: "Technology conflict detected: Research recommends {new-tech} but tech-stack.md specifies {existing-tech}. How should we proceed?",
+        header: "Tech Conflict",
+        multiSelect: false,
+        options: [
+            {
+                label: "Update tech-stack.md and create ADR",
+                description: "Accept new technology and document decision in ADR-{NNN}-{tech-decision}.md"
+            },
+            {
+                label: "Adjust research scope to existing stack",
+                description: "Continue research using {existing-tech} patterns only"
+            },
+            {
+                label: "Mark as follow-up investigation",
+                description: "Document conflict and defer decision to later sprint"
+            }
+        ]
+    }]
+)
+```
+
 **Framework-Aware Behavior:**
 - Agent operates within DevForgeAI constraints (not autonomously)
 - All technology recommendations validated against context files
@@ -383,10 +410,23 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 
 ## Reliability
 
-**Retry Logic:**
-- Max 3 retries with exponential backoff (1s, 2s, 4s) for GitHub API failures
-- Retry on: Rate limits, network timeouts, 503 errors
-- Do NOT retry on: 404, 403 (authentication required), 401 (unauthorized)
+## Retry Logic
+
+**Retry Strategy for GitHub API Failures:**
+- **Max retries:** 3 attempts with exponential backoff
+- **Backoff timing:** 1 second, 2 seconds, 4 seconds
+- **Retry on transient failures:** Rate limits (429), network timeouts, 503 errors, 502 errors
+- **Do NOT retry on authentication/authorization:** 401 (unauthorized), 403 (forbidden - auth required), 404 (not found)
+
+**Authentication Errors (Non-Transient):**
+- 401 Unauthorized: Missing or invalid credentials - return error immediately
+- 403 Forbidden (auth): Requires authentication - return error with gh CLI setup instructions
+- No retry attempts for authentication errors (not fixable without user intervention)
+
+**Rationale:**
+- Authentication failures require user action (providing GITHUB_TOKEN or running gh auth login)
+- Retrying without credentials wastes time and API quota
+- Transient failures (rate limits, network) benefit from retry with backoff
 
 **Graceful Degradation:**
 - If repository inaccessible (404, 403): Continue with available repositories
@@ -395,7 +435,7 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 
 **Cleanup on Failure:**
 - Use trap EXIT in Bash commands for guaranteed cleanup
-- Example: `trap "rm -rf tmp/repos/research-$$" EXIT`
+- Example: `trap "rm -rf /tmp/devforgeai-research-$$" EXIT`
 - Ensure temporary directories removed even if analysis fails mid-execution
 
 **Error Structure:**
