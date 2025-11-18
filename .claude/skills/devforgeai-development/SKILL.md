@@ -135,26 +135,31 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 ## TDD Workflow (6 Phases)
 
 ### Phase 1: Test-First Design (Red Phase)
-Write failing tests from AC → test-automator subagent → Tests RED
+Write failing tests from AC → test-automator subagent → Tests RED → **Update AC Checklist (test items)**
 **Reference:** `tdd-red-phase.md`
+**AC Updates:** Test count, test coverage, test file creation items
 
 ### Phase 2: Implementation (Green Phase)
-Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN
+Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN → **Update AC Checklist (implementation items)**
 **Reference:** `tdd-green-phase.md`
+**AC Updates:** Code implementation, business logic location, size metrics items
 
 ### Phase 3: Refactor (Refactor Phase)
-Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved
+Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved → **Update AC Checklist (quality items)**
 **Reference:** `tdd-refactor-phase.md`
-**Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY]
+**Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY], 6 AC Checklist update
+**AC Updates:** Code quality, pattern compliance, review findings items
 
 ### Phase 4: Integration & Validation
-Cross-component testing, coverage validation → integration-tester → Thresholds met
+Cross-component testing, coverage validation → integration-tester → Thresholds met → **Update AC Checklist (integration items)**
 **Reference:** `integration-testing.md`
+**AC Updates:** Integration tests, performance, coverage threshold items
 
 ### Phase 4.5: Deferral Challenge Checkpoint (NEW - RCA-006)
-Challenge ALL deferrals (pre-existing + new) → deferral-validator → User approval required
+Challenge ALL deferrals (pre-existing + new) → deferral-validator → User approval required → **Update AC Checklist (deferral items)**
 **Reference:** `phase-4.5-deferral-challenge.md`
 **Purpose:** Prevent autonomous deferrals, enforce "Attempt First, Defer Only If Blocked" pattern
+**AC Updates:** Deferral validation, follow-up story creation items
 
 ### Phase 4.5-5 Bridge: DoD Update Workflow ✓ MANDATORY (NEW - RCA-009, Enforced - RCA-010)
 Update DoD format for git commit → Validate format → Prepare for Phase 5
@@ -163,9 +168,10 @@ Update DoD format for git commit → Validate format → Prepare for Phase 5
 **CRITICAL:** Execute AFTER Phase 4.5, BEFORE Phase 5 - git commit will FAIL if skipped
 
 ### Phase 5: Git Workflow & DoD Validation
-Budget enforcement → Handle incomplete items → Git commit → Story complete
-**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`
-**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit
+Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items)**
+**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
+**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit, 2.1+ AC Checklist final update
+**AC Updates:** Git commit, status update, backward compatibility items
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
 

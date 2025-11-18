@@ -242,6 +242,38 @@ Next: Load phase-4.5-deferral-challenge.md and execute Phase 4.5 (Deferral Chall
 
 ---
 
+### Step 3: Update AC Verification Checklist (Phase 4 Items) [NEW - RCA-011]
+
+**Purpose:** Check off AC items related to integration testing (real-time progress tracking)
+
+**Execution:** After integration-tester completes, before Phase 4 checkpoint
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 4 AC Items:**
+```
+Grep(pattern="Phase.*: 4", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 4 items:**
+- [ ] Integration tests passing
+- [ ] Cross-component tests passing
+- [ ] Performance targets met (response time, throughput)
+- [ ] Coverage thresholds met (95%/85%/80%)
+- [ ] All scenarios tested
+- [ ] Token efficiency verified
+
+**Update Procedure:** Batch-update all Phase 4 items
+
+**Display:** "Phase 4 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+
+**Performance:** ~30-60 seconds
+
+---
+
 ## Common Issues
 
 **Issue 1: Integration test failures**

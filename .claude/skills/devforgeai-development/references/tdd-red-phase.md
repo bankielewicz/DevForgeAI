@@ -710,6 +710,76 @@ No deferrals needed. Proceeding to Phase 2...
 
 ---
 
+### Step 5: Update AC Verification Checklist (Phase 1 Items) [NEW - RCA-011]
+
+**Purpose:** Check off AC items related to test generation (real-time progress tracking)
+
+**Execution:** After Step 4 completes, before Phase 1 checkpoint validation
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 1 AC Items:**
+
+Search story file for AC Verification Checklist section:
+```
+Grep(pattern="Phase.*: 1", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 1 items:**
+- [ ] Unit tests ≥{N} generated
+- [ ] Integration tests ≥{N} generated
+- [ ] All ACs have corresponding tests
+- [ ] Test files created in correct location
+- [ ] Edge case tests included
+- [ ] Test coverage ≥{N}% planned
+
+**Update Procedure:**
+
+```
+FOR each item with "**Phase:** 1" marker:
+  Validate item completion:
+    - Check test count matches target
+    - Verify test files exist
+    - Confirm coverage planning done
+
+  IF item completed:
+    Edit(
+      file_path="${STORY_FILE}",
+      old_string="- [ ] {item_text} - **Phase:** 1",
+      new_string="- [x] {item_text} - **Phase:** 1"
+    )
+
+    Display: "  ✓ AC item checked: {item_brief}"
+```
+
+**Display Progress:**
+```
+Display: "
+Phase 1 AC Checklist Update:
+  ✓ {count} items checked
+  - {item 1 summary}
+  - {item 2 summary}
+  ...
+
+AC Progress: {checked}/{total} items complete ({percentage}%)
+"
+```
+
+**Graceful Skip:**
+```
+IF AC Verification Checklist section not found in story:
+  Display: "ℹ️ Story uses DoD-only tracking (AC Checklist not present)"
+  Skip AC checklist updates
+  Continue to Phase 1 Checkpoint
+```
+
+**Performance:** ~30-60 seconds for 3-5 items (Edit operations + validation)
+
+---
+
 ## ✅ PHASE 1 COMPLETION CHECKPOINT
 
 **Before proceeding to Phase 2 (Implementation - Green Phase), verify ALL steps executed:**
@@ -736,6 +806,11 @@ No deferrals needed. Proceeding to Phase 2...
   - [ ] 4.5-4.6: Decisions processed and documented
   - [ ] 4.7: All gaps addressed (zero unapproved gaps)
   - [ ] 4.8: Decisions documented in story file
+
+- [ ] **Step 5:** AC Verification Checklist updated (Phase 1 items) [NEW - RCA-011]
+  - Verification: All Phase 1 AC items checked off (test generation items)
+  - Output: "AC Progress: X/Y items complete" displayed
+  - Graceful: Skipped if story doesn't have AC Checklist section
 
 ### Success Criteria
 
