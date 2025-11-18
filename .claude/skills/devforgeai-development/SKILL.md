@@ -260,6 +260,109 @@ END (Story Status = "Dev Complete")
 
 ---
 
+### Phase 7: Result Interpretation (NEW - STORY-051)
+
+**Purpose:** Generate user-facing display template and structured result summary
+**Execution:** After Phase 6 (Feedback Hook) completes, before returning to /dev command
+**Reference:** dev-result-interpreter uses `references/dev-result-formatting-guide.md`
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 7/9: Result Interpretation (95% → 100% complete)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Display this indicator at the start of Phase 7 execution.**
+
+**Workflow:**
+
+**Step 7.1: Invoke dev-result-interpreter Subagent**
+
+```
+Task(
+  subagent_type="dev-result-interpreter",
+  description="Interpret dev workflow results for {STORY_ID}",
+  prompt="""
+Interpret development workflow results for story {STORY_ID}.
+
+Story file: {STORY_FILE_PATH}
+
+Task:
+1. Read story file and extract:
+   - Current status (from YAML frontmatter)
+   - TDD phases completed (from Status History or Implementation Notes)
+   - Test results (passing count, coverage %)
+   - DoD completion status (from Implementation Notes)
+   - Deferred items (from Implementation Notes)
+
+2. Determine overall result:
+   - SUCCESS: status="Dev Complete", all tests passing
+   - INCOMPLETE: status="In Development", some work remaining
+   - FAILURE: workflow error or blocking issue
+
+3. Generate display template appropriate for result type
+
+4. Provide next step recommendations based on story state
+
+Return structured JSON with:
+- status: "success|incomplete|failure"
+- display.template: "..." (formatted display text)
+- display.next_steps: [...] (actionable recommendations)
+- story_status: "..." (current story status)
+- tdd_phases_completed: [...] (phases finished)
+- workflow_summary: "..." (brief summary)
+"""
+)
+```
+
+**Step 7.2: Receive Structured Result**
+
+```
+# Subagent returns JSON:
+result = {
+  "status": "success",
+  "display": {
+    "template": "╔═══════════...║  DEVELOPMENT COMPLETE ✅  ║...",
+    "next_steps": [
+      "Run QA validation: /qa {STORY_ID}",
+      "Or run full orchestration: /orchestrate {STORY_ID}",
+      "Review implementation: Read story file Implementation Notes"
+    ]
+  },
+  "story_status": "Dev Complete",
+  "tdd_phases_completed": ["Phase 0", "Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6"],
+  "workflow_summary": "TDD cycle complete, 165/168 tests passing (98.2%)"
+}
+```
+
+**Step 7.3: Return Result to Command**
+
+```
+# Skill returns the result object to /dev command
+# Command will display result.display.template
+# No further processing needed in skill
+
+Display: ""
+Display: "Phase 7 complete - Result interpretation ready"
+Display: ""
+
+RETURN result to command
+```
+
+**Integration:**
+- dev-result-interpreter operates in isolated context (8K tokens max)
+- Reference guide (dev-result-formatting-guide.md) provides framework constraints
+- Subagent generates templates matching original /dev output format (backward compatibility)
+- No business logic in command (follows lean orchestration pattern)
+
+**Benefits:**
+- 184 lines extracted from /dev command (Phase 3 + Phase 4 verification/reporting)
+- Token efficiency: Display generation in isolated subagent context
+- Maintainability: Single source of truth for display templates in subagent
+- Reusability: Pattern applicable to other development commands
+
+---
+
 ## QA Deferral Recovery
 
 Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step resolution workflow executes.
