@@ -199,7 +199,7 @@ class TestViolationCategorization:
         # Assert
         # Report should indicate severity distribution
         assert any(
-            k in report
+            k in report or k in report.get('summary', {})
             for k in ['severity_distribution', 'by_severity', 'severities']
         )
 
@@ -346,7 +346,7 @@ class TestBudgetAnalysis:
 
         # Act
         violations = auditor.detect_violations(content)
-        report = auditor.generate_report(violations, 'test-command')
+        report = auditor.generate_report(violations, 'test-command', content)
 
         # Assert
         assert 'budget' in report
@@ -361,7 +361,7 @@ class TestBudgetAnalysis:
 
         # Act
         violations = auditor.detect_violations(content)
-        report = auditor.generate_report(violations, 'test-severe')
+        report = auditor.generate_report(violations, 'test-severe', content)
 
         # Assert
         assert report['budget']['classification'] == BudgetClassification.OVER.name

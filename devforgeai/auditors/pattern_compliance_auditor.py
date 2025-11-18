@@ -565,9 +565,9 @@ class PatternComplianceAuditor:
     def _get_default_recommendations(self) -> List[str]:
         """Get default refactoring recommendations."""
         return [
-            'Move business logic to skill',
-            'Extract display templates to subagent',
-            'Ensure skill-first architecture',
+            'Refactor: Move business logic to skill layer',
+            'Refactor: Extract display templates to subagent',
+            'Refactor: Ensure skill-first architecture (no direct Task() in commands)',
         ]
 
     def generate_markdown_summary(self, violations: List[Violation], command_name: str) -> str:
@@ -593,7 +593,7 @@ class PatternComplianceAuditor:
         grouped = self.group_by_type(violations)
 
         lines.append("## Violations by Type")
-        for v_type, v_list in sorted(grouped.items()):
+        for v_type, v_list in sorted(grouped.items(), key=lambda x: x[0].value):
             lines.append(f"### {v_type.value.upper()} ({len(v_list)})")
             for v in v_list:
                 lines.append(f"- Line {v.line_number}: {v.recommendation}")

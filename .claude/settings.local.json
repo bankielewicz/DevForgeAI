@@ -37,7 +37,8 @@
       "Bash(python -m pytest:*)",
       "Bash(for file in tests/unit/test_internet_sleuth_ac*.py)",
       "Bash(do echo \"=== Testing $file ===\")",
-      "Bash(done)"
+      "Bash(done)",
+      "Skill(claude-code-terminal-expert)"
     ],
     "deny": [],
     "ask": []
