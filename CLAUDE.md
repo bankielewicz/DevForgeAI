@@ -392,6 +392,9 @@ When git operations are declined or unavailable:
 6. QA (devforgeai-qa)
    ↓ Light validation (during dev) + Deep validation (after)
 
+6.5. DOCUMENTATION (devforgeai-documentation) [AFTER QA]
+   ↓ Generate/update docs, diagrams, coverage validation (≥80%)
+
 7. RELEASE (devforgeai-release)
    ↓ Automated deployment with smoke tests and rollback
 ```
@@ -741,9 +744,9 @@ DevForgeAI provides **11 slash commands** for common tasks:
 
 ### Component Summary
 
-- **Skills:** 9 (8 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, **claude-code-terminal-expert**)
-- **Subagents:** 21 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, **story-requirements-analyst** NEW - RCA-007 Phase 3)
-- **Commands:** 11 (7 refactored to lean orchestration: /dev, /qa, /ideate, /create-story, /create-sprint, /create-epic, /orchestrate; 1 new: /audit-budget)
+- **Skills:** 10 (9 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, **documentation**, release, **claude-code-terminal-expert**)
+- **Subagents:** 22 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, story-requirements-analyst, **code-analyzer** NEW - STORY-040)
+- **Commands:** 12 (7 refactored to lean orchestration: /dev, /qa, /ideate, /create-story, /create-sprint, /create-epic, /orchestrate; 2 new: /audit-budget, **/document**)
 - **Context Files:** 6 (immutable constraints)
 - **Quality Gates:** 4 (Gate 3 enhanced with deferral validation)
 - **Protocols:** 1 (lean-orchestration-pattern.md - defines command architecture)

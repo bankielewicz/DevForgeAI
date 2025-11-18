@@ -565,6 +565,90 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 
 ---
 
+### /document [STORY-ID | --type=TYPE | --mode=MODE]
+
+**Purpose:** Generate and maintain project documentation automatically
+
+**Syntax:** `/document [STORY-ID | --type=TYPE | --mode=MODE | --export=FORMAT]`
+- Story ID: Generate docs for specific story (greenfield mode)
+- Type: `readme`, `api`, `architecture`, `roadmap`, `all`
+- Mode: `greenfield` (from stories) or `brownfield` (from codebase analysis)
+- Export: `html`, `pdf` (optional)
+
+**Invokes:** `devforgeai-documentation` skill
+
+**Modes:**
+- **Greenfield (~15K tokens)**: Generate docs from completed stories and technical specifications
+- **Brownfield (~50K tokens)**: Analyze existing codebase, discover/consolidate existing docs, identify gaps
+- **Incremental (~8K tokens)**: Update existing docs after story completion
+
+**Workflow:**
+1. Argument validation and mode detection
+2. Invoke devforgeai-documentation skill
+3. Display results (files created, coverage metrics)
+
+**Example:**
+```
+> /document STORY-040                # Generate docs for story
+> /document --type=readme            # Generate README.md
+> /document --type=api               # Generate API documentation
+> /document --mode=brownfield --analyze  # Analyze codebase
+> /document --export=html            # Export to HTML
+> /document --list-templates         # Show available templates
+```
+
+**Output:**
+- Documentation files (README.md, docs/API.md, docs/DEVELOPER.md, etc.)
+- Mermaid diagrams (architecture, sequence, flowcharts)
+- Coverage report (% of APIs documented)
+- Story updated with documentation references (if story mode)
+- Exported formats (HTML/PDF if requested)
+
+**Architecture (2025-11-18):**
+
+**Command (~300 lines - Lean Orchestration):**
+- Argument parsing (story ID, type, mode, export)
+- Template listing (if --list-templates)
+- Story file loading (if story mode)
+- Context markers for skill
+- Skill invocation
+- Results display
+
+**Skill (devforgeai-documentation - Complete Documentation Workflow):**
+- Phase 0: Mode detection and validation (greenfield vs brownfield)
+- Phase 1: Discovery and analysis (story extraction or codebase scanning)
+- Phase 2: Content generation (invoke documentation-writer, code-analyzer subagents)
+- Phase 3: Template application (7 templates available)
+- Phase 4: Integration and updates (merge with existing docs)
+- Phase 5: Validation and quality check (coverage ≥80%)
+- Phase 6: Export and finalization (HTML/PDF if requested)
+- Phase 7: Completion summary
+
+**Token Efficiency:**
+- Command: ~3K tokens
+- Skill: ~50K tokens (isolated context)
+- Subagents: ~35K tokens (isolated context)
+- **Savings: 94% of work in isolated contexts**
+
+**Key Features:**
+- **Greenfield mode**: Generate docs from stories (completed features)
+- **Brownfield mode**: Analyze codebase and consolidate existing docs
+- **7 templates**: README, Developer Guide, API, Troubleshooting, Contributing, Changelog, Architecture
+- **Mermaid diagrams**: Flowcharts, sequences, architecture, ER diagrams
+- **Quality gate**: Enforces 80% documentation coverage before release
+- **Incremental updates**: Preserves user-authored content while updating auto-generated sections
+- **Multi-format export**: HTML, PDF (via pandoc/wkhtmltopdf)
+- **Template customization**: Project-specific templates in `.devforgeai/templates/documentation/`
+
+**Integration:**
+- Invoked by: `/document` command, `/release` command (quality gate)
+- Invokes: documentation-writer subagent, code-analyzer subagent
+- Updates: Documentation files, story files, CHANGELOG.md
+
+**Created:** 2025-11-18 (STORY-040)
+
+---
+
 ### /qa [STORY-ID] [mode]
 
 **Purpose:** Run quality validation (light or deep mode)

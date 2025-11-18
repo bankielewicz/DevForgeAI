@@ -6,7 +6,7 @@ Detailed guidance for working with the 20 specialized subagents.
 
 ## Overview
 
-Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **20 subagents** are available in `.claude/agents/`.
+Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **22 subagents** are available in `.claude/agents/`.
 
 ---
 
@@ -124,6 +124,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **qa-result-interpreter** | QA result interpretation and display generation | haiku | <8K | After QA report generation, before user display (NEW - QA Refactoring) |
 | **sprint-planner** | Sprint creation and capacity validation | sonnet | <40K | Sprint planning, story selection, capacity validation (NEW - Sprint Refactoring) |
 | **ui-spec-formatter** | UI spec validation and display generation | haiku | <10K | After UI spec generation, before user display (NEW - UI Refactoring 2025-11-05) |
+| **code-analyzer** | Deep codebase analysis for documentation metadata | sonnet | <50K | Brownfield documentation, architecture discovery, gap analysis (NEW - STORY-040) |
 
 ---
 
