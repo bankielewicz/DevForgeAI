@@ -1,6 +1,20 @@
 # Git Workflow Conventions Reference
 
-Complete guide for version control operations during Phase 6 (Git Workflow) of the TDD development process.
+Complete guide for version control operations during Phase 5 (Git Workflow) of the TDD development process.
+
+---
+
+## Phase Progress Indicator
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 5/9: Git Workflow & Commit (78% → 89% complete)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+**Display this indicator at the start of Phase 5 execution.**
+
+---
 
 ## Overview
 

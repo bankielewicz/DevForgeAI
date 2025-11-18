@@ -10,18 +10,6 @@
 
 ---
 
-## Phase Progress Indicator
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 3/9: Refactoring (33% → 44% complete)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-**Display this indicator at the start of Phase 3 execution.**
-
----
-
 ## Overview
 
 The Refactor phase improves code quality without changing behavior. Tests remain green throughout.

@@ -10,18 +10,6 @@
 
 ---
 
-## Phase Progress Indicator
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 1/9: Test-First Design - Red Phase (11% → 22% complete)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-**Display this indicator at the start of Phase 1 execution.**
-
----
-
 ## Overview
 
 The Red phase is the foundation of TDD: create tests that define expected behavior before writing implementation code.

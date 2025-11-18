@@ -8,18 +8,6 @@
 
 ---
 
-## Phase Progress Indicator
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 0/9: Pre-Flight Validation (0% → 11% complete)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-**Display this indicator at the start of Phase 0 execution.**
-
----
-
 ## Overview
 
 Phase 0 executes 8 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.

@@ -10,18 +10,6 @@
 
 ---
 
-## Phase Progress Indicator
-
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 4.5-5 Bridge/9: Update DoD Checkboxes (67% → 78% complete)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-**Display this indicator at the start of Phase 4.5-5 Bridge execution.**
-
----
-
 ## Overview: Two Validators, Different Requirements
 
 ### Validator 1: deferral-validator (AI Subagent)
