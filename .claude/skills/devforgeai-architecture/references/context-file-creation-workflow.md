@@ -40,6 +40,148 @@ For each context file:
 Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/tech-stack.md")
 ```
 
+### Step 2.0.5: Research-Based Technology Evaluation (NEW - STORY-036)
+
+**Purpose:** Invoke internet-sleuth agent for comparative technology analysis before presenting technology choices to user.
+
+**When to invoke research:**
+```python
+# Determine if technology research needed
+research_needed = (
+    multiple_valid_options()  # More than one viable technology for category
+    OR technology_unfamiliar()  # Team lacks experience with candidate technologies
+    OR context_files_missing()  # Greenfield mode, no existing tech decisions
+)
+
+if research_needed:
+    invoke_internet_sleuth_for_tech_evaluation()
+else:
+    skip_research()  # Use existing tech-stack.md or obvious choice
+```
+
+**Research Invocation (Before Technology Selection):**
+```python
+# Example: Backend technology evaluation
+backend_research = Task(
+  subagent_type="internet-sleuth",
+  description="Backend technology evaluation",
+  prompt=f"""
+  Research Mode: repository-archaeology
+  Research Scope: Backend framework comparison for {project_description}
+  Context: Epic {epic_id} (if applicable), Workflow State: Architecture
+  Required Outputs:
+    - Top 3 backend frameworks with implementation patterns
+    - GitHub repositories (quality score ≥7) demonstrating production usage
+    - Common pitfalls + mitigation strategies
+    - Performance benchmarks (if available)
+
+  Comparison Dimensions:
+    - C# .NET 8.0
+    - Python FastAPI
+    - Node.js Express
+    - Java Spring Boot
+
+  Constraints:
+    - Respect existing tech-stack.md (if brownfield)
+    - Team expertise: {team_skills}
+    - Project requirements: {requirements_summary}
+  """
+)
+
+# Parse research results
+top_backend = backend_research.top_recommendations[0]
+backend_alternatives = backend_research.top_recommendations[1:3]
+
+# Display research summary before AskUserQuestion
+display(f"""
+Research Completed (Backend):
+  ✓ Research ID: {backend_research.research_id}
+  ✓ Top Recommendation: {top_backend.approach} (Score: {top_backend.feasibility_score}/10)
+  ✓ Rationale: {top_backend.pros[0]}
+  ✓ Report: {backend_research.report_path}
+""")
+```
+
+**Incorporate Research into AskUserQuestion:**
+```python
+# Use research findings to populate option descriptions
+backend_question = AskUserQuestion(
+    questions=[{
+        question: "Based on research, which backend technology stack should this project use?",
+        header: "Backend stack",
+        multiSelect: false,
+        options: [
+            {
+                label: f"{top_backend.approach} (Recommended ⭐)",
+                description: f"Score: {top_backend.feasibility_score}/10. {top_backend.pros[0]}. {top_backend.cons[0] if top_backend.cons else ''}"
+            },
+            {
+                label: backend_alternatives[0].approach,
+                description: f"Score: {backend_alternatives[0].feasibility_score}/10. {backend_alternatives[0].pros[0]}"
+            },
+            {
+                label: backend_alternatives[1].approach,
+                description: f"Score: {backend_alternatives[1].feasibility_score}/10. {backend_alternatives[1].pros[0]}"
+            }
+        ]
+    }]
+)
+```
+
+**Benefits:**
+- ✅ User sees evidence-based recommendations (not arbitrary options)
+- ✅ Technology scores visible (helps decision-making)
+- ✅ Research report available for detailed review
+- ✅ Framework compliance already validated (quality gate passed)
+- ✅ ADR evidence pre-collected (research includes rationale, alternatives, consequences)
+
+**Add Research Reference to tech-stack.md:**
+```markdown
+## Backend
+- **Framework:** {selected_backend}
+- **Rationale:** {top_backend.pros[0]}
+- **Research:** [{backend_research.research_id}]({backend_research.report_path})
+- **Alternatives Considered:** {backend_alternatives[0].approach}, {backend_alternatives[1].approach}
+```
+
+**Repository Pattern Integration:**
+```markdown
+## Implementation Patterns (from Repository Archaeology)
+
+**Source:** {top_backend.repositories[0].name} (Quality: {top_backend.repositories[0].quality_score}/10, {top_backend.repositories[0].stars} stars)
+
+**Recommended Pattern:** {top_backend.code_patterns[0].pattern_name}
+
+```python
+{top_backend.code_patterns[0].code_example}
+```
+
+**When to use:** {top_backend.code_patterns[0].applicability}
+**Reference:** {top_backend.repositories[0].url}
+```
+
+**Fallback if research unavailable:**
+```python
+if research_failed or research_skipped:
+    # Use standard AskUserQuestion without research context
+    display("⚠️ Proceeding without research (manual technology selection)")
+
+    backend_question = AskUserQuestion(
+        questions=[{
+            question: "What backend technology stack should this project use?",
+            header: "Backend stack",
+            options: [
+                {label: "C# with .NET 8.0", description: "Enterprise-grade, statically typed"},
+                {label: "Python with FastAPI", description: "Modern, async, great DX"},
+                {label: "Node.js with Express", description: "JavaScript ecosystem, large community"},
+                {label: "Java with Spring Boot", description: "Battle-tested, Spring ecosystem"}
+            ]
+        }]
+    )
+```
+
+---
+
 ### Technology Decisions (via AskUserQuestion)
 
 #### Backend Technology

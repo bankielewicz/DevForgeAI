@@ -72,6 +72,151 @@ Question: "Regarding {constraint}, what are the specific requirements?"
 
 ---
 
+## Step 5.1.5: Research-Based Feasibility Validation (NEW - STORY-036)
+
+**Purpose:** Invoke internet-sleuth agent for evidence-based feasibility assessment when idea is new/unproven or technology unfamiliar.
+
+**When to invoke research:**
+```python
+# Determine if research needed
+research_needed = (
+    idea_is_new_or_unproven()  # No existing implementations to reference
+    OR technology_unfamiliar()  # Team has no experience with proposed tech
+    OR market_validation_needed()  # Uncertain about market viability
+    OR complex_integrations()  # Multiple third-party systems involved
+)
+
+if research_needed:
+    invoke_internet_sleuth()
+else:
+    skip_research()  # Proceed with standard feasibility assessment
+```
+
+**Research Invocation:**
+```python
+Task(
+  subagent_type="internet-sleuth",
+  description="Feasibility research for {epic_name}",
+  prompt=f"""
+  Research Mode: discovery
+  Research Scope: {business_idea_summary}
+  Context: Epic {epic_id} ({epic_title}), Workflow State: Backlog
+  Required Outputs:
+    - Technical feasibility score (0-10)
+    - Market viability (HIGH/MEDIUM/LOW with evidence)
+    - Top 3 approaches/technologies with pros/cons
+    - Risk factors with severity + mitigation strategies
+
+  Constraints:
+    - Respect tech-stack.md (if brownfield mode)
+    - Budget: {budget_constraint}
+    - Team expertise: {team_skills}
+    - Timeline: {target_timeline}
+  """
+)
+```
+
+**Parse Research Results:**
+```python
+research_result = internet_sleuth_result
+
+# Extract feasibility score
+technical_feasibility_score = research_result.technical_feasibility_score  # 0-10
+market_viability = research_result.market_viability  # HIGH/MEDIUM/LOW
+
+# Extract recommendations
+top_approaches = research_result.top_recommendations[:3]
+
+# Extract risks (merge with manually identified risks in Step 5.3)
+research_risks = research_result.risk_factors
+
+# Display research summary
+display(f"""
+Research Completed:
+  ✓ Research ID: {research_result.research_id}
+  ✓ Technical Feasibility: {technical_feasibility_score}/10
+  ✓ Market Viability: {market_viability}
+  ✓ Top Recommendation: {top_approaches[0].approach}
+  ✓ Report: {research_result.report_path}
+""")
+```
+
+**Incorporate into Epic Document:**
+```markdown
+## Feasibility Analysis
+
+**Research Report:** [{research_result.research_id}]({research_result.report_path})
+**Technical Feasibility:** {technical_feasibility_score}/10
+**Market Viability:** {market_viability}
+**Recommended Approach:** {top_approaches[0].approach}
+
+**Key Findings:**
+- {top_approaches[0].pros[0]}
+- {top_approaches[0].pros[1]}
+
+**Key Risks:**
+- {research_risks[0].risk}: {research_risks[0].severity} (Mitigation: {research_risks[0].mitigation})
+- {research_risks[1].risk}: {research_risks[1].severity} (Mitigation: {research_risks[1].mitigation})
+
+**Go/No-Go Decision:** {"✅ GO" if technical_feasibility_score >= 7 else "❌ NO-GO"}
+```
+
+**Update Epic YAML Frontmatter:**
+```python
+# Add research reference to epic frontmatter
+epic_frontmatter["research_references"] = [research_result.research_id]
+```
+
+**Handle Quality Gate Violations:**
+```python
+if research_result.quality_gate_status == "BLOCKED":
+    # CRITICAL violation (e.g., research recommends Vue but tech-stack.md specifies React)
+    display("❌ Research recommendations conflict with context files (CRITICAL)")
+    display(f"   See {research_result.report_path} for violation details")
+    display("   User decision required (already handled by internet-sleuth agent)")
+    # Agent already triggered AskUserQuestion, decision recorded in report
+
+elif research_result.quality_gate_status == "FAIL" or research_result.quality_gate_status == "WARN":
+    # Non-critical violations
+    display(f"⚠️ Research has {len(research_result.framework_compliance.violations)} warnings")
+    display(f"   See Framework Compliance section in {research_result.report_path}")
+    # Proceed with warnings logged
+```
+
+**Benefits of Research Integration:**
+- ✅ Evidence-based feasibility scores (not subjective estimates)
+- ✅ Real-world technology comparisons (GitHub repository analysis)
+- ✅ Market validation (adoption trends, community health metrics)
+- ✅ Risk identification from production implementations (common pitfalls documented)
+- ✅ Framework compliance validation (research respects tech-stack.md constraints)
+- ✅ ADR-ready evidence (if technology selection required)
+
+**Fallback if research unavailable:**
+```python
+if research_failed or research_skipped:
+    # Proceed with manual feasibility assessment
+    display("⚠️ Proceeding without research (manual assessment)")
+
+    # Ask feasibility questions manually
+    technical_feasibility = AskUserQuestion(
+        questions=[{
+            question: "What is the technical feasibility?",
+            header: "Feasibility",
+            options: [
+                {label: "High (proven tech)", description: "Technology mature, well-documented"},
+                {label: "Medium (some unknowns)", description: "Technology stable, some learning curve"},
+                {label: "Low (experimental)", description: "Technology new, significant risk"}
+            ]
+        }]
+    )
+
+    # Map to 0-10 score
+    score_map = {"High": 8, "Medium": 5, "Low": 3}
+    technical_feasibility_score = score_map[technical_feasibility]
+```
+
+---
+
 ## Step 5.2: Business Constraints
 
 ### Budget & Resources
