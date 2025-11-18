@@ -350,19 +350,29 @@ When git operations are declined or unavailable:
 
 ## Quick Reference - Progressive Disclosure
 
-**For detailed guidance, see:**
+**For detailed guidance, load reference files as needed using the Read tool:**
 
-- **Skills:** @.claude/memory/skills-reference.md
-- **Subagents:** @.claude/memory/subagents-reference.md
-- **Slash Commands:** @.claude/memory/commands-reference.md
-- **QA Automation:** @.claude/memory/qa-automation.md
-- **Context Files:** @.claude/memory/context-files-guide.md
-- **UI Generator:** @.claude/memory/ui-generator-guide.md
-- **Token Efficiency:** @.claude/memory/token-efficiency.md
-- **Epic Creation:** @.claude/memory/epic-creation-guide.md
-- **Lean Orchestration:** @.devforgeai/protocols/lean-orchestration-pattern.md (core principles)
-  - Case Studies: @.devforgeai/protocols/refactoring-case-studies.md
-  - Budget Reference: @.devforgeai/protocols/command-budget-reference.md
+```
+Read(file_path=".claude/memory/skills-reference.md")
+Read(file_path=".claude/memory/subagents-reference.md")
+Read(file_path=".claude/memory/commands-reference.md")
+Read(file_path=".claude/memory/documentation-command-guide.md")
+```
+
+**Available reference files:**
+- **Skills:** `.claude/memory/skills-reference.md`
+- **Subagents:** `.claude/memory/subagents-reference.md`
+- **Slash Commands:** `.claude/memory/commands-reference.md`
+- **Documentation Command:** `.claude/memory/documentation-command-guide.md`
+- **QA Automation:** `.claude/memory/qa-automation.md`
+- **Context Files:** `.claude/memory/context-files-guide.md`
+- **UI Generator:** `.claude/memory/ui-generator-guide.md`
+- **Token Efficiency:** `.claude/memory/token-efficiency.md`
+- **Epic Creation:** `.claude/memory/epic-creation-guide.md`
+- **Token Budgets:** `.claude/memory/token-budget-guidelines.md`
+- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+  - Case Studies: `.devforgeai/protocols/refactoring-case-studies.md`
+  - Budget Reference: `.devforgeai/protocols/command-budget-reference.md`
 
 ---
 
@@ -645,7 +655,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - `/audit-deferrals` - Audit all stories for deferral violations
 - `/audit-budget` - Audit commands for character budget compliance
 
-**See:** @.claude/memory/commands-reference.md for complete command documentation.
+**See:** `.claude/memory/commands-reference.md` for complete command documentation (load with Read tool).
 
 ---
 
@@ -1091,18 +1101,21 @@ Task(
 - Commands: `.claude/commands/*.md`
 - Research: `.ai_docs/` (prompt engineering, workflows, terminal best practices)
 
-**Progressive disclosure references:**
-- @.claude/memory/skills-reference.md
-- @.claude/memory/subagents-reference.md
-- @.claude/memory/commands-reference.md
-- @.claude/memory/qa-automation.md
-- @.claude/memory/context-files-guide.md
-- @.claude/memory/ui-generator-guide.md
-- @.claude/memory/token-efficiency.md
-- @.claude/memory/token-budget-guidelines.md
+**Progressive disclosure references (load as needed with Read tool):**
+- `.claude/memory/skills-reference.md`
+- `.claude/memory/subagents-reference.md`
+- `.claude/memory/commands-reference.md`
+- `.claude/memory/documentation-command-guide.md`
+- `.claude/memory/qa-automation.md`
+- `.claude/memory/context-files-guide.md`
+- `.claude/memory/ui-generator-guide.md`
+- `.claude/memory/token-efficiency.md`
+- `.claude/memory/token-budget-guidelines.md`
 
-**Framework protocols:**
-- @.devforgeai/protocols/lean-orchestration-pattern.md - Command architecture and refactoring
+**Framework protocols (load as needed with Read tool):**
+- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture and refactoring
+- `.devforgeai/protocols/refactoring-case-studies.md` - Detailed refactoring examples
+- `.devforgeai/protocols/command-budget-reference.md` - Budget tables and monitoring
 
 ---
 
