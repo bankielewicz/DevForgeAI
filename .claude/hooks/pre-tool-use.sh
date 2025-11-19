@@ -1,16 +1,42 @@
 #!/bin/bash
 # .claude/hooks/pre-tool-use.sh - DevForgeAI validation hook
 
+# Logging setup
+LOG_FILE="$HOME/.claude/hooks/pre-tool-use.log"
+TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Create log directory if needed
+mkdir -p "$HOME/.claude/hooks" 2>/dev/null
+
+# Log function
+log() {
+  echo "[$TIMESTAMP] $1" >> "$LOG_FILE"
+}
+
+log "========== HOOK INVOKED =========="
+
+# Read tool input
 TOOL_INPUT=$(cat)
+log "Raw input length: ${#TOOL_INPUT} chars"
+log "Input preview: ${TOOL_INPUT:0:200}..."
+
+# Extract command
 COMMAND=$(echo "$TOOL_INPUT" | jq -r '.tool_input.command // empty' 2>/dev/null)
+EXTRACT_STATUS=$?
+
+log "jq extraction exit code: $EXTRACT_STATUS"
+log "Extracted command: '$COMMAND'"
+
+if [ -z "$COMMAND" ]; then
+  log "WARNING: Command is empty after extraction"
+  log "Full input: $TOOL_INPUT"
+fi
 
 # Auto-approve safe DevForgeAI patterns
 SAFE_PATTERNS=(
   "npm run test"
   "npm run build"
-  "npm run lint"
-  "pytest"
-  "python -m pytest"
+  "npm run lint"  
   "dotnet test"
   "dotnet build"
   "git status"
@@ -25,6 +51,8 @@ SAFE_PATTERNS=(
   "echo "
   "cat tests/"
   "cat .devforgeai/"
+  "cat >"
+  "cat <<"
   "grep -E"
   "head -"
   "tail -"
@@ -33,13 +61,24 @@ SAFE_PATTERNS=(
   "dos2unix"
   "sed -i"
   "python3 -m json.tool"
+  "python3 <<"
+  "python -m pytest"
+  "pytest"
+  "wc -l"
 )
+
+log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
 
 for pattern in "${SAFE_PATTERNS[@]}"; do
   if [[ "$COMMAND" =~ ^${pattern} ]]; then
+    log "✓ MATCHED safe pattern: '$pattern'"
+    log "Decision: AUTO-APPROVE (exit 0)"
+    log "=========================================="
     exit 0  # Auto-approve
   fi
 done
+
+log "No safe pattern matched"
 
 # Block anti-patterns
 BLOCKED_PATTERNS=(
@@ -51,12 +90,23 @@ BLOCKED_PATTERNS=(
   "wget"
 )
 
+log "Checking against ${#BLOCKED_PATTERNS[@]} blocked patterns..."
+
 for pattern in "${BLOCKED_PATTERNS[@]}"; do
   if [[ "$COMMAND" =~ ${pattern} ]]; then
-    echo '{"decision": "block", "reason": "Dangerous operation: '"$COMMAND"'"}'
+    log "✗ MATCHED blocked pattern: '$pattern'"
+    log "Decision: BLOCK (exit 2)"
+    log "Sending error to Claude: Dangerous operation: $COMMAND"
+    log "=========================================="
+    echo '{"decision": "block", "reason": "Dangerous operation: '"$COMMAND"'"}' >&2
     exit 2
   fi
 done
 
+log "No blocked pattern matched"
+
 # For all others, ask user for approval
+log "Decision: ASK USER (exit 1)"
+log "Command requires manual approval: $COMMAND"
+log "=========================================="
 exit 1
