@@ -113,6 +113,9 @@ Edit(
 
 **CRITICAL FORMAT REQUIREMENT:** Items must be DIRECTLY under `## Implementation Notes`, NOT under a `### Definition of Done Status` subsection.
 
+**⚠️ KEY LESSON LEARNED (STORY-041, 2025-11-18):**
+The DoD validator expects Implementation Notes to be a **flat checklist** directly under `## Implementation Notes`, not nested under subsections like `### Completed DoD Items` or `### Definition of Done Status`. The validator's `extract_section()` function stops at the FIRST `###` header, so any items under subsections are NOT FOUND and will cause commit failures.
+
 ### 2.1: Why Format Matters
 
 **The pre-commit validator uses `extract_section()` function:**
