@@ -210,13 +210,13 @@ def uuid_id():
 def clear_operation_store():
     """Automatically clear operation store before each test"""
     try:
-        from devforgeai.operation_context import clearOperationStore
+        from tests.helpers.devforgeai.operation_context import clearOperationStore
         clearOperationStore()
     except ImportError:
         pass  # Module not yet implemented
     yield
     try:
-        from devforgeai.operation_context import clearOperationStore
+        from tests.helpers.devforgeai.operation_context import clearOperationStore
         clearOperationStore()
     except ImportError:
         pass
