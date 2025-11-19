@@ -102,7 +102,8 @@
       "Bash(1)",
       "Bash(/dev/null echo echo 'Spec Directory Contents:' ls -1 .devforgeai/specs/STORY-043/)",
       "Bash(sort echo echo 'Implementation Scripts:' ls -1 src/scripts/{audit,update,validate,rollback}-*.sh)",
-      "Bash(wc -l echo \"test files (each ~14-20K)\")"
+      "Bash(wc -l echo \"test files (each ~14-20K)\")",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
