@@ -30,5 +30,18 @@
   "statusLine": {
     "type": "command",
     "command": ".devforgeai/scripts/statusline.sh"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/pre-tool-use.sh"
+          }
+        ]
+      }
+    ]
   }
 }
