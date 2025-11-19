@@ -1,4 +1,7 @@
+# Temporary directories
 /tmp
+tmp/
+
 # .ai_docs/ should be tracked (contains stories, epics, sprints)
 
 # Python
