@@ -59,7 +59,11 @@
       "WebSearch",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:www.gitpod.io)",
-      "WebFetch(domain:ona.com)"
+      "WebFetch(domain:ona.com)",
+      "Bash(chmod:*)",
+      "Bash(for test in .devforgeai/tests/STORY-041/test-ac*.sh)",
+      "Bash(dos2unix:*)",
+      "Bash(do bash \"$test\")"
     ],
     "deny": [],
     "ask": []
