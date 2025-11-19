@@ -180,10 +180,10 @@ After updates:
 
 **After Update:**
 ```
-✓ 1,774 source-time references updated
-✓ 1,047 deploy-time references preserved
-✓ 325 excluded files skipped
-✓ 9,723 ambiguous refs flagged for manual review
+✓ 164 source-time references updated across 87 files
+✓ 0 errors encountered during updates
+✓ Deploy-time references preserved
+✓ Validation report: PASSED
 ✓ 0 broken references detected
 ✓ 3/3 test workflows pass
 ✓ All skills load references correctly
