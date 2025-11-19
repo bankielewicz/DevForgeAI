@@ -4,10 +4,11 @@ title: Comprehensive Testing of src/ Structure Before Installer Development
 epic: EPIC-009
 sprint: Backlog
 status: Backlog
-points: 8
+points: 13
 priority: High
 assigned_to: TBD
 created: 2025-11-16
+updated: 2025-11-19
 format_version: "2.0"
 depends_on: STORY-043
 ---
@@ -22,27 +23,31 @@ depends_on: STORY-043
 
 ## Acceptance Criteria
 
-### 1. [ ] All 14 Slash Commands Execute Successfully from src/ Paths
+### 1. [ ] All 23 Slash Commands Execute Successfully from src/ Paths
 
-**Given** the framework has 14 slash commands that invoke skills from src/claude/skills/
-**When** I execute each command with --help flag
+**Given** the framework has 23 slash commands that invoke skills from src/claude/skills/
+**When** I execute each command with --help or validation mode
 **Then** all commands display help text without path errors:
-- /dev, /qa, /release, /orchestrate (core workflow)
-- /ideate, /create-context, /create-epic, /create-sprint, /create-story, /create-ui (planning)
-- /audit-deferrals, /audit-budget, /rca, /create-agent (maintenance)
-**And** success rate: 14/14 (100%)
+
+**Core Workflow (4):** /dev, /qa, /release, /orchestrate
+**Planning & Setup (6):** /ideate, /create-context, /create-epic, /create-sprint, /create-story, /create-ui, /create-agent
+**Framework Maintenance (4):** /audit-deferrals, /audit-budget, /audit-hooks, /rca
+**Feedback System (7):** /feedback, /feedback-config, /feedback-search, /feedback-reindex, /feedback-export-data, /export-feedback, /import-feedback
+**Documentation (1):** /document
+
+**And** success rate: 23/23 (100%)
 **And** execution log shows 0 FileNotFoundError, 0 path resolution failures
 **And** each command loads its skill from src/claude/skills/ (verified in debug logs)
 
 ---
 
-### 2. [ ] All 10 DevForgeAI Skills Load Reference Files from src/ Successfully
+### 2. [ ] All 14 DevForgeAI Skills Load Reference Files from src/ Successfully
 
 **Given** skills use progressive disclosure (load references/ files on demand)
-**When** I test each of the 10 skills with reference-loading workflows
+**When** I test each of the 14 skills with reference-loading workflows
 **Then** all skills successfully load their reference files from src/claude/skills/*/references/:
 
-**Skill Test Matrix:**
+**Core Workflow Skills (9):**
 1. devforgeai-ideation → loads complexity-assessment-matrix.md ✓
 2. devforgeai-architecture → loads adr-template.md, system-design-patterns.md ✓
 3. devforgeai-orchestration → loads workflow-states.md, feature-decomposition-patterns.md ✓
@@ -52,32 +57,78 @@ depends_on: STORY-043
 7. devforgeai-qa → loads coverage-analysis.md, anti-pattern-detection.md ✓
 8. devforgeai-release → loads deployment-strategies.md ✓
 9. devforgeai-rca → loads 5-whys-methodology.md ✓
-10. claude-code-terminal-expert → loads core-features.md ✓
 
-**And** reference loading success rate: 10/10 (100%)
-**And** zero 404 file-not-found errors
+**DevForgeAI Infrastructure Skills (4):**
+10. devforgeai-documentation → loads documentation-patterns.md ✓
+11. devforgeai-feedback → loads feedback-templates.md ✓
+12. devforgeai-mcp-cli-converter → loads mcp-conversion-patterns.md ✓
+13. devforgeai-subagent-creation → loads subagent-templates.md ✓
+
+**Claude Code Infrastructure (1):**
+14. claude-code-terminal-expert → loads core-features.md ✓
+
+**Incomplete Skills (documented as non-functional):**
+15. internet-sleuth-integration → **MISSING SKILL.md** (has assets/ and references/ but no main skill file)
+
+**And** reference loading success rate: 14/14 functional skills (100%)
+**And** incomplete skills documented: 1 (internet-sleuth-integration - missing SKILL.md)
+**And** zero 404 file-not-found errors for functional skills
 **And** progressive disclosure token efficiency unchanged (same token usage pre/post migration)
+**And** decision documented: Complete internet-sleuth-integration OR mark as deprecated/removed
 
 ---
 
-### 3. [ ] All 21 Subagents Invoke Correctly from src/claude/agents/
+### 3. [ ] All 27 Subagents Invoke Correctly from src/claude/agents/
 
-**Given** skills and commands invoke 21 specialized subagents
-**When** I test invocation of representative subagents (spot check 8 high-usage subagents)
-**Then** all tested subagents execute from src/claude/agents/ without errors:
+**Given** skills and commands invoke 27 specialized subagents
+**When** I test invocation of all subagents (comprehensive validation)
+**Then** all subagents execute from src/claude/agents/ without errors:
 
-**Subagent Test Matrix:**
-1. test-automator → Test generation for story AC ✓
-2. story-requirements-analyst → AC generation for /create-story ✓
-3. backend-architect → API implementation guidance ✓
-4. git-validator → Git status check for /dev ✓
-5. context-validator → Context file validation ✓
-6. qa-result-interpreter → QA report formatting ✓
-7. deferral-validator → DoD deferral validation ✓
-8. sprint-planner → Sprint file creation ✓
+**Development & Implementation Subagents (7):**
+1. test-automator → Test generation from AC ✓
+2. backend-architect → Backend implementation (TDD Green) ✓
+3. frontend-developer → Frontend implementation ✓
+4. refactoring-specialist → Code improvement (TDD Refactor) ✓
+5. code-reviewer → Code quality review ✓
+6. integration-tester → Cross-component testing (TDD Integration) ✓
+7. deployment-engineer → Deployment configuration ✓
 
-**And** subagent invocation success: 8/8 (100%)
-**And** subagents load from correct path (Task tool resolves to src/claude/agents/*.md)
+**Story & Requirements Subagents (3):**
+8. story-requirements-analyst → AC generation for /create-story ✓
+9. requirements-analyst → Requirements analysis ✓
+10. api-designer → API contract design ✓
+
+**Architecture & Design Subagents (3):**
+11. architect-reviewer → Architecture review ✓
+12. code-analyzer → Codebase analysis ✓
+13. agent-generator → Subagent generation ✓
+
+**QA & Validation Subagents (5):**
+14. context-validator → Context file validation ✓
+15. deferral-validator → DoD deferral validation ✓
+16. qa-result-interpreter → QA report formatting ✓
+17. security-auditor → Security scanning ✓
+18. technical-debt-analyzer → Debt analysis ✓
+
+**Workflow & Results Subagents (4):**
+19. git-validator → Git status check for /dev ✓
+20. dev-result-interpreter → Dev workflow result formatting ✓
+21. ui-spec-formatter → UI spec result formatting ✓
+22. sprint-planner → Sprint planning and story selection ✓
+
+**Documentation & Analysis Subagents (2):**
+23. documentation-writer → Technical documentation ✓
+24. internet-sleuth → Research and competitive analysis ✓
+
+**Framework Compliance Subagents (1):**
+25. pattern-compliance-auditor → Lean orchestration auditing ✓
+
+**Infrastructure Subagents (2):**
+26. tech-stack-detector → Technology detection ✓
+27. README-SPRINT-PLANNER → Sprint planning documentation ✓
+
+**And** subagent invocation success: 27/27 (100%)
+**And** all subagents load from correct path (Task tool resolves to src/claude/agents/*.md)
 **And** subagent output quality unchanged (same quality pre/post migration)
 
 ---
@@ -188,22 +239,22 @@ technical_specification:
       file_path: "tests/regression/test-src-migration.sh"
       requirements:
         - id: "WKR-001"
-          description: "Execute all 14 slash commands with --help flag"
+          description: "Execute all 23 slash commands with --help or validation mode"
           testable: true
-          test_requirement: "Test: Run all commands, assert exit 0, count=14/14"
+          test_requirement: "Test: Run all 23 commands, assert exit 0, count=23/23"
           priority: "Critical"
 
         - id: "WKR-002"
-          description: "Test all 10 skills load references from src/claude/skills/"
+          description: "Test all 14 DevForgeAI skills load references from src/claude/skills/"
           testable: true
-          test_requirement: "Test: Invoke each skill, verify Read() calls to src/ succeed"
+          test_requirement: "Test: Invoke each of 14 skills, verify Read() calls to src/ succeed"
           priority: "Critical"
 
         - id: "WKR-003"
-          description: "Spot check 8 subagents invoke from src/claude/agents/"
+          description: "Test all 27 subagents invoke correctly from src/claude/agents/"
           testable: true
-          test_requirement: "Test: Task invocations resolve to src/claude/agents/*.md"
-          priority: "High"
+          test_requirement: "Test: All 27 Task invocations resolve to src/claude/agents/*.md"
+          priority: "Critical"
 
         - id: "WKR-004"
           description: "Test all 5 CLI commands operational"
@@ -364,9 +415,9 @@ technical_specification:
 
 ### Implementation
 - [ ] Regression test suite created (tests/regression/test-src-migration.sh)
-- [ ] All 14 commands tested (100% success rate)
-- [ ] All 10 skills tested (reference loading validated)
-- [ ] 8 subagents spot-checked (invocation successful)
+- [ ] All 23 commands tested (100% success rate)
+- [ ] All 14 skills tested (reference loading validated)
+- [ ] All 27 subagents tested (comprehensive validation, not spot check)
 - [ ] 5 CLI commands tested (all operational)
 - [ ] 3 integration workflows executed (end-to-end validation)
 - [ ] Performance benchmarks collected (baseline comparison)
@@ -381,9 +432,9 @@ technical_specification:
 - [ ] 100% test pass rate (3 consecutive runs)
 
 ### Testing
-- [ ] Unit tests: Command invocation (14 tests)
-- [ ] Unit tests: Skill loading (10 tests)
-- [ ] Unit tests: Subagent invocation (8 tests)
+- [ ] Unit tests: Command invocation (23 tests - all commands)
+- [ ] Unit tests: Skill loading (14 tests - all skills)
+- [ ] Unit tests: Subagent invocation (27 tests - all subagents)
 - [ ] Unit tests: CLI commands (5 tests)
 - [ ] Integration tests: 3 end-to-end workflows
 - [ ] Performance tests: Benchmark 5 key operations
@@ -404,6 +455,26 @@ technical_specification:
 
 ---
 
+## Implementation Notes
+
+### Story Status: Ready for Dev (Not Yet Started)
+
+**Dependency Satisfied:**
+- STORY-043 completed 2025-11-19 ✅
+- src/ structure exists with updated path references ✅
+- All prerequisites met ✅
+
+**Scope Updates (2025-11-19):**
+- Expanded from partial inventory (14 commands, 10 skills, 8 subagents)
+- Updated to complete inventory (23 commands, 14 skills, 27 subagents)
+- Points adjusted: 8 → 13 (reflects comprehensive testing scope)
+- Identified incomplete skill: internet-sleuth-integration (missing SKILL.md)
+
+**Next Action:**
+Run `/dev STORY-044` to begin comprehensive testing workflow
+
+---
+
 ## Workflow History
 
 - **2025-11-16:** Story created for EPIC-009 Phase 4 (internal testing)
@@ -412,3 +483,7 @@ technical_specification:
 - **2025-11-16:** Blocks STORY-045, 046, 047, 048 (installer phases)
 - **2025-11-16:** Go/No-Go checkpoint: Must pass before proceeding
 - **2025-11-16:** Status: Backlog (awaiting STORY-043 completion)
+- **2025-11-19:** STORY-043 completed ✅ (dependency satisfied)
+- **2025-11-19:** Scope expanded to complete inventory (23 commands, 14 skills, 27 subagents)
+- **2025-11-19:** Points increased: 8 → 13 (reflects comprehensive testing scope)
+- **2025-11-19:** Status: Ready for Dev (all dependencies met)
