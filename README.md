@@ -251,6 +251,21 @@ Execute entire story lifecycle with one command:
 ├── technical-debt-register.md (NEW - RCA-006)
 └── adrs/                # Architecture Decision Records
 
+src/                     # Framework source for installer (NEW - STORY-041, EPIC-009 Phase 1)
+├── claude/              # Claude Code Terminal components
+│   ├── skills/          # 10 skill subdirectories
+│   ├── agents/          # Subagent definitions
+│   ├── commands/        # Slash command definitions
+│   └── memory/          # Reference documentation
+│
+└── devforgeai/          # DevForgeAI framework components
+    ├── context/         # Context file templates
+    ├── protocols/       # Framework protocols
+    ├── specs/           # Specifications (enhancements, requirements, ui)
+    ├── adrs/            # ADR templates and examples
+    ├── deployment/      # Deployment configurations
+    └── qa/              # QA templates and tooling
+
 .ai_docs/
 ├── Epics/               # High-level business initiatives
 ├── Sprints/             # 2-week iteration plans

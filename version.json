@@ -1,0 +1,20 @@
+{
+  "version": "1.0.0",
+  "release_date": "2025-11-18",
+  "framework_status": "DEVELOPMENT",
+  "components": {
+    "skills": 14,
+    "agents": 27,
+    "commands": 26,
+    "memory_files": 13,
+    "context_templates": 6,
+    "protocols": 13
+  },
+  "changelog_url": ".devforgeai/CHANGELOG.md",
+  "migration_status": {
+    "phase": "1-directory-setup",
+    "src_structure_complete": true,
+    "content_migration_complete": false,
+    "installer_ready": false
+  }
+}
