@@ -1,0 +1,92 @@
+/mnt/c/Projects/DevForgeAI2/.ai_docs/ai-constraints-and-guardrails.md:**File**: `.claude/settings.json`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/ai-constraints-and-guardrails.md:**Location**: `CLAUDE.md` (project root) or `.claude/CLAUDE.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/ai-constraints-and-guardrails.md:`.claude/agents/feature-implementer.md`:
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:**Output:** ADR files in .devforgeai/adrs/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:**Output:** Technical spec in .devforgeai/specs/ (optional)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- **ADRs** (architecture decisions in .devforgeai/adrs/)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- **Technical Specifications** (optional, in .devforgeai/specs/)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- 1+ ADRs in .devforgeai/adrs/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- `.claude/memory/commands-reference.md` (update /create-context)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- `.claude/memory/context-files-guide.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- `.claude/memory/skills-reference.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- `.claude/skills/devforgeai-architecture/SKILL.md` (978 → 212 lines, **78.3% reduction**)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:- `.claude/skills/devforgeai-architecture/references/` (4 → 10 files)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:6. ADR created in .devforgeai/adrs/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:cd .claude/skills/devforgeai-architecture/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:git add .claude/skills/devforgeai-architecture/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-architecture.md:wc -l .claude/skills/devforgeai-architecture/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:   ../../../.devforgeai/protocols/slash-command-argument-validation-pattern.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:   .devforgeai/protocols/slash-command-argument-validation-pattern.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:**Observation:** `slash-command-argument-validation-pattern.md` is framework-level documentation, should potentially move to `.claude/memory/` or `.devforgeai/protocols/`.
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- [ ] File moved to `.devforgeai/protocols/`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- `.claude/memory/commands-reference.md` (update /dev integration)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- `.claude/memory/skills-reference.md` (update development entry)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- `.claude/skills/devforgeai-development/SKILL.md` (1,782 → 175 lines, 90.2% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- `.claude/skills/devforgeai-development/references/` (6 → 13 files, +7 net)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:- `.devforgeai/protocols/` (+1 file: slash-command-argument-validation-pattern.md)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:cd .claude/skills/devforgeai-development/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:git add .claude/skills/devforgeai-development/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:git add .devforgeai/protocols/slash-command-argument-validation-pattern.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:mv .claude/skills/devforgeai-development/references/slash-command-argument-validation-pattern.md \
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:wc -l .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-development.md:| slash-command-argument-validation-pattern.md | 779 | 🔄 MOVE | Move to .devforgeai/protocols/ |
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- Requirements specifications (.devforgeai/specs/requirements/)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- `.claude/memory/commands-reference.md` (update /ideate)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- `.claude/memory/skills-reference.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- `.claude/skills/devforgeai-ideation/SKILL.md` (1,416 → 196 lines, 86.2% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:- `.claude/skills/devforgeai-ideation/references/` (6 → 16 files, +10 new files)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:cd .claude/skills/devforgeai-ideation/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:git add .claude/skills/devforgeai-ideation/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ideation.md:wc -l .claude/skills/devforgeai-ideation/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:# .claude/memory/skills-reference.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:- **Shared files:** Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:- `.claude/skills/devforgeai-orchestration/SKILL.md` (3,249 → 230 lines, 93% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:- `.claude/skills/devforgeai-orchestration/references/` (10 → 20 files)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:cd .claude/skills/devforgeai-orchestration/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:git add .claude/skills/devforgeai-orchestration/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:git add .claude/skills/devforgeai-orchestration/references/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-orchestration.md:wc -l .claude/skills/devforgeai-orchestration/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- QA report in .devforgeai/qa/reports/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- `.claude/memory/commands-reference.md` (update /qa)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- `.claude/memory/qa-automation.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- `.claude/memory/skills-reference.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- `.claude/skills/devforgeai-qa/SKILL.md` (1,330 → 131 lines, 90.2% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:- `.claude/skills/devforgeai-qa/references/` (9 → 17 files)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:cd .claude/skills/devforgeai-qa/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:git add .claude/skills/devforgeai-qa/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-qa.md:wc -l .claude/skills/devforgeai-qa/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:**Platform-specific configuration files required in `.devforgeai/deployment/`**
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- `.claude/memory/commands-reference.md` (update /release)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- `.claude/memory/skills-reference.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- `.claude/skills/devforgeai-release/SKILL.md` (791 → 199 lines, 75% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- `.claude/skills/devforgeai-release/references/` (6 → 14 files, 8 new created)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:- ✅ Platform configuration exists (.devforgeai/deployment/)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:cd .claude/skills/devforgeai-release/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:git add .claude/skills/devforgeai-release/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-release.md:wc -l .claude/skills/devforgeai-release/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- `.claude/memory/commands-reference.md` (update /create-story integration)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- `.claude/memory/skills-reference.md` (update story-creation entry)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- `.claude/skills/devforgeai-story-creation/SKILL.md` (1,840 → 217 lines, 88% reduction)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- `.claude/skills/devforgeai-story-creation/assets/templates/` (verified existing)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:- `.claude/skills/devforgeai-story-creation/references/` (6 → 16 files)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:cd .claude/skills/devforgeai-story-creation/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:git add .claude/skills/devforgeai-story-creation/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-story-creation.md:wc -l .claude/skills/devforgeai-story-creation/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:**Output:** Component files in .devforgeai/specs/ui/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- **Shared files** - Use AskUserQuestion before updating .claude/memory/*.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- LoginForm.jsx in .devforgeai/specs/ui/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- `.claude/memory/commands-reference.md` (update /create-ui)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- `.claude/memory/skills-reference.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- `.claude/memory/ui-generator-guide.md`
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:- `.claude/skills/devforgeai-ui-generator/SKILL.md` (1,451 → 208 lines)
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:5. File written to .devforgeai/specs/ui/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:8. Output: LoginForm.jsx in .devforgeai/specs/ui/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:cd .claude/skills/devforgeai-ui-generator/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:git add .claude/skills/devforgeai-ui-generator/
+/mnt/c/Projects/DevForgeAI2/.ai_docs/analysis/devforgeai-ui-generator.md:wc -l .claude/skills/devforgeai-ui-generator/SKILL.md

@@ -1,0 +1,47 @@
+PATH AUDIT REPORT
+==================
+Generated: 2025-11-19 10:07:25
+
+CLASSIFICATION SUMMARY
+======================
+
+Deploy-Time References (KEEP AS-IS):     971 refs
+  - @file references in CLAUDE.md
+  - .devforgeai/context/ paths
+  - package.json scripts
+  File: path-audit-deploy-time.txt
+
+Source-Time References (UPDATE):         209 refs
+  - Read() calls in skills
+  - Documentation referencing src/
+  - Agent/subagent framework integration
+  File: path-audit-source-time.txt
+
+Ambiguous References (MANUAL REVIEW):    92 refs
+  - Mixed contexts needing developer judgment
+  File: path-audit-ambiguous.txt
+
+Excluded References (BACKUP/ARCHIVE):    325 refs
+  - .backup, .original, .pre-* files
+  File: path-audit-excluded.txt
+
+TOTALS
+======
+Total References: 1597
+  Sum: 971 + 209 + 92 + 325 = 1597
+
+Expected Distribution:
+  Deploy-time: ~689 (actual: 971)
+  Source-time: ~164 (actual: 209)
+  Ambiguous:   ~35  (actual: 92)
+  Excluded:    ~1,926 (actual: 325)
+
+ANALYSIS
+========
+Status: Classification complete
+Next Steps:
+  1. Review path-audit-deploy-time.txt for deployment references
+  2. Review path-audit-source-time.txt for source code updates
+  3. Manually review path-audit-ambiguous.txt
+  4. Execute update-paths.sh with source-time references
+

@@ -95,7 +95,11 @@
       "Bash(__NEW_LINE__ )",
       "Bash(__NEW_LINE__ echo \"=== CHECKSUM PATH ANALYSIS ===\")",
       "Bash([ -f .claude/commands/dev.md ])",
-      "Bash([ -f .claude/commands/qa.md ])"
+      "Bash([ -f .claude/commands/qa.md ])",
+      "Bash(__NEW_LINE__ echo \"=== SCRIPT FILES ===\")",
+      "Bash(paste:*)",
+      "Bash(bc:*)",
+      "Bash(1)"
     ],
     "deny": [],
     "ask": []

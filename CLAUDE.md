@@ -1112,20 +1112,28 @@ Task(
 - Research: `.ai_docs/` (prompt engineering, workflows, terminal best practices)
 
 **Progressive disclosure references (load as needed with Read tool):**
-- `.claude/memory/skills-reference.md`
-- `.claude/memory/subagents-reference.md`
-- `.claude/memory/commands-reference.md`
-- `.claude/memory/documentation-command-guide.md`
-- `.claude/memory/qa-automation.md`
-- `.claude/memory/context-files-guide.md`
-- `.claude/memory/ui-generator-guide.md`
-- `.claude/memory/token-efficiency.md`
-- `.claude/memory/token-budget-guidelines.md`
+- @.claude/memory/skills-reference.md
+- @.claude/memory/subagents-reference.md
+- @.claude/memory/commands-reference.md
+- @.claude/memory/documentation-command-guide.md
+- @.claude/memory/qa-automation.md
+- @.claude/memory/context-files-guide.md
+- @.claude/memory/ui-generator-guide.md
+- @.claude/memory/token-efficiency.md
+- @.claude/memory/token-budget-guidelines.md
+- @.claude/memory/epic-creation-guide.md
+- @.claude/memory/skill-execution-troubleshooting.md
+- @.claude/memory/terminal-best-practices.md
+- @.claude/memory/git-workflow-guide.md
+- @.claude/memory/testing-patterns.md
+- @.claude/memory/naming-conventions.md
+- @.claude/memory/architecture-patterns.md
+- @.claude/memory/security-guidelines.md
 
 **Framework protocols (load as needed with Read tool):**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture and refactoring
-- `.devforgeai/protocols/refactoring-case-studies.md` - Detailed refactoring examples
-- `.devforgeai/protocols/command-budget-reference.md` - Budget tables and monitoring
+- @.devforgeai/protocols/lean-orchestration-pattern.md - Command architecture and refactoring
+- @.devforgeai/protocols/refactoring-case-studies.md - Detailed refactoring examples
+- @.devforgeai/protocols/command-budget-reference.md - Budget tables and monitoring
 
 ---
 
