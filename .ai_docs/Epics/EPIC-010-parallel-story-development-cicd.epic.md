@@ -3,14 +3,21 @@ id: EPIC-010
 title: Parallel Story Development with CI/CD Integration
 status: Planning
 start_date: 2026-01-20
-target_date: 2026-03-17
-total_points: TBD
+target_date: 2026-03-20
+total_points: 65
+completed_points: 0
 owner: Framework Maintainer
 tech_lead: TBD
 created: 2025-11-16
 updated: 2025-11-16
 complexity_score: 42
 architecture_tier: 3
+new_subagents: 2
+enhanced_subagents: 1
+new_skills: 1
+modified_skills: 2
+new_commands: 2
+modified_commands: 2
 ---
 
 # EPIC-010: Parallel Story Development with CI/CD Integration
@@ -109,11 +116,19 @@ So that I can develop multiple stories in parallel without file system collision
 **Dependencies:** None (foundational feature)
 
 **Deliverables:**
+- **Subagent:** git-worktree-manager (enhanced from git-validator, ~450 lines)
 - Worktree manager module (Python or Bash)
 - .devforgeai/config/parallel.yaml configuration
 - Auto-create logic in /dev Phase 0
 - Cleanup prompt in /dev Phase 0
 - Documentation: Git worktrees for parallel development
+
+**Subagent:** **git-worktree-manager** (ENHANCED from git-validator)
+- **Responsibilities:** Create worktrees, detect idle worktrees (>7 days), calculate disk usage, cleanup validation, status reporting
+- **Model:** haiku (fast Git operations)
+- **Tools:** Bash (git worktree commands), Read, Grep
+- **Token Target:** <10K
+- **Reusability:** High (any Git worktree workflow)
 
 **Risk:** Medium - Git worktree API must work across platforms (Linux, macOS, WSL)
 
@@ -181,12 +196,20 @@ So that I never develop STORY-038 (Product) before STORY-037 (User) completes an
 **Dependencies:** None (can implement independently)
 
 **Deliverables:**
+- **Subagent:** dependency-graph-analyzer (NEW, ~400 lines)
 - Dependency graph builder (Python module)
 - Story template updated (depends_on field in YAML)
 - Epic template updated (feature dependency section)
 - /dev Phase 0 pre-flight dependency validation
 - Circular dependency detector
 - Documentation: Story dependency management guide
+
+**Subagent:** **dependency-graph-analyzer** (NEW)
+- **Responsibilities:** Parse depends_on YAML, build transitive dependency graph (A→B→C), detect circular dependencies, validate dependency status, cascade blocking logic
+- **Model:** haiku (fast graph algorithms)
+- **Tools:** Read, Grep, Glob (story files)
+- **Token Target:** <15K
+- **Reusability:** High (epic-level dependencies, sprint planning, future dependency features)
 
 **Risk:** High - Complex graph algorithms, edge cases (circular, cascade failures)
 
@@ -217,11 +240,19 @@ So that I can make informed decisions about parallelization safety and avoid mer
 **Dependencies:** Feature 3 (uses dependency graph data)
 
 **Deliverables:**
+- **Subagent:** file-overlap-detector (NEW, ~350 lines)
 - Spec parser for file_path extraction
 - Git diff analyzer
 - Overlap detection module
 - Warning prompt integration (/dev Phase 0)
 - Documentation: File overlap analysis guide
+
+**Subagent:** **file-overlap-detector** (NEW)
+- **Responsibilities:** Parse technical_specification YAML (extract file_path), run git diff across worktrees, compute set intersection (overlapping files), generate overlap report with recommendations
+- **Model:** haiku (fast parsing and analysis)
+- **Tools:** Read (story files), Bash (git diff), Grep (file patterns)
+- **Token Target:** <10K
+- **Reusability:** Medium (merge conflict prevention, code ownership analysis)
 
 **Risk:** Medium - Spec parsing accuracy (depends on story quality), git diff across worktrees
 
@@ -417,6 +448,51 @@ So that I don't encounter git index lock conflicts or race conditions.
 - **QA Lead:** TBD (validate quality gates preserved)
 - **Early Adopters:** Solo developer (Bryan) validates MVP, future team for Phase 2
 
+## Subagent Requirements
+
+### New Subagents (2 for Phase 1)
+
+**1. dependency-graph-analyzer** (NEW - Feature 3)
+- **Purpose:** Build and validate story dependency graphs with transitive resolution
+- **Model:** haiku (fast graph algorithms)
+- **Token Target:** <15K
+- **Tools:** Read, Grep, Glob
+- **Effort:** 6-8 hours to create
+- **Reusability:** High (epic dependencies, sprint planning, future dependency features)
+
+**2. file-overlap-detector** (NEW - Feature 4)
+- **Purpose:** Detect file conflicts between concurrent stories using hybrid spec + git analysis
+- **Model:** haiku (fast parsing and analysis)
+- **Token Target:** <10K
+- **Tools:** Read, Bash (git diff), Grep
+- **Effort:** 4-6 hours to create
+- **Reusability:** Medium (merge conflict prevention, code ownership)
+
+### Enhanced Subagents (1 for Phase 1)
+
+**1. git-validator → git-worktree-manager** (ENHANCED - Features 1, 5)
+- **Add:** Worktree creation, cleanup detection, age calculation, disk usage, status reporting
+- **Model:** haiku (unchanged)
+- **Token Target:** <10K (was <5K, grows to support worktrees)
+- **Tools:** Bash (git worktree commands), Read, Grep
+- **Effort:** 4-6 hours to enhance
+- **Reusability:** High (any Git worktree workflow)
+
+### Existing Subagents Reused (No Changes)
+
+- **context-validator** - Validate framework constraints in parallel stories (unchanged)
+- **test-automator** - Generate tests in worktree-isolated stories (unchanged)
+- **deferral-validator** - Validate deferrals in parallel executions (unchanged)
+- **All other subagents** - Work unchanged in worktree environment (isolated contexts)
+
+**Total Subagent Count After EPIC-010:**
+- Current: 26 subagents
+- New: +2 (dependency-graph-analyzer, file-overlap-detector)
+- Enhanced: 1 (git-validator → git-worktree-manager)
+- **Result: 28 subagents**
+
+---
+
 ## Dependencies
 
 **Upstream Dependencies:**
@@ -438,6 +514,375 @@ So that I don't encounter git index lock conflicts or race conditions.
 - **EPIC-009:** DevForgeAI src/ Migration and Installer (prerequisite - must complete first)
 - **EPIC-007:** Lean Orchestration Compliance (related - both improve framework efficiency)
 - **Future:** Multi-Developer Collaboration Features (depends on this - team workflows)
+
+---
+
+## Command and Skill Architecture
+
+### Commands Modified (2)
+
+#### `/dev` Command → `devforgeai-development` Skill (MODIFIED)
+
+**Current Behavior:** Execute TDD workflow in current directory/branch
+
+**EPIC-010 Enhancements:**
+
+**Command Changes (stays lean, <15K chars):**
+- Invokes skill with parallel-mode markers (no logic in command)
+- Displays worktree creation status
+- Displays dependency validation results
+- Displays overlap detection warnings
+
+**Skill Changes (devforgeai-development):**
+
+**New Phase 0 Steps:**
+- **Step 0.1:** Git Validation (existing - git-validator, unchanged)
+- **Step 0.2:** Worktree Management (NEW - invoke git-worktree-manager)
+  - Check if worktree exists: `../devforgeai-story-{id}/`
+  - If exists: Prompt (Resume, Fresh Start, Delete Old)
+  - If not: Create worktree, checkout story-{id} branch
+  - Switch to worktree directory
+  - Duration: <10 seconds
+- **Step 0.3:** Dependency Validation (NEW - invoke dependency-graph-analyzer)
+  - Parse depends_on from story YAML
+  - Build transitive dependency graph
+  - Validate all dependencies met (status = Dev Complete or QA Approved)
+  - Block if unmet OR allow with --force flag
+  - Display dependency tree if blocked
+- **Step 0.4:** File Overlap Detection (NEW - invoke file-overlap-detector)
+  - Parse technical_specification YAML (extract file_path fields)
+  - Compare with other active stories (scan all worktrees)
+  - Warn if overlap detected
+  - Prompt: Proceed, Abort, or Review overlapping files
+- **Step 0.5:** Switch to Worktree (NEW)
+  - `cd ../devforgeai-story-{id}/`
+  - Display: "✓ Working in worktree: ../devforgeai-story-{id}/"
+- **Step 0.6:** Tech Stack Detection (existing - tech-stack-detector, unchanged)
+- **Step 0.7:** Context Files Validation (existing, unchanged)
+
+**Modified Phase 2 (Green - Tests):**
+- Run tests with story-scoped output directories:
+  - `--results-directory=TestResults/{story_id}/`
+  - `--cov-report=html:coverage/{story_id}/coverage-html`
+  - `--cov-report=xml:coverage/{story_id}/coverage.xml`
+  - `--junitxml=TestResults/{story_id}/test-results.xml`
+
+**Modified Phase 5 (Git/Tracking):**
+- **Step 5.1:** Acquire Git Commit Lock (NEW)
+  - Check .devforgeai/.locks/git-commit.lock
+  - Wait if locked (max 10 min, display progress)
+  - Acquire lock (write PID, story_id, timestamp)
+- **Step 5.2:** Git Commit (modified - commit to story branch in worktree)
+  - Commit to `story-{id}` branch (not main)
+  - Commit message includes: "Story: STORY-{id}"
+- **Step 5.3:** Release Lock (NEW)
+  - Remove .devforgeai/.locks/git-commit.lock
+- **Step 5.4:** Post-Flight Overlap Check (NEW - invoke file-overlap-detector)
+  - Run git diff --name-only in worktree
+  - Compare actual files changed vs spec file_path
+  - Log discrepancies if found
+
+**New Reference Files (4 files, ~1,550 lines):**
+- worktree-management-workflow.md (400 lines) - Step 0.2 worktree logic
+- dependency-validation-workflow.md (350 lines) - Step 0.3 dependency checks
+- overlap-detection-workflow.md (300 lines) - Step 0.4 pre-flight + 5.4 post-flight
+- parallel-development-guide.md (500 lines) - Complete parallel workflow documentation
+
+**Token Impact:**
+- Skill grows: ~1,782 lines → ~2,200 lines (increases ~25%, but isolated context)
+- Command unchanged: ~527 lines (stays lean, delegates to skill)
+
+---
+
+#### `/qa` Command → `devforgeai-qa` Skill (MODIFIED)
+
+**Current Behavior:** Run quality validation in current directory
+
+**EPIC-010 Enhancements:**
+
+**Command Changes (stays lean):**
+- Invokes skill with worktree-aware markers
+- Displays auto-merge results (Phase 2)
+
+**Skill Changes (devforgeai-qa):**
+
+**Enhanced Phase 0 (Story Validation):**
+- **Step 0.1:** Worktree Detection (NEW)
+  - Check if running in worktree: `git worktree list | grep $(pwd)`
+  - If worktree: Extract story ID from path
+  - Display: "ℹ️ Running QA in worktree: ../devforgeai-story-{id}/"
+- **Step 0.2:** Story-Scoped Path Resolution (NEW)
+  - Resolve test results: `TestResults/{story_id}/test-results.xml`
+  - Resolve coverage: `coverage/{story_id}/coverage.xml`
+  - Validate paths exist before analysis
+
+**Modified Phase 1-4 (Validation Phases):**
+- Read test results from story-scoped paths (not shared TestResults/)
+- Read coverage from story-scoped paths (not shared coverage/)
+- All validation logic unchanged (same quality gates)
+
+**New Phase 5 (Post-QA Actions) - Only for Deep QA PASSED:**
+- **Step 5.1:** Auto-Merge Story Branch (NEW)
+  - Checkout main branch: `git checkout main`
+  - Merge story branch: `git merge story-{id} --no-ff`
+  - If conflicts: Display conflicted files, halt, prompt developer for manual resolution
+  - If success: Display "✓ Merged story-{id} → main"
+- **Step 5.2:** Delete Story Branch (NEW)
+  - `git branch -d story-{id}` (safe delete, verifies merged)
+  - Display: "✓ Deleted branch: story-{id}"
+- **Step 5.3:** Cleanup Worktree (NEW - invoke git-worktree-manager)
+  - Invoke git-worktree-manager with action=cleanup
+  - Remove `../devforgeai-story-{id}/`
+  - Display: "✓ Cleaned up worktree"
+- **Step 5.4:** Update Story Status (modified - now happens after merge)
+  - Status = "Released" (merged to main = production-ready in DevForgeAI)
+  - Append workflow history: "Merged to main, worktree cleaned"
+
+**New Reference Files (2 files, ~550 lines):**
+- parallel-qa-workflow.md (300 lines) - Worktree-aware validation
+- auto-merge-on-approval.md (250 lines) - Phase 5 auto-merge logic
+
+**Token Impact:**
+- Skill grows: ~1,330 lines → ~1,600 lines (increases ~20%, isolated context)
+- Command unchanged: ~309 lines (stays lean)
+
+---
+
+### Commands Created (2)
+
+#### `/worktrees` Command → No Skill (Utility Pattern)
+
+**Purpose:** Manage active Git worktrees (list, cleanup, inspect, resume)
+
+**Pattern:** Utility command (like /audit-budget) - Direct subagent invocation, no skill layer needed
+
+**Workflow:**
+```
+Phase 0: Validate Git Repository
+├─ Check git repository initialized
+└─ If not: Display error, exit
+
+Phase 1: Invoke git-worktree-manager Subagent
+├─ Task(subagent_type="git-worktree-manager",
+│        description="List all worktrees with status",
+│        prompt="List all Git worktrees for DevForgeAI stories.
+│                Include: story ID, worktree path, age (days),
+│                disk usage (MB), story status, last activity.
+│                Identify cleanup candidates (idle >7 days).")
+└─ Receive structured result (JSON with worktree array)
+
+Phase 2: Display Worktree Table
+├─ Format table from subagent result
+├─ Columns: Story ID | Path | Age | Size | Status | Last Activity
+├─ Highlight cleanup candidates in yellow
+└─ Show totals: X worktrees, Y MB disk usage, Z cleanup candidates
+
+Phase 3: Interactive Actions
+├─ Prompt user:
+│   (1) Cleanup all candidates
+│   (2) Cleanup selected
+│   (3) Inspect worktree (show files changed)
+│   (4) Resume development (cd to worktree, rerun /dev)
+│   (5) Cancel
+├─ Based on selection:
+│   └─ Invoke git-worktree-manager with action (cleanup/inspect/resume)
+└─ Display results
+```
+
+**Example Output:**
+```
+$ /worktrees
+
+Active Git Worktrees:
+┌──────────┬──────────────────────────────┬─────────┬────────┬──────────────┬─────────────────┐
+│ Story ID │ Path                         │ Age     │ Size   │ Status       │ Last Activity   │
+├──────────┼──────────────────────────────┼─────────┼────────┼──────────────┼─────────────────┤
+│ STORY-037│ ../devforgeai-story-037/     │ 2 days  │ 105 MB │ Dev Complete │ 2025-11-14 10:30│
+│ STORY-038│ ../devforgeai-story-038/     │ 5 days  │ 103 MB │ In Development│ 2025-11-11 14:20│
+│ STORY-041│ ../devforgeai-story-041/     │ 12 days │ 108 MB │ Released     │ 2025-11-04 09:15│⚠️
+│ STORY-044│ ../devforgeai-story-044/     │ 8 days  │ 102 MB │ QA Failed    │ 2025-11-08 16:45│⚠️
+└──────────┴──────────────────────────────┴─────────┴────────┴──────────────┴─────────────────┘
+
+Total: 4 worktrees, 418 MB disk usage
+⚠️ Cleanup candidates: 2 worktrees (story-041: 12 days idle, story-044: 8 days idle)
+
+Actions:
+  (1) Cleanup all candidates (story-041, story-044) - Free 210 MB
+  (2) Cleanup selected (choose which to delete)
+  (3) Inspect worktree (show files changed, git log)
+  (4) Resume development (cd to worktree, rerun /dev)
+  (5) Cancel
+
+Choose [1-5]:
+```
+
+**Effort:** 3-4 hours (lean command, subagent does heavy lifting)
+
+---
+
+#### `/setup-github-actions` Command → `devforgeai-github` Skill (NEW)
+
+**Purpose:** Set up GitHub Actions CI/CD workflows for DevForgeAI parallel development
+
+**Pattern:** Standard command → skill delegation (like /create-context, /create-epic)
+
+**Workflow:**
+```
+Phase 0: Argument Validation
+├─ Optional: --project-type (nodejs, dotnet, python)
+└─ Optional: --workflows (dev, qa, parallel, installer)
+
+Phase 1: Set Context Markers
+├─ **Project Type:** {detected or user-selected}
+├─ **Workflows:** {selected workflows or all}
+├─ **Command:** setup-github-actions
+└─ Invoke: Skill(command="devforgeai-github")
+
+Phase 2: Display Results
+└─ Output skill summary (workflows created, config files, next steps)
+```
+
+**Skill:** `devforgeai-github` (NEW - 10th DevForgeAI skill)
+
+**Skill Workflow (5 phases):**
+
+**Phase 0: Repository Validation**
+- Detect GitHub repository (check .git/config for github.com remote)
+- Validate GitHub App installed (optional - for @claude mentions)
+- Check if .github/workflows/ exists
+- Load project type (from tech-stack.md or detect)
+
+**Phase 1: Workflow Generation**
+- Create .github/workflows/dev-story.yml (automated /dev execution)
+  - Trigger: workflow_dispatch with story_id input
+  - Job: Run claude -p "/dev ${{inputs.story_id}}"
+  - Artifacts: Upload test results, coverage, story file
+- Create .github/workflows/qa-validation.yml (PR quality gate)
+  - Trigger: pull_request to main
+  - Job: Extract story ID from PR title, run /qa deep
+  - Status check: Block merge if QA fails
+- Create .github/workflows/parallel-stories.yml (matrix execution)
+  - Trigger: workflow_dispatch with story_ids array
+  - Strategy: matrix with story_ids
+  - Parallel: Run /dev for each story simultaneously
+- Create .github/workflows/installer-testing.yml (EPIC-009 support)
+  - Trigger: push to main, PR
+  - Strategy: matrix (nodejs, dotnet, python) × (ubuntu, windows, macos)
+  - Test: Run installer on each configuration
+
+**Phase 2: Configuration Setup**
+- Create .devforgeai/config/github-actions.yaml:
+  ```yaml
+  github_actions:
+    enabled: true
+    max_parallel_jobs: 5  # Concurrency limit
+    default_runner: ubuntu-latest
+    cost_optimization:
+      enable_prompt_caching: true
+      prefer_haiku: true  # vs Sonnet
+      max_cost_per_story: 0.15  # USD
+    workflows:
+      dev_story:
+        timeout_minutes: 30
+        model: haiku
+      qa_validation:
+        timeout_minutes: 20
+        model: sonnet  # Quality validation uses Sonnet
+      parallel_stories:
+        max_concurrent: 5
+        model: haiku
+  ```
+- Create .devforgeai/config/ci-answers.yaml (headless AskUserQuestion):
+  ```yaml
+  ci_mode_answers:
+    test_failure_action: "fix-implementation"
+    deferral_strategy: "never"
+    priority_default: "high"
+    sprint_default: "backlog"
+    epic_association: "auto-detect"
+  ```
+
+**Phase 3: Cost Optimization**
+- Configure prompt caching (90% API cost savings)
+- Set concurrency limits (prevent runaway jobs)
+- Create cost estimator script (.github/scripts/estimate-cost.py)
+- Document cost monitoring
+
+**Phase 4: Validation**
+- Test workflow with sample story (dry run)
+- Validate headless execution works
+- Verify artifacts upload correctly
+- Test PR quality gate blocks merge on QA failure
+
+**Phase 5: Documentation**
+- Create .github/README.md (GitHub Actions setup guide)
+- Create docs/GITHUB-ACTIONS-GUIDE.md (user documentation)
+- Create docs/COST-OPTIMIZATION.md (managing API + runner costs)
+- Create docs/TROUBLESHOOTING-CICD.md (common issues)
+
+**Reference Files (6 files, ~3,000 lines):**
+- github-actions-setup-workflow.md (500 lines) - Phase 1
+- workflow-template-generation.md (600 lines) - Workflow YAML patterns
+- cost-optimization-guide.md (450 lines) - Phase 3
+- headless-configuration.md (400 lines) - Phase 2
+- ci-validation-procedures.md (550 lines) - Phase 4
+- github-actions-troubleshooting.md (500 lines) - Error recovery
+
+**Subagents Invoked:**
+- **internet-sleuth** (auto-invoked - research latest GitHub Actions best practices)
+
+**Effort:** 12-16 hours (skill creation + 6 reference files)
+
+---
+
+### Commands Created (2)
+
+#### `/worktrees` - List and Manage Active Worktrees (NEW)
+
+**Skill:** None (utility pattern)
+**Subagent:** git-worktree-manager (direct invocation)
+**Effort:** 3-4 hours
+**Lines:** ~300-400 (lean utility)
+
+#### `/setup-github-actions` - Configure CI/CD Workflows (NEW)
+
+**Skill:** devforgeai-github (NEW)
+**Subagent:** internet-sleuth (auto-invoked for research)
+**Effort:** 3-4 hours command + 12-16 hours skill = 15-20 hours total
+**Lines:** Command ~250-350, Skill ~600-800 (entry point, references loaded progressively)
+
+---
+
+## Skills Architecture Summary
+
+### Skills Modified (2)
+
+**1. devforgeai-development**
+- Add: Phase 0 Steps 0.2-0.5 (4 new steps: worktree, dependency, overlap, switch)
+- Modify: Phase 2 (story-scoped test paths)
+- Modify: Phase 5 (lock acquisition + commit to story branch + lock release + post-flight overlap)
+- New references: 4 files (~1,550 lines)
+- Effort: 8-12 hours
+
+**2. devforgeai-qa**
+- Add: Phase 0 Steps 0.1-0.2 (2 new steps: worktree detection, path resolution)
+- Modify: Phase 1-4 (use story-scoped paths)
+- Add: Phase 5 (4 steps: auto-merge, delete branch, cleanup worktree, update status)
+- New references: 2 files (~550 lines)
+- Effort: 4-6 hours
+
+### Skills Created (1)
+
+**1. devforgeai-github** (NEW - 11th skill, 10th DevForgeAI skill)
+- Purpose: GitHub Actions CI/CD orchestration
+- Phases: 5 (validation, generation, configuration, optimization, documentation)
+- References: 6 files (~3,000 lines)
+- Subagents: internet-sleuth (auto-invoked)
+- Effort: 12-16 hours
+
+**Total Skills After EPIC-010:** 10 → **11 skills**
+- 10 DevForgeAI skills (9 existing + devforgeai-github)
+- 1 infrastructure skill (claude-code-terminal-expert)
 
 ## Stories
 
@@ -462,14 +907,17 @@ So that I don't encounter git index lock conflicts or race conditions.
 
 ### Phase 2: CI/CD Integration (Deferred, Go/No-Go after Phase 1)
 
-**Sprint 4 (Weeks 7-8): Automation**
-7. STORY-TBD: GitHub Actions Workflow Templates (13 points) - **Deferred**
-8. STORY-TBD: Headless Mode Answer Configuration (5 points) - **Deferred**
-**Total:** 18 points
+**Sprint 4 (Weeks 7-9): CI/CD Infrastructure**
+7. STORY-TBD: Create devforgeai-github Skill and /setup-github-actions Command (13 points) - **Deferred**
+   - Deliverables: devforgeai-github skill (5 phases, 6 reference files), /setup-github-actions command, GitHub Actions workflow templates
+8. STORY-TBD: GitHub Actions Workflow Testing and Cost Optimization (10 points) - **Deferred**
+   - Deliverables: Test all 4 workflows, validate headless mode, implement cost tracking, documentation
 
-**Phase 2 Total:** 2 stories, 18 points, 2 weeks
+**Total:** 23 points
 
-**Grand Total:** 8 stories, 60 points, 8 weeks (Phase 1: 42 points, Phase 2: 18 points)
+**Phase 2 Total:** 2 stories, 23 points, 3 weeks (extended from 2 weeks due to skill creation)
+
+**Grand Total:** 8 stories, 65 points, 9 weeks (Phase 1: 42 points over 6 weeks, Phase 2: 23 points over 3 weeks)
 
 ## Research Findings (Internet-Sleuth)
 
@@ -593,13 +1041,179 @@ So that I don't encounter git index lock conflicts or race conditions.
 - **2025-11-16:** Target team: Solo dev (future-proof for 2-10 developers)
 - **2025-11-16:** Key requirements: Quality cannot be compromised, backward compatible, free tier cost constraint
 
+---
+
+## Component Summary
+
+### Commands (4 total)
+
+**Modified Commands (2):**
+1. **`/dev`** → `devforgeai-development` skill
+   - Enhancement: Worktree auto-create, dependency validation, file overlap detection, story-scoped tests, lock-based commits
+   - New subagents invoked: git-worktree-manager, dependency-graph-analyzer, file-overlap-detector
+   - Backward compatible: ✅ Existing single-story workflow unchanged
+
+2. **`/qa`** → `devforgeai-qa` skill
+   - Enhancement: Worktree detection, story-scoped path resolution, auto-merge on approval
+   - New subagents invoked: git-worktree-manager
+   - Backward compatible: ✅ Existing validation workflow unchanged
+
+**New Commands (2):**
+3. **`/worktrees`** → No skill (utility pattern)
+   - Purpose: List/manage/cleanup active worktrees
+   - Subagent: git-worktree-manager (direct invocation)
+   - Pattern: Similar to /audit-budget (utility with direct subagent call)
+
+4. **`/setup-github-actions`** → `devforgeai-github` skill (NEW)
+   - Purpose: Configure GitHub Actions CI/CD workflows
+   - Subagent: internet-sleuth (auto-invoked for research)
+   - Pattern: Standard command → skill delegation
+
+**Total Command Count After EPIC-010:** 14 → **16 commands**
+
+---
+
+### Skills (3 total)
+
+**Modified Skills (2):**
+
+1. **`devforgeai-development`** (MODIFIED)
+   - **Current:** 6 phases (Pre-Flight, Red, Green, Refactor, Integration, Deferral Challenge, Git/Tracking)
+   - **Add:** Phase 0 Steps 0.2-0.5 (worktree, dependency, overlap, switch to worktree)
+   - **Modify:** Phase 2 (story-scoped test output paths)
+   - **Modify:** Phase 5 (lock acquisition, commit to story branch, lock release, post-flight overlap)
+   - **New references:** 4 files (~1,550 lines)
+     - worktree-management-workflow.md
+     - dependency-validation-workflow.md
+     - overlap-detection-workflow.md
+     - parallel-development-guide.md
+   - **Size impact:** ~1,782 lines → ~2,200 lines (+25% in isolated context)
+   - **Subagents:** +3 invocations (git-worktree-manager, dependency-graph-analyzer, file-overlap-detector)
+
+2. **`devforgeai-qa`** (MODIFIED)
+   - **Current:** 5 phases (Pre-Flight, Test Coverage, Anti-Pattern Detection, Spec Compliance, Code Quality Metrics, Generate Report)
+   - **Add:** Phase 0 Steps 0.1-0.2 (worktree detection, story-scoped path resolution)
+   - **Modify:** Phase 1-4 (read from story-scoped paths: TestResults/{story_id}/, coverage/{story_id}/)
+   - **Add:** Phase 5 (auto-merge on Deep QA PASSED: merge to main, delete branch, cleanup worktree, update status)
+   - **New references:** 2 files (~550 lines)
+     - parallel-qa-workflow.md
+     - auto-merge-on-approval.md
+   - **Size impact:** ~1,330 lines → ~1,600 lines (+20% in isolated context)
+   - **Subagents:** +1 invocation (git-worktree-manager for cleanup)
+
+**Created Skills (1):**
+
+3. **`devforgeai-github`** (NEW - 11th skill, 10th DevForgeAI skill)
+   - **Purpose:** GitHub Actions CI/CD orchestration for parallel development automation
+   - **Phases:** 5 (Repository Validation, Workflow Generation, Configuration Setup, Cost Optimization, Documentation)
+   - **Workflow generation:**
+     - .github/workflows/dev-story.yml (automated /dev per story)
+     - .github/workflows/qa-validation.yml (PR quality gate)
+     - .github/workflows/parallel-stories.yml (matrix parallel execution)
+     - .github/workflows/installer-testing.yml (cross-platform installer validation)
+   - **Configuration:**
+     - .devforgeai/config/github-actions.yaml (workflow settings, cost limits)
+     - .devforgeai/config/ci-answers.yaml (headless AskUserQuestion answers)
+   - **Reference files:** 6 files (~3,000 lines)
+     - github-actions-setup-workflow.md
+     - workflow-template-generation.md
+     - cost-optimization-guide.md
+     - headless-configuration.md
+     - ci-validation-procedures.md
+     - github-actions-troubleshooting.md
+   - **Subagents:** internet-sleuth (auto-invoked for GitHub Actions best practices research)
+   - **Invoked by:** /setup-github-actions command
+   - **Provides:** Complete GitHub Actions infrastructure for DevForgeAI CI/CD
+   - **Reusable:** Yes (any CI/CD needs, expandable to GitLab/CircleCI)
+   - **Effort:** 12-16 hours (skill + references)
+
+**Total Skill Count After EPIC-010:** 14 functional (+1 incomplete) → **15 functional skills**
+- **DevForgeAI Core Workflow Skills (9):** ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, rca
+- **DevForgeAI Infrastructure Skills (4 → 5):** documentation, feedback, mcp-cli-converter, subagent-creation, **github** (NEW)
+- **Claude Code Infrastructure Skills (1):** claude-code-terminal-expert
+- **Incomplete Skills (1):** internet-sleuth-integration (has assets/ and references/ but missing SKILL.md)
+- **Note:** internet-sleuth functionality available via subagent (.claude/agents/internet-sleuth.md), not skill
+
+---
+
+---
+
+## Implementation Effort Summary
+
+### Total Effort Breakdown
+
+**Feature Implementation:** 65 story points
+- Phase 1 MVP: 42 points (6 features)
+- Phase 2 CI/CD: 23 points (2 features including skill creation)
+
+**Subagent Work:** 14-20 hours (~12 points)
+- Create dependency-graph-analyzer: 6-8 hours
+- Create file-overlap-detector: 4-6 hours
+- Enhance git-validator → git-worktree-manager: 4-6 hours
+
+**Skill Enhancements:** 24-34 hours (~20 points)
+- devforgeai-development: 8-12 hours (4 new reference files)
+- devforgeai-qa: 4-6 hours (2 new reference files)
+- devforgeai-github (NEW): 12-16 hours (6 new reference files)
+
+**Command Work:** 6-8 hours (~5 points)
+- /worktrees command: 3-4 hours
+- /setup-github-actions command: 3-4 hours
+
+**Documentation:** 8-12 hours (~8 points)
+- Parallel development guide
+- GitHub Actions setup guide
+- Cost optimization guide
+- Troubleshooting guides
+
+**Testing:** 16-24 hours (~15 points)
+- Unit tests (subagents, skills, commands)
+- Integration tests (2 concurrent stories)
+- Regression tests (quality gates preserved)
+- Cross-platform tests (Linux, macOS, Windows/WSL)
+
+**Grand Total:** 65 + 12 + 20 + 5 + 8 + 15 = **125 story points**
+**Timeline:** 9 weeks (Phase 1: 6 weeks, Phase 2: 3 weeks)
+**Developer Time:** ~62-98 hours (10-16 developer days)
+
+---
+
 ## Next Steps
 
-1. **Review epic** - Validate 6+2 features align with parallel development vision
-2. **Wait for EPIC-009** - Complete src/ migration first (prerequisite)
-3. **Create sprint plan** - Plan 3 sprints for Phase 1 (13 + 21 + 8 points)
-4. **Generate stories** - Use /create-story for each of 6 features
-5. **Begin implementation** - Start with Feature 1 (worktree auto-management)
-6. **Checkpoint decision** - After Week 6, decide on Phase 2 (CI/CD)
+1. **Review epic** - Validate 8 features, 3 subagents, 1 new skill, 4 commands align with parallel development vision
+2. **Wait for EPIC-009** - Complete src/ migration first (prerequisite dependency)
+3. **Create sprint plan** - Plan 4 sprints for complete epic (13 + 21 + 8 + 23 points)
+4. **Generate stories** - Use /create-story for each of 8 features (6 MVP + 2 CI/CD)
+5. **Create subagents** - Use /create-agent for dependency-graph-analyzer, file-overlap-detector
+6. **Enhance git-validator** - Extend to git-worktree-manager capabilities
+7. **Begin implementation** - Start with Feature 1 (worktree auto-management)
+8. **Checkpoint decision** - After Week 6, decide on Phase 2 (CI/CD) based on MVP success
 
 **Epic ready for story breakdown after EPIC-009 completes! 🚀**
+
+---
+
+## Architecture Impact Summary
+
+**Before EPIC-010:**
+- Commands: 23 (11 core workflow + 7 feedback + 4 maintenance + 1 documentation)
+- Skills: 14 functional (13 devforgeai-* + 1 claude-code-terminal-expert) + 1 incomplete (internet-sleuth-integration)
+- Subagents: 26
+- Parallel capability: None (sequential only)
+- CI/CD: Manual only
+
+**After EPIC-010:**
+- Commands: **25** (+2: /worktrees, /setup-github-actions)
+- Skills: **15 functional** (+1: devforgeai-github) + 1 incomplete (unchanged)
+- Subagents: **28** (+2 new: dependency-graph-analyzer, file-overlap-detector; +1 enhanced: git-worktree-manager)
+- Parallel capability: **2-5 concurrent stories** (Git worktrees + dependency enforcement)
+- CI/CD: **Automated** (GitHub Actions workflows with headless Claude Code)
+
+**Key Improvements:**
+- ✅ Time-to-completion: 50% reduction (8 stories in 16 hours vs 64 hours)
+- ✅ Team scaling: Enabled (2-10 developers can work concurrently)
+- ✅ Quality preservation: 100% (all gates unchanged)
+- ✅ Dependency enforcement: Strict (transitive graphs, cascade blocking)
+- ✅ File collision prevention: Complete (worktrees + scoped outputs + locks)
+- ✅ Automation: Full (GitHub Actions for unattended execution)
+- ✅ Cost-effective: $0.08-$0.12 per story (free tier sufficient for solo dev)
