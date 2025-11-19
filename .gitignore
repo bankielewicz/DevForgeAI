@@ -70,3 +70,12 @@ node_modules/
 
 # Personal documentation (not for version control)
 docs/git/
+
+# DevForgeAI src/ directory - track source, exclude generated
+src/devforgeai/qa/coverage/*
+src/devforgeai/qa/reports/*
+!src/devforgeai/qa/coverage/.gitkeep
+!src/devforgeai/qa/reports/.gitkeep
+src/**/*.pyc
+src/**/__pycache__/
+src/**/node_modules/
