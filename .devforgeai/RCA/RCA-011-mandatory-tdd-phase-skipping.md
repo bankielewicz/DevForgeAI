@@ -523,6 +523,129 @@ REC-1 (validation checkpoints) will prevent 100% of future occurrences and shoul
 
 ---
 
-**RCA Complete**
-**Document Version:** 1.0
-**Last Updated:** 2025-11-19
+---
+
+## ADDENDUM: Additional Symptom Discovered (2025-11-19)
+
+### Test Session Revealed Pre-Phase-0 Stopping
+
+**Evidence:** `tmp/output.md` from separate test session executing `/dev STORY-044` with REC-1 checkpoints in place
+
+**What Happened:**
+- Lines 27-28: Skill invoked successfully ✓
+- Line 30: Claude stated "I need to pause here" ✗
+- Lines 43-73: Claude stopped to ask user about approach/scope instead of executing Phase 0 ✗
+
+**Symptom:** Claude stopped **BEFORE Phase 0 execution** to ask about:
+- Token budget concerns ("extremely token-intensive")
+- Scope clarification (Options A/B/C for full/partial/decomposed execution)
+- Time estimates (30-45 minutes)
+
+**Root Cause (Same):** No enforcement mechanism prevents stopping after skill invocation
+
+**Why Original REC-1 Didn't Catch This:**
+- Checkpoints placed at end of Phases 2, 3, 7
+- This stop happened **before Phase 0 even started**
+- Need checkpoint **immediately after skill invocation message**
+
+### Enhanced Fix Required
+
+**REC-1B: Add Immediate Execution Checkpoint After Skill Invocation**
+
+**File:** `.claude/skills/devforgeai-development/SKILL.md`
+**Location:** After line 45 (after "Proceed to Parameter Extraction section")
+**Add:**
+
+```markdown
+---
+
+## ⚠️ IMMEDIATE EXECUTION CHECKPOINT
+
+**YOU HAVE JUST INVOKED THIS SKILL. EXECUTE PHASE 0 NOW.**
+
+```
+BEFORE PROCEEDING, VERIFY YOU ARE NOT:
+
+- [ ] Stopping to ask about token budget (CLAUDE.md says "context window is plenty big")
+- [ ] Stopping to ask about time constraints (CLAUDE.md says "no time constraints")
+- [ ] Stopping to ask about approach/scope (story already defines approach)
+- [ ] Stopping to offer options (execute the workflow as documented)
+- [ ] Waiting passively for results (skills expand inline, YOU execute)
+
+IF you checked ANY box above:
+  You are VIOLATING the skill execution model.
+
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ EXECUTION MODEL VIOLATION DETECTED"
+  ""
+  "You stopped after skill invocation instead of executing Phase 0."
+  ""
+  "CLAUDE.md states:"
+  "  • 'There are no time constraints'"
+  "  • 'Your context window is plenty big'"
+  "  • 'Focus on quality'"
+  ""
+  "You must execute the workflow immediately, not ask permission."
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  RESUME: Go directly to Phase 0 now. Do not ask questions.
+```
+
+**If all boxes UNCHECKED:**
+  ✓ You are executing correctly
+  ✓ Proceed to Parameter Extraction and Phase 0 immediately
+
+---
+```
+
+**Rationale:**
+- Catches "stop and ask" behavior before Phase 0
+- References CLAUDE.md explicitly (user's instructions override hesitation)
+- Forces Claude to self-check execution model compliance
+- Provides recovery path (resume to Phase 0)
+
+**Testing:**
+The test session in `tmp/output.md` demonstrates this exact failure mode:
+- Claude stopped at line 30 with "I need to pause"
+- Asked about Options A/B/C instead of executing
+- Ignored CLAUDE.md guidance about no constraints
+- Would have been caught and corrected by this checkpoint
+
+**Impact:**
+- Prevents stopping after skill invocation
+- Enforces immediate Phase 0 execution
+- Complements existing Phase 2/3/7 checkpoints
+- Creates complete validation coverage (invocation → Phase 0 → Phase 2 → Phase 3 → Phase 7 → completion)
+
+**Effort Estimate:** 30 minutes (includes testing and documentation)
+
+### Updated Implementation Checklist
+
+**For REC-1B (CRITICAL - Addendum):**
+- [ ] Add Immediate Execution Checkpoint after line 45 in SKILL.md
+- [ ] Test checkpoint catches "stop and ask" behavior
+- [ ] Verify references CLAUDE.md guidance correctly
+- [ ] Confirm provides clear recovery path
+- [ ] Update both .claude/ and src/claude/ versions
+
+---
+
+## Conclusion (Updated)
+
+RCA-011 identified mandatory step skipping with **two manifestations**:
+
+1. **Original:** Skipping mandatory subagents within phases (caught by REC-1 checkpoints at Phase 2/3/7)
+2. **Addendum:** Stopping after skill invocation without executing Phase 0 (caught by REC-1B checkpoint at skill start)
+
+Both stem from same root cause: **No programmatic enforcement of execution model**
+
+**Complete solution requires:**
+- ✅ REC-1: Phase 2/3/7 validation checkpoints (IMPLEMENTED)
+- ⏳ REC-1B: Immediate execution checkpoint (PENDING)
+
+---
+
+**RCA Complete (With Addendum)**
+**Document Version:** 1.1
+**Last Updated:** 2025-11-19 (Addendum added)

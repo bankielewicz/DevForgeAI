@@ -41,8 +41,69 @@ Implement user stories using Test-Driven Development while enforcing architectur
 - ❌ Wait passively for skill to "return results"
 - ❌ Assume skill is executing elsewhere
 - ❌ Stop workflow after invocation
+- ❌ Stop to ask about token budget (CLAUDE.md: "context window is plenty big")
+- ❌ Stop to ask about time constraints (CLAUDE.md: "no time constraints")
+- ❌ Stop to ask about scope/approach (execute as documented)
+- ❌ Offer execution options (just execute the workflow)
+
+**CRITICAL:** Skill invocation means "execute now" - not "ask if you should execute"
 
 **Proceed to "Parameter Extraction" section below and begin execution.**
+
+---
+
+## ⚠️ IMMEDIATE EXECUTION CHECKPOINT
+
+**YOU HAVE JUST INVOKED THIS SKILL. EXECUTE PHASE 0 NOW.**
+
+**BEFORE PROCEEDING, VERIFY YOU ARE NOT:**
+
+```
+Self-Check (Check boxes if TRUE - any checked = VIOLATION):
+
+- [ ] Stopping to ask about token budget (CLAUDE.md says "context window is plenty big")
+- [ ] Stopping to ask about time constraints (CLAUDE.md says "no time constraints")
+- [ ] Stopping to ask about approach/scope (story already defines approach)
+- [ ] Stopping to offer execution options (execute the workflow as documented)
+- [ ] Waiting passively for results (skills expand inline, YOU execute)
+- [ ] Asking "should I execute this?" (YES - that's why skill was invoked)
+```
+
+**Validation Logic:**
+
+```
+IF you checked ANY box above:
+  You are VIOLATING the skill execution model.
+
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ EXECUTION MODEL VIOLATION DETECTED"
+  ""
+  "You stopped after skill invocation instead of executing Phase 0."
+  ""
+  "CLAUDE.md states:"
+  "  • 'There are no time constraints'"
+  "  • 'Your context window is plenty big'"
+  "  • 'Focus on quality'"
+  ""
+  "You must execute the workflow immediately, not ask permission."
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  SELF-CORRECT: Go directly to Parameter Extraction and Phase 0 now.
+                Do not ask questions.
+                Execute the workflow.
+
+IF all boxes UNCHECKED:
+  ✓ You are executing correctly
+  ✓ Proceed to Parameter Extraction immediately
+```
+
+**Evidence from test session (tmp/output.md):**
+- Line 27-28: Skill invoked ✓
+- Line 30: "I need to pause here" ✗ VIOLATION
+- Lines 43-73: Offered Options A/B/C instead of executing ✗ VIOLATION
+
+**This checkpoint prevents that behavior.**
 
 ---
 
