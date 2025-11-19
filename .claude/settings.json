@@ -38,7 +38,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/pre-tool-use.sh"
+            "command": "/mnt/c/Projects/DevForgeAI2/.claude/hooks/pre-tool-use.sh"
           }
         ]
       }
