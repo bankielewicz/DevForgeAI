@@ -349,6 +349,55 @@ Display: ""
 RETURN result to command
 ```
 
+---
+
+### Phase 7 Validation Checkpoint (HALT IF FAILED)
+
+**Before returning result to /dev command, verify Phase 7 completed:**
+
+```
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Step 7.1: dev-result-interpreter invoked?
+      Search for: Task(subagent_type="dev-result-interpreter")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 7.3: Structured result returned to command?
+      Search for: RETURN result to command statement
+      Found? YES → Check box | NO → Leave unchecked
+```
+
+**Validation Logic:**
+
+```
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 7 INCOMPLETE - Missing mandatory steps:"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot complete workflow without result interpretation"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow (do not return to /dev command)
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 7 Validation Passed - Result interpretation complete"
+  "  ✓ dev-result-interpreter invoked"
+  "  ✓ Structured result prepared"
+  ""
+  Display: "Returning result to /dev command..."
+
+  RETURN result to command
+```
+
+**Purpose:** This checkpoint ensures dev-result-interpreter subagent is always invoked to generate proper result display template (STORY-051 requirement).
+
+---
+
 **Integration:**
 - dev-result-interpreter operates in isolated context (8K tokens max)
 - Reference guide (dev-result-formatting-guide.md) provides framework constraints
@@ -431,6 +480,53 @@ Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step 
 
 ---
 
+### Phase 2 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 3, verify ALL Phase 2 mandatory steps completed:**
+
+```
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Step 1-2: backend-architect OR frontend-developer invoked?
+      Search for: Task(subagent_type="backend-architect") OR Task(subagent_type="frontend-developer")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 3: context-validator invoked?
+      Search for: Task(subagent_type="context-validator")
+      Found? YES → Check box | NO → Leave unchecked
+```
+
+**Validation Logic:**
+
+```
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 2 INCOMPLETE - Missing mandatory steps:"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Phase 3 until Phase 2 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow (do not execute Phase 3)
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 2 Validation Passed - All mandatory steps completed"
+  "  ✓ backend-architect OR frontend-developer invoked"
+  "  ✓ context-validator invoked"
+  ""
+  Display: "Proceeding to Phase 3..."
+
+  Proceed to Phase 3
+```
+
+**Purpose:** This checkpoint prevents Claude from skipping mandatory subagent invocations by requiring explicit verification before phase progression.
+
+---
+
 ### Phase 3: Refactor (Refactor Phase)
 
 1. **refactoring-specialist** (Code improvement) [MANDATORY]
@@ -452,6 +548,58 @@ Triggered when QA fails due to deferrals. Phase 0 Step 0.8 detects, then 3-step 
    - HALT if validation fails
 
 **Sequence:** refactoring-specialist → code-reviewer → devforgeai-qa (light) (sequential)
+
+---
+
+### Phase 3 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 4, verify ALL Phase 3 mandatory steps completed:**
+
+```
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Step 1-2: refactoring-specialist invoked?
+      Search for: Task(subagent_type="refactoring-specialist")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 3: code-reviewer invoked?
+      Search for: Task(subagent_type="code-reviewer")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 5: Light QA (devforgeai-qa --mode=light) executed?
+      Search for: Skill(skill="devforgeai-qa") with **Validation mode:** light
+      Found? YES → Check box | NO → Leave unchecked
+```
+
+**Validation Logic:**
+
+```
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 3 INCOMPLETE - Missing mandatory steps:"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Phase 4 until Phase 3 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow (do not execute Phase 4)
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 3 Validation Passed - All mandatory steps completed"
+  "  ✓ refactoring-specialist invoked"
+  "  ✓ code-reviewer invoked"
+  "  ✓ Light QA executed"
+  ""
+  Display: "Proceeding to Phase 4..."
+
+  Proceed to Phase 4
+```
+
+**Purpose:** This checkpoint prevents Claude from skipping refactoring-specialist and Light QA (marked "← OFTEN MISSED") by requiring explicit verification before phase progression.
 
 ---
 
