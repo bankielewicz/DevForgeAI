@@ -2,11 +2,12 @@
 # .claude/hooks/pre-tool-use.sh - DevForgeAI validation hook
 
 # Logging setup
-LOG_FILE="$HOME/.claude/hooks/pre-tool-use.log"
+PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-/mnt/c/Projects/DevForgeAI2}"
+LOG_FILE="$PROJECT_ROOT/.devforgeai/logs/pre-tool-use.log"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 # Create log directory if needed
-mkdir -p "$HOME/.claude/hooks" 2>/dev/null
+mkdir -p "$PROJECT_ROOT/.devforgeai/logs" 2>/dev/null
 
 # Log function
 log() {
