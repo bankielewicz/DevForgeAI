@@ -1,12 +1,12 @@
 # DevForgeAI Subagents Reference
 
-Detailed guidance for working with the 20 specialized subagents.
+Detailed guidance for working with the 26 specialized subagents.
 
 ---
 
 ## Overview
 
-Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **22 subagents** are available in `.claude/agents/`.
+Subagents are specialized AI workers with domain expertise that operate in isolated contexts. They are automatically invoked by DevForgeAI skills or can be explicitly called for specific tasks. **26 subagents** are available in `.claude/agents/`.
 
 ---
 
@@ -125,6 +125,9 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **sprint-planner** | Sprint creation and capacity validation | sonnet | <40K | Sprint planning, story selection, capacity validation (NEW - Sprint Refactoring) |
 | **ui-spec-formatter** | UI spec validation and display generation | haiku | <10K | After UI spec generation, before user display (NEW - UI Refactoring 2025-11-05) |
 | **code-analyzer** | Deep codebase analysis for documentation metadata | sonnet | <50K | Brownfield documentation, architecture discovery, gap analysis (NEW - STORY-040) |
+| **internet-sleuth** | Research & competitive intelligence, web research automation | haiku | <50K | Market research, technology discovery, repository archaeology (AUTO-INVOKED by ideation) |
+| **pattern-compliance-auditor** | Lean orchestration pattern compliance auditing | haiku | <15K | Command refactoring analysis, budget violation detection (/audit-budget command) |
+| **dev-result-interpreter** | Development workflow result interpretation and display | haiku | <8K | After /dev completes, before result display (similar to qa-result-interpreter) |
 
 ---
 
@@ -270,6 +273,10 @@ All subagents are defined in `.claude/agents/`:
 - **`qa-result-interpreter.md`** (NEW - 300 lines - QA Command Refactoring 2025-11-05)
 - **`ui-spec-formatter.md`** (NEW - 507 lines - UI Command Refactoring 2025-11-05)
 
-**Total:** 21 subagents (14 original + 2 from RCA-006 + 2 from /dev refactoring + 1 from /qa refactoring + 1 from /create-sprint refactoring + 1 from RCA-007 Phase 3)
+- **`internet-sleuth.md`** (NEW - ~800 lines - Auto-invoked by ideation for research)
+- **`pattern-compliance-auditor.md`** (NEW - ~400 lines - Used by /audit-budget)
+- **`dev-result-interpreter.md`** (NEW - ~300 lines - Used by /dev command)
+
+**Total:** 26 subagents (14 original + 2 from RCA-006 + 2 from /dev refactoring + 1 from /qa refactoring + 1 from /create-sprint refactoring + 1 from RCA-007 Phase 3 + 1 from STORY-040 + 3 undocumented additions + 1 from /create-ui)
 
 Each file contains complete system prompts with tool access, model selection, and execution patterns.

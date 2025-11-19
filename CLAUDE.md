@@ -754,9 +754,19 @@ DevForgeAI provides **11 slash commands** for common tasks:
 
 ### Component Summary
 
-- **Skills:** 10 (9 DevForgeAI + 1 infrastructure: ideation, architecture, orchestration, story-creation, ui-generator, development, qa, **documentation**, release, **claude-code-terminal-expert**)
-- **Subagents:** 22 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, story-requirements-analyst, **code-analyzer** NEW - STORY-040)
-- **Commands:** 12 (7 refactored to lean orchestration: /dev, /qa, /ideate, /create-story, /create-sprint, /create-epic, /orchestrate; 2 new: /audit-budget, **/document**)
+- **Skills:** 14 functional + 1 incomplete
+  - **Core Workflow (9):** ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, rca
+  - **DevForgeAI Infrastructure (4):** documentation, feedback, mcp-cli-converter, subagent-creation
+  - **Claude Code Infrastructure (1):** claude-code-terminal-expert
+  - **Incomplete (1):** internet-sleuth-integration (missing SKILL.md, use internet-sleuth subagent instead)
+  - **EPIC-010 Will Add (1):** github (GitHub Actions CI/CD)
+- **Subagents:** 26 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, story-requirements-analyst, code-analyzer, **internet-sleuth**, pattern-compliance-auditor, dev-result-interpreter)
+- **Commands:** 23 total
+  - **Core Workflow (11):** ideate, create-context, create-epic, create-sprint, create-story, create-ui, dev, qa, release, orchestrate, create-agent
+  - **Feedback System (7):** feedback, feedback-config, feedback-search, feedback-reindex, feedback-export-data, export-feedback, import-feedback
+  - **Framework Maintenance (4):** audit-deferrals, audit-budget, audit-hooks, rca
+  - **Documentation (1):** document
+  - **EPIC-010 Will Add (2):** worktrees, setup-github-actions
 - **Context Files:** 6 (immutable constraints)
 - **Quality Gates:** 4 (Gate 3 enhanced with deferral validation)
 - **Protocols:** 1 (lean-orchestration-pattern.md - defines command architecture)

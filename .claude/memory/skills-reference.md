@@ -1,6 +1,6 @@
 # DevForgeAI Skills Reference
 
-Detailed guidance for working with the 8 DevForgeAI skills + 1 infrastructure skill.
+Detailed guidance for working with 14 functional skills (13 devforgeai-* + 1 claude-code-terminal-expert), plus 1 incomplete skill (internet-sleuth-integration).
 
 ---
 
@@ -693,5 +693,144 @@ All 29 official code.claude.com URLs embedded for auto-updates
 **Skill Type:** Knowledge/expertise skill (not workflow execution)
 
 **Integration:** Complements DevForgeAI by providing Claude Code Terminal knowledge, reducing "Claude doesn't know this feature" friction
+
+---
+
+### devforgeai-documentation
+
+**Use when:**
+- Generating project documentation (README, guides, API docs)
+- Updating documentation after story completion
+- Analyzing documentation coverage gaps
+- Creating architecture diagrams from codebase
+- Brownfield documentation (analyze existing code)
+
+**Invocation:**
+```
+# Story-based documentation
+@.ai_docs/Stories/STORY-040.story.md
+Skill(command="devforgeai-documentation")
+
+# Codebase analysis mode
+**Mode:** brownfield-analysis
+Skill(command="devforgeai-documentation")
+```
+
+**Key Features:**
+- **Dual mode:** Greenfield (story-based docs) + Brownfield (codebase analysis)
+- **Auto-invoked:** After story completion (if documentation hook enabled)
+- **Uses code-analyzer subagent:** Deep codebase analysis for metadata extraction
+- **Generates:** README, developer guides, API docs, architecture diagrams, roadmaps
+
+---
+
+### devforgeai-feedback
+
+**Use when:**
+- Capturing retrospective feedback after dev/qa/release operations
+- Analyzing process improvement opportunities
+- Building organizational knowledge from past work
+- Hook-driven feedback collection (event-driven)
+
+**Invocation:**
+```
+# Manual feedback
+**Operation:** dev
+**Story ID:** STORY-037
+Skill(command="devforgeai-feedback")
+
+# Auto-invoked via hooks (after /dev, /qa, /release)
+```
+
+**Key Features:**
+- **Event-driven:** Auto-invoked via hooks after operations complete
+- **Adaptive questioning:** Context-aware retrospective questions
+- **Persistence:** Stores feedback sessions in .devforgeai/feedback/
+- **Indexing:** Searchable feedback history
+- **Integration:** Works with devforgeai CLI (check-hooks, invoke-hooks)
+
+---
+
+### devforgeai-mcp-cli-converter
+
+**Use when:**
+- Converting MCP servers to CLI utilities
+- Creating Claude Code-compatible wrappers for async MCP tools
+- Rapid prototyping of tool integrations
+- Bridging MCP async patterns to sync CLI patterns
+
+**Invocation:**
+```
+**MCP Server:** weather-mcp
+**Pattern:** api-wrapper
+Skill(command="devforgeai-mcp-cli-converter")
+```
+
+**Key Features:**
+- **Converts MCP → CLI:** Standalone executables Claude Code can invoke
+- **Auto-generates skill:** Creates complementary skill for CLI usage
+- **Pattern-based:** API wrapper, file system, browser automation patterns
+- **No MCP overhead:** CLI runs without MCP server infrastructure
+
+---
+
+### devforgeai-subagent-creation
+
+**Use when:**
+- User runs /create-agent command
+- Need custom DevForgeAI-aware subagent
+- Creating domain-specific subagents with framework integration
+
+**Invocation:**
+```
+**Subagent Name:** my-custom-validator
+**Mode:** guided
+Skill(command="devforgeai-subagent-creation")
+```
+
+**Key Features:**
+- **Orchestrates agent-generator v2.0:** Delegates to agent-generator subagent
+- **Framework-aware:** Generated subagents reference context files, quality gates
+- **12-point validation:** Ensures Claude Code + DevForgeAI compliance
+- **Reference files:** Auto-generates framework guardrails when needed
+- **Invoked by:** /create-agent command
+
+---
+
+### internet-sleuth-integration
+
+**Status:** ⚠️ INCOMPLETE - Skill directory exists but no SKILL.md file
+
+**Current state:**
+- Has `assets/` directory with research-report-template.md
+- Has `references/` directory with 4 files:
+  - competitive-analysis-patterns.md
+  - discovery-mode-methodology.md
+  - repository-archaeology-guide.md
+  - research-principles.md
+- Missing: SKILL.md entry point
+
+**Functionality:**
+- Research capabilities provided by **internet-sleuth subagent** (in .claude/agents/)
+- Skill integration pending/incomplete
+- References available for future skill completion
+
+**Note:** For research functionality, use the internet-sleuth subagent directly via Task tool, not this incomplete skill.
+
+---
+
+## Skill Count Summary
+
+**Functional Skills: 14**
+- **devforgeai-* (13):** ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, rca, documentation, feedback, mcp-cli-converter, subagent-creation
+- **Infrastructure (1):** claude-code-terminal-expert
+
+**Incomplete Skills: 1**
+- internet-sleuth-integration (missing SKILL.md)
+
+**EPIC-010 Will Add: 1**
+- devforgeai-github (GitHub Actions CI/CD orchestration)
+
+**Total After EPIC-010: 15 functional skills** (14 current + 1 new)
 
 ---
