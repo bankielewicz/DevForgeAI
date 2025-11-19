@@ -220,12 +220,14 @@ test_grep_claude_memory_count() {
 test_grep_src_claude_memory_count() {
     # Test: grep -c "@src/claude/memory/" CLAUDE.md returns 0
     local count=$(grep -c "@src/claude/memory/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null || echo "0")
+    # Strip whitespace to handle any newlines
+    count=$(echo "$count" | tr -d ' \n')
 
-    if [ "$count" -eq 0 ]; then
+    if [ "$count" -eq 0 ] 2>/dev/null || [ -z "$count" ]; then
         echo "  grep '@src/claude/memory/' CLAUDE.md returns: 0 (correct)"
         return 0
     else
-        echo "  ERROR: grep returned $count for @src/claude/memory/ (should be 0)"
+        echo "  ERROR: grep returned '$count' for @src/claude/memory/ (should be 0)"
         return 1
     fi
 }
