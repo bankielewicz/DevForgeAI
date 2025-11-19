@@ -1,0 +1,209 @@
+/mnt/c/Projects/DevForgeAI2/.ai_docs/REFACTORING-SUMMARY-2025-11-05.md:grep "Task(" .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/REFACTORING-SUMMARY-2025-11-05.md:grep -n "Task(subagent_type=" .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-050-IMPLEMENTATION-PLAN.md:grep "Skill(command=" .claude/commands/audit-deferrals.md
+/mnt/c/Projects/DevForgeAI2/.claude/agents/README-SPRINT-PLANNER.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/code-analyzer.md:      "signature": "createTask(title: string, description: string): Promise<Task>",
+/mnt/c/Projects/DevForgeAI2/.claude/agents/code-analyzer.md:      "signature": "getTask(id: string): Promise<Task>",
+/mnt/c/Projects/DevForgeAI2/.claude/agents/code-analyzer.md:    "signature": "createTask(title: string, description: string): Promise<Task>",
+/mnt/c/Projects/DevForgeAI2/.claude/agents/code-analyzer.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/deferral-validator.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/dev-result-interpreter.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/git-validator.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/internet-sleuth.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/pattern-compliance-auditor.md:**Explicitly via Task():**
+/mnt/c/Projects/DevForgeAI2/.claude/agents/pattern-compliance-auditor.md:**Pattern:** Command directly invokes Task(subagent_type=...) instead of using Skill()
+/mnt/c/Projects/DevForgeAI2/.claude/agents/pattern-compliance-auditor.md:- `Task(subagent_type=...` in command
+/mnt/c/Projects/DevForgeAI2/.claude/agents/pattern-compliance-auditor.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/qa-result-interpreter.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/sprint-planner.md:- Task(subagent_type="sprint-planner", description="Create sprint with stories...", prompt="...")
+/mnt/c/Projects/DevForgeAI2/.claude/agents/sprint-planner.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/story-requirements-analyst.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/tech-stack-detector.md:    Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/agents/tech-stack-detector.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/agents/ui-spec-formatter.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-agent.md:Skill(command="devforgeai-subagent-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-context.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-context.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-sprint.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-story.md:Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-ui.md:Skill(command="devforgeai-ui-generator")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md:Skill(command="devforgeai-development")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/document.md:Skill(command="devforgeai-documentation")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/feedback-search.md:Skill(command="devforgeai-feedback")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/feedback.md:Skill(command="devforgeai-feedback")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/ideate.md:- Try invoking skill directly: Skill(command="devforgeai-ideation")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/ideate.md:Skill(command="devforgeai-ideation")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/orchestrate.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/qa.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/rca.md:5. Command invokes: Skill(command="devforgeai-rca")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/rca.md:Skill(command="devforgeai-rca")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/release.md:Skill(command="devforgeai-release")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/commands-reference.md:Skill(command="devforgeai-development --story=STORY-001")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/commands-reference.md:Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/commands-reference.md:Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
+/mnt/c/Projects/DevForgeAI2/.claude/memory/commands-reference.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/commands-reference.md:Skill(command="devforgeai-release --story=STORY-001")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/context-files-guide.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/epic-creation-guide.md:- ✅ Invoke skill (`Skill(command="devforgeai-orchestration")`)
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:**Problem:** After `Skill(command="...")`, you stopped and waited instead of executing.
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:**Question 1:** After `Skill(command="devforgeai-development")`, what should you do?
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:Skill(command="devforgeai-development")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skill-execution-troubleshooting.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-development --story=STORY-001")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-development")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-documentation")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-feedback")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-ideation")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-mcp-cli-converter")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-rca")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-release --env=production")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-release")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-subagent-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:Skill(command="devforgeai-ui-generator")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/skills-reference.md:When you use `Skill(command="devforgeai-[name]")`:
+/mnt/c/Projects/DevForgeAI2/.claude/memory/subagents-reference.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/memory/subagents-reference.md:Task(subagent_type="documentation-writer", description="Write API docs", prompt="...")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/subagents-reference.md:Task(subagent_type="test-automator", description="Generate tests", prompt="...")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/ui-generator-guide.md:Skill(command="devforgeai-ui-generator --story=STORY-042")
+/mnt/c/Projects/DevForgeAI2/.claude/memory/ui-generator-guide.md:Skill(command="devforgeai-ui-generator")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-004-clean-architecture.md:    public async Task<ActionResult<TaskDto>> CreateTask(CreateTaskCommand command)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-004-clean-architecture.md:    public async Task<ActionResult<TaskDto>> GetTask(Guid id)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-architecture/references/context-file-creation-workflow.md:backend_research = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/INTEGRATION_GUIDE.md:    Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/README.md:    Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/deferral-budget-enforcement.md:  Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md:  "Re-invoke Skill(command='devforgeai-development') with focus on completing: {item.text}
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/integration-testing.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/parameter-extraction.md:3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-development")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:        Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/qa-deferral-recovery.md:   Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/refactoring-patterns.md:Skill(command="devforgeai-qa --mode=light --story={story_id}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-green-phase.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-red-phase.md:        Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-red-phase.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-red-phase.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-refactor-phase.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-refactor-phase.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/SKILL.md:       API->>Controller: createTask()
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/SKILL.md:   Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/SKILL.md:- Manual: `Skill(command="devforgeai-documentation")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/SKILL.md:Skill(command="devforgeai-documentation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/SKILL.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/references/brownfield-analysis.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/references/diagram-generation-guide.md:    API->>Service: createTask(data)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-documentation/references/diagram-generation-guide.md:async createTask(req, res) {
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-feedback/SKILL.md:  Skill(command="devforgeai-feedback")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-feedback/SKILL.md:Skill(command="devforgeai-feedback")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/references/artifact-generation.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/references/feasibility-analysis-workflow.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md:Skill(command="devforgeai-orchestration")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/audit-deferrals-workflow.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/deferred-tracking.md:      Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/deferred-tracking.md:      Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/deferred-tracking.md:  Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/deferred-tracking.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/qa-retry-workflow.md:      Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/qa-retry-workflow.md:  Skill(command="devforgeai-development")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/qa-retry-workflow.md:  Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:  Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:  Skill(command="devforgeai-{skillname}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:Skill(command="devforgeai-development --story=STORY-042")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:Skill(command="devforgeai-development")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:Skill(command="devforgeai-qa --mode=deep --story=STORY-042")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/skill-invocation.md:Skill(command="devforgeai-release")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/sprint-retrospective.md:        Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-development --story={story_id} --qa-rework")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-development --story={story_id}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-orchestration --story={story_id}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-qa --mode=deep --story={story_id}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/state-transitions.md:   Skill(command="devforgeai-release --story={story_id}")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/story-management.md:Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/references/deferral-decision-tree.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/references/parameter-extraction.md:3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-qa")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/references/report-generation.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/references/report-generation.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/references/spec-compliance-workflow.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-rca/SKILL.md:Extract skill name from Skill(command="...") line
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-rca/SKILL.md:Skill(command="devforgeai-rca")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-rca/references/framework-integration-points.md:- [ ] Does command invoke skill? (Skill(command="..."))
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/references/parameter-extraction.md:3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-release")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/SKILL.md:- Manual invocation: `Skill(command="devforgeai-story-creation")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/error-handling.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/integration-guide.md:   - `Skill(command="devforgeai-story-creation")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/integration-guide.md:3. **Invoke: `Skill(command="devforgeai-story-creation")`**
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/integration-guide.md:Skill(command="devforgeai-story-creation")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/requirements-analysis.md:    subagent_output_text = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/requirements-analysis.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-story-creation/references/technical-specification-creation.md:    Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/SKILL.md:- Can be invoked directly: `Skill(command="devforgeai-subagent-creation")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/SKILL.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/assets/templates/command-template-lean-orchestration.md:  - [ ] ONE Skill(command="...") call
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/assets/templates/command-template-lean-orchestration.md:Skill(command="devforgeai-[skillname]")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/assets/templates/command-template-lean-orchestration.md:Skill(command="devforgeai-qa")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-subagent-creation/assets/templates/command-template-lean-orchestration.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/context-validation.md:Skill(command=\"devforgeai-architecture\")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/devforgeai-integration-guide.md:  Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/error-handling.md:Skill(command=\"devforgeai-architecture\")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/parameter-extraction.md:2. Invokes: `Skill(command="devforgeai-ui-generator")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/parameter-extraction.md:3. Invokes: `Skill(command="devforgeai-ui-generator")`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/parameter-extraction.md:Skill(command="devforgeai-ui-generator")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/ui-spec-formatter-integration.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/discovery-mode-methodology.md:  Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/discovery-mode-methodology.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/repository-archaeology-guide.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/research-principles.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:            adjusted_result = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:            result = Task(subagent_type="internet-sleuth", ...)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:            result = Task(subagent_type="internet-sleuth", ...)  # Resumes from cache
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:        result = Task(subagent_type="internet-sleuth", ...)  # Resumes from cache
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:    result = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:    result = Task(subagent_type="internet-sleuth", ...)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:  Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:  implementation_result = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:  patterns = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:auth_research = Task(subagent_type="internet-sleuth", prompt="Research: OAuth 2.0")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:cache_research = Task(subagent_type="internet-sleuth", prompt="Research: Redis vs Memcached")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:db_research = Task(subagent_type="internet-sleuth", prompt="Research: PostgreSQL vs MySQL")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:discovery_result = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:feasibility = Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:monitoring_research = Task(subagent_type="internet-sleuth", prompt="Research: Prometheus vs Datadog")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:queue_research = Task(subagent_type="internet-sleuth", prompt="Research: RabbitMQ vs SQS")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:result = Task(subagent_type="internet-sleuth", ...)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:tech_stack_research = Task(
+/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Skill(command=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Task(subagent_type=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:   grep -n "Task(subagent_type=" .claude/commands/problem-command.md
+/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:grep -n "Task(subagent_type=" .claude/commands/command.md | head -1
+/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="../../../.claude/skills/devforgeai-development/references/tdd-workflow-guide.md")
+/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="./.claude/memory/skills-reference.md")
+/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:cat -A .claude/commands/dev.md | grep -n "Skill(command="
+/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep "Skill(command=" .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep -n "Skill(command=" .claude/commands/dev.md
+/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/commands/test-create-agent.sh:     grep -q 'Task(' '$PROJECT_ROOT/.claude/commands/create-agent.md'"
+/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/commands/test-create-agent.sh:    "grep -q 'Skill(command=' '$PROJECT_ROOT/.claude/commands/create-agent.md' && \
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Skill(command=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Task(subagent_type=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:   grep -n "Task(subagent_type=" .claude/commands/problem-command.md
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:grep -n "Task(subagent_type=" .claude/commands/command.md | head -1
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:cat -A .claude/commands/dev.md | grep -n "Skill(command="
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep "Skill(command=" .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep -n "Skill(command=" .claude/commands/dev.md
+/mnt/c/Projects/DevForgeAI2/src/scripts/audit-path-references.sh:# Extract SOURCE-TIME references (Skill() and Task() calls referencing .claude/)
+/mnt/c/Projects/DevForgeAI2/src/scripts/update-paths.sh:        if grep -q 'Task(\|\.claude/agents' "$file" 2>/dev/null; then
