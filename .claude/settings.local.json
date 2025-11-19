@@ -103,7 +103,18 @@
       "Bash(/dev/null echo echo 'Spec Directory Contents:' ls -1 .devforgeai/specs/STORY-043/)",
       "Bash(sort echo echo 'Implementation Scripts:' ls -1 src/scripts/{audit,update,validate,rollback}-*.sh)",
       "Bash(wc -l echo \"test files (each ~14-20K)\")",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(/dev/null)",
+      "Bash(__NEW_LINE__ echo \"=== Testing Individual Phases ===\")",
+      "Bash(__NEW_LINE__ echo \"===== FINAL COMPREHENSIVE TEST =====\" echo \"\" echo \"Running master test orchestrator...\" bash tests/regression/run-all-tests.sh)",
+      "Bash(/tmp/test_output.log)",
+      "WebFetch(domain:claudelog.com)",
+      "WebFetch(domain:martinalderson.com)",
+      "WebFetch(domain:www.anthropic.com)",
+      "WebFetch(domain:www.ksred.com)",
+      "Bash(__NEW_LINE__ echo \"=== FINAL FILE VERIFICATION ===\" echo \"\" echo \"Test Scripts (8):\" ls -1 tests/regression/*.sh)",
+      "Bash(sort echo \"\" echo \"Documentation Files:\" ls -1 tests/regression/*.md)",
+      "Bash(.claude/hooks/pre-tool-use.sh)"
     ],
     "deny": [],
     "ask": []
