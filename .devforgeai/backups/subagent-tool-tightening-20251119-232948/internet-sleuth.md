@@ -1,7 +1,7 @@
 ---
 name: internet-sleuth
 description: Expert Research & Competitive Intelligence Specialist for web research automation, competitive analysis, technology monitoring, and repository archaeology. Automatically invoked by devforgeai-ideation for market research and technology discovery, and by devforgeai-architecture for repository pattern mining and technical validation. Specializes in multi-source synthesis with framework-aware technology recommendations.
-tools: Read, Write, Edit, Bash(curl:*), Bash(jq:*), Glob, Grep, WebSearch, WebFetch
+tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch
 model: haiku
 color: blue
 ---
