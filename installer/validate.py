@@ -84,43 +84,69 @@ def _check_critical_files(project_root: Path) -> tuple[int, list[str]]:
     return file_count, missing
 
 
+def _count_files_by_pattern(directory: Path, pattern: str, description: str, minimum: int, missing: list) -> int:
+    """
+    Count files in directory matching pattern. Report if below minimum.
+
+    Args:
+        directory: Directory to check
+        pattern: Glob pattern (e.g., "*.md")
+        description: Description for error messages (e.g., ".claude/commands/")
+        minimum: Minimum expected count
+        missing: List to append error messages to
+
+    Returns:
+        int: Count of matching files/directories
+    """
+    if not directory.exists():
+        return 0
+
+    items = list(directory.glob(pattern))
+    count = len(items)
+    if count < minimum:
+        missing.append(f"{description} has {count} files (expected ≥{minimum})")
+    return count
+
+
+def _count_directories(directory: Path, description: str, minimum: int, missing: list) -> int:
+    """
+    Count subdirectories. Report if below minimum.
+
+    Args:
+        directory: Directory to check
+        description: Description for error messages
+        minimum: Minimum expected count
+        missing: List to append error messages to
+
+    Returns:
+        int: Count of subdirectories
+    """
+    if not directory.exists():
+        return 0
+
+    dirs = [d for d in directory.iterdir() if d.is_dir()]
+    count = len(dirs)
+    if count < minimum:
+        missing.append(f"{description} has {count} dirs (expected ≥{minimum})")
+    return count
+
+
 def _check_commands(project_root: Path, missing: list) -> int:
     """Check commands directory. Returns count of commands."""
     commands_dir = project_root / ".claude" / "commands"
-    if not commands_dir.exists():
-        return 0
-
-    commands = list(commands_dir.glob("*.md"))
-    count = len(commands)
-    if count < MIN_COMMANDS:
-        missing.append(f".claude/commands/ has {count} files (expected ≥{MIN_COMMANDS})")
-    return count
+    return _count_files_by_pattern(commands_dir, "*.md", ".claude/commands/", MIN_COMMANDS, missing)
 
 
 def _check_skills(project_root: Path, missing: list) -> int:
     """Check skills directory. Returns count of skills."""
     skills_dir = project_root / ".claude" / "skills"
-    if not skills_dir.exists():
-        return 0
-
-    skill_dirs = [d for d in skills_dir.iterdir() if d.is_dir()]
-    count = len(skill_dirs)
-    if count < MIN_SKILLS:
-        missing.append(f".claude/skills/ has {count} dirs (expected ≥{MIN_SKILLS})")
-    return count
+    return _count_directories(skills_dir, ".claude/skills/", MIN_SKILLS, missing)
 
 
 def _check_protocols(project_root: Path, missing: list) -> int:
     """Check protocols directory. Returns count of protocols."""
     protocols_dir = project_root / ".devforgeai" / "protocols"
-    if not protocols_dir.exists():
-        return 0
-
-    protocols = list(protocols_dir.glob("*.md"))
-    count = len(protocols)
-    if count < MIN_PROTOCOLS:
-        missing.append(f".devforgeai/protocols/ has {count} files (expected ≥{MIN_PROTOCOLS})")
-    return count
+    return _count_files_by_pattern(protocols_dir, "*.md", ".devforgeai/protocols/", MIN_PROTOCOLS, missing)
 
 
 def _check_claude_md(project_root: Path, missing: list) -> int:

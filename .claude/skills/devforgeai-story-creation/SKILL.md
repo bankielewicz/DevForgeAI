@@ -28,6 +28,7 @@ Generate complete user stories with acceptance criteria, technical specification
 2. You execute each phase sequentially
 3. You display results as you work through phases
 4. You complete with success/failure report
+5. Focus on fidelity and quality of story files.  --> there are no time constraints!
 
 **Do NOT:**
 - ❌ Wait passively for skill to "return results"

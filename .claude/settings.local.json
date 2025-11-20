@@ -114,7 +114,16 @@
       "WebFetch(domain:www.ksred.com)",
       "Bash(__NEW_LINE__ echo \"=== FINAL FILE VERIFICATION ===\" echo \"\" echo \"Test Scripts (8):\" ls -1 tests/regression/*.sh)",
       "Bash(sort echo \"\" echo \"Documentation Files:\" ls -1 tests/regression/*.md)",
-      "Bash(.claude/hooks/pre-tool-use.sh)"
+      "Bash(.claude/hooks/pre-tool-use.sh)",
+      "Bash(if [ -f /tmp/full_test_results.txt ])",
+      "Bash(then tail -300 /tmp/full_test_results.txt)",
+      "Bash(else echo \"Still running...\")",
+      "Bash(then grep -E \"^(PASSED|FAILED|SKIPPED|ERROR)\" /tmp/full_test_results.txt)",
+      "Bash(else echo \"No cached results\")",
+      "Bash(timeout 60 tail:*)",
+      "Bash(if [ -f /tmp/pytest_progress.txt ])",
+      "Bash(then tail -5 /tmp/pytest_progress.txt)",
+      "Bash(else ps aux)"
     ],
     "deny": [],
     "ask": []
