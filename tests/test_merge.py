@@ -633,7 +633,7 @@ Content A
 ## Section B
 Content B
 """
-        sections = parser.parse(new_content)
+        sections = parser.parse_sections(new_content)
 
         # Should have 2 sections from new content
         assert len(sections) >= 2
