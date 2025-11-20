@@ -66,6 +66,7 @@ SAFE_PATTERNS=(
   "python3 -m json.tool"
   "python3 <<"
   "python -m pytest"
+  "python3 -m pytest"
   "pytest"
   "wc -l"
   "ls -la"
@@ -84,8 +85,10 @@ SAFE_PATTERNS=(
 
 log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
 
+# Simple approach: Check if command STARTS WITH safe pattern
+# Pattern matching handles pipes/redirects automatically
 for pattern in "${SAFE_PATTERNS[@]}"; do
-  if [[ "$COMMAND" =~ ^${pattern} ]]; then
+  if [[ "$COMMAND" == "$pattern"* ]]; then
     log "✓ MATCHED safe pattern: '$pattern'"
     log "Decision: AUTO-APPROVE (exit 0)"
     log "=========================================="
