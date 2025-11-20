@@ -1,10 +1,10 @@
 """
-Version detection and semantic version comparison.
+Version detection and semantic version comparison using stdlib only.
 
 This module handles:
 - Reading installed version from .devforgeai/.version.json
 - Reading source version from src/devforgeai/version.json
-- Semantic version comparison using packaging.version
+- Semantic version comparison using stdlib only (no external dependencies)
 - Installation mode determination (fresh, patch_upgrade, minor_upgrade, major_upgrade, reinstall, downgrade)
 
 Functions:
@@ -14,8 +14,8 @@ Functions:
 """
 
 import json
+import re
 from pathlib import Path
-from packaging import version as pkg_version
 
 # Installation mode constants
 MODE_FRESH_INSTALL = "fresh_install"
@@ -97,17 +97,12 @@ def _parse_version_file(version_file: Path) -> dict:
         if not version_str:
             raise ValueError("Missing 'version' field")
 
-        # Validate semantic versioning format (X.Y.Z)
+        # Validate semantic versioning format (X.Y.Z) using stdlib only
         _validate_semantic_version(version_str)
-
-        # Also validate with packaging library
-        pkg_version.parse(version_str)
 
         return content
     except json.JSONDecodeError as e:
         raise json.JSONDecodeError(f"Failed to parse {version_file}: {e.msg}", e.doc, e.pos)
-    except pkg_version.InvalidVersion as e:
-        raise ValueError(f"Invalid version format in {version_file}: {e}")
 
 
 def _validate_semantic_version(version_str: str) -> None:
@@ -129,6 +124,29 @@ def _validate_semantic_version(version_str: str) -> None:
             int(part)
         except ValueError:
             raise ValueError(f"Version part {i} must be numeric, got: {part}")
+
+
+def _parse_semver(version_str: str) -> tuple[int, int, int]:
+    """
+    Parse semantic version string (X.Y.Z) using stdlib only.
+
+    Args:
+        version_str: Version string like "1.0.0"
+
+    Returns:
+        Tuple of (major, minor, patch) as integers
+
+    Raises:
+        ValueError: If version format is invalid
+    """
+    parts = version_str.split('.')
+    if len(parts) != 3:
+        raise ValueError(f"Invalid version format: {version_str} (expected X.Y.Z)")
+
+    try:
+        return tuple(int(p) for p in parts)
+    except ValueError:
+        raise ValueError(f"Version parts must be numeric: {version_str}")
 
 
 def compare_versions(installed: str | None, source: str) -> str:
@@ -164,23 +182,28 @@ def compare_versions(installed: str | None, source: str) -> str:
     if not installed.strip() or not source.strip():
         raise ValueError("Version strings cannot be empty")
 
+    # Parse versions using stdlib only (zero external dependencies)
     try:
-        installed_ver = pkg_version.parse(installed)
-        source_ver = pkg_version.parse(source)
-    except pkg_version.InvalidVersion as e:
+        installed_tuple = _parse_semver(installed)
+        source_tuple = _parse_semver(source)
+    except ValueError as e:
         raise ValueError(f"Invalid version format: {e}")
 
-    if installed_ver == source_ver:
+    # Compare tuples (Python compares element by element)
+    if installed_tuple == source_tuple:
         return MODE_REINSTALL
 
-    if source_ver < installed_ver:
+    if source_tuple < installed_tuple:
         return MODE_DOWNGRADE
 
     # Source is newer - determine upgrade type
-    if installed_ver.major < source_ver.major:
+    inst_major, inst_minor, inst_patch = installed_tuple
+    src_major, src_minor, src_patch = source_tuple
+
+    if src_major > inst_major:
         return MODE_MAJOR_UPGRADE
 
-    if installed_ver.minor < source_ver.minor:
+    if src_minor > inst_minor:
         return MODE_MINOR_UPGRADE
 
     return MODE_PATCH_UPGRADE

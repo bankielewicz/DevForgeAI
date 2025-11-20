@@ -56,9 +56,11 @@ def _hash_file(file_path: Path, hasher: hashlib._hashlib.HASH) -> None:
         with open(file_path, "rb") as f:
             while chunk := f.read(CHUNK_SIZE):
                 hasher.update(chunk)
-    except (OSError, IOError):
-        # Skip files that can't be read
-        pass
+    except (OSError, IOError) as e:
+        # Log warning but continue (non-fatal for hash calculation)
+        # File count mismatch will be detected during backup verification
+        import sys
+        print(f"Warning: Could not read {file_path}: {e}", file=sys.stderr)
 
 
 def _count_backup_files(backup_path: Path) -> tuple[int, float]:

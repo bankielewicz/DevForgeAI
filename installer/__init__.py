@@ -13,4 +13,4 @@ Modules:
 - install: Main orchestrator for all installation modes
 """
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
