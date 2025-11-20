@@ -39,13 +39,14 @@ PRESERVE_PATHS = {
     ".devforgeai/context/",
 }
 
-# Directories to NOT deploy (generated content)
+# Directories to NOT deploy (generated content or development-specific)
 NO_DEPLOY_DIRS = {
     ".devforgeai/qa/reports",
     ".devforgeai/RCA",
     ".devforgeai/adrs",
     ".devforgeai/feedback/imported",
     ".devforgeai/logs",
+    ".devforgeai/specs/enhancements",  # Development planning docs (not for production deployment)
 }
 
 # File extensions and names that should be executable

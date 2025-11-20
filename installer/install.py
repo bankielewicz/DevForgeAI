@@ -21,6 +21,7 @@ from . import backup
 from . import deploy
 from . import rollback as rollback_module
 from . import validate
+from . import merge
 
 
 def _detect_installation_mode(
@@ -213,16 +214,19 @@ def install(
             result["status"] = "failed"
             return result
 
-        # Create backup for upgrade/downgrade (not for fresh install)
+        # Create backup for upgrade/downgrade OR if CLAUDE.md exists (even on fresh install)
         backup_path = None
-        if mode != "fresh_install":
+        should_backup = (mode != "fresh_install") or (target_root / "CLAUDE.md").exists()
+
+        if should_backup:
             current_version_data = ver_module.get_installed_version(devforgeai_path)
             current_version = current_version_data.get("version") if current_version_data else None
 
             try:
+                backup_reason = "upgrade" if mode != "fresh_install" else "fresh_install_claude_md_preservation"
                 backup_path, backup_manifest = backup.create_backup(
                     target_root,
-                    reason="upgrade",
+                    reason=backup_reason,
                     from_version=current_version,
                     to_version=source_version,
                 )
@@ -271,6 +275,36 @@ def install(
         perm_result = deploy.set_file_permissions(target_root)
         if perm_result["status"] == "failed":
             result["warnings"].extend(perm_result["errors"])
+
+        # Merge CLAUDE.md if user has an existing CLAUDE.md
+        try:
+            user_claude_path = target_root / "CLAUDE.md"
+            framework_claude_path = source_root / "CLAUDE.md"
+
+            if user_claude_path.exists() and framework_claude_path.exists():
+                # User has existing CLAUDE.md - merge with framework template
+                merger = merge.CLAUDEmdMerger(target_root)
+                merge_result = merger.merge_claude_md(user_claude_path, framework_claude_path, backup=True)
+
+                if merge_result.success:
+                    user_claude_path.write_text(merge_result.merged_content, encoding='utf-8')
+                    result["messages"].append("✓ CLAUDE.md merged with user content preserved")
+                else:
+                    result["warnings"].append("CLAUDE.md merge had conflicts (kept user version)")
+            elif not user_claude_path.exists() and framework_claude_path.exists():
+                # No existing CLAUDE.md - copy framework template and substitute variables
+                from . import variables
+
+                framework_content = framework_claude_path.read_text(encoding='utf-8')
+                detector = variables.TemplateVariableDetector(target_root)
+                all_variables = detector.get_all_variables()
+                substituted_content = detector.substitute_variables(framework_content, all_variables)
+
+                user_claude_path.write_text(substituted_content, encoding='utf-8')
+                result["messages"].append("✓ CLAUDE.md created from framework template")
+
+        except Exception as e:
+            result["warnings"].append(f"CLAUDE.md merge skipped: {e}")
 
         # Update version.json
         try:
