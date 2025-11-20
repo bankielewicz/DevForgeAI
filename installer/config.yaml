@@ -1,0 +1,170 @@
+# DevForgeAI Installer Configuration
+# Story: STORY-045
+# Version: 1.0.0
+
+# Installation modes configuration
+installation_modes:
+  fresh_install:
+    description: "Install to empty project"
+    requires_backup: false
+    deployment_strategy: "full"
+    user_confirmation: false
+
+  patch_upgrade:
+    description: "Bug fixes only (1.0.0 → 1.0.1)"
+    requires_backup: true
+    deployment_strategy: "selective"  # Only changed files
+    user_confirmation: false
+    breaking_changes: false
+
+  minor_upgrade:
+    description: "New features, backward compatible (1.0.0 → 1.1.0)"
+    requires_backup: true
+    deployment_strategy: "selective"
+    user_confirmation: false
+    breaking_changes: false
+
+  major_upgrade:
+    description: "Breaking changes (1.0.0 → 2.0.0)"
+    requires_backup: true
+    deployment_strategy: "full"
+    user_confirmation: true  # Warn about breaking changes
+    breaking_changes: true
+
+  reinstall:
+    description: "Repair installation (same version)"
+    requires_backup: true
+    deployment_strategy: "full"
+    user_confirmation: false
+
+  downgrade:
+    description: "Install older version"
+    requires_backup: true
+    deployment_strategy: "full"
+    user_confirmation: true
+    force_flag_required: true
+
+  rollback:
+    description: "Restore from backup"
+    requires_backup: false  # Uses existing backup
+    deployment_strategy: "restore"
+    user_confirmation: false
+
+  validate:
+    description: "Check installation health (read-only)"
+    requires_backup: false
+    deployment_strategy: "none"
+    user_confirmation: false
+
+  uninstall:
+    description: "Remove framework (preserve user data)"
+    requires_backup: true
+    deployment_strategy: "remove"
+    user_confirmation: true
+
+# File exclusion patterns
+exclusions:
+  patterns:
+    - "*.backup"
+    - "*.backup.*"
+    - "*.tmp"
+    - "__pycache__/"
+    - "*.pyc"
+    - "*.pyo"
+    - ".pytest_cache/"
+    - "*.log"
+
+  directories:
+    - "qa/reports"          # Generated QA reports
+    - "RCA"                 # Root cause analysis docs
+    - "adrs"                # Architecture decision records (user-created)
+    - "feedback/imported"   # Imported feedback sessions
+    - "logs"                # Log files
+    - ".backups"            # Backup directories
+
+# User configuration preservation
+preserve_configs:
+  enabled: true
+  paths:
+    - "config/hooks.yaml"
+    - "feedback/config.yaml"
+    - "context/*.md"        # All context files
+  never_touch:
+    - ".ai_docs/"           # User stories, epics, sprints
+
+# File permissions
+permissions:
+  directories: "0o755"      # rwxr-xr-x
+  executables: "0o755"      # rwxr-xr-x (.sh files, CLI tools)
+  data_files: "0o644"       # rw-r--r-- (.md, .py, .json, .yaml)
+
+executable_patterns:
+  - "*.sh"
+  - "devforgeai"
+  - "claude-code"
+
+# Backup configuration
+backup:
+  directory: ".backups"
+  timestamp_format: "%Y%m%d-%H%M%S-%f"  # Includes microseconds for uniqueness
+  integrity_algorithm: "sha256"
+  manifest_required: true
+  verification_strictness: "100%"  # Require exact hash match (no tolerance)
+
+# Performance thresholds (NFRs)
+performance:
+  fresh_install_max_seconds: 180    # <3 minutes
+  patch_upgrade_max_seconds: 30     # <30 seconds
+  backup_creation_max_seconds: 20   # <20 seconds
+  rollback_max_seconds: 45          # <45 seconds
+  validation_max_seconds: 5         # <5 seconds
+
+# Validation checks
+validation:
+  min_commands: 11
+  min_skills: 10
+  min_protocols: 3
+  cli_check_timeout: 5
+  required_directories:
+    - ".claude/skills"
+    - ".claude/agents"
+    - ".claude/commands"
+    - ".devforgeai/protocols"
+    - ".devforgeai/config"
+  critical_files:
+    - "CLAUDE.md"
+    - ".devforgeai/.version.json"
+
+# Deployment source structure
+source:
+  root: "src"
+  subdirectories:
+    - "claude"              # ~370 files → .claude/
+    - "devforgeai"          # ~80 files → .devforgeai/
+
+# Version schema
+version_schema:
+  version: "1.0"
+  required_fields:
+    - "version"             # Semantic version string
+    - "installed_at"        # ISO 8601 timestamp
+    - "mode"                # Installation mode used
+  optional_fields:
+    - "schema_version"      # Version schema identifier
+    - "description"         # Framework description
+    - "homepage"            # Project URL
+    - "license"             # License type
+
+# Error handling
+error_handling:
+  auto_rollback_on_failure: true
+  atomic_transactions: true
+  fail_fast: true
+  preserve_on_error: true   # Keep backup even if rollback fails
+
+# Logging (future enhancement)
+logging:
+  enabled: false            # Not implemented yet
+  level: "INFO"
+  file: "installer.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
