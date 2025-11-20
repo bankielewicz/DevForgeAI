@@ -118,6 +118,7 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 
 ### Prerequisites
 
+- **Python 3.8+** - Required for DevForgeAI framework execution
 - Claude Code Terminal (version 1.0+)
 - Git repository
 - Development environment for your tech stack
@@ -180,6 +181,74 @@ Execute entire story lifecycle with one command:
 ```bash
 > /orchestrate STORY-001
 ```
+
+## Installation
+
+DevForgeAI requires Python 3.8+ and uses a modern installer-based approach for installation and upgrades. The new approach includes automatic backups and rollback capability.
+
+**Fresh Installation**: For new DevForgeAI installations, clone the repository and run the installer with fresh mode.
+
+**Upgrading**: To upgrade from DevForgeAI v1.0.0 to v1.0.1, use upgrade mode with the --target flag.
+
+### Prerequisites
+
+- **Python 3.8+** - [Download Python](https://www.python.org/downloads/)
+- **Git** - [Download Git](https://git-scm.com/downloads)
+- **Claude Code Terminal 0.8.0+** - [Install Claude Code](https://code.claude.com/)
+
+### Fresh Installation (New Installations)
+
+For new DevForgeAI installations, follow these steps:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/bankielewicz/DevForgeAI.git
+cd DevForgeAI2
+
+# 2. Run the installer (fresh mode) with --target flag
+python installer/install.py --mode=fresh --target ~/.claude
+
+# 3. Restart your Claude Code Terminal
+# Close and reopen Claude Code to load new slash commands
+```
+
+**Note**: Use `python3` instead of `python` if running Python 2 is also available on your system.
+
+**Expected output**: Installation creates `~/.claude/` with skills, commands, and agents.
+
+### Upgrade Installation (v1.0.0 to v1.0.1)
+
+To upgrade from DevForgeAI v1.0.0 to v1.0.1:
+
+```bash
+# 1. Pull latest code from repository
+cd /path/to/DevForgeAI2
+git pull origin main
+
+# 2. Run the installer in upgrade mode
+python installer/install.py --mode=upgrade --target ~/.claude
+
+# 3. Restart your Claude Code Terminal
+# Close and reopen Claude Code
+```
+
+**What happens during upgrade**:
+- Automatic backup of existing installation
+- Updates skills and commands
+- Validates new installation
+- Preserves your custom configurations
+
+### Installation Troubleshooting
+
+For detailed installation instructions, troubleshooting (15+ scenarios), and FAQ (10+ questions), see **[installer/INSTALL.md](installer/INSTALL.md)**.
+
+### Migration Guide
+
+If upgrading from v1.0.0, see **[MIGRATION-GUIDE.md](MIGRATION-GUIDE.md)** for step-by-step migration instructions and troubleshooting.
+
+### Deprecated Approach (v1.0.0)
+
+⚠️ **Note**: The old manual `.claude/` copy approach is deprecated as of v1.0.1. While still supported until v2.0.0, we strongly recommend using the installer approach above. See [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) for details on migrating from the old manual approach.
 
 ## Project Structure
 
@@ -294,7 +363,7 @@ Stories must progress through workflow stages sequentially:
 
 **Gate 1: Context Validation** (Architecture → Ready for Dev)
 - All 6 context files exist and are non-empty
-- No placeholder content (TODO, TBD)
+- No placeholder markers in context files
 
 **Gate 2: Test Passing** (Dev Complete → QA In Progress)
 - Build succeeds
