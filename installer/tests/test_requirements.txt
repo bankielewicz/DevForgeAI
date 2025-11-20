@@ -1,0 +1,24 @@
+# Test Requirements for STORY-045 Test Suite
+# Generated: 2025-11-17
+
+# Testing Framework
+pytest>=7.0.0           # Test runner, fixtures, parametrization
+pytest-cov>=4.0.0       # Coverage reporting
+
+# Mocking and Test Utilities
+unittest-mock>=1.5.0    # Python 3.8+ mock support (for older Python versions)
+
+# File and System Utilities
+pathlib2>=2.3.0         # Enhanced Path handling (Python 3.8+)
+
+# Version Management
+packaging>=21.0         # Semantic versioning comparison
+
+# Code Quality (Optional but Recommended)
+pytest-xdist>=3.0.0     # Parallel test execution (speed up test suite)
+pytest-timeout>=2.1.0   # Timeout protection (prevent hanging tests)
+pytest-mock>=3.10.0     # Enhanced mocking utilities
+
+# Documentation and Reporting
+pytest-html>=3.1.0      # HTML test reports
+coverage>=6.0           # Code coverage analysis
