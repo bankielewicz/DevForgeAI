@@ -1,7 +1,7 @@
 ---
 name: code-analyzer
 description: Deep codebase analysis to extract documentation metadata. Discovers architecture patterns, layer structure, public APIs, entry points, dependencies, and key workflows. Use for brownfield documentation analysis, architecture discovery, or generating technical documentation from existing code.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep
 model: sonnet
 color: cyan
 ---

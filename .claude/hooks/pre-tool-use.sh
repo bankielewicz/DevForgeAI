@@ -67,6 +67,9 @@ SAFE_PATTERNS=(
   "python3 <<"
   "python -m pytest"
   "python3 -m pytest"
+  "python3 << 'EOF'"
+  "python3 << 'EOF'
+   import re"
   "pytest"
   "wc -l"
   "ls -la"
