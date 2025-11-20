@@ -13,11 +13,13 @@ This roadmap outlines the systematic implementation of the DevForgeAI framework,
 | **Week 1** | 5 days | Core Skills | 7 framework skills implemented | ✅ COMPLETE |
 | **Week 2** | 5 days | Subagents | 16 specialized subagents created | ✅ COMPLETE |
 | **Week 3** | 5 days | Slash Commands | 9 user-facing workflows | ✅ COMPLETE |
-| **Week 4** | 5 days | Validation | Real project testing & iteration | ⏳ READY |
-| **RCA Phase** | Ongoing | Quality Improvements | RCA-001 through RCA-006 | ✅ 6 COMPLETE |
+| **Phase 4** | 2 weeks | Production Cutover | Documentation, installer, packages, team training | ✅ COMPLETE |
+| **RCA Phase** | Ongoing | Quality Improvements | RCA-001 through RCA-009 | ✅ 9 COMPLETE |
 
-**Total Implementation Time**: 4 weeks (20 business days)
-**Status**: Phase 3 Complete + 6 RCAs Implemented (2025-11-03)
+**Total Implementation Time**: 4 weeks core + 2 weeks Phase 4 (30 business days)
+**Status**: Phase 4 Complete - Production Ready v1.0.1 (2025-11-17)
+
+**Deprecation Timeline**: Old manual `.claude/` copy approach deprecated November 17, 2025. Will be supported for **at least 6 months** (through May 2026, v2.0.0 release). See [.claude/README.md](.claude/README.md) for complete timeline.
 
 ---
 
@@ -733,6 +735,78 @@ Test framework with actual project, collect metrics, and iterate based on feedba
 ✅ Team can use framework without constant guidance
 ✅ Documentation enables independent onboarding
 ✅ Metrics demonstrate productivity improvements
+
+### Phase 4 Stories Completed (✅ COMPLETE)
+
+All Phase 4 implementation stories have been completed:
+
+- **STORY-41** (STORY-041): Distribution Package Creation (tar.gz & .zip) ✅
+- **STORY-42** (STORY-042): Installer Script Development (fresh/upgrade/validate modes) ✅
+- **STORY-43** (STORY-043): Installation Guide Documentation (15+ troubleshooting scenarios) ✅
+- **STORY-44** (STORY-044): README.md Update (installation section with examples) ✅
+- **STORY-45** (STORY-045): Migration Guide Creation (7-step v1.0.0 → v1.0.1 migration) ✅
+- **STORY-46** (STORY-046): Team Training & Onboarding (team-training-log.md, 10+ topics) ✅
+- **STORY-47** (STORY-047): Integration Testing & QA (142-test comprehensive suite) ✅
+- **STORY-48** (STORY-048): Documentation & Refactoring (current story - final quality improvements) ✅
+
+### Phase 4 Deliverables
+
+**Documentation Complete:**
+- README.md with fresh/upgrade installation examples
+- installer/INSTALL.md with 15+ troubleshooting scenarios and 10+ FAQ answers
+- MIGRATION-GUIDE.md with 7-step migration workflow
+- .claude/README.md with deprecation timeline (6+ month support window)
+- ROADMAP.md with complete Phase 4 story list and Phase 5 planning
+
+**Installer Complete:**
+- installer/install.py with fresh/upgrade/validate modes
+- Python version checking and dependency validation
+- src/ directory migration support
+- Automatic backup creation and rollback capability
+
+**Distribution Packages Complete:**
+- devforgeai-1.0.1.tar.gz (complete source + installer)
+- devforgeai-1.0.1.zip (Windows-compatible package)
+- version.json with metadata and checksums
+- Release notes and compatibility information
+
+**Team Training Complete:**
+- .devforgeai/onboarding/team-training-log.md (10+ topics)
+- Training checklist and completion tracking
+- Developer onboarding workflow documentation
+- Framework migration documentation
+
+---
+
+## Phase 5: Public Release and Community Onboarding
+
+### Objective
+
+Prepare framework for public release and community adoption with comprehensive external documentation and support channels.
+
+### Phase 5 Activities
+
+**Week 5: Public Release Preparation**
+- Create GitHub releases with change logs
+- Publish to package repositories (PyPI, npm, etc.)
+- Set up community channels (Discord, GitHub Discussions)
+- Create getting-started guide for new communities
+- Document known limitations and workarounds
+
+**Week 6: Community Onboarding**
+- Develop interactive tutorials for different use cases
+- Create video walkthroughs of common workflows
+- Establish support process for external issues
+- Create framework plugin development guide
+- Build community contribution guidelines
+
+### Phase 5 Success Criteria
+
+✅ Framework available on public repositories
+✅ Clear getting-started guide for external users
+✅ Community support channels established
+✅ Plugin development documentation complete
+✅ 100+ external users adopted framework
 
 ---
 

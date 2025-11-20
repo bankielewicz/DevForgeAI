@@ -123,7 +123,8 @@
       "Bash(timeout 60 tail:*)",
       "Bash(if [ -f /tmp/pytest_progress.txt ])",
       "Bash(then tail -5 /tmp/pytest_progress.txt)",
-      "Bash(else ps aux)"
+      "Bash(else ps aux)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []
