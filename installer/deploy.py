@@ -50,7 +50,9 @@ NO_DEPLOY_DIRS = {
 }
 
 # File extensions and names that should be executable
-EXECUTABLE_NAMES = {".sh", "", "devforgeai", "claude-code"}  # Last two are filenames, empty is for .sh extension
+EXECUTABLE_SHELL_EXTENSION = ".sh"
+EXECUTABLE_FILENAMES = {"devforgeai", "claude-code"}
+EXECUTABLE_NAMES = {EXECUTABLE_SHELL_EXTENSION} | EXECUTABLE_FILENAMES  # Combined for backward compatibility
 
 
 def _should_exclude(file_path: Path) -> bool:
@@ -113,6 +115,58 @@ def _should_preserve(relative_path: Path) -> bool:
     return False
 
 
+def _deploy_directory(
+    source_dir: Path,
+    target_dir: Path,
+    result: dict,
+    preserve_configs: bool = False,
+) -> None:
+    """
+    Deploy files from source directory to target directory.
+
+    Extracted method to eliminate duplicate code between .claude/ and .devforgeai/ deployment.
+
+    Args:
+        source_dir: Source directory to deploy from
+        target_dir: Target directory to deploy to
+        result: Result dict to update with deployment metrics
+        preserve_configs: Whether to check preservation rules (devforgeai only)
+    """
+    if not source_dir.exists():
+        return
+
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    for source_file in source_dir.rglob("*"):
+        if source_file.is_file():
+            # Check exclusions
+            if _should_exclude(source_file):
+                result["files_skipped"] += 1
+                continue
+
+            # Calculate target path
+            relative = source_file.relative_to(source_dir)
+            target_file = target_dir / relative
+
+            # Check if we should preserve this file (devforgeai only)
+            if preserve_configs and _should_preserve(relative):
+                if target_file.exists():
+                    result["files_skipped"] += 1
+                    continue
+
+            # Create parent directories
+            target_file.parent.mkdir(parents=True, exist_ok=True)
+            result["directories_created"] += 1
+
+            # Copy file
+            try:
+                shutil.copy2(source_file, target_file)
+                result["files_deployed"] += 1
+            except OSError as e:
+                result["errors"].append(f"Failed to copy {source_file}: {e}")
+                result["status"] = "failed"
+
+
 def deploy_framework_files(
     source_root: Path,
     target_root: Path,
@@ -162,7 +216,7 @@ def deploy_framework_files(
         "errors": [],
     }
 
-    # HIGH-3 FIX: Validate source directories exist before attempting deployment
+    # Validate source directories exist before attempting deployment
     source_claude = source_root / "claude"
     source_devforgeai = source_root / "devforgeai"
 
@@ -177,68 +231,9 @@ def deploy_framework_files(
         return result
 
     try:
-        # Deploy .claude/ directory
-        if source_claude.exists():
-            target_claude = target_root / ".claude"
-            target_claude.mkdir(parents=True, exist_ok=True)
-
-            for source_file in source_claude.rglob("*"):
-                if source_file.is_file():
-                    # Check exclusions
-                    if _should_exclude(source_file):
-                        result["files_skipped"] += 1
-                        continue
-
-                    # Calculate target path
-                    relative = source_file.relative_to(source_claude)
-                    target_file = target_claude / relative
-
-                    # Create parent directories
-                    target_file.parent.mkdir(parents=True, exist_ok=True)
-                    result["directories_created"] += 1
-
-                    # Copy file
-                    try:
-                        shutil.copy2(source_file, target_file)
-                        result["files_deployed"] += 1
-                    except OSError as e:
-                        result["errors"].append(f"Failed to copy {source_file}: {e}")
-                        result["status"] = "failed"
-
-        # Deploy .devforgeai/ directory (selective)
-        source_devforgeai = source_root / "devforgeai"
-        if source_devforgeai.exists():
-            target_devforgeai = target_root / ".devforgeai"
-            target_devforgeai.mkdir(parents=True, exist_ok=True)
-
-            for source_file in source_devforgeai.rglob("*"):
-                if source_file.is_file():
-                    # Check exclusions
-                    if _should_exclude(source_file):
-                        result["files_skipped"] += 1
-                        continue
-
-                    # Calculate relative and target path
-                    relative = source_file.relative_to(source_devforgeai)
-                    target_file = target_devforgeai / relative
-
-                    # Check if we should preserve this file
-                    if preserve_configs and _should_preserve(relative):
-                        if target_file.exists():
-                            result["files_skipped"] += 1
-                            continue
-
-                    # Create parent directories
-                    target_file.parent.mkdir(parents=True, exist_ok=True)
-                    result["directories_created"] += 1
-
-                    # Copy file
-                    try:
-                        shutil.copy2(source_file, target_file)
-                        result["files_deployed"] += 1
-                    except OSError as e:
-                        result["errors"].append(f"Failed to copy {source_file}: {e}")
-                        result["status"] = "failed"
+        # Deploy both directories using unified function
+        _deploy_directory(source_claude, target_root / ".claude", result)
+        _deploy_directory(source_devforgeai, target_root / ".devforgeai", result, preserve_configs)
 
     except FileNotFoundError as e:
         result["errors"].append(f"Source directory not found: {e}")

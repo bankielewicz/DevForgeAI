@@ -23,6 +23,205 @@ from . import rollback as rollback_module
 from . import validate
 from . import merge
 
+# Constants for version.json
+VERSION_JSON_SCHEMA = "1.0"
+INSTALLATION_SUCCESS_MESSAGE = "✅ DevForgeAI {version} installed successfully ({mode})"
+
+
+def _update_version_file(devforgeai_path: Path, source_version: str, source_version_data: dict, mode: str, result: dict) -> bool:
+    """
+    Update version.json with current installation data.
+
+    Args:
+        devforgeai_path: Path to .devforgeai directory
+        source_version: Version string being installed
+        source_version_data: Version data dict from source
+        mode: Installation mode (fresh_install, upgrade, etc.)
+        result: Result dict to update with status/messages/errors
+
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        version_data = {
+            "version": source_version,
+            "installed_at": source_version_data.get("released_at", "2025-11-17T00:00:00Z"),
+            "mode": mode,
+            "schema_version": VERSION_JSON_SCHEMA,
+        }
+        version_file = devforgeai_path / ".version.json"
+        version_file.write_text(json.dumps(version_data, indent=2))
+        result["messages"].append(f"Updated version.json: {source_version}")
+        return True
+    except OSError as e:
+        result["errors"].append(f"Failed to write version.json: {e}")
+        result["status"] = "failed"
+        return False
+
+
+def _get_source_version_data(source_root: Path) -> tuple[str, dict]:
+    """
+    Get source version data and handle errors.
+
+    Args:
+        source_root: Root path of source
+
+    Returns:
+        tuple: (version_string, version_data_dict)
+
+    Raises:
+        FileNotFoundError: If source version not found
+    """
+    source_devforgeai = source_root / "devforgeai"
+    source_version_data = ver_module.get_source_version(source_devforgeai)
+    source_version = source_version_data.get("version")
+    return source_version, source_version_data
+
+
+def _handle_uninstall_mode(target_root: Path, devforgeai_path: Path, result: dict) -> dict:
+    """
+    Handle uninstall mode: create backup and remove framework files.
+
+    Args:
+        target_root: Root path of target project
+        devforgeai_path: Path to .devforgeai directory
+        result: Result dict to update
+
+    Returns:
+        dict: Updated result with uninstall outcome
+    """
+    # Create backup before uninstalling
+    current_version_data = ver_module.get_installed_version(devforgeai_path)
+    current_version = current_version_data.get("version") if current_version_data else "unknown"
+
+    backup_path, backup_manifest = backup.create_backup(
+        target_root,
+        reason="uninstall",
+        from_version=current_version,
+    )
+    result["backup_path"] = str(backup_path)
+    result["messages"].append(f"Backup created: {backup_manifest['created_at']}")
+
+    # Remove framework directories (preserve .ai_docs and context)
+    try:
+        _remove_framework_files(target_root, result)
+    except OSError as e:
+        result["errors"].append(f"Uninstall failed: {e}")
+        result["status"] = "failed"
+
+    return result
+
+
+def _handle_claude_md_merge(target_root: Path, source_root: Path, result: dict) -> None:
+    """
+    Handle CLAUDE.md merge: preserve user content and merge framework updates.
+
+    Args:
+        target_root: Root path of target project
+        source_root: Root path of source
+        result: Result dict to update with merge messages
+    """
+    try:
+        user_claude_path = target_root / "CLAUDE.md"
+        framework_claude_path = source_root / "CLAUDE.md"
+
+        if user_claude_path.exists() and framework_claude_path.exists():
+            # User has existing CLAUDE.md - merge with framework template
+            merger = merge.CLAUDEmdMerger(target_root)
+            merge_result = merger.merge_claude_md(user_claude_path, framework_claude_path, backup=True)
+
+            if merge_result.success:
+                user_claude_path.write_text(merge_result.merged_content, encoding='utf-8')
+                result["messages"].append("✓ CLAUDE.md merged with user content preserved")
+            else:
+                result["warnings"].append("CLAUDE.md merge had conflicts (kept user version)")
+        elif not user_claude_path.exists() and framework_claude_path.exists():
+            # No existing CLAUDE.md - copy framework template and substitute variables
+            from . import variables
+
+            framework_content = framework_claude_path.read_text(encoding='utf-8')
+            detector = variables.TemplateVariableDetector(target_root)
+            all_variables = detector.get_all_variables()
+            substituted_content = detector.substitute_variables(framework_content, all_variables)
+
+            user_claude_path.write_text(substituted_content, encoding='utf-8')
+            result["messages"].append("✓ CLAUDE.md created from framework template")
+
+    except Exception as e:
+        result["warnings"].append(f"CLAUDE.md merge skipped: {e}")
+
+
+def _remove_framework_files(target_root: Path, result: dict) -> None:
+    """
+    Remove framework files from target directory.
+
+    Removes .claude/, most .devforgeai/ subdirs, and CLAUDE.md.
+    Preserves .devforgeai/context/, .devforgeai/.backups/, .devforgeai/config/
+
+    Args:
+        target_root: Root path of target project
+        result: Result dict to update with messages
+    """
+    if (target_root / ".claude").exists():
+        shutil.rmtree(target_root / ".claude")
+        result["messages"].append("Removed .claude/")
+
+    # Remove .devforgeai subdirs except context, .backups, config
+    devforgeai_dir = target_root / ".devforgeai"
+    if devforgeai_dir.exists():
+        for subdir in devforgeai_dir.iterdir():
+            if subdir.name not in {"context", ".backups", "config"}:
+                if subdir.is_dir():
+                    shutil.rmtree(subdir)
+
+    if (target_root / "CLAUDE.md").exists():
+        (target_root / "CLAUDE.md").unlink()
+        result["messages"].append("Removed CLAUDE.md")
+
+    result["messages"].append("DevForgeAI framework uninstalled (context preserved)")
+
+
+def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
+    """
+    Handle rollback mode: restore from most recent backup.
+
+    Args:
+        target_root: Root path of target project
+        result: Result dict to update
+
+    Returns:
+        dict: Updated result with rollback outcome
+    """
+    backups = rollback_module.list_backups(target_root)
+    if not backups:
+        result["errors"].append("No backups available for rollback")
+        result["status"] = "failed"
+        return result
+
+    # Use most recent backup
+    backup_to_restore = backups[0]
+    backup_path = backup_to_restore["path"]
+
+    # Verify backup integrity
+    backup_verification = validate.validate_version_json(backup_path / "manifest.json")
+    if not backup_verification["valid"]:
+        result["errors"].append("Backup integrity check failed")
+        result["status"] = "failed"
+        return result
+
+    # Restore from backup
+    restore_result = rollback_module.restore_from_backup(target_root, backup_path)
+    result["files_restored"] = restore_result["files_restored"]
+    result["backup_path"] = str(backup_path)
+
+    if restore_result["status"] == "failed":
+        result["status"] = "failed"
+        result["errors"].extend(restore_result["errors"])
+        return result
+
+    result["messages"].append(f"Restored from backup: {backup_to_restore['name']}")
+    return result
+
 
 def _detect_installation_mode(
     target_root: Path,
@@ -137,76 +336,11 @@ def install(
 
         # Handle "rollback" mode
         if mode == "rollback":
-            backups = rollback_module.list_backups(target_root)
-            if not backups:
-                result["errors"].append("No backups available for rollback")
-                result["status"] = "failed"
-                return result
-
-            # Use most recent backup
-            backup_to_restore = backups[0]
-            backup_path = backup_to_restore["path"]
-
-            # Verify backup integrity
-            backup_verification = validate.validate_version_json(backup_path / "manifest.json")
-            if not backup_verification["valid"]:
-                result["errors"].append("Backup integrity check failed")
-                result["status"] = "failed"
-                return result
-
-            # Restore from backup
-            restore_result = rollback_module.restore_from_backup(target_root, backup_path)
-            result["files_restored"] = restore_result["files_restored"]
-            result["backup_path"] = str(backup_path)
-
-            if restore_result["status"] == "failed":
-                result["status"] = "failed"
-                result["errors"].extend(restore_result["errors"])
-                return result
-
-            result["messages"].append(f"Restored from backup: {backup_to_restore['name']}")
-            return result
+            return _handle_rollback_mode(target_root, result)
 
         # Handle "uninstall" mode
         if mode == "uninstall":
-            # Create backup before uninstalling
-            current_version_data = ver_module.get_installed_version(devforgeai_path)
-            current_version = current_version_data.get("version") if current_version_data else "unknown"
-
-            backup_path, backup_manifest = backup.create_backup(
-                target_root,
-                reason="uninstall",
-                from_version=current_version,
-            )
-            result["backup_path"] = str(backup_path)
-            result["messages"].append(f"Backup created: {backup_manifest['created_at']}")
-
-            # Remove framework directories (preserve .ai_docs and context)
-            try:
-                if (target_root / ".claude").exists():
-                    shutil.rmtree(target_root / ".claude")
-                    result["messages"].append("Removed .claude/")
-
-                # Remove .devforgeai subdirs except context, ai_docs references
-                devforgeai_dir = target_root / ".devforgeai"
-                if devforgeai_dir.exists():
-                    for subdir in devforgeai_dir.iterdir():
-                        if subdir.name not in {"context", ".backups", "config"}:
-                            if subdir.is_dir():
-                                shutil.rmtree(subdir)
-
-                if (target_root / "CLAUDE.md").exists():
-                    (target_root / "CLAUDE.md").unlink()
-                    result["messages"].append("Removed CLAUDE.md")
-
-                result["messages"].append("DevForgeAI framework uninstalled (context preserved)")
-
-            except OSError as e:
-                result["errors"].append(f"Uninstall failed: {e}")
-                result["status"] = "failed"
-                return result
-
-            return result
+            return _handle_uninstall_mode(target_root, devforgeai_path, result)
 
         # Handle "fresh" and "upgrade" modes (require deployment)
         if mode not in {"fresh_install", "patch_upgrade", "minor_upgrade", "major_upgrade", "reinstall", "downgrade"}:
@@ -277,49 +411,10 @@ def install(
             result["warnings"].extend(perm_result["errors"])
 
         # Merge CLAUDE.md if user has an existing CLAUDE.md
-        try:
-            user_claude_path = target_root / "CLAUDE.md"
-            framework_claude_path = source_root / "CLAUDE.md"
-
-            if user_claude_path.exists() and framework_claude_path.exists():
-                # User has existing CLAUDE.md - merge with framework template
-                merger = merge.CLAUDEmdMerger(target_root)
-                merge_result = merger.merge_claude_md(user_claude_path, framework_claude_path, backup=True)
-
-                if merge_result.success:
-                    user_claude_path.write_text(merge_result.merged_content, encoding='utf-8')
-                    result["messages"].append("✓ CLAUDE.md merged with user content preserved")
-                else:
-                    result["warnings"].append("CLAUDE.md merge had conflicts (kept user version)")
-            elif not user_claude_path.exists() and framework_claude_path.exists():
-                # No existing CLAUDE.md - copy framework template and substitute variables
-                from . import variables
-
-                framework_content = framework_claude_path.read_text(encoding='utf-8')
-                detector = variables.TemplateVariableDetector(target_root)
-                all_variables = detector.get_all_variables()
-                substituted_content = detector.substitute_variables(framework_content, all_variables)
-
-                user_claude_path.write_text(substituted_content, encoding='utf-8')
-                result["messages"].append("✓ CLAUDE.md created from framework template")
-
-        except Exception as e:
-            result["warnings"].append(f"CLAUDE.md merge skipped: {e}")
+        _handle_claude_md_merge(target_root, source_root, result)
 
         # Update version.json
-        try:
-            version_data = {
-                "version": source_version,
-                "installed_at": source_version_data.get("released_at", "2025-11-17T00:00:00Z"),
-                "mode": mode,
-                "schema_version": "1.0",
-            }
-            version_file = devforgeai_path / ".version.json"
-            version_file.write_text(json.dumps(version_data, indent=2))
-            result["messages"].append(f"Updated version.json: {source_version}")
-        except OSError as e:
-            result["errors"].append(f"Failed to write version.json: {e}")
-            result["status"] = "failed"
+        if not _update_version_file(devforgeai_path, source_version, source_version_data, mode, result):
             # Rollback on version.json failure
             if backup_path:
                 result["status"] = "rollback"
@@ -333,7 +428,7 @@ def install(
 
         # Success message
         result["messages"].append(
-            f"✅ DevForgeAI {source_version} installed successfully ({mode})"
+            INSTALLATION_SUCCESS_MESSAGE.format(version=source_version, mode=mode)
         )
 
     except Exception as e:

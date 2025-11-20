@@ -111,16 +111,17 @@ So that I can develop multiple stories in parallel without file system collision
 - AC2: Worktree idle >7 days flagged for cleanup (checked on next /dev)
 - AC3: Prompt offers: Resume, Fresh Start, Delete Old
 - AC4: Worktree creation takes <10 seconds
-- AC5: Cleanup threshold configurable in .devforgeai/config/parallel.yaml
+- AC5: Cleanup threshold configurable in .devforgeai/config/parallel.yaml (deployed from src/devforgeai/config/parallel.yaml.example)
 
 **Dependencies:** None (foundational feature)
 
 **Deliverables:**
-- **Subagent:** git-worktree-manager (enhanced from git-validator, ~450 lines)
-- Worktree manager module (Python or Bash)
-- .devforgeai/config/parallel.yaml configuration
-- Auto-create logic in /dev Phase 0
-- Cleanup prompt in /dev Phase 0
+- **Subagent:** git-worktree-manager (enhanced from git-validator, ~450 lines) in src/claude/agents/
+- Worktree manager module (Python or Bash) in src/claude/scripts/ or skill references
+- **Config template:** src/devforgeai/config/parallel.yaml.example (defaults: 7-day cleanup, 5 max worktrees)
+- **Operational config:** .devforgeai/config/parallel.yaml (created by installer from template)
+- Auto-create logic in src/claude/skills/devforgeai-development/ (Phase 0 enhancement)
+- Cleanup prompt in /dev command (Phase 0)
 - Documentation: Git worktrees for parallel development
 
 **Subagent:** **git-worktree-manager** (ENHANCED from git-validator)
@@ -150,17 +151,18 @@ So that concurrent QA validations don't overwrite each other's results and I can
 - Coverage aggregation per story
 
 **Acceptance Criteria:**
-- AC1: /dev STORY-037 runs tests with --results-directory=TestResults/STORY-037/
-- AC2: /qa STORY-038 (concurrent) writes to TestResults/STORY-038/ (no collision)
-- AC3: Coverage reports isolated: coverage/STORY-037/coverage.xml, coverage/STORY-038/coverage.xml
-- AC4: QA reports reference correct test output paths
+- AC1: /dev STORY-037 runs tests with --results-directory=tests/results/STORY-037/
+- AC2: /qa STORY-038 (concurrent) writes to tests/results/STORY-038/ (no collision)
+- AC3: Coverage reports isolated: tests/coverage/STORY-037/coverage.xml, tests/coverage/STORY-038/coverage.xml
+- AC4: QA reports reference correct test output paths (tests/results/{story_id}/)
 - AC5: Test isolation works for pytest, jest, dotnet test, go test
 
 **Dependencies:** Feature 1 (worktrees provide file system isolation)
 
 **Deliverables:**
-- Test configuration updates (/dev Phase 2, /qa Phase 1)
-- .devforgeai/config/test-isolation.yaml
+- Test configuration updates in src/claude/skills/devforgeai-development/ (Phase 2) and src/claude/skills/devforgeai-qa/ (Phase 1)
+- **Config template:** src/devforgeai/config/test-isolation.yaml.example
+- **Operational config:** .devforgeai/config/test-isolation.yaml (created by installer)
 - Documentation: Story-scoped testing guide
 
 **Risk:** Low - Standard test framework feature, well-documented
@@ -235,16 +237,17 @@ So that I can make informed decisions about parallelization safety and avoid mer
 - AC2: Display warning before /dev starts: "Overlap detected: src/User.cs (STORY-037 and STORY-038). Proceed? (1) Yes (2) No (3) Review"
 - AC3: Post-flight check: After /dev Phase 2, run git diff in each worktree, compare changed file lists
 - AC4: If actual overlap differs from spec overlap, log discrepancy: "Warning: STORY-038 modified src/Product.cs (not in spec)"
-- AC5: Overlap report saved: .devforgeai/parallel/overlap-report-{timestamp}.md
+- AC5: Overlap report saved: tests/reports/overlap-STORY-{id}-{timestamp}.md
 
 **Dependencies:** Feature 3 (uses dependency graph data)
 
 **Deliverables:**
-- **Subagent:** file-overlap-detector (NEW, ~350 lines)
-- Spec parser for file_path extraction
-- Git diff analyzer
-- Overlap detection module
-- Warning prompt integration (/dev Phase 0)
+- **Subagent:** file-overlap-detector (NEW, ~350 lines) in src/claude/agents/
+- Spec parser for file_path extraction (in subagent)
+- Git diff analyzer (in subagent)
+- Overlap detection module (in subagent)
+- Warning prompt integration in src/claude/skills/devforgeai-development/ (Phase 0 Step 0.4)
+- **Overlap reports:** tests/reports/overlap-STORY-{id}-{timestamp}.md
 - Documentation: File overlap analysis guide
 
 **Subagent:** **file-overlap-detector** (NEW)
@@ -307,11 +310,13 @@ So that I don't encounter git index lock conflicts or race conditions.
 - Wait-with-progress UI
 
 **Acceptance Criteria:**
-- AC1: /dev Phase 5 (git commit) acquires .devforgeai/.locks/git-commit.lock before committing
+- AC1: /dev Phase 5 (git commit) acquires .devforgeai/.locks/git-commit.lock before committing (operational folder, not source)
 - AC2: If lock exists, waits with progress: "Waiting for git lock (held by STORY-037 PID 12345)... 15s"
 - AC3: Stale lock detection: Lock >5 min old with dead PID auto-removed
 - AC4: Lock timeout: After 10 min waiting, prompt: "(1) Continue waiting, (2) Force acquire lock (risky), (3) Abort"
 - AC5: Lock released after successful commit
+
+**Note:** Lock files are runtime artifacts in .devforgeai/.locks/ (operational), not in src/ (source) or tests/ (testing)
 
 **Dependencies:** Feature 1 (worktrees create concurrent git operations)
 
@@ -561,11 +566,11 @@ So that I don't encounter git index lock conflicts or race conditions.
 - **Step 0.7:** Context Files Validation (existing, unchanged)
 
 **Modified Phase 2 (Green - Tests):**
-- Run tests with story-scoped output directories:
-  - `--results-directory=TestResults/{story_id}/`
-  - `--cov-report=html:coverage/{story_id}/coverage-html`
-  - `--cov-report=xml:coverage/{story_id}/coverage.xml`
-  - `--junitxml=TestResults/{story_id}/test-results.xml`
+- Run tests with story-scoped output directories in tests/ tree:
+  - `--results-directory=tests/results/{story_id}/`
+  - `--cov-report=html:tests/coverage/{story_id}/coverage-html`
+  - `--cov-report=xml:tests/coverage/{story_id}/coverage.xml`
+  - `--junitxml=tests/results/{story_id}/test-results.xml`
 
 **Modified Phase 5 (Git/Tracking):**
 - **Step 5.1:** Acquire Git Commit Lock (NEW)
@@ -612,13 +617,13 @@ So that I don't encounter git index lock conflicts or race conditions.
   - If worktree: Extract story ID from path
   - Display: "ℹ️ Running QA in worktree: ../devforgeai-story-{id}/"
 - **Step 0.2:** Story-Scoped Path Resolution (NEW)
-  - Resolve test results: `TestResults/{story_id}/test-results.xml`
-  - Resolve coverage: `coverage/{story_id}/coverage.xml`
+  - Resolve test results: `tests/results/{story_id}/test-results.xml`
+  - Resolve coverage: `tests/coverage/{story_id}/coverage.xml`
   - Validate paths exist before analysis
 
 **Modified Phase 1-4 (Validation Phases):**
-- Read test results from story-scoped paths (not shared TestResults/)
-- Read coverage from story-scoped paths (not shared coverage/)
+- Read test results from story-scoped paths in tests/ tree (not shared results/)
+- Read coverage from story-scoped paths in tests/ tree (not shared coverage/)
 - All validation logic unchanged (same quality gates)
 
 **New Phase 5 (Post-QA Actions) - Only for Deep QA PASSED:**
@@ -771,7 +776,8 @@ Phase 2: Display Results
   - Test: Run installer on each configuration
 
 **Phase 2: Configuration Setup**
-- Create .devforgeai/config/github-actions.yaml:
+- Create src/devforgeai/config/github-actions.yaml.example (template):
+  - Installer deploys to .devforgeai/config/github-actions.yaml (operational)
   ```yaml
   github_actions:
     enabled: true
@@ -792,7 +798,8 @@ Phase 2: Display Results
         max_concurrent: 5
         model: haiku
   ```
-- Create .devforgeai/config/ci-answers.yaml (headless AskUserQuestion):
+- Create src/devforgeai/config/ci-answers.yaml.example (template):
+  - Installer deploys to .devforgeai/config/ci-answers.yaml (operational)
   ```yaml
   ci_mode_answers:
     test_failure_action: "fix-implementation"
@@ -986,6 +993,73 @@ Phase 2: Display Results
 - Cost optimization (caching, Haiku)
 - CI/CD testing and documentation
 
+---
+
+## Directory Structure Alignment
+
+**EPIC-010 follows DevForgeAI directory conventions:**
+
+### Source Tree (src/)
+**Purpose:** All source code (skills, commands, subagents, scripts)
+
+**EPIC-010 Additions:**
+- `src/claude/agents/git-worktree-manager.md` (enhanced subagent)
+- `src/claude/agents/dependency-graph-analyzer.md` (NEW subagent)
+- `src/claude/agents/file-overlap-detector.md` (NEW subagent)
+- `src/claude/skills/devforgeai-development/references/worktree-management-workflow.md` (NEW reference)
+- `src/claude/skills/devforgeai-development/references/dependency-validation-workflow.md` (NEW reference)
+- `src/claude/skills/devforgeai-development/references/overlap-detection-workflow.md` (NEW reference)
+- `src/claude/skills/devforgeai-development/references/parallel-development-guide.md` (NEW reference)
+- `src/claude/skills/devforgeai-qa/references/parallel-qa-workflow.md` (NEW reference)
+- `src/claude/skills/devforgeai-qa/references/auto-merge-on-approval.md` (NEW reference)
+- `src/claude/skills/devforgeai-github/SKILL.md` (NEW skill - Phase 2)
+- `src/claude/skills/devforgeai-github/references/` (6 new reference files - Phase 2)
+- `src/claude/commands/worktrees.md` (NEW command)
+- `src/claude/commands/setup-github-actions.md` (NEW command - Phase 2)
+- `src/devforgeai/config/parallel.yaml.example` (config template)
+- `src/devforgeai/config/test-isolation.yaml.example` (config template)
+- `src/devforgeai/config/github-actions.yaml.example` (config template - Phase 2)
+- `src/devforgeai/config/ci-answers.yaml.example` (config template - Phase 2)
+
+### Testing Tree (tests/)
+**Purpose:** All tests, test results, coverage reports
+
+**EPIC-010 Additions:**
+- `tests/results/STORY-{id}/` (story-scoped test results - created at runtime)
+- `tests/coverage/STORY-{id}/` (story-scoped coverage reports - created at runtime)
+- `tests/logs/STORY-{id}/` (story-scoped test logs - created at runtime)
+- `tests/reports/overlap-STORY-{id}-{timestamp}.md` (file overlap reports - created at runtime)
+- `tests/unit/test_dependency_graph.py` (unit tests for Feature 3)
+- `tests/unit/test_file_overlap.py` (unit tests for Feature 4)
+- `tests/unit/test_worktree_manager.py` (unit tests for Feature 1)
+- `tests/integration/test_parallel_dev.py` (integration tests for concurrent /dev)
+- `tests/integration/test_parallel_qa.py` (integration tests for concurrent /qa)
+
+### Operational Folders (.devforgeai/)
+**Purpose:** Runtime artifacts, generated reports, operational config
+
+**EPIC-010 Additions:**
+- `.devforgeai/config/parallel.yaml` (deployed from src/ template, user-editable)
+- `.devforgeai/config/test-isolation.yaml` (deployed from src/ template, user-editable)
+- `.devforgeai/config/github-actions.yaml` (deployed from src/ template - Phase 2, user-editable)
+- `.devforgeai/config/ci-answers.yaml` (deployed from src/ template - Phase 2, user-editable)
+- `.devforgeai/.locks/git-commit.lock` (runtime lock file, NOT in src/ or tests/)
+- `.devforgeai/.locks/build.lock` (runtime lock file if needed)
+
+### Deployed Operational (.claude/)
+**Purpose:** Deployed framework files (from src/ via installer)
+
+**EPIC-010 Changes:**
+- All source changes deploy via installer: src/claude/ → .claude/
+- Worktrees operate in separate directories (../devforgeai-story-{id}/) with own .claude/ copy
+
+### User Content (.ai_docs/)
+**Purpose:** Stories, epics, sprints (user-created)
+
+**EPIC-010 No Changes:** Stories continue to live in .ai_docs/Stories/ (unchanged)
+
+---
+
 ## Backward Compatibility Guarantee
 
 **Critical Requirement:** Existing /dev workflow MUST work unchanged
@@ -999,7 +1073,8 @@ Phase 2: Display Results
 | Story without depends_on | Develops normally | Develops normally (no dependencies) | ✅ YES |
 | Quality gates (coverage, TDD) | Enforced strictly | Enforced identically in worktree | ✅ YES |
 | Git commits | Commits to current branch | Commits to story branch in worktree | ⚠️ CHANGE (but compatible) |
-| Test outputs | TestResults/ | TestResults/{story_id}/ | ⚠️ CHANGE (but compatible) |
+| Test outputs | tests/ (shared) | tests/results/{story_id}/ (isolated) | ⚠️ CHANGE (but compatible) |
+| Coverage reports | tests/ (shared) | tests/coverage/{story_id}/ (isolated) | ⚠️ CHANGE (but compatible) |
 
 **Breaking Changes:** None (changes are additive and transparent)
 
@@ -1112,8 +1187,10 @@ Phase 2: Display Results
      - .github/workflows/parallel-stories.yml (matrix parallel execution)
      - .github/workflows/installer-testing.yml (cross-platform installer validation)
    - **Configuration:**
-     - .devforgeai/config/github-actions.yaml (workflow settings, cost limits)
-     - .devforgeai/config/ci-answers.yaml (headless AskUserQuestion answers)
+     - src/devforgeai/config/github-actions.yaml.example (source template)
+     - src/devforgeai/config/ci-answers.yaml.example (source template)
+     - .devforgeai/config/github-actions.yaml (deployed operational config)
+     - .devforgeai/config/ci-answers.yaml (deployed operational config)
    - **Reference files:** 6 files (~3,000 lines)
      - github-actions-setup-workflow.md
      - workflow-template-generation.md

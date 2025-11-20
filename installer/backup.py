@@ -44,7 +44,7 @@ def _generate_backup_hash(backup_path: Path) -> str:
     return f"{HASH_ALGORITHM}:{hasher.hexdigest()}"
 
 
-def _hash_file(file_path: Path, hasher: hashlib._hashlib.HASH) -> None:
+def _hash_file(file_path: Path, hasher) -> None:
     """
     Update hasher with file content.
 
