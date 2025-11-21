@@ -21,9 +21,9 @@ model: claude-sonnet-4-5-20250929
 4. You complete with success/failure report
 
 **Do NOT:**
-- ❌ Wait passively for skill to "return results"
-- ❌ Assume skill is executing elsewhere
-- ❌ Stop workflow after invocation
+- Wait passively for skill to "return results"
+- Assume skill is executing elsewhere
+- Stop workflow after invocation
 
 **Proceed to "When to Use This Skill" section below and begin execution.**
 
@@ -210,6 +210,84 @@ Invoke this skill when users ask about:
 
 ---
 
+## How DevForgeAI Skills Work with User Input
+
+DevForgeAI skills depend on clear, specific user input to generate high-quality outputs. When you provide complete requirements and context, skills can deliver solutions with minimal clarification. Vague or ambiguous input triggers safety mechanisms that ask clarifying questions—important for correctness, but requiring additional iterations.
+
+### Cross-Reference Guidance Documents
+
+**[effective-prompting-guide.md](../../memory/effective-prompting-guide.md)** (User-Facing Guide)
+
+Consult this guide when you want to improve how you communicate with DevForgeAI. It covers all 11 commands with specific examples showing ineffective vs. effective input patterns, command-specific workflows, and common mistakes to avoid. Best for: preparing feature requests, creating user stories, writing error reports, or refining technology decisions. Use this BEFORE interacting with DevForgeAI to optimize your input quality.
+
+**[user-input-guidance.md](../devforgeai-ideation/references/user-input-guidance.md)** (Framework-Internal Reference)
+
+DevForgeAI skills reference this document internally when asking you clarifying questions. It defines discovery workflows, AskUserQuestion templates with examples, and quantification tables for non-functional requirements. You'll encounter these structures in framework clarifying questions—they're intentionally designed to extract complete, measurable specifications. Use this AFTER receiving an AskUserQuestion to understand why specific information is being requested.
+
+### Examples: Effective vs Ineffective Input
+
+**Feature Requests:**
+- ❌ Ineffective: "Can Claude Code handle my workflows?"
+- ✅ Effective: "Can Claude Code execute custom Python scripts via hooks and capture their output for integration with GitHub Actions?" *(Specificity + use case)*
+
+**Story Creation:**
+- ❌ Ineffective: "I need a feature to manage users"
+- ✅ Effective: "I need a user registration feature. Acceptance criteria: validate email format, hash passwords with bcrypt, store in PostgreSQL, return 409 if email exists" *(Scope + testable requirements)*
+
+**Error Reporting:**
+- ❌ Ineffective: "It's not working"
+- ✅ Effective: "When I run `/dev STORY-001`, the test runner fails with 'ModuleNotFoundError: No module named pytest' on Python 3.10 in WSL2" *(Context + reproducibility)*
+
+**Technology Decisions:**
+- ❌ Ineffective: "What database should I use?"
+- ✅ Effective: "My project has <1M records, <1000 QPS, needs ACID compliance. Should I use SQLite (dev) or PostgreSQL (production)?" *(Constraints + options)*
+
+**Feedback on Outputs:**
+- ❌ Ineffective: "This doesn't look right"
+- ✅ Effective: "The generated SQL uses string concatenation instead of parameterized queries. This violates the 'no SQL concatenation' rule in anti-patterns.md" *(Evidence + reference)*
+
+**Configuration Questions:**
+- ❌ Ineffective: "How do I set up MCP?"
+- ✅ Effective: "I want to integrate Claude Code with our internal JIRA instance. Can you show me how to configure OAuth with an MCP server?" *(Goal + integration detail)*
+
+**Testing Specifications:**
+- ❌ Ineffective: "Add tests for the order feature"
+- ✅ Effective: "Add unit tests for Order.calculate_total() with: valid items (3+ products), empty order, negative quantities, currency mismatches" *(Function + test cases)*
+
+**Scope Definition:**
+- ❌ Ineffective: "Make it scalable"
+- ✅ Effective: "System must handle 10,000 concurrent users with <200ms p99 latency and 99.9% uptime SLA" *(Measurable metrics)*
+
+**Documentation Requirements:**
+- ❌ Ineffective: "Document everything"
+- ✅ Effective: "Document the REST API endpoints (URL, method, request/response schema), error codes (400-409), and rate limits (100 req/min per IP)" *(Scope + specificity)*
+
+### The "Ask, Don't Assume" Principle
+
+DevForgeAI follows an explicit "Ask, Don't Assume" principle described in CLAUDE.md. Here's how it works:
+
+**When to Expect Clarifying Questions:**
+- **Technology decisions** - No standard specified in tech-stack.md
+- **Conflicting requirements** - Spec says X, context file says Y
+- **Ambiguous scope** - "Fast", "scalable", "simple" without metrics
+- **Missing details** - AC without test cases, design without constraints
+- **Preference-dependent choices** - Architecture style, naming conventions, framework preferences
+
+**What Skills Do NOT Assume:**
+- Your technology preferences (only uses tech-stack.md)
+- Your priority weighting (asks if conflicting)
+- Your definition of success metrics (requires explicit targets)
+- Your team's available time/budget (requests clarification)
+- Your data sensitivity requirements (asks for security constraints)
+
+**Why This Principle Exists:**
+Skills operate without human follow-up conversations in some contexts. Making wrong assumptions leads to implementing the wrong feature, violating constraints, or wasting effort on non-goals. By asking explicitly, DevForgeAI ensures outputs match your actual needs rather than the AI's interpretation.
+
+**How This Integrates with Quality Gates:**
+DevForgeAI's quality gates check that all decisions are documented with explicit user approval. If a skill makes assumptions and later testing reveals they were wrong, the quality gate blocks progression. This is intentional—catching assumption misalignment early prevents rework.
+
+---
+
 ## Progressive Disclosure Strategy
 
 **Load reference files as needed:**
@@ -287,7 +365,7 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 
 5. **Notify user:**
    ```
-   "✅ Updated [section] in [file] with latest documentation from code.claude.com"
+   "Updated [section] in [file] with latest documentation from code.claude.com"
    ```
 
 **Documentation URLs by topic:**
