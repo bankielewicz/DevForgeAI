@@ -18,7 +18,7 @@ This workflow references:
 ## Step 1: Load Coverage Thresholds
 
 ```
-Read(file_path=".devforgeai/qa/coverage-thresholds.md")
+Read(file_path=".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
 
 IF file not found:
     Use default strict thresholds:

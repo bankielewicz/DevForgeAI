@@ -76,6 +76,190 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 Load workflow references on-demand for implementation details.
 
+---
+
+### Phase 0.9: AC-DoD Traceability Validation (NEW - RCA-012)
+
+**Purpose:** Verify every Acceptance Criterion requirement has corresponding Definition of Done coverage. Prevents quality gate bypass (STORY-038 pattern) and ensures complete work validation.
+
+**Priority:** Execute BEFORE expensive validations (Phases 1-6) to fail fast on structural issues
+
+**Token Cost:** ~2K tokens (lightweight validation)
+**Token Savings:** ~60K tokens if catches issue (avoid Phases 1-6)
+
+**Reference:** `references/traceability-validation-algorithm.md` (complete 5-step algorithm)
+**Templates:** `assets/traceability-report-template.md` (PASS/FAIL display formatting)
+
+---
+
+#### Step 0.9.1: Load Traceability Algorithm
+
+```
+Read(file_path="src/claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md")
+```
+
+**Algorithm provides:**
+- Step 1: Extract AC requirements (parse AC headers, Given/When/Then, bullets, metrics)
+- Step 2: Extract DoD items (count checkboxes, parse text, calculate completion)
+- Step 3: Map AC → DoD (keyword matching, ≥50% overlap required)
+- Step 4: Calculate traceability score (covered / total × 100, target: 100%)
+- Step 5: Validate deferrals (check "Approved Deferrals" section if DoD incomplete)
+
+**Edge Cases Handled:**
+- Multiple DoD items covering single AC requirement (collective validation)
+- Single DoD item covering multiple ACs (rollup validation)
+- Test-based validation (one test validates multiple requirements)
+- Design-phase stories (implementation deferred with documentation)
+
+---
+
+#### Step 0.9.2: Execute 5-Step Validation
+
+**Execute algorithm from reference file:**
+
+```
+# Step 1: Extract AC Requirements
+IF template_version == "v2.1+":
+  ac_headers = grep count "^### AC#[0-9]+" story_file
+ELSE:
+  ac_headers = grep count "^### [0-9]+\. \[" story_file
+
+FOR each AC section:
+  Extract: Then clauses, And clauses, bullet requirements, measurable criteria
+  Store: ac_requirements[] (all granular requirements)
+
+total_ac_requirements = ac_requirements.length
+
+# Step 2: Extract DoD Items
+dod_section = extract_between("^## Definition of Done", "^## Workflow|^## Notes")
+
+FOR each subsection in [Implementation, Quality, Testing, Documentation]:
+  Parse: checkbox lines "^- \[(x| )\] (.+)$"
+  Store: dod_items[] (with section, status, text)
+
+dod_total = dod_items.length
+dod_checked = count(items where checked == true)
+dod_unchecked = dod_total - dod_checked
+dod_completion_pct = (dod_checked / dod_total) × 100
+
+# Step 3: Map AC → DoD
+FOR each ac_req in ac_requirements:
+  ac_keywords = extract_keywords(ac_req.text)
+
+  best_match = find_best_dod_match(ac_keywords, dod_items)
+  match_score = calculate_overlap(ac_keywords, best_match.keywords)
+
+  IF match_score >= 0.5:
+    traceability_map[ac_req] = best_match
+  ELSE:
+    missing_traceability.append(ac_req)
+
+# Step 4: Calculate Score
+traceability_score = ((total_ac_requirements - missing_traceability.length) / total_ac_requirements) × 100
+
+# Step 5: Validate Deferrals (if needed)
+IF dod_unchecked > 0:
+  Check for "## Approved Deferrals" in Implementation Notes
+  IF exists:
+    Extract: user_approval_timestamp, deferred_items_list
+    Match: unchecked DoD items to deferred_items_list
+    IF all matched:
+      deferral_status = "VALID"
+    ELSE:
+      deferral_status = "INVALID (some items undocumented)"
+  ELSE:
+    deferral_status = "INVALID (no section)"
+ELSE:
+  deferral_status = "N/A (DoD 100% complete)"
+```
+
+**Results:**
+- `traceability_score`: 0-100%
+- `dod_completion_pct`: 0-100%
+- `deferral_status`: "VALID" / "INVALID" / "N/A"
+- `missing_traceability[]`: Unmapped requirements
+- `undocumented_deferrals[]`: Incomplete items without approval
+
+---
+
+#### Step 0.9.3: Load and Populate Display Template
+
+```
+Read(file_path="src/claude/skills/devforgeai-qa/assets/traceability-report-template.md")
+```
+
+**Select template:**
+```
+IF traceability_score == 100 AND (dod_unchecked == 0 OR deferral_status == "VALID"):
+  template = PASS_TEMPLATE
+
+ELSE IF traceability_score < 100:
+  template = FAIL_TEMPLATE_TRACEABILITY
+
+ELSE IF dod_unchecked > 0 AND deferral_status contains "INVALID":
+  template = FAIL_TEMPLATE_DEFERRALS
+```
+
+**Populate variables:**
+```
+populated_template = template
+
+# Substitute all variables
+populated_template = replace(populated_template, "{ac_count}", ac_count)
+populated_template = replace(populated_template, "{total_ac_requirements}", total_ac_requirements)
+populated_template = replace(populated_template, "{traceability_score}", traceability_score)
+populated_template = replace(populated_template, "{dod_total}", dod_total)
+populated_template = replace(populated_template, "{dod_checked}", dod_checked)
+populated_template = replace(populated_template, "{dod_unchecked}", dod_unchecked)
+populated_template = replace(populated_template, "{dod_completion_pct}", dod_completion_pct)
+populated_template = replace(populated_template, "{deferral_status}", deferral_status)
+{... substitute all variables ...}
+
+# Add dynamic lists
+IF missing_traceability.length > 0:
+  FOR each missing_req in missing_traceability:
+    Add line: "  • AC#{missing_req.ac_number}: {missing_req.text}"
+
+IF undocumented_deferrals.length > 0:
+  FOR each undoc_item in undocumented_deferrals:
+    Add line: "  • {undoc_item.section}: {undoc_item.text}"
+```
+
+**Display:**
+```
+Display: {populated_template}
+```
+
+---
+
+#### Step 0.9.4: Quality Gate Decision
+
+**Apply gate rules:**
+
+```
+IF traceability_score < 100:
+  Display: "QA WORKFLOW HALTED - Fix traceability issues before proceeding"
+  EXIT Phase 0.9 (do NOT proceed to Phase 1)
+
+IF dod_unchecked > 0 AND deferral_status == "INVALID":
+  Display: "QA WORKFLOW HALTED - Add deferral documentation before proceeding"
+  EXIT Phase 0.9 (do NOT proceed to Phase 1)
+
+IF all checks PASS:
+  Display: "Proceeding to Phase 1 (Validation Mode Selection)..."
+  Continue to Phase 1
+```
+
+**Checkpoint Validation:**
+- [ ] Traceability score calculated
+- [ ] DoD completion checked
+- [ ] Deferrals validated (if applicable)
+- [ ] Display template selected and populated
+- [ ] Quality gate decision made (PASS/HALT)
+- [ ] Workflow proceeds or halts appropriately
+
+---
+
 ### Phase 1: Test Coverage Analysis
 **Ref:** `references/coverage-analysis-workflow.md` (7 steps)
 **Guide:** `references/coverage-analysis.md`
