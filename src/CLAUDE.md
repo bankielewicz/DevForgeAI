@@ -4,6 +4,9 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Repository Overview
+Use native tools over bash.
+
+Halt! if using Bash.
 
 If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback witin the "human in the middle".
 Deferals are not acceptable!
@@ -755,10 +758,10 @@ DevForgeAI provides **11 slash commands** for common tasks:
 
 ### Component Summary
 
-- **Skills:** 14 functional + 1 incomplete
+- **Skills:** 15 functional + 1 incomplete (16 total directories)
   - **Core Workflow (9):** ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, rca
   - **DevForgeAI Infrastructure (4):** documentation, feedback, mcp-cli-converter, subagent-creation
-  - **Claude Code Infrastructure (1):** claude-code-terminal-expert
+  - **Claude Code Infrastructure (2):** claude-code-terminal-expert, skill-creator
   - **Incomplete (1):** internet-sleuth-integration (missing SKILL.md, use internet-sleuth subagent instead)
   - **EPIC-010 Will Add (1):** github (GitHub Actions CI/CD)
 - **Subagents:** 26 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, story-requirements-analyst, code-analyzer, **internet-sleuth**, pattern-compliance-auditor, dev-result-interpreter)
@@ -955,6 +958,175 @@ When you encounter a framework breakdown, use the RCA capability to systematical
 Each serves a distinct purpose. Together they provide comprehensive progress visibility and prevent autonomous deferrals.
 
 **See:** `.claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md` for AC Checklist implementation details
+
+---
+
+## Acceptance Criteria vs. Tracking Mechanisms (RCA-012 Clarification)
+
+**IMPORTANT:** Stories contain both AC **definitions** and AC **tracking**. Understanding the distinction eliminates confusion about unchecked checkboxes.
+
+### Three Tracking Mechanisms Comparison
+
+| Element | Purpose | Checkbox Behavior | Updated When | Source of Truth |
+|---------|---------|-------------------|--------------|-----------------|
+| **AC Headers** (e.g., `### AC#1: Title`) | **Define what to test** (immutable specification) | **Never marked** (no checkboxes as of v2.1) | Never (definitions are static) | Story creation |
+| **AC Verification Checklist** | **Track granular progress** (real-time sub-items) | Marked `[x]` during TDD phases | End of each TDD phase (1-5) | TDD execution |
+| **Definition of Done** | **Official completion record** (quality gate) | Marked `[x]` in Phase 4.5-5 Bridge | After deferrals validated, before commit | Quality gate validation |
+
+### Why AC Headers Have No Checkboxes (Template v2.1+)
+
+**AC headers are specifications, not progress trackers.**
+
+Acceptance Criteria define **WHAT needs to be tested/implemented**. They are static requirements that remain valid throughout the story lifecycle. Marking an AC header "complete" would incorrectly imply the requirement is no longer relevant.
+
+**Progress tracking happens in two places:**
+1. **AC Verification Checklist** - Granular sub-item tracking (20-50 items per story, updated during TDD phases)
+2. **Definition of Done** - Official completion tracking (30-40 items per story, updated in Phase 4.5-5 Bridge)
+
+**Example (STORY-052 - Documentation Story):**
+
+**AC Header (Definition - Never Marked):**
+```markdown
+### AC#1: Document Completeness - Core Content Coverage
+
+**Given** the effective prompting guide exists
+**When** a user reads the guide
+**Then** the document contains:
+- Introduction explaining why clear input matters (≥200 words)
+- Command-specific guidance for 11 commands
+- 20-30 before/after examples
+```
+↑ This is a **specification** - defines what success looks like
+
+**DoD Items (Completion Tracker - Marked When Complete):**
+```markdown
+### Implementation
+- [x] Document includes introduction (648 words explaining purpose and value)
+- [x] All 11 commands have dedicated guidance sections
+- [x] 24 before/after examples included with explanations
+```
+↑ These are **completion records** - marked [x] when work is done
+
+**The Distinction:**
+- **AC Header:** "Document must have ≥200 word introduction" (requirement definition)
+- **DoD Item:** "Document includes introduction (648 words)" (completion evidence)
+
+### For Older Stories (Template v2.0 and Earlier)
+
+**Template Evolution Timeline:**
+- **v1.0 stories:** AC headers have `### 1. [ ]` checkbox syntax (vestigial)
+- **v2.0 stories:** AC headers have `### 1. [ ]` checkbox syntax (vestigial)
+- **v2.1 stories:** AC headers have `### AC#1:` format (no checkboxes) ← NEW (as of 2025-01-21)
+
+**Important:** In v1.0/v2.0 stories, AC header checkboxes may or may not be marked:
+- **20% of stories (e.g., STORY-007):** AC headers marked `[x]` when DoD 100% complete
+- **80% of stories (e.g., STORY-014, STORY-023, STORY-030, STORY-052):** AC headers left `[ ]` regardless of completion
+
+**No documented convention existed** for v1.0/v2.0 templates, leading to framework-wide inconsistency discovered in RCA-012.
+
+### How to Determine Story Completion Status
+
+**Single Source of Truth: Definition of Done Section**
+
+**❌ Do NOT rely on AC header checkboxes** in v1.0/v2.0 stories - they don't reliably indicate completion
+
+**✅ Check Definition of Done section instead:**
+```markdown
+## Definition of Done
+
+### Implementation
+- [x] Feature implemented  ← All items [x] = Implementation complete
+- [x] Code reviewed
+
+### Quality
+- [x] Tests passing        ← All items [x] = Quality validated
+- [x] Coverage met
+
+### Testing
+- [x] Unit tests           ← All items [x] = Testing complete
+- [x] Integration tests
+
+### Documentation
+- [x] Docs updated          ← All items [x] = Documentation complete
+```
+
+**If DoD has unchecked items `[ ]`:**
+1. Check for **"Approved Deferrals"** section in Implementation Notes
+2. **If section exists** with user approval timestamp → Valid deferral (story complete per agreement)
+3. **If section missing** → Story incomplete (should NOT be "QA Approved" - quality gate violation)
+
+**Decision Tree:**
+```
+Want to know if story is complete?
+  ↓
+Check DoD section
+  ├─ All items [x]? → Story 100% complete ✅
+  └─ Some items [ ]?
+      ↓
+      Check for "Approved Deferrals" section
+        ├─ Section exists with user approval timestamp?
+        │   → Story complete with documented deferrals ✅
+        └─ Section missing?
+            → Story incomplete (quality gate violation) ❌
+```
+
+**Secondary Indicator: Workflow Status**
+```markdown
+## Workflow Status
+- [x] Architecture phase complete
+- [x] Development phase complete  ← Status "Dev Complete" matches this
+- [ ] QA phase complete           ← Status "QA Approved" would mark this [x]
+- [ ] Released                    ← Status "Released" would mark this [x]
+```
+
+### Quality Gate Rule (As of RCA-012 Remediation)
+
+**QA Validation Now Enforces (Phase 0.9):**
+
+1. **100% AC-to-DoD traceability**
+   - Every AC requirement must have corresponding DoD item
+   - Validated via explicit checkbox OR test validation OR metric validation
+
+2. **Documented deferrals**
+   - Any unchecked DoD item `[ ]` requires "Approved Deferrals" section
+   - Section must include:
+     - User approval timestamp (e.g., "2025-01-21 10:30 UTC")
+     - Blocker justification (Dependency, Toolchain, Artifact, ADR, Low-Priority)
+     - Follow-up reference (story ID or completion condition)
+
+**QA Will HALT If:**
+- AC requirement has no DoD coverage (traceability <100%)
+- DoD has unchecked items without "Approved Deferrals" section
+- Deferral section exists but missing user approval timestamp
+
+**See:** `.claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md` (created in RCA-012 Phase 2)
+
+### Migration Guidance (Optional)
+
+**Want to update old stories (v2.0) to new format (v2.1)?**
+
+Use migration script:
+```bash
+bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <story-file>
+```
+
+**What it does:**
+- Changes `### 1. [ ]` → `### AC#1:`
+- Updates `format_version: "2.0"` → `"2.1"`
+- Creates backup (`.v2.0-backup`) before changes
+- Validates migration success
+
+**When to migrate:**
+- Want visual consistency across all stories
+- Find checkbox syntax confusing in old stories
+- Preparing stories for presentation/review
+
+**When to skip:**
+- Old format doesn't bother you
+- Story is archived (no active work)
+- Migration risk outweighs benefit
+
+**See:** `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
 
 ---
 
