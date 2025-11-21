@@ -1,6 +1,11 @@
 # DevForgeAI Skills Reference
 
-Detailed guidance for working with 14 functional skills (13 devforgeai-* + 1 claude-code-terminal-expert), plus 1 incomplete skill (internet-sleuth-integration).
+Detailed guidance for working with 15 functional skills (13 devforgeai-* + 2 Claude Code infrastructure skills), plus 1 incomplete skill (internet-sleuth-integration).
+
+**Skills breakdown:**
+- 13 DevForgeAI workflow skills (devforgeai-*)
+- 2 Claude Code infrastructure skills (claude-code-terminal-expert, skill-creator)
+- 1 incomplete (internet-sleuth-integration - use internet-sleuth subagent instead)
 
 ---
 

@@ -163,22 +163,26 @@ AskUserQuestion:
     - Shadow style: (Flat, Soft, Material, Custom)
 ```
 
-3. **Generate design-system.md:**
+3. **Generate design-system.md from template:**
 
 ```bash
+# Load template
+Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/design-system.md")
+
+# Customize with user preferences and write
 Write(
   file_path=".devforgeai/context/design-system.md",
-  content="[Design tokens, component guidelines, accessibility standards]"
+  content="[Customized design-system template with user's color/typography/spacing choices]"
 )
 ```
 
-**Design system structure:**
+**Customization includes:**
 - Design Tokens (colors, typography, spacing, shadows, borders)
 - Component Guidelines (naming, structure, composition)
 - Accessibility Standards (WCAG 2.1 AA, ARIA patterns)
 - Responsive Breakpoints
 - Animation/Transition Standards
-- Icon System
+- Framework Integration (React/Vue/Angular specific patterns)
 
 4. **If framework-based design selected:**
 - Document framework choice in tech-stack.md

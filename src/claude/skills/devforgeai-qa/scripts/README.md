@@ -295,7 +295,7 @@ echo "✅ All QA checks passed!"
 
 ### Coverage Thresholds
 
-Scripts read thresholds from `.devforgeai/qa/coverage-thresholds.md`:
+Scripts read thresholds from `.claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md`:
 
 ```markdown
 # Test Coverage Thresholds (STRICT)
@@ -307,7 +307,7 @@ Scripts read thresholds from `.devforgeai/qa/coverage-thresholds.md`:
 
 ### Quality Metrics
 
-Scripts read thresholds from `.devforgeai/qa/quality-metrics.md`:
+Scripts read thresholds from `.claude/skills/devforgeai-qa/assets/config/quality-metrics.md`:
 
 ```markdown
 # Code Quality Thresholds

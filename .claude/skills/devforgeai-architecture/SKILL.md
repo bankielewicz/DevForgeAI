@@ -40,10 +40,11 @@ Create immutable context files and architecture documentation that prevents tech
 
 ## Purpose
 
-This skill creates the **architectural foundation** for the DevForgeAI framework: 6 context files that define boundaries AI agents must never violate.
+This skill creates the **architectural foundation** for projects: 6 required + 1 optional context files that define boundaries AI agents must never violate.
 
 **Generated artifacts:**
-- **6 Context Files** (immutable constraints in `.devforgeai/context/`)
+- **6 Required Context Files** (immutable constraints in `.devforgeai/context/`)
+- **1 Optional Context File** (design-system.md for UI projects)
 - **ADRs** (architecture decisions in `.devforgeai/adrs/`)
 - **Technical Specifications** (optional, in `.devforgeai/specs/`)
 
@@ -101,13 +102,15 @@ Read(file_path=".claude/skills/devforgeai-architecture/references/context-discov
 
 ### Phase 2: Create Immutable Context Files
 
-**Purpose:** Generate all 6 context files from templates
+**Purpose:** Generate 6 required + 1 optional context files from templates
 
 **Reference:** `context-file-creation-workflow.md`
 
 Load template for each file from `assets/context-templates/`, gather decisions via AskUserQuestion, customize with project-specific info, add enforcement rules (✅/❌ examples), write to `.devforgeai/context/`.
 
-**Output:** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
+**Output:**
+- **Required (6):** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
+- **Optional (1):** design-system.md (UI projects only)
 
 **This phase was 52% of the original SKILL.md - now progressively loaded.**
 
@@ -217,7 +220,7 @@ Existing codebases require discovery → gap analysis → migration strategy dec
 
 ## Scripts
 
-- `scripts/init_context.py` - Initialize context files for new projects
+- `scripts/init_context.sh` - Initialize context files for new projects
 - `scripts/validate_spec.py` - Validate spec against existing context
 
 ---
@@ -226,7 +229,8 @@ Existing codebases require discovery → gap analysis → migration strategy dec
 
 Architecture phase complete when:
 
-- [ ] All 6 context files exist in `.devforgeai/context/`
+- [ ] All 6 required context files exist in `.devforgeai/context/`
+- [ ] Optional design-system.md created if UI project
 - [ ] Context files non-empty (no placeholders)
 - [ ] At least 1 ADR created (initial architecture decision)
 - [ ] All ambiguities resolved (via AskUserQuestion)

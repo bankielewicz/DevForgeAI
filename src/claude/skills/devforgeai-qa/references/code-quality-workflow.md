@@ -11,7 +11,7 @@ Analyzes code quality through cyclomatic complexity, maintainability index, code
 ## References Used
 
 This workflow references:
-- **quality-metrics.md** - Metric thresholds, formulas, interpretation guidelines
+- **quality-metrics.md** - Metric thresholds, formulas, interpretation guidelines (`.claude/skills/devforgeai-qa/assets/config/quality-metrics.md`)
 
 ---
 

@@ -329,8 +329,8 @@ devforgeai check-hooks --operation=epic-create
 ```bash
 # If check-hooks command fails (not found, timeout, crash)
 if [ $? -ne 0 ]; then
-  # Log warning to .devforgeai/feedback/.logs/hooks.log
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: check-hooks failed" >> .devforgeai/feedback/.logs/hooks.log
+  # Log warning to .devforgeai/feedback/logs/hooks.log
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: check-hooks failed" >> .devforgeai/feedback/logs/hooks.log
 
   # Assume hooks disabled (safe fallback)
   HOOKS_ENABLED=false
@@ -369,7 +369,7 @@ fi
 # Validation 1: Epic file exists
 if [ ! -f ".ai_docs/Epics/$EPIC_ID-*.epic.md" ]; then
   # Epic creation incomplete - skip hook invocation
-  echo "⚠️ Epic file not found (epic creation may be incomplete)" >> .devforgeai/feedback/.logs/hooks.log
+  echo "⚠️ Epic file not found (epic creation may be incomplete)" >> .devforgeai/feedback/logs/hooks.log
   HOOKS_ENABLED=false
   return 0  # Non-blocking - continue
 fi
@@ -377,7 +377,7 @@ fi
 # Validation 2: Epic ID format (EPIC-NNN pattern)
 if ! [[ "$EPIC_ID" =~ ^EPIC-[0-9]{3}$ ]]; then
   # Invalid format - skip hook invocation, log error
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Invalid epic ID format: $EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Invalid epic ID format: $EPIC_ID" >> .devforgeai/feedback/logs/hook-errors.log
   return 0  # Non-blocking - continue
 fi
 ```
@@ -401,7 +401,7 @@ if [ "$HOOKS_ENABLED" = "true" ]; then
   HOOK_PID=$!
 
   # Step 4A.9.4c: Log hook invocation start
-  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook invoked - operation=epic-create epic-id=$EPIC_ID pid=$HOOK_PID" >> .devforgeai/feedback/.logs/hooks.log
+  echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook invoked - operation=epic-create epic-id=$EPIC_ID pid=$HOOK_PID" >> .devforgeai/feedback/logs/hooks.log
 fi
 ```
 
@@ -416,20 +416,20 @@ if [ ! -z "$HOOK_PID" ]; then
   if wait $HOOK_PID 2>/dev/null; then
     # Hook completed successfully
     HOOK_EXIT_CODE=$?
-    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook completed - exit_code=$HOOK_EXIT_CODE" >> .devforgeai/feedback/.logs/hooks.log
+    echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] INFO: Hook completed - exit_code=$HOOK_EXIT_CODE" >> .devforgeai/feedback/logs/hooks.log
   else
     # Hook timeout or other failure
     HOOK_EXIT_CODE=$?
     if [ $HOOK_EXIT_CODE -eq 124 ]; then
       # Timeout occurred (exit code 124 from timeout command)
-      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: Hook timed out after ${HOOK_TIMEOUT_SECONDS}s - epic-id=$EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: Hook timed out after ${HOOK_TIMEOUT_SECONDS}s - epic-id=$EPIC_ID" >> .devforgeai/feedback/logs/hook-errors.log
       echo "⚠️ Feedback session timed out (you can run 'devforgeai invoke-hooks --operation=epic-create --epic-id=$EPIC_ID' manually later)"
 
       # Kill hook process if still running
       kill -9 $HOOK_PID 2>/dev/null || true
     else
       # Hook process error
-      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Hook failed with exit code $HOOK_EXIT_CODE - epic-id=$EPIC_ID" >> .devforgeai/feedback/.logs/hook-errors.log
+      echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] ERROR: Hook failed with exit code $HOOK_EXIT_CODE - epic-id=$EPIC_ID" >> .devforgeai/feedback/logs/hook-errors.log
       echo "⚠️ Feedback hook failed (continuing with epic creation)"
     fi
   fi
@@ -442,7 +442,7 @@ fi
 # All hook errors are non-blocking for epic creation
 
 # If any error occurred:
-# 1. Error is logged to .devforgeai/feedback/.logs/hook-errors.log
+# 1. Error is logged to .devforgeai/feedback/logs/hook-errors.log
 # 2. Warning message displayed to user ("Feedback hook unavailable (continuing)")
 # 3. Epic creation exits with status 0 (success)
 # 4. No user interaction required
@@ -479,13 +479,13 @@ return 0
 
 ### Logging Requirements
 
-**Success Logging** (to `.devforgeai/feedback/.logs/hooks.log`):
+**Success Logging** (to `.devforgeai/feedback/logs/hooks.log`):
 ```
 [2025-11-16T14:32:45Z] INFO: Hook invoked - operation=epic-create epic-id=EPIC-001 pid=12345
 [2025-11-16T14:32:46Z] INFO: Hook completed - exit_code=0 duration=1200ms
 ```
 
-**Error Logging** (to `.devforgeai/feedback/.logs/hook-errors.log`):
+**Error Logging** (to `.devforgeai/feedback/logs/hook-errors.log`):
 ```
 [2025-11-16T14:32:47Z] ERROR: Hook failed with exit code 1 - epic-id=EPIC-001 error="CLI not found"
 [2025-11-16T14:32:48Z] WARNING: Hook timed out after 30s - epic-id=EPIC-002
