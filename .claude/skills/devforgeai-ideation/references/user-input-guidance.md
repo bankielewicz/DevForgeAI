@@ -2556,4 +2556,6 @@ This section validates that terminology used in this guidance aligns with framew
 **Last Updated:** 2025-01-21
 **Status:** Published
 **Audience:** DevForgeAI Skills (devforgeai-ideation, devforgeai-story-creation, devforgeai-architecture, devforgeai-ui-generator, devforgeai-orchestration)
-**Related:** effective-prompting-guide.md (user-facing counterpart)
+**Related:**
+- effective-prompting-guide.md (user-facing counterpart)
+- [claude-code-terminal-expert/SKILL.md](../../claude-code-terminal-expert/SKILL.md#how-devforgeai-skills-work-with-user-input) (framework knowledge repository with user input guidance)
