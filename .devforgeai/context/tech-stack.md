@@ -336,8 +336,8 @@ When upgrading projects to new framework version:
 ## References
 
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/)
-- [Native Tools vs Bash Efficiency Analysis](.ai_docs/Terminal/native-tools-vs-bash-efficiency-analysis.md)
-- [Token Budget Research](.ai_docs/Terminal/slash-commands-best-practices.md)
+- [Native Tools Best Practices](.claude/skills/claude-code-terminal-expert/references/best-practices.md) - Token efficiency guidelines
+- [Claude Code Terminal Expert Skill](.claude/skills/claude-code-terminal-expert/SKILL.md) - Complete terminal feature reference
 - [Framework Design Rationale](README.md)
 
 ---

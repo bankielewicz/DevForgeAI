@@ -1159,6 +1159,221 @@ Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/
 
 ---
 
+## File 7: design-system.md (OPTIONAL - UI Projects Only)
+
+**Purpose:** Define consistent visual design patterns for frontend projects.
+
+**When to create:**
+- Project includes web UI, mobile app, or desktop GUI
+- Tech stack includes frontend frameworks (React, Vue, Angular, etc.)
+- Team requires consistent design language across components
+
+**When to skip:**
+- Backend-only projects (APIs, microservices, CLI tools)
+- User declines design system during context creation
+- Project uses existing design system (document reference instead)
+
+### Template Loading
+
+```
+Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/design-system.md")
+```
+
+### UI Project Detection
+
+**Check tech-stack.md for frontend technologies:**
+
+```
+Read(file_path=".devforgeai/context/tech-stack.md")
+```
+
+**Frontend indicators:**
+- React, Vue, Angular, Svelte, Solid
+- Next.js, Nuxt, SvelteKit, Remix
+- React Native, Flutter, Ionic, Electron
+- Tailwind CSS, styled-components, Emotion, CSS Modules
+
+**If NO frontend technology detected:**
+- Skip design-system.md creation
+- Continue to next phase
+
+### Design System Preferences (via AskUserQuestion)
+
+**If frontend technology detected, ask:**
+
+```
+AskUserQuestion:
+  Question: "This is a UI project. Would you like to generate a design system?"
+  Header: "Design System"
+  Options:
+    - label: "Yes, custom design system"
+      description: "Create custom design tokens (colors, typography, spacing, shadows)"
+    - label: "Yes, use popular framework"
+      description: "Document framework choice (Material UI, Chakra UI, shadcn/ui, Ant Design)"
+    - label: "No, skip design system"
+      description: "Project can proceed without design system constraints"
+```
+
+### Option 1: Custom Design System
+
+**If user selects custom design system, gather preferences:**
+
+```
+AskUserQuestion:
+  Question: "Select design system preferences (multiple questions)"
+
+  Part 1 - Color Palette:
+    - Primary/secondary/accent colors (brand colors)
+    - Neutral scale (grays for text/backgrounds)
+    - Semantic colors (success, warning, error, info)
+
+  Part 2 - Typography:
+    - Font families (heading, body, monospace)
+    - Size scale (base size + ratio)
+    - Line heights and letter spacing
+
+  Part 3 - Spacing Scale:
+    - Base unit (4px, 8px, or custom)
+    - Scale multiplier (linear, fibonacci, or custom)
+
+  Part 4 - Border Radius:
+    - None (0px), Small (2-4px), Medium (8px), Large (16px+), Custom
+
+  Part 5 - Shadow Style:
+    - Flat (no shadows), Soft (subtle), Material (elevation-based), Custom
+```
+
+**Customize template with user preferences:**
+
+1. **Replace color placeholders** with brand colors:
+   ```yaml
+   primary:
+     main: "#[USER_PRIMARY_COLOR]"
+     light: "#[GENERATED_LIGHT_VARIANT]"
+     dark: "#[GENERATED_DARK_VARIANT]"
+   ```
+
+2. **Update typography** with chosen fonts:
+   ```yaml
+   font_families:
+     heading: "[USER_HEADING_FONT]"
+     body: "[USER_BODY_FONT]"
+     monospace: "[USER_MONOSPACE_FONT]"
+   ```
+
+3. **Configure spacing scale** based on base unit:
+   ```yaml
+   spacing:
+     xs: "[BASE_UNIT * 1]"
+     sm: "[BASE_UNIT * 2]"
+     md: "[BASE_UNIT * 4]"
+     lg: "[BASE_UNIT * 6]"
+     xl: "[BASE_UNIT * 8]"
+   ```
+
+4. **Add component patterns** relevant to tech stack:
+   - React: Component composition guidelines
+   - Vue: Single File Component patterns
+   - Angular: Module/component structure
+   - Tailwind: Utility class conventions
+
+5. **Include accessibility standards:**
+   - WCAG 2.1 Level AA minimum
+   - Color contrast ratios (4.5:1 text, 3:1 UI)
+   - Keyboard navigation requirements
+   - Screen reader compatibility
+
+### Option 2: Framework-Based Design
+
+**If user selects framework-based design:**
+
+1. **Document framework choice** in tech-stack.md:
+   ```markdown
+   ### UI Framework
+   - Material UI 5.14.0 (LOCKED - design system provider)
+   - Provides design tokens, components, theming
+   ```
+
+2. **Add framework to dependencies.md:**
+   ```markdown
+   ### UI/Design System
+   - @mui/material 5.14.0 (LOCKED)
+   - @mui/icons-material 5.14.0 (LOCKED)
+   ```
+
+3. **Create minimal design-system.md** referencing framework:
+   ```markdown
+   # Design System
+
+   ## Framework-Based Design
+
+   This project uses **Material UI 5.14.0** for design system.
+
+   **Official Documentation:** https://mui.com/material-ui/
+
+   ### Customization
+
+   Custom theme configuration in `src/theme/`:
+   - Primary color: [USER_PRIMARY]
+   - Secondary color: [USER_SECONDARY]
+   - Typography: [FONT_CHOICES]
+
+   ### Component Standards
+
+   All UI components MUST use Material UI components:
+   - Buttons: `<Button variant="contained|outlined|text">`
+   - Forms: `<TextField>`, `<Select>`, `<Checkbox>`
+   - Layout: `<Container>`, `<Grid>`, `<Stack>`
+
+   ❌ FORBIDDEN: Custom components that duplicate MUI functionality
+   ```
+
+### Option 3: Skip Design System
+
+**If user skips design system:**
+
+1. **Do not create design-system.md file**
+2. **Add warning to tech-stack.md:**
+   ```markdown
+   ### UI/Design System
+
+   **Status:** No design system defined
+   **Warning:** Frontend consistency may suffer without design tokens
+   **Recommendation:** Define design system before implementing UI components
+   ```
+
+3. **Continue to next phase** (design system is optional)
+
+### Validation
+
+**If design-system.md created, validate:**
+
+1. **No placeholders:**
+   ```
+   Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]",
+        path=".devforgeai/context/design-system.md",
+        output_mode="files_with_matches")
+   ```
+
+2. **Complete sections:**
+   - Color palette defined (primary, secondary, neutral)
+   - Typography specified (fonts, sizes)
+   - Spacing scale documented
+   - Component patterns listed
+   - Accessibility requirements included
+
+3. **Framework integration:**
+   - References tech stack choice
+   - Explains how design tokens integrate with framework
+
+### Write to Disk
+
+```
+Write(file_path=".devforgeai/context/design-system.md", content="[customized template]")
+```
+
+---
+
 ## Ambiguity Handling During Context File Creation
 
 When technology choices unclear during any of the 6 file workflows:
@@ -1178,14 +1393,18 @@ When technology choices unclear during any of the 6 file workflows:
 
 ## Output
 
-Phase 2 produces **all 6 immutable context files** in `.devforgeai/context/`:
+Phase 2 produces **6 required + 1 optional context files** in `.devforgeai/context/`:
 
+**Required (6 files):**
 - ✅ tech-stack.md (locked technologies)
 - ✅ source-tree.md (project structure)
 - ✅ dependencies.md (approved packages)
 - ✅ coding-standards.md (code patterns)
 - ✅ architecture-constraints.md (layer boundaries)
 - ✅ anti-patterns.md (forbidden patterns)
+
+**Optional (1 file):**
+- ✅ design-system.md (UI projects only - design tokens and component patterns)
 
 These files now serve as "the law" for all AI agents during development.
 

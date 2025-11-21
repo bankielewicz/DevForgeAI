@@ -371,10 +371,10 @@ Verify story status:
 
 ```
 # Step 1: Load story (provides story ID in context)
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path=".ai_docs/Stories/STORY-048-production-cutover-documentation.story.md")
 
 # Step 2: Set explicit context markers
-**Story ID:** STORY-042
+**Story ID:** STORY-048
 **Validation Mode:** deep
 **Environment:** staging
 
@@ -388,10 +388,10 @@ Skill(command="devforgeai-qa")
 
 ```
 # ❌ WRONG - Skills don't accept parameters
-Skill(command="devforgeai-qa --mode=deep --story=STORY-042")
+Skill(command="devforgeai-qa --mode=deep --story=STORY-048")
 
 # ❌ WRONG - Parameters ignored
-Skill(command="devforgeai-development --story=STORY-042")
+Skill(command="devforgeai-development --story=STORY-048")
 ```
 
 ---
