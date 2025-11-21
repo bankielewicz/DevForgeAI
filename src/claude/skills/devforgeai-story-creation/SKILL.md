@@ -70,6 +70,55 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 
 ---
 
+## Story Template Versions
+
+**Current Version:** 2.1 (as of 2025-01-21)
+
+### Version History
+
+**v2.1 (2025-01-21) - AC Header Clarity Enhancement (RCA-012)**
+- **Change:** Removed checkbox syntax from AC headers
+  - Before: `### 1. [ ] Criterion Title`
+  - After: `### AC#1: Criterion Title`
+- **Rationale:** AC headers are definitions (what to test), not trackers (what's complete)
+  - Three-layer tracking system handles progress:
+    - TodoWrite: AI phase-level monitoring
+    - AC Verification Checklist: Granular sub-item tracking (20-50 items)
+    - Definition of Done: Official completion record (30-40 items)
+  - AC headers with checkbox syntax created false expectation of marking
+- **Impact:** Eliminates systematic user confusion about unchecked AC headers in completed stories
+- **Evidence:** RCA-012 sampling showed 80% of stories left AC headers unchecked despite 100% DoD completion
+- **References:** `.devforgeai/RCA/RCA-012/` (complete analysis and remediation plan)
+
+**v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)**
+- **Change:** Added machine-readable `technical_specification` YAML block
+  - Component types: Service, Worker, Configuration, API, Repository, DataModel, Logging
+  - Embedded test requirements for each component (`test_requirement` field)
+  - Deterministic parsing for automated test generation
+- **Impact:** Test generation accuracy improved from 85% to 95%+
+- **References:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+
+**v1.0 (Initial) - Original Template**
+- **Features:** User story format, AC headers with checkboxes, freeform tech spec, Definition of Done section
+- **Status:** Legacy format (still supported for backward compatibility)
+
+### Migration Paths
+
+**v1.0 → v2.0:** Gradual migration (on story update)
+**v2.0 → v2.1:** Optional automated migration
+- **Script:** `.claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh`
+- **Usage:** `bash migrate-ac-headers.sh <story-file>`
+- **Documentation:** `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`
+- **Safety:** Creates `.v2.0-backup` before changes, provides restore instructions
+
+**Backward Compatibility:** All versions (v1.0, v2.0, v2.1) supported by framework. Old stories continue to work without migration. Migration is optional (for visual consistency only).
+
+**Template Location:** `assets/templates/story-template.md`
+
+**See Also:** Template changelog in `story-template.md` header (lines 1-58) for complete version history
+
+---
+
 ## When to Use This Skill
 
 ### ✅ Trigger Scenarios

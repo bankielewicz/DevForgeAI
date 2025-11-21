@@ -1,0 +1,179 @@
+STORY-052 Document Structure Validation Tests
+
+================================================================
+AC1: Document Completeness
+================================================================
+
+Test 1: File exists at expected location
+✓ PASS: File exists: src/claude/memory/effective-prompting-guide.md
+
+Test 2: Introduction section (>=200 words)
+✓ PASS: Introduction has >=200 words (found: 519)
+
+Test 3: All 11 commands have dedicated sections
+✓ PASS: All 11 command sections found
+
+Test 4: 20-30 before/after examples exist
+✗ FAIL: Found 12 examples (need 20-30)
+
+Test 5: Quick reference checklist in first 500 lines
+✗ FAIL: Quick reference not in first 500 lines
+
+Test 6: Common pitfalls section (10-15 items)
+✗ FAIL: Found 60 pitfalls (need 10-15)
+
+================================================================
+AC5: Usability and Scannability
+================================================================
+
+Test 7: Table of contents in first 100 lines
+✗ FAIL: Table of contents not in first 100 lines
+
+Test 8: Visual hierarchy (no heading level skips)
+✓ PASS: Visual hierarchy check (basic validation)
+/mnt/c/Projects/DevForgeAI2/tests/STORY-052/test-document-structure.sh: line 150: syntax error near unexpected token `('
+STORY-052 Example Quality Validation Tests
+
+================================================================
+AC2: Example Quality and Realism
+================================================================
+
+Test 1: 20-30 before/after example pairs
+✗ FAIL: Found 12 examples (need 20-30)
+
+Test 2: Explanations provided for examples (>=50 words each)
+✓ PASS: Found 15 explanation sections
+
+Test 3: Examples reference actual commands (/command syntax)
+✓ PASS: Found 55 unique command references
+
+Test 4: Specific improvements demonstrated (vague → specific patterns)
+✓ PASS: Found 68 improvement pattern indicators
+
+Test 5: Measurable improvements noted (e.g., '5 → 0 questions')
+✓ PASS: Found 88 measurable improvement examples
+
+Test 6: Examples show realistic user input patterns
+✓ PASS: Found 23 realistic input indicators
+
+Test 7: Code block formatting consistency
+✓ PASS: Found 54 code blocks for examples
+
+Test 8: Framework workflow state references
+✓ PASS: Found 23 workflow state references
+
+Test 9: Context file references in examples
+✓ PASS: Found 19 context file references
+
+Test 10: BEFORE/AFTER marker consistency
+✓ PASS: Consistent markers (12 before, 7 after)
+
+================================================================
+Summary
+================================================================
+
+Total Tests: 10
+Passed: 9
+Failed: 1
+STORY-052 Command Guidance Validation Tests
+
+================================================================
+AC3: Command-Specific Guidance Accuracy
+================================================================
+
+Test 1: All 11 commands have dedicated guidance sections
+✓ PASS: All 11 command sections found
+
+Test 2: Required inputs documented per command
+✓ PASS: Found 11 required inputs sections
+
+Test 3: Examples per command (2-3 examples distributed)
+✗ FAIL: Not enough examples (total: 12)
+
+Test 4: Complete input definitions for each command
+✗ FAIL: Found only 3 definitions (need >=8)
+
+Test 5: Cross-references to related commands
+/mnt/c/Projects/DevForgeAI2/tests/STORY-052/test-command-guidance.sh: line 106: [: 0
+0: integer expression expected
+✗ FAIL: Found only 0
+0 cross-references (need >=5)
+
+================================================================
+AC4: Framework Integration and Navigation
+================================================================
+
+Test 6: Links to source documentation
+✗ FAIL: Found only 1 references (need >=5)
+
+Test 7: Inline explanations of framework concepts
+✓ PASS: Found 27 concept explanations
+
+Test 8: Consistent terminology with framework
+✓ PASS: Found 5 matching terminology terms
+
+Test 9: Table of contents with anchor links
+✗ FAIL: Table of contents not found
+
+Test 10: Command index (alphabetical list)
+✓ PASS: Command index found with 71 commands
+
+Test 11: Progressive disclosure navigation
+✓ PASS: Progressive disclosure structure present
+
+================================================================
+Summary
+================================================================
+
+Total Tests: 11
+Passed: 6
+Failed: 5
+STORY-052 Framework Reality Validation Tests
+
+================================================================
+AC6: Validation Against Framework Reality
+================================================================
+
+Test 1: All 11 command files exist in .claude/commands/
+✓ PASS: All 11 command files exist
+
+Test 2: No orphaned command references in guide
+✓ PASS: Reference validation (will be detailed in implementation)
+
+Test 3: Referenced skills exist in .claude/skills/
+✓ PASS: Skill references found (1 unique skills)
+
+Test 4: Command syntax accuracy in examples
+✓ PASS: Command syntax patterns appear correct
+
+Test 5: No deprecated feature references
+/mnt/c/Projects/DevForgeAI2/tests/STORY-052/test-framework-reality.sh: line 108: [: 0
+0: integer expression expected
+✗ FAIL: Found 0
+0 deprecated feature references
+
+Test 6: Example input formatting (valid quotes, brackets)
+✓ PASS: Proper code block formatting (108 markers found)
+
+Test 7: All documented commands match actual command files
+✓ PASS: Documented commands match actual files (11/11)
+
+Test 8: Command organization (logical workflow order)
+✓ PASS: Commands organized in document (11 command sections)
+
+Test 9: Story reference format (STORY-###)
+✓ PASS: Reference format validation (STORY-### pattern)
+
+Test 10: Context file references validity
+✓ PASS: Context file references present (10)
+
+Test 11: Markdown link syntax validity
+✓ PASS: Valid markdown links present (26)
+
+================================================================
+Summary
+================================================================
+
+Total Tests: 11
+Passed: 10
+Failed: 1

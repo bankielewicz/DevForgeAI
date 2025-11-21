@@ -1,3 +1,62 @@
+# =============================================================================
+# STORY TEMPLATE CHANGELOG
+# =============================================================================
+#
+# Version: 2.1
+# Last Updated: 2025-01-21
+# Maintained by: devforgeai-story-creation skill
+#
+# Version History:
+#
+# v2.1 (2025-01-21) - RCA-012 Remediation
+#   Changes:
+#     - Removed checkbox syntax from AC headers
+#     - Format change: '### 1. [ ] Title' → '### AC#1: Title'
+#     - Rationale: AC headers are definitions, not completion trackers
+#     - Three-layer tracking system clarified in CLAUDE.md:
+#       * TodoWrite (AI phase-level monitoring)
+#       * AC Verification Checklist (granular sub-item tracking)
+#       * Definition of Done (official completion record)
+#   Impact:
+#     - Eliminates user confusion about unchecked AC headers
+#     - Clarifies AC headers are static definitions
+#     - All future stories (58+) benefit from clear format
+#   References:
+#     - RCA-012: .devforgeai/RCA/RCA-012/
+#     - Root cause: Vestigial checkboxes from pre-RCA-011 design
+#
+# v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)
+#   Changes:
+#     - Added technical_specification YAML code block
+#     - Machine-readable component definitions (Service, Worker, API, etc.)
+#     - Test requirements embedded in each component
+#     - Improved deterministic parsing for test generation
+#   Impact:
+#     - Test generation accuracy improved (85% → 95%+)
+#     - Validation automation enabled
+#   References:
+#     - .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+#
+# v1.0 (Initial) - Original Template
+#   Features:
+#     - User story format (As a... I want... So that...)
+#     - AC headers with checkbox syntax (vestigial as of v2.1)
+#     - Freeform technical specification
+#     - Definition of Done section
+#
+# Migration Paths:
+#   v1.0 → v2.0: Gradual (on story update)
+#   v2.0 → v2.1: Optional script available
+#     Location: .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh
+#     Documentation: .devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md
+#
+# Backward Compatibility:
+#   All versions (v1.0, v2.0, v2.1) supported by framework
+#   Old stories continue to work without migration
+#   Migration is optional (for visual consistency only)
+#
+# =============================================================================
+
 ---
 id: STORY-XXX
 title: [Story Title - What is being built]
@@ -8,7 +67,7 @@ points: [Story points: 1, 2, 3, 5, 8, 13]
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
-format_version: "2.0"
+format_version: "2.1"
 ---
 
 # Story: [Title]
@@ -26,7 +85,7 @@ As a returning customer, I want to use my saved payment method during checkout, 
 
 Define testable, specific conditions that must be met for story completion. Use Given/When/Then format for clarity.
 
-### 1. [ ] [Criterion 1 Title]
+### AC#1: [Criterion 1 Title]
 
 **Given** [initial context/state],
 **When** [action/event occurs],
@@ -39,7 +98,7 @@ Define testable, specific conditions that must be met for story completion. Use 
 
 ---
 
-### 2. [ ] [Criterion 2 Title]
+### AC#2: [Criterion 2 Title]
 
 **Given** [initial context/state],
 **When** [action/event occurs],
@@ -47,7 +106,7 @@ Define testable, specific conditions that must be met for story completion. Use 
 
 ---
 
-### 3. [ ] [Criterion 3 Title]
+### AC#3: [Criterion 3 Title]
 
 **Given** [initial context/state],
 **When** [action/event occurs],
@@ -55,7 +114,7 @@ Define testable, specific conditions that must be met for story completion. Use 
 
 ---
 
-### 4. [ ] [Criterion 4 Title]
+### AC#4: [Criterion 4 Title]
 
 **Given** [initial context/state],
 **When** [action/event occurs],
@@ -561,5 +620,5 @@ public async Task PostEndpoint_ValidRequest_CreatesResource()
 
 ---
 
-**Story Template Version:** 1.0
+**Story Template Version:** 2.1
 **Last Updated:** 2025-10-30
