@@ -345,6 +345,12 @@ def test_06_fallback_behavior_identical(temp_project_with_skills):
     # Arrange
     skills_data = {}
 
+    # Delete all guidance files to simulate missing scenario
+    for skill in ["devforgeai-architecture", "devforgeai-ui-generator", "devforgeai-orchestration"]:
+        guidance_path = temp_project_with_skills / "src" / "claude" / "skills" / skill / "references" / "user-input-guidance.md"
+        if guidance_path.exists():
+            guidance_path.unlink()  # Delete the file
+
     def simulate_skill_with_missing_guidance(skill_name):
         """Simulate skill execution when guidance is missing"""
         guidance_path = temp_project_with_skills / "src" / "claude" / "skills" / skill_name / "references" / "user-input-guidance.md"
