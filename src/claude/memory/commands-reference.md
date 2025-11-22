@@ -60,6 +60,22 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /ideate Build a task management system with AI prioritization
 ```
 
+### User Input Guidance
+
+**For effective ideation input:** Business ideas should describe the problem being solved, target market, and expected benefits. Avoid vague statements like "build an app" - instead, provide specific context.
+
+**File:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-ideation/references/user-input-guidance.md")
+```
+
+**Example effective input:**
+```
+/ideate Build an AI-powered task prioritization system for software teams that automatically categorizes tasks by urgency, dependency chains, and team member capacity to reduce planning time by 40% and improve sprint velocity by 25%
+```
+
 **Output:**
 - Epic document(s) in `.ai_docs/Epics/`
 - Requirements spec in `.devforgeai/specs/requirements/`
@@ -113,6 +129,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /create-context my-saas-platform
 ```
 
+### User Input Guidance
+
+**For architecture setup:** Context creation is interactive and skill-driven. Provide the project name and be ready to answer questions about technology choices, architecture patterns, and project scope.
+
+**File:** `src/claude/skills/devforgeai-architecture/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-architecture/references/user-input-guidance.md")
+```
+
+**Example effective input:**
+```
+/create-context enterprise-reporting-platform
+(Then answer skill questions about: greenfield/brownfield, tech stack preferences, team size, deployment targets, regulatory requirements)
+```
+
 **Output:**
 - `tech-stack.md` - Technology choices
 - `source-tree.md` - Project structure
@@ -144,6 +177,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 **Example:**
 ```
 > /create-epic User Authentication System
+```
+
+### User Input Guidance
+
+**For epic definition:** Epic names should be clear and business-focused. The skill will guide you through feature decomposition and technical assessment with interactive questions. Provide specific requirements about goals, timeline, and stakeholders.
+
+**File:** `src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+```
+
+**Example effective input:**
+```
+/create-epic Multi-Factor Authentication Enhancement
+(Then provide: business goal, timeline, success metrics, affected teams, and dependencies)
 ```
 
 **Output:**
@@ -223,6 +273,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /create-sprint
 ```
 
+### User Input Guidance
+
+**For sprint planning:** Provide clear sprint names and select stories with realistic capacity (20-40 points recommended). The skill will validate capacity and guide story selection with interactive questions.
+
+**File:** `src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+```
+
+**Example effective input:**
+```
+/create-sprint Sprint-5-Performance-Optimization
+(Then select stories, provide start/end dates, confirm team capacity allocation)
+```
+
 **Output:**
 - Sprint file in `.ai_docs/Sprints/Sprint-{N}.md`
 - Stories updated to "Ready for Dev" status
@@ -269,6 +336,22 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /create-story User login with email and password
 > /create-story Admin dashboard with analytics and charts
 > /create-story epic-001  # NEW: Batch mode - creates multiple stories
+```
+
+### User Input Guidance
+
+**For story creation:** Feature descriptions must be specific and include business context, success criteria, and any constraints. Avoid generic statements; instead describe the complete user workflow and business value.
+
+**File:** `.ai_docs/Stories/` (stories reference context from parent epic and project tech-stack)
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/effective-prompting-guide.md")
+```
+
+**Example effective input:**
+```
+/create-story User login with email/password authentication, password reset via email, session timeout after 30 minutes of inactivity, account lockout after 5 failed attempts, and TOTP multi-factor authentication support for enterprise users
 ```
 
 **Output (Single):**
@@ -375,6 +458,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /create-agent my-backend-validator --domain=backend
 ```
 
+### User Input Guidance
+
+**For subagent specification:** Agent names should be descriptive and lowercase with hyphens (e.g., my-code-reviewer). Provide clear domain or template selections. Answer all interactive questions to ensure the subagent aligns with framework patterns and your project constraints.
+
+**File:** `src/claude/skills/claude-code-terminal-expert/references/` (official Claude Code patterns and DevForgeAI framework constraints)
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/skills-reference.md")
+```
+
+**Example effective input:**
+```
+/create-agent security-validator --domain=security
+(Then answer: special capabilities, tool requirements, integration points, naming patterns)
+```
+
 **Output:**
 - Subagent file in `.claude/agents/[name].md`
 - Reference file (if command-related, domain-specific, or decision-making)
@@ -453,6 +553,22 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /create-ui "Login form with validation"       # Standalone mode
 ```
 
+### User Input Guidance
+
+**For UI specification:** Describe components with specific requirements (web/desktop/terminal), interactive elements, validation rules, accessibility needs, and responsive behavior. The skill will ask clarifying questions about design patterns and framework preferences.
+
+**File:** `src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md")
+```
+
+**Example effective input:**
+```
+/create-ui "Multi-step form wizard with email validation, password strength indicator, WCAG AA accessibility, responsive grid layout for mobile/tablet/desktop, error messages below fields"
+```
+
 **Output:**
 - UI component code in `.devforgeai/specs/ui/`
 - UI-SPEC-SUMMARY.md
@@ -524,6 +640,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 **Example:**
 ```
 > /dev STORY-042
+```
+
+### User Input Guidance
+
+**For development cycle:** Provide the story ID. The skill will read the story file (acceptance criteria, technical specification) and follow TDD workflow. Ensure story is in "Ready for Dev" status and all acceptance criteria are clearly defined.
+
+**File:** Story AC (acceptance criteria in story file) and project context files (tech-stack.md, coding-standards.md, architecture-constraints.md)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+```
+
+**Example effective input:**
+```
+/dev STORY-042
+(Story file contains clear AC, tech spec, and business context for TDD implementation)
 ```
 
 **Output:**
@@ -656,6 +789,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /qa STORY-042 light     # Explicit light mode
 ```
 
+### User Input Guidance
+
+**For QA validation:** Provide story ID and optionally specify validation mode (light/deep). Story should be in "Dev Complete" status with all AC implemented. No input description needed - validation rules are determined by story file and project context files.
+
+**File:** Story file (acceptance criteria) and project context files (tech-stack.md, coding-standards.md)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+```
+
+**Example effective input:**
+```
+/qa STORY-042 deep
+(Story file AC and implementation are validated against tech-stack and coding-standards constraints)
+```
+
 **Output:**
 - QA report in `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 - Coverage report
@@ -701,6 +851,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 > /release STORY-042 production   # Production deployment
 ```
 
+### User Input Guidance
+
+**For release operations:** Provide story ID and environment (staging/production). Story must be "QA Approved" status. The skill will handle deployment validation, smoke tests, and rollback if needed. Environment selection determines deployment target and validation level.
+
+**File:** Story file (deployment specs) and deployment configuration (`.devforgeai/deployment/`)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+```
+
+**Example effective input:**
+```
+/release STORY-042 staging
+(Verify staging deployment and smoke tests before running: /release STORY-042 production)
+```
+
 **Output:**
 - Code deployed to environments
 - Smoke tests executed
@@ -731,6 +898,23 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 **Example:**
 ```
 > /orchestrate STORY-042
+```
+
+### User Input Guidance
+
+**For full lifecycle orchestration:** Provide story ID only. The skill will execute all phases: development, QA validation, staging release, and production deployment. Story must be in "Ready for Dev" status. This command is best for stories without external dependencies.
+
+**File:** Story file and project context files (all 6 context files required)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+```
+
+**Example effective input:**
+```
+/orchestrate STORY-042
+(Single command handles: /dev → /qa deep → /release staging → /release production)
 ```
 
 **Output:**

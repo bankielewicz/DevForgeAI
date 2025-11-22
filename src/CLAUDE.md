@@ -380,6 +380,107 @@ Read(file_path=".claude/memory/documentation-command-guide.md")
 
 ---
 
+## Learning DevForgeAI
+
+**New to DevForgeAI? Start here.** This section guides you to resources for writing effective input descriptions at every stage of the framework.
+
+### Writing Effective Feature Descriptions
+
+Clear, specific input is essential for DevForgeAI skills to generate high-quality outputs. Here are practical examples:
+
+**❌ Vague (What NOT to write):**
+```
+"Build a login system"
+"User management"
+"Dashboard with stuff"
+```
+
+**✅ Specific (What TO write):**
+```
+"Implement user login with email/password authentication, multi-factor authentication support, and session management"
+"Create user management system with role-based access control (RBAC), user provisioning, and audit logging"
+"Build admin dashboard with user analytics, system metrics, and real-time notifications"
+```
+
+**❌ Missing business context:**
+```
+"Add a feature"
+"Make it faster"
+"Better database queries"
+```
+
+**✅ With context:**
+```
+"Add real-time notification system for order status changes to reduce customer support inquiries by 30%"
+"Optimize report generation from 2 minutes to <10 seconds for 100K records to meet SLA requirements"
+"Refactor database queries using connection pooling and prepared statements to support 1000 concurrent users"
+```
+
+**❌ Incomplete specifications:**
+```
+"API for payments"
+"Data validation"
+```
+
+**✅ Complete specifications:**
+```
+"REST API for Stripe payment processing with webhook handling, idempotency keys, error recovery, and retry logic for failed transactions"
+"Form input validation (client-side + server-side) for email, phone, credit card with regex patterns and detailed error messages"
+```
+
+### User Input Guidance Resources
+
+DevForgeAI provides three guidance documents for different stages:
+
+**1. Effective Prompting Guide** - General prompting best practices for all framework operations
+- **File:** `src/claude/memory/effective-prompting-guide.md`
+- **When to use:** Before any skill invocation (/ideate, /create-story, /create-ui, /dev, etc.)
+- **Load command:**
+```
+Read(file_path="src/claude/memory/effective-prompting-guide.md")
+```
+
+**2. Framework-Internal Guidance** - Specialized guidance for DevForgeAI-specific inputs
+- **File:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
+- **When to use:** Before /ideate command (business ideas, epic descriptions)
+- **Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-ideation/references/user-input-guidance.md")
+```
+
+**3. Skill-Specific Guidance** - Input requirements for each individual skill
+- **Ideation:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md` - Business ideas, market analysis, requirements discovery
+- **Architecture:** `src/claude/skills/devforgeai-architecture/references/user-input-guidance.md` - Technology decisions, project structure, constraints
+- **Orchestration:** `src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md` - Epic requirements, sprint planning, story context
+- **UI Generator:** `src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md` - Component descriptions, interface specifications, mockup requirements
+
+### Progressive Learning Path
+
+**Level 1: Basic (Start Here)**
+- Read: Effective Prompting Guide (general best practices)
+- Goal: Learn to write clear, specific feature descriptions
+- Time: 10-15 minutes
+- Use for: First /create-story, /ideate, /create-ui commands
+
+**Level 2: Advanced (Skills-Specific)**
+- Read: Individual skill guidance documents
+- Goal: Understand framework-specific input patterns per skill
+- Time: 20-30 minutes
+- Use for: Complex stories, custom epics, performance-critical features
+
+**Level 3: Framework-Specific (Expert)**
+- Review: Architecture constraints, context files, coding standards
+- Goal: Align specifications with project constraints and patterns
+- Time: 30+ minutes
+- Use for: Major architectural decisions, multi-story epics, production systems
+
+**Quick Reference:**
+- Short feature? → Level 1 (5 min read) → /create-story
+- Complex epic? → Level 1 + Level 2 (25 min read) → /create-epic
+- New project? → Level 1 + Level 2 + Level 3 (45 min read) → /create-context → /ideate
+
+---
+
 ## Development Workflow Overview
 
 ### Complete Lifecycle
