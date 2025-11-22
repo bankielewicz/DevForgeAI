@@ -66,9 +66,45 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Reference:** `context-validation.md`
 **Halts if:** Context files missing → directs to devforgeai-architecture
 
-### Phase 2: Story Analysis (Story Mode Only)
-**Purpose:** Extract UI requirements from story AC
-**Reference:** `story-analysis.md`
+### Phase 2: Story Analysis & Interactive Discovery
+
+**Purpose:** Extract UI requirements from story AC (Story Mode) OR guide user through UI decisions (Standalone Mode)
+
+**Reference:** `story-analysis.md`, `interactive-discovery.md`
+
+**Step 0: Conditional User Input Guidance Loading [MANDATORY]**
+
+Detect mode and load guidance patterns conditionally:
+
+```python
+# Detect mode via conversation context markers
+is_story_mode = (
+    conversation_contains("@.ai_docs/Stories/STORY-") or
+    context_marker_exists("**Story ID:**") or
+    context_marker_exists("**Story file:**")
+)
+
+if is_story_mode:
+    # Story mode - story file already loaded
+    mode = "story"
+    Display: "Story mode detected. Skipping user-input-guidance.md (using story UI requirements)."
+    # Extract UI requirements from story AC (proceed to story-analysis.md)
+
+else:
+    # Standalone mode - no story file
+    mode = "standalone"
+    Display: "Standalone mode detected. Loading user-input-guidance.md..."
+    guidance = Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-guidance.md")
+    Display: "✓ Guidance loaded - applying patterns to UI questions"
+```
+
+**Pattern Application (if guidance loaded in standalone mode):**
+- **Step 1:** Use **Explicit Classification** pattern for UI type (4 options: Web UI/Desktop GUI/Mobile App/Terminal UI)
+- **Step 2:** Use **Bounded Choice** pattern for framework selection (filtered by UI type and tech-stack.md)
+- **Step 3:** Use **Bounded Choice** pattern for styling approach (5 options: Tailwind/Bootstrap/Material/Custom/None)
+
+**See:** `references/ui-user-input-integration.md` for complete pattern mappings and examples.
+
 **Output:** UI component requirements, user flows
 
 ### Phase 3: Interactive Discovery
