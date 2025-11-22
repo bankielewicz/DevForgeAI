@@ -119,6 +119,11 @@ This skill extracts the story ID from conversation context (loaded story file YA
 
 **After parameter extraction, BEFORE Phase 0, create execution tracker:**
 
+**Initialize iteration counter:**
+```
+iteration_count = 1  # Track TDD cycle iterations (for Phase 4.5-R resumption)
+```
+
 TodoWrite(
   todos=[
     {content: "Execute Phase 0: Pre-Flight Validation (10 steps)", status: "pending", activeForm: "Executing Phase 0 Pre-Flight Validation"},
@@ -128,8 +133,10 @@ TodoWrite(
     {content: "Execute Phase 4: Integration Testing (integration-tester)", status: "pending", activeForm: "Executing Phase 4 Integration Testing"},
     {content: "Execute Phase 4.5: Deferral Challenge (validate deferred items with user approval)", status: "pending", activeForm: "Executing Phase 4.5 Deferral Challenge"},
     {content: "Execute Phase 4.5-5 Bridge: Update DoD Checkboxes (mark completed items [x])", status: "pending", activeForm: "Executing Phase 4.5-5 Bridge DoD Update"},
+    {content: "Execute Phase 4.5-R: Resumption Decision (check if loop back needed)", status: "pending", activeForm: "Executing Phase 4.5-R Resumption Decision"},
     {content: "Execute Phase 5: Git Workflow (validate DoD format + commit)", status: "pending", activeForm: "Executing Phase 5 Git Workflow"},
-    {content: "Execute Phase 6: Feedback Hook (check-hooks + invoke-hooks)", status: "pending", activeForm: "Executing Phase 6 Feedback Hook"}
+    {content: "Execute Phase 6: Feedback Hook (check-hooks + invoke-hooks)", status: "pending", activeForm: "Executing Phase 6 Feedback Hook"},
+    {content: "Execute Phase 7: Result Interpretation (dev-result-interpreter)", status: "pending", activeForm: "Executing Phase 7 Result Interpretation"}
   ]
 )
 
@@ -228,6 +235,13 @@ Update DoD format for git commit → Validate format → Prepare for Phase 5
 **Purpose:** Ensure DoD items formatted correctly (flat list in Implementation Notes, no ### subsections)
 **CRITICAL:** Execute AFTER Phase 4.5, BEFORE Phase 5 - git commit will FAIL if skipped
 
+### Phase 4.5-R: Resumption Decision Point ✓ MANDATORY (NEW - RCA-013)
+Detect incomplete work when user rejects deferrals → Loop back to appropriate phase → Continue until 100% OR iteration limit
+**Reference:** `phase-resumption-workflow.md`
+**Purpose:** Enforce "no deferrals = work until 100%" policy from CLAUDE.md
+**CRITICAL:** Execute AFTER Phase 4.5-5 Bridge, BEFORE Phase 5 - ensures user's "continue to 100%" decision is honored
+**Trigger:** User rejected deferrals in Phase 4.5 AND DoD completion <100%
+
 ### Phase 5: Git Workflow & DoD Validation
 Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items)**
 **References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
@@ -278,6 +292,17 @@ Phase 4.5-5 Bridge: DoD Update (dod-update-workflow.md ← NEW)
   ├─ Add items to Implementation Notes (FLAT LIST) ✓ MANDATORY
   ├─ Validate format: devforgeai validate-dod ✓ MANDATORY
   └─ Update Workflow Status ✓ MANDATORY
+  ↓
+Phase 4.5-R: Resumption Decision (phase-resumption-workflow.md ← NEW RCA-013)
+  ├─ Calculate DoD completion % ✓ MANDATORY
+  ├─ IF DoD <100% AND user rejected deferrals ✓ DECISION POINT
+  │   ├─ Determine resumption phase (2/3/4) ✓ MANDATORY
+  │   ├─ Update TodoWrite (mark phases pending) ✓ MANDATORY
+  │   ├─ Check iteration count (limit: 5) ✓ MANDATORY
+  │   └─ LOOP BACK to resumption phase ✓ MANDATORY
+  ├─ IF DoD ==100% OR deferrals approved ✓ DECISION POINT
+  │   └─ Proceed to Phase 5 ✓ MANDATORY
+  └─ Display resumption message ✓ MANDATORY
   ↓
 Phase 5: Git Workflow (git-workflow-conventions.md)
   ├─ Budget enforcement ✓ MANDATORY
@@ -724,6 +749,7 @@ Load these on-demand during workflow execution:
 ### Phase 4.5 & 5 (Deferrals & Git)
 - **phase-4.5-deferral-challenge.md** (794 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
 - **dod-update-workflow.md** (NEW - ~400 lines) - Phase 4.5-5 Bridge: DoD format update and validation (RCA-009 Rec 4)
+- **phase-resumption-workflow.md** (NEW - ~400 lines) - Phase 4.5-R: Resumption decision when user rejects deferrals (RCA-013 Rec 1)
 - **deferral-budget-enforcement.md** (290 lines) - Phase 5 Step 1.6: Budget limits (RCA-006 Phase 2)
 - **git-workflow-conventions.md** (1,270 lines) - Git operations, stash safety protocol (RCA-008), DoD prerequisites
 - **dod-validation-checkpoint.md** (519 lines) - Phase 5 Step 1.7: Handle new incomplete items

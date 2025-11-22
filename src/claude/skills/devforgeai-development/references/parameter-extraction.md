@@ -70,6 +70,65 @@ If methods 1-3 fail:
   Use first match found
 ```
 
+### Resume Mode Detection (NEW - RCA-013)
+
+**After story ID extraction, check if this is a resumption:**
+
+**Method 1: Search for resume context marker**
+```
+Search conversation for:
+  "**Resume from Phase:** {N}"
+  "**Resume Mode:** manual" OR "**Resume Mode:** auto"
+
+IF found:
+  resume_mode = true
+  resume_from_phase = N  # Extract phase number
+  resume_type = "manual" or "auto"  # Extract type
+
+  Display: ""
+  Display: "✓ RESUME MODE DETECTED"
+  Display: "  Resume from: Phase {N}"
+  Display: "  Resume type: {resume_type}"
+  Display: "  Skipping phases 0-{N-1}..."
+  Display: ""
+ELSE:
+  resume_mode = false
+  resume_from_phase = 0  # Start from beginning
+```
+
+**Method 2: Infer from story status**
+```
+IF resume_mode == false:
+  Read story YAML frontmatter: status field
+
+  IF status == "In Development" AND conversation contains "second run" OR "re-running":
+    # User is re-running /dev on incomplete story
+    # Could auto-detect resumption point, but explicit is better
+    Display: ""
+    Display: "⚠️ Story status 'In Development' suggests previous incomplete run"
+    Display: "   Use /resume-dev for explicit phase control"
+    Display: "   Continuing with full workflow from Phase 0..."
+    Display: ""
+    resume_mode = false  # Full workflow, but user aware of alternative
+```
+
+**Skip completed phases if resume_mode = true:**
+```
+IF resume_mode == true:
+  FOR phase_num = 0 TO resume_from_phase - 1:
+    Display: "⊘ Phase {phase_num}: Skipped (resume mode)"
+    # Mark in TodoWrite as "skipped"
+    todos[phase_num].status = "skipped"
+
+  Display: ""
+  Display: "════════════════════════════════════════════════════════════"
+  Display: "STARTING EXECUTION FROM PHASE {resume_from_phase}"
+  Display: "════════════════════════════════════════════════════════════"
+  Display: ""
+
+  GOTO Phase {resume_from_phase}
+```
+
 ### Validation Before Proceeding
 
 Before starting TDD workflow, verify:
@@ -77,6 +136,8 @@ Before starting TDD workflow, verify:
 - [ ] Story content available in conversation (via @file load)
 - [ ] Acceptance criteria accessible from story content
 - [ ] Technical specification present
+- [ ] Resume mode detected (if applicable)
+- [ ] Resume phase number valid (0-7 range)
 
 **If extraction fails:**
 ```
@@ -89,4 +150,22 @@ Expected to find:
   - OR explicit statement like 'Story ID: STORY-XXX'
 
 Please ensure story is loaded via slash command or provide story ID explicitly."
+```
+
+**If resume phase invalid:**
+```
+HALT with error:
+"Invalid resume phase: {resume_from_phase}
+
+Valid phases: 0-7
+  0 = Pre-Flight
+  1 = Red (Test Generation)
+  2 = Green (Implementation)
+  3 = Refactor (Quality)
+  4 = Integration
+  5 = Git Workflow
+  6 = Feedback Hook
+  7 = Result Interpretation
+
+Use: /resume-dev {STORY_ID} {valid-phase-number}"
 ```
