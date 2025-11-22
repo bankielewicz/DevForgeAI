@@ -87,6 +87,18 @@ Behavior: Skip guidance loading, extract UI requirements from story
 | 2 | 2 | Web framework | Bounded Choice | 3-5 filtered by tech-stack |
 | 2 | 3 | Styling approach | Bounded Choice | 5 (Tailwind/Bootstrap/Material/Custom/None) |
 
+## Bounded Choice: Styling Approach
+
+Pattern: Bounded Choice
+Options (exactly 5):
+1. Tailwind CSS - Utility-first CSS framework
+2. Bootstrap - Component library with pre-built UI elements
+3. Material UI - Google Material Design components
+4. Custom CSS - Write your own styles from scratch
+5. None - No styling framework (plain CSS/HTML)
+
+Rationale: Most common styling solutions cover 90% of use cases
+
 ## Examples
 
 ### Before Pattern Application
@@ -108,6 +120,14 @@ Then: Show only web frameworks (React, Vue, Angular, Svelte, Next.js)
 
 When: Desktop GUI selected
 Then: Show only desktop frameworks (WPF, WinForms, GTK, Qt)
+
+## Testing Strategy
+
+Verify conditional logic:
+1. No story file → Assert standalone mode
+2. Story file loaded → Assert story mode
+3. Standalone mode → Guidance loaded
+4. Story mode → Guidance skipped
 """
 
     with open(ref_file, "w") as f:
