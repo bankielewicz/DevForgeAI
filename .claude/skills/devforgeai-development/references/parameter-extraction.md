@@ -129,6 +129,30 @@ IF resume_mode == true:
   GOTO Phase {resume_from_phase}
 ```
 
+**IMPORTANT: Partial Phase 0 Execution in Resume Mode**
+
+When resume_mode = true, Phase 0 is marked "skipped" but **CRITICAL validations must still execute**:
+
+**These Phase 0 steps are MANDATORY even in resume mode:**
+- Step 0.4: Validate Context Files Exist (devforgeai validate-context)
+- Step 0.6: Validate Spec vs Context Files (conflict detection)
+- Step 0.7: Detect and Validate Technology Stack (tech-stack-detector)
+
+**These Phase 0 steps are SKIPPED in resume mode:**
+- Step 0.1: Validate Git Repository Status (git-validator)
+- Step 0.1.5: User Consent for Git Operations
+- Step 0.1.6: Stash Warning
+- Step 0.2: Adapt TDD Workflow (git vs file-based)
+- Step 0.3: File-Based Tracking Setup
+
+**Rationale:**
+- Context files: Required for ALL phases (implementation, quality, integration all need constraints)
+- Tech stack: Prevents technology drift between runs (ensures compatibility)
+- Git validation: Not needed for resumption (story already has git state, continuing work)
+
+**Implementation:**
+The /resume-dev command executes Steps 0.4, 0.6, 0.7 in its Phase 1 (Essential Pre-Flight Checks) BEFORE invoking the skill. This ensures context is validated even though skill's Phase 0 is skipped.
+
 ### Validation Before Proceeding
 
 Before starting TDD workflow, verify:
