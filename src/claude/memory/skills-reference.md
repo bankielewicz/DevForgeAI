@@ -94,6 +94,19 @@ Skill(command="devforgeai-development")
 Skill(command="devforgeai-ideation")
 ```
 
+### User Input Guidance
+
+**For effective ideation:** Business ideas should clearly describe the problem, target market, and expected outcomes. Provide specific context rather than vague statements. The skill will guide you through 6 phases of discovery with 10-60 interactive questions.
+
+**File:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-ideation/references/user-input-guidance.md")
+```
+
+**Example:** "Build an AI-powered task prioritization system for software teams that reduces sprint planning time by 40% and improves velocity tracking by 25%"
+
 ---
 
 ### devforgeai-architecture
@@ -110,6 +123,19 @@ Skill(command="devforgeai-ideation")
 ```
 Skill(command="devforgeai-architecture")
 ```
+
+### User Input Guidance
+
+**For architecture setup:** Provide project context (greenfield/brownfield status), team size, deployment targets, and technology preferences. The skill will ask detailed questions about architecture decisions, constraints, and patterns. Be ready to approve or discuss technology selections.
+
+**File:** `src/claude/skills/devforgeai-architecture/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-architecture/references/user-input-guidance.md")
+```
+
+**Example:** "Greenfield SaaS platform for 50-person startup, needs Django backend with PostgreSQL, React frontend, deploy to AWS, must support 10K concurrent users"
 
 **Workflow (5 Phases - Progressive Disclosure):**
 1. Project Context Discovery (greenfield vs brownfield, technology inventory)
@@ -187,6 +213,21 @@ Skill(command="devforgeai-orchestration")
 
 Skill(command="devforgeai-orchestration")
 ```
+
+### User Input Guidance
+
+**For story/epic/sprint management:** Provide story IDs, epic names, or sprint metadata as context markers. The skill orchestrates complex workflows including epic decomposition, sprint capacity validation, and technical debt analysis. Answer all interactive questions to ensure proper story linking and dependency management.
+
+**File:** `src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+```
+
+**Example (Epic):** "Epic name: Real-Time Notifications (business goal: reduce response time to <100ms, timeline: Q2 2025, stakeholders: platform team + mobile team)"
+
+**Example (Sprint):** "Sprint Name: Performance Optimization Sprint-5 (20-40 point capacity, start: Jan 27, end: Feb 9)"
 
 **Key Features:**
 - Tracks **deferred work** (Phase 4.5) - ensures follow-up stories/ADRs exist
@@ -270,6 +311,19 @@ Skill(command="devforgeai-orchestration")
 Skill(command="devforgeai-story-creation")
 ```
 
+### User Input Guidance
+
+**For story generation:** Provide specific feature descriptions including user workflows, business value, acceptance criteria ideas, and any technical constraints. The skill will generate complete story documents with AC, tech specs, UI specs (if applicable), and DoD. Be precise about requirements to avoid rework.
+
+**File:** Effective Prompting Guide (`src/claude/memory/effective-prompting-guide.md`) + story examples (in skill references)
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/effective-prompting-guide.md")
+```
+
+**Example:** "User login with email/password, session timeout after 30 minutes, account lockout after 5 failed attempts, TOTP MFA support, password reset via email with 24-hour token expiration"
+
 **Workflow (8 Phases):**
 1. **Story Discovery** - Generate story ID, discover epic/sprint context, collect metadata
 2. **Requirements Analysis** - Invoke requirements-analyst subagent, generate user story + AC
@@ -330,6 +384,19 @@ Skill(command="devforgeai-ui-generator")
 Skill(command="devforgeai-ui-generator")
 ```
 
+### User Input Guidance
+
+**For UI specification:** Describe components with specific requirements: platform (web/desktop/terminal), interactive elements, validation rules, accessibility level (WCAG AA/AAA), responsive behavior, and design constraints. The skill will ask about design patterns, framework preferences, and styling conventions aligned with your project.
+
+**File:** `src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
+
+**Load command:**
+```
+Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md")
+```
+
+**Example:** "Multi-step form wizard with email/password validation, password strength meter, WCAG AA accessibility, responsive grid for mobile/tablet/desktop, client-side validation with error messages below fields"
+
 ---
 
 ### devforgeai-development
@@ -357,6 +424,19 @@ Skill(command="devforgeai-ui-generator")
 
 Skill(command="devforgeai-development")
 ```
+
+### User Input Guidance
+
+**For TDD implementation:** Load story file with clear acceptance criteria and technical specifications. No feature description needed - AC from the story file drives TDD workflow. Ensure story is in "Ready for Dev" status with complete context files. The skill will handle Red→Green→Refactor cycle automatically.
+
+**File:** Story file (acceptance criteria are the test specifications)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+```
+
+**Example:** Story file contains 5+ Given/When/Then AC and detailed tech spec with API contracts, data models, and business rules - skill uses these directly as TDD requirements.
 
 **Key Features (Enhanced 2025-11-06 - RCA-006):**
 - **Lean command architecture:** /dev command delegates to skill (513 lines, down from 860)
@@ -402,6 +482,19 @@ Skill(command="devforgeai-qa")
 Skill(command="devforgeai-qa")
 ```
 
+### User Input Guidance
+
+**For QA validation:** Load story file and specify validation mode (light/deep). No feature description needed - validation rules are determined by story AC and project context files. Story should be in "Dev Complete" status with all AC implemented. The skill will validate against tech-stack, coding-standards, and architecture-constraints.
+
+**File:** Story file (AC specifications) and project context files
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+```
+
+**Example:** Story in "Dev Complete" status with implementation → skill validates AC pass/fail, coverage metrics, code quality, deferral justifications, spec compliance.
+
 **Key Features (RCA-006 Enhanced):**
 - Validates **deferred DoD items** via deferral-validator subagent (Phase 0 Step 2.5)
 - **FAILS QA** on CRITICAL (circular deferrals) or HIGH (unjustified deferrals) violations
@@ -435,6 +528,19 @@ Skill(command="devforgeai-release")
 **Environment:** production
 Skill(command="devforgeai-release")
 ```
+
+### User Input Guidance
+
+**For deployment operations:** Load story file and specify environment (staging/production). Story must be "QA Approved" status. No feature description needed - deployment specs come from story and project deployment configuration. The skill will validate pre-conditions, execute deployment, run smoke tests, and handle rollback if needed.
+
+**File:** Story file (deployment specs) and deployment configuration (`.devforgeai/deployment/`)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+```
+
+**Example:** Story with "QA Approved" status → skill deploys to staging, runs smoke tests, then (if approved) deploys to production with automated rollback capability.
 
 ---
 
@@ -609,6 +715,19 @@ For detailed skill documentation, see:
 Skill(command="devforgeai-rca")
 ```
 
+### User Input Guidance
+
+**For root cause analysis:** Provide clear description of the framework breakdown or process failure with affected components (skill/command/subagent). Include severity level (CRITICAL/HIGH/MEDIUM/LOW). The skill will read relevant files, perform 5 Whys analysis, and generate actionable recommendations with exact implementation details.
+
+**File:** Context files (tech-stack, coding-standards, architecture-constraints) + affected component files
+
+**Load command:**
+```
+Read(file_path=".devforgeai/RCA/")
+```
+
+**Example:** "devforgeai-development didn't validate context files before TDD cycle, allowing use of unapproved technologies (CRITICAL)"
+
 **Workflow (8 Phases):**
 1. **Phase 0:** Issue Clarification - Extract details or use AskUserQuestion, generate RCA number/title
 2. **Phase 1:** Auto-Read Files - Read skills, commands, subagents, context files based on component type
@@ -673,6 +792,19 @@ Skill(command="devforgeai-rca")
 # No special invocation needed - model-invoked based on question context
 ```
 
+### User Input Guidance
+
+**For Claude Code questions:** Ask questions about Claude Code Terminal features, capabilities, or troubleshooting. The skill will automatically load official documentation and answer with authoritative, up-to-date information. No special preparation needed - ask naturally about subagents, skills, commands, plugins, CI/CD integration, or configuration.
+
+**File:** Official Claude Code documentation (code.claude.com)
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/skills-reference.md")
+```
+
+**Example:** "How do I create a custom subagent with file access?" or "Does Claude Code Terminal support GitHub Actions integration?"
+
 **Key Features:**
 - **Comprehensive knowledge:** 28 topics covering all Claude Code Terminal features
 - **Self-updating:** Can fetch latest docs from code.claude.com when needed
@@ -721,6 +853,19 @@ Skill(command="devforgeai-documentation")
 Skill(command="devforgeai-documentation")
 ```
 
+### User Input Guidance
+
+**For documentation generation:** Load story file for story-based docs, or specify codebase analysis mode for brownfield documentation. The skill will generate complete documentation sets including README, guides, API docs, and architecture diagrams. No feature description needed - documentation is derived from story specifications or codebase analysis.
+
+**File:** Story file (.ai_docs/Stories/) or source code directory (src/, lib/, etc.)
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-040.story.md")
+```
+
+**Example:** Story with complete AC and tech spec → skill generates README, API documentation, developer guide, and Mermaid architecture diagrams.
+
 **Key Features:**
 - **Dual mode:** Greenfield (story-based docs) + Brownfield (codebase analysis)
 - **Auto-invoked:** After story completion (if documentation hook enabled)
@@ -747,6 +892,19 @@ Skill(command="devforgeai-feedback")
 # Auto-invoked via hooks (after /dev, /qa, /release)
 ```
 
+### User Input Guidance
+
+**For feedback collection:** Provide operation type (dev/qa/release) and story ID for manual feedback. The skill will ask context-aware retrospective questions about process improvements, learnings, and pain points. No feature description needed - feedback is based on the operation and story context.
+
+**File:** Story file and operation context
+
+**Load command:**
+```
+Read(file_path=".ai_docs/Stories/STORY-037.story.md")
+```
+
+**Example:** Operation: dev, Story: STORY-037 → skill asks about implementation challenges, design decisions, testing approach, and suggestions for future similar stories.
+
 **Key Features:**
 - **Event-driven:** Auto-invoked via hooks after operations complete
 - **Adaptive questioning:** Context-aware retrospective questions
@@ -771,6 +929,19 @@ Skill(command="devforgeai-feedback")
 Skill(command="devforgeai-mcp-cli-converter")
 ```
 
+### User Input Guidance
+
+**For MCP-to-CLI conversion:** Specify MCP server name and conversion pattern (api-wrapper, file-system, browser-automation). The skill will generate standalone CLI utilities that Claude Code Terminal can invoke directly. Provide MCP server capabilities and desired CLI behavior specifications.
+
+**File:** MCP server specification and conversion pattern reference
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/skills-reference.md")
+```
+
+**Example:** "MCP Server: weather-mcp, Pattern: api-wrapper → generates weather-cli that wraps MCP server methods as shell commands"
+
 **Key Features:**
 - **Converts MCP → CLI:** Standalone executables Claude Code can invoke
 - **Auto-generates skill:** Creates complementary skill for CLI usage
@@ -792,6 +963,19 @@ Skill(command="devforgeai-mcp-cli-converter")
 **Mode:** guided
 Skill(command="devforgeai-subagent-creation")
 ```
+
+### User Input Guidance
+
+**For custom subagent creation:** Specify subagent name (lowercase-with-hyphens format) and mode (guided/template/domain/custom). The skill will guide you through subagent design ensuring framework compliance and Claude Code Terminal integration. Provide clear purpose, capabilities, and tool requirements.
+
+**File:** Claude Code patterns and DevForgeAI framework constraints
+
+**Load command:**
+```
+Read(file_path="src/claude/memory/skills-reference.md")
+```
+
+**Example:** "Name: code-metrics-analyzer, Mode: domain (architecture), Purpose: analyze code complexity and generate quality metrics"
 
 **Key Features:**
 - **Orchestrates agent-generator v2.0:** Delegates to agent-generator subagent
