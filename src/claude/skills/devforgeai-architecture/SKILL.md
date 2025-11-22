@@ -93,6 +93,43 @@ Each phase loads its reference file on-demand for detailed implementation.
 
 Determine project type (greenfield vs brownfield), discover existing technologies/structure if brownfield, check for existing context files, analyze gaps.
 
+**Step 0: Conditional User Input Guidance Loading [MANDATORY]**
+
+Detect project mode and load guidance patterns conditionally:
+
+```python
+# Detect mode via context file count
+context_files = Glob(pattern=".devforgeai/context/*.md")
+context_count = len(context_files)
+
+if context_count == 6:
+    # Brownfield mode - all context files exist
+    mode = "brownfield"
+    Display: "Brownfield mode detected (6 context files exist). Skipping user-input-guidance.md."
+    # Skip guidance, proceed with existing constraints
+
+elif context_count == 0:
+    # Greenfield mode - no context files exist
+    mode = "greenfield"
+    Display: "Greenfield mode detected (no context files). Loading user-input-guidance.md..."
+    guidance = Read(file_path=".claude/skills/devforgeai-architecture/references/user-input-guidance.md")
+    Display: "✓ Guidance loaded - applying patterns to Phase 1 questions"
+
+else:
+    # Partial greenfield - some files exist but not all
+    mode = f"partial_greenfield ({context_count}/6 files)"
+    Display: f"Partial context detected ({context_count}/6 files exist). Loading user-input-guidance.md to fill gaps..."
+    guidance = Read(file_path=".claude/skills/devforgeai-architecture/references/user-input-guidance.md")
+```
+
+**Pattern Application (if guidance loaded):**
+- **Step 1:** Use **Open-Ended Discovery** pattern for technology inventory question
+- **Step 2:** Use **Explicit Classification** pattern for architecture style (4 options: Monolithic/Microservices/Serverless/Hybrid)
+- **Step 3:** Use **Bounded Choice** pattern for framework selection (filtered by language)
+- **Step 4:** Use **Bounded Choice** pattern for database system selection
+
+**See:** `references/architecture-user-input-integration.md` for complete pattern mappings and examples.
+
 **Load detailed workflow:**
 ```
 Read(file_path=".claude/skills/devforgeai-architecture/references/context-discovery-workflow.md")
