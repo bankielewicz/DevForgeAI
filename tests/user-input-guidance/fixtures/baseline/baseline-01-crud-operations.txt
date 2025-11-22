@@ -1,0 +1,5 @@
+We need to build a user management system that allows administrators to create, read, update, and delete user accounts. The system should make it fast and easy to manage users without too much complexity.
+
+Administrators should be able to search for users by name or email and perform bulk operations. The system needs to be good at handling errors and should improve the admin experience.
+
+We want the database operations to be optimized for performance and should work reliably when there are many users in the system.

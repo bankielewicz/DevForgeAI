@@ -21,7 +21,10 @@
       "Bash(devforgeai check-hooks:*)",
       "Bash(sha256sum:*)",
       "Bash(md5sum:*)",
-      "Bash(/usr/bin/python3 -m pytest:*)"
+      "Bash(/usr/bin/python3 -m pytest:*)",
+      "Bash(while read file)",
+      "Bash(do if [ -f \"$file\" ])",
+      "Bash(then echo \"✓ $file\" else echo \"✗ MISSING: $file\" fi done)"
     ],
     "deny": [],
     "ask": []

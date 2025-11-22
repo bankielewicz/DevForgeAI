@@ -1,0 +1,17 @@
+Integrate Stripe API v3 for payment processing supporting success, failure, declined cards, and timeout scenarios. Process $99.99 payments within 3 seconds, retry 3 times with exponential backoff (1s, 2s, 4s), and validate webhook signatures (HMAC-SHA256).
+
+Given: Customer initiates $99.99 subscription payment.
+When: System calls Stripe API with valid token.
+Then: Payment processes within 3 seconds, invoice created, subscription confirmed.
+
+Given: Stripe returns error (timeout, rate limit, unavailable).
+When: Retry mechanism activates.
+Then: System retries 3 times with exponential backoff before failure.
+
+Given: Webhook received from Stripe about payment completion.
+When: Webhook signature validates (HMAC-SHA256).
+Then: Subscription status updated, confirmation email sent within 5 seconds.
+
+Integration: Handle 25+ Stripe error codes, no card storage (use tokens), webhook signature verification.
+Security: PCI DSS Level 1, HTTPS/TLS 1.2+, encrypted API keys in environment variables.
+Performance: Payment <3 seconds p95, webhook processing <5 seconds.

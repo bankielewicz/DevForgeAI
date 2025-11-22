@@ -1,0 +1,12 @@
+{
+  "fixture_id": "04",
+  "category": "data-processing",
+  "baseline_issues": ["vague requirements", "missing measurable criteria", "omitted non-functional requirements"],
+  "expected_improvements": {
+    "token_savings": 30.0,
+    "ac_completeness": 85.0,
+    "nfr_coverage": 75.0,
+    "specificity_score": 80.0
+  },
+  "rationale": "Guidance specifies concrete acceptance criteria for data volume (1 million records) with processing speed targets (<5 minutes for 50GB dataset, 10,000 records/second). Adds explicit error handling (quarantine invalid records, continue with valid), recovery mechanism (checkpoint resumption), and reliability targets (99.5% success, guaranteed at-least-once delivery). Data quality rules specified (NULL validation, format constraints, duplicate detection). Token reduction from replacing vague terms like 'good', 'improve', 'optimize' with specific metrics and technical constraints."
+}
