@@ -12,6 +12,111 @@ Story creation begins with discovery: assigning a unique ID, determining relatio
 
 ---
 
+## Step 0: Load User Input Guidance Patterns (NEW - Guidance Integration)
+
+**Purpose:** Load guidance patterns before interactive questions to improve question quality and user experience
+
+**Execution:** < 2 seconds (p95), ≤ 1,000 tokens
+
+**Guidance File Path:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
+
+**Loading Logic:**
+
+```python
+def load_user_input_guidance():
+    """
+    Load guidance patterns for Phase 1 questions.
+    Handles batch caching (load once, reuse for stories 2-N).
+    """
+
+    global GUIDANCE_CACHE, GUIDANCE_AVAILABLE, LOADED_PATTERNS
+
+    # Check batch mode status
+    batch_index = extract_marker("**Batch Index:**") or 0
+
+    if batch_index == 0:
+        # First story in batch (or interactive mode): Attempt to load
+
+        log_info("Loading user-input-guidance.md...")
+
+        try:
+            # Load guidance file
+            guidance_content = Read(
+                file_path="src/claude/skills/devforgeai-ideation/references/user-input-guidance.md"
+            )
+
+            # Parse patterns (extract ### headings with descriptions)
+            patterns = extract_patterns_from_markdown(guidance_content)
+
+            # Normalize pattern names for matching
+            normalized_patterns = {
+                normalize_pattern_name(name): content
+                for name, content in patterns.items()
+            }
+
+            # Validate minimum 4 critical patterns present
+            if len(normalized_patterns) >= 4:
+                GUIDANCE_CACHE = guidance_content
+                LOADED_PATTERNS = normalized_patterns
+                GUIDANCE_AVAILABLE = True
+
+                log_info(f"Guidance loaded: {len(normalized_patterns)} patterns extracted")
+                return True
+            else:
+                log_warning(f"Insufficient patterns ({len(normalized_patterns)}), using baseline")
+                GUIDANCE_AVAILABLE = False
+                return False
+
+        except FileNotFoundError:
+            log_warning("Guidance file not found, proceeding with baseline logic")
+            GUIDANCE_AVAILABLE = False
+            return False
+
+        except Exception as e:
+            log_error(f"Failed to load guidance: {e}")
+            GUIDANCE_AVAILABLE = False
+            return False
+
+    else:
+        # Subsequent story in batch: Reuse cached guidance
+
+        if GUIDANCE_CACHE and LOADED_PATTERNS:
+            log_info(f"Batch mode: Reusing cached guidance (story {batch_index + 1})")
+            GUIDANCE_AVAILABLE = True
+            return True
+        else:
+            # Cache miss: Attempt recovery load
+            log_warning(f"Guidance cache miss (story {batch_index + 1}), attempting recovery")
+            return load_user_input_guidance()  # Recursive: try fresh load
+
+
+# Execute Step 0
+load_user_input_guidance()
+
+# Global flags set for use in Steps 3-5:
+# GUIDANCE_AVAILABLE: bool (patterns available for application)
+# LOADED_PATTERNS: dict (extracted patterns, keyed by normalized name)
+```
+
+**Success Indicators:**
+- `GUIDANCE_AVAILABLE = true` (patterns loaded)
+- Log message: "Guidance loaded: X patterns extracted"
+
+**Graceful Degradation:**
+- If file missing: `GUIDANCE_AVAILABLE = false`, use baseline questions
+- If < 4 patterns: `GUIDANCE_AVAILABLE = false`, use baseline questions
+- If exception: Catch, log error, set `GUIDANCE_AVAILABLE = false`, continue
+
+**Batch Caching:**
+- Story 1 (batch_index=0): Load guidance, cache in GUIDANCE_CACHE
+- Stories 2-9 (batch_index>0): Reuse GUIDANCE_CACHE (no re-read)
+- Token overhead: ~1,000 tokens for first story, ~0 for stories 2-9
+- Amortized: 1,000 tokens / 9 stories = ~111 tokens/story
+
+**See:** `references/user-input-integration-guide.md` Section 2 for batch caching details
+
+---
+
 ## Step 1.0: Detect Execution Mode (NEW - Batch Support)
 
 **Check for batch mode marker:**
@@ -221,9 +326,11 @@ TodoWrite([
 
 ---
 
-## Step 1.3: Discover Epic Context
+## Step 1.3: Discover Epic Context (Enhanced with Guidance Pattern)
 
 **Objective:** Find and associate story with epic (if applicable)
+
+**Guidance Pattern Applied:** Explicit Classification + Bounded Choice
 
 **Find available epics:**
 ```
@@ -234,14 +341,33 @@ for epic_file in epic_files:
     # Read frontmatter only (first 20 lines)
     content = Read(file_path=epic_file, limit=20)
 
-    # Extract: id, title, status
+    # Extract: id, title, status, feature_count, complexity
     epic_options.append({
         "label": "{id}: {title}",
-        "description": "Status: {status}, Features: {feature_count}"
+        "description": "Status: {status} | {feature_count} features | Complexity: {complexity}"
     })
 ```
 
-**Ask user for epic association:**
+**Ask user for epic association (Pattern-Enhanced if Guidance Available):**
+
+**If GUIDANCE_AVAILABLE:**
+```
+AskUserQuestion(
+  questions=[{
+    question: "Associate this story with an epic for feature tracking and traceability",
+    header: "Epic Linkage - Explicit Classification + Bounded Choice (Pattern-Applied)",
+    options: epic_options + [
+      {
+        label: "None - Standalone Story",
+        description: "No epic association (independent work, one-off feature)"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**Else (Baseline):**
 ```
 AskUserQuestion(
   questions=[{
@@ -258,29 +384,75 @@ AskUserQuestion(
 )
 ```
 
+**Pattern Details:**
+- **Explicit Classification:** Epic options grouped by status (Active/Planning) with clear descriptions
+- **Bounded Choice:** Present as bounded list (not open-ended "other" field)
+- **"None" Option Explicit:** Clear label "None - Standalone Story" with explanation
+- **Context Descriptions:** Status, feature count, complexity level for each epic
+- **Question Explains Purpose:** "Feature tracking and traceability" helps user understand why epic matters
+
+**See:** `references/user-input-integration-guide.md` Section 6 Example 1 for before/after comparison
+
 **Result:** epic_id (or null if standalone)
 
 ---
 
-## Step 1.4: Discover Sprint Context
+## Step 1.4: Discover Sprint Context (Enhanced with Guidance Pattern)
 
 **Objective:** Find and assign story to sprint (or backlog)
+
+**Guidance Pattern Applied:** Bounded Choice
 
 **Find available sprints:**
 ```
 sprint_files = Glob(pattern=".ai_docs/Sprints/Sprint-*.md")
 
+# Sort chronologically by start date
+sprints_sorted = sort_by_start_date(sprint_files)
+
 sprint_options = []
-for sprint_file in sprint_files:
+for sprint_file in sprints_sorted:
     content = Read(file_path=sprint_file, limit=30)
 
+    # Calculate capacity usage
+    points_used = extract_metric(content, "points_used")
+    points_total = extract_metric(content, "points_capacity")
+    percent_used = (points_used / points_total) * 100
+
+    # Capacity indicator (for pattern application)
+    if percent_used >= 85:
+        capacity_indicator = "LIMITED CAPACITY"
+    elif percent_used >= 50:
+        capacity_indicator = "GOOD CAPACITY"
+    else:
+        capacity_indicator = "AVAILABLE"
+
     sprint_options.append({
-        "label": "{sprint_id}",
-        "description": "Dates: {start} - {end}, Capacity: {points} points"
+        "label": "{sprint_id}: {start} - {end}",
+        "description": "{points_used}/{points_total} points used ({percent_used}%) - {capacity_indicator}"
     })
 ```
 
-**Ask user for sprint association:**
+**Ask user for sprint association (Pattern-Enhanced if Guidance Available):**
+
+**If GUIDANCE_AVAILABLE:**
+```
+AskUserQuestion(
+  questions=[{
+    question: "Assign story to sprint with available capacity",
+    header: "Sprint Assignment - Bounded Choice (Pattern-Applied)",
+    options: sprint_options + [
+      {
+        label: "Backlog",
+        description: "Not assigned to sprint (default, no deadline)"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**Else (Baseline):**
 ```
 AskUserQuestion(
   questions=[{
@@ -297,15 +469,63 @@ AskUserQuestion(
 )
 ```
 
+**Pattern Details:**
+- **Bounded Choice:** Present sprints as bounded list (not open-ended)
+- **Capacity Information:** Show points used/capacity and percentage for each sprint
+- **Chronological Sorting:** List sprints by start date (soonest first)
+- **"Backlog" Option Explicit:** Clear as default option with explanation
+- **Visual Indicators:** LIMITED/GOOD/AVAILABLE capacity hints for user decision
+
+**See:** `references/user-input-integration-guide.md` Section 6 Example 2 for before/after comparison
+
 **Result:** sprint_id (or "Backlog")
 
 ---
 
-## Step 1.5: Collect Story Metadata
+## Step 1.5: Collect Story Metadata (Enhanced with Guidance Patterns)
 
 **Objective:** Gather priority and story points via user questions
 
-**Ask for priority:**
+**Guidance Patterns Applied:**
+- Priority: Explicit Classification
+- Points: Fibonacci Bounded Choice
+
+### Priority Selection (Pattern: Explicit Classification)
+
+**If GUIDANCE_AVAILABLE:**
+```
+AskUserQuestion(
+  questions=[{
+    question: "Select priority level based on business impact",
+    header: "Story Priority - Explicit Classification (Pattern-Applied)",
+    options: [
+      {
+        label: "Critical",
+        description: "Blocking other work - must be done immediately "
+                    "(blocks team productivity, prevents other features)"
+      },
+      {
+        label: "High",
+        description: "Important for current sprint - significant business value "
+                    "(high impact, stakeholder priority)"
+      },
+      {
+        label: "Medium",
+        description: "Valuable feature - can be deferred if needed "
+                    "(standard priority, normal sprint pace)"
+      },
+      {
+        label: "Low",
+        description: "Nice to have - deferred without impact "
+                    "(low priority, can wait for future sprint)"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**Else (Baseline):**
 ```
 AskUserQuestion(
   questions=[{
@@ -334,7 +554,60 @@ AskUserQuestion(
 )
 ```
 
-**Ask for story points:**
+**Pattern Details (Explicit Classification):**
+- **Exactly 4 levels:** Critical, High, Medium, Low (no "Other" option)
+- **Business Impact Descriptions:** Each level explains impact on team/business
+- **Parenthetical Context:** Clarifies what each level means in practice
+- **No vague terms:** All descriptions quantified (blocks, stakeholder, standard, deferred)
+
+**See:** `references/user-input-integration-guide.md` Section 6 Example 3 for before/after comparison
+
+### Story Points Selection (Pattern: Fibonacci Bounded Choice)
+
+**If GUIDANCE_AVAILABLE:**
+```
+AskUserQuestion(
+  questions=[{
+    question: "Estimate story complexity on Fibonacci scale",
+    header: "Story Points - Fibonacci Bounded Choice (Pattern-Applied)",
+    options: [
+      {
+        label: "1 point",
+        description: "Trivial - Few hours, minimal complexity "
+                    "(straightforward task, well-defined scope)"
+      },
+      {
+        label: "2 points",
+        description: "Simple - Half day, straightforward implementation "
+                    "(well-understood, low risk)"
+      },
+      {
+        label: "3 points",
+        description: "Standard - 1 day, moderate complexity "
+                    "(typical story, normal implementation effort)"
+      },
+      {
+        label: "5 points",
+        description: "Complex - 2-3 days, multiple components "
+                    "(requires design, multiple changes)"
+      },
+      {
+        label: "8 points",
+        description: "Very complex - 3-5 days, significant work "
+                    "(many unknowns, significant implementation)"
+      },
+      {
+        label: "13 points",
+        description: "Extremely complex - Consider splitting story "
+                    "(high risk, recommend decomposition)"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**Else (Baseline):**
 ```
 AskUserQuestion(
   questions=[{
@@ -371,21 +644,45 @@ AskUserQuestion(
 )
 ```
 
-**If user selects 13 points:**
+**If user selects 13 points (Trigger Warning):**
 ```
-WARNING: Story might be too large (13 points)
+if user_selection == "13 points":
+    log_warning("13-point story selected - high scope risk")
 
-Recommend splitting into smaller stories (3-5 points each)
-
-Proceed anyway or split?
+    AskUserQuestion(
+      questions=[{
+        question: "13-point stories risk scope creep. Decompose into smaller stories?",
+        header: "⚠️ Large Story Risk",
+        options: [
+          {
+            label: "Split into 2-3 stories",
+            description: "Recommended: Reduce risk, improve delivery certainty"
+          },
+          {
+            label: "Proceed with 13 points",
+            description: "Acknowledge risk, proceed with current scope"
+          }
+        ],
+        multiSelect: false
+      }]
+    )
 ```
+
+**Pattern Details (Fibonacci Bounded Choice):**
+- **Exactly 6 Fibonacci values:** 1, 2, 3, 5, 8, 13 (no other options)
+- **Time Estimates:** Each value includes hours/days estimate
+- **Complexity Rationale:** Explains type of complexity for each level
+- **Parenthetical Context:** Shows risk/effort indicators
+- **13-Point Warning:** Triggers split recommendation for large stories
+
+**See:** `references/user-input-integration-guide.md` Section 6 Example 4 for before/after comparison
 
 **Metadata collected:**
 - story_id (generated)
 - epic_id (user selected or null)
 - sprint_id (user selected or "Backlog")
-- priority (Critical/High/Medium/Low)
-- points (1/2/3/5/8/13)
+- priority (Critical/High/Medium/Low) - Enhanced with business impact descriptions
+- points (1/2/3/5/8/13) - Enhanced with complexity rationale, warning for 13
 
 ---
 

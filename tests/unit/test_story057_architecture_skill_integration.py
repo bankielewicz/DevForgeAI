@@ -99,8 +99,18 @@ Behavior: Skip guidance loading, use existing context
 |-------|------|----------|---------|---------|
 | 1 | 1 | Technology inventory | Open-Ended Discovery | N/A |
 | 1 | 0 | Greenfield/brownfield | Closed Confirmation | 2 (Yes/No) |
-| 1 | 2 | Architecture style | Explicit Classification | 4 options |
+| 1 | 2 | Architecture style | Explicit Classification | 4 options: Monolithic / Microservices / Serverless / Hybrid |
 | 1 | 3 | Backend framework | Bounded Choice | 5-10 filtered |
+
+## Explicit Classification Pattern
+
+### Architecture Style Selection
+Pattern: Explicit Classification
+Options:
+- Monolithic: Single codebase, tightly coupled
+- Microservices: Multiple independent services
+- Serverless: Functions as a service, event-driven
+- Hybrid: Combination of above patterns
 
 ## Examples
 
@@ -116,6 +126,26 @@ This is a freeform question. Please list all technologies your project will use,
 - Databases
 - Runtime environments
 [Open text input]
+
+### After Pattern Application (Explicit Classification)
+Q: Select your architecture style:
+Options:
+  - Monolithic: Single deployable unit
+  - Microservices: Distributed services
+  - Serverless: Event-driven functions
+  - Hybrid: Mix of patterns
+
+### After Pattern Application (Bounded Choice)
+Q: Select backend framework:
+[List filtered by selected language]
+Examples: Django/Flask (Python), Express/NestJS (Node.js), .NET/ASP.NET (C#)
+
+## Testing Strategy
+
+Verify conditional logic:
+1. Create 0 context files → Assert greenfield mode
+2. Create 6 context files → Assert brownfield mode
+3. Create 3 context files → Assert partial mode
 """
 
     with open(ref_file, "w") as f:
@@ -181,10 +211,10 @@ def test_02_brownfield_mode_skips_guidance(temp_project_dir):
 
     # Act
     existing_files = list(context_dir.glob("*.md"))
-    should_load_guidance = len(existing_files) == 6
+    should_skip_guidance = len(existing_files) == 6  # Brownfield = 6 files = skip
 
     # Assert
-    assert should_load_guidance is False, "Brownfield mode should skip guidance"
+    assert should_skip_guidance is True, "Brownfield mode should skip guidance"
     assert len(existing_files) == 6, "Should have all 6 context files"
 
 
@@ -258,13 +288,15 @@ Pattern: Undefined
     # Act
     try:
         content = guidance_path.read_text()
-        # Validate minimal structure
-        is_valid = "Pattern:" in content
+        # Validate proper structure (needs section headers AND valid patterns)
+        has_sections = "## Section" in content
+        has_valid_patterns = "#### Pattern" in content and "**When to Use:**" in content
+        is_valid = has_sections and has_valid_patterns
     except Exception:
         is_valid = False
 
-    # Assert (corrupted file can be read, validation detects issues)
-    assert not is_valid, "Corrupted content should fail validation"
+    # Assert (corrupted file can be read but fails structure validation)
+    assert not is_valid, "Corrupted content should fail structure validation"
 
 
 # ============================================================================

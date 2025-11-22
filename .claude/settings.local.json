@@ -2,7 +2,26 @@
   "permissions": {
     "allow": [
       "Bash(python3:*)",
-      "Bash(devforgeai validate-dod:*)"
+      "Bash(devforgeai validate-dod:*)",
+      "Bash(chmod:*)",
+      "Bash(bash:*)",
+      "Bash(dos2unix:*)",
+      "Bash(echo:*)",
+      "Bash(pytest:*)",
+      "SlashCommand(/qa:*)",
+      "Bash(__NEW_LINE__ echo \"=== IMPLEMENTATION VERIFICATION ===\")",
+      "Bash(__NEW_LINE__ echo \"1. Source SKILL.md:\")",
+      "Bash(test:*)",
+      "Bash(__NEW_LINE__ echo \"\")",
+      "Skill(devforgeai-qa)",
+      "Bash(sed:*)",
+      "Bash(find .ai_docs/Stories -name \"*.story.md\" -exec sh -c 'devforgeai validate-dod \"\"\"\"{}\"\"\"\" 2>&1 | grep -q \"\"\"\"✅\"\"\"\" && echo \"\"\"\"{}\"\"\"\"')",
+      "Skill(devforgeai-development)",
+      "Bash(python -m pytest:*)",
+      "Bash(devforgeai check-hooks:*)",
+      "Bash(sha256sum:*)",
+      "Bash(md5sum:*)",
+      "Bash(/usr/bin/python3 -m pytest:*)"
     ],
     "deny": [],
     "ask": []

@@ -227,9 +227,10 @@ def pytest_configure(config):
     markers = [
         "unit: mark test as a unit test (isolated from external dependencies)",
         "integration: mark test as an integration test (tests component interactions)",
+        "regression: mark test as a regression test (tests backward compatibility)",
+        "performance: mark test as testing performance requirements and timeouts",
         "edge_case: mark test as testing edge cases or boundary conditions",
         "security: mark test as testing security requirements or data protection",
-        "performance: mark test as testing performance requirements and timeouts",
         "acceptance_criteria: mark test as directly testing AC requirement",
         "e2e: mark test as an end-to-end test (real-world usage)",
         "slow: mark test as slow (may take >1 second)",
