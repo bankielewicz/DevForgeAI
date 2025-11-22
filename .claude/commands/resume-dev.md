@@ -88,7 +88,89 @@ ELSE:
 
 ---
 
-### Phase 1: Auto-Detect Resumption Point (If Applicable)
+### Phase 1: Essential Pre-Flight Checks
+
+**Execute critical Phase 0 validations (skip git-related steps):**
+
+**Step 1.1: Validate Context Files Exist**
+```
+Bash(command="devforgeai validate-context", description="Validate 6 context files exist")
+
+IF validation fails:
+  Display: "❌ Context files missing or invalid"
+  Display: "   Run: /create-context to generate context files"
+  HALT
+
+Display: "✓ Context files validated (6/6 present)"
+```
+
+**Step 1.2: Validate Technology Stack**
+```
+Task(
+  subagent_type="tech-stack-detector",
+  description="Validate technology stack for resumed story",
+  prompt="Detect and validate project technology stack against tech-stack.md.
+
+  This is a RESUME operation - story was previously started, now resuming.
+
+  Validate:
+  1. Project technologies match tech-stack.md (no drift)
+  2. No unapproved dependencies added since last run
+  3. No library substitutions
+
+  Return validation result (PASS/FAIL) and any conflicts.
+
+  If FAIL: List conflicts that must be resolved before resuming development."
+)
+
+IF validation fails:
+  Display: "❌ Tech stack conflicts detected"
+  Display: "   Conflicts: {conflicts from subagent}"
+  Display: "   Resolve conflicts before resuming development"
+  HALT
+
+Display: "✓ Technology stack validated"
+```
+
+**Step 1.3: Validate Spec vs Context Files**
+```
+Read story Technical Specification section
+
+IF technical_spec contains technology NOT in tech-stack.md:
+  Display: "❌ Spec-Context conflict detected"
+  Display: "   Spec requires: {technology}"
+  Display: "   tech-stack.md locked: {locked_technologies}"
+  Display: ""
+
+  AskUserQuestion:
+    Question: "Spec requires technology not in tech-stack.md. How to proceed?"
+    Header: "Conflict"
+    Options:
+      - "Use spec requirement (update tech-stack.md + create ADR)"
+      - "Use tech-stack.md standard (spec is incorrect)"
+      - "Stop and review conflict with user"
+    multiSelect: false
+
+  Handle response accordingly
+
+Display: "✓ Spec validated against context files"
+```
+
+**Why these validations are essential:**
+1. **Context files:** Story implementation depends on architectural constraints (tech-stack.md, source-tree.md, etc.)
+2. **Tech stack:** Ensures no technology drift since story started (prevents incompatible code)
+3. **Spec vs Context:** Prevents implementing features that violate locked architectural decisions
+4. **Git validation skipped:** Not needed for resumption (story already initialized, git status irrelevant for continuing work)
+
+**Time saved vs full Phase 0:** ~3 minutes (skip git-validator, git consent, stash warning)
+
+**Token saved vs full Phase 0:** ~3K tokens (git-related steps eliminated)
+
+**Critical validations preserved:** Context files (Step 0.4), Tech stack (Step 0.7), Spec conflicts (Step 0.6)
+
+---
+
+### Phase 2: Auto-Detect Resumption Point (If Applicable)
 
 **Execute if RESUME_MODE == "auto":**
 
