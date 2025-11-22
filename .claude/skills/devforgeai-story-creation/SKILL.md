@@ -183,10 +183,187 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 Each phase loads its reference file on-demand for detailed implementation.
 
 ### Phase 1: Story Discovery
-**Purpose:** Generate story ID, discover epic/sprint context, collect metadata
+**Purpose:** Generate story ID, discover epic/sprint context, collect metadata (with user-input guidance patterns)
 **Reference:** `references/story-discovery.md` (306 lines)
-**Steps:** Feature capture, ID generation, epic/sprint discovery, metadata collection
-**Output:** Story ID, epic/sprint links, priority, points
+**Guidance Integration:** `references/user-input-integration-guide.md` (1,247 lines)
+
+**Steps:**
+
+#### Step 0 (NEW): Load User Input Guidance Patterns
+
+**Purpose:** Load question enhancement patterns before metadata collection to improve question quality
+
+**Execution:**
+```
+guidance_path = "src/claude/skills/devforgeai-ideation/references/user-input-guidance.md"
+
+TRY:
+    guidance_content = Read(file_path=guidance_path)
+    token_count = estimate_tokens(guidance_content)  # ~4 chars = 1 token
+
+    IF token_count > 1000:
+        # Selective loading: Extract only 4 critical patterns
+        Log: "Guidance file large ({token_count} tokens), applying selective loading"
+        critical_patterns = ["Explicit Classification", "Bounded Choice", "Fibonacci Bounded Choice", "Open-Ended Discovery"]
+        patterns = extract_specific_patterns(guidance_content, critical_patterns)
+        token_count_selective = estimate_tokens(patterns)
+
+        IF token_count_selective <= 1000:
+            GUIDANCE_AVAILABLE = true
+            Log: "Selective loading successful: {len(patterns)} critical patterns loaded ({token_count_selective} tokens)"
+        ELSE:
+            GUIDANCE_AVAILABLE = false
+            Log: "Selective loading failed (still {token_count_selective} tokens), using baseline logic"
+    ELSE:
+        # Normal loading: Extract all patterns
+        patterns = extract_patterns(guidance_content)  # Parse markdown headings
+        GUIDANCE_AVAILABLE = true
+        Log: "Loaded user-input-guidance.md ({len(patterns)} patterns, {token_count} tokens)"
+
+CATCH FileNotFoundError:
+    GUIDANCE_AVAILABLE = false
+    Log: "user-input-guidance.md not found, proceeding with baseline logic"
+CATCH Exception as e:
+    GUIDANCE_AVAILABLE = false
+    Log: "Failed to load guidance: {e}, proceeding with baseline"
+
+# For implementation details, see references/user-input-integration-guide.md
+```
+
+**Performance Targets:**
+- Execution time < 2 seconds (p95)
+- Token overhead ≤ 1,000 tokens
+- Phase 1 total increase ≤ 5% vs baseline
+
+**Graceful Degradation:**
+- If guidance unavailable → Log warning, continue with baseline logic
+- If parse fails → Log warning, continue with baseline logic
+- If guidance large → Apply selective loading (extract 4 critical patterns only)
+
+**Batch Mode Caching:**
+- Story 1: Load and cache guidance
+- Stories 2-9: Reuse cached guidance (no re-read, no token overhead)
+
+---
+
+#### Steps 1-2: Feature Capture & ID Generation
+
+See references/story-discovery.md for complete implementation.
+
+#### Step 3: Discover Epic Context (Enhanced with Guidance Patterns)
+
+**IF GUIDANCE_AVAILABLE:**
+```
+pattern = lookup_pattern("explicit classification bounded choice")
+epic_files = Glob(pattern=".ai_docs/Epics/*.epic.md")
+epic_options = []
+
+FOR each epic_file in epic_files:
+    epic_content = Read(file_path=epic_file)
+    epic_id = extract_yaml_field(epic_content, "id")
+    epic_status = extract_yaml_field(epic_content, "status")
+    epic_complexity = extract_yaml_field(epic_content, "complexity")
+    epic_options.append({
+        label: epic_id,
+        description: "Status: {epic_status}, Complexity: {epic_complexity}"
+    })
+
+epic_options.append({
+    label: "None - standalone story",
+    description: "Story not associated with any epic"
+})
+
+AskUserQuestion(
+    question="Which epic does this story belong to? (Epic linkage enables feature tracking and traceability)",
+    header="Epic Association",
+    options=epic_options
+)
+```
+**ELSE (baseline logic):**
+```
+AskUserQuestion with simple epic list (original implementation)
+```
+
+#### Step 4: Discover Sprint Context (Enhanced with Guidance Patterns)
+
+**IF GUIDANCE_AVAILABLE:**
+```
+pattern = lookup_pattern("bounded choice")
+sprint_files = Glob(pattern=".ai_docs/Sprints/*.md")
+sprint_options = [{
+    label: "Backlog",
+    description: "Not assigned to any sprint"
+}]
+
+FOR each sprint_file in sprint_files:
+    sprint_content = Read(file_path=sprint_file)
+    sprint_id = extract_sprint_number(sprint_content)
+    sprint_dates = extract_sprint_dates(sprint_content)
+    sprint_capacity = calculate_capacity(sprint_content)
+    sprint_options.append({
+        label: "Sprint-{sprint_id}",
+        description: "{sprint_dates}, {sprint_capacity.used}/{sprint_capacity.total} points used"
+    })
+
+# Sort by start date (chronological)
+sprint_options = sort_by_date(sprint_options)
+
+AskUserQuestion(
+    question="Which sprint should this story be assigned to?",
+    header:"Sprint Assignment",
+    options=sprint_options
+)
+```
+**ELSE (baseline logic):**
+```
+AskUserQuestion with simple sprint list (original implementation)
+```
+
+#### Step 5: Collect Story Metadata (Enhanced with Guidance Patterns)
+
+**Priority Selection (Explicit Classification):**
+```
+IF GUIDANCE_AVAILABLE:
+    pattern = lookup_pattern("explicit classification")
+    AskUserQuestion(
+        question:"What is the story priority?",
+        header="Priority",
+        options=[
+            {label:"Critical", description:"Blocking other work, must be done immediately"},
+            {label:"High", description:"Important for upcoming release, schedule soon"},
+            {label:"Medium", description:"Desirable feature, normal priority"},
+            {label:"Low", description:"Nice to have, can be scheduled later"}
+        ]
+    )
+ELSE:
+    AskUserQuestion with simple priority list
+```
+
+**Story Points (Fibonacci Bounded Choice):**
+```
+IF GUIDANCE_AVAILABLE:
+    pattern = lookup_pattern("fibonacci bounded choice")
+    AskUserQuestion(
+        question:"Estimate story complexity:",
+        header:"Story Points",
+        options=[
+            {label:"1", description:"Trivial - Few hours, minimal complexity"},
+            {label:"2", description:"Simple - Half day, straightforward implementation"},
+            {label:"3", description:"Standard - 1 day, moderate complexity"},
+            {label:"5", description:"Complex - 2-3 days, multiple components"},
+            {label:"8", description:"Very complex - 3-5 days, significant work"},
+            {label:"13", description:"Extremely complex - Consider splitting story"}
+        ]
+    )
+
+    IF user_selects("13"):
+        Display:"⚠️  13-point stories are difficult to estimate and complete"
+        Display:"Consider splitting into smaller stories for better predictability"
+ELSE:
+    AskUserQuestion with simple points list
+```
+
+**Output:** Story ID, epic/sprint links, priority, points (with enhanced user input quality via patterns)
 
 ### Phase 2: Requirements Analysis
 **Purpose:** Generate user story and acceptance criteria

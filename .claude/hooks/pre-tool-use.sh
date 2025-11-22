@@ -4,6 +4,7 @@
 # Logging setup
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-/mnt/c/Projects/DevForgeAI2}"
 LOG_FILE="$PROJECT_ROOT/.devforgeai/logs/pre-tool-use.log"
+UNKNOWN_COMMANDS_LOG="$PROJECT_ROOT/.devforgeai/logs/hook-unknown-commands.log"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 # Create log directory if needed
@@ -12,6 +13,12 @@ mkdir -p "$PROJECT_ROOT/.devforgeai/logs" 2>/dev/null
 # Log function
 log() {
   echo "[$TIMESTAMP] $1" >> "$LOG_FILE"
+}
+
+# Log unknown commands that require manual approval
+log_unknown_command() {
+  local cmd="$1"
+  echo "[$TIMESTAMP] UNKNOWN COMMAND REQUIRING APPROVAL: $cmd" >> "$UNKNOWN_COMMANDS_LOG"
 }
 
 log "========== HOOK INVOKED =========="
@@ -129,5 +136,6 @@ log "No blocked pattern matched"
 # For all others, ask user for approval
 log "Decision: ASK USER (exit 1)"
 log "Command requires manual approval: $COMMAND"
+log_unknown_command "$COMMAND"
 log "=========================================="
 exit 1

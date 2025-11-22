@@ -92,6 +92,23 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 1: Discovery & Problem Understanding
 **Reference:** `discovery-workflow.md` | **Questions:** 5-10 | **Output:** Problem statement, user personas, scope boundaries
 
+**Step 0 - Load User Input Patterns (Error-Tolerant):**
+
+Before proceeding with discovery questions, attempt to load guidance patterns:
+
+`Read(file_path=".claude/skills/devforgeai-ideation/references/user-input-guidance.md")`
+
+If load fails: Continue with standard discovery questions (no halt)
+
+**Patterns Available (When Loaded):**
+- Open-Ended Discovery ("Tell me about..."), Scope Verification
+- Closed Confirmation (yes/no validation)
+- Bounded Choice (predefined options for timelines, budgets)
+- Explicit Classification (persona types, user roles)
+- Comparative Ranking (feature priorities, 1-5 scale)
+
+**Selective Loading Strategy:** Full file loads in Step 0 (~40% used in Phase 1, remainder for Phases 2-6). Reduces Phase 1 token overhead to acceptable levels.
+
 Determine project type (greenfield/brownfield), analyze existing system, explore problem space, define scope.
 
 **Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/discovery-workflow.md")`
