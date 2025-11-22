@@ -1,0 +1,5 @@
+Build a search feature that lets users find content quickly within the application. The search should support multiple types of queries and return results fast.
+
+Filters should help users narrow down results and improve the search experience. The system should be optimized for performance with large datasets.
+
+Ranking and relevance should be improved to surface the most useful results. We need better autocomplete suggestions and should handle edge cases better.

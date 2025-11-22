@@ -1,0 +1,5 @@
+Create a dashboard interface that displays important business metrics and analytics. The UI should be intuitive and easy to navigate for all user types.
+
+Visual elements should be clear and help users quickly understand the data. Responsive design is important so it works well on different screen sizes.
+
+Performance should be fast when rendering complex visualizations. The interface should be accessible and improved to provide a better user experience overall.

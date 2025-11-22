@@ -1,0 +1,12 @@
+{
+  "fixture_id": "02",
+  "category": "authentication",
+  "baseline_issues": ["vague security measures", "missing acceptance criteria", "omitted non-functional requirements"],
+  "expected_improvements": {
+    "token_savings": 32.0,
+    "ac_completeness": 90.0,
+    "nfr_coverage": 100.0,
+    "specificity_score": 85.0
+  },
+  "rationale": "Guidance specifies concrete acceptance criteria with Given/When/Then format for signup, login, and password recovery flows. Adds measurable security requirements (bcrypt cost ≥12, 5 failed attempts lockout, TLS 1.2+), performance targets (<200ms auth response), and reliability requirements (99.9% uptime). Replaces vague terms like 'secure' and 'good' with specific technical controls and metrics."
+}

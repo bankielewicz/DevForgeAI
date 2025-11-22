@@ -1,0 +1,12 @@
+{
+  "fixture_id": "05",
+  "category": "ui-components",
+  "baseline_issues": ["vague requirements", "missing specific metrics", "omitted accessibility requirements"],
+  "expected_improvements": {
+    "token_savings": 26.0,
+    "ac_completeness": 82.0,
+    "nfr_coverage": 75.0,
+    "specificity_score": 76.0
+  },
+  "rationale": "Guidance specifies concrete viewport breakpoints (1920x1080 desktop, 768px tablet, 375px mobile), performance targets (initial load <2 seconds, metric updates <1 second), and accessibility requirements (WCAG 2.1 AA, color-blind friendly). Acceptance criteria defined for specific interactions (viewing metrics, date range selection, responsive behavior). Token reduction from converting vague phrases like 'intuitive', 'clear', 'improved' into specific technical requirements and acceptance criteria with measurable targets."
+}

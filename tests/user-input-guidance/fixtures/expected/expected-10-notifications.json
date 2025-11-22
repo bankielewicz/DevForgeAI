@@ -1,0 +1,12 @@
+{
+  "fixture_id": "10",
+  "category": "notifications",
+  "baseline_issues": ["vague delivery requirements", "missing user control criteria", "omitted reliability targets"],
+  "expected_improvements": {
+    "token_savings": 33.0,
+    "ac_completeness": 92.0,
+    "nfr_coverage": 100.0,
+    "specificity_score": 86.0
+  },
+  "rationale": "Guidance specifies concrete multi-channel delivery (email, SMS, in-app push, webhook) with performance targets (email within 5 minutes for critical, SMS <30 seconds, webhook retries up to 5 times with exponential backoff 1s-30s). Acceptance criteria detail high-priority event handling, user preference respect (daily digest vs real-time, SMS for critical only), and in-app navigation (<2 seconds). Reliability targets specified (99.95% delivery success for critical, 7-day failed job retention). User control requirements include preference customization, frequency settings, and timezone-aware scheduling. Token reduction from replacing 'reliable', 'good notifications', 'improve experience' with specific delivery times, retry strategies, and preference controls."
+}
