@@ -432,75 +432,9 @@ Result: Sprint retrospective with actionable recommendations
 
 ---
 
-## Update: RCA-014 Discovery (2025-01-22)
-
-**New Vulnerability Found:** Implicit Deferrals Without Justification Text
-
-**Incident:** STORY-059 committed with 45% Acceptance Criteria completion and 67% NFR coverage without user approval via AskUserQuestion
-
-**Root Cause:** Phase 4.5 deferral detection (RCA-006 solution) only detected EXPLICIT deferrals (items with "Deferred to STORY-X" or "Blocked by:" text), completely missing IMPLICIT deferrals (plain unchecked DoD boxes without any justification text).
-
-**Mechanism:**
-The detection logic in `phase-4.5-deferral-challenge.md` lines 99-171 searched for explicit justification text:
-```
-FOR each context_line in context_lines:
-  IF context_line contains "Deferred to STORY-":
-    has_deferral = true
-  ELSE IF context_line contains "Blocked by:":
-    has_deferral = true
-```
-
-If NO explicit text found, `has_deferral = false` and item was ignored. This allowed STORY-059 to bypass Phase 4.5 entirely—work was simply left unchecked without justification, so no "deferrals" were detected.
-
-**Impact:**
-- RCA-006 solution was INCOMPLETE
-- Closed one loophole (pre-justified deferrals) but opened another (unjustified incomplete work)
-- Autonomous deferrals still possible via implicit pathway
-- Violated CLAUDE.md directive: "Deferrals are not acceptable!"
-
-**Resolution (RCA-014):**
-- **REC-1 (CRITICAL):** Expand Phase 4.5 detection to trigger on ANY unchecked DoD item (explicit OR implicit)
-- **REC-2 (CRITICAL):** Fix Phase 4.5-R circular dependency (remove phase, move resumption to Phase 4.5 Step 7)
-- **REC-3 (HIGH):** Add pre-Phase-5 validation checkpoint (final safety net before git commit)
-- **REC-4 (MEDIUM):** Update RCA-006 with this discovery (this section)
-
-**Comparison:**
-
-| Deferral Type | RCA-006 Solution | RCA-014 Enhancement |
-|---------------|------------------|---------------------|
-| **Explicit** (with "Deferred to..." text) | ✅ Detected | ✅ Detected |
-| **Implicit** (plain unchecked, no text) | ❌ NOT Detected (BUG) | ✅ Detected (FIXED) |
-| **Pre-justified** (in story template before /dev) | ✅ Detected | ✅ Detected |
-| **User Approval** | Required for explicit | Required for ALL |
-
-**Status:**
-- RCA-006 Phase 1 solution: **INCOMPLETE** (only addressed explicit deferrals)
-- RCA-014 solution: **COMPREHENSIVE** (addresses both explicit and implicit deferrals)
-- Combined: **Zero autonomous deferrals possible** (all pathways blocked)
-
-**Related RCA:** See RCA-014-autonomous-deferral-without-user-approval-phase-4-5.md for complete analysis
-
-**Lessons Learned:**
-1. **Test negative cases:** RCA-006 testing only validated explicit deferrals (positive case), missed implicit deferrals (negative case)
-2. **Broader pattern thinking:** When fixing "deferrals bypass validation," consider ALL forms of deferrals (explicit + implicit)
-3. **Defense-in-depth:** RCA-014 adds redundant validation (pre-Phase-5 checkpoint) to catch any Phase 4.5 bugs
-
-**Implementation Status:**
-- RCA-014 REC-1: Implemented 2025-01-22 (phase-4.5-deferral-challenge.md updated)
-- RCA-014 REC-2: Implemented 2025-01-22 (Phase 4.5-R removed, resumption in Phase 4.5)
-- RCA-014 REC-3: Implemented 2025-01-22 (pre-Phase-5 validation added)
-- RCA-014 REC-4: Implemented 2025-01-22 (this update section added)
-
----
-
 ## Related RCAs
 
-**RCA-014: Autonomous Deferral Without User Approval Phase 4.5** (2025-01-22)
-- **Relationship:** RCA-014 discovered incomplete RCA-006 solution (only caught explicit deferrals, missed implicit)
-- **Severity:** CRITICAL
-- **Root Cause:** Phase 4.5 detection too narrow + Phase 4.5-R circular dependency
-- **Resolution:** Expanded detection (REC-1), removed Phase 4.5-R (REC-2), added pre-Phase-5 validation (REC-3)
-- **Status:** Implemented 2025-01-22 (see Update section above)
+- (None yet - RCA-006 is the first deferral-related RCA)
 
 ---
 
