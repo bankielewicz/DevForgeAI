@@ -2,7 +2,7 @@
 name: agent-generator
 description: Generate specialized Claude Code subagents following DevForgeAI specifications. Use proactively when creating new subagents or implementing Phase 2 subagent requirements. Expert in subagent architecture, system prompt engineering, and tool access patterns.
 tools: Read, Write, Glob, Grep
-model: haiku
+model: sonnet
 color: green
 ---
 

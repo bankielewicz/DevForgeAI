@@ -535,7 +535,7 @@ Commands that are NOT:
 ### Update Process
 1. Run monthly: `python3 .devforgeai/scripts/analyze-hook-patterns.py`
 2. Review top 20 suggested patterns
-3. Validate each against safety criteria
+3. Validate each against safety criteriare
 4. Add safe patterns to SAFE_PATTERNS array
 5. Test with sample commands
 6. Commit with rationale: "chore(hooks): Add {pattern} (used {count}× per analysis)"

@@ -2,7 +2,7 @@
 name: security-auditor
 description: Application security audit specialist covering OWASP Top 10, authentication/authorization, data protection, and vulnerability detection. Use proactively after auth/security code written or during deep QA validation.
 tools: Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable)
-model: haiku
+model: sonnet
 color: green
 ---
 

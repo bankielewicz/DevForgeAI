@@ -3,12 +3,13 @@ id: STORY-060
 title: Operational Sync for User Input Guidance System
 epic: EPIC-011
 sprint: SPRINT-2
-status: Ready for Dev
+status: Superseded
 points: 2
 priority: Medium
 assigned_to: TBD
 created: 2025-01-20
-updated: 2025-01-20
+updated: 2025-11-24
+superseded_by: STORY-065
 format_version: "2.0"
 ---
 
@@ -1910,5 +1911,31 @@ None required (operational tooling, not architectural change)
 
 ---
 
+## Superseded Notice
+
+**Status:** SUPERSEDED by STORY-065 (2025-11-24)
+
+**Reason:**
+- STORY-060 is overly verbose (1,914 lines, 92 KB)
+- Contains 33 bash code blocks in Acceptance Criteria section (implementation detail, not requirements)
+- Violates AC/Tech Spec separation principle (AC = what, Tech Spec = how)
+
+**Replacement:**
+- **STORY-065:** Operational Sync for User Input Guidance System (Lightweight)
+- File: `.ai_docs/Stories/STORY-065-operational-sync-lightweight.story.md`
+- Size: 379 lines, 19.6 KB (80% reduction)
+- Identical functionality, proper AC/Tech Spec separation
+- Zero bash code in AC section (all moved to Technical Specification)
+
+**Disposition Options:**
+1. **Archive STORY-060** - Keep for reference (demonstrates verbose anti-pattern)
+2. **Delete STORY-060** - Remove and use only STORY-065
+3. **Implement STORY-065** - Use lightweight version for actual development
+
+**Recommendation:** Archive STORY-060 as educational reference showing "what not to do" in AC sections. Implement STORY-065 for actual operational sync functionality.
+
+---
+
 **Story Template Version:** 2.0
 **Created:** 2025-01-20
+**Superseded:** 2025-11-24 by STORY-065

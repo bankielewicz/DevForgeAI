@@ -2,7 +2,7 @@
 name: sprint-planner
 description: Sprint planning and execution specialist. Handles story selection, capacity validation, sprint file creation, and story status updates. Use proactively during sprint planning phase to coordinate story assignment and workflow state transitions.
 tools: Read, Write, Edit, Glob, Grep
-model: sonnet
+model: opus
 ---
 
 # Sprint Planner Subagent

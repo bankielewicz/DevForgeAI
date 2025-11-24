@@ -1,7 +1,7 @@
 ---
 description: Create sprint plan with story selection
 argument-hint: [sprint-name]
-model: sonnet
+model: opus
 allowed-tools: Read, Glob, AskUserQuestion, Skill
 ---
 
