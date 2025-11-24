@@ -1,19 +1,22 @@
-Implement a user account management system specifically for system administrators providing CRUD operations on user accounts. Support 100,000 users with response times under 500ms for all operations.
+User account system for admin users. Must support 100,000 active users.
+CRUD under 500ms. Bulk 100 users under 5 seconds.
 
-Acceptance Criteria:
-- Given: Administrator creates new user with email and assigned role
-  When: User creation completes
-  Then: System confirms within 500ms
+Admin users create, read, update, delete accounts.
+Each account needs email and role.
 
-- Given: User account exists in system
-  When: Administrator updates email or role
-  Then: Changes persist immediately
+Given: Admin creates account with email and role.
+When: Creation completes.
+Then: Confirm in under 500ms.
 
-- Given: User record exists
-  When: Administrator deletes account
-  Then: Account archived for 90 days
+Given: Account exists.
+When: Admin updates email or role.
+Then: Changes save in under 500ms.
 
-Non-Functional Requirements:
-- Performance: CRUD operations <500ms p95; bulk operations (100+ users) <5 seconds
-- Security: Role verification required; changes logged with timestamp and operator ID; TLS 1.2+ encryption
-- Scalability: Support 50 concurrent administrators
+Given: Account exists.
+When: Admin deletes account.
+Then: Archive for 90 days.
+
+Security: Enforce role checks and audit logging with timestamp and admin ID.
+Use TLS 1.2+ encryption.
+
+Performance and scalability: Handle 50 admin users concurrently with no slowdown.

@@ -1,5 +1,5 @@
 Build a login and signup system that is secure and easy to use. Users should be able to create accounts with email and password, then log in to access the application.
 
-The system should have good security measures and prevent unauthorized access. Password reset functionality should be implemented and work smoothly.
+The system should have good security measures and prevent unauthorized access. Password reset capability should be added and work smoothly.
 
 The authentication flow should be fast and not cause performance issues. Error messages should be clear and help users understand what went wrong.

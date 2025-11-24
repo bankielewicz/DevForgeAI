@@ -1,1 +1,23 @@
-Build reporting system with templates (sales, customers, revenue), filter/export functionality (CSV, PDF, Excel), scheduled generation (daily 9 AM weekdays), and automated distribution to 5 recipients. Generate <5 million row reports within 30 seconds, larger reports within 2 minutes. Given: Analyst opens report builder with templates. When: Analyst configures filters (date range, department, region). Then: Report generates within 30 seconds for <5 million rows. Given: Report configured with schedule (daily 9 AM weekdays). When: Scheduled time arrives. Then: Report generates and emails to 5 recipients within 5 minutes. Given: Report contains 100,000+ rows. When: User clicks "Export to Excel". Then: File generates within 60
+Report system with three templates: sales, customer records, revenue.
+Requirement: Must support filtered queries by date, department, region.
+Measurable constraints: Complete report generation within 30 seconds maximum.
+Performance and security must be maintained throughout system operation.
+
+Given: Analyst opens report builder.
+When: Set filter for date and region.
+Then: Make report in 30 seconds (5M rows).
+
+Given: Daily report at 9 AM.
+When: 9 AM on weekday.
+Then: Email to 5 recipients in 5 min.
+
+Given: 100K customer rows.
+When: Export to Excel.
+Then: Save in 60 seconds.
+
+Handle 10M rows with streaming.
+Analysts see only allowed reports.
+Keep logs. Use PostgreSQL.
+
+Speed: 30 seconds.
+Safety: Encrypt customer data.

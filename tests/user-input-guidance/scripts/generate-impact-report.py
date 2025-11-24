@@ -35,8 +35,19 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-# Configuration
+# Configuration constants
 REPORTS_DIR = Path(__file__).parent.parent / "reports"
+TOKEN_SAVINGS_THRESHOLD = 20.0
+SUCCESS_RATE_THRESHOLD = 80.0
+BAR_CHART_WIDTH = 50
+TABLE_COLUMN_PADDING = 2
+
+# Report section titles
+SECTION_EXECUTIVE_SUMMARY = "Executive Summary"
+SECTION_TOKEN_EFFICIENCY = "Token Efficiency"
+SECTION_QUALITY_IMPROVEMENTS = "Quality Improvements"
+SECTION_FIXTURE_ANALYSIS = "Fixture Analysis"
+SECTION_RECOMMENDATIONS = "Recommendations"
 
 def find_latest_report(pattern: str) -> Optional[Path]:
     """
@@ -106,9 +117,8 @@ def generate_table(headers: List[str], rows: List[List[str]]) -> str:
 
     return "\n".join(lines)
 
-def main():
-    """Main execution function."""
-    # Handle command-line arguments
+def _handle_command_line_arguments() -> None:
+    """Handle and process command-line arguments."""
     if len(sys.argv) > 1:
         if sys.argv[1] == "--help":
             print(__doc__)
@@ -116,6 +126,12 @@ def main():
         elif sys.argv[1] == "--test":
             print("Self-test mode not yet implemented")
             sys.exit(0)
+
+
+def main():
+    """Main execution function."""
+    # Handle command-line arguments
+    _handle_command_line_arguments()
 
     logging.info("=" * 60)
     logging.info("Impact Report Generation Script")
@@ -164,7 +180,7 @@ def main():
         if hypothesis_passed:
             f.write("**Hypothesis:** ✅ VALIDATED\n\n")
             f.write(f"User input guidance system successfully improves input quality:\n")
-            f.write(f"- Token efficiency: {token_data['summary']['mean_savings']:.1f}% average reduction (target ≥20%)\n")
+            f.write(f"- Token efficiency: {token_data['mean_savings']:.1f}% average reduction (target ≥20%)\n")
             f.write(f"- Quality metrics: {success_data['expected_comparison']['success_rate_percentage']:.1f}% fixtures meet expectations (target ≥80%)\n")
             f.write(f"- AC testability: {success_data['summary']['mean_ac_testability']:.1f}% average\n")
             f.write(f"- NFR coverage: {success_data['summary']['mean_nfr_coverage']:.1f}% average\n")
@@ -174,7 +190,7 @@ def main():
             f.write("**Hypothesis:** ❌ NOT VALIDATED\n\n")
             failures = []
             if not token_data["hypothesis"]["passed"]:
-                failures.append(f"Token savings {token_data['summary']['mean_savings']:.1f}% < 20% target")
+                failures.append(f"Token savings {token_data['mean_savings']:.1f}% < 20% target")
             if not success_data["hypothesis"]["passed"]:
                 failures.append(f"Success rate {success_data['expected_comparison']['success_rate_percentage']:.1f}% < 80% target")
 
@@ -186,10 +202,10 @@ def main():
         # Section 2: Token Efficiency
         f.write("---\n\n")
         f.write("## Token Efficiency\n\n")
-        f.write(f"**Mean Savings:** {token_data['summary']['mean_savings']:.2f}%\n")
-        f.write(f"**Median Savings:** {token_data['summary']['median_savings']:.2f}%\n")
-        f.write(f"**Std Deviation:** {token_data['summary']['std_dev']:.2f}%\n")
-        f.write(f"**Range:** {token_data['summary']['min_savings']:.2f}% to {token_data['summary']['max_savings']:.2f}%\n\n")
+        f.write(f"**Mean Savings:** {token_data['mean_savings']:.2f}%\n")
+        f.write(f"**Median Savings:** {token_data['median_savings']:.2f}%\n")
+        f.write(f"**Std Deviation:** {token_data['std_dev']:.2f}%\n")
+        f.write(f"**Range:** {token_data.get('min_savings', 0):.2f}% to {token_data.get('max_savings', 0):.2f}%\n\n")
 
         # Bar chart
         f.write("### Savings Distribution\n\n")
@@ -225,13 +241,13 @@ def main():
         # Section 4: Fixture Analysis
         f.write("---\n\n")
         f.write("## Fixture Analysis\n\n")
-        f.write(f"**Fixtures Meeting Expectations:** {success_data['expected_comparison']['fixtures_meeting_expectations']}/{len(success_data['fixtures'])}\n")
+        f.write(f"**Fixtures Meeting Expectations:** {success_data['fixtures_meeting_expectations']}/{len(success_data['results'])}\n")
         f.write(f"**Success Rate:** {success_data['expected_comparison']['success_rate_percentage']:.1f}%\n\n")
 
         # Comparison table
         headers = ["Fixture", "AC Test", "NFR Cov", "Specificity", "Status"]
         rows = []
-        for fixture in success_data["fixtures"]:
+        for fixture in success_data["results"]:
             status = "✅ PASS" if fixture["meets_expected"] else "❌ PARTIAL"
             rows.append([
                 fixture["fixture_id"],
@@ -248,6 +264,10 @@ def main():
         f.write("---\n\n")
         f.write("## Recommendations\n\n")
 
+        # Check for outliers
+        outliers = success_data.get("outliers", [])
+        outlier_count = success_data.get("outlier_count", 0)
+
         if hypothesis_passed:
             f.write("**Primary:** Continue using current guidance system\n\n")
             f.write("**Secondary:** Consider incremental refinements:\n")
@@ -260,12 +280,16 @@ def main():
             not_meeting = [f for f in success_data["fixtures"] if not f["meets_expected"]]
             if not_meeting:
                 f.write(f"- Improve quality metrics for: {', '.join(f['category'] for f in not_meeting)}\n")
+
+            # Flag unrealistic expectations if outliers detected
+            if outlier_count >= 3:
+                f.write(f"- Review expected improvements for {outlier_count} outlier deviations\n")
         else:
             f.write("**Required:** Refine guidance system\n\n")
             f.write("Specific areas:\n")
 
-            if token_data['summary']['mean_savings'] < 20:
-                f.write(f"- Token efficiency below target ({token_data['summary']['mean_savings']:.1f}% < 20%)\n")
+            if token_data['mean_savings'] < 20:
+                f.write(f"- Token efficiency below target ({token_data['mean_savings']:.1f}% < 20%)\n")
                 f.write("  * Review guidance sections on removing verbosity\n")
                 f.write("  * Emphasize clarity over detail\n")
 
@@ -283,4 +307,8 @@ def main():
     sys.exit(0)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logging.error(f"Fatal error: {e}")
+        sys.exit(1)

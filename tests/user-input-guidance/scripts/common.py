@@ -187,6 +187,23 @@ def get_latest_report(pattern: str) -> Optional[Path]:
     return sorted(reports)[-1]  # Most recent (alphabetically)
 
 
+def _create_timestamped_path(filename_prefix: str, extension: str) -> Path:
+    """
+    Create timestamped filepath for reports.
+
+    Args:
+        filename_prefix: Prefix for filename (e.g., "token-savings")
+        extension: File extension without dot (e.g., "json", "md")
+
+    Returns:
+        Path to report file
+    """
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    filename = f"{filename_prefix}-{timestamp}.{extension}"
+    return REPORTS_DIR / filename
+
+
 def save_json_report(data: Dict, filename_prefix: str) -> Path:
     """
     Save JSON report with timestamp.
@@ -198,11 +215,7 @@ def save_json_report(data: Dict, filename_prefix: str) -> Path:
     Returns:
         Path to saved file
     """
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    filename = f"{filename_prefix}-{timestamp}.json"
-    filepath = REPORTS_DIR / filename
+    filepath = _create_timestamped_path(filename_prefix, "json")
 
     # Atomic write: write to temp, then rename
     temp_path = filepath.with_suffix('.json.tmp')
@@ -224,11 +237,7 @@ def save_markdown_report(content: str, filename_prefix: str) -> Path:
     Returns:
         Path to saved file
     """
-    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
-
-    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    filename = f"{filename_prefix}-{timestamp}.md"
-    filepath = REPORTS_DIR / filename
+    filepath = _create_timestamped_path(filename_prefix, "md")
 
     # Atomic write: write to temp, then rename
     temp_path = filepath.with_suffix('.md.tmp')
@@ -256,12 +265,15 @@ def calculate_length_increase(baseline_text: str, enhanced_text: str) -> float:
     return ((enhanced_words - baseline_words) / baseline_words) * 100
 
 
+# Vague terms to detect in text analysis
+VAGUE_TERMS = ["fast", "good", "better", "optimize", "improve", "easy", "simple"]
+
+
 def count_vague_terms(text: str) -> int:
     """Count occurrences of vague terms in text."""
-    vague_terms = ["fast", "good", "better", "optimize", "improve", "easy", "simple"]
     text_lower = text.lower()
     count = 0
-    for term in vague_terms:
+    for term in VAGUE_TERMS:
         # Word boundary matching
         pattern = r'\b' + re.escape(term) + r'\b'
         count += len(re.findall(pattern, text_lower))
@@ -274,6 +286,15 @@ def detect_given_when_then(text: str) -> int:
     return len(re.findall(pattern, text, re.IGNORECASE))
 
 
+# NFR category keywords for detection
+NFR_CATEGORIES = {
+    'performance': ['performance', 'latency', 'throughput', 'response time', '<'],
+    'security': ['security', 'encrypt', 'ssl', 'tls', 'auth', 'hash', 'bcrypt'],
+    'reliability': ['reliability', 'uptime', 'availability', '99.9', 'fault', 'recovery'],
+    'scalability': ['scalability', 'scale', 'concurrent', 'throughput', 'load']
+}
+
+
 def count_nfr_categories(text: str) -> int:
     """
     Count distinct NFR categories mentioned in text.
@@ -282,15 +303,8 @@ def count_nfr_categories(text: str) -> int:
         Count of distinct categories (0-4)
     """
     text_lower = text.lower()
-    categories = {
-        'performance': ['performance', 'latency', 'throughput', 'response time', '<'],
-        'security': ['security', 'encrypt', 'ssl', 'tls', 'auth', 'hash', 'bcrypt'],
-        'reliability': ['reliability', 'uptime', 'availability', '99.9', 'fault', 'recovery'],
-        'scalability': ['scalability', 'scale', 'concurrent', 'throughput', 'load']
-    }
-
     count = 0
-    for category, keywords in categories.items():
+    for category, keywords in NFR_CATEGORIES.items():
         if any(keyword in text_lower for keyword in keywords):
             count += 1
     return count
@@ -301,7 +315,7 @@ def calculate_readability(text: str) -> Optional[float]:
     Calculate Flesch Reading Ease score.
 
     Returns:
-        Score (0-100) or None if textstat unavailable
+        Score (0-100) or None if textstat unavailable or calculation fails
     """
     try:
         import textstat
