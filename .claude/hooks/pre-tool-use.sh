@@ -111,11 +111,101 @@ SAFE_PATTERNS=(
 
 log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
 
-# Simple approach: Check if command STARTS WITH safe pattern
-# Pattern matching handles pipes/redirects automatically
+# RCA-015 REC-02: Quote-aware base command extraction
+# Strips pipes and redirects OUTSIDE quotes to enable safe command + pipe/redirect auto-approval
+extract_base_command() {
+  local cmd="$1"
+  local result=""
+  local in_quote=false
+  local quote_char=""
+
+  for (( i=0; i<${#cmd}; i++ )); do
+    char="${cmd:$i:1}"
+
+    # Handle quote state changes
+    if [ "$in_quote" = false ] && { [ "$char" = "'" ] || [ "$char" = '"' ]; }; then
+      in_quote=true
+      quote_char="$char"
+      result="${result}${char}"
+    elif [ "$char" = "$quote_char" ] && [ "$in_quote" = true ]; then
+      in_quote=false
+      quote_char=""
+      result="${result}${char}"
+
+    # Outside quotes: stop at pipe or redirect
+    elif [ "$in_quote" = false ]; then
+      case "$char" in
+        "|")
+          break
+          ;;
+        ">")
+          break
+          ;;
+        "2")
+          if [ "${cmd:$i:4}" = "2>&1" ] || [ "${cmd:$i:2}" = "2>" ]; then
+            break
+          else
+            result="${result}${char}"
+          fi
+          ;;
+        *)
+          result="${result}${char}"
+          ;;
+      esac
+
+    # Inside quotes: keep everything (including | and >)
+    else
+      result="${result}${char}"
+    fi
+  done
+
+  echo "$result"
+}
+
+# Enhanced pattern matching with pipe/redirect support
 for pattern in "${SAFE_PATTERNS[@]}"; do
-  if [[ "$COMMAND" == "$pattern"* ]]; then
+  # Extract base command (quote-aware)
+  BASE_CMD=$(extract_base_command "$COMMAND")
+
+  # Match base command against safe pattern
+  if [[ "$BASE_CMD" == "$pattern"* ]]; then
     log "✓ MATCHED safe pattern: '$pattern'"
+
+    # Log extraction if pipes/redirects were stripped
+    if [[ "$COMMAND" != "$BASE_CMD" ]]; then
+      log "  Full command: $COMMAND"
+      log "  Base extracted: $BASE_CMD"
+    fi
+
+    # SAFETY CHECK 1: Verify full command doesn't contain blocked patterns
+    # Catches: git status | rm -rf /tmp (safe base, dangerous pipe)
+    for blocked in "${BLOCKED_PATTERNS[@]}"; do
+      if [[ "$COMMAND" =~ ${blocked} ]]; then
+        log "✗ Base safe BUT full command contains blocked pattern: '$blocked'"
+        log "Decision: BLOCK (exit 2)"
+        log "Sending error to Claude: Command contains dangerous operation"
+        log "=========================================="
+        echo '{"decision": "block", "reason": "Command contains dangerous operation: '"$blocked"'"}' >&2
+        exit 2
+      fi
+    done
+
+    # SAFETY CHECK 2: Block redirects to system directories
+    # Catches: echo test > /etc/passwd (even though echo is safe)
+    if [[ "$COMMAND" =~ \>[[:space:]]*/etc/ ]] || \
+       [[ "$COMMAND" =~ \>[[:space:]]*/usr/ ]] || \
+       [[ "$COMMAND" =~ \>[[:space:]]*/sys/ ]] || \
+       [[ "$COMMAND" =~ \>[[:space:]]*/boot/ ]] || \
+       [[ "$COMMAND" =~ \>[[:space:]]*/root/ ]]; then
+      log "✗ Redirect to system directory detected"
+      log "Decision: BLOCK (exit 2)"
+      log "Sending error to Claude: Redirect to protected system directory"
+      log "=========================================="
+      echo '{"decision": "block", "reason": "Redirect to protected system directory"}' >&2
+      exit 2
+    fi
+
+    # Safe base + no blocked patterns + no system redirects = auto-approve
     log "Decision: AUTO-APPROVE (exit 0)"
     log "=========================================="
     exit 0  # Auto-approve
