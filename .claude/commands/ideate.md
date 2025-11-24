@@ -1,7 +1,7 @@
 ---
 description: Transform business idea into structured requirements
 argument-hint: [business-idea-description]
-model: sonnet
+model: opus
 allowed-tools: Read, Write, Edit, Glob, Skill, AskUserQuestion
 ---
 

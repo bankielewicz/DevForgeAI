@@ -2,7 +2,7 @@
 name: deployment-engineer
 description: Deployment and infrastructure expert for cloud-native platforms. Use proactively when story reaches Releasing status or when deployment configuration is needed for Kubernetes, Docker, AWS, Azure, GCP, or traditional VPS.
 tools: Read, Write, Edit, Bash(kubectl:*), Bash(docker:*), Bash(terraform:*), Bash(ansible:*), Bash(helm:*), Bash(git:*)
-model: haiku
+model: sonnet
 color: green
 ---
 

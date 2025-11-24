@@ -385,10 +385,11 @@ This epic emerged from analysis rejecting "devforgeai-prompt-engineering" skill 
 5. **STORY-056:** devforgeai-story-creation Skill Integration with User Input Guidance (3 pts) - Backlog
 6. **STORY-057:** Additional Skill Integrations (architecture, ui-generator, orchestration) (5 pts) - Backlog
 7. **STORY-058:** Documentation Updates with User Input Guidance Cross-References (3 pts) - Backlog
-8. **STORY-059:** User Input Guidance Validation & Testing Suite (5 pts) - Backlog
-9. **STORY-060:** Operational Sync for User Input Guidance System (2 pts) - Backlog
+8. **STORY-059:** User Input Guidance Validation & Testing Suite (5 pts) - Dev Complete
+9. **STORY-060:** Operational Sync for User Input Guidance System (2 pts) - Superseded (see STORY-065)
+10. **STORY-065:** Operational Sync for User Input Guidance System (Lightweight) (3 pts) - Backlog
 
-**Total:** 9 stories, 40 story points
+**Total:** 10 stories, 43 story points (41 active after STORY-060 superseded)
 
 ---
 

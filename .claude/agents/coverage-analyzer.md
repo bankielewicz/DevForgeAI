@@ -11,7 +11,7 @@ tools:
   - Bash(go:*)
   - Bash(cargo:*)
   - Bash(mvn:*)
-model: claude-haiku-4-5-20251001
+model: sonnet
 ---
 
 # Coverage Analyzer Subagent

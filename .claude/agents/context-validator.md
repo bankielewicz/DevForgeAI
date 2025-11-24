@@ -2,7 +2,7 @@
 name: context-validator
 description: Context file constraint enforcement expert. Use proactively before every git commit and after implementation to validate against all 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns).
 tools: Read, Grep, Glob
-model: haiku
+model: sonnet
 color: green
 ---
 

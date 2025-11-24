@@ -9,7 +9,7 @@ tools:
   - Bash(eslint:*)
   - Bash(pylint:*)
   - Bash(rubocop:*)
-model: claude-haiku-4-5-20251001
+model: sonnet
 ---
 
 # Anti-Pattern Scanner Subagent

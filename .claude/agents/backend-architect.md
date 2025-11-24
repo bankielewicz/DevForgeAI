@@ -2,7 +2,7 @@
 name: backend-architect
 description: Backend implementation expert specializing in clean architecture, domain-driven design, and layered architecture patterns. Use proactively when implementing backend features, writing production code following TDD Green phase, or enforcing context file constraints (tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md).
 tools: Read, Write, Edit, Grep, Glob, Bash
-model: haiku
+model: sonnet
 color: green
 ---
 
