@@ -1,0 +1,1 @@
+Add notification system. Send email and SMS notifications for order confirmations, shipping updates, and promotional offers. Users can configure notification preferences. The system queues notifications and retries failed sends.

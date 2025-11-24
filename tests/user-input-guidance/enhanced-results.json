@@ -1,0 +1,340 @@
+{
+  "test_run_metadata": {
+    "generated_at": "2025-11-24T15:02:34Z",
+    "test_type": "enhanced",
+    "fixture_count": 10,
+    "description": "Story creation WITH user input guidance applied"
+  },
+  "results": [
+    {
+      "story_id": "ENHANCED-1",
+      "fixture_name": "enhanced-01",
+      "token_usage": 517,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 517,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 523,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 512,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 5.51
+    },
+    {
+      "story_id": "ENHANCED-2",
+      "fixture_name": "enhanced-02",
+      "token_usage": 542,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 542,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 546,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 539,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 3.51
+    },
+    {
+      "story_id": "ENHANCED-3",
+      "fixture_name": "enhanced-03",
+      "token_usage": 556,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 556,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 560,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 551,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 4.51
+    },
+    {
+      "story_id": "ENHANCED-4",
+      "fixture_name": "enhanced-04",
+      "token_usage": 591,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 591,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 595,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 593,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 2.0
+    },
+    {
+      "story_id": "ENHANCED-5",
+      "fixture_name": "enhanced-05",
+      "token_usage": 638,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 638,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 639,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 640,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 1.0
+    },
+    {
+      "story_id": "ENHANCED-6",
+      "fixture_name": "enhanced-06",
+      "token_usage": 683,
+      "ac_count": 3,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 683,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 690,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 681,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 4.73
+    },
+    {
+      "story_id": "ENHANCED-7",
+      "fixture_name": "enhanced-07",
+      "token_usage": 744,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 744,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 736,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 738,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 4.16
+    },
+    {
+      "story_id": "ENHANCED-8",
+      "fixture_name": "enhanced-08",
+      "token_usage": 769,
+      "ac_count": 4,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 769,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 765,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 765,
+          "ac_count": 4,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 2.31
+    },
+    {
+      "story_id": "ENHANCED-9",
+      "fixture_name": "enhanced-09",
+      "token_usage": 810,
+      "ac_count": 3,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 810,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 805,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 811,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 3.21
+    },
+    {
+      "story_id": "ENHANCED-10",
+      "fixture_name": "enhanced-10",
+      "token_usage": 883,
+      "ac_count": 3,
+      "nfr_present": true,
+      "iterations": 1,
+      "incomplete": false,
+      "runs": [
+        {
+          "run": 1,
+          "token_usage": 883,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 2,
+          "token_usage": 876,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        },
+        {
+          "run": 3,
+          "token_usage": 886,
+          "ac_count": 3,
+          "nfr_present": true,
+          "iterations": 1
+        }
+      ],
+      "stdev": 5.13
+    }
+  ]
+}

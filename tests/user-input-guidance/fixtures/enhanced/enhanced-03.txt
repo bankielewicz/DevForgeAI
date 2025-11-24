@@ -1,0 +1,26 @@
+Feature: Shopping Cart Management with Persistence
+
+Implement persistent shopping cart with full lifecycle management.
+
+Acceptance Criteria:
+1. Add items to cart: specify product ID and quantity with stock validation
+2. Remove items from cart completely or adjust quantity
+3. Cart persists across browser sessions using secure session tokens
+4. Calculate subtotal, applicable taxes, and final total price
+5. Apply discount codes with validation and expiration dates
+6. Display out-of-stock warnings for unavailable items
+7. Clear cart after successful checkout
+8. Support guest checkout and registered user carts
+
+Non-Functional Requirements:
+- Cart operations respond within 200ms
+- Cart data encrypted in storage (AES-256)
+- Session tokens expire after 24 hours of inactivity
+- Support up to 100 items per cart
+- Cart data backed up before payment processing
+
+Technical Specification:
+- Storage: Redis for session data, PostgreSQL for persistent carts
+- Schema: cart_items table (cart_id, product_id, quantity, added_at, price_snapshot)
+- Encryption: secrets manager for session token generation
+- API endpoints: POST /api/cart/items, DELETE /api/cart/items/{id}, GET /api/cart
