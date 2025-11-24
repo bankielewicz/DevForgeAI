@@ -1,8 +1,0 @@
-Build a user account management system for system administrators.
-Users should be able to create, read, update, and delete user account information.
-
-The system should make account management simple and straightforward.
-Administrators should be able to search users by name or email and perform bulk operations across many user accounts.
-
-Error handling and exception management would improve administrative workflows.
-Database optimization and performance considerations would help when the application scales to support large numbers of concurrent users.

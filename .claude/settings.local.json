@@ -24,7 +24,19 @@
       "Bash(/usr/bin/python3 -m pytest:*)",
       "Bash(while read file)",
       "Bash(do if [ -f \"$file\" ])",
-      "Bash(then echo \"✓ $file\" else echo \"✗ MISSING: $file\" fi done)"
+      "Bash(then echo \"✓ $file\" else echo \"✗ MISSING: $file\" fi done)",
+      "Bash(devforgeai validate-context:*)",
+      "Bash(pip install:*)",
+      "Bash(cat:*)",
+      "Bash(wc:*)",
+      "Bash(__NEW_LINE__ python3 tests/user-input-guidance/scripts/measure-token-savings.py)",
+      "Bash(/dev/null)",
+      "Bash(timeout 30 python3 -m pytest:*)",
+      "Bash(timeout 90 python3 -m pytest:*)",
+      "Bash(for f in baseline/baseline-*.txt)",
+      "Bash(done)",
+      "Bash(tee:*)",
+      "Bash(xargs python3:*)"
     ],
     "deny": [],
     "ask": []
