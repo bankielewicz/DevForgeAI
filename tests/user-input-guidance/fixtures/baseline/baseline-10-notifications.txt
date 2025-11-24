@@ -1,5 +1,0 @@
-Build a notification system that sends alerts to users about important events in the application. Notifications should be delivered fast and reliably through multiple channels.
-
-Users should have good control over notification preferences and subscription settings. The system should handle high volumes of notifications efficiently without performance degradation.
-
-Reliability is important so critical notifications are not lost. We want to improve the notification experience and make messages more relevant to user needs.

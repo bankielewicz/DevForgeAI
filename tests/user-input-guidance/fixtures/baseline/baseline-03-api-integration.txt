@@ -1,5 +1,0 @@
-We need to integrate with external payment service APIs to process transactions. The integration should handle API calls efficiently and deal with various response scenarios.
-
-Error handling should be robust and the system should retry failed requests appropriately. The implementation should be secure and protect sensitive payment information.
-
-API communication should be optimized to reduce latency. Documentation should be improved to help developers understand the integration process better.

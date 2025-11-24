@@ -1,5 +1,0 @@
-Implement a reporting system that generates various reports from application data. Reports should be easy to customize and export in different formats.
-
-The system should support scheduling automatic report generation and distribution. Performance should be good when generating large reports with millions of records.
-
-Security measures should ensure that users only access reports they are authorized to view. We want to improve the reporting display and make it simpler for business users to understand.

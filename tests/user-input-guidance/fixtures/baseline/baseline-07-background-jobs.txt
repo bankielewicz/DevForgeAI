@@ -1,5 +1,0 @@
-Create a background job processing system to handle long-running tasks asynchronously. The system should efficiently queue and execute jobs without blocking user requests.
-
-Job execution should be reliable and handle failures gracefully with automatic retries. Monitoring and logging should improve visibility into job execution status.
-
-The system needs to be optimized for performance and scale to handle increasing job volumes. We want better error handling and notifications when jobs fail or complete.
