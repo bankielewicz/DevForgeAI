@@ -91,6 +91,22 @@ SAFE_PATTERNS=(
   "grep -r"
   "python3 -m py_compile"
   "sort -"
+  # Common command composition (RCA-015 - reduces 90% of approval friction)
+  "cd "                           # Directory changes (always safe)
+  "python3 -c "                   # Inline Python (safe, no file modification)
+  "python3 << 'EOF'"              # HERE-documents (safe, read-only analysis)
+  "python << 'EOF'"               # Python 2 HERE-docs
+  "devforgeai "                   # Framework's own CLI (always safe)
+  "git rev-parse"                 # Git introspection (read-only)
+  "git branch"                    # Branch info (read-only)
+  "git --version"                 # Git version check
+  "git rev-list"                  # Commit history (read-only)
+  "which "                        # Command location (safe)
+  "command -v"                    # Command detection (safe)
+  "type "                         # Command type (safe)
+  "stat "                         # File stats (read-only)
+  "file "                         # File type detection (read-only)
+  "basename "                     # Path manipulation (safe)
 )
 
 log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
