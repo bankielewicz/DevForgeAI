@@ -1,0 +1,1 @@
+Build reporting dashboard. Display sales metrics including total revenue, order count, and customer growth over time. Show top products and customer distribution by region. Reports can be filtered by date range and exported to CSV.

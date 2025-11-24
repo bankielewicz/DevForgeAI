@@ -1,0 +1,1 @@
+Implement user profile management. Users can edit their name, email, phone number, and address. Changes are validated and saved to the database. Users can view their profile picture and change it by uploading a new image. Profile updates are versioned for audit trail.

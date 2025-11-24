@@ -1,0 +1,159 @@
+{"test_run_metadata": {
+  "generated_at": "2025-11-24T15:02:32Z",
+  "test_type": "baseline",
+  "fixture_count": 10,
+  "description": "Story creation WITHOUT user input guidance applied"
+},
+"results": [
+    {
+      "story_id": "BASELINE-1",
+      "fixture_name": "baseline-01",
+      "fixture_content_length": 302,
+      "runs": [
+        {"run": 1, "token_usage": 507, "ac_count": 2, "nfr_present": false, "iterations": 2},
+        {"run": 2, "token_usage": 506, "ac_count": 2, "nfr_present": false, "iterations": 1},
+        {"run": 3, "token_usage": 512, "ac_count": 2, "nfr_present": false, "iterations": 2}
+      ],
+      "median_token_usage": 507,
+      "median_ac_count": 2,
+      "median_nfr_present": false,
+      "median_iterations": 2,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-2",
+      "fixture_name": "baseline-02",
+      "fixture_content_length": 227,
+      "runs": [
+        {"run": 1, "token_usage": 517, "ac_count": 1, "nfr_present": true, "iterations": 2},
+        {"run": 2, "token_usage": 508, "ac_count": 1, "nfr_present": true, "iterations": 1},
+        {"run": 3, "token_usage": 514, "ac_count": 1, "nfr_present": true, "iterations": 3}
+      ],
+      "median_token_usage": 517,
+      "median_ac_count": 1,
+      "median_nfr_present": true,
+      "median_iterations": 2,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-3",
+      "fixture_name": "baseline-03",
+      "fixture_content_length": 213,
+      "runs": [
+        {"run": 1, "token_usage": 602, "ac_count": 2, "nfr_present": false, "iterations": 2},
+        {"run": 2, "token_usage": 601, "ac_count": 2, "nfr_present": false, "iterations": 2},
+        {"run": 3, "token_usage": 606, "ac_count": 2, "nfr_present": false, "iterations": 3}
+      ],
+      "median_token_usage": 602,
+      "median_ac_count": 2,
+      "median_nfr_present": false,
+      "median_iterations": 2,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-4",
+      "fixture_name": "baseline-04",
+      "fixture_content_length": 249,
+      "runs": [
+        {"run": 1, "token_usage": 651, "ac_count": 3, "nfr_present": false, "iterations": 3},
+        {"run": 2, "token_usage": 643, "ac_count": 3, "nfr_present": false, "iterations": 3},
+        {"run": 3, "token_usage": 647, "ac_count": 3, "nfr_present": false, "iterations": 3}
+      ],
+      "median_token_usage": 651,
+      "median_ac_count": 3,
+      "median_nfr_present": false,
+      "median_iterations": 3,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-5",
+      "fixture_name": "baseline-05",
+      "fixture_content_length": 269,
+      "runs": [
+        {"run": 1, "token_usage": 719, "ac_count": 2, "nfr_present": false, "iterations": 3},
+        {"run": 2, "token_usage": 722, "ac_count": 2, "nfr_present": false, "iterations": 3},
+        {"run": 3, "token_usage": 718, "ac_count": 2, "nfr_present": false, "iterations": 4}
+      ],
+      "median_token_usage": 719,
+      "median_ac_count": 2,
+      "median_nfr_present": false,
+      "median_iterations": 3,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-6",
+      "fixture_name": "baseline-06",
+      "fixture_content_length": 275,
+      "runs": [
+        {"run": 1, "token_usage": 780, "ac_count": 1, "nfr_present": true, "iterations": 3},
+        {"run": 2, "token_usage": 779, "ac_count": 1, "nfr_present": true, "iterations": 2},
+        {"run": 3, "token_usage": 779, "ac_count": 1, "nfr_present": true, "iterations": 3}
+      ],
+      "median_token_usage": 780,
+      "median_ac_count": 1,
+      "median_nfr_present": true,
+      "median_iterations": 3,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-7",
+      "fixture_name": "baseline-07",
+      "fixture_content_length": 232,
+      "runs": [
+        {"run": 1, "token_usage": 809, "ac_count": 3, "nfr_present": false, "iterations": 2},
+        {"run": 2, "token_usage": 800, "ac_count": 3, "nfr_present": false, "iterations": 2},
+        {"run": 3, "token_usage": 804, "ac_count": 3, "nfr_present": false, "iterations": 2}
+      ],
+      "median_token_usage": 809,
+      "median_ac_count": 3,
+      "median_nfr_present": false,
+      "median_iterations": 2,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-8",
+      "fixture_name": "baseline-08",
+      "fixture_content_length": 236,
+      "runs": [
+        {"run": 1, "token_usage": 869, "ac_count": 1, "nfr_present": true, "iterations": 3},
+        {"run": 2, "token_usage": 877, "ac_count": 1, "nfr_present": true, "iterations": 3},
+        {"run": 3, "token_usage": 862, "ac_count": 1, "nfr_present": true, "iterations": 4}
+      ],
+      "median_token_usage": 869,
+      "median_ac_count": 1,
+      "median_nfr_present": true,
+      "median_iterations": 3,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-9",
+      "fixture_name": "baseline-09",
+      "fixture_content_length": 229,
+      "runs": [
+        {"run": 1, "token_usage": 902, "ac_count": 2, "nfr_present": true, "iterations": 2},
+        {"run": 2, "token_usage": 902, "ac_count": 2, "nfr_present": true, "iterations": 1},
+        {"run": 3, "token_usage": 902, "ac_count": 2, "nfr_present": true, "iterations": 2}
+      ],
+      "median_token_usage": 902,
+      "median_ac_count": 2,
+      "median_nfr_present": true,
+      "median_iterations": 2,
+      "incomplete": true
+    },
+    {
+      "story_id": "BASELINE-10",
+      "fixture_name": "baseline-10",
+      "fixture_content_length": 271,
+      "runs": [
+        {"run": 1, "token_usage": 950, "ac_count": 3, "nfr_present": true, "iterations": 3},
+        {"run": 2, "token_usage": 948, "ac_count": 3, "nfr_present": true, "iterations": 2},
+        {"run": 3, "token_usage": 945, "ac_count": 3, "nfr_present": true, "iterations": 4}
+      ],
+      "median_token_usage": 950,
+      "median_ac_count": 3,
+      "median_nfr_present": true,
+      "median_iterations": 3,
+      "incomplete": false
+    }
+]
+}

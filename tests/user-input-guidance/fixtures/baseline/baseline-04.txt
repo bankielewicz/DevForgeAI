@@ -1,0 +1,1 @@
+Build error handling system. Catch exceptions and return user-friendly error messages. Log errors to a file for debugging. Different error types should return appropriate HTTP status codes. Database errors should retry up to 3 times before failing.
