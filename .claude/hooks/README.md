@@ -2,7 +2,7 @@
 
 **Purpose:** Auto-approve safe bash commands to reduce user approval friction while blocking dangerous operations.
 
-**Effectiveness:** >90% of commands auto-approved (empirically validated via RCA-015)
+**Effectiveness:** >95% of commands auto-approved (RCA-015 REC-01 + REC-02)
 
 ---
 
@@ -309,7 +309,17 @@ time bash .claude/hooks/pre-tool-use.sh <<< '{"tool_input":{"command":"git statu
 
 ## Changelog
 
-### 2025-11-24: RCA-015 Implementation
+### 2025-11-24: RCA-015 REC-02 - Pipe/Redirect Support
+- **Added:** Quote-aware base command extraction (43-line function)
+- **Feature:** Auto-approve safe commands with pipes (`git status | grep`) and redirects (`pytest > file`)
+- **Safety:** Two-layer check: blocked patterns in full command + system directory redirect blocks
+- **Quote Handling:** Preserves pipes/redirects inside quotes (`python3 -c "print('|')"`)
+- **System Protection:** Blocks redirects to /etc, /usr, /sys, /boot, /root
+- **Impact:** Additional 5-10% friction reduction (pipes/redirects now auto-approved)
+- **Testing:** 23 test scenarios documented in test-rec-02.sh
+- **Reference:** RCA-015-pre-tool-use-hook-friction-remains.md REC-02
+
+### 2025-11-24: RCA-015 REC-01 - Pattern Expansion
 - Added 15 common command composition patterns
 - Patterns: cd, python3 -c, HERE-docs, devforgeai CLI, git introspection, shell utilities
 - Impact: 90% reduction in approval friction (3,517 unknown commands → target <350)
