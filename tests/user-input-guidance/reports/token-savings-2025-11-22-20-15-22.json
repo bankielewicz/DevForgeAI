@@ -1,0 +1,96 @@
+{
+  "generated_at": "2025-11-22T20:15:22.500696",
+  "tokenizer": "tiktoken-0.12.0",
+  "encoding": "cl100k_base",
+  "fixtures_processed": 10,
+  "fixtures_skipped": 0,
+  "results": [
+    {
+      "fixture_id": "01",
+      "category": "crud-operations",
+      "baseline_tokens": 96,
+      "enhanced_tokens": 176,
+      "savings_percentage": -83.33
+    },
+    {
+      "fixture_id": "02",
+      "category": "authentication",
+      "baseline_tokens": 81,
+      "enhanced_tokens": 145,
+      "savings_percentage": -79.01
+    },
+    {
+      "fixture_id": "03",
+      "category": "api-integration",
+      "baseline_tokens": 74,
+      "enhanced_tokens": 231,
+      "savings_percentage": -212.16
+    },
+    {
+      "fixture_id": "04",
+      "category": "data-processing",
+      "baseline_tokens": 74,
+      "enhanced_tokens": 143,
+      "savings_percentage": -93.24
+    },
+    {
+      "fixture_id": "05",
+      "category": "ui-components",
+      "baseline_tokens": 77,
+      "enhanced_tokens": 170,
+      "savings_percentage": -120.78
+    },
+    {
+      "fixture_id": "06",
+      "category": "reporting",
+      "baseline_tokens": 80,
+      "enhanced_tokens": 155,
+      "savings_percentage": -93.75
+    },
+    {
+      "fixture_id": "07",
+      "category": "background-jobs",
+      "baseline_tokens": 79,
+      "enhanced_tokens": 167,
+      "savings_percentage": -111.39
+    },
+    {
+      "fixture_id": "08",
+      "category": "search-functionality",
+      "baseline_tokens": 77,
+      "enhanced_tokens": 155,
+      "savings_percentage": -101.3
+    },
+    {
+      "fixture_id": "09",
+      "category": "file-uploads",
+      "baseline_tokens": 80,
+      "enhanced_tokens": 162,
+      "savings_percentage": -102.5
+    },
+    {
+      "fixture_id": "10",
+      "category": "notifications",
+      "baseline_tokens": 79,
+      "enhanced_tokens": 146,
+      "savings_percentage": -84.81
+    }
+  ],
+  "skipped": [],
+  "summary": {
+    "mean_savings": -108.23,
+    "median_savings": -97.53,
+    "std_dev": 38.74,
+    "min_savings": -212.16,
+    "max_savings": -79.01
+  },
+  "hypothesis": {
+    "threshold": 20.0,
+    "actual": -108.23,
+    "passed": false
+  },
+  "hypothesis_passed": false,
+  "mean_savings": -108.23,
+  "median_savings": -97.53,
+  "std_dev": 38.74
+}

@@ -1,4 +1,4 @@
-Implement file upload functionality that allows users to upload various file types to the system. The upload process should be fast and handle large files efficiently.
+Implement file upload capability that allows users to upload various file types to the system. The upload process should be fast and handle large files efficiently.
 
 Security should be improved to prevent malicious file uploads and ensure data protection. Progress tracking should be good so users see upload status.
 

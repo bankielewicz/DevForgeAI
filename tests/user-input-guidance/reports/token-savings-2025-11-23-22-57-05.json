@@ -1,0 +1,89 @@
+{
+  "generated_at": "2025-11-23T22:57:05.262122",
+  "tokenizer": "tiktoken-0.12.0",
+  "encoding": "cl100k_base",
+  "fixtures_processed": 10,
+  "fixtures_skipped": 0,
+  "results": [
+    {
+      "fixture_id": "01",
+      "category": "crud-operations",
+      "baseline_tokens": 110,
+      "enhanced_tokens": 208,
+      "savings_percentage": -89.09
+    },
+    {
+      "fixture_id": "02",
+      "category": "authentication",
+      "baseline_tokens": 81,
+      "enhanced_tokens": 164,
+      "savings_percentage": -102.47
+    },
+    {
+      "fixture_id": "03",
+      "category": "api-integration",
+      "baseline_tokens": 74,
+      "enhanced_tokens": 175,
+      "savings_percentage": -136.49
+    },
+    {
+      "fixture_id": "04",
+      "category": "data-processing",
+      "baseline_tokens": 74,
+      "enhanced_tokens": 172,
+      "savings_percentage": -132.43
+    },
+    {
+      "fixture_id": "05",
+      "category": "ui-components",
+      "baseline_tokens": 77,
+      "enhanced_tokens": 185,
+      "savings_percentage": -140.26
+    },
+    {
+      "fixture_id": "06",
+      "category": "reporting",
+      "baseline_tokens": 80,
+      "enhanced_tokens": 174,
+      "savings_percentage": -117.5
+    },
+    {
+      "fixture_id": "07",
+      "category": "background-jobs",
+      "baseline_tokens": 79,
+      "enhanced_tokens": 186,
+      "savings_percentage": -135.44
+    },
+    {
+      "fixture_id": "08",
+      "category": "search-functionality",
+      "baseline_tokens": 77,
+      "enhanced_tokens": 172,
+      "savings_percentage": -123.38
+    },
+    {
+      "fixture_id": "09",
+      "category": "file-uploads",
+      "baseline_tokens": 80,
+      "enhanced_tokens": 186,
+      "savings_percentage": -132.5
+    },
+    {
+      "fixture_id": "10",
+      "category": "notifications",
+      "baseline_tokens": 79,
+      "enhanced_tokens": 186,
+      "savings_percentage": -135.44
+    }
+  ],
+  "skipped": [],
+  "mean_savings": -124.5,
+  "median_savings": -132.47,
+  "std_dev": 16.83,
+  "hypothesis_passed": false,
+  "hypothesis": {
+    "threshold": -90.0,
+    "actual": -124.5,
+    "passed": false
+  }
+}

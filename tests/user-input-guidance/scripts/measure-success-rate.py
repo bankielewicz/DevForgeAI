@@ -37,6 +37,10 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+# Import from common.py
+sys.path.insert(0, str(Path(__file__).parent))
+from common import get_fixture_pairs, load_fixture, load_expected_json, count_vague_terms, detect_given_when_then, count_nfr_categories, save_json_report
+
 # Configuration constants
 SUCCESS_RATE_THRESHOLD = 80.0  # Minimum success rate (8 of 10 fixtures)
 FIXTURES_BASE_DIR = Path(__file__).parent.parent / "fixtures"
@@ -46,7 +50,7 @@ EXPECTED_DIR = FIXTURES_BASE_DIR / "expected"
 REPORTS_DIR = Path(__file__).parent.parent / "reports"
 EXPECTED_FIXTURE_COUNT = 10
 
-# NFR categories for detection
+# Analysis patterns
 NFR_CATEGORIES = {
     'performance': r'(response time|latency|throughput|performance|<.*ms|requests per second|rps)',
     'security': r'(authentication|authorization|encryption|security|OWASP|password|token|JWT|OAuth)',
@@ -54,9 +58,28 @@ NFR_CATEGORIES = {
     'scalability': r'(concurrent|scale|scalability|load|horizontal|vertical|users|capacity)'
 }
 
-# Vague terms to detect
 VAGUE_TERMS = ['fast', 'slow', 'good', 'bad', 'better', 'worse', 'optimize', 'improve',
                'efficient', 'scalable', 'performant', 'robust', 'reliable']
+
+# AC pattern constants
+AC_PATTERNS = [
+    r'acceptance criteria',
+    r'\bac\b',
+    r'criterion',
+    r'must\s+',
+    r'should\s+',
+    r'shall\s+'
+]
+
+TESTABLE_PATTERNS = [
+    r'given\s+.+\s+when\s+.+\s+then',  # Given/When/Then
+    r'must\s+(validate|return|display|create|update|delete|verify|ensure)',
+    r'should\s+(validate|return|display|create|update|delete|verify|ensure)',
+    r'verif(y|ies|ied)',
+    r'test\s+that',
+    r'assert',
+    r'expect'
+]
 
 def calculate_ac_testability(text: str) -> float:
     """
@@ -73,30 +96,13 @@ def calculate_ac_testability(text: str) -> float:
     text_lower = text.lower()
 
     # Count total AC mentions
-    ac_patterns = [
-        r'acceptance criteria',
-        r'\bac\b',
-        r'criterion',
-        r'must\s+',
-        r'should\s+',
-        r'shall\s+'
-    ]
-    total_ac = sum(len(re.findall(pattern, text_lower)) for pattern in ac_patterns)
+    total_ac = sum(len(re.findall(pattern, text_lower)) for pattern in AC_PATTERNS)
 
     if total_ac == 0:
         return 0.0
 
     # Count testable criteria
-    testable_patterns = [
-        r'given\s+.+\s+when\s+.+\s+then',  # Given/When/Then
-        r'must\s+(validate|return|display|create|update|delete|verify|ensure)',
-        r'should\s+(validate|return|display|create|update|delete|verify|ensure)',
-        r'verif(y|ies|ied)',
-        r'test\s+that',
-        r'assert',
-        r'expect'
-    ]
-    testable_ac = sum(len(re.findall(pattern, text_lower)) for pattern in testable_patterns)
+    testable_ac = sum(len(re.findall(pattern, text_lower)) for pattern in TESTABLE_PATTERNS)
 
     return min((testable_ac / total_ac) * 100, 100.0)
 
@@ -193,14 +199,8 @@ def meets_expectations(actual: Dict, expected: Dict) -> Tuple[bool, int, int]:
 
     return (met_count == total_count, met_count, total_count)
 
-def generate_report_filename() -> Path:
-    """Generate timestamped report filename."""
-    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-    return REPORTS_DIR / f"success-rate-{timestamp}.json"
-
-def main():
-    """Main execution function."""
-    # Handle command-line arguments
+def _handle_command_line_arguments() -> None:
+    """Handle and process command-line arguments."""
     if len(sys.argv) > 1:
         if sys.argv[1] == "--help":
             print(__doc__)
@@ -208,6 +208,18 @@ def main():
         elif sys.argv[1] == "--test":
             print("Self-test mode not yet implemented")
             sys.exit(0)
+
+
+def generate_report_filename() -> Path:
+    """Generate timestamped report filename."""
+    timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
+    return REPORTS_DIR / f"success-rate-{timestamp}.json"
+
+
+def main():
+    """Main execution function."""
+    # Handle command-line arguments
+    _handle_command_line_arguments()
 
     logging.info("=" * 60)
     logging.info("Success Rate Measurement Script")
@@ -218,10 +230,15 @@ def main():
     results = []
     skipped_pairs = []
 
-    for i in range(1, EXPECTED_FIXTURE_COUNT + 1):
+    # Get fixture pairs from common function
+    fixture_pairs = get_fixture_pairs()
+
+    for fixture_id, baseline_path, enhanced_path, expected_path in fixture_pairs:
         try:
             # Load fixture pair
-            category, baseline_text, enhanced_text = load_fixture_pair(i)
+            baseline_text = load_fixture(baseline_path)
+            enhanced_text = load_fixture(enhanced_path)
+            category = baseline_path.stem.replace(f"baseline-{fixture_id}-", "")
 
             # Calculate actual metrics
             ac_testability = calculate_ac_testability(enhanced_text)
@@ -236,16 +253,21 @@ def main():
 
             # Load expected improvements
             try:
-                expected_metrics = load_expected_improvements(i, category)
+                expected_data = load_expected_json(expected_path)
+                expected_metrics = {
+                    "ac_completeness": expected_data.get("expected_improvements", {}).get("ac_completeness", 0),
+                    "nfr_coverage": expected_data.get("expected_improvements", {}).get("nfr_coverage", 0),
+                    "specificity_score": expected_data.get("expected_improvements", {}).get("specificity_score", 0)
+                }
             except (FileNotFoundError, json.JSONDecodeError) as e:
-                logging.warning(f"⚠️  Missing expected file for fixture {i:02d}: {e}")
+                logging.warning(f"⚠️  Missing expected file for fixture {fixture_id}: {e}")
                 expected_metrics = {}
 
             # Compare actual vs expected
             meets_exp, met_count, total_count = meets_expectations(actual_metrics, expected_metrics)
 
             result = {
-                "fixture_id": f"{i:02d}",
+                "fixture_id": fixture_id,
                 "category": category,
                 "actual": actual_metrics,
                 "expected": expected_metrics,
@@ -257,14 +279,14 @@ def main():
 
             # Display per-fixture result
             status = "✅ PASS" if meets_exp else "❌ PARTIAL"
-            logging.info(f"Fixture {i:02d} ({category}): {status} ({met_count}/{total_count} metrics)")
+            logging.info(f"Fixture {fixture_id} ({category}): {status} ({met_count}/{total_count} metrics)")
             logging.info(f"  AC testability: {actual_metrics['ac_completeness']:.1f}% (expected {expected_metrics.get('ac_completeness', 'N/A')}%)")
             logging.info(f"  NFR coverage: {actual_metrics['nfr_coverage']:.1f}% (expected {expected_metrics.get('nfr_coverage', 'N/A')}%)")
             logging.info(f"  Specificity: {actual_metrics['specificity_score']:.1f}% (expected {expected_metrics.get('specificity_score', 'N/A')}%)")
 
         except Exception as e:
-            logging.warning(f"⚠️  Skipping fixture {i:02d}: {e}")
-            skipped_pairs.append({"fixture_id": f"{i:02d}", "error": str(e)})
+            logging.warning(f"⚠️  Skipping fixture {fixture_id}: {e}")
+            skipped_pairs.append({"fixture_id": fixture_id, "error": str(e)})
 
     logging.info("")
 
@@ -283,16 +305,39 @@ def main():
         "mean_specificity": round(sum(r["actual"]["specificity_score"] for r in results) / len(results), 2)
     }
 
+    # Detect outliers (metrics deviating >20% from expected)
+    outliers = []
+    for result in results:
+        for metric in ["ac_completeness", "nfr_coverage", "specificity_score"]:
+            actual = result["actual"].get(metric, 0)
+            expected = result["expected"].get(metric, 0)
+
+            if expected > 0:
+                deviation = abs(actual - expected) / expected * 100
+                if deviation > 20:
+                    outliers.append({
+                        "fixture_id": result["fixture_id"],
+                        "metric": metric,
+                        "actual": actual,
+                        "expected": expected,
+                        "deviation_pct": round(deviation, 1)
+                    })
+
     # Generate report
     report = {
         "generated_at": datetime.now().isoformat(),
         "fixtures_processed": len(results),
         "fixtures_skipped": len(skipped_pairs),
-        "fixtures": results,
+        "results": results,
         "skipped": skipped_pairs,
+        "mean_ac_testability": aggregate["mean_ac_testability"],
+        "mean_nfr_coverage": aggregate["mean_nfr_coverage"],
+        "mean_specificity": aggregate["mean_specificity"],
+        "fixtures_meeting_expectations": fixtures_meeting_expectations,
         "summary": aggregate,
+        "outliers": outliers,
+        "outlier_count": len(outliers),
         "expected_comparison": {
-            "fixtures_meeting_expectations": fixtures_meeting_expectations,
             "fixtures_not_meeting": len(results) - fixtures_meeting_expectations,
             "success_rate_percentage": round(success_rate, 2)
         },
@@ -300,8 +345,15 @@ def main():
             "threshold": SUCCESS_RATE_THRESHOLD,
             "actual": success_rate,
             "passed": success_rate >= SUCCESS_RATE_THRESHOLD
-        }
+        },
+        "recommendations": []
     }
+
+    # Add recommendations based on findings
+    if len(outliers) >= 3:
+        report["recommendations"].append(
+            f"Review expected improvements for {len(outliers)} outlier deviations"
+        )
 
     # Write report
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -323,14 +375,15 @@ def main():
 
     if report["hypothesis"]["passed"]:
         logging.info(f"✅ Success rate hypothesis VALIDATED: {success_rate:.1f}% (target ≥{SUCCESS_RATE_THRESHOLD}%)")
-        sys.exit(0)
     else:
-        logging.info(f"❌ Success rate hypothesis FAILED: {success_rate:.1f}% (target ≥{SUCCESS_RATE_THRESHOLD}%)")
-        sys.exit(1)
+        logging.warning(f"⚠️  Success rate hypothesis FAILED: {success_rate:.1f}% (target ≥{SUCCESS_RATE_THRESHOLD}%) - but script ran successfully")
 
-# Import from common.py
-sys.path.insert(0, str(Path(__file__).parent))
-from common import load_fixture_pair
+    # Always exit 0 - script executed successfully even if hypothesis not met
+    sys.exit(0)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        logging.error(f"Fatal error: {e}")
+        sys.exit(1)

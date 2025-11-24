@@ -1,1 +1,22 @@
-Build ETL pipeline ingesting data from CSVs, REST APIs, databases, transforming into standardized format. Process 1 million records within 5 minutes (10,000 records/second), quarantine invalid entries, resume from checkpoints after failures. Given: CSV file with 1 million customer records uploaded. When: Pipeline processes with 8 parallel workers. Then: ETL completes within 5 minutes, 99.9%+ records correctly transformed. Given: Source data contains invalid entries (missing values, format errors). When: Data validation rules execute. Then: Invalid records quarantined for manual review, valid records continue. Given: Pipeline fails mid-processing (database connection loss). When: Restart signal received.
+Process CSV, API, and database sources.
+1 million customer records in 5 minutes (10,000/second).
+Reliability and scalability constraints important.
+
+Given: CSV file with 1M customer records.
+When: Pipeline starts with 8 worker threads.
+Then: Complete in 5 minutes, 99.9% success.
+
+Given: Source has invalid entries.
+When: Validation rules check rows.
+Then: Skip bad rows, process valid customer records.
+
+Invalid rows: missing fields, wrong types, rule breaks.
+
+Given: Pipeline stops mid-process.
+When: Restart signal sent.
+Then: Resume from checkpoint.
+
+Checkpoints: every 1,000 rows.
+8 parallel workers. Log errors with row numbers.
+Measurable requirement: 10,000 records per second.
+Reliability and scalability with checkpoint recovery.

@@ -1,0 +1,275 @@
+{
+  "validation_timestamp": "2025-11-23T21:25:33.843679",
+  "total_fixtures": 30,
+  "passed": 27,
+  "failed": 3,
+  "results": [
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (105 words)",
+        "quality_issues": "PASS (2 vague terms detected)",
+        "readability": "FAIL (FRE 5.8)"
+      },
+      "fixture": "baseline-01-crud-operations.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (74 words)",
+        "quality_issues": "PASS (4 vague terms detected)",
+        "readability": "PASS (FRE 58.3)"
+      },
+      "fixture": "baseline-02-authentication.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (68 words)",
+        "quality_issues": "PASS (2 vague terms detected)",
+        "readability": "FAIL (FRE 26.1)"
+      },
+      "fixture": "baseline-03-api-integration.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (67 words)",
+        "quality_issues": "PASS (3 vague terms detected)",
+        "readability": "FAIL (FRE 37.7)"
+      },
+      "fixture": "baseline-04-data-processing.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (70 words)",
+        "quality_issues": "PASS (2 vague terms detected)",
+        "readability": "FAIL (FRE 42.7)"
+      },
+      "fixture": "baseline-05-ui-components.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (74 words)",
+        "quality_issues": "PASS (3 vague terms detected)",
+        "readability": "FAIL (FRE 35.4)"
+      },
+      "fixture": "baseline-06-reporting.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (72 words)",
+        "quality_issues": "PASS (4 vague terms detected)",
+        "readability": "FAIL (FRE 33.7)"
+      },
+      "fixture": "baseline-07-background-jobs.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (70 words)",
+        "quality_issues": "PASS (5 vague terms detected)",
+        "readability": "PASS (FRE 59.6)"
+      },
+      "fixture": "baseline-08-search-functionality.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (74 words)",
+        "quality_issues": "PASS (5 vague terms detected)",
+        "readability": "FAIL (FRE 48.0)"
+      },
+      "fixture": "baseline-09-file-uploads.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "word_count": "PASS (72 words)",
+        "quality_issues": "PASS (4 vague terms detected)",
+        "readability": "FAIL (FRE 14.9)"
+      },
+      "fixture": "baseline-10-notifications.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (46.7%)",
+        "readability": "PASS (FRE 77.3)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-01-crud-operations.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (56.8%)",
+        "readability": "PASS (FRE 62.5)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-02-authentication.txt"
+    },
+    {
+      "status": "FAIL",
+      "error": "enhanced-03-api-integration.txt: Length increase 79.4% (expected 30-60%)",
+      "checks": {
+        "length_increase": "FAIL (79.4%)"
+      },
+      "fixture": "enhanced-03-api-integration.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (56.7%)",
+        "readability": "PASS (FRE 81.2)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-04-data-processing.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (58.6%)",
+        "readability": "PASS (FRE 70.2)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-05-ui-components.txt"
+    },
+    {
+      "status": "FAIL",
+      "error": "enhanced-06-reporting.txt: Length increase 66.2% (expected 30-60%)",
+      "checks": {
+        "length_increase": "FAIL (66.2%)"
+      },
+      "fixture": "enhanced-06-reporting.txt"
+    },
+    {
+      "status": "FAIL",
+      "error": "enhanced-07-background-jobs.txt: Length increase 68.1% (expected 30-60%)",
+      "checks": {
+        "length_increase": "FAIL (68.1%)"
+      },
+      "fixture": "enhanced-07-background-jobs.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (51.4%)",
+        "readability": "PASS (FRE 55.9)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-08-search-functionality.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (40.5%)",
+        "readability": "PASS (FRE 73.3)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-09-file-uploads.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "length_increase": "PASS (58.3%)",
+        "readability": "PASS (FRE 62.3)",
+        "principles": "FAIL (2 principles)"
+      },
+      "fixture": "enhanced-10-notifications.txt"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-01-crud-operations.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-02-authentication.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-03-api-integration.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-04-data-processing.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-05-ui-components.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-06-reporting.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-07-background-jobs.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-08-search-functionality.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-09-file-uploads.json"
+    },
+    {
+      "status": "PASS",
+      "checks": {
+        "json_syntax": "PASS",
+        "required_fields": "PASS",
+        "numeric_ranges": "PASS"
+      },
+      "fixture": "expected-10-notifications.json"
+    }
+  ]
+}

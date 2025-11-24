@@ -1,1 +1,19 @@
-Create responsive dashboard (desktop 1920x1080, tablet 768px, mobile 375px) displaying real-time metrics (MRR, acquisition rate, churn, adoption). Load within 2 seconds, support date range selection with 1-second re-render, handle 5000+ concurrent users. Given: Manager opens dashboard on desktop. When: Dashboard loads with 5 metric widgets. Then: Widgets display within 2 seconds with smooth transitions. Given: Dashboard displays historical data. When: User selects date range (01-Jan-2024 to 31-Dec-2024). Then: Data refetches and renders within 1 second. Given: User views dashboard on iPad (768px width). When: Browser resizes. Then: Layout reorganizes to single-column, metrics remain readable. Performance: Initial load <2
+Dashboard for managers with key business metrics: revenue, new customers, churn, adoption.
+Works on desktop (1920x1080), tablet (768px), and mobile (375px) screens.
+
+Given: Manager opens the dashboard.
+When: Dashboard with 5 metric boxes loads.
+Then: Show everything in 2 seconds.
+
+Given: Dashboard shows customer data.
+When: Manager picks dates Jan 1 to Dec 31.
+Then: Reload data in 1 second.
+
+Given: End user on iPad.
+When: Screen width is 768 pixels.
+Then: Switch to single column layout, all text readable.
+
+Speed: 2 seconds for first load, 1 second for date changes.
+Support: 5,000 end users at the same time.
+Feel: Dashboard responds quickly to user clicks.
+Security: Encrypt all end user sessions.

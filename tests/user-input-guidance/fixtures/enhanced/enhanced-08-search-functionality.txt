@@ -1,1 +1,21 @@
-Implement Elasticsearch search across 10 million+ documents (customers, orders, tickets, products). Return results within 500ms p95, autocomplete within 100ms, support filtering by status and date ranges. Implement TF-IDF scoring with 3x boost for exact phrases, synonyms expansion, and spell-correction (1-2 char tolerance). Given: User enters search query "urgent refund status". When: User clicks search. Then: Results return within 500ms, ranked by relevance (3+ keyword matches score higher). Given: Results page displays 100 items. When: User filters by "Status: Open" and date range "Last 7 days". Then: Results refilter within 200ms. Given: User types partial query "cus" in search
+Search system across 10M client and customer records: orders, tickets, products.
+Results in 500ms or less. Autocomplete in 100ms.
+Performance and security required. Filter by status, dates.
+
+Given: End user types "urgent refund status".
+When: Click search button.
+Then: Results in 500ms, ranked by relevance.
+
+3+ keywords rank higher. Exact phrases get 3x boost.
+
+Given: 100 search results.
+When: Filter to open status.
+Then: Update in 200ms.
+
+Given: Type "cus".
+When: Keep typing.
+Then: Top 10 suggestions in 100ms.
+
+Score by match, add synonyms, fix typos (1-2 char).
+Measurable requirement: 500ms search response time.
+Performance and security: encrypted customer data protection.

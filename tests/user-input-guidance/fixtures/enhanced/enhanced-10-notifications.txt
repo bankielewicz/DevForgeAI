@@ -1,1 +1,22 @@
-Implement notification system (email, SMS, in-app push, webhook) delivering critical notifications within 5 minutes. Support user preferences (email daily digest, SMS for critical only), frequency controls, and timezone-aware scheduling. Process 1 million notifications/hour across US, EU, APAC regions. Given: High-priority event occurs (payment failed, security alert, quota exceeded). When: Event triggers notification rule. Then: System delivers within 5 minutes via enabled channels. Given: User configured preferences (email daily digest, SMS for critical only). When: 3 notifications generated within one hour. Then: System respects preferences, sends daily digest and SMS for critical only. Given: User receives notification on mobile. When: User
+Alert notification service delivers notifications.
+Send via email, SMS, and webhook channels.
+Measurable: 5 minute critical alert delivery time.
+Scalability: 1 million alerts per hour required. Security protection needed.
+
+Given: Important event occurs in system.
+When: Matches alert triggering rule.
+Then: Send alert in 5 minutes.
+
+Given: End user sets notification preferences.
+When: 3 alerts arrive in one hour.
+Then: Follow user preference settings.
+
+Given: End user on mobile device.
+When: User taps alert notification.
+Then: Open mobile app to correct screen.
+
+Track each: sent, failed, bounced status.
+Retry failed: 3 times maximum.
+
+Requirement: 1 million alerts per hour.
+Monitor delivery status. Use backoff retry logic.

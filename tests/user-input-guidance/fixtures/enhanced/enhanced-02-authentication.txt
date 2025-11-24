@@ -1,1 +1,20 @@
-Design authentication system for user registration, login, and password recovery. Users register with email/password (12+ chars, uppercase, lowercase, number, special char), authenticate via JWT within 200ms, and recover forgotten passwords via 1-hour links. Given: User enters valid signup credentials. When: System validates email and password requirements. Then: Account created with verification email (24 hour expiration). Given: Registered user logs in. When: User enters correct email and password. Then: System authenticates within 200ms and creates JWT session (24 hour validity). Given: User requests password reset. When: User clicks reset link (1 hour expiration). Then: System allows password change with same requirements. Security Requirements: bcrypt
+Build login system for customers and end users using JWT.
+Customers and end users can sign up, log in, reset passwords.
+
+Passwords: 12+ chars with upper, lower, number, special char.
+Login within 200ms. Use JWT tokens (24 hour validity).
+
+Given: End user enters signup info.
+When: System checks email and password.
+Then: Account created with email verify (24 hour expiry).
+
+Given: End user logs in.
+When: Email and password correct.
+Then: Login in 200ms, JWT token generated.
+
+Given: End user forgets password.
+When: Reset requested.
+Then: Reset link sent (1 hour expiry).
+
+Security: Bcrypt password hash. TLS 1.2+ encryption.
+Log failed logins. Block after 5 attempts.

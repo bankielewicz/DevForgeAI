@@ -1,1 +1,26 @@
-Create file upload system (PDF, CSV, JPEG, PNG, DOCX) with 500MB max individual, 2GB per session. Implement resumable uploads with checkpoint recovery, progress tracking every 500ms, ClamAV virus scanning within 10 seconds, and S3 storage with AES-256 encryption. Support recovery after connection loss. Given: User selects 200MB video file for upload. When: Upload starts with progress indication. Then: Progress updates every 500ms, upload completes within 60 seconds (50 Mbps). Given: Internet connection drops at 75% completion. When: Connection restored. Then: Upload resumes from 75% checkpoint without data loss or re-upload. Given: User uploads PDF file. When: File received by server. Then: ClamAV scans
+File upload service for PDF, CSV, JPEG, PNG, DOCX.
+Max 500MB per file, 2GB per session.
+Store customer documents and transaction records.
+Resume on connection drop.
+
+Given: End user selects 200MB file for upload.
+When: Upload starts.
+Then: Progress every 500ms, complete in 60s.
+
+Given: Connection drops at 75%.
+When: Reconnect.
+Then: Resume from checkpoint, no data loss.
+
+Checkpoints saved every 10MB.
+
+Given: End user uploads PDF.
+When: File arrives.
+Then: ClamAV scans in 10 seconds.
+
+Malware: reject, alert end user.
+Clean: S3 AES-256 encryption.
+
+Progress every 500ms. Resume from checkpoint.
+
+Performance: support 200MB+ transfers.
+Reliability: resume, scan.
