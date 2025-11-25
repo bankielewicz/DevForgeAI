@@ -45,6 +45,23 @@
 - **Branching**: Feature branches for development
 - **Commits**: Conventional commit format
 
+### Framework Validation Tools (EPIC-015)
+
+**Epic Coverage Validation System**:
+- **Language**: Bash scripting (Claude Code native)
+- **Parsing**: Grep patterns for YAML frontmatter and markdown headers
+- **Matching**: Exact `epic:` field matching via `grep "^epic: EPIC-XXX"`
+- **Data Model**: JSON files or Bash associative arrays
+- **Reporting**: Write tool for JSON/markdown generation
+- **CLI**: Slash command `/validate-epic-coverage` in `.claude/commands/`
+
+**Rationale** (ADR-005): Uses only Claude Code native tools (Grep, Read, Write, Bash) to achieve 95% coverage without external dependencies. Evidence: 60/63 stories (95%) have `epic:` field.
+
+**PROHIBITED for framework validation**:
+❌ External Python libraries (RapidFuzz, PyYAML, mistune)
+❌ npm packages for framework tooling
+❌ Any dependencies requiring `pip install` or `npm install`
+
 ---
 
 ## Project Technology Stack Pattern
@@ -330,6 +347,47 @@ When upgrading projects to new framework version:
 2. Update context files if format changed
 3. Regenerate context files with new architecture skill
 4. Test with sample story before full migration
+
+---
+
+## Installer/Distribution Technologies
+
+### NPM Package Distribution (EPIC-012)
+
+**Status**: LOCKED (as of 2025-11-25)
+
+**Purpose**: DevForgeAI installer is distributed as an NPM package for easy installation.
+
+**Package Distribution**:
+- **Registry**: NPM (public)
+- **Package Name**: `devforgeai` (or `@devforgeai/installer` if scoped)
+- **Installation**: `npm install -g devforgeai`
+- **Entry Point**: `devforgeai` command available globally
+
+**CLI Framework (Node.js wrapper)**:
+- **Commander.js 11+** OR **Yargs 17+** - LOCKED (command-line argument parsing)
+- **Inquirer.js 9+** - LOCKED (interactive wizard prompts)
+- **Ora 7+** - LOCKED (spinner/progress indicators)
+- **Chalk 5+** - LOCKED (terminal colors/formatting)
+- **Semver 7+** - LOCKED (semantic version parsing/comparison)
+- **Boxen 7+** - LOCKED (bordered message boxes)
+
+**Core Installer (Python - existing)**:
+- Reuses existing `installer/install.py` and related modules
+- Node.js CLI wrapper invokes Python subprocess
+- Python 3.10+ required for CLI tools (devforgeai validators)
+
+**Integration Points**:
+- **NPM Registry**: Package publishing via `npm publish` with provenance
+- **GitHub API**: Version checking, release notes (optional, online mode)
+- **PyPI**: devforgeai CLI installed via pip (optional dependency)
+
+**PROHIBITED**:
+❌ Replacing Python installer with pure Node.js (reuse existing code)
+❌ Bundling alternative CLI frameworks (one choice only)
+❌ External network calls during installation (offline mode required)
+
+**Rationale**: NPM provides widest reach for Node.js developers (primary target audience). Python installer core already exists and is well-tested.
 
 ---
 

@@ -56,14 +56,85 @@ When devforgeai-architecture skill creates dependencies.md for projects:
 4. **Document**: Add to this file with rationale
 5. **ADR**: Create Architecture Decision Record
 
-## Prohibited Dependencies
+## Prohibited Dependencies (Core Framework)
 
-❌ **NO npm packages** for framework
-❌ **NO Python packages** for framework  
-❌ **NO .NET packages** for framework
-❌ **NO** executable code dependencies
+❌ **NO npm packages** for core framework (skills, subagents, commands)
+❌ **NO Python packages** for core framework (Markdown documentation only)
+❌ **NO .NET packages** for core framework
+❌ **NO** executable code dependencies in core framework
 
-**Rationale**: Framework must work across all language ecosystems without installation.
+**Rationale**: Core framework must work across all language ecosystems without installation.
+
+---
+
+## Installer Dependencies (EPIC-012, EPIC-013, EPIC-014)
+
+**Exception**: The installer is a **distribution tool** (not core framework) and requires dependencies.
+
+### NPM Dependencies (Locked)
+
+**Production Dependencies:**
+```json
+{
+  "commander": "^11.0.0",
+  "inquirer": "^9.0.0",
+  "ora": "^7.0.0",
+  "chalk": "^5.0.0",
+  "semver": "^7.5.0",
+  "boxen": "^7.0.0"
+}
+```
+
+**Alternatives FORBIDDEN:**
+- ❌ Yargs (use Commander.js only)
+- ❌ Prompts (use Inquirer.js only)
+- ❌ cli-spinners (use Ora only)
+- ❌ colors (use Chalk only)
+
+**Dev Dependencies:**
+```json
+{
+  "jest": "^29.0.0",
+  "typescript": "^5.0.0"
+}
+```
+
+### Python Dependencies (Existing - Locked)
+
+**Core Installer Modules:**
+- `installer/install.py` - Main orchestrator
+- `installer/backup.py` - Backup/restore
+- `installer/rollback.py` - Rollback mechanism
+- `installer/merge.py` - CLAUDE.md merge
+- `installer/version.py` - Version management
+- `installer/validate.py` - Installation validation
+- `installer/deploy.py` - File deployment
+
+**DevForgeAI CLI (pip package):**
+```
+devforgeai-cli
+├── devforgeai check-git
+├── devforgeai validate-dod
+├── devforgeai validate-context
+└── devforgeai check-hooks
+```
+
+**Python Requirements:**
+- Python 3.10+ (LOCKED)
+- No external PyPI dependencies (uses standard library only)
+
+### Platform Support
+
+**LOCKED - All platforms must be supported:**
+- Windows 10+ (PowerShell, CMD)
+- macOS 11+ (Bash, Zsh)
+- Linux (Ubuntu, Debian, RHEL, Arch)
+- WSL 1/2 (Windows Subsystem for Linux)
+
+**Platform-Specific Handling:**
+- Path separators: Use `path.join()` / `os.path.join()` (never hardcode `/` or `\`)
+- File permissions: Handle NTFS vs POSIX differences
+- Shell execution: Use cross-platform subprocess invocation
 
 ---
 
