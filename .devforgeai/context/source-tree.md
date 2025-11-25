@@ -353,6 +353,50 @@ DevForgeAI2/
 │   ├── version.json             # Version metadata
 │   └── checksums.txt            # File integrity checksums
 │
+├── installer/                   # NPM INSTALLER PACKAGE (EPIC-012, 013, 014)
+│   ├── cli/                     # Node.js CLI wrapper (NEW - EPIC-012)
+│   │   ├── index.js            # CLI entry point (Commander.js)
+│   │   ├── commands/           # CLI command modules
+│   │   │   ├── install.js      # devforgeai install <target>
+│   │   │   ├── upgrade.js      # devforgeai upgrade
+│   │   │   ├── fix.js          # devforgeai fix
+│   │   │   ├── uninstall.js    # devforgeai uninstall
+│   │   │   ├── rollback.js     # devforgeai rollback
+│   │   │   └── config.js       # devforgeai config export/import
+│   │   ├── wizard/             # Interactive wizard (Inquirer.js)
+│   │   │   ├── prompts.js      # Question definitions
+│   │   │   └── validators.js   # Input validators
+│   │   ├── utils/              # CLI utilities
+│   │   │   ├── spinner.js      # Ora wrapper
+│   │   │   ├── colors.js       # Chalk helpers
+│   │   │   └── logger.js       # Logging utilities
+│   │   └── package.json        # NPM package manifest
+│   │
+│   ├── migrations/              # Version migration scripts (EPIC-014)
+│   │   ├── v1.0-to-v1.1.py     # Migration script 1.0 → 1.1
+│   │   ├── v1.1-to-v1.2.py     # Migration script 1.1 → 1.2
+│   │   └── migration-runner.py # Migration execution orchestrator
+│   │
+│   ├── install.py              # Core installer orchestrator (existing)
+│   ├── backup.py               # Backup/restore system (existing)
+│   ├── rollback.py             # Rollback mechanism (existing)
+│   ├── merge.py                # CLAUDE.md merge logic (existing)
+│   ├── version.py              # Version management (existing)
+│   ├── validate.py             # Installation validation (existing)
+│   ├── deploy.py               # File deployment (existing)
+│   ├── config.yaml             # Installer configuration
+│   ├── merge-config.yaml       # CLAUDE.md merge configuration
+│   │
+│   ├── tests/                  # Installer test suite (existing)
+│   │   ├── integration/
+│   │   ├── test_installation_modes.py
+│   │   └── test_*.py
+│   │
+│   ├── API.md                  # Installer API documentation
+│   ├── INSTALL.md              # Installation guide
+│   ├── README.md               # Installer README
+│   └── TROUBLESHOOTING.md      # Troubleshooting guide
+│
 ├── .ai_docs/                    # Project management and research
 │   ├── Epics/                   # High-level business initiatives
 │   ├── Sprints/                 # 2-week iteration plans
@@ -560,6 +604,9 @@ DevForgeAI2/
 - ✅ RCA documents go in `.devforgeai/RCA/`
 - ✅ Protocols go in `.devforgeai/protocols/`
 - ✅ Feedback data goes in `.devforgeai/feedback/`
+- ✅ Epic coverage validation data goes in `.devforgeai/epic-coverage/` (EPIC-015)
+  - `.devforgeai/epic-coverage/reports/` - Coverage validation reports (JSON/markdown)
+  - `.devforgeai/epic-coverage/history/` - Historical validation data with timestamps
 - ❌ NO project-specific files in `.devforgeai/` (this is framework meta-context)
 - ❌ NO executable code in `.devforgeai/` (documentation only)
 

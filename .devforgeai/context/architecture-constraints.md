@@ -150,4 +150,137 @@ First read file1, then read file2, then read file3...
 
 ---
 
+## Installer Architecture Patterns (EPIC-012, EPIC-013, EPIC-014)
+
+### Installation State Machine (LOCKED)
+
+**States**:
+```
+┌─────────────┐
+│   Fresh     │ ← No previous installation detected
+└──────┬──────┘
+       │ detect existing
+       ▼
+┌─────────────┐
+│   Upgrade   │ ← Previous version detected, upgrade path valid
+└──────┬──────┘
+       │ upgrade fails
+       ▼
+┌─────────────┐
+│  Rollback   │ ← Restore previous version from backup
+└──────┬──────┘
+       │ success
+       ▼
+┌─────────────┐
+│  Validated  │ ← Installation verified complete
+└─────────────┘
+```
+
+**State Transitions**:
+- ✅ Fresh → Validated (successful fresh install)
+- ✅ Upgrade → Validated (successful upgrade)
+- ✅ Upgrade → Rollback → Validated (failed upgrade, rollback succeeded)
+- ✅ Fix → Validated (repair completed)
+- ❌ Validated → Fresh (no overwriting valid installation without user consent)
+- ❌ Rollback → Rollback (no recursive rollback)
+
+### Validation Pipeline Pattern (LOCKED)
+
+**Chain of Responsibility** for pre-flight checks:
+
+```
+PreFlightValidation
+  ├── PythonVersionCheck     → WARN if Python < 3.10
+  ├── DiskSpaceCheck         → ERROR if < 100MB available
+  ├── PermissionCheck        → ERROR if target not writable
+  ├── ExistingInstallCheck   → INFO prompts for upgrade/fresh choice
+  ├── GitStatusCheck         → WARN if uncommitted changes (optional)
+  └── ConflictCheck          → WARN lists files that would be overwritten
+```
+
+**Rules**:
+- ✅ Checks run in sequence (each check passes before next)
+- ✅ ERROR checks block installation (must fix before proceeding)
+- ✅ WARN checks allow continuation with --force flag
+- ✅ INFO checks are informational only (don't block)
+- ❌ No skipping ERROR checks (even with --force)
+- ❌ No partial validation (all checks must run)
+
+### Atomic Installation Pattern (LOCKED)
+
+**All-or-Nothing Principle**:
+
+```
+1. Create backup of existing files (if any)
+2. Create transaction log
+3. Execute installation steps
+   - If any step fails → Rollback to backup
+   - If all steps succeed → Commit (delete backup marker)
+4. Validate installation
+   - If validation fails → Rollback
+5. Update version metadata
+```
+
+**Rules**:
+- ✅ Backup MUST be created before ANY modifications
+- ✅ Transaction log tracks all file operations
+- ✅ Rollback restores EXACTLY to pre-installation state
+- ✅ No partial installations allowed
+- ❌ No modifications without backup
+- ❌ No deleting backup until validation passes
+
+### CLAUDE.md Merge Strategy (LOCKED)
+
+**4 Merge Strategies**:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  AUTO-MERGE (default)                                        │
+│  - Parse user sections vs DevForgeAI sections                │
+│  - Preserve user content, update DevForgeAI content          │
+│  - Merge result = User + Updated Framework                   │
+├─────────────────────────────────────────────────────────────┤
+│  REPLACE                                                     │
+│  - Backup existing CLAUDE.md                                 │
+│  - Overwrite with DevForgeAI template                        │
+│  - User must manually re-add custom content                  │
+├─────────────────────────────────────────────────────────────┤
+│  SKIP                                                        │
+│  - Don't modify CLAUDE.md                                    │
+│  - User manually integrates DevForgeAI instructions          │
+├─────────────────────────────────────────────────────────────┤
+│  MANUAL                                                      │
+│  - Create CLAUDE.md.devforgeai (new content)                 │
+│  - User merges manually with existing CLAUDE.md              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+**Rules**:
+- ✅ Always backup before merge (regardless of strategy)
+- ✅ Auto-merge uses section markers to identify boundaries
+- ✅ Conflict detection prompts user for resolution
+- ✅ Merge result validated for syntax errors
+- ❌ No silent overwrites (always inform user)
+- ❌ No merge without user consent on conflict
+
+### Version Compatibility Matrix (LOCKED)
+
+**Upgrade Paths**:
+
+| From Version | To Version | Allowed? | Migration Required? |
+|--------------|------------|----------|---------------------|
+| v1.x.x       | v1.y.z (y>x) | ✅ Yes | Minor migration |
+| v1.x.x       | v2.0.0     | ⚠️ With warning | Major migration |
+| v2.x.x       | v1.x.x     | ❌ No (downgrade) | N/A |
+| None         | Any        | ✅ Yes (fresh) | None |
+
+**Rules**:
+- ✅ Minor version upgrades always allowed (1.0 → 1.1)
+- ✅ Patch version upgrades always allowed (1.0.0 → 1.0.1)
+- ⚠️ Major version upgrades require user confirmation (1.x → 2.x)
+- ❌ Downgrades blocked by default (require --force)
+- ❌ Skip-version upgrades require sequential migrations (1.0 → 1.1 → 1.2, not 1.0 → 1.2)
+
+---
+
 **REMEMBER**: Projects using DevForgeAI will have their own architecture-constraints.md defining layer boundaries, patterns, and design rules specific to their architecture (Clean Architecture, N-Tier, etc.).

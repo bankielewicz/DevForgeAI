@@ -2,7 +2,7 @@
 name: requirements-analyst
 description: Requirements analysis and user story creation expert. Use proactively when creating epics, sprints, or decomposing features into implementable user stories with testable acceptance criteria.
 tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
-model: sonnet
+model: opus
 color: green
 ---
 
