@@ -498,6 +498,95 @@ IF quality_blocks_qa:
 # ...
 ```
 
+### Response Parsing
+
+**Step 1: Parse JSON Response**
+```python
+# Parse subagent response (JSON structure)
+quality_result = json.loads(subagent_output)
+
+# Validate status field
+if quality_result["status"] != "success":
+    # Handle error (see Common Error Handling Pattern)
+    handle_subagent_error(quality_result, "code-quality-auditor", "Phase 4: Code Quality Metrics")
+    HALT
+```
+
+**Step 2: Extract Metrics**
+```python
+# Extract quality metrics
+complexity_metrics = quality_result["metrics"]["complexity"]
+duplication_metrics = quality_result["metrics"]["duplication"]
+maintainability_metrics = quality_result["metrics"]["maintainability"]
+
+# Calculate averages for display
+avg_complexity = complexity_metrics["average_per_function"]
+max_complexity = complexity_metrics["max_complexity"]["score"]
+duplication_pct = duplication_metrics["percentage"]
+avg_mi = maintainability_metrics["average_index"]
+```
+
+**Step 3: Extract Violations**
+```python
+# Extract extreme violations (CRITICAL only)
+extreme_violations = quality_result["extreme_violations"]
+
+# Group by type for reporting
+complexity_violations = filter(extreme_violations, type == "complexity")
+duplication_violations = filter(extreme_violations, type == "duplication")
+maintainability_violations = filter(extreme_violations, type == "maintainability")
+```
+
+**Step 4: Update QA Blocking State**
+```python
+# Update blocks_qa (OR operation to preserve previous phase blocks)
+quality_blocks_qa = quality_result["blocks_qa"]
+blocks_qa = blocks_qa OR quality_blocks_qa
+
+# Collect blocking reasons
+if quality_blocks_qa:
+    blocking_reasons.extend(quality_result["blocking_reasons"])
+```
+
+**Step 5: Extract Recommendations**
+```python
+# Add quality recommendations to QA report
+recommendations.extend(quality_result["recommendations"])
+
+# Separate by type
+blocking_recs = filter(quality_result["recommendations"], startswith("⛔"))
+warning_recs = filter(quality_result["recommendations"], startswith("⚠️"))
+positive_recs = filter(quality_result["recommendations"], startswith("✅"))
+```
+
+**Step 6: Display Results**
+```python
+Display: f"\n=== Phase 4: Code Quality Metrics ==="
+Display: f"  Complexity (avg): {avg_complexity:.1f} (threshold: 20)"
+Display: f"  Duplication: {duplication_pct:.1f}% (threshold: 25%)"
+Display: f"  Maintainability Index: {avg_mi:.1f} (threshold: 40)"
+
+IF quality_blocks_qa:
+    Display: f"\n  ⛔ BLOCKING: {len(extreme_violations)} extreme quality violations"
+    FOR violation in extreme_violations[:3]:  # Show top 3
+        Display: f"    • {violation['type'].upper()}: {violation['file']}:{violation['line']}"
+        Display: f"      {violation['metric']} (threshold: {violation['threshold']})"
+        Display: f"      Impact: {violation['business_impact'][:80]}..."
+ELSE:
+    Display: f"  ✅ All quality metrics meet thresholds"
+```
+
+**Step 7: Store for QA Report**
+```python
+# Store metrics for final QA report generation (Phase 5)
+qa_report_data["code_quality"] = {
+    "metrics": quality_result["metrics"],
+    "violations": extreme_violations,
+    "recommendations": quality_result["recommendations"],
+    "blocks_qa": quality_blocks_qa
+}
+```
+
 ### Response Handling
 
 ```python
