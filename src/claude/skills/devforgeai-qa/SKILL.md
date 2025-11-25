@@ -2,7 +2,7 @@
 name: devforgeai-qa
 description: Validates code quality through hybrid progressive validation (light checks during development, deep analysis after completion). Enforces test coverage (95%/85%/80% strict thresholds), detects anti-patterns, validates spec compliance, and analyzes code quality metrics. Use when validating implementations, ensuring quality standards, or preparing for release.
 tools: Read, Write, Edit, Glob, Grep, Bash, Task
-model: claude-sonnet-4-5-20250929
+model: claude-sonnet-4-5-20250929[1m]
 ---
 
 # DevForgeAI QA Skill
@@ -266,9 +266,11 @@ IF all checks PASS:
 **Blocks on:** Business <95%, Application <85%, Overall <80%
 
 ### Phase 2: Anti-Pattern Detection
-**Ref:** `references/anti-pattern-detection-workflow.md` (4 steps)
-**Guides:** `references/anti-pattern-detection.md`, `references/security-scanning.md`
-**Blocks on:** CRITICAL violations (security, architecture, library substitution)
+**Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
+**Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
+**Model:** claude-haiku-4-5-20251001 (cost-efficient pattern matching)
+**Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
+**Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
 
 ### Phase 3: Spec Compliance Validation
 **Ref:** `references/spec-compliance-workflow.md` (6 steps, includes Step 2.5)
