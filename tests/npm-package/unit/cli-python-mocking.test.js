@@ -96,7 +96,10 @@ describe('CLI Python Detection (Mocked)', () => {
       cli = require('../../../lib/cli');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.command).toMatch(/^(python3|python)$/);
+      expect(result.version.major).toBe(3);
+      expect(result.version.minor).toBe(10);
     });
 
     test('accepts Python 3.11+', () => {
@@ -105,7 +108,9 @@ describe('CLI Python Detection (Mocked)', () => {
       cli = require('../../../lib/cli');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.version.major).toBe(3);
+      expect(result.version.minor).toBe(11);
     });
 
     test('accepts Python 4.x (future)', () => {
@@ -114,7 +119,8 @@ describe('CLI Python Detection (Mocked)', () => {
       cli = require('../../../lib/cli');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.version.major).toBe(4);
     });
   });
 

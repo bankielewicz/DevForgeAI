@@ -104,21 +104,28 @@ describe('CLI Python Detection (v2 - Proper Mocking)', () => {
       execSync.mockImplementation(() => 'Python 3.10.0');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.command).toMatch(/^(python3|python)$/);
+      expect(result.version.major).toBe(3);
+      expect(result.version.minor).toBe(10);
     });
 
     test('accepts Python 3.11', () => {
       execSync.mockImplementation(() => 'Python 3.11.5');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.version.major).toBe(3);
+      expect(result.version.minor).toBe(11);
     });
 
     test('accepts Python 3.12+', () => {
       execSync.mockImplementation(() => 'Python 3.12.1');
 
       const result = cli.checkPython();
-      expect(result).toBe(true);
+      expect(result).toBeDefined();
+      expect(result.version.major).toBe(3);
+      expect(result.version.minor).toBe(12);
     });
   });
 

@@ -139,10 +139,14 @@ describe('lib/cli.js - Core CLI Functions', () => {
   });
 
   describe('checkPython()', () => {
-    test('returns true when Python 3.10+ is available', () => {
+    test('returns Python command and version when available', () => {
       // This test runs in real environment with Python 3.10.11
       const result = cli.checkPython();
-      expect(result).toBe(true);
+
+      expect(result).toBeDefined();
+      expect(result.command).toMatch(/^(python3|python)$/);
+      expect(result.version).toBeDefined();
+      expect(result.version.major).toBeGreaterThanOrEqual(3);
     });
 
     // Note: Python error path testing requires complex mocking of child_process
