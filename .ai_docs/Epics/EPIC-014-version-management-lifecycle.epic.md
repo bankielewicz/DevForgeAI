@@ -255,10 +255,33 @@ This leads to:
 - [ ] Uninstall clean and predictable (no surprise deletions)
 - [ ] Version-related support tickets reduced by 80%
 
+## Stories
+
+**6 stories created (2025-11-25):**
+
+| Story ID | Title | Points | Status |
+|----------|-------|--------|--------|
+| [STORY-077](../Stories/STORY-077-version-detection-compatibility.story.md) | Version Detection & Compatibility Checking | 10 | Backlog |
+| [STORY-078](../Stories/STORY-078-upgrade-mode-migration-scripts.story.md) | Upgrade Mode with Migration Scripts | 13 | Backlog |
+| [STORY-079](../Stories/STORY-079-fix-repair-installation-mode.story.md) | Fix/Repair Installation Mode | 10 | Backlog |
+| [STORY-080](../Stories/STORY-080-rollback-previous-version.story.md) | Rollback to Previous Version | 12 | Backlog |
+| [STORY-081](../Stories/STORY-081-uninstall-user-content-preservation.story.md) | Uninstall with User Content Preservation | 10 | Backlog |
+| [STORY-082](../Stories/STORY-082-version-aware-config-management.story.md) | Version-Aware Configuration Management | 8 | Backlog |
+
+**Total Story Points:** 63 points
+
+**Recommended Implementation Order:**
+1. STORY-077 (Version Detection) - Foundation for all other features
+2. STORY-078 (Upgrade Mode) - Core upgrade capability + backup infrastructure
+3. STORY-082 (Config Management) - Configuration persistence for upgrades
+4. STORY-080 (Rollback) - Safety net using backup infrastructure
+5. STORY-079 (Fix/Repair) - Uses manifest infrastructure from upgrade
+6. STORY-081 (Uninstall) - Final cleanup capability
+
 ## Next Steps
 
-1. **Story Creation:** Break down 6 features into 15-20 implementable stories
-   - Run `/create-story [feature-description]` for each feature
+1. ~~**Story Creation:** Break down 6 features into 15-20 implementable stories~~ ✅ COMPLETE
+   - 6 stories created covering all features
 2. **Architecture Phase:** Design migration system, state machine, rollback validation
    - Update `.devforgeai/context/architecture-constraints.md` with state management patterns
 3. **Sprint Planning:** Assign stories to Sprint 3-5 (after EPIC-012 and EPIC-013)

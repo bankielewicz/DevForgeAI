@@ -3,21 +3,23 @@ id: EPIC-010
 title: Parallel Story Development with CI/CD Integration
 status: Planning
 start_date: 2026-01-20
-target_date: 2026-03-20
-total_points: 65
+target_date: 2026-03-27
+total_points: 68
 completed_points: 0
 owner: Framework Maintainer
 tech_lead: TBD
 created: 2025-11-16
-updated: 2025-11-16
+updated: 2025-11-25
 complexity_score: 42
 architecture_tier: 3
+prerequisite_stories: 1
 new_subagents: 2
 enhanced_subagents: 1
 new_skills: 1
 modified_skills: 2
 new_commands: 2
 modified_commands: 2
+rca_references: 3
 ---
 
 # EPIC-010: Parallel Story Development with CI/CD Integration
@@ -58,12 +60,15 @@ Enable DevForgeAI framework to support concurrent story development across multi
 
 ## Timeline
 
-**Total Duration:** 8 weeks (2 months, starting 2026-01-20 after EPIC-009 completes)
+**Total Duration:** 9.5 weeks (~2.25 months, starting 2026-01-20 after EPIC-009 completes)
+
+**Phase 0 - Prerequisites (0.5 weeks)**
+- Week 0: Story template v2.2 update + standardize 6 existing stories (3 points)
 
 **Phase 1 - MVP: Local Parallel Development (6 weeks)**
-- Week 1-2: Worktree management + test isolation
-- Week 3-4: Dependency enforcement + overlap detection
-- Week 5-6: Cleanup automation + /worktrees command
+- Week 1-2: Worktree management + test isolation (13 points)
+- Week 3-4: Dependency enforcement + overlap detection (21 points)
+- Week 5-6: Cleanup automation + /worktrees command (8 points)
 
 **Phase 2 - CI/CD Integration (2 weeks, optional based on MVP success)**
 - Week 7: GitHub Actions workflows + headless configuration
@@ -87,6 +92,40 @@ Enable DevForgeAI framework to support concurrent story development across multi
 - **User demand:** Solo dev future-proofing indicates awareness of scaling need
 
 ## Features
+
+### Phase 0: Prerequisites (MUST Complete Before Phase 1)
+
+#### Story 0: Update Story Template to v2.2 with depends_on Field (3 points)
+
+**Description:** Add standardized `depends_on: []` field to story template YAML frontmatter and standardize 6 existing stories to array format, enabling Feature 3 (Dependency Graph Enforcement).
+
+**User Story:**
+As a DevForgeAI framework developer,
+I want the story template to include a depends_on field in array format,
+So that all stories can declare dependencies consistently for parallel development workflows.
+
+**Complexity:** Low (2/10)
+
+**Acceptance Criteria:**
+- AC1: `src/claude/skills/devforgeai-story-creation/assets/templates/story-template.md` updated with `depends_on: []` field
+- AC2: Format version incremented: "2.1" → "2.2"
+- AC3: Template changelog added (v2.2: Added depends_on field for EPIC-010)
+- AC4: 6 existing stories standardized to array format: STORY-044, 045, 046, 047, 048, 070
+- AC5: devforgeai-story-creation skill Phase 1 asks about dependencies (optional question)
+
+**Dependencies:** None
+
+**Deliverables:**
+- Updated story template (v2.2)
+- 6 standardized story files
+- Story-creation skill Phase 1 enhancement (dependency question)
+- Synced to operational: .claude/skills/devforgeai-story-creation/
+
+**Blocks:** Feature 3 (Dependency Graph Enforcement - requires standardized depends_on field)
+
+**Effort:** 3 story points (~3-4 hours: template update + standardize 6 stories + skill update + testing)
+
+---
 
 ### Phase 1: MVP - Local Parallel Development (6 features)
 
@@ -384,14 +423,20 @@ So that I don't encounter git index lock conflicts or race conditions.
   - Fallback to branch-only mode if worktrees unsupported
   - Document platform requirements (Git 2.5+)
 
-**Risk 2: Quality Gate Bypass in Parallel Mode**
+**Risk 2: Quality Gate Bypass in Parallel Mode (RCA-011, 013, 014 Informed)**
 - **Impact:** CRITICAL (violates zero-debt philosophy)
-- **Likelihood:** Medium (parallel complexity could introduce loopholes)
+- **Likelihood:** HIGH (RCA-011, 013, 014 show quality issues exist in sequential mode - parallel could amplify)
+- **Known Issues from RCAs:**
+  - **RCA-011:** Mandatory TDD phases skipped (refactoring-specialist, context-validator, Light QA)
+  - **RCA-013:** Workflow stops at 80-90% completion even when deferrals rejected
+  - **RCA-014:** Autonomous deferrals bypass user approval (Phase 4.5 detection too narrow)
 - **Mitigation:**
-  - All quality gates preserved unchanged (coverage thresholds, TDD, deferral validation)
-  - Dependency enforcement prevents out-of-order development
-  - Comprehensive testing (validate gates work in parallel mode)
-  - Explicit requirement: "Quality cannot be compromised"
+  - **Enhanced auto-merge validation** (QA Phase 5.0): Check all mandatory phases executed, verify 100% DoD completion, block autonomous deferrals before merge
+  - **3 New QA subagents leveraged:** anti-pattern-scanner, code-quality-auditor, coverage-analyzer (added in EPIC-011-015)
+  - **Strict merge gates:** No parallel story merges unless Phase 5.0 validation passes (100% completion + no skipped phases + no autonomous deferrals)
+  - **Quality-first design:** Parallel mode makes incomplete work more visible (multiple stories stuck at 87% triggers investigation)
+  - **Explicit requirement:** "Quality cannot be compromised" (user-confirmed during ideation)
+- **See:** `.devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md`, `RCA-013-development-workflow-stops-before-completion.md`, `RCA-014-autonomous-deferral-without-user-approval-phase-4-5.md`
 
 **Risk 3: Developer Complexity Overhead**
 - **Impact:** HIGH (feature unused if too complex)
@@ -489,6 +534,29 @@ So that I don't encounter git index lock conflicts or race conditions.
 - **test-automator** - Generate tests in worktree-isolated stories (unchanged)
 - **deferral-validator** - Validate deferrals in parallel executions (unchanged)
 - **All other subagents** - Work unchanged in worktree environment (isolated contexts)
+
+###New QA Subagents Leveraged (Added in EPIC-011-015)
+
+**1. anti-pattern-scanner** (EPIC-012/013 - Already Available)
+- **Purpose:** Detect architecture violations, security vulnerabilities, code quality issues across 6 categories
+- **Invoked By:** devforgeai-qa Phase 2 (automatically)
+- **Model:** haiku
+- **Parallel Mode:** ✅ Works in worktree context, validates story-specific code
+- **EPIC-010 Integration:** No changes needed - already context-isolated
+
+**2. code-quality-auditor** (EPIC-012/013 - Already Available)
+- **Purpose:** Calculate cyclomatic complexity, code duplication, maintainability index
+- **Invoked By:** devforgeai-qa Phase 4 (automatically)
+- **Model:** haiku
+- **Parallel Mode:** ✅ Works in worktree, validates story code quality
+- **EPIC-010 Note:** For duplication detection across worktrees, may need `--all-worktrees` flag (scan all active stories for cross-story duplication)
+
+**3. coverage-analyzer** (EPIC-012/013 - Already Available)
+- **Purpose:** Validate test coverage by layer (95%/85%/80% thresholds)
+- **Invoked By:** devforgeai-qa Phase 3 (automatically)
+- **Model:** sonnet
+- **Parallel Mode:** ✅ Uses story-scoped paths (`tests/coverage/{story_id}/coverage.xml`)
+- **EPIC-010 Integration:** Already compatible with Feature 2 (story-scoped test isolation)
 
 **Total Subagent Count After EPIC-010:**
 - Current: 26 subagents
@@ -627,21 +695,38 @@ So that I don't encounter git index lock conflicts or race conditions.
 - All validation logic unchanged (same quality gates)
 
 **New Phase 5 (Post-QA Actions) - Only for Deep QA PASSED:**
+
+**Pre-Merge Quality Validation (Addresses RCA-011, 013, 014):**
+- **Step 5.0:** Enhanced Completion Validation (NEW - RCA-informed)
+  - **RCA-011 Check:** Verify ALL mandatory TDD phases executed (no skipped subagents)
+    - Validate: test-automator, backend-architect/frontend-developer, context-validator, refactoring-specialist, code-reviewer, integration-tester, dev-result-interpreter all invoked
+    - If any skipped: HALT with "❌ Mandatory phase skipped: {phase}. Cannot merge incomplete story."
+  - **RCA-013 Check:** Verify story reached 100% completion (not 80-90%)
+    - Parse story file: Count DoD checkboxes (total vs checked)
+    - If <100%: HALT with "❌ Story incomplete: {X}% DoD complete. User rejected deferrals - must reach 100%."
+  - **RCA-014 Check:** Verify NO autonomous deferrals (all unchecked DoD have user approval)
+    - Scan story file for "Approved Deferrals" section
+    - If unchecked DoD without approval: HALT with "❌ Autonomous deferral detected. User approval required per CLAUDE.md line 16-18."
+  - Display: "✅ Quality validation passed (RCA-011, 013, 014 checks complete)"
+
 - **Step 5.1:** Auto-Merge Story Branch (NEW)
   - Checkout main branch: `git checkout main`
   - Merge story branch: `git merge story-{id} --no-ff`
   - If conflicts: Display conflicted files, halt, prompt developer for manual resolution
   - If success: Display "✓ Merged story-{id} → main"
+
 - **Step 5.2:** Delete Story Branch (NEW)
   - `git branch -d story-{id}` (safe delete, verifies merged)
   - Display: "✓ Deleted branch: story-{id}"
+
 - **Step 5.3:** Cleanup Worktree (NEW - invoke git-worktree-manager)
   - Invoke git-worktree-manager with action=cleanup
   - Remove `../devforgeai-story-{id}/`
   - Display: "✓ Cleaned up worktree"
+
 - **Step 5.4:** Update Story Status (modified - now happens after merge)
   - Status = "Released" (merged to main = production-ready in DevForgeAI)
-  - Append workflow history: "Merged to main, worktree cleaned"
+  - Append workflow history: "Merged to main, worktree cleaned, RCA validations passed"
 
 **New Reference Files (2 files, ~550 lines):**
 - parallel-qa-workflow.md (300 lines) - Worktree-aware validation
@@ -893,6 +978,14 @@ Phase 2: Display Results
 
 ## Stories
 
+### Phase 0: Prerequisites (MUST Complete First)
+
+**Pre-Sprint (Week 0): Template Enhancement**
+0. STORY-TBD: Update Story Template to v2.2 with depends_on Field (3 points)
+   - Deliverables: Template update, standardize 6 existing stories, skill enhancement
+   - **Blocks:** Feature 3 (Dependency Graph) - cannot enforce dependencies without template field
+**Total:** 3 points
+
 ### Phase 1: MVP - Local Parallel Development
 
 **Sprint 1 (Weeks 1-2): Foundation**
@@ -924,7 +1017,7 @@ Phase 2: Display Results
 
 **Phase 2 Total:** 2 stories, 23 points, 3 weeks (extended from 2 weeks due to skill creation)
 
-**Grand Total:** 8 stories, 65 points, 9 weeks (Phase 1: 42 points over 6 weeks, Phase 2: 23 points over 3 weeks)
+**Grand Total:** 9 stories, 68 points, 9.5 weeks (Phase 0: 3 points (Week 0), Phase 1: 42 points over 6 weeks, Phase 2: 23 points over 3 weeks)
 
 ## Research Findings (Internet-Sleuth)
 

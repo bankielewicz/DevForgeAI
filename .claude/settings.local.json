@@ -51,7 +51,18 @@
       "Bash(1)",
       "Bash(shellcheck:*)",
       "SlashCommand(/create-story:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npm --version:*)",
+      "Bash(npm install:*)",
+      "Bash(timeout 90 npm test:*)",
+      "Bash(PATH=\"\" node bin/devforgeai.js install /tmp/test)",
+      "Bash(time node:*)",
+      "Bash(npm pack:*)",
+      "Bash(find:*)",
+      "Bash(tar:*)",
+      "Bash(npx jest:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(DEBUG_CLI=true npx jest:*)"
     ],
     "deny": [],
     "ask": []
