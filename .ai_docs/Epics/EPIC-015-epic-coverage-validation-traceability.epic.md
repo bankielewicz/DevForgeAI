@@ -401,3 +401,17 @@ Create a comprehensive epic coverage validation system with requirements traceab
 
 **Status:** Planning → Ready for Architecture Phase
 **Next Action:** Create ADR-005 and update context files, then run `/create-context` validation
+
+---
+
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-083 | Feature 0 | Requirements Traceability Matrix Foundation | 13 | Backlog |
+| STORY-084 | Feature 1 | Epic & Story Metadata Parser | 13 | Backlog |
+| STORY-085 | Feature 2 | Gap Detection Engine | 21 | Backlog |
+| STORY-086 | Feature 3 | Coverage Reporting System | 18 | Backlog |
+| STORY-087 | Feature 4 | Slash Command Interface | 8 | Backlog |
+| STORY-088 | Feature 5 | /create-story Integration | 13 | Backlog |
+| STORY-089 | Feature 6 | DevForgeAI Command Integration | 13 | Backlog |

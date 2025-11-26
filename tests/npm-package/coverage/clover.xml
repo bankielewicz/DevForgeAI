@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1764121015730" clover="3.2.0">
+  <project timestamp="1764121015730" name="All files">
+    <metrics statements="68" coveredstatements="57" conditionals="44" coveredconditionals="31" methods="12" coveredmethods="11" elements="124" coveredelements="99" complexity="0" loc="68" ncloc="68" packages="2" files="2" classes="2"/>
+    <package name="bin">
+      <metrics statements="11" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="devforgeai.js" path="/mnt/c/Projects/DevForgeAI2/bin/devforgeai.js">
+        <metrics statements="11" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+    </package>
+    <package name="lib">
+      <metrics statements="57" coveredstatements="57" conditionals="36" coveredconditionals="31" methods="11" coveredmethods="11"/>
+      <file name="cli.js" path="/mnt/c/Projects/DevForgeAI2/lib/cli.js">
+        <metrics statements="57" coveredstatements="57" conditionals="36" coveredconditionals="31" methods="11" coveredmethods="11"/>
+        <line num="8" count="11" type="stmt"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
+        <line num="16" count="11" type="stmt"/>
+        <line num="17" count="11" type="stmt"/>
+        <line num="18" count="11" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
+        <line num="26" count="6" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="56" count="21" type="stmt"/>
+        <line num="57" count="21" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="18" type="stmt"/>
+        <line num="71" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="73" count="22" type="stmt"/>
+        <line num="86" count="12" type="stmt"/>
+        <line num="87" count="12" type="stmt"/>
+        <line num="88" count="12" type="stmt"/>
+        <line num="89" count="12" type="stmt"/>
+        <line num="92" count="12" type="stmt"/>
+        <line num="104" count="18" type="stmt"/>
+        <line num="105" count="18" type="stmt"/>
+        <line num="110" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="113" count="4" type="stmt"/>
+        <line num="125" count="14" type="stmt"/>
+        <line num="127" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="129" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="130" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="132" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="133" count="5" type="stmt"/>
+        <line num="142" count="9" type="stmt"/>
+        <line num="151" count="6" type="stmt"/>
+        <line num="152" count="6" type="stmt"/>
+        <line num="154" count="6" type="stmt"/>
+        <line num="159" count="6" type="stmt"/>
+        <line num="160" count="1" type="stmt"/>
+        <line num="166" count="6" type="stmt"/>
+        <line num="177" count="11" type="cond" truecount="1" falsecount="0"/>
+        <line num="180" count="11" type="cond" truecount="4" falsecount="0"/>
+        <line num="181" count="4" type="stmt"/>
+        <line num="182" count="4" type="stmt"/>
+        <line num="186" count="7" type="cond" truecount="5" falsecount="0"/>
+        <line num="187" count="3" type="stmt"/>
+        <line num="188" count="3" type="stmt"/>
+        <line num="192" count="4" type="cond" truecount="4" falsecount="0"/>
+        <line num="193" count="2" type="stmt"/>
+        <line num="200" count="2" type="stmt"/>
+        <line num="203" count="2" type="stmt"/>
+        <line num="206" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="207" count="1" type="stmt"/>
+        <line num="211" count="1" type="stmt"/>
+        <line num="212" count="1" type="stmt"/>
+        <line num="213" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="219" count="11" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

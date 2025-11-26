@@ -1,6 +1,6 @@
 # DevForgeAI Slash Commands Reference
 
-Complete guide to the 11 slash commands for DevForgeAI workflows.
+Complete guide to the 12 slash commands for DevForgeAI workflows.
 
 **📊 Pattern Compliance Status:** See `command-pattern-compliance.md` for lean orchestration pattern compliance status of all commands (budget %, refactoring status, token efficiency).
 
@@ -8,7 +8,7 @@ Complete guide to the 11 slash commands for DevForgeAI workflows.
 
 ## Command Overview
 
-DevForgeAI provides 11 slash commands organized into 5 categories:
+DevForgeAI provides 12 slash commands organized into 6 categories:
 
 **Planning & Setup (4 commands):**
 - `/ideate` - Transform business idea to structured requirements
@@ -32,6 +32,9 @@ DevForgeAI provides 11 slash commands organized into 5 categories:
 - `/audit-deferrals` - Audit deferred work in stories for circular chains and invalid references
 - `/audit-budget` - Audit command character budgets against lean orchestration protocol
 - `/rca` - Perform Root Cause Analysis with 5 Whys methodology for framework breakdowns
+
+**Session Management (1 command):**
+- `/chat-search` - Search chat history and resume previous conversations by keywords, project, or timeframe
 
 ---
 
@@ -1230,6 +1233,160 @@ This command exemplifies lean orchestration for simple tasks:
 - `/audit-deferrals` - Audit technical debt
 - `/audit-budget` - Audit command budgets
 - Framework breakdowns can be analyzed systematically
+
+---
+
+### /chat-search [search-keywords]
+
+**Purpose:** Search chat history and resume previous conversations
+
+**Category:** Session Management
+
+**Workflow:**
+1. Gather search criteria (keywords, project, timeframe)
+2. Search through ~/.claude/history.jsonl
+3. Display matching sessions with details
+4. Optionally provide resume instructions
+
+**Arguments:**
+- `$1` (optional): Search keywords or phrase
+
+**Example:**
+```
+> /chat-search "EPIC-010"
+> /chat-search "story-066 development"
+> /chat-search
+```
+
+**Interactive Features:**
+
+**Phase 0: Search Criteria:**
+- If no keywords provided → AskUserQuestion for search type:
+  - Keywords/Text (e.g., "EPIC-010", "story-066")
+  - Recent Sessions (last 10-50 sessions)
+  - By Project (filter by project path)
+  - By Slash Command (e.g., /dev, /create-story)
+- Ask for project filter (current, all, or specific)
+- Ask for result limit (10/20/50/all)
+
+**Phase 1: Search Execution:**
+- Search ~/.claude/history.jsonl using grep/jq
+- Extract session details: ID, project, timestamp, message preview
+- Deduplicate by session ID (keep most recent)
+- Sort by timestamp descending
+- Limit results as specified
+
+**Phase 2: Display Results:**
+```
+═══════════════════════════════════════════════
+CHAT HISTORY SEARCH RESULTS
+═══════════════════════════════════════════════
+
+Found 3 sessions matching "EPIC-010":
+
+Session 1:
+  ID: 83bfea53-ae2b-4e85-b755-33acd22892a4
+  Project: /mnt/c/Projects/DevForgeAI2
+  Last Active: 2024-11-18 14:32:44
+  Last Message: '.ai_docs/Epics/EPIC-010-parallel...'
+
+[... more sessions ...]
+
+═══════════════════════════════════════════════
+```
+
+**Phase 3: Resume Session:**
+- AskUserQuestion: "Would you like to resume?"
+  - Yes → Ask which session
+  - No → Exit with instructions
+- Display resume command:
+  ```bash
+  claude -r <session-id>
+  claude -r <session-id> --fork-session
+  ```
+
+**Search Strategies:**
+
+**By Keywords:**
+- Story IDs: `STORY-066`, `story-066`
+- Epic IDs: `EPIC-010`, `epic-010`
+- Commands: `/dev`, `/create-story`, `/qa`
+- Feature names: `parallel story development`
+- Error messages: Paste exact error text
+
+**By Project:**
+- Current: `/mnt/c/Projects/DevForgeAI2`
+- Other: `/mnt/c/Projects/SQLServer`
+- All: Show all projects
+
+**By Time Range:**
+- Recent: Last 10-20 sessions
+- Comprehensive: Last 50-100 sessions
+- All: Entire history (~7000+ sessions)
+
+**Use Cases:**
+
+1. **Find incomplete work:**
+   ```bash
+   /chat-search "/dev STORY-066"
+   ```
+
+2. **Locate epic planning:**
+   ```bash
+   /chat-search "EPIC-010"
+   ```
+
+3. **Review QA sessions:**
+   ```bash
+   /chat-search "/qa"
+   ```
+
+4. **Browse recent work:**
+   ```bash
+   /chat-search
+   # Choose "Recent Sessions"
+   ```
+
+5. **Debug issues:**
+   ```bash
+   /chat-search "error: context files missing"
+   ```
+
+**Architecture:**
+
+**Command (Direct Implementation - No Skill):**
+- Phase 0: Interactive search criteria gathering (AskUserQuestion)
+- Phase 1: Direct bash/grep search of history.jsonl
+- Phase 2: Format and display results
+- Phase 3: Optional resume instructions (AskUserQuestion)
+- No skill invocation - simple utility command
+
+**Tools Used:**
+- `Bash` - Execute grep/jq searches on history.jsonl
+- `Read` - Read search results from temp files
+- `AskUserQuestion` - Interactive search criteria and resume selection
+- `Grep` - (optional) Alternative to bash grep
+
+**Output:**
+- Session listing with IDs, projects, timestamps, message previews
+- Resume commands (claude -r <session-id>)
+- No file creation (read-only operation)
+
+**Character Budget:** ~11,500 chars (77% of 15K budget) - COMPLIANT
+
+**Execution Time:** 5-60 seconds (depends on result count and history size)
+
+**Error Handling:**
+- History file not found → Clear error message
+- Invalid JSON → Skip malformed lines, continue
+- Permission denied → Suggest chmod fix
+- Too many results → Display top N, suggest filtering
+
+**Related:**
+- `claude -r` - Resume session by ID
+- `claude -r [sessionId]` - Resume specific session
+- `claude --fork-session -r [sessionId]` - Fork from session
+- All DevForgeAI commands create searchable sessions
 
 ---
 

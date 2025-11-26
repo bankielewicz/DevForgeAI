@@ -2,6 +2,64 @@
 
 A comprehensive framework for AI-assisted software development with zero technical debt, leveraging Claude Code Terminal's capabilities for systematic, constraint-enforced development.
 
+## Installation
+
+Install DevForgeAI globally via npm for immediate access to the framework's installer and CLI tools:
+
+```bash
+npm install -g devforgeai
+```
+
+Once installed, run the installer in your target project directory:
+
+```bash
+devforgeai install .
+```
+
+### Requirements
+
+- **Node.js 18+** - [Download Node.js](https://nodejs.org/)
+- **npm 8+** - Included with Node.js
+- **Python 3.10+** - [Download Python](https://www.python.org/downloads/)
+- **Git** - [Download Git](https://git-scm.com/downloads)
+- **Claude Code Terminal 0.8.0+** - [Install Claude Code](https://code.claude.com/)
+
+### Quick Start
+
+After global installation:
+
+```bash
+# Install DevForgeAI framework to current directory
+devforgeai install .
+
+# Or specify a target directory
+devforgeai install /path/to/project
+
+# Check installed version
+devforgeai --version
+
+# View help and available commands
+devforgeai --help
+```
+
+### Troubleshooting
+
+**"Python 3.10+ required" error:**
+- Ensure Python 3.10 or newer is installed: `python3 --version`
+- Add Python to your PATH if not available
+- On Windows: Use `python` instead of `python3`
+
+**"command not found: devforgeai":**
+- Verify global installation: `npm list -g devforgeai`
+- Check npm global bin is in PATH: `npm config get prefix`
+- Reinstall if needed: `npm install -g devforgeai`
+
+**Permission denied on macOS/Linux:**
+- Run with npm prefix: `npm install -g devforgeai --unsafe-perm`
+- Or use nvm to manage Node.js versions without sudo
+
+For more troubleshooting, see [installer/TROUBLESHOOTING.md](installer/TROUBLESHOOTING.md).
+
 ## Overview
 
 DevForgeAI transforms the software development lifecycle through **Spec-Driven Development (SDD)**, combining Claude Code Terminal's Skills, Subagents, and Slash Commands into a cohesive workflow that prevents technical debt through explicit constraints and automated validation.
@@ -182,73 +240,30 @@ Execute entire story lifecycle with one command:
 > /orchestrate STORY-001
 ```
 
-## Installation
+## Advanced Installation
 
-DevForgeAI requires Python 3.8+ and uses a modern installer-based approach for installation and upgrades. The new approach includes automatic backups and rollback capability.
+For development or manual installation, DevForgeAI also supports direct Python installer usage.
 
-**Fresh Installation**: For new DevForgeAI installations, clone the repository and run the installer with fresh mode.
+### Development Installation
 
-**Upgrading**: To upgrade from DevForgeAI v1.0.0 to v1.0.1, use upgrade mode with the --target flag.
-
-### Prerequisites
-
-- **Python 3.8+** - [Download Python](https://www.python.org/downloads/)
-- **Git** - [Download Git](https://git-scm.com/downloads)
-- **Claude Code Terminal 0.8.0+** - [Install Claude Code](https://code.claude.com/)
-
-### Fresh Installation (New Installations)
-
-For new DevForgeAI installations, follow these steps:
+For contributing to DevForgeAI or manual installation:
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/bankielewicz/DevForgeAI.git
-cd DevForgeAI2
+cd DevForgeAI
 
-# 2. Run the installer (fresh mode) with --target flag
-python installer/install.py --mode=fresh --target ~/.claude
-
-# 3. Restart your Claude Code Terminal
-# Close and reopen Claude Code to load new slash commands
-```
-
-**Note**: Use `python3` instead of `python` if running Python 2 is also available on your system.
-
-**Expected output**: Installation creates `~/.claude/` with skills, commands, and agents.
-
-### Upgrade Installation (v1.0.0 to v1.0.1)
-
-To upgrade from DevForgeAI v1.0.0 to v1.0.1:
-
-```bash
-# 1. Pull latest code from repository
-cd /path/to/DevForgeAI2
-git pull origin main
-
-# 2. Run the installer in upgrade mode
-python installer/install.py --mode=upgrade --target ~/.claude
+# 2. Run the installer directly
+python3 installer/install.py --mode=fresh --target ~/.claude
 
 # 3. Restart your Claude Code Terminal
-# Close and reopen Claude Code
 ```
-
-**What happens during upgrade**:
-- Automatic backup of existing installation
-- Updates skills and commands
-- Validates new installation
-- Preserves your custom configurations
-
-### Installation Troubleshooting
-
-For detailed installation instructions, troubleshooting (15+ scenarios), and FAQ (10+ questions), see **[installer/INSTALL.md](installer/INSTALL.md)**.
 
 ### Migration Guide
 
-If upgrading from v1.0.0, see **[MIGRATION-GUIDE.md](MIGRATION-GUIDE.md)** for step-by-step migration instructions and troubleshooting.
+If upgrading from v1.0.0, see **[MIGRATION-GUIDE.md](MIGRATION-GUIDE.md)** for step-by-step migration instructions.
 
-### Deprecated Approach (v1.0.0)
-
-⚠️ **Note**: The old manual `.claude/` copy approach is deprecated as of v1.0.1. While still supported until v2.0.0, we strongly recommend using the installer approach above. See [MIGRATION-GUIDE.md](MIGRATION-GUIDE.md) for details on migrating from the old manual approach.
+For detailed installation troubleshooting (15+ scenarios) and FAQ (10+ questions), see **[installer/INSTALL.md](installer/INSTALL.md)**.
 
 ## Project Structure
 

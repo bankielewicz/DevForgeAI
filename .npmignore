@@ -1,0 +1,55 @@
+# Development files - excluded from NPM package
+tests/
+docs/
+.git
+.gitignore
+.ai_docs/
+*.test.js
+.vscode
+.idea
+.pytest_cache
+.coverage
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.backups/
+*.backup
+*.backup-*
+CLAUDE.md.backup-*
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Test artifacts - excluded from NPM package
+.test-extract/
+coverage*.json
+*.tgz
+*.tar.gz
+node_modules/
+
+# Operational folders - exclude from distribution (source is in src/)
+.claude/
+.devforgeai/
+
+# Story deliverables and test artifacts
+STORY-*
+*.zip
+MIGRATION-GUIDE.md
+README-DOCUMENTATION-SKILL.md
+pytest.ini
+scripts/create-*.sh
+SHA256SUMS
+
+# Temporary and operational files
+tmp/
+src/hook_*.py
+src/__pycache__/
