@@ -11,24 +11,39 @@
 
 const cli = require('../lib/cli');
 
-// Run CLI with command-line arguments
-(async () => {
+/**
+ * Main entry point function (exported for testing)
+ * @param {string[]} argv - Command-line arguments
+ * @returns {Promise<number>} Exit code
+ */
+async function main(argv) {
   try {
-    const result = await cli.run(process.argv.slice(2));
+    const result = await cli.run(argv);
 
-    // If result is a number (exit code), exit with that code
+    // cli.run() returns Promise<number> or number
+    // await resolves Promise to number before this check
+    // result is always a number here (never a Promise object)
     if (typeof result === 'number') {
-      process.exit(result);
+      return result;
     }
 
-    // If result is a Promise (resolves to exit code), wait and exit
-    if (result && typeof result.then === 'function') {
-      const exitCode = await result;
-      process.exit(exitCode);
-    }
+    // Defensive fallback (should never reach here)
+    return 0;
   } catch (error) {
     // Error thrown by lib/cli.js (from exitWithError)
-    console.error(error.message);
-    process.exit(error.exitCode || 1);
+    if (process.env.NODE_ENV !== 'test') {
+      console.error(error.message);
+    }
+    return error.exitCode || 1;
   }
-})();
+}
+
+// Export for testing
+module.exports = { main };
+
+// Run if executed directly (not imported)
+if (require.main === module) {
+  main(process.argv.slice(2)).then(exitCode => {
+    process.exit(exitCode);
+  });
+}

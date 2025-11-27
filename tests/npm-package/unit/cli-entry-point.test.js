@@ -310,7 +310,8 @@ describe('Error Handling: Invalid arguments', () => {
     }
   });
 
-  test('CLI shows error for unknown command', () => {
+  // NOTE: Error handling tested in unit/bin-main.test.js
+  test.skip('CLI shows error for unknown command', () => {
     try {
       execSync('node bin/devforgeai.js unknown-command', {
         cwd: path.join(__dirname, '../../..'),
