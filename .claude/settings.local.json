@@ -62,7 +62,8 @@
       "Bash(tar:*)",
       "Bash(npx jest:*)",
       "WebFetch(domain:github.com)",
-      "Bash(DEBUG_CLI=true npx jest:*)"
+      "Bash(DEBUG_CLI=true npx jest:*)",
+      "SlashCommand(/create-sprint:*)"
     ],
     "deny": [],
     "ask": []

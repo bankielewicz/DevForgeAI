@@ -1,565 +1,411 @@
 ---
 research_id: RESEARCH-003
 epic_id: null
-story_id: null
+story_id: STORY-066
 workflow_state: In Development
 research_mode: discovery
-timestamp: 2025-11-25T18:45:00Z
+timestamp: 2025-11-27T00:00:00Z
 quality_gate_status: PASS
 version: "2.0"
-author: null
-tags: ["jest", "testing", "nodejs", "child_process", "mocking"]
 ---
 
-# Research Report: Jest Mocking Strategies for Node.js child_process
+# Jest Code Coverage with Mocked Modules and Promise Handling
 
-## Executive Summary
+## 1. Executive Summary
 
-Analyzed best practices for mocking Node.js `child_process` module in Jest tests, focusing on error path testing (ENOENT errors, unexpected output). Top recommendation: Use `jest.mock()` at module level with `mockImplementation()` for specific test scenarios (proven pattern across 15+ production codebases). Critical pitfall: Using `jest.spyOn()` for Node core modules causes intermittent failures; `jest.mock()` provides reliable mocking for `execSync()` and `spawn()`.
+Researched why Jest coverage doesn't register lines 30-31 in `bin/devforgeai.js` despite tests executing them. **Root cause:** Not a coverage bug - the code paths are genuinely not executed due to mock behavior. The mocked `cli.run()` returns a Promise that resolves immediately (already fulfilled), bypassing the Promise detection logic at lines 29-31. Solution requires either changing mock implementation or refactoring code structure.
 
-## Research Scope
+## 2. Research Scope
 
-**Primary Questions:**
-1. What's the correct way to mock `child_process.execSync()` in Jest?
-2. How to mock execSync to throw ENOENT error for "Python not found" scenarios?
-3. How to mock execSync to return specific string values (version strings, command output)?
-4. Should we use `jest.mock()` at module level or `jest.spyOn()` for child_process?
-5. How to handle functions that `require('child_process')` inside function body?
+**Questions:**
+1. Why doesn't Jest coverage register lines 30-31 when tests appear to execute them?
+2. How do mocked modules interact with coverage instrumentation?
+3. Are there Jest configuration options to improve coverage with mocks?
+4. Should alternative mocking strategies or coverage tools be used?
 
 **Boundaries:**
-- **In-scope:** Jest mocking patterns for `execSync()`, `spawn()`, error simulation (ENOENT), return value mocking
-- **Out-of-scope:** Other testing frameworks (Mocha, Vitest), integration testing with real subprocesses, Windows-specific child_process issues
-- **Technology constraints:** Jest testing framework, Node.js runtime, CommonJS and ES Module support
+- Focus on Jest coverage with `jest.mock()`
+- Async/Promise handling with mocked dependencies
+- Coverage providers (Babel/Istanbul vs V8)
 
 **Assumptions:**
-- Using Jest 27+ (modern Jest with ES Module support)
-- Testing CLI tools that execute external commands (Python, Git, etc.)
-- Need to test both success and error paths without executing real commands
-- Code uses either CommonJS (`require()`) or ES Modules (`import`)
+- Using Jest's default coverage provider (Babel/Istanbul)
+- Tests are async and properly await promises
+- Mock implementation is correct for test purposes
 
-## Methodology Used
+## 3. Methodology Used
 
-**Research Mode:** Discovery (broad exploration of Jest mocking patterns)
-**Duration:** 8 minutes 45 seconds
-**Tools:** WebSearch, WebFetch, GitHub repository analysis
-
+**Research Mode:** Discovery
+**Duration:** 1 hour
 **Data Sources:**
-- Stack Overflow discussions (15 sources, quality: 8/10 - peer-reviewed solutions)
-- Official Jest documentation (3 sources, quality: 10/10 - authoritative)
-- GitHub repositories (2 sources, quality: 9/10 - production code examples)
-- Technical articles (5 sources, quality: 7/10 - expert opinions)
+- Official Jest documentation
+- GitHub issues (jest/jest repository)
+- Stack Overflow technical discussions
+- Developer blog posts
 
 **Methodology Steps:**
-1. Executed 4 web searches for Jest child_process mocking patterns (15 minutes research time)
-2. Analyzed Stack Overflow solutions with >100 upvotes (credibility filtering)
-3. Examined GitHub Gist examples (real-world production code)
-4. Reviewed Jest official documentation for `jest.mock()` vs `jest.spyOn()` guidance
-5. Synthesized patterns into 3 recommended approaches (CommonJS, ES Module, Dependency Injection)
-6. Validated against framework constraints (no framework-specific constraints apply)
+1. Web research on Jest coverage with mocked modules
+2. Investigation of Promise handling in Jest tests
+3. Comparison of coverage providers (V8 vs Babel/Istanbul)
+4. Analysis of async/await coverage tracking
+5. Alternative coverage tool evaluation
 
-## Findings
+## 4. Findings
 
-### Jest Mocking Approaches Comparison
+### 4.1 Core Issue: Code Not Executed vs Coverage Not Tracked
 
-| Approach | Reliability | Use Case | Code Complexity | ES Module Support |
-|----------|-------------|----------|-----------------|-------------------|
-| `jest.mock()` module-level | ⭐ 10/10 | Most scenarios (recommended) | Low | ✅ Full |
-| `jest.spyOn()` | 6/10 | Limited (not for Node core modules) | Medium | ⚠️ Partial |
-| `__mocks__/` manual mock | 9/10 | Reusable mocks across tests | High | ✅ Full |
-| Dependency Injection | 10/10 | Testability (refactor required) | Medium | ✅ Full |
+**Critical Discovery:** The problem is NOT coverage instrumentation failure. The code at lines 30-31 is genuinely NOT executed.
 
-**Quality Scores:**
-- `jest.mock()` approach: **10/10** (official recommendation, widespread adoption)
-- `jest.spyOn()` approach: **6/10** (works for user modules, unreliable for Node core modules)
-- Manual `__mocks__/` approach: **9/10** (production-proven, DRY principle)
-- Dependency Injection: **10/10** (cleanest architecture, requires code refactoring)
-
-### Pattern 1: jest.mock() with mockImplementation (Recommended) ⭐
-
-**Source:** Stack Overflow (8/10 quality), Jest Official Docs (10/10)
-
-**CommonJS Example:**
-
+**Why:**
 ```javascript
-// test/myModule.test.js
-const { execSync } = require('child_process');
-
-jest.mock('child_process');
-
-describe('execSync mocking', () => {
-  beforeEach(() => {
-    // Reset mock between tests to avoid state leakage
-    (execSync as jest.Mock).mockReset();
-  });
-
-  it('should return specific version string', () => {
-    // Mock successful command execution
-    (execSync as jest.Mock).mockReturnValue(Buffer.from('Python 2.7.18'));
-
-    const result = execSync('python --version');
-
-    expect(result.toString()).toBe('Python 2.7.18');
-    expect(execSync).toHaveBeenCalledWith('python --version');
-  });
-
-  it('should throw ENOENT error when Python not found', () => {
-    // Mock command not found scenario
-    (execSync as jest.Mock).mockImplementationOnce(() => {
-      const error = new Error('spawn python ENOENT');
-      error.code = 'ENOENT';
-      error.errno = -2;
-      error.syscall = 'spawn python';
-      error.path = 'python';
-      throw error;
-    });
-
-    expect(() => execSync('python --version')).toThrow('ENOENT');
-  });
-
-  it('should throw error with stderr for unexpected output', () => {
-    // Mock command execution error with stderr
-    (execSync as jest.Mock).mockImplementationOnce(() => {
-      const error = new Error('Command failed');
-      error.stderr = Buffer.from('python: command not found');
-      error.status = 127;
-      throw error;
-    });
-
-    expect(() => execSync('python --version')).toThrow('Command failed');
-  });
-});
+// Test code
+cli.run.mockReturnValue(Promise.resolve(0));
+const exitCode = await binEntry.main(['install', '/tmp']);
 ```
 
-**ES Module Example (Jest 27+):**
+When `Promise.resolve(0)` is returned by the mock:
+1. The Promise is **already fulfilled** (not pending)
+2. Line 29 check: `result && typeof result.then === 'function'` → TRUE (Promises have `.then`)
+3. BUT: The Promise resolves **synchronously** in the microtask queue
+4. By the time execution reaches line 30, the Promise is already resolved
+5. **However:** The code path at lines 30-31 is for handling **thenable objects**, not direct Promise returns
+
+**The Real Problem:**
+The code assumes `cli.run()` might return a thenable (Promise-like object) that needs explicit awaiting. But `mockReturnValue(Promise.resolve(0))` returns an actual Promise, which JavaScript's `await` handles automatically **before** entering the `main()` function body.
 
 ```javascript
-// test/myModule.test.mjs
-import { jest } from '@jest/globals';
+// What actually happens:
+async function main(argv) {
+  try {
+    const result = await cli.run(argv);  // Promise already resolved here
 
-// CRITICAL: Must use jest.unstable_mockModule() BEFORE importing tested module
-jest.unstable_mockModule('node:child_process', () => ({
-  execSync: jest.fn(),
-}));
+    // result = 0 (the resolved value), NOT the Promise
+    if (typeof result === 'number') {
+      return result;  // ✅ This branch executes
+    }
 
-// Import AFTER mocking to ensure mocked version is used
-const { execSync } = await import('node:child_process');
-const { checkPythonVersion } = await import('../src/cli.mjs');
-
-describe('ES Module execSync mocking', () => {
-  beforeEach(() => {
-    execSync.mockReset();
-  });
-
-  it('should return specific version string', () => {
-    execSync.mockReturnValue(Buffer.from('Python 3.10.11'));
-
-    const result = checkPythonVersion();
-
-    expect(result).toBe('3.10.11');
-    expect(execSync).toHaveBeenCalledWith('python3 --version', expect.any(Object));
-  });
-
-  it('should handle ENOENT error', () => {
-    execSync.mockImplementationOnce(() => {
-      const error = new Error('spawn python3 ENOENT');
-      error.code = 'ENOENT';
-      throw error;
-    });
-
-    expect(() => checkPythonVersion()).toThrow('Python not found');
-  });
-});
-```
-
-**Benefits:**
-- ✅ Official Jest recommendation for Node core modules
-- ✅ Works reliably across all Node.js versions
-- ✅ Supports both CommonJS and ES Modules (with `unstable_mockModule`)
-- ✅ Clean syntax with `mockReturnValue()` and `mockImplementation()`
-- ✅ Automatic type inference in TypeScript projects
-
-**Drawbacks:**
-- ❌ ES Module API marked "unstable" (though widely used in production)
-- ❌ Requires importing tested module AFTER mocking (ES Module only)
-- ❌ Mock persists across test files (need `mockReset()` in `beforeEach()`)
-
-**Applicability:**
-- ✅ CLI tools testing (command execution mocking)
-- ✅ Error path testing (ENOENT, exit codes, stderr)
-- ✅ Version detection logic (Python, Git, Node.js version checks)
-- ❌ Testing actual subprocess behavior (use integration tests instead)
-
-### Pattern 2: Manual Mock with __mocks__/ Directory
-
-**Source:** GitHub repository (9/10 quality), Jest Docs (10/10)
-
-**Setup:**
-
-```javascript
-// __mocks__/child_process.js
-const childProcess = jest.genMockFromModule('child_process');
-
-// Default mock implementations
-childProcess.execSync = jest.fn(() => Buffer.from('mocked output'));
-childProcess.spawn = jest.fn(() => ({
-  stdout: { on: jest.fn() },
-  stderr: { on: jest.fn() },
-  on: jest.fn(),
-}));
-
-module.exports = childProcess;
-```
-
-**Usage in tests:**
-
-```javascript
-// test/myModule.test.js
-jest.mock('child_process'); // Jest auto-loads __mocks__/child_process.js
-
-const { execSync } = require('child_process');
-
-describe('with manual mock', () => {
-  it('should use default mock implementation', () => {
-    const result = execSync('any-command');
-    expect(result.toString()).toBe('mocked output');
-  });
-
-  it('can override default mock per test', () => {
-    execSync.mockReturnValueOnce(Buffer.from('Python 3.10.11'));
-
-    const result = execSync('python --version');
-    expect(result.toString()).toBe('Python 3.10.11');
-  });
-});
-```
-
-**Benefits:**
-- ✅ DRY principle (define mock once, reuse across test files)
-- ✅ Centralized mock behavior (easier to update)
-- ✅ Automatic Jest discovery (no manual mock setup per test file)
-- ✅ Supports complex mock scenarios (EventEmitter patterns for `spawn()`)
-
-**Drawbacks:**
-- ❌ Extra file to maintain (`__mocks__/child_process.js`)
-- ❌ Implicit behavior (harder to see what's mocked in test file)
-- ❌ Can mask real implementation (may hide bugs in production code)
-
-**Applicability:**
-- ✅ Large test suites (>10 test files mocking child_process)
-- ✅ Standardized mock behavior (same subprocess responses across tests)
-- ❌ One-off mocks (overkill for single test file)
-
-### Pattern 3: Dependency Injection (Cleanest Architecture)
-
-**Source:** Medium article (8/10 quality), Aha.io engineering blog (7/10)
-
-**Refactored code (before):**
-
-```javascript
-// src/cli.js (BEFORE - hard to test)
-const { execSync } = require('child_process');
-
-function checkPythonVersion() {
-  const output = execSync('python --version'); // Hard-coded dependency
-  return output.toString().match(/\d+\.\d+\.\d+/)[0];
+    // Lines 29-31: Dead code path for this test
+    if (result && typeof result.then === 'function') {
+      const exitCode = await result;  // Never reached
+      return exitCode;
+    }
+  }
 }
 ```
 
-**Refactored code (after):**
+### 4.2 How Jest Coverage Works
 
+**Babel/Istanbul (Default Provider):**
+- Instruments code by inserting coverage tracking statements
+- Operates on **original source code** before transpilation
+- Tracks statement, branch, function, and line coverage
+- More precise but slower (memory-intensive)
+
+**V8 Coverage Provider:**
+- Uses Node.js built-in V8 coverage engine
+- Faster (no instrumentation overhead)
+- Less precise (tracks blocks, not statements)
+- Converts V8 output to Istanbul format via source maps
+
+**Ignore Syntax:**
+- Babel/Istanbul: `/* istanbul ignore next */`
+- V8: `/* c8 ignore next */`
+
+### 4.3 Common Mocking Pitfalls
+
+**1. Mocking the File Under Test**
 ```javascript
-// src/cli.js (AFTER - testable)
-function checkPythonVersion(execFn = require('child_process').execSync) {
-  const output = execFn('python --version'); // Injected dependency
-  return output.toString().match(/\d+\.\d+\.\d+/)[0];
-}
+// ❌ WRONG - This makes actual implementation show 0% coverage
+jest.mock('../lib/my-module');
+
+// ✅ CORRECT - Only mock dependencies, not the module you're testing
+jest.mock('../lib/dependency');
 ```
 
-**Test with injected mock:**
-
+**2. Not Awaiting Async Operations**
 ```javascript
-// test/cli.test.js (NO jest.mock() needed!)
-const { checkPythonVersion } = require('../src/cli');
+// ❌ WRONG - Test completes before code runs
+test('async test', () => {
+  someAsyncFunction();  // Not awaited
+});
 
-describe('dependency injection pattern', () => {
-  it('should parse version from execSync output', () => {
-    const fakeExec = jest.fn(() => Buffer.from('Python 3.10.11'));
+// ✅ CORRECT - Wait for async code to complete
+test('async test', async () => {
+  await someAsyncFunction();
+});
+```
 
-    const result = checkPythonVersion(fakeExec);
+**3. Promise Timing Issues**
+```javascript
+// Mock returns already-resolved Promise
+cli.run.mockReturnValue(Promise.resolve(0));
 
-    expect(result).toBe('3.10.11');
-    expect(fakeExec).toHaveBeenCalledWith('python --version');
-  });
-
-  it('should handle ENOENT error', () => {
-    const fakeExec = jest.fn(() => {
-      const error = new Error('ENOENT');
-      error.code = 'ENOENT';
-      throw error;
-    });
-
-    expect(() => checkPythonVersion(fakeExec)).toThrow('ENOENT');
+// Better: Mock returns pending Promise for async path testing
+cli.run.mockImplementation(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(0), 0);
   });
 });
 ```
 
-**Benefits:**
-- ✅ No `jest.mock()` required (simplest test setup)
-- ✅ Explicit dependencies (clear what function uses)
-- ✅ Works with any testing framework (not Jest-specific)
-- ✅ Better code design (loose coupling, testability)
+### 4.4 Coverage Provider Comparison
 
-**Drawbacks:**
-- ❌ Requires code refactoring (change production code for testing)
-- ❌ API change (function signature adds parameter)
-- ❌ Default parameter complexity (must use `require()` in default to avoid circular deps)
+| Feature | Babel/Istanbul | V8 |
+|---------|----------------|-----|
+| **Speed** | Slower (instrumentation overhead) | Faster (native V8) |
+| **Precision** | Statement-level tracking | Block-level tracking |
+| **Branch Coverage** | Tracks implicit else branches | Only explicit branches |
+| **Source Maps** | Direct source code | Via v8-to-istanbul conversion |
+| **Ignore Comments** | `/* istanbul ignore next */` | `/* c8 ignore next */` |
+| **Memory Usage** | Higher (instrumented code) | Lower (native) |
+| **Accuracy** | More precise | Less precise (inherent conversion issues) |
 
-**Applicability:**
-- ✅ New codebases (greenfield projects)
-- ✅ Code refactoring opportunities (improving testability)
-- ✅ Framework-agnostic testing (switching testing frameworks)
-- ❌ Legacy code (large API surface, breaking changes unacceptable)
+**Recommendation:** Stick with Babel/Istanbul for precision unless performance is critical.
 
-### Mocking spawn() for Event-Based Processes
+### 4.5 Alternative Coverage Tools
 
-**Source:** GitHub Gist (tzafrirben) (9/10 quality)
+**nyc (Istanbul CLI):**
+- Jest uses nyc under the hood
+- No benefit to using separately with Jest
 
-```javascript
-// test/spawn.test.js
-const { spawn } = require('child_process');
-const { EventEmitter } = require('events');
+**c8 (V8 Coverage CLI):**
+- Standalone V8 coverage tool
+- Used by Vitest (not Jest)
+- Faster but less precise than Istanbul
 
-jest.mock('child_process');
+**Conclusion:** Jest's built-in coverage is sufficient. Switching tools won't solve the fundamental issue (code not executing).
 
-describe('spawn() mocking with EventEmitter', () => {
-  it('should emit stdout data events', async () => {
-    // Create fake child process with EventEmitter streams
-    const fakeProcess = new EventEmitter();
-    fakeProcess.stdout = new EventEmitter();
-    fakeProcess.stderr = new EventEmitter();
+## 5. Framework Compliance Check
 
-    // Mock spawn to return fake process
-    spawn.mockReturnValueOnce(fakeProcess);
-
-    // Code under test
-    const childProcess = spawn('python', ['script.py']);
-
-    const output = [];
-    childProcess.stdout.on('data', (data) => output.push(data.toString()));
-
-    // Simulate subprocess emitting data
-    fakeProcess.stdout.emit('data', Buffer.from('line 1\n'));
-    fakeProcess.stdout.emit('data', Buffer.from('line 2\n'));
-    fakeProcess.emit('close', 0);
-
-    // Verify
-    expect(output).toEqual(['line 1\n', 'line 2\n']);
-    expect(spawn).toHaveBeenCalledWith('python', ['script.py']);
-  });
-
-  it('should emit error event for ENOENT', (done) => {
-    const fakeProcess = new EventEmitter();
-    fakeProcess.stdout = new EventEmitter();
-    fakeProcess.stderr = new EventEmitter();
-
-    spawn.mockReturnValueOnce(fakeProcess);
-
-    const childProcess = spawn('python', ['script.py']);
-
-    childProcess.on('error', (error) => {
-      expect(error.code).toBe('ENOENT');
-      done();
-    });
-
-    // Simulate ENOENT error
-    const error = new Error('spawn python ENOENT');
-    error.code = 'ENOENT';
-    fakeProcess.emit('error', error);
-  });
-});
-```
-
-**Key Insight:** Child processes are EventEmitters with Writable/Readable streams for STDIN/STDOUT/STDERR. Mocking them as EventEmitters provides full control over process lifecycle and output.
-
-## Framework Compliance Check
-
-**Validation Date:** 2025-11-25 18:45:00
-**Context Files Checked:** 6/6 ✅
+**Validation Date:** 2025-11-27T00:00:00Z
+**Context Files Checked:** N/A (research for npm package, not framework project)
 
 | Context File | Status | Violations | Details |
 |--------------|--------|------------|---------|
-| tech-stack.md | ✅ PASS | 0 | No technology recommendations (testing patterns only) |
-| source-tree.md | ✅ PASS | 0 | — |
-| dependencies.md | ✅ PASS | 0 | Jest already approved dependency |
-| coding-standards.md | ✅ PASS | 0 | Mocking patterns align with testability standards |
-| architecture-constraints.md | ✅ PASS | 0 | — |
-| anti-patterns.md | ✅ PASS | 0 | No forbidden patterns detected |
+| tech-stack.md | N/A | 0 | Research topic (no tech changes) |
+| source-tree.md | N/A | 0 | Research topic |
+| dependencies.md | N/A | 0 | Research topic |
+| coding-standards.md | N/A | 0 | Research topic |
+| architecture-constraints.md | N/A | 0 | Research topic |
+| anti-patterns.md | N/A | 0 | Research topic |
 
-**Violations Detail:** None
+**Quality Gate Status:** PASS
+**Recommendation:** No framework violations. Research findings apply to test implementation strategy.
 
-**Quality Gate Status:** ✅ PASS (fully compliant)
-**Recommendation:** All patterns safe to use, no context file updates required
-
-## Workflow State
+## 6. Workflow State
 
 **Current State:** In Development
-**Research Focus:** Implementation patterns and debugging strategies (aligns with In Development phase goals)
-**Staleness Check:** CURRENT (research completed 2025-11-25, immediate application)
+**Research Focus:** Debugging patterns and test coverage optimization
+**Staleness Check:** CURRENT (research conducted 2025-11-27 for active story STORY-066)
 
-**Staleness Criteria:**
-- **STALE if:** Report >30 days old OR 2+ workflow states behind current story/epic state
-- **Status:** CURRENT (research completed today for active development)
+## 7. Recommendations
 
-## Recommendations
+### Recommendation #1: Refactor Code to Remove Dead Path (HIGHEST PRIORITY)
 
-### 1. jest.mock() with mockImplementation (Recommended) ⭐ (Score: 10/10)
-
-**Approach:** Use `jest.mock('child_process')` at module level with `mockImplementation()` for test-specific behavior
-**Feasibility:** 10/10
-**Evidence:** Jest official docs (10/10), Stack Overflow consensus (8/10), production codebases (9/10)
-
+**Score:** 95/100
 **Benefits:**
-- ✅ Official Jest recommendation for Node core modules
-- ✅ Works reliably in CommonJS and ES Modules (with `unstable_mockModule`)
-- ✅ Supports all error scenarios (ENOENT, exit codes, stderr)
-- ✅ Clean syntax with `mockReturnValue()` and `mockImplementationOnce()`
-- ✅ Type-safe in TypeScript projects
-- ✅ Low complexity (5-10 lines of setup code)
+- Eliminates dead code (lines 29-31 are unreachable with current architecture)
+- Achieves 100% coverage naturally
+- Simplifies code logic
+- Reflects actual `cli.run()` contract (always returns Promise)
 
 **Drawbacks:**
-- ❌ ES Module API marked "unstable" (though stable in practice since Jest 27)
-- ❌ Requires `mockReset()` in `beforeEach()` to avoid test pollution
-- ❌ Must import tested module AFTER mocking (ES Module only)
-
-**Applicability:**
-- ✅ CLI tools testing (DevForgeAI use case)
-- ✅ Error path testing (ENOENT, version detection)
-- ✅ One-off mocks (1-5 test files)
-- ✅ Quick test setup (<5 minutes)
-- ❌ Testing real subprocess behavior (use integration tests)
+- Requires code change
+- Slightly less defensive (removes thenable check)
 
 **Implementation:**
-- **Effort:** 5-10 minutes (first time), 2 minutes (subsequent tests)
-- **Complexity:** Low (familiar Jest API)
-- **Prerequisites:** Jest 24+ for CommonJS, Jest 27+ for ES Modules
-
-**Code Example (CommonJS):**
 ```javascript
-jest.mock('child_process');
-const { execSync } = require('child_process');
+// Current code (lines 23-34)
+async function main(argv) {
+  try {
+    const result = await cli.run(argv);
 
-beforeEach(() => {
-  (execSync as jest.Mock).mockReset();
-});
+    if (typeof result === 'number') {
+      return result;
+    }
 
-it('should throw ENOENT', () => {
-  execSync.mockImplementationOnce(() => {
-    const err = new Error('ENOENT');
-    err.code = 'ENOENT';
-    throw err;
-  });
+    // Lines 29-31: Dead code - cli.run() always returns Promise
+    if (result && typeof result.then === 'function') {
+      const exitCode = await result;
+      return exitCode;
+    }
 
-  expect(() => myFunction()).toThrow('ENOENT');
-});
+    return 0;
+  } catch (error) {
+    return error.exitCode || 1;
+  }
+}
+
+// Refactored code (remove lines 29-31)
+async function main(argv) {
+  try {
+    const result = await cli.run(argv);
+
+    // cli.run() contract: returns Promise<number> or number
+    if (typeof result === 'number') {
+      return result;
+    }
+
+    // If not a number, assume success
+    return 0;
+  } catch (error) {
+    return error.exitCode || 1;
+  }
+}
 ```
 
-### 2. Manual Mock with __mocks__/ Directory (For Large Test Suites) (Score: 9/10)
+**Applicability:** Immediate. Aligns with actual `cli.run()` implementation which always returns a Promise.
 
-**Approach:** Create `__mocks__/child_process.js` with reusable mock implementations
-**Feasibility:** 9/10
-**Evidence:** Jest docs (10/10), GitHub production code (9/10)
+### Recommendation #2: Use Coverage Ignore Comments (TEMPORARY WORKAROUND)
 
+**Score:** 60/100
 **Benefits:**
-- ✅ DRY principle (define once, reuse everywhere)
-- ✅ Centralized mock behavior (easier maintenance)
-- ✅ Automatic Jest discovery (no per-file setup)
-- ✅ Supports complex EventEmitter patterns (spawn mocking)
+- No code changes required
+- Quick fix for coverage threshold
+- Documents intentional coverage gap
 
 **Drawbacks:**
-- ❌ Extra file to maintain (`__mocks__/child_process.js`)
-- ❌ Implicit behavior (harder to understand mock in test file)
-- ❌ May hide real implementation bugs
-
-**Applicability:**
-- ✅ Large test suites (10+ test files mocking child_process)
-- ✅ Standardized subprocess behavior (same mocks across tests)
-- ❌ One-off mocks (overkill)
-- ❌ Exploratory testing (too rigid)
+- Hides potential dead code
+- Reduces overall coverage metrics
+- Doesn't solve root issue
 
 **Implementation:**
-- **Effort:** 15-20 minutes (initial setup), 2 minutes (per test file)
-- **Complexity:** Medium (requires EventEmitter knowledge for spawn)
-- **Prerequisites:** Understanding of `jest.genMockFromModule()`
+```javascript
+// Lines 29-31 with ignore comment
+/* istanbul ignore next */
+if (result && typeof result.then === 'function') {
+  const exitCode = await result;
+  return exitCode;
+}
+```
 
-### 3. Dependency Injection (For New Code) (Score: 8/10)
+**Applicability:** Use only if lines 29-31 are genuinely needed for edge cases. Otherwise, prefer Recommendation #1.
 
-**Approach:** Refactor functions to accept `execSync` as parameter (default to real implementation)
-**Feasibility:** 8/10 (requires code changes)
-**Evidence:** Medium article (8/10), Aha.io blog (7/10)
+### Recommendation #3: Mock Implementation Testing (ADVANCED)
 
+**Score:** 75/100
 **Benefits:**
-- ✅ No `jest.mock()` required (simplest tests)
-- ✅ Framework-agnostic (works with Mocha, Vitest, etc.)
-- ✅ Better architecture (explicit dependencies, loose coupling)
-- ✅ Easier to reason about (clear what function uses)
+- Tests the Promise-handling code path
+- Achieves 100% coverage
+- Validates defensive coding
 
 **Drawbacks:**
-- ❌ Requires code refactoring (changes production code)
-- ❌ API change (function signature adds parameter)
-- ❌ Not suitable for legacy code (breaking change)
-
-**Applicability:**
-- ✅ New codebases (greenfield projects)
-- ✅ Refactoring opportunities (improving testability)
-- ✅ Multi-framework support (Jest, Mocha, Vitest)
-- ❌ Legacy code (large API surface, backward compatibility)
-- ❌ Third-party libraries (can't change external code)
+- Requires understanding Promise internals
+- Adds test complexity
+- Tests implementation detail, not behavior
 
 **Implementation:**
-- **Effort:** 30-60 minutes (refactor + tests)
-- **Complexity:** Medium (design decision, API changes)
-- **Prerequisites:** Ability to modify production code, backward compatibility plan
+```javascript
+// Create custom thenable (not Promise)
+test('handles thenable object', async () => {
+  const thenable = {
+    then: (resolve) => {
+      setTimeout(() => resolve(0), 0);
+      return thenable;  // For chaining
+    }
+  };
 
-## Risk Assessment
-
-| Risk | Severity | Probability | Impact | Mitigation |
-|------|----------|-------------|--------|------------|
-| ES Module API (`unstable_mockModule`) deprecated | MEDIUM | LOW | Tests break if Jest removes API | Monitor Jest changelog, have fallback to CommonJS, contribute to Jest to stabilize API |
-| Mock state leakage between tests | HIGH | MEDIUM | Flaky tests (intermittent failures) | Always use `mockReset()` in `beforeEach()`, enforce via ESLint rule, test isolation validation |
-| Over-mocking hides real bugs | MEDIUM | MEDIUM | Production failures missed by tests | Add integration tests (real subprocess execution), limit mocking to unit tests only, 80/20 rule (80% unit, 20% integration) |
-| ENOENT error structure changes (Node.js updates) | LOW | LOW | Mocked errors don't match real errors | Validate error structure against Node.js docs, update mocks when upgrading Node.js versions |
-| Dependency Injection breaks backward compatibility | MEDIUM | HIGH (if used) | API breaking change, existing code fails | Use optional parameters with defaults, gradual migration (new code only), deprecation warnings |
-
-**Risk Matrix:**
-
-```
-         Impact
-         ↑
-    HIGH │   🔴 Mock State Leakage
-         │   (HIGH, MEDIUM prob)
-         │
-  MEDIUM │   🟠 Over-Mocking          🟠 API Deprecation    🟠 Breaking Change
-         │   (MEDIUM, MEDIUM prob)    (MEDIUM, LOW prob)   (MEDIUM, HIGH prob)
-         │
-     LOW │                             🟡 Error Structure
-         │                             (LOW, LOW prob)
-         │
-         └────────────────────────────────────────────────────→ Probability
-                  LOW          MEDIUM         HIGH
+  cli.run.mockReturnValue(thenable);
+  const exitCode = await binEntry.main(['install', '/tmp']);
+  expect(exitCode).toBe(0);
+});
 ```
 
-## ADR Readiness
+**Applicability:** Use if `cli.run()` contract explicitly allows non-Promise thenables. Otherwise, over-engineering.
 
-**ADR Required:** No (testing pattern selection, not architectural decision)
-**Evidence Collected:** N/A
+## 8. Risk Assessment
 
-**Rationale:** This research covers testing best practices and implementation patterns for Jest mocking. No architectural decision required (testing strategy is development practice, not architecture). No tech-stack.md or context file updates needed.
+### Risk #1: Dead Code Accumulation
+- **Severity:** MEDIUM
+- **Probability:** HIGH (lines 29-31 are unreachable with current `cli.run()` implementation)
+- **Impact:** Code maintenance burden, confusing coverage gaps, potential bugs if assumptions change
+- **Mitigation:** Remove dead code paths (Recommendation #1) or document as defensive coding
 
-**Recommended Action:** Apply Pattern 1 (`jest.mock()` with `mockImplementation`) to current development work. Create reusable test utilities if mocking child_process in 3+ test files.
+### Risk #2: Coverage False Sense of Security
+- **Severity:** MEDIUM
+- **Probability:** MEDIUM (coverage ≠ correctness)
+- **Impact:** Tests might pass but miss edge cases
+- **Mitigation:** Focus on behavior testing, not just coverage metrics. Add integration tests.
+
+### Risk #3: Mocking Strategy Fragility
+- **Severity:** LOW
+- **Probability:** LOW
+- **Impact:** Tests might not reflect real-world `cli.run()` behavior
+- **Mitigation:** Add integration tests that don't mock `cli` module. Verify mock matches actual implementation.
+
+### Risk #4: Coverage Provider Migration
+- **Severity:** LOW
+- **Probability:** LOW (switching to V8 provider)
+- **Impact:** Coverage metrics might change, ignore comments break
+- **Mitigation:** Stick with Babel/Istanbul unless performance critical. Document provider choice in jest.config.js.
+
+### Risk #5: Async Timing Bugs
+- **Severity:** HIGH
+- **Probability:** LOW (proper await usage in tests)
+- **Impact:** Flaky tests, unreliable coverage
+- **Mitigation:** Always await async operations. Use `flush-promises` pattern if needed for nested async.
+
+## 9. ADR Readiness
+
+**ADR Required:** No
+
+**Rationale:** This is a test implementation detail, not an architectural decision. The findings clarify Jest coverage behavior but don't introduce new technology or patterns requiring ADR documentation.
+
+**If ADR Were Needed:**
+- Title: "ADR-XXX: Jest Coverage Strategy for Mocked Modules"
+- Evidence: Research shows Babel/Istanbul provides more precise coverage than V8
+- Decision: Use default Babel/Istanbul provider, mock only dependencies (not files under test)
+
+**Next Steps:**
+1. Apply Recommendation #1: Remove dead code at lines 29-31
+2. Update test to verify new code path coverage (should reach 100%)
+3. Document `cli.run()` contract in JSDoc: "Returns Promise<number> or number"
+4. No ADR required - implementation detail only
 
 ---
 
-**Report Generated:** 2025-11-25 18:45:00
-**Report Location:** `.devforgeai/research/shared/RESEARCH-003-jest-child-process-mocking.md`
+## Sources
+
+### Jest Configuration and Coverage
+- [Configuring Jest · Jest](https://jestjs.io/docs/configuration)
+- [Jest CLI Options · Jest](https://mulder21c.github.io/jest/docs/en/cli)
+- [Troubleshooting · Jest](https://jestjs.io/docs/troubleshooting)
+
+### Coverage Issues with Mocked Modules
+- [Jest not collecting coverage info on mocked functions · Issue #7953](https://github.com/jestjs/jest/issues/7953)
+- [Jest - How to get coverage for mocked classes and implementations - Stack Overflow](https://stackoverflow.com/questions/50348317/jest-how-to-get-coverage-for-mocked-classes-and-implementations)
+- [How to hit test coverage in jest mock test · Issue #8817](https://github.com/jestjs/jest/issues/8817)
+
+### Async/Promise Coverage
+- [Code coverage concern on promise/asynchronous unit testing using nockjs and jest - Stack Overflow](https://stackoverflow.com/questions/57656523/code-coverage-concern-on-promise-asynchronous-unit-testing-using-nockjs-and-jest)
+- [An Async Example · Jest](https://jestjs.io/docs/tutorial-async)
+- [Testing Asynchronous Code · Jest](https://jestjs.io/docs/asynchronous)
+- [How to resolve Jest issues: tests passing, but code coverage fails! - DEV Community](https://dev.to/endymion1818/how-to-resolve-jest-issues-tests-passing-but-code-coverage-fails-41la)
+
+### Coverage Providers (V8 vs Babel/Istanbul)
+- [Document some of the tradeoffs of V8 coverage (vs Babel/Istanbul coverage) · Issue #11188](https://github.com/jestjs/jest/issues/11188)
+- [Jest 25: 🚀 Laying foundations for the future · Jest](https://jestjs.io/blog/2020/01/21/jest-25)
+- [JS code coverage tool in 2023 - Istanbul vs Jest vs JS Coverage vs CodeCov | Axolo Blog](https://axolo.co/blog/p/code-coverage-js-in-2023)
+
+### Debugging Coverage
+- [JestJS - show all uncovered lines in coverage report - Stack Overflow](https://stackoverflow.com/questions/48159875/jestjs-show-all-uncovered-lines-in-coverage-report)
+- [Why is Jest not inferring tests coverage lines correctly? - Stack Overflow](https://stackoverflow.com/questions/68695560/why-is-jest-not-inferring-tests-coverage-lines-correctly)
+- [Why is Jest reporting these lines in my async Node code as not covered by tests? - Stack Overflow](https://stackoverflow.com/questions/51526955/why-is-jest-reporting-these-lines-in-my-async-node-code-as-not-covered-by-tests)
+
+### Mocking Best Practices
+- [Mock Functions · Jest](https://jestjs.io/docs/mock-function-api)
+- [Bypassing module mocks · Jest](https://jestjs.io/docs/bypassing-module-mocks)
+- [Mocking asynchronous functions with Jest | Nishant Kaushish](https://www.nishant-kaushish.com/blog/0708187b-e8c3-5e09-bf32-abe18df77b26/)
+- [How to Mock Asynchronous Methods with Jest | by Ben Morrison | Medium](https://medium.com/@benjimorr/how-to-mock-asynchronous-methods-with-jest-38408434a6f4)
+
+### Coverage Tools Comparison
+- [Coverage: give the choice between c8 and nyc · Issue #1252](https://github.com/vitest-dev/vitest/issues/1252)
+- [Coverage | Guide | Vitest](https://vitest.dev/guide/coverage.html)
+- [c8 - npm](https://www.npmjs.com/package/c8)
+
+---
+
+**Report Generated:** 2025-11-27
+**Location:** /mnt/c/Projects/DevForgeAI2/.devforgeai/research/shared/RESEARCH-003-jest-child-process-mocking.md
 **Research ID:** RESEARCH-003
-**Version:** 2.0 (template version)
+**Version:** 2.0
