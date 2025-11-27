@@ -2,8 +2,8 @@
 id: STORY-090
 title: Update Story Template to v2.2 with depends_on Field
 epic: EPIC-010
-sprint: Sprint-6
-status: Backlog
+sprint: SPRINT-5
+status: Ready for Dev
 points: 3
 priority: Critical
 assigned_to: TBD
@@ -495,6 +495,14 @@ None
 - [ ] QA phase complete
 - [ ] Released
 
+## Workflow History
+
+### 2025-11-27 14:30:00 - Status: Ready for Dev
+- Added to SPRINT-5: Parallel Story Development Foundation
+- Transitioned from Backlog to Ready for Dev
+- Sprint capacity: 45 points
+- Priority in sprint: 1 of 7 (Critical - prerequisite story)
+
 ---
 
 ## Notes
@@ -519,3 +527,7 @@ None
 
 **Story Template Version:** 2.1
 **Created:** 2025-11-25
+
+## Implementation Notes
+
+No implementation yet - story in planning/backlog phase.
