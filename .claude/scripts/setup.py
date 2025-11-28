@@ -35,7 +35,10 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'devforgeai=devforgeai_cli.cli:main',
+            # Renamed from 'devforgeai' to avoid conflict with npm global CLI
+            # The npm CLI (devforgeai) is user-facing for installation
+            # This Python CLI is internal for framework validation
+            'devforgeai-validate=devforgeai_cli.cli:main',
         ],
     },
     classifiers=[

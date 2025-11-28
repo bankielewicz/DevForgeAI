@@ -531,7 +531,7 @@ if [ "$oldest_age" != "null" ]; then
 fi
 
 # Invoke feedback hooks with structured metadata
-devforgeai invoke-hooks \
+devforgeai-validate invoke-hooks \
   --operation=audit-deferrals \
   --operation_metadata="$audit_summary" \
   --story_ids="$affected_stories" \

@@ -50,7 +50,7 @@ DEPLOYMENT_DURATION_SECONDS = {total time from deployment start to completion}
 
 ```bash
 # Check if staging hooks are enabled and eligible
-devforgeai check-hooks --operation=release-staging --status=$DEPLOYMENT_STATUS
+devforgeai-validate check-hooks --operation=release-staging --status=$DEPLOYMENT_STATUS
 
 # Capture exit code
 HOOK_ELIGIBLE=$?
@@ -85,7 +85,7 @@ IF HOOK_ELIGIBLE == 0:
     }'
 
     # Invoke hooks (timeout: 30 seconds)
-    timeout 30 devforgeai invoke-hooks \
+    timeout 30 devforgeai-validate invoke-hooks \
         --operation=release-staging \
         --story=$STORY_ID \
         --context="$OPERATION_CONTEXT" \
@@ -219,7 +219,7 @@ echo "⚠️  Hook configuration error - feedback skipped"
 
 **Handling:**
 ```bash
-timeout 30 devforgeai invoke-hooks ... || {
+timeout 30 devforgeai-validate invoke-hooks ... || {
     echo "⚠️  Hook invocation timeout - feedback skipped"
     echo "Deployment continues normally"
 }
@@ -318,8 +318,8 @@ IF DURATION_MS > 3500:
 
 1. **Comment out hook invocations:**
    ```bash
-   # devforgeai check-hooks --operation=release-staging --status=$DEPLOYMENT_STATUS
-   # IF eligible: devforgeai invoke-hooks ...
+   # devforgeai-validate check-hooks --operation=release-staging --status=$DEPLOYMENT_STATUS
+   # IF eligible: devforgeai-validate invoke-hooks ...
    ```
 
 2. **Skip Phase 2.5 entirely:**

@@ -314,11 +314,11 @@ Next Steps:
 
 ```
 # Check hooks enabled
-Execute: devforgeai check-hooks --operation=create-sprint --status=success
+Execute: devforgeai-validate check-hooks --operation=create-sprint --status=success
 
 # Conditional invocation (non-blocking)
 IF check-hooks exit == 0:
-    Execute: devforgeai invoke-hooks --operation=create-sprint --sprint-name="${SPRINT_NAME}" --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}
+    Execute: devforgeai-validate invoke-hooks --operation=create-sprint --sprint-name="${SPRINT_NAME}" --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}
 
     IF invoke-hooks fails:
         Log to: .devforgeai/feedback/logs/hook-errors.log

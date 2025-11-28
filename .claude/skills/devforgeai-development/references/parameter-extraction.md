@@ -134,7 +134,7 @@ IF resume_mode == true:
 When resume_mode = true, Phase 0 is marked "skipped" but **CRITICAL validations must still execute**:
 
 **These Phase 0 steps are MANDATORY even in resume mode:**
-- Step 0.4: Validate Context Files Exist (devforgeai validate-context)
+- Step 0.4: Validate Context Files Exist (devforgeai-validate validate-context)
 - Step 0.6: Validate Spec vs Context Files (conflict detection)
 - Step 0.7: Detect and Validate Technology Stack (tech-stack-detector)
 

@@ -306,9 +306,9 @@ else
 fi
 
 # Check and invoke hooks
-devforgeai check-hooks --operation=qa --status=$STATUS
+devforgeai-validate check-hooks --operation=qa --status=$STATUS
 if [ $? -eq 0 ]; then
-  devforgeai invoke-hooks --operation=qa --story=$STORY_ID || {
+  devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID || {
     echo "⚠️ Feedback hook failed, QA result unchanged"
   }
 fi

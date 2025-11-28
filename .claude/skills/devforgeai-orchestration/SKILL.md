@@ -194,7 +194,7 @@ Extract audit metadata from generated report (resolvable/valid/invalid counts, o
 Remove sensitive information (credentials, API keys) before passing to hooks. Sanitize audit metadata.
 
 #### Step 7.4: Invocation
-Call `devforgeai invoke-hooks` with audit context and metadata. Invoke feedback hooks.
+Call `devforgeai-validate invoke-hooks` with audit context and metadata. Invoke feedback hooks.
 
 #### Step 7.5: Logging
 Append hook invocation record to `.devforgeai/feedback/logs/hook-invocations.log`. Log all hook operations.
@@ -309,7 +309,7 @@ This skill delegates specialized tasks to **4 subagents:**
 # Exit handling: Graceful - if check fails, assume hooks disabled
 
 # Command: Query hook system for epic-create operation status
-devforgeai check-hooks --operation=epic-create
+devforgeai-validate check-hooks --operation=epic-create
 
 # Expected output (JSON):
 # {
@@ -345,8 +345,8 @@ fi
 # If check-hooks succeeded, parse JSON response
 if [ "$HOOKS_ENABLED" != "false" ]; then
   # Extract enabled boolean from JSON
-  HOOKS_ENABLED=$(devforgeai check-hooks --operation=epic-create --output=json | jq -r '.enabled')
-  HOOK_TIMEOUT=$(devforgeai check-hooks --operation=epic-create --output=json | jq -r '.timeout // 30000')
+  HOOKS_ENABLED=$(devforgeai-validate check-hooks --operation=epic-create --output=json | jq -r '.enabled')
+  HOOK_TIMEOUT=$(devforgeai-validate check-hooks --operation=epic-create --output=json | jq -r '.timeout // 30000')
 fi
 ```
 
@@ -392,7 +392,7 @@ if [ "$HOOKS_ENABLED" = "true" ]; then
   HOOK_TIMEOUT_SECONDS=$((HOOK_TIMEOUT / 1000))
 
   # Step 4A.9.4b: Invoke hook with epic context (non-blocking subprocess)
-  timeout $HOOK_TIMEOUT_SECONDS devforgeai invoke-hooks \
+  timeout $HOOK_TIMEOUT_SECONDS devforgeai-validate invoke-hooks \
     --operation=epic-create \
     --epic-id="$EPIC_ID" \
     --timeout=$HOOK_TIMEOUT &
@@ -423,7 +423,7 @@ if [ ! -z "$HOOK_PID" ]; then
     if [ $HOOK_EXIT_CODE -eq 124 ]; then
       # Timeout occurred (exit code 124 from timeout command)
       echo "[$(date -u +%Y-%m-%dT%H:%M:%SZ)] WARNING: Hook timed out after ${HOOK_TIMEOUT_SECONDS}s - epic-id=$EPIC_ID" >> .devforgeai/feedback/logs/hook-errors.log
-      echo "⚠️ Feedback session timed out (you can run 'devforgeai invoke-hooks --operation=epic-create --epic-id=$EPIC_ID' manually later)"
+      echo "⚠️ Feedback session timed out (you can run 'devforgeai-validate invoke-hooks --operation=epic-create --epic-id=$EPIC_ID' manually later)"
 
       # Kill hook process if still running
       kill -9 $HOOK_PID 2>/dev/null || true

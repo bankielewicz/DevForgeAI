@@ -44,7 +44,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 **Bridge workflow ensures:**
 - [ ] All completed DoD items marked [x] in Definition of Done section
 - [ ] All completed DoD items added to Implementation Notes (FLAT LIST - no ### subsections)
-- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] devforgeai-validate validate-dod passes (exit code 0)
 - [ ] Workflow Status section updated
 
 **Why mandatory:** Git commit will FAIL if DoD format incorrect. Pre-commit hook validates that all [x] items in DoD appear in Implementation Notes.

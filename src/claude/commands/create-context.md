@@ -457,8 +457,8 @@ else
 fi
 
 # Check eligibility and invoke (non-blocking)
-devforgeai check-hooks --operation=create-context --status=$STATUS && \
-  devforgeai invoke-hooks --operation=create-context || true
+devforgeai-validate check-hooks --operation=create-context --status=$STATUS && \
+  devforgeai-validate invoke-hooks --operation=create-context || true
 ```
 
 **Note:** Hook failures don't prevent command completion. Context files created = primary success criteria.

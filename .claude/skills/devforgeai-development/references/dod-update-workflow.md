@@ -4,7 +4,7 @@
 
 **Execution:** After Phase 4.5 (Deferral Challenge) completes, BEFORE Phase 5 (Git Commit)
 
-**Why This Bridge Exists:** Phase 4.5 validates deferral semantics (via deferral-validator AI subagent), but Phase 5 git commit requires DoD format compliance (via devforgeai validate-dod CLI validator). This bridge ensures both validators' requirements are met.
+**Why This Bridge Exists:** Phase 4.5 validates deferral semantics (via deferral-validator AI subagent), but Phase 5 git commit requires DoD format compliance (via devforgeai-validate validate-dod CLI validator). This bridge ensures both validators' requirements are met.
 
 **Token Cost:** ~1,500 tokens (loaded on-demand after Phase 4.5)
 
@@ -31,7 +31,7 @@
 - **Output:** Advisory (resolvable vs. valid deferrals)
 - **Cannot HALT:** Provides recommendations only
 
-### Validator 2: devforgeai validate-dod (CLI Pre-Commit Hook)
+### Validator 2: devforgeai-validate validate-dod (CLI Pre-Commit Hook)
 - **Runs:** Phase 5 during git commit
 - **Purpose:** Format validation (DoD items in Implementation Notes?)
 - **Checks:** Text match between DoD section and Implementation Notes section
@@ -41,7 +41,7 @@
 ### Why Both Are Needed
 
 **deferral-validator:** Understands semantics ("Is this blocker still valid?")
-**devforgeai validate-dod:** Enforces format ("Are completed items documented in Implementation Notes?")
+**devforgeai-validate validate-dod:** Enforces format ("Are completed items documented in Implementation Notes?")
 
 **This bridge workflow ensures BOTH validators pass.**
 
@@ -221,12 +221,12 @@ Edit(
 
 ## Step 3: Validate Format Before Git Commit
 
-**MANDATORY:** Run devforgeai validate-dod BEFORE attempting git commit
+**MANDATORY:** Run devforgeai-validate validate-dod BEFORE attempting git commit
 
 ### 3.1: Run Validator
 
 ```
-Bash(command="devforgeai validate-dod ${STORY_FILE}")
+Bash(command="devforgeai-validate validate-dod ${STORY_FILE}")
 ```
 
 **Expected Output:**
@@ -250,7 +250,7 @@ Display: "  1. DoD items under ### subsection (move to flat list under ##)"
 Display: "  2. Text mismatch between DoD and Implementation Notes"
 Display: "  3. Missing Implementation Notes section"
 Display: ""
-Display: "Fix issues and re-run: devforgeai validate-dod ${STORY_FILE}"
+Display: "Fix issues and re-run: devforgeai-validate validate-dod ${STORY_FILE}"
 Display: ""
 
 HALT workflow
@@ -377,7 +377,7 @@ Edit(
 
 - [ ] All completed DoD items marked [x] in Definition of Done section
 - [ ] All completed DoD items added to Implementation Notes (flat list, directly under ##, no ### subsection)
-- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] devforgeai-validate validate-dod passes (exit code 0)
 - [ ] Workflow Status section updated (Development [x], QA/Release [ ])
 - [ ] Implementation Notes contains developer info (name, date, commit, branch)
 - [ ] Optional: TDD Workflow Summary added for traceability
@@ -423,8 +423,8 @@ Edit(
 
 **Example:**
 ```
-DoD: - [x] `devforgeai check-hooks` command functional
-Impl: - [x] `devforgeai check-hooks` command functional - Completed: ...
+DoD: - [x] `devforgeai-validate check-hooks` command functional
+Impl: - [x] `devforgeai-validate check-hooks` command functional - Completed: ...
        ↑ Backticks must match exactly
 ```
 
@@ -454,7 +454,7 @@ Edit(
 **Fix:**
 1. Ensure Edit operations completed successfully
 2. Re-read story file to verify changes applied
-3. Run validator again: `devforgeai validate-dod ${STORY_FILE}`
+3. Run validator again: `devforgeai-validate validate-dod ${STORY_FILE}`
 4. Only proceed to git commit if exit code 0
 
 ---
@@ -475,7 +475,7 @@ Phase 4.5: Deferral Challenge
 │          Notes (FLAT LIST)               │
 │          ↓                                │
 │  Step 3: Validate format                 │
-│          (devforgeai validate-dod)       │
+│          (devforgeai-validate validate-dod)       │
 │          ↓                                │
 │  Step 4: Update Workflow Status          │
 │          ↓                                │
@@ -519,7 +519,7 @@ Before executing git commit workflow, ensure:
 
 - [ ] Phase 4.5 (Deferral Challenge) complete
 - [ ] DoD Update Workflow (dod-update-workflow.md) executed
-- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] devforgeai-validate validate-dod passes (exit code 0)
 
 If ANY prerequisite fails, DO NOT proceed to git commit.
 
@@ -574,7 +574,7 @@ Edit(
 **Step 3: Validate format**
 
 ```
-Bash(command="devforgeai validate-dod .ai_docs/Stories/STORY-027...")
+Bash(command="devforgeai-validate validate-dod .ai_docs/Stories/STORY-027...")
 
 Output: ✅ All DoD items validated
 Exit code: 0
@@ -590,7 +590,7 @@ Edit:
 
 **Output State:**
 ```
-✅ devforgeai validate-dod: PASS
+✅ devforgeai-validate validate-dod: PASS
 ✅ Ready for git commit (will succeed)
 ```
 
@@ -702,7 +702,7 @@ Edit:
   - [ ] Verify format: Items directly under `## Implementation Notes`, no ### before items
 
 - [ ] **Step 3:** Validate format with CLI validator
-  - [ ] Run: `devforgeai validate-dod ${STORY_FILE}`
+  - [ ] Run: `devforgeai-validate validate-dod ${STORY_FILE}`
   - [ ] Check exit code (must be 0)
   - [ ] If fails: Review errors, fix format, re-validate
   - [ ] If passes: Proceed to Step 4
@@ -713,7 +713,7 @@ Edit:
   - [ ] Mark Released [ ] with "Pending: Run /release after QA"
 
 - [ ] **Step 5:** Final validation
-  - [ ] Re-run: `devforgeai validate-dod ${STORY_FILE}`
+  - [ ] Re-run: `devforgeai-validate validate-dod ${STORY_FILE}`
   - [ ] Confirm: Exit code 0
   - [ ] Display: "✅ DoD Update Workflow Complete - Ready for Phase 5"
 

@@ -634,7 +634,7 @@ Benefit: Coordinate feature launch, marketing messaging, customer support
 
 **Phase N (Feedback Hook Integration):**
 - Executes after sprint file creation (Phase 4 in /create-sprint command)
-- Checks if hooks enabled: `devforgeai check-hooks --operation=create-sprint --status=success`
+- Checks if hooks enabled: `devforgeai-validate check-hooks --operation=create-sprint --status=success`
 - If enabled (exit code 0), invokes hooks with sprint context
 
 **Sprint Context Passed to Hooks:**

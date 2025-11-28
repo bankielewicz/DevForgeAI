@@ -59,7 +59,7 @@ fi
 Call DevForgeAI CLI to check hook configuration:
 
 ```bash
-devforgeai check-hooks --operation=qa --status=$STATUS
+devforgeai-validate check-hooks --operation=qa --status=$STATUS
 EXIT_CODE=$?
 ```
 
@@ -94,7 +94,7 @@ Conditionally invoke hooks based on check-hooks result:
 ```bash
 if [ $EXIT_CODE -eq 0 ]; then
   # Hooks should trigger
-  devforgeai invoke-hooks --operation=qa --story=$STORY_ID || {
+  devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID || {
     echo "⚠️ Feedback hook failed, QA result unchanged"
   }
 fi
@@ -163,13 +163,13 @@ result = {
 
 ## DevForgeAI CLI Commands
 
-### devforgeai check-hooks
+### devforgeai-validate check-hooks
 
 **Purpose:** Check if hooks should trigger based on configuration.
 
 **Usage:**
 ```bash
-devforgeai check-hooks --operation=qa --status=[completed|failed|partial]
+devforgeai-validate check-hooks --operation=qa --status=[completed|failed|partial]
 ```
 
 **Arguments:**
@@ -185,13 +185,13 @@ devforgeai check-hooks --operation=qa --status=[completed|failed|partial]
 
 ---
 
-### devforgeai invoke-hooks
+### devforgeai-validate invoke-hooks
 
 **Purpose:** Invoke feedback hooks with context.
 
 **Usage:**
 ```bash
-devforgeai invoke-hooks --operation=qa --story=[STORY-ID]
+devforgeai-validate invoke-hooks --operation=qa --story=[STORY-ID]
 ```
 
 **Arguments:**

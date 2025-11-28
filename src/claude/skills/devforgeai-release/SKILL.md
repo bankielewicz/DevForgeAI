@@ -132,8 +132,8 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 2.5: Post-Staging Hooks (NEW - STORY-025)
 **Purpose:** Trigger retrospective feedback after staging deployment
 **Reference:** `post-staging-hooks.md`
-**Invokes:** `devforgeai check-hooks --operation=release-staging --status=$STATUS`
-**Conditional:** Only invokes `devforgeai invoke-hooks` if check-hooks returns 0 (eligible)
+**Invokes:** `devforgeai-validate check-hooks --operation=release-staging --status=$STATUS`
+**Conditional:** Only invokes `devforgeai-validate invoke-hooks` if check-hooks returns 0 (eligible)
 **Graceful Degradation:** Hook failures logged, deployment proceeds regardless
 **Output:** Feedback collected (if hooks enabled), deployment continues
 
@@ -147,8 +147,8 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 3.5: Post-Production Hooks (NEW - STORY-025)
 **Purpose:** Trigger retrospective feedback after production deployment
 **Reference:** `post-production-hooks.md`
-**Invokes:** `devforgeai check-hooks --operation=release-production --status=$STATUS`
-**Conditional:** Only invokes `devforgeai invoke-hooks` if check-hooks returns 0 (eligible)
+**Invokes:** `devforgeai-validate check-hooks --operation=release-production --status=$STATUS`
+**Conditional:** Only invokes `devforgeai-validate invoke-hooks` if check-hooks returns 0 (eligible)
 **Default Behavior:** Failures-only mode (skips feedback on production success unless configured)
 **Graceful Degradation:** Hook failures logged, deployment proceeds regardless
 **Output:** Feedback collected (if hooks enabled and eligible), deployment continues
