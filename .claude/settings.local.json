@@ -67,7 +67,9 @@
       "Bash(NODE_ENV=production node:*)",
       "Bash(devforgeai-validate:*)",
       "Bash(npm bin:*)",
-      "Bash(npm run test:coverage:*)"
+      "Bash(npm run test:coverage:*)",
+      "SlashCommand(/release:*)",
+      "Bash(npm view:*)"
     ],
     "deny": [],
     "ask": []
