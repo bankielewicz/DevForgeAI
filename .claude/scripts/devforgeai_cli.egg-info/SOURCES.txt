@@ -2,6 +2,9 @@ README.md
 setup.py
 devforgeai_cli/__init__.py
 devforgeai_cli/cli.py
+devforgeai_cli/context_extraction.py
+devforgeai_cli/hooks.py
+devforgeai_cli/orchestrate_hooks.py
 devforgeai_cli.egg-info/PKG-INFO
 devforgeai_cli.egg-info/SOURCES.txt
 devforgeai_cli.egg-info/dependency_links.txt
@@ -10,6 +13,7 @@ devforgeai_cli.egg-info/requires.txt
 devforgeai_cli.egg-info/top_level.txt
 devforgeai_cli/commands/__init__.py
 devforgeai_cli/commands/check_hooks.py
+devforgeai_cli/commands/invoke_hooks.py
 devforgeai_cli/feedback/__init__.py
 devforgeai_cli/feedback/adaptive_questioning_engine.py
 devforgeai_cli/feedback/aggregation.py
@@ -31,6 +35,7 @@ devforgeai_cli/feedback/validation.py
 devforgeai_cli/tests/__init__.py
 devforgeai_cli/tests/test_check_hooks.py
 devforgeai_cli/tests/test_dod_validator.py
+devforgeai_cli/tests/test_invoke_hooks.py
 devforgeai_cli/tests/test_skip_tracking.py
 devforgeai_cli/tests/test_skip_tracking_coverage_gap.py
 devforgeai_cli/tests/feedback/__init__.py

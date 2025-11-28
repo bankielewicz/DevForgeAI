@@ -1,2 +1,2 @@
 [console_scripts]
-devforgeai = devforgeai_cli.cli:main
+devforgeai-validate = devforgeai_cli.cli:main
