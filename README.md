@@ -60,6 +60,119 @@ devforgeai --help
 
 For more troubleshooting, see [installer/TROUBLESHOOTING.md](installer/TROUBLESHOOTING.md).
 
+## Version Management
+
+DevForgeAI follows [Semantic Versioning](https://semver.org/) for all releases.
+
+### Version Format
+
+```
+v{major}.{minor}.{patch}[-prerelease]
+
+Examples:
+- v1.0.0        (stable release)
+- v1.1.0        (new features, backward compatible)
+- v1.0.1        (bug fixes)
+- v1.1.0-beta.1 (beta pre-release)
+- v2.0.0-rc.1   (release candidate)
+```
+
+### Installing Specific Versions
+
+**Latest stable version:**
+```bash
+npm install -g devforgeai
+# or explicitly:
+npm install -g devforgeai@latest
+```
+
+**Specific version:**
+```bash
+npm install -g devforgeai@1.0.0
+```
+
+**Pre-release versions:**
+```bash
+# Latest beta
+npm install -g devforgeai@beta
+
+# Latest release candidate
+npm install -g devforgeai@rc
+
+# Specific pre-release
+npm install -g devforgeai@1.1.0-beta.1
+```
+
+### Checking Your Version
+
+```bash
+devforgeai --version
+```
+
+### Updating DevForgeAI
+
+**Update to latest stable:**
+```bash
+npm update -g devforgeai
+```
+
+**Update to specific version:**
+```bash
+npm install -g devforgeai@1.1.0
+```
+
+### Version Compatibility
+
+DevForgeAI maintains backward compatibility within major versions:
+- **v1.x.x releases:** Backward compatible with v1.0.0
+- **v2.0.0 and higher:** May include breaking changes (see CHANGELOG)
+
+**Recommendation:** Pin to a specific minor version in production environments to avoid unexpected updates.
+
+### Release Channels
+
+**Stable (latest tag):**
+- Fully tested and production-ready
+- Recommended for all users
+- Released when QA validation passes
+
+**Beta (beta tag):**
+- Preview of upcoming features
+- Generally stable but may have minor issues
+- For early adopters and testing
+
+**Release Candidate (rc tag):**
+- Final testing before stable release
+- Production-ready, undergoing final validation
+- For users who want earliest access to new stable versions
+
+### Viewing Available Versions
+
+**All published versions:**
+```bash
+npm view devforgeai versions
+```
+
+**Latest versions by tag:**
+```bash
+npm view devforgeai dist-tags
+```
+
+### Provenance and Security
+
+All DevForgeAI packages published to NPM include **provenance attestations** for supply chain security:
+
+```bash
+# View provenance information
+npm view devforgeai
+
+# Look for "publishConfig.provenance: true" in output
+```
+
+This provides cryptographic proof that packages were built by GitHub Actions from the official repository source code.
+
+For release process and publishing workflow, see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ## Overview
 
 DevForgeAI transforms the software development lifecycle through **Spec-Driven Development (SDD)**, combining Claude Code Terminal's Skills, Subagents, and Slash Commands into a cohesive workflow that prevents technical debt through explicit constraints and automated validation.
