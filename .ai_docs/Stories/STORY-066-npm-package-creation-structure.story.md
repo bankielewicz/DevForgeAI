@@ -85,8 +85,8 @@ devforgeai/
 │   ├── validate.py
 │   └── deploy.py
 ├── src/                  # Framework source files
-│   ├── .claude/
-│   └── .devforgeai/
+│   ├── claude/
+│   └── devforgeai/
 └── .npmignore            # Exclude dev files from package
 ```
 
