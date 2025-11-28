@@ -31,6 +31,12 @@
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest tests/npm-package/unit",
+    "test:integration": "jest tests/npm-package/integration",
+    "test:coverage": "jest --coverage"
+  },
   "devDependencies": {
     "jest": "^29.7.0"
   }
