@@ -3,7 +3,7 @@ id: STORY-067
 title: NPM Registry Publishing Workflow
 epic: EPIC-012
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 5
 priority: Medium
 assigned_to: TBD
