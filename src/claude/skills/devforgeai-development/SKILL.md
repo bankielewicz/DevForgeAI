@@ -290,7 +290,7 @@ Phase 4.5: Deferral Challenge (phase-4.5-deferral-challenge.md)
 Phase 4.5-5 Bridge: DoD Update (dod-update-workflow.md ← NEW)
   ├─ Mark DoD items [x] ✓ MANDATORY
   ├─ Add items to Implementation Notes (FLAT LIST) ✓ MANDATORY
-  ├─ Validate format: devforgeai validate-dod ✓ MANDATORY
+  ├─ Validate format: devforgeai-validate validate-dod ✓ MANDATORY
   └─ Update Workflow Status ✓ MANDATORY
   ↓
 Phase 4.5-R: Resumption Decision (phase-resumption-workflow.md ← NEW RCA-013)
@@ -340,8 +340,8 @@ END (Story Status = "Dev Complete")
 **Display this indicator at the start of Phase 6 execution.**
 
 **Steps:**
-1. Check hooks configuration: `devforgeai check-hooks --operation=dev --status=success`
-2. Invoke hooks if enabled: `devforgeai invoke-hooks --operation=dev --story=$STORY_ID`
+1. Check hooks configuration: `devforgeai-validate check-hooks --operation=dev --status=success`
+2. Invoke hooks if enabled: `devforgeai-validate invoke-hooks --operation=dev --story=$STORY_ID`
 3. Non-blocking: Hook failures don't prevent workflow completion
 
 ---
@@ -725,7 +725,7 @@ IF all checkboxes CHECKED:
 
 **Prerequisites:**
 - Phase 4.5 complete (deferrals validated)
-- DoD format validated (devforgeai validate-dod passes)
+- DoD format validated (devforgeai-validate validate-dod passes)
 - New incomplete items handled (AskUserQuestion if needed)
 
 ---

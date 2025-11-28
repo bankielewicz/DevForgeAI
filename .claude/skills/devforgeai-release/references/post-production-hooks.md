@@ -59,7 +59,7 @@ ERROR_RATE = {errors per minute during/after deployment}
 
 ```bash
 # Check if production hooks are enabled and eligible
-devforgeai check-hooks --operation=release-production --status=$DEPLOYMENT_STATUS
+devforgeai-validate check-hooks --operation=release-production --status=$DEPLOYMENT_STATUS
 
 # Capture exit code
 HOOK_ELIGIBLE=$?
@@ -103,7 +103,7 @@ IF HOOK_ELIGIBLE == 0:
     }'
 
     # Invoke hooks (timeout: 30 seconds)
-    timeout 30 devforgeai invoke-hooks \
+    timeout 30 devforgeai-validate invoke-hooks \
         --operation=release-production \
         --story=$STORY_ID \
         --context="$OPERATION_CONTEXT" \
@@ -255,7 +255,7 @@ operations:
 DEPLOYMENT_STATUS="FAILURE"
 
 # Try to invoke hooks for failure feedback
-devforgeai check-hooks --operation=release-production --status=FAILURE || {
+devforgeai-validate check-hooks --operation=release-production --status=FAILURE || {
     echo "⚠️  Production deployment FAILED"
     echo "⚠️  Unable to collect failure feedback (hook CLI error)"
     echo "⚠️  Manual incident response required"
@@ -270,7 +270,7 @@ devforgeai check-hooks --operation=release-production --status=FAILURE || {
 
 **Handling:**
 ```bash
-timeout 30 devforgeai invoke-hooks ... || {
+timeout 30 devforgeai-validate invoke-hooks ... || {
     echo "⚠️  Production deployment FAILED"
     echo "⚠️  Feedback collection timeout"
     echo "⚠️  Deployment status: FAILED (accurate)"
@@ -378,8 +378,8 @@ timeout 30 devforgeai invoke-hooks ... || {
 
 1. **Immediate: Comment out hook invocations in skill:**
    ```bash
-   # devforgeai check-hooks --operation=release-production --status=$DEPLOYMENT_STATUS
-   # IF eligible: devforgeai invoke-hooks ...
+   # devforgeai-validate check-hooks --operation=release-production --status=$DEPLOYMENT_STATUS
+   # IF eligible: devforgeai-validate invoke-hooks ...
    ```
 
 2. **Fast: Disable hooks in config (no code deployment):**

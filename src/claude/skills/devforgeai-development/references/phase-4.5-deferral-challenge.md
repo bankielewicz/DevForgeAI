@@ -58,7 +58,7 @@ When this reference is loaded by the skill, the following context is available:
 
 ### Validator Comparison
 
-| Aspect | deferral-validator (AI) | devforgeai validate-dod (CLI) |
+| Aspect | deferral-validator (AI) | devforgeai-validate validate-dod (CLI) |
 |--------|------------------------|--------------------------------|
 | **Type** | AI subagent (Claude) | Python script (deterministic) |
 | **Runs** | Phase 4.5 Step 3 | Pre-commit hook (Phase 5) |
@@ -83,7 +83,7 @@ The two validators work together in sequence:
    - Add items to Implementation Notes (FLAT LIST - no ### subsections)
    - See: `dod-update-workflow.md` for detailed formatting requirements
 
-3. **Phase 5 (Git Commit):** devforgeai validate-dod validates format before commit
+3. **Phase 5 (Git Commit):** devforgeai-validate validate-dod validates format before commit
    - Runs as pre-commit hook (automatic)
    - Checks DoD [x] items appear in Implementation Notes
    - Checks text matches exactly
@@ -925,7 +925,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 **What the bridge does:**
 1. Marks completed DoD items [x] in Definition of Done section
 2. Adds items to Implementation Notes (FLAT LIST - no ### subsections)
-3. Validates format: `devforgeai validate-dod ${STORY_FILE}` (must pass)
+3. Validates format: `devforgeai-validate validate-dod ${STORY_FILE}` (must pass)
 4. Updates Workflow Status checkboxes
 
 **Pre-Phase-5 Checklist:**
@@ -933,7 +933,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 - [ ] DoD items marked [x] in Definition of Done section
 - [ ] DoD items added to Implementation Notes (flat list, no ### subsection)
 - [ ] Workflow Status updated (Development [x], QA/Release [ ])
-- [ ] devforgeai validate-dod passes (exit code 0)
+- [ ] devforgeai-validate validate-dod passes (exit code 0)
 - [ ] Ready for git commit (no format blockers)
 
 **If ANY checkbox unchecked:** DO NOT proceed to Phase 5 - complete bridge workflow first

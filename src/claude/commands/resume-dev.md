@@ -94,7 +94,7 @@ ELSE:
 
 **Step 1.1: Validate Context Files Exist**
 ```
-Bash(command="devforgeai validate-context", description="Validate 6 context files exist")
+Bash(command="devforgeai-validate validate-context", description="Validate 6 context files exist")
 
 IF validation fails:
   Display: "❌ Context files missing or invalid"

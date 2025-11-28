@@ -356,12 +356,12 @@ Next Steps:
 
 ```bash
 # Step N.1: Check hook eligibility
-devforgeai check-hooks --operation=create-ui --status=completed
+devforgeai-validate check-hooks --operation=create-ui --status=completed
 HOOK_EXIT=$?
 
 # Step N.2: Only invoke if eligible (exit code 0)
 IF HOOK_EXIT == 0:
-  devforgeai invoke-hooks --operation=create-ui --story=${STORY_ID} \
+  devforgeai-validate invoke-hooks --operation=create-ui --story=${STORY_ID} \
     --context="ui_type=${UI_TYPE}&technology=${FRAMEWORK}&components=${COMPONENT_COUNT}&styling=${STYLING_APPROACH}" || {
     Log: "⚠️ Feedback system unavailable, continuing..."
   }

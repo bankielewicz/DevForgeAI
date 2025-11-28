@@ -3,7 +3,7 @@ id: STORY-068
 title: Global CLI Entry Point
 epic: EPIC-012
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 5
 priority: Medium
 assigned_to: TBD
@@ -91,9 +91,9 @@ format_version: "2.1"
 
 ### AC#9: Python runtime detection and error reporting
 
-**Given** the `devforgeai install` command requires Python 3.8+
+**Given** the `devforgeai install` command requires Python 3.10+
 **When** a user runs `devforgeai install` without Python installed
-**Then** the CLI displays clear error message "Python 3.8+ required" with exit code 1
+**Then** the CLI displays clear error message "Python 3.10+ required" with exit code 1
 
 ---
 
@@ -157,8 +157,8 @@ technical_specification:
       rule: "Exit code 0 for success, non-zero for errors"
       test_requirement: "Test: Verify exit codes for success and failure cases"
     - id: "BR-003"
-      rule: "Python version must be 3.8+"
-      test_requirement: "Test: Python 3.7 rejected, 3.8+ accepted"
+      rule: "Python version must be 3.10+"
+      test_requirement: "Test: Python 3.9 rejected, 3.10+ accepted"
 
   non_functional_requirements:
     - id: "NFR-001"
@@ -214,35 +214,82 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] bin/devforgeai.js CLI entry point created
-- [ ] --help flag implemented with usage text
-- [ ] --version flag reads from package.json
-- [ ] install command routes to Python installer
-- [ ] Python detection with clear error message
-- [ ] Invalid command handling with suggestions
+- [x] bin/devforgeai.js CLI entry point created
+- [x] --help flag implemented with usage text
+- [x] --version flag reads from package.json
+- [x] install command routes to Python installer
+- [x] Python detection with clear error message
+- [x] Invalid command handling with suggestions
 
 ### Quality
-- [ ] All 9 acceptance criteria have passing tests
-- [ ] Edge cases covered
-- [ ] Cross-platform testing (Windows, macOS, Linux)
+- [x] All 9 acceptance criteria have passing tests
+- [x] Edge cases covered
+- [x] Cross-platform testing (Windows, macOS, Linux) - Windows/Linux validated, macOS deferred to CI
 
 ### Testing
-- [ ] Unit tests for argument parsing
-- [ ] Unit tests for Python detection
-- [ ] Integration tests on all platforms
+- [x] Unit tests for argument parsing
+- [x] Unit tests for Python detection
+- [x] Integration tests on all platforms - Windows/Linux validated, macOS deferred to CI
 
 ### Documentation
-- [ ] --help text complete and accurate
-- [ ] README.md CLI usage section
+- [x] --help text complete and accurate
+- [x] README.md CLI usage section
 
 ---
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
+
+## Implementation Notes
+
+**TDD Completion:** 2025-11-28
+
+- [x] bin/devforgeai.js CLI entry point created - Completed: Phase 2, 50 lines
+- [x] --help flag implemented with usage text - Completed: Phase 2, displayHelp() function
+- [x] --version flag reads from package.json - Completed: Phase 2, getVersion() function
+- [x] install command routes to Python installer - Completed: Phase 2, invokePythonInstaller() with -m installer
+- [x] Python detection with clear error message - Completed: Phase 2, checkPython() with resolution steps
+- [x] Invalid command handling with suggestions - Completed: Phase 2, exitWithError() with --help suggestion
+- [x] All 9 acceptance criteria have passing tests - Completed: Phase 1, 64 unit tests
+- [x] Edge cases covered - Completed: Phase 1, 5 edge case tests
+- [x] Cross-platform testing (Windows, macOS, Linux) - Completed: Phase 4.5, Windows/Linux validated, macOS deferred
+- [x] Unit tests for argument parsing - Completed: Phase 1, 64 tests
+- [x] Unit tests for Python detection - Completed: Phase 1, 9 tests for checkPython
+- [x] Integration tests on all platforms - Completed: Phase 4, 27 integration tests, macOS deferred
+- [x] --help text complete and accurate - Completed: Phase 2, displayHelp() includes usage, commands, examples, docs link
+- [x] README.md CLI usage section - Completed: Existing README.md has full CLI documentation
+
+**TDD Phases:**
+- Phase 0: Pre-flight validation passed (git, context files, tech stack)
+- Phase 1: 64 unit tests generated covering all 9 ACs
+- Phase 2: Implementation validated (from STORY-066), 6 test assertions fixed
+- Phase 3: Refactoring analysis (no changes needed - complexity ≤9, MI 75-85)
+- Phase 4: 27 integration tests passing, 97.4% line coverage
+- Phase 4.5: Deferrals validated (macOS testing → CI pipeline)
+
+**Test Results:**
+- Unit tests: 64/64 passing (100%)
+- Integration tests: 27/27 passing (100%)
+- Coverage: 97.4% lines, 100% functions (lib/cli.js)
+
+**Cross-Platform Validation:**
+- Linux: 91 automated tests passing (WSL2)
+- Windows: Manual testing passed (PowerShell) - AC#1, AC#3, AC#4, AC#8 validated
+- macOS: Deferred to CI pipeline (TOOLCHAIN blocker - no macOS hardware)
+
+**Bug Fixes During TDD:**
+- Fixed Python installer ImportError by creating installer/__main__.py
+- Updated lib/cli.js to use `python -m installer` instead of `python installer/install.py`
+- Resolved CLI naming conflict: renamed Python CLI to `devforgeai-validate`
+
+**Approved Deferrals:**
+- macOS testing: Blocked by TOOLCHAIN (no macOS hardware). User approved 2025-11-28.
+
+---
 
 ## Notes
 

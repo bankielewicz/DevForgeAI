@@ -357,8 +357,8 @@ EPIC_FILES=$(ls -1 .ai_docs/Epics/EPIC-*.epic.md 2>/dev/null | tr '\n' ',' | sed
 ```
 
 **Helper function handles:**
-- N.1: Check hook eligibility (`devforgeai check-hooks --operation=ideate --status=completed`)
-- N.2: Invoke hooks if eligible (`devforgeai invoke-hooks --operation=ideate ...`)
+- N.1: Check hook eligibility (`devforgeai-validate check-hooks --operation=ideate --status=completed`)
+- N.2: Invoke hooks if eligible (`devforgeai-validate invoke-hooks --operation=ideate ...`)
 - N.3: Display status ("✓ Post-ideation feedback initiated" or "⚠ skipped")
 - Error handling: All failures are non-blocking, command always succeeds
 
