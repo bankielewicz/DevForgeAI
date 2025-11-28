@@ -63,7 +63,11 @@
       "Bash(npx jest:*)",
       "WebFetch(domain:github.com)",
       "Bash(DEBUG_CLI=true npx jest:*)",
-      "SlashCommand(/create-sprint:*)"
+      "SlashCommand(/create-sprint:*)",
+      "Bash(NODE_ENV=production node:*)",
+      "Bash(devforgeai-validate:*)",
+      "Bash(npm bin:*)",
+      "Bash(npm run test:coverage:*)"
     ],
     "deny": [],
     "ask": []

@@ -71,6 +71,11 @@ Thumbs.db
 # Node (if any)
 node_modules/
 
+# Test artifact directories (created by CLI security tests)
+--*/
+.test-output/
+INVALID_ARG_TO_CAUSE_QUICK_EXIT/
+
 # Temporary files
 *.tmp
 *.bak
