@@ -62,7 +62,10 @@ def calculate_sha256(file_path: Path) -> str:
 
 def load_checksums(bundle_root: Path) -> dict:
     """
-    Load checksum manifest from bundled/checksums.json.
+    Load checksum manifest from bundled/checksums.json with schema validation.
+
+    SECURITY: Validates JSON against schema (OWASP A08:2021 - Insecure Deserialization)
+    to prevent injection attacks and data corruption.
 
     Args:
         bundle_root: Root path of bundled directory
@@ -73,13 +76,15 @@ def load_checksums(bundle_root: Path) -> dict:
     Raises:
         FileNotFoundError: If checksums.json doesn't exist
         json.JSONDecodeError: If checksums.json is invalid JSON
-        ValueError: If checksums.json format is invalid
+        ValueError: If checksums.json format is invalid or fails schema validation
 
     Examples:
         >>> checksums = load_checksums(Path("bundled"))
         >>> print(checksums["claude/agents/test.md"])
         'abc123...'
     """
+    from . import schemas
+
     checksums_file = bundle_root / "checksums.json"
 
     if not checksums_file.exists():
@@ -94,6 +99,14 @@ def load_checksums(bundle_root: Path) -> dict:
 
         if not isinstance(checksums, dict):
             raise ValueError("checksums.json must be a JSON object")
+
+        # SECURITY FIX: Validate JSON schema before use (CRITICAL violation #3)
+        is_valid, errors = schemas.validate_json_schema(checksums, schemas.CHECKSUMS_SCHEMA)
+        if not is_valid:
+            raise ValueError(
+                f"checksums.json failed schema validation:\n" +
+                "\n".join(f"  - {err}" for err in errors)
+            )
 
         # Validate format: all values should be proper-length hex strings
         for file_path, hash_value in checksums.items():
@@ -177,10 +190,15 @@ def verify_bundle_integrity(bundle_root: Path) -> dict:
 
     try:
         checksums = load_checksums(bundle_root)
-    except (FileNotFoundError, json.JSONDecodeError, ValueError) as e:
+    except FileNotFoundError as e:
         result["status"] = "failed"
         result["all_valid"] = False
-        result["mismatches"] = [str(e)]
+        result["mismatches"] = [f"Checksums manifest missing: {e}"]
+        raise
+    except (json.JSONDecodeError, ValueError) as e:
+        result["status"] = "failed"
+        result["all_valid"] = False
+        result["mismatches"] = [f"Invalid checksums manifest: {e}"]
         raise
 
     # Verify each file

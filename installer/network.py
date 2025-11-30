@@ -5,6 +5,10 @@ This module provides:
 - Network availability detection with configurable timeout
 - Socket-based connection checking (no external dependencies)
 - Graceful handling of network failures
+- INetworkDetector interface implementation (clean architecture)
+
+Classes:
+- SocketNetworkDetector: Concrete implementation using socket connection test
 
 Functions:
 - check_network_availability(timeout: int = 2) -> bool
@@ -15,6 +19,7 @@ Dependencies: Standard library only (socket, sys)
 
 import socket
 import sys
+from .interfaces import INetworkDetector
 
 # Configuration constants
 NETWORK_CHECK_HOST = "8.8.8.8"
@@ -34,9 +39,62 @@ MISSING_DEPENDENCY_MESSAGES = {
 }
 
 
+class SocketNetworkDetector(INetworkDetector):
+    """
+    Concrete implementation of INetworkDetector using socket connections.
+
+    ARCHITECTURE: Implements INetworkDetector interface (HIGH violation #2 fix)
+    to enable dependency injection and testing.
+
+    Uses DNS server connection test (8.8.8.8:53) as reliable network check.
+    Port 53 commonly allowed through firewalls.
+    """
+
+    def __init__(self, host: str = NETWORK_CHECK_HOST, port: int = NETWORK_CHECK_PORT):
+        """
+        Initialize network detector with target host/port.
+
+        Args:
+            host: Target hostname or IP address (default: Google DNS 8.8.8.8)
+            port: Target port (default: 53 for DNS)
+        """
+        self.host = host
+        self.port = port
+
+    def check_network_availability(self, timeout: int = 2) -> bool:
+        """
+        Check network availability using socket connection test.
+
+        Tests connection to configured DNS server.
+        Uses configurable timeout for air-gapped environments.
+
+        Args:
+            timeout: Connection timeout in seconds (default: 2)
+
+        Returns:
+            bool: True if network available, False if offline/timeout
+
+        Examples:
+            >>> detector = SocketNetworkDetector()
+            >>> is_online = detector.check_network_availability(timeout=2)
+            >>> if is_online:
+            ...     print("Online mode - update checks enabled")
+        """
+        try:
+            # Attempt connection to DNS server
+            socket.create_connection((self.host, self.port), timeout=timeout)
+            return True
+        except (socket.timeout, socket.error, OSError):
+            # Network unavailable, timeout, or permission denied
+            return False
+
+
 def check_network_availability(timeout: int = 2) -> bool:
     """
     Check network availability using socket connection test.
+
+    ARCHITECTURE: Delegates to SocketNetworkDetector (interface implementation)
+    for clean architecture and testability.
 
     Tests connection to reliable public DNS servers (8.8.8.8:53).
     Uses configurable timeout for air-gapped environments.
@@ -54,14 +112,9 @@ def check_network_availability(timeout: int = 2) -> bool:
         ... else:
         ...     print("Offline mode - using bundled files only")
     """
-    try:
-        # Attempt connection to Google Public DNS
-        # Port 53 (DNS) is commonly allowed through firewalls
-        socket.create_connection((NETWORK_CHECK_HOST, NETWORK_CHECK_PORT), timeout=timeout)
-        return True
-    except (socket.timeout, socket.error, OSError):
-        # Network unavailable, timeout, or permission denied
-        return False
+    # Use concrete implementation (can be swapped via dependency injection)
+    detector = SocketNetworkDetector()
+    return detector.check_network_availability(timeout=timeout)
 
 
 def display_network_status(is_online: bool) -> None:
