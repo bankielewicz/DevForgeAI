@@ -6,15 +6,19 @@ This module provides:
 - File counting for completeness verification
 - Bundle size measurement (compressed and uncompressed)
 - NPM package compliance checks
+- Path traversal protection (OWASP A03:2021)
 
 Functions:
 - verify_bundle_structure(bundle_root: Path) -> dict
 - count_bundled_files(bundle_root: Path) -> int
 - measure_bundle_size(bundle_root: Path) -> dict
+- validate_bundle_path(bundle_path: str) -> Path
 
 Dependencies: Standard library only (pathlib, subprocess, tarfile)
 """
 
+import os
+import re
 import tarfile
 import tempfile
 from pathlib import Path
@@ -23,6 +27,9 @@ from pathlib import Path
 MIN_BUNDLED_FILES = 200
 COMPRESSION_RATIO_ESTIMATE = 0.3  # Typical tar.gz compression (30% of original)
 MB_DIVISOR = 1024 * 1024
+
+# SECURITY: Path validation pattern (prevents directory traversal)
+SAFE_PATH_PATTERN = re.compile(r'^[a-zA-Z0-9._-]+$')
 
 
 def verify_bundle_structure(bundle_root: Path) -> dict:
@@ -189,3 +196,78 @@ def measure_bundle_size(bundle_root: Path) -> dict:
     result["compressed_mb"] = result["compressed"] / MB_DIVISOR
 
     return result
+
+
+def validate_bundle_path(bundle_path: str, base_path: Path = None) -> Path:
+    """
+    Validate and sanitize bundle path to prevent path traversal attacks.
+
+    SECURITY: Implements OWASP A03:2021 - Injection prevention
+    - Validates path contains only safe characters (alphanumeric, dot, hyphen, underscore)
+    - Prevents directory traversal attempts (../, ../../, etc.)
+    - Ensures resolved path is within expected base directory
+
+    Args:
+        bundle_path: User-supplied bundle path string (relative or basename)
+        base_path: Expected base directory (default: current working directory)
+
+    Returns:
+        Path: Validated absolute path
+
+    Raises:
+        ValueError: If path contains invalid characters or traversal attempts
+        FileNotFoundError: If validated path doesn't exist
+
+    Examples:
+        >>> # Valid bundle name
+        >>> path = validate_bundle_path("bundled")
+        >>> print(path)
+        /mnt/c/Projects/DevForgeAI2/bundled
+
+        >>> # Path traversal attempt - BLOCKED
+        >>> validate_bundle_path("../../etc/passwd")
+        ValueError: Invalid bundle path: contains directory traversal or invalid characters
+
+        >>> # Invalid characters - BLOCKED
+        >>> validate_bundle_path("bundle; rm -rf /")
+        ValueError: Invalid bundle path: contains directory traversal or invalid characters
+    """
+    if base_path is None:
+        base_path = Path.cwd()
+
+    # SECURITY FIX: Validate path contains only safe characters (CRITICAL violation #2)
+    # Prevents: ../../../etc/passwd, bundle; rm -rf /, $(malicious command)
+    if not SAFE_PATH_PATTERN.match(bundle_path):
+        raise ValueError(
+            f"Invalid bundle path '{bundle_path}': contains directory traversal or invalid characters.\n"
+            "Allowed characters: alphanumeric, dot (.), hyphen (-), underscore (_)"
+        )
+
+    # Construct full path
+    full_path = base_path / bundle_path
+
+    # Resolve to absolute path (resolves symlinks and relative components)
+    try:
+        absolute_path = full_path.resolve()
+    except (OSError, RuntimeError) as e:
+        raise ValueError(f"Failed to resolve bundle path '{bundle_path}': {e}")
+
+    # SECURITY: Ensure resolved path is within base directory
+    # Prevents: Symlink attacks, mount point traversal
+    try:
+        absolute_path.relative_to(base_path.resolve())
+    except ValueError:
+        raise ValueError(
+            f"Invalid bundle path '{bundle_path}': resolved path outside base directory.\n"
+            f"Resolved: {absolute_path}\n"
+            f"Expected base: {base_path.resolve()}"
+        )
+
+    # Check if path exists
+    if not absolute_path.exists():
+        raise FileNotFoundError(
+            f"Bundle path does not exist: {absolute_path}\n"
+            f"Original path: {bundle_path}"
+        )
+
+    return absolute_path

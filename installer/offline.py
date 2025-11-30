@@ -21,6 +21,10 @@ import subprocess
 import shutil
 from pathlib import Path
 
+# Import internal modules
+from . import checksum
+from . import network
+
 # Configuration constants
 MIN_FRAMEWORK_FILES = 200
 INSTALLATION_TIMEOUT_SECONDS = 60
@@ -167,8 +171,6 @@ def _verify_bundle_integrity(bundle_root: Path, result: dict) -> bool:
     Returns:
         bool: True if verification passed, False if failed
     """
-    from . import checksum
-
     try:
         integrity_result = checksum.verify_bundle_integrity(bundle_root)
         if not integrity_result["all_valid"]:
@@ -258,7 +260,6 @@ def run_offline_installation(
     bundle_root = Path(bundle_root)
 
     # Display offline mode status
-    from . import network
     network.display_network_status(is_online=False)
 
     # Verify bundle integrity

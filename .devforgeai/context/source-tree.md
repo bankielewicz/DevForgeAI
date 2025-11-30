@@ -353,49 +353,40 @@ DevForgeAI2/
 │   ├── version.json             # Version metadata
 │   └── checksums.txt            # File integrity checksums
 │
-├── installer/                   # NPM INSTALLER PACKAGE (EPIC-012, 013, 014)
-│   ├── cli/                     # Node.js CLI wrapper (NEW - EPIC-012)
-│   │   ├── index.js            # CLI entry point (Commander.js)
-│   │   ├── commands/           # CLI command modules
-│   │   │   ├── install.js      # devforgeai install <target>
-│   │   │   ├── upgrade.js      # devforgeai upgrade
-│   │   │   ├── fix.js          # devforgeai fix
-│   │   │   ├── uninstall.js    # devforgeai uninstall
-│   │   │   ├── rollback.js     # devforgeai rollback
-│   │   │   └── config.js       # devforgeai config export/import
-│   │   ├── wizard/             # Interactive wizard (Inquirer.js)
-│   │   │   ├── prompts.js      # Question definitions
-│   │   │   └── validators.js   # Input validators
-│   │   ├── utils/              # CLI utilities
-│   │   │   ├── spinner.js      # Ora wrapper
-│   │   │   ├── colors.js       # Chalk helpers
-│   │   │   └── logger.js       # Logging utilities
-│   │   └── package.json        # NPM package manifest
+├── installer/                   # PYTHON INSTALLER PACKAGE (EPIC-012, 013, 014)
+│   ├── __init__.py             # Package initialization
+│   ├── __main__.py             # CLI entry point (python -m installer)
 │   │
-│   ├── migrations/              # Version migration scripts (EPIC-014)
-│   │   ├── v1.0-to-v1.1.py     # Migration script 1.0 → 1.1
-│   │   ├── v1.1-to-v1.2.py     # Migration script 1.1 → 1.2
-│   │   └── migration-runner.py # Migration execution orchestrator
+│   ├── install.py              # Core installer orchestrator
+│   ├── backup.py               # Backup/restore system
+│   ├── rollback.py             # Rollback mechanism
+│   ├── merge.py                # CLAUDE.md merge logic
+│   ├── version.py              # Version management
+│   ├── validate.py             # Installation validation
+│   ├── deploy.py               # File deployment
+│   ├── claude_parser.py        # CLAUDE.md parsing
+│   ├── variables.py            # Variable substitution
 │   │
-│   ├── install.py              # Core installer orchestrator (existing)
-│   ├── backup.py               # Backup/restore system (existing)
-│   ├── rollback.py             # Rollback mechanism (existing)
-│   ├── merge.py                # CLAUDE.md merge logic (existing)
-│   ├── version.py              # Version management (existing)
-│   ├── validate.py             # Installation validation (existing)
-│   ├── deploy.py               # File deployment (existing)
+│   ├── network.py              # Network availability detection (STORY-069)
+│   ├── checksum.py             # SHA256 integrity verification (STORY-069)
+│   ├── offline.py              # Offline installation workflow (STORY-069)
+│   ├── bundle.py               # Bundle structure validation (STORY-069)
+│   │
 │   ├── config.yaml             # Installer configuration
 │   ├── merge-config.yaml       # CLAUDE.md merge configuration
 │   │
-│   ├── tests/                  # Installer test suite (existing)
-│   │   ├── integration/
-│   │   ├── test_installation_modes.py
-│   │   └── test_*.py
+│   ├── tests/                  # Installer test suite
+│   │   ├── test_offline_installer.py  # Offline mode tests (STORY-069)
+│   │   └── test_*.py           # Additional test modules
 │   │
 │   ├── API.md                  # Installer API documentation
 │   ├── INSTALL.md              # Installation guide
 │   ├── README.md               # Installer README
 │   └── TROUBLESHOOTING.md      # Troubleshooting guide
+│
+│   # PLANNED (Not Yet Implemented):
+│   # ├── cli/                  # Node.js CLI wrapper (EPIC-012)
+│   # └── migrations/           # Version migration scripts (EPIC-014)
 │
 ├── .ai_docs/                    # Project management and research
 │   ├── Epics/                   # High-level business initiatives
