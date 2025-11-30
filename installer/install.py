@@ -7,9 +7,17 @@ This module coordinates the complete installation workflow:
 3. Deploy files with error handling
 4. Update version.json
 5. Support 5 modes: fresh, upgrade, rollback, validate, uninstall
+6. Offline installation support (STORY-069)
 
 Functions:
 - install(target_path: Path, mode: str = None, force: bool = False) -> dict
+- check_network_availability(timeout: int = 2) -> bool (re-export from network module)
+- display_network_status(is_online: bool) -> None (re-export from network module)
+- run_offline_installation(...) -> dict (re-export from offline module)
+- verify_bundle_structure(bundle_root: Path) -> dict (re-export from bundle module)
+- count_bundled_files(bundle_root: Path) -> int (re-export from bundle module)
+- measure_bundle_size(bundle_root: Path) -> dict (re-export from bundle module)
+- verify_bundle_integrity(bundle_root: Path) -> dict (re-export from checksum module)
 """
 
 import json
@@ -22,6 +30,39 @@ from . import deploy
 from . import rollback as rollback_module
 from . import validate
 from . import merge
+
+# STORY-069: Offline installation imports
+from . import network
+from . import offline
+from . import checksum
+from . import bundle
+
+# Re-export offline installation functions for test compatibility
+check_network_availability = network.check_network_availability
+display_network_status = network.display_network_status
+warn_network_feature_unavailable = network.warn_network_feature_unavailable
+detect_python_version = network.detect_python_version
+warn_missing_dependency = network.warn_missing_dependency
+check_disk_space = network.check_disk_space
+check_git_available = network.check_git_available
+
+run_offline_installation = offline.run_offline_installation
+run_installation = offline.run_installation
+install_python_cli_offline = offline.install_python_cli_offline
+find_bundled_wheels = offline.find_bundled_wheels
+validate_offline_installation = offline.validate_offline_installation
+validate_git_initialization = offline.validate_git_initialization
+validate_claude_md_merge = offline.validate_claude_md_merge
+
+verify_bundle_structure = bundle.verify_bundle_structure
+count_bundled_files = bundle.count_bundled_files
+measure_bundle_size = bundle.measure_bundle_size
+
+calculate_sha256 = checksum.calculate_sha256
+load_checksums = checksum.load_checksums
+verify_file_checksum = checksum.verify_file_checksum
+verify_bundle_integrity = checksum.verify_bundle_integrity
+verify_all_files_have_checksums = checksum.verify_all_files_have_checksums
 
 # Constants for version.json
 VERSION_JSON_SCHEMA = "1.0"
