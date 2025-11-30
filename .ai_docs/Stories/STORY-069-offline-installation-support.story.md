@@ -3,7 +3,7 @@ id: STORY-069
 title: Offline Installation Support
 epic: EPIC-012
 sprint: Backlog
-status: In Development
+status: Dev Complete
 points: 8
 priority: Medium
 assigned_to: TBD
