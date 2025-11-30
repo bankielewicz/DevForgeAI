@@ -42,6 +42,49 @@ devforgeai --version
 devforgeai --help
 ```
 
+### Offline Installation (Air-Gapped Networks)
+
+DevForgeAI supports installation in environments with no internet connectivity. After the initial npm package download, all installation operations work completely offline.
+
+**How It Works:**
+
+1. **Download Once:** `npm pack devforgeai` on a machine with internet access
+2. **Transfer:** Copy the `.tgz` file to the air-gapped machine
+3. **Install Offline:** `npm install -g devforgeai-1.0.0.tgz`
+4. **Run Installer:** `devforgeai install .` (no network required)
+
+**What's Bundled:**
+- All `.claude/` framework files (skills, agents, commands, memory)
+- All `.devforgeai/` templates (context, protocols, specs)
+- Python CLI wheel files (installed with `pip --no-index`)
+- SHA256 checksums for integrity verification
+
+**Offline Mode Detection:**
+
+The installer automatically detects network availability:
+```
+✓ Network Status: Offline - Air-gapped mode
+  Using bundled files only (no internet connection required)
+```
+
+**Bundle Integrity:**
+
+All bundled files are verified via SHA256 checksums:
+- Checksums stored in `bundled/checksums.json`
+- Installation halts if 3+ checksum mismatches detected
+- Protects against file corruption or tampering
+
+**Optional Dependencies:**
+
+Python CLI is optional. If Python 3.8+ is unavailable:
+- Core framework installs successfully
+- CLI validation commands are skipped
+- `MISSING_FEATURES.md` documents skipped features
+
+**Bundle Size:**
+- Compressed: ~3 MB (well under 60 MB limit)
+- Uncompressed: ~14 MB (well under 150 MB limit)
+
 ### Troubleshooting
 
 **"Python 3.10+ required" error:**
@@ -58,7 +101,17 @@ devforgeai --help
 - Run with npm prefix: `npm install -g devforgeai --unsafe-perm`
 - Or use nvm to manage Node.js versions without sudo
 
-For more troubleshooting, see [installer/TROUBLESHOOTING.md](installer/TROUBLESHOOTING.md).
+**Checksum mismatch errors (offline installation):**
+- Re-download the npm package from a trusted source
+- Verify the `.tgz` file was transferred without corruption
+- Check disk for errors on the target machine
+
+**Network-dependent features in offline mode:**
+- Version update checks are skipped (no network)
+- Optional telemetry disabled
+- Run `devforgeai update` when online to check for updates
+
+For more troubleshooting, see [installer/TROUBLESHOOTING.md](installer/TROUBLESHOOTING.md) or [docs/offline-installation.md](docs/offline-installation.md).
 
 ## Version Management
 
