@@ -74,7 +74,19 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
-Load workflow references on-demand for implementation details.
+**Progressive Disclosure:** Workflow references are loaded when each phase executes (not before) to optimize token usage.
+
+**IMPORTANT:** "On-demand" means "load when phase starts" - NOT "loading is optional."
+
+**Execution Pattern:**
+1. Reach phase (e.g., Phase 2: Anti-Pattern Detection)
+2. See "⚠️ CHECKPOINT" marker
+3. Load reference file (REQUIRED)
+4. Execute ALL steps from reference file
+5. Complete phase checklist
+6. Proceed to next phase
+
+**IF you skip loading a reference:** You will execute the phase incorrectly and miss mandatory steps.
 
 ---
 
@@ -266,22 +278,79 @@ IF all checks PASS:
 **Blocks on:** Business <95%, Application <85%, Overall <80%
 
 ### Phase 2: Anti-Pattern Detection
-**Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 2.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 6-step workflow. Execute ALL 6 steps before proceeding to Phase 3.
+
 **Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
 **Model:** claude-haiku-4-5-20251001 (cost-efficient pattern matching)
 **Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
 **Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
 
+**Phase 2 Completion Checklist:**
+Before proceeding to Phase 3, verify:
+- [ ] Loaded anti-pattern-detection-workflow.md
+- [ ] Executed all 6 steps from workflow
+- [ ] Invoked anti-pattern-scanner subagent
+- [ ] Categorized violations by severity
+- [ ] Displayed results to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+
 ### Phase 3: Spec Compliance Validation
-**Ref:** `references/spec-compliance-workflow.md` (6 steps, includes Step 2.5)
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 3.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 6-step workflow including Step 2.5 (Deferral Validation). Execute ALL steps before proceeding to Phase 4.
+
+**Subagent:** deferral-validator (Step 2.5 - MANDATORY if deferrals exist in story)
 **Guides:** `references/spec-validation.md`, `references/deferral-decision-tree.md`, `references/dod-protocol.md`
-**Subagent:** deferral-validator (Step 2.5 - MANDATORY if deferrals exist)
 **Blocks on:** Missing AC tests, API violations, CRITICAL/HIGH deferral violations
 
+**Phase 3 Completion Checklist:**
+Before proceeding to Phase 4, verify:
+- [ ] Loaded spec-compliance-workflow.md
+- [ ] Executed all 6 steps from workflow
+- [ ] Invoked deferral-validator subagent (if deferrals exist)
+- [ ] Validated AC coverage
+- [ ] Displayed compliance results to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+
 ### Phase 4: Code Quality Metrics
-**Ref:** `references/code-quality-workflow.md` (5 steps)
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 4.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 5-step workflow. Execute ALL steps before proceeding to Phase 5.
+
 **Guide:** `references/quality-metrics.md`
 **Blocks on:** Extreme violations (duplication >20%, MI <50)
+
+**Phase 4 Completion Checklist:**
+Before proceeding to Phase 5, verify:
+- [ ] Loaded code-quality-workflow.md
+- [ ] Executed all 5 steps from workflow
+- [ ] Calculated complexity metrics
+- [ ] Identified quality violations
+- [ ] Displayed metrics to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
 
 ### Phase 5: QA Report Generation
 **Ref:** `references/report-generation.md` (6 steps)
@@ -290,17 +359,25 @@ IF all checks PASS:
 **Output:** Report, story status update, formatted display
 
 ### Phase 6: Invoke Feedback Hooks
-**Ref:** `references/feedback-hooks-workflow.md` (complete implementation details)
+
+**⚠️ CHECKPOINT: You MUST execute this phase before proceeding to Phase 7**
+
+**Step 6.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
+```
+
+**After loading:** Execute the feedback hook workflow. This phase is non-blocking (hook failures don't affect QA result).
+
 **Purpose:** Trigger retrospective feedback based on QA result
-**Non-blocking:** Hook failures don't affect QA result
 
 **Implementation:**
 ```bash
 # Map QA result to hook status
 if [ "$QA_RESULT" = "PASSED" ]; then
-  STATUS="completed"
+  STATUS="success"
 elif [ "$QA_RESULT" = "FAILED" ]; then
-  STATUS="failed"
+  STATUS="failure"
 else
   STATUS="partial"
 fi
@@ -314,9 +391,27 @@ if [ $? -eq 0 ]; then
 fi
 ```
 
+**Phase 6 Completion Checklist:**
+Before proceeding to Phase 7, verify:
+- [ ] Loaded feedback-hooks-workflow.md (or executed inline implementation)
+- [ ] Checked hook configuration
+- [ ] Invoked hooks (if configured)
+- [ ] Noted hook status (success/failure/disabled)
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+
 ### Phase 7: Update Story File (Deep Mode Pass Only)
-**Ref:** `references/story-update-workflow.md` (complete implementation details)
+
+**⚠️ CHECKPOINT: You MUST execute this phase to complete deep QA validation**
+
 **Conditional:** Only executes if mode="deep" AND result="PASSED"
+
+**Step 7.0: Load Workflow Reference (REQUIRED if updating story)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/story-update-workflow.md")
+```
+
+**After loading:** Execute the story update workflow to mark story as QA Approved.
 
 **Implementation:**
 ```
@@ -327,11 +422,20 @@ IF mode == "deep" AND result == "PASSED":
 
   Edit(file_path=story_file, old_string="updated: {old_date}", new_string="updated: {current_date}")
 
-  Edit(file_path=story_file, old_string="## Workflow History",
-       new_string="## QA Validation History\n\n{validation_details}\n\n## Workflow History")
+  Edit: Mark "- [ ] QA phase complete" as "- [x] QA phase complete" in Workflow Status
 
   Display: "✅ Story updated to QA Approved"
 ```
+
+**Phase 7 Completion Checklist:**
+Before completing QA workflow, verify:
+- [ ] Loaded story-update-workflow.md (if deep mode pass)
+- [ ] Updated story status to "QA Approved"
+- [ ] Updated story "updated" date
+- [ ] Marked "QA phase complete" checkbox
+- [ ] Displayed confirmation to user
+
+**IF deep mode passed but any checkbox unchecked:** HALT and complete missing steps.
 
 ---
 
