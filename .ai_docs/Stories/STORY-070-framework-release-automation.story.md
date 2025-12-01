@@ -3,7 +3,7 @@ id: STORY-070
 title: Framework Release Automation
 epic: EPIC-012
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 12
 priority: High
 assigned_to: Unassigned
@@ -626,7 +626,7 @@ Proceed? [y/N]:
 
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ## Implementation Notes
