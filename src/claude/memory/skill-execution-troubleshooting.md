@@ -352,3 +352,333 @@ Skill(command="devforgeai-orchestration")
 **You NEVER wait for skills to "complete" or "return results."**
 
 **If you find yourself waiting after skill invocation, STOP and resume execution immediately.**
+
+---
+
+## Pattern: Progressive Disclosure Phase Skipping
+
+**Pattern ID:** RCA-009 / RCA-011 / RCA-016
+**Severity:** HIGH
+**Frequency:** Recurring across skills with progressive disclosure
+**First Documented:** 2025-11-14
+**Most Recent:** 2025-12-01
+
+---
+
+### What Is This Pattern?
+
+**Problem:** You execute a skill's workflow but skip phases by not loading reference files.
+
+**Example:**
+```
+Phase 0.9: AC-DoD Traceability ✅ Executed
+Phase 1: Test Coverage ✅ Executed
+Phase 2: Anti-Pattern Detection ❌ SKIPPED (jumped to Phase 5)
+Phase 3: Spec Compliance ❌ SKIPPED
+Phase 4: Code Quality ❌ SKIPPED
+Phase 5: Report Generation ✅ Executed (but with incomplete data)
+Phase 6: Feedback Hooks ❌ SKIPPED
+Phase 7: Story Update ❌ SKIPPED
+```
+
+**Root Cause:** Phase summaries in SKILL.md appear self-explanatory, but the actual workflow steps are in reference files. You see "Phase 2: Anti-Pattern Detection" and think "I know what that means" without loading the 6-step workflow from the reference file.
+
+---
+
+### Symptoms (How to Detect)
+
+**Watch for these warning signs:**
+
+1. **Workflow completes too quickly**
+   - Deep QA should take ~10-12 minutes, not 3 minutes
+   - TDD cycle should take ~30 minutes, not 5 minutes
+   - If you're "done" suspiciously fast, you likely skipped phases
+
+2. **Reference files not loaded**
+   - SKILL.md says "**Ref:** `references/workflow-name.md`"
+   - But you didn't `Read(file_path="...")` that file
+   - You executed based on phase title alone
+
+3. **Subagents not invoked**
+   - SKILL.md says "**Subagent:** agent-name (MANDATORY)"
+   - But you didn't `Task(subagent_type="agent-name", ...)`
+   - You made assumptions instead of following documented workflow
+
+4. **Results lack expected detail**
+   - Anti-pattern scan returns no violations (but you didn't read actual code files)
+   - Coverage analysis has no layer breakdown (skipped classification step)
+   - Spec compliance has no traceability matrix (skipped generation step)
+
+5. **User questions completeness**
+   - "Did you skip any phases?"
+   - "Did you follow 100%?"
+   - "Why didn't you invoke the subagent?"
+   - If user has to ask, you likely skipped something
+
+---
+
+### Detection Checklist
+
+**Run this checklist if you suspect phase skipping:**
+
+- [ ] **Reference files:** Did I `Read()` every reference file mentioned in SKILL.md phases?
+- [ ] **Subagent invocations:** Did I `Task()` every MANDATORY subagent listed?
+- [ ] **Phase count:** Did I execute ALL phases (not just some)?
+- [ ] **Execution time:** Is elapsed time reasonable for workflow complexity?
+- [ ] **Result detail:** Do results have expected granularity (layer breakdown, violation counts, traceability matrix)?
+- [ ] **Checkpoint markers:** Did I see and respond to every "⚠️ CHECKPOINT" in SKILL.md?
+- [ ] **Completion checklists:** Did I verify every checkbox before proceeding to next phase?
+
+**If ANY checkbox is unchecked:** You likely skipped phases. See Recovery Procedure below.
+
+---
+
+### Recovery Procedure
+
+**If you catch yourself (or user points out) skipping phases:**
+
+#### Step 1: Acknowledge the Gap
+
+```
+"You're right - I executed phases [X, Y] but skipped phases [A, B, C, D].
+I proceeded based on phase titles without loading the reference files
+that contain the actual workflow steps."
+```
+
+#### Step 2: Identify What Was Skipped
+
+List specifically:
+- Which phases were skipped
+- Which reference files were not loaded
+- Which subagents were not invoked
+
+Example:
+```
+Skipped phases:
+- Phase 2: Anti-Pattern Detection (did not load anti-pattern-detection-workflow.md)
+- Phase 3: Spec Compliance (did not load spec-compliance-workflow.md, did not invoke deferral-validator)
+- Phase 4: Code Quality (did not load code-quality-workflow.md)
+- Phase 6: Feedback Hooks (did not load feedback-hooks-workflow.md)
+- Phase 7: Story Update (did not load story-update-workflow.md)
+```
+
+#### Step 3: Load Missing Reference Files
+
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/story-update-workflow.md")
+```
+
+#### Step 4: Execute Skipped Phases
+
+For each skipped phase:
+1. Read the reference file's workflow steps
+2. Execute EACH step in order
+3. Invoke any MANDATORY subagents
+4. Verify completion checklist before proceeding
+5. Display phase completion to user
+
+#### Step 5: Update Results
+
+Integrate newly collected data into final results:
+- Add violation counts from anti-pattern scan
+- Add compliance status from spec validation
+- Add quality metrics from code analysis
+- Update overall QA result based on all phases
+
+#### Step 6: Verify Completeness
+
+Display completion checklist showing ALL phases executed:
+```
+✓ Phase 0.9: AC-DoD Traceability (100% score)
+✓ Phase 1: Test Coverage (85% overall)
+✓ Phase 2: Anti-Pattern Detection (0 CRITICAL, 2 MEDIUM)
+✓ Phase 3: Spec Compliance (8/8 AC validated)
+✓ Phase 4: Code Quality (MI: 78, Complexity: avg 4.2)
+✓ Phase 5: Report Generated
+✓ Phase 6: Feedback Hooks (triggered)
+✓ Phase 7: Story Updated to QA Approved
+```
+
+---
+
+### Prevention Strategies
+
+**Before executing any skill phase:**
+
+#### Strategy 1: Check for CHECKPOINT Markers
+
+Look for `⚠️ CHECKPOINT` in SKILL.md. These mark phases requiring reference loading.
+
+Example:
+```markdown
+### Phase 2: Anti-Pattern Detection
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 2.0: Load Workflow Reference (REQUIRED)**
+Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+```
+
+**If you see a CHECKPOINT:** You MUST load the reference file. No exceptions.
+
+#### Strategy 2: Verify Reference Loading
+
+Before claiming a phase complete, ask yourself:
+- Did I `Read()` the reference file for this phase?
+- Did I see the workflow steps from that file?
+- Did I execute EACH step, not just the phase title?
+
+#### Strategy 3: Use Phase Completion Checklists
+
+Each phase should have a completion checklist. Verify EVERY checkbox before proceeding.
+
+Example:
+```markdown
+**Phase 2 Completion Checklist:**
+- [ ] Loaded anti-pattern-detection-workflow.md (Step 2.0)
+- [ ] Step 1: Loaded ALL 6 context files
+- [ ] Step 2: Invoked anti-pattern-scanner subagent
+- [ ] Step 3: Parsed JSON response
+- [ ] Step 4: Updated blocks_qa state
+- [ ] Step 5: Displayed violations summary
+- [ ] Step 6: Stored violations for report
+```
+
+**IF any checkbox is unchecked:** HALT and complete missing steps.
+
+#### Strategy 4: Display Loading Confirmation
+
+When you load a reference file, explicitly confirm:
+```
+Loading reference: anti-pattern-detection-workflow.md
+Found 6 workflow steps. Executing steps 1-6...
+```
+
+This creates a visible trail showing reference files were actually loaded.
+
+#### Strategy 5: Track Execution Time
+
+Be suspicious if workflow completes very quickly:
+- Deep QA: Expect ~10-12 minutes
+- TDD Development: Expect ~30 minutes
+- Light QA: Expect ~3-5 minutes
+
+If done much faster, verify you didn't skip phases.
+
+---
+
+### Affected Skills
+
+**Skills with progressive disclosure that may exhibit this pattern:**
+
+| Skill | Reference Files | Risk Level |
+|-------|-----------------|------------|
+| devforgeai-development | 8 reference files | HIGH (RCA-009, RCA-011) |
+| devforgeai-qa | 19 reference files | HIGH (RCA-016) |
+| devforgeai-orchestration | 4 reference files | MEDIUM |
+| devforgeai-release | 5 reference files | MEDIUM |
+| devforgeai-architecture | 6 reference files | MEDIUM |
+| devforgeai-ideation | 16 reference files | MEDIUM |
+| devforgeai-story-creation | 6 reference files | MEDIUM |
+| devforgeai-documentation | 7 reference files | LOW |
+
+**High-risk indicators:**
+- More reference files = more phases to potentially skip
+- MANDATORY subagents = more invocations to potentially miss
+- Complex workflows = more opportunities for shortcuts
+
+---
+
+### Related RCAs
+
+**RCA-009: Incomplete Skill Workflow Execution (2025-11-14)**
+- Skill: devforgeai-development
+- Symptom: Skipped Tech Spec Coverage step in Phase 2
+- Root cause: Progressive disclosure - reference file not loaded
+- Status: Partially resolved
+
+**RCA-011: Mandatory TDD Phase Skipping (2025-11-19)**
+- Skill: devforgeai-development
+- Symptom: Skipped mandatory TDD phases
+- Root cause: Same as RCA-009 - progressive disclosure ambiguity
+- Status: Recommendations pending
+
+**RCA-016: QA Skill Phase Skipping During Deep Validation (2025-12-01)**
+- Skill: devforgeai-qa
+- Symptom: Skipped 5 phases (2, 3, 4, 6, 7), jumped from Phase 1 to Phase 5
+- Root cause: Same pattern - reference files not loaded
+- Status: REC-1 COMPLETE, REC-2 COMPLETE, REC-3 COMPLETE
+
+**Pattern frequency:** 3 incidents in 3 weeks (HIGH recurrence rate)
+
+---
+
+### Success Criteria
+
+After implementing prevention strategies, verify:
+
+- ✅ All reference files loaded (visible `Read()` calls in conversation)
+- ✅ All workflow steps executed (not just phase titles)
+- ✅ All MANDATORY subagents invoked
+- ✅ Completion checklists verified before phase transitions
+- ✅ Expected execution time achieved
+- ✅ User does NOT need to question completeness
+
+---
+
+### Quick Reference Card
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│  PROGRESSIVE DISCLOSURE PHASE SKIPPING - QUICK CHECK        │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  BEFORE each phase:                                         │
+│  □ Look for ⚠️ CHECKPOINT marker                            │
+│  □ Read() the reference file if indicated                   │
+│  □ Note the workflow step count (e.g., "6 steps")           │
+│                                                             │
+│  DURING phase execution:                                    │
+│  □ Execute EACH step from reference file                    │
+│  □ Invoke MANDATORY subagents with Task()                   │
+│  □ Display step completion as you work                      │
+│                                                             │
+│  AFTER each phase:                                          │
+│  □ Verify completion checklist (ALL boxes checked)          │
+│  □ Display "Phase X Complete" summary                       │
+│  □ Only THEN proceed to next phase                          │
+│                                                             │
+│  WARNING SIGNS:                                             │
+│  ⚠ Workflow completing too fast                            │
+│  ⚠ No Read() calls for reference files                     │
+│  ⚠ No Task() calls for MANDATORY subagents                 │
+│  ⚠ Results lacking expected detail                         │
+│  ⚠ User asking "did you skip phases?"                      │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### Difference from "Waiting After Invoke" Pattern
+
+**Two distinct patterns exist. Don't confuse them:**
+
+| Aspect | Waiting After Invoke | Phase Skipping |
+|--------|---------------------|----------------|
+| **When it occurs** | Immediately after `Skill()` | During skill execution |
+| **Symptom** | Stop and wait passively | Execute but skip phases |
+| **What you do wrong** | Nothing (waiting) | Partial execution |
+| **Reference files** | N/A (never started) | Not loaded |
+| **Recovery** | Start executing Phase 0 | Load refs, execute missing phases |
+| **Related RCAs** | RCA-009 (original) | RCA-009, RCA-011, RCA-016 |
+
+**Both patterns can occur in same session:**
+1. First, you might wait after skill invocation (Pattern 1)
+2. After resuming, you might skip phases (Pattern 2)
+
+**Check for BOTH patterns when troubleshooting skill execution issues.**
