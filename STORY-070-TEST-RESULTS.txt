@@ -1,0 +1,606 @@
+
+> devforgeai@1.0.0 test
+> jest tests/release/
+
+FAIL tests/release/unit/release-script-phases.test.js
+  Release Script Phases 3-7 (STORY-070)
+    Phase 3: Version Metadata and Changelog Update
+      DAT-001: version.json Update
+        ✓ should update version field with semver format (40 ms)
+        ✓ should add release_date in ISO 8601 format
+        ✓ should add release_notes_path pointing to CHANGELOG.md section
+        ✓ should reject invalid semver format (1 ms)
+      CHANGELOG.md Generation
+        ✓ should generate changelog section with version and date
+        ✓ should group commits by type (feat, fix, chore, docs) (1 ms)
+        ✓ should extract commit messages since last tag
+      Git Tag Creation
+        ✓ should create git tag with v prefix
+        ✓ should add tag message with release version (1 ms)
+        ✓ should include changelog excerpt in tag message
+      Release Commit
+        ✓ should create commit with chore(release) message
+        ✓ should commit version.json and CHANGELOG.md changes (1 ms)
+    Phase 4: Integrity Verification with Checksum Generation (SCR-005)
+      CHK-001: Checksum File Format
+        ✓ should generate SHA-256 checksums for all src/ files
+        ✕ each line should match format: {hash}  {filepath} (1 ms)
+        ✕ should use SHA-256 algorithm (64 hex characters) (1 ms)
+        ✓ should exclude checksums.txt itself from checksums
+        ✓ should exclude node_modules/ from checksums (1 ms)
+        ✓ should exclude .git/ directory from checksums
+      CHK-002: Alphabetical Sorting
+        ✓ checksums.txt should be sorted alphabetically by filepath
+      CHK-003: Minimum Entry Count
+        ✓ checksums.txt should contain at least 50 entries
+      Checksum File Hash in version.json
+        ✕ should append checksum_file_sha256 to version.json
+      NFR-004: SHA-256 Algorithm Enforcement
+        ✓ should use sha256sum command (not md5sum or sha1sum) (1 ms)
+      NFR-009: Idempotent Checksums
+        ✓ same input should produce same checksums on repeated runs
+    Phase 5: GitHub Release Creation (SCR-006)
+      GitHub Release Command
+        ✓ should create release using gh CLI
+        ✓ should set release title as "DevForgeAI v{version}"
+        ✓ should attach checksums.txt to release
+        ✓ should mark as latest release (not pre-release)
+      BR-002: Pre-Release Detection
+        ✓ should mark version with hyphen as pre-release (1 ms)
+        ✓ should use --prerelease flag for beta versions
+      Git Push to Remote
+        ✓ should push git tag to origin
+        ✓ should push release commit to origin/main
+      Release URL Output
+        ✓ should output release URL for verification
+    Phase 6: NPM Package Publication (SCR-007)
+      BR-005: STORY-067 Integration
+        ✓ should verify src/package.json exists (1 ms)
+        ✓ should fail with helpful error if src/package.json missing (14 ms)
+      Package Version Update
+        ✓ should update src/package.json version to match src/version.json
+      NPM Publish Execution
+        ✓ should change directory to src/ before publishing
+        ✓ should execute npm publish
+        ✓ should use --dry-run flag when script invoked with --dry-run
+      Dist-Tag Application
+        ✓ should tag with "latest" for stable versions
+        ✓ should tag with "beta" for pre-release versions
+      NPM Package URL Output
+        ✓ should output npm package URL
+    Phase 7: Rollback and Error Recovery (SCR-008)
+      Error Detection
+        ✓ should halt on non-zero exit code (1 ms)
+        ✓ should detect validation failure
+        ✓ should detect user cancellation
+      BR-003: Atomic Phases
+        ✓ should revert uncommitted changes on failure
+        ✓ should delete created git tag if GitHub release not created (1 ms)
+        ✓ should NOT push to GitHub if local validation fails
+        ✓ should NOT publish to npm if local validation fails
+      Error Messages
+        ✓ should display clear error message with failed phase name
+        ✓ should include specific error details (1 ms)
+      Rollback Summary
+        ✓ should output rollback summary with reverted changes
+      Exit Code
+        ✓ should exit with code 1 on failure (1 ms)
+    Command-Line Flags
+      SCR-009: --dry-run Flag
+        ✓ should simulate release without external changes
+        ✕ should NOT push to GitHub in dry-run mode
+        ✓ should NOT publish to npm in dry-run mode
+      SCR-010: --yes Flag
+        ✓ should skip interactive prompts in CI mode
+        ✓ should auto-confirm version bump with --yes
+
+  ● Release Script Phases 3-7 (STORY-070) › Phase 4: Integrity Verification with Checksum Generation (SCR-005) › CHK-001: Checksum File Format › each line should match format: {hash}  {filepath}
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      244 |
+      245 |         // Assert
+    > 246 |         expect(checksumRegex.test(checksumLine)).toBe(true);
+          |                                                  ^
+      247 |       });
+      248 |
+      249 |       test('should use SHA-256 algorithm (64 hex characters)', () => {
+
+      at Object.toBe (tests/release/unit/release-script-phases.test.js:246:50)
+
+  ● Release Script Phases 3-7 (STORY-070) › Phase 4: Integrity Verification with Checksum Generation (SCR-005) › CHK-001: Checksum File Format › should use SHA-256 algorithm (64 hex characters)
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 64
+    Received length: 60
+    Received string: "a1b2c3d4e5f6789012345678901234567890123456789012345678901234"
+
+      252 |
+      253 |         // Assert
+    > 254 |         expect(sha256Hash).toHaveLength(64);
+          |                            ^
+      255 |         expect(/^[a-f0-9]{64}$/.test(sha256Hash)).toBe(true);
+      256 |       });
+      257 |
+
+      at Object.toHaveLength (tests/release/unit/release-script-phases.test.js:254:28)
+
+  ● Release Script Phases 3-7 (STORY-070) › Phase 4: Integrity Verification with Checksum Generation (SCR-005) › Checksum File Hash in version.json › should append checksum_file_sha256 to version.json
+
+    expect(received).toHaveLength(expected)
+
+    Expected length: 64
+    Received length: 15
+    Received string: "e5f6a7b8c9d0..."
+
+      349 |         // Assert
+      350 |         expect(versionData).toHaveProperty('checksum_file_sha256');
+    > 351 |         expect(versionData.checksum_file_sha256).toHaveLength(64);
+          |                                                  ^
+      352 |       });
+      353 |
+      354 |     });
+
+      at Object.toHaveLength (tests/release/unit/release-script-phases.test.js:351:50)
+
+  ● Release Script Phases 3-7 (STORY-070) › Command-Line Flags › SCR-009: --dry-run Flag › should NOT push to GitHub in dry-run mode
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "[DRY RUN]"
+    Received string:    ""
+
+      864 |
+      865 |         // Assert
+    > 866 |         expect(output).toContain('[DRY RUN]');
+          |                        ^
+      867 |       });
+      868 |
+      869 |       test('should NOT publish to npm in dry-run mode', () => {
+
+      at Object.toContain (tests/release/unit/release-script-phases.test.js:866:24)
+
+FAIL tests/release/unit/release-script.test.js
+  Release Script Unit Tests (STORY-070)
+    Phase 0: Pre-Flight Validation
+      SCR-002: Git Working Tree Validation
+        ✕ should reject dirty git working tree (42 ms)
+        ✕ should pass with clean git working tree (1 ms)
+        ✓ should display list of uncommitted files on dirty tree (1 ms)
+      Test Suite Execution
+        ✕ should run test suite before proceeding
+        ✕ should block release if tests fail
+      External Tools Validation
+        ✕ should check gh CLI is installed
+        ✕ should check gh CLI is authenticated
+        ✕ should block release if gh CLI not authenticated
+        ✕ should check npm is authenticated (1 ms)
+    Phase 1: Version Selection and Confirmation (SCR-001)
+      Version Bump Calculation
+        ✓ should calculate patch version bump (1.2.3 → 1.2.4)
+        ✓ should calculate minor version bump (1.2.3 → 1.3.0)
+        ✓ should calculate major version bump (1.2.3 → 2.0.0) (1 ms)
+        ✓ should accept custom version input
+        ✓ should reject invalid semver format
+      Interactive Version Selection
+        ✕ should display current version from src/version.json (1 ms)
+        ✕ should prompt for version bump type (major/minor/patch/custom) (174 ms)
+        ✓ should display calculated next version before confirmation
+        ✓ should require explicit Y/N confirmation (1 ms)
+      BR-001: Version Uniqueness Validation
+        ✓ should check version does not exist in npm registry
+        ✕ should block release if version already exists in npm
+        ✓ should check version does not exist as git tag
+        ✕ should block release if git tag already exists (1 ms)
+    Phase 2: Operational Files Sync (SCR-003, SCR-004)
+      Claude Directory Sync
+        ✕ should sync .claude/ to src/claude/ recursively (1 ms)
+        ✓ should exclude *.backup* files from sync
+        ✓ should exclude __pycache__/ directories from sync
+        ✓ should exclude *.pyc files from sync (1 ms)
+        ✓ should exclude .DS_Store files from sync
+      DevForgeAI Directory Sync
+        ✕ should sync .devforgeai/ to src/devforgeai/ recursively (1 ms)
+        ✓ should exclude backups/ directory from sync
+        ✓ should exclude qa/reports/ directory from sync
+        ✓ should exclude feedback/sessions/ directory from sync (1 ms)
+        ✓ should exclude *.log files from sync
+      Sync Validation
+        ✓ should validate file counts match expected (source vs destination)
+        ✓ should report missing files if sync incomplete (15 ms)
+      MAN-001: Sync Manifest Generation
+        ✓ should create src/.sync-manifest.json
+        ✓ manifest file_count should match actual synced files
+        ✓ manifest should contain ISO 8601 timestamp
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › SCR-002: Git Working Tree Validation › should reject dirty git working tree
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /Uncommitted changes detected/
+
+    Received function did not throw
+
+      56 |         expect(() => {
+      57 |           execSync('bash scripts/release.sh');
+    > 58 |         }).toThrow(/Uncommitted changes detected/);
+         |            ^
+      59 |       });
+      60 |
+      61 |       test('should pass with clean git working tree', () => {
+
+      at Object.toThrow (tests/release/unit/release-script.test.js:58:12)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › SCR-002: Git Working Tree Validation › should pass with clean git working tree
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "git status --porcelain"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      73 |         // Assert
+      74 |         expect(result).toBeDefined();
+    > 75 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('git status --porcelain'));
+         |                          ^
+      76 |       });
+      77 |
+      78 |       test('should display list of uncommitted files on dirty tree', () => {
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:75:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › Test Suite Execution › should run test suite before proceeding
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "npm test"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      118 |
+      119 |         // Assert
+    > 120 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('npm test'));
+          |                          ^
+      121 |       });
+      122 |
+      123 |       test('should block release if tests fail', () => {
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:120:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › Test Suite Execution › should block release if tests fail
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /Tests failed/
+
+    Received function did not throw
+
+      135 |         expect(() => {
+      136 |           execSync('bash scripts/release.sh');
+    > 137 |         }).toThrow(/Tests failed/);
+          |            ^
+      138 |       });
+      139 |
+      140 |     });
+
+      at Object.toThrow (tests/release/unit/release-script.test.js:137:12)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › External Tools Validation › should check gh CLI is installed
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "gh --version"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      155 |
+      156 |         // Assert
+    > 157 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('gh --version'));
+          |                          ^
+      158 |       });
+      159 |
+      160 |       test('should check gh CLI is authenticated', () => {
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:157:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › External Tools Validation › should check gh CLI is authenticated
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "gh auth status"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      171 |
+      172 |         // Assert
+    > 173 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('gh auth status'));
+          |                          ^
+      174 |       });
+      175 |
+      176 |       test('should block release if gh CLI not authenticated', () => {
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:173:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › External Tools Validation › should block release if gh CLI not authenticated
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /Not authenticated/
+
+    Received function did not throw
+
+      188 |         expect(() => {
+      189 |           execSync('bash scripts/release.sh');
+    > 190 |         }).toThrow(/Not authenticated/);
+          |            ^
+      191 |       });
+      192 |
+      193 |       test('should check npm is authenticated', () => {
+
+      at Object.toThrow (tests/release/unit/release-script.test.js:190:12)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 0: Pre-Flight Validation › External Tools Validation › should check npm is authenticated
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "npm whoami"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      204 |
+      205 |         // Assert
+    > 206 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('npm whoami'));
+          |                          ^
+      207 |       });
+      208 |
+      209 |     });
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:206:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 1: Version Selection and Confirmation (SCR-001) › Interactive Version Selection › should display current version from src/version.json
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringContaining "cat src/version.json"
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      287 |
+      288 |         // Assert
+    > 289 |         expect(execSync).toHaveBeenCalledWith(expect.stringContaining('cat src/version.json'));
+          |                          ^
+      290 |       });
+      291 |
+      292 |       test('should prompt for version bump type (major/minor/patch/custom)', () => {
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:289:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 1: Version Selection and Confirmation (SCR-001) › Interactive Version Selection › should prompt for version bump type (major/minor/patch/custom)
+
+    Cannot find module 'mock-stdin' from 'tests/release/unit/release-script.test.js'
+
+      292 |       test('should prompt for version bump type (major/minor/patch/custom)', () => {
+      293 |         // Arrange - Mock interactive input
+    > 294 |         const stdin = require('mock-stdin').stdin();
+          |                       ^
+      295 |
+      296 |         // Act
+      297 |         const prompt = 'Select version bump type:\n  1) patch\n  2) minor\n  3) major\n  4) custom';
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.require (tests/release/unit/release-script.test.js:294:23)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 1: Version Selection and Confirmation (SCR-001) › BR-001: Version Uniqueness Validation › should block release if version already exists in npm
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /Version 1\.2\.4 already exists/
+
+    Received function did not throw
+
+      358 |         expect(() => {
+      359 |           execSync('bash scripts/release.sh');
+    > 360 |         }).toThrow(/Version 1\.2\.4 already exists/);
+          |            ^
+      361 |       });
+      362 |
+      363 |       test('should check version does not exist as git tag', () => {
+
+      at Object.toThrow (tests/release/unit/release-script.test.js:360:12)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 1: Version Selection and Confirmation (SCR-001) › BR-001: Version Uniqueness Validation › should block release if git tag already exists
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /tag.*already exists/
+
+    Received function did not throw
+
+      395 |         expect(() => {
+      396 |           execSync('bash scripts/release.sh');
+    > 397 |         }).toThrow(/tag.*already exists/);
+          |            ^
+      398 |       });
+      399 |
+      400 |     });
+
+      at Object.toThrow (tests/release/unit/release-script.test.js:397:12)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 2: Operational Files Sync (SCR-003, SCR-004) › Claude Directory Sync › should sync .claude/ to src/claude/ recursively
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringMatching /rsync.*\.claude\/.*src\/claude\//
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      419 |
+      420 |         // Assert
+    > 421 |         expect(execSync).toHaveBeenCalledWith(
+          |                          ^
+      422 |           expect.stringMatching(/rsync.*\.claude\/.*src\/claude\//)
+      423 |         );
+      424 |       });
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:421:26)
+
+  ● Release Script Unit Tests (STORY-070) › Phase 2: Operational Files Sync (SCR-003, SCR-004) › DevForgeAI Directory Sync › should sync .devforgeai/ to src/devforgeai/ recursively
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: StringMatching /\.devforgeai\/.*src\/devforgeai\//
+    Received: "bash scripts/release.sh --dry-run"
+
+    Number of calls: 1
+
+      476 |
+      477 |         // Assert
+    > 478 |         expect(execSync).toHaveBeenCalledWith(
+          |                          ^
+      479 |           expect.stringMatching(/\.devforgeai\/.*src\/devforgeai\//)
+      480 |         );
+      481 |       });
+
+      at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:478:26)
+
+FAIL tests/release/integration/release-workflow.integration.test.js (7.543 s)
+  Release Workflow Integration Tests (STORY-070)
+    BR-004: Phase Execution Order
+      ✕ should execute phases in correct order: preflight → sync → version → checksum → github → npm (111 ms)
+    Full Workflow Success Scenario
+      ✓ should complete all phases successfully in dry-run mode
+    Failure Scenarios and Rollback
+      ✕ should rollback on sync failure
+      ✕ should rollback on version update failure (1 ms)
+      ✕ should rollback on GitHub release failure (1 ms)
+      ✕ should rollback on NPM publish failure
+    NFR-003: Total Execution Time
+      ✓ should complete in under 5 minutes (excluding network I/O)
+    Cross-Platform Compatibility (NFR-011)
+      ✓ should handle Windows path separators
+      ✓ should detect platform-specific sha256sum command (1 ms)
+    Logging Requirements
+      ✓ should create release log file with version and timestamp
+      LOG-001: Phase Timing
+        ✓ should capture start timestamp of each phase
+        ✓ should capture end timestamp of each phase
+      LOG-002: Command Outputs
+        ✓ should log git command outputs
+        ✓ should log npm command outputs
+        ✓ should log gh command outputs
+      LOG-003: Error Details
+        ✓ should capture error details on failure
+    Security Requirements
+      NFR-005: No Credentials in Logs
+        ✓ should NOT log npm auth tokens
+        ✓ should NOT log GitHub tokens (1 ms)
+      NFR-006: Sensitive File Exclusion
+        ✓ should exclude .env files from sync
+        ✓ should exclude *.key files from sync
+        ✓ should exclude secrets/ directory from sync
+
+  ● Release Workflow Integration Tests (STORY-070) › BR-004: Phase Execution Order › should execute phases in correct order: preflight → sync → version → checksum → github → npm
+
+    expect(received).toBeGreaterThan(expected)
+
+    Expected: > 0
+    Received:   0
+
+      80 |       const expectedOrder = ['0-preflight', '0-tests', '1-sync', '2-version', '3-checksum', '4-github', '5-npm'];
+      81 |       // Note: In TDD Red phase, this will fail until script implements proper ordering
+    > 82 |       expect(executionOrder.length).toBeGreaterThan(0);
+         |                                     ^
+      83 |     });
+      84 |
+      85 |   });
+
+      at Object.toBeGreaterThan (tests/release/integration/release-workflow.integration.test.js:82:37)
+
+  ● Release Workflow Integration Tests (STORY-070) › Failure Scenarios and Rollback › should rollback on sync failure
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /rsync failed/
+
+    Received function did not throw
+
+      138 |       expect(() => {
+      139 |         execSync(`bash ${SCRIPT_PATH}`);
+    > 140 |       }).toThrow(/rsync failed/);
+          |          ^
+      141 |
+      142 |       // Verify rollback was attempted
+      143 |       expect(execSync).toHaveBeenCalledWith(expect.stringContaining('git reset'));
+
+      at Object.toThrow (tests/release/integration/release-workflow.integration.test.js:140:10)
+
+  ● Release Workflow Integration Tests (STORY-070) › Failure Scenarios and Rollback › should rollback on version update failure
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /tag.*already exists/
+
+    Received function did not throw
+
+      162 |       expect(() => {
+      163 |         execSync(`bash ${SCRIPT_PATH}`);
+    > 164 |       }).toThrow(/tag.*already exists/);
+          |          ^
+      165 |     });
+      166 |
+      167 |     test('should rollback on GitHub release failure', () => {
+
+      at Object.toThrow (tests/release/integration/release-workflow.integration.test.js:164:10)
+
+  ● Release Workflow Integration Tests (STORY-070) › Failure Scenarios and Rollback › should rollback on GitHub release failure
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /authentication expired/
+
+    Received function did not throw
+
+      185 |       expect(() => {
+      186 |         execSync(`bash ${SCRIPT_PATH}`);
+    > 187 |       }).toThrow(/authentication expired/);
+          |          ^
+      188 |
+      189 |       // Verify tag was deleted in rollback
+      190 |       expect(execSync).toHaveBeenCalledWith(expect.stringContaining('git tag -d'));
+
+      at Object.toThrow (tests/release/integration/release-workflow.integration.test.js:187:10)
+
+  ● Release Workflow Integration Tests (STORY-070) › Failure Scenarios and Rollback › should rollback on NPM publish failure
+
+    expect(received).toThrow(expected)
+
+    Expected pattern: /authentication failed/
+
+    Received function did not throw
+
+      209 |       expect(() => {
+      210 |         execSync(`bash ${SCRIPT_PATH}`);
+    > 211 |       }).toThrow(/authentication failed/);
+          |          ^
+      212 |
+      213 |       // Note: GitHub release NOT deleted (manual recovery needed)
+      214 |     });
+
+      at Object.toThrow (tests/release/integration/release-workflow.integration.test.js:211:10)
+
+Test Suites: 3 failed, 3 total
+Tests:       23 failed, 92 passed, 115 total
+Snapshots:   0 total
+Time:        9.438 s
+Ran all test suites matching /tests\/release\//i.
