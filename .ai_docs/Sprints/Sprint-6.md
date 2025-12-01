@@ -6,11 +6,13 @@ start_date: 2025-12-01
 end_date: 2025-12-14
 duration_days: 14
 status: Planning
-total_points: 25
+total_points: 20
 completed_points: 0
 stories:
   - STORY-099
   - STORY-100
+  - STORY-101
+  - STORY-102
 created: 2025-12-01
 ---
 
@@ -41,7 +43,7 @@ This sprint implements findings from **RESEARCH-001: Claude Code Memory Manageme
 
 ## Stories
 
-### Ready for Dev (10 points)
+### Ready for Dev (20 points)
 
 #### STORY-099: Baseline Metrics Collection
 - **Points:** 5
@@ -58,14 +60,27 @@ This sprint implements findings from **RESEARCH-001: Claude Code Memory Manageme
 - **Depends on:** STORY-099
 - **Description:** Create ongoing accuracy tracking log template with categories for rule violations, hallucinations, and missing citations
 
-### Pending Creation (~15 points remaining)
+#### STORY-101: Citation Format Standards
+- **Points:** 5
+- **Priority:** Medium
+- **Epic:** EPIC-016
+- **Status:** Backlog
+- **Description:** Define standardized citation formats in CLAUDE.md Critical Rule #12 (framework, memory, code files) with MUST/SHOULD requirements
 
-Stories to be created via `/create-story` from EPIC-016 features:
+#### STORY-102: Evidence-Based Grounding Protocol
+- **Points:** 5
+- **Priority:** Medium
+- **Epic:** EPIC-016
+- **Status:** Backlog
+- **Depends on:** STORY-101
+- **Description:** Document Read-Quote-Cite workflow in CLAUDE.md with examples for technology and architecture decisions
 
-1. ~~**Baseline Metrics Collection** (Feature 1) - ~5 points~~ ✅ Created as STORY-099
-2. ~~**Accuracy Tracking Log Setup** (Feature 1) - ~5 points~~ ✅ Created as STORY-100
-3. **Citation Format Standards** (Feature 2) - ~5 points
-4. **Evidence-Based Grounding Protocol** (Feature 2) - ~5 points
+### All Stories Created ✅ (20 points total)
+
+1. ~~**Baseline Metrics Collection** (Feature 1) - 5 points~~ ✅ Created as STORY-099
+2. ~~**Accuracy Tracking Log Setup** (Feature 1) - 5 points~~ ✅ Created as STORY-100
+3. ~~**Citation Format Standards** (Feature 2) - 5 points~~ ✅ Created as STORY-101
+4. ~~**Evidence-Based Grounding Protocol** (Feature 2) - 5 points~~ ✅ Created as STORY-102
 
 ## Dependencies
 
