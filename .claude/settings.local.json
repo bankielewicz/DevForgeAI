@@ -69,7 +69,14 @@
       "Bash(npm bin:*)",
       "Bash(npm run test:coverage:*)",
       "SlashCommand(/release:*)",
-      "Bash(npm view:*)"
+      "Bash(npm view:*)",
+      "Bash(timeout 60 python3 -m pytest:*)",
+      "Bash(timeout 60 npx jest:*)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2 timeout 90 python3:*)",
+      "WebFetch(domain:www.anthropic.com)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2 devforgeai-validate:*)",
+      "SlashCommand(/ideate:*)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer:$PYTHONPATH python3 -m pytest:*)"
     ],
     "deny": [],
     "ask": []
