@@ -1,357 +1,118 @@
-# Skill Execution Troubleshooting Guide
+# RCA-016 REC-3 Implementation Plan: Pattern Recognition Guide
 
-Quick reference for diagnosing and recovering from skill execution errors.
-
----
-
-## Symptom: I Invoked a Skill But Stopped Working
-
-**Problem:** After `Skill(command="...")`, you stopped and waited instead of executing.
-
-**Root Cause:** Confusion between Skill tool (inline expansion) and Task tool (isolated execution).
-
----
-
-## Correct Behavior After Skill Invocation
-
-### Step 1: Recognize Skill Content Has Expanded
-
-When you see:
-```
-<command-message>The "devforgeai-development" skill is running</command-message>
-```
-
-**This means:**
-- ✅ Skill's SKILL.md file content is now in your conversation
-- ✅ You have access to the skill's workflow instructions
-- ✅ **You must now execute those instructions**
-
-**This does NOT mean:**
-- ❌ Skill is executing elsewhere
-- ❌ Wait for skill to return results
-- ❌ Skill is running in background
-
-### Step 2: Read the Skill's Phase 0 Instructions
-
-Immediately after skill invocation:
-1. The skill's SKILL.md content has been loaded into conversation
-2. Locate the skill's Phase 0 section
-3. Read the first step of Phase 0
-
-### Step 3: Execute Phase 0
-
-**Action required:** Run the Phase 0 instructions now
-
-Example from devforgeai-development skill:
-```
-Phase 0: Pre-Flight Validation
-Step 1: Validate Git status
-  → Invoke git-validator subagent
-  → Process subagent result
-  → Set CAN_COMMIT flag
-```
-
-**You execute this:**
-```
-Task(
-  subagent_type="git-validator",
-  description="Check Git availability",
-  prompt="Validate Git repository status..."
-)
-```
-
-### Step 4: Display Phase 0 Results
-
-**Show user what you did:**
-```
-✓ Git validation complete
-✓ Repository status: Clean working tree
-✓ CAN_COMMIT: true
-```
-
-### Step 5: Continue to Phase 1
-
-**Read Phase 1 instructions from skill**
-**Execute Phase 1**
-**Display Phase 1 results**
-
-### Step 6: Continue Through All Phases
-
-**Sequential execution:**
-- Phase 1 → Execute → Display results
-- Phase 2 → Execute → Display results
-- Phase 3 → Execute → Display results
-- ...
-- Final phase → Execute → Display completion report
+**Created:** 2025-12-01
+**Purpose:** Executable plan for adding Progressive Disclosure Phase Skipping pattern to skill-execution-troubleshooting.md
+**Related RCA:** RCA-016-qa-skill-phase-skipping-during-deep-validation.md
+**Recommendation:** REC-3 (HIGH) - Create RCA-009 Pattern Recognition Guide
+**Status:** READY FOR EXECUTION
+**Prerequisites:**
+- REC-1 (CRITICAL) - COMPLETE (Commit 3654474)
+- REC-2 (HIGH) - COMPLETE (Commit 0d6744f)
 
 ---
 
-## What to Do If You Catch Yourself Waiting
+## Executive Summary
 
-### If You Notice the Error Immediately
+This document provides a complete, context-rich implementation plan for REC-3 that can be executed in a fresh terminal session without requiring prior context.
 
-**Recognition:**
-- "I just invoked a skill and said 'I'll wait'"
-- "I stopped after seeing 'skill is running'"
-- "I'm not executing the skill's instructions"
+**Problem Solved:** Progressive disclosure phase skipping pattern recurs across multiple skills (RCA-009, RCA-011, RCA-016) but no cross-skill documentation exists to help Claude recognize and prevent it.
 
-**Correct Course:**
-1. **Acknowledge:** "I incorrectly stopped after skill invocation"
-2. **Explain:** "Skills expand inline - I need to execute the instructions"
-3. **Resume:** "Let me read the skill's Phase 0 now"
-4. **Execute:** Begin Phase 0 execution
-5. **Continue:** Complete all phases
-
-### If User Points Out the Error
-
-**User says:**
-- "Why did you stop?"
-- "You should be executing the skill, not waiting"
-- "The skill doesn't run in the background"
-
-**Your response:**
-1. **Apologize:** "I apologize - I incorrectly treated the skill as a background process"
-2. **Correct understanding:** "Skills expand inline and I must execute their instructions"
-3. **Resume immediately:** "Let me execute the skill's workflow now, starting from Phase 0"
-4. **Complete workflow:** Execute all phases to completion
+**Solution:** Add new section to existing `.claude/memory/skill-execution-troubleshooting.md` documenting:
+- Pattern symptoms
+- Detection checklist
+- Recovery procedure
+- Prevention strategies
+- Affected skills list
+- Related RCAs
 
 ---
 
-## Quick Check: Am I Executing Correctly?
+## Current State Analysis (As of 2025-12-01)
 
-**Ask yourself after skill invocation:**
+### Existing File: `.claude/memory/skill-execution-troubleshooting.md`
 
-- ✅ Am I reading the skill's phase instructions?
-- ✅ Am I executing those instructions?
-- ✅ Am I displaying results as I work?
-- ✅ Am I progressing through phases sequentially?
+**Current content (355 lines):** Focuses on **Skill vs Task tool confusion** pattern:
+- Symptom: Invoking skill then waiting passively
+- Root cause: Confusing Skill tool (inline) with Task tool (isolated)
+- Recovery: Resume execution immediately
+- Prevention: Mental model correction
 
-**If answer is "no" to any:** You've stopped incorrectly. Resume execution.
+**What's Missing:** The **Progressive Disclosure Phase Skipping** pattern:
+- Symptom: Executing skill but skipping phases (jumping from Phase 1 to Phase 5)
+- Root cause: Reference files not loaded, Claude thinks phase names are self-explanatory
+- Recovery: Load reference files, execute missing steps
+- Prevention: Check for CHECKPOINT markers, verify reference loading
 
----
+### Gap Analysis
 
-## Mental Model Correction
-
-### ❌ WRONG Mental Model
-
-```
-Skill invocation → Wait for result → Display result
-```
-
-**This is the Task tool (subagents) pattern, NOT the Skill tool pattern.**
-
-### ✅ CORRECT Mental Model
-
-```
-Skill invocation → Load instructions → Execute instructions → Display your work
-```
-
-**Skills expand inline. You do the work.**
+| Pattern | Currently Documented | REC-3 Will Add |
+|---------|---------------------|----------------|
+| Skill vs Task confusion (wait after invoke) | ✅ Yes (lines 1-355) | N/A |
+| Progressive Disclosure Phase Skipping | ❌ No | ✅ New section |
+| Detection checklists | ✅ For waiting pattern | ✅ For skipping pattern |
+| Recovery procedures | ✅ For waiting pattern | ✅ For skipping pattern |
+| Related RCAs cross-reference | ❌ No | ✅ RCA-009, 011, 016 |
 
 ---
 
-## Comparison: Skills vs Subagents
+## Evidence Base: The Pattern
 
-| When to Wait | Skills (Skill tool) | Subagents (Task tool) |
-|--------------|--------------------|-----------------------|
-| **After invocation** | ❌ NEVER - You execute | ✅ YES - Agent executes |
-| **Who produces output** | You | Agent |
-| **Where execution happens** | Current conversation | Isolated context |
-| **What you see** | Skill's SKILL.md content | Agent's structured result |
+### Pattern Occurrences
 
----
+**RCA-009 (2025-11-14):** devforgeai-development skill
+- Skipped Tech Spec Coverage step in Phase 2
+- Reference file mentioned but not loaded
+- User caught issue
 
-## Common Scenarios
+**RCA-011 (2025-11-19):** devforgeai-development skill
+- Skipped mandatory TDD phases
+- Progressive disclosure pattern identified as root cause
+- Recommendations partially implemented
 
-### Scenario 1: /dev Command
+**RCA-016 (2025-12-01):** devforgeai-qa skill
+- Skipped Phases 2, 3, 4, 6, 7 (jumped from Phase 1 to Phase 5)
+- Reference files mentioned but not loaded
+- anti-pattern-scanner hallucinated violations (didn't read actual files)
+- User asked "did you skip any phases?" to catch issue
 
-**Command executes:**
-```
-Skill(command="devforgeai-development")
-```
+### Common Symptoms
 
-**System message appears:**
-```
-<command-message>The "devforgeai-development" skill is running</command-message>
-```
+1. Skill phases listed but not fully executed
+2. Reference files mentioned in SKILL.md but not Read()
+3. Subagents documented as MANDATORY but not invoked
+4. Workflow completes "too quickly" (Deep QA in 3 min instead of 10 min)
+5. User asks "did you skip phases?" or "did you follow 100%?"
+6. Results don't match expected detail level
 
-**✅ Correct action:**
-1. Read devforgeai-development skill's Phase 0
-2. Execute Phase 0 Step 1 (git-validator subagent)
-3. Execute Phase 0 Step 2 (adapt workflow)
-4. Continue through all Phase 0 steps
-5. Execute Phase 1 (Red phase)
-6. Continue through all phases
-7. Display completion report
+### Root Cause (Validated)
 
-**❌ Incorrect action:**
-```
-"The skill is running. I'll wait for it to complete."
-[Stops and waits]
-```
-
-### Scenario 2: /qa Command
-
-**Command executes:**
-```
-Skill(command="devforgeai-qa")
-```
-
-**✅ Correct action:**
-1. Read devforgeai-qa skill's Phase 0
-2. Execute validation mode detection
-3. Execute story loading
-4. Execute context validation
-5. Continue through all phases (Light or Deep)
-6. Invoke qa-result-interpreter subagent (Phase 5)
-7. Display results from subagent
-
-**❌ Incorrect action:**
-```
-"QA validation is running. I'll monitor progress."
-[Stops and waits]
-```
-
-### Scenario 3: /orchestrate Command
-
-**Command executes:**
-```
-Skill(command="devforgeai-orchestration")
-```
-
-**✅ Correct action:**
-1. Read orchestration skill's Phase 0
-2. Execute checkpoint detection
-3. Invoke devforgeai-development skill (if needed)
-4. Invoke devforgeai-qa skill (if needed)
-5. Handle QA retry loop (if QA fails)
-6. Invoke devforgeai-release skill (staging, production)
-7. Display orchestration completion report
-
-**❌ Incorrect action:**
-```
-"Orchestration workflow is running. I'll wait for all phases."
-[Stops and waits]
-```
+Phase summaries in SKILL.md appear complete but actually require loading reference files to see full workflow. Claude sees phase name (e.g., "Phase 2: Anti-Pattern Detection") and thinks "I know what that means" without:
+1. Loading the reference file
+2. Executing the documented workflow steps
+3. Invoking mandatory subagents with proper context
 
 ---
 
-## Emergency Recovery
+## Implementation Plan
 
-**If you've already stopped and are reading this:**
+### File to Modify
 
-### Step 1: Acknowledge the Error
-```
-"I apologize - I incorrectly stopped after skill invocation. Skills expand inline in the conversation, and I should have immediately begun executing the skill's workflow instructions."
-```
+**File:** `.claude/memory/skill-execution-troubleshooting.md`
+**Current lines:** 355
+**Expected after:** ~480 lines (+125 lines)
+**Action:** ADD new section (do not replace existing content)
 
-### Step 2: Explain the Correct Model
-```
-"When I invoke a skill, the skill's SKILL.md content becomes part of my context. I am responsible for reading and executing each phase of the skill's workflow, not waiting for an external process to complete."
-```
+### Section to Add
 
-### Step 3: Resume Execution
-```
-"Let me now execute the skill's workflow, starting from Phase 0."
-```
+**Insert Location:** After line 355 (end of current file, before any closing content)
 
-### Step 4: Execute All Phases
-- Read Phase 0 instructions
-- Execute Phase 0
-- Display Phase 0 results
-- Continue through all phases sequentially
-- Display final completion report
-
-### Step 5: Learn from the Error
-```
-"I will remember this for future skill invocations: Skills are inline prompt expansions that I execute, not background processes that I wait for."
-```
+**New Section Title:** `## Pattern: Progressive Disclosure Phase Skipping`
 
 ---
 
-## Prevention Checklist
+## Content to Add (Copy-Paste Ready)
 
-**Before invoking any skill, remind yourself:**
-- [ ] Skill invocation loads SKILL.md content into conversation
-- [ ] I will read the skill's instructions
-- [ ] I will execute those instructions phase by phase
-- [ ] I will display results as I work
-- [ ] I will NOT wait passively
-
-**After skill invocation message appears:**
-- [ ] I see "skill is running" message
-- [ ] This means skill content is loaded
-- [ ] I now read Phase 0 instructions
-- [ ] I execute Phase 0 immediately
-- [ ] I continue through all phases
-
----
-
-## Testing Your Understanding
-
-**Question 1:** After `Skill(command="devforgeai-development")`, what should you do?
-
-**✅ Correct answer:** Read the devforgeai-development skill's Phase 0 instructions and begin executing them immediately.
-
-**❌ Incorrect answer:** Wait for the skill to complete and monitor progress.
-
----
-
-**Question 2:** What does the system message "The 'devforgeai-qa' skill is running" mean?
-
-**✅ Correct answer:** The skill's SKILL.md content has been loaded into my conversation, and I must now execute its instructions.
-
-**❌ Incorrect answer:** The skill is executing in the background, and I should wait for it to return results.
-
----
-
-**Question 3:** When should you wait after invoking a skill?
-
-**✅ Correct answer:** NEVER. Skills expand inline, and I execute their instructions immediately.
-
-**❌ Incorrect answer:** Always wait for the skill to complete before continuing.
-
----
-
-**Question 4:** What's the difference between Skill tool and Task tool?
-
-**✅ Correct answer:**
-- Skill tool: Inline expansion, I execute instructions
-- Task tool: Isolated context, separate agent executes, I wait for result
-
-**❌ Incorrect answer:** Both tools launch background processes that return results.
-
----
-
-## Related Documentation
-
-**Core reference:**
-- `CLAUDE.md` - Section "CRITICAL: How Skills Work"
-- `.claude/memory/skills-reference.md` - Skills overview with execution model
-
-**Skills documentation:**
-- `.claude/skills/devforgeai-development/SKILL.md` - Development workflow
-- `.claude/skills/devforgeai-qa/SKILL.md` - QA validation workflow
-- `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration workflow
-
-**Commands documentation:**
-- `.claude/commands/dev.md` - /dev command (invokes devforgeai-development skill)
-- `.claude/commands/qa.md` - /qa command (invokes devforgeai-qa skill)
-- `.claude/commands/orchestrate.md` - /orchestrate command (invokes orchestration skill)
-
----
-
-## Remember
-
-**Skills are inline prompt expansions.**
-- You invoke them
-- They load into your conversation
-- You execute their instructions
-- You produce the output
-
-**You NEVER wait for skills to "complete" or "return results."**
-
-**If you find yourself waiting after skill invocation, STOP and resume execution immediately.**
+```markdown
 
 ---
 
@@ -611,7 +372,7 @@ If done much faster, verify you didn't skip phases.
 - Skill: devforgeai-qa
 - Symptom: Skipped 5 phases (2, 3, 4, 6, 7), jumped from Phase 1 to Phase 5
 - Root cause: Same pattern - reference files not loaded
-- Status: REC-1 COMPLETE, REC-2 COMPLETE, REC-3 COMPLETE
+- Status: REC-1 COMPLETE, REC-2 COMPLETE, REC-3 IN PROGRESS
 
 **Pattern frequency:** 3 incidents in 3 weeks (HIGH recurrence rate)
 
@@ -682,3 +443,180 @@ After implementing prevention strategies, verify:
 2. After resuming, you might skip phases (Pattern 2)
 
 **Check for BOTH patterns when troubleshooting skill execution issues.**
+```
+
+---
+
+## Execution Instructions
+
+### Pre-Execution Checklist
+
+```
+- [ ] Read current file: Read(file_path=".claude/memory/skill-execution-troubleshooting.md")
+- [ ] Verify file ends around line 355 with "## Remember" section
+- [ ] Create backup: Bash(command="cp .claude/memory/skill-execution-troubleshooting.md .claude/memory/skill-execution-troubleshooting.md.rec3-backup")
+- [ ] Note current line count for verification
+```
+
+### Execution Steps
+
+**Step 1:** Read current file to confirm structure
+
+**Step 2:** Create backup
+
+**Step 3:** Append new section using Edit tool
+- Find the last line of the file
+- Add the new "Pattern: Progressive Disclosure Phase Skipping" section
+- Preserve all existing content
+
+**Step 4:** Verify the addition
+- Count total lines (should be ~480)
+- Grep for "Progressive Disclosure Phase Skipping" (should find 1 match)
+- Grep for "RCA-016" in the file (should find multiple matches)
+
+**Step 5:** Update CLAUDE.md references (if needed)
+- Check if skill-execution-troubleshooting.md is already referenced
+- If not, add reference in appropriate section
+
+**Step 6:** Update RCA-016 status
+- Mark REC-3 as COMPLETE in implementation checklist
+- Add implementation record
+
+### Post-Execution Verification
+
+```bash
+# Verify file size
+wc -l .claude/memory/skill-execution-troubleshooting.md
+# Expected: ~480 lines (was 355)
+
+# Verify new section exists
+grep -c "Progressive Disclosure Phase Skipping" .claude/memory/skill-execution-troubleshooting.md
+# Expected: 1 (or more if mentioned in quick reference)
+
+# Verify RCA cross-references
+grep -c "RCA-016" .claude/memory/skill-execution-troubleshooting.md
+# Expected: 3+ mentions
+
+# Verify detection checklist exists
+grep -c "Detection Checklist" .claude/memory/skill-execution-troubleshooting.md
+# Expected: 1
+
+# Verify recovery procedure exists
+grep -c "Recovery Procedure" .claude/memory/skill-execution-troubleshooting.md
+# Expected: 1
+```
+
+---
+
+## Git Commit Message
+
+```
+docs(RCA-016): Add Progressive Disclosure Phase Skipping pattern guide (REC-3)
+
+- Add new section to skill-execution-troubleshooting.md (~125 lines)
+- Document pattern symptoms (5 warning signs)
+- Add detection checklist (7 verification items)
+- Add 6-step recovery procedure
+- Add 5 prevention strategies
+- List affected skills with risk levels (8 skills)
+- Cross-reference RCA-009, RCA-011, RCA-016
+- Add quick reference card for at-a-glance checking
+- Differentiate from "Waiting After Invoke" pattern
+
+RCA: RCA-016 (QA Skill Phase Skipping During Deep Validation)
+Recommendation: REC-3 (HIGH) - Create Pattern Recognition Guide
+Prerequisites: REC-1 (CRITICAL), REC-2 (HIGH) - Both COMPLETE
+
+File modified: .claude/memory/skill-execution-troubleshooting.md
+Lines added: ~125 (355 → ~480)
+```
+
+---
+
+## Rollback Procedure
+
+```bash
+# If implementation fails, restore from backup
+cp .claude/memory/skill-execution-troubleshooting.md.rec3-backup .claude/memory/skill-execution-troubleshooting.md
+
+# Verify restoration
+diff .claude/memory/skill-execution-troubleshooting.md .claude/memory/skill-execution-troubleshooting.md.rec3-backup
+# Should show no differences
+```
+
+---
+
+## Expected Outcomes
+
+### Before REC-3
+- 1 pattern documented (Waiting After Invoke)
+- No cross-skill pattern recognition
+- No detection checklist for phase skipping
+- No recovery procedure for phase skipping
+- File size: 355 lines
+
+### After REC-3
+- 2 patterns documented (Waiting + Phase Skipping)
+- Cross-skill pattern recognition with 8 affected skills listed
+- Detection checklist with 7 verification items
+- 6-step recovery procedure
+- 5 prevention strategies
+- Quick reference card
+- RCA cross-references (009, 011, 016)
+- File size: ~480 lines
+
+### Metrics
+- **Patterns documented:** 1 → 2 (100% increase)
+- **Detection checklist items:** 0 → 7 (new)
+- **Recovery steps:** 0 → 6 (new for this pattern)
+- **Prevention strategies:** 0 → 5 (new)
+- **RCA cross-references:** 0 → 3 (new)
+- **Skills coverage:** Framework-wide (8 skills listed)
+
+---
+
+## Session Resume Instructions
+
+To resume this plan in a new terminal session:
+
+1. **Read this plan:**
+```
+Read(file_path=".devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md")
+```
+
+2. **Read current troubleshooting file:**
+```
+Read(file_path=".claude/memory/skill-execution-troubleshooting.md")
+```
+
+3. **Create backup:**
+```
+Bash(command="cp .claude/memory/skill-execution-troubleshooting.md .claude/memory/skill-execution-troubleshooting.md.rec3-backup")
+```
+
+4. **Append new section** (content is in "Content to Add" section above)
+
+5. **Run verification commands**
+
+6. **Commit changes**
+
+---
+
+## Checkpoint Summary
+
+| Checkpoint | Description | Verification |
+|------------|-------------|--------------|
+| CP-1 | Plan document created | File exists at `.devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md` |
+| CP-2 | Backup created | File exists at `.claude/memory/skill-execution-troubleshooting.md.rec3-backup` |
+| CP-3 | New section appended | `grep "Progressive Disclosure Phase Skipping"` returns match |
+| CP-4 | Detection checklist added | `grep "Detection Checklist"` returns match |
+| CP-5 | Recovery procedure added | `grep "Recovery Procedure"` returns match |
+| CP-6 | Prevention strategies added | `grep "Prevention Strategies"` returns match |
+| CP-7 | RCA cross-references added | `grep -c "RCA-016"` returns 3+ |
+| CP-8 | Quick reference card added | `grep "QUICK CHECK"` returns match |
+| CP-9 | File size verified | `wc -l` returns ~480 |
+| CP-10 | Git commit successful | Commit hash recorded |
+
+---
+
+**Document Complete - Ready for Execution**
