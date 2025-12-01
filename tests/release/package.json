@@ -1,0 +1,46 @@
+{
+  "name": "devforgeai-release-tests",
+  "version": "1.0.0",
+  "description": "Test suite for STORY-070: Framework Release Automation",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:unit": "jest unit/",
+    "test:integration": "jest integration/",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "rootDir": ".",
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "../../scripts/release.sh",
+      "../../scripts/release-functions.sh"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "keywords": [
+    "devforgeai",
+    "release",
+    "automation",
+    "testing",
+    "tdd"
+  ],
+  "author": "DevForgeAI Team",
+  "license": "MIT"
+}
