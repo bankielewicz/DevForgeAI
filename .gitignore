@@ -6,7 +6,7 @@ tmp/
 .backups/
 
 # Root CLAUDE.md (user-specific, not tracked - src/CLAUDE.md is the source template)
-CLAUDE.md
+#CLAUDE.md
 
 # .ai_docs/ should be tracked (contains stories, epics, sprints)
 
