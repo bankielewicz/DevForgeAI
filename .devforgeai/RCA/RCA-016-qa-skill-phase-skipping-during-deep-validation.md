@@ -404,6 +404,8 @@ Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-w
 
 **Proposed Solution:** Add explicit checklist at end of each phase that Claude must display and verify
 
+**Implementation Plan:** `.devforgeai/RCA/RCA-016-REC2-ENHANCED-CHECKLISTS-PLAN.md` (comprehensive, session-resumable)
+
 **Implementation:**
 
 **File:** `.claude/skills/devforgeai-qa/SKILL.md`
