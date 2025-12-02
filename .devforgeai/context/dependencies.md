@@ -77,13 +77,19 @@ When devforgeai-architecture skill creates dependencies.md for projects:
 ```json
 {
   "commander": "^11.0.0",
-  "inquirer": "^9.0.0",
-  "ora": "^7.0.0",
-  "chalk": "^5.0.0",
-  "semver": "^7.5.0",
-  "boxen": "^7.0.0"
+  "inquirer": "^8.2.6",
+  "ora": "^5.4.1",
+  "chalk": "^4.1.2",
+  "cli-progress": "^3.12.0"
 }
 ```
+
+**Version Constraints (per ADR-006):**
+- `inquirer`: 8.x (Last CommonJS version, 9.x is ESM-only)
+- `ora`: 5.x (Last CommonJS version, 6.x+ is ESM-only)
+- `chalk`: 4.x (Last CommonJS version, 5.x+ is ESM-only)
+- `cli-progress`: 3.x (CommonJS compatible)
+- `commander`: 11.x (CommonJS compatible)
 
 **Alternatives FORBIDDEN:**
 - ❌ Yargs (use Commander.js only)
@@ -94,10 +100,15 @@ When devforgeai-architecture skill creates dependencies.md for projects:
 **Dev Dependencies:**
 ```json
 {
-  "jest": "^29.0.0",
+  "jest": "^30.0.0",
   "typescript": "^5.0.0"
 }
 ```
+
+**Jest Version Constraint (per ADR-007):**
+- `jest`: 30.x required for Node.js 22+ compatibility
+- Jest 29.x has initialization hanging issues with Node 22
+- See ADR-007 for full rationale
 
 ### Python Dependencies (Existing - Locked)
 
