@@ -76,7 +76,17 @@
       "WebFetch(domain:www.anthropic.com)",
       "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2 devforgeai-validate:*)",
       "SlashCommand(/ideate:*)",
-      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer:$PYTHONPATH python3 -m pytest:*)"
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer:$PYTHONPATH python3 -m pytest:*)",
+      "Bash(grep:*)",
+      "Bash(timeout 60 npm test:*)",
+      "Bash(timeout 30 npm test:*)",
+      "Bash(timeout 20 npx jest:*)",
+      "Bash(timeout 30 npx jest:*)",
+      "Bash(timeout 120 npm test:*)",
+      "Bash(timeout 15 npx jest:*)",
+      "Bash(npm ls:*)",
+      "Bash(timeout 15 ../../node_modules/.bin/jest:*)",
+      "Bash(jobs)"
     ],
     "deny": [],
     "ask": []
