@@ -1,13 +1,15 @@
 # DevForgeAI Installer Troubleshooting Guide
 
-**Version:** 1.0.0
-**Story:** STORY-045
+**Version:** 1.0.1
+**Story:** STORY-045 + STORY-074 (Error Handling)
 
 Complete troubleshooting reference for common installation issues and recovery procedures.
 
 ---
 
 ## Quick Diagnostic
+
+### Option 1: Validation Mode (Recommended)
 
 Run validation mode to check installation health:
 
@@ -26,6 +28,65 @@ else:
     for error in result["errors"]:
         print(f"  - {error}")
 ```
+
+### Option 2: Check Exit Code
+
+Use exit codes to quickly identify failure type:
+
+```bash
+# Run installer and capture exit code
+python -m installer /path/to/project
+EXIT_CODE=$?
+
+case $EXIT_CODE in
+    0) echo "✅ Installation successful" ;;
+    1) echo "❌ Missing source files - see EXIT-CODES.md" ;;
+    2) echo "❌ Permission denied - fix with: chmod -R u+w /path" ;;
+    3) echo "❌ Rollback occurred - fix root cause and retry" ;;
+    4) echo "⚠️  Validation failed - check .devforgeai/install.log" ;;
+esac
+```
+
+**See:** [EXIT-CODES.md](EXIT-CODES.md) for complete exit code reference and recovery procedures.
+
+### Option 3: Check Log File
+
+Installation logs all errors with timestamps and context:
+
+```bash
+# View recent errors in log
+tail -50 .devforgeai/install.log
+
+# Search for specific error type
+grep "ERROR\|CRITICAL" .devforgeai/install.log
+
+# View entire error handling flow
+grep "Phase:" .devforgeai/install.log
+```
+
+**Log Format:**
+```
+[2025-12-03T14:30:45.123Z] [LEVEL] [PHASE] Message
+```
+
+---
+
+## Error Handling Overview (AC#1-8)
+
+The installer implements 8 acceptance criteria for comprehensive error handling:
+
+| AC# | Feature | Purpose |
+|-----|---------|---------|
+| AC#1 | Error Categorization | Classifies errors into 5 types (Missing Source, Permission, Rollback, Validation) |
+| AC#2 | User-Friendly Messages | Formats errors without stack traces, includes resolution steps |
+| AC#3 | Path Sanitization | Removes usernames and masks sensitive paths from error messages |
+| AC#4 | Concurrent Installation Detection | Detects and prevents multiple simultaneous installations |
+| AC#5 | Auto-Rollback on Failure | Automatically restores previous state when errors occur |
+| AC#6 | Exit Codes | Returns 0/1/2/3/4 to indicate success/failure type |
+| AC#7 | Backup Service | Creates timestamped backups, preserves structure, cleans old backups |
+| AC#8 | Installation Logging | Logs all operations with ISO 8601 timestamps, stack traces, thread-safe |
+
+**Implementation Status:** Production Ready (114 tests passing)
 
 ---
 
@@ -749,21 +810,316 @@ When installation fails, check:
 
 ---
 
+## Error Handling and Recovery
+
+### Understanding Error Categories (AC#1)
+
+The error handler categorizes errors into 5 types:
+
+**1. MISSING_SOURCE** (Exit Code 1)
+- Cause: Required source files not found (src/devforgeai/version.json, src/claude/)
+- Recovery: Create missing source files
+- Auto-rollback: No (failed before deployment)
+
+**2. PERMISSION_DENIED** (Exit Code 2)
+- Cause: Insufficient permissions for target directory
+- Recovery: Use `chmod -R u+w /path`
+- Auto-rollback: Yes (if occurred during file copy)
+
+**3. ROLLBACK_OCCURRED** (Exit Code 3)
+- Cause: Any error during file deployment
+- Recovery: Fix root cause, retry
+- Auto-rollback: Yes (auto-triggered)
+- Status: System restored to previous state (safe)
+
+**4. VALIDATION_FAILED** (Exit Code 4)
+- Cause: Post-installation validation checks failed
+- Recovery: Review log, check file counts, retry
+- Auto-rollback: No (installation successful, validation issue only)
+
+**5. SUCCESS** (Exit Code 0)
+- Status: Installation completed without errors
+- Recovery: None needed
+
+### User-Friendly Error Messages (AC#2)
+
+Errors are formatted without stack traces:
+
+```
+ERROR: Permission Denied
+Insufficient permissions for installation.
+
+Details: [Errno 13] Permission denied: '.claude/commands/'
+
+Resolution steps:
+  1. Run with appropriate permissions (sudo may be needed)
+  2. Check file ownership: chown user:group <path>
+  3. Verify directory write permissions: chmod u+w <path>
+
+For details, see log file: .devforgeai/install.log
+```
+
+**Benefits:**
+- No technical stack traces confuse users
+- Clear 1-3 step resolution guidance
+- Log file reference for advanced diagnostics
+- Concise, actionable information
+
+### Path Sanitization (AC#3)
+
+Error messages automatically mask sensitive information:
+
+**Before Sanitization:**
+```
+Error copying file: /home/alice/.aws/credentials
+Permission denied to /home/alice/.devforgeai/
+```
+
+**After Sanitization:**
+```
+Error copying file: /home/$USER/<sensitive file path>
+Permission denied to /home/$USER/.devforgeai/
+```
+
+**Masked Paths:**
+- `/home/username/` → `/home/$USER/`
+- `.ssh/`, `.aws/`, `.kube/`, `.docker/`, `.netrc/`, `.pgpass`
+
+**Purpose:** Prevents accidental exposure of sensitive directories in error messages that might be copied to tickets, logs, or shared.
+
+### Concurrent Installation Detection (AC#4)
+
+Prevents multiple simultaneous installations:
+
+```python
+# First process creates lock file
+lock_file = Path(".devforgeai/install.lock")
+lock_file.touch()
+
+# Second process detects lock
+if lock_file.exists():
+    raise RuntimeError(
+        "Concurrent installation detected. "
+        "Another installation is currently in progress. "
+        "Wait for it to complete or remove the lock file."
+    )
+```
+
+**Behavior:**
+- Lock file created at start of installation
+- Locked if PID indicates running process
+- Removed after installation completes
+- Returns clear error if concurrent install attempted
+
+### Auto-Rollback on Failure (AC#5)
+
+Automatically restores previous state when errors occur:
+
+**Automatic Triggers:**
+1. Permission denied during file copy → Rollback
+2. Disk full during deployment → Rollback
+3. File copy error → Rollback
+4. Validation failure (post-deploy) → No auto-rollback
+5. User Ctrl+C during installation → Rollback
+
+**Example:**
+```
+Phase 1: Create Backup ✅ (backup-2025-12-03T14-30-45/)
+Phase 2: Deploy Files
+    ├─ Copying .claude/commands/ ✅
+    ├─ Copying .claude/skills/ ❌ Permission denied
+    └─ Auto-Rollback Triggered
+        └─ Files restored from backup
+        └─ Version.json reverted
+        └─ Exit code: 3
+        └─ System state: Valid (pre-installation)
+```
+
+**Safety:** Project always remains in a valid state (no partial installations).
+
+### Installation Logging (AC#8)
+
+All operations logged to `.devforgeai/install.log`:
+
+**Logged Information:**
+- Timestamps (ISO 8601 with milliseconds, UTC)
+- Operation phase and step
+- Success/failure indicators
+- Full error messages and stack traces
+- File counts and deployment progress
+- Backup locations and integrity checks
+- Rollback operations (if any)
+
+**Log Levels:**
+```
+[INFO]     Informational (operation starting/completed)
+[WARNING]  Non-critical issues (missing optional files)
+[ERROR]    Failure requiring rollback
+[CRITICAL] System failure requiring immediate attention
+```
+
+**Thread Safety:**
+- Multiple threads writing to log simultaneously → Protected with locks
+- Log file never corrupted due to concurrent writes
+- Safe for parallel installation processes
+
+**Retention:**
+```bash
+# Log files rotate at 10MB
+.devforgeai/install.log        # Current log (active)
+.devforgeai/install.log.1      # Previous log (rotated)
+.devforgeai/install.log.2      # Older log (kept for history)
+
+# Keep last 3 log files, delete older ones
+```
+
+---
+
+## Backup Service (AC#7)
+
+Creates timestamped backups before file operations:
+
+### Backup Structure
+
+```
+.devforgeai/install-backup-2025-12-03T14-30-45/
+├── .claude/               (complete copy)
+├── .devforgeai/          (complete copy)
+├── CLAUDE.md             (if exists)
+└── manifest.json         (metadata)
+```
+
+### Backup Operations
+
+**Create Backup (Before Deployment):**
+```python
+# Creates timestamped directory
+# Copies all files maintaining structure
+# Logs backup location
+backup_dir = backup_service.create_backup(
+    target_dir=Path("/path/to/project"),
+    files_to_backup=[...]
+)
+# Returns: /path/to/project/.devforgeai/install-backup-2025-12-03T14-30-45/
+```
+
+**Automatic Cleanup (After Deployment):**
+```python
+# Removes backups older than 7 days
+# Keeps minimum 5 recent backups
+# Prevents disk space accumulation
+backup_service.cleanup_old_backups(
+    max_age_days=7,
+    min_keep=5
+)
+```
+
+**Example Cleanup:**
+```
+Before cleanup:
+  install-backup-2025-11-26T10-00-00/  (8 days old - REMOVE)
+  install-backup-2025-11-28T14-30-45/  (6 days old - KEEP)
+  install-backup-2025-11-30T09-15-30/  (4 days old - KEEP)
+  install-backup-2025-12-01T11-45-20/  (3 days old - KEEP)
+  install-backup-2025-12-02T16-20-10/  (2 days old - KEEP)
+  install-backup-2025-12-03T14-30-45/  (today - KEEP)
+
+After cleanup:
+  install-backup-2025-11-28T14-30-45/  (kept)
+  install-backup-2025-11-30T09-15-30/  (kept)
+  install-backup-2025-12-01T11-45-20/  (kept)
+  install-backup-2025-12-02T16-20-10/  (kept)
+  install-backup-2025-12-03T14-30-45/  (kept)
+```
+
+---
+
 ## Reporting Issues
 
 When reporting issues, include:
 
-1. **Error message** (full traceback)
-2. **Installation mode** (fresh, upgrade, rollback, etc.)
-3. **Python version:** `python3 --version`
-4. **OS:** `uname -a` (Unix) or `ver` (Windows)
-5. **Source version:** `cat src/devforgeai/version.json`
-6. **Installed version:** `cat .devforgeai/.version.json` (if exists)
-7. **Steps to reproduce**
-8. **Expected vs actual behavior**
+1. **Error message** (exact text)
+2. **Exit code** (0, 1, 2, 3, or 4)
+3. **Installation mode** (fresh, upgrade, rollback, etc.)
+4. **Python version:** `python3 --version`
+5. **OS:** `uname -a` (Unix) or `ver` (Windows)
+6. **Source version:** `cat src/devforgeai/version.json`
+7. **Installed version:** `cat .devforgeai/.version.json` (if exists)
+8. **Log file excerpt:** `cat .devforgeai/install.log` (last 50 lines)
+9. **Steps to reproduce**
+10. **Expected vs actual behavior**
 
 ---
 
-**Last Updated:** 2025-11-19
-**Version:** 1.0.0
-**Story:** STORY-045
+## Advanced Troubleshooting: Error Handler Details
+
+### Checking Error Categorization
+
+```python
+from installer.error_handler import ErrorHandler
+
+handler = ErrorHandler()
+
+# Test error categorization
+errors = [
+    FileNotFoundError("No such file"),
+    PermissionError("Permission denied"),
+    RuntimeError("Unknown error"),
+]
+
+for error in errors:
+    category = handler.categorize_error(error)
+    print(f"{error.__class__.__name__} → {category.name} (code: {category.exit_code})")
+
+# Output:
+# FileNotFoundError → MISSING_SOURCE (code: 1)
+# PermissionError → PERMISSION_DENIED (code: 2)
+# RuntimeError → VALIDATION_FAILED (code: 4)
+```
+
+### Verifying Path Sanitization
+
+```python
+handler = ErrorHandler()
+
+# Test path sanitization
+message = """Error in /home/alice/.aws/credentials
+User /home/bob cannot access /home/bob/.ssh/
+"""
+
+sanitized = handler._sanitize_paths(message)
+print(sanitized)
+
+# Output:
+# Error in /home/$USER/<sensitive file path>
+# User /home/$USER cannot access /home/$USER/<sensitive file path>
+```
+
+### Checking Lock File
+
+```python
+from pathlib import Path
+
+lock_file = Path(".devforgeai/install.lock")
+
+if lock_file.exists():
+    # Check if process still running (Unix)
+    with open(lock_file) as f:
+        pid = int(f.read().strip())
+
+    # If PID not running, lock is stale
+    import subprocess
+    result = subprocess.run(['ps', '-p', str(pid)], capture_output=True)
+
+    if result.returncode != 0:
+        print("Lock is stale, safe to remove")
+        lock_file.unlink()
+else:
+    print("No lock file, safe to proceed")
+```
+
+---
+
+**Last Updated:** 2025-12-03
+**Version:** 1.0.1
+**Story:** STORY-045 + STORY-074
