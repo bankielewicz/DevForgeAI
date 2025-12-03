@@ -623,3 +623,123 @@ class TestFileConflictDetectionService:
 
         # Assert
         assert service is not None
+
+    # ===== COVERAGE GAP TESTS (Path validation edge cases) =====
+
+    def test_detect_conflicts_path_validation_edge_cases(self, temp_dir):
+        """
+        Test: Path validation handles edge cases (symlinks, relative paths)
+
+        Given: Source files with symlinks and relative path references
+        When: detect_conflicts() is called
+        Then: Validates and resolves paths correctly
+        """
+        # Arrange
+        from src.installer.services.file_conflict_detection_service import FileConflictDetectionService
+        import pytest
+
+        # Create real file
+        real_file = temp_dir / "subdir" / "real.txt"
+        real_file.parent.mkdir(parents=True)
+        real_file.write_text("content")
+
+        try:
+            # Create symlink
+            link_file = temp_dir / "link.txt"
+            link_file.symlink_to(real_file)
+
+            # Test with various path formats
+            source_files = [
+                "link.txt",              # Symlink
+                "./subdir/real.txt",     # Relative with ./
+                "subdir/../subdir/real.txt",  # Path with ../ (still valid)
+            ]
+
+            service = FileConflictDetectionService(
+                target_path=str(temp_dir),
+                source_files=source_files
+            )
+
+            # Act
+            result = service.detect_conflicts()
+
+            # Assert
+            # Should detect conflicts for valid paths within target
+            assert result is not None
+            assert len(result.conflicts) >= 1  # At least real.txt detected
+
+            # Verify no paths escape target directory
+            for conflict in result.conflicts:
+                resolved_path = conflict.resolve()
+                assert str(temp_dir) in str(resolved_path)
+
+        except OSError:
+            pytest.skip("Symlinks not supported on this platform")
+
+    def test_is_within_target_with_symlink_escape(self, temp_dir):
+        """
+        Test: Path validation rejects symlinks that escape target directory
+
+        Given: Symlink points outside target directory
+        When: is_within_target() is called
+        Then: Returns False (security protection)
+        """
+        # Arrange
+        from src.installer.services.file_conflict_detection_service import FileConflictDetectionService
+        import pytest
+
+        service = FileConflictDetectionService(
+            target_path=str(temp_dir),
+            source_files=[]
+        )
+
+        try:
+            # Create external file
+            external_dir = temp_dir.parent / "external"
+            external_dir.mkdir(exist_ok=True)
+            external_file = external_dir / "outside.txt"
+            external_file.write_text("content")
+
+            # Create symlink inside target pointing outside
+            escape_link = temp_dir / "escape.txt"
+            escape_link.symlink_to(external_file)
+
+            # Act
+            result = service.is_within_target(escape_link)
+
+            # Assert
+            assert result is False  # Should reject symlink escape
+
+        except OSError:
+            pytest.skip("Symlinks not supported on this platform")
+
+    def test_validate_path_absolute_vs_relative(self, temp_dir):
+        """
+        Test: Path validation handles absolute and relative paths correctly
+
+        Given: Mix of absolute and relative paths
+        When: Validation occurs
+        Then: All paths resolved to absolute and validated
+        """
+        # Arrange
+        from src.installer.services.file_conflict_detection_service import FileConflictDetectionService
+        from pathlib import Path
+
+        service = FileConflictDetectionService(
+            target_path=str(temp_dir),
+            source_files=[]
+        )
+
+        # Test absolute path within target
+        absolute_valid = temp_dir / "file.txt"
+        assert service.is_within_target(absolute_valid) is True
+
+        # Test absolute path outside target
+        absolute_invalid = temp_dir.parent / "outside" / "file.txt"
+        assert service.is_within_target(absolute_invalid) is False
+
+        # Test relative path (should be resolved relative to target)
+        relative_path = Path("subdir/file.txt")
+        # When resolved relative to target, should be valid
+        full_relative = temp_dir / relative_path
+        assert service.is_within_target(full_relative) is True

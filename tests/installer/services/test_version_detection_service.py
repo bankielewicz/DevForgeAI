@@ -632,3 +632,116 @@ class TestVersionDetectionService:
 
         # Assert
         assert service is not None
+
+    # ===== COVERAGE GAP TESTS (Error handling in read_version and compare_versions) =====
+
+    def test_read_version_with_parse_error(self, temp_dir):
+        """
+        Test: read_version handles JSON decode errors gracefully
+
+        Given: version.json has malformed JSON that raises JSONDecodeError
+        When: read_version() is called
+        Then: Returns None and logs error without crashing
+        """
+        # Arrange
+        from src.installer.services.version_detection_service import VersionDetectionService
+        from unittest.mock import patch
+
+        version_dir = temp_dir / ".devforgeai"
+        version_dir.mkdir()
+        version_file = version_dir / ".version.json"
+        version_file.write_text('{"installed_version": "1.0.0"')  # Missing closing brace
+
+        service = VersionDetectionService(target_path=str(temp_dir))
+
+        with patch('src.installer.services.version_detection_service.logger') as mock_logger:
+            # Act
+            result = service.read_version()
+
+            # Assert
+            assert result is None
+            mock_logger.error.assert_called()
+            # Verify error message mentions corrupted or JSON
+            error_call_args = str(mock_logger.error.call_args)
+            assert 'corrupted' in error_call_args.lower() or 'json' in error_call_args.lower()
+
+    def test_read_version_with_key_error(self, temp_dir):
+        """
+        Test: read_version handles KeyError for missing required fields
+
+        Given: version.json missing 'installed_version' key
+        When: read_version() is called
+        Then: Returns None and logs warning (not error, per implementation line 110)
+        """
+        # Arrange
+        from src.installer.services.version_detection_service import VersionDetectionService
+        from unittest.mock import patch
+
+        version_dir = temp_dir / ".devforgeai"
+        version_dir.mkdir()
+        version_file = version_dir / ".version.json"
+        version_file.write_text('{"wrong_key": "value"}')  # Missing installed_version
+
+        service = VersionDetectionService(target_path=str(temp_dir))
+
+        with patch('src.installer.services.version_detection_service.logger') as mock_logger:
+            # Act
+            result = service.read_version()
+
+            # Assert
+            assert result is None
+            # Implementation logs warning, not error (see line 110 in version_detection_service.py)
+            mock_logger.warning.assert_called()
+
+    def test_compare_versions_with_invalid_format(self):
+        """
+        Test: compare_versions handles malformed version strings
+
+        Given: Version string raises InvalidVersion exception
+        When: compare_versions() is called
+        Then: Returns action="unknown" with manual review message
+        """
+        # Arrange
+        from src.installer.services.version_detection_service import VersionDetectionService
+        from unittest.mock import patch
+        from packaging.version import InvalidVersion
+
+        service = VersionDetectionService(target_path="/tmp")
+
+        # Act - Test with version that raises InvalidVersion during parsing
+        with patch('packaging.version.Version', side_effect=InvalidVersion("Invalid")):
+            result = service.compare_versions(
+                installed_version="1.0.0",
+                source_version="totally.broken.version"
+            )
+
+        # Assert
+        assert result.action == "unknown"
+        assert "manual review" in result.message.lower()
+
+    def test_compare_versions_with_none_values(self):
+        """
+        Test: compare_versions handles None version values
+
+        Given: Installed or source version is None
+        When: compare_versions() is called
+        Then: Returns action="unknown"
+        """
+        # Arrange
+        from src.installer.services.version_detection_service import VersionDetectionService
+
+        service = VersionDetectionService(target_path="/tmp")
+
+        # Act & Assert - None installed version
+        result1 = service.compare_versions(
+            installed_version=None,
+            source_version="1.0.0"
+        )
+        assert result1.action == "unknown"
+
+        # Act & Assert - None source version
+        result2 = service.compare_versions(
+            installed_version="1.0.0",
+            source_version=None
+        )
+        assert result2.action == "unknown"

@@ -618,3 +618,191 @@ class TestAutoDetectionService:
 
         # Assert
         assert service is not None
+
+    # ===== COVERAGE GAP TESTS (Lines 150-183 + error handling) =====
+
+    def test_detect_all_concurrent_success(self, temp_dir):
+        """
+        Test: detect_all_concurrent with all checks succeeding
+
+        Given: All detection services return valid results
+        When: detect_all_concurrent() is called
+        Then: Returns DetectionResult with all fields populated
+        """
+        # Arrange
+        from src.installer.services.auto_detection_service import AutoDetectionService
+        import json
+
+        # Create existing installation
+        version_dir = temp_dir / ".devforgeai"
+        version_dir.mkdir()
+        version_file = version_dir / ".version.json"
+        version_data = {
+            "installed_version": "1.0.0",
+            "installed_at": "2025-11-25T10:30:00Z",
+            "installation_source": "installer"
+        }
+        version_file.write_text(json.dumps(version_data))
+
+        service = AutoDetectionService(
+            target_path=str(temp_dir),
+            source_version="1.1.0",
+            source_files=[]
+        )
+
+        # Act
+        result = service.detect_all_concurrent()
+
+        # Assert
+        assert result is not None
+        assert result.version_info is not None
+        assert result.version_info.installed_version == "1.0.0"
+        assert hasattr(result, "claudemd_info")
+        assert hasattr(result, "git_info")
+        assert hasattr(result, "conflicts")
+
+    def test_detect_all_concurrent_with_failures(self, temp_dir):
+        """
+        Test: detect_all_concurrent graceful handling of partial failures
+
+        Given: One detection service raises exception
+        When: detect_all_concurrent() is called
+        Then: Returns DetectionResult with successful checks, failed check is None
+        """
+        # Arrange
+        from src.installer.services.auto_detection_service import AutoDetectionService
+
+        # Create mock version service that raises exception
+        mock_version_service = Mock()
+        mock_version_service.read_version.side_effect = Exception("Version detection failed")
+
+        service = AutoDetectionService(
+            target_path=str(temp_dir),
+            source_version="1.0.0",
+            source_files=[],
+            version_service=mock_version_service
+        )
+
+        # Act
+        result = service.detect_all_concurrent()
+
+        # Assert
+        assert result is not None
+        assert result.version_info is None  # Failed task returns None
+        # Other checks should still complete
+        assert hasattr(result, "git_info")
+        assert hasattr(result, "conflicts")
+
+    def test_detect_all_concurrent_performance(self, temp_dir):
+        """
+        Test: detect_all_concurrent is faster than sequential
+
+        Given: Multiple detection checks
+        When: detect_all_concurrent() is called vs detect_all()
+        Then: Concurrent execution completes in ≤ sequential time
+        """
+        # Arrange
+        from src.installer.services.auto_detection_service import AutoDetectionService
+
+        # Create services with artificial delays
+        def slow_detect(*args, **kwargs):
+            time.sleep(0.05)  # 50ms delay
+            return None
+
+        mock_version = Mock()
+        mock_version.read_version.side_effect = slow_detect
+
+        mock_git = Mock()
+        mock_git.detect_git_root.side_effect = slow_detect
+        mock_git.is_submodule.return_value = False
+
+        service = AutoDetectionService(
+            target_path=str(temp_dir),
+            source_version="1.0.0",
+            source_files=[],
+            version_service=mock_version,
+            git_service=mock_git
+        )
+
+        # Act - Concurrent
+        start_concurrent = time.time()
+        result_concurrent = service.detect_all_concurrent()
+        duration_concurrent = time.time() - start_concurrent
+
+        # Act - Sequential
+        start_sequential = time.time()
+        result_sequential = service.detect_all()
+        duration_sequential = time.time() - start_sequential
+
+        # Assert
+        # Concurrent should be faster (or at most equal)
+        assert duration_concurrent <= duration_sequential * 1.1  # 10% tolerance
+        assert result_concurrent is not None
+        assert result_sequential is not None
+
+    def test_detect_all_with_version_failure(self, temp_dir):
+        """
+        Test: detect_all when version detection raises exception
+
+        Given: VersionDetectionService raises exception
+        When: detect_all() is called
+        Then: Returns DetectionResult with version_info=None, error logged
+        """
+        # Arrange
+        from src.installer.services.auto_detection_service import AutoDetectionService
+
+        mock_version_service = Mock()
+        mock_version_service.read_version.side_effect = RuntimeError("JSON decode error")
+
+        service = AutoDetectionService(
+            target_path=str(temp_dir),
+            source_version="1.0.0",
+            source_files=[],
+            version_service=mock_version_service
+        )
+
+        with patch('src.installer.services.auto_detection_service.logger') as mock_logger:
+            # Act
+            result = service.detect_all()
+
+            # Assert
+            assert result is not None
+            assert result.version_info is None
+            mock_logger.error.assert_called()
+            # Check error message contains "Version detection failed"
+            error_call = mock_logger.error.call_args[0][0]
+            assert "Version detection failed" in error_call or "version" in error_call.lower()
+
+    def test_detect_all_with_git_failure(self, temp_dir):
+        """
+        Test: detect_all when git detection raises exception
+
+        Given: GitDetectionService raises exception
+        When: detect_all() is called
+        Then: Returns DetectionResult with git_info=None, error logged
+        """
+        # Arrange
+        from src.installer.services.auto_detection_service import AutoDetectionService
+        import subprocess
+
+        mock_git_service = Mock()
+        mock_git_service.detect_git_root.side_effect = subprocess.CalledProcessError(128, "git")
+
+        service = AutoDetectionService(
+            target_path=str(temp_dir),
+            source_version="1.0.0",
+            source_files=[],
+            git_service=mock_git_service
+        )
+
+        with patch('src.installer.services.auto_detection_service.logger') as mock_logger:
+            # Act
+            result = service.detect_all()
+
+            # Assert
+            assert result is not None
+            assert result.git_info is None
+            mock_logger.error.assert_called()
+            # Check error message contains "Git detection failed"
+            error_call = mock_logger.error.call_args[0][0]
+            assert "Git detection failed" in error_call or "git" in error_call.lower()
