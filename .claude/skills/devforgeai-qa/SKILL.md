@@ -2,7 +2,7 @@
 name: devforgeai-qa
 description: Validates code quality through hybrid progressive validation (light checks during development, deep analysis after completion). Enforces test coverage (95%/85%/80% strict thresholds), detects anti-patterns, validates spec compliance, and analyzes code quality metrics. Use when validating implementations, ensuring quality standards, or preparing for release.
 tools: Read, Write, Edit, Glob, Grep, Bash, Task
-model: claude-sonnet-4-5-20250929[1m]
+model: claude-haiku-4-5-20251001
 ---
 
 # DevForgeAI QA Skill
