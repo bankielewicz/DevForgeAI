@@ -494,3 +494,142 @@ class TestDiskSpaceChecker:
 
             # Assert
             assert result.status == "PASS"
+
+    # Edge Cases: Generic exception handling (Lines 79-80)
+
+    def test_should_handle_generic_exception_during_disk_check(self):
+        """
+        Test: Generic exception during disk check → WARN status
+
+        Given: shutil.disk_usage raises unexpected exception
+        When: DiskSpaceChecker.check() is called
+        Then: Returns WARN status with error context
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = RuntimeError("Unexpected system error")
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+            assert "error" in result.message.lower() or "unexpected" in result.message.lower()
+
+    def test_should_handle_value_error_in_disk_calculation(self):
+        """
+        Test: ValueError during calculation → WARN status
+
+        Given: Disk usage returns invalid data causing ValueError
+        When: DiskSpaceChecker.check() is called
+        Then: Returns WARN status gracefully
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = ValueError("Invalid disk data")
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+
+    def test_should_handle_attribute_error_on_disk_usage_result(self):
+        """
+        Test: AttributeError on disk_usage result → WARN status
+
+        Given: disk_usage returns object without 'free' attribute
+        When: DiskSpaceChecker.check() is called
+        Then: Returns WARN status (caught by generic exception)
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = AttributeError("'NoneType' has no attribute 'free'")
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+
+    def test_should_handle_type_error_in_space_calculation(self):
+        """
+        Test: TypeError during space calculation → WARN status
+
+        Given: Calculation fails due to type mismatch
+        When: DiskSpaceChecker.check() is called
+        Then: Returns WARN status
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = TypeError("unsupported operand type(s)")
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+
+    def test_should_include_error_details_in_generic_exception_message(self):
+        """
+        Test: Generic exception message includes error details
+
+        Given: shutil.disk_usage raises exception with specific message
+        When: DiskSpaceChecker.check() is called
+        Then: WARN message includes original error context
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = Exception("Custom error message")
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+            # Message should contain some error context
+            assert "error" in result.message.lower() or "unexpected" in result.message.lower()
+
+    def test_should_handle_keyboard_interrupt_gracefully(self):
+        """
+        Test: KeyboardInterrupt during disk check → still returns WARN
+
+        Given: User interrupts during disk check (rare edge case)
+        When: DiskSpaceChecker.check() is called
+        Then: Exception propagates (not caught by generic handler)
+
+        Note: KeyboardInterrupt is BaseException, not Exception,
+        so it should propagate up rather than be caught.
+        """
+        # Arrange
+        from src.installer.validators.disk_space_checker import DiskSpaceChecker
+
+        checker = DiskSpaceChecker(target_path="/test/path")
+
+        with patch('shutil.disk_usage') as mock_disk_usage:
+            mock_disk_usage.side_effect = KeyboardInterrupt()
+
+            # Act & Assert
+            # KeyboardInterrupt should propagate (not be caught)
+            with pytest.raises(KeyboardInterrupt):
+                checker.check()

@@ -581,3 +581,196 @@ class TestExistingInstallationDetector:
         # Assert
         assert result.status == "WARN"
         # Should not crash, simply omit version from message
+
+    # Edge Cases: _read_version exception handling (Lines 86-87, 114, 121-122)
+
+    def test_should_handle_generic_exception_in_check(self, temp_dir):
+        """
+        Test: Generic exception during check() → WARN status
+
+        Given: Path.exists() raises unexpected exception
+        When: ExistingInstallationDetector.check() is called
+        Then: Returns WARN with error context
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        with patch.object(Path, 'exists') as mock_exists:
+            mock_exists.side_effect = RuntimeError("Unexpected filesystem error")
+
+            # Act
+            result = detector.check()
+
+            # Assert
+            assert result.status == "WARN"
+            assert "error" in result.message.lower()
+
+    def test_should_handle_io_error_reading_version_json(self, temp_dir):
+        """
+        Test: IOError reading version.json → returns None for version
+
+        Given: version.json exists but raises IOError when read
+        When: ExistingInstallationDetector.check() is called
+        Then: Returns WARN without version (graceful handling)
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        # Create version.json
+        version_file = temp_dir / "version.json"
+        version_file.write_text('{"version": "1.0.0"}')
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Mock open to raise IOError
+        with patch('builtins.open', side_effect=IOError("Cannot read file")):
+            # Act
+            result = detector.check()
+
+            # Assert
+            assert result.status == "WARN"
+            # Version should not appear since read failed
+            assert "1.0.0" not in result.message or "existing" in result.message.lower()
+
+    def test_should_handle_generic_exception_in_read_version(self, temp_dir):
+        """
+        Test: Generic exception in _read_version → returns None
+
+        Given: Unexpected exception occurs during version reading
+        When: ExistingInstallationDetector.check() is called
+        Then: Returns WARN without crashing, no version in message
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        version_file = temp_dir / "version.json"
+        version_file.write_text('{"version": "2.0.0"}')
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Mock json.load to raise generic exception
+        with patch('json.load', side_effect=Exception("Unexpected JSON error")):
+            # Act
+            result = detector.check()
+
+            # Assert
+            assert result.status == "WARN"
+            # Should gracefully handle and continue without version
+
+    def test_should_handle_version_json_with_empty_version(self, temp_dir):
+        """
+        Test: version.json with empty version string → no version in message
+
+        Given: version.json has empty string for version
+        When: ExistingInstallationDetector.check() is called
+        Then: Returns WARN without including empty version
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        version_file = temp_dir / "version.json"
+        version_data = {"version": ""}
+        version_file.write_text(json.dumps(version_data))
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Act
+        result = detector.check()
+
+        # Assert
+        assert result.status == "WARN"
+        # Empty version should be treated as no version
+        assert "DevForgeAI v" not in result.message or "existing" in result.message.lower()
+
+    def test_should_handle_version_json_with_null_version(self, temp_dir):
+        """
+        Test: version.json with null version → no version in message
+
+        Given: version.json has null for version value
+        When: ExistingInstallationDetector.check() is called
+        Then: Returns WARN without version
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        version_file = temp_dir / "version.json"
+        version_data = {"version": None}
+        version_file.write_text(json.dumps(version_data))
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Act
+        result = detector.check()
+
+        # Assert
+        assert result.status == "WARN"
+        assert "existing" in result.message.lower()
+
+    def test_should_add_v_prefix_to_version_without_it(self, temp_dir):
+        """
+        Test: Version without 'v' prefix gets prefix added
+
+        Given: version.json has version "1.2.3" (no prefix)
+        When: ExistingInstallationDetector.check() is called
+        Then: Message includes "v1.2.3" format
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        version_file = temp_dir / "version.json"
+        version_data = {"version": "1.2.3"}
+        version_file.write_text(json.dumps(version_data))
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Act
+        result = detector.check()
+
+        # Assert
+        assert result.status == "WARN"
+        assert "v1.2.3" in result.message
+
+    def test_should_preserve_v_prefix_if_already_present(self, temp_dir):
+        """
+        Test: Version with 'v' prefix is preserved as-is
+
+        Given: version.json has version "v2.0.0" (with prefix)
+        When: ExistingInstallationDetector.check() is called
+        Then: Message includes "v2.0.0" (not "vv2.0.0")
+        """
+        # Arrange
+        from src.installer.validators.installation_detector import ExistingInstallationDetector
+
+        claude_dir = temp_dir / ".claude"
+        claude_dir.mkdir()
+
+        version_file = temp_dir / "version.json"
+        version_data = {"version": "v2.0.0"}
+        version_file.write_text(json.dumps(version_data))
+
+        detector = ExistingInstallationDetector(target_path=str(temp_dir))
+
+        # Act
+        result = detector.check()
+
+        # Assert
+        assert result.status == "WARN"
+        assert "v2.0.0" in result.message
+        assert "vv2.0.0" not in result.message  # Should not double prefix

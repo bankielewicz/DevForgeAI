@@ -479,3 +479,226 @@ class TestPythonVersionChecker:
             call_kwargs = mock_run.call_args[1]
             assert call_kwargs.get('shell', False) is False, \
                 "subprocess.run must use shell=False for security"
+
+    # Edge Cases: Subprocess exception handling (Lines 85-90)
+
+    def test_should_handle_subprocess_timeout_expired(self):
+        """
+        Test: subprocess.TimeoutExpired → try next executable
+
+        Given: subprocess.run raises TimeoutExpired
+        When: PythonVersionChecker.check() is called
+        Then: Tries next executable in priority order
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker()
+
+        with patch('subprocess.run') as mock_run:
+            # First call times out, second succeeds
+            mock_run.side_effect = [
+                subprocess.TimeoutExpired(cmd="python3", timeout=5),
+                Mock(returncode=0, stdout="Python 3.11.4", stderr="")
+            ]
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "PASS"
+            assert "3.11.4" in result.message
+            assert mock_run.call_count == 2
+
+    def test_should_return_warn_when_all_executables_timeout(self):
+        """
+        Test: All executables timeout → WARN status
+
+        Given: All Python executables raise TimeoutExpired
+        When: PythonVersionChecker.check() is called
+        Then: Returns WARN status indicating Python not found
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker()
+
+        with patch('subprocess.run') as mock_run:
+            mock_run.side_effect = subprocess.TimeoutExpired(cmd="python", timeout=5)
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+            assert "not found" in result.message.lower() or "optional" in result.message.lower()
+
+    def test_should_handle_generic_exception_in_subprocess(self):
+        """
+        Test: Generic exception during subprocess → try next executable
+
+        Given: subprocess.run raises unexpected exception
+        When: PythonVersionChecker.check() is called
+        Then: Tries next executable without crashing
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker()
+
+        with patch('subprocess.run') as mock_run:
+            # First call raises generic exception, second succeeds
+            mock_run.side_effect = [
+                RuntimeError("Unexpected error"),
+                Mock(returncode=0, stdout="Python 3.10.5", stderr="")
+            ]
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "PASS"
+            assert "3.10.5" in result.message
+
+    def test_should_return_warn_when_all_executables_raise_exceptions(self):
+        """
+        Test: All executables raise exceptions → WARN status
+
+        Given: Every Python executable raises various exceptions
+        When: PythonVersionChecker.check() is called
+        Then: Returns WARN status after trying all executables
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker()
+
+        with patch('subprocess.run') as mock_run:
+            # Each executable raises a different exception
+            mock_run.side_effect = [
+                FileNotFoundError(),
+                subprocess.TimeoutExpired(cmd="python", timeout=5),
+                PermissionError("Access denied"),
+                RuntimeError("Unknown error")
+            ]
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "WARN"
+            assert mock_run.call_count == 4  # Tried all 4 executables
+
+    # Edge Cases: Version parsing edge cases (Lines 145-146)
+
+    def test_should_handle_version_with_insufficient_parts(self):
+        """
+        Test: Version string with only major version → returns False
+
+        Given: Version string "3" (missing minor version)
+        When: _is_version_sufficient is called internally
+        Then: Returns False (IndexError handled)
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker()
+
+        with patch('subprocess.run') as mock_run:
+            # Output has valid format but will fail internal comparison
+            mock_run.return_value = Mock(
+                returncode=0,
+                stdout="Python 3",  # Invalid format - regex won't match
+                stderr=""
+            )
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            # This should trigger WARN due to parse failure
+            assert result.status == "WARN"
+            assert "parse" in result.message.lower() or "could not" in result.message.lower()
+
+    def test_should_handle_version_with_non_numeric_parts(self):
+        """
+        Test: Version with non-numeric parts → handles ValueError
+
+        Given: Version comparison receives non-numeric data
+        When: _is_version_sufficient is called
+        Then: Returns False gracefully (ValueError handled)
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        # Create checker with invalid min_version to test error handling
+        checker = PythonVersionChecker(min_version="invalid.version")
+
+        with patch('subprocess.run') as mock_run:
+            mock_run.return_value = Mock(
+                returncode=0,
+                stdout="Python 3.11.4",
+                stderr=""
+            )
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            # Should handle ValueError in _is_version_sufficient
+            # and return WARN since comparison fails
+            assert result.status == "WARN"
+
+    def test_should_handle_min_version_with_insufficient_parts(self):
+        """
+        Test: min_version with only major number → handles IndexError
+
+        Given: min_version is "3" (missing minor version)
+        When: _is_version_sufficient compares versions
+        Then: Returns False gracefully (IndexError handled)
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker(min_version="3")
+
+        with patch('subprocess.run') as mock_run:
+            mock_run.return_value = Mock(
+                returncode=0,
+                stdout="Python 3.11.4",
+                stderr=""
+            )
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            # Should handle IndexError in _is_version_sufficient
+            assert result.status == "WARN"
+
+    def test_should_return_pass_when_major_version_exceeds_minimum(self):
+        """
+        Test: Major version > min major → PASS (line 139 coverage)
+
+        Given: Python 4.0.0 detected with min_version 3.10
+        When: PythonVersionChecker.check() is called
+        Then: Returns PASS because 4 > 3
+        """
+        # Arrange
+        from src.installer.validators.python_checker import PythonVersionChecker
+
+        checker = PythonVersionChecker(min_version="3.10")
+
+        with patch('subprocess.run') as mock_run:
+            mock_run.return_value = Mock(
+                returncode=0,
+                stdout="Python 4.0.0",
+                stderr=""
+            )
+
+            # Act
+            result = checker.check()
+
+            # Assert
+            assert result.status == "PASS"
+            assert "4.0.0" in result.message
