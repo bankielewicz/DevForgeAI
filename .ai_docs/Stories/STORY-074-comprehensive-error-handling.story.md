@@ -3,10 +3,10 @@ id: STORY-074
 title: Comprehensive Error Handling
 epic: EPIC-013
 sprint: Sprint-4
-status: Backlog
+status: In Development
 points: 12
 priority: Medium
-assigned_to: TBD
+assigned_to: Claude
 created: 2025-11-25
 format_version: "2.1"
 ---
