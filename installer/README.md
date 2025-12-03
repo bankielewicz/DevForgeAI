@@ -410,6 +410,22 @@ def install(
 
 ---
 
+## Exit Codes
+
+The installer returns standardized exit codes to indicate success or failure:
+
+| Code | Status | Meaning | Recovery |
+|------|--------|---------|----------|
+| 0 | SUCCESS | Installation completed without errors | Continue |
+| 1 | MISSING_SOURCE | Required source files not found | Create src/devforgeai/version.json |
+| 2 | PERMISSION_DENIED | Insufficient permissions for target directory | `chmod -R u+w /path` |
+| 3 | ROLLBACK_OCCURRED | Installation failed, system automatically rolled back | Fix root cause and retry |
+| 4 | VALIDATION_FAILED | Installation completed but validation checks failed | Review log file |
+
+**See:** [EXIT-CODES.md](EXIT-CODES.md) for detailed documentation of each exit code, recovery procedures, and usage examples.
+
+---
+
 ## Testing
 
 ### Run Unit Tests
@@ -633,16 +649,30 @@ MIT License - See LICENSE file
 
 ---
 
-## Support
+## Documentation
 
-For issues, see:
-- **Troubleshooting section above**
-- **Test files:** `installer/tests/` (examples of all operations)
-- **Integration tests:** `installer/tests/integration/` (end-to-end workflows)
-- **Story file:** `.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md`
+**Comprehensive error handling documentation added in STORY-074:**
+
+- **[EXIT-CODES.md](EXIT-CODES.md)** - Detailed reference for all 5 exit codes (0-4) with recovery procedures
+- **[ERROR-HANDLING-API.md](ERROR-HANDLING-API.md)** - Complete API documentation for error handling services
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Common issues, error handling overview, and advanced diagnostics
 
 ---
 
-**Last Updated:** 2025-11-19
-**Version:** 1.0.0
-**Story:** STORY-045
+## Support
+
+For issues, see:
+- **Exit codes:** [EXIT-CODES.md](EXIT-CODES.md) (quick reference)
+- **Troubleshooting:** [TROUBLESHOOTING.md](TROUBLESHOOTING.md) (detailed guide)
+- **API Reference:** [ERROR-HANDLING-API.md](ERROR-HANDLING-API.md) (for developers)
+- **Test files:** `installer/tests/` (examples of all operations)
+- **Integration tests:** `installer/tests/integration/` (end-to-end workflows)
+- **Story files:**
+  - `.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md` (installer core)
+  - `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md` (error handling)
+
+---
+
+**Last Updated:** 2025-12-03
+**Version:** 1.0.1 (STORY-074 - Error Handling Added)
+**Stories:** STORY-045 (Installer Core) + STORY-074 (Error Handling)
