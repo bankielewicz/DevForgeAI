@@ -117,6 +117,8 @@ class TestBackupCreation:
 
         # Act
         backup_claude_md = tmp_project["backups"] / "backup" / "CLAUDE.md"
+        # Create parent directory before writing
+        backup_claude_md.parent.mkdir(parents=True, exist_ok=True)
         backup_claude_md.write_text(claude_md.read_text())
 
         # Assert
