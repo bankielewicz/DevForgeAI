@@ -630,3 +630,81 @@ class TestSummaryFormatterService:
         # Assert
         assert isinstance(summary, str)
         assert len(summary) > 0
+
+    # ===== COVERAGE GAP TESTS (Lines 162-169, 251-257) =====
+
+    def test_format_project_context_with_submodule(self, temp_dir):
+        """
+        Test: Project context formatting when repository is a submodule
+
+        Given: DetectionResult with git_info.is_submodule=True
+        When: format_summary() is called
+        Then: Summary displays "(Submodule detected)" message
+        """
+        # Arrange
+        from src.installer.services.summary_formatter_service import SummaryFormatterService
+        from src.installer.services.auto_detection_service import DetectionResult
+        from src.installer.services.git_detection_service import GitInfo
+        from src.installer.services.file_conflict_detection_service import ConflictInfo
+
+        git_info = GitInfo(
+            repository_root=temp_dir,
+            is_submodule=True  # Submodule detected
+        )
+
+        detection_result = DetectionResult(
+            version_info=None,
+            claudemd_info=None,
+            git_info=git_info,
+            conflicts=ConflictInfo(conflicts=[], framework_count=0, user_count=0)
+        )
+
+        service = SummaryFormatterService()
+
+        # Act
+        summary = service.format_summary(detection_result)
+
+        # Assert
+        assert "submodule" in summary.lower() or "(Submodule detected)" in summary
+        assert str(temp_dir) in summary  # Git root shown
+
+    def test_supports_color_various_terminals(self, monkeypatch):
+        """
+        Test: Color support detection across terminal types
+
+        Given: Various terminal configurations
+        When: _supports_color() is called
+        Then: Returns correct color support status
+        """
+        # Arrange
+        from src.installer.services.summary_formatter_service import SummaryFormatterService
+        from unittest.mock import Mock
+        import sys
+
+        # Test 1: TTY terminal with color support
+        mock_stdout = Mock()
+        mock_stdout.isatty.return_value = True
+        monkeypatch.setattr(sys, 'stdout', mock_stdout)
+        monkeypatch.setenv('TERM', 'xterm-256color')
+
+        service = SummaryFormatterService(use_colors=None)  # Auto-detect
+
+        # Act & Assert
+        assert service.use_colors is True
+
+        # Test 2: Non-TTY terminal (no color)
+        mock_stdout.isatty.return_value = False
+        service2 = SummaryFormatterService(use_colors=None)
+        assert service2.use_colors is False
+
+        # Test 3: Dumb terminal (no color)
+        mock_stdout.isatty.return_value = True
+        monkeypatch.setenv('TERM', 'dumb')
+        service3 = SummaryFormatterService(use_colors=None)
+        assert service3.use_colors is False
+
+        # Test 4: No isatty attribute (no color)
+        mock_stdout_no_tty = Mock(spec=[])  # No isatty attribute
+        monkeypatch.setattr(sys, 'stdout', mock_stdout_no_tty)
+        service4 = SummaryFormatterService(use_colors=None)
+        assert service4.use_colors is False

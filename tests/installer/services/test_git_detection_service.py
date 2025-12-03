@@ -608,3 +608,112 @@ class TestGitDetectionService:
             # Assert
             assert 'timeout' in mock_run.call_args[1]
             assert mock_run.call_args[1]['timeout'] > 0
+
+    # ===== COVERAGE GAP TESTS (Submodule detection + error handling) =====
+
+    def test_detect_git_root_in_submodule(self, temp_dir):
+        """
+        Test: Detection when directory is a git submodule
+
+        Given: Directory is git submodule (.git is file, not directory)
+        When: detect_git_root() is called
+        Then: Returns repository root correctly
+        """
+        # Arrange
+        from src.installer.services.git_detection_service import GitDetectionService
+        from unittest.mock import MagicMock, patch
+
+        service = GitDetectionService(target_path=str(temp_dir))
+
+        # Mock git command returning submodule root
+        mock_result = MagicMock()
+        mock_result.stdout = str(temp_dir / "submodule")
+        mock_result.returncode = 0
+
+        # Mock .git file (submodule indicator)
+        git_file = temp_dir / ".git"
+        git_file.write_text("gitdir: ../.git/modules/submodule")
+
+        with patch('subprocess.run', return_value=mock_result):
+            # Act
+            result = service.detect_git_root()
+
+            # Assert
+            assert result is not None
+            assert "submodule" in str(result)
+
+    def test_detect_git_root_subprocess_error(self, temp_dir):
+        """
+        Test: Error handling when git command fails
+
+        Given: subprocess.run raises CalledProcessError
+        When: detect_git_root() is called
+        Then: Returns None and logs debug message (not error, per implementation line 132)
+        """
+        # Arrange
+        from src.installer.services.git_detection_service import GitDetectionService
+        from unittest.mock import patch
+        import subprocess
+
+        service = GitDetectionService(target_path=str(temp_dir))
+
+        with patch('subprocess.run', side_effect=subprocess.CalledProcessError(1, "git", stderr="fatal error")):
+            with patch('src.installer.services.git_detection_service.logger') as mock_logger:
+                # Act
+                result = service.detect_git_root()
+
+                # Assert
+                assert result is None
+                # Implementation logs debug, not error (see line 132 in git_detection_service.py)
+                mock_logger.debug.assert_called()
+
+    def test_is_submodule_with_gitdir_file(self, temp_dir):
+        """
+        Test: Submodule detection when .git is file (not directory)
+
+        Given: .git is file containing "gitdir: ..." (submodule)
+        When: is_submodule() is called
+        Then: Returns True
+        """
+        # Arrange
+        from src.installer.services.git_detection_service import GitDetectionService
+
+        service = GitDetectionService(target_path=str(temp_dir))
+
+        # Create .git file (submodule)
+        git_file = temp_dir / ".git"
+        git_file.write_text("gitdir: ../.git/modules/mysubmodule\n")
+
+        # Act
+        result = service.is_submodule()
+
+        # Assert
+        assert result is True
+
+    def test_is_submodule_error_handling(self, temp_dir):
+        """
+        Test: is_submodule handles file access errors gracefully
+
+        Given: .git path check raises exception
+        When: is_submodule() is called
+        Then: Returns False and logs error (see implementation line 164-166)
+        """
+        # Arrange
+        from src.installer.services.git_detection_service import GitDetectionService
+        from unittest.mock import patch, PropertyMock
+
+        service = GitDetectionService(target_path=str(temp_dir))
+
+        # Create .git file
+        git_file = temp_dir / ".git"
+        git_file.write_text("gitdir: ../.git/modules/test")
+
+        # Mock Path.is_file() to raise exception
+        with patch('pathlib.Path.is_file', side_effect=PermissionError("Access denied")):
+            with patch('src.installer.services.git_detection_service.logger') as mock_logger:
+                # Act
+                result = service.is_submodule()
+
+                # Assert
+                assert result is False  # Graceful fallback
+                mock_logger.error.assert_called()  # Error logged (line 165)
