@@ -2,7 +2,7 @@
 description: Run QA validation on story implementation
 argument-hint: [STORY-ID] [mode]
 # Mode: 'deep' or 'light' (no -- prefix)
-model: sonnet
+model: opus
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Bash
 ---
 
