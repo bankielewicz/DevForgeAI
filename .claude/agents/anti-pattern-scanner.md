@@ -2,7 +2,7 @@
 name: anti-pattern-scanner
 description: "Specialist subagent for architecture violation detection across 6 categories with severity-based blocking and evidence-based reporting. Detects library substitution (CRITICAL), structure violations (HIGH), layer violations (HIGH), code smells (MEDIUM), security vulnerabilities (CRITICAL), and style inconsistencies (LOW). Loads all 6 context files and performs 9-phase workflow analysis. Returns JSON with violations by severity, blocking status, and remediation guidance."
 version: "1.0"
-model: claude-haiku-4-5-20251001
+model: haiku
 tools:
   - Read
   - Grep

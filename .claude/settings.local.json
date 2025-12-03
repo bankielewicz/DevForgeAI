@@ -86,7 +86,9 @@
       "Bash(timeout 15 npx jest:*)",
       "Bash(npm ls:*)",
       "Bash(timeout 15 ../../node_modules/.bin/jest:*)",
-      "Bash(jobs)"
+      "Bash(jobs)",
+      "Bash(timeout 90 pytest:*)",
+      "Bash(timeout 60 pytest:*)"
     ],
     "deny": [],
     "ask": []
