@@ -1,6 +1,7 @@
 ---
 name: devforgeai-rca
 description: Performs Root Cause Analysis (RCA) with 5 Whys methodology for DevForgeAI framework breakdowns. Use when users report process failures, workflow violations, or unexpected behavior in skills, commands, or subagents. Automatically collects evidence, generates recommendations, and creates RCA documents.
+model: claude-haiku-4-5-20251001
 ---
 
 # devforgeai-rca Skill
