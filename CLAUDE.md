@@ -27,18 +27,7 @@ There are no time constraints and your context window is plenty big!
 
 Claude skills do not run asynchonously or in the background.
 
-/mnt/c/Projects/DevForgeAI2 = project root.
-
 This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
-
-● Bash(chmod +x /c/Users/bryan/bin/python3 && which python3)
-  ⎿  /c/Users/bryan/bin/python3
-
-● Perfect! Now python3 is available. Let me test it:
-
-● Bash(python3 --version)
-  ⎿  Python 3.10.11
-
 ---
 
 ## CRITICAL: How Skills Work
