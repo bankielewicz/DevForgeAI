@@ -461,7 +461,7 @@ Use this template for all refactored commands:
 ---
 description: [Brief command description]
 argument-hint: [arg1] [arg2]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, [others as needed]
 ---
 

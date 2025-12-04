@@ -132,7 +132,7 @@ Claude Code might be interpreting code blocks in slash commands differently:
 
 ### Command Frontmatter (Line 4)
 ```yaml
-model: sonnet
+model: haiku
 ```
 
 ### SKILL.md Frontmatter (Line 21)

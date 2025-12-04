@@ -137,7 +137,7 @@ ELSE:
 - name: lowercase-with-hyphens
 - description: natural language with triggers
 - tools: comma-separated OR omitted
-- model: sonnet|haiku|opus|inherit OR omitted
+- model: haiku|haiku|opus|inherit OR omitted
 
 **Validation:**
 ```

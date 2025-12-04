@@ -2,7 +2,7 @@
 name: api-designer
 description: API design expert for REST, GraphQL, and gRPC contracts. Use proactively when creating new API endpoints, during story creation with API work, or when API consistency validation needed.
 tools: Read, Write, Edit, WebFetch
-model: sonnet
+model: haiku
 color: green
 ---
 

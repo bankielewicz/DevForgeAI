@@ -185,7 +185,7 @@ Definition of Done Status:
    - Invoked by: dev skill (Phase 6.1.5), QA skill (Phase 0, Step 2.5)
 
 2. **technical-debt-analyzer.md** (172 lines)
-   - Model: sonnet (complex analysis)
+   - model: haiku (complex analysis)
    - Tools: Read, Glob, Grep, Write
    - Analyzes: Debt trends, patterns, oldest items
    - Invoked by: orchestration skill (Phase 4.5, Step 3)

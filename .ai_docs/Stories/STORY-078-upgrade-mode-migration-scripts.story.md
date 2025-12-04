@@ -676,6 +676,33 @@ None - uses existing Python standard library.
 
 ## Notes
 
+### Dev Agent Guidance (Added 2025-12-03)
+
+**Test Failures to Resolve:**
+
+1. **installer/tests/integration/test_upgrade_workflow.py::test_upgrade_selective_update** (SKIPPED)
+   - Status: Test is skipped awaiting upgrade workflow integration
+   - Required: Wire version.compare_versions() into install.py
+   - Required: Implement selective file deployment (delta-only updates)
+   - Required: Preserve user customizations during upgrade
+   - Components available: version.py (complete), backup_service.py (complete)
+   - Action: Implement upgrade mode in install.py, then unskip test
+
+2. **installer/tests/integration/test_rollback_workflow.py::test_rollback_leaves_valid_state** (FAILING)
+   - Status: Test fails during validation phase (not rollback functionality)
+   - Issue: baseline_project fixture doesn't create all files validation expects
+   - Required: Enhance conftest.py fixture to include skills/, agents/, commands/ directories
+   - Components available: rollback_service.py (complete, all 5 other rollback tests pass)
+   - Action: Update baseline_project fixture in conftest.py, validate test passes
+
+**Context from STORY-069/074:**
+- STORY-074 implemented comprehensive error handling and security fixes
+- STORY-069 integrated rollback workflow (5/6 tests passing)
+- These stories updated architecture (services/ directory, clean separation)
+- STORY-078 must align with new architecture patterns
+
+---
+
 **Design Decisions:**
 - Migration scripts are Python for consistency with installer
 - Backup stored with manifest for easy restoration

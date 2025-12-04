@@ -1,7 +1,7 @@
 ---
 description: Perform Root Cause Analysis with 5 Whys methodology
 argument-hint: [issue-description] [severity]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, Glob, Grep
 ---
 

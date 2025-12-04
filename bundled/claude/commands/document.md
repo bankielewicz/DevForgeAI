@@ -1,7 +1,7 @@
 ---
 description: Generate and maintain project documentation automatically
 argument-hint: [STORY-ID | --type=TYPE | --mode=MODE]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, Skill, AskUserQuestion
 ---
 

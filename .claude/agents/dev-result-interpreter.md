@@ -1,7 +1,7 @@
 ---
 name: dev-result-interpreter
 description: Interprets development workflow results from devforgeai-development skill execution and generates user-facing display templates with implementation summary, DoD status, and next steps. Converts raw TDD execution data into structured displays showing phases completed, test results, and workflow progression. Use after dev workflow completes to prepare results for /dev command output.
-model: sonnet
+model: haiku
 color: green
 tools: Read, Grep, Glob
 ---

@@ -164,6 +164,8 @@ class TestPerformanceBenchmarks:
         Expected: Elapsed time < 45 seconds
         """
         from installer import install
+        from installer.services.rollback_service import RollbackService
+        import shutil
 
         project = baseline_project["project"]
         target_root = project["root"]
@@ -172,13 +174,31 @@ class TestPerformanceBenchmarks:
         # Upgrade first (creates backup)
         upgrade_result = install.install(target_root, source_root)
         assert upgrade_result["status"] == "success"
+        backup_path = upgrade_result.get("backup_path")
+        assert backup_path is not None, "Backup not created during upgrade"
 
-        # Measure rollback
+        # Create 450 test files to simulate realistic rollback
+        # (the upgrade created files, now we rollback those)
+        test_files_dir = target_root / "test_files_for_rollback"
+        test_files_dir.mkdir(parents=True, exist_ok=True)
+
+        for i in range(450):
+            subdir = test_files_dir / f"subdir_{i % 10}"
+            subdir.mkdir(parents=True, exist_ok=True)
+            file_path = subdir / f"file_{i}.txt"
+            file_path.write_text(f"Test file {i} content for rollback performance test\n")
+
+        # Measure rollback performance
+        rollback_service = RollbackService(installation_root=target_root)
         with performance_timer.measure("rollback"):
-            rollback_result = install.install(target_root, mode="rollback")
+            rollback_result = rollback_service.rollback(
+                backup_dir=backup_path,
+                target_dir=target_root
+            )
 
         # Verify success
-        assert rollback_result["status"] == "success"
+        assert rollback_result.exit_code == 3  # ROLLBACK_OCCURRED
+        assert rollback_result.files_restored > 0
 
         # Verify NFR
         elapsed = performance_timer.elapsed
@@ -188,7 +208,9 @@ class TestPerformanceBenchmarks:
 
         # Report performance
         print(f"\nRollback: {elapsed:.2f}s (NFR: <45s)")
-        print(f"Files restored: {rollback_result.get('files_restored')}")
+        print(f"Files restored: {rollback_result.files_restored}")
+        print(f"Files removed: {rollback_result.files_removed}")
+        print(f"Directories removed: {rollback_result.directories_removed}")
 
     def test_performance_validation_time(
         self, integration_project, source_framework, performance_timer
@@ -269,29 +291,67 @@ class TestPerformanceBenchmarks:
         Performance: Verify no obvious memory leaks in repeated operations.
 
         Validates:
+        - Memory footprint ≤100MB peak during large file operation (NFR-006)
         - Repeated operations don't grow unbounded
         - File handles properly closed
         - Temporary data properly cleaned up
 
-        This is a basic sanity check; detailed profiling would use memory_profiler.
+        Uses tracemalloc (Python stdlib) to measure memory usage.
 
-        Expected: All operations complete successfully without hangs
+        Expected: Peak memory usage <100MB during installation
         """
         from installer import install
         import gc
+        import tracemalloc
 
         target_root = integration_project["root"]
         source_root = source_framework["root"]
 
-        # Run multiple operations in sequence
-        operations_count = 3
-        for i in range(operations_count):
-            # Fresh install
-            result = install.install(target_root, source_root, mode="fresh")
-            assert result["status"] == "success" or result["status"] == "rollback"
+        # Start memory tracing
+        tracemalloc.start()
 
-            # Force garbage collection
+        # Run installation operation
+        result = install.install(target_root, source_root)
+        assert result["status"] == "success"
+
+        # Get memory statistics
+        current, peak = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+
+        # Convert to MB
+        current_mb = current / (1024 * 1024)
+        peak_mb = peak / (1024 * 1024)
+
+        # Verify NFR-6: Memory footprint ≤100MB (peak)
+        assert (
+            peak_mb < 100
+        ), f"Memory usage exceeded 100MB NFR-006: peak {peak_mb:.1f}MB"
+
+        # Report memory metrics
+        print(f"\nMemory usage during installation:")
+        print(f"  Current: {current_mb:.2f}MB")
+        print(f"  Peak: {peak_mb:.2f}MB (NFR: <100MB)")
+        print(f"  Files deployed: {result.get('files_deployed')}")
+
+        # Run multiple sequential operations to check for accumulation
+        tracemalloc.start()
+
+        for i in range(2):
+            # Additional operations
+            result = install.install(target_root, source_root)
+            assert result["status"] == "success"
             gc.collect()
 
-        # If we got here, operations completed without hanging/OOM
-        print(f"\n{operations_count} sequential operations completed successfully (no OOM)")
+        current2, peak2 = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+
+        peak2_mb = peak2 / (1024 * 1024)
+
+        # Verify no significant memory growth (should still be <100MB)
+        assert (
+            peak2_mb < 100
+        ), f"Memory growth after sequential ops: peak {peak2_mb:.1f}MB"
+
+        print(f"\nAfter sequential operations:")
+        print(f"  Peak: {peak2_mb:.2f}MB (NFR: <100MB)")
+        print(f"All operations completed successfully (no memory leaks detected)")

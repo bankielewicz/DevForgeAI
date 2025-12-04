@@ -103,6 +103,14 @@ class TemplateVariableDetector:
         self.detected_variables = {}
         self.substituted_count = 0
 
+        # Pre-detect and cache variables for property access
+        self._project_name = None
+        self._python_version = None
+        self._python_path = None
+        self._tech_stack = None
+        self._installation_date = None
+        self._framework_version = None
+
     def detect_variables(self, template_content: str) -> Dict[str, str]:
         """
         Find all framework variables in template content.
@@ -292,3 +300,46 @@ class TemplateVariableDetector:
         percentage = (self.substituted_count * 100 // detected_count) if detected_count > 0 else 0
 
         return f"{detected_count} variables detected, {self.substituted_count} substituted ({percentage}%)"
+
+    # Properties for direct access to detected variables
+    @property
+    def project_name(self) -> str:
+        """Get auto-detected project name."""
+        if self._project_name is None:
+            self._project_name = self.auto_detect_project_name()
+        return self._project_name
+
+    @property
+    def python_version(self) -> str:
+        """Get auto-detected python version."""
+        if self._python_version is None:
+            self._python_version = self.auto_detect_python_version()
+        return self._python_version
+
+    @property
+    def python_path(self) -> str:
+        """Get auto-detected python path."""
+        if self._python_path is None:
+            self._python_path = self.auto_detect_python_path()
+        return self._python_path
+
+    @property
+    def tech_stack(self) -> str:
+        """Get auto-detected tech stack."""
+        if self._tech_stack is None:
+            self._tech_stack = self.auto_detect_tech_stack()
+        return self._tech_stack
+
+    @property
+    def installation_date(self) -> str:
+        """Get installation date."""
+        if self._installation_date is None:
+            self._installation_date = self.auto_detect_installation_date()
+        return self._installation_date
+
+    @property
+    def framework_version(self) -> str:
+        """Get auto-detected framework version."""
+        if self._framework_version is None:
+            self._framework_version = self.auto_detect_framework_version()
+        return self._framework_version

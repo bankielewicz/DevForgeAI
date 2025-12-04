@@ -288,7 +288,7 @@ Architecture → UI Generator → Development
 ---
 description: Generate UI component specifications and code
 argument-hint: [STORY-ID or component-description]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-ui-generator), AskUserQuestion
 ---
 ```

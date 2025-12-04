@@ -243,7 +243,7 @@ Create specialized AI workers with domain expertise for parallel task execution.
 name: test-automator
 description: Test generation expert. Use proactively when implementing features requiring test coverage.
 tools: Read, Write, Edit, Bash
-model: sonnet
+model: haiku
 ---
 ```
 
@@ -412,7 +412,7 @@ Create user-facing workflows that orchestrate skills and subagents.
 ---
 description: Generate architectural context files for project
 argument-hint: [project-name]
-model: sonnet
+model: haiku
 ---
 
 # Create Context Command

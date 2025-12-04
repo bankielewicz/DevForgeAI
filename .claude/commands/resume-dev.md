@@ -2,7 +2,7 @@
 
 Resume TDD workflow from specified phase when previous `/dev` execution was incomplete. Implements the "rewind" capability requested in RCA-013.
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, Bash(git:*)
 ---
 

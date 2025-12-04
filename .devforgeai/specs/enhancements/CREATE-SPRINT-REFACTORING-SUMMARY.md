@@ -222,7 +222,7 @@ BENEFITS:
    - Lines: 467
    - Size: 15K
    - Purpose: Sprint planning subagent (isolated context execution)
-   - Model: sonnet
+   - model: haiku
    - Token Budget: <40K
 
 2. **`.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md`** ✅ NEW

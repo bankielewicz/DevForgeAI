@@ -59,7 +59,7 @@ All subagents follow the standard Claude Code agent format:
 name: subagent-name
 description: Clear description of when this subagent should be invoked proactively
 tools: Read, Write, Edit, Bash  # Minimum required tools only
-model: sonnet  # Or 'inherit' to use parent conversation model
+model: haiku  # Or 'inherit' to use parent conversation model
 ---
 
 # Subagent System Prompt
@@ -131,7 +131,7 @@ Generate comprehensive test suites from acceptance criteria, user stories, and t
 
 ```yaml
 tools: Read, Write, Edit, Grep, Glob, Bash(pytest:*), Bash(npm:*), Bash(dotnet:*)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -197,7 +197,7 @@ Implement backend features following context file constraints, architectural pat
 
 ```yaml
 tools: Read, Write, Edit, Grep, Glob, Bash(dotnet:*), Bash(npm:*), Bash(mvn:*), Bash(gradle:*)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -337,7 +337,7 @@ Implement frontend features following component patterns, state management conve
 
 ```yaml
 tools: Read, Write, Edit, Grep, Glob, Bash(npm:*)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -407,7 +407,7 @@ Configure deployment pipelines, infrastructure as code, and CI/CD workflows. Exp
 
 ```yaml
 tools: Read, Write, Edit, Bash(kubectl:*), Bash(docker:*), Bash(terraform:*), Bash(ansible:*), Bash(helm:*), Bash(git:*)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -475,7 +475,7 @@ Create well-formed user stories, acceptance criteria, and technical specificatio
 
 ```yaml
 tools: Read, Write, Edit, Grep, Glob, AskUserQuestion
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -552,7 +552,7 @@ Review architecture decisions, design patterns, and technical approaches for sca
 
 ```yaml
 tools: Read, Grep, Glob, WebFetch, AskUserQuestion
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -622,7 +622,7 @@ Perform comprehensive security audits covering OWASP Top 10, authentication/auth
 
 ```yaml
 tools: Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -779,7 +779,7 @@ Create technical documentation including API docs, architecture diagrams, user g
 
 ```yaml
 tools: Read, Write, Edit, Grep, Glob
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -861,7 +861,7 @@ Create and execute integration tests verifying component interactions, API contr
 
 ```yaml
 tools: Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test)
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -902,7 +902,7 @@ Design API contracts (REST, GraphQL, gRPC) following best practices, consistency
 
 ```yaml
 tools: Read, Write, Edit, WebFetch
-model: sonnet
+model: haiku
 ```
 
 #### Invocation Triggers
@@ -932,7 +932,7 @@ All subagents must follow this template structure:
 name: subagent-name
 description: Expert in [domain]. Use proactively when [trigger conditions]. [Additional context for when to invoke]
 tools: Read, Write, Edit  # Minimum required tools
-model: sonnet  # Or 'haiku' for simple tasks, 'inherit' for adaptive
+model: haiku  # Or 'haiku' for simple tasks, 'inherit' for adaptive
 ---
 
 # [Subagent Name]

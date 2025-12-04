@@ -159,22 +159,35 @@ class InstallLogger:
     def log_error(
         self,
         error: Optional[Exception] = None,
+        message: Optional[str] = None,
+        exception: Optional[Exception] = None,
         category: Optional[str] = None,
         exit_code: Optional[int] = None,
-        message: Optional[str] = None,
         source_path: Optional[str] = None,
         target_path: Optional[str] = None
     ) -> None:
         """Log error with timestamp, stack trace, and context (AC#5, LOG-001, LOG-003).
 
         Args:
-            error: Exception object (will extract message and stack trace)
+            error: Exception object (will extract message and stack trace) - positional first
+            message: Error message string (optional, if error is passed as str instead)
+            exception: Exception object (alias for 'error' parameter for compatibility)
             category: Error category (e.g., "MISSING_SOURCE")
             exit_code: Exit code integer
-            message: Additional error message
             source_path: Source file path involved
             target_path: Target file path involved
         """
+        # Support both 'error' and 'exception' parameter names, and handle str/Exception polymorphism
+        # If error is actually a string and exception is not set, treat error as message
+        if isinstance(error, str):
+            # If error is a string, move it to message and check for exception
+            message = error
+            error = None
+            if exception is not None:
+                error = exception
+        elif exception is not None and error is None:
+            # If exception is provided separately, use it
+            error = exception
         self._rotate_log_if_needed()
 
         timestamp = self._get_iso_timestamp()
@@ -200,17 +213,19 @@ class InstallLogger:
         if target_path:
             log_entry += f"  Target: {target_path}\n"
 
-        # Add system context
-        log_entry += self._get_system_context()
-
-        # Add stack trace if exception provided
-        if error:
+        # Add stack trace if exception provided (LOG-003 - before system context)
+        if error and hasattr(error, '__traceback__'):
             log_entry += "  Stack Trace:\n"
-            stack_trace = traceback.format_exc()
+            # Format the exception with its traceback (LOG-003)
+            tb_lines = traceback.format_exception(type(error), error, error.__traceback__)
+            stack_trace = ''.join(tb_lines)
             # Indent each line of stack trace
             for line in stack_trace.split('\n'):
                 if line:
                     log_entry += f"    {line}\n"
+
+        # Add system context (after stack trace for better readability)
+        log_entry += self._get_system_context()
 
         log_entry += "\n"
 

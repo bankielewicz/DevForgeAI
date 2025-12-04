@@ -521,7 +521,7 @@ graph TD
 ---
 description: Review and validate architecture decisions
 argument-hint: [project-name]
-model: sonnet
+model: haiku
 ---
 
 # Architecture Review Command

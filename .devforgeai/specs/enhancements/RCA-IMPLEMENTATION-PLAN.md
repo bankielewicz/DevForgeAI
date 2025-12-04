@@ -691,7 +691,7 @@ description: Performs Root Cause Analysis (RCA) with 5 Whys methodology for DevF
 ---
 description: Perform Root Cause Analysis with 5 Whys methodology
 argument-hint: [issue-description] [severity]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, Glob, Grep
 ---
 ```

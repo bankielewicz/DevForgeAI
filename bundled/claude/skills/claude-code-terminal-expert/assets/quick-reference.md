@@ -458,7 +458,7 @@ claude mcp remove <server-name>  # Remove a server
 name: my-subagent
 description: Brief description of when to use this subagent. Include keywords and use cases.
 tools: Read, Grep, Glob, Bash  # Optional - omit to inherit all
-model: sonnet  # Optional - sonnet, opus, haiku, or inherit
+model: haiku  # Optional - sonnet, opus, haiku, or inherit
 ---
 
 # Subagent System Prompt
@@ -519,7 +519,7 @@ allowed-tools: Read, Grep, Glob  # Optional - restrict tool access
 ---
 description: Brief description for /help output
 argument-hint: [arg1] [arg2]
-model: sonnet
+model: haiku
 allowed-tools: Bash(git:*), Read, Edit
 ---
 

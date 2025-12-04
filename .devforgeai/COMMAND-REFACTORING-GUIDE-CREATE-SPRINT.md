@@ -190,7 +190,7 @@ calculate_capacity_status(total_points) → "optimal"|"under"|"over"
 ---
 description: Create sprint plan with story selection
 argument-hint: [sprint-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, AskUserQuestion, Task
 ---
 

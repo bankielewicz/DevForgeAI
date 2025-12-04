@@ -516,17 +516,18 @@ class TestValidateBundlePath:
         Assert: Raises ValueError
         """
         # Arrange
-        # This test is conceptual - actual symlink testing varies by OS
-        # We'll test the error path directly
+        bundle_dir = tmp_path / "bundled"
+        bundle_dir.mkdir()
 
-        with patch('pathlib.Path.resolve') as mock_resolve:
-            # Mock resolve to return path outside base
-            outside_path = Path("/etc/passwd")
-            mock_resolve.return_value = outside_path
+        # Patch the resolve method on Path instances to return outside path
+        original_resolve = Path.resolve
+        def mock_resolve_func(self):
+            # Return path outside tmp_path to simulate symlink traversal
+            if str(self) == str(tmp_path / "bundled"):
+                return Path("/etc/passwd")
+            return original_resolve(self)
 
-            bundle_dir = tmp_path / "bundled"
-            bundle_dir.mkdir()
-
+        with patch.object(Path, 'resolve', mock_resolve_func):
             # Act & Assert
             with pytest.raises(ValueError, match="outside base directory"):
                 validate_bundle_path("bundled", base_path=tmp_path)

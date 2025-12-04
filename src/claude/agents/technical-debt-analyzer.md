@@ -1,7 +1,7 @@
 ---
 name: technical-debt-analyzer
 description: Analyzes accumulated technical debt from deferred DoD items. Generates debt trends, identifies oldest items, recommends debt reduction sprints. Use during sprint planning or retrospectives.
-model: sonnet
+model: haiku
 allowed-tools:
   - Read
   - Glob

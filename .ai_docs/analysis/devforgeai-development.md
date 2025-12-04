@@ -661,7 +661,7 @@ allowed-tools:
   - AskUserQuestion
   - Skill
   - Task
-model: sonnet
+model: haiku
 ---
 
 # DevForgeAI Development Skill

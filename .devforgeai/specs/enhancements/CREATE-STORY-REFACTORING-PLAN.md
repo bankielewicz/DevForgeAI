@@ -249,7 +249,7 @@ cp .claude/commands/create-story.md .claude/commands/create-story.md.backup-pre-
 ---
 description: Create user story with acceptance criteria and technical specification
 argument-hint: [feature-description | epic-id]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, Skill, AskUserQuestion, TodoWrite, Grep
 ---
 

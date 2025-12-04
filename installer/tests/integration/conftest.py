@@ -117,7 +117,12 @@ def source_framework(tmp_path):
     (src_claude / "agents").mkdir(parents=True)
     (src_claude / "commands").mkdir(parents=True)
     (src_claude / "memory").mkdir(parents=True)
-    (src_claude / "skills").mkdir(parents=True)
+    src_skills = src_claude / "skills"
+    src_skills.mkdir(parents=True)
+
+    # Create subdirectories in skills (at least 10 for validation)
+    for i in range(12):
+        (src_skills / f"skill-{i:02d}").mkdir(parents=True, exist_ok=True)
 
     # Create mock files in src/claude (370 files)
     file_count = 0
@@ -126,8 +131,9 @@ def source_framework(tmp_path):
             src_claude / "agents",
             src_claude / "commands",
             src_claude / "memory",
-            src_claude / "skills",
+            src_skills / f"skill-{(i // 30) % 12:02d}",
         ][i % 4]
+        subdir.mkdir(parents=True, exist_ok=True)
         file_path = subdir / f"file_{i:03d}.md"
         file_path.write_text(f"# Framework file {i}\n\nContent for integration testing\n")
         file_count += 1
@@ -160,10 +166,14 @@ def source_framework(tmp_path):
     version_file = src_devforgeai / "version.json"
     version_file.write_text(json.dumps(version_data, indent=2))
 
+    # Create CLAUDE.md (root-level framework file)
+    claude_md = src_root / "CLAUDE.md"
+    claude_md.write_text("# DevForgeAI Framework\n\nFramework guidance for development.\n")
+
     return {
         "root": src_root,
         "version": "1.0.1",
-        "file_count": file_count + 1,  # +1 for version.json
+        "file_count": file_count + 2,  # +1 for version.json +1 for CLAUDE.md
     }
 
 
@@ -201,6 +211,10 @@ def baseline_project(integration_project):
     }
     version_file = devforgeai_dir / ".version.json"
     version_file.write_text(json.dumps(version_data, indent=2))
+
+    # Create CLAUDE.md (baseline user configuration file, must be preserved during rollback)
+    claude_md = project_root / "CLAUDE.md"
+    claude_md.write_text("# CLAUDE.md - User Configuration\n\nBaseline user configuration for DevForgeAI.\n")
 
     # Create some sample files to simulate existing installation (30 files)
     claude_files_created = 0

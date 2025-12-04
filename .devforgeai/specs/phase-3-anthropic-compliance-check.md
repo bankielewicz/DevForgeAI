@@ -51,9 +51,9 @@ The Phase 3 implementation plan demonstrates **95% compliance** with official An
 
 **Phase 3 Plan Uses:**
 ```yaml
-model: sonnet
 model: haiku
-model: opus
+model: haiku
+model: haiku
 ```
 
 **Anthropic Official Format:**
@@ -540,7 +540,7 @@ This means:
 
 **Change all commands from:**
 ```yaml
-model: sonnet
+model: haiku
 ```
 
 **To:**
@@ -690,7 +690,7 @@ Token usage: ~20K (skill summaries)
 **1. Model String Format** (ALL commands)
 ```yaml
 # Replace shorthand
-model: sonnet
+model: haiku
 
 # With full string
 model: claude-sonnet-4-5-20250929
@@ -766,7 +766,7 @@ model: claude-sonnet-4-5-20250929
 **Day 9 (Pre-Day 10):**
 
 **Action 1: Update Phase 3 Plan**
-- [ ] Change all `model: sonnet` to `model: claude-sonnet-4-5-20250929`
+- [ ] Change all `model: haiku` to `model: claude-sonnet-4-5-20250929`
 - [ ] Change all `model: haiku` to `model: claude-3-5-haiku-20241022`
 - [ ] Add note about character budget (commands may not all be visible)
 - [ ] Add SlashCommand testing requirement for Day 14

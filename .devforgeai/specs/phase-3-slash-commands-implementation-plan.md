@@ -307,7 +307,7 @@ Based on slash command best practices analysis:
 ---
 description: Clear one-line description
 argument-hint: [parameter-placeholder]
-model: sonnet | haiku | opus
+model: haiku | haiku | opus
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash(git:*), Bash(npm:*)
 ---
 ```
@@ -373,7 +373,7 @@ Execute command for: $ARGUMENTS
 ---
 description: Generate architectural context files for project
 argument-hint: [project-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-architecture), Task(architect-reviewer), AskUserQuestion
 ---
 ```
@@ -433,7 +433,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-architecture), Ta
 ---
 description: Implement user story using TDD workflow
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-development), Task(test-automator), Task(backend-architect), Task(frontend-developer), Task(context-validator), Task(code-reviewer), Task(refactoring-specialist), Task(integration-tester), Bash(pytest:*), Bash(npm:test), Bash(git:*)
 ---
 ```
@@ -520,7 +520,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-development), Tas
 ---
 description: Run QA validation on story implementation
 argument-hint: [STORY-ID] [--mode=light|deep]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-qa), Task(context-validator), Task(security-auditor), Task(test-automator), Task(documentation-writer), Bash(pytest:*), Bash(npm:test), Bash(coverage:*)
 ---
 ```
@@ -605,7 +605,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-qa), Task(context
 ---
 description: Create user story with acceptance criteria
 argument-hint: [feature-description]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Task(requirements-analyst), Task(api-designer), AskUserQuestion
 ---
 ```
@@ -667,7 +667,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Task(requirements-analyst), Task(a
 ---
 description: Deploy story to staging and production
 argument-hint: [STORY-ID] [--env=staging|production]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Skill(devforgeai-release), Task(deployment-engineer), Task(security-auditor), Bash(docker:*), Bash(kubectl:*), Bash(git:*)
 ---
 ```
@@ -745,7 +745,7 @@ allowed-tools: Read, Write, Edit, Glob, Skill(devforgeai-release), Task(deployme
 ---
 description: Execute full story lifecycle end-to-end
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, SlashCommand
 ---
 ```
@@ -789,7 +789,7 @@ allowed-tools: Read, Write, Edit, SlashCommand
 ---
 description: Execute full story lifecycle end-to-end
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Skill
 ---
 ```
@@ -854,7 +854,7 @@ allowed-tools: Read, Write, Edit, Skill
 ---
 description: Transform business idea into structured requirements
 argument-hint: [business-idea-description]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Skill(devforgeai-ideation), Task(requirements-analyst), Task(architect-reviewer), AskUserQuestion
 ---
 ```
@@ -916,7 +916,7 @@ allowed-tools: Read, Write, Edit, Skill(devforgeai-ideation), Task(requirements-
 ---
 description: Create epic with feature breakdown
 argument-hint: [epic-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Task(requirements-analyst)
 ---
 ```
@@ -926,7 +926,7 @@ allowed-tools: Read, Write, Edit, Glob, Task(requirements-analyst)
 ---
 description: Create sprint plan with story breakdown
 argument-hint: [sprint-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Task(requirements-analyst), AskUserQuestion
 ---
 ```

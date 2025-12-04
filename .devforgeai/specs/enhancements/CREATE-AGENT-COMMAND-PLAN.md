@@ -302,7 +302,7 @@ ELSE:
 ---
 description: Create DevForgeAI-aware Claude Code subagent
 argument-hint: [name] [mode] [options]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, Grep, Skill, Task, AskUserQuestion
 ---
 
@@ -1204,7 +1204,7 @@ New: Claude Code official patterns + DevForgeAI
 name: code-reviewer
 description: Expert code reviewer focusing on quality, security, and best practices. Use proactively after code changes.
 tools: Read, Grep, Glob, Bash(git:*)
-model: sonnet
+model: haiku
 ---
 
 # Code Reviewer
@@ -1290,7 +1290,7 @@ Provide comprehensive code reviews analyzing:
 name: test-automator
 description: Test generation expert specializing in TDD. Use proactively when implementing features requiring test coverage.
 tools: Read, Write, Edit, Grep, Glob, Bash(pytest:*|npm:test|dotnet:test)
-model: sonnet
+model: haiku
 ---
 
 # Test Automator

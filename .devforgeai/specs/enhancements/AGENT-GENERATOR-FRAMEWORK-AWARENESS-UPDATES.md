@@ -484,7 +484,7 @@ Validate frontmatter matches official Claude Code structure:
 - name: lowercase-with-hyphens ✓
 - description: natural language with invocation triggers ✓
 - tools: comma-separated list OR omitted ✓
-- model: sonnet|opus|haiku|inherit OR omitted ✓
+- model: haiku|opus|haiku|inherit OR omitted ✓
 
 # 2. Description Field Quality
 Grep(pattern="Use proactively when|Use when|proactively", file=description_field)

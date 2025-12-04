@@ -1,7 +1,7 @@
 ---
 description: Create DevForgeAI-aware Claude Code subagent
 argument-hint: [name] [options]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, Grep, Skill, Task, AskUserQuestion
 ---
 

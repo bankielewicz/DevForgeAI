@@ -97,13 +97,13 @@ Model? → "Use suggested: haiku (simple validation task)"
 ```
 backend:
   tools: [Read, Write, Edit, Grep, Glob, Bash(git:*|npm:*|pip:*|dotnet:*)]
-  model: sonnet
+  model: haiku
   context_files: [all 6]
   integration_skills: [devforgeai-development, devforgeai-architecture]
 
 frontend:
   tools: [Read, Write, Edit, Grep, Glob, Bash(npm:*)]
-  model: sonnet
+  model: haiku
   context_files: [tech-stack, source-tree, coding-standards]
   integration_skills: [devforgeai-development, devforgeai-ui-generator]
 

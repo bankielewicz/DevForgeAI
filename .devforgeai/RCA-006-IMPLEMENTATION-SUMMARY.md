@@ -21,7 +21,7 @@
 
 - [x] **technical-debt-analyzer.md** (NEW - 172 lines)
   - Location: `.claude/agents/technical-debt-analyzer.md`
-  - Model: sonnet (complex analysis)
+  - model: haiku (complex analysis)
   - Tools: Read, Glob, Grep, Write
   - Analyzes: Debt inventory, trends, patterns, recommendations
   - Invoked by: orchestration (Phase 4.5 Step 3)

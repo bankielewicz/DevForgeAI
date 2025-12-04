@@ -37,7 +37,7 @@
 | YAML frontmatter with `name: coverage-analyzer` | ✅ PASS | Line 2: `name: coverage-analyzer` |
 | YAML frontmatter with `description` | ✅ PASS | Line 3: Complete description |
 | YAML frontmatter with `tools` | ✅ PASS | Lines 4-13: Read, Grep, Glob, Bash language tools |
-| **YAML frontmatter with `model: claude-haiku-4-5-20251001`** | ❌ **FAIL** | **Line 14: `model: sonnet` (VIOLATION)** |
+| **YAML frontmatter with `model: claude-haiku-4-5-20251001`** | ❌ **FAIL** | **Line 14: `model: haiku` (VIOLATION)** |
 | 8-phase workflow documented | ✅ PASS | 7 phases + intro = 8 documented |
 | Input contract specified | ✅ PASS | Lines 52+: Input Contract section with JSON |
 | Output contract specified | ✅ PASS | Output Contract section present |
@@ -431,7 +431,7 @@
 
 **Current State:**
 ```yaml
-model: sonnet
+model: haiku
 ```
 
 **Required State:**
@@ -454,10 +454,10 @@ model: claude-haiku-4-5-20251001
 **Fix Command:**
 ```bash
 # Update operational
-sed -i 's/^model: sonnet$/model: claude-haiku-4-5-20251001/' .claude/agents/coverage-analyzer.md
+sed -i 's/^model: haiku$/model: claude-haiku-4-5-20251001/' .claude/agents/coverage-analyzer.md
 
 # Update source
-sed -i 's/^model: sonnet$/model: claude-haiku-4-5-20251001/' src/claude/agents/coverage-analyzer.md
+sed -i 's/^model: haiku$/model: claude-haiku-4-5-20251001/' src/claude/agents/coverage-analyzer.md
 
 # Verify
 grep "^model:" .claude/agents/coverage-analyzer.md src/claude/agents/coverage-analyzer.md

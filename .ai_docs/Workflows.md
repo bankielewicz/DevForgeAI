@@ -54,7 +54,7 @@ YAML frontmatter within Markdown files provides structured metadata without sacr
 ---
 description: Comprehensive code review
 allowed-tools: Bash(git diff:*), Bash(npm test:*)
-model: sonnet
+model: haiku
 ---
 ```
 

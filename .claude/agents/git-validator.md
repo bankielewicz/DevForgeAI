@@ -2,7 +2,7 @@
 name: git-validator
 description: Git repository validation and workflow strategy specialist. Checks Git availability, repository status, and commit history. Provides clear fallback strategies when Git unavailable. Use proactively before any development workflow that involves version control.
 tools: Bash, Read
-model: sonnet
+model: haiku
 color: green
 ---
 

@@ -946,7 +946,7 @@ jobs:
     steps:
       - uses: anthropics/claude-code-action@v1
         with:
-          model: opus  # Thorough review
+          model: haiku  # Thorough review
           prompt: "Review PR for security and quality"
 
   test:
@@ -954,7 +954,7 @@ jobs:
     steps:
       - uses: anthropics/claude-code-action@v1
         with:
-          model: sonnet  # Standard implementation
+          model: haiku  # Standard implementation
           prompt: "Add missing tests"
 ```
 

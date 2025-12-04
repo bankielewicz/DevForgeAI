@@ -1,6 +1,7 @@
 ---
 name: devforgeai-subagent-creation
 description: Create DevForgeAI-aware Claude Code subagents following framework patterns and official best practices. Use when user runs /create-agent command or requests custom subagent creation with framework integration. Orchestrates agent-generator subagent for generation while ensuring Claude Code compliance and DevForgeAI framework awareness.
+model: claude-haiku-4-5-20251001
 ---
 
 # DevForgeAI Subagent Creation Skill

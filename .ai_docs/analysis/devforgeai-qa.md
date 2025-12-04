@@ -634,7 +634,7 @@ allowed-tools:
   - Grep
   - Bash
   - Task
-model: sonnet
+model: haiku
 ---
 
 # DevForgeAI QA Skill

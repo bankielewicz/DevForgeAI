@@ -878,7 +878,7 @@ Phase 2: Display Results
         model: haiku
       qa_validation:
         timeout_minutes: 20
-        model: sonnet  # Quality validation uses Sonnet
+        model: haiku  # Quality validation uses Sonnet
       parallel_stories:
         max_concurrent: 5
         model: haiku

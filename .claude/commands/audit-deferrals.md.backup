@@ -1,6 +1,6 @@
 ---
 description: Audit all QA Approved stories for invalid deferrals and deferral chains
-model: sonnet
+model: haiku
 ---
 
 # Audit Deferrals Command

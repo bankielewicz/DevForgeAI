@@ -1,7 +1,7 @@
 ---
 description: Generate architectural context files for project
 argument-hint: [project-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Task, AskUserQuestion
 ---
 

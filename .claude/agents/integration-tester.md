@@ -2,7 +2,7 @@
 name: integration-tester
 description: Integration testing expert validating cross-component interactions, API contracts, database transactions, and message flows. Use proactively after unit tests pass or during TDD Integration phase.
 tools: Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test)
-model: sonnet
+model: haiku
 color: green
 ---
 
