@@ -90,7 +90,9 @@
       "Bash(timeout 90 pytest:*)",
       "Bash(timeout 60 pytest:*)",
       "WebFetch(domain:arxiv.org)",
-      "WebFetch(domain:platform.claude.com)"
+      "WebFetch(domain:platform.claude.com)",
+      "Bash(while read f)",
+      "Bash(timeout 180 python3 -m pytest:*)"
     ],
     "deny": [],
     "ask": []

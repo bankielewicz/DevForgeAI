@@ -26,7 +26,7 @@ class TestTimestampFormat:
         Then: Timestamp matches ISO 8601 format (YYYY-MM-DDTHH:MM:SS.sss)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -48,7 +48,7 @@ class TestTimestampFormat:
         Then: Timestamp has millisecond precision (.sss)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -69,7 +69,7 @@ class TestTimestampFormat:
         Then: Timestamp ends with Z (UTC) or +00:00
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -93,7 +93,7 @@ class TestStackTraces:
         Then: Log includes full stack trace with line numbers
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -118,7 +118,7 @@ class TestStackTraces:
         Then: Log includes file paths and line numbers (File "...", line X)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -145,7 +145,7 @@ class TestAppendMode:
         Then: Existing entries are preserved, new entries appended
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         log_file.write_text("2025-12-01T10:00:00.000Z [INFO] Previous install\n")
 
@@ -168,7 +168,7 @@ class TestAppendMode:
         Then: First installation's logs remain in file
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
 
         # First installation
@@ -196,7 +196,7 @@ class TestAppendMode:
         Then: Session separator added (e.g., "=== Installation Started ===")
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         log_file.write_text("Previous log content\n")
 
@@ -221,7 +221,7 @@ class TestLogContent:
         Then: Log includes error category and exit code
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -246,7 +246,7 @@ class TestLogContent:
         Then: Log includes source and target file paths
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -271,7 +271,7 @@ class TestLogContent:
         Then: Log includes OS and shell version
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
 
         # Act
@@ -292,7 +292,7 @@ class TestLogContent:
         Then: Log includes actions taken (files restored, files removed)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -322,7 +322,7 @@ class TestLogRotation:
         Then: Log is rotated, old log renamed to install.log.1
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
 
         # Create 10MB+ log file
@@ -348,7 +348,7 @@ class TestLogRotation:
         Then: Oldest rotation (install.log.3) is deleted, keeps install.log.1, .2, .3
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
 
         # Create existing rotations
@@ -383,7 +383,7 @@ class TestLogLevels:
         Then: Log entry has [INFO] prefix
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -403,7 +403,7 @@ class TestLogLevels:
         Then: Log entry has [WARNING] prefix
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -423,7 +423,7 @@ class TestLogLevels:
         Then: Log entry has [ERROR] prefix
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -447,7 +447,7 @@ class TestLogFilePermissions:
         Then: Permissions are 0600 (owner read/write only)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
 
         # Act
@@ -474,7 +474,7 @@ class TestLogEdgeCases:
         Then: Unicode characters preserved in log
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -495,7 +495,7 @@ class TestLogEdgeCases:
         Then: Multiline message is properly formatted
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -517,7 +517,7 @@ class TestLogEdgeCases:
         Then: Full message is written without truncation
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 
@@ -539,7 +539,7 @@ class TestLogEdgeCases:
         Then: Recreates log file and continues logging
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
 

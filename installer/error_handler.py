@@ -14,7 +14,7 @@ from .exit_codes import (
     ROLLBACK_OCCURRED,
     VALIDATION_FAILED,
 )
-from .install_logger import InstallLogger
+from .services.install_logger import InstallLogger
 
 
 @dataclass

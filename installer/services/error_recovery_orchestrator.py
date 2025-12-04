@@ -18,7 +18,7 @@ from typing import Optional, Dict
 from dataclasses import dataclass
 
 from .error_categorizer import ErrorCategorizer, ErrorCategory, ErrorResult
-from .exit_codes import ExitCodes
+from ..exit_codes import ExitCodes
 
 
 @dataclass

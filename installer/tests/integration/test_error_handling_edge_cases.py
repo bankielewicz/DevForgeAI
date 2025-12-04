@@ -56,7 +56,7 @@ class TestBackupCreationFailures:
         Expected: Installation stops, no files modified, clear error
         """
         from installer.services.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -94,7 +94,7 @@ class TestBackupCreationFailures:
         Expected: Partial backup removed, error reported
         """
         from installer.services.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -143,7 +143,7 @@ class TestBackupCreationFailures:
         Expected: Backup completes without memory errors
         """
         from installer.services.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -188,7 +188,7 @@ class TestLogFileEdgeCases:
 
         Expected: Error logged to stderr, installation continues
         """
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -221,7 +221,7 @@ class TestLogFileEdgeCases:
 
         Expected: install.log.1, install.log.2, install.log.3 exist
         """
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -257,7 +257,7 @@ class TestLogFileEdgeCases:
         Expected: Usernames replaced with $USER in log
         """
         from installer.error_handler import ErrorHandler
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -297,7 +297,7 @@ class TestPartialRollbackScenarios:
         Expected: FileNotFoundError raised, error logged clearly
         """
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -337,7 +337,7 @@ class TestPartialRollbackScenarios:
         """
         from installer.services.backup_service import BackupService
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -391,7 +391,7 @@ class TestPartialRollbackScenarios:
         """
         from installer.services.backup_service import BackupService
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -444,7 +444,7 @@ class TestPartialRollbackScenarios:
         Expected: Empty dirs removed, non-empty dirs preserved
         """
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -503,7 +503,7 @@ class TestInterruptionHandling:
         Expected: Exception propagated, caller must handle cleanup
         """
         from installer.services.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -547,7 +547,7 @@ class TestInterruptionHandling:
         """
         from installer.services.backup_service import BackupService
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -602,7 +602,7 @@ class TestPathSanitization:
         Expected: Username replaced with $USER
         """
         from installer.error_handler import ErrorHandler
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -631,7 +631,7 @@ class TestPathSanitization:
         Expected: Windows username replaced with $USER
         """
         from installer.error_handler import ErrorHandler
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -668,7 +668,7 @@ class TestConcurrentErrors:
         """
         from installer.services.backup_service import BackupService
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]
@@ -723,7 +723,7 @@ class TestConcurrentErrors:
         Expected: All 10 errors logged correctly, no corruption
         """
         from installer.error_handler import ErrorHandler
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
         import threading
 
         # Arrange
@@ -781,7 +781,7 @@ class TestDiskFullScenarios:
         """
         from installer.services.backup_service import BackupService
         from installer.services.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         # Arrange
         target_root = integration_project["root"]

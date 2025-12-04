@@ -67,6 +67,10 @@ def temp_install_env():
         }
         (source_devforgeai / "version.json").write_text(json.dumps(version_data))
 
+        # Create minimal source claude directory (WITHOUT dot prefix - matches production layout)
+        source_claude = source_root / "claude"
+        source_claude.mkdir(parents=True, exist_ok=True)
+
         # Create framework template
         framework_template = source_root / "CLAUDE.md"
         framework_template.write_text("""# CLAUDE.md - Framework Configuration

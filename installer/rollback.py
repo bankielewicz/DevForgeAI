@@ -121,6 +121,17 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
             f"Security violation: Backup path is not within .backups/: {backup_path}"
         )
 
+    # Validate backup has at least some content (.claude or .devforgeai or CLAUDE.md)
+    backup_claude = backup_path / ".claude"
+    backup_devforgeai = backup_path / ".devforgeai"
+    backup_claude_md = backup_path / "CLAUDE.md"
+
+    has_content = backup_claude.exists() or backup_devforgeai.exists() or backup_claude_md.exists()
+    if not has_content:
+        result["status"] = "failed"
+        result["errors"].append("Backup appears to be empty - no framework files found")
+        return result
+
     try:
         # Restore .claude/ directory
         backup_claude = backup_path / ".claude"
@@ -133,9 +144,14 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
 
             if target_claude.exists():
                 shutil.rmtree(target_claude)
-            shutil.copytree(backup_claude, target_claude, symlinks=False)  # Don't follow symlinks
-            # Count restored files
-            result["files_restored"] += sum(1 for _ in target_claude.rglob("*") if _.is_file())
+            try:
+                shutil.copytree(backup_claude, target_claude, symlinks=False)  # Don't follow symlinks
+                # Count restored files
+                result["files_restored"] += sum(1 for _ in target_claude.rglob("*") if _.is_file())
+            except PermissionError as e:
+                result["status"] = "failed"
+                result["errors"].append(f"Permission denied restoring .claude: {e}")
+                return result
 
         # Restore .devforgeai/ directory
         backup_devforgeai = backup_path / ".devforgeai"
@@ -148,11 +164,16 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
 
             if target_devforgeai.exists():
                 shutil.rmtree(target_devforgeai)
-            shutil.copytree(backup_devforgeai, target_devforgeai, symlinks=False)
-            # Count restored files
-            result["files_restored"] += sum(
-                1 for _ in target_devforgeai.rglob("*") if _.is_file()
-            )
+            try:
+                shutil.copytree(backup_devforgeai, target_devforgeai, symlinks=False)
+                # Count restored files
+                result["files_restored"] += sum(
+                    1 for _ in target_devforgeai.rglob("*") if _.is_file()
+                )
+            except PermissionError as e:
+                result["status"] = "failed"
+                result["errors"].append(f"Permission denied restoring .devforgeai: {e}")
+                return result
 
         # Restore CLAUDE.md
         backup_claude_md = backup_path / "CLAUDE.md"
@@ -163,8 +184,13 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
             if backup_claude_md.is_symlink():
                 raise ValueError(f"Security violation: Backup contains symlink: {backup_claude_md}")
 
-            shutil.copy2(backup_claude_md, target_claude_md)
-            result["files_restored"] += 1
+            try:
+                shutil.copy2(backup_claude_md, target_claude_md)
+                result["files_restored"] += 1
+            except PermissionError as e:
+                result["status"] = "failed"
+                result["errors"].append(f"Permission denied restoring CLAUDE.md: {e}")
+                return result
 
         # Check if version.json was restored (indicates successful revert)
         version_file = target_devforgeai / ".version.json"

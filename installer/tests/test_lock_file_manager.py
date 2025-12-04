@@ -26,7 +26,7 @@ class TestLockFileCreation:
         Then: Lock file created at .devforgeai/install.lock
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -48,7 +48,7 @@ class TestLockFileCreation:
         Then: File contains current process PID
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -72,7 +72,7 @@ class TestLockFileCreation:
         Then: File contains ISO 8601 timestamp
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -102,7 +102,7 @@ class TestConcurrentInstallationDetection:
         Then: Raises RuntimeError indicating concurrent installation
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -128,7 +128,7 @@ class TestConcurrentInstallationDetection:
         Then: Lock is acquired successfully
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -149,7 +149,7 @@ class TestConcurrentInstallationDetection:
         Then: Raises error that maps to exit code 4
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -178,7 +178,7 @@ class TestLockFileCleanup:
         Then: Lock file is removed
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -203,7 +203,7 @@ class TestLockFileCleanup:
         Then: Lock file is removed during cleanup
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -226,7 +226,7 @@ class TestLockFileCleanup:
         Then: Lock file is removed in signal handler
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -256,7 +256,7 @@ class TestStaleLockDetection:
         Then: Identifies lock as stale
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -282,7 +282,7 @@ class TestStaleLockDetection:
         Then: Stale lock is removed, new lock acquired
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -312,7 +312,7 @@ class TestStaleLockDetection:
         Then: Returns False (lock is active)
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -340,7 +340,7 @@ class TestLockFileEdgeCases:
         Then: One succeeds, other retries or fails gracefully
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -383,7 +383,7 @@ class TestLockFileEdgeCases:
         Then: Permissions are 0600 (owner read/write only)
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -408,7 +408,7 @@ class TestLockFileEdgeCases:
         Then: Detects stale lock, removes it, proceeds with installation
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -435,7 +435,7 @@ class TestLockFileEdgeCases:
         Then: Creates directory and lock file
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         # Note: directory does NOT exist
 
@@ -461,7 +461,7 @@ class TestLockFileTimeout:
         Then: Raises TimeoutError after timeout expires
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -483,7 +483,7 @@ class TestLockFileTimeout:
         Then: Acquires lock when first installation releases
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -522,7 +522,7 @@ class TestLockFileContextManager:
         Then: Lock acquired on enter, released on exit
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 
@@ -544,7 +544,7 @@ class TestLockFileContextManager:
         Then: Lock is released during cleanup
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
 

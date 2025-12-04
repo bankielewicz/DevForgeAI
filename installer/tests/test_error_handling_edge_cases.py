@@ -24,8 +24,8 @@ class TestRollbackFailureScenarios:
         Then: Logs critical error, displays manual intervention message
         """
         # Arrange
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -52,8 +52,8 @@ class TestRollbackFailureScenarios:
         Then: Continues with remaining files, logs errors for failed files
         """
         # Arrange
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
@@ -93,7 +93,7 @@ class TestConcurrentInstallationEdgeCases:
         Then: Stale lock removed, new lock acquired
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
 
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
@@ -123,7 +123,7 @@ class TestConcurrentInstallationEdgeCases:
         Then: One succeeds, other fails gracefully
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         import threading
 
         lock_dir = tmp_path / ".devforgeai"
@@ -167,7 +167,7 @@ class TestLogFileEdgeCases:
         Then: New entries appended with session separator
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / "install.log"
         log_file.write_text("2025-12-01T10:00:00.000Z [INFO] Previous install\n")
@@ -193,7 +193,7 @@ class TestLogFileEdgeCases:
         Then: Old log rotated to install.log.1
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / "install.log"
         # Create 10MB+ log
@@ -222,7 +222,7 @@ class TestSensitiveInfoSanitization:
         Then: Username replaced with $USER placeholder
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
         error = FileNotFoundError("/home/alice/.claude/ not found")
@@ -243,7 +243,7 @@ class TestSensitiveInfoSanitization:
         Then: Sensitive paths are sanitized
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
         error = PermissionError("/home/alice/.ssh/id_rsa: Permission denied")
@@ -268,9 +268,9 @@ class TestValidationFailureEdgeCase:
         Then: Returns exit code 4, does NOT trigger rollback (user decides)
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -305,8 +305,8 @@ class TestBackupCreationFailureEdgeCases:
         Then: Raises PermissionError, installation HALTS before any file operations
         """
         # Arrange
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -331,8 +331,8 @@ class TestBackupCreationFailureEdgeCases:
         Then: Raises OSError, installation HALTS
         """
         # Arrange
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -367,8 +367,8 @@ class TestUserInterruptHandling:
         Then: Partial backup is removed (if it exists)
         """
         # Arrange
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
         from pathlib import Path
 
         target_dir = tmp_path / "target"
@@ -400,10 +400,10 @@ class TestUserInterruptHandling:
         Then: Rollback is triggered, exit code 3
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -438,8 +438,8 @@ class TestEmptyDirectoryCleanup:
         Then: Empty directories are removed
         """
         # Arrange
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -471,10 +471,10 @@ class TestMultipleErrorsSequence:
         Then: Logs critical error, displays manual intervention message
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -513,7 +513,7 @@ class TestUnicodeAndSpecialCharacters:
         Then: Unicode characters preserved correctly
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
         error = FileNotFoundError("/home/user/文件/test.txt not found")
@@ -533,7 +533,7 @@ class TestUnicodeAndSpecialCharacters:
         Then: Unicode characters preserved in log
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)
@@ -558,7 +558,7 @@ class TestVeryLongPaths:
         Then: Message is readable (long paths may be sanitized)
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
         long_path = "/home/user/" + "a" * 300 + "/test.txt"
@@ -583,7 +583,7 @@ class TestVeryLongPaths:
         Then: Full path preserved in log (no truncation)
         """
         # Arrange
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / "install.log"
         logger = InstallLogger(log_file=log_file)

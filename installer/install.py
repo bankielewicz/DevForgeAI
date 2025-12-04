@@ -455,15 +455,21 @@ def install(
             )
 
         # Get source version (required for install/upgrade/uninstall modes)
+        # Must raise on JSONDecodeError to fail installation
+        source_devforgeai = source_root / "devforgeai"
         try:
-            source_devforgeai = source_root / "devforgeai"
             source_version_data = ver_module.get_source_version(source_devforgeai)
-            source_version = source_version_data.get("version")
-            result["version"] = source_version
-        except (FileNotFoundError, json.JSONDecodeError) as e:
-            result["errors"].append(f"Source version not found or corrupted: {e}")
+        except json.JSONDecodeError as e:
+            result["errors"].append(f"Source version file corrupted (invalid JSON): {e}")
+            result["status"] = "failed"
+            raise ValueError(f"Source version file corrupted: {e}") from e
+        except FileNotFoundError as e:
+            result["errors"].append(f"Source version not found: {e}")
             result["status"] = "failed"
             raise
+
+        source_version = source_version_data.get("version")
+        result["version"] = source_version
 
         # Auto-detect mode if not specified
         if mode is None:
@@ -480,11 +486,12 @@ def install(
             result["status"] = "failed"
             return result
 
-        # Create backup for upgrade/downgrade OR if CLAUDE.md exists (even on fresh install)
+        # Create backup BEFORE any file modifications (AC#7: Backup before deployment)
+        # Always create backup for rollback capability, but clean up after successful fresh install
         backup_path = None
-        should_backup = (mode != "fresh_install") or (target_root / "CLAUDE.md").exists()
+        should_keep_backup = (mode != "fresh_install") or (target_root / "CLAUDE.md").exists()
 
-        if should_backup:
+        if True:  # Always create backup for safety/rollback
             current_version_data = ver_module.get_installed_version(devforgeai_path)
             current_version = current_version_data.get("version") if current_version_data else None
 
@@ -558,11 +565,23 @@ def install(
                     result["errors"].append(f"Rollback also failed: {rollback_error}")
             return result
 
+        # Clean up backup after successful fresh install (no rollback needed)
+        if not should_keep_backup and backup_path and backup_path.exists():
+            try:
+                shutil.rmtree(backup_path)
+                result["messages"].append("Backup cleaned up (fresh install successful)")
+            except OSError:
+                # Backup cleanup is non-critical, log but don't fail
+                result["warnings"].append("Could not clean up backup directory")
+
         # Success message
         result["messages"].append(
             INSTALLATION_SUCCESS_MESSAGE.format(version=source_version, mode=mode)
         )
 
+    except (json.JSONDecodeError, ValueError, FileNotFoundError) as e:
+        # Let validation/corruption/structure errors bubble up to caller
+        raise
     except Exception as e:
         result["status"] = "failed"
         result["errors"].append(f"Installation failed: {e}")

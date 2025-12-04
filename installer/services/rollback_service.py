@@ -142,7 +142,7 @@ class RollbackService:
         Raises:
             FileNotFoundError: If backup directory doesn't exist
         """
-        from installer.exit_codes import ExitCodes
+        from ..exit_codes import ExitCodes
 
         start_time = time.time()
         result = RollbackResult(exit_code=ExitCodes.ROLLBACK_OCCURRED)
