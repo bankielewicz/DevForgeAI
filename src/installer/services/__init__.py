@@ -1,11 +1,9 @@
 """
-Auto-detection services for DevForgeAI installer.
+Services for DevForgeAI installer.
 
-Provides automated detection of:
-- Existing installations (version comparison)
-- CLAUDE.md files (backup recommendations)
-- Git repositories (root path detection)
-- File conflicts (framework vs user files)
+Provides:
+- Auto-detection services (installations, CLAUDE.md, Git, conflicts)
+- CLAUDE.md merge services (markdown parsing, backup, conflict detection)
 - Formatted summaries (color-coded output)
 """
 
@@ -15,6 +13,10 @@ from .git_detection_service import GitDetectionService, GitInfo
 from .file_conflict_detection_service import FileConflictDetectionService, ConflictInfo
 from .summary_formatter_service import SummaryFormatterService
 from .auto_detection_service import AutoDetectionService, DetectionResult
+from .markdown_parser import MarkdownParser
+from .merge_backup_service import MergeBackupService
+from .merge_conflict_detection_service import MergeConflictDetectionService
+from .claudemd_merge_service import ClaudeMdMergeService
 
 __all__ = [
     'VersionDetectionService',
@@ -29,4 +31,8 @@ __all__ = [
     'SummaryFormatterService',
     'AutoDetectionService',
     'DetectionResult',
+    'MarkdownParser',
+    'MergeBackupService',
+    'MergeConflictDetectionService',
+    'ClaudeMdMergeService',
 ]
