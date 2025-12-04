@@ -92,7 +92,8 @@
       "WebFetch(domain:arxiv.org)",
       "WebFetch(domain:platform.claude.com)",
       "Bash(while read f)",
-      "Bash(timeout 180 python3 -m pytest:*)"
+      "Bash(timeout 180 python3 -m pytest:*)",
+      "Bash(pip3 install:*)"
     ],
     "deny": [],
     "ask": []
