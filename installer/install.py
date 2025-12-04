@@ -224,7 +224,15 @@ def _remove_framework_files(target_root: Path, result: dict) -> None:
 
 def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
     """
-    Handle rollback mode: restore from most recent backup.
+    Handle rollback mode: restore from most recent backup using RollbackService.
+
+    Steps (AC#4):
+    1. Find most recent backup if backup_dir not specified
+    2. Invoke RollbackService.rollback(backup_dir, target_dir)
+    3. Verify checksums after restoration
+    4. Validate installation state
+    5. Update version metadata (reverted from backup)
+    6. Return RollbackResult with status and file counts
 
     Args:
         target_root: Root path of target project
@@ -233,35 +241,101 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
     Returns:
         dict: Updated result with rollback outcome
     """
-    backups = rollback_module.list_backups(target_root)
-    if not backups:
-        result["errors"].append("No backups available for rollback")
-        result["status"] = "failed"
+    from installer.services.rollback_service import RollbackService
+    from installer.services.install_logger import InstallLogger
+
+    try:
+        # Step 1: Find most recent backup
+        backups = rollback_module.list_backups(target_root)
+        if not backups:
+            result["errors"].append("No backups available for rollback")
+            result["status"] = "failed"
+            return result
+
+        # Use most recent backup (list is sorted newest first)
+        backup_to_restore = backups[0]
+        backup_path = backup_to_restore["path"]
+        result["backup_path"] = str(backup_path)
+
+        # Verify backup directory exists
+        if not backup_path.exists():
+            result["errors"].append(f"Backup directory not found: {backup_path}")
+            result["status"] = "failed"
+            return result
+
+        # Step 2: Initialize RollbackService and invoke rollback workflow
+        logger = InstallLogger()
+        rollback_service = RollbackService(logger=logger, installation_root=target_root)
+
+        # Execute full rollback: restore files, cleanup partials, remove empty dirs
+        rollback_result = rollback_service.rollback(
+            backup_dir=backup_path,
+            target_dir=target_root
+        )
+
+        result["files_restored"] = rollback_result.files_restored
+
+        # Clean up files that were created after backup but don't belong
+        # (files in target that aren't in backup)
+        import shutil
+
+        # Remove directories that shouldn't exist after rollback
+        # .devforgeai/ and .claude/ should be completely restored from backup
+        devforgeai_target = target_root / ".devforgeai"
+        claude_target = target_root / ".claude"
+
+        # Delete and restore .claude/ to ensure complete cleanup
+        if (backup_path / ".claude").exists() and claude_target.exists():
+            shutil.rmtree(claude_target)
+            shutil.copytree(backup_path / ".claude", claude_target, symlinks=False)
+
+        # Delete and restore .devforgeai/ to ensure complete cleanup
+        if (backup_path / ".devforgeai").exists() and devforgeai_target.exists():
+            shutil.rmtree(devforgeai_target)
+            shutil.copytree(backup_path / ".devforgeai", devforgeai_target, symlinks=False)
+
+        result["messages"].append(
+            f"Rolled back to version {backup_to_restore.get('to_version', 'unknown')} "
+            f"from backup {backup_to_restore['name']}"
+        )
+
+        # Step 3: Verify checksums after restoration
+        verification = rollback_module.verify_rollback(target_root, backup_path)
+        if not verification["valid"]:
+            result["warnings"].append(
+                f"Rollback verification incomplete: {', '.join(verification.get('errors', []))}"
+            )
+        else:
+            result["messages"].append("Backup integrity verified after restoration")
+
+        # Step 4: Validate installation state
+        validation = validate.validate_installation(target_root)
+        if not validation.get("valid", False):
+            result["warnings"].append("Installation validation found issues after rollback")
+        else:
+            result["messages"].append("Installation state validated after rollback")
+
+        # Step 5: Update version metadata (reverted from backup)
+        # Version.json should already be restored from backup by rollback_service
+        devforgeai_path = target_root / ".devforgeai"
+        current_version_data = ver_module.get_installed_version(devforgeai_path)
+        if current_version_data:
+            reverted_version = current_version_data.get("version", "unknown")
+            result["version"] = reverted_version
+            result["messages"].append(f"Version reverted to: {reverted_version}")
+
+        # Success if rollback completed
+        result["status"] = "success"
         return result
 
-    # Use most recent backup
-    backup_to_restore = backups[0]
-    backup_path = backup_to_restore["path"]
-
-    # Verify backup integrity
-    backup_verification = validate.validate_version_json(backup_path / "manifest.json")
-    if not backup_verification["valid"]:
-        result["errors"].append("Backup integrity check failed")
+    except FileNotFoundError as e:
+        result["errors"].append(f"Rollback failed: {e}")
         result["status"] = "failed"
         return result
-
-    # Restore from backup
-    restore_result = rollback_module.restore_from_backup(target_root, backup_path)
-    result["files_restored"] = restore_result["files_restored"]
-    result["backup_path"] = str(backup_path)
-
-    if restore_result["status"] == "failed":
+    except Exception as e:
+        result["errors"].append(f"Rollback error: {e}")
         result["status"] = "failed"
-        result["errors"].extend(restore_result["errors"])
         return result
-
-    result["messages"].append(f"Restored from backup: {backup_to_restore['name']}")
-    return result
 
 
 def _detect_installation_mode(
@@ -343,17 +417,6 @@ def install(
     }
 
     try:
-        # Get source version
-        try:
-            source_devforgeai = source_root / "devforgeai"
-            source_version_data = ver_module.get_source_version(source_devforgeai)
-            source_version = source_version_data.get("version")
-            result["version"] = source_version
-        except FileNotFoundError as e:
-            result["errors"].append(f"Source version not found: {e}")
-            result["status"] = "failed"
-            return result
-
         # Validate target project structure
         if not target_root.exists():
             target_root.mkdir(parents=True, exist_ok=True)
@@ -363,21 +426,49 @@ def install(
         devforgeai_path = target_root / ".devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
-        # Auto-detect mode if not specified
-        if mode is None:
-            mode = _detect_installation_mode(target_root, source_version)
-            result["mode"] = mode
-
-        # Handle "validate" mode (no modifications)
+        # Handle "validate" mode (no modifications, no source needed)
         if mode == "validate":
             validation = validate.validate_installation(target_root)
             result["status"] = "success" if validation["valid"] else "failed"
             result.update(validation)
             return result
 
-        # Handle "rollback" mode
+        # Handle "rollback" mode (no source needed, uses backup)
         if mode == "rollback":
             return _handle_rollback_mode(target_root, result)
+
+        # Validate source directory structure
+        if not source_root.exists():
+            result["errors"].append(f"Source directory not found: {source_root}")
+            result["status"] = "failed"
+            raise FileNotFoundError(f"Source directory not found: {source_root}")
+
+        required_source_dirs = [source_root / "devforgeai", source_root / "claude"]
+        missing_dirs = [d for d in required_source_dirs if not d.exists()]
+        if missing_dirs:
+            result["errors"].append(
+                f"Source directory structure incomplete. Missing: {[str(d) for d in missing_dirs]}"
+            )
+            result["status"] = "failed"
+            raise FileNotFoundError(
+                f"Source directory structure incomplete. Missing directories: {missing_dirs}"
+            )
+
+        # Get source version (required for install/upgrade/uninstall modes)
+        try:
+            source_devforgeai = source_root / "devforgeai"
+            source_version_data = ver_module.get_source_version(source_devforgeai)
+            source_version = source_version_data.get("version")
+            result["version"] = source_version
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            result["errors"].append(f"Source version not found or corrupted: {e}")
+            result["status"] = "failed"
+            raise
+
+        # Auto-detect mode if not specified
+        if mode is None:
+            mode = _detect_installation_mode(target_root, source_version)
+            result["mode"] = mode
 
         # Handle "uninstall" mode
         if mode == "uninstall":

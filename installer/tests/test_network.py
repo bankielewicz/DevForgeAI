@@ -21,7 +21,7 @@ import socket
 import sys
 import shutil
 from pathlib import Path
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, MagicMock, call, PropertyMock
 from io import StringIO
 
 from installer.network import (
@@ -426,12 +426,16 @@ class TestDetectPythonVersion:
         """
         Should return None when version_info unavailable.
 
-        Arrange: Mock sys.version_info to raise AttributeError
+        Arrange: Mock sys.version_info to not have major attribute
         Act: Call detect_python_version()
         Assert: Returns None
         """
         # Arrange
-        with patch('sys.version_info', side_effect=AttributeError):
+        mock_version_info = MagicMock()
+        # Delete major attribute so accessing it raises AttributeError
+        del mock_version_info.major
+
+        with patch('sys.version_info', mock_version_info):
             # Act
             result = detect_python_version()
 

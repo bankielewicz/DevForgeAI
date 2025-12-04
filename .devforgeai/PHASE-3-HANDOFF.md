@@ -63,7 +63,7 @@
 ---
 description: Execute full story lifecycle end-to-end
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, SlashCommand
 ---
 ```
@@ -88,7 +88,7 @@ allowed-tools: Read, Write, Edit, SlashCommand
 ---
 description: Execute full story lifecycle end-to-end
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Write, Edit, Skill
 ---
 ```
@@ -139,7 +139,7 @@ Task(
   - Priority: MEDIUM
   - Target length: 250-300 lines
   - Token budget: <25K (using Skill tool approach)
-  - Model: sonnet
+  - model: haiku
 
   **Create file:** C:\\Projects\\DevForgeAI2\\.claude\\commands\\orchestrate.md
 
@@ -154,7 +154,7 @@ Task(
   ---
   description: Execute full story lifecycle end-to-end
   argument-hint: [STORY-ID]
-  model: sonnet
+  model: haiku
   allowed-tools: Read, Write, Edit, Skill
   ---
   ```

@@ -1,0 +1,173 @@
+================================================================================
+STORY-074 COMPREHENSIVE ERROR HANDLING - GAP ANALYSIS SUMMARY
+================================================================================
+
+CURRENT STATUS: 38/114 tests passing (33%)
+ROOT CAUSE: Specification → Tests (correct) vs Implementation (wrong signatures)
+
+================================================================================
+SERVICE SIGNATURE MISMATCHES
+================================================================================
+
+1. BackupService
+   ├─ Problem: Constructor parameter mismatch + return type mismatch
+   ├─ Current:   __init__(backup_base: str)
+   ├─ Expected:  __init__(logger)
+   ├─ Current:   create_backup(source_paths: List[str]) -> str
+   ├─ Expected:  create_backup(target_dir: Path, files_to_backup: List[Path]) -> Path
+   ├─ Missing:   get_latest_backup() method
+   └─ Failing: 18/18 tests (0% pass rate)
+
+2. RollbackService
+   ├─ Problem: Parameter name + return type + method visibility
+   ├─ Current:   rollback(backup_dir, target_root=None) -> bool
+   ├─ Expected:  rollback(backup_dir, target_dir) -> int (exit code 3)
+   ├─ Current:   _remove_partial_files() [PRIVATE]
+   ├─ Expected:  cleanup_partial_installation() [PUBLIC]
+   ├─ Current:   _clean_empty_directories() [PRIVATE]
+   ├─ Expected:  remove_empty_directories() [PUBLIC]
+   ├─ Missing:   Console output messages
+   ├─ Missing:   RuntimeError on concurrent install
+   └─ Failing: 41/41 tests (0% pass rate)
+
+3. InstallLogger
+   ├─ Problem: Constructor parameter + missing methods + signature changes
+   ├─ Current:   __init__(log_path: str)
+   ├─ Expected:  __init__(log_file: Path, max_size_mb=10, max_rotations=3)
+   ├─ Missing:   log_info(), log_warning()
+   ├─ Wrong:     log_error(category, exit_code, message)
+   ├─ Expected:  log_error(error: Exception, category=None, exit_code=None)
+   ├─ Missing:   log_file_operation(), log_system_context(), log_rollback(), log_session_start()
+   └─ Failing: 23/23 tests (0% pass rate)
+
+4. LockFileManager
+   ├─ Problem: Constructor parameter + visibility + missing features
+   ├─ Current:   __init__(lock_path: str)
+   ├─ Expected:  __init__(lock_dir: Path)
+   ├─ Current:   acquire_lock() -> bool
+   ├─ Expected:  acquire_lock(timeout_seconds=None, retry_interval=0.1) -> bool
+   ├─ Current:   _is_stale() [PRIVATE]
+   ├─ Expected:  is_lock_stale() [PUBLIC]
+   ├─ Missing:   cleanup() method
+   ├─ Missing:   __enter__/__exit__ (context manager)
+   ├─ Wrong:     Returns False on concurrent install
+   ├─ Expected:  Raises RuntimeError on concurrent install
+   └─ Failing: 19/19 tests (0% pass rate)
+
+================================================================================
+ROOT CAUSE ANALYSIS
+================================================================================
+
+TDD VIOLATION DETECTED:
+
+  Spec (YAML) → Tests (TDD Red Phase)  ✓ CORRECT - tests match spec
+                       ↓
+           Tests expect specific signatures
+                       ↓
+        Implementations written with DIFFERENT signatures ✗ WRONG
+
+RESULT: Tests fail at instantiation stage (can't even create objects)
+        No business logic executed, pure interface mismatch
+
+
+WHY THIS HAPPENED:
+
+Implementations were written WITHOUT referencing tests first.
+- Backend architect interpreted YAML spec differently than test-automator
+- Example: "backup location" → spec ambiguous
+  - Test chose: target_dir + files_to_backup (explicit parameters)
+  - Implementation chose: source_paths (combined parameter)
+
+This is an anti-pattern in TDD: implementations should FOLLOW tests, not guess spec intent
+
+================================================================================
+RECOMMENDATION: OPTION A - FIX IMPLEMENTATIONS
+================================================================================
+
+OPTION A: Implementations → Match Tests (TDD Principle)
+  Pros: Tests are authority, no test rewrites, proven contracts
+  Cons: Rewrite 4 services (~450 lines)
+  Risk: Low (tests are correct by definition)
+  Effort: ~3 hours
+  Result: 114/114 tests pass (100%)
+
+OPTION B: Tests → Match Implementations (Anti-Pattern)
+  Pros: Less work
+  Cons: Violates TDD, tests become fragile, creates technical debt
+  Risk: High (future confusion about true contracts)
+  Effort: ~4 hours (76 test rewrites)
+  Result: Tests pass but wrong contract enforced
+
+OPTION C: Both → Match Spec
+  Pros: Honors specification
+  Cons: Most work, risk of new divergence
+  Risk: Very High
+  Effort: ~5+ hours
+  Result: Still fragile if spec ambiguous
+
+RECOMMENDATION: OPTION A (TDD-correct, lowest risk, fastest path)
+
+================================================================================
+REMEDIATION PLAN
+================================================================================
+
+Phase 1: BackupService (45 minutes)
+  1. Rename constructor param: backup_base → logger
+  2. Rewrite create_backup() signature (target_dir, files_to_backup)
+  3. Change return type str → Path
+  4. Add get_latest_backup(backups_root) method
+  5. Accept Path objects, not strings
+  6. Test: python3 -m pytest installer/tests/test_backup_service.py -v
+
+Phase 2: RollbackService (40 minutes)
+  1. Fix rollback() parameters: target_root → target_dir
+  2. Change return type bool → int (exit code 3)
+  3. Rename _remove_partial_files() → cleanup_partial_installation() (PUBLIC)
+  4. Rename _clean_empty_directories() → remove_empty_directories() (PUBLIC)
+  5. Add console output: "Rolling back..." and "Rollback complete"
+  6. Raise RuntimeError on concurrent install (not return False)
+  7. Test: python3 -m pytest installer/tests/test_rollback_service.py -v
+
+Phase 3: InstallLogger (50 minutes)
+  1. Rename constructor param: log_path → log_file
+  2. Add constructor params: max_size_mb (default 10), max_rotations (default 3)
+  3. Add log_info() method [INFO] level entries
+  4. Add log_warning() method [WARNING] level entries
+  5. Rewrite log_error() signature: (error, category=None, exit_code=None)
+  6. Add log_file_operation(operation, source_path, target_path)
+  7. Add log_system_context() → writes OS info
+  8. Add log_rollback(files_restored, files_removed) → writes rollback details
+  9. Add log_session_start() → writes separator with timestamp
+  10. Test: python3 -m pytest installer/tests/test_install_logger.py -v
+
+Phase 4: LockFileManager (30 minutes)
+  1. Rename constructor param: lock_path → lock_dir
+  2. Add timeout_seconds and retry_interval params to acquire_lock()
+  3. Add cleanup() method (public)
+  4. Rename _is_stale() → is_lock_stale() (public)
+  5. Implement __enter__/__exit__ for context manager support
+  6. Raise RuntimeError on concurrent install (not return False)
+  7. Test: python3 -m pytest installer/tests/test_lock_file_manager.py -v
+
+Phase 5: Verification (30 minutes)
+  python3 -m pytest installer/tests/ -v --cov=installer
+  Expected: 114/114 tests passing (100%)
+  Coverage: >95%
+
+TOTAL EFFORT: ~3.5 hours implementation + verification
+
+================================================================================
+IMPACT SUMMARY
+================================================================================
+
+Before:  38/114 tests pass (33%)
+         4 services broken at interface level
+         76 test failures (all TypeError: unexpected keyword argument)
+
+After:   114/114 tests pass (100%)
+         4 services fully implemented
+         Zero test failures
+         Zero interface mismatches
+         Ready for Phase 4 (Integration Testing)
+
+================================================================================

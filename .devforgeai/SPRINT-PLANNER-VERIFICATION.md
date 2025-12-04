@@ -36,7 +36,7 @@ head -20 .claude/agents/sprint-planner.md
 # name: sprint-planner
 # description: Sprint planning and execution specialist...
 # tools: Read, Write, Edit, Glob, Grep
-# model: sonnet
+# model: haiku
 # ---
 ```
 
@@ -485,7 +485,7 @@ grep -A 5 "sprint-planner" .claude/memory/subagents-reference.md
 # Expected: Entry in subagents table with:
 # - Name: sprint-planner
 # - Purpose: Sprint planning
-# - Model: sonnet
+# - model: haiku
 # - Token target: <40K
 ```
 

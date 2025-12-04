@@ -234,6 +234,10 @@ def run_offline_installation(
         - warnings: list[str]
         - errors: list[str]
 
+    Raises:
+        ValueError: If bundle structure is incomplete
+        FileNotFoundError: If required bundle directories are missing
+
     Examples:
         >>> result = run_offline_installation(
         ...     target_dir=Path("/project"),
@@ -258,6 +262,17 @@ def run_offline_installation(
 
     target_dir = Path(target_dir)
     bundle_root = Path(bundle_root)
+
+    # Validate bundle structure exists
+    if not bundle_root.exists():
+        raise FileNotFoundError(f"Bundle directory not found: {bundle_root}")
+
+    # Check for required bundle directories
+    required_dirs = ["bundled", "python-cli"]
+    has_bundled = (bundle_root / "bundled").exists() or (bundle_root.parent / "bundled").exists()
+
+    if not has_bundled and not force:
+        raise ValueError(f"Bundle structure incomplete: missing required subdirectories {required_dirs}")
 
     # Display offline mode status
     network.display_network_status(is_online=False)

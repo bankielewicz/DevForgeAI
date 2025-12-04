@@ -100,7 +100,7 @@ KEY SPECIFICATIONS
 
 SUBAGENT PROPERTIES:
   Name: sprint-planner
-  Model: Sonnet (complex workflow coordination)
+  model: haiku (complex workflow coordination)
   Tools: Read, Write, Edit, Glob, Grep (native file operations only)
   Token Budget: < 40K per invocation
   Lines: 467 (full system prompt > 200 lines requirement)

@@ -1,7 +1,7 @@
 ---
 description: Search chat history and resume previous conversations
 argument-hint: [search-keywords]
-model: sonnet
+model: haiku
 allowed-tools: Bash, Read, AskUserQuestion, Grep
 ---
 

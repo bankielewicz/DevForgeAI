@@ -88,7 +88,9 @@
       "Bash(timeout 15 ../../node_modules/.bin/jest:*)",
       "Bash(jobs)",
       "Bash(timeout 90 pytest:*)",
-      "Bash(timeout 60 pytest:*)"
+      "Bash(timeout 60 pytest:*)",
+      "WebFetch(domain:arxiv.org)",
+      "WebFetch(domain:platform.claude.com)"
     ],
     "deny": [],
     "ask": []

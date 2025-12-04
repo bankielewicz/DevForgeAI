@@ -2,7 +2,7 @@
 description: Release story to target environments with validation
 argument-hint: [STORY-ID] [environment]
 # Environment: 'staging' or 'production' (no -- prefix)
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, Glob
 ---
 

@@ -238,7 +238,7 @@ class TestLoadChecksums:
         checksums_file.write_text(json.dumps(checksums_data))
 
         # Act & Assert
-        with pytest.raises(ValueError, match="Invalid checksum format"):
+        with pytest.raises(ValueError, match="failed schema validation"):
             load_checksums(bundle_root)
 
     def test_schema_validation_failure(self, tmp_path):

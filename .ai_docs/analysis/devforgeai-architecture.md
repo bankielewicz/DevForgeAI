@@ -503,7 +503,7 @@ allowed-tools:
   - Grep
   - AskUserQuestion
   - Task
-model: sonnet
+model: haiku
 ---
 
 # DevForgeAI Architecture Skill

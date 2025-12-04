@@ -12,7 +12,7 @@ budget classification, and roadmap generation.
 COMPLIANT_COMMAND = """---
 description: Compliant command following lean orchestration pattern
 argument-hint: STORY-ID [mode]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion
 ---
 
@@ -103,7 +103,7 @@ Display result.summary
 MODERATE_VIOLATIONS_COMMAND = """---
 description: Command with moderate violations (5 total)
 argument-hint: STORY-ID
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion
 ---
 
@@ -612,7 +612,7 @@ All violations in this fixture are realistic examples from actual command refact
 SEVERE_VIOLATIONS_COMMAND = """---
 description: Command with severe violations
 argument-hint: STORY-ID [env]
-model: sonnet
+model: haiku
 ---
 
 # /test-severe - Severe Violations
@@ -1293,7 +1293,7 @@ This severe violations fixture is now properly sized at >15K characters and incl
 MALFORMED_COMMAND = """---
 description: This command has invalid YAML
 argument-hint: STORY-ID
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, Ask: [invalid YAML - unclosed bracket
 ---
 
@@ -1309,7 +1309,7 @@ Invalid YAML should be detected.
 DIRECT_SUBAGENT_BYPASS = """---
 description: Command that bypasses skill layer
 argument-hint: STORY-ID
-model: sonnet
+model: haiku
 ---
 
 # /test-bypass - Direct Subagent Bypass

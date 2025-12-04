@@ -31,7 +31,7 @@
 name: sprint-planner
 description: Sprint planning and execution specialist...
 tools: Read, Write, Edit, Glob, Grep
-model: sonnet
+model: haiku
 ---
 
 # Sprint Planner Subagent

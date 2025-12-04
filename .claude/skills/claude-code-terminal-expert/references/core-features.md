@@ -139,7 +139,7 @@ Each subagent is defined in a Markdown file with this structure:
 name: your-sub-agent-name
 description: Description of when this subagent should be invoked
 tools: tool1, tool2, tool3  # Optional - inherits all tools if omitted
-model: sonnet  # Optional - specify model alias or 'inherit'
+model: haiku  # Optional - specify model alias or 'inherit'
 ---
 
 Your subagent's system prompt goes here. This can be multiple paragraphs
@@ -321,7 +321,7 @@ Focus on fixing the underlying issue, not just symptoms.
 name: data-scientist
 description: Data analysis expert for SQL queries, BigQuery operations, and data insights. Use proactively for data analysis tasks and queries.
 tools: Bash, Read, Write
-model: sonnet
+model: haiku
 ---
 
 You are a data scientist specializing in SQL and BigQuery analysis.

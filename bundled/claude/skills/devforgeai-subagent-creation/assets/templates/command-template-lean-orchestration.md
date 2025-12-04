@@ -56,7 +56,7 @@ Subagent responsibilities: Specialized tasks → Isolated context → Return str
 ---
 description: [One-sentence command description]
 argument-hint: [ARG1] [ARG2]
-model: sonnet|haiku
+model: haiku|haiku
 allowed-tools: Read, Skill, [others as needed]
 ---
 

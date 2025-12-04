@@ -449,7 +449,7 @@ cp .claude/commands/create-sprint.md .claude/commands/create-sprint.md.backup
 ---
 description: Create sprint plan with story selection
 argument-hint: [sprint-name]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, AskUserQuestion, Skill
 ---
 

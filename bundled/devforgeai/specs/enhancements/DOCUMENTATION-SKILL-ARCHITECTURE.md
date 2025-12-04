@@ -635,7 +635,7 @@ var tree = CSharpSyntaxTree.ParseText(code);
 ---
 description: Generate comprehensive project documentation
 argument-hint: [STORY-ID] [--type=TYPE] [--mode=MODE] [--export=FORMAT]
-model: sonnet
+model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, Glob, Grep
 ---
 

@@ -81,7 +81,7 @@ Execute all components from RCA-006 plan:
    - **CRITICAL:** Must be invoked by dev & QA skills (no silo!)
 
 2. **technical-debt-analyzer.md** (2h) - Debt trend analysis
-   - Model: sonnet
+   - model: haiku
    - Invoked by orchestration skill Phase 5
    - Generates reports, tracks patterns
 

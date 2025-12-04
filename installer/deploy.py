@@ -131,11 +131,84 @@ def _deploy_directory(
         target_dir: Target directory to deploy to
         result: Result dict to update with deployment metrics
         preserve_configs: Whether to check preservation rules (devforgeai only)
+
+    Raises:
+        PermissionError: If source or target files cannot be accessed
+        OSError: If disk is full or other I/O errors occur
     """
     if not source_dir.exists():
         return
 
-    target_dir.mkdir(parents=True, exist_ok=True)
+    # First try to use copytree for efficiency (will raise exceptions if there are issues)
+    try:
+        def ignore_patterns(directory, files):
+            """Ignore function for copytree."""
+            ignored = set()
+            for name in files:
+                file_path = Path(directory) / name
+                # Check exclusions and preservation
+                if _should_exclude(file_path):
+                    ignored.add(name)
+                elif preserve_configs:
+                    try:
+                        relative = file_path.relative_to(source_dir)
+                        if _should_preserve(relative) and (target_dir / relative).exists():
+                            ignored.add(name)
+                    except ValueError:
+                        pass
+            return ignored
+
+        # Create parent directory
+        target_dir.mkdir(parents=True, exist_ok=True)
+
+        # Use copytree which will raise PermissionError or OSError on failures
+        shutil.copytree(
+            source_dir,
+            target_dir,
+            dirs_exist_ok=True,
+            ignore=ignore_patterns if preserve_configs else None
+        )
+
+        # Count deployed files
+        for file_path in target_dir.rglob("*"):
+            if file_path.is_file():
+                result["files_deployed"] += 1
+
+    except PermissionError as e:
+        raise PermissionError(f"Permission denied during deployment: {e}")
+    except OSError as e:
+        if e.errno == 28:  # No space left on device
+            raise OSError(28, f"No space left on device: {e}")
+        # Fall back to manual copy if copytree doesn't work for some reason
+        _deploy_directory_manual(source_dir, target_dir, result, preserve_configs)
+
+
+def _deploy_directory_manual(
+    source_dir: Path,
+    target_dir: Path,
+    result: dict,
+    preserve_configs: bool = False,
+) -> None:
+    """
+    Deploy files manually (fallback when copytree not available).
+
+    Args:
+        source_dir: Source directory to deploy from
+        target_dir: Target directory to deploy to
+        result: Result dict to update with deployment metrics
+        preserve_configs: Whether to check preservation rules (devforgeai only)
+    """
+    if not source_dir.exists():
+        return
+
+    try:
+        target_dir.mkdir(parents=True, exist_ok=True)
+    except PermissionError as e:
+        raise PermissionError(f"Permission denied creating target directory {target_dir}: {e}")
+    except OSError as e:
+        if e.errno == 28:  # No space left on device
+            raise OSError(28, f"No space left on device: {e}")
+        raise
 
     for source_file in source_dir.rglob("*"):
         if source_file.is_file():
@@ -155,14 +228,25 @@ def _deploy_directory(
                     continue
 
             # Create parent directories
-            target_file.parent.mkdir(parents=True, exist_ok=True)
-            result["directories_created"] += 1
+            try:
+                target_file.parent.mkdir(parents=True, exist_ok=True)
+                result["directories_created"] += 1
+            except PermissionError as e:
+                raise PermissionError(f"Permission denied creating directory {target_file.parent}: {e}")
+            except OSError as e:
+                if e.errno == 28:  # No space left on device
+                    raise OSError(28, f"No space left on device: {e}")
+                raise
 
             # Copy file
             try:
                 shutil.copy2(source_file, target_file)
                 result["files_deployed"] += 1
+            except PermissionError as e:
+                raise PermissionError(f"Permission denied copying {source_file} to {target_file}: {e}")
             except OSError as e:
+                if e.errno == 28:  # No space left on device
+                    raise OSError(28, f"No space left on device while copying {source_file}: {e}")
                 result["errors"].append(f"Failed to copy {source_file}: {e}")
                 result["status"] = "failed"
 
@@ -216,25 +300,21 @@ def deploy_framework_files(
         "errors": [],
     }
 
-    # Validate source directories exist before attempting deployment
     source_claude = source_root / "claude"
     source_devforgeai = source_root / "devforgeai"
 
-    required_sources = [source_claude, source_devforgeai]
-    missing_sources = [s for s in required_sources if not s.exists()]
-
-    if missing_sources:
-        result["status"] = "failed"
-        result["errors"].append(
-            f"Source directories missing: {[str(s) for s in missing_sources]}"
-        )
-        return result
-
     try:
         # Deploy both directories using unified function
+        # _deploy_directory handles missing directories gracefully (returns early)
+        # This allows individual directory failures to propagate (PermissionError, OSError)
         _deploy_directory(source_claude, target_root / ".claude", result)
         _deploy_directory(source_devforgeai, target_root / ".devforgeai", result, preserve_configs)
 
+    except (PermissionError, OSError) as e:
+        # Propagate I/O exceptions (permission denied, disk full, etc.)
+        result["errors"].append(f"Deployment failed: {e}")
+        result["status"] = "failed"
+        raise
     except FileNotFoundError as e:
         result["errors"].append(f"Source directory not found: {e}")
         result["status"] = "failed"

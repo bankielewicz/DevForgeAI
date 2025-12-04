@@ -41,7 +41,7 @@ description: Requirements analysis for devforgeai-story-creation. Returns CONTEN
 parent_skill: devforgeai-story-creation
 output_format: content_only
 tools: [Read, Grep, Glob, AskUserQuestion]  # NO Write, NO Edit
-model: sonnet
+model: haiku
 contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
 ---
 ```

@@ -1,7 +1,7 @@
 ---
 name: pattern-compliance-auditor
 description: Audits DevForgeAI commands for lean orchestration pattern compliance. Detects violations, estimates refactoring effort, and generates improvement roadmaps.
-model: sonnet
+model: haiku
 tools: Read, Grep, Glob
 ---
 

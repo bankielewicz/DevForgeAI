@@ -2,7 +2,7 @@
 name: documentation-writer
 description: Technical documentation expert. Use proactively after API implementation, when documentation coverage falls below 80%, or when user guides and architecture docs are needed.
 tools: Read, Write, Edit, Grep, Glob
-model: sonnet
+model: haiku
 color: green
 ---
 

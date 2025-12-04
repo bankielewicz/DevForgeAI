@@ -73,7 +73,7 @@
 - Byte-level diff: 0 differences
 - Line count: 386 = 386 ✓
 - File size: 14KB = 14KB ✓
-- Model: sonnet = sonnet ✓
+- model: haiku = sonnet ✓
 - Phases: 7 = 7 ✓
 
 **Conclusion:** STORY-061 files are perfectly synced between source and operational directories.
@@ -277,8 +277,8 @@ diff src/claude/agents/coverage-analyzer.md .claude/agents/coverage-analyzer.md
 # Result: Files are IDENTICAL (0 differences)
 
 # File stats
-src/:   386 lines, 14KB, model: sonnet
-.claude/: 386 lines, 14KB, model: sonnet
+src/:   386 lines, 14KB, model: haiku
+.claude/: 386 lines, 14KB, model: haiku
 Match: ✓ PERFECT
 ```
 

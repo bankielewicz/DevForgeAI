@@ -1,7 +1,7 @@
 ---
 description: Create user story with acceptance criteria and technical specification
 argument-hint: [feature-description | epic-id]
-model: opus
+model: haiku
 allowed-tools: Read, Glob, Grep, Skill, AskUserQuestion, TodoWrite
 ---
 

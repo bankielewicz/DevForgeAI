@@ -588,7 +588,7 @@ allowed-tools:
   - Glob
   - Grep
   - AskUserQuestion
-model: sonnet
+model: haiku
 ---
 
 # DevForgeAI Ideation Skill

@@ -14,7 +14,8 @@ CHECKSUMS_SCHEMA = {
     "type": "object",
     "patternProperties": {
         # Keys: Relative file paths (alphanumeric, forward slashes, hyphens, underscores, dots)
-        r"^[a-zA-Z0-9/_.\-]+$": {
+        # SECURITY: Prevents ".." path traversal by rejecting at start and after "/"
+        r"^(?!\.\.)(?:(?!\.\./)[\w./-])+$": {
             "type": "string",
             "pattern": r"^[a-fA-F0-9]{64}$",  # SHA256 hex string (64 chars)
             "description": "SHA256 checksum as hex string"

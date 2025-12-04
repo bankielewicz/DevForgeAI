@@ -104,7 +104,7 @@ Compliance: ⚠️ HIGH USAGE (95% - approaching limit)
 ---
 description: Create epic with feature breakdown
 argument-hint: [epic-name]
-model: sonnet
+model: haiku
 allowed-tools: AskUserQuestion, Skill
 ---
 

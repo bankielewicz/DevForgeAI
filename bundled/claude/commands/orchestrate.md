@@ -1,7 +1,7 @@
 ---
 description: Execute full story lifecycle end-to-end
 argument-hint: [STORY-ID]
-model: sonnet
+model: haiku
 allowed-tools: Read, Glob, Skill, AskUserQuestion
 ---
 

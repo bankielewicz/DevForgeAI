@@ -395,7 +395,7 @@ description: Requirements analysis subagent specifically for devforgeai-story-cr
 parent_skill: devforgeai-story-creation
 output_format: content_only (no file creation)
 tools: [Read, Grep, Glob, AskUserQuestion]
-model: sonnet
+model: haiku
 ---
 
 # Story Requirements Analyst Subagent

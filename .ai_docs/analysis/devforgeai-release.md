@@ -476,7 +476,7 @@ allowed-tools:
   - Bash
   - Task
   - AskUserQuestion
-model: sonnet
+model: haiku
 ---
 
 # DevForgeAI Release Skill

@@ -339,7 +339,7 @@ IMMEDIATELY STOP and ask human if:
 name: feature-implementer
 description: Implement single feature following TDD
 tools: [Read, Write, Edit, Bash, Grep]
-model: sonnet
+model: haiku
 ---
 
 You are a focused feature implementation specialist.

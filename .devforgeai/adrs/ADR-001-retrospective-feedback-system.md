@@ -372,7 +372,7 @@ Control returns to user
 **Feedback Skill Implementation:**
 - Format: Markdown (`.claude/skills/devforgeai-feedback/SKILL.md`)
 - Size Target: <1,000 lines (progressive disclosure via references/)
-- Model: Sonnet (requires AskUserQuestion, complex orchestration)
+- model: haiku (requires AskUserQuestion, complex orchestration)
 
 **Configuration:**
 - Format: YAML (`.devforgeai/config/feedback.yaml`)

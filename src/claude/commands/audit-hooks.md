@@ -1,7 +1,7 @@
 ---
 description: Audit hook registry and invocation history
 argument-hint: [--validate|--performance|--check-circular]
-model: sonnet
+model: haiku
 allowed-tools: Read, Grep, Glob, Bash
 ---
 

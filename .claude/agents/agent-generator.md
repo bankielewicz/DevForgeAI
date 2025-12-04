@@ -2,7 +2,7 @@
 name: agent-generator
 description: Generate specialized Claude Code subagents following DevForgeAI specifications. Use proactively when creating new subagents or implementing Phase 2 subagent requirements. Expert in subagent architecture, system prompt engineering, and tool access patterns.
 tools: Read, Write, Glob, Grep
-model: sonnet
+model: haiku
 color: green
 ---
 
@@ -670,7 +670,7 @@ Validate frontmatter matches official Claude Code structure:
 - name: lowercase-with-hyphens ✓
 - description: natural language with invocation triggers ✓
 - tools: comma-separated list OR omitted ✓
-- model: sonnet|opus|haiku|inherit OR omitted ✓
+- model: haiku|opus|haiku|inherit OR omitted ✓
 - Proper YAML delimiters (---) ✓
 
 Parse YAML frontmatter:
@@ -2061,7 +2061,7 @@ Extract logic from over-budget command:
 
 ```
 model: haiku    # For parsing, formatting, interpretation (<8K tokens)
-model: sonnet   # For complex coordination (8-50K tokens)
+model: haiku   # For complex coordination (8-50K tokens)
 ```
 
 **3. Tool Access: Minimal (View-Only Preferred)**

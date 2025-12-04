@@ -939,7 +939,7 @@ Aggregate Results & Notify User
 ---
 description: Execute multiple stories in parallel using GitHub Actions
 argument-hint: STORY-001 STORY-002 STORY-003
-model: sonnet
+model: haiku
 allowed-tools: Bash, AskUserQuestion
 ---
 

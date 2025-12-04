@@ -105,9 +105,14 @@ class LockFileManager:
                     0o600  # Permissions: owner read/write only
                 )
 
-                # Write PID and timestamp to lock file
+                # Write PID and timestamp to lock file (JSON format)
+                import json
+                lock_data = {
+                    "pid": current_pid,
+                    "timestamp": timestamp
+                }
                 with os.fdopen(fd, 'w') as f:
-                    f.write(f"{current_pid}\n{timestamp}\n")
+                    json.dump(lock_data, f)
 
                 return True
             except FileExistsError:
@@ -186,21 +191,24 @@ class LockFileManager:
             return True
 
         try:
+            import json
             with open(self.lock_path, 'r') as f:
                 content = f.read().strip()
 
-            # Parse PID (first line)
-            lines = content.split('\n')
-            if not lines:
-                return True
-
-            pid_str = lines[0].strip()
-
-            # Try to parse PID
+            # Try to parse as JSON first
             try:
-                pid = int(pid_str)
-            except ValueError:
-                return True  # Invalid PID format, consider stale
+                lock_data = json.loads(content)
+                pid = int(lock_data.get('pid', 0))
+            except (json.JSONDecodeError, ValueError, TypeError):
+                # Fall back to old format (PID on first line)
+                lines = content.split('\n')
+                if not lines:
+                    return True
+                pid_str = lines[0].strip()
+                try:
+                    pid = int(pid_str)
+                except ValueError:
+                    return True  # Invalid PID format, consider stale
 
             # Check if process is running
             return not self._process_exists(pid)
@@ -229,14 +237,23 @@ class LockFileManager:
             return None
 
         try:
+            import json
             with open(self.lock_path, 'r') as f:
-                pid_str = f.read().strip().split('\n')[0]
+                content = f.read().strip()
+
+            # Try to parse as JSON first
+            try:
+                lock_data = json.loads(content)
+                pid = int(lock_data.get('pid', 0))
+            except (json.JSONDecodeError, ValueError, TypeError):
+                # Fall back to old format (PID on first line)
+                pid_str = content.split('\n')[0]
                 pid = int(pid_str)
 
-                # Only return PID if lock is active (not stale)
-                if self._process_exists(pid):
-                    return pid
-                return None
+            # Only return PID if lock is active (not stale)
+            if self._process_exists(pid):
+                return pid
+            return None
         except Exception:
             return None
 

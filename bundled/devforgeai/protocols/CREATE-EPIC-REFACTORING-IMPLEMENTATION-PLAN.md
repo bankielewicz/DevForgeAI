@@ -786,7 +786,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/epic-validati
 ---
 description: Create epic with feature breakdown
 argument-hint: [epic-name]
-model: sonnet
+model: haiku
 allowed-tools: AskUserQuestion, Skill
 ---
 

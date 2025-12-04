@@ -1,7 +1,7 @@
 ---
 description: Create epic with feature breakdown
 argument-hint: [epic-name]
-model: opus
+model: haiku
 allowed-tools: AskUserQuestion, Skill
 ---
 

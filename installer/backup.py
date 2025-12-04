@@ -37,8 +37,9 @@ def _generate_backup_hash(backup_path: Path) -> str:
     hasher = hashlib.sha256()
 
     # Walk through all files in backup directory (sorted for determinism)
+    # Exclude manifest.json from hash (it's not hashed, only data files are)
     for file_path in sorted(backup_path.rglob("*")):
-        if file_path.is_file():
+        if file_path.is_file() and file_path.name != MANIFEST_FILENAME:
             _hash_file(file_path, hasher)
 
     return f"{HASH_ALGORITHM}:{hasher.hexdigest()}"

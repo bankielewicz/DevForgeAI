@@ -33,7 +33,7 @@
 ```markdown
 ---
 description: Audit all QA Approved stories...
-model: sonnet
+model: haiku
 ---
 
 # Audit Deferrals Command
@@ -390,7 +390,7 @@ fi
 ---
 description: Audit all QA Approved stories for invalid deferrals and deferral chains
 argument-hint: (no arguments required)
-model: sonnet
+model: haiku
 allowed-tools: Skill, Bash
 ---
 

@@ -2,7 +2,7 @@
 name: test-automator
 description: Test generation expert specializing in Test-Driven Development (TDD). Use proactively when implementing features requiring test coverage, generating tests from acceptance criteria, or identifying coverage gaps. Creates comprehensive test suites following AAA pattern, test pyramid, and coverage optimization principles.
 tools: Read, Write, Edit, Grep, Glob, Bash
-model: sonnet
+model: haiku
 color: green
 ---
 
