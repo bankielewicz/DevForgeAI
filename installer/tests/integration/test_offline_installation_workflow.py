@@ -72,12 +72,15 @@ class TestOfflineInstallationWorkflow:
         bundle_root = tmp_path / "bundle"
         bundle_root.mkdir()
 
-        # Create minimal bundle structure
+        # Create minimal bundle structure with ALL required directories
         (bundle_root / "claude" / "agents").mkdir(parents=True)
         (bundle_root / "claude" / "commands").mkdir(parents=True)
         (bundle_root / "claude" / "skills").mkdir(parents=True)
         (bundle_root / "claude" / "memory").mkdir(parents=True)
         (bundle_root / "devforgeai" / "context").mkdir(parents=True)
+        # Required subdirectories for offline installation
+        (bundle_root / "bundled").mkdir(parents=True)
+        (bundle_root / "python-cli" / "wheels").mkdir(parents=True)
         (bundle_root / "checksums.json").write_text('{}')
         (bundle_root / "version.json").write_text('{"version": "1.0.0"}')
         (bundle_root / "CLAUDE.md").write_text('# Template')

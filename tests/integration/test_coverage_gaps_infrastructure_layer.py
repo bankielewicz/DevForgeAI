@@ -906,7 +906,8 @@ Python: {{PYTHON_VERSION}}
         assert "{{PROJECT_NAME}}" not in result
         assert "{{INSTALLATION_DATE}}" not in result
         # Should contain actual values (not placeholders)
-        assert len(result) > len(content)
+        # Note: Result may be shorter/longer than original depending on variable lengths
+        assert detector.substituted_count > 0, "Should have substituted at least one variable"
 
     def test_handles_subprocess_timeout_gracefully(self, tmp_path):
         """

@@ -426,7 +426,10 @@ class TestRollbackErrorHandling:
         project_root = tmp_path / "project"
         project_root.mkdir()
 
-        backup_dir = tmp_path / "backup"
+        # CRITICAL FIX: Place backup inside .backups/ directory to pass security validation
+        backups_dir = project_root / ".backups"
+        backups_dir.mkdir()
+        backup_dir = backups_dir / "backup_001"
         backup_dir.mkdir()
         (backup_dir / "manifest.json").write_text(json.dumps({"created_at": "2025-12-04"}))
 
@@ -674,12 +677,15 @@ class TestInstallPyErrorHandling:
         devforgeai_src = source_root / "devforgeai"
         devforgeai_src.mkdir()
 
+        # Also create required claude/ directory
+        (source_root / "claude").mkdir()
+
         # Corrupted version.json
         (devforgeai_src / "version.json").write_text("{ invalid json }")
 
-        # Act & Assert
+        # Act & Assert - Must pass source_path explicitly
         with pytest.raises((json.JSONDecodeError, ValueError)):
-            install(target_dir, mode=None)
+            install(target_dir, source_path=source_root, mode=None)
 
     def test_install_creates_backup_before_deployment(self, tmp_path):
         """
@@ -706,8 +712,11 @@ class TestInstallPyErrorHandling:
         # Act
         with patch('installer.backup.create_backup') as mock_backup:
             with patch('installer.deploy.deploy_framework_files'):
-                mock_backup.return_value = tmp_path / ".backups" / "backup_001"
-                result = install(target_dir)
+                # backup.create_backup returns (backup_path, manifest_dict)
+                backup_path = tmp_path / ".backups" / "backup_001"
+                backup_manifest = {"created_at": "2025-12-04T00:00:00Z"}
+                mock_backup.return_value = (backup_path, backup_manifest)
+                result = install(target_dir, source_path=source_root)
 
                 # Assert
                 mock_backup.assert_called()
@@ -770,6 +779,6 @@ class TestInstallPyErrorHandling:
         source_root.mkdir()
         # Missing devforgeai directory!
 
-        # Act & Assert
+        # Act & Assert - Must pass source_path explicitly
         with pytest.raises((FileNotFoundError, ValueError)):
-            install(target_dir)
+            install(target_dir, source_path=source_root)

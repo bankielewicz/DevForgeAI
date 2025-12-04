@@ -59,15 +59,16 @@ def integration_project(tmp_path):
     (claude_dir / "scripts").mkdir(parents=True)
     (claude_dir / "skills").mkdir(parents=True)
 
-    # Create .devforgeai/ structure
+    # Create .devforgeai/ structure with ALL required directories for validation
     devforgeai_dir = root / ".devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir(parents=True)
-    (devforgeai_dir / "context").mkdir(parents=True)
-    (devforgeai_dir / "protocols").mkdir(parents=True)
+    (devforgeai_dir / "context").mkdir(parents=True)  # REQUIRED by validation
+    (devforgeai_dir / "protocols").mkdir(parents=True)  # REQUIRED by validation
     (devforgeai_dir / "specs").mkdir(parents=True)
     (devforgeai_dir / "qa").mkdir(parents=True)
     (devforgeai_dir / "adrs").mkdir(parents=True)
+    (devforgeai_dir / "deployment").mkdir(parents=True)  # Additional expected directory
 
     # Create .backups/ directory (for backup operations)
     (root / ".backups").mkdir()
@@ -184,11 +185,13 @@ def baseline_project(integration_project):
 
     This fixture prepares a project that simulates an existing installation by:
     - Creating .version.json with v1.0.0 metadata
-    - Creating sample .claude/ files
+    - Creating sample .claude/ files (enough to pass validation: 11 commands, 10 skills, 3 protocols)
     - Creating sample .devforgeai/ files
+    - Creating CLAUDE.md
     - Setting proper file timestamps
 
     AC: Existing installation properly detected (prevents fresh_install mode)
+    AC: Installation passes validation (critical_files_present = True)
 
     Args:
         integration_project: Base project fixture
@@ -201,6 +204,7 @@ def baseline_project(integration_project):
     """
     project_root = integration_project["root"]
     devforgeai_dir = integration_project["devforgeai"]
+    claude_dir = integration_project["claude"]
 
     # Create .version.json with v1.0.0
     version_data = {
@@ -216,17 +220,107 @@ def baseline_project(integration_project):
     claude_md = project_root / "CLAUDE.md"
     claude_md.write_text("# CLAUDE.md - User Configuration\n\nBaseline user configuration for DevForgeAI.\n")
 
-    # Create some sample files to simulate existing installation (30 files)
+    # Create critical files to pass validation:
+    # - 11+ commands in .claude/commands/
+    # - 10+ skills in .claude/skills/
+    # - 3+ protocols in .devforgeai/protocols/
+
     claude_files_created = 0
-    for i in range(30):
-        subdir = [
-            integration_project["claude"] / "agents",
-            integration_project["claude"] / "commands",
-            integration_project["claude"] / "memory",
-        ][i % 3]
-        subdir.mkdir(parents=True, exist_ok=True)
-        file_path = subdir / f"existing_file_{i}.md"
-        file_path.write_text(f"Existing content {i} from v1.0.0\n")
+
+    # Create 11+ commands in .claude/commands/
+    commands_dir = claude_dir / "commands"
+    commands_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(11):
+        file_path = commands_dir / f"command_{i:02d}.md"
+        file_path.write_text(f"# Command {i}\n\nBaseline command from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create 10+ skills in .claude/skills/
+    skills_dir = claude_dir / "skills"
+    skills_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(10):
+        skill_subdir = skills_dir / f"skill-{i:02d}"
+        skill_subdir.mkdir(parents=True, exist_ok=True)
+        file_path = skill_subdir / "SKILL.md"
+        file_path.write_text(f"# Skill {i}\n\nBaseline skill from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create 3+ protocols in .devforgeai/protocols/
+    protocols_dir = devforgeai_dir / "protocols"
+    protocols_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(3):
+        file_path = protocols_dir / f"protocol_{i}.md"
+        file_path.write_text(f"# Protocol {i}\n\nBaseline protocol from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create agents directory (20+ agents for comprehensive testing)
+    # NOTE: Create at least 1 file so the directory is backed up properly
+    agents_dir = claude_dir / "agents"
+    agents_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(20):
+        file_path = agents_dir / f"agent_{i:03d}.md"
+        file_path.write_text(f"# Agent {i}\n\nBaseline agent from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create more commands (30+ total)
+    for i in range(11, 30):
+        file_path = commands_dir / f"command_{i:02d}.md"
+        file_path.write_text(f"# Command {i}\n\nBaseline command from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create more skills (25+ total)
+    for i in range(10, 25):
+        skill_subdir = skills_dir / f"skill-{i:02d}"
+        skill_subdir.mkdir(parents=True, exist_ok=True)
+        file_path = skill_subdir / "SKILL.md"
+        file_path.write_text(f"# Skill {i}\n\nBaseline skill from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create more protocols (30+ total)
+    for i in range(3, 30):
+        file_path = protocols_dir / f"protocol_{i}.md"
+        file_path.write_text(f"# Protocol {i}\n\nBaseline protocol from v1.0.0\n")
+        claude_files_created += 1
+
+    # Create additional files in .devforgeai/ directories
+    # ADRs (create at least 1 file so directory is backed up properly)
+    adrs_dir = devforgeai_dir / "adrs"
+    adrs_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(25):
+        file_path = adrs_dir / f"ADR-{i:03d}.md"
+        file_path.write_text(f"# ADR {i}\n\nBaseline decision from v1.0.0\n")
+        claude_files_created += 1
+
+    # Specs
+    specs_dir = devforgeai_dir / "specs"
+    specs_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(25):
+        file_path = specs_dir / f"spec_{i:03d}.md"
+        file_path.write_text(f"# Specification {i}\n\nBaseline spec from v1.0.0\n")
+        claude_files_created += 1
+
+    # QA
+    qa_dir = devforgeai_dir / "qa"
+    qa_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(15):
+        file_path = qa_dir / f"qa_report_{i:02d}.md"
+        file_path.write_text(f"# QA Report {i}\n\nBaseline QA from v1.0.0\n")
+        claude_files_created += 1
+
+    # Memory files (create at least 1 file so directory is backed up properly)
+    memory_dir = claude_dir / "memory"
+    memory_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(20):
+        file_path = memory_dir / f"memory_{i:02d}.md"
+        file_path.write_text(f"# Memory {i}\n\nBaseline memory from v1.0.0\n")
+        claude_files_created += 1
+
+    # Context files (create at least 1 file so directory is backed up properly)
+    context_dir = devforgeai_dir / "context"
+    context_dir.mkdir(parents=True, exist_ok=True)
+    for i in range(3):
+        file_path = context_dir / f"context_{i}.md"
+        file_path.write_text(f"# Context {i}\n\nBaseline context from v1.0.0\n")
         claude_files_created += 1
 
     return {

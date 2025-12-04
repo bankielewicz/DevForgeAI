@@ -25,7 +25,7 @@ class TestFileRestoration:
         Then: All files are restored to target directory
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file1.txt").write_text("content1")
@@ -55,7 +55,7 @@ class TestFileRestoration:
         Then: Target directory mirrors backup structure
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "level1").mkdir()
@@ -83,7 +83,7 @@ class TestFileRestoration:
         Then: Files are overwritten with backup versions
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file.txt").write_text("original content")
@@ -113,7 +113,7 @@ class TestPartialInstallationCleanup:
         Then: Files not in backup are removed
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "original.txt").write_text("original")
@@ -146,7 +146,7 @@ class TestPartialInstallationCleanup:
         Then: Empty directories are removed
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "empty_dir").mkdir()
@@ -171,7 +171,7 @@ class TestPartialInstallationCleanup:
         Then: Files in backup are NOT removed
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "preserve.txt").write_text("preserve me")
@@ -208,7 +208,7 @@ class TestRollbackPerformance:
         Then: Operation completes in <5 seconds
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
 
@@ -240,7 +240,7 @@ class TestRollbackPerformance:
         Then: Duration is logged for performance monitoring
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file.txt").write_text("content")
@@ -271,7 +271,7 @@ class TestRollbackLogging:
         Then: InstallLogger records all actions
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file1.txt").write_text("content1")
@@ -299,7 +299,7 @@ class TestRollbackLogging:
         Then: Logger includes count of files restored and removed
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file1.txt").write_text("content1")
@@ -331,7 +331,7 @@ class TestRollbackExitCode:
         Then: Returns exit code 3
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
 
@@ -359,7 +359,7 @@ class TestRollbackEdgeCases:
         Then: Raises clear error with manual intervention message
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "nonexistent_backup"
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -382,7 +382,7 @@ class TestRollbackEdgeCases:
         Then: Continues with remaining files, logs error for failed file
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "file1.txt").write_text("content1")
@@ -414,7 +414,7 @@ class TestRollbackEdgeCases:
         Then: Console displays "Rolling back installation..." and completion message
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
 
@@ -441,7 +441,7 @@ class TestRollbackEdgeCases:
         Then: Symlinks are restored (not followed)
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
         (backup_dir / "target_file.txt").write_text("target content")
@@ -472,7 +472,7 @@ class TestRollbackReliability:
         Then: ≥199 rollbacks succeed (99.5%)
         """
         # Arrange
-        from installer.rollback_service import RollbackService
+        from installer.services.rollback_service import RollbackService
 
         success_count = 0
         total_scenarios = 200

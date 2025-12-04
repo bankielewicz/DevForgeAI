@@ -26,7 +26,7 @@ class TestBackupCreation:
         Then: Backup directory created with format .devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -53,7 +53,7 @@ class TestBackupCreation:
         Then: Backup directory exists before any file operations
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "existing.txt").write_text("existing content")
@@ -79,7 +79,7 @@ class TestBackupCreation:
         Then: Raises PermissionError, installation HALTS
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -105,7 +105,7 @@ class TestDirectoryStructurePreservation:
         Then: Backup mirrors source structure exactly
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "level1").mkdir()
@@ -134,7 +134,7 @@ class TestDirectoryStructurePreservation:
         Then: Relative paths preserved in backup structure
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / ".claude").mkdir()
@@ -165,7 +165,7 @@ class TestBackupPerformance:
         Then: Operation completes in <10 seconds
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -197,7 +197,7 @@ class TestBackupPerformance:
         Then: Duration is logged for performance monitoring
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -224,7 +224,7 @@ class TestBackupLogging:
         Then: Backup location is logged to install.log
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -248,7 +248,7 @@ class TestBackupLogging:
         Then: Logger includes count of files backed up
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "file1.txt").write_text("content1")
@@ -279,7 +279,7 @@ class TestBackupProceedsCondition:
         Then: File copy operations are blocked, HALT with PERMISSION_DENIED
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -301,7 +301,7 @@ class TestBackupProceedsCondition:
         Then: Returns Path to backup directory
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -327,7 +327,7 @@ class TestBackupCleanup:
         Then: Backups older than 7 days are removed
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         backups_root = tmp_path / ".devforgeai"
         backups_root.mkdir()
 
@@ -361,7 +361,7 @@ class TestBackupCleanup:
         Then: At least 5 most recent backups are kept
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         backups_root = tmp_path / ".devforgeai"
         backups_root.mkdir()
 
@@ -396,7 +396,7 @@ class TestBackupEdgeCases:
         Then: Symlinks are backed up (not followed)
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "target_file.txt").write_text("target content")
@@ -423,7 +423,7 @@ class TestBackupEdgeCases:
         Then: Skips nonexistent files, logs warning, continues with existing files
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "exists.txt").write_text("exists")
@@ -455,7 +455,7 @@ class TestBackupEdgeCases:
         Then: Backup directory created but empty
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
@@ -478,7 +478,7 @@ class TestBackupEdgeCases:
         Then: Raises OSError with clear message
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         target_dir = tmp_path / "target"
         target_dir.mkdir()
         (target_dir / "file.txt").write_text("content")
@@ -510,7 +510,7 @@ class TestBackupIntegration:
         Then: Returns most recent backup directory path
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         backups_root = tmp_path / ".devforgeai"
         backups_root.mkdir()
 

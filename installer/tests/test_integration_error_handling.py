@@ -26,11 +26,11 @@ class TestFullRollbackFlow:
         Then: RollbackService restores all files from backup, returns exit code 3
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -76,10 +76,10 @@ class TestFullRollbackFlow:
         Then: Console message explains the error and recovery
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -116,11 +116,11 @@ class TestFullRollbackFlow:
         Then: install.log contains error and rollback information
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -162,7 +162,7 @@ class TestConcurrentInstallationPrevention:
         Then: Second installation fails with VALIDATION_FAILED (exit code 4)
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
+        from installer.services.lock_file_manager import LockFileManager
         from installer.error_handler import ErrorHandler
 
         lock_dir = tmp_path / ".devforgeai"
@@ -191,10 +191,10 @@ class TestConcurrentInstallationPrevention:
         Then: Error message explains concurrent installation
         """
         # Arrange
-        from installer.lock_file_manager import LockFileManager
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.install_logger import InstallLogger
+        from installer.services.lock_file_manager import LockFileManager
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.install_logger import InstallLogger
 
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
@@ -234,11 +234,11 @@ class TestSigintHandling:
         Then: Rollback is triggered, lock file removed, exit code 3
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.lock_file_manager import LockFileManager
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.lock_file_manager import LockFileManager
+        from installer.services.install_logger import InstallLogger
 
         lock_dir = tmp_path / ".devforgeai"
         lock_dir.mkdir()
@@ -279,10 +279,10 @@ class TestSigintHandling:
         Then: Console displays error message and returns exit code 3
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.rollback_service import RollbackService
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.rollback_service import RollbackService
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -319,7 +319,7 @@ class TestErrorDetectionLatency:
         Then: Latency from error to categorizer invocation is <50ms
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
         error = FileNotFoundError("Test error")
@@ -345,9 +345,9 @@ class TestBackupBeforeModification:
         Then: File copy is blocked, HALT with PERMISSION_DENIED (exit code 2)
         """
         # Arrange
-        from installer.backup_service import BackupService
+        from installer.services.backup_service import BackupService
         from installer.error_handler import ErrorHandler
-        from installer.install_logger import InstallLogger
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -375,8 +375,8 @@ class TestBackupBeforeModification:
         Then: Returns backup directory path, allowing installation to proceed
         """
         # Arrange
-        from installer.backup_service import BackupService
-        from installer.install_logger import InstallLogger
+        from installer.services.backup_service import BackupService
+        from installer.services.install_logger import InstallLogger
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
@@ -408,7 +408,7 @@ class TestErrorHandlerReliability:
         """
         # Test that error categorizer CAN handle all common file errors
 
-        from installer.error_categorizer import ErrorCategorizer
+        from installer.services.error_categorizer import ErrorCategorizer
 
         error_categorizer = ErrorCategorizer()
 
@@ -437,9 +437,9 @@ class TestEndToEndErrorScenarios:
         Then: Returns exit code 1, displays error message
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -466,9 +466,9 @@ class TestEndToEndErrorScenarios:
         Then: Returns exit code 2
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
@@ -495,9 +495,9 @@ class TestEndToEndErrorScenarios:
         Then: Returns exit code 4, does NOT auto-rollback (user decides)
         """
         # Arrange
-        from installer.error_categorizer import ErrorCategorizer
-        from installer.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
-        from installer.install_logger import InstallLogger
+        from installer.services.error_categorizer import ErrorCategorizer
+        from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
+        from installer.services.install_logger import InstallLogger
 
         log_file = tmp_path / ".devforgeai" / "install.log"
         log_file.parent.mkdir()
