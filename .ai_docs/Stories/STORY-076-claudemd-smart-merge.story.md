@@ -623,8 +623,8 @@ No external packages required - uses standard library:
 
 ### Documentation
 - [x] Docstrings for all public methods
-- [ ] Merge strategy guide for users
-- [ ] Conflict resolution instructions
+- [x] Merge strategy guide for users
+- [x] Conflict resolution instructions
 
 ---
 
@@ -671,10 +671,8 @@ No external packages required - uses standard library:
 - [x] E2E test: auto-merge workflow - Completed: Phase 4, TestIntegrationAutoMerge class
 - [x] E2E test: conflict resolution - Completed: Phase 4, TestIntegrationConflictResolution class
 - [x] Docstrings for all public methods - Completed: Phase 3, comprehensive docstrings added
-
-**Deferred Items (User Documentation):**
-- [ ] Merge strategy guide for users - Blocked by: Low-priority documentation (external)
-- [ ] Conflict resolution instructions - Blocked by: Low-priority documentation (external)
+- [x] Merge strategy guide for users - Completed: Phase 5, docs/installer/claudemd-merge-guide.md
+- [x] Conflict resolution instructions - Completed: Phase 5, docs/installer/claudemd-conflict-resolution.md
 
 **Critical Requirements Met:**
 1. ✓ Consistent return types (MergeResult dataclass, never strings/dicts)
