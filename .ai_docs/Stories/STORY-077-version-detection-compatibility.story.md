@@ -3,11 +3,12 @@ id: STORY-077
 title: Version Detection & Compatibility Checking
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 10
 priority: Medium
 assigned_to: Unassigned
 created: 2025-11-25
+updated: 2025-12-05
 format_version: "2.1"
 ---
 
@@ -643,7 +644,7 @@ None - all file operations are local.
 
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ## Implementation Notes
@@ -702,7 +703,7 @@ None - all file operations are local.
 - Pre-release ordering follows semver specification exactly
 
 **Open Questions:**
-- [ ] Should we support non-semver versions for legacy compatibility? - **Owner:** TBD - **Due:** Before implementation
+- [ ] Should we support non-semver versions for legacy compatibility? - **Owner:** No
 
 **Related ADRs:**
 - None yet (may create ADR for version file format if changes needed)
