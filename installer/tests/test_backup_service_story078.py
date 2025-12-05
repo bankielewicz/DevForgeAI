@@ -58,7 +58,7 @@ class TestBackupCreation:
         (source_root / "CLAUDE.md").write_text("# CLAUDE.md")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -92,7 +92,7 @@ class TestBackupCreation:
         version_file.write_text('{"version": "1.0.0"}')
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -115,7 +115,7 @@ class TestBackupCreation:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / ".devforgeai" / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -140,7 +140,7 @@ class TestBackupCreation:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0", BackupReason.UPGRADE)
@@ -175,7 +175,7 @@ class TestBackupCreation:
         test_file.write_bytes(b"x" * (10 * 1024 * 1024))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         start = time.time()
@@ -203,7 +203,7 @@ class TestBackupCreation:
         os.chmod(test_file, 0o755)
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -236,7 +236,7 @@ class TestBackupCreation:
         os.utime(test_file, (mtime, mtime))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -264,7 +264,7 @@ class TestBackupCreation:
         test_file.write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -300,7 +300,7 @@ class TestBackupCreation:
             pytest.skip("Symlinks not supported on this platform")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -335,7 +335,7 @@ class TestBackupCreation:
         (source_root / "file.txt").write_text("keep this")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -366,7 +366,7 @@ class TestBackupCreation:
         # Make it read-only
         os.chmod(backups_root, 0o444)
 
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act & Assert
         try:
@@ -390,7 +390,7 @@ class TestBackupCreation:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Mock shutil.copy2 to raise OSError for disk space
         with patch("shutil.copy2") as mock_copy:
@@ -419,7 +419,7 @@ class TestBackupRestoration:
         (source_root / "file.txt").write_text("original content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -449,7 +449,7 @@ class TestBackupRestoration:
         version_file.write_text(original_content)
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -477,7 +477,7 @@ class TestBackupRestoration:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -508,7 +508,7 @@ class TestBackupRestoration:
         backup_dir.mkdir()
         (backup_dir / "backup-manifest.json").write_text("invalid json {{{")
 
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act & Assert
         with pytest.raises(BackupError):
@@ -528,7 +528,7 @@ class TestBackupRestoration:
         (source_root / "file.txt").write_text("original")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -560,7 +560,7 @@ class TestBackupRestoration:
         (nested / "file.txt").write_text("deep file")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -594,7 +594,7 @@ class TestBackupRestoration:
         test_file.write_bytes(b"x" * (10 * 1024 * 1024))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -621,7 +621,7 @@ class TestBackupRestoration:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -651,7 +651,7 @@ class TestBackupRestoration:
         (source_root / "file.txt").write_text("original")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -679,7 +679,7 @@ class TestBackupRestoration:
         (source_root / "original.txt").write_text("original")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -707,7 +707,7 @@ class TestBackupRestoration:
         source_root.mkdir()
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act & Assert
         with pytest.raises(BackupError) as exc_info:
@@ -732,7 +732,7 @@ class TestBackupListing:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 3 backups
         m1 = service.create_backup(source_root, "1.0.0")
@@ -763,7 +763,7 @@ class TestBackupListing:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         service.create_backup(source_root, "1.0.0", BackupReason.UPGRADE)
 
@@ -793,7 +793,7 @@ class TestBackupListing:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         m1 = service.create_backup(source_root, "1.0.0")
         time.sleep(0.1)
@@ -820,7 +820,7 @@ class TestBackupListing:
         """
         # Arrange
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         backups = service.list_backups()
@@ -842,7 +842,7 @@ class TestBackupListing:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create valid backup
         valid = service.create_backup(source_root, "1.0.0")
@@ -877,7 +877,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 7 backups
         for i in range(7):
@@ -906,7 +906,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create exactly 5 backups
         for i in range(5):
@@ -935,7 +935,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 3 backups
         for i in range(3):
@@ -964,7 +964,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 5 backups
         for i in range(5):
@@ -993,7 +993,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 2 backups
         service.create_backup(source_root, "1.0.0")
@@ -1018,7 +1018,7 @@ class TestBackupRetention:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create 2 recent backups
         service.create_backup(source_root, "1.0.0")
@@ -1051,7 +1051,7 @@ class TestBackupMetadata:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         m1 = service.create_backup(source_root, "1.0.0")
@@ -1075,7 +1075,7 @@ class TestBackupMetadata:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1097,7 +1097,7 @@ class TestBackupMetadata:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1122,7 +1122,7 @@ class TestBackupMetadata:
         (source_root / "file2.txt").write_text("content2")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1147,7 +1147,7 @@ class TestBackupMetadata:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0", BackupReason.UPGRADE)
@@ -1175,7 +1175,7 @@ class TestBackupEdgeCases:
         (source_root / "file with spaces.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1207,7 +1207,7 @@ class TestBackupEdgeCases:
         (nested / "deep_file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1231,7 +1231,7 @@ class TestBackupEdgeCases:
         (source_root / "file.txt").write_text("content")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act - Sequential (Python test limitation)
         m1 = service.create_backup(source_root, "1.0.0")
@@ -1257,7 +1257,7 @@ class TestBackupEdgeCases:
         source_root.mkdir()
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Mock to simulate interruption
         with patch("shutil.copy2") as mock_copy:
@@ -1280,7 +1280,7 @@ class TestBackupEdgeCases:
         source_root.mkdir()
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create valid backup structure
         backup_dir = backups_root / "v1.0.0-20250101-120000-000"
@@ -1326,7 +1326,7 @@ class TestBackupEdgeCases:
         (user_content / "STORY-001.md").write_text("# User Story")
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1357,7 +1357,7 @@ class TestBackupNonFunctionalRequirements:
             test_file.write_bytes(b"x" * (10 * 1024 * 1024))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         start = time.time()
@@ -1386,7 +1386,7 @@ class TestBackupNonFunctionalRequirements:
             test_file.write_bytes(b"x" * (10 * 1024 * 1024))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
         start = time.time()
@@ -1414,7 +1414,7 @@ class TestBackupNonFunctionalRequirements:
             test_file.write_bytes(b"x" * (10 * 1024 * 1024))
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Create backup
         metadata = service.create_backup(source_root, "1.0.0")
@@ -1440,7 +1440,7 @@ class TestBackupNonFunctionalRequirements:
         source_root.mkdir()
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         successful_restores = 0
 
@@ -1486,7 +1486,7 @@ class TestBackupNonFunctionalRequirements:
         }
 
         backups_root = tmp_path / "backups"
-        service = BackupService(backups_root=backups_root)
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act - Backup and restore
         metadata = service.create_backup(source_root, "1.0.0")
