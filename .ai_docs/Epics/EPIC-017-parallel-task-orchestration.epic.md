@@ -197,6 +197,11 @@ Enable Opus to orchestrate multiple parallel subagents to reduce wait time for c
 
 ## References
 
+### Primary Sources (Official Anthropic)
+- [Introducing Claude Opus 4.5](https://www.anthropic.com/news/claude-opus-4-5) - "Very effective at managing a team of subagents"
+- [Introducing advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use) - 37% token reduction evidence
+
+### Research Artifacts
 - Research Report: `docs/enhancements/2025-12-04/research/parallel-orchestration-research.md`
 - Executive Summary: `docs/enhancements/2025-12-04/research/RESEARCH-074-EXECUTIVE-SUMMARY.md`
 - Implementation Guide: `docs/enhancements/2025-12-04/research/parallel-orchestration-guide.md`

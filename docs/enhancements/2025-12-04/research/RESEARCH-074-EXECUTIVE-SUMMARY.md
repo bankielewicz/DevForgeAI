@@ -34,7 +34,7 @@ Task(subagent_type="documentation-writer", prompt="Update docs")
 # Main thread waits for all to complete (implicit sync point)
 ```
 
-**Evidence:** Official Claude Code Docs, Subagents documentation
+**Evidence:** Official Claude Code Docs, Subagents documentation, **Anthropic Opus 4.5 Announcement** ("Very effective at managing a team of subagents")
 **Limits:** 10 concurrent tasks maximum (recommend 4-6 for stability)
 **Benefit:** 35-40% faster story development cycles
 
@@ -301,9 +301,9 @@ Instead of blocking on test completion, spawn tests in background:
 ## Research Artifacts
 
 **Comprehensive Report:**
-- `.devforgeai/research/parallel-orchestration-research.md` (8,500+ words)
+- `.devforgeai/research/parallel-orchestration-research.md` (9,000+ words)
   - 4 research areas covered
-  - 18+ sources cited
+  - 21+ sources cited (including PRIMARY Anthropic sources)
   - All limitations documented
   - Technical implementation guidance
 
@@ -337,7 +337,12 @@ Instead of blocking on test completion, spawn tests in background:
 ---
 
 **Research Completed:** 2025-12-04
-**Investigation Depth:** Comprehensive (18+ sources, 4 areas)
+**Last Updated:** 2025-12-04 (added primary Anthropic sources)
+**Investigation Depth:** Comprehensive (21+ sources, 4 areas)
 **Quality Level:** Production-ready documentation
-**Implementation Timeline:** 1-2 sprints for Phase 1
+**Primary Evidence:**
+- [Introducing Claude Opus 4.5](https://www.anthropic.com/news/claude-opus-4-5) - "Very effective at managing a team of subagents"
+- [Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use) - 37% token reduction evidence
+**Implementation Timeline:** 2 sprints (EPIC-017 created)
 **Impact:** 35-40% faster workflows, non-blocking operations
+**Epic:** EPIC-017 - Parallel Task Orchestration for DevForgeAI (7 features, 41 story points)
