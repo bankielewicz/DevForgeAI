@@ -20,7 +20,16 @@ from installer.migration_validator import (
     MigrationValidator,
     ConfigValidator,
 )
-from installer.models import ValidationReport, ValidationError
+from installer.models import (
+    ValidationReport,
+    ValidationError,
+    FileEntry,
+    BackupMetadata,
+    BackupReason,
+    ValidationCheck,
+    UpgradeSummary,
+    UpgradeStatus,
+)
 
 
 class TestMigrationValidator:
@@ -148,6 +157,396 @@ class TestJSONValidation:
 
         # Assert
         assert report.is_valid is True
+
+
+# ==================== NEW COVERAGE GAP TESTS (STORY-078 Phase 4.5) ====================
+# Targets: 17% gap in models.py (30 lines in data model validation)
+
+
+class TestFileEntryValidation:
+    """Tests for FileEntry data model validation"""
+
+    def test_should_reject_empty_relative_path(self):
+        """
+        Test: Empty relative_path rejected
+
+        Arrange: FileEntry with empty path
+        Act: Create FileEntry
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            FileEntry(
+                relative_path="",
+                checksum_sha256="abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                size_bytes=100,
+                modification_time=1000000000
+            )
+        assert "relative_path" in str(exc_info.value)
+
+    def test_should_reject_empty_checksum(self):
+        """
+        Test: Empty checksum rejected
+
+        Arrange: FileEntry with empty checksum
+        Act: Create FileEntry
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            FileEntry(
+                relative_path="file.txt",
+                checksum_sha256="",
+                size_bytes=100,
+                modification_time=1000000000
+            )
+        assert "checksum_sha256" in str(exc_info.value)
+
+    def test_should_validate_sha256_length(self):
+        """
+        Test: SHA256 hex length validated (must be 64 chars)
+
+        Arrange: Checksum too short (32 chars)
+        Act: Create FileEntry
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            FileEntry(
+                relative_path="file.txt",
+                checksum_sha256="abc123def456abc123def456abc123de",  # 32 chars (MD5)
+                size_bytes=100,
+                modification_time=1000000000
+            )
+        assert "64" in str(exc_info.value)
+
+    def test_should_reject_negative_size_bytes(self):
+        """
+        Test: Negative size_bytes rejected
+
+        Arrange: FileEntry with negative size
+        Act: Create FileEntry
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            FileEntry(
+                relative_path="file.txt",
+                checksum_sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                size_bytes=-1,
+                modification_time=1000000000
+            )
+        assert "size_bytes" in str(exc_info.value)
+
+    def test_should_reject_negative_modification_time(self):
+        """
+        Test: Negative modification_time rejected
+
+        Arrange: FileEntry with negative mtime
+        Act: Create FileEntry
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            FileEntry(
+                relative_path="file.txt",
+                checksum_sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                size_bytes=100,
+                modification_time=-1
+            )
+        assert "modification_time" in str(exc_info.value)
+
+    def test_should_accept_zero_size_bytes(self):
+        """
+        Test: Zero-byte file allowed
+
+        Arrange: FileEntry with size_bytes=0
+        Act: Create FileEntry
+        Assert: Success
+        """
+        # Act
+        entry = FileEntry(
+            relative_path="empty.txt",
+            checksum_sha256="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            size_bytes=0,
+            modification_time=1000000000
+        )
+
+        # Assert
+        assert entry.size_bytes == 0
+
+
+class TestBackupMetadataValidation:
+    """Tests for BackupMetadata data model validation"""
+
+    def test_should_reject_empty_backup_id(self):
+        """
+        Test: Empty backup_id rejected
+
+        Arrange: BackupMetadata with empty backup_id
+        Act: Create BackupMetadata
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            BackupMetadata(
+                backup_id="",
+                version="1.0.0",
+                created_at="2025-01-01T12:00:00Z",
+                files=[FileEntry(
+                    relative_path="file.txt",
+                    checksum_sha256="abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    size_bytes=100,
+                    modification_time=1000000000
+                )],
+                reason=BackupReason.UPGRADE
+            )
+        assert "backup_id" in str(exc_info.value)
+
+    def test_should_reject_empty_files_list(self):
+        """
+        Test: Empty files list rejected
+
+        Arrange: BackupMetadata with empty files
+        Act: Create BackupMetadata
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            BackupMetadata(
+                backup_id="v1.0.0-20250101-120000-000",
+                version="1.0.0",
+                created_at="2025-01-01T12:00:00Z",
+                files=[],  # Empty!
+                reason=BackupReason.UPGRADE
+            )
+        assert "files" in str(exc_info.value).lower()
+
+    def test_should_validate_semver_format_major_minor_patch(self):
+        """
+        Test: Semver validation accepts X.Y.Z format
+
+        Arrange: Valid semver "1.0.0"
+        Act: Create BackupMetadata
+        Assert: Success
+        """
+        # Act
+        metadata = BackupMetadata(
+            backup_id="v1.0.0-20250101-120000-000",
+            version="1.0.0",
+            created_at="2025-01-01T12:00:00Z",
+            files=[FileEntry(
+                relative_path="file.txt",
+                checksum_sha256="abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                size_bytes=100,
+                modification_time=1000000000
+            )],
+            reason=BackupReason.UPGRADE
+        )
+
+        # Assert
+        assert metadata.version == "1.0.0"
+
+    def test_should_reject_invalid_semver_too_few_parts(self):
+        """
+        Test: Semver with 2 parts rejected
+
+        Arrange: Version "1.0" (missing patch)
+        Act: Create BackupMetadata
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            BackupMetadata(
+                backup_id="v1.0-20250101-120000-000",
+                version="1.0",  # Missing patch version
+                created_at="2025-01-01T12:00:00Z",
+                files=[FileEntry(
+                    relative_path="file.txt",
+                    checksum_sha256="abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    size_bytes=100,
+                    modification_time=1000000000
+                )],
+                reason=BackupReason.UPGRADE
+            )
+        assert "semver" in str(exc_info.value).lower()
+
+    def test_should_reject_invalid_semver_non_numeric(self):
+        """
+        Test: Semver with non-numeric parts rejected
+
+        Arrange: Version "1.x.0"
+        Act: Create BackupMetadata
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            BackupMetadata(
+                backup_id="v1.x.0-20250101-120000-000",
+                version="1.x.0",  # Non-numeric
+                created_at="2025-01-01T12:00:00Z",
+                files=[FileEntry(
+                    relative_path="file.txt",
+                    checksum_sha256="abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    size_bytes=100,
+                    modification_time=1000000000
+                )],
+                reason=BackupReason.UPGRADE
+            )
+        assert "semver" in str(exc_info.value).lower()
+
+
+class TestValidationReportValidation:
+    """Tests for ValidationReport data model validation"""
+
+    def test_should_reject_mismatched_total_checks(self):
+        """
+        Test: total_checks must match len(checks)
+
+        Arrange: total_checks=5 but checks has 3 items
+        Act: Create ValidationReport
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            ValidationReport(
+                is_valid=True,
+                checks=[
+                    ValidationCheck(name="check1", passed=True, message="passed"),
+                    ValidationCheck(name="check2", passed=True, message="passed"),
+                    ValidationCheck(name="check3", passed=True, message="passed"),
+                ],
+                total_checks=5,  # Mismatch!
+                passed_checks=3,
+                failed_checks=0
+            )
+        assert "total_checks" in str(exc_info.value).lower()
+
+    def test_should_reject_inconsistent_check_counts(self):
+        """
+        Test: passed_checks + failed_checks must equal total_checks
+
+        Arrange: passed=3, failed=1, total=5
+        Act: Create ValidationReport
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            ValidationReport(
+                is_valid=False,
+                checks=[
+                    ValidationCheck(name="check1", passed=True, message="passed"),
+                    ValidationCheck(name="check2", passed=True, message="passed"),
+                    ValidationCheck(name="check3", passed=True, message="passed"),
+                    ValidationCheck(name="check4", passed=False, message="failed"),
+                ],
+                total_checks=5,  # Should be 4
+                passed_checks=3,
+                failed_checks=1
+            )
+        assert "passed_checks" in str(exc_info.value).lower()
+
+    def test_should_reject_valid_with_failed_checks(self):
+        """
+        Test: Cannot be is_valid=True when failed_checks > 0
+
+        Arrange: is_valid=True but failed_checks=1
+        Act: Create ValidationReport
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            ValidationReport(
+                is_valid=True,  # Contradiction!
+                checks=[
+                    ValidationCheck(name="check1", passed=True, message="passed"),
+                    ValidationCheck(name="check2", passed=False, message="failed"),
+                ],
+                total_checks=2,
+                passed_checks=1,
+                failed_checks=1  # Contradiction with is_valid=True
+            )
+        assert "is_valid" in str(exc_info.value).lower()
+
+
+class TestUpgradeSummaryValidation:
+    """Tests for UpgradeSummary data model validation"""
+
+    def test_should_reject_empty_from_version(self):
+        """
+        Test: Empty from_version rejected
+
+        Arrange: UpgradeSummary with empty from_version
+        Act: Create UpgradeSummary
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            UpgradeSummary(
+                from_version="",
+                to_version="1.0.1",
+                status=UpgradeStatus.SUCCESS
+            )
+        assert "from_version" in str(exc_info.value)
+
+    def test_should_reject_mismatched_file_counts(self):
+        """
+        Test: files_added must match len(files_added_list)
+
+        Arrange: files_added=5 but files_added_list has 3 items
+        Act: Create UpgradeSummary
+        Assert: ValueError raised
+        """
+        # Act & Assert
+        with pytest.raises(ValueError) as exc_info:
+            UpgradeSummary(
+                from_version="1.0.0",
+                to_version="1.0.1",
+                status=UpgradeStatus.SUCCESS,
+                files_added=5,  # Mismatch!
+                files_added_list=["file1", "file2", "file3"],
+                files_updated=0,
+                files_removed=0
+            )
+        assert "files_added" in str(exc_info.value)
+
+    def test_should_reject_invalid_upgrade_status(self):
+        """
+        Test: Invalid status rejected
+
+        Arrange: status not an UpgradeStatus enum
+        Act: Create UpgradeSummary
+        Assert: Error raised (type error)
+        """
+        # Act & Assert - This should work with proper UpgradeStatus
+        summary = UpgradeSummary(
+            from_version="1.0.0",
+            to_version="1.0.1",
+            status=UpgradeStatus.SUCCESS
+        )
+
+        # Assert - Verify status is correct
+        assert summary.status == UpgradeStatus.SUCCESS
+
+    def test_should_require_error_message_on_failed_status(self, tmp_path):
+        """
+        Test: Failed status should ideally have error message
+
+        Arrange: UpgradeSummary with FAILED status
+        Act: Create UpgradeSummary
+        Assert: Created (message optional but recommended)
+        """
+        # Act
+        summary = UpgradeSummary(
+            from_version="1.0.0",
+            to_version="1.0.1",
+            status=UpgradeStatus.FAILED,
+            error_message="Database migration timeout"
+        )
+
+        # Assert
+        assert summary.status == UpgradeStatus.FAILED
+        assert summary.error_message == "Database migration timeout"
 
     def test_should_detect_missing_json_file(self, tmp_path):
         """

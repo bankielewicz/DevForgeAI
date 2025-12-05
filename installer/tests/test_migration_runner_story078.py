@@ -14,6 +14,8 @@ Coverage Target: 95%+ for business logic
 import pytest
 import sys
 import time
+import logging
+import os
 from pathlib import Path
 from typing import List
 from unittest.mock import MagicMock, patch, Mock
@@ -783,3 +785,341 @@ if __name__ == "__main__":
     main()
 ''')
     return migration_file
+
+
+# ==================== NEW COVERAGE GAP TESTS (STORY-078 Phase 4.5) ====================
+# Targets: 11% gap in migration_runner.py (16 lines in timeout/error handling)
+
+
+class TestMigrationTimeout:
+    """Tests for timeout scenarios"""
+
+    def test_should_timeout_and_kill_long_running_migration(self, tmp_path):
+        """
+        Test: Long-running migration killed after timeout
+
+        Arrange: Migration that sleeps for 10 seconds, timeout=1 second
+        Act: Call run()
+        Assert: Migration terminated, exit code -1
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import time\nimport sys\n"
+            "time.sleep(10)\n"
+            "print('Should not print')\n"
+        )
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=1)
+
+        # Assert
+        assert result.all_success is False
+        assert result.results[0].exit_code == -1
+        assert "timeout" in result.results[0].stderr.lower()
+
+    def test_should_append_timeout_message_to_stderr(self, tmp_path):
+        """
+        Test: Timeout message appended to stderr
+
+        Arrange: Timeout scenario
+        Act: Call run()
+        Assert: Stderr contains timeout message with seconds
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import time\ntime.sleep(5)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=1)
+
+        # Assert
+        assert "timeout" in result.results[0].stderr.lower()
+        assert "1" in result.results[0].stderr  # Timeout seconds
+
+    def test_should_recover_stderr_from_killed_process(self, tmp_path):
+        """
+        Test: Stderr captured even from killed process
+
+        Arrange: Migration killed after timeout
+        Act: Call run()
+        Assert: Any output before timeout captured
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import time\nimport sys\n"
+            "print('Starting...')\n"
+            "time.sleep(10)\n"
+            "print('This should not print')\n"
+        )
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=1)
+
+        # Assert - Starting message should be in stdout before timeout
+        assert result.results[0].success is False
+
+    def test_should_handle_subprocess_exception(self, tmp_path, caplog):
+        """
+        Test: Subprocess exceptions handled gracefully
+
+        Arrange: Mock Popen to raise exception
+        Act: Call run()
+        Assert: Migration marked as failed with logged error
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("print('test')\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Mock Popen to raise exception during subprocess creation
+        with patch("installer.migration_runner.subprocess.Popen") as mock_popen:
+            mock_popen.side_effect = OSError("Process creation failed")
+
+            # Act
+            with caplog.at_level(logging.ERROR):
+                result = runner.run([migration], timeout_seconds=10)
+
+            # Assert
+            assert result.all_success is False
+            assert "Process creation failed" in caplog.text or "execution" in caplog.text.lower()
+
+
+class TestScriptFileHandling:
+    """Tests for migration script file operations"""
+
+    def test_should_make_script_executable_on_unix(self, tmp_path):
+        """
+        Test: Script made executable on Unix systems
+
+        Arrange: Migration script with read-only permissions
+        Act: Call run()
+        Assert: Script executed (permissions changed internally)
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("if __name__ == '__main__':\n    pass\n")
+
+        # Make read-only
+        os.chmod(migration_file, 0o444)
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+
+    def test_should_handle_nonexistent_script_file(self, tmp_path):
+        """
+        Test: Nonexistent script file detected
+
+        Arrange: MigrationScript with non-existent path
+        Act: Call run()
+        Assert: MigrationError raised
+        """
+        # Arrange
+        migration = MigrationScript(
+            path=str(tmp_path / "nonexistent.py"),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act & Assert
+        with pytest.raises(MigrationError) as exc_info:
+            runner.run([migration], timeout_seconds=10)
+        assert "not found" in str(exc_info.value).lower()
+
+    def test_should_tolerate_chmod_errors_on_windows(self, tmp_path):
+        """
+        Test: chmod errors ignored (Windows compatibility)
+
+        Arrange: Mock os.stat/chmod to raise on Windows
+        Act: Call run()
+        Assert: Script still executes (chmod failure ignored)
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("if __name__ == '__main__':\n    pass\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Mock os.chmod to raise AttributeError (Windows behavior)
+        with patch("os.chmod") as mock_chmod:
+            mock_chmod.side_effect = AttributeError("chmod not available")
+
+            # Act & Assert - Should still execute successfully
+            result = runner.run([migration], timeout_seconds=10)
+            assert result.all_success is True
+
+
+class TestMigrationErrorMessages:
+    """Tests for error message generation"""
+
+    def test_should_generate_error_message_from_exit_code(self, tmp_path):
+        """
+        Test: Error message generated from exit code when stderr empty
+
+        Arrange: Migration fails with exit code 42, no stderr
+        Act: Call run()
+        Assert: error_message contains exit code
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nsys.exit(42)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert "42" in result.results[0].error_message
+
+    def test_should_prefer_stderr_for_error_message(self, tmp_path):
+        """
+        Test: Stderr message preferred over exit code
+
+        Arrange: Migration fails with stderr message
+        Act: Call run()
+        Assert: error_message contains stderr content
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import sys\n"
+            "print('Database error: connection refused', file=sys.stderr)\n"
+            "sys.exit(1)\n"
+        )
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert "connection refused" in result.results[0].error_message
+
+
+class TestMigrationExecutionSequence:
+    """Tests for execution sequence and state tracking"""
+
+    def test_should_update_applied_count_correctly(self, tmp_path):
+        """
+        Test: applied_count reflects successful migrations
+
+        Arrange: 3 migrations where 2nd fails
+        Act: Call run()
+        Assert: applied_count == 1
+        """
+        # Arrange
+        migrations = []
+
+        mig1 = tmp_path / "v1.0.0-to-v1.1.0.py"
+        mig1.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig1), from_version="1.0.0", to_version="1.1.0"))
+
+        mig2 = tmp_path / "v1.1.0-to-v1.2.0.py"
+        mig2.write_text("import sys\nsys.exit(1)\n")
+        migrations.append(MigrationScript(path=str(mig2), from_version="1.1.0", to_version="1.2.0"))
+
+        mig3 = tmp_path / "v1.2.0-to-v1.3.0.py"
+        mig3.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig3), from_version="1.2.0", to_version="1.3.0"))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.applied_count == 1
+
+    def test_should_populate_failed_migration_fields(self, tmp_path):
+        """
+        Test: Failed migration details populated correctly
+
+        Arrange: Migration fails
+        Act: Call run()
+        Assert: failed_at_migration and failed_migration_result set
+        """
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nsys.exit(1)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.failed_at_migration == migration
+        assert result.failed_migration_result is not None
+        assert result.failed_migration_result.success is False

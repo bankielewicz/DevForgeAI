@@ -25,6 +25,9 @@ logger = logging.getLogger(__name__)
 # Pattern for migration file naming: vX.Y.Z-to-vA.B.C.py
 MIGRATION_FILENAME_PATTERN = re.compile(r"v(\d+\.\d+\.\d+)-to-v(\d+\.\d+\.\d+)\.py$")
 
+# BFS queue constants
+BFS_INITIAL_STATE = 0  # Starting position in path exploration
+
 
 class StringVersionComparator:
     """Wrapper for comparing string versions."""
@@ -97,6 +100,60 @@ class MigrationDiscovery(IMigrationDiscovery):
 
         self.parser = VersionParser()
 
+    def _validate_migrations_directory(self, migrations_dir: Path) -> None:
+        """
+        Validate migrations directory exists and is readable.
+
+        Args:
+            migrations_dir: Directory to validate
+
+        Raises:
+            MigrationError: If directory is invalid
+        """
+        if not migrations_dir.exists():
+            raise MigrationError(f"Migrations directory does not exist: {migrations_dir}")
+        if not migrations_dir.is_dir():
+            raise MigrationError(f"Migrations path is not a directory: {migrations_dir}")
+        if not os.access(migrations_dir, os.R_OK):
+            raise MigrationError(f"Migrations directory is not readable: {migrations_dir}")
+
+    def _validate_versions(self, from_version: str, to_version: str) -> tuple:
+        """
+        Parse and validate version strings.
+
+        Args:
+            from_version: Starting version
+            to_version: Target version
+
+        Returns:
+            Tuple of (from_ver: Version, to_ver: Version)
+
+        Raises:
+            MigrationError: If versions are invalid
+        """
+        try:
+            from_ver = self.parser.parse(from_version)
+            to_ver = self.parser.parse(to_version)
+            return from_ver, to_ver
+        except ValueError as e:
+            raise MigrationError(f"Invalid version format: {e}")
+
+    def _check_upgrade_needed(self, from_version: str, to_version: str) -> bool:
+        """
+        Check if upgrade is actually needed.
+
+        Args:
+            from_version: Currently installed version
+            to_version: Target version
+
+        Returns:
+            True if upgrade is needed, False otherwise
+        """
+        if self.version_comparator.compare(from_version, to_version) >= 0:
+            logger.warning(f"No upgrade needed: {from_version} → {to_version}")
+            return False
+        return True
+
     def discover(
         self, from_version: str, to_version: str, migrations_dir: Optional[Path] = None
     ) -> List[MigrationScript]:
@@ -127,24 +184,13 @@ class MigrationDiscovery(IMigrationDiscovery):
         migrations_dir = Path(migrations_dir)
 
         # Validate migrations directory
-        if not migrations_dir.exists():
-            raise MigrationError(f"Migrations directory does not exist: {migrations_dir}")
-        if not migrations_dir.is_dir():
-            raise MigrationError(f"Migrations path is not a directory: {migrations_dir}")
-        if not os.access(migrations_dir, os.R_OK):
-            raise MigrationError(f"Migrations directory is not readable: {migrations_dir}")
+        self._validate_migrations_directory(migrations_dir)
 
         # Validate versions
-        try:
-            from_ver = self.parser.parse(from_version)
-            to_ver = self.parser.parse(to_version)
-        except ValueError as e:
-            raise MigrationError(f"Invalid version format: {e}")
+        from_ver, to_ver = self._validate_versions(from_version, to_version)
 
         # Check if migration needed
-        if self.version_comparator.compare(from_version, to_version) >= 0:
-            # Already at or past target version
-            logger.warning(f"No upgrade needed: {from_version} → {to_version}")
+        if not self._check_upgrade_needed(from_version, to_version):
             return []
 
         # Find all available migration files
@@ -197,6 +243,27 @@ class MigrationDiscovery(IMigrationDiscovery):
 
         return result
 
+    def _build_migration_list_from_path(
+        self, path: List[str], available: dict[str, dict[str, MigrationScript]]
+    ) -> List[MigrationScript]:
+        """
+        Build list of MigrationScript objects from a version path.
+
+        Args:
+            path: List of version strings in upgrade sequence
+            available: Available migrations dictionary
+
+        Returns:
+            List of MigrationScript objects in order
+        """
+        migrations = []
+        for i in range(len(path) - 1):
+            from_v = path[i]
+            to_v = path[i + 1]
+            if from_v in available and to_v in available[from_v]:
+                migrations.append(available[from_v][to_v])
+        return migrations
+
     def _find_migration_path(
         self,
         from_ver: Version,
@@ -233,14 +300,7 @@ class MigrationDiscovery(IMigrationDiscovery):
 
             # Check if we reached target
             if current_version == to_str:
-                # Build MigrationScript list from path
-                migrations = []
-                for i in range(len(path) - 1):
-                    from_v = path[i]
-                    to_v = path[i + 1]
-                    if from_v in available and to_v in available[from_v]:
-                        migrations.append(available[from_v][to_v])
-                return migrations
+                return self._build_migration_list_from_path(path, available)
 
             # Explore neighbors
             if current_version in available:

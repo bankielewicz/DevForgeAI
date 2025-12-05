@@ -649,3 +649,247 @@ def discovery_scenario():
             "v1.1.0-to-v1.2.0.py",
         ]
     }
+
+
+# ==================== NEW COVERAGE GAP TESTS (STORY-078 Phase 4.5) ====================
+# Targets: 9% gap in migration_discovery.py (17 lines in validation/ordering)
+
+
+class TestMigrationValidation:
+    """Tests for migration validation edge cases"""
+
+    def test_should_handle_invalid_version_format(self, tmp_path):
+        """
+        Test: Invalid version format rejected
+
+        Arrange: Invalid version string "1.2"
+        Act: Call discover()
+        Assert: MigrationError raised
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act & Assert
+        with pytest.raises(MigrationError) as exc_info:
+            discovery.discover("1.2", "1.3.0")
+        assert "version" in str(exc_info.value).lower()
+
+    def test_should_handle_non_semver_versions(self, tmp_path):
+        """
+        Test: Non-semver versions rejected
+
+        Arrange: Version with 4 parts "1.0.0.0"
+        Act: Call discover()
+        Assert: MigrationError raised
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act & Assert
+        with pytest.raises(MigrationError):
+            discovery.discover("1.0.0.0", "1.0.0.1")
+
+    def test_should_detect_downgrade_attempt(self, tmp_path, caplog):
+        """
+        Test: Downgrade detected and rejected
+
+        Arrange: from_version > to_version
+        Act: Call discover()
+        Assert: Returns empty list, warning logged
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act
+        with caplog.at_level(logging.WARNING):
+            result = discovery.discover("1.5.0", "1.0.0")
+
+        # Assert
+        assert result == []
+        assert len(caplog.records) > 0
+
+    def test_should_handle_same_version_upgrade(self, tmp_path):
+        """
+        Test: Upgrade to same version returns empty
+
+        Arrange: from_version == to_version
+        Act: Call discover()
+        Assert: Returns empty list
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act
+        result = discovery.discover("1.0.0", "1.0.0")
+
+        # Assert
+        assert result == []
+
+
+class TestMigrationPathFinding:
+    """Tests for BFS path finding edge cases"""
+
+    def test_should_find_path_with_extra_migrations_in_directory(self, tmp_path):
+        """
+        Test: Find correct path when directory has unused migrations
+
+        Arrange: Many migrations in directory, find shortest path
+        Act: Call discover()
+        Assert: Returns only applicable migrations
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        # Create many migrations
+        (migrations_dir / "v1.0.0-to-v1.1.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.1.0-to-v1.2.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.2.0-to-v1.3.0.py").write_text("def main():\n    pass\n")
+
+        # Create unrelated migrations
+        (migrations_dir / "v2.0.0-to-v2.1.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v2.1.0-to-v2.2.0.py").write_text("def main():\n    pass\n")
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act
+        result = discovery.discover("1.0.0", "1.2.0")
+
+        # Assert
+        assert len(result) == 2
+        assert all(m.from_version.startswith("1") for m in result)
+
+    def test_should_handle_disconnected_migration_paths(self, tmp_path, caplog):
+        """
+        Test: No path found between disconnected version chains
+
+        Arrange: Two separate migration chains (1.x and 2.x), try to jump
+        Act: Call discover()
+        Assert: Returns empty list, warning logged
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        # Chain 1
+        (migrations_dir / "v1.0.0-to-v1.1.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.1.0-to-v1.2.0.py").write_text("def main():\n    pass\n")
+
+        # Chain 2 (disconnected)
+        (migrations_dir / "v2.0.0-to-v2.1.0.py").write_text("def main():\n    pass\n")
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act
+        with caplog.at_level(logging.WARNING):
+            result = discovery.discover("1.0.0", "2.1.0")
+
+        # Assert
+        assert result == []
+        assert len(caplog.records) > 0
+
+    def test_should_find_alternative_paths(self, tmp_path):
+        """
+        Test: BFS finds all alternative migration paths
+
+        Arrange: Diamond pattern (1.0->1.1->1.3 OR 1.0->1.2->1.3)
+        Act: Call discover()
+        Assert: Returns one valid path
+        """
+        # Arrange
+        migrations_dir = tmp_path / "migrations"
+        migrations_dir.mkdir()
+
+        # Diamond path
+        (migrations_dir / "v1.0.0-to-v1.1.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.0.0-to-v1.2.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.1.0-to-v1.3.0.py").write_text("def main():\n    pass\n")
+        (migrations_dir / "v1.2.0-to-v1.3.0.py").write_text("def main():\n    pass\n")
+
+        discovery = MigrationDiscovery(migrations_dir=migrations_dir)
+
+        # Act
+        result = discovery.discover("1.0.0", "1.3.0")
+
+        # Assert
+        assert len(result) == 2
+        assert result[0].from_version == "1.0.0"
+        assert result[1].to_version == "1.3.0"
+
+
+class TestVersionComparison:
+    """Tests for version comparison edge cases"""
+
+    def test_should_compare_versions_with_equal_components(self):
+        """
+        Test: Equal version comparison
+
+        Arrange: Same version
+        Act: Call compare()
+        Assert: Returns 0
+        """
+        # Arrange
+        comparator = StringVersionComparator()
+
+        # Act
+        result = comparator.compare("1.0.0", "1.0.0")
+
+        # Assert
+        assert result == 0
+
+    def test_should_compare_major_versions(self):
+        """
+        Test: Major version comparison
+
+        Arrange: Different major versions
+        Act: Call compare()
+        Assert: Correct comparison result
+        """
+        # Arrange
+        comparator = StringVersionComparator()
+
+        # Act & Assert
+        assert comparator.compare("1.0.0", "2.0.0") == -1
+        assert comparator.compare("2.0.0", "1.0.0") == 1
+
+    def test_should_compare_minor_versions(self):
+        """
+        Test: Minor version comparison
+
+        Arrange: Different minor versions, same major
+        Act: Call compare()
+        Assert: Correct comparison result
+        """
+        # Arrange
+        comparator = StringVersionComparator()
+
+        # Act & Assert
+        assert comparator.compare("1.1.0", "1.2.0") == -1
+        assert comparator.compare("1.2.0", "1.1.0") == 1
+
+    def test_should_compare_patch_versions(self):
+        """
+        Test: Patch version comparison
+
+        Arrange: Different patch versions
+        Act: Call compare()
+        Assert: Correct comparison result
+        """
+        # Arrange
+        comparator = StringVersionComparator()
+
+        # Act & Assert
+        assert comparator.compare("1.0.1", "1.0.2") == -1
+        assert comparator.compare("1.0.2", "1.0.1") == 1

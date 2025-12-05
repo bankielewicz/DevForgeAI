@@ -41,6 +41,26 @@ logger = logging.getLogger(__name__)
 DEFAULT_MIGRATION_TIMEOUT_SECONDS = 300
 DEFAULT_BACKUP_RETENTION_COUNT = 5
 
+# Upgrade phase logging messages
+LOG_UPGRADE_START = "Starting upgrade: {} → {}"
+LOG_BACKUP_CREATING = "Creating backup..."
+LOG_BACKUP_CREATED = "Backup created: {}"
+LOG_MIGRATIONS_DISCOVERING = "Discovering migrations..."
+LOG_MIGRATIONS_FOUND = "Found {} migration(s)"
+LOG_MIGRATIONS_NONE = "No migrations found for this upgrade"
+LOG_MIGRATIONS_EXECUTING = "Executing migrations..."
+LOG_MIGRATIONS_COMPLETE = "All {} migration(s) completed"
+LOG_VALIDATION_RUNNING = "Validating post-migration state..."
+LOG_METADATA_UPDATING = "Updating version metadata..."
+LOG_BACKUPS_CLEANUP = "Cleaning up old backups..."
+LOG_BACKUPS_DELETED = "Deleted {} old backup(s)"
+LOG_UPGRADE_SUCCESS = "Upgrade completed successfully in {:.1f}s"
+LOG_UPGRADE_ROLLBACK_START = "Starting rollback..."
+LOG_ROLLBACK_SUCCESS = "Rollback completed successfully"
+LOG_UPGRADE_ERROR = "Upgrade failed: {}"
+LOG_ROLLBACK_FAILED = "Rollback failed: {}"
+LOG_UNEXPECTED_ERROR = "Unexpected error during upgrade: {}"
+
 
 class UpgradeOrchestrator:
     """Coordinates the complete upgrade workflow."""
@@ -73,6 +93,134 @@ class UpgradeOrchestrator:
         self.version_comparator = version_comparator or StringVersionComparator()
 
         self.parser = VersionParser()
+
+    def _execute_backup_step(
+        self, target_root: Path, from_version: str
+    ) -> tuple:
+        """
+        Execute backup creation step.
+
+        Args:
+            target_root: Target installation root
+            from_version: Current version
+
+        Returns:
+            Tuple of (backup_metadata, backup_path)
+
+        Raises:
+            UpgradeError: If backup creation fails
+        """
+        logger.info(LOG_BACKUP_CREATING)
+        try:
+            backup_metadata = self.backup_service.create_backup(
+                source_root=target_root,
+                version=from_version,
+                reason=BackupReason.UPGRADE,
+            )
+            backup_path = str(self.backup_service.backups_root / backup_metadata.backup_id)
+            logger.info(LOG_BACKUP_CREATED.format(backup_path))
+            return backup_metadata, backup_path
+        except Exception as e:
+            raise UpgradeError(f"Backup creation failed: {e}")
+
+    def _discover_migrations_step(
+        self, from_version: str, to_version: str, migrations_dir: Optional[Path]
+    ) -> list:
+        """
+        Execute migration discovery step.
+
+        Args:
+            from_version: Current version
+            to_version: Target version
+            migrations_dir: Directory containing migration scripts
+
+        Returns:
+            List of discovered MigrationScript objects
+
+        Raises:
+            UpgradeError: If discovery fails
+        """
+        logger.info(LOG_MIGRATIONS_DISCOVERING)
+        migrations = self.migration_discovery.discover(
+            from_version, to_version, migrations_dir
+        )
+
+        if not migrations:
+            logger.info(LOG_MIGRATIONS_NONE)
+        else:
+            logger.info(LOG_MIGRATIONS_FOUND.format(len(migrations)))
+
+        return migrations
+
+    def _execute_migrations_step(
+        self, migrations: list, migration_timeout_seconds: int
+    ) -> None:
+        """
+        Execute migrations step.
+
+        Args:
+            migrations: List of MigrationScript objects to execute
+            migration_timeout_seconds: Timeout per migration
+
+        Raises:
+            UpgradeError: If migration execution fails
+        """
+        if not migrations:
+            return
+
+        logger.info(LOG_MIGRATIONS_EXECUTING)
+        try:
+            run_result = self.migration_runner.run(
+                migrations, timeout_seconds=migration_timeout_seconds
+            )
+
+            if not run_result.all_success:
+                error_msg = f"Migration failed: {run_result.failed_migration_result.error_message}"
+                raise UpgradeError(error_msg)
+
+            logger.info(LOG_MIGRATIONS_COMPLETE.format(run_result.applied_count))
+
+        except UpgradeError:
+            raise
+        except Exception as e:
+            raise UpgradeError(f"Migration execution failed: {e}")
+
+    def _validate_migration_step(self) -> None:
+        """
+        Execute post-migration validation step.
+
+        Currently a placeholder for future validation checks.
+        """
+        logger.info(LOG_VALIDATION_RUNNING)
+
+    def _update_version_step(
+        self, target_root: Path, from_version: str, to_version: str, migrations: list
+    ) -> None:
+        """
+        Execute version metadata update step.
+
+        Args:
+            target_root: Installation root
+            from_version: Previous version
+            to_version: New version
+            migrations: List of migrations applied
+
+        Raises:
+            UpgradeError: If update fails
+        """
+        logger.info(LOG_METADATA_UPDATING)
+        self._update_version_metadata(target_root, from_version, to_version, migrations)
+
+    def _cleanup_backups_step(self, backup_retention_count: int) -> None:
+        """
+        Execute old backup cleanup step.
+
+        Args:
+            backup_retention_count: Number of backups to keep
+        """
+        logger.info(LOG_BACKUPS_CLEANUP)
+        deleted = self.backup_service.cleanup(backup_retention_count)
+        logger.info(LOG_BACKUPS_DELETED.format(deleted))
 
     def _create_error_summary(
         self,
@@ -206,62 +354,27 @@ class UpgradeOrchestrator:
         backup_metadata = None
 
         try:
-            logger.info(f"Starting upgrade: {from_version} → {to_version}")
+            logger.info(LOG_UPGRADE_START.format(from_version, to_version))
 
             source_root = Path(source_root)
             target_root = Path(target_root)
 
             # Step 1: Create backup (atomic)
-            logger.info("Creating backup...")
-            try:
-                backup_metadata = self.backup_service.create_backup(
-                    source_root=target_root,
-                    version=from_version,
-                    reason=BackupReason.UPGRADE,
-                )
-                backup_path = str(self.backup_service.backups_root / backup_metadata.backup_id)
-                logger.info(f"Backup created: {backup_path}")
-            except Exception as e:
-                raise UpgradeError(f"Backup creation failed: {e}")
+            backup_metadata, backup_path = self._execute_backup_step(target_root, from_version)
 
             # Step 2: Discover migrations
-            logger.info("Discovering migrations...")
-            migrations = self.migration_discovery.discover(
+            migrations = self._discover_migrations_step(
                 from_version, to_version, migrations_dir
             )
 
-            if not migrations:
-                logger.info("No migrations found for this upgrade")
-            else:
-                logger.info(f"Found {len(migrations)} migration(s)")
-
             # Step 3: Execute migrations
-            if migrations:
-                logger.info("Executing migrations...")
-                try:
-                    run_result = self.migration_runner.run(
-                        migrations, timeout_seconds=migration_timeout_seconds
-                    )
+            self._execute_migrations_step(migrations, migration_timeout_seconds)
 
-                    if not run_result.all_success:
-                        error_msg = f"Migration failed: {run_result.failed_migration_result.error_message}"
-                        raise UpgradeError(error_msg)
-
-                    logger.info(f"All {run_result.applied_count} migration(s) completed")
-
-                except UpgradeError:
-                    raise
-                except Exception as e:
-                    raise UpgradeError(f"Migration execution failed: {e}")
-
-            # Step 4: Validate post-migration state (future: add validation checks)
-            logger.info("Validating post-migration state...")
+            # Step 4: Validate post-migration state
+            self._validate_migration_step()
 
             # Step 5: Update version metadata
-            logger.info("Updating version metadata...")
-            self._update_version_metadata(
-                target_root, from_version, to_version, migrations
-            )
+            self._update_version_step(target_root, from_version, to_version, migrations)
 
             # Step 6: Generate success summary
             duration = time.time() - start_time
@@ -278,24 +391,22 @@ class UpgradeOrchestrator:
             )
 
             # Step 7: Cleanup old backups
-            logger.info("Cleaning up old backups...")
-            deleted = self.backup_service.cleanup(backup_retention_count)
-            logger.info(f"Deleted {deleted} old backup(s)")
+            self._cleanup_backups_step(backup_retention_count)
 
-            logger.info(f"Upgrade completed successfully in {duration:.1f}s")
+            logger.info(LOG_UPGRADE_SUCCESS.format(duration))
             return summary
 
         except UpgradeError as e:
             # Rollback on upgrade error
-            logger.error(f"Upgrade failed: {e}")
+            logger.error(LOG_UPGRADE_ERROR.format(e))
 
             if backup_metadata:
-                logger.info("Starting rollback...")
+                logger.info(LOG_UPGRADE_ROLLBACK_START)
                 try:
                     self._rollback(backup_metadata, target_root, from_version)
-                    logger.info("Rollback completed successfully")
+                    logger.info(LOG_ROLLBACK_SUCCESS)
                 except RollbackError as re:
-                    logger.critical(f"Rollback failed: {re}")
+                    logger.critical(LOG_ROLLBACK_FAILED.format(re))
                     raise
 
             duration = time.time() - start_time
@@ -317,7 +428,7 @@ class UpgradeOrchestrator:
 
         except Exception as e:
             # Unexpected error
-            logger.critical(f"Unexpected error during upgrade: {e}")
+            logger.critical(LOG_UNEXPECTED_ERROR.format(e))
             duration = time.time() - start_time
 
             return self._create_error_summary(

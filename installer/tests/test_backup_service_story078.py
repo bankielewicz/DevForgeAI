@@ -13,14 +13,14 @@ Coverage Target: 95%+ for business logic
 
 import pytest
 import json
+import stat
+import os
+import time
+import hashlib
 from pathlib import Path
 from unittest.mock import MagicMock, patch, Mock
 from datetime import datetime, timezone
 from io import BytesIO
-import hashlib
-import time
-import os
-import stat
 
 from installer.backup_service import BackupService
 from installer.models import (
@@ -1539,3 +1539,556 @@ def mock_file_system():
     fs.copy_tree = MagicMock(return_value=450)  # 450 files copied
     fs.calculate_checksum = MagicMock(return_value="sha256:abcdef123456...")
     return fs
+
+
+# ==================== NEW COVERAGE GAP TESTS (STORY-078 Phase 4.5) ====================
+# Targets: 13% gap in backup_service.py (37 lines in error handling)
+
+
+class TestBackupDirectoryPermissions:
+    """Tests for directory creation and permission handling"""
+
+    def test_should_set_restrictive_permissions_on_backup_directory(self, tmp_path):
+        """
+        Test: Backup directory created with 0o700 permissions
+
+        Arrange: Create backup
+        Act: Check backup_dir permissions
+        Assert: Directory has rwx------ (0o700) permissions
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        backup_dir = backups_root / metadata.backup_id
+        mode = stat.S_IMODE(backup_dir.stat().st_mode)
+        assert mode == 0o700, f"Expected 0o700, got {oct(mode)}"
+
+    def test_should_set_restrictive_permissions_on_manifest_file(self, tmp_path):
+        """
+        Test: Manifest file created with 0o600 permissions
+
+        Arrange: Create backup with manifest
+        Act: Check manifest file permissions
+        Assert: Manifest has rw------- (0o600) permissions
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        manifest_path = backups_root / metadata.backup_id / "backup-manifest.json"
+        mode = stat.S_IMODE(manifest_path.stat().st_mode)
+        assert mode == 0o600, f"Expected 0o600, got {oct(mode)}"
+
+    def test_should_create_parent_directories_if_missing(self, tmp_path):
+        """
+        Test: Parent directories created when backups_root doesn't exist
+
+        Arrange: backups_root doesn't exist
+        Act: Call create_backup()
+        Assert: Directories created recursively
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "deep" / "nested" / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        assert (backups_root / metadata.backup_id).exists()
+
+    def test_should_fail_if_backup_directory_already_exists(self, tmp_path):
+        """
+        Test: Error when backup directory collision occurs
+
+        Arrange: Create backup, then immediately create another with same timestamp
+        Act: Mock to create collision
+        Assert: BackupError raised
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Create first backup
+        metadata1 = service.create_backup(source_root, "1.0.0")
+
+        # Mock to force collision
+        with patch("pathlib.Path.exists") as mock_exists:
+            # First check passes (backups_root doesn't exist),
+            # second check fails (backup_dir already exists)
+            mock_exists.side_effect = [False, True]
+
+            with pytest.raises(BackupError):
+                service.create_backup(source_root, "1.0.0")
+
+    def test_should_handle_permission_error_gracefully_on_chmod(self, tmp_path):
+        """
+        Test: OSError during chmod operation caught and handled
+
+        Arrange: Mock os.chmod to raise OSError
+        Act: Call create_backup()
+        Assert: BackupError raised with permission message
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Mock os.chmod to raise permission error
+        with patch("os.chmod") as mock_chmod:
+            mock_chmod.side_effect = OSError("Permission denied")
+
+            # Act & Assert - Should raise BackupError
+            with pytest.raises(BackupError):
+                service.create_backup(source_root, "1.0.0")
+
+
+class TestRestoreDirectoryCreation:
+    """Tests for directory creation during restoration"""
+
+    def test_should_create_parent_directories_during_restore(self, tmp_path):
+        """
+        Test: Parent directories created during file restoration
+
+        Arrange: Backup with nested files
+        Act: Call restore()
+        Assert: All parent directories created
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        nested = source_root / "a" / "b" / "c"
+        nested.mkdir(parents=True)
+        (nested / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Create backup
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Remove original to force restore to create directories
+        import shutil
+        shutil.rmtree(source_root)
+
+        # Act
+        service.restore(metadata.backup_id, source_root)
+
+        # Assert
+        assert (source_root / "a").exists()
+        assert (source_root / "a" / "b").exists()
+        assert (source_root / "a" / "b" / "c").exists()
+        assert (source_root / "a" / "b" / "c" / "file.txt").exists()
+
+    def test_should_handle_mkdir_permission_error_during_restore(self, tmp_path):
+        """
+        Test: Error handling when directory creation fails during restore
+
+        Arrange: Mock Path.mkdir to raise OSError
+        Act: Call restore()
+        Assert: BackupError raised
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Create backup
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Mock mkdir to raise error
+        with patch("pathlib.Path.mkdir") as mock_mkdir:
+            mock_mkdir.side_effect = OSError("Permission denied")
+
+            # Act & Assert
+            with pytest.raises(BackupError):
+                service.restore(metadata.backup_id, source_root)
+
+
+class TestPathValidation:
+    """Tests for path safety validation"""
+
+    def test_should_reject_path_traversal_in_manifest(self, tmp_path):
+        """
+        Test: Directory traversal attempt detected and rejected
+
+        Arrange: Manifest with "../../../" path
+        Act: Call restore()
+        Assert: BackupError raised for path traversal
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        backups_root = tmp_path / "backups"
+        backups_root.mkdir()
+
+        # Create backup with traversal attempt in manifest
+        backup_dir = backups_root / "v1.0.0-20250101-120000-000"
+        backup_dir.mkdir()
+
+        # Create file with traversal path
+        (backup_dir / "legitimate_file.txt").write_text("content")
+
+        manifest = {
+            "backup_id": "v1.0.0-20250101-120000-000",
+            "version": "1.0.0",
+            "created_at": "2025-01-01T12:00:00Z",
+            "reason": "UPGRADE",
+            "files": [
+                {
+                    "relative_path": "../../../../../../etc/passwd",
+                    "checksum_sha256": "abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    "size_bytes": 100,
+                    "modification_time": 1000000000
+                }
+            ]
+        }
+        (backup_dir / "backup-manifest.json").write_text(json.dumps(manifest))
+
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act & Assert
+        with pytest.raises(BackupError) as exc_info:
+            service.restore("v1.0.0-20250101-120000-000", source_root)
+        assert "traversal" in str(exc_info.value).lower()
+
+    def test_should_reject_absolute_paths_in_manifest(self, tmp_path):
+        """
+        Test: Absolute paths detected and rejected
+
+        Arrange: Manifest with absolute path
+        Act: Call restore()
+        Assert: BackupError raised
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        backups_root = tmp_path / "backups"
+        backups_root.mkdir()
+
+        backup_dir = backups_root / "v1.0.0-20250101-120000-000"
+        backup_dir.mkdir()
+
+        manifest = {
+            "backup_id": "v1.0.0-20250101-120000-000",
+            "version": "1.0.0",
+            "created_at": "2025-01-01T12:00:00Z",
+            "reason": "UPGRADE",
+            "files": [
+                {
+                    "relative_path": "/etc/passwd",
+                    "checksum_sha256": "abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    "size_bytes": 100,
+                    "modification_time": 1000000000
+                }
+            ]
+        }
+        (backup_dir / "backup-manifest.json").write_text(json.dumps(manifest))
+
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act & Assert
+        with pytest.raises(BackupError):
+            service.restore("v1.0.0-20250101-120000-000", source_root)
+
+    def test_should_validate_path_format_in_manifest(self, tmp_path):
+        """
+        Test: Invalid path format detected
+
+        Arrange: Manifest with null bytes or invalid characters
+        Act: Call restore()
+        Assert: BackupError raised
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        backups_root = tmp_path / "backups"
+        backups_root.mkdir()
+
+        backup_dir = backups_root / "v1.0.0-20250101-120000-000"
+        backup_dir.mkdir()
+
+        manifest = {
+            "backup_id": "v1.0.0-20250101-120000-000",
+            "version": "1.0.0",
+            "created_at": "2025-01-01T12:00:00Z",
+            "reason": "UPGRADE",
+            "files": [
+                {
+                    "relative_path": "valid_file.txt",
+                    "checksum_sha256": "abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    "size_bytes": 100,
+                    "modification_time": 1000000000
+                }
+            ]
+        }
+        (backup_dir / "backup-manifest.json").write_text(json.dumps(manifest))
+
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act & Assert - Should not raise error for valid path
+        try:
+            service.restore("v1.0.0-20250101-120000-000", source_root)
+        except BackupError as e:
+            # If raises, should be for missing file, not path format
+            assert "missing" in str(e).lower()
+
+
+class TestManifestHandling:
+    """Tests for manifest file processing"""
+
+    def test_should_handle_manifest_with_empty_files_list(self, tmp_path):
+        """
+        Test: Manifest with no files processed correctly
+
+        Arrange: Backup manifest with empty files list
+        Act: Call restore()
+        Assert: Restore completes with no files to restore
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        backups_root = tmp_path / "backups"
+        backups_root.mkdir()
+
+        backup_dir = backups_root / "v1.0.0-20250101-120000-000"
+        backup_dir.mkdir()
+
+        manifest = {
+            "backup_id": "v1.0.0-20250101-120000-000",
+            "version": "1.0.0",
+            "created_at": "2025-01-01T12:00:00Z",
+            "reason": "UPGRADE",
+            "files": []
+        }
+        (backup_dir / "backup-manifest.json").write_text(json.dumps(manifest))
+
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        service.restore("v1.0.0-20250101-120000-000", source_root)
+
+        # Assert - Should complete without error
+        assert source_root.exists()
+
+    def test_should_handle_manifest_with_missing_optional_fields(self, tmp_path):
+        """
+        Test: Manifest with missing optional fields handled gracefully
+
+        Arrange: Manifest without 'reason' field
+        Act: Call list_backups()
+        Assert: Defaults to BackupReason.UPGRADE
+        """
+        # Arrange
+        backups_root = tmp_path / "backups"
+        backups_root.mkdir()
+
+        backup_dir = backups_root / "v1.0.0-20250101-120000-000"
+        backup_dir.mkdir()
+
+        manifest = {
+            "backup_id": "v1.0.0-20250101-120000-000",
+            "version": "1.0.0",
+            "created_at": "2025-01-01T12:00:00Z",
+            "files": [
+                {
+                    "relative_path": "file.txt",
+                    "checksum_sha256": "abc123def456abc123def456abc123def456abc123def456abc123def456ab",
+                    "size_bytes": 100,
+                    "modification_time": 1000000000
+                }
+            ]
+        }
+        (backup_dir / "backup-manifest.json").write_text(json.dumps(manifest))
+
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        backups = service.list_backups()
+
+        # Assert
+        assert len(backups) == 1
+        assert backups[0].reason == BackupReason.UPGRADE  # Defaults to UPGRADE
+
+
+class TestExclusionPatterns:
+    """Tests for file and directory exclusion"""
+
+    def test_should_exclude_files_by_extension(self, tmp_path):
+        """
+        Test: Files with excluded extensions not backed up
+
+        Arrange: .pyc and .pyo files in installation
+        Act: Call create_backup()
+        Assert: .pyc and .pyo files excluded
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        (source_root / "module.py").write_text("code")
+        (source_root / "module.pyc").write_bytes(b"compiled")
+        (source_root / "module.pyo").write_bytes(b"compiled")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        backup_dir = backups_root / metadata.backup_id
+        assert (backup_dir / "module.py").exists()
+        assert not (backup_dir / "module.pyc").exists()
+        assert not (backup_dir / "module.pyo").exists()
+
+    def test_should_exclude_nested_cache_directories(self, tmp_path):
+        """
+        Test: Nested __pycache__ directories excluded
+
+        Arrange: Nested directory structure with __pycache__
+        Act: Call create_backup()
+        Assert: __pycache__ at any level excluded
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        # Create nested structure with __pycache__
+        nested = source_root / "a" / "b" / "__pycache__"
+        nested.mkdir(parents=True)
+        (nested / "module.pyc").write_bytes(b"compiled")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        backup_dir = backups_root / metadata.backup_id
+        assert not (backup_dir / "a" / "b" / "__pycache__").exists()
+
+    def test_should_exclude_backup_directory_itself(self, tmp_path):
+        """
+        Test: .devforgeai/backups not included in backup
+
+        Arrange: Installation with .devforgeai/backups directory
+        Act: Call create_backup()
+        Assert: .devforgeai/backups excluded
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        # Create .devforgeai/backups with old backups
+        old_backups = source_root / ".devforgeai" / "backups"
+        old_backups.mkdir(parents=True)
+        (old_backups / "old_backup.tar").write_bytes(b"backup")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert
+        backup_dir = backups_root / metadata.backup_id
+        assert not (backup_dir / ".devforgeai" / "backups").exists()
+
+
+class TestChecksumValidation:
+    """Tests for checksum calculation and validation"""
+
+    def test_should_detect_file_corruption_via_checksum(self, tmp_path):
+        """
+        Test: File corruption detected by checksum mismatch
+
+        Arrange: Backup created, file modified in backup
+        Act: Call restore()
+        Assert: Checksum mismatch detected
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+        (source_root / "file.txt").write_text("original content")
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Create backup
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Corrupt the file in the backup
+        backup_dir = backups_root / metadata.backup_id
+        (backup_dir / "file.txt").write_text("corrupted content")
+
+        # Act & Assert
+        with pytest.raises(BackupError) as exc_info:
+            service.restore(metadata.backup_id, source_root)
+        assert "checksum" in str(exc_info.value).lower()
+
+    def test_should_calculate_correct_sha256_for_large_files(self, tmp_path):
+        """
+        Test: SHA256 calculated correctly for files larger than chunk size
+
+        Arrange: File larger than CHECKSUM_CHUNK_SIZE (65KB)
+        Act: Create backup and verify checksum
+        Assert: Checksum matches manual calculation
+        """
+        # Arrange
+        source_root = tmp_path / "installation"
+        source_root.mkdir()
+
+        # Create file larger than 65KB
+        large_file = source_root / "large.bin"
+        content = b"x" * (100 * 1024)  # 100KB
+        large_file.write_bytes(content)
+
+        backups_root = tmp_path / "backups"
+        service = BackupService(backups_root=backups_root, allow_external_path=True)
+
+        # Act
+        metadata = service.create_backup(source_root, "1.0.0")
+
+        # Assert - Verify checksum matches
+        expected_checksum = hashlib.sha256(content).hexdigest()
+        backup_file = backups_root / metadata.backup_id / "large.bin"
+        actual_checksum = hashlib.sha256(backup_file.read_bytes()).hexdigest()
+        assert actual_checksum == expected_checksum

@@ -33,6 +33,13 @@ MSG_JSON_VALIDITY = "JSON validity: {}"
 MSG_JSON_VALIDATION = "JSON validation: {}"
 MSG_CONFIG_VALIDATION = "Configuration validation: {}"
 
+# Validation status messages
+FILE_NOT_FOUND_MSG = "File not found"
+JSON_VALID_WITH_KEYS_MSG = "JSON valid with all required keys"
+MISSING_KEYS_MSG = "Missing keys in JSON"
+INVALID_JSON_MSG = "Invalid JSON"
+VALIDATION_ERROR_MSG = "Validation error"
+
 
 class IConfigValidator(ABC):
     """Interface for configuration validation."""
@@ -294,6 +301,79 @@ class MigrationValidator(IMigrationValidator):
 
         return checks
 
+    def _validate_json_file_exists(
+        self, file_path: str, full_path: Path
+    ) -> ValidationCheck:
+        """
+        Check if JSON file exists.
+
+        Args:
+            file_path: Relative file path
+            full_path: Absolute file path
+
+        Returns:
+            ValidationCheck for existence check
+        """
+        if not full_path.exists():
+            return ValidationCheck(
+                name=f"JSON file exists: {file_path}",
+                passed=False,
+                message=f"{FILE_NOT_FOUND_MSG}: {file_path}",
+            )
+        return None
+
+    def _validate_json_content_and_schema(
+        self, file_path: str, full_path: Path, required_keys: List[str]
+    ) -> ValidationCheck:
+        """
+        Validate JSON file content and required keys.
+
+        Args:
+            file_path: Relative file path
+            full_path: Absolute file path
+            required_keys: List of required keys
+
+        Returns:
+            ValidationCheck for content validation
+        """
+        try:
+            config = json.loads(full_path.read_text(encoding="utf-8"))
+
+            # Validate required keys
+            validation = self.config_validator.validate_keys(config, required_keys)
+
+            if validation["valid"]:
+                return ValidationCheck(
+                    name=f"JSON schema: {file_path}",
+                    passed=True,
+                    message=JSON_VALID_WITH_KEYS_MSG,
+                    details={"found_keys": validation["found_keys"]},
+                )
+            else:
+                return ValidationCheck(
+                    name=f"JSON schema: {file_path}",
+                    passed=False,
+                    message=MISSING_KEYS_MSG,
+                    details={
+                        "missing_keys": validation["missing_keys"],
+                        "found_keys": validation["found_keys"],
+                    },
+                )
+
+        except json.JSONDecodeError as e:
+            return ValidationCheck(
+                name=f"JSON validity: {file_path}",
+                passed=False,
+                message=f"{INVALID_JSON_MSG}: {e}",
+            )
+
+        except Exception as e:
+            return ValidationCheck(
+                name=f"JSON validation: {file_path}",
+                passed=False,
+                message=f"{VALIDATION_ERROR_MSG}: {e}",
+            )
+
     def _validate_json_files(
         self, root_path: Path, json_schemas: Dict[str, List[str]]
     ) -> List[ValidationCheck]:
@@ -308,76 +388,21 @@ class MigrationValidator(IMigrationValidator):
             List of ValidationCheck results
         """
         checks: List[ValidationCheck] = []
-        all_valid = True
-        details: Dict[str, Any] = {"files": {}}
 
         for file_path, required_keys in json_schemas.items():
             full_path = root_path / file_path
 
-            if not full_path.exists():
-                checks.append(
-                    ValidationCheck(
-                        name=f"JSON file exists: {file_path}",
-                        passed=False,
-                        message=f"File not found: {file_path}",
-                    )
-                )
-                all_valid = False
-                details["files"][file_path] = {"exists": False}
+            # Check if file exists
+            existence_check = self._validate_json_file_exists(file_path, full_path)
+            if existence_check:
+                checks.append(existence_check)
                 continue
 
-            try:
-                config = json.loads(full_path.read_text(encoding="utf-8"))
-
-                # Validate required keys
-                validation = self.config_validator.validate_keys(config, required_keys)
-
-                if validation["valid"]:
-                    checks.append(
-                        ValidationCheck(
-                            name=f"JSON schema: {file_path}",
-                            passed=True,
-                            message=f"JSON valid with all required keys",
-                            details={"found_keys": validation["found_keys"]},
-                        )
-                    )
-                    details["files"][file_path] = {"valid": True}
-                else:
-                    checks.append(
-                        ValidationCheck(
-                            name=f"JSON schema: {file_path}",
-                            passed=False,
-                            message=f"Missing keys in JSON",
-                            details={
-                                "missing_keys": validation["missing_keys"],
-                                "found_keys": validation["found_keys"],
-                            },
-                        )
-                    )
-                    all_valid = False
-                    details["files"][file_path] = {"valid": False, "missing_keys": validation["missing_keys"]}
-
-            except json.JSONDecodeError as e:
-                checks.append(
-                    ValidationCheck(
-                        name=f"JSON validity: {file_path}",
-                        passed=False,
-                        message=f"Invalid JSON: {e}",
-                    )
-                )
-                all_valid = False
-                details["files"][file_path] = {"valid": False, "error": str(e)}
-
-            except Exception as e:
-                checks.append(
-                    ValidationCheck(
-                        name=f"JSON validation: {file_path}",
-                        passed=False,
-                        message=f"Validation error: {e}",
-                    )
-                )
-                all_valid = False
-                details["files"][file_path] = {"valid": False, "error": str(e)}
+            # Validate content and schema
+            content_check = self._validate_json_content_and_schema(
+                file_path, full_path, required_keys
+            )
+            checks.append(content_check)
 
         return checks
 

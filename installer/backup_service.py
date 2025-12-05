@@ -33,6 +33,14 @@ BACKUP_TIMEOUT_SECONDS = 30
 CHECKSUM_CHUNK_SIZE = 65536  # 64KB chunks for SHA256 calculation
 PERMISSION_PRESERVE_ERRORS = (OSError, AttributeError)  # Errors to ignore when preserving permissions
 
+# Directory permissions for security (owner only)
+BACKUP_DIR_PERMISSIONS = 0o700  # rwx------
+MANIFEST_FILE_PERMISSIONS = 0o600  # rw-------
+
+# JSON formatting
+JSON_INDENT = 2
+JSON_ENCODING = "utf-8"
+
 
 class IBackupService(ABC):
     """Interface for backup operations."""
@@ -160,7 +168,7 @@ class BackupService(IBackupService):
 
             backup_dir.mkdir(parents=True, exist_ok=False)
             # Set restrictive permissions on backup directory (owner only)
-            os.chmod(backup_dir, 0o700)
+            os.chmod(backup_dir, BACKUP_DIR_PERMISSIONS)
 
             # Copy files and collect metadata
             files: List[FileEntry] = []
@@ -201,9 +209,12 @@ class BackupService(IBackupService):
                 ],
             }
 
-            manifest_path.write_text(json.dumps(manifest_json, indent=2), encoding="utf-8")
+            manifest_path.write_text(
+                json.dumps(manifest_json, indent=JSON_INDENT),
+                encoding=JSON_ENCODING
+            )
             # Set restrictive permissions on manifest file (owner only, read/write)
-            os.chmod(manifest_path, 0o600)
+            os.chmod(manifest_path, MANIFEST_FILE_PERMISSIONS)
 
             return metadata
 
@@ -220,6 +231,95 @@ class BackupService(IBackupService):
         except Exception as e:
             raise BackupError(f"Backup creation failed: {e}")
 
+    def _should_exclude_path(self, rel_path: Path, src_path: Path) -> bool:
+        """
+        Check if path should be excluded from backup.
+
+        Args:
+            rel_path: Relative path within source
+            src_path: Absolute source path
+
+        Returns:
+            True if path should be excluded, False otherwise
+        """
+        # Check if any part of path is in excluded directories
+        if any(excluded in rel_path.parts for excluded in self.EXCLUDED_DIRS):
+            return True
+
+        # Check if file has excluded extension
+        if any(src_path.name.endswith(ext) for ext in self.EXCLUDED_FILES):
+            return True
+
+        return False
+
+    def _copy_file_with_metadata(
+        self, src_path: Path, dst_path: Path, rel_path: Path, files_list: List[FileEntry]
+    ) -> None:
+        """
+        Copy a file and record its metadata.
+
+        Args:
+            src_path: Source file path
+            dst_path: Destination file path
+            rel_path: Relative path for metadata
+            files_list: List to accumulate FileEntry objects
+        """
+        # Create parent directories
+        dst_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Copy file
+        shutil.copy2(src_path, dst_path)
+
+        # Calculate checksum
+        checksum = self._calculate_sha256(dst_path)
+
+        # Get file info
+        stat_info = src_path.stat()
+
+        # Add to files list
+        files_list.append(
+            FileEntry(
+                relative_path=str(rel_path),
+                checksum_sha256=checksum,
+                size_bytes=stat_info.st_size,
+                modification_time=stat_info.st_mtime,
+            )
+        )
+
+    def _copy_directory_with_permissions(self, src_path: Path, dst_path: Path) -> None:
+        """
+        Copy directory and preserve permissions.
+
+        Args:
+            src_path: Source directory path
+            dst_path: Destination directory path
+        """
+        # Create directory
+        dst_path.mkdir(parents=True, exist_ok=True)
+
+        # Preserve permissions
+        try:
+            stat_info = src_path.stat()
+            os.chmod(dst_path, stat.S_IMODE(stat_info.st_mode))
+        except PERMISSION_PRESERVE_ERRORS:
+            pass
+
+    def _copy_symlink(self, src_path: Path, dst_path: Path) -> None:
+        """
+        Copy symlink or target if symlinks not supported.
+
+        Args:
+            src_path: Source symlink path
+            dst_path: Destination symlink path
+        """
+        try:
+            link_target = src_path.readlink()
+            dst_path.symlink_to(link_target)
+        except (OSError, NotImplementedError):
+            # If symlink not supported (Windows), copy target
+            if src_path.exists():
+                shutil.copy2(src_path, dst_path)
+
     def _copy_directory_tree(
         self, src_dir: Path, dst_dir: Path, files_list: List[FileEntry]
     ) -> None:
@@ -232,64 +332,22 @@ class BackupService(IBackupService):
             files_list: List to accumulate FileEntry objects
         """
         for src_path in src_dir.rglob("*"):
-            # Skip excluded directories
+            # Get relative path and skip excluded paths
             try:
                 rel_path = src_path.relative_to(src_dir)
-                # Check if any part of path is excluded
-                if any(excluded in rel_path.parts for excluded in self.EXCLUDED_DIRS):
-                    continue
-
-                # Skip excluded files
-                if any(src_path.name.endswith(ext) for ext in self.EXCLUDED_FILES):
+                if self._should_exclude_path(rel_path, src_path):
                     continue
             except ValueError:
                 continue
 
-            rel_path = src_path.relative_to(src_dir)
             dst_path = dst_dir / rel_path
 
             if src_path.is_dir():
-                # Create directory
-                dst_path.mkdir(parents=True, exist_ok=True)
-                # Preserve permissions
-                try:
-                    stat_info = src_path.stat()
-                    os.chmod(dst_path, stat.S_IMODE(stat_info.st_mode))
-                except PERMISSION_PRESERVE_ERRORS:
-                    pass
-
+                self._copy_directory_with_permissions(src_path, dst_path)
             elif src_path.is_file():
-                # Create parent directories
-                dst_path.parent.mkdir(parents=True, exist_ok=True)
-
-                # Copy file
-                shutil.copy2(src_path, dst_path)
-
-                # Calculate checksum
-                checksum = self._calculate_sha256(dst_path)
-
-                # Get file info
-                stat_info = src_path.stat()
-
-                # Add to files list
-                files_list.append(
-                    FileEntry(
-                        relative_path=str(rel_path),
-                        checksum_sha256=checksum,
-                        size_bytes=stat_info.st_size,
-                        modification_time=stat_info.st_mtime,
-                    )
-                )
-
+                self._copy_file_with_metadata(src_path, dst_path, rel_path, files_list)
             elif src_path.is_symlink():
-                # Handle symlinks - copy as symlinks
-                try:
-                    link_target = src_path.readlink()
-                    dst_path.symlink_to(link_target)
-                except (OSError, NotImplementedError):
-                    # If symlink not supported (Windows), copy target
-                    if src_path.exists():
-                        shutil.copy2(src_path, dst_path)
+                self._copy_symlink(src_path, dst_path)
 
     def _calculate_sha256(self, file_path: Path) -> str:
         """Calculate SHA256 checksum of file."""
@@ -298,6 +356,71 @@ class BackupService(IBackupService):
             for chunk in iter(lambda: f.read(CHECKSUM_CHUNK_SIZE), b""):
                 sha256.update(chunk)
         return sha256.hexdigest()
+
+    def _validate_path_safety(self, rel_path: str, target_root: Path) -> Path:
+        """
+        Validate path is safe and within target directory (prevent traversal attacks).
+
+        Args:
+            rel_path: Relative path from manifest
+            target_root: Target installation root
+
+        Returns:
+            Resolved absolute path
+
+        Raises:
+            BackupError: If path is outside target directory
+        """
+        try:
+            rel_path_obj = Path(rel_path)
+            # Resolve to absolute and check if within target directory
+            resolved = (target_root / rel_path_obj).resolve()
+            target_resolved = target_root.resolve()
+            if not str(resolved).startswith(str(target_resolved)):
+                raise BackupError(
+                    f"Invalid path in manifest (directory traversal attempt): {rel_path}"
+                )
+            return resolved
+        except ValueError:
+            raise BackupError(f"Invalid path format in manifest: {rel_path}")
+
+    def _restore_file(
+        self, file_entry_dict: dict, backup_dir: Path, target_root: Path
+    ) -> None:
+        """
+        Restore a single file from backup with checksum verification.
+
+        Args:
+            file_entry_dict: File entry from manifest
+            backup_dir: Backup directory
+            target_root: Target installation root
+
+        Raises:
+            BackupError: If file restoration fails
+        """
+        rel_path = file_entry_dict["relative_path"]
+        expected_checksum = file_entry_dict["checksum_sha256"]
+
+        # Validate path safety
+        dst_file = self._validate_path_safety(rel_path, target_root)
+
+        src_file = backup_dir / rel_path
+
+        if not src_file.exists():
+            raise BackupError(f"Backup file missing: {rel_path}")
+
+        # Verify checksum
+        actual_checksum = self._calculate_sha256(src_file)
+        if actual_checksum != expected_checksum:
+            raise BackupError(
+                f"Backup file corrupted (checksum mismatch): {rel_path}"
+            )
+
+        # Ensure parent directory exists
+        dst_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # Restore file
+        shutil.copy2(src_file, dst_file)
 
     def restore(self, backup_id: str, target_root: Path) -> None:
         """
@@ -321,7 +444,7 @@ class BackupService(IBackupService):
                 raise BackupError(f"Backup manifest not found: {manifest_path}")
 
             try:
-                manifest_json = json.loads(manifest_path.read_text(encoding="utf-8"))
+                manifest_json = json.loads(manifest_path.read_text(encoding=JSON_ENCODING))
             except json.JSONDecodeError as e:
                 raise BackupError(f"Invalid backup manifest JSON: {e}")
 
@@ -331,40 +454,7 @@ class BackupService(IBackupService):
 
             # Restore files with checksum verification
             for file_entry_dict in manifest_json.get("files", []):
-                rel_path = file_entry_dict["relative_path"]
-                expected_checksum = file_entry_dict["checksum_sha256"]
-
-                # Validate path safety (prevent directory traversal attacks)
-                try:
-                    rel_path_obj = Path(rel_path)
-                    # Resolve to absolute and check if within target directory
-                    resolved = (target_root / rel_path_obj).resolve()
-                    target_resolved = target_root.resolve()
-                    if not str(resolved).startswith(str(target_resolved)):
-                        raise BackupError(
-                            f"Invalid path in manifest (directory traversal attempt): {rel_path}"
-                        )
-                except ValueError:
-                    raise BackupError(f"Invalid path format in manifest: {rel_path}")
-
-                src_file = backup_dir / rel_path
-                dst_file = target_root / rel_path
-
-                if not src_file.exists():
-                    raise BackupError(f"Backup file missing: {rel_path}")
-
-                # Verify checksum
-                actual_checksum = self._calculate_sha256(src_file)
-                if actual_checksum != expected_checksum:
-                    raise BackupError(
-                        f"Backup file corrupted (checksum mismatch): {rel_path}"
-                    )
-
-                # Ensure parent directory exists
-                dst_file.parent.mkdir(parents=True, exist_ok=True)
-
-                # Restore file
-                shutil.copy2(src_file, dst_file)
+                self._restore_file(file_entry_dict, backup_dir, target_root)
 
         except BackupError:
             raise
@@ -392,7 +482,7 @@ class BackupService(IBackupService):
                 continue
 
             try:
-                manifest_json = json.loads(manifest_path.read_text(encoding="utf-8"))
+                manifest_json = json.loads(manifest_path.read_text(encoding=JSON_ENCODING))
 
                 files = [
                     FileEntry(
