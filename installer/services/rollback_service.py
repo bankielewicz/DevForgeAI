@@ -303,6 +303,9 @@ class RollbackService:
         target_path = Path(target_dir)
         backup_path = Path(backup_dir)
 
+        # Set installation_root to target_dir for path validation
+        self.installation_root = target_path
+
         # Build set of files that exist in backup (by relative path)
         backup_files = set()
         if backup_path.exists():
@@ -313,41 +316,37 @@ class RollbackService:
 
         files_removed = 0
 
-        # Remove files from installation manifest that aren't in backup
-        for file_path in installation_manifest:
-            file_to_check = Path(file_path)
+        # Walk entire target directory to find files NOT in backup
+        if target_path.exists():
+            for target_file in target_path.rglob("*"):
+                if target_file.is_file() or target_file.is_symlink():
+                    # Calculate relative path from target
+                    try:
+                        rel_path = target_file.relative_to(target_path)
+                    except ValueError:
+                        # File is outside target directory, skip it
+                        continue
 
-            # Skip if file doesn't exist
-            if not file_to_check.exists():
-                continue
+                    # SECURITY: Validate file path stays within installation_root before deletion
+                    if not self._validate_path_within_root(target_file):
+                        self.logger.log_error(
+                            f"SECURITY: Blocked deletion of {target_file} (outside installation root)"
+                        )
+                        continue
 
-            # Calculate relative path from target
-            try:
-                rel_path = file_to_check.relative_to(target_path)
-            except ValueError:
-                # File is outside target directory, skip it
-                continue
-
-            # SECURITY: Validate file path stays within installation_root before deletion
-            if not self._validate_path_within_root(file_to_check):
-                self.logger.log_error(
-                    f"SECURITY: Blocked deletion of {file_to_check} (outside installation root)"
-                )
-                continue
-
-            # If file is NOT in backup, remove it
-            if rel_path not in backup_files:
-                try:
-                    file_to_check.unlink()
-                    self.logger.log_info(f"Removed partial installation file {file_to_check}")
-                    files_removed += 1
-                except PermissionError as e:
-                    # Continue on permission error (AC#8)
-                    self.logger.log_error(
-                        f"Permission denied removing {file_to_check}: {str(e)}"
-                    )
-                except Exception as e:
-                    self.logger.log_error(f"Failed to remove {file_to_check}: {str(e)}")
+                    # If file is NOT in backup, remove it
+                    if rel_path not in backup_files:
+                        try:
+                            target_file.unlink()
+                            self.logger.log_info(f"Removed partial installation file {target_file}")
+                            files_removed += 1
+                        except PermissionError as e:
+                            # Continue on permission error (AC#8)
+                            self.logger.log_error(
+                                f"Permission denied removing {target_file}: {str(e)}"
+                            )
+                        except Exception as e:
+                            self.logger.log_error(f"Failed to remove {target_file}: {str(e)}")
 
         return files_removed
 
@@ -355,7 +354,8 @@ class RollbackService:
         """Remove empty directories created during installation (AC#8).
 
         Walks the target directory and removes any directories that are empty.
-        Processes directories in reverse order (deepest first) to handle nested structures.
+        Uses iterative approach to handle nested structures - when a directory is removed,
+        its parent may become empty and should also be checked.
 
         SECURITY: Validates directory paths stay within installation_root before removal.
 
@@ -370,38 +370,50 @@ class RollbackService:
         if not target_path.exists():
             return 0
 
+        # Set installation_root to target_dir for path validation
+        self.installation_root = target_path
+
         directories_removed = 0
 
-        # Build list of all directories (excluding target_dir itself)
-        all_dirs = []
-        for dir_path in target_path.rglob("*"):
-            if dir_path.is_dir():
-                all_dirs.append(dir_path)
+        # Keep removing empty directories until no more can be removed
+        # This handles nested empty directories properly
+        removed_in_pass = True
+        while removed_in_pass:
+            removed_in_pass = False
 
-        # Sort in reverse order (deepest first) to handle nested structures
-        for dir_path in sorted(all_dirs, reverse=True):
-            # Skip target directory itself
-            if dir_path == target_path:
-                continue
+            # Build list of all directories (excluding target_dir itself)
+            all_dirs = []
+            for dir_path in target_path.rglob("*"):
+                if dir_path.is_dir():
+                    all_dirs.append(dir_path)
 
-            # SECURITY: Validate directory path stays within installation_root
-            if not self._validate_path_within_root(dir_path):
-                self.logger.log_error(
-                    f"SECURITY: Blocked deletion of {dir_path} (outside installation root)"
-                )
-                continue
+            # Sort by depth (deepest first) to handle nested structures
+            all_dirs.sort(key=lambda p: len(p.parts), reverse=True)
 
-            # Check if directory is empty
-            if dir_path.exists():
-                try:
-                    # Check if directory has any contents
-                    if not any(dir_path.iterdir()):
-                        # Directory is empty, remove it
-                        dir_path.rmdir()
-                        self.logger.log_info(f"Removed empty directory {dir_path}")
-                        directories_removed += 1
-                except OSError:
-                    # Directory not empty or permission error, skip it
-                    pass
+            for dir_path in all_dirs:
+                # Skip target directory itself
+                if dir_path == target_path:
+                    continue
+
+                # SECURITY: Validate directory path stays within installation_root
+                if not self._validate_path_within_root(dir_path):
+                    self.logger.log_error(
+                        f"SECURITY: Blocked deletion of {dir_path} (outside installation root)"
+                    )
+                    continue
+
+                # Check if directory exists and is empty
+                if dir_path.exists():
+                    try:
+                        # Check if directory has any contents
+                        if not any(dir_path.iterdir()):
+                            # Directory is empty, remove it
+                            dir_path.rmdir()
+                            self.logger.log_info(f"Removed empty directory {dir_path}")
+                            directories_removed += 1
+                            removed_in_pass = True
+                    except OSError:
+                        # Directory not empty or permission error, skip it
+                        pass
 
         return directories_removed
