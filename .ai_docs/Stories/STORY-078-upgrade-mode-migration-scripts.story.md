@@ -3,11 +3,12 @@ id: STORY-078
 title: Upgrade Mode with Migration Scripts
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: QA Failed
 points: 13
 priority: Medium
 assigned_to: Unassigned
 created: 2025-11-25
+updated: 2025-12-05
 format_version: "2.1"
 ---
 
@@ -671,7 +672,7 @@ None - uses existing Python standard library.
 
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [ ] QA phase complete (FAILED 2025-12-05 - see QA Validation History)
 - [ ] Released
 
 ## Implementation Notes
@@ -708,6 +709,27 @@ None - uses existing Python standard library.
 ---
 
 ## Notes
+
+### Dev Agent Guidance (Updated 2025-12-05 - Post QA Failure)
+
+**Priority: Fix QA Blocking Issues Before Proceeding**
+
+The story failed deep QA validation on 2025-12-05. Before continuing development, address:
+
+**CRITICAL Priority (Must Fix):**
+1. **Test Coverage Gap**: Core modules (upgrade_orchestrator.py, migration_discovery.py, migration_runner.py, migration_validator.py) show 0% coverage. Tests exist but aren't importing/executing these modules. Check test imports and ensure the modules are being exercised.
+
+2. **Architectural Clarification**: The anti-pattern scanner flagged installer/ as violating Markdown-only constraint. However, installer/ is distribution tooling (EPIC-012/013/014), NOT a framework component. Add clarification to source-tree.md that installer/ is infrastructure tooling exempt from Markdown constraint.
+
+**HIGH Priority (Security/Reliability):**
+3. Add path traversal validation to backup_service.py:45
+4. Add file permissions (0o600) to backup_service.py:68
+5. Replace silent exception handling in migration_runner.py:48
+6. Add input validation in migration_discovery.py:22
+
+**After fixing, re-run:** `/qa STORY-078 deep`
+
+---
 
 ### Dev Agent Guidance (Added 2025-12-03)
 
@@ -750,6 +772,74 @@ None - uses existing Python standard library.
 **References:**
 - EPIC-014: Version Management & Installation Lifecycle
 - STORY-077: Version Detection & Compatibility Checking
+
+---
+
+---
+
+## QA Validation History
+
+### QA Attempt #1 (2025-12-05) - FAILED ❌
+
+**Validation Mode:** Deep
+**Result:** FAILED - Blocking violations detected
+
+**Phase Results:**
+| Phase | Status | Details |
+|-------|--------|---------|
+| Phase 0.9: AC-DoD Traceability | ✅ PASS | 100% traceability, DoD 100% complete |
+| Phase 1: Test Coverage | ❌ CRITICAL | Business Logic 22% (requires 95%), Overall 87% |
+| Phase 2: Anti-Pattern Detection | ❌ CRITICAL + HIGH | 1 CRITICAL + 4 HIGH violations |
+| Phase 3-7 | ⏸️ SKIPPED | Blocked by Phase 1 & 2 violations |
+
+**Blocking Issues Requiring Remediation:**
+
+1. **CRITICAL: Test Coverage Gap (Phase 1)**
+   - Business Logic Layer: 22% (threshold: 95%) — Gap: 73 percentage points
+   - Application Layer: 74% (threshold: 85%) — Gap: 11 percentage points
+   - Root Cause: upgrade_orchestrator.py, migration_discovery.py, migration_runner.py, migration_validator.py show 0% coverage despite 871 passing story-specific tests
+   - Action: Investigate test discovery - ensure tests import and exercise core modules
+
+2. **CRITICAL: Architectural Scope Clarification (Phase 2)**
+   - File: installer/ directory (Python implementation)
+   - Issue: Python implementation may violate Markdown-only constraint for framework components
+   - Action: Clarify if installer/ is framework component (must be Markdown) or distribution tooling (Python allowed). Document in source-tree.md.
+
+3. **HIGH: Security - Path Traversal Vulnerability (Phase 2)**
+   - File: installer/backup_service.py, line 45
+   - Issue: Backup directory parameter used without validating against `..` sequences
+   - Remediation: Add pathlib.Path validation with resolve() to prevent path traversal
+
+4. **HIGH: Security - File Permissions Vulnerability (Phase 2)**
+   - File: installer/backup_service.py, line 68
+   - Issue: Archive created without restrictive permissions
+   - Remediation: Add `os.chmod(backup_path, 0o600)` after tar.gz creation
+
+5. **HIGH: Reliability - Silent Exception Handling (Phase 2)**
+   - File: installer/migration_runner.py, line 48
+   - Issue: Exception caught without returning structured failure result
+   - Remediation: Replace catch-all with MigrationExecutionError containing structured result
+
+6. **HIGH: Reliability - Missing Input Validation (Phase 2)**
+   - File: installer/migration_discovery.py, line 22
+   - Issue: Directory parameter used without checking existence/readability
+   - Remediation: Add explicit validation for directory existence, type, and readability
+
+**Non-Blocking Issues (MEDIUM - 5, LOW - 2):**
+- God object approach (UpgradeOrchestrator 12 methods)
+- Long method (execute_upgrade ~65 lines)
+- Magic numbers (timeout = 300)
+- Missing docstrings on public methods
+- Type safety gaps in error handling
+- Naming convention inconsistencies
+- Log level inconsistencies
+
+**QA Report Location:** `.devforgeai/qa/reports/STORY-078-qa-report.md`
+
+**Next Steps:**
+1. Fix CRITICAL and HIGH violations
+2. Re-run `/qa STORY-078 deep` after remediation
+3. Optional: Address MEDIUM violations for code quality
 
 ---
 

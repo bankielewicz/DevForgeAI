@@ -98,7 +98,21 @@ class BackupService(IBackupService):
         """
         if backups_root is None:
             backups_root = Path.cwd() / ".devforgeai" / "backups"
-        self.backups_root = Path(backups_root)
+
+        # Validate path to prevent traversal attacks
+        backups_root = Path(backups_root).resolve()
+        cwd_root = Path.cwd().resolve()
+
+        # Ensure backup directory is within or at current working directory
+        try:
+            backups_root.relative_to(cwd_root)
+        except ValueError:
+            raise BackupError(
+                f"Backup directory must be within current working directory. "
+                f"Provided: {backups_root}, Current: {cwd_root}"
+            )
+
+        self.backups_root = backups_root
 
     def create_backup(
         self,
@@ -141,6 +155,8 @@ class BackupService(IBackupService):
                 raise BackupError(f"Backup directory already exists: {backup_dir}")
 
             backup_dir.mkdir(parents=True, exist_ok=False)
+            # Set restrictive permissions on backup directory (owner only)
+            os.chmod(backup_dir, 0o700)
 
             # Copy files and collect metadata
             files: List[FileEntry] = []
@@ -182,6 +198,8 @@ class BackupService(IBackupService):
             }
 
             manifest_path.write_text(json.dumps(manifest_json, indent=2), encoding="utf-8")
+            # Set restrictive permissions on manifest file (owner only, read/write)
+            os.chmod(manifest_path, 0o600)
 
             return metadata
 

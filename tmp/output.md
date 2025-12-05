@@ -1,29 +1,70 @@
-  ❌ QA VALIDATION RESULT: FAILED
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    QA VALIDATION RESULT: FAILED ❌
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Summary
+  Story ID:        STORY-078 (Upgrade Mode with Migration Scripts)
+  Validation Mode: Deep
+  Report:          .devforgeai/qa/reports/STORY-078-qa-report.md
 
-  | Check               | Result     | Status                                           |
-  |---------------------|------------|--------------------------------------------------|
-  | Traceability (100%) | ✅ PASS     | -                                                |
-  | Coverage (86%)      | ⚠️ PARTIAL | Business Logic 1% below 95% threshold            |
-  | Security Scan       | ❌ FAIL     | 2 CRITICAL vulnerabilities found                 |
-  | Architecture        | ❌ FAIL     | 4 HIGH violations (types, exceptions, structure) |
-  | Overall             | ❌ FAIL     | 2 CRITICAL + 4 HIGH violations BLOCK approval    |
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CRITICAL FINDING: Test Coverage Discrepancy
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Next Steps
+  Story Claims:
+    • "594 passed, 326 skipped"
+    • "95%+ business logic coverage"
+    • "All 8 acceptance criteria have passing tests"
 
-  BLOCKING: Fix all 6 violations (2 CRITICAL + 4 HIGH) before resubmitting for QA:
+  Actual State:
+    • STORY-078 test files contain `pytest.skip("Implementation pending")` in EVERY test
+    • Business logic modules (migration_*.py, upgrade_orchestrator.py) have 0% coverage
+    • Tests are TDD Red phase stubs that were never wired to implementations
 
-  1. ⚠️ Add symlink validation - merge_backup_service.py:28
-  2. ⚠️ Set backup file permissions 0o600 - merge_backup_service.py:32
-  3. Replace generic Exception with specific types - merge_backup_service.py:48
-  4. Return MergeResult dataclass instead of dict - merge_backup_service.py:39
-  5. Add return type annotation to detect_conflicts() - merge_conflict_detection_service.py:15        
-  6. Verify layer structure vs source-tree.md
+  Affected Test Files:
+    1. test_migration_discovery_story078.py (68 tests - ALL SKIPPED)
+    2. test_migration_runner_story078.py (78 tests - ALL SKIPPED)
+    3. test_migration_validator_story078.py (62 tests - ALL SKIPPED)
+    4. test_backup_service_story078.py (70 tests - ALL SKIPPED)
+    5. test_upgrade_workflow_story078.py (42 tests - ALL SKIPPED)
+    6. test_rollback_workflow_story078.py (18 tests - ALL SKIPPED)
 
-  RECOMMENDED: Address code smells (4 MEDIUM, 3 LOW) to improve maintainability.
+  Implementation Files (EXIST but UNTESTED):
+    • installer/upgrade_orchestrator.py (429 lines) - 0% coverage
+    • installer/migration_discovery.py (286 lines) - 0% coverage
+    • installer/migration_runner.py (273 lines) - 0% coverage  
+    • installer/migration_validator.py (399 lines) - 0% coverage
+    • installer/backup_service.py (427 lines) - 0% coverage
+    • installer/version_detector.py (146 lines) - 0% coverage
+    • installer/version_parser.py (150 lines) - 0% coverage
+    • installer/version_comparator.py (95 lines) - 0% coverage
 
-  ---
-  Status: Dev Complete → Blocked for security fixes
-  Workflow: Ready for Development Fixes
-  QA Report: .devforgeai/qa/reports/STORY-076-qa-report.md (generated)
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  REMEDIATION REQUIRED
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Action: Return story to /dev for TDD Green phase completion
+
+  Steps:
+    1. Remove `pytest.skip("Implementation pending")` from all test files
+    2. Import actual implementation modules in test files
+    3. Run tests and fix any failures
+    4. Verify tests pass against implementation
+    5. Achieve 95%+ business logic coverage
+    6. Update story Implementation Notes with accurate metrics
+    
+  Estimated Effort: 4-8 hours
+
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  NEXT COMMAND
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  /dev STORY-078    (to complete TDD Green phase - unskip and wire tests)
+
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  QA Complete: FAILED ❌
+
+  The investigation found that while implementation files exist (2,205 lines of code), all STORY-078 specific tests contain pytest.skip("Implementation pending") - meaning the TDD Red phase tests were
+  written but never transitioned to Green phase by removing the skips and wiring them to the actual implementations.
+
+  The story needs to return to /dev STORY-078 to complete TDD Green phase.
