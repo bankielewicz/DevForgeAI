@@ -312,6 +312,19 @@ class BackupService(IBackupService):
                 rel_path = file_entry_dict["relative_path"]
                 expected_checksum = file_entry_dict["checksum_sha256"]
 
+                # Validate path safety (prevent directory traversal attacks)
+                try:
+                    rel_path_obj = Path(rel_path)
+                    # Resolve to absolute and check if within target directory
+                    resolved = (target_root / rel_path_obj).resolve()
+                    target_resolved = target_root.resolve()
+                    if not str(resolved).startswith(str(target_resolved)):
+                        raise BackupError(
+                            f"Invalid path in manifest (directory traversal attempt): {rel_path}"
+                        )
+                except ValueError:
+                    raise BackupError(f"Invalid path format in manifest: {rel_path}")
+
                 src_file = backup_dir / rel_path
                 dst_file = target_root / rel_path
 
