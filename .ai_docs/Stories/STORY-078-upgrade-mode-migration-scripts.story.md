@@ -3,7 +3,7 @@ id: STORY-078
 title: Upgrade Mode with Migration Scripts
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: In Development
 points: 13
 priority: Medium
 assigned_to: Unassigned
@@ -675,8 +675,8 @@ None - uses existing Python standard library.
 ## Workflow Status
 
 - [x] Architecture phase complete
-- [x] Development phase complete
-- [ ] QA phase complete (FAILED 2025-12-05 - see QA Validation History)
+- [ ] Development phase complete (IN PROGRESS - coverage gap remediation needed)
+- [ ] QA phase complete
 - [ ] Released
 
 ## Implementation Notes
@@ -720,24 +720,46 @@ None - uses existing Python standard library.
 
 ## Notes
 
-### Dev Agent Guidance (Updated 2025-12-05 - Post QA Failure)
+### Dev Agent Guidance (Updated 2025-12-05 - Post Phase 3 Execution)
 
-**Priority: Fix QA Blocking Issues Before Proceeding**
+**Status:** In Development - Coverage gap remediation in progress
 
-The story failed deep QA validation on 2025-12-05. Before continuing development, address:
+**What Was Completed:**
+- ✅ Phase 0: Pre-Flight Validation (git-validator, tech-stack-detector)
+- ✅ Phase 1-2: Test generation and implementation (120 unit tests passing)
+- ✅ Phase 3: Refactoring (21 refactorings, complexity reduced 15%)
+- ✅ Phase 3: Code Review (3 CRITICAL security issues identified)
+- ✅ Phase 4.5: Deferral Validation (AC Verification acceptable)
 
-**CRITICAL Priority (Must Fix):**
-1. **Test Coverage Gap**: Core modules (upgrade_orchestrator.py, migration_discovery.py, migration_runner.py, migration_validator.py) show 0% coverage. Tests exist but aren't importing/executing these modules. Check test imports and ensure the modules are being exercised.
+**What Remains - Blocking QA Approval:**
 
-2. **Architectural Clarification**: The anti-pattern scanner flagged installer/ as violating Markdown-only constraint. However, installer/ is distribution tooling (EPIC-012/013/014), NOT a framework component. Add clarification to source-tree.md that installer/ is infrastructure tooling exempt from Markdown constraint.
+**CRITICAL: Test Coverage Gap (4 modules below 95% threshold)**
 
-**HIGH Priority (Security/Reliability):**
-3. Add path traversal validation to backup_service.py:45
-4. Add file permissions (0o600) to backup_service.py:68
-5. Replace silent exception handling in migration_runner.py:48
-6. Add input validation in migration_discovery.py:22
+Current coverage vs. required:
+1. backup_service.py: 82% (need +13% = 37 lines)
+2. migration_discovery.py: 86% (need +9% = 17 lines)
+3. migration_runner.py: 84% (need +11% = 16 lines)
+4. models.py: 78% (need +17% = 30 lines)
 
-**After fixing, re-run:** `/qa STORY-078 deep`
+**Missing test scenarios:**
+- Error paths: backup_service.py:110, 119-122 (directory creation failures)
+- Edge cases: backup_service.py:304-305, 340-341 (permission preservation)
+- Timeout scenarios: migration_runner.py:109-116 (migration timeout handling)
+- Validation errors: models.py dataclass validation paths
+
+**CRITICAL: Security Issues (From Code Review)**
+1. Path traversal validation missing during backup creation (backup_service.py:334)
+2. Silent permission failure handling (backup_service.py:300-305)
+3. Race condition in backup directory creation (backup_service.py:166-170)
+
+**Required Actions:**
+1. **Phase 1 (Test-First):** Generate additional tests for uncovered lines (error paths, edge cases, timeouts)
+2. **Phase 2 (Implementation):** Fix 3 CRITICAL security issues from code review
+3. **Phase 3 (Light QA):** Re-validate coverage reaches 95%+ and security fixes applied
+4. **Phase 4 (Integration):** Execute integration-tester for cross-component validation
+5. **Phase 5 (Git):** Commit when all quality gates pass
+
+**Next Command:** `/dev STORY-078` (re-run development workflow to complete coverage and security fixes)
 
 ---
 
@@ -789,10 +811,44 @@ The story failed deep QA validation on 2025-12-05. Before continuing development
 
 ## QA Validation History
 
+### QA Attempt #3 (2025-12-05) - COVERAGE THRESHOLD VALIDATION ❌
+
+**Validation Mode:** Light (Post-Refactoring)
+**Result:** FAIL - Coverage below quality gate thresholds
+
+**Coverage Analysis:**
+- migration_validator.py: 97% ✅ (exceeds 95% threshold)
+- migration_discovery.py: 86% ❌ (needs 95%, gap: 9%)
+- migration_runner.py: 84% ❌ (needs 95%, gap: 11%)
+- backup_service.py: 82% ❌ (needs 95%, gap: 13%)
+- models.py: 78% ❌ (needs 95%, gap: 17%)
+- **Overall: 85%** ✅ (exceeds 80% threshold)
+- **Business Logic Average: ~82%** ❌ (needs 95%)
+
+**Blocking Issues:**
+1. **CRITICAL:** 4 modules below 95% business logic threshold
+   - Total gap: 50 percentage points across modules
+   - Missing coverage: ~37 lines in backup_service, 17 in migration_discovery, 16 in migration_runner, 30 in models
+   - Root cause: Error paths, edge cases, timeout scenarios not tested
+
+**Phases Executed This Session:**
+- ✅ Phase 0: Pre-Flight (git-validator, tech-stack-detector)
+- ✅ Phase 3: Refactoring (21 refactorings, complexity reduced 15%)
+- ✅ Phase 3: Code Review (3 CRITICAL, 3 HIGH, 3 MEDIUM issues identified)
+- ✅ Phase 4.5: Deferral Validation (AC Verification Checklist acceptable)
+
+**Next Steps:**
+1. Generate additional tests for error paths and edge cases
+2. Target: +13% coverage across 4 modules
+3. Re-run Phase 1 (Test-First) to address coverage gaps
+4. Re-validate with Light QA after coverage reaches 95%+
+
+---
+
 ### QA Attempt #2 (2025-12-05) - REMEDIATION ✅
 
-**Validation Mode:** Light
-**Result:** PARTIAL PASS (Code quality ✅, Test coverage fixed ✅, DoD incomplete ⚠️)
+**Validation Mode:** Light (Initial Remediation)
+**Result:** PARTIAL PASS (Code quality ✅, Test coverage improved ✅, Threshold not met ⚠️)
 
 **Remediation Actions Completed:**
 1. **Fixed BackupService test wiring** - Added `allow_external_path` parameter to support pytest tmp_path fixtures
