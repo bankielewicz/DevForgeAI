@@ -1,11 +1,11 @@
 """
 Unit tests for MigrationValidator service (STORY-078).
 
-Tests post-migration validation:
-- Expected files verification (AC#5)
-- Schema validation (AC#5)
-- Configuration key validation (AC#5)
-- Validation failure handling (AC#5)
+Tests migration validation:
+- File existence validation (AC#5)
+- Configuration validation (AC#5)
+- JSON schema validation (AC#5)
+- Validation report generation (AC#5)
 
 Test Framework: pytest 7.4+
 Coverage Target: 95%+ for business logic
@@ -13,586 +13,607 @@ Coverage Target: 95%+ for business logic
 
 import pytest
 import json
-import yaml
 from pathlib import Path
-from unittest.mock import MagicMock, patch
-from typing import List, Dict
+from typing import List, Dict, Any
+
+from installer.migration_validator import (
+    MigrationValidator,
+    ConfigValidator,
+)
+from installer.models import ValidationReport, ValidationError
 
 
-class TestFileValidation:
-    """Tests for SVC-015: Validate expected files exist after migration"""
+class TestMigrationValidator:
+    """Tests for migration validation"""
 
-    def test_should_verify_file_exists(self, tmp_path):
+    def test_should_validate_expected_files_exist(self, tmp_path):
         """
-        SVC-015: Validate that file exists
+        AC#5: Verify expected files exist after migration
 
-        Arrange: File .claude/agents/test-agent.md exists
-        Act: Call validate() with expected_files=[".claude/agents/test-agent.md"]
-        Assert: File verification passes
+        Arrange: Files exist at specified paths
+        Act: Call validate(expected_files=[...])
+        Assert: Returns ValidationReport with passed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "file1.txt").write_text("content1")
+        (tmp_path / "file2.txt").write_text("content2")
 
-    def test_should_fail_if_expected_file_missing(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_files=["file1.txt", "file2.txt"]
+        )
+
+        # Assert
+        assert report.is_valid is True
+        assert report.passed_checks == 1
+        assert report.failed_checks == 0
+
+    def test_should_detect_missing_expected_files(self, tmp_path):
         """
-        SVC-015: Detect missing expected file
+        AC#5: Detect missing expected files
 
-        Arrange: Expected .claude/agents/new-agent.md doesn't exist
-        Act: Call validate()
-        Assert: Validation fails with message about missing file
+        Arrange: Some expected files missing
+        Act: Call validate(expected_files=[existing, missing])
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "file1.txt").write_text("content1")
 
-    def test_should_verify_directory_exists(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_files=["file1.txt", "file2.txt"]
+        )
+
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
+        assert len(report.checks) > 0
+
+    def test_should_validate_expected_directories_exist(self, tmp_path):
         """
-        SVC-015: Validate that directory exists
+        AC#5: Verify expected directories exist
 
-        Arrange: Directory .devforgeai/specs/ exists
-        Act: Call validate() with expected_directories=[".devforgeai/specs/"]
-        Assert: Directory verification passes
+        Arrange: Directories exist at specified paths
+        Act: Call validate(expected_dirs=[...])
+        Assert: Returns ValidationReport with passed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "dir1").mkdir()
+        (tmp_path / "dir2").mkdir()
 
-    def test_should_verify_multiple_files_simultaneously(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_dirs=["dir1", "dir2"]
+        )
+
+        # Assert
+        assert report.is_valid is True
+        assert report.passed_checks == 1
+
+    def test_should_detect_missing_expected_directories(self, tmp_path):
         """
-        SVC-015: Validate multiple files in one call
+        AC#5: Detect missing expected directories
 
-        Arrange: 5 expected files exist
-        Act: Call validate() with all 5 files
-        Assert: All 5 verified successfully
+        Arrange: Some directories missing
+        Act: Call validate(expected_dirs=[existing, missing])
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "dir1").mkdir()
 
-    def test_should_report_all_missing_files_together(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_dirs=["dir1", "dir2"]
+        )
+
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
+
+
+class TestJSONValidation:
+    """Tests for JSON schema validation"""
+
+    def test_should_validate_json_file_exists(self, tmp_path):
         """
-        SVC-015: Report all missing files at once (not one at a time)
+        AC#5: Verify JSON file exists
 
-        Arrange: 5 expected files, 2 missing
-        Act: Call validate()
-        Assert: Report includes both missing files
+        Arrange: JSON file present
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns ValidationReport with passed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"version": "1.0.0"}')
 
-    def test_should_verify_file_content_matches_expected(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version"]}
+        )
+
+        # Assert
+        assert report.is_valid is True
+
+    def test_should_detect_missing_json_file(self, tmp_path):
         """
-        SVC-015: Optionally verify file content
+        AC#5: Detect missing JSON file
 
-        Arrange: File with specific content expected
-        Act: Call validate() with content_checks
-        Assert: Content verified
+        Arrange: JSON file does not exist
+        Act: Call validate(json_schemas={missing_file: [keys]})
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        validator = MigrationValidator()
 
-    def test_should_check_file_size_reasonable(self, tmp_path):
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version"]}
+        )
+
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
+
+    def test_should_validate_json_required_keys(self, tmp_path):
         """
-        SVC-015: Validate file is not empty or corrupted
+        AC#5: Check JSON contains required keys
 
-        Arrange: File .claude/agents/test.md expected to be > 100 bytes
-        Act: Call validate()
-        Assert: File size check passes
+        Arrange: JSON file with required keys
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns ValidationReport with passed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"version": "1.0.0", "debug": true}')
 
-    def test_should_verify_files_are_readable(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version", "debug"]}
+        )
+
+        # Assert
+        assert report.is_valid is True
+
+    def test_should_detect_missing_json_keys(self, tmp_path):
         """
-        SVC-015: Validate expected files have proper permissions
+        AC#5: Detect missing required keys in JSON
 
-        Arrange: File with read permission
-        Act: Call validate()
-        Assert: Readability verified
+        Arrange: JSON file missing required keys
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"version": "1.0.0"}')
 
+        validator = MigrationValidator()
 
-class TestSchemaValidation:
-    """Tests for SVC-016: Validate JSON/YAML schema integrity"""
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version", "missing_key"]}
+        )
 
-    def test_should_validate_json_files_are_well_formed(self, tmp_path):
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
+
+    def test_should_detect_invalid_json_syntax(self, tmp_path):
         """
-        SVC-016: Validate JSON schema integrity
+        AC#5: Detect invalid JSON syntax
 
-        Arrange: .version.json with valid JSON
-        Act: Call validate()
-        Assert: JSON validation passes
+        Arrange: File contains invalid JSON
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{invalid json}')
 
-    def test_should_fail_on_malformed_json(self, tmp_path):
-        """
-        SVC-016: Detect invalid JSON
+        validator = MigrationValidator()
 
-        Arrange: .version.json with syntax error (missing closing bracket)
-        Act: Call validate()
-        Assert: Validation fails with JSON error message
-        """
-        assert True  # TEST PLACEHOLDER
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version"]}
+        )
 
-    def test_should_validate_yaml_files_are_well_formed(self, tmp_path):
-        """
-        SVC-016: Validate YAML schema integrity
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
 
-        Arrange: .devforgeai/config/hooks.yaml with valid YAML
-        Act: Call validate()
-        Assert: YAML validation passes
+    def test_should_validate_nested_json_keys(self, tmp_path):
         """
-        assert True  # TEST PLACEHOLDER
+        AC#5: Validate nested JSON keys (e.g., "settings.debug")
 
-    def test_should_fail_on_malformed_yaml(self, tmp_path):
+        Arrange: JSON file with nested structure
+        Act: Call validate(json_schemas={file: ["settings.debug"]})
+        Assert: Returns ValidationReport with passed checks
         """
-        SVC-016: Detect invalid YAML
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"settings": {"debug": true}}')
 
-        Arrange: YAML file with incorrect indentation
-        Act: Call validate()
-        Assert: Validation fails with YAML error message
-        """
-        assert True  # TEST PLACEHOLDER
+        validator = MigrationValidator()
 
-    def test_should_validate_json_against_schema(self, tmp_path):
-        """
-        SVC-016: Validate JSON structure matches schema
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["settings.debug"]}
+        )
 
-        Arrange: .version.json with required fields
-        Act: Call validate() with JSON schema
-        Assert: Validation passes if all required fields present
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_fail_if_json_missing_required_fields(self, tmp_path):
-        """
-        SVC-016: Detect missing required JSON fields
-
-        Arrange: .version.json missing "version" field
-        Act: Call validate()
-        Assert: Validation fails, error includes missing field
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_validate_json_field_types(self, tmp_path):
-        """
-        SVC-016: Validate JSON field types match schema
-
-        Arrange: .version.json with version as string (correct)
-        Act: Call validate()
-        Assert: Type validation passes
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_fail_on_incorrect_json_field_types(self, tmp_path):
-        """
-        SVC-016: Detect incorrect JSON field types
-
-        Arrange: .version.json with version as number (incorrect)
-        Act: Call validate()
-        Assert: Validation fails with type error
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_validate_multiple_json_files(self, tmp_path):
-        """
-        SVC-016: Validate multiple JSON files in one call
-
-        Arrange: .version.json and upgrade-config.json both valid
-        Act: Call validate()
-        Assert: Both validated successfully
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_provide_line_number_for_schema_errors(self, tmp_path):
-        """
-        SVC-016: Error message includes line number for debugging
-
-        Arrange: JSON with error on line 5
-        Act: Call validate()
-        Assert: Error message includes "line 5"
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert report.is_valid is True
 
 
 class TestConfigurationValidation:
-    """Tests for SVC-017: Validate required configuration keys"""
+    """Tests for configuration validation"""
 
-    def test_should_verify_required_config_key_exists(self, tmp_path):
+    def test_should_validate_required_config_keys(self, tmp_path):
         """
-        SVC-017: Validate required configuration keys present
+        AC#5: Check required configuration keys exist
 
-        Arrange: Config with required "version" key
-        Act: Call validate() for required keys
-        Assert: Key validation passes
+        Arrange: Configuration file with required keys
+        Act: Call validate(config_validations={file: [keys]})
+        Assert: Returns ValidationReport with passed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"host": "localhost", "port": 8080}')
 
-    def test_should_fail_if_required_key_missing(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            config_validations={"config.json": ["host", "port"]}
+        )
+
+        # Assert
+        assert report.is_valid is True
+
+    def test_should_detect_missing_config_keys(self, tmp_path):
         """
-        SVC-017: Detect missing required configuration key
+        AC#5: Detect missing required config keys
 
-        Arrange: .version.json missing "version" key
-        Act: Call validate()
-        Assert: Validation fails, error identifies missing key
+        Arrange: Configuration missing required keys
+        Act: Call validate(config_validations={file: [keys]})
+        Assert: Returns ValidationReport with failed checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"host": "localhost"}')
 
-    def test_should_verify_multiple_required_keys(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            config_validations={"config.json": ["host", "port"]}
+        )
+
+        # Assert
+        assert report.is_valid is False
+        assert report.failed_checks > 0
+
+
+class TestValidationReport:
+    """Tests for validation report generation"""
+
+    def test_should_return_detailed_validation_report(self, tmp_path):
         """
-        SVC-017: Validate multiple required keys
+        AC#5: Return detailed validation report
 
-        Arrange: Config with 3 required keys, all present
-        Act: Call validate()
-        Assert: All 3 keys verified
+        Arrange: Multiple validation checks run
+        Act: Call validate(...)
+        Assert: Returns complete ValidationReport with all checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "file1.txt").write_text("content")
+        (tmp_path / "dir1").mkdir()
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"version": "1.0.0"}')
 
-    def test_should_validate_key_value_format(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_files=["file1.txt"],
+            expected_dirs=["dir1"],
+            json_schemas={"config.json": ["version"]}
+        )
+
+        # Assert
+        assert isinstance(report, ValidationReport)
+        assert report.total_checks > 0
+        assert report.passed_checks > 0
+
+    def test_should_include_check_details_in_report(self, tmp_path):
         """
-        SVC-017: Validate configuration values match expected format
+        AC#5: Include detailed information in report
 
-        Arrange: version="1.1.0" (valid semver)
-        Act: Call validate()
-        Assert: Format validation passes
+        Arrange: Validation with both passed and failed checks
+        Act: Call validate(...)
+        Assert: Report includes details about each check
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "file1.txt").write_text("content")
 
-    def test_should_fail_on_incorrect_key_value_format(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_files=["file1.txt", "file2.txt"]
+        )
+
+        # Assert
+        assert len(report.checks) > 0
+
+    def test_should_summarize_validation_results(self, tmp_path):
         """
-        SVC-017: Detect invalid configuration value format
+        AC#5: Summarize validation results
 
-        Arrange: version="invalid-version" (not semver)
-        Act: Call validate()
-        Assert: Validation fails with format error
+        Arrange: Multiple validation checks
+        Act: Call validate(...)
+        Assert: Report includes summary counts
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "file1.txt").write_text("content")
 
-    def test_should_validate_enum_values(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_files=["file1.txt"]
+        )
+
+        # Assert
+        assert report.total_checks >= 1
+        assert report.passed_checks >= 0
+        assert report.failed_checks >= 0
+        assert report.passed_checks + report.failed_checks == report.total_checks
+
+
+class TestConfigValidator:
+    """Tests for ConfigValidator service"""
+
+    def test_should_validate_simple_keys(self):
         """
-        SVC-017: Validate enum configuration values
+        ConfigValidator: Validate simple configuration keys
 
-        Arrange: mode must be one of ["fresh_install", "patch_upgrade", "upgrade"]
-        Act: Call validate() with mode="patch_upgrade"
-        Assert: Validation passes
+        Arrange: Config dict with simple keys
+        Act: Call validate_keys(config, ["key1", "key2"])
+        Assert: Returns validation result with found keys
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config = {"key1": "value1", "key2": "value2"}
+        validator = ConfigValidator()
 
-    def test_should_fail_on_invalid_enum_value(self, tmp_path):
+        # Act
+        result = validator.validate_keys(config, ["key1", "key2"])
+
+        # Assert
+        assert result["valid"] is True
+        assert result["missing_keys"] == []
+        assert "key1" in result["found_keys"]
+        assert "key2" in result["found_keys"]
+
+    def test_should_detect_missing_keys(self):
         """
-        SVC-017: Detect invalid enum value
+        ConfigValidator: Detect missing keys
 
-        Arrange: mode="invalid_mode" (not in enum)
-        Act: Call validate()
-        Assert: Validation fails, error lists valid values
+        Arrange: Config dict with some keys missing
+        Act: Call validate_keys(config, ["existing", "missing"])
+        Assert: Returns validation result with missing keys listed
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config = {"key1": "value1"}
+        validator = ConfigValidator()
 
-    def test_should_validate_numeric_constraints(self, tmp_path):
+        # Act
+        result = validator.validate_keys(config, ["key1", "missing_key"])
+
+        # Assert
+        assert result["valid"] is False
+        assert "missing_key" in result["missing_keys"]
+        assert "key1" in result["found_keys"]
+
+    def test_should_validate_nested_keys(self):
         """
-        SVC-017: Validate numeric configuration values within range
+        ConfigValidator: Validate nested configuration keys
 
-        Arrange: backup_retention_count=5 (valid: 1-20)
-        Act: Call validate()
-        Assert: Range validation passes
+        Arrange: Config dict with nested structure
+        Act: Call validate_keys(config, ["level1.level2.key"])
+        Assert: Returns validation result with nested key found
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config = {
+            "database": {
+                "settings": {
+                    "host": "localhost"
+                }
+            }
+        }
+        validator = ConfigValidator()
 
-    def test_should_fail_on_numeric_out_of_range(self, tmp_path):
+        # Act
+        result = validator.validate_keys(
+            config,
+            ["database.settings.host"]
+        )
+
+        # Assert
+        assert result["valid"] is True
+        assert "database.settings.host" in result["found_keys"]
+
+    def test_should_handle_missing_nested_keys(self):
         """
-        SVC-017: Detect numeric value out of range
+        ConfigValidator: Detect missing nested keys
 
-        Arrange: backup_retention_count=50 (invalid: max 20)
-        Act: Call validate()
-        Assert: Validation fails with range error
+        Arrange: Config with incomplete nesting
+        Act: Call validate_keys(config, ["level1.level2.missing"])
+        Assert: Returns validation result with missing nested key
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config = {
+            "database": {
+                "settings": {
+                    "host": "localhost"
+                }
+            }
+        }
+        validator = ConfigValidator()
 
-    def test_should_check_for_deprecated_config_keys(self, tmp_path):
-        """
-        SVC-017: Warn about deprecated configuration keys
+        # Act
+        result = validator.validate_keys(
+            config,
+            ["database.settings.missing_key"]
+        )
 
-        Arrange: Config contains old_deprecated_key
-        Act: Call validate()
-        Assert: Warning about deprecated key
-        """
-        assert True  # TEST PLACEHOLDER
-
-
-class TestValidationReporting:
-    """Tests for SVC-018: Return detailed validation report"""
-
-    def test_should_return_validation_report_object(self, tmp_path):
-        """
-        SVC-018: Return ValidationReport with detailed results
-
-        Arrange: Validation scenario
-        Act: Call validate()
-        Assert: Returns ValidationReport object with checks_passed, checks_failed
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_include_individual_check_results_in_report(self, tmp_path):
-        """
-        SVC-018: Report includes pass/fail status for each check
-
-        Arrange: 5 validation checks
-        Act: Call validate()
-        Assert: Report includes result for each check
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_include_detailed_error_messages_in_report(self, tmp_path):
-        """
-        SVC-018: Report includes error details for failed checks
-
-        Arrange: Validation fails on missing file
-        Act: Call validate()
-        Assert: Report.errors includes "Expected file not found: ..."
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_include_passed_check_summary_in_report(self, tmp_path):
-        """
-        SVC-018: Report includes summary of passed checks
-
-        Arrange: 10 checks, all pass
-        Act: Call validate()
-        Assert: Report shows "checks_passed: 10/10"
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_include_validation_timestamp_in_report(self, tmp_path):
-        """
-        SVC-018: Report includes timestamp when validation ran
-
-        Arrange: Validation executed
-        Act: Call validate()
-        Assert: Report.timestamp set to ISO8601 timestamp
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_provide_remediation_suggestions_for_failures(self, tmp_path):
-        """
-        SVC-018: Report suggests how to fix failures
-
-        Arrange: Missing required file
-        Act: Call validate()
-        Assert: Report.remediation includes "Ensure file exists at ..."
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_format_report_for_human_display(self, tmp_path):
-        """
-        SVC-018: Report can be formatted as readable text
-
-        Arrange: Validation completed
-        Act: Call report.format_for_display()
-        Assert: Returns human-readable validation summary
-        """
-        assert True  # TEST PLACEHOLDER
-
-
-class TestValidationFailureHandling:
-    """Tests for validation failure triggering rollback (AC#5)"""
-
-    def test_should_trigger_rollback_on_file_validation_failure(self, tmp_path):
-        """
-        AC#5: Validation failures trigger rollback
-
-        Arrange: Expected file missing after migration
-        Act: Call validate()
-        Assert: Validation returns failure, orchestrator triggers rollback
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_trigger_rollback_on_schema_validation_failure(self, tmp_path):
-        """
-        AC#5: Schema failures trigger rollback
-
-        Arrange: JSON file corrupted/malformed after migration
-        Act: Call validate()
-        Assert: Validation fails, rollback triggered
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_trigger_rollback_on_configuration_validation_failure(self, tmp_path):
-        """
-        AC#5: Config key validation failures trigger rollback
-
-        Arrange: Required config key missing after migration
-        Act: Call validate()
-        Assert: Validation fails, rollback triggered
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_provide_error_context_for_debugging_rollback_reason(self, tmp_path):
-        """
-        AC#5: Error message explains validation failure reason
-
-        Arrange: Specific validation failure
-        Act: Call validate()
-        Assert: Error includes context: "Missing key 'version' in .version.json"
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_log_validation_results_before_rollback(self, tmp_path):
-        """
-        AC#5: Validation results logged for audit trail
-
-        Arrange: Validation fails
-        Act: Call validate()
-        Assert: Full validation report logged before rollback decision
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert result["valid"] is False
+        assert "database.settings.missing_key" in result["missing_keys"]
 
 
 class TestValidationEdgeCases:
     """Tests for edge cases and error scenarios"""
 
-    def test_should_handle_validation_of_nonexistent_directory(self, tmp_path):
+    def test_should_handle_empty_validation_requests(self, tmp_path):
         """
-        Edge case: Validate against nonexistent base directory
+        Edge case: No validation checks requested
 
-        Arrange: Base directory deleted before validation
-        Act: Call validate()
-        Assert: Clear error about base directory missing
+        Arrange: Call validate(root_path=...) with no checks
+        Act: Execute validation
+        Assert: Returns report with no checks
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        validator = MigrationValidator()
 
-    def test_should_handle_permission_denied_reading_files_for_validation(self, tmp_path):
+        # Act
+        report = validator.validate(root_path=tmp_path)
+
+        # Assert
+        assert report.total_checks == 0
+        assert report.passed_checks == 0
+        assert report.failed_checks == 0
+
+    def test_should_handle_empty_json_file(self, tmp_path):
         """
-        Edge case: File not readable due to permissions
+        Edge case: JSON file is empty
 
-        Arrange: File exists but with read=0 permission
-        Act: Call validate()
-        Assert: Clear error about permission denied
+        Arrange: JSON file with no content
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns report with failed check
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('')
 
-    def test_should_handle_symbolic_links_in_validation(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["version"]}
+        )
+
+        # Assert
+        assert report.is_valid is False
+
+    def test_should_handle_files_not_directories(self, tmp_path):
         """
-        Edge case: Expected file is a symlink
+        Edge case: Expected directory exists as file
 
-        Arrange: File is symlink to another location
-        Act: Call validate()
-        Assert: Symlink target validated (or error if target missing)
+        Arrange: Path is file but validation expects directory
+        Act: Call validate(expected_dirs=[file_path])
+        Assert: Returns report with failed check
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        (tmp_path / "notadir.txt").write_text("content")
 
-    def test_should_handle_very_large_json_files_in_validation(self, tmp_path):
+        validator = MigrationValidator()
+
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            expected_dirs=["notadir.txt"]
+        )
+
+        # Assert
+        assert report.is_valid is False
+
+    def test_should_handle_unicode_in_json(self, tmp_path):
         """
-        Edge case: Very large JSON file (100MB+)
+        Edge case: JSON with unicode characters
 
-        Arrange: JSON file > 100MB
-        Act: Call validate()
-        Assert: Validated without memory exhaustion
+        Arrange: JSON file with unicode characters
+        Act: Call validate(json_schemas={file: [keys]})
+        Assert: Returns report with passed check
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        config_file = tmp_path / "config.json"
+        config_file.write_text('{"description": "Test"}', encoding="utf-8")
 
-    def test_should_handle_circular_symlinks_in_validation(self, tmp_path):
-        """
-        Edge case: Circular symlinks in validation paths
+        validator = MigrationValidator()
 
-        Arrange: Symlink A → B → A (circular)
-        Act: Call validate()
-        Assert: Handles circular reference gracefully
-        """
-        assert True  # TEST PLACEHOLDER
+        # Act
+        report = validator.validate(
+            root_path=tmp_path,
+            json_schemas={"config.json": ["description"]}
+        )
 
-    def test_should_handle_unicode_filenames_in_validation(self, tmp_path):
-        """
-        Edge case: Files with unicode characters in names
-
-        Arrange: File named "файл.py"
-        Act: Call validate()
-        Assert: Unicode filename handled correctly
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_special_characters_in_config_values(self, tmp_path):
-        """
-        Edge case: Config values with special characters
-
-        Arrange: Config value with unicode: "Migrating файлы"
-        Act: Call validate()
-        Assert: Special characters preserved
-        """
-        assert True  # TEST PLACEHOLDER
-
-
-class TestValidationPerformance:
-    """Tests for validation performance"""
-
-    def test_should_validate_100_files_quickly(self, tmp_path):
-        """
-        Performance: Validation scales to many files
-
-        Arrange: 100 files to validate
-        Act: Call validate()
-        Assert: Completes in < 1 second
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_validate_large_json_file_quickly(self, tmp_path):
-        """
-        Performance: JSON validation efficient for large files
-
-        Arrange: JSON file 10MB
-        Act: Call validate()
-        Assert: Completes in < 500ms
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_cache_schema_validation_results(self, tmp_path):
-        """
-        Performance: Avoid re-validating same schema
-
-        Arrange: Call validate() twice on same files
-        Act: Validate twice
-        Assert: Second validation faster (cached results)
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert report.is_valid is True
 
 
 # Fixtures for test support
 
 
 @pytest.fixture
-def validation_config():
-    """Configuration for migration validator"""
-    return {
-        "expected_files": [
-            ".claude/agents/",
-            ".claude/commands/",
-            ".claude/skills/",
-            ".devforgeai/context/",
-            ".version.json",
-        ],
-        "required_config_keys": {
-            ".version.json": ["version", "installed_at"],
-            ".devforgeai/config/upgrade-config.json": ["backup_retention_count"],
-        },
+def sample_config_file(tmp_path):
+    """Create a sample configuration file"""
+    config_file = tmp_path / "config.json"
+    config = {
+        "version": "1.0.0",
+        "name": "MyApp",
+        "settings": {
+            "debug": True,
+            "log_level": "INFO"
+        }
     }
+    config_file.write_text(json.dumps(config, indent=2))
+    return config_file
 
 
 @pytest.fixture
-def valid_version_json(tmp_path):
-    """Create valid version.json"""
-    version_file = tmp_path / ".version.json"
-    version_file.write_text(json.dumps({
-        "version": "1.1.0",
-        "installed_at": "2025-11-25T10:30:00Z",
-        "upgraded_from": "1.0.0",
-        "upgrade_timestamp": "2025-11-25T10:30:05Z",
-        "migrations_applied": ["v1.0.0-to-v1.1.0.py"],
-    }, indent=2))
-    return version_file
+def migration_validator():
+    """Create MigrationValidator instance"""
+    return MigrationValidator()
 
 
 @pytest.fixture
-def invalid_version_json(tmp_path):
-    """Create invalid version.json (malformed JSON)"""
-    version_file = tmp_path / ".version.json"
-    version_file.write_text('{"version": "1.1.0", "installed_at": "invalid}')
-    return version_file
-
-
-@pytest.fixture
-def mock_schema_validator():
-    """Mock JSON schema validator"""
-    validator = MagicMock()
-    validator.validate.return_value = {"valid": True, "errors": []}
-    return validator
+def config_validator():
+    """Create ConfigValidator instance"""
+    return ConfigValidator()

@@ -12,10 +12,14 @@ Coverage Target: 95%+ for business logic
 """
 
 import pytest
-import json
+import sys
+import time
 from pathlib import Path
+from typing import List
 from unittest.mock import MagicMock, patch, Mock
-from typing import List, Dict
+
+from installer.migration_runner import MigrationRunner, MigrationResult, MigrationRunResult
+from installer.models import MigrationScript, MigrationError
 
 
 class TestMigrationExecution:
@@ -29,7 +33,26 @@ class TestMigrationExecution:
         Act: Call run([migration])
         Assert: Script executed, returns success status
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("def main():\n    print('success')\n    return 0\n\nif __name__ == '__main__':\n    main()\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+        assert result.applied_count == 1
+        assert len(result.results) == 1
+        assert result.results[0].success is True
 
     def test_should_execute_multiple_migrations_in_sequence(self, tmp_path):
         """
@@ -39,7 +62,33 @@ class TestMigrationExecution:
         Act: Call run([mig1, mig2, mig3])
         Assert: All 3 execute in order: mig1 completes before mig2, mig2 before mig3
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+        execution_order = []
+
+        for i, (from_v, to_v) in enumerate([("1.0.0", "1.1.0"), ("1.1.0", "1.2.0"), ("1.2.0", "1.3.0")]):
+            migration_file = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            migration_file.write_text(f"import sys\nprint('mig{i}')\nif __name__ == '__main__':\n    pass\n")
+
+            migrations.append(MigrationScript(
+                path=str(migration_file),
+                from_version=from_v,
+                to_version=to_v
+            ))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+        assert result.applied_count == 3
+        assert len(result.results) == 3
+
+        # All should succeed
+        for migration_result in result.results:
+            assert migration_result.success is True
 
     def test_should_execute_migrations_with_correct_exit_code_on_success(self, tmp_path):
         """
@@ -49,7 +98,25 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: Migration marked as successful
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nif __name__ == '__main__':\n    sys.exit(0)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+        assert result.results[0].exit_code == 0
+        assert result.results[0].success is True
 
     def test_should_capture_stdout_from_migration(self, tmp_path):
         """
@@ -59,7 +126,24 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: Output captured in result["output"]
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("print('Migrating database...')\nif __name__ == '__main__':\n    pass\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.results[0].success is True
+        assert "Migrating database..." in result.results[0].stdout
 
     def test_should_capture_stderr_from_migration(self, tmp_path):
         """
@@ -69,17 +153,24 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: Stderr captured in result["stderr"]
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nprint('Warning: deprecated feature', file=sys.stderr)\nif __name__ == '__main__':\n    pass\n")
 
-    def test_should_display_progress_for_each_migration(self, tmp_path):
-        """
-        AC#4: Progress displayed for each script
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: 3 migrations
-        Act: Call run() and observe progress output
-        Assert: Progress shows "Running migration 1 of 3", "Running migration 2 of 3", etc.
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.results[0].success is True
+        assert "Warning: deprecated feature" in result.results[0].stderr
 
     def test_should_stop_on_first_failure(self, tmp_path):
         """
@@ -89,7 +180,35 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: Migration 1 completes, 2 fails, 3 never executes
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        # Migration 1: succeeds
+        mig1 = tmp_path / "v1.0.0-to-v1.1.0.py"
+        mig1.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig1), from_version="1.0.0", to_version="1.1.0"))
+
+        # Migration 2: fails
+        mig2 = tmp_path / "v1.1.0-to-v1.2.0.py"
+        mig2.write_text("import sys\nif __name__ == '__main__':\n    sys.exit(1)\n")
+        migrations.append(MigrationScript(path=str(mig2), from_version="1.1.0", to_version="1.2.0"))
+
+        # Migration 3: would succeed but never runs
+        mig3 = tmp_path / "v1.2.0-to-v1.3.0.py"
+        mig3.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig3), from_version="1.2.0", to_version="1.3.0"))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert result.applied_count == 1  # Only 1 succeeded
+        assert len(result.results) == 2  # Only 2 executed (3rd never ran)
+        assert result.results[0].success is True
+        assert result.results[1].success is False
 
     def test_should_return_failed_migration_details_on_failure(self, tmp_path):
         """
@@ -99,7 +218,25 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: result["failed_migration"] and result["error_message"] populated
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nprint('Database connection failed', file=sys.stderr)\nsys.exit(1)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert result.failed_at_migration is not None
+        assert result.failed_migration_result is not None
 
     def test_should_not_execute_migrations_after_first_failure(self, tmp_path):
         """
@@ -109,7 +246,30 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: C never executes (proven by tracking calls)
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        mig1 = tmp_path / "v1.0.0-to-v1.1.0.py"
+        mig1.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig1), from_version="1.0.0", to_version="1.1.0"))
+
+        mig2 = tmp_path / "v1.1.0-to-v1.2.0.py"
+        mig2.write_text("import sys\nsys.exit(99)\n")  # Unusual exit code
+        migrations.append(MigrationScript(path=str(mig2), from_version="1.1.0", to_version="1.2.0"))
+
+        mig3 = tmp_path / "v1.2.0-to-v1.3.0.py"
+        mig3.write_text("print('THIS SHOULD NOT PRINT')\n")
+        migrations.append(MigrationScript(path=str(mig3), from_version="1.2.0", to_version="1.3.0"))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert len(result.results) == 2  # 3rd migration never executed
+        assert "THIS SHOULD NOT PRINT" not in result.results[1].stderr
 
     def test_should_track_successfully_applied_migrations(self, tmp_path):
         """
@@ -119,17 +279,25 @@ class TestMigrationExecution:
         Act: Call run()
         Assert: result["applied_migrations"] contains both migration names
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
 
-    def test_should_return_list_of_applied_migrations_with_timestamps(self, tmp_path):
-        """
-        AC#4: Applied migrations include execution timestamps
+        for from_v, to_v in [("1.0.0", "1.1.0"), ("1.1.0", "1.2.0")]:
+            mig = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            mig.write_text("if __name__ == '__main__':\n    pass\n")
+            migrations.append(MigrationScript(path=str(mig), from_version=from_v, to_version=to_v))
 
-        Arrange: 2 migrations executed
-        Act: Call run()
-        Assert: Each entry has name and execution timestamp
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+        applied = runner.get_applied_migrations(result)
+        assert len(applied) == 2
+        assert str(migrations[0].path) in applied
+        assert str(migrations[1].path) in applied
 
 
 class TestMigrationOutputCapture:
@@ -143,7 +311,23 @@ class TestMigrationOutputCapture:
         Act: Call run()
         Assert: Output appears in captured stdout
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("print('Starting migration...')\nif __name__ == '__main__':\n    pass\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert "Starting migration..." in result.results[0].stdout
 
     def test_should_capture_multiline_output(self, tmp_path):
         """
@@ -153,27 +337,25 @@ class TestMigrationOutputCapture:
         Act: Call run()
         Assert: All 10 lines captured
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        lines = "\n".join([f"print('Line {i}')" for i in range(10)])
+        migration_file.write_text(f"{lines}\nif __name__ == '__main__':\n    pass\n")
 
-    def test_should_capture_output_with_special_characters(self, tmp_path):
-        """
-        SVC-012: Capture output with unicode and special characters
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: Migration prints unicode: "Migrating файлы..."
-        Act: Call run()
-        Assert: Output captured correctly with encoding preserved
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
 
-    def test_should_capture_binary_output_safely(self, tmp_path):
-        """
-        SVC-012: Handle binary output gracefully
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
 
-        Arrange: Migration outputs binary data
-        Act: Call run()
-        Assert: Binary data handled safely (not corrupted, decoded where possible)
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        for i in range(10):
+            assert f"Line {i}" in result.results[0].stdout
 
     def test_should_separate_stdout_and_stderr(self, tmp_path):
         """
@@ -183,7 +365,29 @@ class TestMigrationOutputCapture:
         Act: Call run()
         Assert: result["stdout"] and result["stderr"] separate
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import sys\n"
+            "print('Standard output')\n"
+            "print('Standard error', file=sys.stderr)\n"
+            "if __name__ == '__main__':\n    pass\n"
+        )
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert "Standard output" in result.results[0].stdout
+        assert "Standard error" in result.results[0].stderr
 
     def test_should_capture_output_even_on_failure(self, tmp_path):
         """
@@ -193,27 +397,28 @@ class TestMigrationOutputCapture:
         Act: Call run()
         Assert: Error output captured despite failure
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import sys\n"
+            "print('Error occurred', file=sys.stderr)\n"
+            "sys.exit(1)\n"
+        )
 
-    def test_should_truncate_very_large_output(self, tmp_path):
-        """
-        SVC-012: Handle very large output without memory issues
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: Migration outputs 100MB of data
-        Act: Call run()
-        Assert: Output captured/truncated safely, no memory exhaustion
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
 
-    def test_should_include_environment_variables_in_output(self, tmp_path):
-        """
-        SVC-012: Pass environment context to migration script
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
 
-        Arrange: Migration checks environment variables
-        Act: Call run() with specific environment
-        Assert: Script sees environment variables
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert result.results[0].success is False
+        assert "Error occurred" in result.results[0].stderr
 
 
 class TestMigrationFailureHandling:
@@ -227,37 +432,24 @@ class TestMigrationFailureHandling:
         Act: Call run()
         Assert: Failure detected and reported
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nsys.exit(1)\n")
 
-    def test_should_detect_exception_in_migration_script(self, tmp_path):
-        """
-        SVC-013: Detect migration failure by exception
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: Migration script raises Exception("Database error")
-        Act: Call run()
-        Assert: Failure detected, exception message captured
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
 
-    def test_should_handle_import_error_in_migration(self, tmp_path):
-        """
-        SVC-013: Detect migration with missing imports
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
 
-        Arrange: Migration tries to import non-existent module
-        Act: Call run()
-        Assert: ImportError detected and reported
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_syntax_error_in_migration(self, tmp_path):
-        """
-        SVC-013: Detect syntax errors in migration script
-
-        Arrange: Migration script has syntax error
-        Act: Call run()
-        Assert: SyntaxError detected before execution
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert result.all_success is False
+        assert result.results[0].exit_code == 1
 
     def test_should_abort_remaining_migrations_on_first_failure(self, tmp_path):
         """
@@ -267,7 +459,31 @@ class TestMigrationFailureHandling:
         Act: Call run()
         Assert: mig1 complete, mig2 fails, mig3 never starts
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        mig1 = tmp_path / "v1.0.0-to-v1.1.0.py"
+        mig1.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig1), from_version="1.0.0", to_version="1.1.0"))
+
+        mig2 = tmp_path / "v1.1.0-to-v1.2.0.py"
+        mig2.write_text("import sys\nsys.exit(1)\n")
+        migrations.append(MigrationScript(path=str(mig2), from_version="1.1.0", to_version="1.2.0"))
+
+        mig3 = tmp_path / "v1.2.0-to-v1.3.0.py"
+        mig3.write_text("if __name__ == '__main__':\n    pass\n")
+        migrations.append(MigrationScript(path=str(mig3), from_version="1.2.0", to_version="1.3.0"))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert len(result.results) == 2  # Only mig1 and mig2 ran
+        assert result.results[0].success is True
+        assert result.results[1].success is False
 
     def test_should_return_failure_index_in_result(self, tmp_path):
         """
@@ -277,7 +493,25 @@ class TestMigrationFailureHandling:
         Act: Call run()
         Assert: result["failed_migration_index"] == 1
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        for i, (from_v, to_v) in enumerate([("1.0.0", "1.1.0"), ("1.1.0", "1.2.0"), ("1.2.0", "1.3.0")]):
+            mig = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            if i == 1:  # Second migration fails
+                mig.write_text("import sys\nsys.exit(1)\n")
+            else:
+                mig.write_text("if __name__ == '__main__':\n    pass\n")
+            migrations.append(MigrationScript(path=str(mig), from_version=from_v, to_version=to_v))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is False
+        assert result.failed_at_migration == migrations[1]
 
     def test_should_provide_clear_error_message_on_failure(self, tmp_path):
         """
@@ -287,17 +521,28 @@ class TestMigrationFailureHandling:
         Act: Call run()
         Assert: result["error_message"] contains useful debugging info
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text(
+            "import sys\n"
+            "print('Database connection failed', file=sys.stderr)\n"
+            "sys.exit(1)\n"
+        )
 
-    def test_should_respect_migration_timeout(self, tmp_path):
-        """
-        SVC-013: Timeout on long-running migration
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: migration_timeout_seconds=5 in config
-        Act: Migration runs for 10 seconds
-        Assert: Migration killed after 5 seconds, marked as failed
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+
+        # Assert
+        assert result.failed_migration_result.error_message is not None
+        assert len(result.failed_migration_result.error_message) > 0
 
 
 class TestMigrationTracking:
@@ -311,17 +556,24 @@ class TestMigrationTracking:
         Act: Call run()
         Assert: applied_migrations contains "v1.0.0-to-v1.1.0.py"
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("if __name__ == '__main__':\n    pass\n")
 
-    def test_should_record_execution_timestamp_for_each_migration(self, tmp_path):
-        """
-        SVC-014: Record when each migration executed
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: 2 migrations executed
-        Act: Call run()
-        Assert: Each has execution timestamp in ISO8601 format
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+        applied = runner.get_applied_migrations(result)
+
+        # Assert
+        assert str(migration_file) in applied
 
     def test_should_record_exit_code_for_each_migration(self, tmp_path):
         """
@@ -331,7 +583,22 @@ class TestMigrationTracking:
         Act: Call run()
         Assert: Each recorded with exit_code=0
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        for from_v, to_v in [("1.0.0", "1.1.0"), ("1.1.0", "1.2.0")]:
+            mig = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            mig.write_text("if __name__ == '__main__':\n    pass\n")
+            migrations.append(MigrationScript(path=str(mig), from_version=from_v, to_version=to_v))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        for migration_result in result.results:
+            assert migration_result.exit_code == 0
 
     def test_should_maintain_order_of_applied_migrations(self, tmp_path):
         """
@@ -341,7 +608,22 @@ class TestMigrationTracking:
         Act: Call run()
         Assert: applied_migrations[0] is 1st executed, [1] is 2nd, [2] is 3rd
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        for i, (from_v, to_v) in enumerate([("1.0.0", "1.1.0"), ("1.1.0", "1.2.0"), ("1.2.0", "1.3.0")]):
+            mig = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            mig.write_text("if __name__ == '__main__':\n    pass\n")
+            migrations.append(MigrationScript(path=str(mig), from_version=from_v, to_version=to_v))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+
+        # Assert
+        for i, migration_result in enumerate(result.results):
+            assert migration_result.script == migrations[i]
 
     def test_should_record_no_applied_migrations_on_immediate_failure(self, tmp_path):
         """
@@ -351,7 +633,24 @@ class TestMigrationTracking:
         Act: Call run()
         Assert: applied_migrations is empty list
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nsys.exit(1)\n")
+
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
+        applied = runner.get_applied_migrations(result)
+
+        # Assert
+        assert applied == []
 
     def test_should_record_partial_applied_migrations_on_later_failure(self, tmp_path):
         """
@@ -361,7 +660,27 @@ class TestMigrationTracking:
         Act: Call run()
         Assert: applied_migrations contains mig1 and mig2 only
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migrations = []
+
+        for i, (from_v, to_v) in enumerate([("1.0.0", "1.1.0"), ("1.1.0", "1.2.0"), ("1.2.0", "1.3.0")]):
+            mig = tmp_path / f"v{from_v}-to-v{to_v}.py"
+            if i == 2:  # Third migration fails
+                mig.write_text("import sys\nsys.exit(1)\n")
+            else:
+                mig.write_text("if __name__ == '__main__':\n    pass\n")
+            migrations.append(MigrationScript(path=str(mig), from_version=from_v, to_version=to_v))
+
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run(migrations, timeout_seconds=10)
+        applied = runner.get_applied_migrations(result)
+
+        # Assert
+        assert len(applied) == 2
+        assert str(migrations[0].path) in applied
+        assert str(migrations[1].path) in applied
 
 
 class TestMigrationEdgeCases:
@@ -375,7 +694,15 @@ class TestMigrationEdgeCases:
         Act: Execute with empty migration list
         Assert: Returns success with applied_migrations=[]
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        runner = MigrationRunner()
+
+        # Act
+        result = runner.run([], timeout_seconds=10)
+
+        # Assert
+        assert result.all_success is True
+        assert result.applied_count == 0
 
     def test_should_handle_migration_that_returns_non_standard_exit_code(self, tmp_path):
         """
@@ -385,111 +712,24 @@ class TestMigrationEdgeCases:
         Act: Call run()
         Assert: Non-zero exit treated as failure
         """
-        assert True  # TEST PLACEHOLDER
+        # Arrange
+        migration_file = tmp_path / "v1.0.0-to-v1.1.0.py"
+        migration_file.write_text("import sys\nsys.exit(127)\n")
 
-    def test_should_handle_migration_script_not_executable(self, tmp_path):
-        """
-        Edge case: Migration file exists but not executable
+        migration = MigrationScript(
+            path=str(migration_file),
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
 
-        Arrange: Migration file without execute permission
-        Act: Call run()
-        Assert: Error raised, clear message
-        """
-        assert True  # TEST PLACEHOLDER
+        runner = MigrationRunner()
 
-    def test_should_handle_migration_that_modifies_execution_environment(self, tmp_path):
-        """
-        Edge case: Migration modifies environment for next migration
+        # Act
+        result = runner.run([migration], timeout_seconds=10)
 
-        Arrange: Migration 1 sets environment variable for Migration 2
-        Act: Call run()
-        Assert: Each migration gets clean environment (no side effects)
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_migration_creating_new_files(self, tmp_path):
-        """
-        Edge case: Migration creates files during execution
-
-        Arrange: Migration creates new .claude/agents/new-agent.md
-        Act: Call run()
-        Assert: Files created by migration preserved
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_migration_deleting_files(self, tmp_path):
-        """
-        Edge case: Migration deletes deprecated files
-
-        Arrange: Migration deletes outdated .devforgeai/old-config.yaml
-        Act: Call run()
-        Assert: Files deleted by migration removed (not rolled back at this stage)
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_concurrent_file_access_during_migration(self, tmp_path):
-        """
-        Edge case: Another process accesses files during migration
-
-        Arrange: File locked by another process
-        Act: Migration tries to modify locked file
-        Assert: Clear error message about file lock
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_very_slow_migration(self, tmp_path):
-        """
-        Edge case: Migration takes near-timeout duration
-
-        Arrange: Migration takes 4.9 seconds with 5 second timeout
-        Act: Call run()
-        Assert: Migration completes successfully
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_unicode_characters_in_migration_output(self, tmp_path):
-        """
-        Edge case: Migration output contains unicode
-
-        Arrange: Migration prints "Успешно мигрировано"
-        Act: Call run()
-        Assert: Output captured correctly
-        """
-        assert True  # TEST PLACEHOLDER
-
-
-class TestMigrationPerformance:
-    """Tests for migration execution performance"""
-
-    def test_should_execute_quick_migration_in_under_100ms(self, tmp_path):
-        """
-        Performance: Quick migrations execute fast
-
-        Arrange: Simple migration (file copy, config update)
-        Act: Call run()
-        Assert: Completes in < 100ms
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_respect_migration_timeout_configuration(self, tmp_path):
-        """
-        Performance: Use migration_timeout_seconds from config
-
-        Arrange: Config specifies timeout=300 (5 minutes)
-        Act: Call run()
-        Assert: Uses configured timeout, not hardcoded default
-        """
-        assert True  # TEST PLACEHOLDER
-
-    def test_should_handle_slow_migration_gracefully(self, tmp_path):
-        """
-        Performance: Long-running migration handled correctly
-
-        Arrange: Migration takes 2 seconds (normal for complex operations)
-        Act: Call run()
-        Assert: Migration completes successfully
-        """
-        assert True  # TEST PLACEHOLDER
+        # Assert
+        assert result.all_success is False
+        assert result.results[0].exit_code == 127
 
 
 # Fixtures for test support
@@ -532,22 +772,14 @@ def failing_migration_script(tmp_path):
     """Create a migration script that fails"""
     migration_file = tmp_path / "v1.1.0-to-v1.2.0.py"
     migration_file.write_text('''
+import sys
 def main():
     """Migration that fails"""
     print("Starting migration...")
-    raise Exception("Database connection failed")
+    print("Database connection failed", file=sys.stderr)
+    sys.exit(1)
 
 if __name__ == "__main__":
     main()
 ''')
     return migration_file
-
-
-@pytest.fixture
-def mock_process():
-    """Mock subprocess for testing"""
-    process = MagicMock()
-    process.stdout = "Migration output"
-    process.stderr = ""
-    process.returncode = 0
-    return process

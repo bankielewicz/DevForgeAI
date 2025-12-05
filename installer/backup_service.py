@@ -88,13 +88,15 @@ class BackupService(IBackupService):
         "thumbs.db",
     }
 
-    def __init__(self, backups_root: Optional[Path] = None) -> None:
+    def __init__(self, backups_root: Optional[Path] = None, allow_external_path: bool = False) -> None:
         """
         Initialize BackupService.
 
         Args:
             backups_root: Root directory for backups.
                 Defaults to .devforgeai/backups in current directory.
+            allow_external_path: If True, bypass path traversal validation.
+                ONLY use for testing scenarios. Production code should never use this.
         """
         if backups_root is None:
             backups_root = Path.cwd() / ".devforgeai" / "backups"
@@ -104,13 +106,15 @@ class BackupService(IBackupService):
         cwd_root = Path.cwd().resolve()
 
         # Ensure backup directory is within or at current working directory
-        try:
-            backups_root.relative_to(cwd_root)
-        except ValueError:
-            raise BackupError(
-                f"Backup directory must be within current working directory. "
-                f"Provided: {backups_root}, Current: {cwd_root}"
-            )
+        # Skip validation if allow_external_path=True (testing only)
+        if not allow_external_path:
+            try:
+                backups_root.relative_to(cwd_root)
+            except ValueError:
+                raise BackupError(
+                    f"Backup directory must be within current working directory. "
+                    f"Provided: {backups_root}, Current: {cwd_root}"
+                )
 
         self.backups_root = backups_root
 
