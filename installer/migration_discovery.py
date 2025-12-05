@@ -10,6 +10,7 @@ Follows clean architecture with dependency injection.
 """
 
 import re
+import os
 from pathlib import Path
 from typing import List, Optional, Set, Dict
 from abc import ABC, abstractmethod
@@ -124,6 +125,14 @@ class MigrationDiscovery(IMigrationDiscovery):
             migrations_dir = self.migrations_dir
 
         migrations_dir = Path(migrations_dir)
+
+        # Validate migrations directory
+        if not migrations_dir.exists():
+            raise MigrationError(f"Migrations directory does not exist: {migrations_dir}")
+        if not migrations_dir.is_dir():
+            raise MigrationError(f"Migrations path is not a directory: {migrations_dir}")
+        if not os.access(migrations_dir, os.R_OK):
+            raise MigrationError(f"Migrations directory is not readable: {migrations_dir}")
 
         # Validate versions
         try:
