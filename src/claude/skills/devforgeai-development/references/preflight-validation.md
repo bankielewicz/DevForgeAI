@@ -978,6 +978,116 @@ ELSE:
 
 ---
 
+## Step 0.8.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
+
+**Purpose:** Parse machine-readable gap data for targeted remediation workflow.
+
+**When to execute:** After Step 0.8 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
+
+```
+# Check if structured gap export exists
+gaps_file = ".devforgeai/qa/reports/${STORY_ID}-gaps.json"
+
+Glob(pattern=gaps_file)
+
+IF gaps_file EXISTS:
+    Display: ""
+    Display: "╔═══════════════════════════════════════════════════════════════╗"
+    Display: "║  📊 STRUCTURED GAP DATA DETECTED                              ║"
+    Display: "╠═══════════════════════════════════════════════════════════════╣"
+    Display: "║                                                               ║"
+    Display: "║  QA-Dev Integration: ACTIVE                                   ║"
+    Display: "║  Gap file: {gaps_file}                                        ║"
+    Display: "║                                                               ║"
+    Display: "║  Development will enter REMEDIATION MODE:                     ║"
+    Display: "║  • Targeted test generation for specific gaps                 ║"
+    Display: "║  • Focus on coverage failures by file                         ║"
+    Display: "║  • Suggested tests provided                                   ║"
+    Display: "║                                                               ║"
+    Display: "╚═══════════════════════════════════════════════════════════════╝"
+    Display: ""
+
+    # Read and parse gaps.json
+    Read(file_path=gaps_file)
+    gaps_data = parse_json(file_content)
+
+    # Build $QA_COVERAGE_GAPS array for Phase 1 consumption
+    $QA_COVERAGE_GAPS = []
+
+    FOR EACH gap in gaps_data.coverage_gaps:
+        gap_entry = {
+            "file": gap.file,
+            "layer": gap.layer,
+            "current_coverage": gap.current_coverage,
+            "target_coverage": gap.target_coverage,
+            "gap_percentage": gap.gap_percentage,
+            "uncovered_line_count": gap.uncovered_line_count,
+            "suggested_tests": gap.suggested_tests
+        }
+        $QA_COVERAGE_GAPS.append(gap_entry)
+
+    # Build $QA_ANTIPATTERN_GAPS for Phase 3 consumption
+    $QA_ANTIPATTERN_GAPS = gaps_data.anti_pattern_violations
+
+    # Build $QA_DEFERRAL_GAPS for Phase 4.5 consumption
+    $QA_DEFERRAL_GAPS = gaps_data.deferral_issues
+
+    # Display summary
+    Display: "Gap Summary:"
+    Display: ""
+
+    IF $QA_COVERAGE_GAPS.count > 0:
+        Display: "📉 Coverage Gaps: {$QA_COVERAGE_GAPS.count} files below threshold"
+        FOR EACH gap in $QA_COVERAGE_GAPS:
+            Display: "   • {gap.file}: {gap.current_coverage}% → need {gap.target_coverage}% (gap: {gap.gap_percentage}%)"
+            Display: "     Suggested tests:"
+            FOR EACH test in gap.suggested_tests:
+                Display: "       - {test}"
+        Display: ""
+
+    IF $QA_ANTIPATTERN_GAPS.count > 0:
+        Display: "⚠️  Anti-Pattern Violations: {$QA_ANTIPATTERN_GAPS.count} issues to resolve"
+        FOR EACH violation in $QA_ANTIPATTERN_GAPS:
+            Display: "   • {violation.file}:{violation.line} - {violation.type} ({violation.severity})"
+        Display: ""
+
+    IF $QA_DEFERRAL_GAPS.count > 0:
+        Display: "📋 Deferral Issues: {$QA_DEFERRAL_GAPS.count} items need resolution"
+        FOR EACH deferral in $QA_DEFERRAL_GAPS:
+            Display: "   • {deferral.item}: {deferral.violation_type}"
+        Display: ""
+
+    # Set remediation mode flag
+    $REMEDIATION_MODE = true
+    Display: "✅ Remediation mode enabled - see qa-remediation-workflow.md for targeted workflow"
+    Display: ""
+
+ELSE:
+    # No gaps.json - use legacy markdown parsing (Step 0.8 results)
+    Display: "ℹ️  No structured gap data (gaps.json) found"
+    Display: "   Using legacy QA report parsing for failure context"
+    Display: "   (To enable targeted remediation, re-run /qa {STORY_ID})"
+    Display: ""
+    $REMEDIATION_MODE = false
+```
+
+**Token cost:** ~800 tokens (Glob + Read + JSON parse + display)
+
+**Variables set for Phases 1-5:**
+- `$QA_COVERAGE_GAPS` - Array of coverage gap objects with file:line targets
+- `$QA_ANTIPATTERN_GAPS` - Array of anti-pattern violations with remediation
+- `$QA_DEFERRAL_GAPS` - Array of deferral issues with required actions
+- `$REMEDIATION_MODE` - Boolean flag for targeted workflow
+
+**Use in subsequent phases:**
+- Phase 1: Pass `$QA_COVERAGE_GAPS` to test-automator for targeted test generation
+- Phase 3: Pass `$QA_ANTIPATTERN_GAPS` to refactoring-specialist for targeted fixes
+- Phase 4.5: Pre-load `$QA_DEFERRAL_GAPS` for deferral resolution
+
+**See also:** `qa-remediation-workflow.md` for detailed remediation mode workflow
+
+---
+
 ## ✅ PHASE 0 COMPLETION CHECKPOINT
 
 **Before proceeding to Phase 1 (Test-First Design), verify ALL pre-flight validations passed:**
@@ -994,6 +1104,7 @@ ELSE:
 - [ ] **Step 0.6:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
 - [ ] **Step 0.7:** tech-stack-detector invoked, technologies validated
 - [ ] **Step 0.8:** Previous QA failures detected (recovery mode if needed)
+- [ ] **Step 0.8.5:** Structured gap data loaded (if gaps.json exists)
 
 ### Variables Set for Phases 1-5
 
@@ -1004,6 +1115,10 @@ ELSE:
 - [ ] `$TEST_COVERAGE_COMMAND` = (with coverage flags)
 - [ ] `$BUILD_COMMAND` = (language-specific build command)
 - [ ] `$QA_*_FAILURE` = Boolean flags (if QA failure detected)
+- [ ] `$REMEDIATION_MODE` = true/false (if gaps.json loaded)
+- [ ] `$QA_COVERAGE_GAPS` = Array (if gaps.json has coverage gaps)
+- [ ] `$QA_ANTIPATTERN_GAPS` = Array (if gaps.json has anti-patterns)
+- [ ] `$QA_DEFERRAL_GAPS` = Array (if gaps.json has deferrals)
 
 ### Success Criteria
 

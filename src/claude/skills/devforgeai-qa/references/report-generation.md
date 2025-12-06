@@ -364,6 +364,210 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 
 ---
 
+## Step 3.5: Generate Structured Gap Export (gaps.json)
+
+**Purpose:** Create machine-readable JSON export for `/dev` remediation workflow.
+
+**When to generate:** ONLY when `overall_status == "FAIL"` (QA failures need targeted remediation)
+
+### Generate gaps.json
+
+```
+IF overall_status == "FAIL":
+
+    gaps_data = {
+        "story_id": story_id,
+        "qa_result": "FAILED",
+        "generated_at": timestamp,
+        "qa_report_file": ".devforgeai/qa/reports/{story_id}-qa-report.md",
+
+        "coverage_gaps": [],
+        "anti_pattern_violations": [],
+        "deferral_issues": []
+    }
+
+    # Extract coverage gaps with actionable details
+    FOR EACH file in coverage_gaps:
+        gap_entry = {
+            "file": file.path,
+            "layer": file.layer,  # "business_logic", "application", "infrastructure"
+            "current_coverage": file.coverage_percentage,
+            "target_coverage": layer_threshold(file.layer),  # 95/85/80
+            "gap_percentage": target_coverage - current_coverage,
+            "uncovered_line_count": file.uncovered_lines.count,
+            "suggested_tests": generate_test_suggestions(file)
+        }
+        gaps_data.coverage_gaps.append(gap_entry)
+
+    # Extract anti-pattern violations (CRITICAL and HIGH only - blocking)
+    FOR EACH violation in (critical_violations + high_violations):
+        violation_entry = {
+            "file": violation.file,
+            "line": violation.line,
+            "type": violation.type,
+            "severity": violation.severity,
+            "message": violation.message,
+            "remediation": violation.remediation
+        }
+        gaps_data.anti_pattern_violations.append(violation_entry)
+
+    # Extract deferral issues
+    FOR EACH deferral in deferral_validation_results.violations:
+        deferral_entry = {
+            "item": deferral.item,
+            "violation_type": deferral.type,
+            "severity": deferral.severity,
+            "current_reason": deferral.reason,
+            "issue": deferral.message,
+            "remediation": deferral.required_action
+        }
+        gaps_data.deferral_issues.append(deferral_entry)
+
+    # Write structured gap export
+    Write(file_path=".devforgeai/qa/reports/{story_id}-gaps.json",
+          content=json.dumps(gaps_data, indent=2))
+```
+
+### gaps.json Schema
+
+```json
+{
+  "story_id": "STORY-078",
+  "qa_result": "FAILED",
+  "generated_at": "2025-12-06T08:30:00Z",
+  "qa_report_file": ".devforgeai/qa/reports/STORY-078-qa-report.md",
+
+  "coverage_gaps": [
+    {
+      "file": "installer/rollback.py",
+      "layer": "business_logic",
+      "current_coverage": 63.6,
+      "target_coverage": 95.0,
+      "gap_percentage": 31.4,
+      "uncovered_line_count": 56,
+      "suggested_tests": [
+        "Test rollback on corrupted backup file",
+        "Test rollback when target directory is read-only",
+        "Test partial rollback recovery after interruption",
+        "Test rollback error handling for missing backup"
+      ]
+    }
+  ],
+
+  "anti_pattern_violations": [
+    {
+      "file": "src/service.py",
+      "line": 45,
+      "type": "God Object",
+      "severity": "HIGH",
+      "message": "Class exceeds 500 lines with 15 responsibilities",
+      "remediation": "Extract responsibilities into separate classes"
+    }
+  ],
+
+  "deferral_issues": [
+    {
+      "item": "Integration tests for external API",
+      "violation_type": "MISSING_ADR",
+      "severity": "HIGH",
+      "current_reason": "External API not available",
+      "issue": "No ADR documenting this decision",
+      "remediation": "Create ADR-XXX documenting external API blocker"
+    }
+  ]
+}
+```
+
+### Test Suggestion Generation
+
+```
+FUNCTION generate_test_suggestions(file):
+    suggestions = []
+
+    # Analyze uncovered code patterns
+    FOR EACH uncovered_block in file.uncovered_blocks:
+        IF uncovered_block.type == "error_handler":
+            suggestions.append(f"Test error handling in {uncovered_block.function}")
+        IF uncovered_block.type == "conditional_branch":
+            suggestions.append(f"Test {uncovered_block.condition} branch in {uncovered_block.function}")
+        IF uncovered_block.type == "edge_case":
+            suggestions.append(f"Test edge case: {uncovered_block.description}")
+
+    # Add layer-specific suggestions
+    IF file.layer == "business_logic":
+        suggestions.append("Add unit tests for business rule validation")
+    IF file.layer == "application":
+        suggestions.append("Add integration tests for service orchestration")
+    IF file.layer == "infrastructure":
+        suggestions.append("Add tests for external system interaction")
+
+    RETURN suggestions[:4]  # Return top 4 suggestions (natural language)
+```
+
+**Rationale:** Natural language test descriptions are optimal for Claude - they give scenario intent without forcing naming conventions.
+
+### gaps.json Lifecycle
+
+```
+QA FAILED:
+  → Create: .devforgeai/qa/reports/{story_id}-gaps.json
+
+/dev REMEDIATION:
+  → Read: .devforgeai/qa/reports/{story_id}-gaps.json
+  → Enter remediation mode, target specific gaps
+  → Fix issues with targeted test generation
+
+QA RE-RUN:
+  IF overall_status == "PASS":
+    → Move gaps.json to resolved archive
+    → Update story Implementation Notes with resolution reference
+  ELSE:
+    → Overwrite gaps.json with new gap data
+```
+
+---
+
+## Step 3.6: Archive Resolved Gaps (QA PASS)
+
+**Purpose:** Move gaps.json to resolved archive when QA passes after previous failure.
+
+```
+IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
+
+    # Check if gaps.json exists from previous failed QA
+    gaps_file = ".devforgeai/qa/reports/{story_id}-gaps.json"
+
+    Glob(pattern=gaps_file)
+
+    IF gaps_file EXISTS:
+        # Move to resolved archive
+        Read(file_path=gaps_file)
+        gaps_content = file_content
+
+        Write(file_path=".devforgeai/qa/resolved/{story_id}-gaps.json",
+              content=gaps_content)
+
+        # Delete original gaps file
+        Bash(command="rm {gaps_file}")
+
+        # Update story Implementation Notes
+        implementation_notes_update = """
+### Coverage Gap Resolution
+
+**Date:** {timestamp}
+**Resolution file:** `.devforgeai/qa/resolved/{story_id}-gaps.json`
+
+Coverage gaps from previous QA failure have been resolved via QA-Dev integration workflow.
+"""
+
+        # Append to story Implementation Notes section
+        Edit(story file to add implementation_notes_update to Implementation Notes)
+```
+
+**Result:** Clean state after QA passes, audit trail preserved in resolved/ folder.
+
+---
+
 ## Step 4: Update Story Status
 
 **Edit story YAML frontmatter:**

@@ -309,7 +309,9 @@ DevForgeAI2/
 │   ├── qa/                      # QA validation configuration
 │   │   ├── coverage-thresholds.md
 │   │   ├── quality-metrics.md
-│   │   └── reports/             # Per-story QA reports (generated)
+│   │   ├── reports/             # Per-story QA reports (generated)
+│   │   │   └── {STORY-ID}-gaps.json  # Structured gap export for /dev consumption
+│   │   └── resolved/            # Archived gap files after successful remediation
 │   │
 │   ├── feedback/                # Feedback system data
 │   │   ├── sessions/            # Individual feedback sessions
@@ -339,7 +341,9 @@ DevForgeAI2/
 │   │   ├── protocols/           # Framework protocols
 │   │   ├── specs/               # Specification templates
 │   │   ├── templates/           # Document templates
-│   │   └── feedback/            # Feedback system templates
+│   │   ├── feedback/            # Feedback system templates
+│   │   └── qa/                  # QA configuration (distribution)
+│   │       └── resolved/        # Template for resolved gaps archive
 │   │
 │   ├── scripts/                 # Installer scripts
 │   │   ├── install.sh           # Main installer
