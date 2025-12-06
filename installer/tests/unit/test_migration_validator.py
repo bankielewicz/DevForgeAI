@@ -942,3 +942,327 @@ class TestMigrationValidatorEdgeCases:
             # Assert
             assert result.passed is False
             assert "permission" in result.error.lower()
+
+
+# ============================================================================
+# Test Class: Config Key Validation Errors (Coverage: Lines 399-400, 428, 534-536)
+# ============================================================================
+
+class TestConfigKeyValidationErrors:
+    """Test error handling in config key validation (Coverage gap tests)."""
+
+    def test_validate_config_keys_file_not_found(self, project_root):
+        """
+        Coverage: Lines 399-400 - FileNotFoundError exception handling.
+
+        Given: Config file does not exist
+        When: validate_config_keys() is called
+        Then: Returns passed=False with all keys marked as missing
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+        nonexistent_file = project_root / "nonexistent_config.json"
+        required_keys = ["version", "schema_version", "installed_at"]
+
+        # Act
+        result = validator.validate_config_keys(
+            file_path=nonexistent_file,
+            required_keys=required_keys
+        )
+
+        # Assert
+        assert result.passed is False
+        assert len(result.missing_keys) == 3
+        assert "version" in result.missing_keys
+        assert "schema_version" in result.missing_keys
+        assert "installed_at" in result.missing_keys
+
+    def test_validate_config_keys_permission_denied(self, project_root):
+        """
+        Coverage: Lines 399-400 - PermissionError exception handling.
+
+        Given: Config file exists but read permission denied
+        When: validate_config_keys() is called
+        Then: Returns passed=False with all keys marked as missing
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+        config_file = project_root / "config.json"
+        config_file.write_text('{"version": "1.0.0"}')
+        required_keys = ["version", "schema_version"]
+
+        # Act - Mock Path.read_text to raise PermissionError
+        with patch.object(Path, 'read_text', side_effect=PermissionError("Permission denied")):
+            result = validator.validate_config_keys(
+                file_path=config_file,
+                required_keys=required_keys
+            )
+
+        # Assert
+        assert result.passed is False
+        assert len(result.missing_keys) == 2
+
+    def test_validate_config_keys_corrupt_json(self, project_root):
+        """
+        Coverage: Lines 399-400 - JSONDecodeError exception handling.
+
+        Given: Config file contains invalid JSON syntax
+        When: validate_config_keys() is called
+        Then: Returns passed=False with all keys marked as missing
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+        config_file = project_root / "config.json"
+        config_file.write_text('{invalid json content: }}}')
+        required_keys = ["version", "database.host"]
+
+        # Act
+        result = validator.validate_config_keys(
+            file_path=config_file,
+            required_keys=required_keys
+        )
+
+        # Assert
+        assert result.passed is False
+        assert len(result.missing_keys) == 2
+        assert "version" in result.missing_keys
+        assert "database.host" in result.missing_keys
+
+    def test_validate_nested_key_with_non_dict_parent(self, project_root):
+        """
+        Coverage: Line 428 - Nested key not found when parent is not a dict.
+
+        Given: Config has "database" as a string (not a dict)
+        When: validate_config_keys() with "database.host" is called
+        Then: Returns passed=False, "database.host" marked as missing
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+        config_file = project_root / "config.json"
+        config_file.write_text(json.dumps({
+            "database": "connection_string",  # String, not dict
+            "version": "1.0.0"
+        }))
+        required_keys = ["version", "database.host"]
+
+        # Act
+        result = validator.validate_config_keys(
+            file_path=config_file,
+            required_keys=required_keys
+        )
+
+        # Assert
+        assert result.passed is False
+        assert "database.host" in result.missing_keys
+        assert "version" not in result.missing_keys
+
+    def test_validate_nested_key_with_missing_intermediate(self, project_root):
+        """
+        Coverage: Line 428 - 3-level nesting with middle level missing.
+
+        Given: Config has structure where middle key "settings" does not exist
+        When: validate_config_keys() with "app.settings.timeout" is called
+        Then: Returns passed=False, nested key marked as missing
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+        config_file = project_root / "config.json"
+        config_file.write_text(json.dumps({
+            "app": {
+                "name": "TestApp"
+                # Missing: "settings" key
+            },
+            "version": "1.0.0"
+        }))
+        required_keys = ["version", "app.settings.timeout"]
+
+        # Act
+        result = validator.validate_config_keys(
+            file_path=config_file,
+            required_keys=required_keys
+        )
+
+        # Assert
+        assert result.passed is False
+        assert "app.settings.timeout" in result.missing_keys
+        assert "version" not in result.missing_keys
+
+    def test_validate_multiple_config_files_with_failures(self, project_root):
+        """
+        Coverage: Lines 534-536 - Batch validation records failures correctly.
+
+        Given: Multiple config files, some with missing keys
+        When: validate() is called with config_keys dict
+        Then: Report correctly records passed/failed files and missing keys
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+
+        # Create valid config file
+        valid_config = project_root / "valid.json"
+        valid_config.write_text(json.dumps({
+            "version": "1.0.0",
+            "schema_version": "1.0"
+        }))
+
+        # Create invalid config file (missing required key)
+        invalid_config = project_root / "invalid.json"
+        invalid_config.write_text(json.dumps({
+            "version": "1.0.0"
+            # Missing: schema_version
+        }))
+
+        # Create nonexistent config reference
+        config_keys = {
+            "valid.json": ["version", "schema_version"],
+            "invalid.json": ["version", "schema_version"],
+            "nonexistent.json": ["version"]  # File does not exist
+        }
+
+        # Act
+        result = validator.validate(
+            project_root=project_root,
+            config_keys=config_keys
+        )
+
+        # Assert
+        assert result.config_keys.all_passed is False
+        assert "valid.json" in result.config_keys.passed
+        assert "invalid.json" in result.config_keys.failed
+        assert "nonexistent.json" in result.config_keys.failed
+        assert "schema_version" in result.config_keys.missing_keys.get("invalid.json", [])
+        assert "version" in result.config_keys.missing_keys.get("nonexistent.json", [])
+
+
+# ============================================================================
+# Test Class: Logging and Properties (Coverage: Lines 161, 257-258)
+# ============================================================================
+
+class TestLoggingAndProperties:
+    """Test logging behavior and property accessors (Coverage gap tests)."""
+
+    def test_config_key_validation_failure_logging(self, project_root):
+        """
+        Coverage: Lines 257-258 - Logger called on config key validation failure.
+
+        Given: Config validation fails due to missing keys
+        When: validate() completes
+        Then: Logger.log_info() called with config key failure summary
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        mock_logger = Mock()
+        validator = MigrationValidator(logger=mock_logger)
+
+        # Create config with missing keys
+        config_file = project_root / "config.json"
+        config_file.write_text(json.dumps({"version": "1.0.0"}))
+
+        config_keys = {
+            "config.json": ["version", "missing_key"]
+        }
+
+        # Act
+        validator.validate(
+            project_root=project_root,
+            config_keys=config_keys
+        )
+
+        # Assert - Logger should be called for config validation failure
+        calls = [str(call) for call in mock_logger.log_info.call_args_list]
+        config_validation_logged = any("Config key validation" in str(call) for call in calls)
+        assert config_validation_logged, f"Expected config key validation log, got: {calls}"
+
+    def test_logger_property_backward_compatibility(self):
+        """
+        Coverage: Line 161 - Logger property getter returns internal logger.
+
+        Given: MigrationValidator initialized with a logger
+        When: validator.logger property is accessed
+        Then: Returns the same logger instance (backward compatibility)
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        mock_logger = Mock()
+        mock_logger.log_info = Mock()
+
+        # Act
+        validator = MigrationValidator(logger=mock_logger)
+        retrieved_logger = validator.logger
+
+        # Assert
+        assert retrieved_logger is mock_logger
+        assert retrieved_logger is validator._logger
+
+
+# ============================================================================
+# Test Class: YAML Fallback Validation (Coverage: Lines 31-32, 342, 356-371)
+# ============================================================================
+
+class TestYAMLFallbackValidation:
+    """Test YAML validation without PyYAML library (Coverage gap tests)."""
+
+    def test_validate_yaml_without_pyyaml_library(self, project_root):
+        """
+        Coverage: Lines 31-32, 342 - YAML validation when PyYAML unavailable.
+
+        Given: PyYAML is not available (YAML_AVAILABLE=False)
+        When: validate_schema() is called for YAML file
+        Then: Falls back to basic YAML validator (_validate_yaml_basic)
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+
+        yaml_file = project_root / "config.yaml"
+        yaml_file.write_text("key: value\nlist:\n  - item1\n  - item2\n")
+
+        # Act - Mock YAML_AVAILABLE to simulate PyYAML not installed
+        with patch('installer.migration_validator.YAML_AVAILABLE', False):
+            result = validator.validate_schema(file_path=yaml_file, file_type="yaml")
+
+        # Assert
+        assert result.passed is True
+
+    def test_basic_yaml_validator_detects_indentation_errors(self, project_root):
+        """
+        Coverage: Lines 356-371 - Basic YAML validator detects indentation errors.
+
+        Given: YAML file with excessive indentation after non-block line
+        When: _validate_yaml_basic() is called (via YAML_AVAILABLE=False)
+        Then: Raises ValueError for indentation error
+        """
+        # Arrange
+        from installer.migration_validator import MigrationValidator
+
+        validator = MigrationValidator(logger=Mock())
+
+        # Create YAML with indentation error:
+        # Line 1: "key: value" (not ending with colon, indent=0)
+        # Line 2: "      nested: bad" (indent=6, which is >2 more than previous)
+        yaml_file = project_root / "bad_indent.yaml"
+        yaml_file.write_text("key: value\n      nested: bad\n")
+
+        # Act - Mock YAML_AVAILABLE to force use of basic validator
+        with patch('installer.migration_validator.YAML_AVAILABLE', False):
+            result = validator.validate_schema(file_path=yaml_file, file_type="yaml")
+
+        # Assert
+        assert result.passed is False
+        assert result.error is not None
+        assert "indent" in result.error.lower() or "error" in result.error.lower()
