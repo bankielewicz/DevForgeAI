@@ -3,12 +3,12 @@ id: STORY-078
 title: Upgrade Mode with Migration Scripts
 epic: EPIC-014
 sprint: Backlog
-status: QA Failed
+status: Dev Complete
 points: 13
 priority: Medium
 assigned_to: Unassigned
 created: 2025-11-25
-updated: 2025-12-05 (Coverage 96%, 2 modules at 94% - 1% gap remaining)
+updated: 2025-12-05 (Coverage 97%, all modules ≥95% - Quality gate PASSED)
 format_version: "2.1"
 ---
 
@@ -675,8 +675,8 @@ None - uses existing Python standard library.
 ## Workflow Status
 
 - [x] Architecture phase complete
-- [x] Development phase complete (260 tests, 96% coverage overall)
-- [ ] QA phase complete (FAILED - 2 modules at 94% vs 95% required threshold)
+- [x] Development phase complete (261 tests, 97% coverage, all modules ≥95%)
+- [ ] QA phase complete (ready for validation)
 - [ ] Released
 
 ## Implementation Notes
@@ -684,14 +684,14 @@ None - uses existing Python standard library.
 **Implementation Date:** 2025-12-05
 **Updated:** 2025-12-05 (Dev Complete - All TDD Phases Executed)
 **TDD Phases Completed:** Phase 0-7 (Pre-Flight → Result Interpretation)
-**Test Results:** 260 STORY-078 tests passed (100% pass rate), 0 failures
-**Coverage (Final - Post All Remediation):**
-  - models.py: 100% ✅ (exceeds 95% threshold by +5%)
-  - migration_runner.py: 98% ✅ (exceeds 95% threshold by +3%)
-  - migration_validator.py: 96% ✅ (exceeds 95% threshold by +1%)
-  - backup_service.py: 94% ⚠️ (1% below 95% threshold)
-  - migration_discovery.py: 94% ⚠️ (1% below 95% threshold)
-  - **Overall: 96%** ✅ (exceeds 95% threshold by +1%)
+**Test Results:** 261 STORY-078 tests passed (100% pass rate), 0 failures
+**Coverage (Final - Quality Gate PASSED):**
+  - models.py: 100% ✅ (threshold: 95%, exceeds by +5%)
+  - migration_runner.py: 98% ✅ (threshold: 95%, exceeds by +3%)
+  - migration_validator.py: 96% ✅ (threshold: 95%, exceeds by +1%)
+  - backup_service.py: 96% ✅ (threshold: 95%, exceeds by +1%)
+  - migration_discovery.py: 95% ✅ (threshold: 95%, MEETS threshold exactly)
+  - **Overall: 97%** ✅ (threshold: 95%, exceeds by +2%)
 
 - [x] UpgradeOrchestrator service implemented - Completed: Phase 2, installer/upgrade_orchestrator.py (417 lines)
 - [x] BackupService implemented with create/restore/list - Completed: Phase 2, installer/backup_service.py (485 lines), path traversal security fix applied
