@@ -121,7 +121,7 @@ This skill extracts the story ID from conversation context (loaded story file YA
 
 **Initialize iteration counter:**
 ```
-iteration_count = 1  # Track TDD cycle iterations (for Phase 4.5-R resumption)
+iteration_count = 1  # Track TDD cycle iterations (for Phase 4.5 resumption - RCA-014 fix)
 ```
 
 TodoWrite(
@@ -131,9 +131,8 @@ TodoWrite(
     {content: "Execute Phase 2: Implementation (backend-architect + context-validator)", status: "pending", activeForm: "Executing Phase 2 Implementation"},
     {content: "Execute Phase 3: Refactoring (refactoring-specialist + code-reviewer + Light QA)", status: "pending", activeForm: "Executing Phase 3 Refactoring"},
     {content: "Execute Phase 4: Integration Testing (integration-tester)", status: "pending", activeForm: "Executing Phase 4 Integration Testing"},
-    {content: "Execute Phase 4.5: Deferral Challenge (validate deferred items with user approval)", status: "pending", activeForm: "Executing Phase 4.5 Deferral Challenge"},
+    {content: "Execute Phase 4.5: Deferral Challenge (validate incomplete items, immediate resumption if needed)", status: "pending", activeForm: "Executing Phase 4.5 Deferral Challenge"},
     {content: "Execute Phase 4.5-5 Bridge: Update DoD Checkboxes (mark completed items [x])", status: "pending", activeForm: "Executing Phase 4.5-5 Bridge DoD Update"},
-    {content: "Execute Phase 4.5-R: Resumption Decision (check if loop back needed)", status: "pending", activeForm: "Executing Phase 4.5-R Resumption Decision"},
     {content: "Execute Phase 5: Git Workflow (validate DoD format + commit)", status: "pending", activeForm: "Executing Phase 5 Git Workflow"},
     {content: "Execute Phase 6: Feedback Hook (check-hooks + invoke-hooks)", status: "pending", activeForm: "Executing Phase 6 Feedback Hook"},
     {content: "Execute Phase 7: Result Interpretation (dev-result-interpreter)", status: "pending", activeForm: "Executing Phase 7 Result Interpretation"}
@@ -195,8 +194,49 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 6. Validate spec vs context conflicts
 7. Detect tech stack (tech-stack-detector subagent)
 8. Detect QA failures (recovery mode)
+8.5. Load structured gap data (if gaps.json exists)
 
 **See `references/preflight-validation.md` for complete workflow.**
+
+---
+
+## Remediation Mode Decision Point (After Phase 0)
+
+**CRITICAL:** After Phase 0 completes, check `$REMEDIATION_MODE` flag set by Step 0.8.5.
+
+```
+IF $REMEDIATION_MODE == true:
+    # gaps.json exists from previous QA failure
+    # Execute targeted remediation workflow instead of full TDD
+
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  🔧 REMEDIATION MODE ACTIVE"
+    Display: "  Targeted workflow to fix QA gaps"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+    # Load and execute remediation workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/qa-remediation-workflow.md")
+
+    # Execute phases 1R, 2R, 3R, 4R, 4.5R, 5R from remediation workflow
+    # These replace normal Phases 1-5 with targeted versions
+
+    SKIP: Normal TDD Phases 1-5 below
+    GOTO: Phase 6 (Feedback Hook) after remediation complete
+
+ELSE:
+    # Normal TDD workflow
+    Proceed with Phase 1 below
+```
+
+**What Remediation Mode Does:**
+- Phase 1R: Generate tests for `$QA_COVERAGE_GAPS` files ONLY (not full story)
+- Phase 2R: Implement code for gap files ONLY
+- Phase 3R: Fix `$QA_ANTIPATTERN_GAPS` violations ONLY
+- Phase 4R: Verify coverage gaps are closed
+- Phase 4.5R: Resolve `$QA_DEFERRAL_GAPS` issues
+- Phase 5R: Commit remediation
+
+**Reference:** `qa-remediation-workflow.md`
 
 ---
 
@@ -234,13 +274,7 @@ Update DoD format for git commit → Validate format → Prepare for Phase 5
 **Reference:** `dod-update-workflow.md`
 **Purpose:** Ensure DoD items formatted correctly (flat list in Implementation Notes, no ### subsections)
 **CRITICAL:** Execute AFTER Phase 4.5, BEFORE Phase 5 - git commit will FAIL if skipped
-
-### Phase 4.5-R: Resumption Decision Point ✓ MANDATORY (NEW - RCA-013)
-Detect incomplete work when user rejects deferrals → Loop back to appropriate phase → Continue until 100% OR iteration limit
-**Reference:** `phase-resumption-workflow.md`
-**Purpose:** Enforce "no deferrals = work until 100%" policy from CLAUDE.md
-**CRITICAL:** Execute AFTER Phase 4.5-5 Bridge, BEFORE Phase 5 - ensures user's "continue to 100%" decision is honored
-**Trigger:** User rejected deferrals in Phase 4.5 AND DoD completion <100%
+**Note (RCA-014):** Phase 4.5-R removed - resumption now happens immediately in Phase 4.5 Step 7
 
 ### Phase 5: Git Workflow & DoD Validation
 Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items)**
@@ -264,7 +298,27 @@ Phase 0: Pre-Flight (preflight-validation.md)
   ├─ Step 0.1.5: User consent (RCA-008) ✓ MANDATORY IF uncommitted > 10
   ├─ Step 0.4: Validate 6 context files ✓ MANDATORY
   ├─ Step 0.7: tech-stack-detector ✓ MANDATORY
-  └─ [8 more steps - all MANDATORY]
+  ├─ Step 0.8: Detect QA failures ✓ MANDATORY
+  └─ Step 0.8.5: Load gaps.json ✓ MANDATORY IF QA failed
+  ↓
+┌─── DECISION: Check $REMEDIATION_MODE ───┐
+│                                          │
+│  IF true:                               │
+│    ↓                                    │
+│  REMEDIATION WORKFLOW (qa-remediation-workflow.md)
+│    ├─ Phase 1R: Targeted test gen       │
+│    ├─ Phase 2R: Targeted implementation │
+│    ├─ Phase 3R: Anti-pattern fixes      │
+│    ├─ Phase 4R: Coverage verification   │
+│    ├─ Phase 4.5R: Deferral resolution   │
+│    └─ Phase 5R: Commit remediation      │
+│    ↓                                    │
+│    GOTO Phase 6 (Feedback Hook)         │
+│                                          │
+│  ELSE:                                   │
+│    ↓                                    │
+│  NORMAL TDD WORKFLOW (below)            │
+└──────────────────────────────────────────┘
   ↓
 Phase 1: Red (tdd-red-phase.md)
   ├─ Step 1-3: Generate failing tests ✓ MANDATORY
@@ -292,17 +346,6 @@ Phase 4.5-5 Bridge: DoD Update (dod-update-workflow.md ← NEW)
   ├─ Add items to Implementation Notes (FLAT LIST) ✓ MANDATORY
   ├─ Validate format: devforgeai-validate validate-dod ✓ MANDATORY
   └─ Update Workflow Status ✓ MANDATORY
-  ↓
-Phase 4.5-R: Resumption Decision (phase-resumption-workflow.md ← NEW RCA-013)
-  ├─ Calculate DoD completion % ✓ MANDATORY
-  ├─ IF DoD <100% AND user rejected deferrals ✓ DECISION POINT
-  │   ├─ Determine resumption phase (2/3/4) ✓ MANDATORY
-  │   ├─ Update TodoWrite (mark phases pending) ✓ MANDATORY
-  │   ├─ Check iteration count (limit: 5) ✓ MANDATORY
-  │   └─ LOOP BACK to resumption phase ✓ MANDATORY
-  ├─ IF DoD ==100% OR deferrals approved ✓ DECISION POINT
-  │   └─ Proceed to Phase 5 ✓ MANDATORY
-  └─ Display resumption message ✓ MANDATORY
   ↓
 Phase 5: Git Workflow (git-workflow-conventions.md)
   ├─ Budget enforcement ✓ MANDATORY
@@ -747,12 +790,12 @@ Load these on-demand during workflow execution:
 - **integration-testing.md** (189 lines) - Phase 4: Cross-component tests
 
 ### Phase 4.5 & 5 (Deferrals & Git)
-- **phase-4.5-deferral-challenge.md** (794 lines) - Phase 4.5: Challenge ALL deferrals (RCA-006 Phase 1)
-- **dod-update-workflow.md** (NEW - ~400 lines) - Phase 4.5-5 Bridge: DoD format update and validation (RCA-009 Rec 4)
-- **phase-resumption-workflow.md** (NEW - ~400 lines) - Phase 4.5-R: Resumption decision when user rejects deferrals (RCA-013 Rec 1)
+- **phase-4.5-deferral-challenge.md** (~900 lines) - Phase 4.5: Challenge ALL deferrals + immediate resumption (RCA-006, RCA-014)
+- **dod-update-workflow.md** (~400 lines) - Phase 4.5-5 Bridge: DoD format update and validation (RCA-009 Rec 4)
 - **deferral-budget-enforcement.md** (290 lines) - Phase 5 Step 1.6: Budget limits (RCA-006 Phase 2)
-- **git-workflow-conventions.md** (1,270 lines) - Git operations, stash safety protocol (RCA-008), DoD prerequisites
+- **git-workflow-conventions.md** (~1,300 lines) - Git operations, stash safety protocol (RCA-008), DoD prerequisites, pre-Phase-5 validation (RCA-014)
 - **dod-validation-checkpoint.md** (519 lines) - Phase 5 Step 1.7: Handle new incomplete items
+- **~~phase-resumption-workflow.md~~** (~400 lines) - REMOVED (RCA-014 REC-2): Resumption now in Phase 4.5 Step 7
 
 ### Supporting Files
 - **tdd-patterns.md** (1,013 lines) - Comprehensive TDD guidance (all phases)
@@ -761,7 +804,7 @@ Load these on-demand during workflow execution:
 - **qa-deferral-recovery.md** (218 lines) - QA failure resolution
 - **ambiguity-protocol.md** (234 lines) - When to ask user questions
 
-**Total reference content:** ~6,250 lines (loaded progressively as needed - includes RCA-008 safeguards)
+**Total reference content:** ~6,350 lines (loaded progressively as needed - includes RCA-008, RCA-014 safeguards)
 
 ---
 
