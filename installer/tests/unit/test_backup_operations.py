@@ -467,3 +467,268 @@ class TestBackupPerformance:
 
         # Should complete in under 1 second
         assert duration < 1.0
+
+
+class TestBackupErrorHandling:
+    """Tests for error handling paths to improve coverage (83% -> 85%+)."""
+
+    def test_backup_handles_hash_file_ioerror(self, project_with_framework, capsys):
+        """
+        Test _hash_file handles OSError/IOError gracefully (non-fatal).
+
+        Covers lines 60-64: OSError/IOError exception handling in _hash_file().
+        When file read fails, hash calculation continues with warning.
+        """
+        from installer import backup
+        from unittest.mock import patch, mock_open, MagicMock
+        import hashlib
+
+        # Arrange
+        hasher = hashlib.sha256()
+        test_file = project_with_framework / ".claude" / "settings.json"
+
+        # Act - Mock open to raise OSError
+        with patch("builtins.open", side_effect=OSError("Permission denied")):
+            # This should NOT raise - it's non-fatal
+            backup._hash_file(test_file, hasher)
+
+        # Assert - Warning should be printed to stderr
+        captured = capsys.readouterr()
+        assert "Warning: Could not read" in captured.err
+        assert "Permission denied" in captured.err
+
+    def test_backup_handles_disk_full_during_copy(self, project_with_framework):
+        """
+        Test create_backup handles disk full error during file copy.
+
+        Covers lines 179-183: Exception handling in create_backup that
+        cleans up partial backup on failure.
+        """
+        from installer import backup
+        from unittest.mock import patch
+        import shutil
+
+        # Arrange
+        original_copytree = shutil.copytree
+
+        def mock_copytree_fail_on_devforgeai(src, dst, *args, **kwargs):
+            """Fail when copying .devforgeai to simulate disk full."""
+            if ".devforgeai" in str(src):
+                raise OSError(28, "No space left on device")
+            return original_copytree(src, dst, *args, **kwargs)
+
+        # Act & Assert
+        with patch.object(shutil, "copytree", side_effect=mock_copytree_fail_on_devforgeai):
+            with pytest.raises(OSError) as exc_info:
+                backup.create_backup(
+                    project_with_framework,
+                    reason="upgrade"
+                )
+
+            assert "No space" in str(exc_info.value) or exc_info.value.errno == 28
+
+    def test_backup_handles_permission_denied_on_mkdir(self, project_with_framework):
+        """
+        Test create_backup handles permission denied when creating backup dir.
+
+        Covers lines 130-131: OSError handling when backup directory creation
+        fails (e.g., permissions, race condition).
+        """
+        from installer import backup
+        from unittest.mock import patch
+
+        # Arrange - Mock mkdir to raise PermissionError after backups_dir created
+        original_mkdir = Path.mkdir
+
+        def mock_mkdir_fail_on_backup(self, *args, **kwargs):
+            """Fail when creating the specific backup directory."""
+            if "devforgeai-upgrade-" in str(self):
+                raise PermissionError(13, "Permission denied", str(self))
+            return original_mkdir(self, *args, **kwargs)
+
+        # Act & Assert
+        with patch.object(Path, "mkdir", mock_mkdir_fail_on_backup):
+            with pytest.raises(PermissionError) as exc_info:
+                backup.create_backup(
+                    project_with_framework,
+                    reason="upgrade"
+                )
+
+            assert exc_info.value.errno == 13
+
+    def test_backup_handles_corrupted_manifest_during_verify(self, project_with_framework):
+        """
+        Test verify_backup_integrity handles corrupted manifest.json.
+
+        Covers lines 252-253, 257-259: Error handling for missing and
+        invalid JSON manifest files.
+        """
+        from installer import backup
+
+        # Arrange - Create backup then corrupt manifest
+        backup_path, _ = backup.create_backup(
+            project_with_framework,
+            reason="upgrade"
+        )
+
+        manifest_file = backup_path / "manifest.json"
+        manifest_file.write_text("{invalid json content")  # Corrupt JSON
+
+        # Act
+        result = backup.verify_backup_integrity(backup_path)
+
+        # Assert
+        assert result["valid"] is False
+        assert len(result["errors"]) > 0
+        assert any("Invalid manifest JSON" in err for err in result["errors"])
+
+    def test_backup_creates_manifest_with_file_list(self, project_with_framework):
+        """
+        Test backup manifest contains accurate file metadata.
+
+        Covers lines 217, 226, 289, 294: Various verification paths
+        including file count validation and hash verification.
+        """
+        from installer import backup
+
+        # Arrange & Act
+        backup_path, manifest = backup.create_backup(
+            project_with_framework,
+            reason="upgrade",
+            from_version="1.0.0",
+            to_version="1.1.0"
+        )
+
+        # Assert - Manifest contains required fields
+        assert "files_backed_up" in manifest
+        assert manifest["files_backed_up"] > 0
+        assert "total_size_mb" in manifest
+        assert manifest["total_size_mb"] >= 0
+        assert "backup_integrity_hash" in manifest
+        assert manifest["backup_integrity_hash"].startswith("sha256:")
+        assert "created_at" in manifest
+        assert "reason" in manifest
+        assert manifest["reason"] == "upgrade"
+        assert manifest["from_version"] == "1.0.0"
+        assert manifest["to_version"] == "1.1.0"
+
+        # Verify manifest file written correctly
+        manifest_file = backup_path / "manifest.json"
+        assert manifest_file.exists()
+        import json
+        saved_manifest = json.loads(manifest_file.read_text())
+        assert saved_manifest == manifest
+
+        # Verify integrity verification works
+        result = backup.verify_backup_integrity(backup_path)
+        assert result["valid"] is True
+        assert result["hash_matches"] is True
+        assert result["file_count"] == manifest["files_backed_up"]
+
+
+class TestBackupVerifyEdgeCases:
+    """Additional verification edge cases for coverage improvement."""
+
+    def test_verify_backup_detects_missing_manifest(self, project_with_framework):
+        """
+        Test verify_backup_integrity detects missing manifest.json.
+
+        Covers lines 251-253: manifest.json not found path.
+        """
+        from installer import backup
+
+        # Arrange - Create backup then remove manifest
+        backup_path, _ = backup.create_backup(
+            project_with_framework,
+            reason="upgrade"
+        )
+        manifest_file = backup_path / "manifest.json"
+        manifest_file.unlink()  # Delete manifest
+
+        # Act
+        result = backup.verify_backup_integrity(backup_path)
+
+        # Assert
+        assert result["valid"] is False
+        assert any("manifest.json not found" in err for err in result["errors"])
+
+    def test_verify_backup_detects_file_count_mismatch(self, project_with_framework):
+        """
+        Test verify_backup_integrity detects file count mismatch.
+
+        Covers lines 225-228: File count mismatch detection.
+        """
+        from installer import backup
+        import json
+
+        # Arrange - Create backup then add extra file
+        backup_path, original_manifest = backup.create_backup(
+            project_with_framework,
+            reason="upgrade"
+        )
+
+        # Add extra file to backup (not in manifest count)
+        extra_file = backup_path / ".claude" / "extra_file.txt"
+        extra_file.write_text("Extra content")
+
+        # Act
+        result = backup.verify_backup_integrity(backup_path)
+
+        # Assert
+        assert result["valid"] is False
+        assert any("File count mismatch" in err for err in result["errors"])
+
+    def test_verify_backup_detects_hash_mismatch(self, project_with_framework):
+        """
+        Test verify_backup_integrity detects hash mismatch.
+
+        Covers lines 289-296: Hash verification and mismatch detection.
+        """
+        from installer import backup
+        import json
+
+        # Arrange - Create backup then modify a file
+        backup_path, original_manifest = backup.create_backup(
+            project_with_framework,
+            reason="upgrade"
+        )
+
+        # Modify a backed up file (changes hash)
+        settings_file = backup_path / ".claude" / "settings.json"
+        settings_file.write_text('{"modified": true}')
+
+        # Act
+        result = backup.verify_backup_integrity(backup_path)
+
+        # Assert
+        assert result["hash_matches"] is False
+        assert any("Hash mismatch" in err for err in result["errors"])
+
+    def test_verify_backup_handles_missing_hash_in_manifest(self, project_with_framework):
+        """
+        Test verify_backup_integrity handles manifest without hash field.
+
+        Covers lines 288-289: Early return when backup_integrity_hash missing.
+        """
+        from installer import backup
+        import json
+
+        # Arrange - Create backup then remove hash from manifest
+        backup_path, _ = backup.create_backup(
+            project_with_framework,
+            reason="upgrade"
+        )
+
+        manifest_file = backup_path / "manifest.json"
+        manifest = json.loads(manifest_file.read_text())
+        del manifest["backup_integrity_hash"]
+        manifest_file.write_text(json.dumps(manifest))
+
+        # Act
+        result = backup.verify_backup_integrity(backup_path)
+
+        # Assert - Should still be valid if file count matches
+        # hash_matches should be False (not verified)
+        assert result["hash_matches"] is False
+        # No hash mismatch error since hash wasn't checked
+        assert not any("Hash mismatch" in err for err in result["errors"])
