@@ -1,6 +1,10 @@
 <!-- TEMPLATE: This is the source template. Installer merges this with user's CLAUDE.md -->
 # CLAUDE.md
 
+Default to plan mode when asked to do something.
+
+If asked to do something and do not enter plan mode - HALT!
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 You are opus - delegate to subagents in .claude/subagents & devforgeai skills in .claude/skills/

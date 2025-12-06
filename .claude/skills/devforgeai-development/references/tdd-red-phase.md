@@ -30,6 +30,41 @@ The Red phase is the foundation of TDD: create tests that define expected behavi
 
 ---
 
+## Remediation Mode Check [MANDATORY FIRST]
+
+**CRITICAL:** Before executing normal Phase 1, check if remediation mode is active.
+
+```
+# Check remediation mode flag from Phase 0 Step 0.8.5
+IF $REMEDIATION_MODE == true:
+
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  🔧 REMEDIATION MODE - Phase 1R (Targeted Tests)"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Load remediation workflow instead of normal Phase 1
+    Read(file_path=".claude/skills/devforgeai-development/references/qa-remediation-workflow.md")
+
+    # Execute Phase 1R: Targeted Test Generation from qa-remediation-workflow.md
+    # This generates tests ONLY for $QA_COVERAGE_GAPS files, not full story
+
+    RETURN after Phase 1R completes
+    # Do NOT execute normal Phase 1 below
+
+ELSE:
+    # Normal Phase 1 - proceed with full story test generation
+    Display: "Proceeding with normal Phase 1 (full story test generation)"
+```
+
+**Why this matters:**
+- In remediation mode, test-automator receives `$QA_COVERAGE_GAPS` with specific files/suggestions
+- In normal mode, test-automator receives full story acceptance criteria
+- Wrong mode = wasted tokens + wrong test scope
+
+---
+
 ## Phase 1: Test-First Design (Red Phase)
 
 **Delegate test generation to test-automator subagent.**

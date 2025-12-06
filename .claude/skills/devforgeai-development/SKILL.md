@@ -194,8 +194,49 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 6. Validate spec vs context conflicts
 7. Detect tech stack (tech-stack-detector subagent)
 8. Detect QA failures (recovery mode)
+8.5. Load structured gap data (if gaps.json exists)
 
 **See `references/preflight-validation.md` for complete workflow.**
+
+---
+
+## Remediation Mode Decision Point (After Phase 0)
+
+**CRITICAL:** After Phase 0 completes, check `$REMEDIATION_MODE` flag set by Step 0.8.5.
+
+```
+IF $REMEDIATION_MODE == true:
+    # gaps.json exists from previous QA failure
+    # Execute targeted remediation workflow instead of full TDD
+
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  🔧 REMEDIATION MODE ACTIVE"
+    Display: "  Targeted workflow to fix QA gaps"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+    # Load and execute remediation workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/qa-remediation-workflow.md")
+
+    # Execute phases 1R, 2R, 3R, 4R, 4.5R, 5R from remediation workflow
+    # These replace normal Phases 1-5 with targeted versions
+
+    SKIP: Normal TDD Phases 1-5 below
+    GOTO: Phase 6 (Feedback Hook) after remediation complete
+
+ELSE:
+    # Normal TDD workflow
+    Proceed with Phase 1 below
+```
+
+**What Remediation Mode Does:**
+- Phase 1R: Generate tests for `$QA_COVERAGE_GAPS` files ONLY (not full story)
+- Phase 2R: Implement code for gap files ONLY
+- Phase 3R: Fix `$QA_ANTIPATTERN_GAPS` violations ONLY
+- Phase 4R: Verify coverage gaps are closed
+- Phase 4.5R: Resolve `$QA_DEFERRAL_GAPS` issues
+- Phase 5R: Commit remediation
+
+**Reference:** `qa-remediation-workflow.md`
 
 ---
 
@@ -257,7 +298,27 @@ Phase 0: Pre-Flight (preflight-validation.md)
   ├─ Step 0.1.5: User consent (RCA-008) ✓ MANDATORY IF uncommitted > 10
   ├─ Step 0.4: Validate 6 context files ✓ MANDATORY
   ├─ Step 0.7: tech-stack-detector ✓ MANDATORY
-  └─ [8 more steps - all MANDATORY]
+  ├─ Step 0.8: Detect QA failures ✓ MANDATORY
+  └─ Step 0.8.5: Load gaps.json ✓ MANDATORY IF QA failed
+  ↓
+┌─── DECISION: Check $REMEDIATION_MODE ───┐
+│                                          │
+│  IF true:                               │
+│    ↓                                    │
+│  REMEDIATION WORKFLOW (qa-remediation-workflow.md)
+│    ├─ Phase 1R: Targeted test gen       │
+│    ├─ Phase 2R: Targeted implementation │
+│    ├─ Phase 3R: Anti-pattern fixes      │
+│    ├─ Phase 4R: Coverage verification   │
+│    ├─ Phase 4.5R: Deferral resolution   │
+│    └─ Phase 5R: Commit remediation      │
+│    ↓                                    │
+│    GOTO Phase 6 (Feedback Hook)         │
+│                                          │
+│  ELSE:                                   │
+│    ↓                                    │
+│  NORMAL TDD WORKFLOW (below)            │
+└──────────────────────────────────────────┘
   ↓
 Phase 1: Red (tdd-red-phase.md)
   ├─ Step 1-3: Generate failing tests ✓ MANDATORY

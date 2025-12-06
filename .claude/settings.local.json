@@ -98,7 +98,8 @@
       "Bash(timeout 300 python3:*)",
       "Bash(radon cc:*)",
       "Bash(radon mi:*)",
-      "Bash(jscpd:*)"
+      "Bash(jscpd:*)",
+      "Bash(timeout 30 python -m pytest:*)"
     ],
     "deny": [],
     "ask": []
