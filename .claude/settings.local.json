@@ -100,7 +100,8 @@
       "Bash(radon mi:*)",
       "Bash(jscpd:*)",
       "SlashCommand(/rca \"Claude executed TDD workflow phases 0-4 but skipped Phase 4.5-5 Bridge (DoD update), Phase 5 (git commit of story file), Phase 6 (feedback hooks), and Phase 7 (result interpretation). The todo list showed these phases as pending but Claude prematurely declared workflow complete and generated result display manually instead of following the documented workflow.\" HIGH)",
-      "Skill(devforgeai-ideation)"
+      "Skill(devforgeai-ideation)",
+      "Bash(npx jscpd:*)"
     ],
     "deny": [],
     "ask": []
