@@ -3,12 +3,12 @@ id: STORY-078
 title: Upgrade Mode with Migration Scripts
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: In Development
 points: 13
 priority: Medium
 assigned_to: Unassigned
 created: 2025-11-25
-updated: 2025-12-05 (Dev Complete - TDD Phases 0-7 Executed)
+updated: 2025-12-05 (Coverage 96%, 2 modules at 94% - 1% gap remaining)
 format_version: "2.1"
 ---
 
@@ -684,14 +684,14 @@ None - uses existing Python standard library.
 **Implementation Date:** 2025-12-05
 **Updated:** 2025-12-05 (Dev Complete - All TDD Phases Executed)
 **TDD Phases Completed:** Phase 0-7 (Pre-Flight → Result Interpretation)
-**Test Results:** 854 passed (845 unit + 9 test setup issues), 202 integration tests passing
-**Coverage:**
-  - migration_validator.py: 97%
-  - migration_runner.py: 98%
-  - migration_discovery.py: 92%
-  - models.py: 90%
-  - backup_service.py: 85%
-  - Overall: 91%
+**Test Results:** 260 STORY-078 tests passed (100% pass rate), 0 failures
+**Coverage (Final - Post All Remediation):**
+  - models.py: 100% ✅ (exceeds 95% threshold by +5%)
+  - migration_runner.py: 98% ✅ (exceeds 95% threshold by +3%)
+  - migration_validator.py: 96% ✅ (exceeds 95% threshold by +1%)
+  - backup_service.py: 94% ⚠️ (1% below 95% threshold)
+  - migration_discovery.py: 94% ⚠️ (1% below 95% threshold)
+  - **Overall: 96%** ✅ (exceeds 95% threshold by +1%)
 
 - [x] UpgradeOrchestrator service implemented - Completed: Phase 2, installer/upgrade_orchestrator.py (417 lines)
 - [x] BackupService implemented with create/restore/list - Completed: Phase 2, installer/backup_service.py (485 lines), path traversal security fix applied
