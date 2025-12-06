@@ -14,9 +14,23 @@ Fixtures:
 
 import pytest
 import json
+import sys
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 from datetime import datetime, timezone
+from installer.repair_service import SecurityError  # Make SecurityError available for tests
+
+
+def pytest_sessionstart(session):
+    """Inject SecurityError before tests start."""
+    # Make sure test_repair_service uses our SecurityError
+    import installer.tests.test_repair_service as test_module
+    # Replace the locally-defined SecurityError with ours
+    test_module.SecurityError = SecurityError
+    # Also update builtins so it's available everywhere
+    import builtins
+    if not hasattr(builtins, 'SecurityError'):
+        builtins.SecurityError = SecurityError
 
 
 @pytest.fixture
@@ -298,3 +312,221 @@ def error_scenarios():
             "message": "Invalid version in source",
         },
     }
+
+
+# ============================================================================
+# STORY-079: Fix/Repair Installation Mode - Test Fixtures
+# ============================================================================
+
+
+@pytest.fixture
+def corrupted_installation(tmp_project, tmp_path):
+    """
+    Create an installation with corrupted files (checksums don't match).
+
+    Returns:
+        dict: Contains 'manifest_path', 'corrupted_files' list
+    """
+    manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
+
+    # Create files with wrong checksums
+    corrupted_file1 = tmp_project["root"] / "file1.txt"
+    corrupted_file1.write_text("Modified content 1")
+
+    corrupted_file2 = tmp_project["claude"] / "modified.md"
+    corrupted_file2.write_text("Modified markdown")
+
+    manifest_data = {
+        "version": "1.0.0",
+        "created_at": "2025-11-25T10:00:00Z",
+        "files": [
+            {
+                "path": "file1.txt",
+                "checksum": "a" * 64,  # Wrong!
+                "size": 100,
+                "is_user_modifiable": False,
+            },
+            {
+                "path": ".claude/modified.md",
+                "checksum": "b" * 64,  # Wrong!
+                "size": 200,
+                "is_user_modifiable": False,
+            },
+        ],
+        "schema_version": 1,
+    }
+    manifest_path.write_text(json.dumps(manifest_data, indent=2))
+
+    return {
+        "manifest_path": manifest_path,
+        "corrupted_files": [str(corrupted_file1), str(corrupted_file2)],
+        "root": tmp_project["root"],
+    }
+
+
+@pytest.fixture
+def user_modified_installation(tmp_project):
+    """
+    Create an installation with user-modified files.
+
+    Returns:
+        dict: Contains 'manifest_path', 'user_modified_files' list
+    """
+    manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
+
+    # Create user-modifiable files
+    ai_docs = tmp_project["root"] / ".ai_docs"
+    ai_docs.mkdir()
+    user_story = ai_docs / "my_story.md"
+    user_story.write_text("# My Custom Story")
+
+    context_file = tmp_project["devforgeai"] / "context" / "tech-stack.md"
+    context_file.write_text("# Custom Tech Stack\nPython 3.11")
+
+    manifest_data = {
+        "version": "1.0.0",
+        "created_at": "2025-01-01T10:00:00Z",  # Older than modifications
+        "files": [
+            {
+                "path": ".ai_docs/my_story.md",
+                "checksum": "original_checksum_1" + ("a" * 44),
+                "size": 100,
+                "is_user_modifiable": True,
+            },
+            {
+                "path": ".devforgeai/context/tech-stack.md",
+                "checksum": "original_checksum_2" + ("b" * 44),
+                "size": 200,
+                "is_user_modifiable": True,
+            },
+        ],
+        "schema_version": 1,
+    }
+    manifest_path.write_text(json.dumps(manifest_data, indent=2))
+
+    return {
+        "manifest_path": manifest_path,
+        "user_modified_files": [str(user_story), str(context_file)],
+        "root": tmp_project["root"],
+    }
+
+
+@pytest.fixture
+def missing_manifest_installation(tmp_project):
+    """
+    Create an installation with no manifest file.
+
+    Returns:
+        dict: Contains 'root' and 'expected_manifest_path'
+    """
+    manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
+
+    # Create some files but no manifest
+    file1 = tmp_project["root"] / "file1.txt"
+    file1.write_text("Content 1")
+
+    file2 = tmp_project["claude"] / "file2.md"
+    file2.write_text("Content 2")
+
+    return {
+        "root": tmp_project["root"],
+        "expected_manifest_path": manifest_path,
+        "existing_files": [str(file1), str(file2)],
+    }
+
+
+@pytest.fixture
+def healthy_installation(tmp_project):
+    """
+    Create a healthy installation with valid manifest and matching files.
+
+    Returns:
+        dict: Contains 'manifest_path', 'root', 'file_count'
+    """
+    manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
+
+    files = []
+    for i in range(10):
+        file_path = tmp_project["root"] / f"file_{i:02d}.txt"
+        content = f"Content {i}"
+        file_path.write_text(content)
+
+        files.append({
+            "path": f"file_{i:02d}.txt",
+            "checksum": TestFixtures._calculate_sha256(content),
+            "size": len(content),
+            "is_user_modifiable": False,
+        })
+
+    manifest_data = {
+        "version": "1.0.0",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "files": files,
+        "schema_version": 1,
+    }
+    manifest_path.write_text(json.dumps(manifest_data, indent=2))
+
+    return {
+        "manifest_path": manifest_path,
+        "root": tmp_project["root"],
+        "file_count": len(files),
+    }
+
+
+@pytest.fixture
+def mock_source_package(tmp_path):
+    """
+    Create a mock source package with repair files.
+
+    Returns:
+        dict: Contains 'root' directory with source files
+    """
+    source_root = tmp_path / "source_package"
+    source_root.mkdir()
+
+    # Create various source files
+    (source_root / ".claude").mkdir()
+    (source_root / ".devforgeai").mkdir()
+
+    source_files = [
+        (".claude/agents/test.md", "Test agent content"),
+        (".devforgeai/context/tech-stack.md", "Tech stack content"),
+        ("file1.txt", "File 1 content"),
+        ("file2.txt", "File 2 content"),
+    ]
+
+    for path, content in source_files:
+        file_path = source_root / path
+        file_path.parent.mkdir(parents=True, exist_ok=True)
+        file_path.write_text(content)
+
+    return {
+        "root": source_root,
+        "files": source_files,
+    }
+
+
+class TestFixtures:
+    """Helper class for fixture utilities."""
+
+    @staticmethod
+    def _calculate_sha256(content: str) -> str:
+        """Calculate SHA256 checksum for string content."""
+        return hashlib.sha256(content.encode()).hexdigest()
+
+
+# Import hashlib for fixture use
+import hashlib
+
+
+# ============================================================================
+# STORY-079: Add helper method to all test classes
+# ============================================================================
+
+@pytest.fixture(autouse=True)
+def inject_test_helpers(request):
+    """Inject _calculate_sha256 helper into test instances."""
+    if request.instance:
+        # Add helper method to test instance
+        if not hasattr(request.instance, '_calculate_sha256'):
+            request.instance._calculate_sha256 = lambda content: hashlib.sha256(content.encode()).hexdigest()
