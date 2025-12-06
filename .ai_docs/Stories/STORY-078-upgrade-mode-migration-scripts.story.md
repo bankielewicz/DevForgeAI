@@ -3,7 +3,7 @@ id: STORY-078
 title: Upgrade Mode with Migration Scripts
 epic: EPIC-014
 sprint: Backlog
-status: In Development
+status: QA Failed
 points: 13
 priority: Medium
 assigned_to: Unassigned
@@ -675,8 +675,8 @@ None - uses existing Python standard library.
 ## Workflow Status
 
 - [x] Architecture phase complete
-- [x] Development phase complete
-- [ ] QA phase complete
+- [x] Development phase complete (260 tests, 96% coverage overall)
+- [ ] QA phase complete (FAILED - 2 modules at 94% vs 95% required threshold)
 - [ ] Released
 
 ## Implementation Notes
