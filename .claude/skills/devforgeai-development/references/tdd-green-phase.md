@@ -30,6 +30,41 @@ The Green phase focuses on making tests pass with minimal, clean code. No over-e
 
 ---
 
+## Remediation Mode Check [MANDATORY FIRST]
+
+**CRITICAL:** Before executing normal Phase 2, check if remediation mode is active.
+
+```
+# Check remediation mode flag from Phase 0 Step 0.8.5
+IF $REMEDIATION_MODE == true:
+
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  🔧 REMEDIATION MODE - Phase 2R (Targeted Implementation)"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Load remediation workflow instead of normal Phase 2
+    Read(file_path=".claude/skills/devforgeai-development/references/qa-remediation-workflow.md")
+
+    # Execute Phase 2R: Targeted Implementation from qa-remediation-workflow.md
+    # This implements ONLY code for $QA_COVERAGE_GAPS files, not full story
+
+    RETURN after Phase 2R completes
+    # Do NOT execute normal Phase 2 below
+
+ELSE:
+    # Normal Phase 2 - proceed with full story implementation
+    Display: "Proceeding with normal Phase 2 (full story implementation)"
+```
+
+**Why this matters:**
+- In remediation mode, backend-architect receives specific gap files to fix
+- In normal mode, backend-architect receives full story specification
+- Wrong mode = implementing full story when only gaps need fixing
+
+---
+
 ## Phase 2: Implementation (Green Phase)
 
 **Delegate implementation to backend-architect or frontend-developer subagent.**

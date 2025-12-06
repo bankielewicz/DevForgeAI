@@ -11,6 +11,8 @@ import pytest
 from unittest.mock import Mock, patch
 from pathlib import Path
 import time
+import os
+import shutil
 from datetime import datetime
 
 
@@ -526,3 +528,137 @@ class TestBackupIntegration:
 
         # Assert
         assert latest_backup == backup2
+
+
+class TestBackupServiceSecurity:
+    """Tests for backup service security validation methods."""
+
+    def test_validate_timestamp_accepts_valid_format(self, tmp_path):
+        """Test timestamp validation accepts valid ISO 8601 format."""
+        from installer.services.backup_service import BackupService
+
+        service = BackupService(logger=Mock())
+
+        # Valid timestamp format
+        assert service._validate_timestamp("2025-12-06T14-30-45") is True
+
+    def test_validate_timestamp_rejects_path_traversal(self, tmp_path):
+        """Test timestamp validation rejects path traversal attempts."""
+        from installer.services.backup_service import BackupService
+
+        service = BackupService(logger=Mock())
+
+        # Path traversal attacks
+        assert service._validate_timestamp("../../../etc/passwd") is False
+        assert service._validate_timestamp("..") is False
+        assert service._validate_timestamp("../../backup") is False
+
+    def test_validate_backup_path_accepts_valid_path(self, tmp_path):
+        """Test backup path validation accepts paths within root."""
+        from installer.services.backup_service import BackupService
+
+        service = BackupService(logger=Mock())
+
+        root = tmp_path
+        backup_path = tmp_path / ".devforgeai" / "install-backup-2025-12-06T14-30-45"
+
+        assert service._validate_backup_path_within_root(backup_path, root) is True
+
+    def test_validate_backup_path_rejects_escaped_path(self, tmp_path):
+        """Test backup path validation rejects paths outside root."""
+        from installer.services.backup_service import BackupService
+
+        service = BackupService(logger=Mock())
+
+        root = tmp_path / "project"
+        root.mkdir()
+        escaped_path = tmp_path / "outside"  # Outside root
+
+        assert service._validate_backup_path_within_root(escaped_path, root) is False
+
+    def test_validate_backup_path_handles_resolution_failure(self, tmp_path):
+        """Test backup path validation raises ValueError on path resolution failure."""
+        from installer.services.backup_service import BackupService
+        from unittest.mock import patch
+
+        service = BackupService(logger=Mock())
+
+        # Mock os.path.abspath to raise exception
+        with patch('os.path.abspath', side_effect=OSError("Path error")):
+            with pytest.raises(ValueError, match="Cannot validate backup path"):
+                service._validate_backup_path_within_root(tmp_path, tmp_path)
+
+
+class TestBackupCleanupEdgeCases:
+    """Tests for cleanup_old_backups edge cases and error handling."""
+
+    def test_cleanup_handles_nonexistent_backups_root(self, tmp_path):
+        """Test cleanup handles missing backups root directory gracefully."""
+        from installer.services.backup_service import BackupService
+
+        service = BackupService(logger=Mock())
+
+        # Nonexistent directory
+        nonexistent = tmp_path / "nonexistent"
+
+        # Should not raise exception
+        service.cleanup_old_backups(backups_root=nonexistent, days=7)
+
+    def test_cleanup_handles_deletion_errors(self, tmp_path):
+        """Test cleanup handles filesystem errors during deletion."""
+        from installer.services.backup_service import BackupService
+        from unittest.mock import patch
+        import time
+
+        backups_root = tmp_path
+        service = BackupService(logger=Mock())
+
+        # Create 7 old backups
+        for i in range(7):
+            old_backup = backups_root / f"install-backup-2025-11-{i+1:02d}T00-00-00"
+            old_backup.mkdir()
+            # Make it old by setting mtime
+            old_time = time.time() - (10 * 24 * 60 * 60)  # 10 days ago
+            os.utime(old_backup, (old_time, old_time))
+
+        # Mock shutil.rmtree to raise exception for first backup
+        original_rmtree = shutil.rmtree
+        call_count = [0]
+
+        def rmtree_with_error(*args, **kwargs):
+            call_count[0] += 1
+            if call_count[0] == 1:
+                raise PermissionError("Cannot delete")
+            return original_rmtree(*args, **kwargs)
+
+        with patch('shutil.rmtree', side_effect=rmtree_with_error):
+            # Should not raise, just log warning
+            service.cleanup_old_backups(backups_root=backups_root, days=7)
+
+        # Verify logger.log_warning was called
+        assert service.logger.log_warning.called
+
+    def test_cleanup_calculates_backup_age_correctly(self, tmp_path):
+        """Test cleanup correctly calculates backup age from mtime."""
+        from installer.services.backup_service import BackupService
+        import time
+
+        backups_root = tmp_path
+        service = BackupService(logger=Mock())
+
+        # Create 6 backups (1 old, 5 recent)
+        old_backup = backups_root / "install-backup-2025-11-01T00-00-00"
+        old_backup.mkdir()
+        old_time = time.time() - (10 * 24 * 60 * 60)  # 10 days ago
+        os.utime(old_backup, (old_time, old_time))
+
+        for i in range(5):
+            recent = backups_root / f"install-backup-2025-12-0{i+1}T00-00-00"
+            recent.mkdir()
+
+        # Cleanup with 7-day threshold
+        service.cleanup_old_backups(backups_root=backups_root, days=7)
+
+        # Old backup should be removed, 5 recent kept
+        assert not old_backup.exists()
+        assert len(list(backups_root.iterdir())) == 5
