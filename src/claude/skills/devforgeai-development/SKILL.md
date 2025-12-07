@@ -152,6 +152,10 @@ TodoWrite(
 - Self-monitoring mechanism (detects skipped phases)
 - Audit trail of workflow execution
 
+**TodoWrite purpose:** User-facing progress visualization (advisory)
+**Enforcement:** Validation checkpoints at phase transitions (mandatory)
+**Note:** TodoWrite does not provide read API - checkpoints verify actual execution
+
 ---
 
 ## Purpose
@@ -200,6 +204,57 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 ---
 
+### Phase 0 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 1 or Remediation Mode, verify Phase 0 completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Step 0.1: git-validator subagent invoked?
+      Search for: Task(subagent_type="git-validator")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 0.4: Context files validated (6 files)?
+      Search for: Read(file_path=".devforgeai/context/tech-stack.md")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 0.5: Story specification loaded?
+      Search for: Read with story file path
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 0.7: tech-stack-detector subagent invoked?
+      Search for: Task(subagent_type="tech-stack-detector")
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 0 INCOMPLETE - Pre-flight validation not executed"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "Missing validation prevents safe development. HALT."
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow (do not proceed to Phase 1 or Remediation Mode)
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 0 Validation Passed - All pre-flight checks completed"
+  "  ✓ Git repository validated"
+  "  ✓ Context files loaded"
+  "  ✓ Story specification loaded"
+  "  ✓ Tech stack detected"
+  ""
+  Display: "Proceeding to Phase 1 (or Remediation Mode if QA gaps detected)..."
+
+  Proceed to next phase
+
+**Purpose:** Prevents skipping git validation, context file loading, and tech stack detection (RCA: STORY-080 skipped Phase 0 completely)
+
+---
+
 ## Remediation Mode Decision Point (After Phase 0)
 
 **CRITICAL:** After Phase 0 completes, check `$REMEDIATION_MODE` flag set by Step 0.8.5.
@@ -243,31 +298,179 @@ ELSE:
 ## TDD Workflow (6 Phases)
 
 ### Phase 1: Test-First Design (Red Phase)
-Write failing tests from AC → test-automator subagent → Tests RED → **Update AC Checklist (test items)**
+Write failing tests from AC → test-automator subagent → Tests RED → **Update AC Checklist (test items) ✓ MANDATORY**
 **Reference:** `tdd-red-phase.md`
 **AC Updates:** Test count, test coverage, test file creation items
 
+---
+
+### Phase 1 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 2, verify Phase 1 completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Steps 1-3: test-automator subagent invoked?
+      Search for: Task(subagent_type="test-automator")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Step 4: Tech Spec Coverage Validation completed?
+      Search for: coverage validation OR tech spec verification
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] AC Checklist (test items) updated? ✓ MANDATORY
+      Search for: Edit with AC Checklist test items marked [x]
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 1 INCOMPLETE - Test generation not verified"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Phase 2 until Phase 1 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 1 Validation Passed - Tests RED and documented"
+  "  ✓ test-automator invoked"
+  "  ✓ Tech spec coverage validated"
+  "  ✓ AC Checklist updated"
+  ""
+  Display: "Proceeding to Phase 2..."
+
+  Proceed to Phase 2
+
+**Purpose:** Ensures tests are generated before implementation begins (TDD Red phase complete)
+
+---
+
 ### Phase 2: Implementation (Green Phase)
-Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN → **Update AC Checklist (implementation items)**
+Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN → **Update AC Checklist (implementation items) ✓ MANDATORY**
 **Reference:** `tdd-green-phase.md`
 **AC Updates:** Code implementation, business logic location, size metrics items
 
 ### Phase 3: Refactor (Refactor Phase)
-Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved → **Update AC Checklist (quality items)**
+Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved → **Update AC Checklist (quality items) ✓ MANDATORY**
 **Reference:** `tdd-refactor-phase.md`
 **Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY], 6 AC Checklist update
 **AC Updates:** Code quality, pattern compliance, review findings items
 
 ### Phase 4: Integration & Validation
-Cross-component testing, coverage validation → integration-tester → Thresholds met → **Update AC Checklist (integration items)**
+Cross-component testing, coverage validation → integration-tester → Thresholds met → **Update AC Checklist (integration items) ✓ MANDATORY**
 **Reference:** `integration-testing.md`
 **AC Updates:** Integration tests, performance, coverage threshold items
 
+---
+
+### Phase 4 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 4.5, verify Phase 4 completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Step 1: integration-tester subagent invoked?
+      Search for: Task(subagent_type="integration-tester")
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Coverage thresholds validated (95%/85%/80%)?
+      Search for: coverage results OR threshold validation
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] AC Checklist (integration items) updated? ✓ MANDATORY
+      Search for: Edit with AC Checklist integration items marked [x]
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 4 INCOMPLETE - Integration testing not verified"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Phase 4.5 until Phase 4 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 4 Validation Passed - Integration testing complete"
+  "  ✓ integration-tester invoked"
+  "  ✓ Coverage thresholds met"
+  "  ✓ AC Checklist updated"
+  ""
+  Display: "Proceeding to Phase 4.5..."
+
+  Proceed to Phase 4.5
+
+**Purpose:** Ensures integration testing complete before deferral checkpoint
+
+---
+
 ### Phase 4.5: Deferral Challenge Checkpoint (NEW - RCA-006)
-Challenge ALL deferrals (pre-existing + new) → deferral-validator → User approval required → **Update AC Checklist (deferral items)**
+Challenge ALL deferrals (pre-existing + new) → deferral-validator → User approval required → **Update AC Checklist (deferral items) ✓ MANDATORY**
 **Reference:** `phase-4.5-deferral-challenge.md`
 **Purpose:** Prevent autonomous deferrals, enforce "Attempt First, Defer Only If Blocked" pattern
 **AC Updates:** Deferral validation, follow-up story creation items
+
+---
+
+### Phase 4.5 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 4.5-5 Bridge, verify Phase 4.5 completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] DoD reviewed for incomplete items?
+      Search for: DoD review OR deferral detection
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] IF deferrals exist: deferral-validator subagent invoked?
+      Search for: Task(subagent_type="deferral-validator") OR "No deferrals"
+      Found OR no deferrals? YES → Check box | NO → Leave unchecked
+
+- [ ] IF deferrals exist: User approval obtained?
+      Search for: AskUserQuestion about deferrals OR user approved deferral
+      Found OR no deferrals? YES → Check box | NO → Leave unchecked
+
+- [ ] AC Checklist (deferral items) updated? ✓ MANDATORY
+      Search for: Edit with AC Checklist deferral items marked [x]
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 4.5 INCOMPLETE - Deferral validation not verified"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Bridge until Phase 4.5 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 4.5 Validation Passed - Deferrals validated or none found"
+  "  ✓ DoD reviewed"
+  "  ✓ Deferrals validated (or none exist)"
+  "  ✓ AC Checklist updated"
+  ""
+  Display: "Proceeding to Phase 4.5-5 Bridge..."
+
+  Proceed to Bridge
+
+**Purpose:** Ensures deferrals are properly validated before DoD update
+
+---
 
 ### Phase 4.5-5 Bridge: DoD Update Workflow ✓ MANDATORY (NEW - RCA-009, Enforced - RCA-010)
 Update DoD format for git commit → Validate format → Prepare for Phase 5
@@ -276,13 +479,107 @@ Update DoD format for git commit → Validate format → Prepare for Phase 5
 **CRITICAL:** Execute AFTER Phase 4.5, BEFORE Phase 5 - git commit will FAIL if skipped
 **Note (RCA-014):** Phase 4.5-R removed - resumption now happens immediately in Phase 4.5 Step 7
 
+---
+
+### Bridge Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 5 (Git Commit), verify Bridge completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] DoD items marked [x] in story file?
+      Search for: Edit with DoD items marked [x]
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Implementation Notes flat list added?
+      Search for: Edit with "Definition of Done - Completed Items"
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] DoD format validated?
+      Search for: devforgeai-validate validate-dod OR Bash with validate-dod
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ BRIDGE INCOMPLETE - DoD not updated before commit"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "Git commit will FAIL without DoD validation. HALT."
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow (do not execute git commit)
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Bridge Validation Passed - DoD validated"
+  "  ✓ DoD items marked complete"
+  "  ✓ Implementation Notes added"
+  "  ✓ Format validation passed"
+  ""
+  Display: "Proceeding to Phase 5 (Git Commit)..."
+
+  Proceed to Phase 5
+
+**Purpose:** Prevents git commit without proper DoD documentation (RCA: STORY-080 skipped Bridge)
+
+---
+
 ### Phase 5: Git Workflow & DoD Validation
-Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items)**
+Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items) ✓ MANDATORY**
 **References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
 **Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit, 2.1+ AC Checklist final update
 **AC Updates:** Git commit, status update, backward compatibility items
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
+
+---
+
+### Phase 5 Validation Checkpoint (HALT IF FAILED)
+
+**Before proceeding to Phase 6, verify Phase 5 completed:**
+
+CHECK CONVERSATION HISTORY FOR EVIDENCE:
+
+- [ ] Git commit succeeded?
+      Search for: git commit output showing success OR commit hash
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] Story file included in commit?
+      Search for: git add with story file path
+      Found? YES → Check box | NO → Leave unchecked
+
+- [ ] AC Checklist (deployment items) updated? ✓ MANDATORY
+      Search for: Edit with AC Checklist deployment items marked [x]
+      Found? YES → Check box | NO → Leave unchecked
+
+IF any checkbox UNCHECKED:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ PHASE 5 INCOMPLETE - Git commit not verified"
+  ""
+  FOR each unchecked item:
+    Display: "  ✗ {item description}"
+  ""
+  Display: "HALT - Cannot proceed to Phase 6 until Phase 5 complete"
+  Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT workflow
+
+IF all checkboxes CHECKED:
+  Display:
+  "✓ Phase 5 Validation Passed - Code committed"
+  "  ✓ Git commit successful"
+  "  ✓ Story file included"
+  "  ✓ AC Checklist updated"
+  ""
+  Display: "Proceeding to Phase 6..."
+
+  Proceed to Phase 6
+
+**Purpose:** Ensures git commit includes story file and documentation
 
 ---
 
