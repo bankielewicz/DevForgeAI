@@ -163,98 +163,7 @@ ELIF len(high_issues) > 0:
 
 ELSE:
     Display: "  - No critical or high issues found ✅"
-    Display: "  Ready for Step 4 (Anti-Gaming Validation)"
-```
-
----
-
-### Step 4: Anti-Gaming Validation [MANDATORY - NEW]
-
-**Purpose:** Detect test gaming patterns that artificially inflate coverage/pass rates.
-
-**CRITICAL:** This step MUST complete BEFORE Light QA (Step 5). Test gaming undermines TDD integrity.
-
-**Why This Matters:**
-- Skip decorators hide failing tests (inflate pass rate)
-- Empty tests pass without validating anything (inflate coverage)
-- TODO placeholders indicate incomplete tests (inflate test count)
-- Excessive mocking bypasses real behavior testing (fake coverage)
-
-#### 4.1 Parse Gaming Validation from code-reviewer
-
-The code-reviewer subagent (Step 3) now includes anti-gaming validation. Extract result:
-
-```javascript
-gaming_result = code_reviewer_response.gaming_validation
-
-Display: ""
-Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Step 4: Anti-Gaming Validation"
-Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: ""
-
-IF gaming_result.status == "FAIL":
-    Display: "🚨 TEST GAMING DETECTED - WORKFLOW HALTED"
-    Display: ""
-    Display: "The following gaming patterns were found:"
-    Display: ""
-
-    FOR each violation in gaming_result.violations:
-        Display: "  [{violation.severity}] {violation.type}:"
-        Display: "    {violation.message}"
-        Display: "    Files: {violation.files}"
-        Display: ""
-
-    Display: "Gaming Pattern Counts:"
-    Display: "  - Skip Decorators: {gaming_result.skip_decorators_found}"
-    Display: "  - Empty Tests: {gaming_result.empty_tests_found}"
-    Display: "  - TODO Placeholders: {gaming_result.todo_placeholders_found}"
-    Display: "  - Excessive Mocking: {len(gaming_result.excessive_mocking_files)} files"
-    Display: ""
-
-    HALT: "Fix all test gaming violations before proceeding. Tests must be authentic."
-
-ELSE:
-    Display: "✓ Anti-gaming validation PASSED"
-    Display: "  - No skip decorators detected"
-    Display: "  - No empty tests detected"
-    Display: "  - No TODO placeholders in tests"
-    Display: "  - Mock ratios acceptable (≤2× test count)"
-    Display: ""
-    Display: "Test suite is authentic. Proceeding to Light QA..."
-```
-
-#### 4.2 Gaming Patterns That Block Workflow
-
-| Pattern | Severity | Detection | Action |
-|---------|----------|-----------|--------|
-| Skip decorators | CRITICAL | `@skip`, `@Ignore`, `test.skip`, `xit(` | HALT |
-| Empty tests | CRITICAL | Tests with no assertions or only `pass` | HALT |
-| TODO placeholders | CRITICAL | `TODO`, `FIXME`, `NotImplementedError` | HALT |
-| Excessive mocking | CRITICAL | Mocks > 2× test count | HALT |
-| Stub-only tests | CRITICAL | Setup without real assertions | HALT |
-
-#### 4.3 Resolution Requirements
-
-Before workflow can continue:
-1. **Remove ALL skip decorators** (or create ADR explaining why skip is necessary for specific test)
-2. **Add real assertions to ALL empty tests** (tests must verify actual behavior)
-3. **Implement ALL TODO placeholders** (no incomplete test stubs)
-4. **Reduce mock count to ≤2× test count** (test real behavior, not mocks)
-5. **Ensure tests verify real behavior**, not just that mocks return expected values
-
-#### 4.4 Checkpoint Verification
-
-```
-IF gaming_result.violations is NOT empty:
-    HALT: "Phase 3 blocked by test gaming. {len(gaming_result.violations)} violations found."
-    Display: "Fix violations and re-run /dev workflow from Phase 3"
-    DO NOT PROCEED to Step 5 (Light QA)
-
-ELSE:
-    Display: "✓ Anti-gaming validation passed"
-    Mark Step 4 complete in progress tracker
-    PROCEED to Step 5 (Light QA Validation)
+    Display: "  Ready for Step 5 (Light QA Validation)"
 ```
 
 ---
@@ -371,13 +280,10 @@ DO NOT proceed to Phase 4 until Light QA passes
 
 - [ ] **Step 3:** code-reviewer subagent invoked
   - Verification: Comprehensive code review performed
-  - Verification: Anti-gaming validation included in response
 
-- [ ] **Step 4:** Anti-Gaming Validation [MANDATORY - NEW]
-  - Verification: gaming_validation.status extracted from code-reviewer response
-  - Verification: No skip decorators, empty tests, TODO placeholders, excessive mocking
-  - Output: Gaming validation PASSED or HALTED with violations list
-  - HALT IF: gaming_result.status == "FAIL"
+- [ ] **Step 4:** Code review response handled
+  - Verification: CRITICAL issues fixed (if any)
+  - Verification: HIGH issues addressed or user-approved to skip
 
 - [ ] **Step 5:** Light QA validation executed [MANDATORY]
   - Verification: devforgeai-qa skill invoked in light mode

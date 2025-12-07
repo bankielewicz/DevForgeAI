@@ -482,17 +482,13 @@ Blocker: {item.blocker}
 "
 
 AskUserQuestion:
-  Question: "How should we handle: '{item.text}'?"
+  Question: "How should we handle this deferred item?"
   Header: "Deferral Decision"
   Options:
-    - "HALT and implement NOW"           ← FIRST (strongest challenge) [NEW ORDER]
-      Description: "Stop workflow and implement this item immediately"
-    - "Keep deferred (blocker is valid)"
-      Description: "I confirm this cannot be done now. Add my approval timestamp."
+    - "Attempt now (implement during this workflow)"
+    - "Keep deferred (blocker still valid)"
     - "Update justification (blocker changed)"
-      Description: "Blocker changed, update the reason"
-    - "Remove from DoD (not needed)"
-      Description: "This item is no longer needed"
+    - "Remove from DoD (no longer needed)"
   multiSelect: false
 
 user_decision = response
@@ -646,153 +642,6 @@ removed_items.append({
 ```
 
 # END FOR EACH loop
-```
-
----
-
-### Step 6.5: Mandatory HALT Verification [NEW - CANNOT BE SKIPPED]
-
-**Purpose:** Ensure Step 6 (User Approval) was NOT bypassed autonomously.
-
-**CRITICAL:** This step exists because Claude has been observed autonomously approving deferrals without user consent (RCA-006). This is a defense-in-depth checkpoint against autonomous deferrals.
-
-**Why This Step Is Necessary:**
-
-User reported: *"deferral-validator does not halt and automatically approves deferrals"*
-
-This checkpoint verifies that EVERY deferral went through the Step 6 AskUserQuestion workflow and received explicit user approval.
-
-#### 6.5.1 Verify User Approval Occurred for ALL Deferrals
-
-```
-unapproved_deferrals = []
-
-FOR each deferral in all_deferrals:
-    IF deferral.status == "kept" OR deferral.status == "deferred":
-        # Check if user approval timestamp exists
-        IF deferral.user_approval_timestamp IS EMPTY:
-            unapproved_deferrals.append(deferral)
-
-IF unapproved_deferrals is NOT empty:
-
-    HALT IMMEDIATELY with message:
-    ```
-    ════════════════════════════════════════════════════════════════
-    🚨 AUTONOMOUS DEFERRAL DETECTED - WORKFLOW HALTED
-    ════════════════════════════════════════════════════════════════
-
-    {len(unapproved_deferrals)} deferral(s) were approved WITHOUT user consent.
-
-    This is a CRITICAL violation of DevForgeAI protocol (RCA-006).
-
-    The following deferral(s) lack user approval timestamp:
-    ```
-
-    FOR each deferral in unapproved_deferrals:
-        Display: "  - {deferral.text}"
-        Display: "    Justification: {deferral.justification}"
-        Display: "    Missing: User approved: YYYY-MM-DD HH:MM:SS UTC"
-        Display: ""
-
-    Display: "ACTION REQUIRED:"
-    Display: "User MUST explicitly approve or reject each deferral."
-    Display: "═══════════════════════════════════════════════════════════════"
-    Display: ""
-
-    # Force user decision NOW for each unapproved deferral
-    FOR each deferral in unapproved_deferrals:
-        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        Display: "MANDATORY APPROVAL REQUIRED"
-        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-        Display: "Item: {deferral.text}"
-        Display: "Justification: {deferral.justification}"
-        Display: ""
-
-        AskUserQuestion:
-            Question: "Deferral '{deferral.text}' was auto-approved. What should happen?"
-            Header: "MANDATORY Approval"
-            Options:
-                - "HALT and implement NOW (reject deferral)"  ← FIRST OPTION
-                  Description: "Stop workflow, implement this item immediately"
-                - "Approve deferral (I explicitly consent)"
-                  Description: "I confirm blocker is valid. Add my approval timestamp."
-                - "Remove from DoD (not needed)"
-                  Description: "This item should not have been in DoD"
-            multiSelect: false
-
-        user_choice = response
-
-        # Record approval with timestamp
-        IF user_choice == "Approve deferral (I explicitly consent)":
-            timestamp = $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-
-            Edit(
-              file_path="${STORY_FILE}",
-              old_string="{deferral.justification}",
-              new_string="{deferral.justification}
-    User approved: {timestamp}"
-            )
-
-            Display: "✓ Deferral approved by user at {timestamp}"
-
-        ELIF user_choice == "HALT and implement NOW (reject deferral)":
-            Display: "User chose to implement immediately."
-            Display: "Returning to Phase 2 to implement: {deferral.text}"
-
-            # Remove deferral, add to implementation queue
-            items_to_implement.append(deferral.text)
-
-            HALT: "User rejected deferral. Return to Phase 2 for implementation."
-
-        ELIF user_choice == "Remove from DoD (not needed)":
-            Edit(
-              file_path="${STORY_FILE}",
-              old_string="- [ ] {deferral.text}
-    {deferral.justification}",
-              new_string=""
-            )
-
-            Display: "✓ Item removed from DoD: {deferral.text}"
-```
-
-#### 6.5.2 Audit Trail Requirement
-
-Every kept deferral MUST have this format:
-
-```markdown
-- [ ] {deferral_text}
-  Blocker: {blocker_type}
-  Justification: {detailed_reason}
-  User approved: {YYYY-MM-DD HH:MM:SS UTC}  ← MANDATORY
-```
-
-**Deferrals WITHOUT "User approved:" timestamp are INVALID and will fail Phase 4.5 checkpoint.**
-
-#### 6.5.3 Final Checkpoint Verification
-
-```
-unapproved_count = count_deferrals_without_timestamp()
-
-IF unapproved_count > 0:
-    HALT: "Cannot proceed to Bridge. {unapproved_count} deferral(s) lack user approval timestamp."
-    Display: "Re-run Step 6.5 to force user approval for all deferrals."
-
-ELSE:
-    Display: ""
-    Display: "✓ Step 6.5 Complete: All deferrals have user approval timestamps"
-    Display: "  - {len(approved_deferrals)} deferrals approved"
-    Display: "  - {len(items_to_implement)} deferrals rejected (will implement)"
-    Display: "  - {len(removed_items)} items removed from DoD"
-    Display: ""
-
-    # Determine next action
-    IF items_to_implement is NOT empty:
-        Display: "Returning to Phase 2 to implement rejected deferrals..."
-        HALT Phase 4.5
-        GOTO Phase 2 (Step 7 handles this)
-    ELSE:
-        Display: "No implementation needed. Proceeding to Step 7..."
-        PROCEED to Step 7
 ```
 
 ---
