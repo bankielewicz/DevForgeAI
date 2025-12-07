@@ -3,11 +3,12 @@ id: STORY-080
 title: Rollback to Previous Version
 epic: EPIC-014
 sprint: Backlog
-status: Backlog
+status: In Development
 points: 12
 priority: Medium
-assigned_to: Unassigned
+assigned_to: Claude
 created: 2025-11-25
+updated: 2025-12-06 (TDD Phase 1 - Red Phase Complete)
 format_version: "2.1"
 ---
 
@@ -564,10 +565,40 @@ None - uses existing backup infrastructure from STORY-078.
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
+- [x] Architecture phase complete
 - [ ] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
+
+---
+
+## Implementation Notes
+
+### Status History
+- 2025-12-06: Status changed Backlog → In Development (TDD Phase 1 Red)
+- 2025-12-06: Test suite created (61 tests, 100% AC coverage)
+
+### TDD Phase 1 (Red) - Complete
+- test_rollback_orchestrator.py: 14 tests (AC#1, AC#2, AC#7, AC#8)
+- test_backup_selector.py: 10 tests (AC#2, AC#3)
+- test_backup_restorer.py: 12 tests (AC#4, AC#5, AC#6)
+- test_backup_cleaner.py: 8 tests (AC#8)
+- test_rollback_validator.py: 9 tests (AC#6)
+- integration/test_rollback_workflow_story080.py: 8 tests (All ACs)
+
+### Next Steps
+- Run `/dev STORY-080` to execute Phase 2-7 (Green → Refactor → Integration → Git)
+
+### DoD Status (Phase 1 - Red)
+All DoD items [ ] - Implementations pending (tests written first per TDD)
+- [ ] RollbackOrchestrator service implemented - Pending: Phase 2
+- [ ] BackupRestorer service implemented - Pending: Phase 2
+- [ ] BackupSelector service implemented - Pending: Phase 2
+- [ ] BackupCleaner service implemented - Pending: Phase 2
+- [ ] RollbackValidator service implemented - Pending: Phase 2
+- [ ] All data models implemented - Pending: Phase 2
+
+---
 
 ## Notes
 
