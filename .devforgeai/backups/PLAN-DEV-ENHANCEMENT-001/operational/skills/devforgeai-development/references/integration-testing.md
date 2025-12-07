@@ -34,83 +34,6 @@ Phase 4 validates that the implementation integrates correctly with other compon
 
 **Delegate integration testing to integration-tester subagent.**
 
-### Step 0: Anti-Gaming Validation [MANDATORY - RUN FIRST - NEW]
-
-**Purpose:** Prevent coverage gaming BEFORE test execution.
-
-**CRITICAL:** This step MUST complete BEFORE running any tests. Coverage metrics are meaningless if tests are gamed.
-
-#### 0.1 Why This Runs First
-
-Coverage metrics are only valid if tests are authentic:
-- **Skipped tests** don't run but aren't counted as failures → inflates pass rate
-- **Empty tests** pass automatically without validating anything → inflates coverage
-- **TODO placeholders** indicate incomplete test stubs → inflates test count
-- **Over-mocked tests** don't test real behavior → fake coverage
-
-By validating BEFORE test execution, we ensure coverage scores reflect real testing quality.
-
-#### 0.2 Execute Gaming Detection via integration-tester
-
-The integration-tester subagent (invoked in Step 1 below) now includes Step 0 gaming validation FIRST.
-
-**Gaming detection happens automatically inside integration-tester subagent:**
-
-```
-gaming_scan = integration_tester.step_0_gaming_validation()
-
-IF gaming_scan.status == "BLOCKED":
-    Display:
-    ```
-    ══════════════════════════════════════════════════════
-    🚨 PHASE 4 BLOCKED - TEST GAMING DETECTED
-    ══════════════════════════════════════════════════════
-    Cannot calculate coverage with gaming patterns present.
-
-    Violations found:
-    - Skip Decorators: {count} files
-    - Empty Tests: {count} files
-    - TODO Placeholders: {count} files
-    - Excessive Mocking: {count} files
-
-    See violation details below.
-    ══════════════════════════════════════════════════════
-    ```
-
-    FOR each violation in gaming_scan.violations:
-        Display: "  {violation.type}: {violation.files}"
-
-    Display: ""
-    Display: "ACTION REQUIRED:"
-    Display: "1. Remove all @skip/@Ignore decorators"
-    Display: "2. Add real assertions to empty tests"
-    Display: "3. Implement TODO/FIXME placeholders"
-    Display: "4. Reduce mock usage to ≤2× test count"
-    Display: ""
-
-    HALT: "Phase 4 cannot proceed. Test gaming invalidates coverage metrics."
-    DO NOT execute Step 1 (integration testing)
-```
-
-#### 0.3 Proceed Only on PASS
-
-```
-IF gaming_scan.status == "PASS":
-    Display: "✓ Anti-gaming validation passed - coverage will be authentic"
-    Display: "  - No skip decorators detected"
-    Display: "  - No empty tests detected"
-    Display: "  - No TODO placeholders in tests"
-    Display: "  - Mock ratios acceptable (≤2× test count)"
-    Display: ""
-    Display: "Proceeding to Step 1 (Integration Testing)..."
-
-    PROCEED to Step 1
-```
-
-**Integration:** The integration-tester subagent runs Step 0 automatically as its first action. No separate invocation needed.
-
----
-
 ### Step 1: Invoke integration-tester Subagent [MANDATORY]
 
 ```
@@ -256,14 +179,8 @@ Phase 4 succeeds when:
 
 ### Mandatory Steps Executed
 
-- [ ] **Step 0:** Anti-Gaming Validation PASSED [MANDATORY - NEW]
-  - Verification: integration-tester ran gaming validation BEFORE tests
-  - Verification: No skip decorators, empty tests, TODO placeholders, excessive mocking
-  - Output: "✓ Anti-gaming validation passed" displayed
-  - HALT IF: gaming_scan.status == "BLOCKED"
-
 - [ ] **Step 1:** integration-tester subagent invoked
-  - Verification: Full test suite executed with coverage (AFTER Step 0 PASS)
+  - Verification: Full test suite executed with coverage
   - Output: Test results and coverage percentages displayed
 
 - [ ] **Step 2:** Integration test results parsed and validated

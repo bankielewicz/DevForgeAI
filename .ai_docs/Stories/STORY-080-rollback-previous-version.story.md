@@ -3,12 +3,12 @@ id: STORY-080
 title: Rollback to Previous Version
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 12
 priority: Medium
 assigned_to: Claude
 created: 2025-11-25
-updated: 2025-12-06
+updated: 2025-12-07
 format_version: "2.1"
 ---
 
@@ -567,7 +567,7 @@ None - uses existing backup infrastructure from STORY-078.
 
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ---

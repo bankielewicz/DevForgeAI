@@ -3,6 +3,9 @@
 
 Default to plan mode when asked to do something.
 
+# ** NO EXCEPTION ** 
+When creating a plan, it MUST be self-contained with full documentation, reference links, and progress checkpoints that WILL survive context window clears or new sessions.
+
 If asked to do something and do not enter plan mode - HALT!
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.

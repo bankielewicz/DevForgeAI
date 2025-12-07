@@ -374,6 +374,12 @@ Cross-component testing, coverage validation → integration-tester → Threshol
 
 CHECK CONVERSATION HISTORY FOR EVIDENCE:
 
+- [ ] Step 0: Anti-Gaming Validation PASSED? [NEW - BLOCKING - RUN FIRST]
+      Search for: integration-tester response with "✓ Anti-gaming validation passed"
+      OR: gaming_scan.status == "PASS"
+      Found? YES → Check box | NO → Leave unchecked
+      IF FAIL: HALT - Test gaming detected, coverage scores INVALID
+
 - [ ] Step 1: integration-tester subagent invoked?
       Search for: Task(subagent_type="integration-tester")
       Found? YES → Check box | NO → Leave unchecked
@@ -394,6 +400,10 @@ IF any checkbox UNCHECKED:
   FOR each unchecked item:
     Display: "  ✗ {item description}"
   ""
+  IF anti-gaming validation FAILED:
+    Display: "  🚨 TEST GAMING DETECTED - Cannot calculate authentic coverage"
+    Display: "  Fix: Remove skip decorators, add assertions, reduce mocking, remove TODO placeholders"
+  ""
   Display: "HALT - Cannot proceed to Phase 4.5 until Phase 4 complete"
   Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -402,6 +412,7 @@ IF any checkbox UNCHECKED:
 IF all checkboxes CHECKED:
   Display:
   "✓ Phase 4 Validation Passed - Integration testing complete"
+  "  ✓ Anti-gaming validation PASSED"
   "  ✓ integration-tester invoked"
   "  ✓ Coverage thresholds met"
   "  ✓ AC Checklist updated"
@@ -410,7 +421,7 @@ IF all checkboxes CHECKED:
 
   Proceed to Phase 4.5
 
-**Purpose:** Ensures integration testing complete before deferral checkpoint
+**Purpose:** Ensures anti-gaming validation and integration testing complete before deferral checkpoint
 
 ---
 
@@ -436,9 +447,17 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
       Search for: Task(subagent_type="deferral-validator") OR "No deferrals"
       Found OR no deferrals? YES → Check box | NO → Leave unchecked
 
-- [ ] IF deferrals exist: User approval obtained?
-      Search for: AskUserQuestion about deferrals OR user approved deferral
-      Found OR no deferrals? YES → Check box | NO → Leave unchecked
+- [ ] Step 6: AskUserQuestion invoked for EVERY deferral? [ENFORCED]
+      Search for: AskUserQuestion with deferral decision options
+      Options MUST include "HALT and implement NOW" as FIRST option
+      Found for EACH deferral OR no deferrals? YES → Check box | NO → Leave unchecked
+      IF SKIPPED: HALT - Autonomous deferral approval is FORBIDDEN
+
+- [ ] Step 6.5: User approval timestamp recorded? [NEW - MANDATORY]
+      Search for: "User approved: YYYY-MM-DD" timestamp in story file
+      FOR EACH kept deferral, timestamp MUST exist
+      Found for ALL OR no deferrals kept? YES → Check box | NO → Leave unchecked
+      IF MISSING: HALT - Deferrals without explicit user approval are INVALID
 
 - [ ] AC Checklist (deferral items) updated? ✓ MANDATORY
       Search for: Edit with AC Checklist deferral items marked [x]
@@ -452,6 +471,16 @@ IF any checkbox UNCHECKED:
   FOR each unchecked item:
     Display: "  ✗ {item description}"
   ""
+  IF Step 6 (AskUserQuestion) SKIPPED:
+    Display: "  🚨 AUTONOMOUS DEFERRAL DETECTED"
+    Display: "  Claude MUST use AskUserQuestion for EVERY deferral"
+    Display: "  First option MUST be 'HALT and implement NOW'"
+  ""
+  IF Step 6.5 (timestamp) MISSING:
+    Display: "  🚨 DEFERRAL WITHOUT USER APPROVAL"
+    Display: "  Every kept deferral MUST have 'User approved: timestamp'"
+    Display: "  Deferrals without timestamps are INVALID"
+  ""
   Display: "HALT - Cannot proceed to Bridge until Phase 4.5 complete"
   Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -459,16 +488,18 @@ IF any checkbox UNCHECKED:
 
 IF all checkboxes CHECKED:
   Display:
-  "✓ Phase 4.5 Validation Passed - Deferrals validated or none found"
+  "✓ Phase 4.5 Validation Passed - Deferrals validated with user approval"
   "  ✓ DoD reviewed"
   "  ✓ Deferrals validated (or none exist)"
+  "  ✓ AskUserQuestion invoked for every deferral"
+  "  ✓ User approval timestamps recorded"
   "  ✓ AC Checklist updated"
   ""
   Display: "Proceeding to Phase 4.5-5 Bridge..."
 
   Proceed to Bridge
 
-**Purpose:** Ensures deferrals are properly validated before DoD update
+**Purpose:** Ensures deferrals have EXPLICIT user approval (not autonomous) before DoD update. Step 6.5 is defense-in-depth against auto-approval.
 
 ---
 
@@ -628,15 +659,22 @@ Phase 2: Green (tdd-green-phase.md)
 Phase 3: Refactor (tdd-refactor-phase.md + refactoring-patterns.md)
   ├─ Step 1-2: refactoring-specialist ✓ MANDATORY
   ├─ Step 3: code-reviewer ✓ MANDATORY
+  ├─ **Step 4: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← BLOCKS IF GAMING DETECTED
+  │   └─ HALT if: skip decorators, empty tests, excessive mocking (>2x) detected
   └─ Step 5: Light QA (devforgeai-qa --mode=light) ✓ MANDATORY ← OFTEN MISSED
   ↓
 Phase 4: Integration (integration-testing.md)
+  ├─ **Step 0: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← RUN FIRST, BLOCKS COVERAGE
+  │   └─ HALT if: gaming patterns detected BEFORE coverage calculation
   └─ Step 1: integration-tester ✓ MANDATORY
   ↓
 Phase 4.5: Deferral Challenge (phase-4.5-deferral-challenge.md)
   ├─ Detect deferrals ✓ MANDATORY
   ├─ deferral-validator ✓ MANDATORY IF deferrals exist
-  └─ User approval ✓ MANDATORY IF deferrals exist
+  ├─ **Step 6: AskUserQuestion for EVERY deferral ✓ MANDATORY [ENFORCED]**
+  ├─ **Step 6.5: Mandatory HALT Verification ✓ MANDATORY [NEW]** ← BLOCKS IF AUTO-APPROVED
+  │   └─ HALT if: ANY deferral lacks explicit user approval timestamp
+  └─ User approval timestamp recorded ✓ MANDATORY IF deferrals kept
   ↓
 Phase 4.5-5 Bridge: DoD Update (dod-update-workflow.md ← NEW)
   ├─ Mark DoD items [x] ✓ MANDATORY
@@ -992,6 +1030,12 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
       Search for: Task(subagent_type="code-reviewer")
       Found? YES → Check box | NO → Leave unchecked
 
+- [ ] Step 4: Anti-Gaming Validation PASSED? [NEW - BLOCKING]
+      Search for: code-reviewer response with gaming_validation.status == "PASS"
+      OR: "✓ Anti-gaming validation passed"
+      Found? YES → Check box | NO → Leave unchecked
+      IF FAIL: HALT - Test gaming detected, fix violations before proceeding
+
 - [ ] Step 5: Light QA (devforgeai-qa --mode=light) executed?
       Search for: Skill(skill="devforgeai-qa") with **Validation mode:** light
       Found? YES → Check box | NO → Leave unchecked
@@ -1008,6 +1052,10 @@ IF any checkbox UNCHECKED:
   FOR each unchecked item:
     Display: "  ✗ {item description}"
   ""
+  IF anti-gaming validation FAILED:
+    Display: "  🚨 TEST GAMING DETECTED - Coverage scores are invalid"
+    Display: "  Fix: Remove skip decorators, add assertions to empty tests, reduce mocking"
+  ""
   Display: "HALT - Cannot proceed to Phase 4 until Phase 3 complete"
   Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -1018,6 +1066,7 @@ IF all checkboxes CHECKED:
   "✓ Phase 3 Validation Passed - All mandatory steps completed"
   "  ✓ refactoring-specialist invoked"
   "  ✓ code-reviewer invoked"
+  "  ✓ Anti-gaming validation PASSED"
   "  ✓ Light QA executed"
   ""
   Display: "Proceeding to Phase 4..."
@@ -1025,7 +1074,7 @@ IF all checkboxes CHECKED:
   Proceed to Phase 4
 ```
 
-**Purpose:** This checkpoint prevents Claude from skipping refactoring-specialist and Light QA (marked "← OFTEN MISSED") by requiring explicit verification before phase progression.
+**Purpose:** This checkpoint prevents Claude from skipping refactoring-specialist, anti-gaming validation, and Light QA (marked "← OFTEN MISSED") by requiring explicit verification before phase progression.
 
 ---
 

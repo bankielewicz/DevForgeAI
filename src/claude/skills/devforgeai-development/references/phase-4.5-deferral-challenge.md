@@ -96,100 +96,146 @@ The two validators work together in sequence:
 
 ## Checkpoint Workflow
 
-### Step 1: Detect All Deferred Items [MANDATORY]
+### Step 1: Detect All Incomplete DoD Items [MANDATORY]
+
+**CRITICAL CHANGE (RCA-014):** Detect ANY unchecked DoD item, not just explicitly deferred items.
 
 <detection_phase>
-  <method>Grep for deferred DoD items with justifications</method>
-  <pattern>Lines with "- [ ]" followed by deferral justifications</pattern>
-  <scope>ALL deferrals (pre-existing from template + new from TDD)</scope>
+  <method>Grep for ALL unchecked DoD items (explicit and implicit deferrals)</method>
+  <pattern>Lines with "- [ ]" in Definition of Done section</pattern>
+  <scope>ALL incomplete work (explicit deferrals + implicit deferrals without justification)</scope>
+  <rationale>CLAUDE.md mandates "Deferrals are not acceptable!" - leaving work unchecked IS a deferral (implicit)</rationale>
 </detection_phase>
 
-**Use Grep to find ALL deferred items:**
+**Purpose:** Enforce CLAUDE.md directive by treating ALL incomplete DoD work as requiring user approval.
+
+**Rationale (RCA-014):** The original detection only caught EXPLICIT deferrals (with "Deferred to..." text), creating a loophole for IMPLICIT deferrals (plain unchecked boxes). This fix closes that loophole per user guidance: "Deferrals are not acceptable! HALT! on deferrals of implementation."
+
+**Use Grep to find ALL unchecked DoD items:**
 
 ```
 Grep(
-  pattern="- \[ \].*",
+  pattern="^- \[ \]",
   path="${STORY_FILE}",
   output_mode="content",
+  -B=1,
   -A=3
 )
 ```
 
-**Parse results to identify deferrals:**
+**Parse results to identify incomplete items:**
 
 ```
-deferred_items = []
+incomplete_items = []
+in_dod_section = false
 
-FOR each match from Grep (DoD section only):
+FOR each match from Grep:
   item_text = line starting with "- [ ]"
+  preceding_line = previous line (via -B=1)
   context_lines = next 3 lines (via -A=3)
 
-  # Check if item has deferral justification
-  has_deferral = false
-  justification_text = ""
+  # Section filtering: Only process items in Definition of Done section
+  # Skip AC Checklist, Implementation Notes, other sections
 
-  FOR each context_line in context_lines:
-    IF context_line contains "Deferred to STORY-":
-      has_deferral = true
-      justification_text = context_line
-      break
+  IF preceding_line contains "## Definition of Done":
+    in_dod_section = true
 
-    ELSE IF context_line contains "Blocked by:":
-      has_deferral = true
-      justification_text = context_line
-      break
+  IF preceding_line contains "## Acceptance Criteria":
+    in_dod_section = false
 
-    ELSE IF context_line contains "Out of scope: ADR-":
-      has_deferral = true
-      justification_text = context_line
-      break
+  IF preceding_line contains "## Workflow Status":
+    in_dod_section = false
 
-  IF has_deferral:
-    # Extract details
-    IF "Deferred to" in justification_text:
-      target_story = extract STORY-ID from justification_text
-      reason = extract text after ":"
-      deferral_type = "story"
+  IF preceding_line contains "## Implementation Notes":
+    in_dod_section = false
 
-    ELSE IF "Blocked by:" in justification_text:
-      blocker = extract text after "Blocked by:"
-      deferral_type = "blocker"
-      target_story = null
+  IF preceding_line contains "### AC#":
+    in_dod_section = false  # AC Checklist section
 
-    ELSE IF "Out of scope:" in justification_text:
-      adr_reference = extract ADR-XXX
-      deferral_type = "scope_change"
-      target_story = null
+  IF preceding_line contains "Checklist":
+    in_dod_section = false
 
-    deferred_items.append({
-      text: item_text,
-      justification: justification_text,
-      type: deferral_type,
-      target: target_story or blocker or adr_reference,
-      reason: reason
-    })
+  # Only process if in DoD section
+  IF NOT in_dod_section:
+    CONTINUE  # Skip this item
+
+  # Classify incomplete item
+  classification = classify_incomplete_item(context_lines)
+  justification = extract_justification(context_lines)
+
+  incomplete_items.append({
+    text: item_text,
+    classification: classification,  # "explicit_deferral" | "implicit_deferral"
+    justification: justification or "NONE",
+    has_approval: check_for_approval(context_lines)
+  })
+
+FUNCTION classify_incomplete_item(context_lines):
+  """
+  Classify whether unchecked item has explicit deferral justification.
+
+  Returns:
+    - "explicit_deferral" if justification text found
+    - "implicit_deferral" if NO justification (RCA-014 fix - treats as deferral)
+  """
+  # Check for explicit deferral justification
+  FOR each line in context_lines:
+    IF line contains "Deferred to STORY-":
+      RETURN "explicit_deferral"
+    IF line contains "Blocked by:":
+      RETURN "explicit_deferral"
+    IF line contains "Out of scope: ADR-":
+      RETURN "explicit_deferral"
+    IF line contains "Approved by user on":
+      RETURN "explicit_deferral"  # User-approved deferral
+
+  # No justification found = implicit deferral (BUG FIX!)
+  RETURN "implicit_deferral"
+
+FUNCTION extract_justification(context_lines):
+  """Extract deferral justification text if present."""
+  FOR each line in context_lines:
+    IF line contains "Deferred to":
+      RETURN line.strip()
+    IF line contains "Blocked by:":
+      RETURN line.strip()
+    IF line contains "Out of scope:":
+      RETURN line.strip()
+    IF line contains "Approved by user on":
+      RETURN line.strip()
+  RETURN null
+
+FUNCTION check_for_approval(context_lines):
+  """Check if item has user approval timestamp."""
+  FOR each line in context_lines:
+    IF line contains "Approved by user on" AND line contains timestamp_pattern:
+      RETURN true
+  RETURN false
 ```
 
 **Result:**
-- `deferred_items` = List of ALL deferred DoD items with their justifications
-- Includes BOTH pre-existing deferrals AND new deferrals from TDD cycle
+- `incomplete_items` = List of ALL incomplete DoD items (explicit + implicit deferrals)
+- Includes BOTH pre-existing deferrals AND new incomplete work from TDD cycle
+- Classification enables different handling: explicit deferrals validated by deferral-validator, implicit deferrals require immediate user approval
 
 ---
 
-### Step 2: Skip Checkpoint if No Deferrals
+### Step 2: Skip Checkpoint if No Incomplete Items (RCA-014 Updated)
 
-**IF deferred_items is empty:**
+**IF incomplete_items is empty:**
 
 ```
-Display: "✓ No deferred DoD items found - all items complete or in progress"
+Display: "✓ All DoD items complete (100%) - no deferrals detected"
 Display: "Skipping Phase 4.5 (Deferral Challenge Checkpoint)"
-Display: "Proceeding to Phase 5 (Git Workflow)..."
+Display: "Proceeding to Phase 4.5-5 Bridge (DoD Update)..."
 
 Exit this checkpoint
-Return control to skill for Phase 5
+Return control to skill for Phase 4.5-5 Bridge
 ```
 
 **OTHERWISE:** Continue to Step 3
+
+**Note:** With RCA-014 fix, "no incomplete items" means DoD is 100% complete (all boxes checked). Any unchecked box triggers this checkpoint, whether it has explicit justification ("Deferred to...") or not (implicit deferral).
 
 ---
 
@@ -401,16 +447,21 @@ ELSE IF user selects "Override and proceed":
 
 ---
 
-### Step 6: Challenge ALL Deferrals with User Approval [MANDATORY IF deferrals exist]
+### Step 6: Challenge ALL Incomplete Items with User Approval [MANDATORY IF incomplete items exist]
+
+**UPDATED (RCA-014):** Challenge both explicit AND implicit deferrals.
 
 <user_approval_gate>
-  <policy>ZERO autonomous deferrals</policy>
-  <mechanism>AskUserQuestion for EVERY deferred item</mechanism>
-  <scope>ALL deferrals (resolvable + valid)</scope>
-  <enforcement>Git commit BLOCKED until all approved</enforcement>
+  <policy>ZERO autonomous deferrals (explicit OR implicit)</policy>
+  <mechanism>AskUserQuestion for EVERY incomplete DoD item</mechanism>
+  <scope>ALL incomplete work (resolvable + valid + implicit deferrals)</scope>
+  <enforcement>Git commit BLOCKED until all approved OR implemented</enforcement>
+  <rca_context>RCA-014 discovered implicit deferrals (unchecked without justification) bypassed Phase 4.5</rca_context>
 </user_approval_gate>
 
-**FOR EACH deferred item (both resolvable + valid):**
+**FOR EACH incomplete item (explicit deferrals + implicit deferrals):**
+
+**Note:** Explicit deferrals have justifications ("Deferred to...", "Blocked by..."). Implicit deferrals are plain unchecked boxes (no justification). Both require user approval per CLAUDE.md: "Deferrals are not acceptable!"
 
 ```
 Display:
@@ -431,13 +482,17 @@ Blocker: {item.blocker}
 "
 
 AskUserQuestion:
-  Question: "How should we handle this deferred item?"
+  Question: "How should we handle: '{item.text}'?"
   Header: "Deferral Decision"
   Options:
-    - "Attempt now (implement during this workflow)"
-    - "Keep deferred (blocker still valid)"
+    - "HALT and implement NOW"           ← FIRST (strongest challenge) [NEW ORDER]
+      Description: "Stop workflow and implement this item immediately"
+    - "Keep deferred (blocker is valid)"
+      Description: "I confirm this cannot be done now. Add my approval timestamp."
     - "Update justification (blocker changed)"
-    - "Remove from DoD (no longer needed)"
+      Description: "Blocker changed, update the reason"
+    - "Remove from DoD (not needed)"
+      Description: "This item is no longer needed"
   multiSelect: false
 
 user_decision = response
@@ -595,15 +650,329 @@ removed_items.append({
 
 ---
 
-### Step 7: Final Summary and Proceed [MANDATORY]
+### Step 6.5: Mandatory HALT Verification [NEW - CANNOT BE SKIPPED]
 
-<checkpoint_completion>
-  <validation>All deferrals challenged and user-approved</validation>
-  <output>Summary of approvals, removals, and items to implement</output>
-  <next_phase>Phase 5 (Git Workflow) OR return to Phase 2 (if items to implement)</next_phase>
-</checkpoint_completion>
+**Purpose:** Ensure Step 6 (User Approval) was NOT bypassed autonomously.
 
-**Display final summary:**
+**CRITICAL:** This step exists because Claude has been observed autonomously approving deferrals without user consent (RCA-006). This is a defense-in-depth checkpoint against autonomous deferrals.
+
+**Why This Step Is Necessary:**
+
+User reported: *"deferral-validator does not halt and automatically approves deferrals"*
+
+This checkpoint verifies that EVERY deferral went through the Step 6 AskUserQuestion workflow and received explicit user approval.
+
+#### 6.5.1 Verify User Approval Occurred for ALL Deferrals
+
+```
+unapproved_deferrals = []
+
+FOR each deferral in all_deferrals:
+    IF deferral.status == "kept" OR deferral.status == "deferred":
+        # Check if user approval timestamp exists
+        IF deferral.user_approval_timestamp IS EMPTY:
+            unapproved_deferrals.append(deferral)
+
+IF unapproved_deferrals is NOT empty:
+
+    HALT IMMEDIATELY with message:
+    ```
+    ════════════════════════════════════════════════════════════════
+    🚨 AUTONOMOUS DEFERRAL DETECTED - WORKFLOW HALTED
+    ════════════════════════════════════════════════════════════════
+
+    {len(unapproved_deferrals)} deferral(s) were approved WITHOUT user consent.
+
+    This is a CRITICAL violation of DevForgeAI protocol (RCA-006).
+
+    The following deferral(s) lack user approval timestamp:
+    ```
+
+    FOR each deferral in unapproved_deferrals:
+        Display: "  - {deferral.text}"
+        Display: "    Justification: {deferral.justification}"
+        Display: "    Missing: User approved: YYYY-MM-DD HH:MM:SS UTC"
+        Display: ""
+
+    Display: "ACTION REQUIRED:"
+    Display: "User MUST explicitly approve or reject each deferral."
+    Display: "═══════════════════════════════════════════════════════════════"
+    Display: ""
+
+    # Force user decision NOW for each unapproved deferral
+    FOR each deferral in unapproved_deferrals:
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: "MANDATORY APPROVAL REQUIRED"
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: "Item: {deferral.text}"
+        Display: "Justification: {deferral.justification}"
+        Display: ""
+
+        AskUserQuestion:
+            Question: "Deferral '{deferral.text}' was auto-approved. What should happen?"
+            Header: "MANDATORY Approval"
+            Options:
+                - "HALT and implement NOW (reject deferral)"  ← FIRST OPTION
+                  Description: "Stop workflow, implement this item immediately"
+                - "Approve deferral (I explicitly consent)"
+                  Description: "I confirm blocker is valid. Add my approval timestamp."
+                - "Remove from DoD (not needed)"
+                  Description: "This item should not have been in DoD"
+            multiSelect: false
+
+        user_choice = response
+
+        # Record approval with timestamp
+        IF user_choice == "Approve deferral (I explicitly consent)":
+            timestamp = $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+            Edit(
+              file_path="${STORY_FILE}",
+              old_string="{deferral.justification}",
+              new_string="{deferral.justification}
+    User approved: {timestamp}"
+            )
+
+            Display: "✓ Deferral approved by user at {timestamp}"
+
+        ELIF user_choice == "HALT and implement NOW (reject deferral)":
+            Display: "User chose to implement immediately."
+            Display: "Returning to Phase 2 to implement: {deferral.text}"
+
+            # Remove deferral, add to implementation queue
+            items_to_implement.append(deferral.text)
+
+            HALT: "User rejected deferral. Return to Phase 2 for implementation."
+
+        ELIF user_choice == "Remove from DoD (not needed)":
+            Edit(
+              file_path="${STORY_FILE}",
+              old_string="- [ ] {deferral.text}
+    {deferral.justification}",
+              new_string=""
+            )
+
+            Display: "✓ Item removed from DoD: {deferral.text}"
+```
+
+#### 6.5.2 Audit Trail Requirement
+
+Every kept deferral MUST have this format:
+
+```markdown
+- [ ] {deferral_text}
+  Blocker: {blocker_type}
+  Justification: {detailed_reason}
+  User approved: {YYYY-MM-DD HH:MM:SS UTC}  ← MANDATORY
+```
+
+**Deferrals WITHOUT "User approved:" timestamp are INVALID and will fail Phase 4.5 checkpoint.**
+
+#### 6.5.3 Final Checkpoint Verification
+
+```
+unapproved_count = count_deferrals_without_timestamp()
+
+IF unapproved_count > 0:
+    HALT: "Cannot proceed to Bridge. {unapproved_count} deferral(s) lack user approval timestamp."
+    Display: "Re-run Step 6.5 to force user approval for all deferrals."
+
+ELSE:
+    Display: ""
+    Display: "✓ Step 6.5 Complete: All deferrals have user approval timestamps"
+    Display: "  - {len(approved_deferrals)} deferrals approved"
+    Display: "  - {len(items_to_implement)} deferrals rejected (will implement)"
+    Display: "  - {len(removed_items)} items removed from DoD"
+    Display: ""
+
+    # Determine next action
+    IF items_to_implement is NOT empty:
+        Display: "Returning to Phase 2 to implement rejected deferrals..."
+        HALT Phase 4.5
+        GOTO Phase 2 (Step 7 handles this)
+    ELSE:
+        Display: "No implementation needed. Proceeding to Step 7..."
+        PROCEED to Step 7
+```
+
+---
+
+### Step 7: Immediate Resumption Decision [MANDATORY - RCA-014 Fix]
+
+**CRITICAL CHANGE (RCA-014/REC-2):** Resumption decision happens IMMEDIATELY in Phase 4.5 (not in separate Phase 4.5-R).
+
+**Purpose:** If user chose "Attempt now" for ANY items, determine resumption phase and loop back IMMEDIATELY (before DoD update, before Phase 5).
+
+**Rationale:** RCA-014 identified that Phase 4.5-R had circular dependency (expected DoD already updated). Moving resumption logic here eliminates dependency and enables immediate loop back.
+
+<resumption_logic>
+  <trigger>User selected "Attempt now" for ≥1 items</trigger>
+  <decision>Determine which TDD phase to resume from (2, 3, or 4)</decision>
+  <action>GOTO resumption phase (immediate loop back)</action>
+  <prevents>Committing incomplete work when user said "Continue to 100%"</prevents>
+</resumption_logic>
+
+```
+# Count items by decision type
+attempt_now_count = count(items where user selected "Attempt now")
+approved_count = count(items where user selected "Keep deferred")
+removed_count = count(items where user selected "Remove from DoD")
+
+# Determine next action based on user decisions
+IF attempt_now_count > 0:
+  Display: ""
+  Display: "════════════════════════════════════════════════════════════"
+  Display: "⚠️  RESUMPTION TRIGGERED (User Chose 'Attempt Now')"
+  Display: "════════════════════════════════════════════════════════════"
+  Display: ""
+  Display: "User Decision: Implement {attempt_now_count} deferred items now"
+  Display: "Items to implement:"
+  FOR each item in items_to_implement:
+    Display: "  • {item}"
+  Display: ""
+  Display: "Determining which TDD phase to resume from..."
+  Display: ""
+
+  # Analyze incomplete items to determine resumption phase
+  needs_implementation = false
+  needs_refactoring = false
+  needs_integration = false
+
+  FOR each item in items_to_implement:
+    item_lower = item.text.lowercase()
+
+    # Check if item requires new code implementation
+    IF item_lower contains "feature" OR "implemented" OR "code written" OR "functionality":
+      needs_implementation = true
+
+    # Check if item requires quality improvements
+    IF item_lower contains "refactor" OR "code quality" OR "complexity" OR "review":
+      needs_refactoring = true
+
+    # Check if item requires integration/end-to-end testing
+    IF item_lower contains "integration test" OR "end-to-end" OR "e2e" OR "cross-component":
+      needs_integration = true
+
+  # Determine earliest phase needed (implementation before refactoring before integration)
+  IF needs_implementation:
+    resumption_phase = 2
+    resumption_name = "Phase 2 (Implementation - Green Phase)"
+    Display: "Resuming at: {resumption_name}"
+    Display: "Reason: {attempt_now_count} items require code implementation"
+    Display: ""
+
+    # Increment iteration counter
+    iteration_count = iteration_count + 1
+
+    Display: "TDD Iteration: {iteration_count}/5"
+    Display: ""
+
+    # Check iteration limit
+    IF iteration_count >= 5:
+      Display: "⚠️  WARNING: Iteration limit reached (5 TDD cycles)"
+      Display: ""
+
+      AskUserQuestion:
+        Question: "Story has required 5 TDD iterations. How should we proceed?"
+        Header: "Iteration Limit"
+        Options:
+          - "Continue anyway (allow iteration 6+)"
+          - "Commit current progress with documented deferrals"
+          - "Review what's blocking completion (investigate)"
+        multiSelect: false
+
+      IF user selects "Continue anyway":
+        Display: "✓ User approved continuation beyond iteration 5"
+        Display: "  Proceeding to {resumption_name}..."
+        # Continue to GOTO Phase 2 below
+
+      ELSE IF user selects "Commit current progress":
+        Display: "✓ User approved committing with deferrals"
+        Display: "  Proceeding to Phase 4.5-5 Bridge (DoD Update)..."
+        GOTO Phase 4.5-5 Bridge  # Will add "Approved Deferrals" section
+
+      ELSE IF user selects "Review what's blocking":
+        Display: "Investigation recommended. Run: /rca \"Story requiring >5 TDD iterations\" HIGH"
+        HALT workflow
+        EXIT
+
+    GOTO Phase 2
+
+  ELSE IF needs_refactoring:
+    resumption_phase = 3
+    resumption_name = "Phase 3 (Refactoring)"
+    Display: "Resuming at: {resumption_name}"
+    Display: "Reason: {attempt_now_count} items require code quality improvements"
+    Display: ""
+
+    iteration_count = iteration_count + 1
+    Display: "TDD Iteration: {iteration_count}/5"
+    Display: ""
+
+    GOTO Phase 3
+
+  ELSE IF needs_integration:
+    resumption_phase = 4
+    resumption_name = "Phase 4 (Integration Testing)"
+    Display: "Resuming at: {resumption_name}"
+    Display: "Reason: {attempt_now_count} items require integration tests"
+    Display: ""
+
+    iteration_count = iteration_count + 1
+    Display: "TDD Iteration: {iteration_count}/5"
+    Display: ""
+
+    GOTO Phase 4
+
+  ELSE:
+    # Unclear which phase - ask user
+    Display: "Unable to determine resumption phase from item descriptions."
+    Display: ""
+
+    AskUserQuestion:
+      Question: "Which TDD phase should we resume from to implement these {attempt_now_count} items?"
+      Header: "Resumption Phase"
+      Options:
+        - "Phase 2 (Implementation - write new code)"
+        - "Phase 3 (Refactoring - improve existing code)"
+        - "Phase 4 (Integration - add cross-component tests)"
+      multiSelect: false
+
+    user_phase_choice = response
+
+    IF user selects "Phase 2":
+      GOTO Phase 2
+    ELSE IF user selects "Phase 3":
+      GOTO Phase 3
+    ELSE IF user selects "Phase 4":
+      GOTO Phase 4
+
+ELSE IF approved_count > 0:
+  # All incomplete items were approved for deferral
+  Display: ""
+  Display: "✓ All {approved_count} incomplete items approved for deferral"
+  Display: "  Proceeding to Phase 4.5-5 Bridge (DoD Update)..."
+  Display: ""
+
+  GOTO Phase 4.5-5 Bridge  # Will mark items [x] and add "Approved Deferrals" section
+
+ELSE:
+  # All items were removed from DoD
+  Display: ""
+  Display: "✓ All {removed_count} items removed from DoD (scope changes documented)"
+  Display: "  Proceeding to Phase 4.5-5 Bridge (DoD Update)..."
+  Display: ""
+
+  GOTO Phase 4.5-5 Bridge
+```
+
+**Note:** This replaces Phase 4.5-R entirely. Resumption decision happens IMMEDIATELY after user approval, not in separate phase. This eliminates the circular dependency (Phase 4.5-R expected DoD updated, but ran before DoD update).
+
+---
+
+### Step 8: Final Summary Display [MANDATORY]
+
+**Display comprehensive summary of Phase 4.5 results:**
 
 ```
 Display:
@@ -611,69 +980,64 @@ Display:
  PHASE 4.5 COMPLETE: Deferral Challenge Checkpoint
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Deferral Summary:
-- Total deferrals challenged: {total_deferrals}
-- Approved (kept deferred): {len(approved_deferrals)}
-- To implement (removed deferrals): {len(items_to_implement)}
-- Removed from DoD: {len(removed_items)}
+Incomplete Items Challenged: {total_incomplete_items}
+- Explicit deferrals: {count with classification='explicit_deferral'}
+- Implicit deferrals: {count with classification='implicit_deferral'} (RCA-014 fix)
 
-{IF approved_deferrals is not empty}:
-✓ Approved Deferrals:
+User Decisions:
+- Attempt now (implementing): {attempt_now_count}
+- Approved (staying deferred): {approved_count}
+- Removed from DoD: {removed_count}
+
+{IF attempt_now_count > 0}:
+⟳ RESUMING AT: {resumption_name}
+  Items to implement: {list items_to_implement}
+  After completion, workflow will re-run Phase 4.5 for final validation.
+
+{IF approved_count > 0}:
+✓ Approved Deferrals (with timestamps):
 {FOR each deferral in approved_deferrals}:
   - {deferral.item}
     Justification: {deferral.justification}
     Approved: {deferral.timestamp}
 
-{IF items_to_implement is not empty}:
-⏸️  Items to Implement:
-{FOR each item in items_to_implement}:
-  - {item}
-
-Returning to Phase 2 (TDD Green) to implement these items...
-
-{IF removed_items is not empty}:
+{IF removed_count > 0}:
 🗑️  Removed from DoD:
 {FOR each item in removed_items}:
   - {item.item}
     Reason: {item.reason}
-"
+    (Logged in Workflow History)
 
-# Determine next action
-IF items_to_implement is not empty:
-  Display: "Workflow will resume at Phase 2 (TDD Green) to implement {len(items_to_implement)} items."
-
-  HALT Phase 4.5
-  Return to skill with instruction:
-  "Resume Phase 2 (TDD Green) for items: {items_to_implement}
-   After implementation, re-run Phase 4 (Integration Testing), then Phase 4.5 to validate."
-
-ELSE:
-  Display: "All deferrals approved. Proceeding to Phase 5 (Git Workflow)..."
-
-  Exit Phase 4.5 successfully
-  Return control to skill for Phase 5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ```
+
+**This summary is displayed regardless of next action (resumption, approval, or removal).**
 
 ---
 
-## Success Criteria
+## Success Criteria (Updated RCA-014)
 
 This checkpoint succeeds when:
-- [ ] All deferred items detected via Grep
-- [ ] deferral-validator subagent invoked and results processed
+- [ ] All incomplete DoD items detected via Grep (explicit + implicit deferrals)
+- [ ] Section filtering applied (only DoD, not AC Checklist)
+- [ ] deferral-validator subagent invoked for explicit deferrals (if any)
 - [ ] CRITICAL violations halted workflow (if any)
 - [ ] HIGH violations handled (fixed or overridden)
-- [ ] User interaction completed for EVERY deferred item
-- [ ] Story file updated with user approvals (timestamps)
-- [ ] Items to implement flagged for return to Phase 2
+- [ ] User interaction completed for EVERY incomplete item (via AskUserQuestion)
+- [ ] Story file updated with user approvals (timestamps) for approved deferrals
+- [ ] Items to implement flagged and resumption phase determined
 - [ ] Removed items logged in Workflow History
-- [ ] All deferrals have user approval timestamp
+- [ ] Immediate resumption decision made (no delay until separate phase)
 
-**On success (all deferrals approved):** Proceed to Phase 5 (Git Workflow)
+**On success (all approved for deferral):** Proceed to Phase 4.5-5 Bridge (DoD Update)
 
-**On success (items to implement):** Return to Phase 2 (TDD Green), then re-run Phase 4.5
+**On success (user chose "Attempt now"):** IMMEDIATE loop back to Phase 2/3/4 (resumption)
+
+**On success (items removed):** Proceed to Phase 4.5-5 Bridge (DoD Update)
 
 **On failure (CRITICAL violations):** HALT workflow, user must fix and re-run /dev
+
+**Key Change (RCA-014):** Resumption happens in Phase 4.5 Step 7 (not separate Phase 4.5-R), eliminating circular dependency
 
 ---
 
