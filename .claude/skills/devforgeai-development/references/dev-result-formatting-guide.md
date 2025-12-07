@@ -21,17 +21,17 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 
 - **Ready for Dev → In Development (Workflow Start):**
   - Story status changes when `/dev` command initiated
-  - Phase 0 validation confirms story readiness
+  - Phase 01 validation confirms story readiness
   - Framework checks: context files exist, story complete, no blockers
 
 - **In Development → Dev Complete (TDD Cycle Complete):**
-  - Workflow progression after Phase 5 (all TDD phases complete)
+  - Workflow progression after Phase 08 (all TDD phases complete)
   - Must pass all tests (100% pass rate)
   - All acceptance criteria must have green tests
   - Changes story status to "Dev Complete"
 
 - **Dev Complete → QA In Progress (Automatic):**
-  - Triggered after Phase 5, before Phase 6 finalization
+  - Triggered after Phase 08, before Phase 09 finalization
   - Story ready for deep QA validation
   - Next step: `/qa STORY-ID deep`
 
@@ -40,18 +40,18 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 The development skill executes **8 phases** in sequence:
 
 ```
-Phase 0: Pre-Flight (Git, context, tech detection)
-Phase 1: Red (write failing tests from AC)
-Phase 2: Green (implement code to pass tests)
-Phase 3: Refactor (improve code quality)
-Phase 4: Integration (cross-component tests)
-Phase 4.5: Deferral Challenge (validate all deferrals with approval)
-Phase 5: Git/Tracking (commit or file-based tracking)
-Phase 6: Final Validation (Implementation Notes completion)
+Phase 01: Pre-Flight (Git, context, tech detection)
+Phase 02: Red (write failing tests from AC)
+Phase 03: Green (implement code to pass tests)
+Phase 04: Refactor (improve code quality)
+Phase 05: Integration (cross-component tests)
+Phase 05.5: Deferral Challenge (validate all deferrals with approval)
+Phase 08: Git/Tracking (commit or file-based tracking)
+Phase 09: Final Validation (Implementation Notes completion)
 ```
 
 **Result Interpreter Operates At:**
-- After Phase 6 completion
+- After Phase 09 completion
 - Receives: Development summary with phases executed, tests passed/failed, deferrals status
 - Returns: Formatted result for command display
 
@@ -59,21 +59,21 @@ Phase 6: Final Validation (Implementation Notes completion)
 
 Two critical gates enforce development workflow:
 
-**Gate 1: Context Validation** (Phase 0)
+**Gate 1: Context Validation** (Phase 01)
 - All 6 context files exist and are non-empty
 - Tech stack detected and validated
 - Git or file-based workflow confirmed
 - Enforced by: devforgeai-development skill
 
-**Gate 2: Test Passing** (Phase 2 completion)
+**Gate 2: Test Passing** (Phase 03 completion)
 - Build succeeds
 - All tests pass (100% pass rate)
 - Each acceptance criterion has ≥1 passing test
-- Blocks advancement to Phase 3 if fails
+- Blocks advancement to Phase 04 if fails
 - Enforced by: devforgeai-development skill
 
-**Gate 3: DoD Completion** (Phase 6 completion)
-- All Definition of Done items checked (complete = Phase 5)
+**Gate 3: DoD Completion** (Phase 09 completion)
+- All Definition of Done items checked (complete = Phase 08)
 - Incomplete items documented (with Phase references)
 - Deferrals justified and approved
 - Enforced by: devforgeai-development skill
@@ -88,18 +88,18 @@ Status transitions are deterministic and follow framework rules:
 
 ```
 Ready for Dev → In Development (on /dev start)
-In Development → Dev Complete (on Phase 6 success)
-Dev Complete → QA In Progress (automatic after Phase 6)
+In Development → Dev Complete (on Phase 09 success)
+Dev Complete → QA In Progress (automatic after Phase 09)
 ```
 
 **Display guidance:**
 - Always show current status and transition
-- Confirm new status after Phase 6 (Dev Complete)
+- Confirm new status after Phase 09 (Dev Complete)
 - Note: QA In Progress is automatic, not user action
 - Never display status as "Reviewing" or "Testing" (use framework states only)
 
 **Never change status:**
-- Before Phase 6 completion
+- Before Phase 09 completion
 - If tests fail (remains in Development)
 - If deferrals not approved (remains in Development)
 
@@ -130,13 +130,13 @@ Test Type Distribution: ~70% unit, ~20% integration, ~10% E2E
 Deferrals must meet strict validation criteria:
 
 ```
-Valid Deferrals (pass Phase 4.5):
+Valid Deferrals (pass Phase 05.5):
   1. External blocker (API v2 available 2025-12-01) ✅
   2. Scope change with ADR (Out of scope: ADR-042) ✅
   3. Story split (Deferred to STORY-125: performance epic) ✅
   4. User-approved (timestamp + approval note) ✅
 
-Invalid Deferrals (fail Phase 4.5):
+Invalid Deferrals (fail Phase 05.5):
   1. No justification ("Will add later") ❌
   2. Vague reason ("Too complex", "Hard to implement") ❌
   3. Circular chain (STORY-A → STORY-B → STORY-A) ❌ CRITICAL
@@ -157,13 +157,13 @@ Invalid Deferrals (fail Phase 4.5):
 DoD items progress through TDD phases:
 
 ```
-Phase 1 (Red):       Generate tests, count items, validate
-Phase 2 (Green):     Implement business logic, mark items done
-Phase 3 (Refactor):  Code quality items, complexity validation
-Phase 4 (Integration): Cross-component tests, API contracts
-Phase 4.5 (Deferrals): Validate all deferred items, get approvals
-Phase 5 (Git):       Commit or file-based tracking
-Phase 6 (Final):     Update Implementation Notes, confirm status
+Phase 02 (Red):       Generate tests, count items, validate
+Phase 03 (Green):     Implement business logic, mark items done
+Phase 04 (Refactor):  Code quality items, complexity validation
+Phase 05 (Integration): Cross-component tests, API contracts
+Phase 05.5 (Deferrals): Validate all deferred items, get approvals
+Phase 08 (Git):       Commit or file-based tracking
+Phase 09 (Final):     Update Implementation Notes, confirm status
 ```
 
 **Display guidance:**
@@ -212,21 +212,21 @@ Code must avoid project-specific anti-patterns:
 
 ```
 Structural Violations:
-  - Files in wrong locations (violates source-tree.md) → FAIL Phase 3
-  - Layer dependency violations (violates architecture-constraints.md) → FAIL Phase 3
-  - Library substitution (violates tech-stack.md) → FAIL Phase 3
+  - Files in wrong locations (violates source-tree.md) → FAIL Phase 04
+  - Layer dependency violations (violates architecture-constraints.md) → FAIL Phase 04
+  - Library substitution (violates tech-stack.md) → FAIL Phase 04
 
 Code Smells (Code Quality):
-  - God Objects (>500 lines or >20 methods) → Warning in Phase 3
-  - High complexity (>10 cyclomatic) → Refactor required in Phase 3
-  - Code duplication (>5%) → Refactor required in Phase 3
-  - Long methods (>100 lines) → Refactor required in Phase 3
+  - God Objects (>500 lines or >20 methods) → Warning in Phase 04
+  - High complexity (>10 cyclomatic) → Refactor required in Phase 04
+  - Code duplication (>5%) → Refactor required in Phase 04
+  - Long methods (>100 lines) → Refactor required in Phase 04
 ```
 
 **Display guidance:**
 - Show which anti-patterns detected (if any)
 - Reference specific anti-pattern from anti-patterns.md
-- Recommend refactoring for Phase 3 violations
+- Recommend refactoring for Phase 04 violations
 - FAIL development if structural violations found
 
 ---
@@ -281,7 +281,7 @@ Code Smells (Code Quality):
 - **Development Complete:** Celebratory, confident ("Ready for QA!")
 - **Deferrals Pending:** Constructive, specific ("Defer after approval")
 - **Tests Failing:** Direct, urgent ("Fix broken tests immediately")
-- **Issues Found:** Helpful, actionable ("Return to Phase 3 for refactoring")
+- **Issues Found:** Helpful, actionable ("Return to Phase 04 for refactoring")
 
 ### Length Guidelines
 
@@ -312,13 +312,13 @@ Test Results:
 - Coverage: 96% (meets 95% threshold)
 
 Phases Executed:
-  Phase 1 (Red): 47 failing tests created ✅
-  Phase 2 (Green): All tests now passing ✅
-  Phase 3 (Refactor): Code simplified, complexity 8/10 ✅
-  Phase 4 (Integration): Cross-component tests ✅
-  Phase 4.5 (Deferrals): No deferrals ✅
-  Phase 5 (Git): Changes committed ✅
-  Phase 6 (Final): Implementation Notes updated ✅
+  Phase 02 (Red): 47 failing tests created ✅
+  Phase 03 (Green): All tests now passing ✅
+  Phase 04 (Refactor): Code simplified, complexity 8/10 ✅
+  Phase 05 (Integration): Cross-component tests ✅
+  Phase 05.5 (Deferrals): No deferrals ✅
+  Phase 08 (Git): Changes committed ✅
+  Phase 09 (Final): Implementation Notes updated ✅
 
 Recommendation: ✅ READY FOR QA
 
@@ -345,7 +345,7 @@ Test Results:
 - Unit tests: 38/38 passing
 - Integration tests: 12/12 passing
 - E2E tests: 2/2 passing
-- Coverage: 94% (below 95% threshold, deferred to Phase 3 refactor)
+- Coverage: 94% (below 95% threshold, deferred to Phase 04 refactor)
 
 Deferrals Requiring Approval:
 1. "Exit code handling for PCI compliance verification"
@@ -386,7 +386,7 @@ Next Steps:
 Story: STORY-044 - Async Job Processing
 Status remains: In Development (not progressing)
 
-Issue: Tests Failing in Phase 2
+Issue: Tests Failing in Phase 03
 
 Problem:
 - 3 of 45 tests failing (93% pass rate, need 100%)
@@ -411,8 +411,8 @@ Recommendation: ❌ FIX TESTS AND CONTINUE
 Next Steps:
 1. Return to development to fix failing tests:
    /dev STORY-044
-2. Focus on async task handling in Phase 2 (Green phase)
-3. Ensure all 45 tests pass before Phase 3
+2. Focus on async task handling in Phase 03 (Green phase)
+3. Ensure all 45 tests pass before Phase 04
 4. Common causes to investigate:
    - Event loop timing in test setup
    - Async context manager cleanup
@@ -435,7 +435,7 @@ When recommending next steps, reference context files:
 **source-tree.md:**
 - "Code should follow source-tree.md structure"
 - Suggest correct file locations if violations found
-- Reference layer organization for Phase 3 refactoring
+- Reference layer organization for Phase 04 refactoring
 
 **coding-standards.md:**
 - "Your standards require <10 complexity per method (coding-standards.md)"
@@ -445,7 +445,7 @@ When recommending next steps, reference context files:
 **architecture-constraints.md:**
 - "Your architecture (architecture-constraints.md) requires Presentation → Application → Domain"
 - Show which constraint was violated
-- Reference for Phase 3 refactoring
+- Reference for Phase 04 refactoring
 
 **anti-patterns.md:**
 - "This pattern is forbidden (anti-patterns.md): Direct instantiation"
@@ -495,7 +495,7 @@ Display:
 "⚠️ Implementation Notes Incomplete
 
 The story file exists but Implementation Notes are not populated.
-This section must be completed before Phase 6 finalization.
+This section must be completed before Phase 09 finalization.
 
 Contents Expected:
 - Business logic implementation summary
@@ -505,36 +505,36 @@ Contents Expected:
 
 Recovery Options:
 1. Return to development: /dev STORY-ID
-   (Phase 6 will update Implementation Notes)
+   (Phase 09 will update Implementation Notes)
 2. Manually update story file if development is complete
-3. Review Phase 6 requirements in skill documentation"
+3. Review Phase 09 requirements in skill documentation"
 ```
 
 ### Scenario 2: Partial Test Execution
 
 ```
 Status: INCOMPLETE
-Issue: Only Phase 1-2 completed, Phase 3+ not started
+Issue: Only Phase 02-2 completed, Phase 04+ not started
 
 Display:
 "⚠️ Development Incomplete
 
-Story development stopped at Phase 2 (Green Phase).
+Story development stopped at Phase 03 (Green Phase).
 
 Phases Executed:
-  ✅ Phase 1 (Red): 35 tests created
-  ✅ Phase 2 (Green): Tests now passing
-  ❌ Phase 3 (Refactor): NOT STARTED
-  ❌ Phase 4 (Integration): NOT STARTED
-  ❌ Phase 4.5 (Deferrals): NOT STARTED
-  ❌ Phase 5 (Git): NOT STARTED
-  ❌ Phase 6 (Final): NOT STARTED
+  ✅ Phase 02 (Red): 35 tests created
+  ✅ Phase 03 (Green): Tests now passing
+  ❌ Phase 04 (Refactor): NOT STARTED
+  ❌ Phase 05 (Integration): NOT STARTED
+  ❌ Phase 05.5 (Deferrals): NOT STARTED
+  ❌ Phase 08 (Git): NOT STARTED
+  ❌ Phase 09 (Final): NOT STARTED
 
 Recommendation: Continue development to complete all phases
 
 Next Steps:
 1. Return to development: /dev STORY-ID
-   (Skill will detect checkpoint and resume at Phase 3)
+   (Skill will detect checkpoint and resume at Phase 04)
 2. Complete remaining phases (3, 4, 4.5, 5, 6)
 3. Then proceed to QA"
 ```
@@ -588,7 +588,7 @@ Issue: Git commit failed (possibly due to conflicts)
 Display:
 "❌ Git Commit Failed
 
-Phase 5 attempted to commit changes but encountered an error.
+Phase 08 attempted to commit changes but encountered an error.
 
 Error Details:
 Command: git commit -m "[STORY-045]: Implement payment retry logic..."

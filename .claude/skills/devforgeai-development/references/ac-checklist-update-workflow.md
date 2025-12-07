@@ -20,7 +20,7 @@ The Acceptance Criteria Verification Checklist is a granular progress tracker th
 |-----------|-------------|--------------|---------|
 | **TodoWrite** | Phase-level | Real-time during phases | AI self-monitoring, visual progress |
 | **AC Checklist** | AC sub-item level | End of each phase | User visibility into AC completion |
-| **Definition of Done** | DoD item level | Phase 4.5-5 Bridge | Official completion record, git validation |
+| **Definition of Done** | DoD item level | Phase 07 | Official completion record, git validation |
 
 **Why all three:**
 - TodoWrite: AI tracks where it is in workflow (prevents skipped phases)
@@ -33,36 +33,36 @@ The Acceptance Criteria Verification Checklist is a granular progress tracker th
 
 **Update Trigger:** At the END of each TDD phase, batch-update all items mapped to that phase
 
-### Phase 1 (Red - Test Generation) → Update Test-Related AC Items
+### Phase 02 (Red - Test Generation) → Update Test-Related AC Items
 **After test-automator subagent completes:**
 - [ ] Test count items (e.g., "Unit tests ≥15", "Integration tests ≥12")
 - [ ] Test coverage items (e.g., "All ACs have tests", "Edge cases covered")
 - [ ] Test file creation items (e.g., "Test files in correct location")
 
-### Phase 2 (Green - Implementation) → Update Implementation AC Items
+### Phase 03 (Green - Implementation) → Update Implementation AC Items
 **After backend-architect/frontend-developer completes:**
 - [ ] Code implementation items (e.g., "Endpoint created", "Logic implemented")
 - [ ] Business logic items (e.g., "No business logic in command", "All logic in skill")
 - [ ] File modification items (e.g., "Character count ≤15K", "Line count ≤350")
 
-### Phase 3 (Refactor - Code Quality) → Update Quality AC Items
+### Phase 04 (Refactor - Code Quality) → Update Quality AC Items
 **After refactoring-specialist and code-reviewer complete:**
 - [ ] Code quality items (e.g., "Complexity <10", "No duplication")
 - [ ] Pattern compliance items (e.g., "5-responsibility checklist", "Anti-patterns avoided")
 - [ ] Refactoring completion items (e.g., "Code review passed")
 
-### Phase 4 (Integration - Cross-Component) → Update Integration AC Items
+### Phase 05 (Integration - Cross-Component) → Update Integration AC Items
 **After integration-tester completes:**
 - [ ] Integration test items (e.g., "All scenarios pass", "Cross-component tests pass")
 - [ ] Performance items (e.g., "Response time <200ms", "Token efficiency ≥75%")
 - [ ] Coverage items (e.g., "Coverage ≥95%", "All paths tested")
 
-### Phase 4.5 (Deferral Challenge) → Update Deferral AC Items
+### Phase 06 (Deferral Challenge) → Update Deferral AC Items
 **After deferral-validator completes:**
 - [ ] Deferral validation items (e.g., "All deferrals approved", "No circular chains")
 - [ ] Follow-up story items (e.g., "Follow-up stories created")
 
-### Phase 5 (Git Workflow) → Update Deployment Readiness AC Items
+### Phase 08 (Git Workflow) → Update Deployment Readiness AC Items
 **After git commit completes:**
 - [ ] Commit items (e.g., "Git commit created", "Semantic message")
 - [ ] Status items (e.g., "Story status updated", "Backward compatible")
@@ -89,9 +89,9 @@ phase_items = [
 ]
 ```
 
-**Example for Phase 2:**
+**Example for Phase 03:**
 ```
-Phase 2 completes
+Phase 03 completes
   ↓
 Search checklist for "**Phase:** 2"
   ↓
@@ -190,7 +190,7 @@ AC Progress: {checked}/{total} items complete ({percentage}%)
 
 **Example:**
 ```
-Phase 2 Checklist Update:
+Phase 03 Checklist Update:
   ✓ 3 AC items checked
   - Character count ≤15,000
   - Line count ≤350
@@ -235,11 +235,11 @@ Proceed to Phase {N+1}
 
 ## Reference File Integration Points
 
-### tdd-red-phase.md (Phase 1)
+### tdd-red-phase.md (Phase 02)
 **Add at end of phase (after Step 4: Tech Spec Coverage Validation):**
 
 ```markdown
-### Step 5: Update AC Checklist (Phase 1 Items)
+### Step 5: Update AC Checklist (Phase 02 Items)
 
 **Load AC checklist update workflow:**
 ```
@@ -248,78 +248,78 @@ Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-up
 
 **Execute:** "Update Procedure" for current_phase = 1
 
-**AC items for Phase 1:**
+**AC items for Phase 02:**
 - Test count items (unit, integration, regression)
 - Test coverage items (all ACs tested)
 - Test file creation items (correct location, naming)
 
-**Display:** Phase 1 AC progress summary
+**Display:** Phase 02 AC progress summary
 ```
 
-### tdd-green-phase.md (Phase 2)
+### tdd-green-phase.md (Phase 03)
 **Add at end of phase (after Step 3: context-validator):**
 
 ```markdown
-### Step 4: Update AC Checklist (Phase 2 Items)
+### Step 4: Update AC Checklist (Phase 03 Items)
 
-[Same pattern as Phase 1]
+[Same pattern as Phase 02]
 
-**AC items for Phase 2:**
+**AC items for Phase 03:**
 - Implementation items (code written, endpoints created)
 - Business logic items (logic location correct)
 - Size/metric items (character count, line count)
 ```
 
-### tdd-refactor-phase.md (Phase 3)
+### tdd-refactor-phase.md (Phase 04)
 **Add after Step 5 (Light QA):**
 
 ```markdown
-### Step 6: Update AC Checklist (Phase 3 Items)
+### Step 6: Update AC Checklist (Phase 04 Items)
 
 [Same pattern]
 
-**AC items for Phase 3:**
+**AC items for Phase 04:**
 - Quality items (complexity, duplication, maintainability)
 - Pattern compliance items (5-responsibility, anti-patterns)
 - Code review items (review passed, issues resolved)
 ```
 
-### integration-testing.md (Phase 4)
+### integration-testing.md (Phase 05)
 **Add at end:**
 
 ```markdown
-### Step 4: Update AC Checklist (Phase 4 Items)
+### Step 4: Update AC Checklist (Phase 05 Items)
 
 [Same pattern]
 
-**AC items for Phase 4:**
+**AC items for Phase 05:**
 - Integration test items (scenarios pass, cross-component works)
 - Performance items (latency, throughput, efficiency)
 - Coverage items (thresholds met, all paths covered)
 ```
 
-### phase-4.5-deferral-challenge.md (Phase 4.5)
+### phase-06-deferral-challenge.md (Phase 06)
 **Add at end:**
 
 ```markdown
-### Step 7: Update AC Checklist (Phase 4.5 Items)
+### Step 7: Update AC Checklist (Phase 06 Items)
 
 [Same pattern]
 
-**AC items for Phase 4.5:**
+**AC items for Phase 06:**
 - Deferral validation items (all validated, user approved)
 - Follow-up items (stories created if needed)
 ```
 
-### git-workflow-conventions.md (Phase 5)
+### git-workflow-conventions.md (Phase 08)
 **Add after commit succeeds:**
 
 ```markdown
-### Step 8: Update AC Checklist (Phase 5 Items)
+### Step 8: Update AC Checklist (Phase 08 Items)
 
 [Same pattern]
 
-**AC items for Phase 5:**
+**AC items for Phase 08:**
 - Deployment readiness items (commit created, status updated)
 - Backward compatibility items (verified, tested)
 - Documentation items (notes added, examples included)
@@ -366,7 +366,7 @@ Display: "ℹ️ No AC items mapped to Phase {N}"
 Continue to next phase
 ```
 
-**Example:** Phase 4.5 may have no items for simple stories without deferrals
+**Example:** Phase 06 may have no items for simple stories without deferrals
 
 ---
 
@@ -375,12 +375,12 @@ Continue to next phase
 ### Estimated Overhead
 
 **Per Story:**
-- Phase 1: ~2-4 AC items → ~30 seconds
-- Phase 2: ~4-8 AC items → ~1 minute
-- Phase 3: ~2-4 AC items → ~30 seconds
-- Phase 4: ~3-6 AC items → ~45 seconds
-- Phase 4.5: ~1-2 AC items → ~15 seconds
-- Phase 5: ~2-4 AC items → ~30 seconds
+- Phase 02: ~2-4 AC items → ~30 seconds
+- Phase 03: ~4-8 AC items → ~1 minute
+- Phase 04: ~2-4 AC items → ~30 seconds
+- Phase 05: ~3-6 AC items → ~45 seconds
+- Phase 06: ~1-2 AC items → ~15 seconds
+- Phase 08: ~2-4 AC items → ~30 seconds
 
 **Total: ~3-4 minutes per story**
 

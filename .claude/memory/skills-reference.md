@@ -22,10 +22,10 @@ When you use `Skill(command="devforgeai-[name]")`:
 - You now have access to skill's workflow instructions
 
 **Step 2: Execute Skill Workflow**
-- Read the skill's Phase 0 instructions
-- Execute Phase 0 (validation, setup)
-- Display Phase 0 results
-- Continue to Phase 1
+- Read the skill's Phase 01 instructions
+- Execute Phase 01 (validation, setup)
+- Display Phase 01 results
+- Continue to Phase 02
 - Execute each phase sequentially
 - Display results as you go
 
@@ -49,13 +49,13 @@ Skill(command="devforgeai-development")
 Skill(command="devforgeai-development")
 "Skill expanded, now executing its instructions"
 
-[Reads Phase 0 from expanded skill content]
+[Reads Phase 01 from expanded skill content]
 
-[Executes Phase 0: Git validation]
+[Executes Phase 01: Git validation]
 
-[Displays Phase 0 results]
+[Displays Phase 01 results]
 
-[Continues to Phase 1...]
+[Continues to Phase 02...]
 
 [Completes all phases]
 
@@ -230,7 +230,7 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 **Example (Sprint):** "Sprint Name: Performance Optimization Sprint-5 (20-40 point capacity, start: Jan 27, end: Feb 9)"
 
 **Key Features:**
-- Tracks **deferred work** (Phase 4.5) - ensures follow-up stories/ADRs exist
+- Tracks **deferred work** (Phase 06) - ensures follow-up stories/ADRs exist
 - Invokes **technical-debt-analyzer** during sprint planning (identifies stale debt, circular deferrals)
 - Validates **deferral tracking** (story references, ADR references)
 - Creates **follow-up stories** for missing references
@@ -289,7 +289,7 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 - requirements-analyst (Epic Phase 3 feature decomposition, Phase 6 optional requirements spec)
 - architect-reviewer (Epic Phase 4 technical assessment)
 - sprint-planner (Sprint Phase 3 complete workflow)
-- technical-debt-analyzer (Phase 4.5 debt trend analysis)
+- technical-debt-analyzer (Phase 06 debt trend analysis)
 
 ---
 
@@ -441,20 +441,20 @@ Read(file_path=".ai_docs/Stories/STORY-001.story.md")
 **Key Features (Enhanced 2025-11-06 - RCA-006):**
 - **Lean command architecture:** /dev command delegates to skill (513 lines, down from 860)
 - **Subagent-powered validation:**
-  - **git-validator** subagent (Phase 0 Step 1) - Git status and workflow strategy
-  - **tech-stack-detector** subagent (Phase 0 Step 7) - Technology detection and validation
+  - **git-validator** subagent (Phase 01 Step a.) - Git status and workflow strategy
+  - **tech-stack-detector** subagent (Phase 01 Step g.) - Technology detection and validation
 - **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
-- **Phase 4.5: Deferral Challenge Checkpoint** (RCA-006 - NEW):
+- **Phase 06: Deferral Challenge Checkpoint** (RCA-006):
   - Challenges ALL deferrals (pre-existing from template + new from TDD)
   - Invokes deferral-validator subagent for blocker validation
   - Requires user approval for EVERY deferred item (zero autonomous deferrals)
   - Timestamps all approvals for audit trail
   - Enforces "Attempt First, Defer Only If Blocked" pattern
-- **Phase 5: New Incomplete Items:**
+- **Phase 08: New Incomplete Items:**
   - Layer 1: Python format validator (~200 tokens, <100ms)
   - Layer 2: Interactive checkpoint (AskUserQuestion for new items only)
   - Layer 3: Git commit or file-based tracking
-- **QA failure recovery:** Detects previous QA failures, guides resolution workflow (Phase 0 Step 8)
+- **QA failure recovery:** Detects previous QA failures, guides resolution workflow (Phase 01 Step h.)
 - **Framework-aware subagents:** All subagents understand DevForgeAI constraints (prevent silos)
 - **Zero autonomous deferrals:** User approval mandatory for all deferred/incomplete DoD items
 
@@ -496,7 +496,7 @@ Read(file_path=".ai_docs/Stories/STORY-001.story.md")
 **Example:** Story in "Dev Complete" status with implementation → skill validates AC pass/fail, coverage metrics, code quality, deferral justifications, spec compliance.
 
 **Key Features (RCA-006 Enhanced):**
-- Validates **deferred DoD items** via deferral-validator subagent (Phase 0 Step 2.5)
+- Validates **deferred DoD items** via deferral-validator subagent (Phase 01 Step b.5)
 - **FAILS QA** on CRITICAL (circular deferrals) or HIGH (unjustified deferrals) violations
 - Tracks **QA iteration history** (attempts, violations, resolutions) in story file
 - Enables **feedback loop**: QA FAIL → Dev fix → QA retry

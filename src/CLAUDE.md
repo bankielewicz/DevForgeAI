@@ -1,12 +1,33 @@
 <!-- TEMPLATE: This is the source template. Installer merges this with user's CLAUDE.md -->
 # CLAUDE.md
 
+Default to plan mode when asked to do something.
+
+# ** NO EXCEPTION ** 
+When creating a plan, it MUST be self-contained with full documentation, reference links, and progress checkpoints that WILL survive context window clears or new sessions.
+
+If asked to do something and do not enter plan mode - HALT!
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+You are opus - delegate to subagents in .claude/subagents & devforgeai skills in .claude/skills/
+
+You are opus - do not perform manual labor.  You are to delegate to either subagents or skills.
+
+You are opus - you provide adequate context to subagents.
+
+Create a todo list - always!  No exceptions.
+
+You are opus - you provide architectural advice and guidance regarding improvements to DevForgeAI Spec-Driven Development Framework.  You save your findings in docs/enhancements/[yyyy/mm/dd hh:mm}/ by invoking the framework's /ideate command.  You document what works well, where there could be improvements and provide all of this guidance within the context of not providing anything that is aspriational.  You ensure that your solutions can be implemented within the confines of claude code terminal as per claude-code-terminal-expert claude skill in .clauce/skills/
 
 ## Repository Overview
 Use native tools over bash.
 
 Halt! if using Bash.
+
+Use AskUserQuestion tool to ask questions.
+
+Use @agent-internet-sleuth to help you troublshoot issues when testing or debugging.
 
 If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback witin the "human in the middle".
 Deferals are not acceptable!
@@ -24,15 +45,6 @@ There are no time constraints and your context window is plenty big!
 Claude skills do not run asynchonously or in the background.
 
 This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
-
-● Bash(chmod +x /c/Users/bryan/bin/python3 && which python3)
-  ⎿  /c/Users/bryan/bin/python3
-
-● Perfect! Now python3 is available. Let me test it:
-
-● Bash(python3 --version)
-  ⎿  Python 3.10.11
-
 ---
 
 ## CRITICAL: How Skills Work
@@ -84,13 +96,13 @@ System: "The devforgeai-development skill is running"
 
 **✅ Correct action:**
 ```
-You: [Read skill's Phase 0 instructions]
-You: [Execute Phase 0: Git validation, context checks]
-You: [Display Phase 0 results]
-You: [Continue to Phase 1: Red phase]
+You: [Read skill's Phase 01 instructions]
+You: [Execute Phase 01: Git validation, context checks]
+You: [Display Phase 01 results]
+You: [Continue to Phase 02: Red phase]
 You: [Invoke test-automator subagent]
 You: [Wait for subagent result]
-You: [Continue to Phase 2...]
+You: [Continue to Phase 03...]
 ... [Complete all phases]
 You: [Display final completion report]
 ```
@@ -120,8 +132,8 @@ When you see:
 
 **Immediately after seeing this message:**
 1. Locate the skill's SKILL.md content in conversation
-2. Read Phase 0 instructions
-3. Begin executing Phase 0
+2. Read Phase 01 instructions
+3. Begin executing Phase 01
 4. Continue through all phases
 
 ### Emergency Recovery
@@ -129,7 +141,7 @@ When you see:
 **If you've already stopped and are reading this:**
 1. Apologize to user: "I incorrectly stopped after skill invocation"
 2. Explain: "Skills expand inline - I should have executed the instructions"
-3. Resume: "Let me now execute the skill's workflow starting from Phase 0"
+3. Resume: "Let me now execute the skill's workflow starting from Phase 01"
 4. Continue: Execute all phases to completion
 5. Learn: Remember this for future skill invocations
 
@@ -567,7 +579,7 @@ devforgeai --version
 
 **validate-dod** - Validate Definition of Done completion
 ```bash
-devforgeai validate-dod .ai_docs/Stories/STORY-001.story.md
+devforgeai-validate validate-dod .ai_docs/Stories/STORY-001.story.md
 ```
 - Detects autonomous deferrals (DoD [x] but Impl [ ] without approval)
 - Validates user approval markers for all deferred items
@@ -576,7 +588,7 @@ devforgeai validate-dod .ai_docs/Stories/STORY-001.story.md
 
 **check-git** - Validate Git availability
 ```bash
-devforgeai check-git
+devforgeai-validate check-git
 ```
 - Checks if directory is Git repository
 - Prevents RCA-006 errors
@@ -584,7 +596,7 @@ devforgeai check-git
 
 **validate-context** - Validate context files
 ```bash
-devforgeai validate-context
+devforgeai-validate validate-context
 ```
 - Ensures all 6 context files exist
 - Quality gate before development
@@ -794,13 +806,13 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - Clear separation: commands delegate to skills, skills delegate to subagents
 
 **RCA-006: Deferral Validation** ✅ Phase 1 & Original Phase 2 Complete (2025-11-06)
-- **Phase 1 (CRITICAL):** Phase 4.5 Deferral Challenge Checkpoint prevents autonomous deferrals
+- **Phase 1 (CRITICAL):** Phase 06 Deferral Challenge Checkpoint prevents autonomous deferrals
   - All deferrals (pre-existing + new) require user approval
   - deferral-validator subagent checks blocker validity
   - Timestamp all approvals for audit trail
   - "Attempt First, Defer Only If Blocked" pattern enforced
 - **Original Phase 2 (HIGH):** Quality improvements and proactive monitoring
-  - Deferral budget limits (max 3, max 20% of DoD items) enforced in Phase 5 Step 1.6
+  - Deferral budget limits (max 3, max 20% of DoD items) enforced in Phase 08 Step b.
   - Enhanced /audit-deferrals with blocker validation (dependency, toolchain, artifact, ADR checks)
   - Auto-invoke /audit-deferrals at sprint retrospective with debt reduction sprint creation
   - Actionable insights (resolvable vs valid deferrals with specific commands)
@@ -1028,31 +1040,31 @@ When you encounter a framework breakdown, use the RCA capability to systematical
 ### 1. TodoWrite (Phase-Level Tracking)
 **Purpose:** AI self-monitoring - tracks which TDD phase is executing
 **Updated:** Real-time as phases start/complete
-**Granularity:** Phase-level (8 phases: Phase 0, 1, 2, 3, 4, 4.5, 4.5-5 Bridge, 5, 6)
+**Granularity:** Phase-level (10 phases: Phase 01-10)
 **Visible to:** User sees visual progress bars in terminal
-**Example:** "✓ Execute Phase 2: Implementation (pending → completed)"
+**Example:** "✓ Execute Phase 03: Implementation (pending → completed)"
 
 ### 2. AC Verification Checklist (Sub-Item Tracking)
 **Purpose:** User visibility into AC completion progress
-**Updated:** End of each TDD phase (batch update Phase 1-5 items)
+**Updated:** End of each TDD phase (batch update Phase 02-08 items)
 **Granularity:** AC sub-item level (20-50 items per story, mapped to phases)
 **Visible to:** User in story file's "Acceptance Criteria Verification Checklist" section
-**Example:** "✓ Character count ≤15,000 - Phase: 2 - Evidence: wc -c"
+**Example:** "✓ Character count ≤15,000 - Phase: 03 - Evidence: wc -c"
 
 **When items are checked:**
-- Phase 1: Test generation items (test count, coverage, file creation)
-- Phase 2: Implementation items (code written, business logic location, metrics)
-- Phase 3: Quality items (complexity, patterns, code review)
-- Phase 4: Integration items (scenarios, performance, coverage thresholds)
-- Phase 4.5: Deferral items (validations, approvals)
-- Phase 5: Deployment items (commit, status, backward compatibility)
+- Phase 02: Test generation items (test count, coverage, file creation)
+- Phase 03: Implementation items (code written, business logic location, metrics)
+- Phase 04: Quality items (complexity, patterns, code review)
+- Phase 05: Integration items (scenarios, performance, coverage thresholds)
+- Phase 06: Deferral items (validations, approvals)
+- Phase 08: Deployment items (commit, status, backward compatibility)
 
 ### 3. Definition of Done (Official Completion Record)
 **Purpose:** Quality gate validation - official record of what's complete
-**Updated:** Phase 4.5-5 Bridge (after deferrals validated, before git commit)
+**Updated:** Phase 07 (after deferrals validated, before git commit)
 **Granularity:** DoD item level (30-40 items per story, categorized)
 **Visible to:** User in story file's "Definition of Done" section + "Implementation Notes"
-**Example:** "- [x] All tests passing - Completed: Phase 4, 165/168 tests (98.2%)"
+**Example:** "- [x] All tests passing - Completed: Phase 05, 165/168 tests (98.2%)"
 
 ### Why All Three?
 
@@ -1075,8 +1087,8 @@ Each serves a distinct purpose. Together they provide comprehensive progress vis
 | Element | Purpose | Checkbox Behavior | Updated When | Source of Truth |
 |---------|---------|-------------------|--------------|-----------------|
 | **AC Headers** (e.g., `### AC#1: Title`) | **Define what to test** (immutable specification) | **Never marked** (no checkboxes as of v2.1) | Never (definitions are static) | Story creation |
-| **AC Verification Checklist** | **Track granular progress** (real-time sub-items) | Marked `[x]` during TDD phases | End of each TDD phase (1-5) | TDD execution |
-| **Definition of Done** | **Official completion record** (quality gate) | Marked `[x]` in Phase 4.5-5 Bridge | After deferrals validated, before commit | Quality gate validation |
+| **AC Verification Checklist** | **Track granular progress** (real-time sub-items) | Marked `[x]` during TDD phases | End of each TDD phase (02-08) | TDD execution |
+| **Definition of Done** | **Official completion record** (quality gate) | Marked `[x]` in Phase 07 | After deferrals validated, before commit | Quality gate validation |
 
 ### Why AC Headers Have No Checkboxes (Template v2.1+)
 
@@ -1086,7 +1098,7 @@ Acceptance Criteria define **WHAT needs to be tested/implemented**. They are sta
 
 **Progress tracking happens in two places:**
 1. **AC Verification Checklist** - Granular sub-item tracking (20-50 items per story, updated during TDD phases)
-2. **Definition of Done** - Official completion tracking (30-40 items per story, updated in Phase 4.5-5 Bridge)
+2. **Definition of Done** - Official completion tracking (30-40 items per story, updated in Phase 07)
 
 **Example (STORY-052 - Documentation Story):**
 

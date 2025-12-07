@@ -1,8 +1,8 @@
-# Phase 4: Integration & Validation
+# Phase 05: Integration & Validation
 
 **Purpose:** Create and execute integration tests for cross-component interactions.
 
-**Execution Order:** After Phase 3 (Refactor phase) - code quality improved
+**Execution Order:** After Phase 04 (Refactor phase) - code quality improved
 
 **Expected Outcome:** All tests GREEN, coverage thresholds met, build succeeds
 
@@ -14,23 +14,23 @@
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 4/9: Integration Testing (44% → 56% complete)
+  Phase 05/9: Integration Testing (44% → 56% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 4 execution.**
+**Display this indicator at the start of Phase 05 execution.**
 
 ---
 
 ## Overview
 
-Phase 4 validates that the implementation integrates correctly with other components and meets quality thresholds.
+Phase 05 validates that the implementation integrates correctly with other components and meets quality thresholds.
 
 **Core Principle:** Verify system-level behavior, not just unit behavior.
 
 ---
 
-## Phase 4: Integration & Validation
+## Phase 05: Integration & Validation
 
 **Delegate integration testing to integration-tester subagent.**
 
@@ -88,7 +88,7 @@ IF gaming_scan.status == "BLOCKED":
     Display: "4. Reduce mock usage to ≤2× test count"
     Display: ""
 
-    HALT: "Phase 4 cannot proceed. Test gaming invalidates coverage metrics."
+    HALT: "Phase 05 cannot proceed. Test gaming invalidates coverage metrics."
     DO NOT execute Step 1 (integration testing)
 ```
 
@@ -154,7 +154,7 @@ test_results = result["test_results"]
 coverage = result["coverage"]
 build_status = result["build_status"]
 
-Display: "✓ Phase 4 (Integration): Full validation by integration-tester"
+Display: "✓ Phase 05 (Integration): Full validation by integration-tester"
 Display: "  - Tests: {test_results['passed']}/{test_results['total']} passing"
 Display: "  - Coverage: {coverage['overall']}%"
 Display: "    • Business logic: {coverage['business']}%"
@@ -199,7 +199,7 @@ IF build_status != "SUCCESS":
     Display: "❌ Build failed"
     HALT development
 
-Display: "✓ Ready for Phase 5 (Git Workflow / Change Tracking)"
+Display: "✓ Ready for Phase 08 (Git Workflow / Change Tracking)"
 ```
 
 ---
@@ -217,7 +217,7 @@ Display: "✓ Ready for Phase 5 (Git Workflow / Change Tracking)"
 
 ## Success Criteria
 
-Phase 4 succeeds when:
+Phase 05 succeeds when:
 - [ ] All tests pass (100% pass rate)
 - [ ] Coverage meets thresholds:
   - Business logic: ≥95%
@@ -246,13 +246,13 @@ Phase 4 succeeds when:
 **Option 3: Accept with justification**
 - Document why lower coverage acceptable (e.g., generated code, trivial getters/setters)
 - Add to Implementation Notes
-- Proceed to Phase 5
+- Proceed to Phase 08
 
 ---
 
 ## ✅ PHASE 4 COMPLETION CHECKPOINT
 
-**Before proceeding to Phase 4.5 (Deferral Challenge), verify ALL steps executed:**
+**Before proceeding to Phase 05.5 (Deferral Challenge), verify ALL steps executed:**
 
 ### Mandatory Steps Executed
 
@@ -313,35 +313,35 @@ Integration: No issues detected
 All quality thresholds met. Ready for deferral validation.
 
 **Update Progress Tracker:**
-Mark "Execute Phase 4" todo as "completed"
+Mark "Execute Phase 05" todo as "completed"
 
 **See Also:**
-- `phase-4.5-deferral-challenge.md` - Phase 4.5 workflow (deferral validation)
+- `phase-4.5-deferral-challenge.md` - Phase 05.5 workflow (deferral validation)
 - `integration-tester` subagent - Integration testing specialist
-- `deferral-budget-enforcement.md` - Phase 5 deferral budget limits
+- `deferral-budget-enforcement.md` - Phase 08 deferral budget limits
 
-Next: Load phase-4.5-deferral-challenge.md and execute Phase 4.5 (Deferral Challenge)
+Next: Load phase-4.5-deferral-challenge.md and execute Phase 05.5 (Deferral Challenge)
 ```
 
 ---
 
-### Step 3: Update AC Verification Checklist (Phase 4 Items) [NEW - RCA-011]
+### Step 3: Update AC Verification Checklist (Phase 05 Items) [NEW - RCA-011]
 
 **Purpose:** Check off AC items related to integration testing (real-time progress tracking)
 
-**Execution:** After integration-tester completes, before Phase 4 checkpoint
+**Execution:** After integration-tester completes, before Phase 05 checkpoint
 
 **Load AC Checklist Update Workflow:**
 ```
 Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
 ```
 
-**Identify Phase 4 AC Items:**
+**Identify Phase 05 AC Items:**
 ```
 Grep(pattern="Phase.*: 4", path="${STORY_FILE}", output_mode="content", -B=1)
 ```
 
-**Common Phase 4 items:**
+**Common Phase 05 items:**
 - [ ] Integration tests passing
 - [ ] Cross-component tests passing
 - [ ] Performance targets met (response time, throughput)
@@ -349,9 +349,9 @@ Grep(pattern="Phase.*: 4", path="${STORY_FILE}", output_mode="content", -B=1)
 - [ ] All scenarios tested
 - [ ] Token efficiency verified
 
-**Update Procedure:** Batch-update all Phase 4 items
+**Update Procedure:** Batch-update all Phase 05 items
 
-**Display:** "Phase 4 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+**Display:** "Phase 05 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
 
 **Performance:** ~30-60 seconds
 

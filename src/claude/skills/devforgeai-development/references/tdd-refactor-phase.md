@@ -1,8 +1,8 @@
-# Phase 3: Refactor (Refactor Phase)
+# Phase 04: Refactor (Refactor Phase)
 
 **Purpose:** Improve code quality while keeping all tests green.
 
-**Execution Order:** After Phase 2 (Green phase) - tests are passing
+**Execution Order:** After Phase 03 (Green phase) - tests are passing
 
 **Expected Outcome:** Improved code quality, all tests still GREEN
 
@@ -14,11 +14,11 @@
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 3/9: Refactoring (33% → 44% complete)
+  Phase 04/10: Refactoring (30% → 40% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 3 execution.**
+**Display this indicator at the start of Phase 04 execution.**
 
 ---
 
@@ -30,7 +30,7 @@ The Refactor phase improves code quality without changing behavior. Tests remain
 
 ---
 
-## Phase 3: Refactor (Refactor Phase)
+## Phase 04: Refactor (Refactor Phase)
 
 **Delegate refactoring to refactoring-specialist and code-reviewer subagents.**
 
@@ -40,7 +40,7 @@ The Refactor phase improves code quality without changing behavior. Tests remain
 Task(
   subagent_type="refactoring-specialist",
   description="Refactor code while keeping tests green",
-  prompt="Refactor the implementation from Phase 2 to improve code quality.
+  prompt="Refactor the implementation from Phase 03 to improve code quality.
 
   Implementation files and tests available in conversation.
 
@@ -79,7 +79,7 @@ result = extract_from_subagent_output(response)
 refactorings_applied = result["refactorings"]
 tests_green = result["tests_remained_green"]
 
-Display: "✓ Phase 3 (Refactor): Code improved by refactoring-specialist"
+Display: "✓ Phase 04 (Refactor): Code improved by refactoring-specialist"
 Display: "  - Refactorings applied: {len(refactorings_applied)}"
 
 FOR refactoring in refactorings_applied:
@@ -158,7 +158,7 @@ ELIF len(high_issues) > 0:
             - label: "Fix now"
               description: "Address issues before proceeding"
             - label: "Continue"
-              description: "Accept issues, proceed to Phase 4"
+              description: "Accept issues, proceed to Phase 05"
         multiSelect: false
 
 ELSE:
@@ -247,8 +247,8 @@ Before workflow can continue:
 
 ```
 IF gaming_result.violations is NOT empty:
-    HALT: "Phase 3 blocked by test gaming. {len(gaming_result.violations)} violations found."
-    Display: "Fix violations and re-run /dev workflow from Phase 3"
+    HALT: "Phase 04 blocked by test gaming. {len(gaming_result.violations)} violations found."
+    Display: "Fix violations and re-run /dev workflow from Phase 04"
     DO NOT PROCEED to Step 5 (Light QA)
 
 ELSE:
@@ -265,14 +265,14 @@ ELSE:
 
 **Why Mandatory:** Light QA catches issues early (build failures, test regressions, anti-patterns) before expensive integration testing phase. Prevents propagating refactoring errors.
 
-**Timing:** After refactoring complete and code review passed, BEFORE Phase 4 (Integration)
+**Timing:** After refactoring complete and code review passed, BEFORE Phase 05 (Integration)
 
 **Invoke devforgeai-qa skill in light mode:**
 
 ```
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 3 Step 5: Light QA Validation (Intermediate Quality Gate)"
+Display: "  Phase 04 Step 5: Light QA Validation (Intermediate Quality Gate)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 Display: "Running light validation after refactoring..."
@@ -304,10 +304,10 @@ Display: "  - Tests: ✅ All passing"
 Display: "  - Anti-patterns: ✅ None detected"
 Display: "  - Code quality: ✅ Acceptable"
 Display: ""
-Display: "Ready for Phase 4 (Integration Testing)"
+Display: "Ready for Phase 05 (Integration Testing)"
 Display: ""
 
-# Proceed to Phase 4
+# Proceed to Phase 05
 ```
 
 **If Light QA FAILS:**
@@ -323,11 +323,11 @@ Display: "  - Test regressions (refactoring broke tests)"
 Display: "  - Anti-patterns introduced (code smells)"
 Display: "  - Build failures (syntax errors)"
 Display: ""
-Display: "Fix violations and re-run Phase 3 refactoring"
+Display: "Fix violations and re-run Phase 04 refactoring"
 Display: ""
 
 HALT development
-DO NOT proceed to Phase 4 until Light QA passes
+DO NOT proceed to Phase 05 until Light QA passes
 ```
 
 **Note:** The devforgeai-qa skill will detect "light" mode from conversation context. See SKILL.md for mode detection pattern.
@@ -356,9 +356,9 @@ DO NOT proceed to Phase 4 until Light QA passes
 
 ---
 
-## ✅ PHASE 3 COMPLETION CHECKPOINT
+## ✅ PHASE 04 COMPLETION CHECKPOINT
 
-**Before proceeding to Phase 4 (Integration Testing), verify ALL steps executed:**
+**Before proceeding to Phase 05 (Integration Testing), verify ALL steps executed:**
 
 ### Mandatory Steps Executed
 
@@ -384,8 +384,8 @@ DO NOT proceed to Phase 4 until Light QA passes
   - Verification: Build succeeds, tests pass, no anti-patterns
   - Output: Light QA PASSED message displayed
 
-- [ ] **Step 6:** AC Verification Checklist updated (Phase 3 items) [NEW - RCA-011]
-  - Verification: All Phase 3 AC items checked off (quality/refactoring items)
+- [ ] **Step 6:** AC Verification Checklist updated (Phase 04 items) [NEW - RCA-011]
+  - Verification: All Phase 04 AC items checked off (quality/refactoring items)
   - Output: "AC Progress: X/Y items complete" displayed
   - Graceful: Skipped if story doesn't have AC Checklist section
 
@@ -397,7 +397,7 @@ DO NOT proceed to Phase 4 until Light QA passes
 - [ ] Anti-patterns removed
 - [ ] Code follows coding-standards.md
 - [ ] Light QA validation passed
-- [ ] AC Checklist updated (Phase 3 items checked)
+- [ ] AC Checklist updated (Phase 04 items checked)
 - [ ] Ready for integration testing
 
 ### Checkpoint Validation
@@ -430,15 +430,15 @@ Light QA: PASSED (build, tests, anti-patterns validated)
 Code quality improved. Ready for integration testing.
 
 **Update Progress Tracker:**
-Mark "Execute Phase 3" todo as "completed"
+Mark "Execute Phase 04" todo as "completed"
 
 **See Also:**
-- `integration-testing.md` - Phase 4 workflow (cross-component testing)
+- `integration-testing.md` - Phase 05 workflow (cross-component testing)
 - `refactoring-patterns.md` - Detailed refactoring catalog
 - `code-reviewer` subagent - Code review specialist
 - `devforgeai-qa` skill (light mode) - Intermediate quality gate
 
-Next: Load integration-testing.md and execute Phase 4 (Integration & Validation)
+Next: Load integration-testing.md and execute Phase 05 (Integration & Validation)
 ```
 
 ---

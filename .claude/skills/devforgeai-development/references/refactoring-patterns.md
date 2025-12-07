@@ -1,13 +1,13 @@
 # Refactoring Patterns Reference
 
-Complete catalog of refactoring techniques for improving code quality during Phase 4 (Refactor) of the TDD workflow.
+Complete catalog of refactoring techniques for improving code quality during Phase 05 (Refactor) of the TDD workflow.
 
 ## When to Refactor
 
 **Golden Rule: Refactor ONLY when tests are GREEN**
 
 ✅ **CORRECT Timing:**
-- After tests pass (Phase 4: Refactor)
+- After tests pass (Phase 05: Refactor)
 - When code smells are detected
 - When complexity exceeds thresholds
 - During dedicated refactoring phase of TDD
@@ -518,7 +518,7 @@ git commit -m "refactor: Extract CalculateDiscount method"
 
 ### Invoke Light QA After Refactoring
 
-**After completing refactorings in Phase 4:**
+**After completing refactorings in Phase 05:**
 
 ```
 Skill(command="devforgeai-qa --mode=light --story={story_id}")
@@ -795,4 +795,4 @@ Before committing refactored code:
 
 ---
 
-This reference should be used during Phase 4 (Refactor) of the TDD workflow to systematically improve code quality while maintaining test integrity.
+This reference should be used during Phase 05 (Refactor) of the TDD workflow to systematically improve code quality while maintaining test integrity.

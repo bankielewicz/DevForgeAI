@@ -485,7 +485,7 @@ Story files in DevForgeAI serve as the **single source of truth** for each unit 
 
 **Problem:** Update status to "Dev Complete" without documentation
 **Impact:** Story incomplete, QA cannot validate, knowledge lost
-**Prevention:** Phase 5 Step 1b is MANDATORY before commit
+**Prevention:** Phase 08 Step b. is MANDATORY before commit
 
 ### Mistake 2: Placeholder TODOs
 
