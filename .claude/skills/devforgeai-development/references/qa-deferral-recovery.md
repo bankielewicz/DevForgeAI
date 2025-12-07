@@ -4,7 +4,7 @@
 
 **Trigger:** Development skill invoked after QA failure with deferral violations
 
-**Execution:** During Phase 0 Step 0.8 detection, activates specialized recovery workflow
+**Execution:** During Phase 01 Step h. detection, activates specialized recovery workflow
 
 **Token Cost:** ~3,000 tokens (includes AskUserQuestion interactions)
 
@@ -69,7 +69,7 @@ FOR each deferral violation from QA report:
         multiSelect: false
 
     Based on user selection:
-        Execute appropriate resolution (same as Phase 6 Step 1 logic)
+        Execute appropriate resolution (same as Phase 06 Step a. logic)
         Update Implementation Notes with proper justification
 ```
 
@@ -79,10 +79,10 @@ User chose: "Complete the work now"
 
 Action:
 1. Update story status back to "In Development"
-2. Return to Phase 2 (Green) to implement deferred work
+2. Return to Phase 03 (Green) to implement deferred work
 3. Run tests to verify new implementation
-4. Proceed through Phase 3 (Refactor) and Phase 4 (Integration)
-5. Return to Phase 5 DoD validation with completed work
+4. Proceed through Phase 04 (Refactor) and Phase 05 (Integration)
+5. Return to Phase 08 DoD validation with completed work
 ```
 
 **Option 2: Create follow-up story**
@@ -106,7 +106,7 @@ Action:
    - Full acceptance criteria (not minimal placeholders)
    - Technical specification
    - UI specification (if applicable)
-   - Self-validation (Phase 7)
+   - Self-validation (Phase 10)
 
 3. After story created:
    Extract new STORY_ID from skill result
@@ -176,7 +176,7 @@ This workflow triggered when:
 - Previous QA report shows "Deferral Validation FAILED"
 - User runs /dev {story-id} after QA failure
 
-**Detection:** Phase 0 Step 0.8 sets `$QA_DEFERRAL_FAILURE = true`
+**Detection:** Phase 01 Step h. sets `$QA_DEFERRAL_FAILURE = true`
 
 ---
 
@@ -197,7 +197,7 @@ Deferral recovery succeeds when:
 **Why use story-creation skill for follow-up stories:**
 
 1. **Complete Specifications:** Generates full story with AC, tech spec, UI spec, NFRs
-2. **Self-Validation:** Phase 7 validates quality before completion
+2. **Self-Validation:** Phase 10 validates quality before completion
 3. **Prevents Technical Debt:** Stringent validation prevents incomplete tracking stories
 4. **Consistency:** All stories created via same skill, same quality standard
 5. **Framework-Aware:** Respects context files, integrates properly
@@ -214,5 +214,5 @@ Deferral recovery succeeds when:
 
 After all deferral issues resolved:
 1. Continue with current development workflow (if "Complete now" chosen)
-2. Proceed to Phase 5 (Git/DoD) with resolved deferrals
+2. Proceed to Phase 08 (Git/DoD) with resolved deferrals
 3. Story ready for QA re-evaluation

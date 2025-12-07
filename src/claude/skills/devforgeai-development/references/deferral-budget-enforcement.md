@@ -1,13 +1,13 @@
 # Deferral Budget Enforcement
 
 **Skill Reference:** devforgeai-development
-**Phase:** Phase 5, Step 1.6 (After Phase 4.5 user approvals, before git commit)
-**Loaded:** After Phase 4.5 completes with approved deferrals
+**Phase:** Phase 08, Step 1.6 (After Phase 06 user approvals, before git commit)
+**Loaded:** After Phase 06 completes with approved deferrals
 **Token Cost:** ~3,000-5,000 tokens
 
 **Purpose:** Prevent excessive deferrals that indicate over-scoped stories. Enforces hard limits on number and percentage of deferred DoD items.
 
-**RCA-006 Context:** This enforcement mechanism addresses Phase 2 recommendations to prevent "deferral creep" where stories accumulate too many deferred items, indicating the story is over-scoped and should be split.
+**RCA-006 Context:** This enforcement mechanism addresses Phase 03 recommendations to prevent "deferral creep" where stories accumulate too many deferred items, indicating the story is over-scoped and should be split.
 
 ---
 
@@ -50,15 +50,15 @@ When this reference is loaded by the skill:
 - **STORY_ID:** Extracted from conversation (e.g., STORY-008.1)
 - **STORY_FILE:** Path to story file
 - **Story Content:** Already loaded in conversation
-- **Phase 4.5 Results:**
-  - `approved_deferrals` - List of deferrals user approved in Phase 4.5
-  - `items_to_implement` - List of deferrals user wants to attempt (if any, returns to Phase 2)
+- **Phase 06 Results:**
+  - `approved_deferrals` - List of deferrals user approved in Phase 06
+  - `items_to_implement` - List of deferrals user wants to attempt (if any, returns to Phase 03)
   - `removed_items` - List of items removed from DoD
 
 **The skill has already completed:**
-- ✅ Phase 0-4: Pre-Flight, TDD Cycle (Red → Green → Refactor → Integration)
-- ✅ Phase 4.5: Deferral Challenge Checkpoint (user approved deferrals)
-- ⏳ Phase 5 Step 1.6: NOW - Budget enforcement
+- ✅ Phase 01-05: Pre-Flight, TDD Cycle (Red → Green → Refactor → Integration)
+- ✅ Phase 06: Deferral Challenge Checkpoint (user approved deferrals)
+- ⏳ Phase 08 Step 1.6: NOW - Budget enforcement
 
 ---
 
@@ -85,16 +85,16 @@ total_dod_items = count(matches in "## Definition of Done" section)
 
 ### Step 2: Count Deferred Items
 
-**Use results from Phase 4.5:**
+**Use results from Phase 06:**
 
 ```
-# Phase 4.5 already identified all deferrals
-# Use the approved_deferrals list from Phase 4.5 results
+# Phase 06 already identified all deferrals
+# Use the approved_deferrals list from Phase 06 results
 
 deferred_count = len(approved_deferrals)
 ```
 
-**Alternative (if Phase 4.5 data not available):**
+**Alternative (if Phase 06 data not available):**
 
 ```
 Grep(
@@ -245,11 +245,11 @@ IF user selects "Proceed anyway":
   Continue to git commit
 
 ELIF user selects "Complete one more item":
-  Display: "Returning to Phase 2 (TDD Green) to complete additional item(s)..."
-  Display: "After completion, Phase 4.5 and budget check will run again."
+  Display: "Returning to Phase 03 (TDD Green) to complete additional item(s)..."
+  Display: "After completion, Phase 06 and budget check will run again."
 
   HALT Step 1.6
-  Return to skill with instruction: "Resume Phase 2 (TDD Green)"
+  Return to skill with instruction: "Resume Phase 03 (TDD Green)"
 
 ELIF user selects "Review deferrals":
   Display: "Current deferrals:
@@ -260,13 +260,13 @@ ELIF user selects "Review deferrals":
 
   You can:
   - Remove deferral from story file manually
-  - Or return to Phase 2 to implement items"
+  - Or return to Phase 03 to implement items"
 
   AskUserQuestion:
     Question: "After reviewing, what would you like to do?"
     Header: "Next Action"
     Options:
-      - "Complete more items (return to Phase 2)"
+      - "Complete more items (return to Phase 03)"
       - "Proceed with current deferrals"
     multiSelect: false
 
@@ -304,7 +304,7 @@ AskUserQuestion:
   Question: "Deferral budget exceeded. How would you like to proceed?"
   Header: "Budget Violation"
   Options:
-    - "Complete more items now (return to Phase 2)"
+    - "Complete more items now (return to Phase 03)"
     - "Split story (create follow-up stories)"
     - "Remove items (edit DoD)"
     - "Override (requires justification)"
@@ -329,10 +329,10 @@ Display:
 - This will reduce deferrals to ${deferred_count - items_to_complete}
 - New deferral percentage: ${((deferred_count - items_to_complete) / total_dod_items) * 100}%
 
-Returning to Phase 2 (TDD Green)..."
+Returning to Phase 03 (TDD Green)..."
 
 HALT Step 1.6
-Return to skill: "Resume Phase 2 (TDD Green) to complete ${items_to_complete} items"
+Return to skill: "Resume Phase 03 (TDD Green) to complete ${items_to_complete} items"
 ```
 
 ## Option 2: "Split story"
@@ -425,7 +425,7 @@ ${ELSE}:
   ⚠️ Still over budget. Need to complete more items or split further.
 
   HALT Step 1.6
-  Return to Phase 2 OR re-run split process
+  Return to Phase 03 OR re-run split process
 ```
 
 ## Option 3: "Remove items"
@@ -609,7 +609,7 @@ ${IF budget_status == "AT_LIMIT"}:
 ${IF budget_status == "OVER_BUDGET" AND override_approved}:
   ⚠️  Budget override approved (requires review)
 
-Proceeding to Phase 5 remaining steps (git commit)..."
+Proceeding to Phase 08 remaining steps (git commit)..."
 
 Exit Step 1.6 successfully
 ```
@@ -620,7 +620,7 @@ Exit Step 1.6 successfully
 
 This budget enforcement succeeds when:
 - [ ] Total DoD items counted accurately
-- [ ] Deferred items counted from Phase 4.5 results
+- [ ] Deferred items counted from Phase 06 results
 - [ ] Deferral percentage calculated correctly
 - [ ] Budget status determined (WITHIN_BUDGET | AT_LIMIT | OVER_BUDGET)
 - [ ] Budget status added to story file
@@ -633,17 +633,17 @@ This budget enforcement succeeds when:
 **On success (within budget):** Proceed to git commit
 **On success (at limit with approval):** Proceed to git commit
 **On success (override approved):** Proceed to git commit with warning
-**On failure (over budget, no override):** HALT, return to Phase 2 or split story
+**On failure (over budget, no override):** HALT, return to Phase 03 or split story
 
 ---
 
 ## Integration Notes
 
-**Invoked by:** devforgeai-development skill (Phase 5 Step 1.6)
+**Invoked by:** devforgeai-development skill (Phase 08 Step 1.6)
 
-**Runs after:** Phase 4.5 (Deferral Challenge Checkpoint)
+**Runs after:** Phase 06 (Deferral Challenge Checkpoint)
 
-**Runs before:** Git commit (Phase 5 remaining steps)
+**Runs before:** Git commit (Phase 08 remaining steps)
 
 **Invokes:**
 - requirements-analyst subagent (if creating follow-up stories)
@@ -653,8 +653,8 @@ This budget enforcement succeeds when:
 - Technical debt register (if override approved)
 
 **References:**
-- `.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md` (Phase 4.5 provides approved_deferrals data)
-- RCA-006 Phase 2 recommendations (budget limits)
+- `.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md` (Phase 06 provides approved_deferrals data)
+- RCA-006 Phase 03 recommendations (budget limits)
 
 **Token Efficiency:**
 - Uses native Grep tool (60% savings)
@@ -683,13 +683,13 @@ Actions:
 Fallback: Skip budget enforcement if DoD section cannot be parsed
 ```
 
-### Phase 4.5 Data Unavailable
+### Phase 06 Data Unavailable
 ```
-WARNING: approved_deferrals data from Phase 4.5 not available
+WARNING: approved_deferrals data from Phase 06 not available
 
 Possible causes:
-- Phase 4.5 was skipped (no deferrals existed)
-- Workflow resumed from checkpoint (Phase 4.5 data lost)
+- Phase 06 was skipped (no deferrals existed)
+- Workflow resumed from checkpoint (Phase 06 data lost)
 
 Actions:
 1. Re-count deferrals using Grep pattern

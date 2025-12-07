@@ -1,12 +1,12 @@
-# DoD Update Workflow (Phase 4.5-5 Bridge)
+# DoD Update Workflow (Phase 07)
 
 **Purpose:** Update Definition of Done items after validation and prepare for git commit with correct formatting
 
-**Execution:** After Phase 4.5 (Deferral Challenge) completes, BEFORE Phase 5 (Git Commit)
+**Execution:** After Phase 06 (Deferral Challenge) completes, BEFORE Phase 08 (Git Commit)
 
-**Why This Bridge Exists:** Phase 4.5 validates deferral semantics (via deferral-validator AI subagent), but Phase 5 git commit requires DoD format compliance (via devforgeai-validate validate-dod CLI validator). This bridge ensures both validators' requirements are met.
+**Why This Bridge Exists:** Phase 06 validates deferral semantics (via deferral-validator AI subagent), but Phase 08 git commit requires DoD format compliance (via devforgeai-validate validate-dod CLI validator). This bridge ensures both validators' requirements are met.
 
-**Token Cost:** ~1,500 tokens (loaded on-demand after Phase 4.5)
+**Token Cost:** ~1,500 tokens (loaded on-demand after Phase 06)
 
 ---
 
@@ -14,25 +14,25 @@
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 4.5-5 Bridge/9: Update DoD Checkboxes (67% → 78% complete)
+  Phase 07/9: Update DoD Checkboxes (67% → 78% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 4.5-5 Bridge execution.**
+**Display this indicator at the start of Phase 07 execution.**
 
 ---
 
 ## Overview: Two Validators, Different Requirements
 
 ### Validator 1: deferral-validator (AI Subagent)
-- **Runs:** Phase 4.5 Step 3
+- **Runs:** Phase 06 Step 3
 - **Purpose:** Semantic validation (are deferrals justified? circular chains?)
 - **Checks:** Blocker validity, story references exist, ADR references exist
 - **Output:** Advisory (resolvable vs. valid deferrals)
 - **Cannot HALT:** Provides recommendations only
 
 ### Validator 2: devforgeai-validate validate-dod (CLI Pre-Commit Hook)
-- **Runs:** Phase 5 during git commit
+- **Runs:** Phase 08 during git commit
 - **Purpose:** Format validation (DoD items in Implementation Notes?)
 - **Checks:** Text match between DoD section and Implementation Notes section
 - **Output:** PASS/FAIL (blocks commit if FAIL)
@@ -63,8 +63,8 @@ Read(file_path="${STORY_FILE}")
 ### 1.2: Identify Completed Items
 
 **Completed items are those where:**
-- Implementation code written (Phase 2)
-- Tests passing (Phase 4)
+- Implementation code written (Phase 03)
+- Tests passing (Phase 05)
 - Not deferred to another story
 - Actually implemented in this story's scope
 
@@ -76,9 +76,9 @@ DoD Section (BEFORE):
 - [ ] All 6 acceptance criteria have passing tests
 
 Implementation Reality (AFTER TDD):
-- ✅ Hook integration implemented (Phase 2)
-- ✅ Performance validated (Phase 4 - actual: 50ms p95)
-- ✅ All 6 ACs tested (Phase 1 - 62 tests generated)
+- ✅ Hook integration implemented (Phase 03)
+- ✅ Performance validated (Phase 05 - actual: 50ms p95)
+- ✅ All 6 ACs tested (Phase 02 - 62 tests generated)
 ```
 
 ### 1.3: Mark Items Complete with Edit Tool
@@ -89,7 +89,7 @@ Implementation Reality (AFTER TDD):
 Edit(
   file_path="${STORY_FILE}",
   old_string="- [ ] Hook integration phase added to /create-story command (Phase N after story file creation)",
-  new_string="- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow"
+  new_string="- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 08 added to .claude/commands/create-story.md with full hook integration workflow"
 )
 ```
 
@@ -194,7 +194,7 @@ Read(file_path="${STORY_FILE}")
 ```
 # Build DoD items list from Definition of Done section
 dod_items_list = """
-- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow
+- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 08 added to .claude/commands/create-story.md with full hook integration workflow
 - [x] Hook check executes in <100ms - Completed: Hook check executes in ~50ms p95 (50% better than target), verified by 5 performance tests
 ... [all completed items]
 """
@@ -263,7 +263,7 @@ Do NOT proceed to git commit
 
 ```
 Display: "✅ DoD format validation PASSED"
-Display: "Ready for Phase 5 git commit"
+Display: "Ready for Phase 08 git commit"
 ```
 
 **Proceed to Step 4**
@@ -321,34 +321,34 @@ Edit(
 
 ### TDD Workflow Summary
 
-**Phase 1 (Red): Test-First Design**
+**Phase 02 (Red): Test-First Design**
 - Generated {test_count} comprehensive tests covering all {ac_count} acceptance criteria
 - Tests placed in tests/unit/, tests/integration/, tests/e2e/
 - All tests follow AAA pattern (Arrange/Act/Assert)
 - Test frameworks: {TEST_FRAMEWORK}
 
-**Phase 2 (Green): Implementation**
+**Phase 03 (Green): Implementation**
 - Implemented minimal code to pass tests via {backend-architect/frontend-developer} subagent
 - {implementation_summary}
 - All {test_count} tests passing (100% pass rate)
 
-**Phase 3 (Refactor): Code Quality**
+**Phase 04 (Refactor): Code Quality**
 - Code quality improved (complexity reduction, naming clarity, etc.)
 - {refactoring_summary}
 - All tests remain green after refactoring
 
-**Phase 4 (Integration): Full Validation**
+**Phase 05 (Integration): Full Validation**
 - Full test suite executed
 - Performance verified: {metrics}
 - Reliability verified
 - No regressions introduced
 
-**Phase 4.5 (Deferral Challenge): DoD Validation**
+**Phase 06 (Deferral Challenge): DoD Validation**
 - All Definition of Done items validated
 - {deferred_count} deferrals (if any) with user approval
 - No blockers detected
 
-**Phase 5 (Git Workflow): Version Control**
+**Phase 08 (Git Workflow): Version Control**
 - Changes committed ({files_count} files, {insertions} insertions)
 - Story status updated to "Dev Complete"
 - Pre-commit validation passed
@@ -381,7 +381,7 @@ Edit(
 - [ ] Workflow Status section updated (Development [x], QA/Release [ ])
 - [ ] Implementation Notes contains developer info (name, date, commit, branch)
 - [ ] Optional: TDD Workflow Summary added for traceability
-- [ ] Ready for Phase 5 git commit (no format blockers)
+- [ ] Ready for Phase 08 git commit (no format blockers)
 
 ---
 
@@ -462,12 +462,12 @@ Edit(
 ## Workflow Diagram
 
 ```
-Phase 4.5: Deferral Challenge
+Phase 06: Deferral Challenge
        ↓
    Validation passed?
        ↓
 ┌──────────────────────────────────────────┐
-│  Phase 4.5-5 Bridge: DoD Update          │
+│  Phase 07: DoD Update          │
 │                                          │
 │  Step 1: Mark DoD items [x]              │
 │          ↓                                │
@@ -484,7 +484,7 @@ Phase 4.5: Deferral Challenge
        ↓
    Format validated?
        ↓ YES
-Phase 5: Git Workflow
+Phase 08: Git Workflow
    (git commit will pass)
        ↓
    Story Status = "Dev Complete"
@@ -494,30 +494,30 @@ Phase 5: Git Workflow
 
 ## Integration with Other Workflows
 
-### Phase 4.5 Handoff
+### Phase 06 Handoff
 
 **At end of phase-4.5-deferral-challenge.md:**
 
 ```markdown
-## Phase 4.5 Complete
+## Phase 06 Complete
 
 All deferrals validated. Now update DoD format for git commit.
 
-**Next:** Load and execute dod-update-workflow.md (Phase 4.5-5 Bridge)
+**Next:** Load and execute dod-update-workflow.md (Phase 07)
 
 Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
 ```
 
-### Phase 5 Pre-Requisites
+### Phase 08 Pre-Requisites
 
-**At beginning of git-workflow-conventions.md (Phase 5):**
+**At beginning of git-workflow-conventions.md (Phase 08):**
 
 ```markdown
-## Pre-Requisites for Phase 5
+## Pre-Requisites for Phase 08
 
 Before executing git commit workflow, ensure:
 
-- [ ] Phase 4.5 (Deferral Challenge) complete
+- [ ] Phase 06 (Deferral Challenge) complete
 - [ ] DoD Update Workflow (dod-update-workflow.md) executed
 - [ ] devforgeai-validate validate-dod passes (exit code 0)
 
@@ -532,7 +532,7 @@ If ANY prerequisite fails, DO NOT proceed to git commit.
 
 ### Scenario: STORY-027 with 22 DoD Items (All Complete)
 
-**Input State (After Phase 4.5):**
+**Input State (After Phase 06):**
 ```yaml
 Definition of Done:
   - [ ] Hook integration phase added...
@@ -614,7 +614,7 @@ Edit:
 
 ### TDD Workflow Summary
 
-**Phase 1 (Red):**
+**Phase 02 (Red):**
 - Generated tests
 ...
 
@@ -715,9 +715,9 @@ Edit:
 - [ ] **Step 5:** Final validation
   - [ ] Re-run: `devforgeai-validate validate-dod ${STORY_FILE}`
   - [ ] Confirm: Exit code 0
-  - [ ] Display: "✅ DoD Update Workflow Complete - Ready for Phase 5"
+  - [ ] Display: "✅ DoD Update Workflow Complete - Ready for Phase 08"
 
-**If ALL checkboxes checked:** ✅ Bridge workflow complete, proceed to Phase 5
+**If ALL checkboxes checked:** ✅ Bridge workflow complete, proceed to Phase 08
 **If ANY checkbox unchecked:** ❌ Bridge incomplete, do NOT proceed to git commit
 
 ---
@@ -741,22 +741,22 @@ Edit:
 
 **After this bridge workflow completes:**
 
-1. **Proceed to Phase 5:** Load git-workflow-conventions.md
+1. **Proceed to Phase 08:** Load git-workflow-conventions.md
 2. **Execute git commit:** Validator will pass (DoD format correct)
 3. **Update story status:** Change to "Dev Complete"
-4. **Proceed to Phase 6:** Feedback hook integration
+4. **Proceed to Phase 09:** Feedback hook integration
 
-**The bridge ensures seamless handoff from Phase 4.5 (semantic validation) to Phase 5 (format validation and git commit).**
+**The bridge ensures seamless handoff from Phase 06 (semantic validation) to Phase 08 (format validation and git commit).**
 
 ---
 
 ## Reference
 
-**Loaded by:** devforgeai-development skill after Phase 4.5 completes
+**Loaded by:** devforgeai-development skill after Phase 06 completes
 **Cross-referenced by:**
-- phase-4.5-deferral-challenge.md (Phase 4.5 → Bridge handoff)
-- git-workflow-conventions.md (Bridge → Phase 5 prerequisites)
-- SKILL.md (Phase 4.5-5 Bridge documentation)
+- phase-4.5-deferral-challenge.md (Phase 06 → Bridge handoff)
+- git-workflow-conventions.md (Bridge → Phase 08 prerequisites)
+- SKILL.md (Phase 07 documentation)
 
 **Related RCA:** RCA-009 (Skill Execution Incomplete Workflow)
 **Implements:** Recommendation 4 (DoD Update Workflow Bridge)

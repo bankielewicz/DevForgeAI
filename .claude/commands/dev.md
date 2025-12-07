@@ -29,7 +29,7 @@ Backlog | Ready for Dev | In Development → Dev Complete
 
 ## Command Workflow
 
-### Phase 0: Argument Validation
+### Phase 01: Argument Validation
 
 **Validate story ID format:**
 ```
@@ -55,7 +55,7 @@ Display: "✓ Story: $1"
 
 ---
 
-### Phase 1: Invoke Skill
+### Phase 02: Invoke Skill
 
 **Set context markers for skill:**
 ```
@@ -76,19 +76,19 @@ Skill(command="devforgeai-development")
 ```
 
 **Skill executes:**
-- Phase 0: Pre-Flight Validation (git, context files, tech stack)
-- Phase 1-4: TDD Cycle (Red → Green → Refactor → Integration)
-- Phase 4.5: Deferral Challenge (validate deferrals, user approval)
-- Phase 4.5-5 Bridge: DoD Update (format validation)
-- Phase 5: Git Workflow (commit or file-based tracking)
-- Phase 6: Feedback Hook (check/invoke hooks if enabled)
-- Phase 7: Result Interpretation (invoke dev-result-interpreter, return display)
+- Phase 01: Pre-Flight Validation (git, context files, tech stack)
+- Phase 02-05: TDD Cycle (Red → Green → Refactor → Integration)
+- Phase 06: Deferral Challenge (validate deferrals, user approval)
+- Phase 07: DoD Update (format validation)
+- Phase 08: Git Workflow (commit or file-based tracking)
+- Phase 09: Feedback Hook (check/invoke hooks if enabled)
+- Phase 10: Result Interpretation (invoke dev-result-interpreter, return display)
 
 **Skill returns structured result to command.**
 
 ---
 
-### Phase 2: Display Results
+### Phase 03: Display Results
 
 **Skill has returned result object with display template:**
 

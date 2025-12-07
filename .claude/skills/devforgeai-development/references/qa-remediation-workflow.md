@@ -2,7 +2,7 @@
 
 **Purpose:** Targeted development workflow when gaps.json exists from previous QA failure.
 
-**When to use:** `$REMEDIATION_MODE == true` (set by Step 0.8.5 in preflight-validation.md)
+**When to use:** `$REMEDIATION_MODE == true` (set by Step h.1. in preflight-validation.md)
 
 **Token Cost:** ~3,000 tokens when loaded
 
@@ -16,10 +16,10 @@ When QA fails and generates gaps.json, `/dev` enters **Remediation Mode** - a ta
 
 | Aspect | Normal TDD | Remediation Mode |
 |--------|------------|------------------|
-| Phase 1 (Red) | Generate tests for ALL AC | Generate tests for GAP FILES only |
-| Phase 2 (Green) | Implement ALL story features | Fix COVERAGE GAPS only |
-| Phase 3 (Refactor) | General code quality | Fix ANTI-PATTERN VIOLATIONS only |
-| Phase 4.5 | Validate all deferrals | Resolve DEFERRAL ISSUES from gaps.json |
+| Phase 02 (Red) | Generate tests for ALL AC | Generate tests for GAP FILES only |
+| Phase 03 (Green) | Implement ALL story features | Fix COVERAGE GAPS only |
+| Phase 04 (Refactor) | General code quality | Fix ANTI-PATTERN VIOLATIONS only |
+| Phase 06 | Validate all deferrals | Resolve DEFERRAL ISSUES from gaps.json |
 | Scope | Full story | Gaps from QA report |
 | Subagent context | Story spec | gaps.json + story spec |
 
@@ -27,7 +27,7 @@ When QA fails and generates gaps.json, `/dev` enters **Remediation Mode** - a ta
 
 ## Prerequisites
 
-**Required variables from Step 0.8.5:**
+**Required variables from Step h.1.:**
 - `$REMEDIATION_MODE = true`
 - `$QA_COVERAGE_GAPS` - Array of coverage gap objects
 - `$QA_ANTIPATTERN_GAPS` - Array of anti-pattern violations
@@ -40,7 +40,7 @@ When QA fails and generates gaps.json, `/dev` enters **Remediation Mode** - a ta
 
 ---
 
-## Phase 1R: Targeted Test Generation (Red Phase - Remediation)
+## Phase 02R: Targeted Test Generation (Red Phase - Remediation)
 
 **Purpose:** Generate tests ONLY for coverage gaps identified in gaps.json.
 
@@ -49,7 +49,7 @@ When QA fails and generates gaps.json, `/dev` enters **Remediation Mode** - a ta
 ```
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 1R: Targeted Test Generation (REMEDIATION MODE)"
+Display: "  Phase 02R: Targeted Test Generation (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 Display: "Coverage Gaps to Address: {$QA_COVERAGE_GAPS.count}"
@@ -132,14 +132,14 @@ FOR EACH file in test_result.files_created:
 Bash(command="{$TEST_COMMAND}", description="Run generated tests (expect failures)")
 
 IF tests_fail:
-    Display: "✅ Phase 1R Complete - Tests properly fail (Red phase successful)"
+    Display: "✅ Phase 02R Complete - Tests properly fail (Red phase successful)"
 ELSE:
     Display: "⚠️  Warning: Some tests pass immediately - verify coverage targets"
 ```
 
 ---
 
-## Phase 2R: Targeted Implementation (Green Phase - Remediation)
+## Phase 03R: Targeted Implementation (Green Phase - Remediation)
 
 **Purpose:** Implement ONLY code needed to pass the new tests and close coverage gaps.
 
@@ -148,7 +148,7 @@ ELSE:
 ```
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 2R: Targeted Implementation (REMEDIATION MODE)"
+Display: "  Phase 03R: Targeted Implementation (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 Display: "Files to Modify (coverage gaps only):"
@@ -198,7 +198,7 @@ FOR EACH gap in $QA_COVERAGE_GAPS:
 Bash(command="{$TEST_COMMAND}", description="Run tests (should pass)")
 
 IF all_tests_pass:
-    Display: "✅ Phase 2R Complete - All tests passing"
+    Display: "✅ Phase 03R Complete - All tests passing"
 ELSE:
     Display: "❌ Some tests still failing - review implementation"
     # List failing tests
@@ -207,7 +207,7 @@ ELSE:
 
 ---
 
-## Phase 3R: Anti-Pattern Resolution (Refactor Phase - Remediation)
+## Phase 04R: Anti-Pattern Resolution (Refactor Phase - Remediation)
 
 **Purpose:** Fix ONLY anti-pattern violations identified in gaps.json.
 
@@ -216,12 +216,12 @@ ELSE:
 ```
 IF $QA_ANTIPATTERN_GAPS.count == 0:
     Display: "✓ No anti-pattern violations to resolve"
-    # Skip to Phase 4R
-    GOTO Phase 4R
+    # Skip to Phase 05R
+    GOTO Phase 05R
 
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 3R: Anti-Pattern Resolution (REMEDIATION MODE)"
+Display: "  Phase 04R: Anti-Pattern Resolution (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 Display: "Anti-Pattern Violations to Fix: {$QA_ANTIPATTERN_GAPS.count}"
@@ -263,19 +263,19 @@ Task(
 # Verify tests still pass after refactoring
 Bash(command="{$TEST_COMMAND}", description="Verify tests pass after refactoring")
 
-Display: "✅ Phase 3R Complete - Anti-patterns resolved"
+Display: "✅ Phase 04R Complete - Anti-patterns resolved"
 ```
 
 ---
 
-## Phase 4R: Coverage Verification
+## Phase 05R: Coverage Verification
 
 **Purpose:** Verify coverage gaps are closed before proceeding.
 
 ```
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 4R: Coverage Verification (REMEDIATION MODE)"
+Display: "  Phase 05R: Coverage Verification (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 
@@ -299,7 +299,7 @@ IF all_gaps_closed:
     Display: ""
     Display: "✅ ALL COVERAGE GAPS CLOSED"
     Display: ""
-    # Continue to Phase 4.5R
+    # Continue to Phase 06R
 ELSE:
     Display: ""
     Display: "⚠️  Some coverage gaps remain"
@@ -313,7 +313,7 @@ ELSE:
             options: [
                 {
                     label: "Generate more tests",
-                    description: "Return to Phase 1R with remaining gaps"
+                    description: "Return to Phase 02R with remaining gaps"
                 },
                 {
                     label: "Accept current coverage",
@@ -332,19 +332,19 @@ ELSE:
 
 ---
 
-## Phase 4.5R: Deferral Resolution
+## Phase 06R: Deferral Resolution
 
 **Purpose:** Resolve deferral issues identified in gaps.json.
 
 ```
 IF $QA_DEFERRAL_GAPS.count == 0:
     Display: "✓ No deferral issues to resolve"
-    # Skip to Phase 5R
-    GOTO Phase 5R
+    # Skip to Phase 08R
+    GOTO Phase 08R
 
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 4.5R: Deferral Resolution (REMEDIATION MODE)"
+Display: "  Phase 06R: Deferral Resolution (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 
@@ -363,14 +363,14 @@ INVOKE: qa-deferral-recovery.md workflow with $QA_DEFERRAL_GAPS
 
 ---
 
-## Phase 5R: Commit and Complete
+## Phase 08R: Commit and Complete
 
 **Purpose:** Commit remediation changes and prepare for QA re-run.
 
 ```
 Display: ""
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-Display: "  Phase 5R: Commit Remediation (REMEDIATION MODE)"
+Display: "  Phase 08R: Commit Remediation (REMEDIATION MODE)"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
 
@@ -417,19 +417,19 @@ Display: ""
 **Remediation Mode Workflow:**
 
 ```
-Step 0.8.5: Load gaps.json → Set $REMEDIATION_MODE = true
+Step h.1.: Load gaps.json → Set $REMEDIATION_MODE = true
     ↓
-Phase 1R: Generate tests for $QA_COVERAGE_GAPS files only
+Phase 02R: Generate tests for $QA_COVERAGE_GAPS files only
     ↓
-Phase 2R: Implement code to pass new tests
+Phase 03R: Implement code to pass new tests
     ↓
-Phase 3R: Fix $QA_ANTIPATTERN_GAPS violations
+Phase 04R: Fix $QA_ANTIPATTERN_GAPS violations
     ↓
-Phase 4R: Verify all coverage gaps closed
+Phase 05R: Verify all coverage gaps closed
     ↓
-Phase 4.5R: Resolve $QA_DEFERRAL_GAPS issues
+Phase 06R: Resolve $QA_DEFERRAL_GAPS issues
     ↓
-Phase 5R: Commit remediation
+Phase 08R: Commit remediation
     ↓
 /qa STORY-ID: Re-run QA to validate
     ↓
@@ -445,7 +445,7 @@ If PASS: gaps.json archived to resolved/
 
 ## References
 
-- `preflight-validation.md` - Step 0.8.5 loads gaps.json
+- `preflight-validation.md` - Step h.1. loads gaps.json
 - `qa-deferral-recovery.md` - Existing deferral resolution workflow
 - `.devforgeai/qa/reports/{STORY-ID}-gaps.json` - Structured gap data
 - `test-automator.md` - Subagent for targeted test generation

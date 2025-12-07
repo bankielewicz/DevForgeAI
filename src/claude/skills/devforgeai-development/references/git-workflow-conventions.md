@@ -1,6 +1,6 @@
 # Git Workflow Conventions Reference
 
-Complete guide for version control operations during Phase 5 (Git Workflow) of the TDD development process.
+Complete guide for version control operations during Phase 08 (Git Workflow) of the TDD development process.
 
 ---
 
@@ -8,11 +8,11 @@ Complete guide for version control operations during Phase 5 (Git Workflow) of t
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 5/9: Git Workflow & Commit (78% → 89% complete)
+  Phase 08/9: Git Workflow & Commit (78% → 89% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 5 execution.**
+**Display this indicator at the start of Phase 08 execution.**
 
 ---
 
@@ -28,13 +28,154 @@ This reference provides conventions for:
 
 ---
 
-## Pre-Requisites for Phase 5 (Git Workflow)
+## Step 0: Pre-Commit DoD Validation [MANDATORY - RCA-014 REC-3]
+
+**Execute BEFORE any git operations.**
+
+**Purpose:** Final safety net to prevent committing incomplete work without user approval. Defense-in-depth even if Phase 06 has bugs or is skipped.
+
+**Rationale (RCA-014):** Phase 06 should catch all incomplete work, but this checkpoint provides redundant validation to prevent autonomous deferrals from ANY source (bugs, manual story edits, workflow skips).
+
+### Detect Incomplete DoD Items
+
+```
+Grep(
+  pattern="^- \[ \]",
+  path="${STORY_FILE}",
+  output_mode="content",
+  -B=1
+)
+```
+
+**Filter to Definition of Done section only:**
+
+```
+unchecked_dod_items = []
+
+FOR each match:
+  preceding_line = previous line (via -B=1)
+  item_text = current line
+
+  # Check if in DoD section (not AC Checklist, Implementation Notes, etc.)
+  IF preceding_line contains "## Definition of Done":
+    in_dod_section = true
+
+  IF preceding_line contains "## Acceptance Criteria":
+    in_dod_section = false
+
+  IF preceding_line contains "## Workflow Status":
+    in_dod_section = false
+
+  IF preceding_line contains "## Implementation Notes":
+    in_dod_section = false
+
+  IF preceding_line contains "### AC#":
+    in_dod_section = false
+
+  IF preceding_line contains "Checklist":
+    in_dod_section = false
+
+  # Only collect items in DoD section
+  IF in_dod_section AND item_text starts with "- [ ]":
+    unchecked_dod_items.append(item_text)
+```
+
+### Check for User Approval
+
+```
+IF unchecked_dod_items.length > 0:
+  # Check for "Approved Deferrals" section in Implementation Notes
+  Grep(
+    pattern="### Approved Deferrals",
+    path="${STORY_FILE}",
+    output_mode="files_with_matches"
+  )
+
+  IF "Approved Deferrals" section NOT found:
+    # BLOCKING ERROR - No approval documented
+    Display: ""
+    Display: "═══════════════════════════════════════════════════════════"
+    Display: "❌ PHASE 5 BLOCKED: Incomplete DoD Without Approval"
+    Display: "═══════════════════════════════════════════════════════════"
+    Display: ""
+    Display: "Found {unchecked_dod_items.length} unchecked DoD items:"
+    Display: ""
+    FOR each item in unchecked_dod_items:
+      Display: "  • {item}"
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "DIAGNOSIS"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "This should have been caught in Phase 06 (Deferral Challenge)."
+    Display: ""
+    Display: "Possible causes:"
+    Display: "  1. Phase 06 was skipped (workflow bug)"
+    Display: "  2. User approved deferrals but approval not documented (bug)"
+    Display: "  3. DoD was manually edited after Phase 06 (user error)"
+    Display: "  4. Phase 06 detection has bug (missed these items)"
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "RESOLUTION"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Option 1: Investigate why Phase 06 didn't catch this"
+    Display: "  → Run: /rca \"Phase 08 blocked - unchecked DoD items without approval\""
+    Display: ""
+    Display: "Option 2: Get user approval now (manual override)"
+    Display: "  → Add '### Approved Deferrals' section to story Implementation Notes"
+    Display: "  → Include: User approval timestamp, blockers, follow-up references"
+    Display: "  → Re-run: /dev {STORY_ID} to retry Phase 08"
+    Display: ""
+    Display: "Option 3: Complete the work (recommended if time permits)"
+    Display: "  → Implement missing DoD items"
+    Display: "  → Mark items [x] in Definition of Done"
+    Display: "  → Re-run: /dev {STORY_ID} to retry Phase 08"
+    Display: ""
+    Display: "═══════════════════════════════════════════════════════════"
+    Display: ""
+
+    HALT workflow
+    EXIT Phase 08 with status code 1
+
+  ELSE:
+    # Approved Deferrals section exists - user approval documented
+    Display: ""
+    Display: "✓ Pre-Commit Validation: Unchecked DoD items found BUT user approval documented"
+    Display: "  Incomplete items: {unchecked_dod_items.length}"
+    Display: "  Approval: 'Approved Deferrals' section exists in Implementation Notes"
+    Display: "  Status: PASS (proceeding to git commit)"
+    Display: ""
+
+    # Continue to Pre-Requisites below
+
+ELSE:
+  # All DoD items checked - perfect completion
+  Display: ""
+  Display: "✓ Pre-Commit Validation: All DoD items complete (100%)"
+  Display: "  Status: PASS (proceeding to git commit)"
+  Display: ""
+
+  # Continue to Pre-Requisites below
+```
+
+**Success Criteria:**
+- [x] Validation runs BEFORE any git operations
+- [x] Detects ALL unchecked DoD items
+- [x] Allows unchecked items IF "Approved Deferrals" section exists
+- [x] BLOCKS commit if unchecked items WITHOUT approval
+- [x] Clear error messages with 3 resolution options
+- [x] Does NOT block on AC Checklist unchecked items
+
+---
+
+## Pre-Requisites for Phase 08 (Git Workflow)
 
 **CRITICAL:** Before executing git commit workflow, ensure DoD format is correct.
 
-### Phase 4.5-5 Bridge Workflow
+### Phase 06-5 Bridge Workflow
 
-**Required:** Execute DoD Update Workflow BEFORE Phase 5
+**Required:** Execute DoD Update Workflow BEFORE Phase 08
 
 **Load and execute:**
 ```
@@ -55,32 +196,32 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 
 ---
 
-## AC Verification Checklist Updates (Phase 5) [NEW - RCA-011]
+## AC Verification Checklist Updates (Phase 08) [NEW - RCA-011]
 
 **Purpose:** Check off final AC items related to deployment readiness after git commit
 
-**Execution:** After git commit succeeds, before Phase 6 (Feedback Hook)
+**Execution:** After git commit succeeds, before Phase 09 (Feedback Hook)
 
 **Load AC Checklist Update Workflow:**
 ```
 Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
 ```
 
-**Identify Phase 5 AC Items:**
+**Identify Phase 08 AC Items:**
 ```
 Grep(pattern="Phase.*: 5", path="${STORY_FILE}", output_mode="content", -B=1)
 ```
 
-**Common Phase 5 items:**
+**Common Phase 08 items:**
 - [ ] Git commit created with semantic message
 - [ ] Story status updated to "Dev Complete"
 - [ ] Backward compatibility verified
 - [ ] Deployment readiness confirmed
 - [ ] Integration notes documented
 
-**Update Procedure:** Batch-update all Phase 5 items after commit succeeds
+**Update Procedure:** Batch-update all Phase 08 items after commit succeeds
 
-**Display:** "Phase 5 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y} (100%)"
+**Display:** "Phase 08 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y} (100%)"
 
 **Final Checklist Summary:**
 ```
@@ -90,12 +231,12 @@ Display:
    Total: {total} items
    Checked: {checked} ({100}%)
 
-   Phase 1 (Test Generation): {count1} items ✓
-   Phase 2 (Implementation): {count2} items ✓
-   Phase 3 (Refactoring): {count3} items ✓
-   Phase 4 (Integration): {count4} items ✓
-   Phase 4.5 (Deferral): {count4.5} items ✓
-   Phase 5 (Git Workflow): {count5} items ✓
+   Phase 02 (Test Generation): {count1} items ✓
+   Phase 03 (Implementation): {count2} items ✓
+   Phase 04 (Refactoring): {count3} items ✓
+   Phase 05 (Integration): {count4} items ✓
+   Phase 06 (Deferral): {count4.5} items ✓
+   Phase 08 (Git Workflow): {count5} items ✓
 
    All acceptance criteria validated real-time during TDD workflow.
 "
@@ -653,7 +794,7 @@ Closes #STORY-050
 
 ### Option 1: Single Commit Per Story (Recommended)
 
-**When:** After Phase 5 (Integration) completes successfully
+**When:** After Phase 08 (Integration) completes successfully
 
 **Benefits:**
 - Clean git history (one commit = one story)
@@ -663,7 +804,7 @@ Closes #STORY-050
 
 **Pattern:**
 ```bash
-# After Phase 5: Integration complete
+# After Phase 08: Integration complete
 # All tests passing, QA approved, ready to commit
 
 git add src/ tests/
@@ -702,7 +843,7 @@ fix: Correct cart total bug (BUG-012)
 
 **Pattern:**
 ```bash
-# After Phase 2: Tests written (RED)
+# After Phase 02: Tests written (RED)
 git add tests/
 git commit -m "test: Add failing tests for order discount calculation
 
@@ -712,7 +853,7 @@ git commit -m "test: Add failing tests for order discount calculation
 
 Part of #STORY-001"
 
-# After Phase 3: Implementation (GREEN)
+# After Phase 03: Implementation (GREEN)
 git add src/
 git commit -m "feat: Implement order discount calculation (Green phase)
 
@@ -722,7 +863,7 @@ git commit -m "feat: Implement order discount calculation (Green phase)
 
 Part of #STORY-001"
 
-# After Phase 4: Refactoring
+# After Phase 04: Refactoring
 git add src/
 git commit -m "refactor: Improve discount calculation code quality
 
@@ -733,7 +874,7 @@ git commit -m "refactor: Improve discount calculation code quality
 
 Part of #STORY-001"
 
-# After Phase 5: Integration
+# After Phase 08: Integration
 git commit -m "feat: Complete order discount feature
 
 - Integration tests passing
@@ -984,7 +1125,7 @@ EOF
 
 ✅ **CORRECT timing:**
 ```bash
-# After Phase 5: Integration complete
+# After Phase 08: Integration complete
 # All tests passing
 # QA validation passed
 # Ready for code review
@@ -1326,4 +1467,4 @@ release/vX.Y.Z
 
 ---
 
-This reference should be used during Phase 6 (Git Workflow) to maintain clean, traceable version control history that aligns with the TDD development process and DevForgeAI story-driven workflow.
+This reference should be used during Phase 08 (Git Workflow) to maintain clean, traceable version control history that aligns with the TDD development process and DevForgeAI story-driven workflow.

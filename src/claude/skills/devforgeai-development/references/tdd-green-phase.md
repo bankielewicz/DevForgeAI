@@ -1,8 +1,8 @@
-# Phase 2: Implementation (Green Phase)
+# Phase 03: Implementation (Green Phase)
 
 **Purpose:** Write minimal code to make failing tests pass.
 
-**Execution Order:** After Phase 1 (Red phase) - tests are failing
+**Execution Order:** After Phase 02 (Red phase) - tests are failing
 
 **Expected Outcome:** All tests GREEN (passing), ready for refactoring
 
@@ -14,11 +14,11 @@
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 2/9: Implementation - Green Phase (22% → 33% complete)
+  Phase 03/10: Implementation - Green Phase (20% → 30% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 2 execution.**
+**Display this indicator at the start of Phase 03 execution.**
 
 ---
 
@@ -32,30 +32,30 @@ The Green phase focuses on making tests pass with minimal, clean code. No over-e
 
 ## Remediation Mode Check [MANDATORY FIRST]
 
-**CRITICAL:** Before executing normal Phase 2, check if remediation mode is active.
+**CRITICAL:** Before executing normal Phase 03, check if remediation mode is active.
 
 ```
-# Check remediation mode flag from Phase 0 Step 0.8.5
+# Check remediation mode flag from Phase 01 Step h.1.
 IF $REMEDIATION_MODE == true:
 
     Display: ""
     Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    Display: "  🔧 REMEDIATION MODE - Phase 2R (Targeted Implementation)"
+    Display: "  🔧 REMEDIATION MODE - Phase 03R (Targeted Implementation)"
     Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     Display: ""
 
-    # Load remediation workflow instead of normal Phase 2
+    # Load remediation workflow instead of normal Phase 03
     Read(file_path=".claude/skills/devforgeai-development/references/qa-remediation-workflow.md")
 
-    # Execute Phase 2R: Targeted Implementation from qa-remediation-workflow.md
+    # Execute Phase 03R: Targeted Implementation from qa-remediation-workflow.md
     # This implements ONLY code for $QA_COVERAGE_GAPS files, not full story
 
-    RETURN after Phase 2R completes
-    # Do NOT execute normal Phase 2 below
+    RETURN after Phase 03R completes
+    # Do NOT execute normal Phase 03 below
 
 ELSE:
-    # Normal Phase 2 - proceed with full story implementation
-    Display: "Proceeding with normal Phase 2 (full story implementation)"
+    # Normal Phase 03 - proceed with full story implementation
+    Display: "Proceeding with normal Phase 03 (full story implementation)"
 ```
 
 **Why this matters:**
@@ -65,7 +65,7 @@ ELSE:
 
 ---
 
-## Phase 2: Implementation (Green Phase)
+## Phase 03: Implementation (Green Phase)
 
 **Delegate implementation to backend-architect or frontend-developer subagent.**
 
@@ -133,7 +133,7 @@ result = extract_from_subagent_output(response)
 files_modified = result["files_modified"]
 approach = result["approach"]
 
-Display: "✓ Phase 2 (Green): Implementation by {IMPLEMENTATION_AGENT}"
+Display: "✓ Phase 03 (Green): Implementation by {IMPLEMENTATION_AGENT}"
 Display: "  - Files modified: {len(files_modified)}"
 
 FOR file in files_modified:
@@ -149,7 +149,7 @@ Bash(command=TEST_COMMAND)
 
 IF all tests pass:
     Display: "✓ GREEN phase confirmed - all tests passing"
-    Display: "  Ready for Phase 3 (Refactor)"
+    Display: "  Ready for Phase 04 (Refactor)"
 
 ELIF some tests still failing:
     Display: "⚠️ Warning: {failed_count} tests still failing"
@@ -178,7 +178,7 @@ ELSE (tests error):
 
 ## Success Criteria
 
-Phase 2 succeeds when:
+Phase 03 succeeds when:
 - [ ] All tests pass (100% pass rate)
 - [ ] Minimal code written (no over-engineering)
 - [ ] All context file constraints enforced
@@ -201,29 +201,29 @@ Phase 2 succeeds when:
 - Check for missing test setup/teardown
 
 **Issue 3: Anti-pattern violation detected**
-- Refactor immediately (don't wait for Phase 3)
+- Refactor immediately (don't wait for Phase 04)
 - Follow anti-patterns.md guidance
 - Re-run tests to ensure still passing
 
 ---
 
-### Step 4: Update AC Verification Checklist (Phase 2 Items) [NEW - RCA-011]
+### Step 4: Update AC Verification Checklist (Phase 03 Items) [NEW - RCA-011]
 
 **Purpose:** Check off AC items related to implementation (real-time progress tracking)
 
-**Execution:** After tests verified GREEN, before Phase 2 checkpoint
+**Execution:** After tests verified GREEN, before Phase 03 checkpoint
 
 **Load AC Checklist Update Workflow:**
 ```
 Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
 ```
 
-**Identify Phase 2 AC Items:**
+**Identify Phase 03 AC Items:**
 ```
 Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
 ```
 
-**Common Phase 2 items:**
+**Common Phase 03 items:**
 - [ ] Implementation code written
 - [ ] Business logic in correct location (skill, not command)
 - [ ] Character count ≤{target} (for refactoring stories)
@@ -231,17 +231,17 @@ Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
 - [ ] API endpoints created (for API stories)
 - [ ] Database models created (for CRUD stories)
 
-**Update Procedure:** Batch-update all Phase 2 items that are complete
+**Update Procedure:** Batch-update all Phase 03 items that are complete
 
-**Display:** "Phase 2 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+**Display:** "Phase 03 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
 
 **Performance:** ~30-60 seconds for 4-8 items
 
 ---
 
-## ✅ PHASE 2 COMPLETION CHECKPOINT
+## ✅ PHASE 03 COMPLETION CHECKPOINT
 
-**Before proceeding to Phase 3 (Refactor), verify ALL steps executed:**
+**Before proceeding to Phase 04 (Refactor), verify ALL steps executed:**
 
 ### Mandatory Steps Executed
 
@@ -256,8 +256,8 @@ Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
   - Verification: Executed {TEST_COMMAND}, all tests pass
   - Output: Green phase confirmed message displayed
 
-- [ ] **Step 4:** AC Verification Checklist updated (Phase 2 items)
-  - Verification: All Phase 2 AC items checked off (implementation items)
+- [ ] **Step 4:** AC Verification Checklist updated (Phase 03 items)
+  - Verification: All Phase 03 AC items checked off (implementation items)
   - Output: "AC Progress: X/Y items complete" displayed
   - Graceful: Skipped if story doesn't have AC Checklist section
 
@@ -269,7 +269,7 @@ Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
 - [ ] No anti-patterns introduced
 - [ ] Test command executes successfully
 - [ ] Ready for refactoring
-- [ ] AC Checklist updated (Phase 2 items checked)
+- [ ] AC Checklist updated (Phase 03 items checked)
 
 ### Checkpoint Validation
 
@@ -300,12 +300,12 @@ Anti-patterns: None introduced
 Ready to refactor and improve code quality.
 
 **Update Progress Tracker:**
-Mark "Execute Phase 2" todo as "completed"
+Mark "Execute Phase 03" todo as "completed"
 
 **See Also:**
-- `tdd-refactor-phase.md` - Phase 3 workflow (code improvement)
+- `tdd-refactor-phase.md` - Phase 04 workflow (code improvement)
 - `context-validator` subagent - Fast constraint enforcement
 - `backend-architect` / `frontend-developer` subagents - Implementation specialists
 
-Next: Load tdd-refactor-phase.md and execute Phase 3 (Refactor Phase)
+Next: Load tdd-refactor-phase.md and execute Phase 04 (Refactor Phase)
 ```

@@ -29,9 +29,9 @@ This pattern provides defensive argument validation for slash commands to handle
 
 ---
 
-## Standard Phase 0: Argument Validation
+## Standard Phase 01: Argument Validation
 
-Add this as the first phase (Phase 0) to all slash commands that accept story IDs or other structured arguments.
+Add this as the first phase (Phase 01) to all slash commands that accept story IDs or other structured arguments.
 
 ### Step 1: Extract Story ID
 
@@ -325,7 +325,7 @@ ELSE:
 ### Example 1: /dev Command
 
 ```markdown
-### Phase 0: Argument Validation
+### Phase 01: Argument Validation
 
 **Extract story ID:**
 STORY_ID = $1
@@ -365,7 +365,7 @@ IF no matches:
 ### Example 2: /qa Command (with mode argument)
 
 ```markdown
-### Phase 0: Argument Validation
+### Phase 01: Argument Validation
 
 **Extract arguments:**
 STORY_ID = $1
@@ -405,7 +405,7 @@ ELSE:
 ### Example 3: /release Command (with environment argument)
 
 ```markdown
-### Phase 0: Argument Validation
+### Phase 01: Argument Validation
 
 **Extract arguments:**
 STORY_ID = $1
@@ -572,7 +572,7 @@ Expected:
 
 ## Integration with Skills
 
-After Phase 0 validation completes, the command has:
+After Phase 01 validation completes, the command has:
 - Validated STORY_ID (format checked, file exists)
 - Validated MODE or ENVIRONMENT (if applicable)
 - Story content loaded via @file reference
@@ -710,14 +710,14 @@ Show correct /qa syntax:
 
 ## When to Use This Pattern
 
-### Use Phase 0 Validation When:
+### Use Phase 01 Validation When:
 - ✅ Command accepts story IDs or other structured arguments
 - ✅ Command has optional arguments (mode, environment, etc.)
 - ✅ User input could be malformed or ambiguous
 - ✅ Command invokes Skills (parameter passing context is critical)
 - ✅ Command is user-facing (needs good UX)
 
-### Skip Phase 0 Validation When:
+### Skip Phase 01 Validation When:
 - ❌ Command takes free-form text only (e.g., commit messages)
 - ❌ Command has no arguments
 - ❌ Command is internal/developer-only (not user-facing)
@@ -727,7 +727,7 @@ Show correct /qa syntax:
 
 ## Checklist for Implementation
 
-When adding Phase 0 validation to a slash command:
+When adding Phase 01 validation to a slash command:
 
 - [ ] Extract story ID using $1 (not $ARGUMENTS)
 - [ ] Validate story ID format (regex: ^STORY-[0-9]+$)

@@ -1,8 +1,8 @@
-# Phase 0: Pre-Flight Validation
+# Phase 01: Pre-Flight Validation
 
 **Purpose:** Comprehensive validation before TDD workflow begins. This phase ensures all prerequisites are met.
 
-**Execution:** Before Phase 1 (Red phase) starts
+**Execution:** Before Phase 02 (Red phase) starts
 
 **Token Cost:** ~6,000 tokens when loaded
 
@@ -12,17 +12,17 @@
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Phase 0/9: Pre-Flight Validation (0% → 11% complete)
+  Phase 01/10: Pre-Flight Validation (0% → 10% complete)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Display this indicator at the start of Phase 0 execution.**
+**Display this indicator at the start of Phase 01 execution.**
 
 ---
 
 ## Overview
 
-Phase 0 executes 8 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
+Phase 01 executes 8 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
 1. Validate Git repository status
@@ -540,19 +540,19 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 **IF WORKFLOW_MODE == "file_based":**
 
-- **Phase 0 (Context Validation):**
+- **Phase 01 (Context Validation):**
   - ✅ Check context files (same as git_based)
   - ✅ Validate story structure (same as git_based)
   - ⚠️ SKIP: Git status checks
   - ⚠️ SKIP: Branch validation
 
-- **Phase 1-4 (Red/Green/Refactor/Integration):**
+- **Phase 02-05 (Red/Green/Refactor/Integration):**
   - ✅ All TDD phases execute normally (test generation, implementation, refactoring)
   - ✅ All test execution works identically
   - ⚠️ SKIP: Any Git commands in these phases (if present)
 
-- **Phase 5 (Git Workflow):**
-  - ⚠️ REPLACE: Git commit workflow → File-based change tracking (see Step 0.3)
+- **Phase 08 (Git Workflow):**
+  - ⚠️ REPLACE: Git commit workflow → File-based change tracking (see Step c.)
 
 **IF WORKFLOW_MODE == "git_based":**
   - ✅ All phases execute normally with full Git integration
@@ -563,12 +563,12 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 **ONLY executed when WORKFLOW_MODE == "file_based"**
 
-This replaces Phase 5 (Git Workflow) with file-based artifact tracking.
+This replaces Phase 08 (Git Workflow) with file-based artifact tracking.
 
-**Implementation (executed in Phase 5 when Git unavailable):**
+**Implementation (executed in Phase 08 when Git unavailable):**
 
 ```markdown
-### Phase 5 Alternative: File-Based Change Tracking
+### Phase 08 Alternative: File-Based Change Tracking
 
 **ONLY when GIT_AVAILABLE == false**
 
@@ -973,8 +973,8 @@ ELSE:
 
 **Use in subsequent phases:**
 - If `$QA_DEFERRAL_FAILURE == true` → Invoke "Handling QA Deferral Failures" workflow
-- If `$QA_COVERAGE_FAILURE == true` → Focus on test coverage in Phase 1
-- If `$QA_ANTIPATTERN_FAILURE == true` → Extra validation in Phase 3 (Refactor)
+- If `$QA_COVERAGE_FAILURE == true` → Focus on test coverage in Phase 02
+- If `$QA_ANTIPATTERN_FAILURE == true` → Extra validation in Phase 04 (Refactor)
 
 ---
 
@@ -1011,7 +1011,7 @@ IF gaps_file EXISTS:
     Read(file_path=gaps_file)
     gaps_data = parse_json(file_content)
 
-    # Build $QA_COVERAGE_GAPS array for Phase 1 consumption
+    # Build $QA_COVERAGE_GAPS array for Phase 02 consumption
     $QA_COVERAGE_GAPS = []
 
     FOR EACH gap in gaps_data.coverage_gaps:
@@ -1026,10 +1026,10 @@ IF gaps_file EXISTS:
         }
         $QA_COVERAGE_GAPS.append(gap_entry)
 
-    # Build $QA_ANTIPATTERN_GAPS for Phase 3 consumption
+    # Build $QA_ANTIPATTERN_GAPS for Phase 04 consumption
     $QA_ANTIPATTERN_GAPS = gaps_data.anti_pattern_violations
 
-    # Build $QA_DEFERRAL_GAPS for Phase 4.5 consumption
+    # Build $QA_DEFERRAL_GAPS for Phase 06 consumption
     $QA_DEFERRAL_GAPS = gaps_data.deferral_issues
 
     # Display summary
@@ -1080,17 +1080,17 @@ ELSE:
 - `$REMEDIATION_MODE` - Boolean flag for targeted workflow
 
 **Use in subsequent phases:**
-- Phase 1: Pass `$QA_COVERAGE_GAPS` to test-automator for targeted test generation
-- Phase 3: Pass `$QA_ANTIPATTERN_GAPS` to refactoring-specialist for targeted fixes
-- Phase 4.5: Pre-load `$QA_DEFERRAL_GAPS` for deferral resolution
+- Phase 02: Pass `$QA_COVERAGE_GAPS` to test-automator for targeted test generation
+- Phase 04: Pass `$QA_ANTIPATTERN_GAPS` to refactoring-specialist for targeted fixes
+- Phase 06: Pre-load `$QA_DEFERRAL_GAPS` for deferral resolution
 
 **See also:** `qa-remediation-workflow.md` for detailed remediation mode workflow
 
 ---
 
-## ✅ PHASE 0 COMPLETION CHECKPOINT
+## ✅ PHASE 01 COMPLETION CHECKPOINT
 
-**Before proceeding to Phase 1 (Test-First Design), verify ALL pre-flight validations passed:**
+**Before proceeding to Phase 02 (Test-First Design), verify ALL pre-flight validations passed:**
 
 ### Mandatory Steps Executed
 
@@ -1106,7 +1106,7 @@ ELSE:
 - [ ] **Step 0.8:** Previous QA failures detected (recovery mode if needed)
 - [ ] **Step 0.8.5:** Structured gap data loaded (if gaps.json exists)
 
-### Variables Set for Phases 1-5
+### Variables Set for Phases 02-08
 
 - [ ] `$GIT_AVAILABLE` = true/false
 - [ ] `$WORKFLOW_MODE` = "full" / "partial" / "fallback"
@@ -1134,8 +1134,8 @@ ELSE:
 
 **IF ANY ITEM UNCHECKED:**
 ```
-❌ PHASE 0 INCOMPLETE - Review missing steps above
-⚠️  DO NOT PROCEED TO PHASE 1 until all checkpoints pass
+❌ PHASE 01 INCOMPLETE - Review missing steps above
+⚠️  DO NOT PROCEED TO PHASE 02 until all checkpoints pass
 ⚠️  Missing validations will cause failures in later phases
 
 Common issues:
@@ -1147,7 +1147,7 @@ Common issues:
 
 **IF ALL ITEMS CHECKED:**
 ```
-✅ PHASE 0 COMPLETE - All Pre-Flight Validations Passed
+✅ PHASE 01 COMPLETE - All Pre-Flight Validations Passed
 
 Variables set: {count} variables configured
 Context files: 6/6 validated
@@ -1157,12 +1157,12 @@ Test framework: {TEST_COMMAND}
 Ready to begin TDD cycle.
 
 **Update Progress Tracker:**
-Mark "Execute Phase 0" todo as "completed"
+Mark "Execute Phase 01" todo as "completed"
 
 **See Also:**
-- `tdd-red-phase.md` - Phase 1 workflow (test generation)
+- `tdd-red-phase.md` - Phase 02 workflow (test generation)
 - `parameter-extraction.md` - Story ID extraction details
 - `ambiguity-protocol.md` - When to use AskUserQuestion
 
-Next: Load tdd-red-phase.md and execute Phase 1 (Test-First Design - Red Phase)
+Next: Load tdd-red-phase.md and execute Phase 02 (Test-First Design - Red Phase)
 ```

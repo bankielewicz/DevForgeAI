@@ -1,7 +1,7 @@
 # Definition of Done Validation Checkpoint
 
 **Skill Reference:** devforgeai-development
-**Phase:** Phase 5, Step 1b (Git Workflow - Layer 2 Validation)
+**Phase:** Phase 08, Step 1b (Git Workflow - Layer 2 Validation)
 **Loaded:** On-demand via progressive disclosure (only when DoD items incomplete)
 **Token Cost:** ~5,000-10,000 tokens (separate from main skill context)
 
@@ -12,7 +12,7 @@
 Read(file_path=".claude/skills/devforgeai-development/references/dod-validation-checkpoint.md")
 ```
 
-**Progressive Disclosure:** This reference is NOT loaded unless the story has incomplete DoD items, optimizing token usage. Only loaded after TDD cycle completes (Phases 1-4) and Layer 1 validation (Python format check) passes.
+**Progressive Disclosure:** This reference is NOT loaded unless the story has incomplete DoD items, optimizing token usage. Only loaded after TDD cycle completes (Phases 02-05) and Layer 1 validation (Python format check) passes.
 
 **Enforcement:** Git commit is BLOCKED until this checkpoint passes.
 
@@ -26,16 +26,16 @@ When this reference is loaded by the skill, the following context is available:
 - **STORY_FILE:** Path to story file (.ai_docs/Stories/STORY-006.story.md)
 - **Story Content:** Already loaded in conversation via @ reference from /dev command
 - **Completion Status:** TDD cycle complete, Layer 1 validation passed
-- **Variables from Phase 0:**
+- **Variables from Phase 01:**
   - `$WORKFLOW_MODE` (git_based or file_based)
   - `$GIT_AVAILABLE` (true or false)
   - `$TEST_COMMAND` (detected test framework command)
 
 **The skill has already completed:**
-- ✅ Phase 0: Pre-Flight Validation (Git, context files, tech stack)
-- ✅ Phase 1-4: TDD Cycle (Red → Green → Refactor → Integration)
-- ✅ Phase 5 Step 1a: Layer 1 validation (Python format check)
-- ⏳ Phase 5 Step 1b: NOW - This checkpoint (Layer 2)
+- ✅ Phase 01: Pre-Flight Validation (Git, context files, tech stack)
+- ✅ Phase 02-05: TDD Cycle (Red → Green → Refactor → Integration)
+- ✅ Phase 08 Step 1a: Layer 1 validation (Python format check)
+- ⏳ Phase 08 Step 1b: NOW - This checkpoint (Layer 2)
 
 ---
 
@@ -158,7 +158,7 @@ FOR EACH item in incomplete_items:
   Instructions for /dev command:
   "Re-invoke Skill(command='devforgeai-development') with focus on completing: {item.text}
 
-   After implementation, the skill will return to Phase 5 Step 1b to revalidate DoD items.
+   After implementation, the skill will return to Phase 08 Step 1b to revalidate DoD items.
    This checkpoint will be invoked again to check remaining items."
   ```
 
@@ -447,7 +447,7 @@ This checkpoint succeeds when:
 **Invoked by:** `/dev` command (after devforgeai-development skill completes)
 
 **References:**
-- `.claude/skills/devforgeai-development/SKILL.md` (Phase 5 Step 1b has similar logic)
+- `.claude/skills/devforgeai-development/SKILL.md` (Phase 08 Step 1b has similar logic)
 - `.claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md`
 - RCA-006 Recommendation 1 (mandatory DoD checkpoint)
 
