@@ -238,3 +238,82 @@ class ValidationError(UpgradeError):
 class RollbackError(UpgradeError):
     """Rollback operation failed."""
     pass
+
+
+# ============================================================================
+# STORY-080: Rollback to Previous Version - Data Models
+# ============================================================================
+
+
+@dataclass
+class RollbackRequest:
+    """Request parameters for rollback operation (STORY-080)."""
+
+    backup_id: str
+    is_automatic: bool = False
+    failure_reason: Optional[str] = None
+    include_user_content: bool = False
+
+    def __post_init__(self) -> None:
+        """Validate rollback request."""
+        if not self.backup_id:
+            raise ValueError("backup_id is required")
+
+
+@dataclass
+class RollbackResult:
+    """Result of rollback operation (STORY-080)."""
+
+    status: str  # SUCCESS, PARTIAL, FAILED
+    from_version: str
+    to_version: str
+    files_restored: int
+    files_preserved: int
+    validation_passed: bool
+    duration_seconds: float
+    failure_reason: Optional[str] = None
+    timestamp: Optional[str] = None
+    error: Optional[str] = None
+    is_automatic: bool = False
+
+
+@dataclass
+class RestoreResult:
+    """Result of backup restoration (STORY-080)."""
+
+    files_restored: int
+    files_preserved: int
+    checksums_verified: bool
+    error: Optional[str] = None
+
+
+@dataclass
+class RollbackValidationReport:
+    """Validation report for post-rollback verification (STORY-080)."""
+
+    passed: bool
+    verified_files: int
+    critical_files_present: bool
+    validation_details: str
+    error: Optional[str] = None
+    missing_files: Optional[int] = None
+
+
+@dataclass
+class CleanupResult:
+    """Result of backup cleanup operation (STORY-080)."""
+
+    deleted_count: int
+    deleted_backup_ids: List[str] = field(default_factory=list)
+
+
+@dataclass
+class BackupInfo:
+    """Information about an available backup (STORY-080)."""
+
+    id: str
+    version: str
+    timestamp: datetime
+    size_bytes: int
+    reason: str
+    path: Optional[str] = None
