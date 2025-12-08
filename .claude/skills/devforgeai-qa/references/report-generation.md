@@ -374,7 +374,7 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 
 ```
 IF overall_status == "FAIL":
-
+    
     gaps_data = {
         "story_id": story_id,
         "qa_result": "FAILED",

@@ -451,7 +451,7 @@ Before proceeding to Phase 5, verify you executed ALL 5 steps:
 
 **⚠️ CHECKPOINT: You MUST generate the complete QA report before proceeding**
 
-**Step 5.0: Load Report Generation Reference (OPTIONAL - inline workflow also valid)**
+**Step 5.0: Load Report Generation Reference (REQUIRED)**
 ```
 Read(file_path=".claude/skills/devforgeai-qa/references/report-generation.md")
 ```
@@ -462,7 +462,7 @@ Read(file_path=".claude/skills/devforgeai-qa/references/report-generation.md")
 **Output:** Report, story status update, formatted display
 
 **Phase 5 Completion Checklist:**
-Before proceeding to Phase 6, verify you executed ALL 6 steps:
+Before proceeding to Phase 6, verify you executed ALL 7 steps:
 - [ ] Step 1: Collected all results from Phases 0.9, 1, 2, 3, 4
   - [ ] Traceability score from Phase 0.9
   - [ ] Coverage metrics from Phase 1
@@ -473,9 +473,23 @@ Before proceeding to Phase 6, verify you executed ALL 6 steps:
 - [ ] Step 3: Generated QA report file (deep mode only)
   - [ ] IF deep mode: Created `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
   - [ ] IF light mode: Skipped report file (this is correct)
-- [ ] Step 4: Invoked qa-result-interpreter subagent for formatted display
-- [ ] Step 5: Documented all blocking violations with remediation steps
-- [ ] Step 6: Prepared next steps recommendations
+- [ ] Step 3.5: Generated gaps.json (MANDATORY if FAILED)
+  - [ ] IF FAILED: Created `.devforgeai/qa/reports/{STORY-ID}-gaps.json`
+  - [ ] Contains: coverage_gaps (files, layers, percentages, uncovered lines)
+  - [ ] Contains: anti_pattern_violations (CRITICAL and HIGH only)
+  - [ ] Contains: deferral_issues (violations from deferral-validator)
+  - [ ] Contains: remediation_sequence (phases 02R→06R)
+  - [ ] IF PASSED: Skipped (gaps.json only created on failure)
+- [ ] Step 3.6: Archived resolved gaps (if PASSED after previous FAIL)
+  - [ ] IF previous gaps.json existed: Moved to `.devforgeai/qa/resolved/`
+  - [ ] IF no previous gaps: Skipped (first pass)
+- [ ] Step 4: **UPDATED STORY STATUS** ⭐ CRITICAL
+  - [ ] IF PASSED: `status: Dev Complete` → `status: QA Approved ✅`
+  - [ ] IF FAILED: `status: Dev Complete` → `status: QA Failed ❌`
+  - [ ] Appended workflow history entry
+- [ ] Step 5: Tracked QA iteration history (QA Validation History section)
+- [ ] Step 6: Invoked qa-result-interpreter subagent for formatted display
+- [ ] Step 7: Documented blocking violations and prepared next steps
 - [ ] Displayed complete QA report to user
 
 **Display to user:**
@@ -488,6 +502,113 @@ Before proceeding to Phase 6, verify you executed ALL 6 steps:
 ```
 
 **IF any checkbox unchecked:** HALT and complete missing steps.
+
+---
+
+### ⚠️ MANDATORY: Step 3.5 Execution (FAILED status only)
+
+**IF overall_status == "FAILED", you MUST execute this Write() command:**
+
+```
+Write(
+  file_path=".devforgeai/qa/reports/{STORY-ID}-gaps.json",
+  content=JSON containing:
+    - story_id
+    - qa_result: "FAILED"
+    - coverage_gaps: [{file, layer, current_coverage, target_coverage, gap_percentage, suggested_tests}]
+    - anti_pattern_violations: [{file, line, type, severity, remediation}]
+    - deferral_issues: [{item, violation_type, severity, remediation}]
+    - remediation_sequence: [{phase, name, target_files, gap_count}]
+)
+```
+
+**Validation Checkpoint:**
+```
+IF overall_status == "FAILED":
+  Glob(pattern=".devforgeai/qa/reports/{STORY-ID}-gaps.json")
+
+  IF file NOT found:
+    ❌ HALT - gaps.json not created
+    You MUST create gaps.json before proceeding
+    This file enables /dev remediation mode
+
+  IF file found:
+    ✓ gaps.json created for dev agent consumption
+```
+
+**Purpose:** The dev skill Step 0.8.5 reads this file to enter remediation mode with targeted fixes.
+
+---
+
+### ⚠️ MANDATORY: Step 4 - Story Status Update (RCA-013)
+
+**You MUST update the story status based on QA result:**
+
+```
+Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+
+IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
+    Edit(file_path=".ai_docs/Stories/{STORY-ID}.story.md",
+         old_string="status: Dev Complete",
+         new_string="status: QA Approved ✅")
+
+    # Add QA completion to workflow history
+    workflow_history_entry = """
+- **{timestamp}**: QA validation PASSED ({mode} mode)
+  - Coverage: {overall_coverage}%
+  - Violations: {violation_summary}
+  - Report: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+"""
+    Append workflow_history_entry to story Workflow History section
+
+IF overall_status == "FAIL":
+    Edit(file_path=".ai_docs/Stories/{STORY-ID}.story.md",
+         old_string="status: Dev Complete",
+         new_string="status: QA Failed ❌")
+
+    # Add failure details to workflow history
+    workflow_history_entry = """
+- **{timestamp}**: QA validation FAILED ({mode} mode)
+  - Blocking issues: {blocking_issues}
+  - Report: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+  - Action required: Fix issues and re-run `/qa {STORY-ID}`
+"""
+    Append workflow_history_entry to story Workflow History section
+```
+
+**Status transitions:**
+- "Dev Complete" → "QA Approved ✅" (if PASS)
+- "Dev Complete" → "QA Failed ❌" (if FAIL)
+- "QA Failed" → "QA Approved ✅" (if re-validation PASS)
+
+---
+
+### Phase 5 Post-Validation (Enforcement)
+
+**Before proceeding to Phase 6, execute this validation:**
+
+```
+# Read story file
+Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+
+# Extract current status
+status_line = grep "^status:" in story file
+
+# Validate status matches QA result
+IF overall_status == "PASS" AND status_line NOT contains "QA Approved":
+    ❌ ERROR: Story status not updated to QA Approved
+    Execute Step 4 now
+
+IF overall_status == "FAIL" AND status_line NOT contains "QA Failed":
+    ❌ ERROR: Story status not updated to QA Failed
+    Execute Step 4 now
+
+IF validation passes:
+    ✅ Story status correctly updated
+    Proceed to Phase 6
+```
+
+---
 
 ### Phase 6: Invoke Feedback Hooks
 

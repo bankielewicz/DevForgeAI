@@ -105,7 +105,9 @@
       "Bash(__NEW_LINE__ echo '=== STORY-080 TEST SUITE GENERATION COMPLETE ===')",
       "Bash(git -C /mnt/c/Projects/DevForgeAI2 log -1 --oneline)",
       "Bash(xargs:*)",
-      "Bash(cmp:*)"
+      "Bash(cmp:*)",
+      "Bash(tree:*)",
+      "SlashCommand(/dev:*)"
     ],
     "deny": [],
     "ask": []
