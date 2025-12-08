@@ -154,67 +154,33 @@ class BackupService(IBackupService):
             if not source_root.exists():
                 raise BackupError(f"Source directory not found: {source_root}")
 
-            # Create backup directory with timestamp
+            # Create backup directory
             now = datetime.now(timezone.utc)
-            timestamp = now.strftime("%Y%m%d-%H%M%S-%f")[:-3]  # millisecond precision
-            backup_id = f"v{version}-{timestamp}"
-            backup_dir = self.backups_root / backup_id
-
-            # Ensure backups directory exists with proper permissions
-            self.backups_root.mkdir(parents=True, exist_ok=True)
-
-            if backup_dir.exists():
-                raise BackupError(f"Backup directory already exists: {backup_dir}")
-
-            backup_dir.mkdir(parents=True, exist_ok=False)
-            # Set restrictive permissions on backup directory (owner only)
-            os.chmod(backup_dir, BACKUP_DIR_PERMISSIONS)
+            backup_dir = self._create_backup_directory(version, now)
 
             # Copy files and collect metadata
             files: List[FileEntry] = []
             self._copy_directory_tree(source_root, backup_dir, files)
 
-            # Create manifest
+            # Check timeout
             duration = time.time() - start_time
             if duration > BACKUP_TIMEOUT_SECONDS:
                 raise BackupError(
                     f"Backup creation exceeded {BACKUP_TIMEOUT_SECONDS} seconds: {duration:.1f}s"
                 )
 
-            metadata = BackupMetadata(
-                backup_id=backup_id,
+            # Generate manifest
+            metadata = self._generate_backup_manifest(
+                backup_id=backup_dir.name,
                 version=version,
                 created_at=now.isoformat(),
-                files=files,
+                duration=duration,
                 reason=reason,
-                duration_seconds=duration,
+                files=files
             )
 
             # Write manifest file
-            manifest_path = backup_dir / "backup-manifest.json"
-            manifest_json = {
-                "backup_id": metadata.backup_id,
-                "version": metadata.version,
-                "created_at": metadata.created_at,
-                "duration_seconds": metadata.duration_seconds,
-                "reason": metadata.reason.value,
-                "files": [
-                    {
-                        "relative_path": f.relative_path,
-                        "checksum_sha256": f.checksum_sha256,
-                        "size_bytes": f.size_bytes,
-                        "modification_time": f.modification_time,
-                    }
-                    for f in metadata.files
-                ],
-            }
-
-            manifest_path.write_text(
-                json.dumps(manifest_json, indent=JSON_INDENT),
-                encoding=JSON_ENCODING
-            )
-            # Set restrictive permissions on manifest file (owner only, read/write)
-            os.chmod(manifest_path, MANIFEST_FILE_PERMISSIONS)
+            self._write_manifest_file(backup_dir, metadata)
 
             return metadata
 
@@ -231,6 +197,113 @@ class BackupService(IBackupService):
         except Exception as e:
             raise BackupError(f"Backup creation failed: {e}")
 
+    def _create_backup_directory(
+        self,
+        version: str,
+        now: datetime
+    ) -> Path:
+        """
+        Create timestamped backup directory with secure permissions.
+
+        Args:
+            version: Version being backed up
+            now: Current datetime (UTC)
+
+        Returns:
+            Path to created backup directory
+
+        Raises:
+            BackupError: If directory creation fails
+        """
+        timestamp = now.strftime("%Y%m%d-%H%M%S-%f")[:-3]  # millisecond precision
+        backup_id = f"v{version}-{timestamp}"
+        backup_dir = self.backups_root / backup_id
+
+        # Ensure backups root exists
+        self.backups_root.mkdir(parents=True, exist_ok=True)
+
+        # Check for collision
+        if backup_dir.exists():
+            raise BackupError(f"Backup directory already exists: {backup_dir}")
+
+        # Create directory with restrictive permissions
+        backup_dir.mkdir(parents=True, exist_ok=False)
+        os.chmod(backup_dir, BACKUP_DIR_PERMISSIONS)
+
+        return backup_dir
+
+    def _generate_backup_manifest(
+        self,
+        backup_id: str,
+        version: str,
+        created_at: str,
+        duration: float,
+        reason: BackupReason,
+        files: List[FileEntry]
+    ) -> BackupMetadata:
+        """
+        Generate backup manifest from collected file metadata.
+
+        Args:
+            backup_id: Unique backup identifier
+            version: Version being backed up
+            created_at: ISO8601 timestamp
+            duration: Backup duration in seconds
+            reason: Backup reason enum
+            files: List of backed-up files
+
+        Returns:
+            BackupMetadata with manifest information
+        """
+        return BackupMetadata(
+            backup_id=backup_id,
+            version=version,
+            created_at=created_at,
+            files=files,
+            reason=reason,
+            duration_seconds=duration,
+        )
+
+    def _write_manifest_file(
+        self,
+        backup_dir: Path,
+        metadata: BackupMetadata
+    ) -> None:
+        """
+        Write backup manifest to JSON file with secure permissions.
+
+        Args:
+            backup_dir: Backup directory path
+            metadata: Backup metadata to serialize
+
+        Raises:
+            BackupError: If manifest write fails
+        """
+        manifest_path = backup_dir / "backup-manifest.json"
+        manifest_json = {
+            "backup_id": metadata.backup_id,
+            "version": metadata.version,
+            "created_at": metadata.created_at,
+            "duration_seconds": metadata.duration_seconds,
+            "reason": metadata.reason.value,
+            "files": [
+                {
+                    "relative_path": f.relative_path,
+                    "checksum_sha256": f.checksum_sha256,
+                    "size_bytes": f.size_bytes,
+                    "modification_time": f.modification_time,
+                }
+                for f in metadata.files
+            ],
+        }
+
+        manifest_path.write_text(
+            json.dumps(manifest_json, indent=JSON_INDENT),
+            encoding=JSON_ENCODING
+        )
+        # Set restrictive permissions (owner only)
+        os.chmod(manifest_path, MANIFEST_FILE_PERMISSIONS)
+
     def _should_exclude_path(self, rel_path: Path, src_path: Path) -> bool:
         """
         Check if path should be excluded from backup.
@@ -243,8 +316,15 @@ class BackupService(IBackupService):
             True if path should be excluded, False otherwise
         """
         # Check if any part of path is in excluded directories
-        if any(excluded in rel_path.parts for excluded in self.EXCLUDED_DIRS):
-            return True
+        # Handle both single-part (e.g., "__pycache__") and multi-part paths (e.g., ".devforgeai/backups")
+        rel_path_str = str(rel_path)
+        for excluded in self.EXCLUDED_DIRS:
+            # For single-part excludes, check if it's in the path parts
+            if "/" not in excluded and excluded in rel_path.parts:
+                return True
+            # For multi-part excludes, check if the path string contains or starts with it
+            if "/" in excluded and (rel_path_str.startswith(excluded) or f"/{excluded}" in f"/{rel_path_str}"):
+                return True
 
         # Check if file has excluded extension
         if any(src_path.name.endswith(ext) for ext in self.EXCLUDED_FILES):
