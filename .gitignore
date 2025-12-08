@@ -4,6 +4,7 @@ tmp/
 
 # Backups (generated during development)
 .backups/
+.devforgeai/backups/
 
 # Root CLAUDE.md (user-specific, not tracked - src/CLAUDE.md is the source template)
 #CLAUDE.md

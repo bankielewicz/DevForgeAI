@@ -107,7 +107,10 @@
       "Bash(xargs:*)",
       "Bash(cmp:*)",
       "Bash(tree:*)",
-      "SlashCommand(/dev:*)"
+      "SlashCommand(/dev:*)",
+      "WebFetch(domain:ast-grep.github.io)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer python3:*)",
+      "Bash(for file in /mnt/c/Projects/DevForgeAI2/installer/tests/test_*.py)"
     ],
     "deny": [],
     "ask": []
