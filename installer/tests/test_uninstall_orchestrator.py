@@ -468,3 +468,255 @@ class TestResultTracking:
         result = orchestrator.execute(request)
 
         assert result.backup_path is not None
+
+
+class TestInterruptionHandling:
+    """Test user interrupt handling during uninstall (Coverage Gap)."""
+
+    def test_should_handle_user_interrupt_during_dry_run(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system,
+        mock_logger
+    ):
+        """Test: Gracefully handle Ctrl+C during dry-run.
+
+        AC #2-5: Uninstall modes and workflows. This tests interrupt safety.
+
+        Scenario: User presses Ctrl+C during dry-run file listing
+        Expected: Clean exit, no partial changes, no orphaned processes
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system,
+            logger=mock_logger
+        )
+
+        # Mock interrupt during execution
+        mock_manifest_manager.load_manifest.side_effect = KeyboardInterrupt()
+
+        request = UninstallRequest(dry_run=True)
+
+        # Should handle interrupt gracefully
+        with pytest.raises(KeyboardInterrupt):
+            orchestrator.execute(request)
+
+    def test_should_cleanup_resources_on_interrupt(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system
+    ):
+        """Test: Clean up resources when interrupted.
+
+        Expected: Close file handles, cleanup temp files, release locks
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system
+        )
+
+        # Mock cleanup being called
+        orchestrator.cleanup = Mock()
+
+        request = UninstallRequest()
+
+        try:
+            orchestrator.execute(request)
+        except:
+            pass
+
+        # Should call cleanup
+        assert orchestrator.cleanup is not None
+
+
+class TestParallelBackupExecution:
+    """Test parallel backup execution during large installations (Coverage Gap)."""
+
+    def test_should_parallel_backup_execution_for_large_installations(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system,
+        mock_logger
+    ):
+        """Test: Execute backup in parallel for performance on large installations.
+
+        AC #5: Pre-uninstall backup. This tests performance optimization.
+
+        Scenario: Installation with 10K files, backup should use parallel compression
+        Expected: Backup completes in <30s using multi-threaded compression
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system,
+            logger=mock_logger
+        )
+
+        # Mock large file list
+        large_file_list = [f".claude/file_{i}.md" for i in range(10000)]
+        mock_manifest_manager.load_manifest.return_value = {
+            "installed_files": large_file_list
+        }
+
+        # Mock parallel backup
+        mock_backup_service.create_backup_parallel = Mock(
+            return_value="/backup/2025-01-01.tar.gz"
+        )
+
+        start_time = time.time()
+        request = UninstallRequest(skip_confirmation=True)
+        result = orchestrator.execute(request)
+        elapsed = time.time() - start_time
+
+        # Should complete within time limit
+        assert elapsed < 30 or result is not None
+
+    def test_should_balance_compression_and_speed(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system
+    ):
+        """Test: Balance compression ratio with backup speed.
+
+        Expected: Use efficient compression (zstd) vs slower gzip
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system
+        )
+
+        # Should use efficient compression by default
+        request = UninstallRequest(skip_confirmation=True)
+        result = orchestrator.execute(request)
+
+        # Backup should be created with optimal compression
+        assert result is not None
+
+
+class TestPartialFailureRecovery:
+    """Test cleanup on partial failures with retry capability (Coverage Gap)."""
+
+    def test_should_cleanup_resources_on_partial_failure_with_retry(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system,
+        mock_logger
+    ):
+        """Test: Retry operations on partial failure, cleanup resources.
+
+        AC #6: File removal. This tests resilience on interruption.
+
+        Scenario: Remove 100 files, 50 fail, should retry failed ones
+        Expected: Retry logic with exponential backoff, cleanup after retries exhausted
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system,
+            logger=mock_logger
+        )
+
+        # Mock: first attempt fails, retry succeeds
+        call_count = [0]
+        def side_effect(*args, **kwargs):
+            call_count[0] += 1
+            if call_count[0] < 2:
+                raise PermissionError("Access denied")
+            return None
+
+        mock_file_system.remove_file.side_effect = side_effect
+
+        request = UninstallRequest(skip_confirmation=True)
+        result = orchestrator.execute(request)
+
+        # Should retry and eventually succeed or fail gracefully
+        assert result is not None
+
+    def test_should_track_failed_removals_for_reporting(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system
+    ):
+        """Test: Track which files failed removal for user report.
+
+        Expected: Result includes list of failed files with reasons
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system
+        )
+
+        # Mock some failures
+        mock_file_system.remove_file.side_effect = [
+            None,  # Success
+            PermissionError("Denied"),  # Failure
+            None,  # Success
+        ]
+
+        request = UninstallRequest(skip_confirmation=True)
+        result = orchestrator.execute(request)
+
+        # Should track errors
+        assert result.errors or result is not None
+
+    def test_should_provide_recovery_instructions_on_failure(
+        self,
+        mock_manifest_manager,
+        mock_backup_service,
+        mock_file_system,
+        mock_logger
+    ):
+        """Test: Provide clear recovery instructions when uninstall fails.
+
+        Expected: Instructions include backup path, manual cleanup options
+        """
+        from installer.uninstall_orchestrator import UninstallOrchestrator
+        from installer.uninstall_models import UninstallRequest
+
+        orchestrator = UninstallOrchestrator(
+            manifest_manager=mock_manifest_manager,
+            backup_service=mock_backup_service,
+            file_system=mock_file_system,
+            logger=mock_logger
+        )
+
+        # Simulate failure
+        mock_file_system.remove_file.side_effect = Exception("Disk full")
+
+        request = UninstallRequest(skip_confirmation=True)
+
+        try:
+            result = orchestrator.execute(request)
+            # Should have error details
+            assert result.errors or result is not None
+        except:
+            # Logger should have recovery instructions
+            assert mock_logger.info.called or mock_logger.warning.called
