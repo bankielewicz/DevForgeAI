@@ -244,13 +244,14 @@ DevForgeAI2/
 │   │   ├── feedback-export-data.md
 │   │   ├── feedback-reindex.md
 │   │   ├── feedback-search.md
-│   │   ├── feedback.md
 │   │   ├── ideate.md
 │   │   ├── import-feedback.md
 │   │   ├── orchestrate.md
 │   │   ├── qa.md
 │   │   ├── rca.md
-│   │   └── release.md
+│   │   ├── release.md
+│   │   ├── DF/
+│   │   └── feedback.md
 │   │
 │   ├── memory/                  # Progressive disclosure references
 │   │   ├── skills-reference.md
@@ -331,7 +332,8 @@ DevForgeAI2/
 ├── src/                         # DISTRIBUTION SOURCE (installer deployment)
 │   ├── claude/                  # Claude Code configuration (source)
 │   │   ├── agents/              # All 30 subagents (source copies)
-│   │   ├── commands/            # All 23 commands (source copies)
+│   │   ├── commands/            # All 22 commands (source copies)
+│   │   ├──────────── DF/		 # 1 Feedback command
 │   │   ├── skills/              # All 16 skills (source copies)
 │   │   ├── memory/              # Progressive disclosure references
 │   │   └── scripts/             # DevForgeAI CLI tools
