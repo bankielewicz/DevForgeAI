@@ -10,7 +10,10 @@ Orchestrates the complete uninstall workflow:
 7. Generate and save summary report
 """
 
+import logging
 import time
+import signal
+import threading
 from pathlib import Path
 from typing import Any, List, Optional
 
@@ -42,6 +45,7 @@ class UninstallOrchestrator:
         cli_cleaner: Optional[CLICleaner] = None,
         reporter: Optional[UninstallReporter] = None,
         installation_root: Optional[Path] = None,
+        logger: Optional[Any] = None,
     ):
         """Initialize orchestrator with dependencies.
 
@@ -54,11 +58,13 @@ class UninstallOrchestrator:
             cli_cleaner: CLI cleaner (created if not provided)
             reporter: Report generator (created if not provided)
             installation_root: Root directory of installation
+            logger: Logger instance (optional)
         """
         self.manifest_manager = manifest_manager
         self.backup_service = backup_service
         self.file_system = file_system
         self.installation_root = installation_root or Path.cwd()
+        self.logger = logger or logging.getLogger(__name__)
 
         # Create or use provided services
         self.content_classifier = content_classifier or ContentClassifier(
@@ -72,6 +78,11 @@ class UninstallOrchestrator:
         self.cli_cleaner = cli_cleaner or CLICleaner(file_system=file_system)
         self.reporter = reporter or UninstallReporter()
 
+        # Interrupt handling
+        self._interrupted = False
+        self._backup_thread = None
+        signal.signal(signal.SIGINT, self._handle_interrupt)
+
     def execute(self, request: UninstallRequest) -> UninstallResult:
         """Execute uninstall operation.
 
@@ -82,8 +93,6 @@ class UninstallOrchestrator:
             UninstallResult with operation outcome
         """
         start_time = time.time()
-
-        # Initialize result
         result = UninstallResult(
             status=UninstallStatus.SUCCESS,
             errors=[],
@@ -91,41 +100,26 @@ class UninstallOrchestrator:
         )
 
         try:
-            # Step 1: Create uninstall plan
             plan = self._create_plan(request)
 
-            # Step 2: Handle dry-run mode
+            # Handle dry-run mode
             if request.dry_run:
-                result.files_removed = 0
-                result.files_preserved = len(plan.files_to_preserve)
-                result.duration_seconds = time.time() - start_time
+                result = self._handle_dry_run(plan, start_time)
                 return result
 
-            # Step 3: Confirmation prompt (unless skipped)
+            # Handle user confirmation
             if not request.skip_confirmation:
                 if not self._confirm_uninstall(plan):
                     result.status = UninstallStatus.CANCELLED
                     result.duration_seconds = time.time() - start_time
                     return result
 
-            # Step 4: Create backup (unless skipped)
-            if not request.skip_backup:
-                backup_path = self._create_backup()
-                result.backup_path = backup_path
+            # Execute uninstall steps
+            self._execute_backup_phase(request, result)
+            self._execute_removal_phase(plan, request, result)
+            self._execute_cli_cleanup(result)
 
-            # Step 5: Remove files
-            removal_result = self._remove_files(plan, request)
-            result.files_removed = removal_result.get("files_removed", 0)
-            result.files_preserved = len(plan.files_to_preserve)
-            result.directories_removed = removal_result.get("directories_removed", 0)
-            result.space_freed_mb = removal_result.get("space_freed_bytes", 0) / (1024 * 1024)
-            result.errors.extend(removal_result.get("errors", []))
-
-            # Step 6: Clean up CLI
-            cli_result = self.cli_cleaner.remove_wrapper_scripts()
-            result.warnings.extend(cli_result.warnings)
-
-            # Step 7: Determine final status
+            # Determine final status
             if result.errors:
                 result.status = UninstallStatus.PARTIAL
 
@@ -139,6 +133,57 @@ class UninstallOrchestrator:
 
         return result
 
+    def _handle_dry_run(self, plan: UninstallPlan, start_time: float) -> UninstallResult:
+        """Handle dry-run mode execution.
+
+        Args:
+            plan: UninstallPlan to execute
+            start_time: Start time for duration calculation
+
+        Returns:
+            UninstallResult for dry-run
+        """
+        result = UninstallResult(status=UninstallStatus.SUCCESS)
+        result.files_removed = 0
+        result.files_preserved = len(plan.files_to_preserve)
+        result.duration_seconds = time.time() - start_time
+        return result
+
+    def _execute_backup_phase(self, request: UninstallRequest, result: UninstallResult) -> None:
+        """Execute backup phase.
+
+        Args:
+            request: UninstallRequest with operation parameters
+            result: UninstallResult to update with backup path
+        """
+        if not request.skip_backup:
+            backup_path = self._create_backup()
+            result.backup_path = backup_path
+
+    def _execute_removal_phase(self, plan: UninstallPlan, request: UninstallRequest, result: UninstallResult) -> None:
+        """Execute file removal phase.
+
+        Args:
+            plan: UninstallPlan with files to remove
+            request: UninstallRequest with operation parameters
+            result: UninstallResult to update with removal statistics
+        """
+        removal_result = self._remove_files(plan, request)
+        result.files_removed = removal_result.get("files_removed", 0)
+        result.files_preserved = len(plan.files_to_preserve)
+        result.directories_removed = removal_result.get("directories_removed", 0)
+        result.space_freed_mb = removal_result.get("space_freed_bytes", 0) / (1024 * 1024)
+        result.errors.extend(removal_result.get("errors", []))
+
+    def _execute_cli_cleanup(self, result: UninstallResult) -> None:
+        """Execute CLI cleanup phase.
+
+        Args:
+            result: UninstallResult to update with CLI cleanup warnings
+        """
+        cli_result = self.cli_cleaner.remove_wrapper_scripts()
+        result.warnings.extend(cli_result.warnings)
+
     def _create_plan(self, request: UninstallRequest) -> UninstallPlan:
         """Create uninstall plan based on mode.
 
@@ -149,37 +194,12 @@ class UninstallOrchestrator:
             UninstallPlan with files to remove/preserve
         """
         plan = UninstallPlan()
-
-        # Get all files from manifest
         manifest = self.manifest_manager.load_manifest()
         installed_files = manifest.get("installed_files", [])
 
-        # Classify each file
         for file_path in installed_files:
-            content_type = self.content_classifier.classify(file_path)
-
-            classified = ClassifiedFile(
-                path=file_path,
-                content_type=content_type,
-                size_bytes=self._get_file_size(file_path),
-            )
-
-            # Determine if file should be preserved
-            if request.mode == "PRESERVE_USER_CONTENT":
-                if content_type in [ContentType.USER_CONTENT, ContentType.USER_CREATED]:
-                    plan.files_to_preserve.append(classified)
-                    plan.preserved_size_bytes += classified.size_bytes
-                elif content_type == ContentType.MODIFIED_FRAMEWORK:
-                    # Preserve modified framework files with warning
-                    plan.files_to_preserve.append(classified)
-                    plan.preserved_size_bytes += classified.size_bytes
-                else:
-                    plan.files_to_remove.append(classified)
-                    plan.total_size_bytes += classified.size_bytes
-            else:
-                # COMPLETE mode - remove everything
-                plan.files_to_remove.append(classified)
-                plan.total_size_bytes += classified.size_bytes
+            classified = self._classify_and_create_file(file_path)
+            self._add_file_to_plan(plan, classified, request.mode)
 
         # Identify directories to remove
         plan.directories_to_remove = self._get_directories_to_remove(
@@ -188,6 +208,57 @@ class UninstallOrchestrator:
         )
 
         return plan
+
+    def _classify_and_create_file(self, file_path: str) -> ClassifiedFile:
+        """Classify a file and create ClassifiedFile object.
+
+        Args:
+            file_path: Path to classify
+
+        Returns:
+            ClassifiedFile with classification and metadata
+        """
+        content_type = self.content_classifier.classify(file_path)
+        return ClassifiedFile(
+            path=file_path,
+            content_type=content_type,
+            size_bytes=self._get_file_size(file_path),
+        )
+
+    def _add_file_to_plan(self, plan: UninstallPlan, classified: ClassifiedFile, mode: str) -> None:
+        """Add classified file to plan based on mode.
+
+        Args:
+            plan: UninstallPlan to update
+            classified: ClassifiedFile to add
+            mode: Uninstall mode (PRESERVE_USER_CONTENT or COMPLETE)
+        """
+        if mode == "PRESERVE_USER_CONTENT":
+            if self._should_preserve(classified.content_type):
+                plan.files_to_preserve.append(classified)
+                plan.preserved_size_bytes += classified.size_bytes
+            else:
+                plan.files_to_remove.append(classified)
+                plan.total_size_bytes += classified.size_bytes
+        else:
+            # COMPLETE mode - remove everything
+            plan.files_to_remove.append(classified)
+            plan.total_size_bytes += classified.size_bytes
+
+    def _should_preserve(self, content_type: ContentType) -> bool:
+        """Determine if file should be preserved.
+
+        Args:
+            content_type: ContentType of file
+
+        Returns:
+            True if file should be preserved
+        """
+        return content_type in [
+            ContentType.USER_CONTENT,
+            ContentType.USER_CREATED,
+            ContentType.MODIFIED_FRAMEWORK,
+        ]
 
     def _confirm_uninstall(self, plan: UninstallPlan) -> bool:
         """Display confirmation prompt to user.
@@ -272,6 +343,82 @@ class UninstallOrchestrator:
         if full_path.exists():
             return full_path.stat().st_size
         return 0
+
+    def _handle_interrupt(self, signum, frame):
+        """Handle user interrupt (Ctrl+C).
+
+        Args:
+            signum: Signal number
+            frame: Stack frame
+        """
+        self._interrupted = True
+        raise KeyboardInterrupt("User interrupted uninstall operation")
+
+    def _parallel_backup_execution(self) -> Optional[str]:
+        """Execute backup in parallel thread.
+
+        Returns:
+            Path to backup or None if failed
+        """
+        backup_path = [None]
+        exception = [None]
+
+        def backup_thread():
+            try:
+                backup_path[0] = self.backup_service.create_backup()
+            except Exception as e:
+                exception[0] = e
+
+        self._backup_thread = threading.Thread(target=backup_thread, daemon=True)
+        self._backup_thread.start()
+        self._backup_thread.join(timeout=30)  # 30 second timeout
+
+        if exception[0]:
+            raise exception[0]
+
+        return backup_path[0]
+
+    def _cleanup_resources_on_failure(self, partial_results: dict) -> None:
+        """Clean up resources if operation fails partially.
+
+        Args:
+            partial_results: Results from partial execution
+        """
+        try:
+            # Remove temporary files
+            if "temp_files" in partial_results:
+                for temp_file in partial_results["temp_files"]:
+                    try:
+                        Path(temp_file).unlink()
+                    except Exception:
+                        pass
+        except Exception:
+            pass
+
+    def _provide_recovery_instructions(self, result: UninstallResult, backup_path: Optional[str]) -> str:
+        """Provide recovery instructions if operation fails.
+
+        Args:
+            result: UninstallResult with failure information
+            backup_path: Path to backup if created
+
+        Returns:
+            Recovery instructions string
+        """
+        instructions = "Recovery Instructions:\n"
+        instructions += "=====================\n\n"
+
+        if backup_path:
+            instructions += f"Backup Location: {backup_path}\n"
+            instructions += "To restore from backup:\n"
+            instructions += f"  tar -xzf {backup_path}\n\n"
+
+        if result.errors:
+            instructions += "Errors encountered:\n"
+            for error in result.errors[:5]:
+                instructions += f"  - {error}\n"
+
+        return instructions
 
     def _get_directories_to_remove(
         self,

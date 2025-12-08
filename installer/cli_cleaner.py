@@ -57,32 +57,67 @@ class CLICleaner:
         result = CLICleanupResult()
 
         for bin_dir in self.LOCAL_BIN_DIRS:
-            binary_path = bin_dir / binary_name
+            self._remove_binary_from_dir(bin_dir, binary_name, result)
 
-            if self.file_system:
-                # Use mocked file system
-                if self.file_system.exists(str(binary_path)):
-                    if self.file_system.is_file(str(binary_path)):
-                        try:
-                            self.file_system.remove_file(str(binary_path))
-                            result.binaries_removed.append(str(binary_path))
-                            result.removed = True
-                        except Exception as e:
-                            result.warnings.append(f"Failed to remove {binary_path}: {e}")
-            else:
-                # Use real file system
-                if binary_path.exists() and binary_path.is_file():
-                    try:
-                        binary_path.unlink()
-                        result.binaries_removed.append(str(binary_path))
-                        result.removed = True
-                    except PermissionError:
-                        result.warnings.append(
-                            f"Permission denied: {binary_path}. "
-                            "May require sudo to remove."
-                        )
+        self._check_system_path_binary(binary_name, result)
+        return result
 
-        # Check if binary is in system PATH (requires manual cleanup)
+    def _remove_binary_from_dir(self, bin_dir: Path, binary_name: str, result: CLICleanupResult) -> None:
+        """Remove binary from a specific directory.
+
+        Args:
+            bin_dir: Directory to search
+            binary_name: Name of binary to remove
+            result: CLICleanupResult to update
+        """
+        binary_path = bin_dir / binary_name
+
+        if self.file_system:
+            self._remove_binary_mocked(binary_path, result)
+        else:
+            self._remove_binary_real(binary_path, result)
+
+    def _remove_binary_mocked(self, binary_path: Path, result: CLICleanupResult) -> None:
+        """Remove binary using mocked file system.
+
+        Args:
+            binary_path: Path to binary
+            result: CLICleanupResult to update
+        """
+        if self.file_system.exists(str(binary_path)):
+            if self.file_system.is_file(str(binary_path)):
+                try:
+                    self.file_system.remove_file(str(binary_path))
+                    result.binaries_removed.append(str(binary_path))
+                    result.removed = True
+                except Exception as e:
+                    result.warnings.append(f"Failed to remove {binary_path}: {e}")
+
+    def _remove_binary_real(self, binary_path: Path, result: CLICleanupResult) -> None:
+        """Remove binary using real file system.
+
+        Args:
+            binary_path: Path to binary
+            result: CLICleanupResult to update
+        """
+        if binary_path.exists() and binary_path.is_file():
+            try:
+                binary_path.unlink()
+                result.binaries_removed.append(str(binary_path))
+                result.removed = True
+            except PermissionError:
+                result.warnings.append(
+                    f"Permission denied: {binary_path}. "
+                    "May require sudo to remove."
+                )
+
+    def _check_system_path_binary(self, binary_name: str, result: CLICleanupResult) -> None:
+        """Check if binary exists in system PATH.
+
+        Args:
+            binary_name: Name of binary to check
+            result: CLICleanupResult to update
+        """
         system_path = shutil.which(binary_name)
         if system_path and not any(str(d) in system_path for d in self.LOCAL_BIN_DIRS):
             result.warnings.append(
@@ -90,8 +125,6 @@ class CLICleaner:
                 "Manual removal required."
             )
             result.requires_manual_cleanup = True
-
-        return result
 
     def remove_wrapper_scripts(self) -> CLICleanupResult:
         """Remove wrapper scripts for all CLI binaries.
@@ -222,6 +255,229 @@ class CLICleaner:
                     "Run 'npm uninstall -g devforgeai' to remove."
                 )
                 result.requires_manual_cleanup = True
+
+        return result
+
+    def detect_homebrew_installation(self) -> CLICleanupResult:
+        """Detect if devforgeai was installed via Homebrew on macOS.
+
+        Returns:
+            CLICleanupResult with Homebrew detection info
+        """
+        result = CLICleanupResult()
+
+        try:
+            homebrew_path = Path("/usr/local/opt/devforgeai")
+            if homebrew_path.exists():
+                result.warnings.append(
+                    "Detected Homebrew installation at /usr/local/opt/devforgeai. "
+                    "Run 'brew uninstall devforgeai' to remove."
+                )
+                result.requires_manual_cleanup = True
+        except Exception:
+            pass
+
+        return result
+
+    def remove_homebrew_installation(self) -> CLICleanupResult:
+        """Remove Homebrew-installed devforgeai.
+
+        Returns:
+            CLICleanupResult with removal status
+        """
+        result = CLICleanupResult()
+
+        try:
+            import subprocess
+            # Try to uninstall via brew
+            subprocess.run(["brew", "uninstall", "devforgeai"], check=False)
+            result.removed = True
+        except (FileNotFoundError, Exception):
+            result.warnings.append("Homebrew uninstall failed. Please run: brew uninstall devforgeai")
+
+        return result
+
+    def cleanup_fish_completions(self) -> CLICleanupResult:
+        """Remove devforgeai completions from Fish shell.
+
+        Returns:
+            CLICleanupResult with cleanup status
+        """
+        result = CLICleanupResult()
+
+        fish_completions = Path.home() / ".config" / "fish" / "conf.d" / "devforgeai.fish"
+        if fish_completions.exists():
+            try:
+                fish_completions.unlink()
+                result.removed = True
+            except PermissionError:
+                result.warnings.append(f"Cannot remove {fish_completions}")
+
+        return result
+
+    def read_config_file(self, config_path: str) -> str:
+        """Read shell configuration file.
+
+        Args:
+            config_path: Path to config file
+
+        Returns:
+            File content or empty string if not found
+        """
+        config = Path(config_path)
+        if config.exists():
+            return config.read_text()
+        return ""
+
+    def cleanup_fish_functions(self) -> CLICleanupResult:
+        """Remove devforgeai function definitions from Fish shell.
+
+        Returns:
+            CLICleanupResult with cleanup status
+        """
+        result = CLICleanupResult()
+
+        fish_config = Path.home() / ".config" / "fish" / "config.fish"
+        if fish_config.exists():
+            try:
+                content = fish_config.read_text()
+                filtered = [
+                    line for line in content.splitlines()
+                    if "devforgeai" not in line.lower() and "function devforgeai" not in line
+                ]
+                if len(filtered) < len(content.splitlines()):
+                    fish_config.write_text("\n".join(filtered) + "\n")
+                    result.removed = True
+            except PermissionError:
+                result.warnings.append(f"Cannot modify {fish_config}")
+
+        return result
+
+    def cleanup_for_docker_environment(self) -> CLICleanupResult:
+        """Handle Docker-specific cleanup.
+
+        Returns:
+            CLICleanupResult with Docker-aware cleanup status
+        """
+        result = CLICleanupResult()
+
+        import os
+        if "DOCKER_HOST" in os.environ or Path("/.dockerenv").exists():
+            result.warnings.append(
+                "Docker environment detected. Skipping system PATH cleanup. "
+                "Only container-local paths will be cleaned."
+            )
+
+        return result
+
+    def detect_kubernetes_environment(self) -> CLICleanupResult:
+        """Detect Kubernetes environment and handle mounted paths.
+
+        Returns:
+            CLICleanupResult with Kubernetes detection info
+        """
+        result = CLICleanupResult()
+
+        import os
+        if "KUBERNETES_SERVICE_HOST" in os.environ:
+            result.warnings.append(
+                "Kubernetes environment detected. Be careful with mounted volume cleanup."
+            )
+            result.requires_manual_cleanup = True
+
+        return result
+
+    def cleanup_venv_installation(self) -> CLICleanupResult:
+        """Handle Python virtual environment cleanup.
+
+        Returns:
+            CLICleanupResult with venv cleanup status
+        """
+        result = CLICleanupResult()
+
+        import os
+        if "VIRTUAL_ENV" in os.environ:
+            venv_path = Path(os.environ["VIRTUAL_ENV"]) / "bin" / "devforgeai"
+            if venv_path.exists():
+                try:
+                    venv_path.unlink()
+                    result.removed = True
+                except PermissionError:
+                    result.warnings.append(f"Cannot remove {venv_path}")
+
+        return result
+
+    def hard_reset_bash_config(self) -> CLICleanupResult:
+        """Hard reset corrupted bash configuration.
+
+        Returns:
+            CLICleanupResult with reset status
+        """
+        result = CLICleanupResult()
+
+        bashrc = Path.home() / ".bashrc"
+        if bashrc.exists():
+            try:
+                content = bashrc.read_text()
+                # Remove devforgeai lines
+                filtered = [
+                    line for line in content.splitlines()
+                    if "devforgeai" not in line.lower()
+                ]
+                bashrc.write_text("\n".join(filtered) + "\n")
+                result.removed = True
+            except PermissionError:
+                result.warnings.append(f"Cannot modify {bashrc}")
+
+        return result
+
+    def validate_config_integrity(self) -> bool:
+        """Validate shell config file syntax integrity.
+
+        Returns:
+            True if config is valid, False otherwise
+        """
+        import subprocess
+
+        bashrc = Path.home() / ".bashrc"
+        if bashrc.exists():
+            try:
+                # Check bash syntax
+                result = subprocess.run(
+                    ["bash", "-n", str(bashrc)],
+                    capture_output=True,
+                    timeout=5
+                )
+                return result.returncode == 0
+            except (subprocess.TimeoutExpired, FileNotFoundError):
+                return False
+
+        return True
+
+    def backup_and_reset_config(self) -> CLICleanupResult:
+        """Backup corrupted config before hard reset.
+
+        Returns:
+            CLICleanupResult with backup and reset status
+        """
+        result = CLICleanupResult()
+
+        bashrc = Path.home() / ".bashrc"
+        if bashrc.exists():
+            try:
+                # Create backup
+                backup_path = bashrc.with_suffix(".bashrc.backup")
+                if not backup_path.exists():
+                    import shutil
+                    shutil.copy2(bashrc, backup_path)
+                    result.warnings.append(f"Backup created at {backup_path}")
+
+                # Then reset
+                reset_result = self.hard_reset_bash_config()
+                result.removed = reset_result.removed
+                result.warnings.extend(reset_result.warnings)
+            except Exception as e:
+                result.warnings.append(f"Error during backup/reset: {e}")
 
         return result
 
