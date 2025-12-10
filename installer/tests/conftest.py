@@ -59,6 +59,18 @@ def temp_install_dir():
 
 
 @pytest.fixture
+def temp_empty_install_dir():
+    """Temporary directory without .devforgeai for testing directory creation.
+
+    Use this fixture when testing ConfigurationManager.save() auto-creating
+    the .devforgeai directory. Unlike temp_install_dir, this fixture
+    provides a clean directory without any DevForgeAI structure.
+    """
+    with tempfile.TemporaryDirectory() as tmpdir:
+        yield Path(tmpdir)
+
+
+@pytest.fixture
 def temp_backup_dir():
     """Create a temporary backup directory."""
     with tempfile.TemporaryDirectory() as tmpdir:
