@@ -19,6 +19,9 @@ from typing import Dict, Any
 
 import pytest
 
+from installer.configuration_manager import ConfigurationManager
+from installer.config.config_models import InstallConfig
+
 
 class TestConfigurationManagerLoadConfig:
     """Tests for loading configuration (AC#2, SVC-001)."""
@@ -174,29 +177,37 @@ class TestConfigurationManagerSaveConfig:
         for key in required_keys:
             assert key in saved_config
 
-    def test_should_create_directory_if_missing_when_saving(self, temp_install_dir):
-        """Test: save() creates .devforgeai directory if missing."""
+    def test_should_create_directory_if_missing_when_saving(
+        self, temp_empty_install_dir, sample_install_config
+    ):
+        """Test: save() creates .devforgeai directory if missing.
+
+        Given: A directory without .devforgeai subdirectory
+        When: ConfigurationManager.save() is called
+        Then: .devforgeai directory is created and config file is saved
+        """
         # Arrange
-        config_dir = temp_install_dir / ".devforgeai"
-        assert not config_dir.exists()
+        config_dir = temp_empty_install_dir / ".devforgeai"
+        assert not config_dir.exists(), "Precondition: .devforgeai should not exist"
 
-        config_path = config_dir / ".install-config.json"
-        sample_config = {
-            "schema_version": 1,
-            "target_path": "/home/user/project",
-            "merge_strategy": "SMART_MERGE",
-            "optional_features": [],
-            "installed_at": "2025-11-25T10:30:00Z",
-        }
+        # Create manager with path to the .devforgeai directory (not the parent)
+        manager = ConfigurationManager(str(config_dir))
 
-        # Act
-        config_dir.mkdir(parents=True, exist_ok=True)
-        with open(config_path, "w") as f:
-            json.dump(sample_config, f)
+        # Create InstallConfig from sample dict
+        config = InstallConfig(**sample_install_config)
+
+        # Act - Call the actual save() method
+        manager.save(config)
 
         # Assert
-        assert config_dir.exists()
-        assert config_path.exists()
+        assert config_dir.exists(), "ConfigurationManager.save() should create directory"
+        config_path = config_dir / ".install-config.json"
+        assert config_path.exists(), "Config file should exist after save"
+
+        # Verify content was saved correctly
+        with open(config_path, "r") as f:
+            saved_config = json.load(f)
+        assert saved_config["target_path"] == sample_install_config["target_path"]
 
     def test_should_overwrite_existing_config_file(
         self, existing_config_file, sample_install_config

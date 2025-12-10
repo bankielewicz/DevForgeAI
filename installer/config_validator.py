@@ -46,45 +46,67 @@ class ConfigValidator:
         """
         result = ValidationResult(is_valid=True)
 
-        # Check required keys
-        for key, expected_type in self.REQUIRED_KEYS.items():
+        self._validate_required_keys(config, result)
+        self._validate_field_types(config, result)
+        self._check_unknown_keys(config, result)
+
+        return result
+
+    def _validate_required_keys(self, config: Dict[str, Any], result: ValidationResult) -> None:
+        """Check all required keys are present."""
+        for key in self.REQUIRED_KEYS:
             if key not in config:
                 result.add_error(f"Missing required key: {key}")
+
+    def _validate_field_types(self, config: Dict[str, Any], result: ValidationResult) -> None:
+        """Validate types and values for present fields."""
+        for key, expected_type in self.REQUIRED_KEYS.items():
+            if key not in config:
                 continue
 
-            # Validate type
             value = config[key]
             if not isinstance(value, expected_type):
                 result.add_error(
                     f"Invalid type for '{key}': expected {expected_type.__name__}, "
                     f"got {type(value).__name__}"
                 )
+                continue
 
-            # Special validation for specific keys
-            if key == "merge_strategy" and isinstance(value, str):
-                if value not in self.VALID_STRATEGIES:
-                    result.add_error(
-                        f"Invalid merge_strategy '{value}'. "
-                        f"Must be one of: {', '.join(self.VALID_STRATEGIES)}"
-                    )
+            # Delegate to specialized validators
+            self._validate_field_value(key, value, result)
 
-            if key == "schema_version" and isinstance(value, int):
-                if value < 1:
-                    result.add_error("schema_version must be positive integer")
+    def _validate_field_value(self, key: str, value: Any, result: ValidationResult) -> None:
+        """Validate specific field values based on key."""
+        if key == "merge_strategy":
+            self._validate_merge_strategy(value, result)
+        elif key == "schema_version":
+            self._validate_schema_version(value, result)
+        elif key == "optional_features":
+            self._validate_optional_features(value, result)
 
-            if key == "optional_features" and not isinstance(value, list):
-                result.add_error("optional_features must be array")
-            elif key == "optional_features":
-                # Validate array contains strings
-                for item in value:
-                    if not isinstance(item, str):
-                        result.add_error(
-                            f"optional_features must contain strings, got {type(item).__name__}"
-                        )
+    def _validate_merge_strategy(self, value: str, result: ValidationResult) -> None:
+        """Validate merge_strategy is a valid enum value."""
+        if value not in self.VALID_STRATEGIES:
+            result.add_error(
+                f"Invalid merge_strategy '{value}'. "
+                f"Must be one of: {', '.join(self.VALID_STRATEGIES)}"
+            )
 
-        # Warn about unknown keys
+    def _validate_schema_version(self, value: int, result: ValidationResult) -> None:
+        """Validate schema_version is positive."""
+        if value < 1:
+            result.add_error("schema_version must be positive integer")
+
+    def _validate_optional_features(self, value: list, result: ValidationResult) -> None:
+        """Validate optional_features contains only strings."""
+        for item in value:
+            if not isinstance(item, str):
+                result.add_error(
+                    f"optional_features must contain strings, got {type(item).__name__}"
+                )
+
+    def _check_unknown_keys(self, config: Dict[str, Any], result: ValidationResult) -> None:
+        """Warn about unknown configuration keys."""
         for key in config.keys():
             if key not in self.KNOWN_KEYS:
                 result.add_warning(f"Unknown key '{key}' - will be ignored")
-
-        return result
