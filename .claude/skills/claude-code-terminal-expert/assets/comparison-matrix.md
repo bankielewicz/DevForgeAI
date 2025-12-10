@@ -590,9 +590,60 @@ Benefit: Easy distribution, version management
 
 ---
 
+## Rules vs CLAUDE.md (2025)
+
+### Comparison
+
+| Aspect | CLAUDE.md | .claude/rules/ |
+|--------|-----------|----------------|
+| **Structure** | Single file | Multiple files |
+| **Organization** | Monolithic | Modular by topic |
+| **Path targeting** | No | Yes (via frontmatter) |
+| **Team scalability** | Merge conflicts | Parallel editing |
+| **Reusability** | Copy/paste | Symlinks supported |
+| **Auto-loading** | Yes | Yes (all .md files) |
+
+### When to Use Each
+
+**Use CLAUDE.md when:**
+- Simple project with few rules
+- Quick setup needed
+- All instructions fit in one file
+- No file-specific requirements
+
+**Use .claude/rules/ when:**
+- Larger projects with many standards
+- Team collaboration (avoid merge conflicts)
+- File-specific rules needed (via `paths:`)
+- Want to share rules across projects (symlinks)
+- Modular organization preferred
+
+### Combining Both
+
+They work together! CLAUDE.md provides high-level guidance while rules/ provides detailed standards:
+
+```
+.claude/
+├── CLAUDE.md                 # Overview and imports
+└── rules/
+    ├── code-style.md         # Detailed code style
+    ├── testing.md            # Test requirements
+    └── security.md           # Security rules
+```
+
+In CLAUDE.md:
+```markdown
+For detailed standards, see the rules directory.
+- Code style: @.claude/rules/code-style.md
+- Testing: @.claude/rules/testing.md
+```
+
+---
+
 ## Version History
 
 - **v1.0 (2025-11-06)**: Initial creation with comprehensive comparisons
+- **v1.1 (2025-12-09)**: Added Rules vs CLAUDE.md comparison
 - **Source**: Consolidated from Terminal documentation research and official docs
 
 ---

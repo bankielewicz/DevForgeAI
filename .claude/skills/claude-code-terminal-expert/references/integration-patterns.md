@@ -1,6 +1,6 @@
 # Claude Code Terminal - Integration Patterns Reference
 
-**Source:** Official docs from code.claude.com (consolidated 2025-11-06)
+**Source:** Official docs from code.claude.com (updated 2025-12-09)
 
 This reference consolidates all CI/CD integration, automation, and event-driven workflow patterns for Claude Code Terminal.
 
@@ -1184,9 +1184,78 @@ workflow:
 * **PreCompact**: Runs before Claude Code is about to run a compact operation
 * **SessionStart**: Runs when Claude Code starts a new session or resumes an existing session
 * **SessionEnd**: Runs when Claude Code session ends
+* **PermissionRequest**: Runs when user is shown a permission dialog (2025)
 
 Each event receives different data and can control Claude's behavior in
 different ways.
+
+### New Hook Events (2025)
+
+#### PermissionRequest
+
+Runs when user is shown a permission dialog. Allows hooks to automatically approve or deny permission requests.
+
+**Use cases:**
+- Auto-approve specific operations (e.g., git status)
+- Auto-deny dangerous operations
+- Log permission requests for auditing
+
+**Input format:**
+```json
+{
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "git status",
+    "description": "Check git status"
+  }
+}
+```
+
+**Supports same matchers as PreToolUse** - match on tool name, command patterns, etc.
+
+#### MCP Tool Naming in Hooks
+
+MCP tools follow the pattern: `mcp__<server>__<tool>`
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [{
+      "matcher": "mcp__memory__.*",
+      "hooks": [{"type": "command", "command": "echo 'Memory operation' >> ~/mcp-ops.log"}]
+    }]
+  }
+}
+```
+
+#### Prompt-Based Hooks
+
+For `Stop` and `SubagentStop` hooks, you can use LLM evaluation instead of shell commands:
+
+```json
+{
+  "hooks": {
+    "Stop": [{
+      "hooks": [{
+        "type": "prompt",
+        "prompt": "Analyze if Claude should stop. Input: $ARGUMENTS\n\nCheck if:\n1. All tasks complete\n2. Any errors need fixing\n\nRespond: {\"decision\": \"approve\" or \"block\", \"reason\": \"explanation\"}",
+        "timeout": 30
+      }]
+    }]
+  }
+}
+```
+
+**Response schema for prompt hooks:**
+```json
+{
+  "decision": "approve",  // or "block"
+  "reason": "All tasks completed successfully",
+  "continue": false,
+  "stopReason": "Message shown to user (optional)",
+  "systemMessage": "Warning or context (optional)"
+}
+```
 
 ### Quickstart
 

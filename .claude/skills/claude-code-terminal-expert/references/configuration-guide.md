@@ -1,6 +1,6 @@
 # Claude Code Terminal - Configuration Guide
 
-**Source:** Official documentation from code.claude.com (consolidated 2025-11-06)
+**Source:** Official documentation from code.claude.com (updated 2025-12-09)
 
 **Purpose:** Comprehensive reference for configuring Claude Code Terminal including settings hierarchy, model selection, CLI flags, and permission management.
 
@@ -8,11 +8,142 @@
 
 ## Table of Contents
 
+0. [Memory & Rules System](#section-0-memory--rules-system)
 1. [Settings System](#section-1-settings-system)
 2. [Model Configuration](#section-2-model-configuration)
 3. [CLI Reference](#section-3-cli-reference)
 4. [Permission Management](#section-4-permission-management)
 5. [Quick Reference](#section-5-quick-reference)
+
+---
+
+## Section 0: Memory & Rules System
+
+### Memory Hierarchy
+
+Claude Code uses a hierarchical memory system (highest to lowest precedence):
+
+| Level | Location | Purpose | Shared With |
+|-------|----------|---------|-------------|
+| **Enterprise Policy** | System dirs (OS-specific) | Organization-wide instructions | All users in org |
+| **Project Memory** | `./CLAUDE.md` or `./.claude/CLAUDE.md` | Team-shared project instructions | Team via git |
+| **Project Rules** | `./.claude/rules/*.md` | Modular, topic-specific rules | Team via git |
+| **User Memory** | `~/.claude/CLAUDE.md` | Personal preferences for all projects | Just you |
+| **Project Local** | `./CLAUDE.local.md` | Personal project-specific preferences | Just you |
+
+**Note:** `CLAUDE.local.md` is automatically added to `.gitignore`, making it ideal for private preferences.
+
+### The `.claude/rules/` Directory
+
+Enable modular, organized instruction management for larger projects:
+
+```
+your-project/
+├── .claude/
+│   ├── CLAUDE.md           # Main project instructions
+│   └── rules/
+│       ├── code-style.md   # Code style guidelines
+│       ├── testing.md      # Testing conventions
+│       ├── security.md     # Security requirements
+│       └── frontend/
+│           ├── react.md
+│           └── styles.md
+```
+
+**All `.md` files in `.claude/rules/` are automatically loaded** with the same priority as `.claude/CLAUDE.md`.
+
+### Conditional Rules (Path-Specific)
+
+Rules can target specific files using YAML frontmatter:
+
+```markdown
+---
+paths: src/api/**/*.ts
+---
+
+# API Development Rules
+
+- All API endpoints must include input validation
+- Use the standard error response format
+- Include OpenAPI documentation comments
+```
+
+**Glob pattern support:**
+
+| Pattern | Matches |
+|---------|---------|
+| `**/*.ts` | All TypeScript files |
+| `src/**/*` | All files under `src/` |
+| `*.md` | Root markdown files |
+| `src/components/*.tsx` | Specific directory |
+| `{src,lib}/**/*.ts, tests/**/*.test.ts` | Multiple patterns |
+
+### Symlink Support
+
+Share rules across projects via symlinks:
+
+```bash
+# Symlink shared rules directory
+ln -s ~/shared-claude-rules .claude/rules/shared
+
+# Symlink individual rule files
+ln -s ~/company-standards/security.md .claude/rules/security.md
+```
+
+### User-Level Rules
+
+Create personal rules in `~/.claude/rules/`:
+
+```
+~/.claude/rules/
+├── preferences.md    # Your personal coding preferences
+└── workflows.md      # Your preferred workflows
+```
+
+User-level rules load **before** project rules, giving project rules higher priority.
+
+### Import Syntax
+
+CLAUDE.md supports `@path/to/import` syntax for file inclusion:
+
+```markdown
+See @README for project overview and @package.json for available npm commands.
+
+# Additional Instructions
+- git workflow @docs/git-instructions.md
+```
+
+**Features:**
+- Relative and absolute paths supported
+- Home directory imports: `@~/.claude/my-project-instructions.md`
+- **Max depth:** 5 hops
+- Imports NOT evaluated in code spans: `` `@anthropic-ai/claude-code` ``
+- Recursive imports supported
+
+### Memory Management Commands
+
+| Command | Description |
+|---------|-------------|
+| `/memory` | View loaded memory files |
+| `/init` | Bootstrap CLAUDE.md for codebase |
+| `#` prefix | Fast memory addition (start input with `#` to add memory) |
+
+### DevForgeAI Integration
+
+Use `.claude/rules/` to complement DevForgeAI's context files:
+
+```
+.claude/rules/
+├── devforgeai-workflow.md      # TDD workflow rules
+├── code-style.md               # Links to coding-standards.md
+├── security.md                 # Links to anti-patterns.md
+└── testing.md                  # Test coverage rules
+```
+
+**Key integration points:**
+- `.claude/rules/` for Claude Code behavior rules
+- `.devforgeai/context/` for immutable architectural constraints
+- Rules can reference context files: `@.devforgeai/context/tech-stack.md`
 
 ---
 
@@ -280,6 +411,68 @@ Limit agentic iterations:
   }
 }
 ```
+
+### New Settings Options (2025)
+
+#### Enterprise Authentication
+
+```json
+{
+  "forceLoginMethod": "claudeai",
+  "forceLoginOrgUUID": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
+```
+
+#### Hook Control
+
+```json
+{
+  "disableAllHooks": false
+}
+```
+
+#### Session Management
+
+```json
+{
+  "cleanupPeriodDays": 20
+}
+```
+
+#### Company Announcements
+
+```json
+{
+  "companyAnnouncements": [
+    "Welcome to Acme Corp! Review our code guidelines at docs.acme.com"
+  ]
+}
+```
+
+#### AWS Bedrock Configuration
+
+```json
+{
+  "awsAuthRefresh": "aws sso login --profile myprofile",
+  "awsCredentialExport": "/bin/generate_aws_grant.sh"
+}
+```
+
+### New Environment Variables (2025)
+
+| Variable | Description |
+|----------|-------------|
+| `ANTHROPIC_FOUNDRY_API_KEY` | Foundry API key |
+| `AWS_BEARER_TOKEN_BEDROCK` | Bedrock bearer token |
+| `CLAUDE_CODE_SUBAGENT_MODEL` | Default subagent model |
+| `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR` | Set to `1` to reset WD to project dir |
+| `CLAUDE_CODE_SHELL_PREFIX` | Command prefix for logging |
+| `DISABLE_PROMPT_CACHING_HAIKU` | Disable cache for Haiku |
+| `DISABLE_PROMPT_CACHING_OPUS` | Disable cache for Opus |
+| `DISABLE_PROMPT_CACHING_SONNET` | Disable cache for Sonnet |
+| `DISABLE_COST_WARNINGS` | Disable cost warnings |
+| `MAX_THINKING_TOKENS` | Max thinking tokens (default 10000) |
+| `CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL` | Skip IDE auto-install |
 
 ### Complete Example
 
@@ -1100,6 +1293,31 @@ Customize Claude Code's behavior with these command-line flags:
 | `--dangerously-skip-permissions` | Skip permission prompts (use with caution)                                                                                                               | `claude --dangerously-skip-permissions`                                                            |
 
 **Tip:** The `--output-format json` flag is particularly useful for scripting and automation, allowing you to parse Claude's responses programmatically.
+
+### New CLI Flags (2025)
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--fork-session` | Create new session ID instead of reusing original | `claude --resume abc123 --fork-session` |
+| `--session-id` | Use a specific session ID (must be valid UUID) | `claude --session-id "550e8400-e29b-41d4-a716-446655440000"` |
+| `--fallback-model` | Enable automatic fallback to specified model when default is overloaded | `claude -p --fallback-model sonnet "query"` |
+| `--agent` | Specify an agent for current session | `claude --agent my-custom-agent` |
+| `--system-prompt` | Replaces entire default prompt (interactive + print) | `claude --system-prompt "You are a Python expert"` |
+| `--system-prompt-file` | Replaces with file contents (print mode only) | `claude -p --system-prompt-file ./prompts/code-review.txt` |
+| `--plugin-dir` | Load plugins from directories for this session only | `claude --plugin-dir ./my-plugins` |
+| `--settings` | Path to settings JSON file or JSON string | `claude --settings ./settings.json` |
+| `--setting-sources` | Comma-separated sources to load (`user`, `project`, `local`) | `claude --setting-sources user,project` |
+| `--json-schema` | Get validated JSON output matching a JSON Schema | `claude -p --json-schema '{"type":"object",...}'` |
+| `--mcp-config` | Load MCP servers from JSON files or strings (space-separated) | `claude --mcp-config ./mcp.json` |
+| `--strict-mcp-config` | Only use MCP servers from `--mcp-config`, ignore all other configurations | `claude --strict-mcp-config --mcp-config ./mcp.json` |
+| `--betas` | Beta headers to include in API requests (API key users only) | `claude --betas interleaved-thinking` |
+| `--ide` | Automatically connect to IDE on startup if exactly one valid IDE available | `claude --ide` |
+| `--debug` | Enable debug mode with optional category filtering | `claude --debug "api,mcp"` |
+
+**System Prompt Flags:**
+- `--system-prompt`: **Replaces** entire default prompt - use for complete control
+- `--append-system-prompt`: **Appends** to default prompt - preserves built-in capabilities (recommended)
+- `--system-prompt-file`: **Replaces** with file contents - print mode only
 
 ### Agents Flag Format
 

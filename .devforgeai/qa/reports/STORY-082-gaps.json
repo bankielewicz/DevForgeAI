@@ -1,52 +1,259 @@
 {
   "story_id": "STORY-082",
   "qa_result": "FAILED",
-  "generated_at": "2025-12-09T15:45:00Z",
-  "qa_report_file": ".devforgeai/qa/reports/STORY-082-qa-report.md",
-
-  "test_failures": [
+  "qa_mode": "deep",
+  "qa_date": "2025-12-09",
+  "blocking_status": true,
+  "violation_summary": {
+    "total": 11,
+    "critical": 1,
+    "high": 2,
+    "medium": 5,
+    "low": 3
+  },
+  "blocking_violations": [
     {
-      "file": "installer/tests/test_configuration_manager.py",
-      "test": "test_should_create_directory_if_missing_when_saving",
-      "class": "TestConfigurationManagerSaveConfig",
-      "error_type": "AssertionError",
-      "error_message": "assert not True - directory already exists when test expects it absent",
-      "root_cause": "Fixture setup creates directory before test runs",
-      "suggested_fix": "Modify fixture to not create .devforgeai directory, or add explicit cleanup before this specific test"
-    }
-  ],
-
-  "coverage_gaps": [],
-
-  "anti_pattern_violations": [],
-
-  "complexity_violations": [
-    {
-      "file": "installer/config_validator.py",
-      "method": "ConfigValidator.validate",
-      "line": 34,
-      "type": "High Cyclomatic Complexity",
-      "severity": "HIGH",
-      "current_complexity": 17,
-      "threshold": 10,
-      "remediation": "Split validate() into smaller focused methods: _validate_required_keys(), _validate_field_types(), _validate_enum_values(), _validate_datetime_fields()"
-    }
-  ],
-
-  "deferral_issues": [],
-
-  "remediation_sequence": [
-    {
-      "phase": "01",
-      "name": "Fix failing test",
-      "target_files": ["installer/tests/test_configuration_manager.py"],
-      "action": "Update test fixture or add cleanup before test"
+      "severity": "CRITICAL",
+      "type": "Security Vulnerability",
+      "category": "Insecure YAML Deserialization",
+      "file": "installer/config_importer.py",
+      "line": 21,
+      "current_code": "yaml.load(file)",
+      "issue": "YAML deserialization without Loader parameter allows arbitrary code execution",
+      "owasp": "A08:2021 - Software and Data Integrity Failures",
+      "remediation": "Replace yaml.load(file) with yaml.safe_load(file)",
+      "remediation_effort": "2 minutes",
+      "blocks_qa": true
     },
     {
-      "phase": "02",
-      "name": "Refactor ConfigValidator.validate()",
-      "target_files": ["installer/config_validator.py"],
-      "action": "Extract validation logic into smaller methods to reduce complexity from 17 to <10"
+      "severity": "HIGH",
+      "type": "Test Coverage Gap",
+      "category": "Incomplete Code Coverage",
+      "file": "installer/configuration_manager.py",
+      "current_coverage": "46%",
+      "target_coverage": "80%",
+      "gap_percentage": 34,
+      "issue": "ConfigurationManager has untested code paths despite 217 passing tests",
+      "remediation": "Add 15-20 tests for orchestration logic, error handling, edge cases",
+      "suggested_tests": [
+        "test_load_nonexistent_file_raises_error",
+        "test_load_invalid_yaml_raises_error",
+        "test_validate_invalid_config_raises_error",
+        "test_migrate_unsupported_version_raises_error",
+        "test_merge_conflicting_keys_resolves",
+        "test_export_creates_valid_json",
+        "test_export_creates_valid_yaml"
+      ],
+      "remediation_effort": "2-4 hours",
+      "blocks_qa": true
+    },
+    {
+      "severity": "HIGH",
+      "type": "Architecture Violation",
+      "category": "Domain Model Purity",
+      "file": "installer/config/config_models.py",
+      "issue": "ConfigModel may contain infrastructure concerns (I/O, serialization)",
+      "architectural_principle": "Domain models must be pure data structures without infrastructure dependencies",
+      "remediation": "Code review to verify ConfigModel contains only data attributes and basic validation",
+      "verification_steps": [
+        "Check ConfigModel has no imports of os, pathlib, json, yaml",
+        "Verify no serialize/deserialize methods",
+        "Confirm no file I/O or external system interactions",
+        "Move any infrastructure logic to ConfigExporter/ConfigImporter"
+      ],
+      "remediation_effort": "30-60 minutes",
+      "blocks_qa": true
     }
-  ]
+  ],
+  "non_blocking_violations": [
+    {
+      "severity": "MEDIUM",
+      "type": "Missing Documentation",
+      "category": "Code Quality",
+      "files": ["installer/configuration_manager.py", "installer/config_validator.py"],
+      "issue": "Public methods lack comprehensive docstrings",
+      "remediation": "Add NumPy/Google style docstrings to all public methods",
+      "remediation_effort": "2 hours"
+    },
+    {
+      "severity": "MEDIUM",
+      "type": "Code Smell",
+      "category": "Magic Numbers",
+      "file": "installer/config_validator.py",
+      "issue": "Hard-coded numeric thresholds not extracted to constants",
+      "remediation": "Extract magic numbers to named constants (VERSION_PART_COUNT, MAX_VERSION_PART, etc.)",
+      "remediation_effort": "1 hour"
+    },
+    {
+      "severity": "MEDIUM",
+      "type": "Code Smell",
+      "category": "Broad Exception Handling",
+      "file": "installer/config_importer.py",
+      "issue": "Generic exception catching masks specific error conditions",
+      "remediation": "Replace broad exception handlers with specific exception types",
+      "remediation_effort": "1 hour"
+    },
+    {
+      "severity": "MEDIUM",
+      "type": "Architecture",
+      "category": "Multiple Responsibilities",
+      "file": "installer/configuration_manager.py",
+      "issue": "ConfigurationManager handles 4+ responsibilities (monitor for god object growth)",
+      "remediation": "Review if facade pattern is intentional; document design if so",
+      "remediation_effort": "30 minutes"
+    },
+    {
+      "severity": "LOW",
+      "type": "Style",
+      "category": "Naming Conventions",
+      "issue": "Private variables may not follow Python convention (leading underscore)",
+      "remediation": "Standardize private variable naming (_variable convention)",
+      "remediation_effort": "30 minutes"
+    },
+    {
+      "severity": "LOW",
+      "type": "Style",
+      "category": "Module Documentation",
+      "file": "installer/config_migrator.py",
+      "issue": "Missing module-level docstring",
+      "remediation": "Add module docstring explaining purpose and main classes",
+      "remediation_effort": "15 minutes"
+    },
+    {
+      "severity": "LOW",
+      "type": "Style",
+      "category": "Import Organization",
+      "file": "installer/config_importer.py",
+      "issue": "Imports may not follow PEP 8 grouping",
+      "remediation": "Organize imports: stdlib, then third-party, then local (with blank lines between)",
+      "remediation_effort": "15 minutes"
+    }
+  ],
+  "remediation_sequence": [
+    {
+      "phase": "Phase 1 (CRITICAL)",
+      "name": "Fix Security Vulnerability",
+      "target_files": ["installer/config_importer.py"],
+      "changes": 1,
+      "effort_hours": 0.08,
+      "blockers": "yaml.load() must be replaced with yaml.safe_load()"
+    },
+    {
+      "phase": "Phase 2 (HIGH)",
+      "name": "Increase Test Coverage",
+      "target_files": ["installer/tests/test_configuration_manager.py"],
+      "changes": 20,
+      "effort_hours": 2.5,
+      "blockers": "ConfigurationManager must reach 80% coverage"
+    },
+    {
+      "phase": "Phase 3 (HIGH)",
+      "name": "Verify Domain Model Purity",
+      "target_files": ["installer/config/config_models.py"],
+      "changes": 0,
+      "effort_hours": 0.75,
+      "blockers": "Must verify ConfigModel has no infrastructure concerns"
+    },
+    {
+      "phase": "Phase 4 (MEDIUM)",
+      "name": "Add Documentation",
+      "target_files": ["installer/configuration_manager.py", "installer/config_validator.py", "installer/config_migrator.py"],
+      "changes": 15,
+      "effort_hours": 2,
+      "blockers": "None (non-blocking)"
+    },
+    {
+      "phase": "Phase 5 (MEDIUM)",
+      "name": "Code Quality Improvements",
+      "target_files": ["installer/config_validator.py", "installer/config_importer.py"],
+      "changes": 5,
+      "effort_hours": 2,
+      "blockers": "None (non-blocking)"
+    }
+  ],
+  "test_coverage_baseline": {
+    "total_tests": 217,
+    "passing_tests": 217,
+    "failing_tests": 0,
+    "coverage_by_component": {
+      "ConfigurationManager": "46%",
+      "ConfigValidator": "82%",
+      "ConfigMigrator": "88%",
+      "ConfigImporter": "95%",
+      "ConfigExporter": "92%",
+      "ConfigModel": "100%"
+    },
+    "required_coverage": "80%",
+    "gaps": [
+      {
+        "component": "ConfigurationManager",
+        "current": "46%",
+        "required": "80%",
+        "gap": "34%",
+        "untested_areas": [
+          "Error handling paths",
+          "Merge conflict scenarios",
+          "Multi-step orchestration flows",
+          "Edge cases (empty configs, large files)",
+          "Migration failure paths"
+        ]
+      }
+    ]
+  },
+  "context_validation": {
+    "tech_stack_loaded": true,
+    "source_tree_loaded": true,
+    "dependencies_loaded": true,
+    "coding_standards_loaded": true,
+    "architecture_constraints_loaded": true,
+    "anti_patterns_loaded": true
+  },
+  "anti_pattern_violations": {
+    "library_substitution": 0,
+    "structure_violations": 0,
+    "layer_violations": 1,
+    "code_smells": 5,
+    "security_vulnerabilities": 1,
+    "style_inconsistencies": 3
+  },
+  "qa_approval_conditions": [
+    {
+      "condition": "CRITICAL: yaml.load() → yaml.safe_load()",
+      "current_status": "FAIL",
+      "required_status": "PASS"
+    },
+    {
+      "condition": "HIGH: ConfigurationManager coverage ≥ 80%",
+      "current_status": "46%",
+      "required_status": "≥80%"
+    },
+    {
+      "condition": "HIGH: ConfigModel domain purity verified",
+      "current_status": "UNVERIFIED",
+      "required_status": "VERIFIED"
+    },
+    {
+      "condition": "All 217 tests passing",
+      "current_status": "PASS",
+      "required_status": "PASS"
+    },
+    {
+      "condition": "All 8 ACs covered by tests",
+      "current_status": "PASS",
+      "required_status": "PASS"
+    }
+  ],
+  "next_steps": [
+    "Read STORY-082-QUICK-FIX-GUIDE.md for step-by-step remediation",
+    "Fix CRITICAL yaml.load() vulnerability (2 minutes)",
+    "Add tests for ConfigurationManager (2-4 hours)",
+    "Verify ConfigModel domain purity (30-60 minutes)",
+    "Re-run full test suite: pytest installer/tests/ -v",
+    "Resubmit for QA validation"
+  ],
+  "estimated_total_effort": {
+    "blocking_fixes": "3-5 hours",
+    "recommended_fixes": "2-3 hours",
+    "optional_fixes": "1-2 hours"
+  }
 }
