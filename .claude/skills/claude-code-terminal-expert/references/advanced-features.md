@@ -1,6 +1,6 @@
 # Claude Code Terminal - Advanced Features Reference
 
-**Source:** Official documentation from code.claude.com (consolidated 2025-11-06)
+**Source:** Official documentation from code.claude.com (updated 2025-12-09)
 
 **Purpose:** Comprehensive reference for advanced Claude Code features including sandboxing, security, network configuration, monitoring, data privacy, and enterprise deployment.
 

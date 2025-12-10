@@ -25,6 +25,51 @@ claude -p "Review this code"
 
 ---
 
+## Memory & Rules Quick Reference (2025)
+
+### Memory Commands
+| Command | Description |
+|---------|-------------|
+| `/memory` | View loaded memory files |
+| `/init` | Bootstrap CLAUDE.md for codebase |
+| `#` prefix | Fast memory addition (start input with `#`) |
+
+### Memory Hierarchy (highest to lowest precedence)
+| Level | Location | Purpose |
+|-------|----------|---------|
+| Enterprise | System dirs | Organization-wide |
+| Project | `./CLAUDE.md` | Team-shared |
+| Rules | `./.claude/rules/*.md` | Modular rules |
+| User | `~/.claude/CLAUDE.md` | Personal global |
+| Local | `./CLAUDE.local.md` | Personal project |
+
+### Rules Directory Structure
+```
+.claude/rules/
+├── code-style.md     # Coding standards
+├── testing.md        # Test conventions
+├── security.md       # Security rules
+└── frontend/
+    └── react.md      # Framework-specific
+```
+
+### Conditional Rules (YAML frontmatter)
+```yaml
+---
+paths: src/api/**/*.ts
+---
+# Rules apply only to matched files
+```
+
+### Import Syntax in CLAUDE.md
+```markdown
+@README            # Import from project root
+@docs/setup.md     # Relative path
+@~/.claude/my.md   # Home directory
+```
+
+---
+
 ## Essential Slash Commands (30+ Built-in)
 
 ### Session Management
@@ -185,6 +230,18 @@ claude --agents '{
     "model": "sonnet"
   }
 }'
+```
+
+### New CLI Flags (2025)
+```bash
+claude --fork-session                 # Create new session ID when resuming
+claude --session-id <uuid>            # Use specific session ID
+claude --fallback-model sonnet        # Auto-fallback when primary overloaded
+claude --json-schema '{...}'          # Get validated JSON output
+claude --strict-mcp-config            # Only use --mcp-config MCP servers
+claude --debug "api,mcp"              # Debug mode with categories
+claude --ide                          # Auto-connect to IDE
+claude --settings ./settings.json     # Load settings file
 ```
 
 ---

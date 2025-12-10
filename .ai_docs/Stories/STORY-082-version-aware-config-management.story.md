@@ -3,7 +3,7 @@ id: STORY-082
 title: Version-Aware Configuration Management
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: QA Failed ❌
 points: 8
 priority: Medium
 assigned_to: Unassigned

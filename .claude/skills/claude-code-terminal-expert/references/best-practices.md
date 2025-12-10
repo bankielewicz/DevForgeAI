@@ -1,6 +1,6 @@
 # Claude Code Terminal - Best Practices Reference
 
-**Source:** DevForgeAI research + official docs (consolidated 2025-11-06)
+**Source:** DevForgeAI research + official docs (updated 2025-12-09)
 
 **Contents:** Comprehensive best practices for Claude Code Terminal workflows, commands, prompt engineering, native tools efficiency, and common patterns.
 
