@@ -4,6 +4,8 @@ description: Context file constraint enforcement expert. Use proactively before 
 tools: Read, Grep, Glob
 model: haiku
 color: green
+permissionMode: default
+skills: devforgeai-architecture
 ---
 
 # Context Validator

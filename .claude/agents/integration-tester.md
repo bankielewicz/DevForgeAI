@@ -4,6 +4,8 @@ description: Integration testing expert validating cross-component interactions,
 tools: Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test)
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-qa
 ---
 
 # Integration Tester

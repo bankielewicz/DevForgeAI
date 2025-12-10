@@ -4,6 +4,8 @@ description: Code refactoring expert applying systematic improvement patterns wh
 tools: Read, Edit, Update, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test)
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-development
 ---
 
 # Refactoring Specialist

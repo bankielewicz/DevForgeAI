@@ -4,6 +4,8 @@ description: Senior code review specialist ensuring quality, security, maintaina
 tools: Read, Grep, Glob, Bash(git:*)
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-qa
 ---
 
 # Code Reviewer
