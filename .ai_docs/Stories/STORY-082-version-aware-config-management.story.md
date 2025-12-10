@@ -3,7 +3,7 @@ id: STORY-082
 title: Version-Aware Configuration Management
 epic: EPIC-014
 sprint: Backlog
-status: Dev Complete
+status: QA Failed
 points: 8
 priority: Medium
 assigned_to: Unassigned
@@ -659,6 +659,34 @@ None - uses Python standard library (json).
 **Documentation:**
 - [x] Configuration reference guide - Documented in STORY-082-TEST-SUMMARY.md
 - [x] Migration guide for schema changes - ConfigMigrator service documentation and tests
+
+## QA Validation History
+
+### QA Attempt 1 - 2025-12-09 - FAILED
+
+**Mode:** deep
+**Duration:** ~5 minutes
+**QA Report:** `.devforgeai/qa/reports/STORY-082-qa-report.md`
+
+**Results:**
+- **Test Results:** 148/149 (99.3%) - 1 FAILING
+- **Test Coverage:** Business Logic >95% (claimed)
+- **Anti-Pattern Violations:** CRITICAL: 0, HIGH: 0, MEDIUM: 0, LOW: 5
+- **Spec Compliance:** 8/8 ACs validated
+- **Code Quality:** 1 HIGH complexity violation
+
+**Blocking Issues:**
+1. **Test Failure:** `test_should_create_directory_if_missing_when_saving` - fixture setup issue
+2. **Complexity Violation:** `ConfigValidator.validate()` has complexity 17 (threshold: 10)
+
+**Deferral Validation:** N/A (no deferrals, 100% DoD complete)
+
+**Required Actions:**
+1. Fix failing test (update fixture or add cleanup)
+2. Refactor ConfigValidator.validate() to reduce complexity
+3. Re-run `/qa STORY-082 deep` after fixes
+
+---
 
 ## Notes
 

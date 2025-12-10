@@ -1,0 +1,52 @@
+{
+  "story_id": "STORY-082",
+  "qa_result": "FAILED",
+  "generated_at": "2025-12-09T15:45:00Z",
+  "qa_report_file": ".devforgeai/qa/reports/STORY-082-qa-report.md",
+
+  "test_failures": [
+    {
+      "file": "installer/tests/test_configuration_manager.py",
+      "test": "test_should_create_directory_if_missing_when_saving",
+      "class": "TestConfigurationManagerSaveConfig",
+      "error_type": "AssertionError",
+      "error_message": "assert not True - directory already exists when test expects it absent",
+      "root_cause": "Fixture setup creates directory before test runs",
+      "suggested_fix": "Modify fixture to not create .devforgeai directory, or add explicit cleanup before this specific test"
+    }
+  ],
+
+  "coverage_gaps": [],
+
+  "anti_pattern_violations": [],
+
+  "complexity_violations": [
+    {
+      "file": "installer/config_validator.py",
+      "method": "ConfigValidator.validate",
+      "line": 34,
+      "type": "High Cyclomatic Complexity",
+      "severity": "HIGH",
+      "current_complexity": 17,
+      "threshold": 10,
+      "remediation": "Split validate() into smaller focused methods: _validate_required_keys(), _validate_field_types(), _validate_enum_values(), _validate_datetime_fields()"
+    }
+  ],
+
+  "deferral_issues": [],
+
+  "remediation_sequence": [
+    {
+      "phase": "01",
+      "name": "Fix failing test",
+      "target_files": ["installer/tests/test_configuration_manager.py"],
+      "action": "Update test fixture or add cleanup before test"
+    },
+    {
+      "phase": "02",
+      "name": "Refactor ConfigValidator.validate()",
+      "target_files": ["installer/config_validator.py"],
+      "action": "Extract validation logic into smaller methods to reduce complexity from 17 to <10"
+    }
+  ]
+}
