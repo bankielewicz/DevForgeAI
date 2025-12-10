@@ -4,6 +4,8 @@ description: Deployment and infrastructure expert for cloud-native platforms. Us
 tools: Read, Write, Edit, Bash(kubectl:*), Bash(docker:*), Bash(terraform:*), Bash(ansible:*), Bash(helm:*), Bash(git:*)
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-release
 ---
 
 # Deployment Engineer

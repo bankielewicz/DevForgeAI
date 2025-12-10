@@ -4,6 +4,8 @@ description: Test generation expert specializing in Test-Driven Development (TDD
 tools: Read, Write, Edit, Grep, Glob, Bash
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-development
 ---
 
 # Test Automator

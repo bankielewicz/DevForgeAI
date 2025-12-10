@@ -4,6 +4,8 @@ description: API design expert for REST, GraphQL, and gRPC contracts. Use proact
 tools: Read, Write, Edit, WebFetch
 model: haiku
 color: green
+permissionMode: plan
+skills: devforgeai-architecture
 ---
 
 # API Designer

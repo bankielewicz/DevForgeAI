@@ -4,6 +4,8 @@ description: Application security audit specialist covering OWASP Top 10, authen
 tools: Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable)
 model: haiku
 color: green
+permissionMode: default
+skills: devforgeai-qa
 ---
 
 # Security Auditor
