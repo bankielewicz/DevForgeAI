@@ -110,7 +110,9 @@
       "SlashCommand(/dev:*)",
       "WebFetch(domain:ast-grep.github.io)",
       "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer python3:*)",
-      "Bash(for file in /mnt/c/Projects/DevForgeAI2/installer/tests/test_*.py)"
+      "Bash(for file in /mnt/c/Projects/DevForgeAI2/installer/tests/test_*.py)",
+      "Bash(git pull:*)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer timeout 120 python3:*)"
     ],
     "deny": [],
     "ask": []
