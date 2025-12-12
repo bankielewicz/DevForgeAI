@@ -1,5 +1,5 @@
 ---
-epic_id: EPIC-015
+id: EPIC-015
 title: Epic Coverage Validation & Requirements Traceability
 status: Planning
 created: 2025-11-25
