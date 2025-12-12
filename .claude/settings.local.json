@@ -112,7 +112,14 @@
       "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer python3:*)",
       "Bash(for file in /mnt/c/Projects/DevForgeAI2/installer/tests/test_*.py)",
       "Bash(git pull:*)",
-      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer timeout 120 python3:*)"
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2/installer timeout 120 python3:*)",
+      "Bash(WSL2_SLOW=1 bash:*)",
+      "Bash(timeout 90 bash:*)",
+      "WebFetch(domain:mywiki.wooledge.org)",
+      "Bash(timeout 120 bash:*)",
+      "Bash(time bash:*)",
+      "Bash(timeout 180 bash:*)",
+      "Bash(timeout 30 bash -c '\nsource tests/reporting/test_terminal_output.sh 2>/dev/null &\npid=$!\nsleep 20\nif kill -0 $pid 2>/dev/null; then\n    echo \"\"Test still running after 20s - likely hanging\"\"\n    kill $pid 2>/dev/null\nelse\n    echo \"\"Test completed\"\"\nfi\n')"
     ],
     "deny": [],
     "ask": []

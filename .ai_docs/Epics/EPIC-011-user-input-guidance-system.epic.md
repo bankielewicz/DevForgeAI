@@ -1,5 +1,5 @@
 ---
-epic_id: EPIC-011
+id: EPIC-011
 title: User Input Guidance System
 status: Planning
 created: 2025-01-20

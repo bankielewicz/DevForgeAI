@@ -3,7 +3,7 @@ id: STORY-086
 title: Coverage Reporting System
 epic: EPIC-015
 sprint: Backlog
-status: Dev Complete
+status: QA Failed ❌
 points: 18
 priority: Medium
 assigned_to: Claude
@@ -489,6 +489,32 @@ None - uses only Claude Code native tools.
 - ANSI color codes defined with `$'\033[XXm'` syntax for proper escape handling
 - Supports `--stories-dir` parameter for test isolation
 - Per-epic coverage calculated inline (not via subshell) to preserve state
+
+---
+
+## QA Validation History
+
+### Validation #1 - 2025-12-12 (Deep Mode)
+
+**Result**: ❌ **FAILED**
+
+**Findings**:
+- Phase 0.9 (AC-DoD Traceability): ✅ PASS (100% coverage)
+- Phase 1 (Test Coverage): ❌ FAIL
+  - AC#1 (Terminal Output): ✅ PASS (7/7 tests)
+  - AC#2 (Markdown Report): ❌ FAIL (test execution incomplete)
+  - AC#3 (JSON Export): ❌ FAIL (missing `missing_features` array)
+  - AC#4-AC#7: ⚠️ BLOCKED (test suite halted after AC#3)
+
+**Blocking Issues**:
+1. AC#3 JSON missing `missing_features` field - CRITICAL
+2. AC#2 markdown test incomplete execution - CRITICAL
+3. AC#4-AC#7 tests not executed due to phase 1 failure
+
+**Report Location**: `.devforgeai/qa/reports/STORY-086-qa-report.md`
+**Gaps File**: `.devforgeai/qa/reports/STORY-086-gaps.json`
+
+**Next Action**: Fix Phase 02R (AC#3) and Phase 03R (AC#2), then re-run `/qa STORY-086 deep`
 
 ---
 
