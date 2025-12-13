@@ -31,7 +31,7 @@ test_should_output_valid_json() {
     local test_name="AC#3.1: Output is valid JSON"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-001.md"
+    local mock_epic="${TEMP_DIR}/EPIC-001.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-001
@@ -67,7 +67,7 @@ test_json_should_contain_summary_object() {
     local test_name="AC#3.2: Contains 'summary' object"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-002.md"
+    local mock_epic="${TEMP_DIR}/EPIC-002.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-002
@@ -102,7 +102,7 @@ test_summary_should_contain_total_epics() {
     local test_name="AC#3.3: Summary contains 'total_epics'"
 
     # Arrange: Two epics
-    cat > "${TEMP_DIR}/EPIC-003.md" << 'EOF'
+    cat > "${TEMP_DIR}/EPIC-003.epic.md" << 'EOF'
 ---
 id: EPIC-003
 title: Epic Three
@@ -113,7 +113,7 @@ title: Epic Three
 - Feature A (STORY-001)
 EOF
 
-    cat > "${TEMP_DIR}/EPIC-004.md" << 'EOF'
+    cat > "${TEMP_DIR}/EPIC-004.epic.md" << 'EOF'
 ---
 id: EPIC-004
 title: Epic Four
@@ -147,7 +147,7 @@ test_summary_should_contain_total_features() {
     local test_name="AC#3.4: Summary contains 'total_features'"
 
     # Arrange: Epic with features
-    local mock_epic="${TEMP_DIR}/EPIC-005.md"
+    local mock_epic="${TEMP_DIR}/EPIC-005.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-005
@@ -184,7 +184,7 @@ test_summary_should_contain_overall_coverage_percent() {
     local test_name="AC#3.5: Summary contains 'overall_coverage_percent'"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-006.md"
+    local mock_epic="${TEMP_DIR}/EPIC-006.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-006
@@ -220,7 +220,7 @@ test_summary_should_contain_missing_stories_count() {
     local test_name="AC#3.6: Summary contains 'missing_stories_count'"
 
     # Arrange: Epic with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-007.md"
+    local mock_epic="${TEMP_DIR}/EPIC-007.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-007
@@ -257,7 +257,7 @@ test_json_should_contain_epics_array() {
     local test_name="AC#3.7: Contains 'epics' array"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-008.md"
+    local mock_epic="${TEMP_DIR}/EPIC-008.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-008
@@ -292,7 +292,7 @@ test_epic_entries_contain_required_fields() {
     local test_name="AC#3.8: Epic entries have epic_id, title, completion_percent"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-009.md"
+    local mock_epic="${TEMP_DIR}/EPIC-009.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-009
@@ -327,7 +327,7 @@ test_epic_entries_contain_missing_features() {
     local test_name="AC#3.9: Epic entries have 'missing_features' array"
 
     # Arrange: Epic with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-010.md"
+    local mock_epic="${TEMP_DIR}/EPIC-010.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-010
@@ -363,7 +363,7 @@ test_json_should_contain_actionable_next_steps() {
     local test_name="AC#3.10: Contains 'actionable_next_steps' array"
 
     # Arrange: Epic with gaps to generate recommendations
-    local mock_epic="${TEMP_DIR}/EPIC-011.md"
+    local mock_epic="${TEMP_DIR}/EPIC-011.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-011
@@ -399,7 +399,7 @@ test_json_should_contain_generated_at_timestamp() {
     local test_name="AC#3.11: Contains 'generated_at' in ISO 8601 format"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-012.md"
+    local mock_epic="${TEMP_DIR}/EPIC-012.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-012
@@ -445,9 +445,9 @@ main() {
 
     for test_func in $(compgen -A function | grep '^test_'); do
         if $test_func; then
-            ((passed++))
+            ((passed++)) || true
         else
-            ((failed++))
+            ((failed++)) || true
         fi
     done
 

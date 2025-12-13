@@ -256,11 +256,21 @@ calculate_statistics() {
         if [[ -v epic_ids["$story_epic"] ]]; then
             # Check if epic has features using new associative array
             if [[ -n "${epic_features_list[$story_epic]:-}" ]]; then
-                ((total_linked++)) || true
-                epic_linked_features["$story_epic"]=$((${epic_linked_features[$story_epic]:-0} + 1))
+                local current_linked="${epic_linked_features[$story_epic]:-0}"
+                local max_features="${epic_features[$story_epic]:-0}"
+                # Only count if we haven't already reached feature count for this epic
+                if [[ "$current_linked" -lt "$max_features" ]]; then
+                    ((total_linked++)) || true
+                    epic_linked_features["$story_epic"]=$((current_linked + 1))
+                fi
             fi
         fi
     done
+
+    # Cap total_linked at total_features (can't have more coverage than features)
+    if [[ "$total_linked" -gt "$total_features" ]]; then
+        total_linked="$total_features"
+    fi
 
     # Calculate overall coverage percentage
     if [[ "$total_features" -gt 0 ]]; then
@@ -319,6 +329,11 @@ generate_terminal_output() {
                 ((linked_count++)) || true
             fi
         done
+
+        # Cap linked_count at feature_count (can't have more coverage than features)
+        if [[ "$linked_count" -gt "$feature_count" ]]; then
+            linked_count="$feature_count"
+        fi
 
         local percentage=0.0
         if [[ "$feature_count" -gt 0 ]]; then
@@ -402,6 +417,11 @@ generate_markdown_report() {
                 fi
             done
 
+            # Cap linked_count at feature_count (can't have more coverage than features)
+            if [[ "$linked_count" -gt "$feature_count" ]]; then
+                linked_count="$feature_count"
+            fi
+
             local percentage=0.0
             if [[ "$feature_count" -gt 0 ]]; then
                 percentage=$(echo "scale=1; ($linked_count * 100) / $feature_count" | bc -l 2>/dev/null || echo "0.0")
@@ -467,6 +487,11 @@ generate_json_export() {
             fi
         done
 
+        # Cap linked_count at feature_count (can't have more coverage than features)
+        if [[ "$linked_count" -gt "$feature_count" ]]; then
+            linked_count="$feature_count"
+        fi
+
         local percentage=0.0
         if [[ "$feature_count" -gt 0 ]]; then
             percentage=$(echo "scale=1; ($linked_count * 100) / $feature_count" | bc -l 2>/dev/null || echo "0.0")
@@ -475,6 +500,7 @@ generate_json_export() {
         local title="${epic_titles[$epic_id]}"
 
         # Build missing features array from pipe-delimited string
+        # Features beyond the linked_count are considered "missing"
         local features_str="${epic_features_list[$epic_id]:-}"
         local missing_features="["
         local missing_first=1
@@ -482,24 +508,20 @@ generate_json_export() {
         if [[ -n "$features_str" ]]; then
             # Split pipe-delimited string into array
             IFS='|' read -ra features <<< "$features_str"
+            local feature_index=0
             for feature in "${features[@]}"; do
-                # Check if feature is mentioned in any story
-                local is_linked=0
-                for story_id in "${!story_epics[@]}"; do
-                    local story_epic="${story_epics[$story_id]}"
-                    if [[ "$story_epic" == "$epic_id" ]]; then
-                        is_linked=1
-                        break
-                    fi
-                done
-
-                if [[ "$is_linked" -eq 0 ]]; then
+                # Features at index >= linked_count are missing
+                # (first N features are covered by N stories)
+                if [[ "$feature_index" -ge "$linked_count" ]]; then
                     if [[ "$missing_first" -eq 0 ]]; then
                         missing_features+=","
                     fi
-                    missing_features+="\"$feature\""
+                    # Escape double quotes in feature name for valid JSON
+                    local escaped_feature="${feature//\"/\\\"}"
+                    missing_features+="\"$escaped_feature\""
                     missing_first=0
                 fi
+                ((feature_index++)) || true
             done
         fi
 
@@ -555,25 +577,32 @@ generate_actionable_steps() {
     # Extract all missing features across all epics
     for epic_id in $(printf '%s\n' "${!epic_ids[@]}" | sort); do
         local features_str="${epic_features_list[$epic_id]:-}"
+        local feature_count="${epic_features[$epic_id]:-0}"
         if [[ -n "$features_str" ]]; then
+            # Count stories linked to this epic
+            local linked_count=0
+            for story_id in "${!story_epics[@]}"; do
+                if [[ "${story_epics[$story_id]}" == "$epic_id" ]]; then
+                    ((linked_count++)) || true
+                fi
+            done
+
+            # Cap linked_count at feature_count (can't have more coverage than features)
+            if [[ "$linked_count" -gt "$feature_count" ]]; then
+                linked_count="$feature_count"
+            fi
+
             # Split pipe-delimited string into array
             IFS='|' read -ra features <<< "$features_str"
+            local feature_index=0
 
             for feature in "${features[@]}"; do
-                # Check if linked
-                local is_linked=0
-                for story_id in "${!story_epics[@]}"; do
-                    local story_epic="${story_epics[$story_id]}"
-                    if [[ "$story_epic" == "$epic_id" ]]; then
-                        is_linked=1
-                        break
-                    fi
-                done
-
-                if [[ "$is_linked" -eq 0 ]]; then
+                # Features at index >= linked_count are missing
+                if [[ "$feature_index" -ge "$linked_count" ]]; then
                     local priority="${epic_priorities[$epic_id]}"
                     actions+=("$priority|$epic_id|$feature")
                 fi
+                ((feature_index++)) || true
             done
         fi
     done
@@ -627,6 +656,12 @@ persist_history() {
     local temp_file="${HISTORY_DIR}/.history.tmp"
 
     if [[ -f "$HISTORY_FILE" ]]; then
+        # AC#7.10: Prevent duplicate entries for same timestamp
+        if jq --arg ts "$timestamp" 'any(.[]; .timestamp == $ts)' "$HISTORY_FILE" 2>/dev/null | grep -q "true"; then
+            # Idempotent: entry already exists, skip
+            return 0
+        fi
+
         # Append to existing history
         jq ". += [$new_entry]" "$HISTORY_FILE" > "$temp_file" 2>/dev/null || {
             echo "[$new_entry]" > "$temp_file"

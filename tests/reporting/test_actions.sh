@@ -25,9 +25,13 @@ trap cleanup EXIT
 test_should_generate_create_story_commands() {
     local test_name="AC#6.1: Generate /create-story commands for missing features"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac61"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Epic with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-001.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-001.epic.md" << 'EOF'
 ---
 id: EPIC-001
 title: Test Epic
@@ -40,10 +44,11 @@ priority: High
 - Feature B (No story)
 EOF
 
-    # Act: Generate JSON
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: actionable_next_steps contains /create-story commands
@@ -62,9 +67,13 @@ EOF
 test_commands_should_include_feature_description() {
     local test_name="AC#6.2: /create-story commands include feature description"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac62"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Epic with named missing features
-    local mock_epic="${TEMP_DIR}/EPIC-002.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-002.epic.md" << 'EOF'
 ---
 id: EPIC-002
 title: Named Features
@@ -77,10 +86,19 @@ priority: Medium
 - User Preferences (No story)
 EOF
 
-    # Act: Generate JSON
+    # Create 1 story file for the first feature (leaves "User Preferences" as missing)
+    cat > "${test_dir}/STORY-001.story.md" << 'EOF'
+---
+id: STORY-001
+epic: EPIC-002
+---
+EOF
+
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: Commands mention feature descriptions
@@ -100,8 +118,13 @@ EOF
 test_should_sort_by_epic_priority() {
     local test_name="AC#6.3: Commands sorted by priority: Critical > High > Medium > Low"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac63"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Multiple epics with different priorities
-    cat > "${TEMP_DIR}/EPIC-003.md" << 'EOF'
+    cat > "${test_dir}/EPIC-003.epic.md" << 'EOF'
 ---
 id: EPIC-003
 title: Low Priority Epic
@@ -113,7 +136,7 @@ priority: Low
 - Feature A (No story)
 EOF
 
-    cat > "${TEMP_DIR}/EPIC-004.md" << 'EOF'
+    cat > "${test_dir}/EPIC-004.epic.md" << 'EOF'
 ---
 id: EPIC-004
 title: Critical Epic
@@ -125,7 +148,7 @@ priority: Critical
 - Feature B (No story)
 EOF
 
-    cat > "${TEMP_DIR}/EPIC-005.md" << 'EOF'
+    cat > "${test_dir}/EPIC-005.epic.md" << 'EOF'
 ---
 id: EPIC-005
 title: Medium Priority
@@ -137,10 +160,11 @@ priority: Medium
 - Feature C (No story)
 EOF
 
-    # Act: Generate JSON
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: First recommendation is from Critical epic
@@ -160,9 +184,13 @@ EOF
 test_should_limit_to_max_10_items() {
     local test_name="AC#6.4: Maximum 10 actionable items per report"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac64"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Create epic with 15 missing features
-    local mock_epic="${TEMP_DIR}/EPIC-006.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-006.epic.md" << 'EOF'
 ---
 id: EPIC-006
 title: Large Gap Epic
@@ -188,10 +216,11 @@ priority: High
 - Feature 15 (No story)
 EOF
 
-    # Act: Generate JSON
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: actionable_next_steps has at most 10 items
@@ -211,9 +240,13 @@ EOF
 test_should_not_generate_recommendations_for_100_percent() {
     local test_name="AC#6.5: No recommendations for 100% coverage epic"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac65"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Epic with perfect coverage
-    local mock_epic="${TEMP_DIR}/EPIC-007.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-007.epic.md" << 'EOF'
 ---
 id: EPIC-007
 title: Perfect Epic
@@ -226,10 +259,21 @@ priority: High
 - Feature B (STORY-002)
 EOF
 
-    # Act: Generate JSON
+    # Create 2 story files for 100% coverage
+    for i in 001 002; do
+        cat > "${test_dir}/STORY-${i}.story.md" << EOF
+---
+id: STORY-${i}
+epic: EPIC-007
+---
+EOF
+    done
+
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: actionable_next_steps is empty or minimal
@@ -249,9 +293,13 @@ EOF
 test_commands_should_reference_epic_id() {
     local test_name="AC#6.6: Commands reference epic ID (EPIC-NNN)"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac66"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Epic with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-008.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-008.epic.md" << 'EOF'
 ---
 id: EPIC-008
 title: ID Reference Test
@@ -264,10 +312,11 @@ priority: Medium
 - Feature B (No story)
 EOF
 
-    # Act: Generate JSON
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: At least one command mentions EPIC-008
@@ -286,9 +335,13 @@ EOF
 test_command_format_should_be_correct() {
     local test_name="AC#6.7: Commands formatted as /create-story syntax"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac67"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Epic with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-009.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-009.epic.md" << 'EOF'
 ---
 id: EPIC-009
 title: Format Test
@@ -301,10 +354,11 @@ priority: High
 - Feature B (No story)
 EOF
 
-    # Act: Generate JSON
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: Commands follow /create-story pattern
@@ -324,8 +378,13 @@ EOF
 test_no_gaps_should_have_empty_actions() {
     local test_name="AC#6.8: No gaps → empty actionable_next_steps array"
 
+    # Per-test isolated directory
+    local test_dir="${TEMP_DIR}/test_ac68"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}"
+
     # Arrange: Only epics with complete coverage
-    cat > "${TEMP_DIR}/EPIC-010.md" << 'EOF'
+    cat > "${test_dir}/EPIC-010.epic.md" << 'EOF'
 ---
 id: EPIC-010
 title: Complete
@@ -337,7 +396,7 @@ priority: Low
 - Feature A (STORY-001)
 EOF
 
-    cat > "${TEMP_DIR}/EPIC-011.md" << 'EOF'
+    cat > "${test_dir}/EPIC-011.epic.md" << 'EOF'
 ---
 id: EPIC-011
 title: Also Complete
@@ -349,10 +408,26 @@ priority: Low
 - Feature B (STORY-002)
 EOF
 
-    # Act: Generate JSON
+    # Create story files for 100% coverage (no gaps = empty actions)
+    cat > "${test_dir}/STORY-001.story.md" << 'EOF'
+---
+id: STORY-001
+epic: EPIC-010
+---
+EOF
+
+    cat > "${test_dir}/STORY-002.story.md" << 'EOF'
+---
+id: STORY-002
+epic: EPIC-011
+---
+EOF
+
+    # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
     local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
         2>/dev/null || echo "{}")
 
     # Assert: actionable_next_steps is empty array
@@ -380,9 +455,9 @@ main() {
 
     for test_func in $(compgen -A function | grep '^test_'); do
         if $test_func; then
-            ((passed++))
+            ((passed++)) || true
         else
-            ((failed++))
+            ((failed++)) || true
         fi
     done
 

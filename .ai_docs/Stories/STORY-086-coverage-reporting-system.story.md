@@ -3,7 +3,7 @@ id: STORY-086
 title: Coverage Reporting System
 epic: EPIC-015
 sprint: Backlog
-status: QA Failed ❌
+status: Dev Complete
 points: 18
 priority: Medium
 assigned_to: Claude
@@ -489,6 +489,22 @@ None - uses only Claude Code native tools.
 - ANSI color codes defined with `$'\033[XXm'` syntax for proper escape handling
 - Supports `--stories-dir` parameter for test isolation
 - Per-epic coverage calculated inline (not via subshell) to preserve state
+- Coverage percentage capped at 100% (linked_count <= feature_count)
+- missing_features array correctly populated with features beyond linked story count
+
+### Bug Fixes (2025-12-12 QA Round 2)
+- Fixed AC#3: `missing_features` logic was incorrectly checking if ANY story existed for an epic, marking ALL features as "linked". Changed to index-based approach: first N features (where N = story count) are covered, remaining are missing.
+- Fixed AC#2: Test files now use isolated directories to prevent test contamination
+- Fixed coverage caps: Added linked_count capping at feature_count in 5 places (terminal output, markdown, JSON, actionable steps, calculate_statistics) to prevent percentages over 100%
+- Fixed test files: Corrected epic file naming (`.epic.md` extension) and `((passed++)) || true` pattern to prevent `set -e` exit on counter increment
+
+### Bug Fixes (2025-12-13 Test Isolation Round)
+- Fixed test isolation bugs in AC#4-AC#7 test suites
+- Added per-test isolated directories (`test_dir="${TEMP_DIR}/test_acXX"`) to prevent file accumulation across tests
+- Added `--stories-dir="${test_dir}"` parameter to all tests to isolate from real story files in `.ai_docs/Stories/`
+- Added story file fixtures to tests that verify specific coverage percentages (required for correct coverage calculation)
+- Fixed AC#7.10: Added duplicate timestamp prevention using `jq any()` pre-check before appending to history file
+- Test results: 34/34 tests pass (100%)
 
 ---
 
@@ -515,6 +531,45 @@ None - uses only Claude Code native tools.
 **Gaps File**: `.devforgeai/qa/reports/STORY-086-gaps.json`
 
 **Next Action**: Fix Phase 02R (AC#3) and Phase 03R (AC#2), then re-run `/qa STORY-086 deep`
+
+---
+
+### Validation #2 - 2025-12-13 (Deep Mode)
+
+**Result**: ⚠️ **BLOCKED** (Test Suite Issues)
+
+**Findings**:
+- Phase 0.9 (AC-DoD Traceability): ✅ PASS (100% coverage)
+- Phase 1 (Test Coverage): ⚠️ PARTIAL
+  - AC#1 (Terminal Output): ✅ PASS (7/7 tests)
+  - AC#2 (Markdown Report): ✅ PASS (7/7 tests) - Bug fix verified
+  - AC#3 (JSON Export): ✅ PASS (11/11 tests) - `missing_features` fix verified
+  - AC#4 (Statistics): ❌ 2/8 PASS - Test isolation bug
+  - AC#5 (Breakdown): ❌ 4/8 PASS - Test isolation bug
+  - AC#6 (Actions): ❌ 3/8 PASS - Test isolation bug
+  - AC#7 (History): ⚠️ 9/10 PASS - Minor ordering issue
+- Phase 2 (Anti-Pattern Scan): ✅ PASS (no blocking violations)
+- Phase 3 (Security Audit): ✅ PASS (no vulnerabilities)
+
+**Core Functionality (AC#1-AC#3):** 25/25 tests (100%)
+**Total:** 43/59 tests (72.9%)
+
+**Root Cause Analysis:**
+- Test suites AC#4-AC#7 have test isolation bugs
+- All tests share same temp directory without per-test cleanup
+- Files accumulate across test functions causing false failures
+- Implementation is correct; test suite needs fixing
+
+**Blocking Issues**:
+1. Test isolation bug in `test_statistics.sh` - HIGH
+2. Test isolation bug in `test_breakdown.sh` - HIGH
+3. Test isolation bug in `test_actions.sh` - HIGH
+4. Test isolation bug in `test_history.sh` - MEDIUM
+
+**Report Location**: `.devforgeai/qa/reports/STORY-086-qa-report-v2.md`
+**Gaps File**: `.devforgeai/qa/reports/STORY-086-gaps-v2.json`
+
+**Next Action**: Fix test isolation (add cleanup before each test), then re-run `/qa STORY-086 deep`
 
 ---
 
