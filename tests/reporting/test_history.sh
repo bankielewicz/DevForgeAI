@@ -8,10 +8,9 @@ set -euo pipefail
 # Test fixtures and helpers
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TEMP_DIR="${SCRIPT_DIR}/temp"
-HISTORY_DIR="${TEMP_DIR}/history"
 
-# Create temp directories
-mkdir -p "${TEMP_DIR}" "${HISTORY_DIR}"
+# Create temp directory
+mkdir -p "${TEMP_DIR}"
 
 # Cleanup function
 cleanup() {
@@ -26,11 +25,14 @@ trap cleanup EXIT
 test_should_create_history_file_if_not_exists() {
     local test_name="AC#7.1: Create history file on first run"
 
-    # Arrange: Clean history directory
-    rm -f "${HISTORY_DIR}/coverage-history.json"
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac71"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
 
-    local mock_epic="${TEMP_DIR}/EPIC-001.md"
-    cat > "${mock_epic}" << 'EOF'
+    # Arrange: Create epic file
+    cat > "${test_dir}/EPIC-001.epic.md" << 'EOF'
 ---
 id: EPIC-001
 title: Test Epic
@@ -44,13 +46,14 @@ EOF
     # Act: Generate report with history tracking
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History file exists
-    if [[ -f "${HISTORY_DIR}/coverage-history.json" ]]; then
+    if [[ -f "${history_dir}/coverage-history.json" ]]; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -65,9 +68,14 @@ EOF
 test_history_file_should_contain_valid_json() {
     local test_name="AC#7.2: History file is valid JSON array"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac72"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report to create/update history
-    local mock_epic="${TEMP_DIR}/EPIC-002.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-002.epic.md" << 'EOF'
 ---
 id: EPIC-002
 title: JSON Test
@@ -80,15 +88,16 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: File contains valid JSON array
-    if [[ -f "${HISTORY_DIR}/coverage-history.json" ]] && \
-       jq empty < "${HISTORY_DIR}/coverage-history.json" 2>/dev/null && \
-       jq -e 'type == "array"' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if [[ -f "${history_dir}/coverage-history.json" ]] && \
+       jq empty < "${history_dir}/coverage-history.json" 2>/dev/null && \
+       jq -e 'type == "array"' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -103,9 +112,14 @@ EOF
 test_history_entry_contains_timestamp() {
     local test_name="AC#7.3: History entry includes 'timestamp'"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac73"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report
-    local mock_epic="${TEMP_DIR}/EPIC-003.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-003.epic.md" << 'EOF'
 ---
 id: EPIC-003
 title: Timestamp Test
@@ -118,13 +132,14 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History entries have timestamp field
-    if jq -e '.[0] | has("timestamp")' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if jq -e '.[0] | has("timestamp")' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -139,9 +154,14 @@ EOF
 test_history_entry_contains_coverage_percent() {
     local test_name="AC#7.4: History entry includes 'overall_coverage_percent'"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac74"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report
-    local mock_epic="${TEMP_DIR}/EPIC-004.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-004.epic.md" << 'EOF'
 ---
 id: EPIC-004
 title: Coverage Test
@@ -155,13 +175,14 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History entries have coverage_percent
-    if jq -e '.[0] | has("overall_coverage_percent")' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if jq -e '.[0] | has("overall_coverage_percent")' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -176,9 +197,14 @@ EOF
 test_history_entry_contains_total_epics() {
     local test_name="AC#7.5: History entry includes 'total_epics'"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac75"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report
-    local mock_epic="${TEMP_DIR}/EPIC-005.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-005.epic.md" << 'EOF'
 ---
 id: EPIC-005
 title: Epic Count Test
@@ -191,13 +217,14 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History entries have total_epics
-    if jq -e '.[0] | has("total_epics")' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if jq -e '.[0] | has("total_epics")' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -212,9 +239,14 @@ EOF
 test_history_entry_contains_total_features() {
     local test_name="AC#7.6: History entry includes 'total_features'"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac76"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report
-    local mock_epic="${TEMP_DIR}/EPIC-006.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-006.epic.md" << 'EOF'
 ---
 id: EPIC-006
 title: Feature Count Test
@@ -228,13 +260,14 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History entries have total_features
-    if jq -e '.[0] | has("total_features")' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if jq -e '.[0] | has("total_features")' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -249,9 +282,14 @@ EOF
 test_history_entry_contains_missing_count() {
     local test_name="AC#7.7: History entry includes 'missing_count'"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac77"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report with gaps
-    local mock_epic="${TEMP_DIR}/EPIC-007.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-007.epic.md" << 'EOF'
 ---
 id: EPIC-007
 title: Missing Count Test
@@ -266,13 +304,14 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Assert: History entries have missing_count
-    if jq -e '.[0] | has("missing_count")' "${HISTORY_DIR}/coverage-history.json" >/dev/null 2>&1; then
+    if jq -e '.[0] | has("missing_count")' "${history_dir}/coverage-history.json" >/dev/null 2>&1; then
         echo "✓ ${test_name}"
         return 0
     else
@@ -287,9 +326,14 @@ EOF
 test_should_append_entries_to_history() {
     local test_name="AC#7.8: New runs append entries (not overwrite)"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac78"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: First run creates history
-    local mock_epic="${TEMP_DIR}/EPIC-008.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-008.epic.md" << 'EOF'
 ---
 id: EPIC-008
 title: Append Test 1
@@ -302,12 +346,13 @@ EOF
 
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
-    local count_before=$(jq 'length' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "0")
+    local count_before=$(jq 'length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
 
     # Sleep to ensure different timestamp
     sleep 1
@@ -315,12 +360,13 @@ EOF
     # Second run should append
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
-    local count_after=$(jq 'length' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "0")
+    local count_after=$(jq 'length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
 
     # Assert: Count increased by 1
     if [[ $count_after -gt $count_before ]]; then
@@ -338,10 +384,48 @@ EOF
 test_history_entries_chronologically_ordered() {
     local test_name="AC#7.9: History entries ordered chronologically (newest last)"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac79"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
+    # Create epic file
+    cat > "${test_dir}/EPIC-009.epic.md" << 'EOF'
+---
+id: EPIC-009
+title: Ordering Test
+---
+
+## Features
+
+- Feature A (STORY-001)
+EOF
+
+    # Generate first entry
+    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+        --format=json \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
+        --enable-history \
+        2>/dev/null || true
+
+    # Wait and generate second entry
+    sleep 1
+
+    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+        --format=json \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
+        --enable-history \
+        2>/dev/null || true
+
     # Assert: Last entry has most recent timestamp
-    if [[ -f "${HISTORY_DIR}/coverage-history.json" ]]; then
-        local last_timestamp=$(jq -r '.[-1].timestamp' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "")
-        local first_timestamp=$(jq -r '.[0].timestamp' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "")
+    if [[ -f "${history_dir}/coverage-history.json" ]]; then
+        local last_timestamp=$(jq -r '.[-1].timestamp' "${history_dir}/coverage-history.json" 2>/dev/null || echo "")
+        local first_timestamp=$(jq -r '.[0].timestamp' "${history_dir}/coverage-history.json" 2>/dev/null || echo "")
 
         if [[ -n "${last_timestamp}" ]] && [[ -n "${first_timestamp}" ]] && \
            [[ "${last_timestamp}" > "${first_timestamp}" ]] || [[ "${last_timestamp}" == "${first_timestamp}" ]]; then
@@ -360,11 +444,16 @@ test_history_entries_chronologically_ordered() {
 test_should_prevent_duplicate_timestamps() {
     local test_name="AC#7.10: Prevent duplicate entries (same timestamp)"
 
+    # Per-test isolated directories
+    local test_dir="${TEMP_DIR}/test_ac710"
+    local history_dir="${test_dir}/history"
+    rm -rf "${test_dir}"
+    mkdir -p "${test_dir}" "${history_dir}"
+
     # Arrange: Generate report twice without sleep (same second)
-    local mock_epic="${TEMP_DIR}/EPIC-009.md"
-    cat > "${mock_epic}" << 'EOF'
+    cat > "${test_dir}/EPIC-010.epic.md" << 'EOF'
 ---
-id: EPIC-009
+id: EPIC-010
 title: Duplicate Test
 ---
 
@@ -376,24 +465,26 @@ EOF
     # First run
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
-    local count_first=$(jq 'length' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "0")
+    local count_first=$(jq 'length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
 
     # Second run immediately (might have same timestamp)
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=json \
-        --epics-dir="${TEMP_DIR}" \
-        --history-dir="${HISTORY_DIR}" \
+        --epics-dir="${test_dir}" \
+        --stories-dir="${test_dir}" \
+        --history-dir="${history_dir}" \
         --enable-history \
         2>/dev/null || true
 
     # Check for duplicates - count unique timestamps
-    local unique_timestamps=$(jq '[.[].timestamp] | unique | length' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "0")
-    local total_entries=$(jq 'length' "${HISTORY_DIR}/coverage-history.json" 2>/dev/null || echo "0")
+    local unique_timestamps=$(jq '[.[].timestamp] | unique | length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
+    local total_entries=$(jq 'length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
 
     if [[ "${unique_timestamps}" == "${total_entries}" ]]; then
         echo "✓ ${test_name}"
@@ -418,9 +509,9 @@ main() {
 
     for test_func in $(compgen -A function | grep '^test_'); do
         if $test_func; then
-            ((passed++))
+            ((passed++)) || true
         else
-            ((failed++))
+            ((failed++)) || true
         fi
     done
 

@@ -28,7 +28,7 @@ test_should_create_markdown_file_with_timestamp() {
     local test_name="AC#2.1: File created at .devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-001.md"
+    local mock_epic="${TEMP_DIR}/EPIC-001.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-001
@@ -67,7 +67,7 @@ test_should_create_reports_directory_if_not_exists() {
     local custom_reports_dir="${TEMP_DIR}/new_reports"
     rm -rf "${custom_reports_dir}"
 
-    local mock_epic="${TEMP_DIR}/EPIC-002.md"
+    local mock_epic="${TEMP_DIR}/EPIC-002.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-002
@@ -103,7 +103,7 @@ test_should_contain_summary_statistics_section() {
     local test_name="AC#2.3: Contains summary statistics section"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-003.md"
+    local mock_epic="${TEMP_DIR}/EPIC-003.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-003
@@ -144,8 +144,12 @@ EOF
 test_should_contain_per_epic_breakdown() {
     local test_name="AC#2.4: Contains per-epic breakdown section"
 
-    # Arrange: Multiple epics
-    cat > "${TEMP_DIR}/EPIC-004.md" << 'EOF'
+    # Arrange: Use isolated directory for this test
+    local test_epics_dir="${TEMP_DIR}/epics_ac24"
+    local test_reports_dir="${TEMP_DIR}/reports_ac24"
+    mkdir -p "${test_epics_dir}" "${test_reports_dir}"
+
+    cat > "${test_epics_dir}/EPIC-004.epic.md" << 'EOF'
 ---
 id: EPIC-004
 title: Epic Four
@@ -153,10 +157,10 @@ title: Epic Four
 
 ## Features
 
-- Feature A (STORY-001)
+- Feature A
 EOF
 
-    cat > "${TEMP_DIR}/EPIC-005.md" << 'EOF'
+    cat > "${test_epics_dir}/EPIC-005.epic.md" << 'EOF'
 ---
 id: EPIC-005
 title: Epic Five
@@ -164,18 +168,18 @@ title: Epic Five
 
 ## Features
 
-- Feature B (STORY-002)
-- Feature C (No story)
+- Feature B
+- Feature C
 EOF
 
     # Act: Generate markdown report
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
-        --epics-dir="${TEMP_DIR}" \
-        --reports-dir="${REPORTS_DIR}" \
+        --epics-dir="${test_epics_dir}" \
+        --reports-dir="${test_reports_dir}" \
         2>/dev/null || true
 
-    local report_file=$(ls "${REPORTS_DIR}"/*-*-*-*-*-*.md 2>/dev/null | head -1)
+    local report_file=$(ls "${test_reports_dir}"/*-*-*-*-*-*.md 2>/dev/null | head -1)
 
     # Assert: Report mentions epics by ID
     if [[ -f "${report_file}" ]] && grep -q "EPIC-00[45]\|Epic.*Four\|Epic.*Five" "${report_file}"; then
@@ -194,7 +198,7 @@ test_should_contain_actionable_next_steps() {
     local test_name="AC#2.5: Contains actionable next steps section"
 
     # Arrange: Epic with missing features
-    local mock_epic="${TEMP_DIR}/EPIC-006.md"
+    local mock_epic="${TEMP_DIR}/EPIC-006.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-006
@@ -232,9 +236,14 @@ EOF
 test_markdown_completion_percentages_accurate() {
     local test_name="AC#2.6: Completion percentages accurate in markdown"
 
-    # Arrange: Epic with known coverage (75% = 3 of 4)
-    local mock_epic="${TEMP_DIR}/EPIC-007.md"
-    cat > "${mock_epic}" << 'EOF'
+    # Arrange: Use isolated directories for this test
+    local test_epics_dir="${TEMP_DIR}/epics_ac26"
+    local test_stories_dir="${TEMP_DIR}/stories_ac26"
+    local test_reports_dir="${TEMP_DIR}/reports_ac26"
+    mkdir -p "${test_epics_dir}" "${test_stories_dir}" "${test_reports_dir}"
+
+    # Create epic with 4 features
+    cat > "${test_epics_dir}/EPIC-007.epic.md" << 'EOF'
 ---
 id: EPIC-007
 title: Calculation Test
@@ -242,20 +251,32 @@ title: Calculation Test
 
 ## Features
 
-- Feature A (STORY-001)
-- Feature B (STORY-002)
-- Feature C (STORY-003)
-- Feature D (No story)
+- Feature A
+- Feature B
+- Feature C
+- Feature D
 EOF
+
+    # Create 3 stories linked to this epic (75% coverage)
+    for i in 1 2 3; do
+        cat > "${test_stories_dir}/STORY-00${i}.story.md" << EOF
+---
+id: STORY-00${i}
+epic: EPIC-007
+---
+# Story ${i}
+EOF
+    done
 
     # Act: Generate markdown report
     bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
-        --epics-dir="${TEMP_DIR}" \
-        --reports-dir="${REPORTS_DIR}" \
+        --epics-dir="${test_epics_dir}" \
+        --stories-dir="${test_stories_dir}" \
+        --reports-dir="${test_reports_dir}" \
         2>/dev/null || true
 
-    local report_file=$(ls "${REPORTS_DIR}"/*-*-*-*-*-*.md 2>/dev/null | head -1)
+    local report_file=$(ls "${test_reports_dir}"/*-*-*-*-*-*.md 2>/dev/null | head -1)
 
     # Assert: Report contains 75% or similar percentage
     if [[ -f "${report_file}" ]] && grep -q "75\.\|75%" "${report_file}"; then
@@ -274,7 +295,7 @@ test_filename_should_use_iso_format() {
     local test_name="AC#2.7: Filename uses YYYY-MM-DD-HH-MM-SS format"
 
     # Arrange: Mock epic
-    local mock_epic="${TEMP_DIR}/EPIC-008.md"
+    local mock_epic="${TEMP_DIR}/EPIC-008.epic.md"
     cat > "${mock_epic}" << 'EOF'
 ---
 id: EPIC-008
@@ -321,9 +342,9 @@ main() {
 
     for test_func in $(compgen -A function | grep '^test_'); do
         if $test_func; then
-            ((passed++))
+            ((passed++)) || true
         else
-            ((failed++))
+            ((failed++)) || true
         fi
     done
 
