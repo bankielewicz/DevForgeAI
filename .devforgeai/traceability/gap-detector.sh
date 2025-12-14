@@ -708,7 +708,145 @@ main() {
     return 0
 }
 
+# ============================================================================
+# STORY-089: Confidence Scoring Integration (AC#5)
+# ============================================================================
+
+# Wrapper function for confidence scoring operations
+# Delegates to confidence-scorer.sh module
+run_with_confidence() {
+    local args=("$@")
+    local confidence_scorer="${SCRIPT_DIR}/confidence-scorer.sh"
+
+    if [[ ! -f "$confidence_scorer" ]]; then
+        echo "ERROR: confidence-scorer.sh not found" >&2
+        return 3
+    fi
+
+    # Forward to confidence scorer
+    bash "$confidence_scorer" "${args[@]}"
+}
+
+# Calculate coverage with confidence scoring
+# BR-003: Low-confidence matches (60-75%) excluded from coverage
+calculate_coverage_with_confidence() {
+    local story_dir="${1:-$STORIES_DIR}"
+    local epic_file="${2:-}"
+    local confidence_scorer="${SCRIPT_DIR}/confidence-scorer.sh"
+
+    if [[ ! -f "$confidence_scorer" ]]; then
+        echo "ERROR: confidence-scorer.sh not found" >&2
+        return 3
+    fi
+
+    if [[ -n "$epic_file" ]]; then
+        bash "$confidence_scorer" --calculate-coverage --stories "$story_dir" --epic "$epic_file"
+    else
+        bash "$confidence_scorer" --calculate-coverage --stories "$story_dir" --epic-dir "$EPICS_DIR"
+    fi
+}
+
+# Extended main with confidence scoring support
+main_with_confidence() {
+    local with_confidence=false
+    local format=""
+    local story=""
+    local epic=""
+    local calculate_cov=false
+    local confidence_threshold=""
+    local remaining_args=()
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --with-confidence)
+                with_confidence=true
+                shift
+                ;;
+            --format)
+                format="$2"
+                shift 2
+                ;;
+            --story)
+                story="$2"
+                shift 2
+                ;;
+            --stories)
+                STORIES_DIR="$2"
+                shift 2
+                ;;
+            --epic)
+                epic="$2"
+                shift 2
+                ;;
+            --epic-dir)
+                EPICS_DIR="$2"
+                shift 2
+                ;;
+            --calculate-coverage)
+                calculate_cov=true
+                shift
+                ;;
+            --confidence-threshold)
+                confidence_threshold="$2"
+                shift 2
+                ;;
+            --test-br-003)
+                # Delegate BR-003 test to confidence scorer
+                run_with_confidence --test-br-003
+                return $?
+                ;;
+            *)
+                remaining_args+=("$1")
+                shift
+                ;;
+        esac
+    done
+
+    # If confidence scoring requested, delegate to confidence scorer
+    if [[ "$with_confidence" == "true" ]]; then
+        local args=()
+
+        [[ -n "$story" ]] && args+=(--story "$story")
+        [[ -n "$STORIES_DIR" ]] && args+=(--stories "$STORIES_DIR")
+        [[ -n "$epic" ]] && args+=(--epic "$epic")
+        [[ -n "$EPICS_DIR" ]] && args+=(--epic-dir "$EPICS_DIR")
+        [[ -n "$format" ]] && args+=(--format "$format")
+        [[ -n "$confidence_threshold" ]] && args+=(--confidence-threshold "$confidence_threshold")
+        [[ "$calculate_cov" == "true" ]] && args+=(--calculate-coverage)
+
+        run_with_confidence "${args[@]}"
+        return $?
+    fi
+
+    # Calculate coverage mode
+    if [[ "$calculate_cov" == "true" ]]; then
+        local confidence_scorer="${SCRIPT_DIR}/confidence-scorer.sh"
+        if [[ -f "$confidence_scorer" ]]; then
+            # Use confidence scorer for coverage calculation
+            local args=(--calculate-coverage)
+            [[ -n "$story" ]] && args+=(--story "$story")
+            [[ -n "$STORIES_DIR" ]] && args+=(--stories "$STORIES_DIR")
+            [[ -n "$epic" ]] && args+=(--epic "$epic")
+            [[ -n "$EPICS_DIR" ]] && args+=(--epic-dir "$EPICS_DIR")
+            bash "$confidence_scorer" "${args[@]}"
+            return $?
+        else
+            calculate_coverage_with_confidence "$STORIES_DIR" "$epic"
+            return $?
+        fi
+    fi
+
+    # Default: run standard gap detection
+    main "${remaining_args[@]}"
+}
+
 # Run main if script is executed directly (not sourced)
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    main "$@"
+    # Check if any confidence-related flags are present
+    if [[ "$*" == *"--with-confidence"* ]] || [[ "$*" == *"--test-br-003"* ]] || [[ "$*" == *"--calculate-coverage"* ]] || [[ "$*" == *"--confidence-threshold"* ]]; then
+        main_with_confidence "$@"
+    else
+        main "$@"
+    fi
 fi

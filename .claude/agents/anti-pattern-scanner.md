@@ -616,14 +616,14 @@ Detailed detection procedures for each phase are available in separate reference
 
 | Reference File | Purpose | Loaded During |
 |----------------|---------|---------------|
-| `references/phase1-context-loading.md` | Detailed context file loading workflow (6 steps) | Phase 1 execution |
-| `references/phase2-library-detection.md` | Library substitution patterns for 5 technology types | Phase 2 execution |
-| `references/phase3-structure-detection.md` | Structure violation detection (3 check types) | Phase 3 execution |
-| `references/phase4-layer-detection.md` | Layer boundary violation detection (2 check types) | Phase 4 execution |
-| `references/phase5-code-smells.md` | Code smell detection (god objects, long methods, magic numbers) | Phase 5 execution |
-| `references/phase6-security-scanning.md` | Security vulnerability detection (OWASP Top 10 - 4 checks) | Phase 6 execution |
-| `references/phase7-style-checks.md` | Style inconsistency detection (documentation, naming) | Phase 7 execution |
-| `references/output-contract.md` | Complete JSON schema with examples and validation rules | Phase 9 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase1-context-loading.md` | Detailed context file loading workflow (6 steps) | Phase 1 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase2-library-detection.md` | Library substitution patterns for 5 technology types | Phase 2 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase3-structure-detection.md` | Structure violation detection (3 check types) | Phase 3 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase4-layer-detection.md` | Layer boundary violation detection (2 check types) | Phase 4 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase5-code-smells.md` | Code smell detection (god objects, long methods, magic numbers) | Phase 5 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase6-security-scanning.md` | Security vulnerability detection (OWASP Top 10 - 4 checks) | Phase 6 execution |
+| `.claude/docs/agents/anti-pattern-scanner/phase7-style-checks.md` | Style inconsistency detection (documentation, naming) | Phase 7 execution |
+| `.claude/docs/agents/anti-pattern-scanner/output-contract.md` | Complete JSON schema with examples and validation rules | Phase 9 execution |
 
 **When to load:** Load reference files on-demand during each phase execution for detailed procedures. Main specification provides workflow overview; reference files provide implementation details.
 

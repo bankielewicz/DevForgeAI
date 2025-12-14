@@ -1,0 +1,56 @@
+{
+  "story_id": "STORY-087",
+  "qa_result": "FAILED",
+  "qa_mode": "deep",
+  "qa_timestamp": "2025-12-13T00:00:00Z",
+  "coverage_gaps": [],
+  "anti_pattern_violations": [
+    {
+      "file": ".claude/commands/validate-epic-coverage.md",
+      "line": 1,
+      "type": "structure_violation",
+      "severity": "HIGH",
+      "pattern": "Missing YAML frontmatter",
+      "category": "File Structure",
+      "evidence": "File starts with '# /validate-epic-coverage' instead of YAML frontmatter block",
+      "rule_reference": "coding-standards.md: Commands must have YAML frontmatter",
+      "remediation": "Add YAML frontmatter to file start:\n---\ndescription: Validate epic coverage and report gaps\nargument-hint: \"[EPIC-ID | --help]\"\nallowed-tools: Read, Glob, Grep, Bash, AskUserQuestion\n---"
+    },
+    {
+      "file": ".claude/commands/validate-epic-coverage.md",
+      "line": 11,
+      "type": "code_smell",
+      "severity": "MEDIUM",
+      "pattern": "Excessive narrative prose",
+      "category": "Documentation Style",
+      "evidence": "Lines contain narrative explanation instead of direct instructions",
+      "rule_reference": "coding-standards.md: Direct instructions, not narrative prose",
+      "remediation": "Replace narrative 'How It Works' section with concise phase descriptions"
+    }
+  ],
+  "deferral_issues": [],
+  "blocking_violations": [
+    {
+      "severity": "HIGH",
+      "count": 1,
+      "description": "Missing YAML frontmatter in command file"
+    }
+  ],
+  "remediation_sequence": [
+    {
+      "phase": "02R",
+      "name": "Fix Structure Violations",
+      "target_files": [".claude/commands/validate-epic-coverage.md"],
+      "gap_count": 1,
+      "action": "Add YAML frontmatter with description, argument-hint, allowed-tools"
+    }
+  ],
+  "summary": {
+    "critical": 0,
+    "high": 1,
+    "medium": 2,
+    "low": 1,
+    "total": 4,
+    "blocks_qa": true
+  }
+}
