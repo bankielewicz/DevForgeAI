@@ -1,0 +1,178 @@
+================================================================================
+STORY-090 DEFERRAL VALIDATION - QUICK REFERENCE
+================================================================================
+
+STORY ID: STORY-090
+TITLE: Update Story Template to v2.2 with depends_on Field
+STATUS: Dev Complete (QA In Progress)
+VALIDATION DATE: 2025-12-15
+
+================================================================================
+VALIDATION VERDICT: CONDITIONAL APPROVAL REQUIRED
+================================================================================
+
+QA APPROVAL STATUS:        BLOCKED (Pending remediation)
+GOVERNANCE COMPLIANCE:     NON-COMPLIANT (Missing ADR-008)
+TECHNICAL SOUNDNESS:       SOUND (Deferral justified)
+RISK LEVEL:                MEDIUM (Mitigable with follow-up story)
+
+================================================================================
+DEFERRED ITEMS (2 total)
+================================================================================
+
+Item 1: AC#5 - Story-Creation Skill Phase 1 Dependency Question
+  Deferred To: STORY-091 or story-creation enhancement
+  Reason: Skill modification (not template update)
+  
+Item 2: AC#5 - Input Normalization Logic  
+  Deferred To: STORY-091 or story-creation enhancement
+  Reason: Requires Phase 1 integration testing
+
+================================================================================
+VIOLATIONS (2 medium, blocking QA approval)
+================================================================================
+
+VIOLATION #1: ADR_MISSING_FOR_SCOPE_CHANGE [BLOCKING]
+  Severity: MEDIUM
+  Issue: AC#5 was in original DoD (in scope). Deferring it is a scope change.
+         Scope changes require ADR documentation (critical-rules.md rule #9)
+  Fix: Create ADR-008 documenting template updates vs skill enhancement boundary
+  
+VIOLATION #2: FOLLOW_UP_STORY_NOT_CREATED [NON-BLOCKING]
+  Severity: MEDIUM  
+  Issue: AC#5 deferred to "future story" but follow-up not created yet
+         Risk: Work could be lost if follow-up story never materialized
+  Fix: Create STORY-093 for story-creation skill enhancement
+  
+================================================================================
+TECHNICAL ANALYSIS
+================================================================================
+
+BLOCKER LEGITIMACY:        VALID
+  External skill dependency (not internal code decision)
+  
+CIRCULAR DEFERRALS:        NONE DETECTED
+  STORY-090 → STORY-091 → STORY-092 (no circular chain, no work loss)
+  
+MULTI-LEVEL CHAINS:        ACCEPTABLE (RCA-007 risk LOW if follow-up created)
+  
+STORY VALUE WITHOUT AC#5:  HIGH (5 of 7 ACs complete - 71%)
+  Delivers depends_on infrastructure for EPIC-010 parallel development
+
+================================================================================
+APPROVAL CONDITIONS (Must satisfy to proceed to QA Approval)
+================================================================================
+
+MANDATORY (C1):
+  [ ] Create ADR-008 documenting scope boundary
+      File: .devforgeai/adrs/ADR-008-*.md
+      OR: User approves deferral via AskUserQuestion
+  
+RECOMMENDED (C2):
+  [ ] Create STORY-093 for story-creation skill enhancement
+      depends_on: ["STORY-090"]
+      Deadline: Within 2 sprints (RCA-007 mitigation)
+      OR: Document user commitment in Implementation Notes
+
+================================================================================
+REMEDIATION TIMELINE
+================================================================================
+
+IMMEDIATE (30 minutes):
+  1. Create ADR-008 (template updates vs skill enhancement boundary)
+  2. Update STORY-090 Implementation Notes with ADR reference
+  
+FOLLOW-UP (Next sprint):
+  3. Create STORY-093 (story-creation skill enhancement) 
+  4. Add to SPRINT-6 backlog
+  
+RESULT:
+  → STORY-090 transitions to QA Approved
+  → AC#5 work tracked in STORY-093
+  → RCA-007 work loss risk mitigated
+
+================================================================================
+QA DECISION OPTIONS
+================================================================================
+
+OPTION A: CREATE ADR-008 NOW (Recommended)
+  ✓ Create ADR-008 immediately
+  ✓ Approve STORY-090 after ADR created
+  ✓ Schedule STORY-093 for SPRINT-6
+  RESULT: Governance compliant, unblocks parallel development
+
+OPTION B: USER APPROVAL DEFERRAL (Alternative)
+  ✓ User approves deferral via AskUserQuestion
+  ✓ Document approval in Implementation Notes
+  ✓ Create STORY-093 with explicit user commitment
+  RESULT: User-approved, but non-compliant with ADR requirement
+  
+OPTION C: WAIT FOR FULL REMEDIATION (Conservative)
+  ✓ Wait for ADR-008 creation
+  ✓ Wait for STORY-093 creation
+  ✓ Approve after both complete
+  RESULT: Full governance compliance, but delays EPIC-010 timeline
+
+RECOMMENDATION: OPTION A - Create ADR-008 and approve immediately
+
+================================================================================
+FILES GENERATED BY VALIDATION
+================================================================================
+
+1. STORY-090-DEFERRAL-VALIDATION-REPORT.json (Detailed JSON report)
+2. STORY-090-DEFERRAL-VALIDATION-SUMMARY.md (Markdown summary)
+3. STORY-090-DEFERRAL-VALIDATION-RESULT.json (QA integration format)
+4. STORY-090-VALIDATION-QUICK-REFERENCE.txt (This file)
+
+================================================================================
+KEY FINDINGS
+================================================================================
+
+1. TECHNICAL DEFERRAL IS JUSTIFIED
+   - Blocker is legitimate (external skill component)
+   - Scope is appropriate (template vs skill enhancement)
+   - No circular deferrals detected
+   - Story delivers HIGH standalone value (5/7 ACs)
+
+2. GOVERNANCE COMPLIANCE ISSUE
+   - Scope change (AC#5 deferral) lacks ADR documentation
+   - Critical-rules.md requires ADR for scope changes
+   - FIX: Create ADR-008 (30 minutes)
+
+3. RCA-007 RISK MITIGATION
+   - Risk: Multi-level chain could lose AC#5 work
+   - Status: MITIGATED if follow-up story created promptly
+   - FIX: Create STORY-093 within 2 sprints
+
+4. APPROVAL READY IF:
+   - ADR-008 created (mandatory), OR user approval obtained
+   - STORY-093 planned/created (recommended)
+   - Implementation Notes updated with references
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+For QA Team:
+  1. Review this validation report
+  2. Choose remediation option (A/B/C)
+  3. If Option A: Request ADR-008 creation, approve after complete
+  4. If Option B: Invoke AskUserQuestion, document approval, approve
+  5. If Option C: Wait for all remediation, then approve
+
+For Development Team:
+  1. Create ADR-008 (or handle user approval)
+  2. Update Implementation Notes in STORY-090
+  3. Create STORY-093 in backlog
+  4. Add STORY-093 to SPRINT-6 planning
+
+================================================================================
+VALIDATION COMPLETE
+================================================================================
+
+Validator: Deferral Validator Subagent (RCA-007 Enhanced)
+Model: Claude Haiku 4.5
+Date: 2025-12-15
+Status: Ready for QA review
+
+Contact: See violation details for specific remediation requirements

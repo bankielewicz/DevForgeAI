@@ -1,0 +1,329 @@
+{
+  "validation_report": {
+    "story_id": "STORY-090",
+    "story_title": "Update Story Template to v2.2 with depends_on Field",
+    "validation_date": "2025-12-15",
+    "validation_type": "Deferral Validation (RCA-007 Enhanced)",
+    "deferred_items_count": 2,
+
+    "deferred_items": [
+      {
+        "item_id": 1,
+        "ac_reference": "AC#5",
+        "description": "Story-Creation Skill Phase 1 Dependency Question - asks optional dependency question during story creation",
+        "deferral_reason": "Requires modifications to devforgeai-story-creation skill Phase 1 workflow - scoped beyond core template updates",
+        "deferred_to": "STORY-091 or future story-creation enhancement",
+        "status_in_current_story": "Not Implemented"
+      },
+      {
+        "item_id": 2,
+        "ac_reference": "AC#5",
+        "description": "Input Normalization Logic - parse user dependency input into array format (handles 'none', 'STORY-044', 'STORY-044, STORY-045')",
+        "deferral_reason": "Requires skill integration testing and Phase 1 workflow enhancement - deferred to separate story",
+        "deferred_to": "STORY-091 or future story-creation enhancement",
+        "status_in_current_story": "Not Implemented"
+      }
+    ],
+
+    "validation_results": {
+      "deferral_format_validity": {
+        "status": "VALID",
+        "severity": "PASS",
+        "description": "Deferral reasons follow valid format",
+        "details": [
+          "Both deferrals clearly articulate scope boundary (skill enhancement vs template updates)",
+          "Rationale explains why work is deferred (integration requirements, skill testing)",
+          "No 'will add later' or vague justifications - specificity is clear"
+        ]
+      },
+
+      "technical_blocker_assessment": {
+        "status": "LEGITIMATE_EXTERNAL_BLOCKER",
+        "severity": "CONFIRMED",
+        "is_legitimate_blocker": true,
+        "blocker_type": "EXTERNAL_SKILL_DEPENDENCY",
+        "blocker_description": "devforgeai-story-creation skill requires Phase 1 enhancement and integration testing",
+        "analysis": [
+          "AC#5 requires modifications to skill Phase 1 workflow - NOT internal template logic",
+          "Normalizing input requires testing skill integration - separate story justified",
+          "Current story completes 5 of 7 ACs without this blocker - strong standalone value",
+          "Blocker is external framework component (skill), not internal code decision"
+        ],
+        "resolution_condition_present": true,
+        "resolution_path": "STORY-091 (Git Worktree Auto-Management) depends_on STORY-090 and is scoped for EPIC-010, suggests future story-creation enhancement will follow",
+        "recommendation": "Blocker is VALID and properly justified"
+      },
+
+      "implementation_feasibility": {
+        "status": "FEASIBLE_BUT_PROPERLY_DEFERRED",
+        "analysis": [
+          "Could AC#5 be implemented in current story? Technically yes (add Phase 1 question to skill)",
+          "Should it be? No - requires testing STORY-091 integration and Phase 1 workflow validation",
+          "Current story provides 5 complete ACs: template file update, format version increment, changelog, story standardization (6 stories), sync",
+          "These 5 ACs deliver standalone value (dependency tracking foundation for EPIC-010)",
+          "AC#5 is enhancement to story-creation skill - separate story appropriate"
+        ],
+        "value_without_ac5": "Very High - template provides depends_on infrastructure for entire EPIC-010",
+        "recommendation": "Deferral is appropriate - AC#5 is properly scoped as skill enhancement"
+      },
+
+      "adr_requirement_check": {
+        "status": "ADR_REQUIRED_BUT_NOT_PRESENT",
+        "severity": "MEDIUM",
+        "original_scope": "AC#5 is in Definition of Done (was in scope)",
+        "scope_change_detected": true,
+        "scope_change_type": "Moving AC#5 from current story to follow-up story",
+        "business_impact": "Changes feature delivery timing - AC#5 moves from STORY-090 to future story",
+        "adr_required_because": "Deferrals in-scope DoD items requires architectural documentation per critical-rules.md",
+        "adr_status": "MISSING",
+        "adr_recommendation": "Create ADR documenting why AC#5 (skill enhancement) scoped separately from AC#1-4 (template updates)",
+        "suggested_adr_title": "ADR-008: Defer Story-Creation Skill Enhancement to Separate Story (AC#5 Scope Boundary)",
+        "suggested_adr_content": {
+          "context": "STORY-090 includes AC#5 (skill Phase 1 enhancement) in original DoD. During development, determined skill modifications and integration testing should be separate from template updates.",
+          "decision": "Move AC#5 implementation to STORY-091 or dedicated story-creation enhancement story",
+          "rationale": [
+            "Template updates (AC#1-4) are configuration/file changes - can complete independently",
+            "AC#5 requires skill code modification and Phase 1 workflow testing - separate story appropriate",
+            "Parallel development: template can be released independently while skill enhancement is in development",
+            "Prevents scope creep in already-complex story"
+          ]
+        }
+      },
+
+      "circular_deferral_detection": {
+        "status": "NO_CIRCULAR_DEFERRALS",
+        "severity": "PASS",
+        "circular_chain_exists": false,
+        "chain_path": "NONE",
+        "analysis": [
+          "STORY-090 defers AC#5 to 'STORY-091 or future story-creation enhancement'",
+          "STORY-091 (Git Worktree Auto-Management) depends_on: ['STORY-090']",
+          "STORY-091 frontmatter: No deferrals detected - all ACs pending implementation",
+          "STORY-091 does NOT defer work back to STORY-090",
+          "Dependency direction is ONE-WAY: STORY-090 (prerequisite) → STORY-091 (dependent)"
+        ],
+        "recommendation": "No circular deferral risk detected"
+      },
+
+      "multi_level_chain_detection": {
+        "status": "MULTI_LEVEL_CHAIN_PRESENT_BUT_ACCEPTABLE",
+        "severity": "MEDIUM",
+        "rca_007_applicability": "Yes - RCA-007 addresses multi-level deferral chains",
+        "chain_structure": "STORY-090 → (deferral to AC#5) → STORY-091 → STORY-092",
+        "chain_depth": 2,
+        "chain_details": [
+          {
+            "level": 0,
+            "story": "STORY-090 (Current)",
+            "action": "Completes AC#1-4, defers AC#5 (skill enhancement)"
+          },
+          {
+            "level": 1,
+            "story": "STORY-091",
+            "depends_on": ["STORY-090"],
+            "status": "Ready for Dev",
+            "action": "Implements Feature 1 (Git Worktrees) - does not include AC#5 work"
+          },
+          {
+            "level": 2,
+            "story": "STORY-092",
+            "depends_on": ["STORY-091"],
+            "status": "Ready for Dev",
+            "action": "Implements Feature 2 (Test Isolation) - does not include AC#5 work"
+          }
+        ],
+        "rca_007_applicability_analysis": [
+          "RCA-007 concerned about STORY-004 → STORY-005 → STORY-006 chain losing work",
+          "Current chain (STORY-090 → 091 → 092) is DIFFERENT: work flows linearly within EPIC-010",
+          "AC#5 is NOT deferred to STORY-091 - deferred to 'future story-creation enhancement'",
+          "STORY-091 focuses on Git worktrees, STORY-092 on test isolation - orthogonal to AC#5",
+          "AC#5 belongs to story-creation skill enhancements (separate concern from parallel development)",
+          "Risk: Low - AC#5 is explicitly called out as deferred to separate story (not lost in chain)"
+        ],
+        "risk_assessment": "ACCEPTABLE - work not lost, but requires explicit follow-up story creation",
+        "mitigation_required": "Create follow-up story for AC#5 implementation (story-creation skill enhancement) to prevent work from being lost in EPIC-010 chain",
+        "recommendation": "Add dependency tracking: Create STORY-093 (or similar) for story-creation skill AC#5 enhancement, document link to STORY-090 deferral"
+      },
+
+      "referenced_story_validation": {
+        "status": "REFERENCED_STORY_FOUND",
+        "story_referenced": "STORY-091",
+        "story_exists": true,
+        "story_file_path": ".ai_docs/Stories/STORY-091-git-worktree-auto-management.story.md",
+        "story_status": "Ready for Dev",
+        "story_depends_on": ["STORY-090"],
+        "story_includes_deferred_work": false,
+        "story_includes_deferred_work_analysis": [
+          "STORY-090 defers: AC#5 (skill Phase 1 dependency question + input normalization)",
+          "STORY-091 scope: Automatic worktree creation, idle detection, cleanup prompts (7 ACs)",
+          "Keywords searched in STORY-091: 'dependency question', 'depends_on field', 'story-creation skill', 'Phase 1', 'normalization'",
+          "Result: NO MATCHES - STORY-091 does not include AC#5 work",
+          "STORY-091 is prerequisites ONLY - provides dependency field, but does not implement skill enhancement"
+        ],
+        "missing_deferred_work_severity": "MEDIUM",
+        "missing_deferred_work_issue": "STORY-091 is dependency-tracked but does NOT include deferred AC#5 work",
+        "missing_deferred_work_remediation": [
+          "AC#5 work should be in a different story (story-creation skill enhancement)",
+          "STORY-091 deferral reference ('STORY-091 or future story-creation enhancement') is intentional",
+          "Follow-up: Create dedicated story-creation skill enhancement story (STORY-093+)"
+        ]
+      },
+
+      "overall_deferral_justification": {
+        "status": "JUSTIFIED_WITH_MITIGATION_REQUIRED",
+        "primary_justification": "Skill enhancement (AC#5) properly scoped separately from template updates (AC#1-4)",
+        "justification_strength": "STRONG",
+        "completeness_of_current_work": [
+          "5 of 7 ACs fully implemented and tested",
+          "Template file updated with depends_on field",
+          "Format version incremented to 2.2",
+          "Changelog entry added",
+          "6 existing stories standardized to array format",
+          "Both template locations (src/ and .claude/) synced"
+        ],
+        "standalone_value": "HIGH - Provides depends_on infrastructure for EPIC-010 parallel development feature 3",
+        "deferral_blockers": "None - deferrals are appropriately scoped, not blockers"
+      }
+    },
+
+    "violations": [
+      {
+        "violation_id": 1,
+        "type": "ADR_MISSING_FOR_SCOPE_CHANGE",
+        "severity": "MEDIUM",
+        "status": "BLOCKING_APPROVAL",
+        "description": "Deferring AC#5 (in original DoD) requires ADR documentation",
+        "items_affected": ["AC#5: Story-Creation Skill Phase 1 Dependency Question", "AC#5: Input Normalization Logic"],
+        "rationale": "AC#5 was in Definition of Done (in scope). Moving to future story is scope change. Per critical-rules.md, scope changes require ADR.",
+        "evidence": "Story DoD line 440-441 marks AC#5 items as [ ] (deferred). DoD status section explains deferral rationale but no ADR created.",
+        "remediation": "Create ADR-008 (or next available) documenting scope boundary between template updates and skill enhancement. Reference in Implementation Notes.",
+        "user_approval_path": "If user approves deferral without ADR via AskUserQuestion during QA, mark as 'User Approved Deferral' in story",
+        "impact_if_unfixed": "Story cannot be QA Approved without either: (1) ADR creation, or (2) explicit user approval via AskUserQuestion"
+      },
+      {
+        "violation_id": 2,
+        "type": "FOLLOW_UP_STORY_NOT_CREATED",
+        "severity": "MEDIUM",
+        "status": "NON_BLOCKING_BUT_RECOMMENDED",
+        "description": "AC#5 deferred to 'future story' but follow-up story not yet created",
+        "items_affected": ["AC#5: Story-Creation Skill Phase 1 Dependency Question", "AC#5: Input Normalization Logic"],
+        "rationale": "Deferral references 'STORY-091 or future story-creation enhancement' - unclear which follow-up will implement AC#5",
+        "evidence": "Story Implementation Notes line 543: 'Deferred to follow-up story (STORY-091 or future story-creation enhancement)'",
+        "risk": "RCA-007 risk: AC#5 work could be lost if follow-up story is never created",
+        "remediation": "Create STORY-093 (or next available) for story-creation skill enhancement. Document depends_on: ['STORY-090']. Include AC#5 work in acceptance criteria.",
+        "user_approval_path": "Include follow-up story in QA approval: 'User approved deferral with commitment to create STORY-093 for skill enhancement'",
+        "impact_if_unfixed": "AC#5 work not implemented in release - reduced feature scope for story-creation skill"
+      }
+    ],
+
+    "summary": {
+      "total_deferred_items": 2,
+      "total_violations": 2,
+      "critical_violations": 0,
+      "high_violations": 0,
+      "medium_violations": 2,
+      "low_violations": 0,
+      "validation_status": "FAIL_WITH_REMEDIATION",
+      "qa_approval_recommendation": "CONDITIONAL APPROVAL - User must address 2 medium violations",
+      "approval_conditions": [
+        "CONDITION 1: Create ADR-008 documenting scope boundary (template updates vs skill enhancement) and reference in Implementation Notes",
+        "CONDITION 2: Commit to creating STORY-093 (or next available) for story-creation skill enhancement with AC#5 work, OR user approval via AskUserQuestion accepting deferral risk"
+      ]
+    },
+
+    "remediation_plan": {
+      "immediate_actions": [
+        {
+          "action": "Create ADR-008",
+          "description": "Document scope boundary decision: why AC#5 (skill enhancement) deferred from AC#1-4 (template updates)",
+          "owner": "Framework Team or User",
+          "deadline": "Before QA Approval transition",
+          "deliverable": ".devforgeai/adrs/ADR-008-*.md file"
+        },
+        {
+          "action": "Update Story Implementation Notes",
+          "description": "Add reference to ADR-008 in Implementation Notes (lines 546-547) or document explicit user approval",
+          "owner": "Developer/QA",
+          "deadline": "Before final QA approval",
+          "deliverable": "Story file updated with ADR reference or AskUserQuestion approval record"
+        }
+      ],
+      "follow_up_actions": [
+        {
+          "action": "Create STORY-093 (or next available)",
+          "description": "Story-Creation Skill Enhancement: Implement AC#5 (Phase 1 dependency question + input normalization) with integration testing",
+          "owner": "Framework Team",
+          "deadline": "Within 2 sprints (RCA-007 risk mitigation)",
+          "deliverable": "New story with depends_on: ['STORY-090'], includes AC#5 acceptance criteria",
+          "dependencies": "STORY-090 must be in 'Released' status"
+        }
+      ]
+    },
+
+    "chain_analysis_detailed": {
+      "dependency_graph": {
+        "STORY-090": {
+          "depends_on": [],
+          "defers_to": "STORY-091 or story-creation enhancement",
+          "status": "Dev Complete",
+          "deferred_items": 2
+        },
+        "STORY-091": {
+          "depends_on": ["STORY-090"],
+          "defers_to": [],
+          "status": "Ready for Dev",
+          "deferred_items": 0
+        },
+        "STORY-092": {
+          "depends_on": ["STORY-091"],
+          "defers_to": [],
+          "status": "Ready for Dev",
+          "deferred_items": 0
+        }
+      },
+      "chain_safety_assessment": "SAFE - No circular deferrals, no multi-level deferral chains within EPIC-010 critical path. AC#5 work is orthogonal to worktrees/test isolation.",
+      "rca_007_risk_level": "LOW - RCA-007 risk mitigated by explicit 'future story' reference, but requires follow-up story creation to prevent work loss"
+    },
+
+    "recommendations": [
+      {
+        "priority": "CRITICAL",
+        "recommendation": "Do not approve STORY-090 for QA release without ADR-008 or explicit user approval",
+        "rationale": "Scope changes (AC#5 deferral) require documentation per critical-rules.md rule #9",
+        "implementation": "Require ADR creation or AskUserQuestion approval before QA transition"
+      },
+      {
+        "priority": "HIGH",
+        "recommendation": "Create follow-up story for AC#5 immediately after STORY-090 release",
+        "rationale": "Prevents RCA-007 risk (work lost in story chain)",
+        "implementation": "Create STORY-093 with depends_on: ['STORY-090'], schedule for SPRINT-6"
+      },
+      {
+        "priority": "MEDIUM",
+        "recommendation": "Link follow-up story in STORY-090 Implementation Notes",
+        "rationale": "Traceability and work tracking",
+        "implementation": "Update Implementation Notes: 'Follow-up story: STORY-093 (story-creation skill enhancement)'"
+      },
+      {
+        "priority": "MEDIUM",
+        "recommendation": "Update deferral reference in Implementation Notes",
+        "rationale": "Currently vague ('STORY-091 or future story-creation enhancement') - should specify story ID after follow-up created",
+        "implementation": "Change line 543 from 'STORY-091 or future...' to specific story ID once created"
+      }
+    ],
+
+    "validation_conclusion": {
+      "overall_assessment": "DEFERRED ITEMS ARE JUSTIFIED WITH APPROPRIATE SCOPE BOUNDARY",
+      "technical_soundness": "SOUND - Skill enhancement properly deferred from template updates",
+      "governance_compliance": "NON-COMPLIANT - Missing ADR for scope change",
+      "risk_level": "MEDIUM - RCA-007 risk mitigated if follow-up story created promptly",
+      "approval_ready": "NO - Requires ADR-008 or user approval before QA transition",
+      "next_steps": [
+        "1. Create ADR-008 (or obtain user approval via AskUserQuestion)",
+        "2. Update Implementation Notes with ADR reference",
+        "3. Create STORY-093 for skill enhancement follow-up",
+        "4. Transition to QA Approval"
+      ]
+    }
+  }
+}

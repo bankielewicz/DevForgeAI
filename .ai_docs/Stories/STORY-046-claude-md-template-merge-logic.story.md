@@ -10,7 +10,7 @@ assigned_to: TBD
 created: 2025-11-16
 updated: 2025-11-20
 format_version: "2.0"
-depends_on: STORY-045
+depends_on: ["STORY-045"]
 ---
 
 # Story: CLAUDE.md Template Merge with Variable Substitution and Conflict Resolution
