@@ -389,6 +389,96 @@ Proceed anyway or split?
 
 ---
 
+## Step 1.6: Collect Story Dependencies (OPTIONAL)
+
+**Objective:** Collect optional story dependencies for parallel development workflows
+
+**Interactive Mode:**
+
+```
+AskUserQuestion(
+  questions=[{
+    question: "Does this story depend on other stories that must complete first? (optional)",
+    header: "Dependencies",
+    options: [
+      {
+        label: "None (Recommended)",
+        description: "No dependencies - story can start immediately"
+      },
+      {
+        label: "Enter dependencies",
+        description: "Specify STORY-IDs this story depends on"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+**If user selects "Enter dependencies":**
+
+```
+AskUserQuestion(
+  questions=[{
+    question: "Enter dependent story IDs (comma-separated, e.g., STORY-044, STORY-045)",
+    header: "Dependency IDs",
+    text: true
+  }]
+)
+```
+
+**Normalization Logic:**
+
+```python
+def normalize_depends_on_input(input):
+    # None/empty → []
+    if input is None or input == "" or input.lower() == "none":
+        return []
+
+    # Already array → validate and return
+    if isinstance(input, list):
+        return validate_and_filter(input)
+
+    # Parse comma/space-separated string
+    ids = re.split(r'[,\s]+', input.strip())
+    validated = []
+
+    for id in ids:
+        cleaned = id.strip().upper()
+        if re.match(r'^STORY-\d{3,4}$', cleaned):
+            validated.append(cleaned)
+        else:
+            Display: f"⚠️ Invalid format '{id}' - expected STORY-NNN. Skipping."
+
+    return validated
+```
+
+**Validation Warnings:**
+
+```
+IF depends_on is not empty:
+    FOR each story_id in depends_on:
+        story_files = Glob(pattern=f"devforgeai/specs/Stories/{story_id}*.story.md")
+        IF not story_files:
+            Display: f"⚠️ Note: {story_id} not found. Dependency recorded."
+```
+
+**Batch Mode Integration:**
+
+In batch mode (Step 1.0.1), extract from context markers:
+
+```
+DEPENDS_ON = extract_from_conversation("**Depends On:**")
+IF DEPENDS_ON:
+    depends_on = normalize_depends_on_input(DEPENDS_ON)
+ELSE:
+    depends_on = []
+```
+
+**Result:** `depends_on` array (empty `[]` if no dependencies)
+
+---
+
 ## Subagent Invocation
 
 None in this phase. Discovery is interactive (AskUserQuestion).
@@ -403,6 +493,7 @@ None in this phase. Discovery is interactive (AskUserQuestion).
 - sprint_id: Sprint-N or "Backlog"
 - priority: Critical/High/Medium/Low
 - points: 1/2/3/5/8/13
+- depends_on: Array of STORY-IDs or [] (from Step 1.6)
 - feature_description: User-provided text
 
 ---

@@ -93,6 +93,18 @@ def validate_story_frontmatter(frontmatter: Dict) -> Tuple[bool, List[str]]:
         if frontmatter['status'] not in valid_statuses:
             errors.append(f"Invalid status: '{frontmatter['status']}'")
 
+    # Validate depends_on format (if present) - STORY-090
+    if 'depends_on' in frontmatter:
+        depends_on = frontmatter['depends_on']
+        if depends_on is not None:
+            if not isinstance(depends_on, list):
+                errors.append(f"depends_on must be array, got: {type(depends_on).__name__}")
+            else:
+                from .depends_on_normalizer import is_valid_story_id
+                for idx, item in enumerate(depends_on):
+                    if not is_valid_story_id(str(item)):
+                        errors.append(f"Invalid depends_on[{idx}]: '{item}'")
+
     return len(errors) == 0, errors
 
 

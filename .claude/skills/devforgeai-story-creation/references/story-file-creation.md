@@ -45,9 +45,11 @@ sprint: {sprint_id or "Backlog"}   # SPRINT-001 or "Backlog"
 status: Backlog                    # Always "Backlog" initially
 priority: {Critical|High|Medium|Low}
 points: {1|2|3|5|8|13}
+depends_on: {depends_on_array}     # Array of STORY-IDs or [] (from Step 1.6)
 created: {YYYY-MM-DD}              # Today's date
 updated: {YYYY-MM-DD}              # Same as created initially
 assigned_to: null                  # Not assigned yet
+format_version: "2.2"              # Template version (STORY-090)
 tags: []                           # Empty initially, can add later
 ---
 ```
