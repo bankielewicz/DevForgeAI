@@ -1030,8 +1030,8 @@ Refactor when:
 
 **Core Principles:**
 - `devforgeai/specs/claude-skills.md` - Skills architecture and progressive disclosure
-- `devforgeai/specs/Terminal/slash-commands-best-practices.md` - Command design patterns
-- `devforgeai/specs/Terminal/sub-agents.md` - Subagent architecture and context isolation
+- `devforgeai/specs/research/Terminal/slash-commands-best-practices.md` - Command design patterns
+- `devforgeai/specs/research/Terminal/sub-agents.md` - Subagent architecture and context isolation
 
 **Implementation Examples:**
 - `refactoring-case-studies.md` - 5 complete case studies with Before/After analysis

@@ -40,7 +40,7 @@ class ExistingInstallationDetector:
         """
         try:
             claude_dir = self.target_path / ".claude"
-            devforgeai_dir = self.target_path / ".devforgeai"
+            devforgeai_dir = self.target_path / "devforgeai"
 
             claude_exists = claude_dir.exists()
             devforgeai_exists = devforgeai_dir.exists()

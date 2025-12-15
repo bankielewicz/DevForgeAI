@@ -183,6 +183,7 @@ Invoke this skill when users ask about:
 - Permission management (allow/ask/deny)
 - Model selection and aliases
 - Environment variable configuration
+- CLAUDE.md files and `.claude/rules/` for project memory
 
 **When to use:** Customizing Claude Code behavior, team standards
 
@@ -207,6 +208,30 @@ Invoke this skill when users ask about:
 **Quick start:** `/install-github-app` or add workflow YAML
 
 **Details:** See `references/integration-patterns.md`
+
+---
+
+### 9. Memory & Rules System
+
+**What it is:** Hierarchical memory and modular rules for Claude Code behavior
+
+**Key capabilities:**
+- 5-level memory hierarchy (Enterprise → Project → Rules → User → Local)
+- `.claude/rules/` directory for modular, topic-specific rules
+- Conditional rules with `paths:` frontmatter for file-specific behavior
+- Import syntax (`@path/to/file`) for file inclusion (max 5 hops)
+- `/memory`, `/init`, `#` shortcuts for memory management
+
+**When to use:** Organizing project instructions, team-wide standards, file-specific rules
+
+**Quick start:** Create `.claude/rules/code-style.md` with YAML frontmatter
+
+**DevForgeAI Integration:**
+- `.claude/rules/` for Claude Code behavior rules
+- `devforgeai/specs/context/` for immutable architectural constraints
+- Rules can reference context files: `@devforgeai/specs/context/tech-stack.md`
+
+**Details:** See `references/configuration-guide.md` (Memory & Rules section)
 
 ---
 
@@ -464,7 +489,7 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 
 **Version History:**
 - v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
-- [Future versions track updates]
+- v1.1 (2025-12-09): Added rules system, new CLI flags, hook events, subagent enhancements, DevForgeAI integration
 
 ---
 
@@ -534,5 +559,5 @@ Response: [Comparison table with use cases]
 **Authoritative Source:** All guidance comes from official code.claude.com documentation
 **Always Current:** Self-updating mechanism ensures accuracy
 **Progressive Disclosure:** Load only necessary reference files
-**Complete Coverage:** 8 core features + configuration + integration + troubleshooting
+**Complete Coverage:** 9 core features + configuration + integration + troubleshooting
 **DevForgeAI Integration:** Complements framework with terminal expertise

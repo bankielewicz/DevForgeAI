@@ -1,2197 +1,382 @@
 ---
 name: devforgeai-qa
 description: Validates code quality through hybrid progressive validation (light checks during development, deep analysis after completion). Enforces test coverage (95%/85%/80% strict thresholds), detects anti-patterns, validates spec compliance, and analyzes code quality metrics. Use when validating implementations, ensuring quality standards, or preparing for release.
-allowed-tools:
-  - Read
-  - Write
-  - Edit
-  - Glob
-  - Grep
-  - AskUserQuestion
-  - Bash(pytest:*)
-  - Bash(dotnet:*)
-  - Bash(npm:*)
-  - Bash(coverage:*)
-  - Bash(bandit:*)
-  - Bash(security-scan:*)
-  - Bash(jscpd:*)
-  - Bash(radon:*)
-  - Bash(madge:*)
-  - Skill
+tools: Read, Write, Edit, Glob, Grep, Bash, Task
+model: claude-sonnet-4-5-20250929[1m]
 ---
 
 # DevForgeAI QA Skill
 
-Validate code quality through comprehensive, automated testing and analysis to ensure production-ready implementations.
+Quality validation enforcing architectural constraints, coverage thresholds, and code standards through progressive validation.
 
-## Purpose
+---
 
-This skill provides hybrid progressive validation with two modes:
+## ⚠️ EXECUTION MODEL: This Skill Expands Inline
 
-1. **Light Validation** (during development) - Fast, immediate feedback
-   - Syntax/build checks
-   - Test execution
-   - Quick anti-pattern scanning
-   - **Blocks immediately on ANY violation**
+**After invocation, YOU (Claude) execute these instructions phase by phase.**
 
-2. **Deep Validation** (after story completion) - Comprehensive quality analysis
-   - Test coverage analysis (95%/85%/80% strict thresholds)
-   - Anti-pattern detection (10+ categories)
-   - Spec compliance validation
-   - Code quality metrics
-   - Security scanning
+**When you invoke this skill:**
+1. This SKILL.md content is now in your conversation
+2. You execute each phase sequentially
+3. You display results as you work through phases
+4. You complete with success/failure report
 
-## When to Use This Skill
+**Do NOT:**
+- ❌ Wait passively for skill to "return results"
+- ❌ Assume skill is executing elsewhere
+- ❌ Stop workflow after invocation
 
-**Auto-invoked by devforgeai-development during:**
-- After Phase 2 (Implementation - Green)
-- After Phase 3 (Refactor)
-- After Phase 4 (Integration)
+**Proceed to "Parameter Extraction" section below and begin execution.**
 
-**Manually invoked for:**
-- Deep validation after story completion
-- Pre-release quality gates
-- Code review preparation
-- Technical debt assessment
+---
 
-## Core Principles
+## Parameter Extraction
 
-### 1. Strict Enforcement (Block Immediately)
-- ANY violation detected during development → BLOCK
-- No violation accumulation tolerated
-- Developer must fix before continuing
-- Quality over speed
+Extracts story ID and mode (light/deep) from conversation context.
 
-### 2. Comprehensive Validation (4 Focus Areas)
-1. **Test Coverage Analysis** - Ensure adequate testing
-2. **Anti-Pattern Detection** - Prevent technical debt
-3. **Spec Compliance** - Verify requirements met
-4. **Code Quality Metrics** - Maintain maintainability
+**See `references/parameter-extraction.md`** for extraction algorithm (YAML frontmatter, file reference, explicit statement, status inference).
 
-### 3. Auto-Fix Simple, Suggest Complex
-- **Auto-fix:** Formatting, linting (safe, deterministic)
-- **Suggest:** Refactoring, test generation (requires review)
-- **Manual:** Security, architecture (critical judgment)
+---
 
-### 4. Context-Driven Validation
-Uses all context files:
-- tech-stack.md - Validate technology usage
-- source-tree.md - Validate file locations
-- dependencies.md - Validate package usage
-- coding-standards.md - Validate code patterns
-- architecture-constraints.md - Validate layer boundaries
-- anti-patterns.md - Detect violations
+## CRITICAL: Definition of Done Protocol
 
-Creates QA-specific context:
-- coverage-thresholds.md - Coverage requirements
-- quality-metrics.md - Quality thresholds
-- security-policies.md - Security rules
+**Step 2.5 (Deferral Validation) CANNOT be skipped.**
+
+Deferred DoD items MUST have user approval, story/ADR references, and deferral-validator subagent validation.
+
+**PROHIBITED:** Autonomous deferrals, manual validation shortcuts, token optimization bypasses.
+
+**Rationale:** RCA-007 - Manual validation missed STORY-004→005→006 chain, causing work loss.
+
+**See `references/dod-protocol.md`** for protocol requirements and enforcement.
 
 ---
 
 ## Validation Modes
 
-### Mode 1: Light Validation (During Development)
+### Light (~10K tokens, 2-3 min)
+- Build/syntax checks
+- Test execution (100% pass required)
+- Critical anti-patterns only
+- Deferral validation (if deferrals exist)
 
-**Invocation:**
-```
-Skill(command="devforgeai-qa --mode=light --phase=[implementation|refactor|integration]")
-```
-
-**Purpose:** Fast feedback loop, immediate blocking on violations
-
-**Workflow:**
-
-#### Step 1: Syntax & Build Validation (~2,000 tokens)
-
-```
-# Check compilation/syntax
-Bash(command="[build_command]")
-# Examples:
-# - dotnet build
-# - npm run build
-# - python -m py_compile src/**/*.py
-
-IF build fails:
-    BLOCK immediately
-    Report: Compilation errors
-    Detail: [error messages]
-    Action: Fix syntax/build errors before continuing
-
-# Check dependency resolution
-Bash(command="[dependency_check]")
-# Examples:
-# - dotnet restore
-# - npm install
-# - pip install -r requirements.txt
-
-IF dependencies fail:
-    BLOCK immediately
-    Report: Dependency resolution failed
-    Detail: [missing/conflicting packages]
-    Action: Fix dependency issues
-```
-
-#### Step 2: Basic Linting (~1,500 tokens)
-
-```
-# Run linter
-Bash(command="[linter_command]")
-# Examples:
-# - dotnet format --verify-no-changes
-# - pylint src/
-# - npm run lint
-
-IF linting violations found:
-    # Auto-fix safe violations
-    Bash(command="dotnet format")  # C#
-    Bash(command="black src/")     # Python
-    Bash(command="prettier --write src/")  # JavaScript
-
-    # Re-run linter
-    Bash(command="[linter_command]")
-
-    IF still failing:
-        BLOCK immediately
-        Report: Linting violations remain
-        Detail: [violations that can't be auto-fixed]
-        Action: Fix manually (naming, structure, etc.)
-```
-
-#### Step 3: Test Execution (~3,000 tokens)
-
-```
-# Determine which tests to run based on phase
-IF phase == "implementation":
-    # Run new tests only
-    Bash(command="[test_command] [new_test_filter]")
-
-IF phase == "refactor":
-    # Run all affected tests
-    Bash(command="[test_command] [affected_test_filter]")
-
-IF phase == "integration":
-    # Run full test suite
-    Bash(command="[test_command]")
-
-# Parse test results
-IF any test fails:
-    BLOCK immediately
-    Report: Test failures
-    Detail: [failed test names, failure messages]
-    Action: Fix failing tests before continuing
-
-# Quick coverage check (only in integration phase)
-IF phase == "integration":
-    Bash(command="[test_command_with_coverage]")
-    # Examples:
-    # - dotnet test --collect:"XPlat Code Coverage"
-    # - pytest --cov=src --cov-report=term
-    # - npm test -- --coverage
-
-    Read(file_path="coverage.json")
-    # Parse overall coverage percentage
-
-    IF coverage < 80%:
-        BLOCK immediately
-        Report: Coverage below minimum threshold
-        Detail: Overall coverage {percentage}%, minimum 80%
-        Action: Add tests to meet minimum threshold
-```
-
-#### Step 4: Quick Anti-Pattern Scan (~2,500 tokens)
-
-```
-# Load anti-patterns
-Read(file_path="devforgeai/specs/context/anti-patterns.md")
-
-# Scan for CRITICAL violations only (light mode)
-
-# 1. SQL Injection patterns
-Grep(pattern="ExecuteRawSql\(.*\+|string\.Format.*SELECT|f\"SELECT.*\{|`SELECT.*\$",
-     path="src/",
-     output_mode="content")
-
-IF found:
-    BLOCK immediately
-    Report: CRITICAL - SQL Injection vulnerability
-    Detail: [file:line references]
-    Fix: Use parameterized queries
-    Example: [show correct pattern from coding-standards.md]
-
-# 2. Hardcoded secrets
-Grep(pattern="password|apikey|secret|token\s*=\s*[\"']",
-     path="src/",
-     -i=true,
-     output_mode="content")
-
-IF found:
-    BLOCK immediately
-    Report: CRITICAL - Hardcoded secret detected
-    Detail: [file:line references]
-    Fix: Move secrets to configuration/environment variables
-
-# 3. Cross-layer violations (Domain → Infrastructure)
-Read(file_path="devforgeai/specs/context/architecture-constraints.md")
-# Extract layer dependency matrix
-
-Grep(pattern="using.*Infrastructure|import.*infrastructure",
-     path="src/Domain/",
-     output_mode="content")
-
-IF found:
-    BLOCK immediately
-    Report: CRITICAL - Layer boundary violation
-    Detail: Domain layer references Infrastructure
-    Fix: Use abstractions/interfaces, move to Application layer
-
-# 4. Library substitution
-Read(file_path="devforgeai/specs/context/tech-stack.md")
-# Extract LOCKED technologies
-
-# Example: If Dapper is locked, check for EF usage
-IF tech_stack.ORM == "Dapper":
-    Grep(pattern="using EntityFramework|using Microsoft\.EntityFrameworkCore",
-         path="src/",
-         output_mode="content")
-
-    IF found:
-        BLOCK immediately
-        Report: CRITICAL - Library substitution detected
-        Detail: Code uses EntityFramework but tech-stack.md specifies Dapper
-        Fix: Use Dapper as specified in tech-stack.md
-
-# 5. File location violations
-Read(file_path="devforgeai/specs/context/source-tree.md")
-# Extract structure rules
-
-# Get all modified files
-Bash(command="git diff --name-only HEAD")
-
-FOR each modified_file:
-    IF file location violates source-tree.md rules:
-        BLOCK immediately
-        Report: CRITICAL - File in wrong location
-        Detail: {file} should be in {correct_location}
-        Fix: Move file to correct location per source-tree.md
-```
-
-**Light Validation Decision:**
-
-```
-IF ALL checks pass:
-    Report: ✅ Light validation PASSED
-    Allow: Continue development
-    Return: SUCCESS
-
-IF ANY check fails:
-    Report: ❌ Light validation FAILED
-    Block: Stop development
-    Detail: [all violations found]
-    Action: Fix violations before continuing
-    Return: BLOCKED
-```
-
-**Token Budget:** ~10,000 tokens per light validation
+### Deep (~65K tokens, 8-12 min)
+- Complete coverage analysis (95%/85%/80% thresholds)
+- Comprehensive anti-pattern detection
+- Full spec compliance (AC, API, NFRs)
+- Code quality metrics
+- Security scanning (OWASP Top 10)
+- Deferral validation (if deferrals exist)
 
 ---
 
-### Mode 2: Deep Validation (After Story Completion)
+## QA Workflow (7 Phases)
 
-**Invocation:**
-```
-Skill(command="devforgeai-qa --mode=deep --story=[story-id]")
-```
+**⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
-**Purpose:** Comprehensive quality validation before release
-
-**Workflow:**
-
-#### Phase 1: Test Coverage Analysis (~15,000 tokens)
-
-**Step 1: Load Story and Context**
-
-```
-# Load story specification
-Read(file_path="ai_docs/Stories/[story-id].story.md")
-# Extract acceptance criteria, NFRs
-
-# Load coverage thresholds
-Read(file_path="devforgeai/qa/coverage-thresholds.md")
-# Default if not exists:
-# - Business logic: 95%
-# - Application: 85%
-# - Infrastructure: 80%
-# - Overall: 80%
-```
-
-**Step 2: Generate Coverage Reports**
-
-```
-# Run tests with coverage
-Bash(command="[test_command_with_coverage]")
-
-# Language-specific examples:
-# .NET:
-Bash(command="dotnet test --collect:'XPlat Code Coverage'")
-# Python:
-Bash(command="pytest --cov=src --cov-report=json --cov-report=html")
-# JavaScript:
-Bash(command="npm test -- --coverage --coverageReporters=json --coverageReporters=html")
-
-# Read coverage data
-Read(file_path="coverage.json")
-# OR
-Read(file_path="coverage.xml")
-```
-
-**Step 3: Analyze Coverage by Layer**
-
-```
-# Parse coverage data to extract per-file percentages
-
-# Group files by layer (from source-tree.md)
-business_logic_files = Glob(pattern="src/Domain/**/*.cs") + Glob(pattern="src/Services/**/*.cs")
-application_files = Glob(pattern="src/Application/**/*.cs")
-infrastructure_files = Glob(pattern="src/Infrastructure/**/*.cs")
-
-# Calculate layer-level coverage
-business_logic_coverage = calculate_coverage(business_logic_files)
-application_coverage = calculate_coverage(application_files)
-infrastructure_coverage = calculate_coverage(infrastructure_files)
-overall_coverage = calculate_coverage(all_files)
-
-# Validate against thresholds
-violations = []
-
-IF business_logic_coverage < 95%:
-    violations.append({
-        "severity": "CRITICAL",
-        "type": "Coverage below threshold",
-        "layer": "Business Logic",
-        "actual": business_logic_coverage,
-        "expected": 95%,
-        "gap": 95% - business_logic_coverage
-    })
-
-IF application_coverage < 85%:
-    violations.append({
-        "severity": "CRITICAL",
-        "type": "Coverage below threshold",
-        "layer": "Application",
-        "actual": application_coverage,
-        "expected": 85%,
-        "gap": 85% - application_coverage
-    })
-
-IF infrastructure_coverage < 80%:
-    violations.append({
-        "severity": "HIGH",
-        "type": "Coverage below threshold",
-        "layer": "Infrastructure",
-        "actual": infrastructure_coverage,
-        "expected": 80%,
-        "gap": 80% - infrastructure_coverage
-    })
-
-IF overall_coverage < 80%:
-    violations.append({
-        "severity": "CRITICAL",
-        "type": "Coverage below threshold",
-        "layer": "Overall",
-        "actual": overall_coverage,
-        "expected": 80%,
-        "gap": 80% - overall_coverage
-    })
-```
-
-**Step 4: Identify Coverage Gaps**
-
-```
-# Find untested code paths
-FOR each file WITH coverage < threshold:
-    Read(file_path=file)
-    # Parse uncovered line ranges from coverage data
-
-    # Identify what's untested
-    uncovered_methods = extract_methods_from_lines(uncovered_lines)
-
-    # Add to gap report
-    gap_report.append({
-        "file": file,
-        "coverage": file_coverage,
-        "uncovered_lines": uncovered_line_ranges,
-        "uncovered_methods": uncovered_methods,
-        "suggested_tests": generate_test_suggestions(uncovered_methods)
-    })
-
-# Example gap report entry:
-{
-    "file": "src/Services/OrderService.cs",
-    "coverage": 78%,
-    "uncovered_lines": [[45, 67], [89, 102]],
-    "uncovered_methods": [
-        "CalculateDiscount (lines 45-67)",
-        "ApplyTax (lines 89-102)"
-    ],
-    "suggested_tests": [
-        "Add test: CalculateDiscount_ValidCoupon_ReturnsDiscountedPrice",
-        "Add test: CalculateDiscount_ExpiredCoupon_ReturnsOriginalPrice",
-        "Add test: ApplyTax_StandardRate_CalculatesCorrectly"
-    ]
-}
-```
-
-**Step 5: Analyze Test Quality**
-
-```
-# Count assertions in tests
-test_files = Glob(pattern="tests/**/*Tests.cs")
-# OR tests/**/*.test.js, tests/**/test_*.py
-
-FOR each test_file:
-    Read(file_path=test_file)
-
-    # Count test methods
-    test_methods = Grep(pattern="[Fact]|[Test]|def test_|it\(",
-                        path=test_file,
-                        output_mode="count")
-
-    # Count assertions
-    assertions = Grep(pattern="Assert\.|expect\(|self\.assert",
-                     path=test_file,
-                     output_mode="count")
-
-    # Calculate assertions per test
-    assertions_per_test = assertions / test_methods
-
-    IF assertions_per_test < 1.5:
-        warnings.append({
-            "severity": "MEDIUM",
-            "type": "Low assertion count",
-            "file": test_file,
-            "assertions_per_test": assertions_per_test,
-            "message": "Tests may not be validating enough (avg < 1.5 assertions/test)"
-        })
-
-    # Check for over-mocking
-    mocks = Grep(pattern="Mock<|Substitute\.For|mock\(|patch\(",
-                path=test_file,
-                output_mode="count")
-
-    IF mocks > test_methods * 2:
-        warnings.append({
-            "severity": "MEDIUM",
-            "type": "Excessive mocking",
-            "file": test_file,
-            "mocks": mocks,
-            "tests": test_methods,
-            "message": "Over-mocked tests may be testing mocks, not behavior"
-        })
-```
-
-**Step 6: Validate Test Pyramid**
-
-```
-# Count tests by type
-unit_tests = Glob(pattern="tests/Unit/**/*Tests.*").count
-integration_tests = Glob(pattern="tests/Integration/**/*Tests.*").count
-e2e_tests = Glob(pattern="tests/E2E/**/*Tests.*").count
-
-total_tests = unit_tests + integration_tests + e2e_tests
-
-# Calculate percentages
-unit_percentage = (unit_tests / total_tests) * 100
-integration_percentage = (integration_tests / total_tests) * 100
-e2e_percentage = (e2e_tests / total_tests) * 100
-
-# Expected ratio: 70% unit, 20% integration, 10% E2E
-IF unit_percentage < 60%:
-    warnings.append({
-        "severity": "MEDIUM",
-        "type": "Inverted test pyramid",
-        "message": f"Only {unit_percentage}% unit tests (expected 70%)",
-        "impact": "Test suite will be slow and brittle",
-        "recommendation": "Convert some integration/E2E tests to unit tests"
-    })
-
-IF e2e_percentage > 20%:
-    warnings.append({
-        "severity": "MEDIUM",
-        "type": "Too many E2E tests",
-        "message": f"{e2e_percentage}% E2E tests (expected 10%)",
-        "impact": "Very slow test execution",
-        "recommendation": "Replace some E2E tests with unit/integration tests"
-    })
-```
-
-**Coverage Analysis Output:**
-- Coverage percentages by layer
-- Gap report with specific line numbers and methods
-- Test quality assessment
-- Test pyramid analysis
-- Action items for improvement
+Load workflow references on-demand for implementation details.
 
 ---
 
-#### Phase 2: Anti-Pattern Detection (~20,000 tokens)
+### Phase 0.9: AC-DoD Traceability Validation (NEW - RCA-012)
 
-**Step 1: Load Anti-Patterns**
+**Purpose:** Verify every Acceptance Criterion requirement has corresponding Definition of Done coverage. Prevents quality gate bypass (STORY-038 pattern) and ensures complete work validation.
 
-```
-Read(file_path="devforgeai/specs/context/anti-patterns.md")
-# Extract all 10 categories with patterns
-```
+**Priority:** Execute BEFORE expensive validations (Phases 1-6) to fail fast on structural issues
 
-**Step 2: Category 1 - Library Substitution (CRITICAL)**
+**Token Cost:** ~2K tokens (lightweight validation)
+**Token Savings:** ~60K tokens if catches issue (avoid Phases 1-6)
 
-```
-Read(file_path="devforgeai/specs/context/tech-stack.md")
-# Extract LOCKED technologies
-
-# Check for forbidden library usage
-IF tech_stack.ORM == "Dapper":
-    forbidden = Grep(pattern="using EntityFramework|using Microsoft\.EntityFrameworkCore|from sqlalchemy",
-                    path="src/",
-                    output_mode="content")
-
-    IF forbidden:
-        violations.append({
-            "severity": "CRITICAL",
-            "category": "Library Substitution",
-            "file": extracted_file,
-            "line": extracted_line,
-            "issue": "Code uses EntityFramework but tech-stack.md specifies Dapper",
-            "fix": "Replace with Dapper implementation",
-            "reference": "tech-stack.md line 42: 'ORM: Dapper 2.1.x (LOCKED)'"
-        })
-
-IF tech_stack.StateManagement == "Zustand":
-    forbidden = Grep(pattern="from '@reduxjs/toolkit'|import.*redux",
-                    path="src/",
-                    output_mode="content")
-
-    IF forbidden:
-        violations.append({
-            "severity": "CRITICAL",
-            "category": "Library Substitution",
-            "issue": "Code uses Redux but tech-stack.md specifies Zustand"
-        })
-```
-
-**Step 3: Category 2 - Structure Violations (HIGH)**
-
-```
-Read(file_path="devforgeai/specs/context/source-tree.md")
-# Extract structure rules
-
-# Get all source files
-all_files = Glob(pattern="src/**/*.{cs,py,js,ts,tsx}")
-
-FOR each file:
-    # Validate file location against source-tree.md rules
-
-    # Example rule: Services must be in src/Application/Services/
-    IF file.contains("Service") AND file.type == "class":
-        expected_location = "src/Application/Services/"
-
-        IF NOT file.path.startswith(expected_location):
-            violations.append({
-                "severity": "HIGH",
-                "category": "Structure Violation",
-                "file": file.path,
-                "issue": f"Service class in wrong location",
-                "expected": expected_location + file.name,
-                "actual": file.path,
-                "fix": f"Move file to {expected_location}"
-            })
-```
-
-**Step 4: Category 3 - Cross-Layer Dependencies (CRITICAL)**
-
-```
-Read(file_path="devforgeai/specs/context/architecture-constraints.md")
-# Extract layer dependency matrix
-
-# Example matrix:
-# Domain  → Can reference: Domain only
-# Application → Can reference: Domain, Application
-# Infrastructure → Can reference: Domain, Infrastructure
-
-# Check Domain layer purity
-domain_files = Glob(pattern="src/Domain/**/*.cs")
-
-FOR each domain_file:
-    Read(file_path=domain_file)
-
-    # Check for forbidden imports
-    forbidden_imports = Grep(pattern="using.*Infrastructure|using.*Application",
-                            path=domain_file,
-                            output_mode="content")
-
-    IF forbidden_imports:
-        violations.append({
-            "severity": "CRITICAL",
-            "category": "Cross-Layer Dependency",
-            "file": domain_file,
-            "line": extracted_line,
-            "issue": "Domain layer references Application/Infrastructure",
-            "violation": extracted_import_statement,
-            "rule": "Domain must only reference Domain (architecture-constraints.md)",
-            "fix": "Remove import, use abstraction, or move code to Application layer"
-        })
-
-# Check Application layer rules
-application_files = Glob(pattern="src/Application/**/*.cs")
-
-FOR each app_file:
-    Read(file_path=app_file)
-
-    # Application can reference Domain, but not Infrastructure implementation
-    forbidden_concrete = Grep(pattern="new.*Repository|new.*DbContext",
-                             path=app_file,
-                             output_mode="content")
-
-    IF forbidden_concrete:
-        violations.append({
-            "severity": "HIGH",
-            "category": "Tight Coupling",
-            "file": app_file,
-            "issue": "Application directly instantiates infrastructure",
-            "fix": "Use dependency injection instead of 'new'"
-        })
-```
-
-**Step 5: Category 4 - Code Smells (MEDIUM/LOW)**
-
-```
-# God Objects (large classes)
-all_files = Glob(pattern="src/**/*.{cs,py,js}")
-
-FOR each file:
-    Read(file_path=file)
-    line_count = file.content.count_lines
-
-    IF line_count > 500:
-        violations.append({
-            "severity": "MEDIUM",
-            "category": "God Object",
-            "file": file,
-            "lines": line_count,
-            "threshold": 500,
-            "issue": "Class too large, likely violates Single Responsibility Principle",
-            "fix": "Extract responsibilities into separate classes"
-        })
-
-# Magic Numbers
-magic_numbers = Grep(pattern="\s\d{3,}\s|=\s*\d{3,}|>\s*\d{3,}|<\s*\d{3,}",
-                    path="src/",
-                    output_mode="content",
-                    -n=true)
-
-FOR each match:
-    # Filter out: enums, const declarations, test data
-    IF NOT is_const_or_enum(match):
-        violations.append({
-            "severity": "LOW",
-            "category": "Magic Number",
-            "file": match.file,
-            "line": match.line_number,
-            "value": match.number,
-            "issue": "Hard-coded number without explanation",
-            "fix": "Extract to named constant",
-            "suggestion": generate_const_suggestion(match)
-        })
-
-# Long Methods
-# Use complexity analysis tool or regex approximation
-long_methods = Grep(pattern="(public|private).*\{",
-                   path="src/",
-                   output_mode="content",
-                   -A=150)
-
-# Parse method lengths
-FOR each method:
-    IF method.line_count > 100:
-        violations.append({
-            "severity": "MEDIUM",
-            "category": "Long Method",
-            "file": method.file,
-            "method": method.name,
-            "lines": method.line_count,
-            "threshold": 100,
-            "fix": "Extract helper methods to reduce length"
-        })
-
-# Commented Code (TODO/HACK/FIXME)
-commented_debt = Grep(pattern="//.*TODO|//.*HACK|//.*FIXME|#.*TODO|#.*HACK",
-                     path="src/",
-                     output_mode="content",
-                     -i=true,
-                     -n=true)
-
-FOR each comment:
-    violations.append({
-        "severity": "LOW",
-        "category": "Technical Debt Comment",
-        "file": comment.file,
-        "line": comment.line_number,
-        "comment": comment.text,
-        "fix": "Address TODO or remove comment"
-    })
-```
-
-**Step 6: Category 5 - Security Anti-Patterns (CRITICAL)**
-
-```
-# SQL Injection
-sql_injection = Grep(pattern="ExecuteRawSql\(.*\+|string\.Format.*SELECT|f\"SELECT.*\{|`SELECT.*\$\{",
-                    path="src/",
-                    output_mode="content",
-                    -n=true)
-
-FOR each match:
-    violations.append({
-        "severity": "CRITICAL",
-        "category": "Security - SQL Injection",
-        "file": match.file,
-        "line": match.line_number,
-        "issue": "SQL query uses string concatenation - SQL injection risk",
-        "cwe": "CWE-89",
-        "vulnerable_code": match.text,
-        "fix": "Use parameterized queries",
-        "example": generate_secure_example(match, from_coding_standards_md())
-    })
-
-# XSS Vulnerabilities
-xss_risk = Grep(pattern="innerHTML|dangerouslySetInnerHTML|document\.write",
-               path="src/",
-               output_mode="content",
-               -n=true)
-
-FOR each match:
-    violations.append({
-        "severity": "CRITICAL",
-        "category": "Security - XSS",
-        "file": match.file,
-        "line": match.line_number,
-        "issue": "Unsafe HTML insertion - XSS risk",
-        "cwe": "CWE-79",
-        "fix": "Use safe DOM methods or sanitize input"
-    })
-
-# Hardcoded Secrets
-secrets = Grep(pattern="password|apikey|api_key|secret|token|connectionstring\s*=\s*[\"']",
-              path="src/",
-              output_mode="content",
-              -i=true,
-              -n=true)
-
-FOR each match:
-    # Filter false positives (variable names, not values)
-    IF looks_like_hardcoded_secret(match):
-        violations.append({
-            "severity": "CRITICAL",
-            "category": "Security - Hardcoded Secret",
-            "file": match.file,
-            "line": match.line_number,
-            "issue": "Hardcoded secret detected",
-            "fix": "Move to environment variables or secret manager",
-            "example": "Use configuration: var secret = config['ApiKey']"
-        })
-
-# Weak Cryptography
-weak_crypto = Grep(pattern="MD5|SHA1|DES\.|TripleDES",
-                  path="src/",
-                  output_mode="content",
-                  -n=true)
-
-FOR each match:
-    violations.append({
-        "severity": "HIGH",
-        "category": "Security - Weak Cryptography",
-        "file": match.file,
-        "line": match.line_number,
-        "issue": "Using weak cryptographic algorithm",
-        "algorithm": match.algorithm,
-        "fix": "Use SHA256 or stronger algorithms"
-    })
-```
-
-**Step 7: Run Security Scanners (if available)**
-
-```
-# .NET Security Code Scan
-TRY:
-    Bash(command="dotnet security-scan src/")
-    # Parse results and add to violations
-
-# Python Bandit
-TRY:
-    Bash(command="bandit -r src/ -f json")
-    # Parse results and add to violations
-
-# npm audit
-TRY:
-    Bash(command="npm audit --json")
-    # Parse results and add to violations
-
-# Dependency vulnerabilities
-TRY:
-    Bash(command="dotnet list package --vulnerable --include-transitive")
-    # Parse results
-
-    FOR each vulnerable_package:
-        violations.append({
-            "severity": "HIGH",
-            "category": "Dependency Vulnerability",
-            "package": package.name,
-            "version": package.version,
-            "vulnerability": package.cve,
-            "fix_version": package.fix_version,
-            "fix": f"Upgrade to version {package.fix_version}"
-        })
-```
-
-**Anti-Pattern Detection Output:**
-- Violations categorized by severity
-- File/line references for each violation
-- Fix guidance with code examples
-- Security scan results
-- Total violation count by category
+**Reference:** `references/traceability-validation-algorithm.md` (complete 5-step algorithm)
+**Templates:** `assets/traceability-report-template.md` (PASS/FAIL display formatting)
 
 ---
 
-#### Phase 3: Spec Compliance Validation (~15,000 tokens)
-
-**Step 1: Load Story Specification**
+#### Step 0.9.1: Load Traceability Algorithm
 
 ```
-Read(file_path="ai_docs/Stories/[story-id].story.md")
-
-# Extract sections:
-acceptance_criteria = extract_acceptance_criteria(story)
-technical_spec = extract_technical_spec(story)
-nfrs = extract_non_functional_requirements(story)
+Read(file_path="src/claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md")
 ```
 
-**Step 2: Validate Acceptance Criteria**
+**Algorithm provides:**
+- Step 1: Extract AC requirements (parse AC headers, Given/When/Then, bullets, metrics)
+- Step 2: Extract DoD items (count checkboxes, parse text, calculate completion)
+- Step 3: Map AC → DoD (keyword matching, ≥50% overlap required)
+- Step 4: Calculate traceability score (covered / total × 100, target: 100%)
+- Step 5: Validate deferrals (check "Approved Deferrals" section if DoD incomplete)
 
-```
-compliance_report = []
-
-FOR each criterion in acceptance_criteria:
-    # Find tests that validate this criterion
-
-    # Extract keywords from criterion
-    keywords = extract_keywords(criterion)
-    # Example criterion: "User can add items to cart"
-    # Keywords: ["add", "items", "cart"]
-
-    # Search for relevant tests
-    matching_tests = []
-    test_files = Glob(pattern="tests/**/*Tests.{cs,py,js}")
-
-    FOR each test_file:
-        # Search for test methods mentioning keywords
-        matches = Grep(pattern=f"(test|Test).*({'|'.join(keywords)})",
-                      path=test_file,
-                      output_mode="content",
-                      -i=true)
-
-        IF matches:
-            matching_tests.extend(parse_test_methods(matches))
-
-    # Validate tests exist and pass
-    IF matching_tests.empty:
-        compliance_report.append({
-            "criterion": criterion,
-            "status": "FAIL",
-            "severity": "CRITICAL",
-            "issue": "No tests found for acceptance criterion",
-            "action": f"Add tests to validate: {criterion}",
-            "suggested_tests": generate_test_suggestions(criterion)
-        })
-    ELSE:
-        # Run tests for this criterion
-        test_results = run_tests(matching_tests)
-
-        IF test_results.all_passed:
-            compliance_report.append({
-                "criterion": criterion,
-                "status": "PASS",
-                "tests": matching_tests,
-                "coverage": calculate_criterion_coverage(criterion)
-            })
-        ELSE:
-            compliance_report.append({
-                "criterion": criterion,
-                "status": "FAIL",
-                "severity": "CRITICAL",
-                "issue": "Tests exist but failing",
-                "failing_tests": test_results.failures,
-                "action": "Fix failing tests"
-            })
-```
-
-**Step 3: Validate API Contracts (if applicable)**
-
-```
-IF technical_spec.has_api_endpoints:
-    FOR each endpoint in technical_spec.endpoints:
-        # Example endpoint spec:
-        # POST /api/cart/items
-        # Request: { productId: int, quantity: int }
-        # Response: { cartId: string, itemCount: int, total: decimal }
-
-        # Check endpoint exists
-        controller_files = Glob(pattern="src/**/Controllers/*.cs")
-        # OR src/**/routes/*.{js,ts}
-
-        endpoint_found = Grep(pattern=f"(Route|@route|app\\.post).*{endpoint.path}",
-                             path="src/",
-                             output_mode="content")
-
-        IF NOT endpoint_found:
-            violations.append({
-                "severity": "CRITICAL",
-                "category": "Spec Compliance",
-                "issue": f"API endpoint not found: {endpoint.method} {endpoint.path}",
-                "action": "Implement missing endpoint"
-            })
-            CONTINUE
-
-        # Validate request/response models
-        Read(file_path=endpoint_found.file)
-
-        # Extract actual request model
-        actual_request = parse_request_model(file_content)
-        expected_request = endpoint.request_model
-
-        IF actual_request != expected_request:
-            violations.append({
-                "severity": "HIGH",
-                "category": "API Contract Mismatch",
-                "endpoint": endpoint.path,
-                "issue": "Request model doesn't match spec",
-                "expected": expected_request,
-                "actual": actual_request,
-                "action": "Update model to match spec or update spec"
-            })
-
-        # Extract actual response model
-        actual_response = parse_response_model(file_content)
-        expected_response = endpoint.response_model
-
-        IF actual_response != expected_response:
-            violations.append({
-                "severity": "HIGH",
-                "category": "API Contract Mismatch",
-                "endpoint": endpoint.path,
-                "issue": "Response model doesn't match spec",
-                "expected": expected_response,
-                "actual": actual_response,
-                "action": "Update model to match spec or update spec"
-            })
-
-        # Check contract tests exist
-        contract_tests = Grep(pattern=f"(test|Test).*{endpoint.path.replace('/', '')}",
-                             path="tests/",
-                             output_mode="files_with_matches")
-
-        IF contract_tests.empty:
-            violations.append({
-                "severity": "HIGH",
-                "category": "Missing Contract Test",
-                "endpoint": endpoint.path,
-                "action": "Add contract test for API endpoint"
-            })
-```
-
-**Step 4: Validate Error Handling Compliance**
-
-```
-Read(file_path="devforgeai/specs/context/coding-standards.md")
-# Extract error handling pattern (e.g., Result Pattern, Exceptions)
-
-error_pattern = coding_standards.error_handling_pattern
-
-IF error_pattern == "Result Pattern":
-    # Check for Result<T> usage
-    business_logic = Glob(pattern="src/Services/**/*.cs") + Glob(pattern="src/Application/**/*.cs")
-
-    FOR each file in business_logic:
-        Read(file_path=file)
-
-        # Check if methods return Result<T>
-        public_methods = Grep(pattern="public.*\(",
-                             path=file,
-                             output_mode="content")
-
-        # Methods should return Result<T>, not throw exceptions for business logic
-        exception_throwing = Grep(pattern="throw new.*Exception",
-                                 path=file,
-                                 output_mode="content")
-
-        IF exception_throwing:
-            # Verify these are technical exceptions, not business logic
-            # (Context needed - may require manual review)
-            warnings.append({
-                "severity": "MEDIUM",
-                "category": "Error Handling Pattern",
-                "file": file,
-                "issue": "Method throws exception - verify not business logic error",
-                "expected": "Use Result Pattern for business logic errors",
-                "reference": "coding-standards.md error handling section"
-            })
-```
-
-**Step 5: Validate Non-Functional Requirements**
-
-```
-IF nfrs.has_performance_requirements:
-    # Example NFR: "API response time < 200ms for 1000 concurrent users"
-
-    # Check for performance tests
-    perf_tests = Glob(pattern="tests/Performance/**/*Tests.*")
-    # OR tests with [Category("Performance")]
-
-    IF perf_tests.empty:
-        violations.append({
-            "severity": "HIGH",
-            "category": "Missing Performance Tests",
-            "nfr": nfrs.performance_requirement,
-            "action": "Add performance tests to validate NFR",
-            "suggestion": generate_performance_test_template(nfrs)
-        })
-    ELSE:
-        # Run performance tests
-        Bash(command="[test_command] --filter Category=Performance")
-
-        IF performance_tests_failed:
-            violations.append({
-                "severity": "CRITICAL",
-                "category": "Performance NFR Not Met",
-                "nfr": nfrs.performance_requirement,
-                "actual": test_results.actual_performance,
-                "expected": nfrs.performance_target,
-                "action": "Optimize implementation to meet performance target"
-            })
-
-IF nfrs.has_security_requirements:
-    # Run security scans
-    # (Already done in anti-pattern phase)
-    # Cross-reference security violations with NFRs
-
-    IF security_violations_found:
-        violations.append({
-            "severity": "CRITICAL",
-            "category": "Security NFR Not Met",
-            "nfr": nfrs.security_requirement,
-            "violations": security_violations,
-            "action": "Fix security issues"
-        })
-```
-
-**Spec Compliance Output:**
-- Acceptance criteria checklist (PASS/FAIL)
-- API contract validation results
-- Error handling compliance
-- NFR validation status
-- Missing tests/implementations
-- Traceability matrix
+**Edge Cases Handled:**
+- Multiple DoD items covering single AC requirement (collective validation)
+- Single DoD item covering multiple ACs (rollup validation)
+- Test-based validation (one test validates multiple requirements)
+- Design-phase stories (implementation deferred with documentation)
 
 ---
 
-#### Phase 4: Code Quality Metrics (~10,000 tokens)
+#### Step 0.9.2: Execute 5-Step Validation
 
-**Step 1: Load Quality Thresholds**
-
-```
-Read(file_path="devforgeai/qa/quality-metrics.md")
-# Default thresholds:
-# - Method complexity: Max 10
-# - Class complexity: Max 50
-# - Maintainability index: Min 70
-# - Code duplication: Max 5%
-# - Documentation: Min 80% for public APIs
-```
-
-**Step 2: Cyclomatic Complexity Analysis**
+**Execute algorithm from reference file:**
 
 ```
-# Use language-specific tools
-# .NET:
-TRY:
-    Bash(command="dotnet-metrics --complexity src/")
-EXCEPT:
-    # Use radon for multi-language support or manual calculation
-
-# Python:
-TRY:
-    Bash(command="radon cc src/ -a -j")  # JSON output
-
-# JavaScript:
-TRY:
-    Bash(command="npx complexity-report src/ --format json")
-
-# Parse results
-complexity_violations = []
-
-FOR each method WITH complexity > 10:
-    complexity_violations.append({
-        "severity": "MEDIUM",
-        "category": "High Cyclomatic Complexity",
-        "file": method.file,
-        "method": method.name,
-        "complexity": method.complexity,
-        "threshold": 10,
-        "issue": "Method too complex, hard to test and maintain",
-        "fix": "Extract helper methods to reduce complexity",
-        "suggestion": generate_refactoring_suggestion(method)
-    })
-
-FOR each class WITH complexity > 50:
-    complexity_violations.append({
-        "severity": "MEDIUM",
-        "category": "High Class Complexity",
-        "file": class.file,
-        "class": class.name,
-        "complexity": class.complexity,
-        "threshold": 50,
-        "fix": "Split class into smaller, focused classes"
-    })
-```
-
-**Step 3: Maintainability Index**
-
-```
-# Calculate maintainability index (0-100)
-# Formula: 171 - 5.2 * ln(Halstead Volume) - 0.23 * (Cyclomatic Complexity) - 16.2 * ln(Lines of Code)
-
-# Use tools:
-TRY:
-    Bash(command="radon mi src/ -j")  # Python
-    # OR
-    Bash(command="lizard src/ -l [language]")  # Multi-language
-
-# Parse results
-FOR each file WITH maintainability_index < 70:
-    quality_violations.append({
-        "severity": "MEDIUM",
-        "category": "Low Maintainability",
-        "file": file,
-        "index": file.maintainability_index,
-        "threshold": 70,
-        "issue": "Code difficult to maintain",
-        "contributing_factors": [
-            f"Complexity: {file.complexity}",
-            f"LOC: {file.lines_of_code}",
-            f"Comments: {file.comment_ratio}%"
-        ],
-        "fix": "Reduce complexity, add comments, extract methods"
-    })
-```
-
-**Step 4: Code Duplication Detection**
-
-```
-# Use jscpd (works for many languages)
-TRY:
-    Bash(command="jscpd src/ --format json --min-lines 6")
-
-# Parse duplication report
-duplication_percentage = report.statistics.total.percentage
-
-IF duplication_percentage > 5%:
-    quality_violations.append({
-        "severity": "LOW",
-        "category": "Code Duplication",
-        "percentage": duplication_percentage,
-        "threshold": 5%,
-        "duplicates": report.duplicates,
-        "issue": "Code duplication detected",
-        "fix": "Extract common logic to shared utilities"
-    })
-
-# Detail duplicate blocks
-FOR each duplicate in report.duplicates:
-    quality_violations.append({
-        "severity": "LOW",
-        "category": "Duplicate Code Block",
-        "files": [duplicate.file1, duplicate.file2],
-        "lines": duplicate.lines,
-        "code_snippet": duplicate.fragment,
-        "fix": "Extract to shared method/utility"
-    })
-```
-
-**Step 5: Documentation Coverage**
-
-```
-# Language-specific documentation checks
-
-# C# - XML docs
-public_methods = Grep(pattern="public\s+(async\s+)?(Task|void|[\w<>]+)\s+\w+\s*\(",
-                     path="src/",
-                     output_mode="count")
-
-xml_docs = Grep(pattern="///\s*<summary>",
-               path="src/",
-               output_mode="count")
-
-doc_coverage = (xml_docs / public_methods) * 100
-
-# Python - docstrings
-public_functions = Grep(pattern="def\s+(?!_)\w+\s*\(",
-                       path="src/",
-                       output_mode="count")
-
-docstrings = Grep(pattern='""".*"""',
-                 path="src/",
-                 output_mode="count")
-
-doc_coverage = (docstrings / public_functions) * 100
-
-# JavaScript/TypeScript - JSDoc
-exported_functions = Grep(pattern="export\s+(function|const)\s+\w+",
-                         path="src/",
-                         output_mode="count")
-
-jsdocs = Grep(pattern="/\*\*",
-             path="src/",
-             output_mode="count")
-
-doc_coverage = (jsdocs / exported_functions) * 100
-
-# Validate coverage
-IF doc_coverage < 80%:
-    quality_violations.append({
-        "severity": "LOW",
-        "category": "Insufficient Documentation",
-        "coverage": doc_coverage,
-        "threshold": 80%,
-        "gap": 80% - doc_coverage,
-        "issue": "Public APIs lack documentation",
-        "fix": "Add XML docs/docstrings/JSDoc to public methods"
-    })
-```
-
-**Step 6: Dependency Analysis**
-
-```
-# Check for circular dependencies
-# JavaScript/TypeScript:
-TRY:
-    Bash(command="madge --circular src/")
-
-    IF circular_dependencies_found:
-        quality_violations.append({
-            "severity": "HIGH",
-            "category": "Circular Dependency",
-            "cycles": circular_deps,
-            "issue": "Circular dependencies create tight coupling",
-            "fix": "Refactor to break circular references"
-        })
-
-# Check coupling (dependencies per class)
-FOR each class_file:
-    Read(file_path=class_file)
-
-    # Count import/using statements
-    dependencies = Grep(pattern="using\s+|import\s+",
-                       path=class_file,
-                       output_mode="count")
-
-    IF dependencies > 10:
-        quality_violations.append({
-            "severity": "MEDIUM",
-            "category": "High Coupling",
-            "file": class_file,
-            "dependencies": dependencies,
-            "threshold": 10,
-            "issue": "Class has too many dependencies",
-            "fix": "Extract responsibilities, use dependency inversion"
-        })
-```
-
-**Code Quality Metrics Output:**
-- Complexity report (method and class level)
-- Maintainability index by file
-- Duplication percentage and locations
-- Documentation coverage
-- Dependency analysis
-- Quality score (calculated from all metrics)
-
----
-
-#### Phase 5: Generate Comprehensive QA Report (~5,000 tokens)
-
-**Step 1: Aggregate All Results**
-
-```
-# Collect results from all phases
-qa_results = {
-    "story_id": story_id,
-    "timestamp": current_timestamp(),
-    "coverage": coverage_analysis_results,
-    "anti_patterns": anti_pattern_violations,
-    "spec_compliance": compliance_report,
-    "quality_metrics": quality_violations,
-    "overall_status": "PASS" or "FAIL"
-}
-
-# Categorize violations by severity
-critical_violations = filter_by_severity(all_violations, "CRITICAL")
-high_violations = filter_by_severity(all_violations, "HIGH")
-medium_violations = filter_by_severity(all_violations, "MEDIUM")
-low_violations = filter_by_severity(all_violations, "LOW")
-
-# Determine overall status
-IF critical_violations.count > 0:
-    overall_status = "FAIL"
-    blocking_reason = "Critical violations must be resolved"
-ELSE IF high_violations.count > 0:
-    overall_status = "FAIL"
-    blocking_reason = "High severity violations must be resolved"
-ELSE IF coverage < thresholds.overall:
-    overall_status = "FAIL"
-    blocking_reason = "Coverage below minimum threshold"
+# Step 1: Extract AC Requirements
+IF template_version == "v2.1+":
+  ac_headers = grep count "^### AC#[0-9]+" story_file
 ELSE:
-    overall_status = "PASS"
-```
+  ac_headers = grep count "^### [0-9]+\. \[" story_file
 
-**Step 2: Generate QA Report Document**
+FOR each AC section:
+  Extract: Then clauses, And clauses, bullet requirements, measurable criteria
+  Store: ac_requirements[] (all granular requirements)
 
-```
-# Load report template
-Read(file_path=".claude/skills/devforgeai-qa/assets/templates/qa-report-template.md")
+total_ac_requirements = ac_requirements.length
 
-# Populate template with results
-report = populate_template(template, qa_results)
+# Step 2: Extract DoD Items
+dod_section = extract_between("^## Definition of Done", "^## Workflow|^## Notes")
 
-# Report structure (see template for full format):
-# - Executive Summary
-# - Test Coverage Analysis
-# - Anti-Pattern Detection
-# - Spec Compliance Validation
-# - Code Quality Metrics
-# - Recommendations (prioritized)
-# - Action Items
-# - Next Steps
+FOR each subsection in [Implementation, Quality, Testing, Documentation]:
+  Parse: checkbox lines "^- \[(x| )\] (.+)$"
+  Store: dod_items[] (with section, status, text)
 
-# Write report
-Write(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md",
-      content=report)
-```
+dod_total = dod_items.length
+dod_checked = count(items where checked == true)
+dod_unchecked = dod_total - dod_checked
+dod_completion_pct = (dod_checked / dod_total) × 100
 
-**Step 3: Generate Action Items**
+# Step 3: Map AC → DoD
+FOR each ac_req in ac_requirements:
+  ac_keywords = extract_keywords(ac_req.text)
 
-```
-action_items = []
+  best_match = find_best_dod_match(ac_keywords, dod_items)
+  match_score = calculate_overlap(ac_keywords, best_match.keywords)
 
-# Critical actions (blocking)
-FOR each critical_violation:
-    action_items.append({
-        "priority": "P0 - BLOCKING",
-        "action": generate_action_description(violation),
-        "file": violation.file,
-        "fix": violation.fix,
-        "estimate": estimate_effort(violation)
-    })
+  IF match_score >= 0.5:
+    traceability_map[ac_req] = best_match
+  ELSE:
+    missing_traceability.append(ac_req)
 
-# High priority actions
-FOR each high_violation:
-    action_items.append({
-        "priority": "P1 - HIGH",
-        "action": generate_action_description(violation),
-        "fix": violation.fix
-    })
+# Step 4: Calculate Score
+traceability_score = ((total_ac_requirements - missing_traceability.length) / total_ac_requirements) × 100
 
-# Coverage gaps
-FOR each gap in coverage_gaps:
-    action_items.append({
-        "priority": "P1 - HIGH",
-        "action": f"Add tests for {gap.file} lines {gap.lines}",
-        "suggested_tests": gap.suggested_tests
-    })
-
-# Medium/Low actions (technical debt)
-# (Added to report but don't block)
-```
-
-**Step 4: Update Story Status**
-
-```
-Read(file_path=f"ai_docs/Stories/{story_id}.story.md")
-
-# Add QA results section
-qa_section = f"""
-## QA Results
-
-**Date:** {timestamp}
-**Status:** {overall_status}
-**Validator:** devforgeai-qa skill
-
-### Summary
-- Overall Coverage: {coverage_percentage}%
-- Critical Issues: {critical_count}
-- High Issues: {high_count}
-- Medium Issues: {medium_count}
-- Low Issues: {low_count}
-
-### Report
-- Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
-
-### Action Items
-{action_items_list}
-
-### Next Steps
-{next_steps}
-"""
-
-Edit(file_path=f"ai_docs/Stories/{story_id}.story.md",
-     old_string="## Acceptance Criteria",
-     new_string=qa_section + "\n\n## Acceptance Criteria")
-
-# Update status field
-IF overall_status == "PASS":
-    Edit(file_path=f"ai_docs/Stories/{story_id}.story.md",
-         old_string="Status: In Development",
-         new_string="Status: QA Approved ✅")
+# Step 5: Validate Deferrals (if needed)
+IF dod_unchecked > 0:
+  Check for "## Approved Deferrals" in Implementation Notes
+  IF exists:
+    Extract: user_approval_timestamp, deferred_items_list
+    Match: unchecked DoD items to deferred_items_list
+    IF all matched:
+      deferral_status = "VALID"
+    ELSE:
+      deferral_status = "INVALID (some items undocumented)"
+  ELSE:
+    deferral_status = "INVALID (no section)"
 ELSE:
-    Edit(file_path=f"ai_docs/Stories/{story_id}.story.md",
-         old_string="Status: In Development",
-         new_string="Status: QA Failed ❌")
+  deferral_status = "N/A (DoD 100% complete)"
 ```
 
-**Step 5: Deep Validation Decision**
-
-```
-IF overall_status == "PASS":
-    Report: ✅ Deep validation PASSED
-    Result: Story ready for release
-    Next: devforgeai-release skill can proceed
-    Return: SUCCESS
-
-IF overall_status == "FAIL":
-    Report: ❌ Deep validation FAILED
-    Result: Story not ready for release
-    Blocking Issues:
-        - {critical_count} CRITICAL violations
-        - {high_count} HIGH violations
-        - Coverage {actual}% < {required}%
-    Action: Fix violations and re-run QA
-    Next: Return to devforgeai-development
-    Return: BLOCKED
-```
-
-**Deep Validation Token Budget:** ~65,000 tokens
+**Results:**
+- `traceability_score`: 0-100%
+- `dod_completion_pct`: 0-100%
+- `deferral_status`: "VALID" / "INVALID" / "N/A"
+- `missing_traceability[]`: Unmapped requirements
+- `undocumented_deferrals[]`: Incomplete items without approval
 
 ---
 
-## Auto-Fix and Suggestion System
-
-### Level 1: Auto-Fix (No Confirmation Required)
-
-**Safe, deterministic fixes applied automatically:**
+#### Step 0.9.3: Load and Populate Display Template
 
 ```
-# Code formatting
-Bash(command="dotnet format")           # C#
-Bash(command="black src/")              # Python
-Bash(command="prettier --write src/")   # JavaScript/TypeScript
-
-# Import organization
-Bash(command="dotnet format --no-restore")  # C# using statements
-Bash(command="isort src/")                  # Python imports
-Bash(command="eslint --fix src/")           # JavaScript imports
-
-# Remove unused imports
-# (Language-specific linters handle this)
-
-# Fix naming conventions
-# (Some linters can auto-fix PascalCase/camelCase)
-
-Report: "Auto-fixed {count} formatting/linting violations"
+Read(file_path="src/claude/skills/devforgeai-qa/assets/traceability-report-template.md")
 ```
 
-### Level 2: Suggest Complex Fixes (With Code Generation)
-
-**Generate fixes, present to developer for approval:**
-
-#### Example 1: Magic Number Extraction
-
+**Select template:**
 ```
-DETECTED:
-File: src/Services/OrderService.cs:42
-Code: if (order.Total > 1000) { ApplyFreeShipping(); }
-Issue: Magic number 1000
+IF traceability_score == 100 AND (dod_unchecked == 0 OR deferral_status == "VALID"):
+  template = PASS_TEMPLATE
 
-GENERATE FIX:
-const_name = "FREE_SHIPPING_THRESHOLD"
-const_value = "1000m"
-const_location = "class OrderService (top)"
+ELSE IF traceability_score < 100:
+  template = FAIL_TEMPLATE_TRACEABILITY
 
-suggested_code = f"""
-private const decimal {const_name} = {const_value};
-...
-if (order.Total > {const_name}) {{ ApplyFreeShipping(); }}
-"""
-
-AskUserQuestion:
-Question: "Magic number detected: 1000 in line 42. Apply suggested fix?"
-Header: "Auto-fix"
-Options:
-  - "Yes, apply fix"
-  - "No, keep as is"
-  - "Show diff first"
-multiSelect: false
-
-IF answer == "Yes":
-    # Apply fix using Edit tool
-    Edit(file_path="src/Services/OrderService.cs",
-         old_string="public class OrderService\n{",
-         new_string=f"public class OrderService\n{{\n    private const decimal {const_name} = {const_value};")
-
-    Edit(file_path="src/Services/OrderService.cs",
-         old_string="if (order.Total > 1000)",
-         new_string=f"if (order.Total > {const_name})")
-
-    Report: "Applied fix: Extracted magic number to constant"
-
-IF answer == "Show diff first":
-    # Show diff, then ask again
+ELSE IF dod_unchecked > 0 AND deferral_status contains "INVALID":
+  template = FAIL_TEMPLATE_DEFERRALS
 ```
 
-#### Example 2: High Complexity Refactoring
-
+**Populate variables:**
 ```
-DETECTED:
-Method: OrderService.CalculateDiscount
-Complexity: 15 (max 10)
-Issue: 3 nested if statements, 2 loops
+populated_template = template
 
-ANALYZE METHOD:
-Read(file_path="src/Services/OrderService.cs")
-# Parse method body
-method_body = extract_method("CalculateDiscount")
+# Substitute all variables
+populated_template = replace(populated_template, "{ac_count}", ac_count)
+populated_template = replace(populated_template, "{total_ac_requirements}", total_ac_requirements)
+populated_template = replace(populated_template, "{traceability_score}", traceability_score)
+populated_template = replace(populated_template, "{dod_total}", dod_total)
+populated_template = replace(populated_template, "{dod_checked}", dod_checked)
+populated_template = replace(populated_template, "{dod_unchecked}", dod_unchecked)
+populated_template = replace(populated_template, "{dod_completion_pct}", dod_completion_pct)
+populated_template = replace(populated_template, "{deferral_status}", deferral_status)
+{... substitute all variables ...}
 
-# Identify extraction candidates
-extraction_candidates = analyze_complexity_sources(method_body)
+# Add dynamic lists
+IF missing_traceability.length > 0:
+  FOR each missing_req in missing_traceability:
+    Add line: "  • AC#{missing_req.ac_number}: {missing_req.text}"
 
-SUGGEST REFACTORING:
-suggested_helpers = [
-    {
-        "name": "IsCouponValid",
-        "parameters": ["Coupon coupon"],
-        "return": "bool",
-        "body": "[extracted validation logic]",
-        "reduces_complexity": 3
-    },
-    {
-        "name": "CalculateDiscountAmount",
-        "parameters": ["decimal total", "int percentage"],
-        "return": "decimal",
-        "body": "[extracted calculation]",
-        "reduces_complexity": 2
-    }
-]
-
-generated_refactoring = generate_refactored_code(method_body, suggested_helpers)
-
-AskUserQuestion:
-Question: "Method CalculateDiscount has complexity 15 (max 10). Refactor by extracting helper methods?"
-Header: "Refactor"
-Options:
-  - "Yes, apply refactoring"
-  - "No, accept complexity"
-  - "Show refactoring plan"
-multiSelect: false
-
-IF answer == "Show refactoring plan":
-    Show:
-    """
-    Suggested helper methods:
-    1. IsCouponValid(Coupon coupon) → bool
-       - Reduces complexity by 3
-       - Extracts coupon validation logic
-
-    2. CalculateDiscountAmount(decimal total, int percentage) → decimal
-       - Reduces complexity by 2
-       - Extracts discount calculation
-
-    New complexity after refactoring: 10 (within threshold)
-    """
-
-IF answer == "Yes":
-    # Apply refactoring
-    # (Complex - may need multiple Edit calls)
-    Report: "Applied refactoring: Extracted {count} helper methods"
+IF undocumented_deferrals.length > 0:
+  FOR each undoc_item in undocumented_deferrals:
+    Add line: "  • {undoc_item.section}: {undoc_item.text}"
 ```
 
-#### Example 3: Missing Test Generation
-
+**Display:**
 ```
-DETECTED:
-File: src/Services/OrderService.cs
-Method: CalculateDiscount
-Coverage: 0% (no tests)
-
-GENERATE TEST STUBS:
-Read(file_path=".claude/skills/devforgeai-qa/assets/templates/test-stub-template.cs")
-
-# Analyze method signature
-method_signature = extract_signature("CalculateDiscount")
-# public DiscountResult CalculateDiscount(Order order, Coupon coupon)
-
-# Generate test cases based on signature
-generated_tests = """
-public class OrderServiceTests
-{
-    [Fact]
-    public void CalculateDiscount_ValidInput_ReturnsDiscountedPrice()
-    {
-        // Arrange
-        var service = new OrderService();
-        var order = new Order { Total = 100m };
-        var coupon = new Coupon { Code = "SAVE10", Discount = 10, ExpiryDate = DateTime.Now.AddDays(1) };
-
-        // Act
-        var result = service.CalculateDiscount(order, coupon);
-
-        // Assert
-        Assert.NotNull(result);
-        Assert.Equal(90m, result.DiscountedTotal);
-    }
-
-    [Fact]
-    public void CalculateDiscount_NullOrder_ThrowsArgumentNullException()
-    {
-        var service = new OrderService();
-        Assert.Throws<ArgumentNullException>(() =>
-            service.CalculateDiscount(null, new Coupon()));
-    }
-
-    [Fact]
-    public void CalculateDiscount_ExpiredCoupon_ReturnsOriginalPrice()
-    {
-        var service = new OrderService();
-        var order = new Order { Total = 100m };
-        var coupon = new Coupon { Discount = 10, ExpiryDate = DateTime.Now.AddDays(-1) };
-
-        var result = service.CalculateDiscount(order, coupon);
-
-        Assert.Equal(100m, result.DiscountedTotal);
-    }
-}
-"""
-
-AskUserQuestion:
-Question: "CalculateDiscount has no tests. Generate test stubs?"
-Header: "Generate tests"
-Options:
-  - "Yes, create test file"
-  - "No, I'll write tests manually"
-  - "Show generated tests first"
-multiSelect: false
-
-IF answer == "Yes":
-    Write(file_path="tests/Application.Tests/Services/OrderServiceTests.cs",
-          content=generated_tests)
-    Report: "Created test file with {count} test stubs. Complete TODOs and verify assertions."
-```
-
-### Level 3: Manual Fix Required (Block with Guidance)
-
-**Critical issues requiring developer review:**
-
-```
-SCENARIO: SQL Injection Vulnerability
-
-DETECTED:
-File: src/Repositories/OrderRepository.cs:42
-Code: var sql = $"SELECT * FROM Orders WHERE CustomerId = {customerId}";
-Issue: SQL injection vulnerability
-Severity: CRITICAL
-CWE: CWE-89
-
-BLOCK WORKFLOW:
-Status: ❌ BLOCKED
-Reason: Security vulnerability must be fixed
-
-PROVIDE GUIDANCE:
-Issue: SQL query uses string interpolation - vulnerable to SQL injection attacks
-Impact: Attackers can manipulate SQL queries to access/modify unauthorized data
-
-VULNERABLE CODE:
-```csharp
-public async Task<IEnumerable<Order>> GetOrdersByCustomerAsync(int customerId)
-{
-    var sql = $"SELECT * FROM Orders WHERE CustomerId = {customerId}";
-    return await connection.QueryAsync<Order>(sql);
-}
-```
-
-SECURE FIX (from coding-standards.md):
-```csharp
-public async Task<IEnumerable<Order>> GetOrdersByCustomerAsync(int customerId)
-{
-    var sql = "SELECT * FROM Orders WHERE CustomerId = @CustomerId";
-    return await connection.QueryAsync<Order>(sql, new { CustomerId = customerId });
-}
-```
-
-EXPLANATION:
-- Use parameterized queries with @CustomerId placeholder
-- Pass parameters via anonymous object: new { CustomerId = customerId }
-- Dapper automatically handles parameter escaping
-
-REFERENCE:
-- coding-standards.md: Dapper parameterized query patterns
-- OWASP: SQL Injection Prevention Cheat Sheet
-
-ACTION REQUIRED:
-1. Fix SQL injection vulnerability
-2. Review all other queries for similar issues
-3. Run security scan to verify fix
-4. Re-run QA validation
-
-NEXT STEPS:
-Return to devforgeai-development skill to apply fix
+Display: {populated_template}
 ```
 
 ---
 
-## Integration Points
+#### Step 0.9.4: Quality Gate Decision
 
-### 1. Integration with devforgeai-development
-
-**Called during development workflow:**
+**Apply gate rules:**
 
 ```
-## devforgeai-development workflow hooks
+IF traceability_score < 100:
+  Display: "QA WORKFLOW HALTED - Fix traceability issues before proceeding"
+  EXIT Phase 0.9 (do NOT proceed to Phase 1)
 
-### After Phase 2 (Implementation - Green)
-Skill(command="devforgeai-qa --mode=light --phase=implementation")
+IF dod_unchecked > 0 AND deferral_status == "INVALID":
+  Display: "QA WORKFLOW HALTED - Add deferral documentation before proceeding"
+  EXIT Phase 0.9 (do NOT proceed to Phase 1)
 
-IF PASS:
-    Continue to Phase 3 (Refactor)
-IF FAIL:
-    BLOCK
-    Show violations
-    Require fixes
-    Retry validation
-
-### After Phase 3 (Refactor)
-Skill(command="devforgeai-qa --mode=light --phase=refactor")
-
-IF PASS:
-    Continue to Phase 4 (Integration)
-IF FAIL:
-    BLOCK
-    Show violations
-    Require fixes
-
-### After Phase 4 (Integration)
-Skill(command="devforgeai-qa --mode=light --phase=integration")
-
-IF PASS:
-    Continue to Phase 5 (Git workflow)
-IF FAIL:
-    BLOCK
-    Fix violations before git operations
+IF all checks PASS:
+  Display: "Proceeding to Phase 1 (Validation Mode Selection)..."
+  Continue to Phase 1
 ```
 
-### 2. Integration with devforgeai-architecture
+**Checkpoint Validation:**
+- [ ] Traceability score calculated
+- [ ] DoD completion checked
+- [ ] Deferrals validated (if applicable)
+- [ ] Display template selected and populated
+- [ ] Quality gate decision made (PASS/HALT)
+- [ ] Workflow proceeds or halts appropriately
 
-**When context files need updates:**
+---
 
+### Phase 1: Test Coverage Analysis
+**Ref:** `references/coverage-analysis-workflow.md` (7 steps)
+**Guide:** `references/coverage-analysis.md`
+**Blocks on:** Business <95%, Application <85%, Overall <80%
+
+### Phase 2: Anti-Pattern Detection
+**Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
+**Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
+**Model:** claude-haiku-4-5-20251001 (cost-efficient pattern matching)
+**Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
+**Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
+
+### Phase 3: Spec Compliance Validation
+**Ref:** `references/spec-compliance-workflow.md` (6 steps, includes Step 2.5)
+**Guides:** `references/spec-validation.md`, `references/deferral-decision-tree.md`, `references/dod-protocol.md`
+**Subagent:** deferral-validator (Step 2.5 - MANDATORY if deferrals exist)
+**Blocks on:** Missing AC tests, API violations, CRITICAL/HIGH deferral violations
+
+### Phase 4: Code Quality Metrics
+**Ref:** `references/code-quality-workflow.md` (5 steps)
+**Guide:** `references/quality-metrics.md`
+**Blocks on:** Extreme violations (duplication >20%, MI <50)
+
+### Phase 5: QA Report Generation
+**Ref:** `references/report-generation.md` (6 steps)
+**Guide:** `references/qa-result-formatting-guide.md`
+**Subagent:** qa-result-interpreter (formats display)
+**Output:** Report, story status update, formatted display
+
+### Phase 6: Invoke Feedback Hooks
+**Ref:** `references/feedback-hooks-workflow.md` (complete implementation details)
+**Purpose:** Trigger retrospective feedback based on QA result
+**Non-blocking:** Hook failures don't affect QA result
+
+**Implementation:**
+```bash
+# Map QA result to hook status
+if [ "$QA_RESULT" = "PASSED" ]; then
+  STATUS="completed"
+elif [ "$QA_RESULT" = "FAILED" ]; then
+  STATUS="failed"
+else
+  STATUS="partial"
+fi
+
+# Check and invoke hooks
+devforgeai-validate check-hooks --operation=qa --status=$STATUS
+if [ $? -eq 0 ]; then
+  devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID || {
+    echo "⚠️ Feedback hook failed, QA result unchanged"
+  }
+fi
 ```
-SCENARIO: New package approved during QA
 
-DETECTED: Implementation uses package not in dependencies.md
+### Phase 7: Update Story File (Deep Mode Pass Only)
+**Ref:** `references/story-update-workflow.md` (complete implementation details)
+**Conditional:** Only executes if mode="deep" AND result="PASSED"
 
-PROCESS:
-1. QA detects usage of unapproved package
-2. Use AskUserQuestion to request approval
-3. IF approved:
-   - Skill(command="devforgeai-architecture")
-   - Update dependencies.md
-   - Create ADR documenting decision
-   - Update tech-stack.md if applicable
-4. Resume QA validation
+**Implementation:**
 ```
+IF mode == "deep" AND result == "PASSED":
+  Read(file_path=story_file)
 
-### 3. Integration with devforgeai-orchestration (Future)
+  Edit(file_path=story_file, old_string="status: Dev Complete", new_string="status: QA Approved")
 
-**Orchestration invokes QA:**
+  Edit(file_path=story_file, old_string="updated: {old_date}", new_string="updated: {current_date}")
 
-```
-Story workflow managed by orchestration:
-1. devforgeai-development completes
-2. Orchestration invokes: devforgeai-qa --mode=deep --story={id}
-3. Parse QA results
-4. IF PASS:
-   - Update story status: "QA Approved"
-   - Ready for devforgeai-release
-5. IF FAIL:
-   - Update story status: "QA Failed"
-   - Create action items
-   - Return to development
-```
+  Edit(file_path=story_file, old_string="## Workflow History",
+       new_string="## QA Validation History\n\n{validation_details}\n\n## Workflow History")
 
-### 4. Integration with devforgeai-release (Future)
-
-**QA approval gates release:**
-
-```
-Release workflow:
-1. Check story status
-2. IF status != "QA Approved":
-   - BLOCK release
-   - Require QA approval first
-3. IF status == "QA Approved":
-   - Read QA report
-   - Verify all critical/high issues resolved
-   - Proceed with release
+  Display: "✅ Story updated to QA Approved"
 ```
 
 ---
 
-## Context File Usage
+## Automation Scripts
 
-### Files Consumed
+**6 Python scripts** in `scripts/`:
+1. generate_coverage_report.py
+2. detect_duplicates.py
+3. analyze_complexity.py
+4. security_scan.py
+5. validate_spec_compliance.py
+6. generate_test_stubs.py
 
-**From devforgeai-architecture:**
-```
-Read(file_path="devforgeai/specs/context/tech-stack.md")
-# Validate technology usage, detect library substitution
-
-Read(file_path="devforgeai/specs/context/source-tree.md")
-# Validate file locations, structure compliance
-
-Read(file_path="devforgeai/specs/context/dependencies.md")
-# Validate package usage, versions
-
-Read(file_path="devforgeai/specs/context/coding-standards.md")
-# Validate code patterns, error handling, async/await
-
-Read(file_path="devforgeai/specs/context/architecture-constraints.md")
-# Validate layer boundaries, design patterns
-
-Read(file_path="devforgeai/specs/context/anti-patterns.md")
-# Detect violations, code smells
-```
-
-### Files Created/Updated
-
-**QA-specific context:**
-```
-devforgeai/qa/
-├── coverage-thresholds.md      # Coverage requirements by layer
-├── quality-metrics.md          # Complexity, maintainability thresholds
-├── security-policies.md        # Security scanning rules
-└── reports/
-    └── [story-id]-qa-report.md # Individual QA reports
-```
-
-**Coverage thresholds default:**
-```markdown
-# Test Coverage Thresholds (STRICT)
-- Business logic: 95% minimum
-- Application layer: 85% minimum
-- Infrastructure: 80% minimum
-- Overall project: 80% minimum
-
-# Test Pyramid
-- Unit tests: 70%
-- Integration tests: 20%
-- E2E tests: 10%
-```
+**See `references/automation-scripts.md`** for usage.
 
 ---
 
-## AskUserQuestion Patterns
+## Subagents
 
-### Pattern 1: Coverage Threshold Exception
-
-```
-SCENARIO: Coverage below threshold, but uncovered code is non-critical
-
-coverage_result = {
-    "overall": 78%,
-    "business_logic": 96%,
-    "application": 82%,
-    "infrastructure": 65%  # BELOW 80% threshold
-}
-
-uncovered_code = "Logging utilities, diagnostic helpers (non-critical)"
-
-AskUserQuestion:
-Question: "Infrastructure coverage is 65%, below 80% threshold. Uncovered code is non-critical (logging, diagnostics). How should we proceed?"
-Header: "Coverage exception"
-Description: "This decision will be documented in QA report"
-Options:
-  - "Fail QA - Require tests for all infrastructure code (strict enforcement)"
-  - "Pass with waiver - Document reason, accept 65% for this story"
-  - "Require public API tests only - Accept low coverage for internal utilities"
-  - "Lower infrastructure threshold to 65% (update coverage-thresholds.md)"
-multiSelect: false
-
-IF answer == "Pass with waiver":
-    # Document in QA report
-    exception_note = f"""
-    ## Coverage Exception
-    - Layer: Infrastructure
-    - Actual: 65%
-    - Threshold: 80%
-    - Reason: Uncovered code is non-critical (logging, diagnostics)
-    - Approved: {timestamp}
-    - Action: Document as accepted technical debt
-    """
-    # Allow QA to pass with documented exception
-```
-
-### Pattern 2: Anti-Pattern Severity Assessment
-
-```
-SCENARIO: Questionable pattern detected
-
-DETECTED:
-Method: OrderService.ProcessOrder
-Lines: 150
-Complexity: 12 (slightly over 10)
-Coverage: 95%
-Single Responsibility: Yes
-Code Quality: Clean, well-tested
-
-AskUserQuestion:
-Question: "Method ProcessOrder has 150 lines and complexity 12 (thresholds: 100 lines, 10 complexity). It's well-tested and cohesive. Should this be considered a violation?"
-Header: "Pattern assessment"
-Description: "Business logic inherently complex - order processing workflow"
-Options:
-  - "Yes, fail QA - Refactor to reduce complexity and length"
-  - "No, accept - Business complexity is inherent, code is clean"
-  - "Request refactoring but don't block - Create tech debt ticket"
-  - "Update thresholds - Allow higher limits for complex business logic"
-multiSelect: false
-
-IF answer == "No, accept":
-    # Document exception
-    # Don't add to violations list
-    # Note in QA report as "Accepted complexity for business logic"
-```
-
-### Pattern 3: Test Pyramid Imbalance
-
-```
-SCENARIO: Test distribution doesn't match pyramid
-
-test_distribution = {
-    "unit": 45%,
-    "integration": 5%,
-    "e2e": 50%  # Inverted pyramid!
-}
-
-AskUserQuestion:
-Question: "Test pyramid is inverted (50% E2E tests, expected 10%). This will cause slow test execution. How should we address this?"
-Header: "Test pyramid"
-Description: "Slow tests impact developer productivity and CI/CD speed"
-Options:
-  - "Fail QA - Require conversion of E2E tests to unit/integration tests"
-  - "Pass with warning - Create action items to rebalance in next sprint"
-  - "Accept - This feature genuinely requires heavy E2E testing"
-  - "Set minimum unit test threshold - Require at least 60% unit tests"
-multiSelect: false
-
-IF answer == "Set minimum unit test threshold":
-    # Update coverage-thresholds.md
-    # Add: "Minimum 60% unit tests in test distribution"
-    # Fail current QA
-    # Require adding more unit tests
-```
-
-### Pattern 4: Tool Installation Decision
-
-```
-SCENARIO: Quality analysis tool not available
-
-NEEDED: "Cyclomatic complexity analysis requires radon (Python) or dotnet-metrics (.NET)"
-STATUS: "Tool not installed"
-
-AskUserQuestion:
-Question: "Code complexity analysis requires additional tooling. How should we proceed?"
-Header: "Tool installation"
-Description: "Installing tools may require package manager access"
-Options:
-  - "Install tool automatically (pip install radon / dotnet tool install)"
-  - "Skip complexity analysis for this story"
-  - "Manual code review instead of automated analysis"
-  - "Add tool to dependencies.md for future use"
-multiSelect: false
-
-IF answer == "Install tool automatically":
-    # Install based on detected language
-    IF language == "Python":
-        Bash(command="pip install radon")
-    IF language == ".NET":
-        Bash(command="dotnet tool install -g dotnet-metrics")
-
-    # Update dependencies.md
-    # Run complexity analysis
-```
-
-### Pattern 5: Spec Ambiguity Resolution
-
-```
-SCENARIO: Acceptance criterion unclear
-
-CRITERION: "User can view order history"
-IMPLEMENTATION: "API returns last 10 orders"
-QUESTION: "Does 'history' mean all orders or recent orders? Pagination?"
-
-AskUserQuestion:
-Question: "Acceptance criterion 'User can view order history' is ambiguous. Implementation returns last 10 orders. Is this compliant with the spec?"
-Header: "Spec compliance"
-Description: "Need clarification on what 'order history' means"
-Options:
-  - "Yes, compliant - 'History' reasonably means recent orders (last 10)"
-  - "No, non-compliant - 'History' should include ALL orders with pagination"
-  - "Clarify with stakeholder - Pause QA until criterion is clarified"
-  - "Update spec - Document that 'history' means last 10 orders"
-multiSelect: false
-
-IF answer == "Clarify with stakeholder":
-    # Pause QA
-    # Update story status: "Pending clarification"
-    # Create note for stakeholder
-    # Resume when clarified
-```
+**deferral-validator** (Phase 3 Step 2.5): Validates deferrals (MANDATORY)
+**qa-result-interpreter** (Phase 5 Step 6): Generates formatted display
 
 ---
 
-## Tool Usage Protocol
+## Integration
 
-### Use Native Tools for File Operations
-
-**CRITICAL: 40-73% token savings (per efficiency analysis)**
-
-```
-✅ CORRECT: Read(file_path="src/Services/OrderService.cs")
-❌ FORBIDDEN: Bash(command="cat src/Services/OrderService.cs")
-
-✅ CORRECT: Grep(pattern="class OrderService", type="cs")
-❌ FORBIDDEN: Bash(command="grep -r 'class OrderService' --include='*.cs'")
-
-✅ CORRECT: Glob(pattern="src/**/*.cs")
-❌ FORBIDDEN: Bash(command="find src/ -name '*.cs'")
-
-✅ CORRECT: Edit(file_path="story.md", old_string="Status: Dev", new_string="Status: QA")
-❌ FORBIDDEN: Bash(command="sed -i 's/Status: Dev/Status: QA/' story.md")
-
-✅ CORRECT: Write(file_path="qa-report.md", content=report)
-❌ FORBIDDEN: Bash(command="cat > qa-report.md <<EOF...")
-```
-
-### Use Bash for Terminal Operations
-
-```
-✅ Test execution: Bash(command="pytest --cov=src")
-✅ Build validation: Bash(command="dotnet build")
-✅ Linting: Bash(command="npm run lint")
-✅ Security scanning: Bash(command="bandit -r src/")
-✅ Coverage generation: Bash(command="dotnet test --collect:'XPlat Code Coverage'")
-✅ Complexity analysis: Bash(command="radon cc src/")
-```
-
-### Token Efficiency Targets
-
-**Light Validation:** ~10,000 tokens
-- Syntax/build: 2,000
-- Linting: 1,500
-- Tests: 3,000
-- Anti-patterns: 2,500
-- Reporting: 1,000
-
-**Deep Validation:** ~65,000 tokens
-- Coverage analysis: 15,000
-- Anti-pattern detection: 20,000
-- Spec compliance: 15,000
-- Quality metrics: 10,000
-- Report generation: 5,000
-
-**Total QA per story (light + deep):** ~75,000 tokens
+**Invoked by:** devforgeai-development, /qa command, devforgeai-orchestration
+**Invokes:** deferral-validator, qa-result-interpreter
+**Outputs to:** devforgeai-development, devforgeai-release, user
 
 ---
 
 ## Success Criteria
 
-### Light Validation Success
-
-- [x] Build succeeds (no compilation errors)
-- [x] Linting passes (or auto-fixed)
-- [x] New/affected tests pass
-- [x] Coverage above minimum threshold (integration phase only)
-- [x] No CRITICAL anti-patterns detected
-- [x] All checks complete in <10,000 tokens
-
-### Deep Validation Success
-
-- [x] Coverage meets strict thresholds (95%/85%/80%)
-- [x] Test pyramid balanced (70%/20%/10%)
-- [x] Zero CRITICAL violations
-- [x] Zero HIGH violations (or approved exceptions)
-- [x] All acceptance criteria validated
-- [x] API contracts match spec
-- [x] NFRs validated (performance, security)
-- [x] Code quality metrics within thresholds
-- [x] Comprehensive QA report generated
-- [x] Story status updated
-- [x] Ready for release
-
-### Overall QA Success
-
-- [x] Story can proceed through full development workflow
-- [x] All quality gates passed
-- [x] Technical debt minimized
-- [x] No security vulnerabilities
-- [x] Maintainable, testable code
-- [x] Production-ready implementation
-
-**The goal: Zero critical defects, high-quality code, comprehensive testing, ready for production.**
+**Light:** Build passes, tests pass, no CRITICAL, deferrals valid, <10K tokens
+**Deep:** Coverage thresholds met, no CRITICAL/HIGH, spec compliant, quality acceptable, deferrals valid, status="QA Approved", <65K tokens
 
 ---
 
-## Reference Materials
+## Reference Files (19 total)
 
-Load these as needed during QA validation:
+**Workflows (10):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
 
-- [Coverage Analysis](./references/coverage-analysis.md) - Deep dive on coverage techniques
-- [Anti-Pattern Detection](./references/anti-pattern-detection.md) - Detection algorithms
-- [Spec Validation](./references/spec-validation.md) - Compliance validation methods
-- [Quality Metrics](./references/quality-metrics.md) - Metric formulas and thresholds
-- [Security Scanning](./references/security-scanning.md) - Security best practices
+**Guides (9):** coverage-analysis, anti-pattern-detection, deferral-decision-tree, language-specific-tooling, qa-result-formatting-guide, quality-metrics, security-scanning, spec-validation, validation-procedures
 
-## Templates
+---
 
-- [QA Report Template](./assets/templates/qa-report-template.md) - Standard report format
-- [Test Stub Template](./assets/templates/test-stub-template.cs) - Auto-generated tests
-- [Integration Test Template](./assets/templates/integration-test-template.cs) - Integration tests
-- [Performance Test Template](./assets/templates/performance-test-template.cs) - Performance tests
-
-## Configuration
-
-- [Coverage Thresholds](./assets/config/coverage-thresholds.md) - Default coverage requirements
-- [Quality Metrics](./assets/config/quality-metrics.md) - Default quality thresholds
-- [Security Policies](./assets/config/security-policies.md) - Security scanning rules
-
-## Scripts
-
-Automation utilities:
-- `scripts/generate_coverage_report.py` - Parse coverage data → HTML report
-- `scripts/analyze_complexity.py` - Calculate cyclomatic complexity
-- `scripts/detect_duplicates.py` - Find code duplication
-- `scripts/validate_spec_compliance.py` - Check implementation vs spec
-- `scripts/security_scan.py` - Scan for security vulnerabilities
-- `scripts/generate_test_stubs.py` - Auto-generate test templates
+**Token efficiency:** Entry ~1.5K, Light ~3.8K, Deep ~11K (7x improvement via progressive disclosure)

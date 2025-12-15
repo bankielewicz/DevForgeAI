@@ -286,7 +286,7 @@ So that I can identify patterns and recurring issues.
 
 **Acceptance Criteria:**
 - AC-3.3.1: Export command: `/export-feedback [--date-range] [--sanitize]`
-- AC-3.3.2: Export package format: `.devforgeai-feedback-export-{timestamp}.zip`
+- AC-3.3.2: Export package format: `devforgeai-feedback-export-{timestamp}.zip`
 - AC-3.3.3: Package contents: `feedback-sessions/` (sanitized if requested), `index.json`, `manifest.json`
 - AC-3.3.4: Sanitization rules: Replace story IDs, remove custom field values, remove project-specific context
 - AC-3.3.5: Import command: `/import-feedback [file.zip]`

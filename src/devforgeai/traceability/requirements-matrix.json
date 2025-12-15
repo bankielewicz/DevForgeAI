@@ -174,7 +174,7 @@
       "title": "Self-Validation & Dogfooding"
     }
   },
-  "generated_at": "2025-12-10T11:16:24-05:00",
+  "generated_at": "2025-12-10T14:05:15-05:00",
   "stories": {
     "STORY-007": {
       "epic_ref": "EPIC-002",
@@ -635,13 +635,13 @@
     "STORY-083": {
       "epic_ref": "EPIC-015",
       "file_path": "devforgeai/specs/Stories/STORY-083-requirements-traceability-matrix.story.md",
-      "status": "Backlog",
+      "status": "QA Approved",
       "title": "Requirements Traceability Matrix Foundation"
     },
     "STORY-084": {
       "epic_ref": "EPIC-015",
       "file_path": "devforgeai/specs/Stories/STORY-084-epic-story-metadata-parser.story.md",
-      "status": "Backlog",
+      "status": "Dev Complete",
       "title": "Epic & Story Metadata Parser"
     },
     "STORY-085": {

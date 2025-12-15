@@ -1,6 +1,6 @@
 # Claude Code Terminal - Core Features Reference
 
-**Source:** Official documentation from code.claude.com (consolidated 2025-11-06)
+**Source:** Official documentation from code.claude.com (updated 2025-12-09)
 
 This comprehensive reference consolidates 5 core documentation files covering Claude Code Terminal's main extensibility features: Subagents, Skills, Slash Commands, Plugins, and MCP integration.
 
@@ -158,6 +158,27 @@ the subagent should follow.
 | `description` | Yes      | Natural language description of the subagent's purpose                                                                                                                                                                           |
 | `tools`       | No       | Comma-separated list of specific tools. If omitted, inherits all tools from the main thread                                                                                                                                      |
 | `model`       | No       | Model to use for this subagent. Can be a model alias (`sonnet`, `opus`, `haiku`) or `'inherit'` to use the main conversation's model. If omitted, defaults to the [configured subagent model](/en/docs/claude-code/model-config) |
+| `permissionMode` | No   | Permission handling mode: `default`, `acceptEdits`, `bypassPermissions`, `plan`, or `ignore` |
+| `skills`      | No       | Comma-separated list of skills to auto-load when subagent is invoked |
+
+#### Resumable Subagents (2025)
+
+Subagents can be resumed to continue previous conversations:
+
+```
+> Use the code-analyzer agent to start reviewing the authentication module
+[Returns agentId: "abc123"]
+
+> Resume agent abc123 and now analyze the authorization logic as well
+[Agent continues with full context from previous conversation]
+```
+
+**Storage:** Agent transcripts are stored as `agent-{agentId}.jsonl` in the project directory.
+
+**Use cases:**
+- Long-running research across multiple sessions
+- Iterative refinement without losing context
+- Multi-step workflows with sequential related tasks
 
 #### Model selection
 
@@ -2043,6 +2064,28 @@ Plugin servers appear in the list with indicators showing they come from plugins
 * **Team consistency**: Everyone gets the same tools when plugin is installed
 
 See the [plugin components reference](/en/docs/claude-code/plugins-reference#mcp-servers) for details on bundling MCP servers with plugins.
+
+### Environment Variable Expansion in .mcp.json (2025)
+
+Claude Code supports variable expansion in `.mcp.json` files:
+
+```json
+{
+  "mcpServers": {
+    "api-server": {
+      "type": "http",
+      "url": "${API_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+**Syntax:**
+- `${VAR}` - Expands to environment variable value
+- `${VAR:-default}` - Uses default value if variable not set
 
 ### MCP installation scopes
 

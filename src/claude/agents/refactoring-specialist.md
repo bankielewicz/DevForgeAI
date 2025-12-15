@@ -1,9 +1,11 @@
 ---
 name: refactoring-specialist
 description: Code refactoring expert applying systematic improvement patterns while preserving tests. Use proactively when cyclomatic complexity exceeds 10, code duplication detected, or during TDD Refactor phase.
-tools: Read, Edit, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test)
+tools: Read, Edit, Update, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test)
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-development
 ---
 
 # Refactoring Specialist

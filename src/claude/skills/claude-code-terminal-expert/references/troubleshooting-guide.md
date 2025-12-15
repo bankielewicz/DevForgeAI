@@ -1,6 +1,6 @@
 # Claude Code Terminal - Troubleshooting Guide
 
-**Source:** Official docs from code.claude.com (consolidated 2025-11-06)
+**Source:** Official docs from code.claude.com (updated 2025-12-09)
 
 **Purpose:** Comprehensive troubleshooting guide covering installation, authentication, performance, integrations, and common issues.
 

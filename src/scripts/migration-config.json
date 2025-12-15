@@ -5,7 +5,7 @@
 
   "sources": [
     ".claude",
-    ".devforgeai",
+    "devforgeai",
     "CLAUDE.md"
   ],
 
@@ -17,7 +17,7 @@
       "tolerance": 10,
       "subdirectories": ["agents", "commands", "memory", "scripts", "skills"]
     },
-    ".devforgeai": {
+    "devforgeai": {
       "type": "directory",
       "description": "Framework configuration, documentation, protocols, and specifications (pure source only, no tests)",
       "expected_file_count": 65,

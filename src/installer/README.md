@@ -30,7 +30,7 @@ The installer performs comprehensive environment validation before making any ch
 
 4. **Write Permission Check** (✗ FAIL)
    - Verifies write access to installation directory
-   - Creates temporary test file (`.devforgeai-write-test`)
+   - Creates temporary test file (`devforgeai-write-test`)
    - **Result:** PASS if writable, FAIL if denied
    - **Impact:** Installation blocked if no write permission
 
@@ -159,7 +159,7 @@ python install.py --force
    - Migrates configuration if needed
 
 2. **Fresh Install (F):** Removes old files completely
-   - Backs up old installation to `.devforgeai-backup-{timestamp}/`
+   - Backs up old installation to `devforgeai-backup-{timestamp}/`
    - Clean installation from scratch
    - **Warning:** User data not preserved
 

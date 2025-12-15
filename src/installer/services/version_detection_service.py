@@ -72,7 +72,7 @@ class VersionDetectionService:
             target_path: Absolute path to installation directory
         """
         self.target_path = Path(target_path)
-        self.version_file = self.target_path / ".devforgeai" / ".version.json"
+        self.version_file = self.target_path / "devforgeai" / ".version.json"
 
     def read_version(self) -> Optional[VersionInfo]:
         """
@@ -89,9 +89,9 @@ class VersionDetectionService:
             - Returns None for null version field
         """
         try:
-            # Check if .devforgeai directory exists
+            # Check if devforgeai directory exists
             if not self.version_file.parent.exists():
-                logger.debug(f".devforgeai directory not found at {self.target_path}")
+                logger.debug(f"devforgeai directory not found at {self.target_path}")
                 return None
 
             # Check if version file exists

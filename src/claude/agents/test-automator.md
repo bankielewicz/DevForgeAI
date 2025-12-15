@@ -4,6 +4,8 @@ description: Test generation expert specializing in Test-Driven Development (TDD
 tools: Read, Write, Edit, Grep, Glob, Bash
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-development
 ---
 
 # Test Automator
@@ -538,6 +540,50 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
    - Identify test framework (pytest, Jest, xUnit, JUnit, etc.)
    - Check mocking library (unittest.mock, sinon, Moq, etc.)
    - Verify assertion library
+
+4.5. **Read Source Tree for Test File Locations (MANDATORY)**
+
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+   **Step A: Determine Test Directory from Source Tree**
+
+   Extract test directory pattern for the module being tested:
+
+   ```
+   IF module in "installer/":
+       test_directory = "installer/tests/"  # Per source-tree.md line 378
+   ELSE IF module in ".claude/":
+       test_directory = determine from source-tree.md (if defined)
+   ELSE:
+       test_directory = determine from source-tree.md pattern
+
+    **Step B: Validate All Test Output Paths**
+
+    BEFORE generating ANY tests, validate that test file locations match:
+
+   ```
+   FOR each test_file_path in planned_test_outputs:
+       IF NOT test_file_path.startswith(test_directory):
+           HALT test generation
+           Return error message:
+           """
+           ❌ TEST LOCATION VIOLATION
+
+           Test file location violates source-tree.md constraint:
+
+           Expected directory: {test_directory}
+           Attempted location: {test_file_path}
+
+           Fix:
+           1. Update planned test paths to start with: {test_directory}
+           2. OR update source-tree.md with new pattern
+           3. Retry test generation
+
+           source-tree.md constraint (line 378):
+           {excerpt from source-tree.md showing correct location}
+           """
 
 5. **Generate Unit Tests**
    - Follow AAA pattern (Arrange, Act, Assert)

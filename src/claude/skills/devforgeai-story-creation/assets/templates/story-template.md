@@ -2,11 +2,28 @@
 # STORY TEMPLATE CHANGELOG
 # =============================================================================
 #
-# Version: 2.1
-# Last Updated: 2025-01-21
+# Version: 2.2
+# Last Updated: 2025-12-14
 # Maintained by: devforgeai-story-creation skill
 #
 # Version History:
+#
+# v2.2 (2025-12-14) - STORY-090 Parallel Development Support
+#   Changes:
+#     - Added depends_on field to YAML frontmatter for dependency declaration
+#     - Format: Array of STORY-NNN IDs (e.g., ["STORY-044", "STORY-045"])
+#     - Positioned after points field, before status field
+#     - Default value: empty array [] for stories with no dependencies
+#     - Enables Feature 3 (Dependency Graph Enforcement) for parallel development workflows
+#   Backward Compatibility:
+#     - Compatible with v2.1 stories (depends_on field optional for existing stories)
+#     - Stories without depends_on field treated as having no dependencies (empty array)
+#   Rationale:
+#     - Prerequisite for EPIC-010 (Parallel Story Development)
+#     - Standardized array format enables automated dependency validation
+#   References:
+#     - STORY-090: Update Story Template to v2.2 with depends_on Field
+#     - EPIC-010: Parallel Story Development with CI/CD Integration
 #
 # v2.1 (2025-01-21) - RCA-012 Remediation
 #   Changes:
@@ -64,10 +81,12 @@ epic: EPIC-XXX
 sprint: SPRINT-XXX
 status: Backlog
 points: [Story points: 1, 2, 3, 5, 8, 13]
+depends_on: []
+# Array of STORY-NNN IDs this story depends on. Examples: [], ["STORY-044"], ["STORY-044", "STORY-045"]
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
-format_version: "2.1"
+format_version: "2.2"
 ---
 
 # Story: [Title]
@@ -620,5 +639,5 @@ public async Task PostEndpoint_ValidRequest_CreatesResource()
 
 ---
 
-**Story Template Version:** 2.1
+**Story Template Version:** 1.0
 **Last Updated:** 2025-10-30

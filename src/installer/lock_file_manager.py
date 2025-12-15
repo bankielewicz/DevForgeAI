@@ -25,7 +25,7 @@ class LockFileManager:
 
     LOCK_FILENAME = "install.lock"
 
-    def __init__(self, lock_dir: str = ".devforgeai"):
+    def __init__(self, lock_dir: str = "devforgeai"):
         """Initialize lock file manager.
 
         Args:

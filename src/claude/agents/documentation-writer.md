@@ -4,6 +4,8 @@ description: Technical documentation expert. Use proactively after API implement
 tools: Read, Write, Edit, Grep, Glob
 model: haiku
 color: green
+permissionMode: acceptEdits
+skills: devforgeai-documentation
 ---
 
 # Documentation Writer

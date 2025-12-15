@@ -35,7 +35,7 @@
 
 ### Original Directories
 - .claude: 1002 files (unchanged)
-- .devforgeai: 1003 files (unchanged)
+- devforgeai: 1003 files (unchanged)
 
 ## Exclusions
 

@@ -110,7 +110,7 @@ log_info "Phase 2: Classifying references (focusing on actionable refs)..."
 
 # First, extract DEPLOY-TIME references from CLAUDE.md
 if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
-    grep '@\.claude\|@\.devforgeai' "$PROJECT_ROOT/CLAUDE.md" | while read -r line; do
+    grep '@\.claude\|@\devforgeai' "$PROJECT_ROOT/CLAUDE.md" | while read -r line; do
         echo "$PROJECT_ROOT/CLAUDE.md: $line" >> "$TEMP_DEPLOY"
     done
 fi
@@ -157,7 +157,7 @@ grep -r '\.\(claude\|devforgeai\)/' \
     --exclude-dir="node_modules" \
     --exclude-dir=".backups" \
     --exclude-dir=".claude" \
-    --exclude-dir=".devforgeai" \
+    --exclude-dir="devforgeai" \
     --exclude="CLAUDE.md" \
     2>/dev/null | grep -v 'Read(file_path=' | grep -v '\devforgeai/specs/context/' | head -100 >> "$TEMP_AMBIGUOUS" || true
 

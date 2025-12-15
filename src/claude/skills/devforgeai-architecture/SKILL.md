@@ -1,7 +1,7 @@
 ---
 name: devforgeai-architecture
 description: Create technical specifications, ADRs, and project context documentation that prevents technical debt. Use when designing system architecture, making technology decisions, or establishing project structure. Enforces spec-driven development by creating immutable constraint files (tech-stack.md, source-tree.md, dependencies.md) that AI agents must follow.
-model: claude-sonnet-4-5-20250929
+model: claude-opus-4-5-20251101
 allowed-tools:
   - Read
   - Write

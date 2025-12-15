@@ -403,7 +403,7 @@ class ClaudeMdMergeService:
             backup_path = self.backup_service.create_backup(claudemd_path, self.logger)
 
             # Step 2: Create template reference file
-            template_path = claudemd_path.parent / "CLAUDE.md.devforgeai-template"
+            template_path = claudemd_path.parent / "CLAUDE.mddevforgeai-template"
             template_path.write_text(framework_template, encoding="utf-8")
 
             self._log(f"Manual merge workflow initiated: template written to {template_path}")

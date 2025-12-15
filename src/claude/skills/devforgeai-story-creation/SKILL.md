@@ -1,7 +1,7 @@
 ---
 name: devforgeai-story-creation
 description: Create user stories with acceptance criteria, technical specifications, and UI specifications. Use when transforming feature descriptions into structured stories, generating stories from epic features, or creating follow-up stories for deferred work. Supports CRUD, authentication, workflow, and reporting story types with complete technical and UI specifications.
-model: claude-sonnet-4-5-20250929[1m]
+model: claude-opus-4-5-20251101
 allowed-tools:
   - Read
   - Write

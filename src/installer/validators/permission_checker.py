@@ -12,7 +12,7 @@ class PermissionChecker:
     """
     Validates write permissions at target installation path.
 
-    Creates and deletes a temporary test file (.devforgeai-write-test).
+    Creates and deletes a temporary test file (devforgeai-write-test).
     """
 
     def __init__(self, target_path: str):
@@ -23,7 +23,7 @@ class PermissionChecker:
             target_path: Directory path to check for write permissions
         """
         self.target_path = Path(target_path)
-        self.test_filename = ".devforgeai-write-test"
+        self.test_filename = "devforgeai-write-test"
 
     def check(self) -> CheckResult:
         """

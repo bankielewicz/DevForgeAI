@@ -623,8 +623,8 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 ### Core Principles
 
 - `devforgeai/specs/claude-skills.md` - Skills architecture and progressive disclosure
-- `devforgeai/specs/Terminal/slash-commands-best-practices.md` - Command design patterns
-- `devforgeai/specs/Terminal/sub-agents.md` - Subagent architecture and context isolation
+- `devforgeai/specs/research/Terminal/slash-commands-best-practices.md` - Command design patterns
+- `devforgeai/specs/research/Terminal/sub-agents.md` - Subagent architecture and context isolation
 - `devforgeai/specs/native-tools-vs-bash-efficiency-analysis.md` - Tool efficiency (40-73% savings)
 
 ### Implementation Examples

@@ -4,6 +4,8 @@ description: Backend implementation expert specializing in clean architecture, d
 tools: Read, Write, Edit, Grep, Glob, Bash
 model: haiku
 color: green
+permissionMode: plan
+skills: devforgeai-architecture
 ---
 
 # Backend Architect

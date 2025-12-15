@@ -49,7 +49,7 @@ class FileConflictDetectionService:
     """
 
     # Framework directories (conflicts here are framework files)
-    FRAMEWORK_DIRS = [".claude", ".devforgeai"]
+    FRAMEWORK_DIRS = [".claude", "devforgeai"]
 
     # User files (conflicts here are user files)
     USER_FILES = ["CLAUDE.md", ".gitignore", "README.md"]

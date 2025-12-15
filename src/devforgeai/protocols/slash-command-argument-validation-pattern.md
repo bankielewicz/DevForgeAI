@@ -745,7 +745,7 @@ When adding Phase 0 validation to a slash command:
 ## Related Documentation
 
 **Official Sources:**
-- `devforgeai/specs/Terminal/slash-commands.md` - Argument handling
+- `devforgeai/specs/research/Terminal/slash-commands.md` - Argument handling
 - `devforgeai/specs/claude-skills.md` - Skills cannot accept parameters
 
 **DevForgeAI Patterns:**

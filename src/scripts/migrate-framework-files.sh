@@ -41,7 +41,7 @@ readonly REPORT_FILE="${SCRIPT_DIR}/migration-report.md"
 
 # Source directories (operational)
 readonly SRC_CLAUDE="${PROJECT_ROOT}/.claude"
-readonly SRC_DEVFORGEAI="${PROJECT_ROOT}/.devforgeai"
+readonly SRC_DEVFORGEAI="${PROJECT_ROOT}/devforgeai"
 readonly SRC_CLAUDE_MD="${PROJECT_ROOT}/CLAUDE.md"
 
 # Destination directories (distribution)
@@ -351,7 +351,7 @@ copy_directory() {
     local dest_dir=$2
     local dir_name=$(basename "$source_dir")
 
-    log_message "INFO" "Starting copy: $dir_name (~370 files for .claude, ~80 for .devforgeai)"
+    log_message "INFO" "Starting copy: $dir_name (~370 files for .claude, ~80 for devforgeai)"
 
     if [ ! -d "$source_dir" ]; then
         log_message "ERROR" "Source directory not found: $source_dir"
@@ -385,7 +385,7 @@ copy_directory() {
     return 0
 }
 
-# Copy selective subdirectories only (for .devforgeai)
+# Copy selective subdirectories only (for devforgeai)
 copy_selective_subdirectories() {
     local source_dir=$1
     local dest_dir=$2
@@ -607,11 +607,11 @@ validate_originals() {
     fi
 
     if ! validate_directory_count "$SRC_DEVFORGEAI" "$EXPECTED_DEVFORGEAI_FILES"; then
-        log_message "WARNING" "Original .devforgeai count unexpected: $devforgeai_count (expected ~$EXPECTED_DEVFORGEAI_FILES)"
+        log_message "WARNING" "Original devforgeai count unexpected: $devforgeai_count (expected ~$EXPECTED_DEVFORGEAI_FILES)"
     fi
 
     log_operation "VALIDATE" "Original .claude: $claude_count files"
-    log_operation "VALIDATE" "Original .devforgeai: $devforgeai_count files"
+    log_operation "VALIDATE" "Original devforgeai: $devforgeai_count files"
 
     return 0
 }
@@ -707,7 +707,7 @@ generate_report() {
 
 ### Original Directories
 - .claude: $(find "$SRC_CLAUDE" -type f 2>/dev/null | wc -l) files (unchanged)
-- .devforgeai: $(find "$SRC_DEVFORGEAI" -type f 2>/dev/null | wc -l) files (unchanged)
+- devforgeai: $(find "$SRC_DEVFORGEAI" -type f 2>/dev/null | wc -l) files (unchanged)
 
 ## Exclusions
 
