@@ -3,7 +3,7 @@ id: STORY-090
 title: Update Story Template to v2.2 with depends_on Field
 epic: EPIC-010
 sprint: SPRINT-5
-status: Ready for Dev
+status: Dev Complete
 points: 3
 priority: Critical
 assigned_to: TBD
@@ -490,8 +490,8 @@ None
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 
