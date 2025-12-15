@@ -478,7 +478,7 @@ technical_specification:
 **Research Output Sanitization:**
 - **URL validation:** All URLs must be HTTPS (no HTTP) or flagged
 - **Path sanitization:** Prevent directory traversal attacks (../../../etc/passwd rejected)
-- **Context file access:** Read-only access to .devforgeai/context/*.md (no modifications without user approval)
+- **Context file access:** Read-only access to devforgeai/context/*.md (no modifications without user approval)
 - **Sensitive data handling:** No PII or credentials stored in research reports (flagged and redacted if detected in findings)
 
 **Security Testing:**

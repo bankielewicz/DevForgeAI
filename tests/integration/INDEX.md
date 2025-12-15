@@ -352,7 +352,7 @@ collected 116 items
 - STORY-024 (/qa integration) - Reference implementation
 
 ### With DevForgeAI Framework
-- Context files: `.devforgeai/context/*.md`
+- Context files: `devforgeai/context/*.md`
 - Configurations: `.devforgeai/config/hooks.yaml`
 - Logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
 - Feedback: `.devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`

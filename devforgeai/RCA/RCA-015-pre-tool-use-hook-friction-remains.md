@@ -216,8 +216,8 @@ done
 ### File 3: Context Files Validation
 
 **Relevant Context Files:**
-- `.devforgeai/context/coding-standards.md` - Bash usage guidance
-- `.devforgeai/context/anti-patterns.md` - Dangerous command patterns
+- `devforgeai/context/coding-standards.md` - Bash usage guidance
+- `devforgeai/context/anti-patterns.md` - Dangerous command patterns
 
 **Findings:**
 ✅ coding-standards.md doesn't mandate specific bash patterns

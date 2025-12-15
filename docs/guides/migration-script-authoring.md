@@ -108,8 +108,8 @@ def validate_preconditions() -> bool:
     """
     try:
         # Check if required files exist
-        if not Path(".devforgeai/context/tech-stack.md").exists():
-            logger.error("Required file not found: .devforgeai/context/tech-stack.md")
+        if not Path("devforgeai/context/tech-stack.md").exists():
+            logger.error("Required file not found: devforgeai/context/tech-stack.md")
             return False
 
         logger.info("Preconditions validated")
@@ -685,7 +685,7 @@ def main() -> int:
 def validate_preconditions() -> bool:
     """Validate migration can proceed."""
     required_files = [
-        ".devforgeai/context/tech-stack.md",
+        "devforgeai/context/tech-stack.md",
         ".ai_docs/Stories",
     ]
 

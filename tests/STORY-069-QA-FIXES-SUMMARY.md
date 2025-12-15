@@ -251,7 +251,7 @@ def check_network_availability(timeout: int = 2) -> bool:
 
 **Status:** ✅ **ALREADY FIXED** (per QA report note)
 
-**Action Taken:** Updated `.devforgeai/context/source-tree.md` to include `installer/` directory definition.
+**Action Taken:** Updated `devforgeai/context/source-tree.md` to include `installer/` directory definition.
 
 ---
 

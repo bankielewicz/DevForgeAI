@@ -361,7 +361,7 @@ Transform DevForgeAI from a "development-in-operational-folders" pattern to a pr
 - [ ] Sufficient disk space (~100 MB for src/ + backups)
 
 **Not required:**
-- Context files (epic can proceed without .devforgeai/context/*.md)
+- Context files (epic can proceed without devforgeai/context/*.md)
 - External test projects (will be created during STORY-047)
 
 ## Stakeholders

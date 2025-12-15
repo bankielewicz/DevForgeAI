@@ -269,7 +269,7 @@ CONTEXT_FILES=(
 )
 
 for ctx_file in "${CONTEXT_FILES[@]}"; do
-    assert_file_exists ".devforgeai/context/$ctx_file" "Context file exists: $ctx_file"
+    assert_file_exists "devforgeai/context/$ctx_file" "Context file exists: $ctx_file"
 done
 
 echo ""

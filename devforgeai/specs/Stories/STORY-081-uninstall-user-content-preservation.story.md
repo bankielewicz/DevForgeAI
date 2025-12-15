@@ -381,9 +381,9 @@ technical_specification:
           test_requirement: "Test: Default mode is PRESERVE_USER_CONTENT"
         - key: "user_content_patterns"
           type: "array"
-          example: "['.ai_docs/**', '.devforgeai/context/*']"
+          example: "['.ai_docs/**', 'devforgeai/context/*']"
           required: false
-          default: "['.ai_docs/**', '.devforgeai/context/*', '.devforgeai/adrs/*']"
+          default: "['.ai_docs/**', 'devforgeai/context/*', '.devforgeai/adrs/*']"
           validation: "Array of glob patterns"
           test_requirement: "Test: User content patterns used for classification"
         - key: "backup_before_uninstall"

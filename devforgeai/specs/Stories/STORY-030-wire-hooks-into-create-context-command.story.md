@@ -24,7 +24,7 @@ format_version: "2.0"
 
 ### 1. [ ] Hook Eligibility Check After Context Creation
 
-**Given** the /create-context command has successfully created all 6 context files (.devforgeai/context/*.md),
+**Given** the /create-context command has successfully created all 6 context files (devforgeai/context/*.md),
 **When** Phase N executes immediately after Phase 4 (context file creation completes),
 **Then** the command invokes `devforgeai check-hooks --operation=create-context --status=completed`,
 **And** the command captures the exit code and proceeds based on eligibility (0 = eligible, 1 = skip).

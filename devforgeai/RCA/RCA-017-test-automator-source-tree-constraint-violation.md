@@ -104,7 +104,7 @@ devforgeai-development skill Phase 1 invokes test-automator without setting expl
 **Excerpt:**
 ```markdown
 4. **Read Tech Stack for Framework**
-   Read(file_path=".devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/context/tech-stack.md")
    - Identify test framework (pytest, Jest, xUnit, JUnit, etc.)
 
 5. **Generate Unit Tests**
@@ -136,7 +136,7 @@ devforgeai-development skill Phase 1 invokes test-automator without setting expl
 ## References
 
 - **Story Files**: `devforgeai/specs/Stories/*.story.md`
-- **Tech Stack**: `.devforgeai/context/tech-stack.md`
+- **Tech Stack**: `devforgeai/context/tech-stack.md`
 - **Coverage Reports**: `.devforgeai/qa/coverage/coverage-report.json`
 ```
 **Significance:** source-tree.md not listed as dependency shows constraint not considered during design.
@@ -191,7 +191,7 @@ Add mandatory Step 4.5 to test-automator.md Phase 2 workflow that reads source-t
 4.5. **Read Source Tree for Test File Locations (MANDATORY)**
 
    ```
-   Read(file_path=".devforgeai/context/source-tree.md")
+   Read(file_path="devforgeai/context/source-tree.md")
    ```
 
    **Step A: Determine Test Directory from Source Tree**
@@ -311,14 +311,14 @@ Apply source-tree.md validation pattern to ALL subagents that have Write/Edit to
 
 A. Add to References section:
 ```markdown
-- **Source Tree:** `.devforgeai/context/source-tree.md` (file location constraints)
+- **Source Tree:** `devforgeai/context/source-tree.md` (file location constraints)
 ```
 
 B. Add Pre-Generation Validation section BEFORE first Write() call:
 ```markdown
 **Pre-Generation Validation:**
 
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/source-tree.md")
 Determine correct directory for output files
 Validate all file_path parameters match source-tree.md constraints
 ```
@@ -395,7 +395,7 @@ Write(file_path="tests/installer/test_version.py")
 **Correct (respects source-tree.md):**
 ```python
 # First, read source-tree.md
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/source-tree.md")
 # Then validate: installer modules go in installer/tests/
 Write(file_path="installer/tests/test_version.py")
 ```
@@ -430,7 +430,7 @@ Add context marker in devforgeai-development skill Phase 1 that explicitly tells
 Read source-tree.md to determine expected test directory for the module:
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/source-tree.md")
 
 # Extract test directory for current module
 IF module_path.startswith("installer/"):

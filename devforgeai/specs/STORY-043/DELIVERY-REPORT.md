@@ -92,7 +92,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 
 - **Deployment Reference Check**
   - Verifies 1,047 deploy-time refs unchanged
-  - Confirms .devforgeai/context/ paths preserved
+  - Confirms devforgeai/context/ paths preserved
   - Expected: 100% preservation
 
 **Test Coverage:**
@@ -138,7 +138,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - CLAUDE.md @file references (21 refs)
 - CLI tool paths (251 refs)
 - package.json scripts (358 refs)
-- .devforgeai/context/ references (417 refs)
+- devforgeai/context/ references (417 refs)
 
 #### path-audit-source-time.txt
 **Location:** `.devforgeai/specs/STORY-043/path-audit-source-time.txt`

@@ -34,7 +34,7 @@ from typing import Dict, List, Any
 @pytest.fixture
 def context_files_path():
     """Return path to DevForgeAI context files."""
-    return Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/context")
+    return Path("/mnt/c/Projects/DevForgeAI2/devforgeai/context")
 
 
 @pytest.fixture

@@ -289,7 +289,7 @@ context_needed = determine_context_needs(scan_target):
 
 # Load only needed files
 FOR file in context_needed:
-  Read(file_path=f".devforgeai/context/{file}.md")
+  Read(file_path=f"devforgeai/context/{file}.md")
 ```
 
 **Effort:** ~30 lines modification

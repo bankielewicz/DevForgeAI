@@ -198,7 +198,7 @@ Not applicable - This is a command refactoring story with no graphical UI compon
 
 ### Phase 0: Pre-Flight Validation ✅
 - Git validated: 155 commits, branch phase2-week3-ai-integration
-- Context files validated: All 6 exist (.devforgeai/context/)
+- Context files validated: All 6 exist (devforgeai/context/)
 - Story file loaded: STORY-049-refactor-create-context-budget-compliance.story.md
 - Uncommitted changes: 67 files (committed with message about phase 2 week 3 AI integration)
 

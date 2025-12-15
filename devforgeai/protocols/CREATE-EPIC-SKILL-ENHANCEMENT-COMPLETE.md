@@ -693,7 +693,7 @@ allowed-tools:
 
 **Setup:**
 ```bash
-rm -rf .devforgeai/context/
+rm -rf devforgeai/context/
 ```
 
 **Execute:**
@@ -720,7 +720,7 @@ Skill(command="devforgeai-orchestration")
 
 **Setup:**
 ```bash
-# Ensure .devforgeai/context/*.md exist
+# Ensure devforgeai/context/*.md exist
 # tech-stack.md specifies: React, Node.js, PostgreSQL
 ```
 

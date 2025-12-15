@@ -137,7 +137,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac3-version-js
 - Required skill directories exist (8+ skills)
 - Command file integrity (markdown headers)
 - No accidental cross-linking between folders
-- Context files exist (.devforgeai/context/*.md)
+- Context files exist (devforgeai/context/*.md)
 - No symlinks from operational to src/
 - .devforgeai/qa/, adrs/, protocols/ structure intact
 

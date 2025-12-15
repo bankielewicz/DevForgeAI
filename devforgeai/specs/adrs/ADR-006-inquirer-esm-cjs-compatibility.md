@@ -80,13 +80,13 @@ During STORY-071 implementation (Sessions 1-3), module format conflicts were dis
 ## Implementation
 
 **Session 1 (inquirer):**
-1. Update `.devforgeai/context/dependencies.md`:
+1. Update `devforgeai/context/dependencies.md`:
    - Change `"inquirer": "^9.0.0"` to `"inquirer": "^8.2.6"`
 2. Update `package.json` to match
 3. Run `npm install`
 
 **Session 3 (ora and chalk):**
-4. Update `.devforgeai/context/dependencies.md`:
+4. Update `devforgeai/context/dependencies.md`:
    - Change `"ora": "^7.0.0"` to `"ora": "^5.4.1"`
    - Change `"chalk": "^5.0.0"` to `"chalk": "^4.1.2"`
    - Add `"cli-progress": "^3.12.0"` (was missing from initial spec)

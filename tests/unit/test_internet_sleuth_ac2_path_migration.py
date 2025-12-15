@@ -2,7 +2,7 @@
 Unit tests for STORY-035 AC2: Path references updated to DevForgeAI structure
 
 Tests verify all file path references use DevForgeAI conventions:
-- .devforgeai/context/ (NOT .claude/context/)
+- devforgeai/context/ (NOT .claude/context/)
 - .devforgeai/adrs/ (NOT .claude/adrs/)
 - .devforgeai/research/ (NOT devforgeai/specs/research/ or .bmad-core)
 - devforgeai/specs/Stories/ (correct)
@@ -44,7 +44,7 @@ class TestAC2PathMigration:
 
         # Assert
         assert len(old_context_matches) == 0, \
-            f"Found {len(old_context_matches)} references to deprecated path '.claude/context/' - must use '.devforgeai/context/'"
+            f"Found {len(old_context_matches)} references to deprecated path '.claude/context/' - must use 'devforgeai/context/'"
 
     def test_no_old_adrs_path_references(self, agent_content):
         """
@@ -93,18 +93,18 @@ class TestAC2PathMigration:
 
     def test_uses_new_devforgeai_context_path(self, agent_content):
         """
-        AC2 / COMP-003: Must use new .devforgeai/context/ path
+        AC2 / COMP-003: Must use new devforgeai/context/ path
 
         Arrange: Load agent file content
         Act: Search for new path pattern
         Assert: At least one match found
         """
         # Act
-        new_context_matches = re.findall(r'\.devforgeai/context/', agent_content)
+        new_context_matches = re.findall(r'\devforgeai/context/', agent_content)
 
         # Assert
         assert len(new_context_matches) > 0, \
-            "No references to '.devforgeai/context/' found - agent must document context file location"
+            "No references to 'devforgeai/context/' found - agent must document context file location"
 
     def test_uses_new_devforgeai_adrs_path(self, agent_content):
         """
@@ -184,7 +184,7 @@ class TestAC2PathMigration:
         )
 
         new_paths = (
-            len(re.findall(r'\.devforgeai/context/', agent_content)) +
+            len(re.findall(r'\devforgeai/context/', agent_content)) +
             len(re.findall(r'\.devforgeai/adrs/', agent_content)) +
             len(re.findall(r'\.devforgeai/research/', agent_content))
         )
@@ -248,7 +248,7 @@ class TestAC2PathMigration:
         )
 
         new_count = (
-            len(re.findall(r'\.devforgeai/context/', agent_content)) +
+            len(re.findall(r'\devforgeai/context/', agent_content)) +
             len(re.findall(r'\.devforgeai/adrs/', agent_content)) +
             len(re.findall(r'\.devforgeai/research/', agent_content))
         )

@@ -344,7 +344,7 @@ Each test file includes helpers for:
 ## References
 
 - Story: `devforgeai/specs/Stories/STORY-042-copy-framework-files-to-src.story.md`
-- Tech Stack: `.devforgeai/context/tech-stack.md`
+- Tech Stack: `devforgeai/context/tech-stack.md`
 - TDD Principles: CLAUDE.md - Test-Driven Development section
 
 ## Test Metrics

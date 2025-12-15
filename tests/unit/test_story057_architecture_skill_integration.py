@@ -86,7 +86,7 @@ def architecture_reference_file(temp_project_dir):
 ## Conditional Loading Logic
 
 ### Greenfield Mode
-Triggered when: No .devforgeai/context/*.md files exist
+Triggered when: No devforgeai/context/*.md files exist
 Behavior: Load user-input-guidance.md, apply patterns to Phase 1 questions
 
 ### Brownfield Mode
@@ -164,7 +164,7 @@ def test_01_greenfield_mode_loads_guidance(temp_project_dir, mock_guidance_conte
     """
     AC#1: Greenfield mode should load guidance
 
-    When: No .devforgeai/context/*.md files exist
+    When: No devforgeai/context/*.md files exist
     Then: devforgeai-architecture should load user-input-guidance.md
     """
     # Arrange
@@ -189,7 +189,7 @@ def test_02_brownfield_mode_skips_guidance(temp_project_dir):
     """
     AC#1: Brownfield mode should skip guidance
 
-    When: All 6 .devforgeai/context/*.md files exist
+    When: All 6 devforgeai/context/*.md files exist
     Then: devforgeai-architecture should skip user-input-guidance.md
     """
     # Arrange

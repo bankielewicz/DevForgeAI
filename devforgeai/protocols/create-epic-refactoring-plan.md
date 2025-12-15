@@ -291,7 +291,7 @@ Next Steps:
    - Iterate if modifications requested
 
 4. **Phase 4: Technical Assessment**
-   - Check if context files exist (.devforgeai/context/*.md)
+   - Check if context files exist (devforgeai/context/*.md)
    - Invoke technical-assessor subagent OR architect-reviewer subagent
    - If context files exist: Validate against tech-stack.md
    - Resolve conflicts via AskUserQuestion

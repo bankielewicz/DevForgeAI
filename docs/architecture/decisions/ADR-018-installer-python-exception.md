@@ -134,7 +134,7 @@ installer/
 
 ## References
 
-- [source-tree.md](../../.devforgeai/context/source-tree.md) - "EXCEPTION - installer/ Distribution Tooling"
+- [source-tree.md](../../devforgeai/context/source-tree.md) - "EXCEPTION - installer/ Distribution Tooling"
 - [ADR-001](./ADR-001-markdown-for-documentation.md) - Markdown constraint
 - [STORY-078 Implementation Notes](.../../devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)
 

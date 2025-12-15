@@ -219,9 +219,9 @@ The Markdown version is:
 ## Enforcement
 
 **This decision is LOCKED in**:
-- `.devforgeai/context/tech-stack.md` - Documents Markdown requirement
-- `.devforgeai/context/coding-standards.md` - Markdown style guide
-- `.devforgeai/context/anti-patterns.md` - Forbids JSON/YAML for documentation
+- `devforgeai/context/tech-stack.md` - Documents Markdown requirement
+- `devforgeai/context/coding-standards.md` - Markdown style guide
+- `devforgeai/context/anti-patterns.md` - Forbids JSON/YAML for documentation
 
 **Quality gates check**:
 - All skills have SKILL.md (not SKILL.json)

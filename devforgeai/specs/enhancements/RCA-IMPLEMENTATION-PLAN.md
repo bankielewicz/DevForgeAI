@@ -590,7 +590,7 @@ description: Performs Root Cause Analysis (RCA) with 5 Whys methodology for DevF
   - Skills: `.claude/skills/{skill}/SKILL.md`
   - Commands: `.claude/commands/{command}.md`
   - Subagents: `.claude/agents/{subagent}.md`
-  - Context files: `.devforgeai/context/*.md` (if constraint violation)
+  - Context files: `devforgeai/context/*.md` (if constraint violation)
   - Story files: `devforgeai/specs/Stories/{STORY-ID}.story.md` (if story-related)
   - Related RCAs: `.devforgeai/RCA/RCA-*.md` (pattern matching)
 - Store file paths and key excerpts for evidence section
@@ -953,7 +953,7 @@ When you encounter a framework breakdown, use the RCA capability:
 
 **Test 8: Context File Validation**
 - Issue: "tech-stack.md constraint violated"
-- Expected: Auto-reads `.devforgeai/context/tech-stack.md`
+- Expected: Auto-reads `devforgeai/context/tech-stack.md`
 - Validation: Evidence section validates context files
 
 **Test 9: Recommendation Prioritization**
@@ -1517,7 +1517,7 @@ When `/dev STORY-042` was executed, the development workflow did not validate th
 Validate all 6 context files exist before proceeding:
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/context/*.md")
 
 Expected: 6 files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
 
@@ -1622,7 +1622,7 @@ Phase 1: Auto-Read Relevant Files
     Read: .claude/skills/{skill}/SKILL.md
     Read: .claude/commands/{command}.md
     Read: .claude/agents/{subagent}.md
-    Read: .devforgeai/context/*.md (if constraint issue)
+    Read: devforgeai/context/*.md (if constraint issue)
     Read: devforgeai/specs/Stories/{STORY-ID}.story.md (if story-related)
   Store: file_paths[], excerpts[]
 

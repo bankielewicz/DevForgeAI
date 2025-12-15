@@ -450,7 +450,7 @@ Implementation order (recommended):
 ## References
 
 - **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-079-fix-repair-installation-mode.story.md`
-- **Tech Stack:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/context/tech-stack.md`
+- **Tech Stack:** `/mnt/c/Projects/DevForgeAI2/devforgeai/context/tech-stack.md`
 - **Test Suite:** `/mnt/c/Projects/DevForgeAI2/installer/tests/STORY-079-TEST-SUITE.md`
 - **Quick Start:** `/mnt/c/Projects/DevForgeAI2/installer/tests/STORY-079-QUICK-START.md`
 

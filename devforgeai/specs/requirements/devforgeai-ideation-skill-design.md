@@ -145,7 +145,7 @@ Glob(pattern="**/pom.xml")       # Java projects
 Glob(pattern="**/requirements.txt") # Python projects
 
 # Check for existing DevForgeAI context
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/tech-stack.md")
 Read(file_path="devforgeai/specs/Epics/")
 Read(file_path="README.md")
 
@@ -722,12 +722,12 @@ Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md",
 ```
 # Check for existing context files
 context_files_exist = all([
-    file_exists(".devforgeai/context/tech-stack.md"),
-    file_exists(".devforgeai/context/source-tree.md"),
-    file_exists(".devforgeai/context/dependencies.md"),
-    file_exists(".devforgeai/context/coding-standards.md"),
-    file_exists(".devforgeai/context/architecture-constraints.md"),
-    file_exists(".devforgeai/context/anti-patterns.md")
+    file_exists("devforgeai/context/tech-stack.md"),
+    file_exists("devforgeai/context/source-tree.md"),
+    file_exists("devforgeai/context/dependencies.md"),
+    file_exists("devforgeai/context/coding-standards.md"),
+    file_exists("devforgeai/context/architecture-constraints.md"),
+    file_exists("devforgeai/context/anti-patterns.md")
 ])
 
 IF NOT context_files_exist:

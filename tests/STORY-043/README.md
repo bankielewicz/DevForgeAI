@@ -237,7 +237,7 @@ echo "STORY-043 Test Results: PASSED (119/119)" > reports/story-043-results.txt
 - Specs: `.devforgeai/specs/STORY-043/`
 
 ### Framework
-- Tech Stack: `.devforgeai/context/tech-stack.md`
+- Tech Stack: `devforgeai/context/tech-stack.md`
 - Testing Guide: `.claude/memory/qa-automation.md`
 - Test Patterns: `devforgeai/specs/research/` (examples)
 

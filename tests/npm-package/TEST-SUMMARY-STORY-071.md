@@ -623,7 +623,7 @@ tests/coverage/npm-package/index.html
 ## References
 
 - **Story File:** `devforgeai/specs/Stories/STORY-071-wizard-driven-interactive-ui.story.md`
-- **Tech Stack:** `.devforgeai/context/tech-stack.md` (Jest testing framework approved)
+- **Tech Stack:** `devforgeai/context/tech-stack.md` (Jest testing framework approved)
 - **Test-Automator Skill:** `.claude/skills/test-automator/SKILL.md`
 - **Jest Documentation:** https://jestjs.io/docs/getting-started
 - **Inquirer.js Documentation:** https://github.com/SBoudrias/Inquirer.js

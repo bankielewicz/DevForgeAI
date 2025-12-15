@@ -100,7 +100,7 @@ After (Fixed):
 | `.claude/skills/devforgeai-development/references/tdd-red-phase.md` | Edit | ~35 (remediation mode check) |
 | `.claude/skills/devforgeai-development/references/tdd-green-phase.md` | Edit | ~35 (remediation mode check) |
 | `.claude/agents/test-automator.md` | Edit | ~170 |
-| `.devforgeai/context/source-tree.md` | Edit | ~10 |
+| `devforgeai/context/source-tree.md` | Edit | ~10 |
 
 ### Integration Points (Silo Prevention)
 

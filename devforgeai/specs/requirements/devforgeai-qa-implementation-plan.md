@@ -501,12 +501,12 @@ Ready for devforgeai-release skill
 **Section 7: Context File Usage**
 
 **Consumes:**
-- `.devforgeai/context/tech-stack.md` - Validate technology usage
-- `.devforgeai/context/source-tree.md` - Validate file locations
-- `.devforgeai/context/dependencies.md` - Validate package usage
-- `.devforgeai/context/coding-standards.md` - Validate code patterns
-- `.devforgeai/context/architecture-constraints.md` - Validate layer boundaries
-- `.devforgeai/context/anti-patterns.md` - Detect violations
+- `devforgeai/context/tech-stack.md` - Validate technology usage
+- `devforgeai/context/source-tree.md` - Validate file locations
+- `devforgeai/context/dependencies.md` - Validate package usage
+- `devforgeai/context/coding-standards.md` - Validate code patterns
+- `devforgeai/context/architecture-constraints.md` - Validate layer boundaries
+- `devforgeai/context/anti-patterns.md` - Detect violations
 
 **Creates/Updates:**
 - `.devforgeai/qa/coverage-thresholds.md` - Coverage requirements

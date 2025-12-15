@@ -186,12 +186,12 @@ Task(
 ### 4.1 Context Files Reference
 
 **Validated Against:**
-- ✅ `.devforgeai/context/tech-stack.md` - Uses Python (approved)
-- ✅ `.devforgeai/context/dependencies.md` - No unapproved packages
-- ✅ `.devforgeai/context/architecture-constraints.md` - Respects layer boundaries
-- ✅ `.devforgeai/context/anti-patterns.md` - No forbidden patterns
-- ✅ `.devforgeai/context/coding-standards.md` - Follows patterns
-- ✅ `.devforgeai/context/source-tree.md` - File location correct
+- ✅ `devforgeai/context/tech-stack.md` - Uses Python (approved)
+- ✅ `devforgeai/context/dependencies.md` - No unapproved packages
+- ✅ `devforgeai/context/architecture-constraints.md` - Respects layer boundaries
+- ✅ `devforgeai/context/anti-patterns.md` - No forbidden patterns
+- ✅ `devforgeai/context/coding-standards.md` - Follows patterns
+- ✅ `devforgeai/context/source-tree.md` - File location correct
 
 **Result:** ✅ **FULLY COMPLIANT**
 

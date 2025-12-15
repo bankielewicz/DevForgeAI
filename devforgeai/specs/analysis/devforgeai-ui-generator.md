@@ -790,7 +790,7 @@ This skill operates in two modes:
 - Translating requirements into tangible UI components
 
 **Prerequisites:**
-- Context files must exist (6 files in .devforgeai/context/)
+- Context files must exist (6 files in devforgeai/context/)
 - For story mode: Story file must exist
 - For standalone: Component description in conversation
 

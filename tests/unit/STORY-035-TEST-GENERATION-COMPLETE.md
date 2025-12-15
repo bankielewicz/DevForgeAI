@@ -213,7 +213,7 @@ Examples:
 
 1. **project_root** - Project root directory path
 2. **agent_file_path** - Path to internet-sleuth.md
-3. **context_files_dir** - Path to .devforgeai/context/
+3. **context_files_dir** - Path to devforgeai/context/
 4. **research_output_dir** - Path to .devforgeai/research/
 5. **adrs_dir** - Path to .devforgeai/adrs/
 6. **mock_context_files** - Create all 6 context files for testing
@@ -307,7 +307,7 @@ pytest tests/unit/ -m story_035 --collect-only
 - [ ] Remove deprecated fields (command_prefix, output_format)
 
 **AC2: Path References (COMP-003)**
-- [ ] Replace .claude/context/ → .devforgeai/context/
+- [ ] Replace .claude/context/ → devforgeai/context/
 - [ ] Replace .claude/adrs/ → .devforgeai/adrs/
 - [ ] Replace devforgeai/specs/research/ → .devforgeai/research/
 - [ ] Remove .bmad-core/ references

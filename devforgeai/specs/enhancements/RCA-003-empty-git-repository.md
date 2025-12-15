@@ -141,7 +141,7 @@ git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || 
    # If no commits: Run /create-context (auto-creates initial commit)
 
 2. Check context files exist:
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/context/*.md")
 
 3. If missing, create them:
    > /create-context [project-name]

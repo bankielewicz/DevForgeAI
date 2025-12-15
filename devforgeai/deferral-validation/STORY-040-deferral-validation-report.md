@@ -38,25 +38,25 @@ STORY-040 has a **legitimate, documented architecture constraint violation** tha
 **Evidence:**
 
 **1. Immutable Context File Violation**
-- File: `.devforgeai/context/tech-stack.md` (lines 27-39)
+- File: `devforgeai/context/tech-stack.md` (lines 27-39)
 - Constraint: "Documentation Format: **PRIMARY: Markdown** - ALL skills, subagents, commands use Markdown"
 - Violation: Python module created in framework directory
 - Severity: CRITICAL (immutable constraint marked LOCKED)
 
 **2. Source Tree Constraint Violation**
-- File: `.devforgeai/context/source-tree.md` (line 160)
+- File: `devforgeai/context/source-tree.md` (line 160)
 - Constraint: "NO executable code in `.claude/` (Markdown documentation only)"
 - Violation: Python module created in framework
 - Severity: CRITICAL (explicit prohibition)
 
 **3. Anti-Patterns Constraint Violation**
-- File: `.devforgeai/context/anti-patterns.md` (lines 91-111)
+- File: `devforgeai/context/anti-patterns.md` (lines 91-111)
 - Constraint: "FORBIDDEN: Language-Specific Code in Framework"
 - Violation: Python code violates language-agnostic design principle
 - Severity: CRITICAL (explicit prohibition with rationale)
 
 **4. Architecture Constraints Violation**
-- File: `.devforgeai/context/architecture-constraints.md` (lines 28-44)
+- File: `devforgeai/context/architecture-constraints.md` (lines 28-44)
 - Constraint: "Single Responsibility Principle - Skills handle workflow, not code execution"
 - Violation: Python module attempts to implement functionality directly
 - Severity: MAJOR (architectural pattern violation)

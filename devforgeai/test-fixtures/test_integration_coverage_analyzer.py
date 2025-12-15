@@ -440,7 +440,7 @@ class TestCoverageAnalyzerIntegration:
         coverage_data = {
             "status": "failure",
             "story_id": story_id,
-            "error": "Context file missing: .devforgeai/context/source-tree.md",
+            "error": "Context file missing: devforgeai/context/source-tree.md",
             "blocks_qa": True,
             "remediation": "Run /create-context to generate missing context files. This initializes architectural context for the project."
         }
@@ -452,7 +452,7 @@ class TestCoverageAnalyzerIntegration:
         assert result.status == "failure"
         assert result.blocks_qa is True
         assert "missing" in result.error.lower()
-        assert ".devforgeai/context" in result.error
+        assert "devforgeai/context" in result.error
         assert "/create-context" in result.remediation
 
     # ============================================================================
@@ -519,7 +519,7 @@ class TestCoverageAnalyzerIntegration:
             "story_id": story_id,
             "error": "Could not classify files using source-tree.md patterns. Check that patterns match project structure.",
             "blocks_qa": True,
-            "remediation": "Update .devforgeai/context/source-tree.md with patterns that match your project's directory structure"
+            "remediation": "Update devforgeai/context/source-tree.md with patterns that match your project's directory structure"
         }
 
         # Act

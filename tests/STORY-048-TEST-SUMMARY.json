@@ -393,8 +393,8 @@
   "related_files": {
     "story_definition": "devforgeai/specs/Stories/STORY-048-production-cutover-documentation.story.md",
     "test_summary": "tests/STORY-048-TEST-SUITE-SUMMARY.md",
-    "tech_stack": ".devforgeai/context/tech-stack.md",
-    "source_tree": ".devforgeai/context/source-tree.md"
+    "tech_stack": "devforgeai/context/tech-stack.md",
+    "source_tree": "devforgeai/context/source-tree.md"
   },
 
   "generated_by": "test-automator (TDD Test-First Pattern)",

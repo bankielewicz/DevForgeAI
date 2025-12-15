@@ -308,7 +308,7 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py::Tes
 - [x] Comprehensive docstrings explaining test purpose
 
 ### ✅ Framework Compliance
-- [x] Tests follow DevForgeAI coding standards (.devforgeai/context/coding-standards.md)
+- [x] Tests follow DevForgeAI coding standards (devforgeai/context/coding-standards.md)
 - [x] Tests respect context files (tech-stack, anti-patterns, etc.)
 - [x] Tests use progressive disclosure (fixtures only, no large data inline)
 - [x] Tests marked with appropriate pytest markers (story_036, unit, integration, etc.)
@@ -390,8 +390,8 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py::Tes
 - **Test File:** `tests/integration/test_story_036_internet_sleuth_deep_integration.py`
 - **Test README:** `tests/integration/README_STORY_036_TESTS.md`
 - **Pytest Config:** `tests/integration/pytest.ini` (updated)
-- **Framework Standards:** `.devforgeai/context/coding-standards.md`
-- **Tech Stack:** `.devforgeai/context/tech-stack.md`
+- **Framework Standards:** `devforgeai/context/coding-standards.md`
+- **Tech Stack:** `devforgeai/context/tech-stack.md`
 
 ---
 

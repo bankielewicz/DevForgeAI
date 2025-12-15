@@ -166,7 +166,7 @@ fi
 
 test_case "Context file references validity"
 if [ -f "$GUIDE_FILE" ]; then
-    context_refs=$(grep -c "\.devforgeai/context\|tech-stack\|source-tree\|dependencies" "$GUIDE_FILE" 2>/dev/null || echo "0")
+    context_refs=$(grep -c "\devforgeai/context\|tech-stack\|source-tree\|dependencies" "$GUIDE_FILE" 2>/dev/null || echo "0")
     if [ "$context_refs" -ge 1 ]; then
         pass_test "Context file references present ($context_refs)"
     else

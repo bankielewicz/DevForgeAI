@@ -142,9 +142,9 @@ class TestExistingInstallationDetector:
 
     def test_should_return_warn_when_devforgeai_context_directory_exists(self, temp_dir):
         """
-        Test: Existing .devforgeai/context/ directory → WARN status
+        Test: Existing devforgeai/context/ directory → WARN status
 
-        Given: Target directory contains .devforgeai/context/ structure
+        Given: Target directory contains devforgeai/context/ structure
         When: ExistingInstallationDetector.check() is called
         Then: Returns CheckResult with WARN status
         """

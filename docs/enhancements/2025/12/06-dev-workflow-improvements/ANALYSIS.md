@@ -335,7 +335,7 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
       Found? YES → Check box | NO → Leave unchecked
 
 - [ ] Step 0.4: Context files validated (6 files)?
-      Search for: Read(file_path=".devforgeai/context/tech-stack.md")
+      Search for: Read(file_path="devforgeai/context/tech-stack.md")
       Found? YES → Check box | NO → Leave unchecked
 
 - [ ] Step 0.7: tech-stack-detector subagent invoked?

@@ -15,8 +15,8 @@
 ## Phase 1: Context Validation
 
 Read context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
+- Read(file_path="devforgeai/context/tech-stack.md")
+- Read(file_path="devforgeai/context/source-tree.md")
 
 HALT if ANY file missing: "Context files incomplete"
 ```

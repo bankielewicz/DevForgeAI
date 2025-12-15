@@ -186,7 +186,7 @@ model: haiku
 **Cause:** Agent uses old path structure
 
 **Fix:** Replace:
-- `.claude/context/` → `.devforgeai/context/`
+- `.claude/context/` → `devforgeai/context/`
 - `devforgeai/specs/research/` → `.devforgeai/research/`
 
 ### Missing Context File Documentation

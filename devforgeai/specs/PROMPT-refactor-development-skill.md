@@ -18,10 +18,10 @@ The `devforgeai-development` skill currently violates DevForgeAI's own architect
 - Expected token savings: **58%** (load ~13K tokens typically, ~28K when references needed)
 
 **Constraints to Follow**:
-- `.devforgeai/context/tech-stack.md` - Component size limits
-- `.devforgeai/context/coding-standards.md` - Progressive disclosure pattern
-- `.devforgeai/context/source-tree.md` - Directory structure rules
-- `.devforgeai/context/anti-patterns.md` - Size violation prevention
+- `devforgeai/context/tech-stack.md` - Component size limits
+- `devforgeai/context/coding-standards.md` - Progressive disclosure pattern
+- `devforgeai/context/source-tree.md` - Directory structure rules
+- `devforgeai/context/anti-patterns.md` - Size violation prevention
 
 **Lessons from Phase 1.1, 1.2, 1.3, 2.1**:
 - ✅ Phase 1.1 (QA): 701 lines acceptable
@@ -50,9 +50,9 @@ Refactor `devforgeai-development` skill to implement **progressive disclosure pa
 
 2. **Read Framework Context Files** (understand constraints)
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/coding-standards.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
+   Read(file_path="devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/context/coding-standards.md")
+   Read(file_path="devforgeai/context/source-tree.md")
    ```
 
 3. **Read Existing Reference File**
@@ -236,12 +236,12 @@ allowed-tools: [Keep existing - already clean]
 #### Step 1: Load Context Files
 ```
 Read all 6 context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
-- Read(file_path=".devforgeai/context/dependencies.md")
-- Read(file_path=".devforgeai/context/coding-standards.md")
-- Read(file_path=".devforgeai/context/architecture-constraints.md")
-- Read(file_path=".devforgeai/context/anti-patterns.md")
+- Read(file_path="devforgeai/context/tech-stack.md")
+- Read(file_path="devforgeai/context/source-tree.md")
+- Read(file_path="devforgeai/context/dependencies.md")
+- Read(file_path="devforgeai/context/coding-standards.md")
+- Read(file_path="devforgeai/context/architecture-constraints.md")
+- Read(file_path="devforgeai/context/anti-patterns.md")
 
 HALT if ANY file missing: "Run /create-context first"
 ```
@@ -988,8 +988,8 @@ The refactor is successful when:
 Read(file_path=".claude/skills/devforgeai-development/SKILL.md")
 
 # 2. Read context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/coding-standards.md")
 
 # 3. Read existing reference file
 Read(file_path=".claude/skills/devforgeai-development/references/tdd-patterns.md")

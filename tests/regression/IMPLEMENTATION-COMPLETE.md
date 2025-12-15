@@ -303,7 +303,7 @@ cat tests/regression/test-src-migration-final-results.json | jq
 ✅ .ai_docs/Epics - Epic directory
 ✅ .ai_docs/Stories - Story directory
 ✅ .ai_docs/Sprints - Sprint directory
-✅ .devforgeai/context/ - 6 context files (all present)
+✅ devforgeai/context/ - 6 context files (all present)
 ✅ .devforgeai/qa - QA reports directory
 ✅ .devforgeai/adrs - Architecture Decision Records
 ✅ tests/ - Test framework directory

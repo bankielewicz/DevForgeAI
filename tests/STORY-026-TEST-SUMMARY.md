@@ -545,7 +545,7 @@ Fixtures provide realistic scenarios:
 
 ### Related Files
 - **Framework:** `CLAUDE.md` (DevForgeAI guidelines)
-- **Context Files:** `.devforgeai/context/` (tech-stack, anti-patterns, etc)
+- **Context Files:** `devforgeai/context/` (tech-stack, anti-patterns, etc)
 - **Orchestration Skill:** `.claude/skills/devforgeai-orchestration/SKILL.md`
 
 ---

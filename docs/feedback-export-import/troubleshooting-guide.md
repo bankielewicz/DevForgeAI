@@ -601,7 +601,7 @@ Error: Encoding issue detected
 4. **Check framework version:**
    ```bash
    # Ensure framework up to date
-   cat .devforgeai/context/tech-stack.md | grep version
+   cat devforgeai/context/tech-stack.md | grep version
    ```
 
 ### Reporting Bugs

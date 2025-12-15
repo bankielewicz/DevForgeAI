@@ -749,7 +749,7 @@ if validation_result["validation_result"] == "PASS":
 
 **Configuration option:**
 ```yaml
-# In .devforgeai/context/architecture-constraints.md or tech-stack.md
+# In devforgeai/context/architecture-constraints.md or tech-stack.md
 implementation_validation:
   mode: "strict"  # HALT on violations
   # OR mode: "warn"  # Display violations, allow proceed

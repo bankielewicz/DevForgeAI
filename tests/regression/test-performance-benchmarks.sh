@@ -105,11 +105,11 @@ benchmark_agent_scanning() {
 
 benchmark_context_file_loading() {
     echo -e "${BLUE}Benchmark 4: Context File Loading${NC}"
-    echo "Purpose: Test .devforgeai/context directory scanning performance"
+    echo "Purpose: Test devforgeai/context directory scanning performance"
     echo
 
     local start_ns=$(date +%s%N)
-    find "$PROJECT_ROOT/.devforgeai/context" -type f -name "*.md" > /dev/null 2>&1
+    find "$PROJECT_ROOT/devforgeai/context" -type f -name "*.md" > /dev/null 2>&1
     local end_ns=$(date +%s%N)
 
     local duration_ms=$(( (end_ns - start_ns) / 1000000 ))

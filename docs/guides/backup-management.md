@@ -111,7 +111,7 @@ Each backup includes a `backup-manifest.json` file:
       "checksum_sha256": "abc123def456..."
     },
     {
-      "path": ".devforgeai/context/tech-stack.md",
+      "path": "devforgeai/context/tech-stack.md",
       "size_bytes": 8901,
       "checksum_sha256": "xyz789uvw012..."
     }

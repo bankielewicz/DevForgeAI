@@ -768,7 +768,7 @@ If project includes frontend:
    - Spacing system (4px, 8px, etc.)
    - Component library (shadcn/ui, Material-UI, custom)
 
-2. Generate design-system.md in .devforgeai/context/
+2. Generate design-system.md in devforgeai/context/
 
 Example output:
 
@@ -1444,7 +1444,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
    Task(
      subagent_type="architect-reviewer",
      description="Review architecture decisions",
-     prompt="Review context files in .devforgeai/context/ for:
+     prompt="Review context files in devforgeai/context/ for:
        - Layer boundary clarity
        - Technology choice appropriateness
        - Scalability considerations
@@ -1620,7 +1620,7 @@ flowchart TD
    Task(
      subagent_type="architect-reviewer",
      description="Validate architecture decisions",
-     prompt="Review context files in .devforgeai/context/ for architectural soundness..."
+     prompt="Review context files in devforgeai/context/ for architectural soundness..."
    )
 
 2. Review feedback
@@ -1639,7 +1639,7 @@ flowchart TD
    - Spacing system
    - Component library choice
 
-3. Generate design-system.md in .devforgeai/context/
+3. Generate design-system.md in devforgeai/context/
 4. Include: design tokens, component specs, accessibility guidelines
 ```
 

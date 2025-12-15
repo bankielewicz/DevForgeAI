@@ -227,7 +227,7 @@ test_uninstall_complete_workflow()
 - Creates backup before removal
 - Removes .claude/ files
 - Removes .devforgeai/ framework files
-- Preserves .devforgeai/context/
+- Preserves devforgeai/context/
 - Removes DevForgeAI sections from CLAUDE.md
 - Preserves user sections in CLAUDE.md
 - Exit code: 0

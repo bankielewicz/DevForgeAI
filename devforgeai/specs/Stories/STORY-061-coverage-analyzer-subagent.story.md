@@ -440,8 +440,8 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 ## Dependencies
 
 ### Required Context Files
-- `.devforgeai/context/tech-stack.md` - Language detection
-- `.devforgeai/context/source-tree.md` - Layer classification patterns
+- `devforgeai/context/tech-stack.md` - Language detection
+- `devforgeai/context/source-tree.md` - Layer classification patterns
 - `.claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md` - Threshold configuration
 
 ### Coverage Tools (Language-Specific)

@@ -341,8 +341,8 @@ To make all tests pass, the following work is required:
 - **Tests:** `installer/tests/test_offline_installer.py` (39 tests)
 - **Tests:** `tests/npm-package/unit/offline-bundle-structure.test.js` (34 tests)
 - **Tests:** `tests/npm-package/integration/offline-installation.test.js` (22 tests)
-- **Tech Stack:** `.devforgeai/context/tech-stack.md` (NPM package distribution)
-- **Architecture:** `.devforgeai/context/architecture-constraints.md` (atomic installation pattern)
+- **Tech Stack:** `devforgeai/context/tech-stack.md` (NPM package distribution)
+- **Architecture:** `devforgeai/context/architecture-constraints.md` (atomic installation pattern)
 
 ## Summary
 

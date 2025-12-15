@@ -373,14 +373,14 @@ AskUserQuestion:
 
 **Check context files:**
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/context/*.md")
 
 if context_files.length == 6:
   greenfield = false
-  Read(file_path=".devforgeai/context/tech-stack.md")
-  Read(file_path=".devforgeai/context/architecture-constraints.md")
-  Read(file_path=".devforgeai/context/dependencies.md")
-  Read(file_path=".devforgeai/context/anti-patterns.md")
+  Read(file_path="devforgeai/context/tech-stack.md")
+  Read(file_path="devforgeai/context/architecture-constraints.md")
+  Read(file_path="devforgeai/context/dependencies.md")
+  Read(file_path="devforgeai/context/anti-patterns.md")
 else:
   greenfield = true
   # Skip context validation (no constraints yet)
@@ -1051,7 +1051,7 @@ Do NOT attempt to create epic manually - the skill will handle recovery.
 
 ```bash
 # Setup
-rm -rf .devforgeai/context/
+rm -rf devforgeai/context/
 
 # Execute
 > /create-epic User Authentication System
@@ -1067,7 +1067,7 @@ rm -rf .devforgeai/context/
 
 ```bash
 # Setup
-# Ensure .devforgeai/context/*.md exist
+# Ensure devforgeai/context/*.md exist
 
 # Execute
 > /create-epic Real-time Analytics Dashboard

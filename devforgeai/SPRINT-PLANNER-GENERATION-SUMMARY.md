@@ -381,8 +381,8 @@ Subagent understands:
 
 ### Context Files Referenced
 
-- `.devforgeai/context/tech-stack.md` (for sprint goals context)
-- `.devforgeai/context/source-tree.md` (for story context)
+- `devforgeai/context/tech-stack.md` (for sprint goals context)
+- `devforgeai/context/source-tree.md` (for story context)
 
 ### Prevents Framework Violations
 

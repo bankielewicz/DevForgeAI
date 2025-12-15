@@ -145,7 +145,7 @@ self.nodejs_install_result = install(
 | **.claude/agents/** | ~26 | Subagent definitions |
 | **.claude/commands/** | ~11 | Slash command implementations |
 | **.claude/memory/** | ~15 | Progressive disclosure docs |
-| **.devforgeai/context/** | 6 | Immutable architecture files |
+| **devforgeai/context/** | 6 | Immutable architecture files |
 | **.devforgeai/protocols/** | 3 | Design protocols |
 | **.devforgeai/adrs/** | 0 | ADRs (user-created) |
 | **.devforgeai/qa/** | 1-5 | QA reports (optional) |

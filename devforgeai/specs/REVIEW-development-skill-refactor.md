@@ -519,7 +519,7 @@ The devforgeai-development skill refactor is **OUTSTANDING**:
 - Token load: ~28K
 
 **Framework Guidance Update Needed**:
-Document these patterns in `.devforgeai/context/tech-stack.md` as discovered optimal ranges
+Document these patterns in `devforgeai/context/tech-stack.md` as discovered optimal ranges
 
 ---
 

@@ -124,7 +124,7 @@
 - [ ] **Context Files Missing**
   ```bash
   # Test: Remove source-tree.md
-  # Expected: {"status": "failure", "error": "Context file missing: .devforgeai/context/source-tree.md", "blocks_qa": true}
+  # Expected: {"status": "failure", "error": "Context file missing: devforgeai/context/source-tree.md", "blocks_qa": true}
   ```
 
 - [ ] **Coverage Command Failed**

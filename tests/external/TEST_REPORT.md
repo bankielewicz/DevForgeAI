@@ -170,7 +170,7 @@ Tests fail because:
 - Commands require Claude Code Terminal context
 - External project lacks .claude/ framework files
 - Skills and subagents not deployed to external project
-- No .devforgeai/context/ files for /dev to reference
+- No devforgeai/context/ files for /dev to reference
 
 ---
 

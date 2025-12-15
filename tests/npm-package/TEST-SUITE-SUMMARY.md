@@ -364,7 +364,7 @@ To make tests pass (GREEN phase), implement:
 
 **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-066-npm-package-creation-structure.story.md`
 **Test Suite:** `/mnt/c/Projects/DevForgeAI2/tests/npm-package/`
-**Tech Stack:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/context/tech-stack.md`
+**Tech Stack:** `/mnt/c/Projects/DevForgeAI2/devforgeai/context/tech-stack.md`
 
 ---
 

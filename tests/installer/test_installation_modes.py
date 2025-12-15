@@ -331,7 +331,7 @@ class TestValidateMode:
             ".claude/scripts",
             ".claude/skills",
             ".devforgeai/config",
-            ".devforgeai/context",
+            "devforgeai/context",
             ".devforgeai/protocols",
         ]
 

@@ -290,7 +290,7 @@ Validates hook failures don't break deployment:
 - **STORY-024** (/qa hook integration) - Reference implementation pattern
 
 ### With DevForgeAI Framework
-- Context files: `.devforgeai/context/*.md` (used in tests)
+- Context files: `devforgeai/context/*.md` (used in tests)
 - Story format: `devforgeai/specs/Stories/*.story.md` (STORY-025)
 - Configuration: `.devforgeai/config/hooks.yaml`
 - Logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`

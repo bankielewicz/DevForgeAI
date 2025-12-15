@@ -26,7 +26,7 @@ format_version: "2.0"
 
 ### 1. [ ] devforgeai-architecture integration (Phase 1, greenfield mode)
 
-**Given** a user runs `/create-context` for a new project (no existing `.devforgeai/context/` files)
+**Given** a user runs `/create-context` for a new project (no existing `devforgeai/context/` files)
 **When** devforgeai-architecture skill executes Phase 1 (Project Context Discovery)
 **Then** the skill:
 - Loads `user-input-guidance.md` from `src/claude/skills/devforgeai-architecture/references/`
@@ -105,7 +105,7 @@ format_version: "2.0"
 **Then** the conditional loading behaves as follows:
 
 **devforgeai-architecture:**
-- Loads guidance: Greenfield mode (no `.devforgeai/context/*.md` files exist)
+- Loads guidance: Greenfield mode (no `devforgeai/context/*.md` files exist)
 - Skips guidance: Brownfield mode (6 context files exist), shows "Skipping user-input-guidance.md (brownfield mode detected)"
 
 **devforgeai-ui-generator:**
@@ -150,7 +150,7 @@ technical_specification:
       file_path: "src/claude/skills/devforgeai-architecture/SKILL.md"
       requirements:
         - id: "SKILL-ARCH-001"
-          description: "Add conditional Step 0 to Phase 1: Load guidance only in greenfield mode (detect via Glob for .devforgeai/context/*.md, if 0 files: greenfield)"
+          description: "Add conditional Step 0 to Phase 1: Load guidance only in greenfield mode (detect via Glob for devforgeai/context/*.md, if 0 files: greenfield)"
           testable: true
           test_requirement: "Test: Create project with no context files, verify guidance loaded; create project with 6 context files, verify guidance skipped"
           priority: "Critical"
@@ -366,7 +366,7 @@ technical_specification:
 
 ### 1. Architecture brownfield mode (skip guidance - context files exist)
 
-**Scenario:** User runs `/create-context MyProject` but `.devforgeai/context/` directory already contains all 6 context files (tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md) from a previous run.
+**Scenario:** User runs `/create-context MyProject` but `devforgeai/context/` directory already contains all 6 context files (tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md) from a previous run.
 
 **Expected Behavior:**
 - devforgeai-architecture skill detects brownfield mode in Phase 1 Step 0 (pre-flight check)
@@ -502,7 +502,7 @@ sha256sum src/claude/skills/*/references/user-input-guidance.md | awk '{print $1
 **devforgeai-architecture:**
 ```python
 # Detect brownfield mode
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/context/*.md")
 context_count = len(context_files)
 
 if context_count == 6:

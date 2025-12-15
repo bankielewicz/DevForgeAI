@@ -28,7 +28,7 @@ format_version: "2.0"
 **Given** the framework contains ~2,800+ path references across 450+ files
 **When** I execute the audit scan with grep patterns for `.claude/` and `.devforgeai/`
 **Then** the audit produces a classification report with 4 categories:
-- **Deploy-time references** (KEEP AS-IS): @file references in CLAUDE.md, deployed .devforgeai/context/ references, CLI tool paths (~689 refs)
+- **Deploy-time references** (KEEP AS-IS): @file references in CLAUDE.md, deployed devforgeai/context/ references, CLI tool paths (~689 refs)
 - **Source-time references** (UPDATE): Read() calls in skills loading references/ and assets/, documentation referencing source structure (~164 refs)
 - **Ambiguous references** (MANUAL REVIEW): Mixed contexts requiring developer judgment (~35 refs)
 - **Backup/archive files** (EXCLUDE): .backup, .original files that don't need updates (~1,926 refs)
@@ -65,7 +65,7 @@ format_version: "2.0"
 - 0 broken asset loads (all `src/claude/skills/*/assets/` paths resolve)
 - 0 broken documentation links (all source structure references valid)
 - 100% deployed references preserved (@file paths in CLAUDE.md unchanged)
-- 100% context file references preserved (.devforgeai/context/ paths unchanged)
+- 100% context file references preserved (devforgeai/context/ paths unchanged)
 **And** validation report shows:
   - Skills: 74/74 Read() calls resolve (100%)
   - Assets: 18/18 asset loads resolve (100%)
@@ -333,7 +333,7 @@ technical_specification:
 **Handling:** Build reference dependency graph, report cycles: "Circular: devforgeai-development → qa-automation.md → devforgeai-development/scripts/"
 
 ### 2. Mixed Context References
-**Scenario:** File contains both deploy-time (.devforgeai/context/) and source-time (Read .claude/skills/) references
+**Scenario:** File contains both deploy-time (devforgeai/context/) and source-time (Read .claude/skills/) references
 **Expected:** Line-specific updates (deploy refs stay, source refs change)
 **Handling:** Use line-aware sed patterns, manual review of 20 mixed-context files
 
@@ -370,7 +370,7 @@ technical_specification:
 
 2. **File existence post-update:** Every updated Read() path must resolve to existing file (validate with test script checking all 164 paths)
 
-3. **Deploy-time preservation:** Audit confirms 689 deploy-time refs unchanged (diff shows 0 changes for CLAUDE.md @file lines, .devforgeai/context/ refs)
+3. **Deploy-time preservation:** Audit confirms 689 deploy-time refs unchanged (diff shows 0 changes for CLAUDE.md @file lines, devforgeai/context/ refs)
 
 4. **Backup completeness:** Backup must contain all 87 files being modified (compare file lists pre/post backup, assert equality)
 
@@ -555,7 +555,7 @@ technical_specification:
 ### Compliance Verification
 
 ✅ **Tech Stack Compliance**: Bash scripting (LOCKED), grep/sed/find (approved utilities)
-✅ **Architecture Constraints**: Source-time refs in src/claude/skills/, deploy-time refs in .devforgeai/context/
+✅ **Architecture Constraints**: Source-time refs in src/claude/skills/, deploy-time refs in devforgeai/context/
 ✅ **Code Quality**: Set -euo pipefail, error handling, documentation in all scripts
 ✅ **Testing**: TDD workflow complete (Red → Green → Refactor phases all PASSED)
 ✅ **Definition of Done**: All 27 items marked complete, zero deferrals

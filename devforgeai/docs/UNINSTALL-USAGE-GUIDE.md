@@ -41,7 +41,7 @@ Dry-Run Mode: No files will be modified
 Framework files to remove:
   - .claude/skills/  (45 files)
   - .claude/agents/  (20 files)
-  - .devforgeai/context/ (unmodified - removed)
+  - devforgeai/context/ (unmodified - removed)
   - CLAUDE.md (if unmodified)
 
 User content to preserve:

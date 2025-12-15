@@ -276,7 +276,7 @@ Complete documentation available in framework directories.
 Follow preflight validation steps before starting new work.
 
 ## Key File Locations
-Context files in .devforgeai/context/, Stories in devforgeai/specs/Stories/, Epics in devforgeai/specs/Epics/, ADRs in .devforgeai/adrs/.
+Context files in devforgeai/context/, Stories in devforgeai/specs/Stories/, Epics in devforgeai/specs/Epics/, ADRs in .devforgeai/adrs/.
 
 ## Common Commands Reference
 Use /dev for development, /qa for validation, /release for deployment.

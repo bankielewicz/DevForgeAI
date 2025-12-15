@@ -150,7 +150,7 @@ DevForgeAI is a comprehensive framework for AI-assisted software development tha
 - Alternatives considered
 
 **Acceptance Criteria**:
-- [ ] All 6 context files generated in `.devforgeai/context/`
+- [ ] All 6 context files generated in `devforgeai/context/`
 - [ ] No placeholder content (TODO, TBD) in context files
 - [ ] Context files are framework-agnostic (not language-specific)
 - [ ] ADR template available in `docs/architecture/decisions/`

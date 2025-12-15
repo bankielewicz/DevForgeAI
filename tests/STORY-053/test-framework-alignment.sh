@@ -215,8 +215,8 @@ if [ -f "$GUIDANCE_FILE" ]; then
     files_to_check=(
         "CLAUDE.md"
         ".claude/memory/skills-reference.md"
-        ".devforgeai/context/tech-stack.md"
-        ".devforgeai/context/source-tree.md"
+        "devforgeai/context/tech-stack.md"
+        "devforgeai/context/source-tree.md"
     )
 
     existing_count=0

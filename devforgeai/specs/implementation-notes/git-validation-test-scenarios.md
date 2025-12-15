@@ -28,15 +28,15 @@ git init
 git commit --allow-empty -m "Initial commit"
 
 # Create minimal DevForgeAI structure
-mkdir -p .devforgeai/context .ai_docs/Stories
+mkdir -p devforgeai/context .ai_docs/Stories
 
 # Create minimal context files
-echo "# Tech Stack" > .devforgeai/context/tech-stack.md
-echo "# Source Tree" > .devforgeai/context/source-tree.md
-echo "# Dependencies" > .devforgeai/context/dependencies.md
-echo "# Coding Standards" > .devforgeai/context/coding-standards.md
-echo "# Architecture Constraints" > .devforgeai/context/architecture-constraints.md
-echo "# Anti-Patterns" > .devforgeai/context/anti-patterns.md
+echo "# Tech Stack" > devforgeai/context/tech-stack.md
+echo "# Source Tree" > devforgeai/context/source-tree.md
+echo "# Dependencies" > devforgeai/context/dependencies.md
+echo "# Coding Standards" > devforgeai/context/coding-standards.md
+echo "# Architecture Constraints" > devforgeai/context/architecture-constraints.md
+echo "# Anti-Patterns" > devforgeai/context/anti-patterns.md
 
 # Create test story
 cat > devforgeai/specs/Stories/STORY-001.story.md <<'EOF'
@@ -113,15 +113,15 @@ mkdir -p /tmp/test-devforgeai-no-git
 cd /tmp/test-devforgeai-no-git
 
 # Create minimal DevForgeAI structure (NO git init)
-mkdir -p .devforgeai/context .ai_docs/Stories
+mkdir -p devforgeai/context .ai_docs/Stories
 
 # Create minimal context files (same as Scenario 1)
-echo "# Tech Stack" > .devforgeai/context/tech-stack.md
-echo "# Source Tree" > .devforgeai/context/source-tree.md
-echo "# Dependencies" > .devforgeai/context/dependencies.md
-echo "# Coding Standards" > .devforgeai/context/coding-standards.md
-echo "# Architecture Constraints" > .devforgeai/context/architecture-constraints.md
-echo "# Anti-Patterns" > .devforgeai/context/anti-patterns.md
+echo "# Tech Stack" > devforgeai/context/tech-stack.md
+echo "# Source Tree" > devforgeai/context/source-tree.md
+echo "# Dependencies" > devforgeai/context/dependencies.md
+echo "# Coding Standards" > devforgeai/context/coding-standards.md
+echo "# Architecture Constraints" > devforgeai/context/architecture-constraints.md
+echo "# Anti-Patterns" > devforgeai/context/anti-patterns.md
 
 # Create test story (same as Scenario 1)
 cat > devforgeai/specs/Stories/STORY-001.story.md <<'EOF'
@@ -237,7 +237,7 @@ mkdir -p /tmp/test-skill-fallback
 cd /tmp/test-skill-fallback
 
 # Create minimal structure
-mkdir -p .devforgeai/context .ai_docs/Stories
+mkdir -p devforgeai/context .ai_docs/Stories
 
 # Create context files and story (same as above)
 ```
@@ -338,7 +338,7 @@ mkdir -p /tmp/test-git-transition
 cd /tmp/test-git-transition
 
 # Create structure
-mkdir -p .devforgeai/context .ai_docs/Stories
+mkdir -p devforgeai/context .ai_docs/Stories
 
 # Create files (same as above)
 ```

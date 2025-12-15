@@ -17,10 +17,10 @@ The `devforgeai-release` skill currently violates DevForgeAI's own architectural
 - Expected token savings: **65%** (load ~20K tokens typically, ~50K when references needed)
 
 **Constraints to Follow**:
-- `.devforgeai/context/tech-stack.md` - Component size limits
-- `.devforgeai/context/coding-standards.md` - Progressive disclosure pattern
-- `.devforgeai/context/source-tree.md` - Directory structure rules
-- `.devforgeai/context/anti-patterns.md` - Size violation prevention
+- `devforgeai/context/tech-stack.md` - Component size limits
+- `devforgeai/context/coding-standards.md` - Progressive disclosure pattern
+- `devforgeai/context/source-tree.md` - Directory structure rules
+- `devforgeai/context/anti-patterns.md` - Size violation prevention
 
 **Lesson from Phase 1.1 (devforgeai-qa)**:
 - Acceptable to be 600-650 lines if code examples add clarity
@@ -47,10 +47,10 @@ Refactor `devforgeai-release` skill to implement **progressive disclosure patter
 
 2. **Read Framework Context Files** (understand constraints)
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
-   Read(file_path=".devforgeai/context/coding-standards.md")
-   Read(file_path=".devforgeai/context/architecture-constraints.md")
+   Read(file_path="devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/context/source-tree.md")
+   Read(file_path="devforgeai/context/coding-standards.md")
+   Read(file_path="devforgeai/context/architecture-constraints.md")
    ```
 
 3. **Check Existing Reference Files**
@@ -600,9 +600,9 @@ The refactor is successful when:
 Read(file_path=".claude/skills/devforgeai-release/SKILL.md")
 
 # 2. Read context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/context/source-tree.md")
 
 # 3. Check existing references
 Bash(command="ls -lh .claude/skills/devforgeai-release/references/")

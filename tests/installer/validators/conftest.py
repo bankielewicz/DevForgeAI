@@ -34,7 +34,7 @@ def existing_installation_dir(temp_dir: Path) -> Path:
 
     Contains:
     - .claude/skills/ directory
-    - .devforgeai/context/ directory
+    - devforgeai/context/ directory
     - version.json file
     """
     claude_dir = temp_dir / ".claude" / "skills"

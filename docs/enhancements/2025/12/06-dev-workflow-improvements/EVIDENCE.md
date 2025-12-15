@@ -112,7 +112,7 @@
 
 **Step 0.4:** Validate 6 context files exist
 - **Actual:** NOT EXECUTED
-- **Evidence:** No `Read(file_path=".devforgeai/context/tech-stack.md")` calls
+- **Evidence:** No `Read(file_path="devforgeai/context/tech-stack.md")` calls
 
 **Step 0.7:** Invoke tech-stack-detector subagent
 - **Actual:** NOT EXECUTED

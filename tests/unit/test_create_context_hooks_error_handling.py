@@ -542,7 +542,7 @@ class TestCommandSuccessDespiteFailures:
 
         Given: /create-context executes (hooks may fail)
         When: Command completes
-        Then: All 6 files should exist in .devforgeai/context/
+        Then: All 6 files should exist in devforgeai/context/
         """
         # Arrange
         required_files = {

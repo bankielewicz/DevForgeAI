@@ -344,9 +344,9 @@ tests/integration/
 - `devforgeai/specs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
 
 **Framework Context:**
-- `.devforgeai/context/tech-stack.md` (pytest, Python 3.8+)
-- `.devforgeai/context/coding-standards.md` (naming, structure)
-- `.devforgeai/context/anti-patterns.md` (forbidden patterns)
+- `devforgeai/context/tech-stack.md` (pytest, Python 3.8+)
+- `devforgeai/context/coding-standards.md` (naming, structure)
+- `devforgeai/context/anti-patterns.md` (forbidden patterns)
 
 **Configuration:**
 - `pytest.ini` (root) - Pytest markers and settings

@@ -316,7 +316,7 @@ grep "Task(" .claude/skills/devforgeai-development/SKILL.md
 
 3. Subagents (isolated contexts)
    ↓ System prompts include "Context Awareness" sections
-   ↓ Prompts include: "Validate against .devforgeai/context/tech-stack.md"
+   ↓ Prompts include: "Validate against devforgeai/context/tech-stack.md"
    ↓ Subagents read: Context files from filesystem
    ↓ Returns: Structured JSON
 
@@ -507,7 +507,7 @@ grep -n "Task(subagent_type=" .claude/skills/devforgeai-development/SKILL.md
 
 5. **Missing Context Files**
    ```bash
-   # Setup: No .devforgeai/context/*.md files
+   # Setup: No devforgeai/context/*.md files
    /dev STORY-005
    # Expected: Auto-invokes devforgeai-architecture skill
    ```

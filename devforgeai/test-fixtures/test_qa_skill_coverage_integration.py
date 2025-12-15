@@ -105,8 +105,8 @@ class TestQASkillCoverageIntegration:
         """
         # Arrange
         context_files = {
-            ".devforgeai/context/tech-stack.md": "core_technologies:\n  language: Python",
-            ".devforgeai/context/source-tree.md": "layers:\n  business_logic: src/Domain",
+            "devforgeai/context/tech-stack.md": "core_technologies:\n  language: Python",
+            "devforgeai/context/source-tree.md": "layers:\n  business_logic: src/Domain",
             ".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md": "thresholds:\n  business_logic: 95"
         }
 
@@ -247,7 +247,7 @@ class TestQASkillCoverageIntegration:
         {
             "status": "failure",
             "story_id": "STORY-TEST-001",
-            "error": "Context file missing: .devforgeai/context/source-tree.md",
+            "error": "Context file missing: devforgeai/context/source-tree.md",
             "blocks_qa": true,
             "remediation": "Run /create-context to generate missing context files"
         }
@@ -462,7 +462,7 @@ class TestQASkillCoverageIntegration:
         coverage_result = {
             "status": "failure",
             "blocks_qa": True,
-            "error": "Context file missing: .devforgeai/context/source-tree.md",
+            "error": "Context file missing: devforgeai/context/source-tree.md",
             "remediation": "Run /create-context to generate missing context files"
         }
 

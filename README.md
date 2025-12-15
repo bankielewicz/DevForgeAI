@@ -318,7 +318,7 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 ├─────────────────────────────────────────────────────────────────┤
 │ 2. ARCHITECTURE (devforgeai-architecture)                      │
 │    Creates immutable context files defining constraints         │
-│    Output: 6 context files in .devforgeai/context/             │
+│    Output: 6 context files in devforgeai/context/             │
 ├─────────────────────────────────────────────────────────────────┤
 │ 3. ORCHESTRATION (devforgeai-orchestration)                    │
 │    Manages story lifecycle through 11 workflow states           │
@@ -527,7 +527,7 @@ src/                     # Framework source for installer (NEW - STORY-041, EPIC
 ### Context-First Development
 
 Before ANY code is written:
-1. Check for 6 context files in `.devforgeai/context/`
+1. Check for 6 context files in `devforgeai/context/`
 2. If missing → Auto-invoke `devforgeai-architecture` skill
 3. Context files become THE LAW for all development
 

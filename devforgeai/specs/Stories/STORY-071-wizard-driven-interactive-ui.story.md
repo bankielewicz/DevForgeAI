@@ -914,7 +914,7 @@ Object.defineProperty(process.stdin, 'isTTY', { value: true });
 
 **Modified Files:**
 - package.json (added dependencies)
-- .devforgeai/context/dependencies.md (inquirer version fix)
+- devforgeai/context/dependencies.md (inquirer version fix)
 - tests/npm-package/jest.config.js (path fixes)
 - tests/npm-package/setup.js (needs TTY mock)
 
@@ -1035,7 +1035,7 @@ Object.defineProperty(process.stdin, 'isTTY', { value: true });
 
 **Dependencies:**
 - package.json (chalk 4.1.2, ora 5.4.1 - exact versions)
-- .devforgeai/context/dependencies.md (updated locked versions)
+- devforgeai/context/dependencies.md (updated locked versions)
 
 **Documentation:**
 - .devforgeai/adrs/ADR-006-inquirer-esm-cjs-compatibility.md (expanded to all CLI libs)

@@ -514,7 +514,7 @@ On-demand → Load specific file when needed (e.g., skills-reference.md only whe
 **CRITICAL: All recommendations must cite sources.**
 
 **Required citation format:**
-- Framework files: `(Source: .devforgeai/context/tech-stack.md, lines 45-52)`
+- Framework files: `(Source: devforgeai/context/tech-stack.md, lines 45-52)`
 - Memory files: `(Source: .claude/memory/skills-reference.md, section 3.2)`
 - Code examples: `(Source: src/module/file.ts, lines 120-135)`
 
@@ -540,7 +540,7 @@ Claude: "You should use TypeScript for this feature."
 **After (evidence-based):**
 ```
 Claude: "You must use TypeScript for this feature.
-(Source: .devforgeai/context/tech-stack.md, lines 23-25:
+(Source: devforgeai/context/tech-stack.md, lines 23-25:
 'Primary Language: TypeScript 5.3+
 All source code MUST be written in TypeScript.')"
 ```

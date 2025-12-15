@@ -337,7 +337,7 @@ def real_user_files(integration_project):
     Create user-owned files that must be preserved during upgrades/uninstall.
 
     This fixture creates:
-    - User context files (.devforgeai/context/*.md)
+    - User context files (devforgeai/context/*.md)
     - User stories (devforgeai/specs/Stories/*.md)
     - User hooks configuration
     - User feedback configuration

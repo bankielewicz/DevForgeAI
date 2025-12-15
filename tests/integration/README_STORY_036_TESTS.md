@@ -360,7 +360,7 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py -v -
 | Fixture | Purpose | Scope |
 |---------|---------|-------|
 | `temp_research_dir` | Temporary .devforgeai/research/ directory structure | function |
-| `mock_context_files` | Mock .devforgeai/context/ with 6 context files | function |
+| `mock_context_files` | Mock devforgeai/context/ with 6 context files | function |
 | `mock_epic_file` | Mock EPIC-007.epic.md | function |
 | `mock_story_file` | Mock STORY-036.story.md | function |
 | `research_report_template` | Template structure for reports | function |
@@ -479,8 +479,8 @@ Code refactored while keeping all tests GREEN.
 - **Story:** `devforgeai/specs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
 - **Test File:** `tests/integration/test_story_036_internet_sleuth_deep_integration.py`
 - **Pytest Config:** `pytest.ini`
-- **Tech Stack:** `.devforgeai/context/tech-stack.md` (framework uses pytest)
-- **Coding Standards:** `.devforgeai/context/coding-standards.md`
+- **Tech Stack:** `devforgeai/context/tech-stack.md` (framework uses pytest)
+- **Coding Standards:** `devforgeai/context/coding-standards.md`
 
 ---
 

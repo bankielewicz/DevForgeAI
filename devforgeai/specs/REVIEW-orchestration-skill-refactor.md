@@ -493,7 +493,7 @@ Phase 4 (Epic/Sprint Management) is only 36 lines (lines 341-377):
 
 ### Framework Context File Guidance
 
-From `.devforgeai/context/tech-stack.md`:
+From `devforgeai/context/tech-stack.md`:
 ```
 Skills:
 - Target: 500-800 lines (~20,000-30,000 characters)

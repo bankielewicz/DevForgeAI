@@ -79,8 +79,8 @@ else
     mkdir -p "$BUNDLED_DIR/devforgeai/protocols"
     mkdir -p "$BUNDLED_DIR/devforgeai/specs"
 
-    if [ -d "$PROJECT_ROOT/.devforgeai/context" ]; then
-        cp -r "$PROJECT_ROOT/.devforgeai/context/"* "$BUNDLED_DIR/devforgeai/context/" 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/devforgeai/context" ]; then
+        cp -r "$PROJECT_ROOT/devforgeai/context/"* "$BUNDLED_DIR/devforgeai/context/" 2>/dev/null || true
     fi
     if [ -d "$PROJECT_ROOT/.devforgeai/protocols" ]; then
         cp -r "$PROJECT_ROOT/.devforgeai/protocols/"* "$BUNDLED_DIR/devforgeai/protocols/" 2>/dev/null || true

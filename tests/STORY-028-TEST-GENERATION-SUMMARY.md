@@ -439,7 +439,7 @@ Tests verify:
 
 **Framework Documentation**:
 - `/mnt/c/Projects/DevForgeAI2/CLAUDE.md` - Framework overview
-- `/mnt/c/Projects/DevForgeAI2/.devforgeai/context/tech-stack.md` - Tech constraints
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/context/tech-stack.md` - Tech constraints
 
 ---
 

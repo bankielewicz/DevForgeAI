@@ -378,7 +378,7 @@ BACKUP_DIR=".devforgeai/backups/v1.0.0-20250101-120000"
 cp "$BACKUP_DIR/.claude/agents/test-automator.md" ".claude/agents/test-automator.md"
 
 # Restore directory
-cp -r "$BACKUP_DIR/.devforgeai/context" ".devforgeai/context"
+cp -r "$BACKUP_DIR/devforgeai/context" "devforgeai/context"
 ```
 
 ## Manual Rollback Steps
@@ -568,7 +568,7 @@ After upgrade completes:
 cat .devforgeai/.version.json
 
 # Check all key files present
-ls -la .devforgeai/context/
+ls -la devforgeai/context/
 ls -la .claude/skills/
 ls -la .ai_docs/
 

@@ -23,10 +23,10 @@ The `devforgeai-ideation` skill currently violates DevForgeAI's own architectura
 **Key Advantage**: This is the **EASIEST refactor** of all 5 skills because all reference files already exist. You just need to refactor the main SKILL.md to properly use them via progressive disclosure.
 
 **Constraints to Follow**:
-- `.devforgeai/context/tech-stack.md` - Component size limits
-- `.devforgeai/context/coding-standards.md` - Progressive disclosure pattern
-- `.devforgeai/context/source-tree.md` - Directory structure rules
-- `.devforgeai/context/anti-patterns.md` - Size violation prevention
+- `devforgeai/context/tech-stack.md` - Component size limits
+- `devforgeai/context/coding-standards.md` - Progressive disclosure pattern
+- `devforgeai/context/source-tree.md` - Directory structure rules
+- `devforgeai/context/anti-patterns.md` - Size violation prevention
 
 **Lessons from Phase 1.1, 1.2, 1.3**:
 - ✅ Phase 1.1 (QA): 701 lines acceptable with code examples
@@ -54,9 +54,9 @@ Refactor `devforgeai-ideation` skill to implement **progressive disclosure patte
 
 2. **Read Framework Context Files** (understand constraints)
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
-   Read(file_path=".devforgeai/context/coding-standards.md")
+   Read(file_path="devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/context/source-tree.md")
+   Read(file_path="devforgeai/context/coding-standards.md")
    ```
 
 3. **Read All 4 Existing Reference Files** (understand what's already documented)
@@ -733,8 +733,8 @@ The refactor is successful when:
 Read(file_path=".claude/skills/devforgeai-ideation/SKILL.md")
 
 # 2. Read context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/coding-standards.md")
 
 # 3. Read all 4 existing reference files
 Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md")

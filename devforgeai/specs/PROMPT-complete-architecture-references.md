@@ -511,7 +511,7 @@ DELETE /api/users/{id}     - Delete user
 
 1. **Read existing context if brownfield:**
    ```
-   Read(file_path=".devforgeai/context/architecture-constraints.md")
+   Read(file_path="devforgeai/context/architecture-constraints.md")
    ```
 
 2. **Use AskUserQuestion for pattern selection:**

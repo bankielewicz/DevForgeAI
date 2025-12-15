@@ -13,7 +13,7 @@
 | **Skills** | 15 functional + 1 incomplete | `.claude/skills/` |
 | **Subagents** | 26 | `.claude/agents/` |
 | **Commands** | 24 | `.claude/commands/` |
-| **Context Files** | 6 | `.devforgeai/context/` |
+| **Context Files** | 6 | `devforgeai/context/` |
 | **Quality Gates** | 4 | Workflow enforcement |
 | **Protocols** | 1 | `.devforgeai/protocols/` |
 

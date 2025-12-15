@@ -289,8 +289,8 @@ This document provides a comprehensive implementation plan for three P0 priority
 # Pattern used by devforgeai-qa skill for all 3 subagents
 
 # 1. Load required context files
-tech_stack = Read(file_path=".devforgeai/context/tech-stack.md")
-source_tree = Read(file_path=".devforgeai/context/source-tree.md")
+tech_stack = Read(file_path="devforgeai/context/tech-stack.md")
+source_tree = Read(file_path="devforgeai/context/source-tree.md")
 # ... (load other context files as needed)
 
 # 2. Extract parameters

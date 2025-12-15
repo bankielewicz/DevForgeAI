@@ -39,7 +39,7 @@ format_version: "2.1"
 **Given** Claude makes a technology recommendation referencing a framework file
 **When** the recommendation is delivered
 **Then** the citation follows the format: `(Source: {relative-path}, lines {start}-{end})`
-- Path is relative to project root (e.g., `.devforgeai/context/tech-stack.md`)
+- Path is relative to project root (e.g., `devforgeai/context/tech-stack.md`)
 - Line numbers are specific (not ranges exceeding 20 lines)
 - File must exist and be readable via `Read(file_path="...")` tool
 - Cited lines must contain content supporting the recommendation

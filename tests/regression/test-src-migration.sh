@@ -295,12 +295,12 @@ test_phase_5_integration_workflows() {
 
     # Workflow 1: Verify context files required for workflows
     ((TOTAL_TESTS++))
-    if [ -f "$PROJECT_ROOT/.devforgeai/context/tech-stack.md" ] && \
-       [ -f "$PROJECT_ROOT/.devforgeai/context/source-tree.md" ] && \
-       [ -f "$PROJECT_ROOT/.devforgeai/context/dependencies.md" ] && \
-       [ -f "$PROJECT_ROOT/.devforgeai/context/coding-standards.md" ] && \
-       [ -f "$PROJECT_ROOT/.devforgeai/context/architecture-constraints.md" ] && \
-       [ -f "$PROJECT_ROOT/.devforgeai/context/anti-patterns.md" ]; then
+    if [ -f "$PROJECT_ROOT/devforgeai/context/tech-stack.md" ] && \
+       [ -f "$PROJECT_ROOT/devforgeai/context/source-tree.md" ] && \
+       [ -f "$PROJECT_ROOT/devforgeai/context/dependencies.md" ] && \
+       [ -f "$PROJECT_ROOT/devforgeai/context/coding-standards.md" ] && \
+       [ -f "$PROJECT_ROOT/devforgeai/context/architecture-constraints.md" ] && \
+       [ -f "$PROJECT_ROOT/devforgeai/context/anti-patterns.md" ]; then
         log_info "✓ Workflow 1: All 6 context files exist"
         ((PASSED_TESTS++))
     else

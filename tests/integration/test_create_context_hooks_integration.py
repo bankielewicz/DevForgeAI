@@ -164,12 +164,12 @@ def mock_invoke_hooks_timeout(monkeypatch):
 def context_files_created_marker():
     """Create a marker to verify context files were created."""
     return [
-        ".devforgeai/context/tech-stack.md",
-        ".devforgeai/context/source-tree.md",
-        ".devforgeai/context/dependencies.md",
-        ".devforgeai/context/coding-standards.md",
-        ".devforgeai/context/architecture-constraints.md",
-        ".devforgeai/context/anti-patterns.md"
+        "devforgeai/context/tech-stack.md",
+        "devforgeai/context/source-tree.md",
+        "devforgeai/context/dependencies.md",
+        "devforgeai/context/coding-standards.md",
+        "devforgeai/context/architecture-constraints.md",
+        "devforgeai/context/anti-patterns.md"
     ]
 
 

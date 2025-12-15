@@ -452,8 +452,8 @@ chmod +x .git/hooks/pre-commit
 
 ### Framework References
 - **CLAUDE.md**: Core framework documentation
-- **Tech Stack**: `.devforgeai/context/tech-stack.md`
-- **Source Tree**: `.devforgeai/context/source-tree.md`
+- **Tech Stack**: `devforgeai/context/tech-stack.md`
+- **Source Tree**: `devforgeai/context/source-tree.md`
 - **Prompting Guide**: `src/claude/memory/effective-prompting-guide.md`
 
 ---

@@ -851,7 +851,7 @@ class TestAuditTrail:
         # Act
         reporter.log_operation("copy", ".claude/skills/skill1.md", "success")
         reporter.log_operation("copy", ".claude/skills/skill2.md", "success")
-        reporter.log_operation("copy", ".devforgeai/context/tech-stack.md", "success")
+        reporter.log_operation("copy", "devforgeai/context/tech-stack.md", "success")
 
         # Assert
         log_content = log_file.read_text()

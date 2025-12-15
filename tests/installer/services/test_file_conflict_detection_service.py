@@ -46,7 +46,7 @@ class TestFileConflictDetectionService:
         # Arrange
         from src.installer.services.file_conflict_detection_service import FileConflictDetectionService
 
-        source_files = [".claude/skills/test.md", ".devforgeai/context/tech-stack.md"]
+        source_files = [".claude/skills/test.md", "devforgeai/context/tech-stack.md"]
         service = FileConflictDetectionService(
             target_path=str(temp_dir),
             source_files=source_files
@@ -84,7 +84,7 @@ class TestFileConflictDetectionService:
 
         source_files = [
             ".claude/skills/test.md",
-            ".devforgeai/context/tech-stack.md"
+            "devforgeai/context/tech-stack.md"
         ]
 
         service = FileConflictDetectionService(
@@ -148,7 +148,7 @@ class TestFileConflictDetectionService:
 
         source_files = [
             ".claude/skills/new-skill.md",
-            ".devforgeai/context/new-context.md"
+            "devforgeai/context/new-context.md"
         ]
 
         service = FileConflictDetectionService(
@@ -187,7 +187,7 @@ class TestFileConflictDetectionService:
         source_files = [
             ".claude/skills/skill1.md",
             ".claude/skills/skill2.md",
-            ".devforgeai/context/tech-stack.md"
+            "devforgeai/context/tech-stack.md"
         ]
 
         service = FileConflictDetectionService(

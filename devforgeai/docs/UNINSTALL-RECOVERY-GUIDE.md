@@ -95,7 +95,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
    cp -r $BACKUP_DIR/.claude/ .
 
    # Restore .devforgeai/ framework files (be careful not to overwrite user content)
-   cp -r $BACKUP_DIR/.devforgeai/context/ .devforgeai/
+   cp -r $BACKUP_DIR/devforgeai/context/ .devforgeai/
    cp -r $BACKUP_DIR/.devforgeai/protocols/ .devforgeai/
    cp -r $BACKUP_DIR/.devforgeai/qa/ .devforgeai/
 
@@ -106,7 +106,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 4. **Verify restoration:**
    ```bash
    ls -la .claude/skills/
-   ls -la .devforgeai/context/
+   ls -la devforgeai/context/
    # Framework files should be restored
    ```
 
@@ -183,7 +183,7 @@ cd ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 
 # Should show framework files
 test -d .claude/skills && echo "✓ Framework skills found"
-test -d .devforgeai/context && echo "✓ Context files found"
+test -d devforgeai/context && echo "✓ Context files found"
 
 # Should show user content
 test -d .ai_docs && echo "✓ User content found"

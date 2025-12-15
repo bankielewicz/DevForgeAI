@@ -436,7 +436,7 @@ git log -1
 ```bash
 # Clean repository, all prerequisites met
 git reset --hard HEAD
-ls .devforgeai/context/*.md | wc -l
+ls devforgeai/context/*.md | wc -l
 # Should be: 6
 
 ls devforgeai/specs/Stories/STORY-021*.story.md
@@ -456,7 +456,7 @@ ls devforgeai/specs/Stories/STORY-021*.story.md
 - [ ] Header: "📋 Pre-Flight Checklist for /dev STORY-021"
 - [ ] Prerequisites listed:
   - Git repository status
-  - Context files (.devforgeai/context/)
+  - Context files (devforgeai/context/)
   - Story file existence
   - Working tree cleanliness
 - [ ] "What happens during development" section present

@@ -406,7 +406,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-architecture), Ta
 3. Link ADRs in context files
 
 #### Success Criteria
-- [ ] All 6 context files generated in `.devforgeai/context/`
+- [ ] All 6 context files generated in `devforgeai/context/`
 - [ ] Files contain no TODO/TBD placeholders
 - [ ] tech-stack.md reflects user technology choices
 - [ ] source-tree.md defines project structure
@@ -1022,7 +1022,7 @@ SlashCommand(command="/release STORY-001 --env=staging")
 
 **Read Operations** (using Read tool):
 - Story files: `devforgeai/specs/Stories/*.story.md`
-- Context files: `.devforgeai/context/*.md`
+- Context files: `devforgeai/context/*.md`
 - Configuration: `.devforgeai/deployment/config.json`
 
 **Write Operations** (using Write tool):

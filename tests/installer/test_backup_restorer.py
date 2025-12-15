@@ -220,7 +220,7 @@ class TestUserContentPreservation:
 
     def test_restore_skips_devforgeai_context(self, tmp_path):
         """
-        Test: .devforgeai/context/* not restored by default (AC#5, SVC-006).
+        Test: devforgeai/context/* not restored by default (AC#5, SVC-006).
 
         Given: Backup contains context files
         When: restore() called without flag

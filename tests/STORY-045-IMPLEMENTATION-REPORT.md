@@ -102,7 +102,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 **Preservation (Never Overwritten):**
 - `.devforgeai/config/hooks.yaml` (user custom hooks)
 - `.devforgeai/feedback/config.yaml` (user feedback settings)
-- `.devforgeai/context/*.md` (user-defined tech stack, constraints, etc.)
+- `devforgeai/context/*.md` (user-defined tech stack, constraints, etc.)
 
 **Untouched Directories:**
 - `.ai_docs/` (never modified)

@@ -16,10 +16,10 @@ The `devforgeai-qa` skill currently violates DevForgeAI's own architectural cons
 - Expected token savings: **70%** (load ~10K tokens typically, ~35K when references needed)
 
 **Constraints to Follow**:
-- `.devforgeai/context/tech-stack.md` - Component size limits
-- `.devforgeai/context/coding-standards.md` - Progressive disclosure pattern
-- `.devforgeai/context/source-tree.md` - Directory structure rules
-- `.devforgeai/context/anti-patterns.md` - Size violation prevention
+- `devforgeai/context/tech-stack.md` - Component size limits
+- `devforgeai/context/coding-standards.md` - Progressive disclosure pattern
+- `devforgeai/context/source-tree.md` - Directory structure rules
+- `devforgeai/context/anti-patterns.md` - Size violation prevention
 
 ## Objective
 
@@ -40,10 +40,10 @@ Refactor `devforgeai-qa` skill to implement **progressive disclosure pattern**:
 
 2. **Read Framework Context Files** (understand constraints)
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
-   Read(file_path=".devforgeai/context/coding-standards.md")
-   Read(file_path=".devforgeai/context/architecture-constraints.md")
+   Read(file_path="devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/context/source-tree.md")
+   Read(file_path="devforgeai/context/coding-standards.md")
+   Read(file_path="devforgeai/context/architecture-constraints.md")
    ```
 
 3. **Create references/ Directory**
@@ -478,9 +478,9 @@ The refactor is successful when:
 Read(file_path=".claude/skills/devforgeai-qa/SKILL.md")
 
 # 2. Read context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/context/source-tree.md")
 
 # 3. Create references directory
 Bash(command="mkdir -p .claude/skills/devforgeai-qa/references")

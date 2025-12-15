@@ -421,7 +421,7 @@ Before `/release`, verify:
 ### Edge Case 4: Missing Context Files
 **Scenario:** Documentation requested before `/create-context` run
 **Handling:**
-- Detect missing .devforgeai/context/ files
+- Detect missing devforgeai/context/ files
 - HALT with error: "Context files required. Run /create-context first."
 - Prevent documentation generation without framework constraints
 

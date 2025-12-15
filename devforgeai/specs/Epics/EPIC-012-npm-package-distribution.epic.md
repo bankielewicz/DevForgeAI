@@ -247,10 +247,10 @@ This complexity prevents many developers from trying DevForgeAI, limiting adopti
    - Sprint 4: STORY-067 (5 pts), STORY-070 (12 pts) - Publishing & Release Automation
    - Sprint 5: STORY-068 (5 pts), STORY-069 (8 pts) - CLI & Offline support
 2. **Architecture Phase:** Define NPM package structure ✅ COMPLETED (2025-11-25)
-   - ✅ Updated `.devforgeai/context/tech-stack.md` with NPM/Node.js tooling
-   - ✅ Updated `.devforgeai/context/dependencies.md` with installer dependencies
-   - ✅ Updated `.devforgeai/context/architecture-constraints.md` with installer patterns
-   - ✅ Updated `.devforgeai/context/source-tree.md` with installer directory structure
+   - ✅ Updated `devforgeai/context/tech-stack.md` with NPM/Node.js tooling
+   - ✅ Updated `devforgeai/context/dependencies.md` with installer dependencies
+   - ✅ Updated `devforgeai/context/architecture-constraints.md` with installer patterns
+   - ✅ Updated `devforgeai/context/source-tree.md` with installer directory structure
    - ✅ Created ADR-004: NPM Package Distribution
 3. **Implementation:** TDD workflow for each story
    - Start with `/dev STORY-066` (foundation for all other stories)

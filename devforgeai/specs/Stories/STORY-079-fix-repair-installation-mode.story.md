@@ -59,7 +59,7 @@ Installations can become corrupted through incomplete upgrades, manual file dele
 **And** prompt shows diff preview if file is text-based.
 
 **Detection heuristics:**
-- File in user-modifiable location (.ai_docs/, .devforgeai/context/)
+- File in user-modifiable location (.ai_docs/, devforgeai/context/)
 - File modified more recently than installation timestamp
 - File contains user-specific content patterns
 

@@ -172,7 +172,7 @@ Subagent Execution:
 
 Deploy-Time References:
   CLAUDE.md @file refs: ✅ PRESERVED (17/17)
-  .devforgeai/context/ refs: ✅ UNCHANGED
+  devforgeai/context/ refs: ✅ UNCHANGED
   package.json scripts: ✅ PRESERVED
 
 REGRESSION TEST RESULT: ✅ NO REGRESSIONS DETECTED

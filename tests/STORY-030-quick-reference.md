@@ -242,7 +242,7 @@ Compare implementation to `/dev` Phase 6 from STORY-023:
 ### Files Required
 ```
 .claude/commands/create-context.md - Command with Phase N
-.devforgeai/context/*.md - 6 context files created in Phase 4
+devforgeai/context/*.md - 6 context files created in Phase 4
 devforgeai CLI - Mock available (subprocess.run mocked)
 ```
 

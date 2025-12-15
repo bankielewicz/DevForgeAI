@@ -30,8 +30,8 @@ Based on path audit scan of 12,869 references across 450+ files:
    - Action: KEEP UNCHANGED
    - Reason: References deployed framework files loaded at runtime
 
-2. **.devforgeai/context/ paths** (~417 refs)
-   - Example: Files reading `.devforgeai/context/tech-stack.md`
+2. **devforgeai/context/ paths** (~417 refs)
+   - Example: Files reading `devforgeai/context/tech-stack.md`
    - Action: KEEP UNCHANGED
    - Reason: These are architectural constraint files deployed with framework
 

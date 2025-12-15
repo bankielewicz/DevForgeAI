@@ -514,7 +514,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 ## Dependencies
 
 ### Required Context Files
-- `.devforgeai/context/tech-stack.md` - Language detection
+- `devforgeai/context/tech-stack.md` - Language detection
 - `src/claude/skills/devforgeai-qa/assets/config/quality-metrics.md` - Threshold configuration
 
 ### Analysis Tools (Language-Specific)

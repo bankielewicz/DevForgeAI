@@ -527,7 +527,7 @@ FeedbackIndex (1) ──references──► FeedbackSession (N)
 ### INT-1: DevForgeAI Architecture Compliance
 **Requirement:** Feedback system must respect all 6 existing context files
 **Validation:**
-- Read `.devforgeai/context/architecture-constraints.md`
+- Read `devforgeai/context/architecture-constraints.md`
 - Verify no violations of three-layer architecture
 - Verify single responsibility principle
 - Verify progressive disclosure pattern
@@ -733,9 +733,9 @@ FeedbackIndex (1) ──references──► FeedbackSession (N)
   - `devforgeai/specs/Epics/EPIC-005-framework-integration.epic.md`
 
 - DevForgeAI Context Files:
-  - `.devforgeai/context/architecture-constraints.md` (compliance validation)
-  - `.devforgeai/context/tech-stack.md` (framework implementation constraints)
-  - `.devforgeai/context/anti-patterns.md` (patterns to avoid)
+  - `devforgeai/context/architecture-constraints.md` (compliance validation)
+  - `devforgeai/context/tech-stack.md` (framework implementation constraints)
+  - `devforgeai/context/anti-patterns.md` (patterns to avoid)
 
 - Tier 3 Planning (Future Reference):
   - `.devforgeai/specs/enhancements/retrospective-feedback-tier3-roadmap.md` (to be created)

@@ -429,7 +429,7 @@ This is **NOT a TDD violation** because:
 
 - **Test Automator Skill:** `.claude/skills/test-automator/SKILL.md`
 - **Test Framework:** Jest 29.7.0 (package.json devDependencies)
-- **Coding Standards:** `.devforgeai/context/coding-standards.md`
+- **Coding Standards:** `devforgeai/context/coding-standards.md`
 - **Story File:** `devforgeai/specs/Stories/STORY-068-global-cli-entry-point.story.md`
 
 ---

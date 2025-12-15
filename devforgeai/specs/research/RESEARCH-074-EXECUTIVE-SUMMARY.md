@@ -231,7 +231,7 @@ Then search codebase in PARALLEL for:
 ## Required Changes to Framework
 
 ### 1. Architecture Constraints Update
-Add to `.devforgeai/context/architecture-constraints.md`:
+Add to `devforgeai/context/architecture-constraints.md`:
 ```markdown
 ## Parallel Execution Rules
 - Max 10 concurrent tasks (recommend 4-6)

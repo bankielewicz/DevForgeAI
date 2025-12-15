@@ -159,7 +159,7 @@ brew install --cask wkhtmltopdf             # macOS
 Check that context files exist:
 
 ```bash
-ls -la .devforgeai/context/
+ls -la devforgeai/context/
 # Should show 6 files:
 # - tech-stack.md
 # - source-tree.md
@@ -898,12 +898,12 @@ Error: "Context files required. Run /create-context first."
 /create-context MyProject
 
 # This creates 6 required context files:
-# - .devforgeai/context/tech-stack.md
-# - .devforgeai/context/source-tree.md
-# - .devforgeai/context/coding-standards.md
-# - .devforgeai/context/architecture-constraints.md
-# - .devforgeai/context/dependencies.md
-# - .devforgeai/context/anti-patterns.md
+# - devforgeai/context/tech-stack.md
+# - devforgeai/context/source-tree.md
+# - devforgeai/context/coding-standards.md
+# - devforgeai/context/architecture-constraints.md
+# - devforgeai/context/dependencies.md
+# - devforgeai/context/anti-patterns.md
 ```
 
 #### Issue 2: "No completed stories found"

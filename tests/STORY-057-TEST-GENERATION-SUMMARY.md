@@ -333,7 +333,7 @@ To transition tests to GREEN:
 # Add Step 0 to Phase 1:
 
 Step 0: Load user-input-guidance.md conditionally
-- Detect greenfield mode: Glob for .devforgeai/context/*.md
+- Detect greenfield mode: Glob for devforgeai/context/*.md
 - If 0 files: load guidance, log "Greenfield mode detected..."
 - If 6 files: skip guidance, log "Brownfield mode detected..."
 - Apply patterns to Phase 1 questions

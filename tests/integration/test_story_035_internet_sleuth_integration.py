@@ -201,8 +201,8 @@ class TestInternetSleuthFrameworkIntegration:
                 f"Found deprecated path pattern: {pattern} (matches: {matches})"
 
         # Verify correct paths used
-        assert '.devforgeai/context/' in self.content, \
-            "Missing .devforgeai/context/ path"
+        assert 'devforgeai/context/' in self.content, \
+            "Missing devforgeai/context/ path"
         assert '.devforgeai/research/' in self.content, \
             "Missing .devforgeai/research/ path"
 
@@ -309,8 +309,8 @@ class TestInternetSleuthContextFileAwareness:
             "Missing brownfield/greenfield mode detection"
 
         # Check for context file existence check
-        assert '.devforgeai/context/' in phase1, \
-            "Missing .devforgeai/context/ path in Phase 1"
+        assert 'devforgeai/context/' in phase1, \
+            "Missing devforgeai/context/ path in Phase 1"
 
     def test_tech_stack_validation_documented(self):
         """INT-017: tech-stack.md validation is documented"""

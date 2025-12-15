@@ -249,7 +249,7 @@ This leads to:
 1. **Story Creation:** Break down 6 features into 12-18 implementable stories
    - Run `/create-story [feature-description]` for each feature
 2. **Architecture Phase:** Design validation pipeline, wizard flow, error taxonomy
-   - Update `.devforgeai/context/architecture-constraints.md` with validation patterns
+   - Update `devforgeai/context/architecture-constraints.md` with validation patterns
 3. **Sprint Planning:** Assign stories to Sprint 2-3 (after EPIC-012 completes)
    - Run `/create-sprint 2` and select EPIC-013 stories
 4. **Implementation:** TDD workflow for each story

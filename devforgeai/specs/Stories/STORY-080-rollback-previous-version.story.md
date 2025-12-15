@@ -84,7 +84,7 @@ This feature provides both automatic rollback (triggered when upgrades fail) and
   - Stories: `devforgeai/specs/Stories/*`
   - Epics: `devforgeai/specs/Epics/*`
   - Sprints: `devforgeai/specs/Sprints/*`
-  - Context files: `.devforgeai/context/*` (if user-modified)
+  - Context files: `devforgeai/context/*` (if user-modified)
   - Custom ADRs: `.devforgeai/adrs/*` (if user-created)
 **And** user is shown list of preserved files,
 **And** user can optionally include user content in rollback with --include-user-content flag.
@@ -351,7 +351,7 @@ technical_specification:
           type: "array"
           example: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/']"
           required: false
-          default: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/', 'devforgeai/specs/Sprints/', '.devforgeai/context/', '.devforgeai/adrs/']"
+          default: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/', 'devforgeai/specs/Sprints/', 'devforgeai/context/', '.devforgeai/adrs/']"
           validation: "Array of valid paths"
           test_requirement: "Test: User content paths are skipped during rollback"
         - key: "validate_after_rollback"

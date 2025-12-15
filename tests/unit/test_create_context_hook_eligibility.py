@@ -335,12 +335,12 @@ class TestCheckHooksContextFilePrerequisite:
         """
         # Arrange
         required_files = [
-            ".devforgeai/context/tech-stack.md",
-            ".devforgeai/context/source-tree.md",
-            ".devforgeai/context/dependencies.md",
-            ".devforgeai/context/coding-standards.md",
-            ".devforgeai/context/architecture-constraints.md",
-            ".devforgeai/context/anti-patterns.md"
+            "devforgeai/context/tech-stack.md",
+            "devforgeai/context/source-tree.md",
+            "devforgeai/context/dependencies.md",
+            "devforgeai/context/coding-standards.md",
+            "devforgeai/context/architecture-constraints.md",
+            "devforgeai/context/anti-patterns.md"
         ]
 
         # Act - In real test, would verify these exist before Phase N

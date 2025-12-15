@@ -48,7 +48,7 @@ All 6 skills are well-designed, follow consistent patterns, and integrate cohesi
 │ • Tech stack decisions (AskUserQuestion)                     │
 │ • ADR creation                                               │
 │ • Context file generation (6 files)                          │
-│ • Output: .devforgeai/context/*.md                           │
+│ • Output: devforgeai/context/*.md                           │
 └──────────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────────┐

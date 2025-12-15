@@ -373,7 +373,7 @@ Phase 7 (Success Report):
 
 ### temp_project_dir
 - Temporary directory mimicking project structure
-- Contains .devforgeai/context/, .devforgeai/config/
+- Contains devforgeai/context/, .devforgeai/config/
 - Cleaned up automatically after each test
 
 ### create_context_files (factory)
@@ -407,8 +407,8 @@ Phase 7 (Success Report):
 ### Phase N Command Implementation
 ```bash
 # Step 1: Determine operation status
-if [ -f ".devforgeai/context/tech-stack.md" ] && \
-   [ -f ".devforgeai/context/source-tree.md" ] && \
+if [ -f "devforgeai/context/tech-stack.md" ] && \
+   [ -f "devforgeai/context/source-tree.md" ] && \
    ... all 6 files ... then
   OPERATION_STATUS="success"
 else

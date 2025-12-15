@@ -8,7 +8,7 @@ Validates that uninstall removes framework while preserving user data:
 3. Removes .devforgeai/ subdirectories (except context)
 4. Removes CLAUDE.md file
 5. Preserves .ai_docs/ (user stories)
-6. Preserves .devforgeai/context/ (user context files)
+6. Preserves devforgeai/context/ (user context files)
 7. Removes .version.json
 
 AC Mapping:
@@ -135,7 +135,7 @@ class TestUninstallWorkflow:
         Validates:
         - .ai_docs/ directory untouched
         - User stories preserved
-        - .devforgeai/context/ preserved
+        - devforgeai/context/ preserved
         - User context files unchanged
 
         Expected: All user files intact after uninstall

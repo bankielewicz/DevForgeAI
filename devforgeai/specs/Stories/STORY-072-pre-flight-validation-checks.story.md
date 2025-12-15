@@ -502,7 +502,7 @@ No external packages required.
 
 2. **Disk space calculation:** `shutil.disk_usage(path).free` in bytes. Convert to MB. Threshold: 100MB.
 
-3. **Existing installation detection:** Check for `.claude/skills/` or `.devforgeai/context/` directories.
+3. **Existing installation detection:** Check for `.claude/skills/` or `devforgeai/context/` directories.
 
 4. **Permission check:** Create temp file `.devforgeai-write-test`. Delete immediately.
 

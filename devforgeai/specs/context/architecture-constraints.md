@@ -89,12 +89,12 @@ Layer 3: Slash Commands (User Workflows)
 ```markdown
 ## Phase 1: Context Validation
 Read context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
-- Read(file_path=".devforgeai/context/dependencies.md")
-- Read(file_path=".devforgeai/context/coding-standards.md")
-- Read(file_path=".devforgeai/context/architecture-constraints.md")
-- Read(file_path=".devforgeai/context/anti-patterns.md")
+- Read(file_path="devforgeai/context/tech-stack.md")
+- Read(file_path="devforgeai/context/source-tree.md")
+- Read(file_path="devforgeai/context/dependencies.md")
+- Read(file_path="devforgeai/context/coding-standards.md")
+- Read(file_path="devforgeai/context/architecture-constraints.md")
+- Read(file_path="devforgeai/context/anti-patterns.md")
 
 HALT if ANY file missing: "Context incomplete. Run /create-context"
 ```

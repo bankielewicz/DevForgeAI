@@ -941,7 +941,7 @@ def user_modified_installation(tmp_project):
                 "is_user_modifiable": True,
             },
             {
-                "path": ".devforgeai/context/tech-stack.md",
+                "path": "devforgeai/context/tech-stack.md",
                 "checksum": "original_checksum_2" + ("b" * 44),
                 "size": 200,
                 "is_user_modifiable": True,
@@ -1037,7 +1037,7 @@ def mock_source_package(tmp_path):
 
     source_files = [
         (".claude/agents/test.md", "Test agent content"),
-        (".devforgeai/context/tech-stack.md", "Tech stack content"),
+        ("devforgeai/context/tech-stack.md", "Tech stack content"),
         ("file1.txt", "File 1 content"),
         ("file2.txt", "File 2 content"),
     ]

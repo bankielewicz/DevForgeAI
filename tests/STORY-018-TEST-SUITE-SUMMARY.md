@@ -640,8 +640,8 @@ All 175 tests are designed to execute against the hook system implementation:
 - `/mnt/c/Projects/DevForgeAI2/tests/test_hook_*.py`
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md`
-- `.devforgeai/context/coding-standards.md`
+- `devforgeai/context/tech-stack.md`
+- `devforgeai/context/coding-standards.md`
 
 **Related Documentation:**
 - Hook System Schema: STORY-018 section "Hook Registry Schema"

@@ -277,7 +277,7 @@ class TestDeploymentEngine:
         """
         WKR-020, AC4: Preserve user context files during upgrade.
 
-        Given: .devforgeai/context/*.md exists (user-created)
+        Given: devforgeai/context/*.md exists (user-created)
         When: Deployment executed
         Then: Context files NOT overwritten
         """

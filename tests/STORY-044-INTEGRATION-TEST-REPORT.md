@@ -337,7 +337,7 @@ All **6 integration test phases PASSED** with comprehensive validation across th
 - ✅ .claude/skills/ - All 14 skills with SKILL.md files
 - ✅ .claude/agents/ - All 26 subagent files present
 - ✅ .claude/memory/ - Progressive disclosure files present
-- ✅ .devforgeai/context/ - All 6 context files present
+- ✅ devforgeai/context/ - All 6 context files present
 - ✅ .ai_docs/ - Epics, Stories, Sprints directories intact
 
 ### File Integrity

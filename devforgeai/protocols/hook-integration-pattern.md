@@ -53,12 +53,12 @@ fi
 
 **For `/create-context` command:**
 ```bash
-if [ -f ".devforgeai/context/tech-stack.md" ] && \
-   [ -f ".devforgeai/context/dependencies.md" ] && \
-   [ -f ".devforgeai/context/coding-standards.md" ] && \
-   [ -f ".devforgeai/context/architecture-constraints.md" ] && \
-   [ -f ".devforgeai/context/anti-patterns.md" ] && \
-   [ -f ".devforgeai/context/source-tree.md" ]; then
+if [ -f "devforgeai/context/tech-stack.md" ] && \
+   [ -f "devforgeai/context/dependencies.md" ] && \
+   [ -f "devforgeai/context/coding-standards.md" ] && \
+   [ -f "devforgeai/context/architecture-constraints.md" ] && \
+   [ -f "devforgeai/context/anti-patterns.md" ] && \
+   [ -f "devforgeai/context/source-tree.md" ]; then
   OPERATION_STATUS="completed"
 else
   OPERATION_STATUS="failed"

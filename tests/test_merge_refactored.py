@@ -247,7 +247,7 @@ Documentation available.
 Follow validation steps.
 
 ## Key File Locations
-Context files in .devforgeai/context/
+Context files in devforgeai/context/
 
 ## Common Commands
 Use /dev for development.

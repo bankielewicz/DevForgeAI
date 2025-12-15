@@ -90,7 +90,7 @@ This document provides the complete architecture and implementation guide for th
    - If no context files exist → HALT (require `/create-context` first)
 
 3. Validate context files:
-   - Check `.devforgeai/context/*.md` exist (all 6 files)
+   - Check `devforgeai/context/*.md` exist (all 6 files)
    - Read `coding-standards.md` for documentation conventions
    - Read `source-tree.md` for documentation file placement
    - HALT if context files missing

@@ -268,8 +268,8 @@ All 7 integration points tested and passing:
 
 ```python
 # Step 1: Load context files
-tech_stack = Read(".devforgeai/context/tech-stack.md")
-source_tree = Read(".devforgeai/context/source-tree.md")
+tech_stack = Read("devforgeai/context/tech-stack.md")
+source_tree = Read("devforgeai/context/source-tree.md")
 thresholds = Read(".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
 
 # Step 2: Invoke coverage-analyzer

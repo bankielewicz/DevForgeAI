@@ -225,7 +225,7 @@ All deploy-time references remain unchanged and functional:
 ✓ @.claude/memory/skills-reference.md
 ✓ @.claude/memory/subagents-reference.md
 ✓ @.claude/memory/commands-reference.md
-✓ .devforgeai/context/ references
+✓ devforgeai/context/ references
 ✓ package.json scripts
 ```
 

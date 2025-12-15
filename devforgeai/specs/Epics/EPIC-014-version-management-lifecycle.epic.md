@@ -283,7 +283,7 @@ This leads to:
 1. ~~**Story Creation:** Break down 6 features into 15-20 implementable stories~~ ✅ COMPLETE
    - 6 stories created covering all features
 2. **Architecture Phase:** Design migration system, state machine, rollback validation
-   - Update `.devforgeai/context/architecture-constraints.md` with state management patterns
+   - Update `devforgeai/context/architecture-constraints.md` with state management patterns
 3. **Sprint Planning:** Assign stories to Sprint 3-5 (after EPIC-012 and EPIC-013)
    - Run `/create-sprint 3` and select EPIC-014 stories
 4. **Implementation:** TDD workflow for each story

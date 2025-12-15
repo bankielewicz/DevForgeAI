@@ -184,7 +184,7 @@ Make retrospective feedback a **native part of DevForgeAI's operation lifecycle*
 - **Progressive Disclosure:** Hook logic in skill, not commands (avoid duplication)
 
 **Compliance Validation:**
-- Read `.devforgeai/context/architecture-constraints.md`
+- Read `devforgeai/context/architecture-constraints.md`
 - Validate hook design against locked patterns
 - HALT if any violations detected
 

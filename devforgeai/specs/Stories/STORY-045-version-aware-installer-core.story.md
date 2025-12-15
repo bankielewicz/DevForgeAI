@@ -102,7 +102,7 @@ depends_on: ["STORY-042"]
 **Then** user configuration files are explicitly preserved:
 - `.devforgeai/config/hooks.yaml`: NOT overwritten (user customizations kept)
 - `.devforgeai/feedback/config.yaml`: NOT overwritten (user settings kept)
-- `.devforgeai/context/*.md`: NOT overwritten (user-created context files)
+- `devforgeai/context/*.md`: NOT overwritten (user-created context files)
 - `.ai_docs/`: NOT touched (user stories/epics/sprints)
 **And** for each preserved file, installer displays: "⏩ Preserved: .devforgeai/config/hooks.yaml (user config)"
 **And** if config templates updated in source, installer shows: "ℹ️  New config template available: config/hooks.yaml.example (review for new features)"
@@ -531,7 +531,7 @@ technical_specification:
 
 5. **Checksum algorithm:** Use SHA256 (64-character hex), verify 100% match on rollback
 
-6. **Preserved files list:** Must include hooks.yaml, feedback config, all .devforgeai/context/*.md files
+6. **Preserved files list:** Must include hooks.yaml, feedback config, all devforgeai/context/*.md files
 
 7. **Exclusion patterns:** Must match .gitignore-style syntax, validate before deployment
 

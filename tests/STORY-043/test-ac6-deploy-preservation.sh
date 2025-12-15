@@ -136,7 +136,7 @@ test_deploy_reference_variety() {
     local types=0
     grep -q "@\.claude/memory/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
     grep -q "@\.devforgeai/protocols/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
-    grep -q "@\.devforgeai/context/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
+    grep -q "@\devforgeai/context/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
 
     if [ "$types" -ge 2 ]; then
         echo "  Multiple types of deploy-time references preserved: $types/3"

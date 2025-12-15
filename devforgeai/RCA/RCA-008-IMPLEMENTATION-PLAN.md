@@ -601,7 +601,7 @@ touch test{1..20}.txt
 # Actual: ___________________
 
 # Test 3: Missing context files
-rm .devforgeai/context/tech-stack.md
+rm devforgeai/context/tech-stack.md
 /dev STORY-021
 # Expected: Checklist shows "⚠️ 5/6 context files"
 # Actual: ___________________

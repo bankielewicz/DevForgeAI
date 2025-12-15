@@ -68,12 +68,12 @@ test_workflow_1_epic_to_story_to_dev() {
     test_directory_exists "$PROJECT_ROOT/.ai_docs/Stories" "Stories directory exists"
 
     # Step 3: Development context files
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/tech-stack.md" "Tech stack context file"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/source-tree.md" "Source tree context file"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/dependencies.md" "Dependencies context file"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/coding-standards.md" "Coding standards context file"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/architecture-constraints.md" "Architecture constraints context file"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/anti-patterns.md" "Anti-patterns context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/tech-stack.md" "Tech stack context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/source-tree.md" "Source tree context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/dependencies.md" "Dependencies context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/coding-standards.md" "Coding standards context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/architecture-constraints.md" "Architecture constraints context file"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/anti-patterns.md" "Anti-patterns context file"
 
     # Step 4: Development skill accessible
     test_path_exists "$PROJECT_ROOT/.claude/skills/devforgeai-development/SKILL.md" "Development skill SKILL.md"
@@ -89,12 +89,12 @@ test_workflow_2_context_to_story_to_qa() {
     echo
 
     # Step 1: Context files (6 required)
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/tech-stack.md" "Tech stack (context)"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/source-tree.md" "Source tree (context)"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/dependencies.md" "Dependencies (context)"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/coding-standards.md" "Coding standards (context)"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/architecture-constraints.md" "Architecture constraints (context)"
-    test_path_exists "$PROJECT_ROOT/.devforgeai/context/anti-patterns.md" "Anti-patterns (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/tech-stack.md" "Tech stack (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/source-tree.md" "Source tree (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/dependencies.md" "Dependencies (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/coding-standards.md" "Coding standards (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/architecture-constraints.md" "Architecture constraints (context)"
+    test_path_exists "$PROJECT_ROOT/devforgeai/context/anti-patterns.md" "Anti-patterns (context)"
 
     # Step 2: Story creation support
     test_directory_exists "$PROJECT_ROOT/.ai_docs/Stories" "Stories directory for QA"

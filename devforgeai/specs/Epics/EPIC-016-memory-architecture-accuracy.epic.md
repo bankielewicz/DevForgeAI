@@ -77,7 +77,7 @@ This epic implements findings from **RESEARCH-001: Claude Code Memory Management
 
 **Acceptance Criteria:**
 - Citation format standards defined in CLAUDE.md Critical Rule #12:
-  - Framework files: `(Source: .devforgeai/context/tech-stack.md, lines 45-52)`
+  - Framework files: `(Source: devforgeai/context/tech-stack.md, lines 45-52)`
   - Memory files: `(Source: .claude/memory/skills-reference.md, section 3.2)`
   - Code examples: `(Source: src/module/file.ts, lines 120-135)`
 - Citation requirements documented:

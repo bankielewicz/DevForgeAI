@@ -175,7 +175,7 @@ pytest tests/unit/test_internet_sleuth_ac2_path_migration.py -v
 2. `test_no_old_adrs_path_references` - No .claude/adrs/
 3. `test_no_bmad_core_path_references` - No .bmad-core/
 4. `test_no_old_research_path_references` - No devforgeai/specs/research/
-5. `test_uses_new_devforgeai_context_path` - Uses .devforgeai/context/
+5. `test_uses_new_devforgeai_context_path` - Uses devforgeai/context/
 6. `test_uses_new_devforgeai_adrs_path` - Uses .devforgeai/adrs/
 7. `test_uses_new_devforgeai_research_path` - Uses .devforgeai/research/
 8. `test_uses_ai_docs_stories_path_correctly` - Uses devforgeai/specs/Stories/

@@ -453,7 +453,7 @@ git push origin <branch-name>
 - ✅ All skills functional (.claude/skills/ intact)
 - ✅ All subagents functional (.claude/agents/ intact)
 - ✅ All commands functional (.claude/commands/ intact)
-- ✅ Context files accessible (.devforgeai/context/ preserved)
+- ✅ Context files accessible (devforgeai/context/ preserved)
 - ✅ Documentation complete (.devforgeai/docs/ copied)
 - ✅ Protocols defined (.devforgeai/protocols/ copied)
 - ✅ Specifications ready (.devforgeai/specs/ copied)

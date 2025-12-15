@@ -111,10 +111,10 @@ The refactored devforgeai-qa skill successfully implements progressive disclosur
 **Main SKILL.md loads context correctly**:
 ```markdown
 # Line 202-206:
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/context/anti-patterns.md")
 ```
 
 ✅ **PASS**: Context file integration preserved

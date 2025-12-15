@@ -572,12 +572,12 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 ## Dependencies
 
 ### Required Context Files
-- `.devforgeai/context/tech-stack.md` - Locked technology detection
-- `.devforgeai/context/source-tree.md` - Structure validation
-- `.devforgeai/context/dependencies.md` - Approved package validation
-- `.devforgeai/context/coding-standards.md` - Style validation
-- `.devforgeai/context/architecture-constraints.md` - Layer boundary validation
-- `.devforgeai/context/anti-patterns.md` - Forbidden pattern detection
+- `devforgeai/context/tech-stack.md` - Locked technology detection
+- `devforgeai/context/source-tree.md` - Structure validation
+- `devforgeai/context/dependencies.md` - Approved package validation
+- `devforgeai/context/coding-standards.md` - Style validation
+- `devforgeai/context/architecture-constraints.md` - Layer boundary validation
+- `devforgeai/context/anti-patterns.md` - Forbidden pattern detection
 
 ### Linting Tools (Language-Specific, Optional)
 - **Shell:** shellcheck

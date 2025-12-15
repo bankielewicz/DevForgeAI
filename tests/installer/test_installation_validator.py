@@ -538,7 +538,7 @@ class TestUserModifiedFileDetection:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "files": [
                 {
-                    "path": ".devforgeai/context/tech-stack.md",
+                    "path": "devforgeai/context/tech-stack.md",
                     "checksum": "original_checksum",
                     "size": 100,
                     "is_user_modifiable": True,

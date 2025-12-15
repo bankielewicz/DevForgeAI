@@ -513,9 +513,9 @@ def validate_registry(registry_path: str) -> ValidationResult:
 
 ### Code Review
 
-- [x] Code follows coding standards (`.devforgeai/context/coding-standards.md`)
-- [x] No violations of anti-patterns (`.devforgeai/context/anti-patterns.md`)
-- [x] Architecture constraints respected (`.devforgeai/context/architecture-constraints.md`)
+- [x] Code follows coding standards (`devforgeai/context/coding-standards.md`)
+- [x] No violations of anti-patterns (`devforgeai/context/anti-patterns.md`)
+- [x] Architecture constraints respected (`devforgeai/context/architecture-constraints.md`)
 - [x] No technical debt - all items completed (zero deferrals)
 
 ### Deployment

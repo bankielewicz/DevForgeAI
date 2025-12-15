@@ -619,7 +619,7 @@ Expected passing: All EC tests, all 101 tests
 - **Edge Cases:** 7 edge cases with handling requirements
 
 ### Test Framework Documentation
-- **Tech Stack:** `.devforgeai/context/tech-stack.md`
+- **Tech Stack:** `devforgeai/context/tech-stack.md`
 - **Framework:** Bash with native utilities (find, grep, sha256sum)
 - **Test Pattern:** AAA (Arrange, Act, Assert)
 - **Output Format:** TAP-compatible with color coding

@@ -280,7 +280,7 @@ class TestManifestManagerRegeneration:
         assert sized_file_entry["size"] == expected_size
 
     def test_should_mark_user_modifiable_files_during_regeneration(self, tmp_project):
-        """AC#8: User-modifiable files marked correctly (.ai_docs/, .devforgeai/context/)."""
+        """AC#8: User-modifiable files marked correctly (.ai_docs/, devforgeai/context/)."""
         # Arrange
         ai_docs = tmp_project["root"] / ".ai_docs"
         ai_docs.mkdir()
@@ -300,7 +300,7 @@ class TestManifestManagerRegeneration:
             if ".ai_docs/" in file_entry["path"]:
                 assert file_entry["is_user_modifiable"] is True
 
-            if ".devforgeai/context/" in file_entry["path"]:
+            if "devforgeai/context/" in file_entry["path"]:
                 assert file_entry["is_user_modifiable"] is True
 
     def test_should_set_created_at_timestamp(self, tmp_project):

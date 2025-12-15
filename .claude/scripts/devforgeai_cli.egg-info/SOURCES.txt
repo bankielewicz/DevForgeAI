@@ -14,6 +14,7 @@ devforgeai_cli.egg-info/top_level.txt
 devforgeai_cli/commands/__init__.py
 devforgeai_cli/commands/check_hooks.py
 devforgeai_cli/commands/invoke_hooks.py
+devforgeai_cli/commands/resolve_path.py
 devforgeai_cli/feedback/__init__.py
 devforgeai_cli/feedback/adaptive_questioning_engine.py
 devforgeai_cli/feedback/aggregation.py
@@ -36,6 +37,7 @@ devforgeai_cli/tests/__init__.py
 devforgeai_cli/tests/test_check_hooks.py
 devforgeai_cli/tests/test_dod_validator.py
 devforgeai_cli/tests/test_invoke_hooks.py
+devforgeai_cli/tests/test_resolve_path.py
 devforgeai_cli/tests/test_skip_tracking.py
 devforgeai_cli/tests/test_skip_tracking_coverage_gap.py
 devforgeai_cli/tests/feedback/__init__.py

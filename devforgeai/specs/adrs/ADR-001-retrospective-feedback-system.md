@@ -542,9 +542,9 @@ schema:
   - [Retrospective Feedback System Requirements](.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md)
 
 - **Context Files:**
-  - [Architecture Constraints](.devforgeai/context/architecture-constraints.md)
-  - [Tech Stack](.devforgeai/context/tech-stack.md)
-  - [Source Tree](.devforgeai/context/source-tree.md)
+  - [Architecture Constraints](devforgeai/context/architecture-constraints.md)
+  - [Tech Stack](devforgeai/context/tech-stack.md)
+  - [Source Tree](devforgeai/context/source-tree.md)
 
 ---
 

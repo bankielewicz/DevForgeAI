@@ -364,8 +364,8 @@ Tasks:
 ## Related Documentation
 
 ### Framework Documentation
-- `.devforgeai/context/architecture-constraints.md` (will be updated)
-- `.devforgeai/context/coding-standards.md` (will be updated)
+- `devforgeai/context/architecture-constraints.md` (will be updated)
+- `devforgeai/context/coding-standards.md` (will be updated)
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (will be refactored)
 - `.claude/skills/devforgeai-development/SKILL.md` (will be enhanced)
 

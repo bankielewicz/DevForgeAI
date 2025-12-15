@@ -81,7 +81,7 @@ States are:
 **Entry Criteria:**
 - Status = "Backlog" previously
 - All `depends_on` stories in "QA Approved" or "Released" state
-- Tech stack validated against `.devforgeai/context/tech-stack.md`
+- Tech stack validated against `devforgeai/context/tech-stack.md`
 - Sprint assignment confirmed (optional)
 
 **Exit Criteria:**

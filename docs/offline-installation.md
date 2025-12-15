@@ -80,7 +80,7 @@ devforgeai install .
 - `.claude/scripts/` - CLI validators
 
 ### Template Files
-- `.devforgeai/context/` - 6 context file templates
+- `devforgeai/context/` - 6 context file templates
 - `.devforgeai/protocols/` - Workflow protocols
 - `.devforgeai/specs/` - Specification templates
 

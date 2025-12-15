@@ -670,8 +670,8 @@ These tests are designed to catch the following categories of defects:
 - https://semver.org/ - Official semantic versioning specification
 
 **DevForgeAI Standards:**
-- .devforgeai/context/coding-standards.md - Code patterns
-- .devforgeai/context/architecture-constraints.md - Layer boundaries
+- devforgeai/context/coding-standards.md - Code patterns
+- devforgeai/context/architecture-constraints.md - Layer boundaries
 
 ---
 

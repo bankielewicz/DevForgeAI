@@ -363,8 +363,8 @@ def qa_skill_invocation_context():
             "overall": 0.80
         },
         "context_files": {
-            "tech_stack": "/mnt/c/Projects/MyProject/.devforgeai/context/tech-stack.md",
-            "source_tree": "/mnt/c/Projects/MyProject/.devforgeai/context/source-tree.md",
+            "tech_stack": "/mnt/c/Projects/MyProject/devforgeai/context/tech-stack.md",
+            "source_tree": "/mnt/c/Projects/MyProject/devforgeai/context/source-tree.md",
             "coverage_thresholds": "/mnt/c/Projects/MyProject/.claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md"
         }
     }
@@ -376,10 +376,10 @@ def error_scenario_context_missing():
     """Error scenario: context files missing."""
     return {
         "scenario": "context_missing",
-        "missing_file": ".devforgeai/context/source-tree.md",
+        "missing_file": "devforgeai/context/source-tree.md",
         "expected_response": {
             "status": "failure",
-            "error": "Context file missing: .devforgeai/context/source-tree.md",
+            "error": "Context file missing: devforgeai/context/source-tree.md",
             "blocks_qa": True,
             "remediation": "Run /create-context to create missing context files"
         }

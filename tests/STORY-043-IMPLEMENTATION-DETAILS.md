@@ -336,7 +336,7 @@ Success Report
 
 ### Framework Integration
 - **CLAUDE.md:** Deploy-time references preserved (17/17 @file refs)
-- **.devforgeai/context/:** Context file references unchanged
+- **devforgeai/context/:** Context file references unchanged
 - **package.json:** CLI script paths preserved
 
 ---
@@ -382,7 +382,7 @@ Files ready for git commit:
 fix(STORY-043): Update path references from .claude/ to src/claude/
 
 - Updated 209 source-time path references across 87 files
-- Preserved 971 deploy-time references (CLAUDE.md, .devforgeai/context/)
+- Preserved 971 deploy-time references (CLAUDE.md, devforgeai/context/)
 - Zero broken references detected
 - All 3 integration workflows pass
 - Backward compatible with existing framework

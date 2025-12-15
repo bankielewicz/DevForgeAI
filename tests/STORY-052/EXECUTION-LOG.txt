@@ -371,7 +371,7 @@ Test Documentation:
 
 Related Documentation:
   CLAUDE.md (framework principles)
-  .devforgeai/context/tech-stack.md (tech choices)
+  devforgeai/context/tech-stack.md (tech choices)
   .claude/memory/effective-prompting-guide.md (final deliverable)
 
 ================================================================================

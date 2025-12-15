@@ -55,7 +55,7 @@ Subagent (200-500 lines, specialized tasks)
 |-----------|---------------|--------|
 | Story file loading | `@devforgeai/specs/Stories/STORY-XXX.story.md` | ✅ Working |
 | Context markers | `**Story ID:** STORY-001` | ✅ Working |
-| 6 immutable context files | `.devforgeai/context/*.md` | ✅ Working |
+| 6 immutable context files | `devforgeai/context/*.md` | ✅ Working |
 | Story file as shared state | Subagents read/write story Implementation Notes | ✅ Working |
 | Orchestration handoff file | Ad-hoc pattern (not standardized) | ⚠️ Possible |
 

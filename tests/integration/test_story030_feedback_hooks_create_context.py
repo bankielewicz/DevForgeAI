@@ -154,7 +154,7 @@ class TestCreateContextFeedbackHooksIntegration:
         try:
             # Step 1: Determine operation status
             all_files_exist = all(
-                (Path(".devforgeai/context") / f).exists()
+                (Path("devforgeai/context") / f).exists()
                 for f in [
                     "tech-stack.md", "source-tree.md", "dependencies.md",
                     "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"
@@ -178,9 +178,9 @@ class TestCreateContextFeedbackHooksIntegration:
                 assert result == 0 or result == 1  # Accept both (success or graceful failure)
 
             # Step 4 (Phase 7): Verify context files still exist (non-blocking)
-            assert (temp_project_dir / ".devforgeai/context/tech-stack.md").exists()
-            assert (temp_project_dir / ".devforgeai/context/dependencies.md").exists()
-            assert len(list((temp_project_dir / ".devforgeai/context").glob("*.md"))) == 6
+            assert (temp_project_dir / "devforgeai/context/tech-stack.md").exists()
+            assert (temp_project_dir / "devforgeai/context/dependencies.md").exists()
+            assert len(list((temp_project_dir / "devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -233,7 +233,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 assert invoke_result in [0, 1]
 
             # Context files remain (primary success criteria)
-            context_files = list((temp_project_dir / ".devforgeai/context").glob("*.md"))
+            context_files = list((temp_project_dir / "devforgeai/context").glob("*.md"))
             assert len(context_files) == 6
 
         finally:
@@ -287,7 +287,7 @@ class TestCreateContextFeedbackHooksIntegration:
             ]
             missing_files = [
                 f for f in required_files
-                if not (Path(".devforgeai/context") / f).exists()
+                if not (Path("devforgeai/context") / f).exists()
             ]
             operation_status = "failure" if missing_files else "success"
 
@@ -308,7 +308,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 result = invoke_hooks_command(operation="create-context")
 
             # Remaining files should still exist
-            existing = [f for f in required_files if (Path(".devforgeai/context") / f).exists()]
+            existing = [f for f in required_files if (Path("devforgeai/context") / f).exists()]
             assert len(existing) == 5
 
         finally:
@@ -351,7 +351,7 @@ class TestCreateContextFeedbackHooksIntegration:
         try:
             # Determine status
             required_count = 6
-            existing_count = len(list(Path(".devforgeai/context").glob("*.md")))
+            existing_count = len(list(Path("devforgeai/context").glob("*.md")))
             operation_status = "failure" if existing_count < required_count else "success"
 
             assert operation_status == "failure"
@@ -420,7 +420,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 assert not hook_check_success
 
             # Verify context files still exist despite hook check failure
-            context_files = list(Path(".devforgeai/context").glob("*.md"))
+            context_files = list(Path("devforgeai/context").glob("*.md"))
             assert len(context_files) == 6
 
         finally:
@@ -473,7 +473,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 assert not hook_check_completed
 
             # Context files remain intact
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -519,7 +519,7 @@ class TestCreateContextFeedbackHooksIntegration:
         try:
             # Step 1: Status = "success" (all files exist)
             all_exist = all(
-                (Path(".devforgeai/context") / f).exists()
+                (Path("devforgeai/context") / f).exists()
                 for f in [
                     "tech-stack.md", "source-tree.md", "dependencies.md",
                     "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"
@@ -543,7 +543,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 # Main point: context files are unaffected
 
             # Verify context files remain (critical: non-blocking behavior)
-            context_files = list(Path(".devforgeai/context").glob("*.md"))
+            context_files = list(Path("devforgeai/context").glob("*.md"))
             assert len(context_files) == 6, "Context files should remain despite hook failure"
 
         finally:
@@ -603,7 +603,7 @@ class TestCreateContextFeedbackHooksIntegration:
                     pytest.fail("invoke_hooks_command should catch exceptions")
 
             # Context files still exist
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -662,7 +662,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 pass
 
             # Context files remain
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -708,7 +708,7 @@ class TestCreateContextFeedbackHooksIntegration:
             assert exit_code == EXIT_CODE_DONT_TRIGGER
 
             # Context files remain
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -751,7 +751,7 @@ class TestCreateContextFeedbackHooksIntegration:
             assert exit_code == EXIT_CODE_DONT_TRIGGER
 
             # Context files remain
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -810,7 +810,7 @@ class TestCreateContextFeedbackHooksIntegration:
             assert exit_code_other == EXIT_CODE_DONT_TRIGGER  # Global rule applies
 
             # Context files remain
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -960,11 +960,11 @@ class TestCreateContextFeedbackHooksIntegration:
             assert exit_code == EXIT_CODE_DONT_TRIGGER
 
             # Context files created normally
-            context_files = list(Path(".devforgeai/context").glob("*.md"))
+            context_files = list(Path("devforgeai/context").glob("*.md"))
             assert len(context_files) == 6
 
             # Phase 7 would display success
-            assert (Path(".devforgeai/context") / "tech-stack.md").exists()
+            assert (Path("devforgeai/context") / "tech-stack.md").exists()
 
         finally:
             os.chdir(original_cwd)
@@ -1007,7 +1007,7 @@ class TestCreateContextFeedbackHooksIntegration:
                     pass
 
             # Context files still created despite missing CLI
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)
@@ -1056,7 +1056,7 @@ class TestCreateContextFeedbackHooksIntegration:
                 "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"
             ]
             all_exist = all(
-                (Path(".devforgeai/context") / f).exists()
+                (Path("devforgeai/context") / f).exists()
                 for f in required_files
             )
             assert all_exist, "Phase 6 should have created all files"
@@ -1109,12 +1109,12 @@ class TestCreateContextFeedbackHooksIntegration:
 
             # Phase 7: Success Report still displays
             # (In real implementation, this would be: display success with 6 files created)
-            context_files = list(Path(".devforgeai/context").glob("*.md"))
+            context_files = list(Path("devforgeai/context").glob("*.md"))
             assert len(context_files) == 6
 
             # User sees completion message (would include file counts, etc.)
             # Verification: no error raised, files exist
-            assert (Path(".devforgeai/context") / "tech-stack.md").exists()
+            assert (Path("devforgeai/context") / "tech-stack.md").exists()
 
         finally:
             os.chdir(original_cwd)
@@ -1173,13 +1173,13 @@ class TestCreateContextFeedbackHooksIntegrationWithPhase6:
             # Phase N Step 1: Check file existence
             required_files = files
             all_exist = all(
-                (Path(".devforgeai/context") / f).exists()
+                (Path("devforgeai/context") / f).exists()
                 for f in required_files
             )
             operation_status = "success" if all_exist else "failure"
 
             assert operation_status == "success"
-            assert len(list(Path(".devforgeai/context").glob("*.md"))) == 6
+            assert len(list(Path("devforgeai/context").glob("*.md"))) == 6
 
         finally:
             os.chdir(original_cwd)

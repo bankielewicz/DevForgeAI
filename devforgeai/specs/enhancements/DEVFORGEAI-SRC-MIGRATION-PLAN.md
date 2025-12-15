@@ -95,7 +95,7 @@ GENERATED (Not in src/, created at runtime):
 - .ai_docs/ (user stories, epics, sprints)
 
 **Category 3: User-Created (Not in src/, created by commands)**
-- .devforgeai/context/ (created by /create-context)
+- devforgeai/context/ (created by /create-context)
 - .devforgeai/adrs/ (created during architecture)
 - devforgeai/specs/Stories/ (created by /create-story)
 - devforgeai/specs/Epics/ (created by /create-epic)
@@ -1096,7 +1096,7 @@ test_existing_devforgeai()
    /create-story "User login feature"
 
    # Verify files created in correct locations
-   ls .devforgeai/context/  # Should have 6 context files
+   ls devforgeai/context/  # Should have 6 context files
    ls devforgeai/specs/Stories/     # Should have STORY-001
    ```
 

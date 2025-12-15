@@ -169,12 +169,12 @@ depends_on: ["STORY-046"]
 
 **NodeJsTestProject:**
 - devforgeai/specs/Stories/STORY-001.story.md references NodeJsTestProject context
-- .devforgeai/context/tech-stack.md shows Node.js
+- devforgeai/context/tech-stack.md shows Node.js
 - .devforgeai/.version.json shows install path: /tmp/NodeJsTestProject
 
 **DotNetTestProject:**
 - devforgeai/specs/Stories/STORY-001.story.md references DotNetTestProject context
-- .devforgeai/context/tech-stack.md shows .NET
+- devforgeai/context/tech-stack.md shows .NET
 - .devforgeai/.version.json shows install path: /tmp/DotNetTestProject
 
 **And** no cross-references:

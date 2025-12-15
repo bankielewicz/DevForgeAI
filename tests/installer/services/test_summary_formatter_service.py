@@ -229,7 +229,7 @@ class TestSummaryFormatterService:
         conflict_info = ConflictInfo(
             conflicts=[
                 Path(".claude/skills/skill.md"),
-                Path(".devforgeai/context/tech-stack.md"),
+                Path("devforgeai/context/tech-stack.md"),
                 Path("CLAUDE.md")
             ],
             framework_count=2,

@@ -7,7 +7,7 @@ CLASSIFICATION SUMMARY
 
 Deploy-Time References (KEEP AS-IS):     971 refs
   - @file references in CLAUDE.md
-  - .devforgeai/context/ paths
+  - devforgeai/context/ paths
   - package.json scripts
   File: path-audit-deploy-time.txt
 

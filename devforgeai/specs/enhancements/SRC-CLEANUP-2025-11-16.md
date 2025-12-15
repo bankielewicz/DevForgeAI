@@ -232,7 +232,7 @@ DevForgeAI2/
 - Skills: 9 skills in `.claude/skills/` (Markdown)
 - Subagents: 21 subagents in `.claude/agents/` (Markdown)
 - Commands: 11 commands in `.claude/commands/` (Markdown)
-- Context: 6 context files in `.devforgeai/context/` (Markdown)
+- Context: 6 context files in `devforgeai/context/` (Markdown)
 - Protocols: Lean orchestration pattern documentation
 - Memory: Progressive disclosure references
 
@@ -456,7 +456,7 @@ The valuable patterns prototyped in the removed code are documented in story tec
 
 ## References
 
-**Source Tree Rules:** `.devforgeai/context/source-tree.md`
+**Source Tree Rules:** `devforgeai/context/source-tree.md`
 **Backup Location:** `.backups/orphaned-src-20251116/src/`
 **CLI Implementation:** `.claude/scripts/devforgeai_cli/`
 **Updated Stories:** STORY-012, 013, 016, 017, 018, 019, 020, 027

@@ -42,7 +42,7 @@ depends_on:
 **Then** a complete technology decision example exists demonstrating:
 - Read tool invocation for tech-stack.md
 - Exact quoted passage (minimum 2 lines, word-for-word)
-- Citation using framework file format: `(Source: .devforgeai/context/tech-stack.md, lines X-Y)`
+- Citation using framework file format: `(Source: devforgeai/context/tech-stack.md, lines X-Y)`
 - Final recommendation that directly references the quoted content
 - Total example length between 15-25 lines
 
@@ -55,7 +55,7 @@ depends_on:
 **Then** a complete architecture decision example exists demonstrating:
 - Read tool invocation for architecture-constraints.md
 - Exact quoted passage (minimum 2 lines, word-for-word)
-- Citation using framework file format: `(Source: .devforgeai/context/architecture-constraints.md, lines X-Y)`
+- Citation using framework file format: `(Source: devforgeai/context/architecture-constraints.md, lines X-Y)`
 - Final recommendation that directly references the quoted content
 - Total example length between 15-25 lines
 

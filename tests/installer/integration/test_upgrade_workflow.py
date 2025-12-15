@@ -134,7 +134,7 @@ class TestUpgradeWorkflow:
         AC-2.3: Upgrade preserves user configurations and data.
 
         Validates:
-        - User context files unchanged (.devforgeai/context/*.md)
+        - User context files unchanged (devforgeai/context/*.md)
         - User story files unchanged (devforgeai/specs/Stories/*.md)
         - User hooks.yaml unchanged
         - User feedback config unchanged

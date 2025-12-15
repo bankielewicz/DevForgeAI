@@ -108,9 +108,9 @@ grep "@src/claude/" CLAUDE.md       # Should find 0 refs
 
 **Expected:** 17/17 @.claude/ references preserved, 0 converted to @src/
 
-### Check 2: .devforgeai/context/ References
+### Check 2: devforgeai/context/ References
 ```bash
-grep "\.devforgeai/context/" .claude/skills/*/*.md  # Should find all unchanged
+grep "\devforgeai/context/" .claude/skills/*/*.md  # Should find all unchanged
 ```
 
 **Expected:** All context file references unchanged

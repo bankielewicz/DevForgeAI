@@ -283,7 +283,7 @@ python -m pytest src/claude/scripts/tests/test_src_migration.py -v -m parametriz
 **Problem:** Integration workflow path error
 ```
 [FAIL] Integration Workflow 1: Missing context files
-       Path: .devforgeai/context/tech-stack.md (NOT FOUND)
+       Path: devforgeai/context/tech-stack.md (NOT FOUND)
 ```
 **Diagnosis:** Context files not in expected location
 **Resolution:** Verify context file paths updated in STORY-043

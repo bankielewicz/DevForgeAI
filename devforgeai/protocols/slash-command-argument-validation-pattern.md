@@ -750,7 +750,7 @@ When adding Phase 0 validation to a slash command:
 
 **DevForgeAI Patterns:**
 - `CLAUDE.md` - "Ask, Don't Assume" principle
-- `.devforgeai/context/anti-patterns.md` - Copy-paste warnings
+- `devforgeai/context/anti-patterns.md` - Copy-paste warnings
 - `.claude/memory/skills-reference.md` - Skill invocation patterns
 
 **RCA Context:**

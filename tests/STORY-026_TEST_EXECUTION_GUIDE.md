@@ -432,7 +432,7 @@ When refactoring implementation:
 
 **Framework:**
 - `CLAUDE.md` (DevForgeAI framework guidelines)
-- `.devforgeai/context/` (architecture constraints)
+- `devforgeai/context/` (architecture constraints)
 
 ---
 

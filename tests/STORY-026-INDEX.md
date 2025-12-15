@@ -332,7 +332,7 @@ Contains:
 
 ### Framework Documentation
 - **CLAUDE.md** - DevForgeAI guidelines
-- **Context Files** - `.devforgeai/context/` (architecture constraints)
+- **Context Files** - `devforgeai/context/` (architecture constraints)
 - **Orchestration Skill** - `.claude/skills/devforgeai-orchestration/SKILL.md`
 
 ### Related Test Suites

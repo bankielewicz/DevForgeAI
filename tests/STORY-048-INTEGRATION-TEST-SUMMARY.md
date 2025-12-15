@@ -51,7 +51,7 @@ Validates that the distribution package contains all required framework componen
 - ✅ **28 Skills** (.claude/skills/)
 - ✅ **27 Agents** (.claude/agents/)
 - ✅ **23 Commands** (.claude/commands/)
-- ✅ **6 Context Files** (.devforgeai/context/)
+- ✅ **6 Context Files** (devforgeai/context/)
 - ✅ **84 Total Components** (exceeds requirements)
 
 **Metadata Validation**:
@@ -64,7 +64,7 @@ Validates that the distribution package contains all required framework componen
 - ✅ .claude/skills/ - 28 directories
 - ✅ .claude/commands/ - 23 markdown files
 - ✅ .claude/agents/ - 27 markdown files
-- ✅ .devforgeai/context/ - 6 context files
+- ✅ devforgeai/context/ - 6 context files
 - ✅ .devforgeai/qa/ - QA templates
 - ✅ .devforgeai/adrs/ - ADR templates
 - ✅ .ai_docs/ - Documentation files

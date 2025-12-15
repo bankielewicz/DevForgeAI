@@ -44,7 +44,7 @@ format_version: "2.0"
 **Given** the agent contains file path references
 **When** any path is referenced in agent documentation or examples
 **Then** all paths must use DevForgeAI structure:
-- `.devforgeai/context/` (NOT `.claude/context/`)
+- `devforgeai/context/` (NOT `.claude/context/`)
 - `.devforgeai/adrs/` (NOT `.claude/adrs/`)
 - `.devforgeai/research/` (NOT `devforgeai/specs/research/`)
 - `devforgeai/specs/Stories/` (DevForgeAI standard)
@@ -59,12 +59,12 @@ format_version: "2.0"
 **Given** the agent performs research and repository analysis
 **When** the agent evaluates technology choices or patterns
 **Then** the agent must reference all 6 DevForgeAI context files:
-- `.devforgeai/context/tech-stack.md` (locked technologies)
-- `.devforgeai/context/source-tree.md` (project structure)
-- `.devforgeai/context/dependencies.md` (approved packages)
-- `.devforgeai/context/coding-standards.md` (code patterns)
-- `.devforgeai/context/architecture-constraints.md` (layer boundaries)
-- `.devforgeai/context/anti-patterns.md` (forbidden patterns)
+- `devforgeai/context/tech-stack.md` (locked technologies)
+- `devforgeai/context/source-tree.md` (project structure)
+- `devforgeai/context/dependencies.md` (approved packages)
+- `devforgeai/context/coding-standards.md` (code patterns)
+- `devforgeai/context/architecture-constraints.md` (layer boundaries)
+- `devforgeai/context/anti-patterns.md` (forbidden patterns)
 
 **And** the agent must check for ADRs in `.devforgeai/adrs/` before recommending technology changes
 **And** the agent must NOT operate autonomously (framework-aware behavior required)
@@ -141,9 +141,9 @@ technical_specification:
       file_path: ".claude/agents/internet-sleuth.md"
       requirements:
         - id: "COMP-003"
-          description: "Replace all old path references with DevForgeAI structure (.devforgeai/context/, .devforgeai/adrs/, .devforgeai/research/)"
+          description: "Replace all old path references with DevForgeAI structure (devforgeai/context/, .devforgeai/adrs/, .devforgeai/research/)"
           testable: true
-          test_requirement: "Test: Grep for old paths (.claude/context, .claude/adrs, .bmad-core), assert zero matches; grep for new paths (.devforgeai/context, .devforgeai/adrs), assert >0 matches"
+          test_requirement: "Test: Grep for old paths (.claude/context, .claude/adrs, .bmad-core), assert zero matches; grep for new paths (devforgeai/context, .devforgeai/adrs), assert >0 matches"
           priority: "Critical"
 
     - type: "Service"
@@ -282,11 +282,11 @@ technical_specification:
 ## Edge Cases
 
 ### 1. Greenfield projects without context files
-**Scenario:** Agent invoked on project where `.devforgeai/context/` doesn't exist yet
+**Scenario:** Agent invoked on project where `devforgeai/context/` doesn't exist yet
 
 **Expected Behavior:** Agent must detect missing directory and note "Operating in greenfield mode - context files not yet created" before proceeding with research. Research outputs should include recommendations for initial tech-stack.md contents.
 
-**Test:** Delete .devforgeai/context/ directory, invoke agent, assert output contains greenfield mode message and tech-stack recommendations
+**Test:** Delete devforgeai/context/ directory, invoke agent, assert output contains greenfield mode message and tech-stack recommendations
 
 ---
 
@@ -534,7 +534,7 @@ test_frontmatter_valid() {
 
 # Test path migration
 test_paths_updated() {
-  grep -q '.devforgeai/context' .claude/agents/internet-sleuth.md
+  grep -q 'devforgeai/context' .claude/agents/internet-sleuth.md
   grep -qv '.claude/context' .claude/agents/internet-sleuth.md
 }
 

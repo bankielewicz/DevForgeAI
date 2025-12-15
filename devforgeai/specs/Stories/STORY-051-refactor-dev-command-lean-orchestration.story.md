@@ -200,7 +200,7 @@ success_metrics:
 **Test Method:** Simulate RCA-008 approval block
 
 ### Edge Case 6: Context Files Missing or Incomplete
-**Scenario:** .devforgeai/context/ directory missing some files or files contain placeholder content (TODO, TBD).
+**Scenario:** devforgeai/context/ directory missing some files or files contain placeholder content (TODO, TBD).
 
 **Expected Behavior:** Pre-flight validation detects issue, command displays "Context files incomplete. Run /create-context to generate missing files before development." Blocks workflow.
 

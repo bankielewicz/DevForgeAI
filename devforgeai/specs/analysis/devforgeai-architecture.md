@@ -279,7 +279,7 @@ For each context file:
 1. Load template from assets/context-templates/{filename}
 2. Populate with project-specific information
 3. Validate completeness
-4. Write to .devforgeai/context/{filename}
+4. Write to devforgeai/context/{filename}
 
 ## File 1: tech-stack.md
 
@@ -326,7 +326,7 @@ When technology choices unclear:
 
 ## Output
 
-All 6 context files created in .devforgeai/context/
+All 6 context files created in devforgeai/context/
 ```
 
 **Commands:**
@@ -515,7 +515,7 @@ Create immutable context files and architecture documentation that prevents tech
 This skill creates the **architectural foundation** for the DevForgeAI framework: 6 context files that define boundaries AI agents must never violate.
 
 **Generated artifacts:**
-- **6 Context Files** (immutable constraints in .devforgeai/context/)
+- **6 Context Files** (immutable constraints in devforgeai/context/)
 - **ADRs** (architecture decisions in .devforgeai/adrs/)
 - **Technical Specifications** (optional, in .devforgeai/specs/)
 
@@ -562,7 +562,7 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Purpose:** Generate all 6 context files from templates
 **Reference:** `context-file-creation-workflow.md`
 **Templates:** `assets/context-templates/` (6 templates)
-**Output:** 6 files in .devforgeai/context/
+**Output:** 6 files in devforgeai/context/
   - tech-stack.md (locked technologies)
   - source-tree.md (project structure)
   - dependencies.md (approved packages)
@@ -679,7 +679,7 @@ Load these on-demand during workflow execution:
 ## Success Criteria
 
 Architecture phase complete when:
-- [ ] All 6 context files exist in .devforgeai/context/
+- [ ] All 6 context files exist in devforgeai/context/
 - [ ] Context files non-empty (no placeholders)
 - [ ] At least 1 ADR created (initial architecture decision)
 - [ ] All ambiguities resolved (via AskUserQuestion)
@@ -768,7 +768,7 @@ Expected:
    - coding-standards.md
    - architecture-constraints.md
    - anti-patterns.md
-5. Files written to .devforgeai/context/
+5. Files written to devforgeai/context/
 ```
 
 **Validation:**
@@ -805,7 +805,7 @@ Expected:
 1. Read: assets/context-templates/tech-stack.md
 2. Template has 503 lines
 3. Template populated with project-specific tech
-4. Write: .devforgeai/context/tech-stack.md
+4. Write: devforgeai/context/tech-stack.md
 ```
 
 **Validation:**
@@ -828,7 +828,7 @@ Expected:
 5. Phase 5: Validation passes
 
 Output:
-- 6 context files in .devforgeai/context/
+- 6 context files in devforgeai/context/
 - 1+ ADRs in .devforgeai/adrs/
 - Ready for orchestration phase
 ```

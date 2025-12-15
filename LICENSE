@@ -29,6 +29,6 @@ spec-driven development, automated validation, and quality enforcement.
 
 By using DevForgeAI, you agree to follow the framework's architectural constraints,
 coding standards, and anti-pattern prevention mechanisms as defined in the
-context files (.devforgeai/context/).
+context files (devforgeai/context/).
 
 For more information, visit: https://github.com/bankielewicz/DevForgeAI

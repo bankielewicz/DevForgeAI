@@ -190,7 +190,7 @@ AssertionError: Brownfield mode should skip guidance
 ```
 
 **Expected**:
-- When `.devforgeai/context/` contains exactly 6 files:
+- When `devforgeai/context/` contains exactly 6 files:
   - tech-stack.md
   - source-tree.md
   - dependencies.md
@@ -222,7 +222,7 @@ Architecture SKILL.md Step 0 conditional logic may:
 **Implementation**:
 ```
 1. Detect brownfield mode using Glob:
-   context_files = Glob(pattern=".devforgeai/context/*.md")
+   context_files = Glob(pattern="devforgeai/context/*.md")
    file_count = len(context_files)
 
 2. Check exact count:
@@ -373,7 +373,7 @@ Option 1: Expand reference files to meet spec (200+ lines)
 
 ### Greenfield Mode (No Context Files)
 
-When: `.devforgeai/context/` directory has 0 files
+When: `devforgeai/context/` directory has 0 files
 Indicator: First time setting up project or removing existing context
 
 **Expected Behavior**:
@@ -390,7 +390,7 @@ Indicator: First time setting up project or removing existing context
 
 ### Brownfield Mode (6 Context Files)
 
-When: `.devforgeai/context/` directory has all 6 files
+When: `devforgeai/context/` directory has all 6 files
 Indicator: Project already has established context
 
 **Expected Behavior**:
@@ -406,7 +406,7 @@ Indicator: Project already has established context
 
 ### Partial Mode (1-5 Context Files)
 
-When: `.devforgeai/context/` has some but not all files
+When: `devforgeai/context/` has some but not all files
 Indicator: Project has partial context (edge case)
 
 **Expected Behavior**:

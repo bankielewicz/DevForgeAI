@@ -301,9 +301,9 @@ Claude Opus 4.5 automatically parallelizes independent tool calls.
 **Trigger Parallel Tool Execution:**
 ```markdown
 Read the following files in PARALLEL to build comprehensive context:
-- .devforgeai/context/tech-stack.md (technology constraints)
-- .devforgeai/context/architecture-constraints.md (layer rules)
-- .devforgeai/context/anti-patterns.md (forbidden patterns)
+- devforgeai/context/tech-stack.md (technology constraints)
+- devforgeai/context/architecture-constraints.md (layer rules)
+- devforgeai/context/anti-patterns.md (forbidden patterns)
 
 Then search the codebase in PARALLEL for:
 - All "TODO" comments (pattern: TODO\(.*\))
@@ -619,7 +619,7 @@ def measure_performance(skill_function, iterations: int = 3):
 
 ### Updated Architecture Constraints
 
-Add to `.devforgeai/context/architecture-constraints.md`:
+Add to `devforgeai/context/architecture-constraints.md`:
 
 ```markdown
 ## Parallel Execution Rules
@@ -663,12 +663,12 @@ Add to `.devforgeai/context/architecture-constraints.md`:
 # Load 6 context files in PARALLEL
 # Currently done sequentially in each skill Phase 0
 
-Read(".devforgeai/context/tech-stack.md")
-Read(".devforgeai/context/source-tree.md")
-Read(".devforgeai/context/dependencies.md")
-Read(".devforgeai/context/coding-standards.md")
-Read(".devforgeai/context/architecture-constraints.md")
-Read(".devforgeai/context/anti-patterns.md")
+Read("devforgeai/context/tech-stack.md")
+Read("devforgeai/context/source-tree.md")
+Read("devforgeai/context/dependencies.md")
+Read("devforgeai/context/coding-standards.md")
+Read("devforgeai/context/architecture-constraints.md")
+Read("devforgeai/context/anti-patterns.md")
 
 # Model will parallelize these automatically in Opus 4.5
 ```
@@ -711,6 +711,6 @@ for feature in story_features:
 ## See Also
 
 - `.devforgeai/research/parallel-orchestration-research.md` - Full research report
-- `.devforgeai/context/architecture-constraints.md` - Updated constraints
+- `devforgeai/context/architecture-constraints.md` - Updated constraints
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration skill implementation
 - `.claude/skills/devforgeai-development/SKILL.md` - Development skill with background tasks
