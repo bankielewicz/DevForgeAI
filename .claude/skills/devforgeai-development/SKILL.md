@@ -186,19 +186,20 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 **This is Phase 01. Execute these steps now:**
 
-10-step validation before TDD begins:
+11-step validation before TDD begins:
 
 1. Validate Git status (git-validator subagent)
-1.5. **User consent for git operations (if uncommitted changes >10)** ← NEW (RCA-008)
-1.6. **Stash warning and confirmation (if user chooses to stash)** ← NEW (RCA-008)
-2. Adapt workflow (Git vs file-based)
-3. File-based tracking setup (if no Git)
-4. Validate 6 context files exist
-5. Load story specification
-6. Validate spec vs context conflicts
-7. Detect tech stack (tech-stack-detector subagent)
-8. Detect QA failures (recovery mode)
-8.5. Load structured gap data (if gaps.json exists)
+1.5. **User consent for git operations (if uncommitted changes >10)** (RCA-008)
+1.6. **Stash warning and confirmation (if user chooses to stash)** (RCA-008)
+2. **Git Worktree Auto-Management** (git-worktree-manager subagent) ← NEW (STORY-091)
+3. Adapt workflow (Git vs file-based)
+4. File-based tracking setup (if no Git)
+5. Validate 6 context files exist
+6. Load story specification
+7. Validate spec vs context conflicts
+8. Detect tech stack (tech-stack-detector subagent)
+9. Detect QA failures (recovery mode)
+9.5. Load structured gap data (if gaps.json exists)
 
 **See `references/preflight-validation.md` for complete workflow.**
 
@@ -904,13 +905,19 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
    - Returns: Git status, recommended workflow
    - Success: Git available OR file-based strategy confirmed
 
-2. **tech-stack-detector** (Technology detection) [MANDATORY AFTER CONTEXT FILES VALIDATED]
+2. **git-worktree-manager** (Worktree auto-management) [CONDITIONAL - IF GIT AVAILABLE]
+   - Purpose: Create/manage Git worktrees for parallel story development (STORY-091)
+   - Token cost: ~2K (isolated)
+   - Returns: Worktree status, actions needed, idle detection results
+   - Success: Worktree created/resumed OR user chose to skip
+
+3. **tech-stack-detector** (Technology detection) [MANDATORY AFTER CONTEXT FILES VALIDATED]
    - Purpose: Auto-detect project technologies, validate against tech-stack.md
    - Token cost: ~10K (isolated)
    - Returns: Detected tech stack, validation results
    - HALT if tech-stack.md conflicts detected
 
-**Sequence:** git-validator → tech-stack-detector (sequential)
+**Sequence:** git-validator → git-worktree-manager → tech-stack-detector (sequential)
 
 ---
 

@@ -195,20 +195,44 @@ IDLE_WORKTREES="[]"
 IDLE_COUNT=0
 
 for row in $(echo "$WORKTREE_LIST" | jq -r '.[] | @base64'); do
+    # Safe JSON extraction with error handling
     _jq() {
-        echo "${row}" | base64 --decode | jq -r "${1}"
+        local result
+        result=$(echo "${row}" | base64 --decode 2>/dev/null | jq -r "${1}" 2>/dev/null)
+        if [ $? -ne 0 ] || [ -z "$result" ] || [ "$result" = "null" ]; then
+            echo ""
+            return 1
+        fi
+        echo "$result"
     }
 
-    WPATH=$(_jq '.path')
-    WNAME=$(_jq '.name')
+    WPATH=$(_jq '.path') || continue
+    WNAME=$(_jq '.name') || continue
     LAST_ACTIVITY=$(_jq '.last_activity')
 
-    # Calculate days since last activity
+    # Calculate days since last activity (cross-platform)
     if [ -n "$LAST_ACTIVITY" ]; then
         LAST_DATE=$(echo "$LAST_ACTIVITY" | cut -d' ' -f1)
-        LAST_EPOCH=$(date -d "$LAST_DATE" +%s 2>/dev/null)
         NOW_EPOCH=$(date +%s)
-        DAYS_IDLE=$(( (NOW_EPOCH - LAST_EPOCH) / 86400 ))
+
+        # Cross-platform date conversion
+        if command -v gdate &> /dev/null; then
+            # GNU coreutils available (gdate on macOS via homebrew)
+            LAST_EPOCH=$(gdate -d "$LAST_DATE" +%s 2>/dev/null)
+        elif date -d "$LAST_DATE" +%s &>/dev/null 2>&1; then
+            # GNU date (Linux)
+            LAST_EPOCH=$(date -d "$LAST_DATE" +%s 2>/dev/null)
+        else
+            # BSD date fallback (macOS native)
+            LAST_EPOCH=$(date -jf "%Y-%m-%d" "$LAST_DATE" +%s 2>/dev/null)
+        fi
+
+        # Fallback to 0 days idle if date parsing failed
+        if [ -z "$LAST_EPOCH" ] || [ "$LAST_EPOCH" = "" ]; then
+            DAYS_IDLE=0
+        else
+            DAYS_IDLE=$(( (NOW_EPOCH - LAST_EPOCH) / 86400 ))
+        fi
     else
         DAYS_IDLE=0
     fi

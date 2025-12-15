@@ -22,17 +22,18 @@
 
 ## Overview
 
-Phase 01 executes 8 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
+Phase 01 executes 9 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
 1. Validate Git repository status
-2. Adapt TDD workflow based on Git availability
-3. File-based change tracking template (if no Git)
-4. Validate context files exist
-5. Load story specification
-6. Validate spec vs context files
-7. Detect and validate technology stack
-8. Detect previous QA failures
+2. **Git Worktree Auto-Management** (STORY-091)
+3. Adapt TDD workflow based on Git availability
+4. File-based change tracking template (if no Git)
+5. Validate context files exist
+6. Load story specification
+7. Validate spec vs context files
+8. Detect and validate technology stack
+9. Detect previous QA failures
 
 ---
 
@@ -534,7 +535,156 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.2: Adapt TDD Workflow Based on Git Availability [MANDATORY]
+## Step 0.2: Git Worktree Auto-Management [CONDITIONAL - IF $GIT_AVAILABLE == true]
+
+**Purpose:** Automatically create and manage Git worktrees for parallel story development (STORY-091).
+
+**When to execute:** Only when Git is available ($GIT_AVAILABLE == true) AND worktree management is enabled in config.
+
+**Pre-check: Configuration enabled flag:**
+
+```
+# Load parallel.yaml config
+config_path = "devforgeai/config/parallel.yaml"
+
+IF file_exists(config_path):
+    config = load_yaml(config_path)
+ELSE:
+    config = {enabled: true}  # Default enabled
+
+IF config.enabled == false:
+    Display: "Worktree management disabled via config - using branch-only workflow"
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke git-worktree-manager subagent:**
+
+```
+Task(
+  subagent_type="git-worktree-manager",
+  description="Manage worktree for ${STORY_ID}",
+  prompt="Manage Git worktree for story ${STORY_ID}.
+
+    Configuration: devforgeai/config/parallel.yaml
+
+    Tasks:
+    1. Load configuration (threshold, max, pattern)
+    2. Check for existing worktree for this story
+    3. Scan all worktrees for idle detection
+    4. Validate integrity if worktree exists
+    5. Determine required action
+
+    Return JSON with status and actions."
+)
+```
+
+**Parse subagent response and handle actions:**
+
+```javascript
+result = parse_json(subagent_output)
+
+// Handle story-specific worktree
+IF result.story_worktree.action_needed == "CREATE":
+    // Create new worktree
+    path = result.story_worktree.path
+    branch = result.story_worktree.branch
+    Bash(command="git worktree add ${path} -b ${branch}", description="Create story worktree")
+    Display: "Created worktree: ${path} (branch: ${branch})"
+    $WORKTREE_PATH = path
+
+ELIF result.story_worktree.action_needed == "RESUME":
+    path = result.story_worktree.path
+    Display: "Resuming in existing worktree: ${path}"
+    $WORKTREE_PATH = path
+
+ELIF result.story_worktree.action_needed == "REPAIR":
+    // Corrupted worktree detected
+    path = result.story_worktree.path
+    Display: "⚠ Corrupted worktree detected at ${path}"
+    AskUserQuestion(
+      questions=[{
+        question: "Worktree at ${path} appears corrupted. How to proceed?",
+        header: "Repair",
+        options: [
+          { label: "Delete and recreate", description: "Remove corrupted worktree, create fresh one" },
+          { label: "Keep and continue", description: "Attempt to use existing (may have issues)" }
+        ],
+        multiSelect: false
+      }]
+    )
+
+// Handle idle worktrees (if any detected)
+IF result.idle_worktrees.length > 0:
+    idle_count = result.idle_worktrees.length
+    threshold = result.config.cleanup_threshold_days
+
+    Display: "Found ${idle_count} idle worktrees (>${threshold} days):"
+    FOR wt in result.idle_worktrees:
+        Display: "  - ${wt.path} (idle ${wt.days_idle} days)"
+
+    // Present 3-option cleanup prompt (AC#3)
+    AskUserQuestion(
+      questions=[{
+        question: "How would you like to handle idle worktrees?",
+        header: "Cleanup",
+        options: [
+          { label: "Resume Development", description: "Keep all worktrees, continue" },
+          { label: "Fresh Start", description: "Delete current story worktree, create new" },
+          { label: "Delete Old", description: "Delete idle worktrees not matching current story" }
+        ],
+        multiSelect: false
+      }]
+    )
+
+    // Execute user selection
+    SWITCH user_selection:
+      CASE "Resume Development":
+        // No action, continue
+        Display: "✓ Keeping all worktrees"
+      CASE "Fresh Start":
+        Bash(command="git worktree remove ${$WORKTREE_PATH} --force", description="Remove current worktree")
+        Bash(command="git worktree add ${path} -b ${branch}", description="Create fresh worktree")
+        Display: "✓ Fresh worktree created"
+      CASE "Delete Old":
+        FOR idle_wt in result.idle_worktrees:
+          IF idle_wt.path != $WORKTREE_PATH:
+            Bash(command="git worktree remove ${idle_wt.path}", description="Remove idle worktree")
+        Display: "✓ Deleted ${idle_count} idle worktrees"
+
+// Handle max worktree limit (AC#7)
+IF result.limit_reached AND result.story_worktree.action_needed == "CREATE":
+    max = result.config.max_worktrees
+    Display: "Maximum worktrees (${max}) reached."
+    Display: "Active worktrees:"
+    FOR wt in result.all_worktrees:
+        Display: "  - ${wt.path} (last activity: ${wt.last_activity})"
+
+    AskUserQuestion(
+      questions=[{
+        question: "Delete an existing worktree to continue?",
+        header: "Limit Reached",
+        options: result.all_worktrees.map(wt => ({
+          label: wt.name,
+          description: "Last activity: ${wt.last_activity}"
+        })),
+        multiSelect: false
+      }]
+    )
+
+    // Delete selected worktree, then create new one
+```
+
+**Token cost:** ~2,500 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/git-worktree-manager.md`
+- Configuration: `devforgeai/config/parallel.yaml`
+- Schema: `devforgeai/config/parallel.schema.json`
+
+---
+
+## Step 0.3: Adapt TDD Workflow Based on Git Availability [MANDATORY]
 
 **Workflow adaptations apply throughout all phases:**
 
@@ -559,7 +709,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.3: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
+## Step 0.4: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
 
 **ONLY executed when WORKFLOW_MODE == "file_based"**
 
@@ -705,7 +855,7 @@ Display:
 
 ---
 
-## Step 0.4: Validate Context Files Exist [MANDATORY]
+## Step 0.5: Validate Context Files Exist [MANDATORY]
 
 **Check for all 6 DevForgeAI context files:**
 
@@ -742,7 +892,7 @@ Display: "Re-validating context files..."
 
 ---
 
-## Step 0.5: Load Story Specification [MANDATORY]
+## Step 0.6: Load Story Specification [MANDATORY]
 
 **Story already loaded via @file reference from slash command.**
 
@@ -770,7 +920,7 @@ Please ensure /dev command properly loads story file before invoking this skill.
 
 ---
 
-## Step 0.6: Validate Spec vs Context Files [MANDATORY]
+## Step 0.7: Validate Spec vs Context Files [MANDATORY]
 
 **Check for conflicts between story requirements and context file constraints:**
 
@@ -809,7 +959,7 @@ multiSelect: false
 
 ---
 
-## Step 0.7: Detect and Validate Technology Stack [MANDATORY]
+## Step 0.8: Detect and Validate Technology Stack [MANDATORY]
 
 **Invoke tech-stack-detector subagent to detect technologies and validate against tech-stack.md:**
 
@@ -902,7 +1052,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ---
 
-## Step 0.8: Detect Previous QA Failures [MANDATORY]
+## Step 0.9: Detect Previous QA Failures [MANDATORY]
 
 **Check if story has failed QA due to deferral or other issues:**
 
@@ -978,11 +1128,11 @@ ELSE:
 
 ---
 
-## Step 0.8.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
+## Step 0.9.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
 
 **Purpose:** Parse machine-readable gap data for targeted remediation workflow.
 
-**When to execute:** After Step 0.8 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
+**When to execute:** After Step 0.9 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
 
 ```
 # Check if structured gap export exists
@@ -1097,20 +1247,22 @@ ELSE:
 - [ ] **Step 0.1:** git-validator subagent invoked, Git status assessed
 - [ ] **Step 0.1.5:** User consent obtained (if uncommitted changes > 10)
 - [ ] **Step 0.1.6:** Stash warnings shown (if user selected stash)
-- [ ] **Step 0.2:** Workflow mode determined (git-based or file-based)
-- [ ] **Step 0.3:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
-- [ ] **Step 0.4:** All 6 context files validated (exist and non-empty)
-- [ ] **Step 0.5:** Story specification loaded (via @file reference)
-- [ ] **Step 0.6:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
-- [ ] **Step 0.7:** tech-stack-detector invoked, technologies validated
-- [ ] **Step 0.8:** Previous QA failures detected (recovery mode if needed)
-- [ ] **Step 0.8.5:** Structured gap data loaded (if gaps.json exists)
+- [ ] **Step 0.2:** Git Worktree Auto-Management (if Git available + enabled)
+- [ ] **Step 0.3:** Workflow mode determined (git-based or file-based)
+- [ ] **Step 0.4:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
+- [ ] **Step 0.5:** All 6 context files validated (exist and non-empty)
+- [ ] **Step 0.6:** Story specification loaded (via @file reference)
+- [ ] **Step 0.7:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
+- [ ] **Step 0.8:** tech-stack-detector invoked, technologies validated
+- [ ] **Step 0.9:** Previous QA failures detected (recovery mode if needed)
+- [ ] **Step 0.9.5:** Structured gap data loaded (if gaps.json exists)
 
 ### Variables Set for Phases 02-08
 
 - [ ] `$GIT_AVAILABLE` = true/false
 - [ ] `$WORKFLOW_MODE` = "full" / "partial" / "fallback"
 - [ ] `$CAN_COMMIT` = true/false
+- [ ] `$WORKTREE_PATH` = (worktree path, if created)
 - [ ] `$TEST_COMMAND` = (pytest / npm test / dotnet test / etc.)
 - [ ] `$TEST_COVERAGE_COMMAND` = (with coverage flags)
 - [ ] `$BUILD_COMMAND` = (language-specific build command)
