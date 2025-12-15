@@ -10,7 +10,7 @@ assigned_to: TBD
 created: 2025-11-16
 updated: 2025-11-19
 format_version: "2.0"
-depends_on: STORY-043
+depends_on: ["STORY-043"]
 ---
 
 # Story: Comprehensive Testing of src/ Structure Before Installer Development
