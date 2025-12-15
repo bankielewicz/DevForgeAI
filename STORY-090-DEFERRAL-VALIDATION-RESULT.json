@@ -1,0 +1,93 @@
+{
+  "validation_result": "CONDITIONAL_APPROVAL_REQUIRED",
+  "story_id": "STORY-090",
+  "deferred_items_count": 2,
+  "violations": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 0,
+    "total": 2
+  },
+  "blocking_violations": [
+    {
+      "violation_id": "V001",
+      "type": "ADR_MISSING_FOR_SCOPE_CHANGE",
+      "severity": "MEDIUM",
+      "status": "BLOCKING_QA_APPROVAL",
+      "message": "Deferring AC#5 (in-scope DoD item) to future story is a scope change. Per critical-rules.md rule #9, scope changes require Architecture Decision Records.",
+      "affected_items": ["AC#5: Story-Creation Skill Phase 1 Dependency Question", "AC#5: Input Normalization Logic"],
+      "remediation": "Create ADR-008 documenting scope boundary (template updates vs skill enhancement). Reference in Implementation Notes.",
+      "compliance_rule": "critical-rules.md Rule #9: Document All Decisions - Architecture decisions require ADRs"
+    }
+  ],
+  "non_blocking_violations": [
+    {
+      "violation_id": "V002",
+      "type": "FOLLOW_UP_STORY_NOT_CREATED",
+      "severity": "MEDIUM",
+      "status": "NON_BLOCKING_BUT_RECOMMENDED",
+      "message": "AC#5 deferred to 'future story-creation enhancement' but follow-up story not yet created. Risk: Work could be lost if follow-up never materialized (RCA-007).",
+      "affected_items": ["AC#5: Story-Creation Skill Phase 1 Dependency Question", "AC#5: Input Normalization Logic"],
+      "remediation": "Create STORY-093 for story-creation skill enhancement with depends_on: ['STORY-090']. Include AC#5 acceptance criteria. Schedule for SPRINT-6.",
+      "rca_reference": "RCA-007: Multi-level deferral chains"
+    }
+  ],
+  "technical_analysis": {
+    "blocker_legitimacy": "VALID",
+    "blocker_type": "EXTERNAL_SKILL_DEPENDENCY",
+    "blocker_description": "AC#5 requires modifications to devforgeai-story-creation skill Phase 1 workflow - external framework component, not internal template logic",
+    "feasibility_of_deferral": "APPROPRIATE_SCOPE",
+    "circular_deferrals": "NONE_DETECTED",
+    "multi_level_chains": "ACCEPTABLE_WITH_FOLLOW_UP",
+    "rca_007_risk": "LOW_IF_FOLLOW_UP_CREATED"
+  },
+  "approval_conditions": [
+    {
+      "condition_id": "C1",
+      "type": "MANDATORY",
+      "description": "Create ADR-008 documenting scope boundary (template updates AC#1-4 vs skill enhancement AC#5)",
+      "deadline": "Before QA Approval transition",
+      "alternative": "OR obtain explicit user approval via AskUserQuestion accepting deferral risk"
+    },
+    {
+      "condition_id": "C2",
+      "type": "RECOMMENDED",
+      "description": "Create STORY-093 (story-creation skill enhancement) with depends_on: ['STORY-090'] to implement AC#5",
+      "deadline": "Within 2 sprints (RCA-007 mitigation)",
+      "alternative": "Document user commitment to create follow-up story in Implementation Notes"
+    }
+  ],
+  "chain_analysis": {
+    "dependency_chain": "STORY-090 → STORY-091 → STORY-092",
+    "circular_chain_detected": false,
+    "work_loss_risk": "MITIGATED (if follow-up story created)",
+    "rca_007_applicability": "YES - but current chain differs from RCA-007 scenario",
+    "rca_007_assessment": "AC#5 deferred to separate story-creation enhancement (STORY-093), not lost in worktree/test-isolation chain"
+  },
+  "story_strength": {
+    "completed_acs": 5,
+    "deferred_acs": 2,
+    "completion_rate": "71%",
+    "standalone_value": "HIGH",
+    "description": "5 of 7 ACs fully implemented (template updates). Deferred AC#5 is skill enhancement (separate concern). Story delivers depends_on field infrastructure for EPIC-010 parallel development."
+  },
+  "qa_decision_required": {
+    "question": "Approve STORY-090 with conditional remediation plan?",
+    "option_a": "CREATE ADR-008 now, approve immediately (governance compliant)",
+    "option_b": "USER APPROVAL: Accept deferral with commitment to create STORY-093 (user-approved deferral)",
+    "option_c": "REJECT: Wait for ADR-008 AND STORY-093 to exist before approval (conservative approach)"
+  },
+  "recommendation": "OPTION A (CREATE ADR-008): Approve immediately after ADR-008 is created. Schedule STORY-093 for next sprint. This unblocks parallel development (EPIC-010) while maintaining governance compliance.",
+  "validation_metadata": {
+    "validator": "Deferral Validator Subagent",
+    "rca_version": "RCA-007 Enhanced",
+    "validation_date": "2025-12-15",
+    "story_status_at_validation": "Dev Complete",
+    "files_generated": [
+      "STORY-090-DEFERRAL-VALIDATION-REPORT.json",
+      "STORY-090-DEFERRAL-VALIDATION-SUMMARY.md",
+      "STORY-090-DEFERRAL-VALIDATION-RESULT.json (this file)"
+    ]
+  }
+}
