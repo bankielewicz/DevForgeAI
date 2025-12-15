@@ -5,7 +5,7 @@ Installation:
     pip install -e .claude/scripts/
 
 Usage:
-    devforgeai validate-dod .ai_docs/Stories/STORY-001.story.md
+    devforgeai validate-dod devforgeai/specs/Stories/STORY-001.story.md
     devforgeai check-git
     devforgeai validate-context
 """

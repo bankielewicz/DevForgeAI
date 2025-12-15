@@ -145,8 +145,8 @@ Glob(pattern="**/pom.xml")       # Java projects
 Glob(pattern="**/requirements.txt") # Python projects
 
 # Check for existing DevForgeAI context
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".ai_docs/Epics/")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/Epics/")
 Read(file_path="README.md")
 
 # Analyze current architecture
@@ -595,7 +595,7 @@ multiSelect: false
 **Use devforgeai-orchestration epic template:**
 
 ```
-Write(file_path=".ai_docs/Epics/EPIC-001-[name].epic.md", content="""
+Write(file_path="devforgeai/specs/Epics/EPIC-001-[name].epic.md", content="""
 ---
 id: EPIC-001
 title: [Epic Title]
@@ -670,7 +670,7 @@ created: [Date]
 **Comprehensive technical requirements doc:**
 
 ```
-Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md", content="""
+Write(file_path="devforgeai/specs/requirements/[project-name]-requirements.md", content="""
 # [Project Name] - Requirements Specification
 
 ## Project Context
@@ -722,12 +722,12 @@ Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md",
 ```
 # Check for existing context files
 context_files_exist = all([
-    file_exists(".devforgeai/context/tech-stack.md"),
-    file_exists(".devforgeai/context/source-tree.md"),
-    file_exists(".devforgeai/context/dependencies.md"),
-    file_exists(".devforgeai/context/coding-standards.md"),
-    file_exists(".devforgeai/context/architecture-constraints.md"),
-    file_exists(".devforgeai/context/anti-patterns.md")
+    file_exists("devforgeai/specs/context/tech-stack.md"),
+    file_exists("devforgeai/specs/context/source-tree.md"),
+    file_exists("devforgeai/specs/context/dependencies.md"),
+    file_exists("devforgeai/specs/context/coding-standards.md"),
+    file_exists("devforgeai/specs/context/architecture-constraints.md"),
+    file_exists("devforgeai/specs/context/anti-patterns.md")
 ])
 
 IF NOT context_files_exist:
@@ -934,8 +934,8 @@ multiSelect: true
 - [ ] Ready for architecture skill (clear handoff)
 
 **Output Artifacts:**
-- 1+ Epic documents (`.ai_docs/Epics/`)
-- Requirements specification (`.devforgeai/specs/requirements/`)
+- 1+ Epic documents (`devforgeai/specs/Epics/`)
+- Requirements specification (`devforgeai/specs/requirements/`)
 - Complexity assessment report
 
 **Transition Point:**

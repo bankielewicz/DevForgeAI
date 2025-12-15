@@ -23,7 +23,7 @@ NC='\033[0m'
 
 # Directories
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SPEC_DIR="$PROJECT_ROOT/.devforgeai/specs/STORY-043"
+SPEC_DIR="$PROJECT_ROOT/devforgeai/specs/STORY-043"
 
 # Validation results
 VALIDATION_PASSED=true
@@ -196,10 +196,10 @@ validate_deploy_preservation() {
         log_success "CLAUDE.md @.claude/ references preserved: $at_claude_count refs"
     fi
 
-    # Check .devforgeai/context/ references
-    local context_ref_count=$(grep -r "\.devforgeai/context/" "$PROJECT_ROOT" --include="*.md" 2>/dev/null | wc -l)
+    # Check devforgeai/specs/context/ references
+    local context_ref_count=$(grep -r "\devforgeai/specs/context/" "$PROJECT_ROOT" --include="*.md" 2>/dev/null | wc -l)
     if [ "$context_ref_count" -gt 0 ]; then
-        log_success ".devforgeai/context/ references preserved: ~$context_ref_count refs"
+        log_success "devforgeai/specs/context/ references preserved: ~$context_ref_count refs"
     fi
 
     return 0
@@ -247,7 +247,7 @@ generate_report() {
 ## Deployment Reference Preservation
 
 - @.claude/ references in CLAUDE.md: Preserved
-- .devforgeai/context/ references: Preserved
+- devforgeai/specs/context/ references: Preserved
 - Status: PRESERVED (100%)
 
 ## Conclusion

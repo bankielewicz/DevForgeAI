@@ -229,16 +229,16 @@ Before approving, verify:
 ### Where is...?
 
 **The executive summary?**
-→ `.devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
+→ `devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
 
 **The architecture explanation?**
-→ `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
+→ `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
 
 **The deep technical analysis?**
-→ `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+→ `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
 
 **The implementation guide?**
-→ `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
+→ `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
 
 **The new subagent code?**
 → `.claude/agents/qa-result-interpreter.md`

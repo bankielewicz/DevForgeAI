@@ -1183,8 +1183,8 @@ public class CreateTaskCommandHandlerTests
 
 - **ADR-001: Database Selection** (PostgreSQL)
 - **ADR-002: ORM Selection** (Dapper + EF Core)
-- **Tech Stack Documentation**: `.devforgeai/context/tech-stack.md`
-- **Architecture Constraints**: `.devforgeai/context/architecture-constraints.md`
+- **Tech Stack Documentation**: `devforgeai/specs/context/tech-stack.md`
+- **Architecture Constraints**: `devforgeai/specs/context/architecture-constraints.md`
 
 ---
 

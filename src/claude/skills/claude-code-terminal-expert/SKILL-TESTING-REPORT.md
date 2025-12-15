@@ -707,7 +707,7 @@ Skill: "✅ Updated hooks documentation in integration-patterns.md with SessionR
 2. ✅ All content migrated
 3. ✅ Testing passed (14/14)
 4. [ ] Update DevForgeAI memory references (next step)
-5. [ ] Delete .ai_docs/Terminal/ after final verification
+5. [ ] Delete devforgeai/specs/Terminal/ after final verification
 6. [ ] Document in CLAUDE.md and skills-reference.md
 
 ### Optional Enhancements
@@ -743,4 +743,4 @@ Skill: "✅ Updated hooks documentation in integration-patterns.md with SessionR
 
 ---
 
-**Next Steps:** Update DevForgeAI memory references, then delete .ai_docs/Terminal/
+**Next Steps:** Update DevForgeAI memory references, then delete devforgeai/specs/Terminal/

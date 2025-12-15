@@ -11,7 +11,7 @@ Execute: Development → QA → Release (Staging → Production)
 
 ## Context
 
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 
 ---
 
@@ -40,7 +40,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Validate story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
@@ -87,8 +87,8 @@ IF no matches found:
 
 Story not found:
 ```
-ERROR: Story file not found: .ai_docs/Stories/$ARGUMENTS.story.md
-Available stories: [Glob(pattern=".ai_docs/Stories/*.story.md")]
+ERROR: Story file not found: devforgeai/specs/Stories/$ARGUMENTS.story.md
+Available stories: [Glob(pattern="devforgeai/specs/Stories/*.story.md")]
 Use /create-story to create new story.
 ```
 
@@ -274,7 +274,7 @@ IF deferral failures found:
                      1. Fix issues manually
                      2. Run /orchestrate {STORY_ID} (will resume from checkpoint)
 
-                     QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+                     QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
 
             Exit with instructions
 
@@ -313,7 +313,7 @@ ELSE IF other QA failures (coverage, anti-patterns):
 
              Orchestration HALTED.
              Next steps:
-             1. Review: .devforgeai/qa/reports/{STORY-ID}-qa-report.md
+             1. Review: devforgeai/qa/reports/{STORY-ID}-qa-report.md
              2. Fix CRITICAL and HIGH violations
              3. Run /dev {STORY-ID} to implement fixes
              4. Run /orchestrate {STORY-ID} to resume"

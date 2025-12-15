@@ -581,14 +581,14 @@ Analyzed 5 major competitors in SaaS authentication market (Auth0, AWS Cognito, 
 ---
 
 **Report Generated:** 2025-11-17 17:15:42
-**Report Location:** .devforgeai/research/feasibility/EPIC-007-competitive-analysis.md
+**Report Location:** devforgeai/specs/research/feasibility/EPIC-007-competitive-analysis.md
 ```
 
 **Outputs:**
 - Complete competitive analysis report
 - Positioning recommendation
 - Strategic SWOT insights
-- Report saved to .devforgeai/research/
+- Report saved to devforgeai/specs/research/
 
 ---
 

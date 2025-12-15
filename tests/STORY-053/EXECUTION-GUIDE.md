@@ -445,7 +445,7 @@ chmod +x .git/hooks/pre-commit
 ## Documentation References
 
 ### Related Files
-- **Story Definition**: `.ai_docs/Stories/STORY-053-framework-internal-guidance-reference.story.md`
+- **Story Definition**: `devforgeai/specs/Stories/STORY-053-framework-internal-guidance-reference.story.md`
 - **Test Documentation**: `tests/STORY-053/TEST-README.md`
 - **Integration Matrix**: `tests/STORY-053/INTEGRATION-CHECKLIST.md`
 - **Target File**: `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`

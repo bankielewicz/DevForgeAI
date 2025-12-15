@@ -14,7 +14,7 @@
 **Load hook configuration:**
 
 ```
-# Check if hooks are enabled in .devforgeai/config/hooks.yaml
+# Check if hooks are enabled in devforgeai/config/hooks.yaml
 # If missing → default enabled: false (safe default)
 
 hook_config = load_hooks_config_from_file()
@@ -50,7 +50,7 @@ IF batch_mode is FALSE:
 **Before invoking hook, verify story file exists:**
 
 ```
-story_files = Glob(pattern=".ai_docs/Stories/{story_id}-*.story.md")
+story_files = Glob(pattern="devforgeai/specs/Stories/{story_id}-*.story.md")
 
 IF no files found:
   → Skip hook invocation (no error thrown)
@@ -221,7 +221,7 @@ IF batch_mode was TRUE:
 
 **Log all hook invocations and errors:**
 
-**Success log:** `.devforgeai/feedback/.logs/hooks.log`
+**Success log:** `devforgeai/feedback/.logs/hooks.log`
 
 ```json
 {
@@ -233,7 +233,7 @@ IF batch_mode was TRUE:
 }
 ```
 
-**Error log:** `.devforgeai/feedback/.logs/hook-errors.log`
+**Error log:** `devforgeai/feedback/.logs/hook-errors.log`
 
 ```json
 {
@@ -319,9 +319,9 @@ IF batch_mode was TRUE:
 **Integrates with:**
 - `devforgeai check-hooks --operation=story-create` (CLI command)
 - `devforgeai invoke-hooks --operation=story-create` (CLI command)
-- `.devforgeai/config/hooks.yaml` (configuration)
-- `.devforgeai/feedback/.logs/hooks.log` (success logging)
-- `.devforgeai/feedback/.logs/hook-errors.log` (error logging)
+- `devforgeai/config/hooks.yaml` (configuration)
+- `devforgeai/feedback/.logs/hooks.log` (success logging)
+- `devforgeai/feedback/.logs/hook-errors.log` (error logging)
 
 **Respects:**
 - Batch mode marker: `**Batch Mode:** true`

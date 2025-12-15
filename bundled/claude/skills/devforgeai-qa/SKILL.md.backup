@@ -203,7 +203,7 @@ IF phase == "integration":
 
 ```
 # Load anti-patterns
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
 # Scan for CRITICAL violations only (light mode)
 
@@ -232,7 +232,7 @@ IF found:
     Fix: Move secrets to configuration/environment variables
 
 # 3. Cross-layer violations (Domain → Infrastructure)
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 # Extract layer dependency matrix
 
 Grep(pattern="using.*Infrastructure|import.*infrastructure",
@@ -246,7 +246,7 @@ IF found:
     Fix: Use abstractions/interfaces, move to Application layer
 
 # 4. Library substitution
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract LOCKED technologies
 
 # Example: If Dapper is locked, check for EF usage
@@ -262,7 +262,7 @@ IF tech_stack.ORM == "Dapper":
         Fix: Use Dapper as specified in tech-stack.md
 
 # 5. File location violations
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Extract structure rules
 
 # Get all modified files
@@ -317,7 +317,7 @@ Read(file_path="ai_docs/Stories/[story-id].story.md")
 # Extract acceptance criteria, NFRs
 
 # Load coverage thresholds
-Read(file_path=".devforgeai/qa/coverage-thresholds.md")
+Read(file_path="devforgeai/qa/coverage-thresholds.md")
 # Default if not exists:
 # - Business logic: 95%
 # - Application: 85%
@@ -539,14 +539,14 @@ IF e2e_percentage > 20%:
 **Step 1: Load Anti-Patterns**
 
 ```
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 # Extract all 10 categories with patterns
 ```
 
 **Step 2: Category 1 - Library Substitution (CRITICAL)**
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract LOCKED technologies
 
 # Check for forbidden library usage
@@ -582,7 +582,7 @@ IF tech_stack.StateManagement == "Zustand":
 **Step 3: Category 2 - Structure Violations (HIGH)**
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Extract structure rules
 
 # Get all source files
@@ -610,7 +610,7 @@ FOR each file:
 **Step 4: Category 3 - Cross-Layer Dependencies (CRITICAL)**
 
 ```
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 # Extract layer dependency matrix
 
 # Example matrix:
@@ -1011,7 +1011,7 @@ IF technical_spec.has_api_endpoints:
 **Step 4: Validate Error Handling Compliance**
 
 ```
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
 # Extract error handling pattern (e.g., Result Pattern, Exceptions)
 
 error_pattern = coding_standards.error_handling_pattern
@@ -1108,7 +1108,7 @@ IF nfrs.has_security_requirements:
 **Step 1: Load Quality Thresholds**
 
 ```
-Read(file_path=".devforgeai/qa/quality-metrics.md")
+Read(file_path="devforgeai/qa/quality-metrics.md")
 # Default thresholds:
 # - Method complexity: Max 10
 # - Class complexity: Max 50
@@ -1381,7 +1381,7 @@ report = populate_template(template, qa_results)
 # - Next Steps
 
 # Write report
-Write(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md",
+Write(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md",
       content=report)
 ```
 
@@ -1441,7 +1441,7 @@ qa_section = f"""
 - Low Issues: {low_count}
 
 ### Report
-- Full Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+- Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
 
 ### Action Items
 {action_items_list}
@@ -1865,22 +1865,22 @@ Release workflow:
 
 **From devforgeai-architecture:**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Validate technology usage, detect library substitution
 
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Validate file locations, structure compliance
 
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 # Validate package usage, versions
 
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
 # Validate code patterns, error handling, async/await
 
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 # Validate layer boundaries, design patterns
 
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 # Detect violations, code smells
 ```
 
@@ -1888,7 +1888,7 @@ Read(file_path=".devforgeai/context/anti-patterns.md")
 
 **QA-specific context:**
 ```
-.devforgeai/qa/
+devforgeai/qa/
 ├── coverage-thresholds.md      # Coverage requirements by layer
 ├── quality-metrics.md          # Complexity, maintainability thresholds
 ├── security-policies.md        # Security scanning rules

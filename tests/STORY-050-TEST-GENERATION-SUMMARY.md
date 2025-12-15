@@ -417,7 +417,7 @@ def test_example(self):
 
 ## References
 
-**Story:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
+**Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
 
 **Framework Documentation:**
 - Lean Orchestration Pattern: `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/lean-orchestration-pattern.md`

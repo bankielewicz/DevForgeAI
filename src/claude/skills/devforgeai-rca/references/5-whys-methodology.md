@@ -571,14 +571,14 @@ Why not updated?
 ## Reference
 
 **For complete RCA examples, see:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation)
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` (subagent file creation)
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (git workflow)
-- `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (skill execution)
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation)
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (subagent file creation)
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (git workflow)
+- `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (skill execution)
 
 **Related DevForgeAI Documentation:**
 - `CLAUDE.md` - Framework overview
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill/subagent architecture
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill/subagent architecture
 - `.claude/memory/skills-reference.md` - Skill patterns
 - `.claude/memory/subagents-reference.md` - Subagent patterns
 

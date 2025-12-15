@@ -20,7 +20,7 @@ Creates a new sprint with story selection, capacity planning, and automatic stor
 **Check for existing sprints:**
 
 ```bash
-Glob(pattern=".ai_docs/Sprints/*.md")
+Glob(pattern="devforgeai/specs/Sprints/*.md")
 ```
 
 **Determine next sprint number:**
@@ -31,7 +31,7 @@ Glob(pattern=".ai_docs/Sprints/*.md")
 **Load epic context:**
 
 ```bash
-Glob(pattern=".ai_docs/Epics/*.md")
+Glob(pattern="devforgeai/specs/Epics/*.md")
 ```
 
 **If no epics found:**
@@ -50,7 +50,7 @@ Glob(pattern=".ai_docs/Epics/*.md")
 
 ```bash
 # Find all stories in Backlog status
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 ```
 
 **Read each story for metadata:**
@@ -153,7 +153,7 @@ AskUserQuestion:
 
 ```bash
 Write(
-  file_path=".ai_docs/Sprints/Sprint-[N].md",
+  file_path="devforgeai/specs/Sprints/Sprint-[N].md",
   content="[Sprint frontmatter + planning details]"
 )
 ```
@@ -236,7 +236,7 @@ created: YYYY-MM-DD HH:MM:SS
 **Verify file written:**
 
 ```bash
-Read(file_path=".ai_docs/Sprints/Sprint-[N].md")
+Read(file_path="devforgeai/specs/Sprints/Sprint-[N].md")
 ```
 
 ### Phase 5: Update Story Status
@@ -245,24 +245,24 @@ Read(file_path=".ai_docs/Sprints/Sprint-[N].md")
 
 ```bash
 # Read story file
-Read(file_path=".ai_docs/Stories/STORY-[ID].story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-[ID].story.md")
 
 # Update frontmatter and workflow history
 Edit(
-  file_path=".ai_docs/Stories/STORY-[ID].story.md",
+  file_path="devforgeai/specs/Stories/STORY-[ID].story.md",
   old_string="status: Backlog",
   new_string="status: Ready for Dev"
 )
 
 Edit(
-  file_path=".ai_docs/Stories/STORY-[ID].story.md",
+  file_path="devforgeai/specs/Stories/STORY-[ID].story.md",
   old_string="sprint: null",
   new_string="sprint: SPRINT-[N]"
 )
 
 # Add workflow history entry
 Edit(
-  file_path=".ai_docs/Stories/STORY-[ID].story.md",
+  file_path="devforgeai/specs/Stories/STORY-[ID].story.md",
   old_string="## Workflow History\n\n",
   new_string="## Workflow History\n\n### YYYY-MM-DD HH:MM:SS - Status: Ready for Dev\n- Added to Sprint-[N]\n- Transitioned from Backlog to Ready for Dev\n- Sprint capacity: [total_points] points\n\n"
 )
@@ -298,7 +298,7 @@ Story Status Updates:
   ✓ Sprint references added to all stories
 
 Sprint File Created:
-  📁 .ai_docs/Sprints/Sprint-[N].md
+  📁 devforgeai/specs/Sprints/Sprint-[N].md
 
 Next Steps:
   1. Review sprint goals and story priorities
@@ -362,7 +362,7 @@ Please select from valid stories in Backlog status.
 
 ### Error: Sprint File Creation Failed
 
-**Condition:** Cannot write to `.ai_docs/Sprints/` directory
+**Condition:** Cannot write to `devforgeai/specs/Sprints/` directory
 
 **Action:**
 1. Check if directory exists
@@ -373,7 +373,7 @@ Please select from valid stories in Backlog status.
 ```
 ❌ Sprint File Creation Failed
 
-Cause: Directory .ai_docs/Sprints/ does not exist
+Cause: Directory devforgeai/specs/Sprints/ does not exist
 
 Recovery:
   Creating directory...
@@ -397,7 +397,7 @@ Recovery:
 ⚠️ Partial Success - Story Updates Failed
 
 Sprint Created: ✅
-  - .ai_docs/Sprints/Sprint-[N].md
+  - devforgeai/specs/Sprints/Sprint-[N].md
 
 Story Updates:
   ✓ STORY-001: Updated successfully
@@ -406,7 +406,7 @@ Story Updates:
 
 Action Required:
   Manually update STORY-003:
-    1. Open .ai_docs/Stories/STORY-003.story.md
+    1. Open devforgeai/specs/Stories/STORY-003.story.md
     2. Change status: Backlog → Ready for Dev
     3. Add sprint: SPRINT-[N]
 
@@ -415,7 +415,7 @@ Sprint is valid but some stories need manual updates.
 
 ## Success Criteria
 
-- [x] Sprint file created in `.ai_docs/Sprints/`
+- [x] Sprint file created in `devforgeai/specs/Sprints/`
 - [x] YAML frontmatter valid and complete
 - [x] Stories selected and linked to sprint
 - [x] Story statuses updated to "Ready for Dev"
@@ -449,9 +449,9 @@ Sprint is valid but some stories need manual updates.
 ## Integration Points
 
 **Prerequisites:**
-- Stories exist in `.ai_docs/Stories/`
+- Stories exist in `devforgeai/specs/Stories/`
 - At least one story with status = "Backlog"
-- (Optional) Epic exists in `.ai_docs/Epics/`
+- (Optional) Epic exists in `devforgeai/specs/Epics/`
 
 **Invokes:**
 - None (terminal command)

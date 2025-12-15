@@ -634,7 +634,7 @@ All 175 tests are designed to execute against the hook system implementation:
 ## References
 
 **Story Document:**
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-018-event-driven-hook-system.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-018-event-driven-hook-system.story.md`
 
 **Test Files Location:**
 - `/mnt/c/Projects/DevForgeAI2/tests/test_hook_*.py`

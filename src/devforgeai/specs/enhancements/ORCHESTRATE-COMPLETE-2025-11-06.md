@@ -219,7 +219,7 @@ Successfully completed comprehensive /orchestrate refactoring with bi-directiona
    - Updated architecture breakdown
    - Updated metrics
 
-4. **`.devforgeai/protocols/lean-orchestration-pattern.md`**
+4. **`devforgeai/protocols/lean-orchestration-pattern.md`**
    - Added Case Study 4: /orchestrate refactoring
    - Documented agent-generator decision
    - Lessons learned
@@ -426,7 +426,7 @@ Successfully completed comprehensive /orchestrate refactoring with bi-directiona
 ### Updated
 
 - `.claude/memory/commands-reference.md` (orchestrate refactoring noted)
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (Case Study 4 added)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (Case Study 4 added)
 - `CLAUDE.md` (7 refactored commands, skills enhancement noted)
 
 ### Backed Up

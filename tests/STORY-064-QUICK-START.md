@@ -248,9 +248,9 @@ Ensure file exists with trigger conditions and job definitions
 ## References
 
 - **Full Summary**: STORY-064-TEST-GENERATION-SUMMARY.md
-- **Story File**: .ai_docs/Stories/STORY-064-story-creation-integration-validation.story.md
-- **Story-056 Implementation**: .ai_docs/Stories/STORY-056-devforgeai-story-creation-integration.story.md
-- **Ideation Integration**: .ai_docs/Stories/STORY-055-devforgeai-ideation-integration.story.md
+- **Story File**: devforgeai/specs/Stories/STORY-064-story-creation-integration-validation.story.md
+- **Story-056 Implementation**: devforgeai/specs/Stories/STORY-056-devforgeai-story-creation-integration.story.md
+- **Ideation Integration**: devforgeai/specs/Stories/STORY-055-devforgeai-ideation-integration.story.md
 
 ---
 

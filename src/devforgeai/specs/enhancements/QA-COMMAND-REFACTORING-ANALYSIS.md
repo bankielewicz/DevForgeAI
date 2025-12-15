@@ -49,7 +49,7 @@ The `/qa` command has become "top-heavy" with 692 lines of business logic that p
 **Responsibility:** Parse QA report, handle deferral failures, branch logic
 **Issues:**
 - Complex deferral failure handling (lines 196-237) - 42 lines
-- Reads QA report: `Read(path=.devforgeai/qa/reports/{STORY_ID}-qa-report.md)`
+- Reads QA report: `Read(path=devforgeai/qa/reports/{STORY_ID}-qa-report.md)`
 - Parses failure reasons
 - Invokes AskUserQuestion for deferral failures
 - **DUPLICATION:** Logic for deferral handling should be in skill, not command

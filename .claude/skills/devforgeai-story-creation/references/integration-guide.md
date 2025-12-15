@@ -252,7 +252,7 @@ Skill(command="devforgeai-story-creation")
 ### Primary Output
 
 **Story file:**
-- Location: `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- Location: `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - Format: YAML frontmatter + Markdown sections
 - Size: ~200-500 lines (varies by complexity)
 

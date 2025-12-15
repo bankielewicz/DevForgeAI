@@ -36,7 +36,7 @@ Manage safe, repeatable production deployments with automated validation, smoke 
 ### How Slash Commands Pass "Parameters" to Skills
 
 When `/release` command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX" and "Environment: staging"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-release")`
 
@@ -59,7 +59,7 @@ Extract: id field = Story ID
 **Method 2: Search for file reference**
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```
@@ -104,8 +104,8 @@ Search for patterns:
 **If not found:**
 ```
 Read from deployment config or tech-stack.md:
-  - .devforgeai/deployment/config.json
-  - .devforgeai/context/tech-stack.md (deployment section)
+  - devforgeai/deployment/config.json
+  - devforgeai/specs/context/tech-stack.md (deployment section)
 
 Default: rolling (safest for most platforms)
 ```
@@ -190,16 +190,16 @@ This skill orchestrates the **release workflow** from QA-approved code to produc
 This skill expects deployment configurations and smoke test configs to be stored in standardized locations:
 
 **Deployment Configurations:**
-- **Location**: `.devforgeai/deployment/`
+- **Location**: `devforgeai/deployment/`
 - **Purpose**: Platform-specific deployment configurations (Kubernetes manifests, Helm charts, Docker Compose files, Terraform modules, etc.)
 - **Examples**:
-  - `.devforgeai/deployment/kubernetes/` - K8s YAML manifests
-  - `.devforgeai/deployment/helm/` - Helm chart values
-  - `.devforgeai/deployment/terraform/` - Infrastructure as Code
-  - `.devforgeai/deployment/docker-compose.yml` - Docker Compose config
+  - `devforgeai/deployment/kubernetes/` - K8s YAML manifests
+  - `devforgeai/deployment/helm/` - Helm chart values
+  - `devforgeai/deployment/terraform/` - Infrastructure as Code
+  - `devforgeai/deployment/docker-compose.yml` - Docker Compose config
 
 **Smoke Test Configuration:**
-- **Location**: `.devforgeai/smoke-tests/config.json`
+- **Location**: `devforgeai/smoke-tests/config.json`
 - **Purpose**: Environment-specific smoke test configurations (base URLs, test users, API keys)
 - **Schema**:
 ```json
@@ -226,7 +226,7 @@ This skill expects deployment configurations and smoke test configs to be stored
 **If configuration is missing:**
 ```
 Release skill will HALT with:
-"Missing deployment configuration. Expected files in .devforgeai/deployment/"
+"Missing deployment configuration. Expected files in devforgeai/deployment/"
 
 Use AskUserQuestion to clarify:
 - Which deployment platform? (Kubernetes, Azure App Service, AWS ECS, etc.)
@@ -244,12 +244,12 @@ Use AskUserQuestion to clarify:
 #### Step 1: Load Story and QA Report
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 HALT if story.status != "QA Approved":
     "Story must be QA Approved before deployment"
 
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 HALT if qa_report NOT exists:
     "QA report not found. Run devforgeai-qa --mode=deep first"
@@ -519,19 +519,19 @@ release_notes = populate_template(
     coverage, deployment_strategy, timestamps, metrics, rollback_command
 )
 
-Write(file_path=".devforgeai/releases/release-{version}.md", content=release_notes)
+Write(file_path="devforgeai/releases/release-{version}.md", content=release_notes)
 ```
 
 #### Step 2: Update Story Status
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: QA Approved",
      new_string="status: Released")
 
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="- [ ] Released",
      new_string="- [x] Released")
 
@@ -585,7 +585,7 @@ alert_config = {
     "version": version
 }
 
-Write(file_path=".devforgeai/monitoring/alerts/{story_id}-post-release.json", content=alert_config)
+Write(file_path="devforgeai/monitoring/alerts/{story_id}-post-release.json", content=alert_config)
 ```
 
 For monitoring guidance, see `references/monitoring-metrics.md`
@@ -607,7 +607,7 @@ review_document = """# Post-Release Review: {story_id}
 - [ ] Document lessons learned
 """
 
-Write(file_path=".devforgeai/post-release/{story_id}-review.md", content=review_document)
+Write(file_path="devforgeai/post-release/{story_id}-review.md", content=review_document)
 ```
 
 #### Step 3: Report Release Success
@@ -632,7 +632,7 @@ Validation:
   ✓ Metrics: Within thresholds
 
 Documentation:
-  ✓ Release notes: .devforgeai/releases/release-{version}.md
+  ✓ Release notes: devforgeai/releases/release-{version}.md
   ✓ Story updated: Status = Released
   ✓ Changelog updated
 
@@ -683,7 +683,7 @@ FUNCTION execute_production_rollback(deployment_target, deployment_strategy, pre
     Edit(file_path="story.md", old_string="status: Releasing", new_string="status: QA Approved")
 
     # Document rollback
-    Write(file_path=".devforgeai/releases/rollback-{version}.md", content=rollback_report)
+    Write(file_path="devforgeai/releases/rollback-{version}.md", content=rollback_report)
 ```
 
 For platform-specific rollback commands, see `references/rollback-procedures.md`
@@ -726,8 +726,8 @@ For platform-specific rollback commands, see `references/rollback-procedures.md`
 - [x] No rollback required
 
 **Output Artifacts:**
-- `.devforgeai/releases/release-{version}.md`
-- `.ai_docs/Stories/{story-id}.story.md` (status = Released)
+- `devforgeai/releases/release-{version}.md`
+- `devforgeai/specs/Stories/{story-id}.story.md` (status = Released)
 - `CHANGELOG.md` (updated)
 - Deployment logs
 - Post-release monitoring config
@@ -741,10 +741,10 @@ For platform-specific rollback commands, see `references/rollback-procedures.md`
 **40-73% token savings (per efficiency analysis)**
 
 ```
-✅ CORRECT: Read(file_path=".ai_docs/Stories/{story-id}.story.md")
-❌ FORBIDDEN: Bash(command="cat .ai_docs/Stories/{story-id}.story.md")
+✅ CORRECT: Read(file_path="devforgeai/specs/Stories/{story-id}.story.md")
+❌ FORBIDDEN: Bash(command="cat devforgeai/specs/Stories/{story-id}.story.md")
 
-✅ CORRECT: Write(file_path=".devforgeai/releases/release-{version}.md", content=notes)
+✅ CORRECT: Write(file_path="devforgeai/releases/release-{version}.md", content=notes)
 ❌ FORBIDDEN: Bash(command="cat > release.md <<EOF...")
 
 ✅ CORRECT: Edit(file_path="story.md", old_string="QA Approved", new_string="Released")

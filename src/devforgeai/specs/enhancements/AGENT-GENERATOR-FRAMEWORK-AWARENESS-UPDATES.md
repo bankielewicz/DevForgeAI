@@ -68,7 +68,7 @@ This document defines the updates needed to make the **agent-generator subagent*
 **Example workflow:**
 ```
 User: "Generate all Phase 2 subagents"
-→ Reads .devforgeai/specs/requirements/phase-2-subagents-requirements.md
+→ Reads devforgeai/specs/requirements/phase-2-subagents-requirements.md
 → Extracts 13 subagent specifications
 → Generates in priority order (Critical → High → Medium → Low)
 → Validates each after generation
@@ -81,15 +81,15 @@ User: "Generate all Phase 2 subagents"
 
 **1. No Claude Code Official Patterns Awareness**
 
-**Current:** Relies on `.ai_docs/Terminal/sub-agents.md` (now migrated to claude-code-terminal-expert skill)
+**Current:** Relies on `devforgeai/specs/Terminal/sub-agents.md` (now migrated to claude-code-terminal-expert skill)
 **Problem:** Doesn't leverage official Claude Code documentation consolidated in skill
 **Impact:** May not follow latest official best practices
 
 **Evidence:**
 ```markdown
 # Current references (lines 64-75)
-Read(file_path=".ai_docs/prompt-engineering-best-practices.md")
-Read(file_path=".ai_docs/Terminal/sub-agents.md")  # OUTDATED - migrated to skill
+Read(file_path="devforgeai/specs/prompt-engineering-best-practices.md")
+Read(file_path="devforgeai/specs/Terminal/sub-agents.md")  # OUTDATED - migrated to skill
 ```
 
 ---
@@ -160,8 +160,8 @@ Read(file_path=".ai_docs/Terminal/sub-agents.md")  # OUTDATED - migrated to skil
 
 **5. No Integration with claude-code-terminal-expert Skill**
 
-**Current:** Reads `.ai_docs/Terminal/sub-agents.md` directly
-**New state:** `.ai_docs/Terminal/` migrated to `.claude/skills/claude-code-terminal-expert/`
+**Current:** Reads `devforgeai/specs/Terminal/sub-agents.md` directly
+**New state:** `devforgeai/specs/Terminal/` migrated to `.claude/skills/claude-code-terminal-expert/`
 
 **Problem:** Doesn't leverage:
 - Official Claude Code subagent documentation (Section 1 of core-features.md)
@@ -208,7 +208,7 @@ IF skill exists:
   Store in memory: CLAUDE_CODE_PATTERNS
 ELSE:
   # Fallback: Load from .ai_docs if skill not available (backward compatibility)
-  Read(file_path=".ai_docs/Terminal/sub-agents.md")
+  Read(file_path="devforgeai/specs/Terminal/sub-agents.md")
   Store in memory: CLAUDE_CODE_PATTERNS
 ```
 
@@ -231,7 +231,7 @@ Store in memory: DEVFORGEAI_CONTEXT
 
 If generating command-related subagent (e.g., for /create-story refactoring):
 ```
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 # Extract:
 # - Subagent Creation Guidelines (lines 783-916)
 # - Subagent Template (lines 800-916)
@@ -837,7 +837,7 @@ ELSE:
 - When Phase 2 subagent implementation begins (existing)
 - When user runs /create-agent command (NEW)
 - When lean orchestration refactoring needs subagent (NEW)
-- When requirements document exists in `.devforgeai/specs/requirements/` (existing)
+- When requirements document exists in `devforgeai/specs/requirements/` (existing)
 
 **Explicit invocation:**
 - "Generate subagent for [purpose]" (existing)
@@ -869,7 +869,7 @@ mode_markers = {
   "template": "**Creation Mode:** template" in conversation,
   "domain": "**Creation Mode:** domain" in conversation,
   "custom": "**Creation Mode:** custom" in conversation,
-  "requirements": ".devforgeai/specs/requirements/" file reference in conversation
+  "requirements": "devforgeai/specs/requirements/" file reference in conversation
 }
 
 # Detect mode (priority order)
@@ -1554,7 +1554,7 @@ def generate_tool_suggestions(domain, responsibilities):
 1. **Phase 0: Load Framework References** (lines 64-130 in agent-generator.md)
    - Step 0.1: Load Claude Code Official Guidance
      - Checks for claude-code-terminal-expert skill (primary)
-     - Falls back to .ai_docs/Terminal/sub-agents.md (backward compatibility)
+     - Falls back to devforgeai/specs/Terminal/sub-agents.md (backward compatibility)
      - Stores patterns in CLAUDE_CODE_PATTERNS variable
    - Step 0.2: Load DevForgeAI Framework Context
      - Reads CLAUDE.md for framework principles
@@ -1585,7 +1585,7 @@ def generate_tool_suggestions(domain, responsibilities):
 
 **Verification Results:**
 - ✅ claude-code-terminal-expert skill integration: VERIFIED (skill exists at .claude/skills/claude-code-terminal-expert/SKILL.md)
-- ✅ Fallback mechanism: VERIFIED (handles missing .ai_docs/Terminal/sub-agents.md gracefully)
+- ✅ Fallback mechanism: VERIFIED (handles missing devforgeai/specs/Terminal/sub-agents.md gracefully)
 - ✅ Official pattern compliance: VALIDATED (YAML frontmatter, description, tools, model sections present)
 - ✅ Template sections: VALIDATED (Framework Integration + Tool Usage Protocol sections exist)
 

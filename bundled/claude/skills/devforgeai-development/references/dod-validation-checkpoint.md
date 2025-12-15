@@ -23,7 +23,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-validation-
 When this reference is loaded by the skill, the following context is available:
 
 - **STORY_ID:** Extracted from conversation (e.g., STORY-006)
-- **STORY_FILE:** Path to story file (.ai_docs/Stories/STORY-006.story.md)
+- **STORY_FILE:** Path to story file (devforgeai/specs/Stories/STORY-006.story.md)
 - **Story Content:** Already loaded in conversation via @ reference from /dev command
 - **Completion Status:** TDD cycle complete, Layer 1 validation passed
 - **Variables from Phase 0:**
@@ -43,7 +43,7 @@ When this reference is loaded by the skill, the following context is available:
 
 From skill context (available in conversation when this reference loads):
 - **STORY_ID:** Story identifier (e.g., STORY-006) - extracted by skill from conversation
-- **STORY_FILE:** Full path to story file (e.g., .ai_docs/Stories/STORY-006-feature.story.md)
+- **STORY_FILE:** Full path to story file (e.g., devforgeai/specs/Stories/STORY-006-feature.story.md)
 - **Story content:** Already loaded in conversation via @ reference from /dev command
 
 **Note:** The skill has already extracted story ID and validated story file exists before loading this reference.
@@ -217,7 +217,7 @@ FOR EACH item in incomplete_items:
     target_story_id = user_input
 
     Validate story exists:
-    Glob(pattern=".ai_docs/Stories/${target_story_id}*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/${target_story_id}*.story.md")
 
     IF not found:
       Display: "⚠️ WARNING: Story ${target_story_id} doesn't exist yet. You must create it."
@@ -237,15 +237,15 @@ FOR EACH item in incomplete_items:
       # User provides free-form text
 
     reason = user_input
-    justification = "Technical debt: ${reason}. Tracked in .devforgeai/technical-debt-register.md"
+    justification = "Technical debt: ${reason}. Tracked in devforgeai/technical-debt-register.md"
 
     # Update technical debt register
-    Check if .devforgeai/technical-debt-register.md exists
+    Check if devforgeai/technical-debt-register.md exists
     IF not exists:
       Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-      Write(.devforgeai/technical-debt-register.md, template)
+      Write(devforgeai/technical-debt-register.md, template)
 
-    Read(.devforgeai/technical-debt-register.md)
+    Read(devforgeai/technical-debt-register.md)
     Append to "Open Debt Items":
       "- {item.text} (from ${STORY_ID}): ${reason} | Date: {current_date} | Status: Open"
     Edit to save changes
@@ -317,7 +317,7 @@ FOR EACH item in incomplete_items:
     adr_number = user_input
 
     Validate ADR exists:
-    Glob(pattern=".devforgeai/adrs/ADR-${adr_number}*.md")
+    Glob(pattern="devforgeai/specs/adrs/ADR-${adr_number}*.md")
 
     IF not found:
       Display: "⚠️ WARNING: ADR-${adr_number} doesn't exist. You must create it to document scope change."
@@ -375,12 +375,12 @@ FOR EACH item in incomplete_items:
   )
 
   # Track in technical debt register
-  Check if .devforgeai/technical-debt-register.md exists
+  Check if devforgeai/technical-debt-register.md exists
   IF not exists:
     Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-    Write(.devforgeai/technical-debt-register.md, template)
+    Write(devforgeai/technical-debt-register.md, template)
 
-  Read(.devforgeai/technical-debt-register.md)
+  Read(devforgeai/technical-debt-register.md)
   Append to "Open Debt Items":
     "- {item.text} (from ${STORY_ID}): Blocked by ${blocker_description} | Date: {current_date} | Status: Open"
   Edit to save changes
@@ -472,8 +472,8 @@ Expected:
 - OR story file path provided via conversation
 
 Actions:
-1. Verify /dev command includes: @.ai_docs/Stories/${STORY_ID}.story.md
-2. Check story file exists: Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+1. Verify /dev command includes: @devforgeai/specs/Stories/${STORY_ID}.story.md
+2. Check story file exists: Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 3. Re-run /dev command with proper story reference
 ```
 

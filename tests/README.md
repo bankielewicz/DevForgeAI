@@ -303,9 +303,9 @@ open .devforgeai/qa/coverage/STORY-015-coverage-report/index.html
 
 The tests use actual story files as fixtures (not mocks):
 
-- `.ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md`
-- `.ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
-- `.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
+- `devforgeai/specs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md`
+- `devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
+- `devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
 
 **Rationale:** Integration testing requires real files to validate actual file operations
 
@@ -333,7 +333,7 @@ The tests use actual story files as fixtures (not mocks):
    ```
 
 2. **File Structure:**
-   - All story files must exist in `.ai_docs/Stories/`
+   - All story files must exist in `devforgeai/specs/Stories/`
    - Template must exist at `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
    - Coverage report directory: `.devforgeai/qa/coverage/` (created by pytest-cov)
 
@@ -347,13 +347,13 @@ The tests use actual story files as fixtures (not mocks):
 **Test: FileNotFoundError for story files**
 ```
 Solution: Verify story files exist:
-ls -la .ai_docs/Stories/STORY-027* STORY-028* STORY-029*
+ls -la devforgeai/specs/Stories/STORY-027* STORY-028* STORY-029*
 ```
 
 **Test: yaml.YAMLError during YAML validation**
 ```
 Solution: Check YAML syntax in story frontmatter:
-head -15 .ai_docs/Stories/STORY-027-*.story.md
+head -15 devforgeai/specs/Stories/STORY-027-*.story.md
 Look for: --- at line 1, --- at ~line 11 (closing delimiter)
 ```
 

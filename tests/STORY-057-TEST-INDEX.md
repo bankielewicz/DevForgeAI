@@ -236,7 +236,7 @@ pytest tests/ --cov=src --cov-report=html
 - `integration/conftest.py` - Integration test specific fixtures
 
 ### In project root
-- `.ai_docs/Stories/STORY-057-additional-skill-integrations.story.md` - Story definition
+- `devforgeai/specs/Stories/STORY-057-additional-skill-integrations.story.md` - Story definition
 - `src/claude/skills/devforgeai-architecture/SKILL.md` - Architecture skill
 - `src/claude/skills/devforgeai-ui-generator/SKILL.md` - UI-Generator skill
 - `src/claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration skill

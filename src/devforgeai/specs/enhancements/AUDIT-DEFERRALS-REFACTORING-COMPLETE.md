@@ -194,7 +194,7 @@ The skill now owns the complete audit workflow:
 **User Experience:** 100% Preserved
 - Command invocation: `/audit-deferrals` (unchanged)
 - No arguments required (unchanged)
-- Output location: `.devforgeai/qa/deferral-audit-{timestamp}.md` (unchanged)
+- Output location: `devforgeai/qa/deferral-audit-{timestamp}.md` (unchanged)
 - Typical duration: 5-15 minutes (unchanged)
 - Audit methodology: Same 7-phase workflow (moved to skill)
 
@@ -354,7 +354,7 @@ The devforgeai-orchestration skill now includes a complete Phase 7 (Audit Deferr
 **Files Not Changed (yet):**
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 7 implementation already exists)
 - `.claude/agents/deferral-validator.md` (unchanged)
-- `.devforgeai/RCA/*.md` (unchanged)
+- `devforgeai/RCA/*.md` (unchanged)
 
 **Testing Needed:**
 - End-to-end: `/audit-deferrals` command execution
@@ -387,13 +387,13 @@ The devforgeai-orchestration skill now includes a complete Phase 7 (Audit Deferr
 ## References
 
 **Lean Orchestration Pattern:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Main pattern document
-- `.devforgeai/protocols/refactoring-case-studies.md` - 5 completed case studies (includes /audit-deferrals as Case Study 6)
-- `.devforgeai/protocols/command-budget-reference.md` - Budget tracking and monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Main pattern document
+- `devforgeai/protocols/refactoring-case-studies.md` - 5 completed case studies (includes /audit-deferrals as Case Study 6)
+- `devforgeai/protocols/command-budget-reference.md` - Budget tracking and monitoring
 
 **Refactoring Documentation:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - /qa refactoring (57% reduction)
-- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - /orchestrate refactoring (12% reduction)
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - /qa refactoring (57% reduction)
+- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - /orchestrate refactoring (12% reduction)
 
 **Command Implementation:**
 - `.claude/commands/audit-deferrals.md` - Refactored command (this document's subject)
@@ -404,8 +404,8 @@ The devforgeai-orchestration skill now includes a complete Phase 7 (Audit Deferr
 
 **Framework References:**
 - `.claude/agents/deferral-validator.md` - Validation subagent
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation policy
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Multi-level chain detection
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation policy
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Multi-level chain detection
 
 ---
 

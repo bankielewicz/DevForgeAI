@@ -54,13 +54,13 @@ EPIC_ID = normalize(ARG)  # Uppercase, e.g., EPIC-015
 
 **Verify epic exists:**
 ```
-Glob(pattern=".ai_docs/Epics/${EPIC_ID}*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/${EPIC_ID}*.epic.md")
 
 IF file not found:
     Display: "❌ Epic not found: ${EPIC_ID}"
     Display: ""
     Display: "Valid epics:"
-    FOR epic in Glob(".ai_docs/Epics/*.epic.md"):
+    FOR epic in Glob("devforgeai/specs/Epics/*.epic.md"):
         Extract epic_id from filename
         Display: "  • ${epic_id}"
     Display: ""
@@ -83,7 +83,7 @@ Display: ""
 
 **Execute gap detector:**
 ```
-Bash(command=".devforgeai/traceability/gap-detector.sh ${EPIC_ID}")
+Bash(command="devforgeai/traceability/gap-detector.sh ${EPIC_ID}")
 
 # Parse JSON output for gaps
 gaps = parse_json_output(gap_detector_output)
@@ -97,7 +97,7 @@ IF gaps.total_features == 0:
     Display: "ℹ️ No features defined in ${EPIC_ID}"
     Display: ""
     Display: "To define features, edit the epic file:"
-    Display: "  .ai_docs/Epics/${EPIC_ID}*.epic.md"
+    Display: "  devforgeai/specs/Epics/${EPIC_ID}*.epic.md"
     Display: ""
     Display: "Or run /ideate to generate features from a business idea."
     HALT
@@ -276,7 +276,7 @@ FOR story IN results.success:
 
 Display: ""
 Display: "Next steps:"
-Display: "  • Review created stories in .ai_docs/Stories/"
+Display: "  • Review created stories in devforgeai/specs/Stories/"
 Display: "  • Run /validate-epic-coverage ${EPIC_ID} to verify coverage"
 Display: "  • Run /dev STORY-XXX to start implementation"
 ```
@@ -420,7 +420,7 @@ This command follows **lean orchestration** pattern:
 - **Result display:** Progress and summary report
 
 **Key dependencies:**
-- `.devforgeai/traceability/gap-detector.sh` - Gap detection
+- `devforgeai/traceability/gap-detector.sh` - Gap detection
 - `devforgeai-story-creation` skill - Story file generation
 - `references/gap-to-story-conversion.md` - Template generation
 - `references/batch-mode-configuration.md` - Batch mode markers

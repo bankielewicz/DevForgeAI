@@ -412,9 +412,9 @@ Root:
 ## References
 
 ### Story Documentation
-- **Story:** `.ai_docs/Stories/STORY-030-wire-hooks-into-create-context-command.story.md`
-- **Epic:** `.ai_docs/Epics/EPIC-006-feedback-integration-completion.epic.md`
-- **Pilot:** `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-030-wire-hooks-into-create-context-command.story.md`
+- **Epic:** `devforgeai/specs/Epics/EPIC-006-feedback-integration-completion.epic.md`
+- **Pilot:** `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
 
 ### Pattern References
 - **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`

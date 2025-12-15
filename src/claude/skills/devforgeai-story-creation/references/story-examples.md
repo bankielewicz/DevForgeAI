@@ -1923,7 +1923,7 @@ interface ChartDataPoint {
 
 ---
 
-**File:** `.ai_docs/Stories/STORY-042-user-registration-email-verification.story.md`
+**File:** `devforgeai/specs/Stories/STORY-042-user-registration-email-verification.story.md`
 
 ```markdown
 ---

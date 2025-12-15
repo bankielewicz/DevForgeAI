@@ -341,7 +341,7 @@ tests/integration/
 ## 🔗 Related Files
 
 **Story Definition:**
-- `.ai_docs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
+- `devforgeai/specs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
 
 **Framework Context:**
 - `.devforgeai/context/tech-stack.md` (pytest, Python 3.8+)

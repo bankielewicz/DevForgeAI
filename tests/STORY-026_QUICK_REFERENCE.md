@@ -228,7 +228,7 @@ tests/integration/test_orchestrate_hooks_integration.py
 from .claude.scripts.devforgeai_cli.orchestrate_hooks import extract_orchestrate_context
 
 # Read story file
-with open(".ai_docs/Stories/STORY-001.story.md") as f:
+with open("devforgeai/specs/Stories/STORY-001.story.md") as f:
     story_content = f.read()
 
 # Extract context

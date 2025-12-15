@@ -22,11 +22,11 @@ class TestManifestGeneration:
 
     def test_manifest_file_created_at_default_location(self, tmp_path):
         """
-        Test: Manifest created at .devforgeai/.install-manifest.json (AC#4).
+        Test: Manifest created at devforgeai/.install-manifest.json (AC#4).
 
         Given: Installation succeeds
         When: ManifestGenerator.generate_manifest() called
-        Then: Creates .devforgeai/.install-manifest.json
+        Then: Creates devforgeai/.install-manifest.json
         """
         # Arrange
         from installer.manifest_generator import ManifestGenerator

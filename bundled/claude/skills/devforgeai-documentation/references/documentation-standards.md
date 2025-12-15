@@ -349,14 +349,14 @@ From codebase analysis (code-analyzer subagent):
 
 Users can provide custom templates in:
 ```
-.devforgeai/templates/documentation/
+devforgeai/templates/documentation/
 ├── readme-template.md (overrides default)
 ├── api-docs-template.md (overrides default)
 └── custom-template.md (new template)
 ```
 
 **Override precedence:**
-1. Custom template in .devforgeai/templates/documentation/
+1. Custom template in devforgeai/templates/documentation/
 2. Default template in skill assets/templates/
 3. Minimal fallback (if both missing)
 
@@ -436,7 +436,7 @@ Enter value for custom_variable: ___
 
 ### Story-Based Documentation (Greenfield)
 
-**Source:** `.ai_docs/Stories/*.story.md`
+**Source:** `devforgeai/specs/Stories/*.story.md`
 
 **Extract from story:**
 - User story → Feature description

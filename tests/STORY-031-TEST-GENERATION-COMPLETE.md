@@ -280,7 +280,7 @@ python3 -m pytest -m story_031 tests/unit/test_story_031_ideate_hooks.py -v
 ### Documentation Files
 - `.claude/commands/ideate.md` - Command to be modified
 - `.claude/commands/dev.md` - Pilot implementation reference
-- `.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md` - Full requirements
+- `devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md` - Full requirements
 
 ---
 

@@ -392,9 +392,9 @@ After implementation, verify:
 - **AC_TO_TEST_MAPPING.md** - Acceptance criteria to test traceability
 
 ### In DevForgeAI Repository
-- **.devforgeai/context/** - Architecture constraints
+- **devforgeai/specs/context/** - Architecture constraints
 - **.claude/skills/devforgeai-qa/** - QA automation patterns
-- **.ai_docs/Stories/STORY-011.story.md** - Original story file
+- **devforgeai/specs/Stories/STORY-011.story.md** - Original story file
 
 ### External Resources
 - **Pytest Documentation:** https://docs.pytest.org/

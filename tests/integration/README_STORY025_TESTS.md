@@ -463,11 +463,11 @@ pytest tests/integration/test_release_hooks_integration.py \
 
 ## Related Documentation
 
-- **STORY-025**: `.ai_docs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
-- **Hook System (STORY-021)**: `.ai_docs/Stories/STORY-021-devforgeai-check-hooks-cli.story.md`
-- **Feedback Collection (STORY-022)**: `.ai_docs/Stories/STORY-022-devforgeai-invoke-hooks-cli.story.md`
-- **/dev Hook Integration (STORY-023)**: `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command.story.md`
-- **/qa Hook Integration (STORY-024)**: `.ai_docs/Stories/STORY-024-wire-hooks-into-qa-command.story.md`
+- **STORY-025**: `devforgeai/specs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
+- **Hook System (STORY-021)**: `devforgeai/specs/Stories/STORY-021-devforgeai-check-hooks-cli.story.md`
+- **Feedback Collection (STORY-022)**: `devforgeai/specs/Stories/STORY-022-devforgeai-invoke-hooks-cli.story.md`
+- **/dev Hook Integration (STORY-023)**: `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command.story.md`
+- **/qa Hook Integration (STORY-024)**: `devforgeai/specs/Stories/STORY-024-wire-hooks-into-qa-command.story.md`
 
 ## Quick Reference
 

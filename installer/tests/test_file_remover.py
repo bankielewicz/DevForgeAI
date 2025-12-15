@@ -63,7 +63,7 @@ class TestPreservedFileProtection:
 
         remover = FileRemover(file_system=mock_file_system)
         files_to_remove = [
-            {"path": ".ai_docs/Stories/STORY-001.md", "preserve": True},
+            {"path": "devforgeai/specs/Stories/STORY-001.md", "preserve": True},
             {"path": ".claude/skills/test/SKILL.md", "preserve": False}
         ]
 
@@ -72,7 +72,7 @@ class TestPreservedFileProtection:
         # Verify preserved file was NOT removed
         calls = mock_file_system.remove_file.call_args_list
         removed_paths = [call[0][0] for call in calls]
-        assert ".ai_docs/Stories/STORY-001.md" not in removed_paths
+        assert "devforgeai/specs/Stories/STORY-001.md" not in removed_paths
 
     def test_should_remove_non_preserved_files(self, mock_file_system):
         """Test: Non-preserved files ARE deleted."""
@@ -163,7 +163,7 @@ class TestPermissionErrorHandling:
         mock_file_system.remove_file.side_effect = FileNotFoundError()
 
         # Should not raise exception
-        result = remover.remove_files([".devforgeai/nonexistent.txt"])
+        result = remover.remove_files(["devforgeai/nonexistent.txt"])
         assert result is not None
 
 
@@ -346,8 +346,8 @@ class TestRollbackAndRecovery:
             ".claude/file1.md",
             ".claude/file2.md",
             ".claude/file3.md",
-            ".devforgeai/file4.md",
-            ".devforgeai/file5.md",
+            "devforgeai/file4.md",
+            "devforgeai/file5.md",
         ]
 
         result = remover.remove_files(files)
@@ -392,7 +392,7 @@ class TestPostRemovalVerification:
 
         files = [
             ".claude/skills/test/SKILL.md",
-            ".devforgeai/context/tech-stack.md",
+            "devforgeai/specs/context/tech-stack.md",
             "CLAUDE.md"
         ]
 
@@ -416,7 +416,7 @@ class TestPostRemovalVerification:
         def get_remaining_files():
             return [
                 ".claude/skills/orphaned.md",
-                ".devforgeai/orphaned.json"
+                "devforgeai/orphaned.json"
             ]
 
         # Should detect and report orphaned files

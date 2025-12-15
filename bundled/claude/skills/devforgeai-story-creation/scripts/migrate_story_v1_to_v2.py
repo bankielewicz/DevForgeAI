@@ -248,7 +248,7 @@ class StoryMigrator:
     def _create_backup(self):
         """Create backup of original file."""
         timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
-        backup_dir = Path(".devforgeai/backups/phase2-migration")
+        backup_dir = Path("devforgeai/backups/phase2-migration")
         backup_dir.mkdir(parents=True, exist_ok=True)
 
         backup_file = backup_dir / f"{self.story_file.stem}-{timestamp}.md"

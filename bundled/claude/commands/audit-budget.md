@@ -31,7 +31,7 @@ Automated compliance check for all slash commands against the 15K character budg
 
 **Load lean orchestration protocol:**
 ```
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 ```
 
 **Extract budget thresholds from protocol:**
@@ -171,7 +171,7 @@ violation_rate = (over_count / total_commands) * 100
 - **Total effort: {over_count * 5} hours** (assuming 5 hours average)
 
 **Refactoring Protocol:**
-See `.devforgeai/protocols/lean-orchestration-pattern.md` for methodology
+See `devforgeai/protocols/lean-orchestration-pattern.md` for methodology
 
 {ELSE:}
 ✅ No over-budget commands detected. All commands within 15K character limit.
@@ -247,7 +247,7 @@ Based on lean orchestration protocol (Appendix A), refactor in this order:
 
 {IF over_count > 0:}
 - 🔴 **Refactor {over_count} over-budget commands** (blocking issue)
-- 📖 **Follow protocol:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- 📖 **Follow protocol:** `devforgeai/protocols/lean-orchestration-pattern.md`
 - 🧪 **Test comprehensively:** 30+ test cases per command (protocol section: Testing Strategy)
 - ✅ **Use proven pattern:** qa-result-interpreter and dev command refactorings as reference
 
@@ -270,7 +270,7 @@ Based on lean orchestration protocol (Appendix A), refactor in this order:
 
 **For complete refactoring methodology:**
 ```
-Read: .devforgeai/protocols/lean-orchestration-pattern.md
+Read: devforgeai/protocols/lean-orchestration-pattern.md
 
 Key sections:
 - Refactoring Methodology (lines 191-329)
@@ -309,7 +309,7 @@ Audit complete. See report above.
 Priority 1: Refactor {worst_command} ({chars} chars, {pct}% over)
 
 Next step: Apply lean orchestration protocol
-Read: .devforgeai/protocols/lean-orchestration-pattern.md
+Read: devforgeai/protocols/lean-orchestration-pattern.md
 
 {ELSE:}
 ✅ All commands compliant. Framework healthy.

@@ -34,7 +34,7 @@ Validate system designs against SOLID, DRY, KISS principles. Recommend appropria
 ## Workflow
 
 1. **Read Architecture Artifacts**
-   - Read ADRs from `.devforgeai/adrs/`
+   - Read ADRs from `devforgeai/specs/adrs/`
    - Read context files (tech-stack, architecture-constraints, dependencies)
    - Read technical specifications from stories
    - Identify system boundaries and components
@@ -498,9 +498,9 @@ Example: Task queues, user actions
 ## References
 
 **Context Files:**
-- `.devforgeai/adrs/` - Architecture Decision Records
-- `.devforgeai/context/architecture-constraints.md` - Project constraints
-- `.devforgeai/context/tech-stack.md` - Technology choices
+- `devforgeai/specs/adrs/` - Architecture Decision Records
+- `devforgeai/specs/context/architecture-constraints.md` - Project constraints
+- `devforgeai/specs/context/tech-stack.md` - Technology choices
 
 **Architecture Principles:**
 - SOLID principles

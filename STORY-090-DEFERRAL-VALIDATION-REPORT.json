@@ -149,7 +149,7 @@
         "status": "REFERENCED_STORY_FOUND",
         "story_referenced": "STORY-091",
         "story_exists": true,
-        "story_file_path": ".ai_docs/Stories/STORY-091-git-worktree-auto-management.story.md",
+        "story_file_path": "devforgeai/specs/Stories/STORY-091-git-worktree-auto-management.story.md",
         "story_status": "Ready for Dev",
         "story_depends_on": ["STORY-090"],
         "story_includes_deferred_work": false,

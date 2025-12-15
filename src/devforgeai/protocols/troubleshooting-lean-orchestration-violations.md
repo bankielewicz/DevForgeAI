@@ -343,7 +343,7 @@ Integration Notes (125 lines)
 
 #### Symptoms
 
-- Command contains `Read(file_path=".devforgeai/qa/reports/...")` for files created by skill
+- Command contains `Read(file_path="devforgeai/qa/reports/...")` for files created by skill
 - Report is read in command to make decisions (e.g., parse failure type)
 - Same file read multiple times (duplication)
 - File parsing logic in command (Grep, string matching)
@@ -379,7 +379,7 @@ Phase 1: Invoke Skill
   Skill(command="devforgeai-qa")
 
 Phase 2: Read and Parse Report
-  Read .devforgeai/qa/reports/STORY-001-qa-report.md
+  Read devforgeai/qa/reports/STORY-001-qa-report.md
   Parse file for: pass/fail status, violation type, coverage
   Determine: retry needed? approve? fail?
   Branch on: deferral failures vs other failures
@@ -449,7 +449,7 @@ Phase 2: Display Results
 ```bash
 Phase 2: Handle QA Results (72 lines)
   IF skill execution succeeded:
-    Read .devforgeai/qa/reports/$story_id-qa-report.md
+    Read devforgeai/qa/reports/$story_id-qa-report.md
     Parse file for:
       - status: PASS|FAIL|INCOMPLETE
       - violations: [array of violations]
@@ -624,7 +624,7 @@ diff baseline.txt refactored.txt
 ```bash
 Phase 1: Sprint Discovery (80 lines) ← BUSINESS LOGIC
   Calculate next sprint number:
-    FOR each existing sprint in .ai_docs/Sprints/:
+    FOR each existing sprint in devforgeai/specs/Sprints/:
       Extract sprint number from filename
       Track maximum
     Next number = MAX + 1
@@ -644,7 +644,7 @@ Phase 3: Sprint Creation (120 lines) ← BUSINESS LOGIC
     - dates (computed from start + duration)
     - capacity (summed from stories)
     - status (new)
-  Write to .ai_docs/Sprints/Sprint-{N}.md
+  Write to devforgeai/specs/Sprints/Sprint-{N}.md
 
 Phase 4: Update Stories (70 lines) ← BUSINESS LOGIC
   FOR each selected story:

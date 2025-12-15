@@ -8,7 +8,7 @@ Complete guide to the 6 immutable context files that define architectural bounda
 
 Context files are **immutable constraints** created by the `devforgeai-architecture` skill that prevent technical debt by enforcing architectural decisions.
 
-**Location:** `.devforgeai/context/`
+**Location:** `devforgeai/specs/context/`
 
 ---
 
@@ -250,7 +250,7 @@ When updating context files:
 
 When making significant technology decisions:
 
-1. **Create ADR file:** `.devforgeai/adrs/ADR-NNN-title.md` (numbered sequentially)
+1. **Create ADR file:** `devforgeai/specs/adrs/ADR-NNN-title.md` (numbered sequentially)
 2. **Document sections:**
    - Context (why this decision is needed)
    - Decision (what was chosen)
@@ -259,7 +259,7 @@ When making significant technology decisions:
    - Alternatives Considered (what was rejected and why)
 3. **Update context files:** Reflect decision in tech-stack.md, dependencies.md, etc.
 4. **Reference ADR:** Link in context files for traceability
-5. **Maintain index:** Update README.md in `.devforgeai/adrs/`
+5. **Maintain index:** Update README.md in `devforgeai/specs/adrs/`
 
 **ADR Naming Convention:**
 - `ADR-001-database-selection.md`
@@ -288,7 +288,7 @@ When making significant technology decisions:
 
 ## Story Structure Requirements
 
-Stories in `.ai_docs/Stories/` must include:
+Stories in `devforgeai/specs/Stories/` must include:
 
 **YAML Frontmatter:**
 ```yaml
@@ -314,26 +314,26 @@ priority: High
 ## File Locations Quick Reference
 
 **Context Files:**
-- `.devforgeai/context/` (6 files, created by architecture skill)
+- `devforgeai/specs/context/` (6 files, created by architecture skill)
 
 **ADRs:**
-- `.devforgeai/adrs/` (numbered sequentially)
+- `devforgeai/specs/adrs/` (numbered sequentially)
 
 **Deployment:**
-- `.devforgeai/deployment/` (platform-specific configs)
+- `devforgeai/deployment/` (platform-specific configs)
 
 **QA Outputs:**
-- `.devforgeai/qa/coverage/`
-- `.devforgeai/qa/anti-patterns/`
-- `.devforgeai/qa/spec-compliance/`
-- `.devforgeai/qa/reports/`
+- `devforgeai/qa/coverage/`
+- `devforgeai/qa/anti-patterns/`
+- `devforgeai/qa/spec-compliance/`
+- `devforgeai/qa/reports/`
 
 **Stories:**
-- `.ai_docs/Stories/` (note the dot prefix)
+- `devforgeai/specs/Stories/` (note the dot prefix)
 
 **Epics & Sprints:**
-- `.ai_docs/Epics/`
-- `.ai_docs/Sprints/`
+- `devforgeai/specs/Epics/`
+- `devforgeai/specs/Sprints/`
 
 ---
 

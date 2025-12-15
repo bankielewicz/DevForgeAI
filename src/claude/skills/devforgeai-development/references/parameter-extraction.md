@@ -22,7 +22,7 @@ Skills CANNOT accept command-line parameters. Instead, they extract parameters f
 ### How Slash Commands Pass "Parameters" to Skills
 
 When a slash command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-development")`
 
@@ -49,7 +49,7 @@ Extract: id field = Story ID
 **Method 2: Search for file reference**
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```
@@ -170,7 +170,7 @@ HALT with error:
 
 Expected to find:
   - YAML frontmatter with 'id: STORY-XXX' field
-  - OR file reference like '.ai_docs/Stories/STORY-XXX.story.md'
+  - OR file reference like 'devforgeai/specs/Stories/STORY-XXX.story.md'
   - OR explicit statement like 'Story ID: STORY-XXX'
 
 Please ensure story is loaded via slash command or provide story ID explicitly."

@@ -75,7 +75,7 @@ def load_environment_config(environment: str, config_path: Optional[str] = None)
     """
     if config_path is None:
         # Default config location
-        config_path = '.devforgeai/smoke-tests/config.json'
+        config_path = 'devforgeai/smoke-tests/config.json'
 
     config_file = Path(config_path)
 
@@ -357,7 +357,7 @@ Examples:
 
     parser.add_argument(
         '--config',
-        help='Path to configuration file (default: .devforgeai/smoke-tests/config.json)'
+        help='Path to configuration file (default: devforgeai/smoke-tests/config.json)'
     )
 
     parser.add_argument(

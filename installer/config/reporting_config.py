@@ -5,10 +5,10 @@ Contains paths and thresholds for logging, manifest generation, and reporting.
 """
 
 # Log file location (relative to installation target)
-LOG_FILE_PATH = ".devforgeai/install.log"
+LOG_FILE_PATH = "devforgeai/install.log"
 
 # Manifest file location (relative to installation target)
-MANIFEST_FILE_PATH = ".devforgeai/.install-manifest.json"
+MANIFEST_FILE_PATH = "devforgeai/.install-manifest.json"
 
 # Maximum log file size before rotation (in MB)
 LOG_MAX_SIZE_MB = 10

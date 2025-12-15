@@ -33,7 +33,7 @@ Analyze project structure and detect:
 4. Build tool(s)
 5. Package manager(s)
 
-Then validate detected technologies against `.devforgeai/context/tech-stack.md`.
+Then validate detected technologies against `devforgeai/specs/context/tech-stack.md`.
 
 ---
 
@@ -194,7 +194,7 @@ Glob(pattern="go.sum")               # Go modules
 #### Step 2.1: Load Context File
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 ```
 
 **If file missing:**
@@ -547,7 +547,7 @@ Task(
   4. Build tool
   5. Package manager
 
-  Then validate against .devforgeai/context/tech-stack.md.
+  Then validate against devforgeai/specs/context/tech-stack.md.
 
   Return JSON with detected technologies, validation results, and recommended commands.
 

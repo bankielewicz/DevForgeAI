@@ -9,7 +9,7 @@ set -euo pipefail
 
 OPERATION="${1:-}"
 STATUS="${2:-}"
-CONFIG_FILE="${3:-.devforgeai/config/hooks.yaml}"
+CONFIG_FILE="${3:-devforgeai/config/hooks.yaml}"
 
 # Validate arguments
 if [ -z "$OPERATION" ] || [ -z "$STATUS" ]; then

@@ -22,7 +22,7 @@ class FileInfo(NamedTuple):
 class ConfigFileWatcher:
     """Watches configuration file for changes and triggers reloads.
 
-    Monitors .devforgeai/config/feedback.yaml for changes and calls
+    Monitors devforgeai/config/feedback.yaml for changes and calls
     a callback function when modifications are detected.
     """
 

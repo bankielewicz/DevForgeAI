@@ -7,7 +7,7 @@ tools: Read, Grep, Glob
 
 # Pattern Compliance Auditor
 
-Specialized subagent for auditing DevForgeAI slash commands against the lean orchestration pattern defined in `.devforgeai/protocols/lean-orchestration-pattern.md`.
+Specialized subagent for auditing DevForgeAI slash commands against the lean orchestration pattern defined in `devforgeai/protocols/lean-orchestration-pattern.md`.
 
 ## Purpose
 
@@ -204,9 +204,9 @@ Structured markdown with:
 
 ### Context Files Referenced
 
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definitions
-- `.devforgeai/protocols/command-budget-reference.md` - Budget status tracking
-- `.devforgeai/protocols/refactoring-case-studies.md` - Real examples
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definitions
+- `devforgeai/protocols/command-budget-reference.md` - Budget status tracking
+- `devforgeai/protocols/refactoring-case-studies.md` - Real examples
 
 ### Related Components
 

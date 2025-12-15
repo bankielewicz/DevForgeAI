@@ -403,7 +403,7 @@ After implementation:
 - **Configuration**: `pytest.ini`
 
 ### Story Information
-- **STORY-025**: `.ai_docs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
+- **STORY-025**: `devforgeai/specs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
 - **Acceptance Criteria**: Lines 22-82 in STORY-025
 - **Edge Cases**: Lines 84-135 in STORY-025
 - **Technical Spec**: Lines 136-373 in STORY-025

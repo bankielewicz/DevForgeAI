@@ -17,10 +17,10 @@ Use this template when reporting ideation completion to users:
 - EPIC-001: {Epic Title} ({Feature Count} features, {Story Points} points)
 - EPIC-002: {Epic Title} ({Feature Count} features, {Story Points} points)
 [... list all epics ...]
-- Location: `.ai_docs/Epics/`
+- Location: `devforgeai/specs/Epics/`
 
 **Requirements Specification:**
-- Location: `.devforgeai/specs/requirements/{project-name}-requirements.md`
+- Location: `devforgeai/specs/requirements/{project-name}-requirements.md`
 - Functional Requirements: {count}
 - Non-Functional Requirements: {count}
 - Data Models: {count} entities
@@ -612,7 +612,7 @@ Example:
 /create-context task-management-saas
 ```
 
-This will create context files in `.devforgeai/context/` and transition you to orchestration phase (sprint planning).
+This will create context files in `devforgeai/specs/context/` and transition you to orchestration phase (sprint planning).
 ```
 
 ---
@@ -628,7 +628,7 @@ Existing codebase found. Ideation complete with requirements for new features/mo
 
 ### Existing Context Files
 
-**Status:** Context files found in `.devforgeai/context/`
+**Status:** Context files found in `devforgeai/specs/context/`
 
 **Files:**
 - ✅ tech-stack.md (existing technology choices)
@@ -669,9 +669,9 @@ Note: This will update existing context files and create ADRs for changes.
 
 **Option 3: Manual Review**
 Review requirements and context files manually:
-- Requirements: `.devforgeai/specs/requirements/`
-- Context: `.devforgeai/context/`
-- Epics: `.ai_docs/Epics/`
+- Requirements: `devforgeai/specs/requirements/`
+- Context: `devforgeai/specs/context/`
+- Epics: `devforgeai/specs/Epics/`
 ```
 
 ---

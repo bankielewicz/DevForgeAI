@@ -201,7 +201,7 @@ All 5 non-functional requirements have performance and reliability tests:
 - ✓ Symlink target verification
 
 ### User Content Protection
-- ✓ User stories in `.ai_docs/Stories/` preserved
+- ✓ User stories in `devforgeai/specs/Stories/` preserved
 - ✓ Custom configurations retained
 - ✓ User modifications protected through upgrade/rollback cycles
 
@@ -402,7 +402,7 @@ python3 -m pytest \
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-IMPLEMENTATION.md`
 
 ### Story File
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
 
 ---
 

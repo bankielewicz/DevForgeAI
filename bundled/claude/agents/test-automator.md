@@ -23,7 +23,7 @@ You are a test automation expert specializing in Test-Driven Development (TDD), 
 ## When Invoked
 
 **Proactive triggers:**
-- After reading story acceptance criteria in `.ai_docs/Stories/*.story.md`
+- After reading story acceptance criteria in `devforgeai/specs/Stories/*.story.md`
 - When coverage reports show gaps < 95% for business logic
 - After implementation code written (need tests first in TDD)
 - When test pyramid distribution is incorrect
@@ -349,7 +349,7 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
 
 1. **Read Story or Specification**
    ```
-   Read(file_path=".ai_docs/Stories/[STORY-ID].story.md")
+   Read(file_path="devforgeai/specs/Stories/[STORY-ID].story.md")
    ```
    - Extract acceptance criteria (Given/When/Then format)
    - Identify user roles, actions, expected outcomes
@@ -370,7 +370,7 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
 
 4. **Read Tech Stack for Framework**
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
+   Read(file_path="devforgeai/specs/context/tech-stack.md")
    ```
    - Identify test framework (pytest, Jest, xUnit, JUnit, etc.)
    - Check mocking library (unittest.mock, sinon, Moq, etc.)
@@ -410,7 +410,7 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
 
 8. **Read Coverage Report**
    ```
-   Read(file_path=".devforgeai/qa/coverage/coverage-report.json")
+   Read(file_path="devforgeai/qa/coverage/coverage-report.json")
    ```
    - Identify files with coverage < thresholds
    - Find uncovered lines, branches, functions
@@ -756,7 +756,7 @@ dotnet test --collect:"XPlat Code Coverage"
 
 **Issue**: Tech stack framework unknown
 **Action**:
-1. Read `.devforgeai/context/tech-stack.md`
+1. Read `devforgeai/specs/context/tech-stack.md`
 2. If framework not recognized, ask user
 3. Provide generic test structure as fallback
 
@@ -849,7 +849,7 @@ dotnet test --collect:"XPlat Code Coverage"
 
 ## References
 
-- **Story Files**: `.ai_docs/Stories/*.story.md` (acceptance criteria source)
-- **Tech Stack**: `.devforgeai/context/tech-stack.md` (test framework choice)
-- **Coverage Reports**: `.devforgeai/qa/coverage/coverage-report.json`
-- **Coverage Thresholds**: `.devforgeai/qa/coverage-thresholds.md`
+- **Story Files**: `devforgeai/specs/Stories/*.story.md` (acceptance criteria source)
+- **Tech Stack**: `devforgeai/specs/context/tech-stack.md` (test framework choice)
+- **Coverage Reports**: `devforgeai/qa/coverage/coverage-report.json`
+- **Coverage Thresholds**: `devforgeai/qa/coverage-thresholds.md`

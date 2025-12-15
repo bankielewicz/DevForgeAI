@@ -280,7 +280,7 @@ Coverage: 96% ✅
 
 - [pytest Documentation](https://docs.pytest.org/)
 - [Test Summary Report](./STORY-011-test-generation-summary.md)
-- [Configuration Management Story](../../../.ai_docs/Stories/STORY-011-configuration-management.story.md)
+- [Configuration Management Story](../../../devforgeai/specs/Stories/STORY-011-configuration-management.story.md)
 - [DevForgeAI Framework](../../../CLAUDE.md)
 
 ## Contact & Support

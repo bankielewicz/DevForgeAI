@@ -33,7 +33,7 @@ Implement features using Test-Driven Development while enforcing architectural c
 ### How Slash Commands Pass "Parameters" to Skills
 
 When a slash command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-development")`
 
@@ -60,7 +60,7 @@ Extract: id field = Story ID
 **Method 2: Search for file reference**
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```
@@ -96,7 +96,7 @@ HALT with error:
 
 Expected to find:
   - YAML frontmatter with 'id: STORY-XXX' field
-  - OR file reference like '.ai_docs/Stories/STORY-XXX.story.md'
+  - OR file reference like 'devforgeai/specs/Stories/STORY-XXX.story.md'
   - OR explicit statement like 'Story ID: STORY-XXX'
 
 Please ensure story is loaded via slash command or provide story ID explicitly."
@@ -170,7 +170,7 @@ ELIF WORKFLOW_MODE == "fallback":
     ELSE:
         Display: "⚠ Git not installed - file-based workflow enabled"
         Display: "  Changes will be tracked in:"
-        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
+        Display: "    devforgeai/stories/{STORY-ID}/changes/"
 
     Display: ""
     Display: "  Fallback mode active (limited version control features)"
@@ -233,10 +233,10 @@ This replaces Phase 5 (Git Workflow) with file-based artifact tracking.
 
 ```
 # Create story-specific changes directory
-IF not exists .devforgeai/stories/${STORY_ID}/changes/:
+IF not exists devforgeai/stories/${STORY_ID}/changes/:
     # Use native Write tool to create directory marker
     Write(
-        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+        file_path="devforgeai/stories/${STORY_ID}/changes/.gitkeep",
         content="# Change tracking directory for ${STORY_ID}\n"
     )
 ```
@@ -251,7 +251,7 @@ TIMESTAMP = {current_datetime in ISO8601 format}
 # Developer must identify changed files from implementation work
 
 Write(
-    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+    file_path="devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
     content="""# Implementation Changes - ${STORY_ID}
 
 **Timestamp:** ${TIMESTAMP}
@@ -297,24 +297,24 @@ To enable full version control:
 )
 
 Display: "✓ File-based change manifest created"
-Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+Display: "  Location: devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
 ```
 
 #### Step 3: Update Story File with Change Reference
 
 ```
-Read(file_path=".ai_docs/Stories/${STORY_ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/${STORY_ID}.story.md")
 
 # Add to Workflow History section
 Edit(
-    file_path=".ai_docs/Stories/${STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/${STORY_ID}.story.md",
     old_string="## Workflow History",
     new_string="""## Workflow History
 
 ### Development Complete - ${TIMESTAMP} (File-Based)
 - **Status:** Dev Complete
 - **Workflow Mode:** File-Based (Git not available)
-- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+- **Changes:** devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
 - **Tests:** ${passed_tests}/${total_tests} passing (${coverage_percentage}% coverage)
 - **Note:** Git not available - changes tracked in story artifacts
 
@@ -340,7 +340,7 @@ Display:
 │ Coverage: ${coverage_percentage}%                               │
 │                                                                 │
 │ Changes tracked in:                                             │
-│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+│   devforgeai/stories/${STORY_ID}/changes/implementation-...   │
 │                                                                 │
 │ Git Integration: Not Available                                  │
 │                                                                 │
@@ -368,12 +368,12 @@ Display:
 
 ```
 Read all 6 context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
-- Read(file_path=".devforgeai/context/dependencies.md")
-- Read(file_path=".devforgeai/context/coding-standards.md")
-- Read(file_path=".devforgeai/context/architecture-constraints.md")
-- Read(file_path=".devforgeai/context/anti-patterns.md")
+- Read(file_path="devforgeai/specs/context/tech-stack.md")
+- Read(file_path="devforgeai/specs/context/source-tree.md")
+- Read(file_path="devforgeai/specs/context/dependencies.md")
+- Read(file_path="devforgeai/specs/context/coding-standards.md")
+- Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+- Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **If ANY file is missing:**
@@ -405,7 +405,7 @@ Display: "Re-validating context files..."
 
 The story file was loaded by the `/dev` command via:
 ```
-@.ai_docs/Stories/STORY-XXX.story.md
+@devforgeai/specs/Stories/STORY-XXX.story.md
 ```
 
 **Verify story content accessible:**
@@ -483,7 +483,7 @@ Task(
   4. Build tool
   5. Package manager
 
-  Then validate against .devforgeai/context/tech-stack.md if it exists.
+  Then validate against devforgeai/specs/context/tech-stack.md if it exists.
 
   Return JSON with detected technologies, validation results, and recommended commands.
 
@@ -565,7 +565,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ```
 # Search for QA reports for this story
-Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
 
 IF reports found:
     # Read most recent report
@@ -707,9 +707,9 @@ Task(
   3. Non-functional requirements (performance, security)
 
   Context files available:
-  - .devforgeai/context/source-tree.md (test file placement rules)
-  - .devforgeai/context/coding-standards.md (test patterns, AAA format)
-  - .devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
+  - devforgeai/specs/context/source-tree.md (test file placement rules)
+  - devforgeai/specs/context/coding-standards.md (test patterns, AAA format)
+  - devforgeai/specs/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
 
   Generate tests that:
   1. Cover all acceptance criteria
@@ -798,12 +798,12 @@ Task(
   Story and tests are already available in conversation.
 
   Context files to enforce:
-  - .devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
-  - .devforgeai/context/source-tree.md (file placement rules)
-  - .devforgeai/context/dependencies.md (approved packages only)
-  - .devforgeai/context/coding-standards.md (code patterns, naming conventions)
-  - .devforgeai/context/architecture-constraints.md (layer boundaries, DI patterns)
-  - .devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
+  - devforgeai/specs/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
+  - devforgeai/specs/context/source-tree.md (file placement rules)
+  - devforgeai/specs/context/dependencies.md (approved packages only)
+  - devforgeai/specs/context/coding-standards.md (code patterns, naming conventions)
+  - devforgeai/specs/context/architecture-constraints.md (layer boundaries, DI patterns)
+  - devforgeai/specs/context/anti-patterns.md (forbidden patterns to avoid)
 
   Implementation requirements:
   1. Write MINIMAL code to pass tests (no over-engineering)
@@ -885,9 +885,9 @@ Task(
   Implementation files and tests available in conversation.
 
   Context files to enforce:
-  - .devforgeai/context/anti-patterns.md (check for violations)
-  - .devforgeai/context/coding-standards.md (apply patterns)
-  - .devforgeai/context/architecture-constraints.md (maintain layer boundaries)
+  - devforgeai/specs/context/anti-patterns.md (check for violations)
+  - devforgeai/specs/context/coding-standards.md (apply patterns)
+  - devforgeai/specs/context/architecture-constraints.md (maintain layer boundaries)
 
   Refactoring targets:
   1. Anti-pattern violations (God objects, tight coupling, magic numbers)
@@ -1036,8 +1036,8 @@ Task(
   6. Check for integration issues (cross-component interactions)
 
   Context files:
-  - .devforgeai/context/coding-standards.md (coverage requirements)
-  - .devforgeai/context/architecture-constraints.md (layer boundaries)
+  - devforgeai/specs/context/coding-standards.md (coverage requirements)
+  - devforgeai/specs/context/architecture-constraints.md (layer boundaries)
 
   Return:
   - Test results (total, passed, failed, coverage %)
@@ -1163,7 +1163,7 @@ Validate:
 ```python
 # Execute Python format validator
 Bash(
-    command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet",
+    command="python .claude/scripts/validate_deferrals.py --story-file devforgeai/specs/Stories/${STORY_ID}*.story.md --format-only --quiet",
     description="Run lightweight DoD format validator"
 )
 ```
@@ -1209,7 +1209,7 @@ This step is MANDATORY - it transforms the story from requirements-only into a c
 
 **Read story file:**
 ```
-Read(file_path=".ai_docs/Stories/[story-id].story.md")
+Read(file_path="devforgeai/specs/Stories/[story-id].story.md")
 ```
 
 **Generate Implementation Notes section:**
@@ -1312,7 +1312,7 @@ FOR each DoD item in story acceptance criteria:
                 (User must provide STORY-XXX ID)
 
             Verify story exists:
-            Glob(pattern=".ai_docs/Stories/{user_provided_id}*.md")
+            Glob(pattern="devforgeai/specs/Stories/{user_provided_id}*.md")
             IF not found:
                 WARN: "Story doesn't exist yet. You must create it."
 
@@ -1385,13 +1385,13 @@ FOR each DoD item in story acceptance criteria:
         # Log to technical debt register
 
         # Auto-create from template if doesn't exist
-        Check if .devforgeai/technical-debt-register.md exists
+        Check if devforgeai/technical-debt-register.md exists
         IF not found:
             Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-            Write(.devforgeai/technical-debt-register.md, content=template)
+            Write(devforgeai/technical-debt-register.md, content=template)
             Display: "Created technical debt register from template"
 
-        Read .devforgeai/technical-debt-register.md
+        Read devforgeai/technical-debt-register.md
         Append to "Open Debt Items" section:
             "- {item} (from {story_id}): Blocked by {blocker_description} | Date: {date} | Status: Open"
         ```
@@ -1786,7 +1786,7 @@ ELSE:
 Bash(command="git add [relevant_implementation_files]")
 
 # Stage updated story file (includes Implementation Notes from Step 1b)
-Bash(command="git add .ai_docs/Stories/[story-id].story.md")
+Bash(command="git add devforgeai/specs/Stories/[story-id].story.md")
 ```
 
 **Validation:**
@@ -1853,7 +1853,7 @@ Bash(command="git push origin [branch-name]")
 **Check for QA report:**
 
 ```
-Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/{story-id}-qa-report*.md")
 
 IF multiple reports found (multiple QA attempts):
     Read most recent report

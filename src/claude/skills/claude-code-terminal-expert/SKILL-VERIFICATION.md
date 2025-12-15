@@ -58,7 +58,7 @@
 
 ### Source Material Migrated ✅
 
-**From .ai_docs/Terminal/ (25 files, 15,788 lines):**
+**From devforgeai/specs/Terminal/ (25 files, 15,788 lines):**
 
 | Source File | Migrated To | Lines |
 |------------|-------------|-------|
@@ -415,7 +415,7 @@ All 29 official documentation URLs included for self-updating:
 - [x] Skill structure complete and verified
 - [ ] Test with sample queries (next step)
 - [ ] Update DevForgeAI memory references
-- [ ] Delete .ai_docs/Terminal/ after verification
+- [ ] Delete devforgeai/specs/Terminal/ after verification
 
 ### Optional Optimizations
 - Consider trimming SKILL.md by 60 chars if strict budget adherence desired
@@ -448,7 +448,7 @@ All 29 official documentation URLs included for self-updating:
 **Next Steps:**
 1. Test skill with sample queries
 2. Update DevForgeAI memory references
-3. Delete .ai_docs/Terminal/ (migration complete)
+3. Delete devforgeai/specs/Terminal/ (migration complete)
 4. Document in framework (CLAUDE.md, skills-reference.md)
 
 ---

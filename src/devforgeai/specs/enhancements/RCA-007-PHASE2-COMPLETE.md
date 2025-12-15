@@ -168,7 +168,7 @@ Formal YAML contracts created for both requirements-analyst and api-designer sub
 
 ### 5. Test Fixtures Created (3 files)
 
-**Directory:** `.devforgeai/tests/fixtures/`
+**Directory:** `devforgeai/tests/fixtures/`
 
 **Files:**
 1. `valid-requirements-output.txt` (1,945 bytes)
@@ -227,7 +227,7 @@ Formal YAML contracts created for both requirements-analyst and api-designer sub
 
 ```
 Step 2.0: Pre-Invocation Snapshot
-├─ Glob .ai_docs/Stories/STORY-*.story.md → Count: N
+├─ Glob devforgeai/specs/Stories/STORY-*.story.md → Count: N
 ├─ Check for {story_id}-SUMMARY.md, QUICK-START.md, etc. → Count: 0
 └─ Store snapshot
 
@@ -244,7 +244,7 @@ Step 2.2.5: Contract Validation (Phase 2 NEW)
 └─ Load contract YAML, validate all constraints
 
 Step 2.2.7: File System Diff (Phase 2 NEW)
-├─ Glob .ai_docs/Stories/STORY-*.story.md → Count: M
+├─ Glob devforgeai/specs/Stories/STORY-*.story.md → Count: M
 ├─ Check for {story_id}-SUMMARY.md, etc. → Count: X
 ├─ Calculate diff: new_files = M - N, unauthorized = X - 0
 ├─ If unauthorized > 0:
@@ -341,14 +341,14 @@ HIGH (2):
 3. `.claude/skills/devforgeai-story-creation/scripts/validate_contract.py` (~200 lines, executable)
 
 **Test Fixtures:**
-4. `.devforgeai/tests/fixtures/valid-requirements-output.txt` (1,945 bytes)
-5. `.devforgeai/tests/fixtures/invalid-requirements-output-file-creation.txt` (455 bytes)
-6. `.devforgeai/tests/fixtures/invalid-requirements-output-missing-sections.txt` (366 bytes)
+4. `devforgeai/tests/fixtures/valid-requirements-output.txt` (1,945 bytes)
+5. `devforgeai/tests/fixtures/invalid-requirements-output-file-creation.txt` (455 bytes)
+6. `devforgeai/tests/fixtures/invalid-requirements-output-missing-sections.txt` (366 bytes)
 
 **Directories:**
 - `.claude/skills/devforgeai-story-creation/contracts/` (NEW)
 - `.claude/skills/devforgeai-story-creation/scripts/` (NEW)
-- `.devforgeai/tests/fixtures/` (NEW)
+- `devforgeai/tests/fixtures/` (NEW)
 
 ---
 
@@ -544,7 +544,7 @@ Result: Files deleted (rollback), violation logged, execution stopped
 
 3. **Monitor violation log**
    ```bash
-   cat .devforgeai/logs/rca-007-violations.log
+   cat devforgeai/logs/rca-007-violations.log
    ```
    - Should remain empty (only header)
 
@@ -570,19 +570,19 @@ Result: Files deleted (rollback), violation logged, execution stopped
 
 ```bash
 # Violation count
-violations=$(grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+violations=$(grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
 echo "Violations: $violations (target: 0)"
 
 # Recoveries
-recoveries=$(grep -c "VIOLATION RECOVERED" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+recoveries=$(grep -c "VIOLATION RECOVERED" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
 echo "Recoveries: $recoveries"
 
 # File system violations (worst case)
-fs_violations=$(grep -c "FILE CREATION VIOLATION - File System Diff" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+fs_violations=$(grep -c "FILE CREATION VIOLATION - File System Diff" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
 echo "File system violations: $fs_violations (target: 0 - indicates Layer 1-3 failed)"
 
 # Contract validation runs
-contract_runs=$(grep -c "Contract Validation:" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo "N/A - check skill logs")
+contract_runs=$(grep -c "Contract Validation:" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo "N/A - check skill logs")
 ```
 
 ---
@@ -591,10 +591,10 @@ contract_runs=$(grep -c "Contract Validation:" .devforgeai/logs/rca-007-violatio
 
 ```bash
 # Stories created this week
-story_count=$(find .ai_docs/Stories -name "STORY-*.story.md" -mtime -7 | wc -l)
+story_count=$(find devforgeai/specs/Stories -name "STORY-*.story.md" -mtime -7 | wc -l)
 
 # Extra files created (should be 0)
-extra_files=$(find .ai_docs/Stories -name "STORY-*-SUMMARY.md" -o -name "STORY-*-QUICK-START.md" -mtime -7 2>/dev/null | wc -l)
+extra_files=$(find devforgeai/specs/Stories -name "STORY-*-SUMMARY.md" -o -name "STORY-*-QUICK-START.md" -mtime -7 2>/dev/null | wc -l)
 
 # Compliance rate
 compliance_rate=$(( (story_count - extra_files) * 100 / story_count ))
@@ -761,11 +761,11 @@ rm -rf .claude/skills/devforgeai-story-creation/scripts/
 
 ## Related Documents
 
-- **Phase 1 Complete:** `.devforgeai/specs/enhancements/RCA-007-PHASE1-COMPLETE.md`
-- **RCA Analysis:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Contract Spec:** `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
-- **Testing Strategy:** `.devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
+- **Phase 1 Complete:** `devforgeai/specs/enhancements/RCA-007-PHASE1-COMPLETE.md`
+- **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Contract Spec:** `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
+- **Testing Strategy:** `devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
 
 ---
 

@@ -305,7 +305,7 @@ Priority 2: Pattern matching (60-70%) ← Fallback, always works
 ### Week 4 (If Testing Successful - 24 hours)
 
 **Pilot migration:**
-1. Select 10 real stories from .ai_docs/Stories/
+1. Select 10 real stories from devforgeai/specs/Stories/
 2. Migrate using `--ai-assisted` flag
 3. Manual review all 10
 4. Quality scoring (target ≥4/5)

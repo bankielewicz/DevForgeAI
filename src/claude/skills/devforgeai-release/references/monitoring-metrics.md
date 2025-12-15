@@ -294,7 +294,7 @@ estimated_baseline = adjust_for_scale(staging_baseline, multiplier)
 
 ### Baseline Storage
 
-**Location**: `.devforgeai/monitoring/baselines/`
+**Location**: `devforgeai/monitoring/baselines/`
 
 **Format**:
 ```json

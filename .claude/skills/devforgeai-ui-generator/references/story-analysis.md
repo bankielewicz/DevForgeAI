@@ -26,14 +26,14 @@ Extract UI requirements from story acceptance criteria.
 
 **If story ID provided (e.g., `STORY-001`):**
 ```
-Read(file_path=".ai_docs/Stories/${STORY_ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/${STORY_ID}.story.md")
 ```
 
 **Handle file not found:**
 ```
 IF file not found:
   Use Glob to search for story:
-  Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+  Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
   IF files found:
     Use first match

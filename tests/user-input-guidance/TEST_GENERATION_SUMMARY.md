@@ -453,7 +453,7 @@ Total: 118 passed (GREEN phase complete)
 
 - [README.md](./README.md) - Detailed test documentation
 - [TEST_EXECUTION_GUIDE.md](./TEST_EXECUTION_GUIDE.md) - Command reference and examples
-- [STORY-059](../../.ai_docs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story specification
+- [STORY-059](../../devforgeai/specs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story specification
 - [Test-Automator Skill](./.claude/skills/test-automator/SKILL.md) - Test generation framework
 
 ---

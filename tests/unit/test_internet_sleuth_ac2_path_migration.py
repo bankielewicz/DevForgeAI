@@ -4,9 +4,9 @@ Unit tests for STORY-035 AC2: Path references updated to DevForgeAI structure
 Tests verify all file path references use DevForgeAI conventions:
 - .devforgeai/context/ (NOT .claude/context/)
 - .devforgeai/adrs/ (NOT .claude/adrs/)
-- .devforgeai/research/ (NOT .ai_docs/research/ or .bmad-core)
-- .ai_docs/Stories/ (correct)
-- .ai_docs/Epics/ (correct)
+- .devforgeai/research/ (NOT devforgeai/specs/research/ or .bmad-core)
+- devforgeai/specs/Stories/ (correct)
+- devforgeai/specs/Epics/ (correct)
 """
 
 import pytest
@@ -78,18 +78,18 @@ class TestAC2PathMigration:
 
     def test_no_old_research_path_references(self, agent_content):
         """
-        AC2: No references to old .ai_docs/research/ path (use .devforgeai/research/)
+        AC2: No references to old devforgeai/specs/research/ path (use .devforgeai/research/)
 
         Arrange: Load agent file content
         Act: Search for old research path pattern
         Assert: Zero matches found
         """
         # Act
-        old_research_matches = re.findall(r'\.ai_docs/research/', agent_content)
+        old_research_matches = re.findall(r'\devforgeai/specs/research/', agent_content)
 
         # Assert
         assert len(old_research_matches) == 0, \
-            f"Found {len(old_research_matches)} references to deprecated path '.ai_docs/research/' - must use '.devforgeai/research/'"
+            f"Found {len(old_research_matches)} references to deprecated path 'devforgeai/specs/research/' - must use '.devforgeai/research/'"
 
     def test_uses_new_devforgeai_context_path(self, agent_content):
         """
@@ -138,33 +138,33 @@ class TestAC2PathMigration:
 
     def test_uses_ai_docs_stories_path_correctly(self, agent_content):
         """
-        AC2: Verify .ai_docs/Stories/ path present (DevForgeAI standard)
+        AC2: Verify devforgeai/specs/Stories/ path present (DevForgeAI standard)
 
         Arrange: Load agent file content
         Act: Search for stories path pattern
         Assert: At least one match found
         """
         # Act
-        stories_matches = re.findall(r'\.ai_docs/Stories/', agent_content)
+        stories_matches = re.findall(r'\devforgeai/specs/Stories/', agent_content)
 
         # Assert
         assert len(stories_matches) > 0, \
-            "No references to '.ai_docs/Stories/' found - agent should document story integration"
+            "No references to 'devforgeai/specs/Stories/' found - agent should document story integration"
 
     def test_uses_ai_docs_epics_path_correctly(self, agent_content):
         """
-        AC2: Verify .ai_docs/Epics/ path present (DevForgeAI standard)
+        AC2: Verify devforgeai/specs/Epics/ path present (DevForgeAI standard)
 
         Arrange: Load agent file content
         Act: Search for epics path pattern
         Assert: At least one match found
         """
         # Act
-        epics_matches = re.findall(r'\.ai_docs/Epics/', agent_content)
+        epics_matches = re.findall(r'\devforgeai/specs/Epics/', agent_content)
 
         # Assert
         assert len(epics_matches) > 0, \
-            "No references to '.ai_docs/Epics/' found - agent should document epic integration"
+            "No references to 'devforgeai/specs/Epics/' found - agent should document epic integration"
 
     @pytest.mark.edge_case
     def test_no_mixed_path_conventions(self, agent_content):
@@ -180,7 +180,7 @@ class TestAC2PathMigration:
             len(re.findall(r'\.claude/context/', agent_content)) +
             len(re.findall(r'\.claude/adrs/', agent_content)) +
             len(re.findall(r'\.bmad-core/', agent_content)) +
-            len(re.findall(r'\.ai_docs/research/', agent_content))
+            len(re.findall(r'\devforgeai/specs/research/', agent_content))
         )
 
         new_paths = (
@@ -244,7 +244,7 @@ class TestAC2PathMigration:
             len(re.findall(r'\.claude/context/', agent_content)) +
             len(re.findall(r'\.claude/adrs/', agent_content)) +
             len(re.findall(r'\.bmad-core/', agent_content)) +
-            len(re.findall(r'\.ai_docs/research/', agent_content))
+            len(re.findall(r'\devforgeai/specs/research/', agent_content))
         )
 
         new_count = (

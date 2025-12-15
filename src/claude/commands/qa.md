@@ -48,7 +48,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Validate story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
@@ -62,7 +62,7 @@ IF no matches found:
 
 **Load story via @file reference:**
 ```
-@.ai_docs/Stories/{STORY_ID}.story.md
+@devforgeai/specs/Stories/{STORY_ID}.story.md
 
 (Story content now available in conversation context)
 ```
@@ -126,7 +126,7 @@ Skill(command="devforgeai-qa")
 **The skill instructs you to:**
 - Extract story from conversation context (YAML frontmatter)
 - Execute mode-specific validation (light or deep)
-- Generate QA report in .devforgeai/qa/reports/
+- Generate QA report in devforgeai/qa/reports/
 - Invoke qa-result-interpreter subagent to format results
 - Return structured result summary with display template, violations, next steps
 
@@ -171,7 +171,7 @@ Example: /qa STORY-001 deep
 ### Story File Not Found
 ```
 Error: Story file not found
-Path: .ai_docs/Stories/{STORY_ID}.story.md
+Path: devforgeai/specs/Stories/{STORY_ID}.story.md
 
 Available stories:
 [List from Glob result]
@@ -201,7 +201,7 @@ Skill output:
 {Display skill error output above}
 
 Actions:
-1. Check context files exist: ls .devforgeai/context/
+1. Check context files exist: ls devforgeai/specs/context/
 2. Verify build: [language-specific build command]
 3. Verify tests: [language-specific test command]
 4. Try again: /qa {STORY_ID} {MODE}

@@ -327,7 +327,7 @@ def _create_missing_features_doc(target_dir: Path, missing_features: list[str]) 
 
     Examples:
         >>> _create_missing_features_doc(Path("/project"), ["Python CLI"])
-        # Creates .devforgeai/MISSING_FEATURES.md
+        # Creates devforgeai/MISSING_FEATURES.md
     """
     devforgeai_dir = target_dir / ".devforgeai"
     devforgeai_dir.mkdir(parents=True, exist_ok=True)
@@ -362,7 +362,7 @@ def validate_offline_installation(target_dir: Path) -> dict:
 
     Checks:
     - 200+ framework files exist
-    - .claude/ and .devforgeai/ directories present
+    - .claude/ and devforgeai/ directories present
     - CLAUDE.md exists
     - No HTTP requests made during validation
 

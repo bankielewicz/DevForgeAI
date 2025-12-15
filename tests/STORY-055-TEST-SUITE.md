@@ -501,7 +501,7 @@ pip install --break-system-packages pytest
 ## References
 
 ### Story Files
-- Story: `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-055-devforgeai-ideation-integration.story.md`
+- Story: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-055-devforgeai-ideation-integration.story.md`
 - Prerequisite: STORY-053 (Framework-Internal Guidance Reference)
 
 ### Implementation Files

@@ -407,7 +407,7 @@ pytest tests/user-input-guidance/test_*.py --cov=tests/user-input-guidance --cov
 **Points**: 5
 **Priority**: Medium
 
-**Story File**: `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-059-validation-testing-suite.story.md`
+**Story File**: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-059-validation-testing-suite.story.md`
 
 ---
 
@@ -439,7 +439,7 @@ Test Suite Files
 │   └── STORY-059-TEST-SUITE-SUMMARY.md (metrics & analysis)
 │
 └── Original Story
-    └── .ai_docs/Stories/STORY-059-validation-testing-suite.story.md
+    └── devforgeai/specs/Stories/STORY-059-validation-testing-suite.story.md
 ```
 
 ---

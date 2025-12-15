@@ -210,9 +210,9 @@ class TestRollbackRestoration:
 
     def test_should_not_restore_user_modified_files_incorrectly(self, tmp_path):
         """
-        AC#7: Preserve user modifications outside .claude/.devforgeai/
+        AC#7: Preserve user modifications outside .claude/devforgeai/
 
-        Arrange: User modifies .ai_docs/ after backup but before rollback
+        Arrange: User modifies devforgeai/specs/ after backup but before rollback
         Act: Rollback executed
         Assert: User modifications preserved (not overwritten)
         """

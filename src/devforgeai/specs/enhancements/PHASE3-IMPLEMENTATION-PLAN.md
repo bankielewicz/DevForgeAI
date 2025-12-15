@@ -749,7 +749,7 @@ if validation_result["validation_result"] == "PASS":
 
 **Configuration option:**
 ```yaml
-# In .devforgeai/context/architecture-constraints.md or tech-stack.md
+# In devforgeai/specs/context/architecture-constraints.md or tech-stack.md
 implementation_validation:
   mode: "strict"  # HALT on violations
   # OR mode: "warn"  # Display violations, allow proceed
@@ -829,8 +829,8 @@ implementation_validation:
 - `.claude/skills/devforgeai-development/references/tdd-green-phase.md` (Step 3 added)
 
 **Documentation:**
-- `.devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-GUIDE.md` (NEW)
-- `.devforgeai/specs/enhancements/PHASE3-TESTING-CHECKLIST.md` (NEW)
+- `devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-GUIDE.md` (NEW)
+- `devforgeai/specs/enhancements/PHASE3-TESTING-CHECKLIST.md` (NEW)
 
 ---
 

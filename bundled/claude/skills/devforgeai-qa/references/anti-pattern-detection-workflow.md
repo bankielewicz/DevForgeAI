@@ -24,7 +24,7 @@
 context_files = {}
 
 FOR each file in ["tech-stack", "source-tree", "dependencies", "coding-standards", "architecture-constraints", "anti-patterns"]:
-  file_path = f".devforgeai/context/{file}.md"
+  file_path = f"devforgeai/specs/context/{file}.md"
 
   content = Read(file_path=file_path)
 
@@ -224,7 +224,7 @@ qa_report_data["anti_pattern_violations"] = {
 ```
 {
   "status": "failure",
-  "error": "Required context file not found: .devforgeai/context/tech-stack.md",
+  "error": "Required context file not found: devforgeai/specs/context/tech-stack.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate context files"
 }

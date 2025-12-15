@@ -18,7 +18,7 @@ Audit all QA Approved and Released stories for invalid deferrals, circular defer
 /audit-deferrals
 
 # Typical duration: 5-15 minutes depending on story count
-# Output: .devforgeai/qa/deferral-audit-{timestamp}.md
+# Output: devforgeai/qa/deferral-audit-{timestamp}.md
 ```
 
 ---
@@ -150,14 +150,14 @@ IF deferral-validator subagent fails:
   - feedback hooks (if eligible, STORY-033)
 
 **Generates:**
-- `.devforgeai/qa/deferral-audit-{timestamp}.md` (comprehensive report)
-- `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
+- `devforgeai/qa/deferral-audit-{timestamp}.md` (comprehensive report)
+- `devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
 
 **Updates:**
 - None (read-only audit, doesn't modify stories)
 
 **Uses:**
-- Story files in `.ai_docs/Stories/` (read-only)
+- Story files in `devforgeai/specs/Stories/` (read-only)
 - Context files for framework validation
 - ADR files for scope change verification
 
@@ -182,7 +182,7 @@ IF deferral-validator subagent fails:
 
 **Typical output size:**
 - Summary display: ~50 lines in main conversation
-- Full report: 200-400 lines in `.devforgeai/qa/deferral-audit-{timestamp}.md`
+- Full report: 200-400 lines in `devforgeai/qa/deferral-audit-{timestamp}.md`
 - Feedback log entry: 1 line (if hooks enabled)
 
 ---
@@ -207,7 +207,7 @@ IF deferral-validator subagent fails:
 - STORY-033: Feedback hook integration for insights capture
 
 **See also:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
 - `.claude/agents/deferral-validator.md` (validation subagent)
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (skill Phase 7 audit workflow)

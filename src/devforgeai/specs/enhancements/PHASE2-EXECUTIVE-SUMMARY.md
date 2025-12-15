@@ -375,7 +375,7 @@ for req in component["requirements"]:
 - Week 4: Conditional on Week 3
 - Week 5: Conditional on Week 4 GO
 
-**Documentation:** All guides available in `.devforgeai/specs/enhancements/PHASE2-*.md`
+**Documentation:** All guides available in `devforgeai/specs/enhancements/PHASE2-*.md`
 
 **Support:** See FAQ in PHASE2-IMPLEMENTATION-GUIDE.md
 

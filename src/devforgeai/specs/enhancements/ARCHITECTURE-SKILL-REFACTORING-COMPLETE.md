@@ -315,12 +315,12 @@ Each phase has a single Read() instruction to load its detailed workflow:
 ### Documentation Files
 
 **Modified:**
-- `.ai_docs/analysis/devforgeai-architecture.md` (updated status, results, lessons learned)
+- `devforgeai/specs/analysis/devforgeai-architecture.md` (updated status, results, lessons learned)
 - `.claude/memory/skills-reference.md` (updated architecture skill section with refactoring details)
 - `.claude/commands/create-context.md` (updated phase count and descriptions)
 
 **Created:**
-- `.devforgeai/specs/enhancements/ARCHITECTURE-SKILL-REFACTORING-COMPLETE.md` (this file)
+- `devforgeai/specs/enhancements/ARCHITECTURE-SKILL-REFACTORING-COMPLETE.md` (this file)
 
 ---
 
@@ -666,7 +666,7 @@ Files changed:
 
 ### Anthropic Skills Architecture Compliance ✅
 
-Per `.ai_docs/claude-skills.md`:
+Per `devforgeai/specs/claude-skills.md`:
 
 - [x] **Level 1: Metadata** (YAML frontmatter, always loaded) ✓
 - [x] **Level 2: Instructions** (SKILL.md body, loaded when triggered) ✓ 212 lines

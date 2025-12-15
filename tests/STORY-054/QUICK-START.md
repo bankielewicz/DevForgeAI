@@ -241,7 +241,7 @@ A: Check:
 
 For detailed test documentation, see:
 - `TEST-SUITE-DOCUMENTATION.md` - Comprehensive reference
-- `.ai_docs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md` - Story requirements
+- `devforgeai/specs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md` - Story requirements
 
 ---
 

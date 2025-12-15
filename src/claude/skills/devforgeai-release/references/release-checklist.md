@@ -17,7 +17,7 @@ This document provides comprehensive checklists for pre-deployment, deployment, 
 **Status Gate**: MUST pass before proceeding
 
 - [ ] **QA Approval**: Story status = "QA Approved"
-- [ ] **QA Report Exists**: `.devforgeai/qa/reports/{story-id}-qa-report.md` present
+- [ ] **QA Report Exists**: `devforgeai/qa/reports/{story-id}-qa-report.md` present
 - [ ] **QA Status**: Report shows PASS status
 - [ ] **Zero Critical Violations**: No CRITICAL issues in QA report
 - [ ] **Zero High Violations**: No HIGH issues (or documented exceptions approved)
@@ -322,7 +322,7 @@ This document provides comprehensive checklists for pre-deployment, deployment, 
 ### Documentation Updates
 
 **Release Documentation**:
-- [ ] **Release Notes Generated**: `.devforgeai/releases/release-{version}.md` created
+- [ ] **Release Notes Generated**: `devforgeai/releases/release-{version}.md` created
 - [ ] **Story Status Updated**: Status changed to "Released"
 - [ ] **Story Metadata**: Version and release date added to frontmatter
 - [ ] **Workflow History**: Release details appended to story
@@ -463,7 +463,7 @@ This document provides comprehensive checklists for pre-deployment, deployment, 
 
 ### Post-Rollback Documentation
 
-- [ ] **Rollback Report Created**: `.devforgeai/releases/rollback-{version}.md`
+- [ ] **Rollback Report Created**: `devforgeai/releases/rollback-{version}.md`
 - [ ] **Story Status Reverted**: Changed back to "QA Approved"
 - [ ] **Root Cause Analysis Initiated**: Investigation started
 - [ ] **Hotfix Story Created**: (Optional) New story for fix

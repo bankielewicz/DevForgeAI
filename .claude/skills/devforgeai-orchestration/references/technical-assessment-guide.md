@@ -257,7 +257,7 @@ Estimated Effort: 6-12 weeks
 ## Technology Validation
 
 ### Step 1: Read tech-stack.md
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 ### Step 2: For each proposed technology
 IF technology in tech-stack.md:
@@ -316,7 +316,7 @@ Result: ⚠️ Requires ADR documenting decision to adopt Elasticsearch
 ## Architecture Validation
 
 ### Step 1: Read architecture-constraints.md
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
 ### Step 2: Validate proposed architecture against constraints
 
@@ -495,7 +495,7 @@ Complexity Impact: +3 points (very complex)
 ## Security & Anti-Pattern Validation
 
 ### Step 1: Read anti-patterns.md
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
 ### Step 2: Check for forbidden security patterns
 
@@ -622,7 +622,7 @@ Mitigation:
 
 ### Process: Pre-Assessment Context Check
 
-**IF context files exist in `.devforgeai/context/`:**
+**IF context files exist in `devforgeai/specs/context/`:**
 
 ```markdown
 1. Read all 6 context files:

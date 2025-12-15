@@ -51,7 +51,7 @@ Validates orchestration of automatic and manual rollback workflows.
 
 - `TestRollbackLogging` (3 tests)
   - Rollback summary generated with all details
-  - Rollback log saved to `.devforgeai/logs/rollback-{timestamp}.log`
+  - Rollback log saved to `devforgeai/logs/rollback-{timestamp}.log`
   - Rollback log contains all summary details
 
 - `TestRollbackUserContent` (1 test)
@@ -108,10 +108,10 @@ Validates file restoration with user content preservation.
 - `TestUserContentPreservation` (5 tests)
   - User content paths skipped by default (AC#5)
   - User content included when flag set (AC#5)
-  - .ai_docs/Stories/* preserved by default
-  - .ai_docs/Epics/* preserved by default
-  - .devforgeai/context/* preserved by default
-  - .devforgeai/adrs/* preserved by default (6 total)
+  - devforgeai/specs/Stories/* preserved by default
+  - devforgeai/specs/Epics/* preserved by default
+  - devforgeai/specs/context/* preserved by default
+  - devforgeai/specs/adrs/* preserved by default (6 total)
 
 - `TestChecksumVerification` (3 tests)
   - File checksums verified after restore

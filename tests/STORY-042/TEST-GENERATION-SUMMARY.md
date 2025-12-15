@@ -612,7 +612,7 @@ Expected passing: All EC tests, all 101 tests
 
 ### Story Documentation
 - **Story ID:** STORY-042
-- **Story File:** `.ai_docs/Stories/STORY-042-copy-framework-files-to-src.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-042-copy-framework-files-to-src.story.md`
 - **Acceptance Criteria:** 7 detailed criteria with validation rules
 - **Technical Specification:** 4 components with 19 requirements
 - **Business Rules:** 6 rules with test requirements

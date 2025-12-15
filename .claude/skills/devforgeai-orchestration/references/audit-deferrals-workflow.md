@@ -53,7 +53,7 @@ IF found:
 **Find all story files eligible for audit:**
 
 ```
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 
 audit_list = []
 
@@ -134,7 +134,7 @@ FOR each story in deferred_stories:
 
         CASE "dependency":
             # Check if target story exists and is complete
-            Glob(pattern=".ai_docs/Stories/{target_story}*.story.md")
+            Glob(pattern="devforgeai/specs/Stories/{target_story}*.story.md")
             IF found:
                 Read YAML frontmatter
                 target_status = extract status
@@ -178,7 +178,7 @@ FOR each story in deferred_stories:
 
         CASE "scope_change":
             # Check if ADR exists
-            Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+            Glob(pattern="devforgeai/specs/adrs/{adr_reference}*.md")
             IF found:
                 categorize as: VALID
                 reason: "ADR {adr_reference} documents scope change"
@@ -275,7 +275,7 @@ oldest_age = max deferral age
 
 ```
 timestamp = current UTC timestamp (YYYY-MM-DDTHH-MM-SS)
-report_path = ".devforgeai/qa/deferral-audit-{timestamp}.md"
+report_path = "devforgeai/qa/deferral-audit-{timestamp}.md"
 
 Write(
     file_path=report_path,
@@ -400,7 +400,7 @@ Write(
 ---
 
 **Audit completed:** {timestamp}
-**Report location:** .devforgeai/qa/deferral-audit-{timestamp}.md
+**Report location:** devforgeai/qa/deferral-audit-{timestamp}.md
 """
 )
 
@@ -442,7 +442,7 @@ ELSE:
 
 ```bash
 # Get the most recent audit report (Phase 5 just created it)
-audit_report=$(ls -t .devforgeai/qa/deferral-audit-*.md | head -1)
+audit_report=$(ls -t devforgeai/qa/deferral-audit-*.md | head -1)
 
 if [ ! -f "$audit_report" ]; then
   echo "⚠️ Audit report not found, skipping feedback" >&2
@@ -548,11 +548,11 @@ devforgeai-validate invoke-hooks \
 
 ### Step 6.5: Log Hook Invocation
 
-**Log all hook operations to `.devforgeai/feedback/logs/hook-invocations.log`:**
+**Log all hook operations to `devforgeai/feedback/logs/hook-invocations.log`:**
 
 ```bash
 # Create log directory if doesn't exist
-mkdir -p .devforgeai/feedback/logs
+mkdir -p devforgeai/feedback/logs
 
 # Append structured log entry with file locking
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -560,8 +560,8 @@ LOG_ENTRY="$TIMESTAMP | operation=audit-deferrals | status=completed | exit_code
 
 # Use file locking to prevent write conflicts in concurrent audits
 (flock -x 200
-echo "$LOG_ENTRY" >> .devforgeai/feedback/logs/hook-invocations.log
-) 200>.devforgeai/feedback/logs/hook-invocations.log.lock
+echo "$LOG_ENTRY" >> devforgeai/feedback/logs/hook-invocations.log
+) 200>devforgeai/feedback/logs/hook-invocations.log.lock
 
 Display: "✓ Hook invocation logged"
 ```
@@ -578,11 +578,11 @@ if [ $hook_exit_code -ne 0 ]; then
   # Hook failed, log and continue
   echo "⚠️ Feedback hook failed with exit code $hook_exit_code" >&2
   echo "   Audit report still generated successfully" >&2
-  echo "   Check .devforgeai/feedback/logs/hook-invocations.log for details" >&2
+  echo "   Check devforgeai/feedback/logs/hook-invocations.log for details" >&2
 
   # Log failure details
   echo "$TIMESTAMP | operation=audit-deferrals | hook_status=failed | exit_code=$hook_exit_code | reason=hook_invocation_error" \
-    >> .devforgeai/feedback/logs/hook-invocations.log
+    >> devforgeai/feedback/logs/hook-invocations.log
 else
   echo "✓ Feedback hook triggered successfully" >&2
 fi
@@ -608,7 +608,7 @@ INVOCATION_DEPTH=${DEVFORGEAI_HOOK_DEPTH:-0}
 if [ $INVOCATION_DEPTH -ge 3 ]; then
   echo "⚠️ Maximum hook depth reached ($INVOCATION_DEPTH), preventing circular invocation" >&2
   echo "$TIMESTAMP | operation=audit-deferrals | status=skipped | reason=circular_prevention | depth=$INVOCATION_DEPTH" \
-    >> .devforgeai/feedback/logs/hook-invocations.log
+    >> devforgeai/feedback/logs/hook-invocations.log
   exit 0  # Skip hook, audit succeeds
 fi
 
@@ -713,7 +713,7 @@ IF deferral-validator subagent fails for a story:
 ```
 IF Write(file_path=report_path) fails:
   Display: "❌ ERROR: Could not write audit report"
-  Check: .devforgeai/qa/ directory permissions
+  Check: devforgeai/qa/ directory permissions
   Fallback: Display audit summary in console only
   Hook invocation skipped (no report to reference)
 ```
@@ -727,7 +727,7 @@ Hook errors are NON-BLOCKING:
 - Hook timeout → Log timeout, audit succeeds
 
 All hook errors logged to:
-  .devforgeai/feedback/logs/hook-invocations.log
+  devforgeai/feedback/logs/hook-invocations.log
 ```
 
 ---
@@ -807,8 +807,8 @@ All hook errors logged to:
 - STORY-033: Feedback hook integration for insights capture
 
 **See also:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
 - `.claude/agents/deferral-validator.md` (validation subagent)
 - `.claude/commands/audit-deferrals.md` (refactored command - 5.8K chars)
 

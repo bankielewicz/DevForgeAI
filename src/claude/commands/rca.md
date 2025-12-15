@@ -123,7 +123,7 @@ The devforgeai-rca skill executes 8 comprehensive phases:
 3. **Phase 2:** 5 Whys Analysis - Progressive questioning to root cause
 4. **Phase 3:** Evidence Collection - Organize excerpts, validate context files
 5. **Phase 4:** Recommendation Generation - Prioritized fixes (CRITICAL → LOW)
-6. **Phase 5:** RCA Document Creation - Write to .devforgeai/RCA/RCA-XXX-slug.md
+6. **Phase 5:** RCA Document Creation - Write to devforgeai/RCA/RCA-XXX-slug.md
 7. **Phase 6:** Validation & Self-Check - Verify completeness, self-heal issues
 8. **Phase 7:** Completion Report - Return summary to this command
 
@@ -181,7 +181,7 @@ The skill formats the report, this command simply displays it (lean orchestratio
 ### Output
 
 **Primary output:**
-- RCA document in `.devforgeai/RCA/RCA-{NNN}-{slug}.md`
+- RCA document in `devforgeai/RCA/RCA-{NNN}-{slug}.md`
 
 **RCA document contains:**
 - Issue description and metadata
@@ -237,7 +237,7 @@ RCA command successful when:
 - [ ] devforgeai-rca skill invoked successfully
 - [ ] Skill completion report received
 - [ ] Report displayed to user
-- [ ] RCA document created in .devforgeai/RCA/
+- [ ] RCA document created in devforgeai/RCA/
 - [ ] Token usage <3K in main conversation (skill work isolated)
 - [ ] Character budget <12K (lean orchestration compliance)
 
@@ -347,7 +347,7 @@ No user action needed
    ↓
 6. Skill performs 8-phase RCA workflow (isolated context)
    ↓
-7. Skill generates RCA document in .devforgeai/RCA/
+7. Skill generates RCA document in devforgeai/RCA/
    ↓
 8. Skill returns completion report
    ↓
@@ -383,7 +383,7 @@ RCA COMPLETE: RCA-010
 
 Title: Context File Validation Missing
 Severity: CRITICAL
-File: .devforgeai/RCA/RCA-010-context-file-validation-missing.md
+File: devforgeai/RCA/RCA-010-context-file-validation-missing.md
 
 ROOT CAUSE:
 No pre-flight validation in development skill enforces context file existence before TDD begins
@@ -397,7 +397,7 @@ RECOMMENDATIONS:
 NEXT STEPS:
 Review CRITICAL recommendations immediately. Create story for implementation if substantial work (>2 hours).
 
-Read complete RCA: .devforgeai/RCA/RCA-010-context-file-validation-missing.md
+Read complete RCA: devforgeai/RCA/RCA-010-context-file-validation-missing.md
 
 ═══════════════════════════════════════════════
 ```
@@ -420,7 +420,7 @@ RCA COMPLETE: RCA-011
 
 Title: QA Command Business Logic Violation
 Severity: HIGH
-File: .devforgeai/RCA/RCA-011-qa-command-business-logic-violation.md
+File: devforgeai/RCA/RCA-011-qa-command-business-logic-violation.md
 
 ROOT CAUSE:
 Command contains report parsing and display logic that should be in skill or subagent (lean orchestration violation)
@@ -434,7 +434,7 @@ RECOMMENDATIONS:
 NEXT STEPS:
 Review HIGH recommendations. Plan implementation in current sprint.
 
-Read complete RCA: .devforgeai/RCA/RCA-011-qa-command-business-logic-violation.md
+Read complete RCA: devforgeai/RCA/RCA-011-qa-command-business-logic-violation.md
 
 ═══════════════════════════════════════════════
 ```

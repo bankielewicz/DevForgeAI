@@ -18,7 +18,7 @@
 | validation-checklists.md | +114 | v2.0 validation procedures |
 | acceptance-criteria-patterns.md | +38 | AC to v2.0 component mapping |
 
-**Backup location:** `.devforgeai/backups/phase2-gap-fix/`
+**Backup location:** `devforgeai/backups/phase2-gap-fix/`
 
 ---
 
@@ -51,7 +51,7 @@ Reopen Claude Code Terminal
 - Skill loads technical-specification-creation.md (has v2.0 instructions)
 - story-requirements-analyst generates structured component info
 - Skill assembles into v2.0 YAML format
-- Story file created in .ai_docs/Stories/
+- Story file created in devforgeai/specs/Stories/
 
 **Duration:** 5-10 minutes
 
@@ -61,14 +61,14 @@ Reopen Claude Code Terminal
 
 **Find the generated story:**
 ```bash
-ls -lt .ai_docs/Stories/ | head -5
+ls -lt devforgeai/specs/Stories/ | head -5
 ```
 
 **Expected:** Newest file is STORY-XXX-user-login-with-email-and-password-authentication.story.md
 
 **Check frontmatter:**
 ```bash
-head -15 .ai_docs/Stories/STORY-XXX-*.story.md
+head -15 devforgeai/specs/Stories/STORY-XXX-*.story.md
 ```
 
 **Critical check:**
@@ -88,7 +88,7 @@ format_version: "2.0"  # <-- MUST BE PRESENT
 
 **Extract tech spec section:**
 ```bash
-grep -A 50 "## Technical Specification" .ai_docs/Stories/STORY-XXX-*.story.md
+grep -A 50 "## Technical Specification" devforgeai/specs/Stories/STORY-XXX-*.story.md
 ```
 
 **Expected structure:**
@@ -140,7 +140,7 @@ technical_specification:
 **Validate with script:**
 ```bash
 python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-XXX-user-login-with-email-and-password-authentication.story.md
+  devforgeai/specs/Stories/STORY-XXX-user-login-with-email-and-password-authentication.story.md
 ```
 
 **Expected output:**
@@ -273,26 +273,26 @@ echo $?
 
 ```bash
 # Restore original files (10 minutes)
-cp .devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
+cp devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
    .claude/skills/devforgeai-story-creation/SKILL.md
 
-cp .devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup \
+cp devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup \
    .claude/agents/story-requirements-analyst.md
 
-cp .devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup \
+cp devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup \
    .claude/skills/devforgeai-story-creation/references/story-structure-guide.md
 
-cp .devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup \
+cp devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup \
    .claude/skills/devforgeai-story-creation/references/validation-checklists.md
 
-cp .devforgeai/backups/phase2-gap-fix/acceptance-criteria-patterns.md.backup \
+cp devforgeai/backups/phase2-gap-fix/acceptance-criteria-patterns.md.backup \
    .claude/skills/devforgeai-story-creation/references/acceptance-criteria-patterns.md
 
 # Restart terminal
 # Test /create-story (should work with old behavior)
 
 # Document rollback reason
-echo "Rollback reason: [ISSUE]" > .devforgeai/backups/phase2-gap-fix/ROLLBACK-REASON.txt
+echo "Rollback reason: [ISSUE]" > devforgeai/backups/phase2-gap-fix/ROLLBACK-REASON.txt
 ```
 
 ---

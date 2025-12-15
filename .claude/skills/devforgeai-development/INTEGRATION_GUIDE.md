@@ -53,12 +53,12 @@ The development skill **automatically validates** that architectural context exi
 
 ```
 Phase 0: Context Validation
-├─ Check: .devforgeai/context/tech-stack.md
-├─ Check: .devforgeai/context/source-tree.md
-├─ Check: .devforgeai/context/dependencies.md
-├─ Check: .devforgeai/context/coding-standards.md
-├─ Check: .devforgeai/context/architecture-constraints.md
-└─ Check: .devforgeai/context/anti-patterns.md
+├─ Check: devforgeai/specs/context/tech-stack.md
+├─ Check: devforgeai/specs/context/source-tree.md
+├─ Check: devforgeai/specs/context/dependencies.md
+├─ Check: devforgeai/specs/context/coding-standards.md
+├─ Check: devforgeai/specs/context/architecture-constraints.md
+└─ Check: devforgeai/specs/context/anti-patterns.md
 
 IF ANY MISSING:
     Skill(command="devforgeai-architecture")
@@ -395,11 +395,11 @@ SAVINGS:                                       1,000 tokens (40%)
 
 **Phase 0: Context Validation (~5k tokens)**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
     → ORM: Dapper ✓
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
     → Error Handling: Result Pattern ✓
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
     → Services: src/Application/Services/ ✓
 ```
 
@@ -439,7 +439,7 @@ Bash(command="dotnet test")
 **Phase 3: Refactor (~20k tokens)**
 ```
 # Check anti-patterns
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
     → No violations ✓
 
 # Refactor

@@ -2,7 +2,7 @@
 Installation validation and health checks.
 
 This module handles:
-- Validating directory structure (.claude/skills/, .devforgeai/protocols/)
+- Validating directory structure (.claude/skills/, devforgeai/protocols/)
 - Validating version.json schema
 - Checking CLI installation
 - Verifying critical files (11 commands, 10 skills, 3 protocols, CLAUDE.md)
@@ -44,9 +44,9 @@ def _check_directory_structure(project_root: Path) -> tuple[bool, list[str]]:
         ".claude/agents",
         ".claude/commands",
         ".claude/memory",
-        ".devforgeai/protocols",
-        ".devforgeai/context",
-        ".devforgeai/adrs",
+        "devforgeai/protocols",
+        "devforgeai/context",
+        "devforgeai/adrs",
     ]
 
     missing = []
@@ -64,7 +64,7 @@ def _check_critical_files(project_root: Path) -> tuple[int, list[str]]:
     Looks for:
     - 11 commands in .claude/commands/
     - 10 skills in .claude/skills/
-    - 3 protocols in .devforgeai/protocols/
+    - 3 protocols in devforgeai/protocols/
     - CLAUDE.md in project root
 
     Args:
@@ -146,7 +146,7 @@ def _check_skills(project_root: Path, missing: list) -> int:
 def _check_protocols(project_root: Path, missing: list) -> int:
     """Check protocols directory. Returns count of protocols."""
     protocols_dir = project_root / ".devforgeai" / "protocols"
-    return _count_files_by_pattern(protocols_dir, "*.md", ".devforgeai/protocols/", MIN_PROTOCOLS, missing)
+    return _count_files_by_pattern(protocols_dir, "*.md", "devforgeai/protocols/", MIN_PROTOCOLS, missing)
 
 
 def _check_claude_md(project_root: Path, missing: list) -> int:
@@ -204,7 +204,7 @@ def validate_version_json(version_file: Path) -> dict:
     - schema_version: str (e.g., "1.0")
 
     Args:
-        version_file: Path to .devforgeai/.version.json
+        version_file: Path to devforgeai/.version.json
 
     Returns:
         dict: Validation result with:
@@ -301,7 +301,7 @@ def validate_installation(project_root: Path) -> dict:
     Validate complete installation.
 
     Checks:
-    1. Directory structure (.claude/*, .devforgeai/*)
+    1. Directory structure (.claude/*, devforgeai/*)
     2. Critical files (11+ commands, 10+ skills, 3+ protocols, CLAUDE.md)
     3. version.json schema and content
     4. CLI installed and accessible

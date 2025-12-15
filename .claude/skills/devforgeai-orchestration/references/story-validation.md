@@ -22,10 +22,10 @@ This phase loads the story file and performs pre-execution validation checks bef
 ### File Loading
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 ```
 
-**Expected location:** `.ai_docs/Stories/{STORY-ID}.story.md` or `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+**Expected location:** `devforgeai/specs/Stories/{STORY-ID}.story.md` or `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 
 ### Extract YAML Frontmatter
 
@@ -125,7 +125,7 @@ IF story.status NOT IN [11 valid states]:
 **Example: Backlog → Ready for Dev**
 ```
 Prerequisites:
-- All 6 context files exist (.devforgeai/context/*.md)
+- All 6 context files exist (devforgeai/specs/context/*.md)
 - Context files non-empty (no placeholder content)
 
 IF prerequisites NOT met:
@@ -152,7 +152,7 @@ IF prerequisites NOT met:
 
 **Validation:**
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 Expected: 6 files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
 
 FOR each file:
@@ -201,7 +201,7 @@ IF requirements NOT met:
 ```
 Status check: Story status must be "QA Approved"
 Checkpoint check: QA_APPROVED checkpoint must exist
-Report check: Read .devforgeai/qa/reports/{story_id}-qa-report.md
+Report check: Read devforgeai/qa/reports/{story_id}-qa-report.md
 
 IF requirements NOT met:
   HALT: "Cannot transition QA Approved → Releasing
@@ -272,7 +272,7 @@ IF requirements NOT met:
 ### Story File Not Found
 
 ```
-Error: Read(file_path=".ai_docs/Stories/{story_id}.story.md") returns FileNotFoundError
+Error: Read(file_path="devforgeai/specs/Stories/{story_id}.story.md") returns FileNotFoundError
 
 Action:
   HALT: "Story ${story_id} not found at expected location.

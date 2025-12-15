@@ -209,7 +209,7 @@ def test_something(corrupted_installation):
 ---
 
 ### Fixture: user_modified_installation
-Creates installation with user-modified files (.ai_docs/, .devforgeai/context/).
+Creates installation with user-modified files (devforgeai/specs/, devforgeai/specs/context/).
 
 **Returns:**
 ```python
@@ -528,13 +528,13 @@ Tests validate these performance targets:
 
 ## Notes for Implementation
 
-1. **Manifest Location:** `.devforgeai/.install-manifest.json` (required)
+1. **Manifest Location:** `devforgeai/.install-manifest.json` (required)
 
 2. **Checksum Algorithm:** SHA256 (64 hex character string)
 
 3. **User-Modifiable Paths:**
-   - `.ai_docs/` (all files)
-   - `.devforgeai/context/` (all files)
+   - `devforgeai/specs/` (all files)
+   - `devforgeai/specs/context/` (all files)
    - Other paths in manifest with `is_user_modifiable: true`
 
 4. **Issue Severity Levels:**

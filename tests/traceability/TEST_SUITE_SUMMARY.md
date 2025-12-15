@@ -337,7 +337,7 @@ After these tests fail (RED phase), implement:
 
 ## References
 
-**Story File:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-085-gap-detection-engine.story.md`
+**Story File:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-085-gap-detection-engine.story.md`
 
 **Acceptance Criteria:**
 - AC#1: Strategy 1 - Epic field extraction (<500ms for 100)

@@ -29,7 +29,7 @@ def project_with_framework(tmp_path):
     Create a project structure with DevForgeAI framework files.
 
     Returns:
-        Path: Project root with .claude/, .devforgeai/, CLAUDE.md
+        Path: Project root with .claude/, devforgeai/, CLAUDE.md
     """
     # Create .claude directory with content
     claude_dir = tmp_path / ".claude"
@@ -144,7 +144,7 @@ class TestBackupCreation:
         assert (backup_path / ".claude" / "settings.json").exists()
 
     def test_create_backup_copies_devforgeai_directory(self, project_with_framework):
-        """Test backup includes .devforgeai/ directory."""
+        """Test backup includes devforgeai/ directory."""
         from installer import backup
 
         backup_path, _ = backup.create_backup(

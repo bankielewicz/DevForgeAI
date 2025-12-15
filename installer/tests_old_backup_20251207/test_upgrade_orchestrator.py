@@ -331,7 +331,7 @@ class TestUpgradeSummary:
 
     def test_should_save_summary_to_log_file(self):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log
 
         Arrange: Upgrade scenario
         Act: Execute upgrade

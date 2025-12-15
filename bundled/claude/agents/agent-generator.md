@@ -24,7 +24,7 @@ Create specialized AI subagents with:
 
 **Proactive triggers:**
 - When Phase 2 subagent implementation begins
-- When requirements document exists in `.devforgeai/specs/requirements/`
+- When requirements document exists in `devforgeai/specs/requirements/`
 - When user requests subagent creation
 
 **Explicit invocation:**
@@ -33,14 +33,14 @@ Create specialized AI subagents with:
 - "Implement subagents from requirements document"
 
 **Automatic:**
-- When `.devforgeai/specs/requirements/phase-2-subagents-requirements.md` exists and `.claude/agents/` needs population
+- When `devforgeai/specs/requirements/phase-2-subagents-requirements.md` exists and `.claude/agents/` needs population
 
 ## Core Principles
 
 ### 1. Evidence-Based Design
 - Follow specifications in requirements document
-- Use prompt engineering best practices from `.ai_docs/prompt-engineering-best-practices.md`
-- Reference subagent documentation from `.ai_docs/Terminal/sub-agents.md`
+- Use prompt engineering best practices from `devforgeai/specs/prompt-engineering-best-practices.md`
+- Reference subagent documentation from `devforgeai/specs/Terminal/sub-agents.md`
 
 ### 2. Token Efficiency
 - Native tools preferred (Read/Edit/Write/Glob/Grep)
@@ -85,9 +85,9 @@ IF skill exists:
   Store in memory: CLAUDE_CODE_PATTERNS
 ELSE:
   # Fallback: Try old location (backward compatibility)
-  Glob(pattern=".ai_docs/Terminal/sub-agents.md")
+  Glob(pattern="devforgeai/specs/Terminal/sub-agents.md")
   IF found:
-    Read(file_path=".ai_docs/Terminal/sub-agents.md")
+    Read(file_path="devforgeai/specs/Terminal/sub-agents.md")
     Store in memory: CLAUDE_CODE_PATTERNS
   ELSE:
     WARN: "Claude Code official patterns not available. Using basic patterns only."
@@ -118,7 +118,7 @@ Check if generating command-related subagent (formatters, interpreters, orchestr
 # Detect from conversation context
 IF conversation contains "command refactoring|slash command|/[a-z]-formatter|
                           -interpreter|-orchestrator":
-  Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+  Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
   # Extract:
   # - Subagent Creation Guidelines (Section: When to Create a Subagent)
   # - Subagent Template (complete template structure)
@@ -159,8 +159,8 @@ CACHED_REFERENCES = {
 
 ```
 # Load subagent requirements (if requirements mode)
-IF conversation contains ".devforgeai/specs/requirements/" OR creation_mode == "requirements":
-  Read(file_path=".devforgeai/specs/requirements/phase-2-subagents-requirements.md")
+IF conversation contains "devforgeai/specs/requirements/" OR creation_mode == "requirements":
+  Read(file_path="devforgeai/specs/requirements/phase-2-subagents-requirements.md")
 ELSE:
   # Other modes don't use requirements document
   REQUIREMENTS_DOC = null
@@ -969,7 +969,7 @@ Report: "Reference file location: {REFERENCE_PATH}"
 # Load reference file template based on type
 IF REFERENCE_TYPE == "command-refactoring":
   # Load lean orchestration reference template
-  Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+  Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
   # Extract Reference File Template section (lines 933-1040 approximately)
   TEMPLATE_CONTENT = extract_reference_file_template_from_protocol()
 
@@ -1205,7 +1205,7 @@ Example:
 
 **How to reference:**
 ```
-Read(file_path=".devforgeai/context/{context-file}.md")
+Read(file_path="devforgeai/specs/context/{context-file}.md")
 # Extract relevant rules
 # Apply to current analysis
 # Report violations with specific reference
@@ -1662,11 +1662,11 @@ All subagents created in: `.claude/agents/`
 
 ### Error: Requirements Document Not Found
 
-**Condition**: `.devforgeai/specs/requirements/phase-2-subagents-requirements.md` missing
+**Condition**: `devforgeai/specs/requirements/phase-2-subagents-requirements.md` missing
 
 **Action:**
 ```
-Report: "Requirements document not found at .devforgeai/specs/requirements/phase-2-subagents-requirements.md"
+Report: "Requirements document not found at devforgeai/specs/requirements/phase-2-subagents-requirements.md"
 Suggestion: "Create requirements document first or provide subagent specification manually"
 ```
 
@@ -1947,7 +1947,7 @@ Generate all Phase 2 subagents from requirements document
 ```
 
 **Expected process:**
-1. Read `.devforgeai/specs/requirements/phase-2-subagents-requirements.md`
+1. Read `devforgeai/specs/requirements/phase-2-subagents-requirements.md`
 2. Extract 13 subagent specifications
 3. Generate in priority order (Critical → High → Medium → Lower)
 4. Validate each after generation
@@ -2035,7 +2035,7 @@ When generating subagents for **slash command refactoring or optimization**, fol
 **BEFORE generating command-related subagents:**
 
 ```
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 ```
 
 **Extract from protocol:**
@@ -2277,7 +2277,7 @@ Prevents "bull in china shop" behavior by providing:
 
 Before writing command refactoring subagent file:
 
-- [ ] Protocol reference loaded (.devforgeai/protocols/lean-orchestration-pattern.md)
+- [ ] Protocol reference loaded (devforgeai/protocols/lean-orchestration-pattern.md)
 - [ ] Subagent responsibilities clear (lines 81-96 of protocol)
 - [ ] Character budget validated (command will be <15K after refactoring)
 - [ ] Framework-aware design (NOT siloed)
@@ -2316,19 +2316,19 @@ Before writing command refactoring subagent file:
 ## References
 
 **Requirements Document:**
-- `.devforgeai/specs/requirements/phase-2-subagents-requirements.md` - Detailed subagent specifications
+- `devforgeai/specs/requirements/phase-2-subagents-requirements.md` - Detailed subagent specifications
 
 **Prompt Engineering:**
-- `.ai_docs/prompt-engineering-best-practices.md` - Claude-specific optimizations, techniques, patterns
+- `devforgeai/specs/prompt-engineering-best-practices.md` - Claude-specific optimizations, techniques, patterns
 
 **Subagent Architecture:**
-- `.ai_docs/Terminal/sub-agents.md` - Claude Code subagent documentation and format
+- `devforgeai/specs/Terminal/sub-agents.md` - Claude Code subagent documentation and format
 
 **Slash Command Architecture:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command refactoring protocol and character budget management
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command refactoring protocol and character budget management
 
 **Tool Efficiency:**
-- `.ai_docs/native-tools-vs-bash-efficiency-analysis.md` - Token savings analysis (40-73% with native tools)
+- `devforgeai/specs/native-tools-vs-bash-efficiency-analysis.md` - Token savings analysis (40-73% with native tools)
 
 **Framework Context:**
 - `CLAUDE.md` - DevForgeAI framework overview and principles

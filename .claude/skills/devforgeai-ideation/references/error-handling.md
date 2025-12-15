@@ -153,7 +153,7 @@ If user cannot provide specifics after follow-ups:
 
 **Examples:**
 - Write() tool returns permission error
-- Directories don't exist (`.ai_docs/Epics/` not found)
+- Directories don't exist (`devforgeai/specs/Epics/` not found)
 - Disk full or read-only filesystem
 - Invalid filename characters
 
@@ -161,7 +161,7 @@ If user cannot provide specifics after follow-ups:
 
 ```
 try:
-    Write(file_path=".ai_docs/Epics/EPIC-001.epic.md", content=epic_content)
+    Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content=epic_content)
 except FileWriteError as error:
     trigger artifact_generation_failure_recovery(error)
 ```
@@ -173,10 +173,10 @@ except FileWriteError as error:
 ```
 # Ensure directories exist
 required_dirs = [
-    ".ai_docs/Epics/",
-    ".devforgeai/specs/requirements/",
-    ".devforgeai/adrs/",
-    ".devforgeai/context/"
+    "devforgeai/specs/Epics/",
+    "devforgeai/specs/requirements/",
+    "devforgeai/specs/adrs/",
+    "devforgeai/specs/context/"
 ]
 
 for dir in required_dirs:
@@ -184,7 +184,7 @@ for dir in required_dirs:
     Bash(command=f"mkdir -p {dir}")
 
 # Retry write operation
-Write(file_path=".ai_docs/Epics/EPIC-001.epic.md", content=epic_content)
+Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content=epic_content)
 ```
 
 **Step 2: Verify File System Paths**
@@ -365,19 +365,19 @@ If any dimension missing:
 
 ```
 # Read existing requirements spec
-Read(file_path=".devforgeai/specs/requirements/{project}-requirements.md")
+Read(file_path="devforgeai/specs/requirements/{project}-requirements.md")
 
 # Find complexity assessment section
 complexity_section = Grep(
     pattern="## Complexity Assessment",
-    path=".devforgeai/specs/requirements/{project}-requirements.md",
+    path="devforgeai/specs/requirements/{project}-requirements.md",
     -A=20,
     output_mode="content"
 )
 
 # Replace with corrected assessment
 Edit(
-    file_path=".devforgeai/specs/requirements/{project}-requirements.md",
+    file_path="devforgeai/specs/requirements/{project}-requirements.md",
     old_string="## Complexity Assessment\n{old_content}",
     new_string="## Complexity Assessment\n\n**Total Score:** {corrected_score}/60\n**Architecture Tier:** {correct_tier}\n\n**Score Breakdown:**\n- Functional: {functional}/20\n- Technical: {technical}/20\n- Team/Org: {team_org}/10\n- NFR: {nfr}/10\n..."
 )
@@ -665,10 +665,10 @@ If validation fails after 2 attempts:
 ```
 if existing_context_files:
     # Load existing constraints
-    Read(file_path=".devforgeai/context/tech-stack.md")
-    Read(file_path=".devforgeai/context/architecture-constraints.md")
-    Read(file_path=".devforgeai/context/dependencies.md")
-    Read(file_path=".devforgeai/context/anti-patterns.md")
+    Read(file_path="devforgeai/specs/context/tech-stack.md")
+    Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+    Read(file_path="devforgeai/specs/context/dependencies.md")
+    Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
     # Compare with new requirements
     conflicts = []
@@ -700,7 +700,7 @@ if existing_context_files:
 # Technology conflicts
 tech_conflicts = Grep(
     pattern=new_technology_name,
-    path=".devforgeai/context/tech-stack.md",
+    path="devforgeai/specs/context/tech-stack.md",
     output_mode="count"
 )
 
@@ -830,8 +830,8 @@ Add to requirements spec:
 **Detected during:** Phase 6.1 (Artifact Generation)
 
 **Examples:**
-- `.ai_docs/` directory missing
-- `.devforgeai/` directory missing
+- `devforgeai/specs/` directory missing
+- `devforgeai/` directory missing
 - Subdirectories (Epics/, specs/requirements/) don't exist
 - Permission denied when creating directories
 
@@ -839,10 +839,10 @@ Add to requirements spec:
 
 ```
 required_dirs = [
-    ".ai_docs/Epics/",
-    ".devforgeai/specs/requirements/",
-    ".devforgeai/adrs/",
-    ".devforgeai/context/"
+    "devforgeai/specs/Epics/",
+    "devforgeai/specs/requirements/",
+    "devforgeai/specs/adrs/",
+    "devforgeai/specs/context/"
 ]
 
 for dir in required_dirs:
@@ -857,10 +857,10 @@ for dir in required_dirs:
 
 ```
 required_dirs = [
-    ".ai_docs/Epics/",
-    ".devforgeai/specs/requirements/",
-    ".devforgeai/adrs/",
-    ".devforgeai/context/"
+    "devforgeai/specs/Epics/",
+    "devforgeai/specs/requirements/",
+    "devforgeai/specs/adrs/",
+    "devforgeai/specs/context/"
 ]
 
 for dir in required_dirs:
@@ -909,8 +909,8 @@ If len(permission_errors) > 0:
 
     2. Or create directories manually:
        bash
-       mkdir -p .ai_docs/Epics
-       mkdir -p .devforgeai/specs/requirements
+       mkdir -p devforgeai/specs/Epics
+       mkdir -p devforgeai/specs/requirements
 
     3. Then re-run ideation skill
 

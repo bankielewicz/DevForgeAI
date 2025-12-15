@@ -170,7 +170,7 @@ test_phase_n_overhead_acceptable() {
 test_nfr_documentation() {
     echo -n "Test P5: Performance NFRs documented... "
 
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     nfrs_found=0
     echo "$story_content" | grep -q "NFR-001" && nfrs_found=$((nfrs_found + 1))

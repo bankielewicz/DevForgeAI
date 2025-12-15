@@ -177,7 +177,7 @@ Example format:
 
 **Purpose:** Break down acceptance criteria into granular, testable sub-items mapped to TDD phases
 
-**See:** `.devforgeai/specs/enhancements/AC-CHECKLIST-TEMPLATE-DESIGN.md` for complete generation logic
+**See:** `devforgeai/specs/enhancements/AC-CHECKLIST-TEMPLATE-DESIGN.md` for complete generation logic
 
 **Generate checklist by analyzing ACs:**
 ```
@@ -360,14 +360,14 @@ story_content = f"""---
 **Write to disk:**
 ```
 # Ensure directory exists
-Bash(mkdir -p .ai_docs/Stories/)
+Bash(mkdir -p devforgeai/specs/Stories/)
 
 # Generate filename slug
 slug = slugify(title)  # "user-registration" from "User Registration"
 
 # Write file
 Write(
-  file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md",
+  file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md",
   content=story_content
 )
 ```
@@ -375,7 +375,7 @@ Write(
 **Verify file creation:**
 ```
 # Read back to confirm
-created_file = Read(file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md", limit=30)
+created_file = Read(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", limit=30)
 
 # Verify frontmatter parses correctly
 if not created_file.startswith("---"):
@@ -400,7 +400,7 @@ TodoWrite: Mark story creation as completed
 ## Output
 
 **Phase 5 produces:**
-- ✅ Complete story file created at `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- ✅ Complete story file created at `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - ✅ All sections populated (user story, AC, tech spec, UI spec, NFRs, edge cases, DoD, history)
 - ✅ YAML frontmatter valid
 - ✅ File verified on disk

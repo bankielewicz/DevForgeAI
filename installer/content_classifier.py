@@ -2,7 +2,7 @@
 
 Classifies files as framework, user content, or modified framework:
 - FRAMEWORK: Files from DevForgeAI package (.claude/skills, .claude/agents, etc.)
-- USER_CONTENT: User-created files (.ai_docs/, custom ADRs, etc.)
+- USER_CONTENT: User-created files (devforgeai/specs/, custom ADRs, etc.)
 - MODIFIED_FRAMEWORK: Framework files modified by user
 - USER_CREATED: New files in framework directories not in manifest
 """
@@ -19,9 +19,9 @@ class ContentClassifier:
 
     # Patterns for user content directories (always preserved in PRESERVE mode)
     USER_CONTENT_PATTERNS = [
-        ".ai_docs/",
-        ".devforgeai/adrs/",
-        ".devforgeai/config/",
+        "devforgeai/specs/",
+        "devforgeai/specs/adrs/",
+        "devforgeai/config/",
     ]
 
     # Patterns for framework directories
@@ -31,9 +31,9 @@ class ContentClassifier:
         ".claude/commands/",
         ".claude/memory/",
         ".claude/scripts/",
-        ".devforgeai/protocols/",
-        ".devforgeai/qa/",
-        ".devforgeai/context/",
+        "devforgeai/protocols/",
+        "devforgeai/qa/",
+        "devforgeai/specs/context/",
     ]
 
     def __init__(self, manifest_manager: Any, installation_root: Optional[Path] = None, logger: Any = None):

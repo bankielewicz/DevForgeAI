@@ -555,7 +555,7 @@ Tests validate **these modules should be created:**
 
 ## References
 
-**Story:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md`
+**Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md`
 
 **Test Framework:** pytest 7.0+ with fixtures
 

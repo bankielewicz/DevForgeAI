@@ -34,7 +34,7 @@ Task(
   description="Interpret dev results",
   prompt="Interpret development workflow results for STORY-XXX.
 
-          Story file: .ai_docs/Stories/STORY-XXX.story.md
+          Story file: devforgeai/specs/Stories/STORY-XXX.story.md
           Workflow status: Dev Complete | In Development | Failed
 
           Parse story file and generate user-friendly display with
@@ -54,11 +54,11 @@ Task(
 ```
 Input from conversation context:
 - Story ID (from context markers or explicit statement)
-- Story file path: .ai_docs/Stories/{STORY_ID}-*.story.md
+- Story file path: devforgeai/specs/Stories/{STORY_ID}-*.story.md
 - Expected workflow status: (Dev Complete, In Development, Failed)
 
 Verify story file exists and is readable:
-  Read(file_path=".ai_docs/Stories/{STORY_ID}-*.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}-*.story.md")
 
   IF file not found:
     Return error with context:
@@ -465,7 +465,7 @@ Choose one approach:
 
 **Option 2: Manual Investigation**
 - Review error details above
-- Check story file: .ai_docs/Stories/{STORY_ID}.story.md
+- Check story file: devforgeai/specs/Stories/{STORY_ID}.story.md
 - Look for Implementation Notes section (error context)
 - Fix root cause manually
 - Run: `/dev {STORY_ID}` to resume
@@ -492,7 +492,7 @@ IF result == "SUCCESS":
         "Run: `/qa {STORY_ID}` to validate implementation",
         "If QA passes: `/release {STORY_ID}` to deploy",
         "If QA has issues: `/dev {STORY_ID}` to fix and re-validate",
-        "View detailed workflow: .ai_docs/Stories/{STORY_ID}.story.md"
+        "View detailed workflow: devforgeai/specs/Stories/{STORY_ID}.story.md"
     ]
 
 ELSE IF result == "INCOMPLETE" AND completion >= 75%:
@@ -501,7 +501,7 @@ ELSE IF result == "INCOMPLETE" AND completion >= 75%:
         "Resume: `/dev {STORY_ID}`",
         "Estimated time to completion: {N} hours",
         "Target: {TARGET_DATE} for QA",
-        "View progress: .ai_docs/Stories/{STORY_ID}.story.md"
+        "View progress: devforgeai/specs/Stories/{STORY_ID}.story.md"
     ]
 
 ELSE IF result == "INCOMPLETE" AND completion < 75%:
@@ -510,7 +510,7 @@ ELSE IF result == "INCOMPLETE" AND completion < 75%:
         "Continue: `/dev {STORY_ID}`",
         "Estimated time remaining: {N} hours",
         "Incomplete items: {ITEMS_LIST}",
-        "Track progress: .ai_docs/Stories/{STORY_ID}.story.md"
+        "Track progress: devforgeai/specs/Stories/{STORY_ID}.story.md"
     ]
 
 ELSE IF result == "INCOMPLETE" AND has_deferrals:
@@ -519,7 +519,7 @@ ELSE IF result == "INCOMPLETE" AND has_deferrals:
         "Option 1: Resume with `/dev {STORY_ID}` and justify deferrals",
         "Option 2: Create follow-up stories for blocked items",
         "Option 3: Proceed to QA (deferrals may block approval)",
-        "Review: .ai_docs/Stories/{STORY_ID}.story.md"
+        "Review: devforgeai/specs/Stories/{STORY_ID}.story.md"
     ]
 
 ELSE IF result == "FAILURE":
@@ -528,7 +528,7 @@ ELSE IF result == "FAILURE":
         "Recommended: Retry with `/dev {STORY_ID}`",
         "Workflow will resume from last successful phase",
         "Alternative: Review error details above and fix manually",
-        "Full error context: .ai_docs/Stories/{STORY_ID}.story.md"
+        "Full error context: devforgeai/specs/Stories/{STORY_ID}.story.md"
     ]
 ```
 
@@ -662,7 +662,7 @@ ELSE IF result == "FAILURE":
     "Development complete and ready for quality validation",
     "Run: `/qa STORY-042` to validate implementation",
     "If QA passes: `/release STORY-042` to deploy",
-    "View detailed workflow: .ai_docs/Stories/STORY-042.story.md"
+    "View detailed workflow: devforgeai/specs/Stories/STORY-042.story.md"
   ],
 
   "workflow_metrics": {
@@ -674,7 +674,7 @@ ELSE IF result == "FAILURE":
     "git_commits": 1
   },
 
-  "story_file_location": ".ai_docs/Stories/STORY-042-user-authentication.story.md",
+  "story_file_location": "devforgeai/specs/Stories/STORY-042-user-authentication.story.md",
   "execution_completed_at": "2025-11-18T16:15:47Z"
 }
 ```
@@ -696,7 +696,7 @@ Task(
 
             Interpret results and generate user-friendly display.
 
-            Story file: .ai_docs/Stories/{STORY_ID}*.story.md
+            Story file: devforgeai/specs/Stories/{STORY_ID}*.story.md
             Workflow result: {result}
             Final status: {status}
 

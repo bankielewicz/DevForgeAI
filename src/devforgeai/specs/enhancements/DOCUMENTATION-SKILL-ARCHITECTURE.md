@@ -90,7 +90,7 @@ This document provides the complete architecture and implementation guide for th
    - If no context files exist → HALT (require `/create-context` first)
 
 3. Validate context files:
-   - Check `.devforgeai/context/*.md` exist (all 6 files)
+   - Check `devforgeai/specs/context/*.md` exist (all 6 files)
    - Read `coding-standards.md` for documentation conventions
    - Read `source-tree.md` for documentation file placement
    - HALT if context files missing
@@ -261,7 +261,7 @@ sequenceDiagram
 #### Phase 3: Template Application
 
 **Step 3.1: Load Templates**
-- Check for custom templates: `.devforgeai/templates/documentation/`
+- Check for custom templates: `devforgeai/templates/documentation/`
 - If custom exist → Use custom
 - If not → Use built-in from `assets/templates/`
 
@@ -407,7 +407,7 @@ Coverage = (Documented APIs / Total Public APIs) * 100%
 - Use markdown-to-html converter (internal or Pandoc)
 - Apply CSS styling:
   - Default: Clean, professional theme
-  - Custom: Load from `.devforgeai/templates/documentation/styles.css`
+  - Custom: Load from `devforgeai/templates/documentation/styles.css`
 - Embed Mermaid diagrams as SVG (render with mermaid-cli if available)
 - Generate navigation (sidebar, breadcrumbs)
 - Output to `docs/html/` or specified directory
@@ -687,13 +687,13 @@ Generate comprehensive project documentation from story implementations or codeb
 
 **If `--list-templates`:**
 - Glob: `.claude/skills/devforgeai-documentation/assets/templates/*.md`
-- Glob: `.devforgeai/templates/documentation/*.md` (custom)
+- Glob: `devforgeai/templates/documentation/*.md` (custom)
 - Display list with descriptions
 - Exit (do not invoke skill)
 
 **If story ID provided:**
 - Validate format: `STORY-\d+`
-- Load story file: `@.ai_docs/Stories/$1*.story.md`
+- Load story file: `@devforgeai/specs/Stories/$1*.story.md`
 - Verify story status: "QA Approved" or "Released"
 - If status invalid, AskUserQuestion: "Story not QA approved. Continue anyway?"
 

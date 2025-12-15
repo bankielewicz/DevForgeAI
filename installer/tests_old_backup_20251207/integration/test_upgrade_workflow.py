@@ -76,7 +76,7 @@ class TestUpgradeWorkflow:
         - Backup created in .backups/ with timestamp
         - Backup contains:
           - Copy of .claude/ (state from 1.0.0)
-          - Copy of .devforgeai/ (state from 1.0.0)
+          - Copy of devforgeai/ (state from 1.0.0)
           - manifest.json with metadata
         - Backup integrity verified
 
@@ -134,8 +134,8 @@ class TestUpgradeWorkflow:
         AC-2.3: Upgrade preserves user configurations and data.
 
         Validates:
-        - User context files unchanged (.devforgeai/context/*.md)
-        - User story files unchanged (.ai_docs/Stories/*.md)
+        - User context files unchanged (devforgeai/specs/context/*.md)
+        - User story files unchanged (devforgeai/specs/Stories/*.md)
         - User hooks.yaml unchanged
         - User feedback config unchanged
 
@@ -315,7 +315,7 @@ class TestUpgradeWorkflow:
         assert (backup_path / "manifest.json").exists(), "Backup should have manifest"
 
         # Verify backup contains necessary files for rollback
-        assert (backup_path / ".devforgeai").exists(), "Backup should contain .devforgeai/"
+        assert (backup_path / ".devforgeai").exists(), "Backup should contain devforgeai/"
         assert (
             backup_path / ".devforgeai" / ".version.json"
         ).exists(), "Backup should contain version.json"

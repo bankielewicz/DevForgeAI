@@ -130,7 +130,7 @@
 - **Issue:** AC#5 deferred to "future story" but follow-up not created yet
 - **Rule:** RCA-007 (Multi-level deferral chain prevention)
 - **Remediation:** Create STORY-093 for story-creation skill enhancement
-- **File to Create:** `.ai_docs/Stories/STORY-093-*.md`
+- **File to Create:** `devforgeai/specs/Stories/STORY-093-*.md`
 - **Effort:** 1 hour (story creation)
 - **Deadline:** Within 2 sprints
 
@@ -177,7 +177,7 @@ Content:
 
 **Action 2: Update STORY-090 Implementation Notes**
 ```
-Location: .ai_docs/Stories/STORY-090-*.story.md, lines ~546
+Location: devforgeai/specs/Stories/STORY-090-*.story.md, lines ~546
 Change: Add reference to ADR-008
 Before: "Deferred to follow-up story (STORY-091 or future story-creation enhancement)"
 After: "Deferred to story-creation enhancement per ADR-008. Follow-up story: STORY-093"
@@ -187,7 +187,7 @@ After: "Deferred to story-creation enhancement per ADR-008. Follow-up story: STO
 
 **Action 3: Create STORY-093**
 ```
-File: .ai_docs/Stories/STORY-093-story-creation-skill-enhancement.md
+File: devforgeai/specs/Stories/STORY-093-story-creation-skill-enhancement.md
 Properties:
   - id: STORY-093
   - title: Story-Creation Skill Enhancement - Dependency Question & Normalization
@@ -348,7 +348,7 @@ All validation files are located in the project root:
 
 Story file:
 ```
-/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/
   └── STORY-090-story-template-v2.2-depends-on-field.story.md
 ```
 

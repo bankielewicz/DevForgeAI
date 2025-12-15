@@ -613,7 +613,7 @@ Input is "complete" for /dev when:
 ```
 /dev STORY-001
 ```
-→ Loads STORY-001 from .ai_docs/Stories/
+→ Loads STORY-001 from devforgeai/specs/Stories/
 → Extracts acceptance criteria
 → Validates tech stack from context files
 → Begins TDD workflow: Red → Green → Refactor → Integration
@@ -1193,7 +1193,7 @@ Technical Requirements:
 
 **Mitigation:**
 ```
-Read .devforgeai/context/tech-stack.md BEFORE proposing technologies.
+Read devforgeai/specs/context/tech-stack.md BEFORE proposing technologies.
 If conflict detected: Use AskUserQuestion to resolve.
 ```
 

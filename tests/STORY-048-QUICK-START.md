@@ -401,7 +401,7 @@ STORY-048: Production Cutover, Documentation, and Distribution Package
 
 - **Detailed Documentation:** `tests/STORY-048-TEST-SUITE-SUMMARY.md`
 - **Machine-Readable Format:** `tests/STORY-048-TEST-SUMMARY.json`
-- **Story Definition:** `.ai_docs/Stories/STORY-048-production-cutover-documentation.story.md`
+- **Story Definition:** `devforgeai/specs/Stories/STORY-048-production-cutover-documentation.story.md`
 - **Test Framework:** [pytest documentation](https://docs.pytest.org/)
 
 ---

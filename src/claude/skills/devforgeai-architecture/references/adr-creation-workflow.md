@@ -103,7 +103,7 @@ From Phase 2 (context file creation), identify all significant decisions:
 
 ```
 # Find existing ADRs
-Glob(pattern=".devforgeai/adrs/ADR-*.md")
+Glob(pattern="devforgeai/specs/adrs/ADR-*.md")
 
 # Count existing + 1 = next number
 # Example: 3 existing → next is ADR-004
@@ -235,7 +235,7 @@ if research_result exists:
 ```markdown
 ## Alternatives Considered
 
-*Evidence from repository archaeology research: [RESEARCH-002](.devforgeai/research/shared/RESEARCH-002-backend-framework-evaluation.md)*
+*Evidence from repository archaeology research: [RESEARCH-002](devforgeai/specs/research/shared/RESEARCH-002-backend-framework-evaluation.md)*
 
 ### Entity Framework Core
 
@@ -344,7 +344,7 @@ This decision is enforced through DevForgeAI context files:
 #### 3.3 Write ADR to Disk
 
 ```
-Write(file_path=".devforgeai/adrs/ADR-001-database-selection.md", content="...")
+Write(file_path="devforgeai/specs/adrs/ADR-001-database-selection.md", content="...")
 ```
 
 ---
@@ -372,7 +372,7 @@ Write(file_path=".devforgeai/adrs/ADR-001-database-selection.md", content="...")
 
 ### Step 5: Create ADR Index
 
-**Create README.md in .devforgeai/adrs/:**
+**Create README.md in devforgeai/specs/adrs/:**
 
 ```markdown
 # Architecture Decision Records
@@ -403,7 +403,7 @@ See [adr-template.md](../references/adr-template.md) for the standard ADR struct
 ```
 
 ```
-Write(file_path=".devforgeai/adrs/README.md", content="...")
+Write(file_path="devforgeai/specs/adrs/README.md", content="...")
 ```
 
 ---
@@ -413,7 +413,7 @@ Write(file_path=".devforgeai/adrs/README.md", content="...")
 After Phase 3 completion:
 
 ```
-.devforgeai/adrs/
+devforgeai/specs/adrs/
 ├── README.md (index of all ADRs)
 ├── ADR-001-database-selection.md
 ├── ADR-002-orm-selection.md

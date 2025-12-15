@@ -30,7 +30,7 @@
 
 #### Config file location
 - [x] Changed from `feedback.yaml` → `feedback-preferences.yaml`
-- [x] Correct path: `.devforgeai/config/feedback-preferences.yaml`
+- [x] Correct path: `devforgeai/config/feedback-preferences.yaml`
 
 #### Operation types (whitelist)
 - [x] `skill_invocation` - ✅ in VALID_OPERATION_TYPES
@@ -164,7 +164,7 @@
 - [x] Created if missing: `_create_default_config()` with full schema
 - [x] Backup before modifications: `_create_backup()` creates timestamped backup
 - [x] Corrupted file handling: Backup created, fresh config returned
-- [x] Backup location: `.devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
+- [x] Backup location: `devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
 - [x] Backup timestamp: YYYYMMDD-HHMMSS UTC
 
 #### Error Handling & Logging

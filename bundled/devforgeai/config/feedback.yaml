@@ -1,7 +1,7 @@
 # DevForgeAI Feedback System Configuration
 # Version: 1.0
-# Documentation: .devforgeai/config/README.md
-# Schema: .devforgeai/config/feedback.schema.json
+# Documentation: devforgeai/config/README.md
+# Schema: devforgeai/config/feedback.schema.json
 
 # Master enable/disable switch for all feedback operations
 # When false, no feedback is collected regardless of other settings

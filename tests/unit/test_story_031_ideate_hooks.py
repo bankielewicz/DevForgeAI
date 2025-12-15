@@ -42,8 +42,8 @@ def mock_ideation_context():
     return {
         "operation_type": "ideation",
         "artifacts": [
-            ".ai_docs/Epics/EPIC-001-authentication.epic.md",
-            ".ai_docs/Epics/EPIC-002-api-gateway.epic.md",
+            "devforgeai/specs/Epics/EPIC-001-authentication.epic.md",
+            "devforgeai/specs/Epics/EPIC-002-api-gateway.epic.md",
         ],
         "requirements_specs": [
             ".devforgeai/specs/requirements/EPIC-001-requirements.md",

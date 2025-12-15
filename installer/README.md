@@ -55,8 +55,8 @@ else:
 ```
 
 **Expected:**
-- Deploys ~450 framework files to `.claude/` and `.devforgeai/`
-- Creates `.devforgeai/.version.json` with installation metadata
+- Deploys ~450 framework files to `.claude/` and `devforgeai/`
+- Creates `devforgeai/.version.json` with installation metadata
 - Sets file permissions (755 for scripts, 644 for docs)
 - Completes in <3 minutes
 
@@ -85,7 +85,7 @@ if result["status"] == "success":
 - Creates automatic backup: `.backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/`
 - Selectively updates only changed files (patch/minor upgrades)
 - Preserves user configs (hooks.yaml, context/*.md, feedback config)
-- Updates `.devforgeai/.version.json` to 1.0.1
+- Updates `devforgeai/.version.json` to 1.0.1
 - Completes in <30 seconds (selective update)
 
 ---
@@ -138,7 +138,7 @@ else:
 ```
 
 **Expected:**
-- Validates directory structure (.claude/skills/, .devforgeai/protocols/, etc.)
+- Validates directory structure (.claude/skills/, devforgeai/protocols/, etc.)
 - Validates `.version.json` schema and consistency
 - Checks CLI installed and accessible
 - Verifies critical files exist (11+ commands, 10+ skills, 3+ protocols)
@@ -162,15 +162,15 @@ result = install.install(
 if result["status"] == "success":
     print(f"✅ Framework uninstalled")
     print(f"   Backup: {result['backup_path']}")
-    print(f"   User data preserved: .ai_docs/, context/")
+    print(f"   User data preserved: devforgeai/specs/, context/")
 ```
 
 **Expected:**
 - Creates backup before removal
 - Removes `.claude/` directory
-- Removes `.devforgeai/` subdirectories (preserves context/, config/)
+- Removes `devforgeai/` subdirectories (preserves context/, config/)
 - Removes CLAUDE.md DevForgeAI sections
-- Preserves user data (`.ai_docs/`, context files)
+- Preserves user data (`devforgeai/specs/`, context files)
 - Removes `.version.json`
 - Project can be re-installed later
 
@@ -232,7 +232,7 @@ Backups are automatically created before:
 ```
 .backups/devforgeai-upgrade-20251119-143000/
 ├── .claude/           # Complete copy
-├── .devforgeai/       # Complete copy
+├── devforgeai/       # Complete copy
 ├── CLAUDE.md          # If exists
 └── manifest.json      # Backup metadata
 ```
@@ -280,14 +280,14 @@ ls -t | tail -n +6 | xargs rm -rf
 These files are **NEVER overwritten** during upgrades:
 
 **User Configurations:**
-- `.devforgeai/config/hooks.yaml`
-- `.devforgeai/feedback/config.yaml`
+- `devforgeai/config/hooks.yaml`
+- `devforgeai/feedback/config.yaml`
 
 **User Context:**
-- `.devforgeai/context/*.md` (tech-stack, source-tree, dependencies, etc.)
+- `devforgeai/specs/context/*.md` (tech-stack, source-tree, dependencies, etc.)
 
 **User Documentation:**
-- `.ai_docs/` directory (stories, epics, sprints)
+- `devforgeai/specs/` directory (stories, epics, sprints)
 
 ### New Configuration Templates
 
@@ -298,8 +298,8 @@ If framework adds new config options, installer provides templates:
 Upgrade 1.0.0 → 1.1.0 adds new feature with config
 
 Installer behavior:
-✅ Preserves: .devforgeai/config/hooks.yaml (user customizations)
-ℹ️  Creates: .devforgeai/config/hooks.yaml.example (new template)
+✅ Preserves: devforgeai/config/hooks.yaml (user customizations)
+ℹ️  Creates: devforgeai/config/hooks.yaml.example (new template)
 📝 Message: "New config template available: hooks.yaml.example (review for new features)"
 ```
 
@@ -614,7 +614,7 @@ A: Yes! Installer uses pathlib (cross-platform) and detects Windows vs Unix for 
 A: Installer auto-rolls back to previous state using backup. Project remains functional.
 
 **Q: Are my story files preserved during upgrade?**
-A: Yes! `.ai_docs/` directory is never touched. Context files are also preserved.
+A: Yes! `devforgeai/specs/` directory is never touched. Context files are also preserved.
 
 **Q: How do I downgrade to an older version?**
 A: Use `mode="downgrade"` with `force=True`. Note: May break compatibility.
@@ -668,8 +668,8 @@ For issues, see:
 - **Test files:** `installer/tests/` (examples of all operations)
 - **Integration tests:** `installer/tests/integration/` (end-to-end workflows)
 - **Story files:**
-  - `.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md` (installer core)
-  - `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md` (error handling)
+  - `devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md` (installer core)
+  - `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md` (error handling)
 
 ---
 

@@ -23,7 +23,7 @@ The installer performs comprehensive environment validation before making any ch
    - **Impact:** Installation blocked if disk space too low
 
 3. **Existing Installation Detection** (⚠ WARNING)
-   - Checks for `.claude/` or `.devforgeai/` directories
+   - Checks for `.claude/` or `devforgeai/` directories
    - Reads version information if present
    - **Result:** PASS if none found, WARN if found
    - **Impact:** User prompted to choose: Upgrade, Fresh install, or Cancel
@@ -155,7 +155,7 @@ python install.py --force
 **Resolution:**
 1. **Upgrade (U):** Preserves user data and configurations
    - Updates framework files
-   - Keeps `.ai_docs/` stories and epics
+   - Keeps `devforgeai/specs/` stories and epics
    - Migrates configuration if needed
 
 2. **Fresh Install (F):** Removes old files completely

@@ -15,7 +15,7 @@ Phase 6 transforms all discovered requirements into structured documents that fe
 
 ### Epic Document Structure
 
-Create epic documents in `.ai_docs/Epics/EPIC-NNN-[name].epic.md` following the DevForgeAI epic template.
+Create epic documents in `devforgeai/specs/Epics/EPIC-NNN-[name].epic.md` following the DevForgeAI epic template.
 
 **CRITICAL: Track epic creation with TodoWrite**
 
@@ -147,7 +147,7 @@ target-sprints: {estimated sprint count}
 planned_epics = {count from Phase 4}
 
 # Count created epic files
-created_epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+created_epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 created_count = len(created_epic_files)
 
 # Verification gate
@@ -204,7 +204,7 @@ AskUserQuestion(
 
 ### Requirements Spec Structure
 
-Create in `.devforgeai/specs/requirements/{project-name}-requirements.md`:
+Create in `devforgeai/specs/requirements/{project-name}-requirements.md`:
 
 ```markdown
 # {Project Name} - Requirements Specification
@@ -382,7 +382,7 @@ Create in `.devforgeai/specs/requirements/{project-name}-requirements.md`:
 ### Check for Existing Context Files
 
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 
 if len(context_files) == 6:
     existing_context = True
@@ -400,8 +400,8 @@ else:
 ✅ Requirements documentation complete
 
 Generated Documents:
-- {N} Epic documents in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
+- {N} Epic documents in devforgeai/specs/Epics/
+- Requirements specification in devforgeai/specs/requirements/
 
 Next Steps:
 1. Invoking devforgeai-architecture skill to create context files
@@ -426,9 +426,9 @@ Skill(command="devforgeai-architecture")
 **Validate requirements against constraints:**
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
 # Check for conflicts (should have been resolved in Phase 5)
 # If new conflicts found, use AskUserQuestion to resolve
@@ -442,8 +442,8 @@ Read(file_path=".devforgeai/context/architecture-constraints.md")
 Context files exist. Requirements validated against constraints.
 
 Generated Documents:
-- {N} Epic documents in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
+- {N} Epic documents in devforgeai/specs/Epics/
+- Requirements specification in devforgeai/specs/requirements/
 
 Ready to proceed with:
 1. devforgeai-orchestration (create sprints/stories)
@@ -466,10 +466,10 @@ Recommended: Run `/create-sprint 1` to begin sprint planning
 
 ```
 # Ensure directory exists
-Bash(command="mkdir -p .ai_docs/Epics")
+Bash(command="mkdir -p devforgeai/specs/Epics")
 
 # Retry write
-Write(file_path=".ai_docs/Epics/EPIC-001.epic.md", content=epic_content)
+Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content=epic_content)
 
 # If still fails after retry
 if write_failed_after_retry:
@@ -477,7 +477,7 @@ if write_failed_after_retry:
     ERROR: Could not create epic document automatically
 
     Manual creation steps:
-    1. Create file: .ai_docs/Epics/EPIC-001-{name}.epic.md
+    1. Create file: devforgeai/specs/Epics/EPIC-001-{name}.epic.md
     2. Copy this content: {epic_content}
     3. Save file
     4. Continue to next epic or run /create-context
@@ -492,7 +492,7 @@ if write_failed_after_retry:
 
 ```
 # Trust file system as source of truth
-actual_epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+actual_epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 
 # Verify each file has valid YAML frontmatter
 for epic_file in actual_epic_files:
@@ -527,12 +527,12 @@ for epic_file in actual_epic_files:
 **Files Created:**
 
 1. **Epic Documents** (1-3 files)
-   - Location: `.ai_docs/Epics/EPIC-{NNN}-{name}.epic.md`
+   - Location: `devforgeai/specs/Epics/EPIC-{NNN}-{name}.epic.md`
    - Size: 150-400 lines per epic
    - Format: YAML frontmatter + markdown sections
 
 2. **Requirements Specification** (1 file, optional)
-   - Location: `.devforgeai/specs/requirements/{project}-requirements.md`
+   - Location: `devforgeai/specs/requirements/{project}-requirements.md`
    - Size: 500-2000 lines
    - Format: Markdown with numbered sections
 
@@ -540,12 +540,12 @@ for epic_file in actual_epic_files:
 
 ```
 # Verify all planned epics created
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 assert len(epic_files) == planned_epic_count
 
 # Verify requirements spec (if generated)
 if requirements_spec_requested:
-    req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
+    req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
     assert len(req_files) >= 1
 
 ✓ Artifact generation complete
@@ -579,13 +579,13 @@ if requirements_spec_requested:
 **Expected structure after artifact generation:**
 
 ```
-.ai_docs/
+devforgeai/specs/
 ├── Epics/
 │   ├── EPIC-001-user-management.epic.md
 │   ├── EPIC-002-product-catalog.epic.md
 │   └── EPIC-003-shopping-checkout.epic.md
 
-.devforgeai/
+devforgeai/
 ├── specs/
 │   └── requirements/
 │       └── {project-name}-requirements.md
@@ -595,12 +595,12 @@ if requirements_spec_requested:
 
 ```
 # Ensure directories exist
-Bash(command="mkdir -p .ai_docs/Epics")
-Bash(command="mkdir -p .devforgeai/specs/requirements")
+Bash(command="mkdir -p devforgeai/specs/Epics")
+Bash(command="mkdir -p devforgeai/specs/requirements")
 
 # Verify creation
-Glob(pattern=".ai_docs/Epics/")  # Should exist
-Glob(pattern=".devforgeai/specs/requirements/")  # Should exist
+Glob(pattern="devforgeai/specs/Epics/")  # Should exist
+Glob(pattern="devforgeai/specs/requirements/")  # Should exist
 ```
 
 ---
@@ -611,7 +611,7 @@ Glob(pattern=".devforgeai/specs/requirements/")  # Should exist
 
 ```
 # Find highest existing epic number
-existing_epics = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+existing_epics = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 
 if len(existing_epics) == 0:
     next_epic_number = 1

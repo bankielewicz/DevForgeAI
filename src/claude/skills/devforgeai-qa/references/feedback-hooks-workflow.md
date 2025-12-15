@@ -69,7 +69,7 @@ EXIT_CODE=$?
 - Other: Error (treat as skip)
 
 **What check-hooks does:**
-1. Reads `.devforgeai/feedback/hooks.yaml` configuration
+1. Reads `devforgeai/feedback/hooks.yaml` configuration
 2. Checks `enabled` flag (true/false)
 3. Checks `trigger_on` mode (all, failures-only, successes-only)
 4. Returns 0 if hooks should run, 1 if should skip
@@ -110,7 +110,7 @@ fi
 1. Reads story file for context (coverage, violations, etc.)
 2. Generates context-aware feedback questions
 3. Prompts user for retrospective input
-4. Saves responses to `.devforgeai/feedback/sessions/`
+4. Saves responses to `devforgeai/feedback/sessions/`
 5. Returns 0 on success, non-zero on failure (timeout, error)
 
 **Timeout handling:**
@@ -232,7 +232,7 @@ devforgeai-validate invoke-hooks --operation=qa --story=[STORY-ID]
 
 ### Hook Configuration Missing
 
-**Scenario:** `.devforgeai/feedback/hooks.yaml` doesn't exist
+**Scenario:** `devforgeai/feedback/hooks.yaml` doesn't exist
 
 **Behavior:**
 - `check-hooks` returns exit code 1 (skip)

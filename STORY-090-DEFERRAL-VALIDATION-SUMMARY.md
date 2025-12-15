@@ -314,18 +314,18 @@ No circular deferrals, no unaccounted work. RCA-007 risk is **LOW** if follow-up
 ## Appendix: Files and References
 
 **Validation Input:**
-- Story File: `.ai_docs/Stories/STORY-090-story-template-v2.2-depends-on-field.story.md`
+- Story File: `devforgeai/specs/Stories/STORY-090-story-template-v2.2-depends-on-field.story.md`
 - Implementation Notes: Lines 531-548
 - Deferred Items: DoD Status, lines 466-467, 543-547
 
 **Referenced Stories:**
-- STORY-091: `.ai_docs/Stories/STORY-091-git-worktree-auto-management.story.md`
-- STORY-092: `.ai_docs/Stories/STORY-092-story-scoped-test-isolation.story.md`
+- STORY-091: `devforgeai/specs/Stories/STORY-091-git-worktree-auto-management.story.md`
+- STORY-092: `devforgeai/specs/Stories/STORY-092-story-scoped-test-isolation.story.md`
 
 **Required Actions:**
 - Create: `.devforgeai/adrs/ADR-008-*.md` (ADR for scope boundary)
-- Create: `.ai_docs/Stories/STORY-093-*.story.md` (Follow-up story)
-- Update: `.ai_docs/Stories/STORY-090-*.story.md` (Add ADR/approval reference)
+- Create: `devforgeai/specs/Stories/STORY-093-*.story.md` (Follow-up story)
+- Update: `devforgeai/specs/Stories/STORY-090-*.story.md` (Add ADR/approval reference)
 
 **Related RCAs:**
 - RCA-007: Multi-level deferral chains (loss-of-work prevention)

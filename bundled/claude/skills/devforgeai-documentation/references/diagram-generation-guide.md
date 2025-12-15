@@ -352,7 +352,7 @@ Pattern replacements:
 **Check for forbidden dependencies:**
 
 ```
-Read(".devforgeai/context/architecture-constraints.md")
+Read("devforgeai/specs/context/architecture-constraints.md")
 
 Extract forbidden patterns:
 - "Domain → Infrastructure" (forbidden)

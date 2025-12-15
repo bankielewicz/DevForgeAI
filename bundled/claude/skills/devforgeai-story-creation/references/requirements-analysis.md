@@ -26,17 +26,17 @@ This phase transforms the feature description into structured user story format 
 **Take snapshot:**
 ```python
 # Capture current .story.md files
-files_before_subagent = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+files_before_subagent = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 story_count_before = len(files_before_subagent)
 
 # Capture potential supporting files for this story
 supporting_file_patterns = [
-    f".ai_docs/Stories/{story_id}-SUMMARY.md",
-    f".ai_docs/Stories/{story_id}-QUICK-START.md",
-    f".ai_docs/Stories/{story_id}-VALIDATION-CHECKLIST.md",
-    f".ai_docs/Stories/{story_id}-FILE-INDEX.md",
-    f".ai_docs/Stories/{story_id}-DELIVERY-SUMMARY.md",
-    f".ai_docs/Stories/{story_id}*.md"  # Any file with story ID
+    f"devforgeai/specs/Stories/{story_id}-SUMMARY.md",
+    f"devforgeai/specs/Stories/{story_id}-QUICK-START.md",
+    f"devforgeai/specs/Stories/{story_id}-VALIDATION-CHECKLIST.md",
+    f"devforgeai/specs/Stories/{story_id}-FILE-INDEX.md",
+    f"devforgeai/specs/Stories/{story_id}-DELIVERY-SUMMARY.md",
+    f"devforgeai/specs/Stories/{story_id}*.md"  # Any file with story ID
 ]
 
 # Check which files exist before subagent runs
@@ -103,7 +103,7 @@ This skill will assemble your output into a single .story.md file using story-te
 - Current workflow: Story creation (8-phase process)
 - Current phase: Phase 2 (Requirements Analysis)
 - Next phase: Phase 3 (Technical Specification)
-- Final artifact: .ai_docs/Stories/{story_id}-{slug}.story.md
+- Final artifact: devforgeai/specs/Stories/{story_id}-{slug}.story.md
 
 **═══════════════════════════════════════════════════════════════════════════**
 **CRITICAL OUTPUT CONSTRAINTS:**
@@ -230,7 +230,7 @@ title: {title}
 ...
 ```
 
-**Final result:** Single .story.md file at .ai_docs/Stories/{story_id}-{slug}.story.md
+**Final result:** Single .story.md file at devforgeai/specs/Stories/{story_id}-{slug}.story.md
 
 **═══════════════════════════════════════════════════════════════════════════**
 **NOW PROCEED WITH REQUIREMENTS ANALYSIS:**
@@ -388,7 +388,7 @@ Recovery Action: re_invoke
 
     # Append to violation log
     Write(
-        file_path=".devforgeai/logs/rca-007-violations.log",
+        file_path="devforgeai/logs/rca-007-violations.log",
         content=log_entry
     )
 
@@ -764,7 +764,7 @@ def extract_section(text, section_name):
 **Compare file system state:**
 ```python
 # Capture current state (after subagent)
-files_after_subagent = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+files_after_subagent = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 story_count_after = len(files_after_subagent)
 
 # Check for new supporting files
@@ -833,10 +833,10 @@ Recovery: Re-invoking subagent with STRICT MODE
 """
 
     # Append to log (or create if first entry beyond header)
-    current_log = Read(file_path=".devforgeai/logs/rca-007-violations.log")
+    current_log = Read(file_path="devforgeai/logs/rca-007-violations.log")
     updated_log = current_log + log_entry
 
-    Write(file_path=".devforgeai/logs/rca-007-violations.log", content=updated_log)
+    Write(file_path="devforgeai/logs/rca-007-violations.log", content=updated_log)
 
     # Re-invoke subagent with stricter constraints
     Display: """
@@ -889,8 +889,8 @@ Note: Phase 2 should not create files (Phase 5 handles file creation)
 ---
 """
 
-    current_log = Read(file_path=".devforgeai/logs/rca-007-violations.log")
-    Write(file_path=".devforgeai/logs/rca-007-violations.log", content=current_log + log_warning)
+    current_log = Read(file_path="devforgeai/logs/rca-007-violations.log")
+    Write(file_path="devforgeai/logs/rca-007-violations.log", content=current_log + log_warning)
 
 else:
     # No unauthorized files - file system diff passed

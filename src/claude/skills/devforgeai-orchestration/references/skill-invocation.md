@@ -63,7 +63,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 #### Context Check
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 Expected: 6 files
 - tech-stack.md
@@ -94,7 +94,7 @@ IF context_files_exist == false:
   Wait for completion
 
   Validate context files created:
-    Glob(pattern=".devforgeai/context/*.md")
+    Glob(pattern="devforgeai/specs/context/*.md")
     IF count == 6:
       Success: "✓ Context files created"
     ELSE:
@@ -102,7 +102,7 @@ IF context_files_exist == false:
 
   Update story status:
     Edit(
-      file_path=".ai_docs/Stories/{story_id}.story.md",
+      file_path="devforgeai/specs/Stories/{story_id}.story.md",
       old_string="status: Architecture",
       new_string="status: Ready for Dev"
     )
@@ -151,7 +151,7 @@ The development skill executes **6 phases** in isolated context:
 Wait for development skill completion
 
 Verify story status updated:
-  Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
   Extract: status
 
   IF status == "Dev Complete":
@@ -207,7 +207,7 @@ The QA skill executes **5 phases** in isolated context:
 Wait for QA skill completion
 
 Read QA report:
-  Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+  Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 Parse result:
   Grep(pattern="Overall Result: (PASS|FAIL)")
@@ -224,7 +224,7 @@ IF qa_result == "PASS":
 
      Coverage: {coverage_percentage}%
      Violations: 0 CRITICAL, 0 HIGH
-     Report: .devforgeai/qa/reports/{story_id}-qa-report.md"
+     Report: devforgeai/qa/reports/{story_id}-qa-report.md"
 
   Proceed to Phase 4 (Release)
 
@@ -249,7 +249,7 @@ ELSE IF qa_result == "FAIL":
      - MEDIUM: {medium_count}
      - LOW: {low_count}
 
-     Report: .devforgeai/qa/reports/{story_id}-qa-report.md"
+     Report: devforgeai/qa/reports/{story_id}-qa-report.md"
 
   Return to Phase 2 (Development) OR enter retry loop (Phase 3.5)
 ```
@@ -293,7 +293,7 @@ Skill(command="devforgeai-release")
 Wait for staging deployment completion
 
 Verify checkpoint created:
-  Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
   Grep(pattern="Checkpoint: STAGING_COMPLETE", file=workflow_history)
 
   IF found:
@@ -335,7 +335,7 @@ Skill(command="devforgeai-release")
 Wait for production deployment completion
 
 Verify story status:
-  Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
   Extract: status
 
   IF status == "Released":
@@ -371,7 +371,7 @@ Verify story status:
 
 ```
 # Step 1: Load story (provides story ID in context)
-Read(file_path=".ai_docs/Stories/STORY-048-production-cutover-documentation.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-048-production-cutover-documentation.story.md")
 
 # Step 2: Set explicit context markers
 **Story ID:** STORY-048

@@ -21,16 +21,16 @@ Runs after story validation, before sprint assignment.
 ## Invocation
 
 ```bash
-.devforgeai/traceability/coverage-gate.sh [OPTIONS]
+devforgeai/traceability/coverage-gate.sh [OPTIONS]
 
 # Test with specific coverage
-.devforgeai/traceability/coverage-gate.sh --coverage 75
+devforgeai/traceability/coverage-gate.sh --coverage 75
 
 # Validate real files
-.devforgeai/traceability/coverage-gate.sh --epic-dir .ai_docs/Epics --story-dir .ai_docs/Stories
+devforgeai/traceability/coverage-gate.sh --epic-dir devforgeai/specs/Epics --story-dir devforgeai/specs/Stories
 
 # Use custom thresholds
-.devforgeai/traceability/coverage-gate.sh --config thresholds.json
+devforgeai/traceability/coverage-gate.sh --config thresholds.json
 ```
 
 ## Output Format
@@ -79,7 +79,7 @@ Remediation Steps:
 
 ## Configuration
 
-Thresholds loaded from: `.devforgeai/traceability/thresholds.json`
+Thresholds loaded from: `devforgeai/traceability/thresholds.json`
 
 ```json
 {
@@ -98,8 +98,8 @@ Thresholds loaded from: `.devforgeai/traceability/thresholds.json`
 
 ## Dependencies
 
-- `.devforgeai/traceability/gap-detector.sh` - Gap detection engine
-- `.devforgeai/epic-coverage/generate-report.sh` - Report generation
+- `devforgeai/traceability/gap-detector.sh` - Gap detection engine
+- `devforgeai/epic-coverage/generate-report.sh` - Report generation
 
 ## Workflow Integration
 

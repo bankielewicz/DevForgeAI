@@ -222,7 +222,7 @@ Notes say: "Reporter generates summary"  ← WRONG: Must match exactly
 
 **Always run before git commit:**
 ```bash
-devforgeai-validate validate-dod .ai_docs/Stories/{STORY-ID}.story.md
+devforgeai-validate validate-dod devforgeai/specs/Stories/{STORY-ID}.story.md
 ```
 
 **Expected output for success:**

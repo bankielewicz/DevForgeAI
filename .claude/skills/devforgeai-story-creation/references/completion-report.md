@@ -82,7 +82,7 @@ Batch loop will proceed to next feature or display batch completion summary
 - UI Components: {component_count or "None"}
 
 **File Location:**
-`.ai_docs/Stories/{story_id}-{slug}.story.md`
+`devforgeai/specs/Stories/{story_id}-{slug}.story.md`
 
 **Story validated:**
 ✓ User story format correct
@@ -159,7 +159,7 @@ Report: """
 Run: `/create-sprint {number}` to add stories to a sprint
 
 Or manually:
-1. Edit sprint file: `.ai_docs/Sprints/SPRINT-XXX.md`
+1. Edit sprint file: `devforgeai/specs/Sprints/SPRINT-XXX.md`
 2. Add story to Sprint Backlog section
 3. Update story status to "Ready for Dev" when sprint starts
 """
@@ -168,7 +168,7 @@ Or manually:
 **"Review story file":**
 ```
 Report: """
-Story file: `.ai_docs/Stories/{story_id}-{slug}.story.md`
+Story file: `devforgeai/specs/Stories/{story_id}-{slug}.story.md`
 
 You can:
 - Open in your editor to review/edit

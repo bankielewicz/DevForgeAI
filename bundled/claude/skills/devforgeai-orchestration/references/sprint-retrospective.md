@@ -35,7 +35,7 @@
 When this reference is loaded:
 
 - **SPRINT_ID:** Sprint identifier (e.g., Sprint-1, Sprint-2)
-- **SPRINT_FILE:** Path to sprint file (.ai_docs/Sprints/Sprint-1.md)
+- **SPRINT_FILE:** Path to sprint file (devforgeai/specs/Sprints/Sprint-1.md)
 - **Sprint Content:** Sprint YAML frontmatter and story list
 - **Completion Detected:** All stories in terminal states
 
@@ -60,7 +60,7 @@ Extract: story list from YAML frontmatter
 sprint_complete = true
 
 FOR each story_id in sprint_stories:
-    Glob(pattern=".ai_docs/Stories/${story_id}*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/${story_id}*.story.md")
 
     IF file found:
         Read YAML frontmatter (first 20 lines)
@@ -129,7 +129,7 @@ SlashCommand(command="/audit-deferrals")
 
 ```
 # Read the generated audit report
-audit_report_path = most recent file in .devforgeai/qa/deferral-audit-*.md
+audit_report_path = most recent file in devforgeai/qa/deferral-audit-*.md
 
 Read(file_path=audit_report_path)
 
@@ -256,7 +256,7 @@ ${IF valid_count > 0}:
      - Monitor blockers for resolution
      - Track in technical debt register
 
-Full audit report: .devforgeai/qa/deferral-audit-{timestamp}.md
+Full audit report: devforgeai/qa/deferral-audit-{timestamp}.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ```
@@ -479,7 +479,7 @@ ERROR: Sprint file not available
 Expected: ${SPRINT_FILE}
 
 Actions:
-1. Verify sprint file exists: Glob(pattern=".ai_docs/Sprints/${SPRINT_ID}.md")
+1. Verify sprint file exists: Glob(pattern="devforgeai/specs/Sprints/${SPRINT_ID}.md")
 2. Check SPRINT_ID extracted correctly from context
 3. Re-invoke with correct sprint ID
 ```
@@ -530,7 +530,7 @@ Actions:
 - `auto_create_debt_sprint`: false (default: ask user)
 - `auto_create_debt_stories`: false (default: ask user)
 
-**Configuration file:** `.devforgeai/config/retrospective-config.yaml` (future)
+**Configuration file:** `devforgeai/config/retrospective-config.yaml` (future)
 
 ---
 
@@ -625,7 +625,7 @@ RECOMMENDATIONS:
 2. ℹ️  VALID DEFERRALS: 4 item(s) still blocked
    - Monitor blockers for resolution
 
-Full audit report: .devforgeai/qa/deferral-audit-2024-11-06-1700.md
+Full audit report: devforgeai/qa/deferral-audit-2024-11-06-1700.md
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 

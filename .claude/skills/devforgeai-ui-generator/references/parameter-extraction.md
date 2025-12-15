@@ -11,7 +11,7 @@ How UI generator skill extracts parameters (story ID or component description) f
 When `/create-ui` command invokes this skill, it provides context in two modes:
 
 **Story Mode:**
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States: "Story ID: STORY-XXX" and "Mode: story"
 3. Invokes: `Skill(command="devforgeai-ui-generator")`
 
@@ -45,7 +45,7 @@ IF conversation contains YAML frontmatter with "id: STORY-XXX":
   MODE = "story"
   Extract story ID from frontmatter
 
-ELSE IF conversation contains ".ai_docs/Stories/STORY-XXX":
+ELSE IF conversation contains "devforgeai/specs/Stories/STORY-XXX":
   MODE = "story"
   Extract story ID from file path
 
@@ -91,7 +91,7 @@ ELSE:
 2. **From @file reference:**
    ```
    Search conversation for:
-   @.ai_docs/Stories/STORY-XXX-title.story.md
+   @devforgeai/specs/Stories/STORY-XXX-title.story.md
 
    Extract: STORY-XXX
    ```
@@ -149,7 +149,7 @@ Please ensure context is provided via slash command or state explicitly."
 
 ### Example 1: Story Mode (via @file)
 ```
-@.ai_docs/Stories/STORY-042-user-login.story.md
+@devforgeai/specs/Stories/STORY-042-user-login.story.md
 Skill(command="devforgeai-ui-generator")
 
 Detection:

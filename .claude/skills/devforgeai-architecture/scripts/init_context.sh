@@ -12,7 +12,7 @@
 set -e
 
 PROJECT_ROOT="${1:-.}"
-CONTEXT_DIR="${PROJECT_ROOT}/.devforgeai/context"
+CONTEXT_DIR="${PROJECT_ROOT}/devforgeai/context"
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "🏗️  Initializing DevForgeAI context files..."
@@ -72,7 +72,7 @@ This directory contains architecture documentation for the project.
 ## Structure
 
 - `decisions/` - Architecture Decision Records (ADRs)
-- Context files are in `.devforgeai/context/`
+- Context files are in `devforgeai/specs/context/`
 
 ## Context Files
 
@@ -104,7 +104,7 @@ echo "✅ Context files initialized successfully!"
 echo ""
 echo "📝 Next steps:"
 echo ""
-echo "  1. Customize context files in .devforgeai/context/:"
+echo "  1. Customize context files in devforgeai/specs/context/:"
 echo "     - tech-stack.md - Fill in technology choices"
 echo "     - source-tree.md - Customize project structure"
 echo "     - dependencies.md - Add approved packages and versions"

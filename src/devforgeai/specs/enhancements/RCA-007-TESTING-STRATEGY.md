@@ -48,12 +48,12 @@ cd /mnt/c/Projects/DevForgeAI2
 # (Use existing EPIC-001 or create test epic)
 
 # 3. Initialize violation log
-mkdir -p .devforgeai/logs
-touch .devforgeai/logs/rca-007-violations.log
+mkdir -p devforgeai/logs
+touch devforgeai/logs/rca-007-violations.log
 
 # 4. Backup existing stories
-mkdir -p .devforgeai/backups/stories-$(date +%Y%m%d)
-cp .ai_docs/Stories/*.story.md .devforgeai/backups/stories-$(date +%Y%m%d)/
+mkdir -p devforgeai/backups/stories-$(date +%Y%m%d)
+cp devforgeai/specs/Stories/*.story.md devforgeai/backups/stories-$(date +%Y%m%d)/
 
 # 5. Install validation script
 pip install pyyaml  # If not already installed
@@ -65,16 +65,16 @@ chmod +x .claude/skills/devforgeai-story-creation/scripts/validate_contract.py
 **After each test:**
 ```bash
 # 1. Count files created
-ls .ai_docs/Stories/STORY-*.story.md | wc -l
+ls devforgeai/specs/Stories/STORY-*.story.md | wc -l
 
 # 2. Check for extra files
-ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null
-ls .ai_docs/Stories/STORY-*-QUICK-START.md 2>/dev/null
-ls .ai_docs/Stories/STORY-*-VALIDATION-CHECKLIST.md 2>/dev/null
-ls .ai_docs/Stories/STORY-*-FILE-INDEX.md 2>/dev/null
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null
+ls devforgeai/specs/Stories/STORY-*-QUICK-START.md 2>/dev/null
+ls devforgeai/specs/Stories/STORY-*-VALIDATION-CHECKLIST.md 2>/dev/null
+ls devforgeai/specs/Stories/STORY-*-FILE-INDEX.md 2>/dev/null
 
 # 3. Review violation log
-tail -20 .devforgeai/logs/rca-007-violations.log
+tail -20 devforgeai/logs/rca-007-violations.log
 
 # 4. Clean up test stories (if needed)
 # (Keep or delete based on test type)
@@ -202,7 +202,7 @@ assert any(v['severity'] == "CRITICAL" for v in violations)
 - [ ] Re-invocation triggered automatically
 - [ ] STRICT MODE prompt used in retry
 - [ ] Second attempt succeeds (no violations)
-- [ ] Violation logged to .devforgeai/logs/rca-007-violations.log
+- [ ] Violation logged to devforgeai/logs/rca-007-violations.log
 
 ---
 
@@ -254,7 +254,7 @@ assert "Non-Functional Requirements" in missing_sections
 **Procedure:**
 ```bash
 # Pre-test: Count existing stories
-before_count=$(ls .ai_docs/Stories/STORY-*.story.md 2>/dev/null | wc -l)
+before_count=$(ls devforgeai/specs/Stories/STORY-*.story.md 2>/dev/null | wc -l)
 
 # Execute command
 /create-story Database connection pooling with retry logic
@@ -262,18 +262,18 @@ before_count=$(ls .ai_docs/Stories/STORY-*.story.md 2>/dev/null | wc -l)
 # Wait for completion
 
 # Post-test: Count stories
-after_count=$(ls .ai_docs/Stories/STORY-*.story.md 2>/dev/null | wc -l)
+after_count=$(ls devforgeai/specs/Stories/STORY-*.story.md 2>/dev/null | wc -l)
 
 # Assertions
 new_stories=$((after_count - before_count))
 assert [ $new_stories -eq 1 ]  # Exactly 1 new story
 
 # Check for extra files
-extra_files=$(ls .ai_docs/Stories/STORY-*-SUMMARY.md .ai_docs/Stories/STORY-*-QUICK-START.md 2>/dev/null | wc -l)
+extra_files=$(ls devforgeai/specs/Stories/STORY-*-SUMMARY.md devforgeai/specs/Stories/STORY-*-QUICK-START.md 2>/dev/null | wc -l)
 assert [ $extra_files -eq 0 ]  # Zero extra files
 
 # Validate story content
-story_file=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)  # Most recent
+story_file=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)  # Most recent
 assert grep -q "## User Story" "$story_file"
 assert grep -q "## Acceptance Criteria" "$story_file"
 assert grep -q "## Edge Cases" "$story_file"
@@ -314,15 +314,15 @@ cp .claude/agents/requirements-analyst.md .claude/agents/requirements-analyst.md
 # 4. Second attempt succeeds (returns content only)
 
 # Check violation log
-assert grep -q "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
-assert grep -q "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log
+assert grep -q "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
+assert grep -q "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log
 
 # Restore subagent
 mv .claude/agents/requirements-analyst.md.backup .claude/agents/requirements-analyst.md
 
 # Check final result
 # Expected: Only 1 .story.md file, no extras
-assert [ $(ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l) -eq 0 ]
+assert [ $(ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l) -eq 0 ]
 ```
 
 **Success Criteria:**
@@ -416,13 +416,13 @@ assert re.search(r'\d+(\.\d+)?%', nfr_section)  # Percentage (uptime, coverage, 
 **Procedure:**
 ```bash
 # Pre-test: Read epic file
-epic_before=$(cat .ai_docs/Epics/EPIC-002.epic.md)
+epic_before=$(cat devforgeai/specs/Epics/EPIC-002.epic.md)
 
 # Create story for epic feature
 /create-story epic-002  # Select Feature 2.3
 
 # Post-test: Read epic file
-epic_after=$(cat .ai_docs/Epics/EPIC-002.epic.md)
+epic_after=$(cat devforgeai/specs/Epics/EPIC-002.epic.md)
 
 # Assertions
 diff <(echo "$epic_before") <(echo "$epic_after")  # Should show story reference added
@@ -431,7 +431,7 @@ diff <(echo "$epic_before") <(echo "$epic_after")  # Should show story reference
 assert grep -q "STORY-0[0-9][0-9]" <(echo "$epic_after")
 
 # Check epic reference in story
-story_file=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+story_file=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 assert grep -q "epic: EPIC-002" "$story_file"
 ```
 
@@ -521,8 +521,8 @@ assert output_contains("Next Steps")
 # Story 2: After RCA-007 fix (new creation)
 
 # Compare content quality
-story_before=".devforgeai/backups/stories-baseline/STORY-SAMPLE.story.md"
-story_after=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+story_before="devforgeai/backups/stories-baseline/STORY-SAMPLE.story.md"
+story_after=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 
 # Compare sections
 diff <(grep "## User Story" -A 5 "$story_before") <(grep "## User Story" -A 5 "$story_after")
@@ -554,7 +554,7 @@ assert [ $nfr_lines_after -ge $((nfr_lines_before * 8 / 10)) ]  # At least 80% o
 **Procedure:**
 ```bash
 # Read test epic
-epic_file=".ai_docs/Epics/EPIC-001.epic.md"
+epic_file="devforgeai/specs/Epics/EPIC-001.epic.md"
 
 # Extract features using regex pattern
 features=$(grep -E "^### Feature [0-9]+\.[0-9]+:" "$epic_file")
@@ -664,7 +664,7 @@ assert [ $? -eq 1 ]
 # - Re-invoke subagent
 
 # Check result
-assert [ $(ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l) -eq 0 ]
+assert [ $(ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l) -eq 0 ]
 ```
 
 **Success Criteria:**
@@ -727,7 +727,7 @@ assert result['max_retries'] == 2
 /create-story Test monitoring story 3
 
 # Check violation log exists and has entries (if violations occurred)
-log_file=".devforgeai/logs/rca-007-violations.log"
+log_file="devforgeai/logs/rca-007-violations.log"
 
 if [ -f "$log_file" ]; then
     # Count entries
@@ -851,8 +851,8 @@ assert grep -q "story-requirements-analyst" .claude/skills/devforgeai-story-crea
 /create-story Test skill-specific subagent behavior
 
 # Check result
-after_count=$(ls .ai_docs/Stories/STORY-*.story.md | wc -l)
-extra_count=$(ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l)
+after_count=$(ls devforgeai/specs/Stories/STORY-*.story.md | wc -l)
+extra_count=$(ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l)
 
 # Assertions
 assert [ $extra_count -eq 0 ]  # Zero extra files
@@ -992,28 +992,28 @@ done
 # Existing: STORY-001, STORY-002, STORY-003, STORY-005, STORY-007
 
 # Delete STORY-004 and STORY-006 (create gaps)
-rm .ai_docs/Stories/STORY-004*.story.md
-rm .ai_docs/Stories/STORY-006*.story.md
+rm devforgeai/specs/Stories/STORY-004*.story.md
+rm devforgeai/specs/Stories/STORY-006*.story.md
 
 # Create new story
 /create-story epic-001  # Select 1 feature
 
 # Expected: Next ID is STORY-004 (fills first gap)
-latest=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+latest=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 assert echo "$latest" | grep -q "STORY-004"
 
 # Create another story
 /create-story epic-001  # Select 1 feature
 
 # Expected: Next ID is STORY-006 (fills second gap)
-latest=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+latest=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 assert echo "$latest" | grep -q "STORY-006"
 
 # Create another story
 /create-story epic-001  # Select 1 feature
 
 # Expected: Next ID is STORY-008 (no gaps, increment from max=7)
-latest=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+latest=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 assert echo "$latest" | grep -q "STORY-008"
 ```
 
@@ -1040,7 +1040,7 @@ assert echo "$latest" | grep -q "STORY-008"
 
 # Check all 3 stories have same metadata
 for story in STORY-009 STORY-010 STORY-011; do
-    story_file=$(ls .ai_docs/Stories/${story}*.story.md)
+    story_file=$(ls devforgeai/specs/Stories/${story}*.story.md)
 
     # Extract metadata
     sprint=$(grep "^sprint:" "$story_file" | awk '{print $2}')
@@ -1095,7 +1095,7 @@ done
 **Procedure:**
 ```bash
 # Pre-test state
-before=$(ls .ai_docs/Stories/STORY-*.story.md | wc -l)
+before=$(ls devforgeai/specs/Stories/STORY-*.story.md | wc -l)
 
 # Execute
 /create-story epic-001
@@ -1107,7 +1107,7 @@ before=$(ls .ai_docs/Stories/STORY-*.story.md | wc -l)
 # Wait for completion (expected: 6-14 minutes depending on parallel optimization)
 
 # Post-test state
-after=$(ls .ai_docs/Stories/STORY-*.story.md | wc -l)
+after=$(ls devforgeai/specs/Stories/STORY-*.story.md | wc -l)
 new=$((after - before))
 
 # Assertions
@@ -1116,17 +1116,17 @@ assert [ $new -eq 7 ]  # Exactly 7 new stories
 # Check IDs are sequential
 expected_ids=("STORY-009" "STORY-010" "STORY-011" "STORY-012" "STORY-013" "STORY-014" "STORY-015")
 for id in "${expected_ids[@]}"; do
-    assert [ -f .ai_docs/Stories/${id}*.story.md ]
+    assert [ -f devforgeai/specs/Stories/${id}*.story.md ]
 done
 
 # Check no extra files
 for id in "${expected_ids[@]}"; do
-    assert [ ! -f .ai_docs/Stories/${id}-SUMMARY.md ]
-    assert [ ! -f .ai_docs/Stories/${id}-QUICK-START.md ]
+    assert [ ! -f devforgeai/specs/Stories/${id}-SUMMARY.md ]
+    assert [ ! -f devforgeai/specs/Stories/${id}-QUICK-START.md ]
 done
 
 # Check epic updated
-epic=".ai_docs/Epics/EPIC-001.epic.md"
+epic="devforgeai/specs/Epics/EPIC-001.epic.md"
 for id in "${expected_ids[@]}"; do
     assert grep -q "$id" "$epic"
 done
@@ -1154,12 +1154,12 @@ done
 # Expected: Only 3 stories created (for selected features)
 
 # Post-test
-new_stories=$(ls .ai_docs/Stories/STORY-010*.story.md .ai_docs/Stories/STORY-011*.story.md .ai_docs/Stories/STORY-012*.story.md 2>/dev/null | wc -l)
+new_stories=$(ls devforgeai/specs/Stories/STORY-010*.story.md devforgeai/specs/Stories/STORY-011*.story.md devforgeai/specs/Stories/STORY-012*.story.md 2>/dev/null | wc -l)
 
 assert [ $new_stories -eq 3 ]
 
 # Check epic shows stories only for selected features
-epic=".ai_docs/Epics/EPIC-002.epic.md"
+epic="devforgeai/specs/Epics/EPIC-002.epic.md"
 
 # Feature 2.3 should have story
 assert grep -A 3 "Feature 2.3" "$epic" | grep -q "STORY-"
@@ -1200,7 +1200,7 @@ assert ! grep -A 3 "Feature 2.5" "$epic" | grep -q "STORY-"
 # Expected: "4 succeeded, 1 failed"
 
 # Assertions
-created=$(ls .ai_docs/Stories/STORY-016*.story.md .ai_docs/Stories/STORY-017*.story.md 2>/dev/null | wc -l)
+created=$(ls devforgeai/specs/Stories/STORY-016*.story.md devforgeai/specs/Stories/STORY-017*.story.md 2>/dev/null | wc -l)
 assert [ $created -eq 4 ]  # 4 succeeded (feature 3 failed)
 
 # Check retry option presented
@@ -1240,7 +1240,7 @@ dry_run_ids=$(echo "$preview_output" | grep -oE "STORY-[0-9]{3}")
 # Same sprint, same priority
 
 # Capture actual results
-actual_ids=$(ls .ai_docs/Stories/STORY-*.story.md | grep -oE "STORY-[0-9]{3}" | tail -4)
+actual_ids=$(ls devforgeai/specs/Stories/STORY-*.story.md | grep -oE "STORY-[0-9]{3}" | tail -4)
 
 # Compare
 assert [ "$dry_run_ids" == "$actual_ids" ]  # IDs match preview
@@ -1360,7 +1360,7 @@ assert file_count increases by 1
 **Procedure:**
 ```bash
 # Check existing stories
-existing_stories=$(ls .ai_docs/Stories/STORY-*.story.md)
+existing_stories=$(ls devforgeai/specs/Stories/STORY-*.story.md)
 
 # Read each story
 for story in $existing_stories; do
@@ -1438,17 +1438,17 @@ done
 
 ### Create Test Suite Script
 
-**File:** `.devforgeai/tests/rca-007-test-suite.sh`
+**File:** `devforgeai/tests/rca-007-test-suite.sh`
 
 ```bash
 #!/bin/bash
 # RCA-007 & Batch Creation Test Suite
-# Usage: bash .devforgeai/tests/rca-007-test-suite.sh [phase]
+# Usage: bash devforgeai/tests/rca-007-test-suite.sh [phase]
 
 set -e
 
 PHASE=${1:-all}
-RESULTS_DIR=".devforgeai/tests/results"
+RESULTS_DIR="devforgeai/tests/results"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
 mkdir -p "$RESULTS_DIR"
@@ -1564,11 +1564,11 @@ fi
 **Usage:**
 ```bash
 # Run all tests
-bash .devforgeai/tests/rca-007-test-suite.sh all
+bash devforgeai/tests/rca-007-test-suite.sh all
 
 # Run specific phase
-bash .devforgeai/tests/rca-007-test-suite.sh phase1
-bash .devforgeai/tests/rca-007-test-suite.sh phase2
+bash devforgeai/tests/rca-007-test-suite.sh phase1
+bash devforgeai/tests/rca-007-test-suite.sh phase2
 ```
 
 ---
@@ -1587,7 +1587,7 @@ bash .devforgeai/tests/rca-007-test-suite.sh phase2
 ### Overall Success Criteria
 
 - [ ] **Zero extra files:** No SUMMARY, QUICK-START, VALIDATION-CHECKLIST, FILE-INDEX files created
-- [ ] **100% single-file compliance:** Only .story.md files in .ai_docs/Stories/
+- [ ] **100% single-file compliance:** Only .story.md files in devforgeai/specs/Stories/
 - [ ] **Validation effectiveness:** 100% detection rate for file creation violations
 - [ ] **Recovery success:** 90%+ first-retry success rate
 - [ ] **Performance:** Validation overhead <5%
@@ -1669,7 +1669,7 @@ if git diff --cached --name-only | grep -qE "devforgeai-story-creation|requireme
 
     # Run quick validation
     python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
-        .devforgeai/tests/fixtures/sample-subagent-output.txt \
+        devforgeai/tests/fixtures/sample-subagent-output.txt \
         .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
 
     if [ $? -ne 0 ]; then
@@ -1705,7 +1705,7 @@ assert no extra files per story
 assert batch metadata applied
 
 # 3. Check violation log
-violations=$(grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log)
+violations=$(grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log)
 
 # Report
 echo "Weekly Regression: $violations violations this week"
@@ -1720,11 +1720,11 @@ fi
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Batch Enhancement:** `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
-- **Prompt Spec:** `.devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
-- **Contract Spec:** `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Batch Enhancement:** `devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
+- **Prompt Spec:** `devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
+- **Contract Spec:** `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
 
 ---
 

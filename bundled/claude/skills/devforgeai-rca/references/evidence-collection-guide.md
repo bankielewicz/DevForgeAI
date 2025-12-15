@@ -41,13 +41,13 @@
 - Context: Framework integration points
 
 **Context File Violation:**
-- Primary: Violated context file (`.devforgeai/context/{file}.md`)
+- Primary: Violated context file (`devforgeai/specs/context/{file}.md`)
 - Secondary: Code that violates constraint
 - Tertiary: Validation code that should have caught it
 - Context: ADRs related to constraint
 
 **Workflow State Error:**
-- Primary: Story file (`.ai_docs/Stories/{STORY-ID}.story.md`)
+- Primary: Story file (`devforgeai/specs/Stories/{STORY-ID}.story.md`)
 - Secondary: Skill that manages workflow state
 - Tertiary: Workflow state documentation
 - Context: orchestration skill
@@ -138,7 +138,7 @@ Significance: Explains why TDD started without constraints
 **Example: Tech stack constraint violated**
 
 ```
-1. Read .devforgeai/context/tech-stack.md
+1. Read devforgeai/specs/context/tech-stack.md
 2. Find constraint: "Frontend: React 18.2+"
 3. Read implementation code
 4. Find: Code uses Vue.js
@@ -149,7 +149,7 @@ Significance: Explains why TDD started without constraints
 
 **Evidence to Record:**
 ```
-File 1: .devforgeai/context/tech-stack.md
+File 1: devforgeai/specs/context/tech-stack.md
 Lines: 15-20
 Finding: Constraint specifies React
 Excerpt: "## Frontend\n- Framework: React 18.2+"
@@ -184,7 +184,7 @@ Excerpt: "Check package.json for framework..."
 
 **Evidence to Record:**
 ```
-File 1: .ai_docs/Stories/STORY-042.story.md (YAML)
+File 1: devforgeai/specs/Stories/STORY-042.story.md (YAML)
 Lines: 1-15
 Finding: Status = Releasing without QA Approved
 Excerpt: "status: Releasing..."
@@ -385,7 +385,7 @@ For each file:
 
 **Step 1: Check Existence**
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 Expected: 6 files
 - tech-stack.md
@@ -592,7 +592,7 @@ Read(file_path=".claude/skills/devforgeai-rca/assets/evidence-section-template.m
   ```
 - **Significance:** CRITICAL - Directly demonstrates missing validation step, supports Recommendation 1
 
-**.devforgeai/context/tech-stack.md**
+**devforgeai/specs/context/tech-stack.md**
 - **Lines examined:** 1-50 (all constraints)
 - **Finding:** File exists with 15 technology constraints
 - **Excerpt:**
@@ -616,7 +616,7 @@ Read(file_path=".claude/skills/devforgeai-rca/assets/evidence-section-template.m
   ```markdown
   ## Validation Logic
 
-  Step 1: Glob for .devforgeai/context/*.md
+  Step 1: Glob for devforgeai/specs/context/*.md
   Step 2: Expect 6 files
   Step 3: If <6 found, return violations
   ```
@@ -647,13 +647,13 @@ Read(file_path=".claude/skills/devforgeai-rca/assets/evidence-section-template.m
 
 **Related DevForgeAI Documentation:**
 - `.claude/memory/qa-automation.md` - Validation patterns
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - File reading patterns
+- `devforgeai/protocols/lean-orchestration-pattern.md` - File reading patterns
 - `CLAUDE.md` - Context file descriptions
 
 **RCA Examples:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Evidence section example
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Workflow state evidence
-- `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` - Missing phase evidence
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Evidence section example
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Workflow state evidence
+- `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` - Missing phase evidence
 
 ---
 

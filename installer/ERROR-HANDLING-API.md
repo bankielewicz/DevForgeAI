@@ -167,7 +167,7 @@ print(message)
 #   2. Check file ownership: chown user:group <path>
 #   3. Verify directory write permissions: chmod u+w <path>
 #
-# For details, see log file: .devforgeai/install.log
+# For details, see log file: devforgeai/install.log
 ```
 
 ---
@@ -307,7 +307,7 @@ def check_concurrent_installation(
 from pathlib import Path
 
 handler = ErrorHandler()
-lock_file = Path(".devforgeai/install.lock")
+lock_file = Path("devforgeai/install.lock")
 
 try:
     handler.check_concurrent_installation(lock_file.exists())
@@ -409,12 +409,12 @@ backup_dir = backup_service.create_backup(
     target_dir=Path("/path/to/project"),
     files_to_backup=[
         Path("/path/to/project/.claude/commands/dev.md"),
-        Path("/path/to/project/.devforgeai/protocols/"),
+        Path("/path/to/project/devforgeai/protocols/"),
     ]
 )
 
 print(backup_dir)
-# /path/to/project/.devforgeai/install-backup-2025-12-03T14-30-45/
+# /path/to/project/devforgeai/install-backup-2025-12-03T14-30-45/
 ```
 
 ---
@@ -471,7 +471,7 @@ class InstallLogger:
 ```
 
 **Parameters:**
-- `log_file` (Path): Log file location (default: .devforgeai/install.log)
+- `log_file` (Path): Log file location (default: devforgeai/install.log)
 
 ### Methods
 
@@ -722,7 +722,7 @@ Resolution steps:
   2. Check file permissions on source directory
   3. Ensure source path is correct
 
-For details, see log file: .devforgeai/install.log
+For details, see log file: devforgeai/install.log
 ```
 
 ---
@@ -734,7 +734,7 @@ from pathlib import Path
 from installer.error_handler import ErrorHandler
 
 handler = ErrorHandler()
-lock_file = Path(".devforgeai/install.lock")
+lock_file = Path("devforgeai/install.lock")
 
 try:
     handler.check_concurrent_installation(lock_file.exists())
@@ -748,7 +748,7 @@ except RuntimeError as error:
 ```
 Concurrent installation detected. Another installation is currently
 in progress. Wait for it to complete or remove the lock file at
-.devforgeai/install.lock
+devforgeai/install.lock
 ```
 
 ---

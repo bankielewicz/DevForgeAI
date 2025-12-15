@@ -3534,12 +3534,12 @@ tail -f ~/.claude/logs/claude.log
 - [Data Privacy](https://docs.claude.com/en/docs/claude-code/data-usage)
 
 **Local Documentation:**
-- [Settings Guide](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/settings.md)
-- [Headless Mode Guide](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/headless-mode.md)
-- [CLI Reference](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/cli-reference.md)
-- [MCP Configuration](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/mcp.md)
-- [Hooks Reference](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/hooks-reference.md)
-- [Common Workflows](/mnt/c/Projects/DevForgeAI2/.ai_docs/Terminal/common-workflows.md)
+- [Settings Guide](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/settings.md)
+- [Headless Mode Guide](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/headless-mode.md)
+- [CLI Reference](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/cli-reference.md)
+- [MCP Configuration](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/mcp.md)
+- [Hooks Reference](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/hooks-reference.md)
+- [Common Workflows](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Terminal/common-workflows.md)
 
 **Community Resources:**
 - [Claude Code GitHub](https://github.com/anthropics/claude-code)

@@ -85,16 +85,16 @@ Skill(command="devforgeai-ideation")
 
 #### 2.1 Epic Documents
 
-**Location:** `.ai_docs/Epics/`
+**Location:** `devforgeai/specs/Epics/`
 
 **Validation Steps:**
 
 ```
 # Check for epic files
-Glob(pattern=".ai_docs/Epics/*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 
 # Read each epic to verify structure
-Read(file_path=".ai_docs/Epics/{EPIC-ID}.epic.md")
+Read(file_path="devforgeai/specs/Epics/{EPIC-ID}.epic.md")
 ```
 
 **Expected Epic Structure:**
@@ -117,16 +117,16 @@ Read(file_path=".ai_docs/Epics/{EPIC-ID}.epic.md")
 
 #### 2.2 Requirements Specification
 
-**Location:** `.devforgeai/specs/requirements/`
+**Location:** `devforgeai/specs/requirements/`
 
 **Validation Steps:**
 
 ```
 # Check for requirements spec
-Glob(pattern=".devforgeai/specs/requirements/*.md")
+Glob(pattern="devforgeai/specs/requirements/*.md")
 
 # Read requirements spec
-Read(file_path=".devforgeai/specs/requirements/requirements-spec.md")
+Read(file_path="devforgeai/specs/requirements/requirements-spec.md")
 ```
 
 **Expected Requirements Spec Structure:**
@@ -156,7 +156,7 @@ Read(file_path=".devforgeai/specs/requirements/requirements-spec.md")
 
 ```
 # Check for complexity assessment
-Grep(pattern="Complexity Score|Complexity Assessment", path=".devforgeai/specs/requirements/")
+Grep(pattern="Complexity Score|Complexity Assessment", path="devforgeai/specs/requirements/")
 ```
 
 **Expected Complexity Assessment:**
@@ -196,10 +196,10 @@ Grep(pattern="Complexity Score|Complexity Assessment", path=".devforgeai/specs/r
 
 **Epic Documents:**
 - {EPIC-ID}: {Epic Title} ({Feature Count} features)
-- Location: .ai_docs/Epics/{EPIC-ID}.epic.md
+- Location: devforgeai/specs/Epics/{EPIC-ID}.epic.md
 
 **Requirements Specification:**
-- Location: .devforgeai/specs/requirements/requirements-spec.md
+- Location: devforgeai/specs/requirements/requirements-spec.md
 - Functional Requirements: {count}
 - Non-Functional Requirements: {count}
 - Data Models: {count}
@@ -248,12 +248,12 @@ AskUserQuestion(
 - Note: Architecture skill will reference requirements spec and complexity assessment
 
 **Option 2: "No - review requirements first"**
-- Inform user: "Review files in .ai_docs/Epics/ and .devforgeai/specs/requirements/"
+- Inform user: "Review files in devforgeai/specs/Epics/ and devforgeai/specs/requirements/"
 - Suggest: User can manually edit files or request specific changes
 - Wait: User to indicate when ready to proceed to architecture phase
 
 **Option 3: "Skip context creation"**
-- Validate: Check if context files exist in .devforgeai/context/
+- Validate: Check if context files exist in devforgeai/specs/context/
 - If missing: Warn that development cannot proceed without context files
 - If exist: Suggest proceeding to orchestration phase (/create-sprint)
 
@@ -264,10 +264,10 @@ AskUserQuestion(
 **Before completing /ideate command, verify:**
 
 ### Artifact Creation
-- [ ] Epic documents created in .ai_docs/Epics/
+- [ ] Epic documents created in devforgeai/specs/Epics/
 - [ ] Epic IDs follow naming convention
 - [ ] Epic frontmatter complete with all required fields
-- [ ] Requirements specification created in .devforgeai/specs/requirements/
+- [ ] Requirements specification created in devforgeai/specs/requirements/
 - [ ] Functional requirements documented and categorized
 - [ ] Non-functional requirements quantified with metrics
 
@@ -314,7 +314,7 @@ AskUserQuestion(
 **Action:**
 1. Check if skill completed all 6 phases
 2. Verify user answered all required questions
-3. Check for write permission errors in .ai_docs/ or .devforgeai/ directories
+3. Check for write permission errors in devforgeai/specs/ or devforgeai/ directories
 4. Re-run skill if partial output generated
 5. Report specific missing artifacts to user
 
@@ -455,8 +455,8 @@ AskUserQuestion(
 - `.claude/skills/devforgeai-architecture/SKILL.md` - Next phase documentation
 
 **Output Locations:**
-- Epics: `.ai_docs/Epics/` (created if not exists)
-- Requirements: `.devforgeai/specs/requirements/` (created if not exists)
+- Epics: `devforgeai/specs/Epics/` (created if not exists)
+- Requirements: `devforgeai/specs/requirements/` (created if not exists)
 
 ---
 

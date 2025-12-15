@@ -79,7 +79,7 @@ Framework built on assumption that Skills accept runtime parameters. Research co
 
 **Objective:** Document the 5 Whys analysis and root causes
 
-**File:** `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
+**File:** `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
 
 **Content:**
 - Problem statement (3 errors from Codelens session)
@@ -106,10 +106,10 @@ Framework built on assumption that Skills accept runtime parameters. Research co
 **Pattern to fix:**
 ```markdown
 # BEFORE (BROKEN):
-**Story:** @.ai_docs/Stories/$ARGUMENTS.story.md
+**Story:** @devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 # AFTER (FIXED):
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 ```
 
 **Files to modify:**
@@ -248,7 +248,7 @@ ELSE:
 
 ```
 # Use Glob to find story file (handles multiple naming conventions)
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   ⚠️ Story file not found
@@ -366,7 +366,7 @@ Proceeding with command execution...
 
 Phase 0: Argument Validation
   ✓ Story ID: STORY-001 (valid format)
-  ✓ Story file found: .ai_docs/Stories/STORY-001-setup.story.md
+  ✓ Story file found: devforgeai/specs/Stories/STORY-001-setup.story.md
   ✓ Mode: deep (valid)
   ✓ Validation complete
 
@@ -506,10 +506,10 @@ Proceeding with deep QA validation...
 1. **Fix @file reference (Line ~14):**
 ```markdown
 # BEFORE:
-**Story:** @.ai_docs/Stories/$ARGUMENTS.story.md
+**Story:** @devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 # AFTER:
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 ```
 
 2. **Add Phase 0: Argument Validation (before current Phase 0):**
@@ -532,7 +532,7 @@ IF $1 does NOT match "STORY-[0-9]+":
   multiSelect: false
 
 **Validate file exists:**
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches:
   AskUserQuestion:
@@ -579,10 +579,10 @@ argument-hint: [STORY-ID] [mode]
 2. **Fix @file reference:**
 ```markdown
 # BEFORE:
-**Story:** @.ai_docs/Stories/$ARGUMENTS.story.md
+**Story:** @devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 # AFTER:
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 **Mode:** $2 (defaults to "deep" if not provided)
 ```
 
@@ -688,7 +688,7 @@ argument-hint: [STORY-ID] [environment]
 
 2. **Fix @file reference:**
 ```markdown
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 **Environment:** $2 (defaults to "staging" if not provided)
 ```
 
@@ -754,7 +754,7 @@ ELSE:
 
 1. **Fix @file reference:**
 ```markdown
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 ```
 
 2. **Add Phase 0: Argument Validation** (same pattern)
@@ -842,7 +842,7 @@ Look for YAML frontmatter in conversation:
 Extract: id field = Story ID
 
 OR search conversation for "Story: STORY-XXX" pattern
-OR search for ".ai_docs/Stories/STORY-XXX" file reference
+OR search for "devforgeai/specs/Stories/STORY-XXX" file reference
 ```
 
 ### Mode/Environment Extraction (if applicable)
@@ -865,7 +865,7 @@ Before proceeding with TDD workflow:
 
 **If extraction fails:**
 - Grep conversation for "STORY-" pattern
-- Read .ai_docs/Stories/ directory for context
+- Read devforgeai/specs/Stories/ directory for context
 - As last resort: Use first story found (inform user)
 ```
 
@@ -982,7 +982,7 @@ Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
 
 # AFTER (EVIDENCE-BASED - CORRECT):
 # Load story into conversation context first
-**Story:** @.ai_docs/Stories/STORY-001.story.md
+**Story:** @devforgeai/specs/Stories/STORY-001.story.md
 
 # Invoke skill without arguments
 Skill(command="devforgeai-development")
@@ -1074,7 +1074,7 @@ Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
 
 ✅ CORRECT:
 # Load story and set context first
-**Story:** @.ai_docs/Stories/STORY-001.story.md
+**Story:** @devforgeai/specs/Stories/STORY-001.story.md
 **Mode:** deep
 
 # Invoke skill without arguments
@@ -1163,7 +1163,7 @@ Each should trigger AskUserQuestion with helpful options.
 | /create-ui | STORY-001 | ✓ UI generation |
 
 **Create test log:**
-`.devforgeai/specs/enhancements/RCA-005-test-results.md`
+`devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 **Document:**
 - Each test scenario
@@ -1198,7 +1198,7 @@ Each should trigger AskUserQuestion with helpful options.
 
 #### Task 7.1: Complete RCA-005 Enhancement Document
 
-**File:** `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
+**File:** `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
 
 **Sections:**
 - Problem statement (3 errors from Codelens)
@@ -1217,7 +1217,7 @@ Each should trigger AskUserQuestion with helpful options.
 
 #### Task 7.2: Create Framework Validation Summary
 
-**File:** `.devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md`
+**File:** `devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md`
 
 **Content:**
 - All 5 RCAs summary

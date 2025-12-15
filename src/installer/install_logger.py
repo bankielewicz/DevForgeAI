@@ -33,14 +33,14 @@ class InstallLogger:
 
     def __init__(
         self,
-        log_file: str = ".devforgeai/install.log",
+        log_file: str = "devforgeai/install.log",
         max_size_mb: int = 10,
         max_rotations: int = 3
     ):
         """Initialize logger with target log file path.
 
         Args:
-            log_file: Path to log file (default: .devforgeai/install.log)
+            log_file: Path to log file (default: devforgeai/install.log)
             max_size_mb: Maximum log file size in MB before rotation (default: 10)
             max_rotations: Number of rotations to keep (default: 3)
         """

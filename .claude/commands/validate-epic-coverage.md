@@ -113,10 +113,10 @@ Display: ""
 
 **Verify prerequisites:**
 ```
-Glob(pattern=".ai_docs/Epics/*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 
 IF no epics found:
-    Display: "ℹ️ No epics found in .ai_docs/Epics/"
+    Display: "ℹ️ No epics found in devforgeai/specs/Epics/"
     Display: ""
     Display: "To create epics, run: /create-epic"
     Exit with success (no errors)
@@ -125,13 +125,13 @@ IF no epics found:
 **For single-epic mode:**
 ```
 IF MODE == "single":
-    Glob(pattern=".ai_docs/Epics/${EPIC_ID}*.epic.md")
+    Glob(pattern="devforgeai/specs/Epics/${EPIC_ID}*.epic.md")
 
     IF file not found:
         Display: "❌ Epic not found: ${EPIC_ID}"
         Display: ""
         Display: "Valid epics:"
-        FOR epic in Glob(".ai_docs/Epics/*.epic.md"):
+        FOR epic in Glob("devforgeai/specs/Epics/*.epic.md"):
             Extract epic_id from filename
             Display: "  • ${epic_id}"
         Display: ""
@@ -150,7 +150,7 @@ IF MODE == "all":
 **Execute coverage report generator:**
 ```
 # Use existing generate-report.sh for coverage analysis
-Bash(command=".devforgeai/epic-coverage/generate-report.sh")
+Bash(command="devforgeai/epic-coverage/generate-report.sh")
 
 # Capture and parse output
 ```
@@ -158,9 +158,9 @@ Bash(command=".devforgeai/epic-coverage/generate-report.sh")
 **Execute gap detector for actionable gaps:**
 ```
 IF MODE == "single":
-    Bash(command=".devforgeai/traceability/gap-detector.sh ${EPIC_ID}")
+    Bash(command="devforgeai/traceability/gap-detector.sh ${EPIC_ID}")
 ELSE:
-    Bash(command=".devforgeai/traceability/gap-detector.sh")
+    Bash(command="devforgeai/traceability/gap-detector.sh")
 ```
 
 ---
@@ -336,7 +336,7 @@ USAGE:
 
 ARGUMENTS:
     EPIC-ID     Optional. Validate specific epic (e.g., EPIC-015)
-                If omitted, validates all epics in .ai_docs/Epics/
+                If omitted, validates all epics in devforgeai/specs/Epics/
 
 OPTIONS:
     --interactive   Enable gap-to-story prompts (default in terminal)
@@ -441,8 +441,8 @@ This command follows **lean orchestration** pattern:
 - **Result display:** Format output with visual indicators
 
 **Key services:**
-- `.devforgeai/epic-coverage/generate-report.sh` - Coverage statistics
-- `.devforgeai/traceability/gap-detector.sh` - Gap detection
+- `devforgeai/epic-coverage/generate-report.sh` - Coverage statistics
+- `devforgeai/traceability/gap-detector.sh` - Gap detection
 
 **Dependencies:**
 - STORY-085: Gap Detection Engine (QA Approved)

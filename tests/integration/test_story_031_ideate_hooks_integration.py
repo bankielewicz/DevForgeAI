@@ -174,9 +174,9 @@ def ideation_artifacts_created_marker():
     """Create a marker to verify ideation artifacts were created."""
     return {
         "epic_files": [
-            ".ai_docs/Epics/EPIC-001.epic.md",
-            ".ai_docs/Epics/EPIC-002.epic.md",
-            ".ai_docs/Epics/EPIC-003.epic.md"
+            "devforgeai/specs/Epics/EPIC-001.epic.md",
+            "devforgeai/specs/Epics/EPIC-002.epic.md",
+            "devforgeai/specs/Epics/EPIC-003.epic.md"
         ],
         "requirements_spec": ".devforgeai/specs/requirements/project-requirements.md",
         "complexity_score": 42,
@@ -416,7 +416,7 @@ class TestHookInvocationLogic:
         # Arrange
         expected_context = {
             "operation_type": "ideation",
-            "artifacts": [".ai_docs/Epics/EPIC-001.epic.md", ".devforgeai/specs/requirements/test-requirements.md"],
+            "artifacts": ["devforgeai/specs/Epics/EPIC-001.epic.md", ".devforgeai/specs/requirements/test-requirements.md"],
             "complexity_score": 42,
             "questions_asked": 35
         }

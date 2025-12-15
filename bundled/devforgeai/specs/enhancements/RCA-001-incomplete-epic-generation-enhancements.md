@@ -2,7 +2,7 @@
 
 **Issue:** Codelens ideation session revealed gap where only 3/7 epics were created
 **Date:** 2025-11-01
-**RCA Source:** `/mnt/c/Projects/codelens/.devforgeai/RCA-incomplete-epic-generation.md`
+**RCA Source:** `/mnt/c/Projects/codelens/devforgeai/RCA-incomplete-epic-generation.md`
 **Status:** ✅ IMPLEMENTED
 
 ---
@@ -302,7 +302,7 @@ Phase 6.1: Generate Epic Documents
   → Create EPIC-003.epic.md → Mark [completed]
 
   → Before Phase 6.2: Verification gate runs
-  → Glob(".ai_docs/Epics/EPIC-*.epic.md") → 3 files
+  → Glob("devforgeai/specs/Epics/EPIC-*.epic.md") → 3 files
   → Planned: 5, Created: 3
   → HALT: "ERROR: Only 3/5 epics created"
 
@@ -310,7 +310,7 @@ Phase 6.1: Generate Epic Documents
   → Create EPIC-005.epic.md → Mark [completed]
 
   → Verification gate runs again
-  → Glob(".ai_docs/Epics/EPIC-*.epic.md") → 5 files
+  → Glob("devforgeai/specs/Epics/EPIC-*.epic.md") → 5 files
   → Planned: 5, Created: 5 ✓
   → Proceed to Phase 6.2
 

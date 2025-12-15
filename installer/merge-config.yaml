@@ -38,7 +38,7 @@ variables:
   - name: FRAMEWORK_VERSION
     detection_method: version_json_or_hardcoded
     fallback: "1.0.1"
-    description: "Framework version from .devforgeai/version.json"
+    description: "Framework version from devforgeai/version.json"
 
 # Merge Strategies
 strategies:
@@ -104,7 +104,7 @@ backup:
 # File Locations
 files:
   user_claude_md: "CLAUDE.md"
-  framework_template: ".devforgeai/templates/CLAUDE.md.template"
+  framework_template: "devforgeai/templates/CLAUDE.md.template"
   candidate_output: "CLAUDE.md.candidate"
   backup_output: "CLAUDE.md.pre-merge-backup-{date}"
   diff_output: "merge-diff.txt"

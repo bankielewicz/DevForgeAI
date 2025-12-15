@@ -40,13 +40,13 @@ Transform feature descriptions into structured user stories following DevForgeAI
 **Steps:**
 
 1. **Find existing stories**
-   - Use Glob to search `.ai_docs/Stories/*.story.md`
+   - Use Glob to search `devforgeai/specs/Stories/*.story.md`
    - Parse story IDs from filenames
    - Determine next sequential ID (e.g., STORY-001, STORY-002)
 
 2. **Read epic and sprint context**
-   - Use Glob to find `.ai_docs/Epics/*.md`
-   - Use Glob to find `.ai_docs/Sprints/*.md`
+   - Use Glob to find `devforgeai/specs/Epics/*.md`
+   - Use Glob to find `devforgeai/specs/Sprints/*.md`
    - Present available options to user
 
 3. **Collect metadata via AskUserQuestion**
@@ -440,7 +440,7 @@ Transform feature descriptions into structured user stories following DevForgeAI
    - Validate YAML frontmatter parses correctly
 
 **Output:**
-- Story file created at `.ai_docs/Stories/{STORY-ID}.story.md`
+- Story file created at `devforgeai/specs/Stories/{STORY-ID}.story.md`
 
 ---
 
@@ -451,18 +451,18 @@ Transform feature descriptions into structured user stories following DevForgeAI
 **Steps:**
 
 1. **Update epic file (if associated)**
-   - Read epic file: `.ai_docs/Epics/{EPIC-ID}.md`
+   - Read epic file: `devforgeai/specs/Epics/{EPIC-ID}.md`
    - Use Edit to add story reference to "Stories" section
    - Format: `- [{STORY-ID}] {Story Title} - {Status} ({Points} points)`
 
 2. **Update sprint file (if associated)**
-   - Read sprint file: `.ai_docs/Sprints/{SPRINT-ID}.md`
+   - Read sprint file: `devforgeai/specs/Sprints/{SPRINT-ID}.md`
    - Use Edit to add story to "Sprint Backlog" section
    - Update sprint statistics (total points)
 
 3. **Create story directory structure (if needed)**
-   - Ensure `.ai_docs/Stories/` exists
-   - Ensure `.devforgeai/qa/reports/` exists (for future QA)
+   - Ensure `devforgeai/specs/Stories/` exists
+   - Ensure `devforgeai/qa/reports/` exists (for future QA)
 
 **Output:**
 - Epic updated with story reference
@@ -480,7 +480,7 @@ Transform feature descriptions into structured user stories following DevForgeAI
 - [ ] UI specification included (if UI story)
 - [ ] Non-functional requirements defined
 - [ ] Edge cases documented
-- [ ] File created at `.ai_docs/Stories/{STORY-ID}.story.md`
+- [ ] File created at `devforgeai/specs/Stories/{STORY-ID}.story.md`
 - [ ] YAML frontmatter valid
 - [ ] Status set to "Backlog"
 - [ ] Epic reference added (if applicable)
@@ -570,7 +570,7 @@ Transform feature descriptions into structured user stories following DevForgeAI
 
 ## Example Output
 
-**File:** `.ai_docs/Stories/STORY-042.story.md`
+**File:** `devforgeai/specs/Stories/STORY-042.story.md`
 
 ```markdown
 ---
@@ -848,9 +848,9 @@ interface PasswordStrengthIndicatorProps {
 
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Workflow states
 - `.claude/skills/devforgeai-orchestration/references/story-management.md` - Story structure
-- `.ai_docs/Stories/` - Story storage location
-- `.ai_docs/Epics/` - Epic files
-- `.ai_docs/Sprints/` - Sprint files
+- `devforgeai/specs/Stories/` - Story storage location
+- `devforgeai/specs/Epics/` - Epic files
+- `devforgeai/specs/Sprints/` - Sprint files
 
 **Token Budget:** < 40,000 tokens
 **Priority:** HIGH

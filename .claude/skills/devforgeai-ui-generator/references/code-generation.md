@@ -21,13 +21,13 @@ Bash(command="python .claude/skills/devforgeai-ui-generator/scripts/ensure_spec_
 
 **Parse source-tree.md for correct UI component location:**
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 Search for UI component directory specification
 ```
 
 **Determine path:**
-- Default: `.devforgeai/specs/ui/` (if not specified in source-tree.md)
+- Default: `devforgeai/specs/ui/` (if not specified in source-tree.md)
 - Follow any project-specific structure defined in source-tree.md
 - Respect directory hierarchy (e.g., `src/components/`, `Views/`, etc.)
 
@@ -80,7 +80,7 @@ Search for UI component directory specification
 
 **Check anti-patterns.md for forbidden patterns:**
 ```
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
 Scan for UI-specific anti-patterns
 ```
@@ -112,7 +112,7 @@ AskUserQuestion(
     header: "Filename",
     multiSelect: false,
     options: [
-      { label: "Use default", description: "Save as: .devforgeai/specs/ui/${COMPONENT_NAME}.${ext}" },
+      { label: "Use default", description: "Save as: devforgeai/specs/ui/${COMPONENT_NAME}.${ext}" },
       { label: "Custom path", description: "Specify a different filename/location" }
     ]
   }]

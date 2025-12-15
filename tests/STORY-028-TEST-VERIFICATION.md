@@ -12,7 +12,7 @@
 ### Input Validation
 
 - [x] **Story exists and readable**
-  - File: `.ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
+  - File: `devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
   - Format: Valid YAML frontmatter + Markdown sections
   - AC section: Complete (5 acceptance criteria)
   - Tech spec: Complete (v2.0 YAML format)

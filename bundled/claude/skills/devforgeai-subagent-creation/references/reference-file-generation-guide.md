@@ -188,7 +188,7 @@ ELSE {default}
 
 **How to reference:**
 ```
-Read(file_path=".devforgeai/context/{file}.md")
+Read(file_path="devforgeai/specs/context/{file}.md")
 Extract rules
 Apply to analysis
 Report violations with reference

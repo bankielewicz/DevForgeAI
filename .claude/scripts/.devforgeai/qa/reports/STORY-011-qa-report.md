@@ -268,10 +268,10 @@ These are minor gaps (16 statements total, mostly error handling edge cases) and
 - devforgeai_cli/tests/feedback/test_configuration_management.py (525 lines, 130+ tests)
 
 **Documentation (4 files):**
-- .devforgeai/config/feedback.schema.json (JSON Schema)
-- .devforgeai/config/README.md (Configuration guide with 4 examples)
-- .devforgeai/config/TROUBLESHOOTING.md (10 common issues)
-- .devforgeai/config/MIGRATION.md (Version migration guide)
+- devforgeai/config/feedback.schema.json (JSON Schema)
+- devforgeai/config/README.md (Configuration guide with 4 examples)
+- devforgeai/config/TROUBLESHOOTING.md (10 common issues)
+- devforgeai/config/MIGRATION.md (Version migration guide)
 
 ---
 

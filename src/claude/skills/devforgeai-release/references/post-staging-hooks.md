@@ -89,7 +89,7 @@ IF HOOK_ELIGIBLE == 0:
         --operation=release-staging \
         --story=$STORY_ID \
         --context="$OPERATION_CONTEXT" \
-        2>&1 | tee .devforgeai/logs/release-hooks-$STORY_ID.log
+        2>&1 | tee devforgeai/logs/release-hooks-$STORY_ID.log
 
     # Capture exit code
     HOOK_INVOCATION_EXIT=$?
@@ -98,7 +98,7 @@ IF HOOK_ELIGIBLE == 0:
     IF HOOK_INVOCATION_EXIT != 0:
         # Log warning, continue deployment
         Display: "⚠️  Note: Post-deployment feedback unavailable (hook error)"
-        Log to .devforgeai/logs/release-hooks-$STORY_ID.log:
+        Log to devforgeai/logs/release-hooks-$STORY_ID.log:
             "Hook invocation failed with exit code $HOOK_INVOCATION_EXIT"
             "Deployment continues normally (hook failures are non-blocking)"
 
@@ -110,7 +110,7 @@ ELIF HOOK_ELIGIBLE == 1:
 ELSE:
     # Error checking eligibility
     Display: "⚠️  Note: Unable to check hook eligibility (check-hooks error)"
-    Log to .devforgeai/logs/release-hooks-$STORY_ID.log:
+    Log to devforgeai/logs/release-hooks-$STORY_ID.log:
         "check-hooks failed with exit code $HOOK_ELIGIBLE"
         "Deployment continues normally"
 ```
@@ -163,7 +163,7 @@ Display: ""
 
 ## Hook Configuration Example
 
-**In `.devforgeai/config/hooks.yaml`:**
+**In `devforgeai/config/hooks.yaml`:**
 
 ```yaml
 operations:
@@ -239,7 +239,7 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 ## Logging Requirements
 
 **All hook invocations logged to:**
-`.devforgeai/logs/release-hooks-{STORY-ID}.log`
+`devforgeai/logs/release-hooks-{STORY-ID}.log`
 
 **Log format:**
 ```
@@ -247,7 +247,7 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 [2025-11-14T15:30:00Z] check-hooks returned: 0 (eligible)
 [2025-11-14T15:30:01Z] invoke-hooks started (PID: 12345)
 [2025-11-14T15:30:25Z] invoke-hooks completed (exit code: 0)
-[2025-11-14T15:30:25Z] Feedback saved: .devforgeai/feedback/releases/STORY-025-staging-2025-11-14T15:30:25Z.json
+[2025-11-14T15:30:25Z] Feedback saved: devforgeai/feedback/releases/STORY-025-staging-2025-11-14T15:30:25Z.json
 ```
 
 **On errors:**
@@ -292,8 +292,8 @@ IF DURATION_MS > 3500:
 - Feedback collection happens asynchronously (non-blocking)
 
 **Feedback Persistence:**
-- Saved to `.devforgeai/feedback/releases/{STORY-ID}-staging-{timestamp}.json`
-- Indexed in `.devforgeai/feedback/index.json`
+- Saved to `devforgeai/feedback/releases/{STORY-ID}-staging-{timestamp}.json`
+- Indexed in `devforgeai/feedback/index.json`
 - Searchable via `devforgeai feedback-search --operation=release-staging`
 
 ---
@@ -304,8 +304,8 @@ IF DURATION_MS > 3500:
 - [ ] check-hooks CLI available and executable
 - [ ] invoke-hooks CLI available and executable
 - [ ] hooks.yaml exists with release-staging configuration
-- [ ] Feedback directory `.devforgeai/feedback/releases/` exists
-- [ ] Log directory `.devforgeai/logs/` exists
+- [ ] Feedback directory `devforgeai/feedback/releases/` exists
+- [ ] Log directory `devforgeai/logs/` exists
 - [ ] Hook integration adds <3.5s overhead
 - [ ] Hook failures don't break deployment
 - [ ] Deployment status accurate regardless of hook status

@@ -92,7 +92,7 @@ This document serves as a reference for DevForgeAI skills when users provide inc
 - `effective-prompting-guide.md` (user-facing)
 - `requirements-elicitation-guide.md` (domain-specific)
 - `CLAUDE.md` (framework)
-- `.devforgeai/context/` (constraints)
+- `devforgeai/specs/context/` (constraints)
 
 ---
 

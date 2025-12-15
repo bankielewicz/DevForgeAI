@@ -393,5 +393,5 @@ When all 118 tests pass: STORY-059 is complete (GREEN phase).
 ## See Also
 
 - [Test Suite README](./README.md) - Detailed test documentation
-- [STORY-059](../../.ai_docs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story spec
+- [STORY-059](../../devforgeai/specs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story spec
 - [Test-Automator Documentation](./.claude/skills/test-automator/SKILL.md) - Test generation framework

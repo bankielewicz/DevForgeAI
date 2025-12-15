@@ -124,7 +124,7 @@ IF blocking_issues.count == 0:
 ```
 report_content = generate_qa_report(qa_results)
 
-Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
+Write(file_path="devforgeai/qa/reports/{story_id}-qa-report.md",
       content=report_content)
 ```
 
@@ -357,10 +357,10 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 {IF overall_status == "PASS WITH WARNINGS"}
 ⚠️ **QA Approved with Warnings** - Story can proceed but has technical debt
 - Consider addressing warnings in follow-up story
-- Document technical debt in .devforgeai/technical-debt-register.md
+- Document technical debt in devforgeai/technical-debt-register.md
 ```
 
-**Report file location:** `.devforgeai/qa/reports/{story_id}-qa-report.md`
+**Report file location:** `devforgeai/qa/reports/{story_id}-qa-report.md`
 
 ---
 
@@ -369,10 +369,10 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 **Edit story YAML frontmatter:**
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Approved ✅")
 
@@ -381,12 +381,12 @@ IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
 - **{timestamp}**: QA validation PASSED ({mode} mode)
   - Coverage: {overall_coverage}%
   - Violations: {violation_summary}
-  - Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
 """
     Append workflow_history_entry to story Workflow History section
 
 IF overall_status == "FAIL":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Failed ❌")
 
@@ -394,7 +394,7 @@ IF overall_status == "FAIL":
     workflow_history_entry = f"""
 - **{timestamp}**: QA validation FAILED ({mode} mode)
   - Blocking issues: {blocking_issues}
-  - Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
   - Action required: Fix issues and re-run `/qa {story_id}`
 """
     Append workflow_history_entry to story Workflow History section
@@ -414,7 +414,7 @@ IF overall_status == "FAIL":
 ### Check if This is a Re-Validation
 
 ```
-Grep(pattern="## QA Validation History", path=".ai_docs/Stories/{story_id}.story.md")
+Grep(pattern="## QA Validation History", path="devforgeai/specs/Stories/{story_id}.story.md")
 
 IF found:
     # This is a re-validation
@@ -439,7 +439,7 @@ Edit story file to add QA history section (if not exists):
 
 **Mode:** {deep/light}
 **Duration:** {duration} minutes
-**QA Report:** `.devforgeai/qa/reports/{story_id}-qa-report{-attempt-N if N>1}.md`
+**QA Report:** `devforgeai/qa/reports/{story_id}-qa-report{-attempt-N if N>1}.md`
 
 **Results:**
 - **Test Coverage:** {overall_coverage}% ({✅ PASS / ❌ FAIL})
@@ -559,7 +559,7 @@ Task(
     description="Interpret QA results for display",
     prompt="Parse QA validation results and generate user-facing display template.
 
-            QA report file: .devforgeai/qa/reports/{story_id}-qa-report.md
+            QA report file: devforgeai/qa/reports/{story_id}-qa-report.md
 
             Analysis required:
             1. Extract overall status (PASS/FAIL/PASS WITH WARNINGS)
@@ -630,7 +630,7 @@ next_steps = interpreter_result.next_steps
 {
     "status": overall_status,  # "PASS", "FAIL", "PASS WITH WARNINGS"
     "story_status": updated_story_status,  # "QA Approved", "QA Failed"
-    "report_file": ".devforgeai/qa/reports/{story_id}-qa-report.md",
+    "report_file": "devforgeai/qa/reports/{story_id}-qa-report.md",
     "display": formatted_display,  # From qa-result-interpreter
     "violations": {
         "critical": critical_count,

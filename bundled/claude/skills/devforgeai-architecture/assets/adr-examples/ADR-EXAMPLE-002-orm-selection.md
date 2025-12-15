@@ -780,9 +780,9 @@ _logger.LogInformation(
 ## Related Documents
 
 - **ADR-001: Database Selection** (PostgreSQL choice, impacts ORM requirements)
-- **Tech Stack Documentation**: `.devforgeai/context/tech-stack.md` (lists Dapper as standard)
-- **Dependencies Documentation**: `.devforgeai/context/dependencies.md` (approved Dapper + FluentMigrator packages)
-- **Coding Standards**: `.devforgeai/context/coding-standards.md` (repository patterns, async/await)
+- **Tech Stack Documentation**: `devforgeai/specs/context/tech-stack.md` (lists Dapper as standard)
+- **Dependencies Documentation**: `devforgeai/specs/context/dependencies.md` (approved Dapper + FluentMigrator packages)
+- **Coding Standards**: `devforgeai/specs/context/coding-standards.md` (repository patterns, async/await)
 
 ---
 

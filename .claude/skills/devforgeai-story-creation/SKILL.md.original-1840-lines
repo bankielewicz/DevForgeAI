@@ -123,7 +123,7 @@ Then ask: "Provide detailed description of the {feature_type} feature"
 
 **Find latest story:**
 ```
-story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Parse story numbers from filenames
 # Example: STORY-042.story.md → 42
@@ -149,7 +149,7 @@ TodoWrite([
 
 **Find available epics:**
 ```
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 
 epic_options = []
 for epic_file in epic_files:
@@ -186,7 +186,7 @@ AskUserQuestion(
 
 **Find available sprints:**
 ```
-sprint_files = Glob(pattern=".ai_docs/Sprints/Sprint-*.md")
+sprint_files = Glob(pattern="devforgeai/specs/Sprints/Sprint-*.md")
 
 sprint_options = []
 for sprint_file in sprint_files:
@@ -1146,14 +1146,14 @@ story_content = f"""---
 **Write to disk:**
 ```
 # Ensure directory exists
-Bash(mkdir -p .ai_docs/Stories/)
+Bash(mkdir -p devforgeai/specs/Stories/)
 
 # Generate filename slug
 slug = slugify(title)  # "user-registration" from "User Registration"
 
 # Write file
 Write(
-  file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md",
+  file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md",
   content=story_content
 )
 ```
@@ -1161,7 +1161,7 @@ Write(
 **Verify file creation:**
 ```
 # Read back to confirm
-created_file = Read(file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md", limit=30)
+created_file = Read(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", limit=30)
 
 # Verify frontmatter parses correctly
 if not created_file.startswith("---"):
@@ -1174,7 +1174,7 @@ TodoWrite: Mark story creation as completed
 ```
 
 **Output from Phase 5:**
-- ✅ Complete story file created at `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- ✅ Complete story file created at `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - ✅ All sections populated (user story, AC, tech spec, UI spec, NFRs, edge cases, DoD, history)
 - ✅ YAML frontmatter valid
 - ✅ File verified on disk
@@ -1191,7 +1191,7 @@ TodoWrite: Mark story creation as completed
 
 ```
 # Read epic file
-epic_file_path = f".ai_docs/Epics/{epic_id}.epic.md"
+epic_file_path = f"devforgeai/specs/Epics/{epic_id}.epic.md"
 epic_content = Read(file_path=epic_file_path)
 
 # Find "Stories" section or create it
@@ -1230,7 +1230,7 @@ else:
 
 ```
 # Read sprint file
-sprint_file_path = f".ai_docs/Sprints/{sprint_id}.md"
+sprint_file_path = f"devforgeai/specs/Sprints/{sprint_id}.md"
 sprint_content = Read(file_path=sprint_file_path)
 
 # Find "Sprint Backlog" section
@@ -1460,7 +1460,7 @@ If all validations pass:
 - UI Components: {component_count or "None"}
 
 **File Location:**
-`.ai_docs/Stories/{story_id}-{slug}.story.md`
+`devforgeai/specs/Stories/{story_id}-{slug}.story.md`
 
 **Story validated:**
 ✓ User story format correct
@@ -1533,7 +1533,7 @@ Report: """
 Run: `/create-sprint {number}` to add stories to a sprint
 
 Or manually:
-1. Edit sprint file: `.ai_docs/Sprints/SPRINT-XXX.md`
+1. Edit sprint file: `devforgeai/specs/Sprints/SPRINT-XXX.md`
 2. Add story to Sprint Backlog section
 3. Update story status to "Ready for Dev" when sprint starts
 """
@@ -1542,7 +1542,7 @@ Or manually:
 **"Review story file":**
 ```
 Report: """
-Story file: `.ai_docs/Stories/{story_id}-{slug}.story.md`
+Story file: `devforgeai/specs/Stories/{story_id}-{slug}.story.md`
 
 You can:
 - Open in your editor to review/edit
@@ -1561,7 +1561,7 @@ You can:
 
 **Recovery:**
 ```
-while file_exists(f".ai_docs/Stories/{story_id}-*.md"):
+while file_exists(f"devforgeai/specs/Stories/{story_id}-*.md"):
     # Increment story number
     story_number += 1
     story_id = f"STORY-{story_number:03d}"
@@ -1598,8 +1598,8 @@ if missing_elements:
 **Recovery:**
 ```
 # Refresh epic/sprint lists
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
-sprint_files = Glob(pattern=".ai_docs/Sprints/Sprint-*.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
+sprint_files = Glob(pattern="devforgeai/specs/Sprints/Sprint-*.md")
 
 # Present updated lists
 AskUserQuestion with refreshed options
@@ -1640,7 +1640,7 @@ Try:
     Write(file_path=story_path, content=story_content)
 Except write error:
     # Ensure directory exists
-    Bash(mkdir -p .ai_docs/Stories/)
+    Bash(mkdir -p devforgeai/specs/Stories/)
 
     # Check write permissions
     # Retry write
@@ -1773,7 +1773,7 @@ This skill succeeds when:
 - [ ] Non-functional requirements measurable (not vague)
 - [ ] Edge cases documented (minimum 2)
 - [ ] Definition of Done section present with checkboxes
-- [ ] Story file created at `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- [ ] Story file created at `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - [ ] YAML frontmatter valid and complete
 - [ ] Epic reference added (if applicable)
 - [ ] Sprint reference added (if applicable)

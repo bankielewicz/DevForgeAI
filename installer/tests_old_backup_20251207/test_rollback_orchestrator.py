@@ -363,11 +363,11 @@ class TestRollbackLogging:
 
     def test_rollback_log_saved_to_correct_location(self, tmp_path):
         """
-        Test: Rollback summary saved to .devforgeai/logs/rollback-{timestamp}.log (AC#7).
+        Test: Rollback summary saved to devforgeai/logs/rollback-{timestamp}.log (AC#7).
 
         Given: Rollback has completed
         When: execute() returns
-        Then: Log file created at .devforgeai/logs/rollback-YYYYMMDD-HHMMSS.log
+        Then: Log file created at devforgeai/logs/rollback-YYYYMMDD-HHMMSS.log
         """
         # Arrange
         from installer.rollback_orchestrator import RollbackOrchestrator

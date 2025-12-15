@@ -37,7 +37,7 @@ When invoked, follow these steps:
 
 1. **Read Requirements Context**
    - Read epic or feature description
-   - Read `.devforgeai/context/tech-stack.md` for technical context
+   - Read `devforgeai/specs/context/tech-stack.md` for technical context
    - Read existing stories for consistency
    - Identify user roles and goals
    - Note business value and priorities
@@ -452,12 +452,12 @@ Split:
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Technical constraints
-- `.devforgeai/context/architecture-constraints.md` - Architecture patterns
-- `.devforgeai/context/coding-standards.md` - Implementation patterns
+- `devforgeai/specs/context/tech-stack.md` - Technical constraints
+- `devforgeai/specs/context/architecture-constraints.md` - Architecture patterns
+- `devforgeai/specs/context/coding-standards.md` - Implementation patterns
 
 **Story Examples:**
-- `.ai_docs/Stories/` - Existing story templates
+- `devforgeai/specs/Stories/` - Existing story templates
 
 **Best Practices:**
 - INVEST principles (Bill Wake)

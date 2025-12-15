@@ -478,7 +478,7 @@ This test suite follows Test-Driven Development (TDD) principles:
 → Read: `TEST-EXECUTION-RESULTS.md`
 
 ### For Story Requirements
-→ Read: `.ai_docs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
+→ Read: `devforgeai/specs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
 
 ---
 

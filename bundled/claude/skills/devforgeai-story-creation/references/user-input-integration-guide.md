@@ -227,8 +227,8 @@ Options: [Critical, High, Medium, Low]
 - **Fibonacci Bounded Choice:** Bounded choice using Fibonacci [1,2,3,5,8,13]
 
 ### Framework Terms
-- **Epic:** Business initiative spanning stories (`.ai_docs/Epics/`)
-- **Sprint:** 2-week iteration (`.ai_docs/Sprints/`)
+- **Epic:** Business initiative spanning stories (`devforgeai/specs/Epics/`)
+- **Sprint:** 2-week iteration (`devforgeai/specs/Sprints/`)
 - **Priority:** Urgency: Critical/High/Medium/Low
 - **Story Points:** Complexity: 1,2,3,5,8,13
 - **GUIDANCE_AVAILABLE:** Boolean flag - patterns ready

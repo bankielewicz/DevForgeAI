@@ -206,10 +206,10 @@ npm unpublish devforgeai@0.0.0-test.1
 For general development workflow, see:
 - [README.md](./README.md) - Project overview and setup
 - [ROADMAP.md](./ROADMAP.md) - Feature roadmap
-- Story files in `.ai_docs/Stories/` - Detailed implementation specs
+- Story files in `devforgeai/specs/Stories/` - Detailed implementation specs
 
 ## Questions?
 
 - Open an issue for bugs or feature requests
-- Check existing stories in `.ai_docs/Stories/` for planned work
+- Check existing stories in `devforgeai/specs/Stories/` for planned work
 - Review ADRs in `.devforgeai/adrs/` for architectural decisions

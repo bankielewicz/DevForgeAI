@@ -74,7 +74,7 @@
 - [x] Hook invocation conditional for production: Same pattern as staging (Step 3, lines 82-134)
 - [x] Operation context passed to invoke-hooks: JSON schema documented (post-staging: lines 138-154, post-production: lines 156-176)
 - [x] Graceful degradation implemented: 4 staging scenarios (lines 189-226), 3 production scenarios (lines 246-282)
-- [x] Hook invocation logs written: `.devforgeai/logs/release-hooks-{STORY-ID}.log` documented (both files)
+- [x] Hook invocation logs written: `devforgeai/logs/release-hooks-{STORY-ID}.log` documented (both files)
 
 **Blocker Analysis:** NONE - Implementation is in skill as designed (skills-first architecture)
 
@@ -117,7 +117,7 @@
   - Best practices section (lines 213-223): Guidelines for question design
 
 **Additional Configuration Artifacts:**
-- hooks.yaml (9.4K): Active configuration file in `.devforgeai/config/`
+- hooks.yaml (9.4K): Active configuration file in `devforgeai/config/`
   - Demonstrates working configuration with release hooks
   - Can be used as reference for setup
 
@@ -203,7 +203,7 @@
 
 **Evidence:**
 
-**Manual Testing Checklist:** `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+**Manual Testing Checklist:** `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 
 **Documented Test Scenarios:**
 1. ⏸️ Test Scenario 1: Staging deployment success with hooks enabled (lines 42-94)
@@ -220,9 +220,9 @@
 
 **Test Setup Requirements (lines 14-38):**
 - devforgeai CLI installed
-- hooks.yaml configured in `.devforgeai/config/`
-- Feedback directory exists: `.devforgeai/feedback/releases/`
-- Log directory exists: `.devforgeai/logs/`
+- hooks.yaml configured in `devforgeai/config/`
+- Feedback directory exists: `devforgeai/feedback/releases/`
+- Log directory exists: `devforgeai/logs/`
 - Test story in "QA Approved" status
 - Staging environment accessible
 - Production environment accessible (if testing production)
@@ -255,7 +255,7 @@
 
 **Recommendation:** ⏸️ CONDITIONAL APPROVAL - Defer manual testing with documented tracking
 
-**Tracking:** Issue tracked in `.devforgeai/qa/manual-testing-checklist-STORY-025.md` for future execution when infrastructure available
+**Tracking:** Issue tracked in `devforgeai/qa/manual-testing-checklist-STORY-025.md` for future execution when infrastructure available
 
 ---
 
@@ -282,7 +282,7 @@
   - Rollback plan: Documented (3 options, <5 minutes)
 
 - [x] **Item 31: Release hook configuration examples**
-  - File: `.devforgeai/config/hooks.yaml.example-release` (11K, 268 lines)
+  - File: `devforgeai/config/hooks.yaml.example-release` (11K, 268 lines)
   - Staging config: Lines 14-68 (5 questions, trigger_on: "all")
   - Production config: Lines 72-131 (6 production-specific questions, trigger_on: "failures-only")
   - Optional config: Lines 134-174 (production success opt-in example)
@@ -291,7 +291,7 @@
   - Migration: Lines 248-260 (comparison with /dev and /qa hooks)
 
 - [x] **Item 32: Troubleshooting guide**
-  - Location: `.devforgeai/config/hooks.yaml.example-release` (lines 227-260)
+  - Location: `devforgeai/config/hooks.yaml.example-release` (lines 227-260)
   - Scenarios:
     1. Hook not triggering (5 diagnostic steps)
     2. Hook errors breaking deployment (3 checks, explains non-blocking design)
@@ -425,7 +425,7 @@
 **Defer:** 10 infrastructure-dependent DoD items (Manual Testing, Staging/Production Testing)
 - Valid blocker: External infrastructure (staging/production environments) unavailable
 - Properly documented: Manual testing checklist with complete scenarios
-- Tracking established: `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+- Tracking established: `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 - Resolution path: Executable when infrastructure becomes available
 - RCA-006 compliant: No autonomous deferrals, blocker is external and justified
 
@@ -453,7 +453,7 @@
 - **Blocker Type:** External
 - **Justification:** Manual tests require executing actual `/release` command in real environments
 - **Resolution Condition:** "When staging and production environments accessible"
-- **Tracking:** `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+- **Tracking:** `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 - **Follow-up Story:** TBD (after infrastructure setup)
 - **Estimated Effort:** 2-4 hours (when infrastructure available)
 
@@ -463,7 +463,7 @@
 - **Blocker Type:** External
 - **Justification:** Cannot test in real environments without actual infrastructure access
 - **Resolution Condition:** "When staging and production infrastructure accessible"
-- **Tracking:** `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+- **Tracking:** `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 - **Follow-up Story:** TBD (after infrastructure setup)
 - **Estimated Effort:** 2-3 hours (verification after infrastructure testing)
 

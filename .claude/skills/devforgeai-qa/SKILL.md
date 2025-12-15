@@ -471,17 +471,17 @@ Before proceeding to Phase 6, verify you executed ALL 7 steps:
   - [ ] Quality metrics from Phase 4
 - [ ] Step 2: Determined overall QA result (PASSED/FAILED/PARTIAL)
 - [ ] Step 3: Generated QA report file (deep mode only)
-  - [ ] IF deep mode: Created `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+  - [ ] IF deep mode: Created `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
   - [ ] IF light mode: Skipped report file (this is correct)
 - [ ] Step 3.5: Generated gaps.json (MANDATORY if FAILED)
-  - [ ] IF FAILED: Created `.devforgeai/qa/reports/{STORY-ID}-gaps.json`
+  - [ ] IF FAILED: Created `devforgeai/qa/reports/{STORY-ID}-gaps.json`
   - [ ] Contains: coverage_gaps (files, layers, percentages, uncovered lines)
   - [ ] Contains: anti_pattern_violations (CRITICAL and HIGH only)
   - [ ] Contains: deferral_issues (violations from deferral-validator)
   - [ ] Contains: remediation_sequence (phases 02R→06R)
   - [ ] IF PASSED: Skipped (gaps.json only created on failure)
 - [ ] Step 3.6: Archived resolved gaps (if PASSED after previous FAIL)
-  - [ ] IF previous gaps.json existed: Moved to `.devforgeai/qa/resolved/`
+  - [ ] IF previous gaps.json existed: Moved to `devforgeai/qa/resolved/`
   - [ ] IF no previous gaps: Skipped (first pass)
 - [ ] Step 4: **UPDATED STORY STATUS** ⭐ CRITICAL
   - [ ] IF PASSED: `status: Dev Complete` → `status: QA Approved ✅`
@@ -496,7 +496,7 @@ Before proceeding to Phase 6, verify you executed ALL 7 steps:
 ```
 ✓ Phase 5 Complete: QA Report Generated
   Result: [PASSED ✅ / FAILED ❌ / PARTIAL ⚠️]
-  Report: [.devforgeai/qa/reports/{STORY-ID}-qa-report.md / Not generated (light mode)]
+  Report: [devforgeai/qa/reports/{STORY-ID}-qa-report.md / Not generated (light mode)]
   Blocking violations: [X]
   Next steps: [Listed below]
 ```
@@ -511,7 +511,7 @@ Before proceeding to Phase 6, verify you executed ALL 7 steps:
 
 ```
 Write(
-  file_path=".devforgeai/qa/reports/{STORY-ID}-gaps.json",
+  file_path="devforgeai/qa/reports/{STORY-ID}-gaps.json",
   content=JSON containing:
     - story_id
     - qa_result: "FAILED"
@@ -525,7 +525,7 @@ Write(
 **Validation Checkpoint:**
 ```
 IF overall_status == "FAILED":
-  Glob(pattern=".devforgeai/qa/reports/{STORY-ID}-gaps.json")
+  Glob(pattern="devforgeai/qa/reports/{STORY-ID}-gaps.json")
 
   IF file NOT found:
     ❌ HALT - gaps.json not created
@@ -545,10 +545,10 @@ IF overall_status == "FAILED":
 **You MUST update the story status based on QA result:**
 
 ```
-Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
 IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
-    Edit(file_path=".ai_docs/Stories/{STORY-ID}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Approved ✅")
 
@@ -557,12 +557,12 @@ IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
 - **{timestamp}**: QA validation PASSED ({mode} mode)
   - Coverage: {overall_coverage}%
   - Violations: {violation_summary}
-  - Report: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 """
     Append workflow_history_entry to story Workflow History section
 
 IF overall_status == "FAIL":
-    Edit(file_path=".ai_docs/Stories/{STORY-ID}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Failed ❌")
 
@@ -570,7 +570,7 @@ IF overall_status == "FAIL":
     workflow_history_entry = """
 - **{timestamp}**: QA validation FAILED ({mode} mode)
   - Blocking issues: {blocking_issues}
-  - Report: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
   - Action required: Fix issues and re-run `/qa {STORY-ID}`
 """
     Append workflow_history_entry to story Workflow History section
@@ -589,7 +589,7 @@ IF overall_status == "FAIL":
 
 ```
 # Read story file
-Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
 # Extract current status
 status_line = grep "^status:" in story file

@@ -258,7 +258,7 @@ Phase 3: Verify tests passing
 > /dev STORY-001
 
 Phase 0: Technology Detection
-  Step 1: Glob(.devforgeai/context/*.md) → 0 files
+  Step 1: Glob(devforgeai/specs/context/*.md) → 0 files
 
   HALT with error:
   "Context files not found. This is a greenfield project.

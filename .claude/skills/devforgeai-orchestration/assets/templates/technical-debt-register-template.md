@@ -79,7 +79,7 @@
 
 **Automated Analysis:**
 - technical-debt-analyzer subagent runs during sprint planning
-- Generates reports in `.devforgeai/technical-debt-analysis-{date}.md`
+- Generates reports in `devforgeai/technical-debt-analysis-{date}.md`
 - Updates "Analysis" section above
 
 **Manual Analysis:**

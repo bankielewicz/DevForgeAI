@@ -80,8 +80,8 @@ class TestConfigurationManagerInitialization:
     def test_init_with_default_paths(self):
         """ConfigurationManager uses defaults when paths not provided."""
         manager = ConfigurationManager(enable_hot_reload=False)
-        assert manager.config_file_path == Path(".devforgeai/config/feedback.yaml")
-        assert manager.logs_dir == Path(".devforgeai/logs")
+        assert manager.config_file_path == Path("devforgeai/config/feedback.yaml")
+        assert manager.logs_dir == Path("devforgeai/logs")
 
     def test_init_creates_logs_directory(self, temp_config_file, temp_logs_dir):
         """Initialization creates logs directory if it doesn't exist."""

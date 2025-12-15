@@ -382,7 +382,7 @@ class TestUpgradeHappyPath:
         """
         Happy Path: User content preserved during upgrade.
 
-        Given: Project with user stories in .ai_docs/
+        Given: Project with user stories in devforgeai/specs/
         When: Upgrade executed
         Then: User stories unchanged
         """
@@ -503,7 +503,7 @@ class TestUpgradeRollback:
 
         Given: Rollback triggered
         When: Restore completes
-        Then: All .claude/ and .devforgeai/ files match backup
+        Then: All .claude/ and devforgeai/ files match backup
         """
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
@@ -559,7 +559,7 @@ class TestUpgradeSummaryAndLogging:
 
     def test_summary_saved_to_log_file(self, integration_project, source_framework_1_1_0):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log.
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log.
 
         Given: Upgrade completes
         When: Summary generated

@@ -62,7 +62,7 @@ def create_backup(self, target_dir: Path, files_to_backup: List[Path]) -> Path:
         files_to_backup: List of file paths to backup (from target_dir)
 
     Returns:
-        Path to created backup directory (e.g., .devforgeai/install-backup-2025-12-03T...)
+        Path to created backup directory (e.g., devforgeai/install-backup-2025-12-03T...)
 
     Raises:
         PermissionError: If backup directory creation fails
@@ -382,7 +382,7 @@ def _is_in_backup(self, file_path: Path, backup_dir: Path) -> bool:
 ### Current Code (WRONG)
 ```python
 class InstallLogger:
-    def __init__(self, log_path: str = ".devforgeai/install.log"):  # Wrong param name
+    def __init__(self, log_path: str = "devforgeai/install.log"):  # Wrong param name
         pass
 
     # Missing: log_info(), log_warning()
@@ -646,7 +646,7 @@ def _rotate_log_if_needed(self) -> None:
 ### Current Code (WRONG)
 ```python
 class LockFileManager:
-    def __init__(self, lock_path: str = ".devforgeai/install.lock"):  # Wrong param!
+    def __init__(self, lock_path: str = "devforgeai/install.lock"):  # Wrong param!
         pass
 
     # Missing: cleanup(), context manager support
@@ -692,7 +692,7 @@ def __init__(self, lock_dir: Path):
     """Initialize lock file manager.
 
     Args:
-        lock_dir: Directory where .devforgeai/install.lock will be created
+        lock_dir: Directory where devforgeai/install.lock will be created
     """
     self.lock_dir = Path(lock_dir)
     self.lock_dir.mkdir(parents=True, exist_ok=True)

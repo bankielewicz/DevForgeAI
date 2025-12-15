@@ -363,7 +363,7 @@ class TestRepairServiceSecurityConstraints:
         outside_file.write_text("Important user data")
 
         validation_issue = ValidationIssue(
-            path="user_project/important.txt",  # Outside .claude/, .devforgeai/
+            path="user_project/important.txt",  # Outside .claude/, devforgeai/
             issue_type="CORRUPTED",
         )
 
@@ -379,11 +379,11 @@ class TestRepairServiceSecurityConstraints:
             repair_service.repair([validation_issue])
 
     def test_should_only_repair_recognized_devforgeai_files(self, tmp_project):
-        """Security: Only files in .claude/, .devforgeai/, CLAUDE.md are repaired."""
+        """Security: Only files in .claude/, devforgeai/, CLAUDE.md are repaired."""
         # Arrange
         allowed_files = [
             ValidationIssue(path=".claude/agents/test.md", issue_type="MISSING"),
-            ValidationIssue(path=".devforgeai/context/tech-stack.md", issue_type="MISSING"),
+            ValidationIssue(path="devforgeai/specs/context/tech-stack.md", issue_type="MISSING"),
             ValidationIssue(path="CLAUDE.md", issue_type="MISSING"),
         ]
 
@@ -411,9 +411,9 @@ class TestRepairServiceUserInteraction:
         """AC#5: User is prompted for each user-modified file."""
         # Arrange
         user_files = [
-            ValidationIssue(path=".ai_docs/story1.md", issue_type="CORRUPTED", is_user_modified=True),
-            ValidationIssue(path=".ai_docs/story2.md", issue_type="CORRUPTED", is_user_modified=True),
-            ValidationIssue(path=".devforgeai/context/tech-stack.md", issue_type="CORRUPTED", is_user_modified=True),
+            ValidationIssue(path="devforgeai/specs/story1.md", issue_type="CORRUPTED", is_user_modified=True),
+            ValidationIssue(path="devforgeai/specs/story2.md", issue_type="CORRUPTED", is_user_modified=True),
+            ValidationIssue(path="devforgeai/specs/context/tech-stack.md", issue_type="CORRUPTED", is_user_modified=True),
         ]
 
         # Act
@@ -431,15 +431,15 @@ class TestRepairServiceUserInteraction:
 
         # Assert
         assert mock_prompt.call_count == 3
-        assert user_choices[".ai_docs/story1.md"] == "keep"
-        assert user_choices[".ai_docs/story2.md"] == "restore"
-        assert user_choices[".devforgeai/context/tech-stack.md"] == "backup_and_restore"
+        assert user_choices["devforgeai/specs/story1.md"] == "keep"
+        assert user_choices["devforgeai/specs/story2.md"] == "restore"
+        assert user_choices["devforgeai/specs/context/tech-stack.md"] == "backup_and_restore"
 
     def test_should_offer_four_user_options_for_modified_files(self, tmp_project):
         """AC#5: User is offered 4 options for each file."""
         # Arrange
         validation_issue = ValidationIssue(
-            path=".ai_docs/config.yaml",
+            path="devforgeai/specs/config.yaml",
             issue_type="CORRUPTED",
             is_user_modified=True,
         )
@@ -464,9 +464,9 @@ class TestRepairServiceUserInteraction:
         """AC#5: User's choice is respected for each file."""
         # Arrange
         user_choices = {
-            ".ai_docs/story1.md": "keep",
-            ".ai_docs/story2.md": "restore",
-            ".devforgeai/config.yaml": "backup_and_restore",
+            "devforgeai/specs/story1.md": "keep",
+            "devforgeai/specs/story2.md": "restore",
+            "devforgeai/config.yaml": "backup_and_restore",
         }
 
         issues = [

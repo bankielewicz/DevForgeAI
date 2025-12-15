@@ -67,7 +67,7 @@
 **Files checked:**
 - ✅ `.claude/commands/dev.md` - Only ONE Skill() invocation (line 258)
 - ✅ `.claude/skills/devforgeai-development/SKILL.md` - NO recursive invocations
-- ✅ `.ai_docs/Stories/*.story.md` - NO Skill() invocations in stories
+- ✅ `devforgeai/specs/Stories/*.story.md` - NO Skill() invocations in stories
 
 **Code structure analyzed:**
 - ✅ /dev has separate code blocks for context (Step 2.1) and Skill() (Step 2.2)
@@ -245,4 +245,4 @@ The SKILL.md refactoring is **NOT related** to the duplicate message bug:
 
 ---
 
-**Analysis document created:** `.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-RESOLUTION.md`
+**Analysis document created:** `devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-RESOLUTION.md`

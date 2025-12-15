@@ -92,7 +92,7 @@ Task(
   ],
   "framework_compliance": "PASS",
   "quality_gate_status": "PASS",
-  "report_path": ".devforgeai/research/feasibility/EPIC-007-2025-11-17-143022-research.md"
+  "report_path": "devforgeai/specs/research/feasibility/EPIC-007-2025-11-17-143022-research.md"
 }
 ```
 
@@ -105,9 +105,9 @@ Task(
 **Syntax:**
 ```python
 # Load story/epic first
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 # OR
-Read(file_path=".ai_docs/Epics/EPIC-007.epic.md")
+Read(file_path="devforgeai/specs/Epics/EPIC-007.epic.md")
 
 # Then invoke with explicit context markers
 **Story ID:** STORY-042

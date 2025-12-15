@@ -44,7 +44,7 @@ IF $1 invalid:
 
 **Load context:**
 ```
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 ```
 
 **Validation summary:**
@@ -134,7 +134,7 @@ ELIF $1 invalid:
   AskUserQuestion: "Invalid format"
 
 Load story file:
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 
 Extensive validation:
 
@@ -631,7 +631,7 @@ IF $1 empty:
 ELIF $1 invalid format (not STORY-[0-9]+):
   AskUserQuestion: "Invalid format. Try STORY-001"
 ELIF story file not found:
-  Glob: .ai_docs/Stories/$1*.story.md
+  Glob: devforgeai/specs/Stories/$1*.story.md
   IF no match:
     AskUserQuestion: "Story not found. List stories?"
   ELSE:
@@ -1323,7 +1323,7 @@ This command invokes subagents directly without skill layer.
 ### Phase 0: Argument Validation
 
 Load story via @file:
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 
 ---
 
@@ -1381,7 +1381,7 @@ argument-hint: STORY-ID
 ### Phase 0: Setup
 
 Load story:
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 
 ---
 
@@ -1471,7 +1471,7 @@ description: Minimal command with zero violations
 # /test-minimal - Minimal
 
 ```
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 Skill(command="test")
 ```
 """

@@ -574,7 +574,7 @@ Edit(
 **Step 3: Validate format**
 
 ```
-Bash(command="devforgeai-validate validate-dod .ai_docs/Stories/STORY-027...")
+Bash(command="devforgeai-validate validate-dod devforgeai/specs/Stories/STORY-027...")
 
 Output: ✅ All DoD items validated
 Exit code: 0

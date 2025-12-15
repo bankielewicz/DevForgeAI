@@ -502,7 +502,7 @@ INSTRUCTIONS:
 **Current implementation:** Sequential (one story at a time)
 
 ```bash
-for story in .ai_docs/Stories/*.md; do
+for story in devforgeai/specs/Stories/*.md; do
   python migrate_story_v1_to_v2.py "$story" --ai-assisted
 done
 ```

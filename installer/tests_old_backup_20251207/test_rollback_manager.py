@@ -132,7 +132,7 @@ class TestRollbackManager:
         """
         WKR-023: Restore all files from backup (complete state restoration).
 
-        Given: Backup contains .claude/, .devforgeai/, CLAUDE.md
+        Given: Backup contains .claude/, devforgeai/, CLAUDE.md
         When: Rollback initiated
         Then: All files restored to original location
         """

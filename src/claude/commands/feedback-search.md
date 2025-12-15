@@ -77,7 +77,7 @@ Skill(command="devforgeai-feedback")
 
 **What the skill does:**
 1. Parse query type (story ID, date range, operation, keyword)
-2. Search feedback index (.devforgeai/feedback/feedback-index.json)
+2. Search feedback index (devforgeai/feedback/feedback-index.json)
 3. Apply filters (severity, status)
 4. Sort results (date descending for time queries, relevance for text)
 5. Apply pagination (page * limit)
@@ -393,5 +393,5 @@ Action: Capture feedback with /feedback command first
 
 - devforgeai-feedback skill (search implementation)
 - STORY-016: Searchable Metadata Index
-- .devforgeai/feedback/feedback-index.json (search index)
-- .devforgeai/feedback/feedback-register.md (feedback storage)
+- devforgeai/feedback/feedback-index.json (search index)
+- devforgeai/feedback/feedback-register.md (feedback storage)

@@ -110,7 +110,7 @@ Successfully enhanced `devforgeai-orchestration` skill with comprehensive epic c
 - Populate template with all gathered data
 - Generate YAML frontmatter (9 fields)
 - Generate markdown content (9 sections)
-- Create .ai_docs/Epics/ directory if needed
+- Create devforgeai/specs/Epics/ directory if needed
 - Write epic file
 - Verify file creation
 
@@ -126,7 +126,7 @@ Successfully enhanced `devforgeai-orchestration` skill with comprehensive epic c
 - AskUserQuestion: Create detailed requirements spec? (3 options)
 - If yes: Invoke requirements-analyst subagent
 - Generate comprehensive requirements (functional, non-functional, data models, API contracts, business rules, integrations)
-- Write to .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+- Write to devforgeai/specs/requirements/{EPIC-ID}-requirements.md
 - Update epic file with requirements link
 - Framework constraint validation (if context files exist)
 
@@ -445,8 +445,8 @@ allowed-tools:
 2. **Context Gathering** - Goal, timeline, priority, stakeholders, success criteria (4 AskUserQuestion flows)
 3. **Feature Decomposition** - requirements-analyst subagent, 3-8 features, user review loop
 4. **Technical Assessment** - architect-reviewer subagent, complexity 0-10, risk identification, context validation
-5. **Epic File Creation** - Populate epic-template.md, write to .ai_docs/Epics/{EPIC-ID}.epic.md
-6. **Requirements Spec** - Optional requirements-analyst subagent, write to .devforgeai/specs/requirements/
+5. **Epic File Creation** - Populate epic-template.md, write to devforgeai/specs/Epics/{EPIC-ID}.epic.md
+6. **Requirements Spec** - Optional requirements-analyst subagent, write to devforgeai/specs/requirements/
 7. **Validation** - 9 validation checks, self-heal correctable issues, HALT on critical failures
 8. **Completion Summary** - Return structured JSON to command
 
@@ -469,8 +469,8 @@ allowed-tools:
     "greenfield_mode": true
   },
   "files_created": [
-    ".ai_docs/Epics/EPIC-NNN.epic.md",
-    ".devforgeai/specs/requirements/EPIC-NNN-requirements.md"
+    "devforgeai/specs/Epics/EPIC-NNN.epic.md",
+    "devforgeai/specs/requirements/EPIC-NNN-requirements.md"
   ],
   "validation": {
     "passed": 18,
@@ -648,7 +648,7 @@ allowed-tools:
 - [ ] Loads epic-template.md
 - [ ] Populates all YAML fields (9 fields)
 - [ ] Generates all markdown sections (9 sections)
-- [ ] Creates .ai_docs/Epics/ directory if needed
+- [ ] Creates devforgeai/specs/Epics/ directory if needed
 - [ ] Writes epic file successfully
 - [ ] Verifies file creation
 
@@ -656,7 +656,7 @@ allowed-tools:
 
 - [ ] AskUserQuestion has 3 options (yes, no, later)
 - [ ] Invokes requirements-analyst if yes selected
-- [ ] Creates .devforgeai/specs/requirements/ directory
+- [ ] Creates devforgeai/specs/requirements/ directory
 - [ ] Writes requirements spec
 - [ ] Updates epic file with link
 - [ ] Skips if user selects no
@@ -693,7 +693,7 @@ allowed-tools:
 
 **Setup:**
 ```bash
-rm -rf .devforgeai/context/
+rm -rf devforgeai/specs/context/
 ```
 
 **Execute:**
@@ -720,7 +720,7 @@ Skill(command="devforgeai-orchestration")
 
 **Setup:**
 ```bash
-# Ensure .devforgeai/context/*.md exist
+# Ensure devforgeai/specs/context/*.md exist
 # tech-stack.md specifies: React, Node.js, PostgreSQL
 ```
 
@@ -995,16 +995,16 @@ Skill(command="devforgeai-orchestration")
 
 ### Planning Documents Created
 
-**✅ .devforgeai/protocols/create-epic-refactoring-plan.md**
+**✅ devforgeai/protocols/create-epic-refactoring-plan.md**
 - Initial analysis and strategy
 
-**✅ .devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md**
+**✅ devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md**
 - Complete step-by-step guide
 
-**✅ .devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md**
+**✅ devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md**
 - Hypothesis validation summary
 
-**✅ .devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md** (THIS FILE)
+**✅ devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md** (THIS FILE)
 - Skill enhancement completion report
 
 ---

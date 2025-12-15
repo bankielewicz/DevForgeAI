@@ -52,13 +52,13 @@ Exit code: 2
 **A. Check file permissions:**
 ```bash
 ls -la /path/to/project/.claude/
-ls -la /path/to/project/.devforgeai/
+ls -la /path/to/project/devforgeai/
 ```
 
 **B. Fix permissions:**
 ```bash
 chmod -R u+w /path/to/project/.claude/
-chmod -R u+w /path/to/project/.devforgeai/
+chmod -R u+w /path/to/project/devforgeai/
 ```
 
 **C. Run as appropriate user:**
@@ -81,7 +81,7 @@ Exit code: 3
 
 **A. Review skipped files:**
 ```bash
-cat .devforgeai/logs/fix-{timestamp}.log
+cat devforgeai/logs/fix-{timestamp}.log
 ```
 
 **B. Decide on skipped files:**
@@ -160,7 +160,7 @@ When prompted, choose option 4 to preserve your version while restoring original
 
 **Symptoms:**
 ```
-Manifest file (.devforgeai/.install-manifest.json) not found.
+Manifest file (devforgeai/.install-manifest.json) not found.
 
 Options:
   1. Regenerate manifest from current files
@@ -182,7 +182,7 @@ python -m installer install /path/to/project
 ```
 
 **C. Manual manifest creation:**
-Create `.devforgeai/.install-manifest.json` manually (not recommended)
+Create `devforgeai/.install-manifest.json` manually (not recommended)
 
 ---
 
@@ -197,7 +197,7 @@ Validation process seems stuck or takes excessive time.
 
 **A. Check installation size:**
 ```bash
-find .claude/ .devforgeai/ -type f | wc -l
+find .claude/ devforgeai/ -type f | wc -l
 ```
 Should be ~450 files for standard installation
 
@@ -208,7 +208,7 @@ rm test.tmp
 ```
 
 **C. Exclude extra files:**
-Remove unnecessary files from `.claude/` and `.devforgeai/` directories
+Remove unnecessary files from `.claude/` and `devforgeai/` directories
 
 ---
 
@@ -220,19 +220,19 @@ SecurityError: Cannot modify files outside DevForgeAI scope.
 Path: user_project/data.csv
 ```
 
-**Cause:** Manifest contains files outside allowed directories (`.claude/`, `.devforgeai/`, `CLAUDE.md`).
+**Cause:** Manifest contains files outside allowed directories (`.claude/`, `devforgeai/`, `CLAUDE.md`).
 
 **Solutions:**
 
 **A. Check manifest integrity:**
 ```bash
-cat .devforgeai/.install-manifest.json | grep "user_project"
+cat devforgeai/.install-manifest.json | grep "user_project"
 ```
 
 **B. Regenerate manifest:**
 ```bash
 # Remove corrupted manifest
-rm .devforgeai/.install-manifest.json
+rm devforgeai/.install-manifest.json
 
 # Run fix to regenerate
 python -m installer fix /path/to/project
@@ -257,7 +257,7 @@ Every file in manifest shows checksum mismatch.
 
 **A. Verify installation version:**
 ```bash
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 **B. Use correct source package:**
@@ -289,7 +289,7 @@ df -h /path/to/project
 
 **B. Clean old backups:**
 ```bash
-rm -rf .devforgeai/install-backup-*
+rm -rf devforgeai/install-backup-*
 ```
 
 **C. Free up space:**
@@ -309,7 +309,7 @@ python -m installer fix /path/to/project --verbose
 
 **Check installation logs:**
 ```bash
-tail -f .devforgeai/logs/install.log
+tail -f devforgeai/logs/install.log
 ```
 
 ---
@@ -323,7 +323,7 @@ tail -f .devforgeai/logs/install.log
 python -m installer fix /path/to/project
 
 # 2. Review issues
-cat .devforgeai/logs/fix-{timestamp}.log
+cat devforgeai/logs/fix-{timestamp}.log
 
 # 3. Repair with appropriate source
 python -m installer fix /path/to/project --source /path/to/new-version
@@ -335,13 +335,13 @@ python -m installer fix /path/to/project --source /path/to/new-version
 
 ```bash
 # 1. Backup current config
-cp -r .devforgeai/context/ .devforgeai/context.backup/
+cp -r devforgeai/specs/context/ devforgeai/context.backup/
 
 # 2. Run fix with force (restores defaults)
 python -m installer fix /path/to/project --force
 
 # 3. Merge back customizations if needed
-diff -u .devforgeai/context.backup/ .devforgeai/context/
+diff -u devforgeai/context.backup/ devforgeai/specs/context/
 ```
 
 ---
@@ -362,7 +362,7 @@ python -m installer fix /path/to/project
 ## FAQ
 
 **Q: Will fix command delete my user files?**
-A: No. Fix only modifies files in `.claude/`, `.devforgeai/`, and `CLAUDE.md`. Your project files are safe.
+A: No. Fix only modifies files in `.claude/`, `devforgeai/`, and `CLAUDE.md`. Your project files are safe.
 
 **Q: What happens if I choose "Keep my version"?**
 A: The file is skipped. Your modifications are preserved. The issue remains in the report.
@@ -371,7 +371,7 @@ A: The file is skipped. Your modifications are preserved. The issue remains in t
 A: If you chose "Backup and restore", your version is in `.backups/install-backup-{timestamp}/`. Restore manually if needed.
 
 **Q: How do I know which files are user-modifiable?**
-A: Files in `.ai_docs/` and `.devforgeai/context/` are considered user-modifiable. `CLAUDE.md` is also user-modifiable.
+A: Files in `devforgeai/specs/` and `devforgeai/specs/context/` are considered user-modifiable. `CLAUDE.md` is also user-modifiable.
 
 **Q: What if source package is corrupted?**
 A: Download fresh source from official repository or use a verified backup.
@@ -385,8 +385,8 @@ A: Yes, but it will report no issues (exit code 0).
 
 **Check logs:**
 ```bash
-cat .devforgeai/logs/fix-{timestamp}.log
-cat .devforgeai/logs/install.log
+cat devforgeai/logs/fix-{timestamp}.log
+cat devforgeai/logs/install.log
 ```
 
 **Verify installation:**
@@ -397,15 +397,15 @@ python -m installer validate /path/to/project
 **Reinstall if all else fails:**
 ```bash
 # Backup user files first
-cp -r .ai_docs/ .ai_docs.backup/
-cp -r .devforgeai/context/ .devforgeai/context.backup/
+cp -r devforgeai/specs/ .ai_docs.backup/
+cp -r devforgeai/specs/context/ devforgeai/context.backup/
 
 # Reinstall
 python -m installer install /path/to/project --force
 
 # Restore user files
-cp -r .ai_docs.backup/* .ai_docs/
-cp -r .devforgeai/context.backup/* .devforgeai/context/
+cp -r .ai_docs.backup/* devforgeai/specs/
+cp -r devforgeai/context.backup/* devforgeai/specs/context/
 ```
 
 ---

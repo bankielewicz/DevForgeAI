@@ -515,7 +515,7 @@ Tests validate performance thresholds in GREEN phase.
 
 ## References
 
-- **Story File:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-086-coverage-reporting-system.story.md`
+- **Story File:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-086-coverage-reporting-system.story.md`
 - **Technical Spec:** Lines 113-251 in story file (7 components, 25 requirements)
 - **Test Documentation:** `/mnt/c/Projects/DevForgeAI2/tests/reporting/README.md`
 - **DevForgeAI TDD:** `/.claude/skills/devforgeai-development/SKILL.md`

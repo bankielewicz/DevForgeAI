@@ -2,7 +2,7 @@
 """
 Validate technical specifications against context files.
 
-This script validates that technical specifications (in .devforgeai/specs/)
+This script validates that technical specifications (in devforgeai/specs/)
 respect all constraints defined in the 6 context files:
 1. tech-stack.md - Technology compliance
 2. dependencies.md - Package compliance
@@ -447,7 +447,7 @@ def main():
         epilog="""
 Examples:
   # Validate a specific spec file
-  python validate_spec.py .devforgeai/specs/user-authentication-spec.md
+  python validate_spec.py devforgeai/specs/user-authentication-spec.md
 
   # Validate with custom context directory
   python validate_spec.py spec.md --context-dir /path/to/context
@@ -468,8 +468,8 @@ Exit codes:
     parser.add_argument(
         '--context-dir',
         type=Path,
-        default=Path('.devforgeai/context'),
-        help='Path to context files directory (default: .devforgeai/context)'
+        default=Path('devforgeai/context'),
+        help='Path to context files directory (default: devforgeai/context)'
     )
 
     parser.add_argument(

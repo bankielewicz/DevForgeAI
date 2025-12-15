@@ -159,7 +159,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 
 **File Size:** 2,343 lines (was 855 lines - 174% growth for comprehensive framework awareness)
 
-**See:** `.devforgeai/specs/enhancements/AGENT-GENERATOR-FRAMEWORK-AWARENESS-UPDATES.md` for complete enhancement details
+**See:** `devforgeai/specs/enhancements/AGENT-GENERATOR-FRAMEWORK-AWARENESS-UPDATES.md` for complete enhancement details
 
 ---
 

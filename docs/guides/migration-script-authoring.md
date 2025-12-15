@@ -799,7 +799,7 @@ def create_new_configuration() -> bool:
 def move_archived_stories() -> bool:
     """Move archived stories to new location."""
     try:
-        archive_src = Path(".ai_docs/Stories/archive")
+        archive_src = Path("devforgeai/specs/Stories/archive")
         archive_dst = Path(".ai_docs/archive/stories")
 
         if archive_src.exists():
@@ -935,4 +935,4 @@ shutil.move(str(temp_path), str(dst))
 
 - [Backup Management Guide](backup-management.md)
 - [Upgrade Troubleshooting Guide](upgrade-troubleshooting.md)
-- [STORY-078: Upgrade Mode with Migration Scripts](../../.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)
+- [STORY-078: Upgrade Mode with Migration Scripts](../../devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)

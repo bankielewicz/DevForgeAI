@@ -220,7 +220,7 @@ test_null_byte_injection() {
 test_br003_compliance() {
     echo -n "Test E1.7: BR-003 shell escaping compliance... "
 
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     # Verify BR-003 exists in story (check for BR-003 AND shell-escaped anywhere in story)
     if echo "$story_content" | grep -q "BR-003" && echo "$story_content" | grep -q "shell-escaped"; then

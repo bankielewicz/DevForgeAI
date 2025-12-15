@@ -16,7 +16,7 @@ class TestEpicAndSprintExtraction:
     """Test extraction of epics and sprints from .ai_docs/."""
 
     def test_should_find_all_epics(self):
-        """Test that roadmap generator finds all epics in .ai_docs/Epics/."""
+        """Test that roadmap generator finds all epics in devforgeai/specs/Epics/."""
         # Arrange
         epic_files = [
             "EPIC-001.epic.md",
@@ -34,7 +34,7 @@ class TestEpicAndSprintExtraction:
         assert isinstance(epics, list)
 
     def test_should_find_all_sprints(self):
-        """Test that roadmap generator finds all sprints in .ai_docs/Sprints/."""
+        """Test that roadmap generator finds all sprints in devforgeai/specs/Sprints/."""
         # Arrange
         sprint_files = [
             "Sprint-1.md",

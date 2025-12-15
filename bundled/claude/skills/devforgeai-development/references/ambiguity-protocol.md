@@ -226,8 +226,8 @@ Ambiguity resolution succeeds when:
 
 **Framework documentation:**
 - `CLAUDE.md` - Core principle: "Ask, don't assume"
-- `.devforgeai/context/` - All 6 context files that guide development
-- `.devforgeai/adrs/` - Architecture Decision Records
+- `devforgeai/specs/context/` - All 6 context files that guide development
+- `devforgeai/specs/adrs/` - Architecture Decision Records
 
 **Related workflows:**
 - `preflight-validation.md` - Step 0.6 validates spec vs context conflicts

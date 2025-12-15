@@ -20,7 +20,7 @@ Creates a new epic with feature breakdown and scope definition.
 **Find existing epics:**
 
 ```bash
-Glob(pattern=".ai_docs/Epics/*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 ```
 
 **Determine next epic ID:**
@@ -30,7 +30,7 @@ Glob(pattern=".ai_docs/Epics/*.epic.md")
 **Check for existing epic with same name:**
 
 ```bash
-Grep(pattern="title: .*[epic-name]", path=".ai_docs/Epics/", output_mode="files_with_matches", -i=true)
+Grep(pattern="title: .*[epic-name]", path="devforgeai/specs/Epics/", output_mode="files_with_matches", -i=true)
 ```
 
 **If duplicate name found:**
@@ -161,7 +161,7 @@ Provide:
 **Check for context files:**
 
 ```bash
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **If context files exist:**
@@ -274,7 +274,7 @@ stakeholders:
 
 ## Related Documentation
 
-- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
+- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
 - ADRs: (to be created during architecture phase)
 - User Stories: (to be created during sprint planning)
 
@@ -287,7 +287,7 @@ stakeholders:
 
 ```bash
 Write(
-  file_path=".ai_docs/Epics/[EPIC-ID].epic.md",
+  file_path="devforgeai/specs/Epics/[EPIC-ID].epic.md",
   content="[Generated epic document]"
 )
 ```
@@ -324,7 +324,7 @@ Generate comprehensive requirements document including:
 5. **Business Rules** - Validation, workflows, constraints
 6. **Integration Requirements** - External systems, APIs, services
 
-Format as structured markdown suitable for `.devforgeai/specs/requirements/`"
+Format as structured markdown suitable for `devforgeai/specs/requirements/`"
 )
 ```
 
@@ -332,7 +332,7 @@ Format as structured markdown suitable for `.devforgeai/specs/requirements/`"
 
 ```bash
 Write(
-  file_path=".devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
+  file_path="devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
   content="[Generated requirements specification]"
 )
 ```
@@ -341,9 +341,9 @@ Write(
 
 ```bash
 Edit(
-  file_path=".ai_docs/Epics/[EPIC-ID].epic.md",
-  old_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
-  new_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
+  file_path="devforgeai/specs/Epics/[EPIC-ID].epic.md",
+  old_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
+  new_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
 )
 ```
 
@@ -372,9 +372,9 @@ Technical Assessment:
   📦 Prerequisites: [prerequisite count]
 
 Files Created:
-  📁 .ai_docs/Epics/[EPIC-ID].epic.md
+  📁 devforgeai/specs/Epics/[EPIC-ID].epic.md
   [If requirements created]
-  📁 .devforgeai/specs/requirements/[EPIC-ID]-requirements.md
+  📁 devforgeai/specs/requirements/[EPIC-ID]-requirements.md
 
 Next Steps:
   1. Review epic document and features
@@ -427,13 +427,13 @@ Next Steps:
 
 ### Error: Directory Structure Missing
 
-**Condition:** `.ai_docs/Epics/` directory does not exist
+**Condition:** `devforgeai/specs/Epics/` directory does not exist
 
 **Action:**
 1. Create directory structure:
    ```bash
    # Using Bash for directory creation
-   mkdir -p .ai_docs/Epics
+   mkdir -p devforgeai/specs/Epics
    ```
 2. Continue with epic creation
 3. Log directory creation in epic status history
@@ -441,7 +441,7 @@ Next Steps:
 ## Success Criteria
 
 - [x] Epic ID generated (sequential)
-- [x] Epic file created in `.ai_docs/Epics/[EPIC-ID].epic.md`
+- [x] Epic file created in `devforgeai/specs/Epics/[EPIC-ID].epic.md`
 - [x] YAML frontmatter complete (all required fields)
 - [x] Features listed with descriptions (3-8 features)
 - [x] Technical assessment included

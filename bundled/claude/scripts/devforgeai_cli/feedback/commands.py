@@ -70,7 +70,7 @@ def handle_feedback(context: List[str], output_format: str) -> int:
         date_str = now.strftime("%Y-%m-%d")
 
         # Ensure feedback directory exists
-        feedback_dir = Path(".devforgeai/feedback")
+        feedback_dir = Path("devforgeai/feedback")
         feedback_dir.mkdir(parents=True, exist_ok=True)
         register_file = feedback_dir / "feedback-register.md"
 
@@ -144,7 +144,7 @@ def handle_feedback_config(subcommand: str, args: Any, output_format: str) -> in
         Exit code (0 for success, 1 for error)
     """
     try:
-        config_file = Path(".devforgeai/feedback/config.yaml")
+        config_file = Path("devforgeai/feedback/config.yaml")
 
         # Handle view subcommand
         if subcommand == 'view':
@@ -389,7 +389,7 @@ def handle_feedback_search(query: str, severity: Optional[str], status: Optional
         total_matches = 0
 
         # Check if feedback register exists
-        register_file = Path(".devforgeai/feedback/feedback-register.md")
+        register_file = Path("devforgeai/feedback/feedback-register.md")
         if not register_file.exists():
             # Empty history case
             response = {
@@ -479,7 +479,7 @@ def handle_export_feedback(export_format: str, date_range: Optional[str],
         if output_path:
             file_path = Path(output_path)
         else:
-            exports_dir = Path(".devforgeai/feedback/exports")
+            exports_dir = Path("devforgeai/feedback/exports")
             exports_dir.mkdir(parents=True, exist_ok=True)
             file_path = exports_dir / f"{now.strftime('%Y-%m-%d')}-feedback-export.{export_format}"
 

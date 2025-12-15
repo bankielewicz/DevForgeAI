@@ -223,7 +223,7 @@ npm test tests/release/
 
 ## References
 
-- **Story**: `.ai_docs/Stories/STORY-070-framework-release-automation.story.md`
+- **Story**: `devforgeai/specs/Stories/STORY-070-framework-release-automation.story.md`
 - **Script** (to be created): `scripts/release.sh`
 - **Config** (to be created): `.devforgeai/config/release-config.sh`
 - **Jest Docs**: https://jestjs.io/docs/getting-started

@@ -183,7 +183,7 @@ def _convert_to_structured_format_ai(self, freeform_text: str) -> Dict[str, Any]
 **Actual selection (Week 4 Day 1):**
 ```bash
 # List all stories
-ls -lh .ai_docs/Stories/*.story.md
+ls -lh devforgeai/specs/Stories/*.story.md
 
 # Review each, categorize by complexity
 # Select 10 representative stories
@@ -198,7 +198,7 @@ ls -lh .ai_docs/Stories/*.story.md
 **Pre-flight:**
 ```bash
 # 1. Backup
-cp .ai_docs/Stories/STORY-XXX.md .devforgeai/backups/phase2-pilot/
+cp devforgeai/specs/Stories/STORY-XXX.md devforgeai/backups/phase2-pilot/
 
 # 2. Test baseline (v1.0)
 /dev STORY-XXX
@@ -209,7 +209,7 @@ cp .ai_docs/Stories/STORY-XXX.md .devforgeai/backups/phase2-pilot/
 ```bash
 # 3. Migrate with validation
 python .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py \
-  .ai_docs/Stories/STORY-XXX.md \
+  devforgeai/specs/Stories/STORY-XXX.md \
   --validate
 
 # Expected output:
@@ -220,11 +220,11 @@ python .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.p
 **Post-migration:**
 ```bash
 # 4. Manual review
-cat .ai_docs/Stories/STORY-XXX.md
+cat devforgeai/specs/Stories/STORY-XXX.md
 # Check: YAML quality, component accuracy, test requirements
 
 # 5. Rate quality (1-5)
-echo "Quality: 4/5" >> .devforgeai/pilot-results.txt
+echo "Quality: 4/5" >> devforgeai/pilot-results.txt
 
 # 6. Test with /dev
 /dev STORY-XXX
@@ -251,13 +251,13 @@ echo "Quality: 4/5" >> .devforgeai/pilot-results.txt
 
 ```bash
 # Migration success rate
-migrated=$(grep "✅ PASS" .devforgeai/pilot-results.txt | wc -l)
+migrated=$(grep "✅ PASS" devforgeai/pilot-results.txt | wc -l)
 total=10
 success_rate=$((migrated * 100 / total))
 echo "Migration success rate: $success_rate%"
 
 # Average quality score
-avg_quality=$(grep "Quality:" .devforgeai/pilot-results.txt | awk '{sum+=$2; count++} END {print sum/count}')
+avg_quality=$(grep "Quality:" devforgeai/pilot-results.txt | awk '{sum+=$2; count++} END {print sum/count}')
 echo "Average quality: $avg_quality/5"
 
 # Component detection improvement
@@ -287,12 +287,12 @@ echo "Average quality: $avg_quality/5"
 
 **Step 1: Complete backup**
 ```bash
-mkdir -p .devforgeai/backups/phase2-full
-cp .ai_docs/Stories/*.md .devforgeai/backups/phase2-full/
+mkdir -p devforgeai/backups/phase2-full
+cp devforgeai/specs/Stories/*.md devforgeai/backups/phase2-full/
 
 # Verify backup
-backup_count=$(ls .devforgeai/backups/phase2-full/*.md | wc -l)
-story_count=$(ls .ai_docs/Stories/*.md | wc -l)
+backup_count=$(ls devforgeai/backups/phase2-full/*.md | wc -l)
+story_count=$(ls devforgeai/specs/Stories/*.md | wc -l)
 echo "Backed up $backup_count of $story_count stories"
 # Should match
 ```
@@ -300,7 +300,7 @@ echo "Backed up $backup_count of $story_count stories"
 **Step 2: Count and categorize**
 ```bash
 # Count total stories
-total_stories=$(find .ai_docs/Stories -name "*.story.md" | wc -l)
+total_stories=$(find devforgeai/specs/Stories -name "*.story.md" | wc -l)
 echo "Total stories to migrate: $total_stories"
 
 # Subtract pilot stories (already done)
@@ -328,7 +328,7 @@ echo "Estimated: $hours hours (~$((hours / 8)) days)"
 # Batch 1: Stories 11-20 (pilot was 1-10)
 for i in {11..20}; do
   story_num=$(printf "%03d" $i)
-  python migrate_story_v1_to_v2.py .ai_docs/Stories/STORY-$story_num*.md --validate
+  python migrate_story_v1_to_v2.py devforgeai/specs/Stories/STORY-$story_num*.md --validate
 
   if [ $? -eq 0 ]; then
     echo "✅ STORY-$story_num migrated"
@@ -366,7 +366,7 @@ Batch 3 (stories 31-40): PENDING
 
 ```bash
 # 1. Validate ALL stories
-for story in .ai_docs/Stories/*.story.md; do
+for story in devforgeai/specs/Stories/*.story.md; do
   python validate_tech_spec.py "$story" || echo "FAILED: $story" >> validation-failures.txt
 done
 
@@ -392,7 +392,7 @@ cat validation-failures.txt
 **Format version check:**
 ```bash
 # Verify all stories migrated
-grep -L 'format_version: "2.0"' .ai_docs/Stories/*.md
+grep -L 'format_version: "2.0"' devforgeai/specs/Stories/*.md
 
 # Expected: Empty (all should have v2.0)
 # If any missing: Those weren't migrated, investigate why
@@ -419,13 +419,13 @@ done
 ```bash
 # Find backup
 story_id="STORY-042"
-backup=$(ls .devforgeai/backups/phase2-*/STORY-042*.md | tail -1)
+backup=$(ls devforgeai/backups/phase2-*/STORY-042*.md | tail -1)
 
 # Restore
-cp "$backup" .ai_docs/Stories/
+cp "$backup" devforgeai/specs/Stories/
 
 # Verify
-diff "$backup" .ai_docs/Stories/STORY-042*.md
+diff "$backup" devforgeai/specs/Stories/STORY-042*.md
 # Expected: No differences
 
 # Test
@@ -443,12 +443,12 @@ diff "$backup" .ai_docs/Stories/STORY-042*.md
 # Restore batch 3 (stories 31-40)
 for i in {31..40}; do
   story_num=$(printf "%03d" $i)
-  backup=$(ls .devforgeai/backups/phase2-full/STORY-$story_num*.md)
-  cp "$backup" .ai_docs/Stories/
+  backup=$(ls devforgeai/backups/phase2-full/STORY-$story_num*.md)
+  cp "$backup" devforgeai/specs/Stories/
 done
 
 # Verify count
-restored=$(ls .ai_docs/Stories/STORY-03*.md | wc -l)
+restored=$(ls devforgeai/specs/Stories/STORY-03*.md | wc -l)
 echo "Restored: $restored stories"
 # Expected: 10
 ```
@@ -461,17 +461,17 @@ echo "Restored: $restored stories"
 
 ```bash
 # 1. Restore ALL stories from full backup
-rm .ai_docs/Stories/*.md
-cp .devforgeai/backups/phase2-full/*.md .ai_docs/Stories/
+rm devforgeai/specs/Stories/*.md
+cp devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
 
 # 2. Verify restoration
-original_count=$(ls .devforgeai/backups/phase2-full/*.md | wc -l)
-restored_count=$(ls .ai_docs/Stories/*.md | wc -l)
+original_count=$(ls devforgeai/backups/phase2-full/*.md | wc -l)
+restored_count=$(ls devforgeai/specs/Stories/*.md | wc -l)
 echo "Original: $original_count, Restored: $restored_count"
 # Should match
 
 # 3. Verify format versions
-grep -c 'format_version: "1.0"' .ai_docs/Stories/*.md
+grep -c 'format_version: "1.0"' devforgeai/specs/Stories/*.md
 # Expected: All stories (or no format_version field)
 
 # 4. Test sample
@@ -479,8 +479,8 @@ grep -c 'format_version: "1.0"' .ai_docs/Stories/*.md
 /dev STORY-050  # Should work with v1.0 format
 
 # 5. Document rollback
-echo "Phase 2 rolled back on $(date)" > .devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
-echo "Reason: [DESCRIBE REASON]" >> .devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
+echo "Phase 2 rolled back on $(date)" > devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
+echo "Reason: [DESCRIBE REASON]" >> devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
 
 # 6. Revert code changes
 git checkout HEAD~N .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
@@ -610,7 +610,7 @@ test_requirement: "Test: Worker polls at 30s intervals until cancellation"
 **If unfixable:**
 ```bash
 # Rollback this story
-cp .devforgeai/backups/phase2-pilot/STORY-XXX*.md .ai_docs/Stories/
+cp devforgeai/backups/phase2-pilot/STORY-XXX*.md devforgeai/specs/Stories/
 ```
 
 ---

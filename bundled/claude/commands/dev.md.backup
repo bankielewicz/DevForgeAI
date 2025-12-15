@@ -11,7 +11,7 @@ Execute full Test-Driven Development cycle for a user story.
 
 ## Pre-execution Context
 
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 
 **Note:** Git status will be displayed in Phase 0 after Git availability is confirmed.
 
@@ -72,7 +72,7 @@ Handle user response:
     Display: "⚠️  WARNING: Proceeding without Git"
     Display: "  - File-based change tracking will be used"
     Display: "  - No commits will be created"
-    Display: "  - Changes documented in .devforgeai/stories/{STORY-ID}/changes/"
+    Display: "  - Changes documented in devforgeai/stories/{STORY-ID}/changes/"
     Display: "  - Version history limited"
     Display: ""
     Display: "Note: You can initialize Git later with:"
@@ -144,7 +144,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Validate story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
@@ -184,7 +184,7 @@ IF multiple matches found:
 
 **Step 1: Verify context files exist**
 ```
-Check: Glob(pattern=".devforgeai/context/*.md")
+Check: Glob(pattern="devforgeai/specs/context/*.md")
 Expected: 6 files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
 
 IF context files missing:
@@ -254,7 +254,7 @@ Example outputs:
 **Check for previous QA failures:**
 
 ```
-Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
 
 IF QA report(s) found:
     Read most recent report
@@ -330,10 +330,10 @@ Story file loaded via @ context reference above
 
 IF story file not found:
 ```
-ERROR: Story file not found at .ai_docs/Stories/$ARGUMENTS.story.md
+ERROR: Story file not found at devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 Available stories:
-[List .ai_docs/Stories/*.story.md]
+[List devforgeai/specs/Stories/*.story.md]
 
 HALT: Provide valid story ID
 ```
@@ -449,7 +449,7 @@ The devforgeai-development skill has completed implementation and updated the st
 # Per native tools research: "Reserve Bash for terminal operations (pytest, npm test)"
 # Python script execution is analogous to test execution
 
-Bash(command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet")
+Bash(command="python .claude/scripts/validate_deferrals.py --story-file devforgeai/specs/Stories/${STORY_ID}*.story.md --format-only --quiet")
 ```
 
 **Result handling:**
@@ -485,7 +485,7 @@ See: @.claude/tasks/dod-validation-checkpoint.md
 
 **Context for task:**
 - **STORY_ID:** ${STORY_ID}
-- **STORY_FILE:** .ai_docs/Stories/${STORY_ID}*.story.md (already loaded in conversation)
+- **STORY_FILE:** devforgeai/specs/Stories/${STORY_ID}*.story.md (already loaded in conversation)
 
 The task file will:
 1. Extract all incomplete DoD items (using native Grep tool)
@@ -563,7 +563,7 @@ Proceed to Phase 3 (verify completion)
 
 1. **Verify story status updated:**
 ```bash
-Read(file_path=".ai_docs/Stories/$1.story.md")
+Read(file_path="devforgeai/specs/Stories/$1.story.md")
 ```
 
 Extract status from frontmatter:
@@ -700,10 +700,10 @@ $RESOLUTION_STEPS
 ```
 ERROR: Story file not found
 
-Path: .ai_docs/Stories/$ARGUMENTS.story.md
+Path: devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 Actions:
-1. List available stories: `ls .ai_docs/Stories/`
+1. List available stories: `ls devforgeai/specs/Stories/`
 2. Check story ID spelling
 3. Verify story created: `/orchestrate create-story`
 ```

@@ -323,7 +323,7 @@ Phases Executed:
 Recommendation: ✅ READY FOR QA
 
 Next Steps:
-1. Review Implementation Notes: .ai_docs/Stories/STORY-042.story.md
+1. Review Implementation Notes: devforgeai/specs/Stories/STORY-042.story.md
 2. Start QA validation: /qa STORY-042 deep
 3. Target: QA approval within 5 minutes
 ```
@@ -592,7 +592,7 @@ Phase 08 attempted to commit changes but encountered an error.
 
 Error Details:
 Command: git commit -m "[STORY-045]: Implement payment retry logic..."
-Error: CONFLICT: .devforgeai/context/tech-stack.md (modified by another process)
+Error: CONFLICT: devforgeai/specs/context/tech-stack.md (modified by another process)
 
 Possible Causes:
 1. Another story/branch modified the same files
@@ -604,7 +604,7 @@ Recovery Options:
    git status
 
 2. Review the conflict:
-   git diff .devforgeai/context/tech-stack.md
+   git diff devforgeai/specs/context/tech-stack.md
 
 3. Resolve the conflict and commit:
    git add [files]

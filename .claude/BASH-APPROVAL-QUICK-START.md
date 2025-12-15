@@ -20,7 +20,7 @@ Copy this configuration to `.claude/settings.json` in your project root:
       "Write(tests/**)",
       "Write(scripts/**)",
       "Write(.claude/**)",
-      "Write(.devforgeai/**)",
+      "Write(devforgeai/**)",
       "Edit(src/**)",
       "Edit(tests/**)",
       "Bash(npm run test:*)",
@@ -195,7 +195,7 @@ Example with documentation:
 - Workflow interruptions: Minimal
 - Development friction: Low
 
-Track this metric in `.devforgeai/metrics/bash-approvals.json` for ongoing optimization.
+Track this metric in `devforgeai/metrics/bash-approvals.json` for ongoing optimization.
 
 ---
 
@@ -211,7 +211,7 @@ Track this metric in `.devforgeai/metrics/bash-approvals.json` for ongoing optim
 - User sees generated code, approves with single command
 - Achieves single-approval-per-story goal
 
-See full research at: `.ai_docs/research/CLAUDE-CODE-BASH-APPROVAL-FRICTION-RESEARCH.md`
+See full research at: `devforgeai/specs/research/CLAUDE-CODE-BASH-APPROVAL-FRICTION-RESEARCH.md`
 
 ---
 

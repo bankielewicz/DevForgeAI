@@ -40,7 +40,7 @@ def context_files_path():
 @pytest.fixture
 def story_file_path():
     """Return path to STORY-062."""
-    return Path("/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-062-anti-pattern-scanner-subagent.story.md")
+    return Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-062-anti-pattern-scanner-subagent.story.md")
 
 
 @pytest.fixture

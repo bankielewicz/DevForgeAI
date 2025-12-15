@@ -315,7 +315,7 @@ test_accepts_complete_frontmatter() {
 test_validates_real_epic_015() {
     # Integration: Validate actual EPIC-015 from project
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [[ ! -f "$epic_file" ]]; then
         echo "SKIP: EPIC-015 not found"

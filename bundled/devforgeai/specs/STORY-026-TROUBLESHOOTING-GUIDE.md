@@ -14,7 +14,7 @@
 
 **Check 1: Is hook enabled?**
 ```bash
-grep -A 5 "post-orchestrate-retrospective" .devforgeai/config/hooks.yaml | grep "enabled"
+grep -A 5 "post-orchestrate-retrospective" devforgeai/config/hooks.yaml | grep "enabled"
 # Expected: enabled: true
 # If false: Set to true in hooks.yaml
 ```
@@ -32,7 +32,7 @@ grep -A 5 "post-orchestrate-retrospective" .devforgeai/config/hooks.yaml | grep 
 
 **Check 3: Check hook logs**
 ```bash
-tail -50 .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
+tail -50 devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
 # Look for: Hook invocation attempt, exit codes, errors
 ```
 
@@ -42,7 +42,7 @@ tail -50 .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
 
 **Check 1: Story file exists and readable**
 ```bash
-ls -la .ai_docs/Stories/{STORY-ID}*.story.md
+ls -la devforgeai/specs/Stories/{STORY-ID}*.story.md
 # Expected: File exists with read permissions
 # If missing: Verify story ID correct
 ```
@@ -50,7 +50,7 @@ ls -la .ai_docs/Stories/{STORY-ID}*.story.md
 **Check 2: Story content valid**
 ```bash
 # Validate YAML frontmatter
-head -20 .ai_docs/Stories/{STORY-ID}*.story.md
+head -20 devforgeai/specs/Stories/{STORY-ID}*.story.md
 # Expected: Valid YAML between ---  markers
 # If invalid: Fix YAML syntax errors
 ```
@@ -61,7 +61,7 @@ python3 -c "
 from devforgeai_cli.orchestrate_hooks import extract_orchestrate_context
 import json
 
-with open('.ai_docs/Stories/{STORY-ID}.story.md', 'r') as f:
+with open('devforgeai/specs/Stories/{STORY-ID}.story.md', 'r') as f:
     content = f.read()
 
 context = extract_orchestrate_context(
@@ -141,7 +141,7 @@ echo "Hook check: ${DURATION}ms"
 
 **Diagnosis:**
 ```bash
-grep -A 3 "trigger_status" .devforgeai/config/hooks.yaml | grep orchestrate -A 3
+grep -A 3 "trigger_status" devforgeai/config/hooks.yaml | grep orchestrate -A 3
 # Check if: trigger_status: [success, failure]
 ```
 
@@ -167,7 +167,7 @@ trigger_status: [failure]  # NOT [success, failure]
 **Diagnosis:**
 ```bash
 # Check story file for Status History section
-grep -A 50 "Status History" .ai_docs/Stories/{STORY-ID}.story.md
+grep -A 50 "Status History" devforgeai/specs/Stories/{STORY-ID}.story.md
 
 # Look for checkpoint entries like:
 # | 2025-11-14 | Checkpoint: QA_APPROVED | Ready to resume from QA phase |
@@ -195,7 +195,7 @@ python3 -c "from devforgeai_cli.orchestrate_hooks import extract_orchestrate_con
 **Diagnosis:**
 ```bash
 # Check story file for QA validation data
-grep -A 20 "QA Validation History" .ai_docs/Stories/{STORY-ID}.story.md
+grep -A 20 "QA Validation History" devforgeai/specs/Stories/{STORY-ID}.story.md
 ```
 
 **Solution:**
@@ -254,7 +254,7 @@ workflow_start_time='${WORKFLOW_START_TIME}'
 **Diagnosis:**
 ```bash
 # Check story for multiple QA validation entries
-grep -c "Validation [0-9]" .ai_docs/Stories/{STORY-ID}.story.md
+grep -c "Validation [0-9]" devforgeai/specs/Stories/{STORY-ID}.story.md
 # Expected: >1 if multiple attempts
 ```
 
@@ -294,7 +294,7 @@ ps aux | grep orchestrate
 # If multiple processes: Risk of race condition
 
 # Check log file for conflicting entries
-tail -50 .devforgeai/logs/hooks-orchestrate-*.log
+tail -50 devforgeai/logs/hooks-orchestrate-*.log
 # Look for: Interleaved entries from different stories
 ```
 
@@ -302,12 +302,12 @@ tail -50 .devforgeai/logs/hooks-orchestrate-*.log
 Log files are already story-specific (AC: Edge Case 5):
 ```bash
 # Each story gets its own log file:
-.devforgeai/logs/hooks-orchestrate-STORY-001.log
-.devforgeai/logs/hooks-orchestrate-STORY-002.log
+devforgeai/logs/hooks-orchestrate-STORY-001.log
+devforgeai/logs/hooks-orchestrate-STORY-002.log
 
 # Feedback files include story ID and timestamp:
-.devforgeai/feedback/orchestrate/STORY-001-20251114-120000.json
-.devforgeai/feedback/orchestrate/STORY-002-20251114-120030.json
+devforgeai/feedback/orchestrate/STORY-001-20251114-120000.json
+devforgeai/feedback/orchestrate/STORY-002-20251114-120030.json
 ```
 
 **Verification:**
@@ -318,7 +318,7 @@ Log files are already story-specific (AC: Edge Case 5):
 wait
 
 # Check separate log files exist
-ls .devforgeai/logs/hooks-orchestrate-*.log
+ls devforgeai/logs/hooks-orchestrate-*.log
 # Expected: Two files, no interleaving
 ```
 
@@ -341,7 +341,7 @@ time devforgeai invoke-hooks --operation=orchestrate --story=STORY-XXX --context
 timeout 5s devforgeai invoke-hooks ... || {
   echo "⚠️ Feedback hook timed out (>5s), continuing..."
   # Log timeout
-  echo "$(date): Hook timeout for $STORY_ID" >> .devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
+  echo "$(date): Hook timeout for $STORY_ID" >> devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
 }
 ```
 
@@ -419,7 +419,7 @@ mv $(which devforgeai).bak $(which devforgeai)
 **Diagnosis:**
 ```bash
 # Check file modification time
-ls -l .devforgeai/config/hooks.yaml
+ls -l devforgeai/config/hooks.yaml
 # Verify changes are saved
 
 # Check if CLI caches configuration
@@ -449,7 +449,7 @@ devforgeai check-hooks --operation=orchestrate --status=SUCCESS
 # Enable debug logging in CLI
 export DEVFORGEAI_LOG_LEVEL=DEBUG
 devforgeai invoke-hooks ...
-# Check detailed logs in .devforgeai/logs/
+# Check detailed logs in devforgeai/logs/
 ```
 
 ### Tool 2: Manual Context Extraction Test
@@ -466,7 +466,7 @@ if len(sys.argv) < 2:
     sys.exit(1)
 
 story_id = sys.argv[1]
-story_file = f".ai_docs/Stories/{story_id}.story.md"
+story_file = f"devforgeai/specs/Stories/{story_id}.story.md"
 
 try:
     with open(story_file, 'r') as f:
@@ -496,7 +496,7 @@ python test_context_extraction.py STORY-026
 # Validate hooks.yaml syntax
 python3 -c "
 import yaml
-with open('.devforgeai/config/hooks.yaml') as f:
+with open('devforgeai/config/hooks.yaml') as f:
     config = yaml.safe_load(f)
     print('✅ Valid YAML')
     print(f'Hooks defined: {len(config[\"hooks\"])}')
@@ -509,7 +509,7 @@ with open('.devforgeai/config/hooks.yaml') as f:
 # Profile context extraction
 python3 -m cProfile -s cumtime -c "
 from devforgeai_cli.orchestrate_hooks import extract_orchestrate_context
-with open('.ai_docs/Stories/STORY-026.story.md') as f:
+with open('devforgeai/specs/Stories/STORY-026.story.md') as f:
     content = f.read()
 extract_orchestrate_context(content, 'STORY-026', '2025-11-14T10:00:00Z')
 " 2>&1 | head -30
@@ -523,7 +523,7 @@ extract_orchestrate_context(content, 'STORY-026', '2025-11-14T10:00:00Z')
 
 ```bash
 # In /orchestrate.md, read story file once:
-STORY_CONTENT=$(cat .ai_docs/Stories/${STORY_ID}*.story.md)
+STORY_CONTENT=$(cat devforgeai/specs/Stories/${STORY_ID}*.story.md)
 
 # Reuse in multiple places:
 # - Context extraction
@@ -563,14 +563,14 @@ python3 -m devforgeai_cli.commands.check_hooks ...
 - **Implementation:** `.claude/scripts/devforgeai_cli/orchestrate_hooks.py`
 - **Tests:** `tests/unit/test_orchestrate_hooks_context_extraction.py` (31 tests)
 - **Tests:** `tests/integration/test_orchestrate_hooks_integration.py` (56 tests)
-- **Integration Guide:** `.devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md`
-- **Config Example:** `.devforgeai/config/hooks.yaml.example`
+- **Integration Guide:** `devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md`
+- **Config Example:** `devforgeai/config/hooks.yaml.example`
 
 ### Log Files
 
-- **Hook invocations:** `.devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`
-- **Feedback sessions:** `.devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json`
-- **CLI errors:** `.devforgeai/logs/devforgeai-cli.log` (if logging configured)
+- **Hook invocations:** `devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`
+- **Feedback sessions:** `devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json`
+- **CLI errors:** `devforgeai/logs/devforgeai-cli.log` (if logging configured)
 
 ### Test Validation
 

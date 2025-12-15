@@ -260,7 +260,7 @@ devforgeai-orchestration (epic management) ← Current entry point
   - Phase 5: Code generation
   - Phase 6: Documentation & story update
   - Phase 7: Specification validation
-**Output:** UI component code in `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+**Output:** UI component code in `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 **Result:** Story updated with UI component references
 **When to skip:** Stories with no UI requirements (backend-only, API-only)
 ```
@@ -309,7 +309,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 - Creates epic documents with feature breakdown
 - Complexity assessment (0-60 score) determines architecture tier
 - Auto-transitions to devforgeai-architecture after completion
-- **Output:** `.ai_docs/Epics/*.epic.md`, `.devforgeai/specs/requirements/*.md`
+- **Output:** `devforgeai/specs/Epics/*.epic.md`, `devforgeai/specs/requirements/*.md`
 
 **Missing from orchestration skill:**
 - When to invoke ideation (project start, major feature planning)
@@ -325,7 +325,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 - Context file validation (requires all 6 files)
 - Generates production-ready UI code
 - Updates story with UI component references
-- **Output:** `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+- **Output:** `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 
 **Missing from orchestration skill:**
 - When to invoke UI generator (after architecture, before/during dev)
@@ -340,7 +340,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 - Creates user story, AC (Given/When/Then), tech spec, UI spec
 - Self-validates quality before completion
 - Links to epic/sprint automatically
-- **Output:** `.ai_docs/Stories/{STORY-ID}.story.md`
+- **Output:** `devforgeai/specs/Stories/{STORY-ID}.story.md`
 
 **Missing from orchestration skill integration section:**
 - Full When/Invocation/Process/Result documentation (like other skills have)
@@ -416,7 +416,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 **When:** Project initiation, transforming business ideas into structured requirements
 **Invocation:** `Skill(command="devforgeai-ideation")`
 **Process:** 6-phase discovery (discovery, elicitation, complexity, epic decomposition, feasibility, documentation)
-**Output:** Epic documents in `.ai_docs/Epics/`, requirements specs
+**Output:** Epic documents in `devforgeai/specs/Epics/`, requirements specs
 **Result:** Auto-transitions to devforgeai-architecture for context file creation
 **Workflow position:** Entry point (before epics) for greenfield projects
 **When to skip:** Brownfield projects with well-defined epics
@@ -446,7 +446,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 **When:** Story has UI requirements (optional phase after architecture, before development)
 **Invocation:** `Skill(command="devforgeai-ui-generator")`
 **Process:** 7-phase UI specification (context validation, story analysis, interactive discovery, template loading, code generation, documentation, validation)
-**Output:** UI components in `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+**Output:** UI components in `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 **Result:** Story updated with UI references, specs ready for development
 **Workflow position:** Between architecture and development (optional)
 **When to skip:** Backend-only or API-only stories (no UI components)
@@ -476,7 +476,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 **When:** Creating stories from feature descriptions, decomposing epics, generating follow-up stories for deferrals
 **Invocation:** `Skill(command="devforgeai-story-creation")`
 **Process:** 8-phase complete story generation (discovery, requirements, tech spec, UI spec, file creation, linking, validation, completion)
-**Output:** Complete story document in `.ai_docs/Stories/{STORY-ID}.story.md`
+**Output:** Complete story document in `devforgeai/specs/Stories/{STORY-ID}.story.md`
 **Result:** Story created with all sections (user story, AC, tech spec, UI spec, DoD), linked to epic/sprint
 **Workflow position:** Story creation phase (before development)
 **When invoked by orchestration:** Decomposing epics into stories, creating follow-up stories for deferred work
@@ -512,7 +512,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 
 ### Step 1: Detect QA Failure
 
-Read QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+Read QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 Parse result: PASSED or FAILED
 IF FAILED: Determine failure type (coverage, anti-pattern, deferral, compliance)
 

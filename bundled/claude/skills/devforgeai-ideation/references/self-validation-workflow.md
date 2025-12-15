@@ -47,7 +47,7 @@ This reference provides comprehensive validation logic for:
 **Check epic documents exist:**
 
 ```
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 epic_count = len(epic_files)
 
 if epic_count == 0:
@@ -67,7 +67,7 @@ if epic_count == 0:
 
 ```
 if requirements_spec_requested:
-    req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
+    req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
 
     if len(req_files) == 0:
         # CRITICAL failure

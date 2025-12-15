@@ -144,15 +144,15 @@ Verify skill completed successfully by checking for expected artifacts:
 
 ```
 # Check for epic documents
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 
 # Check for requirements specification
-req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
+req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
 ```
 
 **Expected artifacts:**
-- 1+ epic documents in `.ai_docs/Epics/`
-- 1 requirements specification in `.devforgeai/specs/requirements/`
+- 1+ epic documents in `devforgeai/specs/Epics/`
+- 1 requirements specification in `devforgeai/specs/requirements/`
 - Complexity assessment (embedded in requirements spec)
 
 ### 3.2 Handle Incomplete Execution
@@ -175,7 +175,7 @@ if len(epic_files) == 0 or len(req_files) == 0:
 
     Recommended action:
     - Re-run `/ideate [business-idea]` to complete ideation
-    - Or check `.ai_docs/Epics/` and `.devforgeai/specs/requirements/` for partial files
+    - Or check `devforgeai/specs/Epics/` and `devforgeai/specs/requirements/` for partial files
     """
 
     HALT - Do not proceed to Phase 4
@@ -216,8 +216,8 @@ Read(file_path=epic_files[0], limit=20)  # Read frontmatter only
 ✅ Ideation phase complete
 
 Generated:
-- {epic_count} epic document(s) in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
+- {epic_count} epic document(s) in devforgeai/specs/Epics/
+- Requirements specification in devforgeai/specs/requirements/
 
 The devforgeai-ideation skill has:
 ✓ Discovered and documented requirements
@@ -229,8 +229,8 @@ The devforgeai-ideation skill has:
 ```
 
 **Note:** If user missed skill's summary or next action prompt, they can review:
-- Epic documents: `.ai_docs/Epics/EPIC-*.epic.md`
-- Requirements spec: `.devforgeai/specs/requirements/*.md`
+- Epic documents: `devforgeai/specs/Epics/EPIC-*.epic.md`
+- Requirements spec: `devforgeai/specs/requirements/*.md`
 
 ---
 
@@ -294,8 +294,8 @@ The architecture skill will:
 **"Review requirements first":**
 ```
 Review these files:
-- Epics: `.ai_docs/Epics/EPIC-*.epic.md`
-- Requirements: `.devforgeai/specs/requirements/[project]-requirements.md`
+- Epics: `devforgeai/specs/Epics/EPIC-*.epic.md`
+- Requirements: `devforgeai/specs/requirements/[project]-requirements.md`
 
 You can:
 - Manually edit files with your editor
@@ -347,7 +347,7 @@ Once created, run:
 
 ```bash
 # Collect ideation artifacts for context
-EPIC_FILES=$(ls -1 .ai_docs/Epics/EPIC-*.epic.md 2>/dev/null | tr '\n' ',' | sed 's/,$//' || echo "")
+EPIC_FILES=$(ls -1 devforgeai/specs/Epics/EPIC-*.epic.md 2>/dev/null | tr '\n' ',' | sed 's/,$//' || echo "")
 
 # Invoke helper function (handles check-hooks + invoke-hooks)
 # Helper returns: exit 0 (success or graceful skip), never fails
@@ -410,8 +410,8 @@ This indicates either:
 Recommended action:
 1. Check if skill reported any errors during execution
 2. Verify directories exist and are writable:
-   - .ai_docs/Epics/
-   - .devforgeai/specs/requirements/
+   - devforgeai/specs/Epics/
+   - devforgeai/specs/requirements/
 3. Re-run `/ideate [business-idea]` to retry artifact generation
 4. If persistent: Create artifacts manually and proceed to /create-context
 ```

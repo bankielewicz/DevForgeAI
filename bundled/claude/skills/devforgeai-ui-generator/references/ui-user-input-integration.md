@@ -43,7 +43,7 @@ def phase_2_story_analysis():
     # Step 0: Detect mode and load guidance conditionally
     # Check conversation context for story markers
     is_story_mode = (
-        conversation_contains("@.ai_docs/Stories/STORY-") or
+        conversation_contains("@devforgeai/specs/Stories/STORY-") or
         context_marker_exists("**Story ID:**") or
         context_marker_exists("**Story file:**")
     )

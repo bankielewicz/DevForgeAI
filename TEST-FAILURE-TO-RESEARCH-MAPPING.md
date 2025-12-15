@@ -634,7 +634,7 @@ When test fails, check:
 
 - **Research Report:** Section numbers (§ 1-8)
 - **Implementation Guide:** Service-specific sections
-- **STORY-074 File:** `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md`
+- **STORY-074 File:** `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md`
 
 ---
 

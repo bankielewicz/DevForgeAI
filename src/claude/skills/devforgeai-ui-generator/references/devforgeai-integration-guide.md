@@ -65,8 +65,8 @@ src/
 ```
 
 **Action:**
-- Generated UI components go to `src/components/forms/` (not `.devforgeai/specs/ui/`)
-- If source-tree.md doesn't specify UI location → default to `.devforgeai/specs/ui/`
+- Generated UI components go to `src/components/forms/` (not `devforgeai/specs/ui/`)
+- If source-tree.md doesn't specify UI location → default to `devforgeai/specs/ui/`
 
 ---
 
@@ -295,7 +295,7 @@ devforgeai-qa (validates implementation)
 **Example:**
 ```
 UI Generator Output:
-  File: .devforgeai/specs/ui/LoginForm.jsx
+  File: devforgeai/specs/ui/LoginForm.jsx
   Spec: Email input, password input, submit button
 
 Development Skill (TDD):
@@ -371,7 +371,7 @@ Action:
    "To use Vue.js, an Architecture Decision Record (ADR) must be created."
 
 2. Guide ADR creation:
-   - Create .devforgeai/adrs/ADR-NNN-vue-adoption.md
+   - Create devforgeai/specs/adrs/ADR-NNN-vue-adoption.md
    - Document rationale for Vue.js over React
    - Update tech-stack.md to include Vue.js
 
@@ -428,7 +428,7 @@ If found in src/components/:
 
 If no specification or convention found:
 ```
-→ Output to: .devforgeai/specs/ui/LoginForm.jsx
+→ Output to: devforgeai/specs/ui/LoginForm.jsx
 ```
 
 This ensures generated specs can be reviewed before integration into source tree.
@@ -458,8 +458,8 @@ When a story ID is provided, UI Generator updates the story file with references
 
 ### UI Components
 - Generated: LoginForm
-- Location: .devforgeai/specs/ui/LoginForm.jsx
-- See: .devforgeai/specs/ui/UI-SPEC-SUMMARY.md
+- Location: devforgeai/specs/ui/LoginForm.jsx
+- See: devforgeai/specs/ui/UI-SPEC-SUMMARY.md
 
 ### API Endpoints
 - POST /api/auth/login
@@ -473,9 +473,9 @@ When a story ID is provided, UI Generator updates the story file with references
 ```python
 # Use Edit tool (NOT Bash sed)
 Edit(
-  file_path=".ai_docs/Stories/STORY-042.story.md",
+  file_path="devforgeai/specs/Stories/STORY-042.story.md",
   old_string="## Technical Specification",
-  new_string="## Technical Specification\n\n### UI Components\n- Generated: LoginForm\n- Location: .devforgeai/specs/ui/LoginForm.jsx\n- See: .devforgeai/specs/ui/UI-SPEC-SUMMARY.md\n"
+  new_string="## Technical Specification\n\n### UI Components\n- Generated: LoginForm\n- Location: devforgeai/specs/ui/LoginForm.jsx\n- See: devforgeai/specs/ui/UI-SPEC-SUMMARY.md\n"
 )
 ```
 
@@ -488,8 +488,8 @@ Edit(
 **✅ CORRECT:**
 ```python
 # Read context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 # Find existing components
 Glob(pattern="src/**/*.jsx")
@@ -498,19 +498,19 @@ Glob(pattern="src/**/*.jsx")
 Grep(pattern="export default", type="js")
 
 # Write generated code
-Write(file_path=".devforgeai/specs/ui/LoginForm.jsx", content="...")
+Write(file_path="devforgeai/specs/ui/LoginForm.jsx", content="...")
 
 # Update story
-Edit(file_path=".ai_docs/Stories/STORY-042.story.md", ...)
+Edit(file_path="devforgeai/specs/Stories/STORY-042.story.md", ...)
 ```
 
 **❌ WRONG:**
 ```python
 # Never use Bash for file operations
-Bash(command="cat .devforgeai/context/tech-stack.md")      # NO
+Bash(command="cat devforgeai/specs/context/tech-stack.md")      # NO
 Bash(command="find src/ -name '*.jsx'")                    # NO
 Bash(command="grep 'export default' src/**/*.jsx")         # NO
-Bash(command="echo 'content' > .devforgeai/specs/ui/LoginForm.jsx")  # NO
+Bash(command="echo 'content' > devforgeai/specs/ui/LoginForm.jsx")  # NO
 ```
 
 **Savings:** 40-73% fewer tokens per operation.
@@ -540,7 +540,7 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/web_best_pract
 
 **Detection:**
 ```python
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 # Returns: 0 files found
 ```
 
@@ -564,7 +564,7 @@ After context files are created, re-run this skill.
 **Detection:**
 ```python
 user_choice = "Vue.js"
-tech_stack_content = Read(file_path=".devforgeai/context/tech-stack.md")
+tech_stack_content = Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Vue.js not found in tech-stack.md
 ```
 
@@ -582,7 +582,7 @@ Use AskUserQuestion to resolve this conflict.
 
 **Detection:**
 ```python
-Read(file_path=".ai_docs/Stories/STORY-999.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-999.story.md")
 # Error: FileNotFoundError
 ```
 
@@ -600,17 +600,17 @@ UI generation will use interactive discovery only.
 
 **Detection:**
 ```python
-Write(file_path=".devforgeai/specs/ui/LoginForm.jsx", content="...")
+Write(file_path="devforgeai/specs/ui/LoginForm.jsx", content="...")
 # Error: PermissionError
 ```
 
 **Response:**
 ```
-❌ Permission denied: Cannot write to .devforgeai/specs/ui/
+❌ Permission denied: Cannot write to devforgeai/specs/ui/
 
 Resolution:
 1. Check directory permissions
-2. Ensure .devforgeai/specs/ui/ is writable
+2. Ensure devforgeai/specs/ui/ is writable
 
 Alternative: Specify a different output location using AskUserQuestion.
 ```

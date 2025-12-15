@@ -841,7 +841,7 @@ class TestPatternCompliance:
         AC-6.2: Responsibility 2 - Load context via @file reference
 
         ARRANGE: Read command structure
-        ACT: Verify @.ai_docs/Stories/$1.story.md context loading
+        ACT: Verify @devforgeai/specs/Stories/$1.story.md context loading
         ASSERT: Story file loaded via @file
         """
         # Arrange
@@ -855,7 +855,7 @@ class TestPatternCompliance:
         has_context_loading = bool(re.search(r'@.*Stories.*story\.md|Load.*context', content, re.IGNORECASE))
         assert has_context_loading or 'STORY' in content, (
             "Command must load story file context. "
-            "Use: @.ai_docs/Stories/$1.story.md or @.ai_docs/Stories/$1*.story.md. "
+            "Use: @devforgeai/specs/Stories/$1.story.md or @devforgeai/specs/Stories/$1*.story.md. "
             "This is Responsibility 2 of lean pattern."
         )
         print("✓ Responsibility 2: Load context (✓)")
@@ -1011,7 +1011,7 @@ class TestSubagentCreation:
         ASSERT: Either "new subagent created" or "no new subagent needed" documented
         """
         # Arrange
-        story_path = Path("/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md")
+        story_path = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md")
         assert story_path.exists(), "Story file not found"
 
         # Act

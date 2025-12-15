@@ -19,7 +19,7 @@ class TestHookTriggersOnSuccessfulStoryCreation:
     def test_hook_triggered_when_story_created_successfully(self):
         """
         Given /create-story command completes successfully
-        When story file is created at .ai_docs/Stories/STORY-NNN-*.story.md
+        When story file is created at devforgeai/specs/Stories/STORY-NNN-*.story.md
         Then the system should invoke devforgeai invoke-hooks --operation=story-create
         """
         # Arrange

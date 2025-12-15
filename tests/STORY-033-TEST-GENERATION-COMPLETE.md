@@ -498,8 +498,8 @@ REFACTOR:     65+/65+ tests passing (improved code)
 - Fixtures: `/mnt/c/Projects/DevForgeAI2/tests/integration/conftest_story033.py`
 
 **Story Files:**
-- Current: `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
-- Pilot: `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
+- Current: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
+- Pilot: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
 
 **Command File:**
 - Target: `/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md`

@@ -11,7 +11,7 @@ Verify all required artifacts have been created in correct locations.
 ### Epic Documents
 
 - [ ] At least 1 epic document created
-- [ ] All epic files stored in `.ai_docs/Epics/` directory
+- [ ] All epic files stored in `devforgeai/specs/Epics/` directory
 - [ ] Epic IDs follow naming convention: `EPIC-001`, `EPIC-002`, etc. (sequential numbering)
 - [ ] All epic files have `.epic.md` extension
 - [ ] Epic count matches planned epic count from Phase 4 decomposition
@@ -19,7 +19,7 @@ Verify all required artifacts have been created in correct locations.
 
 **Validation Command:**
 ```
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 epic_count = len(epic_files)
 
 # Verify count matches expected
@@ -33,14 +33,14 @@ else:
 
 ### Requirements Specification
 
-- [ ] Requirements spec created in `.devforgeai/specs/requirements/` directory
+- [ ] Requirements spec created in `devforgeai/specs/requirements/` directory
 - [ ] File naming follows convention: `{project-name}-requirements.md`
 - [ ] File is non-empty (at least 1000 characters for valid spec)
 - [ ] Markdown formatting is valid (no broken tables or lists)
 
 **Validation Command:**
 ```
-req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
+req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
 
 if len(req_files) == 0:
     ERROR: No requirements specification created

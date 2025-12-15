@@ -42,7 +42,7 @@ python generate_coverage_report.py coverage.cobertura.xml --output dotnet-covera
 
 # With layer mapping from source-tree.md
 python generate_coverage_report.py coverage.json \
-  --source-tree .devforgeai/context/source-tree.md \
+  --source-tree devforgeai/specs/context/source-tree.md \
   --output coverage-report.html
 ```
 
@@ -231,7 +231,7 @@ devforgeai-qa Deep Validation Workflow:
 ```bash
 # 1. Generate coverage report
 python generate_coverage_report.py coverage.json \
-  --source-tree .devforgeai/context/source-tree.md \
+  --source-tree devforgeai/specs/context/source-tree.md \
   --output qa/coverage-report.html
 
 # 2. Analyze complexity
@@ -406,4 +406,4 @@ Part of DevForgeAI spec-driven development framework.
 For issues or enhancements:
 1. Check script help: `python script.py --help`
 2. Review devforgeai-qa SKILL.md for integration guidance
-3. Consult .devforgeai/qa/references/ for methodology details
+3. Consult devforgeai/qa/references/ for methodology details

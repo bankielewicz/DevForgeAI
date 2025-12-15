@@ -1072,7 +1072,7 @@ data:
 
 - **ADR-001: Database Selection** (PostgreSQL on Azure)
 - **ADR-004: Clean Architecture** (microservices design)
-- **Tech Stack Documentation**: `.devforgeai/context/tech-stack.md`
+- **Tech Stack Documentation**: `devforgeai/specs/context/tech-stack.md`
 - **Deployment Procedures**: `docs/runbooks/kubernetes-deployment.md`
 
 ---

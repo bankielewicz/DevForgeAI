@@ -3,7 +3,7 @@ Framework file deployment with exclusions and permissions management.
 
 This module handles:
 - Deploying src/claude/ → target/.claude/ (~370 files)
-- Deploying src/devforgeai/ → target/.devforgeai/ (~80 files)
+- Deploying src/devforgeai/ → target/devforgeai/ (~80 files)
 - Excluding backup files, caches, reports
 - Setting file permissions (dirs=755, scripts=755, docs=644)
 - Preserving user configurations
@@ -34,19 +34,19 @@ EXCLUDE_PATTERNS = {
 
 # Directories to preserve (user configs)
 PRESERVE_PATHS = {
-    ".devforgeai/config/hooks.yaml",
-    ".devforgeai/feedback/config.yaml",
-    ".devforgeai/context/",
+    "devforgeai/config/hooks.yaml",
+    "devforgeai/feedback/config.yaml",
+    "devforgeai/specs/context/",
 }
 
 # Directories to NOT deploy (generated content or development-specific)
 NO_DEPLOY_DIRS = {
-    ".devforgeai/qa/reports",
-    ".devforgeai/RCA",
-    ".devforgeai/adrs",
-    ".devforgeai/feedback/imported",
-    ".devforgeai/logs",
-    ".devforgeai/specs/enhancements",  # Development planning docs (not for production deployment)
+    "devforgeai/qa/reports",
+    "devforgeai/RCA",
+    "devforgeai/adrs",
+    "devforgeai/feedback/imported",
+    "devforgeai/logs",
+    "devforgeai/specs/enhancements",  # Development planning docs (not for production deployment)
 }
 
 # File extensions and names that should be executable
@@ -124,7 +124,7 @@ def _deploy_directory(
     """
     Deploy files from source directory to target directory.
 
-    Extracted method to eliminate duplicate code between .claude/ and .devforgeai/ deployment.
+    Extracted method to eliminate duplicate code between .claude/ and devforgeai/ deployment.
 
     Args:
         source_dir: Source directory to deploy from
@@ -261,19 +261,19 @@ def deploy_framework_files(
 
     Deploys:
     - src/claude/ → target/.claude/ (~370 files)
-    - src/devforgeai/ → target/.devforgeai/ (~80 files)
+    - src/devforgeai/ → target/devforgeai/ (~80 files)
 
     Excludes:
     - *.backup*, __pycache__, *.pyc
     - qa/reports/, RCA/, adrs/, feedback/imported/, logs/
 
     Preserves (if preserve_configs=True):
-    - .devforgeai/config/hooks.yaml
-    - .devforgeai/feedback/config.yaml
-    - .devforgeai/context/*.md (user context files)
+    - devforgeai/config/hooks.yaml
+    - devforgeai/feedback/config.yaml
+    - devforgeai/specs/context/*.md (user context files)
 
     Does NOT touch:
-    - .ai_docs/ (never modified)
+    - devforgeai/specs/ (never modified)
 
     Args:
         source_root: Root path of source (contains src/claude/, src/devforgeai/)

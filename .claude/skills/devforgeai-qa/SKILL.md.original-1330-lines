@@ -18,7 +18,7 @@ Quality validation skill that enforces architectural constraints, test coverage 
 ### How Slash Commands Pass "Parameters" to Skills
 
 When `/qa` command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX" and "Validation mode: deep"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-qa")`
 
@@ -41,7 +41,7 @@ Extract: id field = Story ID
 **Method 2: Search for file reference**
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```
@@ -246,7 +246,7 @@ Validate code quality and enforce strict standards through:
 ### Step 1: Load Coverage Thresholds
 
 ```
-Read(file_path=".devforgeai/qa/coverage-thresholds.md")
+Read(file_path="devforgeai/qa/coverage-thresholds.md")
 
 IF file not found:
     Use default strict thresholds:
@@ -259,7 +259,7 @@ IF file not found:
 ### Step 2: Generate Coverage Reports
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract language
 
 # Execute language-specific coverage command
@@ -295,7 +295,7 @@ Read(file_path=coverage_file)
 ### Step 3: Classify Files by Layer
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Extract layer definitions
 
 # Classify files into Business Logic, Application, Infrastructure
@@ -351,10 +351,10 @@ Find untested methods, generate test suggestions.
 ### Step 1: Load Context Files
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 ### Step 2: Detect Anti-Patterns by Category
@@ -470,7 +470,7 @@ LOW: Code quality, documentation
 **Before validating code, verify story file is properly documented**
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 ```
 
 **Check for Implementation Notes section:**
@@ -551,7 +551,7 @@ Continue to Step 1 (Load Story Specification)
 ### Step 1: Load Story Specification
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 # Extract:
 # - Acceptance criteria
 # - API contracts
@@ -971,7 +971,7 @@ IF all above pass:
 ```
 report = generate_comprehensive_report(qa_results)
 
-Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
+Write(file_path="devforgeai/qa/reports/{story_id}-qa-report.md",
       content=report)
 ```
 
@@ -1012,10 +1012,10 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 ### Step 4: Update Story Status
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 IF overall_status == "PASS":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Approved ✅")
 
@@ -1023,7 +1023,7 @@ IF overall_status == "PASS":
     Add workflow history entry: "QA validation PASSED"
 
 IF overall_status == "FAIL":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Failed ❌")
 
@@ -1038,7 +1038,7 @@ IF overall_status == "FAIL":
 **Check if this is a re-validation:**
 
 ```
-Grep(pattern="## QA Validation History", path=".ai_docs/Stories/{story-id}.story.md")
+Grep(pattern="## QA Validation History", path="devforgeai/specs/Stories/{story-id}.story.md")
 
 IF found:
     # This is a re-validation
@@ -1057,7 +1057,7 @@ Edit story file to add/update QA history section:
 
 **Mode:** {deep/light}
 **Duration:** {duration}
-**QA Report:** `.devforgeai/qa/reports/{story-id}-qa-report{-attempt-N}.md`
+**QA Report:** `devforgeai/qa/reports/{story-id}-qa-report{-attempt-N}.md`
 
 **Results:**
 - Test Coverage: {coverage}%
@@ -1154,7 +1154,7 @@ The QA skill includes 6 Python automation scripts to accelerate quality analysis
 ```bash
 python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/coverage/coverage-report.json
+  --output=devforgeai/qa/coverage/coverage-report.json
 ```
 
 #### 2. `detect_duplicates.py`
@@ -1165,7 +1165,7 @@ python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
 python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
   --project-path=/path/to/project \
   --threshold=6 \
-  --output=.devforgeai/qa/anti-patterns/duplicates-report.json
+  --output=devforgeai/qa/anti-patterns/duplicates-report.json
 ```
 
 #### 3. `analyze_complexity.py`
@@ -1176,7 +1176,7 @@ python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
 python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
   --project-path=/path/to/project \
   --max-complexity=10 \
-  --output=.devforgeai/qa/anti-patterns/complexity-report.json
+  --output=devforgeai/qa/anti-patterns/complexity-report.json
 ```
 
 #### 4. `security_scan.py`
@@ -1186,7 +1186,7 @@ python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
 ```bash
 python .claude/skills/devforgeai-qa/scripts/security_scan.py \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/anti-patterns/security-report.json
+  --output=devforgeai/qa/anti-patterns/security-report.json
 ```
 
 #### 5. `validate_spec_compliance.py`
@@ -1195,9 +1195,9 @@ python .claude/skills/devforgeai-qa/scripts/security_scan.py \
 **Usage:**
 ```bash
 python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
-  --story-path=.ai_docs/Stories/STORY-001.story.md \
+  --story-path=devforgeai/specs/Stories/STORY-001.story.md \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
+  --output=devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
 ```
 
 #### 6. `generate_test_stubs.py`
@@ -1206,7 +1206,7 @@ python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
 **Usage:**
 ```bash
 python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
-  --coverage-report=.devforgeai/qa/coverage/coverage-report.json \
+  --coverage-report=devforgeai/qa/coverage/coverage-report.json \
   --output-dir=tests/generated/ \
   --framework=pytest
 ```
@@ -1231,17 +1231,17 @@ Scripts are automatically invoked during deep validation phases:
 
 ```python
 # Phase 1: Test Coverage Analysis
-Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --output=.devforgeai/qa/coverage/coverage-report.json")
-Read(file_path=".devforgeai/qa/coverage/coverage-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --output=devforgeai/qa/coverage/coverage-report.json")
+Read(file_path="devforgeai/qa/coverage/coverage-report.json")
 
 # Phase 2: Anti-Pattern Detection
-Bash(command="python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py --project-path=. --output=.devforgeai/qa/anti-patterns/duplicates-report.json")
-Bash(command="python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py --project-path=. --output=.devforgeai/qa/anti-patterns/complexity-report.json")
-Bash(command="python .claude/skills/devforgeai-qa/scripts/security_scan.py --project-path=. --output=.devforgeai/qa/anti-patterns/security-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py --project-path=. --output=devforgeai/qa/anti-patterns/duplicates-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py --project-path=. --output=devforgeai/qa/anti-patterns/complexity-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/security_scan.py --project-path=. --output=devforgeai/qa/anti-patterns/security-report.json")
 Read anti-pattern reports and aggregate violations
 
 # Phase 3: Spec Compliance
-Bash(command="python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py --story-path=.ai_docs/Stories/{story_id}.story.md --output=.devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py --story-path=devforgeai/specs/Stories/{story_id}.story.md --output=devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
 ```
 
 ### Manual Script Usage

@@ -196,8 +196,8 @@ def _remove_framework_files(target_root: Path, result: dict) -> None:
     """
     Remove framework files from target directory.
 
-    Removes .claude/, most .devforgeai/ subdirs, and CLAUDE.md.
-    Preserves .devforgeai/context/, .devforgeai/.backups/, .devforgeai/config/
+    Removes .claude/, most devforgeai/ subdirs, and CLAUDE.md.
+    Preserves devforgeai/specs/context/, devforgeai/.backups/, devforgeai/config/
 
     Args:
         target_root: Root path of target project
@@ -280,7 +280,7 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
         import shutil
 
         # Remove directories that shouldn't exist after rollback
-        # .devforgeai/ and .claude/ should be completely restored from backup
+        # devforgeai/ and .claude/ should be completely restored from backup
         devforgeai_target = target_root / ".devforgeai"
         claude_target = target_root / ".claude"
 
@@ -289,7 +289,7 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
             shutil.rmtree(claude_target)
             shutil.copytree(backup_path / ".claude", claude_target, symlinks=False)
 
-        # Delete and restore .devforgeai/ to ensure complete cleanup
+        # Delete and restore devforgeai/ to ensure complete cleanup
         if (backup_path / ".devforgeai").exists() and devforgeai_target.exists():
             shutil.rmtree(devforgeai_target)
             shutil.copytree(backup_path / ".devforgeai", devforgeai_target, symlinks=False)

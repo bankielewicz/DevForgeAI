@@ -25,9 +25,9 @@ class TestFullUpdateWorkflow:
     def story_files(self):
         """Fixture: List of story files."""
         return [
-            Path(".ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md"),
-            Path(".ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md"),
-            Path(".ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md"),
         ]
 
     @pytest.fixture

@@ -229,7 +229,7 @@ python migrate_story_v1_to_v2.py STORY-TEST-001.md --dry-run
 **Test:** Migrate story with `--backup`
 
 **Expected:**
-- Backup file created in `.devforgeai/backups/phase2-migration/`
+- Backup file created in `devforgeai/backups/phase2-migration/`
 - Original file preserved
 
 ---
@@ -318,7 +318,7 @@ python migrate_story_v1_to_v2.py STORY-TEST-001.md --dry-run
 **Execute:**
 ```bash
 for story in STORY-001 STORY-002 STORY-003; do
-  python migrate_story_v1_to_v2.py .ai_docs/Stories/$story.story.md
+  python migrate_story_v1_to_v2.py devforgeai/specs/Stories/$story.story.md
 done
 ```
 
@@ -494,7 +494,7 @@ python migrate_story_v1_to_v2.py STORY-001.md --validate
 
 **Step 2: Execute migration**
 ```bash
-python migrate_story_v1_to_v2.py .ai_docs/Stories/STORY-XXX.md --validate
+python migrate_story_v1_to_v2.py devforgeai/specs/Stories/STORY-XXX.md --validate
 ```
 
 **Step 3: Validate migration**

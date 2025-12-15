@@ -23,7 +23,7 @@ Updates story status and appends workflow history entries after phase completion
 
 ```
 Edit(
-  file_path=".ai_docs/Stories/{story_id}.story.md",
+  file_path="devforgeai/specs/Stories/{story_id}.story.md",
   old_string="status: {old_status}",
   new_string="status: {new_status}"
 )
@@ -79,7 +79,7 @@ FOR each checkbox associated with completed phase:
   new_checkbox = "- [x] {checkbox_text}"
 
   Edit(
-    file_path=".ai_docs/Stories/{story_id}.story.md",
+    file_path="devforgeai/specs/Stories/{story_id}.story.md",
     old_string=old_checkbox,
     new_string=new_checkbox
   )
@@ -139,7 +139,7 @@ Timestamp: {ISO 8601}
 
 ```
 # Read current workflow history section
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 Extract: Workflow Status section
 
 # Generate new entry
@@ -155,7 +155,7 @@ new_entry = format_workflow_entry(
 
 # Append to workflow history
 Edit(
-  file_path=".ai_docs/Stories/{story_id}.story.md",
+  file_path="devforgeai/specs/Stories/{story_id}.story.md",
   old_string="## Workflow Status\n\n",
   new_string=f"## Workflow Status\n\n{new_entry}\n\n"
 )
@@ -218,7 +218,7 @@ Edit(
 - MEDIUM: 2 (minor style issues - non-blocking)
 - LOW: 1 (suggestion for optimization)
 
-**Report:** .devforgeai/qa/reports/STORY-042-qa-report.md
+**Report:** devforgeai/qa/reports/STORY-042-qa-report.md
 
 **Next Steps:**
 - Proceed to staging deployment

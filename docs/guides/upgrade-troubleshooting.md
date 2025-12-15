@@ -682,4 +682,4 @@ ls -t .devforgeai/backups/ | tail -n +2 | xargs -I {} rm -rf ".devforgeai/backup
 
 - [Backup Management Guide](backup-management.md)
 - [Migration Script Authoring Guide](migration-script-authoring.md)
-- [STORY-078: Upgrade Mode with Migration Scripts](../../.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)
+- [STORY-078: Upgrade Mode with Migration Scripts](../../devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)

@@ -9,15 +9,15 @@ Copy and paste this prompt to Claude Code to begin implementing the devforgeai-i
 I need you to implement the **devforgeai-ideation** skill for the DevForgeAI spec-driven development framework. This is the entry point skill that transforms business ideas into structured requirements.
 
 **Context:**
-- The complete design specification is in: `.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md`
+- The complete design specification is in: `devforgeai/specs/requirements/devforgeai-ideation-skill-design.md`
 - Use the skill-creator template as your guide: `.claude/skills/skill-creator/skill.md`
-- Follow the implementation roadmap in: `.devforgeai/specs/requirements/devforgeai-skills-implementation-roadmap.md`
+- Follow the implementation roadmap in: `devforgeai/specs/requirements/devforgeai-skills-implementation-roadmap.md`
 - Reference existing skills for patterns: `.claude/skills/devforgeai-architecture/SKILL.md`, `.claude/skills/devforgeai-orchestration/SKILL.md`
 
 **Implementation Requirements:**
 
 1. **Read the design specification first:**
-   - Read `.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md` (complete specification)
+   - Read `devforgeai/specs/requirements/devforgeai-ideation-skill-design.md` (complete specification)
 
 2. **Create the skill structure:**
    ```
@@ -63,7 +63,7 @@ I need you to implement the **devforgeai-ideation** skill for the DevForgeAI spe
    - Progressive disclosure (keep SKILL.md lean, details in references/)
 
 6. **Integration Points:**
-   - Output: Epic documents (`.ai_docs/Epics/`) and Requirements specs (`.devforgeai/specs/requirements/`)
+   - Output: Epic documents (`devforgeai/specs/Epics/`) and Requirements specs (`devforgeai/specs/requirements/`)
    - Handoff to: devforgeai-architecture (create context files) and devforgeai-orchestration (create sprints/stories)
    - Auto-invoke architecture skill if context files missing
 

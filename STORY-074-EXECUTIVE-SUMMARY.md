@@ -324,7 +324,7 @@ A: No. Realigning implementations to match proven tests reduces debt. It enforce
 - **Full Gap Analysis:** `STORY-074-GAP-ANALYSIS.md` (detailed per-service analysis)
 - **Implementation Guide:** `STORY-074-IMPLEMENTATION-FIXES.md` (exact code changes)
 - **Quick Summary:** `STORY-074-GAP-ANALYSIS-SUMMARY.txt` (one-page reference)
-- **Story File:** `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md` (original spec)
+- **Story File:** `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md` (original spec)
 
 ---
 

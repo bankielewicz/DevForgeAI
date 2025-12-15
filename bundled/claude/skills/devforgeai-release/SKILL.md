@@ -91,7 +91,7 @@ Orchestrate safe, automated deployments to staging and production environments w
 - ✅ Hotfix deployments (critical bug fix, still requires QA)
 - ✅ Rollback operations (production issue detected)
 
-**Prerequisites:** QA approved, tests passing, build successful, config exists in `.devforgeai/deployment/`
+**Prerequisites:** QA approved, tests passing, build successful, config exists in `devforgeai/deployment/`
 
 **Invoked by:**
 - `/release` command (user-initiated)
@@ -101,9 +101,9 @@ Orchestrate safe, automated deployments to staging and production environments w
 
 ## Configuration
 
-Platform configs required in `.devforgeai/deployment/` (K8s, Docker, AWS, Azure, GCP, Vercel, Netlify, VPS)
+Platform configs required in `devforgeai/deployment/` (K8s, Docker, AWS, Azure, GCP, Vercel, Netlify, VPS)
 
-Smoke tests config in `.devforgeai/smoke-tests/config.json` (URLs, test users, API keys)
+Smoke tests config in `devforgeai/smoke-tests/config.json` (URLs, test users, API keys)
 
 **See `references/configuration-guide.md` for schemas and examples.**
 
@@ -246,5 +246,5 @@ Load these on-demand during workflow execution.
 **Hook Integration (STORY-025):**
 - Phase 2.5 and 3.5 add retrospective feedback collection
 - Non-blocking: Hook failures never affect deployment status
-- Configurable: `.devforgeai/config/hooks.yaml` controls behavior
+- Configurable: `devforgeai/config/hooks.yaml` controls behavior
 - See: `post-staging-hooks.md` and `post-production-hooks.md` for implementation details

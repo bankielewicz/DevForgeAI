@@ -290,6 +290,6 @@ Once all artifacts exist, all 99 tests will pass (GREEN phase).
 
 ## See Also
 
-- [STORY-059](../../.ai_docs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story specification
-- [EPIC-011](../../.ai_docs/Epics/EPIC-011.epic.md) - User Input Guidance System epic
+- [STORY-059](../../devforgeai/specs/Stories/STORY-059-user-input-guidance-validation.story.md) - Full story specification
+- [EPIC-011](../../devforgeai/specs/Epics/EPIC-011.epic.md) - User Input Guidance System epic
 - [Test-Automator Skill](./.claude/skills/test-automator/) - Test generation framework

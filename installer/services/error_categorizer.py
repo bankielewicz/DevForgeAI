@@ -175,7 +175,7 @@ class ErrorCategorizer:
         for i, step in enumerate(steps[:3], 1):  # Max 3 steps
             message += f"  {i}. {step}\n"
 
-        message += f"\nFor details, see log file: .devforgeai/install.log\n"
+        message += f"\nFor details, see log file: devforgeai/install.log\n"
 
         # Sanitize sensitive paths in final message
         message = self._sanitize_paths(message)
@@ -339,6 +339,6 @@ class ErrorCategorizer:
             for i, step in enumerate(steps[:3], 1):
                 output += f"  {i}. {step}\n"
 
-        output += f"\nFor details, see log file: .devforgeai/install.log\n"
+        output += f"\nFor details, see log file: devforgeai/install.log\n"
 
         return output

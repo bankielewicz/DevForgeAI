@@ -26,7 +26,7 @@ For each context file:
 3. **Customize template** with project-specific information
 4. **Add enforcement rules** with ✅ CORRECT vs ❌ FORBIDDEN examples
 5. **Validate completeness** (no placeholders, all sections filled)
-6. **Write to disk** in `.devforgeai/context/{filename}`
+6. **Write to disk** in `devforgeai/specs/context/{filename}`
 
 ---
 
@@ -300,7 +300,7 @@ After gathering all decisions:
 
 5. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/tech-stack.md", content="...")
+   Write(file_path="devforgeai/specs/context/tech-stack.md", content="...")
    ```
 
 ---
@@ -408,7 +408,7 @@ After gathering structure decisions:
 
 6. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/source-tree.md", content="...")
+   Write(file_path="devforgeai/specs/context/source-tree.md", content="...")
    ```
 
 ---
@@ -586,7 +586,7 @@ After discovery:
 5. **Create migration plan** if dependencies need updating
 6. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/dependencies.md", content="...")
+   Write(file_path="devforgeai/specs/context/dependencies.md", content="...")
    ```
 
 ---
@@ -738,7 +738,7 @@ After gathering coding pattern decisions:
 
 6. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/coding-standards.md", content="...")
+   Write(file_path="devforgeai/specs/context/coding-standards.md", content="...")
    ```
 
 ---
@@ -969,7 +969,7 @@ After gathering architecture decisions:
 
 6. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/architecture-constraints.md", content="...")
+   Write(file_path="devforgeai/specs/context/architecture-constraints.md", content="...")
    ```
 
 ---
@@ -1154,7 +1154,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/
 
 6. **Write to disk:**
    ```
-   Write(file_path=".devforgeai/context/anti-patterns.md", content="...")
+   Write(file_path="devforgeai/specs/context/anti-patterns.md", content="...")
    ```
 
 ---
@@ -1184,7 +1184,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/
 **Check tech-stack.md for frontend technologies:**
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 ```
 
 **Frontend indicators:**
@@ -1351,7 +1351,7 @@ AskUserQuestion:
 1. **No placeholders:**
    ```
    Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]",
-        path=".devforgeai/context/design-system.md",
+        path="devforgeai/specs/context/design-system.md",
         output_mode="files_with_matches")
    ```
 
@@ -1369,7 +1369,7 @@ AskUserQuestion:
 ### Write to Disk
 
 ```
-Write(file_path=".devforgeai/context/design-system.md", content="[customized template]")
+Write(file_path="devforgeai/specs/context/design-system.md", content="[customized template]")
 ```
 
 ---
@@ -1393,7 +1393,7 @@ When technology choices unclear during any of the 6 file workflows:
 
 ## Output
 
-Phase 2 produces **6 required + 1 optional context files** in `.devforgeai/context/`:
+Phase 2 produces **6 required + 1 optional context files** in `devforgeai/specs/context/`:
 
 **Required (6 files):**
 - ✅ tech-stack.md (locked technologies)

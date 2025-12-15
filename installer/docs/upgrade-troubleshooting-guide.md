@@ -9,7 +9,7 @@ Diagnose and resolve common DevForgeAI upgrade issues.
 ### Check Current Version
 
 ```bash
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 Expected output:
@@ -24,14 +24,14 @@ Expected output:
 ### Check Upgrade Logs
 
 ```bash
-ls -la .devforgeai/logs/upgrade-*.log
-cat .devforgeai/logs/upgrade-latest.log
+ls -la devforgeai/logs/upgrade-*.log
+cat devforgeai/logs/upgrade-latest.log
 ```
 
 ### Check Backup Status
 
 ```bash
-ls -la .devforgeai/backups/
+ls -la devforgeai/backups/
 ```
 
 ---
@@ -50,7 +50,7 @@ Error: Upgrade already in progress (lock file exists)
 **Solution:**
 ```bash
 # Remove lock file (only if no upgrade is running)
-rm .devforgeai/.upgrade.lock
+rm devforgeai/.upgrade.lock
 
 # Retry upgrade
 devforgeai upgrade
@@ -75,7 +75,7 @@ Error: Backup creation failed: [Errno 28] No space left on device
 df -h .
 
 # Clean old backups (keep last 3)
-ls -t .devforgeai/backups/ | tail -n +4 | xargs -I {} rm -rf .devforgeai/backups/{}
+ls -t devforgeai/backups/ | tail -n +4 | xargs -I {} rm -rf devforgeai/backups/{}
 
 # Retry upgrade
 devforgeai upgrade
@@ -97,20 +97,20 @@ Error: Migration v1.0.0-to-v1.1.0 failed: FileNotFoundError
 **Solution:**
 ```bash
 # Check upgrade log for details
-cat .devforgeai/logs/upgrade-*.log | grep -A5 "Migration failed"
+cat devforgeai/logs/upgrade-*.log | grep -A5 "Migration failed"
 
 # If rollback succeeded, system is safe
 # Check version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 **If rollback failed:**
 ```bash
 # List available backups
-ls .devforgeai/backups/
+ls devforgeai/backups/
 
 # Manually restore from backup
-devforgeai rollback --backup=.devforgeai/backups/v1.0.0-20251206120000/
+devforgeai rollback --backup=devforgeai/backups/v1.0.0-20251206120000/
 ```
 
 ---
@@ -119,7 +119,7 @@ devforgeai rollback --backup=.devforgeai/backups/v1.0.0-20251206120000/
 
 **Symptom:**
 ```
-Error: Post-migration validation failed: Missing file .devforgeai/config/settings.json
+Error: Post-migration validation failed: Missing file devforgeai/config/settings.json
 ```
 
 **Cause:** Migration didn't create expected files, or files were deleted.
@@ -128,7 +128,7 @@ Error: Post-migration validation failed: Missing file .devforgeai/config/setting
 ```bash
 # System should auto-rollback
 # Verify version reverted
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # If still showing new version, manual rollback needed
 devforgeai rollback
@@ -153,10 +153,10 @@ ps aux | grep devforgeai
 kill -SIGTERM <pid>
 
 # Check for lock file
-ls .devforgeai/.upgrade.lock
+ls devforgeai/.upgrade.lock
 
 # If lock exists and no process running, remove it
-rm .devforgeai/.upgrade.lock
+rm devforgeai/.upgrade.lock
 ```
 
 **Prevention:** Migration scripts should have timeout handling.
@@ -168,7 +168,7 @@ rm .devforgeai/.upgrade.lock
 **Symptom:**
 ```
 # Expected v1.1.0 but showing v1.0.0
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 {"version": "1.0.0", ...}
 ```
 
@@ -177,10 +177,10 @@ cat .devforgeai/.version.json
 **Solution:**
 ```bash
 # Check upgrade log
-cat .devforgeai/logs/upgrade-*.log | tail -50
+cat devforgeai/logs/upgrade-*.log | tail -50
 
 # If rollback occurred, log will show reason
-grep -i "rollback" .devforgeai/logs/upgrade-*.log
+grep -i "rollback" devforgeai/logs/upgrade-*.log
 ```
 
 ---
@@ -189,7 +189,7 @@ grep -i "rollback" .devforgeai/logs/upgrade-*.log
 
 **Symptom:**
 ```
-Error: [Errno 13] Permission denied: '.devforgeai/config/settings.json'
+Error: [Errno 13] Permission denied: 'devforgeai/config/settings.json'
 ```
 
 **Cause:** File permissions prevent modification.
@@ -197,13 +197,13 @@ Error: [Errno 13] Permission denied: '.devforgeai/config/settings.json'
 **Solution:**
 ```bash
 # Check ownership
-ls -la .devforgeai/
+ls -la devforgeai/
 
 # Fix permissions (if you own the files)
-chmod -R u+rw .devforgeai/
+chmod -R u+rw devforgeai/
 
 # Or run with appropriate user
-sudo chown -R $(whoami) .devforgeai/
+sudo chown -R $(whoami) devforgeai/
 ```
 
 ---
@@ -220,13 +220,13 @@ Error: Failed to parse version file: JSONDecodeError
 **Solution:**
 ```bash
 # Check file contents
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # If corrupted, restore from backup
-cp .devforgeai/backups/latest/.devforgeai/.version.json .devforgeai/.version.json
+cp devforgeai/backups/latest/devforgeai/.version.json devforgeai/.version.json
 
 # If no backup, recreate manually
-cat > .devforgeai/.version.json << 'EOF'
+cat > devforgeai/.version.json << 'EOF'
 {
   "version": "1.0.0",
   "installed_at": "2025-12-06T00:00:00Z",
@@ -248,7 +248,7 @@ The upgrade system automatically rolls back on:
 
 Check if rollback occurred:
 ```bash
-grep -i "rollback" .devforgeai/logs/upgrade-*.log
+grep -i "rollback" devforgeai/logs/upgrade-*.log
 ```
 
 ### Manual Rollback
@@ -257,13 +257,13 @@ If automatic rollback failed:
 
 ```bash
 # List backups
-ls -la .devforgeai/backups/
+ls -la devforgeai/backups/
 
 # Rollback to specific backup
-devforgeai rollback --backup=.devforgeai/backups/v1.0.0-20251206120000/
+devforgeai rollback --backup=devforgeai/backups/v1.0.0-20251206120000/
 
 # Verify rollback
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 ### Emergency Rollback
@@ -272,7 +272,7 @@ If `devforgeai rollback` doesn't work:
 
 ```bash
 # Find latest backup
-BACKUP=$(ls -td .devforgeai/backups/* | head -1)
+BACKUP=$(ls -td devforgeai/backups/* | head -1)
 
 # Manually restore
 rm -rf .devforgeai .claude CLAUDE.md
@@ -281,7 +281,7 @@ cp -r "$BACKUP/.claude" .
 cp "$BACKUP/CLAUDE.md" .
 
 # Verify
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 ---
@@ -291,7 +291,7 @@ cat .devforgeai/.version.json
 ### Log Location
 
 ```
-.devforgeai/logs/upgrade-YYYYMMDDHHMMSS.log
+devforgeai/logs/upgrade-YYYYMMDDHHMMSS.log
 ```
 
 ### Log Contents
@@ -309,13 +309,13 @@ Each upgrade log contains:
 
 ```bash
 # Latest upgrade log
-cat .devforgeai/logs/$(ls -t .devforgeai/logs/upgrade-*.log | head -1)
+cat devforgeai/logs/$(ls -t devforgeai/logs/upgrade-*.log | head -1)
 
 # Search for errors
-grep -i "error\|fail\|exception" .devforgeai/logs/upgrade-*.log
+grep -i "error\|fail\|exception" devforgeai/logs/upgrade-*.log
 
 # Search for specific migration
-grep "v1.0.0-to-v1.1.0" .devforgeai/logs/upgrade-*.log
+grep "v1.0.0-to-v1.1.0" devforgeai/logs/upgrade-*.log
 ```
 
 ---
@@ -328,12 +328,12 @@ Before reporting an issue, gather:
 
 1. **Version info:**
    ```bash
-   cat .devforgeai/.version.json
+   cat devforgeai/.version.json
    ```
 
 2. **Upgrade log:**
    ```bash
-   cat .devforgeai/logs/upgrade-*.log
+   cat devforgeai/logs/upgrade-*.log
    ```
 
 3. **System info:**
@@ -344,7 +344,7 @@ Before reporting an issue, gather:
 
 4. **Backup status:**
    ```bash
-   ls -la .devforgeai/backups/
+   ls -la devforgeai/backups/
    ```
 
 ### Reporting Issues

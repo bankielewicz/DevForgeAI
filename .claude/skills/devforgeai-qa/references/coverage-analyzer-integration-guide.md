@@ -63,15 +63,15 @@ blocks_qa = blocks_qa or coverage_result["blocks_qa"]
 
 ```python
 # Load 3 context files needed by coverage-analyzer
-tech_stack_content = Read(file_path=".devforgeai/context/tech-stack.md")
+tech_stack_content = Read(file_path="devforgeai/specs/context/tech-stack.md")
 if not tech_stack_content:
-    Display("HALT: .devforgeai/context/tech-stack.md missing")
+    Display("HALT: devforgeai/specs/context/tech-stack.md missing")
     Display("Remediation: Run /create-context to generate context files")
     Exit Phase 1
 
-source_tree_content = Read(file_path=".devforgeai/context/source-tree.md")
+source_tree_content = Read(file_path="devforgeai/specs/context/source-tree.md")
 if not source_tree_content:
-    Display("HALT: .devforgeai/context/source-tree.md missing")
+    Display("HALT: devforgeai/specs/context/source-tree.md missing")
     Display("Remediation: Run /create-context to generate context files")
     Exit Phase 1
 
@@ -286,7 +286,7 @@ else:
 {
   "status": "failure",
   "story_id": "STORY-XXX",
-  "error": "Context file missing: .devforgeai/context/source-tree.md",
+  "error": "Context file missing: devforgeai/specs/context/source-tree.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate missing context files"
 }
@@ -321,7 +321,7 @@ if coverage_result["status"] == "failure":
 if coverage_result["status"] == "failure":
     if "Could not classify files" in coverage_result["error"]:
         Display("🔴 CRITICAL: Cannot classify project files")
-        Display("Update .devforgeai/context/source-tree.md with correct patterns")
+        Display("Update devforgeai/specs/context/source-tree.md with correct patterns")
         blocks_qa = True
 ```
 
@@ -496,7 +496,7 @@ If integration encounters critical issues:
 ## Related Documentation
 
 - **Subagent Specification:** `.claude/agents/coverage-analyzer.md`
-- **Integration Test Results:** `.devforgeai/qa/reports/STORY-061-integration-test-report.md`
+- **Integration Test Results:** `devforgeai/qa/reports/STORY-061-integration-test-report.md`
 - **QA Skill:** `.claude/skills/devforgeai-qa/SKILL.md`
 - **Coverage Analysis Guide:** `.claude/skills/devforgeai-qa/references/coverage-analysis.md`
 - **Language-Specific Tooling:** `.claude/skills/devforgeai-qa/references/language-specific-tooling.md`

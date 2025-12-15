@@ -251,7 +251,7 @@ hooks:
 #   2. Verify operation_pattern matches operation name
 #   3. Check trigger_status includes operation result
 #   4. Review trigger_conditions (may be too restrictive)
-#   5. Check logs: grep "hook" .devforgeai/logs/*.log
+#   5. Check logs: grep "hook" devforgeai/logs/*.log
 #
 # Hook Timeout:
 #   1. Increase max_duration_ms (range: 1000-30000ms)
@@ -264,7 +264,7 @@ hooks:
 #   3. System automatically halts at depth 3
 #
 # Configuration Errors:
-#   1. Validate YAML syntax: python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+#   1. Validate YAML syntax: python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
 #   2. Check schema: /audit-hooks --validate
 #   3. Review error logs for specific field violations
 
@@ -275,5 +275,5 @@ hooks:
 # - Hook System Architecture: .claude/skills/devforgeai-feedback/HOOK-SYSTEM.md
 # - Hook API Reference: src/hook_system.py (docstrings)
 # - Example Usage: tests/test_hook_*.py (175 test cases)
-# - Performance Tuning: .devforgeai/docs/HOOK-PERFORMANCE.md
-# - Migration Guide: .devforgeai/docs/HOOK-MIGRATION.md
+# - Performance Tuning: devforgeai/docs/HOOK-PERFORMANCE.md
+# - Migration Guide: devforgeai/docs/HOOK-MIGRATION.md

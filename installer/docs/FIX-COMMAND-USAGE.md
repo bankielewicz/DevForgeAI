@@ -44,12 +44,12 @@ python -m installer fix /path/to/project
 ```
 
 **What happens:**
-1. Validates all files against `.devforgeai/.install-manifest.json`
+1. Validates all files against `devforgeai/.install-manifest.json`
 2. Detects issues (missing, corrupted, extra files)
 3. Prompts for user-modified files (keep/restore/show diff/backup)
 4. Repairs issues automatically
 5. Updates manifest with new checksums
-6. Saves report to `.devforgeai/logs/fix-{timestamp}.log`
+6. Saves report to `devforgeai/logs/fix-{timestamp}.log`
 
 **Example output:**
 ```
@@ -57,10 +57,10 @@ Installation Validation:
   Files checked: 450
   Issues found: 3
   - MISSING: .claude/commands/dev.md
-  - CORRUPTED: .devforgeai/context/tech-stack.md (user-modified)
+  - CORRUPTED: devforgeai/specs/context/tech-stack.md (user-modified)
   - EXTRA: custom_script.py (warning only)
 
-User-modified file detected: .devforgeai/context/tech-stack.md
+User-modified file detected: devforgeai/specs/context/tech-stack.md
 Options:
   1. Keep my version (skip repair)
   2. Restore original (overwrite with source)
@@ -70,7 +70,7 @@ Choice [1/2/3/4]: 4
 
 Repair Operations:
   ✓ Restored: .claude/commands/dev.md
-  ✓ Backed up and restored: .devforgeai/context/tech-stack.md
+  ✓ Backed up and restored: devforgeai/specs/context/tech-stack.md
   ⚠ Skipped: custom_script.py (extra file, warning only)
 
 Repair Summary:
@@ -81,7 +81,7 @@ Repair Summary:
   Duration: 2.3s
 
 ✓ All issues repaired successfully
-Log saved to: .devforgeai/logs/fix-20251206-103045.log
+Log saved to: devforgeai/logs/fix-20251206-103045.log
 ```
 
 ---
@@ -141,10 +141,10 @@ python -m installer fix /path/to/project --source /path/to/source-package
 
 ## Handling Missing Manifest
 
-If `.devforgeai/.install-manifest.json` is missing:
+If `devforgeai/.install-manifest.json` is missing:
 
 ```
-Manifest file (.devforgeai/.install-manifest.json) not found.
+Manifest file (devforgeai/.install-manifest.json) not found.
 
 Options:
   1. Regenerate manifest from current files (treat as source of truth)
@@ -174,7 +174,7 @@ Choice [1/2/3]:
 When a user-modified file is detected:
 
 ```
-User-modified file detected: .devforgeai/context/tech-stack.md
+User-modified file detected: devforgeai/specs/context/tech-stack.md
 
 Options:
   1. Keep my version (skip repair)
@@ -223,7 +223,7 @@ Choice [1/2/3/4]:
 ## Security
 
 **Scope Limitation:**
-- Only repairs files in `.claude/`, `.devforgeai/`, and `CLAUDE.md`
+- Only repairs files in `.claude/`, `devforgeai/`, and `CLAUDE.md`
 - User files outside DevForgeAI directories are never modified
 - Directory traversal attempts are blocked
 
@@ -238,7 +238,7 @@ Choice [1/2/3/4]:
 
 **Repair logs saved to:**
 ```
-.devforgeai/logs/fix-{timestamp}.log
+devforgeai/logs/fix-{timestamp}.log
 ```
 
 **Log includes:**
@@ -263,7 +263,7 @@ Exit Code: 3
 
 Messages:
   - Fixed 2 issues. 1 user-modified file requires manual attention.
-  - Log saved to: .devforgeai/logs/fix-20251206-103045.log
+  - Log saved to: devforgeai/logs/fix-20251206-103045.log
 
 Warnings:
   - EXTRA: custom_script.py

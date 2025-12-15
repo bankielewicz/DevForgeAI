@@ -550,7 +550,7 @@ Edit(
 )
 
 # Log to technical debt register
-Check if .devforgeai/technical-debt-register.md exists
+Check if devforgeai/technical-debt-register.md exists
 IF not exists:
   Create from template
 

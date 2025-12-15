@@ -387,7 +387,7 @@ Once implementation is complete, tests will pass when:
    - If `enabled=false`, skip Phase 4A.9 (zero overhead)
 
 2. **Verify epic file exists** (Phase 4A.9.2)
-   - Confirm `.ai_docs/Epics/{EPIC-ID}.epic.md` exists
+   - Confirm `devforgeai/specs/Epics/{EPIC-ID}.epic.md` exists
    - File created in Phase 4A.5
    - Skip hook if file missing (graceful degradation)
 
@@ -430,7 +430,7 @@ Tests verify:
 - Performance: `/mnt/c/Projects/DevForgeAI2/tests/performance/test_create_epic_hooks_performance.py`
 
 **Story File**:
-- STORY-028: `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
+- STORY-028: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
 
 **Related Stories**:
 - STORY-021: devforgeai check-hooks implementation

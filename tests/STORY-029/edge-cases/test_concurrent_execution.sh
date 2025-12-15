@@ -22,7 +22,7 @@ echo "========================================="
 test_unique_feedback_filenames() {
     echo -n "Test E2.1: Unique feedback filenames with timestamps... "
 
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -q "create-sprint-.*YYYY-MM-DD-HH-MM-SS\|timestamp.*filename"; then
         echo -e "${GREEN}PASS${NC}"
@@ -111,7 +111,7 @@ test_file_locking() {
 test_nfr008_compliance() {
     echo -n "Test E2.4: NFR-008 scalability requirement documented... "
 
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -q "NFR-008.*10.*simultan\|10 parallel.*create-sprint"; then
         echo -e "${GREEN}PASS${NC}"
@@ -150,7 +150,7 @@ test_feedback_file_overwrites() {
     echo -n "Test E2.6: Feedback files won't overwrite each other... "
 
     # Verify filename pattern includes unique identifier
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -q "unique.*timestamp\|YYYY-MM-DD-HH-MM-SS\|session.*id"; then
         echo -e "${GREEN}PASS${NC}"

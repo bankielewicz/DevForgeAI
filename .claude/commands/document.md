@@ -73,11 +73,11 @@ ELSE:
 **Load story file** (if story ID provided):
 ```
 IF STORY_ID not empty:
-    @.ai_docs/Stories/$STORY_ID*.story.md
+    @devforgeai/specs/Stories/$STORY_ID*.story.md
 
     IF file not found:
         Display: "Story not found: $STORY_ID"
-        Display: "Run: Glob(pattern='.ai_docs/Stories/*.story.md') to list stories"
+        Display: "Run: Glob(pattern='devforgeai/specs/Stories/*.story.md') to list stories"
         HALT
 
     Display: "✓ Story loaded: $STORY_ID"

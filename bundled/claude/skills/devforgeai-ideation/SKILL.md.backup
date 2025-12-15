@@ -116,9 +116,9 @@ Glob(pattern="**/Cargo.toml")     # Rust projects
 
 **Check for existing DevForgeAI context:**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".ai_docs/Epics/")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/Epics/")
 Read(file_path="README.md")
 ```
 
@@ -595,7 +595,7 @@ Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/epic-templat
 **Generate epic document for each prioritized epic:**
 
 ```
-Write(file_path=".ai_docs/Epics/EPIC-001-[name].epic.md", content="""
+Write(file_path="devforgeai/specs/Epics/EPIC-001-[name].epic.md", content="""
 ---
 id: EPIC-001
 title: [Epic Title]
@@ -675,7 +675,7 @@ Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/requirements
 **Create comprehensive technical requirements document:**
 
 ```
-Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md", content="""
+Write(file_path="devforgeai/specs/requirements/[project-name]-requirements.md", content="""
 # [Project Name] - Requirements Specification
 
 ## Project Context
@@ -726,7 +726,7 @@ Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md",
 
 ```
 # Check for existing context files
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **If context files don't exist (greenfield or missing context):**
@@ -735,8 +735,8 @@ Report to user: """
 ✅ Requirements documentation complete
 
 Generated Documents:
-- [N] Epic documents in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
+- [N] Epic documents in devforgeai/specs/Epics/
+- Requirements specification in devforgeai/specs/requirements/
 
 Next Steps:
 1. Invoking devforgeai-architecture skill to create context files
@@ -756,8 +756,8 @@ Skill(command="devforgeai-architecture")
 **If context files exist (brownfield with existing context):**
 ```
 # Load existing context
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 # Validate requirements against existing constraints
 # Check for conflicts
@@ -916,8 +916,8 @@ This skill succeeds when:
 - [ ] Ready for architecture skill (clear handoff)
 
 **Output Artifacts:**
-- 1+ Epic documents (`.ai_docs/Epics/`)
-- Requirements specification (`.devforgeai/specs/requirements/`)
+- 1+ Epic documents (`devforgeai/specs/Epics/`)
+- Requirements specification (`devforgeai/specs/requirements/`)
 - Complexity assessment report
 
 **Transition Point:**

@@ -124,7 +124,7 @@ Timestamp: {ISO 8601}
 ### Step 1: Load Story Document
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 Extract YAML frontmatter:
 - id, title, epic, sprint
@@ -410,12 +410,12 @@ Return: orchestration_state to workflow controller
 
 ### Missing Story File
 
-**Error:** Story file not found at `.ai_docs/Stories/{story_id}.story.md`
+**Error:** Story file not found at `devforgeai/specs/Stories/{story_id}.story.md`
 
 **Action:**
 ```
 HALT: "Story ${story_id} not found.
-       Expected location: .ai_docs/Stories/${story_id}.story.md
+       Expected location: devforgeai/specs/Stories/${story_id}.story.md
 
        Options:
        - Verify story ID spelling

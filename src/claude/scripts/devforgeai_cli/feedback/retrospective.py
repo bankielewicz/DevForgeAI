@@ -50,7 +50,7 @@ def capture_feedback(
         story_id: Story ID (e.g., 'STORY-001')
         workflow_type: Workflow type
         success_status: 'success', 'failed', or 'partial'
-        feedback_dir: Directory to store feedback (default: .devforgeai/feedback)
+        feedback_dir: Directory to store feedback (default: devforgeai/feedback)
         epic_id: Optional epic ID
         allow_skip: Whether to allow full skip (all questions skipped)
 

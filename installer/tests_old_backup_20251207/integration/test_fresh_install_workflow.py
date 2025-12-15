@@ -12,7 +12,7 @@ Validates that a complete fresh installation to an empty project:
 
 AC Mapping:
 - AC-1.1: Deploy .claude/ with 370 files
-- AC-1.2: Deploy .devforgeai/ with 80 files
+- AC-1.2: Deploy devforgeai/ with 80 files
 - AC-1.3: Create .version.json with version metadata
 - AC-1.4: Set file permissions correctly
 - AC-1.5: Project passes validation after install
@@ -55,7 +55,7 @@ class TestFreshInstallWorkflow:
 
         Validates:
         - All 370 .claude/ files deployed
-        - All 80 .devforgeai/ files deployed
+        - All 80 devforgeai/ files deployed
         - File content matches source exactly
         - No files missing or corrupted
 
@@ -96,7 +96,7 @@ class TestFreshInstallWorkflow:
         ), f"Expected 370 .claude/ files, got {claude_count_after}"
         assert (
             devforgeai_count >= 80
-        ), f"Expected ≥80 .devforgeai/ files, got {devforgeai_count}"
+        ), f"Expected ≥80 devforgeai/ files, got {devforgeai_count}"
 
         # Verify directories exist
         assert file_integrity_checker.verify_directory_exists(
@@ -116,7 +116,7 @@ class TestFreshInstallWorkflow:
         AC-1.3: Fresh install creates .version.json with correct metadata.
 
         Validates:
-        - .version.json exists in .devforgeai/
+        - .version.json exists in devforgeai/
         - version field = "1.0.1"
         - installed_at field contains ISO timestamp
         - mode field = "fresh_install"
@@ -137,7 +137,7 @@ class TestFreshInstallWorkflow:
         version_file = target_root / ".devforgeai" / ".version.json"
         assert (
             version_file.exists()
-        ), ".version.json not found in .devforgeai/"
+        ), ".version.json not found in devforgeai/"
 
         # Parse version.json
         version_data = json.loads(version_file.read_text())
@@ -308,7 +308,7 @@ class TestFreshInstallWorkflow:
         ).exists(), ".claude/ should be created"
         assert (
             target_root / ".devforgeai"
-        ).exists(), ".devforgeai/ should be created"
+        ).exists(), "devforgeai/ should be created"
 
     def test_fresh_install_leaves_valid_state(
         self, integration_project, source_framework

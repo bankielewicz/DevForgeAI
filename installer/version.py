@@ -2,7 +2,7 @@
 Version detection and semantic version comparison using stdlib only.
 
 This module handles:
-- Reading installed version from .devforgeai/.version.json
+- Reading installed version from devforgeai/.version.json
 - Reading source version from src/devforgeai/version.json
 - Semantic version comparison using stdlib only (no external dependencies)
 - Installation mode determination (fresh, patch_upgrade, minor_upgrade, major_upgrade, reinstall, downgrade)
@@ -32,10 +32,10 @@ SOURCE_VERSION_FILE = "version.json"
 
 def get_installed_version(devforgeai_path: Path) -> dict | None:
     """
-    Read installed version from .devforgeai/.version.json.
+    Read installed version from devforgeai/.version.json.
 
     Args:
-        devforgeai_path: Path to .devforgeai/ directory
+        devforgeai_path: Path to devforgeai/ directory
 
     Returns:
         dict with version, installed_at, mode, schema_version

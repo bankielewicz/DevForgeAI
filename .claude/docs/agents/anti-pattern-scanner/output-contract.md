@@ -94,7 +94,7 @@
 ```json
 {
   "status": "failure",
-  "error": "Required context file not found: .devforgeai/context/tech-stack.md",
+  "error": "Required context file not found: devforgeai/specs/context/tech-stack.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate architectural context files before QA validation",
   "metadata": {
@@ -114,9 +114,9 @@
   "blocks_qa": true,
   "remediation": "Resolve contradiction - update tech-stack.md or dependencies.md to match. Run /create-context if context files corrupted.",
   "contradiction_details": {
-    "file1": ".devforgeai/context/tech-stack.md",
+    "file1": "devforgeai/specs/context/tech-stack.md",
     "file1_value": "ORM: Dapper (locked)",
-    "file2": ".devforgeai/context/dependencies.md",
+    "file2": "devforgeai/specs/context/dependencies.md",
     "file2_value": "Microsoft.EntityFrameworkCore 8.0.0"
   },
   "metadata": {

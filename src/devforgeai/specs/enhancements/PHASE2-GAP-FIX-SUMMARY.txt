@@ -62,7 +62,7 @@
 │   - acceptance-criteria-patterns.md                                     │
 │                                                                         │
 │ Backups Location:                                                       │
-│ • .devforgeai/backups/phase2-gap-fix/*.backup                           │
+│ • devforgeai/backups/phase2-gap-fix/*.backup                           │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘
 
@@ -110,7 +110,7 @@
 │ If validation fails or /create-story breaks:                            │
 │                                                                         │
 │ # Restore original files (10 minutes)                                   │
-│ cp .devforgeai/backups/phase2-gap-fix/*.backup [original-locations]     │
+│ cp devforgeai/backups/phase2-gap-fix/*.backup [original-locations]     │
 │                                                                         │
 │ # Restart terminal                                                      │
 │ # Test /create-story (should work with old behavior)                    │

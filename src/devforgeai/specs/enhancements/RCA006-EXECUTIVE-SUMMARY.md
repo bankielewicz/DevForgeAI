@@ -183,8 +183,8 @@
 
 ### **Backups: Rollback Ready**
 
-✅ `.devforgeai/backups/phase1/tdd-red-phase.md.backup` (3.6K)
-✅ `.devforgeai/backups/phase1/test-automator.md.backup` (16K)
+✅ `devforgeai/backups/phase1/tdd-red-phase.md.backup` (3.6K)
+✅ `devforgeai/backups/phase1/test-automator.md.backup` (16K)
 
 **Total deliverables:** 7 files, ~4,300 lines
 

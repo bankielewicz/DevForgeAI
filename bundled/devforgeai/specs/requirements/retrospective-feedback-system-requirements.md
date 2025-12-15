@@ -40,7 +40,7 @@ This results in:
 **Retrospective Feedback System** - A comprehensive, user-configurable feedback collection system that:
 1. **Captures insights** through post-operation conversations (5-10 questions via AskUserQuestion)
 2. **Structures feedback** using context-aware templates (adapts to operation type and success/failure)
-3. **Persists data** to disk with searchable indexing (`.devforgeai/feedback/` directory)
+3. **Persists data** to disk with searchable indexing (`devforgeai/feedback/` directory)
 4. **Integrates seamlessly** via event-driven hooks at operation completion
 5. **Enables cross-project feedback** through export/import for maintainer communication
 
@@ -120,10 +120,10 @@ So that I'm not answering generic questions that don't apply to my situation.
 **Description:** Track user skip behavior, detect patterns (3+ consecutive skips), suggest disabling feature to reduce token waste.
 
 **Acceptance Criteria:**
-- AC-1.3.1: Skip counter tracked per operation type in `.devforgeai/feedback/skip-tracking.json`
+- AC-1.3.1: Skip counter tracked per operation type in `devforgeai/feedback/skip-tracking.json`
 - AC-1.3.2: Pattern detection: 3+ consecutive skips triggers suggestion
 - AC-1.3.3: AskUserQuestion offers: disable feedback, switch to failures-only mode, continue as-is
-- AC-1.3.4: User preference stored in config file (`.devforgeai/config/feedback.yaml`)
+- AC-1.3.4: User preference stored in config file (`devforgeai/config/feedback.yaml`)
 - AC-1.3.5: Skip tracking resets after successful feedback session
 
 **User Story:**
@@ -196,7 +196,7 @@ So that I can aggregate insights across users and identify patterns.
 **Description:** YAML-based configuration file controls feedback behavior (enable/disable, trigger rules, template selection).
 
 **Acceptance Criteria:**
-- AC-2.2.1: Config file location: `.devforgeai/config/feedback.yaml`
+- AC-2.2.1: Config file location: `devforgeai/config/feedback.yaml`
 - AC-2.2.2: Config structure includes:
   - `enabled: true/false` (master toggle)
   - `trigger.mode: always|failures-only|specific-operations|never`
@@ -242,10 +242,10 @@ So that I can capture project-specific context (e.g., "Project phase", "Team siz
 #### FR-3.1: Feedback File Persistence
 **Priority:** P0 (Must-Have)
 
-**Description:** Save feedback sessions to `.devforgeai/feedback/` with timestamp-based naming and atomic writes.
+**Description:** Save feedback sessions to `devforgeai/feedback/` with timestamp-based naming and atomic writes.
 
 **Acceptance Criteria:**
-- AC-3.1.1: Feedback directory: `.devforgeai/feedback/sessions/`
+- AC-3.1.1: Feedback directory: `devforgeai/feedback/sessions/`
 - AC-3.1.2: File naming: `{timestamp}-{operation-type}-{status}.md`
 - AC-3.1.3: File format: Markdown with YAML frontmatter
 - AC-3.1.4: Atomic writes (write to temp, rename to prevent corruption)
@@ -262,10 +262,10 @@ So that I can review it later and don't lose insights.
 #### FR-3.2: Searchable Metadata Index
 **Priority:** P0 (Must-Have)
 
-**Description:** Maintain searchable index (`.devforgeai/feedback/index.json`) with metadata from all feedback sessions.
+**Description:** Maintain searchable index (`devforgeai/feedback/index.json`) with metadata from all feedback sessions.
 
 **Acceptance Criteria:**
-- AC-3.2.1: Index file: `.devforgeai/feedback/index.json`
+- AC-3.2.1: Index file: `devforgeai/feedback/index.json`
 - AC-3.2.2: Index structure includes: session ID, timestamp, operation (type/name/args), status, tags, story ID, keywords, file path
 - AC-3.2.3: Index update: Append new entry on feedback write (incremental)
 - AC-3.2.4: Index rebuild command: `/feedback-reindex`
@@ -290,7 +290,7 @@ So that I can identify patterns and recurring issues.
 - AC-3.3.3: Package contents: `feedback-sessions/` (sanitized if requested), `index.json`, `manifest.json`
 - AC-3.3.4: Sanitization rules: Replace story IDs, remove custom field values, remove project-specific context
 - AC-3.3.5: Import command: `/import-feedback [file.zip]`
-- AC-3.3.6: Import destination: `.devforgeai/feedback/imported/{timestamp}/`
+- AC-3.3.6: Import destination: `devforgeai/feedback/imported/{timestamp}/`
 - AC-3.3.7: Validation: Reject corrupted or incompatible exports
 
 **User Story:**
@@ -527,7 +527,7 @@ FeedbackIndex (1) ──references──► FeedbackSession (N)
 ### INT-1: DevForgeAI Architecture Compliance
 **Requirement:** Feedback system must respect all 6 existing context files
 **Validation:**
-- Read `.devforgeai/context/architecture-constraints.md`
+- Read `devforgeai/specs/context/architecture-constraints.md`
 - Verify no violations of three-layer architecture
 - Verify single responsibility principle
 - Verify progressive disclosure pattern
@@ -727,18 +727,18 @@ FeedbackIndex (1) ──references──► FeedbackSession (N)
 ## Appendix B: Related Documents
 
 - Epic Documents:
-  - `.ai_docs/Epics/EPIC-002-feedback-capture-interaction.epic.md`
-  - `.ai_docs/Epics/EPIC-003-template-configuration-system.epic.md`
-  - `.ai_docs/Epics/EPIC-004-storage-indexing.epic.md`
-  - `.ai_docs/Epics/EPIC-005-framework-integration.epic.md`
+  - `devforgeai/specs/Epics/EPIC-002-feedback-capture-interaction.epic.md`
+  - `devforgeai/specs/Epics/EPIC-003-template-configuration-system.epic.md`
+  - `devforgeai/specs/Epics/EPIC-004-storage-indexing.epic.md`
+  - `devforgeai/specs/Epics/EPIC-005-framework-integration.epic.md`
 
 - DevForgeAI Context Files:
-  - `.devforgeai/context/architecture-constraints.md` (compliance validation)
-  - `.devforgeai/context/tech-stack.md` (framework implementation constraints)
-  - `.devforgeai/context/anti-patterns.md` (patterns to avoid)
+  - `devforgeai/specs/context/architecture-constraints.md` (compliance validation)
+  - `devforgeai/specs/context/tech-stack.md` (framework implementation constraints)
+  - `devforgeai/specs/context/anti-patterns.md` (patterns to avoid)
 
 - Tier 3 Planning (Future Reference):
-  - `.devforgeai/specs/enhancements/retrospective-feedback-tier3-roadmap.md` (to be created)
+  - `devforgeai/specs/enhancements/retrospective-feedback-tier3-roadmap.md` (to be created)
 
 ---
 

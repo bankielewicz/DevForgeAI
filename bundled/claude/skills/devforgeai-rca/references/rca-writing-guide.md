@@ -731,7 +731,7 @@ None
 
 ### Comprehensive RCA (Complex Issue)
 
-**See:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` for full example with:
+**See:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` for full example with:
 - Timeline of events (chronological incident)
 - Contributing factors (multiple causes)
 - Multi-phase recommendations (Phase 1 CRITICAL, Phase 2 HIGH)
@@ -743,10 +743,10 @@ None
 ## Reference
 
 **RCA Document Examples:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Multi-phase, complex
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` - 3-phase solution
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - User approval pattern
-- `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` - Skill refactoring
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Multi-phase, complex
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` - 3-phase solution
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - User approval pattern
+- `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` - Skill refactoring
 
 **Related DevForgeAI Documentation:**
 - `.claude/skills/devforgeai-rca/assets/rca-document-template.md` - Base template

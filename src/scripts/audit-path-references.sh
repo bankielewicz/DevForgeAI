@@ -2,7 +2,7 @@
 
 ##############################################################################
 # Script: audit-path-references.sh
-# Purpose: Comprehensive audit of .claude/ and .devforgeai/ path references
+# Purpose: Comprehensive audit of .claude/ and devforgeai/ path references
 # Output: Classifies references into 4 categories with statistical breakdown
 #
 # Categories:
@@ -25,7 +25,7 @@ NC='\033[0m'
 
 # Directory setup
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-SPEC_DIR="$PROJECT_ROOT/.devforgeai/specs/STORY-043"
+SPEC_DIR="$PROJECT_ROOT/devforgeai/specs/STORY-043"
 OUTPUT_DEPLOY="$SPEC_DIR/path-audit-deploy-time.txt"
 OUTPUT_SOURCE="$SPEC_DIR/path-audit-source-time.txt"
 OUTPUT_AMBIGUOUS="$SPEC_DIR/path-audit-ambiguous.txt"
@@ -62,12 +62,12 @@ log_error() {
 }
 
 ##############################################################################
-# Phase 1: Collect all .claude/ and .devforgeai/ references
+# Phase 1: Collect all .claude/ and devforgeai/ references
 ##############################################################################
 
 log_info "Phase 1: Collecting all path references..."
 
-# Grep for all .claude/ and .devforgeai/ patterns
+# Grep for all .claude/ and devforgeai/ patterns
 # Focus on content matches, not directory names
 # Exclude: .git, .backup, .original, .pre-*, node_modules, __pycache__
 # Pattern looks for actual references (Read calls, @file, text content)
@@ -103,7 +103,7 @@ log_info "Total reference lines found: $TOTAL_FOUND (note: each line may contain
 log_info "Phase 2: Classifying references (focusing on actionable refs)..."
 
 # Classification strategy:
-# 1. Deploy-time: @file refs in CLAUDE.md, .devforgeai/context paths
+# 1. Deploy-time: @file refs in CLAUDE.md, devforgeai/context paths
 # 2. Source-time: Read() calls, Skill() calls, Task() references
 # 3. Ambiguous: Mixed contexts
 # 4. Excluded: Backups, archives
@@ -116,7 +116,7 @@ if [ -f "$PROJECT_ROOT/CLAUDE.md" ]; then
 fi
 
 # Extract SOURCE-TIME references (Read() calls that will be updated)
-# Only count Read() calls for .claude/ paths (not .devforgeai/context which is deploy-time)
+# Only count Read() calls for .claude/ paths (not devforgeai/context which is deploy-time)
 grep -r 'Read(file_path="\..*\.claude/' \
     "$PROJECT_ROOT" \
     --include="*.md" \
@@ -126,8 +126,8 @@ grep -r 'Read(file_path="\..*\.claude/' \
     --exclude-dir=".backups" \
     2>/dev/null >> "$TEMP_SOURCE" || true
 
-# Extract DEPLOY-TIME references (.devforgeai/context/)
-grep -r '\.devforgeai/context/' \
+# Extract DEPLOY-TIME references (devforgeai/specs/context/)
+grep -r '\devforgeai/specs/context/' \
     "$PROJECT_ROOT" \
     --include="*.md" \
     --include="*.sh" \
@@ -159,7 +159,7 @@ grep -r '\.\(claude\|devforgeai\)/' \
     --exclude-dir=".claude" \
     --exclude-dir=".devforgeai" \
     --exclude="CLAUDE.md" \
-    2>/dev/null | grep -v 'Read(file_path=' | grep -v '\.devforgeai/context/' | head -100 >> "$TEMP_AMBIGUOUS" || true
+    2>/dev/null | grep -v 'Read(file_path=' | grep -v '\devforgeai/specs/context/' | head -100 >> "$TEMP_AMBIGUOUS" || true
 
 log_info "Classification complete"
 
@@ -212,7 +212,7 @@ CLASSIFICATION SUMMARY
 
 Deploy-Time References (KEEP AS-IS):     $DEPLOY_COUNT refs
   - @file references in CLAUDE.md
-  - .devforgeai/context/ paths
+  - devforgeai/specs/context/ paths
   - package.json scripts
   File: path-audit-deploy-time.txt
 

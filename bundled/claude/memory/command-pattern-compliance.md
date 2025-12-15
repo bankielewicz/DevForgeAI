@@ -135,5 +135,5 @@ This document tracks lean orchestration pattern compliance for all 14 DevForgeAI
 ---
 
 **For detailed command documentation, see `commands-reference.md`**
-**For refactoring case studies, see `.devforgeai/protocols/refactoring-case-studies.md`**
-**For pattern protocol, see `.devforgeai/protocols/lean-orchestration-pattern.md`**
+**For refactoring case studies, see `devforgeai/protocols/refactoring-case-studies.md`**
+**For pattern protocol, see `devforgeai/protocols/lean-orchestration-pattern.md`**

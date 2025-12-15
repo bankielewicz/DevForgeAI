@@ -37,11 +37,11 @@ Release QA-approved stories to target environments with automated validation and
 - If empty: Prompt user for story ID
 
 **Step 0.2: Verify story file exists**
-- Glob: `.ai_docs/Stories/$1*.story.md`
+- Glob: `devforgeai/specs/Stories/$1*.story.md`
 - If not found: Guide user to list available stories
 
 **Step 0.3: Load story context**
-- Reference: `@.ai_docs/Stories/{STORY_ID}.story.md`
+- Reference: `@devforgeai/specs/Stories/{STORY_ID}.story.md`
 - Story content now available in conversation for skill extraction
 
 **Step 0.4: Parse and normalize environment**
@@ -185,7 +185,7 @@ The devforgeai-release skill automatically triggers feedback hooks:
 - Default: Failures-only (feedback on failures only)
 - Non-blocking (never affects deployment)
 
-See `.devforgeai/docs/hook-integration-pattern.md` for details.
+See `devforgeai/docs/hook-integration-pattern.md` for details.
 
 ---
 

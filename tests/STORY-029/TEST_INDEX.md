@@ -323,7 +323,7 @@ grep -A 10 "invoke-hooks" .claude/commands/create-sprint.md | grep "|| true\|err
 
 - **README.md** - Quick start guide and troubleshooting
 - **TEST_SUMMARY.md** - Comprehensive test documentation
-- **Story** - `.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
+- **Story** - `devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
 - **Implementation Target** - `.claude/commands/create-sprint.md`
 
 ---

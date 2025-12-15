@@ -77,7 +77,7 @@ from devforgeai_cli.orchestrate_hooks import extract_orchestrate_context
 import json
 
 # Read story file content
-with open('.ai_docs/Stories/${STORY_ID}.story.md', 'r') as f:
+with open('devforgeai/specs/Stories/${STORY_ID}.story.md', 'r') as f:
     story_content = f.read()
 
 # Extract context
@@ -128,7 +128,7 @@ if [ "$HOOK_ELIGIBLE" = true ]; then
     2>&1 || {
       # Graceful degradation (AC6)
       echo "⚠️ Feedback hook failed, continuing..."
-      echo "$(date): Hook invocation failed for $STORY_ID" >> .devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
+      echo "$(date): Hook invocation failed for $STORY_ID" >> devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
     }
 
   Display: "Feedback session complete"
@@ -141,9 +141,9 @@ fi
 
 ```bash
 # Log hook invocation attempt (success or failure)
-mkdir -p .devforgeai/logs
+mkdir -p devforgeai/logs
 
-cat >> .devforgeai/logs/hooks-orchestrate-${STORY_ID}.log <<EOF
+cat >> devforgeai/logs/hooks-orchestrate-${STORY_ID}.log <<EOF
 ---
 Timestamp: $(date -Iseconds)
 Story: $STORY_ID
@@ -193,7 +193,7 @@ Display: "Hook invocation logged"
 - `CONTEXT_JSON` - Workflow context (for debugging/logging)
 
 **Log Files:**
-- `.devforgeai/logs/hooks-orchestrate-${STORY_ID}.log` - Hook invocation log
+- `devforgeai/logs/hooks-orchestrate-${STORY_ID}.log` - Hook invocation log
 
 ---
 
@@ -224,7 +224,7 @@ fi
 # Add timeout to invoke-hooks call
 timeout 5s devforgeai invoke-hooks ... || {
   echo "⚠️ Feedback hook timed out (>5s), continuing..."
-  echo "$(date): Hook timeout for $STORY_ID" >> .devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
+  echo "$(date): Hook timeout for $STORY_ID" >> devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
 }
 ```
 
@@ -324,7 +324,7 @@ echo "$CONTEXT_JSON" | python3 -m json.tool > /dev/null 2>&1 || {
 
 ### AC6: Graceful Degradation ✅
 - Error handling in Steps N.2, N.3, N.4
-- Failures logged to .devforgeai/logs/
+- Failures logged to devforgeai/logs/
 - Workflow proceeds with original status
 
 ### AC7: Performance Requirements ✅

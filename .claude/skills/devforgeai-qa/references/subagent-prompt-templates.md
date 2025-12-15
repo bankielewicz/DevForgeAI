@@ -21,8 +21,8 @@ Standardized prompt templates for invoking QA validation subagents from devforge
 # Delegate to coverage-analyzer subagent
 
 # Step 1: Load context files for subagent
-tech_stack_content = Read(file_path=".devforgeai/context/tech-stack.md")
-source_tree_content = Read(file_path=".devforgeai/context/source-tree.md")
+tech_stack_content = Read(file_path="devforgeai/specs/context/tech-stack.md")
+source_tree_content = Read(file_path="devforgeai/specs/context/source-tree.md")
 coverage_thresholds_content = Read(file_path="src/claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
 
 # Step 2: Extract language for tool selection
@@ -197,7 +197,7 @@ IF coverage_blocks_qa:
 context_files = {}
 for file in ["tech-stack.md", "source-tree.md", "dependencies.md",
              "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"]:
-    context_files[file] = Read(file_path=f".devforgeai/context/{file}")
+    context_files[file] = Read(file_path=f"devforgeai/specs/context/{file}")
 
 # Step 2: Extract language for tool selection
 language = extract_language_from_tech_stack(context_files["tech-stack.md"])
@@ -375,7 +375,7 @@ IF anti_pattern_blocks_qa:
 # Delegate to code-quality-auditor subagent
 
 # Step 1: Load context files for subagent
-tech_stack_content = Read(file_path=".devforgeai/context/tech-stack.md")
+tech_stack_content = Read(file_path="devforgeai/specs/context/tech-stack.md")
 quality_metrics_content = Read(file_path="src/claude/skills/devforgeai-qa/assets/config/quality-metrics.md")
 
 # Step 2: Extract language for tool selection

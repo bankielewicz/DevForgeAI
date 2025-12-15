@@ -13,7 +13,7 @@ Execute full Test-Driven Development cycle for a user story.
 
 ## Pre-execution Context
 
-**Story File:** @.ai_docs/Stories/$1.story.md
+**Story File:** @devforgeai/specs/Stories/$1.story.md
 
 **Note:** The `devforgeai-development` skill handles all implementation logic including:
 - Git validation and workflow adaptation
@@ -66,17 +66,17 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Check if story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
     Display: "❌ ERROR: Story file not found"
     Display: ""
-    Display: "Looking for: .ai_docs/Stories/${STORY_ID}*.story.md"
+    Display: "Looking for: devforgeai/specs/Stories/${STORY_ID}*.story.md"
     Display: ""
     Display: "Available stories:"
 
     # List all stories
-    Glob(pattern=".ai_docs/Stories/*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/*.story.md")
     Display: "{list each found story}"
 
     Display: ""

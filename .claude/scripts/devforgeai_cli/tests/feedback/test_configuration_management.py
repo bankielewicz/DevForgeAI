@@ -441,7 +441,7 @@ class TestDefaultMerging:
     def test_missing_config_file_uses_defaults(self):
         """AC8: Missing config file uses sensible defaults.
 
-        Given: .devforgeai/config/feedback.yaml does not exist
+        Given: devforgeai/config/feedback.yaml does not exist
         When: Feedback system initializes
         Then: Default configuration is used (enabled: true, trigger_mode: failures-only)
         """

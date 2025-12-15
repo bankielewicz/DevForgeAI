@@ -925,7 +925,7 @@ HALT: Do not proceed to Phase 8 if CRITICAL or HIGH issues remain
 If epic field is not null:
 
 Validate epic exists:
-- [ ] Epic file exists at .ai_docs/Epics/{epic_id}.epic.md
+- [ ] Epic file exists at devforgeai/specs/Epics/{epic_id}.epic.md
 - [ ] Epic is readable
 - [ ] Epic has stories section
 
@@ -947,7 +947,7 @@ If epic file missing:
 If sprint field is not "Backlog":
 
 Validate sprint exists:
-- [ ] Sprint file exists at .ai_docs/Sprints/{sprint_id}.md
+- [ ] Sprint file exists at devforgeai/specs/Sprints/{sprint_id}.md
 - [ ] Sprint is readable
 - [ ] Sprint has sprint backlog section
 
@@ -1049,8 +1049,8 @@ If prerequisites not met:
 Validate framework compliance:
 
 If context files exist:
-    Read: .devforgeai/context/tech-stack.md
-    Read: .devforgeai/context/coding-standards.md
+    Read: devforgeai/specs/context/tech-stack.md
+    Read: devforgeai/specs/context/coding-standards.md
 
     Validate:
     - [ ] Technologies mentioned align with tech-stack.md

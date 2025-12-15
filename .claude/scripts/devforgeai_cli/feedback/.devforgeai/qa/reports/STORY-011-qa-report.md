@@ -226,7 +226,7 @@ Expected after fix:
 - If still below 80%, additional tests needed
 
 **4. Update Story with Correct Metrics**
-Update `.ai_docs/Stories/STORY-011-configuration-management.story.md`:
+Update `devforgeai/specs/Stories/STORY-011-configuration-management.story.md`:
 - Line 397-398: Update coverage percentages with actual results
 - Line 463-464: Update status from "Ready for QA Re-validation" if coverage still fails
 

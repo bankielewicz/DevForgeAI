@@ -30,7 +30,7 @@
   "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
-    "command": "python3 .devforgeai/scripts/statusline.py"
+    "command": "python3 devforgeai/scripts/statusline.py"
   },
   "hooks": {
     "PreToolUse": [

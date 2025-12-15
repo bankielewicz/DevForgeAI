@@ -1157,9 +1157,9 @@ export const loggerMiddleware = (config) => (set, get, api) =>
 
 - **ADR-001: Database Selection** (PostgreSQL for server state)
 - **ADR-002: ORM Selection** (Dapper for data access)
-- **Tech Stack Documentation**: `.devforgeai/context/tech-stack.md` (lists Zustand as standard)
-- **Dependencies Documentation**: `.devforgeai/context/dependencies.md` (approved Zustand packages)
-- **Coding Standards**: `.devforgeai/context/coding-standards.md` (state management patterns)
+- **Tech Stack Documentation**: `devforgeai/specs/context/tech-stack.md` (lists Zustand as standard)
+- **Dependencies Documentation**: `devforgeai/specs/context/dependencies.md` (approved Zustand packages)
+- **Coding Standards**: `devforgeai/specs/context/coding-standards.md` (state management patterns)
 
 ---
 

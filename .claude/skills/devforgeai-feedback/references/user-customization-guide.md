@@ -58,7 +58,7 @@ Add your own templates for specific workflows:
 
 ### User Configuration File
 
-**Location:** `.devforgeai/feedback/config.yaml` (create if doesn't exist)
+**Location:** `devforgeai/feedback/config.yaml` (create if doesn't exist)
 
 **Basic Structure:**
 ```yaml
@@ -82,7 +82,7 @@ feedback:
 feedback:
   templates:
     # Directory containing custom templates
-    directory: ".devforgeai/feedback/custom-templates"
+    directory: "devforgeai/feedback/custom-templates"
 
     # Map operation types to custom template IDs
     custom:
@@ -115,7 +115,7 @@ feedback:
 ```yaml
 feedback:
   output:
-    base-directory: ".devforgeai/feedback"    # Default location
+    base-directory: "devforgeai/feedback"    # Default location
     use-subdirectories: true                  # Organize by operation type
     filename-format: "{timestamp}-{uuid}-retrospective.md"  # Default format
 ```
@@ -321,12 +321,12 @@ Template engine will find `cicd-deployment.yaml` if filename matches `{operation
 
 1. **Create organization template directory:**
 ```bash
-mkdir -p .devforgeai/feedback/org-templates
+mkdir -p devforgeai/feedback/org-templates
 ```
 
 2. **Create template:**
 ```bash
-.devforgeai/feedback/org-templates/org-command-passed.yaml
+devforgeai/feedback/org-templates/org-command-passed.yaml
 ```
 
 3. **Define with organizational sections:**
@@ -382,10 +382,10 @@ field-mappings:
 
 4. **Configure to use organizational templates:**
 ```yaml
-# .devforgeai/feedback/config.yaml
+# devforgeai/feedback/config.yaml
 feedback:
   templates:
-    directory: ".devforgeai/feedback/org-templates"
+    directory: "devforgeai/feedback/org-templates"
     custom:
       command:
         passed: "org-command-passed"
@@ -442,7 +442,7 @@ template = select_template(
 
 **Structure:**
 ```
-.devforgeai/feedback/templates/
+devforgeai/feedback/templates/
 ├── en/                           # English (default)
 │   ├── command-passed.yaml
 │   ├── command-failed.yaml
@@ -459,10 +459,10 @@ template = select_template(
 
 **Configuration:**
 ```yaml
-# .devforgeai/feedback/config.yaml
+# devforgeai/feedback/config.yaml
 feedback:
   templates:
-    directory: ".devforgeai/feedback/templates/es"  # Use Spanish templates
+    directory: "devforgeai/feedback/templates/es"  # Use Spanish templates
 ```
 
 **Template Example (Spanish):**
@@ -635,7 +635,7 @@ assert "# Retrospective" in rendered  # Title present
 - `cmd_crud_04`: Transaction handling feedback
 
 **Usage:**
-Configure in `.devforgeai/feedback/config.yaml`:
+Configure in `devforgeai/feedback/config.yaml`:
 ```yaml
 feedback:
   templates:
@@ -675,7 +675,7 @@ org-feedback-templates/
 
 **Configuration (per project):**
 ```yaml
-# .devforgeai/feedback/config.yaml
+# devforgeai/feedback/config.yaml
 feedback:
   templates:
     directory: "~/org-feedback-templates/command"
@@ -701,7 +701,7 @@ feedback:
 3. YAML frontmatter has wrong `operation-type` or `success-status`
 
 **Fix:**
-- Verify filename: `ls .devforgeai/feedback/custom-templates/`
+- Verify filename: `ls devforgeai/feedback/custom-templates/`
 - Check template YAML frontmatter matches filename
 - Verify directory path in config.yaml
 
@@ -777,7 +777,7 @@ cp -r .claude/skills/devforgeai-feedback/templates \
 - Monitor rendered outputs for issues
 
 5. **Update configuration:**
-- Modify `.devforgeai/feedback/config.yaml` if new options available
+- Modify `devforgeai/feedback/config.yaml` if new options available
 - Enable new features gradually
 
 ---

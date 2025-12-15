@@ -36,7 +36,7 @@ else:
 
 **If EPIC_BATCH, validate epic exists:**
 ```
-Glob(pattern=".ai_docs/Epics/${EPIC_ID}*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/${EPIC_ID}*.epic.md")
 if not found:
     AskUserQuestion: "Epic ${EPIC_ID} not found. Enter different ID or cancel?"
 ```
@@ -214,7 +214,7 @@ Verify skill completed successfully by checking for story file:
 
 ```
 # Find all story files
-story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Identify newest story (should be the one just created)
 # Story files are named STORY-XXX-{slug}.story.md
@@ -222,7 +222,7 @@ story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
 ```
 
 **Expected artifact:**
-- 1 new story file in `.ai_docs/Stories/`
+- 1 new story file in `devforgeai/specs/Stories/`
 - Filename format: `STORY-XXX-{slug}.story.md`
 
 ### 3.2 Handle Incomplete Execution
@@ -236,7 +236,7 @@ story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
 Report: """
 ⚠️ Story Creation Incomplete
 
-Expected story file not found in `.ai_docs/Stories/`
+Expected story file not found in `devforgeai/specs/Stories/`
 
 Possible causes:
 1. Skill execution interrupted
@@ -246,8 +246,8 @@ Possible causes:
 
 Recommended actions:
 - Re-run `/create-story [feature-description]` to retry
-- Check `.ai_docs/Stories/` directory for partial files
-- Verify write permissions to .ai_docs/ directory
+- Check `devforgeai/specs/Stories/` directory for partial files
+- Verify write permissions to devforgeai/specs/ directory
 
 If issue persists, create story manually or contact support.
 """
@@ -306,7 +306,7 @@ Read(file_path=newest_story, limit=20)
 **Status:** Backlog
 
 **File location:**
-`.ai_docs/Stories/{story_id}-{slug}.story.md`
+`devforgeai/specs/Stories/{story_id}-{slug}.story.md`
 
 The devforgeai-story-creation skill has:
 ✓ Generated user story and acceptance criteria
@@ -326,13 +326,13 @@ The devforgeai-story-creation skill has:
 **Purpose:** Integrate feedback hooks for story quality retrospection.
 
 **Key Workflow:**
-1. Check hooks enabled (`.devforgeai/config/hooks.yaml`, default: disabled)
+1. Check hooks enabled (`devforgeai/config/hooks.yaml`, default: disabled)
 2. Detect batch mode (`**Batch Mode:** true` marker)
 3. If batch: defer until all stories created (single invocation with all IDs)
 4. If single: validate story ID (STORY-NNN regex), file exists
 5. Assemble 7 metadata fields from story YAML (story_id, epic_id, sprint, title, points, priority, timestamp)
 6. Invoke hook (timeout: 30s default, performance: <100ms p95 requirement)
-7. Log to `.devforgeai/feedback/.logs/hooks.log` (success) and `hook-errors.log` (errors)
+7. Log to `devforgeai/feedback/.logs/hooks.log` (success) and `hook-errors.log` (errors)
 
 **Critical Principles:**
 - Failures never break exit code (always 0, story created successfully)
@@ -375,7 +375,7 @@ Possible causes: Skill error, permissions issue, user exit, validation failure
 
 Actions:
 - Check skill error messages
-- Verify `.ai_docs/Stories/` is writable
+- Verify `devforgeai/specs/Stories/` is writable
 - Re-run `/create-story [feature-description]`
 ```
 
@@ -439,7 +439,7 @@ Story created with:
 - [ ] Non-functional requirements (measurable)
 - [ ] Edge cases documented
 - [ ] Definition of Done (checkboxes)
-- [ ] File written to .ai_docs/Stories/
+- [ ] File written to devforgeai/specs/Stories/
 - [ ] Epic/sprint linked (if applicable)
 - [ ] Skill Phase 7 validation passed
 

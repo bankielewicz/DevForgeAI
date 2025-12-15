@@ -258,14 +258,14 @@ class TestInternetSleuthEdgeCases:
 
     def test_edge_case_7_reads_epic_file_for_context(self, agent_content):
         """
-        Edge Case 7: Agent must read .ai_docs/Epics/{EPIC-ID}.epic.md for context
+        Edge Case 7: Agent must read devforgeai/specs/Epics/{EPIC-ID}.epic.md for context
 
         Arrange: Load agent file content
         Act: Search for epic file reading workflow
         Assert: Documents reading epic for context before research
         """
         # Act
-        has_epic_read = bool(re.search(r'\.ai_docs/Epics/|read.*epic', agent_content, re.IGNORECASE))
+        has_epic_read = bool(re.search(r'\devforgeai/specs/Epics/|read.*epic', agent_content, re.IGNORECASE))
 
         # Assert
         assert has_epic_read, \

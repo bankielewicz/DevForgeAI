@@ -54,7 +54,7 @@ ${How to integrate these components into the application}
 
 ## Next Steps
 
-1. Review generated components in .devforgeai/specs/ui/
+1. Review generated components in devforgeai/specs/ui/
 2. Implement components in source code (run /dev ${STORY_ID})
 3. Write tests for UI components
 4. Validate against acceptance criteria
@@ -67,7 +67,7 @@ ${How to integrate these components into the application}
 **Use Write tool:**
 ```
 Write(
-  file_path=".devforgeai/specs/ui/UI-SPEC-SUMMARY.md",
+  file_path="devforgeai/specs/ui/UI-SPEC-SUMMARY.md",
   content="${ui_spec_summary}"
 )
 ```
@@ -86,14 +86,14 @@ Write(
 **Use Edit tool to add reference to generated UI components:**
 ```
 Edit(
-  file_path=".ai_docs/Stories/${STORY_ID}.story.md",
+  file_path="devforgeai/specs/Stories/${STORY_ID}.story.md",
   old_string="## Technical Specification",
   new_string="## Technical Specification
 
 ### UI Components
 - Generated: ${component_list}
-- Location: .devforgeai/specs/ui/
-- See: .devforgeai/specs/ui/UI-SPEC-SUMMARY.md
+- Location: devforgeai/specs/ui/
+- See: devforgeai/specs/ui/UI-SPEC-SUMMARY.md
 "
 )
 ```

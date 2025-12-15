@@ -84,7 +84,7 @@ test_epic_id_extraction_from_frontmatter() {
     # When: Parser extracts epic_id
     # Then: Returns "EPIC-015"
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -109,7 +109,7 @@ test_epic_id_extraction_using_id_field() {
     # Then: Returns the id value
 
     # Find an epic that might use id: instead of epic_id:
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-002-feedback-capture-interaction.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-002-feedback-capture-interaction.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -138,7 +138,7 @@ test_epic_title_extraction() {
     # When: Parser extracts title
     # Then: Returns the title string
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -167,7 +167,7 @@ test_features_section_extraction() {
     # When: Parser extracts features section
     # Then: Returns content containing Feature headers
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -192,7 +192,7 @@ test_features_count_extraction() {
     # When: Parser counts features
     # Then: Returns count >= 7
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -220,7 +220,7 @@ test_stories_table_extraction() {
     # When: Parser extracts stories table
     # Then: Returns table content
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -245,7 +245,7 @@ test_stories_from_epic_table() {
     # When: Parser lists epic stories
     # Then: Returns list of STORY-NNN IDs
 
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         echo "Epic file not found: $epic_file"
@@ -352,7 +352,7 @@ test_large_epic_file() {
     # Then: Should complete within 5 seconds without timeout
 
     # Use EPIC-010 which is one of the larger epics
-    local epic_file="${PROJECT_ROOT}/.ai_docs/Epics/EPIC-010-parallel-story-development-cicd.epic.md"
+    local epic_file="${PROJECT_ROOT}/devforgeai/specs/Epics/EPIC-010-parallel-story-development-cicd.epic.md"
 
     if [ ! -f "$epic_file" ]; then
         # Fallback to any epic
@@ -383,7 +383,7 @@ test_large_epic_file() {
 
 test_batch_epic_parsing() {
     # AC#1: Parse all epics in directory
-    # Given: .ai_docs/Epics/ directory with epic files
+    # Given: devforgeai/specs/Epics/ directory with epic files
     # When: Parser parses all epics
     # Then: Returns JSON with epics map
 

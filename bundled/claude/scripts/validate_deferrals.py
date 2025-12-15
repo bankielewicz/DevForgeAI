@@ -266,10 +266,10 @@ def main():
         epilog="""
 Examples:
     # Format-only validation (non-blocking)
-    python validate_deferrals.py --story-file .ai_docs/Stories/STORY-006.story.md --format-only
+    python validate_deferrals.py --story-file devforgeai/specs/Stories/STORY-006.story.md --format-only
 
     # Quiet mode (automation/git hooks)
-    python validate_deferrals.py --story-file .ai_docs/Stories/STORY-006.story.md --quiet
+    python validate_deferrals.py --story-file devforgeai/specs/Stories/STORY-006.story.md --quiet
 
 Exit Codes:
     0 - Validation passed (or warnings only in format-only mode)
@@ -287,7 +287,7 @@ Integration:
         "--story-file",
         type=Path,
         required=True,
-        help="Path to story file to validate (.ai_docs/Stories/STORY-XXX.story.md)"
+        help="Path to story file to validate (devforgeai/specs/Stories/STORY-XXX.story.md)"
     )
 
     parser.add_argument(

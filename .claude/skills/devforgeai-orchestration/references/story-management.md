@@ -169,7 +169,7 @@ Template contains:
 
 **Update Status in Frontmatter:**
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="status: Backlog",
      new_string="status: Architecture")
 ```
@@ -212,33 +212,33 @@ Edit(file_path=".ai_docs/Stories/{story_id}.md",
 
 **After Architecture Phase:**
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="- [ ] Architecture phase complete",
      new_string="- [x] Architecture phase complete")
 ```
 
 **After Development Phase:**
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="- [ ] Development phase complete",
      new_string="- [x] Development phase complete")
 ```
 
 **After QA Phase:**
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="- [ ] QA phase complete",
      new_string="- [x] QA phase complete")
 ```
 
 **After Release:**
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="- [ ] Released",
      new_string="- [x] Released")
 
 # Also add completion timestamp to frontmatter
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="created: {created_date}",
      new_string="created: {created_date}\ncompleted: {timestamp}")
 ```
@@ -264,11 +264,11 @@ Edit(file_path=".ai_docs/Stories/{story_id}.md",
 
 **If section doesn't exist:**
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.md")
 
 IF "## Workflow History" NOT in content:
     # Insert before Notes section
-    Edit(file_path=".ai_docs/Stories/{story_id}.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
          old_string="## Notes",
          new_string="## Workflow History\n\n## Notes")
 ```
@@ -364,7 +364,7 @@ IF "## Workflow History" NOT in content:
 
 **Append New Entry (Most Recent First):**
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.md")
 
 new_entry = f"""
 ### {timestamp} - {new_status}
@@ -375,7 +375,7 @@ new_entry = f"""
 """
 
 # Insert after ## Workflow History header
-Edit(file_path=".ai_docs/Stories/{story_id}.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.md",
      old_string="## Workflow History\n\n",
      new_string=f"## Workflow History\n\n{new_entry}\n")
 ```
@@ -444,7 +444,7 @@ By acceptance criteria: 1 criterion per story
 
 **After QA Validation:**
 ```
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 Parse QA results
 
 Add section to story (before Workflow History):
@@ -483,7 +483,7 @@ Add section to story (before Workflow History):
 - 5 LOW (recommendations)
 
 ### Report
-Full QA Report: `.devforgeai/qa/reports/STORY-001-qa-report.md`
+Full QA Report: `devforgeai/qa/reports/STORY-001-qa-report.md`
 
 ### Next Steps
 - Story approved for release
@@ -530,7 +530,7 @@ Full QA Report: `.devforgeai/qa/reports/STORY-001-qa-report.md`
 - [ ] [P1] Add integration tests for error handling
 
 ### Report
-Full QA Report: `.devforgeai/qa/reports/STORY-001-qa-report.md`
+Full QA Report: `devforgeai/qa/reports/STORY-001-qa-report.md`
 
 ### Next Steps
 - Return to In Development status
@@ -617,7 +617,7 @@ content = content.replace("EPIC-XXX", epic_id)
 content = content.replace("SPRINT-XXX", sprint_id)
 
 # 3. Write story
-Write(file_path=f".ai_docs/Stories/{story_id}-{slug}.md", content=content)
+Write(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.md", content=content)
 
 # 4. Fill in details manually or via prompts
 ```

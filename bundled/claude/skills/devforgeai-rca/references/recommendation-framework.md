@@ -211,7 +211,7 @@ Before finalizing recommendation, verify:
 ✅ CORRECT:
 **File:** `.claude/skills/devforgeai-development/SKILL.md`
 **File:** `.claude/commands/dev.md`
-**File:** `.devforgeai/context/tech-stack.md`
+**File:** `devforgeai/specs/context/tech-stack.md`
 
 ❌ WRONG:
 **File:** "the development skill"
@@ -253,7 +253,7 @@ Before finalizing recommendation, verify:
 Validate all 6 context files exist:
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 IF result.length < 6:
   HALT workflow
@@ -428,7 +428,7 @@ Trade-offs acceptable because:
 ### Testing
 
 **How to verify fix:**
-1. Create test project without context files (rm -rf .devforgeai/context/)
+1. Create test project without context files (rm -rf devforgeai/specs/context/)
 2. Create test story (STORY-TEST-001.story.md)
 3. Run: /dev STORY-TEST-001
 4. Expected: Workflow halts at Phase 0 with error message
@@ -669,7 +669,7 @@ Add context file validation step to devforgeai-development skill Phase 0 (Pre-Fl
 Validate all 6 context files exist before proceeding:
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 EXPECTED_FILES = [
   "tech-stack.md",
@@ -708,7 +708,7 @@ Adding context file validation to Phase 0 prevents TDD from starting without arc
 
 **Evidence supporting this approach:**
 - Evidence from Phase 3 shows Phase 0 has pre-flight checks (Git validation at Step 1, tech detection at Step 7)
-- Evidence from .devforgeai/context/ shows 6 immutable constraint files exist and are critical
+- Evidence from devforgeai/specs/context/ shows 6 immutable constraint files exist and are critical
 - Evidence from RCA-003 shows similar pre-flight validation for Git repository worked effectively
 - Pattern from devforgeai-architecture: Context files created before development
 
@@ -731,7 +731,7 @@ Validation occurs in Phase 0 (before TDD Red phase), ensuring 100% of TDD cycles
 
 **How to verify fix:**
 1. Create test directory: `mkdir test-project && cd test-project && git init`
-2. Create story file without context: `.ai_docs/Stories/STORY-TEST-001.story.md`
+2. Create story file without context: `devforgeai/specs/Stories/STORY-TEST-001.story.md`
 3. Run: `/dev STORY-TEST-001`
 4. Expected: Workflow halts at Phase 0 Step 8
 5. Verify error message displays:
@@ -846,15 +846,15 @@ Does fix prevent CRITICAL framework failure?
 ## Reference
 
 **Related DevForgeAI Documentation:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill patterns
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill patterns
 - `.claude/memory/skills-reference.md` - Skill patterns
 - `.claude/memory/subagents-reference.md` - Subagent patterns
 - `CLAUDE.md` - Framework overview, quality gates, workflow states
 
 **RCA Recommendation Examples:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Phase 1 & 2 recommendations
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Multi-phase recommendations
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow recommendations
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Phase 1 & 2 recommendations
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Multi-phase recommendations
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow recommendations
 
 ---
 

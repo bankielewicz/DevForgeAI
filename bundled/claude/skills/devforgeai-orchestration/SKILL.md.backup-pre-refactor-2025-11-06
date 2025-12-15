@@ -74,8 +74,8 @@ This skill operates in multiple modes based on conversation context markers. The
 - architect-reviewer (technical assessment and complexity scoring)
 
 **Output:**
-- Epic document: `.ai_docs/Epics/{EPIC-ID}.epic.md`
-- Optional requirements spec: `.devforgeai/specs/requirements/{EPIC-ID}-requirements.md`
+- Epic document: `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
+- Optional requirements spec: `devforgeai/specs/requirements/{EPIC-ID}-requirements.md`
 - Structured completion summary (JSON for command display)
 
 **Reference files loaded progressively:**
@@ -100,7 +100,7 @@ This skill operates in multiple modes based on conversation context markers. The
 - sprint-planner (sprint creation and capacity validation)
 
 **Output:**
-- Sprint document: `.ai_docs/Sprints/Sprint-{N}.md`
+- Sprint document: `devforgeai/specs/Sprints/Sprint-{N}.md`
 - Story status updates (Backlog → Ready for Dev)
 - Sprint summary for command display
 
@@ -165,7 +165,7 @@ OTHERWISE:
 
 #### Step 1: Load Story Document
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 Extract YAML frontmatter:
   - id, title, epic, sprint
@@ -209,7 +209,7 @@ HALT if gate requirements not met
 
 #### Architecture Phase (Backlog → Ready for Dev)
 ```
-Check for context files (.devforgeai/context/*.md)
+Check for context files (devforgeai/specs/context/*.md)
 
 IF missing:
     Invoke: Skill(command="devforgeai-architecture")
@@ -250,7 +250,7 @@ QA skill executes 5 phases:
   - Phase 5: Generate QA Report
 
 Parse QA report:
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 IF qa_status == "PASS":
     Update status: QA In Progress → QA Approved
@@ -327,7 +327,7 @@ IF DURATION_DAYS not in [7, 14, 21] and not custom:
 
 ```
 FOR each story_id in SELECTED_STORIES:
-    Glob(pattern=".ai_docs/Stories/${story_id}*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/${story_id}*.story.md")
 
     IF not found:
         HALT: "Story ${story_id} does not exist"
@@ -385,7 +385,7 @@ This provides:
 Return JSON with:
 {
   \"sprint_id\": \"SPRINT-N\",
-  \"file_path\": \".ai_docs/Sprints/Sprint-N.md\",
+  \"file_path\": \"devforgeai/specs/Sprints/Sprint-N.md\",
   \"stories_updated\": [\"STORY-001\", \"STORY-002\", ...],
   \"total_points\": 28,
   \"capacity_status\": \"OPTIMAL|OVER|UNDER\",
@@ -441,7 +441,7 @@ Verify:
 
 ```
 FOR each story_id in stories_updated:
-    Read(file_path=".ai_docs/Stories/${story_id}.story.md")
+    Read(file_path="devforgeai/specs/Stories/${story_id}.story.md")
 
     Verify:
     - status == "Ready for Dev"
@@ -574,7 +574,7 @@ IF subagent returns error.type == "FILE_WRITE_FAILED":
 
 #### Update Frontmatter
 ```
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: {old_status}",
      new_string="status: {new_status}")
 ```
@@ -623,7 +623,7 @@ This 8-phase workflow creates comprehensive epic documents with feature decompos
 **Step 1.1: Find Existing Epics**
 
 ```
-epic_files = Glob(pattern=".ai_docs/Epics/*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 
 IF epic_files is empty:
   next_epic_id = "EPIC-001"
@@ -650,7 +650,7 @@ epic_name = extract from conversation context "**Epic name:** (.*)" pattern
 # Search for existing epic with same title (case-insensitive)
 duplicates = Grep(
   pattern=f"title: .*{epic_name}",
-  path=".ai_docs/Epics/",
+  path="devforgeai/specs/Epics/",
   output_mode="files_with_matches",
   -i=true
 )
@@ -886,7 +886,7 @@ Read(file_path=\".claude/skills/devforgeai-orchestration/references/feature-deco
      ✓ Right-sized (1-2 sprints each)
 
 3. **Framework Integration:**
-   - Check if context files exist: Glob(pattern=\".devforgeai/context/*.md\")
+   - Check if context files exist: Glob(pattern=\"devforgeai/specs/context/*.md\")
    - IF exist:
      - Read tech-stack.md: Validate technologies align with approved stack
      - Read architecture-constraints.md: Ensure features respect layer boundaries
@@ -1052,16 +1052,16 @@ WHILE user_choice != "Accept all features":
 **Step 4.1: Check for Context Files**
 
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 
 IF len(context_files) == 6:
   greenfield_mode = false
 
   # Load context files for validation
-  tech_stack_content = Read(file_path=".devforgeai/context/tech-stack.md")
-  architecture_constraints = Read(file_path=".devforgeai/context/architecture-constraints.md")
-  dependencies_content = Read(file_path=".devforgeai/context/dependencies.md")
-  anti_patterns_content = Read(file_path=".devforgeai/context/anti-patterns.md")
+  tech_stack_content = Read(file_path="devforgeai/specs/context/tech-stack.md")
+  architecture_constraints = Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+  dependencies_content = Read(file_path="devforgeai/specs/context/dependencies.md")
+  anti_patterns_content = Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
   context_summary = f"Context files exist. Validate against:
     - tech-stack.md: {extract_technologies(tech_stack_content)}
@@ -1464,7 +1464,7 @@ The following technology decisions require Architecture Decision Records before 
 
 ## Related Documentation
 
-- Requirements Spec: `.devforgeai/specs/requirements/{epic_id}-requirements.md` (to be created)
+- Requirements Spec: `devforgeai/specs/requirements/{epic_id}-requirements.md` (to be created)
 - ADRs: (to be created during architecture phase)
 - User Stories: (to be created during sprint planning)
 
@@ -1476,14 +1476,14 @@ The following technology decisions require Architecture Decision Records before 
 epic_document = yaml_frontmatter + "\n" + markdown_content
 ```
 
-**Step 5.3: Create .ai_docs/Epics Directory (If Needed)**
+**Step 5.3: Create devforgeai/specs/Epics Directory (If Needed)**
 
 ```
 # Check if directory exists
 Check via Glob or attempt Write and handle error
 
 IF directory missing:
-  Bash(command="mkdir -p .ai_docs/Epics")
+  Bash(command="mkdir -p devforgeai/specs/Epics")
   # Using Bash for directory creation (terminal operation)
 ```
 
@@ -1491,12 +1491,12 @@ IF directory missing:
 
 ```
 Write(
-  file_path=f".ai_docs/Epics/{epic_id}.epic.md",
+  file_path=f"devforgeai/specs/Epics/{epic_id}.epic.md",
   content=epic_document
 )
 
 # Verify file created successfully
-epic_file_path = f".ai_docs/Epics/{epic_id}.epic.md"
+epic_file_path = f"devforgeai/specs/Epics/{epic_id}.epic.md"
 verification = Glob(pattern=epic_file_path)
 
 IF not verification:
@@ -1609,7 +1609,7 @@ Note recommended technologies but don't lock decisions.
 
 **Output Format:**
 
-Structured markdown suitable for `.devforgeai/specs/requirements/` with clear sections, examples, and framework integration notes.
+Structured markdown suitable for `devforgeai/specs/requirements/` with clear sections, examples, and framework integration notes.
 
 Return complete requirements specification document."
   )
@@ -1617,10 +1617,10 @@ Return complete requirements specification document."
   requirements_spec = subagent_output
 
   # Create requirements spec directory if needed
-  Bash(command="mkdir -p .devforgeai/specs/requirements")
+  Bash(command="mkdir -p devforgeai/specs/requirements")
 
   # Write requirements spec
-  requirements_file_path = f".devforgeai/specs/requirements/{epic_id}-requirements.md"
+  requirements_file_path = f"devforgeai/specs/requirements/{epic_id}-requirements.md"
 
   Write(
     file_path=requirements_file_path,
@@ -1630,8 +1630,8 @@ Return complete requirements specification document."
   # Update epic file with requirements link
   Edit(
     file_path=epic_file_path,
-    old_string=f"- Requirements Spec: `.devforgeai/specs/requirements/{epic_id}-requirements.md` (to be created)",
-    new_string=f"- Requirements Spec: `.devforgeai/specs/requirements/{epic_id}-requirements.md`"
+    old_string=f"- Requirements Spec: `devforgeai/specs/requirements/{epic_id}-requirements.md` (to be created)",
+    new_string=f"- Requirements Spec: `devforgeai/specs/requirements/{epic_id}-requirements.md`"
   )
 
   requirements_created = true
@@ -2021,7 +2021,7 @@ FOR each deferral:
     IF reason_type == "story_split":
         referenced_story = extract_story_id(reason)
 
-        Glob(pattern=".ai_docs/Stories/{referenced_story}*.md")
+        Glob(pattern="devforgeai/specs/Stories/{referenced_story}*.md")
 
         IF not found:
             WARN: "Referenced {referenced_story} not found"
@@ -2048,7 +2048,7 @@ FOR each deferral:
     ELSE IF reason_type == "scope_change":
         adr_reference = extract_adr_id(reason)
 
-        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+        Glob(pattern="devforgeai/specs/adrs/{adr_reference}*.md")
 
         IF not found:
             WARN: "Referenced {adr_reference} not found"
@@ -2073,13 +2073,13 @@ FOR each deferral:
         # Verify logged in technical debt register
 
         # Auto-create debt register from template if doesn't exist
-        Check if .devforgeai/technical-debt-register.md exists
+        Check if devforgeai/technical-debt-register.md exists
         IF not found:
             Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-            Write(.devforgeai/technical-debt-register.md, content=template)
+            Write(devforgeai/technical-debt-register.md, content=template)
             Display: "Created technical debt register from template"
 
-        Read .devforgeai/technical-debt-register.md
+        Read devforgeai/technical-debt-register.md
         Search for {story_id} and {item}
 
         IF not found:

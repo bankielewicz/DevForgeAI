@@ -228,7 +228,7 @@ technical_specification:
 5. All test requirements start with "Test: " prefix
 6. Metrics must be measurable (include numbers, thresholds, or ranges)
 
-**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
+**See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
 
 ---
 

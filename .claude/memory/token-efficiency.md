@@ -211,7 +211,7 @@ Main conversation sees: ~15K (summaries only)
 ## Evidence Base
 
 All token savings measurements backed by:
-- `.ai_docs/native-tools-vs-bash-efficiency-analysis.md` (1,730 lines of research)
+- `devforgeai/specs/native-tools-vs-bash-efficiency-analysis.md` (1,730 lines of research)
 - Production session analysis (Story 1.4 QA Review)
 - Official Anthropic system prompt specifications
 - Real-world benchmarks across 115+ file operations

@@ -379,7 +379,7 @@ Anti-self-healing: Explicit (3 mentions forbidding auto-fix)
 - Testing checklist
 - Prevents silo operation
 
-**3. `.devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`** (308 lines)
+**3. `devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`** (308 lines)
 - Integration guide
 - Rollout plan
 - Testing strategy
@@ -1019,13 +1019,13 @@ After rollback:
 
 4. `.claude/agents/ui-spec-formatter.md` (507 lines)
 5. `.claude/skills/devforgeai-ui-generator/references/ui-result-formatting-guide.md` (394 lines)
-6. `.devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md` (308 lines)
+6. `devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md` (308 lines)
 7. `.claude/memory/subagents-reference.md` (updated, 20 subagents)
 
 ### Created (This Implementation)
 
 8. `.claude/skills/devforgeai-ui-generator/SKILL.md.backup-20251105` (741 lines backup)
-9. `.devforgeai/specs/enhancements/UI-GENERATOR-SKILL-UPDATE-COMPLETE.md` (this file)
+9. `devforgeai/specs/enhancements/UI-GENERATOR-SKILL-UPDATE-COMPLETE.md` (this file)
 
 ---
 

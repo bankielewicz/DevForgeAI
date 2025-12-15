@@ -113,7 +113,7 @@ End-to-end integration tests covering complete workflows.
 
 **Temporary Directories:**
 - template_dir: Simulates `.claude/skills/devforgeai-feedback/templates/`
-- output_dir: Simulates `.devforgeai/feedback/`
+- output_dir: Simulates `devforgeai/feedback/`
 
 ---
 

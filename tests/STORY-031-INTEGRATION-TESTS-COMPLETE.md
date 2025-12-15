@@ -388,7 +388,7 @@ def test_context_includes_all_4_metadata_fields(self, temp_project_structure):
 
 **Story File:**
 ```
-.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md
+devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md
 ```
 
 **Command to Implement:**
@@ -407,7 +407,7 @@ tests/integration/pytest.ini                                     (Configuration)
 **Pilot Implementation:**
 ```
 .claude/commands/dev.md                    (Phase 6 - reference)
-.ai_docs/Stories/STORY-023-*.story.md      (Pilot story)
+devforgeai/specs/Stories/STORY-023-*.story.md      (Pilot story)
 ```
 
 ---

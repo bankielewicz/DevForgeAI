@@ -192,7 +192,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
     """
     SCENARIO 2: Skip Tracking → Configuration System
 
-    Config is created in `.devforgeai/config/feedback-preferences.yaml`
+    Config is created in `devforgeai/config/feedback-preferences.yaml`
     Config persists across skip_tracking module calls
     Corrupted config triggers recovery without blocking
     """
@@ -208,7 +208,7 @@ class TestSkipTrackingConfigurationSystemIntegration:
         """
         GIVEN skip tracking is invoked
         WHEN tracking a user
-        THEN config file created at .devforgeai/config/feedback-preferences.yaml
+        THEN config file created at devforgeai/config/feedback-preferences.yaml
         """
         # Arrange
         user_id = 'test_user'

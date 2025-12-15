@@ -54,7 +54,7 @@
 
 **Verify behavior unchanged:**
 - [ ] Test 1: Skill invocation still occurs (devforgeai-qa skill executed)
-- [ ] Test 2: QA report still generated in `.devforgeai/qa/reports/`
+- [ ] Test 2: QA report still generated in `devforgeai/qa/reports/`
 - [ ] Test 3: qa-result-interpreter subagent still invoked
 - [ ] Test 4: Display template still shown to user
 - [ ] Test 5: Next steps still provided
@@ -126,7 +126,7 @@
 
 # Integration Test 1: Full workflow
 /qa STORY-006 deep
-cat .ai_docs/Stories/STORY-006*.story.md | grep "status:"
+cat devforgeai/specs/Stories/STORY-006*.story.md | grep "status:"
 # Should show: status: QA Approved
 
 # Regression Test 1: Skill invocation
@@ -159,7 +159,7 @@ wc -c .claude/commands/qa.md
    ```
 
 4. **Create rollback report:**
-   - File: `.devforgeai/specs/enhancements/QA-PHASE4-ROLLBACK-REPORT.md`
+   - File: `devforgeai/specs/enhancements/QA-PHASE4-ROLLBACK-REPORT.md`
    - Include: RCA, fix approach, timeline
 
 ---

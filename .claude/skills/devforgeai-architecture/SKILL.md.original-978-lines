@@ -87,9 +87,9 @@ Glob(pattern="**/package.json")   # Find Node.js projects
 Glob(pattern="**/requirements.txt") # Find Python projects
 
 # Check for existing context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 
 # Analyze technology stack
 Grep(pattern="<PackageReference", glob="**/*.csproj")  # NuGet packages
@@ -192,11 +192,11 @@ multiSelect: false
 2. Add "CRITICAL RULE" sections for each technology
 3. Document "PROHIBITED" alternatives explicitly
 4. Include "Ambiguity Resolution Protocol"
-5. Write to: `.devforgeai/context/tech-stack.md`
+5. Write to: `devforgeai/specs/context/tech-stack.md`
 
 **Example output:**
 ```
-Write(file_path=".devforgeai/context/tech-stack.md", content="...")
+Write(file_path="devforgeai/specs/context/tech-stack.md", content="...")
 ```
 
 #### 2.2 Create source-tree.md
@@ -238,7 +238,7 @@ multiSelect: false
 2. Document naming conventions (PascalCase, camelCase, etc.)
 3. Define file placement rules
 4. Add enforcement checklist
-5. Write to: `.devforgeai/context/source-tree.md`
+5. Write to: `devforgeai/specs/context/source-tree.md`
 
 #### 2.3 Create dependencies.md
 
@@ -317,7 +317,7 @@ multiSelect: false
 3. Add "CRITICAL" comments for packages that must not be swapped
 4. Document "FORBIDDEN" alternatives explicitly
 5. Include "Dependency Addition Protocol"
-6. Write to: `.devforgeai/context/dependencies.md`
+6. Write to: `devforgeai/specs/context/dependencies.md`
 
 **For Brownfield Projects:**
 
@@ -340,7 +340,7 @@ Read(file_path="package-lock.json")  # or yarn.lock, pnpm-lock.yaml
 3. Add rationale for each major dependency
 4. Document any technical debt (duplicate packages, outdated versions)
 5. Create migration plan if dependencies need updating
-6. Write to: `.devforgeai/context/dependencies.md`
+6. Write to: `devforgeai/specs/context/dependencies.md`
 
 **Include "Dependency Addition Protocol":**
 ```markdown
@@ -434,7 +434,7 @@ multiSelect: false
    - File organization (one class per file)
 4. Add "AI Agent Integration Rules" section
 5. Add "Pattern Enforcement Checklist"
-6. Write to: `.devforgeai/context/coding-standards.md`
+6. Write to: `devforgeai/specs/context/coding-standards.md`
 
 **Technology-Specific Pattern Examples:**
 
@@ -534,7 +534,7 @@ multiSelect: false
    - Exposing domain entities to API (if DTO Pattern chosen)
 5. Add architecture unit tests examples (NetArchTest.Rules)
 6. Add enforcement checklist
-7. Write to: `.devforgeai/context/architecture-constraints.md`
+7. Write to: `devforgeai/specs/context/architecture-constraints.md`
 
 **Include Layer Dependency Matrix:**
 ```markdown
@@ -608,7 +608,7 @@ Domain stays pure, Application orchestrates via interfaces
 3. Add severity levels (CRITICAL, HIGH, MEDIUM, LOW)
 4. Add "Detection and Prevention" checklist
 5. Add "AI Agent Anti-Pattern Avoidance Protocol"
-6. Write to: `.devforgeai/context/anti-patterns.md`
+6. Write to: `devforgeai/specs/context/anti-patterns.md`
 
 **Key anti-pattern categories to customize:**
 1. Library Substitution (tech-stack violations)
@@ -706,7 +706,7 @@ We will use Dapper 2.1.x as our ORM.
 - anti-patterns.md forbids ORM substitution
 ```
 
-**Write ADRs to:** `.devforgeai/adrs/`
+**Write ADRs to:** `devforgeai/specs/adrs/`
 
 **ADR Naming Convention:**
 - `ADR-001-database-selection.md` (numbered sequentially)
@@ -715,7 +715,7 @@ We will use Dapper 2.1.x as our ORM.
 
 **ADR Directory Structure:**
 ```
-.devforgeai/adrs/
+devforgeai/specs/adrs/
   ├── ADR-001-database-selection.md
   ├── ADR-002-orm-selection.md
   ├── ADR-003-state-management.md
@@ -786,15 +786,15 @@ Before finalizing, validate consistency:
 
 ```
 # Check tech-stack.md compliance
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Ensure spec doesn't contradict locked choices
 
 # Check dependencies.md compliance
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 # Ensure spec doesn't require unapproved packages
 
 # Check source-tree.md compliance
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Ensure proposed structure matches conventions
 
 # If conflicts detected → Use AskUserQuestion to resolve
@@ -865,7 +865,7 @@ multiSelect: false
 ### Working with Existing Projects
 
 **Discovery Phase:**
-1. Check for existing context files in `.devforgeai/context/`
+1. Check for existing context files in `devforgeai/specs/context/`
 2. If missing, analyze project to create baseline context
 3. Document current state as-is before proposing changes
 

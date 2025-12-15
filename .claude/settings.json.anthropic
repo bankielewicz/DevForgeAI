@@ -29,6 +29,6 @@
   "includeCoAuthoredBy": false,
   "statusLine": {
     "type": "command",
-    "command": ".devforgeai/scripts/statusline.sh"
+    "command": "devforgeai/scripts/statusline.sh"
   }
 }

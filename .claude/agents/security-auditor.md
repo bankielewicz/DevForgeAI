@@ -519,8 +519,8 @@ npm audit fix
 ## References
 
 **Context Files:**
-- `.devforgeai/context/anti-patterns.md` - Security anti-patterns
-- `.devforgeai/context/coding-standards.md` - Secure coding patterns
+- `devforgeai/specs/context/anti-patterns.md` - Security anti-patterns
+- `devforgeai/specs/context/coding-standards.md` - Secure coding patterns
 
 **Security Standards:**
 - OWASP Top 10 (2021)

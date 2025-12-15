@@ -375,7 +375,7 @@ tests/
 
 **Documentation Created:**
 ```
-.devforgeai/specs/
+devforgeai/specs/
 ├── STORY-038-TEST-GENERATION-SUMMARY.md       (Test suite overview)
 ├── STORY-038-TEST-EXECUTION-GUIDE.md          (How to run tests)
 └── STORY-038-COMPREHENSIVE-TEST-DELIVERY.md   (This file)

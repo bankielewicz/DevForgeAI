@@ -11,7 +11,7 @@
 ## What Was Created
 
 ### 1. Complete User Story
-**File:** `.ai_docs/Stories/STORY-040-devforgeai-documentation-skill.story.md`
+**File:** `devforgeai/specs/Stories/STORY-040-devforgeai-documentation-skill.story.md`
 
 **Includes:**
 - ✅ 8 comprehensive acceptance criteria (greenfield, brownfield, diagrams, updates, quality gates, templates, export, roadmap)
@@ -290,7 +290,7 @@ QA Approved → Documentation In Progress → Documentation Complete → Releasi
 
 ## Files Created
 
-1. **.ai_docs/Stories/STORY-040-devforgeai-documentation-skill.story.md** (complete user story)
+1. **devforgeai/specs/Stories/STORY-040-devforgeai-documentation-skill.story.md** (complete user story)
 2. **.devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md** (detailed architecture)
 3. **STORY-040-SUMMARY.md** (this file - implementation summary)
 

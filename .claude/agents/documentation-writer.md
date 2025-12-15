@@ -37,7 +37,7 @@ Generate clear, accurate technical documentation for APIs, codebases, and system
 
 1. **Read Code and Context**
    - Read source files to document
-   - Read `.devforgeai/context/tech-stack.md` for terminology
+   - Read `devforgeai/specs/context/tech-stack.md` for terminology
    - Read existing documentation for consistency
    - Identify undocumented components
 
@@ -495,8 +495,8 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Technology terminology
-- `.devforgeai/context/source-tree.md` - Project structure
+- `devforgeai/specs/context/tech-stack.md` - Technology terminology
+- `devforgeai/specs/context/source-tree.md` - Project structure
 
 **Documentation Standards:**
 - OpenAPI Specification 3.0

@@ -2,7 +2,7 @@
 """
 Ensure UI Spec Directory Script
 
-This script creates the .devforgeai/specs/ui/ directory if it doesn't exist.
+This script creates the devforgeai/specs/ui/ directory if it doesn't exist.
 Part of the DevForgeAI UI Generator skill.
 
 Usage:

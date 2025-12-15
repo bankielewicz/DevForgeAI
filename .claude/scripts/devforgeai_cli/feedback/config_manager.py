@@ -41,15 +41,15 @@ class ConfigurationManager:
 
         Args:
             config_file_path: Path to feedback.yaml configuration file.
-                             Defaults to .devforgeai/config/feedback.yaml
+                             Defaults to devforgeai/config/feedback.yaml
             logs_dir: Directory for logging configuration changes.
-                     Defaults to .devforgeai/logs
+                     Defaults to devforgeai/logs
             enable_hot_reload: Whether to enable configuration hot-reload.
         """
         if config_file_path is None:
-            config_file_path = Path(".devforgeai/config/feedback.yaml")
+            config_file_path = Path("devforgeai/config/feedback.yaml")
         if logs_dir is None:
-            logs_dir = Path(".devforgeai/logs")
+            logs_dir = Path("devforgeai/logs")
 
         self.config_file_path = config_file_path
         self.logs_dir = logs_dir

@@ -265,7 +265,7 @@ DevForgeAI implements a **three-layer architecture** optimized for Claude Code T
 ├─────────────────────────────────────────────────────────────────┤
 │ 2. ARCHITECTURE (devforgeai-architecture)                      │
 │    Creates immutable context files defining constraints         │
-│    Output: 6 context files in .devforgeai/context/             │
+│    Output: 6 context files in devforgeai/specs/context/             │
 ├─────────────────────────────────────────────────────────────────┤
 │ 3. ORCHESTRATION (devforgeai-orchestration)                    │
 │    Manages story lifecycle through 11 workflow states           │
@@ -427,7 +427,7 @@ For detailed installation troubleshooting (15+ scenarios) and FAQ (10+ questions
     ├── release.md
     └── orchestrate.md
 
-.devforgeai/
+devforgeai/
 ├── context/             # Immutable architectural constraints
 │   ├── tech-stack.md
 │   ├── source-tree.md
@@ -463,7 +463,7 @@ src/                     # Framework source for installer (NEW - STORY-041, EPIC
     ├── deployment/      # Deployment configurations
     └── qa/              # QA templates and tooling
 
-.ai_docs/
+devforgeai/specs/
 ├── Epics/               # High-level business initiatives
 ├── Sprints/             # 2-week iteration plans
 └── Stories/             # Atomic work units with acceptance criteria
@@ -474,7 +474,7 @@ src/                     # Framework source for installer (NEW - STORY-041, EPIC
 ### Context-First Development
 
 Before ANY code is written:
-1. Check for 6 context files in `.devforgeai/context/`
+1. Check for 6 context files in `devforgeai/specs/context/`
 2. If missing → Auto-invoke `devforgeai-architecture` skill
 3. Context files become THE LAW for all development
 
@@ -532,8 +532,8 @@ See [ROADMAP.md](ROADMAP.md) for detailed implementation phases, timelines, and 
 
 - **[CLAUDE.md](CLAUDE.md)** - Comprehensive guide for Claude Code (project instructions)
 - **[ROADMAP.md](ROADMAP.md)** - Implementation phases and timelines
-- **[.ai_docs/Terminal/](/.ai_docs/Terminal/)** - Claude Code Terminal best practices
-- **[.devforgeai/specs/requirements/](/.devforgeai/specs/requirements/)** - Requirements specifications
+- **[devforgeai/specs/Terminal/](/devforgeai/specs/Terminal/)** - Claude Code Terminal best practices
+- **[devforgeai/specs/requirements/](/devforgeai/specs/requirements/)** - Requirements specifications
 
 ## Technical Stack
 
@@ -589,7 +589,7 @@ MIT License - See [LICENSE](LICENSE) for details
 
 - **Issues**: GitHub Issues
 - **Discussions**: GitHub Discussions
-- **Documentation**: [.ai_docs/](.ai_docs/)
+- **Documentation**: [devforgeai/specs/](devforgeai/specs/)
 
 ---
 

@@ -255,7 +255,7 @@ pytest tests/ -x -v
 STORY-028: Wire Hooks Into /create-epic Command
     │
     ├─ User Story (acceptance criteria)
-    │   └─ .ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md
+    │   └─ devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md
     │
     ├─ Implementation Artifacts (to be created)
     │   ├─ .claude/skills/devforgeai-orchestration/SKILL.md (Phase 4A.9)
@@ -366,7 +366,7 @@ A: Hook check: <100ms (p95), Total overhead: <3000ms (p95). Tests verify these r
 
 Before starting implementation, ensure you have:
 
-- [ ] Read STORY-028 in `.ai_docs/Stories/`
+- [ ] Read STORY-028 in `devforgeai/specs/Stories/`
 - [ ] Understood all 5 acceptance criteria
 - [ ] Read `STORY-028-TEST-QUICK-REFERENCE.md`
 - [ ] Reviewed test class organization

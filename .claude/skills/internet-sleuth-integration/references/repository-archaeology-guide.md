@@ -747,14 +747,14 @@ Analyzed 5 high-quality repositories (avg quality: 7.8/10) implementing OAuth 2.
 ---
 
 **Report Generated:** 2025-11-17 16:50:42
-**Report Location:** .devforgeai/research/shared/RESEARCH-002-auth-implementation-patterns.md
+**Report Location:** devforgeai/specs/research/shared/RESEARCH-002-auth-implementation-patterns.md
 ```
 
 **Outputs:**
 - Complete research report (markdown file)
 - Code snippets embedded with file paths
 - Repository quality scores table
-- Report saved to .devforgeai/research/shared/
+- Report saved to devforgeai/specs/research/shared/
 
 ---
 

@@ -12,11 +12,11 @@ Enable projects to customize documentation templates while maintaining framework
 
 ## Custom Template Location
 
-**Standard location:** `.devforgeai/templates/documentation/`
+**Standard location:** `devforgeai/templates/documentation/`
 
 **Structure:**
 ```
-.devforgeai/templates/documentation/
+devforgeai/templates/documentation/
 ├── readme-template.md (overrides default)
 ├── developer-guide-template.md (overrides default)
 ├── custom-release-notes-template.md (new template)
@@ -30,7 +30,7 @@ Enable projects to customize documentation templates while maintaining framework
 **Template loading order:**
 
 1. **Custom template** (highest priority)
-   - Location: `.devforgeai/templates/documentation/{template}.md`
+   - Location: `devforgeai/templates/documentation/{template}.md`
    - User-defined, project-specific
    - Overrides default completely
 
@@ -47,7 +47,7 @@ Enable projects to customize documentation templates while maintaining framework
 **Example:**
 ```
 Skill checks:
-1. .devforgeai/templates/documentation/readme-template.md
+1. devforgeai/templates/documentation/readme-template.md
    → Found! Use this
 
 2. If not found:
@@ -220,7 +220,7 @@ The system uses a custom architecture pattern.
 
 **Custom template with branding:**
 ```markdown
-<!-- .devforgeai/templates/documentation/readme-template.md -->
+<!-- devforgeai/templates/documentation/readme-template.md -->
 
 <div align="center">
   <img src="{{company_logo_url}}" alt="{{company_name}}" width="200"/>
@@ -244,7 +244,7 @@ The system uses a custom architecture pattern.
 
 **Custom API template with OpenAPI:**
 ```markdown
-<!-- .devforgeai/templates/documentation/api-docs-template.md -->
+<!-- devforgeai/templates/documentation/api-docs-template.md -->
 
 # {{project_name}} API
 
@@ -270,7 +270,7 @@ Download: [openapi.yaml]({{openapi_spec_url}})
 
 **Streamlined template for internal tools:**
 ```markdown
-<!-- .devforgeai/templates/documentation/readme-template.md -->
+<!-- devforgeai/templates/documentation/readme-template.md -->
 
 # {{project_name}}
 
@@ -299,7 +299,7 @@ Download: [openapi.yaml]({{openapi_spec_url}})
 
 **Extract documentation preferences:**
 ```
-Read(".devforgeai/context/coding-standards.md")
+Read("devforgeai/specs/context/coding-standards.md")
 
 Look for section: "Documentation Style" or "Documentation Standards"
 
@@ -431,7 +431,7 @@ IF custom_template not found AND default_template not found:
 
     IF "Create new":
         Generate minimal template
-        Save to .devforgeai/templates/documentation/{name}.md
+        Save to devforgeai/templates/documentation/{name}.md
         Prompt user to customize
 ```
 

@@ -44,7 +44,7 @@ class TestTemplateStructureMatch:
         Returns:
             Path: Path to reference story file
         """
-        return Path(".ai_docs/Stories/STORY-007-post-operation-retrospective-conversation.story.md")
+        return Path("devforgeai/specs/Stories/STORY-007-post-operation-retrospective-conversation.story.md")
 
     # Define critical sections that MUST be present
     CRITICAL_SECTIONS = [

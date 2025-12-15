@@ -233,8 +233,8 @@ The test suite validates that `/ideate` command will:
 ## References
 
 **Story Documents:**
-- `.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md` - Full requirements
-- `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md` - Pilot implementation
+- `devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md` - Full requirements
+- `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md` - Pilot implementation
 
 **Command Files:**
 - `.claude/commands/ideate.md` - Target for implementation

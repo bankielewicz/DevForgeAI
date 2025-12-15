@@ -75,12 +75,12 @@ Compliance: ⚠️ HIGH USAGE (95% - approaching limit)
 
 5. **Phase 5: Epic File Creation** (Lines 181-293)
    - Generate epic document (YAML + markdown)
-   - Write to .ai_docs/Epics/{EPIC-ID}.epic.md
+   - Write to devforgeai/specs/Epics/{EPIC-ID}.epic.md
 
 6. **Phase 6: Requirements Spec (Optional)** (Lines 295-348)
    - AskUserQuestion for requirements spec
    - Invoke requirements-writer subagent
-   - Write to .devforgeai/specs/requirements/
+   - Write to devforgeai/specs/requirements/
    - Update epic with requirements link
 
 7. **Phase 7: Success Report** (Lines 350-384)
@@ -182,14 +182,14 @@ Technical Assessment:
   📦 Prerequisites: {count}
 
 Files Created:
-  📁 .ai_docs/Epics/{EPIC-ID}.epic.md
+  📁 devforgeai/specs/Epics/{EPIC-ID}.epic.md
   [If requirements created]
-  📁 .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+  📁 devforgeai/specs/requirements/{EPIC-ID}-requirements.md
 
 ### Phase 4: Next Steps Guidance (10 lines)
 
 Next Steps:
-  1. Review epic document: .ai_docs/Epics/{EPIC-ID}.epic.md
+  1. Review epic document: devforgeai/specs/Epics/{EPIC-ID}.epic.md
   2. Create sprint: /create-sprint {sprint-number}
   3. Break features into stories during sprint planning
   4. Implement stories: /dev {STORY-ID}
@@ -209,7 +209,7 @@ Next Steps:
 - Do NOT attempt fallback logic (let skill handle)
 
 ### Error: Directory Structure Missing
-- Skill will create .ai_docs/Epics/ directory
+- Skill will create devforgeai/specs/Epics/ directory
 - Command does not handle directory creation
 
 ---
@@ -291,7 +291,7 @@ Next Steps:
    - Iterate if modifications requested
 
 4. **Phase 4: Technical Assessment**
-   - Check if context files exist (.devforgeai/context/*.md)
+   - Check if context files exist (devforgeai/specs/context/*.md)
    - Invoke technical-assessor subagent OR architect-reviewer subagent
    - If context files exist: Validate against tech-stack.md
    - Resolve conflicts via AskUserQuestion
@@ -300,14 +300,14 @@ Next Steps:
 5. **Phase 5: Epic File Creation**
    - Load epic-template.md (265 lines)
    - Populate template with gathered data
-   - Write to .ai_docs/Epics/{EPIC-ID}.epic.md
+   - Write to devforgeai/specs/Epics/{EPIC-ID}.epic.md
    - Validate file created successfully
 
 6. **Phase 6: Requirements Specification (Optional)**
    - AskUserQuestion: Create detailed requirements spec?
    - If yes: Invoke requirements-analyst subagent
    - Generate comprehensive requirements document
-   - Write to .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+   - Write to devforgeai/specs/requirements/{EPIC-ID}-requirements.md
    - Update epic file with requirements link
 
 7. **Phase 7: Completion Summary**

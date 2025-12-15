@@ -218,7 +218,7 @@ class TestUserContentPreservation:
         """
         Integration Test: User content preserved during rollback without flag.
 
-        Given: Backup contains user stories (in .ai_docs/Stories/)
+        Given: Backup contains user stories (in devforgeai/specs/Stories/)
         When: Rollback executes without --include-user-content
         Then:
             - AC#5: User stories NOT overwritten from backup

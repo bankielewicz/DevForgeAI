@@ -135,7 +135,7 @@ class TestUpgradeWorkflow:
 
         Validates:
         - User context files unchanged (.devforgeai/context/*.md)
-        - User story files unchanged (.ai_docs/Stories/*.md)
+        - User story files unchanged (devforgeai/specs/Stories/*.md)
         - User hooks.yaml unchanged
         - User feedback config unchanged
 

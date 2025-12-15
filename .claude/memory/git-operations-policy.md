@@ -59,7 +59,7 @@ AskUserQuestion(
 ## File-Based Fallback
 
 When git operations are declined or unavailable:
-- Use `.devforgeai/stories/{STORY-ID}/changes/` directory
+- Use `devforgeai/stories/{STORY-ID}/changes/` directory
 - Document changes in `changes-manifest.md`
 - Preserve all user files (nothing hidden)
 
@@ -67,6 +67,6 @@ When git operations are declined or unavailable:
 
 ## See Also
 
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
 - `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5, 0.1.6)

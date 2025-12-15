@@ -73,8 +73,8 @@ DevForgeAI is a comprehensive framework for AI-assisted software development tha
 #### FR-1.6: Requirements Documentation
 **WHEN** feasibility is confirmed
 **THEN** the system SHALL generate:
-- Epic documents in `.ai_docs/Epics/`
-- Requirements specifications in `.devforgeai/specs/requirements/`
+- Epic documents in `devforgeai/specs/Epics/`
+- Requirements specifications in `devforgeai/specs/requirements/`
 - Complexity assessment report
 - Automatic transition to architecture phase
 
@@ -150,7 +150,7 @@ DevForgeAI is a comprehensive framework for AI-assisted software development tha
 - Alternatives considered
 
 **Acceptance Criteria**:
-- [ ] All 6 context files generated in `.devforgeai/context/`
+- [ ] All 6 context files generated in `devforgeai/specs/context/`
 - [ ] No placeholder content (TODO, TBD) in context files
 - [ ] Context files are framework-agnostic (not language-specific)
 - [ ] ADR template available in `docs/architecture/decisions/`
@@ -178,7 +178,7 @@ DevForgeAI is a comprehensive framework for AI-assisted software development tha
 #### FR-3.2: Sprint Planning
 **WHEN** creating a sprint
 **THEN** the system SHALL:
-- Generate sprint plan document in `.ai_docs/Sprints/`
+- Generate sprint plan document in `devforgeai/specs/Sprints/`
 - Select stories from backlog based on priority and capacity
 - Estimate total story points for sprint
 - Identify dependencies between stories
@@ -750,7 +750,7 @@ Task(subagent_type="test-automator",
 /dev STORY-001
 
 # Expected Behavior
-1. Load story from .ai_docs/Stories/STORY-001.md
+1. Load story from devforgeai/specs/Stories/STORY-001.md
 2. Validate story status is "Ready for Dev"
 3. Invoke devforgeai-development skill
 4. Update story status to "Dev Complete"

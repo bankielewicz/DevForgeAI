@@ -385,7 +385,7 @@ IF deferral_approved AND deferred_items.count > 0:
 
   # Create minimal story for deferred items
   Write(
-    file_path=f".ai_docs/Stories/{follow_up_story_id}-documentation-followup.story.md",
+    file_path=f"devforgeai/specs/Stories/{follow_up_story_id}-documentation-followup.story.md",
     content="""---
 id: {follow_up_story_id}
 title: Documentation Follow-up for {original_story_id}

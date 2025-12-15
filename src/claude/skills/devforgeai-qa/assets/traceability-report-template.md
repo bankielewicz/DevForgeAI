@@ -302,7 +302,7 @@ This validation prevents quality gate bypass (RCA-012 remediation).
 Stories cannot reach "QA Approved" with undocumented incomplete DoD items.
 
 See: CLAUDE.md "Acceptance Criteria vs. Tracking Mechanisms" for guidance
-See: .devforgeai/RCA/RCA-012/ for complete remediation analysis
+See: devforgeai/RCA/RCA-012/ for complete remediation analysis
 ```
 
 **Variable Substitutions:**

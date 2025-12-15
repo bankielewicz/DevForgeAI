@@ -48,7 +48,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Validate story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
@@ -62,7 +62,7 @@ IF no matches found:
 
 **Load story via @file reference:**
 ```
-@.ai_docs/Stories/{STORY_ID}.story.md
+@devforgeai/specs/Stories/{STORY_ID}.story.md
 
 (Story content now available in conversation context)
 ```
@@ -126,7 +126,7 @@ Skill(command="devforgeai-qa")
 **The skill instructs you to:**
 - Extract story from conversation context (YAML frontmatter)
 - Execute mode-specific validation (light or deep)
-- Generate QA report in .devforgeai/qa/reports/
+- Generate QA report in devforgeai/qa/reports/
 - Invoke qa-result-interpreter subagent to format results
 - Return structured result summary with display template, violations, next steps
 
@@ -231,7 +231,7 @@ IF hook triggered:
 
 IF hook failed:
   Display: "⚠️ Feedback hook failed, continuing..."
-  Log error details to .devforgeai/hooks/errors.log
+  Log error details to devforgeai/hooks/errors.log
 
 IF hook skipped (check-hooks returned non-zero):
   # Silent skip (normal behavior for failures-only + pass)
@@ -249,7 +249,7 @@ IF hook skipped (check-hooks returned non-zero):
 ```
 IF result.status == "PASSED" AND MODE == "deep":
     # Step 1: Read current story file
-    Read(file_path=".ai_docs/Stories/${STORY_ID}*.story.md")
+    Read(file_path="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
     # Step 2: Extract current YAML values
     Extract current status from "status: [value]"
@@ -257,7 +257,7 @@ IF result.status == "PASSED" AND MODE == "deep":
 
     # Step 3: Update YAML frontmatter status
     Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        file_path="devforgeai/specs/Stories/${STORY_ID}*.story.md",
         old_string="status: ${CURRENT_STATUS}",
         new_string="status: QA Approved"
     )
@@ -265,7 +265,7 @@ IF result.status == "PASSED" AND MODE == "deep":
     # Step 4: Update YAML frontmatter timestamp
     CURRENT_DATE_ISO = $(date +%Y-%m-%d)
     Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        file_path="devforgeai/specs/Stories/${STORY_ID}*.story.md",
         old_string="updated: ${CURRENT_DATE}",
         new_string="updated: ${CURRENT_DATE_ISO}"
     )
@@ -301,7 +301,7 @@ ${list result.files_validated with newlines}
 
     # Step 6: Insert QA Validation History before Workflow History
     Edit(
-        file_path=".ai_docs/Stories/${STORY_ID}*.story.md",
+        file_path="devforgeai/specs/Stories/${STORY_ID}*.story.md",
         old_string="## Workflow History",
         new_string="${VALIDATION_HISTORY}\n\n## Workflow History"
     )
@@ -315,7 +315,7 @@ Changes applied:
 - QA Validation History section added
 - Updated timestamp: ${CURRENT_DATE_ISO}
 
-Story file: .ai_docs/Stories/${STORY_ID}*.story.md
+Story file: devforgeai/specs/Stories/${STORY_ID}*.story.md
 """
 
 ELSE IF result.status == "FAILED":
@@ -347,7 +347,7 @@ ${display result summary}
 Story file could not be updated automatically.
 
 Manual update required:
-1. Open: .ai_docs/Stories/${STORY_ID}*.story.md
+1. Open: devforgeai/specs/Stories/${STORY_ID}*.story.md
 2. Change status: "${CURRENT_STATUS}" → "QA Approved"
 3. Update timestamp: updated: ${CURRENT_DATE_ISO}
 4. Append QA validation results (see report above)
@@ -373,7 +373,7 @@ Example: /qa STORY-001 deep
 ### Story File Not Found
 ```
 Error: Story file not found
-Path: .ai_docs/Stories/{STORY_ID}.story.md
+Path: devforgeai/specs/Stories/{STORY_ID}.story.md
 
 Available stories:
 [List from Glob result]
@@ -403,7 +403,7 @@ Skill output:
 {Display skill error output above}
 
 Actions:
-1. Check context files exist: ls .devforgeai/context/
+1. Check context files exist: ls devforgeai/specs/context/
 2. Verify build: [language-specific build command]
 3. Verify tests: [language-specific test command]
 4. Try again: /qa {STORY_ID} {MODE}

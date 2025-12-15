@@ -50,8 +50,8 @@ Tests for initialization and setup phase of ConfigurationManager.
 - **Purpose:** Verify default paths when no args provided
 - **Setup:** Create ConfigurationManager() with no arguments
 - **Assertions:**
-  - config_file_path == Path(".devforgeai/config/feedback.yaml")
-  - logs_dir == Path(".devforgeai/logs")
+  - config_file_path == Path("devforgeai/config/feedback.yaml")
+  - logs_dir == Path("devforgeai/logs")
   - _initialized == True
   - _current_config is FeedbackConfiguration instance
 - **Coverage:** Lines 34-68, 49-52, 82

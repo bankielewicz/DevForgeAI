@@ -292,7 +292,7 @@ So that [business value/benefit].
 
 ### Pre-Development Checklist
 - [ ] Architecture context files created and validated
-- [ ] Sprint 1 stories created in `.ai_docs/Stories/`
+- [ ] Sprint 1 stories created in `devforgeai/specs/Stories/`
 - [ ] Designs approved by stakeholders
 - [ ] External dependencies secured (API access, licenses, etc.)
 - [ ] Development environment set up

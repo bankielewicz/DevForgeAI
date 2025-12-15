@@ -126,7 +126,7 @@ class TestOfflineInstallationWorkflow:
         3. Installation proceeds only if validation passes
 
         Validates:
-        - Required directories exist (.claude/, .devforgeai/)
+        - Required directories exist (.claude/, devforgeai/)
         - checksums.json present
         - version.json present
         - File count meets minimum (450+ files)
@@ -694,7 +694,7 @@ class TestOfflineInstallationEdgeCases:
         bundle_root = tmp_path / "partial_bundle"
         bundle_root.mkdir()
         (bundle_root / "claude").mkdir()
-        # Missing .devforgeai/ directory
+        # Missing devforgeai/ directory
 
         with pytest.raises(FileNotFoundError, match="devforgeai"):
             bundle.verify_bundle_structure(bundle_root)

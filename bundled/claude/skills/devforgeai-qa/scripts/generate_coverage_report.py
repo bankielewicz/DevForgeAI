@@ -444,7 +444,7 @@ Examples:
   python generate_coverage_report.py coverage.json --output coverage-report.html
 
   # Generate report with layer mapping
-  python generate_coverage_report.py coverage.xml --source-tree .devforgeai/context/source-tree.md
+  python generate_coverage_report.py coverage.xml --source-tree devforgeai/specs/context/source-tree.md
 
   # Generate report from .NET coverage
   python generate_coverage_report.py coverage.cobertura.xml --output dotnet-coverage.html

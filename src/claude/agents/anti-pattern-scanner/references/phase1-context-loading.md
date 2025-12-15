@@ -13,7 +13,7 @@
 **Action:** Find context directory in project root
 
 ```
-context_dir = ".devforgeai/context/"
+context_dir = "devforgeai/specs/context/"
 
 required_files = [
   "tech-stack.md",
@@ -139,7 +139,7 @@ IF tech_stack locks ORM="Dapper"
 ## Error Scenarios
 
 **Scenario 1: Missing context files**
-- Error: "Required context file not found: .devforgeai/context/tech-stack.md"
+- Error: "Required context file not found: devforgeai/specs/context/tech-stack.md"
 - Remediation: "Run /create-context to generate architectural context files"
 - Blocks QA: true
 

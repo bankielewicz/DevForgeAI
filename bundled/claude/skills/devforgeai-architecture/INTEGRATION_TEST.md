@@ -102,7 +102,7 @@ Checked that all file references are valid:
 - ✅ `.claude/skills/devforgeai-architecture/references/ambiguity-detection-guide.md`
 
 **init_context.sh references:**
-- ✅ Creates `.devforgeai/context/` directory
+- ✅ Creates `devforgeai/specs/context/` directory
 - ✅ Copies all 6 template files
 - ✅ Creates `docs/architecture/decisions/` directory
 - ✅ Creates `docs/architecture/README.md`
@@ -111,7 +111,7 @@ Checked that all file references are valid:
 - ✅ validate_all_context.py → validate_dependencies.py
 - ✅ validate_all_context.py → validate_architecture.py
 - ✅ validate_all_context.py → detect_anti_patterns.py
-- ✅ All scripts use `.devforgeai/context/` path
+- ✅ All scripts use `devforgeai/specs/context/` path
 
 ### 5. Template Completeness ✅
 
@@ -267,7 +267,7 @@ Checked that all file references are valid:
 - ✅ validate_dependencies.py reads dependencies.md
 - ✅ validate_architecture.py reads architecture-constraints.md and source-tree.md
 - ✅ detect_anti_patterns.py reads anti-patterns.md, tech-stack.md, source-tree.md
-- ✅ All scripts use consistent path: `.devforgeai/context/`
+- ✅ All scripts use consistent path: `devforgeai/specs/context/`
 
 ### 5. Context Files → Cross-References
 - ✅ dependencies.md references tech-stack.md, anti-patterns.md

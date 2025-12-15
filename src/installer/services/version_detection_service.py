@@ -4,7 +4,7 @@ Version Detection Service - STORY-073
 Handles detection and comparison of DevForgeAI installation versions.
 
 Requirements:
-- SVC-004: Read .devforgeai/.version.json and parse installed version
+- SVC-004: Read devforgeai/.version.json and parse installed version
 - SVC-005: Compare installed vs source version using semantic versioning
 - SVC-006: Handle corrupted version.json gracefully
 - SVC-007: Handle non-standard versions (null, 'latest', 'dev')
@@ -76,7 +76,7 @@ class VersionDetectionService:
 
     def read_version(self) -> Optional[VersionInfo]:
         """
-        Read and parse .devforgeai/.version.json file.
+        Read and parse devforgeai/.version.json file.
 
         Returns:
             VersionInfo with parsed data, or None if file missing/corrupted

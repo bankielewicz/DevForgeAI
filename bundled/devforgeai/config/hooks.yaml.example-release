@@ -2,7 +2,7 @@
 # Part of: STORY-025 - Wire hooks into /release command
 #
 # This file provides example configuration for release-staging and release-production hooks
-# Copy to .devforgeai/config/hooks.yaml and customize for your needs
+# Copy to devforgeai/config/hooks.yaml and customize for your needs
 
 # Global hook system configuration
 enabled: true           # Master switch: true = hooks active, false = all hooks disabled
@@ -64,7 +64,7 @@ operations:
     skip_tracking: true            # Track which questions users skip
 
     # Feedback persistence
-    save_to: ".devforgeai/feedback/releases/{story_id}-staging-{timestamp}.json"
+    save_to: "devforgeai/feedback/releases/{story_id}-staging-{timestamp}.json"
 
   # ============================================================================
   # Release Production Hooks
@@ -128,7 +128,7 @@ operations:
     skip_tracking: true
 
     # Feedback persistence
-    save_to: ".devforgeai/feedback/releases/{story_id}-production-{timestamp}.json"
+    save_to: "devforgeai/feedback/releases/{story_id}-production-{timestamp}.json"
 
   # ============================================================================
   # Optional: Production Success Hooks (Opt-In)
@@ -171,7 +171,7 @@ operations:
   #     category: "deployment"
   #
   #   timeout_seconds: 180
-  #   save_to: ".devforgeai/feedback/releases/{story_id}-production-{timestamp}.json"
+  #   save_to: "devforgeai/feedback/releases/{story_id}-production-{timestamp}.json"
 
 # ============================================================================
 # Configuration Notes
@@ -227,11 +227,11 @@ operations:
 # ============================================================================
 
 # Hook not triggering?
-# 1. Check: hooks.yaml exists in .devforgeai/config/
+# 1. Check: hooks.yaml exists in devforgeai/config/
 # 2. Check: enabled: true (both global and operation-specific)
 # 3. Check: trigger_on mode matches deployment status
 # 4. Check: devforgeai CLI installed (pip install --break-system-packages -e .claude/scripts/)
-# 5. Check: Logs in .devforgeai/logs/release-hooks-{STORY-ID}.log
+# 5. Check: Logs in devforgeai/logs/release-hooks-{STORY-ID}.log
 
 # Hook errors breaking deployment?
 # - This should NEVER happen (hooks are non-blocking by design)
@@ -255,7 +255,7 @@ operations:
 # /release hooks: operation: "release-staging" or "release-production", trigger after deployment
 #
 # All use same devforgeai CLI (check-hooks, invoke-hooks)
-# All save to .devforgeai/feedback/ directory structure
+# All save to devforgeai/feedback/ directory structure
 # All support same question types and metadata
 
 # ============================================================================

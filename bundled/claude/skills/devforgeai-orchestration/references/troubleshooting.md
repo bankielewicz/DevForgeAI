@@ -73,7 +73,7 @@ Checkpoint markers not in story workflow history OR malformed checkpoint entry.
 
 ```
 Read story file:
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Search workflow history section:
   Grep(pattern="Checkpoint: (DEV_COMPLETE|QA_APPROVED|STAGING_COMPLETE)")
@@ -108,7 +108,7 @@ Incorrect formats (will not detect):
 **Manual fix:**
 ```
 Edit(
-  file_path=".ai_docs/Stories/{STORY_ID}.story.md",
+  file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
   old_string="[malformed checkpoint]",
   new_string="Checkpoint: DEV_COMPLETE\nTimestamp: 2025-01-06T14:23:45Z"
 )
@@ -153,9 +153,9 @@ Requirements:
 Fix:
 1. Run: /create-context {project-name}
 2. Verify all 6 files created:
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
 3. Check for placeholders:
-   Grep(pattern="TODO|TBD", path=".devforgeai/context/")
+   Grep(pattern="TODO|TBD", path="devforgeai/specs/context/")
 4. Replace placeholders with actual content
 ```
 
@@ -182,7 +182,7 @@ Requirements:
 - Zero CRITICAL/HIGH violations
 
 Fix:
-1. Review QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+1. Review QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 2. Fix violations (coverage, anti-patterns, spec compliance)
 3. Run /dev {STORY_ID} to apply fixes
 4. Run /orchestrate {STORY_ID} to retry QA
@@ -224,7 +224,7 @@ Read story workflow history:
   Count: 3 attempts
 
 Review all 3 QA reports:
-  Read(.devforgeai/qa/reports/{STORY_ID}-qa-report.md)
+  Read(devforgeai/qa/reports/{STORY_ID}-qa-report.md)
 
 Analyze pattern:
   - Same issues recurring? → Systemic problem
@@ -348,7 +348,7 @@ Common skill errors:
 ```
 Fix:
 1. Verify story ID spelling: STORY-042 (not STORY-42 or STORY-0042)
-2. Check file exists: Glob(pattern=".ai_docs/Stories/{STORY_ID}*.md")
+2. Check file exists: Glob(pattern="devforgeai/specs/Stories/{STORY_ID}*.md")
 3. Create story if missing: /create-story {description}
 ```
 
@@ -357,7 +357,7 @@ Fix:
 Fix:
 1. Run: /create-context {project-name}
 2. Verify 6 files created:
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
    Expected: tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns
 ```
 
@@ -449,7 +449,7 @@ Story file missing required sections or YAML frontmatter malformed.
 
 ```
 Read story file:
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Check for:
 - YAML frontmatter (lines 1-X, starts with ---, ends with ---)
@@ -673,7 +673,7 @@ Workflow history section missing, malformed, or has invalid format.
 
 ```
 Read story file:
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Expected section:
   ## Workflow Status
@@ -788,7 +788,7 @@ Grep(pattern="\\*\\*Epic name:\\*\\*")
 
 **Ensure story file has all required sections:**
 ```
-Glob(pattern=".ai_docs/Stories/{STORY_ID}*.md")
+Glob(pattern="devforgeai/specs/Stories/{STORY_ID}*.md")
 Read(file_path="{story_file}")
 
 Check for:
@@ -805,7 +805,7 @@ Check for:
 
 **Check story Status History for clues:**
 ```
-Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Look for:
 - Checkpoints (DEV_COMPLETE, QA_APPROVED, etc.)

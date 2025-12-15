@@ -35,7 +35,7 @@ IF file not found:
 ## Step 2: Generate Coverage Reports
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract language
 
 # Execute language-specific coverage command
@@ -75,7 +75,7 @@ Read(file_path=coverage_file)
 ## Step 3: Classify Files by Layer
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Extract layer definitions
 
 # Classify files into Business Logic, Application, Infrastructure

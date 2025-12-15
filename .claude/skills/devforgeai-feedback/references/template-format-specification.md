@@ -453,7 +453,7 @@ Satisfied (4/5)
 ## File Locations
 
 **Templates:** `.claude/skills/devforgeai-feedback/templates/`
-**Rendered Feedback:** `.devforgeai/feedback/{operation-type}/`
+**Rendered Feedback:** `devforgeai/feedback/{operation-type}/`
 
 **Filename Convention:**
 - Templates: `{operation-type}-{status}.yaml`

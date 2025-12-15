@@ -40,7 +40,7 @@ Use the **Ideation Completion Template** from output-templates.md:
 - EPIC-002: {Epic Title} ({feature_count} features, {story_points} points)
 - EPIC-003: {Epic Title} ({feature_count} features, {story_points} points)
 
-📁 **Location:** `.ai_docs/Epics/`
+📁 **Location:** `devforgeai/specs/Epics/`
 
 **Requirements Specification:** {created|not created}
 {if created:}
@@ -49,7 +49,7 @@ Use the **Ideation Completion Template** from output-templates.md:
 - Data Models: {count} entities
 - Integration Points: {count} external systems
 
-📁 **Location:** `.devforgeai/specs/requirements/{project-name}-requirements.md`
+📁 **Location:** `devforgeai/specs/requirements/{project-name}-requirements.md`
 
 ---
 
@@ -140,7 +140,7 @@ Use the **Ideation Completion Template** from output-templates.md:
 ### Check for Existing Context Files
 
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 
 if len(context_files) == 6:
     # Brownfield project with existing DevForgeAI context
@@ -206,8 +206,8 @@ After context creation, run `/create-sprint 1` to begin sprint planning.
 ```
 Report: """
 📂 Review these files:
-- **Epics:** `.ai_docs/Epics/EPIC-*.epic.md`
-- **Requirements:** `.devforgeai/specs/requirements/{project-name}-requirements.md`
+- **Epics:** `devforgeai/specs/Epics/EPIC-*.epic.md`
+- **Requirements:** `devforgeai/specs/requirements/{project-name}-requirements.md`
 
 You can:
 - Manually edit files (Use Read/Edit tools or text editor)
@@ -224,9 +224,9 @@ Tip: Epic documents feed directly into sprint planning, so ensure they're comple
 
 ```
 # Load existing context
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
 # Check for conflicts (should have been resolved in Phase 5)
 # If new conflicts found, use AskUserQuestion to resolve
@@ -322,9 +322,9 @@ This is recommended when:
 ```
 Report: """
 📂 Review these files:
-- **Epics:** `.ai_docs/Epics/EPIC-*.epic.md`
-- **Requirements:** `.devforgeai/specs/requirements/{project-name}-requirements.md`
-- **Existing Context:** `.devforgeai/context/*.md`
+- **Epics:** `devforgeai/specs/Epics/EPIC-*.epic.md`
+- **Requirements:** `devforgeai/specs/requirements/{project-name}-requirements.md`
+- **Existing Context:** `devforgeai/specs/context/*.md`
 
 After review, proceed with:
 - `/create-sprint 1` (if context files are current)
@@ -398,7 +398,7 @@ Provide specific review guidance:
 "Review these aspects:
 
 1. **Epic Priority:** Are epics prioritized correctly for business value?
-   - Check: `.ai_docs/Epics/EPIC-*.epic.md` frontmatter `priority` field
+   - Check: `devforgeai/specs/Epics/EPIC-*.epic.md` frontmatter `priority` field
 
 2. **Feature Completeness:** Are all required features documented?
    - Check: Each epic's Features section
@@ -449,12 +449,12 @@ For each new conflict:
 
 ```
 # Use Edit tool to modify epic document
-Read(file_path=".ai_docs/Epics/EPIC-001-{name}.epic.md")
+Read(file_path="devforgeai/specs/Epics/EPIC-001-{name}.epic.md")
 
 # Find Features section
 # Add new feature to list
 Edit(
-    file_path=".ai_docs/Epics/EPIC-001-{name}.epic.md",
+    file_path="devforgeai/specs/Epics/EPIC-001-{name}.epic.md",
     old_string="{existing features section}",
     new_string="{existing features + new feature}"
 )
@@ -509,7 +509,7 @@ Completion handoff successful when:
 - EPIC-002: Product Catalog (6 features, 30 points)
 - EPIC-003: Shopping & Checkout (7 features, 35 points)
 
-📁 Location: `.ai_docs/Epics/`
+📁 Location: `devforgeai/specs/Epics/`
 
 **Requirements Specification:**
 - Functional Requirements: 32
@@ -517,7 +517,7 @@ Completion handoff successful when:
 - Data Models: 12 entities
 - Integration Points: 5 external systems
 
-📁 Location: `.devforgeai/specs/requirements/ecommerce-platform-requirements.md`
+📁 Location: `devforgeai/specs/requirements/ecommerce-platform-requirements.md`
 
 ---
 
@@ -612,7 +612,7 @@ Greenfield: "Run `/create-context {project-name}` next. This creates the 6 archi
 
 Brownfield: "Run `/create-sprint 1` next. This uses existing context files to plan Sprint 1 and generate stories from your epics."
 
-Always: "You can review/edit epic documents in `.ai_docs/Epics/` before proceeding."
+Always: "You can review/edit epic documents in `devforgeai/specs/Epics/` before proceeding."
 ```
 
 ### Issue: User Wants Different Technology Than Recommended
@@ -647,8 +647,8 @@ Executive Summary (~50 lines):
 
 # Link to full details
 "See complete details in:"
-- Epic documents: `.ai_docs/Epics/`
-- Requirements spec: `.devforgeai/specs/requirements/`
+- Epic documents: `devforgeai/specs/Epics/`
+- Requirements spec: `devforgeai/specs/requirements/`
 ```
 
 ---

@@ -50,9 +50,9 @@ Task(
   3. Non-functional requirements (performance, security)
 
   Context files available:
-  - .devforgeai/context/source-tree.md (test file placement rules)
-  - .devforgeai/context/coding-standards.md (test patterns, AAA format)
-  - .devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
+  - devforgeai/specs/context/source-tree.md (test file placement rules)
+  - devforgeai/specs/context/coding-standards.md (test patterns, AAA format)
+  - devforgeai/specs/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
 
   Generate tests that:
   1. Cover all acceptance criteria

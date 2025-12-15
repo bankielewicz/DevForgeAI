@@ -65,7 +65,7 @@ Parse result:
     Display: "❌ QA Validation FAILED - Analyzing failure..."
 
     Read QA report:
-      Read(file_path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md")
+      Read(file_path="devforgeai/qa/reports/{STORY_ID}-qa-report.md")
 
     Parse report sections:
       - Overall status (should be FAILED)
@@ -85,7 +85,7 @@ Parse result:
 ```
 Grep(
   pattern="Deferral Validation.*FAILED|deferral.*violation",
-  path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md",
+  path="devforgeai/qa/reports/{STORY_ID}-qa-report.md",
   output_mode="content",
   -i=true
 )
@@ -234,7 +234,7 @@ IF current_qa_attempt >= 3:
   3. Escalate external blockers to leadership
   4. Run /dev {STORY_ID} manually to address issues
 
-  Latest QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+  Latest QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
   Violations:
   {violations_summary}"
 
@@ -355,7 +355,7 @@ IF failure_type == "compliance":
   - MEDIUM: {medium_count}
   - LOW: {low_count}
 
-  Review detailed report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+  Review detailed report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 
   Orchestration HALTED - Manual intervention required.
 
@@ -543,7 +543,7 @@ IF recovery_strategy CONTAINS "Manual":
   Status: QA Failed (attempt {current_qa_attempt}/3)
   Failure Type: {failure_type}
 
-  QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+  QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 
   Next Steps:
   1. Review QA report and violations
@@ -589,7 +589,7 @@ IF recovery_strategy CONTAINS "exception":
 
   To request exception for {failure_type}:
   1. Create ADR documenting justification:
-     File: .devforgeai/adrs/ADR-{next_number}-{failure_type}-exception-{STORY_ID}.md
+     File: devforgeai/specs/adrs/ADR-{next_number}-{failure_type}-exception-{STORY_ID}.md
   2. Document:
      - Why exception needed (business justification)
      - Risk assessment (what could go wrong)
@@ -668,7 +668,7 @@ IF recovery_strategy CONTAINS "exception":
 ### Edit Operation
 
 ```
-Edit(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+Edit(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Find "## Workflow Status" section
 Prepend new entry (reverse chronological - latest first)

@@ -353,7 +353,7 @@ Test Files:
   installer/tests/integration/test_rollback_workflow_story078.py
 
 Story File:
-  .ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md
+  devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md
 ```
 
 ---

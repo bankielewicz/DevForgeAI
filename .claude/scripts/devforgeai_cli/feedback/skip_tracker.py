@@ -20,7 +20,7 @@ class SkipTracker:
     """
 
     # Default log path for skip tracking
-    DEFAULT_SKIP_LOG_PATH = Path(".devforgeai/logs/feedback-skips.log")
+    DEFAULT_SKIP_LOG_PATH = Path("devforgeai/logs/feedback-skips.log")
     # Default rating threshold for "positive" feedback
     DEFAULT_RATING_THRESHOLD = 4
 
@@ -29,7 +29,7 @@ class SkipTracker:
 
         Args:
             skip_log_path: Path to skip tracking log file.
-                          Defaults to .devforgeai/logs/feedback-skips.log
+                          Defaults to devforgeai/logs/feedback-skips.log
         """
         if skip_log_path is None:
             skip_log_path = self.DEFAULT_SKIP_LOG_PATH

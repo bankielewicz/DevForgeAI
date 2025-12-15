@@ -73,11 +73,11 @@ Analyze test coverage by architectural layer and validate against DevForgeAI's s
 
 ### Context Files Required
 ```
-.devforgeai/context/tech-stack.md
+devforgeai/specs/context/tech-stack.md
   → Extract: primary_language, framework, orm
   → Purpose: Determine coverage tooling
 
-.devforgeai/context/source-tree.md
+devforgeai/specs/context/source-tree.md
   → Extract: layer_patterns (business_logic, application, infrastructure)
   → Purpose: Classify files by architectural layer
 
@@ -142,7 +142,7 @@ Analyze test coverage by architectural layer and validate against DevForgeAI's s
 {
   "status": "failure",
   "story_id": "STORY-XXX",
-  "error": "Context file missing: .devforgeai/context/source-tree.md",
+  "error": "Context file missing: devforgeai/specs/context/source-tree.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate missing context files"
 }
@@ -303,9 +303,9 @@ coverage_result = Task(
   Analyze test coverage for {story_id}.
 
   Context Files (READ-ONLY):
-  {Read(file_path=".devforgeai/context/tech-stack.md")}
+  {Read(file_path="devforgeai/specs/context/tech-stack.md")}
 
-  {Read(file_path=".devforgeai/context/source-tree.md")}
+  {Read(file_path="devforgeai/specs/context/source-tree.md")}
 
   {Read(file_path=".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")}
 
@@ -382,5 +382,5 @@ recommendations = coverage_result["recommendations"]
 - `.claude/skills/devforgeai-qa/references/coverage-analysis-workflow.md` - Original inline workflow
 - `.claude/skills/devforgeai-qa/references/coverage-analysis.md` - Coverage analysis guide
 - `.claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md` - Threshold configuration
-- `.devforgeai/context/source-tree.md` - Layer classification patterns
-- `.devforgeai/context/tech-stack.md` - Language and tooling detection
+- `devforgeai/specs/context/source-tree.md` - Layer classification patterns
+- `devforgeai/specs/context/tech-stack.md` - Language and tooling detection

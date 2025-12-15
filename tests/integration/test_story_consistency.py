@@ -35,9 +35,9 @@ class TestStoryConsistency:
             list: List of Path objects for story files
         """
         return [
-            Path(".ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md"),
-            Path(".ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md"),
-            Path(".ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md"),
+            Path("devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md"),
         ]
 
     # Define canonical DoD structure

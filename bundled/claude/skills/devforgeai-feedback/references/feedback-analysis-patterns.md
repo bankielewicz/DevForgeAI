@@ -151,7 +151,7 @@ grep "sentiment:" sessions/*.md | cut -d: -f2 | sort | uniq -c
 
 ```bash
 # Group stories by type (CRUD, API, UI, workflow)
-grep "feature-type:" .ai_docs/Stories/*.md
+grep "feature-type:" devforgeai/specs/Stories/*.md
 
 # Correlate with feedback sentiment
 # - CRUD stories: typically positive (well-understood)

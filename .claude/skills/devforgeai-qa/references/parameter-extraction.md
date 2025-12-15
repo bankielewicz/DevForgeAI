@@ -11,7 +11,7 @@ How the QA skill extracts story ID and validation mode from conversation when in
 ### How Slash Commands Pass "Parameters" to Skills
 
 When `/qa` command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX" and "Validation mode: deep"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-qa")`
 
@@ -38,7 +38,7 @@ Extract: id field = Story ID
 
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```

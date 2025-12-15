@@ -573,7 +573,7 @@ class TestFeedbackSkillInvocation:
         pass
 
     def test_skill_invocation_persists_feedback(self, temp_context_dir):
-        """Test: Skill persists feedback to .devforgeai/feedback/sessions/ (AC3)"""
+        """Test: Skill persists feedback to devforgeai/feedback/sessions/ (AC3)"""
         # Will verify feedback file created
         pass
 

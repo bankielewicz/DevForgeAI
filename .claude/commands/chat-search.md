@@ -214,7 +214,7 @@ Session 1:
   ID: 83bfea53-ae2b-4e85-b755-33acd22892a4
   Project: /mnt/c/Projects/DevForgeAI2
   Last Active: 2024-11-18 14:32:44
-  Last Message: '.ai_docs/Epics/EPIC-010-parallel-story-development-cicd.epic.md doesn't include subagents...'
+  Last Message: 'devforgeai/specs/Epics/EPIC-010-parallel-story-development-cicd.epic.md doesn't include subagents...'
 
 Session 2:
   ID: fd8094e9-de0e-407d-9599-914e53fb4bf2
@@ -552,7 +552,7 @@ Session 1:
   ID: 83bfea53-ae2b-4e85-b755-33acd22892a4
   Project: /mnt/c/Projects/DevForgeAI2
   Last Active: 2024-11-18 14:32:44
-  Last Message: '.ai_docs/Epics/EPIC-010-parallel-story-development-cicd.epic.md doesn't include subagents...'
+  Last Message: 'devforgeai/specs/Epics/EPIC-010-parallel-story-development-cicd.epic.md doesn't include subagents...'
 
 ═══════════════════════════════════════════════
 

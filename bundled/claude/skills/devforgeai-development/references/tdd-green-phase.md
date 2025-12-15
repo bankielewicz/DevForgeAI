@@ -60,12 +60,12 @@ Task(
   Story and tests are already available in conversation.
 
   Context files to enforce:
-  - .devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
-  - .devforgeai/context/source-tree.md (file placement rules)
-  - .devforgeai/context/dependencies.md (approved packages only)
-  - .devforgeai/context/coding-standards.md (code patterns, naming conventions)
-  - .devforgeai/context/architecture-constraints.md (layer boundaries, DI patterns)
-  - .devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
+  - devforgeai/specs/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
+  - devforgeai/specs/context/source-tree.md (file placement rules)
+  - devforgeai/specs/context/dependencies.md (approved packages only)
+  - devforgeai/specs/context/coding-standards.md (code patterns, naming conventions)
+  - devforgeai/specs/context/architecture-constraints.md (layer boundaries, DI patterns)
+  - devforgeai/specs/context/anti-patterns.md (forbidden patterns to avoid)
 
   Implementation requirements:
   1. Write MINIMAL code to pass tests (no over-engineering)

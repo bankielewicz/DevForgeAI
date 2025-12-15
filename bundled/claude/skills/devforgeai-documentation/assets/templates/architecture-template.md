@@ -107,7 +107,7 @@ System architecture and design decisions for {{project_name}}.
 
 {{adr_list}}
 
-For complete ADRs, see [.devforgeai/adrs/](../.devforgeai/adrs/).
+For complete ADRs, see [devforgeai/specs/adrs/](../devforgeai/specs/adrs/).
 
 ---
 

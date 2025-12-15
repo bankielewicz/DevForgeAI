@@ -141,7 +141,7 @@ test_zero_story_count_validation() {
 
     # Check validation rules in story context
     # Rule: "Must be non-negative integer (0-999)" - 0 should be valid
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -qi "non-negative.*0-999\|0.*to.*999"; then
         echo -e "${GREEN}PASS${NC}"
@@ -159,7 +159,7 @@ test_zero_story_count_validation() {
 test_zero_capacity_validation() {
     echo -n "Test 5.7: Capacity validation accepts 0... "
 
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -qi "capacity.*non-negative.*0-9999"; then
         echo -e "${GREEN}PASS${NC}"

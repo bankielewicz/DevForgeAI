@@ -381,13 +381,13 @@ class TestEpicHookCLIMocking:
         AC4: Hook Receives Complete Epic Context
 
         Given invoke-hooks CLI is called with epic-id
-        When epic file doesn't exist at .ai_docs/Epics/{EPIC-ID}.epic.md
+        When epic file doesn't exist at devforgeai/specs/Epics/{EPIC-ID}.epic.md
         Then should return exit code 3 (epic file not found, non-blocking)
         """
         # Arrange
         mock_result = MagicMock()
         mock_result.returncode = 3
-        mock_result.stderr = "Epic file not found: .ai_docs/Epics/EPIC-042.epic.md"
+        mock_result.stderr = "Epic file not found: devforgeai/specs/Epics/EPIC-042.epic.md"
         mock_run.return_value = mock_result
 
         # Act
@@ -645,7 +645,7 @@ class TestEpicHookPhase4A9Integration:
 
         Given epic file must exist before hook invocation
         When Phase 4A.9 executes
-        Then should verify .ai_docs/Epics/{EPIC-ID}.epic.md exists before calling hook CLI
+        Then should verify devforgeai/specs/Epics/{EPIC-ID}.epic.md exists before calling hook CLI
         """
         # Arrange
         epic_id = "EPIC-042"

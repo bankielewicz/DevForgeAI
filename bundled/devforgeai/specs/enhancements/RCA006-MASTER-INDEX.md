@@ -112,7 +112,7 @@
 | `tdd-red-phase.md.backup` | 3.6K | Rollback capability |
 | `test-automator.md.backup` | 16K | Rollback capability |
 
-**Location:** `.devforgeai/backups/phase1/`
+**Location:** `devforgeai/backups/phase1/`
 
 ---
 
@@ -263,7 +263,7 @@
 ### **Documentation Files**
 
 ```
-.devforgeai/specs/enhancements/
+devforgeai/specs/enhancements/
 ├── RCA006-QUICK-REFERENCE.md                  ~150 lines ✅
 ├── RCA006-VISUAL-SUMMARY.txt                  ~150 lines ✅
 ├── RCA006-EXECUTIVE-SUMMARY.md                ~250 lines ✅
@@ -285,7 +285,7 @@
 ### **Backup Files**
 
 ```
-.devforgeai/backups/phase1/
+devforgeai/backups/phase1/
 ├── tdd-red-phase.md.backup                    3.6K ✅
 └── test-automator.md.backup                   16K ✅
 ```
@@ -297,7 +297,7 @@
 └── output.md                                  Original RCA with 5 Whys
 ```
 
-**Total:** 16 files in `.devforgeai/specs/enhancements/` + 2 backups + 2 source files
+**Total:** 16 files in `devforgeai/specs/enhancements/` + 2 backups + 2 source files
 
 ---
 
@@ -308,7 +308,7 @@
 **Priority 1: Test Phase 1**
 ```bash
 # Read testing checklist
-cat .devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
+cat devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
 
 # Execute 9 test cases
 # Document results
@@ -328,7 +328,7 @@ cat .devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
 
 **Read decision framework:**
 ```bash
-cat .devforgeai/specs/enhancements/RCA006-EXECUTIVE-SUMMARY.md
+cat devforgeai/specs/enhancements/RCA006-EXECUTIVE-SUMMARY.md
 ```
 
 **Evaluate metrics:**
@@ -346,7 +346,7 @@ cat .devforgeai/specs/enhancements/RCA006-EXECUTIVE-SUMMARY.md
 **Start new session with:**
 ```bash
 # Copy prompt from:
-cat .devforgeai/specs/enhancements/PHASE2-HANDOFF-PROMPT.md
+cat devforgeai/specs/enhancements/PHASE2-HANDOFF-PROMPT.md
 
 # Paste into new Claude Code session
 # Include Phase 1 results context

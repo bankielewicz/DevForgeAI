@@ -15,7 +15,7 @@
 **What does NOT exist yet:**
 - ❌ Actual executable Phase 6 code in devforgeai-development skill
 - ❌ Live hook triggering when running `/dev` command
-- ❌ Configuration file `.devforgeai/config/hooks.yaml` (will be created during implementation)
+- ❌ Configuration file `devforgeai/config/hooks.yaml` (will be created during implementation)
 
 **Next step:** Actual implementation in devforgeai-development skill
 
@@ -23,7 +23,7 @@
 
 ## Planned Configuration (Design)
 
-**When implemented, configuration will be** (`.devforgeai/config/hooks.yaml`):
+**When implemented, configuration will be** (`devforgeai/config/hooks.yaml`):
 ```yaml
 hooks:
   enabled: true           # Master switch for all hooks
@@ -36,7 +36,7 @@ hooks:
 ```
 
 **Planned behavior:**
-1. When `.devforgeai/config/hooks.yaml` has `hooks.enabled: true`
+1. When `devforgeai/config/hooks.yaml` has `hooks.enabled: true`
 2. And `hooks.operations.dev.enabled: true`
 3. And trigger conditions match (on_success or on_failure)
 4. Then `/dev STORY-ID` will trigger feedback conversation automatically

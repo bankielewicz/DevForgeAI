@@ -14,14 +14,14 @@ This reference documents all error scenarios across the 8-phase story creation w
 
 **Detection:**
 ```
-story_files = Glob(pattern=f".ai_docs/Stories/{story_id}-*.story.md")
+story_files = Glob(pattern=f"devforgeai/specs/Stories/{story_id}-*.story.md")
 if story_files:
     # Conflict detected
 ```
 
 **Recovery:**
 ```
-while file_exists(f".ai_docs/Stories/{story_id}-*.md"):
+while file_exists(f"devforgeai/specs/Stories/{story_id}-*.md"):
     # Increment story number
     story_number += 1
     story_id = f"STORY-{story_number:03d}"
@@ -74,7 +74,7 @@ if missing_elements:
 
 **Detection:**
 ```
-epic_file_path = f".ai_docs/Epics/{epic_id}.epic.md"
+epic_file_path = f"devforgeai/specs/Epics/{epic_id}.epic.md"
 epic_exists = Glob(pattern=epic_file_path)
 
 if not epic_exists:
@@ -84,8 +84,8 @@ if not epic_exists:
 **Recovery:**
 ```
 # Refresh epic/sprint lists
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
-sprint_files = Glob(pattern=".ai_docs/Sprints/Sprint-*.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
+sprint_files = Glob(pattern="devforgeai/specs/Sprints/Sprint-*.md")
 
 # Present updated lists
 AskUserQuestion with refreshed options
@@ -152,7 +152,7 @@ Try:
     Write(file_path=story_path, content=story_content)
 Except write error:
     # Ensure directory exists
-    Bash(mkdir -p .ai_docs/Stories/)
+    Bash(mkdir -p devforgeai/specs/Stories/)
 
     # Check write permissions
     # Retry write

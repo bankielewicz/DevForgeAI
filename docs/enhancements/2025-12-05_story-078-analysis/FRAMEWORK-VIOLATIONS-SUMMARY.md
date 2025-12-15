@@ -500,7 +500,7 @@ IF "Prerequisite Stories" in prereq_section:
   prereqs = Grep(pattern="- \\[ \\] \\*\\*STORY-[0-9]+", path=story_file)
 
   FOR each prereq_story_id in prereqs:
-    prereq_file = Glob(pattern=f".ai_docs/Stories/{prereq_story_id}*.md")
+    prereq_file = Glob(pattern=f"devforgeai/specs/Stories/{prereq_story_id}*.md")
 
     IF prereq_file exists:
       prereq_status = Grep(pattern="^status:", path=prereq_file)

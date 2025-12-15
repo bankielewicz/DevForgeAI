@@ -323,7 +323,7 @@ pytest tests/unit/test_story_049_create_context_refactoring.py::TestAC1Character
 ## Important Files Outside Tests
 
 ### Story Document
-- **Path:** `.ai_docs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md`
+- **Path:** `devforgeai/specs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md`
 - **Content:** Story details, acceptance criteria, technical spec
 - **Use:** Reference for implementation requirements
 

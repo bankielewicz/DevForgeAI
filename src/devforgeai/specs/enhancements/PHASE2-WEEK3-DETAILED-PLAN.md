@@ -116,7 +116,7 @@ SAMPLES=(
 for story in "${SAMPLES[@]}"; do
     echo "=== $story ===="
     # Extract tech spec section
-    sed -n '/## Technical Specification/,/## [A-Z]/p' ".ai_docs/Stories/$story"
+    sed -n '/## Technical Specification/,/## [A-Z]/p' "devforgeai/specs/Stories/$story"
     echo ""
 done
 ```
@@ -397,7 +397,7 @@ cp .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py \
 
 # 6. Verify validator works
 python .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-007*.md
+  devforgeai/specs/Stories/STORY-007*.md
 ```
 
 **Output:** Environment ready for Day 2 implementation
@@ -428,7 +428,7 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
 [Day 2 tasks broken down]
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-DESIGN.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-DESIGN.md`
 
 ---
 
@@ -539,7 +539,7 @@ def main():
     TASK FOR CLAUDE: Convert the following freeform technical specification to
     DevForgeAI v2.0 structured YAML format.
 
-    Use schema from: .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+    Use schema from: devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
     Freeform text:
     {freeform_text}
@@ -558,7 +558,7 @@ if __name__ == "__main__":
 # 1. Extract freeform tech spec
 python -c "
 import re
-content = open('.ai_docs/Stories/STORY-001.md').read()
+content = open('devforgeai/specs/Stories/STORY-001.md').read()
 match = re.search(r'## Technical Specification\s+(.*?)(?=\n## |\Z)', content, re.DOTALL)
 print(match.group(1))
 " > temp-tech-spec.txt
@@ -591,7 +591,7 @@ def _load_schema_reference() -> str:
     global _SCHEMA_CACHE
 
     if _SCHEMA_CACHE is None:
-        schema_file = Path(".devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
+        schema_file = Path("devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
         if schema_file.exists():
             _SCHEMA_CACHE = schema_file.read_text()
         else:
@@ -939,7 +939,7 @@ Tests: 12/12 passing"
 VALIDATOR: 12/12 tests passing (100%) ✅
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-VALIDATOR-TEST-RESULTS.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-VALIDATOR-TEST-RESULTS.md`
 
 ---
 
@@ -1144,7 +1144,7 @@ Create results report:
 Migration script ready for production use on real stories.
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-ACCURACY-RESULTS.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-ACCURACY-RESULTS.md`
 
 ---
 
@@ -1299,7 +1299,7 @@ python migrate_story_v1_to_v2.py STORY-007*.md --ai-assisted --validate
 Confidence: 95% (High - all tests passing, accuracy verified)
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-COMPLETE.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-COMPLETE.md`
 
 ---
 
@@ -1334,7 +1334,7 @@ python migrate_story_v1_to_v2.py STORY-001.md --ai-assisted --validate
 python migrate_story_v1_to_v2.py STORY-001.md --ai-assisted --dry-run
 
 # Batch migration
-for story in .ai_docs/Stories/*.md; do
+for story in devforgeai/specs/Stories/*.md; do
   python migrate_story_v1_to_v2.py "$story" --ai-assisted --validate
 done
 ```
@@ -1363,7 +1363,7 @@ If AI unavailable:
 
 **Task 5.3: Create AI integration documentation**
 
-**File:** `.devforgeai/specs/enhancements/AI-ASSISTED-MIGRATION-GUIDE.md`
+**File:** `devforgeai/specs/enhancements/AI-ASSISTED-MIGRATION-GUIDE.md`
 
 Content:
 - How AI parsing works
@@ -1777,7 +1777,7 @@ class AIConverter:
     def _build_prompt(self, freeform_text: str) -> str:
         """Build conversion prompt."""
         # Load schema reference
-        schema_file = Path(".devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
+        schema_file = Path("devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
         schema_excerpt = schema_file.read_text()[:3000]  # First 3K chars
 
         prompt = f"""

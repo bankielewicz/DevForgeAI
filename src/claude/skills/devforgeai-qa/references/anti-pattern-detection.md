@@ -357,12 +357,12 @@ def handle_ambiguous_violation(violation):
 ```python
 def validate_against_context(source_path):
     # Load all context files
-    tech_stack = read(".devforgeai/context/tech-stack.md")
-    source_tree = read(".devforgeai/context/source-tree.md")
-    dependencies = read(".devforgeai/context/dependencies.md")
-    coding_standards = read(".devforgeai/context/coding-standards.md")
-    architecture = read(".devforgeai/context/architecture-constraints.md")
-    anti_patterns = read(".devforgeai/context/anti-patterns.md")
+    tech_stack = read("devforgeai/specs/context/tech-stack.md")
+    source_tree = read("devforgeai/specs/context/source-tree.md")
+    dependencies = read("devforgeai/specs/context/dependencies.md")
+    coding_standards = read("devforgeai/specs/context/coding-standards.md")
+    architecture = read("devforgeai/specs/context/architecture-constraints.md")
+    anti_patterns = read("devforgeai/specs/context/anti-patterns.md")
 
     violations = []
 

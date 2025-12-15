@@ -156,8 +156,8 @@ class ManifestGenerator:
             ((".claude/agents/", ".claude\\agents\\"), "agent"),
             ((".claude/commands/", ".claude\\commands\\"), "command"),
             ((".claude/memory/", ".claude\\memory\\"), "memory"),
-            ((".devforgeai/scripts/", ".devforgeai\\scripts\\"), "script"),
-            ((".devforgeai/context/", ".devforgeai\\context\\"), "config"),
+            (("devforgeai/scripts/", ".devforgeai\\scripts\\"), "script"),
+            (("devforgeai/specs/context/", ".devforgeai\\context\\"), "config"),
         ]
 
         for patterns, category in categories:

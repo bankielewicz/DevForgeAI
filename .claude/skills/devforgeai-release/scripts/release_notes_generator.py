@@ -18,7 +18,7 @@ Examples:
 
     # With QA and metrics reports
     python release_notes_generator.py --story STORY-001 --version v1.2.3 \\
-        --qa-report .devforgeai/qa/reports/STORY-001-qa-report.md \\
+        --qa-report devforgeai/qa/reports/STORY-001-qa-report.md \\
         --metrics-report metrics.json
 
     # Custom template
@@ -117,7 +117,7 @@ def load_story_document(story_id: str) -> Dict[str, Any]:
     Raises:
         FileNotFoundError: If story file not found
     """
-    story_path = Path(f'.ai_docs/Stories/{story_id}.story.md')
+    story_path = Path(f'devforgeai/specs/Stories/{story_id}.story.md')
 
     if not story_path.exists():
         raise FileNotFoundError(f"Story file not found: {story_path}")
@@ -412,7 +412,7 @@ Examples:
 
   # With QA and metrics reports
   python release_notes_generator.py --story STORY-001 --version v1.2.3 \\
-      --qa-report .devforgeai/qa/reports/STORY-001-qa-report.md \\
+      --qa-report devforgeai/qa/reports/STORY-001-qa-report.md \\
       --metrics-report metrics.json
 
   # Custom output location
@@ -450,7 +450,7 @@ Examples:
 
     parser.add_argument(
         '--output',
-        help='Output path for release notes (default: .devforgeai/releases/release-{version}.md)'
+        help='Output path for release notes (default: devforgeai/releases/release-{version}.md)'
     )
 
     parser.add_argument(
@@ -527,7 +527,7 @@ Examples:
         if args.output:
             output_path = Path(args.output)
         else:
-            output_dir = Path('.devforgeai/releases')
+            output_dir = Path('devforgeai/releases')
             output_dir.mkdir(parents=True, exist_ok=True)
             output_path = output_dir / f'release-{args.version}.md'
 

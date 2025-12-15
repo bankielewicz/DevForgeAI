@@ -43,7 +43,7 @@ case $EXIT_CODE in
     1) echo "❌ Missing source files - see EXIT-CODES.md" ;;
     2) echo "❌ Permission denied - fix with: chmod -R u+w /path" ;;
     3) echo "❌ Rollback occurred - fix root cause and retry" ;;
-    4) echo "⚠️  Validation failed - check .devforgeai/install.log" ;;
+    4) echo "⚠️  Validation failed - check devforgeai/install.log" ;;
 esac
 ```
 
@@ -55,13 +55,13 @@ Installation logs all errors with timestamps and context:
 
 ```bash
 # View recent errors in log
-tail -50 .devforgeai/install.log
+tail -50 devforgeai/install.log
 
 # Search for specific error type
-grep "ERROR\|CRITICAL" .devforgeai/install.log
+grep "ERROR\|CRITICAL" devforgeai/install.log
 
 # View entire error handling flow
-grep "Phase:" .devforgeai/install.log
+grep "Phase:" devforgeai/install.log
 ```
 
 **Log Format:**
@@ -201,7 +201,7 @@ python -c "from installer import install; install.install('/path', mode='reinsta
 # 3. This creates new backup for future rollbacks
 ```
 
-**Prevention:** Don't manually create symlinks in .claude/ or .devforgeai/ directories.
+**Prevention:** Don't manually create symlinks in .claude/ or devforgeai/ directories.
 
 ---
 
@@ -395,16 +395,16 @@ Actual: 5 files updated
 
 **Expected Behavior:**
 Uninstall should preserve:
-- `.devforgeai/context/` (user-created tech stack, architecture decisions)
-- `.devforgeai/config/` (user configurations)
-- `.ai_docs/` (user stories, epics, sprints)
+- `devforgeai/specs/context/` (user-created tech stack, architecture decisions)
+- `devforgeai/config/` (user configurations)
+- `devforgeai/specs/` (user stories, epics, sprints)
 
 **Verification:**
 ```bash
 # After uninstall, these should still exist:
-ls .devforgeai/context/
-ls .devforgeai/config/
-ls .ai_docs/
+ls devforgeai/specs/context/
+ls devforgeai/config/
+ls devforgeai/specs/
 ```
 
 **If deleted:** This is a bug - file an issue with STORY-045.
@@ -479,10 +479,10 @@ ls .ai_docs/
 **Detection:**
 ```bash
 # Check for transaction marker (future enhancement)
-ls .devforgeai/.install_in_progress
+ls devforgeai/.install_in_progress
 
 # Check version.json
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 # If version doesn't match expected, installation incomplete
 ```
 
@@ -589,8 +589,8 @@ cProfile.run('install.install("/path", mode="fresh_install")')
 ### Common Performance Issues
 
 **Slow backup creation (>20 seconds):**
-- Cause: Large .devforgeai/qa/reports/ directory
-- Solution: Clear reports before backup (`rm -rf .devforgeai/qa/reports/*`)
+- Cause: Large devforgeai/qa/reports/ directory
+- Solution: Clear reports before backup (`rm -rf devforgeai/qa/reports/*`)
 
 **Slow deployment (>3 minutes):**
 - Cause: Network drive, slow disk
@@ -729,9 +729,9 @@ find .devforgeai -type f | wc -l  # Should be ~80
 # Check critical files
 test -f .claude/commands/dev.md && echo "✓ dev command"
 test -f .claude/skills/devforgeai-development/SKILL.md && echo "✓ dev skill"
-test -f .devforgeai/protocols/lean-orchestration-pattern.md && echo "✓ protocol"
+test -f devforgeai/protocols/lean-orchestration-pattern.md && echo "✓ protocol"
 test -f CLAUDE.md && echo "✓ CLAUDE.md"
-test -f .devforgeai/.version.json && echo "✓ version.json"
+test -f devforgeai/.version.json && echo "✓ version.json"
 ```
 
 ---
@@ -785,7 +785,7 @@ When installation fails, check:
 - [ ] Target writable: `touch /path/to/project/test.txt && rm test.txt`
 - [ ] Disk space: `df -h /path/to/project` (need ~50MB free for backup + install)
 - [ ] Backup directory: `ls -la .backups/` (check for old backups if rollback needed)
-- [ ] Permissions: `ls -la .claude/ .devforgeai/` (need u+w for upgrade)
+- [ ] Permissions: `ls -la .claude/ devforgeai/` (need u+w for upgrade)
 
 ---
 
@@ -856,7 +856,7 @@ Resolution steps:
   2. Check file ownership: chown user:group <path>
   3. Verify directory write permissions: chmod u+w <path>
 
-For details, see log file: .devforgeai/install.log
+For details, see log file: devforgeai/install.log
 ```
 
 **Benefits:**
@@ -872,13 +872,13 @@ Error messages automatically mask sensitive information:
 **Before Sanitization:**
 ```
 Error copying file: /home/alice/.aws/credentials
-Permission denied to /home/alice/.devforgeai/
+Permission denied to /home/alice/devforgeai/
 ```
 
 **After Sanitization:**
 ```
 Error copying file: /home/$USER/<sensitive file path>
-Permission denied to /home/$USER/.devforgeai/
+Permission denied to /home/$USER/devforgeai/
 ```
 
 **Masked Paths:**
@@ -893,7 +893,7 @@ Prevents multiple simultaneous installations:
 
 ```python
 # First process creates lock file
-lock_file = Path(".devforgeai/install.lock")
+lock_file = Path("devforgeai/install.lock")
 lock_file.touch()
 
 # Second process detects lock
@@ -939,7 +939,7 @@ Phase 2: Deploy Files
 
 ### Installation Logging (AC#8)
 
-All operations logged to `.devforgeai/install.log`:
+All operations logged to `devforgeai/install.log`:
 
 **Logged Information:**
 - Timestamps (ISO 8601 with milliseconds, UTC)
@@ -966,9 +966,9 @@ All operations logged to `.devforgeai/install.log`:
 **Retention:**
 ```bash
 # Log files rotate at 10MB
-.devforgeai/install.log        # Current log (active)
-.devforgeai/install.log.1      # Previous log (rotated)
-.devforgeai/install.log.2      # Older log (kept for history)
+devforgeai/install.log        # Current log (active)
+devforgeai/install.log.1      # Previous log (rotated)
+devforgeai/install.log.2      # Older log (kept for history)
 
 # Keep last 3 log files, delete older ones
 ```
@@ -982,9 +982,9 @@ Creates timestamped backups before file operations:
 ### Backup Structure
 
 ```
-.devforgeai/install-backup-2025-12-03T14-30-45/
+devforgeai/install-backup-2025-12-03T14-30-45/
 ├── .claude/               (complete copy)
-├── .devforgeai/          (complete copy)
+├── devforgeai/          (complete copy)
 ├── CLAUDE.md             (if exists)
 └── manifest.json         (metadata)
 ```
@@ -1000,7 +1000,7 @@ backup_dir = backup_service.create_backup(
     target_dir=Path("/path/to/project"),
     files_to_backup=[...]
 )
-# Returns: /path/to/project/.devforgeai/install-backup-2025-12-03T14-30-45/
+# Returns: /path/to/project/devforgeai/install-backup-2025-12-03T14-30-45/
 ```
 
 **Automatic Cleanup (After Deployment):**
@@ -1044,8 +1044,8 @@ When reporting issues, include:
 4. **Python version:** `python3 --version`
 5. **OS:** `uname -a` (Unix) or `ver` (Windows)
 6. **Source version:** `cat src/devforgeai/version.json`
-7. **Installed version:** `cat .devforgeai/.version.json` (if exists)
-8. **Log file excerpt:** `cat .devforgeai/install.log` (last 50 lines)
+7. **Installed version:** `cat devforgeai/.version.json` (if exists)
+8. **Log file excerpt:** `cat devforgeai/install.log` (last 50 lines)
 9. **Steps to reproduce**
 10. **Expected vs actual behavior**
 
@@ -1100,7 +1100,7 @@ print(sanitized)
 ```python
 from pathlib import Path
 
-lock_file = Path(".devforgeai/install.lock")
+lock_file = Path("devforgeai/install.lock")
 
 if lock_file.exists():
     # Check if process still running (Unix)

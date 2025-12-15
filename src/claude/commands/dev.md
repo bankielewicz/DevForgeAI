@@ -43,11 +43,11 @@ IF $1 empty OR NOT match "STORY-[0-9]+":
 
 **Load story file:**
 ```
-@.ai_docs/Stories/$1*.story.md
+@devforgeai/specs/Stories/$1*.story.md
 
 IF file not found:
     Display: "Story not found: $1"
-    Display: "Run: Glob(pattern='.ai_docs/Stories/*.story.md') to list stories"
+    Display: "Run: Glob(pattern='devforgeai/specs/Stories/*.story.md') to list stories"
     HALT
 
 Display: "✓ Story: $1"
@@ -121,7 +121,7 @@ Display: "━━━━━━━━━━━━━━━━━━━━━━━�
 
 **Invalid Story ID:** Usage: /dev STORY-NNN (e.g., /dev STORY-001)
 
-**Story Not Found:** Run Glob(pattern=".ai_docs/Stories/*.story.md") to list stories
+**Story Not Found:** Run Glob(pattern="devforgeai/specs/Stories/*.story.md") to list stories
 
 **Skill Failed:** Review skill output above. Common: context files missing (/create-context), git not initialized, technology conflicts (tech-stack.md)
 

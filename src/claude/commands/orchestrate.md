@@ -53,7 +53,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Verify story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   AskUserQuestion:
@@ -61,13 +61,13 @@ IF no matches found:
     Header: "Story Not Found"
     Options:
       - label: "List all available stories"
-        description: "Show all stories in .ai_docs/Stories/"
+        description: "Show all stories in devforgeai/specs/Stories/"
       - label: "Cancel orchestration"
         description: "Exit command"
     multiSelect: false
 
   IF user selects "List":
-    Glob(pattern=".ai_docs/Stories/*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/*.story.md")
     Display story list
 
   Exit command
@@ -75,7 +75,7 @@ IF no matches found:
 
 **Load story via @file reference:**
 ```
-@.ai_docs/Stories/${STORY_ID}*.story.md
+@devforgeai/specs/Stories/${STORY_ID}*.story.md
 
 (Story content now loaded in conversation context)
 ```
@@ -195,7 +195,7 @@ Recommended Actions:
 2. Review DoD items for proper estimation
 3. Escalate blockers to leadership
 
-QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
 ```
 
 **User Halted (status = "halted"):**
@@ -254,10 +254,10 @@ Examples:
 ```
 ERROR: Story file not found
 
-Path: .ai_docs/Stories/${STORY_ID}*.story.md
+Path: devforgeai/specs/Stories/${STORY_ID}*.story.md
 
 Available stories:
-{Glob(pattern=".ai_docs/Stories/*.story.md")}
+{Glob(pattern="devforgeai/specs/Stories/*.story.md")}
 
 Use /create-story to create new story.
 ```

@@ -257,7 +257,7 @@ See `ADR-EXAMPLE-006-scope-descope.md` for deferral-specific ADR template
 1. Developer creates ADR (during deferral decision or later)
 2. Architect reviews ADR (validates technical justification)
 3. Product owner approves (validates business impact)
-4. ADR stored in `.devforgeai/adrs/`
+4. ADR stored in `devforgeai/specs/adrs/`
 
 **Annual Review:**
 - Review all ADRs for relevance

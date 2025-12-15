@@ -73,7 +73,7 @@ def select_template(
         )
 
     if template_dir is None:
-        template_dir = ".devforgeai/templates"
+        template_dir = "devforgeai/templates"
 
     template_path = Path(template_dir)
 
@@ -517,7 +517,7 @@ def _assemble_sections(sections: Dict[str, Any]) -> str:
 def save_rendered_template(
     rendered_content: str,
     operation_type: str,
-    output_dir: str = ".devforgeai/feedback"
+    output_dir: str = "devforgeai/feedback"
 ) -> Path:
     """
     Save rendered template to file.
@@ -528,7 +528,7 @@ def save_rendered_template(
     Args:
         rendered_content: Rendered template string
         operation_type: Operation type (for directory organization)
-        output_dir: Output directory (default: .devforgeai/feedback)
+        output_dir: Output directory (default: devforgeai/feedback)
 
     Returns:
         Path to created file

@@ -767,7 +767,7 @@ class TestUpgradeExecution:
         """
         BR-004: User content preserved during upgrade.
 
-        Given: User has .ai_docs/Stories/ with content
+        Given: User has devforgeai/specs/Stories/ with content
         When: execute() is called
         Then: User stories not modified
         """

@@ -142,7 +142,7 @@ Successfully implemented hook integration architecture for the `/create-story` c
 - `test_malicious_story_id_rejected` - E2E test
 
 ### File Existence Validation ✅
-- Before invoking hook, verify story file exists at `.ai_docs/Stories/{story_id}-*.story.md`
+- Before invoking hook, verify story file exists at `devforgeai/specs/Stories/{story_id}-*.story.md`
 - If missing (deleted, permissions issue): skip hook gracefully
 - No error thrown, story creation exit code 0
 
@@ -179,7 +179,7 @@ Phase 3: Verify Story Created
 Phase 5: Hook Integration (NEW)
     ├─ Step 1: Check if hooks enabled (.devforgeai/config/hooks.yaml)
     ├─ Step 2: Detect batch mode (**Batch Mode:** true marker)
-    ├─ Step 3: Validate story file exists (.ai_docs/Stories/STORY-NNN-*.story.md)
+    ├─ Step 3: Validate story file exists (devforgeai/specs/Stories/STORY-NNN-*.story.md)
     ├─ Step 4: Validate story ID (STORY-\d{3} regex, prevent injection)
     ├─ Step 5: Assemble hook context (7 metadata fields)
     ├─ Step 6: Invoke hook (devforgeai invoke-hooks --operation=story-create)

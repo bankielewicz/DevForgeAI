@@ -26,7 +26,7 @@ Without these files, the skill cannot validate generated UI against project stan
 
 **Use Glob to verify all 6 required context files exist:**
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **Required files:**
@@ -116,9 +116,9 @@ EXIT skill with error status
 
 **Use Read tool to load critical context:**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 ```
 
 **Parse for UI-specific constraints:**

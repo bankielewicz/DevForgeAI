@@ -228,8 +228,8 @@ Invoke this skill when users ask about:
 
 **DevForgeAI Integration:**
 - `.claude/rules/` for Claude Code behavior rules
-- `.devforgeai/context/` for immutable architectural constraints
-- Rules can reference context files: `@.devforgeai/context/tech-stack.md`
+- `devforgeai/specs/context/` for immutable architectural constraints
+- Rules can reference context files: `@devforgeai/specs/context/tech-stack.md`
 
 **Details:** See `references/configuration-guide.md` (Memory & Rules section)
 
@@ -488,7 +488,7 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 4. Confirm update with user
 
 **Version History:**
-- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from .ai_docs/Terminal/
+- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
 - v1.1 (2025-12-09): Added rules system, new CLI flags, hook events, subagent enhancements, DevForgeAI integration
 
 ---

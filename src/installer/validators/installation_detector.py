@@ -1,7 +1,7 @@
 """
 Existing installation detection checker.
 
-Detects previous DevForgeAI installations by checking for .claude/ and .devforgeai/ directories.
+Detects previous DevForgeAI installations by checking for .claude/ and devforgeai/ directories.
 """
 
 import json
@@ -14,7 +14,7 @@ class ExistingInstallationDetector:
     """
     Detects existing DevForgeAI installations.
 
-    Checks for .claude/ and .devforgeai/ directories and reads version.json if present.
+    Checks for .claude/ and devforgeai/ directories and reads version.json if present.
     """
 
     def __init__(self, target_path: str):
@@ -35,7 +35,7 @@ class ExistingInstallationDetector:
 
         Checks:
             - .claude/ directory presence
-            - .devforgeai/ directory presence
+            - devforgeai/ directory presence
             - version.json file (if exists)
         """
         try:
@@ -60,7 +60,7 @@ class ExistingInstallationDetector:
             if claude_exists:
                 found_dirs.append(".claude/")
             if devforgeai_exists:
-                found_dirs.append(".devforgeai/")
+                found_dirs.append("devforgeai/")
 
             dirs_str = " and ".join(found_dirs)
 

@@ -49,7 +49,7 @@
 4. `.claude/skills/devforgeai-story-creation/references/validation-checklists.md` (+114 lines)
 5. `.claude/skills/devforgeai-story-creation/references/acceptance-criteria-patterns.md` (+38 lines)
 
-**Backups created:** 5 files in `.devforgeai/backups/phase2-gap-fix/`
+**Backups created:** 5 files in `devforgeai/backups/phase2-gap-fix/`
 
 ---
 
@@ -171,16 +171,16 @@ Benefit: Phase 1 more accurate, Phase 3 ready
 **3. Validate Generated Story**
 ```bash
 # Check frontmatter
-head -15 .ai_docs/Stories/STORY-XXX-*.story.md | grep format_version
+head -15 devforgeai/specs/Stories/STORY-XXX-*.story.md | grep format_version
 # Expected: format_version: "2.0"
 
 # Check tech spec format
-grep -A 30 "## Technical Specification" .ai_docs/Stories/STORY-XXX-*.story.md
+grep -A 30 "## Technical Specification" devforgeai/specs/Stories/STORY-XXX-*.story.md
 # Expected: ```yaml code block
 
 # Run validator
 python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-XXX-*.story.md
+  devforgeai/specs/Stories/STORY-XXX-*.story.md
 # Expected: Exit code 0 (PASS)
 ```
 
@@ -277,7 +277,7 @@ STATUS:
 7. PHASE2-GAP-FIX-SUMMARY.txt - Visual summary
 8. SESSION-COMPLETE-PHASE2-GAP-FIX.md - This document
 
-**Location:** `.devforgeai/specs/enhancements/`
+**Location:** `devforgeai/specs/enhancements/`
 
 ---
 

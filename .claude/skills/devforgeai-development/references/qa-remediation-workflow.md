@@ -35,8 +35,8 @@ When QA fails and generates gaps.json, `/dev` enters **Remediation Mode** - a ta
 - `$QA_FAILURE_REPORT` - Path to QA report
 
 **Required files:**
-- `.devforgeai/qa/reports/{STORY_ID}-gaps.json` - Structured gap data
-- `.devforgeai/qa/reports/{STORY_ID}-qa-report.md` - Human-readable report
+- `devforgeai/qa/reports/{STORY_ID}-gaps.json` - Structured gap data
+- `devforgeai/qa/reports/{STORY_ID}-qa-report.md` - Human-readable report
 
 ---
 
@@ -390,7 +390,7 @@ Gaps addressed:
   - {gap.file}: {gap.current_coverage}% → {new_coverage}%
 }
 
-Triggered by: .devforgeai/qa/reports/{STORY_ID}-gaps.json
+Triggered by: devforgeai/qa/reports/{STORY_ID}-gaps.json
 """
 
 Bash(command="git add . && git commit -m '{commit_message}'", description="Commit remediation")
@@ -447,6 +447,6 @@ If PASS: gaps.json archived to resolved/
 
 - `preflight-validation.md` - Step h.1. loads gaps.json
 - `qa-deferral-recovery.md` - Existing deferral resolution workflow
-- `.devforgeai/qa/reports/{STORY-ID}-gaps.json` - Structured gap data
+- `devforgeai/qa/reports/{STORY-ID}-gaps.json` - Structured gap data
 - `test-automator.md` - Subagent for targeted test generation
 - `refactoring-specialist.md` - Subagent for anti-pattern fixes

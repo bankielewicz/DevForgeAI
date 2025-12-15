@@ -46,7 +46,7 @@ When invoked, execute these steps in order:
 
 - **Discover existing sprints:**
   ```
-  Glob(pattern=".ai_docs/Sprints/*.md")
+  Glob(pattern="devforgeai/specs/Sprints/*.md")
   ```
   Parse existing sprint files (Sprint-1.md, Sprint-2.md, etc.) to extract highest sprint number
   Calculate next sprint number sequentially
@@ -54,7 +54,7 @@ When invoked, execute these steps in order:
 
 - **Load epic context:**
   ```
-  Glob(pattern=".ai_docs/Epics/*.md")
+  Glob(pattern="devforgeai/specs/Epics/*.md")
   ```
   Parse epic files to extract EPIC-ID and title for linkage
 
@@ -67,7 +67,7 @@ When invoked, execute these steps in order:
 
 - **For each story ID in the selection:**
   ```
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
   ```
   Extract YAML frontmatter:
   - status (must be "Backlog")
@@ -198,14 +198,14 @@ Example: "Complete user authentication and account creation features to enable M
 - **Write sprint file:**
   ```
   Write(
-    file_path=".ai_docs/Sprints/Sprint-{N}.md",
+    file_path="devforgeai/specs/Sprints/Sprint-{N}.md",
     content=[generated_content]
   )
   ```
 
 - **Verify file written:**
   ```
-  Read(file_path=".ai_docs/Sprints/Sprint-{N}.md")
+  Read(file_path="devforgeai/specs/Sprints/Sprint-{N}.md")
   ```
   Confirm file exists and frontmatter is valid YAML
 
@@ -215,13 +215,13 @@ For each selected story, execute status transition workflow:
 
 - **Read story file:**
   ```
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
   ```
 
 - **Update status in YAML frontmatter:**
   ```
   Edit(
-    file_path=".ai_docs/Stories/{STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
     old_string="status: Backlog",
     new_string="status: Ready for Dev"
   )
@@ -230,7 +230,7 @@ For each selected story, execute status transition workflow:
 - **Update sprint reference:**
   ```
   Edit(
-    file_path=".ai_docs/Stories/{STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
     old_string="sprint: Backlog",
     new_string="sprint: SPRINT-{N}"
   )
@@ -238,7 +238,7 @@ For each selected story, execute status transition workflow:
   OR
   ```
   Edit(
-    file_path=".ai_docs/Stories/{STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
     old_string="sprint: null",
     new_string="sprint: SPRINT-{N}"
   )
@@ -250,7 +250,7 @@ For each selected story, execute status transition workflow:
 
   ```
   Edit(
-    file_path=".ai_docs/Stories/{STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
     old_string="## Workflow History\n\n",
     new_string="## Workflow History\n\n### {current_time} - Status: Ready for Dev\n- Added to SPRINT-{N}: {sprint_name}\n- Transitioned from Backlog to Ready for Dev\n- Sprint capacity: {total_points} points\n- Priority in sprint: [{priority_rank} of {total_stories}]\n\n"
   )
@@ -258,7 +258,7 @@ For each selected story, execute status transition workflow:
 
 - **Verify story update:**
   ```
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
   Extract updated fields:
     - status (should be "Ready for Dev")
@@ -280,7 +280,7 @@ Return structured JSON with sprint planning results:
   "success": true,
   "sprint_id": "SPRINT-{N}",
   "sprint_name": "{sprint_name}",
-  "file_path": ".ai_docs/Sprints/Sprint-{N}.md",
+  "file_path": "devforgeai/specs/Sprints/Sprint-{N}.md",
   "capacity": {
     "total_points": {total_points},
     "total_stories": {total_stories},
@@ -402,7 +402,7 @@ Return structured JSON with sprint planning results:
 ## Error Handling
 
 **When story doesn't exist:**
-- Report: Story {STORY_ID} not found in .ai_docs/Stories/
+- Report: Story {STORY_ID} not found in devforgeai/specs/Stories/
 - Action: HALT - cannot proceed
 - Recovery: Verify story IDs in selection
 
@@ -420,7 +420,7 @@ Return structured JSON with sprint planning results:
 **When sprint file write fails:**
 - Report: Sprint file creation failed - [error detail]
 - Action: HALT - cannot proceed without sprint file
-- Recovery: Verify .ai_docs/Sprints/ directory exists and is writable
+- Recovery: Verify devforgeai/specs/Sprints/ directory exists and is writable
 
 **When capacity exceeds limits:**
 - Report: Selected stories total {X} points (over/under capacity)
@@ -445,8 +445,8 @@ Return structured JSON with sprint planning results:
 ## References
 
 **Context Files (Read-Only):**
-- `.devforgeai/context/tech-stack.md` (referenced in sprint goals)
-- `.devforgeai/context/source-tree.md` (for story context)
+- `devforgeai/specs/context/tech-stack.md` (referenced in sprint goals)
+- `devforgeai/specs/context/source-tree.md` (for story context)
 
 **Reference Documentation:**
 - `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` (sprint planning patterns)

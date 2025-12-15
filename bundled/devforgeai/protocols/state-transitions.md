@@ -6,8 +6,8 @@
 **Applies To:** All DevForgeAI stories, epics, and sprints
 
 **Related:**
-- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
-- **Quality Gates:** `.devforgeai/protocols/quality-gates.md` - Gate criteria per transition
+- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
+- **Quality Gates:** `devforgeai/protocols/quality-gates.md` - Gate criteria per transition
 
 ---
 
@@ -342,7 +342,7 @@ ALL transitions MUST be recorded in Workflow History:
 **Process:**
 1. Document cancellation reason
 2. Update story status to "Cancelled"
-3. Archive story (remains in .ai_docs/Stories/ for audit)
+3. Archive story (remains in devforgeai/specs/Stories/ for audit)
 4. Reallocate resources
 
 **Automated:** No (manual status update)
@@ -452,7 +452,7 @@ These transitions require manual story file updates:
 | Dev Complete → In Development | Defect rework | Manual status update, then /dev |
 
 **Process for Manual Update:**
-1. Edit `.ai_docs/Stories/STORY-XXX.story.md`
+1. Edit `devforgeai/specs/Stories/STORY-XXX.story.md`
 2. Update `status:` field in YAML frontmatter
 3. Add Workflow History entry with timestamp, transition, and reason
 4. Save file
@@ -574,11 +574,11 @@ Sprint Planned → Sprint Active → Sprint Complete
 
 ## Related Documentation
 
-- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
-- **Quality Gates:** `.devforgeai/protocols/quality-gates.md` - Gate criteria
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
-- **RCA-006:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
-- **RCA-008:** `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow safeguards
+- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
+- **Quality Gates:** `devforgeai/protocols/quality-gates.md` - Gate criteria
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
+- **RCA-006:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
+- **RCA-008:** `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow safeguards
 
 ---
 

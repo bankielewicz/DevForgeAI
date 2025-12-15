@@ -25,7 +25,7 @@ When invoked by devforgeai-story-creation skill, this subagent generates **struc
       test_requirement: "Test: [Specific test]"
 ```
 
-**See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete API component schema
+**See:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete API component schema
 
 ## Purpose
 
@@ -744,8 +744,8 @@ https://api.example.com/users?version=1
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - API framework
-- `.devforgeai/context/coding-standards.md` - API patterns
+- `devforgeai/specs/context/tech-stack.md` - API framework
+- `devforgeai/specs/context/coding-standards.md` - API patterns
 
 **API Design Resources:**
 - RESTful API Design Best Practices

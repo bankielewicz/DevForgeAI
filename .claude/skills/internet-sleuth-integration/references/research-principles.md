@@ -73,7 +73,7 @@ def validate_evidence(claim, sources):
 **Framework Integration Points:**
 - **Invoked by:** devforgeai-ideation (Phase 5), devforgeai-architecture (Phase 2)
 - **Invokes:** context-validator (quality gate validation), requirements-analyst (optional), architect-reviewer (optional)
-- **Updates:** Research reports in .devforgeai/research/, epic/story YAML frontmatter
+- **Updates:** Research reports in devforgeai/specs/research/, epic/story YAML frontmatter
 
 **Success Criteria:**
 - [ ] All 6 context files validated before returning research report
@@ -277,7 +277,7 @@ Task(
   ],
   "framework_compliance": "PASS",
   "workflow_state": "Architecture",
-  "report_path": ".devforgeai/research/feasibility/EPIC-007-2025-11-17-143022-research.md"
+  "report_path": "devforgeai/specs/research/feasibility/EPIC-007-2025-11-17-143022-research.md"
 }
 ```
 

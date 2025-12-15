@@ -12,7 +12,7 @@ This phase creates the technical foundation for implementation using structured 
 
 **Format Version:** 2.0 (Structured YAML) - **Default for all new stories**
 
-**See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference
+**See:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference
 
 **RCA-006 Phase 2: Structured Technical Specifications**
 
@@ -76,14 +76,14 @@ technical_specification:
 **Take snapshot (same as Step 2.0):**
 ```python
 # Capture current .story.md and API spec files
-files_before_api_designer = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+files_before_api_designer = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Capture potential API spec files
 api_spec_patterns = [
-    f".devforgeai/specs/api/{story_id}-api-spec.yaml",
-    f".ai_docs/Stories/{story_id}-api-spec.yaml",
-    f".ai_docs/Stories/*-api-spec.yaml",
-    f".devforgeai/specs/api/*.yaml"
+    f"devforgeai/specs/api/{story_id}-api-spec.yaml",
+    f"devforgeai/specs/Stories/{story_id}-api-spec.yaml",
+    f"devforgeai/specs/Stories/*-api-spec.yaml",
+    f"devforgeai/specs/api/*.yaml"
 ]
 
 api_files_before = []
@@ -187,7 +187,7 @@ This skill will embed your API specification into the Technical Specification se
 - Current workflow: Story creation (8-phase process)
 - Current phase: Phase 3 (Technical Specification)
 - Next phase: Phase 4 (UI Specification)
-- Final artifact: .ai_docs/Stories/{story_id}-{slug}.story.md
+- Final artifact: devforgeai/specs/Stories/{story_id}-{slug}.story.md
 
 **═══════════════════════════════════════════════════════════════════════════**
 **CRITICAL OUTPUT CONSTRAINTS:**
@@ -481,8 +481,8 @@ Action: Files deleted
 ---
 """
 
-    current_log = Read(file_path=".devforgeai/logs/rca-007-violations.log")
-    Write(file_path=".devforgeai/logs/rca-007-violations.log", content=current_log + log_entry)
+    current_log = Read(file_path="devforgeai/logs/rca-007-violations.log")
+    Write(file_path="devforgeai/logs/rca-007-violations.log", content=current_log + log_entry)
 
     # HALT (critical violation)
     HALT: """

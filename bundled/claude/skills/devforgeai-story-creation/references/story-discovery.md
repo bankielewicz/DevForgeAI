@@ -259,7 +259,7 @@ Then ask: "Provide detailed description of the {feature_type} feature"
 
 **Find all existing stories:**
 ```
-story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Parse story numbers from filenames
 # Example: STORY-042-user-login.story.md → 42
@@ -334,7 +334,7 @@ TodoWrite([
 
 **Find available epics:**
 ```
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 
 epic_options = []
 for epic_file in epic_files:
@@ -405,7 +405,7 @@ AskUserQuestion(
 
 **Find available sprints:**
 ```
-sprint_files = Glob(pattern=".ai_docs/Sprints/Sprint-*.md")
+sprint_files = Glob(pattern="devforgeai/specs/Sprints/Sprint-*.md")
 
 # Sort chronologically by start date
 sprints_sorted = sort_by_start_date(sprint_files)

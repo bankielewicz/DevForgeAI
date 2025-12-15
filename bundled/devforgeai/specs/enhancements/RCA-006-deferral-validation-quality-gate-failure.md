@@ -256,7 +256,7 @@ Definition of Done Status:
 
 ### STORY-004 QA Report
 
-**From:** `.devforgeai/qa/reports/STORY-004-qa-report.md`
+**From:** `devforgeai/qa/reports/STORY-004-qa-report.md`
 
 ```markdown
 Line 33: ✅ Definition of Done fully documented (14/14 items addressed)
@@ -267,7 +267,7 @@ Line 269: Compliance: Exit codes deferred to STORY-005 (documented in DoD)
 
 ### STORY-004 Implementation Notes
 
-**From:** `.ai_docs/Stories/STORY-004-json-output.story.md` (line 579)
+**From:** `devforgeai/specs/Stories/STORY-004-json-output.story.md` (line 579)
 
 ```markdown
 - [ ] Exit code 0 for success, 2 for error - Deferred to STORY-005:

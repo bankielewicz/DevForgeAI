@@ -35,12 +35,12 @@ This script is **Layer 1** of the hybrid validation approach:
 ```bash
 # Format-only validation (non-blocking warnings)
 python .claude/scripts/validate_deferrals.py \
-  --story-file .ai_docs/Stories/STORY-006.story.md \
+  --story-file devforgeai/specs/Stories/STORY-006.story.md \
   --format-only
 
 # Quiet mode (for automation - suppresses output)
 python .claude/scripts/validate_deferrals.py \
-  --story-file .ai_docs/Stories/STORY-006.story.md \
+  --story-file devforgeai/specs/Stories/STORY-006.story.md \
   --format-only \
   --quiet
 
@@ -206,7 +206,7 @@ Create `.git/hooks/pre-commit`:
 #!/bin/bash
 # Pre-commit hook: Validate story deferrals
 
-STORY_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.ai_docs/Stories/.*\.story\.md$')
+STORY_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\devforgeai/specs/Stories/.*\.story\.md$')
 
 if [ -n "$STORY_FILES" ]; then
     echo "Validating story deferrals..."
@@ -234,7 +234,7 @@ exit 0
 
 ### Native Tools Efficiency
 
-Per `.ai_docs/Terminal/native-tools-vs-bash-efficiency-analysis.md`:
+Per `devforgeai/specs/Terminal/native-tools-vs-bash-efficiency-analysis.md`:
 
 **This script follows efficiency guidelines:**
 - ✅ Uses Python stdlib file I/O (not Bash cat/sed/grep)
@@ -303,13 +303,13 @@ python validate_deferrals.py --story-file tmp/test-story-complete.md --format-on
 
 **Problem:**
 ```
-ERROR: Story file not found: .ai_docs/Stories/STORY-006.story.md
+ERROR: Story file not found: devforgeai/specs/Stories/STORY-006.story.md
 ```
 
 **Solution:**
 - Verify file path is correct
-- Use Glob to find story: `Glob(pattern=".ai_docs/Stories/STORY-006*.story.md")`
-- Check file exists: `ls .ai_docs/Stories/`
+- Use Glob to find story: `Glob(pattern="devforgeai/specs/Stories/STORY-006*.story.md")`
+- Check file exists: `ls devforgeai/specs/Stories/`
 
 ---
 
@@ -354,7 +354,7 @@ ERROR: Story file not found: .ai_docs/Stories/STORY-006.story.md
 - Recommendation 3: This script (Layer 1) + `.claude/agents/deferral-validator.md` (Layer 3)
 
 **Framework Patterns:**
-- `.ai_docs/Terminal/native-tools-vs-bash-efficiency-analysis.md` (token efficiency)
+- `devforgeai/specs/Terminal/native-tools-vs-bash-efficiency-analysis.md` (token efficiency)
 - `.claude/skills/devforgeai-architecture/scripts/` (validation script patterns)
 
 **Integration:**

@@ -16,7 +16,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Default configuration
-BACKUP_DIR=".devforgeai/backups/database"
+BACKUP_DIR="devforgeai/backups/database"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 RETENTION_DAYS=30
 
@@ -48,7 +48,7 @@ Optional:
   --db-name <name>         Database name (default: from config)
   --db-user <user>         Database user (default: from config)
   --db-password <pass>     Database password (default: from env var)
-  --backup-dir <path>      Backup directory (default: .devforgeai/backups/database)
+  --backup-dir <path>      Backup directory (default: devforgeai/backups/database)
   --retention-days <days>  Backup retention in days (default: 30)
   --compression <type>     Compression type (gzip, bzip2, none) (default: gzip)
   --verbose                Enable verbose output
@@ -174,7 +174,7 @@ mkdir -p "$BACKUP_DIR"
 log_verbose "Backup directory: $BACKUP_DIR"
 
 # Load database configuration from deployment config
-CONFIG_FILE=".devforgeai/deployment/config.json"
+CONFIG_FILE="devforgeai/deployment/config.json"
 if [ -f "$CONFIG_FILE" ]; then
     log_verbose "Loading configuration from $CONFIG_FILE"
 

@@ -34,7 +34,7 @@ Task(
   description="Format UI spec results",
   prompt="Format UI specification results for STORY-XXX.
 
-          Generated spec file: .devforgeai/specs/ui/STORY-XXX-ui-spec.md
+          Generated spec file: devforgeai/specs/ui/STORY-XXX-ui-spec.md
           Story mode: story | standalone
           Framework: React | Vue | Angular | Blazor | WPF | Tkinter
 
@@ -54,12 +54,12 @@ Task(
 ```
 Input from conversation context:
 - Story ID (from YAML frontmatter or explicit statement, if story mode)
-- UI spec file path: .devforgeai/specs/ui/{STORY_ID or COMPONENT}-ui-spec.md
+- UI spec file path: devforgeai/specs/ui/{STORY_ID or COMPONENT}-ui-spec.md
 - Generation mode: story | standalone
 - Framework stack: (from tech-stack.md or user selection)
 
 Verify spec file exists and is readable:
-  Read(file_path=".devforgeai/specs/ui/{SPEC_ID}-ui-spec.md")
+  Read(file_path="devforgeai/specs/ui/{SPEC_ID}-ui-spec.md")
 
   IF file not found:
     Return error with context:
@@ -67,7 +67,7 @@ Verify spec file exists and is readable:
       "status": "ERROR",
       "error_type": "spec_missing",
       "message": "UI specification file not found at expected path",
-      "path": ".devforgeai/specs/ui/{SPEC_ID}-ui-spec.md",
+      "path": "devforgeai/specs/ui/{SPEC_ID}-ui-spec.md",
       "guidance": "Skill generation may have failed. Check skill output above."
     }
 
@@ -272,7 +272,7 @@ Generate display output:
   - Styles: {N} files
   - Tests: {N} files
 - Total lines: {LINES}
-- Location: .devforgeai/specs/ui/{STORY_ID}-ui-spec/
+- Location: devforgeai/specs/ui/{STORY_ID}-ui-spec/
 
 **File List:**
 ```
@@ -303,7 +303,7 @@ Generate display output:
 ### Next Steps
 
 1. **Review Specification:** Check generated UI spec file
-   - `.devforgeai/specs/ui/{STORY_ID}-ui-spec.md`
+   - `devforgeai/specs/ui/{STORY_ID}-ui-spec.md`
    - Review component structure and accessibility features
 
 2. **Begin Implementation:** Create acceptance tests and implement
@@ -351,12 +351,12 @@ Generate display output:
 - Styles: {STYLING_FILE}
 - Tests: {TEST_FILE}
 - Total lines: {LINES}
-- Location: .devforgeai/specs/ui/{COMPONENT_NAME}/
+- Location: devforgeai/specs/ui/{COMPONENT_NAME}/
 
 ### Implementation Guidance
 
 **Quick Start:**
-1. Review: `.devforgeai/specs/ui/{COMPONENT_NAME}/{FILENAME}.{EXT}`
+1. Review: `devforgeai/specs/ui/{COMPONENT_NAME}/{FILENAME}.{EXT}`
 2. Copy component into your project at appropriate location (per source-tree.md)
 3. Install dependencies: {DEPENDENCIES if any}
 4. Integrate into your application
@@ -462,8 +462,8 @@ Generate display output:
   5. Proceed with implementation
 
 **Option 3: Get Help**
-- Review `.devforgeai/specs/ui/` directory
-- Check `.devforgeai/context/` files for configuration issues
+- Review `devforgeai/specs/ui/` directory
+- Check `devforgeai/specs/context/` files for configuration issues
 - Review full skill output for detailed error context
 
 ---
@@ -509,7 +509,7 @@ Based on generation mode and status:
 ```
 IF mode == "story" AND status == "SUCCESS":
     next_steps = [
-        "Review generated UI specification: .devforgeai/specs/ui/{STORY_ID}-ui-spec.md",
+        "Review generated UI specification: devforgeai/specs/ui/{STORY_ID}-ui-spec.md",
         "Begin implementation with TDD: `/dev {STORY_ID}`",
         "Follow the spec as your acceptance criteria reference",
         "Run `/qa {STORY_ID}` when Dev Complete to validate"
@@ -518,7 +518,7 @@ IF mode == "story" AND status == "SUCCESS":
 ELSE IF mode == "story" AND status == "PARTIAL":
     next_steps = [
         "Address validation warnings above",
-        "Review specification: .devforgeai/specs/ui/{STORY_ID}-ui-spec.md",
+        "Review specification: devforgeai/specs/ui/{STORY_ID}-ui-spec.md",
         "Proceed with implementation (warnings are not blockers)",
         "Begin development: `/dev {STORY_ID}`"
     ]
@@ -602,7 +602,7 @@ ELSE IF mode == "standalone" AND status == "FAILED":
       "spec": 3
     },
     "total_lines": 2450,
-    "location": ".devforgeai/specs/ui/STORY-XXX-ui-spec/"
+    "location": "devforgeai/specs/ui/STORY-XXX-ui-spec/"
   },
 
   "framework_details": {
@@ -680,13 +680,13 @@ ELSE IF mode == "standalone" AND status == "FAILED":
   },
 
   "next_steps": [
-    "Review generated UI specification: .devforgeai/specs/ui/STORY-XXX-ui-spec.md",
+    "Review generated UI specification: devforgeai/specs/ui/STORY-XXX-ui-spec.md",
     "Begin implementation with TDD: `/dev STORY-XXX`",
     "Follow the spec as your acceptance criteria reference",
     "Run `/qa STORY-XXX` when Dev Complete to validate"
   ],
 
-  "spec_file_location": ".devforgeai/specs/ui/STORY-XXX-ui-spec.md",
+  "spec_file_location": "devforgeai/specs/ui/STORY-XXX-ui-spec.md",
   "generation_time_seconds": 45
 }
 ```
@@ -704,7 +704,7 @@ After generating UI specification, invoke formatter:
 Task(
     subagent_type="ui-spec-formatter",
     description="Format UI spec results",
-    prompt="UI specification generated at .devforgeai/specs/ui/{SPEC_ID}-ui-spec.md
+    prompt="UI specification generated at devforgeai/specs/ui/{SPEC_ID}-ui-spec.md
 
             Format results and generate user-friendly display.
 

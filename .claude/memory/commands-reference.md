@@ -80,8 +80,8 @@ Read(file_path="src/claude/skills/devforgeai-ideation/references/user-input-guid
 ```
 
 **Output:**
-- Epic document(s) in `.ai_docs/Epics/`
-- Requirements spec in `.devforgeai/specs/requirements/`
+- Epic document(s) in `devforgeai/specs/Epics/`
+- Requirements spec in `devforgeai/specs/requirements/`
 - Complexity assessment (0-60 score, architecture tier)
 - Technology recommendations by tier
 
@@ -200,7 +200,7 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 ```
 
 **Output:**
-- Epic file in `.ai_docs/Epics/{EPIC-ID}.epic.md`
+- Epic file in `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
 - Feature list with descriptions (3-8 features)
 - Technical assessment (complexity, risks, prerequisites)
 - Optional requirements specification
@@ -294,7 +294,7 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 ```
 
 **Output:**
-- Sprint file in `.ai_docs/Sprints/Sprint-{N}.md`
+- Sprint file in `devforgeai/specs/Sprints/Sprint-{N}.md`
 - Stories updated to "Ready for Dev" status
 - Sprint references added to story files
 - Workflow history entries
@@ -345,7 +345,7 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 
 **For story creation:** Feature descriptions must be specific and include business context, success criteria, and any constraints. Avoid generic statements; instead describe the complete user workflow and business value.
 
-**File:** `.ai_docs/Stories/` (stories reference context from parent epic and project tech-stack)
+**File:** `devforgeai/specs/Stories/` (stories reference context from parent epic and project tech-stack)
 
 **Load command:**
 ```
@@ -358,7 +358,7 @@ Read(file_path="src/claude/memory/effective-prompting-guide.md")
 ```
 
 **Output (Single):**
-- Story file in `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- Story file in `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - YAML frontmatter with metadata
 - User story (As a/I want/So that format)
 - 3+ testable acceptance criteria (Given/When/Then)
@@ -573,7 +573,7 @@ Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-
 ```
 
 **Output:**
-- UI component code in `.devforgeai/specs/ui/`
+- UI component code in `devforgeai/specs/ui/`
 - UI-SPEC-SUMMARY.md
 - Story updated with UI references (if story mode)
 
@@ -653,7 +653,7 @@ Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 ```
 
 **Example effective input:**
@@ -800,7 +800,7 @@ Read(file_path=".ai_docs/Stories/STORY-042.story.md")
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 ```
 
 **Example effective input:**
@@ -810,7 +810,7 @@ Read(file_path=".ai_docs/Stories/STORY-042.story.md")
 ```
 
 **Output:**
-- QA report in `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+- QA report in `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 - Coverage report
 - **Story status updated to "QA Approved" (deep mode pass only - NEW 2025-11-06)**
 - **QA Validation History section added to story file (deep mode pass only - NEW 2025-11-06)**
@@ -858,11 +858,11 @@ Read(file_path=".ai_docs/Stories/STORY-042.story.md")
 
 **For release operations:** Provide story ID and environment (staging/production). Story must be "QA Approved" status. The skill will handle deployment validation, smoke tests, and rollback if needed. Environment selection determines deployment target and validation level.
 
-**File:** Story file (deployment specs) and deployment configuration (`.devforgeai/deployment/`)
+**File:** Story file (deployment specs) and deployment configuration (`devforgeai/deployment/`)
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 ```
 
 **Example effective input:**
@@ -911,7 +911,7 @@ Read(file_path=".ai_docs/Stories/STORY-042.story.md")
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-042.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 ```
 
 **Example effective input:**
@@ -981,7 +981,7 @@ $3 = Third argument (if needed)
 
 **@file references with $1:**
 ```
-@.ai_docs/Stories/$1.story.md  ✅ Correct
+@devforgeai/specs/Stories/$1.story.md  ✅ Correct
 ```
 
 ### What Doesn't Work
@@ -995,7 +995,7 @@ $3 = Third argument (if needed)
 
 **@file with $ARGUMENTS:**
 ```
-@.ai_docs/Stories/$ARGUMENTS.story.md  ❌ Wrong (includes all args/flags in filename)
+@devforgeai/specs/Stories/$ARGUMENTS.story.md  ❌ Wrong (includes all args/flags in filename)
 ```
 
 **Skill invocations with arguments:**
@@ -1009,7 +1009,7 @@ Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept param
 
 ```
 # Step 1: Load context (via @file or explicit text)
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Step 2: State parameters explicitly
 **Validation Mode:** deep
@@ -1077,7 +1077,7 @@ All command files are in `.claude/commands/`:
 ```
 
 **Output:**
-- Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
+- Audit report in `devforgeai/qa/deferral-audit-{timestamp}.md`
 - Resolvable deferrals (can be attempted now)
 - Valid deferrals (blockers still present)
 - Invalid deferrals (missing targets, circular chains)
@@ -1171,7 +1171,7 @@ This command exemplifies lean orchestration for simple tasks:
 3. Perform 5 Whys analysis (progressive questioning to root cause)
 4. Collect evidence with file excerpts
 5. Generate recommendations (CRITICAL → LOW priority)
-6. Create RCA document in .devforgeai/RCA/
+6. Create RCA document in devforgeai/RCA/
 7. Display completion report
 
 **Example:**
@@ -1183,7 +1183,7 @@ This command exemplifies lean orchestration for simple tasks:
 ```
 
 **Output:**
-- RCA document in `.devforgeai/RCA/RCA-XXX-{slug}.md`
+- RCA document in `devforgeai/RCA/RCA-XXX-{slug}.md`
 - Comprehensive 5 Whys analysis with evidence
 - Files examined (with excerpts and line numbers)
 - Prioritized recommendations (CRITICAL/HIGH/MEDIUM/LOW)
@@ -1207,7 +1207,7 @@ This command exemplifies lean orchestration for simple tasks:
 - Phase 2: 5 Whys Analysis (progressive questioning with evidence)
 - Phase 3: Evidence Collection (organize excerpts, validate context)
 - Phase 4: Recommendation Generation (prioritized, exact implementation)
-- Phase 5: RCA Document Creation (auto-generate in .devforgeai/RCA/)
+- Phase 5: RCA Document Creation (auto-generate in devforgeai/RCA/)
 - Phase 6: Validation & Self-Check (verify completeness, self-heal)
 - Phase 7: Completion Report (return summary to command)
 
@@ -1288,7 +1288,7 @@ Session 1:
   ID: 83bfea53-ae2b-4e85-b755-33acd22892a4
   Project: /mnt/c/Projects/DevForgeAI2
   Last Active: 2024-11-18 14:32:44
-  Last Message: '.ai_docs/Epics/EPIC-010-parallel...'
+  Last Message: 'devforgeai/specs/Epics/EPIC-010-parallel...'
 
 [... more sessions ...]
 

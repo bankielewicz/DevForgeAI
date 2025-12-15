@@ -44,7 +44,7 @@ Create a systematic Root Cause Analysis (RCA) capability within DevForgeAI that 
 
 - [ ] `/rca` command follows lean orchestration pattern (< 15K chars)
 - [ ] `devforgeai-rca` skill implements complete 5 Whys workflow
-- [ ] Auto-generates RCA documents in `.devforgeai/RCA/` directory
+- [ ] Auto-generates RCA documents in `devforgeai/RCA/` directory
 - [ ] Provides exact implementation code/text in recommendations
 - [ ] Integrated with DevForgeAI framework (context files awareness)
 - [ ] 30+ test cases covering all RCA scenarios
@@ -62,7 +62,7 @@ Create a systematic Root Cause Analysis (RCA) capability within DevForgeAI that 
 
 **Confirmed preferences:**
 - ✅ Auto-read relevant files during RCA
-- ✅ Create RCA document automatically in `.devforgeai/RCA/`
+- ✅ Create RCA document automatically in `devforgeai/RCA/`
 - ✅ Comprehensive evidence section with file excerpts
 - ✅ Include exact implementation code/text in recommendations
 
@@ -80,7 +80,7 @@ Create a systematic Root Cause Analysis (RCA) capability within DevForgeAI that 
 - Must follow quality gates and workflow states
 
 **Existing RCA Patterns:**
-- 8 existing RCA documents in `.devforgeai/RCA/`
+- 8 existing RCA documents in `devforgeai/RCA/`
 - Follows 5 Whys methodology (established pattern)
 - Sequential numbering (RCA-001 through RCA-009)
 - Includes: Timeline, 5 Whys, Evidence, Recommendations, Implementation
@@ -152,7 +152,7 @@ User Input: "/rca [issue-description] [severity]"
    ↓
 7. Skill generates recommendations (CRITICAL → LOW priority)
    ↓
-8. Skill creates RCA document in .devforgeai/RCA/RCA-XXX-title.md
+8. Skill creates RCA document in devforgeai/RCA/RCA-XXX-title.md
    ↓
 9. Skill returns: RCA number, title, severity, recommendations summary
    ↓
@@ -590,9 +590,9 @@ description: Performs Root Cause Analysis (RCA) with 5 Whys methodology for DevF
   - Skills: `.claude/skills/{skill}/SKILL.md`
   - Commands: `.claude/commands/{command}.md`
   - Subagents: `.claude/agents/{subagent}.md`
-  - Context files: `.devforgeai/context/*.md` (if constraint violation)
-  - Story files: `.ai_docs/Stories/{STORY-ID}.story.md` (if story-related)
-  - Related RCAs: `.devforgeai/RCA/RCA-*.md` (pattern matching)
+  - Context files: `devforgeai/specs/context/*.md` (if constraint violation)
+  - Story files: `devforgeai/specs/Stories/{STORY-ID}.story.md` (if story-related)
+  - Related RCAs: `devforgeai/RCA/RCA-*.md` (pattern matching)
 - Store file paths and key excerpts for evidence section
 
 **Phase 2: 5 Whys Analysis**
@@ -643,7 +643,7 @@ description: Performs Root Cause Analysis (RCA) with 5 Whys methodology for DevF
   - Implementation checklist
   - Prevention strategy
   - Related RCAs
-- Write to `.devforgeai/RCA/RCA-{NUMBER}-{slug}.md`
+- Write to `devforgeai/RCA/RCA-{NUMBER}-{slug}.md`
 
 **Phase 6: Validation & Self-Check**
 - Verify RCA document completeness:
@@ -774,7 +774,7 @@ Skill(command="devforgeai-rca")
 3. Perform 5 Whys analysis
 4. Collect evidence with file excerpts
 5. Generate recommendations (CRITICAL → LOW)
-6. Create RCA document in .devforgeai/RCA/
+6. Create RCA document in devforgeai/RCA/
 7. Display results
 
 **Example:**
@@ -784,7 +784,7 @@ Skill(command="devforgeai-rca")
 ```
 
 **Output:**
-- RCA document in `.devforgeai/RCA/RCA-XXX-title.md`
+- RCA document in `devforgeai/RCA/RCA-XXX-title.md`
 - Structured recommendations with exact implementation
 - Evidence with file excerpts and line numbers
 - Implementation checklist
@@ -824,7 +824,7 @@ Skill(command="devforgeai-rca")
 - Framework-aware analysis
 
 **Output:**
-- `.devforgeai/RCA/RCA-XXX-title.md`
+- `devforgeai/RCA/RCA-XXX-title.md`
 - Comprehensive evidence section
 - Prioritized recommendations
 - Implementation checklist
@@ -856,7 +856,7 @@ When you encounter a framework breakdown, use the RCA capability:
 2. **5 Whys Analysis** - Progressive questioning to root cause
 3. **Evidence Collection** - File excerpts, line numbers, quotes
 4. **Recommendations** - Exact implementation (CRITICAL → LOW priority)
-5. **RCA Document** - Created in `.devforgeai/RCA/RCA-XXX-title.md`
+5. **RCA Document** - Created in `devforgeai/RCA/RCA-XXX-title.md`
 
 ### Output Format
 
@@ -953,7 +953,7 @@ When you encounter a framework breakdown, use the RCA capability:
 
 **Test 8: Context File Validation**
 - Issue: "tech-stack.md constraint violated"
-- Expected: Auto-reads `.devforgeai/context/tech-stack.md`
+- Expected: Auto-reads `devforgeai/specs/context/tech-stack.md`
 - Validation: Evidence section validates context files
 
 **Test 9: Recommendation Prioritization**
@@ -1007,7 +1007,7 @@ When you encounter a framework breakdown, use the RCA capability:
 - Validation: RCA document renders properly
 
 **Test 19: No Existing RCAs**
-- Precondition: Empty .devforgeai/RCA/ directory
+- Precondition: Empty devforgeai/RCA/ directory
 - Expected: Creates RCA-001
 - Validation: Numbering starts at 001
 
@@ -1056,7 +1056,7 @@ When you encounter a framework breakdown, use the RCA capability:
 - [ ] `CLAUDE.md` (RCA Protocol section added)
 
 **RCA output directory:**
-- [ ] `.devforgeai/RCA/` directory exists
+- [ ] `devforgeai/RCA/` directory exists
 - [ ] Permissions allow file creation
 
 #### 7.2: Fresh Session Test
@@ -1064,7 +1064,7 @@ When you encounter a framework breakdown, use the RCA capability:
 1. Restart Claude Code Terminal
 2. Run: `/help` → Verify `/rca` appears in command list
 3. Run: `/rca "test issue"` → Verify complete workflow
-4. Verify: RCA document created in `.devforgeai/RCA/`
+4. Verify: RCA document created in `devforgeai/RCA/`
 5. Verify: All sections populated
 6. Verify: Recommendations have exact implementation
 
@@ -1076,7 +1076,7 @@ git add .claude/commands/rca.md
 git add .claude/memory/commands-reference.md
 git add .claude/memory/skills-reference.md
 git add CLAUDE.md
-git add .devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md
+git add devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md
 
 git commit -m "$(cat <<'EOF'
 feat(rca): Add RCA command and skill for framework breakdown analysis
@@ -1094,7 +1094,7 @@ Features:
 - Comprehensive evidence collection (file excerpts, line numbers)
 - Prioritized recommendations (CRITICAL → LOW)
 - Exact implementation code/text
-- Auto-generates RCA documents in .devforgeai/RCA/
+- Auto-generates RCA documents in devforgeai/RCA/
 
 Testing:
 - 20+ test cases (unit, integration, regression, edge cases)
@@ -1221,7 +1221,7 @@ EOF
 
 CLAUDE.md (RCA Protocol section added)
 
-.devforgeai/
+devforgeai/
 ├── RCA/ (output directory)
 │   ├── RCA-001-*.md
 │   ├── RCA-002-*.md
@@ -1406,7 +1406,7 @@ Use this checklist to track progress. A new Claude Code session can read this fi
 
 **To continue implementation:**
 
-1. **Read this plan:** `@.devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md`
+1. **Read this plan:** `@devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md`
 2. **Check progress:** Review "Progress Tracking" section above
 3. **Find incomplete phase:** Look for unchecked boxes
 4. **Resume from that phase:** Follow phase objectives and actions
@@ -1517,7 +1517,7 @@ When `/dev STORY-042` was executed, the development workflow did not validate th
 Validate all 6 context files exist before proceeding:
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 Expected: 6 files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
 
@@ -1622,8 +1622,8 @@ Phase 1: Auto-Read Relevant Files
     Read: .claude/skills/{skill}/SKILL.md
     Read: .claude/commands/{command}.md
     Read: .claude/agents/{subagent}.md
-    Read: .devforgeai/context/*.md (if constraint issue)
-    Read: .ai_docs/Stories/{STORY-ID}.story.md (if story-related)
+    Read: devforgeai/specs/context/*.md (if constraint issue)
+    Read: devforgeai/specs/Stories/{STORY-ID}.story.md (if story-related)
   Store: file_paths[], excerpts[]
 
 Phase 2: 5 Whys Analysis
@@ -1659,7 +1659,7 @@ Phase 5: RCA Document Creation
   Read: rca-writing-guide.md
   Read: rca-document-template.md
   Populate: template with all sections
-  Write: .devforgeai/RCA/RCA-{rca_number}-{slug}.md
+  Write: devforgeai/RCA/RCA-{rca_number}-{slug}.md
 
 Phase 6: Validation & Self-Check
   Verify:

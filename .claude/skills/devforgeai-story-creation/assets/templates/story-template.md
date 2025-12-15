@@ -39,7 +39,7 @@
 #     - Clarifies AC headers are static definitions
 #     - All future stories (58+) benefit from clear format
 #   References:
-#     - RCA-012: .devforgeai/RCA/RCA-012/
+#     - RCA-012: devforgeai/RCA/RCA-012/
 #     - Root cause: Vestigial checkboxes from pre-RCA-011 design
 #
 # v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)
@@ -52,7 +52,7 @@
 #     - Test generation accuracy improved (85% → 95%+)
 #     - Validation automation enabled
 #   References:
-#     - .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+#     - devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 #
 # v1.0 (Initial) - Original Template
 #   Features:
@@ -65,7 +65,7 @@
 #   v1.0 → v2.0: Gradual (on story update)
 #   v2.0 → v2.1: Optional script available
 #     Location: .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh
-#     Documentation: .devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md
+#     Documentation: devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md
 #
 # Backward Compatibility:
 #   All versions (v1.0, v2.0, v2.1) supported by framework
@@ -302,7 +302,7 @@ technical_specification:
 5. All test requirements start with "Test: " prefix
 6. Metrics must be measurable (include numbers, thresholds, or ranges)
 
-**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
+**See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
 
 ---
 

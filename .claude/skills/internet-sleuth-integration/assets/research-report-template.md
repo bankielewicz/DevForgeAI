@@ -49,8 +49,8 @@ tags: [string] | null              # Keywords (e.g., ["authentication", "oauth2"
 
 **Validation Rules:**
 - `research_id` must match pattern `RESEARCH-[0-9]{3}` (e.g., RESEARCH-001, RESEARCH-042)
-- `epic_id` must exist in `.ai_docs/Epics/` if not null
-- `story_id` must exist in `.ai_docs/Stories/` if not null
+- `epic_id` must exist in `devforgeai/specs/Epics/` if not null
+- `story_id` must exist in `devforgeai/specs/Stories/` if not null
 - `workflow_state` must be one of 11 valid DevForgeAI states
 - `research_mode` must be one of 5 valid modes
 - `timestamp` must be valid ISO 8601 datetime
@@ -556,7 +556,7 @@ class SQLAlchemyUserRepository(UserRepository):
 - Framework compliance: ✅ (validated against 6 context files)
 
 **Next Steps:**
-1. Create ADR in `.devforgeai/adrs/ADR-XXX-adopt-cognito.md`
+1. Create ADR in `devforgeai/specs/adrs/ADR-XXX-adopt-cognito.md`
 2. Document decision context (why this decision now)
 3. Record decision (AWS Cognito selected)
 4. Document alternatives considered (Auth0, Firebase, Supertokens)
@@ -591,7 +591,7 @@ class SQLAlchemyUserRepository(UserRepository):
 ---
 
 **Report Generated:** YYYY-MM-DD HH:MM:SS
-**Report Location:** .devforgeai/research/[feasibility|examples|shared]/[filename].md
+**Report Location:** devforgeai/specs/research/[feasibility|examples|shared]/[filename].md
 **Research ID:** RESEARCH-NNN
 **Version:** 2.0 (template version)
 ```
@@ -604,7 +604,7 @@ Before finalizing report, validate:
 
 - [ ] YAML frontmatter complete (all required fields present)
 - [ ] research_id follows pattern `RESEARCH-[0-9]{3}`
-- [ ] epic_id/story_id exist in .ai_docs/ (if not null)
+- [ ] epic_id/story_id exist in devforgeai/specs/ (if not null)
 - [ ] All 9 sections present (Executive Summary → ADR Readiness)
 - [ ] Executive Summary ≤3 sentences
 - [ ] Research Scope has 3-5 questions

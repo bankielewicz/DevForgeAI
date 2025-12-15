@@ -124,8 +124,8 @@ test_handles_current_repo_scale() {
     # NFR-001: Handle 15+ epics and 85+ stories
 
     local epic_count story_count
-    epic_count=$(ls "${PROJECT_ROOT}/.ai_docs/Epics/"*.epic.md 2>/dev/null | wc -l)
-    story_count=$(ls "${PROJECT_ROOT}/.ai_docs/Stories/"*.story.md 2>/dev/null | wc -l)
+    epic_count=$(ls "${PROJECT_ROOT}/devforgeai/specs/Epics/"*.epic.md 2>/dev/null | wc -l)
+    story_count=$(ls "${PROJECT_ROOT}/devforgeai/specs/Stories/"*.story.md 2>/dev/null | wc -l)
 
     echo "  Repository has ${epic_count} epics and ${story_count} stories"
 

@@ -58,7 +58,7 @@ devforgeai --version
 
 **Usage:**
 ```bash
-devforgeai validate-dod .ai_docs/Stories/STORY-001.story.md
+devforgeai validate-dod devforgeai/specs/Stories/STORY-001.story.md
 
 # JSON output
 devforgeai validate-dod STORY-001.story.md --format=json
@@ -146,7 +146,7 @@ bash .claude/scripts/install_hooks.sh
 **Workflow:**
 ```bash
 # Developer makes changes
-git add .ai_docs/Stories/STORY-042.story.md
+git add devforgeai/specs/Stories/STORY-042.story.md
 
 # Attempt commit
 git commit -m "feat: Implement feature"
@@ -154,7 +154,7 @@ git commit -m "feat: Implement feature"
 # Hook runs automatically:
 🔍 DevForgeAI Validators Running...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  📋 Validating: .ai_docs/Stories/STORY-042.story.md
+  📋 Validating: devforgeai/specs/Stories/STORY-042.story.md
      ✅ Passed
 ✅ All validators passed - commit allowed
 
@@ -434,8 +434,8 @@ See LICENSE.txt in DevForgeAI project root.
 ## Support
 
 **Issues:** https://github.com/bankielewicz/DevForgeAI/issues
-**Documentation:** See `.ai_docs/` in DevForgeAI repository
-**Research:** `.ai_docs/research/validation-approaches-research-2024-2025.md`
+**Documentation:** See `devforgeai/specs/` in DevForgeAI repository
+**Research:** `devforgeai/specs/research/validation-approaches-research-2024-2025.md`
 
 ---
 

@@ -53,7 +53,7 @@ IF SPRINT_NAME is empty:
 **Discover available epics:**
 
 ```
-Glob(pattern=".ai_docs/Epics/*.epic.md")
+Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 
 IF epics found:
     Read each epic's YAML frontmatter (id, title, status)
@@ -81,7 +81,7 @@ ELSE:
 **Find available Backlog stories:**
 
 ```
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 
 backlog_stories = []
 
@@ -260,7 +260,7 @@ Skill(command="devforgeai-orchestration")
    - Discover next sprint number
    - Calculate capacity and end date
    - Generate sprint document (YAML + markdown)
-   - Write to .ai_docs/Sprints/Sprint-N.md
+   - Write to devforgeai/specs/Sprints/Sprint-N.md
    - Update story statuses: Backlog → Ready for Dev
    - Add sprint references to stories
    - Add workflow history entries
@@ -298,7 +298,7 @@ Stories Added:
   ✓ STORY-002: Title (8 pts) - HIGH
   ...
 
-Sprint File: .ai_docs/Sprints/Sprint-N.md
+Sprint File: devforgeai/specs/Sprints/Sprint-N.md
 
 Next Steps:
   1. Review sprint goals
@@ -321,7 +321,7 @@ IF check-hooks exit == 0:
     Execute: devforgeai-validate invoke-hooks --operation=create-sprint --sprint-name="${SPRINT_NAME}" --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}
 
     IF invoke-hooks fails:
-        Log to: .devforgeai/feedback/logs/hook-errors.log
+        Log to: devforgeai/feedback/logs/hook-errors.log
         Display: "⚠️ Feedback collection failed (sprint creation succeeded)"
 ```
 
@@ -390,7 +390,7 @@ IF skill returns error:
 
 ## Success Criteria
 
-- [x] Sprint file created in `.ai_docs/Sprints/Sprint-N.md`
+- [x] Sprint file created in `devforgeai/specs/Sprints/Sprint-N.md`
 - [x] YAML frontmatter valid and complete
 - [x] Selected stories linked to sprint
 - [x] Story statuses updated to "Ready for Dev"
@@ -407,7 +407,7 @@ IF skill returns error:
 
 **Prerequisites:**
 - At least 1 story with status = "Backlog"
-- (Optional) Epic exists in `.ai_docs/Epics/`
+- (Optional) Epic exists in `devforgeai/specs/Epics/`
 - DevForgeAI context files exist (6 context files)
 
 **Invokes:**
@@ -417,7 +417,7 @@ IF skill returns error:
 - `sprint-planner` subagent (isolated context)
 
 **Creates:**
-- Sprint file: `.ai_docs/Sprints/Sprint-N.md`
+- Sprint file: `devforgeai/specs/Sprints/Sprint-N.md`
 
 **Updates:**
 - Story files: status, sprint reference, workflow history

@@ -444,7 +444,7 @@ All subagents generated successfully with proper formatting and validation. No b
 
 1. **Monitor Token Usage**: Track actual consumption vs targets during real-world usage
 2. **Iterative Refinement**: Collect feedback and refine system prompts as needed
-3. **Context File Dependency**: Ensure `.devforgeai/context/` files exist before invoking subagents that require them
+3. **Context File Dependency**: Ensure `devforgeai/specs/context/` files exist before invoking subagents that require them
 4. **Test Coverage**: Write integration tests for skill → subagent invocation patterns
 5. **User Training**: Create examples and tutorials for team members
 6. **Performance Metrics**: Establish baselines for subagent execution time and quality
@@ -522,6 +522,6 @@ Phase 2 of the DevForgeAI framework has been successfully completed. All 14 suba
 ---
 
 **Generated**: 2025-10-31
-**Requirements**: `.devforgeai/specs/requirements/phase-2-subagents-requirements.md`
+**Requirements**: `devforgeai/specs/requirements/phase-2-subagents-requirements.md`
 **Validation**: 100% PASSED
 **Framework Status**: Phase 2 Complete 🎉

@@ -153,7 +153,7 @@
 **Verification:**
 ```bash
 # Check production stories
-grep -l "format_version.*2\.0" .ai_docs/Stories/*.story.md
+grep -l "format_version.*2\.0" devforgeai/specs/Stories/*.story.md
 # Result: 0 files (confirmed no migration)
 ```
 
@@ -664,6 +664,6 @@ grep -l "format_version.*2\.0" .ai_docs/Stories/*.story.md
 
 ---
 
-**See complete audit:** `.devforgeai/specs/enhancements/PHASE2-AUDIT-REPORT.md`
+**See complete audit:** `devforgeai/specs/enhancements/PHASE2-AUDIT-REPORT.md`
 
 **Bottom line:** Agent built excellent tools but didn't execute the migration work. For your use case (implemented stories), this is actually fine. Migration is optional unless you proceed to Phase 3.

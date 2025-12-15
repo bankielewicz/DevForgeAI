@@ -39,7 +39,7 @@ All prompt enhancements and validation checkpoints have been added to prevent th
 - ✅ **NEW Step 2.1.5 (lines 240-420):** File creation validation checkpoint
   - 13 prohibited patterns (file creation indicators)
   - Violation detection logic
-  - Violation logging to `.devforgeai/logs/rca-007-violations.log`
+  - Violation logging to `devforgeai/logs/rca-007-violations.log`
   - Automatic recovery (re-invoke with STRICT MODE)
   - HALT if second attempt also fails
 
@@ -73,8 +73,8 @@ All prompt enhancements and validation checkpoints have been added to prevent th
 ### 3. Violation Logging Infrastructure
 
 **Created:**
-- ✅ Directory: `.devforgeai/logs/`
-- ✅ Log file: `.devforgeai/logs/rca-007-violations.log` (411 bytes)
+- ✅ Directory: `devforgeai/logs/`
+- ✅ Log file: `devforgeai/logs/rca-007-violations.log` (411 bytes)
 
 **Log format:**
 ```
@@ -177,7 +177,7 @@ file_creation_patterns = [
 
 **First Violation:**
 1. Detect patterns in subagent output
-2. Log violation to `.devforgeai/logs/rca-007-violations.log`
+2. Log violation to `devforgeai/logs/rca-007-violations.log`
 3. Display warning to skill
 4. Re-invoke with STRICT MODE prompt
 5. Re-validate second attempt
@@ -214,7 +214,7 @@ file_creation_patterns = [
 
 ### Created Files (3)
 
-1. `.devforgeai/logs/rca-007-violations.log` (411 bytes)
+1. `devforgeai/logs/rca-007-violations.log` (411 bytes)
    - Purpose: Track violations
    - Format: [VIOLATION DETECTED] blocks
    - Expected state: Mostly empty (violations should be rare after fix)
@@ -252,7 +252,7 @@ file_creation_patterns = [
 - ✅ HALT logic for repeated violations
 
 **Infrastructure created:**
-- ✅ `.devforgeai/logs/` directory exists
+- ✅ `devforgeai/logs/` directory exists
 - ✅ `rca-007-violations.log` file created
 - ✅ Backups created for both modified files
 
@@ -348,16 +348,16 @@ Skill Flow:
 **Verification:**
 ```bash
 # Count files created
-ls .ai_docs/Stories/STORY-*.story.md | tail -1  # Most recent story
+ls devforgeai/specs/Stories/STORY-*.story.md | tail -1  # Most recent story
 
 # Check for extra files (should be NONE)
-ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null  # Should not exist
-ls .ai_docs/Stories/STORY-*-QUICK-START.md 2>/dev/null  # Should not exist
-ls .ai_docs/Stories/STORY-*-VALIDATION-CHECKLIST.md 2>/dev/null  # Should not exist
-ls .ai_docs/Stories/STORY-*-FILE-INDEX.md 2>/dev/null  # Should not exist
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null  # Should not exist
+ls devforgeai/specs/Stories/STORY-*-QUICK-START.md 2>/dev/null  # Should not exist
+ls devforgeai/specs/Stories/STORY-*-VALIDATION-CHECKLIST.md 2>/dev/null  # Should not exist
+ls devforgeai/specs/Stories/STORY-*-FILE-INDEX.md 2>/dev/null  # Should not exist
 
 # Check violation log (should be empty)
-cat .devforgeai/logs/rca-007-violations.log
+cat devforgeai/logs/rca-007-violations.log
 # Expected: Only header, no violations
 ```
 
@@ -389,11 +389,11 @@ cat .devforgeai/logs/rca-007-violations.log
 **Verification:**
 ```bash
 # Check violation log populated
-grep "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
+grep "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
 # Expected: 1 entry
 
 # Check recovery logged
-grep "VIOLATION RECOVERED" .devforgeai/logs/rca-007-violations.log
+grep "VIOLATION RECOVERED" devforgeai/logs/rca-007-violations.log
 # Expected: 1 entry if recovery succeeded
 ```
 
@@ -416,14 +416,14 @@ grep "VIOLATION RECOVERED" .devforgeai/logs/rca-007-violations.log
 **Verification:**
 ```bash
 # Count files
-ls .ai_docs/Stories/STORY-*.story.md | wc -l  # Should increase by 1
+ls devforgeai/specs/Stories/STORY-*.story.md | wc -l  # Should increase by 1
 
 # Check for api-spec.yaml file (should NOT exist)
-ls .devforgeai/specs/api/ 2>/dev/null  # Should not exist
-ls .ai_docs/Stories/*-api-spec.yaml 2>/dev/null  # Should not exist
+ls devforgeai/specs/api/ 2>/dev/null  # Should not exist
+ls devforgeai/specs/Stories/*-api-spec.yaml 2>/dev/null  # Should not exist
 
 # Check story file contains embedded YAML
-story_file=$(ls -t .ai_docs/Stories/STORY-*.story.md | head -1)
+story_file=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 grep -A 20 "### API Contract" "$story_file"
 # Expected: Contains ```yaml block with OpenAPI spec
 ```
@@ -480,7 +480,7 @@ cp .claude/skills/devforgeai-story-creation/references/technical-specification-c
    .claude/skills/devforgeai-story-creation/references/technical-specification-creation.md
 
 # Delete violation log (optional)
-rm .devforgeai/logs/rca-007-violations.log
+rm devforgeai/logs/rca-007-violations.log
 
 # Restart Claude Code Terminal
 # Original behavior restored
@@ -589,15 +589,15 @@ rm .devforgeai/logs/rca-007-violations.log
 
 ```bash
 # Count extra files
-extra=$(find .ai_docs/Stories -name "STORY-*-SUMMARY.md" -o -name "STORY-*-QUICK-START.md" 2>/dev/null | wc -l)
+extra=$(find devforgeai/specs/Stories -name "STORY-*-SUMMARY.md" -o -name "STORY-*-QUICK-START.md" 2>/dev/null | wc -l)
 echo "Extra files created today: $extra (target: 0)"
 
 # Check violation log size
-log_lines=$(wc -l < .devforgeai/logs/rca-007-violations.log)
+log_lines=$(wc -l < devforgeai/logs/rca-007-violations.log)
 echo "Violation log lines: $log_lines (target: <20 - just header)"
 
 # Count violations
-violations=$(grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+violations=$(grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
 echo "Violations: $violations (target: 0)"
 ```
 
@@ -605,17 +605,17 @@ echo "Violations: $violations (target: 0)"
 
 ```bash
 # Stories created this week
-story_count=$(find .ai_docs/Stories -name "STORY-*.story.md" -mtime -7 | wc -l)
+story_count=$(find devforgeai/specs/Stories -name "STORY-*.story.md" -mtime -7 | wc -l)
 echo "Stories created this week: $story_count"
 
 # Compliance rate
-extra_files=$(find .ai_docs/Stories -name "STORY-*-SUMMARY.md" -mtime -7 2>/dev/null | wc -l)
+extra_files=$(find devforgeai/specs/Stories -name "STORY-*-SUMMARY.md" -mtime -7 2>/dev/null | wc -l)
 compliance_rate=$(( (story_count - extra_files) * 100 / story_count ))
 echo "Single-file compliance rate: ${compliance_rate}% (target: 100%)"
 
 # Recovery success rate (if violations occurred)
 if [ $violations -gt 0 ]; then
-    recoveries=$(grep -c "VIOLATION RECOVERED" .devforgeai/logs/rca-007-violations.log)
+    recoveries=$(grep -c "VIOLATION RECOVERED" devforgeai/logs/rca-007-violations.log)
     recovery_rate=$((recoveries * 100 / violations))
     echo "Recovery success rate: ${recovery_rate}% (target: 90%+)"
 fi
@@ -726,11 +726,11 @@ fi
 
 ## Related Documents
 
-- **RCA Analysis:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Executive Summary:** `.devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
-- **Testing Strategy:** `.devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
-- **Quick Reference:** `.devforgeai/specs/enhancements/RCA-007-QUICK-REFERENCE.md`
+- **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Executive Summary:** `devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
+- **Testing Strategy:** `devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
+- **Quick Reference:** `devforgeai/specs/enhancements/RCA-007-QUICK-REFERENCE.md`
 
 ---
 

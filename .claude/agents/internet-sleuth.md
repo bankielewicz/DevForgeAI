@@ -94,20 +94,20 @@ Total loaded: 700-1200 lines (vs 2,500+ without progressive loading)
 ### Phase 1: Context Validation
 
 **Step 1.1: Validate Framework Context**
-- Check if `.devforgeai/context/` directory exists (brownfield vs greenfield detection)
+- Check if `devforgeai/specs/context/` directory exists (brownfield vs greenfield detection)
 - If brownfield mode: Validate all 6 context files exist (tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md)
 - If any context files missing: HALT with error listing missing files and recommend `/create-context` command
 - If greenfield mode: Note "Operating in greenfield mode - context files not yet created" and proceed with recommendations for initial tech-stack.md
 
 **Step 1.2: Load Existing Context (Brownfield Only)**
-- Read `.devforgeai/context/tech-stack.md` to understand locked technologies
-- Read `.devforgeai/context/dependencies.md` for approved packages
-- Read `.devforgeai/context/anti-patterns.md` for forbidden patterns
-- Check `.devforgeai/adrs/` for existing technology decisions
+- Read `devforgeai/specs/context/tech-stack.md` to understand locked technologies
+- Read `devforgeai/specs/context/dependencies.md` for approved packages
+- Read `devforgeai/specs/context/anti-patterns.md` for forbidden patterns
+- Check `devforgeai/specs/adrs/` for existing technology decisions
 
 **Step 1.3: Validate Epic/Story Context (If Applicable)**
-- If invoked by orchestration: Read `.ai_docs/Epics/{EPIC-ID}.epic.md` for context
-- If invoked for specific story: Read `.ai_docs/Stories/{STORY-ID}.story.md` for requirements
+- If invoked by orchestration: Read `devforgeai/specs/Epics/{EPIC-ID}.epic.md` for context
+- If invoked for specific story: Read `devforgeai/specs/Stories/{STORY-ID}.story.md` for requirements
 - Extract technology scope and constraints from epic/story features
 
 **Step 1.4: Detect Workflow State (NEW - Phase 2 Integration)**
@@ -366,7 +366,7 @@ if len(low_violations) > 0:
 - **LOW:** Minor style deviation or informational note
 
 **Step 3.2: ADR Awareness Check**
-- Search `.devforgeai/adrs/` directory for existing ADRs on researched technology
+- Search `devforgeai/specs/adrs/` directory for existing ADRs on researched technology
 - If ADR exists: Reference it in recommendations
 - If no ADR exists and technology conflicts with tech-stack.md: Recommend creating `ADR-{NNN}-{technology-decision}.md`
 
@@ -380,8 +380,8 @@ if len(low_violations) > 0:
 
 **Step 3.3.2: Assign Research ID (Gap-Aware)**
 ```python
-# Find existing research IDs in .devforgeai/research/shared/
-existing_reports = Glob(pattern=".devforgeai/research/shared/RESEARCH-*.md")
+# Find existing research IDs in devforgeai/specs/research/shared/
+existing_reports = Glob(pattern="devforgeai/specs/research/shared/RESEARCH-*.md")
 existing_ids = [extract_id(report) for report in existing_reports]  # [1, 3, 5]
 
 # Fill gaps before incrementing
@@ -452,15 +452,15 @@ else:
 # Output location based on research scope
 if epic_id and not story_id:
     # Epic-level feasibility research
-    output_dir = ".devforgeai/research/feasibility/"
+    output_dir = "devforgeai/specs/research/feasibility/"
     filename = f"{epic_id}-{timestamp_slug}-research.md"
 elif story_id:
     # Story-specific research
-    output_dir = ".devforgeai/research/feasibility/"
+    output_dir = "devforgeai/specs/research/feasibility/"
     filename = f"{story_id}-{timestamp_slug}-research.md"
 else:
     # Multi-epic or general research
-    output_dir = ".devforgeai/research/shared/"
+    output_dir = "devforgeai/specs/research/shared/"
     filename = f"{research_id}-{topic_slug}.md"
 
 output_path = output_dir + filename
@@ -476,8 +476,8 @@ output_path = output_dir + filename
 ```python
 if epic_id or story_id:
     # Load epic/story file
-    epic_file = f".ai_docs/Epics/{epic_id}.epic.md" if epic_id else None
-    story_file = f".ai_docs/Stories/{story_id}.story.md" if story_id else None
+    epic_file = f"devforgeai/specs/Epics/{epic_id}.epic.md" if epic_id else None
+    story_file = f"devforgeai/specs/Stories/{story_id}.story.md" if story_id else None
 
     target_file = epic_file or story_file
     Read(file_path=target_file)
@@ -510,7 +510,7 @@ if epic_id or story_id:
 ### Phase 4: Output Generation
 
 **Step 4.1: Create Research Directory (If Needed)**
-- Check if `.devforgeai/research/` exists
+- Check if `devforgeai/specs/research/` exists
 - If not: Create directory with 755 permissions
 - Ensure directory is in `.gitignore` if temporary research
 
@@ -519,9 +519,9 @@ if epic_id or story_id:
 **Note:** Report generation now handled by Phase 3 Step 3.3 (template-based approach).
 
 **Output Locations:**
-- **Feasibility research (epic/story-specific):** `.devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
-- **General research (multi-epic):** `.devforgeai/research/shared/RESEARCH-{NNN}-{slug}.md`
-- **Example reports (documentation):** `.devforgeai/research/examples/{example-name}.md`
+- **Feasibility research (epic/story-specific):** `devforgeai/specs/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
+- **General research (multi-epic):** `devforgeai/specs/research/shared/RESEARCH-{NNN}-{slug}.md`
+- **Example reports (documentation):** `devforgeai/specs/research/examples/{example-name}.md`
 
 **Naming Conventions:**
 - Research ID: `RESEARCH-{NNN}` (gap-aware, 3-digit zero-padded)
@@ -558,38 +558,38 @@ The internet-sleuth agent provides comprehensive research capabilities including
 
 **Context Files Awareness:**
 
-1. **`.devforgeai/context/tech-stack.md`** (Locked Technologies)
+1. **`devforgeai/specs/context/tech-stack.md`** (Locked Technologies)
    - **Purpose:** Defines approved frameworks, libraries, and platforms
    - **When to check:** Before recommending any technology
    - **Action if conflict:** Flag "REQUIRES ADR" and present AskUserQuestion
 
-2. **`.devforgeai/context/source-tree.md`** (Project Structure)
+2. **`devforgeai/specs/context/source-tree.md`** (Project Structure)
    - **Purpose:** Defines directory organization and file naming conventions
    - **When to check:** When recommending project structure patterns
    - **Action if conflict:** Align recommendations with existing structure
 
-3. **`.devforgeai/context/dependencies.md`** (Approved Packages)
+3. **`devforgeai/specs/context/dependencies.md`** (Approved Packages)
    - **Purpose:** Lists approved dependencies with versions
    - **When to check:** Before recommending new packages
    - **Action if conflict:** Flag package and recommend ADR if beneficial
 
-4. **`.devforgeai/context/coding-standards.md`** (Code Patterns)
+4. **`devforgeai/specs/context/coding-standards.md`** (Code Patterns)
    - **Purpose:** Defines naming conventions, code style, patterns
    - **When to check:** When analyzing repository code patterns
    - **Action if aligned:** Highlight as matching existing standards
 
-5. **`.devforgeai/context/architecture-constraints.md`** (Layer Boundaries)
+5. **`devforgeai/specs/context/architecture-constraints.md`** (Layer Boundaries)
    - **Purpose:** Defines dependency rules, layer isolation, integration boundaries
    - **When to check:** When recommending architectural patterns
    - **Action if conflict:** Note violation and recommend alternatives
 
-6. **`.devforgeai/context/anti-patterns.md`** (Forbidden Patterns)
+6. **`devforgeai/specs/context/anti-patterns.md`** (Forbidden Patterns)
    - **Purpose:** Lists prohibited patterns (God Objects, SQL injection, hardcoded secrets, etc.)
    - **When to check:** During repository pattern extraction
    - **Action if found:** Explicitly mark as anti-pattern and recommend alternatives
 
 **ADR Integration:**
-- Check `.devforgeai/adrs/` directory before recommending technology changes
+- Check `devforgeai/specs/adrs/` directory before recommending technology changes
 - If ADR exists: Reference it in recommendations
 - If no ADR and technology conflicts: Recommend creating ADR with proper naming format
 
@@ -659,7 +659,7 @@ AskUserQuestion(
 - [ ] Multi-source validation (minimum 3 sources per finding)
 - [ ] Framework compliance validated (all 6 context files checked if brownfield)
 - [ ] Technology conflicts flagged and resolved (ADR or user decision)
-- [ ] Research report generated in appropriate `.devforgeai/research/` subdirectory
+- [ ] Research report generated in appropriate `devforgeai/specs/research/` subdirectory
 - [ ] Repository archaeology findings include code examples with file paths
 - [ ] Token usage < 50K per research operation (updated from 40K)
 - [ ] Temporary repositories cleaned up (older than 7 days removed)
@@ -692,7 +692,7 @@ tmp/repos/
 
 **Research Output Directory:**
 ```bash
-.devforgeai/research/
+devforgeai/specs/research/
 ├── tech-eval-react-patterns-2025-11-17.md
 ├── pattern-analysis-next-js-2025-11-17.md
 ├── competitive-vue-vs-react-2025-11-17.md
@@ -703,7 +703,7 @@ tmp/repos/
 - Maintain organized repository structure by research category
 - Clean repositories older than 7 days to manage disk space
 - Create summary reports before cleanup to preserve insights
-- Archive critical findings in permanent research documentation (`.devforgeai/research/`)
+- Archive critical findings in permanent research documentation (`devforgeai/specs/research/`)
 - Copy key code examples to research reports before repository removal
 
 **Filename Conventions:**
@@ -719,7 +719,7 @@ tmp/repos/
 **Missing Context Files (Brownfield):**
 ```
 Error: Context validation failed
-Missing files: .devforgeai/context/tech-stack.md, .devforgeai/context/dependencies.md
+Missing files: devforgeai/specs/context/tech-stack.md, devforgeai/specs/context/dependencies.md
 
 Action: Agent halts with structured error
 Recommendation: Run /create-context command to generate missing context files before research
@@ -891,12 +891,12 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 ## References
 
 **DevForgeAI Context Files:**
-- `.devforgeai/context/tech-stack.md` - Locked technologies
-- `.devforgeai/context/source-tree.md` - Project structure
-- `.devforgeai/context/dependencies.md` - Approved packages
-- `.devforgeai/context/coding-standards.md` - Code patterns
-- `.devforgeai/context/architecture-constraints.md` - Layer boundaries
-- `.devforgeai/context/anti-patterns.md` - Forbidden patterns
+- `devforgeai/specs/context/tech-stack.md` - Locked technologies
+- `devforgeai/specs/context/source-tree.md` - Project structure
+- `devforgeai/specs/context/dependencies.md` - Approved packages
+- `devforgeai/specs/context/coding-standards.md` - Code patterns
+- `devforgeai/specs/context/architecture-constraints.md` - Layer boundaries
+- `devforgeai/specs/context/anti-patterns.md` - Forbidden patterns
 
 **Phase 2 Reference Files (Progressive Disclosure):**
 - `.claude/skills/internet-sleuth-integration/references/research-principles.md` (300 lines) - Always loaded
@@ -907,18 +907,18 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 - `.claude/skills/internet-sleuth-integration/assets/research-report-template.md` - Template
 
 **DevForgeAI ADRs:**
-- `.devforgeai/adrs/` - Architecture Decision Records
+- `devforgeai/specs/adrs/` - Architecture Decision Records
 
 **DevForgeAI Documentation:**
-- `.ai_docs/Epics/` - Epic documents with feature scope
-- `.ai_docs/Stories/` - Story documents with technical requirements
+- `devforgeai/specs/Epics/` - Epic documents with feature scope
+- `devforgeai/specs/Stories/` - Story documents with technical requirements
 
 **Research Outputs:**
-- `.devforgeai/research/feasibility/` - Epic/story feasibility research
-- `.devforgeai/research/shared/` - Multi-epic general research
-- `.devforgeai/research/examples/` - Example reports (documentation)
-- `.devforgeai/research/cache/` - Partial results (resumable operations)
-- `.devforgeai/research/logs/` - Research operation logs
+- `devforgeai/specs/research/feasibility/` - Epic/story feasibility research
+- `devforgeai/specs/research/shared/` - Multi-epic general research
+- `devforgeai/specs/research/examples/` - Example reports (documentation)
+- `devforgeai/specs/research/cache/` - Partial results (resumable operations)
+- `devforgeai/specs/research/logs/` - Research operation logs
 
 **Framework Integration:**
 - devforgeai-ideation skill (Phase 5: Feasibility Analysis) - Invokes for market research

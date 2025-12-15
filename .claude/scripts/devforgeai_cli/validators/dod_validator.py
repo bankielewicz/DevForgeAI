@@ -193,12 +193,12 @@ class DoDValidator:
 
     def _story_exists(self, story_id: str) -> bool:
         """Check if story file exists in project."""
-        story_files = list(self.project_root.glob(f".ai_docs/Stories/{story_id}*.story.md"))
+        story_files = list(self.project_root.glob(f"devforgeai/specs/Stories/{story_id}*.story.md"))
         return len(story_files) > 0
 
     def _adr_exists(self, adr_id: str) -> bool:
         """Check if ADR file exists in project."""
-        adr_files = list(self.project_root.glob(f".devforgeai/adrs/{adr_id}*.md"))
+        adr_files = list(self.project_root.glob(f"devforgeai/specs/adrs/{adr_id}*.md"))
         return len(adr_files) > 0
 
 

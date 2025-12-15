@@ -70,7 +70,7 @@ Development phase:
   dev_commits = count git commits OR file-based changes
 
 QA validation:
-  Read(file_path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md")
+  Read(file_path="devforgeai/qa/reports/{STORY_ID}-qa-report.md")
 
   qa_coverage_business_logic = extract business logic coverage %
   qa_coverage_application = extract application coverage %
@@ -119,7 +119,7 @@ FOR each checkpoint:
 ### Append Orchestration Summary
 
 ```
-Edit(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+Edit(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Find "## Workflow Status" section
 Prepend comprehensive orchestration summary:
@@ -212,7 +212,7 @@ new_string: "## Workflow Status\n\n{orchestration_summary}\n\n"
 ### Add Completion Metadata
 
 ```
-Edit(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+Edit(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Current YAML frontmatter:
 ---
@@ -454,7 +454,7 @@ Phases Skipped: 2 (Development, QA - already complete)
 ```
 IF story.epic != null:
   Read epic file:
-    Read(file_path=".ai_docs/Epics/{story.epic}.epic.md")
+    Read(file_path="devforgeai/specs/Epics/{story.epic}.epic.md")
 
   Count epic stories:
     Grep(pattern="STORY-[0-9]+", path=epic_file, output_mode="count")
@@ -485,7 +485,7 @@ IF story.epic != null:
 ```
 IF story.sprint != null:
   Read sprint file:
-    Read(file_path=".ai_docs/Sprints/{story.sprint}.md")
+    Read(file_path="devforgeai/specs/Sprints/{story.sprint}.md")
 
   Calculate sprint progress:
     total_points = sum all story points in sprint

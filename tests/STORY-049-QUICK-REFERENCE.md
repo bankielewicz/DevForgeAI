@@ -325,7 +325,7 @@ Use this checklist while implementing (Green phase):
 - `tests/STORY-049-QUICK-REFERENCE.md` - This file
 
 ### Related Story Files
-- `.ai_docs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md` - Story details
+- `devforgeai/specs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md` - Story details
 - `.claude/commands/create-context.md` - Command to refactor
 - `.devforgeai/protocols/hook-integration-pattern.md` - Pattern file (reference)
 

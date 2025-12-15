@@ -582,7 +582,7 @@ Issue: Specification file not found at expected path
 Display:
 "❌ Specification File Not Found
 
-Expected: .devforgeai/specs/ui/STORY-XXX-ui-spec.md
+Expected: devforgeai/specs/ui/STORY-XXX-ui-spec.md
 Status: Not found
 
 This may indicate:
@@ -592,7 +592,7 @@ This may indicate:
 
 Recovery:
 1. Regenerate specification: `/create-ui STORY-XXX`
-2. Check directory exists: mkdir -p .devforgeai/specs/ui/
+2. Check directory exists: mkdir -p devforgeai/specs/ui/
 3. Review skill output above for errors
 
 Try regenerating the UI specification."
@@ -647,7 +647,7 @@ Before marking specification as SUCCESS:
 - [ ] No files in root directory (violates source-tree.md)
 - [ ] Styles organized per source-tree.md
 - [ ] Tests in dedicated tests/ directory
-- [ ] Spec documentation in .devforgeai/specs/ui/
+- [ ] Spec documentation in devforgeai/specs/ui/
 
 ### Accessibility
 - [ ] WCAG level specified (A, AA, or AAA)

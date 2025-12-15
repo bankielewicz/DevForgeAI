@@ -983,7 +983,7 @@ When making architecture decisions during context file creation:
 ### Step 1: Read Existing Context (Brownfield)
 
 ```
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 ```
 
 Check if architecture pattern already defined.

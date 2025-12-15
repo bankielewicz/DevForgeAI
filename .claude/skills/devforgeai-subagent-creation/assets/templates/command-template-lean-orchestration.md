@@ -117,7 +117,7 @@ IF $1 empty OR invalid format:
 
 **Load context file (if needed):**
 \`\`\`
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 \`\`\`
 
 **Validate optional arguments:**
@@ -147,7 +147,7 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
   AskUserQuestion: [as above]
   EXTRACT STORY_ID from response OR exit
 
-Glob: .ai_docs/Stories/$1*.story.md
+Glob: devforgeai/specs/Stories/$1*.story.md
 IF no match found:
   AskUserQuestion:
     question: "Story '$1' not found. What should I do?"
@@ -340,7 +340,7 @@ Action: Check story ID format or run /list-stories
 ```markdown
 ### Error: Required File Not Found
 
-**Symptoms:** "Story file not found: .ai_docs/Stories/STORY-001.story.md"
+**Symptoms:** "Story file not found: devforgeai/specs/Stories/STORY-001.story.md"
 **Root Cause:** Story doesn't exist yet or wrong story ID
 **Resolution:** Create story first with `/create-story` or verify ID
 ```
@@ -436,7 +436,7 @@ Proceeding with validation...
 [Skill output...]
 
 Next steps:
-- Review QA report in .devforgeai/qa/reports/
+- Review QA report in devforgeai/qa/reports/
 - Run /release STORY-042 to deploy
 \`\`\`
 
@@ -470,9 +470,9 @@ Next steps:
 ## References
 
 **Lean Orchestration Pattern:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Core principles
-- `.devforgeai/protocols/refactoring-case-studies.md` - Real examples
-- `.devforgeai/protocols/command-budget-reference.md` - Budget monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Core principles
+- `devforgeai/protocols/refactoring-case-studies.md` - Real examples
+- `devforgeai/protocols/command-budget-reference.md` - Budget monitoring
 
 **Similar Commands (Reference Implementations):**
 - `.claude/commands/qa.md` - Best reference (48% budget, 295 lines)
@@ -649,7 +649,7 @@ Skill handles: Metrics calculation, complexity analysis, report generation
 ```markdown
 ### Phase 2: Parse QA Report
 
-Read: .devforgeai/qa/reports/STORY-001-qa-report.md
+Read: devforgeai/qa/reports/STORY-001-qa-report.md
 
 FOR each line in report:
   IF line contains "VIOLATION":
@@ -854,7 +854,7 @@ IF $1 empty OR invalid format:
   AskUserQuestion: "What story ID?"
   EXTRACT from response OR exit
 
-Glob: .ai_docs/Stories/$1*.story.md
+Glob: devforgeai/specs/Stories/$1*.story.md
 IF not found:
   AskUserQuestion: "Story not found. Try again or cancel?"
 
@@ -903,7 +903,7 @@ Is command >15,000 characters?
    - Behavior must be identical to original
 
 4. **Document refactoring**
-   - Create `.devforgeai/specs/enhancements/[COMMAND]-refactoring-analysis.md`
+   - Create `devforgeai/specs/enhancements/[COMMAND]-refactoring-analysis.md`
    - Explain what was moved and why
    - Record lessons learned
 
@@ -932,7 +932,7 @@ Before committing your command:
 - [ ] Character budget verified: `wc -c .claude/commands/command.md`
 - [ ] Updated .claude/memory/commands-reference.md
 - [ ] Updated .claude/memory/subagents-reference.md (if applicable)
-- [ ] Created analysis document in .devforgeai/specs/enhancements/
+- [ ] Created analysis document in devforgeai/specs/enhancements/
 - [ ] Git commit with descriptive message
 - [ ] Tested command 3+ times manually
 - [ ] Verified token efficiency (~2-5K in main conversation)
@@ -978,6 +978,6 @@ Before committing your command:
 6. Commit with confidence
 
 **Questions?** Reference:
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (core principles)
-- `.devforgeai/protocols/refactoring-case-studies.md` (real examples)
-- `.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` (common issues)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (core principles)
+- `devforgeai/protocols/refactoring-case-studies.md` (real examples)
+- `devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` (common issues)

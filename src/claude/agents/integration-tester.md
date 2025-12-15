@@ -588,9 +588,9 @@ def db_session(docker_db):
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Testing frameworks
-- `.devforgeai/context/coding-standards.md` - Test patterns
-- `.devforgeai/context/architecture-constraints.md` - Component boundaries
+- `devforgeai/specs/context/tech-stack.md` - Testing frameworks
+- `devforgeai/specs/context/coding-standards.md` - Test patterns
+- `devforgeai/specs/context/architecture-constraints.md` - Component boundaries
 
 **Testing Resources:**
 - Test Pyramid (Martin Fowler)

@@ -4,7 +4,7 @@ Creates timestamped backups before file operations, with path traversal protecti
 Fixes CRITICAL SECURITY vulnerability: Path validation to prevent directory escape.
 
 Story: STORY-074 - Comprehensive Error Handling
-AC#7: Creates .devforgeai/install-backup-{timestamp}/ directory, copies files,
+AC#7: Creates devforgeai/install-backup-{timestamp}/ directory, copies files,
       preserves directory structure, logs backup location, cleans old backups (>7 days, min 5).
 
 SECURITY FIXES:
@@ -82,7 +82,7 @@ class BackupService:
 
         Example:
             >>> root = Path("/home/user/project")
-            >>> backup = Path("/home/user/project/.devforgeai/install-backup-2025-12-03T14-30-45")
+            >>> backup = Path("/home/user/project/devforgeai/install-backup-2025-12-03T14-30-45")
             >>> service._validate_backup_path_within_root(backup, root)
             True
 
@@ -122,7 +122,7 @@ class BackupService:
     def create_backup(self, target_dir: Path, files_to_backup: List[Path]) -> Path:
         """Create timestamped backup directory and copy files (AC#7).
 
-        Creates backup directory in target_dir/.devforgeai/install-backup-{timestamp}/.
+        Creates backup directory in target_dir/devforgeai/install-backup-{timestamp}/.
         Preserves relative directory structure from target_dir.
 
         SECURITY:
@@ -149,11 +149,11 @@ class BackupService:
             ...     files_to_backup=[Path("/home/user/project/.claude/commands/dev.md")]
             ... )
             >>> backup_dir
-            PosixPath('/home/user/project/.devforgeai/install-backup-2025-12-03T14-30-45')
+            PosixPath('/home/user/project/devforgeai/install-backup-2025-12-03T14-30-45')
         """
         start_time = time.time()
 
-        # Create backup directory path: target_dir/.devforgeai/install-backup-{timestamp}/
+        # Create backup directory path: target_dir/devforgeai/install-backup-{timestamp}/
         timestamp = self._get_timestamp()
 
         # SECURITY: Validate timestamp format

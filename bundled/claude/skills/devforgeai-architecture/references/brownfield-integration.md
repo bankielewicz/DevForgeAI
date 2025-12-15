@@ -20,7 +20,7 @@ Brownfield projects require discovering existing architecture before creating co
 ### Step 1: Check for Existing Context Files
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **If files exist:**
@@ -400,7 +400,7 @@ After creating context files from brownfield discovery:
 1. **Validate context matches reality:**
    ```
    # Check tech-stack.md lists actual dependencies
-   Grep(pattern="Entity Framework", file_path=".devforgeai/context/tech-stack.md")
+   Grep(pattern="Entity Framework", file_path="devforgeai/specs/context/tech-stack.md")
    Grep(pattern="Entity Framework", glob="**/*.csproj")
    # Both should match
    ```

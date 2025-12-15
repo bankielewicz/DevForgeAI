@@ -75,7 +75,7 @@ class TestCompleteUninstallWorkflow:
 
         manifest_manager = Mock()
         manifest_manager.load_manifest.return_value = {
-            "installed_files": [".ai_docs/Stories/STORY-001.md"]
+            "installed_files": ["devforgeai/specs/Stories/STORY-001.md"]
         }
 
         backup_service = Mock()
@@ -261,7 +261,7 @@ class TestCompleteUninstallWorkflow:
         classifier = ContentClassifier(manifest_manager=manifest_manager)
 
         # Stories should be USER_CONTENT
-        assert classifier.classify(".ai_docs/Stories/STORY-001.md") == ContentType.USER_CONTENT
+        assert classifier.classify("devforgeai/specs/Stories/STORY-001.md") == ContentType.USER_CONTENT
 
         # Framework files should be FRAMEWORK
         assert classifier.classify(".claude/skills/test.md") == ContentType.FRAMEWORK

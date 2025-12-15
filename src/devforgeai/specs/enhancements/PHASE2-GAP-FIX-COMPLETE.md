@@ -46,11 +46,11 @@
 
 | File | Size | Location |
 |------|------|----------|
-| SKILL.md.backup | 11K | .devforgeai/backups/phase2-gap-fix/ |
-| story-requirements-analyst.md.backup | 28K | .devforgeai/backups/phase2-gap-fix/ |
-| story-structure-guide.md.backup | 22K | .devforgeai/backups/phase2-gap-fix/ |
-| validation-checklists.md.backup | 27K | .devforgeai/backups/phase2-gap-fix/ |
-| acceptance-criteria-patterns.md.backup | 36K | .devforgeai/backups/phase2-gap-fix/ |
+| SKILL.md.backup | 11K | devforgeai/backups/phase2-gap-fix/ |
+| story-requirements-analyst.md.backup | 28K | devforgeai/backups/phase2-gap-fix/ |
+| story-structure-guide.md.backup | 22K | devforgeai/backups/phase2-gap-fix/ |
+| validation-checklists.md.backup | 27K | devforgeai/backups/phase2-gap-fix/ |
+| acceptance-criteria-patterns.md.backup | 36K | devforgeai/backups/phase2-gap-fix/ |
 
 **Rollback time:** <10 minutes (tested procedure)
 
@@ -261,14 +261,14 @@ Reopen
 **Step 3: Validate Format**
 ```bash
 # Check frontmatter
-head -15 .ai_docs/Stories/STORY-XXX-*.story.md | grep format_version
+head -15 devforgeai/specs/Stories/STORY-XXX-*.story.md | grep format_version
 
 # Check tech spec
-grep -A 30 "## Technical Specification" .ai_docs/Stories/STORY-XXX-*.story.md
+grep -A 30 "## Technical Specification" devforgeai/specs/Stories/STORY-XXX-*.story.md
 
 # Run validator
 python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-XXX-*.story.md
+  devforgeai/specs/Stories/STORY-XXX-*.story.md
 ```
 
 **Step 4: Report Results**
@@ -384,6 +384,6 @@ NEXT ACTION:
 
 ---
 
-**See validation instructions:** `.devforgeai/specs/enhancements/PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md`
+**See validation instructions:** `devforgeai/specs/enhancements/PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md`
 
 **All fixes implemented. Awaiting your validation results.**

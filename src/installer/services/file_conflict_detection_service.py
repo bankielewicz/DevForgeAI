@@ -74,7 +74,7 @@ class FileConflictDetectionService:
 
         Test Requirements:
             - Returns empty list for empty directory
-            - Detects framework file conflicts (.claude/*, .devforgeai/*)
+            - Detects framework file conflicts (.claude/*, devforgeai/*)
             - Detects user file conflicts (CLAUDE.md, .gitignore)
             - Doesn't include non-existing files
             - Validates paths (rejects ..)
@@ -173,7 +173,7 @@ class FileConflictDetectionService:
 
     def _count_framework_conflicts(self, conflicts: List[Path]) -> int:
         """
-        Count framework file conflicts (.claude/*, .devforgeai/*).
+        Count framework file conflicts (.claude/*, devforgeai/*).
 
         Args:
             conflicts: List of conflicting paths

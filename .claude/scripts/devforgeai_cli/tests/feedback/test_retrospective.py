@@ -81,7 +81,7 @@ class TestFeedbackCapture:
         """
         GIVEN user responses to retrospective questions
         WHEN capture_feedback is called
-        THEN feedback is stored in .devforgeai/feedback/{STORY-ID}/{timestamp}-retrospective.json
+        THEN feedback is stored in devforgeai/feedback/{STORY-ID}/{timestamp}-retrospective.json
         AND returns confirmation message
         """
         # Arrange

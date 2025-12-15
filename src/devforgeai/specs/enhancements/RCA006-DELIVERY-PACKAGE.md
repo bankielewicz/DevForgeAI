@@ -74,12 +74,12 @@
 #### **Backups (2 files, rollback ready)**
 
 **1. TDD Red Phase Backup**
-- **File:** `.devforgeai/backups/phase1/tdd-red-phase.md.backup`
+- **File:** `devforgeai/backups/phase1/tdd-red-phase.md.backup`
 - **Size:** 3.6K
 - **Rollback time:** <15 minutes
 
 **2. Test Automator Backup**
-- **File:** `.devforgeai/backups/phase1/test-automator.md.backup`
+- **File:** `devforgeai/backups/phase1/test-automator.md.backup`
 - **Size:** 16K
 - **Rollback time:** <15 minutes
 
@@ -354,7 +354,7 @@ ROI:                    3.2x
 ### **Documentation Files (8)**
 
 ```
-.devforgeai/specs/enhancements/
+devforgeai/specs/enhancements/
 ├── PHASE1-IMPLEMENTATION-GUIDE.md             690 lines ✅
 ├── PHASE1-TESTING-CHECKLIST.md                864 lines ✅
 ├── PHASE1-IMPLEMENTATION-SUMMARY.md           ~300 lines ✅
@@ -368,7 +368,7 @@ ROI:                    3.2x
 ### **Backup Files (2)**
 
 ```
-.devforgeai/backups/phase1/
+devforgeai/backups/phase1/
 ├── tdd-red-phase.md.backup                    3.6K ✅
 └── test-automator.md.backup                   16K ✅
 ```
@@ -411,7 +411,7 @@ ROI:                    3.2x
 **Action:**
 ```bash
 # Read testing checklist
-cat .devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
+cat devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
 
 # Create or identify test stories
 # Execute 9 test cases (Days 3-4)
@@ -446,10 +446,10 @@ cat .claude/agents/test-automator.md | sed -n '43,344p'
 **Action:**
 ```bash
 # Read executive summary
-cat .devforgeai/specs/enhancements/RCA006-EXECUTIVE-SUMMARY.md
+cat devforgeai/specs/enhancements/RCA006-EXECUTIVE-SUMMARY.md
 
 # Read complete roadmap
-cat .devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
+cat devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
 
 # Understand full 11-week plan
 # Decide if phased approach acceptable

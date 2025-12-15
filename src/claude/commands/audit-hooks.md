@@ -64,18 +64,18 @@ Display: "Validating hook registry..."
 Display: ""
 
 # Check if config file exists
-Glob(pattern=".devforgeai/config/hooks.yaml")
+Glob(pattern="devforgeai/config/hooks.yaml")
 
 IF file not found:
   Display: "❌ Hook registry not found"
-  Display: "  Expected: .devforgeai/config/hooks.yaml"
+  Display: "  Expected: devforgeai/config/hooks.yaml"
   Display: ""
   Display: "To create default configuration:"
-  Display: "  cp .devforgeai/config/hooks.yaml.example .devforgeai/config/hooks.yaml"
+  Display: "  cp devforgeai/config/hooks.yaml.example devforgeai/config/hooks.yaml"
   Exit
 
 # Validate YAML syntax
-Bash(command="python3 -c 'import yaml; yaml.safe_load(open(\".devforgeai/config/hooks.yaml\"))' 2>&1")
+Bash(command="python3 -c 'import yaml; yaml.safe_load(open(\"devforgeai/config/hooks.yaml\"))' 2>&1")
 
 IF error:
   Display: "❌ YAML syntax error:"
@@ -85,17 +85,17 @@ IF error:
 Display: "✓ YAML syntax valid"
 
 # Read and parse hooks
-Read(file_path=".devforgeai/config/hooks.yaml")
+Read(file_path="devforgeai/config/hooks.yaml")
 
 # Count hooks
-Grep(pattern="^  - id:", path=".devforgeai/config/hooks.yaml", output_mode="count")
+Grep(pattern="^  - id:", path="devforgeai/config/hooks.yaml", output_mode="count")
 hook_count = result
 
 Display: "✓ Found {hook_count} hooks"
 Display: ""
 
 # Validate required fields for each hook
-Grep(pattern="^  - id: ", path=".devforgeai/config/hooks.yaml", output_mode="content", -A=10)
+Grep(pattern="^  - id: ", path="devforgeai/config/hooks.yaml", output_mode="content", -A=10)
 
 validation_errors = []
 hook_ids = []
@@ -141,7 +141,7 @@ ELSE:
   FOR error in validation_errors:
     Display: "  • {error}"
   Display: ""
-  Display: "Fix errors in .devforgeai/config/hooks.yaml and re-run /audit-hooks --validate"
+  Display: "Fix errors in devforgeai/config/hooks.yaml and re-run /audit-hooks --validate"
 ```
 
 ---
@@ -156,7 +156,7 @@ Display: "━━━━━━━━━━━━━━━━━━━━━━━�
 Display: ""
 
 # Check for invocation logs (future - when TodoWrite integration complete)
-Glob(pattern=".devforgeai/logs/hook-invocations-*.log")
+Glob(pattern="devforgeai/logs/hook-invocations-*.log")
 
 IF logs found:
   # Parse most recent log
@@ -196,10 +196,10 @@ Display: "━━━━━━━━━━━━━━━━━━━━━━━�
 Display: ""
 
 # Check for performance metrics (future)
-Glob(pattern=".devforgeai/metrics/hook-performance.json")
+Glob(pattern="devforgeai/metrics/hook-performance.json")
 
 IF metrics found:
-  Read(file_path=".devforgeai/metrics/hook-performance.json")
+  Read(file_path="devforgeai/metrics/hook-performance.json")
 
   # Parse and display metrics
   Display: "Performance Statistics:"
@@ -236,7 +236,7 @@ Display: "━━━━━━━━━━━━━━━━━━━━━━━�
 Display: ""
 
 # Read hook registry
-Read(file_path=".devforgeai/config/hooks.yaml")
+Read(file_path="devforgeai/config/hooks.yaml")
 
 # Build dependency graph
 hooks = parse_hooks_from_yaml()
@@ -285,7 +285,7 @@ ELSE:
 
   Display: ""
   Display: "Recommendation:"
-  Display: "  1. Review hook patterns in .devforgeai/config/hooks.yaml"
+  Display: "  1. Review hook patterns in devforgeai/config/hooks.yaml"
   Display: "  2. Add trigger_conditions to break cycles"
   Display: "  3. System automatically halts at depth 3 (safety limit)"
 ```
@@ -297,7 +297,7 @@ ELSE:
 ### Hook Registry Not Found
 
 ```
-Error: .devforgeai/config/hooks.yaml missing
+Error: devforgeai/config/hooks.yaml missing
 Action: Display creation instructions
 ```
 
@@ -331,8 +331,8 @@ Action: Display current status, note future availability
 ## Integration
 
 **Invoked by:** Users for hook monitoring
-**Requires:** .devforgeai/config/hooks.yaml (hook registry)
-**Optional:** .devforgeai/logs/hook-invocations-*.log (invocation history)
+**Requires:** devforgeai/config/hooks.yaml (hook registry)
+**Optional:** devforgeai/logs/hook-invocations-*.log (invocation history)
 **Related:** /dev, /qa, /release commands (operations that trigger hooks)
 
 ---

@@ -44,8 +44,8 @@ Task(
   6. Check for integration issues (cross-component interactions)
 
   Context files:
-  - .devforgeai/context/coding-standards.md (coverage requirements)
-  - .devforgeai/context/architecture-constraints.md (layer boundaries)
+  - devforgeai/specs/context/coding-standards.md (coverage requirements)
+  - devforgeai/specs/context/architecture-constraints.md (layer boundaries)
 
   Return:
   - Test results (total, passed, failed, coverage %)

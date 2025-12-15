@@ -337,7 +337,7 @@ grep -c "^print_test_header" tests/STORY-054/test-prompting-guidance.sh
 ## Related Documentation
 
 ### Story File
-→ `.ai_docs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
+→ `devforgeai/specs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
 
 ### Skill File (Under Test)
 → `./.claude/skills/claude-code-terminal-expert/SKILL.md`

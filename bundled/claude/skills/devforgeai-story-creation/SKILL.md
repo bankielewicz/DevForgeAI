@@ -88,7 +88,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
   - AC headers with checkbox syntax created false expectation of marking
 - **Impact:** Eliminates systematic user confusion about unchecked AC headers in completed stories
 - **Evidence:** RCA-012 sampling showed 80% of stories left AC headers unchecked despite 100% DoD completion
-- **References:** `.devforgeai/RCA/RCA-012/` (complete analysis and remediation plan)
+- **References:** `devforgeai/RCA/RCA-012/` (complete analysis and remediation plan)
 
 **v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)**
 - **Change:** Added machine-readable `technical_specification` YAML block
@@ -96,7 +96,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
   - Embedded test requirements for each component (`test_requirement` field)
   - Deterministic parsing for automated test generation
 - **Impact:** Test generation accuracy improved from 85% to 95%+
-- **References:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+- **References:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **v1.0 (Initial) - Original Template**
 - **Features:** User story format, AC headers with checkboxes, freeform tech spec, Definition of Done section
@@ -108,7 +108,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 **v2.0 → v2.1:** Optional automated migration
 - **Script:** `.claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh`
 - **Usage:** `bash migrate-ac-headers.sh <story-file>`
-- **Documentation:** `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`
+- **Documentation:** `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`
 - **Safety:** Creates `.v2.0-backup` before changes, provides restore instructions
 
 **Backward Compatibility:** All versions (v1.0, v2.0, v2.1) supported by framework. Old stories continue to work without migration. Migration is optional (for visual consistency only).
@@ -255,7 +255,7 @@ See references/story-discovery.md for complete implementation.
 **IF GUIDANCE_AVAILABLE:**
 ```
 pattern = lookup_pattern("explicit classification bounded choice")
-epic_files = Glob(pattern=".ai_docs/Epics/*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/*.epic.md")
 epic_options = []
 
 FOR each epic_file in epic_files:
@@ -289,7 +289,7 @@ AskUserQuestion with simple epic list (original implementation)
 **IF GUIDANCE_AVAILABLE:**
 ```
 pattern = lookup_pattern("bounded choice")
-sprint_files = Glob(pattern=".ai_docs/Sprints/*.md")
+sprint_files = Glob(pattern="devforgeai/specs/Sprints/*.md")
 sprint_options = [{
     label: "Backlog",
     description: "Not assigned to any sprint"
@@ -393,7 +393,7 @@ Technical Specification section contains YAML code block with:
 - `non_functional_requirements`: Array of NFRs with measurable metrics
 
 **Complete schema reference:**
-`.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+`devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **The reference file `technical-specification-creation.md` contains:**
 - Complete v2.0 generation instructions
@@ -414,7 +414,7 @@ Technical Specification section contains YAML code block with:
 **Reference:** `references/story-file-creation.md` (323 lines)
 **Template:** `assets/templates/story-template.md` (609 lines)
 **Steps:** Load template, construct frontmatter, build sections, write to disk, verify
-**Output:** Complete .story.md file in .ai_docs/Stories/
+**Output:** Complete .story.md file in devforgeai/specs/Stories/
 
 ### Phase 6: Epic/Sprint Linking
 **Purpose:** Update parent documents with story references
@@ -479,7 +479,7 @@ Complete story generated with:
 - [ ] Non-functional requirements (measurable)
 - [ ] Edge cases documented
 - [ ] Definition of Done (checkboxes)
-- [ ] File written to .ai_docs/Stories/
+- [ ] File written to devforgeai/specs/Stories/
 - [ ] Epic/sprint updated (if applicable)
 - [ ] Self-validation passed
 - [ ] Token usage <90K (isolated context)

@@ -193,11 +193,11 @@ python complexity_scorer.py --answers answers.json --output complexity_results.j
 
 # 3. Use results in epic document
 # 4. After generating requirements spec, validate it
-python requirements_validator.py --spec .devforgeai/specs/requirements/project-requirements.md
+python requirements_validator.py --spec devforgeai/specs/requirements/project-requirements.md
 
 # 5. Fix any issues found
 # 6. Validate epic documents
-python requirements_validator.py --epic .ai_docs/Epics/EPIC-001-user-management.epic.md
+python requirements_validator.py --epic devforgeai/specs/Epics/EPIC-001-user-management.epic.md
 
 # 7. Proceed to architecture skill if validation passes
 ```

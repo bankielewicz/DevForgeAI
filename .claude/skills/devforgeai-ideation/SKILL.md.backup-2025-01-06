@@ -96,8 +96,8 @@ Glob(pattern="**/requirements.txt") # Python projects
 
 **Check for existing DevForgeAI context:**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 ```
 
 **Analyze current architecture:**
@@ -463,7 +463,7 @@ TodoWrite([
 Mark each epic as completed after creating the file.
 ```
 
-Create epic documents in `.ai_docs/Epics/EPIC-NNN-[name].epic.md` with:
+Create epic documents in `devforgeai/specs/Epics/EPIC-NNN-[name].epic.md` with:
 - YAML frontmatter (id, title, status, dates, points)
 - Business goal and success metrics
 - Features breakdown
@@ -479,7 +479,7 @@ Before proceeding to Phase 6.2:
 planned_epics = [count from Phase 4 decomposition]
 
 # Count created epic files
-created_epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+created_epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 created_count = len(created_epic_files)
 
 # Verification gate
@@ -501,7 +501,7 @@ else:
 
 #### 6.2 Generate Requirements Specification
 
-Create requirements spec in `.devforgeai/specs/requirements/[project]-requirements.md` with:
+Create requirements spec in `devforgeai/specs/requirements/[project]-requirements.md` with:
 - Project context (type, complexity, timeline)
 - Problem statement and solution overview
 - User roles and personas
@@ -513,7 +513,7 @@ Create requirements spec in `.devforgeai/specs/requirements/[project]-requiremen
 
 **Check if architecture context exists:**
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **If context files don't exist:**
@@ -522,8 +522,8 @@ Report: """
 ✅ Requirements documentation complete
 
 Generated Documents:
-- [N] Epic documents in .ai_docs/Epics/
-- Requirements specification in .devforgeai/specs/requirements/
+- [N] Epic documents in devforgeai/specs/Epics/
+- Requirements specification in devforgeai/specs/requirements/
 
 Next Steps:
 1. Invoking devforgeai-architecture skill to create context files
@@ -535,8 +535,8 @@ Skill(command="devforgeai-architecture")
 
 **If context files exist (brownfield):**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 # Validate requirements against existing constraints
 # Use AskUserQuestion to resolve any conflicts
@@ -573,7 +573,7 @@ This reference provides comprehensive validation logic for:
 **Step 1: Verify Artifact Creation**
 ```
 # Check epic documents exist
-epic_files = Glob(pattern=".ai_docs/Epics/EPIC-*.epic.md")
+epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
 epic_count = len(epic_files)
 
 if epic_count == 0:
@@ -583,7 +583,7 @@ if epic_count == 0:
     # If still failing: Report to user
 
 # Check requirements spec exists
-req_files = Glob(pattern=".devforgeai/specs/requirements/*.md")
+req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
 
 if len(req_files) == 0:
     ERROR: No requirements specification created
@@ -709,10 +709,10 @@ Use the **Completion Summary Template** from output-templates.md:
 **Epic Documents:**
 - EPIC-001: {Epic Title} ({Feature Count} features, {Story Points} points)
 [... list all epics ...]
-- Location: `.ai_docs/Epics/`
+- Location: `devforgeai/specs/Epics/`
 
 **Requirements Specification:**
-- Location: `.devforgeai/specs/requirements/{project-name}-requirements.md`
+- Location: `devforgeai/specs/requirements/{project-name}-requirements.md`
 - Functional Requirements: {count}
 - Non-Functional Requirements: {count}
 - Data Models: {count} entities
@@ -751,7 +751,7 @@ Based on {tier} architecture tier:
 
 **Check for existing context files:**
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 
 if len(context_files) == 6:
     # Brownfield project with existing context
@@ -841,8 +841,8 @@ The orchestration skill will:
 ```
 Report: """
 Review these files:
-- Epics: `.ai_docs/Epics/EPIC-*.epic.md`
-- Requirements: `.devforgeai/specs/requirements/{project-name}-requirements.md`
+- Epics: `devforgeai/specs/Epics/EPIC-*.epic.md`
+- Requirements: `devforgeai/specs/requirements/{project-name}-requirements.md`
 
 You can:
 - Manually edit files
@@ -972,29 +972,29 @@ This skill includes comprehensive error handling and self-healing capabilities t
 1. **Check Directory Permissions**
    ```
    Try:
-       Write(file_path=".ai_docs/Epics/EPIC-001.epic.md", content="...")
+       Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content="...")
 
    Except write error:
        # Ensure directories exist
-       Bash(mkdir -p .ai_docs/Epics/)
-       Bash(mkdir -p .devforgeai/specs/requirements/)
+       Bash(mkdir -p devforgeai/specs/Epics/)
+       Bash(mkdir -p devforgeai/specs/requirements/)
 
        # Retry write operation
-       Write(file_path=".ai_docs/Epics/EPIC-001.epic.md", content="...")
+       Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content="...")
    ```
 
 2. **Verify File System Paths**
    ```
    # Check if directories were created
-   Glob(pattern=".ai_docs/")
-   Glob(pattern=".devforgeai/")
+   Glob(pattern="devforgeai/specs/")
+   Glob(pattern="devforgeai/")
 
    If directories don't exist:
        ERROR: Cannot create artifact directories
        Report to user: "File system permissions prevent directory creation. Please run:"
        bash
-       mkdir -p .ai_docs/Epics
-       mkdir -p .devforgeai/specs/requirements
+       mkdir -p devforgeai/specs/Epics
+       mkdir -p devforgeai/specs/requirements
 
        Then retry /ideate command
    ```
@@ -1081,12 +1081,12 @@ This skill includes comprehensive error handling and self-healing capabilities t
 3. **Update Requirements Spec with Corrected Assessment**
    ```
    # Read existing requirements spec
-   Read(file_path=".devforgeai/specs/requirements/{project}-requirements.md")
+   Read(file_path="devforgeai/specs/requirements/{project}-requirements.md")
 
    # Find complexity assessment section
    # Replace with corrected assessment
    Edit(
-       file_path=".devforgeai/specs/requirements/{project}-requirements.md",
+       file_path="devforgeai/specs/requirements/{project}-requirements.md",
        old_string="## Complexity Assessment\n{old content}",
        new_string="## Complexity Assessment\n\n**Total Score:** {corrected_score}/60\n..."
    )
@@ -1218,8 +1218,8 @@ This skill includes comprehensive error handling and self-healing capabilities t
 1. **Detect Conflicts**
    ```
    # Read existing context
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/architecture-constraints.md")
+   Read(file_path="devforgeai/specs/context/tech-stack.md")
+   Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
    # Compare with new requirements
    conflicts = []
@@ -1259,7 +1259,7 @@ This skill includes comprehensive error handling and self-healing capabilities t
    If user chooses "Update constraint":
        # Create ADR documenting change
        Write(
-           file_path=".devforgeai/adrs/ADR-{number}-{title}.md",
+           file_path="devforgeai/specs/adrs/ADR-{number}-{title}.md",
            content="""
            # ADR-{number}: {Decision Title}
 
@@ -1278,7 +1278,7 @@ This skill includes comprehensive error handling and self-healing capabilities t
        )
 
        # Update relevant context file
-       Edit(file_path=".devforgeai/context/{context-file}.md", ...)
+       Edit(file_path="devforgeai/specs/context/{context-file}.md", ...)
    ```
 
 4. **Update Requirements Spec with Resolved Conflicts**
@@ -1303,10 +1303,10 @@ This skill includes comprehensive error handling and self-healing capabilities t
 1. **Create Required Directories**
    ```
    required_dirs = [
-       ".ai_docs/Epics/",
-       ".devforgeai/specs/requirements/",
-       ".devforgeai/adrs/",
-       ".devforgeai/context/"
+       "devforgeai/specs/Epics/",
+       "devforgeai/specs/requirements/",
+       "devforgeai/specs/adrs/",
+       "devforgeai/specs/context/"
    ]
 
    for dir in required_dirs:
@@ -1368,8 +1368,8 @@ This skill succeeds when:
 - [ ] Ready for architecture skill (clear handoff)
 
 **Output Artifacts:**
-- 1+ Epic documents (`.ai_docs/Epics/`)
-- Requirements specification (`.devforgeai/specs/requirements/`)
+- 1+ Epic documents (`devforgeai/specs/Epics/`)
+- Requirements specification (`devforgeai/specs/requirements/`)
 - Complexity assessment report
 
 **Transition Point:**

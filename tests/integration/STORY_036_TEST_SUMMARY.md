@@ -386,7 +386,7 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py::Tes
 
 ## Documentation References
 
-- **Story Document:** `.ai_docs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
+- **Story Document:** `devforgeai/specs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
 - **Test File:** `tests/integration/test_story_036_internet_sleuth_deep_integration.py`
 - **Test README:** `tests/integration/README_STORY_036_TESTS.md`
 - **Pytest Config:** `tests/integration/pytest.ini` (updated)

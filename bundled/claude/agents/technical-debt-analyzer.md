@@ -28,10 +28,10 @@ Analyze technical debt accumulated from deferred Definition of Done items across
 ### Input
 
 Read from conversation context or default sources:
-- Technical debt register: `.devforgeai/technical-debt-register.md`
-- All story files: `.ai_docs/Stories/*.story.md`
-- Sprint data: `.ai_docs/Sprints/*.md`
-- Epic data: `.ai_docs/Epics/*.md`
+- Technical debt register: `devforgeai/technical-debt-register.md`
+- All story files: `devforgeai/specs/Stories/*.story.md`
+- Sprint data: `devforgeai/specs/Sprints/*.md`
+- Epic data: `devforgeai/specs/Epics/*.md`
 
 ### Analysis Phases
 
@@ -39,13 +39,13 @@ Read from conversation context or default sources:
 
 ```
 # Auto-create debt register from template if doesn't exist
-Check if .devforgeai/technical-debt-register.md exists
+Check if devforgeai/technical-debt-register.md exists
 IF not found:
     Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-    Write(.devforgeai/technical-debt-register.md, content=template)
+    Write(devforgeai/technical-debt-register.md, content=template)
     Display: "Created technical debt register from template (empty inventory)"
 
-Read .devforgeai/technical-debt-register.md
+Read devforgeai/technical-debt-register.md
 
 Parse all open debt items:
 FOR each debt entry:
@@ -152,7 +152,7 @@ IF deferral rate >20%:
 
 ```
 Write(
-    file_path=".devforgeai/technical-debt-analysis-{date}.md",
+    file_path="devforgeai/technical-debt-analysis-{date}.md",
     content={comprehensive analysis report}
 )
 
@@ -212,7 +212,7 @@ Return to orchestration skill:
         "Schedule debt reduction sprint",
         "Resolve circular deferrals: STORY-004 ↔ STORY-005"
     ],
-    "report_path": ".devforgeai/technical-debt-analysis-{date}.md"
+    "report_path": "devforgeai/technical-debt-analysis-{date}.md"
 }
 ```
 

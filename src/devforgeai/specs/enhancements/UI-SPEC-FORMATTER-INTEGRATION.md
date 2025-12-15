@@ -61,7 +61,7 @@ Task(
     description="Format UI specification results",
     prompt="Format UI specification for {STORY_OR_COMPONENT}.
 
-            Specification generated at: .devforgeai/specs/ui/{SPEC_ID}-ui-spec.md
+            Specification generated at: devforgeai/specs/ui/{SPEC_ID}-ui-spec.md
 
             Story mode: {mode}
             Story ID: {story_id or 'standalone'}
@@ -159,7 +159,7 @@ Changes:
 
 ```json
 {
-  "spec_file": ".devforgeai/specs/ui/STORY-XXX-ui-spec.md",
+  "spec_file": "devforgeai/specs/ui/STORY-XXX-ui-spec.md",
   "story_id": "STORY-XXX",
   "mode": "story|standalone",
   "framework": "React|Vue|Angular|Blazor|WPF|Tkinter",
@@ -424,7 +424,7 @@ QA Approved → Releasing → Released
    - Display template guidelines
    - Testing checklist
 
-3. **`.devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`** (this file)
+3. **`devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`** (this file)
    - Integration guide
    - Architecture documentation
    - Rollout plan
@@ -489,8 +489,8 @@ QA Approved → Releasing → Released
 ## Related Documentation
 
 ### Reference Files
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern this follows
-- `.ai_docs/prompt-engineering-best-practices.md` - Claude-specific optimizations
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern this follows
+- `devforgeai/specs/prompt-engineering-best-practices.md` - Claude-specific optimizations
 
 ### Similar Implementations
 - `.claude/agents/qa-result-interpreter.md` - Reference pattern

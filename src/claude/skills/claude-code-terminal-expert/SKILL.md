@@ -463,7 +463,7 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 4. Confirm update with user
 
 **Version History:**
-- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from .ai_docs/Terminal/
+- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
 - [Future versions track updates]
 
 ---

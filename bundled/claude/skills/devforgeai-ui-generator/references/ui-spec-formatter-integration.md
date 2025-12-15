@@ -25,7 +25,7 @@ Task(
 **Context:**
 - Mode: ${MODE} (story|standalone)
 - Story ID: ${STORY_ID or 'standalone'}
-- UI Spec File: .devforgeai/specs/ui/${SPEC_FILE_NAME}
+- UI Spec File: devforgeai/specs/ui/${SPEC_FILE_NAME}
 - Framework: ${FRAMEWORK} (from tech-stack.md)
 - Styling: ${STYLING_APPROACH} (user selected)
 - Component Count: ${COMPONENT_COUNT}

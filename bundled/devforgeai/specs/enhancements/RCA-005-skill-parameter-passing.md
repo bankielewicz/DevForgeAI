@@ -21,14 +21,14 @@ During Codelens project development, user executed:
 
 **Error 1: Malformed File Path**
 ```
-Story file path: .ai_docs/Stories/STORY-001 --mode=deep.story.md
+Story file path: devforgeai/specs/Stories/STORY-001 --mode=deep.story.md
                                            ^^^^^^^^^^^^^^
                                            Flag included in filename!
 ```
 
 **Error 2: File Read Failure**
 ```
-FileNotFoundError: File not found: .ai_docs/Stories/STORY-001 --mode=deep.story.md
+FileNotFoundError: File not found: devforgeai/specs/Stories/STORY-001 --mode=deep.story.md
 ```
 
 **Error 3: Skill Invocation Failure**
@@ -160,7 +160,7 @@ SkillInvocationError: Unknown skill: devforgeai-qa --mode=deep --story=STORY-001
 
 ### Skills Cannot Accept Parameters
 
-**Source:** `.ai_docs/Claude-Skills-Technical-Architecture-and-Parameter-System.md`
+**Source:** `devforgeai/specs/Claude-Skills-Technical-Architecture-and-Parameter-System.md`
 
 > "Skills CANNOT accept command-line style parameters like `my-skill --param=value`. All parameters are conveyed through natural language in the conversation."
 
@@ -173,7 +173,7 @@ SkillInvocationError: Unknown skill: devforgeai-qa --mode=deep --story=STORY-001
 **Correct Pattern:**
 ```markdown
 # Load context into conversation
-**Story:** @.ai_docs/Stories/STORY-001.story.md
+**Story:** @devforgeai/specs/Stories/STORY-001.story.md
 **Mode:** deep
 
 # Invoke skill without parameters
@@ -186,7 +186,7 @@ Skill(command="devforgeai-qa")
 
 ### $ARGUMENTS vs $1 Behavior
 
-**Source:** `.ai_docs/Terminal/slash-commands.md`
+**Source:** `devforgeai/specs/Terminal/slash-commands.md`
 
 **$ARGUMENTS Behavior:**
 ```bash
@@ -199,13 +199,13 @@ $2 = "--mode=deep"                    # Second argument only
 **For @file References:**
 ```markdown
 # WRONG:
-@.ai_docs/Stories/$ARGUMENTS.story.md
-→ Resolves to: @.ai_docs/Stories/STORY-001 --mode=deep.story.md
+@devforgeai/specs/Stories/$ARGUMENTS.story.md
+→ Resolves to: @devforgeai/specs/Stories/STORY-001 --mode=deep.story.md
 → File not found!
 
 # CORRECT:
-@.ai_docs/Stories/$1.story.md
-→ Resolves to: @.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/$1.story.md
+→ Resolves to: @devforgeai/specs/Stories/STORY-001.story.md
 → File found ✓
 ```
 
@@ -316,7 +316,7 @@ $2 = "--mode=deep"                    # Second argument only
    - Test each command with valid inputs
    - Test each command with invalid inputs (typos, flags, missing args)
    - Test each command with edge cases (missing files, wrong status)
-   - Document test results in `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+   - Document test results in `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 2. **Evidence-Based Design**
    - Consult official documentation for all assumptions
@@ -428,7 +428,7 @@ User → Slash Command → Loads Context → Invokes Skill → Skill Reads Conte
 **Example:**
 ```markdown
 # Step 1: Load story into conversation
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Step 2: Set context explicitly
 **Validation Mode:** deep
@@ -478,11 +478,11 @@ Commit message: $ARGUMENTS ✅
 # Structured arguments (story ID, flags)
 Story ID: $1 ✅
 Mode: $2 ✅
-@.ai_docs/Stories/$1.story.md ✅
+@devforgeai/specs/Stories/$1.story.md ✅
 
 # File paths - ALWAYS use positional
-@.ai_docs/Stories/$ARGUMENTS.story.md ❌ BROKEN
-@.ai_docs/Stories/$1.story.md ✅ CORRECT
+@devforgeai/specs/Stories/$ARGUMENTS.story.md ❌ BROKEN
+@devforgeai/specs/Stories/$1.story.md ✅ CORRECT
 ```
 
 ---
@@ -491,7 +491,7 @@ Mode: $2 ✅
 
 ### Claude Skills Documentation
 
-**Source:** `.ai_docs/claude-skills.md`
+**Source:** `devforgeai/specs/claude-skills.md`
 
 **Key Findings:**
 
@@ -510,7 +510,7 @@ Mode: $2 ✅
 
 ### Slash Commands Documentation
 
-**Source:** `.ai_docs/Terminal/slash-commands.md`
+**Source:** `devforgeai/specs/Terminal/slash-commands.md`
 
 **Key Findings:**
 
@@ -540,7 +540,7 @@ echo 'Fix issue #$ARGUMENTS following our coding standards' > .claude/commands/f
 
 ### Skills vs Slash Commands Documentation
 
-**Source:** `.ai_docs/Terminal/slash-commands.md` (Section: "Skills vs slash commands")
+**Source:** `devforgeai/specs/Terminal/slash-commands.md` (Section: "Skills vs slash commands")
 
 **Key Distinction:**
 
@@ -639,7 +639,7 @@ Skills work correctly but don't document how to extract parameters from conversa
 
 ## Solution Implementation Plan
 
-See: `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+See: `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
 
 **Summary:**
 - 7 phases total
@@ -838,7 +838,7 @@ ELSE IF $2 starts with "--":
 8. ✅ Test `/orchestrate STORY-001` (full lifecycle)
 9. ✅ Test `/create-ui STORY-001` (UI generation)
 
-**Test documentation:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+**Test documentation:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 ### Post-Testing Actions
 
@@ -875,8 +875,8 @@ ELSE IF $2 starts with "--":
 ---
 
 **Reference Documents:**
-- **Audit:** `.devforgeai/specs/enhancements/RCA-005-command-audit.md`
-- **Fix Plan:** `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
-- **Test Results:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+- **Audit:** `devforgeai/specs/enhancements/RCA-005-command-audit.md`
+- **Fix Plan:** `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+- **Test Results:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 - **Validation Pattern:** `.claude/skills/devforgeai-development/references/slash-command-argument-validation-pattern.md`
 - **Test Commands:** `.claude/commands/test-skill-context.md`, `.claude/commands/test-arg-validation.md`

@@ -35,7 +35,7 @@ Tracks deferred Definition of Done (DoD) items and ensures follow-up stories/ADR
 
 ```
 Read story file:
-  Read(file_path=".ai_docs/Stories/{STORY_ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY_ID}.story.md")
 
 Find Definition of Done section
 
@@ -85,7 +85,7 @@ FOR each deferral with reason_type == "story_split":
   # Example: "Tracked in STORY-043" → referenced_story = "STORY-043"
 
   # Verify tracking story exists
-  Glob(pattern=".ai_docs/Stories/{referenced_story}*.md")
+  Glob(pattern="devforgeai/specs/Stories/{referenced_story}*.md")
 
   IF not found:
     WARN: "Referenced {referenced_story} not found"
@@ -115,7 +115,7 @@ FOR each deferral with reason_type == "story_split":
       Skill(command="devforgeai-story-creation")
 
       # Verify story created
-      Glob(pattern=".ai_docs/Stories/{referenced_story}*.md")
+      Glob(pattern="devforgeai/specs/Stories/{referenced_story}*.md")
       IF found:
         Display: "✓ Created {referenced_story}: {title}"
       ELSE:
@@ -146,7 +146,7 @@ FOR each deferral with reason_type == "scope_change":
   # Example: "See ADR-012" → adr_reference = "ADR-012"
 
   # Verify ADR exists
-  Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+  Glob(pattern="devforgeai/specs/adrs/{adr_reference}*.md")
 
   IF not found:
     WARN: "Referenced {adr_reference} not found"
@@ -180,11 +180,11 @@ FOR each deferral with reason_type == "scope_change":
                 - Future work plan (when to address deferred item)
                 - Decision rationale (why deferral acceptable)
 
-                Output: .devforgeai/adrs/{adr_reference}-scope-change-{STORY_ID}.md"
+                Output: devforgeai/specs/adrs/{adr_reference}-scope-change-{STORY_ID}.md"
       )
 
       # Verify ADR created
-      Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+      Glob(pattern="devforgeai/specs/adrs/{adr_reference}*.md")
       IF found:
         Display: "✓ Created {adr_reference}: Scope change documentation"
       ELSE:
@@ -202,7 +202,7 @@ FOR each deferral with reason_type == "external_blocker":
   # Verify logged in technical debt register
 
   # Check if technical debt register exists
-  Glob(pattern=".devforgeai/technical-debt-register.md")
+  Glob(pattern="devforgeai/technical-debt-register.md")
 
   IF not found:
     # Auto-create from template
@@ -210,19 +210,19 @@ FOR each deferral with reason_type == "external_blocker":
     template_content = file_content
 
     Write(
-      file_path=".devforgeai/technical-debt-register.md",
+      file_path="devforgeai/technical-debt-register.md",
       content=template_content
     )
 
     Display: "Created technical debt register from template"
 
   # Read debt register
-  Read(file_path=".devforgeai/technical-debt-register.md")
+  Read(file_path="devforgeai/technical-debt-register.md")
 
   # Search for existing entry for this deferral
   Grep(
     pattern="{STORY_ID}.*{item_text}",
-    path=".devforgeai/technical-debt-register.md"
+    path="devforgeai/technical-debt-register.md"
   )
 
   IF not found:
@@ -238,7 +238,7 @@ FOR each deferral with reason_type == "external_blocker":
     )
 
     Edit(
-      file_path=".devforgeai/technical-debt-register.md",
+      file_path="devforgeai/technical-debt-register.md",
       old_string="## Open Items\n\n",
       new_string=f"## Open Items\n\n{debt_entry}\n\n"
     )
@@ -292,8 +292,8 @@ IF invoked during sprint planning OR retrospective:
     prompt="Analyze current technical debt from deferred DoD items.
 
             Data sources:
-            - All story files: .ai_docs/Stories/*.story.md
-            - Debt register: .devforgeai/technical-debt-register.md
+            - All story files: devforgeai/specs/Stories/*.story.md
+            - Debt register: devforgeai/technical-debt-register.md
 
             Generate trends, identify oldest items, recommend actions.
 
@@ -449,7 +449,7 @@ IF debt_analysis.stale_items (>90 days) exist:
 
 ### File Location
 
-`.devforgeai/technical-debt-register.md`
+`devforgeai/technical-debt-register.md`
 
 ### Template Format
 
@@ -551,8 +551,8 @@ Task(
   prompt="Analyze current technical debt from deferred DoD items.
 
           Data sources:
-          - All story files: .ai_docs/Stories/*.story.md
-          - Debt register: .devforgeai/technical-debt-register.md
+          - All story files: devforgeai/specs/Stories/*.story.md
+          - Debt register: devforgeai/technical-debt-register.md
 
           Generate trends, identify oldest items, recommend actions.
 

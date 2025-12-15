@@ -385,7 +385,7 @@ def main():
         "--context-dir",
         type=Path,
         default=Path.cwd() / ".devforgeai" / "context",
-        help="Directory containing context files (default: .devforgeai/context)"
+        help="Directory containing context files (default: devforgeai/context)"
     )
 
     args = parser.parse_args()

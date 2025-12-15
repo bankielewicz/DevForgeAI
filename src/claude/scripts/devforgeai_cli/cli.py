@@ -117,7 +117,7 @@ def main():
     hooks_parser.add_argument(
         '--config',
         default=None,
-        help='Path to hooks.yaml config file (default: .devforgeai/config/hooks.yaml)'
+        help='Path to hooks.yaml config file (default: devforgeai/config/hooks.yaml)'
     )
 
     # ======================================================================

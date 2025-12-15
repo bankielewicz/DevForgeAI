@@ -23,19 +23,19 @@ skill: devforgeai-architecture
 ### 1.1 Greenfield vs Brownfield Detection
 
 **Greenfield Mode:** New project with NO existing context files
-- **Detection:** `Glob(pattern=".devforgeai/context/*.md")` returns 0 files
+- **Detection:** `Glob(pattern="devforgeai/specs/context/*.md")` returns 0 files
 - **Action:** Load user-input-guidance.md and apply guidance patterns
 - **Rationale:** User making initial technology decisions; patterns guide quality questions
 - **Token Cost:** ~1,000 tokens (guidance + pattern application)
 
 **Brownfield Mode:** Existing project with ALL 6 context files
-- **Detection:** `Glob(pattern=".devforgeai/context/*.md")` returns 6 files
+- **Detection:** `Glob(pattern="devforgeai/specs/context/*.md")` returns 6 files
 - **Action:** Skip guidance, use existing context files as constraints
 - **Rationale:** Technologies already locked; existing context defines boundaries
 - **Token Cost:** 0 tokens (no guidance loaded)
 
 **Partial Mode:** Unusual state (3-5 context files exist)
-- **Detection:** `Glob(pattern=".devforgeai/context/*.md")` returns 3-5 files
+- **Detection:** `Glob(pattern="devforgeai/specs/context/*.md")` returns 3-5 files
 - **Action:** Load guidance (treat as greenfield) to fill gaps
 - **Rationale:** Some context exists but incomplete; guidance helps complete it
 - **Token Cost:** ~800-1,000 tokens
@@ -47,7 +47,7 @@ def phase_1_context_discovery():
     """Phase 1: Project Context Discovery with conditional guidance loading"""
 
     # Step 0: Detect mode and load guidance conditionally
-    context_files = Glob(pattern=".devforgeai/context/*.md")
+    context_files = Glob(pattern="devforgeai/specs/context/*.md")
     context_count = len(context_files)
 
     if context_count == 6:
@@ -207,7 +207,7 @@ AskUserQuestion(
 ### 4.1 When to Load Guidance (Greenfield Mode)
 
 **Load guidance in these scenarios:**
-1. ✅ No `.devforgeai/context/` files exist (fresh project)
+1. ✅ No `devforgeai/specs/context/` files exist (fresh project)
 2. ✅ 1-5 context files exist (partial project, gaps to fill)
 3. ✅ User explicitly requesting architecture help (`/create-context` command)
 
@@ -227,7 +227,7 @@ AskUserQuestion(
 **Purpose:** Load user-input-guidance.md only in greenfield mode to enhance question quality
 
 **Implementation:**
-- Detect mode: Run `Glob(pattern=".devforgeai/context/*.md")`
+- Detect mode: Run `Glob(pattern="devforgeai/specs/context/*.md")`
   - 0 files → Greenfield mode (LOAD guidance)
   - 6 files → Brownfield mode (SKIP guidance)
   - 1-5 files → Partial mode (LOAD guidance to fill gaps)
@@ -376,7 +376,7 @@ def test_backward_compat_brownfield_no_guidance():
 
 ```
 Step 0: Conditional detection + file operations
-  - Glob(pattern=".devforgeai/context/*.md"): ~20 tokens
+  - Glob(pattern="devforgeai/specs/context/*.md"): ~20 tokens
   - Log messages: ~30 tokens
   - Subtotal: ~50 tokens
 
@@ -397,7 +397,7 @@ TOTAL per skill (greenfield): 800-1,200 tokens (~1,000 avg)
 
 ```
 Step 0: Conditional detection
-  - Glob(pattern=".devforgeai/context/*.md"): ~20 tokens
+  - Glob(pattern="devforgeai/specs/context/*.md"): ~20 tokens
   - Log message (skip): ~20 tokens
   - Subtotal: ~40 tokens
 

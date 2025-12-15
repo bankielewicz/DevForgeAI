@@ -36,9 +36,9 @@ class TestBackupCreation:
 
     def test_should_create_backup_with_all_devforgeai_files(self, tmp_path):
         """
-        AC#2: Backup includes all DevForgeAI files (.claude/, .devforgeai/, CLAUDE.md)
+        AC#2: Backup includes all DevForgeAI files (.claude/, devforgeai/, CLAUDE.md)
 
-        Arrange: Installation with .claude/, .devforgeai/, CLAUDE.md
+        Arrange: Installation with .claude/, devforgeai/, CLAUDE.md
         Act: Call create_backup()
         Assert: All directories and files copied to backup directory
         """
@@ -103,11 +103,11 @@ class TestBackupCreation:
 
     def test_should_store_backup_in_correct_directory_structure(self, tmp_path):
         """
-        AC#2: Backup stored in `.devforgeai/backups/v{X.Y.Z}-{timestamp}/`
+        AC#2: Backup stored in `devforgeai/backups/v{X.Y.Z}-{timestamp}/`
 
         Arrange: Upgrade from 1.0.0
         Act: Call create_backup()
-        Assert: Backup directory path is `.devforgeai/backups/v1.0.0-{timestamp}/`
+        Assert: Backup directory path is `devforgeai/backups/v1.0.0-{timestamp}/`
         """
         # Arrange
         source_root = tmp_path / "installation"
@@ -1312,7 +1312,7 @@ class TestBackupEdgeCases:
         """
         BR-004: User content preserved during upgrade
 
-        Arrange: .ai_docs/Stories/ with user content
+        Arrange: devforgeai/specs/Stories/ with user content
         Act: Call create_backup()
         Assert: User files included in backup
         """
@@ -1507,7 +1507,7 @@ def backup_service_config():
     """Configuration for backup service"""
     return {
         "backup_retention_count": 5,
-        "backup_base_directory": ".devforgeai/backups",
+        "backup_base_directory": "devforgeai/backups",
         "exclude_patterns": [".git", "__pycache__", ".pytest_cache"]
     }
 
@@ -2007,17 +2007,17 @@ class TestExclusionPatterns:
 
     def test_should_exclude_backup_directory_itself(self, tmp_path):
         """
-        Test: .devforgeai/backups not included in backup
+        Test: devforgeai/backups not included in backup
 
-        Arrange: Installation with .devforgeai/backups directory
+        Arrange: Installation with devforgeai/backups directory
         Act: Call create_backup()
-        Assert: .devforgeai/backups excluded
+        Assert: devforgeai/backups excluded
         """
         # Arrange
         source_root = tmp_path / "installation"
         source_root.mkdir()
 
-        # Create .devforgeai/backups with old backups
+        # Create devforgeai/backups with old backups
         old_backups = source_root / ".devforgeai" / "backups"
         old_backups.mkdir(parents=True)
         (old_backups / "old_backup.tar").write_bytes(b"backup")

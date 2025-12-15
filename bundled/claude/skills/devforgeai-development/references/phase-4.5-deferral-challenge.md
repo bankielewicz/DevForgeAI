@@ -37,7 +37,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/phase-4.5-defer
 When this reference is loaded by the skill, the following context is available:
 
 - **STORY_ID:** Extracted from conversation (e.g., STORY-008.1)
-- **STORY_FILE:** Path to story file (.ai_docs/Stories/STORY-008.1-feature.story.md)
+- **STORY_FILE:** Path to story file (devforgeai/specs/Stories/STORY-008.1-feature.story.md)
 - **Story Content:** Already loaded in conversation via @ reference from /dev command
 - **Completion Status:** Phases 0-4 complete (Pre-Flight, Red, Green, Refactor, Integration)
 - **Variables from Phase 0:**
@@ -237,7 +237,7 @@ Deferred Items:
 For each deferral:
 1. If deferred to story:
    - Check: git log --grep="{target_story}" --oneline
-   - Check: .ai_docs/Stories/{target_story}*.story.md status
+   - Check: devforgeai/specs/Stories/{target_story}*.story.md status
    - Determine if dependency story is complete
 
 2. If blocked by toolchain:
@@ -251,7 +251,7 @@ For each deferral:
    - Determine if artifacts exist
 
 4. If out of scope (ADR):
-   - Check: .devforgeai/adrs/{adr_reference}.md exists
+   - Check: devforgeai/specs/adrs/{adr_reference}.md exists
    - Determine if ADR is documented
 
 Return JSON:
@@ -510,7 +510,7 @@ IF "Deferred to STORY-" in new_justification:
   target_story = extract STORY-ID from new_justification
 
   # Validate target story exists
-  Glob(pattern=".ai_docs/Stories/{target_story}*.story.md")
+  Glob(pattern="devforgeai/specs/Stories/{target_story}*.story.md")
 
   IF not found:
     Display: "⚠️ WARNING: Story {target_story} doesn't exist yet. You must create it."
@@ -519,7 +519,7 @@ ELSE IF "Blocked by:" in new_justification:
   blocker = extract blocker description
 
   # Log to technical debt register
-  Check if .devforgeai/technical-debt-register.md exists
+  Check if devforgeai/technical-debt-register.md exists
   IF not exists:
     Create from template
 
@@ -530,7 +530,7 @@ ELSE IF "Out of scope: ADR-" in new_justification:
   adr_reference = extract ADR-XXX
 
   # Validate ADR exists
-  Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+  Glob(pattern="devforgeai/specs/adrs/{adr_reference}*.md")
 
   IF not found:
     Display: "⚠️ WARNING: ADR {adr_reference} doesn't exist. You must create it to document scope change."
@@ -716,8 +716,8 @@ Expected:
 - OR story file path provided via conversation
 
 Actions:
-1. Verify /dev command includes: @.ai_docs/Stories/${STORY_ID}.story.md
-2. Check story file exists: Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+1. Verify /dev command includes: @devforgeai/specs/Stories/${STORY_ID}.story.md
+2. Check story file exists: Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 3. Re-run /dev command with proper story reference
 ```
 

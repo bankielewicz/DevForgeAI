@@ -142,7 +142,7 @@ Available commands:
 
 ```
 Modified:
-  - 8 story files (.ai_docs/Stories/STORY-012,013,016,017,018,019,020,027)
+  - 8 story files (devforgeai/specs/Stories/STORY-012,013,016,017,018,019,020,027)
 
 Renamed/Deleted (Git detected as moves):
   - 14 Python files: src/*.py → .backups/orphaned-src-20251116/src/*.py
@@ -162,7 +162,7 @@ Renamed/Deleted (Git detected as moves):
 ```
 DevForgeAI2/
 ├── .claude/                    ✅ Framework components
-├── .devforgeai/               ✅ Framework context
+├── devforgeai/               ✅ Framework context
 ├── src/                       ❌ Python implementation (14 files, 8,218 lines)
 │   ├── feedback_*.py          ❌ Language-specific
 │   ├── hook_*.py              ❌ Language-specific
@@ -189,13 +189,13 @@ DevForgeAI2/
 │   ├── commands/               ✅ 11 commands (documentation)
 │   ├── scripts/devforgeai_cli/ ✅ CLI tool (language-agnostic invocation)
 │   └── memory/                 ✅ Reference documentation
-├── .devforgeai/               ✅ Framework context (Markdown only)
+├── devforgeai/               ✅ Framework context (Markdown only)
 │   ├── context/                ✅ 6 constraint files
 │   ├── protocols/              ✅ Pattern documentation
 │   └── specs/                  ✅ Specifications
 ├── .backups/                  ✅ Preserved prototypes
 │   └── orphaned-src-20251116/  ✅ All src/ files backed up
-└── .ai_docs/                  ✅ Stories, epics, sprints
+└── devforgeai/specs/                  ✅ Stories, epics, sprints
 ```
 
 **Compliance:**
@@ -232,7 +232,7 @@ DevForgeAI2/
 - Skills: 9 skills in `.claude/skills/` (Markdown)
 - Subagents: 21 subagents in `.claude/agents/` (Markdown)
 - Commands: 11 commands in `.claude/commands/` (Markdown)
-- Context: 6 context files in `.devforgeai/context/` (Markdown)
+- Context: 6 context files in `devforgeai/specs/context/` (Markdown)
 - Protocols: Lean orchestration pattern documentation
 - Memory: Progressive disclosure references
 
@@ -364,7 +364,7 @@ DevForgeAI2/
 **Framework Purity:**
 - [x] NO Python files in src/ directory
 - [x] NO language-specific implementation in framework root
-- [x] Framework components are Markdown only (.claude/, .devforgeai/)
+- [x] Framework components are Markdown only (.claude/, devforgeai/)
 - [x] CLI tools in .claude/scripts/ (external binaries)
 
 **Backup Integrity:**
@@ -417,13 +417,13 @@ DevForgeAI2/
 **For future framework work:**
 1. ✅ Framework stories should produce **documentation**, not **implementation code**
 2. ✅ If code needed for CLI tools, goes in `.claude/scripts/devforgeai_cli/`
-3. ✅ Language-specific examples go in `.ai_docs/examples/` with clear labeling
+3. ✅ Language-specific examples go in `devforgeai/specs/examples/` with clear labeling
 4. ✅ Patterns documented in skill reference files, not implemented
 5. ✅ Early validation: Does this violate language-agnostic principle?
 
 **Quality gate enhancement:**
 - Add to pre-commit hook: Check for src/ directory creation in framework
-- Add to context-validator: Warn if executable code found in .claude/ or .devforgeai/
+- Add to context-validator: Warn if executable code found in .claude/ or devforgeai/
 - Add to RCA triggers: Flag language-specific implementation in framework
 
 ---
@@ -456,7 +456,7 @@ The valuable patterns prototyped in the removed code are documented in story tec
 
 ## References
 
-**Source Tree Rules:** `.devforgeai/context/source-tree.md`
+**Source Tree Rules:** `devforgeai/specs/context/source-tree.md`
 **Backup Location:** `.backups/orphaned-src-20251116/src/`
 **CLI Implementation:** `.claude/scripts/devforgeai_cli/`
 **Updated Stories:** STORY-012, 013, 016, 017, 018, 019, 020, 027

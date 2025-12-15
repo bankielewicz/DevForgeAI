@@ -184,8 +184,8 @@ Result: STALE (both age >30 days AND state >2 states behind)
 3. `test_valid_epic_reference_passes()` - epic_id: EPIC-001 (exists) → Validation passes
 
 **Expected Behavior:**
-- Check .ai_docs/Epics/{EPIC-ID}.epic.md exists
-- Check .ai_docs/Stories/{STORY-ID}.story.md exists
+- Check devforgeai/specs/Epics/{EPIC-ID}.epic.md exists
+- Check devforgeai/specs/Stories/{STORY-ID}.story.md exists
 - Fail validation with clear error if not found
 
 ---
@@ -476,7 +476,7 @@ Code refactored while keeping all tests GREEN.
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-036-internet-sleuth-deep-integration.story.md`
 - **Test File:** `tests/integration/test_story_036_internet_sleuth_deep_integration.py`
 - **Pytest Config:** `pytest.ini`
 - **Tech Stack:** `.devforgeai/context/tech-stack.md` (framework uses pytest)

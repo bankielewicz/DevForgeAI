@@ -56,13 +56,13 @@ Glob(pattern="**/go.mod")         # Go modules
 ### Check for Existing DevForgeAI Context
 
 ```
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 
 if len(context_files) == 6:
     # Existing DevForgeAI project
-    Read(file_path=".devforgeai/context/tech-stack.md")
-    Read(file_path=".devforgeai/context/source-tree.md")
-    Read(file_path=".devforgeai/context/architecture-constraints.md")
+    Read(file_path="devforgeai/specs/context/tech-stack.md")
+    Read(file_path="devforgeai/specs/context/source-tree.md")
+    Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
     existing_context = True
     # Use existing constraints for validation in Phase 5

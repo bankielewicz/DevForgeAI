@@ -910,7 +910,7 @@ class TestBrokenReferenceValidation:
 
         Arrange:
           - Create research report with epic_id: EPIC-999
-          - EPIC-999 does not exist in .ai_docs/Epics/
+          - EPIC-999 does not exist in devforgeai/specs/Epics/
 
         Act:
           - Validate reference

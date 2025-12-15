@@ -16,7 +16,7 @@
 - Status: Complete
 - Files: 765
 
-### .devforgeai/ → src/devforgeai/
+### devforgeai/ → src/devforgeai/
 - Status: Complete
 - Files: 187
 - Excluded: qa/reports/, RCA/, adrs/, feedback/imported/, logs/

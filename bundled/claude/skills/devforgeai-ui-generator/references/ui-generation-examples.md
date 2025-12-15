@@ -45,7 +45,7 @@ User: "Generate UI for STORY-042 which requires a login form"
      - Tailwind CSS classes
      - Dark mode color scheme
      - ARIA labels and roles
-   - Saves to: .devforgeai/specs/ui/LoginForm.jsx
+   - Saves to: devforgeai/specs/ui/LoginForm.jsx
 
 6. **Phase 6: Documentation**
    - Creates UI-SPEC-SUMMARY.md
@@ -62,7 +62,7 @@ User: "Generate UI for STORY-042 which requires a login form"
    - Status: SUCCESS
 
 **Output:**
-- LoginForm.jsx in .devforgeai/specs/ui/
+- LoginForm.jsx in devforgeai/specs/ui/
 - UI-SPEC-SUMMARY.md created
 - STORY-042 updated
 - Ready for /dev STORY-042
@@ -117,7 +117,7 @@ User: "Create a settings dialog for the application"
    - All validations pass ✓
 
 **Output:**
-- SettingsDialog.xaml in .devforgeai/specs/ui/
+- SettingsDialog.xaml in devforgeai/specs/ui/
 - UI-SPEC-SUMMARY.md created
 - Ready for implementation
 
@@ -168,7 +168,7 @@ User: "Generate a terminal table to display server status"
    - All validations pass ✓
 
 **Output:**
-- format_server_status.py in .devforgeai/specs/ui/
+- format_server_status.py in devforgeai/specs/ui/
 - Ready to use in terminal application
 
 ---
@@ -260,7 +260,7 @@ User: "Generate Vue.js component for user profile"
 
 5. **Apply defaults:**
    ```
-   Edit(file_path=".devforgeai/specs/ui/Component.jsx",
+   Edit(file_path="devforgeai/specs/ui/Component.jsx",
         old_string="## Integration Points",
         new_string="## Accessibility\n- Level: WCAG 2.1 AA\n- Keyboard navigation: Yes\n- Screen reader: ARIA labels\n- Focus management: Visible focus indicators\n\n## Integration Points")
    ```

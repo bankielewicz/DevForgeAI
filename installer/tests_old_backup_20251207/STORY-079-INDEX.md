@@ -25,7 +25,7 @@ This index provides a complete roadmap to all STORY-079 test files, fixtures, an
 - Coverage matrices
 
 ### For Implementation Guidance
-👉 **Summary & metrics:** [`.devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md`](../../.devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md)
+👉 **Summary & metrics:** [`devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md`](../../devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md)
 - Service implementation order
 - Coverage analysis
 - Quality metrics
@@ -242,7 +242,7 @@ Creates installation with wrong checksums.
     "root": Path,
 }
 ```
-Creates .ai_docs/ and context files with user modifications.
+Creates devforgeai/specs/ and context files with user modifications.
 
 ### 3. missing_manifest_installation
 ```python
@@ -300,7 +300,7 @@ Comprehensive reference including:
 - Data models
 
 ### 3. Generation Summary
-**File:** `.devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md`
+**File:** `devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md`
 
 Analysis document with:
 - Test metrics and statistics
@@ -456,7 +456,7 @@ installer/tests/
 ├── STORY-079-QUICK-START.md            (Quick ref)
 └── STORY-079-INDEX.md                  (This file)
 
-.devforgeai/qa/
+devforgeai/qa/
 └── STORY-079-TEST-GENERATION-SUMMARY.md (Metrics & analysis)
 ```
 
@@ -465,12 +465,12 @@ installer/tests/
 ## Related Files
 
 ### Story Definition
-- `.ai_docs/Stories/STORY-079-fix-repair-installation-mode.story.md`
+- `devforgeai/specs/Stories/STORY-079-fix-repair-installation-mode.story.md`
 
 ### Context Files
-- `.devforgeai/context/tech-stack.md` - Framework specification
-- `.devforgeai/context/source-tree.md` - File structure rules
-- `.devforgeai/context/coding-standards.md` - Code quality
+- `devforgeai/specs/context/tech-stack.md` - Framework specification
+- `devforgeai/specs/context/source-tree.md` - File structure rules
+- `devforgeai/specs/context/coding-standards.md` - Code quality
 
 ### Implementation Files (To be created)
 - `installer/checksum_calculator.py` - SHA256 calculation
@@ -484,7 +484,7 @@ installer/tests/
 ## Key Concepts
 
 ### Installation Manifest
-Located at: `.devforgeai/.install-manifest.json`
+Located at: `devforgeai/.install-manifest.json`
 
 Structure:
 ```json
@@ -504,8 +504,8 @@ Structure:
 ```
 
 ### User-Modifiable Paths
-- `.ai_docs/**/*` - User stories and documents
-- `.devforgeai/context/**/*` - Configuration
+- `devforgeai/specs/**/*` - User stories and documents
+- `devforgeai/specs/context/**/*` - Configuration
 - Any file marked `is_user_modifiable: true`
 
 ### Issue Types
@@ -575,5 +575,5 @@ Structure:
 **Quick Links:**
 - 📖 [Quick Start](./STORY-079-QUICK-START.md)
 - 📚 [Full Test Suite Docs](./STORY-079-TEST-SUITE.md)
-- 📊 [Generation Summary](./.devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md)
+- 📊 [Generation Summary](./devforgeai/qa/STORY-079-TEST-GENERATION-SUMMARY.md)
 - 🎯 [Run All Tests](#quick-execution)

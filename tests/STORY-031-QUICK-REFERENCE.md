@@ -109,7 +109,7 @@ pytest tests/integration/test_story_031_ideate_hooks_integration.py --cov=.claud
 ## References
 
 **Story File:**
-- `.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
+- `devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
 
 **Command to Implement:**
 - `.claude/commands/ideate.md` (Phase N)

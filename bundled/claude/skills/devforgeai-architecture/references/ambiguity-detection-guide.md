@@ -489,7 +489,7 @@ AI: "This Dapper query is complex. Entity Framework Core would make this easier.
 ```
 AI: "This query is complex. Let me check tech-stack.md..."
 
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Sees: "Data Access (LOCKED TO DAPPER)"
 # Sees: "PROHIBITED: Entity Framework Core"
 

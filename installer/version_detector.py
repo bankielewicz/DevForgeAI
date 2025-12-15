@@ -2,7 +2,7 @@
 Version detector service for reading installed version from .version.json.
 
 Implements SVC-001 through SVC-003:
-- Read version from .devforgeai/.version.json
+- Read version from devforgeai/.version.json
 - Handle missing version file gracefully
 - Handle corrupted JSON gracefully
 """
@@ -15,7 +15,7 @@ from installer.version_parser import Version, VersionParser
 
 
 class VersionDetector:
-    """Detects installed version from .devforgeai/.version.json."""
+    """Detects installed version from devforgeai/.version.json."""
 
     def __init__(self, devforgeai_path: Optional[Path] = None) -> None:
         """

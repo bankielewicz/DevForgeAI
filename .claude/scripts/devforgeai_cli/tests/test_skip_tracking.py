@@ -977,7 +977,7 @@ class TestEdgeCases:
 
     def test_edge_missing_config_file_on_first_skip(self, temp_config_dir, sample_config):
         """
-        EDGE CASE: .devforgeai/config/feedback-preferences.yaml doesn't exist
+        EDGE CASE: devforgeai/config/feedback-preferences.yaml doesn't exist
         EXPECTED: System creates config file with initial structure and increments counter
         VALIDATION: File created with YAML frontmatter and initial counters
         """
@@ -1024,7 +1024,7 @@ class TestEdgeCases:
 
     def test_edge_corrupted_config_file(self, temp_config_dir, sample_config):
         """
-        EDGE CASE: .devforgeai/config/feedback-preferences.yaml is malformed YAML
+        EDGE CASE: devforgeai/config/feedback-preferences.yaml is malformed YAML
         EXPECTED: System logs error, creates backup, creates fresh config
         VALIDATION: Fresh config created, operations continue
         """

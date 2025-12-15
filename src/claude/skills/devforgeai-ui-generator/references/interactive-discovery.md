@@ -162,7 +162,7 @@ After receiving user's technology choices:
 **1. Check tech-stack.md:** Verify chosen technology is approved.
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 Search for user's chosen technology in tech-stack.md
 
@@ -201,7 +201,7 @@ IF user selects "Use ${CHOSEN_TECH}":
 
   IF "Update now":
     Edit tech-stack.md to add ${CHOSEN_TECH}
-    Create ADR stub in .devforgeai/adrs/
+    Create ADR stub in devforgeai/specs/adrs/
     Proceed with ${CHOSEN_TECH}
 
   ELSE:

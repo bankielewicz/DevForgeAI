@@ -129,12 +129,12 @@ PASS: Ready for Architecture transition
 ```
 # Check all 6 context files exist
 context_files = [
-    ".devforgeai/context/tech-stack.md",
-    ".devforgeai/context/source-tree.md",
-    ".devforgeai/context/dependencies.md",
-    ".devforgeai/context/coding-standards.md",
-    ".devforgeai/context/architecture-constraints.md",
-    ".devforgeai/context/anti-patterns.md"
+    "devforgeai/specs/context/tech-stack.md",
+    "devforgeai/specs/context/source-tree.md",
+    "devforgeai/specs/context/dependencies.md",
+    "devforgeai/specs/context/coding-standards.md",
+    "devforgeai/specs/context/architecture-constraints.md",
+    "devforgeai/specs/context/anti-patterns.md"
 ]
 
 missing_files = []
@@ -157,7 +157,7 @@ FOR file in context_files:
         AskUserQuestion: "Context file has TODOs. Proceed anyway?"
 
 # Validate tech stack is locked
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 IF "LOCKED" not in content:
     WARN: "Tech stack not locked - may change during development"
 
@@ -411,7 +411,7 @@ PASS: Ready to start QA
 **Validation Logic:**
 ```
 # Read QA report
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 # Parse QA status
 qa_status = parse_qa_status(report)
@@ -477,7 +477,7 @@ PASS: QA Approved
    - Low Issues: {low_count}
 
    ### Report
-   - Full Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+   - Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
 
    ### Next Steps
    - Story approved for release
@@ -530,7 +530,7 @@ PASS: QA Approved
 **Validation Logic:**
 ```
 # Read QA report
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 # Parse QA status
 qa_status = parse_qa_status(report)
@@ -571,7 +571,7 @@ PASS: Transition to QA Failed
    {list_critical_and_high_violations}
 
    ### Report
-   - Full Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+   - Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
 
    ### Action Items
    {action_items_from_report}
@@ -605,7 +605,7 @@ PASS: Transition to QA Failed
    Coverage: {coverage}%
 
    Action Required:
-   1. Review QA report: .devforgeai/qa/reports/{story_id}-qa-report.md
+   1. Review QA report: devforgeai/qa/reports/{story_id}-qa-report.md
    2. Fix CRITICAL and HIGH violations
    3. Add tests to meet coverage thresholds
    4. Re-run development workflow
@@ -632,12 +632,12 @@ PASS: Transition to QA Failed
 **Validation Logic:**
 ```
 # Verify QA report exists
-qa_report_exists = file_exists(f".devforgeai/qa/reports/{story_id}-qa-report.md")
+qa_report_exists = file_exists(f"devforgeai/qa/reports/{story_id}-qa-report.md")
 IF NOT qa_report_exists:
     FAIL: "QA report missing - cannot determine what to fix"
 
 # Parse action items
-Read(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md")
 action_items = parse_action_items(report)
 
 IF action_items.empty:
@@ -709,7 +709,7 @@ PASS: Ready to return to development
 **Validation Logic:**
 ```
 # Verify QA report still shows PASS
-Read(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md")
 qa_status = parse_qa_status(report)
 
 IF qa_status != "PASS":

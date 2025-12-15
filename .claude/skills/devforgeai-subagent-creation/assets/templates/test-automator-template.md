@@ -36,7 +36,7 @@ Generate comprehensive test suites from acceptance criteria and technical specif
 When invoked, follow these steps:
 
 1. **Parse Acceptance Criteria and Technical Specification**
-   - Read story file from `.ai_docs/Stories/`
+   - Read story file from `devforgeai/specs/Stories/`
    - Extract Given/When/Then scenarios from Acceptance Criteria
    - Extract implementation details from Technical Specification
    - Identify test cases from both sources (dual-source strategy)

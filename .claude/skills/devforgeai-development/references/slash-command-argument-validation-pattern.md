@@ -92,7 +92,7 @@ IF $1 does NOT match pattern "STORY-[0-9]+":
 ```markdown
 **Validate story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
   # Story doesn't exist - user provided non-existent ID
@@ -108,7 +108,7 @@ IF no matches found:
   multiSelect: false
 
   Handle based on user selection:
-  - If "List all": Glob(".ai_docs/Stories/*.md"), display list, ask which one
+  - If "List all": Glob("devforgeai/specs/Stories/*.md"), display list, ask which one
   - If "Create": Exit with message to run /create-story
   - If "Different story": Ask for correct story ID
   - If "Cancel": Exit gracefully
@@ -342,7 +342,7 @@ IF $1 does NOT match "STORY-[0-9]+":
   multiSelect: false
 
 **Validate file exists:**
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches:
   AskUserQuestion:
@@ -449,7 +449,7 @@ ELSE:
 
 Expected:
   ✓ Story ID: STORY-001 (valid format)
-  ✓ Story file found: .ai_docs/Stories/STORY-001.story.md
+  ✓ Story file found: devforgeai/specs/Stories/STORY-001.story.md
   ✓ Mode: deep (valid)
   ✓ Validation complete
 
@@ -613,7 +613,7 @@ Skill(command="skill-name")
 **Before (Silent Failure):**
 ```
 > /qa story-001
-Error: Story file not found: .ai_docs/Stories/story-001.story.md
+Error: Story file not found: devforgeai/specs/Stories/story-001.story.md
 ```
 User frustrated: "What's wrong? I have a story!"
 
@@ -745,18 +745,18 @@ When adding Phase 01 validation to a slash command:
 ## Related Documentation
 
 **Official Sources:**
-- `.ai_docs/Terminal/slash-commands.md` - Argument handling
-- `.ai_docs/claude-skills.md` - Skills cannot accept parameters
+- `devforgeai/specs/Terminal/slash-commands.md` - Argument handling
+- `devforgeai/specs/claude-skills.md` - Skills cannot accept parameters
 
 **DevForgeAI Patterns:**
 - `CLAUDE.md` - "Ask, Don't Assume" principle
-- `.devforgeai/context/anti-patterns.md` - Copy-paste warnings
+- `devforgeai/specs/context/anti-patterns.md` - Copy-paste warnings
 - `.claude/memory/skills-reference.md` - Skill invocation patterns
 
 **RCA Context:**
-- `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
-- `.devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
-- `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
+- `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
+- `devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
+- `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
 
 ---
 

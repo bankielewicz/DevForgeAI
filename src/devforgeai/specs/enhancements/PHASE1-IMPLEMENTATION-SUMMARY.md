@@ -697,14 +697,14 @@ if "Technical Specification" not in story:
 
 ```bash
 # 1. Restore original files
-cp .devforgeai/backups/phase1/tdd-red-phase.md.backup \
+cp devforgeai/backups/phase1/tdd-red-phase.md.backup \
    .claude/skills/devforgeai-development/references/tdd-red-phase.md
 
-cp .devforgeai/backups/phase1/test-automator.md.backup \
+cp devforgeai/backups/phase1/test-automator.md.backup \
    .claude/agents/test-automator.md
 
 # 2. Verify restoration
-diff .devforgeai/backups/phase1/tdd-red-phase.md.backup \
+diff devforgeai/backups/phase1/tdd-red-phase.md.backup \
      .claude/skills/devforgeai-development/references/tdd-red-phase.md
 # Expected: No differences
 
@@ -716,7 +716,7 @@ diff .devforgeai/backups/phase1/tdd-red-phase.md.backup \
 # Verify Step 4 does NOT trigger
 
 # 5. Document rollback
-echo "Rollback reason: [REASON]" > .devforgeai/backups/phase1/ROLLBACK-REASON.txt
+echo "Rollback reason: [REASON]" > devforgeai/backups/phase1/ROLLBACK-REASON.txt
 ```
 
 **Validation:**
@@ -849,16 +849,16 @@ echo "Rollback reason: [REASON]" > .devforgeai/backups/phase1/ROLLBACK-REASON.tx
 - `.claude/agents/test-automator.md` (Tech Spec Requirements: lines 43-344)
 
 **Documentation:**
-- `.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md` (User guide)
-- `.devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md` (This document)
-- `.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md` (Summary)
+- `devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md` (User guide)
+- `devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md` (This document)
+- `devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md` (Summary)
 
 **RCA source:**
 - `/tmp/output.md` (Original 5 Whys analysis)
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (Framework RCA)
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (Framework RCA)
 
 **Backups:**
-- `.devforgeai/backups/phase1/` (Rollback files)
+- `devforgeai/backups/phase1/` (Rollback files)
 
 ---
 

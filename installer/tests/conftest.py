@@ -49,7 +49,7 @@ def temp_install_dir():
             "installed_files": [
                 ".claude/skills/test-skill/SKILL.md",
                 ".claude/agents/test-agent.md",
-                ".devforgeai/context/tech-stack.md",
+                "devforgeai/specs/context/tech-stack.md",
                 "CLAUDE.md"
             ]
         }
@@ -86,7 +86,7 @@ def mock_manifest_manager():
         "installed_files": [
             ".claude/skills/test-skill/SKILL.md",
             ".claude/agents/test-agent.md",
-            ".devforgeai/context/tech-stack.md",
+            "devforgeai/specs/context/tech-stack.md",
             "CLAUDE.md"
         ]
     })

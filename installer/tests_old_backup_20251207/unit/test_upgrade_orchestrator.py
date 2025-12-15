@@ -374,7 +374,7 @@ class TestBackupCreation:
 
     def test_backup_includes_all_devforgeai_files(self, project_root, installed_version_1_0_0, source_package):
         """
-        AC#2: Backup includes .claude/, .devforgeai/, CLAUDE.md.
+        AC#2: Backup includes .claude/, devforgeai/, CLAUDE.md.
 
         Given: Upgrade in progress
         When: Backup created
@@ -395,7 +395,7 @@ class TestBackupCreation:
 
     def test_backup_stored_in_correct_location(self, project_root, installed_version_1_0_0):
         """
-        AC#2: Backup stored in .devforgeai/backups/v{X.Y.Z}-{timestamp}/.
+        AC#2: Backup stored in devforgeai/backups/v{X.Y.Z}-{timestamp}/.
 
         Given: Backup created
         When: Checking backup location
@@ -410,7 +410,7 @@ class TestBackupCreation:
         backup_path = orchestrator._create_backup(project_root=project_root, from_version="1.0.0")
 
         # Assert
-        assert ".devforgeai/backups" in str(backup_path) or ".devforgeai\\backups" in str(backup_path)
+        assert "devforgeai/backups" in str(backup_path) or ".devforgeai\\backups" in str(backup_path)
         assert "v1.0.0" in backup_path.name
 
     def test_backup_includes_version_metadata(self, project_root, installed_version_1_0_0):
@@ -896,7 +896,7 @@ class TestUpgradeSummary:
 
     def test_summary_saved_to_log_file(self, project_root, installed_version_1_0_0, source_package, mock_dependencies):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log.
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log.
 
         Given: Upgrade complete
         When: Summary generated
@@ -1109,7 +1109,7 @@ class TestBusinessRules:
         """
         BR-004: User content preserved during upgrade.
 
-        Given: User has .ai_docs/Stories/ with content
+        Given: User has devforgeai/specs/Stories/ with content
         When: Upgrade executes
         Then: User stories not modified
         """

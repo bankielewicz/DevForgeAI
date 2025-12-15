@@ -259,7 +259,7 @@ Tests use fixtures to avoid duplication and keep setup clean.
 
 - **Full Test Documentation:** `tests/STORY-055-TEST-SUITE.md`
 - **Generation Summary:** `tests/STORY-055-TEST-GENERATION-SUMMARY.md`
-- **Story File:** `.ai_docs/Stories/STORY-055-devforgeai-ideation-integration.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-055-devforgeai-ideation-integration.story.md`
 - **Guidance Document:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
 
 ---

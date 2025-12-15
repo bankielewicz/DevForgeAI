@@ -25,7 +25,7 @@ Reference this document when:
 
 **Actions:**
 ```
-Read(file_path=".devforgeai/specs/requirements/[project]-requirements.md")
+Read(file_path="devforgeai/specs/requirements/[project]-requirements.md")
 
 Extract:
 - Business goals and objectives
@@ -68,7 +68,7 @@ Epic Candidates:
 Read(file_path=".claude/skills/devforgeai-orchestration/assets/templates/epic-template.md")
 
 Copy template to:
-Write(file_path=".ai_docs/Epics/EPIC-{number}-{slug}.md")
+Write(file_path="devforgeai/specs/Epics/EPIC-{number}-{slug}.md")
 
 Fill in YAML frontmatter:
 - id: EPIC-XXX (auto-increment)
@@ -264,7 +264,7 @@ Completed: 32 points
 Progress: 64%
 
 Update epic frontmatter:
-Edit(file_path=".ai_docs/Epics/EPIC-001.md",
+Edit(file_path="devforgeai/specs/Epics/EPIC-001.md",
      old_string="completed_points: 0",
      new_string="completed_points: 32")
 ```
@@ -301,9 +301,9 @@ epic: EPIC-001
 Grep(pattern="epic: EPIC-001", glob="**/*.story.md", output_mode="files_with_matches")
 
 Returns:
-- .ai_docs/Stories/STORY-001-guest-checkout.md
-- .ai_docs/Stories/STORY-002-saved-payment.md
-- .ai_docs/Stories/STORY-003-multi-currency.md
+- devforgeai/specs/Stories/STORY-001-guest-checkout.md
+- devforgeai/specs/Stories/STORY-002-saved-payment.md
+- devforgeai/specs/Stories/STORY-003-multi-currency.md
 ...
 ```
 
@@ -380,7 +380,7 @@ Lessons Learned:
 
 **Step 4: Update Epic Status**
 ```
-Edit(file_path=".ai_docs/Epics/{epic_id}.md",
+Edit(file_path="devforgeai/specs/Epics/{epic_id}.md",
      old_string="status: In Progress",
      new_string="status: Complete")
 

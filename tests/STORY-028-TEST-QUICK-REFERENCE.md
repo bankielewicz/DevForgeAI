@@ -308,7 +308,7 @@ Based on test structure, implementation needs:
 
 ## 🔗 Related Files
 
-- **Story**: `.ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
+- **Story**: `devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
 - **Skill**: `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A.9 to add)
 - **Command**: `.claude/commands/create-epic.md` (Phase 4 to update)
 - **Config Example**: `.devforgeai/config/hooks.yaml.example` (to create)

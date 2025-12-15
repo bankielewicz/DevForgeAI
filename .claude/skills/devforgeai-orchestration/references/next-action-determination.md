@@ -211,7 +211,7 @@ IF story status == "QA Approved":
 ```
 IF story status == "QA Failed":
   # Read QA report to understand failure
-  Read(file_path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md")
+  Read(file_path="devforgeai/qa/reports/{STORY_ID}-qa-report.md")
   failure_type = parse failure type
   violations = parse violations
 
@@ -224,7 +224,7 @@ IF story status == "QA Failed":
   Violations: {violations_summary}
 
   Next Action:
-  1. Review QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+  1. Review QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
   2. Fix violations in code
   3. Run: /dev {STORY_ID} (to apply fixes)
   4. Orchestration will automatically retry QA

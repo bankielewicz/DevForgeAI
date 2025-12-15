@@ -65,7 +65,7 @@ Generate and maintain comprehensive project documentation automatically:
 - Manual: `Skill(command="devforgeai-documentation")`
 
 **Prerequisites:**
-- Context files exist (`.devforgeai/context/*.md`) - 6 files required
+- Context files exist (`devforgeai/specs/context/*.md`) - 6 files required
 - For greenfield: Story files exist and status ≥ "Dev Complete"
 - For brownfield: Codebase exists with source files
 
@@ -93,7 +93,7 @@ Generate and maintain comprehensive project documentation automatically:
 
 3. **Validate context files**:
    ```
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
 
    IF count < 6:
        Display: "❌ Context files missing. Run /create-context first."
@@ -125,7 +125,7 @@ Generate and maintain comprehensive project documentation automatically:
    IF story ID provided:
        stories = [story ID]
    ELSE:
-       Glob(pattern=".ai_docs/Stories/*.story.md")
+       Glob(pattern="devforgeai/specs/Stories/*.story.md")
        Filter: status IN ["Dev Complete", "QA Approved", "Released"]
    ```
 
@@ -262,7 +262,7 @@ Generate and maintain comprehensive project documentation automatically:
    template_path = "assets/templates/{type}-template.md"
 
    # Check for custom template
-   custom_path = ".devforgeai/templates/documentation/{type}-template.md"
+   custom_path = "devforgeai/templates/documentation/{type}-template.md"
 
    IF custom_path exists:
        template = Read(custom_path)
@@ -272,7 +272,7 @@ Generate and maintain comprehensive project documentation automatically:
 
 2. **Apply customizations from coding-standards.md**:
    ```
-   Read: .devforgeai/context/coding-standards.md
+   Read: devforgeai/specs/context/coding-standards.md
    Extract: Documentation style preferences
 
    Apply to template:
@@ -306,7 +306,7 @@ Generate and maintain comprehensive project documentation automatically:
 
 1. **Determine file location** per source-tree.md:
    ```
-   Read: .devforgeai/context/source-tree.md
+   Read: devforgeai/specs/context/source-tree.md
    Extract: Documentation directory rules
 
    Default locations:
@@ -407,7 +407,7 @@ Generate and maintain comprehensive project documentation automatically:
 
 3. **Check framework constraint compliance**:
    ```
-   Read: .devforgeai/context/architecture-constraints.md
+   Read: devforgeai/specs/context/architecture-constraints.md
 
    IF documentation describes architecture:
        Validate diagrams match constraints

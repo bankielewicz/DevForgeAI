@@ -316,9 +316,9 @@
 
 ## References
 
-- **Story Document**: `.ai_docs/Stories/{{STORY_ID}}.story.md`
-- **Failed Release Notes**: `.devforgeai/releases/release-{{VERSION}}.md`
-- **QA Report**: `.devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
+- **Story Document**: `devforgeai/specs/Stories/{{STORY_ID}}.story.md`
+- **Failed Release Notes**: `devforgeai/releases/release-{{VERSION}}.md`
+- **QA Report**: `devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
 - **Error Logs**: {{ERROR_LOG_LOCATION}}
 - **Metrics Dashboard**: {{METRICS_DASHBOARD_URL}}
 

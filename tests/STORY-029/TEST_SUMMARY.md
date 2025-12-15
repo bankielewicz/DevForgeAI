@@ -409,7 +409,7 @@ fi
 ## Documentation
 
 **Related Files:**
-- Story: `.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
+- Story: `devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
 - Command: `.claude/commands/create-sprint.md`
 - Hook CLI: `.claude/scripts/devforgeai_cli/commands/check_hooks.py`
 - Hook CLI: `.claude/scripts/devforgeai_cli/commands/invoke_hooks.py`

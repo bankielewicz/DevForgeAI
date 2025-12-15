@@ -357,7 +357,7 @@ src/claude/skills/devforgeai-ideation/references/user-input-guidance.md
 
 ### Story Definition
 ```
-.ai_docs/Stories/STORY-053-framework-internal-guidance-reference.story.md
+devforgeai/specs/Stories/STORY-053-framework-internal-guidance-reference.story.md
 ```
 
 ---

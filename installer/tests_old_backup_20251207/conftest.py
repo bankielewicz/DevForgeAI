@@ -39,7 +39,7 @@ def tmp_project(tmp_path):
     Create a temporary project directory with DevForgeAI framework installed.
 
     Returns:
-        dict: Contains 'root' (project root), 'claude' (.claude/), 'devforgeai' (.devforgeai/)
+        dict: Contains 'root' (project root), 'claude' (.claude/), 'devforgeai' (devforgeai/)
     """
     root = tmp_path / "test_project"
     root.mkdir()
@@ -53,7 +53,7 @@ def tmp_project(tmp_path):
     (claude_dir / "scripts").mkdir()
     (claude_dir / "skills").mkdir()
 
-    # Create .devforgeai/ structure
+    # Create devforgeai/ structure
     devforgeai_dir = root / ".devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir()
@@ -277,7 +277,7 @@ def installation_states():
         "corrupted": {
             "has_version_file": False,  # Missing version.json
             "has_claude_dir": True,  # But .claude/ exists
-            "has_devforgeai_dir": True,  # And .devforgeai/ exists
+            "has_devforgeai_dir": True,  # And devforgeai/ exists
         },
     }
 
@@ -388,13 +388,13 @@ def user_modified_installation(tmp_project):
         "created_at": "2025-01-01T10:00:00Z",  # Older than modifications
         "files": [
             {
-                "path": ".ai_docs/my_story.md",
+                "path": "devforgeai/specs/my_story.md",
                 "checksum": "original_checksum_1" + ("a" * 44),
                 "size": 100,
                 "is_user_modifiable": True,
             },
             {
-                "path": ".devforgeai/context/tech-stack.md",
+                "path": "devforgeai/specs/context/tech-stack.md",
                 "checksum": "original_checksum_2" + ("b" * 44),
                 "size": 200,
                 "is_user_modifiable": True,
@@ -490,7 +490,7 @@ def mock_source_package(tmp_path):
 
     source_files = [
         (".claude/agents/test.md", "Test agent content"),
-        (".devforgeai/context/tech-stack.md", "Tech stack content"),
+        ("devforgeai/specs/context/tech-stack.md", "Tech stack content"),
         ("file1.txt", "File 1 content"),
         ("file2.txt", "File 2 content"),
     ]

@@ -363,7 +363,7 @@ Phase 3: Sprint Creation (120 lines) ← BUSINESS LOGIC
 ├─ Calculate capacity (sum story points)
 ├─ Calculate sprint dates
 ├─ Generate sprint document (YAML + markdown)
-└─ Write to .ai_docs/Sprints/
+└─ Write to devforgeai/specs/Sprints/
 
 Phase 4: Update Stories (70 lines) ← BUSINESS LOGIC
 ├─ Update each story status to "Ready for Dev"
@@ -977,9 +977,9 @@ Overall pattern adoption is successful when:
 - `.claude/agents/tech-stack-detector.md` - Technology validation
 
 **Detailed Refactoring Documentation:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md`
-- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md`
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md`
+- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md`
 
 ---
 

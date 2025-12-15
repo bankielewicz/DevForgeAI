@@ -5,10 +5,10 @@ Test Scenario: Framework Uninstall with User Data Preservation
 Validates that uninstall removes framework while preserving user data:
 1. Creates backup before uninstalling (recovery capability)
 2. Removes .claude/ directory completely
-3. Removes .devforgeai/ subdirectories (except context)
+3. Removes devforgeai/ subdirectories (except context)
 4. Removes CLAUDE.md file
-5. Preserves .ai_docs/ (user stories)
-6. Preserves .devforgeai/context/ (user context files)
+5. Preserves devforgeai/specs/ (user stories)
+6. Preserves devforgeai/specs/context/ (user context files)
 7. Removes .version.json
 
 AC Mapping:
@@ -133,9 +133,9 @@ class TestUninstallWorkflow:
         AC-5.3: Uninstall preserves user data (.ai_docs, context files).
 
         Validates:
-        - .ai_docs/ directory untouched
+        - devforgeai/specs/ directory untouched
         - User stories preserved
-        - .devforgeai/context/ preserved
+        - devforgeai/specs/context/ preserved
         - User context files unchanged
 
         Expected: All user files intact after uninstall
@@ -159,7 +159,7 @@ class TestUninstallWorkflow:
         # Verify user data preserved
         assert (
             target_root / ".ai_docs"
-        ).exists(), ".ai_docs/ should be preserved"
+        ).exists(), "devforgeai/specs/ should be preserved"
         assert (
             target_root / ".devforgeai" / "context"
         ).exists(), "context/ should be preserved"

@@ -129,7 +129,7 @@ This skill manages the **release workflow** from QA-approved code to production 
 
 ```
 # Load story document
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 # Parse frontmatter
 story_metadata = extract_yaml_frontmatter(story)
@@ -140,7 +140,7 @@ story_metadata = extract_yaml_frontmatter(story)
   - sprint
 
 # Load QA report
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 # Parse QA status
 qa_status = extract_qa_status(qa_report)
@@ -634,7 +634,7 @@ multiSelect: false
 #### 5.1 Generate Release Notes
 
 ```
-Write(file_path=".devforgeai/releases/release-{version}.md", content="""
+Write(file_path="devforgeai/releases/release-{version}.md", content="""
 # Release {version} - {date}
 
 ## Story: {story_id} - {story_title}
@@ -688,17 +688,17 @@ Write(file_path=".devforgeai/releases/release-{version}.md", content="""
 
 ```
 # Update story frontmatter
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: QA Approved",
      new_string="status: Released")
 
 # Check workflow box
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="- [ ] Released",
      new_string="- [x] Released")
 
 # Add release metadata
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="created: {created_date}",
      new_string=f"created: {created_date}\nreleased: {release_date}\nversion: {version}")
 
@@ -711,11 +711,11 @@ history_entry = f"""
 - **Deployment:** Successful
 - **Smoke Tests:** PASS
 - **Metrics:** Within acceptable thresholds
-- **Release Notes:** .devforgeai/releases/release-{version}.md
+- **Release Notes:** devforgeai/releases/release-{version}.md
 """
 
 # Append to workflow history section
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="## Workflow History\n\n",
      new_string=f"## Workflow History\n\n{history_entry}\n")
 ```
@@ -724,10 +724,10 @@ Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
 
 ```
 # If story was part of a sprint, update sprint document
-Read(file_path=".ai_docs/Sprints/{sprint_id}.sprint.md")
+Read(file_path="devforgeai/specs/Sprints/{sprint_id}.sprint.md")
 
 # Mark story as complete
-Edit(file_path=".ai_docs/Sprints/{sprint_id}.sprint.md",
+Edit(file_path="devforgeai/specs/Sprints/{sprint_id}.sprint.md",
      old_string=f"- [ ] {story_id}:",
      new_string=f"- [x] {story_id}:")
 
@@ -786,7 +786,7 @@ alert_config = {
 
 ```
 # Create follow-up task
-Write(file_path=".devforgeai/post-release/{story_id}-review.md", content="""
+Write(file_path="devforgeai/post-release/{story_id}-review.md", content="""
 # Post-Release Review: {story_id}
 
 **Review Date:** {date + 24h}
@@ -831,7 +831,7 @@ Validation:
   ✓ Metrics: Within thresholds
 
 Documentation:
-  ✓ Release notes: .devforgeai/releases/release-{version}.md
+  ✓ Release notes: devforgeai/releases/release-{version}.md
   ✓ Story updated: Status = Released
   ✓ Changelog updated
 
@@ -898,12 +898,12 @@ Bash(command=f"./scripts/restore_database.sh {backup_id}")
 
 ```
 # Update story status
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: Releasing",
      new_string="status: QA Approved")
 
 # Document rollback
-Write(file_path=".devforgeai/releases/rollback-{version}.md", content="""
+Write(file_path="devforgeai/releases/rollback-{version}.md", content="""
 # Rollback: {version}
 
 **Reason:** {rollback_reason}
@@ -1122,7 +1122,7 @@ multiSelect: false
 - [ ] No rollback required
 
 **Output Artifacts:**
-- Release notes (`.devforgeai/releases/release-{version}.md`)
+- Release notes (`devforgeai/releases/release-{version}.md`)
 - Updated story document (status = "Released")
 - Updated changelog (`CHANGELOG.md`)
 - Deployment logs

@@ -50,7 +50,7 @@ NEVER refactor: Code (only analyze and recommend)
 
 ### 2. Context File Enforcement
 ```
-MUST load: .devforgeai/context/tech-stack.md (language detection)
+MUST load: devforgeai/specs/context/tech-stack.md (language detection)
 MUST load: src/claude/skills/devforgeai-qa/assets/config/quality-metrics.md (thresholds)
 
 HALT if: Context files missing
@@ -208,7 +208,7 @@ Every metric MUST include:
 
 **Step 1.1: Load Context Files (Parallel)**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 Read(file_path=".claude/skills/devforgeai-qa/assets/config/quality-metrics.md")
 
 IF any file missing:
@@ -849,7 +849,7 @@ quality_result = Task(
   Analyze code quality metrics for {story_id}.
 
   Context Files:
-  {Read(file_path=".devforgeai/context/tech-stack.md")}
+  {Read(file_path="devforgeai/specs/context/tech-stack.md")}
   {Read(file_path="src/claude/skills/devforgeai-qa/assets/config/quality-metrics.md")}
 
   Story ID: {story_id}

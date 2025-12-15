@@ -97,7 +97,7 @@ Extract: Comprehensive issue details from responses
 **Step 5: Generate RCA Number**
 
 ```
-Glob(pattern=".devforgeai/RCA/RCA-*.md")
+Glob(pattern="devforgeai/RCA/RCA-*.md")
 
 Extract numbers from filenames: RCA-001 → 1, RCA-009 → 9
 
@@ -163,10 +163,10 @@ IF component_type == "Subagent":
   Read(file_path=".claude/agents/{subagent}.md")
 
 IF component_type == "Context File":
-  Read(file_path=".devforgeai/context/{context-file}.md")
+  Read(file_path="devforgeai/specs/context/{context-file}.md")
 
 IF component_type == "Workflow":
-  Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+  Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
   # Extract STORY-ID from issue description if present
 ```
 
@@ -195,7 +195,7 @@ Extract skill name from Skill(command="...") line
 Read(file_path=".claude/skills/{skill}/SKILL.md")
 
 # Read pattern documentation
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 ```
 
 **For Subagent:**
@@ -215,7 +215,7 @@ IF found:
 
 IF issue involves constraint violation:
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 Read all 6 context files:
 - tech-stack.md
@@ -229,7 +229,7 @@ Read all 6 context files:
 **Step 6: Search for Related RCAs**
 
 ```
-Grep(pattern="{keywords from issue}", path=".devforgeai/RCA/", output_mode="files_with_matches")
+Grep(pattern="{keywords from issue}", path="devforgeai/RCA/", output_mode="files_with_matches")
 
 Read(file_path="{related RCA files}")
 
@@ -467,7 +467,7 @@ Sort files by significance (CRITICAL first)
 **Step 4: Validate Context Files**
 
 ```
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 EXPECTED = [
   "tech-stack.md",
@@ -874,7 +874,7 @@ ELSE:
 Generate filename:
   slug = rca_title.lowercase().replace(" ", "-")
   filename = "RCA-{rca_number}-{slug}.md"
-  path = ".devforgeai/RCA/{filename}"
+  path = "devforgeai/RCA/{filename}"
 
 Write document:
   Write(file_path=path, content=populated_template)
@@ -887,7 +887,7 @@ Verify:
 **Phase 5 Output:**
 ```
 ✓ RCA Document Created:
-  - File: .devforgeai/RCA/RCA-{NNN}-{slug}.md
+  - File: devforgeai/RCA/RCA-{NNN}-{slug}.md
   - Sections: 8/8 complete
   - Recommendations: {count}
   - Evidence: {count} files examined
@@ -904,7 +904,7 @@ Proceeding to Phase 6: Validation & Self-Check...
 **Step 1: Validate Structure**
 
 ```
-Read(file_path=".devforgeai/RCA/RCA-{rca_number}-{slug}.md")
+Read(file_path="devforgeai/RCA/RCA-{rca_number}-{slug}.md")
 
 Check required sections exist:
 - [ ] Header (with all metadata)
@@ -1035,7 +1035,7 @@ Proceeding to Phase 7: Completion Report...
 Create summary:
   rca_number: "RCA-{NNN}"
   rca_title: "{title}"
-  rca_file: ".devforgeai/RCA/RCA-{NNN}-{slug}.md"
+  rca_file: "devforgeai/RCA/RCA-{NNN}-{slug}.md"
   severity: "{CRITICAL/HIGH/MEDIUM/LOW}"
   root_cause_brief: "{1-2 sentence summary of why_5}"
   recommendation_counts: {
@@ -1277,7 +1277,7 @@ Skill(command="devforgeai-rca")
 ### Outputs
 
 **Primary Output:**
-- RCA document in `.devforgeai/RCA/RCA-{NNN}-{slug}.md`
+- RCA document in `devforgeai/RCA/RCA-{NNN}-{slug}.md`
 
 **Secondary Output:**
 - Completion report (returned to command for display)
@@ -1315,7 +1315,7 @@ RCA skill execution successful when:
 
 **Related Documentation:**
 - `CLAUDE.md` - Framework overview
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Architecture pattern
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Architecture pattern
 - `.claude/memory/*.md` - Framework reference
 
 ---

@@ -25,7 +25,7 @@ class TestBackupCreation:
 
         Given: Installation is about to copy files
         When: BackupService.create_backup() is called
-        Then: Backup directory created with format .devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/
+        Then: Backup directory created with format devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/
         """
         # Arrange
         from installer.services.backup_service import BackupService

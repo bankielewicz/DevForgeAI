@@ -19,7 +19,7 @@ This skill generates front-end user interface specifications and code by interac
 When `/create-ui` command invokes this skill, it provides context in two modes:
 
 **Story Mode:**
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States: "Story ID: STORY-XXX" and "Mode: story"
 3. Invokes: `Skill(command="devforgeai-ui-generator")`
 
@@ -37,7 +37,7 @@ IF conversation contains YAML frontmatter with "id: STORY-XXX":
   MODE = "story"
   Extract story ID from frontmatter
 
-ELSE IF conversation contains ".ai_docs/Stories/STORY-XXX":
+ELSE IF conversation contains "devforgeai/specs/Stories/STORY-XXX":
   MODE = "story"
   Extract story ID from file path
 
@@ -126,7 +126,7 @@ Follow this 6-phase workflow sequentially. Do not skip phases unless explicitly 
 
 1. **Check Context Files:** Use Glob to verify all 6 required context files exist:
    ```
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
    ```
    Required files:
    - `tech-stack.md`
@@ -148,9 +148,9 @@ Follow this 6-phase workflow sequentially. Do not skip phases unless explicitly 
 
 4. **Load Context Files:** Use Read tool to load critical context:
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
-   Read(file_path=".devforgeai/context/dependencies.md")
+   Read(file_path="devforgeai/specs/context/tech-stack.md")
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   Read(file_path="devforgeai/specs/context/dependencies.md")
    ```
 
 5. **Extract Constraints:**
@@ -173,7 +173,7 @@ Follow this 6-phase workflow sequentially. Do not skip phases unless explicitly 
 2. **Locate Story File:**
    - If story ID provided (e.g., `STORY-001`):
      ```
-     Read(file_path=".ai_docs/Stories/{STORY-ID}.story.md")
+     Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
      ```
    - If no story provided, skip to Phase 3.
 
@@ -416,7 +416,7 @@ AskUserQuestion(
 
 2. **Determine Output Location:**
    - Parse `source-tree.md` for correct UI component location
-   - Default: `.devforgeai/specs/ui/` (if not specified in source-tree.md)
+   - Default: `devforgeai/specs/ui/` (if not specified in source-tree.md)
    - Follow any project-specific structure defined in source-tree.md
 
 3. **Generate Component Code:**
@@ -442,7 +442,7 @@ AskUserQuestion(
        header: "Filename",
        multiSelect: false,
        options: [
-         { label: "Use default", description: "Save as: .devforgeai/specs/ui/[COMPONENT_NAME].[ext]" },
+         { label: "Use default", description: "Save as: devforgeai/specs/ui/[COMPONENT_NAME].[ext]" },
          { label: "Custom path", description: "Specify a different filename/location" }
        ]
      }]
@@ -478,7 +478,7 @@ AskUserQuestion(
 2. **Write Summary File:**
    ```
    Write(
-     file_path=".devforgeai/specs/ui/UI-SPEC-SUMMARY.md",
+     file_path="devforgeai/specs/ui/UI-SPEC-SUMMARY.md",
      content="{ui-spec-summary}"
    )
    ```
@@ -487,17 +487,17 @@ AskUserQuestion(
    - Use Edit tool to add reference to generated UI components:
    ```
    Edit(
-     file_path=".ai_docs/Stories/{STORY-ID}.story.md",
+     file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
      old_string="## Technical Specification",
-     new_string="## Technical Specification\n\n### UI Components\n- Generated: [COMPONENT_LIST]\n- Location: .devforgeai/specs/ui/\n- See: .devforgeai/specs/ui/UI-SPEC-SUMMARY.md\n"
+     new_string="## Technical Specification\n\n### UI Components\n- Generated: [COMPONENT_LIST]\n- Location: devforgeai/specs/ui/\n- See: devforgeai/specs/ui/UI-SPEC-SUMMARY.md\n"
    )
    ```
 
 4. **Report Completion:**
    > "✅ UI generation complete!\n
    > - Components: [LIST]\n
-   > - Location: .devforgeai/specs/ui/\n
-   > - Summary: .devforgeai/specs/ui/UI-SPEC-SUMMARY.md"
+   > - Location: devforgeai/specs/ui/\n
+   > - Summary: devforgeai/specs/ui/UI-SPEC-SUMMARY.md"
 
 5. **Ask for Additional Components:**
    ```
@@ -546,7 +546,7 @@ AskUserQuestion(
 ### Scripts
 
 **`scripts/ensure_spec_dir.py`**
-- Creates `.devforgeai/specs/ui/` directory if it doesn't exist
+- Creates `devforgeai/specs/ui/` directory if it doesn't exist
 - Used in Phase 5 before writing generated code
 
 **`scripts/validate_context.py`**
@@ -626,7 +626,7 @@ Skill executes:
 5. Asks: "Styling?" → User selects "Tailwind CSS"
 6. Asks: "Theme?" → User selects "Dark Mode"
 7. Generates LoginForm.jsx with email/password fields
-8. Saves to .devforgeai/specs/ui/LoginForm.jsx
+8. Saves to devforgeai/specs/ui/LoginForm.jsx
 9. Updates STORY-042.story.md with UI reference
 ```
 
@@ -642,7 +642,7 @@ Skill executes:
 4. Asks: "GUI technology?" → User selects "C# WPF"
 5. Asks: "Components?" → User describes "Tabs for General, Advanced, About"
 6. Generates SettingsDialog.xaml with TabControl
-7. Saves to .devforgeai/specs/ui/SettingsDialog.xaml
+7. Saves to devforgeai/specs/ui/SettingsDialog.xaml
 8. Creates UI-SPEC-SUMMARY.md
 ```
 
@@ -658,7 +658,7 @@ Skill executes:
 4. Asks: "Formatting style?" → User selects "Box Drawing"
 5. Asks: "Components?" → "Status table: server name, uptime, CPU, memory"
 6. Generates format_server_status.py with box-drawing table
-7. Saves to .devforgeai/specs/ui/format_server_status.py
+7. Saves to devforgeai/specs/ui/format_server_status.py
 ```
 
 ---

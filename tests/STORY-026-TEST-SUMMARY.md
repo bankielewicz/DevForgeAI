@@ -540,7 +540,7 @@ Fixtures provide realistic scenarios:
 - **This Summary:** `STORY-026-TEST-SUMMARY.md`
 
 ### Story & Requirements
-- **Story File:** `.ai_docs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
 - **Feature Focus:** Integrate feedback hooks into /orchestrate command
 
 ### Related Files

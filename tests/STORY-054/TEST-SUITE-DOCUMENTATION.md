@@ -416,7 +416,7 @@ grep "FAIL" test-results.txt | wc -l
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-054-claude-code-terminal-expert-enhancement.story.md`
 - **Skill File:** `.claude/skills/claude-code-terminal-expert/SKILL.md`
 - **Test Framework:** Bash + grep, wc, file operations (no external dependencies)
 - **AAA Pattern:** Arrange, Act, Assert

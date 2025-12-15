@@ -215,7 +215,7 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
       Found? YES → Check box | NO → Leave unchecked
 
 - [ ] Step d.: Context files validated (6 files)?
-      Search for: Read(file_path=".devforgeai/context/tech-stack.md")
+      Search for: Read(file_path="devforgeai/specs/context/tech-stack.md")
       Found? YES → Check box | NO → Leave unchecked
 
 - [ ] Step e.: Story specification loaded?

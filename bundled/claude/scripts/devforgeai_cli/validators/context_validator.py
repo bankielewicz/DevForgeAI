@@ -45,7 +45,7 @@ def check_context_files(directory: str = ".") -> Tuple[bool, List[Dict]]:
     if not context_dir.exists():
         violations.append({
             'severity': 'CRITICAL',
-            'file': '.devforgeai/context/',
+            'file': 'devforgeai/specs/context/',
             'error': 'Context directory does not exist',
             'fix': 'Run /create-context to generate context files'
         })
@@ -114,7 +114,7 @@ def validate_context(directory: str = ".", output_format: str = 'text') -> int:
             # Text output
             if is_valid:
                 print(f"✅ All 6 context files validated")
-                print(f"   Location: {Path(directory).resolve()}/.devforgeai/context/")
+                print(f"   Location: {Path(directory).resolve()}/devforgeai/specs/context/")
                 return 0
             else:
                 print(f"❌ CONTEXT VALIDATION FAILED\n")

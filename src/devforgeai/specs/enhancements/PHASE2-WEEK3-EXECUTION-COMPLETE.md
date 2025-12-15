@@ -283,7 +283,7 @@ Result: Script ALWAYS works (graceful degradation)
 
 ### Documentation Directory
 ```
-.devforgeai/specs/enhancements/
+devforgeai/specs/enhancements/
 ├── PHASE2-WEEK3-DETAILED-PLAN.md          (850 lines)
 ├── PHASE2-WEEK3-AI-INTEGRATION-ARCHITECTURE.md (450 lines)
 ├── PHASE2-WEEK3-TEST-PLAN.md              (550 lines)

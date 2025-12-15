@@ -107,7 +107,7 @@ IF HOOK_ELIGIBLE == 0:
         --operation=release-production \
         --story=$STORY_ID \
         --context="$OPERATION_CONTEXT" \
-        2>&1 | tee -a .devforgeai/logs/release-hooks-$STORY_ID.log
+        2>&1 | tee -a devforgeai/logs/release-hooks-$STORY_ID.log
 
     # Capture exit code
     HOOK_INVOCATION_EXIT=$?
@@ -116,7 +116,7 @@ IF HOOK_ELIGIBLE == 0:
     IF HOOK_INVOCATION_EXIT != 0:
         # Log warning, continue deployment
         Display: "⚠️  Note: Post-deployment feedback unavailable (hook error)"
-        Log to .devforgeai/logs/release-hooks-$STORY_ID.log:
+        Log to devforgeai/logs/release-hooks-$STORY_ID.log:
             "Production hook invocation failed with exit code $HOOK_INVOCATION_EXIT"
             "Deployment continues normally (hook failures are non-blocking)"
 
@@ -128,7 +128,7 @@ ELIF HOOK_ELIGIBLE == 1:
 ELSE:
     # Error checking eligibility
     Display: "⚠️  Note: Unable to check hook eligibility (check-hooks error)"
-    Log to .devforgeai/logs/release-hooks-$STORY_ID.log:
+    Log to devforgeai/logs/release-hooks-$STORY_ID.log:
         "check-hooks failed with exit code $HOOK_ELIGIBLE"
         "Deployment continues normally"
 ```
@@ -185,7 +185,7 @@ Display: ""
 
 ## Hook Configuration Example
 
-**In `.devforgeai/config/hooks.yaml`:**
+**In `devforgeai/config/hooks.yaml`:**
 
 ```yaml
 operations:
@@ -295,7 +295,7 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 ## Logging Requirements
 
 **All production hook invocations logged to:**
-`.devforgeai/logs/release-hooks-{STORY-ID}.log`
+`devforgeai/logs/release-hooks-{STORY-ID}.log`
 
 **Log format (success):**
 ```
@@ -311,7 +311,7 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 [2025-11-14T15:35:00Z] check-hooks returned: 0 (eligible)
 [2025-11-14T15:35:01Z] invoke-hooks started (PID: 12346)
 [2025-11-14T15:35:45Z] invoke-hooks completed (exit code: 0)
-[2025-11-14T15:35:45Z] Feedback saved: .devforgeai/feedback/releases/STORY-025-production-2025-11-14T15:35:45Z.json
+[2025-11-14T15:35:45Z] Feedback saved: devforgeai/feedback/releases/STORY-025-production-2025-11-14T15:35:45Z.json
 [2025-11-14T15:35:45Z] Incident feedback captured for post-mortem
 ```
 
@@ -347,8 +347,8 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 - Production status accurate regardless of hook outcome
 
 **Feedback Persistence:**
-- Saved to `.devforgeai/feedback/releases/{STORY-ID}-production-{timestamp}.json`
-- Indexed in `.devforgeai/feedback/index.json`
+- Saved to `devforgeai/feedback/releases/{STORY-ID}-production-{timestamp}.json`
+- Indexed in `devforgeai/feedback/index.json`
 - Searchable via `devforgeai feedback-search --operation=release-production --severity=critical`
 - Used for post-mortem analysis (production failures)
 
@@ -363,8 +363,8 @@ timeout 30 devforgeai-validate invoke-hooks ... || {
 - [ ] Failures-only mode configured (`on_success: false`)
 - [ ] Production SUCCESS skips feedback (expected behavior)
 - [ ] Production FAILURE triggers feedback (critical path)
-- [ ] Feedback directory `.devforgeai/feedback/releases/` exists
-- [ ] Log directory `.devforgeai/logs/` exists
+- [ ] Feedback directory `devforgeai/feedback/releases/` exists
+- [ ] Log directory `devforgeai/logs/` exists
 - [ ] Hook integration adds <3.5s overhead
 - [ ] Hook failures don't break deployment
 - [ ] Deployment status accurate regardless of hook status

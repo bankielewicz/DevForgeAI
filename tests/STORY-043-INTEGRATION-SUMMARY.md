@@ -165,7 +165,7 @@ Phase 6: Report (metrics, diff)              ✓
 - `/mnt/c/Projects/DevForgeAI2/tests/STORY-043/test-ac[1-7]-*.sh`
 
 **Specification:**
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-043-update-path-references-to-src.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-043-update-path-references-to-src.story.md`
 - `/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/`
 
 **Reports:**

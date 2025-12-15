@@ -1024,7 +1024,7 @@ Error: "Story not found: STORY-999"
 
 List available stories:
 ```bash
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 ```
 
 Use correct story ID from output, then:

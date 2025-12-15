@@ -65,7 +65,7 @@ Day 1 successfully completed all design tasks for AI-assisted migration. **Hybri
 
 ### 2. Architecture Design Document ✅
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-ARCHITECTURE.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-ARCHITECTURE.md`
 
 **Size:** 450 lines
 
@@ -88,7 +88,7 @@ Day 1 successfully completed all design tasks for AI-assisted migration. **Hybri
 
 ### 3. Test Plan ✅
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-TEST-PLAN.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-TEST-PLAN.md`
 
 **Size:** 550 lines
 

@@ -868,8 +868,8 @@ done
 1. **Commit implementation:**
    ```bash
    git add .claude/skills/devforgeai-development/references/
-   git add .devforgeai/RCA/RCA-009*
-   git add .devforgeai/specs/enhancements/RCA-009-REC1*
+   git add devforgeai/RCA/RCA-009*
+   git add devforgeai/specs/enhancements/RCA-009-REC1*
    git commit -m "fix(RCA-009): Implement Rec 1 - Add [MANDATORY] Markers and Checkpoints"
    ```
 

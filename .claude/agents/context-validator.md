@@ -39,7 +39,7 @@ Enforce architectural constraints defined in context files to prevent technical 
 When invoked, follow these steps:
 
 1. **Load Context Files**
-   - Read all 6 context files from `.devforgeai/context/`
+   - Read all 6 context files from `devforgeai/specs/context/`
    - tech-stack.md (approved technologies)
    - source-tree.md (file location rules)
    - dependencies.md (approved packages)
@@ -286,7 +286,7 @@ Code is ready for commit.
 ## Error Handling
 
 **When context files are missing:**
-- Report: "Context file [filename] not found at .devforgeai/context/"
+- Report: "Context file [filename] not found at devforgeai/specs/context/"
 - Action: HALT validation, return error
 - Suggest: "Run devforgeai-architecture skill to create context files"
 
@@ -334,12 +334,12 @@ Code is ready for commit.
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Approved technologies
-- `.devforgeai/context/source-tree.md` - File structure rules
-- `.devforgeai/context/dependencies.md` - Approved packages
-- `.devforgeai/context/coding-standards.md` - Code patterns
-- `.devforgeai/context/architecture-constraints.md` - Layer boundaries
-- `.devforgeai/context/anti-patterns.md` - Forbidden patterns
+- `devforgeai/specs/context/tech-stack.md` - Approved technologies
+- `devforgeai/specs/context/source-tree.md` - File structure rules
+- `devforgeai/specs/context/dependencies.md` - Approved packages
+- `devforgeai/specs/context/coding-standards.md` - Code patterns
+- `devforgeai/specs/context/architecture-constraints.md` - Layer boundaries
+- `devforgeai/specs/context/anti-patterns.md` - Forbidden patterns
 
 **Framework Integration:**
 - devforgeai-development skill (invokes during phases 2 and 3)

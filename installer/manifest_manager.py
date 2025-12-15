@@ -78,7 +78,7 @@ class ManifestManager:
 
         SVC-012: Regenerate manifest from current files
         Scans installation directory and creates manifest with current file states.
-        Marks user-modifiable files (.ai_docs/, .devforgeai/context/) accordingly.
+        Marks user-modifiable files (devforgeai/specs/, devforgeai/specs/context/) accordingly.
 
         Returns:
             InstallManifest: Newly generated manifest
@@ -108,7 +108,7 @@ class ManifestManager:
             rel_path = str(file_path.relative_to(self.installation_root)).replace("\\", "/")
 
             # Determine if user-modifiable
-            is_user_modifiable = any(rel_path.startswith(d) for d in [".ai_docs/", ".devforgeai/context/"])
+            is_user_modifiable = any(rel_path.startswith(d) for d in ["devforgeai/specs/", "devforgeai/specs/context/"])
 
             # Calculate checksum
             checksum = self._calculate_sha256(file_path)

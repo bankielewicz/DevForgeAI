@@ -44,9 +44,9 @@ When invoked, follow these steps:
    - Note context of changes (feature, bugfix, refactor)
 
 2. **Read Context and Standards**
-   - Read `.devforgeai/context/coding-standards.md`
-   - Read `.devforgeai/context/anti-patterns.md`
-   - Read `.devforgeai/context/tech-stack.md` (for technology-specific patterns)
+   - Read `devforgeai/specs/context/coding-standards.md`
+   - Read `devforgeai/specs/context/anti-patterns.md`
+   - Read `devforgeai/specs/context/tech-stack.md` (for technology-specific patterns)
    - Cache standards for comparison
 
 3. **Execute Comprehensive Review**
@@ -507,10 +507,10 @@ Optimization opportunities, refactoring ideas, better practices
 ## References
 
 **Context Files:**
-- `.devforgeai/context/coding-standards.md` - Required patterns
-- `.devforgeai/context/anti-patterns.md` - Forbidden patterns
-- `.devforgeai/context/tech-stack.md` - Approved technologies
-- `.devforgeai/context/architecture-constraints.md` - Layer boundaries
+- `devforgeai/specs/context/coding-standards.md` - Required patterns
+- `devforgeai/specs/context/anti-patterns.md` - Forbidden patterns
+- `devforgeai/specs/context/tech-stack.md` - Approved technologies
+- `devforgeai/specs/context/architecture-constraints.md` - Layer boundaries
 
 **Best Practices:**
 - Clean Code by Robert C. Martin

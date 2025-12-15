@@ -39,7 +39,7 @@ Export your project's feedback sessions into a portable, shareable ZIP package w
 - Story IDs replaced with placeholders (STORY-042 → STORY-001)
 - Custom field values removed (field names preserved)
 - File paths and repo names masked
-- Original feedback preserved in `.devforgeai/feedback/`
+- Original feedback preserved in `devforgeai/feedback/`
 
 ✅ **Portable ZIP Archives**
 - Cross-platform format (Windows, macOS, Linux)
@@ -91,7 +91,7 @@ Sanitization: Applied
 Next Steps:
 - Share the ZIP archive with DevForgeAI maintainers
 - Include any context about the issues you encountered
-- Or keep for your own records (unsanitized version in .devforgeai/feedback/)
+- Or keep for your own records (unsanitized version in devforgeai/feedback/)
 ```
 
 ## What Gets Sanitized?
@@ -113,7 +113,7 @@ Next Steps:
 
 **"No sessions match date range"**
 - Change `--date-range` to broader range (e.g., `all`)
-- Check if feedback sessions exist in `.devforgeai/feedback/sessions/`
+- Check if feedback sessions exist in `devforgeai/feedback/sessions/`
 
 **"Archive size exceeds 100MB"**
 - Use narrower date range (e.g., `last-7-days`)
@@ -130,7 +130,7 @@ Next Steps:
 ## FAQ
 
 **Q: Is sanitization reversible?**
-A: No. Sanitization removes sensitive data permanently. Original feedback stored unsanitized in `.devforgeai/feedback/` if you need to recover it.
+A: No. Sanitization removes sensitive data permanently. Original feedback stored unsanitized in `devforgeai/feedback/` if you need to recover it.
 
 **Q: Can I export without sanitization?**
 A: Yes, with `--sanitize false`, but this sends sensitive data. Only use for authorized recipients.

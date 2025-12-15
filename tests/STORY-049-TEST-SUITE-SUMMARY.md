@@ -369,7 +369,7 @@ Focus on workflow integrity and scenarios:
 
 ## Related Documentation
 
-- **Story File:** `.ai_docs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md`
 - **Command File:** `.claude/commands/create-context.md`
 - **Pattern File:** `.devforgeai/protocols/hook-integration-pattern.md`
 - **Lean Orchestration Protocol:** `.devforgeai/protocols/lean-orchestration-pattern.md`

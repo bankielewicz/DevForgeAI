@@ -338,7 +338,7 @@ def real_user_files(integration_project):
 
     This fixture creates:
     - User context files (.devforgeai/context/*.md)
-    - User stories (.ai_docs/Stories/*.md)
+    - User stories (devforgeai/specs/Stories/*.md)
     - User hooks configuration
     - User feedback configuration
 

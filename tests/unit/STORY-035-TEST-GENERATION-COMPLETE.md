@@ -309,7 +309,7 @@ pytest tests/unit/ -m story_035 --collect-only
 **AC2: Path References (COMP-003)**
 - [ ] Replace .claude/context/ → .devforgeai/context/
 - [ ] Replace .claude/adrs/ → .devforgeai/adrs/
-- [ ] Replace .ai_docs/research/ → .devforgeai/research/
+- [ ] Replace devforgeai/specs/research/ → .devforgeai/research/
 - [ ] Remove .bmad-core/ references
 
 **AC3: Context Awareness (COMP-004, COMP-005)**
@@ -367,7 +367,7 @@ pytest tests/unit/ -m story_035 --collect-only
 ## References
 
 **Story File:**
-- `.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md`
+- `devforgeai/specs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md`
 
 **Agent File (Target):**
 - `.claude/agents/internet-sleuth.md`

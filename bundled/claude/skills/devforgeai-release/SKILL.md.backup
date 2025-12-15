@@ -108,7 +108,7 @@ Skill(command="devforgeai-release --rollback --story=STORY-001")
 
 ```
 # Load story document
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 # Parse frontmatter metadata
 story_metadata = extract_yaml_frontmatter(story):
@@ -127,7 +127,7 @@ IF story.status != "QA Approved":
     Return: BLOCKED
 
 # Load QA report
-qa_report_path = f".devforgeai/qa/reports/{story_id}-qa-report.md"
+qa_report_path = f"devforgeai/qa/reports/{story_id}-qa-report.md"
 
 IF NOT file_exists(qa_report_path):
     BLOCK: "QA report not found"
@@ -174,7 +174,7 @@ IF any_check_fails:
 
 ```
 # Check for blocking dependencies
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 dependencies = extract_dependencies(story)
 
 IF dependencies.exists:
@@ -182,7 +182,7 @@ IF dependencies.exists:
 
     FOR each dependency in blocking_dependencies:
         # Check if dependency is released
-        Read(file_path=f".ai_docs/Stories/{dependency.story_id}.story.md")
+        Read(file_path=f"devforgeai/specs/Stories/{dependency.story_id}.story.md")
         dependency_status = extract_status(dependency_story)
 
         IF dependency_status != "Released":
@@ -246,7 +246,7 @@ IF NOT (k8s_available OR azure_available OR aws_available):
     Return: BLOCKED
 
 # Check for conflicting deployments in progress
-Read(file_path=".devforgeai/releases/active-deployments.json")
+Read(file_path="devforgeai/releases/active-deployments.json")
 IF file_exists AND has_active_deployments:
     active_releases = parse_active_deployments()
 
@@ -1034,28 +1034,28 @@ release_notes = populate_template(
 )
 
 # Write release notes
-Write(file_path=f".devforgeai/releases/release-{version}.md", content=release_notes)
+Write(file_path=f"devforgeai/releases/release-{version}.md", content=release_notes)
 
-Report: f"✓ Release notes generated: .devforgeai/releases/release-{version}.md"
+Report: f"✓ Release notes generated: devforgeai/releases/release-{version}.md"
 ```
 
 #### Step 2: Update Story Status
 
 ```
 # Update story frontmatter status
-Read(file_path=f".ai_docs/Stories/{story_id}.story.md")
+Read(file_path=f"devforgeai/specs/Stories/{story_id}.story.md")
 
-Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: QA Approved",
      new_string="status: Released")
 
 # Check workflow box
-Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
      old_string="- [ ] Released",
      new_string="- [x] Released")
 
 # Add release metadata to frontmatter
-Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
      old_string=f"created: {story.created}",
      new_string=f"created: {story.created}\nreleased: {current_date()}\nversion: {version}")
 
@@ -1068,18 +1068,18 @@ history_entry = f"""
 - **Deployment:** Successful
 - **Smoke Tests:** PASS
 - **Metrics:** Within acceptable thresholds
-- **Release Notes:** .devforgeai/releases/release-{version}.md
+- **Release Notes:** devforgeai/releases/release-{version}.md
 """
 
 # Append to workflow history section
 IF "## Workflow History" NOT in story_content:
     # Add workflow history section
-    Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
          old_string="## Notes",
          new_string=f"## Workflow History\n\n{history_entry}\n\n## Notes")
 ELSE:
     # Append to existing history
-    Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
          old_string="## Workflow History\n\n",
          new_string=f"## Workflow History\n\n{history_entry}\n")
 
@@ -1091,7 +1091,7 @@ Report: f"✓ Story updated: {story_id} status → Released"
 ```
 # If story is part of a sprint, update sprint document
 IF story.sprint:
-    sprint_file = f".ai_docs/Sprints/{story.sprint}.sprint.md"
+    sprint_file = f"devforgeai/specs/Sprints/{story.sprint}.sprint.md"
 
     IF file_exists(sprint_file):
         Read(file_path=sprint_file)
@@ -1157,7 +1157,7 @@ alert_config = {
 }
 
 # Save alert configuration (implementation depends on monitoring stack)
-Write(file_path=f".devforgeai/monitoring/alerts/{story_id}-post-release.json",
+Write(file_path=f"devforgeai/monitoring/alerts/{story_id}-post-release.json",
       content=json.dumps(alert_config, indent=2))
 
 Report: "✓ Post-release monitoring configured (24-hour window)"
@@ -1198,7 +1198,7 @@ review_document = f"""# Post-Release Review: {story_id}
 - [ ] Release declared stable
 """
 
-Write(file_path=f".devforgeai/post-release/{story_id}-review.md", content=review_document)
+Write(file_path=f"devforgeai/post-release/{story_id}-review.md", content=review_document)
 
 Report: f"✓ Post-release review scheduled for {timestamp + 24h}"
 ```
@@ -1231,7 +1231,7 @@ Metrics:
   Memory: {metrics_report.memory}%
 
 Documentation:
-  ✓ Release notes: .devforgeai/releases/release-{version}.md
+  ✓ Release notes: devforgeai/releases/release-{version}.md
   ✓ Story updated: Status = Released
   ✓ Changelog updated
   ✓ Sprint progress updated
@@ -1354,7 +1354,7 @@ FUNCTION execute_database_rollback(migration_id, backup_id):
 
 ```
 # Update story status
-Edit(file_path=f".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path=f"devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: Releasing",
      new_string="status: QA Approved")
 
@@ -1386,7 +1386,7 @@ rollback_report = f"""# Rollback: {version}
 - [ ] Plan re-deployment
 """
 
-Write(file_path=f".devforgeai/releases/rollback-{version}.md", content=rollback_report)
+Write(file_path=f"devforgeai/releases/rollback-{version}.md", content=rollback_report)
 
 # Create hotfix story if needed
 AskUserQuestion:
@@ -1413,7 +1413,7 @@ IF answer == "Yes":
 
 **Handoff Data Required:**
 - Story ID with status "QA Approved"
-- QA report with PASS status (.devforgeai/qa/reports/{story-id}-qa-report.md)
+- QA report with PASS status (devforgeai/qa/reports/{story-id}-qa-report.md)
 - Test coverage metrics (must meet 95%/85%/80% thresholds)
 - Zero critical/high violations
 
@@ -1462,8 +1462,8 @@ IF NOT file_exists(qa_report):
 - [x] No rollback required
 
 **Output Artifacts:**
-- Release notes: `.devforgeai/releases/release-{version}.md`
-- Updated story document: `.ai_docs/Stories/{story-id}.story.md` (status = "Released")
+- Release notes: `devforgeai/releases/release-{version}.md`
+- Updated story document: `devforgeai/specs/Stories/{story-id}.story.md` (status = "Released")
 - Updated changelog: `CHANGELOG.md`
 - Deployment logs
 - Post-release monitoring configuration
@@ -1471,7 +1471,7 @@ IF NOT file_exists(qa_report):
 
 **Failure Handling:**
 - Rollback executed if any validation fails
-- Rollback report generated: `.devforgeai/releases/rollback-{version}.md`
+- Rollback report generated: `devforgeai/releases/rollback-{version}.md`
 - Story status reverted to "QA Approved"
 - Hotfix story optionally created
 
@@ -1664,17 +1664,17 @@ multiSelect: false
 **CRITICAL: 40-73% token savings (per efficiency analysis)**
 
 ```
-✅ CORRECT: Read(file_path=".ai_docs/Stories/{story-id}.story.md")
-❌ FORBIDDEN: Bash(command="cat .ai_docs/Stories/{story-id}.story.md")
+✅ CORRECT: Read(file_path="devforgeai/specs/Stories/{story-id}.story.md")
+❌ FORBIDDEN: Bash(command="cat devforgeai/specs/Stories/{story-id}.story.md")
 
-✅ CORRECT: Write(file_path=".devforgeai/releases/release-{version}.md", content=notes)
-❌ FORBIDDEN: Bash(command="cat > .devforgeai/releases/release-{version}.md <<EOF...")
+✅ CORRECT: Write(file_path="devforgeai/releases/release-{version}.md", content=notes)
+❌ FORBIDDEN: Bash(command="cat > devforgeai/releases/release-{version}.md <<EOF...")
 
 ✅ CORRECT: Edit(file_path="story.md", old_string="status: QA Approved", new_string="status: Released")
 ❌ FORBIDDEN: Bash(command="sed -i 's/status: QA Approved/status: Released/' story.md")
 
-✅ CORRECT: Glob(pattern=".ai_docs/Stories/*.story.md")
-❌ FORBIDDEN: Bash(command="find .ai_docs/Stories/ -name '*.story.md'")
+✅ CORRECT: Glob(pattern="devforgeai/specs/Stories/*.story.md")
+❌ FORBIDDEN: Bash(command="find devforgeai/specs/Stories/ -name '*.story.md'")
 ```
 
 ### Use Bash for Terminal Operations

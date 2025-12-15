@@ -399,9 +399,9 @@ Once implementation begins, use this checklist to track progress:
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-032-wire-hooks-into-create-ui-command.story.md`
-- **Pilot (Dev):** `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
-- **Follow-up (Ideate):** `.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-032-wire-hooks-into-create-ui-command.story.md`
+- **Pilot (Dev):** `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
+- **Follow-up (Ideate):** `devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
 - **Test Pattern:** `tests/unit/test_story_031_ideate_hooks.py` (reference implementation)
 - **Command:** `.claude/commands/create-ui.md`
 

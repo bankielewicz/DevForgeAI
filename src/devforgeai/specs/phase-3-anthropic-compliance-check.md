@@ -3,8 +3,8 @@
 **Date:** 2025-10-31
 **Purpose:** Verify Phase 3 plan adheres to official Anthropic slash command guidance
 **Sources:**
-- `.ai_docs/Terminal/slash-commands.md` (Official Anthropic Documentation)
-- `.ai_docs/Terminal/slash-commands-best-practices.md` (Research & Best Practices)
+- `devforgeai/specs/Terminal/slash-commands.md` (Official Anthropic Documentation)
+- `devforgeai/specs/Terminal/slash-commands-best-practices.md` (Research & Best Practices)
 
 ---
 
@@ -198,7 +198,7 @@ allowed-tools: Read, Write, Edit, Glob, Bash(git status:*), Bash(pytest:*)
 
 ## Context
 
-- Story file: @.ai_docs/Stories/$ARGUMENTS.story.md
+- Story file: @devforgeai/specs/Stories/$ARGUMENTS.story.md
 - Current git status: !`git status`
 - Test status: !`pytest tests/ --collect-only`
 
@@ -233,14 +233,14 @@ Compare @src/old-version.js with @src/new-version.js
 **Current Plan:**
 Uses explicit Read tool:
 ```markdown
-1. Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 ```
 
 **Official Pattern:**
 Can use @ reference:
 ```markdown
 ## Context
-- Story requirements: @.ai_docs/Stories/$ARGUMENTS.story.md
+- Story requirements: @devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 ## Workflow
 Based on story requirements above...
@@ -302,7 +302,7 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
 
 **File Tool Permissions (if restricting):**
 ```yaml
-allowed-tools: Read(path=.claude/**), Write(path=.devforgeai/**)
+allowed-tools: Read(path=.claude/**), Write(path=devforgeai/**)
 ```
 
 **Phase 3 Plan Compliance:**
@@ -563,7 +563,7 @@ model: claude-sonnet-4-5-20250929
 **Before:**
 ```markdown
 ### Phase 1: Story Loading
-1. Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Bash(command="git status") to check current state
 ```
 
@@ -575,7 +575,7 @@ allowed-tools: Read, Bash(git status:*), Bash(pytest:*)
 
 ## Context
 
-- Story: @.ai_docs/Stories/$ARGUMENTS.story.md
+- Story: @devforgeai/specs/Stories/$ARGUMENTS.story.md
 - Git status: !`git status`
 - Test inventory: !`pytest tests/ --collect-only`
 

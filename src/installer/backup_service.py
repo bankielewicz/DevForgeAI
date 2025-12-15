@@ -2,7 +2,7 @@
 
 Creates timestamped backups before file operations, with structure preservation.
 Story: STORY-074 - Comprehensive Error Handling
-AC#7: Creates .devforgeai/install-backup-{timestamp}/ directory, copies files,
+AC#7: Creates devforgeai/install-backup-{timestamp}/ directory, copies files,
       preserves directory structure, logs backup location, cleans old backups (>7 days, min 5).
 """
 import shutil
@@ -16,7 +16,7 @@ class BackupService:
     """Creates and manages installation backups with timestamped directory structure.
 
     Implements AC#7 requirements:
-    - Timestamped backup directory creation (.devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/)
+    - Timestamped backup directory creation (devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/)
     - Directory structure preservation in backup
     - Backup location logging to install.log
     - Automatic cleanup of backups >7 days old (keeping minimum 5)
@@ -45,7 +45,7 @@ class BackupService:
     def create_backup(self, target_dir: Path, files_to_backup: List[Path]) -> Path:
         """Create timestamped backup directory and copy files (AC#7).
 
-        Creates backup directory in target_dir/.devforgeai/install-backup-{timestamp}/.
+        Creates backup directory in target_dir/devforgeai/install-backup-{timestamp}/.
         Preserves relative directory structure from target_dir.
 
         Args:
@@ -66,11 +66,11 @@ class BackupService:
             ...     files_to_backup=[Path("/home/user/project/.claude/commands/dev.md")]
             ... )
             >>> backup_dir
-            PosixPath('/home/user/project/.devforgeai/install-backup-2025-12-03T14-30-45')
+            PosixPath('/home/user/project/devforgeai/install-backup-2025-12-03T14-30-45')
         """
         start_time = time.time()
 
-        # Create backup directory path: target_dir/.devforgeai/install-backup-{timestamp}/
+        # Create backup directory path: target_dir/devforgeai/install-backup-{timestamp}/
         timestamp = self._get_timestamp()
         backup_base = target_dir / ".devforgeai"
         self.backup_dir = backup_base / f"install-backup-{timestamp}"

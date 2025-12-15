@@ -654,7 +654,7 @@ class TestStoryFileExistenceValidation:
 
     def test_story_file_exists_permits_hook_invocation(self):
         """
-        Given story file exists at .ai_docs/Stories/STORY-027-*.story.md
+        Given story file exists at devforgeai/specs/Stories/STORY-027-*.story.md
         When checking file existence before hook invocation
         Then should return True (hook should proceed)
         """

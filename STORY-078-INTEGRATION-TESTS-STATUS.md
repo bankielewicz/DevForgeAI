@@ -345,7 +345,7 @@ To run these integration tests successfully, the following services must be impl
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-TEST-COMMANDS.md` (Command reference)
 
 ### Story File
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
 
 ---
 

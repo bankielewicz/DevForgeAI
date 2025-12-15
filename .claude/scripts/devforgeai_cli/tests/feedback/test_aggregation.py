@@ -182,7 +182,7 @@ class TestFeedbackAggregation:
         """
         GIVEN aggregated feedback
         WHEN export_quarterly_insights is called
-        THEN it creates .devforgeai/feedback/quarterly-insights.md
+        THEN it creates devforgeai/feedback/quarterly-insights.md
         """
         # Act
         output_path = export_quarterly_insights(temp_feedback_dir)
@@ -455,7 +455,7 @@ class TestLongitudinalTracking:
         """
         GIVEN user has feedback history
         WHEN export_personal_journal is called
-        THEN it exports .devforgeai/feedback/{user-id}/journal.md
+        THEN it exports devforgeai/feedback/{user-id}/journal.md
         """
         # Act
         journal_path = export_personal_journal(

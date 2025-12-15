@@ -20,7 +20,7 @@ def should_enable_feedback() -> bool:
 
     Checks in order:
     1. Environment variable DEVFORGEAI_DISABLE_FEEDBACK
-    2. Config file .devforgeai/feedback/config.yaml
+    2. Config file devforgeai/feedback/config.yaml
     3. Default: True (opt-in)
 
     Returns:
@@ -31,7 +31,7 @@ def should_enable_feedback() -> bool:
         return False
 
     # Check config file
-    config_path = Path('.devforgeai/feedback/config.yaml')
+    config_path = Path('devforgeai/feedback/config.yaml')
     if config_path.exists() and YAML_AVAILABLE:
         try:
             with open(config_path) as f:
@@ -61,7 +61,7 @@ def get_collection_mode() -> str:
     if not should_enable_feedback():
         return 'disabled'
 
-    config_path = Path('.devforgeai/feedback/config.yaml')
+    config_path = Path('devforgeai/feedback/config.yaml')
     if config_path.exists() and YAML_AVAILABLE:
         try:
             with open(config_path) as f:

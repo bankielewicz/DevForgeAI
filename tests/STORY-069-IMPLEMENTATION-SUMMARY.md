@@ -337,7 +337,7 @@ To make all tests pass, the following work is required:
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-069-offline-installation-support.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-069-offline-installation-support.story.md`
 - **Tests:** `installer/tests/test_offline_installer.py` (39 tests)
 - **Tests:** `tests/npm-package/unit/offline-bundle-structure.test.js` (34 tests)
 - **Tests:** `tests/npm-package/integration/offline-installation.test.js` (22 tests)

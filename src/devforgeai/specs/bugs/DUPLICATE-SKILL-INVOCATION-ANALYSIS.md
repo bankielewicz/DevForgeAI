@@ -43,7 +43,7 @@ grep "Skill(command=" .claude/skills/devforgeai-development/SKILL.md
 
 ### No Skill Invocations in Story Files
 ```bash
-grep -l "Skill(command=" .ai_docs/Stories/*.story.md
+grep -l "Skill(command=" devforgeai/specs/Stories/*.story.md
 # Result: No matches
 ```
 
@@ -162,7 +162,7 @@ Model: claude-haiku-4-5-20251001
 When `/dev STORY-001` is executed:
 
 1. SlashCommand tool processes `dev.md`
-2. Encounters `@.ai_docs/Stories/$1.story.md` (line 16)
+2. Encounters `@devforgeai/specs/Stories/$1.story.md` (line 16)
 3. Loads story file into context
 4. Encounters first code block (Step 2.1) with Display statements
 5. Executes Display statements

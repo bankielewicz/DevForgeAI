@@ -176,7 +176,7 @@
 
 4. **Verify test story created:**
    ```bash
-   ls .ai_docs/Stories/
+   ls devforgeai/specs/Stories/
    # Should show STORY-001.story.md or similar
    ```
 

@@ -27,7 +27,7 @@ When QA validation fails due to improperly justified deferrals, the development 
 **Check for QA report:**
 
 ```
-Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/{story-id}-qa-report*.md")
 
 IF multiple reports found (multiple QA attempts):
     Read most recent report

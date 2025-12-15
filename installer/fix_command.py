@@ -310,7 +310,7 @@ class FixCommand:
     def _save_repair_log(self, report: RepairReport) -> None:
         """Save repair report to log file.
 
-        AC#6: Report saved to `.devforgeai/logs/fix-{timestamp}.log`
+        AC#6: Report saved to `devforgeai/logs/fix-{timestamp}.log`
 
         Args:
             report: Repair report

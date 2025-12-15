@@ -54,12 +54,12 @@ Task(
 ```
 Input from conversation context:
 - Story ID (from YAML frontmatter or explicit statement)
-- QA report path: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+- QA report path: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 - Validation mode: light or deep
 - Story status: (Dev Complete, In Development, etc.)
 
 Verify report exists and is readable:
-  Read(file_path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md")
+  Read(file_path="devforgeai/qa/reports/{STORY_ID}-qa-report.md")
 
   IF file not found:
     Return error with context:
@@ -67,7 +67,7 @@ Verify report exists and is readable:
       "status": "ERROR",
       "error_type": "report_missing",
       "message": "QA report not found at expected path",
-      "path": ".devforgeai/qa/reports/{STORY_ID}-qa-report.md",
+      "path": "devforgeai/qa/reports/{STORY_ID}-qa-report.md",
       "guidance": "Skill execution may have failed. Check skill output above."
     }
 
@@ -249,7 +249,7 @@ Generate display output:
 ✅ **APPROVE** - Story meets all quality gates and is ready for release.
 
 **Next Steps:**
-1. Review detailed report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+1. Review detailed report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 2. Deploy: `/release {STORY_ID}`
 
 ---
@@ -289,7 +289,7 @@ Run: `/dev {STORY_ID}`
 - Options: complete work, create ADR, fix justifications
 
 **Option 2: Review Detailed Report First**
-See: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+See: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 - Review full deferral validation results
 - Understand all violations and remediation options
 - Then run `/dev {STORY_ID}` to fix
@@ -491,7 +491,7 @@ IF previous_qa_attempts_count > 1:
   },
 
   "next_steps": [
-    "Review detailed report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md",
+    "Review detailed report: devforgeai/qa/reports/{STORY_ID}-qa-report.md",
     "Deploy: `/release {STORY_ID}`"
   ],
 
@@ -516,7 +516,7 @@ After generating QA report, invoke interpreter:
 Task(
     subagent_type="qa-result-interpreter",
     description="Interpret QA results",
-    prompt="QA report generated at .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+    prompt="QA report generated at devforgeai/qa/reports/{STORY_ID}-qa-report.md
 
             Interpret results and generate user-friendly display.
 

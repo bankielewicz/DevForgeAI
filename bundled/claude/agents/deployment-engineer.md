@@ -37,14 +37,14 @@ Create deployment configurations, infrastructure as code, CI/CD pipelines, and m
 When invoked, follow these steps:
 
 1. **Identify Target Platform**
-   - Read `.devforgeai/context/tech-stack.md` for platform specification
-   - Check existing configs in `.devforgeai/deployment/`
+   - Read `devforgeai/specs/context/tech-stack.md` for platform specification
+   - Check existing configs in `devforgeai/deployment/`
    - Determine deployment strategy (Blue-Green, Rolling, Canary, Recreate)
    - Note environment requirements (staging, production)
 
 2. **Read Application Context**
-   - Read `.devforgeai/context/source-tree.md` for project structure
-   - Read `.devforgeai/context/dependencies.md` for runtime requirements
+   - Read `devforgeai/specs/context/source-tree.md` for project structure
+   - Read `devforgeai/specs/context/dependencies.md` for runtime requirements
    - Identify services, ports, environment variables
    - Note resource requirements (CPU, memory)
 
@@ -789,15 +789,15 @@ groups:
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Deployment platform
-- `.devforgeai/context/source-tree.md` - Project structure
-- `.devforgeai/context/dependencies.md` - Runtime requirements
+- `devforgeai/specs/context/tech-stack.md` - Deployment platform
+- `devforgeai/specs/context/source-tree.md` - Project structure
+- `devforgeai/specs/context/dependencies.md` - Runtime requirements
 
 **Deployment Configurations:**
-- `.devforgeai/deployment/kubernetes/` - K8s manifests
-- `.devforgeai/deployment/terraform/` - Infrastructure as code
-- `.devforgeai/deployment/docker/` - Docker configs
-- `.devforgeai/deployment/ci-cd/` - Pipeline definitions
+- `devforgeai/deployment/kubernetes/` - K8s manifests
+- `devforgeai/deployment/terraform/` - Infrastructure as code
+- `devforgeai/deployment/docker/` - Docker configs
+- `devforgeai/deployment/ci-cd/` - Pipeline definitions
 
 **Platform Documentation:**
 - Kubernetes documentation (deployment strategies)

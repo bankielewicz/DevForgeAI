@@ -314,9 +314,9 @@ After confirming all tests fail:
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-066-npm-package-creation-structure.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-066-npm-package-creation-structure.story.md`
 - **ADR:** `.devforgeai/adrs/ADR-004-npm-package-distribution.md`
-- **Epic:** `.ai_docs/Epics/EPIC-012-npm-package-distribution.epic.md`
+- **Epic:** `devforgeai/specs/Epics/EPIC-012-npm-package-distribution.epic.md`
 - **Tech Stack:** `.devforgeai/context/tech-stack.md` (NPM distribution section)
 
 ---

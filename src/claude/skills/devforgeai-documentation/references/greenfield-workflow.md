@@ -33,7 +33,7 @@ stories_to_document = [STORY-040]
 
 **If no story ID** (e.g., `/document --type=readme`):
 ```
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 
 Filter stories by status:
 - "Dev Complete" ✅
@@ -53,7 +53,7 @@ stories_to_document = filtered_list
 
 ```
 FOR each story_id in stories_to_document:
-    Read(file_path=".ai_docs/Stories/{story_id}*.story.md")
+    Read(file_path="devforgeai/specs/Stories/{story_id}*.story.md")
 
     Extract from YAML frontmatter:
     - id
@@ -170,7 +170,7 @@ ELIF type == "all":
 ```
 FOR each template_name in templates:
     # Check for custom template
-    custom_path = ".devforgeai/templates/documentation/{template_name}"
+    custom_path = "devforgeai/templates/documentation/{template_name}"
 
     IF custom_path exists:
         content = Read(custom_path)
@@ -202,7 +202,7 @@ Bash(command="git describe --tags --abbrev=0")
 version = parse_output OR "1.0.0"
 
 # From context files
-Read(".devforgeai/context/tech-stack.md")
+Read("devforgeai/specs/context/tech-stack.md")
 Extract technology list → tech_stack variable
 ```
 

@@ -1,7 +1,7 @@
 """Configuration manager service (STORY-082).
 
 Manages installation configuration persistence:
-- Loads configuration from `.devforgeai/.install-config.json`
+- Loads configuration from `devforgeai/.install-config.json`
 - Saves configuration with validation
 - Provides get/set operations for individual values
 - Returns defaults if no configuration exists
@@ -21,7 +21,7 @@ class ConfigurationManager:
     """Manages installation configuration persistence.
 
     Implements SVC-001, SVC-002, SVC-003, SVC-004.
-    Stores configuration at `.devforgeai/.install-config.json`.
+    Stores configuration at `devforgeai/.install-config.json`.
     """
 
     CONFIG_FILE_NAME = ".install-config.json"
@@ -43,7 +43,7 @@ class ConfigurationManager:
     def load(self) -> InstallConfig:
         """Load configuration from file.
 
-        SVC-001: Loads configuration from `.devforgeai/.install-config.json`
+        SVC-001: Loads configuration from `devforgeai/.install-config.json`
         SVC-003: Returns default config if file doesn't exist
 
         Returns:
@@ -81,7 +81,7 @@ class ConfigurationManager:
     def save(self, config: InstallConfig) -> None:
         """Save configuration to file.
 
-        SVC-002: Saves configuration to `.devforgeai/.install-config.json`
+        SVC-002: Saves configuration to `devforgeai/.install-config.json`
 
         Args:
             config: Configuration to save.

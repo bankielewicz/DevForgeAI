@@ -187,7 +187,7 @@ model: haiku
 
 **Fix:** Replace:
 - `.claude/context/` → `.devforgeai/context/`
-- `.ai_docs/research/` → `.devforgeai/research/`
+- `devforgeai/specs/research/` → `.devforgeai/research/`
 
 ### Missing Context File Documentation
 
@@ -322,7 +322,7 @@ Before committing changes to internet-sleuth.md:
 - **Test File:** `tests/integration/test_story_035_internet_sleuth_integration.py`
 - **pytest Config:** `tests/integration/pytest.ini`
 - **Test Summary:** `tests/STORY-035-INTEGRATION-TEST-SUMMARY.md`
-- **Story File:** `.ai_docs/Stories/STORY-035.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-035.story.md`
 
 ---
 

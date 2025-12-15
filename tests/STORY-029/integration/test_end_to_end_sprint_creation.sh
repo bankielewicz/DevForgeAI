@@ -76,7 +76,7 @@ test_sprint_file_created() {
 
     # This would require full /create-sprint command execution
     # For now, verify command structure supports sprint creation
-    if grep -q "\.ai_docs/Sprints/Sprint-.*\.md" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
+    if grep -q "\devforgeai/specs/Sprints/Sprint-.*\.md" "$PROJECT_ROOT/.claude/commands/create-sprint.md"; then
         echo -e "${GREEN}PASS${NC}"
         echo "  Note: Sprint file creation logic present in command"
         return 0
@@ -156,7 +156,7 @@ test_feedback_file_created() {
 
     # Verify feedback system would create file (can't test without full execution)
     # Check if story documents feedback file creation
-    story_content=$(cat "$PROJECT_ROOT/.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
+    story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
     if echo "$story_content" | grep -q "\.devforgeai/feedback/create-sprint-.*\.json"; then
         echo -e "${GREEN}PASS${NC}"

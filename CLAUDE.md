@@ -57,7 +57,7 @@ Spec-driven development with zero technical debt. Enforces constraints, prevents
 | Commands | `.claude/memory/commands-reference.md` |
 | Git Policy | `.claude/rules/core/git-operations.md` |
 | Quality Gates | `.claude/rules/core/quality-gates.md` |
-| Framework Status | `.devforgeai/FRAMEWORK-STATUS.md` |
+| Framework Status | `devforgeai/FRAMEWORK-STATUS.md` |
 
 ---
 
@@ -86,10 +86,10 @@ IDEATION → ARCHITECTURE → STORY → DEV (TDD) → QA → RELEASE
 
 | Type | Path |
 |------|------|
-| Context Files | `.devforgeai/context/` |
-| Stories | `.ai_docs/Stories/` |
+| Context Files | `devforgeai/specs/context/` |
+| Stories | `devforgeai/specs/Stories/` |
 | Rules | `.claude/rules/` |
-| ADRs | `.devforgeai/adrs/` |
+| ADRs | `devforgeai/specs/adrs/` |
 
 ---
 

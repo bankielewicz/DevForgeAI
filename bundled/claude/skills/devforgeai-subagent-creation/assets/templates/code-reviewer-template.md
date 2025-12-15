@@ -38,9 +38,9 @@ When invoked, follow these steps:
    - Note context of changes (feature, bugfix, refactor)
 
 2. **Read Context and Standards**
-   - Read `.devforgeai/context/coding-standards.md`
-   - Read `.devforgeai/context/anti-patterns.md`
-   - Read `.devforgeai/context/tech-stack.md` (for technology-specific patterns)
+   - Read `devforgeai/specs/context/coding-standards.md`
+   - Read `devforgeai/specs/context/anti-patterns.md`
+   - Read `devforgeai/specs/context/tech-stack.md` (for technology-specific patterns)
    - Cache standards for comparison
 
 3. **Execute Comprehensive Review**

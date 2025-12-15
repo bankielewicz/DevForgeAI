@@ -20,7 +20,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Default configuration
-ROLLBACK_LOG_DIR=".devforgeai/releases/rollback-logs"
+ROLLBACK_LOG_DIR="devforgeai/releases/rollback-logs"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 ROLLBACK_LOG="${ROLLBACK_LOG_DIR}/rollback-${TIMESTAMP}.log"
 
@@ -335,7 +335,7 @@ rollback_azure() {
         fi
 
         # Assume backup zip exists
-        BACKUP_ZIP=".devforgeai/backups/azure/${DEPLOYMENT_NAME}_${PREVIOUS_VERSION}.zip"
+        BACKUP_ZIP="devforgeai/backups/azure/${DEPLOYMENT_NAME}_${PREVIOUS_VERSION}.zip"
         if [ ! -f "$BACKUP_ZIP" ]; then
             log_error "Backup not found: $BACKUP_ZIP"
             exit 1
@@ -483,14 +483,14 @@ rollback_database() {
     log_step "Rolling back database migrations..."
 
     # Detect migration framework from tech-stack.md
-    if [ -f ".devforgeai/context/tech-stack.md" ]; then
-        if grep -q "Entity Framework" ".devforgeai/context/tech-stack.md"; then
+    if [ -f "devforgeai/specs/context/tech-stack.md" ]; then
+        if grep -q "Entity Framework" "devforgeai/specs/context/tech-stack.md"; then
             log_info "Detected Entity Framework migrations"
             dotnet ef database update "$PREVIOUS_VERSION"
-        elif grep -q "Alembic" ".devforgeai/context/tech-stack.md"; then
+        elif grep -q "Alembic" "devforgeai/specs/context/tech-stack.md"; then
             log_info "Detected Alembic migrations"
             alembic downgrade -1
-        elif grep -q "Sequelize" ".devforgeai/context/tech-stack.md"; then
+        elif grep -q "Sequelize" "devforgeai/specs/context/tech-stack.md"; then
             log_info "Detected Sequelize migrations"
             npx sequelize-cli db:migrate:undo
         else

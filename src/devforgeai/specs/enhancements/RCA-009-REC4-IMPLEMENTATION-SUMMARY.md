@@ -281,7 +281,7 @@ Git commit: ✅ SUCCESS (validator passes)
 1. **Commit implementation:**
    ```bash
    git add .claude/skills/devforgeai-development/
-   git add .devforgeai/RCA/RCA-009*
+   git add devforgeai/RCA/RCA-009*
    git commit -m "fix(RCA-009): Implement Rec 4 - DoD Update Workflow Bridge"
    ```
 

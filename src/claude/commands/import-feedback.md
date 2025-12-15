@@ -62,7 +62,7 @@ Import feedback sessions from a shared ZIP package exported by another DevForgeA
 ```bash
 /import-feedback feedback-export-2025-11-11.zip
 ```
-Output: Sessions extracted to `.devforgeai/feedback/imported/2025-11-11T14-30-00/`
+Output: Sessions extracted to `devforgeai/feedback/imported/2025-11-11T14-30-00/`
 
 **Import from external source:**
 ```bash
@@ -81,7 +81,7 @@ Upon success:
 ✅ Feedback Import Complete
 
 Archive: feedback-export-2025-11-11.zip
-Extracted to: .devforgeai/feedback/imported/2025-11-11T14-30-00/
+Extracted to: devforgeai/feedback/imported/2025-11-11T14-30-00/
 Sessions: 47 imported
 Duplicate IDs: 3 resolved (-imported-1, -imported-2, -imported-3)
 
@@ -96,7 +96,7 @@ Sanitization Status:
   - Original unsanitized: Not available in this import
 
 Next Steps:
-- Browse imported sessions in .devforgeai/feedback/imported/
+- Browse imported sessions in devforgeai/feedback/imported/
 - Search main index to find imported sessions (marked with is_imported: true)
 - Use /feedback-reindex to update searchable index
 ```
@@ -124,11 +124,11 @@ If imported sessions have IDs that already exist:
 **Example:**
 ```
 Original ID: 550e8400-e29b-41d4-a716-446655440000
-Already exists in: .devforgeai/feedback/feedback-index.json
+Already exists in: devforgeai/feedback/feedback-index.json
 
 → New ID assigned: 550e8400-e29b-41d4-a716-446655440000-imported-1
 → Metadata: original_id: 550e8400-e29b-41d4-a716-446655440000
-→ Logged in: .devforgeai/feedback/imported/2025-11-11T14-30-00/conflict-resolution.log
+→ Logged in: devforgeai/feedback/imported/2025-11-11T14-30-00/conflict-resolution.log
 ```
 
 ## What Gets Imported?
@@ -180,7 +180,7 @@ Already exists in: .devforgeai/feedback/feedback-index.json
 - Safe to proceed (no data lost)
 
 **"Permission denied"**
-- Check write permissions for `.devforgeai/feedback/imported/`
+- Check write permissions for `devforgeai/feedback/imported/`
 - Ensure directory ownership is correct
 - Use alternative import location if available
 
@@ -199,23 +199,23 @@ A: Yes. Each imported session has:
   - `imported_at: {timestamp}` - when it was imported
 
 **Q: Can I delete imported sessions?**
-A: Yes, manually in `.devforgeai/feedback/imported/{timestamp}/` directory.
+A: Yes, manually in `devforgeai/feedback/imported/{timestamp}/` directory.
 
 **Q: What if I import sanitized feedback?**
 A: Sanitization is permanent. Story IDs are placeholders (STORY-001, STORY-002). Original IDs lost.
 
 **Q: Does import affect my original feedback?**
-A: No. Original feedback in `.devforgeai/feedback/sessions/` is never modified.
+A: No. Original feedback in `devforgeai/feedback/sessions/` is never modified.
 
 **Q: Can I rollback an import?**
-A: Yes. Delete the `.devforgeai/feedback/imported/{timestamp}/` directory, then run `/feedback-reindex` to update.
+A: Yes. Delete the `devforgeai/feedback/imported/{timestamp}/` directory, then run `/feedback-reindex` to update.
 
 ## Integration
 
 **Imported With:** src/feedback_export_import.py
 **Related:** /export-feedback (create packages to share)
 **Dependencies:** STORY-013 (Feedback File Persistence), STORY-016 (Feedback Index)
-**Updates:** `.devforgeai/feedback-index.json` (main index)
+**Updates:** `devforgeai/feedback-index.json` (main index)
 
 ---
 

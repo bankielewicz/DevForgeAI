@@ -366,5 +366,5 @@ jobs:
 **Framework:** DevForgeAI Test-Driven Development
 
 For questions or issues, see:
-- `.ai_docs/Stories/STORY-072-pre-flight-validation-checks.story.md`
+- `devforgeai/specs/Stories/STORY-072-pre-flight-validation-checks.story.md`
 - `.devforgeai/RCA/` (Root Cause Analysis documents)

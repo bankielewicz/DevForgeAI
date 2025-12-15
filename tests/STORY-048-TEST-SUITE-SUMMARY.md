@@ -439,7 +439,7 @@ pytest tests/test_story_048*.py --cov=. --cov-report=html
 
 ## Related Documentation
 
-- **Story:** `.ai_docs/Stories/STORY-048-production-cutover-documentation.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-048-production-cutover-documentation.story.md`
 - **Test Framework:** pytest (Python 3.8+)
 - **Project Structure:** `.devforgeai/context/source-tree.md`
 

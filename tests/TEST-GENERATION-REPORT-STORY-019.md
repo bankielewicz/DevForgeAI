@@ -482,7 +482,7 @@ All deferred items have placeholder tests that explain what needs implementation
 - `/TEST-GENERATION-REPORT-STORY-019.md` (This report)
 
 ### Source Files
-- `.ai_docs/Stories/STORY-019-operation-lifecycle-integration.story.md` (Original story)
+- `devforgeai/specs/Stories/STORY-019-operation-lifecycle-integration.story.md` (Original story)
 
 ---
 

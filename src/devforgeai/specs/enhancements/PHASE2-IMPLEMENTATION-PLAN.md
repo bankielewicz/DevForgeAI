@@ -161,7 +161,7 @@ Production
 ### **Week 4: Pilot Migration (5 days)**
 
 **Day 1: Select Pilot Stories**
-- Review all stories in `.ai_docs/Stories/`
+- Review all stories in `devforgeai/specs/Stories/`
 - Select 10 representative stories (simple, medium, complex)
 - Create backup of pilot stories
 - **Time:** 2 hours
@@ -195,7 +195,7 @@ Production
 **ONLY IF PILOT SUCCESSFUL**
 
 **Day 1: Pre-Migration Preparation**
-- Backup all stories (`.ai_docs/Stories/*.story.md`)
+- Backup all stories (`devforgeai/specs/Stories/*.story.md`)
 - Count total stories to migrate
 - Estimate effort (stories × 1.2h)
 - Schedule migration window
@@ -343,7 +343,7 @@ technical_specification:
 
 #### **1.2 Create Format Specification Document**
 
-**File:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+**File:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **Content:**
 - Format version history (1.0 vs 2.0)
@@ -817,8 +817,8 @@ else:
 
 **Backup:**
 ```bash
-mkdir -p .devforgeai/backups/phase2-pilot/
-cp .ai_docs/Stories/STORY-*.story.md .devforgeai/backups/phase2-pilot/
+mkdir -p devforgeai/backups/phase2-pilot/
+cp devforgeai/specs/Stories/STORY-*.story.md devforgeai/backups/phase2-pilot/
 ```
 
 ---
@@ -830,11 +830,11 @@ cp .ai_docs/Stories/STORY-*.story.md .devforgeai/backups/phase2-pilot/
 ```bash
 # Migrate
 python .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py \
-  .ai_docs/Stories/STORY-001.story.md
+  devforgeai/specs/Stories/STORY-001.story.md
 
 # Validate
 python .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-001.story.md
+  devforgeai/specs/Stories/STORY-001.story.md
 
 # Manual review
 # Open story file, verify quality
@@ -884,7 +884,7 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
 
 ```bash
 # Count stories to migrate
-STORY_COUNT=$(find .ai_docs/Stories -name "*.story.md" | wc -l)
+STORY_COUNT=$(find devforgeai/specs/Stories -name "*.story.md" | wc -l)
 echo "Stories to migrate: $STORY_COUNT"
 
 # Estimate effort (1.2 hours per story)
@@ -901,8 +901,8 @@ echo "Estimated effort: $HOURS hours"
 ```bash
 # Batch 1 (stories 1-10)
 for story in STORY-001 STORY-002 ... STORY-010; do
-  python migrate_story_v1_to_v2.py .ai_docs/Stories/$story.story.md
-  python validate_tech_spec.py .ai_docs/Stories/$story.story.md
+  python migrate_story_v1_to_v2.py devforgeai/specs/Stories/$story.story.md
+  python validate_tech_spec.py devforgeai/specs/Stories/$story.story.md
 done
 
 # Review batch
@@ -926,12 +926,12 @@ done
 
 ```bash
 # Validate ALL stories
-for story in .ai_docs/Stories/*.story.md; do
+for story in devforgeai/specs/Stories/*.story.md; do
   python validate_tech_spec.py "$story" || echo "FAILED: $story"
 done
 
 # Check format versions
-grep -r "format_version:" .ai_docs/Stories/
+grep -r "format_version:" devforgeai/specs/Stories/
 # Expected: All should be "2.0"
 
 # Test with /dev
@@ -1092,17 +1092,17 @@ grep -r "format_version:" .ai_docs/Stories/
 ## 📚 **References**
 
 **Format specification:**
-- `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (NEW - Week 2)
+- `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (NEW - Week 2)
 
 **Migration:**
-- `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (NEW - Week 3)
+- `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (NEW - Week 3)
 
 **Testing:**
-- `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (NEW - Week 4)
+- `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (NEW - Week 4)
 
 **Backups:**
-- `.devforgeai/backups/phase2-pilot/` (10 pilot stories)
-- `.devforgeai/backups/phase2-full/` (All stories before full migration)
+- `devforgeai/backups/phase2-pilot/` (10 pilot stories)
+- `devforgeai/backups/phase2-full/` (All stories before full migration)
 
 ---
 

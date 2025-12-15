@@ -391,8 +391,8 @@ For detailed epic creation procedures, see:
 - `epic-validation-checklist.md` - Validation procedures, self-healing logic
 
 **Framework protocols:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
-- `.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md` - Refactoring details
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
+- `devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md` - Refactoring details
 
 **DevForgeAI guides:**
 - `.claude/memory/skills-reference.md` - Skills overview
@@ -615,7 +615,7 @@ Split into:
 ## See Also
 
 **Lean orchestration pattern:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition and methodology
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition and methodology
 
 **Other refactored commands:**
 - `/qa` - Quality assurance (reference implementation - 48% budget)
@@ -694,7 +694,7 @@ User → /create-epic command → devforgeai-orchestration skill → subagents
 **Context file handling:**
 
 The skill (not command) handles context file validation:
-- Detects greenfield mode (no .devforgeai/context/*.md)
+- Detects greenfield mode (no devforgeai/specs/context/*.md)
 - Detects brownfield mode (6 context files exist)
 - Validates technologies against tech-stack.md (brownfield only)
 - Validates architecture against architecture-constraints.md (brownfield only)

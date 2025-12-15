@@ -72,7 +72,7 @@ After:  5,762 characters
 |--------|--------|
 | **Command invocation** | ✅ Unchanged: `/audit-deferrals` |
 | **Arguments** | ✅ Unchanged: None required |
-| **Output location** | ✅ Unchanged: `.devforgeai/qa/deferral-audit-{timestamp}.md` |
+| **Output location** | ✅ Unchanged: `devforgeai/qa/deferral-audit-{timestamp}.md` |
 | **Duration** | ✅ Unchanged: 5-15 minutes |
 | **Functionality** | ✅ 100% preserved |
 | **Audit methodology** | ✅ 7-phase workflow (moved to skill) |
@@ -234,7 +234,7 @@ Total isolated: Hundreds of K tokens available without affecting main budget
 | `.claude/commands/audit-deferrals.md` | ✏️ Refactored | 31.3K → 5.8K chars |
 | `.claude/skills/devforgeai-orchestration/SKILL.md` | Already has Phase 7 | No changes needed |
 | `.claude/agents/deferral-validator.md` | No changes | Used by skill |
-| `.devforgeai/specs/enhancements/` | 📝 New docs | 3 documentation files |
+| `devforgeai/specs/enhancements/` | 📝 New docs | 3 documentation files |
 
 ---
 
@@ -284,13 +284,13 @@ Total isolated: Hundreds of K tokens available without affecting main budget
 - This summary: `AUDIT-DEFERRALS-REFACTORING-SUMMARY.md`
 
 **Pattern Documentation:**
-- Lean orchestration: `.devforgeai/protocols/lean-orchestration-pattern.md`
-- Case studies: `.devforgeai/protocols/refactoring-case-studies.md`
-- Budget reference: `.devforgeai/protocols/command-budget-reference.md`
+- Lean orchestration: `devforgeai/protocols/lean-orchestration-pattern.md`
+- Case studies: `devforgeai/protocols/refactoring-case-studies.md`
+- Budget reference: `devforgeai/protocols/command-budget-reference.md`
 
 **Framework References:**
-- Deferral validation: `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
-- Multi-level chains: `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- Deferral validation: `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+- Multi-level chains: `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
 - Feedback integration: See STORY-033
 
 ---

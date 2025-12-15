@@ -401,7 +401,7 @@ Before QA:
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-TEST-SUMMARY.md` (This file)
 
 ### Story File
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
 
 ---
 

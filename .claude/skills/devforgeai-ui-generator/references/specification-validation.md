@@ -15,7 +15,7 @@ Comprehensive validation of generated UI specifications with user-driven issue r
 **Read generated UI specification:**
 
 ```
-Read(file_path=".devforgeai/specs/ui/${SPEC_FILE_NAME}")
+Read(file_path="devforgeai/specs/ui/${SPEC_FILE_NAME}")
 ```
 
 **Validate required sections exist:**
@@ -53,7 +53,7 @@ ELSE:
 ```
 Grep(
   pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]|\\[TBD\\]|\\[PLACEHOLDER\\]",
-  path=".devforgeai/specs/ui/${SPEC_FILE_NAME}",
+  path="devforgeai/specs/ui/${SPEC_FILE_NAME}",
   output_mode="content",
   -n=true
 )
@@ -79,7 +79,7 @@ ELSE:
 
 **1. Tech-Stack Consistency:**
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 Check specification uses approved framework:
 - Extract framework from spec
@@ -89,7 +89,7 @@ Check specification uses approved framework:
 
 **2. File Structure Compliance:**
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 Check generated files follow structure:
 - Extract file paths from generated_files list
@@ -99,7 +99,7 @@ Check generated files follow structure:
 
 **3. Dependency Approval:**
 ```
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 
 Check all packages are approved:
 - Extract dependencies from spec
@@ -109,7 +109,7 @@ Check all packages are approved:
 
 **4. Anti-Pattern Detection:**
 ```
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 
 Scan specification for forbidden patterns:
 - Grep for common anti-patterns in generated code
@@ -293,7 +293,7 @@ IF placeholder_count > 0:
       )
 
       IF user provides value:
-        Edit(file_path=".devforgeai/specs/ui/${SPEC_FILE_NAME}",
+        Edit(file_path="devforgeai/specs/ui/${SPEC_FILE_NAME}",
              old_string="${LINE_WITH_PLACEHOLDER}",
              new_string="${LINE_WITH_USER_VALUE}")
 
@@ -429,7 +429,7 @@ ELSE IF validation_summary has MEDIUM or LOW severity issues:
 
 ```
 validation_context = {
-  "spec_file": ".devforgeai/specs/ui/${SPEC_FILE_NAME}",
+  "spec_file": "devforgeai/specs/ui/${SPEC_FILE_NAME}",
   "spec_quality": "${SPEC_QUALITY}",
   "validation_summary": validation_summary,
   "user_decisions": [
@@ -469,7 +469,7 @@ IF SPEC_QUALITY == "FAILED":
 
   Recovery Options:
   - Regenerate specification: Return to Phase 5
-  - Fix issues manually: Edit .devforgeai/specs/ui/${SPEC_FILE_NAME}
+  - Fix issues manually: Edit devforgeai/specs/ui/${SPEC_FILE_NAME}
   - Run /create-ui again after corrections"
 
   EXIT skill with error status

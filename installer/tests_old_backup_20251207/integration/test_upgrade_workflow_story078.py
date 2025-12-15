@@ -39,7 +39,7 @@ class TestEndToEndUpgradeFlow:
         """
         AC#2, BR-004: User content preserved during upgrade
 
-        Arrange: Installation with user stories in .ai_docs/Stories/
+        Arrange: Installation with user stories in devforgeai/specs/Stories/
         Act: Execute upgrade
         Assert: User stories unchanged after upgrade
         """
@@ -77,7 +77,7 @@ class TestEndToEndUpgradeFlow:
 
     def test_should_save_upgrade_summary_to_log_file(self, tmp_path):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log
 
         Arrange: Upgrade executed
         Act: Execute upgrade
@@ -421,7 +421,7 @@ class TestUpgradeDataIntegrity:
         """
         AC#2, BR-004: User stories preserved
 
-        Arrange: .ai_docs/Stories/ with user content
+        Arrange: devforgeai/specs/Stories/ with user content
         Act: Execute upgrade
         Assert: User stories unchanged
         """

@@ -153,7 +153,7 @@ search_enabled: true
 
 ## Configuration File
 
-**Location:** `.devforgeai/feedback/config.yaml`
+**Location:** `devforgeai/feedback/config.yaml`
 
 **Format:** YAML
 
@@ -315,7 +315,7 @@ Current Configuration:
 /feedback-config reset
 
 # Option 2: Manually fix YAML file
-# Edit .devforgeai/feedback/config.yaml
+# Edit devforgeai/feedback/config.yaml
 # Ensure valid YAML syntax (no tabs, proper indentation)
 ```
 
@@ -328,10 +328,10 @@ Current Configuration:
 **Resolution:**
 ```bash
 # Check file permissions
-ls -la .devforgeai/feedback/config.yaml
+ls -la devforgeai/feedback/config.yaml
 
 # Fix permissions if needed
-chmod 644 .devforgeai/feedback/config.yaml
+chmod 644 devforgeai/feedback/config.yaml
 
 # Verify changes
 /feedback-config view
@@ -341,7 +341,7 @@ chmod 644 .devforgeai/feedback/config.yaml
 
 ## Integration
 
-**File Updated:** `.devforgeai/feedback/config.yaml`
+**File Updated:** `devforgeai/feedback/config.yaml`
 
 **Used By:**
 - `/feedback` - Respects auto_trigger_enabled
@@ -383,10 +383,10 @@ chmod 644 .devforgeai/feedback/config.yaml
 
 ```bash
 # Manual backup before changes
-cp .devforgeai/feedback/config.yaml .devforgeai/feedback/config.yaml.backup
+cp devforgeai/feedback/config.yaml devforgeai/feedback/config.yaml.backup
 
 # Restore if needed
-cp .devforgeai/feedback/config.yaml.backup .devforgeai/feedback/config.yaml
+cp devforgeai/feedback/config.yaml.backup devforgeai/feedback/config.yaml
 ```
 
 ---
@@ -416,5 +416,5 @@ cp .devforgeai/feedback/config.yaml.backup .devforgeai/feedback/config.yaml
 
 - devforgeai-feedback skill (SKILL.md)
 - STORY-011: Configuration Management
-- .devforgeai/feedback/config.yaml (configuration file)
+- devforgeai/feedback/config.yaml (configuration file)
 - .claude/scripts/devforgeai_cli/feedback/config_manager.py (implementation)

@@ -279,7 +279,7 @@ class TestAC1NoArgumentMode:
         Then: Command documents scanning all epic files
         """
         content = COMMAND_FILE.read_text()
-        assert ".ai_docs/Epics/*.epic.md" in content or "all epics" in content.lower()
+        assert "devforgeai/specs/Epics/*.epic.md" in content or "all epics" in content.lower()
 
     @pytest.mark.acceptance_criteria
     def test_displays_per_epic_breakdown_documented(self):

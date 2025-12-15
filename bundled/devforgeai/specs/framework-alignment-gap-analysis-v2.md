@@ -317,7 +317,7 @@ Generate UI component for: $ARGUMENTS
    - Documentation
 
 ## Phase 3: Verify Output
-1. Check: Glob(pattern=".devforgeai/specs/ui/*.{jsx,razor,xaml,py,html}")
+1. Check: Glob(pattern="devforgeai/specs/ui/*.{jsx,razor,xaml,py,html}")
 2. Verify: UI-SPEC-SUMMARY.md created
 3. If story provided, verify: Story file updated with UI references
 
@@ -465,7 +465,7 @@ Execute for: $ARGUMENTS
 
 4. devforgeai-ui-generator ✅ [NEW STEP]
    └─ Interactive UI code generation
-   └─ Output: Component code in .devforgeai/specs/ui/
+   └─ Output: Component code in devforgeai/specs/ui/
 
 5. devforgeai-development
    └─ TDD implementation using UI specs from step 4
@@ -631,7 +631,7 @@ Generate accessibility validation checklist:
 - [ ] Screen reader tested
 - [ ] Form validation accessible
 
-Save to: .devforgeai/specs/ui/ACCESSIBILITY-CHECKLIST.md
+Save to: devforgeai/specs/ui/ACCESSIBILITY-CHECKLIST.md
 ```
 
 **Benefit:** Ensures accessibility compliance
@@ -843,7 +843,7 @@ Interactive process:
 6. ❓ "Theme?" → Select "Light Mode"
 7. ❓ "Components?" → Confirm: Dashboard.jsx, ActivityFeed.jsx, StatsCard.jsx
 8. ✅ Generated 3 React components
-9. ✅ Saved to .devforgeai/specs/ui/
+9. ✅ Saved to devforgeai/specs/ui/
 10. ✅ Updated STORY-003.story.md with UI references
 
 Output: Production-ready UI component code

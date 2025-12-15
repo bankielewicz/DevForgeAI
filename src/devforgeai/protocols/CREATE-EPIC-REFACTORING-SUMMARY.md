@@ -46,7 +46,7 @@ User → /create-epic → subagents (NO SKILL LAYER!)
 
 ### 3. Pattern Violations
 
-**Lean Orchestration Pattern (.devforgeai/protocols/lean-orchestration-pattern.md):**
+**Lean Orchestration Pattern (devforgeai/protocols/lean-orchestration-pattern.md):**
 
 | Responsibility | Should Do | Command Does | Violation |
 |----------------|-----------|--------------|-----------|
@@ -284,9 +284,9 @@ Created 3 framework-aware reference files for orchestration skill:
 ## Related Documents
 
 **Planning:**
-- `.devforgeai/protocols/create-epic-refactoring-plan.md` (initial analysis)
-- `.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md` (complete guide)
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (pattern protocol)
+- `devforgeai/protocols/create-epic-refactoring-plan.md` (initial analysis)
+- `devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md` (complete guide)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (pattern protocol)
 
 **Reference Files Created:**
 - `.claude/skills/devforgeai-orchestration/references/feature-decomposition-patterns.md`
@@ -299,7 +299,7 @@ Created 3 framework-aware reference files for orchestration skill:
 - `CLAUDE.md` (update component summary)
 - `.claude/memory/commands-reference.md` (update /create-epic section)
 - `.claude/memory/skills-reference.md` (update orchestration section)
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (add reference implementation)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (add reference implementation)
 
 ---
 

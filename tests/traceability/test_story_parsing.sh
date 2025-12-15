@@ -131,7 +131,7 @@ test_epic_field_extraction() {
     # When: Parser extracts epic: field
     # Then: Returns "EPIC-002"
 
-    local story_file="${PROJECT_ROOT}/.ai_docs/Stories/STORY-007-post-operation-retrospective-conversation.story.md"
+    local story_file="${PROJECT_ROOT}/devforgeai/specs/Stories/STORY-007-post-operation-retrospective-conversation.story.md"
 
     if [ ! -f "$story_file" ]; then
         echo "Story file not found: $story_file"
@@ -155,7 +155,7 @@ test_story_title_extraction() {
     # When: Parser extracts title
     # Then: Returns the title string
 
-    local story_file="${PROJECT_ROOT}/.ai_docs/Stories/STORY-007-post-operation-retrospective-conversation.story.md"
+    local story_file="${PROJECT_ROOT}/devforgeai/specs/Stories/STORY-007-post-operation-retrospective-conversation.story.md"
 
     if [ ! -f "$story_file" ]; then
         echo "Story file not found: $story_file"
@@ -309,7 +309,7 @@ test_invalid_epic_reference() {
 
 test_batch_story_parsing() {
     # AC#2: Parse all stories in directory
-    # Given: .ai_docs/Stories/ directory with story files
+    # Given: devforgeai/specs/Stories/ directory with story files
     # When: Parser parses all stories
     # Then: Returns JSON with stories map
 

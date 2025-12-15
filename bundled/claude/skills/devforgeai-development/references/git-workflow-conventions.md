@@ -376,7 +376,7 @@ git stash push -m "WIP: All files" --include-untracked
 ```bash
 # No git commands executed
 # All files remain visible in filesystem
-# Changes tracked in .devforgeai/stories/{STORY-ID}/changes/
+# Changes tracked in devforgeai/stories/{STORY-ID}/changes/
 ```
 
 **Benefits:**

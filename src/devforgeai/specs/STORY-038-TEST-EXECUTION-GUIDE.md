@@ -409,9 +409,9 @@ exit $?
 ## Documentation Reference
 
 **Related Files:**
-- Test Summary: `.devforgeai/specs/STORY-038-TEST-GENERATION-SUMMARY.md`
-- Story: `.ai_docs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md`
-- Lean Pattern: `.devforgeai/protocols/lean-orchestration-pattern.md`
+- Test Summary: `devforgeai/specs/STORY-038-TEST-GENERATION-SUMMARY.md`
+- Story: `devforgeai/specs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md`
+- Lean Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

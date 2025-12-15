@@ -1313,7 +1313,7 @@ class TestBackupEdgeCases:
         """
         BR-004: User content preserved during upgrade
 
-        Arrange: .ai_docs/Stories/ with user content
+        Arrange: devforgeai/specs/Stories/ with user content
         Act: Call create_backup()
         Assert: User files included in backup
         """

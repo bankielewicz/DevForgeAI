@@ -21,7 +21,7 @@
 
 ### The 6 Immutable Constraint Files
 
-**Location:** `.devforgeai/context/`
+**Location:** `devforgeai/specs/context/`
 
 **Files:**
 1. **tech-stack.md** - LOCKED technology choices
@@ -425,7 +425,7 @@ Read:
 3. .claude/agents/test-automator.md (invoked in Phase 1)
 4. .claude/agents/backend-architect.md (invoked in Phase 2)
 5. .claude/commands/dev.md (command that invokes skill)
-6. .devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md (related)
+6. devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md (related)
 ```
 
 ### Command Breakdown → Read These Files
@@ -435,7 +435,7 @@ Read:
 
 **Secondary:**
 2. Skill invoked by command (`.claude/skills/{skill}/SKILL.md`)
-3. `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
+3. `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
 
 **Tertiary:**
 4. Reference commands (refactored examples)
@@ -447,7 +447,7 @@ Read:
 Read:
 1. .claude/commands/dev.md (primary)
 2. .claude/skills/devforgeai-development/SKILL.md (invoked skill)
-3. .devforgeai/protocols/lean-orchestration-pattern.md (pattern)
+3. devforgeai/protocols/lean-orchestration-pattern.md (pattern)
 4. .claude/commands/qa.md (reference implementation)
 5. .claude/memory/commands-reference.md (command docs)
 ```
@@ -472,13 +472,13 @@ Read:
 1. .claude/agents/deferral-validator.md (primary)
 2. .claude/skills/devforgeai-development/SKILL.md (invokes in Phase 4.5)
 3. .claude/skills/devforgeai-qa/SKILL.md (invokes in Phase 0)
-4. .devforgeai/RCA/RCA-006-autonomous-deferrals.md (why created)
+4. devforgeai/RCA/RCA-006-autonomous-deferrals.md (why created)
 ```
 
 ### Context File Violation → Read These Files
 
 **Primary:**
-1. Violated context file (`.devforgeai/context/{file}.md`)
+1. Violated context file (`devforgeai/specs/context/{file}.md`)
 2. Implementation showing violation
 
 **Secondary:**
@@ -492,7 +492,7 @@ Read:
 **Example: tech-stack.md violation**
 ```
 Read:
-1. .devforgeai/context/tech-stack.md (constraint)
+1. devforgeai/specs/context/tech-stack.md (constraint)
 2. src/components/App.vue (violation - uses Vue, not React)
 3. .claude/agents/context-validator.md (validator)
 4. .claude/skills/devforgeai-development/SKILL.md (should invoke validator)
@@ -501,7 +501,7 @@ Read:
 ### Quality Gate Bypass → Read These Files
 
 **Primary:**
-1. Gate definition (`CLAUDE.md` or `.devforgeai/protocols/quality-gates.md`)
+1. Gate definition (`CLAUDE.md` or `devforgeai/protocols/quality-gates.md`)
 2. Story file showing state before/after gate
 
 **Secondary:**
@@ -509,17 +509,17 @@ Read:
 4. Validation code in skill
 
 **Tertiary:**
-5. `.devforgeai/protocols/workflow-states.md` - State transition rules
+5. `devforgeai/protocols/workflow-states.md` - State transition rules
 6. Related RCAs (other gate bypasses)
 
 ### Workflow State Error → Read These Files
 
 **Primary:**
-1. Story file (`.ai_docs/Stories/{STORY-ID}.story.md`) - YAML + Workflow History
-2. `.devforgeai/protocols/workflow-states.md` - State definitions
+1. Story file (`devforgeai/specs/Stories/{STORY-ID}.story.md`) - YAML + Workflow History
+2. `devforgeai/protocols/workflow-states.md` - State definitions
 
 **Secondary:**
-3. `.devforgeai/protocols/state-transitions.md` - Valid transitions
+3. `devforgeai/protocols/state-transitions.md` - Valid transitions
 4. `.claude/skills/devforgeai-orchestration/SKILL.md` - State management
 
 **Tertiary:**
@@ -553,7 +553,7 @@ Read:
 **Issue type: "Story in wrong state"**
 ```
 Read:
-1. .ai_docs/Stories/{STORY-ID}.story.md
+1. devforgeai/specs/Stories/{STORY-ID}.story.md
 2. workflow-states.md
 3. state-transitions.md
 4. devforgeai-orchestration SKILL.md
@@ -742,16 +742,16 @@ Implementation: Add "Execution Model" section to all skills
 - `.claude/memory/context-files-guide.md` - Context file details
 
 **Protocols:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill architecture
-- `.devforgeai/protocols/workflow-states.md` - State definitions
-- `.devforgeai/protocols/state-transitions.md` - Valid transitions
-- `.devforgeai/protocols/quality-gates.md` - Gate criteria
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command/skill architecture
+- `devforgeai/protocols/workflow-states.md` - State definitions
+- `devforgeai/protocols/state-transitions.md` - Valid transitions
+- `devforgeai/protocols/quality-gates.md` - Gate criteria
 
 **RCA Examples:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
-- `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+- `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`
 
 ---
 

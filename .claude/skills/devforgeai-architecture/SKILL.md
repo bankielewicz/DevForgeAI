@@ -43,10 +43,10 @@ Create immutable context files and architecture documentation that prevents tech
 This skill creates the **architectural foundation** for projects: 6 required + 1 optional context files that define boundaries AI agents must never violate.
 
 **Generated artifacts:**
-- **6 Required Context Files** (immutable constraints in `.devforgeai/context/`)
+- **6 Required Context Files** (immutable constraints in `devforgeai/specs/context/`)
 - **1 Optional Context File** (design-system.md for UI projects)
-- **ADRs** (architecture decisions in `.devforgeai/adrs/`)
-- **Technical Specifications** (optional, in `.devforgeai/specs/`)
+- **ADRs** (architecture decisions in `devforgeai/specs/adrs/`)
+- **Technical Specifications** (optional, in `devforgeai/specs/`)
 
 **Core Principle:** Prevent technical debt through explicit, enforceable constraints.
 
@@ -99,7 +99,7 @@ Detect project mode and load guidance patterns conditionally:
 
 ```python
 # Detect mode via context file count
-context_files = Glob(pattern=".devforgeai/context/*.md")
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
 context_count = len(context_files)
 
 if context_count == 6:
@@ -143,7 +143,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/references/context-discov
 
 **Reference:** `context-file-creation-workflow.md`
 
-Load template for each file from `assets/context-templates/`, gather decisions via AskUserQuestion, customize with project-specific info, add enforcement rules (✅/❌ examples), write to `.devforgeai/context/`.
+Load template for each file from `assets/context-templates/`, gather decisions via AskUserQuestion, customize with project-specific info, add enforcement rules (✅/❌ examples), write to `devforgeai/specs/context/`.
 
 **Output:**
 - **Required (6):** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
@@ -166,7 +166,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/references/context-file-c
 
 Identify decisions requiring ADRs (database, ORM, framework, patterns), load template and examples from `assets/adr-examples/`, create ADR with context/decision/rationale/consequences/alternatives/enforcement sections.
 
-**Output:** ADR files in `.devforgeai/adrs/`
+**Output:** ADR files in `devforgeai/specs/adrs/`
 
 **Load detailed workflow:**
 ```
@@ -183,7 +183,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/references/adr-creation-w
 
 Create functional specs (use cases, business rules, data models), API specs (endpoints, auth), database specs (schemas, indexes), NFRs (performance, security). Use AskUserQuestion for ambiguous requirements.
 
-**Output:** Technical spec in `.devforgeai/specs/` (optional)
+**Output:** Technical spec in `devforgeai/specs/` (optional)
 
 **Load detailed workflow:**
 ```
@@ -266,7 +266,7 @@ Existing codebases require discovery → gap analysis → migration strategy dec
 
 Architecture phase complete when:
 
-- [ ] All 6 required context files exist in `.devforgeai/context/`
+- [ ] All 6 required context files exist in `devforgeai/specs/context/`
 - [ ] Optional design-system.md created if UI project
 - [ ] Context files non-empty (no placeholders)
 - [ ] At least 1 ADR created (initial architecture decision)

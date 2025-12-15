@@ -59,7 +59,7 @@ This document provides a comprehensive plan for implementing the devforgeai-qa s
   - Token efficiency guidelines included
 
 **Files Created:**
-- `.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md` (~21,000 tokens)
+- `devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md` (~21,000 tokens)
 - `.claude/skills/devforgeai-qa/SKILL.md` (~16,000 tokens)
 
 **Token Usage:**
@@ -501,18 +501,18 @@ Ready for devforgeai-release skill
 **Section 7: Context File Usage**
 
 **Consumes:**
-- `.devforgeai/context/tech-stack.md` - Validate technology usage
-- `.devforgeai/context/source-tree.md` - Validate file locations
-- `.devforgeai/context/dependencies.md` - Validate package usage
-- `.devforgeai/context/coding-standards.md` - Validate code patterns
-- `.devforgeai/context/architecture-constraints.md` - Validate layer boundaries
-- `.devforgeai/context/anti-patterns.md` - Detect violations
+- `devforgeai/specs/context/tech-stack.md` - Validate technology usage
+- `devforgeai/specs/context/source-tree.md` - Validate file locations
+- `devforgeai/specs/context/dependencies.md` - Validate package usage
+- `devforgeai/specs/context/coding-standards.md` - Validate code patterns
+- `devforgeai/specs/context/architecture-constraints.md` - Validate layer boundaries
+- `devforgeai/specs/context/anti-patterns.md` - Detect violations
 
 **Creates/Updates:**
-- `.devforgeai/qa/coverage-thresholds.md` - Coverage requirements
-- `.devforgeai/qa/quality-metrics.md` - Quality thresholds
-- `.devforgeai/qa/security-policies.md` - Security scanning rules
-- `.devforgeai/qa/reports/[story-id]-qa-report.md` - QA reports
+- `devforgeai/qa/coverage-thresholds.md` - Coverage requirements
+- `devforgeai/qa/quality-metrics.md` - Quality thresholds
+- `devforgeai/qa/security-policies.md` - Security scanning rules
+- `devforgeai/qa/reports/[story-id]-qa-report.md` - QA reports
 
 **Section 8: AskUserQuestion Patterns**
 
@@ -1215,7 +1215,7 @@ Each script should include:
 ```
 To resume implementation after context compaction:
 
-1. Read: .devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md
+1. Read: devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md
 2. Review: Journey Log section for current status
 3. Check: Which phases completed (✅) vs pending
 4. Start: Next pending phase from detailed requirements
@@ -1274,7 +1274,7 @@ To resume implementation after context compaction:
 - `.claude/skills/devforgeai-qa/scripts/*.py` - 6 Python automation scripts (Phase 4)
 - `.claude/skills/devforgeai-qa/scripts/requirements.txt` - Dependencies (Phase 4)
 - `.claude/skills/devforgeai-qa/scripts/README.md` - Usage documentation (Phase 4)
-- `.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md` - Implementation plan
+- `devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md` - Implementation plan
 
 ---
 

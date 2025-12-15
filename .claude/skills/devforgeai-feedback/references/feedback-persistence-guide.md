@@ -23,7 +23,7 @@ The feedback persistence layer provides:
 ### Directory Structure
 
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── sessions/                    # Individual feedback sessions
 │   ├── 20251120-083045-dev-STORY-001.md
 │   ├── 20251120-091523-qa-STORY-002.md
@@ -227,7 +227,7 @@ The `index.json` file enables:
 3. **Conversation initiated** (devforgeai-feedback skill)
 4. **User provides responses** (answers questions)
 5. **Template rendering** (responses mapped to sections)
-6. **File written** (`.devforgeai/feedback/sessions/{filename}.md`)
+6. **File written** (`devforgeai/feedback/sessions/{filename}.md`)
 7. **Index updated** (`index.json` appended with new entry)
 
 ### Session Retrieval
@@ -277,7 +277,7 @@ The `index.json` file enables:
 **Delete old sessions:**
 ```bash
 # Remove sessions older than 90 days
-find .devforgeai/feedback/sessions/ -name "*.md" -mtime +90 -delete
+find devforgeai/feedback/sessions/ -name "*.md" -mtime +90 -delete
 
 # Rebuild index after deletion
 /feedback-reindex
@@ -289,7 +289,7 @@ find .devforgeai/feedback/sessions/ -name "*.md" -mtime +90 -delete
 /export-feedback --date=before-2025-08-01 --sanitize
 
 # Verify archive created
-ls -lh .devforgeai/feedback/archive/
+ls -lh devforgeai/feedback/archive/
 
 # Safe to delete after archive verified
 ```
@@ -380,14 +380,14 @@ feedback-export-20251120.zip
 **Recommended .gitignore:**
 ```gitignore
 # Ignore local feedback config (user-specific)
-.devforgeai/feedback/config.yaml
+devforgeai/feedback/config.yaml
 
 # Commit sessions and index (shared team insights)
-!.devforgeai/feedback/sessions/
-!.devforgeai/feedback/index.json
+!devforgeai/feedback/sessions/
+!devforgeai/feedback/index.json
 
 # Ignore archives (too large, available via export)
-.devforgeai/feedback/archive/
+devforgeai/feedback/archive/
 ```
 
 ### Commit Strategy
@@ -395,23 +395,23 @@ feedback-export-20251120.zip
 **Option 1: Per-Session Commits**
 ```bash
 # After feedback session
-git add .devforgeai/feedback/sessions/{session-file}.md
-git add .devforgeai/feedback/index.json
+git add devforgeai/feedback/sessions/{session-file}.md
+git add devforgeai/feedback/index.json
 git commit -m "feedback: Add retrospective for STORY-001"
 ```
 
 **Option 2: Batch Commits**
 ```bash
 # Weekly or sprint-end
-git add .devforgeai/feedback/sessions/
-git add .devforgeai/feedback/index.json
+git add devforgeai/feedback/sessions/
+git add devforgeai/feedback/index.json
 git commit -m "feedback: Sprint 3 retrospectives (12 sessions)"
 ```
 
 **Option 3: Gitignore All (Privacy)**
 ```gitignore
 # Feedback is private, not shared
-.devforgeai/feedback/
+devforgeai/feedback/
 ```
 
 ---
@@ -447,14 +447,14 @@ git commit -m "feedback: Sprint 3 retrospectives (12 sessions)"
 **Local backups:**
 ```bash
 # Backup entire feedback directory
-tar -czf feedback-backup-$(date +%Y%m%d).tar.gz .devforgeai/feedback/
+tar -czf feedback-backup-$(date +%Y%m%d).tar.gz devforgeai/feedback/
 
 # Store backups outside project
 mv feedback-backup-*.tar.gz ~/backups/
 ```
 
 **Cloud backups:**
-- Sync `.devforgeai/feedback/` to cloud storage (Dropbox, Google Drive, S3)
+- Sync `devforgeai/feedback/` to cloud storage (Dropbox, Google Drive, S3)
 - Encrypt if contains sensitive data
 - Automate with cron/scheduled tasks
 
@@ -463,7 +463,7 @@ mv feedback-backup-*.tar.gz ~/backups/
 **Restore from backup:**
 ```bash
 # Extract backup
-tar -xzf feedback-backup-20251120.tar.gz -C .devforgeai/
+tar -xzf feedback-backup-20251120.tar.gz -C devforgeai/
 
 # Rebuild index
 /feedback-reindex
@@ -475,7 +475,7 @@ tar -xzf feedback-backup-20251120.tar.gz -C .devforgeai/
 **Recover from Git:**
 ```bash
 # Restore deleted session
-git checkout HEAD -- .devforgeai/feedback/sessions/{session-file}.md
+git checkout HEAD -- devforgeai/feedback/sessions/{session-file}.md
 
 # Rebuild index
 /feedback-reindex
@@ -502,8 +502,8 @@ git checkout HEAD -- .devforgeai/feedback/sessions/{session-file}.md
 **File system permissions:**
 ```bash
 # Restrict access to feedback directory (owner only)
-chmod 700 .devforgeai/feedback/
-chmod 600 .devforgeai/feedback/sessions/*.md
+chmod 700 devforgeai/feedback/
+chmod 600 devforgeai/feedback/sessions/*.md
 ```
 
 **Team sharing:**
@@ -538,7 +538,7 @@ chmod 600 .devforgeai/feedback/sessions/*.md
 **Solution:**
 ```bash
 # Validate session file
-cat .devforgeai/feedback/sessions/{session-file}.md | head -20
+cat devforgeai/feedback/sessions/{session-file}.md | head -20
 
 # Check YAML frontmatter
 grep -A 10 "^---" {session-file}.md | grep -B 10 "^---"

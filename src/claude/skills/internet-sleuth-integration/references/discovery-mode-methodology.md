@@ -438,13 +438,13 @@ OAuth 2.0 authentication is highly feasible for our multi-tenant SaaS platform (
 ---
 
 **Report Generated:** 2025-11-17 15:35:42
-**Report Location:** .devforgeai/research/feasibility/EPIC-007-2025-11-17-153542-research.md
+**Report Location:** devforgeai/specs/research/feasibility/EPIC-007-2025-11-17-153542-research.md
 ```
 
 **Outputs:**
 - Complete research report (markdown file)
 - YAML frontmatter with metadata
-- Report saved to .devforgeai/research/feasibility/
+- Report saved to devforgeai/specs/research/feasibility/
 
 ---
 

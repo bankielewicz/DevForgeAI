@@ -42,7 +42,7 @@ class InstallationReporter:
 
     def create_log_file(self, target_directory: str) -> Path:
         """
-        Create log file at .devforgeai/install.log.
+        Create log file at devforgeai/install.log.
 
         Args:
             target_directory: Installation target directory

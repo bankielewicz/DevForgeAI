@@ -123,14 +123,14 @@ result = install.install("/path/to/project")
 
 **Triggered By:**
 - Target directory not writable
-- Cannot create .devforgeai/ or .claude/ directories
+- Cannot create devforgeai/ or .claude/ directories
 - Cannot write to backup location
 - Cannot change file permissions
 
 **Example Errors:**
 ```
 PermissionError: [Errno 13] Permission denied: '/path/to/project/.claude/commands/dev.md'
-PermissionError: [Errno 13] Permission denied: '/path/to/project/.devforgeai/'
+PermissionError: [Errno 13] Permission denied: '/path/to/project/devforgeai/'
 OSError: Permission denied when creating backup directory
 ```
 
@@ -212,7 +212,7 @@ Result: System restored to pre-installation state
 1. **Understand what happened:**
 ```bash
 # Check installation log for details
-cat .devforgeai/install.log
+cat devforgeai/install.log
 
 # Look for error message and phase where failure occurred
 # Example:
@@ -223,7 +223,7 @@ cat .devforgeai/install.log
 2. **Verify system state:**
 ```bash
 # Check that version.json reflects pre-installation version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # Validate installation (read-only check)
 python -c "from installer import install; install.install('/path', mode='validate')"
@@ -246,7 +246,7 @@ result = install.install("/path/to/project")
 
 **Important Note:**
 If exit code 3 occurs repeatedly, the underlying issue needs resolution:
-- Add diagnostic info to log file: `.devforgeai/install.log`
+- Add diagnostic info to log file: `devforgeai/install.log`
 - Run: `devforgeai-validate check-disk-space /path/to/project`
 - Check system resources: `free -h`, `df -h`, `top`
 
@@ -266,7 +266,7 @@ If exit code 3 occurs repeatedly, the underlying issue needs resolution:
 **Example Errors:**
 ```
 ValidationError: Expected 450 files, found 435
-ValidationError: .devforgeai/protocols/ directory missing
+ValidationError: devforgeai/protocols/ directory missing
 ValidationError: .version.json schema validation failed
 ```
 
@@ -275,10 +275,10 @@ ValidationError: .version.json schema validation failed
 1. **Check what failed in validation:**
 ```bash
 # Validation was read-only, project still has new version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # Check log for specific validation failures
-grep "validation" .devforgeai/install.log -i
+grep "validation" devforgeai/install.log -i
 ```
 
 2. **Verify critical files exist:**
@@ -286,8 +286,8 @@ grep "validation" .devforgeai/install.log -i
 # Check directory structure
 test -d .claude/commands && echo "✓ commands"
 test -d .claude/skills && echo "✓ skills"
-test -d .devforgeai/protocols && echo "✓ protocols"
-test -f .devforgeai/.version.json && echo "✓ version.json"
+test -d devforgeai/protocols && echo "✓ protocols"
+test -f devforgeai/.version.json && echo "✓ version.json"
 test -f CLAUDE.md && echo "✓ CLAUDE.md"
 ```
 
@@ -370,7 +370,7 @@ case $EXIT_CODE in
         ;;
     4)
         echo "WARNING: Validation failed after installation"
-        echo "Review log: cat .devforgeai/install.log"
+        echo "Review log: cat devforgeai/install.log"
         exit 1
         ;;
     *)
@@ -448,7 +448,7 @@ jobs:
               ;;
             failure)
               echo "❌ Installation failed"
-              cat .devforgeai/install.log
+              cat devforgeai/install.log
               exit 1
               ;;
           esac
@@ -499,7 +499,7 @@ python -m installer /path/to/project
 ### "Exit code 3 appears repeatedly"
 
 **Investigation:**
-1. Check logs: `cat .devforgeai/install.log`
+1. Check logs: `cat devforgeai/install.log`
 2. Free disk space: `df -h /path/to/project` (need >100MB)
 3. Check permissions: `ls -ld /path/to/project`
 4. Try different target: `python -m installer /tmp/test-install`
@@ -618,11 +618,11 @@ EOF
 
 ## Logging Exit Codes
 
-All exit codes are logged to `.devforgeai/install.log` with timestamps:
+All exit codes are logged to `devforgeai/install.log` with timestamps:
 
 ```
 [2025-12-03T14:30:45.123Z] [INFO] Installation started: fresh_install
-[2025-12-03T14:30:46.234Z] [INFO] Backup created: .devforgeai/install-backup-2025-12-03T14-30-46/
+[2025-12-03T14:30:46.234Z] [INFO] Backup created: devforgeai/install-backup-2025-12-03T14-30-46/
 [2025-12-03T14:30:50.567Z] [INFO] Files deployed: 450
 [2025-12-03T14:30:51.789Z] [ERROR] Validation failed: 435 files found, expected 450
 [2025-12-03T14:30:51.890Z] [INFO] Exit code: 4 (VALIDATION_FAILED)

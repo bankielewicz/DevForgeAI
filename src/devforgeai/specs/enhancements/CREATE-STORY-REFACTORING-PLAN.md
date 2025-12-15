@@ -229,7 +229,7 @@ cp .claude/commands/create-story.md .claude/commands/create-story.md.backup-pre-
 
 **Source:** Migrated from /create-story command example
 
-**File:** `.ai_docs/Stories/STORY-042.story.md`
+**File:** `devforgeai/specs/Stories/STORY-042.story.md`
 
 [Full STORY-042 content here - 251 lines]
 
@@ -257,7 +257,7 @@ allowed-tools: Read, Glob, Skill, AskUserQuestion, TodoWrite, Grep
 
 **Purpose:** Transform feature description into complete user story with acceptance criteria, technical specifications, and UI specifications (if applicable).
 
-**Output:** Story document in `.ai_docs/Stories/`
+**Output:** Story document in `devforgeai/specs/Stories/`
 
 **Process:** Invokes `devforgeai-story-creation` skill which handles complete story generation workflow.
 
@@ -340,7 +340,7 @@ Skill(command="devforgeai-story-creation")
 ## Phase 2: Verify Story Created (~30 lines)
 
 **Check for new story file:**
-- Glob pattern: `.ai_docs/Stories/STORY-*.story.md`
+- Glob pattern: `devforgeai/specs/Stories/STORY-*.story.md`
 - Compare count before/after
 - If no new file → Error handling
 
@@ -675,7 +675,7 @@ return {
 **Calculate next story ID (gap-aware):**
 ```
 # Get all existing stories
-existing = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+existing = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Extract numbers
 numbers = [extract STORY-NNN number from each file]
@@ -1046,11 +1046,11 @@ cp .claude/commands/create-story.md.backup-pre-lean-refactor .claude/commands/cr
    - Document batch mode support in devforgeai-story-creation
    - Add batch mode context markers
 
-3. **`.devforgeai/protocols/lean-orchestration-pattern.md`**
+3. **`devforgeai/protocols/lean-orchestration-pattern.md`**
    - Add /create-story to refactored commands list
    - Update priority queue (remove create-story from CRITICAL)
 
-4. **`.devforgeai/protocols/command-budget-reference.md`**
+4. **`devforgeai/protocols/command-budget-reference.md`**
    - Update command status table
    - Show create-story improvement (153% → 67%)
 
@@ -1171,10 +1171,10 @@ wc -l .claude/commands/create-story.md
 
 **Step 6: RCA-007 compliance check**
 ```bash
-ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null
 # Expected: (no files) - zero extra files created
 
-ls .ai_docs/Stories/STORY-*.story.md | wc -l
+ls devforgeai/specs/Stories/STORY-*.story.md | wc -l
 # Expected: 6 (baseline: STORY-006 + new: STORY-007 through STORY-011)
 ```
 

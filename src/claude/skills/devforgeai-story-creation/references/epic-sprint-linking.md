@@ -16,7 +16,7 @@ This phase establishes bidirectional links between the story and its parent epic
 
 ```
 # Read epic file
-epic_file_path = f".ai_docs/Epics/{epic_id}.epic.md"
+epic_file_path = f"devforgeai/specs/Epics/{epic_id}.epic.md"
 epic_content = Read(file_path=epic_file_path)
 
 # Find "Stories" section or create it
@@ -59,7 +59,7 @@ else:
 
 ```
 # Read sprint file
-sprint_file_path = f".ai_docs/Sprints/{sprint_id}.md"
+sprint_file_path = f"devforgeai/specs/Sprints/{sprint_id}.md"
 sprint_content = Read(file_path=sprint_file_path)
 
 # Find "Sprint Backlog" section
@@ -114,11 +114,11 @@ if sprint_id != "Backlog":
 ## Error Handling
 
 **Error 1: Epic file not found**
-- **Detection:** epic_id specified but file doesn't exist at .ai_docs/Epics/{epic_id}.epic.md
+- **Detection:** epic_id specified but file doesn't exist at devforgeai/specs/Epics/{epic_id}.epic.md
 - **Recovery:** Ask user if epic ID correct, or create story without epic association
 
 **Error 2: Sprint file not found**
-- **Detection:** sprint_id specified but file doesn't exist at .ai_docs/Sprints/{sprint_id}.md
+- **Detection:** sprint_id specified but file doesn't exist at devforgeai/specs/Sprints/{sprint_id}.md
 - **Recovery:** Ask user if sprint ID correct, or set sprint to "Backlog"
 
 **Error 3: Edit failed (section not found)**

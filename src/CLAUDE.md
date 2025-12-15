@@ -190,7 +190,7 @@ git commit -m "Initial commit"
 **File-Based Fallback:**
 
 If Git is not available, DevForgeAI automatically uses file-based change tracking:
-- Changes documented in `.devforgeai/stories/{STORY-ID}/changes/`
+- Changes documented in `devforgeai/stories/{STORY-ID}/changes/`
 - Manual file organization required
 - Full version control features disabled
 - Recommended: Initialize Git for best experience
@@ -285,7 +285,7 @@ Check anti-patterns.md before suggesting:
 
 ### 9. Document All Decisions
 
-Architecture decisions require ADRs in `.devforgeai/adrs/`:
+Architecture decisions require ADRs in `devforgeai/specs/adrs/`:
 - Technology selections
 - Framework choices
 - Design pattern decisions
@@ -351,14 +351,14 @@ AskUserQuestion(
 
 **File-Based Fallback:**
 When git operations are declined or unavailable:
-- Use `.devforgeai/stories/{STORY-ID}/changes/` directory
+- Use `devforgeai/stories/{STORY-ID}/changes/` directory
 - Document changes in `changes-manifest.md`
 - Preserve all user files (nothing hidden)
 
 **Rationale:** RCA-008 incident (2025-11-13) showed autonomous `git stash --include-untracked` hid 21 user-created story files without consent, causing confusion and workflow disruption. User approval prevents data loss and maintains trust.
 
 **See also:**
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (stash safety protocol)
 - `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5 and 0.1.6)
 
@@ -386,9 +386,9 @@ Read(file_path=".claude/memory/documentation-command-guide.md")
 - **Token Efficiency:** `.claude/memory/token-efficiency.md`
 - **Epic Creation:** `.claude/memory/epic-creation-guide.md`
 - **Token Budgets:** `.claude/memory/token-budget-guidelines.md`
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
-  - Case Studies: `.devforgeai/protocols/refactoring-case-studies.md`
-  - Budget Reference: `.devforgeai/protocols/command-budget-reference.md`
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
+  - Case Studies: `devforgeai/protocols/refactoring-case-studies.md`
+  - Budget Reference: `devforgeai/protocols/command-budget-reference.md`
 
 ---
 
@@ -579,7 +579,7 @@ devforgeai --version
 
 **validate-dod** - Validate Definition of Done completion
 ```bash
-devforgeai-validate validate-dod .ai_docs/Stories/STORY-001.story.md
+devforgeai-validate validate-dod devforgeai/specs/Stories/STORY-001.story.md
 ```
 - Detects autonomous deferrals (DoD [x] but Impl [ ] without approval)
 - Validates user approval markers for all deferred items
@@ -709,7 +709,7 @@ Skill(command="devforgeai-release --env=production")
 ### ✅ CORRECT - Context-Based Invocation
 ```
 # Step 1: Load story content into conversation
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Step 2: Set context with explicit statements
 **Story ID:** STORY-001
@@ -819,7 +819,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
   - Technical debt metrics (age tracking, trend analysis, stale deferral detection)
 - **Story template guidance:** Anti-pattern documentation prevents pre-deferrals
 - **Three-layer validation:** Python format check + Interactive checkpoint + AI subagent
-- **See:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` for complete analysis
+- **See:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` for complete analysis
 
 **RCA-006: Structured Technical Specifications (Phase 2 - NEW Phasing)** 🟢 Weeks 2-3/4 Complete (2025-11-07)
 - **Purpose:** Machine-readable tech specs for deterministic parsing and automated validation
@@ -844,7 +844,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
 - **Impact (projected):** Coverage gap detection 85% → 95%+, enables Phase 3 implementation validation
 - **Backward compatibility:** v1.0 freeform stories still supported (dual format)
 - **Migration:** Optional (gradual path), AI-assisted tool ready for use
-- **See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`, `AI-ASSISTED-MIGRATION-GUIDE.md`, `PHASE2-WEEK3-DELIVERY-PACKAGE.md`
+- **See:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`, `AI-ASSISTED-MIGRATION-GUIDE.md`, `PHASE2-WEEK3-DELIVERY-PACKAGE.md`
 
 **RCA-007: Multi-File Story Creation** ✅ Complete (2025-11-06 - All 3 Phases)
 - **Phase 1 (HIGH):** Enhanced subagent prompts with 4-section template
@@ -867,7 +867,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
   - Content-only output (returns markdown for assembly)
   - 99.9% violation prevention (architectural constraint)
 - **Result:** Single-file design enforced, zero extra files (SUMMARY.md, QUICK-START.md, etc.)
-- **See:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` for complete analysis
+- **See:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md` for complete analysis
 
 **Phase 4: Real Project Validation** ⏳ Ready to Begin
 - Framework complete and ready for production testing
@@ -924,7 +924,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
     ├── ui-generator-guide.md
     └── token-efficiency.md
 
-.devforgeai/
+devforgeai/
 ├── context/             # 6 immutable constraint files
 │   ├── tech-stack.md
 │   ├── source-tree.md
@@ -941,7 +941,7 @@ DevForgeAI provides **11 slash commands** for common tasks:
 ├── qa/                  # QA outputs and reports
 └── specs/               # Requirements and planning docs
 
-.ai_docs/
+devforgeai/specs/
 ├── Epics/               # Business initiatives
 ├── Sprints/             # 2-week iterations
 └── Stories/             # Work units with acceptance criteria
@@ -973,7 +973,7 @@ When you encounter a framework breakdown, use the RCA capability to systematical
 2. **5 Whys Analysis** - Progressive questioning to root cause
 3. **Evidence Collection** - File excerpts, line numbers, quotes
 4. **Recommendations** - Exact implementation (CRITICAL → LOW priority)
-5. **RCA Document** - Created in `.devforgeai/RCA/RCA-XXX-title.md`
+5. **RCA Document** - Created in `devforgeai/RCA/RCA-XXX-title.md`
 6. **Validation** - Self-check for completeness
 7. **Completion Report** - Summary with next steps
 
@@ -1243,7 +1243,7 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 - Story is archived (no active work)
 - Migration risk outweighs benefit
 
-**See:** `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
+**See:** `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
 
 ---
 
@@ -1255,7 +1255,7 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 - If unsure → HALT and request human approval to research
 
 ### ❌ Don't Assume Files Exist
-- Research docs (`.ai_docs/research/`) show PATTERNS as examples
+- Research docs (`devforgeai/specs/research/`) show PATTERNS as examples
 - Most examples are NOT actual project files
 - When in doubt: Use Glob/Read to verify file existence
 
@@ -1291,7 +1291,7 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 
 2. **Check context files exist:**
    ```
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
    # Should show 6 files
    ```
 
@@ -1326,20 +1326,20 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 ```
 > /create-ui STORY-001
 # Interactive: Choose web/GUI/terminal → Choose tech → Choose styling
-# Output: UI specs and code in .devforgeai/specs/ui/
+# Output: UI specs and code in devforgeai/specs/ui/
 ```
 
 ---
 
 ## Key File Locations
 
-**Context Files:** `.devforgeai/context/` (6 constraint files)
-**Stories:** `.ai_docs/Stories/{STORY-ID}.story.md`
-**Epics:** `.ai_docs/Epics/{EPIC-ID}.epic.md`
-**Sprints:** `.ai_docs/Sprints/Sprint-{N}.md`
-**ADRs:** `.devforgeai/adrs/ADR-{NNN}-title.md`
-**QA Reports:** `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
-**Deployment:** `.devforgeai/deployment/` (platform configs)
+**Context Files:** `devforgeai/specs/context/` (6 constraint files)
+**Stories:** `devforgeai/specs/Stories/{STORY-ID}.story.md`
+**Epics:** `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
+**Sprints:** `devforgeai/specs/Sprints/Sprint-{N}.md`
+**ADRs:** `devforgeai/specs/adrs/ADR-{NNN}-title.md`
+**QA Reports:** `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+**Deployment:** `devforgeai/deployment/` (platform configs)
 
 ---
 
@@ -1399,7 +1399,7 @@ Task(
 - Skills: `.claude/skills/*/SKILL.md`
 - Subagents: `.claude/agents/*.md`
 - Commands: `.claude/commands/*.md`
-- Research: `.ai_docs/` (prompt engineering, workflows, terminal best practices)
+- Research: `devforgeai/specs/` (prompt engineering, workflows, terminal best practices)
 
 **Progressive disclosure references (load as needed with Read tool):**
 - `.claude/memory/skills-reference.md`
@@ -1413,9 +1413,9 @@ Task(
 - `.claude/memory/token-budget-guidelines.md`
 
 **Framework protocols (load as needed with Read tool):**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture and refactoring
-- `.devforgeai/protocols/refactoring-case-studies.md` - Detailed refactoring examples
-- `.devforgeai/protocols/command-budget-reference.md` - Budget tables and monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture and refactoring
+- `devforgeai/protocols/refactoring-case-studies.md` - Detailed refactoring examples
+- `devforgeai/protocols/command-budget-reference.md` - Budget tables and monitoring
 
 ---
 

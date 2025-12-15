@@ -13,11 +13,11 @@
 | create-sprint | ❌ No | N/A (no Skill/Task) | ❌ No | N/A | [sprint-name] | ❌ No - Correct |
 | create-story | ❌ No | N/A (uses Task tool) | ❌ No | N/A | [feature-description] | ❌ No - Correct |
 | create-ui | ✅ Yes | `Skill(command="devforgeai-ui-generator --story=${STORY_ID}")` | ❌ No | N/A | [STORY-ID or description] | ✅ **YES - BROKEN** |
-| dev | ✅ Yes | `Skill(command="devforgeai-development --story=$ARGUMENTS")` | ✅ Yes | `@.ai_docs/Stories/$ARGUMENTS.story.md` | [STORY-ID] | ✅ **YES - BROKEN** |
+| dev | ✅ Yes | `Skill(command="devforgeai-development --story=$ARGUMENTS")` | ✅ Yes | `@devforgeai/specs/Stories/$ARGUMENTS.story.md` | [STORY-ID] | ✅ **YES - BROKEN** |
 | ideate | ✅ Yes | `Skill(command="devforgeai-ideation")` | ❌ No | N/A | [business-idea] | ❌ No - Correct |
-| orchestrate | ✅ Yes | 4 invocations with `--story=$ARGUMENTS --env=X` | ✅ Yes | `@.ai_docs/Stories/$ARGUMENTS.story.md` | [STORY-ID] | ✅ **YES - BROKEN** |
-| qa | ✅ Yes | `Skill(command="devforgeai-qa --mode={MODE} --story={STORY-ID}")` | ✅ Yes | `@.ai_docs/Stories/$ARGUMENTS.story.md` | [STORY-ID] [--mode] | ✅ **YES - BROKEN** |
-| release | ✅ Yes | `Skill(command="devforgeai-release --story={STORY-ID} --env={env}")` | ✅ Yes | `@.ai_docs/Stories/$ARGUMENTS.story.md` | [STORY-ID] [--env] | ✅ **YES - BROKEN** |
+| orchestrate | ✅ Yes | 4 invocations with `--story=$ARGUMENTS --env=X` | ✅ Yes | `@devforgeai/specs/Stories/$ARGUMENTS.story.md` | [STORY-ID] | ✅ **YES - BROKEN** |
+| qa | ✅ Yes | `Skill(command="devforgeai-qa --mode={MODE} --story={STORY-ID}")` | ✅ Yes | `@devforgeai/specs/Stories/$ARGUMENTS.story.md` | [STORY-ID] [--mode] | ✅ **YES - BROKEN** |
+| release | ✅ Yes | `Skill(command="devforgeai-release --story={STORY-ID} --env={env}")` | ✅ Yes | `@devforgeai/specs/Stories/$ARGUMENTS.story.md` | [STORY-ID] [--env] | ✅ **YES - BROKEN** |
 
 ---
 
@@ -33,7 +33,7 @@
 
 ### 2. dev
 - **File:** `.claude/commands/dev.md`
-- **Line 14:** `@.ai_docs/Stories/$ARGUMENTS.story.md`
+- **Line 14:** `@devforgeai/specs/Stories/$ARGUMENTS.story.md`
 - **Line 150:** `Skill(command="devforgeai-development --story=$ARGUMENTS")`
 - **Problem 1:** @file uses $ARGUMENTS (includes flags in path)
 - **Problem 2:** Skill cannot accept `--story` parameter
@@ -42,7 +42,7 @@
 
 ### 3. orchestrate
 - **File:** `.claude/commands/orchestrate.md`
-- **Line 14:** `@.ai_docs/Stories/$ARGUMENTS.story.md`
+- **Line 14:** `@devforgeai/specs/Stories/$ARGUMENTS.story.md`
 - **Line 78:** `Skill(command="devforgeai-development --story=$ARGUMENTS")`
 - **Line 126:** `Skill(command="devforgeai-qa --mode=deep --story=$ARGUMENTS")`
 - **Line 173:** `Skill(command="devforgeai-release --story=$ARGUMENTS --env=staging")`
@@ -54,7 +54,7 @@
 
 ### 4. qa
 - **File:** `.claude/commands/qa.md`
-- **Line 16:** `@.ai_docs/Stories/$ARGUMENTS.story.md`
+- **Line 16:** `@devforgeai/specs/Stories/$ARGUMENTS.story.md`
 - **Line 51:** `Skill(command="devforgeai-qa --mode={MODE} --story={STORY-ID}")`
 - **Problem 1:** @file uses $ARGUMENTS (includes flags like --mode=deep in path)
 - **Problem 2:** Skill cannot accept `--mode` or `--story` parameters
@@ -63,7 +63,7 @@
 
 ### 5. release
 - **File:** `.claude/commands/release.md`
-- **Line 17:** `@.ai_docs/Stories/$ARGUMENTS.story.md`
+- **Line 17:** `@devforgeai/specs/Stories/$ARGUMENTS.story.md`
 - **Line 163:** `Skill(command="devforgeai-release --story={STORY-ID} --env={env}")`
 - **Problem 1:** @file uses $ARGUMENTS (includes flags like --env=production in path)
 - **Problem 2:** Skill cannot accept `--story` or `--env` parameters
@@ -130,10 +130,10 @@
 ### Pattern 1: Fix @file References (4 fixes)
 ```markdown
 # BEFORE (BROKEN):
-@.ai_docs/Stories/$ARGUMENTS.story.md
+@devforgeai/specs/Stories/$ARGUMENTS.story.md
 
 # AFTER (FIXED):
-@.ai_docs/Stories/$1.story.md
+@devforgeai/specs/Stories/$1.story.md
 ```
 
 ### Pattern 2: Remove Skill Arguments (11 fixes)
@@ -142,7 +142,7 @@
 Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
 
 # AFTER (FIXED):
-**Story:** @.ai_docs/Stories/$1.story.md
+**Story:** @devforgeai/specs/Stories/$1.story.md
 **Validation Mode:** deep
 
 Skill(command="devforgeai-qa")

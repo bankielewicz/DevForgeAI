@@ -44,12 +44,12 @@ IF $1 empty OR NOT match "STORY-[0-9]+":
 
 **Load story file:**
 ```
-@.ai_docs/Stories/$1*.story.md
+@devforgeai/specs/Stories/$1*.story.md
 
 IF file not found:
     Display: "Story not found: $1"
     Display: ""
-    Display: "List stories: Glob(pattern='.ai_docs/Stories/*.story.md')"
+    Display: "List stories: Glob(pattern='devforgeai/specs/Stories/*.story.md')"
     HALT
 
 Display: "✓ Story loaded: $1"

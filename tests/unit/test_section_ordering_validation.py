@@ -20,9 +20,9 @@ from conftest import extract_section_headers
 
 # Story IDs and files for parametrized tests
 STORY_FILES = [
-    ("STORY-027", Path(".ai_docs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md")),
-    ("STORY-028", Path(".ai_docs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md")),
-    ("STORY-029", Path(".ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")),
+    ("STORY-027", Path("devforgeai/specs/Stories/STORY-027-wire-hooks-into-create-story-command.story.md")),
+    ("STORY-028", Path("devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md")),
+    ("STORY-029", Path("devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")),
 ]
 
 # Define sections that SHOULD be ordered correctly

@@ -36,9 +36,9 @@ Implement frontend features using component-based architectures with proper stat
 When invoked, follow these steps:
 
 1. **Read Context and Requirements**
-   - Read `.devforgeai/context/tech-stack.md` (frontend framework, state management)
-   - Read `.devforgeai/context/source-tree.md` (component file structure)
-   - Read `.devforgeai/context/coding-standards.md` (component patterns)
+   - Read `devforgeai/specs/context/tech-stack.md` (frontend framework, state management)
+   - Read `devforgeai/specs/context/source-tree.md` (component file structure)
+   - Read `devforgeai/specs/context/coding-standards.md` (component patterns)
    - Read story acceptance criteria for UI requirements
    - Read API contracts if backend integration required
 
@@ -598,10 +598,10 @@ const UserItem = memo(({ user, onClick }) => {
 ## References
 
 **Context Files:**
-- `.devforgeai/context/tech-stack.md` - Frontend framework, state management
-- `.devforgeai/context/source-tree.md` - Component file structure
-- `.devforgeai/context/coding-standards.md` - Component patterns
-- `.devforgeai/context/anti-patterns.md` - Patterns to avoid
+- `devforgeai/specs/context/tech-stack.md` - Frontend framework, state management
+- `devforgeai/specs/context/source-tree.md` - Component file structure
+- `devforgeai/specs/context/coding-standards.md` - Component patterns
+- `devforgeai/specs/context/anti-patterns.md` - Patterns to avoid
 
 **Best Practices:**
 - WCAG 2.1 Level AA accessibility guidelines

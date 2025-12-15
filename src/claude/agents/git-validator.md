@@ -226,7 +226,7 @@ Benefit: Full version control, branch management, collaboration
 
 Option 2: Use file-based fallback
 Proceed without Git. Changes tracked in:
-.devforgeai/stories/{STORY-ID}/changes/
+devforgeai/stories/{STORY-ID}/changes/
 
 Limitation: No version history, branching, or collaboration features
 
@@ -273,7 +273,7 @@ After installation:
 Option 2: Use file-based fallback
 
 DevForgeAI will proceed without Git using file-based change tracking:
-- Changes documented in .devforgeai/stories/{STORY-ID}/changes/
+- Changes documented in devforgeai/stories/{STORY-ID}/changes/
 - Manual file organization required
 - No branching, history, or collaboration features
 
@@ -407,8 +407,8 @@ IF story_files > 0:
       "other": 0
     },
     "notable_untracked": [
-      ".ai_docs/Stories/STORY-007-*.story.md",
-      ".ai_docs/Stories/STORY-021-*.story.md",
+      "devforgeai/specs/Stories/STORY-007-*.story.md",
+      "devforgeai/specs/Stories/STORY-021-*.story.md",
       "... (first 10 files)"
     ]
   },
@@ -429,7 +429,7 @@ IF story_files > 0:
       "git commit -m 'Initial commit'"
     ],
     "fallback_available": true,
-    "fallback_description": "File-based change tracking in .devforgeai/stories/{STORY-ID}/changes/"
+    "fallback_description": "File-based change tracking in devforgeai/stories/{STORY-ID}/changes/"
   }
 }
 ```
@@ -573,7 +573,7 @@ IF story_files > 0:
       "git commit -m 'Initial commit'"
     ],
     "fallback_available": true,
-    "fallback_description": "File-based change tracking in .devforgeai/stories/{STORY-ID}/changes/"
+    "fallback_description": "File-based change tracking in devforgeai/stories/{STORY-ID}/changes/"
   }
 }
 ```
@@ -861,7 +861,7 @@ elif WORKFLOW_MODE == "fallback":
 
     Display: ""
     Display: "  Fallback: Changes tracked in story artifacts"
-    Display: "  Location: .devforgeai/stories/{STORY-ID}/changes/"
+    Display: "  Location: devforgeai/stories/{STORY-ID}/changes/"
 
 # Configure Git workflow based on availability
 if CAN_COMMIT:
@@ -887,7 +887,7 @@ DevForgeAI strongly recommends Git for:
 
 However, DevForgeAI **does not fail** without Git. When Git is unavailable:
 - File-based change tracking activated automatically
-- Changes documented in `.devforgeai/stories/{STORY-ID}/changes/`
+- Changes documented in `devforgeai/stories/{STORY-ID}/changes/`
 - Manual file organization required
 - No branching or history features
 - Single-developer workflow only

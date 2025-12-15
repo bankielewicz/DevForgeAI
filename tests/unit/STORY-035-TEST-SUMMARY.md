@@ -174,12 +174,12 @@ pytest tests/unit/test_internet_sleuth_ac2_path_migration.py -v
 1. `test_no_old_context_path_references` - No .claude/context/
 2. `test_no_old_adrs_path_references` - No .claude/adrs/
 3. `test_no_bmad_core_path_references` - No .bmad-core/
-4. `test_no_old_research_path_references` - No .ai_docs/research/
+4. `test_no_old_research_path_references` - No devforgeai/specs/research/
 5. `test_uses_new_devforgeai_context_path` - Uses .devforgeai/context/
 6. `test_uses_new_devforgeai_adrs_path` - Uses .devforgeai/adrs/
 7. `test_uses_new_devforgeai_research_path` - Uses .devforgeai/research/
-8. `test_uses_ai_docs_stories_path_correctly` - Uses .ai_docs/Stories/
-9. `test_uses_ai_docs_epics_path_correctly` - Uses .ai_docs/Epics/
+8. `test_uses_ai_docs_stories_path_correctly` - Uses devforgeai/specs/Stories/
+9. `test_uses_ai_docs_epics_path_correctly` - Uses devforgeai/specs/Epics/
 10. `test_no_mixed_path_conventions` - Edge case: no mixing old/new
 11. `test_path_references_use_correct_format` - Edge case: format consistency
 12. `test_no_absolute_paths_to_context_files` - No hardcoded absolute paths
@@ -370,7 +370,7 @@ After GREEN phase:
 
 ## References
 
-- **Story:** `.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md`
 - **Agent File:** `.claude/agents/internet-sleuth.md`
 - **Test Files:** `tests/unit/test_internet_sleuth_*.py`
 - **Pytest Config:** `pytest.ini`

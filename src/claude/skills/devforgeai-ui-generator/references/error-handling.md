@@ -39,13 +39,13 @@ After context files are created, run /create-ui again."
 ```
 "❌ Story file not found for ${STORY_ID}
 
-Attempted: .ai_docs/Stories/${STORY_ID}.story.md"
+Attempted: devforgeai/specs/Stories/${STORY_ID}.story.md"
 ```
 
 **Recovery:**
 ```
 Use Glob to search:
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF files found:
   Use first match

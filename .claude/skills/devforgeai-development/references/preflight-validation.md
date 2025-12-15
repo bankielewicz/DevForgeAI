@@ -98,7 +98,7 @@ ELIF WORKFLOW_MODE == "fallback":
     ELSE:
         Display: "⚠ Git not installed - file-based workflow enabled"
         Display: "  Changes will be tracked in:"
-        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
+        Display: "    devforgeai/stories/{STORY-ID}/changes/"
 
     Display: ""
     Display: "  Fallback mode active (limited version control features)"
@@ -206,7 +206,7 @@ IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
             options: [
                 {
                     label: "Continue anyway (safe - file-based tracking)",
-                    description: "Proceed without touching git. Framework uses file-based change tracking in .devforgeai/stories/{STORY-ID}/changes/. All your files stay visible."
+                    description: "Proceed without touching git. Framework uses file-based change tracking in devforgeai/stories/{STORY-ID}/changes/. All your files stay visible."
                 },
                 {
                     label: "Stash ONLY modified files, keep untracked visible ⭐ Recommended",
@@ -234,7 +234,7 @@ IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
         CASE "Continue anyway (safe - file-based tracking)":
             SET workflow_mode = "file-based"
             Display: "✅ Proceeding with file-based tracking. Your files remain visible."
-            Display: "   Changes will be tracked in .devforgeai/stories/{STORY-ID}/changes/"
+            Display: "   Changes will be tracked in devforgeai/stories/{STORY-ID}/changes/"
             Display: ""
             # Continue to Step 0.2 (adapt workflow)
 
@@ -576,10 +576,10 @@ This replaces Phase 08 (Git Workflow) with file-based artifact tracking.
 
 ```
 # Create story-specific changes directory
-IF not exists .devforgeai/stories/${STORY_ID}/changes/:
+IF not exists devforgeai/stories/${STORY_ID}/changes/:
     # Use native Write tool to create directory marker
     Write(
-        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+        file_path="devforgeai/stories/${STORY_ID}/changes/.gitkeep",
         content="# Change tracking directory for ${STORY_ID}\n"
     )
 ```
@@ -594,7 +594,7 @@ TIMESTAMP = {current_datetime in ISO8601 format}
 # Developer must identify changed files from implementation work
 
 Write(
-    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+    file_path="devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
     content="""# Implementation Changes - ${STORY_ID}
 
 **Timestamp:** ${TIMESTAMP}
@@ -640,24 +640,24 @@ To enable full version control:
 )
 
 Display: "✓ File-based change manifest created"
-Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+Display: "  Location: devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
 ```
 
 #### Step 3: Update Story File with Change Reference
 
 ```
-Read(file_path=".ai_docs/Stories/${STORY_ID}.story.md")
+Read(file_path="devforgeai/specs/Stories/${STORY_ID}.story.md")
 
 # Add to Workflow History section
 Edit(
-    file_path=".ai_docs/Stories/${STORY_ID}.story.md",
+    file_path="devforgeai/specs/Stories/${STORY_ID}.story.md",
     old_string="## Workflow History",
     new_string="""## Workflow History
 
 ### Development Complete - ${TIMESTAMP} (File-Based)
 - **Status:** Dev Complete
 - **Workflow Mode:** File-Based (Git not available)
-- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+- **Changes:** devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
 - **Tests:** ${passed_tests}/${total_tests} passing (${coverage_percentage}% coverage)
 - **Note:** Git not available - changes tracked in story artifacts
 
@@ -683,7 +683,7 @@ Display:
 │ Coverage: ${coverage_percentage}%                               │
 │                                                                 │
 │ Changes tracked in:                                             │
-│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+│   devforgeai/stories/${STORY_ID}/changes/implementation-...   │
 │                                                                 │
 │ Git Integration: Not Available                                  │
 │                                                                 │
@@ -711,12 +711,12 @@ Display:
 
 ```
 Read all 6 context files in PARALLEL:
-- Read(file_path=".devforgeai/context/tech-stack.md")
-- Read(file_path=".devforgeai/context/source-tree.md")
-- Read(file_path=".devforgeai/context/dependencies.md")
-- Read(file_path=".devforgeai/context/coding-standards.md")
-- Read(file_path=".devforgeai/context/architecture-constraints.md")
-- Read(file_path=".devforgeai/context/anti-patterns.md")
+- Read(file_path="devforgeai/specs/context/tech-stack.md")
+- Read(file_path="devforgeai/specs/context/source-tree.md")
+- Read(file_path="devforgeai/specs/context/dependencies.md")
+- Read(file_path="devforgeai/specs/context/coding-standards.md")
+- Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+- Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **If ANY file is missing:**
@@ -748,7 +748,7 @@ Display: "Re-validating context files..."
 
 The story file was loaded by the `/dev` command via:
 ```
-@.ai_docs/Stories/STORY-XXX.story.md
+@devforgeai/specs/Stories/STORY-XXX.story.md
 ```
 
 **Verify story content accessible:**
@@ -826,7 +826,7 @@ Task(
   4. Build tool
   5. Package manager
 
-  Then validate against .devforgeai/context/tech-stack.md if it exists.
+  Then validate against devforgeai/specs/context/tech-stack.md if it exists.
 
   Return JSON with detected technologies, validation results, and recommended commands.
 
@@ -908,7 +908,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ```
 # Search for QA reports for this story
-Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
 
 IF reports found:
     # Read most recent report
@@ -986,7 +986,7 @@ ELSE:
 
 ```
 # Check if structured gap export exists
-gaps_file = ".devforgeai/qa/reports/${STORY_ID}-gaps.json"
+gaps_file = "devforgeai/qa/reports/${STORY_ID}-gaps.json"
 
 Glob(pattern=gaps_file)
 

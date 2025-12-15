@@ -140,7 +140,7 @@ Use these component types based on feature description:
 - **API:** HTTP endpoints (keywords: "API", "endpoint", "REST", "GraphQL", "HTTP")
 - **DataModel:** Database entities, DTOs (keywords: "entity", "table", "model", "DTO")
 
-**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete component schemas.**
+**See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete component schemas.**
 
 ---
 
@@ -833,7 +833,7 @@ complete_story = template.format(
 )
 
 # Write single file
-Write(file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md", content=complete_story)
+Write(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", content=complete_story)
 ```
 
 ---
@@ -922,7 +922,7 @@ Write(file_path=f".ai_docs/Stories/{story_id}-{slug}.story.md", content=complete
 - **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
 - **Parent Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
 - **Invoked From:** `.claude/skills/devforgeai-story-creation/references/requirements-analysis.md` (Step 2.1)
-- **RCA Analysis:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
 - **Template:** `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
 
 ---

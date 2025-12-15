@@ -21,7 +21,7 @@ Generates the 6 architectural context files that define project constraints and 
 
 ```bash
 # Look for existing context files
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 ```
 
 **If context files exist:**
@@ -43,7 +43,7 @@ Check if repository has commits by examining the environment context (`<env>Is d
 
 1. **Create initial commit with framework files:**
 ```bash
-Bash(git add .claude/ .devforgeai/ .ai_docs/ CLAUDE.md README.md)
+Bash(git add .claude/ devforgeai/ devforgeai/specs/ CLAUDE.md README.md)
 Bash(git commit -m "chore: Initialize DevForgeAI framework structure")
 ```
 
@@ -91,8 +91,8 @@ Skill(command="devforgeai-architecture")
 **Progressive disclosure:** Each phase loads its workflow file on-demand (78% token efficiency improvement)
 
 **Expected output location:**
-- All files in `.devforgeai/context/`
-- ADRs in `.devforgeai/adrs/`
+- All files in `devforgeai/specs/context/`
+- ADRs in `devforgeai/specs/adrs/`
 
 ### Phase 4: Architecture Review
 
@@ -101,7 +101,7 @@ Skill(command="devforgeai-architecture")
 ```bash
 Task(
   subagent_type="architect-reviewer",
-  prompt="Review the generated context files in .devforgeai/context/ for:
+  prompt="Review the generated context files in devforgeai/specs/context/ for:
 
   1. Architectural soundness - Do layer boundaries prevent tight coupling?
   2. Technology coherence - Are selected technologies compatible?
@@ -129,7 +129,7 @@ Task(
 **Detect if UI project:**
 
 ```bash
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 ```
 
 **Check for frontend technologies:**
@@ -171,7 +171,7 @@ Read(file_path=".claude/skills/devforgeai-architecture/assets/context-templates/
 
 # Customize with user preferences and write
 Write(
-  file_path=".devforgeai/context/design-system.md",
+  file_path="devforgeai/specs/context/design-system.md",
   content="[Customized design-system template with user's color/typography/spacing choices]"
 )
 ```
@@ -195,15 +195,15 @@ Write(
 
 ```bash
 # Check all 6 required files exist
-Glob(pattern=".devforgeai/context/*.md")
+Glob(pattern="devforgeai/specs/context/*.md")
 
 # Read each file to verify non-empty
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/dependencies.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **Validation checks:**
@@ -216,7 +216,7 @@ Read(file_path=".devforgeai/context/anti-patterns.md")
 **Check for placeholder content:**
 
 ```bash
-Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]", path=".devforgeai/context/", output_mode="files_with_matches")
+Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]", path="devforgeai/specs/context/", output_mode="files_with_matches")
 ```
 
 **If placeholders found:**
@@ -227,7 +227,7 @@ Grep(pattern="TODO|TBD|\\[FILL IN\\]|\\[TO BE DETERMINED\\]", path=".devforgeai/
 **Verify ADR creation:**
 
 ```bash
-Glob(pattern=".devforgeai/adrs/ADR-*.md")
+Glob(pattern="devforgeai/specs/adrs/ADR-*.md")
 ```
 
 **Expected ADRs (minimum):**
@@ -262,7 +262,7 @@ ADRs Created:
 Architecture Review: ✅ PASSED
 
 Next Steps:
-  1. Review context files in .devforgeai/context/
+  1. Review context files in devforgeai/specs/context/
   2. Customize if needed (add project-specific constraints)
   3. Run /plan-sprint to create your first sprint
   4. Start implementing stories with /implement
@@ -272,7 +272,7 @@ Next Steps:
 
 ### Error: Context Files Already Exist
 
-**Condition:** `.devforgeai/context/` contains .md files
+**Condition:** `devforgeai/specs/context/` contains .md files
 
 **Action:**
 1. List existing files
@@ -358,7 +358,7 @@ Action Required:
 
 ## Success Criteria
 
-- [x] All 6 context files created in `.devforgeai/context/`
+- [x] All 6 context files created in `devforgeai/specs/context/`
 - [x] No TODO/TBD/placeholder content
 - [x] ADRs created for major technology decisions
 - [x] Architecture review completed (no critical issues)
@@ -438,7 +438,7 @@ Action Required:
 
 Triggers optional feedback conversation (non-blocking, configuration-aware).
 
-**See:** `Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")` for complete implementation pattern including:
+**See:** `Read(file_path="devforgeai/protocols/hook-integration-pattern.md")` for complete implementation pattern including:
 - Step 1: Determine operation status
 - Step 2: Check hook eligibility
 - Step 3: Invoke hooks if eligible
@@ -449,8 +449,8 @@ Triggers optional feedback conversation (non-blocking, configuration-aware).
 **Quick Implementation:**
 ```bash
 # Verify context files created
-if [ -f ".devforgeai/context/tech-stack.md" ] && \
-   [ -f ".devforgeai/context/source-tree.md" ]; then
+if [ -f "devforgeai/specs/context/tech-stack.md" ] && \
+   [ -f "devforgeai/specs/context/source-tree.md" ]; then
   STATUS="completed"
 else
   STATUS="failed"

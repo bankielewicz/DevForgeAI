@@ -163,11 +163,11 @@ class TestLogFileCreation:
 
     def test_log_file_created_at_default_location(self, tmp_path):
         """
-        Test: Log file created at .devforgeai/install.log (AC#2).
+        Test: Log file created at devforgeai/install.log (AC#2).
 
         Given: Installation starts
         When: InstallationReporter.create_log_file() called
-        Then: Creates .devforgeai/install.log
+        Then: Creates devforgeai/install.log
         """
         # Arrange
         from installer.reporter import InstallationReporter
@@ -851,7 +851,7 @@ class TestAuditTrail:
         # Act
         reporter.log_operation("copy", ".claude/skills/skill1.md", "success")
         reporter.log_operation("copy", ".claude/skills/skill2.md", "success")
-        reporter.log_operation("copy", ".devforgeai/context/tech-stack.md", "success")
+        reporter.log_operation("copy", "devforgeai/specs/context/tech-stack.md", "success")
 
         # Assert
         log_content = log_file.read_text()

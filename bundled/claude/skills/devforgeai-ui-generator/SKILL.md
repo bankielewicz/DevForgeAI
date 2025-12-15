@@ -49,7 +49,7 @@ This skill operates in two modes:
 - Translating requirements into tangible UI components
 
 **Prerequisites:**
-- Context files must exist (6 files in .devforgeai/context/)
+- Context files must exist (6 files in devforgeai/specs/context/)
 - For story mode: Story file must exist
 - For standalone: Component description in conversation
 
@@ -79,7 +79,7 @@ Detect mode and load guidance patterns conditionally:
 ```python
 # Detect mode via conversation context markers
 is_story_mode = (
-    conversation_contains("@.ai_docs/Stories/STORY-") or
+    conversation_contains("@devforgeai/specs/Stories/STORY-") or
     context_marker_exists("**Story ID:**") or
     context_marker_exists("**Story file:**")
 )
@@ -122,7 +122,7 @@ else:
 ### Phase 5: Code Generation
 **Purpose:** Generate production-ready UI component code
 **Reference:** `code-generation.md`
-**Output:** Component files in .devforgeai/specs/ui/
+**Output:** Component files in devforgeai/specs/ui/
 
 ### Phase 6: Documentation & Story Update
 **Purpose:** Create UI spec summary and update story
@@ -229,7 +229,7 @@ Skill workflow:
 5. Phase 5: Generate LoginForm.jsx
 6. Phase 6: Invoke ui-spec-formatter → format results
 7. Phase 7: Validate (completeness, placeholders, framework)
-8. Output: LoginForm.jsx in .devforgeai/specs/ui/
+8. Output: LoginForm.jsx in devforgeai/specs/ui/
 
 Token usage: ~3,500 tokens (entry 1.5K + phases 2K)
 ```

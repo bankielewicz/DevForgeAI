@@ -277,7 +277,7 @@ DevForgeAI2/
 │       ├── install_hooks.sh
 │       └── setup.py
 │
-├── .devforgeai/                 # Framework's own context (OPERATIONAL - meta-level)
+├── devforgeai/                 # Framework's own context (OPERATIONAL - meta-level)
 │   ├── context/                 # Framework architectural constraints
 │   │   ├── tech-stack.md        # Framework implementation constraints
 │   │   ├── source-tree.md       # This file
@@ -353,7 +353,7 @@ DevForgeAI2/
 │   ├── version.json             # Version metadata
 │   └── checksums.txt            # File integrity checksums
 │
-├── .ai_docs/                    # Project management and research
+├── devforgeai/specs/                    # Project management and research
 │   ├── Epics/                   # High-level business initiatives
 │   ├── Sprints/                 # 2-week iteration plans
 │   ├── Stories/                 # Atomic work units
@@ -401,17 +401,17 @@ DevForgeAI2/
 
 **DevForgeAI maintains TWO parallel structures:**
 
-1. **OPERATIONAL folders** (`.claude/` and `.devforgeai/`) - Used by Claude Code Terminal during development
+1. **OPERATIONAL folders** (`.claude/` and `devforgeai/`) - Used by Claude Code Terminal during development
 2. **DISTRIBUTION source** (`src/`) - Clean copies for external deployment via installer
 
 **Why both exist:**
 - Operational folders contain working files, backups, generated outputs, temporary files
 - Distribution source contains ONLY framework essentials for installer deployment
-- Installer copies from `src/` → target project's `.claude/` and `.devforgeai/`
+- Installer copies from `src/` → target project's `.claude/` and `devforgeai/`
 - Keeps distribution clean while allowing messy operational workspace
 
 **Update protocol:**
-- Changes made in `.claude/` and `.devforgeai/` (operational)
+- Changes made in `.claude/` and `devforgeai/` (operational)
 - Periodically sync to `src/` for distribution
 - Installer reads from `src/` only
 
@@ -549,21 +549,21 @@ DevForgeAI2/
 └── release.md               # /release [STORY-ID] [environment]
 ```
 
-### `.devforgeai/` - Framework Context (OPERATIONAL - LOCKED)
+### `devforgeai/` - Framework Context (OPERATIONAL - LOCKED)
 
 **Purpose**: Framework's own architectural constraints (meta-level).
 
 **Rules**:
-- ✅ Framework's context files go in `.devforgeai/context/`
-- ✅ QA configuration goes in `.devforgeai/qa/`
-- ✅ Specifications go in `.devforgeai/specs/`
-- ✅ RCA documents go in `.devforgeai/RCA/`
-- ✅ Protocols go in `.devforgeai/protocols/`
-- ✅ Feedback data goes in `.devforgeai/feedback/`
-- ❌ NO project-specific files in `.devforgeai/` (this is framework meta-context)
-- ❌ NO executable code in `.devforgeai/` (documentation only)
+- ✅ Framework's context files go in `devforgeai/specs/context/`
+- ✅ QA configuration goes in `devforgeai/qa/`
+- ✅ Specifications go in `devforgeai/specs/`
+- ✅ RCA documents go in `devforgeai/RCA/`
+- ✅ Protocols go in `devforgeai/protocols/`
+- ✅ Feedback data goes in `devforgeai/feedback/`
+- ❌ NO project-specific files in `devforgeai/` (this is framework meta-context)
+- ❌ NO executable code in `devforgeai/` (documentation only)
 
-**Rationale**: Projects using DevForgeAI will have their own `.devforgeai/context/` files created by devforgeai-architecture skill.
+**Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by devforgeai-architecture skill.
 
 ---
 
@@ -583,7 +583,7 @@ DevForgeAI2/
 - ❌ NO user-specific configurations
 
 **Update workflow:**
-1. Make changes in `.claude/` or `.devforgeai/` (operational folders)
+1. Make changes in `.claude/` or `devforgeai/` (operational folders)
 2. Test changes thoroughly
 3. Sync essential files to `src/` (excluding backups, test outputs)
 4. Update `version.json` with new version number
@@ -592,7 +592,7 @@ DevForgeAI2/
 
 **Installer behavior:**
 - Reads framework files from `src/claude/` and `src/devforgeai/`
-- Deploys to target project's `.claude/` and `.devforgeai/`
+- Deploys to target project's `.claude/` and `devforgeai/`
 - Merges template `CLAUDE.md` with user's existing file (preserves user instructions)
 - Creates timestamped backups before deployment
 - Validates checksums for integrity
@@ -600,17 +600,17 @@ DevForgeAI2/
 
 **Rationale**: Separates clean distribution source from messy operational workspace, enables versioned external deployment.
 
-### `.ai_docs/` - Project Management (LOCKED)
+### `devforgeai/specs/` - Project Management (LOCKED)
 
 **Purpose**: Epics, sprints, stories, and research documentation.
 
 **Rules**:
-- ✅ Epics go in `.ai_docs/Epics/`
-- ✅ Sprints go in `.ai_docs/Sprints/`
-- ✅ Stories go in `.ai_docs/Stories/`
-- ✅ Research documentation in `.ai_docs/Terminal/`
+- ✅ Epics go in `devforgeai/specs/Epics/`
+- ✅ Sprints go in `devforgeai/specs/Sprints/`
+- ✅ Stories go in `devforgeai/specs/Stories/`
+- ✅ Research documentation in `devforgeai/specs/Terminal/`
 - ✅ Stories MUST have YAML frontmatter with id, title, epic, sprint, status, points, priority
-- ❌ NO code in `.ai_docs/` (documentation only)
+- ❌ NO code in `devforgeai/specs/` (documentation only)
 
 **Story Naming**: `STORY-NNN-[title].md` (e.g., `STORY-001-user-authentication.md`)
 **Epic Naming**: `EPIC-NNN-[title].md` (e.g., `EPIC-001-user-management.md`)
@@ -757,7 +757,7 @@ DevForgeAI2/
 
 **Rationale**: Commands should orchestrate subagents for specialization, not duplicate command for each domain.
 
-### ❌ FORBIDDEN: Context Files Outside `.devforgeai/context/`
+### ❌ FORBIDDEN: Context Files Outside `devforgeai/specs/context/`
 
 **Wrong**:
 ```
@@ -768,7 +768,7 @@ DevForgeAI2/
 
 **Correct**:
 ```
-.devforgeai/context/
+devforgeai/specs/context/
 ├── tech-stack.md    # ✅ Correct location
 ```
 
@@ -807,7 +807,7 @@ When devforgeai-architecture skill creates context for a **project** using DevFo
 
 ```
 my-project/
-├── .devforgeai/
+├── devforgeai/
 │   └── context/
 │       ├── tech-stack.md        # Project's tech choices (e.g., C#, React, PostgreSQL)
 │       ├── source-tree.md       # Project's structure (e.g., Clean Architecture)
@@ -818,8 +818,8 @@ my-project/
 ```
 
 **Distinction**:
-- **DevForgeAI's `.devforgeai/context/`**: Framework's own constraints (meta-level)
-- **Project's `.devforgeai/context/`**: Project-specific constraints (implementation-level)
+- **DevForgeAI's `devforgeai/specs/context/`**: Framework's own constraints (meta-level)
+- **Project's `devforgeai/specs/context/`**: Project-specific constraints (implementation-level)
 
 ---
 
@@ -829,9 +829,9 @@ Before committing framework changes:
 - [ ] Skills are in `.claude/skills/[skill-name]/` with SKILL.md
 - [ ] Subagents are in `.claude/agents/[agent-name].md`
 - [ ] Commands are in `.claude/commands/[command-name].md`
-- [ ] Context files are in `.devforgeai/context/`
+- [ ] Context files are in `devforgeai/specs/context/`
 - [ ] ADRs are in `docs/architecture/decisions/`
-- [ ] NO executable code in `.claude/` or `.devforgeai/`
+- [ ] NO executable code in `.claude/` or `devforgeai/`
 - [ ] ALL components use Markdown format (not JSON/YAML)
 - [ ] File naming follows conventions (lowercase, hyphens)
 - [ ] Main files under size limits (skills <1000 lines, commands <500 lines)

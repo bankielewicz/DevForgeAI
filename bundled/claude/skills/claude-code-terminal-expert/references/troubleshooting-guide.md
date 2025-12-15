@@ -2124,5 +2124,5 @@ Start with the Quick Troubleshooting Matrix, use diagnostic commands, and escala
 **Version:** 1.0
 **Sources:**
 - Official Claude Code documentation (https://code.claude.com/docs)
-- DevForgeAI Terminal documentation (.ai_docs/Terminal/)
+- DevForgeAI Terminal documentation (devforgeai/specs/Terminal/)
 - Community-reported issues and solutions

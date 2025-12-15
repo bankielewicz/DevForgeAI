@@ -584,7 +584,7 @@ class TestAC5_ErrorHandling_MissingConfig:
     ):
         """Test: Default config path checked when config_path=None"""
         # Arrange
-        default_config_path = ".devforgeai/config/hooks.yaml"
+        default_config_path = "devforgeai/config/hooks.yaml"
 
         with patch("os.path.exists") as mock_exists:
             mock_exists.return_value = False

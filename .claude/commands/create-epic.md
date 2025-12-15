@@ -114,7 +114,7 @@ Skill(command="devforgeai-orchestration")
 2. **Context Gathering** - Collect epic goal, timeline, priority, business value, stakeholders, success criteria (4 interactive AskUserQuestion flows)
 3. **Feature Decomposition** - Invoke requirements-analyst subagent to generate 3-8 features, interactive review loop (accept/remove/add/modify)
 4. **Technical Assessment** - Invoke architect-reviewer subagent for complexity scoring (0-10), risk identification, validate against context files (if exist)
-5. **Epic File Creation** - Load epic-template.md, populate with gathered data, write to .ai_docs/Epics/{EPIC-ID}.epic.md
+5. **Epic File Creation** - Load epic-template.md, populate with gathered data, write to devforgeai/specs/Epics/{EPIC-ID}.epic.md
 6. **Requirements Specification** - Optional: Ask if user wants detailed requirements spec, invoke requirements-analyst if yes
 7. **Validation & Self-Healing** - Execute 9 validation checks, self-heal correctable issues (missing IDs, dates, defaults), HALT on critical failures
 8. **Completion Summary** - Return structured JSON summary for display
@@ -214,7 +214,7 @@ Next Steps:
 ```
 {if greenfield_mode:
   📝 Greenfield Project Detected:
-  - No context files found (.devforgeai/context/*.md)
+  - No context files found (devforgeai/specs/context/*.md)
   - Create architectural context before implementation
   - Run: /create-context {project-name}
   - This establishes tech stack, coding standards, and architecture constraints
@@ -339,8 +339,8 @@ Retry: /create-epic {epic_name}
 - devforgeai-orchestration skill (epic management)
 
 **Updates:**
-- Creates: .ai_docs/Epics/{EPIC-ID}.epic.md
-- Creates (optional): .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+- Creates: devforgeai/specs/Epics/{EPIC-ID}.epic.md
+- Creates (optional): devforgeai/specs/requirements/{EPIC-ID}-requirements.md
 
 ---
 
@@ -387,7 +387,7 @@ Retry: /create-epic {epic_name}
 
 **For implementation details, see:**
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A: Epic Creation Workflow)
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
 
 ---
 

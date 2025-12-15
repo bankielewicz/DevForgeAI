@@ -83,7 +83,7 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
 
     Restores:
     - .claude/ directory
-    - .devforgeai/ directory
+    - devforgeai/ directory
     - CLAUDE.md file
     - Reverts version.json to backed-up version
 
@@ -153,7 +153,7 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
                 result["errors"].append(f"Permission denied restoring .claude: {e}")
                 return result
 
-        # Restore .devforgeai/ directory
+        # Restore devforgeai/ directory
         backup_devforgeai = backup_path / ".devforgeai"
         target_devforgeai = project_root / ".devforgeai"
 

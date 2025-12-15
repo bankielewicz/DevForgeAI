@@ -44,7 +44,7 @@ pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt
 ```bash
 python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/coverage/coverage-report.json
+  --output=devforgeai/qa/coverage/coverage-report.json
 ```
 
 **Parameters:**
@@ -88,7 +88,7 @@ python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
 python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
   --project-path=/path/to/project \
   --threshold=6 \
-  --output=.devforgeai/qa/anti-patterns/duplicates-report.json
+  --output=devforgeai/qa/anti-patterns/duplicates-report.json
 ```
 
 **Parameters:**
@@ -130,7 +130,7 @@ python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
 python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
   --project-path=/path/to/project \
   --max-complexity=10 \
-  --output=.devforgeai/qa/anti-patterns/complexity-report.json
+  --output=devforgeai/qa/anti-patterns/complexity-report.json
 ```
 
 **Parameters:**
@@ -171,7 +171,7 @@ python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
 ```bash
 python .claude/skills/devforgeai-qa/scripts/security_scan.py \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/anti-patterns/security-report.json
+  --output=devforgeai/qa/anti-patterns/security-report.json
 ```
 
 **Parameters:**
@@ -220,9 +220,9 @@ python .claude/skills/devforgeai-qa/scripts/security_scan.py \
 **Usage:**
 ```bash
 python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
-  --story-path=.ai_docs/Stories/STORY-001.story.md \
+  --story-path=devforgeai/specs/Stories/STORY-001.story.md \
   --project-path=/path/to/project \
-  --output=.devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
+  --output=devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
 ```
 
 **Parameters:**
@@ -268,7 +268,7 @@ python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
 **Usage:**
 ```bash
 python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
-  --coverage-report=.devforgeai/qa/coverage/coverage-report.json \
+  --coverage-report=devforgeai/qa/coverage/coverage-report.json \
   --output-dir=tests/generated/ \
   --framework=pytest
 ```
@@ -314,10 +314,10 @@ Scripts are automatically invoked during deep validation phases:
 
 ```python
 # Generate coverage report
-Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --output=.devforgeai/qa/coverage/coverage-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --output=devforgeai/qa/coverage/coverage-report.json")
 
 # Read and parse results
-Read(file_path=".devforgeai/qa/coverage/coverage-report.json")
+Read(file_path="devforgeai/qa/coverage/coverage-report.json")
 coverage_data = parse_json(coverage_content)
 
 # Use data in Steps 4-7
@@ -327,13 +327,13 @@ coverage_data = parse_json(coverage_content)
 
 ```python
 # Detect duplicates
-Bash(command="python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py --project-path=. --output=.devforgeai/qa/anti-patterns/duplicates-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py --project-path=. --output=devforgeai/qa/anti-patterns/duplicates-report.json")
 
 # Analyze complexity
-Bash(command="python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py --project-path=. --output=.devforgeai/qa/anti-patterns/complexity-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py --project-path=. --output=devforgeai/qa/anti-patterns/complexity-report.json")
 
 # Security scan
-Bash(command="python .claude/skills/devforgeai-qa/scripts/security_scan.py --project-path=. --output=.devforgeai/qa/anti-patterns/security-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/security_scan.py --project-path=. --output=devforgeai/qa/anti-patterns/security-report.json")
 
 # Read all reports
 Read duplication, complexity, security reports
@@ -344,10 +344,10 @@ Aggregate violations
 
 ```python
 # Validate spec compliance
-Bash(command="python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py --story-path=.ai_docs/Stories/{story_id}.story.md --output=.devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
+Bash(command="python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py --story-path=devforgeai/specs/Stories/{story_id}.story.md --output=devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
 
 # Read and use results
-Read(file_path=".devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
+Read(file_path="devforgeai/qa/spec-compliance/{story_id}-compliance-report.json")
 ```
 
 ---
@@ -361,7 +361,7 @@ Developers can run scripts manually during development:
 ```bash
 # Check coverage before committing
 python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=.
-cat .devforgeai/qa/coverage/coverage-report.json | jq '.overall_coverage'
+cat devforgeai/qa/coverage/coverage-report.json | jq '.overall_coverage'
 ```
 
 ### Security Pre-Commit Scan
@@ -369,7 +369,7 @@ cat .devforgeai/qa/coverage/coverage-report.json | jq '.overall_coverage'
 ```bash
 # Scan for security issues before commit
 python .claude/skills/devforgeai-qa/scripts/security_scan.py --project-path=.
-cat .devforgeai/qa/anti-patterns/security-report.json | jq '.critical'
+cat devforgeai/qa/anti-patterns/security-report.json | jq '.critical'
 ```
 
 ### Code Quality Check
@@ -397,7 +397,7 @@ Scripts can be integrated into CI/CD pipelines:
 
 - name: Check Quality Gates
   run: |
-    coverage=$(jq '.overall_coverage' .devforgeai/qa/coverage/coverage-report.json)
+    coverage=$(jq '.overall_coverage' devforgeai/qa/coverage/coverage-report.json)
     if (( $(echo "$coverage < 80" | bc -l) )); then
       echo "Coverage below 80%: $coverage%"
       exit 1
@@ -429,15 +429,15 @@ python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py --help
 ## Output Locations
 
 **Coverage Reports:**
-- `.devforgeai/qa/coverage/coverage-report.json`
+- `devforgeai/qa/coverage/coverage-report.json`
 
 **Anti-Pattern Reports:**
-- `.devforgeai/qa/anti-patterns/duplicates-report.json`
-- `.devforgeai/qa/anti-patterns/complexity-report.json`
-- `.devforgeai/qa/anti-patterns/security-report.json`
+- `devforgeai/qa/anti-patterns/duplicates-report.json`
+- `devforgeai/qa/anti-patterns/complexity-report.json`
+- `devforgeai/qa/anti-patterns/security-report.json`
 
 **Spec Compliance:**
-- `.devforgeai/qa/spec-compliance/{STORY-ID}-compliance-report.json`
+- `devforgeai/qa/spec-compliance/{STORY-ID}-compliance-report.json`
 
 **Generated Tests:**
 - `tests/generated/` (or custom output directory)
@@ -566,7 +566,7 @@ python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --projec
 
 # Generate stubs for gaps
 python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
-  --coverage-report=.devforgeai/qa/coverage/coverage-report.json \
+  --coverage-report=devforgeai/qa/coverage/coverage-report.json \
   --output-dir=tests/generated/ \
   --framework=pytest
 ```

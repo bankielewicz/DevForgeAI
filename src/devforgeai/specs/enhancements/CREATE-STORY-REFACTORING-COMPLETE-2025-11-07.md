@@ -93,7 +93,7 @@ Successfully refactored `/create-story` command from top-heavy (857 lines, 153% 
 - `.claude/skills/devforgeai-story-creation/references/completion-report.md` - Batch completion
 
 **Files Created:**
-- `.ai_docs/Epics/EPIC-001-test-batch-creation.epic.md` - Test epic with 5 features
+- `devforgeai/specs/Epics/EPIC-001-test-batch-creation.epic.md` - Test epic with 5 features
 
 **Result:**
 - Command: 477 lines, 14,163 chars (94% of budget) ✅
@@ -210,13 +210,13 @@ Successfully refactored `/create-story` command from top-heavy (857 lines, 153% 
    - Total additions: ~290 lines
 
 ### Test Files
-6. **`.ai_docs/Epics/EPIC-001-test-batch-creation.epic.md`** - Test epic created
+6. **`devforgeai/specs/Epics/EPIC-001-test-batch-creation.epic.md`** - Test epic created
    - 5 features for batch testing
    - Total points: 29
 
 ### Documentation Files
-7. **`.devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-PLAN.md`** - Detailed plan
-8. **`.devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-COMPLETE-2025-11-07.md`** - This summary
+7. **`devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-PLAN.md`** - Detailed plan
+8. **`devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-COMPLETE-2025-11-07.md`** - This summary
 
 **Total Files Modified:** 5 core files + 1 test epic + 2 documentation files = 8 files
 
@@ -518,7 +518,7 @@ Successfully refactored `/create-story` command from top-heavy (857 lines, 153% 
 **Files to update:**
 1. `.claude/memory/commands-reference.md` - Add batch mode documentation
 2. `.claude/memory/skills-reference.md` - Document batch mode support
-3. `.devforgeai/protocols/command-budget-reference.md` - Update create-story status (CRITICAL → COMPLIANT)
+3. `devforgeai/protocols/command-budget-reference.md` - Update create-story status (CRITICAL → COMPLIANT)
 
 **Estimated time:** 30 minutes
 

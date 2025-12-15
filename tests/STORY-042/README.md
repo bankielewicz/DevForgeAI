@@ -306,7 +306,7 @@ bash tests/STORY-042/run-tests.sh --verbose --suite=ac
 ## References
 
 ### Story Documentation
-- Story: `.ai_docs/Stories/STORY-042-copy-framework-files-to-src.story.md`
+- Story: `devforgeai/specs/Stories/STORY-042-copy-framework-files-to-src.story.md`
 
 ### Test Framework
 - Framework: Bash with TAP output

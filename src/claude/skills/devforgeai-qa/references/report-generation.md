@@ -124,7 +124,7 @@ IF blocking_issues.count == 0:
 ```
 report_content = generate_qa_report(qa_results)
 
-Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
+Write(file_path="devforgeai/qa/reports/{story_id}-qa-report.md",
       content=report_content)
 ```
 
@@ -357,10 +357,10 @@ Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
 {IF overall_status == "PASS WITH WARNINGS"}
 ⚠️ **QA Approved with Warnings** - Story can proceed but has technical debt
 - Consider addressing warnings in follow-up story
-- Document technical debt in .devforgeai/technical-debt-register.md
+- Document technical debt in devforgeai/technical-debt-register.md
 ```
 
-**Report file location:** `.devforgeai/qa/reports/{story_id}-qa-report.md`
+**Report file location:** `devforgeai/qa/reports/{story_id}-qa-report.md`
 
 ---
 
@@ -379,7 +379,7 @@ IF overall_status == "FAIL":
         "story_id": story_id,
         "qa_result": "FAILED",
         "generated_at": timestamp,
-        "qa_report_file": ".devforgeai/qa/reports/{story_id}-qa-report.md",
+        "qa_report_file": "devforgeai/qa/reports/{story_id}-qa-report.md",
 
         "coverage_gaps": [],
         "anti_pattern_violations": [],
@@ -424,7 +424,7 @@ IF overall_status == "FAIL":
         gaps_data.deferral_issues.append(deferral_entry)
 
     # Write structured gap export
-    Write(file_path=".devforgeai/qa/reports/{story_id}-gaps.json",
+    Write(file_path="devforgeai/qa/reports/{story_id}-gaps.json",
           content=json.dumps(gaps_data, indent=2))
 ```
 
@@ -435,7 +435,7 @@ IF overall_status == "FAIL":
   "story_id": "STORY-078",
   "qa_result": "FAILED",
   "generated_at": "2025-12-06T08:30:00Z",
-  "qa_report_file": ".devforgeai/qa/reports/STORY-078-qa-report.md",
+  "qa_report_file": "devforgeai/qa/reports/STORY-078-qa-report.md",
 
   "coverage_gaps": [
     {
@@ -510,10 +510,10 @@ FUNCTION generate_test_suggestions(file):
 
 ```
 QA FAILED:
-  → Create: .devforgeai/qa/reports/{story_id}-gaps.json
+  → Create: devforgeai/qa/reports/{story_id}-gaps.json
 
 /dev REMEDIATION:
-  → Read: .devforgeai/qa/reports/{story_id}-gaps.json
+  → Read: devforgeai/qa/reports/{story_id}-gaps.json
   → Enter remediation mode, target specific gaps
   → Fix issues with targeted test generation
 
@@ -535,7 +535,7 @@ QA RE-RUN:
 IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
 
     # Check if gaps.json exists from previous failed QA
-    gaps_file = ".devforgeai/qa/reports/{story_id}-gaps.json"
+    gaps_file = "devforgeai/qa/reports/{story_id}-gaps.json"
 
     Glob(pattern=gaps_file)
 
@@ -544,7 +544,7 @@ IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
         Read(file_path=gaps_file)
         gaps_content = file_content
 
-        Write(file_path=".devforgeai/qa/resolved/{story_id}-gaps.json",
+        Write(file_path="devforgeai/qa/resolved/{story_id}-gaps.json",
               content=gaps_content)
 
         # Delete original gaps file
@@ -555,7 +555,7 @@ IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
 ### Coverage Gap Resolution
 
 **Date:** {timestamp}
-**Resolution file:** `.devforgeai/qa/resolved/{story_id}-gaps.json`
+**Resolution file:** `devforgeai/qa/resolved/{story_id}-gaps.json`
 
 Coverage gaps from previous QA failure have been resolved via QA-Dev integration workflow.
 """
@@ -573,10 +573,10 @@ Coverage gaps from previous QA failure have been resolved via QA-Dev integration
 **Edit story YAML frontmatter:**
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Approved ✅")
 
@@ -585,12 +585,12 @@ IF overall_status == "PASS" OR overall_status == "PASS WITH WARNINGS":
 - **{timestamp}**: QA validation PASSED ({mode} mode)
   - Coverage: {overall_coverage}%
   - Violations: {violation_summary}
-  - Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
 """
     Append workflow_history_entry to story Workflow History section
 
 IF overall_status == "FAIL":
-    Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+    Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
          old_string="status: Dev Complete",
          new_string="status: QA Failed ❌")
 
@@ -598,7 +598,7 @@ IF overall_status == "FAIL":
     workflow_history_entry = f"""
 - **{timestamp}**: QA validation FAILED ({mode} mode)
   - Blocking issues: {blocking_issues}
-  - Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
+  - Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
   - Action required: Fix issues and re-run `/qa {story_id}`
 """
     Append workflow_history_entry to story Workflow History section
@@ -618,7 +618,7 @@ IF overall_status == "FAIL":
 ### Check if This is a Re-Validation
 
 ```
-Grep(pattern="## QA Validation History", path=".ai_docs/Stories/{story_id}.story.md")
+Grep(pattern="## QA Validation History", path="devforgeai/specs/Stories/{story_id}.story.md")
 
 IF found:
     # This is a re-validation
@@ -643,7 +643,7 @@ Edit story file to add QA history section (if not exists):
 
 **Mode:** {deep/light}
 **Duration:** {duration} minutes
-**QA Report:** `.devforgeai/qa/reports/{story_id}-qa-report{-attempt-N if N>1}.md`
+**QA Report:** `devforgeai/qa/reports/{story_id}-qa-report{-attempt-N if N>1}.md`
 
 **Results:**
 - **Test Coverage:** {overall_coverage}% ({✅ PASS / ❌ FAIL})
@@ -763,7 +763,7 @@ Task(
     description="Interpret QA results for display",
     prompt="Parse QA validation results and generate user-facing display template.
 
-            QA report file: .devforgeai/qa/reports/{story_id}-qa-report.md
+            QA report file: devforgeai/qa/reports/{story_id}-qa-report.md
 
             Analysis required:
             1. Extract overall status (PASS/FAIL/PASS WITH WARNINGS)
@@ -834,7 +834,7 @@ next_steps = interpreter_result.next_steps
 {
     "status": overall_status,  # "PASS", "FAIL", "PASS WITH WARNINGS"
     "story_status": updated_story_status,  # "QA Approved", "QA Failed"
-    "report_file": ".devforgeai/qa/reports/{story_id}-qa-report.md",
+    "report_file": "devforgeai/qa/reports/{story_id}-qa-report.md",
     "display": formatted_display,  # From qa-result-interpreter
     "violations": {
         "critical": critical_count,

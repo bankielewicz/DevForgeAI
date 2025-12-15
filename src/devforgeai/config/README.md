@@ -8,9 +8,9 @@ Configuration guide for the DevForgeAI feedback system.
 
 The feedback system uses a YAML-based configuration file to control when and how user feedback is collected. The configuration supports master enable/disable, trigger modes, question limits, skip tracking, and template preferences.
 
-**Configuration File:** `.devforgeai/config/feedback.yaml`
+**Configuration File:** `devforgeai/config/feedback.yaml`
 
-**JSON Schema:** `.devforgeai/config/feedback.schema.json` (for IDE autocomplete)
+**JSON Schema:** `devforgeai/config/feedback.schema.json` (for IDE autocomplete)
 
 ---
 
@@ -51,7 +51,7 @@ templates:
 ### Example 1: Disable All Feedback Collection
 
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 enabled: false
 ```
 
@@ -64,7 +64,7 @@ enabled: false
 ### Example 2: Always Collect Feedback
 
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 enabled: true
 trigger_mode: always
 conversation_settings:
@@ -88,7 +88,7 @@ templates:
 ### Example 3: Collect Feedback Only for Specific Operations
 
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 enabled: true
 trigger_mode: specific-operations
 operations:
@@ -114,7 +114,7 @@ templates:
 ### Example 4: Minimal Configuration (Failures Only, Brief)
 
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 enabled: true
 trigger_mode: failures-only
 conversation_settings:
@@ -230,7 +230,7 @@ trigger_mode: never
 Configuration changes are detected and applied **within 5 seconds** without restarting.
 
 **How it works:**
-1. Edit `.devforgeai/config/feedback.yaml`
+1. Edit `devforgeai/config/feedback.yaml`
 2. Save the file
 3. System detects change within 5 seconds
 4. New configuration loaded and applied
@@ -239,7 +239,7 @@ Configuration changes are detected and applied **within 5 seconds** without rest
 **Example:**
 ```bash
 # Disable feedback temporarily
-echo "enabled: false" > .devforgeai/config/feedback.yaml
+echo "enabled: false" > devforgeai/config/feedback.yaml
 
 # Wait ~2 seconds
 sleep 2
@@ -247,13 +247,13 @@ sleep 2
 # Feedback collection now stopped (no restart needed)
 ```
 
-**Error Handling:** If invalid configuration detected during reload, previous valid configuration is retained and error logged to `.devforgeai/logs/config-errors.log`.
+**Error Handling:** If invalid configuration detected during reload, previous valid configuration is retained and error logged to `devforgeai/logs/config-errors.log`.
 
 ---
 
 ## Logging
 
-Feedback system logs to 4 files in `.devforgeai/logs/`:
+Feedback system logs to 4 files in `devforgeai/logs/`:
 
 | Log File | Purpose | Example Entry |
 |----------|---------|---------------|
@@ -297,7 +297,7 @@ Fix: Set templates.format to 'structured' or 'free-text'
 
 ## IDE Support
 
-The JSON Schema file (`.devforgeai/config/feedback.schema.json`) enables autocomplete and validation in modern editors:
+The JSON Schema file (`devforgeai/config/feedback.schema.json`) enables autocomplete and validation in modern editors:
 
 **VS Code:**
 1. Install YAML extension
@@ -318,14 +318,14 @@ The JSON Schema file (`.devforgeai/config/feedback.schema.json`) enables autocom
 ### From v0.x to v1.0
 
 **Changes:**
-- New configuration file location: `.devforgeai/config/feedback.yaml` (previously: `.devforgeai/feedback-config.yaml`)
+- New configuration file location: `devforgeai/config/feedback.yaml` (previously: `devforgeai/feedback-config.yaml`)
 - New schema with hot-reload support
 - Skip tracking now optional (previously always enabled)
 
 **Migration steps:**
 1. Copy old config to new location:
    ```bash
-   cp .devforgeai/feedback-config.yaml .devforgeai/config/feedback.yaml
+   cp devforgeai/feedback-config.yaml devforgeai/config/feedback.yaml
    ```
 
 2. Update schema references (if using IDE autocomplete)
@@ -333,7 +333,7 @@ The JSON Schema file (`.devforgeai/config/feedback.schema.json`) enables autocom
 3. Test configuration:
    ```bash
    # Validate configuration loads without errors
-   tail -f .devforgeai/logs/config-errors.log
+   tail -f devforgeai/logs/config-errors.log
    ```
 
 ---
@@ -369,9 +369,9 @@ See `.claude/skills/devforgeai-feedback/templates/` for template customization o
 
 ## References
 
-- **JSON Schema:** `.devforgeai/config/feedback.schema.json`
+- **JSON Schema:** `devforgeai/config/feedback.schema.json`
 - **Implementation:** `.claude/scripts/devforgeai_cli/feedback/config_manager.py`
-- **Story:** `.ai_docs/Stories/STORY-011-configuration-management.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-011-configuration-management.story.md`
 - **Tests:** `.claude/scripts/devforgeai_cli/tests/feedback/test_configuration_management.py`
 
 ---

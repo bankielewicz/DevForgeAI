@@ -25,7 +25,7 @@
 ## Documents Created to Address Concern
 
 ### 1. Questioning Rigor Summary
-**File:** `.devforgeai/specs/devforgeai-questioning-rigor-summary.md`
+**File:** `devforgeai/specs/devforgeai-questioning-rigor-summary.md`
 **Length:** ~1,200 lines
 **Content:**
 - Complete question breakdown for Simple/Mid-Size/Complex projects
@@ -43,7 +43,7 @@
 ---
 
 ### 2. Detailed Workflow Examples (Subagent-Generated)
-**File:** `.devforgeai/specs/devforgeai-workflow-examples-DETAILED.md`
+**File:** `devforgeai/specs/devforgeai-workflow-examples-DETAILED.md`
 **Length:** 2,564 lines (partial - Example 1 complete)
 **Content:**
 - Complete Question 1 with full AskUserQuestion block
@@ -56,7 +56,7 @@
 ---
 
 ### 3. Framework Alignment Gap Analysis v2.0
-**File:** `.devforgeai/specs/framework-alignment-gap-analysis-v2.md`
+**File:** `devforgeai/specs/framework-alignment-gap-analysis-v2.md`
 **Length:** ~2,000 lines
 **Content:**
 - Analysis with devforgeai-ui-generator skill included
@@ -68,7 +68,7 @@
 ---
 
 ### 4. Updated Phase 3 Implementation Plan
-**File:** `.devforgeai/specs/phase-3-slash-commands-implementation-plan.md`
+**File:** `devforgeai/specs/phase-3-slash-commands-implementation-plan.md`
 **Updates:** Added "Questioning Rigor" section
 **Content Added:**
 - Table showing 23-113 questions by complexity

@@ -85,7 +85,7 @@ class BackupService(IBackupService):
         "node_modules",
         ".egg-info",
         ".dist-info",
-        ".devforgeai/backups",  # Don't backup old backups
+        "devforgeai/backups",  # Don't backup old backups
     }
 
     # Files to exclude from backup
@@ -102,7 +102,7 @@ class BackupService(IBackupService):
 
         Args:
             backups_root: Root directory for backups.
-                Defaults to .devforgeai/backups in current directory.
+                Defaults to devforgeai/backups in current directory.
             allow_external_path: If True, bypass path traversal validation.
                 ONLY use for testing scenarios. Production code should never use this.
         """
@@ -316,7 +316,7 @@ class BackupService(IBackupService):
             True if path should be excluded, False otherwise
         """
         # Check if any part of path is in excluded directories
-        # Handle both single-part (e.g., "__pycache__") and multi-part paths (e.g., ".devforgeai/backups")
+        # Handle both single-part (e.g., "__pycache__") and multi-part paths (e.g., "devforgeai/backups")
         rel_path_str = str(rel_path)
         for excluded in self.EXCLUDED_DIRS:
             # For single-part excludes, check if it's in the path parts

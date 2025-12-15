@@ -5,12 +5,12 @@
 #### Step 1: Load Story and QA Report
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 HALT if story.status != "QA Approved":
     "Story must be QA Approved before deployment"
 
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 HALT if qa_report NOT exists:
     "QA report not found. Run devforgeai-qa --mode=deep first"

@@ -90,7 +90,7 @@ def get_installed_version(devforgeai_path: Path) -> dict | None
 **Purpose:** Read installed version from target project.
 
 **Parameters:**
-- `devforgeai_path` (Path): Path to `.devforgeai/` directory
+- `devforgeai_path` (Path): Path to `devforgeai/` directory
 
 **Returns:**
 - `dict` with version data if `.version.json` exists
@@ -347,10 +347,10 @@ def deploy_framework_files(
 ```
 
 **Deployment Rules:**
-- Deploys: `src/claude/` → `.claude/`, `src/devforgeai/` → `.devforgeai/`
+- Deploys: `src/claude/` → `.claude/`, `src/devforgeai/` → `devforgeai/`
 - Excludes: `*.backup*`, `__pycache__/`, `*.pyc`, `qa/reports/`, `RCA/`, `adrs/`, `feedback/imported/`, `logs/`
 - Preserves (if preserve_configs=True): `hooks.yaml`, `feedback/config.yaml`, `context/*.md`
-- Never touches: `.ai_docs/` directory
+- Never touches: `devforgeai/specs/` directory
 
 **Example:**
 ```python
@@ -530,7 +530,7 @@ def verify_rollback(project_root: Path, backup_path: Path) -> dict
 
 **Validation:**
 - Requires 100% hash match (strict validation, no tolerance)
-- Counts all files in .claude/, .devforgeai/, CLAUDE.md
+- Counts all files in .claude/, devforgeai/, CLAUDE.md
 - Compares SHA256 checksums
 
 **Example:**
@@ -586,7 +586,7 @@ def validate_installation(project_root: Path) -> dict
 ```
 
 **Checks Performed:**
-1. Directory structure (.claude/skills/, .claude/agents/, .devforgeai/protocols/)
+1. Directory structure (.claude/skills/, .claude/agents/, devforgeai/protocols/)
 2. .version.json schema validation
 3. CLI installed and accessible (platform-aware: which/where)
 4. Critical files present (11+ commands, 10+ skills, 3+ protocols, CLAUDE.md)
@@ -641,7 +641,7 @@ def validate_version_json(version_file: Path) -> dict
 from pathlib import Path
 from installer import validate
 
-version_file = Path("/path/.devforgeai/.version.json")
+version_file = Path("/path/devforgeai/.version.json")
 validation = validate.validate_version_json(version_file)
 
 if validation["valid"]:

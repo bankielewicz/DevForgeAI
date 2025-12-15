@@ -89,7 +89,7 @@ Generate and maintain project documentation automatically from stories (greenfie
 8. **roadmap-template.md** - Project timeline, milestones, planned features
 
 **Customization:**
-- Place custom templates in `.devforgeai/templates/documentation/`
+- Place custom templates in `devforgeai/templates/documentation/`
 - Override default templates by matching filename
 - Add custom variables via `variables.yaml`
 

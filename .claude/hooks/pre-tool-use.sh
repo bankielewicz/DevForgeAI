@@ -3,12 +3,12 @@
 
 # Logging setup
 PROJECT_ROOT="${CLAUDE_PROJECT_DIR:-/mnt/c/Projects/DevForgeAI2}"
-LOG_FILE="$PROJECT_ROOT/.devforgeai/logs/pre-tool-use.log"
-UNKNOWN_COMMANDS_LOG="$PROJECT_ROOT/.devforgeai/logs/hook-unknown-commands.log"
+LOG_FILE="$PROJECT_ROOT/devforgeai/logs/pre-tool-use.log"
+UNKNOWN_COMMANDS_LOG="$PROJECT_ROOT/devforgeai/logs/hook-unknown-commands.log"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 
 # Create log directory if needed
-mkdir -p "$PROJECT_ROOT/.devforgeai/logs" 2>/dev/null
+mkdir -p "$PROJECT_ROOT/devforgeai/logs" 2>/dev/null
 
 # Log function
 log() {
@@ -55,10 +55,10 @@ SAFE_PATTERNS=(
   "wc -"
   "bash tests/"
   "bash .claude/scripts/"
-  "bash .devforgeai/"
+  "bash devforgeai/"
   "echo "
   "cat tests/"
-  "cat .devforgeai/"
+  "cat devforgeai/"
   "cat >"
   "cat <<"
   "cat << 'EOF'"

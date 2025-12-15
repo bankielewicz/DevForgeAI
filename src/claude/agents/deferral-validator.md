@@ -150,7 +150,7 @@ THEN:
 
 IF deferral references ADR:
 ```
-Glob(pattern=".devforgeai/adrs/{ADR_REF}*.md")
+Glob(pattern="devforgeai/specs/adrs/{ADR_REF}*.md")
 
 IF not found:
     VIOLATION:
@@ -177,7 +177,7 @@ ELSE:
 IF reason contains "Deferred to STORY-{XXX}":
 ```
 1. Check story exists:
-   Glob(pattern=".ai_docs/Stories/STORY-{XXX}*.md")
+   Glob(pattern="devforgeai/specs/Stories/STORY-{XXX}*.md")
 
    IF not found:
        VIOLATION:
@@ -187,7 +187,7 @@ IF reason contains "Deferred to STORY-{XXX}":
            remediation: "Create STORY-{XXX} OR update deferral reference OR complete work in current story"
 
 2. Read referenced story:
-   Read(file_path=".ai_docs/Stories/STORY-{XXX}*.md")
+   Read(file_path="devforgeai/specs/Stories/STORY-{XXX}*.md")
    Extract YAML frontmatter and status
 
    IF status is "Dev Complete" or "QA Approved":

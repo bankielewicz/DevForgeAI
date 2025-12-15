@@ -49,7 +49,7 @@ No match → ASK USER for approval (exit 1)
 - `npm run test`, `npm run build`, `npm run lint`
 - `dotnet test`, `dotnet build`
 - `python3 -m pytest`, `pytest`
-- `bash tests/`, `bash .claude/scripts/`, `bash .devforgeai/`
+- `bash tests/`, `bash .claude/scripts/`, `bash devforgeai/`
 
 **Git Operations (Read-Only):**
 - `git status`, `git diff`, `git log`
@@ -58,7 +58,7 @@ No match → ASK USER for approval (exit 1)
 **File Operations (Read-Only):**
 - `wc -`, `grep -E`, `grep -r`
 - `head -`, `tail -`
-- `cat tests/`, `cat .devforgeai/`, `cat src/`, `cat installer/`
+- `cat tests/`, `cat devforgeai/`, `cat src/`, `cat installer/`
 - `ls -la`, `ls -lh`, `ls -1`
 - `find installer`, `find /mnt/c/Projects/DevForgeAI2/{src,tests,installer}`
 
@@ -121,7 +121,7 @@ Add pattern if command is:
 - ✅ **Read-only** - Doesn't modify files (git status, ls, grep, cat)
 - ✅ **Framework-internal** - DevForgeAI operations we control (devforgeai CLI, pytest, npm test)
 - ✅ **Navigation-only** - Changes context but no side effects (cd, which, type)
-- ✅ **Logging/temp** - Writes to logs or temp dirs (echo, mkdir -p .devforgeai/logs)
+- ✅ **Logging/temp** - Writes to logs or temp dirs (echo, mkdir -p devforgeai/logs)
 
 Do NOT add if command:
 - ❌ **Modifies source** - Changes production files
@@ -152,7 +152,7 @@ Do NOT add if command:
 
 **Run pattern analysis tool:**
 ```bash
-python3 .devforgeai/scripts/analyze-hook-patterns.py
+python3 devforgeai/scripts/analyze-hook-patterns.py
 # Outputs top 20 safe pattern candidates
 # Shows frequency and impact percentage
 ```
@@ -168,7 +168,7 @@ python3 .devforgeai/scripts/analyze-hook-patterns.py
 
 **Check what's requiring approval:**
 ```bash
-tail -100 .devforgeai/logs/hook-unknown-commands.log | \
+tail -100 devforgeai/logs/hook-unknown-commands.log | \
   sed 's/.*APPROVAL: //' | \
   sort | uniq -c | sort -rn | head -10
 ```
@@ -182,10 +182,10 @@ tail -100 .devforgeai/logs/hook-unknown-commands.log | \
 **Calculate metrics:**
 ```bash
 # Total invocations
-TOTAL=$(wc -l < .devforgeai/logs/pre-tool-use.log)
+TOTAL=$(wc -l < devforgeai/logs/pre-tool-use.log)
 
 # Auto-approved
-AUTO=$(grep -c "AUTO-APPROVE" .devforgeai/logs/pre-tool-use.log)
+AUTO=$(grep -c "AUTO-APPROVE" devforgeai/logs/pre-tool-use.log)
 
 # Approval rate
 echo "scale=2; $AUTO * 100 / $TOTAL" | bc
@@ -211,7 +211,7 @@ echo "scale=2; $AUTO * 100 / $TOTAL" | bc
 **Diagnosis:**
 ```bash
 # Find most frequent unknown commands
-tail -500 .devforgeai/logs/hook-unknown-commands.log | \
+tail -500 devforgeai/logs/hook-unknown-commands.log | \
   sed 's/.*APPROVAL: //' | \
   awk '{print $1" "$2}' | \
   sort | uniq -c | sort -rn | head -10
@@ -233,7 +233,7 @@ tail -500 .devforgeai/logs/hook-unknown-commands.log | \
 **Diagnosis:**
 ```bash
 # Find what pattern matched
-tail -50 .devforgeai/logs/pre-tool-use.log | grep -B 5 "AUTO-APPROVE"
+tail -50 devforgeai/logs/pre-tool-use.log | grep -B 5 "AUTO-APPROVE"
 # Shows which pattern matched
 ```
 
@@ -300,10 +300,10 @@ time bash .claude/hooks/pre-tool-use.sh <<< '{"tool_input":{"command":"git statu
 
 **Framework Protocols:**
 - CLAUDE.md: Hook integration overview
-- .devforgeai/protocols/: Framework patterns
+- devforgeai/protocols/: Framework patterns
 
 **Scripts:**
-- .devforgeai/scripts/analyze-hook-patterns.py: Pattern analysis tool (when created per REC-4)
+- devforgeai/scripts/analyze-hook-patterns.py: Pattern analysis tool (when created per REC-4)
 
 ---
 
@@ -323,7 +323,7 @@ time bash .claude/hooks/pre-tool-use.sh <<< '{"tool_input":{"command":"git statu
 - Added 15 common command composition patterns
 - Patterns: cd, python3 -c, HERE-docs, devforgeai CLI, git introspection, shell utilities
 - Impact: 90% reduction in approval friction (3,517 unknown commands → target <350)
-- Reference: .devforgeai/RCA/RCA-015-pre-tool-use-hook-friction-remains.md
+- Reference: devforgeai/RCA/RCA-015-pre-tool-use-hook-friction-remains.md
 
 ### Initial: Hook Creation
 - 54 safe patterns for DevForgeAI workflows
@@ -337,13 +337,13 @@ time bash .claude/hooks/pre-tool-use.sh <<< '{"tool_input":{"command":"git statu
 **Check logs:**
 ```bash
 # Recent unknown commands
-tail -50 .devforgeai/logs/hook-unknown-commands.log
+tail -50 devforgeai/logs/hook-unknown-commands.log
 
 # Hook execution log
-tail -100 .devforgeai/logs/pre-tool-use.log
+tail -100 devforgeai/logs/pre-tool-use.log
 
 # Pattern match successes
-grep "MATCHED safe pattern" .devforgeai/logs/pre-tool-use.log | tail -20
+grep "MATCHED safe pattern" devforgeai/logs/pre-tool-use.log | tail -20
 ```
 
 **Test hook:**
@@ -360,8 +360,8 @@ echo "testing" # This line just shows syntax, DON'T RUN: rm -rf /tmp/test
 **Metrics:**
 ```bash
 # Approval rate
-AUTO=$(grep -c "AUTO-APPROVE" .devforgeai/logs/pre-tool-use.log)
-TOTAL=$(wc -l < .devforgeai/logs/pre-tool-use.log)
+AUTO=$(grep -c "AUTO-APPROVE" devforgeai/logs/pre-tool-use.log)
+TOTAL=$(wc -l < devforgeai/logs/pre-tool-use.log)
 echo "Approval rate: $(echo "scale=1; $AUTO * 100 / $TOTAL" | bc)%"
 # Target: >95%
 ```

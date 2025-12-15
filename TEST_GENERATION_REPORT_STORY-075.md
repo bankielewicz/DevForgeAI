@@ -718,7 +718,7 @@ class ConsoleFormatter:
 
 ## References
 
-**Story File:** .ai_docs/Stories/STORY-075-installation-reporting-logging.story.md
+**Story File:** devforgeai/specs/Stories/STORY-075-installation-reporting-logging.story.md
 
 **Acceptance Criteria:**
 - AC#1: Console Summary Report

@@ -154,27 +154,27 @@ The anti-pattern-scanner specializes in identifying architectural violations, se
 
 ### Context Files Required
 ```
-.devforgeai/context/tech-stack.md
+devforgeai/specs/context/tech-stack.md
   → Extract: locked_technologies {ORM, state_manager, http_client, validation_lib, ...}
   → Purpose: Detect library substitution
 
-.devforgeai/context/source-tree.md
+devforgeai/specs/context/source-tree.md
   → Extract: directory_rules {domain_path, application_path, infrastructure_path, ...}
   → Purpose: Validate file locations
 
-.devforgeai/context/dependencies.md
+devforgeai/specs/context/dependencies.md
   → Extract: approved_packages [list]
   → Purpose: Detect unapproved package usage
 
-.devforgeai/context/coding-standards.md
+devforgeai/specs/context/coding-standards.md
   → Extract: naming_conventions, code_patterns, documentation_rules
   → Purpose: Validate code style compliance
 
-.devforgeai/context/architecture-constraints.md
+devforgeai/specs/context/architecture-constraints.md
   → Extract: layer_boundaries {domain_can_reference, application_can_reference, ...}
   → Purpose: Detect cross-layer dependency violations
 
-.devforgeai/context/anti-patterns.md
+devforgeai/specs/context/anti-patterns.md
   → Extract: forbidden_patterns {god_objects, magic_numbers, hard_coded_secrets, ...}
   → Purpose: Detect explicit anti-patterns
 ```
@@ -266,7 +266,7 @@ The anti-pattern-scanner specializes in identifying architectural violations, se
 ```json
 {
   "status": "failure",
-  "error": "Context file missing: .devforgeai/context/anti-patterns.md",
+  "error": "Context file missing: devforgeai/specs/context/anti-patterns.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate missing context files"
 }
@@ -478,7 +478,7 @@ Response structure:
 ```json
 {
   "status": "failure",
-  "error": "Required context file not found: .devforgeai/context/tech-stack.md",
+  "error": "Required context file not found: devforgeai/specs/context/tech-stack.md",
   "blocks_qa": true,
   "remediation": "Run /create-context to generate architectural context files"
 }
@@ -517,12 +517,12 @@ anti_pattern_result = Task(
   Scan story codebase for anti-patterns using all 6 context files.
 
   Context Files (MANDATORY - enforce as law):
-  {Read file_path=".devforgeai/context/tech-stack.md"}
-  {Read file_path=".devforgeai/context/source-tree.md"}
-  {Read file_path=".devforgeai/context/dependencies.md"}
-  {Read file_path=".devforgeai/context/coding-standards.md"}
-  {Read file_path=".devforgeai/context/architecture-constraints.md"}
-  {Read file_path=".devforgeai/context/anti-patterns.md"}
+  {Read file_path="devforgeai/specs/context/tech-stack.md"}
+  {Read file_path="devforgeai/specs/context/source-tree.md"}
+  {Read file_path="devforgeai/specs/context/dependencies.md"}
+  {Read file_path="devforgeai/specs/context/coding-standards.md"}
+  {Read file_path="devforgeai/specs/context/architecture-constraints.md"}
+  {Read file_path="devforgeai/specs/context/anti-patterns.md"}
 
   Story ID: {story_id}
   Language: {language}

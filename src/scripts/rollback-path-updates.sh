@@ -21,7 +21,7 @@ NC='\033[0m'
 # Directories
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 BACKUP_BASE="$PROJECT_ROOT/.backups"
-SPEC_DIR="$PROJECT_ROOT/.devforgeai/specs/STORY-043"
+SPEC_DIR="$PROJECT_ROOT/devforgeai/specs/STORY-043"
 
 # Backup selection
 BACKUP_TIMESTAMP="${1:-}"

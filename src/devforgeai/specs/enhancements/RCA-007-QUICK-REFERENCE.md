@@ -34,7 +34,7 @@
    - Timeline and costs
    - Decision points
 
-2. **RCA Root Cause Analysis** - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+2. **RCA Root Cause Analysis** - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - 5 Whys analysis
    - Root causes identified (5)
    - Framework violations (4)
@@ -307,7 +307,7 @@ git checkout HEAD~ .claude/skills/devforgeai-story-creation/references/requireme
 # Establish baseline
 /create-story Baseline before RCA-007 fix
 # Count files created (expected: 5)
-ls .ai_docs/Stories/STORY-*-*.md | tail -5
+ls devforgeai/specs/Stories/STORY-*-*.md | tail -5
 ```
 
 **Post-Phase-1 test:**
@@ -315,7 +315,7 @@ ls .ai_docs/Stories/STORY-*-*.md | tail -5
 # Verify fix
 /create-story Test RCA-007 Phase 1 fix
 # Count files created (expected: 1)
-ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should not exist
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md  # Should not exist
 ```
 
 **Batch test:**
@@ -348,7 +348,7 @@ ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should not exist
 - [ ] `.claude/skills/devforgeai-story-creation/contracts/api-designer-contract.yaml`
 - [ ] `.claude/skills/devforgeai-story-creation/scripts/validate_contract.py`
 - [ ] `.claude/agents/story-requirements-analyst.md`
-- [ ] `.devforgeai/logs/rca-007-violations.log` (empty file, will be populated)
+- [ ] `devforgeai/logs/rca-007-violations.log` (empty file, will be populated)
 
 **Files to update (documentation):**
 - [ ] `.claude/memory/commands-reference.md`
@@ -367,8 +367,8 @@ ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should not exist
 
 **Files to create:**
 - [ ] `.claude/skills/devforgeai-story-creation/references/batch-mode-guide.md`
-- [ ] `.devforgeai/tests/rca-007-test-suite.sh`
-- [ ] `.devforgeai/tests/batch-creation-tests.sh`
+- [ ] `devforgeai/tests/rca-007-test-suite.sh`
+- [ ] `devforgeai/tests/batch-creation-tests.sh`
 
 **Files to update (documentation):**
 - [ ] `.claude/memory/commands-reference.md` (add batch mode examples)
@@ -387,8 +387,8 @@ ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should not exist
 /create-story Database connection pool with circuit breaker pattern
 
 # Verify only 1 file
-ls .ai_docs/Stories/STORY-*.story.md | tail -1
-ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should not exist ✅
+ls devforgeai/specs/Stories/STORY-*.story.md | tail -1
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md  # Should not exist ✅
 ```
 
 **Phase 2: Test contract validation**
@@ -411,7 +411,7 @@ ls .claude/agents/story-requirements-analyst.md
 /create-story Test skill-specific subagent
 
 # Verify only 1 file
-ls .ai_docs/Stories/STORY-*.story.md | wc -l  # Should increase by 1
+ls devforgeai/specs/Stories/STORY-*.story.md | wc -l  # Should increase by 1
 ```
 
 ---
@@ -565,12 +565,12 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 **Created files (verify existence):**
 - `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
 - `.claude/agents/story-requirements-analyst.md`
-- `.devforgeai/logs/rca-007-violations.log`
+- `devforgeai/logs/rca-007-violations.log`
 
 **Monitored locations (check for violations):**
-- `.ai_docs/Stories/STORY-*-SUMMARY.md` (should NOT exist)
-- `.ai_docs/Stories/STORY-*-QUICK-START.md` (should NOT exist)
-- `.ai_docs/Stories/STORY-*-VALIDATION-CHECKLIST.md` (should NOT exist)
+- `devforgeai/specs/Stories/STORY-*-SUMMARY.md` (should NOT exist)
+- `devforgeai/specs/Stories/STORY-*-QUICK-START.md` (should NOT exist)
+- `devforgeai/specs/Stories/STORY-*-VALIDATION-CHECKLIST.md` (should NOT exist)
 
 ---
 
@@ -582,12 +582,12 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 
 **Created files:**
 - `.claude/skills/devforgeai-story-creation/references/batch-mode-guide.md`
-- `.devforgeai/tests/rca-007-test-suite.sh`
+- `devforgeai/tests/rca-007-test-suite.sh`
 
 **Test artifacts (verify during testing):**
-- `.ai_docs/Stories/STORY-009*.story.md` through `STORY-015*.story.md` (batch creation test)
-- `.ai_docs/Epics/EPIC-001.epic.md` (updated with story references)
-- `.ai_docs/Sprints/Sprint-1.md` (updated with batch stories)
+- `devforgeai/specs/Stories/STORY-009*.story.md` through `STORY-015*.story.md` (batch creation test)
+- `devforgeai/specs/Epics/EPIC-001.epic.md` (updated with story references)
+- `devforgeai/specs/Sprints/Sprint-1.md` (updated with batch stories)
 
 ---
 
@@ -638,16 +638,16 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 
 ```bash
 # Run all tests
-bash .devforgeai/tests/rca-007-test-suite.sh all
+bash devforgeai/tests/rca-007-test-suite.sh all
 
 # Run specific phase
-bash .devforgeai/tests/rca-007-test-suite.sh phase1
+bash devforgeai/tests/rca-007-test-suite.sh phase1
 
 # Run single test
-bash .devforgeai/tests/rca-007-test-suite.sh test_1_6
+bash devforgeai/tests/rca-007-test-suite.sh test_1_6
 
 # Check test results
-cat .devforgeai/tests/results/test-report-*.md | tail -50
+cat devforgeai/tests/results/test-report-*.md | tail -50
 ```
 
 ---
@@ -737,7 +737,7 @@ cat .devforgeai/tests/results/test-report-*.md | tail -50
 ## Document Map
 
 ```
-.devforgeai/
+devforgeai/
 ├── RCA/
 │   └── RCA-007-multi-file-story-creation.md  ← Root cause analysis (5 Whys)
 │
@@ -794,7 +794,7 @@ Is 6-week timeline acceptable?
 
 **Technical questions:**
 - See detailed specs in this directory (7 documents)
-- Check related RCA analysis: `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- Check related RCA analysis: `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
 
 **Implementation questions:**
 - See implementation plans (Fix Plan, Enhancement Plan)
@@ -832,14 +832,14 @@ Is 6-week timeline acceptable?
 **RCA-007 Fix Metrics:**
 ```bash
 # Extra files created (target: 0)
-ls .ai_docs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l
 
 # Violations logged (target: 0 after fix)
-grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
+grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
 
 # Recovery success rate (target: 90%+)
-success=$(grep -c "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log)
-total=$(grep -c "Recovery Action" .devforgeai/logs/rca-007-violations.log)
+success=$(grep -c "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log)
+total=$(grep -c "Recovery Action" devforgeai/logs/rca-007-violations.log)
 echo "Recovery rate: $((success * 100 / total))%"
 ```
 

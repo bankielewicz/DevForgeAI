@@ -23,7 +23,7 @@ class TestCompleteStoryCreationWithHookWorkflow:
         And feedback hooks are enabled in .devforgeai/config/hooks.yaml
         When story creation completes successfully
         Then:
-          1. Story file created at .ai_docs/Stories/STORY-NNN-*.story.md
+          1. Story file created at devforgeai/specs/Stories/STORY-NNN-*.story.md
           2. devforgeai check-hooks --operation=story-create executes (<100ms)
           3. devforgeai invoke-hooks --operation=story-create invoked
           4. User receives feedback questions

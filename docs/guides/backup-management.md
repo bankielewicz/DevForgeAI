@@ -599,7 +599,7 @@ EOF
 
 - [Migration Script Authoring Guide](migration-script-authoring.md)
 - [Upgrade Troubleshooting Guide](upgrade-troubleshooting.md)
-- [STORY-078: Upgrade Mode with Migration Scripts](../../.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)
+- [STORY-078: Upgrade Mode with Migration Scripts](../../devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md)
 
 ## Command Reference
 

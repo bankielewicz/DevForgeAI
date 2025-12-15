@@ -5,7 +5,7 @@
 ### How Slash Commands Pass "Parameters" to Skills
 
 When `/release` command invokes this skill, it:
-1. Loads story file via @file reference: `@.ai_docs/Stories/STORY-XXX.story.md`
+1. Loads story file via @file reference: `@devforgeai/specs/Stories/STORY-XXX.story.md`
 2. States context explicitly: "Story ID: STORY-XXX" and "Environment: staging"
 3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-release")`
 
@@ -28,7 +28,7 @@ Extract: id field = Story ID
 **Method 2: Search for file reference**
 ```
 Search conversation for pattern:
-  ".ai_docs/Stories/STORY-XXX"
+  "devforgeai/specs/Stories/STORY-XXX"
 
 Extract STORY-XXX from file path
 ```
@@ -73,8 +73,8 @@ Search for patterns:
 **If not found:**
 ```
 Read from deployment config or tech-stack.md:
-  - .devforgeai/deployment/config.json
-  - .devforgeai/context/tech-stack.md (deployment section)
+  - devforgeai/deployment/config.json
+  - devforgeai/specs/context/tech-stack.md (deployment section)
 
 Default: rolling (safest for most platforms)
 ```

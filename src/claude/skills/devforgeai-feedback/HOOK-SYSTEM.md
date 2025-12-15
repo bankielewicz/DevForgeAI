@@ -349,7 +349,7 @@ except HookInvocationError:
 
 ### Behavior
 
-The hook registry automatically reloads when `.devforgeai/config/hooks.yaml` changes:
+The hook registry automatically reloads when `devforgeai/config/hooks.yaml` changes:
 - File watcher detects modification
 - Registry reloads within 5 seconds
 - Runtime state preserved (invocation stack, history)
@@ -359,7 +359,7 @@ The hook registry automatically reloads when `.devforgeai/config/hooks.yaml` cha
 
 ```bash
 # Edit config
-vi .devforgeai/config/hooks.yaml
+vi devforgeai/config/hooks.yaml
 
 # Changes apply automatically (no restart)
 # Next operation completion uses new config
@@ -488,7 +488,7 @@ async def invoke_feedback_conversation(
 2. Development completes successfully after 6 minutes
 3. Hook triggers automatically (matches pattern "dev", status "success", duration >5 min)
 4. Feedback conversation starts with 3 questions
-5. User responses persisted to `.devforgeai/feedback/`
+5. User responses persisted to `devforgeai/feedback/`
 6. Control returns to user
 
 ---
@@ -507,7 +507,7 @@ async def invoke_feedback_conversation(
   feedback_type: metrics
   feedback_config:
     metrics: [failure_type, violation_count, retry_count]
-    export_to: ".devforgeai/metrics/qa-failures.json"
+    export_to: "devforgeai/metrics/qa-failures.json"
   enabled: true
 ```
 
@@ -590,7 +590,7 @@ class HookSystem:
         Initialize hook system.
 
         Args:
-            config_path: Path to hooks.yaml (default: .devforgeai/config/hooks.yaml)
+            config_path: Path to hooks.yaml (default: devforgeai/config/hooks.yaml)
         """
 
     async def operation_complete(self, context: HookInvocationContext) -> List[HookInvocationResult]:
@@ -746,7 +746,7 @@ All fields validated:
 
 5. **Check logs:**
    ```bash
-   grep "hook" .devforgeai/logs/*.log
+   grep "hook" devforgeai/logs/*.log
    ```
 
 ---
@@ -839,12 +839,12 @@ python3 -m pytest tests/test_hook_*.py -v
 
 1. **Create config directory:**
    ```bash
-   mkdir -p .devforgeai/config
+   mkdir -p devforgeai/config
    ```
 
 2. **Copy default template:**
    ```bash
-   cp .devforgeai/config/hooks.yaml.example .devforgeai/config/hooks.yaml
+   cp devforgeai/config/hooks.yaml.example devforgeai/config/hooks.yaml
    ```
 
 3. **Enable desired hooks:**
@@ -882,7 +882,7 @@ If hooks cause issues:
 
 1. **Disable all hooks quickly:**
    ```yaml
-   # In .devforgeai/config/hooks.yaml
+   # In devforgeai/config/hooks.yaml
    # Add at top:
    GLOBAL_ENABLED: false
    ```
@@ -895,13 +895,13 @@ If hooks cause issues:
 
 3. **Remove config file:**
    ```bash
-   mv .devforgeai/config/hooks.yaml .devforgeai/config/hooks.yaml.backup
+   mv devforgeai/config/hooks.yaml devforgeai/config/hooks.yaml.backup
    # System falls back to empty registry
    ```
 
 4. **Restart with defaults:**
    ```bash
-   git checkout .devforgeai/config/hooks.yaml  # Restore defaults
+   git checkout devforgeai/config/hooks.yaml  # Restore defaults
    ```
 
 ---
@@ -940,9 +940,9 @@ If hooks cause issues:
 
 - **Implementation:** `src/hook_*.py` (6 modules, 1,300 LOC)
 - **Tests:** `tests/test_hook_*.py` (175 tests)
-- **Configuration:** `.devforgeai/config/hooks.yaml` (default template)
-- **Story:** `.ai_docs/Stories/STORY-018-event-driven-hook-system.story.md`
-- **Epic:** `.ai_docs/Epics/EPIC-005-feedback-system-enhancement.epic.md`
+- **Configuration:** `devforgeai/config/hooks.yaml` (default template)
+- **Story:** `devforgeai/specs/Stories/STORY-018-event-driven-hook-system.story.md`
+- **Epic:** `devforgeai/specs/Epics/EPIC-005-feedback-system-enhancement.epic.md`
 
 ---
 
@@ -958,7 +958,7 @@ A: No. Hooks execute serially in registration order to prevent race conditions a
 A: Hooks have max_duration_ms timeout (default 5s). System forcefully terminates hung hooks and continues normally.
 
 **Q: Can I debug hook invocation?**
-A: Yes. Check logs in `.devforgeai/logs/` and set logging level to DEBUG for detailed hook execution traces.
+A: Yes. Check logs in `devforgeai/logs/` and set logging level to DEBUG for detailed hook execution traces.
 
 **Q: How many hooks can I register?**
 A: 500 hooks (warning threshold), 1000 hooks (hard limit). System warns at 500 and rejects registrations beyond 1000.

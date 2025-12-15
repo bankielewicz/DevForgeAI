@@ -122,7 +122,7 @@ class TestManifestManagerLoading:
                     "is_user_modifiable": False,
                 },
                 {
-                    "path": ".ai_docs/story.md",
+                    "path": "devforgeai/specs/story.md",
                     "checksum": "c" * 64,
                     "size": 512,
                     "is_user_modifiable": True,
@@ -280,7 +280,7 @@ class TestManifestManagerRegeneration:
         assert sized_file_entry["size"] == expected_size
 
     def test_should_mark_user_modifiable_files_during_regeneration(self, tmp_project):
-        """AC#8: User-modifiable files marked correctly (.ai_docs/, .devforgeai/context/)."""
+        """AC#8: User-modifiable files marked correctly (devforgeai/specs/, devforgeai/specs/context/)."""
         # Arrange
         ai_docs = tmp_project["root"] / ".ai_docs"
         ai_docs.mkdir()
@@ -297,10 +297,10 @@ class TestManifestManagerRegeneration:
 
         # Assert
         for file_entry in manifest.files:
-            if ".ai_docs/" in file_entry["path"]:
+            if "devforgeai/specs/" in file_entry["path"]:
                 assert file_entry["is_user_modifiable"] is True
 
-            if ".devforgeai/context/" in file_entry["path"]:
+            if "devforgeai/specs/context/" in file_entry["path"]:
                 assert file_entry["is_user_modifiable"] is True
 
     def test_should_set_created_at_timestamp(self, tmp_project):
@@ -450,7 +450,7 @@ class TestManifestManagerUpdating:
             "created_at": "2025-11-25T10:00:00Z",
             "files": [
                 {
-                    "path": ".ai_docs/user_story.md",
+                    "path": "devforgeai/specs/user_story.md",
                     "checksum": "a" * 64,
                     "size": 100,
                     "is_user_modifiable": True,  # User modifiable
@@ -464,11 +464,11 @@ class TestManifestManagerUpdating:
         from installer.manifest_manager import ManifestManager
         manager = ManifestManager(str(tmp_project["root"]))
         manifest = manager.load()
-        manifest = manager.update(manifest, ".ai_docs/user_story.md", "b" * 64, 200)
+        manifest = manager.update(manifest, "devforgeai/specs/user_story.md", "b" * 64, 200)
 
         # Assert
         updated_file = next(
-            (f for f in manifest.files if f["path"] == ".ai_docs/user_story.md"),
+            (f for f in manifest.files if f["path"] == "devforgeai/specs/user_story.md"),
             None,
         )
         assert updated_file["is_user_modifiable"] is True

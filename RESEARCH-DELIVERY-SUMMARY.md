@@ -347,7 +347,7 @@ After implementing all recommendations from these documents:
 ## Related Documentation
 
 **In Repository:**
-- `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md` - Original story
+- `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md` - Original story
 - `installer/tests/STORY-074-TEST-RESULTS.md` - Baseline test results
 - `STORY-074-GAP-ANALYSIS.md` - Gap analysis from earlier work
 

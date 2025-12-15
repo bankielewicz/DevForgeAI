@@ -692,7 +692,7 @@ Follow timeline in **Visual Roadmap** section above.
 
 ### Archive After Completion
 
-**Archive location:** `.devforgeai/specs/enhancements/archive/rca-007/`
+**Archive location:** `devforgeai/specs/enhancements/archive/rca-007/`
 
 **Files to archive:**
 1. All 8 specification documents

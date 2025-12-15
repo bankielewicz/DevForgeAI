@@ -125,13 +125,13 @@ The system tracks feedback for 4 operation types:
 Your feedback preferences are stored in a YAML file:
 
 ```
-Location: .devforgeai/config/feedback-preferences.yaml
+Location: devforgeai/config/feedback-preferences.yaml
 ```
 
 ### View with Cat
 
 ```bash
-cat .devforgeai/config/feedback-preferences.yaml
+cat devforgeai/config/feedback-preferences.yaml
 ```
 
 ### Example Output
@@ -207,7 +207,7 @@ You can directly edit the config file to disable feedback:
 
 **Step 1: Open the config file**
 ```bash
-nano .devforgeai/config/feedback-preferences.yaml
+nano devforgeai/config/feedback-preferences.yaml
 ```
 
 **Step 2: Find the operation type to disable**
@@ -266,7 +266,7 @@ The system will prompt you again after 3 more consecutive skips (if you selected
 
 **Step 1: Open the config file**
 ```bash
-nano .devforgeai/config/feedback-preferences.yaml
+nano devforgeai/config/feedback-preferences.yaml
 ```
 
 **Step 2: Change disabled status to false**
@@ -322,7 +322,7 @@ You might want to reset counters if:
 
 **Step 1: Open config file**
 ```bash
-nano .devforgeai/config/feedback-preferences.yaml
+nano devforgeai/config/feedback-preferences.yaml
 ```
 
 **Step 2: Reset the counter**
@@ -457,7 +457,7 @@ Research shows 3 is the sweet spot for user experience and token efficiency.
 
 ### Problem: Config File Missing
 
-**Symptom:** You don't see `.devforgeai/config/feedback-preferences.yaml`
+**Symptom:** You don't see `devforgeai/config/feedback-preferences.yaml`
 
 **Cause:** File is created on first skip
 
@@ -486,12 +486,12 @@ Research shows 3 is the sweet spot for user experience and token efficiency.
 **Cause:** File permissions or file not saved properly
 
 **Solution:**
-1. Open config file: `nano .devforgeai/config/feedback-preferences.yaml`
+1. Open config file: `nano devforgeai/config/feedback-preferences.yaml`
 2. Verify `disabled_feedback: skill_invocation: true` is set
 3. Verify file is saved (Ctrl+X, Y, Enter)
-4. Check file permissions: `ls -l .devforgeai/config/feedback-preferences.yaml`
+4. Check file permissions: `ls -l devforgeai/config/feedback-preferences.yaml`
 5. Should show: `-rw-------` (only user can read/write)
-6. If permissions wrong, run: `chmod 600 .devforgeai/config/feedback-preferences.yaml`
+6. If permissions wrong, run: `chmod 600 devforgeai/config/feedback-preferences.yaml`
 
 ---
 
@@ -502,8 +502,8 @@ Research shows 3 is the sweet spot for user experience and token efficiency.
 3. **Regular review:** Every quarter, check if disabled feedback is still needed
 4. **Safe edits:** Always back up config file before manual edits
    ```bash
-   cp .devforgeai/config/feedback-preferences.yaml \
-      .devforgeai/config/feedback-preferences.yaml.my_backup
+   cp devforgeai/config/feedback-preferences.yaml \
+      devforgeai/config/feedback-preferences.yaml.my_backup
    ```
 
 ---
@@ -522,6 +522,6 @@ Research shows 3 is the sweet spot for user experience and token efficiency.
 For issues or questions:
 1. Check the FAQ section above
 2. Review config file manually (see "Viewing Current Preferences")
-3. Check logs: `.devforgeai/logs/skip-pattern-detection.log`
+3. Check logs: `devforgeai/logs/skip-pattern-detection.log`
 4. Reset to defaults: Delete config file and re-create (via skip)
 

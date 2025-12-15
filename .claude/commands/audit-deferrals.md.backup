@@ -20,7 +20,7 @@ Audit all QA Approved and Released stories for invalid deferrals, multi-level de
 **Find all story files:**
 
 ```
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 ```
 
 **Filter to QA Approved or Released status:**
@@ -110,7 +110,7 @@ FOR each story in deferred_stories:
 
             ELSE:
                 # Check story file status
-                Glob(pattern=".ai_docs/Stories/${target_story}*.story.md")
+                Glob(pattern="devforgeai/specs/Stories/${target_story}*.story.md")
 
                 IF file found:
                     Read YAML frontmatter
@@ -198,7 +198,7 @@ FOR each story in deferred_stories:
 
         CASE "scope_change":
             # Check if ADR exists
-            Glob(pattern=".devforgeai/adrs/${adr_reference}*.md")
+            Glob(pattern="devforgeai/specs/adrs/${adr_reference}*.md")
 
             IF file found:
                 blocker_status = "RESOLVED (ADR documented)"
@@ -308,7 +308,7 @@ FOR each story_result in validation_results:
 **Create comprehensive report:**
 
 ```
-report_path = ".devforgeai/qa/deferral-audit-{timestamp}.md"
+report_path = "devforgeai/qa/deferral-audit-{timestamp}.md"
 
 Write(
     file_path=report_path,
@@ -544,7 +544,7 @@ Write(
 - MEDIUM: {count} (missing ADRs, blocker missing ETA)
 
 **Detailed Report:**
-📄 .devforgeai/qa/deferral-audit-{timestamp}.md
+📄 devforgeai/qa/deferral-audit-{timestamp}.md
 
 {IF violations found}
 **Action Required:**
@@ -688,7 +688,7 @@ ELSE:
 
 ```bash
 # Get the most recent audit report (Phase 5 just created it)
-audit_report=$(ls -t .devforgeai/qa/deferral-audit-*.md | head -1)
+audit_report=$(ls -t devforgeai/qa/deferral-audit-*.md | head -1)
 
 if [ ! -f "$audit_report" ]; then
   echo "⚠️ Audit report not found, skipping feedback" >&2
@@ -790,11 +790,11 @@ devforgeai invoke-hooks \
 
 #### Step 6.5: Log Hook Invocation
 
-**Log all hook operations to `.devforgeai/feedback/logs/hook-invocations.log`:**
+**Log all hook operations to `devforgeai/feedback/logs/hook-invocations.log`:**
 
 ```bash
 # Create log directory if doesn't exist
-mkdir -p .devforgeai/feedback/logs
+mkdir -p devforgeai/feedback/logs
 
 # Append structured log entry with file locking
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -802,8 +802,8 @@ LOG_ENTRY="$TIMESTAMP | operation=audit-deferrals | status=completed | exit_code
 
 # Use file locking to prevent write conflicts in concurrent audits
 (flock -x 200
-echo "$LOG_ENTRY" >> .devforgeai/feedback/logs/hook-invocations.log
-) 200>.devforgeai/feedback/logs/hook-invocations.log.lock
+echo "$LOG_ENTRY" >> devforgeai/feedback/logs/hook-invocations.log
+) 200>devforgeai/feedback/logs/hook-invocations.log.lock
 ```
 
 #### Step 6.6: Error Handling & Graceful Degradation (Executable Bash)
@@ -891,10 +891,10 @@ fi
 - devforgeai invoke-hooks (feedback conversation - if eligible)
 
 **Generates:**
-- Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
+- Audit report in `devforgeai/qa/deferral-audit-{timestamp}.md`
 - Violation summary by severity
 - Recommended corrective actions
-- Hook invocation log in `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
+- Hook invocation log in `devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
 
 **Updates:**
 - None (read-only audit, doesn't modify stories)
@@ -902,7 +902,7 @@ fi
 **Feedback Integration (Phase 6 - NEW):**
 - Captures insights about deferral patterns discovered
 - Documents user's perspective on debt reduction strategies
-- Session data saved to `.devforgeai/feedback/sessions/` (if user accepts feedback)
+- Session data saved to `devforgeai/feedback/sessions/` (if user accepts feedback)
 
 ---
 

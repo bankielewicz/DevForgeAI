@@ -8,11 +8,11 @@
 The rollback system allows you to restore your DevForgeAI installation to a previous version using automatically-created backups.
 
 **What rollback does:**
-- Restores framework files (.claude/, .devforgeai/, CLAUDE.md) from backup
+- Restores framework files (.claude/, devforgeai/, CLAUDE.md) from backup
 - Preserves user content (stories, epics, context files) by default
 - Validates restored files match backup checksums
 - Updates .version.json to reflect restored version
-- Logs rollback operation to .devforgeai/logs/
+- Logs rollback operation to devforgeai/logs/
 
 **What rollback does NOT do:**
 - Does not restore user content unless explicitly requested with --include-user-content flag
@@ -25,7 +25,7 @@ The rollback system allows you to restore your DevForgeAI installation to a prev
 
 **Backup must exist:**
 - Backups are created automatically during upgrades
-- Located in: `.devforgeai/backups/`
+- Located in: `devforgeai/backups/`
 - Format: `v{version}-{timestamp}/`
 
 **Python 3.10+ required:**
@@ -68,7 +68,7 @@ The rollback system allows you to restore your DevForgeAI installation to a prev
 from installer.backup_selector import BackupSelector
 from pathlib import Path
 
-selector = BackupSelector(backup_dir=Path(".devforgeai/backups"))
+selector = BackupSelector(backup_dir=Path("devforgeai/backups"))
 backups = selector.list()
 
 for backup in backups:
@@ -77,9 +77,9 @@ for backup in backups:
 
 **Output format:**
 ```
-v1.0.5 - 2025-12-06 14:30:00 - 45 MB - UPGRADE - .devforgeai/backups/v1.0.5-20251206-143000
-v1.0.4 - 2025-12-05 10:15:00 - 43 MB - UPGRADE - .devforgeai/backups/v1.0.4-20251205-101500
-v1.0.3 - 2025-12-04 08:45:00 - 42 MB - MANUAL - .devforgeai/backups/v1.0.3-20251204-084500
+v1.0.5 - 2025-12-06 14:30:00 - 45 MB - UPGRADE - devforgeai/backups/v1.0.5-20251206-143000
+v1.0.4 - 2025-12-05 10:15:00 - 43 MB - UPGRADE - devforgeai/backups/v1.0.4-20251205-101500
+v1.0.3 - 2025-12-04 08:45:00 - 42 MB - MANUAL - devforgeai/backups/v1.0.3-20251204-084500
 ```
 
 **Sorted:** Newest first
@@ -105,7 +105,7 @@ class Logger:
     def debug(self, msg): print(f"DEBUG: {msg}")
 
 logger = Logger()
-backup_dir = Path(".devforgeai/backups")
+backup_dir = Path("devforgeai/backups")
 
 restorer = BackupRestorer(logger=logger)
 validator = RollbackValidator(logger=logger)
@@ -117,7 +117,7 @@ orchestrator = RollbackOrchestrator(
     validator=validator,
     cleaner=cleaner,
     logger=logger,
-    logs_dir=Path(".devforgeai/logs"),
+    logs_dir=Path("devforgeai/logs"),
     backup_dir=backup_dir,
     project_dir=Path(".")
 )
@@ -160,11 +160,11 @@ result = orchestrator.execute(request)
 ```
 
 **What gets restored when True:**
-- `.ai_docs/Stories/*` - User stories
-- `.ai_docs/Epics/*` - Epic documents
-- `.ai_docs/Sprints/*` - Sprint plans
-- `.devforgeai/context/*` - Context files
-- `.devforgeai/adrs/*` - Architecture Decision Records
+- `devforgeai/specs/Stories/*` - User stories
+- `devforgeai/specs/Epics/*` - Epic documents
+- `devforgeai/specs/Sprints/*` - Sprint plans
+- `devforgeai/specs/context/*` - Context files
+- `devforgeai/specs/adrs/*` - Architecture Decision Records
 
 **Use case:** Restore entire project state including work documents
 
@@ -175,7 +175,7 @@ result = orchestrator.execute(request)
 **Automatic validation after every rollback:**
 
 **Checks performed:**
-1. Critical files exist (CLAUDE.md, .devforgeai/, .claude/)
+1. Critical files exist (CLAUDE.md, devforgeai/, .claude/)
 2. File checksums match backup manifest (SHA256)
 3. File count matches expected count
 
@@ -201,7 +201,7 @@ result = orchestrator.execute(request)
 
 **Retention policy:**
 - Default: Keep 5 most recent backups
-- Configurable in: `.devforgeai/config/rollback-config.json`
+- Configurable in: `devforgeai/config/rollback-config.json`
 - Range: 1-20 backups
 
 **Cleanup behavior:**
@@ -220,7 +220,7 @@ result = orchestrator.execute(request)
 
 ## Rollback Logs
 
-**Location:** `.devforgeai/logs/rollback-{timestamp}.log`
+**Location:** `devforgeai/logs/rollback-{timestamp}.log`
 
 **Log contents:**
 ```
@@ -243,22 +243,22 @@ duration_seconds: 47.2
 ## User Content Paths (Default Preservation)
 
 **Never overwritten by default:**
-- `.ai_docs/Stories/` - User stories
-- `.ai_docs/Epics/` - Epic documents
-- `.ai_docs/Sprints/` - Sprint plans
-- `.devforgeai/context/` - User-modified context files
-- `.devforgeai/adrs/` - User-created ADRs
+- `devforgeai/specs/Stories/` - User stories
+- `devforgeai/specs/Epics/` - Epic documents
+- `devforgeai/specs/Sprints/` - Sprint plans
+- `devforgeai/specs/context/` - User-modified context files
+- `devforgeai/specs/adrs/` - User-created ADRs
 
-**Configurable in:** `.devforgeai/config/rollback-config.json`
+**Configurable in:** `devforgeai/config/rollback-config.json`
 
 ```json
 {
   "user_content_paths": [
-    ".ai_docs/Stories/",
-    ".ai_docs/Epics/",
-    ".ai_docs/Sprints/",
-    ".devforgeai/context/",
-    ".devforgeai/adrs/"
+    "devforgeai/specs/Stories/",
+    "devforgeai/specs/Epics/",
+    "devforgeai/specs/Sprints/",
+    "devforgeai/specs/context/",
+    "devforgeai/specs/adrs/"
   ]
 }
 ```
@@ -337,5 +337,5 @@ Cannot validate backup integrity
 ## Related Documentation
 
 - **Backup Management Guide:** `installer/docs/BACKUP-MANAGEMENT.md`
-- **STORY-080:** `.ai_docs/Stories/STORY-080-rollback-previous-version.story.md`
+- **STORY-080:** `devforgeai/specs/Stories/STORY-080-rollback-previous-version.story.md`
 - **STORY-078:** Upgrade Mode (creates backups)

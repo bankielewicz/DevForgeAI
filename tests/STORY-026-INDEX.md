@@ -327,7 +327,7 @@ Contains:
 ## Support Resources
 
 ### Story Requirements
-- **Story File:** `.ai_docs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
 - **Epic:** EPIC-006 (Feedback System Integration)
 
 ### Framework Documentation

@@ -177,7 +177,7 @@ class ErrorRecoveryOrchestrator:
             raise RuntimeError(
                 "Concurrent installation detected. Another installation is currently in progress. "
                 "Wait for it to complete or remove the lock file at "
-                ".devforgeai/install.lock"
+                "devforgeai/install.lock"
             )
 
     def handle_keyboard_interrupt(self) -> ErrorResult:

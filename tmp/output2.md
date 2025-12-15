@@ -24,12 +24,12 @@ User declined to answer questions
 
   Let me first check what epics exist in your project:
 
- Search(pattern: ".ai_docs/Epics/EPIC-*.epic.md")
+ Search(pattern: "devforgeai/specs/Epics/EPIC-*.epic.md")
   Found 9 files (ctrl+o to expand)
 
  Good! EPIC-001 exists. Let me read it to understand what features need stories:
 
- Read(.ai_docs/Epics/EPIC-001-Core-Queue-Architecture.epic.md)
+ Read(devforgeai/specs/Epics/EPIC-001-Core-Queue-Architecture.epic.md)
   Read 409 lines
 
  Perfect! I can see EPIC-001 has 7 features defined. Based on the command instructions, when a user provides an
@@ -39,7 +39,7 @@ User answered Claude's questions:
 
  Good question! Let me check which stories already exist to see what's missing:
 
- Search(pattern: ".ai_docs/Stories/STORY-*.story.md")
+ Search(pattern: "devforgeai/specs/Stories/STORY-*.story.md")
   Found 8 files (ctrl+o to expand)
 
  Perfect! Let me compare the existing stories with EPIC-001's features to see what's been created:
@@ -71,7 +71,7 @@ User answered Claude's questions:
 
  Great! Let me read EPIC-002 to see what features need stories:
 
- Read(.ai_docs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
+ Read(devforgeai/specs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
   Read 508 lines
 
  Perfect! I can see EPIC-002 has 6 features. Let me show you which stories already exist and which are missing:
@@ -116,10 +116,10 @@ User answered Claude's questions:
  Good! Now I'll execute Phase 1. I already have the feature description from the epic, and the user selected
   EPIC-002. Let me generate the story ID and gather metadata.
 
- Search(pattern: ".ai_docs/Stories/STORY-*.story.md")
+ Search(pattern: "devforgeai/specs/Stories/STORY-*.story.md")
   Found 8 files (ctrl+o to expand)
 
- Search(pattern: ".ai_docs/Sprints/Sprint-*.md")
+ Search(pattern: "devforgeai/specs/Sprints/Sprint-*.md")
   Found 1 file (ctrl+o to expand)
 
  Perfect! The next story ID is STORY-009. Now let me create a todo list and gather metadata from the user:
@@ -244,12 +244,12 @@ User answered Claude's questions:
  Perfect! Now I'll create the complete story file by assembling all the information from Phases 1-4. Let me write
    STORY-009:
 
- Write(.ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md)
+ Write(devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md)
   Error writing file
 
  The file doesn't exist yet, so I can write directly without reading first. Let me try again:
 
- Bash(ls -la /mnt/c/Projects/SQLServer/.ai_docs/Stories/ | head -15)
+ Bash(ls -la /mnt/c/Projects/SQLServer/devforgeai/specs/Stories/ | head -15)
   total 388                                     
      drwxrwxrwx 1 bryan bryan  4096 Nov  6 15:55 .
      drwxrwxrwx 1 bryan bryan  4096 Nov  6 15:54 ..
@@ -258,21 +258,21 @@ User answered Claude's questions:
  Good, the directory exists. Now let me create the story file. Since the Write tool failed because the file
   hasn't been "read first", I'll use Bash to create it:
 
- Bash(cat > /mnt/c/Projects/SQLServer/.ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md <<
+ Bash(cat > /mnt/c/Projects/SQLServer/devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md <<
       'STORY_EOF'
       ---
   (No content)
 
  Good! File created. Now let me read it and then use Write to add the full content:
 
- Read(.ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md)
+ Read(devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md)
   Read 23 lines
 
  Perfect! Now I can write the complete story. Due to the length limitation, let me create a more concise version
   that still includes all essential sections:
 
- Update(.ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md)
-  Updated .ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md with 205 additions          
+ Update(devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md)
+  Updated devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md with 205 additions          
         20    **I want** to capture and preserve all index characteristics (FILLFACTOR, PAD_INDEX, compression,
               partitioning, filtered predicates, included columns) before rebuild operations,
         21    **so that** index rebuild operations maintain performance tuning settings and prevent data loss 
@@ -493,19 +493,19 @@ User answered Claude's questions:
  Excellent! Story file created successfully. Now moving to Phase 6: Epic/Sprint Linking. Let me update the epic
   and sprint files:
 
- Read(.ai_docs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
+ Read(devforgeai/specs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
   Read 100 lines
 
  Good! Now let me find the Stories section in the epic and update it to add STORY-009:
 
- Read(.ai_docs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
+ Read(devforgeai/specs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
   Read 43 lines
 
  Perfect! I can see that STORY-009 has already been added to the epic file (lines 479-484). This must have been
   done earlier. Now let me also update the "Next Steps" section to reflect that Feature 2.2 is now created:
 
- Update(.ai_docs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
-  Updated .ai_docs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md with 1 addition and 1 removal            
+ Update(devforgeai/specs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md)
+  Updated devforgeai/specs/Epics/EPIC-002-Index-Maintenance-Engine.epic.md with 1 addition and 1 removal            
        505    ## Next Steps
        506    
        507    1. Feature 2.1 (Discovery) - STORY-008 created, awaiting EPIC-001 completion
@@ -518,14 +518,14 @@ User answered Claude's questions:
 
  Great! Now let me check and update Sprint-1 to add STORY-009:
 
- Read(.ai_docs/Sprints/Sprint-1.md)
+ Read(devforgeai/specs/Sprints/Sprint-1.md)
   Read 253 lines
 
  I see that Sprint-1 currently contains only EPIC-001 stories (STORY-001 through STORY-007). Since STORY-009 was
   assigned to Sprint-1, let me add it to the sprint file:
 
- Update(.ai_docs/Sprints/Sprint-1.md)
-  Updated .ai_docs/Sprints/Sprint-1.md with 4 additions and 2 removals
+ Update(devforgeai/specs/Sprints/Sprint-1.md)
+  Updated devforgeai/specs/Sprints/Sprint-1.md with 4 additions and 2 removals
         3    ---
         4    id: SPRINT-1
         5    name: Core Queue Architecture
@@ -553,8 +553,8 @@ User answered Claude's questions:
 
  Good! Now let me also update the Overview section to mention STORY-009:
 
- Update(.ai_docs/Sprints/Sprint-1.md)
-  Updated .ai_docs/Sprints/Sprint-1.md with 3 additions and 3 removals                                      
+ Update(devforgeai/specs/Sprints/Sprint-1.md)
+  Updated devforgeai/specs/Sprints/Sprint-1.md with 3 additions and 3 removals                                      
        26    ## Overview
        27    
        28    **Duration:** 2025-11-04 to 2025-11-18 (14 days)
@@ -624,7 +624,7 @@ User answered Claude's questions:
 
   What Was Created
 
-  1. Complete Story Document (.ai_docs/Stories/STORY-009-index-characteristic-preservation.story.md)
+  1. Complete Story Document (devforgeai/specs/Stories/STORY-009-index-characteristic-preservation.story.md)
   - User story in proper format (As a DBA/I want/So that)
   - 10 acceptance criteria in Given/When/Then format
   - Technical specification with T-SQL function signature
@@ -1106,12 +1106,12 @@ recommendations/solutions to improve the DevForgeAI Spec-Driven Framework.
 
   ## Step 2.2: Validate No Files Created
 
-  files_before = Glob(pattern=".ai_docs/Stories/STORY-*.md")
+  files_before = Glob(pattern="devforgeai/specs/Stories/STORY-*.md")
 
   # Invoke subagent
   Task(subagent_type="requirements-analyst", ...)
 
-  files_after = Glob(pattern=".ai_docs/Stories/STORY-*.md")
+  files_after = Glob(pattern="devforgeai/specs/Stories/STORY-*.md")
 
   new_files = set(files_after) - set(files_before)
   if len(new_files) > 0:
@@ -1529,7 +1529,7 @@ Spec-Driven Framework.
   ### Step 1: Read Epic and Extract Features
 
   **Read epic file:**
-  epic_file = Glob(pattern=f".ai_docs/Epics/{epic_id}*.epic.md")[0]
+  epic_file = Glob(pattern=f"devforgeai/specs/Epics/{epic_id}*.epic.md")[0]
   epic_content = Read(file_path=epic_file)
 
   **Parse features from epic:**
@@ -1641,7 +1641,7 @@ Spec-Driven Framework.
   ...
 
   **Next Steps:**
-  - Review stories in `.ai_docs/Stories/`
+  - Review stories in `devforgeai/specs/Stories/`
   - Assign stories to sprint: Update Sprint-1.md
   - Start development: `/dev STORY-009`
 
@@ -1855,12 +1855,12 @@ Spec-Driven Framework.
   Solution: Detect Gaps and Fill Sequentially
 
   Current logic (simple):
-  story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+  story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
   max_number = max([extract_number(f) for f in story_files])
   next_number = max_number + 1  # e.g., 9 → 10
 
   Enhanced logic (gap-aware):
-  story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+  story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
   existing_numbers = sorted([extract_number(f) for f in story_files])
 
   # Detect gaps: [1, 2, 3, 5, 7] → gaps at 4, 6

@@ -935,7 +935,7 @@ Rotation: At 10MB, keep 3 rotations
 ## Related Documents
 
 - **Research Report:** PYTHON-ERROR-HANDLING-RESEARCH-REPORT.md
-- **Story File:** `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md`
+- **Story File:** `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md`
 - **Gap Analysis:** STORY-074-GAP-ANALYSIS.md
 - **Test Results:** installer/tests/STORY-074-TEST-RESULTS.md
 

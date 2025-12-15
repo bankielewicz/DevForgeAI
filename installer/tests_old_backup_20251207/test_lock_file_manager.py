@@ -23,7 +23,7 @@ class TestLockFileCreation:
 
         Given: Installation starts
         When: LockFileManager.acquire_lock() is called
-        Then: Lock file created at .devforgeai/install.lock
+        Then: Lock file created at devforgeai/install.lock
         """
         # Arrange
         from installer.services.lock_file_manager import LockFileManager

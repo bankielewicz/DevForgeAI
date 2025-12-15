@@ -59,7 +59,7 @@ Uses AskUserQuestion to guide through:
 - Loads appropriate templates from `assets/` directory
 - Applies best practices from `references/` directory
 - Generates production-ready code following coding-standards.md
-- Saves to `.devforgeai/specs/ui/` (or location specified in source-tree.md)
+- Saves to `devforgeai/specs/ui/` (or location specified in source-tree.md)
 
 ---
 
@@ -122,7 +122,7 @@ Workflow:
 5. ❓ Asks: "Styling?" → User selects "Tailwind CSS"
 6. ❓ Asks: "Theme?" → User selects "Dark Mode"
 7. ✅ Generates LoginForm.jsx with email/password inputs
-8. ✅ Saves to .devforgeai/specs/ui/LoginForm.jsx
+8. ✅ Saves to devforgeai/specs/ui/LoginForm.jsx
 9. ✅ Updates STORY-042.story.md with UI reference
 10. ✅ Creates UI-SPEC-SUMMARY.md
 ```
@@ -238,7 +238,7 @@ Load these as needed during UI generation:
 ## Output Files
 
 **UI Specifications:**
-- Location: `.devforgeai/specs/ui/` (or per source-tree.md)
+- Location: `devforgeai/specs/ui/` (or per source-tree.md)
 - Format: Technology-specific (JSX, Razor, XAML, Python, etc.)
 - Documentation: UI-SPEC-SUMMARY.md (component inventory)
 

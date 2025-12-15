@@ -13,7 +13,7 @@ Execute full Test-Driven Development cycle for a user story.
 
 ## Pre-execution Context
 
-**Story File:** @.ai_docs/Stories/$1.story.md
+**Story File:** @devforgeai/specs/Stories/$1.story.md
 
 **Note:** The `devforgeai-development` skill handles all implementation logic including:
 - Git validation and workflow adaptation (with user consent for operations affecting >10 files - RCA-008)
@@ -45,7 +45,7 @@ Display: "📋 Pre-Flight Checklist for /dev $1"
 Display: ""
 Display: "Prerequisites to be checked:"
 Display: "  • Git repository status"
-Display: "  • Context files (.devforgeai/context/)"
+Display: "  • Context files (devforgeai/specs/context/)"
 Display: "  • Story file existence"
 Display: "  • Working tree cleanliness"
 Display: ""
@@ -142,17 +142,17 @@ IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":
 
 **Check if story file exists:**
 ```
-Glob(pattern=".ai_docs/Stories/${STORY_ID}*.story.md")
+Glob(pattern="devforgeai/specs/Stories/${STORY_ID}*.story.md")
 
 IF no matches found:
     Display: "❌ ERROR: Story file not found"
     Display: ""
-    Display: "Looking for: .ai_docs/Stories/${STORY_ID}*.story.md"
+    Display: "Looking for: devforgeai/specs/Stories/${STORY_ID}*.story.md"
     Display: ""
     Display: "Available stories:"
 
     # List all stories
-    Glob(pattern=".ai_docs/Stories/*.story.md")
+    Glob(pattern="devforgeai/specs/Stories/*.story.md")
     Display: "{list each found story}"
 
     Display: ""
@@ -325,7 +325,7 @@ fi
 - **Non-blocking:** Hook failures don't break /dev command
 - **Configuration-aware:** Respects hooks.yaml (enabled/disabled, trigger_on mode)
 - **Optional feedback:** User may see context-aware retrospective questions
-- **Persistent:** User responses saved to .devforgeai/feedback/sessions/
+- **Persistent:** User responses saved to devforgeai/feedback/sessions/
 - **Lightweight:** <5 second overhead per CLI test invocation
 
 **Test Coverage:**

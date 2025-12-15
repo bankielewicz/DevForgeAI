@@ -64,7 +64,7 @@ class TestValidationSuccess:
 
         Given: Restored directory has all critical files
         When: validate() is called
-        Then: Critical files are verified (CLAUDE.md, .devforgeai/)
+        Then: Critical files are verified (CLAUDE.md, devforgeai/)
         """
         # Arrange
         from installer.rollback_validator import RollbackValidator

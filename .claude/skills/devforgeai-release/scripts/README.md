@@ -62,14 +62,14 @@ helm version
 Create the required directory structure:
 
 ```bash
-mkdir -p .devforgeai/smoke-tests
-mkdir -p .devforgeai/monitoring/baselines
-mkdir -p .devforgeai/releases/rollback-logs
+mkdir -p devforgeai/smoke-tests
+mkdir -p devforgeai/monitoring/baselines
+mkdir -p devforgeai/releases/rollback-logs
 ```
 
 ### Smoke Test Configuration
 
-Create `.devforgeai/smoke-tests/config.json`:
+Create `devforgeai/smoke-tests/config.json`:
 
 ```json
 {
@@ -90,7 +90,7 @@ Create `.devforgeai/smoke-tests/config.json`:
 
 ### Monitoring Configuration
 
-Create `.devforgeai/monitoring/config.json`:
+Create `devforgeai/monitoring/config.json`:
 
 ```json
 {
@@ -108,7 +108,7 @@ Create `.devforgeai/monitoring/config.json`:
 
 ### Baseline Metrics
 
-Create baseline metrics file `.devforgeai/monitoring/baselines/production-baseline.json`:
+Create baseline metrics file `devforgeai/monitoring/baselines/production-baseline.json`:
 
 ```json
 {
@@ -189,7 +189,7 @@ python smoke_test_runner.py --environment production --tests critical_path
 - `--environment` (required): Target environment (staging, production, production-green, production-canary)
 - `--tests` (optional): Test categories to run (default: all)
   - Options: `all`, `critical_path`, `api`, `database`, `authentication`, `integration`, `health`
-- `--config` (optional): Path to config file (default: `.devforgeai/smoke-tests/config.json`)
+- `--config` (optional): Path to config file (default: `devforgeai/smoke-tests/config.json`)
 - `--parallel` (optional): Number of parallel workers (requires pytest-xdist)
 - `--html-report` (optional): Generate HTML report (requires pytest-html)
 - `--junit-xml` (optional): Generate JUnit XML report
@@ -245,7 +245,7 @@ python metrics_collector.py --environment production --duration 900 --baseline-c
 - `--baseline-compare` (optional): Compare against baseline metrics
 - `--baseline` (optional): Custom baseline file path
 - `--output` (optional): Output JSON report to file
-- `--config` (optional): Path to monitoring config (default: `.devforgeai/monitoring/config.json`)
+- `--config` (optional): Path to monitoring config (default: `devforgeai/monitoring/config.json`)
 
 **Exit Codes:**
 - `0`: Success - Metrics healthy
@@ -339,7 +339,7 @@ python metrics_collector.py --environment production \
 - **Docker**: Stop current, start previous container
 
 **Rollback Logs:**
-All rollback operations are logged to `.devforgeai/releases/rollback-logs/rollback-YYYYMMDD-HHMMSS.log`
+All rollback operations are logged to `devforgeai/releases/rollback-logs/rollback-YYYYMMDD-HHMMSS.log`
 
 ---
 
@@ -358,7 +358,7 @@ python release_notes_generator.py --story STORY-001 --version v1.2.3
 - `--qa-report` (optional): Path to QA report file
 - `--metrics-report` (optional): Path to metrics report JSON file
 - `--template` (optional): Path to custom release notes template
-- `--output` (optional): Output path for release notes (default: `.devforgeai/releases/release-{version}.md`)
+- `--output` (optional): Output path for release notes (default: `devforgeai/releases/release-{version}.md`)
 - `--deployment-strategy` (optional): Deployment strategy used (default: rolling)
 - `--previous-version` (optional): Previous version for rollback information
 - `--update-changelog` (optional): Update CHANGELOG.md with release entry
@@ -375,7 +375,7 @@ python release_notes_generator.py --story STORY-001 --version v1.2.3
 
 # With QA and metrics reports
 python release_notes_generator.py --story STORY-001 --version v1.2.3 \
-  --qa-report .devforgeai/qa/reports/STORY-001-qa-report.md \
+  --qa-report devforgeai/qa/reports/STORY-001-qa-report.md \
   --metrics-report metrics.json
 
 # Update CHANGELOG.md
@@ -432,7 +432,7 @@ python scripts/metrics_collector.py --environment production --duration 900 --ba
 python scripts/release_notes_generator.py \
   --story STORY-001 \
   --version v1.2.3 \
-  --qa-report .devforgeai/qa/reports/STORY-001-qa-report.md \
+  --qa-report devforgeai/qa/reports/STORY-001-qa-report.md \
   --metrics-report metrics.json \
   --update-changelog
 ```
@@ -481,7 +481,7 @@ pip install pytest pytest-html pytest-xdist
 **Solution**:
 ```bash
 # Verify credentials in config
-cat .devforgeai/smoke-tests/config.json
+cat devforgeai/smoke-tests/config.json
 
 # Set environment variables
 export TEST_USER="test@example.com"
@@ -495,7 +495,7 @@ export TEST_PASSWORD="password"
 **Solution**:
 ```bash
 # Check monitoring config
-cat .devforgeai/monitoring/config.json
+cat devforgeai/monitoring/config.json
 
 # Verify credentials (AWS example)
 aws sts get-caller-identity

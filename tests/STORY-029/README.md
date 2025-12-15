@@ -304,7 +304,7 @@ chmod +x tests/STORY-029/**/*.sh
 
 ## Related Documentation
 
-- **Story:** `.ai_docs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
 - **Command:** `.claude/commands/create-sprint.md` (implementation target)
 - **Test Summary:** `TEST_SUMMARY.md` (detailed test documentation)
 - **Hook CLI:** `.claude/scripts/devforgeai_cli/commands/check_hooks.py`

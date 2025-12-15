@@ -155,7 +155,7 @@ class TestInternetSleuthBusinessRules:
         has_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
 
         # Also check no old output locations remain
-        has_old_output = bool(re.search(r'\.ai_docs/research/|tmp/repos/research-', agent_content))
+        has_old_output = bool(re.search(r'\devforgeai/specs/research/|tmp/repos/research-', agent_content))
 
         # Assert
         assert has_research_dir, \

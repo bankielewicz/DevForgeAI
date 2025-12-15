@@ -37,7 +37,7 @@ Skill(command="devforgeai-feedback")
 
 **Prerequisites:**
 - Hook system implemented (STORY-018) ✅
-- Hook registry configured (.devforgeai/config/hooks.yaml) ✅
+- Hook registry configured (devforgeai/config/hooks.yaml) ✅
 - TodoWrite integration (EPIC-004) ⏸️ Pending
 
 ---
@@ -79,7 +79,7 @@ Quantitative data collection for analysis.
 feedback_type: metrics
 feedback_config:
   metrics: [execution_time, token_usage, test_pass_rate]
-  export_to: ".devforgeai/metrics/feedback-metrics.json"
+  export_to: "devforgeai/metrics/feedback-metrics.json"
 ```
 
 ### 4. Checklist Validation
@@ -128,7 +128,7 @@ FOR hook in matching_hooks:
 1. Extract questions from hook.feedback_config.questions
 2. Present questions to user via AskUserQuestion
 3. Capture responses
-4. Persist to .devforgeai/feedback/{operation_id}-feedback.md
+4. Persist to devforgeai/feedback/{operation_id}-feedback.md
 5. Return summary
 ```
 
@@ -137,7 +137,7 @@ FOR hook in matching_hooks:
 1. Extract summary_sections from hook.feedback_config
 2. Generate summary from operation context
 3. Format as markdown
-4. Persist to .devforgeai/feedback/{operation_id}-summary.md
+4. Persist to devforgeai/feedback/{operation_id}-summary.md
 5. Return summary
 ```
 
@@ -146,7 +146,7 @@ FOR hook in matching_hooks:
 1. Extract metrics list from hook.feedback_config
 2. Collect metric values from operation context
 3. Export to JSON
-4. Append to .devforgeai/metrics/{metric_type}.json
+4. Append to devforgeai/metrics/{metric_type}.json
 5. Return metrics summary
 ```
 
@@ -155,7 +155,7 @@ FOR hook in matching_hooks:
 1. Extract checklist_items from hook.feedback_config
 2. Present as interactive checklist via AskUserQuestion
 3. Capture checked items
-4. Persist to .devforgeai/feedback/{operation_id}-checklist.md
+4. Persist to devforgeai/feedback/{operation_id}-checklist.md
 5. Return completion percentage
 ```
 
@@ -167,7 +167,7 @@ FOR hook in matching_hooks:
 
 ```
 # Feedback file structure
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── {operation_id}-feedback.md      # Conversation responses
 ├── {operation_id}-summary.md       # Auto-generated summaries
 ├── {operation_id}-checklist.md     # Checklist results
@@ -223,7 +223,7 @@ hook_id: post-dev-feedback
 
 ```
 # Read existing index
-Read(file_path=".devforgeai/feedback/index.json")
+Read(file_path="devforgeai/feedback/index.json")
 
 # Parse JSON
 index = json.loads(content)
@@ -239,7 +239,7 @@ index["feedback_sessions"].append({
 })
 
 # Write updated index
-Write(file_path=".devforgeai/feedback/index.json", content=json.dumps(index, indent=2))
+Write(file_path="devforgeai/feedback/index.json", content=json.dumps(index, indent=2))
 ```
 
 ---
@@ -317,7 +317,7 @@ This skill succeeds when:
 **From:** Hook system (auto-trigger on operation completion)
 **To:** Feedback storage (persistence layer)
 **Invokes:** AskUserQuestion (for interactive sessions)
-**Updates:** .devforgeai/feedback/ (feedback files), .devforgeai/metrics/ (metrics)
+**Updates:** devforgeai/feedback/ (feedback files), devforgeai/metrics/ (metrics)
 
 ---
 
@@ -341,8 +341,8 @@ This skill succeeds when:
 ## Related Documentation
 
 - **Hook System:** `.claude/skills/devforgeai-feedback/HOOK-SYSTEM.md`
-- **Hook Configuration:** `.devforgeai/config/hooks.yaml`
+- **Hook Configuration:** `devforgeai/config/hooks.yaml`
 - **Hook Implementation:** `src/hook_*.py` (6 modules, 1,300 LOC)
 - **Hook Tests:** `tests/test_hook_*.py` (175 tests)
 - **Audit Command:** `.claude/commands/audit-hooks.md`
-- **Story:** `.ai_docs/Stories/STORY-018-event-driven-hook-system.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-018-event-driven-hook-system.story.md`

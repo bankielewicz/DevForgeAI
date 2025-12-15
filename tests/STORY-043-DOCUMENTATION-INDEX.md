@@ -102,7 +102,7 @@ AC#7 (Safety):           25/25 ✅
 
 ### Specification & Story
 ```
-/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/
 └── STORY-043-update-path-references-to-src.story.md
 ```
 

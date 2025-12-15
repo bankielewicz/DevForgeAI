@@ -64,12 +64,12 @@ Before ANY code is written, validate architectural context exists.
 
 ```
 # Check for all 6 critical context files
-Read(file_path=".devforgeai/context/tech-stack.md")
-Read(file_path=".devforgeai/context/source-tree.md")
-Read(file_path=".devforgeai/context/dependencies.md")
-Read(file_path=".devforgeai/context/coding-standards.md")
-Read(file_path=".devforgeai/context/architecture-constraints.md")
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **If ANY file is missing:**
@@ -171,7 +171,7 @@ Example: test_complete_checkout_flow()
 **Consult source-tree.md for test organization:**
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Find test structure section
 ```
 
@@ -213,7 +213,7 @@ else:
 **Follow coding-standards.md patterns:**
 
 ```
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
 # Find test naming conventions, assertion patterns, setup/teardown patterns
 ```
 
@@ -261,7 +261,7 @@ Write minimal code to make tests pass while enforcing constraints.
 **Consult source-tree.md:**
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Find placement rules for new classes/modules
 ```
 
@@ -283,7 +283,7 @@ multiSelect: false
 **Validate against dependencies.md:**
 
 ```
-Read(file_path=".devforgeai/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
 ```
 
 **If implementation needs a package NOT in dependencies.md:**
@@ -312,7 +312,7 @@ multiSelect: false
 **Load coding patterns:**
 
 ```
-Read(file_path=".devforgeai/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
 ```
 
 **Enforce patterns during implementation:**
@@ -381,7 +381,7 @@ public Order ProcessOrder(OrderRequest request)
 **Load architecture rules:**
 
 ```
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 ```
 
 **Enforce layer boundaries:**
@@ -525,7 +525,7 @@ Improve code quality while keeping tests green.
 **Load forbidden patterns:**
 
 ```
-Read(file_path=".devforgeai/context/anti-patterns.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **Validate implementation doesn't violate:**
@@ -709,14 +709,14 @@ Edit(file_path="docs/api/[endpoint].md",
 
 **Database schema:**
 ```
-Edit(file_path=".devforgeai/context/source-tree.md",
+Edit(file_path="devforgeai/specs/context/source-tree.md",
      old_string="[old structure]",
      new_string="[updated structure with new tables]")
 ```
 
 **New dependencies:**
 ```
-Edit(file_path=".devforgeai/context/dependencies.md",
+Edit(file_path="devforgeai/specs/context/dependencies.md",
      old_string="[existing dependencies]",
      new_string="[existing + new approved dependencies]")
 ```

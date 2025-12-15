@@ -13,7 +13,7 @@ alert_config = {
     "version": version
 }
 
-Write(file_path=".devforgeai/monitoring/alerts/{story_id}-post-release.json", content=alert_config)
+Write(file_path="devforgeai/monitoring/alerts/{story_id}-post-release.json", content=alert_config)
 ```
 
 For monitoring guidance, see `references/monitoring-metrics.md`

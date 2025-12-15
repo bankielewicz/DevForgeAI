@@ -768,7 +768,7 @@ If project includes frontend:
    - Spacing system (4px, 8px, etc.)
    - Component library (shadcn/ui, Material-UI, custom)
 
-2. Generate design-system.md in .devforgeai/context/
+2. Generate design-system.md in devforgeai/specs/context/
 
 Example output:
 
@@ -962,7 +962,7 @@ description: Implement story with TDD
 ---
 
 For detailed phase instructions, see:
-.devforgeai/workflows/tdd-development-phases.md
+devforgeai/workflows/tdd-development-phases.md
 
 ## Workflow
 1. Read story: $ARGUMENTS
@@ -1328,7 +1328,7 @@ by default. The Red phase validates our test design...
 
 ### Phase 1: Red - Generate Failing Tests
 
-1. Load story: Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Load story: Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Extract acceptance criteria from story
 3. Generate tests: Task(
      subagent_type="test-automator",
@@ -1409,7 +1409,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
 
 ### Phase 1: Development
 1. Invoke /dev
-2. Save checkpoint: Write(file_path=".devforgeai/.checkpoints/$STORY-dev.json")
+2. Save checkpoint: Write(file_path="devforgeai/.checkpoints/$STORY-dev.json")
 3. Exit command (free context)
 
 # User reinvokes:
@@ -1444,7 +1444,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
    Task(
      subagent_type="architect-reviewer",
      description="Review architecture decisions",
-     prompt="Review context files in .devforgeai/context/ for:
+     prompt="Review context files in devforgeai/specs/context/ for:
        - Layer boundary clarity
        - Technology choice appropriateness
        - Scalability considerations
@@ -1460,7 +1460,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
      - "Revise" → Re-invoke architecture skill with feedback
      - "Review manually" → Show review report, wait for user
 
-3. Document review in .devforgeai/architecture/design-review-{project}.md
+3. Document review in devforgeai/architecture/design-review-{project}.md
 ```
 
 **Benefit:** Catches architectural issues before development begins
@@ -1620,7 +1620,7 @@ flowchart TD
    Task(
      subagent_type="architect-reviewer",
      description="Validate architecture decisions",
-     prompt="Review context files in .devforgeai/context/ for architectural soundness..."
+     prompt="Review context files in devforgeai/specs/context/ for architectural soundness..."
    )
 
 2. Review feedback
@@ -1639,7 +1639,7 @@ flowchart TD
    - Spacing system
    - Component library choice
 
-3. Generate design-system.md in .devforgeai/context/
+3. Generate design-system.md in devforgeai/specs/context/
 4. Include: design tokens, component specs, accessibility guidelines
 ```
 
@@ -1690,7 +1690,7 @@ This phase implements the "Red" part of Test-Driven Development.
 ```markdown
 ### Phase 1: Red - Tests
 
-1. Load: Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Load: Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Generate: Task(subagent_type="test-automator", prompt="Generate tests from acceptance criteria. AAA pattern, test pyramid 70/20/10.")
 3. Run: Bash(pytest tests/) or Bash(npm test)
 4. Verify: ALL FAIL (no implementation yet)
@@ -1794,7 +1794,7 @@ Execute for: $ARGUMENTS
 ### Phase 4: Report & Status
 
 1. Aggregate results
-2. Write: Write(file_path=".devforgeai/qa/reports/$STORY-qa-report.md", content="...")
+2. Write: Write(file_path="devforgeai/qa/reports/$STORY-qa-report.md", content="...")
 3. Determine: 0 CRITICAL + 0 HIGH → PASS, else FAIL
 4. Update: Edit story status to "QA Approved" or "QA Failed"
 
@@ -1821,7 +1821,7 @@ Execute for: $ARGUMENTS [--mode=light|deep]
 ## Workflow
 
 ### Phase 1: Story Validation
-1. Read: Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Read: Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Check status: "Ready for Dev" or "Backlog"
 3. Load checkpoint if resuming
 

@@ -12,19 +12,19 @@ release_notes = populate_template(
     coverage, deployment_strategy, timestamps, metrics, rollback_command
 )
 
-Write(file_path=".devforgeai/releases/release-{version}.md", content=release_notes)
+Write(file_path="devforgeai/releases/release-{version}.md", content=release_notes)
 ```
 
 #### Step 2: Update Story Status
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="status: QA Approved",
      new_string="status: Released")
 
-Edit(file_path=".ai_docs/Stories/{story_id}.story.md",
+Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      old_string="- [ ] Released",
      new_string="- [x] Released")
 

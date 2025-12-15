@@ -86,9 +86,9 @@ class TestUserContentPreservation:
         """
         Test: User content is NOT restored by default (AC#5, SVC-006).
 
-        Given: Backup contains .ai_docs/Stories/story.md
+        Given: Backup contains devforgeai/specs/Stories/story.md
         When: restore() called without include_user_content flag
-        Then: .ai_docs/Stories/ is NOT restored
+        Then: devforgeai/specs/Stories/ is NOT restored
         And: Files are added to files_preserved count
         """
         # Arrange
@@ -121,9 +121,9 @@ class TestUserContentPreservation:
         """
         Test: User content IS restored when --include-user-content flag set (AC#5, SVC-007).
 
-        Given: Backup contains .ai_docs/Stories/story.md and flag is True
+        Given: Backup contains devforgeai/specs/Stories/story.md and flag is True
         When: restore() called with include_user_content=True
-        Then: .ai_docs/Stories/ IS restored from backup
+        Then: devforgeai/specs/Stories/ IS restored from backup
         And: files_preserved count is 0 for user content paths
         """
         # Arrange
@@ -154,7 +154,7 @@ class TestUserContentPreservation:
 
     def test_restore_skips_ai_docs_stories(self, tmp_path):
         """
-        Test: .ai_docs/Stories/* not restored by default (AC#5, SVC-006).
+        Test: devforgeai/specs/Stories/* not restored by default (AC#5, SVC-006).
 
         Given: Backup contains stories
         When: restore() called without flag
@@ -187,7 +187,7 @@ class TestUserContentPreservation:
 
     def test_restore_skips_ai_docs_epics(self, tmp_path):
         """
-        Test: .ai_docs/Epics/* not restored by default (AC#5, SVC-006).
+        Test: devforgeai/specs/Epics/* not restored by default (AC#5, SVC-006).
 
         Given: Backup contains epics
         When: restore() called without flag
@@ -220,7 +220,7 @@ class TestUserContentPreservation:
 
     def test_restore_skips_devforgeai_context(self, tmp_path):
         """
-        Test: .devforgeai/context/* not restored by default (AC#5, SVC-006).
+        Test: devforgeai/specs/context/* not restored by default (AC#5, SVC-006).
 
         Given: Backup contains context files
         When: restore() called without flag
@@ -253,7 +253,7 @@ class TestUserContentPreservation:
 
     def test_restore_skips_devforgeai_adrs(self, tmp_path):
         """
-        Test: .devforgeai/adrs/* not restored by default (AC#5, SVC-006).
+        Test: devforgeai/specs/adrs/* not restored by default (AC#5, SVC-006).
 
         Given: Backup contains ADR files
         When: restore() called without flag

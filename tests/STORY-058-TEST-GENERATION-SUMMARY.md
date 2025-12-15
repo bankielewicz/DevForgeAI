@@ -414,7 +414,7 @@ bash tests/user-input-guidance/validate-cross-references.sh
 ## Documentation References
 
 ### Story Definition
-- **File:** `.ai_docs/Stories/STORY-058-documentation-updates.story.md`
+- **File:** `devforgeai/specs/Stories/STORY-058-documentation-updates.story.md`
 - **Content:** Complete acceptance criteria, technical specification, edge cases
 
 ### Test Documentation

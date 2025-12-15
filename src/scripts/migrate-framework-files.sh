@@ -2,7 +2,7 @@
 
 ##############################################################################
 # STORY-042: Framework File Migration Script
-# Purpose: Copy .claude/, .devforgeai/, and CLAUDE.md to src/ structure
+# Purpose: Copy .claude/, devforgeai/, and CLAUDE.md to src/ structure
 #          while preserving originals, validating integrity, and staging in git
 #
 # Usage: ./migrate-framework-files.sh [--resume] [--rollback] [--dry-run]
@@ -688,7 +688,7 @@ generate_report() {
 - Status: Complete
 - Files: $(find "$DEST_CLAUDE" -type f 2>/dev/null | wc -l)
 
-### .devforgeai/ → src/devforgeai/
+### devforgeai/ → src/devforgeai/
 - Status: Complete
 - Files: $(find "$DEST_DEVFORGEAI" -type f 2>/dev/null | wc -l)
 - Excluded: qa/reports/, RCA/, adrs/, feedback/imported/, logs/
@@ -846,8 +846,8 @@ execute_migration_phases() {
         return 1
     fi
 
-    # Phase 2: Copy .devforgeai/ directory (selective subdirectories only)
-    log_message "INFO" "Phase 2: Copying .devforgeai/ config/docs/protocols/specs (~${EXPECTED_DEVFORGEAI_FILES} files)"
+    # Phase 2: Copy devforgeai/ directory (selective subdirectories only)
+    log_message "INFO" "Phase 2: Copying devforgeai/ config/docs/protocols/specs (~${EXPECTED_DEVFORGEAI_FILES} files)"
     if ! copy_selective_subdirectories "$SRC_DEVFORGEAI" "$DEST_DEVFORGEAI" "config" "docs" "protocols" "specs"; then
         return 1
     fi

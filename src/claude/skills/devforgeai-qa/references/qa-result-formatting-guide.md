@@ -426,7 +426,7 @@ Include in next steps guidance:
 
 ```
 Status: ERROR
-Issue: Report not found at .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+Issue: Report not found at devforgeai/qa/reports/{STORY_ID}-qa-report.md
 
 Display:
 "❌ QA Report Not Found
@@ -438,7 +438,7 @@ The QA report wasn't generated. This may indicate:
 
 Recovery Options:
 1. Re-run QA: `/qa {STORY_ID}`
-2. Check directory exists: mkdir -p .devforgeai/qa/reports
+2. Check directory exists: mkdir -p devforgeai/qa/reports
 3. Review skill output for errors above"
 ```
 
@@ -457,7 +457,7 @@ Attempted to extract: [list what was parsed]
 Could not extract: [list what failed]
 
 Recommendation:
-1. Review raw report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+1. Review raw report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 2. Re-run QA to regenerate: `/qa {STORY_ID}`
 3. Check skill logs for parsing errors"
 ```
@@ -476,7 +476,7 @@ Status: {INFERRED_STATUS}
 Reasoning: {HOW_STATUS_WAS_DETERMINED}
 
 Recommendation:
-Review full report to confirm: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+Review full report to confirm: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
 ```
 
 ### Scenario 4: Retry Limit Approaching

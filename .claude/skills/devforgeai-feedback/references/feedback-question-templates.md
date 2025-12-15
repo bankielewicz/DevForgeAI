@@ -463,4 +463,4 @@ Template engine:
 
 ---
 
-**The question templates serve as defaults. Users can customize via `.devforgeai/feedback/config.yaml` or create custom templates for specific operations. The goal is actionable insights, not exhaustive surveys—balance depth with user patience.**
+**The question templates serve as defaults. Users can customize via `devforgeai/feedback/config.yaml` or create custom templates for specific operations. The goal is actionable insights, not exhaustive surveys—balance depth with user patience.**

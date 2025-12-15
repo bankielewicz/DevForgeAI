@@ -291,7 +291,7 @@ Validates hook failures don't break deployment:
 
 ### With DevForgeAI Framework
 - Context files: `.devforgeai/context/*.md` (used in tests)
-- Story format: `.ai_docs/Stories/*.story.md` (STORY-025)
+- Story format: `devforgeai/specs/Stories/*.story.md` (STORY-025)
 - Configuration: `.devforgeai/config/hooks.yaml`
 - Logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
 - Feedback: `.devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`
@@ -476,7 +476,7 @@ pytest tests/integration/test_release_hooks_integration.py \
 
 ## Related Documentation
 
-- **Story File**: `.ai_docs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
+- **Story File**: `devforgeai/specs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
 - **Test Documentation**: `README_STORY025_TESTS.md` (detailed test guide)
 - **Pytest Config**: `pytest.ini` (configuration)
 - **Related Stories**:

@@ -190,7 +190,7 @@ class HookRegistry:
             config_path: Path to hooks.yaml (optional)
 
         """
-        self.config_path = config_path or Path(".devforgeai/config/hooks.yaml")
+        self.config_path = config_path or Path("devforgeai/config/hooks.yaml")
         self.entries: Dict[str, HookRegistryEntry] = {}
         self.load_errors: List[str] = []
         self._load_config()

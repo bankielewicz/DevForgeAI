@@ -173,7 +173,7 @@ class ErrorHandler:
         for i, step in enumerate(steps[:3], 1):  # Max 3 steps
             message += f"  {i}. {step}\n"
 
-        message += f"\nFor details, see log file: .devforgeai/install.log\n"
+        message += f"\nFor details, see log file: devforgeai/install.log\n"
 
         # Add rollback/backup info if requested
         if include_rollback_info and self.backup_service:
@@ -226,7 +226,7 @@ class ErrorHandler:
             for i, step in enumerate(steps[:3], 1):
                 output += f"  {i}. {step}\n"
 
-        output += f"\nFor details, see log file: .devforgeai/install.log\n"
+        output += f"\nFor details, see log file: devforgeai/install.log\n"
 
         return output
 
@@ -413,7 +413,7 @@ class ErrorHandler:
             raise RuntimeError(
                 "Concurrent installation detected. Another installation is currently in progress. "
                 "Wait for it to complete or remove the lock file at "
-                ".devforgeai/install.lock"
+                "devforgeai/install.lock"
             )
 
     def log_and_format_error(self, error: Exception, file_paths: Optional[Dict] = None) -> Tuple[str, int]:

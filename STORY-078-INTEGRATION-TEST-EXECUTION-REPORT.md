@@ -256,7 +256,7 @@ All integration tests discovered and validated. Test suite is well-formed and re
 
 ### User Content Preservation
 
-- [x] User stories in `.ai_docs/Stories/` preserved during upgrade
+- [x] User stories in `devforgeai/specs/Stories/` preserved during upgrade
 - [x] Custom configurations not overwritten
 - [x] User modifications retained through upgrade/rollback cycles
 
@@ -591,7 +591,7 @@ Before integration tests can pass, implement:
 - `/mnt/c/Projects/DevForgeAI2/installer/tests/integration/test_rollback_workflow_story078.py` (51 tests)
 
 **Story Documentation:**
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-078-upgrade-mode-migration-scripts.story.md`
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-TEST-SUMMARY.md` (comprehensive test suite overview)
 
 **Supporting Files:**

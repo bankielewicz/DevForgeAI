@@ -36,7 +36,7 @@
 **Critical Violations**: {{CRITICAL_VIOLATIONS}}
 **High Violations**: {{HIGH_VIOLATIONS}}
 
-**QA Report**: `.devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
+**QA Report**: `devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
 
 ### Coverage Breakdown
 
@@ -158,7 +158,7 @@
 ### Post-Release Review
 
 **Scheduled**: {{POST_RELEASE_REVIEW_DATE}}
-**Review Document**: `.devforgeai/post-release/{{STORY_ID}}-review.md`
+**Review Document**: `devforgeai/post-release/{{STORY_ID}}-review.md`
 
 **Review Checklist**:
 - [ ] 24-hour metrics analyzed
@@ -190,10 +190,10 @@ No known issues at time of release.
 
 ## Related Documentation
 
-- **Story Document**: `.ai_docs/Stories/{{STORY_ID}}.story.md`
-- **QA Report**: `.devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
+- **Story Document**: `devforgeai/specs/Stories/{{STORY_ID}}.story.md`
+- **QA Report**: `devforgeai/qa/reports/{{STORY_ID}}-qa-report.md`
 - **Changelog**: `CHANGELOG.md`
-- **Deployment Runbook**: `.devforgeai/runbooks/deployment-{{DEPLOYMENT_PLATFORM}}.md` (if exists)
+- **Deployment Runbook**: `devforgeai/runbooks/deployment-{{DEPLOYMENT_PLATFORM}}.md` (if exists)
 
 ---
 

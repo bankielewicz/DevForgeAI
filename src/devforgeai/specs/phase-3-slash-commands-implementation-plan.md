@@ -6,7 +6,7 @@
 **Updated:** 2025-10-31 (Post Gap Analysis)
 **Status:** ✅ OPTIMIZED & READY FOR IMPLEMENTATION
 **Prerequisites:** Phase 1 & 2 Complete (6 skills + 14 subagents)
-**Gap Analysis:** See `.devforgeai/specs/framework-alignment-gap-analysis.md`
+**Gap Analysis:** See `devforgeai/specs/framework-alignment-gap-analysis.md`
 
 ---
 
@@ -48,7 +48,7 @@ The framework asks **23-113 detailed questions** (depending on complexity) via A
 
 **NO assumptions. NO guessing. NO "vibe coding."**
 
-See `.devforgeai/specs/devforgeai-questioning-rigor-summary.md` for complete question breakdown.
+See `devforgeai/specs/devforgeai-questioning-rigor-summary.md` for complete question breakdown.
 
 ---
 
@@ -133,7 +133,7 @@ The goal is to write tests that fail because...
 
 ✅ AFTER:
 ### Phase 1: Red - Tests
-1. Load: Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Load: Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Generate: Task(subagent_type="test-automator", prompt="Generate tests from acceptance criteria")
 3. Run: Bash(pytest tests/)
 4. Verify: ALL FAIL
@@ -406,7 +406,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-architecture), Ta
 3. Link ADRs in context files
 
 #### Success Criteria
-- [ ] All 6 context files generated in `.devforgeai/context/`
+- [ ] All 6 context files generated in `devforgeai/specs/context/`
 - [ ] Files contain no TODO/TBD placeholders
 - [ ] tech-stack.md reflects user technology choices
 - [ ] source-tree.md defines project structure
@@ -441,7 +441,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-development), Tas
 #### Workflow Overview
 
 **Phase 1: Story Loading**
-1. Read(file_path=".ai_docs/Stories/$ARGUMENTS.story.md")
+1. Read(file_path="devforgeai/specs/Stories/$ARGUMENTS.story.md")
 2. Parse YAML frontmatter (id, title, status, epic, sprint)
 3. Extract acceptance criteria (Given/When/Then format)
 4. Identify story type (backend, frontend, full-stack, refactoring)
@@ -571,7 +571,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-qa), Task(context
 
 **Phase 4: Report Generation**
 1. Aggregate all validation results
-2. Write QA report to `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+2. Write QA report to `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 3. Include: violations (CRITICAL/HIGH/MEDIUM/LOW), coverage data, metrics
 
 **Phase 5: Status Transition**
@@ -632,7 +632,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Task(requirements-analyst), Task(a
 4. Document business rules (validations, calculations)
 
 **Phase 4: Story File Creation**
-1. Write story file to `.ai_docs/Stories/{STORY-ID}.story.md`
+1. Write story file to `devforgeai/specs/Stories/{STORY-ID}.story.md`
 2. Include YAML frontmatter (id, title, epic, sprint, status, points, priority)
 3. Add user story, acceptance criteria, technical spec, NFRs
 4. Set initial status to "Backlog"
@@ -647,7 +647,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Task(requirements-analyst), Task(a
 - [ ] Acceptance criteria in Given/When/Then format
 - [ ] Technical specification complete
 - [ ] NFRs documented
-- [ ] Story file created in `.ai_docs/Stories/`
+- [ ] Story file created in `devforgeai/specs/Stories/`
 - [ ] Linked to parent epic and sprint
 
 #### Command Length Target
@@ -683,7 +683,7 @@ allowed-tools: Read, Write, Edit, Glob, Skill(devforgeai-release), Task(deployme
 
 **Phase 2: Environment Selection**
 1. Parse --env flag (default: staging)
-2. Read deployment config from `.devforgeai/deployment/config.json`
+2. Read deployment config from `devforgeai/deployment/config.json`
 3. Verify environment availability
 
 **Phase 3: Deployment Execution**
@@ -753,7 +753,7 @@ allowed-tools: Read, Write, Edit, SlashCommand
 **Workflow:**
 ```markdown
 ### Phase 1: Story Validation
-1. Read story file: @.ai_docs/Stories/$ARGUMENTS.story.md
+1. Read story file: @devforgeai/specs/Stories/$ARGUMENTS.story.md
 2. Verify status is "Ready for Dev" or "Backlog"
 3. Load checkpoint data if resuming
 
@@ -797,7 +797,7 @@ allowed-tools: Read, Write, Edit, Skill
 **Workflow:**
 ```markdown
 ### Phase 1: Story Validation
-1. Read story file: @.ai_docs/Stories/$ARGUMENTS.story.md
+1. Read story file: @devforgeai/specs/Stories/$ARGUMENTS.story.md
 2. Verify status is "Ready for Dev" or "Backlog"
 
 ### Phase 2: Development Phase
@@ -882,9 +882,9 @@ allowed-tools: Read, Write, Edit, Skill(devforgeai-ideation), Task(requirements-
 3. Suggest technology stacks for complexity level
 
 **Phase 4: Epic Generation**
-1. Generate epic document(s) in `.ai_docs/Epics/`
+1. Generate epic document(s) in `devforgeai/specs/Epics/`
 2. Include feature breakdown, high-level stories
-3. Create requirements spec in `.devforgeai/specs/requirements/`
+3. Create requirements spec in `devforgeai/specs/requirements/`
 
 **Phase 5: Next Steps**
 1. Suggest invoking /create-context next
@@ -944,7 +944,7 @@ allowed-tools: Read, Write, Edit, Glob, Task(requirements-analyst), AskUserQuest
 3. Estimate complexity and duration
 
 **Phase 3: Epic File Creation**
-1. Write epic file to `.ai_docs/Epics/{EPIC-ID}.epic.md`
+1. Write epic file to `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
 2. Include YAML frontmatter (id, title, status, features)
 3. Add feature list with descriptions
 4. Set status to "Planning"
@@ -963,7 +963,7 @@ allowed-tools: Read, Write, Edit, Glob, Task(requirements-analyst), AskUserQuest
 4. Calculate story points capacity
 
 **Phase 3: Sprint File Creation**
-1. Write sprint file to `.ai_docs/Sprints/Sprint-{N}.md`
+1. Write sprint file to `devforgeai/specs/Sprints/Sprint-{N}.md`
 2. Include YAML frontmatter (id, start, end, stories, capacity)
 3. Link selected stories
 4. Set status to "Active"
@@ -1021,15 +1021,15 @@ SlashCommand(command="/release STORY-001 --env=staging")
 ### File System Integration
 
 **Read Operations** (using Read tool):
-- Story files: `.ai_docs/Stories/*.story.md`
-- Context files: `.devforgeai/context/*.md`
-- Configuration: `.devforgeai/deployment/config.json`
+- Story files: `devforgeai/specs/Stories/*.story.md`
+- Context files: `devforgeai/specs/context/*.md`
+- Configuration: `devforgeai/deployment/config.json`
 
 **Write Operations** (using Write tool):
-- Story files: `.ai_docs/Stories/{STORY-ID}.story.md`
-- Epic files: `.ai_docs/Epics/{EPIC-ID}.epic.md`
-- Sprint files: `.ai_docs/Sprints/Sprint-{N}.md`
-- QA reports: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+- Story files: `devforgeai/specs/Stories/{STORY-ID}.story.md`
+- Epic files: `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
+- Sprint files: `devforgeai/specs/Sprints/Sprint-{N}.md`
+- QA reports: `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 
 **Edit Operations** (using Edit tool):
 - Update story status

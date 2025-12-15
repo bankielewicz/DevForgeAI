@@ -109,7 +109,7 @@ Action: Reduce context length and retry
 
 ### Feedback Directory Not Writable
 ```
-Error: Cannot write to .devforgeai/feedback/ directory
+Error: Cannot write to devforgeai/feedback/ directory
 Constraint: Requires write permissions
 Action: Check directory permissions and retry
 ```
@@ -135,7 +135,7 @@ Action: Check directory permissions and retry
 
 **Invokes:** devforgeai-feedback skill (captures and stores feedback)
 
-**Updates:** .devforgeai/feedback/feedback-register.md (appends new entry)
+**Updates:** devforgeai/feedback/feedback-register.md (appends new entry)
 
 **Used with:**
 - `/feedback-search` - Query captured feedback
@@ -234,15 +234,15 @@ Context: N/A
 
 **Symptoms:** Permission error when capturing feedback
 
-**Cause:** Insufficient permissions on `.devforgeai/feedback/` directory
+**Cause:** Insufficient permissions on `devforgeai/feedback/` directory
 
 **Resolution:**
 ```bash
 # Check permissions
-ls -la .devforgeai/feedback/
+ls -la devforgeai/feedback/
 
 # Fix permissions if needed
-chmod 755 .devforgeai/feedback/
+chmod 755 devforgeai/feedback/
 ```
 
 ### Issue: Feedback ID not incrementing
@@ -254,7 +254,7 @@ chmod 755 .devforgeai/feedback/
 **Resolution:**
 ```bash
 # Check feedback register for duplicates
-cat .devforgeai/feedback/feedback-register.md | grep "^## FB-"
+cat devforgeai/feedback/feedback-register.md | grep "^## FB-"
 
 # If duplicates found, manually edit to fix sequence numbers
 ```
@@ -275,5 +275,5 @@ cat .devforgeai/feedback/feedback-register.md | grep "^## FB-"
 
 - devforgeai-feedback skill documentation
 - STORY-020: Feedback CLI Commands (implementation story)
-- .devforgeai/feedback/feedback-register.md (feedback storage)
-- .devforgeai/feedback/config.yaml (configuration file)
+- devforgeai/feedback/feedback-register.md (feedback storage)
+- devforgeai/feedback/config.yaml (configuration file)

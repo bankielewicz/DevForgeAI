@@ -71,7 +71,7 @@ THRESHOLDS = {
 }
 
 
-def load_monitoring_config(config_path: str = '.devforgeai/monitoring/config.json') -> Dict:
+def load_monitoring_config(config_path: str = 'devforgeai/monitoring/config.json') -> Dict:
     """
     Load monitoring system configuration.
 
@@ -230,7 +230,7 @@ def load_baseline(environment: str, baseline_path: Optional[str] = None) -> Opti
     if baseline_path:
         baseline_file = Path(baseline_path)
     else:
-        baseline_file = Path(f'.devforgeai/monitoring/baselines/{environment}-baseline.json')
+        baseline_file = Path(f'devforgeai/monitoring/baselines/{environment}-baseline.json')
 
     if not baseline_file.exists():
         logger.warning(f"Baseline file not found: {baseline_file}")
@@ -481,7 +481,7 @@ Examples:
 
     parser.add_argument(
         '--config',
-        default='.devforgeai/monitoring/config.json',
+        default='devforgeai/monitoring/config.json',
         help='Path to monitoring config file'
     )
 

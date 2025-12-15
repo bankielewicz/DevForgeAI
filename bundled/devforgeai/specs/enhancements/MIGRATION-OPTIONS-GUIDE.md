@@ -43,7 +43,7 @@ The migration script has a **built-in fallback** that works WITHOUT an API key.
 **Basic migration (no AI):**
 ```bash
 python3 .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py \
-  .ai_docs/Stories/STORY-001.story.md \
+  devforgeai/specs/Stories/STORY-001.story.md \
   --validate
 ```
 
@@ -101,10 +101,10 @@ Instead of using the migration script's AI mode (external API calls), use **Clau
 You: "Migrate STORY-001 to v2.0 format"
 
 Claude reads:
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 Claude reads format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Claude:
 1. Parses freeform tech spec from STORY-001
@@ -130,8 +130,8 @@ Result: STORY-001.story.md updated to v2.0
 
 **Step 1: Load story and format spec**
 ```
-@.ai_docs/Stories/STORY-001.story.md
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/Stories/STORY-001.story.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 
 **Step 2: Request migration**
@@ -160,7 +160,7 @@ Use Edit tool to replace the Technical Specification section.
 **Step 4: Verify**
 ```bash
 python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
-  .ai_docs/Stories/STORY-001.story.md
+  devforgeai/specs/Stories/STORY-001.story.md
 ```
 
 **Time:** 5-10 minutes per story (mostly automated)
@@ -172,10 +172,10 @@ python3 .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
 **For migrating ALL 12 stories:**
 
 ```
-I need to migrate all 12 stories in .ai_docs/Stories/ from v1.0 to v2.0 format.
+I need to migrate all 12 stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Process:
-1. List all story files: Glob(pattern=".ai_docs/Stories/*.story.md")
+1. List all story files: Glob(pattern="devforgeai/specs/Stories/*.story.md")
 2. For each story:
    - Read story file
    - Read STRUCTURED-FORMAT-SPECIFICATION.md
@@ -308,8 +308,8 @@ Ready to begin?
 Migrate STORY-001 to v2.0 format.
 
 Read files:
-@.ai_docs/Stories/STORY-001.story.md
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/Stories/STORY-001.story.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Tasks:
 1. Extract freeform Technical Specification section
@@ -333,13 +333,13 @@ Ready to migrate STORY-001?
 **Single prompt for all 12 stories:**
 
 ```
-Migrate ALL stories in .ai_docs/Stories/ from v1.0 to v2.0 format.
+Migrate ALL stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Context files to read:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process:
-1. Glob(pattern=".ai_docs/Stories/*.story.md") - Find all stories
+1. Glob(pattern="devforgeai/specs/Stories/*.story.md") - Find all stories
 2. Create todo list (12 stories)
 3. For each story:
    a. Read story file
@@ -460,10 +460,10 @@ python3 migrate_story_v1_to_v2.py STORY-001.story.md --validate
 
 **Step 1: Copy this prompt into Claude Code Terminal**
 ```
-Migrate all stories in .ai_docs/Stories/ from v1.0 to v2.0 format.
+Migrate all stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Read format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process:
 1. Glob all story files
@@ -572,7 +572,7 @@ components:
 **Step 2: Pattern matching validates**
 ```bash
 # After Claude migration, double-check with pattern script
-for story in .ai_docs/Stories/*.story.md; do
+for story in devforgeai/specs/Stories/*.story.md; do
   python3 validate_tech_spec.py "$story"
 done
 ```
@@ -651,10 +651,10 @@ Prompt: "Migrate all 12 stories to v2.0 format following STRUCTURED-FORMAT-SPECI
 **Copy this into Claude Code Terminal to migrate all 12 stories:**
 
 ```
-Migrate all stories in .ai_docs/Stories/ from v1.0 to v2.0 format.
+Migrate all stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process for each story:
 1. Read story file

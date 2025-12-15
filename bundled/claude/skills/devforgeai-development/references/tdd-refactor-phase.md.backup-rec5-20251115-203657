@@ -33,9 +33,9 @@ Task(
   Implementation files and tests available in conversation.
 
   Context files to enforce:
-  - .devforgeai/context/anti-patterns.md (check for violations)
-  - .devforgeai/context/coding-standards.md (apply patterns)
-  - .devforgeai/context/architecture-constraints.md (maintain layer boundaries)
+  - devforgeai/specs/context/anti-patterns.md (check for violations)
+  - devforgeai/specs/context/coding-standards.md (apply patterns)
+  - devforgeai/specs/context/architecture-constraints.md (maintain layer boundaries)
 
   Refactoring targets:
   1. Anti-pattern violations (God objects, tight coupling, magic numbers)

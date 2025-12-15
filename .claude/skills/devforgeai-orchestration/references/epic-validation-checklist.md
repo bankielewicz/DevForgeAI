@@ -357,7 +357,7 @@ IF duration > 6 sprints:
 
 ### Context File Alignment
 
-**IF context files exist in `.devforgeai/context/`:**
+**IF context files exist in `devforgeai/specs/context/`:**
 
 ```
 Read all 6 files:

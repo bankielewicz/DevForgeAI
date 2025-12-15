@@ -446,13 +446,13 @@ When implementing Phase N in `.claude/commands/ideate.md`:
 ## Related Documentation
 
 **Story File:**
-- `.ai_docs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
+- `devforgeai/specs/Stories/STORY-031-wire-hooks-into-ideate-command.story.md`
 
 **Command File (Target):**
 - `.claude/commands/ideate.md` (Phase N to be implemented)
 
 **Pilot Implementation:**
-- `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
+- `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
 - `.claude/commands/dev.md` (Phase 6 reference)
 
 **Hook Infrastructure:**
@@ -534,7 +534,7 @@ result = subprocess.run(
 
 **Verify artifacts:**
 ```python
-epic_file = Path(".ai_docs/Epics/EPIC-001.epic.md")
+epic_file = Path("devforgeai/specs/Epics/EPIC-001.epic.md")
 assert epic_file.exists()
 req_file = Path(".devforgeai/specs/requirements/project-requirements.md")
 assert req_file.exists()

@@ -112,13 +112,13 @@ cd .claude/skills/devforgeai-story-creation/scripts
 
 # AI-assisted migration with validation (RECOMMENDED)
 python3 migrate_story_v1_to_v2.py \
-  ../../.ai_docs/Stories/STORY-001.story.md \
+  ../../devforgeai/specs/Stories/STORY-001.story.md \
   --ai-assisted \
   --validate
 
 # Output:
 # 🤖 Using AI-assisted conversion (95%+ accuracy)...
-# 📁 Backup created: .devforgeai/backups/phase2-migration/STORY-001-20251107-143022.md
+# 📁 Backup created: devforgeai/backups/phase2-migration/STORY-001-20251107-143022.md
 # 🔄 Converting STORY-001.story.md to v2.0 format...
 # ✅ STORY-001.story.md: Migrated to v2.0
 #
@@ -142,7 +142,7 @@ python3 migrate_story_v1_to_v2.py \
 ```bash
 # Preview what would change without modifying file
 python3 migrate_story_v1_to_v2.py \
-  ../../.ai_docs/Stories/STORY-001.story.md \
+  ../../devforgeai/specs/Stories/STORY-001.story.md \
   --ai-assisted \
   --dry-run
 
@@ -167,7 +167,7 @@ python3 migrate_story_v1_to_v2.py \
 
 ```bash
 # Migrate all stories in directory
-for story in ../../.ai_docs/Stories/*.story.md; do
+for story in ../../devforgeai/specs/Stories/*.story.md; do
     echo "Migrating: $story"
 
     python3 migrate_story_v1_to_v2.py \
@@ -516,7 +516,7 @@ python3 migrate_story_v1_to_v2.py story.md --ai-assisted --dry-run
 **Short-term:**
 ```bash
 # Manually fix the migrated YAML
-nano .ai_docs/Stories/STORY-001.story.md
+nano devforgeai/specs/Stories/STORY-001.story.md
 
 # Adjust:
 # - Component types (Worker vs Service)
@@ -580,7 +580,7 @@ for batch in {0..4}; do
 
     for i in $(seq $start $end); do
         python3 migrate_story_v1_to_v2.py \
-          ../../.ai_docs/Stories/STORY-$(printf "%03d" $i)*.md \
+          ../../devforgeai/specs/Stories/STORY-$(printf "%03d" $i)*.md \
           --ai-assisted \
           --validate
     done
@@ -607,7 +607,7 @@ done
 # Stories to review: 5, 10, 15, 20, 25, 30, 35, 40, 45, 50
 for i in 5 10 15 20 25 30 35 40 45 50; do
     echo "=== Manual Review: STORY-$(printf "%03d" $i) ==="
-    cat ../../.ai_docs/Stories/STORY-$(printf "%03d" $i)*.md | \
+    cat ../../devforgeai/specs/Stories/STORY-$(printf "%03d" $i)*.md | \
       sed -n '/## Technical Specification/,/## /p' | \
       head -100
 
@@ -632,13 +632,13 @@ awk '{sum+=$2; count++} END {print "Average quality: " sum/count "/5"}' manual-r
 
 ```bash
 # Backups automatically created in:
-# .devforgeai/backups/phase2-migration/
+# devforgeai/backups/phase2-migration/
 
 # Verify backups exist
-ls .devforgeai/backups/phase2-migration/ | wc -l
+ls devforgeai/backups/phase2-migration/ | wc -l
 
 # Archive old backups after 30 days
-find .devforgeai/backups/phase2-migration/ -mtime +30 -exec rm {} \;
+find devforgeai/backups/phase2-migration/ -mtime +30 -exec rm {} \;
 ```
 
 ---

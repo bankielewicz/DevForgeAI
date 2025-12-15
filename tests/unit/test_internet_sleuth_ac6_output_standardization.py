@@ -5,7 +5,7 @@ Tests verify research outputs written to correct location:
 - .devforgeai/research/ directory for all outputs
 - Filename conventions documented (tech-eval-{topic}-{date}.md format)
 - Directory created if doesn't exist
-- No outputs to deprecated locations (.ai_docs/research/)
+- No outputs to deprecated locations (devforgeai/specs/research/)
 """
 
 import pytest
@@ -85,7 +85,7 @@ class TestAC6OutputStandardization:
         """
         # Act
         old_paths = [
-            r'\.ai_docs/research/',
+            r'\devforgeai/specs/research/',
             r'tmp/repos/research-',  # Old research output pattern
             r'ai_docs/architecture/research'
         ]
@@ -262,13 +262,13 @@ class TestAC6OutputStandardization:
         has_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
 
         # Additional check: Should NOT have old research directories
-        has_old_research_dir = bool(re.search(r'\.ai_docs/research/', agent_content))
+        has_old_research_dir = bool(re.search(r'\devforgeai/specs/research/', agent_content))
 
         # Assert
         assert has_research_dir, \
             "BR-003 FAILED: Must document '.devforgeai/research/' as research output directory"
         assert not has_old_research_dir, \
-            "BR-003 FAILED: Must NOT reference deprecated '.ai_docs/research/' directory"
+            "BR-003 FAILED: Must NOT reference deprecated 'devforgeai/specs/research/' directory"
 
     @pytest.mark.business_rule
     def test_br_003_directory_permissions_documented(self, agent_content):

@@ -174,13 +174,13 @@ def load_config(config_path: Optional[str] = None) -> Optional[Dict[str, Any]]:
 
     Args:
         config_path: Path to hooks.yaml config file.
-                    If None, uses default: .devforgeai/config/hooks.yaml
+                    If None, uses default: devforgeai/config/hooks.yaml
 
     Returns:
         Configuration dictionary or None if file not found/invalid
     """
     if config_path is None:
-        config_path = ".devforgeai/config/hooks.yaml"
+        config_path = "devforgeai/config/hooks.yaml"
 
     config_path = str(config_path)
 
@@ -324,7 +324,7 @@ def _create_argument_parser() -> "argparse.ArgumentParser":
     parser.add_argument(
         "--config",
         default=None,
-        help="Path to hooks.yaml config file (default: .devforgeai/config/hooks.yaml)",
+        help="Path to hooks.yaml config file (default: devforgeai/config/hooks.yaml)",
     )
 
     return parser

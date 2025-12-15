@@ -315,8 +315,8 @@ pytest tests/ --cov=.claude/commands --cov-report=term
 
 ### Files Required for Testing
 - `.claude/commands/audit-deferrals.md` (test target)
-- `.ai_docs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md` (reference)
-- `.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md` (pattern reference)
+- `devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md` (reference)
+- `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md` (pattern reference)
 
 ### External Requirements
 - pytest (test framework)

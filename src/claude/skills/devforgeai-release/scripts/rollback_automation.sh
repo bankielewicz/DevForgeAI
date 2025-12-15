@@ -149,7 +149,7 @@ if [ -z "$DEPLOYMENT" ]; then
 fi
 
 # Create rollback log directory
-LOG_DIR=".devforgeai/releases/rollback-logs"
+LOG_DIR="devforgeai/releases/rollback-logs"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/rollback-$(date '+%Y%m%d-%H%M%S').log"
 

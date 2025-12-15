@@ -3,7 +3,7 @@ RollbackValidator for post-rollback verification (STORY-080).
 
 Validates restored files against backup manifest:
 - Checksum verification (SHA256)
-- Critical files presence check (CLAUDE.md, .devforgeai/, .claude/)
+- Critical files presence check (CLAUDE.md, devforgeai/, .claude/)
 - Partial restore detection
 
 Implements AC#6: Post-rollback validation

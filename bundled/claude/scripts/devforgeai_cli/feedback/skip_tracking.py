@@ -24,7 +24,7 @@ def _get_config_file(config_dir: Optional[Path] = None) -> Path:
     Get feedback config file path.
 
     Args:
-        config_dir: Config directory (default: .devforgeai/config)
+        config_dir: Config directory (default: devforgeai/config)
 
     Returns:
         Path to feedback-preferences.yaml (per STORY-009 specification)

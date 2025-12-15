@@ -18,10 +18,10 @@ Backups enable instant rollback if something goes wrong.
 ## Backup Location
 
 ```
-.devforgeai/backups/
+devforgeai/backups/
 ├── v1.0.0-20251206120000/     # Backup from v1.0.0, timestamp
 │   ├── .claude/               # Claude directory backup
-│   ├── .devforgeai/           # DevForgeAI directory backup
+│   ├── devforgeai/           # DevForgeAI directory backup
 │   ├── CLAUDE.md              # CLAUDE.md backup
 │   └── manifest.json          # Backup metadata
 ├── v1.1.0-20251206130000/     # Another backup
@@ -37,7 +37,7 @@ Each backup includes:
 | Directory/File | Description |
 |----------------|-------------|
 | `.claude/` | Skills, commands, agents, settings |
-| `.devforgeai/` | Context files, config, specs, ADRs |
+| `devforgeai/` | Context files, config, specs, ADRs |
 | `CLAUDE.md` | Project instructions |
 | `manifest.json` | Backup metadata and checksums |
 
@@ -70,7 +70,7 @@ Each backup includes:
 ### View All Backups
 
 ```bash
-ls -la .devforgeai/backups/
+ls -la devforgeai/backups/
 ```
 
 Output:
@@ -83,13 +83,13 @@ drwxr-xr-x  4 user  staff  128 Dec  6 14:00 v1.2.0-20251206140000
 ### View Backup Details
 
 ```bash
-cat .devforgeai/backups/v1.0.0-20251206120000/manifest.json | python3 -m json.tool
+cat devforgeai/backups/v1.0.0-20251206120000/manifest.json | python3 -m json.tool
 ```
 
 ### Count Backups
 
 ```bash
-ls -d .devforgeai/backups/*/ | wc -l
+ls -d devforgeai/backups/*/ | wc -l
 ```
 
 ---
@@ -103,7 +103,7 @@ ls -d .devforgeai/backups/*/ | wc -l
 devforgeai rollback
 
 # Restore from specific backup
-devforgeai rollback --backup=.devforgeai/backups/v1.0.0-20251206120000/
+devforgeai rollback --backup=devforgeai/backups/v1.0.0-20251206120000/
 ```
 
 ### Manual Restore
@@ -112,7 +112,7 @@ If CLI is unavailable:
 
 ```bash
 # Choose backup to restore
-BACKUP=".devforgeai/backups/v1.0.0-20251206120000"
+BACKUP="devforgeai/backups/v1.0.0-20251206120000"
 
 # Verify backup integrity
 python3 -c "
@@ -133,7 +133,7 @@ cp -r "$BACKUP/.claude" .
 cp "$BACKUP/CLAUDE.md" .
 
 # Verify restoration
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 ---
@@ -144,7 +144,7 @@ cat .devforgeai/.version.json
 
 ```bash
 # Create timestamped backup directory
-BACKUP_DIR=".devforgeai/backups/manual-$(date +%Y%m%d%H%M%S)"
+BACKUP_DIR="devforgeai/backups/manual-$(date +%Y%m%d%H%M%S)"
 mkdir -p "$BACKUP_DIR"
 
 # Copy files
@@ -199,23 +199,23 @@ Default retention: **5 most recent backups**
 
 ```bash
 # Keep only last 5 backups
-ls -td .devforgeai/backups/*/ | tail -n +6 | xargs rm -rf
+ls -td devforgeai/backups/*/ | tail -n +6 | xargs rm -rf
 
 # Keep only backups from last 30 days
-find .devforgeai/backups -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
+find devforgeai/backups -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
 
 # Remove specific backup
-rm -rf .devforgeai/backups/v1.0.0-20251206120000/
+rm -rf devforgeai/backups/v1.0.0-20251206120000/
 ```
 
 ### Check Backup Sizes
 
 ```bash
 # Total backup storage used
-du -sh .devforgeai/backups/
+du -sh devforgeai/backups/
 
 # Size per backup
-du -sh .devforgeai/backups/*/
+du -sh devforgeai/backups/*/
 ```
 
 ---
@@ -229,7 +229,7 @@ du -sh .devforgeai/backups/*/
 python3 -c "
 import json
 from pathlib import Path
-for backup in Path('.devforgeai/backups').iterdir():
+for backup in Path('devforgeai/backups').iterdir():
     manifest_path = backup / 'manifest.json'
     if manifest_path.exists():
         try:
@@ -246,7 +246,7 @@ for backup in Path('.devforgeai/backups').iterdir():
 
 ```bash
 # Compare manifest file count to actual files
-BACKUP=".devforgeai/backups/v1.0.0-20251206120000"
+BACKUP="devforgeai/backups/v1.0.0-20251206120000"
 MANIFEST_COUNT=$(python3 -c "import json; print(json.loads(open('$BACKUP/manifest.json').read())['file_count'])")
 ACTUAL_COUNT=$(find "$BACKUP" -type f ! -name "manifest.json" | wc -l)
 
@@ -266,7 +266,7 @@ import json
 import hashlib
 from pathlib import Path
 
-backup = Path(".devforgeai/backups/v1.0.0-20251206120000")
+backup = Path("devforgeai/backups/v1.0.0-20251206120000")
 manifest = json.loads((backup / "manifest.json").read_text())
 
 errors = 0
@@ -297,8 +297,8 @@ EOF
 
 ```bash
 # Check most recent backup is valid
-ls -la .devforgeai/backups/ | tail -1
-cat .devforgeai/backups/*/manifest.json | head -20
+ls -la devforgeai/backups/ | tail -1
+cat devforgeai/backups/*/manifest.json | head -20
 ```
 
 ### 2. Keep Sufficient Backups
@@ -312,7 +312,7 @@ Recommended minimums:
 
 ```bash
 # Set up alert for backup directory size
-BACKUP_SIZE=$(du -sm .devforgeai/backups | cut -f1)
+BACKUP_SIZE=$(du -sm devforgeai/backups | cut -f1)
 if [ "$BACKUP_SIZE" -gt 500 ]; then
     echo "Warning: Backups exceed 500MB ($BACKUP_SIZE MB)"
 fi
@@ -324,10 +324,10 @@ For critical systems, copy backups externally:
 
 ```bash
 # Sync to external location
-rsync -av .devforgeai/backups/ /backup/devforgeai/
+rsync -av devforgeai/backups/ /backup/devforgeai/
 
 # Or archive and upload
-tar -czf devforgeai-backups-$(date +%Y%m%d).tar.gz .devforgeai/backups/
+tar -czf devforgeai-backups-$(date +%Y%m%d).tar.gz devforgeai/backups/
 ```
 
 ### 5. Test Restores Periodically
@@ -335,7 +335,7 @@ tar -czf devforgeai-backups-$(date +%Y%m%d).tar.gz .devforgeai/backups/
 ```bash
 # Test restore in temporary directory
 TEMP_DIR=$(mktemp -d)
-cp -r .devforgeai/backups/v1.0.0-20251206120000/* "$TEMP_DIR/"
+cp -r devforgeai/backups/v1.0.0-20251206120000/* "$TEMP_DIR/"
 # Verify files
 ls -la "$TEMP_DIR/"
 rm -rf "$TEMP_DIR"
@@ -351,12 +351,12 @@ rm -rf "$TEMP_DIR"
 ```bash
 df -h .
 # Clean old backups
-ls -td .devforgeai/backups/*/ | tail -n +3 | xargs rm -rf
+ls -td devforgeai/backups/*/ | tail -n +3 | xargs rm -rf
 ```
 
 **Permission denied:**
 ```bash
-chmod -R u+rw .devforgeai/backups/
+chmod -R u+rw devforgeai/backups/
 ```
 
 ### Restore Fails
@@ -364,14 +364,14 @@ chmod -R u+rw .devforgeai/backups/
 **Backup corrupted:**
 ```bash
 # Try older backup
-ls -t .devforgeai/backups/
-devforgeai rollback --backup=.devforgeai/backups/v0.9.0-20251205120000/
+ls -t devforgeai/backups/
+devforgeai rollback --backup=devforgeai/backups/v0.9.0-20251205120000/
 ```
 
 **Missing files:**
 ```bash
 # Check what's in backup
-find .devforgeai/backups/v1.0.0-*/ -type f | head -20
+find devforgeai/backups/v1.0.0-*/ -type f | head -20
 ```
 
 ---
@@ -380,7 +380,7 @@ find .devforgeai/backups/v1.0.0-*/ -type f | head -20
 
 ### Backup Settings
 
-Configure in `.devforgeai/config/upgrade-config.json`:
+Configure in `devforgeai/config/upgrade-config.json`:
 
 ```json
 {
@@ -395,7 +395,7 @@ Configure in `.devforgeai/config/upgrade-config.json`:
 |---------|---------|-------------|
 | `backup_retention_count` | 5 | Number of backups to keep |
 | `backup_timeout_seconds` | 30 | Max time for backup creation |
-| `include_user_content` | false | Include .ai_docs/ in backups |
+| `include_user_content` | false | Include devforgeai/specs/ in backups |
 | `compression_enabled` | false | Compress backup files |
 
 ---

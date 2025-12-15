@@ -257,7 +257,7 @@ technical_specification:
 ```
 ````
 
-**Complete schema:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+**Complete schema:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **Legacy v1.0 Format (Deprecated):**
 

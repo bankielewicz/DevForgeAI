@@ -151,7 +151,7 @@ error_handling:
 monitoring:
   log_violations:
     enabled: true
-    log_path: ".devforgeai/logs/rca-007-violations.log"
+    log_path: "devforgeai/logs/rca-007-violations.log"
     log_format: |
       [VIOLATION DETECTED]
       Timestamp: {timestamp}

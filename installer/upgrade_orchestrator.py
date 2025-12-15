@@ -443,7 +443,7 @@ class UpgradeOrchestrator:
         self, target_root: Path, from_version: str, to_version: str, migrations
     ) -> None:
         """
-        Update .devforgeai/.version.json with new version info.
+        Update devforgeai/.version.json with new version info.
 
         Args:
             target_root: Installation root

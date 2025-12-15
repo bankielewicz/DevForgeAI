@@ -190,7 +190,7 @@ class TestInstallationValidatorBasics:
             "created_at": installation_time.isoformat(),
             "files": [
                 {
-                    "path": ".ai_docs/user_story.md",
+                    "path": "devforgeai/specs/user_story.md",
                     "checksum": self._calculate_sha256(user_content),
                     "size": len(user_content),
                     "is_user_modifiable": True,
@@ -452,7 +452,7 @@ class TestUserModifiedFileDetection:
     """Tests for user-modified file detection (AC#3)."""
 
     def test_should_flag_user_modifiable_location_files(self, tmp_project):
-        """AC#3: File in user-modifiable location (.ai_docs/) flagged separately."""
+        """AC#3: File in user-modifiable location (devforgeai/specs/) flagged separately."""
         # Arrange
         manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
 
@@ -466,7 +466,7 @@ class TestUserModifiedFileDetection:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "files": [
                 {
-                    "path": ".ai_docs/story.md",
+                    "path": "devforgeai/specs/story.md",
                     "checksum": "differentchecksum",  # Will be detected as corrupted
                     "size": 100,
                     "is_user_modifiable": True,
@@ -538,7 +538,7 @@ class TestUserModifiedFileDetection:
             "created_at": datetime.now(timezone.utc).isoformat(),
             "files": [
                 {
-                    "path": ".devforgeai/context/tech-stack.md",
+                    "path": "devforgeai/specs/context/tech-stack.md",
                     "checksum": "original_checksum",
                     "size": 100,
                     "is_user_modifiable": True,

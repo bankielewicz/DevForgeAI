@@ -4,12 +4,15 @@ tmp/
 
 # Backups (generated during development)
 .backups/
-.devforgeai/backups/
+devforgeai/backups/
+
+# QA reports (generated during validation)
+devforgeai/qa/reports/
 
 # Root CLAUDE.md (user-specific, not tracked - src/CLAUDE.md is the source template)
 #CLAUDE.md
 
-# .ai_docs/ should be tracked (contains stories, epics, sprints)
+# devforgeai/specs/ should be tracked (contains stories, epics, sprints)
 
 # Python
 __pycache__/

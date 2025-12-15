@@ -3,7 +3,7 @@ Shared fixtures for integration tests (STORY-045).
 
 This module provides fixtures for end-to-end integration testing with REAL file I/O:
 - Temporary test projects in /tmp with realistic directory structures
-- Source framework files (mock .claude/ and .devforgeai/)
+- Source framework files (mock .claude/ and devforgeai/)
 - Version files with proper semantic versioning
 - User config files that should be preserved
 - Backup validation helpers
@@ -31,8 +31,8 @@ def integration_project(tmp_path):
 
     This fixture creates a complete project structure with:
     - .claude/ directory with subdirectories
-    - .devforgeai/ directory with subdirectories
-    - .ai_docs/ directory (user-created, must be preserved)
+    - devforgeai/ directory with subdirectories
+    - devforgeai/specs/ directory (user-created, must be preserved)
     - CLAUDE.md (user-created, must be preserved)
 
     AC: Project structure matches DevForgeAI installation structure
@@ -44,8 +44,8 @@ def integration_project(tmp_path):
         dict: Project structure with keys:
         - "root": Path to project root
         - "claude": Path to .claude/
-        - "devforgeai": Path to .devforgeai/
-        - "ai_docs": Path to .ai_docs/ (user directory)
+        - "devforgeai": Path to devforgeai/
+        - "ai_docs": Path to devforgeai/specs/ (user directory)
     """
     root = tmp_path / "integration_project"
     root.mkdir(parents=True)
@@ -59,7 +59,7 @@ def integration_project(tmp_path):
     (claude_dir / "scripts").mkdir(parents=True)
     (claude_dir / "skills").mkdir(parents=True)
 
-    # Create .devforgeai/ structure with ALL required directories for validation
+    # Create devforgeai/ structure with ALL required directories for validation
     devforgeai_dir = root / ".devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir(parents=True)
@@ -186,7 +186,7 @@ def baseline_project(integration_project):
     This fixture prepares a project that simulates an existing installation by:
     - Creating .version.json with v1.0.0 metadata
     - Creating sample .claude/ files (enough to pass validation: 11 commands, 10 skills, 3 protocols)
-    - Creating sample .devforgeai/ files
+    - Creating sample devforgeai/ files
     - Creating CLAUDE.md
     - Setting proper file timestamps
 
@@ -223,7 +223,7 @@ def baseline_project(integration_project):
     # Create critical files to pass validation:
     # - 11+ commands in .claude/commands/
     # - 10+ skills in .claude/skills/
-    # - 3+ protocols in .devforgeai/protocols/
+    # - 3+ protocols in devforgeai/protocols/
 
     claude_files_created = 0
 
@@ -245,7 +245,7 @@ def baseline_project(integration_project):
         file_path.write_text(f"# Skill {i}\n\nBaseline skill from v1.0.0\n")
         claude_files_created += 1
 
-    # Create 3+ protocols in .devforgeai/protocols/
+    # Create 3+ protocols in devforgeai/protocols/
     protocols_dir = devforgeai_dir / "protocols"
     protocols_dir.mkdir(parents=True, exist_ok=True)
     for i in range(3):
@@ -282,7 +282,7 @@ def baseline_project(integration_project):
         file_path.write_text(f"# Protocol {i}\n\nBaseline protocol from v1.0.0\n")
         claude_files_created += 1
 
-    # Create additional files in .devforgeai/ directories
+    # Create additional files in devforgeai/ directories
     # ADRs (create at least 1 file so directory is backed up properly)
     adrs_dir = devforgeai_dir / "adrs"
     adrs_dir.mkdir(parents=True, exist_ok=True)
@@ -337,8 +337,8 @@ def real_user_files(integration_project):
     Create user-owned files that must be preserved during upgrades/uninstall.
 
     This fixture creates:
-    - User context files (.devforgeai/context/*.md)
-    - User stories (.ai_docs/Stories/*.md)
+    - User context files (devforgeai/specs/context/*.md)
+    - User stories (devforgeai/specs/Stories/*.md)
     - User hooks configuration
     - User feedback configuration
 

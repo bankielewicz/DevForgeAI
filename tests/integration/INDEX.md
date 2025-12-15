@@ -275,7 +275,7 @@ pytest tests/integration/test_release_hooks_integration.py \
 
 Related:
 /mnt/c/Projects/DevForgeAI2/
-├── .ai_docs/Stories/STORY-025-wire-hooks-into-release-command.story.md
+├── devforgeai/specs/Stories/STORY-025-wire-hooks-into-release-command.story.md
 └── .claude/commands/release.md
 ```
 
@@ -399,7 +399,7 @@ collected 116 items
 - **Configuration**: pytest.ini (test settings)
 
 ### Story Files
-- **Main Story**: `.ai_docs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
+- **Main Story**: `devforgeai/specs/Stories/STORY-025-wire-hooks-into-release-command.story.md`
 - **Acceptance Criteria**: Lines 22-82 (7 criteria)
 - **Edge Cases**: Lines 84-135 (6 edge cases)
 - **Technical Spec**: Lines 136-373 (implementation details)

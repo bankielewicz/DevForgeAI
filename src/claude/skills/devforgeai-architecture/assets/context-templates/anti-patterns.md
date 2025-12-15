@@ -422,7 +422,7 @@ Test:   tests/IntegrationTests/Infrastructure.IntegrationTests/Repositories/User
 
 ```bash
 # Pre-commit hook checks for files outside source-tree.md structure
-python .devforgeai/scripts/validate_structure.py
+python devforgeai/scripts/validate_structure.py
 
 # Fails if:
 # - Files in undocumented directories
@@ -905,9 +905,9 @@ public class PaymentService
 # .git/hooks/pre-commit
 
 # Run all validation scripts
-python .devforgeai/scripts/detect_anti_patterns.py || exit 1
-python .devforgeai/scripts/validate_dependencies.py || exit 1
-python .devforgeai/scripts/validate_architecture.py || exit 1
+python devforgeai/scripts/detect_anti_patterns.py || exit 1
+python devforgeai/scripts/validate_dependencies.py || exit 1
+python devforgeai/scripts/validate_architecture.py || exit 1
 ```
 
 ### 2. Architecture Tests

@@ -621,7 +621,7 @@ python3 tests/measure_accuracy.py \
 ### Week 4 (If Week 3 Successful)
 
 **Pilot Migration (10 real stories):**
-1. Select 10 pilot stories from .ai_docs/Stories/
+1. Select 10 pilot stories from devforgeai/specs/Stories/
 2. Migrate using AI-assisted script
 3. Manual review each migration
 4. Quality scoring (target ≥4/5)

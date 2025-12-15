@@ -22,7 +22,7 @@ class MergeStrategy(Enum):
 class InstallConfig:
     """User installation preferences and settings.
 
-    Stored in `.devforgeai/.install-config.json`.
+    Stored in `devforgeai/.install-config.json`.
     Includes schema version for automatic migration on upgrades.
     """
 

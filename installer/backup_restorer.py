@@ -2,7 +2,7 @@
 BackupRestorer for file restoration from backup with user content preservation (STORY-080).
 
 Restores files from backup to target directory with:
-- User content path exclusion by default (.ai_docs/, .devforgeai/context/, .devforgeai/adrs/)
+- User content path exclusion by default (devforgeai/specs/, devforgeai/specs/context/, devforgeai/specs/adrs/)
 - Optional inclusion of user content with include_user_content=True
 - Checksum verification against manifest
 
@@ -40,10 +40,10 @@ CHECKSUM_CHUNK_SIZE = 65536  # 64KB chunks for SHA256
 
 # Paths to skip by default (user content)
 USER_CONTENT_PATHS = [
-    ".ai_docs/Stories",
-    ".ai_docs/Epics",
-    ".devforgeai/context",
-    ".devforgeai/adrs",
+    "devforgeai/specs/Stories",
+    "devforgeai/specs/Epics",
+    "devforgeai/context",
+    "devforgeai/adrs",
 ]
 
 

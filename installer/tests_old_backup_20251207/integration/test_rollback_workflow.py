@@ -44,7 +44,7 @@ class TestRollbackWorkflow:
 
         Validates:
         - All .claude/ files restored from backup
-        - All .devforgeai/ files restored from backup
+        - All devforgeai/ files restored from backup
         - File count matches backup manifest
         - No files missing after restore
 

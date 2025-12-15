@@ -61,8 +61,8 @@ The skill uses Grep to search the conversation for these patterns.
 
 ### Output Files
 
-- Epic document: `.ai_docs/Epics/{EPIC-ID}.epic.md`
-- Optional requirements spec: `.devforgeai/specs/requirements/{EPIC-ID}-requirements.md`
+- Epic document: `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
+- Optional requirements spec: `devforgeai/specs/requirements/{EPIC-ID}-requirements.md`
 - Structured completion summary (JSON for command display)
 
 ### Reference Files Loaded Progressively
@@ -113,7 +113,7 @@ Result: Epic Creation Mode detected → Execute Phase 4A workflow
 
 ### Output Files
 
-- Sprint document: `.ai_docs/Sprints/Sprint-{N}.md`
+- Sprint document: `devforgeai/specs/Sprints/Sprint-{N}.md`
 - Story files updated with sprint references and status changes
 - Sprint summary for command display
 

@@ -68,11 +68,11 @@ The **post-epic-create feedback hook** is an optional, non-blocking retrospectiv
 ┌─────────────────────────────────────────────────────────────────┐
 │ devforgeai CLI (Hook Invocation)                               │
 │  - Load hooks.yaml configuration                               │
-│  - Read epic file (.ai_docs/Epics/EPIC-XXX-*.epic.md)         │
+│  - Read epic file (devforgeai/specs/Epics/EPIC-XXX-*.epic.md)         │
 │  - Extract epic metadata (features, complexity, risks)         │
 │  - Render questions with placeholders ({feature_count})        │
 │  - Present questions via AskUserQuestion                       │
-│  - Save responses to .devforgeai/feedback/epic-create/        │
+│  - Save responses to devforgeai/feedback/epic-create/        │
 │  - Update feedback-index.json                                  │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -83,7 +83,7 @@ The **post-epic-create feedback hook** is an optional, non-blocking retrospectiv
 
 ### Phase 1: Hook Registration (Configuration)
 
-**File:** `.devforgeai/config/hooks.yaml`
+**File:** `devforgeai/config/hooks.yaml`
 
 **Maintainer Action:** Add epic-create hook definition
 
@@ -101,7 +101,7 @@ The **post-epic-create feedback hook** is an optional, non-blocking retrospectiv
 **Validation:**
 ```bash
 # Verify configuration is valid YAML
-python -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+python -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
 
 # Verify hook recognized by CLI
 devforgeai check-hooks --operation=epic-create --status=success
@@ -141,7 +141,7 @@ devforgeai check-hooks --operation=epic-create --status=success
 **Purpose:** Ensure epic file exists and epic ID is valid before CLI invocation
 
 **Validation Checks:**
-1. Epic file exists: `.ai_docs/Epics/$EPIC_ID-*.epic.md`
+1. Epic file exists: `devforgeai/specs/Epics/$EPIC_ID-*.epic.md`
 2. Epic ID format: `^EPIC-[0-9]{3}$` (EPIC-001 through EPIC-999)
 
 **Security:** Regex validation prevents command injection
@@ -172,7 +172,7 @@ timeout $HOOK_TIMEOUT_SECONDS devforgeai invoke-hooks \
 
 **Epic Context Passed:**
 - `--epic-id=EPIC-XXX` (CLI reads epic file for metadata)
-- Epic file path: `.ai_docs/Epics/EPIC-XXX-*.epic.md`
+- Epic file path: `devforgeai/specs/Epics/EPIC-XXX-*.epic.md`
 - Metadata extracted: features, complexity, risks, stakeholders, success criteria
 
 **CLI Responsibilities:**
@@ -180,7 +180,7 @@ timeout $HOOK_TIMEOUT_SECONDS devforgeai invoke-hooks \
 2. Extract metadata (parse YAML frontmatter + markdown sections)
 3. Render questions with placeholders ({feature_count} → actual count)
 4. Present questions via AskUserQuestion
-5. Save responses to `.devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
+5. Save responses to `devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
 6. Update feedback index (feedback-index.json)
 
 ---
@@ -247,7 +247,7 @@ fi
 ### 1. Configuration Management
 
 **Maintainer Tasks:**
-- Review `.devforgeai/config/hooks.yaml.example` for new hook patterns
+- Review `devforgeai/config/hooks.yaml.example` for new hook patterns
 - Update hooks.yaml with team-specific configurations
 - Document custom questions in hook metadata
 - Archive old configurations before major changes
@@ -255,13 +255,13 @@ fi
 **Configuration Versioning:**
 ```bash
 # Before making changes, backup current config
-cp .devforgeai/config/hooks.yaml .devforgeai/config/hooks.yaml.backup-$(date +%Y%m%d)
+cp devforgeai/config/hooks.yaml devforgeai/config/hooks.yaml.backup-$(date +%Y%m%d)
 
 # After changes, validate
-python -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+python -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
 
 # Commit configuration changes
-git add .devforgeai/config/hooks.yaml
+git add devforgeai/config/hooks.yaml
 git commit -m "config: Update epic-create hook settings"
 ```
 
@@ -279,17 +279,17 @@ git commit -m "config: Update epic-create hook settings"
 **Monitoring Commands:**
 ```bash
 # Calculate average hook check duration
-grep "check-hooks" .devforgeai/feedback/.logs/hooks.log | \
+grep "check-hooks" devforgeai/feedback/.logs/hooks.log | \
   grep "duration=" | \
   sed 's/.*duration=\([0-9]*\)ms.*/\1/' | \
   awk '{sum+=$1; count++} END {print "Average: " sum/count " ms"}'
 
 # Count hook failures
-grep "ERROR" .devforgeai/feedback/.logs/hook-errors.log | wc -l
+grep "ERROR" devforgeai/feedback/.logs/hook-errors.log | wc -l
 
 # Check timeout rate
-total=$(grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | wc -l)
-timeouts=$(grep "timed out" .devforgeai/feedback/.logs/hooks.log | wc -l)
+total=$(grep "Hook invoked" devforgeai/feedback/.logs/hooks.log | wc -l)
+timeouts=$(grep "timed out" devforgeai/feedback/.logs/hooks.log | wc -l)
 echo "Timeout rate: $(echo "scale=2; $timeouts / $total * 100" | bc)%"
 ```
 
@@ -304,25 +304,25 @@ echo "Timeout rate: $(echo "scale=2; $timeouts / $total * 100" | bc)%"
 ### 3. Log Management
 
 **Log Files:**
-- Success: `.devforgeai/feedback/.logs/hooks.log`
-- Errors: `.devforgeai/feedback/.logs/hook-errors.log`
-- Feedback sessions: `.devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
+- Success: `devforgeai/feedback/.logs/hooks.log`
+- Errors: `devforgeai/feedback/.logs/hook-errors.log`
+- Feedback sessions: `devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
 
 **Rotation Strategy:**
 ```bash
 # Monthly log rotation (add to cron or CI/CD)
 #!/bin/bash
-ARCHIVE_DIR=".devforgeai/feedback/.archives/$(date +%Y-%m)"
+ARCHIVE_DIR="devforgeai/feedback/.archives/$(date +%Y-%m)"
 mkdir -p "$ARCHIVE_DIR"
 
 # Archive and compress old logs
 tar -czf "$ARCHIVE_DIR/hooks-$(date +%Y-%m).tar.gz" \
-  .devforgeai/feedback/.logs/hooks.log \
-  .devforgeai/feedback/.logs/hook-errors.log
+  devforgeai/feedback/.logs/hooks.log \
+  devforgeai/feedback/.logs/hook-errors.log
 
 # Truncate logs after archive
-> .devforgeai/feedback/.logs/hooks.log
-> .devforgeai/feedback/.logs/hook-errors.log
+> devforgeai/feedback/.logs/hooks.log
+> devforgeai/feedback/.logs/hook-errors.log
 
 echo "Logs archived to $ARCHIVE_DIR"
 ```
@@ -366,7 +366,7 @@ pytest tests/performance/test_create_epic_hooks_performance.py -v
 **Manual Smoke Test:**
 ```bash
 # 1. Enable epic-create hooks
-# Edit .devforgeai/config/hooks.yaml: set enabled: true
+# Edit devforgeai/config/hooks.yaml: set enabled: true
 
 # 2. Create test epic
 /create-epic "Test Epic for Hook Validation"
@@ -375,7 +375,7 @@ pytest tests/performance/test_create_epic_hooks_performance.py -v
 # Should see: Retrospective questions about epic quality
 
 # 4. Check feedback saved
-ls -la .devforgeai/feedback/epic-create/
+ls -la devforgeai/feedback/epic-create/
 
 # 5. Disable hooks
 # Edit hooks.yaml: set enabled: false
@@ -517,12 +517,12 @@ DEVFORGEAI_LOG_LEVEL=DEBUG /create-epic "Debug Epic"
 # Add to hooks.yaml
 logging:
   level: DEBUG
-  file: .devforgeai/feedback/.logs/hooks-debug.log
+  file: devforgeai/feedback/.logs/hooks-debug.log
 ```
 
 **Debug Output Locations:**
-- `.devforgeai/feedback/.logs/hooks-debug.log`
-- `.devforgeai/feedback/.logs/hook-errors.log` (stack traces)
+- `devforgeai/feedback/.logs/hooks-debug.log`
+- `devforgeai/feedback/.logs/hook-errors.log` (stack traces)
 
 ---
 
@@ -532,13 +532,13 @@ logging:
 
 ```bash
 # At start of each step
-echo "[TRACE] Step 4A.9.1 starting" >> .devforgeai/feedback/.logs/hooks-trace.log
+echo "[TRACE] Step 4A.9.1 starting" >> devforgeai/feedback/.logs/hooks-trace.log
 
 # At decision points
-echo "[TRACE] HOOKS_ENABLED=$HOOKS_ENABLED" >> .devforgeai/feedback/.logs/hooks-trace.log
+echo "[TRACE] HOOKS_ENABLED=$HOOKS_ENABLED" >> devforgeai/feedback/.logs/hooks-trace.log
 
 # At subprocess invocation
-echo "[TRACE] Invoking: devforgeai invoke-hooks ..." >> .devforgeai/feedback/.logs/hooks-trace.log
+echo "[TRACE] Invoking: devforgeai invoke-hooks ..." >> devforgeai/feedback/.logs/hooks-trace.log
 ```
 
 **Disable after debugging:**
@@ -655,9 +655,9 @@ def test_hook_timeout(mock_run):
 **Maintainer Action:**
 ```bash
 # Set secure permissions on sensitive files
-chmod 600 .devforgeai/feedback/epic-create/*.json
-chmod 644 .devforgeai/config/hooks.yaml
-chmod 644 .devforgeai/feedback/.logs/*.log
+chmod 600 devforgeai/feedback/epic-create/*.json
+chmod 644 devforgeai/config/hooks.yaml
+chmod 644 devforgeai/feedback/.logs/*.log
 ```
 
 ---
@@ -763,8 +763,8 @@ If you want `{timeline_estimate}` placeholder:
 5. **Version hooks.yaml** (bump format_version if schema changes)
 
 **Communication:**
-- Document in ADR (.devforgeai/adrs/ADR-XXX-hook-cli-signature-change.md)
-- Update CHANGELOG (.devforgeai/CHANGELOG.md)
+- Document in ADR (devforgeai/specs/adrs/ADR-XXX-hook-cli-signature-change.md)
+- Update CHANGELOG (devforgeai/CHANGELOG.md)
 - Add migration guide (how to upgrade existing hooks)
 
 ---
@@ -819,7 +819,7 @@ echo "Migration complete. Review hooks.yaml and test."
 
 ```bash
 # Hook invocation count by operation
-grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | \
+grep "Hook invoked" devforgeai/feedback/.logs/hooks.log | \
   grep "operation=" | \
   sed 's/.*operation=\([^ ]*\).*/\1/' | \
   sort | uniq -c | sort -rn
@@ -831,11 +831,11 @@ grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | \
 #   12 qa
 
 # Hook success rate (last 100 invocations)
-success=$(tail -100 .devforgeai/feedback/.logs/hooks.log | grep "exit_code=0" | wc -l)
+success=$(tail -100 devforgeai/feedback/.logs/hooks.log | grep "exit_code=0" | wc -l)
 echo "Success rate: $success% (last 100 hooks)"
 
 # Average epic feature count (from feedback)
-grep "feature_count" .devforgeai/feedback/epic-create/*.json | \
+grep "feature_count" devforgeai/feedback/epic-create/*.json | \
   sed 's/.*: \([0-9]*\).*/\1/' | \
   awk '{sum+=$1; count++} END {print "Avg features: " sum/count}'
 ```
@@ -848,10 +848,10 @@ grep "feature_count" .devforgeai/feedback/epic-create/*.json | \
 
 ```bash
 # Option 1: Disable all hooks globally
-echo "# Hooks disabled globally" > .devforgeai/config/hooks.yaml
+echo "# Hooks disabled globally" > devforgeai/config/hooks.yaml
 
 # Option 2: Disable epic-create hook only
-sed -i 's/enabled: true/enabled: false/' .devforgeai/config/hooks.yaml
+sed -i 's/enabled: true/enabled: false/' devforgeai/config/hooks.yaml
 
 # Option 3: Environment variable (one-time)
 DEVFORGEAI_HOOKS_DISABLED=1 /create-epic "Emergency Epic"
@@ -887,7 +887,7 @@ After rollback:
 - [ ] Epic creation works (test with /create-epic)
 - [ ] No hook errors in logs
 - [ ] Story status updated (mark STORY-028 as rolled back)
-- [ ] Create RCA document (.devforgeai/RCA/RCA-XXX-hook-rollback.md)
+- [ ] Create RCA document (devforgeai/RCA/RCA-XXX-hook-rollback.md)
 - [ ] Notify team (if multi-user project)
 - [ ] Plan fix (create follow-up story if bug found)
 
@@ -950,7 +950,7 @@ After rollback:
 **Implementation:**
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A.9, lines 252-510)
 - `.claude/commands/create-epic.md` (Phase 4 display logic)
-- `.devforgeai/config/hooks.yaml.example` (epic-create configuration, lines 87-152)
+- `devforgeai/config/hooks.yaml.example` (epic-create configuration, lines 87-152)
 
 **Testing:**
 - `tests/unit/test_create_epic_hooks.py` (37 unit tests)
@@ -959,7 +959,7 @@ After rollback:
 - `tests/STORY-028-*.md` (4 test documentation files)
 
 **Troubleshooting:**
-- `.devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md` (user-facing guide)
+- `devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md` (user-facing guide)
 
 **Stories:**
 - STORY-028: Wire Hooks Into /create-epic Command
@@ -969,17 +969,17 @@ After rollback:
 
 **Framework:**
 - EPIC-006: Feedback System Integration Completion
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
 
 ---
 
 ## Contact and Support
 
 **For Hook System Issues:**
-- Check logs: `.devforgeai/feedback/.logs/hook-errors.log`
+- Check logs: `devforgeai/feedback/.logs/hook-errors.log`
 - Review tests: `pytest tests/unit/test_create_epic_hooks.py -v`
-- Consult troubleshooting guide: `.devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md`
-- Create RCA if recurring: `.devforgeai/RCA/RCA-XXX-hook-issue.md`
+- Consult troubleshooting guide: `devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md`
+- Create RCA if recurring: `devforgeai/RCA/RCA-XXX-hook-issue.md`
 
 **For Feature Requests:**
 - Create story: `/create-story "Enhance epic-create hook with [feature]"`

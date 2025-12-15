@@ -323,7 +323,7 @@ Once all tests pass, refactor for quality while keeping tests green.
 │
 ├── STORY-045-TEST-SUITE-SUMMARY.md        # Comprehensive guide
 ├── STORY-045-TEST-DELIVERABLES.md         # This file
-└── .ai_docs/Stories/STORY-045-version-aware-installer-core.story.md
+└── devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md
 ```
 
 ---
@@ -424,7 +424,7 @@ pytest installer/tests/ --html=report.html --self-contained-html
 ## References
 
 **Story File:**
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md`
 
 **Test Documentation:**
 - `STORY-045-TEST-SUITE-SUMMARY.md` - Comprehensive overview

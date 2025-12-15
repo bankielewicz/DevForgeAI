@@ -318,7 +318,7 @@ tests/STORY-052/
 For detailed test information:
 - **TEST-SUMMARY.md** - Comprehensive 500+ line documentation
 - **test-structure-simple.sh** - Readable test code
-- Story file: **.ai_docs/Stories/STORY-052-user-facing-prompting-guide.story.md**
+- Story file: **devforgeai/specs/Stories/STORY-052-user-facing-prompting-guide.story.md**
 
 ## Testing Philosophy
 

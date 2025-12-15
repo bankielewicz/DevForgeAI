@@ -175,7 +175,7 @@ class InstallationValidator:
         """Detect if file appears to be user-modified (AC#3).
 
         Uses three heuristics:
-        1. File in user-modifiable location (.ai_docs/, .devforgeai/context/)
+        1. File in user-modifiable location (devforgeai/specs/, devforgeai/specs/context/)
         2. File modified more recently than installation timestamp
         3. File contains user-specific content patterns
 
@@ -190,7 +190,7 @@ class InstallationValidator:
         rel_path = str(file_path.relative_to(self.installation_root)).replace("\\", "/")
 
         # Check if file is in user-modifiable location
-        in_user_dir = any(rel_path.startswith(d) for d in [".ai_docs/", ".devforgeai/context/"])
+        in_user_dir = any(rel_path.startswith(d) for d in ["devforgeai/specs/", "devforgeai/specs/context/"])
 
         # Check if marked as user-modifiable in manifest
         user_modifiable = manifest_entry.get("is_user_modifiable", False)
@@ -229,7 +229,7 @@ class InstallationValidator:
         """Detect files on disk not in manifest (AC#2).
 
         Reports files in installation root not listed in manifest,
-        with focus on DevForgeAI directories (.claude/, .devforgeai/).
+        with focus on DevForgeAI directories (.claude/, devforgeai/).
 
         Args:
             manifest_files: Dict of files in manifest (path -> entry)

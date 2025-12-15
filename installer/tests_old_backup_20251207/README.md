@@ -81,7 +81,7 @@ def test_example(self, tmp_project):
 ### Fixtures (conftest.py)
 
 **Directory Structures:**
-- `tmp_project` - Temporary project with .claude/, .devforgeai/, .backups/
+- `tmp_project` - Temporary project with .claude/, devforgeai/, .backups/
 - `mock_source_files` - Mock src/ with 370 + 80 files
 
 **Data:**
@@ -405,7 +405,7 @@ pytest installer/tests/ -vv
 
 ## Resources
 
-- **Story:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md`
+- **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md`
 - **Summary:** `/mnt/c/Projects/DevForgeAI2/STORY-045-TEST-SUITE-SUMMARY.md`
 - **Fixtures:** `conftest.py` (234 lines)
 - **Test Framework:** pytest 7.0+

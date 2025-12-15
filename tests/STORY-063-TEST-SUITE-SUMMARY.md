@@ -402,7 +402,7 @@ After tests written (current state - RED PHASE):
 
 ## Related Documentation
 
-- **Story:** `.ai_docs/Stories/STORY-063-code-quality-auditor-subagent.story.md`
+- **Story:** `devforgeai/specs/Stories/STORY-063-code-quality-auditor-subagent.story.md`
 - **Subagent (to be created):** `src/claude/agents/code-quality-auditor.md`
 - **Prompt Template (to be created):** `src/claude/skills/devforgeai-qa/references/subagent-prompt-templates.md`
 - **Test Automation Skill:** `.claude/skills/test-automator/SKILL.md`

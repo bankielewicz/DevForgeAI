@@ -143,7 +143,7 @@ If you were to run `/dev` on a test story:
 To verify the fix works in practice:
 
 1. **Create a minimal test story:**
-   - Create `.ai_docs/Stories/STORY-TEST-001.story.md`
+   - Create `devforgeai/specs/Stories/STORY-TEST-001.story.md`
    - Add 2-3 simple acceptance criteria
    - Add basic technical specification
 

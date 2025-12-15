@@ -70,7 +70,7 @@ class RepairService:
                 )
 
         # WHITELIST: DevForgeAI directories and framework files
-        allowed_patterns = [".claude/", ".devforgeai/", ".ai_docs/", "CLAUDE.md"]
+        allowed_patterns = [".claude/", "devforgeai/", "devforgeai/specs/", "CLAUDE.md"]
 
         for pattern in allowed_patterns:
             if normalized_path == pattern or normalized_path.startswith(pattern):
@@ -84,7 +84,7 @@ class RepairService:
         # REJECT nested paths outside allowed patterns
         raise SecurityError(
             f"Security constraint violated: Cannot modify files outside DevForgeAI scope. "
-            f"Path: {rel_path}. Allowed: .claude/, .devforgeai/, CLAUDE.md, or root-level files"
+            f"Path: {rel_path}. Allowed: .claude/, devforgeai/, CLAUDE.md, or root-level files"
         )
 
     def repair(self, issues: List[ValidationIssue],

@@ -272,7 +272,7 @@ def handle_deprecated_features(project_root: Path) -> list:
     removed = []
 
     deprecated_files = [
-        ".devforgeai/deprecated-feature.json",
+        "devforgeai/deprecated-feature.json",
         ".claude/old-command.md",
     ]
 

@@ -113,7 +113,7 @@ The `/dev` command unconditionally executes `git log -1 --oneline` without check
 !`git rev-list -n 1 HEAD 2>/dev/null`
 
 # If no commits exist (empty repository):
-git add .claude/ .devforgeai/ .ai_docs/ CLAUDE.md README.md 2>/dev/null || true
+git add .claude/ devforgeai/ devforgeai/specs/ CLAUDE.md README.md 2>/dev/null || true
 git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || true
 ```
 
@@ -141,7 +141,7 @@ git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || 
    # If no commits: Run /create-context (auto-creates initial commit)
 
 2. Check context files exist:
-   Glob(pattern=".devforgeai/context/*.md")
+   Glob(pattern="devforgeai/specs/context/*.md")
 
 3. If missing, create them:
    > /create-context [project-name]

@@ -27,7 +27,7 @@ You are a backend architect specializing in clean architecture, domain-driven de
 **Proactive triggers:**
 - After failing tests exist (TDD Green phase - need implementation)
 - When story specifies backend work
-- After reading context files in `.devforgeai/context/`
+- After reading context files in `devforgeai/specs/context/`
 - When domain logic, services, or repositories need implementation
 
 **Explicit invocation:**
@@ -45,12 +45,12 @@ You are a backend architect specializing in clean architecture, domain-driven de
 
 1. **Read All Context Files** (MANDATORY - These are THE LAW)
    ```
-   Read(file_path=".devforgeai/context/tech-stack.md")
-   Read(file_path=".devforgeai/context/source-tree.md")
-   Read(file_path=".devforgeai/context/dependencies.md")
-   Read(file_path=".devforgeai/context/coding-standards.md")
-   Read(file_path=".devforgeai/context/architecture-constraints.md")
-   Read(file_path=".devforgeai/context/anti-patterns.md")
+   Read(file_path="devforgeai/specs/context/tech-stack.md")
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   Read(file_path="devforgeai/specs/context/dependencies.md")
+   Read(file_path="devforgeai/specs/context/coding-standards.md")
+   Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+   Read(file_path="devforgeai/specs/context/anti-patterns.md")
    ```
 
 2. **Validate Context Files Exist**
@@ -79,7 +79,7 @@ You are a backend architect specializing in clean architecture, domain-driven de
 
 5. **Read Story Specification**
    ```
-   Read(file_path=".ai_docs/Stories/[STORY-ID].story.md")
+   Read(file_path="devforgeai/specs/Stories/[STORY-ID].story.md")
    ```
    - Extract technical specification
    - Note API contracts (endpoints, request/response schemas)
@@ -724,8 +724,8 @@ class Order:
 
 ## References
 
-- **Context Files**: `.devforgeai/context/*.md` (THE LAW - never violate)
-- **Story Files**: `.ai_docs/Stories/*.story.md` (requirements source)
+- **Context Files**: `devforgeai/specs/context/*.md` (THE LAW - never violate)
+- **Story Files**: `devforgeai/specs/Stories/*.story.md` (requirements source)
 - **Tests**: `tests/**/*` (defines expected behavior)
-- **Tech Stack**: `.devforgeai/context/tech-stack.md` (approved libraries)
-- **Source Tree**: `.devforgeai/context/source-tree.md` (file placement rules)
+- **Tech Stack**: `devforgeai/specs/context/tech-stack.md` (approved libraries)
+- **Source Tree**: `devforgeai/specs/context/source-tree.md` (file placement rules)

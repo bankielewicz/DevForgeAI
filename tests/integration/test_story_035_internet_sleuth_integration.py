@@ -192,7 +192,7 @@ class TestInternetSleuthFrameworkIntegration:
         # Check for old paths
         old_paths = [
             r'\.claude/context/',
-            r'\.ai_docs/research/',
+            r'\devforgeai/specs/research/',
         ]
 
         for pattern in old_paths:

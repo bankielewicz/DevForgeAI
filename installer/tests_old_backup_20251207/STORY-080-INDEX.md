@@ -12,7 +12,7 @@
 
 - **Test Execution Guide**: [STORY-080-EXECUTION-GUIDE.md](STORY-080-EXECUTION-GUIDE.md)
 - **Test Suite Summary**: [STORY-080-TEST-SUITE-SUMMARY.md](STORY-080-TEST-SUITE-SUMMARY.md)
-- **Story Details**: [.ai_docs/Stories/STORY-080-rollback-previous-version.story.md](/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-080-rollback-previous-version.story.md)
+- **Story Details**: [devforgeai/specs/Stories/STORY-080-rollback-previous-version.story.md](/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-080-rollback-previous-version.story.md)
 
 ---
 
@@ -150,7 +150,7 @@ test_rollback_workflow_story080.py::TestUserContentPreservation
 **Validates**:
 - User content preserved by default (AC#5)
 - User content included with --include-user-content flag
-- Specific paths protected: .ai_docs/*, .devforgeai/context/*, .devforgeai/adrs/
+- Specific paths protected: devforgeai/specs/*, devforgeai/specs/context/*, devforgeai/specs/adrs/
 
 ---
 
@@ -176,7 +176,7 @@ test_rollback_workflow_story080.py::TestRollbackValidationReport
 
 **Validates**:
 - Checksums verified after restore
-- Critical files checked (CLAUDE.md, .devforgeai/)
+- Critical files checked (CLAUDE.md, devforgeai/)
 - Validation failures reported
 
 ---
@@ -196,7 +196,7 @@ test_rollback_workflow_story080.py::TestManualRollbackWorkflow
 
 **Validates**:
 - Summary includes from/to version, file counts, validation status, duration
-- Log saved to `.devforgeai/logs/rollback-{timestamp}.log`
+- Log saved to `devforgeai/logs/rollback-{timestamp}.log`
 - All summary details captured
 
 ---

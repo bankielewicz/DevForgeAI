@@ -92,8 +92,8 @@ The skill will:
 ./.claude/skills/devforgeai-architecture/scripts/init_context.sh
 
 # Edit the generated templates
-code .devforgeai/context/tech-stack.md
-code .devforgeai/context/source-tree.md
+code devforgeai/specs/context/tech-stack.md
+code devforgeai/specs/context/source-tree.md
 ```
 
 ## Skill Contents
@@ -185,7 +185,7 @@ The skill succeeds when:
 
 - [Skill Creator Guide](../skill-creator/SKILL.md)
 - [DevForgeAI Documentation](../../../docs/)
-- [Native Tools Efficiency Analysis](../../../.ai_docs/native-tools-vs-bash-efficiency-analysis.md)
+- [Native Tools Efficiency Analysis](../../../devforgeai/specs/native-tools-vs-bash-efficiency-analysis.md)
 
 ## License
 

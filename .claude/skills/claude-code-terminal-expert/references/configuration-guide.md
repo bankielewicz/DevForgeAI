@@ -142,8 +142,8 @@ Use `.claude/rules/` to complement DevForgeAI's context files:
 
 **Key integration points:**
 - `.claude/rules/` for Claude Code behavior rules
-- `.devforgeai/context/` for immutable architectural constraints
-- Rules can reference context files: `@.devforgeai/context/tech-stack.md`
+- `devforgeai/specs/context/` for immutable architectural constraints
+- Rules can reference context files: `@devforgeai/specs/context/tech-stack.md`
 
 ---
 

@@ -149,9 +149,9 @@ OVERALL PHASE 2 RISK: 🟡 MEDIUM → Well mitigated
 │ QUICK START (WEEK 3)                                                         │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-1. READ:  .devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
-2. READ:  .devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
-3. READ:  .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (Week 3)
+1. READ:  devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
+2. READ:  devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
+3. READ:  devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (Week 3)
 4. TASK:  Enhance migrate_story_v1_to_v2.py with AI parsing
 5. TEST:  Execute TC-V1 through TC-M10 (30 test cases)
 6. DONE:  Week 3 complete, ready for Week 4 pilot
@@ -160,9 +160,9 @@ OVERALL PHASE 2 RISK: 🟡 MEDIUM → Well mitigated
 │ CONTACTS & SUPPORT                                                           │
 └──────────────────────────────────────────────────────────────────────────────┘
 
-📖 DOCUMENTATION:  .devforgeai/specs/enhancements/PHASE2-*.md (9 files)
+📖 DOCUMENTATION:  devforgeai/specs/enhancements/PHASE2-*.md (9 files)
 🔧 SCRIPTS:        .claude/skills/devforgeai-story-creation/scripts/*.py
-📋 SCHEMA:         .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+📋 SCHEMA:         devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ❓ FAQ:            See PHASE2-IMPLEMENTATION-GUIDE.md
 
 ╔══════════════════════════════════════════════════════════════════════════════╗

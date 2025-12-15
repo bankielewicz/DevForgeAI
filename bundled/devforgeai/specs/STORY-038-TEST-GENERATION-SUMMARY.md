@@ -213,7 +213,7 @@ Ensures original behavior preserved exactly:
    → Story status transitions preserved
 
 ✅ test_release_notes_format_preserved
-   → Release notes format in .devforgeai/releases/
+   → Release notes format in devforgeai/releases/
 
 ✅ test_rollback_command_provided_in_output
    → Rollback instructions in deployment output
@@ -486,7 +486,7 @@ pytest tests/unit/test_release_command_refactoring.py \
 
 **This Summary:**
 ```
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-038-TEST-GENERATION-SUMMARY.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-038-TEST-GENERATION-SUMMARY.md
 ```
 
 ---
@@ -557,12 +557,12 @@ When all 67 tests PASS:
 ## Related Documentation
 
 **Framework References:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
-- `.devforgeai/protocols/refactoring-case-studies.md` - Similar refactorings
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
+- `devforgeai/protocols/refactoring-case-studies.md` - Similar refactorings
 - `.claude/commands/qa.md` - Reference excellent implementation (48% budget, 295 lines)
 
 **Story Documentation:**
-- `.ai_docs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md` - Full story
+- `devforgeai/specs/Stories/STORY-038-refactor-release-command-lean-orchestration.story.md` - Full story
 
 **Related Stories:**
 - STORY-034 (/qa refactoring - reference implementation)

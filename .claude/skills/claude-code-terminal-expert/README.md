@@ -249,7 +249,7 @@ The skill automatically triggers when users ask about:
 
 ## Content Sources
 
-### Migrated from .ai_docs/Terminal/ (25 files)
+### Migrated from devforgeai/specs/Terminal/ (25 files)
 - sub-agents.md
 - agent-skills.md
 - slash-commands.md
@@ -301,7 +301,7 @@ All current official documentation retrieved and verified.
 
 ### Version History
 - **v1.0 (2025-11-06):** Initial creation
-  - Migrated 15,788 lines from .ai_docs/Terminal/
+  - Migrated 15,788 lines from devforgeai/specs/Terminal/
   - Fetched 29 official web docs from code.claude.com
   - Created 9-file skill with progressive disclosure
   - 100% topic coverage (28/28)
@@ -530,7 +530,7 @@ Claude: [Skill triggers automatically]
 - [x] DevForgeAI integration verified
 - [x] Token efficiency validated (95% savings)
 - [x] Documentation updated (skills-reference.md, CLAUDE.md)
-- [x] Source folder deleted (.ai_docs/Terminal/ removed)
+- [x] Source folder deleted (devforgeai/specs/Terminal/ removed)
 - [x] Verification reports created
 
 **Status:** ✅ READY FOR PRODUCTION USE

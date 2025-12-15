@@ -274,7 +274,7 @@ class TestConcurrentPrevention:
         AC#8 (RCA-004): Concurrent installations prevented via lock file.
 
         Scenario:
-        1. Process A acquires lock (creates .devforgeai/install.lock with PID)
+        1. Process A acquires lock (creates devforgeai/install.lock with PID)
         2. Process B attempts installation
         3. Process B detects lock file
         4. Process B exits with clear error message
@@ -433,7 +433,7 @@ class TestRealFileOperations:
         # Assert - Message contains helpful guidance
         assert "Missing Source Files" in message
         assert "resolution steps" in message.lower()
-        assert ".devforgeai/install.log" in message
+        assert "devforgeai/install.log" in message
 
         # Assert - Log created
         log_path = target_root / ".devforgeai" / "install.log"

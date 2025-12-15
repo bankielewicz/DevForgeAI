@@ -53,7 +53,7 @@ Subagent (200-500 lines, specialized tasks)
 
 | Mechanism | Implementation | Status |
 |-----------|---------------|--------|
-| Story file loading | `@.ai_docs/Stories/STORY-XXX.story.md` | ✅ Working |
+| Story file loading | `@devforgeai/specs/Stories/STORY-XXX.story.md` | ✅ Working |
 | Context markers | `**Story ID:** STORY-001` | ✅ Working |
 | 6 immutable context files | `.devforgeai/context/*.md` | ✅ Working |
 | Story file as shared state | Subagents read/write story Implementation Notes | ✅ Working |
@@ -237,7 +237,7 @@ Task(
     subagent_type="test-automator",
     prompt="""
     Read orchestration context: .devforgeai/stories/STORY-074/orchestration-context.md
-    Read story: .ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md
+    Read story: devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md
 
     Your assignment: AC#1, AC#2 unit tests ONLY.
     Do NOT work on AC#3 (assigned to integration-tester).
@@ -251,7 +251,7 @@ Task(
     subagent_type="integration-tester",
     prompt="""
     Read orchestration context: .devforgeai/stories/STORY-074/orchestration-context.md
-    Read story: .ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md
+    Read story: devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md
 
     Your assignment: AC#3 integration tests ONLY.
     Wait for unit tests to complete (check orchestration-context.md).

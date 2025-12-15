@@ -680,7 +680,7 @@ All error messages are evidence-based from actual implementation.
 - docs/guides/troubleshooting-template-customization.md - Common issues
 
 **Story:**
-- .ai_docs/Stories/STORY-012-template-customization.story.md
+- devforgeai/specs/Stories/STORY-012-template-customization.story.md
 
 ---
 

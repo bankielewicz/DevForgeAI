@@ -3,7 +3,7 @@ Unit tests for deployment engine (STORY-045 AC3, AC4, WKR-017, WKR-018, WKR-019,
 
 Tests validate:
 - Deploying src/claude/ to target .claude/ with exclusion patterns
-- Deploying src/devforgeai/ to target .devforgeai/ (config, docs, protocols, tests only)
+- Deploying src/devforgeai/ to target devforgeai/ (config, docs, protocols, tests only)
 - Setting executable permissions on scripts (.sh, CLI files = 755)
 - Preserving user configuration files during upgrade
 
@@ -52,11 +52,11 @@ class TestDeploymentEngine:
 
     def test_deploy_devforgeai_files_to_target(self, tmp_project, mock_source_files):
         """
-        WKR-018: Deploy src/devforgeai/ to target .devforgeai/.
+        WKR-018: Deploy src/devforgeai/ to target devforgeai/.
 
         Given: Source has 80 files in src/devforgeai/ (config, docs, protocols, tests)
         When: Deployment executed
-        Then: ~80 files deployed to target/.devforgeai/, excluding generated content
+        Then: ~80 files deployed to target/devforgeai/, excluding generated content
         """
         # Arrange
         source_devforgeai = mock_source_files["devforgeai"]
@@ -277,7 +277,7 @@ class TestDeploymentEngine:
         """
         WKR-020, AC4: Preserve user context files during upgrade.
 
-        Given: .devforgeai/context/*.md exists (user-created)
+        Given: devforgeai/specs/context/*.md exists (user-created)
         When: Deployment executed
         Then: Context files NOT overwritten
         """
@@ -295,11 +295,11 @@ class TestDeploymentEngine:
 
     def test_do_not_touch_ai_docs_directory(self, tmp_project):
         """
-        AC4: Preserve .ai_docs/ (user stories/epics/sprints).
+        AC4: Preserve devforgeai/specs/ (user stories/epics/sprints).
 
-        Given: .ai_docs/ contains user-created stories
+        Given: devforgeai/specs/ contains user-created stories
         When: Deployment executed
-        Then: .ai_docs/ NOT touched
+        Then: devforgeai/specs/ NOT touched
         """
         # Arrange
         ai_docs = tmp_project["root"] / ".ai_docs"
@@ -321,7 +321,7 @@ class TestDeploymentEngine:
         """
         AC3: Deployment count verification (~450 files total).
 
-        Given: Source has ~370 .claude/ + ~80 .devforgeai/ = ~450 files
+        Given: Source has ~370 .claude/ + ~80 devforgeai/ = ~450 files
         When: Deployment completed
         Then: File count within ±10 of expected (450)
         """

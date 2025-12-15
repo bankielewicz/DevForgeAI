@@ -193,7 +193,7 @@ for pattern in file_creation_patterns:
 
         # Log violation
         Write(
-            file_path=".devforgeai/logs/rca-007-violations.log",
+            file_path="devforgeai/logs/rca-007-violations.log",
             content=f"""
             [VIOLATION DETECTED]
             Timestamp: {datetime.now()}
@@ -337,9 +337,9 @@ Proceeding to Phase 3
 # 4. Only 1 file created: STORY-XXX-user-authentication-jwt-tokens.story.md
 
 # Assertions:
-ls .ai_docs/Stories/STORY-*.md | wc -l  # Should increase by 1
-ls .ai_docs/Stories/STORY-*-SUMMARY.md  # Should NOT exist
-ls .ai_docs/Stories/STORY-*-QUICK-START.md  # Should NOT exist
+ls devforgeai/specs/Stories/STORY-*.md | wc -l  # Should increase by 1
+ls devforgeai/specs/Stories/STORY-*-SUMMARY.md  # Should NOT exist
+ls devforgeai/specs/Stories/STORY-*-QUICK-START.md  # Should NOT exist
 ```
 
 **Test Case 2: Validation Catches Violation (Simulated)**
@@ -359,8 +359,8 @@ Manually trigger violation by modifying subagent prompt to create files:
 # 5. Only 1 .story.md file remains
 
 # Assertions:
-ls .devforgeai/logs/rca-007-violations.log  # Violation logged
-cat .devforgeai/logs/rca-007-violations.log | grep "Pattern matched"  # Has violation entry
+ls devforgeai/logs/rca-007-violations.log  # Violation logged
+cat devforgeai/logs/rca-007-violations.log | grep "Pattern matched"  # Has violation entry
 ```
 
 **Success Criteria:**
@@ -535,7 +535,7 @@ error_handling:
 monitoring:
   log_violations:
     enabled: true
-    log_path: ".devforgeai/logs/rca-007-violations.log"
+    log_path: "devforgeai/logs/rca-007-violations.log"
 
   track_retries:
     enabled: true
@@ -688,15 +688,15 @@ Proceeding to Phase 3
 **Take snapshot:**
 ```python
 # Capture current .story.md files
-files_before_subagent = Glob(pattern=".ai_docs/Stories/STORY-*.md")
+files_before_subagent = Glob(pattern="devforgeai/specs/Stories/STORY-*.md")
 
 # Capture current supporting files (should be none for this story)
 supporting_patterns = [
-    f".ai_docs/Stories/{story_id}-SUMMARY.md",
-    f".ai_docs/Stories/{story_id}-QUICK-START.md",
-    f".ai_docs/Stories/{story_id}-VALIDATION-CHECKLIST.md",
-    f".ai_docs/Stories/{story_id}-FILE-INDEX.md",
-    f".ai_docs/Stories/{story_id}-DELIVERY-SUMMARY.md"
+    f"devforgeai/specs/Stories/{story_id}-SUMMARY.md",
+    f"devforgeai/specs/Stories/{story_id}-QUICK-START.md",
+    f"devforgeai/specs/Stories/{story_id}-VALIDATION-CHECKLIST.md",
+    f"devforgeai/specs/Stories/{story_id}-FILE-INDEX.md",
+    f"devforgeai/specs/Stories/{story_id}-DELIVERY-SUMMARY.md"
 ]
 
 supporting_files_before = []
@@ -723,7 +723,7 @@ snapshot = {
 **Compare snapshots:**
 ```python
 # Capture current state
-files_after_subagent = Glob(pattern=".ai_docs/Stories/STORY-*.md")
+files_after_subagent = Glob(pattern="devforgeai/specs/Stories/STORY-*.md")
 
 supporting_files_after = []
 for pattern in supporting_patterns:
@@ -752,7 +752,7 @@ if len(new_supporting_files) > 0:
 
     # Log violation
     Write(
-        file_path=".devforgeai/logs/rca-007-violations.log",
+        file_path="devforgeai/logs/rca-007-violations.log",
         content=f"""
         [FILE CREATION VIOLATION]
         Timestamp: {datetime.now()}
@@ -1395,7 +1395,7 @@ assert "Validation Result: PASS" in workflow_log
 /create-story epic-003
 
 # Check epic file
-epic_content = Read(".ai_docs/Epics/EPIC-003.epic.md")
+epic_content = Read("devforgeai/specs/Epics/EPIC-003.epic.md")
 assert "STORY-XXX" in epic_content  # New story referenced
 ```
 
@@ -1486,8 +1486,8 @@ assert "Next Steps" in output
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Enhancement:** `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-PLAN.md` (next document)
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Enhancement:** `devforgeai/specs/enhancements/BATCH-STORY-CREATION-PLAN.md` (next document)
 - **Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
 - **Subagent:** `.claude/agents/requirements-analyst.md`
 - **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml` (to be created)

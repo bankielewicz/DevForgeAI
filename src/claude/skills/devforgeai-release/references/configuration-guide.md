@@ -5,16 +5,16 @@
 This skill expects deployment configurations and smoke test configs to be stored in standardized locations:
 
 **Deployment Configurations:**
-- **Location**: `.devforgeai/deployment/`
+- **Location**: `devforgeai/deployment/`
 - **Purpose**: Platform-specific deployment configurations (Kubernetes manifests, Helm charts, Docker Compose files, Terraform modules, etc.)
 - **Examples**:
-  - `.devforgeai/deployment/kubernetes/` - K8s YAML manifests
-  - `.devforgeai/deployment/helm/` - Helm chart values
-  - `.devforgeai/deployment/terraform/` - Infrastructure as Code
-  - `.devforgeai/deployment/docker-compose.yml` - Docker Compose config
+  - `devforgeai/deployment/kubernetes/` - K8s YAML manifests
+  - `devforgeai/deployment/helm/` - Helm chart values
+  - `devforgeai/deployment/terraform/` - Infrastructure as Code
+  - `devforgeai/deployment/docker-compose.yml` - Docker Compose config
 
 **Smoke Test Configuration:**
-- **Location**: `.devforgeai/smoke-tests/config.json`
+- **Location**: `devforgeai/smoke-tests/config.json`
 - **Purpose**: Environment-specific smoke test configurations (base URLs, test users, API keys)
 - **Schema**:
 ```json
@@ -41,7 +41,7 @@ This skill expects deployment configurations and smoke test configs to be stored
 **If configuration is missing:**
 ```
 Release skill will HALT with:
-"Missing deployment configuration. Expected files in .devforgeai/deployment/"
+"Missing deployment configuration. Expected files in devforgeai/deployment/"
 
 Use AskUserQuestion to clarify:
 - Which deployment platform? (Kubernetes, Azure App Service, AWS ECS, etc.)

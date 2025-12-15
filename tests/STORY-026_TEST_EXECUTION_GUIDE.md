@@ -420,7 +420,7 @@ When refactoring implementation:
 ## References
 
 **Story File:**
-- `.ai_docs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
+- `devforgeai/specs/Stories/STORY-026-wire-hooks-into-release-command.story.md`
 
 **Test Files:**
 - `tests/integration/test_orchestrate_hooks_integration.py` (56 tests)

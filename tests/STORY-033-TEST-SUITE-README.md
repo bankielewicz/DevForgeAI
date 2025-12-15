@@ -512,8 +512,8 @@ pytest --cov=.claude/commands --cov-report=term | grep audit-deferrals
 
 ## References
 
-- **Story:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
-- **Pilot Story:** `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
+- **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
+- **Pilot Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
 - **Command:** `/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md`
 - **Test Suite:** This directory (`tests/`)
 

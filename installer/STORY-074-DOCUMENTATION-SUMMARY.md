@@ -260,13 +260,13 @@ README.md (Overview)
 2. If error occurs:
    - Check exit code (reference EXIT-CODES.md)
    - Follow recovery steps
-   - Check log file (.devforgeai/install.log)
+   - Check log file (devforgeai/install.log)
 
 ### For DevOps/CI-CD Engineers
 1. Read EXIT-CODES.md quick reference
 2. Implement exit code handling in scripts
 3. Reference TROUBLESHOOTING.md for common scenarios
-4. Check error log location (.devforgeai/install.log)
+4. Check error log location (devforgeai/install.log)
 
 ### For Developers Integrating Error Handling
 1. Read ERROR-HANDLING-API.md for complete API
@@ -387,7 +387,7 @@ All success criteria met:
 
 - [x] Exit codes documented (all 5 codes)
 - [x] Recovery procedures provided (each code has 3-4 steps)
-- [x] Log file location documented (.devforgeai/install.log)
+- [x] Log file location documented (devforgeai/install.log)
 - [x] Rollback behavior explained with examples
 - [x] Concurrent installation detection documented
 - [x] User-friendly message format shown
@@ -400,8 +400,8 @@ All success criteria met:
 
 ## Related Documentation Files
 
-- `.ai_docs/Stories/STORY-074-comprehensive-error-handling.story.md` - Story specification
-- `.ai_docs/Stories/STORY-045-version-aware-installer-core.story.md` - Installer core
+- `devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md` - Story specification
+- `devforgeai/specs/Stories/STORY-045-version-aware-installer-core.story.md` - Installer core
 - `installer/tests/STORY-074-TEST-SUMMARY.md` - Test results
 
 ---

@@ -441,8 +441,8 @@ Tier 1: Simple Application
 ```
 
 **Ideation Output:**
-- 📄 `.ai_docs/Epics/EPIC-001-todo-cli.epic.md`
-- 📄 `.devforgeai/specs/requirements/todo-cli-requirements.md`
+- 📄 `devforgeai/specs/Epics/EPIC-001-todo-cli.epic.md`
+- 📄 `devforgeai/specs/requirements/todo-cli-requirements.md`
 
 ---
 
@@ -1005,7 +1005,7 @@ dev = [
 
 **LOCK STATUS:** 🔒 IMMUTABLE
 **Last Updated:** 2025-10-31
-**ADRs:** See .devforgeai/adrs/ for technology decision rationale
+**ADRs:** See devforgeai/specs/adrs/ for technology decision rationale
 ```
 
 ---
@@ -1666,11 +1666,11 @@ todo-cli/
 │   ├── conftest.py         # pytest fixtures
 │   └── fixtures/           # Test data files
 │       └── sample_todo.json
-├── .devforgeai/
+├── devforgeai/
 │   ├── context/            # Context files (this file, tech-stack.md, etc.)
 │   ├── qa/                 # QA reports
 │   └── adrs/               # Architecture Decision Records
-├── .ai_docs/
+├── devforgeai/specs/
 │   ├── Epics/              # Epic documents
 │   ├── Sprints/            # Sprint plans
 │   └── Stories/            # User story files
@@ -1751,16 +1751,16 @@ pytest.ini        # Use [tool.pytest.ini_options] in pyproject.toml
 
 ### DevForgeAI Artifacts
 
-**Rule 4:** Framework files in `.devforgeai/` and `.ai_docs/`
+**Rule 4:** Framework files in `devforgeai/` and `devforgeai/specs/`
 
 **✅ CORRECT:**
 ```
-.devforgeai/
+devforgeai/
   ├── context/             # 6 context files (IMMUTABLE)
   ├── qa/reports/          # QA reports per story
   └── adrs/                # Architecture Decision Records
 
-.ai_docs/
+devforgeai/specs/
   ├── Epics/               # Epic documents
   ├── Sprints/             # Sprint plans
   └── Stories/             # User stories
@@ -1770,7 +1770,7 @@ pytest.ini        # Use [tool.pytest.ini_options] in pyproject.toml
 ```
 docs/               # Don't put DevForgeAI artifacts in generic docs/
 specs/              # Don't create custom spec directories
-architecture/       # Use .devforgeai/ structure
+architecture/       # Use devforgeai/ structure
 ```
 
 **Reason:** Standardized locations enable automation and tool discovery.
@@ -1808,7 +1808,7 @@ architecture/       # Use .devforgeai/ structure
 - [ ] All application code in `todo.py` (not split across files)
 - [ ] All tests in `tests/test_todo.py`
 - [ ] Config in `pyproject.toml` (not setup.py or requirements.txt)
-- [ ] DevForgeAI artifacts in `.devforgeai/` and `.ai_docs/`
+- [ ] DevForgeAI artifacts in `devforgeai/` and `devforgeai/specs/`
 - [ ] File names use snake_case
 - [ ] Test files start with `test_`
 - [ ] No files in wrong locations (src/, lib/, etc.)

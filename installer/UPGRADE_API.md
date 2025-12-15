@@ -42,7 +42,7 @@ from installer.backup_service import BackupService
 from installer.models import BackupReason
 from pathlib import Path
 
-service = BackupService(backups_root=Path(".devforgeai/backups"))
+service = BackupService(backups_root=Path("devforgeai/backups"))
 
 # Create backup
 metadata = service.create_backup(
@@ -71,7 +71,7 @@ print(f"Deleted {deleted_count} old backup(s)")
 
 **Excluded Directories:**
 - `.git/`, `__pycache__/`, `.pytest_cache/`, `.venv/`, `node_modules/`
-- `.devforgeai/backups/` (prevents backup recursion)
+- `devforgeai/backups/` (prevents backup recursion)
 
 ### MigrationDiscovery
 
@@ -162,20 +162,20 @@ report = validator.validate(
     # Check that expected files exist
     expected_files=[
         ".claude/skills/devforgeai-qa/SKILL.md",
-        ".devforgeai/context/tech-stack.md",
+        "devforgeai/specs/context/tech-stack.md",
         "CLAUDE.md"
     ],
 
     # Check that expected directories exist
     expected_dirs=[
         ".claude/skills",
-        ".devforgeai/context"
+        "devforgeai/context"
     ],
 
     # Validate JSON files have required keys
     json_schemas={
-        ".devforgeai/.version.json": ["version", "installed_at"],
-        ".devforgeai/config/upgrade-config.json": [
+        "devforgeai/.version.json": ["version", "installed_at"],
+        "devforgeai/config/upgrade-config.json": [
             "backup_retention_count",
             "migration_timeout_seconds"
         ]
@@ -183,7 +183,7 @@ report = validator.validate(
 
     # Same as json_schemas (for config validation)
     config_validations={
-        ".devforgeai/.version.json": ["version", "upgraded_from"]
+        "devforgeai/.version.json": ["version", "upgraded_from"]
     }
 )
 
@@ -362,7 +362,7 @@ Load configuration from `upgrade-config.json`:
 ```python
 import json
 
-config = json.loads(Path(".devforgeai/config/upgrade-config.json").read_text())
+config = json.loads(Path("devforgeai/config/upgrade-config.json").read_text())
 
 orchestrator.execute(
     from_version="1.0.0",
@@ -439,7 +439,7 @@ def test_upgrade(tmp_path):
 ### Backup Creation Fails
 
 - **Insufficient disk space**: Ensure target disk has 2x the installation size
-- **Permission denied**: Check write permissions on `.devforgeai/backups/`
+- **Permission denied**: Check write permissions on `devforgeai/backups/`
 - **Timeout**: Installation >50MB may take >30s (increase timeout)
 
 ### Migration Not Found
@@ -476,4 +476,4 @@ def test_upgrade(tmp_path):
 - `installer/migration_runner.py` - Migration execution
 - `installer/migration_validator.py` - Validation
 - `installer/upgrade_orchestrator.py` - Orchestration
-- `.devforgeai/config/upgrade-config.json` - Configuration template
+- `devforgeai/config/upgrade-config.json` - Configuration template

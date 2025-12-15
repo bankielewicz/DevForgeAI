@@ -23,7 +23,7 @@ Detailed procedures for light and deep validation modes in the DevForgeAI QA wor
 
 ```
 # Determine build command from tech-stack.md
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 # Execute build based on detected language
 IF language == ".NET":
@@ -80,7 +80,7 @@ IF dependencies fail:
 
 ```
 # Determine linter from tech-stack.md
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 # Run linter
 IF language == ".NET":
@@ -260,7 +260,7 @@ IF found:
 
 ```
 # Check Domain layer purity
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 # Extract layer dependency rules
 
 # Domain → Infrastructure violation
@@ -294,7 +294,7 @@ IF found:
 #### 4. Library Substitution
 
 ```
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract LOCKED technologies
 
 # Example: If Dapper is locked, check for EF usage
@@ -329,7 +329,7 @@ IF tech_stack.StateManagement == "Zustand":
 #### 5. File Location Violations
 
 ```
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 # Extract structure rules
 
 # Get modified files
@@ -524,7 +524,7 @@ ELSE:
 # Generate comprehensive report
 report = generate_qa_report(qa_results)
 
-Write(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md",
+Write(file_path="devforgeai/qa/reports/{story_id}-qa-report.md",
       content=report)
 ```
 

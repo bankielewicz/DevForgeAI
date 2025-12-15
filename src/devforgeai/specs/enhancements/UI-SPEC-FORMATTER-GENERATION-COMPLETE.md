@@ -62,7 +62,7 @@
 **Key Principle:** Subagent is NOT siloed - it validates and presents results within DevForgeAI constraints
 
 ### 3. Integration Guide
-**Location:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`
+**Location:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md`
 **Size:** 308 lines
 **Purpose:** Document integration points with devforgeai-ui-generator skill
 
@@ -427,7 +427,7 @@ devforgeai-ui-generator:          ui-spec-formatter:            /create-ui comma
 
 ### Integration Guide
 ```
-.devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md (308 lines)
+devforgeai/specs/enhancements/UI-SPEC-FORMATTER-INTEGRATION.md (308 lines)
 ```
 
 **Contents:**

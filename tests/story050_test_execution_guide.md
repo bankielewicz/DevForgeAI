@@ -713,8 +713,8 @@ All tests passing + all DoD checklist items complete:
 
 ## References
 
-**Story:** `.ai_docs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
+**Story:** `devforgeai/specs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
 **Lean Pattern:** `.devforgeai/protocols/lean-orchestration-pattern.md`
 **Case Studies:** `.devforgeai/protocols/refactoring-case-studies.md`
 **Budget Reference:** `.devforgeai/protocols/command-budget-reference.md`
-**Parent Story:** `.ai_docs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
+**Parent Story:** `devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`

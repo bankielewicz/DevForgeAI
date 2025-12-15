@@ -42,13 +42,13 @@ Successfully implemented Phase 4 enhancement to the `/qa` command, closing the w
    - Updated output section with new features
    - Added Phase 4 enhancement to enhanced features list
 
-3. **Created `.devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`**
+3. **Created `devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`**
    - Comprehensive test plan with 35 test cases
    - Test execution tracking
    - Deployment checklist
    - Post-deployment monitoring plan
 
-4. **Created `.devforgeai/specs/enhancements/QA-PHASE4-IMPLEMENTATION-SUMMARY.md`**
+4. **Created `devforgeai/specs/enhancements/QA-PHASE4-IMPLEMENTATION-SUMMARY.md`**
    - This document
 
 ### Backup Created
@@ -226,7 +226,7 @@ Isolated contexts:
 - Test 14: Light mode → Status unchanged ✅
 - Regression Test 1: Skill still invoked ✅
 
-**Test checklist:** `.devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`
+**Test checklist:** `devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`
 
 ---
 
@@ -273,7 +273,7 @@ Isolated contexts:
 **Next steps for user:**
 1. Restart Claude Code Terminal (reload updated command)
 2. Run smoke test: `/qa STORY-006 deep`
-3. Verify story file updated: Check `.ai_docs/Stories/STORY-006*.story.md`
+3. Verify story file updated: Check `devforgeai/specs/Stories/STORY-006*.story.md`
 4. Confirm status changed to "QA Approved"
 5. Confirm QA Validation History section added
 6. Report any issues
@@ -300,7 +300,7 @@ diff .claude/commands/qa.md .claude/commands/qa.md.backup-pre-phase4
 # Should work without story file updates
 
 # 5. Document rollback
-# Create: .devforgeai/specs/enhancements/QA-PHASE4-ROLLBACK-REPORT.md
+# Create: devforgeai/specs/enhancements/QA-PHASE4-ROLLBACK-REPORT.md
 ```
 
 ---
@@ -351,7 +351,7 @@ diff .claude/commands/qa.md .claude/commands/qa.md.backup-pre-phase4
 - This summary documents actual implementation
 
 **Test checklist:**
-- `.devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`
+- `devforgeai/specs/enhancements/QA-PHASE4-TEST-CHECKLIST.md`
 
 **Backup:**
 - `.claude/commands/qa.md.backup-pre-phase4`
@@ -361,7 +361,7 @@ diff .claude/commands/qa.md .claude/commands/qa.md.backup-pre-phase4
 - `.claude/memory/commands-reference.md` (updated /qa section)
 
 **Framework documentation:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (pattern definition)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (pattern definition)
 - `CLAUDE.md` (framework overview)
 
 ---

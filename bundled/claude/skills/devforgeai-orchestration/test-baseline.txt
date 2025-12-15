@@ -7,13 +7,13 @@ Test Case 1: Epic Creation Mode
 - Expected: Phase 4A workflow executes
 - Expected: requirements-analyst subagent invoked
 - Expected: architect-reviewer subagent invoked
-- Expected: Epic file created in .ai_docs/Epics/
+- Expected: Epic file created in devforgeai/specs/Epics/
 
 Test Case 2: Sprint Planning Mode
 - Context markers: **Command:** create-sprint, **Sprint Name:** {name}, **Selected Stories:** {ids}
 - Expected: Phase 3 workflow executes
 - Expected: sprint-planner subagent invoked
-- Expected: Sprint file created in .ai_docs/Sprints/
+- Expected: Sprint file created in devforgeai/specs/Sprints/
 - Expected: Story statuses updated to "Ready for Dev"
 
 Test Case 3: Story Management Mode (Default)

@@ -190,7 +190,7 @@ Read(file_path="src/claude/skills/devforgeai-architecture/references/user-input-
 **Invocation (Story Management Mode):**
 ```
 # Load story first
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 Skill(command="devforgeai-orchestration")
 ```
@@ -243,8 +243,8 @@ Read(file_path="src/claude/skills/devforgeai-orchestration/references/user-input
 2. Context Gathering - Goal, timeline, priority, stakeholders, success criteria (4 AskUserQuestion flows)
 3. Feature Decomposition - requirements-analyst subagent, 3-8 features, user review loop
 4. Technical Assessment - architect-reviewer subagent, complexity 0-10, risk identification, context file validation
-5. Epic File Creation - Populate epic-template.md, write to .ai_docs/Epics/{EPIC-ID}.epic.md
-6. Requirements Spec - Optional requirements-analyst subagent, write to .devforgeai/specs/requirements/
+5. Epic File Creation - Populate epic-template.md, write to devforgeai/specs/Epics/{EPIC-ID}.epic.md
+6. Requirements Spec - Optional requirements-analyst subagent, write to devforgeai/specs/requirements/
 7. Validation & Self-Healing - 9 validation checks, auto-correct correctable issues, HALT on critical failures
 8. Completion Summary - Return structured JSON to command
 
@@ -335,7 +335,7 @@ Read(file_path="src/claude/memory/effective-prompting-guide.md")
 8. **Completion Report** - Present summary, guide user to next actions
 
 **Output:**
-- Complete story document in `.ai_docs/Stories/{STORY-ID}-{slug}.story.md`
+- Complete story document in `devforgeai/specs/Stories/{STORY-ID}-{slug}.story.md`
 - All sections: User story, AC (3+ Given/When/Then), tech spec, UI spec (if applicable), NFRs, edge cases, DoD
 - Epic/sprint files updated (if associated)
 - Self-validated for quality
@@ -376,7 +376,7 @@ Read(file_path="src/claude/memory/effective-prompting-guide.md")
 **Invocation:**
 ```
 # Story mode - load story first
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 Skill(command="devforgeai-ui-generator")
 
 # Standalone mode - provide description
@@ -409,8 +409,8 @@ Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-
 
 **Prerequisites:**
 - ✅ Git repository initialized (recommended, not required)
-- ✅ Context files exist (.devforgeai/context/*.md)
-- ✅ Story file exists (.ai_docs/Stories/{STORY-ID}.story.md)
+- ✅ Context files exist (devforgeai/specs/context/*.md)
+- ✅ Story file exists (devforgeai/specs/Stories/{STORY-ID}.story.md)
 
 **Git Availability:**
 - **With Git:** Full workflow (branch management, commits, version control)
@@ -420,7 +420,7 @@ Read(file_path="src/claude/skills/devforgeai-ui-generator/references/user-input-
 **Invocation:**
 ```
 # Load story first
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 Skill(command="devforgeai-development")
 ```
@@ -433,7 +433,7 @@ Skill(command="devforgeai-development")
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 ```
 
 **Example:** Story file contains 5+ Given/When/Then AC and detailed tech spec with API contracts, data models, and business rules - skill uses these directly as TDD requirements.
@@ -471,7 +471,7 @@ Read(file_path=".ai_docs/Stories/STORY-001.story.md")
 **Invocation:**
 ```
 # Load story first
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Deep validation
 **Validation mode:** deep
@@ -490,7 +490,7 @@ Skill(command="devforgeai-qa")
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 ```
 
 **Example:** Story in "Dev Complete" status with implementation → skill validates AC pass/fail, coverage metrics, code quality, deferral justifications, spec compliance.
@@ -515,7 +515,7 @@ Read(file_path=".ai_docs/Stories/STORY-001.story.md")
 **Invocation:**
 ```
 # Load story first
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Default (staging)
 Skill(command="devforgeai-release")
@@ -533,11 +533,11 @@ Skill(command="devforgeai-release")
 
 **For deployment operations:** Load story file and specify environment (staging/production). Story must be "QA Approved" status. No feature description needed - deployment specs come from story and project deployment configuration. The skill will validate pre-conditions, execute deployment, run smoke tests, and handle rollback if needed.
 
-**File:** Story file (deployment specs) and deployment configuration (`.devforgeai/deployment/`)
+**File:** Story file (deployment specs) and deployment configuration (`devforgeai/deployment/`)
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-001.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 ```
 
 **Example:** Story with "QA Approved" status → skill deploys to staging, runs smoke tests, then (if approved) deploys to production with automated rollback capability.
@@ -647,7 +647,7 @@ Skill(command="devforgeai-release --env=production")
 **✅ CORRECT:**
 ```
 # Step 1: Load story content into conversation
-@.ai_docs/Stories/STORY-001.story.md
+@devforgeai/specs/Stories/STORY-001.story.md
 
 # Step 2: Set context with explicit statements
 **Story ID:** STORY-001
@@ -723,7 +723,7 @@ Skill(command="devforgeai-rca")
 
 **Load command:**
 ```
-Read(file_path=".devforgeai/RCA/")
+Read(file_path="devforgeai/RCA/")
 ```
 
 **Example:** "devforgeai-development didn't validate context files before TDD cycle, allowing use of unapproved technologies (CRITICAL)"
@@ -734,7 +734,7 @@ Read(file_path=".devforgeai/RCA/")
 3. **Phase 2:** 5 Whys Analysis - Progressive questioning with evidence backing
 4. **Phase 3:** Evidence Collection - Organize excerpts, validate context files, analyze workflow state
 5. **Phase 4:** Recommendation Generation - Prioritized fixes with exact implementation
-6. **Phase 5:** RCA Document Creation - Write to .devforgeai/RCA/RCA-XXX-slug.md
+6. **Phase 5:** RCA Document Creation - Write to devforgeai/RCA/RCA-XXX-slug.md
 7. **Phase 6:** Validation & Self-Check - Verify completeness, self-heal issues
 8. **Phase 7:** Completion Report - Return summary to command
 
@@ -749,7 +749,7 @@ Read(file_path=".devforgeai/RCA/")
 - **Auto-generates RCA document** - Complete formatted document
 
 **Output:**
-- `.devforgeai/RCA/RCA-XXX-{slug}.md` (complete RCA document)
+- `devforgeai/RCA/RCA-XXX-{slug}.md` (complete RCA document)
 - Completion report (RCA number, root cause, recommendation counts, next steps)
 
 **Reference Files (Progressive Loading):**
@@ -769,7 +769,7 @@ Read(file_path=".devforgeai/RCA/")
 - Invoked by: `/rca` command
 - Analyzes: All devforgeai-* skills, all commands, all subagents
 - References: Context files, quality gates, workflow states, lean orchestration pattern
-- Outputs to: `.devforgeai/RCA/` directory
+- Outputs to: `devforgeai/RCA/` directory
 
 **Character Budget:** Command 9,500 chars (63%), Skill 1,326 lines
 
@@ -845,7 +845,7 @@ All 29 official code.claude.com URLs embedded for auto-updates
 **Invocation:**
 ```
 # Story-based documentation
-@.ai_docs/Stories/STORY-040.story.md
+@devforgeai/specs/Stories/STORY-040.story.md
 Skill(command="devforgeai-documentation")
 
 # Codebase analysis mode
@@ -857,11 +857,11 @@ Skill(command="devforgeai-documentation")
 
 **For documentation generation:** Load story file for story-based docs, or specify codebase analysis mode for brownfield documentation. The skill will generate complete documentation sets including README, guides, API docs, and architecture diagrams. No feature description needed - documentation is derived from story specifications or codebase analysis.
 
-**File:** Story file (.ai_docs/Stories/) or source code directory (src/, lib/, etc.)
+**File:** Story file (devforgeai/specs/Stories/) or source code directory (src/, lib/, etc.)
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-040.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-040.story.md")
 ```
 
 **Example:** Story with complete AC and tech spec → skill generates README, API documentation, developer guide, and Mermaid architecture diagrams.
@@ -900,7 +900,7 @@ Skill(command="devforgeai-feedback")
 
 **Load command:**
 ```
-Read(file_path=".ai_docs/Stories/STORY-037.story.md")
+Read(file_path="devforgeai/specs/Stories/STORY-037.story.md")
 ```
 
 **Example:** Operation: dev, Story: STORY-037 → skill asks about implementation challenges, design decisions, testing approach, and suggestions for future similar stories.
@@ -908,7 +908,7 @@ Read(file_path=".ai_docs/Stories/STORY-037.story.md")
 **Key Features:**
 - **Event-driven:** Auto-invoked via hooks after operations complete
 - **Adaptive questioning:** Context-aware retrospective questions
-- **Persistence:** Stores feedback sessions in .devforgeai/feedback/
+- **Persistence:** Stores feedback sessions in devforgeai/feedback/
 - **Indexing:** Searchable feedback history
 - **Integration:** Works with devforgeai CLI (check-hooks, invoke-hooks)
 

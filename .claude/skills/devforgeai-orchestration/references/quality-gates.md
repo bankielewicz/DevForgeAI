@@ -51,12 +51,12 @@ All 6 checks must pass:
 
 ```
 Required files:
-✓ .devforgeai/context/tech-stack.md
-✓ .devforgeai/context/source-tree.md
-✓ .devforgeai/context/dependencies.md
-✓ .devforgeai/context/coding-standards.md
-✓ .devforgeai/context/architecture-constraints.md
-✓ .devforgeai/context/anti-patterns.md
+✓ devforgeai/specs/context/tech-stack.md
+✓ devforgeai/specs/context/source-tree.md
+✓ devforgeai/specs/context/dependencies.md
+✓ devforgeai/specs/context/coding-standards.md
+✓ devforgeai/specs/context/architecture-constraints.md
+✓ devforgeai/specs/context/anti-patterns.md
 
 Validation:
 FOR each file:
@@ -104,7 +104,7 @@ Required in architecture-constraints.md:
 ✓ No circular dependencies allowed
 
 Validation:
-Read(file_path=".devforgeai/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
 
 IF "layer" not in content.lower():
     FAIL: "No layer boundaries defined"
@@ -123,7 +123,7 @@ Required in tech-stack.md:
 ✓ At least one "LOCKED" designation
 
 Validation:
-Read(file_path=".devforgeai/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/tech-stack.md")
 
 IF "LOCKED" not in content:
     WARN: "No technologies marked as LOCKED"
@@ -146,7 +146,7 @@ Required in source-tree.md:
 ✓ Example paths provided
 
 Validation:
-Read(file_path=".devforgeai/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
 
 IF content_length < 300:
     FAIL: "Source tree documentation too minimal"
@@ -422,10 +422,10 @@ All 9 checks must pass:
 QA Status:
 ✓ Overall status = PASS
 ✓ QA report generated
-✓ Report exists at .devforgeai/qa/reports/{story-id}-qa-report.md
+✓ Report exists at devforgeai/qa/reports/{story-id}-qa-report.md
 
 Validation:
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 qa_status = parse_qa_status(report)
 IF qa_status != "PASS":
@@ -656,7 +656,7 @@ Report validation:
 ✓ Recommendations provided
 
 Validation:
-Read(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md")
 
 required_sections = [
     "Test Coverage Analysis",
@@ -775,7 +775,7 @@ story_status = get_story_status(story_id)
 IF story_status NOT in ["QA Approved", "Releasing"]:
     FAIL: "Story not QA approved (status: {story_status})"
 
-Read(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md")
 qa_status = parse_qa_status(report)
 
 IF qa_status != "PASS":

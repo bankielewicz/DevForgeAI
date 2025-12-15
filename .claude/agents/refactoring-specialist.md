@@ -449,8 +449,8 @@ Target: < 10 per method
 ## References
 
 **Context Files:**
-- `.devforgeai/context/coding-standards.md` - Target code patterns
-- `.devforgeai/context/anti-patterns.md` - Patterns to refactor away
+- `devforgeai/specs/context/coding-standards.md` - Target code patterns
+- `devforgeai/specs/context/anti-patterns.md` - Patterns to refactor away
 
 **Refactoring Resources:**
 - Refactoring by Martin Fowler

@@ -44,16 +44,16 @@ class TestFrameworkFileClassification:
         assert result == ContentType.FRAMEWORK
 
     def test_should_classify_devforgeai_config_as_framework(self, mock_manifest_manager):
-        """Test: .devforgeai/context/ files classified as FRAMEWORK."""
+        """Test: devforgeai/specs/context/ files classified as FRAMEWORK."""
         from installer.content_classifier import ContentClassifier, ContentType
 
         # Set return value BEFORE creating classifier
         mock_manifest_manager.load_manifest.return_value = {
-            "installed_files": [".devforgeai/context/tech-stack.md"]
+            "installed_files": ["devforgeai/specs/context/tech-stack.md"]
         }
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
 
-        result = classifier.classify(".devforgeai/context/tech-stack.md")
+        result = classifier.classify("devforgeai/specs/context/tech-stack.md")
         assert result == ContentType.FRAMEWORK
 
     def test_should_classify_claude_md_as_framework(self, mock_manifest_manager):
@@ -76,37 +76,37 @@ class TestUserContentClassification:
     """Test classification of user-created content."""
 
     def test_should_classify_story_file_as_user_content(self, mock_manifest_manager):
-        """Test: .ai_docs/Stories/ files classified as USER_CONTENT."""
+        """Test: devforgeai/specs/Stories/ files classified as USER_CONTENT."""
         from installer.content_classifier import ContentClassifier, ContentType
 
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
         mock_manifest_manager.load_manifest.return_value = {"installed_files": []}
 
-        result = classifier.classify(".ai_docs/Stories/STORY-001.md")
+        result = classifier.classify("devforgeai/specs/Stories/STORY-001.md")
         assert result == ContentType.USER_CONTENT
 
     def test_should_classify_epic_file_as_user_content(self, mock_manifest_manager):
-        """Test: .ai_docs/Epics/ files classified as USER_CONTENT."""
+        """Test: devforgeai/specs/Epics/ files classified as USER_CONTENT."""
         from installer.content_classifier import ContentClassifier, ContentType
 
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
         mock_manifest_manager.load_manifest.return_value = {"installed_files": []}
 
-        result = classifier.classify(".ai_docs/Epics/EPIC-001.md")
+        result = classifier.classify("devforgeai/specs/Epics/EPIC-001.md")
         assert result == ContentType.USER_CONTENT
 
     def test_should_classify_sprint_file_as_user_content(self, mock_manifest_manager):
-        """Test: .ai_docs/Sprints/ files classified as USER_CONTENT."""
+        """Test: devforgeai/specs/Sprints/ files classified as USER_CONTENT."""
         from installer.content_classifier import ContentClassifier, ContentType
 
     def test_should_classify_custom_adr_as_user_content(self, mock_manifest_manager):
-        """Test: Custom .devforgeai/adrs/ files classified as USER_CONTENT."""
+        """Test: Custom devforgeai/specs/adrs/ files classified as USER_CONTENT."""
         from installer.content_classifier import ContentClassifier, ContentType
 
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
         mock_manifest_manager.load_manifest.return_value = {"installed_files": []}
 
-        result = classifier.classify(".devforgeai/adrs/ADR-001-custom-decision.md")
+        result = classifier.classify("devforgeai/specs/adrs/ADR-001-custom-decision.md")
         assert result == ContentType.USER_CONTENT
 
 
@@ -259,7 +259,7 @@ class TestUserCreatedInFrameworkDirs:
 
         AC #9: User-created file classification in framework directories.
 
-        Scenario: User created .devforgeai/my-notes.txt (not in manifest)
+        Scenario: User created devforgeai/my-notes.txt (not in manifest)
         Expected: Classify as USER_CREATED, not FRAMEWORK
         """
         from installer.content_classifier import ContentClassifier, ContentType
@@ -268,32 +268,32 @@ class TestUserCreatedInFrameworkDirs:
         mock_manifest_manager.load_manifest.return_value = {"installed_files": []}
 
         # File in framework directory but not in manifest = user created
-        result = classifier.classify(".devforgeai/my-notes.txt")
+        result = classifier.classify("devforgeai/my-notes.txt")
 
         assert result == ContentType.USER_CREATED
 
     def test_should_handle_user_added_context_files(self, mock_manifest_manager):
         """Test: User-added context files recognized as USER_CREATED.
 
-        Scenario: User creates .devforgeai/context/custom-constraint.md
+        Scenario: User creates devforgeai/specs/context/custom-constraint.md
         Expected: Classify as USER_CREATED
         """
         from installer.content_classifier import ContentClassifier, ContentType
 
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
         mock_manifest_manager.load_manifest.return_value = {
-            "installed_files": [".devforgeai/context/tech-stack.md"]
+            "installed_files": ["devforgeai/specs/context/tech-stack.md"]
         }
 
         # User-added file in context directory
-        result = classifier.classify(".devforgeai/context/custom-constraint.md")
+        result = classifier.classify("devforgeai/specs/context/custom-constraint.md")
 
         assert result == ContentType.USER_CREATED or result == ContentType.USER_CONTENT
 
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
         mock_manifest_manager.load_manifest.return_value = {"installed_files": []}
 
-        result = classifier.classify(".ai_docs/Sprints/Sprint-1.md")
+        result = classifier.classify("devforgeai/specs/Sprints/Sprint-1.md")
         assert result == ContentType.USER_CONTENT
 
     def test_should_classify_custom_adr_as_user_content(self, mock_manifest_manager):
@@ -305,7 +305,7 @@ class TestUserCreatedInFrameworkDirs:
             "installed_files": ["CUSTOM_ADR_NOT_IN_MANIFEST"]
         }
 
-        result = classifier.classify(".devforgeai/adrs/ADR-999-custom.md")
+        result = classifier.classify("devforgeai/specs/adrs/ADR-999-custom.md")
         assert result == ContentType.USER_CONTENT
 
 
@@ -333,13 +333,13 @@ class TestModifiedFrameworkClassification:
 
         # Set return value BEFORE creating classifier
         mock_manifest_manager.load_manifest.return_value = {
-            "installed_files": [".devforgeai/context/tech-stack.md"],
-            "file_hashes": {".devforgeai/context/tech-stack.md": "hash_original"}
+            "installed_files": ["devforgeai/specs/context/tech-stack.md"],
+            "file_hashes": {"devforgeai/specs/context/tech-stack.md": "hash_original"}
         }
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
 
         with patch.object(classifier, '_get_file_hash', return_value="hash_modified"):
-            result = classifier.classify(".devforgeai/context/tech-stack.md")
+            result = classifier.classify("devforgeai/specs/context/tech-stack.md")
             assert result == ContentType.MODIFIED_FRAMEWORK
 
 
@@ -347,7 +347,7 @@ class TestUnknownFileClassification:
     """Test classification of files not in manifest."""
 
     def test_should_classify_new_file_in_devforgeai_as_user_created(self, mock_manifest_manager):
-        """Test: New file in .devforgeai/protocols/ (framework dir) classified as USER_CREATED."""
+        """Test: New file in devforgeai/protocols/ (framework dir) classified as USER_CREATED."""
         from installer.content_classifier import ContentClassifier, ContentType
 
         # Set return value BEFORE creating classifier
@@ -355,7 +355,7 @@ class TestUnknownFileClassification:
         classifier = ContentClassifier(manifest_manager=mock_manifest_manager)
 
         # File in framework directory but not in manifest = USER_CREATED
-        result = classifier.classify(".devforgeai/protocols/custom-file.txt")
+        result = classifier.classify("devforgeai/protocols/custom-file.txt")
         assert result == ContentType.USER_CREATED
 
     def test_should_classify_new_file_in_claude_as_user_created(self, mock_manifest_manager):

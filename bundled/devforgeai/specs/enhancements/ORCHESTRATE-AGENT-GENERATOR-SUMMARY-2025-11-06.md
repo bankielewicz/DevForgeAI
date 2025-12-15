@@ -395,11 +395,11 @@ From agent-generator implementation checklist:
 ### Documentation Deliverables
 
 **Already created:**
-1. `.devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md` ✅
-2. `.devforgeai/specs/enhancements/ORCHESTRATE-RECOMMENDATIONS-2025-11-05.md` ✅
+1. `devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md` ✅
+2. `devforgeai/specs/enhancements/ORCHESTRATE-RECOMMENDATIONS-2025-11-05.md` ✅
 
 **This summary:**
-3. `.devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md` ✅
+3. `devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md` ✅
 
 ---
 

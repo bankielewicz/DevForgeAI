@@ -143,7 +143,7 @@ Read(file_path="CLAUDE.md")
 
 **Step 0.3: Load Lean Orchestration Protocol**
 ```
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 # Extract: Subagent creation guidelines, reference file patterns
 ```
 ```

@@ -233,13 +233,13 @@ echo "STORY-043 Test Results: PASSED (119/119)" > reports/story-043-results.txt
 ## References
 
 ### Story Documentation
-- Story: `.ai_docs/Stories/STORY-043-update-path-references-to-src.story.md`
+- Story: `devforgeai/specs/Stories/STORY-043-update-path-references-to-src.story.md`
 - Specs: `.devforgeai/specs/STORY-043/`
 
 ### Framework
 - Tech Stack: `.devforgeai/context/tech-stack.md`
 - Testing Guide: `.claude/memory/qa-automation.md`
-- Test Patterns: `.ai_docs/research/` (examples)
+- Test Patterns: `devforgeai/specs/research/` (examples)
 
 ### Related Stories
 - STORY-042: Copy framework files to src/ (prerequisite)

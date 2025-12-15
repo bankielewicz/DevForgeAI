@@ -26,7 +26,7 @@ Enable batch story creation from epics via `/create-story epic-001` command, all
 ## User Request (From output2.md Lines 1431-2054)
 
 **Original Request:**
-> "How do we enhance the story creation to create stories per epic document? For example, if I provide `/create-story epic-001`, I would like claude to create every story file related to epic-001 in sequence with the next numbering based on the .ai_docs/stories/ numbering sequence of next story #."
+> "How do we enhance the story creation to create stories per epic document? For example, if I provide `/create-story epic-001`, I would like claude to create every story file related to epic-001 in sequence with the next numbering based on the devforgeai/specs/stories/ numbering sequence of next story #."
 
 **Requirements:**
 1. ✅ Detect epic reference in command argument (`epic-001` pattern)
@@ -132,7 +132,7 @@ if re.match(r'^epic-\d{3}$', args.lower(), re.IGNORECASE):
     epic_id = args.upper().replace("EPIC-", "EPIC-")  # Normalize to EPIC-001
 
     # Validate epic exists
-    epic_files = Glob(pattern=f".ai_docs/Epics/{epic_id}*.epic.md")
+    epic_files = Glob(pattern=f"devforgeai/specs/Epics/{epic_id}*.epic.md")
 
     if not epic_files:
         AskUserQuestion:
@@ -185,7 +185,7 @@ else:
 
 **Read epic file:**
 ```python
-epic_file = Glob(pattern=f".ai_docs/Epics/{epic_id}*.epic.md")[0]
+epic_file = Glob(pattern=f"devforgeai/specs/Epics/{epic_id}*.epic.md")[0]
 epic_content = Read(file_path=epic_file)
 ```
 
@@ -252,7 +252,7 @@ Total: {sum(f['points'] for f in features)} points
 **Check for existing stories:**
 ```python
 # Glob existing stories
-existing_stories = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+existing_stories = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
 # Check which features already have stories
 for feature in features:
@@ -397,7 +397,7 @@ Proceeding with batch story creation...
 ```python
 def get_next_story_id():
     """Calculate next available story ID with gap detection."""
-    story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+    story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
     # Extract story numbers
     existing_numbers = []
@@ -480,7 +480,7 @@ for i, feature in enumerate(selected_features):
         Skill(command="devforgeai-story-creation")
 
         # Verify story created
-        story_file = Glob(pattern=f".ai_docs/Stories/{story_id}*.story.md")
+        story_file = Glob(pattern=f"devforgeai/specs/Stories/{story_id}*.story.md")
 
         if story_file:
             created_stories.append({
@@ -552,7 +552,7 @@ Sprint Assignment: {sprint}
 Priority: {priority}
 
 Files Created:
-{'\n'.join(f"  - .ai_docs/Stories/{s['id']}-*.story.md" for s in created_stories)}
+{'\n'.join(f"  - devforgeai/specs/Stories/{s['id']}-*.story.md" for s in created_stories)}
 
 {'='*60}
 """
@@ -596,7 +596,7 @@ if failed_stories:
     elif choice == "Cancel batch":
         # Rollback: Delete all created stories
         for story in created_stories:
-            story_file = Glob(pattern=f".ai_docs/Stories/{story['id']}*.story.md")[0]
+            story_file = Glob(pattern=f"devforgeai/specs/Stories/{story['id']}*.story.md")[0]
             Bash(command=f"rm {story_file}")
 
         Display: "Batch creation cancelled. All stories deleted."
@@ -802,7 +802,7 @@ except Exception as e:
     {list_created_stories}
 
     Manual action required:
-    - Open .ai_docs/Epics/{epic_id}.epic.md
+    - Open devforgeai/specs/Epics/{epic_id}.epic.md
     - Add story references manually
 
     Or retry: Re-run /create-story {epic_id} (will detect existing stories)
@@ -858,7 +858,7 @@ if dry_run_mode:
     {'─'*60}
 
     Files that will be created:
-    {'\n'.join(f"  - .ai_docs/Stories/STORY-{(max_existing_id + i + 1):03d}-{slugify(f['name'])}.story.md" for i, f in enumerate(selected_features))}
+    {'\n'.join(f"  - devforgeai/specs/Stories/STORY-{(max_existing_id + i + 1):03d}-{slugify(f['name'])}.story.md" for i, f in enumerate(selected_features))}
 
     Epic will be updated:
     - Add {len(selected_features)} story references
@@ -1117,11 +1117,11 @@ Estimated time: 10 minutes
 ────────────────────────────────────────────────────────
 
 Files that will be created:
-  - .ai_docs/Stories/STORY-016-statistics-discovery.story.md
-  - .ai_docs/Stories/STORY-017-sampling-logic.story.md
-  - .ai_docs/Stories/STORY-018-full-scan-detection.story.md
-  - .ai_docs/Stories/STORY-019-async-stats-update.story.md
-  - .ai_docs/Stories/STORY-020-stats-validation.story.md
+  - devforgeai/specs/Stories/STORY-016-statistics-discovery.story.md
+  - devforgeai/specs/Stories/STORY-017-sampling-logic.story.md
+  - devforgeai/specs/Stories/STORY-018-full-scan-detection.story.md
+  - devforgeai/specs/Stories/STORY-019-async-stats-update.story.md
+  - devforgeai/specs/Stories/STORY-020-stats-validation.story.md
 
 Epic will be updated:
 - Add 5 story references
@@ -1466,8 +1466,8 @@ To execute (create files):
 # - Execution time: 6-8 min (parallel)
 
 # Assertions:
-assert file_count(".ai_docs/Stories/STORY-*.story.md") == previous_count + 7
-assert no_extra_files(".ai_docs/Stories/STORY-*-SUMMARY.md")
+assert file_count("devforgeai/specs/Stories/STORY-*.story.md") == previous_count + 7
+assert no_extra_files("devforgeai/specs/Stories/STORY-*-SUMMARY.md")
 assert epic_references_count("EPIC-001") == 7
 assert sprint_story_count("Sprint-1") includes STORY-009 through STORY-015
 ```
@@ -1580,7 +1580,7 @@ assert both stories have measurable NFRs
 /create-story epic-002
 
 # Check epic file
-epic = Read(".ai_docs/Epics/EPIC-002.epic.md")
+epic = Read("devforgeai/specs/Epics/EPIC-002.epic.md")
 
 # Expected:
 # - All created stories referenced in epic
@@ -1868,7 +1868,7 @@ def get_next_story_id():
     - Existing: [] → Returns: 1 (first story)
     """
     # Get all existing stories
-    story_files = Glob(pattern=".ai_docs/Stories/STORY-*.story.md")
+    story_files = Glob(pattern="devforgeai/specs/Stories/STORY-*.story.md")
 
     # Extract story numbers
     existing_numbers = []
@@ -2034,11 +2034,11 @@ def invoke_story_creation_skill(story_id, epic_id, feature, sprint, priority, ba
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **RCA Fix:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **RCA Fix:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
 - **Command:** `.claude/commands/create-story.md`
 - **Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

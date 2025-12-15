@@ -17,7 +17,7 @@ Technical Specification Coverage:
 - SVC-002: No HTTP requests during offline install
 - SVC-003: Checksum verification detects corrupted files
 - CONF-001: All bundled files have checksums
-- DM-001: Framework directories bundled (.claude/, .devforgeai/)
+- DM-001: Framework directories bundled (.claude/, devforgeai/)
 - DM-002: Python wheel files bundled
 - DM-003: Compressed package ≤ 60MB
 
@@ -275,7 +275,7 @@ class TestBundleStructure:
 
     def test_bundled_devforgeai_directory_exists(self, tmp_path):
         """
-        AC#1, DM-001: .devforgeai/ directory bundled in package.
+        AC#1, DM-001: devforgeai/ directory bundled in package.
 
         Given: NPM package extracted
         When: Installer checks bundle structure

@@ -3,7 +3,7 @@ Backup management for framework installation.
 
 This module handles:
 - Creating timestamped backup directories (.backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/)
-- Copying .claude/, .devforgeai/, CLAUDE.md to backup
+- Copying .claude/, devforgeai/, CLAUDE.md to backup
 - Generating manifest.json with metadata and integrity hash (SHA256)
 - Verifying backup integrity before proceeding
 
@@ -97,7 +97,7 @@ def create_backup(
 
     Creates .backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/ with:
     - Copy of .claude/ directory
-    - Copy of .devforgeai/ directory
+    - Copy of devforgeai/ directory
     - Copy of CLAUDE.md file
     - manifest.json with metadata and integrity hash
 
@@ -137,7 +137,7 @@ def create_backup(
             backup_claude = backup_path / ".claude"
             shutil.copytree(source_claude, backup_claude)
 
-        # Copy .devforgeai/ directory
+        # Copy devforgeai/ directory
         source_devforgeai = project_root / ".devforgeai"
         if source_devforgeai.exists():
             backup_devforgeai = backup_path / ".devforgeai"

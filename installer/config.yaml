@@ -90,7 +90,7 @@ preserve_configs:
     - "feedback/config.yaml"
     - "context/*.md"        # All context files
   never_touch:
-    - ".ai_docs/"           # User stories, epics, sprints
+    - "devforgeai/specs/"           # User stories, epics, sprints
 
 # File permissions
 permissions:
@@ -129,18 +129,18 @@ validation:
     - ".claude/skills"
     - ".claude/agents"
     - ".claude/commands"
-    - ".devforgeai/protocols"
-    - ".devforgeai/config"
+    - "devforgeai/protocols"
+    - "devforgeai/config"
   critical_files:
     - "CLAUDE.md"
-    - ".devforgeai/.version.json"
+    - "devforgeai/.version.json"
 
 # Deployment source structure
 source:
   root: "src"
   subdirectories:
     - "claude"              # ~370 files → .claude/
-    - "devforgeai"          # ~80 files → .devforgeai/
+    - "devforgeai"          # ~80 files → devforgeai/
 
 # Version schema
 version_schema:

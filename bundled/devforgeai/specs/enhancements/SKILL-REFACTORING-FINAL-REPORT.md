@@ -534,7 +534,7 @@ Backup location: `.claude/skills/devforgeai-development/SKILL.md.backup-20251114
 ### DevForgeAI Framework Guides
 - CLAUDE.md - Section "CRITICAL: How Skills Work"
 - .claude/memory/skills-reference.md
-- .devforgeai/protocols/lean-orchestration-pattern.md
+- devforgeai/protocols/lean-orchestration-pattern.md
 
 ---
 

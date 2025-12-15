@@ -109,24 +109,24 @@ def validation_rules():
     """
     return {
         "expected_files": [
-            ".devforgeai/.version.json",
-            ".devforgeai/config/upgrade-config.json",
+            "devforgeai/.version.json",
+            "devforgeai/config/upgrade-config.json",
             ".claude/agents",
             ".claude/commands",
             ".claude/skills"
         ],
         "json_schemas": {
-            ".devforgeai/.version.json": {
+            "devforgeai/.version.json": {
                 "required_keys": ["version", "installed_at", "schema_version"]
             },
-            ".devforgeai/config/upgrade-config.json": {
+            "devforgeai/config/upgrade-config.json": {
                 "required_keys": ["backup_retention_count"]
             }
         },
         "yaml_files": [],
         "required_config_keys": {
-            ".devforgeai/.version.json": ["version", "schema_version"],
-            ".devforgeai/config/upgrade-config.json": ["backup_retention_count"]
+            "devforgeai/.version.json": ["version", "schema_version"],
+            "devforgeai/config/upgrade-config.json": ["backup_retention_count"]
         }
     }
 
@@ -190,7 +190,7 @@ class TestFileExistenceValidation:
 
         # Assert
         assert result.file_existence.all_passed is False
-        assert ".devforgeai/.version.json" in result.file_existence.failed
+        assert "devforgeai/.version.json" in result.file_existence.failed
 
     def test_validate_detects_missing_directory(self, project_root):
         """
@@ -376,8 +376,8 @@ class TestSchemaValidation:
         validator = MigrationValidator(logger=Mock())
 
         json_files = [
-            ".devforgeai/.version.json",
-            ".devforgeai/config/upgrade-config.json"
+            "devforgeai/.version.json",
+            "devforgeai/config/upgrade-config.json"
         ]
 
         # Act
@@ -623,8 +623,8 @@ class TestValidationReport:
         result = validator.validate(
             project_root=project_root,
             expected_files=validation_rules["expected_files"],
-            json_files=[".devforgeai/.version.json"],
-            config_keys={".devforgeai/.version.json": ["version", "schema_version"]}
+            json_files=["devforgeai/.version.json"],
+            config_keys={"devforgeai/.version.json": ["version", "schema_version"]}
         )
 
         # Assert
@@ -780,7 +780,7 @@ class TestValidationRollbackTrigger:
         # Act
         result = validator.validate(
             project_root=project_root,
-            expected_files=[".devforgeai/.version.json"]
+            expected_files=["devforgeai/.version.json"]
         )
 
         # Assert

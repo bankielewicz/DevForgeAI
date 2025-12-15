@@ -137,7 +137,7 @@ pytest installer/tests/integration/test_integration_error_handling.py::TestPerfo
 
 ### 2. Concurrent Installation Prevention (AC#8, RCA-004)
 **Scenario:** Lock file prevents concurrent installations
-- ✅ Process A acquires lock (.devforgeai/install.lock with PID)
+- ✅ Process A acquires lock (devforgeai/install.lock with PID)
 - ✅ Process B blocked from acquiring lock
 - ✅ Stale lock (dead PID) automatically cleaned up
 - ✅ Lock release allows subsequent installation

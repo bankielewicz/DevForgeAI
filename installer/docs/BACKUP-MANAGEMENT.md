@@ -16,16 +16,16 @@ DevForgeAI automatically manages backups of your installation for safety during 
 
 ## Backup Location
 
-**Default directory:** `.devforgeai/backups/`
+**Default directory:** `devforgeai/backups/`
 
 **Backup format:** `v{version}-{timestamp}/`
 
 **Example:**
 ```
-.devforgeai/backups/
+devforgeai/backups/
 ├── v1.0.5-20251206-143000/
 │   ├── .claude/
-│   ├── .devforgeai/
+│   ├── devforgeai/
 │   ├── CLAUDE.md
 │   ├── metadata.json
 │   └── manifest.json
@@ -59,13 +59,13 @@ DevForgeAI automatically manages backups of your installation for safety during 
 
 **What IS backed up:**
 - `.claude/` - All skills, subagents, commands, memory files
-- `.devforgeai/` - Framework context files, protocols, templates
+- `devforgeai/` - Framework context files, protocols, templates
 - `CLAUDE.md` - Project instructions
 
 **What is NOT backed up:**
-- `.ai_docs/Stories/` - User stories (preserved separately)
-- `.ai_docs/Epics/` - Epic documents (preserved separately)
-- `.devforgeai/backups/` - Old backups (no recursive backup)
+- `devforgeai/specs/Stories/` - User stories (preserved separately)
+- `devforgeai/specs/Epics/` - Epic documents (preserved separately)
+- `devforgeai/backups/` - Old backups (no recursive backup)
 - `.git/` - Git repository
 - `__pycache__/`, `.pytest_cache/` - Build artifacts
 - `node_modules/`, `.venv/` - Dependencies
@@ -113,7 +113,7 @@ DevForgeAI automatically manages backups of your installation for safety during 
 from installer.backup_selector import BackupSelector
 from pathlib import Path
 
-selector = BackupSelector(backup_dir=Path(".devforgeai/backups"))
+selector = BackupSelector(backup_dir=Path("devforgeai/backups"))
 backups = selector.list()
 
 print(f"Found {len(backups)} backup(s):\n")
@@ -127,9 +127,9 @@ for backup in backups:
 ```
 Found 3 backup(s):
 
-v1.0.5 - 2025-12-06 14:30:00 - 45 MB - UPGRADE - .devforgeai/backups/v1.0.5-20251206-143000
-v1.0.4 - 2025-12-05 10:15:00 - 43 MB - UPGRADE - .devforgeai/backups/v1.0.4-20251205-101500
-v1.0.3 - 2025-12-04 08:45:00 - 42 MB - MANUAL - .devforgeai/backups/v1.0.3-20251204-084500
+v1.0.5 - 2025-12-06 14:30:00 - 45 MB - UPGRADE - devforgeai/backups/v1.0.5-20251206-143000
+v1.0.4 - 2025-12-05 10:15:00 - 43 MB - UPGRADE - devforgeai/backups/v1.0.4-20251205-101500
+v1.0.3 - 2025-12-04 08:45:00 - 42 MB - MANUAL - devforgeai/backups/v1.0.3-20251204-084500
 ```
 
 **Sort order:** Newest first (by timestamp)
@@ -146,7 +146,7 @@ v1.0.3 - 2025-12-04 08:45:00 - 42 MB - MANUAL - .devforgeai/backups/v1.0.3-20251
 - Never deletes backup being restored
 - Only runs after successful rollback (not after failures)
 
-**Configuration:** `.devforgeai/config/rollback-config.json`
+**Configuration:** `devforgeai/config/rollback-config.json`
 
 ```json
 {
@@ -172,7 +172,7 @@ from installer.backup_cleaner import BackupCleaner
 from pathlib import Path
 
 cleaner = BackupCleaner(
-    backup_dir=Path(".devforgeai/backups"),
+    backup_dir=Path("devforgeai/backups"),
     retention_count=5
 )
 
@@ -230,7 +230,7 @@ import json
 validator = RollbackValidator(logger=logger)
 
 # Load backup manifest
-with open(".devforgeai/backups/v1.0.5-20251206-143000/manifest.json") as f:
+with open("devforgeai/backups/v1.0.5-20251206-143000/manifest.json") as f:
     manifest = json.load(f)
 
 # Validate restored files
@@ -251,11 +251,11 @@ print(f"Critical files: {'Present' if report.critical_files_present else 'Missin
 **Default behavior:** User content is NEVER overwritten during rollback
 
 **Preserved paths:**
-- `.ai_docs/Stories/` - User stories you created
-- `.ai_docs/Epics/` - Epic documents
-- `.ai_docs/Sprints/` - Sprint plans
-- `.devforgeai/context/` - Your custom context files
-- `.devforgeai/adrs/` - Your architecture decisions
+- `devforgeai/specs/Stories/` - User stories you created
+- `devforgeai/specs/Epics/` - Epic documents
+- `devforgeai/specs/Sprints/` - Sprint plans
+- `devforgeai/specs/context/` - Your custom context files
+- `devforgeai/specs/adrs/` - Your architecture decisions
 
 **Override behavior:**
 ```python
@@ -292,18 +292,18 @@ request = RollbackRequest(
 
 ## Configuration File
 
-**Location:** `.devforgeai/config/rollback-config.json`
+**Location:** `devforgeai/config/rollback-config.json`
 
 **Full configuration:**
 ```json
 {
   "backup_retention_count": 5,
   "user_content_paths": [
-    ".ai_docs/Stories/",
-    ".ai_docs/Epics/",
-    ".ai_docs/Sprints/",
-    ".devforgeai/context/",
-    ".devforgeai/adrs/"
+    "devforgeai/specs/Stories/",
+    "devforgeai/specs/Epics/",
+    "devforgeai/specs/Sprints/",
+    "devforgeai/specs/context/",
+    "devforgeai/specs/adrs/"
   ],
   "validate_after_rollback": true
 }
@@ -329,7 +329,7 @@ request = RollbackRequest(
 
 ### "No backups found"
 
-**Cause:** No backups in `.devforgeai/backups/` directory
+**Cause:** No backups in `devforgeai/backups/` directory
 
 **Solution:**
 - Check if directory exists
@@ -346,7 +346,7 @@ request = RollbackRequest(
 - Check backup manifest.json for expected checksums
 - Verify backup directory not corrupted
 - Try different backup if available
-- Check .devforgeai/logs/rollback-*.log for details
+- Check devforgeai/logs/rollback-*.log for details
 
 ---
 

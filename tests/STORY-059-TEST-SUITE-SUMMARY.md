@@ -330,7 +330,7 @@ pytest tests/user-input-guidance/test_measurement_scripts.py::TestFixtureValidat
 - `/mnt/c/Projects/DevForgeAI2/STORY-059-TEST-SUITE-SUMMARY.md` (this file)
 
 **Original Story**:
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-059-validation-testing-suite.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-059-validation-testing-suite.story.md`
 
 ---
 

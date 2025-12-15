@@ -117,7 +117,7 @@ done | sort -t'(' -k2 -n
 
 ```bash
 # 1. Generate budget report
-bash .devforgeai/scripts/check-command-budgets.sh > reports/budget-$(date +%Y-%m).txt
+bash devforgeai/scripts/check-command-budgets.sh > reports/budget-$(date +%Y-%m).txt
 
 # 2. Identify growth
 diff reports/budget-$(date -d 'last month' +%Y-%m).txt reports/budget-$(date +%Y-%m).txt
@@ -350,7 +350,7 @@ git checkout HEAD~ .claude/memory/*.md
 /[command] [test-args]
 
 # 8. Document issue
-# Create rollback report: .devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
+# Create rollback report: devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
 ```
 
 **Validation:**
@@ -370,7 +370,7 @@ After rollback, investigate:
 - [ ] **Prevention?** (add to testing checklist)
 
 **Document findings in:**
-- `.devforgeai/specs/enhancements/[COMMAND]-rollback-report.md`
+- `devforgeai/specs/enhancements/[COMMAND]-rollback-report.md`
 
 ---
 
@@ -537,7 +537,7 @@ After rollback, investigate:
 
 ```bash
 # Run all tests for a command
-bash .devforgeai/tests/commands/test-[command].sh
+bash devforgeai/tests/commands/test-[command].sh
 
 # Expected output:
 # Unit Tests: 15/15 passed ✅
@@ -600,7 +600,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 
 **Total effort:** 24-32 hours (can be done in parallel across 8 sessions)
 
-**Detailed plans created:** `.ai_docs/analysis/devforgeai-[skillname].md` (8 documents)
+**Detailed plans created:** `devforgeai/specs/analysis/devforgeai-[skillname].md` (8 documents)
 
 ### Long-Term Strategy (Next Quarter)
 
@@ -622,10 +622,10 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 
 ### Core Principles
 
-- `.ai_docs/claude-skills.md` - Skills architecture and progressive disclosure
-- `.ai_docs/Terminal/slash-commands-best-practices.md` - Command design patterns
-- `.ai_docs/Terminal/sub-agents.md` - Subagent architecture and context isolation
-- `.ai_docs/native-tools-vs-bash-efficiency-analysis.md` - Tool efficiency (40-73% savings)
+- `devforgeai/specs/claude-skills.md` - Skills architecture and progressive disclosure
+- `devforgeai/specs/Terminal/slash-commands-best-practices.md` - Command design patterns
+- `devforgeai/specs/Terminal/sub-agents.md` - Subagent architecture and context isolation
+- `devforgeai/specs/native-tools-vs-bash-efficiency-analysis.md` - Tool efficiency (40-73% savings)
 
 ### Implementation Examples
 
@@ -652,22 +652,22 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 ### Detailed Refactoring Documentation
 
 **Analysis documents:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep dive
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
-- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring complete
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep dive
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring complete
 
 **Skill refactoring plans (NEW):**
-- `.ai_docs/analysis/devforgeai-orchestration.md` (2,088 lines)
-- `.ai_docs/analysis/devforgeai-story-creation.md` (1,956 lines)
-- `.ai_docs/analysis/devforgeai-development.md` (1,923 lines)
-- `.ai_docs/analysis/devforgeai-ui-generator.md` (1,875 lines)
-- `.ai_docs/analysis/devforgeai-ideation.md` (1,804 lines)
-- `.ai_docs/analysis/devforgeai-qa.md` (1,843 lines)
-- `.ai_docs/analysis/devforgeai-architecture.md` (1,712 lines)
-- `.ai_docs/analysis/devforgeai-release.md` (1,603 lines)
+- `devforgeai/specs/analysis/devforgeai-orchestration.md` (2,088 lines)
+- `devforgeai/specs/analysis/devforgeai-story-creation.md` (1,956 lines)
+- `devforgeai/specs/analysis/devforgeai-development.md` (1,923 lines)
+- `devforgeai/specs/analysis/devforgeai-ui-generator.md` (1,875 lines)
+- `devforgeai/specs/analysis/devforgeai-ideation.md` (1,804 lines)
+- `devforgeai/specs/analysis/devforgeai-qa.md` (1,843 lines)
+- `devforgeai/specs/analysis/devforgeai-architecture.md` (1,712 lines)
+- `devforgeai/specs/analysis/devforgeai-release.md` (1,603 lines)
 
 ---
 

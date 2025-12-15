@@ -201,7 +201,7 @@ Eliminates duplicate load/save patterns across 6+ functions.
 
 **Automatic Backups**:
 - Created before every modification
-- Location: `.devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
+- Location: `devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
 - Timestamp format: YYYYMMDD-HHMMSS (UTC)
 
 **Recovery**:
@@ -406,7 +406,7 @@ test_skip_tracking_persists_across_sessions PASSED
 ## Configuration Schema
 
 ### File Location
-`.devforgeai/config/feedback-preferences.yaml`
+`devforgeai/config/feedback-preferences.yaml`
 
 ### Schema v1.0
 ```yaml
@@ -436,7 +436,7 @@ disable_reasons:
 ```
 
 ### Backup Location
-`.devforgeai/config/backups/feedback-preferences-{TIMESTAMP}.yaml.backup`
+`devforgeai/config/backups/feedback-preferences-{TIMESTAMP}.yaml.backup`
 
 ---
 
@@ -525,7 +525,7 @@ disable_reasons:
 - ✅ No framework dependencies (pure Python)
 - ✅ No external HTTP calls
 - ✅ Single responsibility (skip tracking only)
-- ✅ Configurable directory (respects .devforgeai/config structure)
+- ✅ Configurable directory (respects devforgeai/config structure)
 
 ### Coding Standards
 - ✅ Google-style docstrings

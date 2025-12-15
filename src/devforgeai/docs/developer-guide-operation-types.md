@@ -108,7 +108,7 @@ def validate_operation_type(operation_type: str) -> bool:
 
 ### Step 3: Update Config Schema
 
-**File:** `.devforgeai/config/feedback-preferences.yaml`
+**File:** `devforgeai/config/feedback-preferences.yaml`
 
 The config file automatically creates entries for new operation types. When the system encounters a skip for a new type, it adds:
 
@@ -350,10 +350,10 @@ print(f"Skip increment result: {result}")  # Should be 1
 EOF
 
 # 2. Test config file was created
-ls -l .devforgeai/config/feedback-preferences.yaml
+ls -l devforgeai/config/feedback-preferences.yaml
 
 # 3. Check config contains new type
-cat .devforgeai/config/feedback-preferences.yaml | grep model_context_selection
+cat devforgeai/config/feedback-preferences.yaml | grep model_context_selection
 
 # 4. Run full test suite
 pytest .claude/scripts/devforgeai_cli/tests/feedback/ -v --tb=short
@@ -376,7 +376,7 @@ last_updated: "..."
 
 **Create ADR if architectural impact:**
 
-File: `.devforgeai/adrs/ADR-NNN-add-model-context-selection-feedback.md`
+File: `devforgeai/specs/adrs/ADR-NNN-add-model-context-selection-feedback.md`
 
 ```markdown
 # ADR-XXX: Add model_context_selection Feedback Type

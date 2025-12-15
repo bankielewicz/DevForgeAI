@@ -56,7 +56,7 @@ Budget Status: ⚠️ HIGH (84% of 15K limit)
 ├─ Phase 4: Sprint File Creation (73 lines)
 │   ├─ Generate YAML frontmatter
 │   ├─ Generate markdown sections
-│   └─ Write to .ai_docs/Sprints/
+│   └─ Write to devforgeai/specs/Sprints/
 │
 ├─ Phase 5: Update Story Status (33 lines)
 │   ├─ Edit each story file
@@ -362,7 +362,7 @@ Execute and return JSON summary."
 ```json
 {
   "sprint_id": "SPRINT-N",
-  "file_path": ".ai_docs/Sprints/Sprint-N.md",
+  "file_path": "devforgeai/specs/Sprints/Sprint-N.md",
   "stories_updated": ["STORY-001", "STORY-002", ...],
   "total_points": 28,
   "capacity_status": "OPTIMAL",
@@ -492,7 +492,7 @@ Options:
 **Validate epic exists:**
 ```
 IF epic selected:
-  Glob(.ai_docs/Epics/${EPIC_ID}.epic.md)
+  Glob(devforgeai/specs/Epics/${EPIC_ID}.epic.md)
   IF not found: Error + list available
 ```
 
@@ -502,7 +502,7 @@ IF epic selected:
 
 **Find available stories:**
 ```
-Glob(pattern=".ai_docs/Stories/*.story.md")
+Glob(pattern="devforgeai/specs/Stories/*.story.md")
 
 FOR each story:
   Read YAML frontmatter
@@ -607,7 +607,7 @@ Action: Display error details from skill
 
 ## Success Criteria
 
-- [ ] Sprint file created in .ai_docs/Sprints/
+- [ ] Sprint file created in devforgeai/specs/Sprints/
 - [ ] Stories updated to "Ready for Dev"
 - [ ] Sprint references added to stories
 - [ ] Workflow history updated
@@ -798,7 +798,7 @@ Update Project Structure:
 ```
 # Given: Sprint created successfully
 # When: Command completes
-# Then: Sprint file exists at .ai_docs/Sprints/Sprint-N.md
+# Then: Sprint file exists at devforgeai/specs/Sprints/Sprint-N.md
 ```
 
 ### Integration Tests (8 cases)
@@ -909,8 +909,8 @@ Update Project Structure:
 
 **Test 8: File Locations**
 ```
-# Verify: Sprint files created in .ai_docs/Sprints/
-# Verify: Story files updated in .ai_docs/Stories/
+# Verify: Sprint files created in devforgeai/specs/Sprints/
+# Verify: Story files updated in devforgeai/specs/Stories/
 ```
 
 ### Performance Tests
@@ -1002,7 +1002,7 @@ git checkout HEAD~ .claude/memory/*.md
 # Reload original command
 
 # 6. Document rollback reason
-# Create .devforgeai/specs/enhancements/CREATE-SPRINT-ROLLBACK-REPORT.md
+# Create devforgeai/specs/enhancements/CREATE-SPRINT-ROLLBACK-REPORT.md
 ```
 
 ---
@@ -1066,9 +1066,9 @@ git checkout HEAD~ .claude/memory/*.md
 ## Related Documentation
 
 **Core Principles:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Refactoring methodology
-- `.ai_docs/claude-skills.md` - Skills architecture
-- `.ai_docs/Terminal/slash-commands-best-practices.md` - Command design
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Refactoring methodology
+- `devforgeai/specs/claude-skills.md` - Skills architecture
+- `devforgeai/specs/Terminal/slash-commands-best-practices.md` - Command design
 
 **Implementation Examples:**
 - `.claude/commands/dev.md` - Lean orchestration reference (513 lines)
@@ -1076,9 +1076,9 @@ git checkout HEAD~ .claude/memory/*.md
 - `.claude/agents/qa-result-interpreter.md` - Subagent example
 
 **Subagent Generation:**
-- `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Architecture overview
-- `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Step-by-step guide
-- `.devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Verification checklist
+- `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Architecture overview
+- `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Step-by-step guide
+- `devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Verification checklist
 
 ---
 
@@ -1133,7 +1133,7 @@ Command (250 lines)
 
 1. `.claude/agents/sprint-planner.md` (467 lines) ✅ EXISTS
 2. `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` (391 lines) ✅ EXISTS
-3. `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` (this file)
+3. `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` (this file)
 
 ### Files for Backup
 

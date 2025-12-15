@@ -24,7 +24,7 @@ This workflow references:
 **Before validating code, verify story file is properly documented**
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 ```
 
 ### Check for Implementation Notes Section
@@ -106,7 +106,7 @@ Continue to Step 1 (Load Story Specification)
 ## Step 1: Load Story Specification
 
 ```
-Read(file_path=".ai_docs/Stories/{story_id}.story.md")
+Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 # Extract:
 # - Acceptance criteria
 # - API contracts

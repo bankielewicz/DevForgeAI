@@ -32,7 +32,7 @@ Technologies in tech-stack.md are locked. Swap requires: user approval + ADR + t
 Check anti-patterns.md before suggesting: God Objects (>500 lines), direct instantiation (use DI), SQL concatenation, hardcoded secrets.
 
 ## 9. Document All Decisions
-Architecture decisions require ADRs in `.devforgeai/adrs/`.
+Architecture decisions require ADRs in `devforgeai/specs/adrs/`.
 
 ## 10. Ask, Don't Assume
 When in doubt → HALT and use AskUserQuestion.

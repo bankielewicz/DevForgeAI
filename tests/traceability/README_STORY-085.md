@@ -285,7 +285,7 @@ test_gap_detection.sh
 
 ### Story File
 ```
-/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-085-gap-detection-engine.story.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-085-gap-detection-engine.story.md
 ```
 
 **Story includes:**
@@ -454,7 +454,7 @@ Next: GREEN Phase (Implementation)
 ## References
 
 **Story File:**
-- `/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-085-gap-detection-engine.story.md`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-085-gap-detection-engine.story.md`
 
 **Documentation:**
 - `TEST_SUITE_SUMMARY.md` - Complete test documentation

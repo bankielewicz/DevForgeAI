@@ -78,7 +78,7 @@ class TestValidateWorkflow:
 
         Validates:
         - Missing .claude/ detected
-        - Missing .devforgeai/ detected
+        - Missing devforgeai/ detected
         - Missing .version.json detected
         - Status = "invalid"
 

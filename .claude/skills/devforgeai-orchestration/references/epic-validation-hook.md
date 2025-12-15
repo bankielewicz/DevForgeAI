@@ -23,7 +23,7 @@ Validates epic structure after `/create-epic` generates an epic file, ensuring a
 ## Invocation
 
 ```bash
-.devforgeai/traceability/epic-validator.sh --validate-epic <epic-file>
+devforgeai/traceability/epic-validator.sh --validate-epic <epic-file>
 ```
 
 ## Exit Codes
@@ -45,11 +45,11 @@ Non-blocking by default. Validation failures display:
 ## Example Output
 
 ```
-Validation PASSED: .ai_docs/Epics/EPIC-015.epic.md
+Validation PASSED: devforgeai/specs/Epics/EPIC-015.epic.md
 ```
 
 ```
-Validation FAILED for: .ai_docs/Epics/EPIC-TEST.epic.md
+Validation FAILED for: devforgeai/specs/Epics/EPIC-TEST.epic.md
   - Feature 1 description too short (5 chars, minimum 10 characters required)
   - Missing required field: priority
 
@@ -60,7 +60,7 @@ Fix suggestions:
 
 ## Configuration
 
-Thresholds loaded from: `.devforgeai/traceability/thresholds.json`
+Thresholds loaded from: `devforgeai/traceability/thresholds.json`
 
 ```json
 {

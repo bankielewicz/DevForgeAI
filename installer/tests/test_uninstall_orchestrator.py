@@ -109,7 +109,7 @@ class TestPreserveMode:
         mock_backup_service,
         mock_file_system
     ):
-        """Test: .ai_docs/ preserved in PRESERVE mode."""
+        """Test: devforgeai/specs/ preserved in PRESERVE mode."""
         from installer.uninstall_orchestrator import UninstallOrchestrator
         from installer.uninstall_models import UninstallRequest, UninstallMode
 
@@ -122,7 +122,7 @@ class TestPreserveMode:
         request = UninstallRequest(mode=UninstallMode.PRESERVE_USER_CONTENT, skip_confirmation=True)
         result = orchestrator.execute(request)
 
-        # .ai_docs/ should NOT be in files_to_remove
+        # devforgeai/specs/ should NOT be in files_to_remove
         assert result is not None
 
     def test_should_preserve_custom_adrs(

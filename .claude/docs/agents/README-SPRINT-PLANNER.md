@@ -30,7 +30,7 @@ Task(
   "success": true,
   "sprint_id": "SPRINT-1",
   "sprint_name": "User Authentication",
-  "file_path": ".ai_docs/Sprints/Sprint-1.md",
+  "file_path": "devforgeai/specs/Sprints/Sprint-1.md",
   "capacity": {
     "total_points": 16,
     "total_stories": 3,
@@ -71,7 +71,7 @@ Task(
 
 ## What It Creates
 
-**Sprint File:** `.ai_docs/Sprints/Sprint-{N}.md`
+**Sprint File:** `devforgeai/specs/Sprints/Sprint-{N}.md`
 - YAML frontmatter (id, name, epic, dates, capacity, stories)
 - Markdown content (overview, goals, stories by status, metrics)
 - Ready for development workflow
@@ -100,9 +100,9 @@ Task(
 
 **Subagent definition:** `sprint-planner.md`
 **Sprint planning guidelines:** `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md`
-**Implementation details:** `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
-**Verification steps:** `.devforgeai/SPRINT-PLANNER-VERIFICATION.md`
-**Command refactoring:** `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
+**Implementation details:** `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
+**Verification steps:** `devforgeai/SPRINT-PLANNER-VERIFICATION.md`
+**Command refactoring:** `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
 
 ---
 

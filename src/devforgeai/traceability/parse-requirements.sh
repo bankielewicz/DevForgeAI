@@ -45,9 +45,9 @@ else
     # Defaults if config not found
     EPIC_ID_PATTERN="^EPIC-[0-9]{3}$"
     STORY_ID_PATTERN="^STORY-[0-9]{3}$"
-    EPICS_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
-    STORIES_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
-    OUTPUT_FILE="${PROJECT_ROOT}/.devforgeai/traceability/requirements-matrix.json"
+    EPICS_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
+    STORIES_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
+    OUTPUT_FILE="${PROJECT_ROOT}/devforgeai/traceability/requirements-matrix.json"
 fi
 
 #############################################################################

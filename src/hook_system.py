@@ -4,7 +4,7 @@ Event-Driven Hook System for DevForgeAI.
 Main orchestrator for hook management, loading, and invocation.
 
 Features:
-- Load hooks from .devforgeai/config/hooks.yaml
+- Load hooks from devforgeai/config/hooks.yaml
 - Pattern matching (exact, glob, regex)
 - Circular dependency detection
 - Hook timeout protection
@@ -35,10 +35,10 @@ class HookSystem:
         Initialize hook system.
 
         Args:
-            config_path: Path to hooks.yaml (default: .devforgeai/config/hooks.yaml)
+            config_path: Path to hooks.yaml (default: devforgeai/config/hooks.yaml)
 
         """
-        self.config_path = config_path or Path(".devforgeai/config/hooks.yaml")
+        self.config_path = config_path or Path("devforgeai/config/hooks.yaml")
         self.registry = HookRegistry(self.config_path)
         self.circular_detector = CircularDependencyDetector(max_depth=3)
         self.invoker = HookInvoker(self.registry, self.circular_detector)
