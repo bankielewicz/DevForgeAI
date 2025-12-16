@@ -90,6 +90,146 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 ---
 
+### Phase 0.5: Load Test Isolation Configuration (STORY-092)
+
+**Purpose:** Load story-scoped test output paths to enable concurrent QA validations without data corruption.
+
+**Reference:** `references/test-isolation-service.md` (path resolution, directory creation, locking)
+
+**Step 0.5.1: Load Configuration**
+```
+Read(file_path="devforgeai/config/test-isolation.yaml")
+
+IF file not found:
+    Display: "ℹ️ Test isolation config not found, using defaults"
+    config = {
+        enabled: true,
+        paths: {
+            results_base: "tests/results",
+            coverage_base: "tests/coverage",
+            logs_base: "tests/logs"
+        },
+        directory: { auto_create: true, permissions: 755 },
+        concurrency: { locking_enabled: true, lock_timeout_seconds: 300 }
+    }
+ELSE:
+    config = parsed YAML content
+    Display: "✓ Test isolation config loaded"
+```
+
+**Step 0.5.2: Resolve Story-Scoped Paths**
+```
+story_paths = {
+    results_dir: "{config.paths.results_base}/{STORY_ID}",
+    coverage_dir: "{config.paths.coverage_base}/{STORY_ID}",
+    logs_dir: "{config.paths.logs_base}/{STORY_ID}"
+}
+
+# Store for use in Phase 1 test commands
+test_isolation_paths = story_paths
+```
+
+**Output:** `test_isolation_paths` variable available for Phase 1 test commands
+
+---
+
+### Phase 0.6: Create Story-Scoped Directories (STORY-092)
+
+**Purpose:** Ensure story-specific output directories exist before test execution.
+
+**Prerequisite:** Phase 0.5 completed (config loaded)
+
+**Step 0.6.1: Check Auto-Create Setting**
+```
+IF config.directory.auto_create == false:
+    Display: "ℹ️ Directory auto-creation disabled, skipping"
+    SKIP to Phase 0.7
+```
+
+**Step 0.6.2: Create Directories**
+```
+# Create all three story-scoped directories
+Bash(command="mkdir -p {test_isolation_paths.results_dir}")
+Bash(command="mkdir -p {test_isolation_paths.coverage_dir}")
+Bash(command="mkdir -p {test_isolation_paths.logs_dir}")
+
+# Apply permissions (Linux/Mac only, ignored on Windows)
+IF platform != "windows":
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.results_dir}")
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.coverage_dir}")
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.logs_dir}")
+```
+
+**Step 0.6.3: Validate Creation**
+```
+# Verify directories exist
+FOR dir in [results_dir, coverage_dir, logs_dir]:
+    IF NOT exists(dir):
+        Display: "❌ ERROR: Failed to create {dir}"
+        Display: "Check write permissions on tests/ directory"
+        HALT workflow
+```
+
+**Step 0.6.4: Write Timestamp**
+```
+Write(file_path="{test_isolation_paths.results_dir}/timestamp.txt",
+      content="{ISO_8601_TIMESTAMP}")
+
+Display: "✓ Story directories created: {STORY_ID}"
+```
+
+---
+
+### Phase 0.7: Acquire Lock File (STORY-092)
+
+**Purpose:** Prevent concurrent QA validations from corrupting test outputs.
+
+**Prerequisite:** Phase 0.6 completed (directories exist)
+
+**Step 0.7.1: Check Locking Setting**
+```
+IF config.concurrency.locking_enabled == false:
+    Display: "ℹ️ File locking disabled, skipping"
+    SKIP to Phase 0.9
+```
+
+**Step 0.7.2: Check for Existing Lock**
+```
+lock_file = "{test_isolation_paths.results_dir}/.qa-lock"
+
+IF exists(lock_file):
+    lock_age = now() - file_mtime(lock_file)
+    stale_threshold = config.concurrency.stale_lock_threshold_seconds (default: 3600)
+
+    IF lock_age > stale_threshold:
+        Display: "⚠️ Removing stale lock file (age: {lock_age}s)"
+        Remove(file_path=lock_file)
+    ELSE:
+        Display: "⚠️ Lock file exists (another QA may be running)"
+        AskUserQuestion:
+            - "Wait and retry" - Wait 60 seconds and check again
+            - "Force proceed" - Continue without lock (risk of data corruption)
+            - "Cancel" - Abort QA validation
+```
+
+**Step 0.7.3: Create Lock File**
+```
+Write(file_path="{lock_file}",
+      content="timestamp: {ISO_8601_TIMESTAMP}\nstory: {STORY_ID}\npid: {process_id}")
+
+Display: "✓ Lock acquired for {STORY_ID}"
+```
+
+**Final Step (end of QA workflow):** Release lock file
+```
+# Add to Phase 7 cleanup:
+IF config.concurrency.locking_enabled:
+    Remove(file_path="{test_isolation_paths.results_dir}/.qa-lock")
+    Display: "✓ Lock released for {STORY_ID}"
+```
+
+---
+
 ### Phase 0.9: AC-DoD Traceability Validation (NEW - RCA-012)
 
 **Purpose:** Verify every Acceptance Criterion requirement has corresponding Definition of Done coverage. Prevents quality gate bypass (STORY-038 pattern) and ensures complete work validation.

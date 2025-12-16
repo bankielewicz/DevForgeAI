@@ -40,8 +40,15 @@ pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt
 
 **Purpose:** Generate comprehensive test coverage reports with line, branch, and function coverage metrics
 
-**Usage:**
+**Usage (Story-Scoped - STORY-092):**
 ```bash
+# Story-scoped output (recommended for concurrent QA)
+python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
+  --project-path=/path/to/project \
+  --story-id=STORY-092 \
+  --output=tests/coverage/{story_id}/coverage-report.json
+
+# Legacy centralized output (deprecated)
 python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
   --project-path=/path/to/project \
   --output=devforgeai/qa/coverage/coverage-report.json
@@ -49,7 +56,8 @@ python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
 
 **Parameters:**
 - `--project-path`: Root directory of project (default: current directory)
-- `--output`: JSON output file path (default: coverage-report.json)
+- `--story-id`: Story identifier for story-scoped output path (e.g., STORY-092)
+- `--output`: JSON output file path (default: tests/coverage/{story_id}/coverage-report.json)
 - `--language`: Override language detection (python, node, dotnet, go, rust, java)
 
 **Output Format:**
@@ -310,14 +318,17 @@ class TestUserService:
 
 Scripts are automatically invoked during deep validation phases:
 
-### Phase 1: Test Coverage Analysis
+### Phase 1: Test Coverage Analysis (Story-Scoped - STORY-092)
 
 ```python
-# Generate coverage report
-Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --output=devforgeai/qa/coverage/coverage-report.json")
+# Get story-scoped paths from Phase 0.5
+# coverage_dir = test_isolation_paths.coverage_dir  # e.g., tests/coverage/STORY-092
+
+# Generate coverage report (story-scoped)
+Bash(command="python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py --project-path=. --story-id={story_id} --output=tests/coverage/{story_id}/coverage-report.json")
 
 # Read and parse results
-Read(file_path="devforgeai/qa/coverage/coverage-report.json")
+Read(file_path="tests/coverage/{story_id}/coverage-report.json")
 coverage_data = parse_json(coverage_content)
 
 # Use data in Steps 4-7

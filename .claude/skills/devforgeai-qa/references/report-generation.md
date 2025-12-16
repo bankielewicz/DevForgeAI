@@ -362,6 +362,11 @@ Write(file_path="devforgeai/qa/reports/{story_id}-qa-report.md",
 
 **Report file location:** `devforgeai/qa/reports/{story_id}-qa-report.md`
 
+**Story-Scoped Test Output Locations (STORY-092):**
+- **Coverage Data:** `tests/coverage/{story_id}/` (e.g., coverage.json, coverage.xml)
+- **Test Results:** `tests/results/{story_id}/` (e.g., test-results.xml, test-output.log)
+- **Test Logs:** `tests/logs/{story_id}/` (console output capture)
+
 ---
 
 ## Step 3.5: Generate Structured Gap Export (gaps.json)
@@ -380,6 +385,11 @@ IF overall_status == "FAIL":
         "qa_result": "FAILED",
         "generated_at": timestamp,
         "qa_report_file": "devforgeai/qa/reports/{story_id}-qa-report.md",
+
+        # Story-scoped test output paths (STORY-092)
+        "coverage_data_path": "tests/coverage/{story_id}/",
+        "test_results_path": "tests/results/{story_id}/",
+        "test_logs_path": "tests/logs/{story_id}/",
 
         "coverage_gaps": [],
         "anti_pattern_violations": [],

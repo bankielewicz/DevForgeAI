@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Test Isolation Configuration Schema",
+  "description": "Schema for DevForgeAI test isolation configuration (YAML-based)",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "type": "boolean",
+      "description": "Master enable/disable switch for story-scoped test isolation",
+      "default": true
+    },
+    "paths": {
+      "type": "object",
+      "description": "Path configuration for story-scoped test outputs",
+      "properties": {
+        "results_base": {
+          "type": "string",
+          "description": "Base directory for test results (JUnit XML, logs)",
+          "default": "tests/results"
+        },
+        "coverage_base": {
+          "type": "string",
+          "description": "Base directory for coverage reports",
+          "default": "tests/coverage"
+        },
+        "logs_base": {
+          "type": "string",
+          "description": "Base directory for test output logs",
+          "default": "tests/logs"
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "results_base": "tests/results",
+        "coverage_base": "tests/coverage",
+        "logs_base": "tests/logs"
+      }
+    },
+    "directory": {
+      "type": "object",
+      "description": "Directory creation settings",
+      "properties": {
+        "auto_create": {
+          "type": "boolean",
+          "description": "Automatically create story-scoped directories before test execution",
+          "default": true
+        },
+        "permissions": {
+          "type": "integer",
+          "description": "Unix permissions for created directories (e.g., 755)",
+          "minimum": 0,
+          "maximum": 777,
+          "default": 755
+        },
+        "create_parents": {
+          "type": "boolean",
+          "description": "Create parent directories if they don't exist",
+          "default": true
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "auto_create": true,
+        "permissions": 755,
+        "create_parents": true
+      }
+    },
+    "concurrency": {
+      "type": "object",
+      "description": "Concurrency settings for parallel story development",
+      "properties": {
+        "locking_enabled": {
+          "type": "boolean",
+          "description": "Enable file locking to prevent concurrent writes",
+          "default": true
+        },
+        "lock_file_pattern": {
+          "type": "string",
+          "description": "Lock file name pattern",
+          "default": ".qa-lock"
+        },
+        "lock_timeout_seconds": {
+          "type": "integer",
+          "description": "Maximum seconds to wait for lock acquisition",
+          "minimum": 1,
+          "maximum": 3600,
+          "default": 300
+        },
+        "stale_lock_threshold_seconds": {
+          "type": "integer",
+          "description": "Seconds after which a lock is considered stale",
+          "minimum": 60,
+          "maximum": 86400,
+          "default": 3600
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "locking_enabled": true,
+        "lock_file_pattern": ".qa-lock",
+        "lock_timeout_seconds": 300,
+        "stale_lock_threshold_seconds": 3600
+      }
+    },
+    "cleanup": {
+      "type": "object",
+      "description": "Cleanup policy for old test results",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Enable automatic cleanup of old test results",
+          "default": false
+        },
+        "retention_days": {
+          "type": "integer",
+          "description": "Number of days to retain test results",
+          "minimum": 1,
+          "maximum": 365,
+          "default": 30
+        },
+        "max_stories": {
+          "type": "integer",
+          "description": "Maximum number of story directories to keep",
+          "minimum": 1,
+          "maximum": 1000,
+          "default": 100
+        },
+        "require_released_status": {
+          "type": "boolean",
+          "description": "Only cleanup stories in Released status",
+          "default": true
+        }
+      },
+      "additionalProperties": false,
+      "default": {
+        "enabled": false,
+        "retention_days": 30,
+        "max_stories": 100,
+        "require_released_status": true
+      }
+    },
+    "language_outputs": {
+      "type": "object",
+      "description": "Language-specific output file patterns",
+      "properties": {
+        "python": {
+          "$ref": "#/definitions/language_output"
+        },
+        "javascript": {
+          "$ref": "#/definitions/language_output"
+        },
+        "dotnet": {
+          "$ref": "#/definitions/language_output"
+        },
+        "go": {
+          "$ref": "#/definitions/language_output"
+        },
+        "java": {
+          "$ref": "#/definitions/language_output"
+        },
+        "rust": {
+          "$ref": "#/definitions/language_output"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/language_output"
+      }
+    }
+  },
+  "definitions": {
+    "language_output": {
+      "type": "object",
+      "description": "Output file patterns for a specific language",
+      "properties": {
+        "coverage_file": {
+          "type": "string",
+          "description": "Coverage report filename"
+        },
+        "results_file": {
+          "type": "string",
+          "description": "Test results filename"
+        },
+        "log_file": {
+          "type": "string",
+          "description": "Test output log filename"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [],
+  "default": {
+    "enabled": true,
+    "paths": {
+      "results_base": "tests/results",
+      "coverage_base": "tests/coverage",
+      "logs_base": "tests/logs"
+    },
+    "directory": {
+      "auto_create": true,
+      "permissions": 755,
+      "create_parents": true
+    },
+    "concurrency": {
+      "locking_enabled": true,
+      "lock_file_pattern": ".qa-lock",
+      "lock_timeout_seconds": 300,
+      "stale_lock_threshold_seconds": 3600
+    },
+    "cleanup": {
+      "enabled": false,
+      "retention_days": 30,
+      "max_stories": 100,
+      "require_released_status": true
+    }
+  }
+}

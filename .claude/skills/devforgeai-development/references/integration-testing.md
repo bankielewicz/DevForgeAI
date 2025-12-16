@@ -113,6 +113,13 @@ IF gaming_scan.status == "PASS":
 
 ### Step 1: Invoke integration-tester Subagent [MANDATORY]
 
+**Story-Scoped Test Outputs (STORY-092):**
+```
+# Get story-scoped paths from Phase 0.5 (test_isolation_paths)
+results_dir = "tests/results/{STORY_ID}"   # e.g., tests/results/STORY-092
+coverage_dir = "tests/coverage/{STORY_ID}" # e.g., tests/coverage/STORY-092
+```
+
 ```
 Task(
   subagent_type="integration-tester",
@@ -121,8 +128,16 @@ Task(
 
   Implementation and tests available in conversation.
 
-  Test execution:
-  1. Run full test suite: {TEST_COVERAGE_COMMAND}
+  **Story-Scoped Output Paths (STORY-092):**
+  - Results directory: {results_dir}
+  - Coverage directory: {coverage_dir}
+
+  Test execution (use story-scoped paths):
+  1. Run full test suite with story-scoped outputs:
+     - Python: pytest --cov=src --cov-report=json:{coverage_dir}/coverage.json --junitxml={results_dir}/test-results.xml
+     - Node.js: npm test -- --coverage --coverageDirectory={coverage_dir}
+     - .NET: dotnet test --results-directory={results_dir}
+     - Go: go test ./... -coverprofile={coverage_dir}/coverage.out
   2. Validate coverage meets thresholds:
      - Business logic: 95% minimum
      - Application layer: 85% minimum
@@ -135,13 +150,15 @@ Task(
   Context files:
   - devforgeai/specs/context/coding-standards.md (coverage requirements)
   - devforgeai/specs/context/architecture-constraints.md (layer boundaries)
+  - devforgeai/config/test-isolation.yaml (test output path configuration)
 
   Return:
   - Test results (total, passed, failed, coverage %)
   - Coverage by layer (business/application/infrastructure)
   - Build status (success/failure)
   - Linter issues (if applicable)
-  - Integration issues found"
+  - Integration issues found
+  - Test output paths (for concurrent story verification)"
 )
 ```
 
