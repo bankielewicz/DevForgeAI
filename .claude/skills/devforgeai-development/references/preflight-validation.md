@@ -27,6 +27,7 @@ Phase 01 executes 9 validation steps before proceeding to TDD implementation. Th
 **Steps:**
 1. Validate Git repository status
 2. **Git Worktree Auto-Management** (STORY-091)
+2.5. **Dependency Graph Validation** (STORY-093) - NEW
 3. Adapt TDD workflow based on Git availability
 4. File-based change tracking template (if no Git)
 5. Validate context files exist
@@ -684,6 +685,146 @@ IF result.limit_reached AND result.story_worktree.action_needed == "CREATE":
 
 ---
 
+## Step 0.2.5: Dependency Graph Validation [MANDATORY]
+
+**Purpose:** Validate story dependencies before TDD workflow begins (STORY-093).
+
+**When to execute:** After git-worktree-manager (Step 0.2), before workflow adaptation (Step 0.3).
+
+**Pre-check: Empty depends_on optimization:**
+
+```
+# Check if story has any dependencies
+# (Extracted from story frontmatter already loaded in conversation)
+IF depends_on is empty OR depends_on == []:
+    Display: "✓ No dependencies declared - skipping dependency validation"
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke dependency-graph-analyzer subagent:**
+
+```
+Task(
+  subagent_type="dependency-graph-analyzer",
+  description="Validate dependencies for ${STORY_ID}",
+  prompt="Analyze dependencies for story ${STORY_ID}.
+
+    Story path: devforgeai/specs/Stories/
+
+    Tasks:
+    1. Extract depends_on from story frontmatter
+    2. Build dependency graph with transitive resolution
+    3. Detect circular dependencies
+    4. Validate all dependency statuses
+    5. Generate chain visualization
+
+    Return JSON with validation results.
+    BLOCKING: Return blocking=true if any dependency is invalid."
+)
+```
+
+**Parse subagent response:**
+
+```javascript
+result = parse_json(subagent_output)
+
+IF result.status == "PASS":
+    Display: "✓ Dependency validation passed"
+    Display: "  Dependencies: {result.dependencies.total_count}"
+    Display: ""
+    Display: result.chain_visualization
+    Display: ""
+    // Continue to Step 0.3
+
+ELIF result.status == "BLOCKED":
+    // Check for --force flag
+    IF $FORCE_FLAG == true:
+        // Log bypass to audit file
+        timestamp = current_datetime_iso()
+        log_path = ".devforgeai/logs/dependency-bypass-{timestamp}.log"
+
+        Write(
+            file_path=log_path,
+            content="""# Dependency Bypass Log
+Timestamp: {timestamp}
+Story: {STORY_ID}
+Bypassed Dependencies:
+{json.dumps(result.validation.failures, indent=2)}
+User: Requested via --force flag
+"""
+        )
+
+        Display: "⚠️  DEPENDENCY CHECK BYPASSED (--force flag)"
+        Display: ""
+        Display: "The following dependency issues were bypassed:"
+        FOR failure in result.validation.failures:
+            Display: "  • {failure.message}"
+        Display: ""
+        Display: "Bypass logged to: {log_path}"
+        Display: ""
+        Display: "Proceeding to Step 0.3..."
+        // Continue to Step 0.3
+
+    ELSE:
+        // Block execution
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: "❌ DEPENDENCY VALIDATION FAILED"
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: ""
+
+        IF result.validation.cycle_detected:
+            Display: "🔄 CIRCULAR DEPENDENCY DETECTED"
+            Display: ""
+            Display: "Cycle: {' → '.join(result.validation.cycle_path)}"
+            Display: ""
+            Display: "Resolution: Remove circular reference in one of the story files."
+
+        ELIF result.validation.missing.length > 0:
+            Display: "❓ MISSING DEPENDENCIES"
+            Display: ""
+            FOR dep in result.validation.missing:
+                Display: "  • {dep} - Story file not found"
+            Display: ""
+            Display: "Resolution: Create the missing story files or remove the dependency."
+
+        ELSE:
+            Display: "⏳ DEPENDENCIES NOT READY"
+            Display: ""
+            FOR failure in result.validation.failures:
+                Display: "  • {failure.message}"
+                IF failure.suggestion:
+                    Display: "    → {failure.suggestion}"
+            Display: ""
+
+        Display: ""
+        Display: "Dependency chain:"
+        Display: result.chain_visualization
+        Display: ""
+        Display: "Options:"
+        Display: "  1. Complete dependent stories first"
+        Display: "  2. Run with --force flag to bypass (not recommended):"
+        Display: "     /dev {STORY_ID} --force"
+        Display: ""
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+        HALT workflow (do not proceed to Step 0.3)
+
+ELIF result.status == "ERROR":
+    Display: "❌ Dependency analysis error: {result.error}"
+    Display: "Proceeding with caution..."
+    // Continue to Step 0.3 (graceful degradation)
+```
+
+**Token cost:** ~2,500 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/dependency-graph-analyzer.md` (to be created)
+- Implementation: `src/dependency_graph_analyzer.py`
+- Story: STORY-093 - Dependency Graph Enforcement with Transitive Resolution
+
+---
+
 ## Step 0.3: Adapt TDD Workflow Based on Git Availability [MANDATORY]
 
 **Workflow adaptations apply throughout all phases:**
@@ -1248,6 +1389,7 @@ ELSE:
 - [ ] **Step 0.1.5:** User consent obtained (if uncommitted changes > 10)
 - [ ] **Step 0.1.6:** Stash warnings shown (if user selected stash)
 - [ ] **Step 0.2:** Git Worktree Auto-Management (if Git available + enabled)
+- [ ] **Step 0.2.5:** Dependency Graph Validation (STORY-093) - validated or --force bypassed
 - [ ] **Step 0.3:** Workflow mode determined (git-based or file-based)
 - [ ] **Step 0.4:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
 - [ ] **Step 0.5:** All 6 context files validated (exist and non-empty)

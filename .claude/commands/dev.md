@@ -17,6 +17,9 @@ Execute full Test-Driven Development cycle for a user story following lean orche
 # Standard usage
 /dev STORY-001
 
+# Bypass dependency checks (not recommended)
+/dev STORY-001 --force
+
 # Development workflow states
 Backlog | Ready for Dev | In Development → Dev Complete
 
@@ -31,14 +34,33 @@ Backlog | Ready for Dev | In Development → Dev Complete
 
 ### Phase 01: Argument Validation
 
-**Validate story ID format:**
+**Parse arguments and flags:**
 ```
-STORY_ID=$1
+STORY_ID = null
+FORCE_FLAG = false
 
-IF $1 empty OR NOT match "STORY-[0-9]+":
-    Display: "Usage: /dev STORY-NNN"
+# Parse arguments
+FOR arg in arguments:
+    IF arg == "--force":
+        FORCE_FLAG = true
+    ELIF arg matches "STORY-[0-9]+":
+        STORY_ID = arg
+
+IF STORY_ID empty:
+    Display: "Usage: /dev STORY-NNN [--force]"
     Display: "Example: /dev STORY-001"
+    Display: "         /dev STORY-001 --force  (bypass dependency checks)"
     HALT
+
+IF FORCE_FLAG == true:
+    Display: "⚠️  Force mode enabled - dependency checks will be bypassed"
+    Display: "    This is logged for audit purposes."
+    Display: ""
+```
+
+**Set force flag for skill context:**
+```
+$FORCE_FLAG = FORCE_FLAG
 ```
 
 **Load story file:**
