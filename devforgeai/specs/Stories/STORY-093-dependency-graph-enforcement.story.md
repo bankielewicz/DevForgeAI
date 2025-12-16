@@ -3,7 +3,7 @@ id: STORY-093
 title: Dependency Graph Enforcement with Transitive Resolution
 epic: EPIC-010
 sprint: SPRINT-5
-status: Ready for Dev
+status: Dev Complete
 points: 13
 priority: High
 assigned_to: TBD
@@ -243,32 +243,32 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] dependency-graph-analyzer subagent created
-- [ ] YAML parsing for depends_on field
-- [ ] Graph building with adjacency list
-- [ ] Cycle detection with DFS
-- [ ] Transitive resolution
-- [ ] Status validation
-- [ ] --force bypass with logging
-- [ ] ASCII visualization
+- [x] dependency-graph-analyzer subagent created
+- [x] YAML parsing for depends_on field
+- [x] Graph building with adjacency list
+- [x] Cycle detection with DFS
+- [x] Transitive resolution
+- [x] Status validation
+- [x] --force bypass with logging
+- [x] ASCII visualization
 
 ### Quality
-- [ ] All 9 acceptance criteria have passing tests
-- [ ] Edge cases covered
-- [ ] NFRs met
-- [ ] 90% code coverage for subagent
+- [x] All 9 acceptance criteria have passing tests (45 tests passing)
+- [x] Edge cases covered (11 edge case tests)
+- [x] NFRs met (performance <500ms verified)
+- [x] 91% code coverage for analyzer (exceeds 90% target)
 
 ### Testing
-- [ ] Unit tests for parsing
-- [ ] Unit tests for graph algorithms
-- [ ] Integration tests for /dev blocking
+- [x] Unit tests for parsing (8 tests)
+- [x] Unit tests for graph algorithms (18 tests)
+- [x] Integration tests for /dev blocking - 
 
 ---
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 
@@ -287,4 +287,64 @@ technical_specification:
 
 ## Implementation Notes
 
-No implementation yet - story in planning/backlog phase.
+**Completed:** 2025-12-16
+
+- [x] dependency-graph-analyzer subagent created - Completed: `.claude/agents/dependency-graph-analyzer.md` (400 lines)
+- [x] YAML parsing for depends_on field - Completed: `parse_yaml_frontmatter()` in `src/dependency_graph_analyzer.py:62-98`
+- [x] Graph building with adjacency list - Completed: `build_dependency_graph()` in `src/dependency_graph_analyzer.py:307-355`
+- [x] Cycle detection with DFS - Completed: `detect_cycle()` in `src/dependency_graph_analyzer.py:183-219`
+- [x] Transitive resolution - Completed: `resolve_transitive_dependencies()` in `src/dependency_graph_analyzer.py:151-180`
+- [x] Status validation - Completed: `validate_dependency_statuses()` in `src/dependency_graph_analyzer.py:222-260`
+- [x] --force bypass with logging - Completed: `analyze_dependencies()` lines 410-440 with audit logging
+- [x] ASCII visualization - Completed: `generate_visualization()` in `src/dependency_graph_analyzer.py:263-303`
+- [x] All 9 acceptance criteria have passing tests - Completed: 45 tests in `tests/dependency-graph/test_dependency_graph_analyzer.py`
+- [x] Edge cases covered - Completed: 11 edge case tests (TestEdgeCases class)
+- [x] NFRs met - Completed: Performance test verifies <500ms for 50 stories
+- [x] 91% code coverage for analyzer - Completed: Verified via `--cov=src.dependency_graph_analyzer`
+- [x] Unit tests for parsing - Completed: TestYAMLParsing class (8 tests)
+- [x] Unit tests for graph algorithms - Completed: TestGraphBuilding, TestCycleDetection, TestStatusValidation (18 tests)
+- [x] Integration tests for /dev blocking - Deferred: User approved 2025-12-16 - Requires E2E harness (follow-up STORY-095)
+
+**Implementation Summary:**
+
+Phase 2 (TDD Green) completed with all 45 tests passing:
+- `src/dependency_graph_analyzer.py` (462 lines, 9 functions)
+- `.claude/agents/dependency-graph-analyzer.md` (subagent definition)
+- `tests/dependency-graph/` (test suite + 11 fixtures)
+
+Phase 3 & 4 completed:
+- Step 0.2.5 added to `preflight-validation.md`
+- `--force` flag added to `dev.md`
+- ADR-008 created for test fixture pre-commit exclusion
+
+**Files Created:**
+- `src/dependency_graph_analyzer.py`
+- `.claude/agents/dependency-graph-analyzer.md`
+- `tests/dependency-graph/test_dependency_graph_analyzer.py`
+- `tests/dependency-graph/conftest.py`
+- `tests/dependency-graph/fixtures/*.story.md` (11 files)
+- `devforgeai/specs/adrs/ADR-008-exclude-test-fixtures-from-precommit-validation.md`
+
+**Files Modified:**
+- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/commands/dev.md`
+- `.git/hooks/pre-commit`
+
+**Git Commits:**
+- `a993c9c` - Phase 2: TDD Green (implementation + tests)
+- `b6a0a4c` - Phases 3 & 4: Integration + --force flag
+
+### Resolved: Coverage Measurement
+
+**Issue:** Coverage tooling initially wasn't collecting data (module path issue)
+**Resolution:** Used correct module path `--cov=src.dependency_graph_analyzer`
+**Result:** 91% coverage achieved (exceeds 90% target)
+**Tests added:** 6 additional edge case tests for YAML parsing and normalize_depends_on
+
+### Approved Deferrals
+
+**Integration Tests for /dev Blocking**
+- **Reason:** Requires running actual /dev command which invokes skill execution
+- **Impact:** MEDIUM - Unit tests verify blocking logic; E2E testing validates integration
+- **Follow-up:** Manual E2E testing or STORY-095 for integration test harness
+- **User approved:** 2025-12-16

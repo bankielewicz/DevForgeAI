@@ -426,6 +426,45 @@ depends_on: [not valid yaml
         assert elapsed < 0.5, f"Took {elapsed:.3f}s, should be <0.5s"
         assert len(transitive) == 49
 
+    def test_content_without_frontmatter_delimiters(self):
+        """Test content that doesn't start with '---'."""
+        content = "No frontmatter here"
+        result = parse_yaml_frontmatter(content)
+        assert result is None
+
+    def test_content_with_single_delimiter(self):
+        """Test content with only one '---' delimiter."""
+        content = "---\nid: STORY-100"
+        result = parse_yaml_frontmatter(content)
+        assert result is None
+
+    def test_empty_yaml_section(self):
+        """Test content with empty YAML between delimiters."""
+        content = "---\n---\nBody content"
+        result = parse_yaml_frontmatter(content)
+        assert result == {}
+
+    def test_yaml_parses_to_none(self):
+        """Test YAML that explicitly parses to null/None."""
+        content = "---\nnull\n---\nBody"
+        result = parse_yaml_frontmatter(content)
+        assert result == {}
+
+    def test_yaml_parses_to_list_not_dict(self):
+        """Test YAML that parses to a list instead of dict."""
+        content = "---\n- item1\n- item2\n---\nBody"
+        result = parse_yaml_frontmatter(content)
+        assert result is None
+
+    def test_normalize_with_non_string_items(self):
+        """Test normalize_depends_on with non-string items in list."""
+        ids = ["STORY-101", 123, None, "STORY-102"]
+        valid, invalid = normalize_depends_on(ids)
+        assert "STORY-101" in valid
+        assert "STORY-102" in valid
+        assert "123" in invalid
+        assert "None" in invalid
+
     def test_json_output_format_valid(self, fixtures_dir):
         """Test analyze_dependencies returns valid JSON structure."""
         result = analyze_dependencies(
