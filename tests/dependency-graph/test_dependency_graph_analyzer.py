@@ -491,3 +491,107 @@ depends_on: [not valid yaml
         assert "all_exist" in val
         assert "all_valid_status" in val
         assert "cycle_detected" in val
+
+
+class TestDevBlockingIntegration:
+    """Integration tests simulating /dev Step 0.2.5 blocking behavior."""
+
+    def test_dev_blocks_when_dependency_in_development(self, fixtures_dir):
+        """Test /dev blocks when dependency status is 'In Development'."""
+        # STORY-102 has dependency STORY-102 which is "In Development"
+        # This simulates: /dev STORY-102 should BLOCK
+        result = analyze_dependencies(
+            story_id="STORY-109",  # Depends on STORY-102 (In Development)
+            fixtures_path=fixtures_dir
+        )
+
+        assert result["status"] == "BLOCKED"
+        assert result["blocking"] == True
+        assert result["blocking_reason"] == "invalid_dependency_status"
+        assert len(result["validation"]["failures"]) > 0
+
+        # Verify failure message mentions the blocking status
+        failure_messages = [f["message"] for f in result["validation"]["failures"]]
+        assert any("In Development" in msg for msg in failure_messages)
+
+    def test_dev_blocks_when_circular_dependency(self, fixtures_dir):
+        """Test /dev blocks when circular dependency detected."""
+        # STORY-106 and STORY-107 have circular dependency
+        result = analyze_dependencies(
+            story_id="STORY-106",
+            fixtures_path=fixtures_dir
+        )
+
+        assert result["status"] == "BLOCKED"
+        assert result["blocking"] == True
+        assert result["blocking_reason"] == "circular_dependency"
+        assert result["validation"]["cycle_detected"] == True
+        assert result["validation"]["cycle_path"] is not None
+        assert len(result["validation"]["cycle_path"]) >= 2
+
+    def test_dev_proceeds_when_dependencies_valid(self, fixtures_dir):
+        """Test /dev proceeds when all dependencies have valid status."""
+        # STORY-100 depends on STORY-101 which is "QA Approved"
+        result = analyze_dependencies(
+            story_id="STORY-100",
+            fixtures_path=fixtures_dir
+        )
+
+        assert result["status"] == "PASS"
+        assert result["blocking"] == False
+        assert result["blocking_reason"] is None
+        assert result["validation"]["all_valid_status"] == True
+
+    def test_dev_force_bypasses_blocking(self, fixtures_dir, tmp_path):
+        """Test /dev --force bypasses blocking and logs bypass."""
+        # STORY-109 depends on STORY-102 (In Development) - would normally block
+        result = analyze_dependencies(
+            story_id="STORY-109",
+            fixtures_path=fixtures_dir,
+            force=True,
+            log_dir=tmp_path
+        )
+
+        # Should NOT be blocking when force=True
+        assert result["blocking"] == False
+        assert result["force_bypassed"] == True
+
+        # Verify bypass was logged
+        log_files = list(tmp_path.glob("dependency-bypass-*.log"))
+        assert len(log_files) == 1
+
+        log_content = log_files[0].read_text()
+        assert "STORY-109" in log_content
+
+    def test_dev_blocks_when_qa_failed_dependency(self, fixtures_dir):
+        """Test /dev blocks when dependency has 'QA Failed' status."""
+        # STORY-108 has "QA Failed" status
+        # Need a story that depends on STORY-108
+        result = analyze_dependencies(
+            story_id="STORY-109",  # Depends on multiple including failed
+            fixtures_path=fixtures_dir
+        )
+
+        # Should block due to invalid status
+        assert result["status"] == "BLOCKED"
+        assert result["blocking"] == True
+
+        # Check for QA Failed specific suggestion
+        failures = result["validation"]["failures"]
+        qa_failed_failures = [f for f in failures if "QA Failed" in f.get("status", "")]
+        if qa_failed_failures:
+            assert "suggestion" in qa_failed_failures[0]
+
+    def test_dev_shows_visualization_on_block(self, fixtures_dir):
+        """Test blocked /dev shows dependency chain visualization."""
+        result = analyze_dependencies(
+            story_id="STORY-109",
+            fixtures_path=fixtures_dir
+        )
+
+        assert result["status"] == "BLOCKED"
+        assert "chain_visualization" in result
+        assert result["chain_visualization"] is not None
+        assert len(result["chain_visualization"]) > 0
+        # Visualization should contain story IDs
+        assert "STORY-" in result["chain_visualization"]

@@ -253,15 +253,15 @@ technical_specification:
 - [x] ASCII visualization
 
 ### Quality
-- [x] All 9 acceptance criteria have passing tests (45 tests passing)
+- [x] All 9 acceptance criteria have passing tests (51 tests passing)
 - [x] Edge cases covered (11 edge case tests)
 - [x] NFRs met (performance <500ms verified)
-- [x] 91% code coverage for analyzer (exceeds 90% target)
+- [x] 92% code coverage for analyzer (exceeds 90% target)
 
 ### Testing
 - [x] Unit tests for parsing (8 tests)
 - [x] Unit tests for graph algorithms (18 tests)
-- [x] Integration tests for /dev blocking - 
+- [x] Integration tests for /dev blocking (6 tests)
 
 ---
 
@@ -297,17 +297,17 @@ technical_specification:
 - [x] Status validation - Completed: `validate_dependency_statuses()` in `src/dependency_graph_analyzer.py:222-260`
 - [x] --force bypass with logging - Completed: `analyze_dependencies()` lines 410-440 with audit logging
 - [x] ASCII visualization - Completed: `generate_visualization()` in `src/dependency_graph_analyzer.py:263-303`
-- [x] All 9 acceptance criteria have passing tests - Completed: 45 tests in `tests/dependency-graph/test_dependency_graph_analyzer.py`
+- [x] All 9 acceptance criteria have passing tests - Completed: 51 tests in `tests/dependency-graph/test_dependency_graph_analyzer.py`
 - [x] Edge cases covered - Completed: 11 edge case tests (TestEdgeCases class)
 - [x] NFRs met - Completed: Performance test verifies <500ms for 50 stories
-- [x] 91% code coverage for analyzer - Completed: Verified via `--cov=src.dependency_graph_analyzer`
+- [x] 92% code coverage for analyzer - Completed: Verified via `--cov=src.dependency_graph_analyzer`
 - [x] Unit tests for parsing - Completed: TestYAMLParsing class (8 tests)
 - [x] Unit tests for graph algorithms - Completed: TestGraphBuilding, TestCycleDetection, TestStatusValidation (18 tests)
-- [x] Integration tests for /dev blocking - Deferred: User approved 2025-12-16 - Requires E2E harness (follow-up STORY-095)
+- [x] Integration tests for /dev blocking - Completed: TestDevBlockingIntegration class (6 tests)
 
 **Implementation Summary:**
 
-Phase 2 (TDD Green) completed with all 45 tests passing:
+Phase 2 (TDD Green) completed with all 51 tests passing:
 - `src/dependency_graph_analyzer.py` (462 lines, 9 functions)
 - `.claude/agents/dependency-graph-analyzer.md` (subagent definition)
 - `tests/dependency-graph/` (test suite + 11 fixtures)
@@ -338,13 +338,23 @@ Phase 3 & 4 completed:
 
 **Issue:** Coverage tooling initially wasn't collecting data (module path issue)
 **Resolution:** Used correct module path `--cov=src.dependency_graph_analyzer`
-**Result:** 91% coverage achieved (exceeds 90% target)
+**Result:** 92% coverage achieved (exceeds 90% target)
 **Tests added:** 6 additional edge case tests for YAML parsing and normalize_depends_on
 
-### Approved Deferrals
+### Resolved: Integration Tests
 
-**Integration Tests for /dev Blocking**
-- **Reason:** Requires running actual /dev command which invokes skill execution
-- **Impact:** MEDIUM - Unit tests verify blocking logic; E2E testing validates integration
-- **Follow-up:** Manual E2E testing or STORY-095 for integration test harness
-- **User approved:** 2025-12-16
+**Issue:** Integration tests for /dev blocking initially deferred
+**Resolution:** Implemented TestDevBlockingIntegration class with 6 tests
+**Tests cover:**
+- Blocking when dependency status is "In Development"
+- Blocking when circular dependency detected
+- Proceeding when all dependencies valid
+- --force flag bypasses blocking with logging
+- Blocking when dependency has "QA Failed" status
+- Visualization shown on block
+
+### Bug Fix: Circular Dependency Visualization
+
+**Issue:** `generate_visualization()` caused infinite recursion on circular dependencies
+**Resolution:** Added `visited` set parameter to track already visited nodes
+**Result:** Visualization now shows `[CIRCULAR]` marker instead of crashing

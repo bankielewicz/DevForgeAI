@@ -267,7 +267,7 @@ def validate_dependency_statuses(deps: list, status_map: dict) -> list[dict]:
     return failures
 
 
-def generate_visualization(story_id: str, graph: dict, status_map: dict, depth: int = 0) -> str:
+def generate_visualization(story_id: str, graph: dict, status_map: dict, depth: int = 0, visited: set = None) -> str:
     """
     Generate ASCII tree visualization of dependency chain.
 
@@ -276,10 +276,14 @@ def generate_visualization(story_id: str, graph: dict, status_map: dict, depth: 
         graph: Adjacency list {story_id: [dependency_ids]}
         status_map: Dict mapping story_id to status string
         depth: Current depth (for indentation)
+        visited: Set of already visited nodes (prevents infinite recursion on cycles)
 
     Returns:
         ASCII tree string
     """
+    if visited is None:
+        visited = set()
+
     indent = "  " * depth
     connector = "└── " if depth > 0 else ""
 
@@ -291,6 +295,16 @@ def generate_visualization(story_id: str, graph: dict, status_map: dict, depth: 
     else:
         status_icon = "⏳"
 
+    # Check for cycle
+    if story_id in visited:
+        if status:
+            line = f"{indent}{connector}{story_id} 🔄 ({status}) [CIRCULAR]"
+        else:
+            line = f"{indent}{connector}{story_id} 🔄 [CIRCULAR]"
+        return line
+
+    visited.add(story_id)
+
     # Build current line
     if status:
         line = f"{indent}{connector}{story_id} {status_icon} ({status})"
@@ -301,7 +315,7 @@ def generate_visualization(story_id: str, graph: dict, status_map: dict, depth: 
 
     # Recurse for dependencies
     for dep in graph.get(story_id, []):
-        dep_viz = generate_visualization(dep, graph, status_map, depth + 1)
+        dep_viz = generate_visualization(dep, graph, status_map, depth + 1, visited.copy())
         lines.append(dep_viz)
 
     return "\n".join(lines)
