@@ -560,9 +560,9 @@ IF all checkboxes CHECKED:
 ---
 
 ### Phase 08: Git Workflow & DoD Validation
-Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items) ✓ MANDATORY**
-**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
-**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit, 2.1+ AC Checklist final update
+Budget enforcement → Handle incomplete items → **Lock acquisition** → Git commit → **Lock release** → Story complete → **Update AC Checklist (deployment items) ✓ MANDATORY**
+**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, **`lock-file-coordination.md` (NEW - STORY-096)**, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
+**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, **1.8 Lock acquisition (STORY-096)**, 2.0+ Git commit, **2.1 Lock release (STORY-096)**, 2.2+ AC Checklist final update
 **AC Updates:** Git commit, status update, backward compatibility items
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**

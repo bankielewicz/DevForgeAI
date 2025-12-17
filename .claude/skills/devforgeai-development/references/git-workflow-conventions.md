@@ -196,6 +196,35 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 
 ---
 
+## Step 0.5: Lock Coordination for Parallel Commits [NEW - STORY-096]
+
+**Purpose:** Serialize git commits across parallel story worktrees to prevent git index lock conflicts.
+
+**Load lock coordination workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/lock-file-coordination.md")
+```
+
+**Execute Steps 5.0.1 through 5.0.4 from lock-file-coordination.md:**
+
+1. **Step 5.0.1:** Acquire `.devforgeai/.locks/git-commit.lock`
+2. **Step 5.0.2:** Wait with progress display if lock held (AC#2)
+3. **Step 5.0.3:** Auto-remove stale locks (PID dead + age > 5 min) (AC#3)
+4. **Step 5.0.4:** Prompt user if timeout exceeds 10 minutes (AC#4)
+
+**Success Criteria:**
+- [x] Lock acquired (or timeout handled with user choice)
+- [x] Lock file contains PID, story_id, timestamp, hostname
+- [x] Stale locks auto-removed if detected
+
+**Failure Modes:**
+- **ABORT:** User chose abort at timeout prompt → Clean exit, changes preserved
+- **HALT:** Lock acquisition failed unexpectedly → Error message with recovery steps
+
+**Proceed to git add/commit ONLY after lock acquired successfully.**
+
+---
+
 ## AC Verification Checklist Updates (Phase 08) [NEW - RCA-011]
 
 **Purpose:** Check off final AC items related to deployment readiness after git commit
@@ -807,6 +836,10 @@ Closes #STORY-050
 # After Phase 08: Integration complete
 # All tests passing, QA approved, ready to commit
 
+# Step 0.5: Acquire lock (STORY-096)
+python3 src/lock_file_coordinator.py acquire --story-id STORY-001 --timeout 600
+
+# Step 5.1-5.2: Git add and commit (with lock held)
 git add src/ tests/
 git commit -m "$(cat <<'EOF'
 feat: Implement order discount calculation
@@ -821,6 +854,9 @@ feat: Implement order discount calculation
 Closes #STORY-001
 EOF
 )"
+
+# Step 5.3: Release lock (STORY-096) - always release, even on failure
+python3 src/lock_file_coordinator.py release --story-id STORY-001
 
 git push origin feature/STORY-001-order-discounts
 ```
