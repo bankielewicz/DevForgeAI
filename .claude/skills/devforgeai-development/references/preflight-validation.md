@@ -819,9 +819,173 @@ ELIF result.status == "ERROR":
 **Token cost:** ~2,500 tokens (subagent call + response handling)
 
 **References:**
-- Subagent: `.claude/agents/dependency-graph-analyzer.md` (to be created)
+- Subagent: `.claude/agents/dependency-graph-analyzer.md`
 - Implementation: `src/dependency_graph_analyzer.py`
 - Story: STORY-093 - Dependency Graph Enforcement with Transitive Resolution
+
+---
+
+## Step 0.2.6: File Overlap Detection [CONDITIONAL]
+
+**Purpose:** Detect file overlaps with parallel stories before TDD workflow begins (STORY-094).
+
+**When to execute:** After dependency-graph-analyzer (Step 0.2.5), before workflow adaptation (Step 0.3).
+
+**Pre-check: Has technical_specification optimization:**
+
+```
+# Check if story has technical_specification section
+# (Story content already loaded in conversation)
+IF technical_specification section is empty OR not present:
+    Display: "ℹ️ No technical_specification - skipping spec-based overlap detection"
+    Display: "   Post-flight git-based detection will still run after Phase 3"
+    $FILE_OVERLAP_PRE_FLIGHT = false
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke file-overlap-detector subagent:**
+
+```
+Task(
+  subagent_type="file-overlap-detector",
+  description="Detect file overlaps for ${STORY_ID}",
+  prompt="Analyze file overlaps for story ${STORY_ID}.
+
+    Mode: pre-flight
+    Story path: devforgeai/specs/Stories/
+
+    Tasks:
+    1. Parse technical_specification from target story
+    2. Extract all file_path values from components
+    3. Scan stories with status 'In Development'
+    4. Detect overlapping files
+    5. Filter out depends_on story overlaps
+    6. Generate recommendations
+
+    Return JSON with overlap analysis.
+    WARNING: Return status=WARNING if overlaps detected
+    BLOCKING: Return status=BLOCKED if >= 10 files overlap"
+)
+```
+
+**Parse subagent response:**
+
+```javascript
+result = parse_json(subagent_output)
+
+IF result.status == "PASS":
+    Display: "✓ File overlap check passed"
+    Display: "  No overlapping files with parallel stories"
+    $FILE_OVERLAP_PRE_FLIGHT = true
+    // Continue to Step 0.3
+
+ELIF result.status == "WARNING":
+    // Overlaps detected but below blocking threshold
+    Display: "⚠️ FILE OVERLAPS DETECTED"
+    Display: ""
+    Display: "Overlapping files found with parallel story/stories:"
+
+    FOR story_id, files in result.overlaps:
+        Display: "  • {story_id}: {files.length} file(s)"
+        FOR file in files:
+            Display: "    - {file}"
+    Display: ""
+
+    // Interactive prompt (AC#2)
+    AskUserQuestion(
+        questions=[{
+            question: "File overlap detected. How would you like to proceed?",
+            header: "Overlap Warning",
+            multiSelect: false,
+            options: [
+                {
+                    label: "Yes - Proceed",
+                    description: "Continue with development (accept overlap risk)"
+                },
+                {
+                    label: "No - Cancel",
+                    description: "Cancel development to resolve overlap"
+                },
+                {
+                    label: "Review - Show detailed report",
+                    description: "View full overlap report before deciding"
+                }
+            ]
+        }]
+    )
+
+    SWITCH user_response:
+        CASE "Yes - Proceed":
+            Display: "✓ Proceeding with acknowledged overlaps"
+            $FILE_OVERLAP_PRE_FLIGHT = true
+            // Continue to Step 0.3
+
+        CASE "No - Cancel":
+            Display: "Development cancelled due to file overlaps"
+            HALT workflow
+
+        CASE "Review - Show detailed report":
+            Read(file_path=result.report_path)
+            // Display report content
+            // Re-ask question after review
+
+ELIF result.status == "BLOCKED":
+    // >= blocking_threshold overlaps
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "❌ FILE OVERLAP DETECTION - BLOCKED"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Severe file overlap detected ({result.overlap_count} files)"
+    Display: ""
+    FOR rec in result.recommendations:
+        Display: "  • {rec}"
+    Display: ""
+    Display: "Report saved to: {result.report_path}"
+    Display: ""
+
+    IF $FORCE_FLAG == true:
+        // Log bypass
+        timestamp = current_datetime_iso()
+        log_path = ".devforgeai/logs/overlap-bypass-{timestamp}.log"
+
+        Write(
+            file_path=log_path,
+            content="""# File Overlap Bypass Log
+Timestamp: {timestamp}
+Story: {STORY_ID}
+Overlaps bypassed: {result.overlap_count}
+Overlapping stories:
+{json.dumps(result.overlaps, indent=2)}
+User: Requested via --force flag
+"""
+        )
+
+        Display: "⚠️ FILE OVERLAP CHECK BYPASSED (--force flag)"
+        Display: "Bypass logged to: {log_path}"
+        $FILE_OVERLAP_PRE_FLIGHT = true
+        // Continue to Step 0.3
+
+    ELSE:
+        Display: "To bypass (not recommended):"
+        Display: "  /dev {STORY_ID} --force"
+        Display: ""
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        HALT workflow
+
+ELIF result.status == "ERROR":
+    Display: "⚠️ File overlap analysis error: {result.error}"
+    Display: "Proceeding with caution (spec-based detection skipped)..."
+    $FILE_OVERLAP_PRE_FLIGHT = false
+    // Continue to Step 0.3 (graceful degradation)
+```
+
+**Token cost:** ~2,000 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/file-overlap-detector.md`
+- Implementation: `src/file_overlap_detector.py`
+- Story: STORY-094 - File Overlap Detection with Hybrid Analysis
 
 ---
 

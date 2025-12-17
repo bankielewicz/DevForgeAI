@@ -3,7 +3,7 @@ id: STORY-094
 title: File Overlap Detection with Hybrid Analysis
 epic: EPIC-010
 sprint: SPRINT-5
-status: Ready for Dev
+status: Dev Complete
 points: 8
 priority: High
 assigned_to: TBD
@@ -239,41 +239,44 @@ technical_specification:
 ## Dependencies
 
 ### Prerequisite Stories
-- [ ] **STORY-093:** Dependency Graph Enforcement (for dependency-aware filtering)
+- [x] **STORY-093:** Dependency Graph Enforcement (for dependency-aware filtering) - QA Approved
 
 ### Deliverables
-- NEW: file-overlap-detector subagent (~350 lines)
+- [x] NEW: file-overlap-detector subagent (340 lines) - `.claude/agents/file-overlap-detector.md`
+- [x] NEW: Python implementation (671 lines) - `src/file_overlap_detector.py`
+- [x] NEW: Test suite (71 tests, 92% coverage) - `tests/file-overlap/`
+- [x] NEW: Integration Step 0.2.6 - `.claude/skills/devforgeai-development/references/preflight-validation.md`
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] file-overlap-detector subagent created
-- [ ] Spec parsing for file_path extraction
-- [ ] Overlap detection across stories
-- [ ] Git diff integration for post-flight
-- [ ] Interactive AskUserQuestion prompt
-- [ ] Overlap report generation
-- [ ] Dependency-aware filtering
+- [x] file-overlap-detector subagent created
+- [x] Spec parsing for file_path extraction
+- [x] Overlap detection across stories
+- [x] Git diff integration for post-flight
+- [x] Interactive AskUserQuestion prompt
+- [x] Overlap report generation
+- [x] Dependency-aware filtering
 
 ### Quality
-- [ ] All 7 acceptance criteria have passing tests
-- [ ] Edge cases covered
-- [ ] NFRs met
-- [ ] 90% code coverage
+- [x] All 7 acceptance criteria have passing tests (71 tests total)
+- [x] Edge cases covered (12 edge case tests)
+- [x] NFRs met (performance validated)
+- [x] 92% code coverage (exceeds 90% threshold)
 
 ### Testing
-- [ ] Unit tests for spec parsing
-- [ ] Unit tests for overlap detection
-- [ ] Integration tests for pre/post-flight
+- [x] Unit tests for spec parsing (8 tests)
+- [x] Unit tests for overlap detection (5 tests)
+- [x] Integration tests for pre/post-flight (6 tests)
 
 ---
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 
@@ -285,6 +288,12 @@ technical_specification:
 - Sprint capacity: 45 points
 - Priority in sprint: 5 of 7 (High - depends on STORY-093)
 
+### 2025-12-16 - Status: Dev Complete
+- TDD Implementation completed
+- 71 tests passing (92% coverage)
+- All 7 ACs implemented and tested
+- Integration with /dev workflow complete (Step 0.2.6)
+
 ---
 
 **Story Template Version:** 2.1
@@ -292,4 +301,62 @@ technical_specification:
 
 ## Implementation Notes
 
-No implementation yet - story in planning/backlog phase.
+**Completed:** 2025-12-17
+
+- [x] file-overlap-detector subagent created - Completed: `.claude/agents/file-overlap-detector.md` (340 lines, 9 phases)
+- [x] Spec parsing for file_path extraction - Completed: `extract_file_paths_from_spec()` in `src/file_overlap_detector.py:38-89`
+- [x] Overlap detection across stories - Completed: `detect_overlaps()` and `scan_active_stories()` in `src/file_overlap_detector.py:122-204`
+- [x] Git diff integration for post-flight - Completed: `run_git_diff()` in `src/file_overlap_detector.py:232-306`
+- [x] Interactive AskUserQuestion prompt - Completed: Integrated in Step 0.2.6 for WARNING status
+- [x] Overlap report generation - Completed: `generate_overlap_report()` in `src/file_overlap_detector.py:391-483`
+- [x] Dependency-aware filtering - Completed: `filter_dependency_overlaps()` in `src/file_overlap_detector.py:207-229`
+- [x] All 7 acceptance criteria have passing tests (71 tests total) - Completed: pytest shows 71 passed
+- [x] Edge cases covered (12 edge case tests) - Completed: TestEdgeCases + TestAdditionalCoverage classes
+- [x] NFRs met (performance validated) - Completed: <500ms parsing, <2s for 50 stories, <5s Phase 0 overhead
+- [x] 92% code coverage (exceeds 90% threshold) - Completed: pytest-cov reports 92%
+- [x] Unit tests for spec parsing (8 tests) - Completed: TestSpecParsing class
+- [x] Unit tests for overlap detection (5 tests) - Completed: TestOverlapDetection class
+- [x] Integration tests for pre/post-flight (6 tests) - Completed: TestDevBlockingIntegration class
+
+### Files Created
+
+1. **Subagent Definition:** `.claude/agents/file-overlap-detector.md` (340 lines)
+   - 9-phase workflow (Parse, Extract, Load, Detect, Filter, Git Diff, Recommendations, Report, Response)
+   - JSON response structure for pre-flight and post-flight modes
+   - Integration with /dev command Step 0.2.6
+
+2. **Python Implementation:** `src/file_overlap_detector.py` (671 lines)
+   - 9 core functions:
+     - `extract_file_paths_from_spec()` - Parse technical_specification YAML
+     - `scan_active_stories()` - Find "In Development" stories
+     - `detect_overlaps()` - Cross-reference file paths
+     - `filter_dependency_overlaps()` - Exclude depends_on stories (AC#6)
+     - `run_git_diff()` - Execute git diff for post-flight (AC#3)
+     - `detect_spec_discrepancies()` - Compare declared vs actual (AC#4)
+     - `generate_overlap_report()` - Create markdown report (AC#5)
+     - `generate_recommendations()` - Actionable recommendations
+     - `analyze_overlaps()` - Main entry point
+
+3. **Test Suite:** `tests/file-overlap/` (71 tests)
+   - `conftest.py` - 12 fixtures
+   - `test_file_overlap_detector.py` - 71 tests across 10 test classes
+   - `fixtures/` - 10 story fixture files
+
+4. **Integration:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+   - Step 0.2.6 added after dependency-graph-analyzer
+   - AskUserQuestion prompt for WARNING status
+   - --force bypass with logging for BLOCKED status
+
+### Test Coverage by AC
+
+| AC | Description | Tests |
+|----|-------------|-------|
+| AC#1 | Pre-flight spec-based detection | 13 tests |
+| AC#2 | Interactive overlap warning | 5 tests |
+| AC#3 | Post-flight git-based validation | 6 tests |
+| AC#4 | Spec discrepancy logging | 5 tests |
+| AC#5 | Overlap report generation | 8 tests |
+| AC#6 | Dependency-aware filtering | 5 tests |
+| AC#7 | Empty/missing spec handling | 6 tests |
+| NFRs | Performance and edge cases | 23 tests |
+
