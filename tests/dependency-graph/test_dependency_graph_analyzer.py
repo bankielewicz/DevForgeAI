@@ -595,3 +595,283 @@ class TestDevBlockingIntegration:
         assert len(result["chain_visualization"]) > 0
         # Visualization should contain story IDs
         assert "STORY-" in result["chain_visualization"]
+
+
+class TestCoverageGapRemediation:
+    """
+    Additional tests to close coverage gaps identified in STORY-093-gaps.json.
+    Target: 95% business logic coverage (from 92.16%).
+    """
+
+    # ========================================
+    # build_dependency_graph edge cases (75.76% → 95%)
+    # Lines: 345, 353-356, 363-364, 373
+    # ========================================
+
+    def test_build_graph_depends_on_field_is_none(self, tmp_path):
+        """Test build_dependency_graph when depends_on is explicitly None (line 373)."""
+        # Create a story file where depends_on: null (YAML parses to None)
+        story_file = tmp_path / "STORY-200-null-deps.story.md"
+        story_file.write_text('''---
+id: STORY-200
+title: Null Depends On
+status: Ready for Dev
+depends_on: null
+---
+# Story content
+''')
+        graph, status_map, missing = build_dependency_graph("STORY-200", tmp_path)
+
+        # Should handle None gracefully, treating as empty list
+        assert graph["STORY-200"] == []
+        assert "STORY-200" in status_map
+        assert missing == []
+
+    def test_build_graph_story_file_not_found_for_dependency(self, tmp_path):
+        """Test build_dependency_graph when dependency story file doesn't exist (lines 353-356)."""
+        # Create root story that depends on non-existent stories
+        root_story = tmp_path / "STORY-201-has-missing-deps.story.md"
+        root_story.write_text('''---
+id: STORY-201
+title: Has Missing Dependencies
+status: Ready for Dev
+depends_on: ["STORY-999", "STORY-998"]
+---
+# Story content
+''')
+
+        graph, status_map, missing = build_dependency_graph("STORY-201", tmp_path)
+
+        # Root story should be in graph
+        assert "STORY-201" in graph
+        # Missing dependencies should be tracked
+        assert "STORY-999" in missing
+        assert "STORY-998" in missing
+        # Missing deps should have empty entries in graph
+        assert graph.get("STORY-999", []) == []
+        assert graph.get("STORY-998", []) == []
+
+    def test_build_graph_frontmatter_parsing_returns_none(self, tmp_path):
+        """Test build_dependency_graph when frontmatter parsing returns None (lines 363-364)."""
+        # Create a story with malformed YAML that parse_yaml_frontmatter returns None for
+        root_story = tmp_path / "STORY-202-valid.story.md"
+        root_story.write_text('''---
+id: STORY-202
+title: Valid Story
+status: Dev Complete
+depends_on: ["STORY-203"]
+---
+# Story content
+''')
+
+        # Create dependency with malformed YAML (missing second delimiter)
+        dep_story = tmp_path / "STORY-203-malformed.story.md"
+        dep_story.write_text('''---
+id: STORY-203
+title: Malformed
+status: Dev Complete
+''')  # Missing closing ---
+
+        graph, status_map, missing = build_dependency_graph("STORY-202", tmp_path)
+
+        # Root story should be in graph
+        assert "STORY-202" in graph
+        # Malformed story should have empty deps (frontmatter=None case)
+        assert graph.get("STORY-203", []) == []
+
+    def test_build_graph_with_empty_depends_on_field_string(self, tmp_path):
+        """Test build_dependency_graph with empty string depends_on."""
+        story_file = tmp_path / "STORY-204-empty-string.story.md"
+        story_file.write_text('''---
+id: STORY-204
+title: Empty String Deps
+status: Ready for Dev
+depends_on: ""
+---
+# Story content
+''')
+        graph, status_map, missing = build_dependency_graph("STORY-204", tmp_path)
+
+        # Empty string should be handled (normalize_depends_on handles non-list)
+        assert "STORY-204" in graph
+
+    # ========================================
+    # analyze_dependencies edge cases (89.19% → 95%)
+    # Lines: 410, 435-437
+    # ========================================
+
+    def test_analyze_dependencies_default_fixtures_path(self, monkeypatch, tmp_path):
+        """Test analyze_dependencies with no fixtures_path (uses default, line 410)."""
+        # This test verifies the default path assignment happens
+        # We mock the path to avoid needing real files at devforgeai/specs/Stories
+        default_path = tmp_path / "devforgeai" / "specs" / "Stories"
+        default_path.mkdir(parents=True, exist_ok=True)
+
+        # Create a simple story at the default path
+        story_file = default_path / "STORY-300-default-path.story.md"
+        story_file.write_text('''---
+id: STORY-300
+title: Default Path Test
+status: Dev Complete
+depends_on: []
+---
+# Story
+''')
+
+        # Change working directory to tmp_path so default path resolves correctly
+        import os
+        original_cwd = os.getcwd()
+        os.chdir(tmp_path)
+
+        try:
+            # Call without fixtures_path to trigger default path (line 410)
+            result = analyze_dependencies(story_id="STORY-300")
+            assert result["story_id"] == "STORY-300"
+            assert result["status"] == "PASS"
+        finally:
+            os.chdir(original_cwd)
+
+    def test_analyze_dependencies_missing_deps_blocks_without_allow_missing(self, tmp_path):
+        """Test analyze_dependencies blocks when deps missing and allow_missing=False (lines 435-437)."""
+        # Create story with dependency on non-existent story
+        story_file = tmp_path / "STORY-301-missing-dep.story.md"
+        story_file.write_text('''---
+id: STORY-301
+title: Has Missing Dep
+status: Ready for Dev
+depends_on: ["STORY-888"]
+---
+# Story
+''')
+
+        # Call with allow_missing=False (default behavior)
+        result = analyze_dependencies(
+            story_id="STORY-301",
+            fixtures_path=tmp_path,
+            allow_missing=False
+        )
+
+        # Should be BLOCKED due to missing dependencies
+        assert result["status"] == "BLOCKED"
+        assert result["blocking"] == True
+        assert result["blocking_reason"] == "missing_dependencies"
+        assert "STORY-888" in result["validation"]["missing"]
+
+    def test_analyze_dependencies_missing_deps_allowed(self, tmp_path):
+        """Test analyze_dependencies allows missing deps with allow_missing=True."""
+        story_file = tmp_path / "STORY-302-missing-allowed.story.md"
+        story_file.write_text('''---
+id: STORY-302
+title: Missing Allowed
+status: Ready for Dev
+depends_on: ["STORY-777"]
+---
+# Story
+''')
+
+        # Call with allow_missing=True
+        result = analyze_dependencies(
+            story_id="STORY-302",
+            fixtures_path=tmp_path,
+            allow_missing=True
+        )
+
+        # Should NOT be blocked when allow_missing=True
+        assert result["blocking_reason"] != "missing_dependencies" or result["blocking"] == False
+
+    # ========================================
+    # resolve_transitive_dependencies edge cases (90% → 95%)
+    # Lines: 163, 170
+    # ========================================
+
+    def test_resolve_transitive_with_empty_graph(self):
+        """Test resolve_transitive_dependencies with empty graph (line 163)."""
+        # Empty graph should return empty list
+        result = resolve_transitive_dependencies("STORY-400", {})
+        assert result == []
+
+    def test_resolve_transitive_with_none_graph(self):
+        """Test resolve_transitive_dependencies with None graph (line 163)."""
+        # None graph should return empty list
+        result = resolve_transitive_dependencies("STORY-400", None)
+        assert result == []
+
+    def test_resolve_transitive_story_not_in_graph(self):
+        """Test resolve_transitive_dependencies when story_id not in graph (line 163)."""
+        graph = {"STORY-001": ["STORY-002"]}
+        # STORY-999 is not in the graph
+        result = resolve_transitive_dependencies("STORY-999", graph)
+        assert result == []
+
+    def test_resolve_transitive_already_visited_path(self):
+        """Test resolve_transitive_dependencies handles already visited nodes (line 170)."""
+        # Diamond pattern where same node is reached via multiple paths
+        graph = {
+            "STORY-500": ["STORY-501", "STORY-502"],
+            "STORY-501": ["STORY-503"],
+            "STORY-502": ["STORY-503"],
+            "STORY-503": [],
+        }
+        result = resolve_transitive_dependencies("STORY-500", graph)
+
+        # STORY-503 should only appear once (already visited handling)
+        assert result.count("STORY-503") == 1
+        # All dependencies should be present
+        assert "STORY-501" in result
+        assert "STORY-502" in result
+        assert "STORY-503" in result
+
+    # ========================================
+    # detect_cycle edge cases (88.89% → 95%)
+    # Line: 200
+    # ========================================
+
+    def test_detect_cycle_with_empty_graph(self):
+        """Test detect_cycle with empty graph returns None (line 200)."""
+        result = detect_cycle({}, "STORY-600")
+        assert result is None
+
+    def test_detect_cycle_with_none_graph(self):
+        """Test detect_cycle with None-like empty graph."""
+        # Empty dict should return None
+        result = detect_cycle({}, "STORY-601")
+        assert result is None
+
+    def test_detect_cycle_story_not_in_graph(self):
+        """Test detect_cycle when start story not in graph."""
+        graph = {"STORY-001": ["STORY-002"]}
+        result = detect_cycle(graph, "STORY-999")
+        # Should not find a cycle since STORY-999 has no edges
+        assert result is None
+
+    # ========================================
+    # generate_visualization edge cases (95.45% → maintain)
+    # Line: 303 (no status case)
+    # ========================================
+
+    def test_visualization_with_no_status_in_map(self):
+        """Test generate_visualization when story has no status in map (line 303)."""
+        graph = {"STORY-700": ["STORY-701"], "STORY-701": []}
+        # Empty status map - no statuses for any story
+        status_map = {}
+
+        viz = generate_visualization("STORY-700", graph, status_map)
+
+        # Should still generate visualization without status
+        assert "STORY-700" in viz
+        assert "STORY-701" in viz
+        # Since no status, should not have status icons or status text in parens
+        # The visualization still works but shows stories without status info
+
+    def test_visualization_with_partial_status_map(self):
+        """Test generate_visualization when some stories have status, others don't."""
+        graph = {"STORY-702": ["STORY-703"], "STORY-703": []}
+        status_map = {"STORY-702": "Dev Complete"}  # STORY-703 has no status
+
+        viz = generate_visualization("STORY-702", graph, status_map)
+
+        # Both stories should be in visualization
+        assert "STORY-702" in viz
+        assert "STORY-703" in viz
+        # Root story should show status
+        assert "Dev Complete" in viz or "✅" in viz

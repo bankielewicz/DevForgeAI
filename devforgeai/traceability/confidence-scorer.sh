@@ -28,8 +28,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
 
 # Default directories
-DEFAULT_EPIC_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
-DEFAULT_STORY_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
+DEFAULT_EPIC_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
+DEFAULT_STORY_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
 
 # Confidence thresholds (from thresholds.json)
 LOW_THRESHOLD=60
@@ -85,8 +85,8 @@ Exit Codes:
 
 Examples:
     $SCRIPT_NAME --story story.md --epic epic.md
-    $SCRIPT_NAME --stories .ai_docs/Stories --epic-dir .ai_docs/Epics
-    $SCRIPT_NAME --calculate-coverage --stories .ai_docs/Stories
+    $SCRIPT_NAME --stories devforgeai/specs/Stories --epic-dir devforgeai/specs/Epics
+    $SCRIPT_NAME --calculate-coverage --stories devforgeai/specs/Stories
 EOF
 }
 

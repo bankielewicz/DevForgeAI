@@ -152,7 +152,15 @@
       "Bash(# Update .devforgeai references in src/ grep -rl ''\\.devforgeai'' src/)",
       "Bash(# Update .devforgeai references in src/ (excluding cache files) grep -rl ''\\.devforgeai'' src/)",
       "Bash(devforgeai resolve-path:*)",
-      "Bash(git clean:*)"
+      "Bash(git clean:*)",
+      "Bash(PYTHONPATH=/mnt/c/Projects/DevForgeAI2 python3:*)",
+      "SlashCommand(/validate-epic-coverage:*)",
+      "Bash(devforgeai/traceability/gap-detector.sh:*)",
+      "Bash(devforgeai/epic-coverage/generate-report.sh)",
+      "Bash(parse_epic_features:*)",
+      "Bash(./devforgeai/epic-coverage/generate-report.sh:*)",
+      "Bash(timeout 30 python -m pytest:*)",
+      "Bash(timeout 45 python3 -m pytest:*)"
     ],
     "deny": [],
     "ask": []

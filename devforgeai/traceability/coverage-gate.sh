@@ -26,11 +26,11 @@ VERSION="1.0.0"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
 GAP_DETECTOR="${SCRIPT_DIR}/gap-detector.sh"
-REPORT_GENERATOR="${PROJECT_ROOT}/.devforgeai/epic-coverage/generate-report.sh"
+REPORT_GENERATOR="${PROJECT_ROOT}/devforgeai/epic-coverage/generate-report.sh"
 
 # Default directories
-DEFAULT_EPIC_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
-DEFAULT_STORY_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
+DEFAULT_EPIC_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
+DEFAULT_STORY_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
 
 # Default thresholds
 PASS_THRESHOLD=80
@@ -96,7 +96,7 @@ Thresholds:
 
 Examples:
     $SCRIPT_NAME --coverage 75                    # Test with 75% coverage
-    $SCRIPT_NAME --epic-dir .ai_docs/Epics        # Validate real files
+    $SCRIPT_NAME --epic-dir devforgeai/specs/Epics        # Validate real files
     $SCRIPT_NAME --config thresholds.json         # Use custom thresholds
 EOF
 }

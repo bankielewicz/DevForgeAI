@@ -1,0 +1,37 @@
+# .devforgeai/config/ci-answers.yaml
+# Pre-configured answers for headless AskUserQuestion prompts
+#
+# When Claude Code runs in headless mode (-p flag), any AskUserQuestion
+# prompt must have a matching answer here or the workflow fails fast.
+
+# What to do when tests fail during development
+# Options: fix-implementation | fail-fast | retry-once
+test_failure_action: fix-implementation
+
+# Whether to allow deferrals in headless mode
+# Options: never | with-approval | auto-approve
+# Recommendation: "never" for CI (human should review deferrals)
+deferral_strategy: never
+
+# Default priority for decisions
+# Options: critical | high | medium | low
+priority_default: high
+
+# Technology choice when ambiguous
+# Options: use_tech_stack_md | ask_user | fail
+technology_choice: use_tech_stack_md
+
+# How to handle circular dependencies detected
+# Options: fail | warn_and_continue | break_cycle
+circular_dependency_action: fail
+
+# Git conflict resolution strategy
+# Options: fail | accept_ours | accept_theirs
+git_conflict_strategy: fail
+
+# Custom prompt answers (regex pattern -> answer)
+# Useful for project-specific AskUserQuestion prompts
+custom_answers: {}
+  # Example: "Should I include logging?" -> "yes"
+  # ".*logging.*": "yes"
+  # ".*database migration.*": "fail"

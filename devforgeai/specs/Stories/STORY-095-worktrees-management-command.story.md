@@ -3,7 +3,7 @@ id: STORY-095
 title: /worktrees Management Command
 epic: EPIC-010
 sprint: SPRINT-5
-status: Ready for Dev
+status: QA Approved
 points: 5
 priority: High
 assigned_to: TBD
@@ -157,40 +157,58 @@ technical_specification:
 ## Dependencies
 
 ### Prerequisite Stories
-- [ ] **STORY-091:** Git Worktree Auto-Management
+- [x] **STORY-091:** Git Worktree Auto-Management (QA Approved)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] /worktrees command created (~300-400 lines)
-- [ ] Table display with all columns
-- [ ] Cleanup candidate detection
-- [ ] Interactive action menu
-- [ ] Safe cleanup with status verification
-- [ ] git-worktree-manager subagent integration
+- [x] /worktrees command created (~200 lines) - `.claude/commands/worktrees.md`
+- [x] Table display with all columns (Story ID, Path, Age, Size, Status, Last Activity)
+- [x] Cleanup candidate detection (>7 days idle)
+- [x] Interactive action menu (5 options via AskUserQuestion)
+- [x] Safe cleanup with status verification (Released/QA Approved safe, In Development requires confirmation)
+- [x] git-worktree-manager subagent integration (via Task tool)
 
 ### Quality
-- [ ] All 5 acceptance criteria pass
-- [ ] Edge cases handled
-- [ ] Performance < 5 seconds
+- [x] All 5 acceptance criteria pass
+- [x] Edge cases handled (no worktrees, corrupted, orphaned, missing git, unknown status)
+- [x] Performance < 5 seconds (optimized with cached reads)
 
 ### Testing
-- [ ] Unit tests for table formatting
-- [ ] Integration tests for cleanup
-- [ ] Manual testing across platforms
+- [x] Unit tests for table formatting - `tests/worktree/test_worktrees_command.py`
+- [x] Integration tests for cleanup workflow
+- [ ] Manual testing across platforms (deferred to QA phase)
 
 ---
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
-- [ ] QA phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ## Workflow History
+
+### 2025-12-17 - Status: QA Approved
+**QA Validation PASSED (deep mode)**
+- All 27 tests passing (2.44s execution)
+- AC-DoD traceability: 100%
+- Anti-pattern violations: 0
+- Spec compliance: 5/5 ACs validated
+- Code quality: All metrics within thresholds
+- Report: `devforgeai/qa/reports/STORY-095-qa-report.md`
+
+### 2025-12-17 - Status: Dev Complete
+- Implemented /worktrees command with full workflow
+- Created 27 unit tests covering all 5 ACs
+- Files created:
+  - `.claude/commands/worktrees.md` (~200 lines)
+  - `tests/worktree/test_worktrees_command.py` (~450 lines)
+- TDD phases completed: RED → GREEN → REFACTOR
+- All tests passing (27/27)
 
 ### 2025-11-27 14:30:00 - Status: Ready for Dev
 - Added to SPRINT-5: Parallel Story Development Foundation
@@ -205,4 +223,20 @@ technical_specification:
 
 ## Implementation Notes
 
-No implementation yet - story in planning/backlog phase.
+### Files Created
+- `.claude/commands/worktrees.md` - Slash command definition (~200 lines)
+- `tests/worktree/test_worktrees_command.py` - Test suite (27 tests, ~450 lines)
+
+### Architecture Decisions
+- Leverages existing `git-worktree-manager` subagent from STORY-091
+- Uses AskUserQuestion for interactive menu (follows DevForgeAI patterns)
+- Safe cleanup logic: Released/QA Approved auto-delete, In Development requires confirmation
+
+### Test Coverage
+- AC#1: 4 tests for table display
+- AC#2: 4 tests for cleanup candidate identification
+- AC#3: 4 tests for action menu
+- AC#4: 5 tests for safe cleanup logic
+- AC#5: 3 tests for performance requirements
+- Edge cases: 4 tests
+- Integration: 3 tests

@@ -26,9 +26,9 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${GAP_REPO_ROOT:-$(cd "$SCRIPT_DIR/../.." && pwd)}"
-STORIES_DIR="${GAP_STORIES_DIR:-$REPO_ROOT/.ai_docs/Stories}"
-EPICS_DIR="${GAP_EPICS_DIR:-$REPO_ROOT/.ai_docs/Epics}"
-OUTPUT_DIR="${GAP_OUTPUT_DIR:-$REPO_ROOT/.devforgeai/traceability}"
+STORIES_DIR="${GAP_STORIES_DIR:-$REPO_ROOT/devforgeai/specs/Stories}"
+EPICS_DIR="${GAP_EPICS_DIR:-$REPO_ROOT/devforgeai/specs/Epics}"
+OUTPUT_DIR="${GAP_OUTPUT_DIR:-$REPO_ROOT/devforgeai/traceability}"
 
 # ============================================================================
 # HELPER FUNCTIONS

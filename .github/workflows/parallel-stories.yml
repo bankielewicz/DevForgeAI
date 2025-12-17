@@ -1,0 +1,115 @@
+name: Parallel Story Development
+
+# AC#3: Matrix Parallel Execution with up to 5 concurrent jobs
+"on":
+  workflow_dispatch:
+    inputs:
+      story_ids:
+        description: "JSON array of story IDs (e.g., [\"STORY-001\", \"STORY-002\"])"
+        required: true
+        type: string
+
+# Cost optimization: Prompt caching enabled
+env:
+  CLAUDE_CODE_CACHE_ENABLED: "true"
+  CLAUDE_CODE_MODEL: claude-haiku-4-5-20251001
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Parse Story IDs
+        id: set-matrix
+        run: |
+          # Parse JSON array from input
+          input='${{ inputs.story_ids }}'
+          matrix=$(echo "$input" | jq -c '{story_id: .}')
+          echo "matrix=$matrix" >> $GITHUB_OUTPUT
+          echo "Parsed matrix: $matrix"
+
+  develop-stories:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      max-parallel: 5
+      fail-fast: false
+      matrix:
+        story_id: ${{ fromJson(needs.prepare-matrix.outputs.matrix).story_id }}
+
+    steps:
+      - name: Validate Story ID
+        run: |
+          if ! echo "${{ matrix.story_id }}" | grep -qE '^STORY-[0-9]+$'; then
+            echo "::error::Invalid story ID: ${{ matrix.story_id }}"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          export ANTHROPIC_API_KEY="${{ secrets.ANTHROPIC_API_KEY }}"
+
+      - name: Acquire Lock (STORY-096)
+        run: |
+          # Acquire lock file for parallel coordination
+          lock_file=".git/locks/story-${{ matrix.story_id }}.lock"
+          mkdir -p "$(dirname "$lock_file")"
+
+          # Retry loop with backoff
+          for i in {1..5}; do
+            if mkdir "$lock_file" 2>/dev/null; then
+              echo "Lock acquired for ${{ matrix.story_id }}"
+              exit 0
+            fi
+            echo "Waiting for lock... (attempt $i/5)"
+            sleep $((i * 2))
+          done
+
+          echo "::error::Could not acquire lock for ${{ matrix.story_id }}"
+          exit 1
+
+      - name: Execute /dev Workflow
+        id: dev
+        run: |
+          claude -p "/dev ${{ matrix.story_id }}" \
+            --dangerously-skip-permissions \
+            --max-turns 20 \
+            --output-format json > dev-result-${{ matrix.story_id }}.json
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        continue-on-error: true
+
+      - name: Release Lock
+        if: always()
+        run: |
+          lock_file=".git/locks/story-${{ matrix.story_id }}.lock"
+          rm -rf "$lock_file"
+          echo "Lock released for ${{ matrix.story_id }}"
+
+      - name: Upload Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-results-${{ matrix.story_id }}
+          path: dev-result-${{ matrix.story_id }}.json
+          retention-days: 7
+
+  summary:
+    needs: develop-stories
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Report Matrix Status
+        run: |
+          echo "## Parallel Execution Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Matrix jobs: ${{ strategy.job-total }}" >> $GITHUB_STEP_SUMMARY
+          echo "Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY

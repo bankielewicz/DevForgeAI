@@ -29,7 +29,7 @@ if [ -f "$CONFIG_FILE" ]; then
     EPICS_DIR="${PROJECT_ROOT}/$(jq -r '.epics_dir' "$CONFIG_FILE")"
 else
     EPIC_ID_PATTERN="^EPIC-[0-9]{3}$"
-    EPICS_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
+    EPICS_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
 fi
 
 # Note: Utility functions are defined locally to avoid sourcing issues

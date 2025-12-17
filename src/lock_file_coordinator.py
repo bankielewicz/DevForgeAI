@@ -79,6 +79,19 @@ class LockAcquisitionResult:
     wait_time_seconds: float = 0.0
 
 
+@dataclass
+class _AcquireContext:
+    """Internal context for lock acquisition loop."""
+    start_time: float
+    progress_interval: float
+    progress_callback: Optional[Callable[[str], None]]
+    stale_was_removed: bool = False
+
+    def elapsed(self) -> float:
+        """Return elapsed time since acquisition started."""
+        return time.time() - self.start_time
+
+
 class GitCommitLock:
     """Manages .devforgeai/.locks/git-commit.lock for serialized git commits.
 
@@ -141,93 +154,146 @@ class GitCommitLock:
         """
         self._cancel_requested = False
         start_time = time.time()
-        stale_was_removed = False
+        context = _AcquireContext(start_time, progress_interval, progress_callback)
 
         while True:
             # Check for cancellation
             if self._cancel_requested:
-                return LockAcquisitionResult(
-                    success=False,
-                    status=LockStatus.CANCELLED,
-                    wait_time_seconds=time.time() - start_time
-                )
+                return self._cancelled_result(context)
 
             # Ensure lock directory exists
             self.lock_path.parent.mkdir(parents=True, exist_ok=True)
 
-            # Check for existing lock
+            # Handle existing lock or try to create new one
             if self.lock_path.exists():
-                # Check if we already hold the lock
-                lock_info = self.get_lock_info()
-                if lock_info and lock_info.get("story_id") == self.story_id:
-                    # We already hold the lock
-                    self._acquired = True
-                    return LockAcquisitionResult(
-                        success=True,
-                        status=LockStatus.ACQUIRED,
-                        stale_removed=stale_was_removed,
-                        wait_time_seconds=time.time() - start_time
-                    )
-
-                # Check if lock is stale
-                if self.is_stale():
-                    stale_info = self.get_lock_info()
-                    stale_pid = stale_info.get("pid") if stale_info else "unknown"
-                    logger.info(f"Removed stale lock (PID {stale_pid} not running)")
-                    try:
-                        self.lock_path.unlink()
-                        stale_was_removed = True
-                    except OSError:
-                        pass
-                    # Retry acquisition
-                    continue
-
-                # Lock held by active process
-                lock_info = self.get_lock_info()
-                elapsed = time.time() - start_time
-
-                # Check timeout
-                if elapsed >= timeout_seconds:
-                    return LockAcquisitionResult(
-                        success=False,
-                        status=LockStatus.TIMEOUT,
-                        holder_pid=lock_info.get("pid") if lock_info else None,
-                        holder_story_id=lock_info.get("story_id") if lock_info else None,
-                        holder_hostname=lock_info.get("hostname") if lock_info else None,
-                        requires_user_prompt=True,
-                        wait_time_seconds=elapsed
-                    )
-
-                # Progress display
-                self._check_and_report_progress(
-                    elapsed, progress_interval, progress_callback, lock_info
-                )
-
-                # Wait and retry
-                time.sleep(min(progress_interval, 0.1))
+                result = self._handle_existing_lock(context, timeout_seconds)
+                if result is not None:
+                    return result
+                # result is None means retry (stale removed or waiting)
                 continue
 
             # Try to create lock file atomically
-            try:
-                result = self._create_lock_file()
-                if result:
-                    self._acquired = True
-                    return LockAcquisitionResult(
-                        success=True,
-                        status=LockStatus.ACQUIRED,
-                        stale_removed=stale_was_removed,
-                        wait_time_seconds=time.time() - start_time
-                    )
-            except FileExistsError:
-                # Race condition: another process created lock
-                continue
-            except OSError as e:
+            result = self._try_create_lock(context)
+            if result is not None:
+                return result
+            # result is None means retry (race condition)
+
+    def _handle_existing_lock(
+        self,
+        context: '_AcquireContext',
+        timeout_seconds: int
+    ) -> Optional[LockAcquisitionResult]:
+        """Handle case when lock file already exists.
+
+        Returns:
+            LockAcquisitionResult if action completed, None if should retry
+        """
+        lock_info = self.get_lock_info()
+
+        # Check if we already hold the lock
+        if lock_info and lock_info.get("story_id") == self.story_id:
+            self._acquired = True
+            return LockAcquisitionResult(
+                success=True,
+                status=LockStatus.ACQUIRED,
+                stale_removed=context.stale_was_removed,
+                wait_time_seconds=context.elapsed()
+            )
+
+        # Check if lock is stale
+        if self.is_stale():
+            self._remove_stale_lock(context)
+            return None  # Retry acquisition
+
+        # Lock held by active process - check timeout or wait
+        return self._wait_for_lock(context, timeout_seconds, lock_info)
+
+    def _remove_stale_lock(self, context: '_AcquireContext') -> None:
+        """Remove a stale lock file and log the action."""
+        stale_info = self.get_lock_info()
+        stale_pid = stale_info.get("pid") if stale_info else "unknown"
+        logger.info(f"Removed stale lock (PID {stale_pid} not running)")
+        try:
+            self.lock_path.unlink()
+            context.stale_was_removed = True
+        except OSError:
+            pass
+
+    def _wait_for_lock(
+        self,
+        context: '_AcquireContext',
+        timeout_seconds: int,
+        lock_info: Optional[Dict[str, Any]]
+    ) -> Optional[LockAcquisitionResult]:
+        """Wait for lock with timeout check and progress reporting.
+
+        Returns:
+            LockAcquisitionResult if timeout reached, None to continue waiting
+        """
+        elapsed = context.elapsed()
+
+        # Check timeout
+        if elapsed >= timeout_seconds:
+            return self._timeout_result(context, lock_info)
+
+        # Progress display
+        self._check_and_report_progress(
+            elapsed, context.progress_interval, context.progress_callback, lock_info
+        )
+
+        # Wait and signal retry
+        time.sleep(min(context.progress_interval, 0.1))
+        return None
+
+    def _try_create_lock(self, context: '_AcquireContext') -> Optional[LockAcquisitionResult]:
+        """Try to create lock file atomically.
+
+        Returns:
+            LockAcquisitionResult if created or error, None if should retry
+        """
+        try:
+            if self._create_lock_file():
+                self._acquired = True
                 return LockAcquisitionResult(
-                    success=False,
-                    status=LockStatus.ERROR,
-                    error_message=str(e),
-                    wait_time_seconds=time.time() - start_time
+                    success=True,
+                    status=LockStatus.ACQUIRED,
+                    stale_removed=context.stale_was_removed,
+                    wait_time_seconds=context.elapsed()
                 )
+        except FileExistsError:
+            return None  # Race condition, retry
+        except OSError as e:
+            return LockAcquisitionResult(
+                success=False,
+                status=LockStatus.ERROR,
+                error_message=str(e),
+                wait_time_seconds=context.elapsed()
+            )
+        return None
+
+    def _cancelled_result(self, context: '_AcquireContext') -> LockAcquisitionResult:
+        """Create result for cancelled acquisition."""
+        return LockAcquisitionResult(
+            success=False,
+            status=LockStatus.CANCELLED,
+            wait_time_seconds=context.elapsed()
+        )
+
+    def _timeout_result(
+        self,
+        context: '_AcquireContext',
+        lock_info: Optional[Dict[str, Any]]
+    ) -> LockAcquisitionResult:
+        """Create result for timeout."""
+        return LockAcquisitionResult(
+            success=False,
+            status=LockStatus.TIMEOUT,
+            holder_pid=lock_info.get("pid") if lock_info else None,
+            holder_story_id=lock_info.get("story_id") if lock_info else None,
+            holder_hostname=lock_info.get("hostname") if lock_info else None,
+            requires_user_prompt=True,
+            wait_time_seconds=context.elapsed()
+        )
 
     def force_acquire(self) -> LockAcquisitionResult:
         """Force acquire lock by removing existing lock (AC#4 Option 2).

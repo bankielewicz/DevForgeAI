@@ -30,8 +30,8 @@ if [ -f "$CONFIG_FILE" ]; then
     EPICS_DIR="${PROJECT_ROOT}/$(jq -r '.epics_dir' "$CONFIG_FILE")"
     STORIES_DIR="${PROJECT_ROOT}/$(jq -r '.stories_dir' "$CONFIG_FILE")"
 else
-    EPICS_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
-    STORIES_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
+    EPICS_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
+    STORIES_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
 fi
 
 #############################################################################

@@ -33,8 +33,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
 
 # Default directories
-DEFAULT_EPIC_DIR="${PROJECT_ROOT}/.ai_docs/Epics"
-DEFAULT_STORY_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
+DEFAULT_EPIC_DIR="${PROJECT_ROOT}/devforgeai/specs/Epics"
+DEFAULT_STORY_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
 
 # Colors
 RED='\033[0;31m'

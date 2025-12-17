@@ -27,7 +27,7 @@ if [ -f "$CONFIG_FILE" ]; then
     STORIES_DIR="${PROJECT_ROOT}/$(jq -r '.stories_dir' "$CONFIG_FILE")"
 else
     STORY_ID_PATTERN="^STORY-[0-9]{3}$"
-    STORIES_DIR="${PROJECT_ROOT}/.ai_docs/Stories"
+    STORIES_DIR="${PROJECT_ROOT}/devforgeai/specs/Stories"
 fi
 
 # Valid Fibonacci points

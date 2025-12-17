@@ -1,0 +1,95 @@
+name: PR Quality Gate
+
+# AC#2: PR Quality Gate Workflow - blocks merge on QA failure
+"on":
+  pull_request:
+    types: [opened, synchronize]
+
+# Cost optimization: Prompt caching enabled
+env:
+  CLAUDE_CODE_CACHE_ENABLED: "true"
+  CLAUDE_CODE_MODEL: claude-haiku-4-5-20251001
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  extract-story-id:
+    runs-on: ubuntu-latest
+    outputs:
+      story_id: ${{ steps.extract.outputs.story_id }}
+    steps:
+      - name: Extract Story ID from PR Title
+        id: extract
+        run: |
+          # Extract STORY-NNN from PR title
+          # Handles formats: [STORY-001] or STORY-001
+          title="${{ github.event.pull_request.title }}"
+          if [[ $title =~ \[?STORY-[0-9]+ ]]; then
+            story_id=$(echo "$title" | grep -oE 'STORY-[0-9]+' | head -1)
+            echo "story_id=$story_id" >> $GITHUB_OUTPUT
+            echo "Extracted story ID: $story_id"
+          else
+            echo "::warning::No STORY-NNN found in PR title"
+            echo "story_id=" >> $GITHUB_OUTPUT
+          fi
+
+  quality-gate:
+    needs: extract-story-id
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: needs.extract-story-id.outputs.story_id != ''
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          export ANTHROPIC_API_KEY="${{ secrets.ANTHROPIC_API_KEY }}"
+
+      - name: Run QA Validation
+        id: qa
+        run: |
+          claude -p "/qa ${{ needs.extract-story-id.outputs.story_id }} deep" \
+            --dangerously-skip-permissions \
+            --max-turns 15 \
+            --output-format json > qa-result.json
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Check QA Results
+        run: |
+          if jq -e '.status == "success" or .status == "PASS"' qa-result.json > /dev/null 2>&1; then
+            echo "::notice::QA validation passed"
+            exit 0
+          else
+            echo "::error::QA validation failed"
+            jq . qa-result.json
+            exit 1
+          fi
+
+      - name: Upload QA Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report-${{ needs.extract-story-id.outputs.story_id }}
+          path: qa-result.json
+          retention-days: 7
+
+      - name: Comment on PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const qaResult = JSON.parse(fs.readFileSync('qa-result.json', 'utf8'));
+            const status = qaResult.status === 'success' ? '✅ PASSED' : '❌ FAILED';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## QA Validation Result\n\n**Status:** ${status}\n\nStory: ${{ needs.extract-story-id.outputs.story_id }}`
+            });

@@ -10,8 +10,8 @@ set -eo pipefail
 
 # Script configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-EPICS_DIR="${EPICS_DIR:-.ai_docs/Epics}"
-STORIES_DIR="${STORIES_DIR:-.ai_docs/Stories}"
+EPICS_DIR="${EPICS_DIR:-devforgeai/specs/Epics}"
+STORIES_DIR="${STORIES_DIR:-devforgeai/specs/Stories}"
 REPORTS_DIR="${REPORTS_DIR:-${SCRIPT_DIR}/reports}"
 HISTORY_DIR="${HISTORY_DIR:-${SCRIPT_DIR}/history}"
 HISTORY_FILE="${HISTORY_DIR}/coverage-history.json"
@@ -110,14 +110,16 @@ parse_epic_features() {
             break
         fi
 
-        # Extract feature lines - two formats supported:
-        # 1. "- Feature Name (STORY-XXX)" or "- Feature Name (No story)"
-        # 2. "### Feature X.X: Feature Name"
+        # Extract feature lines - match explicit story references
+        # Supports: bullets, headers, any format with (STORY-XXX), (No story), or (Pending)
         if [[ "$in_features" == "1" ]]; then
-            if [[ "$line" =~ ^-\  ]]; then
+            if [[ "$line" =~ \(STORY-[0-9]+\) ]] || \
+               [[ "$line" =~ \(No\ story\) ]] || \
+               [[ "$line" =~ \(Pending\) ]]; then
+                # Line has explicit story reference - it's a feature
                 features+=("$line")
             elif [[ "$line" =~ ^###\ Feature\ [0-9]+\.[0-9]+: ]]; then
-                # Extract feature name from "### Feature X.X: Name" format
+                # Legacy format: "### Feature X.X: Name" without story ref in header
                 local feature_name
                 feature_name=$(echo "$line" | sed 's/^### Feature [0-9]*\.[0-9]*: //')
                 features+=("- $feature_name")
@@ -707,10 +709,10 @@ main() {
                 echo ""
                 echo "Options:"
                 echo "  --format=FORMAT           Output format (terminal, markdown, json) [default: terminal]"
-                echo "  --epics-dir=PATH          Path to epics directory [default: .ai_docs/Epics]"
-                echo "  --stories-dir=PATH        Path to stories directory [default: .ai_docs/Stories]"
-                echo "  --reports-dir=PATH        Path to reports directory [default: .devforgeai/epic-coverage/reports]"
-                echo "  --history-dir=PATH        Path to history directory [default: .devforgeai/epic-coverage/history]"
+                echo "  --epics-dir=PATH          Path to epics directory [default: devforgeai/specs/Epics]"
+                echo "  --stories-dir=PATH        Path to stories directory [default: devforgeai/specs/Stories]"
+                echo "  --reports-dir=PATH        Path to reports directory [default: devforgeai/epic-coverage/reports]"
+                echo "  --history-dir=PATH        Path to history directory [default: devforgeai/epic-coverage/history]"
                 echo "  --enable-history          Enable history file persistence"
                 echo "  --help                    Show this help message"
                 exit 0

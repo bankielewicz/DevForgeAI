@@ -135,6 +135,14 @@ storage:
 **Dependent Epics:**
 - EPIC-005 (Framework Integration) uses storage for persisting feedback from hooks
 
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-013 | Feature 3.1 | Feedback File Persistence with Atomic Writes | 8 | QA Approved |
+| STORY-016 | Feature 3.2 | Searchable Metadata Index for Feedback Sessions | 13 | QA Approved |
+| STORY-017 | Feature 3.3 | Cross-Project Export/Import for Feedback Sessions | 13 | QA Approved |
+
 ## Technical Considerations
 
 **Architecture:**
