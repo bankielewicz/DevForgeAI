@@ -160,31 +160,31 @@ class TestConfigFileCreation:
     AC#5: Configuration Setup - Config Files
     Given: /setup-github-actions command executed
     When: Command completes
-    Then: Creates 2 config files in .devforgeai/config/
+    Then: Creates 2 config files in devforgeai/config/ci/
     """
 
     def test_setup_creates_github_actions_config(self):
         """
         Scenario: Setup creates github-actions.yaml
         Given: /setup-github-actions executed
-        When: Checking .devforgeai/config/
+        When: Checking devforgeai/config/ci/
         Then: github-actions.yaml should exist
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml")
         # Should exist (either from setup or from example)
-        assert config_path.exists() or Path(".devforgeai/config/github-actions.yaml.example").exists(), \
+        assert config_path.exists() or Path("devforgeai/config/ci/github-actions.yaml.example").exists(), \
             "github-actions.yaml not found"
 
     def test_setup_creates_ci_answers_config(self):
         """
         Scenario: Setup creates ci-answers.yaml
         Given: /setup-github-actions executed
-        When: Checking .devforgeai/config/
+        When: Checking devforgeai/config/ci/
         Then: ci-answers.yaml should exist
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml")
         # Should exist (either from setup or from example)
-        assert config_path.exists() or Path(".devforgeai/config/ci-answers.yaml.example").exists(), \
+        assert config_path.exists() or Path("devforgeai/config/ci/ci-answers.yaml.example").exists(), \
             "ci-answers.yaml not found"
 
     def test_both_config_files_exist(self):
@@ -194,11 +194,11 @@ class TestConfigFileCreation:
         When: Execution completes
         Then: Both github-actions.yaml and ci-answers.yaml should exist
         """
-        github_config = Path(".devforgeai/config/github-actions.yaml")
-        ci_answers = Path(".devforgeai/config/ci-answers.yaml")
+        github_config = Path("devforgeai/config/ci/github-actions.yaml")
+        ci_answers = Path("devforgeai/config/ci/ci-answers.yaml")
 
-        github_example = Path(".devforgeai/config/github-actions.yaml.example")
-        ci_example = Path(".devforgeai/config/ci-answers.yaml.example")
+        github_example = Path("devforgeai/config/ci/github-actions.yaml.example")
+        ci_example = Path("devforgeai/config/ci/ci-answers.yaml.example")
 
         github_exists = github_config.exists() or github_example.exists()
         ci_exists = ci_answers.exists() or ci_example.exists()
@@ -216,8 +216,8 @@ class TestConfigFileCreation:
         import yaml
 
         configs = [
-            Path(".devforgeai/config/github-actions.yaml"),
-            Path(".devforgeai/config/ci-answers.yaml"),
+            Path("devforgeai/config/ci/github-actions.yaml"),
+            Path("devforgeai/config/ci/ci-answers.yaml"),
         ]
 
         for config_path in configs:
@@ -373,8 +373,8 @@ class TestSetupIntegration:
         ]
 
         configs = [
-            Path(".devforgeai/config/github-actions.yaml"),
-            Path(".devforgeai/config/ci-answers.yaml"),
+            Path("devforgeai/config/ci/github-actions.yaml"),
+            Path("devforgeai/config/ci/ci-answers.yaml"),
         ]
 
         for workflow_path in workflows:

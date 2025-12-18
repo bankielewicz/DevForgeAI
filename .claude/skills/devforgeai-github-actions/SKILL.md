@@ -1,5 +1,5 @@
 ---
-name: devforgeai-github
+name: devforgeai-github-actions
 description: Generate GitHub Actions workflows for headless DevForgeAI /dev and /qa execution. Creates dev-story.yml, qa-validation.yml, parallel-stories.yml workflows with cost optimization, prompt caching, and Haiku preference. Use when setting up CI/CD automation for DevForgeAI projects.
 model: claude-haiku-4-5-20251001
 allowed-tools:
@@ -33,8 +33,42 @@ Extracts configuration from context (github-actions.yaml if exists, or uses defa
 
 **Configuration Priority:**
 1. User-provided answers (AskUserQuestion)
-2. Existing .devforgeai/config/github-actions.yaml
+2. Existing devforgeai/config/ci/github-actions.yaml
 3. Defaults from skill (max_parallel_jobs: 5, enable_prompt_caching: true)
+
+---
+
+## Security Prerequisites
+
+All workflows require GitHub Secrets to be configured before execution.
+
+### Required Secrets
+
+| Secret Name | Description | Source |
+|-------------|-------------|--------|
+| `ANTHROPIC_API_KEY` | Claude API authentication | [console.anthropic.com](https://console.anthropic.com) |
+| `GITHUB_TOKEN` | Repository access (auto-provided by GitHub Actions) | Automatic |
+
+### Setup Instructions
+
+1. Navigate to repository **Settings > Secrets and variables > Actions**
+2. Click **New repository secret**
+3. Name: `ANTHROPIC_API_KEY`
+4. Value: Your API key from console.anthropic.com
+5. Click **Add secret**
+
+### Security Validation
+
+Workflows fail-fast if secrets are missing:
+- Missing `ANTHROPIC_API_KEY`: "Error: ANTHROPIC_API_KEY secret not configured"
+- Check GitHub Actions logs for validation errors
+
+### Best Practices
+
+- **Never commit API keys** to repository
+- Use **repository secrets** for sensitive values
+- Rotate keys periodically
+- Use **environment protection rules** for production deployments
 
 ---
 
@@ -58,7 +92,7 @@ Generate GitHub Actions workflows that:
 
 ### Phase 2: Configuration Loading
 **Purpose:** Load or create configuration files
-**Creates:** .devforgeai/config/github-actions.yaml, ci-answers.yaml if missing
+**Creates:** devforgeai/config/ci/github-actions.yaml, ci-answers.yaml if missing
 **Output:** Configuration loaded and valid
 
 ### Phase 3: Workflow Template Generation

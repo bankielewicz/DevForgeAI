@@ -1,4 +1,4 @@
-# .devforgeai/config/ci-answers.yaml
+# devforgeai/config/ci/ci-answers.yaml
 # Pre-configured answers for headless AskUserQuestion prompts
 #
 # When Claude Code runs in headless mode (-p flag), any AskUserQuestion

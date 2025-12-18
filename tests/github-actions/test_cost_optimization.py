@@ -76,7 +76,7 @@ class TestPromptCachingConfiguration:
         When: Reading cost_optimization.enable_prompt_caching
         Then: Should be True
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -100,7 +100,7 @@ class TestHaikuModelPreference:
         When: Reading cost_optimization.prefer_haiku
         Then: Should be True
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -197,14 +197,14 @@ class TestCostTracking:
         # Cost tracking configuration should be documented
         # Could be in README, config, or separate file
         potential_paths = [
-            Path(".devforgeai/config/cost-tracking.yaml"),
-            Path(".devforgeai/config/cost-tracking.yaml.example"),
+            Path("devforgeai/config/ci/cost-tracking.yaml"),
+            Path("devforgeai/config/ci/cost-tracking.yaml.example"),
             Path(".github/workflows/cost-tracking-template.yml"),
         ]
 
         # At least one should exist or be documented
         docs_path = Path("docs/COST-OPTIMIZATION.md")
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
 
         assert config_path.exists() or docs_path.exists(), \
             "Cost tracking configuration or documentation must exist"
@@ -225,7 +225,7 @@ class TestCostThresholds:
         When: Reading cost threshold
         Then: Should be $0.15 or less
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -312,7 +312,7 @@ class TestCostOptimizationIntegration:
         When: All workflows reference the same config
         Then: Cost settings should be unified
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -335,7 +335,7 @@ class TestCostOptimizationIntegration:
         potential_docs = [
             Path(".github/README.md"),
             Path("docs/COST-OPTIMIZATION.md"),
-            Path(".devforgeai/config/github-actions.yaml.example"),
+            Path("devforgeai/config/ci/github-actions.yaml.example"),
         ]
 
         docs_checked = 0

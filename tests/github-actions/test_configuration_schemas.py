@@ -26,11 +26,11 @@ class TestGitHubActionsConfigSchema:
     def test_github_actions_config_file_exists(self):
         """
         Scenario: Configuration file exists at expected location
-        Given: Framework has .devforgeai/config/ directory
+        Given: Framework has devforgeai/config/ci/ directory
         When: Looking for github-actions.yaml.example
         Then: File should exist
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         assert config_path.exists(), f"Configuration file not found at {config_path}"
 
     def test_github_actions_config_valid_yaml(self):
@@ -40,7 +40,7 @@ class TestGitHubActionsConfigSchema:
         When: Parsing as YAML
         Then: Should parse without errors
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
         assert config is not None, "Failed to parse YAML or file is empty"
@@ -52,7 +52,7 @@ class TestGitHubActionsConfigSchema:
         When: Checking required keys
         Then: max_parallel_jobs, cost_optimization section exist
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -67,7 +67,7 @@ class TestGitHubActionsConfigSchema:
         When: Reading max_parallel_jobs value
         Then: Should be integer
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -81,7 +81,7 @@ class TestGitHubActionsConfigSchema:
         When: Reading max_parallel_jobs
         Then: Should default to 5
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -94,7 +94,7 @@ class TestGitHubActionsConfigSchema:
         When: Checking cost optimization keys
         Then: enable_prompt_caching should exist and be boolean
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -109,7 +109,7 @@ class TestGitHubActionsConfigSchema:
         When: Reading enable_prompt_caching
         Then: Should default to True
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -123,7 +123,7 @@ class TestGitHubActionsConfigSchema:
         When: Checking prefer_haiku setting
         Then: Should exist as boolean and default to True
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -138,7 +138,7 @@ class TestGitHubActionsConfigSchema:
         When: Checking cost limit
         Then: Should be numeric (float) and equal to 0.15
         """
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -158,11 +158,11 @@ class TestCIAnswersConfigSchema:
     def test_ci_answers_config_file_exists(self):
         """
         Scenario: Configuration file exists
-        Given: Framework has .devforgeai/config/ directory
+        Given: Framework has devforgeai/config/ci/ directory
         When: Looking for ci-answers.yaml.example
         Then: File should exist
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         assert config_path.exists(), f"Configuration file not found at {config_path}"
 
     def test_ci_answers_config_valid_yaml(self):
@@ -172,7 +172,7 @@ class TestCIAnswersConfigSchema:
         When: Parsing as YAML
         Then: Should parse without errors
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
         assert config is not None, "Failed to parse YAML or file is empty"
@@ -184,7 +184,7 @@ class TestCIAnswersConfigSchema:
         When: Checking required keys
         Then: test_failure_action, deferral_strategy, priority_default exist
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -199,7 +199,7 @@ class TestCIAnswersConfigSchema:
         When: Reading test_failure_action
         Then: Should be string type
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -212,7 +212,7 @@ class TestCIAnswersConfigSchema:
         When: Reading test_failure_action
         Then: Should be 'fix-implementation' (fixing failed tests in CI)
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -227,7 +227,7 @@ class TestCIAnswersConfigSchema:
         When: Reading deferral_strategy
         Then: Should be string type
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -240,7 +240,7 @@ class TestCIAnswersConfigSchema:
         When: Reading deferral_strategy
         Then: Should default to 'never' (no autonomous deferrals in CI)
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -255,7 +255,7 @@ class TestCIAnswersConfigSchema:
         When: Reading priority_default
         Then: Should be string type
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -268,7 +268,7 @@ class TestCIAnswersConfigSchema:
         When: Reading priority_default
         Then: Should be one of: high, medium, low
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -289,8 +289,8 @@ class TestConfigurationValidation:
         When: Checking for config files
         Then: Both github-actions.yaml.example and ci-answers.yaml.example exist
         """
-        github_config = Path(".devforgeai/config/github-actions.yaml.example")
-        ci_answers = Path(".devforgeai/config/ci-answers.yaml.example")
+        github_config = Path("devforgeai/config/ci/github-actions.yaml.example")
+        ci_answers = Path("devforgeai/config/ci/ci-answers.yaml.example")
 
         assert github_config.exists(), "github-actions.yaml.example missing"
         assert ci_answers.exists(), "ci-answers.yaml.example missing"
@@ -302,8 +302,8 @@ class TestConfigurationValidation:
         When: Opening for reading
         Then: Should open without permission errors
         """
-        github_config = Path(".devforgeai/config/github-actions.yaml.example")
-        ci_answers = Path(".devforgeai/config/ci-answers.yaml.example")
+        github_config = Path("devforgeai/config/ci/github-actions.yaml.example")
+        ci_answers = Path("devforgeai/config/ci/ci-answers.yaml.example")
 
         with open(github_config, 'r') as f:
             assert f.readable(), "github-actions.yaml.example not readable"
@@ -318,8 +318,8 @@ class TestConfigurationValidation:
         When: Reading content
         Then: Should not be empty
         """
-        github_config = Path(".devforgeai/config/github-actions.yaml.example")
-        ci_answers = Path(".devforgeai/config/ci-answers.yaml.example")
+        github_config = Path("devforgeai/config/ci/github-actions.yaml.example")
+        ci_answers = Path("devforgeai/config/ci/ci-answers.yaml.example")
 
         assert github_config.stat().st_size > 0, "github-actions.yaml.example is empty"
         assert ci_answers.stat().st_size > 0, "ci-answers.yaml.example is empty"

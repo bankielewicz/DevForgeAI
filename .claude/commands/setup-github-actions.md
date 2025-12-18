@@ -25,8 +25,8 @@ Create GitHub Actions workflows for headless DevForgeAI execution.
 # .github/workflows/qa-validation.yml
 # .github/workflows/parallel-stories.yml
 # .github/workflows/installer-testing.yml
-# .devforgeai/config/github-actions.yaml
-# .devforgeai/config/ci-answers.yaml
+# devforgeai/config/ci/github-actions.yaml
+# devforgeai/config/ci/ci-answers.yaml
 ```
 
 ---
@@ -76,7 +76,7 @@ Display: ""
 **Invoke devforgeai-github skill:**
 
 ```
-Skill(command="devforgeai-github")
+Skill(command="devforgeai-github-actions")
 ```
 
 ---
@@ -96,8 +96,8 @@ Display: "  • .github/workflows/parallel-stories.yml"
 Display: "  • .github/workflows/installer-testing.yml"
 Display: ""
 Display: "Configuration files created:"
-Display: "  • .devforgeai/config/github-actions.yaml"
-Display: "  • .devforgeai/config/ci-answers.yaml"
+Display: "  • devforgeai/config/ci/github-actions.yaml"
+Display: "  • devforgeai/config/ci/ci-answers.yaml"
 Display: ""
 Display: "Next Steps:"
 Display: "  1. Add ANTHROPIC_API_KEY to GitHub Secrets"

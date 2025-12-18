@@ -810,7 +810,7 @@ Choose [1-5]:
 
 ---
 
-#### `/setup-github-actions` Command → `devforgeai-github` Skill (NEW)
+#### `/setup-github-actions` Command → `devforgeai-github-actions` Skill (NEW)
 
 **Purpose:** Set up GitHub Actions CI/CD workflows for DevForgeAI parallel development
 
@@ -826,13 +826,13 @@ Phase 1: Set Context Markers
 ├─ **Project Type:** {detected or user-selected}
 ├─ **Workflows:** {selected workflows or all}
 ├─ **Command:** setup-github-actions
-└─ Invoke: Skill(command="devforgeai-github")
+└─ Invoke: Skill(command="devforgeai-github-actions")
 
 Phase 2: Display Results
 └─ Output skill summary (workflows created, config files, next steps)
 ```
 
-**Skill:** `devforgeai-github` (NEW - 10th DevForgeAI skill)
+**Skill:** `devforgeai-github-actions` (NEW - 10th DevForgeAI skill)
 
 **Skill Workflow (5 phases):**
 
@@ -938,7 +938,7 @@ Phase 2: Display Results
 
 #### `/setup-github-actions` - Configure CI/CD Workflows (NEW)
 
-**Skill:** devforgeai-github (NEW)
+**Skill:** devforgeai-github-actions (NEW)
 **Subagent:** internet-sleuth (auto-invoked for research)
 **Effort:** 3-4 hours command + 12-16 hours skill = 15-20 hours total
 **Lines:** Command ~250-350, Skill ~600-800 (entry point, references loaded progressively)
@@ -965,7 +965,7 @@ Phase 2: Display Results
 
 ### Skills Created (1)
 
-**1. devforgeai-github** (NEW - 11th skill, 10th DevForgeAI skill)
+**1. devforgeai-github-actions** (NEW - 11th skill, 10th DevForgeAI skill)
 - Purpose: GitHub Actions CI/CD orchestration
 - Phases: 5 (validation, generation, configuration, optimization, documentation)
 - References: 6 files (~3,000 lines)
@@ -973,7 +973,7 @@ Phase 2: Display Results
 - Effort: 12-16 hours
 
 **Total Skills After EPIC-010:** 10 → **11 skills**
-- 10 DevForgeAI skills (9 existing + devforgeai-github)
+- 10 DevForgeAI skills (9 existing + devforgeai-github-actions)
 - 1 infrastructure skill (claude-code-terminal-expert)
 
 ## Stories
@@ -1008,8 +1008,8 @@ Phase 2: Display Results
 ### Phase 2: CI/CD Integration (Deferred, Go/No-Go after Phase 1)
 
 **Sprint 4 (Weeks 7-9): CI/CD Infrastructure**
-7. STORY-TBD: Create devforgeai-github Skill and /setup-github-actions Command (13 points) - **Deferred**
-   - Deliverables: devforgeai-github skill (5 phases, 6 reference files), /setup-github-actions command, GitHub Actions workflow templates
+7. STORY-TBD: Create devforgeai-github-actions Skill and /setup-github-actions Command (13 points) - **Deferred**
+   - Deliverables: devforgeai-github-actions skill (5 phases, 6 reference files), /setup-github-actions command, GitHub Actions workflow templates
 8. STORY-TBD: GitHub Actions Workflow Testing and Cost Optimization (10 points) - **Deferred**
    - Deliverables: Test all 4 workflows, validate headless mode, implement cost tracking, documentation
 
@@ -1105,8 +1105,8 @@ Phase 2: Display Results
 - `src/claude/skills/devforgeai-development/references/parallel-development-guide.md` (NEW reference)
 - `src/claude/skills/devforgeai-qa/references/parallel-qa-workflow.md` (NEW reference)
 - `src/claude/skills/devforgeai-qa/references/auto-merge-on-approval.md` (NEW reference)
-- `src/claude/skills/devforgeai-github/SKILL.md` (NEW skill - Phase 2)
-- `src/claude/skills/devforgeai-github/references/` (6 new reference files - Phase 2)
+- `src/claude/skills/devforgeai-github-actions/SKILL.md` (NEW skill - Phase 2)
+- `src/claude/skills/devforgeai-github-actions/references/` (6 new reference files - Phase 2)
 - `src/claude/commands/worktrees.md` (NEW command)
 - `src/claude/commands/setup-github-actions.md` (NEW command - Phase 2)
 - `src/devforgeai/config/parallel.yaml.example` (config template)
@@ -1232,7 +1232,7 @@ Phase 2: Display Results
    - Subagent: git-worktree-manager (direct invocation)
    - Pattern: Similar to /audit-budget (utility with direct subagent call)
 
-4. **`/setup-github-actions`** → `devforgeai-github` skill (NEW)
+4. **`/setup-github-actions`** → `devforgeai-github-actions` skill (NEW)
    - Purpose: Configure GitHub Actions CI/CD workflows
    - Subagent: internet-sleuth (auto-invoked for research)
    - Pattern: Standard command → skill delegation
@@ -1271,7 +1271,7 @@ Phase 2: Display Results
 
 **Created Skills (1):**
 
-3. **`devforgeai-github`** (NEW - 11th skill, 10th DevForgeAI skill)
+3. **`devforgeai-github-actions`** (NEW - 11th skill, 10th DevForgeAI skill)
    - **Purpose:** GitHub Actions CI/CD orchestration for parallel development automation
    - **Phases:** 5 (Repository Validation, Workflow Generation, Configuration Setup, Cost Optimization, Documentation)
    - **Workflow generation:**
@@ -1324,7 +1324,7 @@ Phase 2: Display Results
 **Skill Enhancements:** 24-34 hours (~20 points)
 - devforgeai-development: 8-12 hours (4 new reference files)
 - devforgeai-qa: 4-6 hours (2 new reference files)
-- devforgeai-github (NEW): 12-16 hours (6 new reference files)
+- devforgeai-github-actions (NEW): 12-16 hours (6 new reference files)
 
 **Command Work:** 6-8 hours (~5 points)
 - /worktrees command: 3-4 hours
@@ -1374,7 +1374,7 @@ Phase 2: Display Results
 
 **After EPIC-010:**
 - Commands: **25** (+2: /worktrees, /setup-github-actions)
-- Skills: **15 functional** (+1: devforgeai-github) + 1 incomplete (unchanged)
+- Skills: **15 functional** (+1: devforgeai-github-actions) + 1 incomplete (unchanged)
 - Subagents: **28** (+2 new: dependency-graph-analyzer, file-overlap-detector; +1 enhanced: git-worktree-manager)
 - Parallel capability: **2-5 concurrent stories** (Git worktrees + dependency enforcement)
 - CI/CD: **Automated** (GitHub Actions workflows with headless Claude Code)

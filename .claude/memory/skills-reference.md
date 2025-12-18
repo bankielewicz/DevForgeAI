@@ -1017,8 +1017,8 @@ Read(file_path="src/claude/memory/skills-reference.md")
 **Incomplete Skills: 1**
 - internet-sleuth-integration (missing SKILL.md)
 
-**EPIC-010 Will Add: 1**
-- devforgeai-github (GitHub Actions CI/CD orchestration)
+**EPIC-010 Added: 1**
+- devforgeai-github-actions (GitHub Actions CI/CD orchestration)
 
 **Total After EPIC-010: 15 functional skills** (14 current + 1 new)
 

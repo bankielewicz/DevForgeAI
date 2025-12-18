@@ -1,4 +1,4 @@
-# .devforgeai/config/github-actions.yaml
+# devforgeai/config/ci/github-actions.yaml
 # GitHub Actions Configuration for DevForgeAI CI/CD
 #
 # Copy this file to github-actions.yaml and customize settings

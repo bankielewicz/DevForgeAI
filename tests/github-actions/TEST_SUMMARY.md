@@ -115,8 +115,8 @@ test_all_workflows_have_cost_optimization_enabled
 4. `.github/workflows/installer-testing.yml`
 
 **Configuration Files Created:**
-1. `.devforgeai/config/github-actions.yaml`
-2. `.devforgeai/config/ci-answers.yaml`
+1. `devforgeai/config/ci/github-actions.yaml`
+2. `devforgeai/config/ci/ci-answers.yaml`
 
 **Sample tests:**
 ```
@@ -258,8 +258,8 @@ TIME: ~2 seconds
 
 ### Why 6 Tests Pass
 Configuration example files exist:
-- `.devforgeai/config/github-actions.yaml.example` ✓
-- `.devforgeai/config/ci-answers.yaml.example` ✓
+- `devforgeai/config/ci/github-actions.yaml.example` ✓
+- `devforgeai/config/ci/ci-answers.yaml.example` ✓
 
 Tests verify file existence, YAML parsing, and basic schema validation.
 
@@ -304,8 +304,8 @@ python3 -m pytest tests/github-actions/ --cov --cov-report=term
 After tests are generated (RED Phase complete), the following implementation order is recommended:
 
 ### Phase 1: Configuration Files
-1. Create `.devforgeai/config/github-actions.yaml` (from example)
-2. Create `.devforgeai/config/ci-answers.yaml` (from example)
+1. Create `devforgeai/config/ci/github-actions.yaml` (from example)
+2. Create `devforgeai/config/ci/ci-answers.yaml` (from example)
 3. Verify configuration schema tests pass ✓ PASSED (6 tests)
 
 ### Phase 2: Setup Command
@@ -363,7 +363,7 @@ All tests follow Arrange-Act-Assert structure:
 ```python
 def test_example(self):
     # Arrange
-    config_path = Path(".devforgeai/config/github-actions.yaml.example")
+    config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
 
     # Act
     with open(config_path, 'r') as f:

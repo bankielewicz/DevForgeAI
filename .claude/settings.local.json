@@ -160,7 +160,10 @@
       "Bash(parse_epic_features:*)",
       "Bash(./devforgeai/epic-coverage/generate-report.sh:*)",
       "Bash(timeout 30 python -m pytest:*)",
-      "Bash(timeout 45 python3 -m pytest:*)"
+      "Bash(timeout 45 python3 -m pytest:*)",
+      "Bash(act:*)",
+      "Bash(/usr/local/bin/act:*)",
+      "Bash(~/bin/act:*)"
     ],
     "deny": [],
     "ask": []

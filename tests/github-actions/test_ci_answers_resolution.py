@@ -102,7 +102,7 @@ class TestAnswerFileMissing:
         Then: ci-answers.yaml should be configured
         """
         # ci-answers.yaml should be deployed with project
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         assert config_path.exists(), "ci-answers.yaml.example must exist as template"
 
     def test_ci_answers_file_loaded_before_dev_execution(self):
@@ -285,7 +285,7 @@ class TestHeadlessModeIntegration:
         When: Validating schema consistency
         Then: Should have all required answer keys
         """
-        config_path = Path(".devforgeai/config/ci-answers.yaml.example")
+        config_path = Path("devforgeai/config/ci/ci-answers.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
@@ -339,7 +339,7 @@ class TestHeadlessModeEdgeCases:
         # 2. Haiku model (lower rate limit)
         # 3. Prompt caching (fewer repeated prompts)
 
-        config_path = Path(".devforgeai/config/github-actions.yaml.example")
+        config_path = Path("devforgeai/config/ci/github-actions.yaml.example")
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
