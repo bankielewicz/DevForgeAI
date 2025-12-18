@@ -206,3 +206,86 @@ class TestPerformance:
 
         # Assert under 10ms (0.01 seconds)
         assert elapsed < 0.01, f"Pattern matching took {elapsed*1000:.2f}ms, expected < 10ms"
+
+
+class TestCoverageGapRemediation:
+    """Tests to cover missing lines identified in QA gaps report (STORY-098)"""
+
+    def test_malformed_regex_uses_escaped_fallback(self, caplog):
+        """Lines 69-72: Invalid regex logs warning and compiles as escaped literal"""
+        import logging
+        from devforgeai_cli.headless.pattern_matcher import PromptPatternMatcher
+
+        # Pattern with invalid regex syntax
+        patterns = {
+            "bad_regex": {"pattern": "[invalid(regex", "answer": "Matched"}
+        }
+
+        with caplog.at_level(logging.WARNING):
+            matcher = PromptPatternMatcher(patterns)
+
+        # Should log warning about invalid regex
+        assert "invalid regex" in caplog.text.lower() or "bad_regex" in caplog.text
+
+        # Should still work using escaped literal
+        result = matcher.match("[invalid(regex")
+        assert result is not None
+        assert result.answer == "Matched"
+
+    def test_pattern_matching_with_unicode_characters(self):
+        """Unicode characters in patterns and prompts work correctly"""
+        from devforgeai_cli.headless.pattern_matcher import PromptPatternMatcher
+
+        patterns = {
+            "unicode": {"pattern": "选择优先级", "answer": "高"}
+        }
+        matcher = PromptPatternMatcher(patterns)
+
+        result = matcher.match("请选择优先级?")
+        assert result is not None
+        assert result.answer == "高"
+
+    def test_first_option_with_empty_options_falls_back_to_fail(self):
+        """Line 146: first_option with empty options becomes fail strategy"""
+        from devforgeai_cli.headless.pattern_matcher import PromptPatternMatcher
+        from devforgeai_cli.headless.exceptions import HeadlessResolutionError
+
+        patterns = {}
+        matcher = PromptPatternMatcher(patterns, default_strategy="first_option")
+
+        # With empty options, should fall back to fail
+        with pytest.raises(HeadlessResolutionError):
+            matcher.match_with_fallback("Unknown prompt", options=[])
+
+    def test_skip_strategy_logs_warning(self, caplog):
+        """Lines 148-152: skip strategy logs warning when no match"""
+        import logging
+        from devforgeai_cli.headless.pattern_matcher import PromptPatternMatcher
+
+        patterns = {}
+        matcher = PromptPatternMatcher(patterns, default_strategy="skip", log_matches=True)
+
+        with caplog.at_level(logging.WARNING):
+            result = matcher.match_with_fallback("Unknown prompt", options=["A", "B"])
+
+        assert result is None
+        assert "skip" in caplog.text.lower() or "unmatched" in caplog.text.lower()
+
+    def test_match_with_fallback_returns_direct_match(self):
+        """Line 130: match_with_fallback returns result when pattern matches"""
+        from devforgeai_cli.headless.pattern_matcher import PromptPatternMatcher
+
+        patterns = {
+            "priority": {"pattern": "story priority", "answer": "High"}
+        }
+        matcher = PromptPatternMatcher(patterns, default_strategy="first_option")
+
+        # Should return match directly, not use fallback
+        result = matcher.match_with_fallback(
+            "What is the story priority?",
+            options=["Low", "Medium"]  # First option is not "High"
+        )
+
+        assert result is not None
+        assert result.answer == "High"  # Pattern match, not first option
+        assert result.is_default is False

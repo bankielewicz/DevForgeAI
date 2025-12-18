@@ -263,6 +263,30 @@ defaults:
 
 ---
 
+## QA Validation History
+
+### Validation 1 (2025-12-18 - FAILED)
+**Mode:** Deep
+**Result:** ❌ FAILED - Critical coverage violation
+**Test Results:** 33/33 passing (100%)
+**Coverage Analysis:**
+- Overall: 89% (PASS ✓)
+- Business Logic: 88.3% (FAIL ❌ - threshold: 95%)
+- Application: 100% (PASS ✓)
+- Infrastructure: N/A
+
+**Blocking Issues:**
+1. Business logic coverage 6.7% below threshold (88.3% actual vs 95% required)
+   - answer_models.py: 92% (missing 7 lines)
+   - answer_resolver.py: 83% (missing 13 lines)
+   - pattern_matcher.py: 90% (missing 6 lines)
+
+**Gap Report:** `devforgeai/qa/reports/STORY-098-gaps.json`
+
+**Next Action:** Return to /dev STORY-098 to add missing unit tests for edge cases and error handling paths
+
+---
+
 ## Notes
 
 **Deferral Justification:** Per EPIC-010 discovery, "defer headless to Phase 2." Local parallel doesn't require this complexity. This story is only needed for GitHub Actions CI/CD integration.
@@ -314,11 +338,42 @@ defaults:
 
 ### Test Results
 
-- **Headless tests:** 33/33 passing
+- **Headless tests:** 54/54 passing
 - **STORY-097 tests:** 17/17 passing
-- **Total:** 50/50 passing
-- **Coverage:** 89% (business logic)
+- **Total:** 71/71 passing
+- **Coverage:** 100% (all layers)
 - **Performance:** Pattern matching <10ms
+
+### Coverage Gap Remediation (2025-12-18)
+
+Added 21 new tests to address QA coverage violations:
+
+**test_answer_models.py (+7 tests):**
+- test_answer_entry_requires_non_empty_pattern
+- test_answer_entry_requires_non_empty_answer
+- test_headless_mode_settings_fail_on_unanswered_must_be_bool
+- test_headless_mode_settings_log_matches_must_be_bool
+- test_migrates_custom_answers_from_flat_format
+- test_missing_config_file_raises_error
+- test_empty_yaml_file_raises_error
+
+**test_pattern_matcher.py (+5 tests):**
+- test_malformed_regex_uses_escaped_fallback
+- test_pattern_matching_with_unicode_characters
+- test_first_option_with_empty_options_falls_back_to_fail
+- test_skip_strategy_logs_warning
+- test_match_with_fallback_returns_direct_match
+
+**test_answer_resolver.py (+9 tests):**
+- test_reset_instance_clears_singleton
+- test_headless_mode_handles_isatty_exception
+- test_load_configuration_returns_cached_config
+- test_explicit_config_path_not_found_error_message
+- test_resolve_auto_loads_configuration
+- test_resolve_with_fail_on_unanswered_false_uses_match_with_fallback
+- test_search_paths_error_message_includes_all_paths
+- test_resolve_with_fail_on_unanswered_true_and_match
+- test_resolve_raises_error_when_matcher_not_initialized
 
 ### Acceptance Criteria Verification
 

@@ -251,3 +251,90 @@ class TestDataclassValidation:
         # Should require both pattern and answer
         with pytest.raises(TypeError):
             AnswerEntry(pattern="test")  # Missing answer
+
+
+class TestCoverageGapRemediation:
+    """Tests to cover missing lines identified in QA gaps report (STORY-098)"""
+
+    def test_answer_entry_requires_non_empty_pattern(self):
+        """Line 32: Empty pattern raises ValueError"""
+        from devforgeai_cli.headless.answer_models import AnswerEntry
+
+        with pytest.raises(ValueError) as exc_info:
+            AnswerEntry(pattern="", answer="test")
+
+        assert "pattern" in str(exc_info.value).lower()
+
+    def test_answer_entry_requires_non_empty_answer(self):
+        """Line 34: Empty answer raises ValueError"""
+        from devforgeai_cli.headless.answer_models import AnswerEntry
+
+        with pytest.raises(ValueError) as exc_info:
+            AnswerEntry(pattern="test", answer="")
+
+        assert "answer" in str(exc_info.value).lower()
+
+    def test_headless_mode_settings_fail_on_unanswered_must_be_bool(self):
+        """Line 49: Non-bool fail_on_unanswered raises TypeError"""
+        from devforgeai_cli.headless.answer_models import HeadlessModeSettings
+
+        with pytest.raises(TypeError) as exc_info:
+            HeadlessModeSettings(enabled=True, fail_on_unanswered="yes")
+
+        assert "fail_on_unanswered" in str(exc_info.value)
+        assert "boolean" in str(exc_info.value).lower()
+
+    def test_headless_mode_settings_log_matches_must_be_bool(self):
+        """Line 53: Non-bool log_matches raises TypeError"""
+        from devforgeai_cli.headless.answer_models import HeadlessModeSettings
+
+        with pytest.raises(TypeError) as exc_info:
+            HeadlessModeSettings(enabled=True, fail_on_unanswered=True, log_matches="yes")
+
+        assert "log_matches" in str(exc_info.value)
+        assert "boolean" in str(exc_info.value).lower()
+
+    def test_migrates_custom_answers_from_flat_format(self, tmp_path):
+        """Lines 154-155: Custom answers migrated to nested format"""
+        config_file = tmp_path / "flat_custom.yaml"
+        config_file.write_text("""
+test_failure_action: fix-implementation
+custom_answers:
+  "custom pattern one": "answer one"
+  "custom pattern two": "answer two"
+""")
+
+        from devforgeai_cli.headless.answer_models import load_config
+
+        config = load_config(config_file)
+
+        # Verify custom answers were migrated
+        assert config.headless_mode.enabled is True
+        # Custom answers should be migrated with safe keys
+        answer_keys = list(config.answers.keys())
+        assert any("custom_" in key for key in answer_keys)
+
+    def test_missing_config_file_raises_error(self, tmp_path):
+        """Line 185: Missing config file raises ConfigurationError"""
+        from devforgeai_cli.headless.answer_models import load_config
+        from devforgeai_cli.headless.exceptions import ConfigurationError
+
+        non_existent = tmp_path / "does_not_exist.yaml"
+
+        with pytest.raises(ConfigurationError) as exc_info:
+            load_config(non_existent)
+
+        assert "not found" in str(exc_info.value).lower()
+
+    def test_empty_yaml_file_raises_error(self, tmp_path):
+        """Line 196: Empty YAML raises ConfigurationError"""
+        config_file = tmp_path / "empty.yaml"
+        config_file.write_text("")
+
+        from devforgeai_cli.headless.answer_models import load_config
+        from devforgeai_cli.headless.exceptions import ConfigurationError
+
+        with pytest.raises(ConfigurationError) as exc_info:
+            load_config(config_file)
+
+        assert "empty" in str(exc_info.value).lower()
