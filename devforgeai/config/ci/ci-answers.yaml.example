@@ -1,37 +1,127 @@
 # devforgeai/config/ci/ci-answers.yaml
-# Pre-configured answers for headless AskUserQuestion prompts
+# Pre-configured answers for headless AskUserQuestion prompts (STORY-098)
 #
-# When Claude Code runs in headless mode (-p flag), any AskUserQuestion
-# prompt must have a matching answer here or the workflow fails fast.
+# When Claude Code runs in headless mode (-p flag), AskUserQuestion prompts
+# are automatically resolved using pattern matching against this configuration.
+#
+# Format Version: 2.0 (nested format - recommended)
+# Legacy Format: 1.0 (flat format - deprecated but still supported)
+#
+# Copy this file to one of these locations:
+#   - .devforgeai/config/ci-answers.yaml (preferred)
+#   - devforgeai/config/ci/ci-answers.yaml (fallback)
 
-# What to do when tests fail during development
-# Options: fix-implementation | fail-fast | retry-once
-test_failure_action: fix-implementation
+# =============================================================================
+# HEADLESS MODE SETTINGS
+# =============================================================================
+headless_mode:
+  # Enable headless answer resolution
+  enabled: true
 
-# Whether to allow deferrals in headless mode
-# Options: never | with-approval | auto-approve
-# Recommendation: "never" for CI (human should review deferrals)
-deferral_strategy: never
+  # AC#3: Fail immediately if no matching answer found
+  # Options: true (recommended for CI) | false (skip unmatched)
+  fail_on_unanswered: true
 
-# Default priority for decisions
-# Options: critical | high | medium | low
-priority_default: high
+  # AC#2: Log answer selections for debugging
+  log_matches: true
 
-# Technology choice when ambiguous
-# Options: use_tech_stack_md | ask_user | fail
-technology_choice: use_tech_stack_md
+# =============================================================================
+# ANSWER PATTERNS (AC#2)
+# =============================================================================
+# Each entry maps a regex pattern to an answer value.
+# Patterns are matched case-insensitively using Python regex.
+# First matching pattern wins (order matters).
 
-# How to handle circular dependencies detected
-# Options: fail | warn_and_continue | break_cycle
-circular_dependency_action: fail
+answers:
+  # ---------------------------------------------------------------------------
+  # Story Creation Prompts
+  # ---------------------------------------------------------------------------
+  epic_association:
+    pattern: "Which epic does this story belong to"
+    answer: "None - standalone story"
+    description: "Default for standalone stories in CI"
 
-# Git conflict resolution strategy
-# Options: fail | accept_ours | accept_theirs
-git_conflict_strategy: fail
+  sprint_assignment:
+    pattern: "Which sprint should this story be assigned to"
+    answer: "Backlog"
 
-# Custom prompt answers (regex pattern -> answer)
-# Useful for project-specific AskUserQuestion prompts
-custom_answers: {}
-  # Example: "Should I include logging?" -> "yes"
-  # ".*logging.*": "yes"
-  # ".*database migration.*": "fail"
+  priority:
+    pattern: "What is the story priority"
+    answer: "High"
+
+  story_points:
+    pattern: "Estimate story complexity"
+    answer: "5"
+
+  # ---------------------------------------------------------------------------
+  # Development Prompts
+  # ---------------------------------------------------------------------------
+  test_failure_action:
+    pattern: "Tests failed.*How should we proceed"
+    answer: "Fix implementation"
+    description: "Automatically fix implementation when tests fail"
+
+  deferral_approval:
+    pattern: "Do you approve this deferral"
+    answer: "No - implement now"
+    description: "CI mode rejects deferrals - human should review"
+
+  technology_choice:
+    pattern: "technology.*not specified|Which technology"
+    answer: "Use tech-stack.md"
+    description: "Always refer to tech-stack.md for technology decisions"
+
+  # ---------------------------------------------------------------------------
+  # QA Prompts
+  # ---------------------------------------------------------------------------
+  qa_mode:
+    pattern: "Which QA mode"
+    answer: "deep"
+    description: "Always use deep QA in CI for thorough validation"
+
+  # ---------------------------------------------------------------------------
+  # Git Prompts
+  # ---------------------------------------------------------------------------
+  git_conflict_resolution:
+    pattern: "Git conflict|conflict resolution"
+    answer: "Fail"
+    description: "Fail on conflicts - require human resolution"
+
+  circular_dependency:
+    pattern: "circular dependency"
+    answer: "Fail"
+    description: "Fail on circular dependencies"
+
+  # ---------------------------------------------------------------------------
+  # Parallel Development Prompts
+  # ---------------------------------------------------------------------------
+  overlap_proceed:
+    pattern: "Proceed with parallel development"
+    answer: "Yes"
+    description: "Allow parallel story development"
+
+# =============================================================================
+# DEFAULT BEHAVIOR (AC#4)
+# =============================================================================
+defaults:
+  # What to do when no pattern matches
+  # Options:
+  #   fail         - Raise error with prompt text (recommended)
+  #   first_option - Select first available option
+  #   skip         - Return None (let caller handle)
+  unknown_prompt: fail
+
+# =============================================================================
+# LEGACY FLAT FORMAT (DEPRECATED)
+# =============================================================================
+# The following flat format is still supported for backward compatibility
+# but will log a deprecation warning. Please migrate to the nested format above.
+#
+# DEPRECATED FORMAT EXAMPLE:
+# test_failure_action: fix-implementation
+# deferral_strategy: never
+# priority_default: high
+# technology_choice: use_tech_stack_md
+# circular_dependency_action: fail
+# git_conflict_strategy: fail
+# custom_answers: {}

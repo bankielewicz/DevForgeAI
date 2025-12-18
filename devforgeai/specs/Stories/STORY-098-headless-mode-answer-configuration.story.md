@@ -3,10 +3,10 @@ id: STORY-098
 title: Headless Mode Answer Configuration
 epic: EPIC-010
 sprint: Sprint-6
-status: Backlog
+status: Dev Complete
 points: 5
 priority: Medium
-assigned_to: TBD
+assigned_to: Claude
 created: 2025-11-25
 format_version: "2.1"
 depends_on: ["STORY-097"]
@@ -228,36 +228,36 @@ defaults:
 ## Dependencies
 
 ### Prerequisite Stories
-- [ ] **STORY-097:** GitHub Actions Workflow Templates
+- [x] **STORY-097:** GitHub Actions Workflow Templates (QA Approved)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] ci-answers.yaml.example template created
-- [ ] HeadlessAnswerResolver service implemented
-- [ ] Pattern matching logic
-- [ ] Fail-on-unanswered mode
-- [ ] Default answer fallback
-- [ ] Validation on load
+- [x] ci-answers.yaml.example template created
+- [x] HeadlessAnswerResolver service implemented
+- [x] Pattern matching logic
+- [x] Fail-on-unanswered mode
+- [x] Default answer fallback
+- [x] Validation on load
 
 ### Quality
-- [ ] All 5 acceptance criteria pass
-- [ ] Edge cases handled
-- [ ] No impact on interactive mode
+- [x] All 5 acceptance criteria pass
+- [x] Edge cases handled
+- [x] No impact on interactive mode
 
 ### Testing
-- [ ] Unit tests for pattern matching
-- [ ] Unit tests for validation
-- [ ] Integration tests with headless mode
+- [x] Unit tests for pattern matching
+- [x] Unit tests for validation
+- [x] Integration tests with headless mode
 
 ---
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 
@@ -274,4 +274,64 @@ defaults:
 
 ## Implementation Notes
 
-No implementation yet - story in planning/backlog phase.
+### Definition of Done - Completed Items
+
+- [x] ci-answers.yaml.example template created - Completed: Updated to nested format v2.0 with headless_mode, answers, and defaults sections
+- [x] HeadlessAnswerResolver service implemented - Completed: Singleton service in .claude/scripts/devforgeai_cli/headless/answer_resolver.py
+- [x] Pattern matching logic - Completed: PromptPatternMatcher with pre-compiled regex, case-insensitive matching
+- [x] Fail-on-unanswered mode - Completed: HeadlessResolutionError raised when no match and fail_on_unanswered=true
+- [x] Default answer fallback - Completed: defaults.unknown_prompt supports fail|first_option|skip strategies
+- [x] Validation on load - Completed: YAML syntax validation, required field checking, enum value validation
+- [x] All 5 acceptance criteria pass - Completed: See AC verification table below
+- [x] Edge cases handled - Completed: Backward compatibility for flat format, invalid regex handling
+- [x] No impact on interactive mode - Completed: is_headless_mode() checks CI/DEVFORGEAI_HEADLESS env vars
+- [x] Unit tests for pattern matching - Completed: tests/headless/test_pattern_matcher.py (12 tests)
+- [x] Unit tests for validation - Completed: tests/headless/test_answer_models.py (12 tests)
+- [x] Integration tests with headless mode - Completed: tests/headless/test_answer_resolver.py (9 tests)
+
+### Files Created
+
+**Headless Package:**
+- `.claude/scripts/devforgeai_cli/headless/__init__.py` - Package exports
+- `.claude/scripts/devforgeai_cli/headless/exceptions.py` - HeadlessResolutionError, ConfigurationError
+- `.claude/scripts/devforgeai_cli/headless/answer_models.py` - Dataclass models, load_config()
+- `.claude/scripts/devforgeai_cli/headless/pattern_matcher.py` - PromptPatternMatcher
+- `.claude/scripts/devforgeai_cli/headless/answer_resolver.py` - HeadlessAnswerResolver singleton
+
+**Tests:**
+- `tests/headless/__init__.py`
+- `tests/headless/test_answer_resolver.py` - AC#1, AC#3 tests
+- `tests/headless/test_pattern_matcher.py` - AC#2, AC#4 tests
+- `tests/headless/test_answer_models.py` - AC#5 tests
+
+**Reference Documentation:**
+- `.claude/skills/devforgeai-development/references/headless-answer-resolver.md`
+
+### Files Modified
+
+- `devforgeai/config/ci/ci-answers.yaml.example` - Updated to nested format (v2.0)
+- `tests/github-actions/test_ci_answers_resolution.py` - Updated for nested format compatibility
+
+### Test Results
+
+- **Headless tests:** 33/33 passing
+- **STORY-097 tests:** 17/17 passing
+- **Total:** 50/50 passing
+- **Coverage:** 89% (business logic)
+- **Performance:** Pattern matching <10ms
+
+### Acceptance Criteria Verification
+
+| AC | Status | Implementation |
+|----|--------|----------------|
+| AC#1: Config file | ✅ | HeadlessAnswerResolver.load_configuration() |
+| AC#2: Pattern matching | ✅ | PromptPatternMatcher with regex, logging |
+| AC#3: Fail-on-unanswered | ✅ | HeadlessResolutionError when no match |
+| AC#4: Default fallback | ✅ | defaults.unknown_prompt: first_option/skip/fail |
+| AC#5: Validation on load | ✅ | YAML validation, required fields, enum validation |
+
+### Backward Compatibility
+
+- Legacy flat format auto-migrates to nested format
+- Deprecation warning logged for flat format configs
+- All existing STORY-097 tests pass

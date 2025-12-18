@@ -289,10 +289,17 @@ class TestHeadlessModeIntegration:
         with open(config_path, 'r') as f:
             config = yaml.safe_load(f)
 
-        # Should have pre-defined answers for common prompts
-        assert "test_failure_action" in config, "Missing test_failure_action"
-        assert "deferral_strategy" in config, "Missing deferral_strategy"
-        assert "priority_default" in config, "Missing priority_default"
+        # STORY-098: Updated to nested format (v2.0)
+        # Should have headless_mode, answers, and defaults sections
+        assert "headless_mode" in config, "Missing headless_mode section"
+        assert "answers" in config, "Missing answers section"
+        assert "defaults" in config, "Missing defaults section"
+
+        # Should have pre-defined answers for common prompts in answers section
+        answers = config.get("answers", {})
+        assert "test_failure_action" in answers, "Missing test_failure_action in answers"
+        assert "deferral_approval" in answers, "Missing deferral_approval in answers"
+        assert "priority" in answers, "Missing priority in answers"
 
     def test_workflow_fails_fast_on_missing_config(self):
         """
