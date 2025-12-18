@@ -4,7 +4,7 @@ Unit tests for STORY-035 Business Rules
 Tests verify agent enforces business rules:
 - BR-001: Check 6 context files exist, HALT if missing
 - BR-002: Return 'REQUIRES ADR' for tech not in tech-stack.md
-- BR-003: Write outputs to .devforgeai/research/ with 755 permissions
+- BR-003: Write outputs to devforgeai/specs/research/ with 755 permissions
 - BR-004: Validate repository URLs (GitHub pattern only)
 """
 
@@ -145,23 +145,23 @@ class TestInternetSleuthBusinessRules:
 
     def test_br_003_outputs_written_to_devforgeai_research(self, agent_content):
         """
-        BR-003: Research output files must be written to .devforgeai/research/
+        BR-003: Research output files must be written to devforgeai/specs/research/
 
         Arrange: Load agent file content
         Act: Search for output directory specification
-        Assert: .devforgeai/research/ documented as output location
+        Assert: devforgeai/specs/research/ documented as output location
         """
         # Act
-        has_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
+        has_research_dir = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
-        # Also check no old output locations remain
-        has_old_output = bool(re.search(r'\devforgeai/specs/research/|tmp/repos/research-', agent_content))
+        # Also check no old deprecated output locations remain
+        has_old_output = bool(re.search(r'\.devforgeai/research/|tmp/repos/research-', agent_content))
 
         # Assert
         assert has_research_dir, \
-            "BR-003 FAILED: Output files must be written to '.devforgeai/research/'"
+            "BR-003 FAILED: Output files must be written to 'devforgeai/specs/research/'"
         assert not has_old_output, \
-            "BR-003 FAILED: Must NOT write outputs to deprecated locations"
+            "BR-003 FAILED: Must NOT write outputs to deprecated locations (.devforgeai/research/ or tmp/repos/)"
 
     def test_br_003_directory_created_if_not_exists(self, agent_content):
         """
@@ -180,7 +180,7 @@ class TestInternetSleuthBusinessRules:
 
         # Assert
         assert has_create_dir, \
-            "BR-003 FAILED: Agent must document creating .devforgeai/research/ if it doesn't exist"
+            "BR-003 FAILED: Agent must document creating devforgeai/specs/research/ if it doesn't exist"
 
     def test_br_003_directory_permissions_755(self, agent_content):
         """
@@ -266,7 +266,7 @@ class TestInternetSleuthBusinessRules:
         rules = {
             'BR-001': bool(re.search(r'context.*file.*exist|HALT.*missing', agent_content, re.IGNORECASE)),
             'BR-002': bool(re.search(r'REQUIRES ADR', agent_content)),
-            'BR-003': bool(re.search(r'\.devforgeai/research/', agent_content)),
+            'BR-003': bool(re.search(r'devforgeai/specs/research/', agent_content)),
             'BR-004': bool(re.search(r'github.*URL|URL.*github', agent_content, re.IGNORECASE))
         }
 

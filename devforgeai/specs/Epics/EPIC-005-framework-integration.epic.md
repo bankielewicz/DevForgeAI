@@ -153,6 +153,14 @@ Make retrospective feedback a **native part of DevForgeAI's operation lifecycle*
 
 **Estimated Effort:** Medium (8-13 story points)
 
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-018 | 4.1 | Event-Driven Hook System | 16 | Dev Complete |
+| STORY-019 | 4.2 | Operation Lifecycle Integration | 12 | QA Approved |
+| STORY-020 | 4.3 | Feedback CLI Commands | 10 | QA Approved |
+
 ## Dependencies
 
 **Prerequisites:**

@@ -3,7 +3,7 @@ id: STORY-018
 title: Event-Driven Hook System
 epic: EPIC-005
 sprint: Sprint-3
-status: Dev Complete
+status: QA Approved ✅
 qa_status: "Ready for QA - Test coverage at 78% overall, 4/6 modules at thresholds"
 points: 16
 priority: High

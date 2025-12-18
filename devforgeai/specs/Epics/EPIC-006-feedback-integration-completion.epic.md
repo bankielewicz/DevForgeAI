@@ -235,8 +235,8 @@ Transform the feedback system from **"infrastructure exists but unused"** to **"
 **Estimated Effort:** 21 story points (Large - significant implementation work)
 
 **Stories:**
-- STORY-034: Implement extractOperationContext() function (13 points)
-- STORY-035: Implement adaptive questioning based on context (8 points)
+- STORY-103: Implement extractOperationContext() function (13 points)
+- STORY-104: Implement adaptive questioning based on context (8 points)
 
 ---
 
@@ -280,9 +280,9 @@ Transform the feedback system from **"infrastructure exists but unused"** to **"
 **Estimated Effort:** 16 story points (Medium)
 
 **Stories:**
-- STORY-036: Fix test cleanup issue (3 points)
-- STORY-037: Performance optimization and NFR validation (8 points)
-- STORY-038: Documentation and user guide updates (5 points)
+- STORY-105: Fix test cleanup issue (3 points)
+- STORY-106: Performance optimization and NFR validation (8 points)
+- STORY-107: Documentation and user guide updates (5 points)
 
 ---
 
@@ -686,26 +686,30 @@ Control returns to user
 ## Stories
 
 ### Feature 6.1: Hook Invocation Infrastructure (13 points)
-- STORY-021: Implement devforgeai check-hooks CLI command (5 points) - Sprint-2
+- STORY-021: Implement devforgeai check-hooks CLI command (5 points) - QA Approved
+- STORY-022: Implement devforgeai invoke-hooks CLI command (8 points) - QA Approved
 
 ### Feature 6.2: Command Integration Rollout (55 points)
-- STORY-023: Wire hooks into /dev command (pilot) (8 points) - Sprint-3
-- STORY-024: Wire hooks into /qa command (5 points) - Sprint-3
-- STORY-025: Wire hooks into /release command (5 points) - Sprint-3
-- STORY-026: Wire hooks into /orchestrate command (5 points) - Sprint-3
-- STORY-027: Wire hooks into /create-story command (5 points) - Sprint-3
-- STORY-028: Wire hooks into /create-epic command (5 points) - Sprint-3
-- STORY-029: Wire hooks into /create-sprint command (5 points) - Sprint-3
-- STORY-030: Wire hooks into /create-context command (3 points) - Sprint-3
-- STORY-031: Wire hooks into /ideate command (5 points) - Sprint-3
-- STORY-032: Wire hooks into /create-ui command (5 points) - Sprint-3
-- STORY-033: Wire hooks into /audit-deferrals command (4 points) - Sprint-3
+- STORY-023: Wire hooks into /dev command (pilot) (8 points) - QA Approved
+- STORY-024: Wire hooks into /qa command (5 points) - QA Approved
+- STORY-025: Wire hooks into /release command (5 points) - Dev Complete
+- STORY-026: Wire hooks into /orchestrate command (5 points) - QA Approved
+- STORY-027: Wire hooks into /create-story command (5 points) - QA Approved
+- STORY-028: Wire hooks into /create-epic command (5 points) - QA Approved
+- STORY-029: Wire hooks into /create-sprint command (5 points) - QA Approved
+- STORY-030: Wire hooks into /create-context command (3 points) - QA Approved
+- STORY-031: Wire hooks into /ideate command (5 points) - QA Approved
+- STORY-032: Wire hooks into /create-ui command (5 points) - QA Approved
+- STORY-033: Wire hooks into /audit-deferrals command (4 points) - Dev Complete
 
 ### Feature 6.3: TodoWrite Context Extraction (21 points)
-- (Stories to be created)
+- STORY-103: Implement extractOperationContext() function (13 points) - Backlog
+- STORY-104: Implement adaptive questioning based on context (8 points) - Backlog
 
 ### Feature 6.4: Testing, Refinement & Documentation (16 points)
-- (Stories to be created)
+- STORY-105: Fix test cleanup issue (3 points) - Backlog
+- STORY-106: Performance optimization and NFR validation (8 points) - Backlog
+- STORY-107: Documentation and user guide updates (5 points) - Backlog
 
 ---
 

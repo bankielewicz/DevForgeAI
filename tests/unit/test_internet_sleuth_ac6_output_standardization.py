@@ -2,7 +2,7 @@
 Unit tests for STORY-035 AC6: Output location standardized to DevForgeAI structure
 
 Tests verify research outputs written to correct location:
-- .devforgeai/research/ directory for all outputs
+- devforgeai/specs/research/ directory for all outputs
 - Filename conventions documented (tech-eval-{topic}-{date}.md format)
 - Directory created if doesn't exist
 - No outputs to deprecated locations (devforgeai/specs/research/)
@@ -44,36 +44,36 @@ class TestAC6OutputStandardization:
 
     def test_documents_devforgeai_research_output_path(self, agent_content):
         """
-        AC6 / COMP-012: Must document .devforgeai/research/ output path
+        AC6 / COMP-012: Must document devforgeai/specs/research/ output path
 
         Arrange: Load agent file content
-        Act: Search for .devforgeai/research/ path
+        Act: Search for devforgeai/specs/research/ path
         Assert: Path documented
         """
         # Act
-        has_research_path = bool(re.search(r'\.devforgeai/research/', agent_content))
+        has_research_path = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
         # Assert
         assert has_research_path, \
-            "AC6 FAILED: Agent must document '.devforgeai/research/' output directory"
+            "AC6 FAILED: Agent must document 'devforgeai/specs/research/' output directory"
 
     def test_repository_management_uses_devforgeai_research(self, repository_management_section):
         """
-        COMP-012: Repository Management section must reference .devforgeai/research/
+        COMP-012: Repository Management section must reference devforgeai/specs/research/
 
         Arrange: Extract Repository Management section
-        Act: Search for .devforgeai/research/ in section
+        Act: Search for devforgeai/specs/research/ in section
         Assert: Path present in management workflow
         """
         # Act
         if not repository_management_section:
             pytest.skip("No Repository Management section found")
 
-        has_research_path = bool(re.search(r'\.devforgeai/research/', repository_management_section))
+        has_research_path = bool(re.search(r'devforgeai/specs/research/', repository_management_section))
 
         # Assert
         assert has_research_path, \
-            "COMP-012: Repository Management section must reference '.devforgeai/research/' for outputs"
+            "COMP-012: Repository Management section must reference 'devforgeai/specs/research/' for outputs"
 
     def test_no_old_research_output_paths(self, agent_content):
         """
@@ -83,11 +83,12 @@ class TestAC6OutputStandardization:
         Act: Search for old output paths
         Assert: Zero matches for deprecated paths
         """
-        # Act
+        # Act - check for truly deprecated paths (NOT devforgeai/specs/research/ which is CORRECT)
         old_paths = [
-            r'\devforgeai/specs/research/',
+            r'\.devforgeai/research/',  # Old dot convention
             r'tmp/repos/research-',  # Old research output pattern
-            r'ai_docs/architecture/research'
+            r'ai_docs/architecture/research',
+            r'\.claude/research/'  # Old claude convention
         ]
 
         found_old_paths = []
@@ -97,7 +98,7 @@ class TestAC6OutputStandardization:
 
         # Assert
         assert len(found_old_paths) == 0, \
-            f"Found deprecated output paths (must use .devforgeai/research/): {found_old_paths}"
+            f"Found deprecated output paths (must use devforgeai/specs/research/): {found_old_paths}"
 
     def test_documents_tech_eval_filename_convention(self, agent_content):
         """
@@ -190,7 +191,7 @@ class TestAC6OutputStandardization:
         Assert: Both directory and filenames specified
         """
         # Act
-        has_directory = bool(re.search(r'\.devforgeai/research/', agent_content))
+        has_directory = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
         filename_formats = [
             r'tech-eval-',
@@ -231,7 +232,7 @@ class TestAC6OutputStandardization:
     @pytest.mark.edge_case
     def test_no_hardcoded_output_paths_in_examples(self, agent_content):
         """
-        Edge case: Output path examples should use .devforgeai/research/, not absolute paths
+        Edge case: Output path examples should use devforgeai/specs/research/, not absolute paths
 
         Arrange: Load agent file content
         Act: Check output path examples
@@ -252,23 +253,23 @@ class TestAC6OutputStandardization:
 
     def test_br_003_research_directory_documented(self, agent_content):
         """
-        BR-003: Research output files must be written to .devforgeai/research/ directory
+        BR-003: Research output files must be written to devforgeai/specs/research/ directory
 
         Arrange: Load agent file content
-        Act: Verify .devforgeai/research/ documented as output location
+        Act: Verify devforgeai/specs/research/ documented as output location
         Assert: Directory path present and documented
         """
         # Act
-        has_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
+        has_research_dir = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
-        # Additional check: Should NOT have old research directories
-        has_old_research_dir = bool(re.search(r'\devforgeai/specs/research/', agent_content))
+        # Additional check: Should NOT have old deprecated paths
+        has_old_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
 
         # Assert
         assert has_research_dir, \
-            "BR-003 FAILED: Must document '.devforgeai/research/' as research output directory"
+            "BR-003 FAILED: Must document 'devforgeai/specs/research/' as research output directory"
         assert not has_old_research_dir, \
-            "BR-003 FAILED: Must NOT reference deprecated 'devforgeai/specs/research/' directory"
+            "BR-003 FAILED: Must NOT reference deprecated '.devforgeai/research/' directory"
 
     @pytest.mark.business_rule
     def test_br_003_directory_permissions_documented(self, agent_content):
@@ -320,11 +321,11 @@ class TestAC6OutputStandardization:
 
         Arrange: Load agent file content
         Act: Search for old temporary research directory pattern
-        Assert: Pattern not found (outputs should go to .devforgeai/research/)
+        Assert: Pattern not found (outputs should go to devforgeai/specs/research/)
         """
         # Act
         has_old_tmp_pattern = bool(re.search(r'tmp/repos/research-\d+', agent_content))
 
         # Assert
         assert not has_old_tmp_pattern, \
-            "Found old tmp/repos/research-{timestamp}/ pattern (outputs must go to .devforgeai/research/)"
+            "Found old tmp/repos/research-{timestamp}/ pattern (outputs must go to devforgeai/specs/research/)"

@@ -152,19 +152,19 @@ class TestInternetSleuthEdgeCases:
 
     def test_edge_case_4_adr_check_before_new_technology(self, agent_content):
         """
-        Edge Case 4: Agent must check .devforgeai/adrs/ for existing ADRs
+        Edge Case 4: Agent must check devforgeai/specs/adrs/ for existing ADRs
 
         Arrange: Load agent file content
         Act: Search for ADR check workflow
         Assert: Check documented with proper ADR naming format
         """
         # Act
-        has_adr_check = bool(re.search(r'check.*\.devforgeai/adrs/', agent_content, re.IGNORECASE))
+        has_adr_check = bool(re.search(r'check.*devforgeai/specs/adrs/', agent_content, re.IGNORECASE))
         has_adr_naming = bool(re.search(r'ADR-\d{3}-|ADR-\{NNN\}-', agent_content))
 
         # Assert
         assert has_adr_check, \
-            "Edge Case 4: Agent must document checking .devforgeai/adrs/ before technology recommendations"
+            "Edge Case 4: Agent must document checking devforgeai/specs/adrs/ before technology recommendations"
         assert has_adr_naming, \
             "Edge Case 4: Agent must document proper ADR naming format (ADR-{NNN}-{technology-decision}.md)"
 
@@ -265,7 +265,7 @@ class TestInternetSleuthEdgeCases:
         Assert: Documents reading epic for context before research
         """
         # Act
-        has_epic_read = bool(re.search(r'\devforgeai/specs/Epics/|read.*epic', agent_content, re.IGNORECASE))
+        has_epic_read = bool(re.search(r'devforgeai/specs/Epics/|read.*epic', agent_content, re.IGNORECASE))
 
         # Assert
         assert has_epic_read, \

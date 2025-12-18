@@ -236,14 +236,14 @@ class TestAC3ContextFileAwareness:
 
         Arrange: Load agent file content
         Act: Search for ADR check workflow
-        Assert: ADR check step documented with .devforgeai/adrs/ reference
+        Assert: ADR check step documented with devforgeai/specs/adrs/ reference
         """
         # Act
-        has_adr_check = bool(re.search(r'\.devforgeai/adrs/', agent_content))
+        has_adr_check = bool(re.search(r'devforgeai/specs/adrs/', agent_content))
         has_adr_workflow = bool(re.search(r'ADR|adr|Architecture Decision Record', agent_content, re.IGNORECASE))
 
         # Assert
-        assert has_adr_check, "Agent must reference '.devforgeai/adrs/' directory for ADR awareness"
+        assert has_adr_check, "Agent must reference 'devforgeai/specs/adrs/' directory for ADR awareness"
         assert has_adr_workflow, "Agent must document ADR check workflow"
 
     @pytest.mark.edge_case
