@@ -193,6 +193,8 @@ class HookRegistry:
         self.config_path = config_path or Path("devforgeai/config/hooks.yaml")
         self.entries: Dict[str, HookRegistryEntry] = {}
         self.load_errors: List[str] = []
+        # STORY-106: Performance optimization - O(1) type index
+        self.type_index: Dict[str, List[HookRegistryEntry]] = {}
         self._load_config()
 
     def _load_config(self) -> None:
@@ -208,6 +210,8 @@ class HookRegistry:
         """
         self.entries.clear()
         self.load_errors.clear()
+        # STORY-106: Clear type index on reload
+        self.type_index.clear()
 
         # Handle missing config gracefully
         if not self.config_path.exists():
@@ -305,6 +309,12 @@ class HookRegistry:
             # Add hook to registry
             self.entries[hook_id] = entry
             logger.debug(f"Loaded hook: {hook_id}")
+
+            # STORY-106: Populate type_index for O(1) lookup
+            op_type = entry["operation_type"]
+            if op_type not in self.type_index:
+                self.type_index[op_type] = []
+            self.type_index[op_type].append(entry)
 
         # Summary logging
         if len(self.entries) > 0:

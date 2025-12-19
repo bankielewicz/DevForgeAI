@@ -454,12 +454,131 @@ Template engine:
 
 ---
 
+## Context Variable Support (STORY-104)
+
+Questions can include context variables that are substituted with operation-specific values at runtime. This enables adaptive, contextual feedback questions.
+
+### Variable Syntax
+
+Use `{variable_name}` syntax in question text. Variables are replaced with actual values from the operation context before presenting to users.
+
+**Example:**
+```
+Template: "The {operation_type} for {story_id} took {duration}."
+Result:   "The dev for STORY-042 took 45 minutes."
+```
+
+### Available Variables
+
+| Variable | Source | Example Value | Fallback |
+|----------|--------|---------------|----------|
+| `{operation_type}` | OperationContext.operation_type | "dev", "qa", "release" | "operation" |
+| `{story_id}` | OperationContext.story_id | "STORY-042" | *skip question* |
+| `{duration}` | Formatted duration_seconds | "45 minutes" | "unknown time" |
+| `{todo_count}` | len(todos) | "8" | "several" |
+| `{completed_count}` | count(status=completed) | "7" | same as todo_count |
+| `{error_message}` | ErrorContext.message | "Coverage 82% below threshold" | *skip question* |
+| `{failed_todo}` | ErrorContext.failed_todo | "Check coverage thresholds" | "a task" |
+| `{longest_phase}` | max(phases by duration) | "TDD Green" | *omit phrase* |
+
+### Duration Formatting
+
+| Seconds | Formatted Output |
+|---------|------------------|
+| < 60 | "{N} seconds" |
+| 60-3599 | "{N} minutes" |
+| 3600-7199 | "about an hour" |
+| >= 7200 | "{N} hours" |
+
+### Variable Fallback Rules
+
+1. **Required variable missing:** Skip the entire question
+2. **Optional variable missing:** Use fallback value from table above
+3. **All variables missing:** Use generic fallback question set
+
+### Context-Aware Question Templates
+
+#### Success Templates with Variables
+
+```yaml
+questions:
+  - id: "ctx_success_01"
+    text: "The {operation_type} for {story_id} completed in {duration}. What went particularly well?"
+    type: "open"
+    required_vars: ["operation_type", "story_id", "duration"]
+    context: "Contextual success opener with specific operation details"
+
+  - id: "ctx_success_02"
+    text: "You completed {completed_count} tasks. Any patterns worth repeating?"
+    type: "open"
+    required_vars: ["completed_count"]
+    context: "Quantified success reflection"
+
+  - id: "ctx_success_03"
+    text: "The {longest_phase} phase took the longest. Any optimizations possible?"
+    type: "open"
+    required_vars: ["longest_phase"]
+    context: "Phase-specific improvement inquiry"
+```
+
+#### Failure Templates with Variables
+
+```yaml
+questions:
+  - id: "ctx_failure_01"
+    text: "The operation failed: {error_message}. What caused this?"
+    type: "open"
+    required_vars: ["error_message"]
+    context: "Error-specific root cause analysis"
+
+  - id: "ctx_failure_02"
+    text: "The '{failed_todo}' task could not complete. What would have prevented this?"
+    type: "open"
+    required_vars: ["failed_todo"]
+    context: "Todo-specific prevention inquiry"
+```
+
+#### Long-Running Templates with Variables
+
+```yaml
+questions:
+  - id: "ctx_long_01"
+    text: "This {operation_type} took {duration} - was this expected?"
+    type: "open"
+    required_vars: ["operation_type", "duration"]
+    context: "Duration expectation check for operations >= 10 minutes"
+
+  - id: "ctx_long_02"
+    text: "Would you set a time expectation for future {operation_type} runs?"
+    type: "open"
+    required_vars: ["operation_type"]
+    context: "Future timing guidance"
+```
+
+#### Partial Completion Templates
+
+```yaml
+questions:
+  - id: "ctx_partial_01"
+    text: "The {operation_type} completed {completed_count} of {todo_count} tasks. What blocked the rest?"
+    type: "open"
+    required_vars: ["operation_type", "completed_count", "todo_count"]
+    context: "Partial completion analysis"
+```
+
+### Integration with Adaptive Questioning
+
+Context-aware templates are selected based on operation outcome. See `adaptive-questioning.md` (STORY-104) for the complete selection algorithm and fallback patterns.
+
+---
+
 ## Related Documentation
 
 - **Template Format Specification:** `template-format-specification.md`
 - **Field Mapping Guide:** `field-mapping-guide.md`
 - **User Customization Guide:** `user-customization-guide.md`
 - **Feedback Persistence Guide:** `feedback-persistence-guide.md`
+- **Adaptive Questioning Pattern:** `adaptive-questioning.md` (STORY-104)
 
 ---
 

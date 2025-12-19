@@ -52,3 +52,25 @@ jobs:
             echo "❌ Installer tests failed"
             exit 1
           fi
+
+      - name: Verify No Stale Test Artifacts
+        if: always()
+        run: |
+          # STORY-105: Check for orphaned zip files from tests
+          echo "Checking for stale test artifacts in project root..."
+
+          # Find any .zip files that match test artifact patterns
+          stale_zips=$(find . -maxdepth 1 -name "*.zip" \
+            ! -name "devforgeai-*.zip" \
+            -type f 2>/dev/null || true)
+
+          if [ -n "$stale_zips" ]; then
+            echo "❌ ERROR: Found stale test artifacts in project root:"
+            echo "$stale_zips"
+            echo ""
+            echo "Tests should use tempfile.TemporaryDirectory() for cleanup."
+            echo "See tests/conftest.py for fixture examples."
+            exit 1
+          else
+            echo "✅ No stale test artifacts found"
+          fi

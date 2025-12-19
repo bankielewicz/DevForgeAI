@@ -27,6 +27,43 @@ from src.hook_patterns import PatternMatcher
 logger = logging.getLogger(__name__)
 
 
+# STORY-106: Eligibility cache for performance optimization
+class HookEligibilityCache:
+    """Cache for hook eligibility lookups to avoid redundant computations."""
+
+    def __init__(self, ttl_seconds: int = 60):
+        """
+        Initialize eligibility cache.
+
+        Args:
+            ttl_seconds: Time-to-live for cache entries (default: 60s)
+        """
+        self.cache: Dict[str, tuple] = {}  # key -> (hooks, timestamp)
+        self.ttl = ttl_seconds
+
+    def get(self, operation_name: str, operation_type: str, trigger_status: str) -> Optional[List]:
+        """Get cached hooks for operation, or None if not cached/expired."""
+        import time
+        key = f"{operation_name}:{operation_type}:{trigger_status}"
+        if key in self.cache:
+            hooks, timestamp = self.cache[key]
+            if time.time() - timestamp < self.ttl:
+                return hooks  # Cache hit
+            else:
+                del self.cache[key]  # Expired
+        return None
+
+    def set(self, operation_name: str, operation_type: str, trigger_status: str, hooks: List) -> None:
+        """Store hooks in cache."""
+        import time
+        key = f"{operation_name}:{operation_type}:{trigger_status}"
+        self.cache[key] = (hooks, time.time())
+
+    def clear(self) -> None:
+        """Clear all cached entries."""
+        self.cache.clear()
+
+
 class HookSystem:
     """Main hook system orchestrator."""
 
@@ -44,6 +81,8 @@ class HookSystem:
         self.invoker = HookInvoker(self.registry, self.circular_detector)
         self.pattern_matcher = PatternMatcher()
         self.hook_runner: Optional[Callable[[HookRegistryEntry, HookInvocationContext], Awaitable[Dict[str, Any]]]] = None
+        # STORY-106: Performance optimization - eligibility cache
+        self.eligibility_cache = HookEligibilityCache(ttl_seconds=60)
 
     def set_hook_runner(
         self,

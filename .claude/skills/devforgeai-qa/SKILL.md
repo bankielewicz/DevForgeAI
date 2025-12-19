@@ -90,6 +90,46 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 ---
 
+### Phase 0.0: Validate Project Root [MANDATORY - FIRST STEP]
+
+**Purpose:** Ensure CWD is DevForgeAI project root before ANY file operations.
+
+**Execute BEFORE Phase 0.5 (Test Isolation):**
+
+```
+# Step 1: Check project marker file
+result = Read(file_path="CLAUDE.md")
+
+IF result.success:
+    content = result.content
+
+    # Step 2: Validate it's a DevForgeAI project
+    IF content_contains("DevForgeAI") OR content_contains("devforgeai"):
+        CWD_VALID = true
+        Display: "✓ Project root validated"
+    ELSE:
+        CWD_VALID = false
+        Display: "⚠ CLAUDE.md found but not a DevForgeAI project"
+        HALT: Use AskUserQuestion to get correct path
+ELSE:
+    # Step 3: Try secondary markers
+    dir_check = Glob(pattern=".claude/skills/*.md")
+
+    IF dir_check.has_results:
+        CWD_VALID = true
+        Display: "✓ Project root validated via .claude/skills/ structure"
+    ELSE:
+        CWD_VALID = false
+        Display: "❌ CWD Validation Failed"
+        Display: "   Not in DevForgeAI project root."
+        Display: "   Expected: CLAUDE.md with DevForgeAI configuration"
+        HALT: Use AskUserQuestion: "Provide project root path?"
+```
+
+**CRITICAL:** Do NOT proceed to Phase 0.5 if CWD validation fails.
+
+---
+
 ### Phase 0.5: Load Test Isolation Configuration (STORY-092)
 
 **Purpose:** Load story-scoped test output paths to enable concurrent QA validations without data corruption.

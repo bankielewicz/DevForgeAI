@@ -25,6 +25,7 @@
 Phase 01 executes 9 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
+0. **Validate Project Root (CWD)** - NEW
 1. Validate Git repository status
 2. **Git Worktree Auto-Management** (STORY-091)
 2.5. **Dependency Graph Validation** (STORY-093) - NEW
@@ -35,6 +36,71 @@ Phase 01 executes 9 validation steps before proceeding to TDD implementation. Th
 7. Validate spec vs context files
 8. Detect and validate technology stack
 9. Detect previous QA failures
+
+---
+
+## Step 0.0: Validate Project Root [MANDATORY - FIRST STEP]
+
+**Purpose:** Ensure CWD is DevForgeAI project root before ANY file operations.
+
+**Execute BEFORE Step 0.1 (Git validation):**
+
+```
+# 1. Attempt to read project marker file
+result = Read(file_path="CLAUDE.md")
+
+IF result.success:
+    content = result.content
+
+    # 2. Validate it's a DevForgeAI project
+    IF content_contains("DevForgeAI") OR content_contains("devforgeai"):
+        CWD_VALID = true
+        PROJECT_ROOT = Bash(command="pwd").output.strip()
+        Display: "✓ Project root validated: {PROJECT_ROOT}"
+    ELSE:
+        # CLAUDE.md exists but not DevForgeAI project
+        CWD_VALID = false
+        Display: "⚠ CLAUDE.md found but not a DevForgeAI project"
+        HALT: Use AskUserQuestion to get correct path
+ELSE:
+    # 3. Try secondary markers
+    dir_check = Glob(pattern=".claude/skills/*.md")
+
+    IF dir_check.has_results:
+        CWD_VALID = true
+        Display: "✓ Project root validated via .claude/skills/ structure"
+    ELSE:
+        dir_check2 = Glob(pattern="devforgeai/specs/context/*.md")
+
+        IF dir_check2.has_results:
+            CWD_VALID = true
+            Display: "✓ Project root validated via devforgeai/specs/"
+        ELSE:
+            CWD_VALID = false
+            Display: "❌ CWD Validation Failed"
+            Display: "   Not in DevForgeAI project root."
+            Display: "   Expected markers not found:"
+            Display: "     - CLAUDE.md"
+            Display: "     - .claude/skills/"
+            Display: "     - devforgeai/specs/"
+            HALT: Use AskUserQuestion: "Provide project root path?"
+```
+
+**On Failure:**
+
+```
+❌ CWD Validation Failed
+   Current directory does not appear to be a DevForgeAI project root.
+   Expected: CLAUDE.md with DevForgeAI configuration
+   Found: [nothing | wrong project]
+
+   Options:
+   1. Navigate to correct project directory
+   2. Run: cd /path/to/your/devforgeai/project
+   3. Provide absolute path for this session
+```
+
+**CRITICAL:** Do NOT proceed to Step 0.1 if CWD validation fails.
 
 ---
 

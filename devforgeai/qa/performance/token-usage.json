@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "description": "DevForgeAI Hook System Token Usage Tracking",
+  "created": "2025-12-19",
+  "story_id": "STORY-106",
+  "budget": {
+    "total_tokens": 1000000,
+    "max_percent": 3,
+    "max_tokens": 30000
+  },
+  "measurements": {
+    "context_extraction_avg": 0,
+    "question_generation_avg": 0,
+    "response_processing_avg": 0,
+    "total_per_session_avg": 0
+  },
+  "breakdown": {
+    "context": {
+      "description": "Tokens used for operation context extraction",
+      "target": 500
+    },
+    "questions": {
+      "description": "Tokens used for feedback question generation",
+      "target": 1000
+    },
+    "responses": {
+      "description": "Tokens for user response processing",
+      "target": 500
+    },
+    "followup": {
+      "description": "Tokens for follow-up questions",
+      "target": 1000
+    }
+  },
+  "history": [],
+  "notes": [
+    "Per-session budget: 3000 tokens (30K total / 10 sessions)",
+    "Failures-only mode is default (lower token usage)",
+    "History tracks token usage over time"
+  ]
+}

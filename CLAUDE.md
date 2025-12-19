@@ -19,6 +19,18 @@ You are opus - delegate to subagents in `.claude/agents/` & skills in `.claude/s
 
 ---
 
+## Working Directory Awareness
+
+Before file operations, verify CWD is project root:
+
+1. **Check:** `Read(file_path="CLAUDE.md")` must succeed
+2. **Validate:** Content contains "DevForgeAI"
+3. **If fails:** HALT and ask user to navigate to project root
+
+**Glob tool behavior:** Always recursive. Use `path` param with absolute paths for reliability. For single files, use `Read()` instead.
+
+---
+
 ## DevForgeAI Framework
 
 Spec-driven development with zero technical debt. Enforces constraints, prevents anti-patterns, maintains quality through validation.
@@ -31,7 +43,7 @@ Spec-driven development with zero technical debt. Enforces constraints, prevents
 
 **Load from:** `.claude/rules/core/critical-rules.md`
 
-**Summary (11 rules):**
+**Summary (12 rules):**
 1. Check tech-stack.md before technologies
 2. Use native tools over Bash for files
 3. AskUserQuestion for ALL ambiguities
@@ -43,6 +55,7 @@ Spec-driven development with zero technical debt. Enforces constraints, prevents
 9. Document decisions in ADRs
 10. Ask, don't assume
 11. Git operations require user approval
+12. Citation requirements for recommendations
 
 **HALT triggers:** Bash for files, deferrals without approval, --no-verify commits, pre-commit modifications
 
@@ -57,6 +70,7 @@ Spec-driven development with zero technical debt. Enforces constraints, prevents
 | Commands | `.claude/memory/commands-reference.md` |
 | Git Policy | `.claude/rules/core/git-operations.md` |
 | Quality Gates | `.claude/rules/core/quality-gates.md` |
+| Citations | `.claude/rules/core/citation-requirements.md` |
 | Framework Status | `devforgeai/FRAMEWORK-STATUS.md` |
 
 ---

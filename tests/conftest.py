@@ -433,3 +433,216 @@ def extract_dod_subsections(dod_section):
 
     return subsections
 
+
+# ============================================================================
+# STORY-105: Test Cleanup Fixtures - Automatic temp file management
+# ============================================================================
+
+import json
+import zipfile
+
+
+@pytest.fixture
+def temp_zip_dir():
+    """
+    Fixture: Temporary directory for creating test zip files.
+
+    All files created in this directory are automatically cleaned up
+    after the test completes (success or failure).
+
+    Yields:
+        Path: Path to the temporary directory
+
+    Example:
+        def test_example(temp_zip_dir):
+            zip_path = temp_zip_dir / "test.zip"
+            with zipfile.ZipFile(zip_path, 'w') as zf:
+                zf.writestr("file.txt", "content")
+            # zip_path automatically cleaned up after test
+    """
+    with tempfile.TemporaryDirectory(prefix="test_zip_") as tmpdir:
+        yield Path(tmpdir)
+
+
+@pytest.fixture
+def create_test_zip(temp_zip_dir):
+    """
+    Fixture: Factory for creating test zip files with automatic cleanup.
+
+    Returns a function that creates zip files in a temporary directory.
+    All created files are automatically cleaned up after the test.
+
+    Args:
+        temp_zip_dir: The temporary directory fixture
+
+    Yields:
+        Callable: Function to create test zip files
+
+    Example:
+        def test_example(create_test_zip):
+            zip_path = create_test_zip({
+                "feedback-sessions/s.md": "content",
+                "index.json": '{"sessions": []}',
+                "manifest.json": '{}'
+            })
+            # Use zip_path in test
+            # Automatically cleaned up after test
+    """
+    def _create(files: dict, prefix: str = "test") -> Path:
+        """
+        Create a test zip file with the specified contents.
+
+        Args:
+            files: Dictionary mapping filenames to content strings
+            prefix: Optional prefix for the zip filename
+
+        Returns:
+            Path: Path to the created zip file
+        """
+        zip_path = temp_zip_dir / f"{prefix}_{uuid4().hex[:8]}.zip"
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            for filename, content in files.items():
+                zf.writestr(filename, content)
+        return zip_path
+
+    return _create
+
+
+@pytest.fixture
+def valid_import_zip(create_test_zip):
+    """
+    Fixture: Pre-built valid import zip for testing.
+
+    Creates a zip file with the standard structure expected by
+    import_feedback_sessions: index.json, manifest.json, and
+    feedback-sessions/ directory.
+
+    Args:
+        create_test_zip: The factory fixture for creating zips
+
+    Returns:
+        Path: Path to the valid import zip file
+
+    Example:
+        def test_import(valid_import_zip):
+            from feedback_export_import import import_feedback_sessions
+            result = import_feedback_sessions(archive_path=str(valid_import_zip))
+            assert result["success"] is True
+    """
+    session_id = str(uuid4())
+    return create_test_zip({
+        "feedback-sessions/session1.md": "Sample feedback content",
+        "index.json": json.dumps({
+            "export_metadata": {
+                "created_at": "2025-11-07T14:30:00Z",
+                "exported_sessions_count": 1,
+                "date_range": "last-30-days",
+                "sanitization_applied": True,
+                "framework_version": "1.0.1"
+            },
+            "sessions": [{
+                "session_id": session_id,
+                "timestamp": "2025-11-07T10:30:00Z",
+                "operation_type": "command",
+                "status": "success",
+                "file_size_bytes": 100
+            }]
+        }),
+        "manifest.json": json.dumps({
+            "export_version": "1.0",
+            "framework_version": "1.0.1",
+            "min_framework_version": "1.0.0",
+            "session_count": 1
+        })
+    }, prefix="valid_import")
+
+
+@pytest.fixture
+def larger_import_zip(create_test_zip):
+    """
+    Fixture: Larger import zip with many sessions for progress testing.
+
+    Creates a zip file with 50+ session files to test progress indication
+    and bulk operations.
+
+    Args:
+        create_test_zip: The factory fixture for creating zips
+
+    Returns:
+        Path: Path to the larger import zip file
+    """
+    files = {}
+    sessions = []
+
+    for i in range(50):
+        session_id = str(uuid4())
+        files[f"feedback-sessions/session{i}.md"] = f"Sample feedback content {i}" * 10
+        sessions.append({
+            "session_id": session_id,
+            "timestamp": f"2025-11-{7+i%20:02d}T10:30:00Z",
+            "operation_type": "command",
+            "status": "success",
+            "file_size_bytes": 100 + i * 10
+        })
+
+    files["index.json"] = json.dumps({
+        "export_metadata": {
+            "created_at": "2025-11-07T14:30:00Z",
+            "exported_sessions_count": len(sessions),
+            "date_range": "last-30-days",
+            "sanitization_applied": True,
+            "framework_version": "1.0.1"
+        },
+        "sessions": sessions
+    })
+
+    files["manifest.json"] = json.dumps({
+        "export_version": "1.0",
+        "framework_version": "1.0.1",
+        "min_framework_version": "1.0.0",
+        "session_count": len(sessions)
+    })
+
+    return create_test_zip(files, prefix="larger_import")
+
+
+@pytest.fixture(autouse=False)
+def verify_no_orphan_zips():
+    """
+    Fixture: Verify no orphaned zip files in project root after test.
+
+    When used (not autouse by default), this fixture checks that no
+    new .zip files were left in the project root after the test.
+
+    Note: Set autouse=False to avoid impacting unrelated tests.
+    Enable explicitly in test modules that create zip files.
+
+    Yields:
+        None
+
+    Raises:
+        pytest.fail: If orphaned zip files are found
+    """
+    project_root = Path(__file__).parent.parent
+
+    # Record zip files before test
+    before = set(project_root.glob("*.zip"))
+
+    yield
+
+    # Check for new zip files after test
+    after = set(project_root.glob("*.zip"))
+    orphans = after - before
+
+    if orphans:
+        # Clean up orphans for test hygiene
+        for orphan in orphans:
+            try:
+                orphan.unlink()
+            except Exception:
+                pass
+
+        pytest.fail(
+            f"Test left orphaned zip files in project root: {[str(o.name) for o in orphans]}"
+        )
+

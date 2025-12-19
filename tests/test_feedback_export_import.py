@@ -995,33 +995,27 @@ class TestSanitizationCustomFields:
 class TestImportCommand:
     """Tests for import command and validation (AC8)."""
 
-    def test_import_command_recognized(self):
+    def test_import_command_recognized(self, valid_import_zip):
         """AC8: Import command is recognized and executed."""
         from feedback_export_import import import_feedback_sessions
 
-        # Create valid ZIP
-        test_zip = self._create_valid_import_zip()
-
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
         assert result is not None
 
-    def test_import_accepts_absolute_path(self):
+    def test_import_accepts_absolute_path(self, valid_import_zip):
         """AC8: File path can be absolute."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        absolute_path = os.path.abspath(test_zip)
+        absolute_path = os.path.abspath(str(valid_import_zip))
 
         result = import_feedback_sessions(archive_path=absolute_path)
         assert result["success"] is True
 
-    def test_import_accepts_relative_path(self):
+    def test_import_accepts_relative_path(self, valid_import_zip):
         """AC8: File path can be relative."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        # Use relative path
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
         assert result["success"] is True
 
     def test_import_validates_file_exists(self):
@@ -1031,127 +1025,79 @@ class TestImportCommand:
         with pytest.raises(FileNotFoundError):
             import_feedback_sessions(archive_path="/nonexistent/path.zip")
 
-    def test_import_validates_valid_zip_archive(self):
+    def test_import_validates_valid_zip_archive(self, create_test_zip, temp_zip_dir):
         """AC8: Import validates that file is valid ZIP archive."""
         from feedback_export_import import import_feedback_sessions
 
-        # Create invalid ZIP
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            tmp.write(b"This is not a ZIP file")
-            tmp_path = tmp.name
+        # Create invalid ZIP (not a valid zip, just text)
+        invalid_path = temp_zip_dir / "invalid.zip"
+        invalid_path.write_bytes(b"This is not a ZIP file")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp_path)
-        finally:
-            os.unlink(tmp_path)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(invalid_path))
 
-    def test_import_validates_required_files_present(self):
+    def test_import_validates_required_files_present(self, create_test_zip):
         """AC8: Import validates that required files present (index.json, manifest.json)."""
         from feedback_export_import import import_feedback_sessions
 
         # Create ZIP missing manifest
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("index.json", '{}')
-                # Missing manifest.json
+        missing_manifest_zip = create_test_zip({
+            "index.json": '{}'
+            # Missing manifest.json
+        }, prefix="missing_manifest")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(missing_manifest_zip))
 
-    def test_import_reports_validation_failures(self):
+    def test_import_reports_validation_failures(self, temp_zip_dir):
         """AC8: Import reports validation failures with remediation guidance."""
         from feedback_export_import import import_feedback_sessions
 
         # Create corrupted ZIP
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            tmp.write(b"Corrupted")
-            tmp_path = tmp.name
+        corrupted_path = temp_zip_dir / "corrupted.zip"
+        corrupted_path.write_bytes(b"Corrupted")
 
-        try:
-            with pytest.raises(ValueError) as exc_info:
-                import_feedback_sessions(archive_path=tmp_path)
+        with pytest.raises(ValueError) as exc_info:
+            import_feedback_sessions(archive_path=str(corrupted_path))
 
-            error_msg = str(exc_info.value)
-            # Should contain guidance
-            assert len(error_msg) > 0
-        finally:
-            os.unlink(tmp_path)
+        error_msg = str(exc_info.value)
+        # Should contain guidance
+        assert len(error_msg) > 0
 
-    def test_import_halts_on_missing_manifest(self):
+    def test_import_halts_on_missing_manifest(self, create_test_zip):
         """AC8: Import halts on critical validation failures (missing manifest)."""
         from feedback_export_import import import_feedback_sessions
 
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/file.md", "content")
-                zf.writestr("index.json", '{}')
-                # Missing manifest.json
+        # Create ZIP missing manifest
+        missing_manifest_zip = create_test_zip({
+            "feedback-sessions/file.md": "content",
+            "index.json": '{}'
+            # Missing manifest.json
+        }, prefix="missing_manifest")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(missing_manifest_zip))
 
-    def test_import_halts_on_corrupted_index(self):
+    def test_import_halts_on_corrupted_index(self, create_test_zip):
         """AC8: Import halts on corrupted index.json."""
         from feedback_export_import import import_feedback_sessions
 
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/file.md", "content")
-                zf.writestr("index.json", "Invalid JSON {")
-                zf.writestr("manifest.json", '{}')
+        corrupted_index_zip = create_test_zip({
+            "feedback-sessions/file.md": "content",
+            "index.json": "Invalid JSON {",
+            "manifest.json": '{}'
+        }, prefix="corrupted_index")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(corrupted_index_zip))
 
-    def test_import_logs_validation_steps(self):
+    def test_import_logs_validation_steps(self, valid_import_zip):
         """AC8: Import logs all validation steps for debugging."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-
         # Should not raise, should log
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
         # Logging tested separately (would need log capture fixture)
-
-    @staticmethod
-    def _create_valid_import_zip():
-        """Helper: Create a valid import ZIP for testing."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/session1.md", "Sample feedback")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {
-                        "created_at": "2025-11-07T14:30:00Z",
-                        "exported_sessions_count": 1,
-                        "date_range": "last-30-days",
-                        "sanitization_applied": True,
-                        "framework_version": "1.0.1"
-                    },
-                    "sessions": [{
-                        "session_id": str(uuid.uuid4()),
-                        "timestamp": "2025-11-07T10:30:00Z",
-                        "operation_type": "command",
-                        "status": "success",
-                        "file_size_bytes": 100
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "framework_version": "1.0.1",
-                    "min_framework_version": "1.0.0",
-                    "session_count": 1
-                }))
-            return tmp.name
 
 
 # ============================================================================
@@ -1161,26 +1107,23 @@ class TestImportCommand:
 class TestImportExtraction:
     """Tests for import extraction and directory placement (AC9)."""
 
-    def test_import_extracts_to_timestamped_directory(self, temp_project_dir):
+    def test_import_extracts_to_timestamped_directory(self, temp_project_dir, valid_import_zip):
         """AC9: Package extracted to .devforgeai/feedback/imported/{timestamp}/"""
         from feedback_export_import import import_feedback_sessions
 
-        # Mock to use temp_project_dir
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         extracted_path = result["extracted_path"]
         assert ".devforgeai" in extracted_path
         assert "feedback" in extracted_path
         assert "imported" in extracted_path
 
-    def test_import_uses_iso_8601_timestamp(self, temp_project_dir):
+    def test_import_uses_iso_8601_timestamp(self, temp_project_dir, valid_import_zip):
         """AC9: Timestamp in directory name is ISO 8601 format."""
         from feedback_export_import import import_feedback_sessions
         import re
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Extract directory name
         dir_name = os.path.basename(result["extracted_path"])
@@ -1189,12 +1132,11 @@ class TestImportExtraction:
         pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}$"
         assert re.match(pattern, dir_name)
 
-    def test_import_creates_subdirectory_structure(self, temp_project_dir):
+    def test_import_creates_subdirectory_structure(self, temp_project_dir, valid_import_zip):
         """AC9: Extraction creates proper subdirectory structure."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         extracted_path = Path(result["extracted_path"])
 
@@ -1203,23 +1145,20 @@ class TestImportExtraction:
         assert (extracted_path / "index.json").exists()
         assert (extracted_path / "manifest.json").exists()
 
-    def test_import_preserves_original_zip(self, temp_project_dir):
+    def test_import_preserves_original_zip(self, temp_project_dir, valid_import_zip):
         """AC9: Original ZIP file is NOT deleted (preserved for audit trail)."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-
-        import_feedback_sessions(archive_path=test_zip)
+        import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Original ZIP should still exist
-        assert os.path.isfile(test_zip)
+        assert valid_import_zip.exists()
 
-    def test_import_extracted_directory_readable(self, temp_project_dir):
+    def test_import_extracted_directory_readable(self, temp_project_dir, valid_import_zip):
         """AC9: Extracted directory is readable and properly organized."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         extracted_path = Path(result["extracted_path"])
 
@@ -1229,93 +1168,23 @@ class TestImportExtraction:
         # Contents should be accessible
         assert os.access(str(extracted_path / "index.json"), os.R_OK)
 
-    def test_import_displays_progress(self, temp_project_dir):
+    def test_import_displays_progress(self, temp_project_dir, larger_import_zip):
         """AC9: Import progress is displayed (percentage complete during extraction)."""
         from feedback_export_import import import_feedback_sessions
 
-        # Create larger ZIP for progress indication
-        test_zip = self._create_larger_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(larger_import_zip))
 
         assert result["success"] is True
         # Progress reporting tested with output capture
 
-    def test_import_informs_of_extraction_location(self, temp_project_dir):
+    def test_import_informs_of_extraction_location(self, temp_project_dir, valid_import_zip):
         """AC9: User is informed of extraction location."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         assert "extracted_path" in result
         assert result["extracted_path"] is not None
-
-    @staticmethod
-    def _create_valid_import_zip():
-        """Helper: Create a valid import ZIP."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/session1.md", "Sample feedback")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {
-                        "created_at": "2025-11-07T14:30:00Z",
-                        "exported_sessions_count": 1,
-                        "date_range": "last-30-days",
-                        "sanitization_applied": True,
-                        "framework_version": "1.0.1"
-                    },
-                    "sessions": [{
-                        "session_id": str(uuid.uuid4()),
-                        "timestamp": "2025-11-07T10:30:00Z",
-                        "operation_type": "command",
-                        "status": "success",
-                        "file_size_bytes": 100
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "framework_version": "1.0.1",
-                    "min_framework_version": "1.0.0",
-                    "session_count": 1
-                }))
-            return tmp.name
-
-    @staticmethod
-    def _create_larger_import_zip():
-        """Helper: Create larger ZIP for progress testing."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                # Create multiple session files
-                for i in range(100):
-                    zf.writestr(f"feedback-sessions/session{i}.md", "Sample feedback " * 100)
-
-                sessions = []
-                for i in range(100):
-                    sessions.append({
-                        "session_id": str(uuid.uuid4()),
-                        "timestamp": "2025-11-07T10:30:00Z",
-                        "operation_type": "command",
-                        "status": "success",
-                        "file_size_bytes": 100
-                    })
-
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {
-                        "created_at": "2025-11-07T14:30:00Z",
-                        "exported_sessions_count": len(sessions),
-                        "date_range": "last-30-days",
-                        "sanitization_applied": True,
-                        "framework_version": "1.0.1"
-                    },
-                    "sessions": sessions
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "framework_version": "1.0.1",
-                    "min_framework_version": "1.0.0",
-                    "session_count": len(sessions)
-                }))
-            return tmp.name
 
 
 # ============================================================================
@@ -1325,7 +1194,7 @@ class TestImportExtraction:
 class TestIndexMerging:
     """Tests for index merging and conflict resolution (AC10)."""
 
-    def test_merge_new_session_ids_directly(self, temp_project_dir):
+    def test_merge_new_session_ids_directly(self, temp_project_dir, create_test_zip):
         """AC10: Sessions with new IDs are added directly."""
         from feedback_export_import import import_feedback_sessions
 
@@ -1333,8 +1202,8 @@ class TestIndexMerging:
         self._create_initial_index(temp_project_dir)
 
         # Import with new session IDs
-        test_zip = self._create_import_zip_with_new_sessions()
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_import_zip_with_new_sessions(create_test_zip)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         # Verify new sessions added
         index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
@@ -1343,7 +1212,7 @@ class TestIndexMerging:
 
         assert result["success"] is True
 
-    def test_merge_detects_duplicate_ids(self, temp_project_dir):
+    def test_merge_detects_duplicate_ids(self, temp_project_dir, create_test_zip):
         """AC10: Sessions with duplicate IDs are detected."""
         from feedback_export_import import import_feedback_sessions
 
@@ -1352,43 +1221,42 @@ class TestIndexMerging:
         self._create_initial_index_with_session(temp_project_dir, session_id)
 
         # Import with same session ID
-        test_zip = self._create_import_zip_with_session_id(session_id)
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_import_zip_with_session_id(create_test_zip, session_id)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         assert result["duplicate_ids_found"] > 0
 
-    def test_merge_resolves_duplicates_with_suffix(self, temp_project_dir):
+    def test_merge_resolves_duplicates_with_suffix(self, temp_project_dir, create_test_zip):
         """AC10: Duplicate IDs get suffix: -imported-1, -imported-2, etc."""
         from feedback_export_import import import_feedback_sessions
 
         session_id = str(uuid.uuid4())
         self._create_initial_index_with_session(temp_project_dir, session_id)
 
-        test_zip = self._create_import_zip_with_session_id(session_id)
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_import_zip_with_session_id(create_test_zip, session_id)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         assert result["duplicate_ids_resolved"] > 0
 
-    def test_merge_logs_collisions(self, temp_project_dir):
+    def test_merge_logs_collisions(self, temp_project_dir, create_test_zip):
         """AC10: Collisions documented in conflict-resolution.log."""
         from feedback_export_import import import_feedback_sessions
 
         session_id = str(uuid.uuid4())
         self._create_initial_index_with_session(temp_project_dir, session_id)
 
-        test_zip = self._create_import_zip_with_session_id(session_id)
-        import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_import_zip_with_session_id(create_test_zip, session_id)
+        import_feedback_sessions(archive_path=str(test_zip))
 
         # Check for conflict log
         log_path = temp_project_dir / ".devforgeai" / "feedback" / "conflict-resolution.log"
         # Log file should exist if conflicts occurred
 
-    def test_merge_atomic_operation(self, temp_project_dir):
+    def test_merge_atomic_operation(self, temp_project_dir, valid_import_zip):
         """AC10: Index updated atomically (no partial state)."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify index is valid JSON (not partial)
         index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
@@ -1397,12 +1265,11 @@ class TestIndexMerging:
                 # Should not raise JSON parse error
                 json.load(f)
 
-    def test_merge_preserves_chronological_order(self, temp_project_dir):
+    def test_merge_preserves_chronological_order(self, temp_project_dir, valid_import_zip):
         """AC10: Merge preserves chronological ordering."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        import_feedback_sessions(archive_path=test_zip)
+        import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify sessions are in time order
         index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
@@ -1416,21 +1283,19 @@ class TestIndexMerging:
                 ts2 = datetime.fromisoformat(sessions[i+1]["timestamp"].replace("Z", "+00:00"))
                 assert ts1 <= ts2
 
-    def test_merge_updates_session_count(self, temp_project_dir):
+    def test_merge_updates_session_count(self, temp_project_dir, valid_import_zip):
         """AC10: Total session count updated in main index."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        result = import_feedback_sessions(archive_path=test_zip)
+        result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         assert result["sessions_imported"] > 0
 
-    def test_merge_marks_imported_flag(self, temp_project_dir):
+    def test_merge_marks_imported_flag(self, temp_project_dir, valid_import_zip):
         """AC10: Imported sessions marked with is_imported: true."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        import_feedback_sessions(archive_path=test_zip)
+        import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify is_imported flag set
         index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
@@ -1442,12 +1307,11 @@ class TestIndexMerging:
                 if session.get("was_imported"):
                     assert session.get("is_imported") is True
 
-    def test_merge_documents_import_source(self, temp_project_dir):
+    def test_merge_documents_import_source(self, temp_project_dir, valid_import_zip):
         """AC10: Import source documented in imported_from metadata."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_valid_import_zip()
-        import_feedback_sessions(archive_path=test_zip)
+        import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify imported_from metadata
         index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
@@ -1458,31 +1322,6 @@ class TestIndexMerging:
             for session in index.get("sessions", []):
                 if session.get("is_imported"):
                     assert "imported_from" in session
-
-    @staticmethod
-    def _create_valid_import_zip():
-        """Helper: Create valid import ZIP."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/session1.md", "Sample")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {
-                        "created_at": "2025-11-07T14:30:00Z",
-                        "exported_sessions_count": 1
-                    },
-                    "sessions": [{
-                        "session_id": str(uuid.uuid4()),
-                        "timestamp": "2025-11-07T10:30:00Z",
-                        "operation_type": "command",
-                        "status": "success"
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "framework_version": "1.0.1",
-                    "source_project": {"identifier": "test"}
-                }))
-            return tmp.name
 
     @staticmethod
     def _create_initial_index(temp_project_dir):
@@ -1510,47 +1349,45 @@ class TestIndexMerging:
             }, f)
 
     @staticmethod
-    def _create_import_zip_with_new_sessions():
-        """Helper: Create ZIP with new session IDs."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                new_id = str(uuid.uuid4())
-                zf.writestr("feedback-sessions/new.md", "New session")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {},
-                    "sessions": [{
-                        "session_id": new_id,
-                        "timestamp": "2025-11-07T11:00:00Z",
-                        "operation_type": "command",
-                        "status": "success"
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "source_project": {"identifier": "new"}
-                }))
-            return tmp.name
+    def _make_import_zip_with_new_sessions(create_test_zip):
+        """Helper: Create ZIP with new session IDs using fixture."""
+        new_id = str(uuid.uuid4())
+        return create_test_zip({
+            "feedback-sessions/new.md": "New session",
+            "index.json": json.dumps({
+                "export_metadata": {},
+                "sessions": [{
+                    "session_id": new_id,
+                    "timestamp": "2025-11-07T11:00:00Z",
+                    "operation_type": "command",
+                    "status": "success"
+                }]
+            }),
+            "manifest.json": json.dumps({
+                "export_version": "1.0",
+                "source_project": {"identifier": "new"}
+            })
+        }, prefix="new_sessions")
 
     @staticmethod
-    def _create_import_zip_with_session_id(session_id):
-        """Helper: Create ZIP with specific session ID."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/duplicate.md", "Duplicate session")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {},
-                    "sessions": [{
-                        "session_id": session_id,
-                        "timestamp": "2025-11-07T11:00:00Z",
-                        "operation_type": "command",
-                        "status": "success"
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "export_version": "1.0",
-                    "source_project": {"identifier": "dup"}
-                }))
-            return tmp.name
+    def _make_import_zip_with_session_id(create_test_zip, session_id):
+        """Helper: Create ZIP with specific session ID using fixture."""
+        return create_test_zip({
+            "feedback-sessions/duplicate.md": "Duplicate session",
+            "index.json": json.dumps({
+                "export_metadata": {},
+                "sessions": [{
+                    "session_id": session_id,
+                    "timestamp": "2025-11-07T11:00:00Z",
+                    "operation_type": "command",
+                    "status": "success"
+                }]
+            }),
+            "manifest.json": json.dumps({
+                "export_version": "1.0",
+                "source_project": {"identifier": "dup"}
+            })
+        }, prefix="duplicate_session")
 
 
 # ============================================================================
@@ -1560,100 +1397,97 @@ class TestIndexMerging:
 class TestImportCompatibility:
     """Tests for framework compatibility validation during import (AC11)."""
 
-    def test_compatibility_version_check(self):
+    def test_compatibility_version_check(self, create_test_zip):
         """AC11: Import checks min_framework_version <= current version."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_import_zip_compatible()
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_compatible_zip(create_test_zip)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         assert result["compatibility_status"] == "compatible"
 
-    def test_compatibility_warns_if_not_tested(self):
+    def test_compatibility_warns_if_not_tested(self, create_test_zip):
         """AC11: Warns if current version not in tested_on_versions."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_import_zip_untested_version()
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_untested_version_zip(create_test_zip)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         # Should warn but proceed
         assert len(result.get("warnings", [])) > 0
         assert result["success"] is True
 
-    def test_compatibility_handles_mismatch_gracefully(self):
+    def test_compatibility_handles_mismatch_gracefully(self, create_test_zip):
         """AC11: Version mismatch handled gracefully (no blocking)."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_import_zip_old_version()
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_old_version_zip(create_test_zip)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         # Should warn but not block
         assert result["success"] is True
 
-    def test_compatibility_logs_information(self):
+    def test_compatibility_logs_information(self, create_test_zip):
         """AC11: Compatibility information logged for troubleshooting."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_import_zip_compatible()
-        import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_compatible_zip(create_test_zip)
+        import_feedback_sessions(archive_path=str(test_zip))
 
         # Logging validation (would need log capture)
 
-    def test_compatibility_notifies_user_of_mismatches(self):
+    def test_compatibility_notifies_user_of_mismatches(self, create_test_zip):
         """AC11: User notified of version mismatches before proceeding."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_import_zip_untested_version()
-        result = import_feedback_sessions(archive_path=test_zip)
+        test_zip = self._make_untested_version_zip(create_test_zip)
+        result = import_feedback_sessions(archive_path=str(test_zip))
 
         # Should have warnings if mismatch
         if not result["compatibility_status"] == "compatible":
             assert "warnings" in result
 
     @staticmethod
-    def _create_import_zip_compatible():
-        """Helper: Create ZIP with compatible version."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/s.md", "test")
-                zf.writestr("index.json", json.dumps({"sessions": []}))
-                zf.writestr("manifest.json", json.dumps({
-                    "framework_version": "1.0.0",
-                    "min_framework_version": "1.0.0",
-                    "tested_on_versions": ["1.0.0", "1.0.1"],
-                    "source_project": {"identifier": "test"}
-                }))
-            return tmp.name
+    def _make_compatible_zip(create_test_zip):
+        """Helper: Create ZIP with compatible version using fixture."""
+        return create_test_zip({
+            "feedback-sessions/s.md": "test",
+            "index.json": json.dumps({"sessions": []}),
+            "manifest.json": json.dumps({
+                "framework_version": "1.0.0",
+                "min_framework_version": "1.0.0",
+                "tested_on_versions": ["1.0.0", "1.0.1"],
+                "source_project": {"identifier": "test"}
+            })
+        }, prefix="compatible")
 
     @staticmethod
-    def _create_import_zip_untested_version():
-        """Helper: Create ZIP with untested version."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/s.md", "test")
-                zf.writestr("index.json", json.dumps({"sessions": []}))
-                zf.writestr("manifest.json", json.dumps({
-                    "framework_version": "0.9.0",
-                    "min_framework_version": "0.8.0",
-                    "tested_on_versions": ["0.8.0", "0.9.0"],  # Not 1.0.1
-                    "source_project": {"identifier": "test"}
-                }))
-            return tmp.name
+    def _make_untested_version_zip(create_test_zip):
+        """Helper: Create ZIP with untested version using fixture."""
+        return create_test_zip({
+            "feedback-sessions/s.md": "test",
+            "index.json": json.dumps({"sessions": []}),
+            "manifest.json": json.dumps({
+                "framework_version": "0.9.0",
+                "min_framework_version": "0.8.0",
+                "tested_on_versions": ["0.8.0", "0.9.0"],  # Not 1.0.1
+                "source_project": {"identifier": "test"}
+            })
+        }, prefix="untested")
 
     @staticmethod
-    def _create_import_zip_old_version():
-        """Helper: Create ZIP with old framework version."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/s.md", "test")
-                zf.writestr("index.json", json.dumps({"sessions": []}))
-                zf.writestr("manifest.json", json.dumps({
-                    "framework_version": "0.5.0",
-                    "min_framework_version": "0.5.0",
-                    "tested_on_versions": ["0.5.0"],
-                    "source_project": {"identifier": "test"}
-                }))
-            return tmp.name
+    def _make_old_version_zip(create_test_zip):
+        """Helper: Create ZIP with old framework version using fixture."""
+        return create_test_zip({
+            "feedback-sessions/s.md": "test",
+            "index.json": json.dumps({"sessions": []}),
+            "manifest.json": json.dumps({
+                "framework_version": "0.5.0",
+                "min_framework_version": "0.5.0",
+                "tested_on_versions": ["0.5.0"],
+                "source_project": {"identifier": "test"}
+            })
+        }, prefix="old_version")
 
 
 # ============================================================================
@@ -1713,12 +1547,31 @@ class TestSanitizationTransparency:
             # Should have clear information about sanitization
             assert manifest["sanitization"]["applied"] is True
 
-    def test_transparency_imported_marked(self):
+    def test_transparency_imported_marked(self, create_test_zip):
         """AC12: Imported sessions marked with was_sanitized: true."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_sanitized_import_zip()
-        import_feedback_sessions(archive_path=test_zip)
+        test_zip = create_test_zip({
+            "feedback-sessions/sanitized.md": "Content with STORY-001",
+            "index.json": json.dumps({
+                "export_metadata": {"sanitization_applied": True},
+                "sessions": [{
+                    "session_id": str(uuid.uuid4()),
+                    "timestamp": "2025-11-07T10:00:00Z"
+                }]
+            }),
+            "manifest.json": json.dumps({
+                "sanitization": {
+                    "applied": True,
+                    "rules_applied": ["story_ids_replaced"],
+                    "replacement_mapping": {
+                        "story_id_mapping": {"STORY-042": "STORY-001"}
+                    }
+                },
+                "source_project": {"identifier": "test"}
+            })
+        }, prefix="sanitized")
+        import_feedback_sessions(archive_path=str(test_zip))
 
         # Verify was_sanitized flag in merged index
 
@@ -1726,31 +1579,6 @@ class TestSanitizationTransparency:
         """AC12: Framework includes documentation on interpreting sanitized feedback."""
         # Documentation test (would verify docs exist)
         pass
-
-    @staticmethod
-    def _create_sanitized_import_zip():
-        """Helper: Create ZIP with sanitized feedback."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/sanitized.md", "Content with STORY-001")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {"sanitization_applied": True},
-                    "sessions": [{
-                        "session_id": str(uuid.uuid4()),
-                        "timestamp": "2025-11-07T10:00:00Z"
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "sanitization": {
-                        "applied": True,
-                        "rules_applied": ["story_ids_replaced"],
-                        "replacement_mapping": {
-                            "story_id_mapping": {"STORY-042": "STORY-001"}
-                        }
-                    },
-                    "source_project": {"identifier": "test"}
-                }))
-            return tmp.name
 
 
 # ============================================================================
@@ -1785,40 +1613,34 @@ class TestEdgeCases:
         # Import two packages with same session IDs
         pass
 
-    def test_edge_case_corrupted_archive_handling(self):
+    def test_edge_case_corrupted_archive_handling(self, temp_zip_dir):
         """Edge Case 4: Corrupted archive handled gracefully."""
         from feedback_export_import import import_feedback_sessions
 
         # Create truncated ZIP
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("test.txt", "test" * 1000)
+        zip_path = temp_zip_dir / "corrupted.zip"
+        with zipfile.ZipFile(zip_path, 'w') as zf:
+            zf.writestr("test.txt", "test" * 1000)
 
-            # Truncate file
-            with open(tmp.name, 'r+b') as f:
-                f.seek(-10, 2)  # Seek to 10 bytes before end
-                f.truncate()
+        # Truncate file
+        with open(zip_path, 'r+b') as f:
+            f.seek(-10, 2)  # Seek to 10 bytes before end
+            f.truncate()
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(zip_path))
 
-    def test_edge_case_missing_required_files(self):
+    def test_edge_case_missing_required_files(self, create_test_zip):
         """Edge Case 5: Missing required files detected."""
         from feedback_export_import import import_feedback_sessions
 
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("index.json", '{}')
-                # Missing manifest.json
+        missing_manifest_zip = create_test_zip({
+            "index.json": '{}'
+            # Missing manifest.json
+        }, prefix="missing_manifest")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(missing_manifest_zip))
 
     def test_edge_case_unicode_content_roundtrip(self):
         """Edge Case 8: Unicode content (emoji, CJK, Arabic) survives roundtrip."""
@@ -1827,23 +1649,19 @@ class TestEdgeCases:
         # Would need to mock feedback with unicode content
         pass
 
-    def test_edge_case_symlink_attack_prevention(self):
+    def test_edge_case_symlink_attack_prevention(self, create_test_zip):
         """Edge Case 9: Symlink attacks prevented during extraction."""
         from feedback_export_import import import_feedback_sessions
 
         # Create archive with path traversal
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                # Attempt path traversal
-                zf.writestr("../../../etc/passwd", "malicious")
-                zf.writestr("index.json", '{"sessions": []}')
-                zf.writestr("manifest.json", '{}')
+        path_traversal_zip = create_test_zip({
+            "../../../etc/passwd": "malicious",
+            "index.json": '{"sessions": []}',
+            "manifest.json": '{}'
+        }, prefix="path_traversal")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp.name)
-        finally:
-            os.unlink(tmp.name)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(path_traversal_zip))
 
     def test_edge_case_concurrent_operations(self):
         """Edge Case 10: Concurrent export/import operations succeed."""
@@ -1878,31 +1696,25 @@ class TestEdgeCases:
         # Would mock feedback with special chars
         pass
 
-    def test_edge_case_re_import_same_source(self):
+    def test_edge_case_re_import_same_source(self, create_test_zip):
         """Edge Case 15: Re-importing from same source handled."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_test_zip()
+        test_zip = create_test_zip({
+            "feedback-sessions/s.md": "test",
+            "index.json": json.dumps({"sessions": []}),
+            "manifest.json": json.dumps({
+                "source_project": {"identifier": "same-source"}
+            })
+        }, prefix="same_source")
 
         # Import twice
-        result1 = import_feedback_sessions(archive_path=test_zip)
-        result2 = import_feedback_sessions(archive_path=test_zip)
+        result1 = import_feedback_sessions(archive_path=str(test_zip))
+        result2 = import_feedback_sessions(archive_path=str(test_zip))
 
         # Both should succeed, second should warn about re-import
         assert result1["success"] is True
         assert result2["success"] is True
-
-    @staticmethod
-    def _create_test_zip():
-        """Helper: Create test ZIP."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("feedback-sessions/s.md", "test")
-                zf.writestr("index.json", json.dumps({"sessions": []}))
-                zf.writestr("manifest.json", json.dumps({
-                    "source_project": {"identifier": "same-source"}
-                }))
-            return tmp.name
 
 
 # ============================================================================
@@ -1933,40 +1745,33 @@ class TestDataValidation:
         with pytest.raises(FileNotFoundError):
             import_feedback_sessions(archive_path="/nonexistent/file.zip")
 
-    def test_archive_must_be_valid_zip(self):
+    def test_archive_must_be_valid_zip(self, temp_zip_dir):
         """Archive must be valid ZIP format."""
         from feedback_export_import import import_feedback_sessions
 
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            tmp.write(b"Not a ZIP")
-            tmp_path = tmp.name
+        invalid_zip = temp_zip_dir / "invalid.zip"
+        invalid_zip.write_bytes(b"Not a ZIP")
 
-        try:
-            with pytest.raises(ValueError):
-                import_feedback_sessions(archive_path=tmp_path)
-        finally:
-            os.unlink(tmp_path)
+        with pytest.raises(ValueError):
+            import_feedback_sessions(archive_path=str(invalid_zip))
 
     def test_session_id_must_be_uuid_format(self):
         """Session IDs must be valid UUID format."""
         # Validation during merge
         pass
 
-    def test_manifest_required_fields_present(self):
+    def test_manifest_required_fields_present(self, create_test_zip):
         """Manifest must have required fields."""
         from feedback_export_import import import_feedback_sessions
 
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                zf.writestr("index.json", '{}')
-                zf.writestr("manifest.json", '{}')  # Missing fields
+        empty_manifest_zip = create_test_zip({
+            "index.json": '{}',
+            "manifest.json": '{}'  # Missing fields
+        }, prefix="empty_manifest")
 
-        try:
-            # Should validate required fields
-            result = import_feedback_sessions(archive_path=tmp.name)
-            # May warn but continue
-        finally:
-            os.unlink(tmp.name)
+        # Should validate required fields
+        result = import_feedback_sessions(archive_path=str(empty_manifest_zip))
+        # May warn but continue
 
 
 # ============================================================================
@@ -2000,39 +1805,33 @@ class TestIntegration:
         assert export_result["sanitization_applied"] is True
         assert import_result["success"] is True
 
-    def test_integration_duplicate_import_handling(self, temp_project_dir):
+    def test_integration_duplicate_import_handling(self, temp_project_dir, create_test_zip):
         """E2E: Importing same package twice handles duplicates correctly."""
         from feedback_export_import import import_feedback_sessions
 
-        test_zip = self._create_test_zip()
+        session_id = str(uuid.uuid4())
+        test_zip = create_test_zip({
+            "feedback-sessions/s.md": "test",
+            "index.json": json.dumps({
+                "export_metadata": {},
+                "sessions": [{
+                    "session_id": session_id,
+                    "timestamp": "2025-11-07T10:00:00Z",
+                    "operation_type": "command",
+                    "status": "success"
+                }]
+            }),
+            "manifest.json": json.dumps({
+                "source_project": {"identifier": "test-source"}
+            })
+        }, prefix="integration_test")
 
-        result1 = import_feedback_sessions(archive_path=test_zip)
-        result2 = import_feedback_sessions(archive_path=test_zip)
+        result1 = import_feedback_sessions(archive_path=str(test_zip))
+        result2 = import_feedback_sessions(archive_path=str(test_zip))
 
         assert result1["success"] is True
         assert result2["success"] is True
         assert result2["duplicate_ids_found"] > 0
-
-    @staticmethod
-    def _create_test_zip():
-        """Helper: Create test ZIP."""
-        with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-            with zipfile.ZipFile(tmp.name, 'w') as zf:
-                session_id = str(uuid.uuid4())
-                zf.writestr("feedback-sessions/s.md", "test")
-                zf.writestr("index.json", json.dumps({
-                    "export_metadata": {},
-                    "sessions": [{
-                        "session_id": session_id,
-                        "timestamp": "2025-11-07T10:00:00Z",
-                        "operation_type": "command",
-                        "status": "success"
-                    }]
-                }))
-                zf.writestr("manifest.json", json.dumps({
-                    "source_project": {"identifier": "test-source"}
-                }))
-            return tmp.name
 
 
 if __name__ == "__main__":
