@@ -3,11 +3,11 @@ id: STORY-116
 title: Configuration Infrastructure - ast-grep Rule Storage
 epic: EPIC-018
 sprint: SPRINT-7
-status: Ready for Dev
+status: Dev Complete
 points: 5
 depends_on: ["STORY-115"]
 priority: Medium
-assigned_to: Unassigned
+assigned_to: Claude
 created: 2025-12-20
 format_version: "2.2"
 ---
@@ -289,61 +289,112 @@ technical_specification:
 
 ### AC#1: Project-Scoped Rule Storage
 
-- [ ] .devforgeai/ast-grep/ created - **Phase:** 03 - **Evidence:** test_init_directories.py
-- [ ] rules/ subdirectories created - **Phase:** 03 - **Evidence:** test_language_dirs.py
-- [ ] sgconfig.yml created - **Phase:** 03 - **Evidence:** test_config_created.py
+- [x] .devforgeai/ast-grep/ created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::TestConfigurationInitializerDirectoryCreation
+- [x] rules/ subdirectories created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_*_directory
+- [x] sgconfig.yml created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_sgconfig_yml_file
 
 ### AC#2: Language-Specific Directory Organization
 
-- [ ] python/ directory exists - **Phase:** 03 - **Evidence:** test_python_dir.py
-- [ ] csharp/ directory exists - **Phase:** 03 - **Evidence:** test_csharp_dir.py
-- [ ] typescript/ directory exists - **Phase:** 03 - **Evidence:** test_typescript_dir.py
-- [ ] javascript/ directory exists - **Phase:** 03 - **Evidence:** test_javascript_dir.py
+- [x] python/ directory exists - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_python_directory
+- [x] csharp/ directory exists - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_csharp_directory
+- [x] typescript/ directory exists - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_typescript_directory
+- [x] javascript/ directory exists - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_javascript_directory
 
 ### AC#3: Auto-Generated sgconfig.yml
 
-- [ ] ruleDirs configured - **Phase:** 03 - **Evidence:** test_rule_dirs.py
-- [ ] languageGlobs configured - **Phase:** 03 - **Evidence:** test_language_globs.py
-- [ ] testDirs exclusions set - **Phase:** 03 - **Evidence:** test_test_exclusions.py
-- [ ] devforgeai metadata present - **Phase:** 03 - **Evidence:** test_metadata.py
+- [x] ruleDirs configured - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_include_ruleDirs_array_in_config
+- [x] languageGlobs configured - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_include_languageGlobs_in_config
+- [x] testDirs exclusions set - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_include_testDirs_array_in_config
+- [x] devforgeai metadata present - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_include_devforgeai_metadata_in_config
 
 ### AC#4: Configuration Validation
 
-- [ ] YAML syntax validated - **Phase:** 03 - **Evidence:** test_yaml_syntax.py
-- [ ] Directory existence checked - **Phase:** 03 - **Evidence:** test_dir_existence.py
-- [ ] Glob patterns validated - **Phase:** 03 - **Evidence:** test_glob_validation.py
+- [x] YAML syntax validated - **Phase:** 03 - **Evidence:** test_config_validator_story116.py::TestConfigurationValidatorYAMLSyntax
+- [x] Directory existence checked - **Phase:** 03 - **Evidence:** test_config_validator_story116.py::TestConfigurationValidatorDirectoryExistence
+- [x] Glob patterns validated - **Phase:** 03 - **Evidence:** test_config_validator_story116.py::TestConfigurationValidatorGlobPatterns
 
 ---
 
-**Checklist Progress:** 0/14 items complete (0%)
+**Checklist Progress:** 14/14 items complete (100%)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] ConfigurationInitializer class created
-- [ ] ConfigurationValidator class created
-- [ ] CLI command `devforgeai ast-grep init` implemented
-- [ ] CLI command `devforgeai ast-grep validate-config` implemented
-- [ ] Default sgconfig.yml template created
+- [x] ConfigurationInitializer class created - src/claude/scripts/devforgeai_cli/ast_grep/config_init.py
+- [x] ConfigurationValidator class created - src/claude/scripts/devforgeai_cli/ast_grep/config_validator.py
+- [x] CLI command `devforgeai ast-grep init` implemented - .claude/scripts/devforgeai_cli/cli.py:301-320
+- [x] CLI command `devforgeai ast-grep validate-config` implemented - .claude/scripts/devforgeai_cli/cli.py:322-362
+- [x] Default sgconfig.yml template created - ConfigurationInitializer._generate_default_config()
 
 ### Quality
-- [ ] All 4 acceptance criteria have passing tests
-- [ ] Edge cases covered (existing config, permissions, malformed YAML)
-- [ ] Input validation enforced for all config fields
-- [ ] Code coverage >95% for config module
+- [x] All 4 acceptance criteria have passing tests - 66 passed, 2 skipped
+- [x] Edge cases covered (existing config, permissions, malformed YAML) - test_*_story116.py
+- [x] Input validation enforced for all config fields - RuleMetadata validation in models.py
+- [x] Code coverage >95% for config module - pytest coverage confirmed
 
 ### Testing
-- [ ] Unit tests for ConfigurationInitializer (8+ test cases)
-- [ ] Unit tests for ConfigurationValidator (8+ test cases)
-- [ ] Integration tests for CLI commands (4+ scenarios)
-- [ ] Malformed YAML fixtures tested (5+ variants)
+- [x] Unit tests for ConfigurationInitializer (8+ test cases) - 14 tests in test_config_init_story116.py
+- [x] Unit tests for ConfigurationValidator (8+ test cases) - 16 tests in test_config_validator_story116.py
+- [x] Integration tests for CLI commands (4+ scenarios) - 10 tests in test_ast_grep_cli_story116.py
+- [x] Malformed YAML fixtures tested (5+ variants) - YAML syntax tests in test_config_validator_story116.py
 
 ### Documentation
-- [ ] CLI help text for init and validate-config commands
-- [ ] sgconfig.yml schema documentation
-- [ ] Rule authoring guide started
+- [x] CLI help text for init and validate-config commands - argparse help in cli.py
+- [ ] sgconfig.yml schema documentation - DEFERRED: Will be added in STORY-117 (Rule Definition Format)
+- [ ] Rule authoring guide started - DEFERRED: Will be added in STORY-117 (Rule Definition Format)
+
+---
+
+## Implementation Notes
+
+### Completed Items
+
+- [x] ConfigurationInitializer class created - src/claude/scripts/devforgeai_cli/ast_grep/config_init.py - Completed: 2025-12-20
+- [x] ConfigurationValidator class created - src/claude/scripts/devforgeai_cli/ast_grep/config_validator.py - Completed: 2025-12-20
+- [x] CLI command `devforgeai ast-grep init` implemented - .claude/scripts/devforgeai_cli/cli.py:301-320 - Completed: 2025-12-20
+- [x] CLI command `devforgeai ast-grep validate-config` implemented - .claude/scripts/devforgeai_cli/cli.py:322-362 - Completed: 2025-12-20
+- [x] Default sgconfig.yml template created - ConfigurationInitializer._generate_default_config() - Completed: 2025-12-20
+- [x] All 4 acceptance criteria have passing tests - 66 passed, 2 skipped - Completed: 2025-12-20
+- [x] Edge cases covered (existing config, permissions, malformed YAML) - test_*_story116.py - Completed: 2025-12-20
+- [x] Input validation enforced for all config fields - RuleMetadata validation in models.py - Completed: 2025-12-20
+- [x] Code coverage >95% for config module - pytest coverage confirmed - Completed: 2025-12-20
+- [x] Unit tests for ConfigurationInitializer (8+ test cases) - 14 tests in test_config_init_story116.py - Completed: 2025-12-20
+- [x] Unit tests for ConfigurationValidator (8+ test cases) - 16 tests in test_config_validator_story116.py - Completed: 2025-12-20
+- [x] Integration tests for CLI commands (4+ scenarios) - 10 tests in test_ast_grep_cli_story116.py - Completed: 2025-12-20
+- [x] Malformed YAML fixtures tested (5+ variants) - YAML syntax tests in test_config_validator_story116.py - Completed: 2025-12-20
+- [x] CLI help text for init and validate-config commands - argparse help in cli.py - Completed: 2025-12-20
+
+### Deferred Items Justification
+
+The following DoD items are deferred with proper justification:
+
+1. **sgconfig.yml schema documentation**
+   - Deferred to: STORY-117 (Rule Definition Format)
+   - Reason: Schema documentation requires the rule definition format to be finalized first
+   - Impact: Low - developers can refer to generated config as example
+
+2. **Rule authoring guide**
+   - Deferred to: STORY-117 (Rule Definition Format)
+   - Reason: Guide requires both config infrastructure AND rule format to be complete
+   - Impact: Low - config infrastructure works independently
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `src/claude/scripts/devforgeai_cli/ast_grep/__init__.py` | Package exports |
+| `src/claude/scripts/devforgeai_cli/ast_grep/models.py` | RuleMetadata, enums |
+| `src/claude/scripts/devforgeai_cli/ast_grep/config_init.py` | ConfigurationInitializer |
+| `src/claude/scripts/devforgeai_cli/ast_grep/config_validator.py` | ConfigurationValidator |
+
+### CLI Commands Added
+
+```bash
+devforgeai ast-grep init [--force] [--project-root PATH]
+devforgeai ast-grep validate-config [--config PATH] [--format text|json]
+```
 
 ---
 
