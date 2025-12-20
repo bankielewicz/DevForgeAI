@@ -1,6 +1,6 @@
 # DevForgeAI Slash Commands Reference
 
-Complete guide to the 12 slash commands for DevForgeAI workflows.
+Complete guide to the 13 slash commands for DevForgeAI workflows.
 
 **📊 Pattern Compliance Status:** See `command-pattern-compliance.md` for lean orchestration pattern compliance status of all commands (budget %, refactoring status, token efficiency).
 
@@ -8,9 +8,10 @@ Complete guide to the 12 slash commands for DevForgeAI workflows.
 
 ## Command Overview
 
-DevForgeAI provides 12 slash commands organized into 6 categories:
+DevForgeAI provides 13 slash commands organized into 6 categories:
 
-**Planning & Setup (4 commands):**
+**Planning & Setup (5 commands):**
+- `/brainstorm` - Transform vague problems into structured brainstorm documents
 - `/ideate` - Transform business idea to structured requirements
 - `/create-context` - Generate 6 architectural context files
 - `/create-epic` - Generate epic from requirements
@@ -39,6 +40,55 @@ DevForgeAI provides 12 slash commands organized into 6 categories:
 ---
 
 ## Command Details
+
+### /brainstorm [optional-topic] | --resume BRAINSTORM-ID
+
+**Purpose:** Transform vague business problems into structured brainstorm documents
+
+**Invokes:** `devforgeai-brainstorming` skill
+
+**Workflow:**
+1. Argument parsing (topic or resume mode)
+2. Invoke devforgeai-brainstorming skill (7-phase BA discovery)
+3. Generate brainstorm document in `devforgeai/specs/brainstorms/`
+4. Display completion summary with next steps
+
+**The skill handles 7 phases:**
+- **Phase 1:** Stakeholder Discovery - Who is involved?
+- **Phase 2:** Problem Exploration - 5 Whys analysis
+- **Phase 3:** Opportunity Mapping - Blue-sky thinking
+- **Phase 4:** Constraint Discovery - Budget, timeline, resources
+- **Phase 5:** Hypothesis Formation - Testable assumptions
+- **Phase 6:** Prioritization - MoSCoW + Impact-Effort matrix
+- **Phase 7:** Handoff Synthesis - Generate AI-consumable document
+
+**Examples:**
+```bash
+# Start new brainstorm (interactive topic discovery)
+/brainstorm
+
+# Start with a topic
+/brainstorm "improve customer onboarding"
+
+# Resume a previous session
+/brainstorm --resume BRAINSTORM-001
+```
+
+**Session Continuity:**
+- Context window monitoring at 70% threshold
+- Checkpoints saved to `devforgeai/specs/brainstorms/BRAINSTORM-NNN.checkpoint.json`
+- Resume with `--resume BRAINSTORM-ID`
+
+**Output:**
+- Brainstorm document: `devforgeai/specs/brainstorms/BRAINSTORM-NNN-title.brainstorm.md`
+- Feeds into `/ideate` (auto-detected)
+
+**Next Step:**
+```
+/ideate
+```
+
+---
 
 ### /ideate [business-idea]
 

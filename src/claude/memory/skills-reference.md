@@ -1,9 +1,9 @@
 # DevForgeAI Skills Reference
 
-Detailed guidance for working with 15 functional skills (13 devforgeai-* + 2 Claude Code infrastructure skills), plus 1 incomplete skill (internet-sleuth-integration).
+Detailed guidance for working with 16 functional skills (14 devforgeai-* + 2 Claude Code infrastructure skills), plus 1 incomplete skill (internet-sleuth-integration).
 
 **Skills breakdown:**
-- 13 DevForgeAI workflow skills (devforgeai-*)
+- 14 DevForgeAI workflow skills (devforgeai-*)
 - 2 Claude Code infrastructure skills (claude-code-terminal-expert, skill-creator)
 - 1 incomplete (internet-sleuth-integration - use internet-sleuth subagent instead)
 
@@ -120,6 +120,43 @@ Skills use **relative paths** (e.g., `devforgeai/specs/Stories/`). These paths a
 ---
 
 ## When to Invoke Skills
+
+### devforgeai-brainstorming
+
+**Use when:**
+- User has vague business problem without clear requirements
+- Pre-ideation discovery needed (stakeholders, constraints, hypotheses)
+- Starting from scratch without defined scope
+- User says "I'm not sure what I need" or "help me explore this"
+- **This is the EARLIEST entry point - use BEFORE ideation skill**
+
+**Invocation:**
+```
+Skill(command="devforgeai-brainstorming")
+```
+
+**What it does:**
+- 7-phase Business Analyst discovery workflow
+- Stakeholder identification and goal mapping
+- 5 Whys root cause analysis
+- Opportunity and constraint discovery
+- Hypothesis formation with validation criteria
+- MoSCoW prioritization and Impact-Effort matrix
+- Generates AI-consumable brainstorm document
+
+**Output:**
+- `devforgeai/specs/brainstorms/BRAINSTORM-NNN-title.brainstorm.md`
+- Checkpoints for session continuity
+- Structured input for `/ideate` command
+
+**Session Continuity:**
+- Context window monitoring at 70% threshold
+- Automatic checkpoint generation
+- Resume with `/brainstorm --resume BRAINSTORM-ID`
+
+**Next step:** `/ideate` (auto-detects brainstorm documents)
+
+---
 
 ### devforgeai-ideation
 

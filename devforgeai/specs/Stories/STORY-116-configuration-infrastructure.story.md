@@ -342,8 +342,8 @@ technical_specification:
 
 ### Documentation
 - [x] CLI help text for init and validate-config commands - argparse help in cli.py
-- [ ] sgconfig.yml schema documentation - DEFERRED: Will be added in STORY-117 (Rule Definition Format)
-- [ ] Rule authoring guide started - DEFERRED: Will be added in STORY-117 (Rule Definition Format)
+- [x] sgconfig.yml schema documentation - docs/ast-grep/sgconfig-schema.md
+- [x] Rule authoring guide - docs/ast-grep/rule-authoring-guide.md
 
 ---
 
@@ -365,20 +365,8 @@ technical_specification:
 - [x] Integration tests for CLI commands (4+ scenarios) - 10 tests in test_ast_grep_cli_story116.py - Completed: 2025-12-20
 - [x] Malformed YAML fixtures tested (5+ variants) - YAML syntax tests in test_config_validator_story116.py - Completed: 2025-12-20
 - [x] CLI help text for init and validate-config commands - argparse help in cli.py - Completed: 2025-12-20
-
-### Deferred Items Justification
-
-The following DoD items are deferred with proper justification:
-
-1. **sgconfig.yml schema documentation**
-   - Deferred to: STORY-117 (Rule Definition Format)
-   - Reason: Schema documentation requires the rule definition format to be finalized first
-   - Impact: Low - developers can refer to generated config as example
-
-2. **Rule authoring guide**
-   - Deferred to: STORY-117 (Rule Definition Format)
-   - Reason: Guide requires both config infrastructure AND rule format to be complete
-   - Impact: Low - config infrastructure works independently
+- [x] sgconfig.yml schema documentation - docs/ast-grep/sgconfig-schema.md - Completed: 2025-12-20
+- [x] Rule authoring guide - docs/ast-grep/rule-authoring-guide.md - Completed: 2025-12-20
 
 ### Files Created
 
@@ -388,6 +376,8 @@ The following DoD items are deferred with proper justification:
 | `src/claude/scripts/devforgeai_cli/ast_grep/models.py` | RuleMetadata, enums |
 | `src/claude/scripts/devforgeai_cli/ast_grep/config_init.py` | ConfigurationInitializer |
 | `src/claude/scripts/devforgeai_cli/ast_grep/config_validator.py` | ConfigurationValidator |
+| `docs/ast-grep/sgconfig-schema.md` | Configuration schema documentation |
+| `docs/ast-grep/rule-authoring-guide.md` | Rule authoring guide for developers |
 
 ### CLI Commands Added
 
@@ -408,8 +398,8 @@ devforgeai ast-grep validate-config [--config PATH] [--format text|json]
 
 ## Workflow Status
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 

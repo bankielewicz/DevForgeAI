@@ -22,7 +22,7 @@ DevForgeAI2/
 │       └── installer-testing.yml # Installer test workflow
 │
 ├── .claude/                     # Claude Code Terminal configuration (OPERATIONAL)
-│   ├── skills/                  # Framework implementation (17 skills)
+│   ├── skills/                  # Framework implementation (18 skills)
 │   │   ├── devforgeai-ideation/
 │   │   │   ├── SKILL.md         # Main skill (500-800 lines)
 │   │   │   ├── references/      # Deep documentation (loaded on demand)
@@ -48,6 +48,11 @@ DevForgeAI2/
 │   │   │           ├── requirements-spec-template.md
 │   │   │           ├── feature-prioritization-matrix.md
 │   │   │           └── user-persona-template.md
+│   │   ├── devforgeai-brainstorming/     # Business Analyst discovery skill
+│   │   │   ├── SKILL.md                  # Main skill (BA discovery phases)
+│   │   │   └── assets/
+│   │   │       └── templates/
+│   │   │           └── brainstorm-template.md
 │   │   ├── devforgeai-architecture/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
@@ -208,7 +213,7 @@ DevForgeAI2/
 │   │           ├── workflow-generation.md
 │   │           └── cost-optimization-guide.md
 │   │
-│   ├── agents/                  # Specialized subagents (30 agents)
+│   ├── agents/                  # Specialized subagents (31 agents)
 │   │   ├── agent-generator.md
 │   │   ├── anti-pattern-scanner.md
 │   │   ├── api-designer.md
@@ -233,16 +238,18 @@ DevForgeAI2/
 │   │   ├── requirements-analyst.md
 │   │   ├── security-auditor.md
 │   │   ├── sprint-planner.md
+│   │   ├── stakeholder-analyst.md
 │   │   ├── story-requirements-analyst.md
 │   │   ├── tech-stack-detector.md
 │   │   ├── technical-debt-analyzer.md
 │   │   ├── test-automator.md
 │   │   └── ui-spec-formatter.md
 │   │
-│   ├── commands/                # User-facing workflows (23 commands)
+│   ├── commands/                # User-facing workflows (24 commands)
 │   │   ├── audit-budget.md
 │   │   ├── audit-deferrals.md
 │   │   ├── audit-hooks.md
+│   │   ├── brainstorm.md            # /brainstorm [topic] | --resume BRAINSTORM-ID
 │   │   ├── create-agent.md
 │   │   ├── create-context.md
 │   │   ├── create-epic.md
@@ -295,6 +302,7 @@ DevForgeAI2/
 │   │   ├── Stories/             # User stories (STORY-NNN-title.story.md)
 │   │   ├── Epics/               # Epic definitions (EPIC-NNN-title.epic.md)
 │   │   ├── Sprints/             # Sprint plans (Sprint-N.md)
+│   │   ├── brainstorms/         # Brainstorm session outputs (BRAINSTORM-NNN.brainstorm.md)
 │   │   ├── context/             # Framework architectural constraints
 │   │   │   ├── tech-stack.md    # Framework implementation constraints
 │   │   │   ├── source-tree.md   # This file
@@ -458,7 +466,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ✅ ALL skills go in `.claude/skills/[skill-name]/`
 - ✅ ALL subagents go in `.claude/agents/[agent-name].md`
 - ✅ ALL slash commands go in `.claude/commands/[command-name].md`
-- ✅ Contains 17 skills, 30 subagents, 24 commands (as of 2025-12-17)
+- ✅ Contains 18 skills, 31 subagents, 25 commands (as of 2025-12-20)
 - ❌ NO executable code in `.claude/` (Markdown documentation only)
 - ❌ NO language-specific implementations (framework must be agnostic)
 
@@ -504,7 +512,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 
 **Naming Convention**: `[domain]-[role]` (e.g., `test-automator`, `backend-architect`)
 
-**Current components (30 total):**
+**Current components (31 total):**
 ```
 .claude/agents/
 ├── agent-generator.md
@@ -531,6 +539,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 ├── requirements-analyst.md
 ├── security-auditor.md
 ├── sprint-planner.md
+├── stakeholder-analyst.md
 ├── story-requirements-analyst.md
 ├── tech-stack-detector.md
 ├── technical-debt-analyzer.md
@@ -554,12 +563,13 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 
 **Naming Convention**: `[action]` or `[action]-[object]` (e.g., `dev`, `create-context`)
 
-**Current commands (23 total):**
+**Current commands (24 total):**
 ```
 .claude/commands/
 ├── audit-budget.md          # /audit-budget
 ├── audit-deferrals.md       # /audit-deferrals
 ├── audit-hooks.md           # /audit-hooks [--validate|--performance|--check-circular]
+├── brainstorm.md            # /brainstorm [topic] | --resume BRAINSTORM-ID
 ├── create-agent.md          # /create-agent [name] [options]
 ├── create-context.md        # /create-context [project-name]
 ├── create-epic.md           # /create-epic [epic-name]
