@@ -150,6 +150,41 @@ First read file1, then read file2, then read file3...
 
 ---
 
+### Parallel Execution Rules (LOCKED)
+
+**Three Parallel Patterns Available:**
+
+| Pattern | Use Case | Max Concurrent | Time Savings |
+|---------|----------|----------------|--------------|
+| Parallel Subagents | Multiple Task() calls | 4-6 (10 max) | 30-40% |
+| Background Tasks | Long-running Bash | 3-4 | 50-80% |
+| Parallel Tools | Multiple Read/Grep | Automatic | 15-25% |
+
+**Task Count Limits (LOCKED):**
+- **Recommended**: 4-6 parallel subagents per batch
+- **Maximum**: 10 concurrent tasks (framework limit)
+- **Beyond 10**: Implement explicit batching with synchronization points
+
+**Dependency Rules (LOCKED):**
+- ✅ Parallel tasks MUST be independent (no cross-task dependencies)
+- ✅ If task B uses output of task A: execute sequentially
+- ✅ Synchronization points required between dependent batches
+- ❌ Never parallelize dependent operations
+
+**Background Task Rules:**
+- Timeout required for all background tasks (60-600 seconds)
+- Results MUST be retrieved before next phase
+- Cleanup on error or deferral
+
+**Failure Recovery (LOCKED):**
+- Primary: Attempt parallel execution
+- Fallback: Silently retry as sequential if parallel fails
+- Threshold: Continue if >= 50% success rate (configurable)
+
+**Reference:** See `docs/guides/parallel-orchestration-guide.md` for full patterns
+
+---
+
 ## Installer Architecture Patterns (EPIC-012, EPIC-013, EPIC-014)
 
 ### Installation State Machine (LOCKED)
