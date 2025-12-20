@@ -6,8 +6,8 @@
 **Applies To:** All DevForgeAI state transitions
 
 **Related:**
-- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
-- **State Transitions:** `devforgeai/protocols/state-transitions.md` - Transition rules
+- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
+- **State Transitions:** `.devforgeai/protocols/state-transitions.md` - Transition rules
 
 ---
 
@@ -96,7 +96,7 @@ Quality gates become more rigorous as stories progress:
 
 #### G0.2: Tech Stack Validation
 
-**Requirement:** All technologies used in the story MUST be listed in `devforgeai/specs/context/tech-stack.md`.
+**Requirement:** All technologies used in the story MUST be listed in `devforgeai/context/tech-stack.md`.
 
 **Measurement:**
 ```bash
@@ -173,7 +173,7 @@ git rev-parse --is-inside-work-tree 2>/dev/null
 # Automated check (tech-stack-detector subagent)
 1. Detect languages (package.json → Node.js, requirements.txt → Python, etc.)
 2. Detect frameworks (React, .NET, etc.)
-3. Validate against devforgeai/specs/context/tech-stack.md
+3. Validate against devforgeai/context/tech-stack.md
 ```
 
 **Pass Criteria:** Tech stack detected and matches context file
@@ -191,7 +191,7 @@ git rev-parse --is-inside-work-tree 2>/dev/null
 # Automated check (context-validator subagent)
 for file in tech-stack.md source-tree.md dependencies.md \
             coding-standards.md architecture-constraints.md anti-patterns.md; do
-  [ -f "devforgeai/specs/context/$file" ] || echo "MISSING: $file"
+  [ -f "devforgeai/context/$file" ] || echo "MISSING: $file"
 done
 ```
 
@@ -328,7 +328,7 @@ git diff --exit-code  # Exit code 0 = no uncommitted changes
 
 **Deferral Allowed:** Yes (with proper justification)
 
-**Reference:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**Reference:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 
 ---
 
@@ -378,7 +378,7 @@ npm test -- --coverage
 **Measurement:**
 ```bash
 # Automated check (devforgeai-qa skill Phase 2)
-1. Read devforgeai/specs/context/anti-patterns.md
+1. Read devforgeai/context/anti-patterns.md
 2. Scan codebase for each anti-pattern
 3. Report violations with file:line references
 ```
@@ -482,7 +482,7 @@ npm test -- --coverage
 
 **Deferral Allowed:** N/A (this IS the deferral validation gate)
 
-**Reference:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**Reference:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 
 ---
 
@@ -714,12 +714,12 @@ Each story tracks quality metrics in QA Validation section:
 
 ## Related Documentation
 
-- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
-- **State Transitions:** `devforgeai/protocols/state-transitions.md` - Transition rules
-- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture
-- **RCA-006:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
-- **Anti-Patterns:** `devforgeai/specs/context/anti-patterns.md` - Framework anti-patterns
-- **Coding Standards:** `devforgeai/specs/context/coding-standards.md` - Code quality standards
+- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
+- **State Transitions:** `.devforgeai/protocols/state-transitions.md` - Transition rules
+- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture
+- **RCA-006:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
+- **Anti-Patterns:** `devforgeai/context/anti-patterns.md` - Framework anti-patterns
+- **Coding Standards:** `devforgeai/context/coding-standards.md` - Code quality standards
 
 ---
 

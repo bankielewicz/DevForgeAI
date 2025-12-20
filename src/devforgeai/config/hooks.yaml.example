@@ -298,10 +298,10 @@
 # Solution: Install devforgeai CLI: pip install --break-system-packages -e .claude/scripts/
 
 # Issue: Context extraction fails
-# Solution: Check devforgeai/logs/hooks-orchestrate-{STORY-ID}.log for errors
+# Solution: Check .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log for errors
 
 # Issue: Performance slow (>200ms overhead)
 # Solution: Ensure devforgeai CLI is installed (not running via python -m)
 
 # For more troubleshooting scenarios, see:
-# devforgeai/specs/STORY-026-TROUBLESHOOTING-GUIDE.md
+# .devforgeai/specs/STORY-026-TROUBLESHOOTING-GUIDE.md

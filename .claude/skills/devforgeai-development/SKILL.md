@@ -1150,6 +1150,11 @@ Load these on-demand during workflow execution:
 - **dod-validation-checkpoint.md** (519 lines) - Phase 08 Step c.: Handle new incomplete items
 - **~~phase-resumption-workflow.md~~** (~400 lines) - REMOVED (RCA-014 REC-2): Resumption now in Phase 06 Step 7
 
+### Background Execution (STORY-112)
+- **background-executor.md** (~200 lines) - Background test execution patterns, thresholds, timeout handling
+- **parallel-context-loader.md** (~100 lines) - Parallel Read patterns for 6 context files (83% time savings)
+- **task-result-aggregation.md** (~150 lines) - TaskOutput integration and result retrieval
+
 ### Supporting Files
 - **tdd-patterns.md** (1,013 lines) - Comprehensive TDD guidance (all phases)
 - **refactoring-patterns.md** (797 lines) - Code smell detection and fixes
@@ -1157,7 +1162,7 @@ Load these on-demand during workflow execution:
 - **qa-deferral-recovery.md** (218 lines) - QA failure resolution
 - **ambiguity-protocol.md** (234 lines) - When to ask user questions
 
-**Total reference content:** ~6,350 lines (loaded progressively as needed - includes RCA-008, RCA-014 safeguards)
+**Total reference content:** ~6,800 lines (loaded progressively as needed - includes RCA-008, RCA-014, STORY-112 safeguards)
 
 ---
 

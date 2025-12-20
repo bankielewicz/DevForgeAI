@@ -493,7 +493,7 @@ NEW: qa-result-interpreter subagent
 
 - [ ] Update `.claude/memory/commands-reference.md`
 - [ ] Update `.claude/memory/subagents-reference.md` (if created subagent)
-- [ ] Document refactoring in `devforgeai/specs/enhancements/`
+- [ ] Document refactoring in `.devforgeai/specs/enhancements/`
 - [ ] Git commit with descriptive message
 - [ ] Restart terminal
 - [ ] Smoke tests (3 command runs)
@@ -621,7 +621,7 @@ ELIF $2 is value:
 IF $1 empty OR $1 doesn't match "STORY-[0-9]+":
   AskUserQuestion: "What story ID?"
 
-Glob: devforgeai/specs/Stories/$1*.story.md
+Glob: .ai_docs/Stories/$1*.story.md
 IF not found:
   AskUserQuestion: "Story not found. Cancel or list stories?"
 
@@ -671,7 +671,7 @@ IF $1 invalid:
 
 **Load context:**
 ```
-@devforgeai/specs/[Type]/$1.[type].md
+@.ai_docs/[Type]/$1.[type].md
 ```
 
 **Parse optional arguments:**
@@ -1176,7 +1176,7 @@ git checkout HEAD~ .claude/memory/*.md
 /[command] [test-args]
 
 # 8. Document issue
-# Create rollback report: devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
+# Create rollback report: .devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
 ```
 
 ### Root Cause Analysis
@@ -1592,9 +1592,9 @@ If all 4 remaining over-budget commands refactored:
 ## Related Documentation
 
 **Core Principles:**
-- `devforgeai/specs/claude-skills.md` - Skills architecture and progressive disclosure
-- `devforgeai/specs/research/Terminal/slash-commands-best-practices.md` - Command design patterns
-- `devforgeai/specs/research/Terminal/sub-agents.md` - Subagent architecture and context isolation
+- `.ai_docs/claude-skills.md` - Skills architecture and progressive disclosure
+- `.ai_docs/Terminal/slash-commands-best-practices.md` - Command design patterns
+- `.ai_docs/Terminal/sub-agents.md` - Subagent architecture and context isolation
 
 **Implementation Examples:**
 - `.claude/commands/dev.md` - Reference implementation (refactored)
@@ -1606,11 +1606,11 @@ If all 4 remaining over-budget commands refactored:
 - `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` - Reference file example
 
 **Refactoring Documentation:**
-- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
-- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
-- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
-- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
-- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
+- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
+- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
+- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
+- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
 
 ---
 

@@ -1991,6 +1991,75 @@ claude mcp remove github
 * Claude Code will display a warning when MCP tool output exceeds 10,000 tokens. To increase this limit, set the `MAX_MCP_OUTPUT_TOKENS` environment variable (e.g., `MAX_MCP_OUTPUT_TOKENS=50000`)
 * Use `/mcp` to authenticate with remote servers that require OAuth 2.0 authentication
 
+#### OAuth Authentication (December 2025)
+
+Remote MCP servers often require OAuth 2.0 authentication. Use the `/mcp` command:
+
+```bash
+# In Claude Code terminal
+> /mcp
+# Select "Authenticate" for the server
+# Follow the browser prompts to login
+```
+
+**OAuth Features:**
+- Tokens stored securely and refreshed automatically
+- Use "Clear authentication" in `/mcp` menu to revoke access
+- If browser doesn't open, copy the provided URL manually
+- Works with HTTP servers only
+
+**Practical Example - Sentry Integration:**
+```bash
+# 1. Add the Sentry MCP server
+claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
+
+# 2. Authenticate within Claude Code
+> /mcp
+# Select "Authenticate" for Sentry
+
+# 3. Use authenticated queries
+> "What are the most common errors in the last 24 hours?"
+```
+
+#### MCP Scope Terminology (Updated December 2025)
+
+| Scope | Description | Storage |
+|-------|-------------|---------|
+| `local` | Personal only, current project | `~/.claude.json` under project path |
+| `project` | Team-shared via version control | `.mcp.json` in project root |
+| `user` | Available across all projects | `~/.claude.json` |
+
+**Scope Precedence:** local > project > user (personal configs override shared)
+
+```bash
+# Explicitly specify scope
+claude mcp add --transport http stripe --scope local https://mcp.stripe.com
+claude mcp add --transport http paypal --scope project https://mcp.paypal.com/mcp
+claude mcp add --transport http hubspot --scope user https://mcp.hubspot.com/anthropic
+```
+
+#### Environment Variable Expansion in .mcp.json
+
+Share team configurations with dynamic values:
+
+```json
+{
+  "mcpServers": {
+    "api-server": {
+      "type": "http",
+      "url": "${API_BASE_URL:-https://api.example.com}/mcp",
+      "headers": {
+        "Authorization": "Bearer ${API_KEY}"
+      }
+    }
+  }
+}
+```
+
+**Syntax:**
+- `${VAR}` - Expands to environment variable value
+- `${VAR:-default}` - Uses `VAR` if set, otherwise `default`
+
 **Warning - Windows Users**: On native Windows (not WSL), local MCP servers that use `npx` require the `cmd /c` wrapper to ensure proper execution.
 
 ```bash
@@ -2366,6 +2435,164 @@ The enterprise configuration has the highest precedence and cannot be overridden
 
 ---
 
+## Section 6: Background Tasks & Agents
+
+> Run long-running commands and agents in the background while continuing work.
+
+### Overview
+
+Claude Code supports running commands and agents asynchronously, allowing you to continue working while long-running processes execute in the background.
+
+### Background Bash Commands
+
+**Method 1: Keyboard Shortcut**
+
+```
+Ctrl+B  # Move any Bash command to background
+        # (Tmux users: press Ctrl+B twice due to tmux prefix key)
+```
+
+**Method 2: Prompt Claude**
+
+Ask Claude to run a command in the background:
+```
+> Run the test suite in the background
+```
+
+**Method 3: Bash Mode with `!` Prefix**
+
+Run commands directly without Claude interpretation:
+```bash
+! npm test              # Run directly, real-time output
+! webpack --watch       # Supports Ctrl+B backgrounding
+! git status            # No Claude approval needed
+```
+
+### Key Characteristics
+
+- **Unique Task IDs**: Each background task gets an ID for tracking
+- **Output Buffering**: Results are captured and retrievable
+- **Auto-Cleanup**: Tasks cleaned up when Claude Code exits
+- **Concurrent Execution**: Run multiple tasks simultaneously
+
+### Common Use Cases
+
+| Task Type | Example |
+|-----------|---------|
+| Build tools | `webpack`, `vite`, `make` |
+| Package managers | `npm`, `yarn`, `pnpm` |
+| Test runners | `jest`, `pytest`, `cargo test` |
+| Dev servers | `npm run dev`, `python -m http.server` |
+| Long processes | `docker`, `terraform` |
+
+### Background Agents
+
+Use the `run_in_background` parameter when launching agents:
+
+```
+Task(
+  subagent_type="code-reviewer",
+  prompt="Review these files",
+  run_in_background=true
+)
+```
+
+Retrieve results later:
+```
+TaskOutput(task_id="<task-id>")
+```
+
+### Best Practices
+
+1. **Use for long-running processes**: Dev servers, builds, test suites
+2. **Monitor output**: Check results periodically with TaskOutput
+3. **Clean up**: Background tasks auto-cleanup, but long sessions may accumulate
+4. **Tmux awareness**: Remember to press Ctrl+B twice in tmux
+
+---
+
+## Section 7: Checkpoints & Rewind System
+
+> Automatic code state tracking with instant restoration for risk-free experimentation.
+
+### Overview
+
+Claude Code automatically creates checkpoints before each edit, providing a safety net that lets you pursue ambitious changes knowing you can always restore to previous states.
+
+### How Checkpointing Works
+
+**Automatic Tracking:**
+- Every user prompt creates a new checkpoint
+- All changes made by Claude's file editing tools are captured
+- Checkpoints persist across sessions (30-day retention by default)
+- Auto-cleanup removes old checkpoints with session cleanup
+
+### Accessing Checkpoints
+
+**Method 1: Keyboard Shortcut (Recommended)**
+
+```
+Esc + Esc  → Opens rewind menu directly
+```
+
+**Method 2: Slash Command**
+
+```
+/rewind
+```
+
+### Rewind Options
+
+Once you open the rewind menu, choose what to restore:
+
+| Option | Effect |
+|--------|--------|
+| **Conversation only** | Rewind to a user message, keep code changes |
+| **Code only** | Revert file changes, keep conversation |
+| **Both** | Restore code AND conversation to prior point |
+
+### Common Use Cases
+
+1. **Exploring alternatives**: Try different implementations without losing your starting point
+2. **Recovering from mistakes**: Quickly undo changes that broke functionality
+3. **Iterating on features**: Experiment with variations, revert to working states
+4. **Risk-free refactoring**: Make bold changes with confidence
+
+### Important Limitations
+
+**NOT Tracked:**
+- Bash command changes (`rm`, `mv`, `cp`, shell scripts)
+- External file modifications (manual edits, other tools)
+- Changes from concurrent sessions (usually)
+
+**Example of untrackable changes:**
+```bash
+rm important-file.txt     # NOT undoable via checkpoint
+mv old.txt new.txt        # NOT undoable via checkpoint
+```
+
+### Relationship with Git
+
+| Feature | Checkpoints | Git |
+|---------|------------|-----|
+| **Scope** | Session-level | Permanent history |
+| **Purpose** | Quick local undo | Version control |
+| **Coverage** | Claude edits only | All tracked files |
+| **Persistence** | 30 days | Forever |
+
+**Best Practice**: Use checkpoints for quick experimentation, Git for permanent history. They complement each other.
+
+### Configuration
+
+Checkpoint retention is tied to session cleanup (default: 30 days). Configure via:
+```json
+{
+  "sessionRetentionDays": 30
+}
+```
+
+---
+
 ## Cross-Reference Guide
 
 This section provides navigation between related topics across the five core features.
@@ -2377,6 +2604,8 @@ This section provides navigation between related topics across the five core fea
 | **Subagents** | Model-invoked or explicit | Task-specific context | Specialized AI workers for domain expertise | `.claude/agents/` (project)<br>`~/.claude/agents/` (user) |
 | **Skills** | Model-invoked | Capability extension | Package expertise into discoverable capabilities | `.claude/skills/` (project)<br>`~/.claude/skills/` (user) |
 | **Slash Commands** | User-invoked | Quick prompts | Frequently-used instructions and workflows | `.claude/commands/` (project)<br>`~/.claude/commands/` (user) |
+| **Background Tasks** | `Ctrl+B` or explicit | Async execution | Long-running processes, dev servers, parallel work | N/A (session-based) |
+| **Checkpoints** | `Esc Esc` or `/rewind` | Code state | Risk-free experimentation, undo changes | N/A (auto-managed) |
 | **Plugins** | Mixed (contains commands, agents, skills) | Bundled distribution | Package and distribute multiple features together | Via marketplace installation |
 | **MCP Servers** | Tool integration | External systems | Connect Claude to external tools and data sources | Configured via CLI or `.mcp.json` |
 
@@ -2465,7 +2694,7 @@ This section provides navigation between related topics across the five core fea
 
 ---
 
-**Document Version:** 1.0 (2025-11-06)
-**Total Sections:** 5 (Subagents, Skills, Slash Commands, Plugins, MCP Servers)
-**Source Files:** 5 official documentation files from code.claude.com
-**Total Lines:** 3,863 lines
+**Document Version:** 2.0 (2025-12-20)
+**Total Sections:** 7 (Subagents, Skills, Slash Commands, Plugins, MCP Servers, Background Tasks, Checkpoints)
+**Source Files:** 7 official documentation files from code.claude.com
+**Claude Code Version:** 2.0.74

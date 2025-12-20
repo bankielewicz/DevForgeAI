@@ -254,14 +254,14 @@ addopts = -v --tb=short --cov --cov-report=html
 @pytest.fixture
 def temp_config_dir(tmp_path):
     """Temporary config directory"""
-    config_dir = tmp_path / "devforgeai" / "config"
+    config_dir = tmp_path / ".devforgeai" / "config"
     config_dir.mkdir(parents=True)
     return config_dir
 
 @pytest.fixture
 def temp_logs_dir(tmp_path):
     """Temporary logs directory"""
-    logs_dir = tmp_path / "devforgeai" / "logs"
+    logs_dir = tmp_path / ".devforgeai" / "logs"
     logs_dir.mkdir(parents=True)
     return logs_dir
 
@@ -434,7 +434,7 @@ After implementation, verify:
 
 ### Import Errors
 **Problem:** Cannot import modules under test
-**Solution:** Ensure devforgeai_cli is in Python path, use PYTHONPATH environment variable
+**Solution:** Ensure .devforgeai_cli is in Python path, use PYTHONPATH environment variable
 
 ### Coverage Not Increasing
 **Problem:** Tests not hitting expected lines

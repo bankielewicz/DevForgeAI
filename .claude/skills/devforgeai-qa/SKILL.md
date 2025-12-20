@@ -70,7 +70,7 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 ---
 
-## QA Workflow (7 Phases)
+## QA Workflow (8 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
@@ -533,6 +533,67 @@ Before proceeding to Phase 3, verify you executed ALL 6 steps:
 
 **IF any checkbox unchecked:** HALT and complete missing steps.
 
+### Phase 2.5: Parallel Validation (NEW - STORY-113)
+
+**⚠️ CHECKPOINT: You MUST execute all 3 validators in a SINGLE message for parallel execution**
+
+**Step 2.5.0: Load Parallel Validation Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/parallel-validation.md")
+```
+
+**After loading:** Execute the parallel validation workflow. This phase runs 3 subagents concurrently for 3x performance improvement.
+
+**Subagents (ALL executed in parallel):**
+- test-automator: Test coverage and quality analysis
+- code-reviewer: Code quality and maintainability review
+- security-auditor: Security vulnerability scanning
+
+**Success Threshold:** 66% (2 of 3 validators must succeed)
+
+**Step 2.5.1: Invoke 3 Validators in Parallel**
+
+Execute in SINGLE message with 3 Task calls:
+```
+# All 3 Task calls in ONE message (parallel execution)
+Task(subagent_type="test-automator", prompt="Analyze test coverage...", description="Run tests")
+Task(subagent_type="code-reviewer", prompt="Review code changes...", description="Review code")
+Task(subagent_type="security-auditor", prompt="Scan for security issues...", description="Security scan")
+```
+
+**Step 2.5.2: Aggregate Results Using PartialResult**
+```
+partial_result = aggregate_parallel_results(task_outputs)
+
+IF partial_result.success_rate < 0.66:
+    HALT: "QA validation below threshold (2 of 3 validators required)"
+```
+
+**Phase 2.5 Completion Checklist:**
+Before proceeding to Phase 3, verify:
+- [ ] Loaded parallel-validation.md (Step 2.5.0)
+- [ ] Invoked ALL 3 validators in SINGLE message (Step 2.5.1)
+  - [ ] test-automator Task call
+  - [ ] code-reviewer Task call
+  - [ ] security-auditor Task call
+- [ ] Collected results using TaskOutput (blocking)
+- [ ] Aggregated results into PartialResult model
+- [ ] Validated success_rate >= 0.66 (2 of 3)
+- [ ] Logged any failures with correlation ID
+- [ ] Displayed parallel validation results
+
+**Display to user:**
+```
+✓ Phase 2.5 Complete: Parallel Validation
+  test-automator: [PASS/FAIL]
+  code-reviewer: [PASS/FAIL]
+  security-auditor: [PASS/FAIL]
+  Success rate: [X]% (threshold: 66%)
+  Duration: [X]s (vs ~[3X]s sequential)
+```
+
+**IF success_rate < 66%:** HALT and report failed validators.
+
 ### Phase 3: Spec Compliance Validation
 
 **⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
@@ -942,9 +1003,9 @@ Before completing QA workflow, verify you executed ALL 6 steps:
 
 ---
 
-## Reference Files (19 total)
+## Reference Files (20 total)
 
-**Workflows (10):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
+**Workflows (11):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, parallel-validation (STORY-113), spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
 
 **Guides (9):** coverage-analysis, anti-pattern-detection, deferral-decision-tree, language-specific-tooling, qa-result-formatting-guide, quality-metrics, security-scanning, spec-validation, validation-procedures
 

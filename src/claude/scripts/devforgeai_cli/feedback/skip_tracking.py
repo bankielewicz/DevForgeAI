@@ -30,7 +30,7 @@ def _get_config_file(config_dir: Optional[Path] = None) -> Path:
         Path to feedback-preferences.yaml (per STORY-009 specification)
     """
     if config_dir is None:
-        config_dir = Path.cwd() / 'devforgeai' / 'config'
+        config_dir = Path.cwd() / '.devforgeai' / 'config'
 
     config_dir.mkdir(parents=True, exist_ok=True)
     return config_dir / 'feedback-preferences.yaml'

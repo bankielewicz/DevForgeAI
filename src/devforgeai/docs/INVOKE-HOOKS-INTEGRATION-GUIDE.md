@@ -112,7 +112,7 @@ fi
 **Implementation:**
 ```bash
 # After QA report generated
-STATUS=$(grep "^Status:" devforgeai/qa/reports/$STORY_ID-qa-report.md | awk '{print $2}')
+STATUS=$(grep "^Status:" .devforgeai/qa/reports/$STORY_ID-qa-report.md | awk '{print $2}')
 
 devforgeai check-hooks --operation=qa --status="$STATUS"
 if [ $? -eq 0 ]; then
@@ -248,7 +248,7 @@ invoke-hooks implements graceful degradation:
 
 ## Configuration
 
-Hook behavior is configured via `devforgeai/config/hooks.yaml`:
+Hook behavior is configured via `.devforgeai/config/hooks.yaml`:
 
 ```yaml
 hooks:
@@ -303,7 +303,7 @@ bash .claude/scripts/devforgeai_cli/tests/manual_test_invoke_hooks.sh
 
 ## Troubleshooting
 
-See: [Troubleshooting Guide](devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md)
+See: [Troubleshooting Guide](.devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md)
 
 ---
 
@@ -312,7 +312,7 @@ See: [Troubleshooting Guide](devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md)
 - **Story:** STORY-022 (invoke-hooks implementation)
 - **CLI Module:** `.claude/scripts/devforgeai_cli/hooks.py`
 - **Tests:** `.claude/scripts/devforgeai_cli/tests/test_invoke_hooks.py`
-- **Configuration:** `devforgeai/config/hooks.yaml`
+- **Configuration:** `.devforgeai/config/hooks.yaml`
 
 ---
 

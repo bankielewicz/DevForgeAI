@@ -2,9 +2,9 @@
   "version": "1.0.0",
   "epic_id_pattern": "^EPIC-[0-9]{3}$",
   "story_id_pattern": "^STORY-[0-9]{3}$",
-  "epics_dir": "devforgeai/specs/Epics",
-  "stories_dir": "devforgeai/specs/Stories",
-  "output_file": "devforgeai/traceability/requirements-matrix.json",
+  "epics_dir": ".ai_docs/Epics",
+  "stories_dir": ".ai_docs/Stories",
+  "output_file": ".devforgeai/traceability/requirements-matrix.json",
   "file_patterns": {
     "epic": "*.epic.md",
     "story": "*.story.md"

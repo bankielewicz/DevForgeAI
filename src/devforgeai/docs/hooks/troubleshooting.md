@@ -29,7 +29,7 @@ This troubleshooting guide is based on **integration test scenarios** (23 tests 
 **Diagnosis:**
 ```bash
 # Check hook configuration
-cat devforgeai/config/hooks.yaml
+cat .devforgeai/config/hooks.yaml
 
 # Manually test check-hooks
 devforgeai check-hooks --operation=dev --status=completed
@@ -123,7 +123,7 @@ time devforgeai invoke-hooks --operation=dev --story=STORY-023
 
 3. **File I/O bottleneck**
    - Too many feedback session files
-   - Check `devforgeai/feedback/sessions/` size
+   - Check `.devforgeai/feedback/sessions/` size
 
 **Resolution:**
 ```yaml
@@ -141,7 +141,7 @@ timeout 5 devforgeai check-hooks --operation=dev --status=$STATUS || {
 **Performance Optimization:**
 ```bash
 # Clean old feedback sessions (>30 days)
-find devforgeai/feedback/sessions/ -mtime +30 -delete
+find .devforgeai/feedback/sessions/ -mtime +30 -delete
 
 # Reduce skill token usage
 # (Review devforgeai-feedback skill for optimization)
@@ -235,17 +235,17 @@ devforgeai check-hooks --operation=dev --status=$STATUS
 **Diagnosis:**
 ```bash
 # Check if config exists
-ls -la devforgeai/config/hooks.yaml
+ls -la .devforgeai/config/hooks.yaml
 
 # Validate YAML syntax
-python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
+python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
 ```
 
 **Resolution:**
 ```bash
 # Create default config if missing
-mkdir -p devforgeai/config
-cat > devforgeai/config/hooks.yaml << 'EOF'
+mkdir -p .devforgeai/config
+cat > .devforgeai/config/hooks.yaml << 'EOF'
 hooks:
   enabled: true
   mode: "all"
@@ -270,7 +270,7 @@ EOF
 3. [ ] Verify `on_success` or `on_failure` matches status
 4. [ ] Run `devforgeai check-hooks` manually (exit code 0?)
 5. [ ] Check devforgeai CLI is installed (`which devforgeai`)
-6. [ ] Verify `devforgeai/config/hooks.yaml` exists and valid
+6. [ ] Verify `.devforgeai/config/hooks.yaml` exists and valid
 7. [ ] Check for error messages in command output
 8. [ ] Test with `mode: "all"` to eliminate mode issues
 
@@ -300,8 +300,8 @@ EOF
 - All edge cases covered (timeout, circular, failures)
 
 **Configuration Examples:**
-- `devforgeai/config/hooks.yaml` - Default configuration
-- See `devforgeai/docs/hooks/user-guide.md` for all configuration modes
+- `.devforgeai/config/hooks.yaml` - Default configuration
+- See `.devforgeai/docs/hooks/user-guide.md` for all configuration modes
 
 ---
 

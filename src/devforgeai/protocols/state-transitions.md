@@ -6,8 +6,8 @@
 **Applies To:** All DevForgeAI stories, epics, and sprints
 
 **Related:**
-- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
-- **Quality Gates:** `devforgeai/protocols/quality-gates.md` - Gate criteria per transition
+- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
+- **Quality Gates:** `.devforgeai/protocols/quality-gates.md` - Gate criteria per transition
 
 ---
 
@@ -574,11 +574,11 @@ Sprint Planned → Sprint Active → Sprint Complete
 
 ## Related Documentation
 
-- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
-- **Quality Gates:** `devforgeai/protocols/quality-gates.md` - Gate criteria
-- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
-- **RCA-006:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
-- **RCA-008:** `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow safeguards
+- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
+- **Quality Gates:** `.devforgeai/protocols/quality-gates.md` - Gate criteria
+- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
+- **RCA-006:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
+- **RCA-008:** `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` - Git workflow safeguards
 
 ---
 

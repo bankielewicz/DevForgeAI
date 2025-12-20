@@ -70,7 +70,7 @@ CLAUDE_EXCLUDE_PATTERNS=(
     "secrets/"         # Secrets directory (security)
 )
 
-# Patterns to exclude when syncing devforgeai/ → src/devforgeai/
+# Patterns to exclude when syncing .devforgeai/ → src/devforgeai/
 DEVFORGEAI_EXCLUDE_PATTERNS=(
     "backups/"           # Backup directory
     "qa/reports/"        # Generated QA reports
@@ -106,7 +106,7 @@ MIN_CHECKSUM_ENTRIES="${MIN_CHECKSUM_ENTRIES:-50}"
 # =============================================================================
 
 # Release log directory
-RELEASE_LOG_DIR="${RELEASE_LOG_DIR:-devforgeai/releases}"
+RELEASE_LOG_DIR="${RELEASE_LOG_DIR:-.devforgeai/releases}"
 
 # Log level (INFO, DEBUG, ERROR)
 LOG_LEVEL="${LOG_LEVEL:-INFO}"

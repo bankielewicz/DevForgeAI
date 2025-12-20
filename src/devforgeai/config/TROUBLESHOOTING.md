@@ -19,14 +19,14 @@ Solutions to common configuration issues.
 
 **Check file location:**
 ```bash
-ls -la devforgeai/config/feedback.yaml
+ls -la .devforgeai/config/feedback.yaml
 ```
 
-Expected: `devforgeai/config/feedback.yaml` (note the `devforgeai` directory with leading dot)
+Expected: `.devforgeai/config/feedback.yaml` (note the `.devforgeai` directory with leading dot)
 
 **Check YAML syntax:**
 ```bash
-python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/feedback.yaml'))"
+python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/feedback.yaml'))"
 ```
 
 If syntax error:
@@ -39,12 +39,12 @@ Fix: Validate YAML at https://yaml-checker.com/
 
 **Check file permissions:**
 ```bash
-chmod 644 devforgeai/config/feedback.yaml
+chmod 644 .devforgeai/config/feedback.yaml
 ```
 
 **Check logs:**
 ```bash
-tail -20 devforgeai/logs/config-errors.log
+tail -20 .devforgeai/logs/config-errors.log
 ```
 
 ---
@@ -120,10 +120,10 @@ templates:
 **Check file watcher is running:**
 ```bash
 # Check debug logs
-tail -f devforgeai/logs/debug.log | grep -i "watcher"
+tail -f .devforgeai/logs/debug.log | grep -i "watcher"
 ```
 
-Expected: `[INFO] ConfigFileWatcher started, monitoring devforgeai/config/feedback.yaml`
+Expected: `[INFO] ConfigFileWatcher started, monitoring .devforgeai/config/feedback.yaml`
 
 **Enable debug mode:**
 ```bash
@@ -158,7 +158,7 @@ skip_tracking:
 
 **Check skip counter log:**
 ```bash
-tail -f devforgeai/logs/feedback-skips.log
+tail -f .devforgeai/logs/feedback-skips.log
 ```
 
 Expected after skip:
@@ -168,8 +168,8 @@ Expected after skip:
 
 **Check file permissions:**
 ```bash
-ls -la devforgeai/logs/feedback-skips.log
-chmod 644 devforgeai/logs/feedback-skips.log
+ls -la .devforgeai/logs/feedback-skips.log
+chmod 644 .devforgeai/logs/feedback-skips.log
 ```
 
 ---
@@ -188,7 +188,7 @@ chmod 644 devforgeai/logs/feedback-skips.log
 **Verify configuration loaded:**
 ```bash
 # Check config-errors.log for load confirmation
-tail devforgeai/logs/config-errors.log
+tail .devforgeai/logs/config-errors.log
 ```
 
 Expected: `[INFO] Configuration loaded successfully`
@@ -198,12 +198,12 @@ Expected: `[INFO] Configuration loaded successfully`
 find . -name "feedback*.yaml" -o -name "*feedback*.yaml"
 ```
 
-Remove any duplicates, keep only `devforgeai/config/feedback.yaml`
+Remove any duplicates, keep only `.devforgeai/config/feedback.yaml`
 
 **Force reload:**
 ```bash
 # Touch file to trigger hot-reload
-touch devforgeai/config/feedback.yaml
+touch .devforgeai/config/feedback.yaml
 ```
 
 ---
@@ -221,7 +221,7 @@ touch devforgeai/config/feedback.yaml
 
 **Check file size:**
 ```bash
-wc -c devforgeai/config/feedback.yaml
+wc -c .devforgeai/config/feedback.yaml
 ```
 
 Expected: <5 KB
@@ -230,7 +230,7 @@ If larger: Remove comments, simplify structure.
 
 **Check file system:**
 ```bash
-time cat devforgeai/config/feedback.yaml > /dev/null
+time cat .devforgeai/config/feedback.yaml > /dev/null
 ```
 
 If slow (>50ms): Move configuration to local disk.
@@ -239,7 +239,7 @@ If slow (>50ms): Move configuration to local disk.
 ```bash
 export DEBUG_FEEDBACK_CONFIG=1
 # Check debug.log for load time
-tail devforgeai/logs/debug.log | grep "loaded in"
+tail .devforgeai/logs/debug.log | grep "loaded in"
 ```
 
 Expected: `Configuration loaded in <100ms`
@@ -259,7 +259,7 @@ Expected: `Configuration loaded in <100ms`
 
 **Check schema file exists:**
 ```bash
-ls -la devforgeai/config/feedback.schema.json
+ls -la .devforgeai/config/feedback.schema.json
 ```
 
 If missing, regenerate:
@@ -268,7 +268,7 @@ python3 << 'EOF'
 import json, sys
 sys.path.insert(0, '.claude/scripts')
 from devforgeai_cli.feedback.config_schema import get_schema
-with open('devforgeai/config/feedback.schema.json', 'w') as f:
+with open('.devforgeai/config/feedback.schema.json', 'w') as f:
     json.dump(get_schema(), f, indent=2)
 EOF
 ```
@@ -279,7 +279,7 @@ EOF
 ```json
 {
   "yaml.schemas": {
-    "devforgeai/config/feedback.schema.json": "devforgeai/config/feedback.yaml"
+    ".devforgeai/config/feedback.schema.json": ".devforgeai/config/feedback.yaml"
   }
 }
 ```
@@ -308,7 +308,7 @@ python3 -m pytest .claude/scripts/devforgeai_cli/tests/feedback/test_configurati
 
 Expected: PASSED
 
-If failed: File a bug report with logs from `devforgeai/logs/feedback-skips.log`
+If failed: File a bug report with logs from `.devforgeai/logs/feedback-skips.log`
 
 ---
 
@@ -325,18 +325,18 @@ If failed: File a bug report with logs from `devforgeai/logs/feedback-skips.log`
 **Verify editing correct file:**
 ```bash
 # Check which file is being monitored
-tail devforgeai/logs/debug.log | grep "monitoring"
+tail .devforgeai/logs/debug.log | grep "monitoring"
 ```
 
-Expected: `monitoring devforgeai/config/feedback.yaml`
+Expected: `monitoring .devforgeai/config/feedback.yaml`
 
 **Check write permissions:**
 ```bash
-touch devforgeai/config/feedback.yaml
+touch .devforgeai/config/feedback.yaml
 echo $?  # Should output: 0
 ```
 
-If permission denied: `chmod 644 devforgeai/config/feedback.yaml`
+If permission denied: `chmod 644 .devforgeai/config/feedback.yaml`
 
 ---
 
@@ -349,10 +349,10 @@ If permission denied: `chmod 644 devforgeai/config/feedback.yaml`
 **Verification:**
 ```bash
 # Create empty file
-echo "" > devforgeai/config/feedback.yaml
+echo "" > .devforgeai/config/feedback.yaml
 
 # Check logs
-tail devforgeai/logs/config-errors.log
+tail .devforgeai/logs/config-errors.log
 ```
 
 Expected: `[INFO] Configuration file empty, using defaults`
@@ -386,7 +386,7 @@ import sys, yaml, jsonschema
 sys.path.insert(0, '.claude/scripts')
 from devforgeai_cli.feedback.config_schema import get_schema
 
-with open('devforgeai/config/feedback.yaml') as f:
+with open('.devforgeai/config/feedback.yaml') as f:
     config = yaml.safe_load(f)
 
 try:
@@ -415,10 +415,10 @@ EOF
 
 ```bash
 # Test hot-reload detection
-echo "enabled: false" > devforgeai/config/feedback.yaml
+echo "enabled: false" > .devforgeai/config/feedback.yaml
 echo "Waiting 5 seconds for hot-reload detection..."
 sleep 5
-tail -5 devforgeai/logs/config-errors.log
+tail -5 .devforgeai/logs/config-errors.log
 ```
 
 ---
@@ -427,14 +427,14 @@ tail -5 devforgeai/logs/config-errors.log
 
 | Log File | Purpose |
 |----------|---------|
-| `devforgeai/logs/config-errors.log` | Configuration load errors and validation |
-| `devforgeai/logs/feedback-skips.log` | Skip tracking events |
-| `devforgeai/logs/debug.log` | Debug-level logging (enable with `DEBUG_FEEDBACK_CONFIG=1`) |
-| `devforgeai/logs/audit.log` | Configuration change audit trail |
+| `.devforgeai/logs/config-errors.log` | Configuration load errors and validation |
+| `.devforgeai/logs/feedback-skips.log` | Skip tracking events |
+| `.devforgeai/logs/debug.log` | Debug-level logging (enable with `DEBUG_FEEDBACK_CONFIG=1`) |
+| `.devforgeai/logs/audit.log` | Configuration change audit trail |
 
 **View all logs:**
 ```bash
-tail -f devforgeai/logs/*.log
+tail -f .devforgeai/logs/*.log
 ```
 
 ---
@@ -486,7 +486,7 @@ If issues persist after trying solutions above:
 
 1. **Check logs:**
    ```bash
-   cat devforgeai/logs/config-errors.log
+   cat .devforgeai/logs/config-errors.log
    ```
 
 2. **Run tests:**

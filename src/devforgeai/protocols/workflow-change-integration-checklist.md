@@ -232,9 +232,9 @@ Phase 5: Git Workflow (git-workflow-conventions.md)
 
 ### Touchpoint 8: Protocol Documentation
 
-**What to update:** Framework protocols in `devforgeai/protocols/`
+**What to update:** Framework protocols in `.devforgeai/protocols/`
 
-**Location:** `devforgeai/protocols/*.md`
+**Location:** `.devforgeai/protocols/*.md`
 **Files:** `lean-orchestration-pattern.md`, case studies, budget references
 
 **What to check:**
@@ -691,7 +691,7 @@ Integration is complete when:
 - RCA-010: DoD Checkboxes Not Validated (TodoWrite tracker gap identified)
 
 **Related Protocols:**
-- `devforgeai/protocols/lean-orchestration-pattern.md` - Command refactoring checklist
+- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command refactoring checklist
 - `.claude/memory/skills-reference.md` - Skill documentation patterns
 
 **Usage:**

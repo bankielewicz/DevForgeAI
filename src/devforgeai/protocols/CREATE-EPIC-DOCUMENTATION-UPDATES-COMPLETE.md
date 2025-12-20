@@ -123,9 +123,9 @@ Key Features section updated:
 
 ---
 
-### 4. devforgeai/protocols/lean-orchestration-pattern.md ✅
+### 4. .devforgeai/protocols/lean-orchestration-pattern.md ✅
 
-**Location:** `/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/lean-orchestration-pattern.md`
+**Location:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Changes made:**
 
@@ -301,17 +301,17 @@ ADDED v1.2 (2025-11-06):
 - [x] CLAUDE.md (component summary, quick reference)
 - [x] .claude/memory/commands-reference.md (/create-epic section)
 - [x] .claude/memory/skills-reference.md (orchestration skill)
-- [x] devforgeai/protocols/lean-orchestration-pattern.md (status table, case study, pattern maturity, version history)
+- [x] .devforgeai/protocols/lean-orchestration-pattern.md (status table, case study, pattern maturity, version history)
 
 ### New Documentation Created ✅
 
 - [x] .claude/memory/epic-creation-guide.md (educational reference)
-- [x] devforgeai/protocols/create-epic-refactoring-plan.md (initial planning)
-- [x] devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md (detailed plan)
-- [x] devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md (hypothesis validation)
-- [x] devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md (skill work)
-- [x] devforgeai/protocols/CREATE-EPIC-REFACTORING-COMPLETE.md (command work)
-- [x] devforgeai/protocols/CREATE-EPIC-DOCUMENTATION-UPDATES-COMPLETE.md (this file)
+- [x] .devforgeai/protocols/create-epic-refactoring-plan.md (initial planning)
+- [x] .devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md (detailed plan)
+- [x] .devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md (hypothesis validation)
+- [x] .devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md (skill work)
+- [x] .devforgeai/protocols/CREATE-EPIC-REFACTORING-COMPLETE.md (command work)
+- [x] .devforgeai/protocols/CREATE-EPIC-DOCUMENTATION-UPDATES-COMPLETE.md (this file)
 
 ### Reference Artifacts Updated ✅
 

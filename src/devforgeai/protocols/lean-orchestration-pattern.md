@@ -316,7 +316,7 @@ For each section of logic, ask:
 
 - [ ] Update `.claude/memory/commands-reference.md`
 - [ ] Update `.claude/memory/subagents-reference.md` (if created subagent)
-- [ ] Document refactoring in `devforgeai/specs/enhancements/`
+- [ ] Document refactoring in `.devforgeai/specs/enhancements/`
 - [ ] Git commit with descriptive message
 - [ ] Restart terminal
 - [ ] Smoke tests (3 command runs)
@@ -494,7 +494,7 @@ IF $1 invalid:
 
 **Load context:**
 ```
-@devforgeai/specs/[Type]/$1.[type].md
+@.ai_docs/[Type]/$1.[type].md
 ```
 
 **Parse optional arguments:**
@@ -1029,9 +1029,9 @@ Refactor when:
 ## Related Documentation
 
 **Core Principles:**
-- `devforgeai/specs/claude-skills.md` - Skills architecture and progressive disclosure
-- `devforgeai/specs/research/Terminal/slash-commands-best-practices.md` - Command design patterns
-- `devforgeai/specs/research/Terminal/sub-agents.md` - Subagent architecture and context isolation
+- `.ai_docs/claude-skills.md` - Skills architecture and progressive disclosure
+- `.ai_docs/Terminal/slash-commands-best-practices.md` - Command design patterns
+- `.ai_docs/Terminal/sub-agents.md` - Subagent architecture and context isolation
 
 **Implementation Examples:**
 - `refactoring-case-studies.md` - 5 complete case studies with Before/After analysis
@@ -1044,9 +1044,9 @@ Refactor when:
 - `/audit-budget` command - Automated budget compliance audit
 
 **Refactoring Documentation:**
-- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
-- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
-- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring
+- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
+- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring
 
 ---
 

@@ -123,10 +123,11 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 
 This skill executes workflows in **distinct phases**. Each phase loads its reference file on-demand for detailed implementation logic.
 
-### Phase 0: Checkpoint Detection
-**Purpose:** Resume interrupted workflows from last successful checkpoint
-**Reference:** `checkpoint-detection.md`
+### Phase 0: Checkpoint Detection with Parallel Context Loading
+**Purpose:** Resume interrupted workflows and load context files in parallel
+**References:** `checkpoint-detection.md`, `context-loader.md`
 **Checkpoints:** DEV_COMPLETE, QA_APPROVED, STAGING_COMPLETE, PRODUCTION_COMPLETE
+**Parallel Pattern:** 6 Read calls in single message for implicit parallel execution (STORY-111)
 
 ### Phase 1: Story Validation
 **Purpose:** Load and validate story file before execution
@@ -243,9 +244,10 @@ This skill delegates specialized tasks to **4 subagents:**
 
 **Load these on-demand during workflow execution:**
 
-### Core Workflow (9 files)
+### Core Workflow (10 files)
 - `mode-detection.md` - Mode detection logic and context markers (329 lines)
 - `checkpoint-detection.md` - Checkpoint recovery workflow (474 lines)
+- `context-loader.md` - Parallel context file loading pattern (150 lines) - NEW (STORY-111)
 - `story-validation.md` - Story file validation procedures (345 lines)
 - `skill-invocation.md` - Skill coordination patterns (509 lines)
 - `story-status-update.md` - Status update and history procedures (278 lines)
@@ -254,9 +256,11 @@ This skill delegates specialized tasks to **4 subagents:**
 - `next-action-determination.md` - Next step recommendations (287 lines)
 - `orchestration-finalization.md` - Completion summary generation (513 lines)
 
-### Epic Management (4 files)
+### Epic Management (6 files)
 - `epic-management.md` - Epic creation phases 1-2 (496 lines)
 - `feature-decomposition-patterns.md` - Phase 3 patterns by domain (903 lines)
+- `feature-analyzer.md` - Parallel feature analysis with batching (180 lines) - NEW (STORY-111)
+- `dependency-graph.md` - Dependency detection for safe parallelization (120 lines) - NEW (STORY-111)
 - `technical-assessment-guide.md` - Phase 4 complexity scoring (914 lines)
 - `epic-validation-checklist.md` - Phase 7 validation and self-healing (760 lines)
 
@@ -277,7 +281,7 @@ This skill delegates specialized tasks to **4 subagents:**
 - `user-interaction-patterns.md` - AskUserQuestion templates (513 lines)
 - `troubleshooting.md` - Common issues and solutions (935 lines)
 
-**Total reference content:** 21 files, ~12,000 lines (loaded progressively as needed)
+**Total reference content:** 24 files, ~12,450 lines (loaded progressively as needed)
 
 ---
 

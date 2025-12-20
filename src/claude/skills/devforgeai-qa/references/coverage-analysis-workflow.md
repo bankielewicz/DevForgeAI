@@ -32,43 +32,50 @@ IF file not found:
 
 ---
 
-## Step 2: Generate Coverage Reports
+## Step 2: Generate Coverage Reports (Story-Scoped - STORY-092)
+
+**Prerequisite:** `test_isolation_paths` variable from Phase 0.5
 
 ```
 Read(file_path="devforgeai/specs/context/tech-stack.md")
 # Extract language
 
-# Execute language-specific coverage command
+# Get story-scoped paths from Phase 0.5
+results_dir = test_isolation_paths.results_dir   # e.g., tests/results/STORY-092
+coverage_dir = test_isolation_paths.coverage_dir # e.g., tests/coverage/STORY-092
+
+# Execute language-specific coverage command with story-scoped output paths
 # See: ./language-specific-tooling.md
 
 IF language == ".NET":
-    Bash(command="dotnet test --collect:'XPlat Code Coverage'")
-    coverage_file = "TestResults/*/coverage.cobertura.xml"
+    Bash(command="dotnet test --collect:'XPlat Code Coverage' --results-directory={results_dir}")
+    coverage_file = "{results_dir}/*/coverage.cobertura.xml"
 
 IF language == "Python":
-    Bash(command="pytest --cov=src --cov-report=json")
-    coverage_file = "coverage.json"
+    Bash(command="pytest --cov=src --cov-report=json:{coverage_dir}/coverage.json --junitxml={results_dir}/test-results.xml")
+    coverage_file = "{coverage_dir}/coverage.json"
 
 IF language == "Node.js":
-    Bash(command="npm test -- --coverage")
-    coverage_file = "coverage/coverage-summary.json"
+    Bash(command="npm test -- --coverage --coverageDirectory={coverage_dir}")
+    coverage_file = "{coverage_dir}/coverage-summary.json"
 
 IF language == "Go":
-    Bash(command="go test ./... -coverprofile=coverage.out")
-    coverage_file = "coverage.out"
+    Bash(command="go test ./... -coverprofile={coverage_dir}/coverage.out -json > {results_dir}/test-results.json")
+    coverage_file = "{coverage_dir}/coverage.out"
 
 IF language == "Rust":
-    Bash(command="cargo tarpaulin --out Json")
-    coverage_file = "tarpaulin-report.json"
+    Bash(command="cargo tarpaulin --out Json --output-dir {coverage_dir}")
+    coverage_file = "{coverage_dir}/tarpaulin-report.json"
 
 IF language == "Java":
-    Bash(command="mvn test jacoco:report")
-    coverage_file = "target/site/jacoco/jacoco.xml"
+    Bash(command="mvn test jacoco:report -Djacoco.destFile={coverage_dir}/jacoco.exec")
+    coverage_file = "{coverage_dir}/jacoco.xml"
 
 Read(file_path=coverage_file)
 ```
 
 **Reference:** `language-specific-tooling.md` for complete tool commands by language
+**Reference:** `test-isolation-service.md` for path resolution and directory management
 
 ---
 

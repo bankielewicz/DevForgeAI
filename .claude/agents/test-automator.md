@@ -6,6 +6,11 @@ model: haiku
 color: green
 permissionMode: acceptEdits
 skills: devforgeai-development
+proactive_triggers:
+  - "when implementing features requiring test coverage"
+  - "when generating tests from acceptance criteria"
+  - "when coverage gaps detected"
+  - "during TDD Red phase"
 ---
 
 # Test Automator

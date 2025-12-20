@@ -44,4 +44,4 @@ story-id: STORY-042
 
 Users can extend default templates by creating custom templates in `.claude/custom-templates/`. Custom templates inherit from base templates and can add additional fields without removing default fields.
 
-See `devforgeai/config/feedback.yaml` for template configuration options.
+See `.devforgeai/config/feedback.yaml` for template configuration options.

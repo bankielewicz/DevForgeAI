@@ -17,7 +17,7 @@
 **Check:**
 1. Is hooks.yaml configured?
    ```bash
-   cat devforgeai/config/hooks.yaml | grep -A 5 "release-staging\|release-production"
+   cat .devforgeai/config/hooks.yaml | grep -A 5 "release-staging\|release-production"
    ```
 
 2. Are hooks enabled?
@@ -39,14 +39,14 @@
 
 5. Check logs:
    ```bash
-   cat devforgeai/logs/release-hooks-{STORY-ID}.log
+   cat .devforgeai/logs/release-hooks-{STORY-ID}.log
    ```
 
 **Solution Paths:**
 
 | Problem | Solution |
 |---------|----------|
-| hooks.yaml missing | Copy `devforgeai/config/hooks.yaml.example-release` to `hooks.yaml` |
+| hooks.yaml missing | Copy `.devforgeai/config/hooks.yaml.example-release` to `hooks.yaml` |
 | enabled: false | Set `enabled: true` in hooks.yaml |
 | Wrong trigger mode | Change `trigger_on` or `on_success`/`on_failure` flags |
 | CLI not installed | Run: `pip install --break-system-packages -e .claude/scripts/` |
@@ -87,7 +87,7 @@ which devforgeai
 **Full Error:**
 ```
 check-hooks failed (exit code: 2)
-Error: Configuration file not found: devforgeai/config/hooks.yaml
+Error: Configuration file not found: .devforgeai/config/hooks.yaml
 Deployment continues without feedback
 ```
 
@@ -98,10 +98,10 @@ Deployment continues without feedback
 **Solution:**
 ```bash
 # Copy example configuration
-cp devforgeai/config/hooks.yaml.example-release devforgeai/config/hooks.yaml
+cp .devforgeai/config/hooks.yaml.example-release .devforgeai/config/hooks.yaml
 
 # Customize for your needs
-nano devforgeai/config/hooks.yaml
+nano .devforgeai/config/hooks.yaml
 ```
 
 **Prevention:** Check hooks.yaml exists during pre-release validation
@@ -154,7 +154,7 @@ operations:
 1. **Address production failure FIRST:**
    ```bash
    # Check deployment logs
-   cat devforgeai/deployment/logs/{STORY-ID}-production.log
+   cat .devforgeai/deployment/logs/{STORY-ID}-production.log
 
    # Execute rollback if needed
    /rollback STORY-001
@@ -165,7 +165,7 @@ operations:
 2. **Then debug hook issue:**
    ```bash
    # Check hook logs
-   cat devforgeai/logs/release-hooks-{STORY-ID}.log
+   cat .devforgeai/logs/release-hooks-{STORY-ID}.log
 
    # Test hook CLI manually
    devforgeai check-hooks --operation=release-production --status=FAILURE
@@ -287,7 +287,7 @@ echo "Duration: $(( (END - START) / 1000000 ))ms"
 
 **Diagnosis:**
 ```bash
-cat devforgeai/config/hooks.yaml | grep -A 10 "release-production"
+cat .devforgeai/config/hooks.yaml | grep -A 10 "release-production"
 ```
 
 **Check:**
@@ -334,7 +334,7 @@ operations:
 
 ### Issue: Log File Not Created
 
-**Symptom:** `devforgeai/logs/release-hooks-{STORY-ID}.log` doesn't exist after deployment
+**Symptom:** `.devforgeai/logs/release-hooks-{STORY-ID}.log` doesn't exist after deployment
 
 **Cause:** Hook check returned 1 (not eligible) - no logging for skipped hooks
 
@@ -351,18 +351,18 @@ operations:
 
 **Symptom:**
 ```
-Error: Permission denied: devforgeai/logs/release-hooks-STORY-025.log
+Error: Permission denied: .devforgeai/logs/release-hooks-STORY-025.log
 ```
 
 **Solution:**
 ```bash
 # Create logs directory with correct permissions
-mkdir -p devforgeai/logs
-chmod 755 devforgeai/logs
+mkdir -p .devforgeai/logs
+chmod 755 .devforgeai/logs
 
 # Ensure user can write to logs
-touch devforgeai/logs/release-hooks-test.log
-rm devforgeai/logs/release-hooks-test.log
+touch .devforgeai/logs/release-hooks-test.log
+rm .devforgeai/logs/release-hooks-test.log
 ```
 
 ---
@@ -371,28 +371,28 @@ rm devforgeai/logs/release-hooks-test.log
 
 ### Issue: Feedback File Not Created
 
-**Symptom:** Hook invoked, user answered questions, but no `devforgeai/feedback/releases/*.json` file
+**Symptom:** Hook invoked, user answered questions, but no `.devforgeai/feedback/releases/*.json` file
 
 **Diagnosis:**
 ```bash
 # Check feedback directory exists
-ls -la devforgeai/feedback/releases/
+ls -la .devforgeai/feedback/releases/
 
 # Check invoke-hooks exit code
 echo $?  # Should be 0 if successful
 ```
 
 **Possible causes:**
-1. Directory doesn't exist → Create: `mkdir -p devforgeai/feedback/releases`
-2. Permission denied → Check: `ls -ld devforgeai/feedback/`
-3. invoke-hooks failed → Check logs: `devforgeai/logs/release-hooks-{STORY-ID}.log`
+1. Directory doesn't exist → Create: `mkdir -p .devforgeai/feedback/releases`
+2. Permission denied → Check: `ls -ld .devforgeai/feedback/`
+3. invoke-hooks failed → Check logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
 4. User aborted early (Ctrl+C) → Partial feedback should still save
 
 **Solution:**
 ```bash
 # Create feedback directory
-mkdir -p devforgeai/feedback/releases
-chmod 755 devforgeai/feedback/releases
+mkdir -p .devforgeai/feedback/releases
+chmod 755 .devforgeai/feedback/releases
 
 # Test feedback writing
 devforgeai invoke-hooks --operation=release-staging --story=TEST-001
@@ -401,9 +401,9 @@ devforgeai invoke-hooks --operation=release-staging --story=TEST-001
 
 ### Issue: Feedback File Wrong Location
 
-**Expected:** `devforgeai/feedback/releases/STORY-025-staging-{timestamp}.json`
+**Expected:** `.devforgeai/feedback/releases/STORY-025-staging-{timestamp}.json`
 
-**Actual:** `devforgeai/feedback/dev/STORY-025-{timestamp}.json`
+**Actual:** `.devforgeai/feedback/dev/STORY-025-{timestamp}.json`
 
 **Cause:** Operation name incorrect in invoke-hooks call
 
@@ -484,7 +484,7 @@ operations:
 /release STORY-025 staging
 
 # Check if hooks actually invoked
-cat devforgeai/logs/release-hooks-STORY-025.log
+cat .devforgeai/logs/release-hooks-STORY-025.log
 ```
 
 **Solution:**
@@ -516,7 +516,7 @@ pip install pytest-timeout
 **Setup:**
 ```bash
 # Ensure hooks enabled
-cat > devforgeai/config/hooks.yaml << 'EOF'
+cat > .devforgeai/config/hooks.yaml << 'EOF'
 enabled: true
 operations:
   release-staging:
@@ -534,16 +534,16 @@ EOF
 1. Staging deployment completes successfully
 2. Feedback prompt appears: "How did the staging deployment go?"
 3. User answers questions
-4. Feedback saved to `devforgeai/feedback/releases/STORY-025-staging-{timestamp}.json`
+4. Feedback saved to `.devforgeai/feedback/releases/STORY-025-staging-{timestamp}.json`
 5. Deployment proceeds to completion
 
 **Verify:**
 ```bash
 # Check feedback file exists
-ls -la devforgeai/feedback/releases/STORY-025-staging-*.json
+ls -la .devforgeai/feedback/releases/STORY-025-staging-*.json
 
 # Check log
-cat devforgeai/logs/release-hooks-STORY-025.log
+cat .devforgeai/logs/release-hooks-STORY-025.log
 ```
 
 ---
@@ -566,7 +566,7 @@ cat devforgeai/logs/release-hooks-STORY-025.log
 **Verify:**
 ```bash
 # Check feedback includes failure status
-cat devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.operation_context.deployment_status'
+cat .devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.operation_context.deployment_status'
 # Should return: "FAILURE"
 ```
 
@@ -576,7 +576,7 @@ cat devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.operation_conte
 
 **Setup:**
 ```bash
-cat > devforgeai/config/hooks.yaml << 'EOF'
+cat > .devforgeai/config/hooks.yaml << 'EOF'
 enabled: true
 operations:
   release-production:
@@ -601,11 +601,11 @@ EOF
 **Verify:**
 ```bash
 # Should NOT have production feedback file (or only staging file)
-ls devforgeai/feedback/releases/STORY-025-production-*.json
+ls .devforgeai/feedback/releases/STORY-025-production-*.json
 # Expected: No such file (correct behavior)
 
 # Check log
-grep "failures-only mode" devforgeai/logs/release-hooks-STORY-025.log
+grep "failures-only mode" .devforgeai/logs/release-hooks-STORY-025.log
 ```
 
 ---
@@ -628,7 +628,7 @@ grep "failures-only mode" devforgeai/logs/release-hooks-STORY-025.log
 **Verify:**
 ```bash
 # Production failure feedback exists
-cat devforgeai/feedback/releases/STORY-025-production-*.json | jq '.metadata.severity'
+cat .devforgeai/feedback/releases/STORY-025-production-*.json | jq '.metadata.severity'
 # Should return: "critical"
 ```
 
@@ -656,7 +656,7 @@ mv /c/Users/bryan/bin/devforgeai /c/Users/bryan/bin/devforgeai.backup
 **Verify:**
 ```bash
 # No logs created (hooks never attempted)
-ls devforgeai/logs/release-hooks-STORY-025.log
+ls .devforgeai/logs/release-hooks-STORY-025.log
 # Expected: No such file (correct behavior)
 
 # Restore CLI
@@ -684,7 +684,7 @@ mv /c/Users/bryan/bin/devforgeai.backup /c/Users/bryan/bin/devforgeai
 **Verify:**
 ```bash
 # Partial feedback file exists
-cat devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.questions[] | select(.skipped == true)'
+cat .devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.questions[] | select(.skipped == true)'
 # Shows questions user didn't answer (skipped due to abort)
 ```
 
@@ -710,7 +710,7 @@ cat devforgeai/feedback/releases/STORY-025-staging-*.json | jq '.questions[] | s
 **Verify:**
 ```bash
 # Two separate files exist
-ls -la devforgeai/feedback/releases/STORY-025-staging-*.json
+ls -la .devforgeai/feedback/releases/STORY-025-staging-*.json
 # Should show 2 files with different timestamps
 ```
 
@@ -725,7 +725,7 @@ ls -la devforgeai/feedback/releases/STORY-025-staging-*.json
 DEPLOY_PID=$!
 
 # While deployment running, disable hooks
-echo "enabled: false" > devforgeai/config/hooks.yaml
+echo "enabled: false" > .devforgeai/config/hooks.yaml
 
 # Wait for deployment to complete
 wait $DEPLOY_PID
@@ -740,7 +740,7 @@ wait $DEPLOY_PID
 **Verify:**
 ```bash
 # No feedback file created
-ls devforgeai/feedback/releases/STORY-025-staging-*.json
+ls .devforgeai/feedback/releases/STORY-025-staging-*.json
 # Expected: No such file (hooks disabled at completion time)
 ```
 
@@ -828,7 +828,7 @@ devforgeai check-hooks --operation=release-production --status=FAILURE
 
 2. **Fast: Disable hooks via config (no code change):**
    ```bash
-   cat > devforgeai/config/hooks.yaml << 'EOF'
+   cat > .devforgeai/config/hooks.yaml << 'EOF'
    enabled: false
    EOF
    ```
@@ -840,9 +840,9 @@ devforgeai check-hooks --operation=release-production --status=FAILURE
    ```
 
 4. **Root cause analysis:**
-   - Review logs: `devforgeai/logs/release-hooks-{STORY-ID}.log`
+   - Review logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
    - Identify why hooks affected deployment status
-   - File incident report: `devforgeai/incidents/hook-deployment-interference.md`
+   - File incident report: `.devforgeai/incidents/hook-deployment-interference.md`
 
 5. **Fix hook integration bug:**
    - Ensure hook failures are truly non-blocking
@@ -865,17 +865,17 @@ devforgeai --version
 devforgeai check-hooks --operation=release-staging --status=SUCCESS
 
 # 3. Feedback directory writable
-touch devforgeai/feedback/releases/test.json && rm devforgeai/feedback/releases/test.json
+touch .devforgeai/feedback/releases/test.json && rm .devforgeai/feedback/releases/test.json
 
 # 4. Logs directory writable
-touch devforgeai/logs/test.log && rm devforgeai/logs/test.log
+touch .devforgeai/logs/test.log && rm .devforgeai/logs/test.log
 
 # 5. Performance acceptable
 time devforgeai check-hooks --operation=release-staging --status=SUCCESS
 # Should be <100ms
 
 # 6. Recent feedback files exist (if hooks enabled)
-ls -lt devforgeai/feedback/releases/ | head -5
+ls -lt .devforgeai/feedback/releases/ | head -5
 ```
 
 **All checks pass:** ✅ Hook system healthy
@@ -885,13 +885,13 @@ ls -lt devforgeai/feedback/releases/ | head -5
 ## Support
 
 **For additional help:**
-- Main troubleshooting guide: `devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md`
-- Hook integration pattern: `devforgeai/docs/hook-integration-pattern.md`
-- Configuration reference: `devforgeai/config/hooks.yaml.example-release`
+- Main troubleshooting guide: `.devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md`
+- Hook integration pattern: `.devforgeai/docs/hook-integration-pattern.md`
+- Configuration reference: `.devforgeai/config/hooks.yaml.example-release`
 - Test suite: `tests/integration/test_release_hooks_integration.py`
 
 **Issue tracking:**
-- Create issue in: `devforgeai/issues/`
+- Create issue in: `.devforgeai/issues/`
 - Include: Logs, config, error messages, reproduction steps
 
 ---

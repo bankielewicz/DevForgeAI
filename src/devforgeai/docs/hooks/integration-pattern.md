@@ -165,7 +165,7 @@ fi
 - [ ] Edge cases: timeout, circular invocation, missing CLI
 
 ### Configuration
-- [ ] Add operation to `devforgeai/config/hooks.yaml`
+- [ ] Add operation to `.devforgeai/config/hooks.yaml`
 - [ ] Set appropriate trigger conditions (on_success, on_failure)
 - [ ] Configure skip tracking (threshold: 3)
 - [ ] Document configuration in user guide
@@ -331,9 +331,9 @@ time {
 ## Support Resources
 
 **Documentation:**
-- `devforgeai/docs/hooks/user-guide.md` - Enable/disable configuration
-- `devforgeai/docs/hooks/troubleshooting.md` - This file
-- `devforgeai/docs/hooks/integration-pattern.md` - Integration checklist
+- `.devforgeai/docs/hooks/user-guide.md` - Enable/disable configuration
+- `.devforgeai/docs/hooks/troubleshooting.md` - This file
+- `.devforgeai/docs/hooks/integration-pattern.md` - Integration checklist
 
 **Reference Implementation:**
 - STORY-023: `/dev` command pilot integration

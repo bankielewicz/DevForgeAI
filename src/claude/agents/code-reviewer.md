@@ -6,6 +6,11 @@ model: haiku
 color: green
 permissionMode: acceptEdits
 skills: devforgeai-qa
+proactive_triggers:
+  - "after code implementation"
+  - "after refactoring"
+  - "before git commit"
+  - "when pull request created"
 ---
 
 # Code Reviewer

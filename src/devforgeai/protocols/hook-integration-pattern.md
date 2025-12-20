@@ -53,12 +53,12 @@ fi
 
 **For `/create-context` command:**
 ```bash
-if [ -f "devforgeai/specs/context/tech-stack.md" ] && \
-   [ -f "devforgeai/specs/context/dependencies.md" ] && \
-   [ -f "devforgeai/specs/context/coding-standards.md" ] && \
-   [ -f "devforgeai/specs/context/architecture-constraints.md" ] && \
-   [ -f "devforgeai/specs/context/anti-patterns.md" ] && \
-   [ -f "devforgeai/specs/context/source-tree.md" ]; then
+if [ -f "devforgeai/context/tech-stack.md" ] && \
+   [ -f "devforgeai/context/dependencies.md" ] && \
+   [ -f "devforgeai/context/coding-standards.md" ] && \
+   [ -f "devforgeai/context/architecture-constraints.md" ] && \
+   [ -f "devforgeai/context/anti-patterns.md" ] && \
+   [ -f "devforgeai/context/source-tree.md" ]; then
   OPERATION_STATUS="completed"
 else
   OPERATION_STATUS="failed"
@@ -107,7 +107,7 @@ if [ $HOOK_CHECK_EXIT -eq 0 ]; then
   devforgeai invoke-hooks --operation=[OPERATION] [--story=$STORY_ID] || {
     # Hook invocation failed, but continue anyway
     # Primary operation already completed (success criteria met)
-    # Failure is logged to devforgeai/feedback/sessions/ (if applicable)
+    # Failure is logged to .devforgeai/feedback/sessions/ (if applicable)
   }
 fi
 
@@ -170,7 +170,7 @@ Users can opt out or skip feedback:
 ### 4. Persistent ✅
 
 User responses are saved for later analysis:
-- Feedback saved to `devforgeai/feedback/sessions/` directory
+- Feedback saved to `.devforgeai/feedback/sessions/` directory
 - Responses remain available even if user closes terminal mid-survey
 - Metadata captured: timestamp, operation, story_id, status
 
@@ -365,7 +365,7 @@ Before marking hook integration complete:
 - `.claude/commands/create-context.md` - Phase N implementation (this pattern)
 
 **Supporting Documentation:**
-- `devforgeai/hooks/hook-integration-guide.md` - Detailed CLI guide
+- `.devforgeai/hooks/hook-integration-guide.md` - Detailed CLI guide
 - `STORY-023-wire-hooks-into-dev-command-pilot.story.md` - Pilot story
 - `STORY-030-wire-hooks-into-create-context-command.story.md` - This story
 

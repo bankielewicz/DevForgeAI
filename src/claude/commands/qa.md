@@ -31,6 +31,25 @@ Execute QA validation on story implementation. Supports light validation during 
 
 ### Phase 0: Argument Validation and Story Loading
 
+**Step 0.0: Validate Project Root [MANDATORY - FIRST]**
+
+Before ANY Glob or Read operations:
+
+```
+result = Read(file_path="CLAUDE.md")
+
+IF result.success AND content_contains("DevForgeAI"):
+    Display: "✓ Project root validated"
+ELSE:
+    Display: "❌ Not in DevForgeAI project root"
+    Display: "   Expected: CLAUDE.md with DevForgeAI configuration"
+    HALT: Use AskUserQuestion to get correct path or ask user to navigate
+```
+
+**Proceed to argument validation only after CWD check passes.**
+
+---
+
 **Validate story ID format:**
 ```
 IF $1 is empty OR does NOT match pattern "STORY-[0-9]+":

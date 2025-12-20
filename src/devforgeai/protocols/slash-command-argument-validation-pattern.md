@@ -745,18 +745,18 @@ When adding Phase 0 validation to a slash command:
 ## Related Documentation
 
 **Official Sources:**
-- `devforgeai/specs/research/Terminal/slash-commands.md` - Argument handling
-- `devforgeai/specs/claude-skills.md` - Skills cannot accept parameters
+- `.ai_docs/Terminal/slash-commands.md` - Argument handling
+- `.ai_docs/claude-skills.md` - Skills cannot accept parameters
 
 **DevForgeAI Patterns:**
 - `CLAUDE.md` - "Ask, Don't Assume" principle
-- `devforgeai/specs/context/anti-patterns.md` - Copy-paste warnings
+- `devforgeai/context/anti-patterns.md` - Copy-paste warnings
 - `.claude/memory/skills-reference.md` - Skill invocation patterns
 
 **RCA Context:**
-- `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
-- `devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
-- `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
+- `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
+- `.devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
+- `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
 
 ---
 

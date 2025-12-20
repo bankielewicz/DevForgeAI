@@ -153,12 +153,75 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Graceful Degradation:** Hook failures logged, deployment proceeds regardless
 **Output:** Feedback collected (if hooks enabled and eligible), deployment continues
 
-### Phase 4: Post-Deployment Validation
-**Purpose:** Execute comprehensive smoke tests on production
-**Reference:** `post-deployment-validation.md`
-**Guide:** `smoke-testing-guide.md`, `monitoring-metrics.md`
-**Tests:** Health checks (endpoints alive), critical path (core workflows), performance (latency within bounds)
-**Output:** Production validation complete (all tests passed)
+### Phase 4: Parallel Post-Deployment Validation (UPDATED - STORY-113)
+
+**⚠️ CHECKPOINT: You MUST execute health checks AND smoke tests in PARALLEL (same batch)**
+
+**Step 4.0: Load Parallel Smoke Test Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-release/references/parallel-smoke-tests.md")
+```
+
+**After loading:** Execute the parallel validation workflow. This phase runs health checks and smoke tests concurrently for 3-5x performance improvement.
+
+**Purpose:** Execute comprehensive smoke tests on production with parallel execution
+
+**Step 4.1: Load Parallel Configuration**
+```
+Read(file_path="devforgeai/config/parallel-orchestration.yaml")
+max_concurrent = config.profiles[active_profile].max_concurrent_tasks
+timeout_ms = config.profiles[active_profile].timeout_ms
+```
+
+**Step 4.2: Execute Parallel Health Checks + Smoke Tests**
+
+Execute in SINGLE message (concurrent batch):
+```
+# Health checks (in parallel batch)
+Bash(command="curl -s -o /dev/null -w '%{http_code}' $HEALTH_ENDPOINT_1")
+Bash(command="curl -s -o /dev/null -w '%{http_code}' $HEALTH_ENDPOINT_2")
+
+# Smoke tests (same parallel batch)
+Bash(command="npm test -- --testNamePattern='smoke'")
+Bash(command="pytest tests/smoke/ -v")
+```
+
+**Step 4.3: Aggregate Results Using PartialResult**
+```
+partial_result = aggregate_parallel_results(bash_outputs)
+
+IF partial_result.success_rate < 0.5:
+    Trigger rollback procedure
+    HALT: "Post-deployment validation failed"
+```
+
+**Reference Files:**
+- `parallel-smoke-tests.md` (STORY-113) - Parallel execution patterns
+- `post-deployment-validation.md` - Detailed validation steps
+- `smoke-testing-guide.md`, `monitoring-metrics.md` - Test definitions
+
+**Success Threshold:** 50% (more lenient than QA, allows rollback decision)
+
+**Phase 4 Completion Checklist:**
+Before proceeding to Phase 5, verify:
+- [ ] Loaded parallel-smoke-tests.md (Step 4.0)
+- [ ] Loaded parallel configuration (Step 4.1)
+- [ ] Executed health checks AND smoke tests in SINGLE message (Step 4.2)
+- [ ] Aggregated results into PartialResult model
+- [ ] Validated success_rate >= 0.5 (50%)
+- [ ] IF failed: Triggered rollback procedure
+- [ ] Displayed parallel validation results
+
+**Display to user:**
+```
+✓ Phase 4 Complete: Parallel Post-Deployment Validation
+  Health checks: [X] of [Y] passed
+  Smoke tests: [X] of [Y] passed
+  Overall success rate: [X]% (threshold: 50%)
+  Duration: [X]s (vs ~[5X]s sequential)
+```
+
+**IF success_rate < 50%:** Trigger rollback and HALT.
 
 ### Phase 5: Release Documentation
 **Purpose:** Generate release notes and update story
@@ -217,7 +280,7 @@ Release complete when:
 
 Load these on-demand during workflow execution.
 
-### Workflow Files (10 files)
+### Workflow Files (11 files)
 - **parameter-extraction.md** (104 lines) - Story ID, environment, strategy extraction algorithm
 - **configuration-guide.md** (52 lines) - Platform config requirements, schemas, examples
 - **pre-release-validation.md** (66 lines) - Phase 1: Validation checks and release gates
@@ -225,6 +288,7 @@ Load these on-demand during workflow execution.
 - **post-staging-hooks.md** (NEW - STORY-025) - Phase 2.5: Hook integration after staging deployment
 - **production-deployment.md** (69 lines) - Phase 3: Production deployment with strategies
 - **post-production-hooks.md** (NEW - STORY-025) - Phase 3.5: Hook integration after production deployment
+- **parallel-smoke-tests.md** (NEW - STORY-113) - Phase 4: Parallel smoke test execution patterns
 - **post-deployment-validation.md** (58 lines) - Phase 4: Smoke tests and health checks
 - **release-documentation.md** (65 lines) - Phase 5: Release notes and audit trail
 - **monitoring-closure.md** (29 lines) - Phase 6: Monitoring setup and story closure
@@ -237,8 +301,8 @@ Load these on-demand during workflow execution.
 - **rollback-procedures.md** (178 lines) - Rollback execution procedures and recovery strategies
 - **smoke-testing-guide.md** (389 lines) - Post-deployment test procedures and validation
 
-**Total: 16 reference files, ~4,600 lines of comprehensive deployment guidance.**
-- 10 workflow files (phases 1-6 + 2 new hook phases)
+**Total: 17 reference files, ~4,800 lines of comprehensive deployment guidance.**
+- 11 workflow files (phases 1-6 + 2 hook phases + 1 parallel pattern)
 - 6 guide files (strategies, monitoring, platforms, checklists, rollback, smoke testing)
 
 **Progressive loading ensures only needed references consume tokens during execution.**

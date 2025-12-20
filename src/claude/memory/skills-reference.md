@@ -77,6 +77,48 @@ Skill(command="devforgeai-development")
 
 ---
 
+## CWD Validation Best Practices
+
+Skills use **relative paths** (e.g., `devforgeai/specs/Stories/`). These paths assume CWD is project root.
+
+### Before File Operations
+
+1. **Verify CWD is project root:**
+   ```
+   Read(file_path="CLAUDE.md")  # Must succeed
+   # Content must contain "DevForgeAI"
+   ```
+
+2. **If CLAUDE.md missing, check secondary markers:**
+   ```
+   Glob(pattern=".claude/skills/*.md")      # Or
+   Glob(pattern="devforgeai/specs/context/*.md")
+   ```
+
+3. **If validation fails → HALT:**
+   - Do NOT proceed with file operations
+   - Use `AskUserQuestion` to get correct path
+
+### Glob Tool Behavior
+
+- **Always recursive** - no way to limit depth
+- **Use `path` param** with absolute paths for reliability:
+  ```
+  Glob(pattern="*.md", path="/absolute/path/.claude/rules/core")
+  ```
+- **For single files** - use `Read()` instead (no recursion)
+
+### Pattern Syntax
+
+| Syntax | Works | Example |
+|--------|-------|---------|
+| `*` wildcard | ✅ | `*.md` |
+| `**` recursive | ✅ Always ON | Already implicit |
+| `[...]` char class | ✅ | `STORY-10[0-5]*.md` |
+| `{...}` brace expansion | ❌ | Use char class instead |
+
+---
+
 ## When to Invoke Skills
 
 ### devforgeai-ideation

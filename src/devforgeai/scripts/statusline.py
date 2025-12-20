@@ -153,8 +153,8 @@ def get_current_story():
     """Find story with 'In Development' status"""
     # Try multiple potential story directories
     story_dirs = [
-        Path("devforgeai/specs/Stories"),
-        Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories"),
+        Path(".ai_docs/Stories"),
+        Path("/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories"),
     ]
 
     for stories_dir in story_dirs:

@@ -1230,14 +1230,20 @@ Display:
 
 **Check for all 6 DevForgeAI context files:**
 
+**Reference:** `parallel-context-loader.md` (STORY-112)
+
+**Pattern:** Load all 6 files in a single message with 6 Read calls for implicit parallel execution.
+
+**Time Savings:** 83% reduction (3000ms sequential → 500ms parallel)
+
 ```
-Read all 6 context files in PARALLEL:
-- Read(file_path="devforgeai/specs/context/tech-stack.md")
-- Read(file_path="devforgeai/specs/context/source-tree.md")
-- Read(file_path="devforgeai/specs/context/dependencies.md")
-- Read(file_path="devforgeai/specs/context/coding-standards.md")
-- Read(file_path="devforgeai/specs/context/architecture-constraints.md")
-- Read(file_path="devforgeai/specs/context/anti-patterns.md")
+# Single message with 6 Read calls - all execute in parallel
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **If ANY file is missing:**

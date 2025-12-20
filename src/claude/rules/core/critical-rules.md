@@ -39,3 +39,6 @@ When in doubt → HALT and use AskUserQuestion.
 
 ## 11. Git Operations Require User Approval
 NEVER stash, reset --hard, force push, delete branches, or amend commits without user approval.
+
+## 12. Citation Requirements for Recommendations
+Technology/architecture recommendations MUST cite authoritative context files with line-specific references. See `.claude/rules/core/citation-requirements.md` for formats and categories.

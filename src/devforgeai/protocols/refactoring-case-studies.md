@@ -977,9 +977,9 @@ Overall pattern adoption is successful when:
 - `.claude/agents/tech-stack-detector.md` - Technology validation
 
 **Detailed Refactoring Documentation:**
-- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
-- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md`
-- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md`
+- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md`
+- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md`
 
 ---
 

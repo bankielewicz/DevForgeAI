@@ -81,7 +81,7 @@ States are:
 **Entry Criteria:**
 - Status = "Backlog" previously
 - All `depends_on` stories in "QA Approved" or "Released" state
-- Tech stack validated against `devforgeai/specs/context/tech-stack.md`
+- Tech stack validated against `devforgeai/context/tech-stack.md`
 - Sprint assignment confirmed (optional)
 
 **Exit Criteria:**
@@ -376,7 +376,7 @@ Invalid state transitions are blocked with clear error messages.
 
 ## State Transition Rules
 
-See `devforgeai/protocols/state-transitions.md` for:
+See `.devforgeai/protocols/state-transitions.md` for:
 - Valid transition paths
 - Forbidden transitions
 - Rollback scenarios
@@ -386,7 +386,7 @@ See `devforgeai/protocols/state-transitions.md` for:
 
 ## Quality Gates
 
-See `devforgeai/protocols/quality-gates.md` for:
+See `.devforgeai/protocols/quality-gates.md` for:
 - Gate criteria per state transition
 - Measurement methods
 - Pass/fail thresholds
@@ -396,10 +396,10 @@ See `devforgeai/protocols/quality-gates.md` for:
 
 ## Related Documentation
 
-- **State Transitions:** `devforgeai/protocols/state-transitions.md` - Valid transition rules
-- **Quality Gates:** `devforgeai/protocols/quality-gates.md` - Gate criteria per transition
-- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
-- **Story Template:** `devforgeai/templates/story-template.md` - Story structure with states
+- **State Transitions:** `.devforgeai/protocols/state-transitions.md` - Valid transition rules
+- **Quality Gates:** `.devforgeai/protocols/quality-gates.md` - Gate criteria per transition
+- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md` - Command responsibilities
+- **Story Template:** `.devforgeai/templates/story-template.md` - Story structure with states
 
 ---
 

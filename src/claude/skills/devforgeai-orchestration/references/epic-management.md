@@ -106,9 +106,11 @@ Measurement Plan:
 - Review frequency (weekly, end of epic)
 ```
 
-### Step 5: Epic → Feature Decomposition
+### Step 5: Epic → Feature Decomposition (Parallel Analysis)
 
-**Decompose epic into 3-7 high-level features:**
+**Decompose epic into 3-7 high-level features using parallel analysis.**
+
+**Reference:** See `references/feature-analyzer.md` for parallel execution pattern (STORY-111).
 
 **Feature Criteria:**
 - User-facing capability
@@ -116,21 +118,37 @@ Measurement Plan:
 - Estimatable (can break into stories)
 - Takes 1-3 sprints to complete
 
-**Decomposition Process:**
+**Parallel Decomposition Process:**
 ```
-FOR each requirement from ideation:
-    Group related capabilities
-    Identify feature boundaries
-    Name feature clearly
-    Estimate feature size (story points)
+# Step 1: Load parallel configuration
+max_concurrent = config.profiles[profile].max_concurrent_tasks  # 4 for Pro
 
-Example:
+# Step 2: Detect feature dependencies (see dependency-graph.md)
+dependencies = build_dependency_graph(features)
+
+# Step 3: Batch independent features
+batches = create_batches(features, max_concurrent)
+
+# Step 4: Execute parallel analysis (single message per batch)
+FOR each batch:
+    Task(subagent="requirements-analyst", prompt="Analyze Feature 1...")
+    Task(subagent="requirements-analyst", prompt="Analyze Feature 2...")
+    Task(subagent="requirements-analyst", prompt="Analyze Feature 3...")
+    Task(subagent="requirements-analyst", prompt="Analyze Feature 4...")
+    # All execute concurrently (implicit parallelization)
+
+# Step 5: Aggregate results
+all_stories = merge(batch_results)
+
+Example Output:
 Epic: Checkout Optimization
 ├─ Feature 1: Guest Checkout (8 points, 1 sprint)
 ├─ Feature 2: Saved Payment Methods (13 points, 1-2 sprints)
 ├─ Feature 3: Multi-Currency Support (8 points, 1 sprint)
 └─ Feature 4: Progress Indicator (3 points, 1 sprint)
 ```
+
+**Time Savings:** 60% reduction vs sequential FOR loop (see feature-analyzer.md).
 
 ### Step 6: Map Features to Sprints
 

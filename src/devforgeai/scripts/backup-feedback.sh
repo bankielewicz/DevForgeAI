@@ -3,8 +3,8 @@
 # Backup feedback data weekly
 # Run via cron: 0 2 * * 6 /path/to/backup-feedback.sh
 
-BACKUP_DIR="devforgeai/backups/feedback"
-SOURCE_DIR="devforgeai/feedback"
+BACKUP_DIR=".devforgeai/backups/feedback"
+SOURCE_DIR=".devforgeai/feedback"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 LOG_FILE="$BACKUP_DIR/backup.log"
 

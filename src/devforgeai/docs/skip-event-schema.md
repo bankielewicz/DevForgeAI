@@ -115,7 +115,7 @@ timestamp = datetime.utcnow().isoformat() + 'Z'
 3. Cannot be null or empty string
 4. Must match config file structure
 
-**Storage:** Stored in `devforgeai/config/feedback-preferences.yaml` under `skip_counters[operation_type]`
+**Storage:** Stored in `.devforgeai/config/feedback-preferences.yaml` under `skip_counters[operation_type]`
 
 **Extending:** To add new operation types:
 1. Update this whitelist (4 values → 5 values)
@@ -384,7 +384,7 @@ null                  # No user action taken
 ### Log Location
 
 ```
-devforgeai/logs/skip-pattern-detection.log
+.devforgeai/logs/skip-pattern-detection.log
 ```
 
 ### Log Format

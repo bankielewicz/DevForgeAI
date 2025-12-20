@@ -158,21 +158,21 @@ devforgeai feedback-config view
 #### Step 1: Check Directory Exists
 
 ```bash
-ls -la devforgeai/feedback/sessions/
+ls -la .devforgeai/feedback/sessions/
 ```
 
 **Expected:** Directory should exist and be readable/writable.
 
 **If missing:**
 ```bash
-mkdir -p devforgeai/feedback/sessions/
-chmod 755 devforgeai/feedback/sessions/
+mkdir -p .devforgeai/feedback/sessions/
+chmod 755 .devforgeai/feedback/sessions/
 ```
 
 #### Step 2: Check Disk Space
 
 ```bash
-df -h devforgeai/
+df -h .devforgeai/
 ```
 
 **If disk full:** Delete old feedback or make space.
@@ -180,23 +180,23 @@ df -h devforgeai/
 #### Step 3: Check File Permissions
 
 ```bash
-ls -la devforgeai/feedback/sessions/*.json
+ls -la .devforgeai/feedback/sessions/*.json
 # Should show -rw- permissions (writable by user)
 ```
 
 **If not writable:**
 ```bash
-chmod 644 devforgeai/feedback/sessions/*.json
+chmod 644 .devforgeai/feedback/sessions/*.json
 ```
 
 #### Step 4: Check Recent Saves
 
 ```bash
 # List all saved feedback sessions
-ls -lt devforgeai/feedback/sessions/ | head
+ls -lt .devforgeai/feedback/sessions/ | head
 
 # View most recent feedback
-cat devforgeai/feedback/sessions/$(ls -t devforgeai/feedback/sessions/ | head -1)
+cat .devforgeai/feedback/sessions/$(ls -t .devforgeai/feedback/sessions/ | head -1)
 ```
 
 #### Step 5: Retry
@@ -209,7 +209,7 @@ Run a command again and provide feedback:
 
 Check if saved:
 ```bash
-ls -lt devforgeai/feedback/sessions/ | head -1
+ls -lt .devforgeai/feedback/sessions/ | head -1
 ```
 
 ---
@@ -246,7 +246,7 @@ devforgeai --version
 
 ```bash
 # View configuration
-cat devforgeai/hooks/hooks.yaml
+cat .devforgeai/hooks/hooks.yaml
 
 # Try to validate it
 devforgeai feedback-config view
@@ -263,10 +263,10 @@ devforgeai feedback-config reset
 
 ```bash
 # Verify directory is writable
-test -w devforgeai/feedback/sessions/ && echo "OK" || echo "NOT WRITABLE"
+test -w .devforgeai/feedback/sessions/ && echo "OK" || echo "NOT WRITABLE"
 
 # Fix if needed
-chmod 755 devforgeai/feedback/sessions/
+chmod 755 .devforgeai/feedback/sessions/
 ```
 
 #### Step 4: Check Disk Space
@@ -346,7 +346,7 @@ devforgeai --version
 
 **Problem:** No internet, hooks trying to connect?
 
-**Answer:** Hooks don't need internet. Feedback is saved locally to `devforgeai/feedback/sessions/`. You can share feedback later when online.
+**Answer:** Hooks don't need internet. Feedback is saved locally to `.devforgeai/feedback/sessions/`. You can share feedback later when online.
 
 **Solution:** If hooks are blocking:
 ```bash
@@ -364,7 +364,7 @@ devforgeai feedback-config edit enabled true
 
 **Problem:** Different feedback settings needed for different projects?
 
-**Answer:** Each project has its own `devforgeai/hooks/hooks.yaml`. Create project-specific configurations:
+**Answer:** Each project has its own `.devforgeai/hooks/hooks.yaml`. Create project-specific configurations:
 
 ```bash
 # Project A - enable all feedback
@@ -399,16 +399,16 @@ cat /tmp/feedback-export/feedback-sessions.json
 **Answer:**
 ```bash
 # View what's saved
-ls devforgeai/feedback/sessions/
+ls .devforgeai/feedback/sessions/
 
 # Delete specific session
-rm devforgeai/feedback/sessions/2025-11-17-dev.json
+rm .devforgeai/feedback/sessions/2025-11-17-dev.json
 
 # Delete all sessions
-rm devforgeai/feedback/sessions/*
+rm .devforgeai/feedback/sessions/*
 
 # Verify cleared
-ls devforgeai/feedback/sessions/
+ls .devforgeai/feedback/sessions/
 # Should be empty
 ```
 
@@ -420,7 +420,7 @@ ls devforgeai/feedback/sessions/
 
 ```bash
 # View detailed hook execution log
-cat devforgeai/feedback/.hook-execution.log
+cat .devforgeai/feedback/.hook-execution.log
 ```
 
 **Look for:**
@@ -446,7 +446,7 @@ echo $?
 devforgeai feedback-config view --verbose
 
 # Show full hooks.yaml file
-cat devforgeai/hooks/hooks.yaml
+cat .devforgeai/hooks/hooks.yaml
 
 # Test YAML validity
 devforgeai feedback-config validate
@@ -458,8 +458,8 @@ devforgeai feedback-config validate
 
 If troubleshooting doesn't resolve your issue:
 
-1. **Check the User Guide:** `devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md`
-2. **Review Hook Pattern:** `devforgeai/protocols/hook-integration-pattern.md`
+1. **Check the User Guide:** `.devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md`
+2. **Review Hook Pattern:** `.devforgeai/protocols/hook-integration-pattern.md`
 3. **Search Issues:** GitHub issues with "feedback hooks"
 4. **Create New Issue:** Include:
    - Command you ran (`/dev`, `/create-context`)
@@ -482,11 +482,11 @@ If troubleshooting doesn't resolve your issue:
 
 ### Diagnosis Checklist
 
-- [ ] Confirm hooks.yaml exists at `devforgeai/hooks/hooks.yaml`
+- [ ] Confirm hooks.yaml exists at `.devforgeai/hooks/hooks.yaml`
 - [ ] Verify devforgeai CLI installed: `which devforgeai`
-- [ ] Check feedback directory: `ls devforgeai/feedback/sessions/`
+- [ ] Check feedback directory: `ls .devforgeai/feedback/sessions/`
 - [ ] Verify disk space: `df -h /`
-- [ ] Check permissions: `test -w devforgeai/feedback/sessions/`
+- [ ] Check permissions: `test -w .devforgeai/feedback/sessions/`
 - [ ] Test hook manually: `devforgeai check-hooks --operation=dev --status=completed`
 
 ### Clean Slate
@@ -498,7 +498,7 @@ If all else fails, reset to defaults:
 devforgeai feedback-config reset
 
 # Delete problematic feedback files
-rm -rf devforgeai/feedback/sessions/*
+rm -rf .devforgeai/feedback/sessions/*
 
 # Verify reset
 devforgeai feedback-config view
@@ -522,7 +522,7 @@ Then try running a command again:
 | **Skip Pattern** | Operation name added to configuration to prevent hooks from triggering |
 | **Rate Limit** | Configuration that limits how often feedback prompts appear |
 | **Cooldown** | Minimum time between feedback prompts |
-| **Session** | One feedback response saved to `devforgeai/feedback/sessions/` |
+| **Session** | One feedback response saved to `.devforgeai/feedback/sessions/` |
 
 ---
 

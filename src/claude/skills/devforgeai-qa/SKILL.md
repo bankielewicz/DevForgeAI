@@ -70,7 +70,7 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 ---
 
-## QA Workflow (7 Phases)
+## QA Workflow (8 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
@@ -87,6 +87,186 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 6. Proceed to next phase
 
 **IF you skip loading a reference:** You will execute the phase incorrectly and miss mandatory steps.
+
+---
+
+### Phase 0.0: Validate Project Root [MANDATORY - FIRST STEP]
+
+**Purpose:** Ensure CWD is DevForgeAI project root before ANY file operations.
+
+**Execute BEFORE Phase 0.5 (Test Isolation):**
+
+```
+# Step 1: Check project marker file
+result = Read(file_path="CLAUDE.md")
+
+IF result.success:
+    content = result.content
+
+    # Step 2: Validate it's a DevForgeAI project
+    IF content_contains("DevForgeAI") OR content_contains("devforgeai"):
+        CWD_VALID = true
+        Display: "✓ Project root validated"
+    ELSE:
+        CWD_VALID = false
+        Display: "⚠ CLAUDE.md found but not a DevForgeAI project"
+        HALT: Use AskUserQuestion to get correct path
+ELSE:
+    # Step 3: Try secondary markers
+    dir_check = Glob(pattern=".claude/skills/*.md")
+
+    IF dir_check.has_results:
+        CWD_VALID = true
+        Display: "✓ Project root validated via .claude/skills/ structure"
+    ELSE:
+        CWD_VALID = false
+        Display: "❌ CWD Validation Failed"
+        Display: "   Not in DevForgeAI project root."
+        Display: "   Expected: CLAUDE.md with DevForgeAI configuration"
+        HALT: Use AskUserQuestion: "Provide project root path?"
+```
+
+**CRITICAL:** Do NOT proceed to Phase 0.5 if CWD validation fails.
+
+---
+
+### Phase 0.5: Load Test Isolation Configuration (STORY-092)
+
+**Purpose:** Load story-scoped test output paths to enable concurrent QA validations without data corruption.
+
+**Reference:** `references/test-isolation-service.md` (path resolution, directory creation, locking)
+
+**Step 0.5.1: Load Configuration**
+```
+Read(file_path="devforgeai/config/test-isolation.yaml")
+
+IF file not found:
+    Display: "ℹ️ Test isolation config not found, using defaults"
+    config = {
+        enabled: true,
+        paths: {
+            results_base: "tests/results",
+            coverage_base: "tests/coverage",
+            logs_base: "tests/logs"
+        },
+        directory: { auto_create: true, permissions: 755 },
+        concurrency: { locking_enabled: true, lock_timeout_seconds: 300 }
+    }
+ELSE:
+    config = parsed YAML content
+    Display: "✓ Test isolation config loaded"
+```
+
+**Step 0.5.2: Resolve Story-Scoped Paths**
+```
+story_paths = {
+    results_dir: "{config.paths.results_base}/{STORY_ID}",
+    coverage_dir: "{config.paths.coverage_base}/{STORY_ID}",
+    logs_dir: "{config.paths.logs_base}/{STORY_ID}"
+}
+
+# Store for use in Phase 1 test commands
+test_isolation_paths = story_paths
+```
+
+**Output:** `test_isolation_paths` variable available for Phase 1 test commands
+
+---
+
+### Phase 0.6: Create Story-Scoped Directories (STORY-092)
+
+**Purpose:** Ensure story-specific output directories exist before test execution.
+
+**Prerequisite:** Phase 0.5 completed (config loaded)
+
+**Step 0.6.1: Check Auto-Create Setting**
+```
+IF config.directory.auto_create == false:
+    Display: "ℹ️ Directory auto-creation disabled, skipping"
+    SKIP to Phase 0.7
+```
+
+**Step 0.6.2: Create Directories**
+```
+# Create all three story-scoped directories
+Bash(command="mkdir -p {test_isolation_paths.results_dir}")
+Bash(command="mkdir -p {test_isolation_paths.coverage_dir}")
+Bash(command="mkdir -p {test_isolation_paths.logs_dir}")
+
+# Apply permissions (Linux/Mac only, ignored on Windows)
+IF platform != "windows":
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.results_dir}")
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.coverage_dir}")
+    Bash(command="chmod {config.directory.permissions} {test_isolation_paths.logs_dir}")
+```
+
+**Step 0.6.3: Validate Creation**
+```
+# Verify directories exist
+FOR dir in [results_dir, coverage_dir, logs_dir]:
+    IF NOT exists(dir):
+        Display: "❌ ERROR: Failed to create {dir}"
+        Display: "Check write permissions on tests/ directory"
+        HALT workflow
+```
+
+**Step 0.6.4: Write Timestamp**
+```
+Write(file_path="{test_isolation_paths.results_dir}/timestamp.txt",
+      content="{ISO_8601_TIMESTAMP}")
+
+Display: "✓ Story directories created: {STORY_ID}"
+```
+
+---
+
+### Phase 0.7: Acquire Lock File (STORY-092)
+
+**Purpose:** Prevent concurrent QA validations from corrupting test outputs.
+
+**Prerequisite:** Phase 0.6 completed (directories exist)
+
+**Step 0.7.1: Check Locking Setting**
+```
+IF config.concurrency.locking_enabled == false:
+    Display: "ℹ️ File locking disabled, skipping"
+    SKIP to Phase 0.9
+```
+
+**Step 0.7.2: Check for Existing Lock**
+```
+lock_file = "{test_isolation_paths.results_dir}/.qa-lock"
+
+IF exists(lock_file):
+    lock_age = now() - file_mtime(lock_file)
+    stale_threshold = config.concurrency.stale_lock_threshold_seconds (default: 3600)
+
+    IF lock_age > stale_threshold:
+        Display: "⚠️ Removing stale lock file (age: {lock_age}s)"
+        Remove(file_path=lock_file)
+    ELSE:
+        Display: "⚠️ Lock file exists (another QA may be running)"
+        AskUserQuestion:
+            - "Wait and retry" - Wait 60 seconds and check again
+            - "Force proceed" - Continue without lock (risk of data corruption)
+            - "Cancel" - Abort QA validation
+```
+
+**Step 0.7.3: Create Lock File**
+```
+Write(file_path="{lock_file}",
+      content="timestamp: {ISO_8601_TIMESTAMP}\nstory: {STORY_ID}\npid: {process_id}")
+
+Display: "✓ Lock acquired for {STORY_ID}"
+```
+
+**Final Step (end of QA workflow):** Release lock file
+```
+# Add to Phase 7 cleanup:
+IF config.concurrency.locking_enabled:
+    Remove(file_path="{test_isolation_paths.results_dir}/.qa-lock")
+    Display: "✓ Lock released for {STORY_ID}"
+```
 
 ---
 
@@ -352,6 +532,67 @@ Before proceeding to Phase 3, verify you executed ALL 6 steps:
 ```
 
 **IF any checkbox unchecked:** HALT and complete missing steps.
+
+### Phase 2.5: Parallel Validation (NEW - STORY-113)
+
+**⚠️ CHECKPOINT: You MUST execute all 3 validators in a SINGLE message for parallel execution**
+
+**Step 2.5.0: Load Parallel Validation Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/parallel-validation.md")
+```
+
+**After loading:** Execute the parallel validation workflow. This phase runs 3 subagents concurrently for 3x performance improvement.
+
+**Subagents (ALL executed in parallel):**
+- test-automator: Test coverage and quality analysis
+- code-reviewer: Code quality and maintainability review
+- security-auditor: Security vulnerability scanning
+
+**Success Threshold:** 66% (2 of 3 validators must succeed)
+
+**Step 2.5.1: Invoke 3 Validators in Parallel**
+
+Execute in SINGLE message with 3 Task calls:
+```
+# All 3 Task calls in ONE message (parallel execution)
+Task(subagent_type="test-automator", prompt="Analyze test coverage...", description="Run tests")
+Task(subagent_type="code-reviewer", prompt="Review code changes...", description="Review code")
+Task(subagent_type="security-auditor", prompt="Scan for security issues...", description="Security scan")
+```
+
+**Step 2.5.2: Aggregate Results Using PartialResult**
+```
+partial_result = aggregate_parallel_results(task_outputs)
+
+IF partial_result.success_rate < 0.66:
+    HALT: "QA validation below threshold (2 of 3 validators required)"
+```
+
+**Phase 2.5 Completion Checklist:**
+Before proceeding to Phase 3, verify:
+- [ ] Loaded parallel-validation.md (Step 2.5.0)
+- [ ] Invoked ALL 3 validators in SINGLE message (Step 2.5.1)
+  - [ ] test-automator Task call
+  - [ ] code-reviewer Task call
+  - [ ] security-auditor Task call
+- [ ] Collected results using TaskOutput (blocking)
+- [ ] Aggregated results into PartialResult model
+- [ ] Validated success_rate >= 0.66 (2 of 3)
+- [ ] Logged any failures with correlation ID
+- [ ] Displayed parallel validation results
+
+**Display to user:**
+```
+✓ Phase 2.5 Complete: Parallel Validation
+  test-automator: [PASS/FAIL]
+  code-reviewer: [PASS/FAIL]
+  security-auditor: [PASS/FAIL]
+  Success rate: [X]% (threshold: 66%)
+  Duration: [X]s (vs ~[3X]s sequential)
+```
+
+**IF success_rate < 66%:** HALT and report failed validators.
 
 ### Phase 3: Spec Compliance Validation
 
@@ -762,9 +1003,9 @@ Before completing QA workflow, verify you executed ALL 6 steps:
 
 ---
 
-## Reference Files (19 total)
+## Reference Files (20 total)
 
-**Workflows (10):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
+**Workflows (11):** parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, parallel-validation (STORY-113), spec-compliance-workflow, code-quality-workflow, report-generation, automation-scripts, feedback-hooks-workflow, story-update-workflow
 
 **Guides (9):** coverage-analysis, anti-pattern-detection, deferral-decision-tree, language-specific-tooling, qa-result-formatting-guide, quality-metrics, security-scanning, spec-validation, validation-procedures
 

@@ -1033,4 +1033,27 @@ cargo outdated
 
 ---
 
+## Story-Scoped Coverage Commands (STORY-092)
+
+When running `/qa STORY-NNN` or `/dev STORY-NNN`, use story-scoped output paths to enable concurrent test executions without data corruption.
+
+**Variables:**
+- `{STORY_ID}` - Story identifier (e.g., STORY-092)
+- `results_dir` = `tests/results/{STORY_ID}`
+- `coverage_dir` = `tests/coverage/{STORY_ID}`
+
+| Language | Story-Scoped Coverage Command | Coverage File |
+|----------|------------------------------|---------------|
+| **.NET** | `dotnet test --collect:"XPlat Code Coverage" --results-directory=tests/results/{STORY_ID}` | `tests/results/{STORY_ID}/*/coverage.cobertura.xml` |
+| **Python** | `pytest --cov=src --cov-report=json:tests/coverage/{STORY_ID}/coverage.json --junitxml=tests/results/{STORY_ID}/test-results.xml` | `tests/coverage/{STORY_ID}/coverage.json` |
+| **Node.js** | `npm test -- --coverage --coverageDirectory=tests/coverage/{STORY_ID}` | `tests/coverage/{STORY_ID}/coverage-summary.json` |
+| **Go** | `go test ./... -coverprofile=tests/coverage/{STORY_ID}/coverage.out -json > tests/results/{STORY_ID}/test-results.json` | `tests/coverage/{STORY_ID}/coverage.out` |
+| **Java** | `mvn test jacoco:report -Djacoco.destFile=tests/coverage/{STORY_ID}/jacoco.exec` | `tests/coverage/{STORY_ID}/jacoco.xml` |
+| **Rust** | `cargo tarpaulin --out Json --output-dir tests/coverage/{STORY_ID}` | `tests/coverage/{STORY_ID}/tarpaulin-report.json` |
+
+**Configuration:** See `devforgeai/config/test-isolation.yaml` for customizing base paths
+**Reference:** `test-isolation-service.md` for path resolution algorithm
+
+---
+
 **Reference**: Load this file when determining language-specific commands during QA validation.

@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-12-14T21:35:03Z",
-  "consistency_score": 13.4,
-  "story_count": 89,
-  "epic_entry_count": 12,
+  "timestamp": "2025-12-18T21:48:07Z",
+  "consistency_score": 19.1,
+  "story_count": 94,
+  "epic_entry_count": 18,
   "mismatch_count": 0,
-  "orphan_count": 77,
+  "orphan_count": 76,
   "mismatches": [],
   "orphaned_stories": [
     {
@@ -228,6 +228,11 @@
       "claimed_epic": "EPIC-016"
     },
     {
+      "story_id": "STORY-103",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-006"
+    },
+    {
       "story_id": "STORY-100",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-016"
@@ -238,14 +243,24 @@
       "claimed_epic": "EPIC-016"
     },
     {
-      "story_id": "STORY-018",
+      "story_id": "STORY-106",
       "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-005"
+      "claimed_epic": "EPIC-006"
     },
     {
-      "story_id": "STORY-019",
+      "story_id": "STORY-107",
       "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-005"
+      "claimed_epic": "EPIC-006"
+    },
+    {
+      "story_id": "STORY-104",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-006"
+    },
+    {
+      "story_id": "STORY-105",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-006"
     },
     {
       "story_id": "STORY-010",
@@ -261,21 +276,6 @@
       "story_id": "STORY-012",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-003"
-    },
-    {
-      "story_id": "STORY-013",
-      "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-004"
-    },
-    {
-      "story_id": "STORY-016",
-      "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-004"
-    },
-    {
-      "story_id": "STORY-017",
-      "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-004"
     },
     {
       "story_id": "STORY-047",
@@ -331,11 +331,6 @@
       "story_id": "STORY-021",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-006"
-    },
-    {
-      "story_id": "STORY-020",
-      "reason": "NOT_IN_EPIC_TABLE",
-      "claimed_epic": "EPIC-005"
     },
     {
       "story_id": "STORY-023",
@@ -438,16 +433,16 @@
     "Add STORY-098 to EPIC-010 Stories table",
     "Add STORY-099 to EPIC-016 Stories table",
     "Add STORY-102 to EPIC-016 Stories table",
+    "Add STORY-103 to EPIC-006 Stories table",
     "Add STORY-100 to EPIC-016 Stories table",
     "Add STORY-101 to EPIC-016 Stories table",
-    "Add STORY-018 to EPIC-005 Stories table",
-    "Add STORY-019 to EPIC-005 Stories table",
+    "Add STORY-106 to EPIC-006 Stories table",
+    "Add STORY-107 to EPIC-006 Stories table",
+    "Add STORY-104 to EPIC-006 Stories table",
+    "Add STORY-105 to EPIC-006 Stories table",
     "Add STORY-010 to EPIC-003 Stories table",
     "Add STORY-011 to EPIC-003 Stories table",
     "Add STORY-012 to EPIC-003 Stories table",
-    "Add STORY-013 to EPIC-004 Stories table",
-    "Add STORY-016 to EPIC-004 Stories table",
-    "Add STORY-017 to EPIC-004 Stories table",
     "Add STORY-047 to EPIC-009 Stories table",
     "Add STORY-046 to EPIC-009 Stories table",
     "Add STORY-045 to EPIC-009 Stories table",
@@ -459,7 +454,6 @@
     "Add STORY-049 to EPIC-007 Stories table",
     "Add STORY-048 to EPIC-009 Stories table",
     "Add STORY-021 to EPIC-006 Stories table",
-    "Add STORY-020 to EPIC-005 Stories table",
     "Add STORY-023 to EPIC-006 Stories table",
     "Add STORY-022 to EPIC-006 Stories table",
     "Add STORY-025 to EPIC-006 Stories table",

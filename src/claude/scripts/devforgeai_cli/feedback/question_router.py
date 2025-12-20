@@ -23,7 +23,7 @@ def load_question_bank(bank_path: Path = None) -> Dict[str, Any]:
     """
     if bank_path is None:
         # Default path
-        bank_path = Path(__file__).parent.parent.parent.parent.parent / 'devforgeai' / 'feedback' / 'questions.yaml'
+        bank_path = Path(__file__).parent.parent.parent.parent.parent / '.devforgeai' / 'feedback' / 'questions.yaml'
 
     if not bank_path.exists():
         # Return minimal default question bank

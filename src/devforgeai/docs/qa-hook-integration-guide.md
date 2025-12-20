@@ -55,7 +55,7 @@ Phase 5: Update Story Status ✅
 
 ## Configuration
 
-Hooks are configured in `devforgeai/hooks/hooks.yaml`:
+Hooks are configured in `.devforgeai/hooks/hooks.yaml`:
 
 ```yaml
 hooks:
@@ -176,7 +176,7 @@ Story status updated: Dev Complete → QA Approved
 
 **Solution:**
 ```yaml
-# Edit devforgeai/hooks/hooks.yaml
+# Edit .devforgeai/hooks/hooks.yaml
 hooks:
   retrospective_feedback:
     trigger_on: failures-only  # Change from "always"
@@ -208,7 +208,7 @@ hooks:
 **Cause:** Feedback skill taking too long
 
 **Solution:**
-- Check `devforgeai/hooks/errors.log` for details
+- Check `.devforgeai/hooks/errors.log` for details
 - Hook failures don't affect QA result (non-blocking by design)
 - Report issue if persistent
 
@@ -351,11 +351,11 @@ fi
 - **Implementation:** `.claude/commands/qa.md` (Phase 4 section)
 - **Tests:** `tests/integration/test_qa_hooks_integration.py`
 - **Feedback System:** `.claude/skills/devforgeai-feedback/`
-- **Hook Configuration:** `devforgeai/hooks/hooks.yaml`
+- **Hook Configuration:** `.devforgeai/hooks/hooks.yaml`
 - **CLI Validators:** `devforgeai check-hooks`, `devforgeai invoke-hooks`
 - **Related:** STORY-023 (/dev hook integration pilot)
 - **Related:** STORY-021 (check-hooks CLI), STORY-022 (invoke-hooks CLI)
 
 ---
 
-**Questions or issues?** Create an issue in `devforgeai/issues/` or consult troubleshooting section above.
+**Questions or issues?** Create an issue in `.devforgeai/issues/` or consult troubleshooting section above.

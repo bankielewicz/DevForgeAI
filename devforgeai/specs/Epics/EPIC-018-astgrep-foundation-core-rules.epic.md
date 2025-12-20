@@ -75,6 +75,18 @@ Integrate ast-grep as a semantic code analysis engine into DevForgeAI framework 
 
 **Estimated Effort:** Small (3-5 story points)
 
+## Stories
+
+| Story ID | Feature # | Title | Points | Status |
+|----------|-----------|-------|--------|--------|
+| STORY-115 | 1 | CLI Validator Foundation - ast-grep Integration | 8 | Backlog |
+| STORY-116 | 2 | Configuration Infrastructure - ast-grep Rule Storage | 5 | Backlog |
+| STORY-117 | 3 | Core Security Rules - CRITICAL Severity Detection | 8 | Backlog |
+| STORY-118 | 4 | Core Anti-pattern Rules - Code Quality Detection | 8 | Backlog |
+| STORY-119 | 5 | Output Format - JSON, Text, and Markdown Reports | 3 | Backlog |
+
+**Total Points:** 32
+
 ## Requirements Summary
 
 ### Functional Requirements

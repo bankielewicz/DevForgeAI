@@ -22,17 +22,85 @@
 
 ## Overview
 
-Phase 01 executes 8 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
+Phase 01 executes 9 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
+0. **Validate Project Root (CWD)** - NEW
 1. Validate Git repository status
-2. Adapt TDD workflow based on Git availability
-3. File-based change tracking template (if no Git)
-4. Validate context files exist
-5. Load story specification
-6. Validate spec vs context files
-7. Detect and validate technology stack
-8. Detect previous QA failures
+2. **Git Worktree Auto-Management** (STORY-091)
+2.5. **Dependency Graph Validation** (STORY-093) - NEW
+3. Adapt TDD workflow based on Git availability
+4. File-based change tracking template (if no Git)
+5. Validate context files exist
+6. Load story specification
+7. Validate spec vs context files
+8. Detect and validate technology stack
+9. Detect previous QA failures
+
+---
+
+## Step 0.0: Validate Project Root [MANDATORY - FIRST STEP]
+
+**Purpose:** Ensure CWD is DevForgeAI project root before ANY file operations.
+
+**Execute BEFORE Step 0.1 (Git validation):**
+
+```
+# 1. Attempt to read project marker file
+result = Read(file_path="CLAUDE.md")
+
+IF result.success:
+    content = result.content
+
+    # 2. Validate it's a DevForgeAI project
+    IF content_contains("DevForgeAI") OR content_contains("devforgeai"):
+        CWD_VALID = true
+        PROJECT_ROOT = Bash(command="pwd").output.strip()
+        Display: "✓ Project root validated: {PROJECT_ROOT}"
+    ELSE:
+        # CLAUDE.md exists but not DevForgeAI project
+        CWD_VALID = false
+        Display: "⚠ CLAUDE.md found but not a DevForgeAI project"
+        HALT: Use AskUserQuestion to get correct path
+ELSE:
+    # 3. Try secondary markers
+    dir_check = Glob(pattern=".claude/skills/*.md")
+
+    IF dir_check.has_results:
+        CWD_VALID = true
+        Display: "✓ Project root validated via .claude/skills/ structure"
+    ELSE:
+        dir_check2 = Glob(pattern="devforgeai/specs/context/*.md")
+
+        IF dir_check2.has_results:
+            CWD_VALID = true
+            Display: "✓ Project root validated via devforgeai/specs/"
+        ELSE:
+            CWD_VALID = false
+            Display: "❌ CWD Validation Failed"
+            Display: "   Not in DevForgeAI project root."
+            Display: "   Expected markers not found:"
+            Display: "     - CLAUDE.md"
+            Display: "     - .claude/skills/"
+            Display: "     - devforgeai/specs/"
+            HALT: Use AskUserQuestion: "Provide project root path?"
+```
+
+**On Failure:**
+
+```
+❌ CWD Validation Failed
+   Current directory does not appear to be a DevForgeAI project root.
+   Expected: CLAUDE.md with DevForgeAI configuration
+   Found: [nothing | wrong project]
+
+   Options:
+   1. Navigate to correct project directory
+   2. Run: cd /path/to/your/devforgeai/project
+   3. Provide absolute path for this session
+```
+
+**CRITICAL:** Do NOT proceed to Step 0.1 if CWD validation fails.
 
 ---
 
@@ -534,7 +602,460 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.2: Adapt TDD Workflow Based on Git Availability [MANDATORY]
+## Step 0.2: Git Worktree Auto-Management [CONDITIONAL - IF $GIT_AVAILABLE == true]
+
+**Purpose:** Automatically create and manage Git worktrees for parallel story development (STORY-091).
+
+**When to execute:** Only when Git is available ($GIT_AVAILABLE == true) AND worktree management is enabled in config.
+
+**Pre-check: Configuration enabled flag:**
+
+```
+# Load parallel.yaml config
+config_path = "devforgeai/config/parallel.yaml"
+
+IF file_exists(config_path):
+    config = load_yaml(config_path)
+ELSE:
+    config = {enabled: true}  # Default enabled
+
+IF config.enabled == false:
+    Display: "Worktree management disabled via config - using branch-only workflow"
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke git-worktree-manager subagent:**
+
+```
+Task(
+  subagent_type="git-worktree-manager",
+  description="Manage worktree for ${STORY_ID}",
+  prompt="Manage Git worktree for story ${STORY_ID}.
+
+    Configuration: devforgeai/config/parallel.yaml
+
+    Tasks:
+    1. Load configuration (threshold, max, pattern)
+    2. Check for existing worktree for this story
+    3. Scan all worktrees for idle detection
+    4. Validate integrity if worktree exists
+    5. Determine required action
+
+    Return JSON with status and actions."
+)
+```
+
+**Parse subagent response and handle actions:**
+
+```javascript
+result = parse_json(subagent_output)
+
+// Handle story-specific worktree
+IF result.story_worktree.action_needed == "CREATE":
+    // Create new worktree
+    path = result.story_worktree.path
+    branch = result.story_worktree.branch
+    Bash(command="git worktree add ${path} -b ${branch}", description="Create story worktree")
+    Display: "Created worktree: ${path} (branch: ${branch})"
+    $WORKTREE_PATH = path
+
+ELIF result.story_worktree.action_needed == "RESUME":
+    path = result.story_worktree.path
+    Display: "Resuming in existing worktree: ${path}"
+    $WORKTREE_PATH = path
+
+ELIF result.story_worktree.action_needed == "REPAIR":
+    // Corrupted worktree detected
+    path = result.story_worktree.path
+    Display: "⚠ Corrupted worktree detected at ${path}"
+    AskUserQuestion(
+      questions=[{
+        question: "Worktree at ${path} appears corrupted. How to proceed?",
+        header: "Repair",
+        options: [
+          { label: "Delete and recreate", description: "Remove corrupted worktree, create fresh one" },
+          { label: "Keep and continue", description: "Attempt to use existing (may have issues)" }
+        ],
+        multiSelect: false
+      }]
+    )
+
+// Handle idle worktrees (if any detected)
+IF result.idle_worktrees.length > 0:
+    idle_count = result.idle_worktrees.length
+    threshold = result.config.cleanup_threshold_days
+
+    Display: "Found ${idle_count} idle worktrees (>${threshold} days):"
+    FOR wt in result.idle_worktrees:
+        Display: "  - ${wt.path} (idle ${wt.days_idle} days)"
+
+    // Present 3-option cleanup prompt (AC#3)
+    AskUserQuestion(
+      questions=[{
+        question: "How would you like to handle idle worktrees?",
+        header: "Cleanup",
+        options: [
+          { label: "Resume Development", description: "Keep all worktrees, continue" },
+          { label: "Fresh Start", description: "Delete current story worktree, create new" },
+          { label: "Delete Old", description: "Delete idle worktrees not matching current story" }
+        ],
+        multiSelect: false
+      }]
+    )
+
+    // Execute user selection
+    SWITCH user_selection:
+      CASE "Resume Development":
+        // No action, continue
+        Display: "✓ Keeping all worktrees"
+      CASE "Fresh Start":
+        Bash(command="git worktree remove ${$WORKTREE_PATH} --force", description="Remove current worktree")
+        Bash(command="git worktree add ${path} -b ${branch}", description="Create fresh worktree")
+        Display: "✓ Fresh worktree created"
+      CASE "Delete Old":
+        FOR idle_wt in result.idle_worktrees:
+          IF idle_wt.path != $WORKTREE_PATH:
+            Bash(command="git worktree remove ${idle_wt.path}", description="Remove idle worktree")
+        Display: "✓ Deleted ${idle_count} idle worktrees"
+
+// Handle max worktree limit (AC#7)
+IF result.limit_reached AND result.story_worktree.action_needed == "CREATE":
+    max = result.config.max_worktrees
+    Display: "Maximum worktrees (${max}) reached."
+    Display: "Active worktrees:"
+    FOR wt in result.all_worktrees:
+        Display: "  - ${wt.path} (last activity: ${wt.last_activity})"
+
+    AskUserQuestion(
+      questions=[{
+        question: "Delete an existing worktree to continue?",
+        header: "Limit Reached",
+        options: result.all_worktrees.map(wt => ({
+          label: wt.name,
+          description: "Last activity: ${wt.last_activity}"
+        })),
+        multiSelect: false
+      }]
+    )
+
+    // Delete selected worktree, then create new one
+```
+
+**Token cost:** ~2,500 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/git-worktree-manager.md`
+- Configuration: `devforgeai/config/parallel.yaml`
+- Schema: `devforgeai/config/parallel.schema.json`
+
+---
+
+## Step 0.2.5: Dependency Graph Validation [MANDATORY]
+
+**Purpose:** Validate story dependencies before TDD workflow begins (STORY-093).
+
+**When to execute:** After git-worktree-manager (Step 0.2), before workflow adaptation (Step 0.3).
+
+**Pre-check: Empty depends_on optimization:**
+
+```
+# Check if story has any dependencies
+# (Extracted from story frontmatter already loaded in conversation)
+IF depends_on is empty OR depends_on == []:
+    Display: "✓ No dependencies declared - skipping dependency validation"
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke dependency-graph-analyzer subagent:**
+
+```
+Task(
+  subagent_type="dependency-graph-analyzer",
+  description="Validate dependencies for ${STORY_ID}",
+  prompt="Analyze dependencies for story ${STORY_ID}.
+
+    Story path: devforgeai/specs/Stories/
+
+    Tasks:
+    1. Extract depends_on from story frontmatter
+    2. Build dependency graph with transitive resolution
+    3. Detect circular dependencies
+    4. Validate all dependency statuses
+    5. Generate chain visualization
+
+    Return JSON with validation results.
+    BLOCKING: Return blocking=true if any dependency is invalid."
+)
+```
+
+**Parse subagent response:**
+
+```javascript
+result = parse_json(subagent_output)
+
+IF result.status == "PASS":
+    Display: "✓ Dependency validation passed"
+    Display: "  Dependencies: {result.dependencies.total_count}"
+    Display: ""
+    Display: result.chain_visualization
+    Display: ""
+    // Continue to Step 0.3
+
+ELIF result.status == "BLOCKED":
+    // Check for --force flag
+    IF $FORCE_FLAG == true:
+        // Log bypass to audit file
+        timestamp = current_datetime_iso()
+        log_path = ".devforgeai/logs/dependency-bypass-{timestamp}.log"
+
+        Write(
+            file_path=log_path,
+            content="""# Dependency Bypass Log
+Timestamp: {timestamp}
+Story: {STORY_ID}
+Bypassed Dependencies:
+{json.dumps(result.validation.failures, indent=2)}
+User: Requested via --force flag
+"""
+        )
+
+        Display: "⚠️  DEPENDENCY CHECK BYPASSED (--force flag)"
+        Display: ""
+        Display: "The following dependency issues were bypassed:"
+        FOR failure in result.validation.failures:
+            Display: "  • {failure.message}"
+        Display: ""
+        Display: "Bypass logged to: {log_path}"
+        Display: ""
+        Display: "Proceeding to Step 0.3..."
+        // Continue to Step 0.3
+
+    ELSE:
+        // Block execution
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: "❌ DEPENDENCY VALIDATION FAILED"
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        Display: ""
+
+        IF result.validation.cycle_detected:
+            Display: "🔄 CIRCULAR DEPENDENCY DETECTED"
+            Display: ""
+            Display: "Cycle: {' → '.join(result.validation.cycle_path)}"
+            Display: ""
+            Display: "Resolution: Remove circular reference in one of the story files."
+
+        ELIF result.validation.missing.length > 0:
+            Display: "❓ MISSING DEPENDENCIES"
+            Display: ""
+            FOR dep in result.validation.missing:
+                Display: "  • {dep} - Story file not found"
+            Display: ""
+            Display: "Resolution: Create the missing story files or remove the dependency."
+
+        ELSE:
+            Display: "⏳ DEPENDENCIES NOT READY"
+            Display: ""
+            FOR failure in result.validation.failures:
+                Display: "  • {failure.message}"
+                IF failure.suggestion:
+                    Display: "    → {failure.suggestion}"
+            Display: ""
+
+        Display: ""
+        Display: "Dependency chain:"
+        Display: result.chain_visualization
+        Display: ""
+        Display: "Options:"
+        Display: "  1. Complete dependent stories first"
+        Display: "  2. Run with --force flag to bypass (not recommended):"
+        Display: "     /dev {STORY_ID} --force"
+        Display: ""
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+        HALT workflow (do not proceed to Step 0.3)
+
+ELIF result.status == "ERROR":
+    Display: "❌ Dependency analysis error: {result.error}"
+    Display: "Proceeding with caution..."
+    // Continue to Step 0.3 (graceful degradation)
+```
+
+**Token cost:** ~2,500 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/dependency-graph-analyzer.md`
+- Implementation: `src/dependency_graph_analyzer.py`
+- Story: STORY-093 - Dependency Graph Enforcement with Transitive Resolution
+
+---
+
+## Step 0.2.6: File Overlap Detection [CONDITIONAL]
+
+**Purpose:** Detect file overlaps with parallel stories before TDD workflow begins (STORY-094).
+
+**When to execute:** After dependency-graph-analyzer (Step 0.2.5), before workflow adaptation (Step 0.3).
+
+**Pre-check: Has technical_specification optimization:**
+
+```
+# Check if story has technical_specification section
+# (Story content already loaded in conversation)
+IF technical_specification section is empty OR not present:
+    Display: "ℹ️ No technical_specification - skipping spec-based overlap detection"
+    Display: "   Post-flight git-based detection will still run after Phase 3"
+    $FILE_OVERLAP_PRE_FLIGHT = false
+    SKIP to Step 0.3
+    RETURN
+```
+
+**Invoke file-overlap-detector subagent:**
+
+```
+Task(
+  subagent_type="file-overlap-detector",
+  description="Detect file overlaps for ${STORY_ID}",
+  prompt="Analyze file overlaps for story ${STORY_ID}.
+
+    Mode: pre-flight
+    Story path: devforgeai/specs/Stories/
+
+    Tasks:
+    1. Parse technical_specification from target story
+    2. Extract all file_path values from components
+    3. Scan stories with status 'In Development'
+    4. Detect overlapping files
+    5. Filter out depends_on story overlaps
+    6. Generate recommendations
+
+    Return JSON with overlap analysis.
+    WARNING: Return status=WARNING if overlaps detected
+    BLOCKING: Return status=BLOCKED if >= 10 files overlap"
+)
+```
+
+**Parse subagent response:**
+
+```javascript
+result = parse_json(subagent_output)
+
+IF result.status == "PASS":
+    Display: "✓ File overlap check passed"
+    Display: "  No overlapping files with parallel stories"
+    $FILE_OVERLAP_PRE_FLIGHT = true
+    // Continue to Step 0.3
+
+ELIF result.status == "WARNING":
+    // Overlaps detected but below blocking threshold
+    Display: "⚠️ FILE OVERLAPS DETECTED"
+    Display: ""
+    Display: "Overlapping files found with parallel story/stories:"
+
+    FOR story_id, files in result.overlaps:
+        Display: "  • {story_id}: {files.length} file(s)"
+        FOR file in files:
+            Display: "    - {file}"
+    Display: ""
+
+    // Interactive prompt (AC#2)
+    AskUserQuestion(
+        questions=[{
+            question: "File overlap detected. How would you like to proceed?",
+            header: "Overlap Warning",
+            multiSelect: false,
+            options: [
+                {
+                    label: "Yes - Proceed",
+                    description: "Continue with development (accept overlap risk)"
+                },
+                {
+                    label: "No - Cancel",
+                    description: "Cancel development to resolve overlap"
+                },
+                {
+                    label: "Review - Show detailed report",
+                    description: "View full overlap report before deciding"
+                }
+            ]
+        }]
+    )
+
+    SWITCH user_response:
+        CASE "Yes - Proceed":
+            Display: "✓ Proceeding with acknowledged overlaps"
+            $FILE_OVERLAP_PRE_FLIGHT = true
+            // Continue to Step 0.3
+
+        CASE "No - Cancel":
+            Display: "Development cancelled due to file overlaps"
+            HALT workflow
+
+        CASE "Review - Show detailed report":
+            Read(file_path=result.report_path)
+            // Display report content
+            // Re-ask question after review
+
+ELIF result.status == "BLOCKED":
+    // >= blocking_threshold overlaps
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "❌ FILE OVERLAP DETECTION - BLOCKED"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Severe file overlap detected ({result.overlap_count} files)"
+    Display: ""
+    FOR rec in result.recommendations:
+        Display: "  • {rec}"
+    Display: ""
+    Display: "Report saved to: {result.report_path}"
+    Display: ""
+
+    IF $FORCE_FLAG == true:
+        // Log bypass
+        timestamp = current_datetime_iso()
+        log_path = ".devforgeai/logs/overlap-bypass-{timestamp}.log"
+
+        Write(
+            file_path=log_path,
+            content="""# File Overlap Bypass Log
+Timestamp: {timestamp}
+Story: {STORY_ID}
+Overlaps bypassed: {result.overlap_count}
+Overlapping stories:
+{json.dumps(result.overlaps, indent=2)}
+User: Requested via --force flag
+"""
+        )
+
+        Display: "⚠️ FILE OVERLAP CHECK BYPASSED (--force flag)"
+        Display: "Bypass logged to: {log_path}"
+        $FILE_OVERLAP_PRE_FLIGHT = true
+        // Continue to Step 0.3
+
+    ELSE:
+        Display: "To bypass (not recommended):"
+        Display: "  /dev {STORY_ID} --force"
+        Display: ""
+        Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        HALT workflow
+
+ELIF result.status == "ERROR":
+    Display: "⚠️ File overlap analysis error: {result.error}"
+    Display: "Proceeding with caution (spec-based detection skipped)..."
+    $FILE_OVERLAP_PRE_FLIGHT = false
+    // Continue to Step 0.3 (graceful degradation)
+```
+
+**Token cost:** ~2,000 tokens (subagent call + response handling)
+
+**References:**
+- Subagent: `.claude/agents/file-overlap-detector.md`
+- Implementation: `src/file_overlap_detector.py`
+- Story: STORY-094 - File Overlap Detection with Hybrid Analysis
+
+---
+
+## Step 0.3: Adapt TDD Workflow Based on Git Availability [MANDATORY]
 
 **Workflow adaptations apply throughout all phases:**
 
@@ -559,7 +1080,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.3: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
+## Step 0.4: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
 
 **ONLY executed when WORKFLOW_MODE == "file_based"**
 
@@ -705,18 +1226,24 @@ Display:
 
 ---
 
-## Step 0.4: Validate Context Files Exist [MANDATORY]
+## Step 0.5: Validate Context Files Exist [MANDATORY]
 
 **Check for all 6 DevForgeAI context files:**
 
+**Reference:** `parallel-context-loader.md` (STORY-112)
+
+**Pattern:** Load all 6 files in a single message with 6 Read calls for implicit parallel execution.
+
+**Time Savings:** 83% reduction (3000ms sequential → 500ms parallel)
+
 ```
-Read all 6 context files in PARALLEL:
-- Read(file_path="devforgeai/specs/context/tech-stack.md")
-- Read(file_path="devforgeai/specs/context/source-tree.md")
-- Read(file_path="devforgeai/specs/context/dependencies.md")
-- Read(file_path="devforgeai/specs/context/coding-standards.md")
-- Read(file_path="devforgeai/specs/context/architecture-constraints.md")
-- Read(file_path="devforgeai/specs/context/anti-patterns.md")
+# Single message with 6 Read calls - all execute in parallel
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/source-tree.md")
+Read(file_path="devforgeai/specs/context/dependencies.md")
+Read(file_path="devforgeai/specs/context/coding-standards.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+Read(file_path="devforgeai/specs/context/anti-patterns.md")
 ```
 
 **If ANY file is missing:**
@@ -742,7 +1269,7 @@ Display: "Re-validating context files..."
 
 ---
 
-## Step 0.5: Load Story Specification [MANDATORY]
+## Step 0.6: Load Story Specification [MANDATORY]
 
 **Story already loaded via @file reference from slash command.**
 
@@ -770,7 +1297,7 @@ Please ensure /dev command properly loads story file before invoking this skill.
 
 ---
 
-## Step 0.6: Validate Spec vs Context Files [MANDATORY]
+## Step 0.7: Validate Spec vs Context Files [MANDATORY]
 
 **Check for conflicts between story requirements and context file constraints:**
 
@@ -809,7 +1336,7 @@ multiSelect: false
 
 ---
 
-## Step 0.7: Detect and Validate Technology Stack [MANDATORY]
+## Step 0.8: Detect and Validate Technology Stack [MANDATORY]
 
 **Invoke tech-stack-detector subagent to detect technologies and validate against tech-stack.md:**
 
@@ -902,7 +1429,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ---
 
-## Step 0.8: Detect Previous QA Failures [MANDATORY]
+## Step 0.9: Detect Previous QA Failures [MANDATORY]
 
 **Check if story has failed QA due to deferral or other issues:**
 
@@ -978,11 +1505,11 @@ ELSE:
 
 ---
 
-## Step 0.8.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
+## Step 0.9.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
 
 **Purpose:** Parse machine-readable gap data for targeted remediation workflow.
 
-**When to execute:** After Step 0.8 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
+**When to execute:** After Step 0.9 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
 
 ```
 # Check if structured gap export exists
@@ -1097,20 +1624,23 @@ ELSE:
 - [ ] **Step 0.1:** git-validator subagent invoked, Git status assessed
 - [ ] **Step 0.1.5:** User consent obtained (if uncommitted changes > 10)
 - [ ] **Step 0.1.6:** Stash warnings shown (if user selected stash)
-- [ ] **Step 0.2:** Workflow mode determined (git-based or file-based)
-- [ ] **Step 0.3:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
-- [ ] **Step 0.4:** All 6 context files validated (exist and non-empty)
-- [ ] **Step 0.5:** Story specification loaded (via @file reference)
-- [ ] **Step 0.6:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
-- [ ] **Step 0.7:** tech-stack-detector invoked, technologies validated
-- [ ] **Step 0.8:** Previous QA failures detected (recovery mode if needed)
-- [ ] **Step 0.8.5:** Structured gap data loaded (if gaps.json exists)
+- [ ] **Step 0.2:** Git Worktree Auto-Management (if Git available + enabled)
+- [ ] **Step 0.2.5:** Dependency Graph Validation (STORY-093) - validated or --force bypassed
+- [ ] **Step 0.3:** Workflow mode determined (git-based or file-based)
+- [ ] **Step 0.4:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
+- [ ] **Step 0.5:** All 6 context files validated (exist and non-empty)
+- [ ] **Step 0.6:** Story specification loaded (via @file reference)
+- [ ] **Step 0.7:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
+- [ ] **Step 0.8:** tech-stack-detector invoked, technologies validated
+- [ ] **Step 0.9:** Previous QA failures detected (recovery mode if needed)
+- [ ] **Step 0.9.5:** Structured gap data loaded (if gaps.json exists)
 
 ### Variables Set for Phases 02-08
 
 - [ ] `$GIT_AVAILABLE` = true/false
 - [ ] `$WORKFLOW_MODE` = "full" / "partial" / "fallback"
 - [ ] `$CAN_COMMIT` = true/false
+- [ ] `$WORKTREE_PATH` = (worktree path, if created)
 - [ ] `$TEST_COMMAND` = (pytest / npm test / dotnet test / etc.)
 - [ ] `$TEST_COVERAGE_COMMAND` = (with coverage flags)
 - [ ] `$BUILD_COMMAND` = (language-specific build command)

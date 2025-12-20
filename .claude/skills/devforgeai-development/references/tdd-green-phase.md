@@ -165,6 +165,77 @@ ELSE (tests error):
 
 ---
 
+### Step 4a: Background Test Execution [CONDITIONAL] (STORY-112)
+
+**Purpose:** Run long-running tests in background while waiting efficiently
+
+**Trigger:** When estimated test duration > 2 minutes (120000ms)
+
+**Reference:** `background-executor.md`, `task-result-aggregation.md`
+
+```
+# Load timeout from parallel config
+config = Read(file_path="devforgeai/config/parallel-orchestration.yaml")
+timeout_ms = config.profiles[config.default_profile].timeout_ms
+
+# Estimate test duration (heuristic)
+estimated_duration = estimate_test_duration(TEST_COMMAND, TEST_COUNT)
+
+IF estimated_duration > 120000:  # BACKGROUND_THRESHOLD_MS (2 minutes)
+
+    # Launch tests in background
+    background_task = Bash(
+        command=TEST_COMMAND,
+        run_in_background=true,
+        timeout=timeout_ms,
+        description="Run test suite in background"
+    )
+
+    Display: "Tests running in background (task: {background_task.id})..."
+    Display: "   Waiting efficiently for results..."
+
+    # WAIT BEFORE PHASE CHECKPOINT (MANDATORY)
+    # Simple approach: wait efficiently without parallel work (zero debt)
+    test_result = TaskOutput(
+        task_id=background_task.id,
+        block=true,
+        timeout=timeout_ms
+    )
+
+    Display: "Background tests complete"
+
+ELSE:
+    # Foreground execution (standard) - tests < 2 minutes
+    test_result = Bash(command=TEST_COMMAND)
+
+# Verify results (same for both paths)
+IF test_result.exit_code == 0:
+    Display: "✓ GREEN phase confirmed - all tests passing"
+ELSE:
+    Display: "Tests failed - see error output"
+    # Handle failure per existing logic
+```
+
+**Error Handling:**
+
+```
+IF background execution fails OR times out:
+    # Fall back to foreground (sequential)
+    Display: "Background execution failed, retrying in foreground..."
+
+    foreground_result = Bash(
+        command=TEST_COMMAND,
+        run_in_background=false,
+        timeout=timeout_ms
+    )
+
+    test_result = foreground_result
+```
+
+**Performance Target:** 50-80% reduction in perceived wait time for long test runs.
+
+---
+
 ## Subagents Invoked
 
 **backend-architect OR frontend-developer:**

@@ -172,7 +172,7 @@ IF HOOK_ELIGIBLE == 0:
         --operation=$OPERATION_NAME \
         --story=$STORY_ID \
         --context="$OPERATION_CONTEXT" \
-        2>&1 | tee -a devforgeai/logs/${OPERATION_NAME}-hooks-$STORY_ID.log
+        2>&1 | tee -a .devforgeai/logs/${OPERATION_NAME}-hooks-$STORY_ID.log
 
     # Capture exit code
     HOOK_EXIT=$?
@@ -286,7 +286,7 @@ timeout 30 devforgeai invoke-hooks ... || {
 ```bash
 devforgeai invoke-hooks ... || {
     echo "⚠️  Hook invocation failed (exit code $?) - feedback skipped"
-    # Log error details to devforgeai/logs/
+    # Log error details to .devforgeai/logs/
     # Operation continues
 }
 ```
@@ -300,9 +300,9 @@ devforgeai invoke-hooks ... || {
 ### Log Location
 
 **Per-operation log files:**
-- `/dev`: `devforgeai/logs/dev-hooks-{STORY-ID}.log`
-- `/qa`: `devforgeai/logs/qa-hooks-{STORY-ID}.log`
-- `/release`: `devforgeai/logs/release-hooks-{STORY-ID}.log`
+- `/dev`: `.devforgeai/logs/dev-hooks-{STORY-ID}.log`
+- `/qa`: `.devforgeai/logs/qa-hooks-{STORY-ID}.log`
+- `/release`: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
 
 ### Log Format
 
@@ -312,7 +312,7 @@ devforgeai invoke-hooks ... || {
 [2025-11-14T15:30:00Z] check-hooks returned: 0 (eligible)
 [2025-11-14T15:30:01Z] invoke-hooks started (PID: 12345)
 [2025-11-14T15:30:15Z] invoke-hooks completed (exit code: 0)
-[2025-11-14T15:30:15Z] Feedback saved: devforgeai/feedback/dev/STORY-025-2025-11-14T15:30:15Z.json
+[2025-11-14T15:30:15Z] Feedback saved: .devforgeai/feedback/dev/STORY-025-2025-11-14T15:30:15Z.json
 ```
 
 **Hook skipped (not eligible):**
@@ -346,13 +346,13 @@ release-hooks-STORY-025.log.2     (older)
 ### File Structure
 
 **Feedback saved to:**
-`devforgeai/feedback/{operation}/{STORY-ID}-{timestamp}.json`
+`.devforgeai/feedback/{operation}/{STORY-ID}-{timestamp}.json`
 
 **Examples:**
-- `devforgeai/feedback/dev/STORY-025-2025-11-14T15:30:15Z.json`
-- `devforgeai/feedback/qa/STORY-025-2025-11-14T15:35:20Z.json`
-- `devforgeai/feedback/releases/STORY-025-staging-2025-11-14T15:40:30Z.json`
-- `devforgeai/feedback/releases/STORY-025-production-2025-11-14T15:45:40Z.json`
+- `.devforgeai/feedback/dev/STORY-025-2025-11-14T15:30:15Z.json`
+- `.devforgeai/feedback/qa/STORY-025-2025-11-14T15:35:20Z.json`
+- `.devforgeai/feedback/releases/STORY-025-staging-2025-11-14T15:40:30Z.json`
+- `.devforgeai/feedback/releases/STORY-025-production-2025-11-14T15:45:40Z.json`
 
 ### JSON Schema
 
@@ -473,8 +473,8 @@ operations:
 - [ ] check-hooks command available
 - [ ] invoke-hooks command available
 - [ ] hooks.yaml exists with operation configuration
-- [ ] Feedback directory exists (`devforgeai/feedback/{operation}/`)
-- [ ] Log directory exists (`devforgeai/logs/`)
+- [ ] Feedback directory exists (`.devforgeai/feedback/{operation}/`)
+- [ ] Log directory exists (`.devforgeai/logs/`)
 - [ ] Hook integration adds <3.5s overhead (check + invoke time)
 - [ ] Hook failures don't affect operation status
 - [ ] Operation status accurate regardless of hook outcome
@@ -529,11 +529,11 @@ operations:
 ### Issue: Hooks Not Triggering
 
 **Checklist:**
-1. Is `hooks.yaml` in `devforgeai/config/`?
+1. Is `hooks.yaml` in `.devforgeai/config/`?
 2. Is `enabled: true` (global and operation-specific)?
 3. Does `trigger_on` match operation status?
 4. Is `devforgeai` CLI installed?
-5. Check logs: `devforgeai/logs/{operation}-hooks-{STORY-ID}.log`
+5. Check logs: `.devforgeai/logs/{operation}-hooks-{STORY-ID}.log`
 
 ### Issue: Hook Errors Breaking Operation
 

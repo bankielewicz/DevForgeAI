@@ -14,10 +14,10 @@
 ### Hook Architecture
 
 **Components:**
-1. **Hook Configuration** (`devforgeai/config/hooks.yaml`) - Defines which operations trigger feedback
+1. **Hook Configuration** (`.devforgeai/config/hooks.yaml`) - Defines which operations trigger feedback
 2. **Hook Registry** (`devforgeai CLI`) - Check and invoke hooks based on configuration
 3. **Hook Integration Points** (Slash commands) - Phase N in commands triggers hooks after operation success
-4. **Feedback Sessions** (`devforgeai/feedback/sessions/`) - Stores user responses for analysis
+4. **Feedback Sessions** (`.devforgeai/feedback/sessions/`) - Stores user responses for analysis
 
 **Hook Execution Flow:**
 ```
@@ -49,7 +49,7 @@ devforgeai check-hooks --operation=create-sprint --status=success
 ```
 
 **Check Logic:**
-1. Read `devforgeai/config/hooks.yaml`
+1. Read `.devforgeai/config/hooks.yaml`
 2. Find hook with `operation_pattern: "create-sprint"`
 3. Check `enabled: true/false`
 4. Check `trigger_status` contains "success"
@@ -76,7 +76,7 @@ devforgeai invoke-hooks \
 3. Prepare feedback questions with sprint data interpolation
 4. Present questions to user (AskUserQuestion)
 5. Collect responses
-6. Save to `devforgeai/feedback/sessions/create-sprint-{timestamp}-sprint-5.json`
+6. Save to `.devforgeai/feedback/sessions/create-sprint-{timestamp}-sprint-5.json`
 7. Return: Exit code 0 (success)
 
 **Performance:** <3s setup (NFR-002), total <3.5s (NFR-003)
@@ -86,7 +86,7 @@ devforgeai invoke-hooks \
 **If invoke-hooks fails:**
 ```bash
 # Command logs error
-echo "[ERROR] Hook invocation failed" >> devforgeai/feedback/logs/hook-errors.log
+echo "[ERROR] Hook invocation failed" >> .devforgeai/feedback/logs/hook-errors.log
 
 # Command displays warning (non-blocking)
 Display: "⚠️ Feedback collection failed (sprint creation succeeded)"
@@ -99,7 +99,7 @@ exit 0
 ```bash
 # Sprint file exists: devforgeai/specs/Sprints/Sprint-5.md
 # Stories updated: status = "Ready for Dev"
-# Feedback session: devforgeai/feedback/sessions/create-sprint-*.json (if hooks enabled)
+# Feedback session: .devforgeai/feedback/sessions/create-sprint-*.json (if hooks enabled)
 # Exit code: 0 (success)
 ```
 
@@ -154,7 +154,7 @@ IF check-hooks exit == 0:
     Execute: devforgeai invoke-hooks --operation=[operation-name] [context-parameters]
 
     IF invoke-hooks fails:
-        Log to: devforgeai/feedback/logs/hook-errors.log
+        Log to: .devforgeai/feedback/logs/hook-errors.log
         Display: "⚠️ Feedback collection failed ([operation] succeeded)"
 \```
 
@@ -175,7 +175,7 @@ Identify what context is useful for retrospective feedback:
 
 **Step 3: Add Hook Configuration Example**
 
-Edit `devforgeai/config/hooks.yaml.example`:
+Edit `.devforgeai/config/hooks.yaml.example`:
 ```yaml
 - id: post-[operation]-feedback
   name: "Post-[Operation] Feedback"
@@ -203,7 +203,7 @@ Edit `devforgeai/config/hooks.yaml.example`:
 
 **Step 4: Create Troubleshooting Guide**
 
-Create: `devforgeai/specs/troubleshooting/STORY-XXX-hook-not-triggering-[operation].md`
+Create: `.devforgeai/specs/troubleshooting/STORY-XXX-hook-not-triggering-[operation].md`
 
 Include:
 - Symptoms (hook not triggering)
@@ -322,16 +322,16 @@ Run validation checklist:
 **Monthly Hook Audit:**
 ```bash
 # 1. Check all hooks configured
-grep "operation_pattern:" devforgeai/config/hooks.yaml
+grep "operation_pattern:" .devforgeai/config/hooks.yaml
 
 # 2. Verify all commands have Phase N
 grep -l "Phase N" .claude/commands/*.md
 
 # 3. Check hook error log for issues
-tail -100 devforgeai/feedback/logs/hook-errors.log
+tail -100 .devforgeai/feedback/logs/hook-errors.log
 
 # 4. Review feedback session count
-ls -1 devforgeai/feedback/sessions/ | wc -l
+ls -1 .devforgeai/feedback/sessions/ | wc -l
 
 # 5. Analyze feedback trends
 # (Future: devforgeai analyze-feedback command)
@@ -440,10 +440,10 @@ wc -c .claude/commands/[command].md
 **Diagnosis:**
 ```bash
 # Check hook configuration
-cat devforgeai/config/hooks.yaml | grep -A 20 "post-[operation]-feedback"
+cat .devforgeai/config/hooks.yaml | grep -A 20 "post-[operation]-feedback"
 
 # Verify enabled field
-grep "enabled:" devforgeai/config/hooks.yaml
+grep "enabled:" .devforgeai/config/hooks.yaml
 ```
 
 **Solution:**
@@ -491,7 +491,7 @@ time devforgeai invoke-hooks --operation=[operation] [context-params]
 **Questions or Issues:**
 - File GitHub issue: [repository-url]/issues
 - Contact: Framework maintainers
-- Documentation: `devforgeai/docs/` directory
+- Documentation: `.devforgeai/docs/` directory
 
 **Contributing:**
 - Follow hook integration pattern (STORY-029 as reference)

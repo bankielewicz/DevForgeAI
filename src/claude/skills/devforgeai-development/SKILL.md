@@ -186,19 +186,20 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 **This is Phase 01. Execute these steps now:**
 
-10-step validation before TDD begins:
+11-step validation before TDD begins:
 
 1. Validate Git status (git-validator subagent)
-1.5. **User consent for git operations (if uncommitted changes >10)** ← NEW (RCA-008)
-1.6. **Stash warning and confirmation (if user chooses to stash)** ← NEW (RCA-008)
-2. Adapt workflow (Git vs file-based)
-3. File-based tracking setup (if no Git)
-4. Validate 6 context files exist
-5. Load story specification
-6. Validate spec vs context conflicts
-7. Detect tech stack (tech-stack-detector subagent)
-8. Detect QA failures (recovery mode)
-8.5. Load structured gap data (if gaps.json exists)
+1.5. **User consent for git operations (if uncommitted changes >10)** (RCA-008)
+1.6. **Stash warning and confirmation (if user chooses to stash)** (RCA-008)
+2. **Git Worktree Auto-Management** (git-worktree-manager subagent) ← NEW (STORY-091)
+3. Adapt workflow (Git vs file-based)
+4. File-based tracking setup (if no Git)
+5. Validate 6 context files exist
+6. Load story specification
+7. Validate spec vs context conflicts
+8. Detect tech stack (tech-stack-detector subagent)
+9. Detect QA failures (recovery mode)
+9.5. Load structured gap data (if gaps.json exists)
 
 **See `references/preflight-validation.md` for complete workflow.**
 
@@ -559,9 +560,9 @@ IF all checkboxes CHECKED:
 ---
 
 ### Phase 08: Git Workflow & DoD Validation
-Budget enforcement → Handle incomplete items → Git commit → Story complete → **Update AC Checklist (deployment items) ✓ MANDATORY**
-**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
-**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, 2.0+ Git commit, 2.1+ AC Checklist final update
+Budget enforcement → Handle incomplete items → **Lock acquisition** → Git commit → **Lock release** → Story complete → **Update AC Checklist (deployment items) ✓ MANDATORY**
+**References:** `dod-update-workflow.md` (pre-requisite), `deferral-budget-enforcement.md`, `git-workflow-conventions.md`, **`lock-file-coordination.md` (NEW - STORY-096)**, `dod-validation-checkpoint.md`, `ac-checklist-update-workflow.md`
+**Steps:** Pre-req: DoD format validated, 1.6 Budget enforcement, 1.7 Handle new incomplete items, **1.8 Lock acquisition (STORY-096)**, 2.0+ Git commit, **2.1 Lock release (STORY-096)**, 2.2+ AC Checklist final update
 **AC Updates:** Git commit, status update, backward compatibility items
 
 **See `references/tdd-patterns.md` for comprehensive TDD guidance across all phases.**
@@ -904,13 +905,19 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
    - Returns: Git status, recommended workflow
    - Success: Git available OR file-based strategy confirmed
 
-2. **tech-stack-detector** (Technology detection) [MANDATORY AFTER CONTEXT FILES VALIDATED]
+2. **git-worktree-manager** (Worktree auto-management) [CONDITIONAL - IF GIT AVAILABLE]
+   - Purpose: Create/manage Git worktrees for parallel story development (STORY-091)
+   - Token cost: ~2K (isolated)
+   - Returns: Worktree status, actions needed, idle detection results
+   - Success: Worktree created/resumed OR user chose to skip
+
+3. **tech-stack-detector** (Technology detection) [MANDATORY AFTER CONTEXT FILES VALIDATED]
    - Purpose: Auto-detect project technologies, validate against tech-stack.md
    - Token cost: ~10K (isolated)
    - Returns: Detected tech stack, validation results
    - HALT if tech-stack.md conflicts detected
 
-**Sequence:** git-validator → tech-stack-detector (sequential)
+**Sequence:** git-validator → git-worktree-manager → tech-stack-detector (sequential)
 
 ---
 
@@ -1143,6 +1150,11 @@ Load these on-demand during workflow execution:
 - **dod-validation-checkpoint.md** (519 lines) - Phase 08 Step c.: Handle new incomplete items
 - **~~phase-resumption-workflow.md~~** (~400 lines) - REMOVED (RCA-014 REC-2): Resumption now in Phase 06 Step 7
 
+### Background Execution (STORY-112)
+- **background-executor.md** (~200 lines) - Background test execution patterns, thresholds, timeout handling
+- **parallel-context-loader.md** (~100 lines) - Parallel Read patterns for 6 context files (83% time savings)
+- **task-result-aggregation.md** (~150 lines) - TaskOutput integration and result retrieval
+
 ### Supporting Files
 - **tdd-patterns.md** (1,013 lines) - Comprehensive TDD guidance (all phases)
 - **refactoring-patterns.md** (797 lines) - Code smell detection and fixes
@@ -1150,7 +1162,7 @@ Load these on-demand during workflow execution:
 - **qa-deferral-recovery.md** (218 lines) - QA failure resolution
 - **ambiguity-protocol.md** (234 lines) - When to ask user questions
 
-**Total reference content:** ~6,350 lines (loaded progressively as needed - includes RCA-008, RCA-014 safeguards)
+**Total reference content:** ~6,800 lines (loaded progressively as needed - includes RCA-008, RCA-014, STORY-112 safeguards)
 
 ---
 
