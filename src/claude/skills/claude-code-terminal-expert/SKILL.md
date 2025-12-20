@@ -235,6 +235,99 @@ Invoke this skill when users ask about:
 
 ---
 
+### 10. Background Tasks & Agents (December 2025)
+
+**What they are:** Run long-running commands and agents in the background while continuing work
+
+**Key capabilities:**
+- `Ctrl+B` - Move any Bash command to background (Tmux users: press twice)
+- Background agents with `run_in_background=true` parameter
+- Retrieve output via `TaskOutput` tool with task IDs
+- Auto-cleanup when session exits
+- Concurrent task execution for dev servers, builds, tests
+
+**When to use:** Long-running processes (dev servers, builds, tests), parallel task execution
+
+**Quick start:** Press `Ctrl+B` during command execution, or prefix with `!` for bash mode
+
+**Bash Mode (`!` prefix):**
+```bash
+! npm test      # Run directly without Claude interpretation
+! git status    # Shows real-time progress, supports Ctrl+B
+```
+
+**Details:** See `references/core-features.md` (Section 6)
+
+---
+
+### 11. Checkpoints & Rewind (December 2025)
+
+**What they are:** Automatic code state tracking with instant restoration
+
+**Key capabilities:**
+- Auto-saves code state before each Claude edit
+- `Esc Esc` - Rewind menu (quick access)
+- `/rewind` - Restore code and/or conversation
+- Persists across sessions (30-day retention)
+- Three restore options: conversation only, code only, or both
+
+**When to use:** Risk-free experimentation, recovering from mistakes, exploring alternatives
+
+**Quick start:** Press `Esc Esc` to open rewind menu
+
+**Important limitations:**
+- Does NOT track bash command changes (rm, mv, cp)
+- Does NOT track external file modifications
+- Complements (not replaces) Git version control
+
+**Details:** See `references/core-features.md` (Section 7)
+
+---
+
+### 12. Sessions & History (December 2025)
+
+**What they are:** Named sessions with usage tracking and history management
+
+**Key capabilities:**
+- `/rename` - Name current session for easy reference
+- `/resume <n>` - Resume previous named sessions
+- `/stats` - View usage statistics (model, graph, streak)
+- `Ctrl+R` - Reverse search command history
+- History stored per working directory
+
+**When to use:** Long projects, resuming work, tracking progress
+
+**Quick start:** `/rename my-feature` → later `/resume my-feature`
+
+**Details:** See `references/configuration-guide.md` (Session Management section)
+
+---
+
+### 13. Model Selection & Switching (December 2025)
+
+**What it is:** Quick model switching and intelligent hybrid modes
+
+**Key capabilities:**
+- `Alt+P` (Windows/Linux) or `Option+P` (macOS) - Quick model switch mid-prompt
+- Model aliases: `opus`, `sonnet`, `haiku`, `default`, `opusplan`
+- `opusplan` mode: Opus for planning, Sonnet for execution (cost-optimized)
+- Extended context: `[1m]` suffix for 1M token context window
+- Prompt caching for performance optimization
+
+**Available models:**
+| Alias | Model | Best For |
+|-------|-------|----------|
+| `opus` | Claude Opus 4.5 | Complex reasoning, specialized tasks |
+| `sonnet` | Claude Sonnet 4.5 | Daily coding (default) |
+| `haiku` | Claude Haiku | Simple, fast tasks |
+| `opusplan` | Hybrid | Planning with Opus, execution with Sonnet |
+
+**Quick start:** Press `Alt+P` to switch, or `claude --model opus`
+
+**Details:** See `references/configuration-guide.md` (Model Configuration section)
+
+---
+
 ## How DevForgeAI Skills Work with User Input
 
 DevForgeAI skills depend on clear, specific user input to generate high-quality outputs. When you provide complete requirements and context, skills can deliver solutions with minimal clarification. Vague or ambiguous input triggers safety mechanisms that ask clarifying questions—important for correctness, but requiring additional iterations.
@@ -436,18 +529,31 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 - "How do I configure permissions?" → configuration-guide.md
 - "What MCP servers are available?" → core-features.md (Section 5)
 
-**Keyboard Shortcuts:**
+**Keyboard Shortcuts (Updated December 2025):**
 - `Ctrl+C` - Cancel generation
-- `Esc Esc` - Rewind conversation/code
-- `Tab` - Toggle extended thinking
-- `Shift+Tab` - Switch permission modes
+- `Ctrl+B` - Run command in background (Tmux: press twice)
+- `Esc Esc` - Rewind conversation/code (checkpoint restore)
+- `Ctrl+R` - Reverse search command history
+- `Ctrl+O` - Toggle verbose output
+- `Ctrl+L` - Clear terminal screen
+- `Alt+P` / `Option+P` - Quick model switching
+- `Tab` - Accept prompt suggestion
+- `Shift+Tab` / `Alt+M` - Cycle permission modes (Auto-Accept/Plan/Normal)
+- `?` - Show available shortcuts for your terminal
 - See `assets/quick-reference.md` for complete list
 
-**Built-in Commands:**
+**Built-in Commands (Updated December 2025):**
 - `/help` - List all commands
 - `/agents` - Manage subagents
 - `/mcp` - Manage MCP servers
 - `/config` - Open settings
+- `/rewind` - Restore code/conversation checkpoint
+- `/rename` - Name current session
+- `/resume <n>` - Resume named session
+- `/stats` - View usage statistics
+- `/plugin` - Install plugins
+- `/vim` - Enable Vim editor mode
+- `/bug` - Report issues
 - See `assets/quick-reference.md` for complete list
 
 ---
@@ -490,6 +596,7 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 **Version History:**
 - v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
 - v1.1 (2025-12-09): Added rules system, new CLI flags, hook events, subagent enhancements, DevForgeAI integration
+- v2.0 (2025-12-20): Major update with December 2025 features - background tasks, checkpoints, sessions, Opus 4.5, model switching, remote MCP, plugins enhancement
 
 ---
 
@@ -557,7 +664,8 @@ Response: [Comparison table with use cases]
 ## Remember
 
 **Authoritative Source:** All guidance comes from official code.claude.com documentation
-**Always Current:** Self-updating mechanism ensures accuracy
+**Always Current:** Self-updating mechanism ensures accuracy (v2.0 December 2025)
 **Progressive Disclosure:** Load only necessary reference files
-**Complete Coverage:** 9 core features + configuration + integration + troubleshooting
+**Complete Coverage:** 13 core features + configuration + integration + troubleshooting
 **DevForgeAI Integration:** Complements framework with terminal expertise
+**Claude Code Version:** 2.0.74 (December 2025)

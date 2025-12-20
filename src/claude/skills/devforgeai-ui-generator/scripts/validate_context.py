@@ -43,7 +43,7 @@ def validate_context() -> Tuple[bool, List[str]]:
     # Determine project root (3 levels up from script location)
     script_dir = Path(__file__).resolve().parent
     project_root = script_dir.parent.parent.parent.parent
-    context_dir = project_root / "devforgeai" / "context"
+    context_dir = project_root / ".devforgeai" / "context"
 
     errors = []
 

@@ -326,9 +326,10 @@ DevForgeAI2/
 │   ├── config/                  # Framework configuration
 │   ├── feedback/                # Feedback system data
 │   ├── deployment/              # Deployment configurations
-│   ├── tests/                   # Framework test files
 │   ├── backups/                 # Backup files (gitignored)
 │   └── epic-coverage/           # Epic coverage validation data
+│
+├── tests/                   # Framework test files
 │
 ├── src/                         # DISTRIBUTION SOURCE (installer deployment)
 │   ├── claude/                  # Claude Code configuration (source)

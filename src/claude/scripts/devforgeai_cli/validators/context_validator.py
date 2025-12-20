@@ -39,7 +39,7 @@ def check_context_files(directory: str = ".") -> Tuple[bool, List[Dict]]:
     """
     violations = []
     project_root = Path(directory)
-    context_dir = project_root / "devforgeai" / "context"
+    context_dir = project_root / ".devforgeai" / "context"
 
     # Check if context directory exists
     if not context_dir.exists():

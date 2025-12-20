@@ -132,7 +132,21 @@ devforgeai-cli
 
 **Python Requirements:**
 - Python 3.10+ (LOCKED)
-- No external PyPI dependencies (uses standard library only)
+- PyYAML 6.0+ (LOCKED - for configuration file parsing)
+
+### Optional CLI Dependencies (EPIC-018)
+
+**ast-grep-cli** (OPTIONAL - auto-prompted)
+- **Version**: >=0.40.0,<1.0.0 (LOCKED)
+- **Purpose**: Semantic code analysis engine for security/anti-pattern detection
+- **Installation**: `pip install ast-grep-cli` (prompted if missing)
+- **Fallback**: Grep-based analysis when unavailable (60-75% vs 90-95% accuracy)
+- **Rationale**: AST-based analysis provides superior accuracy for code pattern detection
+- **Platform Support**: Linux, macOS, Windows/WSL (via PyPI binary wheels)
+
+**Alternatives FORBIDDEN:**
+- ❌ semgrep (use ast-grep-cli only - smaller footprint, MIT license)
+- ❌ tree-sitter bindings (use ast-grep-cli abstraction)
 
 ### Platform Support
 

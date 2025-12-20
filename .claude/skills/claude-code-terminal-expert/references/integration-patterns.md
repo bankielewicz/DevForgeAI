@@ -2835,6 +2835,89 @@ fi
 
 ---
 
+## Section 5: IDE & Browser Integrations (December 2025)
+
+### Claude in Chrome (Beta)
+
+Control your browser directly from Claude Code using the Chrome extension:
+
+**Installation:**
+1. Install Claude Code Chrome extension from Chrome Web Store
+2. Enable the extension in Chrome
+3. Start Claude Code with browser control enabled
+
+**Capabilities:**
+- Navigate web pages
+- Fill forms and interact with elements
+- Capture screenshots for analysis
+- Automated web testing and scraping
+- Browser-based workflows
+
+**Example Use Cases:**
+```
+> "Open GitHub and check my notifications"
+> "Fill out the form on the current page with test data"
+> "Take a screenshot of this error and analyze it"
+```
+
+**Note:** This is currently in Beta. Browser actions require explicit user approval.
+
+### JetBrains IDE Integration
+
+Claude Agent is now available in JetBrains IDEs (IntelliJ, PyCharm, WebStorm, etc.):
+
+**Architecture:**
+- Built on the Claude Agent SDK
+- Uses the same context management as Claude Code terminal
+- Integrates with JetBrains' editor and project structure
+
+**Features:**
+- In-editor code generation and refactoring
+- Context-aware suggestions using project files
+- Seamless handoff between IDE and terminal
+- Access to JetBrains-specific tools and refactorings
+
+**Setup:**
+1. Install Claude Agent plugin from JetBrains Marketplace
+2. Configure API credentials in IDE settings
+3. Access via Tools menu or keyboard shortcuts
+
+### GitHub Copilot Integration
+
+Claude is available in GitHub Copilot for Chat, Ask, and Edit modes:
+
+**Availability:**
+- GitHub Copilot Enterprise
+- GitHub Copilot Business
+- GitHub Copilot Pro
+- GitHub Copilot Pro+
+
+**Modes:**
+| Mode | Description |
+|------|-------------|
+| Chat | Conversational AI assistance |
+| Ask | Quick questions about code |
+| Edit | Inline code modifications |
+
+**Note:** This uses GitHub's infrastructure and may have different capabilities than direct Claude Code access.
+
+### VS Code Integration
+
+Native VS Code extension available since September 2025:
+
+**Features:**
+- Chat panel integration
+- Inline code suggestions
+- File explorer integration
+- Terminal embedding
+
+**Installation:**
+1. Search "Claude Code" in VS Code extensions
+2. Install and configure API key
+3. Access via activity bar icon
+
+---
+
 ## Summary
 
 This reference consolidates all integration and automation patterns for Claude Code Terminal across:
@@ -2843,6 +2926,7 @@ This reference consolidates all integration and automation patterns for Claude C
 2. **GitLab CI/CD** - MR/issue automation with flexible triggers
 3. **Hooks** - Event-driven local automation and formatting
 4. **Headless Mode** - Programmatic CLI integration for custom scripts
+5. **IDE & Browser** - Chrome, JetBrains, VS Code, GitHub Copilot integrations
 
 All patterns support:
 - Direct Claude API access
@@ -2856,4 +2940,11 @@ All patterns support:
 - **CI/CD platforms** for team collaboration and PR/MR workflows
 - **Hooks** for real-time local development automation
 - **Headless mode** for custom scripting and agent integrations
+- **IDE extensions** for embedded development experience
 - **Combine multiple** for comprehensive automation coverage
+
+---
+
+**Document Version:** 2.0 (2025-12-20)
+**Claude Code Version:** 2.0.74
+**Sections:** 5 (GitHub Actions, GitLab CI/CD, Hooks, Headless Mode, IDE & Browser)

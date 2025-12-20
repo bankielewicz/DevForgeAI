@@ -3523,6 +3523,88 @@ tail -f ~/.claude/logs/claude.log
 
 ---
 
+## Section 7: Claude Agent SDK (December 2025)
+
+### Overview
+
+The Claude Agent SDK (formerly Claude Code SDK) enables building custom agents with Claude's capabilities. It's the foundation for IDE integrations and autonomous agent development.
+
+### Three Advanced Tool Use Features
+
+| Feature | Purpose | Use Case |
+|---------|---------|----------|
+| **Tool Search Tool** | Access thousands of tools via regex/BM25 search | When you need specific tools without loading all |
+| **Programmatic Tool Calling** | Execute tools in code environment | Reduces context window impact |
+| **Tool Use Examples** | Universal examples for effective patterns | Demonstrate tool usage |
+
+### Custom Tools with In-Process MCP
+
+Build tools that run directly in your Python application:
+
+```python
+from anthropic import Anthropic
+from anthropic.mcp import MCPServer
+
+# Define custom tool
+server = MCPServer()
+
+@server.tool("calculate")
+def calculate(expression: str) -> float:
+    return eval(expression)  # Simplified example
+
+# Claude can now use this tool
+```
+
+**Benefits:**
+- No separate process management
+- Direct Python integration
+- Extend Claude Code with custom functionality
+
+### Long-Running Agent Capabilities
+
+Build agents that work across multiple sessions:
+
+**Context Compaction:**
+- Work on tasks without exhausting context window
+- Automatic summarization of long conversations
+- Preserves essential information
+
+**Initializer Agent:**
+- Setup environment on first run
+- Install dependencies
+- Configure project structure
+
+**Coding Agent Pattern:**
+- Make incremental progress each session
+- Clear artifacts for resumption
+- Checkpoint-based workflow
+
+### SDK Integration Points
+
+| Integration | Description |
+|-------------|-------------|
+| **JetBrains IDEs** | Built on Agent SDK with IDE-specific tools |
+| **VS Code** | Extension uses SDK for context management |
+| **Custom Agents** | Build specialized agents for your workflow |
+| **Automation** | Create autonomous development pipelines |
+
+### Getting Started
+
+```bash
+# Install the SDK
+pip install anthropic-agent-sdk
+
+# Or via npm for JavaScript
+npm install @anthropic-ai/agent-sdk
+```
+
+**Documentation:**
+- [Agent SDK Overview](https://platform.claude.com/docs/en/agent-sdk/overview)
+- [Building Agents](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
+- [Advanced Tool Use](https://www.anthropic.com/engineering/advanced-tool-use)
+
+---
+
 ## Related Resources
 
 **Official Documentation:**
@@ -3548,6 +3630,6 @@ tail -f ~/.claude/logs/claude.log
 
 ---
 
-**Last Updated:** 2025-11-06
-**Version:** 1.0
-**Maintained By:** DevForgeAI Framework Team
+**Document Version:** 2.0 (2025-12-20)
+**Claude Code Version:** 2.0.74
+**Sections:** 7 (Sandboxing, Security, Monitoring, Network, Privacy, Enterprise, Agent SDK)

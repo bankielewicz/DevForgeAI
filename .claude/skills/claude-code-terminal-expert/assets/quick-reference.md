@@ -78,7 +78,10 @@ paths: src/api/**/*.ts
 | `/help` | Show all available commands |
 | `/clear` | Clear conversation history |
 | `/compact [instructions]` | Compact conversation (95% threshold or manual) |
-| `/rewind` | Restore previous code/conversation state |
+| `/rewind` | Restore previous code/conversation state (December 2025) |
+| `/rename [name]` | Name current session for later reference (December 2025) |
+| `/resume <n>` | Resume a named session (December 2025) |
+| `/stats` | View usage statistics and streak (December 2025) |
 | `/cost` | Show token usage and cost statistics |
 | `/context` | Show context window usage |
 
@@ -98,6 +101,9 @@ paths: src/api/**/*.ts
 | `/mcp` | Manage MCP server connections |
 | `/hooks` | Configure event hooks |
 | `/plugin` | Manage plugins and marketplaces |
+| `/vim` | Enable Vim editor mode |
+| `/bug` | Report issues directly within Claude Code |
+| `/terminal-setup` | Configure terminal shortcuts (Shift+Enter) |
 | `/memory` | Edit CLAUDE.md memory files |
 | `/init` | Initialize project with CLAUDE.md |
 
@@ -143,10 +149,13 @@ paths: src/api/**/*.ts
 ### Special Functions
 | Shortcut | Action | Platform |
 |----------|--------|----------|
-| `Tab` | Toggle extended thinking mode | All |
-| `Shift+Tab` or `Alt+M` | Switch permission modes | All |
-| `Esc Esc` | Rewind conversation/code | All |
+| `Tab` | Accept prompt suggestion (December 2025) | All |
+| `Shift+Tab` or `Alt+M` | Cycle permission modes (Auto-Accept/Plan/Normal) | All |
+| `Esc Esc` | Rewind conversation/code (checkpoint restore) | All |
 | `Ctrl+V` (Mac/Linux) or `Alt+V` (Win) | Paste images | All |
+| `Alt+P` | Quick model switching | Windows/Linux |
+| `Option+P` | Quick model switching | macOS |
+| `?` | Show available shortcuts for your terminal | All |
 
 ### Vim Mode (after `/vim`)
 | Shortcut | Action |
@@ -781,3 +790,8 @@ claude --debug
 ---
 
 **Quick Tip:** Use `/help` to discover all available commands in your current setup!
+
+---
+
+**Document Version:** 2.0 (2025-12-20)
+**Claude Code Version:** 2.0.74

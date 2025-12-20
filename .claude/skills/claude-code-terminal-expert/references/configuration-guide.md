@@ -14,6 +14,7 @@
 3. [CLI Reference](#section-3-cli-reference)
 4. [Permission Management](#section-4-permission-management)
 5. [Quick Reference](#section-5-quick-reference)
+6. [Session Management](#section-6-session-management-december-2025)
 
 ---
 
@@ -774,10 +775,13 @@ Claude Code provides flexible model configuration, allowing you to select differ
 - **Context**: Standard context window
 
 #### opus
-- **Description**: Most capable model for complex reasoning
-- **Performance**: Slower but more thorough
-- **Use Case**: Complex architecture, difficult debugging, research
+- **Description**: Claude Opus 4.5 - Most capable model for complex reasoning
+- **Model ID**: `claude-opus-4-5-20251101`
+- **Performance**: Slower but most thorough reasoning
+- **Use Case**: Complex architecture, difficult debugging, research, specialized tasks
 - **Context**: Extended context window
+- **Extended Thinking**: Enabled by default (preserves reasoning across turns)
+- **Benchmarks**: 80.9% SWE-bench Verified, 66.3% OSWorld (computer use)
 
 #### haiku
 - **Description**: Fastest model for simple tasks
@@ -822,9 +826,20 @@ Switch models mid-conversation:
 Or use model names directly:
 
 ```bash
-/model claude-opus-4-20250514
-/model claude-sonnet-4-20250514
+/model claude-opus-4-5-20251101
+/model claude-sonnet-4-5-20250929
 ```
+
+**Quick Model Switching (December 2025):**
+
+Use keyboard shortcuts to switch models without clearing your prompt:
+
+| Platform | Shortcut |
+|----------|----------|
+| macOS | `Option+P` |
+| Windows/Linux | `Alt+P` |
+
+This opens a model picker overlay - select your model and continue with your current prompt.
 
 #### 2. At Startup
 
@@ -1715,6 +1730,70 @@ claude update
 
 ---
 
+## Section 6: Session Management (December 2025)
+
+### Named Sessions
+
+Organize your work with named sessions:
+
+```bash
+/rename my-feature       # Name the current session
+/resume my-feature       # Resume a named session later
+/resume 3               # Resume by session number
+```
+
+**Benefits:**
+- Easy reference for long projects
+- Quick switching between work contexts
+- Persistent across Claude Code restarts
+
+### Usage Statistics
+
+Track your Claude Code usage:
+
+```bash
+/stats
+```
+
+**Displays:**
+- Favorite model usage
+- Usage graph over time
+- Usage streak information
+
+### Command History
+
+Navigate and search your command history:
+
+| Shortcut | Action |
+|----------|--------|
+| `Up/Down` | Navigate through previous commands |
+| `Ctrl+R` | Activate reverse history search |
+
+**Reverse Search Workflow:**
+1. Press `Ctrl+R` to start
+2. Type search query (highlighted in results)
+3. Press `Ctrl+R` again to cycle through older matches
+4. Accept: `Tab`/`Esc` to edit, `Enter` to execute
+5. Cancel: `Ctrl+C` or `Backspace` on empty search
+
+**History Features:**
+- Stored per working directory
+- Cleared with `/clear` command
+- History expansion (`!`) disabled by default
+
+### Prompt Suggestions (December 2025)
+
+Claude Code suggests prompts to speed your workflow:
+
+| Action | Effect |
+|--------|--------|
+| `Tab` | Accept suggested prompt |
+| `Enter` | Submit your own prompt |
+
+Suggestions appear based on context and recent actions.
+
+---
+
 ## External References
 
 - **Official Documentation**: https://docs.claude.com/en/docs/claude-code/
@@ -1728,4 +1807,6 @@ claude update
 
 ---
 
-**Configuration consolidation complete - 2025-11-06**
+**Document Version:** 2.0 (2025-12-20)
+**Claude Code Version:** 2.0.74
+**Sections:** 7 (Memory & Rules, Settings, Model Config, CLI Reference, Permissions, Quick Reference, Sessions)

@@ -1,7 +1,9 @@
 # claude-code-terminal-expert Skill
 
-**Version:** 1.0
+**Version:** 2.0
 **Created:** 2025-11-06
+**Last Updated:** 2025-12-20
+**Claude Code Version:** 2.0.74
 **Status:** ✅ Production Ready
 **Type:** Knowledge/Infrastructure Skill
 
@@ -22,12 +24,22 @@ Comprehensive expert knowledge of Claude Code Terminal's complete feature set, e
 | Metric | Value |
 |--------|-------|
 | **Total Files** | 9 (1 SKILL.md + 6 references + 2 assets) |
-| **Total Lines** | 15,408 lines |
-| **Topics Covered** | 28/28 (100%) |
-| **Source Docs** | 54 (25 local + 29 web) |
-| **Content Migrated** | 97% (15,400/15,788 lines) |
-| **Test Pass Rate** | 14/14 (100%) |
+| **Total Lines** | ~17,000 lines |
+| **Topics Covered** | 34+ (December 2025 features) |
+| **Source Docs** | 60+ (local + official web docs) |
+| **Claude Code Version** | 2.0.74 |
 | **Token Efficiency** | 95% savings (progressive disclosure) |
+
+### December 2025 Update Highlights
+
+- Background Tasks & Agents (Ctrl+B, run_in_background)
+- Checkpoints & Rewind (Esc Esc, /rewind)
+- Named Sessions (/rename, /resume, /stats)
+- Claude Opus 4.5 configuration
+- Quick Model Switching (Alt+P, Option+P)
+- Remote MCP with OAuth
+- IDE Integrations (Chrome, JetBrains, VS Code)
+- Claude Agent SDK documentation
 
 ---
 
