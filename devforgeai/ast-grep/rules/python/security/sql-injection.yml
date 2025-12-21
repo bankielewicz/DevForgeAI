@@ -1,0 +1,69 @@
+id: SEC-001
+language: python
+severity: CRITICAL
+message: |
+  SQL injection vulnerability detected: User input in SQL query via string interpolation.
+
+  This violates OWASP A03:2021 - Injection. SQL queries built using string concatenation,
+  f-strings, .format(), or % operators are vulnerable to SQL injection attacks.
+
+  **Fix:** Use parameterized queries with placeholder positions:
+  ✅ cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
+  ✅ cursor.execute("SELECT * FROM users WHERE name = %s", (username,))
+
+  **Do not use:**
+  ❌ cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
+  ❌ cursor.execute("SELECT * FROM users WHERE id = " + user_id)
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection
+  **Test Coverage:** 5+ vulnerable patterns (f-string, .format, %, + concat)
+  **Expected Accuracy:** ≥95% true positives, <10% false positives
+
+  Patterns match SQL keywords (SELECT, INSERT, UPDATE, DELETE) with dynamic input:
+  - f-strings with interpolation: f"SELECT ...{var}..."
+  - .format() calls: "SELECT ...".format(var)
+  - % operator: "SELECT ..." % var
+  - + concatenation: "SELECT ..." + var
+
+rule:
+  any:
+    # F-string patterns with SQL keywords
+    - pattern: f"$$$SELECT$$$"
+      has:
+        pattern: "{$$$}"
+    - pattern: f"$$$INSERT$$$"
+      has:
+        pattern: "{$$$}"
+    - pattern: f"$$$UPDATE$$$"
+      has:
+        pattern: "{$$$}"
+    - pattern: f"$$$DELETE$$$"
+      has:
+        pattern: "{$$$}"
+    # .format() patterns
+    - pattern: "$$$SELECT$$$".format($$$)
+    - pattern: "$$$INSERT$$$".format($$$)
+    - pattern: "$$$UPDATE$$$".format($$$)
+    - pattern: "$$$DELETE$$$".format($$$)
+    # % operator patterns
+    - pattern: "$$$SELECT$$$" % $VAR
+    - pattern: "$$$INSERT$$$" % $VAR
+    - pattern: "$$$UPDATE$$$" % $VAR
+    - pattern: "$$$DELETE$$$" % $VAR
+    # + concatenation patterns
+    - pattern: "$$$SELECT$$$" + $VAR
+    - pattern: "$$$INSERT$$$" + $VAR
+    - pattern: "$$$UPDATE$$$" + $VAR
+    - pattern: "$$$DELETE$$$" + $VAR
+
+fix: |
+  Use parameterized queries to safely pass user input to SQL:
+
+  # Bad
+  query = f"SELECT * FROM users WHERE id = {user_id}"
+  cursor.execute(query)
+
+  # Good
+  query = "SELECT * FROM users WHERE id = ?"
+  cursor.execute(query, (user_id,))

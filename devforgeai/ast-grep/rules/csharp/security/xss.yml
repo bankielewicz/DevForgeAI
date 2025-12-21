@@ -1,0 +1,50 @@
+id: SEC-002
+language: csharp
+severity: CRITICAL
+message: |
+  XSS vulnerability detected: Unencoded output in web response.
+
+  This violates OWASP A03:2021 - Injection. Response.Write() with unencoded user input
+  allows arbitrary HTML/JavaScript injection.
+
+  **Fix:** Encode HTML output before writing:
+  ✅ response.Write(System.Net.WebUtility.HtmlEncode(userInput));
+  ✅ HttpUtility.HtmlEncode(userInput)
+  ✅ Use Razor templates with @ operator (auto-encodes)
+
+  **Do not use:**
+  ❌ Response.Write(userInput);
+  ❌ response.Write("<div>" + userInput + "</div>");
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection (XSS)
+  **Detection:** Response.Write() without encoding function
+
+rule:
+  any:
+    # Response.Write without encoding
+    - pattern: 'Response.Write($VAR)'
+      constraints:
+        VAR:
+          not:
+            regex: "HtmlEncode|UrlEncode|JavaScriptStringEncode"
+    # response.Write variant
+    - pattern: 'response.Write($VAR)'
+      constraints:
+        VAR:
+          not:
+            regex: "HtmlEncode|UrlEncode|JavaScriptStringEncode"
+
+fix: |
+  Encode user input before writing to response:
+
+  // Bad
+  Response.Write(userInput);
+  Response.Write("<h1>" + title + "</h1>");
+
+  // Good
+  Response.Write(System.Net.WebUtility.HtmlEncode(userInput));
+  Response.Write("<h1>" + System.Net.WebUtility.HtmlEncode(title) + "</h1>");
+
+  // Or use Razor (auto-encodes with @)
+  <h1>@userInput</h1>

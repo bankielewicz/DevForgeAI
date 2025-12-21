@@ -1,0 +1,58 @@
+id: SEC-001
+language: csharp
+severity: CRITICAL
+message: |
+  SQL injection vulnerability detected: User input in SQL query via string interpolation.
+
+  This violates OWASP A03:2021 - Injection. SQL queries using string interpolation ($"")
+  or concatenation are vulnerable to SQL injection attacks.
+
+  **Fix:** Use parameterized queries with SqlCommand parameters:
+  ✅ using (SqlCommand cmd = new SqlCommand("SELECT * FROM users WHERE id = @id", conn))
+  ✅    { cmd.Parameters.AddWithValue("@id", userId); }
+
+  **Do not use:**
+  ❌ string query = $"SELECT * FROM users WHERE id = {userId}";
+  ❌ string query = "SELECT * FROM users WHERE id = " + userId;
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection
+  **Detection:** String interpolation with SQL keywords and user input
+  **Expected Accuracy:** ≥95% true positives
+
+rule:
+  any:
+    # String interpolation with SQL keywords
+    - pattern: '$"$$$SELECT$$$"'
+    - pattern: '$"$$$INSERT$$$"'
+    - pattern: '$"$$$UPDATE$$$"'
+    - pattern: '$"$$$DELETE$$$"'
+    # String concatenation
+    - pattern: '"$$$SELECT$$$" + $VAR'
+    - pattern: '"$$$INSERT$$$" + $VAR'
+    - pattern: '"$$$UPDATE$$$" + $VAR'
+    - pattern: '"$$$DELETE$$$" + $VAR'
+
+fix: |
+  Use parameterized queries with SqlCommand:
+
+  // Bad
+  string query = $"SELECT * FROM users WHERE id = {userId}";
+  using (SqlCommand cmd = new SqlCommand(query, connection))
+  {
+      using (SqlDataReader reader = cmd.ExecuteReader())
+      {
+          // Process results
+      }
+  }
+
+  // Good
+  string query = "SELECT * FROM users WHERE id = @id";
+  using (SqlCommand cmd = new SqlCommand(query, connection))
+  {
+      cmd.Parameters.AddWithValue("@id", userId);
+      using (SqlDataReader reader = cmd.ExecuteReader())
+      {
+          // Process results
+      }
+  }

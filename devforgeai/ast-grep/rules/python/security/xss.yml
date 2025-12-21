@@ -1,0 +1,41 @@
+id: SEC-002
+language: python
+severity: CRITICAL
+message: |
+  XSS vulnerability detected: Unsafe template rendering with user input.
+
+  This violates OWASP A03:2021 - Injection. Jinja2/Django templates with the |safe
+  filter or autoescape disabled allow unescaped HTML to be rendered, enabling XSS attacks.
+
+  **Fix:** Enable autoescape (default in Django 1.8+) or manually escape with |escape:
+  ✅ {{ user_input|escape }}
+  ✅ {{ user_input }} (with autoescape enabled)
+  ✅ markupsafe.escape(user_input)
+
+  **Do not use:**
+  ❌ {{ user_input|safe }} (disables escaping)
+  ❌ {% autoescape off %} (disables escaping globally)
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection (XSS)
+  **Detection:** Jinja2/Django templates with |safe filter or autoescape off
+  **Expected Accuracy:** ≥95% true positives, <10% false positives
+
+rule:
+  any:
+    # Jinja2 |safe filter
+    - pattern: "{{$$$|safe}}"
+    - pattern: "{%$$$|safe%}"
+    # autoescape off directive
+    - pattern: "{% autoescape off %}"
+    - pattern: "{% autoescape false %}"
+
+fix: |
+  Remove the |safe filter and rely on default autoescape, or explicitly escape:
+
+  # Bad
+  <div>{{ user_input|safe }}</div>
+
+  # Good
+  <div>{{ user_input }}</div>
+  <div>{{ user_input|escape }}</div>

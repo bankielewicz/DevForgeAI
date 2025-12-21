@@ -1,0 +1,51 @@
+id: SEC-002
+language: typescript
+severity: CRITICAL
+message: |
+  XSS vulnerability detected: User input directly injected into DOM.
+
+  This violates OWASP A03:2021 - Injection. Setting innerHTML with unencoded user input
+  allows arbitrary HTML/JavaScript injection.
+
+  **Fix:** Use textContent for text or sanitize HTML:
+  ✅ element.textContent = userInput;
+  ✅ element.innerHTML = DOMPurify.sanitize(userInput);
+  ✅ element.appendChild(document.createTextNode(userInput));
+
+  **Do not use:**
+  ❌ element.innerHTML = userInput;
+  ❌ element.outerHTML = userInput;
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection (XSS)
+  **Detection:** innerHTML, outerHTML assignments with variables
+  **Risk:** Complete page compromise, credential theft, malware
+
+rule:
+  any:
+    # innerHTML assignments
+    - pattern: '$EL.innerHTML = $INPUT'
+    - pattern: '$EL.innerHTML = $VAR + $INPUT'
+    # outerHTML assignments
+    - pattern: '$EL.outerHTML = $INPUT'
+    # insertAdjacentHTML
+    - pattern: '$EL.insertAdjacentHTML($$$, $INPUT)'
+
+fix: |
+  Use safe alternatives:
+
+  // Bad - VULNERABLE
+  const userInput = getUserInput();
+  document.getElementById('content').innerHTML = userInput;
+
+  // Good - Use textContent for text
+  document.getElementById('content').textContent = userInput;
+
+  // Good - Sanitize if HTML needed
+  import DOMPurify from 'dompurify';
+  document.getElementById('content').innerHTML = DOMPurify.sanitize(userInput);
+
+  // Good - Create elements safely
+  const div = document.createElement('div');
+  div.textContent = userInput;
+  document.getElementById('content').appendChild(div);

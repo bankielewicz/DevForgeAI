@@ -1,0 +1,51 @@
+id: SEC-004
+language: python
+severity: CRITICAL
+message: |
+  Dynamic code execution detected: eval() or exec() with user input.
+
+  This violates OWASP A03:2021 - Injection. eval() and exec() execute arbitrary Python code,
+  allowing complete system compromise when given untrusted input.
+
+  **Fix:** Never use eval() or exec(). Use safer alternatives:
+  ✅ ast.literal_eval() for safe data parsing
+  ✅ json.loads() for JSON parsing
+  ✅ safe expression evaluators (simpleeval)
+
+  **Never use:**
+  ❌ eval(user_input)
+  ❌ exec(user_code)
+  ❌ compile(user_input, '<string>', 'exec')
+
+note: |
+  **OWASP Reference:** A03:2021 - Injection (Code Injection)
+  **Detection:** eval() and exec() function calls with any argument
+  **Risk:** Complete code execution - attacker can read files, modify data, install malware
+
+rule:
+  any:
+    # eval() calls
+    - pattern: "eval($$$)"
+    # exec() calls
+    - pattern: "exec($$$)"
+    # compile() with 'exec' mode
+    - pattern: "compile($$$, $$$, 'exec')"
+    # compile() with user mode
+    - pattern: 'compile($$$, $$$, $MODE)'
+      constraints:
+        MODE:
+          regex: "exec|eval"
+
+fix: |
+  Replace eval/exec with safe alternatives:
+
+  # Bad
+  result = eval(user_input)
+  exec(user_code)
+
+  # Good
+  import ast
+  result = ast.literal_eval(user_input)  # Safe for simple data
+
+  import json
+  result = json.loads(user_input)  # Safe for JSON
