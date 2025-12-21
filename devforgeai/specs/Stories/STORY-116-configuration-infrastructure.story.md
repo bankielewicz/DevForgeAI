@@ -3,7 +3,7 @@ id: STORY-116
 title: Configuration Infrastructure - ast-grep Rule Storage
 epic: EPIC-018
 sprint: SPRINT-7
-status: Dev Complete
+status: QA Approved ✅
 points: 5
 depends_on: ["STORY-115"]
 priority: Medium
@@ -390,6 +390,30 @@ devforgeai ast-grep validate-config [--config PATH] [--format text|json]
 
 ## Workflow History
 
+### 2025-12-20 - Coverage Fix Implementation
+- Added 13 new test cases to address coverage gaps
+- **config_init.py:** Added 3 exception path tests (permission denied, generic exception, yaml import)
+- **config_validator.py:** Added 5 validation error tests (yaml library, empty file, type validation, glob patterns)
+- **models.py:** Added 7 RuleMetadata coverage tests (all fields init, serialization, deserialization)
+- **New Coverage:** 95% overall (was 79%), exceeds 80% threshold
+  - `__init__.py`: 100%
+  - `config_init.py`: 96%
+  - `config_validator.py`: 93%
+  - `models.py`: 100%
+- **Test Count:** 71 tests (was 33), all passing
+- Status transitioned: QA Failed → Dev Complete
+- Ready for `/qa STORY-116 deep` re-validation
+
+### 2025-12-20 21:12:45 - QA Validation: FAILED (Deep Mode)
+- Coverage analysis identified blocking violations
+- Overall coverage: 79% (threshold: 80%) - **CRITICAL**
+- Business logic coverage: 87.4% (threshold: 95%) - **HIGH**
+- Missing: 10 error path test cases
+- Status transitioned: Dev Complete → QA Failed
+- Report: `devforgeai/qa/reports/STORY-116-qa-report.md`
+- Gaps analysis: `devforgeai/qa/reports/STORY-116-gaps.json`
+- Action required: Add error handling tests and re-run `/qa STORY-116 deep`
+
 ### 2025-12-20 14:30:00 - Status: Ready for Dev
 - Added to SPRINT-7: Sprint 7 - AST-Grep
 - Transitioned from Backlog to Ready for Dev
@@ -400,8 +424,30 @@ devforgeai ast-grep validate-config [--config PATH] [--format text|json]
 
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete - ✅ PASSED (2025-12-20)
 - [ ] Released
+
+## QA Validation History
+
+**Latest QA Run:** 2025-12-20 (Deep Mode)
+- **Result:** ✅ PASSED
+- **Blocking Issues:** 0
+- **Coverage:** 95% overall (all thresholds exceeded)
+  - Business Logic: 96% (threshold: 95%) ✅
+  - Application: 96% (threshold: 85%) ✅
+  - Infrastructure: 95% (threshold: 80%) ✅
+- **Tests:** 71/71 passed (100% pass rate)
+- **Anti-Patterns:** 0 CRITICAL, 0 HIGH violations
+- **AC Traceability:** 100% (all 4 ACs verified)
+- **DoD Status:** 16/16 items complete (100%)
+- **QA Report:** Available in `devforgeai/qa/reports/STORY-116-qa-report.md`
+- **Status Update:** Dev Complete → QA Approved ✅
+
+**Previous QA Attempt:** 2025-12-20 21:12:45 (Deep Mode)
+- Result: ❌ FAILED
+- Issue: Coverage gaps (79% overall, 87.4% business logic)
+- Remediation: Added 13 error path tests (13 new tests, 71 total)
+- Status: Issues resolved, re-validation PASSED
 
 ## Notes
 

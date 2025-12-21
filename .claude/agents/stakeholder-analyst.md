@@ -2,6 +2,7 @@
 name: stakeholder-analyst
 description: Stakeholder analysis specialist for identifying decision makers, users, affected parties, goals, concerns, and conflicts. Use when discovering WHO is involved in a problem space and WHAT they want.
 model: haiku
+color: green
 allowed-tools:
   - Read
   - Grep

@@ -497,3 +497,185 @@ class TestRuleMetadataRoundtrip:
         assert restored.pattern == original.pattern
         assert restored.fix is None
         assert restored.note is None
+
+
+# ============================================================================
+# TESTS: RuleMetadata Coverage Extensions (STORY-116 QA Fix)
+# ============================================================================
+
+class TestRuleMetadataCoverageExtensions:
+    """Additional tests to ensure full coverage of RuleMetadata"""
+
+    def test_should_store_all_fields_in_init(self):
+        """
+        Scenario: Verify all fields are stored correctly in __init__
+        Given: RuleMetadata with all fields including optional ones
+        When: Instance is created
+        Then: All fields are accessible and have correct values
+
+        Covers: models.py lines 73-79
+        """
+        # Arrange
+        rule = RuleMetadata(
+            id="TEST-001",
+            language=RuleLanguage.JAVASCRIPT,
+            severity=RuleSeverity.LOW,
+            message="This is a test message for coverage",
+            pattern="console.log($$$)",
+            fix="remove console.log",
+            note="Developer note here",
+        )
+
+        # Assert - verify all fields are stored
+        assert rule.id == "TEST-001"
+        assert rule.language == RuleLanguage.JAVASCRIPT
+        assert rule.severity == RuleSeverity.LOW
+        assert rule.message == "This is a test message for coverage"
+        assert rule.pattern == "console.log($$$)"
+        assert rule.fix == "remove console.log"
+        assert rule.note == "Developer note here"
+
+    def test_should_include_both_optional_fields_in_dict(self):
+        """
+        Scenario: Serialize RuleMetadata with both optional fields
+        Given: RuleMetadata with fix AND note
+        When: to_dict() is called
+        Then: Dictionary includes both fix and note
+
+        Covers: models.py lines 96-99
+        """
+        # Arrange
+        rule = RuleMetadata(
+            id="BOTH-001",
+            language=RuleLanguage.CSHARP,
+            severity=RuleSeverity.HIGH,
+            message="Rule with both optional fields set",
+            pattern="var $X = new List<$T>();",
+            fix="use IList<$T> instead",
+            note="This tests both optional fields",
+        )
+
+        # Act
+        result = rule.to_dict()
+
+        # Assert
+        assert result["id"] == "BOTH-001"
+        assert result["language"] == "csharp"
+        assert result["severity"] == "HIGH"
+        assert result["fix"] == "use IList<$T> instead"
+        assert result["note"] == "This tests both optional fields"
+
+    def test_should_deserialize_all_fields_from_dict(self):
+        """
+        Scenario: Deserialize dict with all fields
+        Given: Dictionary with all fields including optional ones
+        When: from_dict() is called
+        Then: All fields are set correctly
+
+        Covers: models.py lines 113-121
+        """
+        # Arrange
+        data = {
+            "id": "FULL-001",
+            "language": "typescript",
+            "severity": "LOW",
+            "message": "Complete deserialization test message",
+            "pattern": "interface $X { $$ }",
+            "fix": "use type instead of interface",
+            "note": "Both optional fields in deserialization",
+        }
+
+        # Act
+        rule = RuleMetadata.from_dict(data)
+
+        # Assert
+        assert rule.id == "FULL-001"
+        assert rule.language == RuleLanguage.TYPESCRIPT
+        assert rule.severity == RuleSeverity.LOW
+        assert rule.message == "Complete deserialization test message"
+        assert rule.pattern == "interface $X { $$ }"
+        assert rule.fix == "use type instead of interface"
+        assert rule.note == "Both optional fields in deserialization"
+
+    def test_should_handle_missing_optional_fields_in_deserialization(self):
+        """
+        Scenario: Deserialize dict missing optional fields
+        Given: Dictionary without fix or note keys
+        When: from_dict() is called
+        Then: Optional fields are None (data.get() returns None)
+
+        Covers: models.py lines 119-120 (data.get() calls)
+        """
+        # Arrange
+        data = {
+            "id": "MINIMAL-001",
+            "language": "javascript",
+            "severity": "MEDIUM",
+            "message": "Minimal deserialization test",
+            "pattern": "function $X() { }",
+            # No fix or note keys at all
+        }
+
+        # Act
+        rule = RuleMetadata.from_dict(data)
+
+        # Assert
+        assert rule.fix is None
+        assert rule.note is None
+
+    def test_should_reject_none_as_rule_id(self):
+        """
+        Scenario: Create RuleMetadata with None ID
+        Given: None value for id field
+        When: RuleMetadata is instantiated
+        Then: ValueError is raised (falsy check catches None)
+
+        Covers: models.py lines 66-67
+        """
+        # Act & Assert
+        with pytest.raises(ValueError, match="Rule ID cannot be empty"):
+            RuleMetadata(
+                id=None,  # type: ignore - intentionally testing None
+                language=RuleLanguage.PYTHON,
+                severity=RuleSeverity.CRITICAL,
+                message="Security vulnerability detected",
+                pattern="$$$",
+            )
+
+    def test_should_reject_none_as_pattern(self):
+        """
+        Scenario: Create RuleMetadata with None pattern
+        Given: None value for pattern field
+        When: RuleMetadata is instantiated
+        Then: ValueError is raised (falsy check catches None)
+
+        Covers: models.py lines 68-69
+        """
+        # Act & Assert
+        with pytest.raises(ValueError, match="Pattern cannot be empty"):
+            RuleMetadata(
+                id="SEC-001",
+                language=RuleLanguage.PYTHON,
+                severity=RuleSeverity.CRITICAL,
+                message="Security vulnerability detected",
+                pattern=None,  # type: ignore - intentionally testing None
+            )
+
+    def test_should_validate_message_length_boundary(self):
+        """
+        Scenario: Create RuleMetadata with 9-character message
+        Given: Message with exactly 9 characters (boundary test)
+        When: RuleMetadata is instantiated
+        Then: ValueError is raised
+
+        Covers: models.py lines 70-71
+        """
+        # Act & Assert
+        with pytest.raises(ValueError, match="Message must be at least 10 characters"):
+            RuleMetadata(
+                id="SEC-001",
+                language=RuleLanguage.PYTHON,
+                severity=RuleSeverity.CRITICAL,
+                message="123456789",  # Exactly 9 characters
+                pattern="$$$",
+            )

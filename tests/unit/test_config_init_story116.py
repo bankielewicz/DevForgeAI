@@ -394,23 +394,95 @@ class TestConfigurationInitializerStateCheck:
 class TestConfigurationInitializerErrorHandling:
     """Test error handling during initialization"""
 
-    def test_should_handle_permission_denied_gracefully(self):
+    @pytest.fixture
+    def temp_project(self):
+        """Create temporary project directory"""
+        temp_dir = tempfile.mkdtemp()
+        yield Path(temp_dir)
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+    def test_should_handle_permission_denied_gracefully(self, temp_project, monkeypatch):
         """
         Scenario: Initialize in read-only directory
         Given: Cannot create directories (permission denied)
         When: initialize() is called
         Then: Returns failed result with permission error message
-        """
-        # This test would require mocking os.mkdir to raise PermissionError
-        # Actual implementation depends on testing strategy
-        pytest.skip("Requires mock filesystem or elevated permissions")
 
-    def test_should_handle_missing_yaml_library_gracefully(self):
+        Covers: config_init.py lines 115-120
+        """
+        # Arrange
+        initializer = ConfigurationInitializer(temp_project)
+
+        # Mock Path.mkdir to raise PermissionError
+        original_mkdir = Path.mkdir
+
+        def mock_mkdir(self, *args, **kwargs):
+            raise PermissionError("Read-only file system")
+
+        monkeypatch.setattr(Path, "mkdir", mock_mkdir)
+
+        # Act
+        result = initializer.initialize()
+
+        # Assert
+        assert result.success is False
+        assert result.error is not None
+        assert "Permission denied" in result.error
+
+    def test_should_handle_generic_exception_gracefully(self, temp_project, monkeypatch):
+        """
+        Scenario: Initialize encounters unexpected error
+        Given: Unexpected exception during initialization
+        When: initialize() is called
+        Then: Returns failed result with error message
+
+        Covers: config_init.py lines 122-128
+        """
+        # Arrange
+        initializer = ConfigurationInitializer(temp_project)
+
+        # Mock Path.mkdir to raise OSError
+        def mock_mkdir(self, *args, **kwargs):
+            raise OSError("Disk full")
+
+        monkeypatch.setattr(Path, "mkdir", mock_mkdir)
+
+        # Act
+        result = initializer.initialize()
+
+        # Assert
+        assert result.success is False
+        assert result.error is not None
+        assert "Initialization failed" in result.error
+
+    def test_should_handle_missing_yaml_library_gracefully(self, temp_project, monkeypatch):
         """
         Scenario: Initialize when PyYAML not available
-        Given: PyYAML module not installed
+        Given: PyYAML module not installed (yaml is None)
         When: initialize() is called
         Then: Returns failed result with import error message
+
+        Covers: config_init.py lines 73-79
         """
-        # This test would require mocking the yaml import
-        pytest.skip("Requires import mocking")
+        # Arrange
+        import claude.scripts.devforgeai_cli.ast_grep.config_init as config_init_module
+
+        # Save original yaml reference
+        original_yaml = config_init_module.yaml
+
+        # Mock yaml to be None
+        monkeypatch.setattr(config_init_module, "yaml", None)
+
+        try:
+            initializer = ConfigurationInitializer(temp_project)
+
+            # Act
+            result = initializer.initialize()
+
+            # Assert
+            assert result.success is False
+            assert result.error is not None
+            assert "PyYAML" in result.error
+        finally:
+            # Restore original yaml
+            config_init_module.yaml = original_yaml
