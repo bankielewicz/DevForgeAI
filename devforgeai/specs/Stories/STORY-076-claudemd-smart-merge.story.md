@@ -100,7 +100,7 @@ format_version: "2.1"
 **When** the manual resolution workflow activates
 **Then** the system:
 - Creates backup (as per AC#3)
-- Writes DevForgeAI template to `CLAUDE.md.devforgeai-template`
+- Writes DevForgeAI template to `CLAUDE.mddevforgeai-template`
 - Displays merge instructions
 - Waits for user confirmation
 

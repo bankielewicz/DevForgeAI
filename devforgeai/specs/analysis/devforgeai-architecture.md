@@ -516,8 +516,8 @@ This skill creates the **architectural foundation** for the DevForgeAI framework
 
 **Generated artifacts:**
 - **6 Context Files** (immutable constraints in devforgeai/context/)
-- **ADRs** (architecture decisions in .devforgeai/adrs/)
-- **Technical Specifications** (optional, in .devforgeai/specs/)
+- **ADRs** (architecture decisions in devforgeai/adrs/)
+- **Technical Specifications** (optional, in devforgeai/specs/)
 
 **Core Principle:** Prevent technical debt through explicit, enforceable constraints.
 
@@ -578,13 +578,13 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Policy:** `adr-policy.md` (when to create ADRs)
 **Template:** `adr-template.md` (ADR structure)
 **Examples:** `assets/adr-examples/` (6 complete examples)
-**Output:** ADR files in .devforgeai/adrs/
+**Output:** ADR files in devforgeai/adrs/
 
 ### Phase 4: Create Technical Specifications
 **Purpose:** Generate high-level architecture documentation
 **Reference:** `technical-specification-workflow.md`
 **Patterns:** `system-design-patterns.md` (architecture patterns)
-**Output:** Technical spec in .devforgeai/specs/ (optional)
+**Output:** Technical spec in devforgeai/specs/ (optional)
 
 ### Phase 5: Validate Spec Against Context
 **Purpose:** Ensure specifications respect all constraints
@@ -787,7 +787,7 @@ Expected:
 3. Policies loaded: adr-policy.md
 4. Template loaded: adr-template.md
 5. Example loaded: One of assets/adr-examples/
-6. ADR created in .devforgeai/adrs/
+6. ADR created in devforgeai/adrs/
 ```
 
 **Validation:**
@@ -829,7 +829,7 @@ Expected:
 
 Output:
 - 6 context files in devforgeai/context/
-- 1+ ADRs in .devforgeai/adrs/
+- 1+ ADRs in devforgeai/adrs/
 - Ready for orchestration phase
 ```
 

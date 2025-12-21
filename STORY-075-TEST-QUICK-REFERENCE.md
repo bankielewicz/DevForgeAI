@@ -179,7 +179,7 @@ TOTAL                     19+       90%+       ✓
 ✓ 500+ files
 ✓ Very long paths (>255 chars)
 ✓ Special characters in paths
-✓ Permission denied on .devforgeai
+✓ Permission denied on devforgeai
 ✓ Large error lists (500 errors)
 ✓ Log file rotation (10MB threshold)
 ✓ Concurrent installation attempts

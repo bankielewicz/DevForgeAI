@@ -484,7 +484,7 @@ None.
 | **Phase 2** | ✅ PASS | Anti-Patterns: 0 CRITICAL/blocking violations, 8 total violations resolved |
 | **Phase 3** | ✅ PASS | Spec Compliance: All 8 ACs verified, 100% NFR coverage, Zero deferrals |
 | **Phase 4** | ✅ PASS | Code Quality: All A-rated (complexity 1-4, maintainability A, no coupling issues) |
-| **Phase 5** | ✅ PASS | QA Report generated: `.devforgeai/qa/reports/STORY-088-qa-report.md` |
+| **Phase 5** | ✅ PASS | QA Report generated: `devforgeai/qa/reports/STORY-088-qa-report.md` |
 
 **Overall Result: QA APPROVED ✅**
 
@@ -579,7 +579,7 @@ None.
   - Phase 2 Anti-Patterns: 0 blocking violations (8 total resolved)
   - Phase 3 Spec Compliance: All 8 ACs verified, 100% NFR coverage
   - Phase 4 Code Quality: All A-rated metrics
-  - Phase 5 QA Report: `.devforgeai/qa/reports/STORY-088-qa-report.md`
+  - Phase 5 QA Report: `devforgeai/qa/reports/STORY-088-qa-report.md`
   - Result: **QA APPROVED - Ready for Release**
 
 ---

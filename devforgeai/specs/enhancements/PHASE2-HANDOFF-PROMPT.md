@@ -20,7 +20,7 @@ CONTEXT:
 
 TASK:
 Implement Phase 2 following the complete implementation plan at:
-@.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
+@devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
 
 KEY REQUIREMENTS:
 1. Read and follow the Phase 2 implementation plan completely
@@ -33,9 +33,9 @@ KEY REQUIREMENTS:
 8. Maintain complete rollback capability at each step
 
 IMPORTANT CONTEXT FILES TO READ:
-@.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
-@.devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
-@.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
+@devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
+@devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
+@devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
 @.claude/skills/devforgeai-story-creation/SKILL.md
 @.claude/skills/devforgeai-story-creation/references/technical-specification-guide.md
 @.claude/skills/devforgeai-story-creation/assets/templates/story-template.md
@@ -162,8 +162,8 @@ ACTIONS NEEDED:
    - Recommendations for future enhancements
 
 FILES TO READ:
-@.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
-@.devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
+@devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
+@devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
 @CLAUDE.md
 
 DELIVERABLES:
@@ -229,7 +229,7 @@ Based on Phase 1 experience:
 Implement DevForgeAI Phase 2: Structured Technical Specifications
 
 Read complete implementation plan:
-@.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
+@devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
 
 Context from Phase 1:
 - Deferral rate reduced: 70% → 10%
@@ -258,7 +258,7 @@ Ready to begin?
 ```
 Implement Phase 2: Structured Tech Specs
 
-Read: @.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
+Read: @devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
 
 Task: Create YAML format for Technical Specifications, build migration script, migrate all stories.
 
@@ -274,7 +274,7 @@ Create todo list and execute sequentially. Report progress. HALT on ambiguity.
 ```
 Document Phase 1 completion as final solution to RCA-006.
 
-Read: @.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
+Read: @devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md
 
 Phase 1 Results:
 - Deferral rate: 70% → 10% (-86%)
@@ -317,14 +317,14 @@ Phase 1 solved the problem - Phase 2-3 unnecessary.
 
 **Essential context files (attach via @file):**
 
-1. `@.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md`
-2. `@.devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md`
-3. `@.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md`
+1. `@devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md`
+2. `@devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md`
+3. `@devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md`
 4. `@.claude/skills/devforgeai-story-creation/SKILL.md`
 5. `@.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
 
 **Optional (load if needed):**
-- `@.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md`
+- `@devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md`
 - `@.claude/skills/devforgeai-story-creation/references/technical-specification-guide.md`
 
 ---

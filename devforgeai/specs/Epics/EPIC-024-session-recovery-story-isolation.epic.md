@@ -354,7 +354,7 @@ dos2unix path/to/test.sh && bash path/to/test.sh
 
 ### Checkpoint Architecture
 ```
-.devforgeai/sessions/
+devforgeai/sessions/
   STORY-120/
     checkpoint.json    # Current phase, progress, DoD status
   STORY-121/

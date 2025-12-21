@@ -1104,7 +1104,7 @@ Glob(pattern="*.test.ts", path="tests/unit/")
 **Step 1: Audit Current Tool Usage**
 ```bash
 # Find Bash usage in task files
-grep -r "Bash(cat\|grep\|find\|sed\|echo" .devforgeai/tasks/
+grep -r "Bash(cat\|grep\|find\|sed\|echo" devforgeai/tasks/
 ```
 
 **Step 2: Replace with Native Tools**
@@ -1120,7 +1120,7 @@ Use Read tool to view source at src/app.py
 Add tool usage protocol section to all task file templates.
 
 **Step 4: Document in Workflow Guides**
-Create `.devforgeai/protocols/tool-efficiency-guide.md`
+Create `devforgeai/protocols/tool-efficiency-guide.md`
 
 ### For New Workflow Development
 
@@ -1282,7 +1282,7 @@ Token savings: 21,000 (66% reduction)
 **Phase 1: Identify File Operations**
 ```bash
 # Scan task files for Bash file operations
-grep -E "Bash\(.*cat|grep|find|sed|awk|echo.*>" .devforgeai/tasks/**/*.md
+grep -E "Bash\(.*cat|grep|find|sed|awk|echo.*>" devforgeai/tasks/**/*.md
 ```
 
 **Phase 2: Replace with Native Tools**
@@ -1443,7 +1443,7 @@ Add tool usage protocol section:
 **Estimated Impact**: 60% token reduction across all QA workflows
 
 **2. Create Efficiency Guide** (Priority: MEDIUM)
-New file: `.devforgeai/protocols/tool-efficiency-protocol.md`
+New file: `devforgeai/protocols/tool-efficiency-protocol.md`
 ```markdown
 # Tool Efficiency Protocol
 
@@ -1667,7 +1667,7 @@ Documentation: Link to this efficiency analysis
 
 **2. Audit and Refactor Existing Workflows**
 ```yaml
-Target: All 45+ task files in .devforgeai/tasks/
+Target: All 45+ task files in devforgeai/tasks/
 Priority: High-usage workflows (qa-review, develop-story)
 Timeline: Incremental migration over 2-3 sprints
 Validation: Measure token usage before/after

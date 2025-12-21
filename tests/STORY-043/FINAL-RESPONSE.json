@@ -316,7 +316,7 @@
     "Review README.md for quick start",
     "Review test files to understand expected behavior",
     "Create 4 implementation scripts in src/scripts/",
-    "Create output directory: .devforgeai/specs/STORY-043/",
+    "Create output directory: devforgeai/specs/STORY-043/",
     "Run test suite: bash tests/STORY-043/run_all_tests.sh",
     "Iterate until all 119 tests pass (GREEN phase)",
     "Refactor for performance and clarity (REFACTOR phase)",

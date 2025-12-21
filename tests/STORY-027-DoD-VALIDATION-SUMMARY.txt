@@ -27,7 +27,7 @@ IMPLEMENTATION PHASE (6/6 ✅)
 ✅ Phase 5 Hook Integration added to /create-story command
 ✅ devforgeai check-hooks command functional (<100ms)
 ✅ devforgeai invoke-hooks command functional with context
-✅ Hook config read from .devforgeai/config/hooks.yaml
+✅ Hook config read from devforgeai/config/hooks.yaml
 ✅ Batch mode defers hooks until all stories created
 ✅ Graceful degradation: hook failures don't break story creation
 
@@ -52,9 +52,9 @@ TESTING PHASE (7/7 ✅)
 DOCUMENTATION PHASE (4/4 ✅)
 -------------------------------
 ✅ Hook integration guide: .claude/commands/references/hook-integration-guide.md
-✅ Config example: .devforgeai/config/hooks.yaml.example
-✅ Troubleshooting guide: .devforgeai/docs/hooks/troubleshooting.md
-✅ Maintainer guide: .devforgeai/docs/hooks/integration-pattern.md
+✅ Config example: devforgeai/config/hooks.yaml.example
+✅ Troubleshooting guide: devforgeai/docs/hooks/troubleshooting.md
+✅ Maintainer guide: devforgeai/docs/hooks/integration-pattern.md
 
 WORKFLOW STATUS (4/4)
 -------------------------------
@@ -149,9 +149,9 @@ Modified Files:
 
 Created Files:
   .claude/commands/references/hook-integration-guide.md (10,981 bytes)
-  .devforgeai/config/hooks.yaml.example (6,955 bytes)
-  .devforgeai/docs/hooks/troubleshooting.md
-  .devforgeai/docs/hooks/integration-pattern.md
+  devforgeai/config/hooks.yaml.example (6,955 bytes)
+  devforgeai/docs/hooks/troubleshooting.md
+  devforgeai/docs/hooks/integration-pattern.md
 
 Test Files:
   tests/unit/test_hook_integration_phase.py (39 tests)

@@ -51,7 +51,7 @@ def hook_registry_config() -> Dict[str, Any]:
 @pytest.fixture
 def hook_system_config_file(tmp_path, hook_registry_config):
     """Create temporary hooks.yaml for testing."""
-    config_dir = tmp_path / '.devforgeai' / 'config'
+    config_dir = tmp_path / 'devforgeai' / 'config'
     config_dir.mkdir(parents=True)
 
     config_file = config_dir / 'hooks.yaml'

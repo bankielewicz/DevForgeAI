@@ -215,7 +215,7 @@ Console Messages: SAME FORMAT
   • Resolution steps same structure
 
 Log File: SAME LOCATION & FORMAT
-  • .devforgeai/install.log location unchanged
+  • devforgeai/install.log location unchanged
   • ISO 8601 timestamps format unchanged
   • Stack traces still included
 

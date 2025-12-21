@@ -493,7 +493,7 @@ NEW: qa-result-interpreter subagent
 
 - [ ] Update `.claude/memory/commands-reference.md`
 - [ ] Update `.claude/memory/subagents-reference.md` (if created subagent)
-- [ ] Document refactoring in `.devforgeai/specs/enhancements/`
+- [ ] Document refactoring in `devforgeai/specs/enhancements/`
 - [ ] Git commit with descriptive message
 - [ ] Restart terminal
 - [ ] Smoke tests (3 command runs)
@@ -1176,7 +1176,7 @@ git checkout HEAD~ .claude/memory/*.md
 /[command] [test-args]
 
 # 8. Document issue
-# Create rollback report: .devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
+# Create rollback report: devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
 ```
 
 ### Root Cause Analysis
@@ -1606,11 +1606,11 @@ If all 4 remaining over-budget commands refactored:
 - `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` - Reference file example
 
 **Refactoring Documentation:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
 
 ---
 

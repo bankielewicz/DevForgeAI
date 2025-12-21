@@ -9,14 +9,14 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
 ### Documentation (4 items)
 
 **1. ✅ Feedback JSON Schema**
-- **File:** `.devforgeai/feedback/schema.json`
+- **File:** `devforgeai/feedback/schema.json`
 - **Content:** Complete JSON Schema (draft-07) with all required fields
 - **Validation:** feedback_id, timestamp, story_id, workflow_type, success_status
 - **Properties:** questions array, metadata object, response types
 - **Usage:** Validates feedback data structure before storage
 
 **2. ✅ Question Bank Documentation**
-- **File:** `.devforgeai/feedback/questions.md`
+- **File:** `devforgeai/feedback/questions.md`
 - **Content:** Complete question bank structure with 50+ questions
 - **Organization:** By workflow type and outcome status
 - **Response Types:** Rating (1-5), multiple choice, open text
@@ -24,7 +24,7 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
 - **Usage:** Reference for question implementation in questions.yaml
 
 **3. ✅ User Guide**
-- **File:** `.devforgeai/feedback/USER-GUIDE.md`
+- **File:** `devforgeai/feedback/USER-GUIDE.md`
 - **Content:** Comprehensive user-facing documentation (7,800+ words)
 - **Sections:**
   - How feedback works
@@ -38,7 +38,7 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
 - **Usage:** Help users understand and use feedback system
 
 **4. ✅ Maintainer Guide**
-- **File:** `.devforgeai/feedback/MAINTAINER-GUIDE.md`
+- **File:** `devforgeai/feedback/MAINTAINER-GUIDE.md`
 - **Content:** Detailed maintainer documentation (9,200+ words)
 - **Sections:**
   - Feedback analysis workflow
@@ -66,12 +66,12 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
   - `trigger_retrospective_if_enabled()` - Main entry point
 - **Configuration:**
   - Environment variable: `DEVFORGEAI_DISABLE_FEEDBACK=true`
-  - Config file: `.devforgeai/feedback/config.yaml`
+  - Config file: `devforgeai/feedback/config.yaml`
   - Default: Enabled (opt-in)
 - **Usage:** Commands call `trigger_retrospective_if_enabled()` after operations
 
 **6. ✅ Graceful Degradation**
-- **File:** `.devforgeai/feedback/GRACEFUL-DEGRADATION.md`
+- **File:** `devforgeai/feedback/GRACEFUL-DEGRADATION.md`
 - **Content:** Comprehensive graceful degradation policy (6,800+ words)
 - **Failure Scenarios:**
   - Directory not writable
@@ -87,7 +87,7 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
 - **Recovery:** Full system recovery procedures documented
 
 **7. ✅ Weekly Backup Job**
-- **File:** `.devforgeai/scripts/backup-feedback.sh`
+- **File:** `devforgeai/scripts/backup-feedback.sh`
 - **Content:** Automated backup script (90+ lines)
 - **Features:**
   - Creates tar.gz backup of entire feedback directory
@@ -97,10 +97,10 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
   - Checks disk space before backup
   - Executable permissions set
 - **Schedule:** Run via cron: `0 2 * * 6` (Saturdays 2 AM)
-- **Usage:** `bash .devforgeai/scripts/backup-feedback.sh`
+- **Usage:** `bash devforgeai/scripts/backup-feedback.sh`
 
 **8. ✅ Data Retention Policy**
-- **File:** `.devforgeai/feedback/RETENTION-POLICY.md`
+- **File:** `devforgeai/feedback/RETENTION-POLICY.md`
 - **Content:** Complete data retention policy (9,500+ words)
 - **Policy:**
   - Active retention: 12 months
@@ -116,7 +116,7 @@ All 8 deferred Definition of Done items for STORY-007 (Post-Operation Retrospect
 
 ## Configuration File
 
-**Created:** `.devforgeai/feedback/config.yaml`
+**Created:** `devforgeai/feedback/config.yaml`
 
 **Contents:**
 ```yaml
@@ -137,7 +137,7 @@ sensitive_retention_months: 18
 All files created in organized structure:
 
 ```
-.devforgeai/
+devforgeai/
 ├── feedback/
 │   ├── schema.json                    # 1. JSON Schema
 │   ├── questions.md                   # 2. Question Bank
@@ -299,14 +299,14 @@ Before marking STORY-007 as complete, verify:
 
 1. **Verify all files created:**
    ```bash
-   ls -la .devforgeai/feedback/
-   ls -la .devforgeai/scripts/backup-feedback.sh
+   ls -la devforgeai/feedback/
+   ls -la devforgeai/scripts/backup-feedback.sh
    ls -la .claude/scripts/devforgeai_cli/feedback/feature_flag.py
    ```
 
 2. **Set backup script permissions:**
    ```bash
-   chmod +x .devforgeai/scripts/backup-feedback.sh
+   chmod +x devforgeai/scripts/backup-feedback.sh
    ```
 
 3. **Schedule weekly backup (optional):**
@@ -317,7 +317,7 @@ Before marking STORY-007 as complete, verify:
 
 4. **Test feature flag:**
    ```bash
-   python3 -c "from .claude.scripts.devforgeai_cli.feedback.feature_flag import should_enable_feedback; print(should_enable_feedback())"
+   python3 -c "from .claude.scriptsdevforgeai_cli.feedback.feature_flag import should_enable_feedback; print(should_enable_feedback())"
    ```
 
 5. **Review documentation:**

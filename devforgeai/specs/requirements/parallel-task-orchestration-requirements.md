@@ -88,7 +88,7 @@ So that I can customize parallel limits to match my Anthropic subscription tier.
 ```
 
 **Acceptance Criteria:**
-- Configuration file at `.devforgeai/config/parallel-orchestration.yaml`
+- Configuration file at `devforgeai/config/parallel-orchestration.yaml`
 - YAML schema with: enabled flag, max_concurrent_tasks, profiles, timeouts, retry settings
 - Default profile uses safe limits (4-6 concurrent tasks)
 - Validation on load (reject invalid config with clear error message)

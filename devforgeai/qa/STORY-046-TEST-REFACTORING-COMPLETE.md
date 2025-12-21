@@ -305,7 +305,7 @@ These are helper/convenience methods used indirectly:
 ### Coverage Report Generated
 ```
 Coverage HTML: htmlcov/index.html
-Coverage JSON: .devforgeai/qa/coverage/STORY-015-coverage.json
+Coverage JSON: devforgeai/qa/coverage/STORY-015-coverage.json
 ```
 
 ---

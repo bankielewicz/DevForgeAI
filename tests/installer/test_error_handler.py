@@ -165,7 +165,7 @@ class TestUserFriendlyMessages:
 
         Given: An error occurs during installation
         When: ErrorHandler formats the console message
-        Then: Message includes .devforgeai/install.log reference
+        Then: Message includes devforgeai/install.log reference
         """
         # Arrange
         from installer.error_handler import ErrorHandler
@@ -176,7 +176,7 @@ class TestUserFriendlyMessages:
         console_message = handler.format_console_message(error)
 
         # Assert
-        assert ".devforgeai/install.log" in console_message
+        assert "devforgeai/install.log" in console_message
 
     def test_console_message_includes_1_to_3_resolution_steps(self):
         """

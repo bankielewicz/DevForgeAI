@@ -341,16 +341,16 @@ lint_output = BashOutput(bash_id=bash_lint)
 ## Reference Docs
 
 **Full Research:**
-- `.devforgeai/research/parallel-orchestration-research.md` (comprehensive)
+- `devforgeai/research/parallel-orchestration-research.md` (comprehensive)
 
 **Implementation Guide:**
 - `.claude/memory/parallel-orchestration-guide.md` (detailed patterns with code)
 
 **This Document:**
-- `.devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md` (you are here)
+- `devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md` (you are here)
 
 **Executive Summary:**
-- `.devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (overview)
+- `devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (overview)
 
 ---
 
@@ -377,4 +377,4 @@ lint_output = BashOutput(bash_id=bash_lint)
 
 ## Questions?
 
-See full documentation in `.devforgeai/research/` or `.claude/memory/parallel-orchestration-guide.md`
+See full documentation in `devforgeai/research/` or `.claude/memory/parallel-orchestration-guide.md`

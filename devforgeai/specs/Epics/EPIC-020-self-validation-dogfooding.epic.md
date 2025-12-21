@@ -98,10 +98,10 @@ Enable DevForgeAI framework to validate its own codebase using ast-grep rules, c
 - Bypass: Allow `git commit --no-verify` (but log warning)
 
 **Documentation:**
-- Rule Authoring Guide: `.devforgeai/ast-grep/docs/rule-authoring-guide.md`
-- Troubleshooting Guide: `.devforgeai/ast-grep/docs/troubleshooting.md`
-- Custom Rule Workflow: `.devforgeai/ast-grep/docs/custom-rule-workflow.md`
-- Migration Guide: `.devforgeai/ast-grep/docs/migration-guide.md`
+- Rule Authoring Guide: `devforgeai/ast-grep/docs/rule-authoring-guide.md`
+- Troubleshooting Guide: `devforgeai/ast-grep/docs/troubleshooting.md`
+- Custom Rule Workflow: `devforgeai/ast-grep/docs/custom-rule-workflow.md`
+- Migration Guide: `devforgeai/ast-grep/docs/migration-guide.md`
 
 ### Data Model
 
@@ -145,7 +145,7 @@ Enable DevForgeAI framework to validate its own codebase using ast-grep rules, c
 
 **Recommended Architecture:**
 - Pattern: Extension of existing ast-grep infrastructure (no new architecture needed)
-- Layers: DevForgeAI rules stored in `.devforgeai/ast-grep/rules/devforgeai/`
+- Layers: DevForgeAI rules stored in `devforgeai/ast-grep/rules/devforgeai/`
 - Pre-commit: Standard Git hook pattern (shell script)
 - Testing: pytest with rule test fixtures
 
@@ -186,7 +186,7 @@ Enable DevForgeAI framework to validate its own codebase using ast-grep rules, c
    - STORY: Documentation & Guides (Feature 4)
 
 2. **Architecture Validation:** Validate against DevForgeAI constraints
-   - Verify rule storage location (`.devforgeai/ast-grep/rules/devforgeai/`)
+   - Verify rule storage location (`devforgeai/ast-grep/rules/devforgeai/`)
    - Check pre-commit hook follows Git standards
    - Validate documentation format (Markdown with frontmatter)
 

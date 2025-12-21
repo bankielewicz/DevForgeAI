@@ -14,7 +14,7 @@
 
 **Check 1: Is hook enabled?**
 ```bash
-grep -A 5 "post-orchestrate-retrospective" .devforgeai/config/hooks.yaml | grep "enabled"
+grep -A 5 "post-orchestrate-retrospective" devforgeai/config/hooks.yaml | grep "enabled"
 # Expected: enabled: true
 # If false: Set to true in hooks.yaml
 ```
@@ -32,7 +32,7 @@ grep -A 5 "post-orchestrate-retrospective" .devforgeai/config/hooks.yaml | grep 
 
 **Check 3: Check hook logs**
 ```bash
-tail -50 .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
+tail -50 devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
 # Look for: Hook invocation attempt, exit codes, errors
 ```
 
@@ -141,7 +141,7 @@ echo "Hook check: ${DURATION}ms"
 
 **Diagnosis:**
 ```bash
-grep -A 3 "trigger_status" .devforgeai/config/hooks.yaml | grep orchestrate -A 3
+grep -A 3 "trigger_status" devforgeai/config/hooks.yaml | grep orchestrate -A 3
 # Check if: trigger_status: [success, failure]
 ```
 
@@ -294,7 +294,7 @@ ps aux | grep orchestrate
 # If multiple processes: Risk of race condition
 
 # Check log file for conflicting entries
-tail -50 .devforgeai/logs/hooks-orchestrate-*.log
+tail -50 devforgeai/logs/hooks-orchestrate-*.log
 # Look for: Interleaved entries from different stories
 ```
 
@@ -302,12 +302,12 @@ tail -50 .devforgeai/logs/hooks-orchestrate-*.log
 Log files are already story-specific (AC: Edge Case 5):
 ```bash
 # Each story gets its own log file:
-.devforgeai/logs/hooks-orchestrate-STORY-001.log
-.devforgeai/logs/hooks-orchestrate-STORY-002.log
+devforgeai/logs/hooks-orchestrate-STORY-001.log
+devforgeai/logs/hooks-orchestrate-STORY-002.log
 
 # Feedback files include story ID and timestamp:
-.devforgeai/feedback/orchestrate/STORY-001-20251114-120000.json
-.devforgeai/feedback/orchestrate/STORY-002-20251114-120030.json
+devforgeai/feedback/orchestrate/STORY-001-20251114-120000.json
+devforgeai/feedback/orchestrate/STORY-002-20251114-120030.json
 ```
 
 **Verification:**
@@ -318,7 +318,7 @@ Log files are already story-specific (AC: Edge Case 5):
 wait
 
 # Check separate log files exist
-ls .devforgeai/logs/hooks-orchestrate-*.log
+ls devforgeai/logs/hooks-orchestrate-*.log
 # Expected: Two files, no interleaving
 ```
 
@@ -341,7 +341,7 @@ time devforgeai invoke-hooks --operation=orchestrate --story=STORY-XXX --context
 timeout 5s devforgeai invoke-hooks ... || {
   echo "⚠️ Feedback hook timed out (>5s), continuing..."
   # Log timeout
-  echo "$(date): Hook timeout for $STORY_ID" >> .devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
+  echo "$(date): Hook timeout for $STORY_ID" >> devforgeai/logs/hooks-orchestrate-${STORY_ID}.log
 }
 ```
 
@@ -419,7 +419,7 @@ mv $(which devforgeai).bak $(which devforgeai)
 **Diagnosis:**
 ```bash
 # Check file modification time
-ls -l .devforgeai/config/hooks.yaml
+ls -l devforgeai/config/hooks.yaml
 # Verify changes are saved
 
 # Check if CLI caches configuration
@@ -449,7 +449,7 @@ devforgeai check-hooks --operation=orchestrate --status=SUCCESS
 # Enable debug logging in CLI
 export DEVFORGEAI_LOG_LEVEL=DEBUG
 devforgeai invoke-hooks ...
-# Check detailed logs in .devforgeai/logs/
+# Check detailed logs in devforgeai/logs/
 ```
 
 ### Tool 2: Manual Context Extraction Test
@@ -496,7 +496,7 @@ python test_context_extraction.py STORY-026
 # Validate hooks.yaml syntax
 python3 -c "
 import yaml
-with open('.devforgeai/config/hooks.yaml') as f:
+with open('devforgeai/config/hooks.yaml') as f:
     config = yaml.safe_load(f)
     print('✅ Valid YAML')
     print(f'Hooks defined: {len(config[\"hooks\"])}')
@@ -563,14 +563,14 @@ python3 -m devforgeai_cli.commands.check_hooks ...
 - **Implementation:** `.claude/scripts/devforgeai_cli/orchestrate_hooks.py`
 - **Tests:** `tests/unit/test_orchestrate_hooks_context_extraction.py` (31 tests)
 - **Tests:** `tests/integration/test_orchestrate_hooks_integration.py` (56 tests)
-- **Integration Guide:** `.devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md`
-- **Config Example:** `.devforgeai/config/hooks.yaml.example`
+- **Integration Guide:** `devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md`
+- **Config Example:** `devforgeai/config/hooks.yaml.example`
 
 ### Log Files
 
-- **Hook invocations:** `.devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`
-- **Feedback sessions:** `.devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json`
-- **CLI errors:** `.devforgeai/logs/devforgeai-cli.log` (if logging configured)
+- **Hook invocations:** `devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`
+- **Feedback sessions:** `devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json`
+- **CLI errors:** `devforgeai/logs/devforgeai-cli.log` (if logging configured)
 
 ### Test Validation
 

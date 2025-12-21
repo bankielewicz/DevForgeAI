@@ -65,7 +65,7 @@ epic: EPIC-001
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -132,7 +132,7 @@ epic: EPIC-002
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -187,7 +187,7 @@ epic: EPIC-003
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -245,7 +245,7 @@ epic: EPIC-004
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -321,7 +321,7 @@ epic: EPIC-006
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -367,7 +367,7 @@ epic: EPIC-007
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \
@@ -428,7 +428,7 @@ epic: EPIC-008
 EOF
 
     # Act: Generate terminal output
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         --stories-dir="${TEMP_DIR}" \

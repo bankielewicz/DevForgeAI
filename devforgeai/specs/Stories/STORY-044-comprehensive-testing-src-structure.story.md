@@ -147,7 +147,7 @@ depends_on: ["STORY-043"]
 5. `devforgeai invoke-hooks --operation=dev --story=STORY-041` → hook invocation (if enabled), exits 0 ✓
 
 **And** CLI success rate: 5/5 (100%)
-**And** CLI loads configuration from .devforgeai/config/ (deployed location, correct)
+**And** CLI loads configuration from devforgeai/config/ (deployed location, correct)
 **And** CLI version: 0.1.0 (unchanged)
 
 ---
@@ -206,7 +206,7 @@ depends_on: ["STORY-043"]
 ```
 
 **And** all 3 workflows log "0 path errors, 0 FileNotFoundError"
-**And** all generated files created in correct locations (.ai_docs/, .devforgeai/)
+**And** all generated files created in correct locations (.ai_docs/, devforgeai/)
 
 ---
 
@@ -421,7 +421,7 @@ technical_specification:
 - [x] 5 CLI commands tested (all operational)
 - [x] 3 integration workflows executed (end-to-end validation)
 - [x] Performance benchmarks collected (baseline comparison)
-- [x] Test report generated (.devforgeai/specs/STORY-044/test-report.md)
+- [x] Test report generated (devforgeai/specs/STORY-044/test-report.md)
 
 ### Quality
 - [x] All 7 acceptance criteria validated
@@ -501,7 +501,7 @@ technical_specification:
 - [x] 5 CLI commands tested (all operational) - Completed: Phase 1, 5/5 tests pass
 - [x] 3 integration workflows executed (end-to-end validation) - Completed: Phase 4, 26/26 sub-tests pass
 - [x] Performance benchmarks collected (baseline comparison) - Completed: Phase 1, 6/6 benchmarks measured
-- [x] Test report generated (.devforgeai/specs/STORY-044/test-report.md) - Completed: Phase 4, comprehensive report generated
+- [x] Test report generated (devforgeai/specs/STORY-044/test-report.md) - Completed: Phase 4, comprehensive report generated
 
 **Next Actions:**
 - Complete Phase 5 (Git commit) ← Currently executing
@@ -560,7 +560,7 @@ technical_specification:
 
 **Decision:** APPROVED FOR RELEASE
 
-**Report Location:** `.devforgeai/qa/reports/STORY-044-qa-report.md`
+**Report Location:** `devforgeai/qa/reports/STORY-044-qa-report.md`
 
 **Key Findings:**
 - Zero regressions detected across all test phases

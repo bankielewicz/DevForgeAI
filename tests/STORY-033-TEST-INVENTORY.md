@@ -43,7 +43,7 @@
 - [ ] `test_audit_report_created_on_hook_failure` - Report created despite failure
 
 ### TestCONF007HookInvocationLogging (6 tests)
-- [ ] `test_log_file_path_correct` - Log at .devforgeai/feedback/logs/hook-invocations.log
+- [ ] `test_log_file_path_correct` - Log at devforgeai/feedback/logs/hook-invocations.log
 - [ ] `test_log_entry_has_timestamp` - ISO format timestamp
 - [ ] `test_log_entry_has_operation` - Operation name (audit-deferrals)
 - [ ] `test_log_entry_has_status` - Status field present

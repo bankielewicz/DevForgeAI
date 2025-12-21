@@ -150,7 +150,7 @@ So that I can develop multiple stories in parallel without file system collision
 - AC2: Worktree idle >7 days flagged for cleanup (checked on next /dev)
 - AC3: Prompt offers: Resume, Fresh Start, Delete Old
 - AC4: Worktree creation takes <10 seconds
-- AC5: Cleanup threshold configurable in .devforgeai/config/parallel.yaml (deployed from src/devforgeai/config/parallel.yaml.example)
+- AC5: Cleanup threshold configurable in devforgeai/config/parallel.yaml (deployed from src/devforgeai/config/parallel.yaml.example)
 
 **Dependencies:** None (foundational feature)
 
@@ -158,7 +158,7 @@ So that I can develop multiple stories in parallel without file system collision
 - **Subagent:** git-worktree-manager (enhanced from git-validator, ~450 lines) in src/claude/agents/
 - Worktree manager module (Python or Bash) in src/claude/scripts/ or skill references
 - **Config template:** src/devforgeai/config/parallel.yaml.example (defaults: 7-day cleanup, 5 max worktrees)
-- **Operational config:** .devforgeai/config/parallel.yaml (created by installer from template)
+- **Operational config:** devforgeai/config/parallel.yaml (created by installer from template)
 - Auto-create logic in src/claude/skills/devforgeai-development/ (Phase 0 enhancement)
 - Cleanup prompt in /dev command (Phase 0)
 - Documentation: Git worktrees for parallel development
@@ -201,7 +201,7 @@ So that concurrent QA validations don't overwrite each other's results and I can
 **Deliverables:**
 - Test configuration updates in src/claude/skills/devforgeai-development/ (Phase 2) and src/claude/skills/devforgeai-qa/ (Phase 1)
 - **Config template:** src/devforgeai/config/test-isolation.yaml.example
-- **Operational config:** .devforgeai/config/test-isolation.yaml (created by installer)
+- **Operational config:** devforgeai/config/test-isolation.yaml (created by installer)
 - Documentation: Story-scoped testing guide
 
 **Risk:** Low - Standard test framework feature, well-documented
@@ -349,13 +349,13 @@ So that I don't encounter git index lock conflicts or race conditions.
 - Wait-with-progress UI
 
 **Acceptance Criteria:**
-- AC1: /dev Phase 5 (git commit) acquires .devforgeai/.locks/git-commit.lock before committing (operational folder, not source)
+- AC1: /dev Phase 5 (git commit) acquires devforgeai/.locks/git-commit.lock before committing (operational folder, not source)
 - AC2: If lock exists, waits with progress: "Waiting for git lock (held by STORY-037 PID 12345)... 15s"
 - AC3: Stale lock detection: Lock >5 min old with dead PID auto-removed
 - AC4: Lock timeout: After 10 min waiting, prompt: "(1) Continue waiting, (2) Force acquire lock (risky), (3) Abort"
 - AC5: Lock released after successful commit
 
-**Note:** Lock files are runtime artifacts in .devforgeai/.locks/ (operational), not in src/ (source) or tests/ (testing)
+**Note:** Lock files are runtime artifacts in devforgeai/.locks/ (operational), not in src/ (source) or tests/ (testing)
 
 **Dependencies:** Feature 1 (worktrees create concurrent git operations)
 
@@ -436,7 +436,7 @@ So that I don't encounter git index lock conflicts or race conditions.
   - **Strict merge gates:** No parallel story merges unless Phase 5.0 validation passes (100% completion + no skipped phases + no autonomous deferrals)
   - **Quality-first design:** Parallel mode makes incomplete work more visible (multiple stories stuck at 87% triggers investigation)
   - **Explicit requirement:** "Quality cannot be compromised" (user-confirmed during ideation)
-- **See:** `.devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md`, `RCA-013-development-workflow-stops-before-completion.md`, `RCA-014-autonomous-deferral-without-user-approval-phase-4-5.md`
+- **See:** `devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md`, `RCA-013-development-workflow-stops-before-completion.md`, `RCA-014-autonomous-deferral-without-user-approval-phase-4-5.md`
 
 **Risk 3: Developer Complexity Overhead**
 - **Impact:** HIGH (feature unused if too complex)
@@ -642,14 +642,14 @@ So that I don't encounter git index lock conflicts or race conditions.
 
 **Modified Phase 5 (Git/Tracking):**
 - **Step 5.1:** Acquire Git Commit Lock (NEW)
-  - Check .devforgeai/.locks/git-commit.lock
+  - Check devforgeai/.locks/git-commit.lock
   - Wait if locked (max 10 min, display progress)
   - Acquire lock (write PID, story_id, timestamp)
 - **Step 5.2:** Git Commit (modified - commit to story branch in worktree)
   - Commit to `story-{id}` branch (not main)
   - Commit message includes: "Story: STORY-{id}"
 - **Step 5.3:** Release Lock (NEW)
-  - Remove .devforgeai/.locks/git-commit.lock
+  - Remove devforgeai/.locks/git-commit.lock
 - **Step 5.4:** Post-Flight Overlap Check (NEW - invoke file-overlap-detector)
   - Run git diff --name-only in worktree
   - Compare actual files changed vs spec file_path
@@ -862,7 +862,7 @@ Phase 2: Display Results
 
 **Phase 2: Configuration Setup**
 - Create src/devforgeai/config/github-actions.yaml.example (template):
-  - Installer deploys to .devforgeai/config/github-actions.yaml (operational)
+  - Installer deploys to devforgeai/config/github-actions.yaml (operational)
   ```yaml
   github_actions:
     enabled: true
@@ -884,7 +884,7 @@ Phase 2: Display Results
         model: haiku
   ```
 - Create src/devforgeai/config/ci-answers.yaml.example (template):
-  - Installer deploys to .devforgeai/config/ci-answers.yaml (operational)
+  - Installer deploys to devforgeai/config/ci-answers.yaml (operational)
   ```yaml
   ci_mode_answers:
     test_failure_action: "fix-implementation"
@@ -1128,16 +1128,16 @@ Phase 2: Display Results
 - `tests/integration/test_parallel_dev.py` (integration tests for concurrent /dev)
 - `tests/integration/test_parallel_qa.py` (integration tests for concurrent /qa)
 
-### Operational Folders (.devforgeai/)
+### Operational Folders (devforgeai/)
 **Purpose:** Runtime artifacts, generated reports, operational config
 
 **EPIC-010 Additions:**
-- `.devforgeai/config/parallel.yaml` (deployed from src/ template, user-editable)
-- `.devforgeai/config/test-isolation.yaml` (deployed from src/ template, user-editable)
-- `.devforgeai/config/github-actions.yaml` (deployed from src/ template - Phase 2, user-editable)
-- `.devforgeai/config/ci-answers.yaml` (deployed from src/ template - Phase 2, user-editable)
-- `.devforgeai/.locks/git-commit.lock` (runtime lock file, NOT in src/ or tests/)
-- `.devforgeai/.locks/build.lock` (runtime lock file if needed)
+- `devforgeai/config/parallel.yaml` (deployed from src/ template, user-editable)
+- `devforgeai/config/test-isolation.yaml` (deployed from src/ template, user-editable)
+- `devforgeai/config/github-actions.yaml` (deployed from src/ template - Phase 2, user-editable)
+- `devforgeai/config/ci-answers.yaml` (deployed from src/ template - Phase 2, user-editable)
+- `devforgeai/.locks/git-commit.lock` (runtime lock file, NOT in src/ or tests/)
+- `devforgeai/.locks/build.lock` (runtime lock file if needed)
 
 ### Deployed Operational (.claude/)
 **Purpose:** Deployed framework files (from src/ via installer)
@@ -1282,8 +1282,8 @@ Phase 2: Display Results
    - **Configuration:**
      - src/devforgeai/config/github-actions.yaml.example (source template)
      - src/devforgeai/config/ci-answers.yaml.example (source template)
-     - .devforgeai/config/github-actions.yaml (deployed operational config)
-     - .devforgeai/config/ci-answers.yaml (deployed operational config)
+     - devforgeai/config/github-actions.yaml (deployed operational config)
+     - devforgeai/config/ci-answers.yaml (deployed operational config)
    - **Reference files:** 6 files (~3,000 lines)
      - github-actions-setup-workflow.md
      - workflow-template-generation.md

@@ -50,7 +50,7 @@ def temp_project(tmp_path):
     project_root.mkdir()
 
     # Create basic structure
-    (project_root / ".devforgeai").mkdir()
+    (project_root / "devforgeai").mkdir()
     (project_root / ".claude").mkdir()
     (project_root / ".ai_docs").mkdir()
 
@@ -120,11 +120,11 @@ class TestInstallMissingVersionFile:
         """
         Test: Upgrade without existing .version.json → Create backup, update version.json
 
-        Edge case: Project has .devforgeai/ but no .version.json
+        Edge case: Project has devforgeai/ but no .version.json
         Expected: Installation succeeds, new .version.json created
         """
         # Arrange
-        devforgeai_path = temp_project / ".devforgeai"
+        devforgeai_path = temp_project / "devforgeai"
         version_file = devforgeai_path / ".version.json"
 
         # Verify version.json doesn't exist
@@ -169,7 +169,7 @@ class TestInstallMissingVersionFile:
         Expected: OSError caught, result status set to "failed"
         """
         # Arrange
-        devforgeai_path = temp_project / ".devforgeai"
+        devforgeai_path = temp_project / "devforgeai"
 
         # Make directory read-only
         os.chmod(devforgeai_path, 0o444)
@@ -384,11 +384,11 @@ class TestDeployFileConflicts:
         """
         Test: Existing preserved file not overwritten → files_skipped incremented
 
-        Scenario: .devforgeai/config/hooks.yaml exists in target
+        Scenario: devforgeai/config/hooks.yaml exists in target
         Expected: File not overwritten, skipped count incremented
         """
         # Arrange
-        target_config = temp_project / ".devforgeai" / "config"
+        target_config = temp_project / "devforgeai" / "config"
         target_config.mkdir(parents=True, exist_ok=True)
 
         hooks_file = target_config / "hooks.yaml"
@@ -396,7 +396,7 @@ class TestDeployFileConflicts:
         hooks_file.write_text(original_content)
 
         source_dir = source_framework / "devforgeai"
-        target_dir = temp_project / ".devforgeai"
+        target_dir = temp_project / "devforgeai"
 
         result = {
             "status": "success",
@@ -826,7 +826,7 @@ class TestFullErrorRecovery:
         """
         # Arrange
         required_dirs = [
-            temp_project / ".devforgeai",
+            temp_project / "devforgeai",
             temp_project / ".claude",
             temp_project / ".ai_docs",
         ]

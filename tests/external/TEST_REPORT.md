@@ -62,8 +62,8 @@ bash tests/external/test-installation-workflow.sh
 [PASS] AC1.1
 [TEST] AC1.2: Installer creates .claude/ directory with 450 files
 [FAIL] AC1.2: .claude/ directory not created (exit code: 1)
-[TEST] AC1.3: Installer creates .devforgeai/ directory
-[FAIL] AC1.3: .devforgeai/ not created (exit code: 1)
+[TEST] AC1.3: Installer creates devforgeai/ directory
+[FAIL] AC1.3: devforgeai/ not created (exit code: 1)
 ...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TEST SUMMARY
@@ -131,11 +131,11 @@ tests/external/test_install_integration.py::TestExternalProjectInstallation::tes
 **Shell Tests:**
 - AC1.1: Detects Node.js project (package.json found)
 - AC1.2: Creates .claude/ directory with 450 files
-- AC1.3: Creates .devforgeai/ directory structure
+- AC1.3: Creates devforgeai/ directory structure
 - AC1.4: Merges CLAUDE.md with user content
 - AC1.5: Substitutes all template variables (7/7)
 - AC1.6: Installs CLI (devforgeai --version works)
-- AC1.7: Writes .devforgeai/.version.json metadata
+- AC1.7: Writes devforgeai/.version.json metadata
 
 **Python Tests:**
 - test_ac1_nodejs_installation_creates_directories
@@ -150,7 +150,7 @@ tests/external/test_install_integration.py::TestExternalProjectInstallation::tes
 All tests fail because:
 - Installer not yet invoked on external projects
 - .claude/ directory not created
-- .devforgeai/ directory not created
+- devforgeai/ directory not created
 - CLAUDE.md not merged
 - CLI not installed in external project context
 
@@ -298,7 +298,7 @@ Tests fail because:
 **Expected Behavior (RED):**
 Tests fail because:
 - Commands require full framework deployment
-- External projects don't have .claude/ and .devforgeai/
+- External projects don't have .claude/ and devforgeai/
 - No way to execute commands in external context yet
 
 ---
@@ -593,7 +593,7 @@ To transition from RED to GREEN:
 1. **Implement installer for external projects:**
    - Create installer/install.py with external project support
    - Implement tech detection (Node.js, .NET, Python)
-   - Deploy .claude/ and .devforgeai/ directories
+   - Deploy .claude/ and devforgeai/ directories
    - Merge CLAUDE.md with user content
 
 2. **Implement CLAUDE.md merge:**
@@ -680,15 +680,15 @@ AC1: Successful Installation on Node.js Test Project
 [PASS] AC1.1
 [TEST] AC1.2: Installer creates .claude/ directory with 450 files
 [FAIL] AC1.2: .claude/ directory not created (installer not run)
-[TEST] AC1.3: Installer creates .devforgeai/ directory
-[FAIL] AC1.3: .devforgeai/ not created
+[TEST] AC1.3: Installer creates devforgeai/ directory
+[FAIL] AC1.3: devforgeai/ not created
 [TEST] AC1.4: CLAUDE.md merged with user and framework content
 [FAIL] AC1.4: CLAUDE.md file missing
 [TEST] AC1.5: Variables substituted ({{PROJECT_NAME}}, {{TECH_STACK}}, etc.)
 [FAIL] AC1.5: Cannot check - CLAUDE.md missing
 [TEST] AC1.6: CLI installed (devforgeai --version works)
 [FAIL] AC1.6: devforgeai command not found
-[TEST] AC1.7: Installation metadata (.devforgeai/.version.json created)
+[TEST] AC1.7: Installation metadata (devforgeai/.version.json created)
 [FAIL] AC1.7: .version.json not created
 
 ... [more AC/BR/NFR/EC tests, all FAILING] ...

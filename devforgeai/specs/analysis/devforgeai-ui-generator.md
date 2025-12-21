@@ -825,7 +825,7 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 5: Code Generation
 **Purpose:** Generate production-ready UI component code
 **Reference:** `code-generation.md`
-**Output:** Component files in .devforgeai/specs/ui/
+**Output:** Component files in devforgeai/specs/ui/
 
 ### Phase 6: Documentation & Story Update
 **Purpose:** Create UI spec summary and update story
@@ -920,7 +920,7 @@ Skill workflow:
 5. Phase 5: Generate LoginForm.jsx
 6. Phase 6: Invoke ui-spec-formatter → format results
 7. Phase 7: Validate (completeness, placeholders, framework)
-8. Output: LoginForm.jsx in .devforgeai/specs/ui/
+8. Output: LoginForm.jsx in devforgeai/specs/ui/
 
 Token usage: ~3,500 tokens (entry 1.5K + phases 2K)
 ```
@@ -1074,7 +1074,7 @@ Expected:
 2. Template loaded: web-template.jsx
 3. Best practices loaded: web_best_practices.md
 4. Component code generated
-5. File written to .devforgeai/specs/ui/
+5. File written to devforgeai/specs/ui/
 ```
 
 **Validation:**
@@ -1119,7 +1119,7 @@ Expected workflow:
 8. Story updated with UI reference
 
 Output:
-- LoginForm.jsx in .devforgeai/specs/ui/
+- LoginForm.jsx in devforgeai/specs/ui/
 - UI-SPEC-SUMMARY.md created
 - Story file updated
 ```

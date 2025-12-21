@@ -9,7 +9,7 @@ TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$TEST_DIR/../../.." && pwd)"
 
 # Test fixtures
-HOOKS_CONFIG_PATH="$PROJECT_ROOT/.devforgeai/config/hooks.yaml"
+HOOKS_CONFIG_PATH="$PROJECT_ROOT/devforgeai/config/hooks.yaml"
 TEMP_HOOKS_CONFIG="/tmp/hooks-test-$$.yaml"
 
 # ANSI colors

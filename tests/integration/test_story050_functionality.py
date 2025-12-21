@@ -259,7 +259,7 @@ class TestBackupCompatibility:
         ASSERT: Pass/fail/skip counts identical
         """
         # Arrange
-        baseline_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/story033_baseline.json")
+        baseline_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/tests/story033_baseline.json")
 
         # Skip if baseline not established yet
         if not baseline_file.exists():
@@ -323,7 +323,7 @@ class TestPerformance:
         ASSERT: Baseline saved for comparison
         """
         # Arrange
-        baseline_dir = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/performance")
+        baseline_dir = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/tests/performance")
         baseline_dir.mkdir(parents=True, exist_ok=True)
 
         baseline_file = baseline_dir / "story050_baseline.json"
@@ -348,7 +348,7 @@ class TestPerformance:
         ASSERT: P95 time within baseline ±10%
         """
         # Arrange
-        baseline_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/performance/story050_baseline.json")
+        baseline_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/tests/performance/story050_baseline.json")
 
         if not baseline_file.exists():
             print("⚠️ Skip: Baseline not established yet")
@@ -409,7 +409,7 @@ class TestOutputConsistency:
         ASSERT: Report structure, format, metrics identical (except timestamps)
         """
         # Arrange
-        baseline_report = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/baseline_audit_report.md")
+        baseline_report = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/tests/baseline_audit_report.md")
 
         if not baseline_report.exists():
             print("⚠️ Skip: Baseline report not established. Generate baseline before refactoring.")
@@ -445,7 +445,7 @@ class TestOutputConsistency:
         ASSERT: Deferral counts, severities, ages all match
         """
         # Arrange
-        baseline_report = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/baseline_audit_report.md")
+        baseline_report = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/tests/baseline_audit_report.md")
 
         if not baseline_report.exists():
             print("⚠️ Skip: Baseline report not available")

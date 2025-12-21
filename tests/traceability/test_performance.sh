@@ -28,7 +28,7 @@ TEST_LOG="/tmp/story-083-performance.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-PARSER_SCRIPT="${PROJECT_ROOT}/.devforgeai/traceability/parse-requirements.sh"
+PARSER_SCRIPT="${PROJECT_ROOT}/devforgeai/traceability/parse-requirements.sh"
 
 # Initialize log
 echo "=== STORY-083 Performance Test Suite ===" > "$TEST_LOG"
@@ -169,7 +169,7 @@ test_output_reasonable_size() {
 
     "$PARSER_SCRIPT" --generate-matrix 2>/dev/null
 
-    local matrix_file="${PROJECT_ROOT}/.devforgeai/traceability/requirements-matrix.json"
+    local matrix_file="${PROJECT_ROOT}/devforgeai/traceability/requirements-matrix.json"
 
     if [ ! -f "$matrix_file" ]; then
         echo "Matrix file not created"

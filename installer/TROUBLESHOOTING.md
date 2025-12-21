@@ -167,7 +167,7 @@ rm -rf .backups/devforgeai-upgrade-20251119-143000-123456/
 ```bash
 # Fix permissions on target
 chmod -R u+w /path/to/project/.claude
-chmod -R u+w /path/to/project/.devforgeai
+chmod -R u+w /path/to/project/devforgeai
 
 # Retry installation
 # Auto-rollback will have restored previous state, safe to retry
@@ -723,7 +723,7 @@ else:
 ```bash
 # Count files in installation
 find .claude -type f | wc -l      # Should be ~370
-find .devforgeai -type f | wc -l  # Should be ~80
+find devforgeai -type f | wc -l  # Should be ~80
 # Total: ~450 files
 
 # Check critical files

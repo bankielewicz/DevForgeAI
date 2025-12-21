@@ -2,7 +2,7 @@
 Unit tests for VersionDetector service (STORY-077).
 
 Tests AC#1: Version File Detection
-- Read version from .devforgeai/.version.json
+- Read version from devforgeai/.version.json
 - Display version to user
 - Complete within 1 second
 
@@ -11,7 +11,7 @@ Tests AC#6: Missing Version File Handling
 - Provide clear error messages
 
 Tests Technical Specification:
-- SVC-001: Read version from .devforgeai/.version.json
+- SVC-001: Read version from devforgeai/.version.json
 - SVC-002: Handle missing version file gracefully
 - SVC-003: Handle corrupted version file
 - NFR-001: Version detection < 1 second
@@ -35,7 +35,7 @@ class TestVersionDetectorFileDetection:
         When: read_version() called
         Then: returns Version object with correct fields"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -48,7 +48,7 @@ class TestVersionDetectorFileDetection:
         # Import here to avoid import errors if module doesn't exist yet
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         version = detector.read_version()
@@ -66,7 +66,7 @@ class TestVersionDetectorFileDetection:
         When: display_version() called
         Then: returns user-friendly formatted version string"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -78,7 +78,7 @@ class TestVersionDetectorFileDetection:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         display_text = detector.display_version()
@@ -92,7 +92,7 @@ class TestVersionDetectorFileDetection:
         When: read_version() called
         Then: operation completes in < 1 second (NFR-001)"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -102,7 +102,7 @@ class TestVersionDetectorFileDetection:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act & Assert
         start = time.time()
@@ -116,7 +116,7 @@ class TestVersionDetectorFileDetection:
         When: read_version() called
         Then: upgraded_from field is available in metadata"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -128,7 +128,7 @@ class TestVersionDetectorFileDetection:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         metadata = detector.read_version_metadata()
@@ -146,7 +146,7 @@ class TestVersionDetectorMissingFile:
         When: read_version() called
         Then: returns None (not exception) - graceful handling"""
         # Arrange
-        devforgeai_path = temp_dir / ".devforgeai"
+        devforgeai_path = temp_dir / "devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
         from installer.version_detector import VersionDetector
@@ -164,7 +164,7 @@ class TestVersionDetectorMissingFile:
         When: get_version_status() called
         Then: returns error result with clear message"""
         # Arrange
-        devforgeai_path = temp_dir / ".devforgeai"
+        devforgeai_path = temp_dir / "devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
         from installer.version_detector import VersionDetector
@@ -183,7 +183,7 @@ class TestVersionDetectorMissingFile:
         When: detector.treat_as_fresh_install() called
         Then: version is set to 0.0.0"""
         # Arrange
-        devforgeai_path = temp_dir / ".devforgeai"
+        devforgeai_path = temp_dir / "devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
         from installer.version_detector import VersionDetector
@@ -207,13 +207,13 @@ class TestVersionDetectorCorruptedFile:
         When: read_version() called
         Then: returns error result with clear message (not exception)"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_file.write_text("{invalid json content")
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         result = detector.get_version_status()
@@ -227,13 +227,13 @@ class TestVersionDetectorCorruptedFile:
         When: read_version() called
         Then: returns error result gracefully"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_file.write_text("")
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         result = detector.get_version_status()
@@ -246,7 +246,7 @@ class TestVersionDetectorCorruptedFile:
         When: read_version() called
         Then: returns error with clear message about missing field"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "installed_at": "2025-11-25T10:30:00Z",
@@ -256,7 +256,7 @@ class TestVersionDetectorCorruptedFile:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         result = detector.get_version_status()
@@ -270,7 +270,7 @@ class TestVersionDetectorCorruptedFile:
         When: read_version() called
         Then: file is not modified (NFR-004)"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -281,7 +281,7 @@ class TestVersionDetectorCorruptedFile:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         time.sleep(0.1)  # Small delay to ensure mtime would change if modified
@@ -300,7 +300,7 @@ class TestVersionDetectorEdgeCases:
         When: read_version_metadata() called
         Then: all fields are correctly read"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -312,7 +312,7 @@ class TestVersionDetectorEdgeCases:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         metadata = detector.read_version_metadata()
@@ -328,7 +328,7 @@ class TestVersionDetectorEdgeCases:
         When: validate_timestamp() called
         Then: ISO8601 format is validated"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.2.3",
@@ -339,7 +339,7 @@ class TestVersionDetectorEdgeCases:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         metadata = detector.read_version_metadata()

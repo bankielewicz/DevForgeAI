@@ -29,7 +29,7 @@ class ConfigMigrator:
         # Version 1: Initial schema (no migrations defined yet)
     }
 
-    def __init__(self, config_dir: str = ".devforgeai", validator: Optional[ConfigValidator] = None):
+    def __init__(self, config_dir: str = "devforgeai", validator: Optional[ConfigValidator] = None):
         """Initialize configuration migrator.
 
         Args:

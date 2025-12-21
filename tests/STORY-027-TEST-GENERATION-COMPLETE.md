@@ -269,8 +269,8 @@ All 6 acceptance criteria have comprehensive test coverage:
 **Coverage:** 100% (2/2 configuration requirements tested)
 
 ### Logging: HookLogging
-- [x] Logging sink: .devforgeai/feedback/.logs/hooks.log (success logging)
-- [x] Logging sink: .devforgeai/feedback/.logs/hook-errors.log (error logging)
+- [x] Logging sink: devforgeai/feedback/.logs/hooks.log (success logging)
+- [x] Logging sink: devforgeai/feedback/.logs/hook-errors.log (error logging)
 
 **Coverage:** 100% (2/2 logging requirements tested)
 
@@ -402,7 +402,7 @@ python3 -m pytest tests/unit/test_hook_integration_phase.py \
    - Tests verify the contract, not the implementation
 
 2. **Temporary file systems** - Tests use tmpdir for isolation
-   - Real implementation will use actual `.devforgeai/` directories
+   - Real implementation will use actual `devforgeai/` directories
    - Tests validate structure and flow
 
 3. **No real hook scripts** - Hook invocation is simulated
@@ -411,7 +411,7 @@ python3 -m pytest tests/unit/test_hook_integration_phase.py \
 
 ### Improvements for Green Phase
 1. **Replace mock responses** with actual CLI command invocations
-2. **Replace tmpdir** with actual `.devforgeai/` directory structure
+2. **Replace tmpdir** with actual `devforgeai/` directory structure
 3. **Test with real hook scripts** that provide feedback questions
 4. **Measure actual execution time** vs p95 targets
 5. **Verify actual log file contents** (JSON formatting, timestamps)
@@ -450,7 +450,7 @@ Before marking this story as complete:
 - [ ] Hook integration phase added to `/create-story` command (Phase N)
 - [ ] `devforgeai check-hooks --operation=story-create` functional
 - [ ] `devforgeai invoke-hooks --operation=story-create` functional
-- [ ] Hook configuration reads from `.devforgeai/config/hooks.yaml`
+- [ ] Hook configuration reads from `devforgeai/config/hooks.yaml`
 - [ ] Batch mode deferral implemented (hook invoked once at batch end)
 - [ ] Graceful degradation working (hook failures don't break story creation)
 - [ ] Story context metadata complete (story_id, epic_id, sprint, title, points, priority, timestamp)
@@ -467,7 +467,7 @@ Before marking this story as complete:
 1. **Implementation Phase:**
    - Add hook integration phase to `.claude/commands/create-story.md`
    - Implement devforgeai check-hooks and invoke-hooks CLI commands
-   - Load hook configuration from .devforgeai/config/hooks.yaml
+   - Load hook configuration from devforgeai/config/hooks.yaml
    - Assemble complete story context metadata
    - Implement batch mode deferral logic
    - Add graceful error handling for hook failures

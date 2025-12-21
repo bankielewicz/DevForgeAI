@@ -1,6 +1,6 @@
 # STORY-041 Test Suite Index
 
-**Location:** `.devforgeai/tests/STORY-041/`
+**Location:** `devforgeai/tests/STORY-041/`
 **Generated:** 2025-11-18
 **Framework:** Test-Driven Development (TDD) - Red Phase
 
@@ -69,7 +69,7 @@ Validates that version.json exists with correct schema:
 **File:** `test-ac4-current-operations.sh` (14 KB)
 
 Validates that operational code is unchanged:
-- .claude/ and .devforgeai/ folders intact
+- .claude/ and devforgeai/ folders intact
 - Commands don't reference src/
 - Skills don't reference src/
 - All 13 command files exist
@@ -243,7 +243,7 @@ cat RUN-TESTS.md
 ## File Structure
 
 ```
-.devforgeai/tests/STORY-041/
+devforgeai/tests/STORY-041/
 ├── test-ac1-directory-structure.sh    (14 KB) - AC#1 tests
 ├── test-ac2-gitignore-rules.sh        (13 KB) - AC#2 tests
 ├── test-ac3-version-json.sh           (19 KB) - AC#3 tests

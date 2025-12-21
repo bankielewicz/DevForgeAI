@@ -101,7 +101,7 @@ VERSION_DETECTION_TESTS = '''
         from src.installer.services.version_detection_service import VersionDetectionService
         from unittest.mock import patch
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"installed_version": "1.0.0"')  # Missing closing brace
@@ -131,7 +131,7 @@ VERSION_DETECTION_TESTS = '''
         from src.installer.services.version_detection_service import VersionDetectionService
         from unittest.mock import patch
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"wrong_key": "value"}')  # Missing installed_version

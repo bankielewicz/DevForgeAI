@@ -22,12 +22,12 @@ class VersionDetector:
         Initialize VersionDetector.
 
         Args:
-            devforgeai_path: Path to .devforgeai directory. Defaults to .devforgeai in current directory.
+            devforgeai_path: Path to devforgeai directory. Defaults to devforgeai in current directory.
         """
         if devforgeai_path is None:
-            devforgeai_path = Path.cwd() / ".devforgeai"
-        self.devforgeai_path = Path(devforgeai_path)
-        self.version_file = self.devforgeai_path / ".version.json"
+            devforgeai_path = Path.cwd() / "devforgeai"
+        selfdevforgeai_path = Path(devforgeai_path)
+        self.version_file = selfdevforgeai_path / ".version.json"
         self.parser = VersionParser()
 
     def _read_file_content(self) -> Optional[Dict[str, Any]]:

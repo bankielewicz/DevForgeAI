@@ -42,7 +42,7 @@ class TestConfigImporterBasic:
         """Test: Imported config is applied to DevForgeAI."""
         # Arrange
         import_file = temp_install_dir / "config.json"
-        config_dest = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_dest = temp_install_dir / "devforgeai" / ".install-config.json"
         config_dest.parent.mkdir(parents=True, exist_ok=True)
 
         with open(import_file, "w") as f:
@@ -181,7 +181,7 @@ class TestConfigImporterMigration:
         """Test: Migration applied before storing imported config."""
         # Arrange
         import_file = temp_install_dir / "v1.json"
-        config_dest = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_dest = temp_install_dir / "devforgeai" / ".install-config.json"
         config_dest.parent.mkdir(parents=True, exist_ok=True)
 
         with open(import_file, "w") as f:
@@ -424,8 +424,8 @@ class TestConfigImporterIntegration:
     def test_should_support_multi_project_config_sharing(self, temp_install_dir, sample_install_config):
         """Test: Config can be imported into multiple projects."""
         # Arrange
-        project1_dir = temp_install_dir / "project1" / ".devforgeai"
-        project2_dir = temp_install_dir / "project2" / ".devforgeai"
+        project1_dir = temp_install_dir / "project1" / "devforgeai"
+        project2_dir = temp_install_dir / "project2" / "devforgeai"
         project1_dir.mkdir(parents=True)
         project2_dir.mkdir(parents=True)
 

@@ -61,7 +61,7 @@ bash tests/specs/STORY-100-accuracy-log.test.sh 2>&1 | grep "✗ FAIL"
 ## What Tests Validate
 
 ### AC#1: File Existence and Markdown Structure (4 tests)
-✓ File exists at `.devforgeai/metrics/accuracy-log.md`
+✓ File exists at `devforgeai/metrics/accuracy-log.md`
 ✓ Content >= 500 characters
 ✓ Valid markdown headers (##, ###)
 ✓ Balanced backticks (no unclosed code blocks)
@@ -142,7 +142,7 @@ bash tests/specs/STORY-100-accuracy-log.test.sh 2>&1 | grep "✗ FAIL"
 ║  Framework: Bash/grep/wc - Native Tools (per tech-stack.md)    ║
 ╚════════════════════════════════════════════════════════════════╝
 
-✗ FAIL: File does not exist at .devforgeai/metrics/accuracy-log.md
+✗ FAIL: File does not exist at devforgeai/metrics/accuracy-log.md
 ✗ FAIL: Cannot check file size - file does not exist
 ... (55 tests all failing)
 
@@ -156,7 +156,7 @@ Some tests FAILED (expected in RED phase - no implementation yet)
 ### GREEN Phase (After Implementation)
 
 ```
-✓ PASS: File exists at .devforgeai/metrics/accuracy-log.md
+✓ PASS: File exists at devforgeai/metrics/accuracy-log.md
 ✓ PASS: File size (2540 bytes) >= 500 characters
 ✓ PASS: File contains 8 markdown headers
 ✓ PASS: Backticks balanced (42 total, 21 pairs)
@@ -180,7 +180,7 @@ All tests PASSED!
 - [x] Current status: All 55 tests FAIL as expected
 
 ### Phase 2: GREEN (Next - Implement)
-- [ ] Create `.devforgeai/metrics/accuracy-log.md`
+- [ ] Create `devforgeai/metrics/accuracy-log.md`
 - [ ] Add all required sections:
   - [ ] File header with version (v1.0)
   - [ ] AC#1: Valid markdown structure
@@ -269,10 +269,10 @@ All tests PASSED!
 
 ## Key Validation Points for Implementation
 
-When creating `.devforgeai/metrics/accuracy-log.md`, ensure:
+When creating `devforgeai/metrics/accuracy-log.md`, ensure:
 
 ### File Basics
-- [ ] File path: `.devforgeai/metrics/accuracy-log.md`
+- [ ] File path: `devforgeai/metrics/accuracy-log.md`
 - [ ] File size: < 50KB
 - [ ] Permissions: 644 (owner rw, group/other r)
 - [ ] Format: Plain markdown (no HTML, Mermaid, custom extensions)

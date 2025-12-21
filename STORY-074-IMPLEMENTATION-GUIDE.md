@@ -57,7 +57,7 @@ def _validate_backup_path_within_root(self, backup_path: Path, installation_root
     3. Log and return False if path escapes root
 
     Example - SAFE:
-    >>> backup = Path("/home/user/project/.devforgeai/install-backup-2025-12-03T14-30-45")
+    >>> backup = Path("/home/user/project/devforgeai/install-backup-2025-12-03T14-30-45")
     >>> root = Path("/home/user/project")
     >>> _validate_backup_path_within_root(backup, root)
     True  # ✅ Within root
@@ -98,7 +98,7 @@ def create_backup(self, target_dir: Path, files_to_backup: List[Path]) -> Path:
     if not self._validate_timestamp(timestamp):
         raise ValueError(f"Invalid timestamp format: {timestamp} (security violation)")
 
-    backup_base = target_dir / ".devforgeai"
+    backup_base = target_dir / "devforgeai"
     self.backup_dir = backup_base / f"install-backup-{timestamp}"
 
     # SECURITY FIX: Validate backup path stays within installation root
@@ -566,11 +566,11 @@ def test_backup_path_escape_prevention():
     root = Path("/home/user/project")
 
     # Safe - within root
-    safe_path = root / ".devforgeai" / "install-backup-2025-12-03T14-30-45"
+    safe_path = root / "devforgeai" / "install-backup-2025-12-03T14-30-45"
     assert service._validate_backup_path_within_root(safe_path, root) == True
 
     # Blocked - escape via ..
-    escape_path = root / ".devforgeai" / "install-backup-2025-12-03T14-30-45/../../../etc/passwd"
+    escape_path = root / "devforgeai" / "install-backup-2025-12-03T14-30-45/../../../etc/passwd"
     assert service._validate_backup_path_within_root(escape_path, root) == False
 ```
 

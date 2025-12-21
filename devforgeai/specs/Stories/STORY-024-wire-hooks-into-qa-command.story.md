@@ -254,7 +254,7 @@ technical_specification:
 
 ### Quality
 - [x] 12+ integration tests covering /qa hook scenarios (36 created)
-- [x] Manual testing with real stories (light and deep modes) - checklist created in .devforgeai/qa/STORY-024-manual-testing-checklist.md
+- [x] Manual testing with real stories (light and deep modes) - checklist created in devforgeai/qa/STORY-024-manual-testing-checklist.md
 - [x] Performance verified: <5s overhead measured (0.008s average via automated script)
 - [x] Reliability verified: 20 /qa runs, 100% result accuracy (automated tests confirm 100% consistency)
 - [x] No regression in /qa functionality (75/75 tests pass)
@@ -270,7 +270,7 @@ technical_specification:
 
 ### Documentation
 - [x] /qa command documentation updated (Phase 4 described) - Phase 4 section added to .claude/commands/qa.md
-- [x] User guide: Hook behavior for /qa (failures-only default) - .devforgeai/docs/qa-hook-integration-guide.md
+- [x] User guide: Hook behavior for /qa (failures-only default) - devforgeai/docs/qa-hook-integration-guide.md
 - [x] Integration pattern documented - Included in user guide with examples
 - [x] Troubleshooting: Hook failures, timeout, context extraction - Comprehensive troubleshooting section in user guide
 
@@ -333,7 +333,7 @@ fi
 devforgeai check-hooks --operation=qa --status=$STATUS
 if [ $? -eq 0 ]; then
   # Extract violation context for feedback
-  VIOLATIONS=$(cat .devforgeai/qa/reports/${STORY_ID}-qa-report.md | grep "VIOLATION")
+  VIOLATIONS=$(cat devforgeai/qa/reports/${STORY_ID}-qa-report.md | grep "VIOLATION")
 
   # Invoke feedback hook (errors logged, not thrown)
   devforgeai invoke-hooks --operation=qa --story=$STORY_ID --context="$VIOLATIONS" || {
@@ -354,7 +354,7 @@ fi
 - [x] Violation context extracted for feedback - Completed: Coverage % and violation count extracted (lines 200-210)
 - [x] All 7 acceptance criteria implemented - Completed: 75 tests validate all 7 AC (100% coverage)
 - [x] 12+ integration tests covering /qa hook scenarios - Completed: 36 integration tests created in tests/integration/test_qa_hooks_integration.py
-- [x] Manual testing with real stories (light and deep modes) - Completed: Checklist created in .devforgeai/qa/STORY-024-manual-testing-checklist.md
+- [x] Manual testing with real stories (light and deep modes) - Completed: Checklist created in devforgeai/qa/STORY-024-manual-testing-checklist.md
 - [x] Performance verified: <5s overhead measured - Completed: Automated measurement 0.008s average via measure-qa-hook-performance.sh
 - [x] Reliability verified: 20 /qa runs, 100% result accuracy - Completed: test_qa_result_identical_with_hooks_enabled_disabled validates 100% consistency
 - [x] No regression in /qa functionality - Completed: 75/75 tests pass
@@ -366,7 +366,7 @@ fi
 - [x] Test: Measure overhead → <5s confirmed - Completed: measure-qa-hook-performance.sh (0.008s average)
 - [x] Test: Compare results hooks on/off → 100% match - Completed: test_qa_result_identical_with_hooks_enabled_disabled (line 498)
 - [x] /qa command documentation updated (Phase 4 described) - Completed: 87-line Phase 4 section (lines 166-247)
-- [x] User guide: Hook behavior for /qa (failures-only default) - Completed: .devforgeai/docs/qa-hook-integration-guide.md (12 KB)
+- [x] User guide: Hook behavior for /qa (failures-only default) - Completed: devforgeai/docs/qa-hook-integration-guide.md (12 KB)
 - [x] Integration pattern documented - Completed: Included in user guide Integration Pattern section
 - [x] Troubleshooting: Hook failures, timeout, context extraction - Completed: Troubleshooting section in user guide (4 issues)
 
@@ -378,12 +378,12 @@ fi
 **Files Created:**
 1. `tests/integration/test_qa_hooks_integration.py` (689 lines, 36 tests)
 2. `tests/unit/test_qa_status_mapping.py` (472 lines, 39 tests)
-3. `.devforgeai/docs/qa-hook-integration-guide.md` (comprehensive user guide)
-4. `.devforgeai/qa/STORY-024-manual-testing-checklist.md` (manual testing procedures)
-5. `.devforgeai/qa/measure-qa-hook-performance.sh` (performance measurement script)
-6. `.devforgeai/qa/STORY-024-TEST-GENERATION-SUMMARY.md` (test documentation)
+3. `devforgeai/docs/qa-hook-integration-guide.md` (comprehensive user guide)
+4. `devforgeai/qa/STORY-024-manual-testing-checklist.md` (manual testing procedures)
+5. `devforgeai/qa/measure-qa-hook-performance.sh` (performance measurement script)
+6. `devforgeai/qa/STORY-024-TEST-GENERATION-SUMMARY.md` (test documentation)
 7. `.claude/commands/qa.md.backup-2025-11-13-story024` (backup before changes)
-8. `.devforgeai/stories/STORY-024/changes/changes-manifest.md` (change tracking)
+8. `devforgeai/stories/STORY-024/changes/changes-manifest.md` (change tracking)
 
 ### Test Results
 - **Total Tests:** 75 (36 integration + 39 unit)
@@ -415,7 +415,7 @@ pytest tests/integration/test_qa_hooks_integration.py tests/unit/test_qa_status_
 **Result:** 75 passed in 2.07s ✅
 
 ### Change Tracking
-File-based manifest: `.devforgeai/stories/STORY-024/changes/changes-manifest.md`
+File-based manifest: `devforgeai/stories/STORY-024/changes/changes-manifest.md`
 
 ---
 
@@ -451,11 +451,11 @@ File-based manifest: `.devforgeai/stories/STORY-024/changes/changes-manifest.md`
 - .claude/commands/qa.md (Phase 4 implementation)
 - tests/integration/test_qa_hooks_integration.py (36 tests)
 - tests/unit/test_qa_status_mapping.py (39 tests)
-- .devforgeai/docs/qa-hook-integration-guide.md (documentation)
+- devforgeai/docs/qa-hook-integration-guide.md (documentation)
 
 **Quality Score:** 100/100
 
-**Detailed Report:** `.devforgeai/qa/reports/STORY-024-qa-report-deep-2025-11-14.md`
+**Detailed Report:** `devforgeai/qa/reports/STORY-024-qa-report-deep-2025-11-14.md`
 
 ---
 

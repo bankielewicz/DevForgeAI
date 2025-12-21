@@ -77,7 +77,7 @@ Skipped:         0
 ---
 
 ### AC2: Graceful degradation ✅ **PASS**
-**Given** feedback hooks disabled in `.devforgeai/config/hooks.yaml`
+**Given** feedback hooks disabled in `devforgeai/config/hooks.yaml`
 **When** Phase N executes `check-hooks`
 **Then** hook invocation skipped, sprint creation completes successfully
 
@@ -111,7 +111,7 @@ Skipped:         0
 **Then** error logged, warning displayed, sprint creation succeeds
 
 **Validation:**
-- ✅ Error logged to `.devforgeai/feedback/logs/hook-errors.log`
+- ✅ Error logged to `devforgeai/feedback/logs/hook-errors.log`
 - ✅ Warning message: "⚠️ Feedback collection failed (sprint creation succeeded)"
 - ✅ Sprint file remains valid
 - ✅ No HALT statements in Phase N

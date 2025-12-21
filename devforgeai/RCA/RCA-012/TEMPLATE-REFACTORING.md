@@ -541,7 +541,7 @@ grep "format_version" story-template.md
 ### Document Rollback Reason
 
 ```bash
-cat > .devforgeai/RCA/RCA-012/ROLLBACK-LOG.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/ROLLBACK-LOG.md << 'EOF'
 # REC-1 Rollback Log
 
 **Date:** YYYY-MM-DD HH:MM UTC

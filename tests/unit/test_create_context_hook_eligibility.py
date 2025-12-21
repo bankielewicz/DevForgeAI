@@ -307,7 +307,7 @@ class TestCheckHooksErrorDetection:
         # Arrange
         mock_run.return_value = MagicMock(
             returncode=13,  # Permission denied
-            stderr="Permission denied: .devforgeai/config/hooks.yaml"
+            stderr="Permission denied: devforgeai/config/hooks.yaml"
         )
 
         # Act

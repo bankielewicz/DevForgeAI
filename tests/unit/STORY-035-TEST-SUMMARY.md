@@ -176,8 +176,8 @@ pytest tests/unit/test_internet_sleuth_ac2_path_migration.py -v
 3. `test_no_bmad_core_path_references` - No .bmad-core/
 4. `test_no_old_research_path_references` - No devforgeai/specs/research/
 5. `test_uses_new_devforgeai_context_path` - Uses devforgeai/context/
-6. `test_uses_new_devforgeai_adrs_path` - Uses .devforgeai/adrs/
-7. `test_uses_new_devforgeai_research_path` - Uses .devforgeai/research/
+6. `test_uses_new_devforgeai_adrs_path` - Uses devforgeai/adrs/
+7. `test_uses_new_devforgeai_research_path` - Uses devforgeai/research/
 8. `test_uses_ai_docs_stories_path_correctly` - Uses devforgeai/specs/Stories/
 9. `test_uses_ai_docs_epics_path_correctly` - Uses devforgeai/specs/Epics/
 10. `test_no_mixed_path_conventions` - Edge case: no mixing old/new
@@ -266,7 +266,7 @@ pytest tests/unit/test_internet_sleuth_ac2_path_migration.py -v
 ### AC6: Output Standardization (16 tests)
 
 **Tests:**
-1. `test_documents_devforgeai_research_output_path` - .devforgeai/research/ documented
+1. `test_documents_devforgeai_research_output_path` - devforgeai/research/ documented
 2. `test_repository_management_uses_devforgeai_research` - Repository Management section
 3. `test_no_old_research_output_paths` - No deprecated paths
 4. `test_documents_tech_eval_filename_convention` - tech-eval-{topic}-{date}.md
@@ -305,7 +305,7 @@ pytest tests/unit/test_internet_sleuth_ac2_path_migration.py -v
 |------|------------|----------------|
 | BR-001: Context file validation | 3 | Check all 6 files, HALT if missing, list missing files |
 | BR-002: REQUIRES ADR | 2 | Return REQUIRES ADR message, AskUserQuestion with 2 options |
-| BR-003: Output directory | 3 | Write to .devforgeai/research/, create if not exists, 755 permissions |
+| BR-003: Output directory | 3 | Write to devforgeai/research/, create if not exists, 755 permissions |
 | BR-004: GitHub URL validation | 3 | Validate GitHub pattern, reject malformed, specify format in error |
 
 ---

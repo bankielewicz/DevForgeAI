@@ -197,7 +197,7 @@ All **6 integration test phases PASSED** with comprehensive validation across th
 **Workflow 2: Context → Story → QA**
 - ✅ All 6 context files present
 - ✅ .ai_docs/Stories exists
-- ✅ .devforgeai/qa directory exists
+- ✅ devforgeai/qa directory exists
 - ✅ devforgeai-qa skill accessible
 - ✅ QA reference files loadable
 
@@ -206,12 +206,12 @@ All **6 integration test phases PASSED** with comprehensive validation across th
 - ✅ .ai_docs/Stories exists
 - ✅ devforgeai-orchestration skill accessible
 - ✅ devforgeai-story-creation skill accessible
-- ✅ .devforgeai/adrs directory exists
+- ✅ devforgeai/adrs directory exists
 
 **Framework Structure Verified:**
 - ✅ 6 context files: tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
 - ✅ Documentation directories: .ai_docs/ (Epics, Stories, Sprints)
-- ✅ Framework directories: .devforgeai/ (context, qa, adrs, etc.)
+- ✅ Framework directories: devforgeai/ (context, qa, adrs, etc.)
 
 ---
 

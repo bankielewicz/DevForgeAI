@@ -5,7 +5,7 @@
 
 ## Overview
 
-This document summarizes the path updates needed to migrate from `.claude/` and `.devforgeai/` source locations to `src/claude/` and `src/devforgeai/` as part of the package distribution refactoring (STORY-043).
+This document summarizes the path updates needed to migrate from `.claude/` and `devforgeai/` source locations to `src/claude/` and `src/devforgeai/` as part of the package distribution refactoring (STORY-043).
 
 ## Classification Summary
 
@@ -41,7 +41,7 @@ Based on path audit scan of 12,869 references across 450+ files:
    - Reason: Installation scripts reference deployed locations
 
 4. **CLI tool references** (~358 refs)
-   - Example: `.devforgeai/RCA/` references
+   - Example: `devforgeai/RCA/` references
    - Action: KEEP UNCHANGED
    - Reason: Framework deployment locations
 
@@ -192,7 +192,7 @@ After updates:
 ## Next Steps
 
 1. Run: `bash src/scripts/audit-path-references.sh` (generates classification files)
-2. Review: `.devforgeai/specs/STORY-043/path-audit-*.txt` files
+2. Review: `devforgeai/specs/STORY-043/path-audit-*.txt` files
 3. Run: `bash src/scripts/update-paths.sh` (applies updates with backup)
 4. Validate: `bash src/scripts/validate-paths.sh` (checks for broken refs)
 5. Test: Run 3 integration workflows (`/create-epic`, `/create-story`, `/dev`)
@@ -201,7 +201,7 @@ After updates:
 ## References
 
 - Story: `devforgeai/specs/Stories/STORY-043-update-path-references-to-src.story.md`
-- Audit Report: `.devforgeai/specs/STORY-043/path-audit-report.txt`
+- Audit Report: `devforgeai/specs/STORY-043/path-audit-report.txt`
 - Update Script: `src/scripts/update-paths.sh`
 - Validation Script: `src/scripts/validate-paths.sh`
 - Rollback Script: `src/scripts/rollback-path-updates.sh`

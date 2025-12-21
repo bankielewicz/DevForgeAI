@@ -148,7 +148,7 @@ pytest tests/test_story_048_business_rules.py -v
 - ✅ Phase 5 described
 
 **AC-7: Team Onboarding**
-- ✅ Training log created at .devforgeai/onboarding/team-training-log.md
+- ✅ Training log created at devforgeai/onboarding/team-training-log.md
 - ✅ Session metadata documented
 - ✅ 7-item checklist per developer
 - ✅ 100% completion tracked

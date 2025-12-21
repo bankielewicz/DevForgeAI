@@ -343,7 +343,7 @@ technical_specification:
 
 #### **1.2 Create Format Specification Document**
 
-**File:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+**File:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **Content:**
 - Format version history (1.0 vs 2.0)
@@ -817,8 +817,8 @@ else:
 
 **Backup:**
 ```bash
-mkdir -p .devforgeai/backups/phase2-pilot/
-cp devforgeai/specs/Stories/STORY-*.story.md .devforgeai/backups/phase2-pilot/
+mkdir -p devforgeai/backups/phase2-pilot/
+cp devforgeai/specs/Stories/STORY-*.story.md devforgeai/backups/phase2-pilot/
 ```
 
 ---
@@ -1092,17 +1092,17 @@ grep -r "format_version:" devforgeai/specs/Stories/
 ## 📚 **References**
 
 **Format specification:**
-- `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (NEW - Week 2)
+- `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (NEW - Week 2)
 
 **Migration:**
-- `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (NEW - Week 3)
+- `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (NEW - Week 3)
 
 **Testing:**
-- `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (NEW - Week 4)
+- `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (NEW - Week 4)
 
 **Backups:**
-- `.devforgeai/backups/phase2-pilot/` (10 pilot stories)
-- `.devforgeai/backups/phase2-full/` (All stories before full migration)
+- `devforgeai/backups/phase2-pilot/` (10 pilot stories)
+- `devforgeai/backups/phase2-full/` (All stories before full migration)
 
 ---
 

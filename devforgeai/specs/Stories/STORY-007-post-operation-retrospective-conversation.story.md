@@ -27,7 +27,7 @@ updated: 2025-11-09
 **When** the command displays "Success" or "Completed" status
 **Then** the system presents an interactive retrospective prompt with 4-6 targeted questions
 **And** captures responses in structured JSON format
-**And** stores feedback in `.devforgeai/feedback/{STORY-ID}/{timestamp}-retrospective.json`
+**And** stores feedback in `devforgeai/feedback/{STORY-ID}/{timestamp}-retrospective.json`
 **And** confirms feedback was recorded with "✅ Feedback recorded" message
 
 ---
@@ -58,7 +58,7 @@ updated: 2025-11-09
 **Then** system aggregates feedback by story/epic/skill
 **And** identifies patterns (80%+ users report same issue = priority)
 **And** generates actionable insights (specific improvements with vote counts)
-**And** exports summary to `.devforgeai/feedback/quarterly-insights.md`
+**And** exports summary to `devforgeai/feedback/quarterly-insights.md`
 
 ---
 
@@ -76,7 +76,7 @@ updated: 2025-11-09
 **When** requesting feedback history
 **Then** system can correlate feedback across stories (Did user feel better about /dev after third story?)
 **And** identify improvement trajectories (Does skill comprehension increase over time?)
-**And** export personal retrospective journal in `.devforgeai/feedback/{user-id}/journal.md`
+**And** export personal retrospective journal in `devforgeai/feedback/{user-id}/journal.md`
 
 ## Technical Specification
 
@@ -137,7 +137,7 @@ None - This feature is terminal-only (no HTTP API)
 1. **Skip Tracking Rule:**
    - If user skips 3+ consecutive retrospectives → trigger AskUserQuestion
    - Options: Disable feedback, Switch to failures-only, Continue
-   - Store preference in `.devforgeai/config/feedback.yaml`
+   - Store preference in `devforgeai/config/feedback.yaml`
 
 2. **Pattern Detection Rule:**
    - If 80%+ of feedback mentions same issue → flag as high priority
@@ -152,12 +152,12 @@ None - This feature is terminal-only (no HTTP API)
 4. **Data Retention Rule:**
    - Keep feedback for 12 months
    - After 12 months: Anonymize or delete per user preference
-   - Weekly backups to `.devforgeai/backups/feedback/`
+   - Weekly backups to `devforgeai/backups/feedback/`
 
 ### Dependencies
 
 - **AskUserQuestion tool:** Core mechanism for interactive Q&A
-- **File system:** JSON storage in `.devforgeai/feedback/`
+- **File system:** JSON storage in `devforgeai/feedback/`
 - **Story files:** Bidirectional linking (story references feedback IDs)
 
 ## Edge Cases
@@ -232,7 +232,7 @@ None - This feature is terminal-only (no HTTP API)
 ### Reliability & Availability
 - Graceful degradation: If feedback system unavailable, commands complete successfully (no dependency)
 - Data durability: 99.99% of submitted feedback persisted (async write with retry)
-- Backup strategy: Feedback backups created weekly to `.devforgeai/backups/feedback/`
+- Backup strategy: Feedback backups created weekly to `devforgeai/backups/feedback/`
 - Recovery procedure: Corrupted feedback files recoverable from weekly backups
 
 ### Usability
@@ -261,7 +261,7 @@ None - This feature is terminal-only (no HTTP API)
 - [x] 4-6 context-aware questions generated per workflow type
 - [x] Feedback captured in JSON format
 - [x] Skip tracking implemented (3+ skips → suggestion)
-- [x] Feedback stored in `.devforgeai/feedback/` directory
+- [x] Feedback stored in `devforgeai/feedback/` directory
 - [x] User opt-out respected
 
 ### Quality
@@ -281,16 +281,16 @@ None - This feature is terminal-only (no HTTP API)
 - [x] E2E test: Partial completion scenario
 
 ### Documentation
-- [x] Feedback JSON schema documented in `.devforgeai/feedback/schema.json`
-- [x] Question bank structure explained in `.devforgeai/feedback/questions.md`
-- [x] User guide for feedback feature in `.devforgeai/feedback/USER-GUIDE.md`
-- [x] Framework maintainer guide for analyzing feedback in `.devforgeai/feedback/MAINTAINER-GUIDE.md`
+- [x] Feedback JSON schema documented in `devforgeai/feedback/schema.json`
+- [x] Question bank structure explained in `devforgeai/feedback/questions.md`
+- [x] User guide for feedback feature in `devforgeai/feedback/USER-GUIDE.md`
+- [x] Framework maintainer guide for analyzing feedback in `devforgeai/feedback/MAINTAINER-GUIDE.md`
 
 ### Release Readiness
 - [x] Feature flag: `enable_feedback` (default: opt-in) - Implemented in retrospective.py
 - [x] Feedback system does not block commands (graceful degradation) - Documented in GRACEFUL-DEGRADATION.md
-- [x] Weekly backup job configured - Script created: `.devforgeai/scripts/backup-feedback.sh`
-- [x] Data retention policy documented - Policy in `.devforgeai/feedback/RETENTION-POLICY.md`
+- [x] Weekly backup job configured - Script created: `devforgeai/scripts/backup-feedback.sh`
+- [x] Data retention policy documented - Policy in `devforgeai/feedback/RETENTION-POLICY.md`
 
 ## Implementation Notes
 
@@ -299,7 +299,7 @@ None - This feature is terminal-only (no HTTP API)
 - [x] 4-6 context-aware questions generated per workflow type - Completed: Question routing logic by workflow type (dev/qa/orchestrate/etc)
 - [x] Feedback captured in JSON format - Completed: FeedbackSession dataclass with YAML serialization
 - [x] Skip tracking implemented (3+ skips → suggestion) - Completed: skip_tracking.py module with skip counter and threshold
-- [x] Feedback stored in `.devforgeai/feedback/` directory - Completed: Directory creation and JSON persistence
+- [x] Feedback stored in `devforgeai/feedback/` directory - Completed: Directory creation and JSON persistence
 - [x] User opt-out respected - Completed: Skip selection logic respects user choice
 
 ### Quality Assurance
@@ -319,10 +319,10 @@ None - This feature is terminal-only (no HTTP API)
 - [x] E2E test: Partial completion scenario - Completed: test with partial answers, incomplete responses
 
 ### Documentation
-- [x] Feedback JSON schema documented in `.devforgeai/feedback/schema.json` - Completed: Full JSON Schema Draft-07 with all required fields
-- [x] Question bank structure explained in `.devforgeai/feedback/questions.md` - Completed: 50+ questions organized by workflow and outcome
-- [x] User guide for feedback feature in `.devforgeai/feedback/USER-GUIDE.md` - Completed: 7,800+ word comprehensive user guide
-- [x] Framework maintainer guide for analyzing feedback in `.devforgeai/feedback/MAINTAINER-GUIDE.md` - Completed: 9,200+ word maintainer reference
+- [x] Feedback JSON schema documented in `devforgeai/feedback/schema.json` - Completed: Full JSON Schema Draft-07 with all required fields
+- [x] Question bank structure explained in `devforgeai/feedback/questions.md` - Completed: 50+ questions organized by workflow and outcome
+- [x] User guide for feedback feature in `devforgeai/feedback/USER-GUIDE.md` - Completed: 7,800+ word comprehensive user guide
+- [x] Framework maintainer guide for analyzing feedback in `devforgeai/feedback/MAINTAINER-GUIDE.md` - Completed: 9,200+ word maintainer reference
 
 ### Release Readiness
 - [x] Feature flag: `enable_feedback` (default: opt-in) - Completed: should_enable_feedback() in retrospective.py with env var + config support

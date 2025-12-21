@@ -31,7 +31,7 @@ def temp_project_dir():
     """Fixture: Create temporary project directory for testing."""
     with tempfile.TemporaryDirectory() as tmpdir:
         project_dir = Path(tmpdir)
-        (project_dir / ".devforgeai" / "context").mkdir(parents=True, exist_ok=True)
+        (project_dir / "devforgeai" / "context").mkdir(parents=True, exist_ok=True)
         yield project_dir
 
 
@@ -168,7 +168,7 @@ def test_01_greenfield_mode_loads_guidance(temp_project_dir, mock_guidance_conte
     Then: devforgeai-architecture should load user-input-guidance.md
     """
     # Arrange
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Verify greenfield: 0 context files
@@ -193,7 +193,7 @@ def test_02_brownfield_mode_skips_guidance(temp_project_dir):
     Then: devforgeai-architecture should skip user-input-guidance.md
     """
     # Arrange
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Create 6 context files (brownfield)
@@ -225,7 +225,7 @@ def test_03_partial_greenfield_mode_loads_guidance(temp_project_dir):
     Should load guidance to fill gaps
     """
     # Arrange
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Create only 3 context files (partial)
@@ -505,7 +505,7 @@ def test_13_error_handling_and_logging(temp_project_dir):
     def mock_logger(msg):
         log_messages.append(msg)
 
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Greenfield case

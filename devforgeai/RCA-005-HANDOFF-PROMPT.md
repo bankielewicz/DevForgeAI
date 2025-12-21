@@ -38,13 +38,13 @@ Official Claude documentation confirms Skills CANNOT accept runtime parameters. 
 ## Your Task
 
 Implement the comprehensive fix plan documented in:
-`.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+`devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
 
 **Read these files for complete context:**
-1. `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Complete implementation plan
+1. `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Complete implementation plan
 2. `.ai_docs/Claude-Skills-Technical-Architecture-and-Parameter-System.md` - Research on Skills
 3. `.ai_docs/claude-skills.md` - Official Skills documentation
-4. `.devforgeai/specs/enhancements/RCA-001-incomplete-epic-generation-enhancements.md` - Previous RCA example
+4. `devforgeai/specs/enhancements/RCA-001-incomplete-epic-generation-enhancements.md` - Previous RCA example
 5. `CLAUDE.md` - Framework overview and critical rules
 
 ## Critical Constraints
@@ -225,7 +225,7 @@ After implementation:
 6. `/release STORY-001 production` - Production deployment
 7. `/orchestrate STORY-001` - Full lifecycle
 
-**Document results in:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+**Document results in:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 ## Important Notes
 
@@ -267,7 +267,7 @@ After implementation:
 
 **New Files (2):**
 13. .claude/skills/devforgeai-development/references/slash-command-argument-validation-pattern.md
-14. .devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md
+14. devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md
 
 **Total: 14 files to modify/create**
 
@@ -295,8 +295,8 @@ If you encounter ambiguity, HALT and use AskUserQuestion:
 ## Reference Materials
 
 **In this repository:**
-- Complete implementation plan: `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
-- Previous RCA examples: `.devforgeai/specs/enhancements/RCA-001` through `RCA-004`
+- Complete implementation plan: `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+- Previous RCA examples: `devforgeai/specs/enhancements/RCA-001` through `RCA-004`
 - Framework documentation: `CLAUDE.md`, `README.md`, `ROADMAP.md`
 - Official research: `.ai_docs/Claude-Skills-Technical-Architecture-and-Parameter-System.md`
 
@@ -311,7 +311,7 @@ If you encounter ambiguity, HALT and use AskUserQuestion:
 Begin by reading the complete plan:
 
 ```
-Read(.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md)
+Read(devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md)
 ```
 
 Then create a TodoWrite list for all tasks and execute systematically.

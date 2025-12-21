@@ -35,7 +35,7 @@ class FileValidationHelper:
     GUIDANCE_FILE = _PROJECT_ROOT / "src" / "claude" / "skills" / "devforgeai-ideation" / "references" / "user-input-guidance.md"
     INTEGRATION_GUIDE = _PROJECT_ROOT / "src" / "claude" / "skills" / "devforgeai-story-creation" / "references" / "user-input-integration-guide.md"
     SKILL_FILE = _PROJECT_ROOT / "src" / "claude" / "skills" / "devforgeai-story-creation" / "SKILL.md"
-    PIPELINE_CONFIG = _PROJECT_ROOT / ".devforgeai" / "ci" / "story-creation-test-pipeline.yml"
+    PIPELINE_CONFIG = _PROJECT_ROOT / "devforgeai" / "ci" / "story-creation-test-pipeline.yml"
 
     @staticmethod
     def assert_file_exists(file_path: Path, error_message: str) -> str:

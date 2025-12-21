@@ -248,7 +248,7 @@ From SKILL.md (search for "Validation Checkpoint"):
 
 ---
 
-**3. `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (Pattern evidence)**
+**3. `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (Pattern evidence)**
 
 **Lines 1-8:** Issue description (STORY-027, 2025-11-14)
 ```markdown
@@ -272,7 +272,7 @@ From SKILL.md (search for "Validation Checkpoint"):
 
 ---
 
-**4. `.devforgeai/RCA/RCA-013-development-workflow-stops-before-completion-despite-no-deferrals.md` (Recurrence evidence)**
+**4. `devforgeai/RCA/RCA-013-development-workflow-stops-before-completion-despite-no-deferrals.md` (Recurrence evidence)**
 
 **Lines 14-29:** User's explicit rejection of deferrals
 ```markdown
@@ -762,11 +762,11 @@ IF any check fails:
 
 **Problem Addressed:** This is the 3rd RCA documenting premature workflow completion. Pattern should be documented for future reference.
 
-**Proposed Solution:** Create `.devforgeai/RCA/PATTERNS.md` documenting recurring patterns with detection and prevention strategies.
+**Proposed Solution:** Create `devforgeai/RCA/PATTERNS.md` documenting recurring patterns with detection and prevention strategies.
 
 **Implementation Details:**
 
-**File:** `.devforgeai/RCA/PATTERNS.md` (create new file)
+**File:** `devforgeai/RCA/PATTERNS.md` (create new file)
 **Section:** New document
 **Change Type:** Create
 
@@ -1067,6 +1067,6 @@ Resuming workflow from Phase 4.5...
 ---
 
 **RCA Document Created:** 2025-12-05
-**File:** `.devforgeai/RCA/RCA-018-development-skill-phase-completion-skipping.md`
+**File:** `devforgeai/RCA/RCA-018-development-skill-phase-completion-skipping.md`
 **Next Steps:** Implement REC-1 immediately (CRITICAL priority)
 

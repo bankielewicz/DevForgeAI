@@ -375,7 +375,7 @@ class TestAutoDetectionService:
         import json
 
         # Create existing installation
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_data = {
@@ -634,7 +634,7 @@ class TestAutoDetectionService:
         import json
 
         # Create existing installation
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_data = {

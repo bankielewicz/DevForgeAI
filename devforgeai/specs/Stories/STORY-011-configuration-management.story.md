@@ -22,7 +22,7 @@ updated: 2025-11-11
 ## Acceptance Criteria
 
 ### 1. [x] Configuration File Loads with Valid YAML Structure
-**Given** the `.devforgeai/config/feedback.yaml` file exists with valid YAML structure
+**Given** the `devforgeai/config/feedback.yaml` file exists with valid YAML structure
 **When** the feedback system initializes
 **Then** the configuration is successfully parsed
 **And** all configuration sections are accessible (enabled, trigger_mode, conversation_settings, skip_tracking, templates)
@@ -99,7 +99,7 @@ updated: 2025-11-11
 **When** user skips feedback 5 consecutive times
 **Then** the next feedback trigger does not show AskUserQuestion
 **And** a system message explains: "Feedback collection is temporarily paused. Resume in your config settings."
-**And** skip count is logged in `.devforgeai/logs/feedback-skips.log`
+**And** skip count is logged in `devforgeai/logs/feedback-skips.log`
 
 **And Given** `skip_tracking.reset_on_positive: true` is configured
 **When** user provides positive feedback (selects "Positive" or rating >= 4)
@@ -140,13 +140,13 @@ updated: 2025-11-11
 **Given** the configuration file has `trigger_mode: invalid-mode`
 **When** the feedback system initializes
 **Then** initialization FAILS with error message: "Invalid trigger_mode value: 'invalid-mode'. Must be one of: always, failures-only, specific-operations, never"
-**And** the error is logged in `.devforgeai/logs/config-errors.log`
+**And** the error is logged in `devforgeai/logs/config-errors.log`
 **And** the workflow HALTS with clear instruction to fix config
 
 ---
 
 ### 8. [x] Missing Configuration File Uses Sensible Defaults
-**Given** the `.devforgeai/config/feedback.yaml` file does not exist
+**Given** the `devforgeai/config/feedback.yaml` file does not exist
 **When** the feedback system initializes
 **Then** system uses default configuration (enabled: true, trigger_mode: failures-only, max_questions: 5, allow_skip: true)
 **And** a log message confirms: "Using default feedback configuration"
@@ -156,7 +156,7 @@ updated: 2025-11-11
 
 ### 9. [x] Configuration Hot-Reload Updates Settings Without Restart
 **Given** the feedback system is running with `enabled: true`
-**When** the user modifies `.devforgeai/config/feedback.yaml` to `enabled: false`
+**When** the user modifies `devforgeai/config/feedback.yaml` to `enabled: false`
 **And** saves the file
 **Then** within 5 seconds, the system detects the file change
 **And** the new configuration is loaded
@@ -364,8 +364,8 @@ See Technical Specification table for complete validation rules (10 fields valid
 - [x] Performance tests: Load time, hot-reload latency
 
 ### Documentation
-- [x] JSON Schema: `.devforgeai/config/feedback.schema.json`
-- [x] README: `.devforgeai/config/README.md` (3+ examples)
+- [x] JSON Schema: `devforgeai/config/feedback.schema.json`
+- [x] README: `devforgeai/config/README.md` (3+ examples)
 - [x] Troubleshooting guide
 - [x] Migration guide (future versions)
 
@@ -382,7 +382,7 @@ See Technical Specification table for complete validation rules (10 fields valid
 
 **Implementation:**
 - [x] Configuration file template created - Completed in `config_defaults.py` with sensible defaults
-- [x] JSON Schema created for IDE support - Completed in `config_schema.py` + exported to `.devforgeai/config/feedback.schema.json`
+- [x] JSON Schema created for IDE support - Completed in `config_schema.py` + exported to `devforgeai/config/feedback.schema.json`
 - [x] YAML parser with full validation - Completed with PyYAML parser in `config_manager.py`
 - [x] Hot-reload with file system watchers - Completed in `hot_reload.py` with ≤5s detection
 - [x] Skip tracking with atomic writes - Completed in `skip_tracker.py` with thread-safe operations
@@ -404,10 +404,10 @@ See Technical Specification table for complete validation rules (10 fields valid
 - [x] Performance tests: Load time, hot-reload latency - 4 performance tests delivered
 
 **Documentation:**
-- [x] JSON Schema: `.devforgeai/config/feedback.schema.json` - Completed and exported
-- [x] README: `.devforgeai/config/README.md` (3+ examples) - Completed with 4 examples and comprehensive guide
-- [x] Troubleshooting guide - Completed in `.devforgeai/config/TROUBLESHOOTING.md` (10 common issues)
-- [x] Migration guide (future versions) - Completed in `.devforgeai/config/MIGRATION.md` (v0.x→v1.0→v1.1→v2.0)
+- [x] JSON Schema: `devforgeai/config/feedback.schema.json` - Completed and exported
+- [x] README: `devforgeai/config/README.md` (3+ examples) - Completed with 4 examples and comprehensive guide
+- [x] Troubleshooting guide - Completed in `devforgeai/config/TROUBLESHOOTING.md` (10 common issues)
+- [x] Migration guide (future versions) - Completed in `devforgeai/config/MIGRATION.md` (v0.x→v1.0→v1.1→v2.0)
 
 **Release Readiness:**
 - [x] Default config template deployed - Implemented in code
@@ -507,7 +507,7 @@ See Technical Specification table for complete validation rules (10 fields valid
 - Tests added: 203 new tests (356 → 653)
 - Effort: 6 hours test development
 
-**Report:** `.devforgeai/qa/reports/STORY-011-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-011-qa-report.md`
 
 ---
 

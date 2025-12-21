@@ -81,7 +81,7 @@ Comprehensive test suite for validating the User Input Guidance System's effecti
 **AC#5 and NFR Coverage**: Tests for consolidated impact report
 
 #### Report Structure
-- Report file existence (.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md)
+- Report file existence (devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md)
 - Substantial content validation (>1000 characters)
 
 #### Required Sections
@@ -284,7 +284,7 @@ When implementing STORY-059, ensure:
 - [ ] Generate `enhanced-results.json` from test execution
 - [ ] Generate `token-savings-report.md` with metrics
 - [ ] Generate `success-rate-report.md` with breakdown
-- [ ] Generate `.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
+- [ ] Generate `devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
 
 Once all artifacts exist, all 99 tests will pass (GREEN phase).
 

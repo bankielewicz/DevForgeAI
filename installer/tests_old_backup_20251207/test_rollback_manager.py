@@ -146,7 +146,7 @@ class TestRollbackManager:
         (backup_claude / "agents").mkdir()
         (backup_claude / "agents" / "test.md").write_text("# Agent")
 
-        backup_devforgeai = backup_path / ".devforgeai"
+        backup_devforgeai = backup_path / "devforgeai"
         backup_devforgeai.mkdir()
         (backup_devforgeai / "config").mkdir()
         (backup_devforgeai / "config" / "hooks.yaml").write_text("# hooks")

@@ -250,7 +250,7 @@ Track implementation progress:
 
 ### Error Handling
 - [ ] Hook failures caught (try-catch or `|| true`)
-- [ ] Errors logged to `.devforgeai/feedback/logs/hook-errors.log`
+- [ ] Errors logged to `devforgeai/feedback/logs/hook-errors.log`
 - [ ] User warning displayed
 - [ ] Sprint creation succeeds regardless
 

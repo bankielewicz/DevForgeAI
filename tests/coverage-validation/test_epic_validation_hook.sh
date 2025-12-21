@@ -29,7 +29,7 @@ TEST_LOG="/tmp/story-089-epic-validation.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-VALIDATOR_SCRIPT="${PROJECT_ROOT}/.devforgeai/traceability/epic-validator.sh"
+VALIDATOR_SCRIPT="${PROJECT_ROOT}/devforgeai/traceability/epic-validator.sh"
 FIXTURES_DIR="${SCRIPT_DIR}/fixtures"
 
 # Initialize log

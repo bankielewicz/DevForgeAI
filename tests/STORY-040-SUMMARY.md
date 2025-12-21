@@ -26,7 +26,7 @@
 - ✅ Complete Definition of Done checklist
 
 ### 2. Architecture Document
-**File:** `.devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md`
+**File:** `devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md`
 
 **Includes:**
 - ✅ Complete 7-phase skill workflow
@@ -291,7 +291,7 @@ QA Approved → Documentation In Progress → Documentation Complete → Releasi
 ## Files Created
 
 1. **devforgeai/specs/Stories/STORY-040-devforgeai-documentation-skill.story.md** (complete user story)
-2. **.devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md** (detailed architecture)
+2. **devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md** (detailed architecture)
 3. **STORY-040-SUMMARY.md** (this file - implementation summary)
 
 ---

@@ -68,10 +68,10 @@ Enable DevForgeAI users to participate in post-operation retrospectives that cap
 3. As a user, I want the system to learn my preferences (e.g., only failures-only mode)
 
 **Acceptance Criteria:**
-- Skip counter per operation type tracked in `.devforgeai/feedback/skip-tracking.json`
+- Skip counter per operation type tracked in `devforgeai/feedback/skip-tracking.json`
 - Pattern detection: 3+ consecutive skips triggers suggestion
 - AskUserQuestion offers: disable feedback, switch to failures-only, continue as-is
-- User preference stored in config file (`.devforgeai/config/feedback.yaml`)
+- User preference stored in config file (`devforgeai/config/feedback.yaml`)
 - Skip tracking resets after successful feedback session
 
 **Estimated Effort:** Small (5-8 story points)
@@ -94,7 +94,7 @@ Enable DevForgeAI users to participate in post-operation retrospectives that cap
 
 **Technology Stack:**
 - Implementation: Markdown-based skill (`.claude/skills/devforgeai-feedback/SKILL.md`)
-- Configuration: YAML (`.devforgeai/config/feedback.yaml`)
+- Configuration: YAML (`devforgeai/config/feedback.yaml`)
 - Data persistence: JSON for skip tracking, Markdown for feedback sessions
 
 **Token Budget Impact:**

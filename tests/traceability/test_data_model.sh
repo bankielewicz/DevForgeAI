@@ -30,8 +30,8 @@ TEST_LOG="/tmp/story-083-data-model.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-PARSER_SCRIPT="${PROJECT_ROOT}/.devforgeai/traceability/parse-requirements.sh"
-OUTPUT_FILE="${PROJECT_ROOT}/.devforgeai/traceability/requirements-matrix.json"
+PARSER_SCRIPT="${PROJECT_ROOT}/devforgeai/traceability/parse-requirements.sh"
+OUTPUT_FILE="${PROJECT_ROOT}/devforgeai/traceability/requirements-matrix.json"
 
 # Initialize log
 echo "=== STORY-083 Data Model Test Suite ===" > "$TEST_LOG"

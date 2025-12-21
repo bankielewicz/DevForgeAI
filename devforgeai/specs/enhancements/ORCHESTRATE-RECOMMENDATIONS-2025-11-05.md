@@ -255,7 +255,7 @@ Phase 6: Completion
   - Phase 4: Epic Decomposition (break initiative into epics)
   - Phase 5: Feasibility Analysis (technical assessment, risk evaluation)
   - Phase 6: Documentation, Self-Validation, Next Action
-**Output:** Epic documents in `devforgeai/specs/Epics/`, requirements specs in `.devforgeai/specs/requirements/`
+**Output:** Epic documents in `devforgeai/specs/Epics/`, requirements specs in `devforgeai/specs/requirements/`
 **Result:** Auto-transitions to devforgeai-architecture for context file creation
 **Workflow position:** Entry point (before epics)
 **When to skip:** Brownfield projects with well-defined epics, small features
@@ -288,7 +288,7 @@ When creating new project or major initiative:
   - Phase 5: Code generation (production-ready components)
   - Phase 6: Documentation & story update
   - Phase 7: Specification validation (completeness, placeholders, framework compliance)
-**Output:** UI component code in `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md, story updated with UI references
+**Output:** UI component code in `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md, story updated with UI references
 **Result:** Story has complete UI specification ready for development implementation
 **Prerequisites:** devforgeai-architecture must run first (6 context files required)
 **Workflow position:** Between architecture and development (optional)
@@ -369,7 +369,7 @@ Coordination:
 ### Step 1: Load QA Report and Detect Failure
 
 ```
-Read(file_path=".devforgeai/qa/reports/{STORY_ID}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{STORY_ID}-qa-report.md")
 
 Parse report:
   - Overall status: PASSED or FAILED
@@ -517,7 +517,7 @@ ELIF user_choice == "Create follow-up stories":
     Return: "FOLLOW_UP_STORIES_CREATED" + list of created_stories
 
 ELIF user_choice == "Manual resolution" OR user_choice == "No":
-    Display: "Orchestration halted. QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+    Display: "Orchestration halted. QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
 
     Return: "QA_FAILED_USER_HALT"
 ```
@@ -905,12 +905,12 @@ Total: 9-11 hours (but skill still incomplete)
 ### Documentation
 
 **This report:**
-- `.devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md` ✅
-- `.devforgeai/specs/enhancements/ORCHESTRATE-RECOMMENDATIONS-2025-11-05.md` (this file) ✅
+- `devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md` ✅
+- `devforgeai/specs/enhancements/ORCHESTRATE-RECOMMENDATIONS-2025-11-05.md` (this file) ✅
 
 **To create:**
-- `.devforgeai/specs/enhancements/ORCHESTRATE-REFACTORING-PLAN.md` (detailed plan)
-- `.devforgeai/specs/enhancements/ORCHESTRATE-SKILL-ENHANCEMENT-CHECKLIST.md` (implementation guide)
+- `devforgeai/specs/enhancements/ORCHESTRATE-REFACTORING-PLAN.md` (detailed plan)
+- `devforgeai/specs/enhancements/ORCHESTRATE-SKILL-ENHANCEMENT-CHECKLIST.md` (implementation guide)
 
 ### Code Changes (When Implemented)
 

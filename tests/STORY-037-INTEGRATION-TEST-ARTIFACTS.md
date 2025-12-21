@@ -353,7 +353,7 @@ Status: ✅ PASS
 ## Test Artifacts Location
 
 ```
-.devforgeai/
+devforgeai/
 ├── auditors/
 │   └── pattern_compliance_auditor.py (708 lines, core implementation)
 

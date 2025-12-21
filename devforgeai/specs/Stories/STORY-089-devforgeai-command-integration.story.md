@@ -159,7 +159,7 @@ technical_specification:
 
     - type: "Service"
       name: "ErrorHandlerService"
-      file_path: ".devforgeai/traceability/error-handler.sh"
+      file_path: "devforgeai/traceability/error-handler.sh"
       dependencies:
         - "EpicMetadataParser"
         - "StoryMetadataParser"
@@ -182,7 +182,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "CoverageThresholds"
-      file_path: ".devforgeai/traceability/thresholds.json"
+      file_path: "devforgeai/traceability/thresholds.json"
       dependencies: []
       requirements:
         - id: "THRESH-001"
@@ -480,11 +480,11 @@ None.
 **Implementation Completed (2025-12-14):**
 
 Files Created:
-- `.devforgeai/traceability/epic-validator.sh` - Epic structure validation (AC#1)
-- `.devforgeai/traceability/coverage-gate.sh` - Coverage quality gate (AC#2)
-- `.devforgeai/traceability/error-handler.sh` - Error handling (AC#3-4)
-- `.devforgeai/traceability/confidence-scorer.sh` - Confidence scoring (AC#5)
-- `.devforgeai/traceability/thresholds.json` - Configuration
+- `devforgeai/traceability/epic-validator.sh` - Epic structure validation (AC#1)
+- `devforgeai/traceability/coverage-gate.sh` - Coverage quality gate (AC#2)
+- `devforgeai/traceability/error-handler.sh` - Error handling (AC#3-4)
+- `devforgeai/traceability/confidence-scorer.sh` - Confidence scoring (AC#5)
+- `devforgeai/traceability/thresholds.json` - Configuration
 - `.claude/skills/devforgeai-orchestration/references/epic-validation-hook.md`
 - `.claude/skills/devforgeai-orchestration/references/coverage-quality-gate.md`
 

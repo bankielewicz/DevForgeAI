@@ -66,7 +66,7 @@ class TestFileConflictDetectionService:
         """
         Test: Existing framework files detected as conflicts (SVC-015)
 
-        Given: Target has existing .claude/ and .devforgeai/ files
+        Given: Target has existing .claude/ and devforgeai/ files
         When: detect_conflicts() is called
         Then: Returns conflicts list with framework files
         """
@@ -78,7 +78,7 @@ class TestFileConflictDetectionService:
         claude_file.parent.mkdir(parents=True)
         claude_file.write_text("Existing skill")
 
-        devforgeai_file = temp_dir / ".devforgeai" / "context" / "tech-stack.md"
+        devforgeai_file = temp_dir / "devforgeai" / "context" / "tech-stack.md"
         devforgeai_file.parent.mkdir(parents=True)
         devforgeai_file.write_text("Existing context")
 
@@ -98,7 +98,7 @@ class TestFileConflictDetectionService:
         # Assert
         assert len(result.conflicts) == 2
         assert any(".claude" in str(path) for path in result.conflicts)
-        assert any(".devforgeai" in str(path) for path in result.conflicts)
+        assert any("devforgeai" in str(path) for path in result.conflicts)
 
     # AC marker removed
     def test_should_detect_user_file_conflicts(self, temp_dir):
@@ -169,7 +169,7 @@ class TestFileConflictDetectionService:
         """
         Test: Framework files categorized correctly (SVC-016)
 
-        Given: Conflicts include .claude/* and .devforgeai/* files
+        Given: Conflicts include .claude/* and devforgeai/* files
         When: detect_conflicts() is called
         Then: framework_count matches framework file count
         """
@@ -181,8 +181,8 @@ class TestFileConflictDetectionService:
         (temp_dir / ".claude" / "skills" / "skill1.md").write_text("content")
         (temp_dir / ".claude" / "skills" / "skill2.md").write_text("content")
 
-        (temp_dir / ".devforgeai" / "context").mkdir(parents=True)
-        (temp_dir / ".devforgeai" / "context" / "tech-stack.md").write_text("content")
+        (temp_dir / "devforgeai" / "context").mkdir(parents=True)
+        (temp_dir / "devforgeai" / "context" / "tech-stack.md").write_text("content")
 
         source_files = [
             ".claude/skills/skill1.md",

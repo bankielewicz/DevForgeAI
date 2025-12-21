@@ -23,7 +23,7 @@ Refactor `/create-epic` from **526 lines (14,309 chars - 95% budget)** to **~250
 
 ### Current Architecture Violations
 
-The `/create-epic` command violates lean orchestration principles established in `.devforgeai/protocols/lean-orchestration-pattern.md`:
+The `/create-epic` command violates lean orchestration principles established in `devforgeai/protocols/lean-orchestration-pattern.md`:
 
 **Command responsibilities (what it SHOULD do):**
 - ✅ Parse arguments → Currently does (lines 13-15)
@@ -551,7 +551,7 @@ stakeholders:
 
 ## Related Documentation
 
-- Requirements Spec: `.devforgeai/specs/requirements/{EPIC-ID}-requirements.md` (to be created)
+- Requirements Spec: `devforgeai/specs/requirements/{EPIC-ID}-requirements.md` (to be created)
 - ADRs: (to be created during architecture phase)
 - User Stories: (to be created during sprint planning)
 
@@ -613,19 +613,19 @@ Reference framework constraints:
 - architecture-constraints.md (if exists)
 - dependencies.md (if exists)
 
-Format as structured markdown suitable for `.devforgeai/specs/requirements/`"
+Format as structured markdown suitable for `devforgeai/specs/requirements/`"
 )
 
 Write(
-  file_path=".devforgeai/specs/requirements/{EPIC-ID}-requirements.md",
+  file_path="devforgeai/specs/requirements/{EPIC-ID}-requirements.md",
   content={requirements_spec}
 )
 
 # Update epic with requirements link
 Edit(
   file_path="devforgeai/specs/Epics/{EPIC-ID}.epic.md",
-  old_string="- Requirements Spec: `.devforgeai/specs/requirements/{EPIC-ID}-requirements.md` (to be created)",
-  new_string="- Requirements Spec: `.devforgeai/specs/requirements/{EPIC-ID}-requirements.md`"
+  old_string="- Requirements Spec: `devforgeai/specs/requirements/{EPIC-ID}-requirements.md` (to be created)",
+  new_string="- Requirements Spec: `devforgeai/specs/requirements/{EPIC-ID}-requirements.md`"
 )
 ```
 
@@ -720,7 +720,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/epic-validati
   },
   "files_created": [
     "devforgeai/specs/Epics/{EPIC-ID}.epic.md",
-    ".devforgeai/specs/requirements/{EPIC-ID}-requirements.md" (if created)
+    "devforgeai/specs/requirements/{EPIC-ID}-requirements.md" (if created)
   ],
   "next_steps": [
     "Review epic document: devforgeai/specs/Epics/{EPIC-ID}.epic.md",
@@ -904,7 +904,7 @@ Technical Assessment:
 Files Created:
   📁 devforgeai/specs/Epics/{EPIC-ID}.epic.md
   {If requirements spec created}
-  📁 .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+  📁 devforgeai/specs/requirements/{EPIC-ID}-requirements.md
 
 {If validation warnings}
 ⚠️ Validation Warnings:
@@ -930,7 +930,7 @@ Next Steps:
 {If technology conflicts flagged}
 ⚠️ Action Required:
   - Technology conflicts detected (see epic technical assessment)
-  - Create ADR before implementation: .devforgeai/adrs/ADR-NNN-{decision}.md
+  - Create ADR before implementation: devforgeai/adrs/ADR-NNN-{decision}.md
   - Update tech-stack.md with approved technologies
 ```
 
@@ -1151,8 +1151,8 @@ wc -c < .claude/commands/create-epic.md
 
 **Add to Quick Reference (line 167):**
 ```markdown
-- **Lean Orchestration:** @.devforgeai/protocols/lean-orchestration-pattern.md
-- **Epic Refactoring:** @.devforgeai/protocols/create-epic-refactoring-plan.md ← ADD
+- **Lean Orchestration:** @devforgeai/protocols/lean-orchestration-pattern.md
+- **Epic Refactoring:** @devforgeai/protocols/create-epic-refactoring-plan.md ← ADD
 ```
 
 ---
@@ -1282,7 +1282,7 @@ Skill(command="devforgeai-orchestration")
 
 #### 5.4: Update lean-orchestration-pattern.md
 
-**File:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/lean-orchestration-pattern.md`
+**File:** `/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Update command status table (lines 126-147):**
 
@@ -1656,12 +1656,12 @@ This implementation plan provides a complete roadmap for refactoring `/create-ep
 ### Planning Documents
 
 4. **create-epic-refactoring-plan.md**
-   - Location: `.devforgeai/protocols/`
+   - Location: `devforgeai/protocols/`
    - Size: Analysis and planning document
    - Purpose: Initial refactoring analysis
 
 5. **CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md**
-   - Location: `.devforgeai/protocols/`
+   - Location: `devforgeai/protocols/`
    - Size: Complete implementation guide
    - Purpose: Step-by-step refactoring instructions
 

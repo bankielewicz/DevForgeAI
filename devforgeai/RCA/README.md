@@ -114,7 +114,7 @@ Every RCA document includes:
 
 When a framework issue occurs:
 
-1. **Create RCA document:** `.devforgeai/RCA/RCA-NNN-brief-title.md`
+1. **Create RCA document:** `devforgeai/RCA/RCA-NNN-brief-title.md`
    - Use next sequential number (RCA-009, RCA-010, etc.)
    - Follow structure from RCA-008 (most recent template)
 
@@ -123,7 +123,7 @@ When a framework issue occurs:
    - Add to "RCA Index" table
    - Document prevention measures
 
-3. **Create implementation plan:** `.devforgeai/RCA/RCA-NNN-IMPLEMENTATION-PLAN.md`
+3. **Create implementation plan:** `devforgeai/RCA/RCA-NNN-IMPLEMENTATION-PLAN.md`
    - Detailed task breakdown
    - Checkboxes for tracking
    - Session recovery instructions
@@ -167,14 +167,14 @@ When a framework issue occurs:
 **Framework Documentation:**
 - `CLAUDE.md` - Framework constitution and critical rules
 - `.claude/memory/` - Progressive disclosure reference guides
-- `.devforgeai/protocols/` - Framework protocols (lean orchestration, etc.)
+- `devforgeai/protocols/` - Framework protocols (lean orchestration, etc.)
 
 **Skill Documentation:**
 - `.claude/skills/devforgeai-development/` - Development workflow
 - `.claude/agents/` - Specialized subagents
 
 **Test Documentation:**
-- `.devforgeai/tests/regression/` - Regression test suites
+- `devforgeai/tests/regression/` - Regression test suites
 
 ---
 

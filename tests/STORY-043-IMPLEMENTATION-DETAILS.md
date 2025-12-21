@@ -16,14 +16,14 @@ STORY-043 has been fully implemented with all 4 required scripts created and tes
 **Purpose:** Scan and classify all path references into 4 categories
 
 **Functionality:**
-- Phase 1: Scan all files in src/ for `.claude/` and `.devforgeai/` patterns
+- Phase 1: Scan all files in src/ for `.claude/` and `devforgeai/` patterns
 - Phase 2: Classify references into 4 categories (deploy-time, source-time, ambiguous, excluded)
 - Phase 3: Generate classification files
 - Phase 4: Generate statistics report
 
 **Output Files Created:**
 ```
-.devforgeai/specs/STORY-043/
+devforgeai/specs/STORY-043/
 ├── path-audit-deploy-time.txt      (971 refs - preserve)
 ├── path-audit-source-time.txt      (209 refs - update)
 ├── path-audit-ambiguous.txt        (92 refs - review)
@@ -139,7 +139,7 @@ sed -i 's|\.claude/skills|src/claude/skills|g'
 
 **Validation Output:**
 ```
-.devforgeai/specs/STORY-043/validation-report.md
+devforgeai/specs/STORY-043/validation-report.md
 ```
 
 **Key Metrics from Validation:**
@@ -245,7 +245,7 @@ Broken References Detected: 0 ✓
 
 ## Reference Files Created
 
-**Location:** `.devforgeai/specs/STORY-043/`
+**Location:** `devforgeai/specs/STORY-043/`
 
 ### Classification Files
 ```
@@ -374,8 +374,8 @@ Files ready for git commit:
 - 87 modified files across src/claude/ and src/devforgeai/
 - 164 source-time path references updated
 - Backup created: `.backups/story-043-path-updates-{timestamp}/`
-- Classification files: `.devforgeai/specs/STORY-043/`
-- Report files: `.devforgeai/specs/STORY-043/`
+- Classification files: `devforgeai/specs/STORY-043/`
+- Report files: `devforgeai/specs/STORY-043/`
 
 **Suggested Commit Message:**
 ```
@@ -405,7 +405,7 @@ Performance: All metrics exceeded
 
 Safety: Rollback capability verified
 - Timestamped backup: .backups/story-043-path-updates-YYYYMMDD-HHMMSS/
-- Restore script: .devforgeai/specs/STORY-043/rollback-updates.sh
+- Restore script: devforgeai/specs/STORY-043/rollback-updates.sh
 ```
 
 ---
@@ -450,7 +450,7 @@ Safety: Rollback capability verified
 
 ## Next Actions
 
-1. **Review Diff Summary:** `.devforgeai/specs/STORY-043/update-diff-summary.md`
+1. **Review Diff Summary:** `devforgeai/specs/STORY-043/update-diff-summary.md`
 2. **Verify Backup:** `.backups/story-043-path-updates-{timestamp}/`
 3. **Stage Files:** `git add` all 87 modified files
 4. **Commit:** Use suggested commit message

@@ -52,7 +52,7 @@ This leads to:
 **Estimated Effort:** Medium (8-12 story points)
 
 **Acceptance Criteria:**
-- Read `.devforgeai/.version.json` to identify installed version
+- Read `devforgeai/.version.json` to identify installed version
 - Parse version strings (semver: major.minor.patch, e.g., 1.2.3)
 - Validate upgrade path (e.g., can't downgrade major version without --force)
 - Display version comparison: "Upgrading from v1.0.0 → v1.1.0"
@@ -125,9 +125,9 @@ This leads to:
 **Estimated Effort:** Medium (10-15 story points)
 
 **Acceptance Criteria:**
-- Detect all installed files via manifest (`.devforgeai/.install-manifest.json`)
+- Detect all installed files via manifest (`devforgeai/.install-manifest.json`)
 - Uninstall modes:
-  - **Complete removal:** Remove all DevForgeAI files (.claude/, .devforgeai/, CLI, CLAUDE.md)
+  - **Complete removal:** Remove all DevForgeAI files (.claude/, devforgeai/, CLI, CLAUDE.md)
   - **Preserve user content:** Keep user-created stories, epics, custom context files, ADRs
 - Dry-run mode: `devforgeai uninstall --dry-run` shows what would be removed
 - Confirmation prompt: list files to remove, ask for confirmation (unless --yes flag)
@@ -146,7 +146,7 @@ This leads to:
 
 **Acceptance Criteria:**
 - Store user preferences: target path, merge strategy, optional features enabled
-- Configuration file: `.devforgeai/.install-config.json` (user preferences)
+- Configuration file: `devforgeai/.install-config.json` (user preferences)
 - Migrate configuration on upgrade: convert old format to new format if schema changes
 - Export configuration: `devforgeai config export > config.json`
 - Import configuration: `devforgeai config import config.json`
@@ -296,4 +296,4 @@ This leads to:
 - Version metadata format already defined (`.version.json`) - extend if needed
 - Consider migration testing framework: apply migration, rollback, re-apply (idempotency test)
 - Uninstall must preserve: `devforgeai/specs/Stories/`, `devforgeai/specs/Epics/`, `devforgeai/specs/Sprints/`, user ADRs, custom context files
-- Uninstall should remove: `.claude/`, `.devforgeai/` (framework files), `CLAUDE.md` (if DevForgeAI-managed), CLI binaries
+- Uninstall should remove: `.claude/`, `devforgeai/` (framework files), `CLAUDE.md` (if DevForgeAI-managed), CLI binaries

@@ -304,7 +304,7 @@ class TestForceBypass:
 
     def test_force_bypass_logs_warning(self, tmp_path):
         """Test force bypass creates log file."""
-        log_dir = tmp_path / ".devforgeai" / "logs"
+        log_dir = tmp_path / "devforgeai" / "logs"
         result = analyze_dependencies(
             story_id="STORY-109",
             force=True,
@@ -318,7 +318,7 @@ class TestForceBypass:
 
     def test_force_log_contains_details(self, tmp_path):
         """Test force bypass log contains story ID, timestamp, and failures."""
-        log_dir = tmp_path / ".devforgeai" / "logs"
+        log_dir = tmp_path / "devforgeai" / "logs"
         result = analyze_dependencies(
             story_id="STORY-109",
             force=True,

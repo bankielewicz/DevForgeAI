@@ -233,7 +233,7 @@ Analyzed technical feasibility of building an Epic Coverage Validation & Require
 | Context File | Status | Violations | Details |
 |--------------|--------|------------|---------|
 | tech-stack.md | ✅ PASS | 0 | Python 3.10+ aligns with existing framework constraint |
-| source-tree.md | ✅ PASS | 0 | Traceability tool fits in `.devforgeai/` directory structure |
+| source-tree.md | ✅ PASS | 0 | Traceability tool fits in `devforgeai/` directory structure |
 | dependencies.md | ✅ PASS | 0 | RapidFuzz, PyYAML, mistune all MIT/Apache licensed (acceptable) |
 | coding-standards.md | ✅ PASS | 0 | Python naming conventions (PEP 8) assumed |
 | architecture-constraints.md | ✅ PASS | 0 | File-based implementation respects existing patterns |
@@ -535,7 +535,7 @@ def extract_features_from_markdown(markdown_text):
 - Open source examples: ✅ (3 Python traceability repositories examined)
 
 **Next Steps:**
-1. Create ADR in `.devforgeai/adrs/ADR-XXX-traceability-system-architecture.md`
+1. Create ADR in `devforgeai/adrs/ADR-XXX-traceability-system-architecture.md`
 2. Document decision context:
    - **Problem:** Cannot verify epic coverage (gap detection), no automated traceability
    - **Alternatives:** Embedded YAML refs, SQLite DB, NetworkX, JSON index
@@ -599,7 +599,7 @@ Implement graph-based in-memory traceability system with RapidFuzz fuzzy matchin
 ---
 
 **Report Generated:** 2025-11-25 19:45:00
-**Report Location:** .devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md
+**Report Location:** devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md
 **Research ID:** RESEARCH-002
 **Version:** 2.0 (template version)
 

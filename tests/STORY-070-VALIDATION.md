@@ -80,7 +80,7 @@ error_exit "gh CLI not authenticated. Run: gh auth login"
 # =============================================================================
 # Sync operational directories to distribution source:
 # - .claude/ → src/claude/ (framework skills, commands, agents)
-# - .devforgeai/ → src/devforgeai/ (context files, templates, configs)
+# - devforgeai/ → src/devforgeai/ (context files, templates, configs)
 # - Apply exclusion patterns (backups, logs, temp files)
 # - Validate sync completeness
 # - Generate sync manifest for audit trail
@@ -236,7 +236,7 @@ AUTO_YES=true bash scripts/release.sh      # Skip prompts
   - Comments: ~50 → ~110 (+60)
 
 ### Unchanged
-- `/mnt/c/Projects/DevForgeAI2/.devforgeai/config/release-config.sh`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/config/release-config.sh`
 - All test files (test failures due to mocks, not code)
 
 ### Created (Documentation)

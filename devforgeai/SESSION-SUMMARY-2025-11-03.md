@@ -138,18 +138,18 @@
 15. CLAUDE.md
 
 **RCA Documents (3 new):**
-16. .devforgeai/specs/enhancements/RCA-005-command-audit.md
-17. .devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md
-18. .devforgeai/specs/enhancements/RCA-005-test-results.md
+16. devforgeai/specs/enhancements/RCA-005-command-audit.md
+17. devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md
+18. devforgeai/specs/enhancements/RCA-005-test-results.md
 
 **Framework Status (1 new):**
-19. .devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md
+19. devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md
 
 ### RCA-006 Planning (2 files)
 
 **Planning Documents:**
-20. .devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md
-21. .devforgeai/RCA-006-HANDOFF-PROMPT.md
+20. devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md
+21. devforgeai/RCA-006-HANDOFF-PROMPT.md
 
 **Total This Session: 21 files**
 

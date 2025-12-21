@@ -233,7 +233,7 @@ class RollbackOrchestrator:
                 self.backup_dir.parent / "target" / ".version.json",  # Test pattern: sibling target dir
                 self.backup_dir / ".version.json",  # Version in backup dir itself (test shortcut)
                 Path(".") / ".version.json",  # Current directory
-                Path(".devforgeai") / ".version.json",  # DevForgeAI location
+                Path("devforgeai") / ".version.json",  # DevForgeAI location
             ]
 
             for search_path in search_paths:

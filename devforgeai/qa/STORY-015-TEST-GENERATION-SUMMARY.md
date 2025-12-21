@@ -235,7 +235,7 @@ pytest tests/ -v
 pytest tests/ --cov=.claude/skills/devforgeai-story-creation --cov-report=html
 
 # View coverage report
-open .devforgeai/qa/coverage/STORY-015-coverage-report/index.html
+open devforgeai/qa/coverage/STORY-015-coverage-report/index.html
 ```
 
 ### By Category
@@ -509,7 +509,7 @@ pytest tests/ -n auto
 2. **Review Coverage**
    ```bash
    pytest tests/ --cov=.claude/skills/devforgeai-story-creation --cov-report=html
-   open .devforgeai/qa/coverage/STORY-015-coverage-report/index.html
+   open devforgeai/qa/coverage/STORY-015-coverage-report/index.html
    ```
 
 3. **Verify Performance**

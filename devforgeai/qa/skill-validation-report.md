@@ -287,7 +287,7 @@ The devforgeai-release skill has successfully passed comprehensive validation ac
    - ✅ Version/revision parameter support
    - ✅ Health verification after rollback
    - ✅ Database rollback integration (--rollback-db flag)
-   - ✅ Comprehensive logging to `.devforgeai/releases/rollback-logs/`
+   - ✅ Comprehensive logging to `devforgeai/releases/rollback-logs/`
    - ✅ Color-coded output for readability
    - **Quality**: Full implementation, no placeholders
 
@@ -465,9 +465,9 @@ All 8 patterns from design specification implemented:
 - ✅ **Story Status Checks**: "QA Approved" referenced correctly (line 123)
 - ✅ **File Paths Match Conventions**:
   - `devforgeai/specs/Stories/{story_id}.story.md` ✅
-  - `.devforgeai/qa/reports/{story_id}-qa-report.md` ✅
-  - `.devforgeai/releases/release-{version}.md` ✅
-  - `.devforgeai/releases/rollback-{version}.md` ✅
+  - `devforgeai/qa/reports/{story_id}-qa-report.md` ✅
+  - `devforgeai/releases/release-{version}.md` ✅
+  - `devforgeai/releases/rollback-{version}.md` ✅
 - ✅ **Git Workflow Commands Valid**: All git commands follow DevForgeAI conventions
 
 ### AskUserQuestion Syntax Validation
@@ -519,7 +519,7 @@ Simulated skill invocation workflow:
 #### File Operations (CORRECT Usage)
 SKILL.md demonstrates native tool usage throughout:
 - ✅ **Read**: `Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")` (line 111)
-- ✅ **Write**: `Write(file_path=".devforgeai/releases/release-{version}.md", content=...)` (line 1037)
+- ✅ **Write**: `Write(file_path="devforgeai/releases/release-{version}.md", content=...)` (line 1037)
 - ✅ **Edit**: `Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md", old_string=..., new_string=...)` (line 1048)
 - ✅ **No cat/grep/find**: Zero instances of Bash used for file operations ✅
 

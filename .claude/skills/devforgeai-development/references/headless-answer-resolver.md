@@ -31,9 +31,9 @@ else:
 
 The resolver searches for `ci-answers.yaml` in these locations (in order):
 
-1. `.devforgeai/config/ci-answers.yaml` (preferred)
+1. `devforgeai/config/ci-answers.yaml` (preferred)
 2. `devforgeai/config/ci/ci-answers.yaml` (fallback)
-3. `~/.devforgeai/config/ci-answers.yaml` (user home)
+3. `~/devforgeai/config/ci-answers.yaml` (user home)
 
 ---
 
@@ -98,7 +98,7 @@ ELSE:
 ### Nested Format (Recommended)
 
 ```yaml
-# .devforgeai/config/ci-answers.yaml
+# devforgeai/config/ci-answers.yaml
 headless_mode:
   enabled: true
   fail_on_unanswered: true  # AC#3

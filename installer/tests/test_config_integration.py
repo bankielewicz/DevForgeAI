@@ -25,7 +25,7 @@ class TestConfigUpgradeCycle:
     ):
         """Test: Config values preserved after upgrade cycle."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Initial install
@@ -52,8 +52,8 @@ class TestConfigUpgradeCycle:
     ):
         """Test: Original config backed up before migration on upgrade."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
-        backup_path = temp_install_dir / ".devforgeai" / ".install-config.backup"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
+        backup_path = temp_install_dir / "devforgeai" / ".install-config.backup"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Install v1 config
@@ -101,8 +101,8 @@ class TestConfigUpgradeCycle:
     ):
         """Test: Can restore backup if migration fails."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
-        backup_path = temp_install_dir / ".devforgeai" / ".install-config.backup"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
+        backup_path = temp_install_dir / "devforgeai" / ".install-config.backup"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Initial config
@@ -184,7 +184,7 @@ class TestConfigMultipleUpgradeCycles:
     ):
         """Test: Config values identical after 10 upgrade cycles (NFR-002)."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         original = sample_install_config.copy()
@@ -209,7 +209,7 @@ class TestConfigMultipleUpgradeCycles:
     ):
         """Test: Handle config format changes across upgrade sequence."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Install v1
@@ -239,7 +239,7 @@ class TestConfigValidationInWorkflow:
     ):
         """Test: Loaded config passes validation."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(config_path, "w") as f:
@@ -309,8 +309,8 @@ class TestConfigErrorRecovery:
     ):
         """Test: Restore backup if config becomes corrupted."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
-        backup_path = temp_install_dir / ".devforgeai" / ".install-config.backup"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
+        backup_path = temp_install_dir / "devforgeai" / ".install-config.backup"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Create backup
@@ -339,7 +339,7 @@ class TestConfigErrorRecovery:
     ):
         """Test: Use defaults if config and backup missing."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
 
         # Act - Config doesn't exist
         assert not config_path.exists()
@@ -364,7 +364,7 @@ class TestConfigConcurrency:
     ):
         """Test: Config handles concurrent read and write operations."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act - Initial write
@@ -397,7 +397,7 @@ class TestConfigComplexScenarios:
     ):
         """Test: Config works efficiently with many optional features."""
         # Arrange
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -423,7 +423,7 @@ class TestConfigComplexScenarios:
             "installed_at": "2025-11-25T10:30:00Z",
         }
 
-        config_path = temp_install_dir / ".devforgeai" / ".install-config.json"
+        config_path = temp_install_dir / "devforgeai" / ".install-config.json"
         config_path.parent.mkdir(parents=True, exist_ok=True)
 
         # Act

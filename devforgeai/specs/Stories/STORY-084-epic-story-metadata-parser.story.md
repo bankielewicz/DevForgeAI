@@ -148,7 +148,7 @@ technical_specification:
   components:
     - type: "Service"
       name: "EpicMetadataParser"
-      file_path: ".devforgeai/traceability/epic-parser.sh"
+      file_path: "devforgeai/traceability/epic-parser.sh"
       dependencies:
         - "Grep"
         - "Read"
@@ -172,7 +172,7 @@ technical_specification:
 
     - type: "Service"
       name: "StoryMetadataParser"
-      file_path: ".devforgeai/traceability/story-parser.sh"
+      file_path: "devforgeai/traceability/story-parser.sh"
       dependencies:
         - "Grep"
         - "Read"
@@ -196,7 +196,7 @@ technical_specification:
 
     - type: "Service"
       name: "CoverageMappingService"
-      file_path: ".devforgeai/traceability/coverage-mapper.sh"
+      file_path: "devforgeai/traceability/coverage-mapper.sh"
       dependencies:
         - "EpicMetadataParser"
         - "StoryMetadataParser"
@@ -220,7 +220,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "ParsedEpic"
-      file_path: ".devforgeai/traceability/models/epic.json"
+      file_path: "devforgeai/traceability/models/epic.json"
       dependencies: []
       requirements:
         - id: "MODEL-EPIC-001"
@@ -236,7 +236,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "ParsedStory"
-      file_path: ".devforgeai/traceability/models/story.json"
+      file_path: "devforgeai/traceability/models/story.json"
       dependencies: []
       requirements:
         - id: "MODEL-STORY-001"
@@ -252,7 +252,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "ParsingError"
-      file_path: ".devforgeai/traceability/models/error.json"
+      file_path: "devforgeai/traceability/models/error.json"
       dependencies: []
       requirements:
         - id: "MODEL-ERROR-001"
@@ -497,9 +497,9 @@ None - uses only Claude Code native tools (Grep, Read, jq).
 ## Definition of Done
 
 ### Implementation
-- [x] Epic parser script created at `.devforgeai/traceability/epic-parser.sh`
-- [x] Story parser script created at `.devforgeai/traceability/story-parser.sh`
-- [x] Coverage mapper script created at `.devforgeai/traceability/coverage-mapper.sh`
+- [x] Epic parser script created at `devforgeai/traceability/epic-parser.sh`
+- [x] Story parser script created at `devforgeai/traceability/story-parser.sh`
+- [x] Coverage mapper script created at `devforgeai/traceability/coverage-mapper.sh`
 - [x] JSON schemas created for ParsedEpic, ParsedStory, ParsingError
 - [x] YAML frontmatter parsing implemented
 - [x] Features section extraction implemented
@@ -537,9 +537,9 @@ None - uses only Claude Code native tools (Grep, Read, jq).
 ## Implementation Notes
 
 ### Definition of Done - Completed Items
-- [x] Epic parser script created at `.devforgeai/traceability/epic-parser.sh` - Completed: 2025-12-10
-- [x] Story parser script created at `.devforgeai/traceability/story-parser.sh` - Completed: 2025-12-10
-- [x] Coverage mapper script created at `.devforgeai/traceability/coverage-mapper.sh` - Completed: 2025-12-10
+- [x] Epic parser script created at `devforgeai/traceability/epic-parser.sh` - Completed: 2025-12-10
+- [x] Story parser script created at `devforgeai/traceability/story-parser.sh` - Completed: 2025-12-10
+- [x] Coverage mapper script created at `devforgeai/traceability/coverage-mapper.sh` - Completed: 2025-12-10
 - [x] JSON schemas created for ParsedEpic, ParsedStory, ParsingError - Completed: 2025-12-10
 - [x] YAML frontmatter parsing implemented - Completed: 2025-12-10
 - [x] Features section extraction implemented - Completed: 2025-12-10
@@ -594,7 +594,7 @@ None - uses only Claude Code native tools (Grep, Read, jq).
 **Acceptance Criteria:** All 7 ACs verified
 **NFR Status:** NFR-001/002 slower on WSL2 (~500ms vs 100ms), acceptable for dev environment
 
-**QA Report:** `.devforgeai/qa/reports/STORY-084-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-084-qa-report.md`
 
 **Technical Debt:**
 - Performance optimization for batch processing (future story)

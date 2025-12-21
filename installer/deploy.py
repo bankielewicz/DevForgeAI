@@ -308,7 +308,7 @@ def deploy_framework_files(
         # _deploy_directory handles missing directories gracefully (returns early)
         # This allows individual directory failures to propagate (PermissionError, OSError)
         _deploy_directory(source_claude, target_root / ".claude", result)
-        _deploy_directory(source_devforgeai, target_root / ".devforgeai", result, preserve_configs)
+        _deploy_directory(source_devforgeai, target_root / "devforgeai", result, preserve_configs)
 
     except (PermissionError, OSError) as e:
         # Propagate I/O exceptions (permission denied, disk full, etc.)

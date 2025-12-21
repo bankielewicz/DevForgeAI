@@ -120,7 +120,7 @@ class TestViolationDetection:
         """Test: Detect file reading/parsing violation."""
         # Arrange
         content = """
-        Read QA report from: .devforgeai/qa/reports/$1-qa-report.md
+        Read QA report from: devforgeai/qa/reports/$1-qa-report.md
         Extract sections:
           - Coverage metrics
           - Failed tests
@@ -141,7 +141,7 @@ class TestViolationDetection:
         """Test: Detect JSON parsing violation."""
         # Arrange
         content = """
-        Read: .devforgeai/qa/coverage/coverage-report.json
+        Read: devforgeai/qa/coverage/coverage-report.json
         Parse JSON
         Extract: coverage_percentage, uncovered_files
         FOR each uncovered_file:

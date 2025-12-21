@@ -82,11 +82,11 @@ No response = Default action (Anonymize) will be taken.
 **Action:**
 ```bash
 # Remove all feedback for story
-rm -rf .devforgeai/feedback/STORY-042/
+rm -rf devforgeai/feedback/STORY-042/
 
 # Log deletion
 echo "$(date): Deleted STORY-042 (user requested)" >> \
-  .devforgeai/feedback/retention-audit.log
+  devforgeai/feedback/retention-audit.log
 ```
 
 **Result:**
@@ -135,7 +135,7 @@ anonymized = {
 }
 
 # Save to anonymized directory
-save_to('.devforgeai/feedback/anonymized/', anonymized)
+save_to('devforgeai/feedback/anonymized/', anonymized)
 
 # Remove original
 remove_original(story_id)
@@ -281,7 +281,7 @@ You can change your preference anytime.
 
 **Storage:**
 ```
-.devforgeai/feedback/sensitive/
+devforgeai/feedback/sensitive/
 ├── security/
 │   └── STORY-042-vulnerability.json.enc
 ├── privacy/
@@ -367,7 +367,7 @@ devforgeai feedback-export --all
 
 **Saved to:**
 ```
-.devforgeai/feedback/exports/export-20250109_143022.json
+devforgeai/feedback/exports/export-20250109_143022.json
 ```
 
 ---
@@ -416,7 +416,7 @@ Type 'DELETE ALL' to confirm: _
 **Audit log:**
 ```bash
 # All deletions logged
-cat .devforgeai/feedback/deletion-audit.log
+cat devforgeai/feedback/deletion-audit.log
 
 2025-01-09 14:30:22: Deleted STORY-042 (user requested)
 2025-01-10 09:15:45: Deleted STORY-087 (retention policy)
@@ -564,10 +564,10 @@ devforgeai feedback enable
 
 **Log location:**
 ```
-.devforgeai/feedback/retention-audit.log
-.devforgeai/feedback/deletion-audit.log
-.devforgeai/feedback/access-audit.log
-.devforgeai/feedback/anonymization-audit.log
+devforgeai/feedback/retention-audit.log
+devforgeai/feedback/deletion-audit.log
+devforgeai/feedback/access-audit.log
+devforgeai/feedback/anonymization-audit.log
 ```
 
 ---
@@ -585,7 +585,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import json
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 notice_days = [30, 14, 7, 1]
 today = datetime.now()
 
@@ -614,7 +614,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 import json
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 retention_days = 365
 today = datetime.now()
 
@@ -651,7 +651,7 @@ EOF
 
 **Config file:**
 ```yaml
-# .devforgeai/feedback/retention-preferences.yaml
+# devforgeai/feedback/retention-preferences.yaml
 
 STORY-042:
   action: anonymize

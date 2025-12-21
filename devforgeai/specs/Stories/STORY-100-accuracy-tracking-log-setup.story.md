@@ -73,7 +73,7 @@ depends_on:
 
 ### AC#5: Integration with Baseline Metrics
 
-**Given** STORY-099 creates baseline metrics in `.devforgeai/metrics/baseline-YYYY-MM-DD.md`
+**Given** STORY-099 creates baseline metrics in `devforgeai/metrics/baseline-YYYY-MM-DD.md`
 **When** the accuracy log template is created
 **Then** it includes:
 - A "Baseline Reference" section linking to the baseline document
@@ -471,7 +471,7 @@ All 5 acceptance criteria fully verified (22/22 checklist items):
 
 **Research Reference:**
 - RESEARCH-001: Claude Code Memory Management Best Practices (2025-11-30)
-- Location: `.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
+- Location: `devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
 
 **Related Stories:**
 - STORY-099: Baseline Metrics Collection (prerequisite - creates baseline for comparison)

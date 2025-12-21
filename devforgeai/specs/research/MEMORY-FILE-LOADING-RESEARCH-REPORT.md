@@ -504,8 +504,8 @@ CORRECT approach: ~3K tokens at startup + 5-15K per skill invoked
 ## Related Documentation
 
 **See Also:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
-- `.devforgeai/protocols/command-budget-reference.md` - Budget monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture pattern
+- `devforgeai/protocols/command-budget-reference.md` - Budget monitoring
 - `.claude/memory/token-efficiency.md` - Token efficiency guidelines
 - `.claude/memory/token-budget-guidelines.md` - Budget heuristics
 

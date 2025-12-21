@@ -741,7 +741,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 - 9 Markdown files (1 subagent spec, 8 reference files, 1 updated workflow)
 - Total: ~1520 lines of documentation
 
-**Report:** `.devforgeai/qa/reports/STORY-062-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-062-qa-report.md`
 
 ---
 

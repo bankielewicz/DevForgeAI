@@ -118,12 +118,12 @@ tests/unit/test_hook_integration_phase.py::TestContextMetadataAssembly - ALL 7 F
 
 ---
 
-#### 4. ✅ Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+#### 4. ✅ Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected)
 
 **Status:** COMPLETE & VERIFIED
 
 **Evidence:**
-- Configuration file: `.devforgeai/config/hooks.yaml.example` (created)
+- Configuration file: `devforgeai/config/hooks.yaml.example` (created)
 - Configuration loading tests all pass:
   - `test_load_hooks_config_enabled_true` ✅ PASSED
   - `test_load_hooks_config_enabled_false` ✅ PASSED
@@ -201,7 +201,7 @@ tests/e2e/test_create_story_hook_workflow.py::TestBatchStoryCreationWithHooks::t
   - Script crash (subprocess exception)
   - Configuration error (malformed YAML)
 - User notification: Warning displayed ("Feedback hook failed - story created successfully")
-- Error logging: Comprehensive logs to `.devforgeai/feedback/.logs/hook-errors.log`
+- Error logging: Comprehensive logs to `devforgeai/feedback/.logs/hook-errors.log`
 
 **Graceful Degradation Workflow:**
 ```
@@ -319,7 +319,7 @@ AC-6: test_hook_receives_all_metadata_fields ✅
   7. `timestamp` - Generated as ISO format (YYYY-MM-DDTHH:MM:SS.ffffffZ)
 
 **Hook Config Validation:**
-- File path: `.devforgeai/config/hooks.yaml`
+- File path: `devforgeai/config/hooks.yaml`
 - Required keys: `feedback.hooks.story_create.enabled` (boolean)
 - Optional keys: `feedback.hooks.story_create.timeout` (int, milliseconds)
 - Safe defaults: If file missing/malformed → `enabled: false`
@@ -563,7 +563,7 @@ test_load_hooks_config_malformed_yaml_defaults_disabled ✅
 5. Hook invoked with all metadata
 6. Feedback conversation appears
 7. User provides feedback
-8. Responses saved to .devforgeai/feedback/
+8. Responses saved to devforgeai/feedback/
 9. Command exits 0
 
 **Test File:** `tests/e2e/test_create_story_hook_workflow.py` (7 E2E tests)
@@ -611,11 +611,11 @@ test_load_hooks_config_malformed_yaml_defaults_disabled ✅
 
 ---
 
-#### 2. ✅ Configuration example added to `.devforgeai/config/hooks.yaml.example`
+#### 2. ✅ Configuration example added to `devforgeai/config/hooks.yaml.example`
 
 **Status:** COMPLETE & VERIFIED
 
-**File Created:** `.devforgeai/config/hooks.yaml.example` (6,955 bytes)
+**File Created:** `devforgeai/config/hooks.yaml.example` (6,955 bytes)
 
 **Content Includes:**
 - Global hooks configuration
@@ -651,7 +651,7 @@ feedback:
 
 **Status:** COMPLETE & VERIFIED
 
-**File Created:** `.devforgeai/docs/hooks/troubleshooting.md`
+**File Created:** `devforgeai/docs/hooks/troubleshooting.md`
 
 **Content Includes:**
 - Problem: "Hook not triggering after story creation"
@@ -670,7 +670,7 @@ feedback:
 
 **Troubleshooting Workflow:**
 1. Symptom: No feedback conversation appears
-2. Diagnosis: Check `.devforgeai/config/hooks.yaml`
+2. Diagnosis: Check `devforgeai/config/hooks.yaml`
 3. Manual test: Run `devforgeai check-hooks --operation=story-create`
 4. Remediation: Enable hooks, check configuration
 5. Verify: Run `/create-story` again
@@ -684,7 +684,7 @@ feedback:
 **Status:** COMPLETE & VERIFIED
 
 **Documentation Location:**
-- File: `.devforgeai/docs/hooks/integration-pattern.md`
+- File: `devforgeai/docs/hooks/integration-pattern.md`
 
 **Content Includes:**
 - Hook lifecycle for /create-story command
@@ -745,7 +745,7 @@ feedback:
 **Implementation Evidence:**
 - `.claude/commands/create-story.md` - Phase 5 added (lines 198-225)
 - `.claude/commands/references/hook-integration-guide.md` - Created (10,981 bytes)
-- `.devforgeai/config/hooks.yaml.example` - Created (6,955 bytes)
+- `devforgeai/config/hooks.yaml.example` - Created (6,955 bytes)
 - Hook integration logic fully implemented per specification
 - All acceptance criteria implemented:
   - AC-1: Hook triggers ✅
@@ -863,9 +863,9 @@ feedback:
 | # | Item | Status | File |
 |---|------|--------|------|
 | 1 | Skill integration guide | ✅ | `.claude/commands/references/hook-integration-guide.md` |
-| 2 | Configuration example | ✅ | `.devforgeai/config/hooks.yaml.example` |
-| 3 | Troubleshooting guide | ✅ | `.devforgeai/docs/hooks/troubleshooting.md` |
-| 4 | Maintainer guide | ✅ | `.devforgeai/docs/hooks/integration-pattern.md` |
+| 2 | Configuration example | ✅ | `devforgeai/config/hooks.yaml.example` |
+| 3 | Troubleshooting guide | ✅ | `devforgeai/docs/hooks/troubleshooting.md` |
+| 4 | Maintainer guide | ✅ | `devforgeai/docs/hooks/integration-pattern.md` |
 
 ### Workflow Status Checklist (4/4)
 

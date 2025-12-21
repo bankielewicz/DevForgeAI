@@ -1002,7 +1002,7 @@ git checkout HEAD~ .claude/memory/*.md
 # Reload original command
 
 # 6. Document rollback reason
-# Create .devforgeai/specs/enhancements/CREATE-SPRINT-ROLLBACK-REPORT.md
+# Create devforgeai/specs/enhancements/CREATE-SPRINT-ROLLBACK-REPORT.md
 ```
 
 ---
@@ -1066,7 +1066,7 @@ git checkout HEAD~ .claude/memory/*.md
 ## Related Documentation
 
 **Core Principles:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Refactoring methodology
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Refactoring methodology
 - `.ai_docs/claude-skills.md` - Skills architecture
 - `.ai_docs/Terminal/slash-commands-best-practices.md` - Command design
 
@@ -1076,9 +1076,9 @@ git checkout HEAD~ .claude/memory/*.md
 - `.claude/agents/qa-result-interpreter.md` - Subagent example
 
 **Subagent Generation:**
-- `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Architecture overview
-- `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Step-by-step guide
-- `.devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Verification checklist
+- `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Architecture overview
+- `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Step-by-step guide
+- `devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Verification checklist
 
 ---
 
@@ -1133,7 +1133,7 @@ Command (250 lines)
 
 1. `.claude/agents/sprint-planner.md` (467 lines) ✅ EXISTS
 2. `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` (391 lines) ✅ EXISTS
-3. `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` (this file)
+3. `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` (this file)
 
 ### Files for Backup
 

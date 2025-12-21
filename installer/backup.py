@@ -138,9 +138,9 @@ def create_backup(
             shutil.copytree(source_claude, backup_claude)
 
         # Copy devforgeai/ directory
-        source_devforgeai = project_root / ".devforgeai"
+        source_devforgeai = project_root / "devforgeai"
         if source_devforgeai.exists():
-            backup_devforgeai = backup_path / ".devforgeai"
+            backup_devforgeai = backup_path / "devforgeai"
             shutil.copytree(source_devforgeai, backup_devforgeai)
 
         # Copy CLAUDE.md if it exists

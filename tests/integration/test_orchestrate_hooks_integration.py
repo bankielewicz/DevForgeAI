@@ -42,7 +42,7 @@ def temp_project_dir():
         stories_dir = project_path / ".ai_docs" / "Stories"
         stories_dir.mkdir(parents=True, exist_ok=True)
 
-        devforgeai_dir = project_path / ".devforgeai"
+        devforgeai_dir = project_path / "devforgeai"
         devforgeai_dir.mkdir(exist_ok=True)
 
         hooks_dir = devforgeai_dir / "hooks"

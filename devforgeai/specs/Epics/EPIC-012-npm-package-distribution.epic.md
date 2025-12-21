@@ -104,7 +104,7 @@ This complexity prevents many developers from trying DevForgeAI, limiting adopti
 **Description:** Automate DevForgeAI framework release workflow with src/ sync, versioning, checksums, and GitHub releases
 **User Stories (high-level):**
 1. As a framework maintainer, I want to run `scripts/release.sh` to automate the entire release process
-2. As a maintainer, I want operational files (.claude/, .devforgeai/) automatically synced to src/, so distribution is always up-to-date
+2. As a maintainer, I want operational files (.claude/, devforgeai/) automatically synced to src/, so distribution is always up-to-date
 3. As a maintainer, I want version.json updated with semantic versioning, so releases are properly tracked
 4. As a maintainer, I want checksums automatically generated, so users can verify package integrity
 5. As a contributor, I want GitHub releases auto-created with changelogs, so release notes are transparent
@@ -116,7 +116,7 @@ This complexity prevents many developers from trying DevForgeAI, limiting adopti
 - `scripts/release.sh` script orchestrates full workflow
 - Interactive prompt for version bump (major/minor/patch)
 - Sync .claude/ → src/claude/ with exclusions (*.backup*, __pycache__)
-- Sync .devforgeai/ → src/devforgeai/ with exclusions (backups/, qa/reports/, feedback/sessions/)
+- Sync devforgeai/ → src/devforgeai/ with exclusions (backups/, qa/reports/, feedback/sessions/)
 - Update src/version.json with version, release date, release notes path
 - Generate src/checksums.txt with SHA-256 hashes for all src/ files
 - Create GitHub release via gh CLI with auto-generated changelog

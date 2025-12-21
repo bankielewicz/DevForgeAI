@@ -27,7 +27,7 @@ collecting ... collected 29 items
 
 ## Test Suite 1: Coverage-Analyzer Scenarios (12 tests)
 
-### File: `.devforgeai/test-fixtures/test_integration_coverage_analyzer.py`
+### File: `devforgeai/test-fixtures/test_integration_coverage_analyzer.py`
 
 #### Test Results:
 ```
@@ -51,7 +51,7 @@ collecting ... collected 29 items
 
 ## Test Suite 2: QA Skill Integration Workflows (17 tests)
 
-### File: `.devforgeai/test-fixtures/test_qa_skill_coverage_integration.py`
+### File: `devforgeai/test-fixtures/test_qa_skill_coverage_integration.py`
 
 #### Test Results:
 ```
@@ -322,9 +322,9 @@ All tests passed. No defects, failures, or issues identified during integration 
 ## Contact Information
 
 For questions about test execution:
-1. Review detailed test reports in `.devforgeai/qa/reports/`
+1. Review detailed test reports in `devforgeai/qa/reports/`
 2. Review integration guide in `.claude/skills/devforgeai-qa/references/`
-3. Run tests locally: `python3 -m pytest .devforgeai/test-fixtures/test_integration_*.py -v`
+3. Run tests locally: `python3 -m pytest devforgeai/test-fixtures/test_integration_*.py -v`
 4. Check specific test: `pytest [test_file]::[test_class]::[test_name] -v`
 
 ---

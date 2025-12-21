@@ -497,7 +497,7 @@ Related: RCA-009, RCA-011 (same root cause, different skill)"
 
 1. **Read this plan:**
    ```
-   Read(file_path=".devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md")
+   Read(file_path="devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md")
    ```
 
 2. **Find current checkpoint:**
@@ -525,8 +525,8 @@ Related: RCA-009, RCA-011 (same root cause, different skill)"
 | File | Purpose | Checkpoints |
 |------|---------|-------------|
 | `.claude/skills/devforgeai-qa/SKILL.md` | Add checkpoints | 1-6 |
-| `.devforgeai/RCA/RCA-016-*.md` | Update status | 9 |
-| `.devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md` | Track progress | All |
+| `devforgeai/RCA/RCA-016-*.md` | Update status | 9 |
+| `devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md` | Track progress | All |
 
 ---
 

@@ -55,7 +55,7 @@ class TestUninstallWorkflow:
 
         # Verify installation exists
         assert (target_root / ".claude").exists()
-        assert (target_root / ".devforgeai").exists()
+        assert (target_root / "devforgeai").exists()
 
         # Execute uninstall
         uninstall_result = install.install(target_root, mode="uninstall")
@@ -83,11 +83,11 @@ class TestUninstallWorkflow:
         self, baseline_project, file_integrity_checker
     ):
         """
-        AC-5.2: Uninstall removes framework files (.claude, .devforgeai subdirs).
+        AC-5.2: Uninstall removes framework files (.claude, devforgeai subdirs).
 
         Validates:
         - .claude/ directory removed completely
-        - .devforgeai subdirectories removed (except context)
+        - devforgeai subdirectories removed (except context)
         - CLAUDE.md removed
         - .backups/ directory preserved
 
@@ -103,7 +103,7 @@ class TestUninstallWorkflow:
             target_root / ".claude"
         ).exists(), ".claude/ should exist before uninstall"
         assert file_integrity_checker.verify_directory_exists(
-            target_root / ".devforgeai"
+            target_root / "devforgeai"
         )
 
         # Create CLAUDE.md
@@ -161,7 +161,7 @@ class TestUninstallWorkflow:
             target_root / ".ai_docs"
         ).exists(), "devforgeai/specs/ should be preserved"
         assert (
-            target_root / ".devforgeai" / "context"
+            target_root / "devforgeai" / "context"
         ).exists(), "context/ should be preserved"
 
         # Verify user files unchanged
@@ -192,7 +192,7 @@ class TestUninstallWorkflow:
 
         project = baseline_project["project"]
         target_root = project["root"]
-        devforgeai_dir = target_root / ".devforgeai"
+        devforgeai_dir = target_root / "devforgeai"
 
         # Verify .version.json exists
         version_file = devforgeai_dir / ".version.json"

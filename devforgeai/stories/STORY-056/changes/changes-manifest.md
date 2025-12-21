@@ -50,25 +50,25 @@
 ## Test Files Created
 
 ### 1. test-story-creation-guidance-unit.sh
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Tests:** 15 unit tests
 **Lines:** 324
 **Coverage:** File I/O, pattern extraction, mapping validation
 
 ### 2. test-story-creation-guidance-integration.sh
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Tests:** 12 integration tests
 **Lines:** 312
 **Coverage:** Phase 1 workflow, subagent impact analysis
 
 ### 3. test-story-creation-regression.sh
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Tests:** 10 regression tests
 **Lines:** 298
 **Coverage:** Backward compatibility verification
 
 ### 4. test-story-creation-guidance-performance.py
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Tests:** 8 performance tests
 **Lines:** 597
 **Coverage:** Timing, token measurement, memory footprint
@@ -78,32 +78,32 @@
 ## Documentation Files Created
 
 ### 1. STORY-056-TEST-EXECUTION-GUIDE.md
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Lines:** 1,200+
 **Purpose:** Complete test execution procedures, troubleshooting
 
 ### 2. STORY-056-TEST-SUMMARY.md
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Lines:** 1,300+
 **Purpose:** Test specifications, coverage matrix, performance baselines
 
 ### 3. README-STORY-056.md
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Lines:** 400+
 **Purpose:** Quick reference, navigation, index
 
 ### 4. STORY-056-INTEGRATION-TESTING-SUMMARY.txt
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Size:** 14 KB
 **Purpose:** Integration testing executive summary
 
 ### 5. STORY-056-INTEGRATION-TEST-REPORT.md
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Size:** 16 KB
 **Purpose:** Detailed integration test results
 
 ### 6. STORY-056-VALIDATION-CHECKLIST.md
-**Location:** .devforgeai/tests/skills/
+**Location:** devforgeai/tests/skills/
 **Size:** 13 KB
 **Purpose:** 61-point validation checklist
 
@@ -152,7 +152,7 @@ When you're ready to commit these changes to git:
 # Stage the changes
 git add src/claude/skills/devforgeai-story-creation/
 git add .claude/skills/devforgeai-story-creation/
-git add .devforgeai/tests/skills/STORY-056*
+git add devforgeai/tests/skills/STORY-056*
 git add devforgeai/specs/Stories/STORY-056*
 
 # Commit with conventional message

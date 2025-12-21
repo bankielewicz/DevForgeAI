@@ -333,7 +333,7 @@ N/A - This is a framework refactoring story with no user-facing UI components.
 
 **NFR-C1: Compliance**
 - Target: 100% lean orchestration pattern compliance
-- Measurement: Manual checklist against `.devforgeai/protocols/lean-orchestration-pattern.md`
+- Measurement: Manual checklist against `devforgeai/protocols/lean-orchestration-pattern.md`
 - Acceptable: Command passes all 5 responsibility checks, zero violations
 
 **NFR-R1: Reliability**
@@ -612,7 +612,7 @@ pytest tests/integration/test_story_034_qa_refactoring.py tests/integration/test
 
 **Violations:** 0 CRITICAL, 0 HIGH, 0 MEDIUM, 0 LOW
 
-**Report:** `.devforgeai/qa/reports/STORY-034-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-034-qa-report.md`
 
 ---
 

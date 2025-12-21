@@ -165,7 +165,7 @@ expect(fileCount).toBeGreaterThanOrEqual(200);
 **Implementation Impact:**
 - Requires graceful degradation logic
 - Requires MISSING_FEATURES.md template
-- Requires .claude/ and .devforgeai/ deployment
+- Requires .claude/ and devforgeai/ deployment
 - Requires exit code 0 on completion
 
 ---
@@ -482,7 +482,7 @@ Structure: pip-installable format (--no-index compatible)
 
 ### 5. MISSING_FEATURES.md Template
 ```
-Location: .devforgeai/MISSING_FEATURES.md (generated)
+Location: devforgeai/MISSING_FEATURES.md (generated)
 Content:
 - Feature: Python CLI
 - Impact: "CLI validation commands unavailable"

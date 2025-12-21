@@ -18,7 +18,7 @@ class TestParallelConfigLoading:
 
     def test_should_load_valid_config_file_when_exists(self):
         """
-        Scenario: Valid configuration file exists at .devforgeai/config/parallel.yaml
+        Scenario: Valid configuration file exists at devforgeai/config/parallel.yaml
         Given: Configuration file with valid worktree section
         When: Loading configuration
         Then: Should parse YAML and return config dictionary

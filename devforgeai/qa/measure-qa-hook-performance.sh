@@ -14,7 +14,7 @@ echo ""
 # Configuration
 RUNS=20
 STORY_ID="${1:-STORY-014}"  # Default to STORY-014 if not specified
-RESULTS_FILE=".devforgeai/qa/performance-results-$(date +%Y-%m-%d-%H%M%S).txt"
+RESULTS_FILE="devforgeai/qa/performance-results-$(date +%Y-%m-%d-%H%M%S).txt"
 
 echo "Configuration:"
 echo "  - Story ID: $STORY_ID"

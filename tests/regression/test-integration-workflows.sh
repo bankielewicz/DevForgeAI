@@ -100,7 +100,7 @@ test_workflow_2_context_to_story_to_qa() {
     test_directory_exists "$PROJECT_ROOT/.ai_docs/Stories" "Stories directory for QA"
 
     # Step 3: QA output paths
-    test_directory_exists "$PROJECT_ROOT/.devforgeai/qa" "QA reports directory"
+    test_directory_exists "$PROJECT_ROOT/devforgeai/qa" "QA reports directory"
 
     # Step 4: QA skill
     test_path_exists "$PROJECT_ROOT/.claude/skills/devforgeai-qa/SKILL.md" "QA skill SKILL.md"
@@ -131,7 +131,7 @@ test_workflow_3_sprint_planning_to_story() {
     test_path_exists "$PROJECT_ROOT/.claude/skills/devforgeai-story-creation/SKILL.md" "Story creation skill SKILL.md"
 
     # Step 6: ADR support for architecture decisions
-    test_directory_exists "$PROJECT_ROOT/.devforgeai/adrs" "ADR directory"
+    test_directory_exists "$PROJECT_ROOT/devforgeai/adrs" "ADR directory"
 
     echo
 }

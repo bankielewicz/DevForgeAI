@@ -121,7 +121,7 @@
 - **Issue:** AC#5 (in original DoD) deferral is a scope change, requires ADR
 - **Rule:** critical-rules.md Rule #9 (Document All Decisions)
 - **Remediation:** Create ADR-008 documenting scope boundary
-- **File to Create:** `.devforgeai/adrs/ADR-008-*.md`
+- **File to Create:** `devforgeai/adrs/ADR-008-*.md`
 - **Effort:** 30 minutes
 
 ### Violation #2: FOLLOW_UP_STORY_NOT_CREATED [NON-BLOCKING]
@@ -162,7 +162,7 @@
 
 **Action 1: Create ADR-008**
 ```
-File: .devforgeai/adrs/ADR-008-defer-story-creation-skill-enhancement.md
+File: devforgeai/adrs/ADR-008-defer-story-creation-skill-enhancement.md
 Content:
   - Status: Accepted
   - Title: Defer Story-Creation Skill Enhancement to Separate Story

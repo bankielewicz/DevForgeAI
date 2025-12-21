@@ -215,8 +215,8 @@ Successfully refactored `/create-story` command from top-heavy (857 lines, 153% 
    - Total points: 29
 
 ### Documentation Files
-7. **`.devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-PLAN.md`** - Detailed plan
-8. **`.devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-COMPLETE-2025-11-07.md`** - This summary
+7. **`devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-PLAN.md`** - Detailed plan
+8. **`devforgeai/specs/enhancements/CREATE-STORY-REFACTORING-COMPLETE-2025-11-07.md`** - This summary
 
 **Total Files Modified:** 5 core files + 1 test epic + 2 documentation files = 8 files
 
@@ -518,7 +518,7 @@ Successfully refactored `/create-story` command from top-heavy (857 lines, 153% 
 **Files to update:**
 1. `.claude/memory/commands-reference.md` - Add batch mode documentation
 2. `.claude/memory/skills-reference.md` - Document batch mode support
-3. `.devforgeai/protocols/command-budget-reference.md` - Update create-story status (CRITICAL → COMPLIANT)
+3. `devforgeai/protocols/command-budget-reference.md` - Update create-story status (CRITICAL → COMPLIANT)
 
 **Estimated time:** 30 minutes
 

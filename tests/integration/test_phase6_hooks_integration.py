@@ -46,7 +46,7 @@ def test_project_dir():
         project_path = Path(tmpdir)
 
         # Create DevForgeAI directory structure
-        devforgeai_dir = project_path / ".devforgeai"
+        devforgeai_dir = project_path / "devforgeai"
         config_dir = devforgeai_dir / "config"
         hooks_dir = devforgeai_dir / "hooks"
         feedback_dir = devforgeai_dir / "feedback"
@@ -71,7 +71,7 @@ def hooks_config_enabled(test_project_dir):
             }
         }
     }
-    config_file = test_project_dir / ".devforgeai" / "config" / "hooks.yaml"
+    config_file = test_project_dir / "devforgeai" / "config" / "hooks.yaml"
     with open(config_file, 'w') as f:
         yaml.dump(config, f)
     return config_file
@@ -90,7 +90,7 @@ def hooks_config_disabled(test_project_dir):
             }
         }
     }
-    config_file = test_project_dir / ".devforgeai" / "config" / "hooks.yaml"
+    config_file = test_project_dir / "devforgeai" / "config" / "hooks.yaml"
     with open(config_file, 'w') as f:
         yaml.dump(config, f)
     return config_file
@@ -109,7 +109,7 @@ def hooks_config_failures_only(test_project_dir):
             }
         }
     }
-    config_file = test_project_dir / ".devforgeai" / "config" / "hooks.yaml"
+    config_file = test_project_dir / "devforgeai" / "config" / "hooks.yaml"
     with open(config_file, 'w') as f:
         yaml.dump(config, f)
     return config_file
@@ -265,7 +265,7 @@ class TestFeedbackTriggersOnSuccess:
         THEN feedback conversation is initiated with context-aware questions.
         """
         # Arrange
-        feedback_dir = test_project_dir / ".devforgeai" / "feedback"
+        feedback_dir = test_project_dir / "devforgeai" / "feedback"
 
         # Act
         # Simulate creating a feedback session
@@ -345,7 +345,7 @@ class TestFeedbackSkipsWhenDisabled:
         """
         # Arrange
         # Simulate /dev completion without feedback
-        status_file = test_project_dir / ".devforgeai" / "dev_status.json"
+        status_file = test_project_dir / "devforgeai" / "dev_status.json"
 
         # Act
         status_data = {
@@ -418,7 +418,7 @@ class TestFeedbackFailuresOnly:
         THEN feedback questions are failure-specific.
         """
         # Arrange
-        feedback_dir = test_project_dir / ".devforgeai" / "feedback"
+        feedback_dir = test_project_dir / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -461,7 +461,7 @@ class TestHookFailureHandling:
         THEN error is logged with warning level.
         """
         # Arrange
-        log_file = test_project_dir / ".devforgeai" / "dev_hooks.log"
+        log_file = test_project_dir / "devforgeai" / "dev_hooks.log"
         log_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -487,7 +487,7 @@ class TestHookFailureHandling:
         THEN /dev command continues to completion.
         """
         # Arrange
-        status_file = test_project_dir / ".devforgeai" / "dev_status.json"
+        status_file = test_project_dir / "devforgeai" / "dev_status.json"
         status_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -513,7 +513,7 @@ class TestHookFailureHandling:
         THEN /dev returns exit code 0 (success).
         """
         # Arrange
-        status_file = test_project_dir / ".devforgeai" / "dev_status.json"
+        status_file = test_project_dir / "devforgeai" / "dev_status.json"
         status_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -550,7 +550,7 @@ class TestSkipTracking:
         THEN skip counter increments.
         """
         # Arrange
-        skip_file = test_project_dir / ".devforgeai" / "feedback_skip_count.json"
+        skip_file = test_project_dir / "devforgeai" / "feedback_skip_count.json"
         skip_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -577,7 +577,7 @@ class TestSkipTracking:
         THEN conversation includes "disable hooks?" option.
         """
         # Arrange
-        skip_file = test_project_dir / ".devforgeai" / "feedback_skip_count.json"
+        skip_file = test_project_dir / "devforgeai" / "feedback_skip_count.json"
         skip_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -598,7 +598,7 @@ class TestSkipTracking:
         THEN enabled is set to false.
         """
         # Arrange
-        config_file = test_project_dir / ".devforgeai" / "config" / "hooks.yaml"
+        config_file = test_project_dir / "devforgeai" / "config" / "hooks.yaml"
 
         # Act - Update config
         with open(config_file, 'r') as f:
@@ -701,7 +701,7 @@ class TestEdgeCases:
         THEN circular invocation is detected and skipped.
         """
         # Arrange
-        guard_file = test_project_dir / ".devforgeai" / "hook_active.lock"
+        guard_file = test_project_dir / "devforgeai" / "hook_active.lock"
         guard_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act
@@ -718,7 +718,7 @@ class TestEdgeCases:
         THEN error is logged and /dev continues.
         """
         # Arrange
-        log_file = test_project_dir / ".devforgeai" / "dev_phase6.log"
+        log_file = test_project_dir / "devforgeai" / "dev_phase6.log"
         log_file.parent.mkdir(parents=True, exist_ok=True)
 
         # Act

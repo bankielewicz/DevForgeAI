@@ -188,7 +188,7 @@ Status: ✅ Success! Story ready for QA
 ├─ Workflow states (1 test: states correct)
 ├─ Story structure (1 test: YAML, AC, specs)
 ├─ Core concepts (1 test: DoD, TDD, AAA)
-├─ File path format (2 tests: .claude/, .devforgeai/, no external URLs)
+├─ File path format (2 tests: .claude/, devforgeai/, no external URLs)
 ├─ Framework files (1 test: referenced files exist)
 └─ Cross-references (2 tests: prompting guide, Claude Code expert)
 ```

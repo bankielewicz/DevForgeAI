@@ -336,7 +336,7 @@ Measured: Full 4-layer chain execution
 
 ### AC#1: Version Detection with File I/O
 
-**Requirement:** Detect installed version from .devforgeai/.version.json
+**Requirement:** Detect installed version from devforgeai/.version.json
 **AC Sub-Items:**
 - [ ] Read JSON file correctly
 - [ ] Handle missing file (fresh install)

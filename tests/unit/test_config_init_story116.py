@@ -15,7 +15,7 @@ from pathlib import Path
 import yaml
 
 # Import from the actual module
-from claude.scripts.devforgeai_cli.ast_grep.config_init import (
+from claude.scriptsdevforgeai_cli.ast_grep.config_init import (
     ConfigurationInitializer,
     InitResult,
 )
@@ -40,7 +40,7 @@ class TestConfigurationInitializerDirectoryCreation:
         Scenario: Initialize ast-grep configuration
         Given: Empty project directory
         When: initialize() is called
-        Then: .devforgeai/ast-grep/ directory is created
+        Then: devforgeai/ast-grep/ directory is created
         """
         # Arrange
         initializer = ConfigurationInitializer(temp_project)
@@ -165,7 +165,7 @@ class TestConfigurationInitializerConfigGeneration:
         Scenario: Initialize configuration file
         Given: Empty project
         When: initialize() is called
-        Then: sgconfig.yml is created in .devforgeai/ast-grep/
+        Then: sgconfig.yml is created in devforgeai/ast-grep/
         """
         # Arrange
         initializer = ConfigurationInitializer(temp_project)
@@ -465,7 +465,7 @@ class TestConfigurationInitializerErrorHandling:
         Covers: config_init.py lines 73-79
         """
         # Arrange
-        import claude.scripts.devforgeai_cli.ast_grep.config_init as config_init_module
+        import claude.scriptsdevforgeai_cli.ast_grep.config_init as config_init_module
 
         # Save original yaml reference
         original_yaml = config_init_module.yaml

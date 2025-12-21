@@ -85,7 +85,7 @@ class TestAC6OutputStandardization:
         """
         # Act - check for truly deprecated paths (NOT devforgeai/specs/research/ which is CORRECT)
         old_paths = [
-            r'\.devforgeai/research/',  # Old dot convention
+            r'\devforgeai/research/',  # Old dot convention
             r'tmp/repos/research-',  # Old research output pattern
             r'ai_docs/architecture/research',
             r'\.claude/research/'  # Old claude convention
@@ -263,13 +263,13 @@ class TestAC6OutputStandardization:
         has_research_dir = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
         # Additional check: Should NOT have old deprecated paths
-        has_old_research_dir = bool(re.search(r'\.devforgeai/research/', agent_content))
+        has_old_research_dir = bool(re.search(r'\devforgeai/research/', agent_content))
 
         # Assert
         assert has_research_dir, \
             "BR-003 FAILED: Must document 'devforgeai/specs/research/' as research output directory"
         assert not has_old_research_dir, \
-            "BR-003 FAILED: Must NOT reference deprecated '.devforgeai/research/' directory"
+            "BR-003 FAILED: Must NOT reference deprecated 'devforgeai/research/' directory"
 
     @pytest.mark.business_rule
     def test_br_003_directory_permissions_documented(self, agent_content):

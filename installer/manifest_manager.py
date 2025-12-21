@@ -30,7 +30,7 @@ class ManifestManager:
             installation_root: Path to installation directory
         """
         self.installation_root = Path(installation_root)
-        self.manifest_path = self.installation_root / ".devforgeai" / self.MANIFEST_FILENAME
+        self.manifest_path = self.installation_root / "devforgeai" / self.MANIFEST_FILENAME
 
     def load(self) -> Optional[InstallManifest]:
         """Load installation manifest from disk.

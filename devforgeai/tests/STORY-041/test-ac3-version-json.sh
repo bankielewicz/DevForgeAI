@@ -12,7 +12,7 @@
 #   - release_date: "[YYYY-MM-DD format]"
 #   - framework_status: one of (DEVELOPMENT, BETA, PRODUCTION, ARCHIVED)
 #   - components: object with skills, agents, commands, memory_files, context_templates, protocols
-#   - changelog_url: ".devforgeai/CHANGELOG.md"
+#   - changelog_url: "devforgeai/CHANGELOG.md"
 #   - migration_status: object with phase, src_structure_complete, content_migration_complete, installer_ready
 #
 # Validation:
@@ -419,12 +419,12 @@ echo ""
 
 ((TESTS_RUN++))
 local changelog_url=$(python3 -c "import json; print(json.load(open('version.json')).get('changelog_url', ''))" 2>/dev/null)
-if [ "$changelog_url" = ".devforgeai/CHANGELOG.md" ]; then
+if [ "$changelog_url" = "devforgeai/CHANGELOG.md" ]; then
     echo -e "${GREEN}✓ PASS${NC}: changelog_url is correct"
     echo "  URL: $changelog_url"
     ((TESTS_PASSED++))
 else
-    echo -e "${RED}✗ FAIL${NC}: changelog_url should be '.devforgeai/CHANGELOG.md'"
+    echo -e "${RED}✗ FAIL${NC}: changelog_url should be 'devforgeai/CHANGELOG.md'"
     echo "  URL: $changelog_url"
     ((TESTS_FAILED++))
 fi

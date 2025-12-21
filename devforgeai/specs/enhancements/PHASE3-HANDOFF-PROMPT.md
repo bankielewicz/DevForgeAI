@@ -20,7 +20,7 @@ CONTEXT:
 
 TASK:
 Implement Phase 3 following the complete implementation plan at:
-@.devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md
+@devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md
 
 KEY REQUIREMENTS:
 1. Read and follow the Phase 3 implementation plan completely
@@ -33,10 +33,10 @@ KEY REQUIREMENTS:
 8. Optimize for <5 min validation time and <5% false positive rate
 
 IMPORTANT CONTEXT FILES TO READ:
-@.devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md
-@.devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
-@.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (understand structured format)
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md (tech spec schema)
+@devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md
+@devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
+@devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (understand structured format)
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md (tech spec schema)
 @.claude/skills/devforgeai-development/references/tdd-green-phase.md
 @.claude/agents/backend-architect.md
 

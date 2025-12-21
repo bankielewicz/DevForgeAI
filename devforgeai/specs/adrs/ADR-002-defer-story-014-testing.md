@@ -175,9 +175,9 @@ This deferral follows RCA-006 protocol:
 
 - **STORY-014:** Add Definition of Done Section to Story Template
 - **STORY-015:** Comprehensive Testing for STORY-014 DoD Template (to be created)
-- **RCA-006:** Autonomous Deferrals Incident - `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+- **RCA-006:** Autonomous Deferrals Incident - `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 - **Git Commits:** 423c271 (feat), 7f1f4ca (status)
-- **QA Report:** `.devforgeai/qa/reports/STORY-014-qa-report.md`
+- **QA Report:** `devforgeai/qa/reports/STORY-014-qa-report.md`
 
 ---
 

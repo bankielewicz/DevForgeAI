@@ -11,7 +11,7 @@
 ### Current Code (WRONG)
 ```python
 class BackupService:
-    def __init__(self, backup_base: str = ".devforgeai"):
+    def __init__(self, backup_base: str = "devforgeai"):
         self.backup_base = Path(backup_base)
 
     def create_backup(self, source_paths: List[str]) -> str:
@@ -37,7 +37,7 @@ assert isinstance(backup_dir, Path)
 assert backup_dir.exists()
 
 # Should support getting latest backup
-latest = service.get_latest_backup(backups_root=Path(".devforgeai"))
+latest = service.get_latest_backup(backups_root=Path("devforgeai"))
 ```
 
 ### Changes Required
@@ -47,7 +47,7 @@ latest = service.get_latest_backup(backups_root=Path(".devforgeai"))
 def __init__(self, logger):  # Add logger parameter
     """Initialize backup service with logger dependency."""
     self.logger = logger
-    self.backup_base = Path(".devforgeai")
+    self.backup_base = Path("devforgeai")
     self.backup_base.mkdir(parents=True, exist_ok=True)
     self.backup_dir: Optional[Path] = None
 ```
@@ -656,7 +656,7 @@ class LockFileManager:
 
 ### What Tests Expect
 ```python
-manager = LockFileManager(lock_dir=tmp_path / ".devforgeai")  # Parameter name!
+manager = LockFileManager(lock_dir=tmp_path / "devforgeai")  # Parameter name!
 
 # Normal acquire
 success = manager.acquire_lock()  # Returns bool

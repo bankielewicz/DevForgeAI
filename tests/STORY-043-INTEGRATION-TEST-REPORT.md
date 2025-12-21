@@ -93,7 +93,7 @@ All integration tests for STORY-043 passed successfully, validating that:
 
 **Tests Passed:**
 - ✓ Audit script exists and is executable
-- ✓ Spec directory created (.devforgeai/specs/STORY-043/)
+- ✓ Spec directory created (devforgeai/specs/STORY-043/)
 - ✓ Deploy-time classification file created (971 refs)
 - ✓ Source-time classification file created (209 refs)
 - ✓ Ambiguous classification file created (92 refs)
@@ -326,7 +326,7 @@ Sample Preserved References:
 - @.claude/memory/skills-reference.md ✓
 - @.claude/memory/subagents-reference.md ✓
 - @.claude/memory/commands-reference.md ✓
-- @.devforgeai/protocols/lean-orchestration-pattern.md ✓
+- @devforgeai/protocols/lean-orchestration-pattern.md ✓
 - (15 more)
 
 Status: PASSED - Deploy-time refs fully preserved
@@ -523,11 +523,11 @@ Phase 6: Report (success metrics, diff summary)
 
 | Artifact | Location | Status |
 |----------|----------|--------|
-| Audit classification files | .devforgeai/specs/STORY-043/path-audit-*.txt | ✓ EXISTS |
-| Validation report | .devforgeai/specs/STORY-043/validation-report.md | ✓ EXISTS |
-| Update diff summary | .devforgeai/specs/STORY-043/update-diff-summary.md | ✓ EXISTS |
-| Rollback script | .devforgeai/specs/STORY-043/rollback-updates.sh | ✓ EXISTS |
-| Integration test report | .devforgeai/specs/STORY-043/integration-test-report.md | ✓ EXISTS |
+| Audit classification files | devforgeai/specs/STORY-043/path-audit-*.txt | ✓ EXISTS |
+| Validation report | devforgeai/specs/STORY-043/validation-report.md | ✓ EXISTS |
+| Update diff summary | devforgeai/specs/STORY-043/update-diff-summary.md | ✓ EXISTS |
+| Rollback script | devforgeai/specs/STORY-043/rollback-updates.sh | ✓ EXISTS |
+| Integration test report | devforgeai/specs/STORY-043/integration-test-report.md | ✓ EXISTS |
 
 ### Implementation Scripts
 
@@ -604,5 +604,5 @@ All cross-component integration tests completed successfully. The path reference
 
 For detailed test code and output, see:
 - Test suites: `/mnt/c/Projects/DevForgeAI2/tests/STORY-043/`
-- Spec files: `/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/`
+- Spec files: `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/`
 - Implementation scripts: `/mnt/c/Projects/DevForgeAI2/src/scripts/`

@@ -176,7 +176,7 @@ setup_test_environment() {
 
     # Create directory structure
     mkdir -p "$TEST_DIR/src/.claude/memory"
-    mkdir -p "$TEST_DIR/.devforgeai/qa/reports"
+    mkdir -p "$TEST_DIR/devforgeai/qa/reports"
     mkdir -p "$TEST_DIR/.claude/memory"
 
     # Create source files (simulate distribution)
@@ -239,8 +239,8 @@ run_sync_script() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
-    CUMULATIVE_LOG="$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
+    CUMULATIVE_LOG="$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" \
     bash "$SYNC_SCRIPT" $args > /tmp/sync-output.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -269,8 +269,8 @@ test_integration_1_full_sync_first_time() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
-    CUMULATIVE_LOG="$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
+    CUMULATIVE_LOG="$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int1.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -328,7 +328,7 @@ test_integration_1_full_sync_first_time() {
 
     # Verify report generated
     local report_count
-    report_count=$(find "$TEST_DIR/.devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | wc -l)
+    report_count=$(find "$TEST_DIR/devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | wc -l)
     if [[ "$report_count" -eq 1 ]]; then
         log_pass "INT1.12: Sync report generated"
     else
@@ -337,7 +337,7 @@ test_integration_1_full_sync_first_time() {
     TESTS_TOTAL=$((TESTS_TOTAL + 1))
 
     # Verify cumulative log updated
-    assert_file_exists "$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" "INT1.13: Cumulative log created"
+    assert_file_exists "$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" "INT1.13: Cumulative log created"
 
     # Verify lock file released
     assert_file_not_exists "$TEST_DIR/.sync.lock" "INT1.14: Lock file released"
@@ -364,7 +364,7 @@ test_integration_2_dry_run_mode() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" --dry-run > /tmp/sync-int2.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -384,7 +384,7 @@ test_integration_2_dry_run_mode() {
 
     # Verify report still generated (for auditing)
     local report_count
-    report_count=$(find "$TEST_DIR/.devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | wc -l)
+    report_count=$(find "$TEST_DIR/devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | wc -l)
     if [[ "$report_count" -eq 1 ]]; then
         log_pass "INT2.6: Dry-run report generated"
     else
@@ -394,7 +394,7 @@ test_integration_2_dry_run_mode() {
 
     # Verify dry-run flag in report
     local report_file
-    report_file=$(find "$TEST_DIR/.devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | head -1)
+    report_file=$(find "$TEST_DIR/devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | head -1)
     if [[ -n "$report_file" ]]; then
         assert_contains "\*\*Dry Run\*\*: true" "$report_file" "INT2.7: Report indicates dry-run mode"
     fi
@@ -420,7 +420,7 @@ test_integration_3_conflict_detection() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /dev/null 2>&1
 
     # Modify operational file to create conflict
@@ -438,7 +438,7 @@ test_integration_3_conflict_detection() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int3.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -477,7 +477,7 @@ test_integration_4_force_mode() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /dev/null 2>&1
 
     # Create conflict
@@ -493,7 +493,7 @@ test_integration_4_force_mode() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" --force > /tmp/sync-int4.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -541,7 +541,7 @@ test_integration_5_missing_source() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int5.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -581,7 +581,7 @@ test_integration_6_lock_file() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int6.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -608,7 +608,7 @@ test_integration_6_lock_file() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int6b.log 2>&1 || exit_code=$?
 
     # Verify exit code 0 (stale lock removed)
@@ -635,7 +635,7 @@ test_integration_7_idempotent_sync() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int7a.log 2>&1
 
     log_test "Running second sync (no changes)..."
@@ -647,7 +647,7 @@ test_integration_7_idempotent_sync() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int7b.log 2>&1 || exit_code=$?
 
     if [[ "$VERBOSE" == true ]]; then
@@ -667,7 +667,7 @@ test_integration_7_idempotent_sync() {
 
     # Verify report shows 0 files synced
     local latest_report
-    latest_report=$(find "$TEST_DIR/.devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | tail -1)
+    latest_report=$(find "$TEST_DIR/devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | tail -1)
     if [[ -n "$latest_report" ]]; then
         assert_contains "\*\*Files Synced\*\*: 0" "$latest_report" "INT7.3: Report shows 0 files synced"
     fi
@@ -699,7 +699,7 @@ test_integration_8_backup_permissions() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int8.log 2>&1
 
     if [[ "$VERBOSE" == true ]]; then
@@ -741,12 +741,12 @@ test_integration_9_report_content() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int9.log 2>&1
 
     # Find generated report
     local report_file
-    report_file=$(find "$TEST_DIR/.devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | head -1)
+    report_file=$(find "$TEST_DIR/devforgeai/qa/reports" -name "guidance-sync-*.md" 2>/dev/null | head -1)
 
     if [[ -n "$report_file" ]]; then
         log_pass "INT9.1: Report file generated"
@@ -789,16 +789,16 @@ test_integration_10_cumulative_log() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
-    CUMULATIVE_LOG="$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
+    CUMULATIVE_LOG="$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int10a.log 2>&1
 
     # Verify log created
-    assert_file_exists "$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" "INT10.1: Cumulative log created"
+    assert_file_exists "$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" "INT10.1: Cumulative log created"
 
     # Count log entries
     local entry_count1
-    entry_count1=$(wc -l < "$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log")
+    entry_count1=$(wc -l < "$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log")
 
     log_test "Running second sync..."
 
@@ -808,13 +808,13 @@ test_integration_10_cumulative_log() {
     OPERATIONAL_DIR="$TEST_DIR" \
     SYNC_STATE_FILE="$TEST_DIR/sync-state.json" \
     LOCK_FILE="$TEST_DIR/.sync.lock" \
-    REPORT_DIR="$TEST_DIR/.devforgeai/qa/reports" \
-    CUMULATIVE_LOG="$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" \
+    REPORT_DIR="$TEST_DIR/devforgeai/qa/reports" \
+    CUMULATIVE_LOG="$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" \
     bash "$SYNC_SCRIPT" > /tmp/sync-int10b.log 2>&1
 
     # Count log entries again
     local entry_count2
-    entry_count2=$(wc -l < "$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log")
+    entry_count2=$(wc -l < "$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log")
 
     # Verify appended (not overwritten)
     if [[ "$entry_count2" -gt "$entry_count1" ]]; then
@@ -826,7 +826,7 @@ test_integration_10_cumulative_log() {
 
     # Verify log format
     local log_regex="^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2} \\| [0-6] \\| [0-9]+ \\| [0-9]+ \\|"
-    if tail -1 "$TEST_DIR/.devforgeai/qa/reports/guidance-sync-cumulative.log" | grep -qE "$log_regex"; then
+    if tail -1 "$TEST_DIR/devforgeai/qa/reports/guidance-sync-cumulative.log" | grep -qE "$log_regex"; then
         log_pass "INT10.3: Log entry format valid"
     else
         log_fail "INT10.3: Log entry format invalid"

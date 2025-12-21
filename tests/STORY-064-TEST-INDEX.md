@@ -177,7 +177,7 @@ python3 -m pytest tests/unit/test_story_064_unit_suite.py \
 
 ## CI/CD Pipeline Configuration
 
-**File**: `.devforgeai/ci/story-creation-test-pipeline.yml`
+**File**: `devforgeai/ci/story-creation-test-pipeline.yml`
 
 **Triggers**:
 - Push to branches: `story-064*`, `main`
@@ -210,7 +210,7 @@ python3 -m pytest tests/unit/test_story_064_unit_suite.py \
 - `/mnt/c/Projects/DevForgeAI2/tests/user-input-guidance/fixtures/edge-case-feature.md`
 
 ### CI/CD Configuration
-- `/mnt/c/Projects/DevForgeAI2/.devforgeai/ci/story-creation-test-pipeline.yml` - 156 lines
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/ci/story-creation-test-pipeline.yml` - 156 lines
 
 ### Documentation
 - `/mnt/c/Projects/DevForgeAI2/tests/STORY-064-TEST-GENERATION-SUMMARY.md`

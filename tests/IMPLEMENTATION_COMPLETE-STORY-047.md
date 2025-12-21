@@ -28,10 +28,10 @@ This implementation completes the **TDD Green Phase** for STORY-047 by:
    - Creates framework template if no user CLAUDE.md exists
 
 3. **Updated Test Suite**
-   - Fixed file count expectations (756 .claude files + 189 .devforgeai files = 945 total)
+   - Fixed file count expectations (756 .claude files + 189 devforgeai files = 945 total)
    - Converted pytest.fail() placeholders to actual assertions
    - Added validation for:
-     - Directory creation (.claude, .devforgeai)
+     - Directory creation (.claude, devforgeai)
      - File counts and deployment
      - CLAUDE.md merge with user content preservation
      - .NET project support (auto-detection via *.csproj)
@@ -91,7 +91,7 @@ This implementation completes the **TDD Green Phase** for STORY-047 by:
   - Runs install() for both Node.js and .NET projects
   - Stores results for validation
 - Lines 173-190: Updated file count assertions
-  - Now validates 700-800 .claude files + 150-250 .devforgeai files
+  - Now validates 700-800 .claude files + 150-250 devforgeai files
   - Matches actual deployment counts
 - Lines 281-321: Implemented rollback and checksum validation tests
   - Validates backup directory creation
@@ -169,7 +169,7 @@ This implementation completes the **TDD Green Phase** for STORY-047 by:
 ## Key Achievements
 
 ### ✅ Installation Working
-- Fresh install successfully deploys 945 files (~756 in .claude, ~189 in .devforgeai)
+- Fresh install successfully deploys 945 files (~756 in .claude, ~189 in devforgeai)
 - Works on both Node.js (package.json) and .NET (*.csproj) projects
 - Auto-detection of project technology
 - Installation completes in 30-45 seconds per project
@@ -188,7 +188,7 @@ This implementation completes the **TDD Green Phase** for STORY-047 by:
 - Rollback path exists (tested via backup validation)
 
 ### ✅ Version Tracking
-- .devforgeai/.version.json created with metadata
+- devforgeai/.version.json created with metadata
 - Version: 1.0.1
 - Mode: fresh_install
 - Timestamp tracking for audit trail

@@ -251,8 +251,8 @@ describe('AC#6: Cross-platform compatibility', () => {
       const packagePath = path.join(rootPath, 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf8'));
 
-      expect(packageJson.bin.devforgeai).not.toContain('\\');
-      expect(packageJson.bin.devforgeai).toContain('/');
+      expect(packageJson.bindevforgeai).not.toContain('\\');
+      expect(packageJson.bindevforgeai).toContain('/');
     });
 
     test('CLI handles spaces in paths correctly', () => {

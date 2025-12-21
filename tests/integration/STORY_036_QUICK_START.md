@@ -267,7 +267,7 @@ All tests can use these fixtures:
 ```python
 def test_example(temp_research_dir, mock_context_files, mock_epic_file):
     """Example test using multiple fixtures."""
-    # temp_research_dir: Temporary .devforgeai/research/ directory
+    # temp_research_dir: Temporary devforgeai/research/ directory
     # mock_context_files: 6 context files (tech-stack, anti-patterns, etc.)
     # mock_epic_file: EPIC-007.epic.md file
 ```

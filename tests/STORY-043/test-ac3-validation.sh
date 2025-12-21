@@ -23,7 +23,7 @@ set -euo pipefail
 TEST_NAME="AC-3: Zero Broken References Post-Update"
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$TEST_DIR/../../" && pwd)"
-SPEC_DIR=".devforgeai/specs/STORY-043"
+SPEC_DIR="devforgeai/specs/STORY-043"
 
 # Colors
 RED='\033[0;31m'

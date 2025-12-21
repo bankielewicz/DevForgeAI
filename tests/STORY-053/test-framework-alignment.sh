@@ -182,14 +182,14 @@ fi
 
 header "BR-004: Reference File Path Validation"
 
-test_case "All file path references use correct format (.claude/ or .devforgeai/)"
+test_case "All file path references use correct format (.claude/ or devforgeai/)"
 if [ -f "$GUIDANCE_FILE" ]; then
     # Check for file references
     claude_refs=$(grep -c "\.claude/" "$GUIDANCE_FILE" 2>/dev/null || echo "0")
-    devforgeai_refs=$(grep -c "\.devforgeai/" "$GUIDANCE_FILE" 2>/dev/null || echo "0")
+    devforgeai_refs=$(grep -c "\devforgeai/" "$GUIDANCE_FILE" 2>/dev/null || echo "0")
 
     if [ "$claude_refs" -gt 0 ] || [ "$devforgeai_refs" -gt 0 ]; then
-        pass_test "Found framework file references ($claude_refs .claude/, $devforgeai_refs .devforgeai/)"
+        pass_test "Found framework file references ($claude_refs .claude/, $devforgeai_refs devforgeai/)"
     else
         fail_test "No framework file references found"
     fi
@@ -197,7 +197,7 @@ else
     skip_test "File path format validation"
 fi
 
-test_case "No external URLs in guidance (references only to .claude/ and .devforgeai/)"
+test_case "No external URLs in guidance (references only to .claude/ and devforgeai/)"
 if [ -f "$GUIDANCE_FILE" ]; then
     external_urls=$(grep -c "http://\|https://\|www\." "$GUIDANCE_FILE" 2>/dev/null || echo "0")
     if [ "$external_urls" -eq 0 ]; then

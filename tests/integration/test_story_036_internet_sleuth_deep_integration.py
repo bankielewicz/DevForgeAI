@@ -33,7 +33,7 @@ import yaml
 @pytest.fixture
 def temp_research_dir(tmp_path):
     """Fixture: Create temporary research directory structure."""
-    research_dir = tmp_path / ".devforgeai" / "research"
+    research_dir = tmp_path / "devforgeai" / "research"
     research_dir.mkdir(parents=True, exist_ok=True)
 
     # Create subdirectories
@@ -49,7 +49,7 @@ def temp_research_dir(tmp_path):
 @pytest.fixture
 def mock_context_files(tmp_path):
     """Fixture: Create mock context files for validation testing."""
-    context_dir = tmp_path / ".devforgeai" / "context"
+    context_dir = tmp_path / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Create tech-stack.md with React locked
@@ -1173,7 +1173,7 @@ class TestIdeationSkillIntegration:
     def test_research_report_saved_to_feasibility_directory(self, temp_research_dir):
         """
         AC 2: Research report saved to
-        `.devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
+        `devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
 
         Arrange:
           - Create research report
@@ -1354,7 +1354,7 @@ Evidence from GitHub repository archaeology:
         # Arrange
         tech_stack_content = """---
 version: "1.0"
-research_source: ".devforgeai/research/examples/technology-evaluation-example.md"
+research_source: "devforgeai/research/examples/technology-evaluation-example.md"
 ---
 
 # Technology Stack
@@ -1364,7 +1364,7 @@ Framework: React 18+
 # Rationale: See research_source for comparative analysis
 """
 
-        context_dir = tmp_path / ".devforgeai" / "context"
+        context_dir = tmp_path / "devforgeai" / "context"
         context_dir.mkdir(parents=True, exist_ok=True)
 
         tech_stack_file = context_dir / "tech-stack.md"

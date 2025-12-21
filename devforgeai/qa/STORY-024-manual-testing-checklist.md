@@ -8,7 +8,7 @@
 
 ## Prerequisites
 
-- [ ] DevForgeAI hooks configured (`.devforgeai/hooks/hooks.yaml` exists)
+- [ ] DevForgeAI hooks configured (`devforgeai/hooks/hooks.yaml` exists)
 - [ ] Feedback skill available (`.claude/skills/devforgeai-feedback/`)
 - [ ] At least 2 test stories available (one passing QA, one failing QA)
 - [ ] Python 3.12.3 + pytest installed

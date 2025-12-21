@@ -24,7 +24,7 @@ format_version: "2.1"
 
 ### AC#1: Existing installation version detection
 
-**Given** a project directory with `.devforgeai/.version.json` file
+**Given** a project directory with `devforgeai/.version.json` file
 **When** the installer runs auto-detection
 **Then** the installer reads the version.json file, extracts installed_version, installed_at timestamp, and installation_source fields, and displays "Found existing DevForgeAI installation: v{version} installed on {timestamp} from {source}"
 
@@ -62,7 +62,7 @@ format_version: "2.1"
 
 **Given** the installer is about to copy files to target directory
 **When** file conflict detection scans target
-**Then** the installer identifies all existing files that would be overwritten, categorizes conflicts by type (framework files: .claude/*, .devforgeai/*; user files: CLAUDE.md, .gitignore), and displays "File conflicts detected: {count} framework files, {count} user files"
+**Then** the installer identifies all existing files that would be overwritten, categorizes conflicts by type (framework files: .claude/*, devforgeai/*; user files: CLAUDE.md, .gitignore), and displays "File conflicts detected: {count} framework files, {count} user files"
 
 ---
 
@@ -126,7 +126,7 @@ technical_specification:
         - "semver"
       requirements:
         - id: "SVC-004"
-          description: "Read .devforgeai/.version.json and parse installed version"
+          description: "Read devforgeai/.version.json and parse installed version"
           testable: true
           test_requirement: "Test: read_version() returns VersionInfo with all fields"
           priority: "Critical"
@@ -773,7 +773,7 @@ technical_specification:
 - ✅ Gate 3 (QA Approval): **PASSED**
 - ✅ Gate 4 (Release Readiness): Ready
 
-**Report:** `.devforgeai/qa/reports/STORY-073-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-073-qa-report.md`
 
 ---
 

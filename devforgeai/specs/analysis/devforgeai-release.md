@@ -525,7 +525,7 @@ Orchestrate safe, automated deployments to staging and production environments w
 - ✅ Story status = "QA Approved"
 - ✅ All tests passing
 - ✅ Build successful
-- ✅ Platform configuration exists (.devforgeai/deployment/)
+- ✅ Platform configuration exists (devforgeai/deployment/)
 
 **Invoked by:**
 - `/release` command
@@ -535,7 +535,7 @@ Orchestrate safe, automated deployments to staging and production environments w
 
 ## Configuration
 
-**Platform-specific configuration files required in `.devforgeai/deployment/`**
+**Platform-specific configuration files required in `devforgeai/deployment/`**
 
 Supported platforms: Kubernetes, Docker, AWS, Azure, GCP, Vercel, Netlify, traditional VPS
 

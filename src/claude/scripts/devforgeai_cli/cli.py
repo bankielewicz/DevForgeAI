@@ -10,7 +10,6 @@ Commands:
   validate-context Validate context files exist
   check-hooks      Check if hooks should trigger for an operation
   invoke-hooks     Invoke devforgeai-feedback skill for operation
-  ast-grep scan    Semantic code analysis with ast-grep or grep fallback
 
 Based on industry research (SpecDriven AI, pre-commit patterns, DoD checkers).
 """
@@ -145,91 +144,6 @@ def main():
         help='Enable verbose logging'
     )
 
-    # ======================================================================
-    # ast-grep command (STORY-115)
-    # ======================================================================
-    astgrep_parser = subparsers.add_parser(
-        'ast-grep',
-        help='Semantic code analysis with ast-grep',
-        description='Analyze code using ast-grep patterns or grep fallback'
-    )
-    astgrep_subparsers = astgrep_parser.add_subparsers(dest='ast_grep_subcommand')
-
-    # ast-grep scan subcommand
-    scan_parser = astgrep_subparsers.add_parser(
-        'scan',
-        help='Scan directory for code violations'
-    )
-    scan_parser.add_argument(
-        'path',
-        help='Directory to scan'
-    )
-    scan_parser.add_argument(
-        '--category',
-        choices=['security', 'anti-patterns', 'complexity', 'architecture'],
-        help='Filter by rule category'
-    )
-    scan_parser.add_argument(
-        '--language',
-        choices=['python', 'csharp', 'typescript', 'javascript'],
-        help='Filter by language'
-    )
-    scan_parser.add_argument(
-        '--format',
-        choices=['text', 'json', 'markdown'],
-        default='text',
-        help='Output format (default: text)'
-    )
-    scan_parser.add_argument(
-        '--fallback',
-        action='store_true',
-        help='Force grep fallback mode (skip ast-grep)'
-    )
-
-    # ======================================================================
-    # ast-grep init subcommand (STORY-116)
-    # ======================================================================
-    init_parser = astgrep_subparsers.add_parser(
-        'init',
-        help='Initialize ast-grep configuration directory structure',
-        description='Creates .devforgeai/ast-grep/ with sgconfig.yml and language rule directories'
-    )
-    init_parser.add_argument(
-        '--force',
-        action='store_true',
-        help='Overwrite existing configuration'
-    )
-    init_parser.add_argument(
-        '--project-root',
-        default='.',
-        help='Project root directory (default: current directory)'
-    )
-
-    # ======================================================================
-    # ast-grep validate-config subcommand (STORY-116)
-    # ======================================================================
-    validate_config_parser = astgrep_subparsers.add_parser(
-        'validate-config',
-        help='Validate sgconfig.yml configuration file',
-        description='Validates YAML syntax, directory existence, and glob patterns'
-    )
-    validate_config_parser.add_argument(
-        '--config',
-        default=None,
-        help='Path to sgconfig.yml (default: .devforgeai/ast-grep/sgconfig.yml)'
-    )
-    validate_config_parser.add_argument(
-        '--project-root',
-        default='.',
-        help='Project root directory (default: current directory)'
-    )
-    validate_config_parser.add_argument(
-        '--format',
-        choices=['text', 'json'],
-        default='text',
-        help='Output format (default: text)'
-    )
-
     # Parse arguments
     args = parser.parse_args()
 
@@ -267,102 +181,6 @@ def main():
                 story_id=args.story,
                 verbose=args.verbose
             )
-
-        elif args.command == 'ast-grep':
-            if args.ast_grep_subcommand == 'scan':
-                from .validators.ast_grep_validator import AstGrepValidator
-                from .validators.grep_fallback import GrepFallbackAnalyzer, log_fallback_warning
-
-                validator = AstGrepValidator()
-
-                # Check if we should use fallback mode
-                use_fallback = args.fallback or validator.config.get('fallback_mode', False)
-
-                if use_fallback or not validator.is_installed():
-                    # Use grep fallback
-                    log_fallback_warning()
-                    analyzer = GrepFallbackAnalyzer()
-                    violations = analyzer.analyze_directory(
-                        args.path,
-                        category=args.category,
-                        language=args.language
-                    )
-                    output = analyzer.format_results(violations, format=args.format)
-                    print(output)
-                    return 0 if not violations else 1
-                else:
-                    # Validate installation and version
-                    is_valid, violations = validator.validate(args.path)
-
-                    # For now, just report validation status
-                    # Full ast-grep integration will be in future stories
-                    if args.format == 'json':
-                        import json
-                        print(json.dumps({"valid": is_valid, "violations": violations}, indent=2))
-                    else:
-                        if is_valid:
-                            print("✓ ast-grep available and compatible")
-                        else:
-                            print("✗ ast-grep validation failed:")
-                            for v in violations:
-                                print(f"  {v['severity']}: {v['error']}")
-
-                    return 0 if is_valid else 1
-
-            elif args.ast_grep_subcommand == 'init':
-                # STORY-116: Initialize ast-grep configuration
-                from .ast_grep.config_init import ConfigurationInitializer
-
-                initializer = ConfigurationInitializer(Path(args.project_root))
-                result = initializer.initialize(force=args.force)
-
-                if result.success:
-                    print(f"✓ Initialized ast-grep configuration at {result.config_path}")
-                    for path in result.created_paths:
-                        print(f"  Created: {path}")
-                    return 0
-                else:
-                    print(f"✗ Initialization failed: {result.error}", file=sys.stderr)
-                    return 1
-
-            elif args.ast_grep_subcommand == 'validate-config':
-                # STORY-116: Validate ast-grep configuration
-                from .ast_grep.config_validator import ConfigurationValidator
-
-                if args.config:
-                    config_path = Path(args.config)
-                else:
-                    config_path = Path(args.project_root) / ".devforgeai" / "ast-grep" / "sgconfig.yml"
-
-                validator = ConfigurationValidator(config_path)
-                result = validator.validate()
-
-                if args.format == 'json':
-                    import json
-                    output = {
-                        "valid": result.valid,
-                        "errors": [{"field": e.field, "message": e.message, "line": e.line} for e in result.errors],
-                        "warnings": result.warnings
-                    }
-                    print(json.dumps(output, indent=2))
-                else:
-                    if result.valid:
-                        print("✓ Configuration is valid")
-                    else:
-                        print("✗ Configuration validation failed:")
-                        for error in result.errors:
-                            line_info = f" (line {error.line})" if error.line else ""
-                            print(f"  {error.field}: {error.message}{line_info}")
-                    if result.warnings:
-                        print("Warnings:")
-                        for warning in result.warnings:
-                            print(f"  ⚠ {warning}")
-
-                return 0 if result.valid else 1
-
-            else:
-                print(f"Unknown ast-grep subcommand: {args.ast_grep_subcommand}", file=sys.stderr)
-                return 2
 
         else:
             print(f"Unknown command: {args.command}", file=sys.stderr)

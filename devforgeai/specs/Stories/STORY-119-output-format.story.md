@@ -3,7 +3,7 @@ id: STORY-119
 title: Output Format - JSON, Text, and Markdown Reports
 epic: EPIC-018
 sprint: SPRINT-7
-status: Ready for Dev
+status: Cancelled - see story-118 for reason
 points: 3
 depends_on: ["STORY-115", "STORY-117", "STORY-118"]
 priority: Medium

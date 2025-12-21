@@ -7,7 +7,7 @@
 # TDD Red Phase Tests - FAILING TESTS (template doesn't exist yet)
 #
 # This test suite validates all acceptance criteria for STORY-100:
-# AC#1: File exists at .devforgeai/metrics/accuracy-log.md with valid markdown
+# AC#1: File exists at devforgeai/metrics/accuracy-log.md with valid markdown
 # AC#2: Three distinct issue categories with severity levels
 # AC#3: Entry template with 7 required fields
 # AC#4: Usage Guidance section (>=300 words)
@@ -68,7 +68,7 @@ setup() {
 }
 
 teardown() {
-    # Note: Do NOT clean up .devforgeai/metrics/ - it may be created by implementation
+    # Note: Do NOT clean up devforgeai/metrics/ - it may be created by implementation
     # Just reset to clean state for next test run
     :
 }

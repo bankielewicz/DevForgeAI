@@ -124,29 +124,29 @@ describe('AC#2: Bin entry point registered for global CLI', () => {
       expect(typeof packageJson.bin).toBe('object');
     });
 
-    test('bin.devforgeai maps to entry point file', () => {
+    test('bindevforgeai maps to entry point file', () => {
       expect(packageJson.bin).toHaveProperty('devforgeai');
-      expect(typeof packageJson.bin.devforgeai).toBe('string');
+      expect(typeof packageJson.bindevforgeai).toBe('string');
     });
 
     test('bin entry point path uses forward slashes (cross-platform)', () => {
-      const binPath = packageJson?.bin?.devforgeai || '';
+      const binPath = packageJson?.bin?devforgeai || '';
       expect(binPath).not.toContain('\\');
       expect(binPath).toMatch(/^bin\//);
     });
 
     test('bin entry point file exists', () => {
-      const binPath = packageJson?.bin?.devforgeai;
+      const binPath = packageJson?.bin?devforgeai;
       if (binPath) {
         const fullPath = path.join(__dirname, '../../../', binPath);
         expect(fs.existsSync(fullPath)).toBe(true);
       } else {
-        throw new Error('bin.devforgeai not defined in package.json');
+        throw new Error('bindevforgeai not defined in package.json');
       }
     });
 
     test('bin entry point file is executable (has +x permissions on Unix)', () => {
-      const binPath = packageJson?.bin?.devforgeai;
+      const binPath = packageJson?.bin?devforgeai;
       if (binPath) {
         const fullPath = path.join(__dirname, '../../../', binPath);
         if (fs.existsSync(fullPath)) {
@@ -167,7 +167,7 @@ describe('AC#2: Bin entry point registered for global CLI', () => {
 
   describe('BR-003: Cross-platform path format', () => {
     test('bin path uses forward slashes (not backslashes)', () => {
-      const binPath = packageJson?.bin?.devforgeai || '';
+      const binPath = packageJson?.bin?devforgeai || '';
       expect(binPath).not.toContain('\\');
       expect(binPath).toMatch(/\//); // Contains at least one forward slash
     });

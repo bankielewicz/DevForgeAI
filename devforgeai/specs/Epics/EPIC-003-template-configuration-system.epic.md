@@ -79,7 +79,7 @@ story-id: STORY-042
 **Estimated Effort:** Medium (8-13 story points)
 
 ### Feature 2.2: Configuration Management
-**Description:** YAML-based configuration file (`.devforgeai/config/feedback.yaml`) that controls feedback feature behavior, with validation and sensible defaults.
+**Description:** YAML-based configuration file (`devforgeai/config/feedback.yaml`) that controls feedback feature behavior, with validation and sensible defaults.
 
 **User Stories (high-level):**
 1. As a user, I want to enable/disable feedback with a single config change
@@ -87,7 +87,7 @@ story-id: STORY-042
 3. As a framework maintainer, I want consistent config structure across projects
 
 **Acceptance Criteria:**
-- Config file location: `.devforgeai/config/feedback.yaml`
+- Config file location: `devforgeai/config/feedback.yaml`
 - Config structure:
   ```yaml
   enabled: true  # Master enable/disable
@@ -113,7 +113,7 @@ story-id: STORY-042
   ```
 - Config validation on read (schema validation)
 - Default config auto-generated if missing
-- Config accessible via: `Read(file_path=".devforgeai/config/feedback.yaml")`
+- Config accessible via: `Read(file_path="devforgeai/config/feedback.yaml")`
 
 **Estimated Effort:** Medium (8-13 story points)
 
@@ -165,7 +165,7 @@ story-id: STORY-042
 
 **Technology Stack:**
 - Templates: Markdown with YAML frontmatter
-- Configuration: YAML (`.devforgeai/config/feedback.yaml`)
+- Configuration: YAML (`devforgeai/config/feedback.yaml`)
 - Validation: JSON Schema for config validation
 
 **Framework Constraints:**

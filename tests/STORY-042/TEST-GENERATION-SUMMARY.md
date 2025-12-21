@@ -43,7 +43,7 @@ Pass Rate:        0% (expected - drives implementation in Phase 2)
 
 **Tests Per AC:**
 - AC-1: 5 tests (directory structure)
-- AC-2: 5 tests (.devforgeai/ content)
+- AC-2: 5 tests (devforgeai/ content)
 - AC-3: 5 tests (CLAUDE.md template)
 - AC-4: 5 tests (checksum verification)
 - AC-5: 7 tests (exclusions)
@@ -279,7 +279,7 @@ cleanup_test_environment() {
 | AC | Name | Tests | Coverage |
 |----|------|-------|----------|
 | 1 | Copy .claude/ to src/claude/ | 5 | ✓ 100% |
-| 2 | Copy .devforgeai/ content | 5 | ✓ 100% |
+| 2 | Copy devforgeai/ content | 5 | ✓ 100% |
 | 3 | Copy CLAUDE.md template | 5 | ✓ 100% |
 | 4 | Checksum verification | 5 | ✓ 100% |
 | 5 | Exclude backup/artifacts | 7 | ✓ 100% |
@@ -460,7 +460,7 @@ Tests drive implementation:
 
 **2A: Core Copy Function**
 - Implement .claude/ copy → AC-1 passes
-- Implement .devforgeai/ copy → AC-2 passes
+- Implement devforgeai/ copy → AC-2 passes
 - Implement exclusions → AC-5, BR-004 pass
 
 **2B: Git & Validation**
@@ -498,7 +498,7 @@ Once all tests pass, refactor while keeping tests green:
 migrate-framework-files.sh:
   1. Parse command-line args
   2. Copy .claude/ to src/claude/
-  3. Copy .devforgeai/ config/docs to src/devforgeai/
+  3. Copy devforgeai/ config/docs to src/devforgeai/
   4. Copy CLAUDE.md to src/CLAUDE.md
 
 Expected passing: AC-1, AC-2, AC-3, BR-001, part of BR-002

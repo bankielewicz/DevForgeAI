@@ -105,12 +105,12 @@ find src/ -type f -exec sha256sum {} \; | \
 
 The acceptance criteria and specification estimated approximately 450 total files to be migrated:
 - `.claude/` estimated: ~370 files
-- `.devforgeai/` estimated: ~80 files
+- `devforgeai/` estimated: ~80 files
 - Total estimated: ~450 files
 
 Actual files migrated:
 - `.claude/` actual: 1,002 files
-- `.devforgeai/` actual: 89 files
+- `devforgeai/` actual: 89 files
 - Total actual: 1,099 files (2.7x more than estimated)
 
 This causes test failures in AC-1.3, AC-2.4, AC-4.2, and AC-6.2 due to tolerance margins (±10).
@@ -159,7 +159,7 @@ Update the acceptance criteria with accurate file counts.
    ```
    Total Framework Files: ~1,100
    - .claude/ (skills, agents, commands, memory): 1,002 files
-   - .devforgeai/ (config, docs, protocols, specs, tests): 89 files
+   - devforgeai/ (config, docs, protocols, specs, tests): 89 files
    - Other (CLAUDE.md, scripts, config files): 8 files
    ```
 
@@ -201,7 +201,7 @@ Migration complete: 1,099 files processed
 ```
 Migration complete:
   - .claude/ → src/claude/: 1,002 files
-  - .devforgeai/ → src/devforgeai/: 89 files
+  - devforgeai/ → src/devforgeai/: 89 files
   - Other files: 8 files
   Total: 1,099 files
 ```
@@ -217,7 +217,7 @@ Enhance the migration report to show component breakdown.
    # Add section to migration script:
    echo "## File Count Breakdown" >> migration-report.md
    echo "- .claude/ files: $(find src/claude -type f | wc -l)" >> migration-report.md
-   echo "- .devforgeai/ files: $(find src/devforgeai -type f | wc -l)" >> migration-report.md
+   echo "- devforgeai/ files: $(find src/devforgeai -type f | wc -l)" >> migration-report.md
    echo "- Other files: $(find src/ -maxdepth 1 -type f | wc -l)" >> migration-report.md
    ```
 

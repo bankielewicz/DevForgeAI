@@ -36,7 +36,7 @@ def integration_project_dir():
         project_path = Path(tmpdir)
 
         # Create complete feedback directory structure
-        feedback_dir = project_path / ".devforgeai" / "feedback"
+        feedback_dir = project_path / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
 
         exports_dir = feedback_dir / "exports"
@@ -132,7 +132,7 @@ class TestFeedbackCommandWorkflowIntegration:
     def test_feedback_command_full_workflow_capture_and_register(self, integration_project_dir):
         """Test /feedback full workflow: capture -> register -> verify."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         initial_content = register_file.read_text()
         initial_lines = len(initial_content.splitlines())
 
@@ -157,7 +157,7 @@ class TestFeedbackCommandWorkflowIntegration:
     def test_feedback_command_creates_unique_ids_concurrent_operations(self, integration_project_dir):
         """Test /feedback generates unique IDs even with concurrent triggers."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
 
         # Act - simulate two concurrent feedback entries
         feedback_ids = [
@@ -172,7 +172,7 @@ class TestFeedbackCommandWorkflowIntegration:
     def test_feedback_command_appends_maintains_register_structure(self, integration_project_dir):
         """Test /feedback append maintains register markdown structure."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         initial_content = register_file.read_text()
 
         # Act
@@ -206,7 +206,7 @@ class TestFeedbackConfigCommandWorkflowIntegration:
     def test_feedback_config_view_edit_reset_cycle(self, integration_project_dir):
         """Test /feedback-config full cycle: view -> edit -> verify -> reset."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
         with open(config_file, 'r') as f:
             initial_config = yaml.safe_load(f)
 
@@ -241,7 +241,7 @@ class TestFeedbackConfigCommandWorkflowIntegration:
     def test_feedback_config_edit_validation_prevents_invalid_values(self, integration_project_dir):
         """Test /feedback-config edit validation prevents invalid configuration."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
 
         # Act - attempt to set invalid retention_days
         with open(config_file, 'r') as f:
@@ -256,7 +256,7 @@ class TestFeedbackConfigCommandWorkflowIntegration:
     def test_feedback_config_edit_persists_immediately(self, integration_project_dir):
         """Test /feedback-config edit persists changes immediately to disk."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
 
         # Act - edit config
         with open(config_file, 'r') as f:
@@ -273,7 +273,7 @@ class TestFeedbackConfigCommandWorkflowIntegration:
     def test_feedback_config_edit_multiple_fields_sequentially(self, integration_project_dir):
         """Test /feedback-config edit handles multiple field edits sequentially."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
 
         # Act - edit first field
         with open(config_file, 'r') as f:
@@ -310,7 +310,7 @@ class TestFeedbackSearchCommandWorkflowIntegration:
     def test_feedback_search_story_id_query_integration(self, integration_project_dir):
         """Test /feedback-search full workflow: parse story ID -> query -> filter -> sort."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         content = register_file.read_text()
 
         # Act - search for STORY-001
@@ -328,7 +328,7 @@ class TestFeedbackSearchCommandWorkflowIntegration:
     def test_feedback_search_date_range_query_integration(self, integration_project_dir):
         """Test /feedback-search full workflow: parse date range -> query -> filter."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         content = register_file.read_text()
 
         # Act - search for entries in date range
@@ -395,8 +395,8 @@ class TestExportFeedbackCommandWorkflowIntegration:
     def test_export_feedback_json_format_workflow_integration(self, integration_project_dir):
         """Test /export-feedback JSON workflow: select -> format -> package -> save."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
 
         # Act - create export
         export_data = {
@@ -427,7 +427,7 @@ class TestExportFeedbackCommandWorkflowIntegration:
     def test_export_feedback_csv_format_workflow_integration(self, integration_project_dir):
         """Test /export-feedback CSV workflow: format -> generate CSV -> save."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - create CSV export
         csv_content = """feedback_id,timestamp,story_id,operation,severity,status
@@ -447,7 +447,7 @@ FB-2025-11-07-003,2025-11-07T11:45:00Z,STORY-001,qa,high,open
     def test_export_feedback_markdown_format_workflow_integration(self, integration_project_dir):
         """Test /export-feedback Markdown workflow: format -> generate summary -> save."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - create Markdown export
         markdown_content = """# Feedback Export Summary
@@ -479,7 +479,7 @@ FB-2025-11-07-003,2025-11-07T11:45:00Z,STORY-001,qa,high,open
     def test_export_feedback_with_selection_criteria_integration(self, integration_project_dir):
         """Test /export-feedback applies selection criteria correctly."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - export with filters: story IDs and severity
         export_data = {
@@ -507,7 +507,7 @@ FB-2025-11-07-003,2025-11-07T11:45:00Z,STORY-001,qa,high,open
     def test_export_feedback_no_matching_entries_creates_empty_export(self, integration_project_dir):
         """Test /export-feedback creates valid export with zero entries when no matches."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - export with criteria matching no entries
         export_data = {
@@ -543,7 +543,7 @@ class TestCrossCommandIntegration:
     def test_feedback_to_search_workflow_integration(self, integration_project_dir):
         """Test /feedback -> /feedback-search workflow: capture feedback, then search it."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
 
         # Act - add new feedback entry
         new_entry = """
@@ -570,8 +570,8 @@ class TestCrossCommandIntegration:
     def test_feedback_config_affects_export_behavior_integration(self, integration_project_dir):
         """Test /feedback-config settings affect /export-feedback behavior."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - change export format in config
         with open(config_file, 'r') as f:
@@ -594,8 +594,8 @@ class TestCrossCommandIntegration:
     def test_search_results_exported_successfully_integration(self, integration_project_dir):
         """Test /feedback-search results can be exported with /export-feedback."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act - search for STORY-001
         content = register_file.read_text()
@@ -634,7 +634,7 @@ class TestEdgeCaseIntegration:
     def test_empty_feedback_history_search_handling(self, integration_project_dir):
         """Test /feedback-search gracefully handles empty feedback history."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         # Clear register (keep header only)
         register_file.write_text("# Feedback Register\n\n## Active Feedback Sessions\n")
 
@@ -648,7 +648,7 @@ class TestEdgeCaseIntegration:
     def test_large_feedback_history_search_performance(self, integration_project_dir):
         """Test /feedback-search performs within SLA with large dataset."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
 
         # Simulate 1000+ entries
         base_content = register_file.read_text()
@@ -669,7 +669,7 @@ class TestEdgeCaseIntegration:
     def test_concurrent_feedback_operations_no_corruption(self, integration_project_dir):
         """Test concurrent /feedback operations don't corrupt register."""
         # Arrange
-        register_file = integration_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_file = integration_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         initial_content = register_file.read_text()
 
         # Act - simulate concurrent entries (in sequence, testing result)
@@ -691,7 +691,7 @@ class TestEdgeCaseIntegration:
     def test_config_file_missing_creates_defaults(self, integration_project_dir):
         """Test config file missing is handled gracefully with defaults."""
         # Arrange
-        config_file = integration_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_file = integration_project_dir / "devforgeai" / "feedback" / "config.yaml"
         config_file.unlink()  # Delete config
 
         # Act - create defaults when missing
@@ -716,7 +716,7 @@ class TestEdgeCaseIntegration:
     def test_export_with_no_matching_results_succeeds(self, integration_project_dir):
         """Test /export-feedback succeeds with zero matching entries."""
         # Arrange
-        exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
         # Act
         export_data = {

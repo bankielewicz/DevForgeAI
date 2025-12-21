@@ -107,7 +107,7 @@ Technical Details:
 - Test runner: Shell script loop
 
 Implementation Target:
-File: .devforgeai/epic-coverage/generate-report.sh
+File: devforgeai/epic-coverage/generate-report.sh
 Size: ~500-800 lines (estimated)
 Format options: --format=terminal|markdown|json
 Options: --epics-dir, --reports-dir, --history-dir, --enable-history

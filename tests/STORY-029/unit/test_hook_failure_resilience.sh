@@ -56,7 +56,7 @@ test_error_handling_present() {
 
 # Test 2: Hook failure logged to error log
 test_hook_failure_logging() {
-    echo -n "Test 4.2: Hook failures logged to .devforgeai/feedback/logs/hook-errors.log... "
+    echo -n "Test 4.2: Hook failures logged to devforgeai/feedback/logs/hook-errors.log... "
 
     if grep -A 100 "### Phase N: Feedback Hook Integration" "$PROJECT_ROOT/.claude/commands/create-sprint.md" | \
        grep -q "hook-errors.log\|error.*log\|log.*error"; then

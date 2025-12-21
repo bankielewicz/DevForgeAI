@@ -94,8 +94,8 @@ All files located in `/mnt/c/Projects/DevForgeAI2/installer/tests/`:
 
 **AC#2: Pre-Upgrade Backup** (22 tests)
 - ✓ Create complete backup before changes
-- ✓ Include .claude/, .devforgeai/, CLAUDE.md, .version.json
-- ✓ Store in `.devforgeai/backups/v{X.Y.Z}-{timestamp}/`
+- ✓ Include .claude/, devforgeai/, CLAUDE.md, .version.json
+- ✓ Store in `devforgeai/backups/v{X.Y.Z}-{timestamp}/`
 - ✓ Complete within 30 seconds
 
 **AC#3: Migration Script Discovery** (27 tests)
@@ -132,7 +132,7 @@ All files located in `/mnt/c/Projects/DevForgeAI2/installer/tests/`:
 - ✓ Show files added/updated/removed counts and lists
 - ✓ List migrations executed with status
 - ✓ Show backup location, new version, duration
-- ✓ Save to `.devforgeai/logs/upgrade-{timestamp}.log`
+- ✓ Save to `devforgeai/logs/upgrade-{timestamp}.log`
 
 ### Business Rules (4 BRs → 25 tests)
 
@@ -396,7 +396,7 @@ Before QA:
 - `/mnt/c/Projects/DevForgeAI2/installer/tests/integration/test_rollback_workflow_story078.py`
 
 ### Documentation
-- `/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-078-test-generation-report.md` (Detailed report)
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-078-test-generation-report.md` (Detailed report)
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-TEST-COMMANDS.md` (Test execution guide)
 - `/mnt/c/Projects/DevForgeAI2/STORY-078-TEST-SUMMARY.md` (This file)
 

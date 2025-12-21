@@ -565,9 +565,9 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 ### Files Created/Modified
 - [x] `.claude/agents/coverage-analyzer.md` - 386 lines (main subagent specification)
 - [x] `.claude/skills/devforgeai-qa/references/subagent-prompt-templates.md` - Updated with coverage-analyzer template
-- [x] `.devforgeai/test-fixtures/test_integration_coverage_analyzer.py` - 821 lines (12 scenarios)
-- [x] `.devforgeai/test-fixtures/test_qa_skill_coverage_integration.py` - 542 lines (17 workflows)
-- [x] `.devforgeai/qa/reports/STORY-061-integration-test-report.md` - 500+ lines (test results)
+- [x] `devforgeai/test-fixtures/test_integration_coverage_analyzer.py` - 821 lines (12 scenarios)
+- [x] `devforgeai/test-fixtures/test_qa_skill_coverage_integration.py` - 542 lines (17 workflows)
+- [x] `devforgeai/qa/reports/STORY-061-integration-test-report.md` - 500+ lines (test results)
 - [x] `.claude/skills/devforgeai-qa/references/coverage-analyzer-integration-guide.md` - 400+ lines (integration docs)
 
 ### All Definition of Done Items [x] COMPLETE
@@ -643,7 +643,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 - ✅ Gate 4: Code Quality - PASSED
 
 ### Files Generated
-- QA Report: `.devforgeai/qa/reports/STORY-061-qa-report.md`
+- QA Report: `devforgeai/qa/reports/STORY-061-qa-report.md`
 - Subagent Specification: `.claude/agents/coverage-analyzer.md` (386 lines)
 - Prompt Template: `.claude/skills/devforgeai-qa/references/subagent-prompt-templates.md`
 - Integration Guide: `.claude/skills/devforgeai-qa/references/coverage-analyzer-integration-guide.md`

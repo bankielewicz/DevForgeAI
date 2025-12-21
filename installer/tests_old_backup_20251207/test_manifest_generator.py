@@ -31,7 +31,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -47,7 +47,7 @@ class TestManifestGeneration:
         # Assert
         assert manifest_file.exists()
         assert manifest_file.name == ".install-manifest.json"
-        assert manifest_file.parent.name == ".devforgeai"
+        assert manifest_file.parent.name == "devforgeai"
 
     def test_manifest_contains_version_field(self, tmp_path):
         """
@@ -60,7 +60,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -89,7 +89,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -121,7 +121,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -150,7 +150,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create test files
@@ -184,7 +184,7 @@ class TestManifestGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create 10 test files
@@ -224,7 +224,7 @@ class TestChecksumGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "test.md"
@@ -266,7 +266,7 @@ class TestChecksumGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         content = "test content for hashing"
@@ -303,7 +303,7 @@ class TestChecksumGeneration:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file_1 = tmp_path / ".claude" / "file1.md"
@@ -345,7 +345,7 @@ class TestManifestEntryFields:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "skills" / "test.md"
@@ -380,7 +380,7 @@ class TestManifestEntryFields:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "skills" / "test.md"
@@ -413,7 +413,7 @@ class TestManifestEntryFields:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         content = "test content"  # 12 bytes
@@ -448,7 +448,7 @@ class TestManifestEntryFields:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "skills" / "test.md"
@@ -487,7 +487,7 @@ class TestFileCategorization:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "skills" / "skill.md"
@@ -520,7 +520,7 @@ class TestFileCategorization:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "agents" / "agent.md"
@@ -553,7 +553,7 @@ class TestFileCategorization:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "commands" / "cmd.md"
@@ -586,7 +586,7 @@ class TestFileCategorization:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "memory" / "mem.md"
@@ -623,7 +623,7 @@ class TestAtomicManifestWrites:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "test.md"
@@ -659,7 +659,7 @@ class TestAtomicManifestWrites:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create initial manifest
@@ -709,7 +709,7 @@ class TestManifestPerformance:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create 100 test files
@@ -755,7 +755,7 @@ class TestEdgeCases:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -784,7 +784,7 @@ class TestEdgeCases:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create 1MB file
@@ -821,7 +821,7 @@ class TestEdgeCases:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create file with special chars in name

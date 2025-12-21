@@ -47,7 +47,7 @@ OPERATIONAL_DIR="${OPERATIONAL_DIR:-$REPO_ROOT}"
 SYNC_STATE_FILE="${SYNC_STATE_FILE:-$SCRIPT_DIR/../sync-state.json}"
 LOCK_FILE="${LOCK_FILE:-$SCRIPT_DIR/../.sync.lock}"
 LOCK_TIMEOUT_SECONDS=600  # 10 minutes
-REPORT_DIR="${REPORT_DIR:-$REPO_ROOT/.devforgeai/qa/reports}"
+REPORT_DIR="${REPORT_DIR:-$REPO_ROOT/devforgeai/qa/reports}"
 CUMULATIVE_LOG="${CUMULATIVE_LOG:-$REPORT_DIR/guidance-sync-cumulative.log}"
 
 # Command line flags

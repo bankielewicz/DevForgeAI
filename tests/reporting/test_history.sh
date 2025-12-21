@@ -44,7 +44,7 @@ title: Test Epic
 EOF
 
     # Act: Generate report with history tracking
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -86,7 +86,7 @@ title: JSON Test
 - Feature A (STORY-001)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -130,7 +130,7 @@ title: Timestamp Test
 - Feature A (STORY-001)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -173,7 +173,7 @@ title: Coverage Test
 - Feature B (No story)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -215,7 +215,7 @@ title: Epic Count Test
 - Feature A (STORY-001)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -258,7 +258,7 @@ title: Feature Count Test
 - Feature B (STORY-002)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -302,7 +302,7 @@ title: Missing Count Test
 - Feature C (No story)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -344,7 +344,7 @@ title: Append Test 1
 - Feature A (STORY-001)
 EOF
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -358,7 +358,7 @@ EOF
     sleep 1
 
     # Second run should append
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -403,7 +403,7 @@ title: Ordering Test
 EOF
 
     # Generate first entry
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -414,7 +414,7 @@ EOF
     # Wait and generate second entry
     sleep 1
 
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -463,7 +463,7 @@ title: Duplicate Test
 EOF
 
     # First run
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -474,7 +474,7 @@ EOF
     local count_first=$(jq 'length' "${history_dir}/coverage-history.json" 2>/dev/null || echo "0")
 
     # Second run immediately (might have same timestamp)
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \

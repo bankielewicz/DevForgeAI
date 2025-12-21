@@ -15,20 +15,20 @@
 **Diagnosis:**
 ```bash
 # Check hook configuration
-cat .devforgeai/config/hooks.yaml | grep -A 10 "epic.create"
+cat devforgeai/config/hooks.yaml | grep -A 10 "epic.create"
 
 # Check if CLI is available
 devforgeai check-hooks --operation=epic-create --status=success
 
 # Check logs
-tail -20 .devforgeai/feedback/.logs/hooks.log
+tail -20 devforgeai/feedback/.logs/hooks.log
 ```
 
 **Possible Causes & Solutions:**
 
 1. **Hooks Disabled in Configuration**
    - **Cause:** `enabled: false` in hooks.yaml for epic-create operation
-   - **Fix:** Edit `.devforgeai/config/hooks.yaml`, set `enabled: true` for post-epic-create-feedback hook
+   - **Fix:** Edit `devforgeai/config/hooks.yaml`, set `enabled: true` for post-epic-create-feedback hook
    - **Verify:** Run `/create-epic` again, hook should trigger
 
 2. **CLI Not Installed**
@@ -37,8 +37,8 @@ tail -20 .devforgeai/feedback/.logs/hooks.log
    - **Verify:** Run `devforgeai --version` (should show version number)
 
 3. **Configuration File Missing**
-   - **Cause:** `.devforgeai/config/hooks.yaml` doesn't exist
-   - **Fix:** Copy example: `cp .devforgeai/config/hooks.yaml.example .devforgeai/config/hooks.yaml`
+   - **Cause:** `devforgeai/config/hooks.yaml` doesn't exist
+   - **Fix:** Copy example: `cp devforgeai/config/hooks.yaml.example devforgeai/config/hooks.yaml`
    - **Edit:** Enable epic-create hook, set `enabled: true`
    - **Verify:** Run `devforgeai check-hooks --operation=epic-create --status=success`
 
@@ -56,10 +56,10 @@ tail -20 .devforgeai/feedback/.logs/hooks.log
 **Diagnosis:**
 ```bash
 # Check timeout configuration
-grep -A 5 "max_duration_ms" .devforgeai/config/hooks.yaml
+grep -A 5 "max_duration_ms" devforgeai/config/hooks.yaml
 
 # Check hook logs for timeout entries
-grep "timed out" .devforgeai/feedback/.logs/hooks.log
+grep "timed out" devforgeai/feedback/.logs/hooks.log
 ```
 
 **Possible Causes & Solutions:**
@@ -89,7 +89,7 @@ grep "timed out" .devforgeai/feedback/.logs/hooks.log
 **Diagnosis:**
 ```bash
 # Check epic ID in error log
-grep "Invalid epic ID format" .devforgeai/feedback/.logs/hook-errors.log
+grep "Invalid epic ID format" devforgeai/feedback/.logs/hook-errors.log
 
 # Verify epic file exists
 ls -la devforgeai/specs/Epics/EPIC-*.epic.md
@@ -135,7 +135,7 @@ devforgeai invoke-hooks --operation=epic-create --epic-id=EPIC-001 --dry-run
 
 1. **Epic File Path Incorrect**
    - **Expected Path:** `devforgeai/specs/Epics/EPIC-XXX-{slug}.epic.md`
-   - **Cause:** File created in wrong directory (e.g., `.devforgeai/epics/`)
+   - **Cause:** File created in wrong directory (e.g., `devforgeai/epics/`)
    - **Fix:** Move epic file to correct location
    - **Verify:** Phase 4A.5 uses correct path per source-tree.md
 
@@ -161,7 +161,7 @@ devforgeai invoke-hooks --operation=epic-create --epic-id=EPIC-001 --dry-run
 grep -E "(features:|complexity:|risks:)" devforgeai/specs/Epics/EPIC-*.epic.md
 
 # Check hook invocation logs
-grep "metadata extraction" .devforgeai/feedback/.logs/hooks.log
+grep "metadata extraction" devforgeai/feedback/.logs/hooks.log
 ```
 
 **Possible Causes & Solutions:**
@@ -230,7 +230,7 @@ time devforgeai check-hooks --operation=epic-create --status=success
 # (Run /create-epic with hooks enabled vs disabled, compare duration)
 
 # Check for bottlenecks
-grep "duration" .devforgeai/feedback/.logs/hooks.log
+grep "duration" devforgeai/feedback/.logs/hooks.log
 ```
 
 **Performance Targets:**
@@ -264,40 +264,40 @@ grep "duration" .devforgeai/feedback/.logs/hooks.log
 
 ### Issue 8: Epic Creation Works But Feedback Not Saved
 
-**Symptom:** Feedback conversation happens, but no file in `.devforgeai/feedback/epic-create/`
+**Symptom:** Feedback conversation happens, but no file in `devforgeai/feedback/epic-create/`
 
 **Diagnosis:**
 ```bash
 # Check feedback directory structure
-ls -la .devforgeai/feedback/epic-create/
+ls -la devforgeai/feedback/epic-create/
 
 # Check feedback CLI logs
-tail -50 .devforgeai/feedback/.logs/feedback-cli.log
+tail -50 devforgeai/feedback/.logs/feedback-cli.log
 
 # Verify storage permissions
-stat .devforgeai/feedback/epic-create/
+stat devforgeai/feedback/epic-create/
 ```
 
 **Possible Causes & Solutions:**
 
 1. **Directory Doesn't Exist**
-   - **Cause:** `.devforgeai/feedback/epic-create/` not created
-   - **Fix:** `mkdir -p .devforgeai/feedback/epic-create/`
+   - **Cause:** `devforgeai/feedback/epic-create/` not created
+   - **Fix:** `mkdir -p devforgeai/feedback/epic-create/`
    - **Auto-Fix:** CLI should create directory automatically
 
 2. **Permission Denied**
    - **Cause:** Directory not writable by current user
-   - **Fix:** `chmod 755 .devforgeai/feedback/epic-create/`
-   - **Verify:** `touch .devforgeai/feedback/epic-create/test.txt`
+   - **Fix:** `chmod 755 devforgeai/feedback/epic-create/`
+   - **Verify:** `touch devforgeai/feedback/epic-create/test.txt`
 
 3. **Storage Backend Misconfigured**
    - **Cause:** hooks.yaml specifies wrong storage path
-   - **Fix:** Verify `storage_path` in feedback_config points to `.devforgeai/feedback/epic-create/`
+   - **Fix:** Verify `storage_path` in feedback_config points to `devforgeai/feedback/epic-create/`
    - **Default:** If not specified, uses default path
 
 4. **Feedback CLI Crash Before Save**
    - **Cause:** CLI crashes after conversation but before file write
-   - **Fix:** Check `.devforgeai/feedback/.logs/hook-errors.log` for stack trace
+   - **Fix:** Check `devforgeai/feedback/.logs/hook-errors.log` for stack trace
    - **Debug:** Run CLI manually to reproduce crash
 
 ---
@@ -309,10 +309,10 @@ stat .devforgeai/feedback/epic-create/
 **Diagnosis:**
 ```bash
 # List all enabled hooks
-grep "enabled: true" .devforgeai/config/hooks.yaml
+grep "enabled: true" devforgeai/config/hooks.yaml
 
 # Check hook invocation history
-grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | tail -20
+grep "Hook invoked" devforgeai/feedback/.logs/hooks.log | tail -20
 ```
 
 **Possible Causes & Solutions:**
@@ -346,10 +346,10 @@ grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | tail -20
 **Diagnosis:**
 ```bash
 # Check if questions have placeholders
-grep "{feature_count}" .devforgeai/config/hooks.yaml
+grep "{feature_count}" devforgeai/config/hooks.yaml
 
 # Verify epic context passed to CLI
-grep "epic-id=" .devforgeai/feedback/.logs/hooks.log
+grep "epic-id=" devforgeai/feedback/.logs/hooks.log
 ```
 
 **Possible Causes & Solutions:**
@@ -386,7 +386,7 @@ grep "epic-id=" .devforgeai/feedback/.logs/hooks.log
 **Diagnosis:**
 ```bash
 # Check security logs
-grep "injection" .devforgeai/feedback/.logs/hook-errors.log
+grep "injection" devforgeai/feedback/.logs/hook-errors.log
 
 # Verify epic ID format
 ls devforgeai/specs/Epics/ | grep -v "^EPIC-[0-9]{3}"
@@ -424,22 +424,22 @@ ls devforgeai/specs/Epics/ | grep -v "^EPIC-[0-9]{3}"
 **Diagnosis:**
 ```bash
 # Check feedback index
-cat .devforgeai/feedback/feedback-index.json
+cat devforgeai/feedback/feedback-index.json
 
 # Check if session created
-ls -la .devforgeai/feedback/epic-create/
+ls -la devforgeai/feedback/epic-create/
 
 # Check CLI logs for storage errors
-grep "storage" .devforgeai/feedback/.logs/feedback-cli.log
+grep "storage" devforgeai/feedback/.logs/feedback-cli.log
 ```
 
 **Possible Causes & Solutions:**
 
 1. **Storage Path Misconfigured**
    - **Cause:** CLI saving to wrong directory
-   - **Expected:** `.devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
+   - **Expected:** `devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
    - **Fix:** Verify storage_path in hooks.yaml feedback_config
-   - **Default:** Uses `.devforgeai/feedback/{operation}/`
+   - **Default:** Uses `devforgeai/feedback/{operation}/`
 
 2. **Feedback Index Not Updated**
    - **Cause:** feedback-index.json not updated after session
@@ -448,7 +448,7 @@ grep "storage" .devforgeai/feedback/.logs/feedback-cli.log
 
 3. **Disk Space Exhausted**
    - **Cause:** No disk space available for writing files
-   - **Fix:** `df -h .devforgeai/feedback/` (check free space)
+   - **Fix:** `df -h devforgeai/feedback/` (check free space)
    - **Action:** Clean up old feedback files or increase disk space
 
 4. **JSON Serialization Error**
@@ -499,29 +499,29 @@ grep "create-epic" .claude/skills/devforgeai-orchestration/SKILL.md
 devforgeai --version
 
 # 2. Check configuration
-cat .devforgeai/config/hooks.yaml | grep -A 20 "epic.create"
+cat devforgeai/config/hooks.yaml | grep -A 20 "epic.create"
 
 # 3. Test hook check (should be <100ms)
 time devforgeai check-hooks --operation=epic-create --status=success
 
 # 4. Check recent hook invocations
-tail -20 .devforgeai/feedback/.logs/hooks.log
+tail -20 devforgeai/feedback/.logs/hooks.log
 
 # 5. Check for errors
-tail -20 .devforgeai/feedback/.logs/hook-errors.log
+tail -20 devforgeai/feedback/.logs/hook-errors.log
 
 # 6. Verify feedback storage
-ls -la .devforgeai/feedback/epic-create/
+ls -la devforgeai/feedback/epic-create/
 ```
 
 ### Enable Epic Create Hooks
 
 ```bash
 # 1. Copy example configuration
-cp .devforgeai/config/hooks.yaml.example .devforgeai/config/hooks.yaml
+cp devforgeai/config/hooks.yaml.example devforgeai/config/hooks.yaml
 
 # 2. Enable epic-create hook
-# Edit .devforgeai/config/hooks.yaml:
+# Edit devforgeai/config/hooks.yaml:
 #   Find "post-epic-create-feedback" section
 #   Change: enabled: false → enabled: true
 
@@ -544,7 +544,7 @@ devforgeai check-hooks --operation=epic-create --status=success
 DEVFORGEAI_HOOKS_DISABLED=1 /create-epic "No Hooks Epic"
 
 # Option 3: Delete hooks.yaml (all hooks disabled)
-mv .devforgeai/config/hooks.yaml .devforgeai/config/hooks.yaml.disabled
+mv devforgeai/config/hooks.yaml devforgeai/config/hooks.yaml.disabled
 ```
 
 ---
@@ -553,35 +553,35 @@ mv .devforgeai/config/hooks.yaml .devforgeai/config/hooks.yaml.disabled
 
 ### Log Locations
 
-- **Success logs:** `.devforgeai/feedback/.logs/hooks.log`
-- **Error logs:** `.devforgeai/feedback/.logs/hook-errors.log`
-- **Feedback sessions:** `.devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
+- **Success logs:** `devforgeai/feedback/.logs/hooks.log`
+- **Error logs:** `devforgeai/feedback/.logs/hook-errors.log`
+- **Feedback sessions:** `devforgeai/feedback/epic-create/EPIC-XXX-{timestamp}.json`
 
 ### Log Retention
 
 ```bash
 # Archive old logs (monthly)
-tar -czf hooks-archive-$(date +%Y-%m).tar.gz .devforgeai/feedback/.logs/*.log
-mv .devforgeai/feedback/.logs/*.log .devforgeai/feedback/.archives/
+tar -czf hooks-archive-$(date +%Y-%m).tar.gz devforgeai/feedback/.logs/*.log
+mv devforgeai/feedback/.logs/*.log devforgeai/feedback/.archives/
 
 # Rotate logs when >10MB
-find .devforgeai/feedback/.logs/ -name "*.log" -size +10M -exec mv {} {}.old \;
+find devforgeai/feedback/.logs/ -name "*.log" -size +10M -exec mv {} {}.old \;
 ```
 
 ### Log Analysis
 
 ```bash
 # Count hook invocations per operation
-grep "Hook invoked" .devforgeai/feedback/.logs/hooks.log | cut -d' ' -f5 | sort | uniq -c
+grep "Hook invoked" devforgeai/feedback/.logs/hooks.log | cut -d' ' -f5 | sort | uniq -c
 
 # Calculate average hook duration
-grep "duration=" .devforgeai/feedback/.logs/hooks.log | sed 's/.*duration=\([0-9]*\)ms.*/\1/' | awk '{sum+=$1; count++} END {print sum/count " ms"}'
+grep "duration=" devforgeai/feedback/.logs/hooks.log | sed 's/.*duration=\([0-9]*\)ms.*/\1/' | awk '{sum+=$1; count++} END {print sum/count " ms"}'
 
 # Find hook failures
-grep "ERROR" .devforgeai/feedback/.logs/hook-errors.log
+grep "ERROR" devforgeai/feedback/.logs/hook-errors.log
 
 # Check hook timeout rate
-grep "timed out" .devforgeai/feedback/.logs/hooks.log | wc -l
+grep "timed out" devforgeai/feedback/.logs/hooks.log | wc -l
 ```
 
 ---
@@ -591,7 +591,7 @@ grep "timed out" .devforgeai/feedback/.logs/hooks.log | wc -l
 ### Minimal Epic Create Hook Configuration
 
 ```yaml
-# Add to .devforgeai/config/hooks.yaml
+# Add to devforgeai/config/hooks.yaml
 
 - id: post-epic-create-feedback
   name: "Post-Epic Creation Feedback"
@@ -635,7 +635,7 @@ grep "timed out" .devforgeai/feedback/.logs/hooks.log | wc -l
 
 **Implementation:**
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A.9, lines 252-510)
-- `.devforgeai/config/hooks.yaml.example` (lines 87-152)
+- `devforgeai/config/hooks.yaml.example` (lines 87-152)
 
 **Testing:**
 - `tests/unit/test_create_epic_hooks.py` (37 unit tests)
@@ -659,7 +659,7 @@ If hook integration causes critical issues:
 
 ```bash
 # 1. Disable all hooks immediately
-echo "# All hooks disabled" > .devforgeai/config/hooks.yaml
+echo "# All hooks disabled" > devforgeai/config/hooks.yaml
 
 # 2. Or revert Phase 4A.9 implementation
 git revert HEAD  # Reverts STORY-028 commit
@@ -668,7 +668,7 @@ git revert HEAD  # Reverts STORY-028 commit
 /create-epic "Test Epic Without Hooks"
 
 # 4. Report issue for investigation
-# Create incident report in .devforgeai/RCA/
+# Create incident report in devforgeai/RCA/
 ```
 
 ---
@@ -676,7 +676,7 @@ git revert HEAD  # Reverts STORY-028 commit
 ## Support
 
 **For issues not covered in this guide:**
-1. Check `.devforgeai/feedback/.logs/hook-errors.log` for detailed error messages
+1. Check `devforgeai/feedback/.logs/hook-errors.log` for detailed error messages
 2. Run `/audit-budget` to verify command budget compliance
 3. Review STORY-028 test suite for expected behavior examples
 4. Create RCA document if recurring issue found

@@ -124,10 +124,10 @@ FAILED tests/unit/test_story050_budget_compliance.py::TestCommandStructure::test
 cp .claude/commands/audit-deferrals.md .claude/commands/audit-deferrals.md.backup
 
 # 2. Run STORY-033 tests to establish baseline
-mkdir -p .devforgeai/tests
+mkdir -p devforgeai/tests
 pytest tests/unit/test_story033_conf_requirements.py \
         tests/integration/test_hook_integration_story033.py \
-        -v > .devforgeai/tests/story033_baseline_results.txt
+        -v > devforgeai/tests/story033_baseline_results.txt
 
 # 3. Run /audit-deferrals 10 times to establish performance baseline
 # (Requires manual execution or custom benchmark script)
@@ -714,7 +714,7 @@ All tests passing + all DoD checklist items complete:
 ## References
 
 **Story:** `devforgeai/specs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
-**Lean Pattern:** `.devforgeai/protocols/lean-orchestration-pattern.md`
-**Case Studies:** `.devforgeai/protocols/refactoring-case-studies.md`
-**Budget Reference:** `.devforgeai/protocols/command-budget-reference.md`
+**Lean Pattern:** `devforgeai/protocols/lean-orchestration-pattern.md`
+**Case Studies:** `devforgeai/protocols/refactoring-case-studies.md`
+**Budget Reference:** `devforgeai/protocols/command-budget-reference.md`
 **Parent Story:** `devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`

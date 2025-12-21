@@ -125,10 +125,10 @@ print(f'Created: {manifest[\"created_at\"]}')
 "
 
 # Remove current installation
-rm -rf .devforgeai .claude CLAUDE.md
+rm -rf devforgeai .claude CLAUDE.md
 
 # Restore from backup
-cp -r "$BACKUP/.devforgeai" .
+cp -r "$BACKUP/devforgeai" .
 cp -r "$BACKUP/.claude" .
 cp "$BACKUP/CLAUDE.md" .
 
@@ -149,7 +149,7 @@ mkdir -p "$BACKUP_DIR"
 
 # Copy files
 cp -r .claude "$BACKUP_DIR/"
-cp -r .devforgeai "$BACKUP_DIR/"
+cp -r devforgeai "$BACKUP_DIR/"
 cp CLAUDE.md "$BACKUP_DIR/" 2>/dev/null || true
 
 # Create manifest

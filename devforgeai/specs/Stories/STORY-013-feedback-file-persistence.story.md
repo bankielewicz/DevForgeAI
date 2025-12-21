@@ -26,9 +26,9 @@ blocked_by: STORY-010
 ### 1. Feedback Directory Creation and Organization
 **Given** a feedback session is ready to be saved
 **When** the persistence engine checks for the feedback directory
-**Then** the directory `.devforgeai/feedback/sessions/` exists and is accessible
+**Then** the directory `devforgeai/feedback/sessions/` exists and is accessible
 **And** directory is created automatically if it doesn't exist
-**And** parent directories (`.devforgeai/`, `.devforgeai/feedback/`) are also created as needed
+**And** parent directories (`devforgeai/`, `devforgeai/feedback/`) are also created as needed
 **And** directory creation respects default permissions (user rwx, group/other none)
 
 ---
@@ -90,11 +90,11 @@ blocked_by: STORY-010
 **Given** user has configured alternative storage organization preferences
 **When** determining the target directory
 **Then** the persistence engine respects the configured organization strategy:
-  - `chronological`: Default - all files in `.devforgeai/feedback/sessions/`
-  - `by-operation`: Create subdirectories - `.devforgeai/feedback/sessions/{operation-type}/`
-  - `by-status`: Create subdirectories - `.devforgeai/feedback/sessions/{status}/`
-  - `nested`: Combine both - `.devforgeai/feedback/sessions/{operation-type}/{status}/`
-**And** configuration is read from user's config file (e.g., `.devforgeai/config.yaml`)
+  - `chronological`: Default - all files in `devforgeai/feedback/sessions/`
+  - `by-operation`: Create subdirectories - `devforgeai/feedback/sessions/{operation-type}/`
+  - `by-status`: Create subdirectories - `devforgeai/feedback/sessions/{status}/`
+  - `nested`: Combine both - `devforgeai/feedback/sessions/{operation-type}/{status}/`
+**And** configuration is read from user's config file (e.g., `devforgeai/config.yaml`)
 **And** defaults to `chronological` if no configuration specified
 **And** invalid configuration values are logged and fall back to `chronological`
 
@@ -176,7 +176,7 @@ None
 
 #### Persistence Engine Configuration
 ```yaml
-# .devforgeai/config.yaml (optional section)
+# devforgeai/config.yaml (optional section)
 feedback:
   persistence:
     # Directory organization strategy
@@ -191,7 +191,7 @@ feedback:
     retention:
       enabled: false       # Archive old feedback (optional feature)
       max-age-days: 90     # Delete feedback older than 90 days
-      keep-archived: true  # Move to .devforgeai/feedback/archived/ instead of delete
+      keep-archived: true  # Move to devforgeai/feedback/archived/ instead of delete
 
     # Permission settings
     permissions:
@@ -203,7 +203,7 @@ feedback:
 
 **Default (Chronological Organization):**
 ```
-.devforgeai/
+devforgeai/
 ├── feedback/
 │   └── sessions/
 │       ├── 2025-11-07T10-30-00-command-dev-success.md
@@ -215,7 +215,7 @@ feedback:
 
 **By-Operation Organization:**
 ```
-.devforgeai/
+devforgeai/
 ├── feedback/
 │   └── sessions/
 │       ├── command/
@@ -231,7 +231,7 @@ feedback:
 
 **Nested Organization (By-Operation + By-Status):**
 ```
-.devforgeai/
+devforgeai/
 ├── feedback/
 │   └── sessions/
 │       ├── command/
@@ -278,7 +278,7 @@ def persist_feedback_session(
 ```json
 {
   "success": true,
-  "filepath": "/absolute/path/.devforgeai/feedback/sessions/2025-11-07T10-30-00-command-dev-success.md",
+  "filepath": "/absolute/path/devforgeai/feedback/sessions/2025-11-07T10-30-00-command-dev-success.md",
   "error": null,
   "duration_ms": 23,
   "collision_resolved": false,
@@ -299,7 +299,7 @@ def persist_feedback_session(
    - Collision flag returned in result
 
 3. **Directory Creation:**
-   - Auto-creates `.devforgeai/`, `.devforgeai/feedback/`, `.devforgeai/feedback/sessions/`
+   - Auto-creates `devforgeai/`, `devforgeai/feedback/`, `devforgeai/feedback/sessions/`
    - Respects user umask for permissions
    - Directory creation failures are FATAL (exception thrown)
 
@@ -311,7 +311,7 @@ def persist_feedback_session(
 
 5. **Configuration Precedence:**
    - Runtime config parameter (highest)
-   - User config file (`.devforgeai/config.yaml`)
+   - User config file (`devforgeai/config.yaml`)
    - Environment variables (`DEVFORGEAI_FEEDBACK_ORGANIZATION`)
    - Hardcoded defaults (lowest)
 
@@ -322,7 +322,7 @@ def persist_feedback_session(
 
 ### Dependencies
 
-- **Configuration System:** Reads from `.devforgeai/config.yaml` (optional, has defaults)
+- **Configuration System:** Reads from `devforgeai/config.yaml` (optional, has defaults)
 - **Feedback Data Model:** STORY-010 (Feedback Template Engine) provides rendered markdown
 - **File System:** Standard POSIX file operations (Read, Write, Edit tools)
 - **UUID Generation:** Standard library (no external dependency)
@@ -330,14 +330,14 @@ def persist_feedback_session(
 ### Integration Points
 
 - **Feedback Collection Workflow:** Calls `persist_feedback_session()` after retrospective conversation
-- **Feedback Retrieval:** Other tools query `.devforgeai/feedback/` to read historical feedback
+- **Feedback Retrieval:** Other tools query `devforgeai/feedback/` to read historical feedback
 - **Analytics/Reporting:** Aggregate feedback files for insights (future feature)
 - **Cleanup/Archival:** Maintenance tools manage old feedback files per retention policy
 
 ## Edge Cases
 
 ### 1. Directory Creation Race Condition
-**Scenario:** Multiple concurrent processes try to create `.devforgeai/feedback/sessions/` simultaneously
+**Scenario:** Multiple concurrent processes try to create `devforgeai/feedback/sessions/` simultaneously
 **Expected:** Directory created once, other processes proceed normally
 **Handling:** Use atomic directory creation (mkdir with error handling for EEXIST)
 **Test:** Concurrent writes from multiple subagents in isolated contexts
@@ -353,7 +353,7 @@ def persist_feedback_session(
 ---
 
 ### 3. Permission Denied on Directory
-**Scenario:** User lacks write permissions to `.devforgeai/feedback/` directory
+**Scenario:** User lacks write permissions to `devforgeai/feedback/` directory
 **Expected:** Write fails with FATAL error (not recoverable)
 **Handling:** Throw exception during directory validation, don't attempt write
 **Test:** Create read-only directory, verify exception on write attempt
@@ -401,7 +401,7 @@ def persist_feedback_session(
 ---
 
 ### 9. Symlink Attack Prevention
-**Scenario:** Attacker creates symlink at `.devforgeai/feedback/sessions/` pointing to system directory
+**Scenario:** Attacker creates symlink at `devforgeai/feedback/sessions/` pointing to system directory
 **Expected:** Rename operation fails safely (not followed)
 **Handling:** Write to temporary file, verify parent directory before rename
 **Test:** Create symlink, verify TOCTOU (time-of-check-time-of-use) prevented
@@ -450,7 +450,7 @@ def persist_feedback_session(
    - Max length: 255 characters (filesystem limit)
 
 7. **Directory Path Validation:**
-   - Must be within `.devforgeai/feedback/` hierarchy
+   - Must be within `devforgeai/feedback/` hierarchy
    - No absolute paths allowed
    - No path traversal escape attempts
 
@@ -491,7 +491,7 @@ def persist_feedback_session(
 
 ### Portability
 - **Cross-platform support:** Works on Linux, macOS, Windows
-- **Path format:** Uses `.devforgeai/` standard (framework-wide)
+- **Path format:** Uses `devforgeai/` standard (framework-wide)
 - **File format:** Standard Markdown + YAML (human-readable)
 - **No language-specific code:** Framework-agnostic implementation
 
@@ -554,10 +554,10 @@ def persist_feedback_session(
 - [x] Directory layout diagrams *(feedback-persistence-directory-layouts.md - 500+ lines, 4 strategies visualized)*
 - [x] Edge case handling procedures *(feedback-persistence-edge-cases.md - 450+ lines, all 10 edge cases)*
 
-**Total Documentation:** 6 comprehensive guides, ~2,600 lines, created in .devforgeai/docs/
+**Total Documentation:** 6 comprehensive guides, ~2,600 lines, created in devforgeai/docs/
 
 ### Release Readiness
-- [x] Default `.devforgeai/feedback/sessions/` directory created on first feedback save *(Tested in AC1 + 100 integration tests)*
+- [x] Default `devforgeai/feedback/sessions/` directory created on first feedback save *(Tested in AC1 + 100 integration tests)*
 - [x] File permissions validated on startup *(cleanup_temp_feedback_files() validates directory exists, permissions testable)*
 - [x] Configuration defaults applied if config missing *(Tested in EC10 - chronological=default)*
 - [x] Cleanup of temporary files on startup (housekeeping) *(cleanup_temp_feedback_files() implemented and tested - 4 tests passing)*
@@ -666,7 +666,7 @@ def persist_feedback_session(session_id, operation_type, operation_name, status,
 - Tests: (removed with implementation)
 - **Note:** Python implementation removed to restore framework language-agnostic purity
 
-**Detailed Report:** `.devforgeai/qa/reports/STORY-013-qa-report.md`
+**Detailed Report:** `devforgeai/qa/reports/STORY-013-qa-report.md`
 
 ---
 

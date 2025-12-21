@@ -38,7 +38,7 @@ node_modules/
 
 # Operational folders - exclude from distribution (source is in src/)
 .claude/
-.devforgeai/
+devforgeai/
 
 # Story deliverables and test artifacts
 STORY-*

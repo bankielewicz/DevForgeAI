@@ -9,7 +9,7 @@
 # Then: All 21 @file references remain unchanged (deploy-time refs)
 #
 # Expected:
-# - All 21 @file references point to .claude/ and .devforgeai/ (NOT src/claude/)
+# - All 21 @file references point to .claude/ and devforgeai/ (NOT src/claude/)
 # - grep -c "@.claude/memory/" CLAUDE.md returns 17
 # - grep -c "@src/claude/memory/" CLAUDE.md returns 0
 # - Rationale documented: "These reference deployed framework files"
@@ -83,8 +83,8 @@ test_claude_md_readable() {
 
 test_at_file_references_present() {
     # Test: CLAUDE.md contains @file references
-    if grep -q "@\.claude/\|@\.devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null; then
-        local count=$(grep -c "@\.claude/\|@\.devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null || echo "0")
+    if grep -q "@\.claude/\|@\devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null; then
+        local count=$(grep -c "@\.claude/\|@\devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null || echo "0")
         echo "  Found $count @file references to deployed locations"
         return 0
     else
@@ -119,7 +119,7 @@ test_no_src_claude_memory_references() {
 test_no_src_devforgeai_references() {
     # Test: CLAUDE.md does NOT contain @src/devforgeai/ (deploy-time NOT updated)
     if grep -q "@src/devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null; then
-        echo "  ERROR: Found @src/devforgeai/ references (should be deploy-time @.devforgeai/)"
+        echo "  ERROR: Found @src/devforgeai/ references (should be deploy-time @devforgeai/)"
         return 1
     else
         echo "  No @src/devforgeai/ references (correct - deploy-time preserved)"
@@ -135,7 +135,7 @@ test_deploy_reference_variety() {
     # Test: CLAUDE.md contains various types of deploy-time references
     local types=0
     grep -q "@\.claude/memory/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
-    grep -q "@\.devforgeai/protocols/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
+    grep -q "@\devforgeai/protocols/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
     grep -q "@\devforgeai/context/" "$PROJECT_ROOT/CLAUDE.md" && types=$((types + 1))
 
     if [ "$types" -ge 2 ]; then
@@ -168,7 +168,7 @@ test_preservation_documented() {
 
 test_total_at_file_references() {
     # Test: Total @file references approximately 21 (±3)
-    local count=$(grep -c "@\.claude/\|@\.devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null || echo "0")
+    local count=$(grep -c "@\.claude/\|@\devforgeai/" "$PROJECT_ROOT/CLAUDE.md" 2>/dev/null || echo "0")
     local expected=21
     local tolerance=3
     local lower=$((expected - tolerance))

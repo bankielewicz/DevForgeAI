@@ -145,7 +145,7 @@ Nov 6, 2024 (Resolution)
 
 ### Created (2 files)
 1. `.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md` (340 lines, 11,500 chars)
-2. `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (this document)
+2. `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (this document)
 
 ### Modified (2 files)
 1. `.claude/skills/devforgeai-development/SKILL.md`
@@ -423,7 +423,7 @@ Result: Sprint retrospective with actionable recommendations
 - `.claude/commands/audit-deferrals.md` (technical debt tracking command)
 
 ### Framework Protocols
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
 - `CLAUDE.md` (framework overview)
 
 ### Implementation Files

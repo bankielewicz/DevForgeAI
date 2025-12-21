@@ -27,7 +27,7 @@ This feature addresses the version management gap in DevForgeAI where users cann
 
 ### AC#1: Version File Detection
 
-**Given** DevForgeAI is installed with `.devforgeai/.version.json` present,
+**Given** DevForgeAI is installed with `devforgeai/.version.json` present,
 **When** the installer or version command runs,
 **Then** the current version is read from the file,
 **And** version information is displayed to the user (e.g., "Current version: v1.2.3"),
@@ -117,7 +117,7 @@ If you understand the risks, use: devforgeai upgrade --force
 
 ### AC#6: Missing Version File Handling
 
-**Given** `.devforgeai/.version.json` does not exist,
+**Given** `devforgeai/.version.json` does not exist,
 **When** the installer or version command runs,
 **Then** the user is notified that no version file was found,
 **And** the user is prompted to either:
@@ -156,7 +156,7 @@ technical_specification:
         - "IVersionParser"
       requirements:
         - id: "SVC-001"
-          description: "Read version from .devforgeai/.version.json"
+          description: "Read version from devforgeai/.version.json"
           testable: true
           test_requirement: "Test: Given .version.json exists with valid JSON, When read_version() called, Then returns Version object with correct fields"
           priority: "Critical"
@@ -288,7 +288,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "VersionMetadata"
-      table: ".devforgeai/.version.json"
+      table: "devforgeai/.version.json"
       purpose: "Persisted version information for installed DevForgeAI"
       fields:
         - name: "version"
@@ -344,7 +344,7 @@ technical_specification:
 
     - type: "Configuration"
       name: ".version.json"
-      file_path: ".devforgeai/.version.json"
+      file_path: "devforgeai/.version.json"
       required_keys:
         - key: "version"
           type: "string"
@@ -460,7 +460,7 @@ technical_specification:
 - None required (local file operations)
 
 **Authorization:**
-- File system read permissions for .devforgeai/ directory
+- File system read permissions for devforgeai/ directory
 
 **Data Protection:**
 - Version metadata is not sensitive
@@ -656,7 +656,7 @@ None - all file operations are local.
 - [x] VersionComparator service implemented - Completed: Phase 2, installer/version_comparator.py (96 lines)
 - [x] CompatibilityChecker service implemented - Completed: Phase 2, installer/compatibility_checker.py (212 lines)
 - [x] Version, VersionMetadata, CompareResult models implemented - Completed: Phase 2, dataclasses in version_parser.py and version_comparator.py
-- [x] .version.json schema documented - Completed: Phase 4.5-5, .devforgeai/specs/version-json-schema.md
+- [x] .version.json schema documented - Completed: Phase 4.5-5, devforgeai/specs/version-json-schema.md
 - [x] All 7 acceptance criteria have passing tests - Completed: Phase 1, 99 tests cover all AC
 - [x] Edge cases covered (pre-release, build metadata, missing file) - Completed: Phase 1, 27 edge case tests
 - [x] Data validation enforced (semver format, JSON schema) - Completed: Phase 2, regex validation + JSON parsing
@@ -680,7 +680,7 @@ None - all file operations are local.
 - `tests/installer/test_version_comparator.py` - 21 unit tests
 - `tests/installer/test_compatibility_checker.py` - 21 unit tests
 - `tests/installer/test_integration_version_flow.py` - 17 integration tests
-- `.devforgeai/specs/version-json-schema.md` - Schema documentation
+- `devforgeai/specs/version-json-schema.md` - Schema documentation
 
 **Test Results:**
 - Total tests: 99
@@ -698,7 +698,7 @@ None - all file operations are local.
 
 **Design Decisions:**
 - Using Python's built-in semver parsing or lightweight library (no heavy dependencies)
-- Version file stored in .devforgeai/ to keep it with framework files
+- Version file stored in devforgeai/ to keep it with framework files
 - Downgrade blocking is a safety feature (can be overridden with --force)
 - Pre-release ordering follows semver specification exactly
 

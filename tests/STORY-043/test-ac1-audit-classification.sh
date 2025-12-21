@@ -5,7 +5,7 @@
 #
 # AC-1: Comprehensive Path Audit with Classification
 # Given: Framework contains ~2,800+ path references across 450+ files
-# When: Execute audit scan with grep patterns for .claude/ and .devforgeai/
+# When: Execute audit scan with grep patterns for .claude/ and devforgeai/
 # Then: Audit produces classification report with 4 categories
 #
 # Expected Output:
@@ -21,7 +21,7 @@ set -euo pipefail
 TEST_NAME="AC-1: Comprehensive Path Audit with Classification"
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$TEST_DIR/../../" && pwd)"
-SPEC_DIR=".devforgeai/specs/STORY-043"
+SPEC_DIR="devforgeai/specs/STORY-043"
 
 # Colors
 RED='\033[0;31m'
@@ -83,7 +83,7 @@ test_audit_script_executable() {
 ##############################################################################
 
 test_spec_directory_created() {
-    # Test: .devforgeai/specs/STORY-043/ directory exists
+    # Test: devforgeai/specs/STORY-043/ directory exists
     if [ -d "$PROJECT_ROOT/$SPEC_DIR" ]; then
         echo "  Directory exists: $SPEC_DIR"
         return 0

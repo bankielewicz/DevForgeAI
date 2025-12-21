@@ -271,7 +271,7 @@ technical_specification:
 
 **Result:** PASSED ✅
 **Validator:** devforgeai-qa skill (Opus 4.5)
-**Report:** `.devforgeai/qa/reports/STORY-067-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-067-qa-report.md`
 
 | Phase | Result |
 |-------|--------|
@@ -326,7 +326,7 @@ technical_specification:
 - Scoped package (@devforgeai) for namespace ownership
 
 **Related ADRs:**
-- [ADR-004: NPM Package Distribution](../../../.devforgeai/adrs/ADR-004-npm-package-distribution.md)
+- [ADR-004: NPM Package Distribution](../../../devforgeai/adrs/ADR-004-npm-package-distribution.md)
 
 **Dependencies:**
 - STORY-066: NPM Package Creation & Structure (provides package.json)

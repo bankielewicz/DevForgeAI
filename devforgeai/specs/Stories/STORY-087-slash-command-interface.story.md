@@ -150,7 +150,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "CommandConfig"
-      file_path: ".devforgeai/epic-coverage/command-config.json"
+      file_path: "devforgeai/epic-coverage/command-config.json"
       dependencies: []
       requirements:
         - id: "CFG-001"
@@ -411,7 +411,7 @@ None beyond Claude Code native tools.
 - ✅ Phase 3: Spec Compliance: 100% (all 7 ACs verified, 0 deferrals)
 - ✅ Phase 4: Code Quality Metrics: Grade A (zero violations)
 - **Result:** PASSED - Ready for release
-- **Report:** `.devforgeai/qa/reports/STORY-087-qa-report.md`
+- **Report:** `devforgeai/qa/reports/STORY-087-qa-report.md`
 
 ## Workflow Status
 
@@ -450,8 +450,8 @@ None beyond Claude Code native tools.
 - All tests pass covering all 7 acceptance criteria
 - Command follows lean orchestration pattern (309 lines, 8.5K chars)
 - Reuses existing services:
-  - `.devforgeai/epic-coverage/generate-report.sh` (STORY-086)
-  - `.devforgeai/traceability/gap-detector.sh` (STORY-085)
+  - `devforgeai/epic-coverage/generate-report.sh` (STORY-086)
+  - `devforgeai/traceability/gap-detector.sh` (STORY-085)
 
 **Files Created:**
 - `.claude/commands/validate-epic-coverage.md` - Slash command

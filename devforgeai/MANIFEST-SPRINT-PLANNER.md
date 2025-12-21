@@ -90,7 +90,7 @@ model: haiku
 
 ### 3. Generation Summary (SUPPORTING)
 
-**File Path:** `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
+**File Path:** `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
 **Lines:** ~380
 **Size:** ~10 KB
 **Status:** ✅ Complete
@@ -113,7 +113,7 @@ model: haiku
 
 ### 4. Command Refactoring Guide (SUPPORTING)
 
-**File Path:** `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
+**File Path:** `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
 **Lines:** ~450
 **Size:** ~12 KB
 **Status:** ✅ Implementation Ready
@@ -138,7 +138,7 @@ model: haiku
 
 ### 5. Verification Guide (SUPPORTING)
 
-**File Path:** `.devforgeai/SPRINT-PLANNER-VERIFICATION.md`
+**File Path:** `devforgeai/SPRINT-PLANNER-VERIFICATION.md`
 **Lines:** ~450
 **Size:** ~12.5 KB
 **Status:** ✅ Verification Checklist
@@ -160,7 +160,7 @@ model: haiku
 
 ### 6. Generation Complete (TRACKING)
 
-**File Path:** `.devforgeai/GENERATION-COMPLETE.md`
+**File Path:** `devforgeai/GENERATION-COMPLETE.md`
 **Lines:** ~380
 **Size:** ~10 KB
 **Status:** ✅ Status Report
@@ -207,7 +207,7 @@ model: haiku
 
 ### 8. Delivery Summary (OVERVIEW)
 
-**File Path:** `.devforgeai/DELIVERY-SUMMARY.txt`
+**File Path:** `devforgeai/DELIVERY-SUMMARY.txt`
 **Lines:** ~400
 **Size:** ~13 KB
 **Status:** ✅ Final Report
@@ -233,7 +233,7 @@ model: haiku
 
 ### 9. File Manifest (THIS FILE)
 
-**File Path:** `.devforgeai/MANIFEST-SPRINT-PLANNER.md`
+**File Path:** `devforgeai/MANIFEST-SPRINT-PLANNER.md`
 **Lines:** ~250+
 **Size:** ~7 KB
 **Status:** ✅ Index and Navigation
@@ -262,28 +262,28 @@ REFERENCE GUIDE:
   └─ Guidelines referenced by subagent and users
 
 IMPLEMENTATION GUIDES:
-  .devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md (380 lines)
+  devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md (380 lines)
   ├─ What was generated, why, how
   ├─ Architecture and design rationale
   └─ Token efficiency analysis
 
-  .devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md (450 lines)
+  devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md (450 lines)
   ├─ How to refactor /create-sprint command
   ├─ Step-by-step instructions
   └─ Timeline and effort estimates
 
-  .devforgeai/SPRINT-PLANNER-VERIFICATION.md (450 lines)
+  devforgeai/SPRINT-PLANNER-VERIFICATION.md (450 lines)
   ├─ How to verify subagent works
   ├─ Testing and validation procedures
   └─ Troubleshooting guide
 
 TRACKING & REPORTING:
-  .devforgeai/GENERATION-COMPLETE.md (380 lines)
+  devforgeai/GENERATION-COMPLETE.md (380 lines)
   ├─ Status and completion summary
   ├─ Implementation checklist
   └─ Next steps
 
-  .devforgeai/DELIVERY-SUMMARY.txt (400 lines)
+  devforgeai/DELIVERY-SUMMARY.txt (400 lines)
   ├─ Executive summary
   ├─ All key information
   └─ Quick reference
@@ -294,7 +294,7 @@ NAVIGATION:
   ├─ Integration points
   └─ Reference links
 
-  .devforgeai/MANIFEST-SPRINT-PLANNER.md (THIS FILE)
+  devforgeai/MANIFEST-SPRINT-PLANNER.md (THIS FILE)
   ├─ File index
   ├─ Navigation guide
   └─ Reading recommendations
@@ -306,17 +306,17 @@ NAVIGATION:
 
 ### For Quick Start (10 minutes)
 1. `.claude/agents/README-SPRINT-PLANNER.md` - Quick reference
-2. `.devforgeai/DELIVERY-SUMMARY.txt` - Executive summary
+2. `devforgeai/DELIVERY-SUMMARY.txt` - Executive summary
 
 ### For Implementation (1-2 hours)
-1. `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Technical overview
-2. `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Refactoring steps
+1. `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md` - Technical overview
+2. `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md` - Refactoring steps
 3. `.claude/agents/sprint-planner.md` - Full subagent definition
 4. `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` - Reference guide
 
 ### For Verification (30 minutes)
-1. `.devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Complete verification guide
-2. Test checklist from `.devforgeai/GENERATION-COMPLETE.md`
+1. `devforgeai/SPRINT-PLANNER-VERIFICATION.md` - Complete verification guide
+2. Test checklist from `devforgeai/GENERATION-COMPLETE.md`
 
 ### For Reference (During use)
 1. `.claude/agents/sprint-planner.md` - When invoking subagent
@@ -353,22 +353,22 @@ NAVIGATION:
 → `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md`
 
 **How to implement this?**
-→ `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
+→ `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
 
 **How to verify it works?**
-→ `.devforgeai/SPRINT-PLANNER-VERIFICATION.md`
+→ `devforgeai/SPRINT-PLANNER-VERIFICATION.md`
 
 **Executive summary?**
-→ `.devforgeai/DELIVERY-SUMMARY.txt`
+→ `devforgeai/DELIVERY-SUMMARY.txt`
 
 **Technical details?**
-→ `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
+→ `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
 
 **Quick start?**
 → `.claude/agents/README-SPRINT-PLANNER.md`
 
 **Status/Completion?**
-→ `.devforgeai/GENERATION-COMPLETE.md`
+→ `devforgeai/GENERATION-COMPLETE.md`
 
 ---
 
@@ -400,13 +400,13 @@ Primary files:
   /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md
 
 Documentation:
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/SPRINT-PLANNER-VERIFICATION.md
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/GENERATION-COMPLETE.md
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/DELIVERY-SUMMARY.txt
+  /mnt/c/Projects/DevForgeAI2/devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
+  /mnt/c/Projects/DevForgeAI2/devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md
+  /mnt/c/Projects/DevForgeAI2/devforgeai/SPRINT-PLANNER-VERIFICATION.md
+  /mnt/c/Projects/DevForgeAI2/devforgeai/GENERATION-COMPLETE.md
+  /mnt/c/Projects/DevForgeAI2/devforgeai/DELIVERY-SUMMARY.txt
   /mnt/c/Projects/DevForgeAI2/.claude/agents/README-SPRINT-PLANNER.md
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/MANIFEST-SPRINT-PLANNER.md (this file)
+  /mnt/c/Projects/DevForgeAI2/devforgeai/MANIFEST-SPRINT-PLANNER.md (this file)
 ```
 
 ### Validation

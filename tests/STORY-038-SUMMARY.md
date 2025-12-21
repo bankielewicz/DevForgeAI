@@ -247,7 +247,7 @@ This story follows the proven pattern with similar complexity and scope.
 
 ```bash
 # Full test suite
-bash .devforgeai/tests/commands/test-release.sh
+bash devforgeai/tests/commands/test-release.sh
 
 # Expected: 40+ tests passing (100% pass rate)
 # Coverage: Unit, integration, regression, performance
@@ -326,9 +326,9 @@ This story provides a 40+ item DoD checklist organized by category:
 ## Key Documents & References
 
 **Main Refactoring Protocol:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Core pattern definition
-- `.devforgeai/protocols/refactoring-case-studies.md` - 5 completed refactorings
-- `.devforgeai/protocols/command-budget-reference.md` - Budget monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Core pattern definition
+- `devforgeai/protocols/refactoring-case-studies.md` - 5 completed refactorings
+- `devforgeai/protocols/command-budget-reference.md` - Budget monitoring
 
 **Reference Implementations (for comparison):**
 - `.claude/commands/qa.md` (295 lines, 48% budget) ⭐ **Best reference**
@@ -389,7 +389,7 @@ The story includes:
 1. **Read the full story:** Open STORY-038 file
 2. **Review reference implementations:** Check /qa.md and /create-sprint.md as templates
 3. **Follow the implementation checklist:** Reference "Implementation Notes" section
-4. **Run the test suite:** `bash .devforgeai/tests/commands/test-release.sh`
+4. **Run the test suite:** `bash devforgeai/tests/commands/test-release.sh`
 5. **Verify budget:** `wc -c < .claude/commands/release.md`
 6. **Complete the DoD checklist:** 40+ items ensure quality
 7. **Document findings:** Update story's "Implementation Notes" section

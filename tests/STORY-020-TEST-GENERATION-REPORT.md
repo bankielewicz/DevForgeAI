@@ -32,7 +32,7 @@ A comprehensive test suite for STORY-020 has been generated following Test-Drive
 | **test_feedback_cli_commands.py** | `tests/unit/` | Unit | 89 | 1,222 | Command parsing, validation, response formats |
 | **test_feedback_cli_integration.py** | `tests/integration/` | Integration | 32 | 742 | Full workflow integration, file I/O, persistence |
 | **test_feedback_cli_edge_cases.py** | `tests/unit/` | Edge Case | 28 | 688 | Boundary conditions, security, error handling |
-| **Test Summary Report** | `.devforgeai/qa/reports/` | Documentation | - | - | Comprehensive reference guide |
+| **Test Summary Report** | `devforgeai/qa/reports/` | Documentation | - | - | Comprehensive reference guide |
 | **Quick Start Guide** | `STORY-020-TEST-QUICK-START.md` | Documentation | - | - | Quick reference for running tests |
 
 **Total:** 149 tests, 2,652 lines of test code
@@ -112,7 +112,7 @@ Edge Cases (28)           ███████████ 19%
 - ✅ Option parsing: --format, --date-range, --story-ids, --severity, --status
 - ✅ Format support: json, csv, markdown
 - ✅ Selection criteria filtering works correctly
-- ✅ Saves to .devforgeai/feedback/exports/
+- ✅ Saves to devforgeai/feedback/exports/
 - ✅ Filename includes timestamp
 - ✅ Response includes file_path, entries_count, metadata
 - ✅ Empty exports created successfully
@@ -230,7 +230,7 @@ Edge Cases (28)           ███████████ 19%
 {
     "export_id": "EXP-2025-11-07-001",        # ✅ Format validation
     "timestamp": "2025-11-07T14:35:00Z",     # ✅ ISO8601 validation
-    "file_path": ".devforgeai/feedback/exports/...",  # ✅ Path validation
+    "file_path": "devforgeai/feedback/exports/...",  # ✅ Path validation
     "format": "json",                         # ✅ Enum validation
     "entries": [...],                         # ✅ Count validation
     "selection_criteria": {...},              # ✅ Criteria application
@@ -371,7 +371,7 @@ pytest -k "Error" -v
 def integration_project_dir():
     """Create complete project directory for integration testing."""
     # Creates:
-    # .devforgeai/feedback/
+    # devforgeai/feedback/
     #   ├── config.yaml (with defaults)
     #   ├── feedback-register.md (6 sample entries)
     #   └── exports/
@@ -511,7 +511,7 @@ All tests should FAIL in Red phase. This indicates tests are written correctly a
 | test_feedback_cli_commands.py | tests/unit/ | Python | 1,222 lines | 89 unit tests |
 | test_feedback_cli_integration.py | tests/integration/ | Python | 742 lines | 32 integration tests |
 | test_feedback_cli_edge_cases.py | tests/unit/ | Python | 688 lines | 28 edge case tests |
-| STORY-020-test-suite-summary.md | .devforgeai/qa/reports/ | Markdown | - | Comprehensive reference |
+| STORY-020-test-suite-summary.md | devforgeai/qa/reports/ | Markdown | - | Comprehensive reference |
 | STORY-020-TEST-QUICK-START.md | Root | Markdown | - | Quick reference guide |
 | This report | Root | Markdown | - | Test generation report |
 

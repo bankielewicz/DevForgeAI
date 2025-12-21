@@ -29,7 +29,7 @@ BREAKDOWN:
 TEST FILES CREATED
 ================================================================================
 
-LOCATION: /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/skills/
+LOCATION: /mnt/c/Projects/DevForgeAI2/devforgeai/tests/skills/
 
 1. test-story-creation-guidance-unit.sh
    Purpose: Unit tests for Step 0 guidance loading, pattern extraction, mapping
@@ -321,7 +321,7 @@ DOCUMENTATION PROVIDED
    • File locations and support
 
 ALL FILES LOCATION:
-  /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/skills/
+  /mnt/c/Projects/DevForgeAI2/devforgeai/tests/skills/
 
 ================================================================================
 QUALITY METRICS

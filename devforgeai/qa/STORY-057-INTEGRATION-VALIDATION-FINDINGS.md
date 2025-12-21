@@ -250,7 +250,7 @@ Architecture SKILL.md Step 0 conditional logic may:
 ```python
 def test_02_brownfield_mode_skips_guidance(temp_project_dir):
     # Arrange - create all 6 context files
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True)
 
     for filename in ["tech-stack.md", "source-tree.md", "dependencies.md",

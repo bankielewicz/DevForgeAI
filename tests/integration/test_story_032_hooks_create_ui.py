@@ -144,7 +144,7 @@ def temp_ui_generation_artifacts():
     """Create temporary UI specification files for testing."""
     with tempfile.TemporaryDirectory() as tmpdir:
         # Create UI spec directory structure
-        ui_spec_dir = Path(tmpdir) / ".devforgeai" / "specs" / "ui"
+        ui_spec_dir = Path(tmpdir) / "devforgeai" / "specs" / "ui"
         ui_spec_dir.mkdir(parents=True, exist_ok=True)
 
         # Create UI spec files

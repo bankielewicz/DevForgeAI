@@ -118,7 +118,7 @@ Three test files created covering:
 - `test_successful_hook_logged_to_hooks_log` - AC1
 - `test_hook_failure_logged_to_hook_errors_log` - AC2
 
-**Coverage**: Logging to `.devforgeai/feedback/.logs/hooks.log` and `hook-errors.log`
+**Coverage**: Logging to `devforgeai/feedback/.logs/hooks.log` and `hook-errors.log`
 
 **Total Integration Tests**: 12
 
@@ -225,7 +225,7 @@ def test_example(self):
 ### Fixture Pattern
 
 **Fixtures provided**:
-- `temp_project_dir` - Temporary directory structure with .devforgeai paths
+- `temp_project_dir` - Temporary directory structure with devforgeai paths
 - `hooks_config_enabled` - YAML config with hooks enabled
 - `hooks_config_disabled` - YAML config with hooks disabled
 - `epic_file_content` - Sample epic file template
@@ -315,7 +315,7 @@ Once implementation is complete, tests will pass when:
 3. **Graceful Degradation** (AC2)
    - Hook failures caught and logged
    - Epic creation continues with exit code 0
-   - Errors written to `.devforgeai/feedback/.logs/hook-errors.log`
+   - Errors written to `devforgeai/feedback/.logs/hook-errors.log`
 
 4. **Context Passing** (AC4)
    - Epic ID validated (pattern `EPIC-\d{3}`)
@@ -397,8 +397,8 @@ Once implementation is complete, tests will pass when:
    - Catch all exceptions (non-blocking)
 
 4. **Log results** (Phase 4A.9.4)
-   - Success: Log to `.devforgeai/feedback/.logs/hooks.log`
-   - Failure: Log to `.devforgeai/feedback/.logs/hook-errors.log`
+   - Success: Log to `devforgeai/feedback/.logs/hooks.log`
+   - Failure: Log to `devforgeai/feedback/.logs/hook-errors.log`
    - Include timestamp, epic_id, status, duration
 
 5. **Handle failure gracefully** (Phase 4A.9.5)
@@ -409,7 +409,7 @@ Once implementation is complete, tests will pass when:
 6. **Display Phase 4 result** (Command responsibility)
    - Show feedback questions to user
    - Let user answer or skip
-   - Store responses in `.devforgeai/feedback/epic-create/{EPIC-ID}_{timestamp}.json`
+   - Store responses in `devforgeai/feedback/epic-create/{EPIC-ID}_{timestamp}.json`
 
 ### Key Test Assertions
 

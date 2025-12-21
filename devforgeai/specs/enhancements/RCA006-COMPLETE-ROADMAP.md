@@ -786,9 +786,9 @@ for component in components:
 ### **Phase 1 Documents (Created)**
 
 ✅ Implementation:
-- `.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md`
-- `.devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md`
-- `.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md`
+- `devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md`
+- `devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md`
+- `devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-SUMMARY.md`
 
 ✅ Code:
 - `.claude/skills/devforgeai-development/references/tdd-red-phase.md` (Step 4)
@@ -799,12 +799,12 @@ for component in components:
 ### **Phase 2 Documents (To Create)**
 
 ⏳ Plans:
-- `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md` ✅ Created
-- `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md`
-- `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md`
+- `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md` ✅ Created
+- `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md`
+- `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md`
 
 ⏳ Specifications:
-- `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+- `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 ⏳ Code:
 - `.claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py`
@@ -815,8 +815,8 @@ for component in components:
 ### **Phase 3 Documents (To Create)**
 
 ⏳ Plans:
-- `.devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md` ✅ Created
-- `.devforgeai/specs/enhancements/PHASE3-TESTING-CHECKLIST.md`
+- `devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md` ✅ Created
+- `devforgeai/specs/enhancements/PHASE3-TESTING-CHECKLIST.md`
 
 ⏳ Code:
 - `.claude/agents/implementation-validator.md`
@@ -828,11 +828,11 @@ for component in components:
 ### **Summary Documents (To Create)**
 
 ⏳ Roadmap:
-- `.devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md` ✅ This document
+- `devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md` ✅ This document
 
 ⏳ Final Reports (Week 11):
-- `.devforgeai/specs/enhancements/RCA006-COMPLETE-IMPLEMENTATION-REPORT.md`
-- `.devforgeai/specs/DEVFORGEAI-V2.0-WHATS-NEW.md`
+- `devforgeai/specs/enhancements/RCA006-COMPLETE-IMPLEMENTATION-REPORT.md`
+- `devforgeai/specs/DEVFORGEAI-V2.0-WHATS-NEW.md`
 
 ---
 

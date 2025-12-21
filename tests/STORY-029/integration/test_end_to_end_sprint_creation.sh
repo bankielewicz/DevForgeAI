@@ -12,8 +12,8 @@ PROJECT_ROOT="$(cd "$TEST_DIR/../../.." && pwd)"
 TEMP_TEST_DIR="/tmp/devforgeai-integration-test-$$"
 TEMP_SPRINTS_DIR="$TEMP_TEST_DIR/.ai_docs/Sprints"
 TEMP_STORIES_DIR="$TEMP_TEST_DIR/.ai_docs/Stories"
-TEMP_FEEDBACK_DIR="$TEMP_TEST_DIR/.devforgeai/feedback"
-TEMP_CONFIG_DIR="$TEMP_TEST_DIR/.devforgeai/config"
+TEMP_FEEDBACK_DIR="$TEMP_TEST_DIR/devforgeai/feedback"
+TEMP_CONFIG_DIR="$TEMP_TEST_DIR/devforgeai/config"
 
 # ANSI colors
 RED='\033[0;31m'
@@ -158,7 +158,7 @@ test_feedback_file_created() {
     # Check if story documents feedback file creation
     story_content=$(cat "$PROJECT_ROOT/devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md")
 
-    if echo "$story_content" | grep -q "\.devforgeai/feedback/create-sprint-.*\.json"; then
+    if echo "$story_content" | grep -q "\devforgeai/feedback/create-sprint-.*\.json"; then
         echo -e "${GREEN}PASS${NC}"
         echo "  Note: Feedback file pattern documented in story"
         return 0

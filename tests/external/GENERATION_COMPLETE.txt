@@ -404,14 +404,14 @@ To transition from RED to GREEN phase:
 Installer Implementation:
   [ ] Create installer/install.py with external project support
   [ ] Implement tech detection (Node.js, .NET, Python)
-  [ ] Deploy 450 framework files (.claude/ and .devforgeai/)
+  [ ] Deploy 450 framework files (.claude/ and devforgeai/)
   [ ] Integrate CLAUDE.md merge (from STORY-046)
   [ ] Implement variable substitution for external context
   [ ] Create backup system before installation
   [ ] Implement rollback functionality
   [ ] Implement upgrade workflow (selective update)
   [ ] Add CLI installation (devforgeai command)
-  [ ] Generate .devforgeai/.version.json
+  [ ] Generate devforgeai/.version.json
 
 Command Testing:
   [ ] Verify all 14 commands work in external context

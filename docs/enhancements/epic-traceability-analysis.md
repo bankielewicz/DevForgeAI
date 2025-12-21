@@ -172,14 +172,14 @@ fi
 **What it ACTUALLY counts:**
 ```
 ### Feature 3.1: Feedback File Persistence           ← Count ✅
-- Feedback directory: `.devforgeai/feedback/sessions/` ← Count ❌
+- Feedback directory: `devforgeai/feedback/sessions/` ← Count ❌
 - File naming: `{timestamp}-{operation-type}-{status}.md` ← Count ❌
 - File format: Markdown with YAML frontmatter         ← Count ❌
 - Atomic writes (write to temp file...)               ← Count ❌
 - Directory auto-creation if missing                  ← Count ❌
 - File permissions: User-readable/writable only (0600) ← Count ❌
 ### Feature 3.2: Searchable Metadata Index           ← Count ✅
-- Index file: `.devforgeai/feedback/index.json`       ← Count ❌
+- Index file: `devforgeai/feedback/index.json`       ← Count ❌
 [... continues counting ALL bullets under features ...]
 ```
 

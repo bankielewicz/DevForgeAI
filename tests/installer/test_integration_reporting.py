@@ -30,7 +30,7 @@ class TestMultiModeOutputBehavior:
         from installer.reporter import InstallationReporter
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -50,7 +50,7 @@ class TestMultiModeOutputBehavior:
                 "files_failed": 0,
                 "duration_seconds": 1.0,
                 "target_directory": str(tmp_path),
-                "log_file": str(tmp_path / ".devforgeai" / "install.log"),
+                "log_file": str(tmp_path / "devforgeai" / "install.log"),
             }
         )
 
@@ -82,7 +82,7 @@ class TestMultiModeOutputBehavior:
         from installer.reporter import InstallationReporter
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -104,8 +104,8 @@ class TestMultiModeOutputBehavior:
             "warnings": [],
             "duration_seconds": 1.0,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -139,7 +139,7 @@ class TestMultiModeOutputBehavior:
         from installer.reporter import InstallationReporter
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -177,7 +177,7 @@ class TestMultiModeOutputBehavior:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -203,7 +203,7 @@ class TestMultiModeOutputBehavior:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         generator = ManifestGenerator()
@@ -237,7 +237,7 @@ class TestPartialInstallationReporting:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -250,7 +250,7 @@ class TestPartialInstallationReporting:
             "files_failed": 50,
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
         }
 
         console_output = reporter.generate_console_report(report_data)
@@ -270,7 +270,7 @@ class TestPartialInstallationReporting:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Create only successful files (50)
@@ -325,8 +325,8 @@ class TestPartialInstallationReporting:
             "warnings": [],
             "duration_seconds": 1.2,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -344,17 +344,17 @@ class TestPermissionDeniedEdgeCase:
 
     def test_log_creation_falls_back_to_tmpdir_if_permission_denied(self, tmp_path):
         """
-        Test: Log fallback to $TMPDIR if .devforgeai not writable (Edge case 1).
+        Test: Log fallback to $TMPDIR if devforgeai not writable (Edge case 1).
 
-        Given: .devforgeai directory not writable (permission denied)
+        Given: devforgeai directory not writable (permission denied)
         When: InstallationReporter.create_log_file() called
         Then: Falls back to $TMPDIR/install.log
         """
         # Arrange
         from installer.reporter import InstallationReporter
 
-        # Create .devforgeai but make it read-only
-        devforgeai_dir = tmp_path / ".devforgeai"
+        # Create devforgeai but make it read-only
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -399,7 +399,7 @@ class TestLargeInstallationReporting:
             "files_failed": 0,
             "duration_seconds": 15.789,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
         }
 
         console_output = reporter.generate_console_report(report_data)
@@ -441,8 +441,8 @@ class TestLargeInstallationReporting:
             "warnings": [],
             "duration_seconds": 5.5,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -468,7 +468,7 @@ class TestLogFileRotation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -525,7 +525,7 @@ class TestDataValidation:
             "files_failed": 0,
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
         }
 
         # Assert
@@ -546,7 +546,7 @@ class TestDataValidation:
         from installer.manifest_generator import ManifestGenerator
         import re
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "test.md"
@@ -618,8 +618,8 @@ class TestDataValidation:
             "warnings": [],
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -650,7 +650,7 @@ class TestDataValidation:
             "files_failed": 0,
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
-            "log_file": str(tmp_path / ".devforgeai" / "install.log"),
+            "log_file": str(tmp_path / "devforgeai" / "install.log"),
         }
 
         # Assert
@@ -670,7 +670,7 @@ class TestDataValidation:
         # Arrange
         from installer.manifest_generator import ManifestGenerator
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         test_file = tmp_path / ".claude" / "test.md"

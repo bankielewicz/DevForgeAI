@@ -13,8 +13,8 @@
 # - Phase 1: 74 refs updated (skills Read() calls)
 # - Phase 2: 52 refs updated (documentation)
 # - Phase 3: 38 refs updated (agent/subagent references)
-# - Diff summary: .devforgeai/specs/STORY-043/update-diff-summary.md
-# - Rollback script: .devforgeai/specs/STORY-043/rollback-updates.sh
+# - Diff summary: devforgeai/specs/STORY-043/update-diff-summary.md
+# - Rollback script: devforgeai/specs/STORY-043/rollback-updates.sh
 # - Report: "164 references updated across 87 files, 0 errors"
 ##############################################################################
 
@@ -23,7 +23,7 @@ set -euo pipefail
 TEST_NAME="AC-2: Surgical Update Strategy with Rollback Safety"
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$TEST_DIR/../../" && pwd)"
-SPEC_DIR=".devforgeai/specs/STORY-043"
+SPEC_DIR="devforgeai/specs/STORY-043"
 BACKUP_DIR=".backups"
 
 # Colors

@@ -292,7 +292,7 @@ def test_should_return_pass_when_python_3_10_detected(self):
 
 - **temp_dir**: Empty temporary directory (auto-cleanup)
 - **fresh_installation_dir**: Empty directory for fresh install
-- **existing_installation_dir**: Directory with .claude/ and .devforgeai/
+- **existing_installation_dir**: Directory with .claude/ and devforgeai/
 - **partial_installation_dir**: Directory with .claude/ only (incomplete)
 - **read_only_dir**: Read-only directory (permission denied scenario)
 
@@ -367,4 +367,4 @@ jobs:
 
 For questions or issues, see:
 - `devforgeai/specs/Stories/STORY-072-pre-flight-validation-checks.story.md`
-- `.devforgeai/RCA/` (Root Cause Analysis documents)
+- `devforgeai/RCA/` (Root Cause Analysis documents)

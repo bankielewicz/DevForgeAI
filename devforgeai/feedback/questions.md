@@ -273,6 +273,6 @@ When adding questions:
 
 ## Related Documentation
 
-- JSON Schema: `.devforgeai/feedback/schema.json`
-- User Guide: `.devforgeai/feedback/USER-GUIDE.md`
-- Maintainer Guide: `.devforgeai/feedback/MAINTAINER-GUIDE.md`
+- JSON Schema: `devforgeai/feedback/schema.json`
+- User Guide: `devforgeai/feedback/USER-GUIDE.md`
+- Maintainer Guide: `devforgeai/feedback/MAINTAINER-GUIDE.md`

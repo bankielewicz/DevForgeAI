@@ -581,7 +581,7 @@ To resume this plan in a new terminal session:
 
 1. **Read this plan:**
 ```
-Read(file_path=".devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md")
+Read(file_path="devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md")
 ```
 
 2. **Read current troubleshooting file:**
@@ -606,7 +606,7 @@ Bash(command="cp .claude/memory/skill-execution-troubleshooting.md .claude/memor
 
 | Checkpoint | Description | Verification |
 |------------|-------------|--------------|
-| CP-1 | Plan document created | File exists at `.devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md` |
+| CP-1 | Plan document created | File exists at `devforgeai/RCA/RCA-016-REC3-PATTERN-RECOGNITION-GUIDE-PLAN.md` |
 | CP-2 | Backup created | File exists at `.claude/memory/skill-execution-troubleshooting.md.rec3-backup` |
 | CP-3 | New section appended | `grep "Progressive Disclosure Phase Skipping"` returns match |
 | CP-4 | Detection checklist added | `grep "Detection Checklist"` returns match |

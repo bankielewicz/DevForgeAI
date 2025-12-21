@@ -36,7 +36,7 @@ This epic implements findings from **RESEARCH-001: Claude Code Memory Management
 
 **Research Recommendation:** Focus on accuracy improvement (evidence-based grounding), not CLAUDE.md trimming (optimization deferred).
 
-**Research Document:** `.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
+**Research Document:** `devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
 
 ## Features
 
@@ -58,8 +58,8 @@ This epic implements findings from **RESEARCH-001: Claude Code Memory Management
   - 2x /create-story commands
   - 2x architecture questions
 - Baseline documents: rule violations found, hallucinations observed, citations used (Y/N count)
-- Baseline saved to `.devforgeai/metrics/baseline-YYYY-MM-DD.md`
-- Tracking log template created in `.devforgeai/metrics/accuracy-log.md`
+- Baseline saved to `devforgeai/metrics/baseline-YYYY-MM-DD.md`
+- Tracking log template created in `devforgeai/metrics/accuracy-log.md`
 - Usage guidance for manual logging included in template
 
 **Estimated Effort:** Medium (12 story points, 2-3 stories)
@@ -108,14 +108,14 @@ This epic implements findings from **RESEARCH-001: Claude Code Memory Management
 
 **Entities:**
 
-1. **Baseline Metrics Snapshot** - `.devforgeai/metrics/baseline-YYYY-MM-DD.md`
+1. **Baseline Metrics Snapshot** - `devforgeai/metrics/baseline-YYYY-MM-DD.md`
    - Operations tested (list of 10 operations)
    - Rule violations found (count and details)
    - Hallucinations observed (count and descriptions)
    - Citations used (Y/N count)
    - Timestamp
 
-2. **Accuracy Tracking Log** - `.devforgeai/metrics/accuracy-log.md`
+2. **Accuracy Tracking Log** - `devforgeai/metrics/accuracy-log.md`
    - Date
    - Operation performed
    - Rule violations (list of rules violated)
@@ -202,7 +202,7 @@ This epic implements findings from **RESEARCH-001: Claude Code Memory Management
 ## Appendix: Research Reference
 
 **Research Document:** RESEARCH-001 (2025-11-30)
-**Location:** `.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
+**Location:** `devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
 
 **Key Citations from Research:**
 

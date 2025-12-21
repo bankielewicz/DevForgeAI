@@ -272,7 +272,7 @@ Code optimization and cleanup while maintaining test passing.
 ## Mock Objects and Fixtures
 
 ### Key Fixtures
-- `temp_devforgeai_dir` - Temporary .devforgeai directory
+- `temp_devforgeai_dir` - Temporary devforgeai directory
 - `temp_project_structure` - Complete project structure
 - `mock_check_hooks_success` - Mock returning exit code 0
 - `mock_check_hooks_skip` - Mock returning exit code 1

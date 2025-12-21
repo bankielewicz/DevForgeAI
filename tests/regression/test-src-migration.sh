@@ -320,7 +320,7 @@ test_phase_5_integration_workflows() {
 
     # Workflow 3: Verify QA/documentation paths
     ((TOTAL_TESTS++))
-    if [ -d "$PROJECT_ROOT/.devforgeai/qa" ] && [ -d "$PROJECT_ROOT/.devforgeai/adrs" ]; then
+    if [ -d "$PROJECT_ROOT/devforgeai/qa" ] && [ -d "$PROJECT_ROOT/devforgeai/adrs" ]; then
         log_info "✓ Workflow 3: QA and ADR directories exist"
         ((PASSED_TESTS++))
     else

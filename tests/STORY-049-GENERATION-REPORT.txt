@@ -191,7 +191,7 @@ For developers implementing the refactoring:
       - Remove redundant comment lines
       
    c) Add pattern file reference
-      - Ensure Phase N includes: Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")
+      - Ensure Phase N includes: Read(file_path="devforgeai/protocols/hook-integration-pattern.md")
       - Should be in proper location (Step 1 or overview)
       
    d) Preserve workflow steps

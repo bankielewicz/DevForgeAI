@@ -25,7 +25,7 @@ Version 1.0 introduces a formal YAML-based configuration system replacing hardco
 
 ### New Features in v1.0
 
-1. **YAML Configuration File** - `.devforgeai/config/feedback.yaml`
+1. **YAML Configuration File** - `devforgeai/config/feedback.yaml`
 2. **Hot-Reload** - Configuration changes applied within 5 seconds
 3. **Skip Tracking** - Track consecutive skips with configurable limits
 4. **Trigger Modes** - Control when feedback is collected (always, failures-only, specific-operations, never)
@@ -60,10 +60,10 @@ To customize feedback behavior:
 
 1. **Create configuration file:**
    ```bash
-   mkdir -p .devforgeai/config
+   mkdir -p devforgeai/config
    ```
 
-2. **Create `.devforgeai/config/feedback.yaml`:**
+2. **Create `devforgeai/config/feedback.yaml`:**
    ```yaml
    # Example custom configuration
    enabled: true
@@ -83,11 +83,11 @@ To customize feedback behavior:
 3. **Test configuration:**
    ```bash
    # Verify no errors
-   tail -f .devforgeai/logs/config-errors.log
+   tail -f devforgeai/logs/config-errors.log
    ```
 
 4. **(Optional) Set up IDE autocomplete:**
-   - JSON Schema available at `.devforgeai/config/feedback.schema.json`
+   - JSON Schema available at `devforgeai/config/feedback.schema.json`
    - See README.md for IDE setup instructions
 
 ### Configuration Mapping
@@ -188,7 +188,7 @@ FEEDBACK_ENABLED = False
 
 **v1.0:**
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 enabled: false
 ```
 
@@ -206,7 +206,7 @@ MAX_QUESTIONS = 5
 
 **v1.0:**
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 conversation_settings:
   max_questions: 3
 ```
@@ -226,7 +226,7 @@ if operation_type == "qa":
 
 **v1.0:**
 ```yaml
-# .devforgeai/config/feedback.yaml
+# devforgeai/config/feedback.yaml
 trigger_mode: specific-operations
 operations:
   - qa
@@ -244,7 +244,7 @@ operations:
 
 1. **Remove configuration file:**
    ```bash
-   rm .devforgeai/config/feedback.yaml
+   rm devforgeai/config/feedback.yaml
    ```
 
 2. **System reverts to defaults** (same as pre-1.0 behavior)
@@ -273,7 +273,7 @@ operations:
 ### Skip Tracking Data
 
 **v1.0 skip tracking uses simple log file:**
-- Location: `.devforgeai/logs/feedback-skips.log`
+- Location: `devforgeai/logs/feedback-skips.log`
 - Format: Plain text log entries
 - Migration: None needed (no breaking changes planned)
 
@@ -292,19 +292,19 @@ After migrating to v1.0:
 
 - [ ] Configuration file loads without errors
   ```bash
-  tail .devforgeai/logs/config-errors.log
+  tail devforgeai/logs/config-errors.log
   ```
 
 - [ ] Hot-reload working (test by toggling `enabled` flag)
   ```bash
-  echo "enabled: false" > .devforgeai/config/feedback.yaml
+  echo "enabled: false" > devforgeai/config/feedback.yaml
   sleep 2
   # Verify feedback stopped
   ```
 
 - [ ] Skip tracking functional
   ```bash
-  tail -f .devforgeai/logs/feedback-skips.log
+  tail -f devforgeai/logs/feedback-skips.log
   ```
 
 - [ ] JSON Schema autocomplete working in IDE
@@ -324,7 +324,7 @@ If migration issues occur:
 
 1. **Check logs:**
    ```bash
-   cat .devforgeai/logs/config-errors.log
+   cat devforgeai/logs/config-errors.log
    ```
 
 2. **Run diagnostic:**
@@ -380,9 +380,9 @@ If migration issues occur:
 
 ## Resources
 
-- **README:** `.devforgeai/config/README.md` - Configuration guide with examples
-- **Troubleshooting:** `.devforgeai/config/TROUBLESHOOTING.md` - Common issues and solutions
-- **Schema:** `.devforgeai/config/feedback.schema.json` - JSON Schema for validation
+- **README:** `devforgeai/config/README.md` - Configuration guide with examples
+- **Troubleshooting:** `devforgeai/config/TROUBLESHOOTING.md` - Common issues and solutions
+- **Schema:** `devforgeai/config/feedback.schema.json` - JSON Schema for validation
 - **Tests:** `.claude/scripts/devforgeai_cli/tests/feedback/test_configuration_management.py` - Test suite
 
 ---

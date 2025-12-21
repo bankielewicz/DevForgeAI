@@ -279,7 +279,7 @@ bash /mnt/c/Projects/DevForgeAI2/tests/traceability/test_gap_detection.sh
 
 After these tests fail (RED phase), implement:
 
-1. **`.devforgeai/traceability/gap-detector.sh`**
+1. **`devforgeai/traceability/gap-detector.sh`**
    - Implement extract_epic_field() - Strategy 1
    - Implement parse_stories_table() - Strategy 2
    - Implement cross_validate() - Strategy 3
@@ -287,7 +287,7 @@ After these tests fail (RED phase), implement:
    - Implement detect_orphaned_stories()
    - Implement generate_gap_report()
 
-2. **`.devforgeai/traceability/table-parser.sh`**
+2. **`devforgeai/traceability/table-parser.sh`**
    - Implement parse_markdown_table()
    - Implement parse_row()
    - Implement skip_malformed_rows()

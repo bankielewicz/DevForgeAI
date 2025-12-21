@@ -507,7 +507,7 @@ rm -rf .backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/
 ```bash
 # Fix permissions
 chmod -R u+w /path/to/project/.claude
-chmod -R u+w /path/to/project/.devforgeai
+chmod -R u+w /path/to/project/devforgeai
 
 # Then retry installation
 ```

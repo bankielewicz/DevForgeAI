@@ -81,7 +81,7 @@ depends_on: ["STORY-090"]
 **Given** STORY-038 has unmet dependencies
 **When** user runs `/dev STORY-038 --force`
 **Then** dependency check is bypassed
-**And** warning is logged to `.devforgeai/logs/dependency-bypass-{timestamp}.log`
+**And** warning is logged to `devforgeai/logs/dependency-bypass-{timestamp}.log`
 **And** story proceeds to Phase 1
 
 ---
@@ -158,7 +158,7 @@ technical_specification:
         - id: "SVC-006"
           description: "Handle --force bypass with audit logging"
           testable: true
-          test_requirement: "Test: --force logs to .devforgeai/logs/"
+          test_requirement: "Test: --force logs to devforgeai/logs/"
           priority: "High"
 
   business_rules:

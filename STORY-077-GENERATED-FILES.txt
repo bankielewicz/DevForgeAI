@@ -14,7 +14,7 @@ GENERATED TEST FILES (5 total)
    Tests: 38
    Classes: 4
    Features Tested:
-   - Read version from .devforgeai/.version.json
+   - Read version from devforgeai/.version.json
    - Display version to user
    - Handle missing version files
    - Handle corrupted JSON

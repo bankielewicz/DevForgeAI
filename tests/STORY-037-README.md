@@ -322,7 +322,7 @@ tests/
 ## References
 
 - **Story:** STORY-037 Audit All Commands for Lean Orchestration Pattern Compliance
-- **Pattern:** Lean Orchestration Pattern (`.devforgeai/protocols/lean-orchestration-pattern.md`)
+- **Pattern:** Lean Orchestration Pattern (`devforgeai/protocols/lean-orchestration-pattern.md`)
 - **Framework:** DevForgeAI
 - **TDD Phase:** Red (Failing Tests)
 - **Target Phase:** Green (Implementation)

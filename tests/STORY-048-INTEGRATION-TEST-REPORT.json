@@ -120,7 +120,7 @@
       "tests": 2,
       "status": "PASSED",
       "onboarding_artifacts": [
-        ".devforgeai/onboarding/",
+        "devforgeai/onboarding/",
         "team-training-log.md"
       ],
       "findings": [

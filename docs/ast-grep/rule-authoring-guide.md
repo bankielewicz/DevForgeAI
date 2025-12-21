@@ -24,7 +24,7 @@ This guide covers how to create ast-grep rules for DevForgeAI projects. Rules de
 Rules are YAML files placed in language-specific directories:
 
 ```
-.devforgeai/ast-grep/rules/
+devforgeai/ast-grep/rules/
 ├── python/
 │   └── SEC-001-sql-injection.yml
 ├── csharp/
@@ -140,7 +140,7 @@ Decide what code pattern you want to detect. Example: Detecting hardcoded passwo
 
 ### Step 2: Create the Rule File
 
-Create `.devforgeai/ast-grep/rules/python/SEC-002-hardcoded-password.yml`:
+Create `devforgeai/ast-grep/rules/python/SEC-002-hardcoded-password.yml`:
 
 ```yaml
 id: "SEC-002"
@@ -158,7 +158,7 @@ note: |
 
 ```bash
 # Test the rule against a file
-ast-grep scan --rule .devforgeai/ast-grep/rules/python/SEC-002-hardcoded-password.yml src/
+ast-grep scan --rule devforgeai/ast-grep/rules/python/SEC-002-hardcoded-password.yml src/
 
 # Or use the DevForgeAI CLI
 devforgeai ast-grep scan src/ --language python
@@ -177,7 +177,7 @@ devforgeai ast-grep validate-config
 Organize rules by category subdirectory for better management:
 
 ```
-.devforgeai/ast-grep/rules/python/
+devforgeai/ast-grep/rules/python/
 ├── security/
 │   ├── SEC-001-sql-injection.yml
 │   └── SEC-002-hardcoded-password.yml

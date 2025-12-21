@@ -19,7 +19,7 @@ This document summarizes the comprehensive test suite generated for STORY-073, f
 **Coverage Target:** 95%+
 
 **Tests AC#1 and AC#2:**
-- Read .devforgeai/.version.json file
+- Read devforgeai/.version.json file
 - Parse installed_version, installed_at, installation_source fields
 - Compare semantic versions (upgrade/downgrade/same/unknown)
 - Handle corrupted JSON and malformed versions
@@ -254,7 +254,7 @@ pytest tests/installer/services/test_auto_detection_service.py::TestAutoDetectio
 After running tests with coverage, reports will be generated in:
 
 ```
-.devforgeai/qa/coverage/
+devforgeai/qa/coverage/
 ├── htmlcov/                               # HTML coverage report
 │   └── index.html                         # Coverage dashboard
 ├── coverage.json                          # JSON coverage data
@@ -282,14 +282,14 @@ def test_should_read_version_json_successfully(self, temp_dir):
     """
     Test: Read valid version.json file → VersionInfo returned
 
-    Given: .devforgeai/.version.json exists with valid structure
+    Given: devforgeai/.version.json exists with valid structure
     When: read_version() is called
     Then: Returns VersionInfo with all fields populated
     """
     # Arrange
     from src.installer.services.version_detection_service import VersionDetectionService
 
-    version_dir = temp_dir / ".devforgeai"
+    version_dir = temp_dir / "devforgeai"
     version_dir.mkdir()
     version_file = version_dir / ".version.json"
     version_file.write_text('{"installed_version": "1.0.0"}')

@@ -259,7 +259,7 @@ No external dependencies:
 - Tests fail correctly (needs actual bundle)
 
 ### ✅ DM-001: Framework Directories Bundled
-- `build-offline-bundle.sh` copies .claude/ and .devforgeai/
+- `build-offline-bundle.sh` copies .claude/ and devforgeai/
 - Tests fail correctly (needs actual bundle)
 
 ### ✅ DM-002: Python Wheel Files Bundled

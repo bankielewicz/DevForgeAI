@@ -113,4 +113,4 @@ We will distribute the DevForgeAI installer as an **NPM package** with a **Node.
 
 ## Compliance
 
-This ADR has been recorded in `.devforgeai/adrs/` as required by the DevForgeAI framework.
+This ADR has been recorded in `devforgeai/adrs/` as required by the DevForgeAI framework.

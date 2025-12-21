@@ -212,4 +212,4 @@ For general development workflow, see:
 
 - Open an issue for bugs or feature requests
 - Check existing stories in `devforgeai/specs/Stories/` for planned work
-- Review ADRs in `.devforgeai/adrs/` for architectural decisions
+- Review ADRs in `devforgeai/adrs/` for architectural decisions

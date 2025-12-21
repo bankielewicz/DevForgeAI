@@ -145,7 +145,7 @@ def _check_skills(project_root: Path, missing: list) -> int:
 
 def _check_protocols(project_root: Path, missing: list) -> int:
     """Check protocols directory. Returns count of protocols."""
-    protocols_dir = project_root / ".devforgeai" / "protocols"
+    protocols_dir = project_root / "devforgeai" / "protocols"
     return _count_files_by_pattern(protocols_dir, "*.md", "devforgeai/protocols/", MIN_PROTOCOLS, missing)
 
 
@@ -353,7 +353,7 @@ def validate_installation(project_root: Path) -> dict:
         result["errors"].extend(missing_files)
 
     # Check version.json
-    version_file = project_root / ".devforgeai" / ".version.json"
+    version_file = project_root / "devforgeai" / ".version.json"
     version_validation = validate_version_json(version_file)
     result["version_json_valid"] = version_validation["valid"]
     if not version_validation["valid"]:

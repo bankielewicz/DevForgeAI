@@ -649,7 +649,7 @@ grep "format_version" "$STORY_FILE"
 
 **If script failed:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/MIGRATION-ISSUES.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/MIGRATION-ISSUES.md << 'EOF'
 # Migration Script Issues
 
 **Date:** YYYY-MM-DD

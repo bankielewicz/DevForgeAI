@@ -586,7 +586,7 @@ def tmp_project(tmp_path):
     Create a temporary project directory with DevForgeAI framework installed.
 
     Returns:
-        dict: Contains 'root' (project root), 'claude' (.claude/), 'devforgeai' (.devforgeai/)
+        dict: Contains 'root' (project root), 'claude' (.claude/), 'devforgeai' (devforgeai/)
     """
     root = tmp_path / "test_project"
     root.mkdir()
@@ -600,8 +600,8 @@ def tmp_project(tmp_path):
     (claude_dir / "scripts").mkdir()
     (claude_dir / "skills").mkdir()
 
-    # Create .devforgeai/ structure
-    devforgeai_dir = root / ".devforgeai"
+    # Create devforgeai/ structure
+    devforgeai_dir = root / "devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir()
     (devforgeai_dir / "context").mkdir()
@@ -824,7 +824,7 @@ def installation_states():
         "corrupted": {
             "has_version_file": False,  # Missing version.json
             "has_claude_dir": True,  # But .claude/ exists
-            "has_devforgeai_dir": True,  # And .devforgeai/ exists
+            "has_devforgeai_dir": True,  # And devforgeai/ exists
         },
     }
 
@@ -1033,7 +1033,7 @@ def mock_source_package(tmp_path):
 
     # Create various source files
     (source_root / ".claude").mkdir()
-    (source_root / ".devforgeai").mkdir()
+    (source_root / "devforgeai").mkdir()
 
     source_files = [
         (".claude/agents/test.md", "Test agent content"),

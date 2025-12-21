@@ -20,7 +20,7 @@ ls -la .claude/skills/devforgeai-orchestration/references/sprint-planning-guide.
 # Expected: 391 lines, ~11KB
 
 # This summary
-ls -la .devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
+ls -la devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
 # Expected: ~380 lines
 ```
 

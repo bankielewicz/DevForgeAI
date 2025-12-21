@@ -199,15 +199,15 @@ All recommendations have been implemented across 3 phases. Status tracked below.
 #### REC-6: Create RCA-008 Document
 **Status:** ✅ IMPLEMENTED (this document)
 **Implementation:**
-- Created `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (this file)
-- Created `.devforgeai/RCA/README.md` (pending - Task 3.1.2)
+- Created `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (this file)
+- Created `devforgeai/RCA/README.md` (pending - Task 3.1.2)
 - Complete incident analysis with 5 Whys
 - All 7 recommendations documented with implementation status
 - Verification test cases included
 
 **Files Created:**
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
-- `.devforgeai/RCA/README.md` (pending)
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+- `devforgeai/RCA/README.md` (pending)
 
 **Verification:**
 - [x] RCA-008.md created with complete analysis
@@ -546,7 +546,7 @@ touch src/module{1..10}.py  # 10 code files
 
 ### Regression Test Suite
 
-**Location:** `.devforgeai/tests/regression/test_rca_008_git_stashing.md` (to be created in Story 3.3)
+**Location:** `devforgeai/tests/regression/test_rca_008_git_stashing.md` (to be created in Story 3.3)
 
 **Test Cases:**
 1. User Consent Prompt Appears (50 uncommitted files)
@@ -565,7 +565,7 @@ touch src/module{1..10}.py  # 10 code files
 ## Related Documents
 
 **Implementation:**
-- `.devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md` (detailed implementation plan with checkboxes)
+- `devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md` (detailed implementation plan with checkboxes)
 - `.claude/skills/devforgeai-development/SKILL.md` (10-step validation)
 - `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5, 0.1.6)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (Stash Safety Protocol, Smart Strategy)
@@ -574,10 +574,10 @@ touch src/module{1..10}.py  # 10 code files
 - `CLAUDE.md` (Critical Rule #11)
 
 **Testing:**
-- `.devforgeai/tests/regression/test_rca_008_git_stashing.md` (to be created)
+- `devforgeai/tests/regression/test_rca_008_git_stashing.md` (to be created)
 
 **Framework Protocols:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (command architecture)
 
 ---
 

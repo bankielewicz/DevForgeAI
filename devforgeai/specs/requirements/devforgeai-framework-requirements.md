@@ -74,7 +74,7 @@ DevForgeAI is a comprehensive framework for AI-assisted software development tha
 **WHEN** feasibility is confirmed
 **THEN** the system SHALL generate:
 - Epic documents in `devforgeai/specs/Epics/`
-- Requirements specifications in `.devforgeai/specs/requirements/`
+- Requirements specifications in `devforgeai/specs/requirements/`
 - Complexity assessment report
 - Automatic transition to architecture phase
 

@@ -37,9 +37,9 @@ class TestBackupCreation:
 
     def test_should_create_backup_with_all_devforgeai_files(self, tmp_path):
         """
-        AC#2: Backup includes all DevForgeAI files (.claude/, .devforgeai/, CLAUDE.md)
+        AC#2: Backup includes all DevForgeAI files (.claude/, devforgeai/, CLAUDE.md)
 
-        Arrange: Installation with .claude/, .devforgeai/, CLAUDE.md
+        Arrange: Installation with .claude/, devforgeai/, CLAUDE.md
         Act: Call create_backup()
         Assert: All directories and files copied to backup directory
         """
@@ -52,7 +52,7 @@ class TestBackupCreation:
         claude_dir.mkdir()
         (claude_dir / "test.md").write_text("test content")
 
-        devforgeai_dir = source_root / ".devforgeai"
+        devforgeai_dir = source_root / "devforgeai"
         devforgeai_dir.mkdir()
         (devforgeai_dir / "config.json").write_text('{"key": "value"}')
 
@@ -72,7 +72,7 @@ class TestBackupCreation:
         # Verify files were backed up
         backup_dir = backups_root / metadata.backup_id
         assert (backup_dir / ".claude" / "test.md").exists()
-        assert (backup_dir / ".devforgeai" / "config.json").exists()
+        assert (backup_dir / "devforgeai" / "config.json").exists()
         assert (backup_dir / "CLAUDE.md").exists()
 
         # Verify manifest was created
@@ -104,18 +104,18 @@ class TestBackupCreation:
 
     def test_should_store_backup_in_correct_directory_structure(self, tmp_path):
         """
-        AC#2: Backup stored in `.devforgeai/backups/v{X.Y.Z}-{timestamp}/`
+        AC#2: Backup stored in `devforgeai/backups/v{X.Y.Z}-{timestamp}/`
 
         Arrange: Upgrade from 1.0.0
         Act: Call create_backup()
-        Assert: Backup directory path is `.devforgeai/backups/v1.0.0-{timestamp}/`
+        Assert: Backup directory path is `devforgeai/backups/v1.0.0-{timestamp}/`
         """
         # Arrange
         source_root = tmp_path / "installation"
         source_root.mkdir()
         (source_root / "file.txt").write_text("content")
 
-        backups_root = tmp_path / ".devforgeai" / "backups"
+        backups_root = tmp_path / "devforgeai" / "backups"
         service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
@@ -1508,7 +1508,7 @@ def backup_service_config():
     """Configuration for backup service"""
     return {
         "backup_retention_count": 5,
-        "backup_base_directory": ".devforgeai/backups",
+        "backup_base_directory": "devforgeai/backups",
         "exclude_patterns": [".git", "__pycache__", ".pytest_cache"]
     }
 
@@ -2012,11 +2012,11 @@ class TestExclusionPatterns:
 
     def test_should_exclude_backup_directory_itself(self, tmp_path):
         """
-        Test: .devforgeai/backups not included in backup
+        Test: devforgeai/backups not included in backup
 
-        Arrange: Installation with .devforgeai/backups directory
+        Arrange: Installation with devforgeai/backups directory
         Act: Call create_backup()
-        Assert: .devforgeai/backups excluded
+        Assert: devforgeai/backups excluded
         """
         # Arrange
         source_root = tmp_path / "installation"
@@ -2025,8 +2025,8 @@ class TestExclusionPatterns:
         # Create a file that WILL be backed up (so backup isn't empty)
         (source_root / "keep_me.txt").write_text("important file")
 
-        # Create .devforgeai/backups with old backups
-        old_backups = source_root / ".devforgeai" / "backups"
+        # Create devforgeai/backups with old backups
+        old_backups = source_root / "devforgeai" / "backups"
         old_backups.mkdir(parents=True)
         (old_backups / "old_backup.tar").write_bytes(b"backup")
 
@@ -2039,7 +2039,7 @@ class TestExclusionPatterns:
         # Assert
         backup_dir = backups_root / metadata.backup_id
         assert (backup_dir / "keep_me.txt").exists()  # Non-excluded file is backed up
-        assert not (backup_dir / ".devforgeai" / "backups").exists()  # Excluded dir is not
+        assert not (backup_dir / "devforgeai" / "backups").exists()  # Excluded dir is not
 
 
 class TestChecksumValidation:
@@ -2138,7 +2138,7 @@ class TestBackupRootPathValidation:
         """
         # Arrange
         monkeypatch.chdir(tmp_path)
-        backups_root = tmp_path / ".devforgeai" / "backups"
+        backups_root = tmp_path / "devforgeai" / "backups"
 
         # Act - Should not raise
         service = BackupService(backups_root=backups_root, allow_external_path=False)
@@ -2419,11 +2419,11 @@ class TestCoverageGaps:
 
     def test_default_backups_root_when_none_provided(self, tmp_path, monkeypatch):
         """
-        Test: Default backups_root uses .devforgeai/backups when None (covers line 110)
+        Test: Default backups_root uses devforgeai/backups when None (covers line 110)
 
         Arrange: Change cwd to a temp directory
         Act: Create BackupService with backups_root=None
-        Assert: backups_root is set to cwd/.devforgeai/backups
+        Assert: backups_root is set to cwd/devforgeai/backups
         """
         # Arrange - Change to temp directory
         monkeypatch.chdir(tmp_path)
@@ -2432,7 +2432,7 @@ class TestCoverageGaps:
         service = BackupService(backups_root=None)
 
         # Assert
-        expected = tmp_path / ".devforgeai" / "backups"
+        expected = tmp_path / "devforgeai" / "backups"
         assert service.backups_root == expected.resolve()
 
     def test_backup_creation_with_duplicate_timestamp_raises_error(self, tmp_path):

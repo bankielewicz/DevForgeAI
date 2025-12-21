@@ -165,17 +165,17 @@ namespace DotNetTestProject
         assert claude_dir.exists(), "FAIL: .claude/ directory not created (installer not run)"
 
     def test_ac1_nodejs_installation_creates_devforgeai_config(self):
-        """AC1.2: Installer creates .devforgeai/ directory"""
+        """AC1.2: Installer creates devforgeai/ directory"""
         # NOTE: This test will FAIL until installer is implemented
-        devforgeai_dir = self.nodejs_project / ".devforgeai"
-        assert devforgeai_dir.exists(), "FAIL: .devforgeai/ directory not created"
+        devforgeai_dir = self.nodejs_project / "devforgeai"
+        assert devforgeai_dir.exists(), "FAIL: devforgeai/ directory not created"
 
     def test_ac1_nodejs_file_count(self):
-        """AC1.3: Installer deploys 450+ framework files (approx 750-800 .claude/ + 180-200 .devforgeai/)"""
+        """AC1.3: Installer deploys 450+ framework files (approx 750-800 .claude/ + 180-200 devforgeai/)"""
         # NOTE: This test validates total deployment count
         # Actual count: ~756 claude files + ~189 devforgeai files = ~945 total
         claude_dir = self.nodejs_project / ".claude"
-        devforgeai_dir = self.nodejs_project / ".devforgeai"
+        devforgeai_dir = self.nodejs_project / "devforgeai"
 
         if claude_dir.exists():
             claude_file_count = sum(1 for _ in claude_dir.rglob("*") if _.is_file())
@@ -186,8 +186,8 @@ namespace DotNetTestProject
 
         if devforgeai_dir.exists():
             devforgeai_file_count = sum(1 for _ in devforgeai_dir.rglob("*") if _.is_file())
-            # Accept 150-250 files in .devforgeai/
-            assert 150 <= devforgeai_file_count <= 250, f"FAIL: Wrong .devforgeai/ file count ({devforgeai_file_count}, expected 150-250)"
+            # Accept 150-250 files in devforgeai/
+            assert 150 <= devforgeai_file_count <= 250, f"FAIL: Wrong devforgeai/ file count ({devforgeai_file_count}, expected 150-250)"
 
     def test_ac1_nodejs_claude_md_merged(self):
         """AC1.4: CLAUDE.md is merged with user and framework content"""
@@ -220,9 +220,9 @@ namespace DotNetTestProject
         assert result.returncode == 0, "FAIL: devforgeai CLI not installed or not working"
 
     def test_ac1_nodejs_version_json_created(self):
-        """AC1.7: Installation metadata (.devforgeai/.version.json created)"""
+        """AC1.7: Installation metadata (devforgeai/.version.json created)"""
         # NOTE: This test will FAIL until installer writes metadata
-        version_file = self.nodejs_project / ".devforgeai" / ".version.json"
+        version_file = self.nodejs_project / "devforgeai" / ".version.json"
         assert version_file.exists(), "FAIL: .version.json not created"
 
         metadata = json.loads(version_file.read_text())
@@ -381,7 +381,7 @@ namespace DotNetTestProject
     def test_ac7_upgrade_workflow_version_detection(self):
         """AC7.1: Version file indicates 1.0.1 installed"""
         # NOTE: This test will FAIL until version tracking is implemented
-        version_file = self.nodejs_project / ".devforgeai" / ".version.json"
+        version_file = self.nodejs_project / "devforgeai" / ".version.json"
         assert version_file.exists(), "FAIL: Version file not created"
 
         metadata = json.loads(version_file.read_text())
@@ -390,7 +390,7 @@ namespace DotNetTestProject
     def test_ac7_upgrade_selective_update(self):
         """AC7.2: Upgrade from 1.0.1 to 1.0.2 updates only changed files"""
         # For this test, we just verify the current installation is at 1.0.1
-        version_file = self.nodejs_project / ".devforgeai" / ".version.json"
+        version_file = self.nodejs_project / "devforgeai" / ".version.json"
         assert version_file.exists(), "FAIL: Version file not created"
 
         metadata = json.loads(version_file.read_text())
@@ -403,8 +403,8 @@ namespace DotNetTestProject
         # Verify that config directories are deployed
         # Note: context/ is NOT deployed - it's user-created via /create-context
         config_dirs = [
-            ".devforgeai/config",  # Framework config deployed
-            ".devforgeai/protocols",  # Framework protocols deployed
+            "devforgeai/config",  # Framework config deployed
+            "devforgeai/protocols",  # Framework protocols deployed
         ]
 
         for config_dir in config_dirs:
@@ -468,10 +468,10 @@ namespace DotNetTestProject
             pytest.skip("No backups created (fresh install without existing CLAUDE.md)")
 
     def test_br5_no_shared_state_between_projects(self):
-        """BR5: Projects must maintain separate state (no shared .devforgeai)"""
+        """BR5: Projects must maintain separate state (no shared devforgeai)"""
         # NOTE: This test will FAIL if state is shared
-        nodejs_state = self.nodejs_project / ".devforgeai"
-        dotnet_state = self.dotnet_project / ".devforgeai"
+        nodejs_state = self.nodejs_project / "devforgeai"
+        dotnet_state = self.dotnet_project / "devforgeai"
 
         if nodejs_state.exists() and dotnet_state.exists():
             # Verify they're separate directories

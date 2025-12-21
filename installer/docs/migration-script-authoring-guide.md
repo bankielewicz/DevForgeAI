@@ -80,8 +80,8 @@ def migrate(project_root: Path, dry_run: bool = False) -> dict:
 
     try:
         # Example: Move config file
-        old_config = project_root / ".devforgeai" / "old-config.json"
-        new_config = project_root / ".devforgeai" / "config" / "settings.json"
+        old_config = project_root / "devforgeai" / "old-config.json"
+        new_config = project_root / "devforgeai" / "config" / "settings.json"
 
         if old_config.exists():
             if dry_run:
@@ -92,7 +92,7 @@ def migrate(project_root: Path, dry_run: bool = False) -> dict:
                 result["files_moved"].append((str(old_config), str(new_config)))
 
         # Example: Update schema version
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         if version_file.exists():
             if dry_run:
                 result["status"] = "dry_run_validated"
@@ -299,7 +299,7 @@ import json
 def test_migration_v1_0_0_to_v1_1_0(tmp_path):
     """Test v1.0.0 to v1.1.0 migration."""
     # Arrange: Create v1.0.0 structure
-    old_config = tmp_path / ".devforgeai" / "old-config.json"
+    old_config = tmp_path / "devforgeai" / "old-config.json"
     old_config.parent.mkdir(parents=True)
     old_config.write_text('{"key": "value"}')
 
@@ -310,13 +310,13 @@ def test_migration_v1_0_0_to_v1_1_0(tmp_path):
     # Assert
     assert result["status"] == "success"
     assert not old_config.exists()
-    new_config = tmp_path / ".devforgeai" / "config" / "settings.json"
+    new_config = tmp_path / "devforgeai" / "config" / "settings.json"
     assert new_config.exists()
 
 
 def test_migration_dry_run(tmp_path):
     """Test dry run doesn't modify files."""
-    old_config = tmp_path / ".devforgeai" / "old-config.json"
+    old_config = tmp_path / "devforgeai" / "old-config.json"
     old_config.parent.mkdir(parents=True)
     old_config.write_text('{"key": "value"}')
 

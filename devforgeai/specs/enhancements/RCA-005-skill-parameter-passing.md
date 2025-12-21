@@ -316,7 +316,7 @@ $2 = "--mode=deep"                    # Second argument only
    - Test each command with valid inputs
    - Test each command with invalid inputs (typos, flags, missing args)
    - Test each command with edge cases (missing files, wrong status)
-   - Document test results in `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+   - Document test results in `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 2. **Evidence-Based Design**
    - Consult official documentation for all assumptions
@@ -639,7 +639,7 @@ Skills work correctly but don't document how to extract parameters from conversa
 
 ## Solution Implementation Plan
 
-See: `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+See: `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
 
 **Summary:**
 - 7 phases total
@@ -838,7 +838,7 @@ ELSE IF $2 starts with "--":
 8. ✅ Test `/orchestrate STORY-001` (full lifecycle)
 9. ✅ Test `/create-ui STORY-001` (UI generation)
 
-**Test documentation:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+**Test documentation:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 ### Post-Testing Actions
 
@@ -875,8 +875,8 @@ ELSE IF $2 starts with "--":
 ---
 
 **Reference Documents:**
-- **Audit:** `.devforgeai/specs/enhancements/RCA-005-command-audit.md`
-- **Fix Plan:** `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
-- **Test Results:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+- **Audit:** `devforgeai/specs/enhancements/RCA-005-command-audit.md`
+- **Fix Plan:** `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md`
+- **Test Results:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 - **Validation Pattern:** `.claude/skills/devforgeai-development/references/slash-command-argument-validation-pattern.md`
 - **Test Commands:** `.claude/commands/test-skill-context.md`, `.claude/commands/test-arg-validation.md`

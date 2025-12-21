@@ -26,7 +26,7 @@ class TestVersionFlowFreshInstall:
         When: installer runs version detection
         Then: treats as fresh install with version 0.0.0"""
         # Arrange
-        devforgeai_path = temp_dir / ".devforgeai"
+        devforgeai_path = temp_dir / "devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
         from installer.version_detector import VersionDetector
@@ -73,7 +73,7 @@ class TestVersionFlowMinorUpgrade:
         When: full version flow executes
         Then: detects upgrade, identifies as MINOR, allows without warning"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.0.0",
@@ -88,7 +88,7 @@ class TestVersionFlowMinorUpgrade:
         from installer.compatibility_checker import CompatibilityChecker
 
         # Act
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
         parser = VersionParser()
         comparator = VersionComparator()
         checker = CompatibilityChecker()
@@ -110,7 +110,7 @@ class TestVersionFlowMinorUpgrade:
         When: detector.display_version() called
         Then: returns user-friendly version string"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.0.0",
@@ -120,7 +120,7 @@ class TestVersionFlowMinorUpgrade:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         display = detector.display_version()
@@ -138,7 +138,7 @@ class TestVersionFlowMajorUpgrade:
         When: full version flow executes
         Then: detects upgrade, identifies as MAJOR, shows warnings"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.0.0",
@@ -153,7 +153,7 @@ class TestVersionFlowMajorUpgrade:
         from installer.compatibility_checker import CompatibilityChecker
 
         # Act
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
         parser = VersionParser()
         comparator = VersionComparator()
         checker = CompatibilityChecker()
@@ -224,7 +224,7 @@ class TestVersionFlowDowngrade:
         When: full version flow executes
         Then: detects downgrade, blocks operation, shows error"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "2.0.0",
@@ -239,7 +239,7 @@ class TestVersionFlowDowngrade:
         from installer.compatibility_checker import CompatibilityChecker
 
         # Act
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
         parser = VersionParser()
         comparator = VersionComparator()
         checker = CompatibilityChecker()
@@ -354,13 +354,13 @@ class TestVersionFlowErrorHandling:
         When: detector.read_version() called
         Then: returns clear error without crashing"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_file.write_text("{invalid json")
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         result = detector.get_version_status()
@@ -374,7 +374,7 @@ class TestVersionFlowErrorHandling:
         When: read_version() called
         Then: returns error without crashing"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "not.a.valid.version",
@@ -384,7 +384,7 @@ class TestVersionFlowErrorHandling:
 
         from installer.version_detector import VersionDetector
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
 
         # Act
         result = detector.get_version_status()
@@ -401,7 +401,7 @@ class TestVersionFlowPerformance:
         When: full flow executes
         Then: completes in < 1 second total"""
         # Arrange
-        version_file = temp_dir / ".devforgeai" / ".version.json"
+        version_file = temp_dir / "devforgeai" / ".version.json"
         version_file.parent.mkdir(parents=True, exist_ok=True)
         version_data = {
             "version": "1.0.0",
@@ -418,7 +418,7 @@ class TestVersionFlowPerformance:
         # Act
         start = time.time()
 
-        detector = VersionDetector(devforgeai_path=version_file.parent.parent / ".devforgeai")
+        detector = VersionDetector(devforgeai_path=version_file.parent.parent / "devforgeai")
         parser = VersionParser()
         comparator = VersionComparator()
         checker = CompatibilityChecker()

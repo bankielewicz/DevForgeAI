@@ -670,7 +670,7 @@ created: [Date]
 **Comprehensive technical requirements doc:**
 
 ```
-Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md", content="""
+Write(file_path="devforgeai/specs/requirements/[project-name]-requirements.md", content="""
 # [Project Name] - Requirements Specification
 
 ## Project Context
@@ -935,7 +935,7 @@ multiSelect: true
 
 **Output Artifacts:**
 - 1+ Epic documents (`devforgeai/specs/Epics/`)
-- Requirements specification (`.devforgeai/specs/requirements/`)
+- Requirements specification (`devforgeai/specs/requirements/`)
 - Complexity assessment report
 
 **Transition Point:**

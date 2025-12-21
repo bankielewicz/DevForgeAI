@@ -130,7 +130,7 @@ Integration tests for STORY-011 Configuration Management have been executed succ
 ### Generated Reports
 
 #### 1. Comprehensive Integration Test Report
-- **File:** `.devforgeai/qa/reports/STORY-011-integration-test-report.md` (25KB)
+- **File:** `devforgeai/qa/reports/STORY-011-integration-test-report.md` (25KB)
 - **Contents:**
   - Executive summary with key results
   - Test execution summary by category
@@ -145,7 +145,7 @@ Integration tests for STORY-011 Configuration Management have been executed succ
   - Appendix with test execution log
 
 #### 2. Integration Test Scenarios Document
-- **File:** `.devforgeai/qa/integration-test-scenarios.md` (19KB)
+- **File:** `devforgeai/qa/integration-test-scenarios.md` (19KB)
 - **Contents:**
   - 9 detailed integration test scenarios
   - Step-by-step flow validation for each scenario
@@ -162,7 +162,7 @@ Integration tests for STORY-011 Configuration Management have been executed succ
   - Summary of integration test results
 
 #### 3. Test Summary Document
-- **File:** `.devforgeai/qa/STORY-011-test-summary.md` (12KB)
+- **File:** `devforgeai/qa/STORY-011-test-summary.md` (12KB)
 - **Contents:**
   - Quick facts (75 tests, 100% pass rate, 1.18s execution)
   - What was tested (8 categories)
@@ -173,7 +173,7 @@ Integration tests for STORY-011 Configuration Management have been executed succ
   - Test execution details
 
 #### 4. Main Integration Test Execution Report
-- **File:** `.devforgeai/qa/INTEGRATION-TEST-EXECUTION-REPORT.md` (35KB)
+- **File:** `devforgeai/qa/INTEGRATION-TEST-EXECUTION-REPORT.md` (35KB)
 - **Contents:**
   - Executive summary
   - Test execution results by category
@@ -241,7 +241,7 @@ Integration tests for STORY-011 Configuration Management have been executed succ
 
 ### QA Reports
 ```
-.devforgeai/qa/
+devforgeai/qa/
 ├── STORY-011-INTEGRATION-TESTING-COMPLETE.md (THIS FILE)
 ├── INTEGRATION-TEST-EXECUTION-REPORT.md (35KB - Main Report)
 ├── STORY-011-test-summary.md (12KB - Quick Summary)
@@ -356,10 +356,10 @@ All 75 integration tests pass with zero failures, validating that the Configurat
 ## Related Documentation
 
 **Quick References:**
-- Main Report: `.devforgeai/qa/INTEGRATION-TEST-EXECUTION-REPORT.md`
-- Test Summary: `.devforgeai/qa/STORY-011-test-summary.md`
-- Test Scenarios: `.devforgeai/qa/integration-test-scenarios.md`
-- Coverage Matrix: `.devforgeai/qa/reports/STORY-011-test-coverage-matrix.md`
+- Main Report: `devforgeai/qa/INTEGRATION-TEST-EXECUTION-REPORT.md`
+- Test Summary: `devforgeai/qa/STORY-011-test-summary.md`
+- Test Scenarios: `devforgeai/qa/integration-test-scenarios.md`
+- Coverage Matrix: `devforgeai/qa/reports/STORY-011-test-coverage-matrix.md`
 
 **Source Files:**
 - Test Suite: `.claude/scripts/devforgeai_cli/tests/feedback/test_configuration_management.py`

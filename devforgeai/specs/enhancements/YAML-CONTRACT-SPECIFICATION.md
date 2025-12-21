@@ -418,7 +418,7 @@ error_handling:
 monitoring:
   log_violations:
     enabled: true
-    log_path: ".devforgeai/logs/rca-007-violations.log"
+    log_path: "devforgeai/logs/rca-007-violations.log"
     log_format: |
       [VIOLATION DETECTED]
       Timestamp: {timestamp}
@@ -813,7 +813,7 @@ error_handling:
 monitoring:
   log_violations:
     enabled: true
-    log_path: ".devforgeai/logs/rca-007-violations.log"
+    log_path: "devforgeai/logs/rca-007-violations.log"
 
 # Changelog
 changelog:
@@ -1218,7 +1218,7 @@ assert len(violations) == 0
 ### Contract Review Schedule
 
 **Monthly review:**
-- Check violation logs (`.devforgeai/logs/rca-007-violations.log`)
+- Check violation logs (`devforgeai/logs/rca-007-violations.log`)
 - Analyze common violations
 - Update prohibited_patterns if new violation types discovered
 - Adjust max_output_length if needed
@@ -1309,7 +1309,7 @@ assert len(violations) == 0
 - [ ] Violations detected correctly (100% detection rate)
 - [ ] Error handling applied per contract (re_invoke, halt, etc.)
 - [ ] Monitoring data logged
-- [ ] Violations logged to .devforgeai/logs/
+- [ ] Violations logged to devforgeai/logs/
 
 ### Framework-Wide Success
 
@@ -1322,10 +1322,10 @@ assert len(violations) == 0
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Prompt Enhancement:** `.devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
-- **Batch Creation:** `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Prompt Enhancement:** `devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
+- **Batch Creation:** `devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
 
 ---
 

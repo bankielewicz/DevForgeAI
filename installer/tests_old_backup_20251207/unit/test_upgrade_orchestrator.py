@@ -43,8 +43,8 @@ def project_root(tmp_path):
     project = tmp_path / "project"
     project.mkdir()
 
-    # Create .devforgeai structure
-    devforgeai = project / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai = project / "devforgeai"
     devforgeai.mkdir()
     (devforgeai / "config").mkdir()
     (devforgeai / "context").mkdir()
@@ -72,7 +72,7 @@ def installed_version_1_0_0(project_root):
     Returns:
         Path: Path to version.json
     """
-    version_file = project_root / ".devforgeai" / ".version.json"
+    version_file = project_root / "devforgeai" / ".version.json"
     version_file.write_text(json.dumps({
         "version": "1.0.0",
         "installed_at": "2025-11-01T00:00:00Z",
@@ -314,7 +314,7 @@ class TestUpgradeDetection:
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
         # Remove version file (created by fixture)
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         if version_file.exists():
             version_file.unlink()
 
@@ -349,7 +349,7 @@ class TestBackupCreation:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -390,7 +390,7 @@ class TestBackupCreation:
 
         # Assert
         assert (backup_path / ".claude").exists() or True  # Will fail until implemented
-        assert (backup_path / ".devforgeai").exists() or True
+        assert (backup_path / "devforgeai").exists() or True
         assert (backup_path / "CLAUDE.md").exists() or True
 
     def test_backup_stored_in_correct_location(self, project_root, installed_version_1_0_0):
@@ -410,7 +410,7 @@ class TestBackupCreation:
         backup_path = orchestrator._create_backup(project_root=project_root, from_version="1.0.0")
 
         # Assert
-        assert "devforgeai/backups" in str(backup_path) or ".devforgeai\\backups" in str(backup_path)
+        assert "devforgeai/backups" in str(backup_path) or "devforgeai\\backups" in str(backup_path)
         assert "v1.0.0" in backup_path.name
 
     def test_backup_includes_version_metadata(self, project_root, installed_version_1_0_0):
@@ -430,7 +430,7 @@ class TestBackupCreation:
         backup_path = orchestrator._create_backup(project_root=project_root, from_version="1.0.0")
 
         # Assert
-        backup_version = backup_path / ".devforgeai" / ".version.json"
+        backup_version = backup_path / "devforgeai" / ".version.json"
         assert backup_version.exists() or True  # Will fail until implemented
 
 
@@ -452,7 +452,7 @@ class TestVersionMetadataUpdate:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -469,7 +469,7 @@ class TestVersionMetadataUpdate:
         result = orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert version_data["version"] == "1.1.0"
 
@@ -484,7 +484,7 @@ class TestVersionMetadataUpdate:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -501,7 +501,7 @@ class TestVersionMetadataUpdate:
         orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert version_data["upgraded_from"] == "1.0.0"
 
@@ -516,7 +516,7 @@ class TestVersionMetadataUpdate:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -533,7 +533,7 @@ class TestVersionMetadataUpdate:
         orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert "upgrade_timestamp" in version_data
 
@@ -553,7 +553,7 @@ class TestVersionMetadataUpdate:
         mock_migration.from_version = "1.0.0"
         mock_migration.to_version = "1.1.0"
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = [mock_migration]
         mock_dependencies["migration_runner"].run.return_value = Mock(
             success=True,
@@ -573,7 +573,7 @@ class TestVersionMetadataUpdate:
         orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert "migrations_applied" in version_data
         assert len(version_data["migrations_applied"]) > 0
@@ -597,7 +597,7 @@ class TestAutomaticRollback:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-test"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-test"
         backup_path.mkdir(parents=True)
 
         mock_dependencies["backup_service"].create_backup.return_value = backup_path
@@ -635,7 +635,7 @@ class TestAutomaticRollback:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-test"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-test"
         backup_path.mkdir(parents=True)
 
         mock_dependencies["backup_service"].create_backup.return_value = backup_path
@@ -673,9 +673,9 @@ class TestAutomaticRollback:
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
         # Create backup with original version
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-test"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-test"
         backup_path.mkdir(parents=True)
-        backup_devforgeai = backup_path / ".devforgeai"
+        backup_devforgeai = backup_path / "devforgeai"
         backup_devforgeai.mkdir()
         backup_version = backup_devforgeai / ".version.json"
         backup_version.write_text(json.dumps({"version": "1.0.0"}))
@@ -691,8 +691,8 @@ class TestAutomaticRollback:
         def do_restore(backup_path, target_path):
             # Simulate restore
             import shutil
-            if (backup_path / ".devforgeai").exists():
-                shutil.copytree(backup_path / ".devforgeai", target_path / ".devforgeai", dirs_exist_ok=True)
+            if (backup_path / "devforgeai").exists():
+                shutil.copytree(backup_path / "devforgeai", target_path / "devforgeai", dirs_exist_ok=True)
             return True
 
         mock_dependencies["backup_service"].restore.side_effect = lambda bp, tp: do_restore(bp, tp)
@@ -709,7 +709,7 @@ class TestAutomaticRollback:
         orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert version_data["version"] == "1.0.0"
 
@@ -724,7 +724,7 @@ class TestAutomaticRollback:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-test"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-test"
         backup_path.mkdir(parents=True)
 
         mock_dependencies["backup_service"].create_backup.return_value = backup_path
@@ -775,7 +775,7 @@ class TestUpgradeSummary:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -810,7 +810,7 @@ class TestUpgradeSummary:
         mock_migration.from_version = "1.0.0"
         mock_migration.to_version = "1.1.0"
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = [mock_migration]
         mock_dependencies["migration_runner"].run.return_value = Mock(
             success=True,
@@ -843,7 +843,7 @@ class TestUpgradeSummary:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-20251201"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-20251201"
 
         mock_dependencies["backup_service"].create_backup.return_value = backup_path
         mock_dependencies["migration_discovery"].discover.return_value = []
@@ -875,7 +875,7 @@ class TestUpgradeSummary:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -905,7 +905,7 @@ class TestUpgradeSummary:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)
@@ -922,7 +922,7 @@ class TestUpgradeSummary:
         result = orchestrator.execute(project_root=project_root, source_root=source_package["root"])
 
         # Assert
-        logs_dir = project_root / ".devforgeai" / "logs"
+        logs_dir = project_root / "devforgeai" / "logs"
         log_files = list(logs_dir.glob("upgrade-*.log"))
         assert len(log_files) > 0 or result.log_file is not None
 
@@ -949,7 +949,7 @@ class TestWorkflowOrchestration:
 
         mock_dependencies["backup_service"].create_backup.side_effect = lambda **kwargs: (
             call_order.append("backup"),
-            project_root / ".devforgeai" / "backups" / "v1.0.0"
+            project_root / "devforgeai" / "backups" / "v1.0.0"
         )[1]
 
         mock_dependencies["migration_discovery"].discover.side_effect = lambda **kwargs: (
@@ -1085,9 +1085,9 @@ class TestBusinessRules:
 
         def track_backup(**kwargs):
             # Record that backup happened before any file changes
-            current_version = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+            current_version = json.loads((project_root / "devforgeai" / ".version.json").read_text())
             assert current_version["version"] == "1.0.0", "Files modified before backup!"
-            return project_root / ".devforgeai" / "backups" / "v1.0.0"
+            return project_root / "devforgeai" / "backups" / "v1.0.0"
 
         mock_dependencies["backup_service"].create_backup.side_effect = track_backup
         mock_dependencies["migration_discovery"].discover.return_value = []
@@ -1122,7 +1122,7 @@ class TestBusinessRules:
         user_story = stories_dir / "STORY-001.md"
         user_story.write_text("# User Story\n\nImportant content")
 
-        mock_dependencies["backup_service"].create_backup.return_value = project_root / ".devforgeai" / "backups" / "v1.0.0"
+        mock_dependencies["backup_service"].create_backup.return_value = project_root / "devforgeai" / "backups" / "v1.0.0"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(success=True, applied_migrations=[])
         mock_dependencies["migration_validator"].validate.return_value = Mock(overall_passed=True, should_rollback=False)

@@ -86,7 +86,7 @@ PASSED  [100%] - 19 tests passed in 0.27s
 
 #### 3. Permission Denied Edge Case (1 test) - Edge Case 1
 - `test_log_creation_falls_back_to_tmpdir_if_permission_denied` - **PASSED**
-  - Verifies: Fallback to TMPDIR when .devforgeai not writable
+  - Verifies: Fallback to TMPDIR when devforgeai not writable
   - Validates: Graceful degradation
 
 #### 4. Large Installation Scenarios (2 tests) - NFR-008
@@ -298,7 +298,7 @@ All data flow checks performed successfully:
 ### Error Categories Tested
 
 1. **Permission Denied (PERMISSION_DENIED)**
-   - Fallback mechanism: When .devforgeai not writable, falls back to TMPDIR
+   - Fallback mechanism: When devforgeai not writable, falls back to TMPDIR
    - Test: `test_log_creation_falls_back_to_tmpdir_if_permission_denied`
    - Status: ✓ PASS
 
@@ -367,11 +367,11 @@ Manifest excludes failed files
 ```
 
 ### AC#2: Log File with ISO 8601 Timestamps
-**Requirement:** Create .devforgeai/install.log with ISO 8601 UTC timestamps
+**Requirement:** Create devforgeai/install.log with ISO 8601 UTC timestamps
 ```
 ✓ Test: test_log_file_always_created_all_modes
 ✓ Verified:
-  - Location: {target}/.devforgeai/install.log
+  - Location: {target}/devforgeai/install.log
   - Format: YYYY-MM-DDTHH:MM:SS
   - Timezone: UTC (Z suffix for manifest, implicit for logs)
   - Encoding: UTF-8 with LF line endings
@@ -394,7 +394,7 @@ Manifest excludes failed files
 ✓ Test: test_checksums_are_64_char_hex
 ✓ Test: test_file_paths_relative_in_manifest
 ✓ Verified:
-  - Location: {target}/.devforgeai/.install-manifest.json
+  - Location: {target}/devforgeai/.install-manifest.json
   - Format: JSON with compact serialization
   - Files: Relative paths, SHA256 checksums, size, category
   - Metadata: Version, timestamp, installer_version
@@ -443,7 +443,7 @@ Manifest excludes failed files
 ### Scenario 1: Successful Installation (Interactive Mode)
 ```
 Flow:
-  1. InstallationReporter.create_log_file() → .devforgeai/install.log
+  1. InstallationReporter.create_log_file() → devforgeai/install.log
   2. File operations logged via log_operation()
   3. InstallationReporter.generate_console_report() → console output
   4. ManifestGenerator.generate_manifest() → .install-manifest.json
@@ -455,7 +455,7 @@ Status: ✓ PASS (test_interactive_mode_produces_console_summary_plus_log)
 ### Scenario 2: Partial Installation with Errors (JSON Mode)
 ```
 Flow:
-  1. InstallationReporter.create_log_file() → .devforgeai/install.log
+  1. InstallationReporter.create_log_file() → devforgeai/install.log
   2. Errors encountered → categorize_error() → 7 types
   3. InstallationReporter.generate_json_output() → compact JSON
   4. JSON includes status: failure, error list, file counts
@@ -488,7 +488,7 @@ Status: ✓ PASS (test_json_output_with_500_error_entries)
 ### Scenario 4: Permission Denied Fallback
 ```
 Flow:
-  1. create_log_file() attempts .devforgeai/install.log
+  1. create_log_file() attempts devforgeai/install.log
   2. Permission denied on directory creation
   3. Fallback triggered: tmpdir = os.path.expanduser("~/tmp") or /tmp
   4. Log file created in fallback location
@@ -562,7 +562,7 @@ Status: ✓ PASS (test_json_output_is_compact_no_pretty_print)
 ```
 Rule 5a - Paths in Reports (ABSOLUTE):
   Pattern: /absolute/path/to/file
-  Example: /mnt/c/Projects/DevForgeAI2/.devforgeai/install.log
+  Example: /mnt/c/Projects/DevForgeAI2/devforgeai/install.log
   Status: ✓ PASS (test_file_paths_absolute_in_reports)
 
 Rule 5b - Paths in Manifest (RELATIVE):

@@ -8,7 +8,7 @@
 # Legacy Format: 1.0 (flat format - deprecated but still supported)
 #
 # Copy this file to one of these locations:
-#   - .devforgeai/config/ci-answers.yaml (preferred)
+#   - devforgeai/config/ci-answers.yaml (preferred)
 #   - devforgeai/config/ci/ci-answers.yaml (fallback)
 
 # =============================================================================

@@ -224,7 +224,7 @@ def delete_files() -> bool:
         # Define files to delete
         files_to_delete = [
             ".claude/agents/old-deprecated-agent.md",
-            ".devforgeai/old-config.json",
+            "devforgeai/old-config.json",
         ]
 
         for file_path in files_to_delete:
@@ -253,7 +253,7 @@ def create_files() -> bool:
     try:
         # Define new files
         new_files = {
-            ".devforgeai/config/new-config.json": {
+            "devforgeai/config/new-config.json": {
                 "version": "1.1.0",
                 "features": ["new_feature_1", "new_feature_2"]
             }
@@ -287,7 +287,7 @@ def create_files() -> bool:
 def update_json_config() -> bool:
     """Update JSON configuration files."""
     try:
-        config_path = Path(".devforgeai/config/upgrade-config.json")
+        config_path = Path("devforgeai/config/upgrade-config.json")
 
         if not config_path.exists():
             logger.warning("Configuration file not found, skipping update")
@@ -528,7 +528,7 @@ import sys
 def migration_env(tmp_path):
     """Set up test environment for migration."""
     # Create DevForgeAI directory structure
-    devforgeai_dir = tmp_path / ".devforgeai"
+    devforgeai_dir = tmp_path / "devforgeai"
     devforgeai_dir.mkdir()
 
     # Create required subdirectories
@@ -565,7 +565,7 @@ def test_migration_success(migration_env):
 def test_migration_missing_precondition(migration_env):
     """Test migration with missing preconditions."""
     # Remove required file
-    (migration_env / ".devforgeai" / "context" / "tech-stack.md").unlink()
+    (migration_env / "devforgeai" / "context" / "tech-stack.md").unlink()
 
     sys.path.insert(0, str(Path.cwd() / "migrations"))
     from v1_0_0_to_v1_1_0 import main
@@ -772,7 +772,7 @@ def update_story_schema() -> bool:
 
 def create_new_configuration() -> bool:
     """Create new configuration file for v1.2.0 features."""
-    config_path = Path(".devforgeai/config/new-features.json")
+    config_path = Path("devforgeai/config/new-features.json")
     config_path.parent.mkdir(parents=True, exist_ok=True)
 
     config = {
@@ -818,7 +818,7 @@ def validate_postconditions() -> bool:
     """Validate migration success."""
     # Check that new format files exist
     expected_files = [
-        ".devforgeai/config/new-features.json",
+        "devforgeai/config/new-features.json",
     ]
 
     for file_path in expected_files:

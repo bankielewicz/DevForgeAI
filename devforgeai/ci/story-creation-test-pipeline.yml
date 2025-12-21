@@ -31,7 +31,7 @@ on:
       - 'tests/regression/test_story_064_regression_suite.py'
       - 'tests/performance/test_story_064_performance_suite.py'
       - 'tests/user-input-guidance/fixtures/**'
-      - '.devforgeai/ci/story-creation-test-pipeline.yml'
+      - 'devforgeai/ci/story-creation-test-pipeline.yml'
 
   pull_request:
     branches:
@@ -44,7 +44,7 @@ on:
       - 'tests/regression/test_story_064_regression_suite.py'
       - 'tests/performance/test_story_064_performance_suite.py'
       - 'tests/user-input-guidance/fixtures/**'
-      - '.devforgeai/ci/story-creation-test-pipeline.yml'
+      - 'devforgeai/ci/story-creation-test-pipeline.yml'
 
 jobs:
   unit-tests:

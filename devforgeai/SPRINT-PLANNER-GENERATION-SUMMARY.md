@@ -491,7 +491,7 @@ Update command and skill documentation:
 **Status:** Ready for reference
 
 ### This Summary
-**Location:** `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
+**Location:** `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
 **Lines:** 380 (this file)
 **Status:** Complete
 

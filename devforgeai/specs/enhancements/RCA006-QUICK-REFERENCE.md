@@ -129,10 +129,10 @@
 
 ```bash
 # Restore original files (15 minutes)
-cp .devforgeai/backups/phase1/tdd-red-phase.md.backup \
+cp devforgeai/backups/phase1/tdd-red-phase.md.backup \
    .claude/skills/devforgeai-development/references/tdd-red-phase.md
 
-cp .devforgeai/backups/phase1/test-automator.md.backup \
+cp devforgeai/backups/phase1/test-automator.md.backup \
    .claude/agents/test-automator.md
 
 # Restart terminal

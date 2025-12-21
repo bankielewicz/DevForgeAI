@@ -111,7 +111,7 @@ def get_installed_version(devforgeai_path: Path) -> dict | None
 from pathlib import Path
 from installer import version
 
-devforgeai_path = Path("/path/to/project/.devforgeai")
+devforgeai_path = Path("/path/to/project/devforgeai")
 installed = version.get_installed_version(devforgeai_path)
 
 if installed:
@@ -668,7 +668,7 @@ MODE_DOWNGRADE = "downgrade"
 ```python
 HASH_ALGORITHM = "sha256"           # Integrity hash algorithm
 CHUNK_SIZE = 65536                  # File reading chunk size (64KB)
-BACKUP_SUBDIRS = [".claude", ".devforgeai", "CLAUDE.md"]
+BACKUP_SUBDIRS = [".claude", "devforgeai", "CLAUDE.md"]
 ```
 
 ### Deployment Constants (deploy.py)

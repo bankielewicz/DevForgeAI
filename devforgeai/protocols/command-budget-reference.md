@@ -117,7 +117,7 @@ done | sort -t'(' -k2 -n
 
 ```bash
 # 1. Generate budget report
-bash .devforgeai/scripts/check-command-budgets.sh > reports/budget-$(date +%Y-%m).txt
+bash devforgeai/scripts/check-command-budgets.sh > reports/budget-$(date +%Y-%m).txt
 
 # 2. Identify growth
 diff reports/budget-$(date -d 'last month' +%Y-%m).txt reports/budget-$(date +%Y-%m).txt
@@ -350,7 +350,7 @@ git checkout HEAD~ .claude/memory/*.md
 /[command] [test-args]
 
 # 8. Document issue
-# Create rollback report: .devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
+# Create rollback report: devforgeai/specs/enhancements/[COMMAND]-rollback-report.md
 ```
 
 **Validation:**
@@ -370,7 +370,7 @@ After rollback, investigate:
 - [ ] **Prevention?** (add to testing checklist)
 
 **Document findings in:**
-- `.devforgeai/specs/enhancements/[COMMAND]-rollback-report.md`
+- `devforgeai/specs/enhancements/[COMMAND]-rollback-report.md`
 
 ---
 
@@ -537,7 +537,7 @@ After rollback, investigate:
 
 ```bash
 # Run all tests for a command
-bash .devforgeai/tests/commands/test-[command].sh
+bash devforgeai/tests/commands/test-[command].sh
 
 # Expected output:
 # Unit Tests: 15/15 passed ✅
@@ -652,12 +652,12 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 ### Detailed Refactoring Documentation
 
 **Analysis documents:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep dive
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
-- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring complete
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep dive
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` - Architecture overview
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` - Testing strategy
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-PLAN.md` - Refactoring plan
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring complete
 
 **Skill refactoring plans (NEW):**
 - `devforgeai/specs/analysis/devforgeai-orchestration.md` (2,088 lines)

@@ -151,8 +151,8 @@ def temp_project_dir():
     """Create temporary project directory structure."""
     temp_dir = tempfile.mkdtemp()
 
-    # Create .devforgeai/feedback/ structure
-    feedback_dir = Path(temp_dir) / ".devforgeai" / "feedback"
+    # Create devforgeai/feedback/ structure
+    feedback_dir = Path(temp_dir) / "devforgeai" / "feedback"
     feedback_dir.mkdir(parents=True, exist_ok=True)
 
     sessions_dir = feedback_dir / "sessions"
@@ -290,13 +290,13 @@ class TestExportPackageStructure:
         assert os.path.isfile(archive_path)
 
     def test_export_filename_follows_pattern(self, temp_project_dir):
-        """AC2: Filename follows pattern: .devforgeai-feedback-export-{timestamp}.zip"""
+        """AC2: Filename follows pattern: devforgeai-feedback-export-{timestamp}.zip"""
         from feedback_export_import import export_feedback_sessions
 
         result = export_feedback_sessions(date_range="last-30-days")
         filename = os.path.basename(result["archive_path"])
 
-        assert filename.startswith(".devforgeai-feedback-export-")
+        assert filename.startswith("devforgeai-feedback-export-")
         assert filename.endswith(".zip")
 
     def test_export_uses_iso_8601_timestamp(self, temp_project_dir):
@@ -307,9 +307,9 @@ class TestExportPackageStructure:
         result = export_feedback_sessions(date_range="last-30-days")
         filename = os.path.basename(result["archive_path"])
 
-        # Pattern: .devforgeai-feedback-export-2025-11-07T14-30-00-{uuid}.zip
+        # Pattern: devforgeai-feedback-export-2025-11-07T14-30-00-{uuid}.zip
         # UUID suffix added for guaranteed uniqueness on rapid successive exports
-        pattern = r"\.devforgeai-feedback-export-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}(-[a-f0-9]{8})?\.zip"
+        pattern = r"\devforgeai-feedback-export-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}(-[a-f0-9]{8})?\.zip"
         assert re.match(pattern, filename), f"Filename {filename} doesn't match expected pattern"
 
     def test_export_created_in_project_root(self, temp_project_dir):
@@ -978,14 +978,14 @@ class TestSanitizationCustomFields:
                         assert original_id not in content
 
     def test_original_unsanitized_preserved_in_feedback_dir(self):
-        """AC7: Original unsanitized version remains in user's .devforgeai/feedback/ directory."""
+        """AC7: Original unsanitized version remains in user's devforgeai/feedback/ directory."""
         from feedback_export_import import export_feedback_sessions
 
         result = export_feedback_sessions(date_range="last-30-days", sanitize=True)
 
         # Verify original sessions still exist locally (not deleted)
         assert result["success"] is True
-        # Original files should still be in .devforgeai/feedback/sessions/
+        # Original files should still be in devforgeai/feedback/sessions/
 
 
 # ============================================================================
@@ -1108,13 +1108,13 @@ class TestImportExtraction:
     """Tests for import extraction and directory placement (AC9)."""
 
     def test_import_extracts_to_timestamped_directory(self, temp_project_dir, valid_import_zip):
-        """AC9: Package extracted to .devforgeai/feedback/imported/{timestamp}/"""
+        """AC9: Package extracted to devforgeai/feedback/imported/{timestamp}/"""
         from feedback_export_import import import_feedback_sessions
 
         result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         extracted_path = result["extracted_path"]
-        assert ".devforgeai" in extracted_path
+        assert "devforgeai" in extracted_path
         assert "feedback" in extracted_path
         assert "imported" in extracted_path
 
@@ -1206,7 +1206,7 @@ class TestIndexMerging:
         result = import_feedback_sessions(archive_path=str(test_zip))
 
         # Verify new sessions added
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         with open(index_path) as f:
             index = json.load(f)
 
@@ -1249,7 +1249,7 @@ class TestIndexMerging:
         import_feedback_sessions(archive_path=str(test_zip))
 
         # Check for conflict log
-        log_path = temp_project_dir / ".devforgeai" / "feedback" / "conflict-resolution.log"
+        log_path = temp_project_dir / "devforgeai" / "feedback" / "conflict-resolution.log"
         # Log file should exist if conflicts occurred
 
     def test_merge_atomic_operation(self, temp_project_dir, valid_import_zip):
@@ -1259,7 +1259,7 @@ class TestIndexMerging:
         result = import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify index is valid JSON (not partial)
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         if index_path.exists():
             with open(index_path) as f:
                 # Should not raise JSON parse error
@@ -1272,7 +1272,7 @@ class TestIndexMerging:
         import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify sessions are in time order
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         if index_path.exists():
             with open(index_path) as f:
                 index = json.load(f)
@@ -1298,7 +1298,7 @@ class TestIndexMerging:
         import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify is_imported flag set
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         if index_path.exists():
             with open(index_path) as f:
                 index = json.load(f)
@@ -1314,7 +1314,7 @@ class TestIndexMerging:
         import_feedback_sessions(archive_path=str(valid_import_zip))
 
         # Verify imported_from metadata
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         if index_path.exists():
             with open(index_path) as f:
                 index = json.load(f)
@@ -1326,7 +1326,7 @@ class TestIndexMerging:
     @staticmethod
     def _create_initial_index(temp_project_dir):
         """Helper: Create initial feedback index."""
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         index_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(index_path, 'w') as f:
@@ -1335,7 +1335,7 @@ class TestIndexMerging:
     @staticmethod
     def _create_initial_index_with_session(temp_project_dir, session_id):
         """Helper: Create index with one session."""
-        index_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-index.json"
+        index_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-index.json"
         index_path.parent.mkdir(parents=True, exist_ok=True)
 
         with open(index_path, 'w') as f:

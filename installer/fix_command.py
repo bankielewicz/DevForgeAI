@@ -315,7 +315,7 @@ class FixCommand:
         Args:
             report: Repair report
         """
-        logs_dir = self.installation_root / ".devforgeai" / "logs"
+        logs_dir = self.installation_root / "devforgeai" / "logs"
         logs_dir.mkdir(parents=True, exist_ok=True)
 
         # Extract timestamp from report and sanitize for filename

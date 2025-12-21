@@ -248,8 +248,8 @@ pytest tests/ --durations=0
 
 **Coverage Report Output:**
 - Terminal: `--cov-report=term-missing` (shows uncovered lines)
-- HTML: `.devforgeai/qa/coverage/STORY-015-coverage-report/` (detailed report)
-- JSON: `.devforgeai/qa/coverage/STORY-015-coverage.json` (machine-readable)
+- HTML: `devforgeai/qa/coverage/STORY-015-coverage-report/` (detailed report)
+- JSON: `devforgeai/qa/coverage/STORY-015-coverage.json` (machine-readable)
 
 ---
 
@@ -292,7 +292,7 @@ Expected output:
 pytest tests/ --cov=.claude/skills/devforgeai-story-creation --cov-report=html
 
 # Open in browser
-open .devforgeai/qa/coverage/STORY-015-coverage-report/index.html
+open devforgeai/qa/coverage/STORY-015-coverage-report/index.html
 ```
 
 ---
@@ -335,7 +335,7 @@ The tests use actual story files as fixtures (not mocks):
 2. **File Structure:**
    - All story files must exist in `devforgeai/specs/Stories/`
    - Template must exist at `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
-   - Coverage report directory: `.devforgeai/qa/coverage/` (created by pytest-cov)
+   - Coverage report directory: `devforgeai/qa/coverage/` (created by pytest-cov)
 
 3. **File Permissions:**
    - All story files must be readable
@@ -361,7 +361,7 @@ Look for: --- at line 1, --- at ~line 11 (closing delimiter)
 ```
 Solution: Verify coverage command:
 pytest tests/ --cov=.claude/skills/devforgeai-story-creation
-Check: .devforgeai/qa/coverage/ directory for reports
+Check: devforgeai/qa/coverage/ directory for reports
 ```
 
 ---

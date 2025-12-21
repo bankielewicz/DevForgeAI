@@ -229,7 +229,7 @@ python migrate_story_v1_to_v2.py STORY-TEST-001.md --dry-run
 **Test:** Migrate story with `--backup`
 
 **Expected:**
-- Backup file created in `.devforgeai/backups/phase2-migration/`
+- Backup file created in `devforgeai/backups/phase2-migration/`
 - Original file preserved
 
 ---

@@ -764,7 +764,7 @@ async def get_user(user_id: int):
 - **Repository examples:** ✅ GitHub URLs, quality scores, code snippets with file paths
 
 **Next Steps:**
-1. Create ADR: `.devforgeai/adrs/ADR-XXX-adopt-cognito-fastapi-auth.md`
+1. Create ADR: `devforgeai/adrs/ADR-XXX-adopt-cognito-fastapi-auth.md`
 2. Document decision context (SaaS authentication requirement, multi-tenancy, AWS-native preference)
 3. Record decision (AWS Cognito + FastAPI selected)
 4. Document alternatives (Auth0 rejected due to cost, Supertokens rejected due to maintenance overhead)
@@ -775,7 +775,7 @@ async def get_user(user_id: int):
    - **Provider:** AWS Cognito User Pools
    - **Framework:** FastAPI with python-jose (JWT validation)
    - **Pattern:** Repository Pattern with dependency injection
-   - **Research:** [RESEARCH-EXAMPLE-001](.devforgeai/research/examples/technology-evaluation-example.md)
+   - **Research:** [RESEARCH-EXAMPLE-001](devforgeai/research/examples/technology-evaluation-example.md)
    ```
 7. Update dependencies.md:
    ```markdown
@@ -786,6 +786,6 @@ async def get_user(user_id: int):
 ---
 
 **Report Generated:** 2025-11-17 18:52:30
-**Report Location:** .devforgeai/research/examples/technology-evaluation-example.md
+**Report Location:** devforgeai/research/examples/technology-evaluation-example.md
 **Research ID:** RESEARCH-EXAMPLE-001
 **Version:** 2.0 (template version)

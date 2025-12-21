@@ -132,7 +132,7 @@ def test_01_multi_skill_workflow_all_load_guidance(temp_project_with_skills):
     - Each completes independently
     """
     # Arrange
-    context_dir = temp_project_with_skills / ".devforgeai" / "context"
+    context_dir = temp_project_with_skills / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # No story file
@@ -176,7 +176,7 @@ def test_02_multi_skill_workflow_selective_loading(temp_project_with_skills):
     - Orchestration skips guidance
     """
     # Arrange
-    context_dir = temp_project_with_skills / ".devforgeai" / "context"
+    context_dir = temp_project_with_skills / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Create 6 context files (brownfield)

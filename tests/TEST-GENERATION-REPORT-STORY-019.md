@@ -34,8 +34,8 @@ All tests are **designed to FAIL initially** (TDD Red phase) as the implementati
 
 | File | Purpose |
 |------|---------|
-| `.devforgeai/qa/test-suite-STORY-019.md` | Comprehensive test documentation (2,200 lines) |
-| `.devforgeai/qa/test-suite-STORY-019.json` | Structured test metadata (850 lines) |
+| `devforgeai/qa/test-suite-STORY-019.md` | Comprehensive test documentation (2,200 lines) |
+| `devforgeai/qa/test-suite-STORY-019.json` | Structured test metadata (850 lines) |
 | `TEST-GENERATION-REPORT-STORY-019.md` | This report |
 
 ---

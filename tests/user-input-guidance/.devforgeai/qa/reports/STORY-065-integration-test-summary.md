@@ -282,8 +282,8 @@ local files_synced="$FILES_SYNCED_COUNT"
 
 ### Test Artifacts
 - **Integration test suite**: `tests/user-input-guidance/scripts/test-sync-integration.sh` (900+ lines)
-- **Integration test report**: `.devforgeai/qa/reports/STORY-065-integration-test-results.md` (comprehensive)
-- **Summary report**: `.devforgeai/qa/reports/STORY-065-integration-test-summary.md` (this file)
+- **Integration test report**: `devforgeai/qa/reports/STORY-065-integration-test-results.md` (comprehensive)
+- **Summary report**: `devforgeai/qa/reports/STORY-065-integration-test-summary.md` (this file)
 
 ### Test Workspaces
 - **Unit test workspace**: `tests/user-input-guidance/.test-workspace` (cleaned up after each test)

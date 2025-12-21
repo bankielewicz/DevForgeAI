@@ -276,7 +276,7 @@ class TestConfigMigratorBackup:
     def test_should_create_backup_file_in_devforgeai_directory(
         self, config_file_path, sample_install_config
     ):
-        """Test: Backup file created in .devforgeai directory."""
+        """Test: Backup file created in devforgeai directory."""
         # Arrange
         config_file_path.parent.mkdir(parents=True, exist_ok=True)
         backup_path = config_file_path.parent / ".install-config.backup"

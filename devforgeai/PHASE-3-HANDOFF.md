@@ -110,7 +110,7 @@ allowed-tools: Read, Write, Edit, Skill
 
 ## Complete Specification Reference
 
-**Primary Document:** `.devforgeai/specs/phase-3-slash-commands-implementation-plan.md`
+**Primary Document:** `devforgeai/specs/phase-3-slash-commands-implementation-plan.md`
 
 **Section:** "Command Specifications" → Search for "9. /orchestrate"
 
@@ -144,7 +144,7 @@ Task(
   **Create file:** C:\\Projects\\DevForgeAI2\\.claude\\commands\\orchestrate.md
 
   **Use APPROACH B (Skill Tool) from specification:**
-  - Read full specification from .devforgeai/specs/phase-3-slash-commands-implementation-plan.md
+  - Read full specification from devforgeai/specs/phase-3-slash-commands-implementation-plan.md
   - Search for '9. /orchestrate' section
   - Implement Approach B (Skill tool invocation)
   - Include all phases, error handling, success criteria
@@ -240,21 +240,21 @@ After creating /orchestrate:
 ### Core Framework Documents
 
 1. **Phase 2 Subagents:**
-   - `.devforgeai/specs/phase-2-subagents-generation-report.md` (Complete)
+   - `devforgeai/specs/phase-2-subagents-generation-report.md` (Complete)
    - All 14 subagents created in `.claude/agents/`
 
 2. **Phase 3 Planning:**
-   - `.devforgeai/specs/phase-3-slash-commands-implementation-plan.md` (Complete with /orchestrate spec)
-   - `.devforgeai/specs/phase-3-anthropic-compliance-check.md` (Complete)
+   - `devforgeai/specs/phase-3-slash-commands-implementation-plan.md` (Complete with /orchestrate spec)
+   - `devforgeai/specs/phase-3-anthropic-compliance-check.md` (Complete)
 
 3. **Gap Analysis:**
-   - `.devforgeai/specs/framework-alignment-gap-analysis.md` (v1.0)
-   - `.devforgeai/specs/framework-alignment-gap-analysis-v2.md` (v2.0 with UI generator)
+   - `devforgeai/specs/framework-alignment-gap-analysis.md` (v1.0)
+   - `devforgeai/specs/framework-alignment-gap-analysis-v2.md` (v2.0 with UI generator)
 
 4. **Questioning Rigor:**
-   - `.devforgeai/specs/devforgeai-questioning-rigor-summary.md` (Complete)
-   - `.devforgeai/specs/devforgeai-workflow-examples-DETAILED.md` (2,564 lines - Example 1 complete)
-   - `.devforgeai/specs/QUESTIONING-RIGOR-DOCUMENTATION-COMPLETE.md` (Summary)
+   - `devforgeai/specs/devforgeai-questioning-rigor-summary.md` (Complete)
+   - `devforgeai/specs/devforgeai-workflow-examples-DETAILED.md` (2,564 lines - Example 1 complete)
+   - `devforgeai/specs/QUESTIONING-RIGOR-DOCUMENTATION-COMPLETE.md` (Summary)
 
 5. **Updated Framework Docs:**
    - `CLAUDE.md` (Updated with subagent section)
@@ -318,10 +318,10 @@ After creating /orchestrate:
 # In new Claude Code session:
 
 # 1. Read the handoff document
-Read this file: .devforgeai/PHASE-3-HANDOFF.md
+Read this file: devforgeai/PHASE-3-HANDOFF.md
 
 # 2. Read the specification
-Read: .devforgeai/specs/phase-3-slash-commands-implementation-plan.md
+Read: devforgeai/specs/phase-3-slash-commands-implementation-plan.md
 Search for: "9. /orchestrate"
 
 # 3. Create the command using subagent
@@ -348,11 +348,11 @@ Edit ROADMAP.md to mark Phase 3 complete
 ## Files to Reference in Next Session
 
 **Must Read:**
-1. `.devforgeai/PHASE-3-HANDOFF.md` (this file)
-2. `.devforgeai/specs/phase-3-slash-commands-implementation-plan.md` (full spec)
+1. `devforgeai/PHASE-3-HANDOFF.md` (this file)
+2. `devforgeai/specs/phase-3-slash-commands-implementation-plan.md` (full spec)
 
 **Helpful Context:**
-3. `.devforgeai/specs/devforgeai-questioning-rigor-summary.md` (framework philosophy)
+3. `devforgeai/specs/devforgeai-questioning-rigor-summary.md` (framework philosophy)
 4. `.claude/commands/dev.md` (example of skill delegation pattern)
 5. `.claude/commands/qa.md` (example of thin wrapper pattern)
 

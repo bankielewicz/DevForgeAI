@@ -23,7 +23,7 @@
 ## Deliverables
 
 ### 1. Comprehensive Research Report (33 KB)
-**File:** `.devforgeai/research/parallel-orchestration-research.md`
+**File:** `devforgeai/research/parallel-orchestration-research.md`
 
 Complete technical investigation covering:
 - 4 research areas (Claude Code, Max Plan, APIs, MCP)
@@ -39,7 +39,7 @@ Complete technical investigation covering:
 ---
 
 ### 2. Executive Summary (11 KB)
-**File:** `.devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md`
+**File:** `devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md`
 
 Decision-maker friendly summary including:
 - High-level findings and recommendations
@@ -71,7 +71,7 @@ Practical patterns with code examples for developers:
 ---
 
 ### 4. Quick Reference Card (9 KB)
-**File:** `.devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
+**File:** `devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
 
 Developer cheat sheet with:
 - Copy-paste templates for all 3 patterns
@@ -86,7 +86,7 @@ Developer cheat sheet with:
 ---
 
 ### 5. Navigation Index (6 KB)
-**File:** `.devforgeai/research/RESEARCH-074-INDEX.md`
+**File:** `devforgeai/research/RESEARCH-074-INDEX.md`
 
 Complete package guide including:
 - Document overview and usage guide
@@ -256,10 +256,10 @@ Complete package guide including:
 
 ```
 Research Deliverables:
-├── .devforgeai/research/parallel-orchestration-research.md (33 KB main report)
-├── .devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md (11 KB summary)
-├── .devforgeai/research/RESEARCH-074-INDEX.md (6 KB navigation)
-├── .devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md (9 KB quick ref)
+├── devforgeai/research/parallel-orchestration-research.md (33 KB main report)
+├── devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md (11 KB summary)
+├── devforgeai/research/RESEARCH-074-INDEX.md (6 KB navigation)
+├── devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md (9 KB quick ref)
 └── .claude/memory/parallel-orchestration-guide.md (21 KB implementation)
 
 This File:
@@ -342,9 +342,9 @@ Expected outcome: 35-40% faster story development cycles, non-blocking workflows
 ## Contact & Questions
 
 For questions about this research:
-- See comprehensive report: `.devforgeai/research/parallel-orchestration-research.md`
+- See comprehensive report: `devforgeai/research/parallel-orchestration-research.md`
 - Implementation details: `.claude/memory/parallel-orchestration-guide.md`
-- Quick answers: `.devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
+- Quick answers: `devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
 
 ---
 

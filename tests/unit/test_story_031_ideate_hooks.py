@@ -46,8 +46,8 @@ def mock_ideation_context():
             "devforgeai/specs/Epics/EPIC-002-api-gateway.epic.md",
         ],
         "requirements_specs": [
-            ".devforgeai/specs/requirements/EPIC-001-requirements.md",
-            ".devforgeai/specs/requirements/EPIC-002-requirements.md",
+            "devforgeai/specs/requirements/EPIC-001-requirements.md",
+            "devforgeai/specs/requirements/EPIC-002-requirements.md",
         ],
         "complexity_score": 42,
         "questions_asked": 87,
@@ -124,7 +124,7 @@ def temp_ideation_artifacts():
             epic_file.write_text("# Epic\nContent")
 
         # Create requirements spec files
-        specs_dir = Path(tmpdir) / ".devforgeai" / "specs" / "requirements"
+        specs_dir = Path(tmpdir) / "devforgeai" / "specs" / "requirements"
         specs_dir.mkdir(parents=True, exist_ok=True)
 
         spec_files = [

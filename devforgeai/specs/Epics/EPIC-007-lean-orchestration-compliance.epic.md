@@ -83,7 +83,7 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 - Priority queue established
 
 **Deliverables:**
-- .devforgeai/qa/command-compliance-audit-YYYY-MM-DD.md
+- devforgeai/qa/command-compliance-audit-YYYY-MM-DD.md
 - Backlog stories for violations
 
 ---
@@ -150,7 +150,7 @@ Restore lean orchestration pattern compliance across all DevForgeAI slash comman
 
 **Acceptance Criteria:**
 - Character count reduced to ≤14,000 (from 16,210)
-- Phase N pattern docs externalized to `.devforgeai/protocols/hook-integration-pattern.md`
+- Phase N pattern docs externalized to `devforgeai/protocols/hook-integration-pattern.md`
 - All workflow steps preserved (functionality unchanged)
 - Budget audit passes (✅ COMPLIANT status)
 - Zero functional regressions

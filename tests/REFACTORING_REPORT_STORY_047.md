@@ -47,7 +47,7 @@ Applied systematic refactoring to the STORY-047 installer implementation, reduci
 #### installer/deploy.py
 ```python
 # Extracted: _deploy_directory()
-# Purpose: Eliminate 80 lines of duplicate .claude/ and .devforgeai/ deployment logic
+# Purpose: Eliminate 80 lines of duplicate .claude/ and devforgeai/ deployment logic
 # Impact: Deploy both directories using unified function
 
 BEFORE: 
@@ -152,7 +152,7 @@ if mode == "rollback":
 #### installer/deploy.py
 ```python
 # Unified directory deployment logic
-# BEFORE: .claude/ and .devforgeai/ had separate, identical blocks
+# BEFORE: .claude/ and devforgeai/ had separate, identical blocks
 # AFTER: _deploy_directory() handles both via parameterization
 
 # Single responsibility principle:
@@ -215,7 +215,7 @@ Readability: High improvement
 BEFORE:
   - 249 lines
   - 80 lines duplicate code (32% of file)
-  - .claude/ and .devforgeai/ sections identical
+  - .claude/ and devforgeai/ sections identical
 
 AFTER:
   - 244 lines (net -5 due to helper overhead)
@@ -308,7 +308,7 @@ All extracted methods follow best practices:
 2. **Extract Method: _deploy_directory()**
    - Purpose: Eliminate 80 lines of duplicate directory deployment logic
    - Parameters: source_dir, target_dir, result dict, preserve_configs flag
-   - Impact: .claude/ and .devforgeai/ now use unified logic
+   - Impact: .claude/ and devforgeai/ now use unified logic
    - Size: 30 lines
 
 3. **Refactor deploy_framework_files():**

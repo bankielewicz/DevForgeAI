@@ -45,7 +45,7 @@ title: Test Epic
 EOF
 
     # Act: Generate JSON output
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "INVALID")
@@ -80,7 +80,7 @@ title: Summary Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -125,7 +125,7 @@ title: Epic Four
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -162,7 +162,7 @@ title: Features Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -198,7 +198,7 @@ title: Coverage Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -235,7 +235,7 @@ title: Gap Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -270,7 +270,7 @@ title: Epic Array Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -305,7 +305,7 @@ title: Field Test Epic
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -341,7 +341,7 @@ title: Missing Features Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -377,7 +377,7 @@ title: Actions Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -412,7 +412,7 @@ title: Timestamp Test
 EOF
 
     # Act: Generate JSON
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")

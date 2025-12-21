@@ -65,7 +65,7 @@
 - [x] 4-6 context-aware questions generated per workflow type
 - [x] Feedback captured in JSON format
 - [x] Skip tracking implemented (3+ skips → suggestion)
-- [x] Feedback stored in `.devforgeai/feedback/` directory
+- [x] Feedback stored in `devforgeai/feedback/` directory
 - [x] User opt-out respected
 
 ### Quality (5/5 items complete)

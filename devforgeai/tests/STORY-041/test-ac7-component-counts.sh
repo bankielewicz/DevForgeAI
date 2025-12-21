@@ -12,7 +12,7 @@
 # - Commands: ls .claude/commands/*.md 2>/dev/null | grep -v backup ≥ 13 (matches version.json)
 # - Memory: ls .claude/memory/*.md ≥ 10 (matches version.json)
 # - Context: Templates count (determined in Phase 2)
-# - Protocols: ls .devforgeai/protocols/*.md ≥ 3 (matches version.json)
+# - Protocols: ls devforgeai/protocols/*.md ≥ 3 (matches version.json)
 #
 # Validation:
 # - Counts are programmatically verified (not hardcoded)
@@ -150,10 +150,10 @@ local actual_memory_count=$(ls .claude/memory/*.md 2>/dev/null | wc -l || echo "
 echo "Memory files count in .claude/memory/: $actual_memory_count"
 ((TESTS_PASSED++))
 
-# Count actual protocols in .devforgeai/protocols/
+# Count actual protocols in devforgeai/protocols/
 ((TESTS_RUN++))
-local actual_protocol_count=$(ls .devforgeai/protocols/*.md 2>/dev/null | wc -l || echo "0")
-echo "Protocols count in .devforgeai/protocols/: $actual_protocol_count"
+local actual_protocol_count=$(ls devforgeai/protocols/*.md 2>/dev/null | wc -l || echo "0")
+echo "Protocols count in devforgeai/protocols/: $actual_protocol_count"
 ((TESTS_PASSED++))
 
 # Context templates (determined in Phase 2)
@@ -454,7 +454,7 @@ if [ $TESTS_FAILED -gt 0 ]; then
     echo "   - ls .claude/agents/*.md | grep -v backup | wc -l"
     echo "   - ls .claude/commands/*.md | grep -v backup | wc -l"
     echo "   - ls .claude/memory/*.md | wc -l"
-    echo "   - ls .devforgeai/protocols/*.md | wc -l"
+    echo "   - ls devforgeai/protocols/*.md | wc -l"
     echo "3. Re-run tests to verify all counts match"
     echo ""
     exit 1

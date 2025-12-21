@@ -48,12 +48,12 @@ cd /mnt/c/Projects/DevForgeAI2
 # (Use existing EPIC-001 or create test epic)
 
 # 3. Initialize violation log
-mkdir -p .devforgeai/logs
-touch .devforgeai/logs/rca-007-violations.log
+mkdir -p devforgeai/logs
+touch devforgeai/logs/rca-007-violations.log
 
 # 4. Backup existing stories
-mkdir -p .devforgeai/backups/stories-$(date +%Y%m%d)
-cp devforgeai/specs/Stories/*.story.md .devforgeai/backups/stories-$(date +%Y%m%d)/
+mkdir -p devforgeai/backups/stories-$(date +%Y%m%d)
+cp devforgeai/specs/Stories/*.story.md devforgeai/backups/stories-$(date +%Y%m%d)/
 
 # 5. Install validation script
 pip install pyyaml  # If not already installed
@@ -74,7 +74,7 @@ ls devforgeai/specs/Stories/STORY-*-VALIDATION-CHECKLIST.md 2>/dev/null
 ls devforgeai/specs/Stories/STORY-*-FILE-INDEX.md 2>/dev/null
 
 # 3. Review violation log
-tail -20 .devforgeai/logs/rca-007-violations.log
+tail -20 devforgeai/logs/rca-007-violations.log
 
 # 4. Clean up test stories (if needed)
 # (Keep or delete based on test type)
@@ -202,7 +202,7 @@ assert any(v['severity'] == "CRITICAL" for v in violations)
 - [ ] Re-invocation triggered automatically
 - [ ] STRICT MODE prompt used in retry
 - [ ] Second attempt succeeds (no violations)
-- [ ] Violation logged to .devforgeai/logs/rca-007-violations.log
+- [ ] Violation logged to devforgeai/logs/rca-007-violations.log
 
 ---
 
@@ -314,8 +314,8 @@ cp .claude/agents/requirements-analyst.md .claude/agents/requirements-analyst.md
 # 4. Second attempt succeeds (returns content only)
 
 # Check violation log
-assert grep -q "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
-assert grep -q "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log
+assert grep -q "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
+assert grep -q "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log
 
 # Restore subagent
 mv .claude/agents/requirements-analyst.md.backup .claude/agents/requirements-analyst.md
@@ -521,7 +521,7 @@ assert output_contains("Next Steps")
 # Story 2: After RCA-007 fix (new creation)
 
 # Compare content quality
-story_before=".devforgeai/backups/stories-baseline/STORY-SAMPLE.story.md"
+story_before="devforgeai/backups/stories-baseline/STORY-SAMPLE.story.md"
 story_after=$(ls -t devforgeai/specs/Stories/STORY-*.story.md | head -1)
 
 # Compare sections
@@ -727,7 +727,7 @@ assert result['max_retries'] == 2
 /create-story Test monitoring story 3
 
 # Check violation log exists and has entries (if violations occurred)
-log_file=".devforgeai/logs/rca-007-violations.log"
+log_file="devforgeai/logs/rca-007-violations.log"
 
 if [ -f "$log_file" ]; then
     # Count entries
@@ -1438,17 +1438,17 @@ done
 
 ### Create Test Suite Script
 
-**File:** `.devforgeai/tests/rca-007-test-suite.sh`
+**File:** `devforgeai/tests/rca-007-test-suite.sh`
 
 ```bash
 #!/bin/bash
 # RCA-007 & Batch Creation Test Suite
-# Usage: bash .devforgeai/tests/rca-007-test-suite.sh [phase]
+# Usage: bash devforgeai/tests/rca-007-test-suite.sh [phase]
 
 set -e
 
 PHASE=${1:-all}
-RESULTS_DIR=".devforgeai/tests/results"
+RESULTS_DIR="devforgeai/tests/results"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
 mkdir -p "$RESULTS_DIR"
@@ -1564,11 +1564,11 @@ fi
 **Usage:**
 ```bash
 # Run all tests
-bash .devforgeai/tests/rca-007-test-suite.sh all
+bash devforgeai/tests/rca-007-test-suite.sh all
 
 # Run specific phase
-bash .devforgeai/tests/rca-007-test-suite.sh phase1
-bash .devforgeai/tests/rca-007-test-suite.sh phase2
+bash devforgeai/tests/rca-007-test-suite.sh phase1
+bash devforgeai/tests/rca-007-test-suite.sh phase2
 ```
 
 ---
@@ -1669,7 +1669,7 @@ if git diff --cached --name-only | grep -qE "devforgeai-story-creation|requireme
 
     # Run quick validation
     python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
-        .devforgeai/tests/fixtures/sample-subagent-output.txt \
+        devforgeai/tests/fixtures/sample-subagent-output.txt \
         .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
 
     if [ $? -ne 0 ]; then
@@ -1705,7 +1705,7 @@ assert no extra files per story
 assert batch metadata applied
 
 # 3. Check violation log
-violations=$(grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log)
+violations=$(grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log)
 
 # Report
 echo "Weekly Regression: $violations violations this week"
@@ -1720,11 +1720,11 @@ fi
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Batch Enhancement:** `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
-- **Prompt Spec:** `.devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
-- **Contract Spec:** `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Batch Enhancement:** `devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
+- **Prompt Spec:** `devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
+- **Contract Spec:** `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
 
 ---
 

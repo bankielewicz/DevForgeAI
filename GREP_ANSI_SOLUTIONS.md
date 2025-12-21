@@ -269,7 +269,7 @@ title: Test Epic
 EOF
 
     # Act: Generate terminal output (to be implemented)
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "FAIL")

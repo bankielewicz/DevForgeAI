@@ -111,7 +111,7 @@ IF check-hooks exit == 0:
     Execute: devforgeai invoke-hooks --operation=create-sprint --sprint-name="${SPRINT_NAME}" --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}
 
     IF invoke-hooks fails:
-        Log to: .devforgeai/feedback/logs/hook-errors.log
+        Log to: devforgeai/feedback/logs/hook-errors.log
         Display: "⚠️ Feedback collection failed (sprint creation succeeded)"
 
 **Features:**
@@ -190,7 +190,7 @@ IF check-hooks exit == 0:
 ### AC4: Hook failure does not break sprint creation ✅ PASS
 **Evidence:** Lines 323-325 handle failures gracefully
 **Implementation:**
-- Error logged to `.devforgeai/feedback/logs/hook-errors.log`
+- Error logged to `devforgeai/feedback/logs/hook-errors.log`
 - Warning displayed: "⚠️ Feedback collection failed (sprint creation succeeded)"
 - No HALT or exit statements
 

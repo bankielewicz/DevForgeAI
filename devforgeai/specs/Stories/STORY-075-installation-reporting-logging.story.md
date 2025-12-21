@@ -41,7 +41,7 @@ format_version: "2.1"
 
 **Given** installer runs (any mode)
 **When** installation starts
-**Then** creates `.devforgeai/install.log` file containing:
+**Then** creates `devforgeai/install.log` file containing:
 - ISO 8601 timestamps for every operation
 - File operation details (copy/create/modify with paths)
 - Validation checks
@@ -77,7 +77,7 @@ format_version: "2.1"
 
 **Given** installer runs successfully
 **When** all files copied to target directory
-**Then** creates `.devforgeai/.install-manifest.json` containing:
+**Then** creates `devforgeai/.install-manifest.json` containing:
 - `version`: semantic version installed
 - `timestamp`: ISO 8601 date/time
 - `files`: array with path, source, checksum, size_bytes, category
@@ -332,18 +332,18 @@ technical_specification:
       required_keys:
         - key: "LOG_FILE_PATH"
           type: "string"
-          example: ".devforgeai/install.log"
+          example: "devforgeai/install.log"
           required: true
-          default: ".devforgeai/install.log"
+          default: "devforgeai/install.log"
           validation: "Valid relative path"
-          test_requirement: "Test: Config value is .devforgeai/install.log"
+          test_requirement: "Test: Config value is devforgeai/install.log"
         - key: "MANIFEST_FILE_PATH"
           type: "string"
-          example: ".devforgeai/.install-manifest.json"
+          example: "devforgeai/.install-manifest.json"
           required: true
-          default: ".devforgeai/.install-manifest.json"
+          default: "devforgeai/.install-manifest.json"
           validation: "Valid relative path"
-          test_requirement: "Test: Config value is .devforgeai/.install-manifest.json"
+          test_requirement: "Test: Config value is devforgeai/.install-manifest.json"
         - key: "LOG_MAX_SIZE_MB"
           type: "int"
           example: 10
@@ -364,7 +364,7 @@ technical_specification:
       rule: "Log file ALWAYS created regardless of mode"
       trigger: "Installation starts"
       validation: "Check log file exists after any run"
-      error_handling: "Fallback to $TMPDIR if .devforgeai not writable"
+      error_handling: "Fallback to $TMPDIR if devforgeai not writable"
       test_requirement: "Test: Log exists for interactive, JSON, and quiet modes"
       priority: "Critical"
 
@@ -687,7 +687,7 @@ No external packages required - uses standard library:
 
 **Definition of Done - Implementation Items:**
 - [x] InstallationReporter generates console summary - Completed: `reporter.py:generate_console_report()` method, all 7 fields (status, version, files, errors, duration, paths)
-- [x] InstallationReporter creates log file - Completed: `reporter.py:create_log_file()` method, appends to `.devforgeai/install.log` with UTF-8 LF
+- [x] InstallationReporter creates log file - Completed: `reporter.py:create_log_file()` method, appends to `devforgeai/install.log` with UTF-8 LF
 - [x] InstallationReporter supports --json flag - Completed: `reporter.py:generate_json_output()` method, compact JSON with 11 required fields
 - [x] ManifestGenerator creates manifest with checksums - Completed: `manifest_generator.py:generate_manifest()` method, SHA256 per file
 - [x] ConsoleFormatter respects terminal width - Completed: `console_formatter.py:__init__()` detects width, wraps text to fit
@@ -729,7 +729,7 @@ No external packages required - uses standard library:
 - Atomic manifest writes prevent corruption on process interrupt
 - SHA256 checksums enable integrity verification
 - Sensitive data redaction prevents credential leakage
-- Fallback to TMPDIR if .devforgeai not writable
+- Fallback to TMPDIR if devforgeai not writable
 
 **User Approval Status:** No deferrals - development complete with zero autonomous decisions
 

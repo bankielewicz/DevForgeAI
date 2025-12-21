@@ -204,7 +204,7 @@ technical_specification:
 
 1. **Section header format:** Use `## How DevForgeAI Skills Work with User Input` (heading level 2)
 
-2. **Cross-reference syntax:** Use relative paths from skill location (../../memory/, ../../../.devforgeai/)
+2. **Cross-reference syntax:** Use relative paths from skill location (../../memory/, ../../../devforgeai/)
 
 3. **Example format consistency:** All examples follow `❌ Ineffective:` / `✅ Effective:` pattern
 
@@ -455,7 +455,7 @@ Status: Dev Complete - TDD cycle complete, all acceptance criteria implemented a
 - Ready for production release
 - Execute: `/release STORY-054 production`
 
-**QA Report:** `.devforgeai/qa/reports/STORY-054-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-054-qa-report.md`
 
 ---
 

@@ -167,7 +167,7 @@ REFERENCE:
 
 ```bash
 # Read testing guide
-cat .devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
+cat devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md
 
 # Execute test cases
 # Deploy if successful
@@ -191,7 +191,7 @@ cat .claude/skills/devforgeai-development/references/tdd-red-phase.md | sed -n '
 cat .claude/agents/test-automator.md | sed -n '43,344p'
 
 # Review user guide
-cat .devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md
+cat devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md
 ```
 
 **Outcome:** Understand exactly what was implemented
@@ -204,10 +204,10 @@ cat .devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md
 
 ```bash
 # Read Phase 2 plan
-cat .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
+cat devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md
 
 # Read complete roadmap
-cat .devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
+cat devforgeai/specs/enhancements/RCA006-COMPLETE-ROADMAP.md
 
 # Understand full scope
 ```
@@ -256,7 +256,7 @@ Read all documents in order:
 
 Copy this prompt:
 ```bash
-cat .devforgeai/specs/enhancements/PHASE2-HANDOFF-PROMPT.md
+cat devforgeai/specs/enhancements/PHASE2-HANDOFF-PROMPT.md
 ```
 
 Paste into new Claude Code session with context:
@@ -270,7 +270,7 @@ Paste into new Claude Code session with context:
 
 Copy this prompt:
 ```bash
-cat .devforgeai/specs/enhancements/PHASE3-HANDOFF-PROMPT.md
+cat devforgeai/specs/enhancements/PHASE3-HANDOFF-PROMPT.md
 ```
 
 Paste into new Claude Code session with context:

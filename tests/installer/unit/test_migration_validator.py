@@ -43,7 +43,7 @@ def project_root(tmp_path):
     """
     project = tmp_path / "project"
     project.mkdir()
-    (project / ".devforgeai").mkdir()
+    (project / "devforgeai").mkdir()
     (project / ".claude").mkdir()
     return project
 
@@ -58,8 +58,8 @@ def valid_project_structure(project_root):
     """
     files = {}
 
-    # Create .devforgeai structure
-    devforgeai = project_root / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai = project_root / "devforgeai"
     (devforgeai / "config").mkdir()
     (devforgeai / "context").mkdir()
     (devforgeai / "protocols").mkdir()
@@ -108,20 +108,20 @@ def validation_rules():
     """
     return {
         "expected_files": [
-            ".devforgeai/.version.json",
-            ".devforgeai/config/upgrade-config.json",
+            "devforgeai/.version.json",
+            "devforgeai/config/upgrade-config.json",
             ".claude/agents",
             ".claude/commands",
             ".claude/skills"
         ],
         "json_schemas": {
-            ".devforgeai/.version.json": ["version", "installed_at", "schema_version"],
-            ".devforgeai/config/upgrade-config.json": ["backup_retention_count"]
+            "devforgeai/.version.json": ["version", "installed_at", "schema_version"],
+            "devforgeai/config/upgrade-config.json": ["backup_retention_count"]
         },
         "yaml_files": [],
         "required_config_keys": {
-            ".devforgeai/.version.json": ["version", "schema_version"],
-            ".devforgeai/config/upgrade-config.json": ["backup_retention_count"]
+            "devforgeai/.version.json": ["version", "schema_version"],
+            "devforgeai/config/upgrade-config.json": ["backup_retention_count"]
         }
     }
 
@@ -149,8 +149,8 @@ class TestFileExistenceValidation:
 
         # Act - Only test actual files, not directories
         file_list = [
-            ".devforgeai/.version.json",
-            ".devforgeai/config/upgrade-config.json"
+            "devforgeai/.version.json",
+            "devforgeai/config/upgrade-config.json"
         ]
         result = validator.validate(
             root_path=project_root,
@@ -175,7 +175,7 @@ class TestFileExistenceValidation:
         validator = MigrationValidator()
 
         # Create partial structure (missing .version.json)
-        (project_root / ".devforgeai" / "config").mkdir(parents=True)
+        (project_root / "devforgeai" / "config").mkdir(parents=True)
         (project_root / ".claude" / "agents").mkdir(parents=True)
         (project_root / ".claude" / "commands").mkdir(parents=True)
         (project_root / ".claude" / "skills").mkdir(parents=True)
@@ -355,8 +355,8 @@ class TestSchemaValidation:
         validator = MigrationValidator()
 
         json_schemas = {
-            ".devforgeai/.version.json": ["version", "installed_at"],
-            ".devforgeai/config/upgrade-config.json": ["backup_retention_count"]
+            "devforgeai/.version.json": ["version", "installed_at"],
+            "devforgeai/config/upgrade-config.json": ["backup_retention_count"]
         }
 
         # Act
@@ -601,8 +601,8 @@ class TestValidationReport:
         result = validator.validate(
             root_path=project_root,
             expected_files=validation_rules["expected_files"],
-            json_schemas={".devforgeai/.version.json": ["version", "schema_version"]},
-            config_validations={".devforgeai/.version.json": ["version", "schema_version"]}
+            json_schemas={"devforgeai/.version.json": ["version", "schema_version"]},
+            config_validations={"devforgeai/.version.json": ["version", "schema_version"]}
         )
 
         # Assert
@@ -681,8 +681,8 @@ class TestValidationReport:
 
         # Act - Only test actual files that exist
         file_list = [
-            ".devforgeai/.version.json",
-            ".devforgeai/config/upgrade-config.json"
+            "devforgeai/.version.json",
+            "devforgeai/config/upgrade-config.json"
         ]
         result = validator.validate(
             root_path=project_root,

@@ -29,10 +29,10 @@ def temp_install_dir():
         (tmpdir / ".claude" / "agents").mkdir(parents=True)
         (tmpdir / ".claude" / "commands").mkdir(parents=True)
 
-        (tmpdir / ".devforgeai").mkdir()
-        (tmpdir / ".devforgeai" / "context").mkdir(parents=True)
-        (tmpdir / ".devforgeai" / "qa").mkdir(parents=True)
-        (tmpdir / ".devforgeai" / "adrs").mkdir(parents=True)
+        (tmpdir / "devforgeai").mkdir()
+        (tmpdir / "devforgeai" / "context").mkdir(parents=True)
+        (tmpdir / "devforgeai" / "qa").mkdir(parents=True)
+        (tmpdir / "devforgeai" / "adrs").mkdir(parents=True)
 
         # Create user content directories
         (tmpdir / ".ai_docs").mkdir()
@@ -53,17 +53,17 @@ def temp_install_dir():
                 "CLAUDE.md"
             ]
         }
-        (tmpdir / ".devforgeai" / ".install-manifest.json").write_text(json.dumps(manifest))
+        (tmpdir / "devforgeai" / ".install-manifest.json").write_text(json.dumps(manifest))
 
         yield tmpdir
 
 
 @pytest.fixture
 def temp_empty_install_dir():
-    """Temporary directory without .devforgeai for testing directory creation.
+    """Temporary directory without devforgeai for testing directory creation.
 
     Use this fixture when testing ConfigurationManager.save() auto-creating
-    the .devforgeai directory. Unlike temp_install_dir, this fixture
+    the devforgeai directory. Unlike temp_install_dir, this fixture
     provides a clean directory without any DevForgeAI structure.
     """
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -255,13 +255,13 @@ def invalid_configs():
 @pytest.fixture
 def config_file_path(temp_install_dir):
     """Path to configuration file in test directory."""
-    return temp_install_dir / ".devforgeai" / ".install-config.json"
+    return temp_install_dir / "devforgeai" / ".install-config.json"
 
 
 @pytest.fixture
 def backup_file_path(temp_install_dir):
     """Path to backup configuration file."""
-    return temp_install_dir / ".devforgeai" / ".install-config.backup"
+    return temp_install_dir / "devforgeai" / ".install-config.backup"
 
 
 @pytest.fixture

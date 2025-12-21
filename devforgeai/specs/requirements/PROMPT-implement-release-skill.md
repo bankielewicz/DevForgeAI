@@ -9,15 +9,15 @@ Copy and paste this prompt to Claude Code to begin implementing the devforgeai-r
 I need you to implement the **devforgeai-release** skill for the DevForgeAI spec-driven development framework. This is the final stage skill that orchestrates safe, repeatable production deployments.
 
 **Context:**
-- The complete design specification is in: `.devforgeai/specs/requirements/devforgeai-release-skill-design.md`
+- The complete design specification is in: `devforgeai/specs/requirements/devforgeai-release-skill-design.md`
 - Use the skill-creator template as your guide: `.claude/skills/skill-creator/skill.md`
-- Follow the implementation roadmap in: `.devforgeai/specs/requirements/devforgeai-skills-implementation-roadmap.md`
+- Follow the implementation roadmap in: `devforgeai/specs/requirements/devforgeai-skills-implementation-roadmap.md`
 - Reference existing skills for patterns: `.claude/skills/devforgeai-qa/SKILL.md`, `.claude/skills/devforgeai-orchestration/SKILL.md`
 
 **Implementation Requirements:**
 
 1. **Read the design specification first:**
-   - Read `.devforgeai/specs/requirements/devforgeai-release-skill-design.md` (complete specification)
+   - Read `devforgeai/specs/requirements/devforgeai-release-skill-design.md` (complete specification)
 
 2. **Create the skill structure:**
    ```

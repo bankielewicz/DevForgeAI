@@ -406,6 +406,6 @@ test('handles thenable object', async () => {
 ---
 
 **Report Generated:** 2025-11-27
-**Location:** /mnt/c/Projects/DevForgeAI2/.devforgeai/research/shared/RESEARCH-003-jest-child-process-mocking.md
+**Location:** /mnt/c/Projects/DevForgeAI2/devforgeai/research/shared/RESEARCH-003-jest-child-process-mocking.md
 **Research ID:** RESEARCH-003
 **Version:** 2.0

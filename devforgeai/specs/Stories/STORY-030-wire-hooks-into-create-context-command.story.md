@@ -149,7 +149,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 - **CLI not installed:** If devforgeai CLI is missing, check-hooks will fail. Command should catch error, log warning "devforgeai CLI not found, skipping feedback", and complete successfully. Users can install CLI later.
 
-- **Config file corrupted:** If .devforgeai/config/hooks.yaml is invalid, check-hooks may error. Command should catch parsing errors, log warning "Hook configuration invalid, skipping feedback", and complete successfully. Users can fix config with `devforgeai check-hooks --validate`.
+- **Config file corrupted:** If devforgeai/config/hooks.yaml is invalid, check-hooks may error. Command should catch parsing errors, log warning "Hook configuration invalid, skipping feedback", and complete successfully. Users can fix config with `devforgeai check-hooks --validate`.
 
 - **User interrupts feedback (Ctrl+C):** If user cancels feedback conversation mid-flow, invoke-hooks should handle gracefully (save partial responses if any). /create-context should detect interruption, log "Feedback interrupted by user", and complete successfully without re-triggering hooks on next run.
 
@@ -205,9 +205,9 @@ Not applicable - This is a command-line interface modification with no graphical
 
 ### Documentation
 - [x] Command integration documented in `.claude/commands/create-context.md` (Phase N, lines 431-513)
-- [x] Pattern documented in `.devforgeai/protocols/hook-integration-pattern.md` (comprehensive guide)
-- [x] User guide created: `.devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md`
-- [x] Troubleshooting section created: `.devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md`
+- [x] Pattern documented in `devforgeai/protocols/hook-integration-pattern.md` (comprehensive guide)
+- [x] User guide created: `devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md`
+- [x] Troubleshooting section created: `devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md`
 
 ## Implementation Notes
 
@@ -241,9 +241,9 @@ Not applicable - This is a command-line interface modification with no graphical
 
 **DOCUMENTATION ITEMS:**
 - [x] Command integration documented in .claude/commands/create-context.md (Phase N, lines 431-513) - COMPLETED
-- [x] Pattern documented in .devforgeai/protocols/hook-integration-pattern.md - COMPLETED: Comprehensive guide created
-- [x] User guide created: .devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md - COMPLETED: User-facing documentation
-- [x] Troubleshooting section created: .devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md - COMPLETED: Troubleshooting guide
+- [x] Pattern documented in devforgeai/protocols/hook-integration-pattern.md - COMPLETED: Comprehensive guide created
+- [x] User guide created: devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md - COMPLETED: User-facing documentation
+- [x] Troubleshooting section created: devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md - COMPLETED: Troubleshooting guide
 
 ### Development Workflow Summary (TDD - Red → Green → Refactor)
 
@@ -294,9 +294,9 @@ Not applicable - This is a command-line interface modification with no graphical
 - `devforgeai/specs/Stories/STORY-030-wire-hooks-into-create-context-command.story.md` - Marked DoD complete
 
 **Created:**
-- `.devforgeai/protocols/hook-integration-pattern.md` - Hook integration standard pattern
-- `.devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md` - User-facing feedback guide
-- `.devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md` - Troubleshooting documentation
+- `devforgeai/protocols/hook-integration-pattern.md` - Hook integration standard pattern
+- `devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md` - User-facing feedback guide
+- `devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md` - Troubleshooting documentation
 - `tests/integration/test_story030_feedback_hooks_create_context.py` - Integration test suite (19 tests)
 - `tests/unit/test_create_context_hook_*.py` - Unit test suite (65 tests)
 
@@ -392,7 +392,7 @@ Not applicable - This is a command-line interface modification with no graphical
 - Epic: `devforgeai/specs/Epics/EPIC-006-feedback-integration-completion.epic.md`
 - Sprint: `devforgeai/specs/Sprints/Sprint-3.md`
 - Pilot Story: `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
-- Hook Pattern: `.devforgeai/protocols/hook-integration-pattern.md` (NEW)
-- User Guide: `.devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md` (NEW)
-- Troubleshooting: `.devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md` (NEW)
+- Hook Pattern: `devforgeai/protocols/hook-integration-pattern.md` (NEW)
+- User Guide: `devforgeai/guides/FEEDBACK_HOOKS_USER_GUIDE.md` (NEW)
+- Troubleshooting: `devforgeai/guides/HOOK_FAILURES_TROUBLESHOOTING.md` (NEW)
 - Infrastructure: `STORY-021`, `STORY-022`

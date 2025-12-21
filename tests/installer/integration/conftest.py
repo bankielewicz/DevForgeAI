@@ -3,7 +3,7 @@ Shared fixtures for integration tests (STORY-045).
 
 This module provides fixtures for end-to-end integration testing with REAL file I/O:
 - Temporary test projects in /tmp with realistic directory structures
-- Source framework files (mock .claude/ and .devforgeai/)
+- Source framework files (mock .claude/ and devforgeai/)
 - Version files with proper semantic versioning
 - User config files that should be preserved
 - Backup validation helpers
@@ -31,7 +31,7 @@ def integration_project(tmp_path):
 
     This fixture creates a complete project structure with:
     - .claude/ directory with subdirectories
-    - .devforgeai/ directory with subdirectories
+    - devforgeai/ directory with subdirectories
     - .ai_docs/ directory (user-created, must be preserved)
     - CLAUDE.md (user-created, must be preserved)
 
@@ -44,7 +44,7 @@ def integration_project(tmp_path):
         dict: Project structure with keys:
         - "root": Path to project root
         - "claude": Path to .claude/
-        - "devforgeai": Path to .devforgeai/
+        - "devforgeai": Path to devforgeai/
         - "ai_docs": Path to .ai_docs/ (user directory)
     """
     root = tmp_path / "integration_project"
@@ -59,8 +59,8 @@ def integration_project(tmp_path):
     (claude_dir / "scripts").mkdir(parents=True)
     (claude_dir / "skills").mkdir(parents=True)
 
-    # Create .devforgeai/ structure with ALL required directories for validation
-    devforgeai_dir = root / ".devforgeai"
+    # Create devforgeai/ structure with ALL required directories for validation
+    devforgeai_dir = root / "devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir(parents=True)
     (devforgeai_dir / "context").mkdir(parents=True)  # REQUIRED by validation
@@ -186,7 +186,7 @@ def baseline_project(integration_project):
     This fixture prepares a project that simulates an existing installation by:
     - Creating .version.json with v1.0.0 metadata
     - Creating sample .claude/ files (enough to pass validation: 11 commands, 10 skills, 3 protocols)
-    - Creating sample .devforgeai/ files
+    - Creating sample devforgeai/ files
     - Creating CLAUDE.md
     - Setting proper file timestamps
 
@@ -223,7 +223,7 @@ def baseline_project(integration_project):
     # Create critical files to pass validation:
     # - 11+ commands in .claude/commands/
     # - 10+ skills in .claude/skills/
-    # - 3+ protocols in .devforgeai/protocols/
+    # - 3+ protocols in devforgeai/protocols/
 
     claude_files_created = 0
 
@@ -245,7 +245,7 @@ def baseline_project(integration_project):
         file_path.write_text(f"# Skill {i}\n\nBaseline skill from v1.0.0\n")
         claude_files_created += 1
 
-    # Create 3+ protocols in .devforgeai/protocols/
+    # Create 3+ protocols in devforgeai/protocols/
     protocols_dir = devforgeai_dir / "protocols"
     protocols_dir.mkdir(parents=True, exist_ok=True)
     for i in range(3):
@@ -282,7 +282,7 @@ def baseline_project(integration_project):
         file_path.write_text(f"# Protocol {i}\n\nBaseline protocol from v1.0.0\n")
         claude_files_created += 1
 
-    # Create additional files in .devforgeai/ directories
+    # Create additional files in devforgeai/ directories
     # ADRs (create at least 1 file so directory is backed up properly)
     adrs_dir = devforgeai_dir / "adrs"
     adrs_dir.mkdir(parents=True, exist_ok=True)
@@ -360,7 +360,7 @@ def real_user_files(integration_project):
     project_root = integration_project["root"]
 
     # User context files
-    context_dir = project_root / ".devforgeai" / "context"
+    context_dir = project_root / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     tech_stack_file = context_dir / "tech-stack.md"
@@ -380,7 +380,7 @@ def real_user_files(integration_project):
     story_file.write_text(story_content)
 
     # User hooks configuration
-    config_dir = project_root / ".devforgeai" / "config"
+    config_dir = project_root / "devforgeai" / "config"
     config_dir.mkdir(parents=True, exist_ok=True)
 
     hooks_file = config_dir / "hooks.yaml"
@@ -388,7 +388,7 @@ def real_user_files(integration_project):
     hooks_file.write_text(hooks_content)
 
     # User feedback configuration
-    feedback_dir = project_root / ".devforgeai" / "feedback"
+    feedback_dir = project_root / "devforgeai" / "feedback"
     feedback_dir.mkdir(parents=True, exist_ok=True)
 
     feedback_config = feedback_dir / "config.yaml"

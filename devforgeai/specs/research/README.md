@@ -7,7 +7,7 @@
 ## Directory Structure
 
 ```
-.devforgeai/research/
+devforgeai/research/
 ├── feasibility/        # Feasibility analysis reports (ideation Phase 5)
 ├── examples/           # Example research reports (documentation/templates)
 ├── shared/             # Multi-epic/multi-story research (reusable across epics)
@@ -75,7 +75,7 @@ research_references:
 **Cleanup:**
 ```bash
 # Delete cache files older than 7 days
-find .devforgeai/research/cache/ -name "*.json" -mtime +7 -delete
+find devforgeai/research/cache/ -name "*.json" -mtime +7 -delete
 ```
 
 ---
@@ -98,8 +98,8 @@ find .devforgeai/research/cache/ -name "*.json" -mtime +7 -delete
 **Cleanup:**
 ```bash
 # Archive logs older than 30 days
-mkdir -p .devforgeai/research/logs/archive/
-find .devforgeai/research/logs/ -maxdepth 1 -name "*.log" -mtime +30 -exec mv {} .devforgeai/research/logs/archive/ \;
+mkdir -p devforgeai/research/logs/archive/
+find devforgeai/research/logs/ -maxdepth 1 -name "*.log" -mtime +30 -exec mv {} devforgeai/research/logs/archive/ \;
 ```
 
 ---
@@ -120,7 +120,7 @@ import glob
 import re
 
 def get_next_research_id():
-    existing = glob.glob('.devforgeai/research/shared/RESEARCH-*.md')
+    existing = glob.glob('devforgeai/research/shared/RESEARCH-*.md')
     ids = sorted([int(re.search(r'RESEARCH-(\d+)', f).group(1)) for f in existing])
 
     # Find gaps
@@ -139,7 +139,7 @@ def get_next_research_id():
 **Trigger:** Reports >6 months old with no recent epic/story references.
 
 **Process:**
-1. Move to `.devforgeai/research/archive/{YYYY}/`
+1. Move to `devforgeai/research/archive/{YYYY}/`
 2. Update epic/story YAML frontmatter (mark as archived)
 3. Keep archive/ out of main search paths
 
@@ -169,8 +169,8 @@ All research reports must:
 - internet-sleuth agent (all research modes)
 
 **Outputs to:**
-- `.devforgeai/research/feasibility/` (ideation research)
-- `.devforgeai/research/shared/` (multi-epic research)
+- `devforgeai/research/feasibility/` (ideation research)
+- `devforgeai/research/shared/` (multi-epic research)
 - Epic/story files (YAML frontmatter references)
 
 ---

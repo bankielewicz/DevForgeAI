@@ -15,7 +15,7 @@ The internet-sleuth agent has been successfully migrated to DevForgeAI framework
 1. ✅ Agent file structure complies with DevForgeAI subagent standards
 2. ✅ Framework integration points properly documented and functional
 3. ✅ Context file awareness implemented (all 6 context files)
-4. ✅ Output directory compliance (.devforgeai/research/)
+4. ✅ Output directory compliance (devforgeai/research/)
 5. ✅ Error handling and security constraints documented
 6. ✅ No command execution framework references remain
 7. ✅ Ready for integration with devforgeai-ideation and devforgeai-architecture skills
@@ -43,10 +43,10 @@ The internet-sleuth agent has been successfully migrated to DevForgeAI framework
 
 | Test ID | Test Name | Status | Validation |
 |---------|-----------|--------|------------|
-| INT-009 | test_context_file_paths_use_devforgeai_structure | ✅ PASS | All paths use `.devforgeai/` |
+| INT-009 | test_context_file_paths_use_devforgeai_structure | ✅ PASS | All paths use `devforgeai/` |
 | INT-010 | test_ideation_skill_compatibility | ✅ PASS | devforgeai-ideation integration documented |
 | INT-011 | test_architecture_skill_compatibility | ✅ PASS | devforgeai-architecture integration documented |
-| INT-012 | test_output_directory_compliance | ✅ PASS | Outputs to `.devforgeai/research/` |
+| INT-012 | test_output_directory_compliance | ✅ PASS | Outputs to `devforgeai/research/` |
 | INT-013 | test_adr_integration_documented | ✅ PASS | ADR integration documented |
 | INT-014 | test_requirements_analyst_coordination | ✅ PASS | Coordinates with requirements-analyst |
 | INT-015 | test_architect_reviewer_coordination | ✅ PASS | Coordinates with architect-reviewer |
@@ -70,7 +70,7 @@ The internet-sleuth agent has been successfully migrated to DevForgeAI framework
 
 | Test ID | Test Name | Status | Validation |
 |---------|-----------|--------|------------|
-| INT-022 | test_research_output_directory_documented | ✅ PASS | `.devforgeai/research/` documented |
+| INT-022 | test_research_output_directory_documented | ✅ PASS | `devforgeai/research/` documented |
 | INT-023 | test_filename_conventions_documented | ✅ PASS | Filename patterns documented |
 | INT-024 | test_directory_creation_documented | ✅ PASS | Directory creation steps documented |
 | INT-025 | test_repository_cleanup_documented | ✅ PASS | 7-day cleanup documented |
@@ -126,7 +126,7 @@ All 6 DevForgeAI context files are referenced and validated:
 
 ### Output Location Compliance
 
-- ✅ Research outputs: `.devforgeai/research/`
+- ✅ Research outputs: `devforgeai/research/`
 - ✅ Filename conventions: `tech-eval-{topic}-{YYYY-MM-DD}.md`
 - ✅ Directory creation: 755 permissions
 - ✅ Repository cleanup: 7-day retention
@@ -209,7 +209,7 @@ All 6 DevForgeAI context files are referenced and validated:
 - INT-022 to INT-026: Output directory compliance tests
 
 **Validation:**
-- All research outputs use `.devforgeai/research/` directory
+- All research outputs use `devforgeai/research/` directory
 - Filename conventions documented
 - Directory creation with 755 permissions
 - Repository cleanup after 7 days
@@ -300,7 +300,7 @@ python3 -m pytest tests/integration/test_story_035_internet_sleuth_integration.p
 **Tests:** INT-009 to INT-015
 **Status:** PASSING
 **Validation:**
-- All paths use `.devforgeai/` structure
+- All paths use `devforgeai/` structure
 - Integration with devforgeai-ideation and devforgeai-architecture skills
 - ADR integration documented
 - Coordination with other subagents

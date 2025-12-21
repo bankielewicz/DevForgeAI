@@ -28,7 +28,7 @@ depends_on: ["STORY-091"]
 
 **Given** /dev Phase 5 (git commit) is executing
 **When** commit begins
-**Then** acquires `.devforgeai/.locks/git-commit.lock` before committing
+**Then** acquires `devforgeai/.locks/git-commit.lock` before committing
 **And** lock contains PID, story_id, timestamp
 
 ---
@@ -68,7 +68,7 @@ depends_on: ["STORY-091"]
 
 **Given** commit completes (success or failure)
 **When** Phase 5 finishes
-**Then** `.devforgeai/.locks/git-commit.lock` is removed
+**Then** `devforgeai/.locks/git-commit.lock` is removed
 **And** next waiting story can proceed
 
 ---
@@ -108,7 +108,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "LockFile"
-      table: ".devforgeai/.locks/git-commit.lock"
+      table: "devforgeai/.locks/git-commit.lock"
       fields:
         - name: "pid"
           type: "integer"

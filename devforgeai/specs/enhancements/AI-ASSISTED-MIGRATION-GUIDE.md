@@ -118,7 +118,7 @@ python3 migrate_story_v1_to_v2.py \
 
 # Output:
 # 🤖 Using AI-assisted conversion (95%+ accuracy)...
-# 📁 Backup created: .devforgeai/backups/phase2-migration/STORY-001-20251107-143022.md
+# 📁 Backup created: devforgeai/backups/phase2-migration/STORY-001-20251107-143022.md
 # 🔄 Converting STORY-001.story.md to v2.0 format...
 # ✅ STORY-001.story.md: Migrated to v2.0
 #
@@ -632,13 +632,13 @@ awk '{sum+=$2; count++} END {print "Average quality: " sum/count "/5"}' manual-r
 
 ```bash
 # Backups automatically created in:
-# .devforgeai/backups/phase2-migration/
+# devforgeai/backups/phase2-migration/
 
 # Verify backups exist
-ls .devforgeai/backups/phase2-migration/ | wc -l
+ls devforgeai/backups/phase2-migration/ | wc -l
 
 # Archive old backups after 30 days
-find .devforgeai/backups/phase2-migration/ -mtime +30 -exec rm {} \;
+find devforgeai/backups/phase2-migration/ -mtime +30 -exec rm {} \;
 ```
 
 ---

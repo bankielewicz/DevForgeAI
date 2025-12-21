@@ -28,7 +28,7 @@ depends_on: ["STORY-042"]
 **Given** a target project directory that may or may not have DevForgeAI installed
 **When** I run `python installer/install.py --target=/path/to/project`
 **Then** the installer:
-- Checks for `.devforgeai/.version.json` (existing installation marker)
+- Checks for `devforgeai/.version.json` (existing installation marker)
 - If found: Reads installed version (e.g., "1.0.0")
 - Reads source version from `src/devforgeai/version.json` (e.g., "1.0.1")
 - Compares using semantic versioning (major.minor.patch)
@@ -51,7 +51,7 @@ depends_on: ["STORY-042"]
 **Then** before any files are modified:
 - Creates timestamped backup directory: `.backups/devforgeai-upgrade-{YYYYMMDD-HHMMSS}/`
 - Copies all existing .claude/ files to backup (preserves structure)
-- Copies all existing .devforgeai/ files to backup (preserves structure)
+- Copies all existing devforgeai/ files to backup (preserves structure)
 - Copies CLAUDE.md to backup (if contains DevForgeAI sections)
 - Generates backup manifest: `manifest.json` with:
   ```json
@@ -78,7 +78,7 @@ depends_on: ["STORY-042"]
 
 **Deployment operations:**
 - Deploy `src/claude/` → `{target}/.claude/` (all subdirectories: agents, commands, memory, scripts, skills)
-- Deploy `src/devforgeai/` → `{target}/.devforgeai/` (config, docs, protocols, tests only)
+- Deploy `src/devforgeai/` → `{target}/devforgeai/` (config, docs, protocols, tests only)
 - Exclude patterns applied:
   - `*.backup*`, `*.tmp`, `__pycache__/`, `*.pyc` (artifacts)
   - `qa/reports/`, `RCA/`, `adrs/`, `feedback/imported/`, `logs/` (generated content)
@@ -97,14 +97,14 @@ depends_on: ["STORY-042"]
 
 ### 4. [ ] User Configurations Preserved During Upgrade
 
-**Given** the target project has customized `.devforgeai/config/hooks.yaml` and `.devforgeai/feedback/config.yaml`
+**Given** the target project has customized `devforgeai/config/hooks.yaml` and `devforgeai/feedback/config.yaml`
 **When** installer deploys to existing installation
 **Then** user configuration files are explicitly preserved:
-- `.devforgeai/config/hooks.yaml`: NOT overwritten (user customizations kept)
-- `.devforgeai/feedback/config.yaml`: NOT overwritten (user settings kept)
+- `devforgeai/config/hooks.yaml`: NOT overwritten (user customizations kept)
+- `devforgeai/feedback/config.yaml`: NOT overwritten (user settings kept)
 - `devforgeai/context/*.md`: NOT overwritten (user-created context files)
 - `.ai_docs/`: NOT touched (user stories/epics/sprints)
-**And** for each preserved file, installer displays: "⏩ Preserved: .devforgeai/config/hooks.yaml (user config)"
+**And** for each preserved file, installer displays: "⏩ Preserved: devforgeai/config/hooks.yaml (user config)"
 **And** if config templates updated in source, installer shows: "ℹ️  New config template available: config/hooks.yaml.example (review for new features)"
 
 ---
@@ -148,7 +148,7 @@ depends_on: ["STORY-042"]
 **Mode 5: Uninstall** (`--mode=uninstall`)
 - Creates backup before removal
 - Removes .claude/ framework files (preserves user additions if flagged)
-- Removes .devforgeai/ framework files (preserves context/, user configs)
+- Removes devforgeai/ framework files (preserves context/, user configs)
 - Removes DevForgeAI sections from CLAUDE.md (preserves user sections)
 - Uninstalls CLI: `pip uninstall devforgeai-cli`
 - Exit code: 0, displays "✅ DevForgeAI uninstalled (backup: {timestamp})"
@@ -215,7 +215,7 @@ technical_specification:
         - "packaging.version"
       requirements:
         - id: "WKR-001"
-          description: "Detect existing installation by checking for .devforgeai/.version.json"
+          description: "Detect existing installation by checking for devforgeai/.version.json"
           testable: true
           test_requirement: "Test: Mock .version.json file, verify installer detects and reads version"
           priority: "Critical"
@@ -235,7 +235,7 @@ technical_specification:
         - id: "WKR-004"
           description: "Deploy framework files from src/ to target project"
           testable: true
-          test_requirement: "Test: After deployment, verify ~450 files exist in target .claude/ and .devforgeai/"
+          test_requirement: "Test: After deployment, verify ~450 files exist in target .claude/ and devforgeai/"
           priority: "Critical"
 
         - id: "WKR-005"
@@ -273,7 +273,7 @@ technical_specification:
       file_path: "installer/version.py"
       requirements:
         - id: "WKR-010"
-          description: "Read installed version from target .devforgeai/.version.json"
+          description: "Read installed version from target devforgeai/.version.json"
           testable: true
           test_requirement: "Test: get_installed_version(path) returns dict with version, installed_at"
           priority: "Critical"
@@ -301,7 +301,7 @@ technical_specification:
           priority: "Critical"
 
         - id: "WKR-014"
-          description: "Copy .claude/, .devforgeai/, CLAUDE.md to backup using shutil.copytree"
+          description: "Copy .claude/, devforgeai/, CLAUDE.md to backup using shutil.copytree"
           testable: true
           test_requirement: "Test: Verify backup contains all files (count matches source)"
           priority: "Critical"
@@ -329,7 +329,7 @@ technical_specification:
           priority: "Critical"
 
         - id: "WKR-018"
-          description: "Deploy src/devforgeai/ to target .devforgeai/ (config, docs, protocols, tests only)"
+          description: "Deploy src/devforgeai/ to target devforgeai/ (config, docs, protocols, tests only)"
           testable: true
           test_requirement: "Test: Verify ~80 files deployed, generated dirs excluded (qa/reports, RCA, adrs)"
           priority: "Critical"
@@ -381,7 +381,7 @@ technical_specification:
         - id: "WKR-025"
           description: "Validate directory structure (all required directories present)"
           testable: true
-          test_requirement: "Test: Check .claude/skills/, .claude/agents/, .devforgeai/protocols/ exist"
+          test_requirement: "Test: Check .claude/skills/, .claude/agents/, devforgeai/protocols/ exist"
           priority: "Critical"
 
         - id: "WKR-026"
@@ -488,7 +488,7 @@ technical_specification:
 **Handling:** Check available disk space before backup creation
 
 ### 2. Existing Installation Corrupted (Missing version.json)
-**Scenario:** `.claude/` exists but `.devforgeai/.version.json` missing or invalid
+**Scenario:** `.claude/` exists but `devforgeai/.version.json` missing or invalid
 **Expected:** Installer detects corruption, prompts user: "Corrupted installation detected. (1) Repair (fresh install), (2) Backup and clean install, (3) Abort"
 **Handling:** Validate installation state, offer repair options
 
@@ -499,7 +499,7 @@ technical_specification:
 
 ### 4. Concurrent Installer Executions (Multiple Terminals)
 **Scenario:** User runs installer in two terminals simultaneously on same project
-**Expected:** Second instance detects lock file (`.devforgeai/.install.lock`), aborts with: "Installation in progress (PID 1234). Wait or kill process."
+**Expected:** Second instance detects lock file (`devforgeai/.install.lock`), aborts with: "Installation in progress (PID 1234). Wait or kill process."
 **Handling:** Create lock file at start, remove on completion/failure
 
 ### 5. Version.json Schema Change Between Versions

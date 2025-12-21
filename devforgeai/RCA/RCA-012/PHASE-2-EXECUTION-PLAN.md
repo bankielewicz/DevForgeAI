@@ -1418,7 +1418,7 @@ cp src/claude/skills/devforgeai-qa/SKILL.md .claude/skills/devforgeai-qa/SKILL.m
 
 ### Step R2: Document Rollback Reason
 ```bash
-cat > .devforgeai/RCA/RCA-012/PHASE2-ROLLBACK-LOG.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/PHASE2-ROLLBACK-LOG.md << 'EOF'
 # Phase 2 Rollback Log
 
 **Date:** {timestamp}
@@ -1486,7 +1486,7 @@ Phase 7: Report generation
 **After Phase 2 completes:**
 
 ### Update Documentation
-1. Mark Phase 2 complete in `.devforgeai/RCA/RCA-012/INDEX.md`
+1. Mark Phase 2 complete in `devforgeai/RCA/RCA-012/INDEX.md`
 2. Update phase checkboxes (mark [x])
 3. Document actual effort vs. estimated
 
@@ -1507,7 +1507,7 @@ Phase 7: Report generation
 
 **Create completion record:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/PHASE2-SUCCESS-RECORD.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/PHASE2-SUCCESS-RECORD.md << 'EOF'
 # Phase 2 Success Record
 
 **Completion Date:** 2025-01-{XX}

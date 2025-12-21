@@ -114,7 +114,7 @@ print('acquired' if result.success else 'failed')
         )
 
         # Lock should exist
-        lock_file = lock_dir / ".devforgeai" / ".locks" / "git-commit.lock"
+        lock_file = lock_dir / "devforgeai" / ".locks" / "git-commit.lock"
         assert lock_file.exists()
 
         # New process should see lock (but it will be stale since process exited)
@@ -167,7 +167,7 @@ print('acquired' if result.success else 'failed')
         """Phase 08 Step 5.3 releases lock after commit completes."""
         lock = GitCommitLock(story_id="STORY-001", lock_dir=str(lock_dir))
 
-        lock_file = lock_dir / ".devforgeai" / ".locks" / "git-commit.lock"
+        lock_file = lock_dir / "devforgeai" / ".locks" / "git-commit.lock"
 
         # Acquire
         lock.acquire(timeout_seconds=0)
@@ -234,7 +234,7 @@ print('acquired' if result.success else 'failed')
     def test_timeout_prompt_appears(self, lock_dir):
         """10-minute timeout triggers timeout status for user prompt."""
         # Create lock held by another (simulated with PID 1)
-        lock_dir_full = lock_dir / ".devforgeai" / ".locks"
+        lock_dir_full = lock_dir / "devforgeai" / ".locks"
         lock_dir_full.mkdir(parents=True, exist_ok=True)
         lock_file = lock_dir_full / "git-commit.lock"
         lock_file.write_text(f"pid: 1\nstory_id: STORY-001\ntimestamp: {datetime.utcnow().isoformat()}Z\nhostname: test\n")
@@ -250,7 +250,7 @@ print('acquired' if result.success else 'failed')
     def test_abort_option_halts_workflow(self, lock_dir):
         """Abort at timeout halts Phase 08 gracefully."""
         # Create lock held by another
-        lock_dir_full = lock_dir / ".devforgeai" / ".locks"
+        lock_dir_full = lock_dir / "devforgeai" / ".locks"
         lock_dir_full.mkdir(parents=True, exist_ok=True)
         lock_file = lock_dir_full / "git-commit.lock"
         lock_file.write_text(f"pid: 1\nstory_id: STORY-001\ntimestamp: {datetime.utcnow().isoformat()}Z\nhostname: test\n")

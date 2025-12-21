@@ -103,7 +103,7 @@ test_br001_original_folders_exist() {
     local both_exist=true
 
     [ -d ".claude" ] && echo -e "${GREEN}✓${NC} .claude/ exists" || both_exist=false
-    [ -d ".devforgeai" ] && echo -e "${GREEN}✓${NC} .devforgeai/ exists" || both_exist=false
+    [ -d "devforgeai" ] && echo -e "${GREEN}✓${NC} devforgeai/ exists" || both_exist=false
 
     [ "$both_exist" = true ] && return 0 || return 1
 }
@@ -114,7 +114,7 @@ test_br001_file_count_unchanged() {
     # For initial test, verify file count is reasonable
 
     local claude_count=$(find ".claude" -type f 2>/dev/null | wc -l)
-    local devforgeai_count=$(find ".devforgeai" -type f 2>/dev/null | wc -l)
+    local devforgeai_count=$(find "devforgeai" -type f 2>/dev/null | wc -l)
 
     # Initial runs expected to have specific counts
     if [ "$claude_count" -gt 300 ] && [ "$devforgeai_count" -gt 50 ]; then
@@ -143,10 +143,10 @@ test_br001_directory_structure_intact() {
     done
 
     for dir in "${required_devforgeai_dirs[@]}"; do
-        if [ -d ".devforgeai/$dir" ]; then
-            echo -e "${GREEN}✓${NC} .devforgeai/$dir intact"
+        if [ -d "devforgeai/$dir" ]; then
+            echo -e "${GREEN}✓${NC} devforgeai/$dir intact"
         else
-            echo -e "${RED}✗${NC} .devforgeai/$dir missing"
+            echo -e "${RED}✗${NC} devforgeai/$dir missing"
             all_present=false
         fi
     done

@@ -91,7 +91,7 @@
 │      Adaptive Questioning Engine                            │
 │   (Selects questions based on skip pattern)                │
 │                      ↓                                       │
-│    User Configuration Saved (.devforgeai/config/)           │
+│    User Configuration Saved (devforgeai/config/)           │
 │    (Preferences persist across all components)              │
 └─────────────────────────────────────────────────────────────┘
 ```
@@ -166,7 +166,7 @@ This data is displayed to users in AskUserQuestion context to inform feedback de
 ## Configuration System Verified
 
 ```
-.devforgeai/config/feedback.yaml
+devforgeai/config/feedback.yaml
 ├── skip_counts:
 │   ├── skill_invocation: 3
 │   ├── subagent_invocation: 1
@@ -300,8 +300,8 @@ The engine can now make informed decisions about question selection based on ski
 - STORY-008: Adaptive Questioning Engine (implementation complete, integration tested ✅)
 
 **Reports:**
-- Detailed Report: `.devforgeai/qa/integration-test-report-skip-tracking.md`
-- This Summary: `.devforgeai/qa/skip-tracking-integration-summary.md`
+- Detailed Report: `devforgeai/qa/integration-test-report-skip-tracking.md`
+- This Summary: `devforgeai/qa/skip-tracking-integration-summary.md`
 
 ---
 

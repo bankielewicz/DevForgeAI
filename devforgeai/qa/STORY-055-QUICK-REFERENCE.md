@@ -55,10 +55,10 @@ cp .claude/skills/devforgeai-ideation/references/user-input-guidance.md \
 ## Files to Review
 
 ### Created Files
-- ✅ **Integration Test Suite:** `.devforgeai/qa/tests/test_story_055_integration.py`
-- ✅ **Detailed QA Report:** `.devforgeai/qa/reports/STORY-055-qa-report.md`
-- ✅ **Findings Document:** `.devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md`
-- ✅ **This Quick Reference:** `.devforgeai/qa/STORY-055-QUICK-REFERENCE.md`
+- ✅ **Integration Test Suite:** `devforgeai/qa/tests/test_story_055_integration.py`
+- ✅ **Detailed QA Report:** `devforgeai/qa/reports/STORY-055-qa-report.md`
+- ✅ **Findings Document:** `devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md`
+- ✅ **This Quick Reference:** `devforgeai/qa/STORY-055-QUICK-REFERENCE.md`
 
 ### Files Requiring Updates
 - ❌ **`.claude/skills/devforgeai-ideation/SKILL.md`** - Add Step 0 to Phase 1
@@ -97,7 +97,7 @@ IMMEDIATE (Before Testing):
   grep -i "open\|bounded" .claude/skills/devforgeai-ideation/references/user-input-guidance.md
 
 VERIFICATION (After Fixes):
-☐ Re-run tests: python3 .devforgeai/qa/tests/test_story_055_integration.py
+☐ Re-run tests: python3 devforgeai/qa/tests/test_story_055_integration.py
 ☐ Verify all 23 tests pass
 ☐ Execution test: /ideate "test business idea"
 ```
@@ -162,7 +162,7 @@ Pattern Detectability:     50% confirmed, 50% pending ⚠️ (NFR-005)
 
 ## Documents Generated
 
-All documents are in `.devforgeai/qa/`:
+All documents are in `devforgeai/qa/`:
 
 1. **`STORY-055-qa-report.md`** - Formal QA report (comprehensive, 400+ lines)
 2. **`STORY-055-INTEGRATION-FINDINGS.md`** - Detailed technical findings (detailed issue analysis, 600+ lines)

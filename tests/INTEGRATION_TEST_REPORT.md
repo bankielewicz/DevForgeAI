@@ -13,7 +13,7 @@
 
 #### PASSING Tests (27/36):
 - AC-1.1-5: `.claude/` directory structure (5/5 ✓)
-- AC-2.1-3: `.devforgeai/` directory and exclusions (3/3 ✓) 
+- AC-2.1-3: `devforgeai/` directory and exclusions (3/3 ✓) 
 - AC-2.6: Source files present (1/1 ✓)
 - AC-3.1, 3.3-5: CLAUDE.md basics (4/5 ✓)
 - AC-4.1, 4.3-5: Checksum manifest and report (3/5 ✓)
@@ -33,7 +33,7 @@
 | AC-4.4 | shasum verification failed | **Critical for validation** - See below |
 | AC-6.2 | Git added: 1053 vs 450±10 | Correctly reflects actual files (2.7x estimate) |
 
-**Key Finding**: File count estimates were too conservative. The framework is actually ~1100 files (`.claude/` = 1002 + `.devforgeai/` = 89 + CLAUDE.md + scripts).
+**Key Finding**: File count estimates were too conservative. The framework is actually ~1100 files (`.claude/` = 1002 + `devforgeai/` = 89 + CLAUDE.md + scripts).
 
 **SHASUM FAILURE**: AC-4.4 checksum verification with `shasum -c checksums.txt` failed. This is CRITICAL for integrity validation.
 
@@ -168,7 +168,7 @@ The specification estimated ~450 files. Actual migration is 1099 files.
 
 **Breakdown**:
 - `.claude/` = 1002 files (estimated ~370)
-- `.devforgeai/` = 89 files (estimated ~80)
+- `devforgeai/` = 89 files (estimated ~80)
 - Other = 8 files (CLAUDE.md, config, scripts, etc.)
 
 **Assessment**: This is not a functional issue. The estimates were conservative. All 1099 files migrated successfully, checksummed, and staged.
@@ -194,7 +194,7 @@ The specification estimated ~450 files. Actual migration is 1099 files.
 | Core functionality 100% working | ✓ PASS | Files copied, checksummed, staged successfully |
 | No data corruption | ⚠ PARTIAL | Individual spot-checks pass; batch validation fails |
 | Git operations successful | ✓ PASS | 1053 files staged, git status shows additions |
-| Original directories preserved | ✓ PASS | .claude/ and .devforgeai/ unchanged |
+| Original directories preserved | ✓ PASS | .claude/ and devforgeai/ unchanged |
 | Exclusion patterns working | ✓ PASS | Zero backup/artifact files in src/ |
 | End-to-end workflow | ✓ PASS | Full migration flow executed without errors |
 
@@ -211,7 +211,7 @@ The specification estimated ~450 files. Actual migration is 1099 files.
 ### Important (Should Fix Before Release)
 2. **Update specification estimates**
    - Change estimated file counts: ~370 → ~1000+ for .claude/
-   - Change estimated file counts: ~80 → ~90 for .devforgeai/
+   - Change estimated file counts: ~80 → ~90 for devforgeai/
    - Update AC-4.2 checksum count: ~450 → ~1100
 
 ### Minor (Nice to Have)

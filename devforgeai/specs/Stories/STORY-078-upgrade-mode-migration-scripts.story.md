@@ -41,9 +41,9 @@ Upgrades between DevForgeAI versions may require file moves, configuration updat
 **Given** upgrade mode is detected,
 **When** user confirms upgrade,
 **Then** a complete backup is created before any changes,
-**And** backup includes all DevForgeAI files (.claude/, .devforgeai/, CLAUDE.md),
+**And** backup includes all DevForgeAI files (.claude/, devforgeai/, CLAUDE.md),
 **And** backup includes current .version.json with version metadata,
-**And** backup is stored in `.devforgeai/backups/v{X.Y.Z}-{timestamp}/`,
+**And** backup is stored in `devforgeai/backups/v{X.Y.Z}-{timestamp}/`,
 **And** backup creation completes within 30 seconds,
 **And** backup size and location are displayed to user.
 
@@ -99,7 +99,7 @@ Upgrading 1.0.0 → 1.2.0 discovers:
 
 **Given** migration is successful and validated,
 **When** version metadata is updated,
-**Then** `.devforgeai/.version.json` is updated with:
+**Then** `devforgeai/.version.json` is updated with:
   - `version`: new version (A.B.C)
   - `installed_at`: current timestamp
   - `upgraded_from`: previous version (X.Y.Z)
@@ -134,7 +134,7 @@ Upgrading 1.0.0 → 1.2.0 discovers:
   - Backup location: path
   - New version: A.B.C
   - Upgrade duration: time taken
-**And** summary is saved to `.devforgeai/logs/upgrade-{timestamp}.log`.
+**And** summary is saved to `devforgeai/logs/upgrade-{timestamp}.log`.
 
 ---
 
@@ -286,7 +286,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "BackupMetadata"
-      table: ".devforgeai/backups/{backup-id}/backup-manifest.json"
+      table: "devforgeai/backups/{backup-id}/backup-manifest.json"
       purpose: "Metadata about a backup for restoration"
       fields:
         - name: "backup_id"
@@ -342,7 +342,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "UpgradeSummary"
-      table: ".devforgeai/logs/upgrade-{timestamp}.log"
+      table: "devforgeai/logs/upgrade-{timestamp}.log"
       purpose: "Summary of upgrade operation for user and audit"
       fields:
         - name: "from_version"
@@ -400,7 +400,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "upgrade-config.json"
-      file_path: ".devforgeai/config/upgrade-config.json"
+      file_path: "devforgeai/config/upgrade-config.json"
       required_keys:
         - key: "backup_retention_count"
           type: "int"
@@ -524,7 +524,7 @@ technical_specification:
 ### Observability
 
 **Logging:**
-- Upgrade operations logged to `.devforgeai/logs/upgrade-{timestamp}.log`
+- Upgrade operations logged to `devforgeai/logs/upgrade-{timestamp}.log`
 - Each phase logged with start/end timestamps
 - Migration script output captured
 
@@ -995,7 +995,7 @@ pytest tests/installer/test_*_story078.py --cov-config=installer/.coveragerc -v 
 - Naming convention inconsistencies
 - Log level inconsistencies
 
-**QA Report Location:** `.devforgeai/qa/reports/STORY-078-qa-report.md`
+**QA Report Location:** `devforgeai/qa/reports/STORY-078-qa-report.md`
 
 **Next Steps:**
 1. Fix CRITICAL and HIGH violations

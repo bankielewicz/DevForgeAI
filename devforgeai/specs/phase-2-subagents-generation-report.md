@@ -522,6 +522,6 @@ Phase 2 of the DevForgeAI framework has been successfully completed. All 14 suba
 ---
 
 **Generated**: 2025-10-31
-**Requirements**: `.devforgeai/specs/requirements/phase-2-subagents-requirements.md`
+**Requirements**: `devforgeai/specs/requirements/phase-2-subagents-requirements.md`
 **Validation**: 100% PASSED
 **Framework Status**: Phase 2 Complete 🎉

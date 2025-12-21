@@ -117,7 +117,7 @@ allowed-tools:
 | **IT-022** | Performance test file exists | PASS | `test-story-creation-guidance-performance.py` - 597 lines, 8 tests |
 | **IT-023** | Test documentation complete | PASS | 3 comprehensive guides (1,200+ lines execution guide, 1,300+ lines test summary) |
 | **IT-024** | Total test coverage | PASS | 45 tests total (unit + integration + regression + performance) |
-| **IT-025** | Test file organization | PASS | All files in `.devforgeai/tests/skills/` (recommended location) |
+| **IT-025** | Test file organization | PASS | All files in `devforgeai/tests/skills/` (recommended location) |
 
 **Result:** Complete test infrastructure in place with comprehensive documentation.
 
@@ -209,7 +209,7 @@ All 10 Acceptance Criteria verified through integration testing:
 ### Test Infrastructure (tests/skills/) Structure
 
 ```
-✓ .devforgeai/tests/skills/
+✓ devforgeai/tests/skills/
   ├─ ✓ test-story-creation-guidance-unit.sh (324 lines)
   ├─ ✓ test-story-creation-guidance-integration.sh (312 lines)
   ├─ ✓ test-story-creation-regression.sh (298 lines)
@@ -385,7 +385,7 @@ All 10 Acceptance Criteria verified through integration testing:
 
 **Quick Validation (automated tests only):**
 ```bash
-cd .devforgeai/tests/skills/
+cd devforgeai/tests/skills/
 bash test-story-creation-guidance-unit.sh
 bash test-story-creation-regression.sh
 python3 test-story-creation-guidance-performance.py

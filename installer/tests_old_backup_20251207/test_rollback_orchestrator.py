@@ -373,7 +373,7 @@ class TestRollbackLogging:
         from installer.rollback_orchestrator import RollbackOrchestrator
         from installer.models import RollbackRequest
 
-        logs_dir = tmp_path / ".devforgeai" / "logs"
+        logs_dir = tmp_path / "devforgeai" / "logs"
         logs_dir.mkdir(parents=True)
 
         mock_logger = Mock()
@@ -411,7 +411,7 @@ class TestRollbackLogging:
         from installer.rollback_orchestrator import RollbackOrchestrator
         from installer.models import RollbackRequest
 
-        logs_dir = tmp_path / ".devforgeai" / "logs"
+        logs_dir = tmp_path / "devforgeai" / "logs"
         logs_dir.mkdir(parents=True)
 
         orchestrator = RollbackOrchestrator(

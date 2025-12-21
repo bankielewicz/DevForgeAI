@@ -5,7 +5,7 @@ Main entry point for resolving AskUserQuestion prompts in headless mode.
 Follows singleton pattern from feedback/config_manager.py.
 
 AC#1: CI Answers Configuration File
-- Loads from .devforgeai/config/ci-answers.yaml with fallbacks
+- Loads from devforgeai/config/ci-answers.yaml with fallbacks
 - Supports both nested (preferred) and flat (deprecated) formats
 
 AC#3: Fail-on-Unanswered Mode
@@ -60,9 +60,9 @@ class HeadlessAnswerResolver:
         """Default paths to search for ci-answers.yaml."""
         cwd = Path.cwd()
         return [
-            cwd / ".devforgeai" / "config" / "ci-answers.yaml",
+            cwd / "devforgeai" / "config" / "ci-answers.yaml",
             cwd / "devforgeai" / "config" / "ci" / "ci-answers.yaml",
-            Path.home() / ".devforgeai" / "config" / "ci-answers.yaml",
+            Path.home() / "devforgeai" / "config" / "ci-answers.yaml",
         ]
 
     def _find_config_file(self) -> Optional[Path]:

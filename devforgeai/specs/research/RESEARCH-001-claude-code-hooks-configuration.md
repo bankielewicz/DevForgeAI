@@ -600,7 +600,7 @@ def is_safe_command(command: str) -> bool:
         r"^git (status|diff|log|add|commit)",
         r"^bash tests/",
         r"^bash \.claude/scripts/",
-        r"^bash \.devforgeai/",
+        r"^bash \devforgeai/",
         r"^wc -",
     ]
 

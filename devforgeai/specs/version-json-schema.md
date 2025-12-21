@@ -1,11 +1,11 @@
-# Version File Schema (.devforgeai/.version.json)
+# Version File Schema (devforgeai/.version.json)
 
 **Created:** 2025-12-05
 **Story:** STORY-077 Version Detection & Compatibility Checking
 
 ## Purpose
 
-The `.devforgeai/.version.json` file stores metadata about the currently installed DevForgeAI version. This enables:
+The `devforgeai/.version.json` file stores metadata about the currently installed DevForgeAI version. This enables:
 - Version detection for upgrade/downgrade safety checks
 - Tracking installation history
 - Supporting future schema migrations
@@ -48,7 +48,7 @@ Examples:
 
 ```
 project-root/
-└── .devforgeai/
+└── devforgeai/
     └── .version.json   # This file
 ```
 

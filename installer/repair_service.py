@@ -37,7 +37,7 @@ class RepairService:
         self.force = force
         self.backup_dir = self.installation_root / ".backups"
         # Allowed directories for repair operations (NFR-004)
-        self.allowed_dirs = {".claude", ".devforgeai"}
+        self.allowed_dirs = {".claude", "devforgeai"}
 
     def _is_allowed_path(self, rel_path: str) -> bool:
         """Check if path is within allowed DevForgeAI scope (NFR-004).

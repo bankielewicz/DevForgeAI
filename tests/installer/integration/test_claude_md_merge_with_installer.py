@@ -250,7 +250,7 @@ class TestScenario1FreshInstall:
         # Fresh install may have different behavior depending on what exists
         if result["status"] == "success":
             assert result["mode"] == "fresh_install"
-            version_file = project_root / ".devforgeai" / ".version.json"
+            version_file = project_root / "devforgeai" / ".version.json"
             assert version_file.exists(), "Version file should be created"
             elapsed_ok = elapsed < 30
         else:
@@ -626,7 +626,7 @@ class TestFullInstallerWorkflowWithMerge:
         source_root = existing_project_env["source_root"]
 
         # Setup: Create version.json to simulate existing installation
-        devforgeai_dir = project_root / ".devforgeai"
+        devforgeai_dir = project_root / "devforgeai"
         devforgeai_dir.mkdir(parents=True, exist_ok=True)
         version_file = devforgeai_dir / ".version.json"
         version_file.write_text(json.dumps({

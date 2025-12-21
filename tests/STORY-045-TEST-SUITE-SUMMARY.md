@@ -24,7 +24,7 @@ This comprehensive test suite generates **failing tests first** (Red phase of TD
 ### 1. `conftest.py` (Shared Fixtures - 234 lines)
 
 **Fixtures provided:**
-- `tmp_project` - Temporary project structure with .claude/, .devforgeai/, .backups/
+- `tmp_project` - Temporary project structure with .claude/, devforgeai/, .backups/
 - `installed_version_1_0_0` - Pre-installed v1.0.0 in test project
 - `source_version_1_0_1` - Source version data (v1.0.1)
 - `backup_manifest` - Sample backup manifest with integrity data
@@ -79,7 +79,7 @@ Tests backup creation and integrity verification:
 |------|---------|-----|
 | `test_backup_directory_created_with_timestamp` | Create .backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/ | WKR-013 |
 | `test_backup_copies_claude_directory` | Copy .claude/ structure to backup | WKR-014 |
-| `test_backup_copies_devforgeai_directory` | Copy .devforgeai/ structure to backup | WKR-014 |
+| `test_backup_copies_devforgeai_directory` | Copy devforgeai/ structure to backup | WKR-014 |
 | `test_backup_copies_claude_md_file` | Copy CLAUDE.md if has DevForgeAI content | WKR-014 |
 | `test_backup_manifest_generated` | Create manifest.json with 7 required fields | WKR-015 |
 | `test_backup_integrity_hash_calculated` | SHA256 hash (64-char hex) | WKR-015 |
@@ -129,7 +129,7 @@ Tests framework file deployment and config preservation:
 
 **Deployment Validation:**
 - ✅ 370 .claude/ files deployed
-- ✅ 80 .devforgeai/ files deployed
+- ✅ 80 devforgeai/ files deployed
 - ✅ 60+ files excluded (artifacts, generated content)
 - ✅ Permissions set correctly (755 dirs/scripts, 644 data)
 - ✅ User configs never overwritten
@@ -148,7 +148,7 @@ Tests rollback operations:
 | `test_verify_backup_integrity_success` | Manifest validates (file count + hash) | WKR-022 |
 | `test_verify_backup_integrity_fails_corrupted` | Detect missing files (corrupted) | WKR-022 |
 | `test_verify_backup_missing_manifest` | Fail if manifest.json missing | WKR-022 |
-| `test_restore_all_files_from_backup` | Restore .claude/, .devforgeai/, CLAUDE.md | WKR-023 |
+| `test_restore_all_files_from_backup` | Restore .claude/, devforgeai/, CLAUDE.md | WKR-023 |
 | `test_restore_preserves_file_content` | Byte-for-byte match (checksums) | WKR-023 |
 | `test_revert_version_json_to_backup_version` | Revert 1.0.1 → 1.0.0 | WKR-024 |
 | `test_rollback_cleans_deployed_files` | Remove new files, restore old | WKR-023 |
@@ -226,7 +226,7 @@ test_uninstall_complete_workflow()
 ```
 - Creates backup before removal
 - Removes .claude/ files
-- Removes .devforgeai/ framework files
+- Removes devforgeai/ framework files
 - Preserves devforgeai/context/
 - Removes DevForgeAI sections from CLAUDE.md
 - Preserves user sections in CLAUDE.md

@@ -411,7 +411,7 @@ None - this is a foundation story.
 - Profile presets are locked to prevent misconfiguration that could exceed API limits
 - YAML chosen over JSON for human-friendly editing with comments
 - **Framework-compliant:** Uses bash script + grep patterns instead of Python (per tech-stack.md)
-- **Path corrected:** Uses `devforgeai/config/` (not `.devforgeai/`) per source-tree.md
+- **Path corrected:** Uses `devforgeai/config/` (not `devforgeai/`) per source-tree.md
 
 **Related ADRs:**
 - None yet (may create ADR for profile preset values)

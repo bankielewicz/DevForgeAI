@@ -260,7 +260,7 @@ devforgeai-orchestration (epic management) ← Current entry point
   - Phase 5: Code generation
   - Phase 6: Documentation & story update
   - Phase 7: Specification validation
-**Output:** UI component code in `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+**Output:** UI component code in `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 **Result:** Story updated with UI component references
 **When to skip:** Stories with no UI requirements (backend-only, API-only)
 ```
@@ -309,7 +309,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 - Creates epic documents with feature breakdown
 - Complexity assessment (0-60 score) determines architecture tier
 - Auto-transitions to devforgeai-architecture after completion
-- **Output:** `devforgeai/specs/Epics/*.epic.md`, `.devforgeai/specs/requirements/*.md`
+- **Output:** `devforgeai/specs/Epics/*.epic.md`, `devforgeai/specs/requirements/*.md`
 
 **Missing from orchestration skill:**
 - When to invoke ideation (project start, major feature planning)
@@ -325,7 +325,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 - Context file validation (requires all 6 files)
 - Generates production-ready UI code
 - Updates story with UI component references
-- **Output:** `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+- **Output:** `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 
 **Missing from orchestration skill:**
 - When to invoke UI generator (after architecture, before/during dev)
@@ -446,7 +446,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 **When:** Story has UI requirements (optional phase after architecture, before development)
 **Invocation:** `Skill(command="devforgeai-ui-generator")`
 **Process:** 7-phase UI specification (context validation, story analysis, interactive discovery, template loading, code generation, documentation, validation)
-**Output:** UI components in `.devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
+**Output:** UI components in `devforgeai/specs/ui/`, UI-SPEC-SUMMARY.md
 **Result:** Story updated with UI references, specs ready for development
 **Workflow position:** Between architecture and development (optional)
 **When to skip:** Backend-only or API-only stories (no UI components)
@@ -512,7 +512,7 @@ devforgeai-development (implement with TDD) ← Current integration point
 
 ### Step 1: Detect QA Failure
 
-Read QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+Read QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 Parse result: PASSED or FAILED
 IF FAILED: Determine failure type (coverage, anti-pattern, deferral, compliance)
 

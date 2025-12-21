@@ -36,7 +36,7 @@ def create_context_command_path() -> Path:
 @pytest.fixture
 def hook_integration_pattern_path() -> Path:
     """Path to the hook integration pattern documentation file."""
-    return Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md")
+    return Path("/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md")
 
 
 @pytest.fixture
@@ -79,7 +79,7 @@ class TestAC1CharacterBudgetReduction:
     AC1: Character budget reduction achieved
 
     Given: /create-context command currently at 16,210 characters (108% of budget)
-    When: Phase N pattern documentation is extracted to `.devforgeai/protocols/hook-integration-pattern.md`
+    When: Phase N pattern documentation is extracted to `devforgeai/protocols/hook-integration-pattern.md`
     Then: Command file size is reduced to ≤14,000 characters (93% of budget)
     """
 
@@ -164,8 +164,8 @@ class TestAC2HookIntegrationWorkflowPreserved:
             )
 
     def test_phase_n_references_pattern_file(self, command_content: str):
-        """Test: Phase N references `.devforgeai/protocols/hook-integration-pattern.md` via Read tool."""
-        # Should contain Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")
+        """Test: Phase N references `devforgeai/protocols/hook-integration-pattern.md` via Read tool."""
+        # Should contain Read(file_path="devforgeai/protocols/hook-integration-pattern.md")
         pattern = r'Read\(file_path.*hook-integration-pattern\.md'
         assert re.search(pattern, command_content), (
             "Phase N doesn't reference hook-integration-pattern.md via Read tool"
@@ -251,12 +251,12 @@ class TestAC3PatternDocumentationExternalized:
     AC3: Pattern documentation externalized and accessible
 
     Given: Hook integration pattern details currently inline in Phase N (~2,500 chars)
-    When: Pattern documentation is moved to `.devforgeai/protocols/hook-integration-pattern.md`
+    When: Pattern documentation is moved to `devforgeai/protocols/hook-integration-pattern.md`
     Then: Pattern file is comprehensive and referenced in Phase N
     """
 
     def test_pattern_file_exists(self, hook_integration_pattern_path: Path):
-        """Test: `.devforgeai/protocols/hook-integration-pattern.md` exists."""
+        """Test: `devforgeai/protocols/hook-integration-pattern.md` exists."""
         assert hook_integration_pattern_path.exists(), (
             f"Pattern file not found: {hook_integration_pattern_path}"
         )
@@ -320,8 +320,8 @@ class TestAC3PatternDocumentationExternalized:
 
     def test_command_references_pattern_file_with_read_tool(self, command_content: str):
         """Test: Command Phase N uses Read(file_path=...) to reference pattern file."""
-        # Should have exact pattern: Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")
-        pattern = r'Read\(\s*file_path\s*=\s*["\']\.devforgeai/protocols/hook-integration-pattern\.md'
+        # Should have exact pattern: Read(file_path="devforgeai/protocols/hook-integration-pattern.md")
+        pattern = r'Read\(\s*file_path\s*=\s*["\']\devforgeai/protocols/hook-integration-pattern\.md'
         assert re.search(pattern, command_content), (
             "Command Phase N doesn't use Read tool to reference pattern file"
         )

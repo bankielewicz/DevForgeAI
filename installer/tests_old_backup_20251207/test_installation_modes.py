@@ -56,11 +56,11 @@ class TestFreshInstallMode:
                 deployed_count += 1
 
         # 3. Create initial configs
-        config_dir = target_root / ".devforgeai" / "config"
+        config_dir = target_root / "devforgeai" / "config"
         config_dir.mkdir(parents=True, exist_ok=True)
 
         # 4. Write version.json
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         version_data = {
             "version": "1.0.1",
             "installed_at": "2025-11-17T14:30:00Z",

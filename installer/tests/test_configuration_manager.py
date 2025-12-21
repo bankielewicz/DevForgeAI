@@ -180,17 +180,17 @@ class TestConfigurationManagerSaveConfig:
     def test_should_create_directory_if_missing_when_saving(
         self, temp_empty_install_dir, sample_install_config
     ):
-        """Test: save() creates .devforgeai directory if missing.
+        """Test: save() creates devforgeai directory if missing.
 
-        Given: A directory without .devforgeai subdirectory
+        Given: A directory without devforgeai subdirectory
         When: ConfigurationManager.save() is called
-        Then: .devforgeai directory is created and config file is saved
+        Then: devforgeai directory is created and config file is saved
         """
         # Arrange
-        config_dir = temp_empty_install_dir / ".devforgeai"
-        assert not config_dir.exists(), "Precondition: .devforgeai should not exist"
+        config_dir = temp_empty_install_dir / "devforgeai"
+        assert not config_dir.exists(), "Precondition: devforgeai should not exist"
 
-        # Create manager with path to the .devforgeai directory (not the parent)
+        # Create manager with path to the devforgeai directory (not the parent)
         manager = ConfigurationManager(str(config_dir))
 
         # Create InstallConfig from sample dict
@@ -560,7 +560,7 @@ class TestConfigurationManagerErrorHandling:
         Then: Default configuration is returned with schema_version=1
         """
         # Arrange
-        config_dir = temp_empty_install_dir / ".devforgeai"
+        config_dir = temp_empty_install_dir / "devforgeai"
         manager = ConfigurationManager(str(config_dir))
 
         # Act
@@ -635,7 +635,7 @@ class TestConfigurationManagerErrorHandling:
         Then: ValueError is raised before file is written
         """
         # Arrange
-        config_dir = temp_empty_install_dir / ".devforgeai"
+        config_dir = temp_empty_install_dir / "devforgeai"
         manager = ConfigurationManager(str(config_dir))
         # Create config with invalid schema_version
         invalid_data = sample_install_config.copy()
@@ -725,7 +725,7 @@ class TestConfigurationManagerErrorHandling:
         Then: Default config is created and file is written
         """
         # Arrange
-        config_dir = temp_empty_install_dir / ".devforgeai"
+        config_dir = temp_empty_install_dir / "devforgeai"
         manager = ConfigurationManager(str(config_dir))
 
         # Act
@@ -836,7 +836,7 @@ class TestConfigurationManagerOrchestration:
         Then: Parent directories are created automatically
         """
         # Arrange
-        nested_config_dir = temp_empty_install_dir / "nested" / ".devforgeai"
+        nested_config_dir = temp_empty_install_dir / "nested" / "devforgeai"
         manager = ConfigurationManager(str(nested_config_dir))
         config = InstallConfig(**sample_install_config)
 

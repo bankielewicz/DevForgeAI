@@ -124,7 +124,7 @@ Transform the feedback system from **"infrastructure exists but unused"** to **"
 **Technical Specification:**
 - Location: `.claude/scripts/devforgeai_cli/hooks.py`
 - Functions: `check_hooks()`, `invoke_hooks()`, `get_hook_registry()`
-- Configuration: Read from `.devforgeai/config/hooks.yaml`
+- Configuration: Read from `devforgeai/config/hooks.yaml`
 - Integration: Import from `devforgeai_cli.hooks` in commands
 
 **Estimated Effort:** 13 story points (Large)
@@ -271,7 +271,7 @@ Transform the feedback system from **"infrastructure exists but unused"** to **"
 
 **Technical Specification:**
 - Test coverage target: >90% for hook system, >80% overall
-- Performance benchmarks: Record in `.devforgeai/qa/performance/`
+- Performance benchmarks: Record in `devforgeai/qa/performance/`
 - Documentation locations:
   - User guide: `docs/guides/feedback-system-user-guide.md`
   - Architecture: `docs/architecture/hook-system-design.md`
@@ -352,8 +352,8 @@ fi
 - **Hook Infrastructure:** Python CLI commands (`.claude/scripts/devforgeai_cli/hooks.py`)
 - **Command Integration:** Markdown slash commands (`.claude/commands/*.md`)
 - **Context Extraction:** Python module (`.claude/skills/devforgeai-feedback/context_extraction.py`)
-- **Configuration:** YAML (`.devforgeai/config/hooks.yaml`)
-- **Storage:** File-based (`.devforgeai/feedback/sessions/`)
+- **Configuration:** YAML (`devforgeai/config/hooks.yaml`)
+- **Storage:** File-based (`devforgeai/feedback/sessions/`)
 
 ### Performance Targets
 
@@ -674,8 +674,8 @@ Control returns to user
 
 ## Related Documents
 
-- **Audit Report:** `.devforgeai/silo/feedback-system-integration-audit-2025-11-12.md`
-- **Requirements:** `.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md`
+- **Audit Report:** `devforgeai/silo/feedback-system-integration-audit-2025-11-12.md`
+- **Requirements:** `devforgeai/specs/requirements/retrospective-feedback-system-requirements.md`
 - **Epic 5:** `devforgeai/specs/Epics/EPIC-005-framework-integration.epic.md` (original integration epic)
 - **Story 18:** `devforgeai/specs/Stories/STORY-018-event-driven-hook-system.story.md` (hook config exists)
 - **Story 19:** `devforgeai/specs/Stories/STORY-019-operation-lifecycle-integration.story.md` (context extraction spec)

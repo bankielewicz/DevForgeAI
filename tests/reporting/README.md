@@ -316,7 +316,7 @@ bash tests/reporting/test_actions.sh
 
 **Tests:** 10
 
-- History file created at `.devforgeai/epic-coverage/history/coverage-history.json`
+- History file created at `devforgeai/epic-coverage/history/coverage-history.json`
 - History file is valid JSON array
 - Each entry contains:
   - `timestamp` (ISO 8601)
@@ -473,7 +473,7 @@ EOF
 
 ### Generate Report Script
 
-Expected location: `.devforgeai/epic-coverage/generate-report.sh`
+Expected location: `devforgeai/epic-coverage/generate-report.sh`
 
 Required command-line interface:
 
@@ -551,15 +551,15 @@ Tests succeed when:
 
 - **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-086-coverage-reporting-system.story.md`
 - **Tech Spec:** Lines 113-251 in story file
-- **Implementation:** `.devforgeai/epic-coverage/generate-report.sh` (to be created)
-- **Configuration:** `.devforgeai/epic-coverage/config.json` (to be created)
+- **Implementation:** `devforgeai/epic-coverage/generate-report.sh` (to be created)
+- **Configuration:** `devforgeai/epic-coverage/config.json` (to be created)
 
 ---
 
 ## Next Steps (GREEN Phase)
 
-1. Implement `.devforgeai/epic-coverage/generate-report.sh`
-2. Implement `.devforgeai/epic-coverage/config.json`
+1. Implement `devforgeai/epic-coverage/generate-report.sh`
+2. Implement `devforgeai/epic-coverage/config.json`
 3. Run tests and verify all pass
 4. Check coverage metrics (95%+ for business logic)
 5. Proceed to REFACTOR phase

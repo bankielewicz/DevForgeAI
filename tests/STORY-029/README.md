@@ -151,7 +151,7 @@ Use this checklist when implementing Phase N:
 ### Error Handling
 
 - [ ] Wrap hook invocation in error handling (try-catch or `|| true`)
-- [ ] Log errors to `.devforgeai/feedback/logs/hook-errors.log`
+- [ ] Log errors to `devforgeai/feedback/logs/hook-errors.log`
 - [ ] Display user warning: "Feedback collection failed (sprint creation succeeded)"
 - [ ] Ensure sprint file remains valid regardless of hook status
 
@@ -208,7 +208,7 @@ Coverage:
 
 4. **Test hook failure**
    ```bash
-   # Disable hooks in .devforgeai/config/hooks.yaml
+   # Disable hooks in devforgeai/config/hooks.yaml
    /create-sprint "Test-Sprint-No-Hooks"
    # Verify Phase N skips hook invocation
    # Verify sprint file still created

@@ -486,11 +486,11 @@ class TestExportPermissionsError:
     def test_export_feedback_permission_error_suggests_remediation(self):
         """Test permission error suggests how to resolve."""
         # Arrange
-        error_message = "Cannot write to exports directory. Check file permissions on .devforgeai/feedback/exports/"
+        error_message = "Cannot write to exports directory. Check file permissions on devforgeai/feedback/exports/"
 
         # Act & Assert
         assert "exports" in error_message
-        assert ".devforgeai" in error_message
+        assert "devforgeai" in error_message
 
 
 # ============================================================================

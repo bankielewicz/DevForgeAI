@@ -172,7 +172,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -183,7 +183,7 @@ class TestLogFileCreation:
         # Assert
         assert log_file.exists()
         assert log_file.name == "install.log"
-        assert log_file.parent.name == ".devforgeai"
+        assert log_file.parent.name == "devforgeai"
 
     def test_log_file_contains_iso8601_timestamps(self, tmp_path):
         """
@@ -196,7 +196,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -222,7 +222,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -253,7 +253,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -280,7 +280,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -308,7 +308,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -333,7 +333,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -363,7 +363,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -393,7 +393,7 @@ class TestLogFileCreation:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -440,7 +440,7 @@ class TestJSONOutputMode:
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -475,7 +475,7 @@ class TestJSONOutputMode:
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -524,7 +524,7 @@ class TestJSONOutputMode:
             "duration_seconds": 2.456789,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -562,7 +562,7 @@ class TestJSONOutputMode:
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -602,7 +602,7 @@ class TestJSONOutputMode:
             "duration_seconds": 2.5,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -642,7 +642,7 @@ class TestJSONOutputMode:
             "duration_seconds": 1.2,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -842,7 +842,7 @@ class TestAuditTrail:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -870,7 +870,7 @@ class TestAuditTrail:
         # Arrange
         from installer.reporter import InstallationReporter
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()
@@ -960,7 +960,7 @@ class TestPerformanceNFRs:
             "duration_seconds": 5.5,
             "target_directory": str(tmp_path),
             "log_file": str(tmp_path / "install.log"),
-            "manifest_file": str(tmp_path / ".devforgeai" / ".install-manifest.json"),
+            "manifest_file": str(tmp_path / "devforgeai" / ".install-manifest.json"),
             "timestamp": "2025-11-20T10:30:00Z",
         }
 
@@ -991,7 +991,7 @@ class TestSecurityNFRs:
         from installer.reporter import InstallationReporter
         import stat
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         reporter = InstallationReporter()

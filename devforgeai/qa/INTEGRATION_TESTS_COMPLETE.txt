@@ -112,7 +112,7 @@ KEY FINDINGS
    ✅ Token waste calculation correct: 1500 tokens × skip_count
 
 2. CONFIGURATION SYSTEM
-   ✅ Config file created at .devforgeai/config/feedback.yaml
+   ✅ Config file created at devforgeai/config/feedback.yaml
    ✅ YAML format properly validated
    ✅ Multi-user support works correctly
    ✅ Atomic operations prevent data corruption
@@ -164,9 +164,9 @@ Test File:
   (1,150 lines, 32 test cases)
 
 Reports:
-  .devforgeai/qa/integration-test-report-skip-tracking.md
-  .devforgeai/qa/skip-tracking-integration-summary.md
-  .devforgeai/qa/INTEGRATION_TESTS_COMPLETE.txt (this file)
+  devforgeai/qa/integration-test-report-skip-tracking.md
+  devforgeai/qa/skip-tracking-integration-summary.md
+  devforgeai/qa/INTEGRATION_TESTS_COMPLETE.txt (this file)
 
 ================================================================================
 NEXT STEPS

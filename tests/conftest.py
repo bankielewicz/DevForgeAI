@@ -31,7 +31,7 @@ def setup_feedback_sessions(request, monkeypatch):
         return
 
     # Create SAFE temporary feedback directory with sample sessions
-    # Use /tmp/test_feedback_junk/ instead of production .devforgeai/feedback/
+    # Use /tmp/test_feedback_junk/ instead of production devforgeai/feedback/
     import tempfile
     import shutil
 
@@ -69,7 +69,7 @@ Details about the operation execution and feedback...
     yield
 
     # Cleanup: SAFELY remove ONLY the test junk directory
-    # This will NEVER touch production .devforgeai/feedback/
+    # This will NEVER touch production devforgeai/feedback/
     if temp_root.exists():
         shutil.rmtree(temp_root)
 
@@ -210,13 +210,13 @@ def uuid_id():
 def clear_operation_store():
     """Automatically clear operation store before each test"""
     try:
-        from tests.helpers.devforgeai.operation_context import clearOperationStore
+        from tests.helpersdevforgeai.operation_context import clearOperationStore
         clearOperationStore()
     except ImportError:
         pass  # Module not yet implemented
     yield
     try:
-        from tests.helpers.devforgeai.operation_context import clearOperationStore
+        from tests.helpersdevforgeai.operation_context import clearOperationStore
         clearOperationStore()
     except ImportError:
         pass

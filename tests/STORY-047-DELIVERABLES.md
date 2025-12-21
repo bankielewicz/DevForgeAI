@@ -17,7 +17,7 @@ This implementation completes STORY-047: "Full Installation Testing on External 
 | Merge logic integration | installer/install.py | ✅ Complete | Integrated CLAUDEmdMerger for real merging |
 | Implementation report | IMPLEMENTATION_COMPLETE-STORY-047.md | ✅ Complete | Comprehensive 250+ line report |
 | Verification script | VERIFICATION_SCRIPT-STORY-047.sh | ✅ Complete | 7-point verification framework |
-| QA report | .devforgeai/qa/reports/STORY-047-IMPLEMENTATION-SUMMARY.md | ✅ Complete | Executive summary + metrics |
+| QA report | devforgeai/qa/reports/STORY-047-IMPLEMENTATION-SUMMARY.md | ✅ Complete | Executive summary + metrics |
 
 ---
 
@@ -94,11 +94,11 @@ self.nodejs_install_result = install(
 
 1. **test_ac1_nodejs_installation_creates_directories** (42s)
    - .claude/ directory created ✓
-   - .devforgeai/ directory created ✓
+   - devforgeai/ directory created ✓
 
 2. **test_ac1_nodejs_file_count** (32s)
    - 756 files in .claude/ (700-800 range) ✓
-   - 189 files in .devforgeai/ (150-250 range) ✓
+   - 189 files in devforgeai/ (150-250 range) ✓
 
 3. **test_ac1_nodejs_claude_md_merged** (30s)
    - User content "Node.js Project" preserved ✓
@@ -127,12 +127,12 @@ self.nodejs_install_result = install(
 2. Create backup of existing CLAUDE.md (if exists)
 3. Deploy 945 framework files:
    - 756 files in .claude/
-   - 189 files in .devforgeai/
+   - 189 files in devforgeai/
 4. Merge CLAUDE.md:
    - Preserve user content (100%)
    - Append framework sections
    - Substitute variables
-5. Create .devforgeai/.version.json
+5. Create devforgeai/.version.json
 6. Create .backups/ directory with manifest
 7. Report success/errors
 ```
@@ -146,10 +146,10 @@ self.nodejs_install_result = install(
 | **.claude/commands/** | ~11 | Slash command implementations |
 | **.claude/memory/** | ~15 | Progressive disclosure docs |
 | **devforgeai/context/** | 6 | Immutable architecture files |
-| **.devforgeai/protocols/** | 3 | Design protocols |
-| **.devforgeai/adrs/** | 0 | ADRs (user-created) |
-| **.devforgeai/qa/** | 1-5 | QA reports (optional) |
-| **.devforgeai/scripts/** | ~25 | CLI and validation scripts |
+| **devforgeai/protocols/** | 3 | Design protocols |
+| **devforgeai/adrs/** | 0 | ADRs (user-created) |
+| **devforgeai/qa/** | 1-5 | QA reports (optional) |
+| **devforgeai/scripts/** | ~25 | CLI and validation scripts |
 | **CLAUDE.md** | 1 | Merged user + framework |
 | **Total** | **945** | **Complete framework** |
 
@@ -233,7 +233,7 @@ result = install(str(proj), str(cwd / 'src'))
 print(f"Status: {result['status']}")
 print(f"Files deployed: {result['files_deployed']}")
 print(f"CLAUDE.md size: {(proj / 'CLAUDE.md').stat().st_size} bytes")
-print(f"Version: {(proj / '.devforgeai' / '.version.json').read_text()}")
+print(f"Version: {(proj / 'devforgeai' / '.version.json').read_text()}")
 
 # Cleanup
 shutil.rmtree(temp)
@@ -301,7 +301,7 @@ EOF
    - Quick verification instructions
    - Standards compliance checklist
 
-4. **.devforgeai/qa/reports/STORY-047-IMPLEMENTATION-SUMMARY.md**
+4. **devforgeai/qa/reports/STORY-047-IMPLEMENTATION-SUMMARY.md**
    - Executive summary
    - Metrics and performance data
    - Recommendations for next steps

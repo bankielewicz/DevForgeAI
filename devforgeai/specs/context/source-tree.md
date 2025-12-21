@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2025-12-15
-**Version**: 3.0 (Migration: Consolidated .ai_docs/ and .devforgeai/ into devforgeai/)
+**Version**: 3.0 (Migration: Consolidated .ai_docs/ and devforgeai/ into devforgeai/)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -448,7 +448,7 @@ DevForgeAI2/
 - Installer copies from `src/` → target project's `.claude/` and `devforgeai/`
 - Keeps distribution clean while allowing messy operational workspace
 
-**Note:** `devforgeai/` (without dot prefix) is used instead of `.devforgeai/` to ensure
+**Note:** `devforgeai/` (without dot prefix) is used instead of `devforgeai/` to ensure
 compatibility with Claude Code's Glob tool, which skips dot-prefixed directories.
 
 **Update protocol:**
@@ -606,7 +606,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ✅ Epic coverage validation data goes in `devforgeai/epic-coverage/` (EPIC-015)
 - ❌ NO executable code in `devforgeai/` (documentation only)
 
-**Why no dot prefix**: Claude Code's Glob tool skips directories starting with `.` (like `.devforgeai/`).
+**Why no dot prefix**: Claude Code's Glob tool skips directories starting with `.` (like `devforgeai/`).
 Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other commands.
 
 **Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by devforgeai-architecture skill.

@@ -106,7 +106,7 @@ else:
 
 ### Component Schemas
 
-See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schemas with all required/optional fields for each of the 7 component types.
+See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schemas with all required/optional fields for each of the 7 component types.
 
 ---
 
@@ -156,7 +156,7 @@ See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schemas 
 
 **Step 1: Backup**
 ```bash
-cp devforgeai/specs/Stories/STORY-001.story.md .devforgeai/backups/STORY-001-backup.md
+cp devforgeai/specs/Stories/STORY-001.story.md devforgeai/backups/STORY-001-backup.md
 ```
 
 **Step 2: Read current tech spec**
@@ -502,7 +502,7 @@ component_count = count_mentions("service", "worker", "repository")  # Approxima
 6. **API** - HTTP endpoints (REST, GraphQL, gRPC)
 7. **DataModel** - Database entities, DTOs
 
-**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schemas and examples.**
+**See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schemas and examples.**
 
 ---
 
@@ -549,11 +549,11 @@ python -m pytest .claude/skills/devforgeai-story-creation/scripts/test_validate_
 
 ```bash
 # Restore from backup
-cp .devforgeai/backups/phase2-pilot/STORY-001.story.md \
+cp devforgeai/backups/phase2-pilot/STORY-001.story.md \
    devforgeai/specs/Stories/STORY-001.story.md
 
 # Verify restoration
-diff .devforgeai/backups/phase2-pilot/STORY-001.story.md \
+diff devforgeai/backups/phase2-pilot/STORY-001.story.md \
      devforgeai/specs/Stories/STORY-001.story.md
 # Expected: No differences
 ```
@@ -566,10 +566,10 @@ diff .devforgeai/backups/phase2-pilot/STORY-001.story.md \
 
 ```bash
 # Restore all pilot stories
-cp .devforgeai/backups/phase2-pilot/*.md devforgeai/specs/Stories/
+cp devforgeai/backups/phase2-pilot/*.md devforgeai/specs/Stories/
 
 # Verify count
-ls .devforgeai/backups/phase2-pilot/*.md | wc -l  # Should match pilot count
+ls devforgeai/backups/phase2-pilot/*.md | wc -l  # Should match pilot count
 ls devforgeai/specs/Stories/*.md | wc -l                  # Should be restored
 ```
 
@@ -587,15 +587,15 @@ git checkout HEAD~10 .claude/skills/devforgeai-story-creation/assets/templates/s
 git checkout HEAD~10 .claude/skills/devforgeai-story-creation/references/*.md
 
 # 3. Restore all stories to v1.0
-cp .devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
+cp devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
 
 # 4. Remove v2.0 artifacts
-rm .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+rm devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 rm .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py
 rm .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py
 
 # 5. Document rollback reason
-echo "Rollback reason: [REASON]" > .devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
+echo "Rollback reason: [REASON]" > devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
 ```
 
 **Time:** ~30 minutes

@@ -314,7 +314,7 @@ All tests follow AAA pattern:
 ```python
 # Arrange
 target_root = integration_project["root"]
-logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
 
 # Act
 message, exit_code = error_handler.log_and_format_error(error)

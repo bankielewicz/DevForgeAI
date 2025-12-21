@@ -15,7 +15,7 @@
 | **Commands** | 24 | `.claude/commands/` |
 | **Context Files** | 6 | `devforgeai/context/` |
 | **Quality Gates** | 4 | Workflow enforcement |
-| **Protocols** | 1 | `.devforgeai/protocols/` |
+| **Protocols** | 1 | `devforgeai/protocols/` |
 
 ---
 

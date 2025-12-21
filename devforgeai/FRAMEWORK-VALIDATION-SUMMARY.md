@@ -270,7 +270,7 @@ DevForgeAI is a spec-driven development framework that enforces architectural co
 - Missing files (helpful error handling)
 - Full workflows (dev → qa → release)
 
-**Test Documentation:** `.devforgeai/specs/enhancements/RCA-005-test-results.md`
+**Test Documentation:** `devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 **Test Commands:**
 - `/test-skill-context` - Verify Skills read conversation

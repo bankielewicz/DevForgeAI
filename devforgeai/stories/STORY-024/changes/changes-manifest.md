@@ -27,21 +27,21 @@ Implemented Phase 4 hook integration in `/qa` command to trigger retrospective f
    - Tests: 39 unit tests
    - Coverage: Status determination logic, violation context
 
-3. **.devforgeai/qa/STORY-024-TEST-GENERATION-SUMMARY.md** (16 KB)
+3. **devforgeai/qa/STORY-024-TEST-GENERATION-SUMMARY.md** (16 KB)
    - Purpose: Test suite documentation
    - Content: Test organization, coverage mapping, execution instructions
 
 ### Documentation Files
 
-4. **.devforgeai/docs/qa-hook-integration-guide.md** (12 KB)
+4. **devforgeai/docs/qa-hook-integration-guide.md** (12 KB)
    - Purpose: User guide for /qa hook integration
    - Content: How it works, configuration, examples, troubleshooting
 
-5. **.devforgeai/qa/STORY-024-manual-testing-checklist.md** (8 KB)
+5. **devforgeai/qa/STORY-024-manual-testing-checklist.md** (8 KB)
    - Purpose: Manual testing procedures
    - Content: 7 test scenarios, performance measurement, edge cases
 
-6. **.devforgeai/qa/measure-qa-hook-performance.sh** (4 KB)
+6. **devforgeai/qa/measure-qa-hook-performance.sh** (4 KB)
    - Purpose: Performance measurement automation
    - Function: Measures Phase 4 overhead (target: <5s)
    - Result: ✅ PASS (0.008s average < 5s target)
@@ -54,7 +54,7 @@ Implemented Phase 4 hook integration in `/qa` command to trigger retrospective f
 
 ### Change Tracking
 
-8. **.devforgeai/stories/STORY-024/changes/changes-manifest.md** (this file)
+8. **devforgeai/stories/STORY-024/changes/changes-manifest.md** (this file)
    - Purpose: File-based change tracking
    - Content: Complete record of all changes for STORY-024
 
@@ -235,13 +235,13 @@ fi
 2. `tests/integration/test_qa_hooks_integration.py` (new)
 3. `tests/unit/test_qa_status_mapping.py` (new)
 4. `tests/conftest.py` (modified)
-5. `.devforgeai/docs/qa-hook-integration-guide.md` (new)
+5. `devforgeai/docs/qa-hook-integration-guide.md` (new)
 
 ### Verification Steps
 1. Run test suite: `pytest tests/integration/test_qa_hooks_integration.py tests/unit/test_qa_status_mapping.py -v`
 2. Verify all 75 tests pass
-3. Run manual test checklist (`.devforgeai/qa/STORY-024-manual-testing-checklist.md`)
-4. Run performance measurement (`.devforgeai/qa/measure-qa-hook-performance.sh`)
+3. Run manual test checklist (`devforgeai/qa/STORY-024-manual-testing-checklist.md`)
+4. Run performance measurement (`devforgeai/qa/measure-qa-hook-performance.sh`)
 
 ### Rollback Procedure
 If issues occur:

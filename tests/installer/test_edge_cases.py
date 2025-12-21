@@ -77,7 +77,7 @@ class TestCorruptedInstallationEdgeCase:
         """
         Edge Case 2: .claude/ exists but .version.json missing (corrupted).
 
-        Given: .claude/ directory exists, but .devforgeai/.version.json missing
+        Given: .claude/ directory exists, but devforgeai/.version.json missing
         When: Installer checks installation state
         Then: Detects corruption, prompts: "(1) Repair, (2) Backup and clean, (3) Abort"
         """
@@ -180,7 +180,7 @@ class TestConcurrentExecutionEdgeCase:
         """
         Edge Case 4: Second installer detects lock file, aborts.
 
-        Given: First installer running (lock file exists at .devforgeai/.install.lock)
+        Given: First installer running (lock file exists at devforgeai/.install.lock)
         When: Second installer starts on same project
         Then: Detects lock file, aborts with: "Installation in progress (PID 1234)"
         """

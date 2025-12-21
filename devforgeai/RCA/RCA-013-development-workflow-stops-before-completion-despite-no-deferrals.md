@@ -77,7 +77,7 @@ TodoWrite(
 
 **Evidence:** `.claude/skills/devforgeai-development/SKILL.md:196-230` shows linear phase progression, no loop-back paths, no "resume implementation" mechanism
 
-**Related Evidence:** `.devforgeai/RCA/RCA-009:73-94` ROOT CAUSE: "Phase summary doesn't reflect complete workflow" - indicates fundamental workflow structure issue
+**Related Evidence:** `devforgeai/RCA/RCA-009:73-94` ROOT CAUSE: "Phase summary doesn't reflect complete workflow" - indicates fundamental workflow structure issue
 
 ### Why #4: Why one-pass design when stories often need iteration?
 
@@ -135,7 +135,7 @@ Instead, skill's linear workflow ALWAYS proceeds Phase 4.5 → Phase 5 regardles
 
 **Secondary Files (HIGH Significance):**
 
-**`.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`**
+**`devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`**
 - **Lines examined:** 1-150 (incident timeline, root cause)
 - **Finding:** Same root cause pattern (linear workflow assumption), occurred 8 days earlier (2025-11-14) for different story
 - **Excerpt:**
@@ -146,7 +146,7 @@ Instead, skill's linear workflow ALWAYS proceeds Phase 4.5 → Phase 5 regardles
   ```
 - **Significance:** Establishes pattern - workflow structure issues are systemic, not one-off
 
-**`.devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md`**
+**`devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md`**
 - **Lines examined:** 1-100 (issue description, 5 Whys)
 - **Finding:** Related issue (skipping mandatory subagents) with same root cause, occurred 3 days ago (2025-11-19)
 - **Excerpt:**

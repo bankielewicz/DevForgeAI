@@ -124,13 +124,13 @@ Create a comprehensive epic coverage validation system with requirements traceab
 
 **Deliverables:**
 - **Terminal output:** Color-coded status (Green: 100%, Yellow: 50-99%, Red: <50%)
-- **Markdown reports:** Generated in `.devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md`
+- **Markdown reports:** Generated in `devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md`
 - **JSON export:** Programmatic access for tooling integration
 - **Report contents:**
   - Summary statistics (total epics, total features, overall coverage %, missing stories count)
   - Per-epic breakdown (epic_id, title, completion %, missing features list)
   - Actionable next steps (recommended /create-story commands per gap)
-- **Historical tracking:** Full history persisted in `.devforgeai/epic-coverage/history/`
+- **Historical tracking:** Full history persisted in `devforgeai/epic-coverage/history/`
 
 **Value:** Clear visibility into epic progress and exactly what needs to be done
 
@@ -272,7 +272,7 @@ Create a comprehensive epic coverage validation system with requirements traceab
 **Security:**
 - No sensitive data stored
 - File system access (read devforgeai/specs/Epics/, devforgeai/specs/Stories/)
-- Write access (.devforgeai/epic-coverage/ for reports)
+- Write access (devforgeai/epic-coverage/ for reports)
 
 **Scalability:**
 - Small scale (DevForgeAI's 13 epics → 100 epics future)
@@ -320,7 +320,7 @@ Create a comprehensive epic coverage validation system with requirements traceab
 
 ## Feasibility Analysis
 
-**Research Report:** [RESEARCH-002-epic-coverage-traceability.md](.devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md)
+**Research Report:** [RESEARCH-002-epic-coverage-traceability.md](devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md)
 
 **Technical Feasibility Score:** 8.7/10 (High Confidence - GO with high confidence)
 
@@ -361,7 +361,7 @@ Create a comprehensive epic coverage validation system with requirements traceab
 1. **Create ADR:** ADR-005-epic-coverage-traceability-architecture.md
 2. **Update context files:**
    - tech-stack.md: Document Bash/Grep/Read/Write native tools approach
-   - source-tree.md: Add .devforgeai/epic-coverage/ directory structure
+   - source-tree.md: Add devforgeai/epic-coverage/ directory structure
    - dependencies.md: No changes needed (zero external dependencies)
 3. **Create Sprint 2:** Break EPIC-015 into sprint-ready stories
 4. **Run `/create-context`** if needed (validate tech-stack updates)

@@ -43,8 +43,8 @@ def project_root(tmp_path):
     project = tmp_path / "project"
     project.mkdir()
 
-    # Create .devforgeai structure
-    devforgeai = project / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai = project / "devforgeai"
     devforgeai.mkdir()
     (devforgeai / "config").mkdir()
     (devforgeai / "context").mkdir()
@@ -72,7 +72,7 @@ def installed_version_1_0_0(project_root):
     Returns:
         Path: Path to version.json
     """
-    version_file = project_root / ".devforgeai" / ".version.json"
+    version_file = project_root / "devforgeai" / ".version.json"
     version_file.write_text(json.dumps({
         "version": "1.0.0",
         "installed_at": "2025-11-01T00:00:00Z",
@@ -328,7 +328,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -374,7 +374,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         # Return a migration so that migration_runner.run gets called
         mock_dependencies["migration_discovery"].discover.return_value = [mock_migration]
         mock_dependencies["migration_runner"].run.return_value = Mock(
@@ -420,7 +420,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -443,7 +443,7 @@ class TestUpgradeExecution:
         )
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         assert version_file.exists()
         version_data = json.loads(version_file.read_text())
         assert version_data["version"] == "1.1.0"
@@ -462,7 +462,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -485,7 +485,7 @@ class TestUpgradeExecution:
         )
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert version_data["upgraded_from"] == "1.0.0"
 
@@ -503,7 +503,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -526,7 +526,7 @@ class TestUpgradeExecution:
         )
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert "upgrade_timestamp" in version_data
 
@@ -541,13 +541,13 @@ class TestUpgradeExecution:
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator, UpgradeError
 
-        backup_path = project_root / ".devforgeai" / "backups" / "v1.0.0-test"
+        backup_path = project_root / "devforgeai" / "backups" / "v1.0.0-test"
         backup_path.mkdir(parents=True)
 
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = [Mock()]
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=False,
@@ -620,7 +620,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -693,7 +693,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -736,7 +736,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = [mock_migration]
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -759,7 +759,7 @@ class TestUpgradeExecution:
         )
 
         # Assert
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_data = json.loads(version_file.read_text())
         assert "migrations_applied" in version_data
 
@@ -783,7 +783,7 @@ class TestUpgradeExecution:
         mock_dependencies["backup_service"].create_backup.return_value = Mock(
             backup_id="v1.0.0-test"
         )
-        mock_dependencies["backup_service"].backups_root = project_root / ".devforgeai" / "backups"
+        mock_dependencies["backup_service"].backups_root = project_root / "devforgeai" / "backups"
         mock_dependencies["migration_discovery"].discover.return_value = []
         mock_dependencies["migration_runner"].run.return_value = Mock(
             all_success=True,
@@ -830,7 +830,7 @@ class TestBusinessRules:
 
         def track_backup(**kwargs):
             # Record that backup happened before any file changes
-            current_version = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+            current_version = json.loads((project_root / "devforgeai" / ".version.json").read_text())
             assert current_version["version"] == "1.0.0", "Files modified before backup!"
             return Mock(backup_id="v1.0.0-test")
 

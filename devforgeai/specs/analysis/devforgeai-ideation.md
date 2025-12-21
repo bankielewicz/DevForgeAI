@@ -713,7 +713,7 @@ This skill uses **10-60 strategic questions** across 6 phases to discover requir
 
 **Provides:**
 - Epic documents (devforgeai/specs/Epics/)
-- Requirements specifications (.devforgeai/specs/requirements/)
+- Requirements specifications (devforgeai/specs/requirements/)
 - Complexity assessment (architecture tier recommendation)
 
 ---

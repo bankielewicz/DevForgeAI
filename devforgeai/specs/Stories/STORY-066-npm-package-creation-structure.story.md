@@ -159,7 +159,7 @@ technical_specification:
         - id: "CONF-004"
           description: "Bin entry points to executable CLI script"
           testable: true
-          test_requirement: "Test: bin.devforgeai path exists and file is executable"
+          test_requirement: "Test: bindevforgeai path exists and file is executable"
           priority: "Critical"
 
     - type: "Configuration"
@@ -169,7 +169,7 @@ technical_specification:
         - id: "CONF-005"
           description: ".npmignore excludes development files from package"
           testable: true
-          test_requirement: "Test: .npmignore contains patterns: tests/, docs/, .git, .devforgeai/qa/, .ai_docs/, *.test.js"
+          test_requirement: "Test: .npmignore contains patterns: tests/, docs/, .git, devforgeai/qa/, .ai_docs/, *.test.js"
           priority: "High"
         - id: "CONF-006"
           description: "Published package excludes excluded patterns"
@@ -229,7 +229,7 @@ technical_specification:
         - id: "DM-003"
           description: "Package includes src/ directory with framework source"
           testable: true
-          test_requirement: "Test: Directory src/ contains .claude/ and .devforgeai/ subdirectories"
+          test_requirement: "Test: Directory src/ contains .claude/ and devforgeai/ subdirectories"
           priority: "Critical"
         - id: "DM-004"
           description: "LICENSE file contains MIT license text"
@@ -251,7 +251,7 @@ technical_specification:
       test_requirement: "Test: CI/CD validates version does not exist on NPM registry before publish"
     - id: "BR-003"
       rule: "Bin entry path must use forward slashes (cross-platform)"
-      test_requirement: "Test: bin.devforgeai value uses / not \\"
+      test_requirement: "Test: bindevforgeai value uses / not \\"
     - id: "BR-004"
       rule: "Package size must not exceed 2 MB unpacked"
       test_requirement: "Test: npm pack reports unpacked size <= 2097152 bytes"
@@ -393,7 +393,7 @@ technical_specification:
 
 6. **Shebang line format**: bin/devforgeai.js must start with exactly `#!/usr/bin/env node` (first line, no BOM, LF line ending). Validated during CI/CD build.
 
-7. **.npmignore patterns**: Must exclude: `tests/`, `docs/`, `.git`, `.devforgeai/qa/`, `.ai_docs/`, `*.test.js`, `.vscode`, `.idea`. Validated via `npm pack --dry-run` output.
+7. **.npmignore patterns**: Must exclude: `tests/`, `docs/`, `.git`, `devforgeai/qa/`, `.ai_docs/`, `*.test.js`, `.vscode`, `.idea`. Validated via `npm pack --dry-run` output.
 
 ---
 
@@ -662,7 +662,7 @@ None - this is the first story in EPIC-012.
    - Zero external dependencies (Node.js stdlib only)
 
 4. **.npmignore** (55 lines)
-   - Excludes operational folders (.claude/, .devforgeai/)
+   - Excludes operational folders (.claude/, devforgeai/)
    - Includes distribution source (src/claude/, src/devforgeai/)
    - Package size: 11 MB unpacked (framework source)
 
@@ -708,9 +708,9 @@ None - this is the first story in EPIC-012.
 - Achievement: 95.16% coverage (exceeded 95% target)
 
 **Dual-Location Architecture:**
-- .claude/ & .devforgeai/ = operational (excluded from package)
+- .claude/ & devforgeai/ = operational (excluded from package)
 - src/claude/ & src/devforgeai/ = distribution source (included in package)
-- Installer copies src/* to target project's .claude/ and .devforgeai/
+- Installer copies src/* to target project's .claude/ and devforgeai/
 
 ### Test Infrastructure
 
@@ -766,7 +766,7 @@ None - this is the first story in EPIC-012.
 - **Coverage:** 81.48% overall, 94.28% application
 - **Test Pass Rate:** 100% (185/185 tests)
 - **Violations:** 0 blocking, 5 warnings (2 medium with approved deferrals, 3 low style)
-- **Report:** .devforgeai/qa/reports/STORY-066-qa-report-deep.md
+- **Report:** devforgeai/qa/reports/STORY-066-qa-report-deep.md
 
 ## Workflow Status
 
@@ -784,7 +784,7 @@ None - this is the first story in EPIC-012.
 - MIT license chosen for maximum adoption
 
 **Related ADRs:**
-- [ADR-004: NPM Package Distribution](../../../.devforgeai/adrs/ADR-004-npm-package-distribution.md)
+- [ADR-004: NPM Package Distribution](../../../devforgeai/adrs/ADR-004-npm-package-distribution.md)
 
 **References:**
 - [NPM Package.json Spec](https://docs.npmjs.com/cli/v10/configuring-npm/package-json)

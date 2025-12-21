@@ -15,7 +15,7 @@ info:
 servers:
   - url: http://localhost:8000/api
     description: Development server
-  - url: https://api.devforgeai.com
+  - url: https://apidevforgeai.com
     description: Production server
 
 tags:

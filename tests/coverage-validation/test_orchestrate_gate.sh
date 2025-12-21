@@ -30,8 +30,8 @@ TEST_LOG="/tmp/story-089-orchestrate-gate.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-GATE_SCRIPT="${PROJECT_ROOT}/.devforgeai/traceability/coverage-gate.sh"
-GAP_DETECTOR="${PROJECT_ROOT}/.devforgeai/traceability/gap-detector.sh"
+GATE_SCRIPT="${PROJECT_ROOT}/devforgeai/traceability/coverage-gate.sh"
+GAP_DETECTOR="${PROJECT_ROOT}/devforgeai/traceability/gap-detector.sh"
 FIXTURES_DIR="${SCRIPT_DIR}/fixtures"
 
 # Initialize log

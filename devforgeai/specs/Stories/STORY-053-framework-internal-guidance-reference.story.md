@@ -151,7 +151,7 @@ technical_specification:
 
     - id: "BR-004"
       rule: "Patterns must cite DevForgeAI framework reference files (not external sources)"
-      test_requirement: "Test: Extract all file path references in patterns, verify all start with '.claude/' or '.devforgeai/', no external URLs"
+      test_requirement: "Test: Extract all file path references in patterns, verify all start with '.claude/' or 'devforgeai/', no external URLs"
 
   non_functional_requirements:
     - id: "NFR-001"
@@ -363,7 +363,7 @@ None - Markdown format requires no additional packages.
 - [ ] Quality gate terms match - **Phase:** 2 - **Evidence:** Grep for "Gate 1" through "Gate 4"
 - [ ] Workflow state terms match - **Phase:** 2 - **Evidence:** Grep for "Backlog", "Ready for Dev", etc.
 - [ ] Story structure terms match - **Phase:** 2 - **Evidence:** Grep for "YAML frontmatter", "Given/When/Then"
-- [ ] Reference file paths provided - **Phase:** 2 - **Evidence:** Read commands cite .claude/ and .devforgeai/ paths
+- [ ] Reference file paths provided - **Phase:** 2 - **Evidence:** Read commands cite .claude/ and devforgeai/ paths
 - [ ] Terminology validated - **Phase:** 3 - **Evidence:** test-framework-alignment.sh passes (100% match)
 
 ---

@@ -87,7 +87,7 @@ Hook configuration (handled by existing check-hooks CLI):
 
 **Integration:**
 - Leverages existing `check-hooks` command
-- Configuration read from `.devforgeai/config/hooks.yaml`
+- Configuration read from `devforgeai/config/hooks.yaml`
 - Honors operation-specific overrides
 
 ---
@@ -369,7 +369,7 @@ def extract_orchestrate_context(
 - `tests/integration/test_orchestrate_hooks_integration.py` (56 tests)
 
 **Configuration:**
-- `.devforgeai/config/hooks.yaml` (referenced, not modified)
+- `devforgeai/config/hooks.yaml` (referenced, not modified)
 
 ---
 

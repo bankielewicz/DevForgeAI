@@ -43,7 +43,7 @@ depends_on:
 **When** the sync phase executes
 **Then** the script:
 - Syncs `.claude/` → `src/claude/` recursively, excluding `*.backup*`, `__pycache__/`, `*.pyc`, `.DS_Store`
-- Syncs `.devforgeai/` → `src/devforgeai/` recursively, excluding `backups/`, `qa/reports/`, `feedback/sessions/`, `*.log`
+- Syncs `devforgeai/` → `src/devforgeai/` recursively, excluding `backups/`, `qa/reports/`, `feedback/sessions/`, `*.log`
 - Validates sync completeness by comparing file counts and directory structure (source vs destination)
 - Reports any missing files or sync failures with specific file paths
 - Creates `src/.sync-manifest.json` containing: sync timestamp, file count, excluded patterns, source hash
@@ -150,7 +150,7 @@ technical_specification:
           test_requirement: "Test: Verify excluded files (*.backup*, __pycache__) not copied"
           priority: "High"
         - id: "SCR-004"
-          description: "Must sync .devforgeai/ to src/devforgeai/ with exclusion patterns"
+          description: "Must sync devforgeai/ to src/devforgeai/ with exclusion patterns"
           testable: true
           test_requirement: "Test: Verify excluded dirs (backups/, qa/reports/) not copied"
           priority: "High"
@@ -194,7 +194,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "release-config.sh"
-      file_path: ".devforgeai/config/release-config.sh"
+      file_path: "devforgeai/config/release-config.sh"
       description: "Release script configuration with customizable settings"
       requirements:
         - id: "CFG-001"
@@ -274,7 +274,7 @@ technical_specification:
 
     - type: "Logging"
       name: "release-log"
-      file_path: ".devforgeai/releases/release-{version}-{timestamp}.log"
+      file_path: "devforgeai/releases/release-{version}-{timestamp}.log"
       description: "Audit trail log for release operations"
       log_level: "INFO"
       format: "[{timestamp}] [{phase}] {message}"
@@ -588,7 +588,7 @@ Proceed? [y/N]:
 
 ### Implementation
 - [x] `scripts/release.sh` script created with all 7 phases (1,143 lines)
-- [x] `.devforgeai/config/release-config.sh` configuration file created (151 lines)
+- [x] `devforgeai/config/release-config.sh` configuration file created (151 lines)
 - [x] Interactive version selection implemented (lines 334-370)
 - [x] Pre-flight validation (dirty tree, tests) implemented (lines 187-263)
 - [x] Operational files sync implemented with exclusion patterns (lines 420-512)
@@ -637,7 +637,7 @@ Proceed? [y/N]:
 
 ### Files Created/Modified
 - `scripts/release.sh` - Main release automation script (1,143 lines, 66 functions)
-- `.devforgeai/config/release-config.sh` - Configuration file (151 lines)
+- `devforgeai/config/release-config.sh` - Configuration file (151 lines)
 - `jest.config.js` - Updated to include release tests
 - `tests/release/unit/release-script.test.js` - Unit tests Phase 0-2 (37 tests)
 - `tests/release/unit/release-script-phases.test.js` - Unit tests Phase 3-7 (44 tests)
@@ -661,7 +661,7 @@ Proceed? [y/N]:
 
 **Implementation:**
 - [x] `scripts/release.sh` script created with all 7 phases (1,143 lines) - Completed: Phase 2
-- [x] `.devforgeai/config/release-config.sh` configuration file created (151 lines) - Completed: Phase 2
+- [x] `devforgeai/config/release-config.sh` configuration file created (151 lines) - Completed: Phase 2
 - [x] Interactive version selection implemented (lines 334-370) - Completed: Phase 2
 - [x] Pre-flight validation (dirty tree, tests) implemented (lines 187-263) - Completed: Phase 2
 - [x] Operational files sync implemented with exclusion patterns (lines 420-512) - Completed: Phase 2
@@ -727,7 +727,7 @@ _Updated during TDD phases. Maps granular verification items to phases._
 
 ### AC#2: Operational Files Sync to Distribution Source
 - [ ] .claude/ sync with exclusions - Phase: 2 - Evidence: Unit test
-- [ ] .devforgeai/ sync with exclusions - Phase: 2 - Evidence: Unit test
+- [ ] devforgeai/ sync with exclusions - Phase: 2 - Evidence: Unit test
 - [ ] File count validation - Phase: 2 - Evidence: Unit test
 - [ ] sync-manifest.json generation - Phase: 2 - Evidence: Unit test
 

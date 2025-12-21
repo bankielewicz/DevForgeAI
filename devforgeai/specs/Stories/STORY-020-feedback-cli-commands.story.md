@@ -37,7 +37,7 @@ released_staging: 2025-11-12
 **When** the user executes `/feedback-config view`,
 **Then** the current feedback configuration displays (collection triggers, retention policy, export options),
 **And** the user can execute `/feedback-config edit [field] [value]` to modify settings,
-**And** updated configuration persists to .devforgeai/feedback/config.yaml,
+**And** updated configuration persists to devforgeai/feedback/config.yaml,
 **And** validation prevents invalid configuration changes (e.g., negative retention days).
 
 ---
@@ -61,7 +61,7 @@ released_staging: 2025-11-12
 - Metadata index (story IDs, operation types, temporal distribution)
 - Configuration snapshot at export time
 - Format options: JSON, CSV, markdown summary,
-**And** package is saved to .devforgeai/feedback/exports/{timestamp}-feedback-export.{format},
+**And** package is saved to devforgeai/feedback/exports/{timestamp}-feedback-export.{format},
 **And** success message displays with file path and package contents summary.
 
 ---
@@ -226,7 +226,7 @@ released_staging: 2025-11-12
   "status": "success",
   "export_id": "EXP-2025-11-07-001",
   "timestamp": "2025-11-07T14:35:00Z",
-  "file_path": ".devforgeai/feedback/exports/2025-11-07-feedback-export.json",
+  "file_path": "devforgeai/feedback/exports/2025-11-07-feedback-export.json",
   "format": "json",
   "entries_count": 23,
   "metadata": {
@@ -237,7 +237,7 @@ released_staging: 2025-11-12
     "export_timestamp": "2025-11-07T14:35:00Z",
     "framework_version": "1.0.1"
   },
-  "message": "Feedback exported successfully to .devforgeai/feedback/exports/"
+  "message": "Feedback exported successfully to devforgeai/feedback/exports/"
 }
 ```
 
@@ -321,7 +321,7 @@ interface ExportPackage {
 ### File Structure
 
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── config.yaml              # Configuration settings
 ├── feedback-register.md     # Master feedback log
 └── exports/
@@ -386,7 +386,7 @@ interface ExportPackage {
 
 ### 6. Configuration File Corruption
 
-**Condition:** .devforgeai/feedback/config.yaml is corrupted or unreadable
+**Condition:** devforgeai/feedback/config.yaml is corrupted or unreadable
 
 **Expected Behavior:** Error message: "Configuration file corrupted. Run `/feedback-config reset` to restore defaults."
 
@@ -406,7 +406,7 @@ interface ExportPackage {
 
 ### 8. Missing Permissions for Export
 
-**Condition:** Export directory .devforgeai/feedback/exports/ is read-only
+**Condition:** Export directory devforgeai/feedback/exports/ is read-only
 
 **Expected Behavior:** Error: "Cannot write to exports directory. Check file permissions."
 
@@ -495,7 +495,7 @@ interface ExportPackage {
 
 - Input validation prevents SQL injection in feedback queries
 - Path validation prevents directory traversal in export paths
-- Config file permissions restrict access to .devforgeai/feedback/
+- Config file permissions restrict access to devforgeai/feedback/
 - User context sanitized (max 500 chars, alphanumeric only)
 
 ---
@@ -646,7 +646,7 @@ All commands provide:
 1. `handle_feedback()` - Manual feedback trigger (92 lines)
    - Unique ID generation with collision detection
    - Context validation (max 500 chars, alphanumeric + hyphens + underscores)
-   - Register persistence to .devforgeai/feedback/feedback-register.md
+   - Register persistence to devforgeai/feedback/feedback-register.md
 
 2. `handle_feedback_config()` - Configuration management (177 lines)
    - View/edit/reset subcommands
@@ -781,9 +781,9 @@ Or run full orchestration: `/orchestrate STORY-020` (from current checkpoint)
 6. Help Text Availability - PASSED
 
 **Release Artifacts:**
-- Smoke Test Results: .devforgeai/qa/smoke-tests/STORY-020-staging-results.json
-- QA Report: .devforgeai/qa/reports/STORY-020-qa-report.md
-- Release Notes: .devforgeai/releases/STORY-020-release-notes.md
+- Smoke Test Results: devforgeai/qa/smoke-tests/STORY-020-staging-results.json
+- QA Report: devforgeai/qa/reports/STORY-020-qa-report.md
+- Release Notes: devforgeai/releases/STORY-020-release-notes.md
 
 **Post-Deployment Status:**
 - Story Status: QA Approved (ready for production)

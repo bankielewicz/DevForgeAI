@@ -126,8 +126,8 @@ describe('Package Discoverability and Metadata', () => {
 
       // Assert
       expect(bin).toBeDefined();
-      expect(bin.devforgeai).toBeDefined();
-      expect(bin.devforgeai).toContain('bin/');
+      expect(bindevforgeai).toBeDefined();
+      expect(bindevforgeai).toContain('bin/');
     });
 
     test('should specify Node.js engine requirements', () => {

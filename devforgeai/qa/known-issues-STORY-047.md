@@ -104,7 +104,7 @@ except (OSError, IOError) as e:
 - Isolation tests failing (found "DotNetTestProject" in Node.js project)
 
 **Fix Applied:**
-- Added `.devforgeai/specs/enhancements/` to NO_DEPLOY_DIRS
+- Added `devforgeai/specs/enhancements/` to NO_DEPLOY_DIRS
 - Updated isolation tests to exclude development artifacts
 - Excluded patterns: `.backups`, `test_`, `STORY-047`, `manifest.json`, `__pycache__`, `specs/enhancements`, `MIGRATION-PLAN`
 
@@ -126,7 +126,7 @@ except (OSError, IOError) as e:
 1. Updated src/devforgeai/version.json: 1.0.0 → 1.0.1
 2. Updated installer/__init__.py version: 1.0.0 → 1.0.1
 3. Adjusted CLAUDE.md size test range: 1000-1100 → 1000-1200 lines
-4. Fixed config preservation test: Check deployed dirs (.devforgeai/config, /protocols) not user dirs (/context)
+4. Fixed config preservation test: Check deployed dirs (devforgeai/config, /protocols) not user dirs (/context)
 
 **Verification:**
 - test_ac1_nodejs_version_json_created: ✅ PASSING

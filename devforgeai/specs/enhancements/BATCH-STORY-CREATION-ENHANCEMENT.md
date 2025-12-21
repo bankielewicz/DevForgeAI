@@ -2034,11 +2034,11 @@ def invoke_story_creation_skill(story_id, epic_id, feature, sprint, priority, ba
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **RCA Fix:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **RCA Fix:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
 - **Command:** `.claude/commands/create-story.md`
 - **Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

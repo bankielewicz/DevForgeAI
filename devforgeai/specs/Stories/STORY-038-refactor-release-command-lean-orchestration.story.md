@@ -92,7 +92,7 @@ NO business logic present:
   - Staging deployment executes
   - Smoke tests run automatically
   - Story status updated to "Released"
-  - Release notes generated in `.devforgeai/releases/`
+  - Release notes generated in `devforgeai/releases/`
   - **Behavior identical to original** ✅
 
 #### Scenario 3b: Production Deployment with Confirmation
@@ -134,7 +134,7 @@ NO business logic present:
   - **Behavior identical to original** ✅
 
 #### Scenario 3f: Post-Release Hooks Integration (STORY-025)
-- **Given** hooks enabled in `.devforgeai/config/hooks.yaml`
+- **Given** hooks enabled in `devforgeai/config/hooks.yaml`
 - **When** deployment completes (staging and/or production)
 - **Then**
   - Phase 2.5 hook triggered after staging deployment
@@ -145,7 +145,7 @@ NO business logic present:
 **Regression test execution:**
 ```bash
 # Run full regression test suite
-bash .devforgeai/tests/commands/test-release.sh
+bash devforgeai/tests/commands/test-release.sh
 
 # Expected output
 ✅ All 40+ regression tests pass (100% pass rate)
@@ -178,7 +178,7 @@ bash .devforgeai/tests/commands/test-release.sh
 #### Skill Parameter Extraction
 - ✅ Extracts story ID from YAML frontmatter (loaded via @file)
 - ✅ Extracts environment from context markers (**Environment:**)
-- ✅ Extracts deployment strategy from `.devforgeai/deployment/config.json`
+- ✅ Extracts deployment strategy from `devforgeai/deployment/config.json`
 - ✅ Determines deployment platform (K8s, Docker, AWS, etc.) from tech-stack.md
 
 #### Skill Invocation from Command
@@ -482,7 +482,7 @@ technical_specification:
       parameter_extraction:
         story_id: "From YAML frontmatter (loaded via @file) or AskUserQuestion fallback"
         environment: "From context markers (**Environment:**) or argument $2, defaults to staging"
-        deployment_strategy: "From .devforgeai/deployment/config.json"
+        deployment_strategy: "From devforgeai/deployment/config.json"
         platform: "Detected from tech-stack.md (Kubernetes, Docker, AWS, Azure, GCP, etc.)"
 
     - type: "DataModel"
@@ -515,7 +515,7 @@ technical_specification:
           fields:
             - name: "release_notes_path"
               type: "string"
-              example: ".devforgeai/releases/STORY-042-release-notes.md"
+              example: "devforgeai/releases/STORY-042-release-notes.md"
 
             - name: "changelog_updated"
               type: "boolean"
@@ -710,7 +710,7 @@ technical_specification:
   - ✅ Graceful handling of concurrent modifications
 
 ### Edge Case 7: Release Notes Template Missing
-- **Setup:** `.devforgeai/releases/` directory structure wrong or missing template
+- **Setup:** `devforgeai/releases/` directory structure wrong or missing template
 - **When:** Phase 5 (Release Documentation) attempts to generate notes
 - **Then:**
   - Missing template detected
@@ -720,12 +720,12 @@ technical_specification:
   - ✅ Fallback mechanism prevents failure
 
 ### Edge Case 8: Environment Configuration Missing
-- **Setup:** User specified `staging` but no staging config in `.devforgeai/deployment/config.json`
+- **Setup:** User specified `staging` but no staging config in `devforgeai/deployment/config.json`
 - **When:** Pre-release validation checks environment
 - **Then:**
   - Missing config detected
   - Clear error: "Staging environment not configured"
-  - Guidance: "Add staging to .devforgeai/deployment/config.json or use /create-context"
+  - Guidance: "Add staging to devforgeai/deployment/config.json or use /create-context"
   - Deployment blocked (cannot proceed without config)
   - ✅ Clear error preventing invalid deployments
 
@@ -837,7 +837,7 @@ technical_specification:
 **Validator:** devforgeai-qa skill
 **Mode:** Deep
 **Result:** PASSED
-**Report:** .devforgeai/qa/reports/STORY-038-qa-report-deep-2025-11-18.md
+**Report:** devforgeai/qa/reports/STORY-038-qa-report-deep-2025-11-18.md
 
 **Summary:**
 - Test Pass Rate: 95.6% (65/68 tests passing)
@@ -1115,7 +1115,7 @@ technical_specification:
 - Action: Can be refined post-deployment
 
 **2. One Skill Integration Test Pending**
-- Cause: Skill file references ".devforgeai/releases" directory structure
+- Cause: Skill file references "devforgeai/releases" directory structure
 - Impact: Doesn't affect command functionality
 - Severity: Infrastructure validation
 - Action: Verify during Phase 5 git commit
@@ -1182,7 +1182,7 @@ technical_specification:
 | **Command size (characters)** | <12K (opt) / <15K (max) | ✅ <15K | `wc -c < .claude/commands/release.md` |
 | **Command size (lines)** | ≤350 | ✅ 47% reduction from 655 | `wc -l < .claude/commands/release.md` |
 | **Token savings** | ≥75% | ✅ From 15K to <3K main | Estimated based on similar refactorings |
-| **Test pass rate** | 100% | ✅ 40+ tests passing | `bash .devforgeai/tests/commands/test-release.sh` |
+| **Test pass rate** | 100% | ✅ 40+ tests passing | `bash devforgeai/tests/commands/test-release.sh` |
 | **Regression tests** | 100% passing | ✅ All 6 scenarios identical | Behavior comparison matrix |
 | **Pattern compliance** | 5/5 responsibilities | ✅ All checklist items met | Pattern validation checklist |
 
@@ -1202,7 +1202,7 @@ technical_specification:
 ### Dependencies
 - **STORY-025:** Wire hooks into release command (post-staging and post-production feedback)
   - Phase 2.5 and 3.5 support already in skill
-  - Hooks configuration in `.devforgeai/config/hooks.yaml`
+  - Hooks configuration in `devforgeai/config/hooks.yaml`
   - Graceful degradation if hooks disabled
   - **No blocking dependency** (hooks are optional)
 
@@ -1333,9 +1333,9 @@ Use this checklist during implementation to validate all ACs are met:
 ## Related Documentation
 
 **Lean Orchestration Pattern:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Core pattern definition
-- `.devforgeai/protocols/refactoring-case-studies.md` - 5 completed refactorings
-- `.devforgeai/protocols/command-budget-reference.md` - Budget monitoring
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Core pattern definition
+- `devforgeai/protocols/refactoring-case-studies.md` - 5 completed refactorings
+- `devforgeai/protocols/command-budget-reference.md` - Budget monitoring
 
 **Reference Implementations:**
 - `.claude/commands/qa.md` - ✅ Reference excellent (48% budget, 295 lines)

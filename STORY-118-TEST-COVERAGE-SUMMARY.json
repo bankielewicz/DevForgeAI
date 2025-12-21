@@ -1,0 +1,405 @@
+{
+  "test_analysis_summary": {
+    "story_id": "STORY-118",
+    "story_title": "Core Anti-pattern Rules - Code Quality Detection",
+    "analysis_date": "2025-12-21",
+    "test_file": "tests/unit/test_antipattern_rules_story118.py",
+    "overall_status": "FAIL",
+    "quality_gate_status": "BLOCKED",
+    "execution_results": {
+      "total_tests": 59,
+      "passed": 51,
+      "failed": 8,
+      "skipped": 0,
+      "pass_rate": 86.4,
+      "coverage_threshold": 95,
+      "coverage_gap": -8.6,
+      "blocking": true
+    },
+    "failing_tests": [
+      {
+        "rank": 1,
+        "test_name": "test_god_object_many_fields_python",
+        "test_class": "TestGodObjectDetection",
+        "rule_id": "AP-001",
+        "severity": "CRITICAL",
+        "root_cause_category": "missing_feature",
+        "root_cause": "AP-001 rule pattern missing field/attribute detection (AC#1.3 requirement)",
+        "issue_type": "Feature Gap",
+        "blocked_ac": "AC#1.3: Detect classes with >15 fields/properties",
+        "impact_level": "AC requirement not implemented",
+        "time_to_fix": "3-4 hours",
+        "dependencies": ["Fixture: god_object_many_fields.py exists and has 15+ fields"]
+      },
+      {
+        "rank": 2,
+        "test_name": "test_duplicate_code_detected_python",
+        "test_class": "TestDuplicateCodeDetection",
+        "rule_id": "AP-009",
+        "severity": "CRITICAL",
+        "root_cause_category": "architecture_limitation",
+        "root_cause": "ast-grep cannot perform semantic code duplication detection (not AST-based)",
+        "issue_type": "Architecture Limitation",
+        "blocked_ac": "AC#7.3: Detect code blocks >10 lines repeated",
+        "impact_level": "Cannot be fixed with current tool",
+        "recommendation": "DEFER to future story using radon/pylint",
+        "time_to_fix": "4-6 hours (if using alternative) OR 2 hours (if deferred with docs)",
+        "alternative_approaches": [
+          "Use radon library for duplication detection",
+          "Use pylint with duplicate-code checker",
+          "Create custom duplication detector",
+          "Defer to future story and document limitation"
+        ]
+      },
+      {
+        "rank": 3,
+        "test_name": "test_god_object_many_methods_python",
+        "test_class": "TestGodObjectDetection",
+        "rule_id": "AP-001",
+        "severity": "HIGH",
+        "root_cause_category": "pattern_mismatch",
+        "root_cause": "Pattern requires exact method sequence (M1-M10) that doesn't match fixture naming convention",
+        "issue_type": "Pattern Too Strict",
+        "blocked_ac": "AC#1.2: Detect classes with >20 methods",
+        "impact_level": "Core god object detection by method count fails",
+        "time_to_fix": "2-3 hours",
+        "diagnostic_command": "ast-grep scan --rule devforgeai/ast-grep/rules/python/anti-patterns/god-object.yml tests/fixtures/anti-patterns/python/god_object_vulnerable.py --json"
+      },
+      {
+        "rank": 4,
+        "test_name": "test_async_void_detected_csharp",
+        "test_class": "TestAsyncVoidDetection",
+        "rule_id": "AP-002",
+        "severity": "HIGH",
+        "root_cause_category": "pattern_mismatch",
+        "root_cause": "Pattern 'async void $METHOD($$$PARAMS)' doesn't account for access modifiers (public/private)",
+        "issue_type": "Pattern Incompleteness",
+        "blocked_ac": "AC#2.1: Detect async void method declarations",
+        "impact_level": "Some async void patterns not detected",
+        "time_to_fix": "1-2 hours",
+        "pattern_fix": "Update to handle optional modifiers: '[$MODIFIER] async void $METHOD($$$PARAMS)'"
+      },
+      {
+        "rank": 5,
+        "test_name": "test_magic_numbers_detected_python",
+        "test_class": "TestMagicNumbersDetection",
+        "rule_id": "AP-004",
+        "severity": "MEDIUM",
+        "root_cause_category": "pattern_mismatch",
+        "root_cause": "Pattern only checks specific variable names (timeout, delay, limit) - misses generic numeric literals",
+        "issue_type": "Pattern Too Specific",
+        "blocked_ac": "AC#4.1: Detect numeric literals in conditionals and assignments",
+        "impact_level": "Detection misses many magic number patterns",
+        "time_to_fix": "2-3 hours",
+        "missing_patterns": [
+          "Function arguments: sleep(30)",
+          "Array indices: arr[5]",
+          "Dict values: {threshold: 100}",
+          "Range functions: range(50)"
+        ]
+      },
+      {
+        "rank": 6,
+        "test_name": "test_excessive_params_detected_python",
+        "test_class": "TestExcessiveParametersDetection",
+        "rule_id": "AP-008",
+        "severity": "MEDIUM",
+        "root_cause_category": "pattern_mismatch",
+        "root_cause": "Pattern requires exact parameter positions with specific names ($A, $B, $C...) - doesn't handle defaults or *args",
+        "issue_type": "Pattern Too Rigid",
+        "blocked_ac": "AC#7.2: Detect functions with >5 parameters",
+        "impact_level": "Parameter count detection fails for variations",
+        "time_to_fix": "2-3 hours",
+        "pattern_variations_needed": [
+          "def $FUNC($A, $B, $C, $D, $E, $F=DEFAULT)",
+          "def $FUNC($A, $B, $C, $D, $E, *args)",
+          "def $FUNC(self, $A, $B, $C, $D, $E, $F, **kwargs)"
+        ]
+      },
+      {
+        "rank": 7,
+        "test_name": "test_empty_catch_detected_csharp",
+        "test_class": "TestEmptyCatchDetection",
+        "rule_id": "AP-010",
+        "severity": "MEDIUM",
+        "root_cause_category": "unknown",
+        "root_cause": "Unknown - requires direct ast-grep scan validation",
+        "issue_type": "Pattern Validation Needed",
+        "blocked_ac": "AC#7.4: Detect catch blocks with no statements",
+        "impact_level": "Unknown",
+        "time_to_fix": "1-2 hours",
+        "diagnostic_command": "ast-grep scan --rule devforgeai/ast-grep/rules/csharp/anti-patterns/empty-catch.yml tests/fixtures/anti-patterns/csharp/EmptyCatchVulnerable.cs --json"
+      },
+      {
+        "rank": 8,
+        "test_name": "test_long_method_test_excluded",
+        "test_class": "TestLongMethodDetection",
+        "rule_id": "AP-005",
+        "severity": "LOW",
+        "root_cause_category": "test_design_error",
+        "root_cause": "Test validates wrong behavior - expects rule to exclude test files, but exclusion happens at scan level, not rule level",
+        "issue_type": "Test Assertion Error",
+        "blocked_ac": "AC#5.2: Test methods excluded from long method checks",
+        "impact_level": "Test is incorrect; rule is likely working",
+        "time_to_fix": "1 hour",
+        "fix_type": "Test correction (not rule fix)",
+        "notes": "File exclusion is scan-level concern, not rule-level. Test should validate this is documented."
+      }
+    ],
+    "acceptance_criteria_coverage": {
+      "overall_pass_rate": "73.7%",
+      "items_passing": 14,
+      "items_total": 19,
+      "coverage_by_ac": [
+        {
+          "ac_id": "AC#1",
+          "ac_title": "God Object Detection",
+          "items_total": 3,
+          "items_passing": 1,
+          "pass_rate": "33%",
+          "status": "FAIL",
+          "failing_items": [
+            "AC#1.2: Classes with >20 methods (pattern mismatch)",
+            "AC#1.3: Classes with >15 fields (missing feature)"
+          ]
+        },
+        {
+          "ac_id": "AC#2",
+          "ac_title": "Async Void Detection",
+          "items_total": 2,
+          "items_passing": 1,
+          "pass_rate": "50%",
+          "status": "FAIL",
+          "failing_items": [
+            "AC#2.1: async void declaration detection (pattern mismatch)"
+          ]
+        },
+        {
+          "ac_id": "AC#3",
+          "ac_title": "Console.log Detection",
+          "items_total": 3,
+          "items_passing": 3,
+          "pass_rate": "100%",
+          "status": "PASS"
+        },
+        {
+          "ac_id": "AC#4",
+          "ac_title": "Magic Numbers Detection",
+          "items_total": 3,
+          "items_passing": 2,
+          "pass_rate": "67%",
+          "status": "FAIL",
+          "failing_items": [
+            "AC#4.1: Numeric literal detection (pattern too specific)"
+          ]
+        },
+        {
+          "ac_id": "AC#5",
+          "ac_title": "Long Method Detection",
+          "items_total": 2,
+          "items_passing": 1,
+          "pass_rate": "50%",
+          "status": "FAIL",
+          "failing_items": [
+            "AC#5.2: Test method exclusion (test design error)"
+          ]
+        },
+        {
+          "ac_id": "AC#6",
+          "ac_title": "Nested Conditionals Detection",
+          "items_total": 2,
+          "items_passing": 2,
+          "pass_rate": "100%",
+          "status": "PASS"
+        },
+        {
+          "ac_id": "AC#7",
+          "ac_title": "Additional Anti-patterns",
+          "items_total": 4,
+          "items_passing": 2,
+          "pass_rate": "50%",
+          "status": "FAIL",
+          "failing_items": [
+            "AC#7.2: Excessive parameters (pattern mismatch)",
+            "AC#7.3: Duplicate code (architecture limitation)",
+            "AC#7.4: Empty catch (validation needed)"
+          ]
+        }
+      ]
+    },
+    "rule_status_matrix": [
+      {
+        "rule_id": "AP-001",
+        "rule_name": "God Object Detection",
+        "tests_total": 3,
+        "tests_passing": 1,
+        "status": "BROKEN",
+        "issues": [
+          "Missing field detection pattern",
+          "Method pattern too strict"
+        ],
+        "severity": "HIGH"
+      },
+      {
+        "rule_id": "AP-002",
+        "rule_name": "Async Void Detection",
+        "tests_total": 2,
+        "tests_passing": 1,
+        "status": "PARTIAL",
+        "issues": ["Pattern doesn't handle modifiers"],
+        "severity": "MEDIUM"
+      },
+      {
+        "rule_id": "AP-003",
+        "rule_name": "Console.log Detection",
+        "tests_total": 3,
+        "tests_passing": 3,
+        "status": "WORKING",
+        "issues": [],
+        "severity": "NONE"
+      },
+      {
+        "rule_id": "AP-004",
+        "rule_name": "Magic Numbers Detection",
+        "tests_total": 3,
+        "tests_passing": 2,
+        "status": "PARTIAL",
+        "issues": ["Pattern too specific to variable names"],
+        "severity": "MEDIUM"
+      },
+      {
+        "rule_id": "AP-005",
+        "rule_name": "Long Method Detection",
+        "tests_total": 2,
+        "tests_passing": 1,
+        "status": "LIKELY_WORKING",
+        "issues": ["Test design error (not rule issue)"],
+        "severity": "LOW"
+      },
+      {
+        "rule_id": "AP-006",
+        "rule_name": "Nested Conditionals Detection",
+        "tests_total": 2,
+        "tests_passing": 2,
+        "status": "WORKING",
+        "issues": [],
+        "severity": "NONE"
+      },
+      {
+        "rule_id": "AP-007",
+        "rule_name": "Unused Imports Detection",
+        "tests_total": 1,
+        "tests_passing": 1,
+        "status": "WORKING",
+        "issues": [],
+        "severity": "NONE"
+      },
+      {
+        "rule_id": "AP-008",
+        "rule_name": "Excessive Parameters Detection",
+        "tests_total": 1,
+        "tests_passing": 0,
+        "status": "BROKEN",
+        "issues": ["Pattern too rigid for parameter variations"],
+        "severity": "MEDIUM"
+      },
+      {
+        "rule_id": "AP-009",
+        "rule_name": "Duplicate Code Detection",
+        "tests_total": 1,
+        "tests_passing": 0,
+        "status": "IMPOSSIBLE",
+        "issues": ["ast-grep cannot perform semantic duplication detection"],
+        "severity": "HIGH",
+        "recommendation": "DEFER to future story"
+      },
+      {
+        "rule_id": "AP-010",
+        "rule_name": "Empty Catch Detection",
+        "tests_total": 1,
+        "tests_passing": 0,
+        "status": "UNKNOWN",
+        "issues": ["Pattern validation needed"],
+        "severity": "MEDIUM"
+      }
+    ],
+    "remediation_summary": {
+      "critical_issues": 2,
+      "high_issues": 2,
+      "medium_issues": 3,
+      "low_issues": 1,
+      "total_issues": 8,
+      "estimated_effort_hours": "15-20",
+      "recommended_approach": [
+        {
+          "phase": 1,
+          "title": "Validation",
+          "duration": "2-3 hours",
+          "tasks": [
+            "Run direct ast-grep scans on failing fixtures",
+            "Document exact pattern mismatches",
+            "Identify root causes"
+          ]
+        },
+        {
+          "phase": 2,
+          "title": "Critical Fixes",
+          "duration": "8-10 hours",
+          "tasks": [
+            "Fix AP-001 field detection (3-4h)",
+            "Fix AP-002, AP-004, AP-008 patterns (5-8h)",
+            "Fix AP-005 test assertion (1h)"
+          ]
+        },
+        {
+          "phase": 3,
+          "title": "Architecture Decision",
+          "duration": "2 hours",
+          "tasks": [
+            "Decide on AP-009 deferral vs alternative tool",
+            "Document decision",
+            "Create follow-up story if needed"
+          ]
+        },
+        {
+          "phase": 4,
+          "title": "Validation & Cleanup",
+          "duration": "1-2 hours",
+          "tasks": [
+            "Fix AP-010 based on diagnostics",
+            "Run full test suite",
+            "Verify 95%+ pass rate"
+          ]
+        }
+      ]
+    },
+    "quality_assessment": {
+      "test_design": "EXCELLENT",
+      "test_coverage": "COMPREHENSIVE",
+      "fixture_quality": "GOOD",
+      "pattern_quality": "NEEDS_IMPROVEMENT",
+      "documentation": "GOOD",
+      "test_failure_root_causes": {
+        "rule_issues": 6,
+        "test_issues": 1,
+        "architecture_issues": 1
+      }
+    },
+    "next_steps": [
+      "1. Create remediation task for phase 1 validation",
+      "2. Run direct ast-grep scans on all failing fixtures",
+      "3. Prioritize fixes: AP-001 field detection first (AC requirement)",
+      "4. Schedule architecture review for AP-009 deferral decision",
+      "5. Plan for 15-20 hour remediation effort (2-3 development days)",
+      "6. Update story status once all tests pass"
+    ],
+    "success_criteria": {
+      "test_pass_rate": "100% (59/59)",
+      "coverage_threshold": "≥95%",
+      "ac_coverage": "≥95%",
+      "no_new_failures": true,
+      "ap009_decision_documented": true,
+      "estimated_timeline": "2-3 development days"
+    }
+  }
+}

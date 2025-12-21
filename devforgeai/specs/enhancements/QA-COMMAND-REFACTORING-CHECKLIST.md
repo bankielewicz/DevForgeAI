@@ -9,8 +9,8 @@
 
 ## Pre-Implementation Verification
 
-- [ ] Review analysis document: `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
-- [ ] Review summary document: `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
+- [ ] Review analysis document: `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+- [ ] Review summary document: `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
 - [ ] Approve architectural decision (Option B: new subagent)
 - [ ] Confirm token efficiency targets acceptable
 - [ ] Approve risk mitigation strategies
@@ -96,7 +96,7 @@
   Task(
       subagent_type="qa-result-interpreter",
       description="Interpret QA results",
-      prompt="QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+      prompt="QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
               Interpret and generate user-friendly display.
               Return structured result."
   )
@@ -310,7 +310,7 @@
 
 ### Create Release Notes
 
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-RELEASE-NOTES.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-RELEASE-NOTES.md`
 
 - [ ] Executive summary (1 paragraph)
 - [ ] What changed (3-4 main points)

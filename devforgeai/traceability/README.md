@@ -20,21 +20,21 @@ The Requirements Traceability Matrix provides parsing infrastructure to extract 
 ### Generate Full Requirements Matrix
 
 ```bash
-.devforgeai/traceability/parse-requirements.sh --generate-matrix
+devforgeai/traceability/parse-requirements.sh --generate-matrix
 ```
 
-**Output:** `.devforgeai/traceability/requirements-matrix.json`
+**Output:** `devforgeai/traceability/requirements-matrix.json`
 
 ### Check for Orphaned Stories
 
 ```bash
-.devforgeai/traceability/parse-requirements.sh --detect-orphans
+devforgeai/traceability/parse-requirements.sh --detect-orphans
 ```
 
 ### Validate Epic References
 
 ```bash
-.devforgeai/traceability/parse-requirements.sh --run-validation
+devforgeai/traceability/parse-requirements.sh --run-validation
 ```
 
 ---
@@ -177,7 +177,7 @@ Configuration is stored in `config.json`:
   "story_id_pattern": "^STORY-[0-9]{3}$",
   "epics_dir": ".ai_docs/Epics",
   "stories_dir": ".ai_docs/Stories",
-  "output_file": ".devforgeai/traceability/requirements-matrix.json"
+  "output_file": "devforgeai/traceability/requirements-matrix.json"
 }
 ```
 
@@ -298,7 +298,7 @@ This is **Feature 0** of EPIC-015. Dependent features:
 - **Story File:** `devforgeai/specs/Stories/STORY-083-requirements-traceability-matrix.story.md`
 - **Epic File:** `devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md`
 - **Test Suite:** `tests/traceability/`
-- **Configuration:** `.devforgeai/traceability/config.json`
+- **Configuration:** `devforgeai/traceability/config.json`
 
 ---
 

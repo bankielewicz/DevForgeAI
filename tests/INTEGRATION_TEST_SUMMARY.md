@@ -30,7 +30,7 @@ The migration script **successfully executes all core functionality**. Test fail
 
 **PASSING TESTS (27/36):**
 - ✓ AC-1.1-5: `.claude/` directory structure and preservation
-- ✓ AC-2.1-3,6: `.devforgeai/` directory and source-only files
+- ✓ AC-2.1-3,6: `devforgeai/` directory and source-only files
 - ✓ AC-3.1,3.4-5: CLAUDE.md copying and templates
 - ✓ AC-4.1,4.3-5: Checksum manifest creation and format validation
 - ✓ AC-5.1-7: All exclusion patterns (backup, temp, bytecode, artifacts, etc.)
@@ -52,7 +52,7 @@ The migration script **successfully executes all core functionality**. Test fail
 
 **Key Finding**: The ~450 file estimate was conservative. Actual DevForgeAI framework contains 1,099 files:
 - `.claude/` = 1,002 files (estimated ~370)
-- `.devforgeai/` = 89 files (estimated ~80)
+- `devforgeai/` = 89 files (estimated ~80)
 - Other = 8 files (CLAUDE.md, config, scripts)
 
 All 1,099 files successfully migrated, checksummed, and staged for git.
@@ -154,7 +154,7 @@ The `shasum -c` command expects paths relative to working directory or fails whe
 ### Component 5: Rollback Integration
 **Status**: ✓ VERIFIED
 - Rollback script can remove src/ directories
-- Original .claude/ and .devforgeai/ untouched
+- Original .claude/ and devforgeai/ untouched
 - All cleanup operations functional
 
 ### Component 6: Config & Script Integration
@@ -198,8 +198,8 @@ find src/ -type f -exec sha256sum {} \; | sed 's|/absolute/path/||' > checksums.
 **Issue**: Test expectations don't match reality
 
 **Evidence**:
-- Estimated files: ~450 total (~370 .claude/, ~80 .devforgeai/)
-- Actual files: 1,099 total (1,002 .claude/, 89 .devforgeai/)
+- Estimated files: ~450 total (~370 .claude/, ~80 devforgeai/)
+- Actual files: 1,099 total (1,002 .claude/, 89 devforgeai/)
 - Ratio: 2.7x more files than estimated
 
 **Impact**: AC-1.3, AC-2.4, AC-4.2, AC-6.2 fail due to estimate mismatch
@@ -217,7 +217,7 @@ find src/ -type f -exec sha256sum {} \; | sed 's|/absolute/path/||' > checksums.
 | **Core functionality 100% working** | ✓ PASS | Files copied, checksummed, staged; all operations logged |
 | **No data corruption** | ⚠ PARTIAL | Spot-checks pass; batch validation fails (path issue) |
 | **Git operations successful** | ✓ PASS | 1,053 files staged; git status shows additions |
-| **Original directories preserved** | ✓ PASS | .claude/ and .devforgeai/ unchanged and intact |
+| **Original directories preserved** | ✓ PASS | .claude/ and devforgeai/ unchanged and intact |
 | **Exclusion patterns working** | ✓ PASS | Zero backup/artifact files in src/; logs excluded |
 | **End-to-end workflow** | ✓ PASS | Full migration executed without errors or timeouts |
 
@@ -280,7 +280,7 @@ find src/ -type f -exec sha256sum {} \; | sed 's|/absolute/path/||' > checksums.
    - **Action**:
      - Add file count breakdown to migration report
      - Include actual vs estimated files in logs
-     - Display component breakdown (.claude/ vs .devforgeai/)
+     - Display component breakdown (.claude/ vs devforgeai/)
 
 ---
 
@@ -296,7 +296,7 @@ find src/ -type f -exec sha256sum {} \; | sed 's|/absolute/path/||' > checksums.
 - File count: 1,099 (vs estimated 450)
 - Checksums: 1,099 (vs estimated 450)
 - Git additions: 1,053 (vs estimated 450)
-- Original files: 1,002 .claude/, 89 .devforgeai/ (vs 370/80)
+- Original files: 1,002 .claude/, 89 devforgeai/ (vs 370/80)
 
 **Test Results**:
 - Total test cases: 95+

@@ -65,8 +65,8 @@ Validates that the distribution package contains all required framework componen
 - ✅ .claude/commands/ - 23 markdown files
 - ✅ .claude/agents/ - 27 markdown files
 - ✅ devforgeai/context/ - 6 context files
-- ✅ .devforgeai/qa/ - QA templates
-- ✅ .devforgeai/adrs/ - ADR templates
+- ✅ devforgeai/qa/ - QA templates
+- ✅ devforgeai/adrs/ - ADR templates
 - ✅ .ai_docs/ - Documentation files
 
 ---
@@ -143,7 +143,7 @@ Validates that deprecation notices and timelines are consistent and clear.
 Validates that team training and onboarding materials are in place.
 
 **Onboarding Artifacts**:
-- ✅ `.devforgeai/onboarding/` directory exists
+- ✅ `devforgeai/onboarding/` directory exists
 - ✅ `team-training-log.md` exists and is accessible
 - ✅ Framework migration documentation available
 - ✅ Developer onboarding workflow documented

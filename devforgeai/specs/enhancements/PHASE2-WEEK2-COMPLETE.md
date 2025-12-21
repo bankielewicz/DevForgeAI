@@ -286,7 +286,7 @@ def _convert_with_ai(self, freeform_text: str) -> Dict:
 
         {freeform_text}
 
-        Use schema from: .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+        Use schema from: devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
         Return ONLY valid YAML.
         """

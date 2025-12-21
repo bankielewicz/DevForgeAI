@@ -335,7 +335,7 @@ There are no time constraints and your context window is plenty big!
 ---
 
 #### 4. RCA-006-autonomous-deferrals.md - HIGH
-**Path:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**Path:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 **Lines Examined:** 1-100 (root cause and solution)
 **Finding:** RCA-006 was supposed to prevent autonomous deferrals via Phase 4.5, but only addressed explicit deferrals
 
@@ -960,7 +960,7 @@ This is a **defense-in-depth** safety mechanism. Even if Phase 4.5 has bugs (lik
 
 **Implementation:**
 
-**File:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**File:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 **Section:** Add new section before final "Related RCAs" section
 **Change Type:** Add update notice
 
@@ -1170,7 +1170,7 @@ RCA-006 should be updated to:
    - Example: Cannot transition to "Dev Complete" if DoD <100% without approval
 
 4. **User Preference Configuration:**
-   - Add `.devforgeai/config/workflow-preferences.md`
+   - Add `devforgeai/config/workflow-preferences.md`
    - Let user configure:
      - Deferral approval mode: "always-ask" vs "auto-approve-with-justification"
      - Completion target: "always-100%" vs "allow-deferrals"

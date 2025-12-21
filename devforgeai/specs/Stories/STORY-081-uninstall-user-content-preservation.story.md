@@ -28,8 +28,8 @@ Clean uninstallation is critical for users who want to remove DevForgeAI from a 
 
 **Given** DevForgeAI is installed with a valid manifest,
 **When** uninstall command runs,
-**Then** all installed files are detected via manifest (`.devforgeai/.install-manifest.json`),
-**And** framework directories are identified: `.claude/`, `.devforgeai/`, `CLAUDE.md`,
+**Then** all installed files are detected via manifest (`devforgeai/.install-manifest.json`),
+**And** framework directories are identified: `.claude/`, `devforgeai/`, `CLAUDE.md`,
 **And** user content directories are identified: `.ai_docs/`, custom context files,
 **And** CLI binaries are identified (if installed to PATH).
 
@@ -91,7 +91,7 @@ Clean uninstallation is critical for users who want to remove DevForgeAI from a 
 **Then** files are removed in safe order:
   1. Framework files (skills, agents, commands)
   2. Configuration files
-  3. Framework directories (.claude/, .devforgeai/)
+  3. Framework directories (.claude/, devforgeai/)
   4. Root files (CLAUDE.md if DevForgeAI-managed)
 **And** user content is preserved (if preserve mode selected),
 **And** empty directories are cleaned up.
@@ -195,7 +195,7 @@ technical_specification:
         - id: "SVC-006"
           description: "Handle files not in manifest"
           testable: true
-          test_requirement: "Test: Given new file in .devforgeai/, When classify() called, Then returns USER_CREATED"
+          test_requirement: "Test: Given new file in devforgeai/, When classify() called, Then returns USER_CREATED"
           priority: "High"
 
     - type: "Service"
@@ -370,7 +370,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "uninstall-config.json"
-      file_path: ".devforgeai/config/uninstall-config.json"
+      file_path: "devforgeai/config/uninstall-config.json"
       required_keys:
         - key: "default_mode"
           type: "string"
@@ -383,7 +383,7 @@ technical_specification:
           type: "array"
           example: "['.ai_docs/**', 'devforgeai/context/*']"
           required: false
-          default: "['.ai_docs/**', 'devforgeai/context/*', '.devforgeai/adrs/*']"
+          default: "['.ai_docs/**', 'devforgeai/context/*', 'devforgeai/adrs/*']"
           validation: "Array of glob patterns"
           test_requirement: "Test: User content patterns used for classification"
         - key: "backup_before_uninstall"
@@ -424,7 +424,7 @@ technical_specification:
       trigger: "After uninstall completes"
       validation: "Verify all framework files removed"
       error_handling: "Report remaining files in summary"
-      test_requirement: "Test: No .claude/ or .devforgeai/ files remain after COMPLETE uninstall"
+      test_requirement: "Test: No .claude/ or devforgeai/ files remain after COMPLETE uninstall"
       priority: "High"
 
   non_functional_requirements:
@@ -610,8 +610,8 @@ None - uses existing infrastructure.
 - [x] All 8 integration tests passing
 
 ### Documentation
-- [x] Uninstall command usage guide - Created `.devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines) covering all uninstall modes, flags, scenarios, troubleshooting
-- [x] Recovery guide (restore from backup) - Created `.devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines) covering 4 recovery scenarios, backup structure, restoration procedures
+- [x] Uninstall command usage guide - Created `devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines) covering all uninstall modes, flags, scenarios, troubleshooting
+- [x] Recovery guide (restore from backup) - Created `devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines) covering 4 recovery scenarios, backup structure, restoration procedures
 
 ---
 
@@ -646,7 +646,7 @@ None - uses existing infrastructure.
 - No circular chains, no multi-level chains
 - User approval confirmed (2025-12-08)
 
-**QA Report:** `.devforgeai/qa/reports/STORY-081-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-081-qa-report.md`
 
 ### QA Attempt #1: 2025-12-08 (Deep Mode) - FAILED ❌
 
@@ -809,8 +809,8 @@ None - uses existing infrastructure.
 - [x] All tests passing (93/93) - Completed: 2025-12-08
 
 **Documentation (2/2):**
-- [x] Uninstall command usage guide - `.devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines) - Completed: 2025-12-08
-- [x] Recovery guide (restore from backup) - `.devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines) - Completed: 2025-12-08
+- [x] Uninstall command usage guide - `devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines) - Completed: 2025-12-08
+- [x] Recovery guide (restore from backup) - `devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines) - Completed: 2025-12-08
 
 ### Completion Summary
 
@@ -822,7 +822,7 @@ None - uses existing infrastructure.
 
 **Phase 1: Test Fix**
 - Fixed failing test `test_should_handle_file_not_found` in `installer/tests/test_file_remover.py`
-- Changed path from `/nonexistent/file.txt` (fails validation) to `.devforgeai/nonexistent.txt` (passes validation)
+- Changed path from `/nonexistent/file.txt` (fails validation) to `devforgeai/nonexistent.txt` (passes validation)
 
 **Phase 2-5: Test Execution**
 - All 93 tests passing (14 + 19 + 8 + 15 + 14 + 13 from models, orchestrator, integration, classifier, remover, cli)
@@ -835,14 +835,14 @@ None - uses existing infrastructure.
   - cli_cleaner.py: 80%
 
 **Phase 6: Documentation**
-- Created `.devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines)
+- Created `devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines)
   - Complete usage guide for all uninstall modes (--dry-run, --yes, --complete, --skip-backup)
   - Confirmation prompt explanation
   - Backup & recovery overview
   - Troubleshooting section
   - Advanced scripting guide
 
-- Created `.devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines)
+- Created `devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines)
   - 4 complete recovery scenarios
   - Backup location & structure documentation
   - Metadata reference (report formats)
@@ -914,5 +914,5 @@ Then ready for release:
 - `devforgeai/specs/Stories/STORY-081-uninstall-user-content-preservation.story.md` (DoD updates + documentation items marked complete)
 
 **Created Files:**
-- `.devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines)
-- `.devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines)
+- `devforgeai/docs/UNINSTALL-USAGE-GUIDE.md` (1,850 lines)
+- `devforgeai/docs/UNINSTALL-RECOVERY-GUIDE.md` (680 lines)

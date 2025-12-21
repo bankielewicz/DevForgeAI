@@ -107,7 +107,7 @@ class TestScenario3aSuccessfulStagingDeployment:
 
     def test_staging_deployment_release_notes_generated(self):
         """
-        Scenario 3a: Release notes generated in `.devforgeai/releases/`
+        Scenario 3a: Release notes generated in `devforgeai/releases/`
 
         ARRANGE: Read skill documentation
         ACT: Verify release notes generation
@@ -123,7 +123,7 @@ class TestScenario3aSuccessfulStagingDeployment:
         # Assert: Release notes generation documented
         assert 'release.*notes' in content.lower() or 'notes' in content.lower(), (
             "Skill Phase 5 must generate release notes. "
-            "Create `.devforgeai/releases/{STORY-ID}-release-notes.md`"
+            "Create `devforgeai/releases/{STORY-ID}-release-notes.md`"
         )
         print("✓ Scenario 3a: Release notes generated")
 
@@ -608,7 +608,7 @@ class TestRegressionTests:
 
         ARRANGE: Read skill Phase 5
         ACT: Verify release notes generation
-        ASSERT: Notes created in `.devforgeai/releases/` with markdown format
+        ASSERT: Notes created in `devforgeai/releases/` with markdown format
         """
         # Arrange
         skill_path = Path("/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md")
@@ -618,9 +618,9 @@ class TestRegressionTests:
             content = f.read()
 
         # Assert: Release notes format preserved
-        assert 'release.*notes' in content.lower() or '.devforgeai/releases' in content, (
+        assert 'release.*notes' in content.lower() or 'devforgeai/releases' in content, (
             "Skill must generate release notes in expected location. "
-            "Regression: `.devforgeai/releases/{STORY-ID}-release-notes.md` format preserved."
+            "Regression: `devforgeai/releases/{STORY-ID}-release-notes.md` format preserved."
         )
         print("✓ Regression: Release notes format preserved")
 

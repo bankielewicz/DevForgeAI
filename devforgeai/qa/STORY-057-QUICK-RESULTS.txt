@@ -146,10 +146,10 @@ DETAILED DOCUMENTATION
 ================================================================================
 
 For comprehensive analysis, see:
-- .devforgeai/qa/reports/STORY-057-INTEGRATION-TEST-REPORT.md
+- devforgeai/qa/reports/STORY-057-INTEGRATION-TEST-REPORT.md
   (Full test results, coverage analysis, findings)
 
-- .devforgeai/qa/STORY-057-INTEGRATION-VALIDATION-FINDINGS.md
+- devforgeai/qa/STORY-057-INTEGRATION-VALIDATION-FINDINGS.md
   (Detailed issue analysis, root causes, recommended fixes)
 
 ================================================================================
@@ -225,9 +225,9 @@ Reference Files:
 - src/claude/skills/devforgeai-orchestration/references/orchestration-user-input-integration.md
 
 Documentation:
-- .devforgeai/qa/reports/STORY-057-INTEGRATION-TEST-REPORT.md
-- .devforgeai/qa/STORY-057-INTEGRATION-VALIDATION-FINDINGS.md
-- .devforgeai/qa/STORY-057-QUICK-RESULTS.txt (this file)
+- devforgeai/qa/reports/STORY-057-INTEGRATION-TEST-REPORT.md
+- devforgeai/qa/STORY-057-INTEGRATION-VALIDATION-FINDINGS.md
+- devforgeai/qa/STORY-057-QUICK-RESULTS.txt (this file)
 
 ================================================================================
 CONCLUSION

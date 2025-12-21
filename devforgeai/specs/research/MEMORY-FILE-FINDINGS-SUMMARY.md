@@ -181,4 +181,4 @@ Savings: 1.06M tokens per 10 sessions
 
 ---
 
-**For full details, see:** `.devforgeai/research/MEMORY-FILE-LOADING-RESEARCH-REPORT.md`
+**For full details, see:** `devforgeai/research/MEMORY-FILE-LOADING-RESEARCH-REPORT.md`

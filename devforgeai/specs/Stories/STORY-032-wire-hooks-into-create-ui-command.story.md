@@ -26,7 +26,7 @@ format_version: "2.0"
 ### 1. [ ] Hook Eligibility Check After UI Generation
 
 **Given** the /create-ui command has completed Phase 6 (Documentation) successfully,
-**When** UI specs have been generated in .devforgeai/specs/ui/,
+**When** UI specs have been generated in devforgeai/specs/ui/,
 **Then** the command calls `devforgeai check-hooks --operation=create-ui --status=completed`,
 **And** the eligibility result determines whether to proceed with feedback invocation.
 
@@ -228,7 +228,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 ### Documentation
 - [x] Command integration documented in `.claude/commands/create-ui.md`
-- [x] Pattern documented in `.devforgeai/protocols/hook-integration-pattern.md`
+- [x] Pattern documented in `devforgeai/protocols/hook-integration-pattern.md`
 - [x] UI context passing format documented
 - [x] User guide updated with /create-ui feedback capability
 - [x] Troubleshooting section added for hook failures
@@ -371,7 +371,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 #### Documentation Section (4 items - ALL COMPLETED)
 - [x] Command integration documented in `.claude/commands/create-ui.md` - Completed: Phase N section with full workflow documentation
-- [x] Pattern documented in `.devforgeai/protocols/hook-integration-pattern.md` - Completed: Referenced existing feedback-hooks-workflow.md pattern (created in STORY-023)
+- [x] Pattern documented in `devforgeai/protocols/hook-integration-pattern.md` - Completed: Referenced existing feedback-hooks-workflow.md pattern (created in STORY-023)
 - [x] UI context passing format documented - Completed: Lines 372-381, documented 4 context fields
 - [x] Troubleshooting section added for hook failures - Completed: Lines 383-393, 5 edge cases documented with solutions
 

@@ -245,9 +245,9 @@ None - This is an internal selection engine (no HTTP API)
 
 ### Dependencies
 
-- **Question Bank:** YAML files in `.devforgeai/feedback/question-bank/` organized by operation type
-- **Operation History:** `.devforgeai/feedback/operation-history.json` tracks user operations
-- **Question History:** `.devforgeai/feedback/question-history.json` tracks answered questions with timestamps
+- **Question Bank:** YAML files in `devforgeai/feedback/question-bank/` organized by operation type
+- **Operation History:** `devforgeai/feedback/operation-history.json` tracks user operations
+- **Question History:** `devforgeai/feedback/question-history.json` tracks answered questions with timestamps
 - **Performance Metrics:** Requires access to operation performance data (execution time, token usage)
 
 ## Edge Cases
@@ -395,15 +395,15 @@ None - This is an internal selection engine (no HTTP API)
 - [x] E2E test: Deduplication (skip recent, allow override)
 
 ### Documentation
-- [x] Algorithm documented with decision flow diagrams (`.devforgeai/docs/adaptive-questioning-algorithm.md`)
-- [x] Question bank structure explained (YAML schema) (`.devforgeai/docs/question-bank-schema.yaml`)
-- [x] Context schema documented (JSON schema) (`.devforgeai/docs/selection-context-schema.json`)
-- [x] Selection rationale examples provided (`.devforgeai/docs/selection-rationale-examples.md`)
-- [x] Configuration parameters documented (`.devforgeai/docs/adaptive-questioning-config.md`)
+- [x] Algorithm documented with decision flow diagrams (`devforgeai/docs/adaptive-questioning-algorithm.md`)
+- [x] Question bank structure explained (YAML schema) (`devforgeai/docs/question-bank-schema.yaml`)
+- [x] Context schema documented (JSON schema) (`devforgeai/docs/selection-context-schema.json`)
+- [x] Selection rationale examples provided (`devforgeai/docs/selection-rationale-examples.md`)
+- [x] Configuration parameters documented (`devforgeai/docs/adaptive-questioning-config.md`)
 
 ### Release Readiness
-- [x] Question bank populated with 100+ questions per operation type - COMPLETED (2025-11-09): Production question bank created with 400 total questions (100 per operation type: dev, qa, orchestrate, release). YAML files created in `.devforgeai/feedback/question-bank/` with diverse, practical questions across all categories and operation statuses.
-- [x] Default question sets for all operation types - COMPLETED (2025-11-09): Comprehensive configuration file `.devforgeai/feedback/question-defaults.yaml` created with sensible defaults for all operation types and statuses. Includes base counts, modifiers, deduplication rules, rapid mode detection, and fallback sets.
+- [x] Question bank populated with 100+ questions per operation type - COMPLETED (2025-11-09): Production question bank created with 400 total questions (100 per operation type: dev, qa, orchestrate, release). YAML files created in `devforgeai/feedback/question-bank/` with diverse, practical questions across all categories and operation statuses.
+- [x] Default question sets for all operation types - COMPLETED (2025-11-09): Comprehensive configuration file `devforgeai/feedback/question-defaults.yaml` created with sensible defaults for all operation types and statuses. Includes base counts, modifiers, deduplication rules, rapid mode detection, and fallback sets.
 - [x] Fallback question set for unknown contexts - COMPLETE: Default base count of 6 questions applied when (operation_type, status) not in BASE_QUESTION_COUNTS.  AI LLM can provide questions based on contextual situation.  This is an acceptable implementation.  Provide examples if necessary.
 - [x] Performance benchmarks validated (<1000ms P95) - Measured <500ms selection latency in tests
 - [x] Accuracy metrics validated (>95% context detection) - Achieved 96% in test suite
@@ -442,7 +442,7 @@ None - This is an internal selection engine (no HTTP API)
 ### Deferrals
 - **Count:** 1 (1 completed, 1 pre-existing test fixture issue)
 - **Items:**
-  1. Question bank population (100+ questions/type) - COMPLETED (2025-11-09): All 400 questions created in `.devforgeai/feedback/question-bank/` with full production readiness
+  1. Question bank population (100+ questions/type) - COMPLETED (2025-11-09): All 400 questions created in `devforgeai/feedback/question-bank/` with full production readiness
   2. Test fixture mismatch (2/55 tests) - ORIGINAL ISSUE: Pre-existing test expectations vs fixture limitation; not a deficiency of implementation but rather test fixture constraints that were acceptable as noted in original QA validation
 
 ### Test Fixture Issues (Documented per QA Requirement)
@@ -454,7 +454,7 @@ None - This is an internal selection engine (no HTTP API)
 - **Test Pass Rate:** 53/55 tests passing (96%)  - 2 test fixture issues documented and deferred
 - **Coverage:** 93% (exceeds 85% application layer threshold)
 - **Implementation Quality:** EXCELLENT per QA report assessment
-- **Documentation:** 5 core documentation files created in `.devforgeai/docs/`
+- **Documentation:** 5 core documentation files created in `devforgeai/docs/`
 
 ## Workflow History
 
@@ -477,13 +477,13 @@ None - This is an internal selection engine (no HTTP API)
 - **2025-11-09:** Deferred items completion (from QA Approved):
   - Used /dev workflow with devforgeai-development skill
   - Completed Deferred Item 1: Question bank population (100+ questions/type)
-    - Created 4 YAML files in `.devforgeai/feedback/question-bank/` (dev, qa, orchestrate, release)
+    - Created 4 YAML files in `devforgeai/feedback/question-bank/` (dev, qa, orchestrate, release)
     - 400 total questions (100 per operation type) with diverse, practical content
     - All questions properly structured with IDs, priority, categories, response types
   - Completed Deferred Item 2: Default question sets for all operation types
-    - Created `.devforgeai/feedback/question-defaults.yaml` with comprehensive configuration
+    - Created `devforgeai/feedback/question-defaults.yaml` with comprehensive configuration
     - Includes base counts, modifiers, deduplication rules, rapid mode detection, fallback sets
-  - Created `.devforgeai/feedback/QUESTION-BANK-COMPLETION-SUMMARY.md` with production readiness checklist
+  - Created `devforgeai/feedback/QUESTION-BANK-COMPLETION-SUMMARY.md` with production readiness checklist
   - Test pass rate maintained: 53/55 (96%)
   - Status remains "QA Approved" (no regressions)
   - Story now 100% COMPLETE and PRODUCTION READY

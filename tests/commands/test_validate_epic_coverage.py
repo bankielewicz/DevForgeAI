@@ -35,8 +35,8 @@ pytestmark = [
 
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 COMMAND_FILE = PROJECT_ROOT / ".claude" / "commands" / "validate-epic-coverage.md"
-GAP_DETECTOR = PROJECT_ROOT / ".devforgeai" / "traceability" / "gap-detector.sh"
-COVERAGE_REPORTER = PROJECT_ROOT / ".devforgeai" / "epic-coverage" / "generate-report.sh"
+GAP_DETECTOR = PROJECT_ROOT / "devforgeai" / "traceability" / "gap-detector.sh"
+COVERAGE_REPORTER = PROJECT_ROOT / "devforgeai" / "epic-coverage" / "generate-report.sh"
 
 
 # ============================================================================
@@ -109,8 +109,8 @@ def temp_project_dir():
     # Create directory structure
     os.makedirs(os.path.join(temp_dir, ".ai_docs", "Epics"))
     os.makedirs(os.path.join(temp_dir, ".ai_docs", "Stories"))
-    os.makedirs(os.path.join(temp_dir, ".devforgeai", "traceability"))
-    os.makedirs(os.path.join(temp_dir, ".devforgeai", "epic-coverage", "reports"))
+    os.makedirs(os.path.join(temp_dir, "devforgeai", "traceability"))
+    os.makedirs(os.path.join(temp_dir, "devforgeai", "epic-coverage", "reports"))
     os.makedirs(os.path.join(temp_dir, ".claude", "commands"))
 
     yield temp_dir

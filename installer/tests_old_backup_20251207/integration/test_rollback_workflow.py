@@ -114,7 +114,7 @@ class TestRollbackWorkflow:
         target_root = project["root"]
         source_root = source_framework["root"]
 
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
 
         # Record version before upgrade
         version_before = json.loads(version_file.read_text())
@@ -289,5 +289,5 @@ class TestRollbackWorkflow:
 
         # Verify critical directories exist
         assert (target_root / ".claude").exists()
-        assert (target_root / ".devforgeai").exists()
-        assert (target_root / ".devforgeai" / ".version.json").exists()
+        assert (target_root / "devforgeai").exists()
+        assert (target_root / "devforgeai" / ".version.json").exists()

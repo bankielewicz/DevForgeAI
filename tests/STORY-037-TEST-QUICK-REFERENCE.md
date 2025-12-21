@@ -416,7 +416,7 @@ ptw tests/ -v
 - **Unit Tests**: `tests/unit/test_pattern_compliance_auditor.py`
 - **Integration Tests**: `tests/integration/test_pattern_compliance_integration.py`
 - **Acceptance Criteria**: STORY-037 story document
-- **Lean Orchestration Pattern**: `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Lean Orchestration Pattern**: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

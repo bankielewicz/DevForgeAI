@@ -38,9 +38,9 @@ import shutil
 
 @pytest.fixture
 def temp_devforgeai_dir():
-    """Create a temporary .devforgeai directory structure for testing."""
+    """Create a temporary devforgeai directory structure for testing."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        devdir = Path(tmpdir) / ".devforgeai"
+        devdir = Path(tmpdir) / "devforgeai"
         devdir.mkdir(exist_ok=True)
         feedback_dir = devdir / "feedback"
         feedback_dir.mkdir(exist_ok=True)
@@ -59,12 +59,12 @@ def temp_project_structure():
         project_root = Path(tmpdir)
 
         # Create directory structure
-        (project_root / ".devforgeai").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "context").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "config").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "feedback").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "specs").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "specs" / "requirements").mkdir(exist_ok=True)
+        (project_root / "devforgeai").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "context").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "config").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "feedback").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "specs").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "specs" / "requirements").mkdir(exist_ok=True)
         (project_root / ".claude").mkdir(exist_ok=True)
         (project_root / ".claude" / "commands").mkdir(exist_ok=True)
         (project_root / ".ai_docs").mkdir(exist_ok=True)
@@ -178,7 +178,7 @@ def ideation_artifacts_created_marker():
             "devforgeai/specs/Epics/EPIC-002.epic.md",
             "devforgeai/specs/Epics/EPIC-003.epic.md"
         ],
-        "requirements_spec": ".devforgeai/specs/requirements/project-requirements.md",
+        "requirements_spec": "devforgeai/specs/requirements/project-requirements.md",
         "complexity_score": 42,
         "questions_asked": 35
     }
@@ -416,7 +416,7 @@ class TestHookInvocationLogic:
         # Arrange
         expected_context = {
             "operation_type": "ideation",
-            "artifacts": ["devforgeai/specs/Epics/EPIC-001.epic.md", ".devforgeai/specs/requirements/test-requirements.md"],
+            "artifacts": ["devforgeai/specs/Epics/EPIC-001.epic.md", "devforgeai/specs/requirements/test-requirements.md"],
             "complexity_score": 42,
             "questions_asked": 35
         }
@@ -505,7 +505,7 @@ Description here""")
         Then: Requirements specification should be created
         """
         # Arrange
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Create requirements spec
         req_file = req_dir / "project-requirements.md"
@@ -534,7 +534,7 @@ Description here""")
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
         warning_logged = False
 
         # Act - Simulate ideation completion with check-hooks error
@@ -567,7 +567,7 @@ Description here""")
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act
         epic_file = epics_dir / "EPIC-001.epic.md"
@@ -642,7 +642,7 @@ Description here""")
         And: No warning displayed (intentional configuration)
         """
         # Arrange
-        config_dir = temp_project_structure / ".devforgeai" / "config"
+        config_dir = temp_project_structure / "devforgeai" / "config"
         hooks_config = config_dir / "hooks.yaml"
         hooks_config.write_text("enabled: false\nskip_all: true\n")
 
@@ -670,7 +670,7 @@ Description here""")
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Just create artifacts (simulating original /ideate behavior)
         epic_file = epics_dir / "EPIC-001.epic.md"
@@ -742,7 +742,7 @@ class TestIdeateHooksEdgeCases:
         """
         Edge Case: Config file corrupted - hooks.yaml is invalid YAML.
 
-        Given: .devforgeai/config/hooks.yaml is corrupted/invalid
+        Given: devforgeai/config/hooks.yaml is corrupted/invalid
         When: check-hooks tries to parse config
         Then: Command should catch parse error and continue
         And: All ideation artifacts should be created
@@ -750,7 +750,7 @@ class TestIdeateHooksEdgeCases:
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        config_dir = temp_project_structure / ".devforgeai" / "config"
+        config_dir = temp_project_structure / "devforgeai" / "config"
 
         # Create invalid config
         invalid_config = config_dir / "hooks.yaml"
@@ -832,7 +832,7 @@ class TestIdeateHooksEdgeCases:
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        feedback_dir = temp_project_structure / ".devforgeai" / "feedback"
+        feedback_dir = temp_project_structure / "devforgeai" / "feedback"
 
         # Create evidence of prior feedback invocation
         prior_feedback = feedback_dir / "ideate-001.json"
@@ -874,7 +874,7 @@ class TestIdeateContextPassing:
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Create ideation artifacts
         epic_file = epics_dir / "EPIC-001.epic.md"
@@ -930,7 +930,7 @@ class TestIdeateContextPassing:
         Then: complexity_score field populated from spec
         """
         # Arrange
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Create requirements with complexity score
         req_file = req_dir / "project-requirements.md"
@@ -960,7 +960,7 @@ class TestIdeateContextPassing:
         Then: questions_asked field populated with accurate count
         """
         # Arrange
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Create requirements with question count
         req_file = req_dir / "project-requirements.md"
@@ -1027,7 +1027,7 @@ class TestIdeateHooksPerformance:
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         # Act - Measure total execution time
         start = time.time()
@@ -1075,7 +1075,7 @@ class TestIdeateHooksReliability:
         """
         # Arrange
         epics_dir = temp_project_structure / ".ai_docs" / "Epics"
-        req_dir = temp_project_structure / ".devforgeai" / "specs" / "requirements"
+        req_dir = temp_project_structure / "devforgeai" / "specs" / "requirements"
 
         failure_scenarios = [
             "CLI missing",

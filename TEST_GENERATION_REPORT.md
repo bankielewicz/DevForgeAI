@@ -104,13 +104,13 @@ test_application_layer_coverage.py
 #### install.py (4 tests, ~50 lines of code)
 
 **Edge Case 1: Missing .version.json During Upgrade**
-- Scenario: Project has .devforgeai/ but no .version.json
+- Scenario: Project has devforgeai/ but no .version.json
 - Test: `test_should_handle_missing_version_json_during_upgrade`
 - Coverage: Version file creation logic
 - Expected Outcome: New .version.json created with correct schema
 
 **Edge Case 2: Write Errors on Version File**
-- Scenario: Permission error when writing to .devforgeai/
+- Scenario: Permission error when writing to devforgeai/
 - Test: `test_should_handle_write_error_for_version_file`
 - Coverage: Error handling and result status setting
 - Expected Outcome: Error caught, result status set to "failed"
@@ -154,7 +154,7 @@ test_application_layer_coverage.py
 - Expected Outcome: PermissionError raised
 
 **Edge Case 5: File Conflict Handling**
-- Scenario: Existing preserved file (.devforgeai/config/hooks.yaml)
+- Scenario: Existing preserved file (devforgeai/config/hooks.yaml)
 - Test: `test_should_skip_existing_preserved_files`
 - Coverage: File preservation logic in _should_preserve()
 - Expected Outcome: Original file not overwritten
@@ -263,7 +263,7 @@ All 24 tests follow strict AAA pattern:
 ```python
 def test_example(self, temp_project):
     # Arrange: Setup preconditions
-    devforgeai_path = temp_project / ".devforgeai"
+    devforgeai_path = temp_project / "devforgeai"
     assert not (devforgeai_path / ".version.json").exists()
 
     # Act: Execute behavior

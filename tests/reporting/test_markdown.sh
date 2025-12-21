@@ -25,7 +25,7 @@ trap cleanup EXIT
 # TEST: AC#2.1 - Should create markdown file with timestamp filename
 # ============================================================================
 test_should_create_markdown_file_with_timestamp() {
-    local test_name="AC#2.1: File created at .devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md"
+    local test_name="AC#2.1: File created at devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md"
 
     # Arrange: Mock epic
     local mock_epic="${TEMP_DIR}/EPIC-001.epic.md"
@@ -41,7 +41,7 @@ title: Test Epic
 EOF
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${TEMP_DIR}" \
         --reports-dir="${REPORTS_DIR}" \
@@ -80,7 +80,7 @@ title: Test Epic
 EOF
 
     # Act: Generate markdown report to non-existent directory
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${TEMP_DIR}" \
         --reports-dir="${custom_reports_dir}" \
@@ -118,7 +118,7 @@ title: Test Epic
 EOF
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${TEMP_DIR}" \
         --reports-dir="${REPORTS_DIR}" \
@@ -173,7 +173,7 @@ title: Epic Five
 EOF
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${test_epics_dir}" \
         --reports-dir="${test_reports_dir}" \
@@ -212,7 +212,7 @@ title: Epic with Gaps
 EOF
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${TEMP_DIR}" \
         --reports-dir="${REPORTS_DIR}" \
@@ -269,7 +269,7 @@ EOF
     done
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${test_epics_dir}" \
         --stories-dir="${test_stories_dir}" \
@@ -308,7 +308,7 @@ title: Format Test
 EOF
 
     # Act: Generate markdown report
-    bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=markdown \
         --epics-dir="${TEMP_DIR}" \
         --reports-dir="${REPORTS_DIR}" \

@@ -237,7 +237,7 @@ technical_specification:
       test_requirement: "Test: For devforgeai-qa, devforgeai-release skills, verify guidance subsection mentions 'receives input from [upstream]' and links to upstream guidance"
 
     - id: "BR-004"
-      rule: "All file paths must use src/ tree (not operational .claude/ or .devforgeai/ paths) because STORY-058 works with source files"
+      rule: "All file paths must use src/ tree (not operational .claude/ or devforgeai/ paths) because STORY-058 works with source files"
       test_requirement: "Test: Grep all 3 documentation files for file paths, verify all start with 'src/claude/' or 'src/CLAUDE.md', none start with '.claude/'"
 
   non_functional_requirements:
@@ -326,7 +326,7 @@ technical_specification:
 
 **Scenario:** Future refactorings move user-input-guidance.md to another directory, invalidating file paths in cross-references.
 
-**Handling:** Create centralized path configuration file (`.devforgeai/config/guidance-paths.yaml`) that all documentation references. When paths change, update only config file. Validation script checks all paths resolve.
+**Handling:** Create centralized path configuration file (`devforgeai/config/guidance-paths.yaml`) that all documentation references. When paths change, update only config file. Validation script checks all paths resolve.
 
 **Validation:** Include path validation in STORY-059's test suite.
 
@@ -530,7 +530,7 @@ None - Markdown editing only
 - Proceed to STORY-060 (Operational Sync) to sync source files to operational directories
 - Track user satisfaction with cross-reference discoverability in sprint retrospective
 
-**QA Report:** `.devforgeai/qa/reports/STORY-058-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-058-qa-report.md`
 
 ---
 

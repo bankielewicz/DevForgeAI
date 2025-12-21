@@ -39,7 +39,7 @@ format_version: "2.1"
 **Given** the coverage reporting system is invoked with markdown output mode
 **When** the report is generated
 **Then**:
-- A markdown file is created at `.devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md`
+- A markdown file is created at `devforgeai/epic-coverage/reports/YYYY-MM-DD-HH-MM-SS.md`
 - Filename uses UTC timestamp in ISO 8601-like format
 - Report contains summary statistics section with table format
 - Report contains per-epic breakdown with completion percentages
@@ -102,7 +102,7 @@ format_version: "2.1"
 **Given** coverage reports are generated over time
 **When** historical tracking is enabled
 **Then**:
-- Each report run appends an entry to `.devforgeai/epic-coverage/history/coverage-history.json`
+- Each report run appends an entry to `devforgeai/epic-coverage/history/coverage-history.json`
 - History entry includes `timestamp`, `overall_coverage_percent`, `total_epics`, `total_features`, `missing_count`
 - History file is created if it does not exist
 - History entries are ordered chronologically
@@ -119,7 +119,7 @@ technical_specification:
   components:
     - type: "Service"
       name: "CoverageReportService"
-      file_path: ".devforgeai/epic-coverage/generate-report.sh"
+      file_path: "devforgeai/epic-coverage/generate-report.sh"
       dependencies:
         - "GapDetectionEngine"
         - "jq"
@@ -133,7 +133,7 @@ technical_specification:
         - id: "REPORT-002"
           description: "Generate markdown report file with timestamp filename"
           testable: true
-          test_requirement: "Test: Report created at .devforgeai/epic-coverage/reports/2025-11-25-*.md"
+          test_requirement: "Test: Report created at devforgeai/epic-coverage/reports/2025-11-25-*.md"
           priority: "Critical"
         - id: "REPORT-003"
           description: "Generate valid JSON export with all required fields"
@@ -158,7 +158,7 @@ technical_specification:
 
     - type: "Repository"
       name: "CoverageHistoryRepository"
-      file_path: ".devforgeai/epic-coverage/history/coverage-history.json"
+      file_path: "devforgeai/epic-coverage/history/coverage-history.json"
       dependencies:
         - "jq"
       requirements:
@@ -180,7 +180,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "CoverageReportingConfig"
-      file_path: ".devforgeai/epic-coverage/config.json"
+      file_path: "devforgeai/epic-coverage/config.json"
       dependencies: []
       requirements:
         - id: "CONFIG-001"
@@ -196,7 +196,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "CoverageReport"
-      file_path: ".devforgeai/epic-coverage/models/report.json"
+      file_path: "devforgeai/epic-coverage/models/report.json"
       dependencies: []
       requirements:
         - id: "MODEL-001"
@@ -428,7 +428,7 @@ None - uses only Claude Code native tools.
 ## Definition of Done
 
 ### Implementation
-- [x] Report generator script at `.devforgeai/epic-coverage/generate-report.sh`
+- [x] Report generator script at `devforgeai/epic-coverage/generate-report.sh`
 - [x] Terminal output with color codes implemented
 - [x] Markdown report generation implemented
 - [x] JSON export implemented
@@ -453,7 +453,7 @@ None - uses only Claude Code native tools.
 
 ### Documentation
 - [x] README documenting report formats (tests/reporting/README.md)
-- [x] JSON schema documented (.devforgeai/epic-coverage/models/report.json)
+- [x] JSON schema documented (devforgeai/epic-coverage/models/report.json)
 - [x] Usage examples for each output format (in README)
 
 ---
@@ -461,7 +461,7 @@ None - uses only Claude Code native tools.
 ## Implementation Notes
 
 ### Definition of Done - Completed Items
-- [x] Report generator script at `.devforgeai/epic-coverage/generate-report.sh` - Completed: 2025-12-12
+- [x] Report generator script at `devforgeai/epic-coverage/generate-report.sh` - Completed: 2025-12-12
 - [x] Terminal output with color codes implemented - Completed: 2025-12-12
 - [x] Markdown report generation implemented - Completed: 2025-12-12
 - [x] JSON export implemented - Completed: 2025-12-12
@@ -527,8 +527,8 @@ None - uses only Claude Code native tools.
 2. AC#2 markdown test incomplete execution - CRITICAL
 3. AC#4-AC#7 tests not executed due to phase 1 failure
 
-**Report Location**: `.devforgeai/qa/reports/STORY-086-qa-report.md`
-**Gaps File**: `.devforgeai/qa/reports/STORY-086-gaps.json`
+**Report Location**: `devforgeai/qa/reports/STORY-086-qa-report.md`
+**Gaps File**: `devforgeai/qa/reports/STORY-086-gaps.json`
 
 **Next Action**: Fix Phase 02R (AC#3) and Phase 03R (AC#2), then re-run `/qa STORY-086 deep`
 
@@ -568,7 +568,7 @@ None - uses only Claude Code native tools.
 - AC#7: 10/10 ✅
 
 **Blocking Issues**: None
-**Report Location**: `.devforgeai/qa/reports/STORY-086-qa-report-v3.md`
+**Report Location**: `devforgeai/qa/reports/STORY-086-qa-report-v3.md`
 
 **Status Transition**: Dev Complete → QA Approved ✅
 **Next Phase**: Ready for Release
@@ -605,8 +605,8 @@ None - uses only Claude Code native tools.
 3. Test isolation bug in `test_actions.sh` - HIGH
 4. Test isolation bug in `test_history.sh` - MEDIUM
 
-**Report Location**: `.devforgeai/qa/reports/STORY-086-qa-report-v2.md`
-**Gaps File**: `.devforgeai/qa/reports/STORY-086-gaps-v2.json`
+**Report Location**: `devforgeai/qa/reports/STORY-086-qa-report-v2.md`
+**Gaps File**: `devforgeai/qa/reports/STORY-086-gaps-v2.json`
 
 **Next Action**: Fix test isolation (add cleanup before each test), then re-run `/qa STORY-086 deep`
 

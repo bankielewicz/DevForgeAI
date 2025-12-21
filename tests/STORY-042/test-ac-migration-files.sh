@@ -6,7 +6,7 @@
 # Format: Bash script with TAP (Test Anything Protocol) compatible output
 #
 # AC-1: Copy .claude/ to src/claude/ with structure preserved (~370 files)
-# AC-2: Copy .devforgeai/ config/docs/protocols/specs/tests (~80 files)
+# AC-2: Copy devforgeai/ config/docs/protocols/specs/tests (~80 files)
 # AC-3: Copy CLAUDE.md to src/CLAUDE.md as template
 # AC-4: Validate file integrity with checksum verification (100% match)
 # AC-5: Exclude backup files and build artifacts
@@ -234,7 +234,7 @@ test_ac1_original_unchanged() {
 }
 
 ##############################################################################
-# AC-2: Copy .devforgeai/ config/docs/protocols/specs/tests (~80 files)
+# AC-2: Copy devforgeai/ config/docs/protocols/specs/tests (~80 files)
 ##############################################################################
 
 test_ac2_devforgeai_directory_exists() {
@@ -552,8 +552,8 @@ test_ac7_original_claude_exists() {
 }
 
 test_ac7_original_devforgeai_exists() {
-    # Test: Original .devforgeai/ directory still exists
-    assert_directory_exists ".devforgeai"
+    # Test: Original devforgeai/ directory still exists
+    assert_directory_exists "devforgeai"
 }
 
 test_ac7_original_claude_unchanged_filecount() {
@@ -614,7 +614,7 @@ main() {
     run_test "AC-1.4: Nested structure preserved" "test_ac1_nested_structure_preserved"
     run_test "AC-1.5: Original .claude/ unchanged" "test_ac1_original_unchanged"
 
-    echo -e "\n${YELLOW}AC-2: Copy .devforgeai/ config/docs/protocols/specs/tests${NC}"
+    echo -e "\n${YELLOW}AC-2: Copy devforgeai/ config/docs/protocols/specs/tests${NC}"
     run_test "AC-2.1: src/devforgeai/ directory exists" "test_ac2_devforgeai_directory_exists"
     run_test "AC-2.2: Only allowed subdirectories present" "test_ac2_allowed_subdirs_only"
     run_test "AC-2.3: Required subdirectories present" "test_ac2_required_subdirs_present"
@@ -652,7 +652,7 @@ main() {
 
     echo -e "\n${YELLOW}AC-7: Preserve original operational directories{{NC}"
     run_test "AC-7.1: Original .claude/ exists" "test_ac7_original_claude_exists"
-    run_test "AC-7.2: Original .devforgeai/ exists" "test_ac7_original_devforgeai_exists"
+    run_test "AC-7.2: Original devforgeai/ exists" "test_ac7_original_devforgeai_exists"
     run_test "AC-7.3: Original .claude/ unchanged" "test_ac7_original_claude_unchanged_filecount"
     run_test "AC-7.4: No symlinks in src/" "test_ac7_no_symlinks_in_src"
     run_test "AC-7.5: Commands still work" "test_ac7_commands_still_work"

@@ -620,6 +620,6 @@ DevForgeAI framework enforces quality through **documented patterns that Claude 
 **Document Created:** 2025-12-05
 **Location:** `docs/enhancements/2025-12-05_story-078-analysis/ARCHITECTURAL-IMPROVEMENTS-SUMMARY.md`
 **Related Files:**
-- RCA-018: `.devforgeai/RCA/RCA-018-development-skill-phase-completion-skipping.md`
+- RCA-018: `devforgeai/RCA/RCA-018-development-skill-phase-completion-skipping.md`
 - EPIC-015: `docs/enhancements/2025-12-05_story-078-analysis/EPIC-015-tdd-workflow-phase-enforcement.epic.md`
 

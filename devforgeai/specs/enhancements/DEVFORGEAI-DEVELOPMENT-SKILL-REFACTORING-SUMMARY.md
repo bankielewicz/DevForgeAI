@@ -236,9 +236,9 @@ Backup location: `.claude/skills/devforgeai-development/SKILL.md.backup-20251114
 ## Related Documentation
 
 ### Created During Refactoring
-1. **Refactoring Plan:** `.devforgeai/specs/enhancements/DEVFORGEAI-DEVELOPMENT-SKILL-REFACTORING-PLAN.md`
-2. **Test Scenario:** `.devforgeai/specs/enhancements/SKILL-REFACTORING-TEST-SCENARIO.md`
-3. **Summary (this document):** `.devforgeai/specs/enhancements/DEVFORGEAI-DEVELOPMENT-SKILL-REFACTORING-SUMMARY.md`
+1. **Refactoring Plan:** `devforgeai/specs/enhancements/DEVFORGEAI-DEVELOPMENT-SKILL-REFACTORING-PLAN.md`
+2. **Test Scenario:** `devforgeai/specs/enhancements/SKILL-REFACTORING-TEST-SCENARIO.md`
+3. **Summary (this document):** `devforgeai/specs/enhancements/DEVFORGEAI-DEVELOPMENT-SKILL-REFACTORING-SUMMARY.md`
 
 ### References
 - Root Cause Analysis: In-conversation analysis (2025-11-14)

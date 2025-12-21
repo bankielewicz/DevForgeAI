@@ -86,7 +86,7 @@ INVALID_ARG_TO_CAUSE_QUICK_EXIT/
 .temp/
 
 # Test exports (from STORY-017)
-.devforgeai-feedback-export-*.zip
+devforgeai-feedback-export-*.zip
 
 # Personal documentation (not for version control)
 docs/git/

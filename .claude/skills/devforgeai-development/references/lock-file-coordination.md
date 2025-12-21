@@ -20,7 +20,7 @@ Complete guide for git commit lock coordination during Phase 08. Serializes git 
 
 Lock file coordination prevents race conditions when multiple parallel story worktrees attempt git commits simultaneously.
 
-**Lock File Location:** `.devforgeai/.locks/git-commit.lock`
+**Lock File Location:** `devforgeai/.locks/git-commit.lock`
 
 **Lock File Format:**
 ```
@@ -256,7 +256,7 @@ python3 src/lock_file_coordinator.py acquire --story-id STORY-096 --force
 ## Directory Structure
 
 ```
-.devforgeai/
+devforgeai/
 └── .locks/
     └── git-commit.lock    # Active lock file (when held)
 ```

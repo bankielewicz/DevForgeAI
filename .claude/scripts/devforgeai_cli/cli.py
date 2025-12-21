@@ -210,7 +210,7 @@ def main():
     validate_config_parser.add_argument(
         '--config',
         default=None,
-        help='Path to sgconfig.yml (default: .devforgeai/ast-grep/sgconfig.yml)'
+        help='Path to sgconfig.yml (default: devforgeai/ast-grep/sgconfig.yml)'
     )
     validate_config_parser.add_argument(
         '--format',
@@ -328,7 +328,7 @@ def main():
                 if args.config:
                     config_path = Path(args.config)
                 else:
-                    config_path = Path('.devforgeai/ast-grep/sgconfig.yml')
+                    config_path = Path('devforgeai/ast-grep/sgconfig.yml')
 
                 validator = ConfigurationValidator(config_path)
                 result = validator.validate()

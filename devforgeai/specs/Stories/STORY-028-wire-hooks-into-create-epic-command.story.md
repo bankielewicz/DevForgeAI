@@ -40,7 +40,7 @@ format_version: "2.0"
 
 ### 3. [x] Hook Respects Configuration State
 
-**Given** hooks are disabled in `.devforgeai/config/hooks.yaml` (enabled: false for epic-create operation),
+**Given** hooks are disabled in `devforgeai/config/hooks.yaml` (enabled: false for epic-create operation),
 **When** /create-epic command completes,
 **Then** the system skips hook check entirely (zero overhead), displays no feedback prompt, and proceeds directly to command completion summary.
 
@@ -99,7 +99,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "EpicHookConfiguration"
-      file_path: ".devforgeai/config/hooks.yaml"
+      file_path: "devforgeai/config/hooks.yaml"
       dependencies:
         - "hooks.schema.json"
       required_keys:
@@ -127,15 +127,15 @@ technical_specification:
 
     - type: "Logging"
       name: "EpicHookLogging"
-      file_path: ".devforgeai/feedback/.logs/hooks.log"
+      file_path: "devforgeai/feedback/.logs/hooks.log"
       dependencies:
         - "Python logging module"
       sinks:
         - name: "File"
-          path: ".devforgeai/feedback/.logs/hooks.log"
+          path: "devforgeai/feedback/.logs/hooks.log"
           test_requirement: "Test: Create epic, verify hooks.log contains entry with timestamp, operation=epic-create, epic-id, status, duration"
         - name: "File"
-          path: ".devforgeai/feedback/.logs/hook-errors.log"
+          path: "devforgeai/feedback/.logs/hook-errors.log"
           test_requirement: "Test: Mock hook failure, verify hook-errors.log contains timestamp, epic-id, error message, stack trace"
 
   business_rules:
@@ -250,7 +250,7 @@ technical_specification:
 ### Reliability
 
 **Error Handling:**
-- Hook failures logged to `.devforgeai/feedback/.logs/hook-errors.log`
+- Hook failures logged to `devforgeai/feedback/.logs/hook-errors.log`
 - User-friendly warning displayed ("Feedback hook unavailable (continuing)")
 - Epic creation exits with code 0 (success)
 
@@ -317,7 +317,7 @@ technical_specification:
 
 4. **Multiple epics created in batch (future scenario):** If /create-epic is enhanced to support batch mode (e.g., create 3 epics from ideation output), hook triggers once per epic (sequential: epic 1 feedback → epic 2 feedback → epic 3 feedback). User can skip remaining feedback sessions via AskUserQuestion option. Configuration supports per-operation batch behavior (prompt once vs. prompt each).
 
-5. **Hook CLI not installed or misconfigured:** If `devforgeai` CLI command not found (not in PATH, not installed), skill detects missing CLI during `devforgeai check-hooks` execution, logs error ("Feedback CLI not found - install via 'pip install -e .claude/scripts'"), displays message "Feedback system unavailable (see .devforgeai/logs/hooks.log)", and completes epic creation successfully (hook is optional).
+5. **Hook CLI not installed or misconfigured:** If `devforgeai` CLI command not found (not in PATH, not installed), skill detects missing CLI during `devforgeai check-hooks` execution, logs error ("Feedback CLI not found - install via 'pip install -e .claude/scripts'"), displays message "Feedback system unavailable (see devforgeai/logs/hooks.log)", and completes epic creation successfully (hook is optional).
 
 ---
 
@@ -360,7 +360,7 @@ technical_specification:
 → Verify: Hook invoked (logs contain invoke-hooks invocation for epic-create)
 
 # Test 2: Hook respects disabled config
-echo "enabled: false" > .devforgeai/config/hooks.yaml (for epic_create operation)
+echo "enabled: false" > devforgeai/config/hooks.yaml (for epic_create operation)
 /create-epic "Test Epic Name"
 → Verify: Epic created (.epic.md exists)
 → Verify: No hook invoked (logs do not contain invoke-hooks for epic-create)
@@ -395,12 +395,12 @@ Mock devforgeai invoke-hooks to exit 1
 # 3. invoke-hooks --operation=epic-create --epic-id=EPIC-NNN executed
 # 4. Feedback conversation starts with epic-specific questions
 # 5. User answers questions
-# 6. Responses saved to .devforgeai/feedback/epic-create/EPIC-NNN-{timestamp}.json
+# 6. Responses saved to devforgeai/feedback/epic-create/EPIC-NNN-{timestamp}.json
 # 7. Command exits 0
 
 # Verify:
 assert file_exists("devforgeai/specs/Epics/EPIC-NNN.epic.md")
-assert file_exists(".devforgeai/feedback/epic-create/EPIC-NNN-*.json")
+assert file_exists("devforgeai/feedback/epic-create/EPIC-NNN-*.json")
 assert exit_code == 0
 ```
 
@@ -412,7 +412,7 @@ assert exit_code == 0
 - [x] Hook integration phase added to /create-epic command workflow (Phase 4A.9 in orchestration skill)
 - [x] `devforgeai check-hooks --operation=epic-create` command functional (<100ms execution)
 - [x] `devforgeai invoke-hooks --operation=epic-create` command functional with epic context
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected)
 - [x] Epic-specific questions provided in hook context (goal, timeline, success criteria)
 - [x] Graceful degradation implemented (hook failures don't break epic creation, exit code 0)
 
@@ -434,7 +434,7 @@ assert exit_code == 0
 
 ### Documentation
 - [x] Hook integration documentation added to devforgeai-orchestration skill guide (epic creation)
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` for epic-create
 - [x] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps
 - [x] Framework maintainer guide updated with hook lifecycle for epic creation
 
@@ -448,7 +448,7 @@ assert exit_code == 0
 - [x] Hook integration phase added to /create-epic command workflow (Phase 4A.9 in orchestration skill) - Completed: Added Phase 4A.9 to devforgeai-orchestration/SKILL.md (258 lines, lines 252-510)
 - [x] `devforgeai check-hooks --operation=epic-create` command functional (<100ms execution) - Completed: CLI command exists from STORY-021, validated in unit tests
 - [x] `devforgeai invoke-hooks --operation=epic-create` command functional with epic context - Completed: CLI command exists from STORY-022, validated in unit tests
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading implemented in Phase 4A.9 Steps 1-2, validated in unit tests
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading implemented in Phase 4A.9 Steps 1-2, validated in unit tests
 - [x] Epic-specific questions provided in hook context (goal, timeline, success criteria) - Completed: Epic context passed via --epic-id argument, CLI reads epic file for metadata
 - [x] Graceful degradation implemented (hook failures don't break epic creation, exit code 0) - Completed: Error handling in Phase 4A.9 Steps 5-6, all errors non-blocking
 - [x] All 6 acceptance criteria have passing tests - Completed: 72 tests generated, 46/48 passing (96%), all 5 ACs validated
@@ -464,9 +464,9 @@ assert exit_code == 0
 - [x] Integration test: Epic-specific questions received by user during feedback - Completed: test_e2e_hook_metadata_extraction_and_usage
 - [x] E2E test: Complete epic creation workflow with hook triggering and feedback - Completed: test_e2e_epic_creation_with_hooks_enabled
 - [x] Hook integration documentation added to devforgeai-orchestration skill guide (epic creation) - Completed: Phase 4A.9 section (258 lines) with complete workflow documentation
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for epic-create - Completed: Added post-epic-create-feedback configuration (lines 87-152) with 6 epic-specific questions, metadata, and customization examples
-- [x] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps - Completed: Created .devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md with 13 common issues and diagnostic procedures
-- [x] Framework maintainer guide updated with hook lifecycle for epic creation - Completed: Created .devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md with architecture, responsibilities, and maintenance procedures
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` for epic-create - Completed: Added post-epic-create-feedback configuration (lines 87-152) with 6 epic-specific questions, metadata, and customization examples
+- [x] Troubleshooting guide: "Hook not triggering after epic creation" - resolution steps - Completed: Created devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md with 13 common issues and diagnostic procedures
+- [x] Framework maintainer guide updated with hook lifecycle for epic creation - Completed: Created devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md with architecture, responsibilities, and maintenance procedures
 
 **Implementation:**
 - Added Phase 4A.9 (Post-Epic Feedback Hook) to devforgeai-orchestration skill
@@ -484,7 +484,7 @@ assert exit_code == 0
 - Configuration check: `devforgeai check-hooks --operation=epic-create` (<100ms)
 - Hook invocation: `devforgeai invoke-hooks --operation=epic-create --epic-id=EPIC-NNN`
 - Epic context passed: ID, name, features, complexity, risks, stakeholders
-- Logging: Structured logs to `.devforgeai/feedback/.logs/hooks.log` and `hook-errors.log`
+- Logging: Structured logs to `devforgeai/feedback/.logs/hooks.log` and `hook-errors.log`
 - Timeout handling: Configurable timeout (default 30s), graceful termination
 
 **Quality Validation:**
@@ -503,10 +503,10 @@ assert exit_code == 0
 1. Configuration example in hooks.yaml.example (lines 87-152)
    - 6 epic-specific questions with {feature_count}, {complexity_score} placeholders
    - Customization examples and metadata documentation
-2. Troubleshooting guide (.devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md)
+2. Troubleshooting guide (devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md)
    - 13 common issues with diagnosis and resolution steps
    - Quick diagnostic commands and emergency rollback procedures
-3. Framework maintainer guide (.devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md)
+3. Framework maintainer guide (devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md)
    - Complete hook lifecycle architecture and component diagram
    - Maintainer responsibilities, testing, monitoring, and rollback procedures
 
@@ -550,8 +550,8 @@ assert exit_code == 0
 **Documentation:**
 - All 3 items completed:
   1. Configuration example in hooks.yaml.example (lines 87-152)
-  2. Troubleshooting guide (.devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md, 684 lines)
-  3. Framework maintainer guide (.devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md, 993 lines)
+  2. Troubleshooting guide (devforgeai/specs/STORY-028-TROUBLESHOOTING-GUIDE.md, 684 lines)
+  3. Framework maintainer guide (devforgeai/specs/FRAMEWORK-MAINTAINER-HOOK-LIFECYCLE-GUIDE.md, 993 lines)
 
 **Violations:** 1 MEDIUM (documentation inconsistency - AC checkboxes were unchecked, now resolved)
 

@@ -295,7 +295,7 @@ def create_context_command_path() -> Path
 
 @pytest.fixture
 def hook_integration_pattern_path() -> Path
-    # Returns: /mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md
+    # Returns: /mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md
 
 @pytest.fixture
 def command_content(create_context_command_path: Path) -> str
@@ -353,7 +353,7 @@ Focus on workflow integrity and scenarios:
    - [ ] Measure current command size (baseline: 16,210 chars)
    - [ ] Extract Phase N pattern documentation (~2,500 chars) to pattern file
    - [ ] Condense inline comments in bash blocks (~300 chars)
-   - [ ] Add Read(file_path=".devforgeai/protocols/hook-integration-pattern.md") to Phase N
+   - [ ] Add Read(file_path="devforgeai/protocols/hook-integration-pattern.md") to Phase N
    - [ ] Verify all 4 workflow steps still present (condensed but functional)
    - [ ] Verify final size ≤14,000 chars
    - [ ] Run test suite: `pytest tests/unit/test_story_049_create_context_refactoring.py tests/integration/test_story_049_create_context_integration.py -v`
@@ -371,10 +371,10 @@ Focus on workflow integrity and scenarios:
 
 - **Story File:** `devforgeai/specs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md`
 - **Command File:** `.claude/commands/create-context.md`
-- **Pattern File:** `.devforgeai/protocols/hook-integration-pattern.md`
-- **Lean Orchestration Protocol:** `.devforgeai/protocols/lean-orchestration-pattern.md`
-- **Case Studies:** `.devforgeai/protocols/refactoring-case-studies.md`
-- **Budget Reference:** `.devforgeai/protocols/command-budget-reference.md`
+- **Pattern File:** `devforgeai/protocols/hook-integration-pattern.md`
+- **Lean Orchestration Protocol:** `devforgeai/protocols/lean-orchestration-pattern.md`
+- **Case Studies:** `devforgeai/protocols/refactoring-case-studies.md`
+- **Budget Reference:** `devforgeai/protocols/command-budget-reference.md`
 
 ---
 
@@ -415,7 +415,7 @@ Focus on workflow integrity and scenarios:
    - Must be ≤14,000
 
 2. **Phase N reference test fails:**
-   - Ensure Phase N uses: `Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")`
+   - Ensure Phase N uses: `Read(file_path="devforgeai/protocols/hook-integration-pattern.md")`
    - Must be exact path and file name
 
 3. **Backward compatibility test fails:**

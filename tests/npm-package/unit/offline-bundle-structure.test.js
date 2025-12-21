@@ -6,7 +6,7 @@
  * Tests AC#8: Bundle Integrity Verification
  *
  * Technical Specification Coverage:
- * - DM-001: .claude/ and .devforgeai/ directories bundled
+ * - DM-001: .claude/ and devforgeai/ directories bundled
  * - DM-002: Python wheel files bundled
  * - DM-003: Compressed package ≤ 60MB
  * - CONF-001: All bundled files have checksum entries
@@ -433,8 +433,8 @@ describe('Bundle structure compliance with NPM best practices', () => {
   test('bundled/ directory contains only necessary framework files', () => {
     // Bundle should NOT contain operational directories from active projects
     const forbiddenDirs = [
-      '.devforgeai/qa',
-      '.devforgeai/adrs',
+      'devforgeai/qa',
+      'devforgeai/adrs',
       '.ai_docs'
     ];
 

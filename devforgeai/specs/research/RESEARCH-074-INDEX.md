@@ -23,7 +23,7 @@ investigation_status: Complete
 This research package contains **4 comprehensive documents** totaling 73 KB and 11,000+ lines of evidence-based analysis:
 
 ### 1. Primary Research Report (33 KB)
-**File:** `.devforgeai/research/parallel-orchestration-research.md`
+**File:** `devforgeai/research/parallel-orchestration-research.md`
 
 **Contents:**
 - Executive summary (key findings, impact assessment)
@@ -52,7 +52,7 @@ This research package contains **4 comprehensive documents** totaling 73 KB and 
 ---
 
 ### 2. Executive Summary (11 KB)
-**File:** `.devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md`
+**File:** `devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md`
 
 **Contents:**
 - High-level findings (answer to research question)
@@ -109,7 +109,7 @@ This research package contains **4 comprehensive documents** totaling 73 KB and 
 ---
 
 ### 4. Quick Reference Card (9 KB)
-**File:** `.devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
+**File:** `devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md`
 
 **Contents:**
 - Copy-paste templates for all 3 patterns
@@ -370,10 +370,10 @@ Tasks:
 - `.claude/skills/devforgeai-development/SKILL.md` (will be enhanced)
 
 ### Research Documentation
-- `.devforgeai/research/parallel-orchestration-research.md` (this research)
-- `.devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (executive summary)
+- `devforgeai/research/parallel-orchestration-research.md` (this research)
+- `devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (executive summary)
 - `.claude/memory/parallel-orchestration-guide.md` (implementation guide)
-- `.devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md` (quick ref)
+- `devforgeai/research/PARALLEL-PATTERNS-QUICK-REFERENCE.md` (quick ref)
 
 ---
 
@@ -469,7 +469,7 @@ Tasks:
 ## Document Index
 
 ```
-.devforgeai/research/
+devforgeai/research/
 ├── parallel-orchestration-research.md          (33 KB - Main research)
 ├── RESEARCH-074-EXECUTIVE-SUMMARY.md           (11 KB - Summary)
 ├── PARALLEL-PATTERNS-QUICK-REFERENCE.md        (9 KB - Quick ref)

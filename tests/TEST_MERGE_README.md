@@ -436,7 +436,7 @@ assert len(found) == 7
 ## References
 
 - **Story:** `devforgeai/specs/Stories/STORY-046-claude-md-template-merge-logic.story.md`
-- **Coverage Summary:** `.devforgeai/qa/test-merge-coverage-summary.md`
+- **Coverage Summary:** `devforgeai/qa/test-merge-coverage-summary.md`
 - **Test File:** `tests/test_merge.py`
 - **Framework:** pytest documentation at https://docs.pytest.org/
 

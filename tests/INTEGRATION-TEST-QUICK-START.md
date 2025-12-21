@@ -88,7 +88,7 @@ Tests fresh installation to empty project. Covers:
 - Permission setting
 - Directory structure validation
 
-**Files Deployed**: 370 .claude/ + 80 .devforgeai/
+**Files Deployed**: 370 .claude/ + 80 devforgeai/
 **Time**: <180 seconds (NFR-1)
 
 ### 2. Upgrade Tests (7 tests)
@@ -163,7 +163,7 @@ conftest.py provides:
 
 integration_project (base fixture)
   ├─ .claude/          (empty, for deployment tests)
-  ├─ .devforgeai/      (empty, for version tests)
+  ├─ devforgeai/      (empty, for version tests)
   └─ .backups/         (empty, for backup tests)
 
 source_framework (base fixture)
@@ -172,7 +172,7 @@ source_framework (base fixture)
   └─ version.json      (v1.0.1 metadata)
 
 baseline_project (extends integration_project)
-  └─ .devforgeai/.version.json   (v1.0.0 pre-installed)
+  └─ devforgeai/.version.json   (v1.0.0 pre-installed)
 
 real_user_files (extends integration_project)
   ├─ .ai_docs/        (user stories)

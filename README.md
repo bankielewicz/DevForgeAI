@@ -55,7 +55,7 @@ DevForgeAI supports installation in environments with no internet connectivity. 
 
 **What's Bundled:**
 - All `.claude/` framework files (skills, agents, commands, memory)
-- All `.devforgeai/` templates (context, protocols, specs)
+- All `devforgeai/` templates (context, protocols, specs)
 - Python CLI wheel files (installed with `pip --no-index`)
 - SHA256 checksums for integrity verification
 
@@ -480,7 +480,7 @@ For detailed installation troubleshooting (15+ scenarios) and FAQ (10+ questions
     ├── release.md
     └── orchestrate.md
 
-.devforgeai/
+devforgeai/
 ├── context/             # Immutable architectural constraints
 │   ├── tech-stack.md
 │   ├── source-tree.md
@@ -586,7 +586,7 @@ See [ROADMAP.md](ROADMAP.md) for detailed implementation phases, timelines, and 
 - **[CLAUDE.md](CLAUDE.md)** - Comprehensive guide for Claude Code (project instructions)
 - **[ROADMAP.md](ROADMAP.md)** - Implementation phases and timelines
 - **[.ai_docs/Terminal/](/.ai_docs/Terminal/)** - Claude Code Terminal best practices
-- **[.devforgeai/specs/requirements/](/.devforgeai/specs/requirements/)** - Requirements specifications
+- **[devforgeai/specs/requirements/](/devforgeai/specs/requirements/)** - Requirements specifications
 
 ## Technical Stack
 

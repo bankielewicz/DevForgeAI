@@ -373,7 +373,7 @@ Phase 7 (Success Report):
 
 ### temp_project_dir
 - Temporary directory mimicking project structure
-- Contains devforgeai/context/, .devforgeai/config/
+- Contains devforgeai/context/, devforgeai/config/
 - Cleaned up automatically after each test
 
 ### create_context_files (factory)
@@ -383,7 +383,7 @@ Phase 7 (Success Report):
 
 ### create_hooks_config (factory)
 - Creates hooks.yaml with given configuration
-- Writes YAML to .devforgeai/config/hooks.yaml
+- Writes YAML to devforgeai/config/hooks.yaml
 - Returns Path to created file
 
 ---

@@ -118,7 +118,7 @@ During execution of `/qa STORY-070 deep`, Claude executed Phase 0.9 (AC-DoD Trac
 
 **Evidence:**
 - `.claude/skills/devforgeai-qa/SKILL.md:77` - Explicit statement about progressive disclosure
-- `.devforgeai/RCA/RCA-009:89-93` - Documented the same issue in devforgeai-development skill: "Progressive disclosure pattern moved steps to reference files but doesn't update SKILL.md phase summary"
+- `devforgeai/RCA/RCA-009:89-93` - Documented the same issue in devforgeai-development skill: "Progressive disclosure pattern moved steps to reference files but doesn't update SKILL.md phase summary"
 - Token optimization goal: SKILL.md is ~400 lines; if all workflows were inline it would be ~2,000 lines
 
 ---
@@ -130,7 +130,7 @@ During execution of `/qa STORY-070 deep`, Claude executed Phase 0.9 (AC-DoD Trac
 **Evidence:**
 - `.claude/skills/devforgeai-qa/SKILL.md` - Has phase list but not complete workflows
 - `.claude/skills/devforgeai-qa/references/` - 19 reference files contain actual execution steps
-- `.devforgeai/RCA/RCA-009:91-93` - ROOT CAUSE (same): "Phase summary in SKILL.md doesn't reflect complete workflow. Reference files have mandatory steps not mentioned in skill entry point."
+- `devforgeai/RCA/RCA-009:91-93` - ROOT CAUSE (same): "Phase summary in SKILL.md doesn't reflect complete workflow. Reference files have mandatory steps not mentioned in skill entry point."
 - Actual behavior in this incident: Claude claimed to "execute Phase 2" by invoking anti-pattern-scanner, but didn't follow the 6-step workflow in `anti-pattern-detection-workflow.md` (which includes context loading, evidence collection, violation categorization)
 
 **Root Cause Validation:**
@@ -199,7 +199,7 @@ Load workflow references on-demand for implementation details.
 
 ---
 
-#### **File 2: .devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md** (HIGH SIGNIFICANCE)
+#### **File 2: devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md** (HIGH SIGNIFICANCE)
 
 **Lines Examined:** 1-100, 450-500 (Executive Summary + Recommendations)
 
@@ -404,7 +404,7 @@ Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-w
 
 **Proposed Solution:** Add explicit checklist at end of each phase that Claude must display and verify
 
-**Implementation Plan:** `.devforgeai/RCA/RCA-016-REC2-ENHANCED-CHECKLISTS-PLAN.md` (comprehensive, session-resumable)
+**Implementation Plan:** `devforgeai/RCA/RCA-016-REC2-ENHANCED-CHECKLISTS-PLAN.md` (comprehensive, session-resumable)
 
 **Implementation:**
 
@@ -799,7 +799,7 @@ Priority order for implementing recommendations:
 
 **RCA Complete**
 
-**Document:** `.devforgeai/RCA/RCA-016-qa-skill-phase-skipping-during-deep-validation.md`
+**Document:** `devforgeai/RCA/RCA-016-qa-skill-phase-skipping-during-deep-validation.md`
 **Status:** IMPLEMENTED (2025-12-01)
 **Next Steps:** Monitor for 2 weeks, apply REC-1 pattern to other skills (devforgeai-development, devforgeai-orchestration, devforgeai-release)
 **Review Date:** 2025-12-15 (verify no recurrence)

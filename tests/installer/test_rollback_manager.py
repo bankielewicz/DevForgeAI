@@ -132,7 +132,7 @@ class TestRollbackManager:
         """
         WKR-023: Restore all files from backup (complete state restoration).
 
-        Given: Backup contains .claude/, .devforgeai/, CLAUDE.md
+        Given: Backup contains .claude/, devforgeai/, CLAUDE.md
         When: Rollback initiated
         Then: All files restored to original location
         """
@@ -146,7 +146,7 @@ class TestRollbackManager:
         (backup_claude / "agents").mkdir()
         (backup_claude / "agents" / "test.md").write_text("# Agent")
 
-        backup_devforgeai = backup_path / ".devforgeai"
+        backup_devforgeai = backup_path / "devforgeai"
         backup_devforgeai.mkdir()
         (backup_devforgeai / "config").mkdir()
         (backup_devforgeai / "config" / "hooks.yaml").write_text("# hooks")

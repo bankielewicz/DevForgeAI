@@ -105,7 +105,7 @@ Generated comprehensive integration test suite targeting **6% coverage gap in ap
 ```python
 def test_should_handle_missing_version_json_during_upgrade(self, temp_project, source_framework):
     # Arrange: Set up test preconditions
-    devforgeai_path = temp_project / ".devforgeai"
+    devforgeai_path = temp_project / "devforgeai"
     assert not (devforgeai_path / ".version.json").exists()
 
     # Act: Execute behavior being tested
@@ -119,7 +119,7 @@ def test_should_handle_missing_version_json_during_upgrade(self, temp_project, s
 ### Fixtures Provided
 
 **Real File I/O Fixtures:**
-- `temp_project`: Temporary project directory with .devforgeai/, .claude/, .ai_docs/
+- `temp_project`: Temporary project directory with devforgeai/, .claude/, .ai_docs/
 - `source_framework`: Mock source framework with 450+ files
 - `read_only_directory`: Read-only directory for permission error testing
 

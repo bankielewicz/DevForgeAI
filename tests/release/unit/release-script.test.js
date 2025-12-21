@@ -30,7 +30,7 @@ process.env.NODE_ENV = 'test';
 describe('Release Script Unit Tests (STORY-070)', () => {
 
   const SCRIPT_PATH = path.join(__dirname, '../../../scripts/release.sh');
-  const CONFIG_PATH = path.join(__dirname, '../../../.devforgeai/config/release-config.sh');
+  const CONFIG_PATH = path.join(__dirname, '../../../devforgeai/config/release-config.sh');
 
   beforeEach(() => {
     // Clear all mocks before each test
@@ -462,10 +462,10 @@ describe('Release Script Unit Tests (STORY-070)', () => {
 
     describe('DevForgeAI Directory Sync', () => {
 
-      test('should sync .devforgeai/ to src/devforgeai/ recursively', () => {
+      test('should sync devforgeai/ to src/devforgeai/ recursively', () => {
         // Arrange
         execSync.mockImplementation((cmd) => {
-          if (cmd.includes('.devforgeai/') && cmd.includes('src/devforgeai/')) {
+          if (cmd.includes('devforgeai/') && cmd.includes('src/devforgeai/')) {
             return 'sent 145 files';
           }
           return '';
@@ -476,13 +476,13 @@ describe('Release Script Unit Tests (STORY-070)', () => {
 
         // Assert
         expect(execSync).toHaveBeenCalledWith(
-          expect.stringMatching(/\.devforgeai\/.*src\/devforgeai\//)
+          expect.stringMatching(/\devforgeai\/.*src\/devforgeai\//)
         );
       });
 
       test('should exclude backups/ directory from sync', () => {
         // Arrange
-        const syncCommand = 'rsync -av --exclude="backups/" .devforgeai/ src/devforgeai/';
+        const syncCommand = 'rsync -av --exclude="backups/" devforgeai/ src/devforgeai/';
 
         // Assert
         expect(syncCommand).toContain('--exclude="backups/"');
@@ -490,7 +490,7 @@ describe('Release Script Unit Tests (STORY-070)', () => {
 
       test('should exclude qa/reports/ directory from sync', () => {
         // Arrange
-        const syncCommand = 'rsync -av --exclude="qa/reports/" .devforgeai/ src/devforgeai/';
+        const syncCommand = 'rsync -av --exclude="qa/reports/" devforgeai/ src/devforgeai/';
 
         // Assert
         expect(syncCommand).toContain('--exclude="qa/reports/"');
@@ -498,7 +498,7 @@ describe('Release Script Unit Tests (STORY-070)', () => {
 
       test('should exclude feedback/sessions/ directory from sync', () => {
         // Arrange
-        const syncCommand = 'rsync -av --exclude="feedback/sessions/" .devforgeai/ src/devforgeai/';
+        const syncCommand = 'rsync -av --exclude="feedback/sessions/" devforgeai/ src/devforgeai/';
 
         // Assert
         expect(syncCommand).toContain('--exclude="feedback/sessions/"');
@@ -506,7 +506,7 @@ describe('Release Script Unit Tests (STORY-070)', () => {
 
       test('should exclude *.log files from sync', () => {
         // Arrange
-        const syncCommand = 'rsync -av --exclude="*.log" .devforgeai/ src/devforgeai/';
+        const syncCommand = 'rsync -av --exclude="*.log" devforgeai/ src/devforgeai/';
 
         // Assert
         expect(syncCommand).toContain('--exclude="*.log"');

@@ -88,7 +88,7 @@ class TestFreshInstallWorkflow:
             target_root / ".claude"
         )
         devforgeai_count = file_integrity_checker.count_files(
-            target_root / ".devforgeai"
+            target_root / "devforgeai"
         )
 
         assert (
@@ -106,7 +106,7 @@ class TestFreshInstallWorkflow:
             target_root / ".claude" / "commands"
         )
         assert file_integrity_checker.verify_directory_exists(
-            target_root / ".devforgeai" / "config"
+            target_root / "devforgeai" / "config"
         )
 
     def test_fresh_install_creates_version_metadata(
@@ -134,7 +134,7 @@ class TestFreshInstallWorkflow:
         assert result["status"] == "success"
 
         # Verify .version.json
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         assert (
             version_file.exists()
         ), ".version.json not found in devforgeai/"
@@ -188,8 +188,8 @@ class TestFreshInstallWorkflow:
         dir_perms = oct(claude_agents.stat().st_mode)[-3:]
         assert dir_perms == "755", f"Directory permissions should be 755, got {dir_perms}"
 
-        # Verify .devforgeai directory
-        devforgeai_dir = target_root / ".devforgeai"
+        # Verify devforgeai directory
+        devforgeai_dir = target_root / "devforgeai"
         devforgeai_perms = oct(devforgeai_dir.stat().st_mode)[-3:]
         assert devforgeai_perms == "755", f"Devforgeai perms should be 755, got {devforgeai_perms}"
 
@@ -307,7 +307,7 @@ class TestFreshInstallWorkflow:
             target_root / ".claude"
         ).exists(), ".claude/ should be created"
         assert (
-            target_root / ".devforgeai"
+            target_root / "devforgeai"
         ).exists(), "devforgeai/ should be created"
 
     def test_fresh_install_leaves_valid_state(
@@ -342,5 +342,5 @@ class TestFreshInstallWorkflow:
 
         # Verify critical directories
         assert (target_root / ".claude").exists()
-        assert (target_root / ".devforgeai").exists()
-        assert (target_root / ".devforgeai" / ".version.json").exists()
+        assert (target_root / "devforgeai").exists()
+        assert (target_root / "devforgeai" / ".version.json").exists()

@@ -39,7 +39,7 @@ Integrate ast-grep as a semantic code analysis engine into DevForgeAI framework 
 **Description:** Establish ast-grep rule storage, sgconfig.yml configuration, language mappings, and directory structure following DevForgeAI conventions.
 
 **User Stories (high-level):**
-1. As a DevForgeAI maintainer, I want rules stored in `.devforgeai/ast-grep/rules/` so that they are project-scoped
+1. As a DevForgeAI maintainer, I want rules stored in `devforgeai/ast-grep/rules/` so that they are project-scoped
 2. As a rule author, I want language-specific directories (python/, csharp/, typescript/) so that rules are organized
 3. As a DevForgeAI user, I want sgconfig.yml auto-generated so that configuration is consistent
 
@@ -152,7 +152,7 @@ Integrate ast-grep as a semantic code analysis engine into DevForgeAI framework 
 **Recommended Architecture:**
 - Pattern: Modular integration following DevForgeAI 3-layer architecture (Skills → Subagents → Commands)
 - Layers: CLI validator (Layer 3), validation logic (Layer 2), ast-grep wrapper (utility)
-- Database: File-based rule storage (`.devforgeai/ast-grep/rules/`)
+- Database: File-based rule storage (`devforgeai/ast-grep/rules/`)
 - Deployment: Installed via pip as part of DevForgeAI CLI tools
 
 **Technology Recommendations:**

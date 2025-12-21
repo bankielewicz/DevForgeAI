@@ -325,11 +325,11 @@ class TestCONF006NonBlockingBehavior:
 
 
 class TestCONF007HookInvocationLogging:
-    """CONF-007: Log all hook invocations to .devforgeai/feedback/logs/hook-invocations.log"""
+    """CONF-007: Log all hook invocations to devforgeai/feedback/logs/hook-invocations.log"""
 
     def test_log_file_path_correct(self):
-        """Log file should be at .devforgeai/feedback/logs/hook-invocations.log"""
-        expected_path = ".devforgeai/feedback/logs/hook-invocations.log"
+        """Log file should be at devforgeai/feedback/logs/hook-invocations.log"""
+        expected_path = "devforgeai/feedback/logs/hook-invocations.log"
         # This path should be used in Phase N code
         assert "hook-invocations.log" in expected_path
 
@@ -471,7 +471,7 @@ class TestCONF009ContextSizeLimit:
             f"Context {size_bytes} bytes exceeds 50KB limit"
 
     def test_full_report_available_on_disk(self):
-        """Full audit report (with all deferrals) should remain in .devforgeai/qa/"""
+        """Full audit report (with all deferrals) should remain in devforgeai/qa/"""
         # Phase N truncates context for hook invocation
         # But complete report is already written to disk in Phase 5
         # This verifies architecture: report saved BEFORE hooks invoked

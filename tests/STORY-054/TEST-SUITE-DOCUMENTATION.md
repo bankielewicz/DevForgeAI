@@ -307,7 +307,7 @@ All tests should PASS when implementation is complete:
 - [ ] Position section after line ~100, before detailed topics
 - [ ] Add cross-references to:
   - `../../memory/effective-prompting-guide.md`
-  - `../../../.devforgeai/ideation/references/user-input-guidance.md`
+  - `../../../devforgeai/ideation/references/user-input-guidance.md`
 - [ ] Include 15-30 word descriptions for each reference
 - [ ] Add 5-10 paired examples (❌ ineffective / ✅ effective)
 - [ ] Cover all example types: feature request, story creation, error reporting, tech decisions, feedback

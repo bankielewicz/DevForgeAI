@@ -622,13 +622,13 @@ Frequency: Per story
 
 **RCA documentation:**
 - `/tmp/output.md` (Original RCA with 5 Whys)
-- `.devforgeai/specs/enhancements/RCA-006-autonomous-deferrals.md` (Framework RCA)
+- `devforgeai/specs/enhancements/RCA-006-autonomous-deferrals.md` (Framework RCA)
 
 **Testing:**
-- `.devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md` (Test procedures)
+- `devforgeai/specs/enhancements/PHASE1-TESTING-CHECKLIST.md` (Test procedures)
 
 **Rollback:**
-- `.devforgeai/backups/phase1/` (Backup files)
+- `devforgeai/backups/phase1/` (Backup files)
 
 ---
 

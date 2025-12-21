@@ -42,7 +42,7 @@ def temp_story_dir(tmp_path):
 @pytest.fixture
 def temp_feedback_dir(tmp_path):
     """Fixture: Create temporary feedback directory structure"""
-    feedback_dir = tmp_path / ".devforgeai" / "feedback" / "releases"
+    feedback_dir = tmp_path / "devforgeai" / "feedback" / "releases"
     feedback_dir.mkdir(parents=True)
     return feedback_dir
 
@@ -50,7 +50,7 @@ def temp_feedback_dir(tmp_path):
 @pytest.fixture
 def temp_log_dir(tmp_path):
     """Fixture: Create temporary logs directory structure"""
-    log_dir = tmp_path / ".devforgeai" / "logs"
+    log_dir = tmp_path / "devforgeai" / "logs"
     log_dir.mkdir(parents=True)
     return log_dir
 
@@ -58,7 +58,7 @@ def temp_log_dir(tmp_path):
 @pytest.fixture
 def temp_config_dir(tmp_path):
     """Fixture: Create temporary config directory structure"""
-    config_dir = tmp_path / ".devforgeai" / "config"
+    config_dir = tmp_path / "devforgeai" / "config"
     config_dir.mkdir(parents=True)
     return config_dir
 
@@ -892,7 +892,7 @@ class TestAC5_GracefulDegradation:
     """AC5: Graceful degradation when hook infrastructure fails"""
 
     def test_ac5_hook_failure_logged_to_release_hooks_log(self, temp_log_dir):
-        """AC5: Hook execution failure logged to .devforgeai/logs/release-hooks-{STORY-ID}.log"""
+        """AC5: Hook execution failure logged to devforgeai/logs/release-hooks-{STORY-ID}.log"""
         # Arrange
         story_id = "STORY-025"
         log_file = temp_log_dir / f"release-hooks-{story_id}.log"
@@ -1095,7 +1095,7 @@ class TestAC7_ConsistentUX:
         assert config_changes_take_effect is True
 
     def test_ac7_feedback_saved_to_correct_path(self, temp_feedback_dir):
-        """AC7: Answer persistence to .devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json"""
+        """AC7: Answer persistence to devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json"""
         # Arrange
         story_id = "STORY-025"
         environment = "staging"

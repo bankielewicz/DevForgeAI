@@ -136,7 +136,7 @@ class TestValidateWorkflow:
         assert install_result["status"] == "success"
 
         # Corrupt .version.json
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         version_file.write_text("{ INVALID JSON }")
 
         # Validate installation
@@ -205,7 +205,7 @@ class TestValidateWorkflow:
 
         # Record file state before validation
         file_count_before = file_integrity_checker.count_files(target_root)
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         version_content_before = version_file.read_text()
 
         # Record backup count

@@ -65,7 +65,7 @@ STORY-090 has 2 deferred Definition of Done items (AC#5 components):
 
 **Issue:** AC#5 was in original Definition of Done (in scope). Deferring it to future story is a **scope change**.
 
-**Per critical-rules.md Rule #9:** Architecture decisions require ADRs in `.devforgeai/adrs/`.
+**Per critical-rules.md Rule #9:** Architecture decisions require ADRs in `devforgeai/adrs/`.
 
 **Verdict:** **VIOLATION - Medium Severity** - Missing ADR-008 documenting scope boundary
 
@@ -150,7 +150,7 @@ Content:
   * Template can release independently while skill enhancement in progress
 ```
 
-**Location:** `.devforgeai/adrs/ADR-008-*.md`
+**Location:** `devforgeai/adrs/ADR-008-*.md`
 
 **Action 2: Update Implementation Notes**
 - Add reference to ADR-008 in Story file (line ~546)
@@ -190,7 +190,7 @@ priority: High
 **Cannot approve STORY-090 for QA release without:**
 
 **Option A: Create ADR-008 (Recommended)**
-- Create `.devforgeai/adrs/ADR-008-*.md` documenting scope boundary
+- Create `devforgeai/adrs/ADR-008-*.md` documenting scope boundary
 - Update story Implementation Notes with ADR reference
 - Proceed to QA Approval
 - Status: Governance compliant
@@ -323,7 +323,7 @@ No circular deferrals, no unaccounted work. RCA-007 risk is **LOW** if follow-up
 - STORY-092: `devforgeai/specs/Stories/STORY-092-story-scoped-test-isolation.story.md`
 
 **Required Actions:**
-- Create: `.devforgeai/adrs/ADR-008-*.md` (ADR for scope boundary)
+- Create: `devforgeai/adrs/ADR-008-*.md` (ADR for scope boundary)
 - Create: `devforgeai/specs/Stories/STORY-093-*.story.md` (Follow-up story)
 - Update: `devforgeai/specs/Stories/STORY-090-*.story.md` (Add ADR/approval reference)
 

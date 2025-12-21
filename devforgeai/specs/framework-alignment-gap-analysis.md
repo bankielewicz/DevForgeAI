@@ -962,7 +962,7 @@ description: Implement story with TDD
 ---
 
 For detailed phase instructions, see:
-.devforgeai/workflows/tdd-development-phases.md
+devforgeai/workflows/tdd-development-phases.md
 
 ## Workflow
 1. Read story: $ARGUMENTS
@@ -1409,7 +1409,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
 
 ### Phase 1: Development
 1. Invoke /dev
-2. Save checkpoint: Write(file_path=".devforgeai/.checkpoints/$STORY-dev.json")
+2. Save checkpoint: Write(file_path="devforgeai/.checkpoints/$STORY-dev.json")
 3. Exit command (free context)
 
 # User reinvokes:
@@ -1460,7 +1460,7 @@ TOKEN USAGE: ~20K total in /orchestrate context
      - "Revise" → Re-invoke architecture skill with feedback
      - "Review manually" → Show review report, wait for user
 
-3. Document review in .devforgeai/architecture/design-review-{project}.md
+3. Document review in devforgeai/architecture/design-review-{project}.md
 ```
 
 **Benefit:** Catches architectural issues before development begins
@@ -1794,7 +1794,7 @@ Execute for: $ARGUMENTS
 ### Phase 4: Report & Status
 
 1. Aggregate results
-2. Write: Write(file_path=".devforgeai/qa/reports/$STORY-qa-report.md", content="...")
+2. Write: Write(file_path="devforgeai/qa/reports/$STORY-qa-report.md", content="...")
 3. Determine: 0 CRITICAL + 0 HIGH → PASS, else FAIL
 4. Update: Edit story status to "QA Approved" or "QA Failed"
 

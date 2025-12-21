@@ -235,7 +235,7 @@ coverage_percent = (features_with_stories / total_features) * 100
 }
 ```
 
-**Location:** `.devforgeai/epic-coverage/history/coverage-history.json`
+**Location:** `devforgeai/epic-coverage/history/coverage-history.json`
 
 ---
 
@@ -411,7 +411,7 @@ Tests prevent common coverage gaps by:
 - Ready for GREEN phase ✓
 
 ### Next Phase: GREEN
-1. Implement `.devforgeai/epic-coverage/generate-report.sh`
+1. Implement `devforgeai/epic-coverage/generate-report.sh`
 2. Implement terminal output with ANSI colors
 3. Implement markdown report generation
 4. Implement JSON export with schema validation
@@ -444,11 +444,11 @@ Tests prevent common coverage gaps by:
 - Technical Specification validation
 
 ### Files to Create (GREEN Phase)
-1. `.devforgeai/epic-coverage/generate-report.sh` - Main report generator
-2. `.devforgeai/epic-coverage/config.json` - Configuration
-3. `.devforgeai/epic-coverage/models/report.json` - JSON schema
-4. `.devforgeai/epic-coverage/reports/` - Output directory (created at runtime)
-5. `.devforgeai/epic-coverage/history/coverage-history.json` - History tracking
+1. `devforgeai/epic-coverage/generate-report.sh` - Main report generator
+2. `devforgeai/epic-coverage/config.json` - Configuration
+3. `devforgeai/epic-coverage/models/report.json` - JSON schema
+4. `devforgeai/epic-coverage/reports/` - Output directory (created at runtime)
+5. `devforgeai/epic-coverage/history/coverage-history.json` - History tracking
 
 ---
 
@@ -492,7 +492,7 @@ Tests validate performance thresholds in GREEN phase.
 3. Check that test fixtures are in place
 
 ### Implementation (GREEN Phase)
-1. Create `.devforgeai/epic-coverage/generate-report.sh`
+1. Create `devforgeai/epic-coverage/generate-report.sh`
 2. Implement each acceptance criterion in priority order:
    - AC#4 (Statistics) - Foundation
    - AC#1 (Terminal) - Basic output

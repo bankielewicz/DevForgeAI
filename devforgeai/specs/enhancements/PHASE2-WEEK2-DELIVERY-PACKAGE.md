@@ -230,7 +230,7 @@ def _convert_to_structured_format_ai(self, freeform_text: str) -> Dict:
         Freeform text:
         {freeform_text}
 
-        Use schema from: .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+        Use schema from: devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
         Identify:
         - Component types (Service, Worker, Configuration, etc.)
@@ -420,7 +420,7 @@ def _convert_to_structured_format_ai(self, freeform_text: str) -> Dict:
 
 **Format specification:**
 ```
-.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 
 **Tooling:**
@@ -436,12 +436,12 @@ def _convert_to_structured_format_ai(self, freeform_text: str) -> Dict:
 
 **Documentation:**
 ```
-.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
-.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md
-.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md
-.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md
-.devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
-.devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md (this doc)
+devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
+devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md
+devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md
+devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md
+devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
+devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md (this doc)
 ```
 
 **Updated Files:**
@@ -460,7 +460,7 @@ CLAUDE.md
 
 **1. Review format specification:**
 ```bash
-cat .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+cat devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 
 **2. Test validator:**
@@ -478,7 +478,7 @@ python .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.p
 
 **4. Read implementation guide:**
 ```bash
-cat .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
+cat devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
 ```
 
 ---
@@ -497,8 +497,8 @@ cat .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
 Task: Enhance migrate_story_v1_to_v2.py with AI-assisted parsing
 
 Files to read:
-- .devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md (this doc)
-- .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (Week 3 section)
+- devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md (this doc)
+- devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-PLAN.md (Week 3 section)
 - .claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py (enhance this)
 
 Goal: Integrate Claude API or Task subagent for 95%+ accuracy

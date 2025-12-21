@@ -33,7 +33,7 @@ tags: ["feedback-system", "hook-integration", "command-integration"]
 
 ### 2. [x] Graceful degradation when hooks disabled
 
-**Given** feedback hooks are disabled in `.devforgeai/config/hooks.yaml` (create-sprint: enabled: false)
+**Given** feedback hooks are disabled in `devforgeai/config/hooks.yaml` (create-sprint: enabled: false)
 **When** Phase N executes `devforgeai check-hooks --operation=create-sprint --status=success`
 **Then** the check returns non-zero exit code, hook invocation is skipped, and sprint creation completes successfully without feedback prompts
 
@@ -43,7 +43,7 @@ tags: ["feedback-system", "hook-integration", "command-integration"]
 
 **Given** feedback hooks are enabled and check-hooks returns success (exit code 0)
 **When** Phase N invokes `devforgeai invoke-hooks --operation=create-sprint --sprint-name=${SPRINT_NAME} --story-count=${STORY_COUNT} --capacity=${CAPACITY_POINTS}`
-**Then** the feedback system captures sprint planning context (sprint name, story count, total capacity), presents retrospective questions, and logs responses to `.devforgeai/feedback/create-sprint-*.json`
+**Then** the feedback system captures sprint planning context (sprint name, story count, total capacity), presents retrospective questions, and logs responses to `devforgeai/feedback/create-sprint-*.json`
 
 ---
 
@@ -51,7 +51,7 @@ tags: ["feedback-system", "hook-integration", "command-integration"]
 
 **Given** feedback hooks are enabled but hook invocation fails (network error, missing config, Python exception)
 **When** `devforgeai invoke-hooks --operation=create-sprint` returns non-zero exit code or throws exception
-**Then** the error is logged to `.devforgeai/feedback/logs/hook-errors.log`, user sees warning message "Feedback collection failed (sprint creation succeeded)", and sprint file remains valid with all stories assigned
+**Then** the error is logged to `devforgeai/feedback/logs/hook-errors.log`, user sees warning message "Feedback collection failed (sprint creation succeeded)", and sprint file remains valid with all stories assigned
 
 ---
 
@@ -65,7 +65,7 @@ tags: ["feedback-system", "hook-integration", "command-integration"]
 
 ## Edge Cases
 
-1. **Hook check command not found:** If `devforgeai` CLI not installed or not in PATH, `command -v devforgeai` returns non-zero, Phase N skips hook logic silently (logs warning to `.devforgeai/logs/command.log`)
+1. **Hook check command not found:** If `devforgeai` CLI not installed or not in PATH, `command -v devforgeai` returns non-zero, Phase N skips hook logic silently (logs warning to `devforgeai/logs/command.log`)
 
 2. **Concurrent sprint creation:** If multiple `/create-sprint` commands run simultaneously (unlikely but possible in CI/CD), hook invocations use unique timestamps in feedback filenames (`create-sprint-YYYY-MM-DD-HH-MM-SS-sprint-N.json`) to prevent file conflicts
 
@@ -134,7 +134,7 @@ technical_specification:
 
     - type: "Logging"
       name: "Hook Invocation Logging"
-      file_path: ".devforgeai/logs/command.log"
+      file_path: "devforgeai/logs/command.log"
       requirements:
         - id: "COMP-006"
           description: "Log Phase N execution start with timestamp and sprint context"
@@ -221,7 +221,7 @@ technical_specification:
     - id: "NFR-007"
       category: "Security"
       requirement: "Feedback files must be created with restrictive permissions (mode 0600 - user read/write only)"
-      metric: "All files in .devforgeai/feedback/ have permissions -rw------- (600)"
+      metric: "All files in devforgeai/feedback/ have permissions -rw------- (600)"
       test_requirement: "Test: Execute hooks, create feedback file, verify file permissions via stat command equal 0600"
 
     - id: "NFR-008"
@@ -318,8 +318,8 @@ export TEST_SPRINT_NAME="Sprint-Integration-Test"
 
 # Assert
 test -f "devforgeai/specs/Sprints/$TEST_SPRINT_NAME.md" || exit 1
-test -f ".devforgeai/feedback/create-sprint-*.json" || exit 1
-grep -q "Feedback session created" .devforgeai/logs/command.log || exit 1
+test -f "devforgeai/feedback/create-sprint-*.json" || exit 1
+grep -q "Feedback session created" devforgeai/logs/command.log || exit 1
 
 echo "✅ Integration test passed"
 ```
@@ -341,7 +341,7 @@ echo "✅ Integration test passed"
 - [x] Hook integration phase added to /create-sprint command workflow (Phase N after Phase 4 result display)
 - [x] `devforgeai check-hooks --operation=create-sprint` command functional (<100ms execution)
 - [x] `devforgeai invoke-hooks --operation=create-sprint` command functional with sprint context
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected)
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected)
 - [x] Sprint context provided in hook (sprint name, story count, capacity points)
 - [x] Graceful degradation implemented (hook failures don't break sprint creation, exit code 0)
 
@@ -363,9 +363,9 @@ echo "✅ Integration test passed"
 
 ### Documentation
 - [x] Hook integration documentation added to sprint planning guide (.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md lines 629-663)
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221)
-- [x] Troubleshooting guide: "Hook not triggering after sprint creation" created (.devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md)
-- [x] Framework maintainer guide updated with hook lifecycle for sprint creation (.devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md)
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221)
+- [x] Troubleshooting guide: "Hook not triggering after sprint creation" created (devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md)
+- [x] Framework maintainer guide updated with hook lifecycle for sprint creation (devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md)
 
 ---
 
@@ -375,13 +375,13 @@ echo "✅ Integration test passed"
 - [x] Hook integration phase added to /create-sprint command workflow (Phase N after Phase 4 result display) - Completed: Implemented at lines 311-333 of .claude/commands/create-sprint.md
 - [x] `devforgeai check-hooks --operation=create-sprint` command functional (<100ms execution) - Completed: Validated in integration testing, measured 92ms average
 - [x] `devforgeai invoke-hooks --operation=create-sprint` command functional with sprint context - Completed: Implemented with --sprint-name, --story-count, --capacity parameters
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Handled via check-hooks exit code (0=enabled, non-zero=disabled)
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Handled via check-hooks exit code (0=enabled, non-zero=disabled)
 - [x] Sprint context provided in hook (sprint name, story count, capacity points) - Completed: Implemented in Phase N with all 3 parameters
 - [x] Graceful degradation implemented (hook failures don't break sprint creation, exit code 0) - Completed: Non-blocking design validated in integration testing
 - [x] Hook integration documentation added to sprint planning guide (.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md lines 629-663) - Completed: Hook workflow, context parameters, performance targets documented
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221) - Completed: Complete hook configuration with metadata and notes
-- [x] Troubleshooting guide created (.devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md) - Completed: 10-step resolution procedure with common issues
-- [x] Framework maintainer guide updated (.devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md) - Completed: Hook lifecycle documentation with maintainer procedures
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` for create-sprint (lines 155-221) - Completed: Complete hook configuration with metadata and notes
+- [x] Troubleshooting guide created (devforgeai/specs/troubleshooting/STORY-029-hook-not-triggering-sprint-creation.md) - Completed: 10-step resolution procedure with common issues
+- [x] Framework maintainer guide updated (devforgeai/docs/FRAMEWORK-MAINTAINER-GUIDE.md) - Completed: Hook lifecycle documentation with maintainer procedures
 
 **Hook Integration Point:**
 - Hook integration phase (Phase N) added to /create-sprint command (lines 311-333)
@@ -394,7 +394,7 @@ echo "✅ Integration test passed"
 - Graceful degradation: Failures logged/warned but exit 0
 
 **Configuration:**
-- Enabled/disabled state controlled via `.devforgeai/config/hooks.yaml`
+- Enabled/disabled state controlled via `devforgeai/config/hooks.yaml`
 - Hook check executes in <100ms
 - Hook invocation non-blocking
 
@@ -432,7 +432,7 @@ echo "✅ Integration test passed"
 - ✅ Spec Compliance: All AC validated
 
 **Status:** QA Approved
-**Report:** .devforgeai/qa/reports/STORY-029-qa-report.md
+**Report:** devforgeai/qa/reports/STORY-029-qa-report.md
 **Next Step:** Ready for release
 
 ---
@@ -468,8 +468,8 @@ echo "✅ Integration test passed"
 **References:**
 - Epic: `devforgeai/specs/Epics/EPIC-006-feedback-integration-completion.epic.md`
 - Feature 6.2: Command Integration Rollout (11 stories total)
-- Hook Configuration: `.devforgeai/config/hooks.yaml`
-- Feedback Logs: `.devforgeai/feedback/logs/`
+- Hook Configuration: `devforgeai/config/hooks.yaml`
+- Feedback Logs: `devforgeai/feedback/logs/`
 
 ---
 

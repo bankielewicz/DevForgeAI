@@ -635,7 +635,7 @@ git checkout HEAD~1 .claude/memory/*.md CLAUDE.md
    ```bash
    # All validation steps should PASS
    # Violation log should be empty
-   cat .devforgeai/logs/rca-007-violations.log
+   cat devforgeai/logs/rca-007-violations.log
    ```
 
 4. **Compare with baseline** (if available)
@@ -749,12 +749,12 @@ git checkout HEAD~1 .claude/memory/*.md CLAUDE.md
 
 ## Related Documents
 
-- **RCA Analysis:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Phase 1 Complete:** `.devforgeai/specs/enhancements/RCA-007-PHASE1-COMPLETE.md`
-- **Phase 2 Complete:** `.devforgeai/specs/enhancements/RCA-007-PHASE2-COMPLETE.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Testing Strategy:** `.devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
-- **Executive Summary:** `.devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
+- **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Phase 1 Complete:** `devforgeai/specs/enhancements/RCA-007-PHASE1-COMPLETE.md`
+- **Phase 2 Complete:** `devforgeai/specs/enhancements/RCA-007-PHASE2-COMPLETE.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Testing Strategy:** `devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
+- **Executive Summary:** `devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
 
 ---
 

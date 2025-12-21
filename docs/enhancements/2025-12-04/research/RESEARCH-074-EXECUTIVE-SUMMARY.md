@@ -301,7 +301,7 @@ Instead of blocking on test completion, spawn tests in background:
 ## Research Artifacts
 
 **Comprehensive Report:**
-- `.devforgeai/research/parallel-orchestration-research.md` (9,000+ words)
+- `devforgeai/research/parallel-orchestration-research.md` (9,000+ words)
   - 4 research areas covered
   - 21+ sources cited (including PRIMARY Anthropic sources)
   - All limitations documented
@@ -315,7 +315,7 @@ Instead of blocking on test completion, spawn tests in background:
   - Integration with DevForgeAI
 
 **This Document:**
-- `.devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (this file)
+- `devforgeai/research/RESEARCH-074-EXECUTIVE-SUMMARY.md` (this file)
   - High-level findings
   - Quick reference table
   - Next steps checklist

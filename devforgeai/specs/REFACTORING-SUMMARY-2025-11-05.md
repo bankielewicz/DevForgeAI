@@ -488,7 +488,7 @@ grep -n "Task(subagent_type=" .claude/skills/devforgeai-development/SKILL.md
    ```bash
    # Setup: Directory without Git
    /dev STORY-002
-   # Expected: File-based fallback, changes in .devforgeai/stories/
+   # Expected: File-based fallback, changes in devforgeai/stories/
    ```
 
 3. **QA Failure Recovery**

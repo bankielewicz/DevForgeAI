@@ -292,7 +292,7 @@ Post-Deployment:
 
 ### Output Location
 ```
-.devforgeai/qa/deferral-audit-{timestamp}.md
+devforgeai/qa/deferral-audit-{timestamp}.md
 ```
 
 ### Duration
@@ -365,9 +365,9 @@ Post-Deployment:
 ## Related Documentation
 
 **Framework References:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Main pattern
-- `.devforgeai/protocols/refactoring-case-studies.md` - 5+ case studies
-- `.devforgeai/protocols/command-budget-reference.md` - Budget tracking
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Main pattern
+- `devforgeai/protocols/refactoring-case-studies.md` - 5+ case studies
+- `devforgeai/protocols/command-budget-reference.md` - Budget tracking
 
 **Implementation References:**
 - `.claude/commands/audit-deferrals.md` - Refactored command
@@ -375,8 +375,8 @@ Post-Deployment:
 - `.claude/agents/deferral-validator.md` - Validation subagent
 
 **Framework Components:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral policy
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Chain detection
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral policy
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` - Chain detection
 - STORY-033 - Feedback hook integration
 
 ---

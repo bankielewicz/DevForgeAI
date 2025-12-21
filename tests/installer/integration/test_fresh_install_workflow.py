@@ -12,7 +12,7 @@ Validates that a complete fresh installation to an empty project:
 
 AC Mapping:
 - AC-1.1: Deploy .claude/ with 370 files
-- AC-1.2: Deploy .devforgeai/ with 80 files
+- AC-1.2: Deploy devforgeai/ with 80 files
 - AC-1.3: Create .version.json with version metadata
 - AC-1.4: Set file permissions correctly
 - AC-1.5: Project passes validation after install
@@ -55,7 +55,7 @@ class TestFreshInstallWorkflow:
 
         Validates:
         - All 370 .claude/ files deployed
-        - All 80 .devforgeai/ files deployed
+        - All 80 devforgeai/ files deployed
         - File content matches source exactly
         - No files missing or corrupted
 
@@ -88,7 +88,7 @@ class TestFreshInstallWorkflow:
             target_root / ".claude"
         )
         devforgeai_count = file_integrity_checker.count_files(
-            target_root / ".devforgeai"
+            target_root / "devforgeai"
         )
 
         assert (
@@ -96,7 +96,7 @@ class TestFreshInstallWorkflow:
         ), f"Expected 370 .claude/ files, got {claude_count_after}"
         assert (
             devforgeai_count >= 80
-        ), f"Expected ≥80 .devforgeai/ files, got {devforgeai_count}"
+        ), f"Expected ≥80 devforgeai/ files, got {devforgeai_count}"
 
         # Verify directories exist
         assert file_integrity_checker.verify_directory_exists(
@@ -106,7 +106,7 @@ class TestFreshInstallWorkflow:
             target_root / ".claude" / "commands"
         )
         assert file_integrity_checker.verify_directory_exists(
-            target_root / ".devforgeai" / "config"
+            target_root / "devforgeai" / "config"
         )
 
     def test_fresh_install_creates_version_metadata(
@@ -116,7 +116,7 @@ class TestFreshInstallWorkflow:
         AC-1.3: Fresh install creates .version.json with correct metadata.
 
         Validates:
-        - .version.json exists in .devforgeai/
+        - .version.json exists in devforgeai/
         - version field = "1.0.1"
         - installed_at field contains ISO timestamp
         - mode field = "fresh_install"
@@ -134,10 +134,10 @@ class TestFreshInstallWorkflow:
         assert result["status"] == "success"
 
         # Verify .version.json
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         assert (
             version_file.exists()
-        ), ".version.json not found in .devforgeai/"
+        ), ".version.json not found in devforgeai/"
 
         # Parse version.json
         version_data = json.loads(version_file.read_text())
@@ -188,8 +188,8 @@ class TestFreshInstallWorkflow:
         dir_perms = oct(claude_agents.stat().st_mode)[-3:]
         assert dir_perms == "755", f"Directory permissions should be 755, got {dir_perms}"
 
-        # Verify .devforgeai directory
-        devforgeai_dir = target_root / ".devforgeai"
+        # Verify devforgeai directory
+        devforgeai_dir = target_root / "devforgeai"
         devforgeai_perms = oct(devforgeai_dir.stat().st_mode)[-3:]
         assert devforgeai_perms == "755", f"Devforgeai perms should be 755, got {devforgeai_perms}"
 
@@ -307,8 +307,8 @@ class TestFreshInstallWorkflow:
             target_root / ".claude"
         ).exists(), ".claude/ should be created"
         assert (
-            target_root / ".devforgeai"
-        ).exists(), ".devforgeai/ should be created"
+            target_root / "devforgeai"
+        ).exists(), "devforgeai/ should be created"
 
     def test_fresh_install_leaves_valid_state(
         self, integration_project, source_framework
@@ -342,5 +342,5 @@ class TestFreshInstallWorkflow:
 
         # Verify critical directories
         assert (target_root / ".claude").exists()
-        assert (target_root / ".devforgeai").exists()
-        assert (target_root / ".devforgeai" / ".version.json").exists()
+        assert (target_root / "devforgeai").exists()
+        assert (target_root / "devforgeai" / ".version.json").exists()

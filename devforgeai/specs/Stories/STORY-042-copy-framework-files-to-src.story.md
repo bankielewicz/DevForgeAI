@@ -17,7 +17,7 @@ format_version: "2.0"
 ## Description
 
 **As a** Framework Maintainer,
-**I want** to copy all DevForgeAI framework files from operational directories (.claude/, .devforgeai/) to the new src/ structure while preserving originals intact,
+**I want** to copy all DevForgeAI framework files from operational directories (.claude/, devforgeai/) to the new src/ structure while preserving originals intact,
 **so that** I can establish a clean separation between operational framework (current development) and packaged source (for distribution) without disrupting ongoing work.
 
 ## Acceptance Criteria
@@ -33,9 +33,9 @@ format_version: "2.0"
 
 ---
 
-### 2. [ ] Copy .devforgeai/ Configuration and Documentation Only
+### 2. [ ] Copy devforgeai/ Configuration and Documentation Only
 
-**Given** the operational .devforgeai/ directory contains config, docs, protocols, specs, and tests subdirectories, plus generated content (qa/reports, RCA, adrs)
+**Given** the operational devforgeai/ directory contains config, docs, protocols, specs, and tests subdirectories, plus generated content (qa/reports, RCA, adrs)
 **When** the migration script executes the copy operation
 **Then** only config/, docs/, protocols/, specs/, and tests/ subdirectories are copied to src/devforgeai/
 **And** generated content directories (qa/reports/, RCA/, adrs/, feedback/imported/, logs/) are explicitly excluded
@@ -46,7 +46,7 @@ format_version: "2.0"
   - specs: ~30 files (enhancements/, requirements/)
   - tests: ~15 files
   - Total: ~80 files in src/devforgeai/
-**And** original .devforgeai/ remains unchanged (checksum verified)
+**And** original devforgeai/ remains unchanged (checksum verified)
 
 ---
 
@@ -63,7 +63,7 @@ format_version: "2.0"
 
 ### 4. [ ] Validate File Integrity with Checksum Verification
 
-**Given** ~450 total files will be copied (.claude/ ~370, .devforgeai/ ~80, CLAUDE.md 1)
+**Given** ~450 total files will be copied (.claude/ ~370, devforgeai/ ~80, CLAUDE.md 1)
 **When** the migration completes
 **Then** a validation report is generated showing:
 - Total files copied: 450 ±10 (allowing for file count variance during development)
@@ -110,7 +110,7 @@ format_version: "2.0"
 
 ### 7. [ ] Preserve Original Operational Directories for Parallel Development
 
-**Given** the .claude/ and .devforgeai/ directories are actively used for ongoing development
+**Given** the .claude/ and devforgeai/ directories are actively used for ongoing development
 **When** the migration completes
 **Then** both original directories remain:
 - Byte-for-byte identical to pre-migration state (verified via `sha256sum -c checksums-before.txt`)
@@ -140,7 +140,7 @@ technical_specification:
           priority: "Critical"
 
         - id: "WKR-002"
-          description: "Copy config/docs/protocols/specs/tests from .devforgeai/ to src/devforgeai/"
+          description: "Copy config/docs/protocols/specs/tests from devforgeai/ to src/devforgeai/"
           testable: true
           test_requirement: "Test: File count in src/devforgeai/ matches expected ~80 files"
           priority: "Critical"
@@ -180,7 +180,7 @@ technical_specification:
       file_path: "src/scripts/migration-config.json"
       requirements:
         - id: "CONF-001"
-          description: "Define source directories to copy (.claude/, .devforgeai/, CLAUDE.md)"
+          description: "Define source directories to copy (.claude/, devforgeai/, CLAUDE.md)"
           testable: true
           test_requirement: "Test: jq -r '.sources[]' migration-config.json returns 3 paths"
           priority: "High"
@@ -249,7 +249,7 @@ technical_specification:
 
   business_rules:
     - id: "BR-001"
-      rule: "Original operational folders (.claude/, .devforgeai/) must remain completely unchanged"
+      rule: "Original operational folders (.claude/, devforgeai/) must remain completely unchanged"
       test_requirement: "Test: Generate checksums before migration, verify identical after migration"
 
     - id: "BR-002"
@@ -430,7 +430,7 @@ technical_specification:
 
 ### Scalability
 - Supports 500+ files (if framework grows)
-- Parallel copy capable (copy .claude/ and .devforgeai/ simultaneously)
+- Parallel copy capable (copy .claude/ and devforgeai/ simultaneously)
 - Progress reporting (file N of M, ETA)
 - Configurable exclusions (JSON config, no hardcoded patterns)
 
@@ -599,6 +599,6 @@ technical_specification:
 - **2025-11-16:** Status: Backlog (awaiting STORY-041 completion)
 - **2025-11-18:** Status: In Development → Dev Complete
 - **2025-11-18:** TDD Phase 0-4: Pre-flight, tests (101), implementation (migrate-framework-files.sh 902 lines), refactoring (3 CRITICAL fixes), integration testing
-- **2025-11-18:** Implementation: 1,099 files migrated (.claude/774 + .devforgeai/324 + CLAUDE.md), 1,099 checksums validated, 1,059 files staged in git
+- **2025-11-18:** Implementation: 1,099 files migrated (.claude/774 + devforgeai/324 + CLAUDE.md), 1,099 checksums validated, 1,059 files staged in git
 - **2025-11-18:** Quality: Light QA PASSED, all business rules enforced, all edge cases handled, original folders preserved 100%
 - **2025-11-18:** Critical fixes applied: sed template marker → printf+cat, atomic checksum generation, input validation + pattern quoting

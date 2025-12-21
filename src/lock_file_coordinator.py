@@ -44,7 +44,7 @@ from dataclasses import dataclass, field
 from typing import Optional, Callable, Dict, Any
 
 # Module-level constants
-LOCK_DIR = ".devforgeai/.locks"
+LOCK_DIR = "devforgeai/.locks"
 LOCK_FILE = "git-commit.lock"
 STALE_THRESHOLD_SECONDS = 300  # 5 minutes
 DEFAULT_TIMEOUT_SECONDS = 600  # 10 minutes
@@ -93,7 +93,7 @@ class _AcquireContext:
 
 
 class GitCommitLock:
-    """Manages .devforgeai/.locks/git-commit.lock for serialized git commits.
+    """Manages devforgeai/.locks/git-commit.lock for serialized git commits.
 
     Implements lock coordination for parallel story development (EPIC-010).
     Prevents git index lock conflicts when multiple worktrees commit simultaneously.

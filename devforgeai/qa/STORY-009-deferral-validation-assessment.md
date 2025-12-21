@@ -32,7 +32,7 @@ STORY-009 implementation is **87% complete** with **strong core functionality** 
 | Skip counter increments per operation type | ✅ | `.claude/scripts/devforgeai_cli/feedback/skip_tracking.py:83-109` - `increment_skip()` function | Implemented correctly, tracks by user_id/operation_type |
 | Pattern detection triggers at 3+ consecutive skips | ✅ | `.claude/scripts/devforgeai_cli/feedback/skip_tracking.py:148-162` - `check_skip_threshold()` function | Threshold parameter defaults to 3, fully configurable |
 | AskUserQuestion appears with disable/keep/ask-later options | ✅ | `.claude/scripts/devforgeai_cli/feedback/adaptive_questioning_engine.py:1-582` - Full integration | Engine passes skip context to AskUserQuestion |
-| User preference stored in config | ✅ | `.devforgeai/qa/skip-tracking-integration-summary.md:169-180` - Schema defined | Config stored at `.devforgeai/config/feedback.yaml` |
+| User preference stored in config | ✅ | `devforgeai/qa/skip-tracking-integration-summary.md:169-180` - Schema defined | Config stored at `devforgeai/config/feedback.yaml` |
 | Preferences persist across sessions | ✅ | `test_skip_tracking_integration.py` - 5 session persistence tests pass | YAML file persistence verified in integration tests |
 | Disabled feedback types enforced | ✅ | `adaptive_questioning_engine.py` - Checks disabled status before prompting | Design enforces preferences in engine |
 | Token waste calculation accurate | ✅ | `skip-tracking-integration-summary.md:144-160` - Formula verified | `1500 × skip_count = waste_estimate` ✅ |
@@ -215,17 +215,17 @@ python3 -m pytest .claude/scripts/devforgeai_cli/tests/feedback/test_skip_tracki
 
 Create 3 reference documents:
 
-1. **Config Schema Reference** (`.devforgeai/docs/skip-tracking-config-schema.md`)
+1. **Config Schema Reference** (`devforgeai/docs/skip-tracking-config-schema.md`)
    - Copy YAML schema from story (lines 79-106)
    - Add explanatory text for each field
    - Include example configuration
 
-2. **User Guide: Re-enable Feedback** (`.devforgeai/docs/skip-tracking-user-guide.md`)
+2. **User Guide: Re-enable Feedback** (`devforgeai/docs/skip-tracking-user-guide.md`)
    - How to manually re-enable in config file
    - What disabling does vs re-enabling
    - When to disable (high-frequency operations)
 
-3. **Developer Guide: Adding Operation Types** (`.devforgeai/docs/skip-tracking-developer-guide.md`)
+3. **Developer Guide: Adding Operation Types** (`devforgeai/docs/skip-tracking-developer-guide.md`)
    - How operation types are tracked
    - How to add new operation type to system
    - Where to register new types
@@ -318,8 +318,8 @@ Create 3 reference documents:
 | `.claude/scripts/devforgeai_cli/feedback/adaptive_questioning_engine.py` | Integration point (582 lines) | ✅ Complete |
 | `.claude/scripts/devforgeai_cli/tests/feedback/test_skip_tracking.py` | Unit tests (7 tests, 1 failing) | ⚠️ 1 test bug |
 | `.claude/scripts/devforgeai_cli/tests/feedback/test_skip_tracking_integration.py` | Integration tests (32 tests) | ✅ All passing |
-| `.devforgeai/qa/skip-tracking-integration-summary.md` | Test results summary | ✅ Comprehensive |
-| `.devforgeai/docs/adaptive-questioning-config.md` | Config reference | ✅ Present |
+| `devforgeai/qa/skip-tracking-integration-summary.md` | Test results summary | ✅ Comprehensive |
+| `devforgeai/docs/adaptive-questioning-config.md` | Config reference | ✅ Present |
 | **Missing:** Config schema reference doc | Should be created | ❌ |
 | **Missing:** Skip tracking user guide | Should be created | ❌ |
 | **Missing:** Operation type developer guide | Should be created | ❌ |

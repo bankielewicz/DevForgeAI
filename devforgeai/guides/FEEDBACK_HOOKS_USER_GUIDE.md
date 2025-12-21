@@ -77,7 +77,7 @@ If you choose "Yes", you'll answer 5-7 questions:
 
 ### 5. Feedback Saved
 
-Your responses are saved to `.devforgeai/feedback/sessions/` and analyzed to improve the framework.
+Your responses are saved to `devforgeai/feedback/sessions/` and analyzed to improve the framework.
 
 ---
 
@@ -85,7 +85,7 @@ Your responses are saved to `.devforgeai/feedback/sessions/` and analyzed to imp
 
 ### Configuration File
 
-Create or edit `.devforgeai/hooks/hooks.yaml`:
+Create or edit `devforgeai/hooks/hooks.yaml`:
 
 ```yaml
 # hooks.yaml - Configure feedback hooks
@@ -164,7 +164,7 @@ When you provide feedback:
 
 Feedback responses saved locally in your project:
 ```
-.devforgeai/feedback/sessions/[YYYY-MM-DD]-[operation].json
+devforgeai/feedback/sessions/[YYYY-MM-DD]-[operation].json
 ```
 
 You have full access to this directory and can delete feedback anytime.
@@ -214,7 +214,7 @@ Benefit: Real-world validation before rolling out to all users
 
 ### Q: Can I change my feedback after submitting?
 
-**A:** Responses are saved as they're submitted. You can edit the JSON files in `.devforgeai/feedback/sessions/` if needed, or delete them.
+**A:** Responses are saved as they're submitted. You can edit the JSON files in `devforgeai/feedback/sessions/` if needed, or delete them.
 
 ### Q: Who sees my feedback?
 
@@ -226,7 +226,7 @@ Benefit: Real-world validation before rolling out to all users
 
 ### Q: How do I disable feedback for specific commands?
 
-**A:** Edit `.devforgeai/hooks/hooks.yaml` and add operations to `skip_patterns`:
+**A:** Edit `devforgeai/hooks/hooks.yaml` and add operations to `skip_patterns`:
 ```yaml
 skip_patterns:
   - "dev"
@@ -242,7 +242,7 @@ enabled: false
 
 ### Q: Will feedback work if I don't have internet?
 
-**A:** Yes. Feedback is saved locally to `.devforgeai/feedback/sessions/`. You can review and share feedback whenever you choose, or never share it.
+**A:** Yes. Feedback is saved locally to `devforgeai/feedback/sessions/`. You can review and share feedback whenever you choose, or never share it.
 
 ---
 
@@ -253,7 +253,7 @@ enabled: false
 **Problem:** You're not seeing feedback prompts even though hooks are enabled.
 
 **Check:**
-1. Verify `hooks.yaml` exists at `.devforgeai/hooks/hooks.yaml`
+1. Verify `hooks.yaml` exists at `devforgeai/hooks/hooks.yaml`
 2. Verify `enabled: true` in configuration
 3. Check `skip_patterns` - make sure your operation isn't listed
 4. Check `rate_limit` - you may have hit the daily limit
@@ -270,7 +270,7 @@ devforgeai feedback-config edit rate_limit.cooldown_minutes 0
 
 ### Feedback Not Saving
 
-**Problem:** You provided feedback but don't see it in `.devforgeai/feedback/sessions/`.
+**Problem:** You provided feedback but don't see it in `devforgeai/feedback/sessions/`.
 
 **Possible Causes:**
 - Directory permissions (check read/write access)
@@ -280,13 +280,13 @@ devforgeai feedback-config edit rate_limit.cooldown_minutes 0
 **Check:**
 ```bash
 # Verify directory exists
-ls -la .devforgeai/feedback/sessions/
+ls -la devforgeai/feedback/sessions/
 
 # Check file permissions
-ls -la .devforgeai/hooks/
+ls -la devforgeai/hooks/
 
 # View saved feedback
-cat .devforgeai/feedback/sessions/*.json
+cat devforgeai/feedback/sessions/*.json
 ```
 
 ### Want to Share Feedback
@@ -360,7 +360,7 @@ Your feedback helps shape the future of DevForgeAI. Here's how your responses im
 
 ## Next Steps
 
-1. **Configure Hooks:** Create `.devforgeai/hooks/hooks.yaml` with your preferences
+1. **Configure Hooks:** Create `devforgeai/hooks/hooks.yaml` with your preferences
 2. **Try a Command:** Use `/dev` or `/create-context` and see if feedback triggers
 3. **Share Feedback:** Engage with a prompt to help improve the framework
 4. **Adjust Settings:** Fine-tune rate limits and skip patterns as needed

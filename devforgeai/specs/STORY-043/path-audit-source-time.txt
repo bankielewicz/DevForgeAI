@@ -187,17 +187,17 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:queue_research = Task(subagent_type="internet-sleuth", prompt="Research: RabbitMQ vs SQS")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:result = Task(subagent_type="internet-sleuth", ...)
 /mnt/c/Projects/DevForgeAI2/.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md:tech_stack_research = Task(
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Skill(command=" .claude/commands/create-epic.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Task(subagent_type=" .claude/commands/create-epic.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:   grep -n "Task(subagent_type=" .claude/commands/problem-command.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:grep -n "Task(subagent_type=" .claude/commands/command.md | head -1
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="../../../.claude/skills/devforgeai-development/references/tdd-workflow-guide.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="./.claude/memory/skills-reference.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:cat -A .claude/commands/dev.md | grep -n "Skill(command="
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep "Skill(command=" .claude/skills/devforgeai-development/SKILL.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep -n "Skill(command=" .claude/commands/dev.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/commands/test-create-agent.sh:     grep -q 'Task(' '$PROJECT_ROOT/.claude/commands/create-agent.md'"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/commands/test-create-agent.sh:    "grep -q 'Skill(command=' '$PROJECT_ROOT/.claude/commands/create-agent.md' && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Skill(command=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Task(subagent_type=" .claude/commands/create-epic.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:   grep -n "Task(subagent_type=" .claude/commands/problem-command.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:grep -n "Task(subagent_type=" .claude/commands/command.md | head -1
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="../../../.claude/skills/devforgeai-development/references/tdd-workflow-guide.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/update-diff-summary.md:Read(file_path="./.claude/memory/skills-reference.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:cat -A .claude/commands/dev.md | grep -n "Skill(command="
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep "Skill(command=" .claude/skills/devforgeai-development/SKILL.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-ANALYSIS.md:grep -n "Skill(command=" .claude/commands/dev.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/commands/test-create-agent.sh:     grep -q 'Task(' '$PROJECT_ROOT/.claude/commands/create-agent.md'"
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/commands/test-create-agent.sh:    "grep -q 'Skill(command=' '$PROJECT_ROOT/.claude/commands/create-agent.md' && \
 /mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Skill(command=" .claude/commands/create-epic.md
 /mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:grep -c "Task(subagent_type=" .claude/commands/create-epic.md
 /mnt/c/Projects/DevForgeAI2/src/devforgeai/protocols/troubleshooting-lean-orchestration-violations.md:   grep -n "Task(subagent_type=" .claude/commands/problem-command.md

@@ -225,7 +225,7 @@ tests/integration/test_orchestrate_hooks_integration.py
 ## Usage Example
 
 ```python
-from .claude.scripts.devforgeai_cli.orchestrate_hooks import extract_orchestrate_context
+from .claude.scriptsdevforgeai_cli.orchestrate_hooks import extract_orchestrate_context
 
 # Read story file
 with open("devforgeai/specs/Stories/STORY-001.story.md") as f:

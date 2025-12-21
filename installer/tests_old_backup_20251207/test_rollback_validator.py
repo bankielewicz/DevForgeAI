@@ -74,7 +74,7 @@ class TestValidationSuccess:
 
         # Create critical files
         (restored_dir / "CLAUDE.md").write_text("# Claude")
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
         (restored_dir / ".claude").mkdir()
 
         validator = RollbackValidator(logger=Mock())
@@ -146,7 +146,7 @@ class TestValidationFailure:
         restored_dir.mkdir()
 
         # Create some files but NOT CLAUDE.md
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
 
         validator = RollbackValidator(logger=Mock())
 
@@ -296,7 +296,7 @@ class TestValidationReport:
         restored_dir = tmp_path / "restored"
         restored_dir.mkdir()
         (restored_dir / "CLAUDE.md").write_text("# Claude")
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
 
         validator = RollbackValidator(logger=Mock())
 

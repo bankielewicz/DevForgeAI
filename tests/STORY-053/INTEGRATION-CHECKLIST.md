@@ -144,7 +144,7 @@
 | Workflow states | States correct | Backlog, Architecture, Ready for Dev, etc. | ☐ |
 | Story structure | YAML, AC, tech specs | Correct terminology used | ☐ |
 | Core concepts | DoD, TDD, AAA present | Framework concepts referenced | ☐ |
-| File path format | .claude/ or .devforgeai/ | Only framework paths used | ☐ |
+| File path format | .claude/ or devforgeai/ | Only framework paths used | ☐ |
 | No external URLs | 0 external references | http://, https://, www. not present | ☐ |
 | Framework files exist | Referenced files valid | Sample files: CLAUDE.md, skills-reference.md, tech-stack.md | ☐ |
 | Prompting guide reference | 2+ references | Cross-references to effective-prompting-guide.md | ☐ |

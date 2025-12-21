@@ -40,7 +40,7 @@ TEST COVERAGE STATISTICS
 
 ACCEPTANCE CRITERIA (25 tests)
   AC-1: Copy .claude/ structure           ✓ 5 tests
-  AC-2: Copy .devforgeai/ content         ✓ 5 tests
+  AC-2: Copy devforgeai/ content         ✓ 5 tests
   AC-3: Copy CLAUDE.md template           ✓ 5 tests
   AC-4: Checksum verification             ✓ 5 tests
   AC-5: Exclude backup/artifacts          ✓ 7 tests
@@ -172,7 +172,7 @@ Using tests as specification:
 
 MILESTONE 1: Basic Copy (Est. 10-15 tests passing)
   [ ] Implement .claude/ copy
-  [ ] Implement .devforgeai/ copy
+  [ ] Implement devforgeai/ copy
   [ ] Implement CLAUDE.md copy
   [ ] Validate file count
   Expected: AC-1, AC-2, AC-3 tests pass

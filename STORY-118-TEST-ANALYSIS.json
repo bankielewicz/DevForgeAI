@@ -1,0 +1,374 @@
+{
+  "test_analysis": {
+    "story_id": "STORY-118",
+    "test_file": "tests/unit/test_antipattern_rules_story118.py",
+    "execution_summary": {
+      "total_tests": 59,
+      "passed": 51,
+      "failed": 8,
+      "pass_rate": "86.4%",
+      "coverage_status": "FAIL"
+    },
+    "coverage_assessment": {
+      "overall_status": "FAIL",
+      "pass_rate_threshold": "95%",
+      "current_pass_rate": "86.4%",
+      "gap": "-8.6%",
+      "severity": "CRITICAL",
+      "blocking_issue": true,
+      "reason": "Test pass rate below 95% threshold indicates fixture/rule mismatch preventing proper detection"
+    },
+    "failing_tests": [
+      {
+        "test_name": "test_god_object_many_methods_python",
+        "rule_id": "AP-001",
+        "category": "Structural Defects",
+        "test_method": "TestGodObjectDetection.test_god_object_many_methods_python",
+        "line_range": "144-151",
+        "root_cause": "Rule pattern mismatch - Pattern expects 10+ methods (M1-M10) but fixture may have fewer or methods defined differently",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/god-object.yml",
+          "pattern_lines": "40-52",
+          "problem": "Pattern requires exact sequence: 'def $M1 ... def $M10 ... $$$REST'. Real fixtures with 20+ methods may not match due to: (1) Methods named differently (e.g., '__init__' vs 'method_1'), (2) Methods in different order, (3) Variability in parameter patterns",
+          "severity": "HIGH"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/python/god_object_vulnerable.py",
+          "problem": "Fixture structure may not match the exact pattern in rule. Requires class with methods M1-M10 in exact order with $M10 semantics.",
+          "expected_structure": "class SomeClass:\n    def method_1(): ...\n    def method_2(): ...\n    [10+ methods total]"
+        },
+        "remediation": {
+          "priority": 1,
+          "fix_type": "Rule refinement",
+          "steps": [
+            "Update god-object.yml pattern to match fixture method naming (method_1, method_2, etc.)",
+            "OR relax pattern to use 'any' with partial matches instead of requiring exact sequence",
+            "Verify fixture god_object_vulnerable.py has class with exactly 20+ methods",
+            "Re-run scan against fixture to validate pattern matches"
+          ],
+          "estimated_effort": "2-3 hours"
+        }
+      },
+      {
+        "test_name": "test_god_object_many_fields_python",
+        "rule_id": "AP-001",
+        "category": "Structural Defects",
+        "test_method": "TestGodObjectDetection.test_god_object_many_fields_python",
+        "line_range": "153-160",
+        "root_cause": "Rule pattern only checks methods, not fields. Fixture has 15+ fields but rule pattern doesn't detect them",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/god-object.yml",
+          "pattern_lines": "40-52",
+          "problem": "Pattern only matches class methods, NOT fields/attributes. AC#1.3 requires detecting classes with >15 fields, but rule lacks pattern for field detection",
+          "severity": "CRITICAL - AC requirement not implemented"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/python/god_object_many_fields.py",
+          "problem": "Fixture correctly contains class with 15+ fields (self.field_1 = ... through self.field_15+ = ...), but rule never checks for this pattern"
+        },
+        "remediation": {
+          "priority": 2,
+          "fix_type": "Rule enhancement - Add field detection pattern",
+          "steps": [
+            "Add new pattern to god-object.yml to detect attributes: 'self.$F1 = ... self.$F15 = ... $$$REST'",
+            "Or use 'any' clause combining method pattern AND field pattern",
+            "Test new pattern against god_object_many_fields.py fixture",
+            "Ensure both method AND field detection work independently"
+          ],
+          "estimated_effort": "3-4 hours"
+        }
+      },
+      {
+        "test_name": "test_async_void_detected_csharp",
+        "rule_id": "AP-002",
+        "category": "Async Pattern Violations",
+        "test_method": "TestAsyncVoidDetection.test_async_void_detected_csharp",
+        "line_range": "180-187",
+        "root_cause": "Pattern syntax mismatch - Rule uses C# parameter syntax that ast-grep may not correctly match on specific fixture signatures",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/csharp/anti-patterns/async-void.yml",
+          "pattern_lines": "31-40",
+          "problem": "Pattern 'async void $METHOD($$$PARAMS)' may be too rigid. C# signatures have modifiers (public, private, protected) that may interfere with pattern matching. Pattern should handle: 'public async void Method()' vs 'async void Method()' vs 'private async void Method()'",
+          "severity": "HIGH"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/csharp/AsyncVoidVulnerable.cs",
+          "problem": "Fixture likely has access modifiers (public/private) or attributes that pattern doesn't account for"
+        },
+        "remediation": {
+          "priority": 3,
+          "fix_type": "Rule pattern refinement",
+          "steps": [
+            "Update pattern to: 'async void $METHOD($$$PARAMS)' with optional modifiers: '[$MODIFIER] async void $METHOD($$$PARAMS)'",
+            "Or simplify to match just the core: 'async void'",
+            "Test against AsyncVoidVulnerable.cs to ensure all signatures matched",
+            "Verify not:pattern (event handler exclusion) still works correctly"
+          ],
+          "estimated_effort": "1-2 hours"
+        }
+      },
+      {
+        "test_name": "test_magic_numbers_detected_python",
+        "rule_id": "AP-004",
+        "category": "Code Smell - Magic Numbers",
+        "test_method": "TestMagicNumbersDetection.test_magic_numbers_detected_python",
+        "line_range": "247-254",
+        "root_cause": "Pattern uses variable comparison syntax ($VAR > $NUM) that may not match specific fixture code structure",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/magic-numbers.yml",
+          "pattern_lines": "31-41",
+          "problem": "Patterns check for specific assignments like 'timeout = $NUM' but fixture may use different variable names (e.g., 'sleep(30)', 'wait_time=5000', 'threshold: 100'). Pattern is too specific to exact variable names",
+          "severity": "HIGH"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/python/magic_numbers_vulnerable.py",
+          "problem": "Fixture may contain numeric literals in contexts not covered by rule patterns (e.g., function arguments like 'sleep(30)', list indices 'arr[5]', or assignments with different variable names)"
+        },
+        "remediation": {
+          "priority": 4,
+          "fix_type": "Rule expansion",
+          "steps": [
+            "Add more generic patterns for numeric literals: '$FUNC($NUM)', '$VAR[$NUM]', 'for i in range($NUM)'",
+            "Remove restriction to specific variable names (timeout, delay, etc.)",
+            "Make patterns more flexible to catch numeric literals in any context",
+            "Test against magic_numbers_vulnerable.py for comprehensive detection"
+          ],
+          "estimated_effort": "2-3 hours"
+        }
+      },
+      {
+        "test_name": "test_long_method_test_excluded",
+        "rule_id": "AP-005",
+        "category": "Maintainability - Long Methods",
+        "test_method": "TestLongMethodDetection.test_long_method_test_excluded",
+        "line_range": "292-300",
+        "root_cause": "Test expects AP-005 pattern to exclude test methods, but pattern cannot detect test context at rule level - requires scan-level filtering",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/long-method.yml",
+          "pattern_lines": "38-55",
+          "problem": "Rule pattern has no way to exclude test methods. Cannot check file path from within ast-grep rule pattern. This is a DESIGN LIMITATION of ast-grep - file filtering must happen at scan invocation level, not in rule",
+          "severity": "DESIGN LIMITATION",
+          "context": "Test comment (lines 228-229) already documents: 'In practice, test file exclusion happens at scan level, not rule level'"
+        },
+        "test_issue": {
+          "problem": "Test assertion is incorrect. Line 300 'assert violations == 0' expects rule to exclude test files, but rule cannot do this. Must be handled by scan invocation --exclude='**/test_*' flag",
+          "error": "Test is validating scan-level behavior, not rule-level behavior. Wrong test target."
+        },
+        "remediation": {
+          "priority": 5,
+          "fix_type": "Test correction",
+          "steps": [
+            "Update test comment to explicitly document: 'Test file exclusion requires scan-level --exclude filtering, not rule pattern'",
+            "Change test to verify rule-level behavior only: ensure long_method_test_safe.py rule detection works when scanned",
+            "Document that test file exclusion is verified in integration tests, not unit tests",
+            "Consider moving this test to 'Test Business Rule Compliance' class as a documentation test"
+          ],
+          "estimated_effort": "1 hour"
+        }
+      },
+      {
+        "test_name": "test_excessive_params_detected_python",
+        "rule_id": "AP-008",
+        "category": "API Design - Parameter Count",
+        "test_method": "TestExcessiveParametersDetection.test_excessive_params_detected_python",
+        "line_range": "354-361",
+        "root_cause": "Pattern requires exact parameter positions ($A, $B, $C, $D, $E, $F) that may not match fixture function signatures",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/excessive-params.yml",
+          "pattern_lines": "34-36",
+          "problem": "Pattern 'def $FUNC($A, $B, $C, $D, $E, $F, $$$REST)' is too rigid. Fixture may have: (1) Functions with exactly 6 params (no $$$REST), (2) Default parameters 'def func(a, b, c, d, e=None, f=None)', (3) *args or **kwargs patterns that interfere with match",
+          "severity": "HIGH"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/python/excessive_params_vulnerable.py",
+          "problem": "Fixture function signature may not match exact pattern. Example: 'def create_user(user_id, username, email, password, first_name, last_name, phone, *args)' would NOT match because ast-grep sees *args as a different parameter type"
+        },
+        "remediation": {
+          "priority": 6,
+          "fix_type": "Rule pattern refinement",
+          "steps": [
+            "Test exact fixture signature against current pattern using ast-grep CLI directly",
+            "Relax pattern to handle various parameter styles: with defaults, with *args/**kwargs",
+            "Use parameter counting differently if ast-grep supports it",
+            "Verify pattern matches excessive_params_vulnerable.py"
+          ],
+          "estimated_effort": "2-3 hours"
+        }
+      },
+      {
+        "test_name": "test_duplicate_code_detected_python",
+        "rule_id": "AP-009",
+        "category": "Code Duplication",
+        "test_method": "TestDuplicateCodeDetection.test_duplicate_code_detected_python",
+        "line_range": "367-374",
+        "root_cause": "Duplicate code detection requires matching identical code blocks of 10+ lines - ast-grep may not support this pattern natively",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/python/anti-patterns/duplicate-code.yml",
+          "problem": "AP-009 requires detecting code blocks >10 lines repeated verbatim. This is fundamentally difficult for ast-grep: (1) ast-grep is designed for AST pattern matching, not line-by-line duplication, (2) Exact duplicate matching requires heuristics (do whitespace/comments matter?), (3) ast-grep may not have native support for 'find all X and check for duplicates'",
+          "severity": "CRITICAL - REQUIRES ARCHITECTURE CHANGE"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/python/duplicate_code_vulnerable.py",
+          "problem": "Fixture has repeated code blocks but rule may not be able to detect them with ast-grep's pattern matching"
+        },
+        "remediation": {
+          "priority": 7,
+          "fix_type": "Architecture decision",
+          "recommendation": "DEFER or use alternative approach",
+          "options": [
+            "Option A: DEFER AP-009 to future story - acknowledge ast-grep limitation",
+            "Option B: Implement duplicate detection using alternative tool (radon, pylint -d duplicate-code)",
+            "Option C: Create custom ast-grep pattern for common duplicate patterns only (e.g., repeated try/except blocks)",
+            "Option D: Document that AP-009 requires different tooling, link to external tools in docs"
+          ],
+          "estimated_effort": "4-6 hours OR defer"
+        }
+      },
+      {
+        "test_name": "test_empty_catch_detected_csharp",
+        "rule_id": "AP-010",
+        "category": "Error Handling - Empty Catch",
+        "test_method": "TestEmptyCatchDetection.test_empty_catch_detected_csharp",
+        "line_range": "380-387",
+        "root_cause": "Pattern may not match C# try/catch syntax correctly, or catch block may have minimal content (comment, whitespace) not empty",
+        "rule_issue": {
+          "file": "devforgeai/ast-grep/rules/csharp/anti-patterns/empty-catch.yml",
+          "problem": "Need to verify pattern matches C# catch block syntax correctly. Pattern should: (1) Match 'catch (Exception ex) { }' exactly, (2) Match 'catch { }' without exception type, (3) Handle multiline spacing, (4) Not match catches with comments like 'catch { /* intentionally empty */ }'",
+          "severity": "HIGH"
+        },
+        "fixture_issue": {
+          "file": "tests/fixtures/anti-patterns/csharp/EmptyCatchVulnerable.cs",
+          "problem": "Fixture may have catch blocks with comments or minimal statements that pattern doesn't catch"
+        },
+        "remediation": {
+          "priority": 8,
+          "fix_type": "Rule pattern validation",
+          "steps": [
+            "Verify AP-010 rule pattern matches C# empty catch syntax",
+            "Test pattern directly: 'ast-grep scan --rule empty-catch.yml EmptyCatchVulnerable.cs --json'",
+            "Check if catch block has any content (comments count?)",
+            "Update pattern or fixture based on findings"
+          ],
+          "estimated_effort": "1-2 hours"
+        }
+      }
+    ],
+    "coverage_analysis": {
+      "architecture_assessment": {
+        "test_coverage": "59 tests created (comprehensive)",
+        "test_quality": "Good - Uses fixtures, parametrization, clear naming",
+        "rule_implementation": "PARTIAL - 8 of 10 rules have detection issues",
+        "fixture_quality": "GOOD - 32 fixtures created covering all scenarios",
+        "pattern_maturity": "LOW - Patterns need refinement and testing"
+      },
+      "gap_summary": {
+        "fixture_rule_mismatch": 8,
+        "missing_pattern_coverage": 3,
+        "design_limitation": 1,
+        "architecture_issue": 1,
+        "test_target_error": 1,
+        "total_issues": 8
+      },
+      "remediation_priority_matrix": [
+        {
+          "rank": 1,
+          "issue": "god_object_many_fields detection missing",
+          "rule": "AP-001",
+          "type": "Feature gap",
+          "impact": "AC requirement not met",
+          "effort": "3-4h"
+        },
+        {
+          "rank": 2,
+          "issue": "duplicate_code_detected pattern impossible in ast-grep",
+          "rule": "AP-009",
+          "type": "Architecture limitation",
+          "impact": "Blocks story completion",
+          "effort": "4-6h (arch decision + deferral)"
+        },
+        {
+          "rank": 3,
+          "issue": "god_object_many_methods pattern too strict",
+          "rule": "AP-001",
+          "type": "Pattern mismatch",
+          "impact": "Detection fails",
+          "effort": "2-3h"
+        },
+        {
+          "rank": 4,
+          "issue": "async_void pattern doesn't handle modifiers",
+          "rule": "AP-002",
+          "type": "Pattern incompleteness",
+          "impact": "Detection fails for common cases",
+          "effort": "1-2h"
+        },
+        {
+          "rank": 5,
+          "issue": "magic_numbers pattern too specific",
+          "rule": "AP-004",
+          "type": "Pattern incompleteness",
+          "impact": "Detection misses many cases",
+          "effort": "2-3h"
+        },
+        {
+          "rank": 6,
+          "issue": "excessive_params pattern requires exact signature",
+          "rule": "AP-008",
+          "type": "Pattern mismatch",
+          "impact": "Detection fails for variations",
+          "effort": "2-3h"
+        },
+        {
+          "rank": 7,
+          "issue": "empty_catch pattern validation needed",
+          "rule": "AP-010",
+          "type": "Unknown root cause",
+          "impact": "Detection may fail",
+          "effort": "1-2h"
+        },
+        {
+          "rank": 8,
+          "issue": "long_method_test_excluded wrong test target",
+          "rule": "AP-005",
+          "type": "Test design error",
+          "impact": "Test validates wrong behavior",
+          "effort": "1h"
+        }
+      ]
+    },
+    "recommendations": {
+      "immediate_actions": [
+        "1. Run direct ast-grep scans on failing test fixtures to determine exact pattern mismatches",
+        "2. Fix AP-001 field detection (priority 1 - missing feature)",
+        "3. Decide on AP-009 approach (defer or alternative tool) - blocks story",
+        "4. Fix test_long_method_test_excluded test target (documentation fix)"
+      ],
+      "strategic_decisions": [
+        "For AP-009 (duplicate code): Recommend DEFER - create follow-up story. ast-grep limitation requires different approach.",
+        "For test file exclusion (BR-002): Document that this happens at scan invocation level, not rule level",
+        "For pattern refinement: Create pattern validation procedure (scan fixture → verify results → iterate)"
+      ],
+      "testing_improvements": [
+        "Add pre-test validation: Run ast-grep directly before each test",
+        "Document expected fixture structure for each rule",
+        "Add fixture validation tests (ensure fixtures actually contain the antipatterns)",
+        "Create pattern debugging guide (how to test pattern syntax)"
+      ]
+    },
+    "next_steps": {
+      "for_developer": [
+        "1. Fix AP-001 by adding field detection pattern (2-3h)",
+        "2. Refine AP-002, AP-004, AP-008 patterns based on fixture analysis (5-8h)",
+        "3. Decide on AP-009 (duplicate code) - defer vs alternative (2h decision)",
+        "4. Fix test_long_method_test_excluded assertion (1h)",
+        "5. Rerun test suite - expect 95%+ pass rate after fixes"
+      ],
+      "for_tester": [
+        "1. Validate fixture content matches rule requirements",
+        "2. Test each rule directly using ast-grep CLI against fixtures",
+        "3. Document exact pattern syntax for each rule",
+        "4. Create pattern testing checklist"
+      ]
+    }
+  }
+}

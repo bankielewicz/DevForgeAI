@@ -41,7 +41,7 @@ Comprehensive integration tests have been created and executed for the skip trac
 
 ### Scenario 2: Skip Tracking → Configuration System (5 tests)
 
-**Purpose:** Config is created in `.devforgeai/config/feedback.yaml`. Config persists across skip_tracking module calls. Corrupted config triggers appropriate error handling.
+**Purpose:** Config is created in `devforgeai/config/feedback.yaml`. Config persists across skip_tracking module calls. Corrupted config triggers appropriate error handling.
 
 | Test | Status | Details |
 |------|--------|---------|

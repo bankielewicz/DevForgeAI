@@ -151,7 +151,7 @@ class TestManualIntegrationWorkflow:
         assert result.strategy == "manual"
         assert result.backup_path is not None
         # Template file created
-        template_path = temp_dir / "CLAUDE.md.devforgeai-template"
+        template_path = temp_dir / "CLAUDE.mddevforgeai-template"
         assert template_path.exists()
 
 

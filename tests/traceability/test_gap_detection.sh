@@ -20,7 +20,7 @@ TEST_FIXTURES_DIR="/tmp/gap-detection-fixtures"
 
 # Source the implementation
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-GAP_DETECTOR="$SCRIPT_DIR/../../.devforgeai/traceability/gap-detector.sh"
+GAP_DETECTOR="$SCRIPT_DIR/../../devforgeai/traceability/gap-detector.sh"
 
 # ===== Assertion Functions =====
 

@@ -456,7 +456,7 @@ Review these documents:
 
 1. **README.md** - Framework overview
 2. **INSTALL.md** - Installation details
-3. **Workflow Documentation** - In `.devforgeai/` directory
+3. **Workflow Documentation** - In `devforgeai/` directory
 
 ```bash
 # Quick reference

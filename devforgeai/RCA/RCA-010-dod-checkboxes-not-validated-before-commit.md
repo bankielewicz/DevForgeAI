@@ -98,12 +98,12 @@ During execution of `/dev STORY-037`, the Definition of Done checkboxes were not
 **ROOT CAUSE:** The DevForgeAI framework lacks a systematic integration checklist for RCA recommendations that ensures ALL execution touchpoints (documentation, todo trackers, validation checkpoints, command references) are updated atomically when workflow changes are made.
 
 **Evidence:**
-- `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (RCA that created Phase 4.5-5 Bridge) focused on:
+- `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (RCA that created Phase 4.5-5 Bridge) focused on:
   - Creating dod-update-workflow.md reference ✓
   - Documenting the bridge in skill overview ✓
   - BUT did NOT include checklist item: "Update TodoWrite tracker with new phase" ❌
 - No framework pattern exists for "How to add a new workflow phase" that would prevent this gap
-- `.devforgeai/protocols/lean-orchestration-pattern.md` exists for command refactoring BUT NOT for skill workflow enhancement
+- `devforgeai/protocols/lean-orchestration-pattern.md` exists for command refactoring BUT NOT for skill workflow enhancement
 - RCA-009 lines 75-95 show similar root cause: "Progressive disclosure pattern moved Step 4 to reference file but didn't update SKILL.md phase summary"
 
 ---
@@ -154,7 +154,7 @@ During execution of `/dev STORY-037`, the Definition of Done checkboxes were not
 - **Finding:** All 21 DoD items marked `[x]` in final commit (65049c5) after manual amendment
 - **Significance:** Confirms items WERE completed during workflow but checkboxes not marked automatically
 
-**4. `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`** (HIGH)
+**4. `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`** (HIGH)
 - **Lines examined:** 1-100
 - **Finding:** Previous RCA identified similar pattern - Phase 4.5-5 Bridge added to documentation but integration incomplete
 - **Excerpt (Lines 86-92):**
@@ -166,7 +166,7 @@ During execution of `/dev STORY-037`, the Definition of Done checkboxes were not
   ```
 - **Significance:** RCA-009 identified same root cause (integration gap) for different phase - pattern of incomplete integration exists
 
-**5. `.devforgeai/protocols/lean-orchestration-pattern.md`** (MEDIUM)
+**5. `devforgeai/protocols/lean-orchestration-pattern.md`** (MEDIUM)
 - **Lines examined:** 1-80
 - **Finding:** Protocol exists for command refactoring but NOT for skill workflow changes
 - **Excerpt (Lines 47-55):**
@@ -291,7 +291,7 @@ All 6 context files EXIST and were validated during STORY-037 execution:
 
 **Implementation Details:**
 
-**File:** `.devforgeai/protocols/workflow-change-integration-checklist.md` (NEW FILE)
+**File:** `devforgeai/protocols/workflow-change-integration-checklist.md` (NEW FILE)
 **Section:** N/A
 **Change Type:** Add
 
@@ -641,7 +641,7 @@ Phase 4.5-5 Bridge (8/9 phases - 89% complete)
   - Tracker now has 9 phases (was 8)
   - Change: 1 line insertion in TodoWrite array
   - Testing: All 3 RCA-010 regression tests PASS
-  - Backup: .devforgeai/backups/rca-010-20251118-085536/SKILL.md.backup
+  - Backup: devforgeai/backups/rca-010-20251118-085536/SKILL.md.backup
 
 - **REC-3 (HIGH):** ✅ COMPLETE - MANDATORY Markers Added (2025-11-18)
   - Updated: `.claude/skills/devforgeai-development/SKILL.md` line 159
@@ -651,7 +651,7 @@ Phase 4.5-5 Bridge (8/9 phases - 89% complete)
   - Consistency: Matches pattern from Complete Workflow Execution Map
 
 - **REC-2 (HIGH):** ✅ COMPLETE - Integration Checklist Created (2025-11-18)
-  - Created: `.devforgeai/protocols/workflow-change-integration-checklist.md` (428 lines)
+  - Created: `devforgeai/protocols/workflow-change-integration-checklist.md` (428 lines)
   - Content: 8 touchpoints, 4 integration patterns, 3 examples, self-check procedures
   - Touchpoints: SKILL.md overview, TodoWrite tracker, Workflow map, Subagent coordination, Reference files, Command docs, Memory refs, Protocol docs, Testing
   - Examples: Phase 4.5 (RCA-006), Phase 4.5-5 Bridge (RCA-009, RCA-010), Light QA (RCA-009)
@@ -692,7 +692,7 @@ Phase 4.5-5 Bridge (8/9 phases - 89% complete)
 **Files Modified:** 11 total
 - .claude/skills/devforgeai-development/SKILL.md (3 changes: tracker, MANDATORY marker, Phase 6 section)
 - .claude/skills/devforgeai-development/references/*.md (7 files: visual indicators)
-- .devforgeai/protocols/workflow-change-integration-checklist.md (NEW - 428 lines)
+- devforgeai/protocols/workflow-change-integration-checklist.md (NEW - 428 lines)
 - tests/unit/test_devforgeai_development_skill_tracker.py (NEW - 169 lines, 12 tests)
 
 **Test Results:**

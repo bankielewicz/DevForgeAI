@@ -227,7 +227,7 @@ Before marking STORY-027 complete:
 - [ ] Story context metadata complete (7 required fields)
 
 ### Configuration
-- [ ] Hook configuration loaded from `.devforgeai/config/hooks.yaml`
+- [ ] Hook configuration loaded from `devforgeai/config/hooks.yaml`
 - [ ] Enabled/disabled state respected
 - [ ] Timeout configuration supported (default 30000ms)
 - [ ] Safe default: `enabled: false` if config missing
@@ -239,8 +239,8 @@ Before marking STORY-027 complete:
 - [ ] All story IDs passed to hook at end
 
 ### Logging
-- [ ] Success logged to `.devforgeai/feedback/.logs/hooks.log`
-- [ ] Failures logged to `.devforgeai/feedback/.logs/hook-errors.log`
+- [ ] Success logged to `devforgeai/feedback/.logs/hooks.log`
+- [ ] Failures logged to `devforgeai/feedback/.logs/hook-errors.log`
 - [ ] Log entries include: timestamp, operation, story-id, status, duration
 - [ ] Error entries include: error message, stack trace
 
@@ -262,7 +262,7 @@ Before marking STORY-027 complete:
 
 ### Documentation
 - [ ] Hook integration documented in skill guide
-- [ ] Configuration example in `.devforgeai/config/hooks.yaml.example`
+- [ ] Configuration example in `devforgeai/config/hooks.yaml.example`
 - [ ] Troubleshooting guide created
 - [ ] Framework maintainer guide updated
 

@@ -333,7 +333,7 @@ try {
 tests/
 docs/
 .git
-.devforgeai/qa/
+devforgeai/qa/
 .ai_docs/
 *.test.js
 .vscode
@@ -474,7 +474,7 @@ Before declaring tests complete:
 **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-066-npm-package-creation-structure.story.md`
 **Test Suite:** `/mnt/c/Projects/DevForgeAI2/tests/npm-package/`
 **Tech Stack:** `/mnt/c/Projects/DevForgeAI2/devforgeai/context/tech-stack.md` (NPM distribution section)
-**ADR:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/adrs/ADR-004-npm-package-distribution.md`
+**ADR:** `/mnt/c/Projects/DevForgeAI2/devforgeai/adrs/ADR-004-npm-package-distribution.md`
 
 ---
 

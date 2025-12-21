@@ -53,7 +53,7 @@ A comprehensive test suite has been generated for STORY-077 containing **142 fai
 **Coverage:**
 - AC#1: Version File Detection ✓
 - AC#6: Missing Version File Handling ✓
-- SVC-001: Read version from .devforgeai/.version.json ✓
+- SVC-001: Read version from devforgeai/.version.json ✓
 - SVC-002: Handle missing version file ✓
 - SVC-003: Handle corrupted version file ✓
 - NFR-001: Version detection < 1 second ✓

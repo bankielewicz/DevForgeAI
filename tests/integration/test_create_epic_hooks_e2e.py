@@ -35,16 +35,16 @@ class TestCreateEpicHooksE2E:
 
             # Create required directories
             (tmpdir_path / '.ai_docs' / 'Epics').mkdir(parents=True, exist_ok=True)
-            (tmpdir_path / '.devforgeai' / 'config').mkdir(parents=True, exist_ok=True)
-            (tmpdir_path / '.devforgeai' / 'feedback' / 'epic-create').mkdir(parents=True, exist_ok=True)
-            (tmpdir_path / '.devforgeai' / 'feedback' / '.logs').mkdir(parents=True, exist_ok=True)
+            (tmpdir_path / 'devforgeai' / 'config').mkdir(parents=True, exist_ok=True)
+            (tmpdir_path / 'devforgeai' / 'feedback' / 'epic-create').mkdir(parents=True, exist_ok=True)
+            (tmpdir_path / 'devforgeai' / 'feedback' / '.logs').mkdir(parents=True, exist_ok=True)
 
             yield tmpdir_path
 
     @pytest.fixture
     def hooks_config_enabled(self, temp_project_dir):
         """Create hooks.yaml with epic-create enabled."""
-        config_path = temp_project_dir / '.devforgeai' / 'config' / 'hooks.yaml'
+        config_path = temp_project_dir / 'devforgeai' / 'config' / 'hooks.yaml'
         config = {
             'feedback': {
                 'hooks': {
@@ -67,7 +67,7 @@ class TestCreateEpicHooksE2E:
     @pytest.fixture
     def hooks_config_disabled(self, temp_project_dir):
         """Create hooks.yaml with epic-create disabled."""
-        config_path = temp_project_dir / '.devforgeai' / 'config' / 'hooks.yaml'
+        config_path = temp_project_dir / 'devforgeai' / 'config' / 'hooks.yaml'
         config = {
             'feedback': {
                 'hooks': {
@@ -246,7 +246,7 @@ Score: 6/10
         epic_id = "EPIC-044"
         epic_path = temp_project_dir / '.ai_docs' / 'Epics' / f'{epic_id}.epic.md'
         epic_path.write_text(epic_file_content)
-        error_log_path = temp_project_dir / '.devforgeai' / 'feedback' / '.logs' / 'hook-errors.log'
+        error_log_path = temp_project_dir / 'devforgeai' / 'feedback' / '.logs' / 'hook-errors.log'
 
         with patch('subprocess.run') as mock_run:
             # Mock check-hooks success
@@ -370,14 +370,14 @@ Score: 6/10
 
         Given hook invocation succeeds
         When user provides feedback responses
-        Then: Responses tagged with epic ID → Stored in .devforgeai/feedback/epic-create/
+        Then: Responses tagged with epic ID → Stored in devforgeai/feedback/epic-create/
         """
         # Arrange
         epic_id = "EPIC-046"
         epic_path = temp_project_dir / '.ai_docs' / 'Epics' / f'{epic_id}.epic.md'
         epic_path.write_text(epic_file_content)
 
-        feedback_dir = temp_project_dir / '.devforgeai' / 'feedback' / 'epic-create'
+        feedback_dir = temp_project_dir / 'devforgeai' / 'feedback' / 'epic-create'
 
         # Sample user responses
         user_responses = {
@@ -562,7 +562,7 @@ class TestCreateEpicHooksLogging:
     def temp_log_dir(self):
         """Create temporary directory for test logs."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            log_dir = Path(tmpdir) / '.devforgeai' / 'feedback' / '.logs'
+            log_dir = Path(tmpdir) / 'devforgeai' / 'feedback' / '.logs'
             log_dir.mkdir(parents=True, exist_ok=True)
             yield log_dir
 
@@ -572,7 +572,7 @@ class TestCreateEpicHooksLogging:
 
         Given hook invocation succeeds
         When Phase 4A.9 executes
-        Then: Entry logged to .devforgeai/feedback/.logs/hooks.log with timestamp, operation, status
+        Then: Entry logged to devforgeai/feedback/.logs/hooks.log with timestamp, operation, status
         """
         # Arrange
         hooks_log_path = temp_log_dir / 'hooks.log'
@@ -602,7 +602,7 @@ class TestCreateEpicHooksLogging:
 
         Given hook invocation fails
         When Phase 4A.9 catches exception
-        Then: Entry logged to .devforgeai/feedback/.logs/hook-errors.log with timestamp, epic_id, error
+        Then: Entry logged to devforgeai/feedback/.logs/hook-errors.log with timestamp, epic_id, error
         """
         # Arrange
         errors_log_path = temp_log_dir / 'hook-errors.log'

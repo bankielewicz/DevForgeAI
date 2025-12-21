@@ -368,19 +368,19 @@ Subagents (Isolated Contexts)
 
 **Planning Documents:**
 
-**7. .devforgeai/protocols/create-epic-refactoring-plan.md**
+**7. devforgeai/protocols/create-epic-refactoring-plan.md**
 - Initial analysis and strategy
 
-**8. .devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md**
+**8. devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md**
 - Step-by-step implementation guide
 
-**9. .devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md**
+**9. devforgeai/protocols/CREATE-EPIC-REFACTORING-SUMMARY.md**
 - Hypothesis validation summary
 
-**10. .devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md**
+**10. devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md**
 - Skill enhancement completion report
 
-**11. .devforgeai/protocols/CREATE-EPIC-REFACTORING-COMPLETE.md** (THIS FILE)
+**11. devforgeai/protocols/CREATE-EPIC-REFACTORING-COMPLETE.md** (THIS FILE)
 - Final refactoring completion report
 
 ### Backup Files
@@ -858,7 +858,7 @@ Lines 392-399: Footer (8 lines)
   - [ ] Update CLAUDE.md (component summary, command status)
   - [ ] Update .claude/memory/commands-reference.md (/create-epic section)
   - [ ] Update .claude/memory/skills-reference.md (orchestration epic mode)
-  - [ ] Update .devforgeai/protocols/lean-orchestration-pattern.md (add reference implementation)
+  - [ ] Update devforgeai/protocols/lean-orchestration-pattern.md (add reference implementation)
 - [ ] **Step 6: Deployment Verification** - Estimated: 30 minutes
   - [ ] Restart terminal
   - [ ] Smoke test: Run /create-epic with test epic

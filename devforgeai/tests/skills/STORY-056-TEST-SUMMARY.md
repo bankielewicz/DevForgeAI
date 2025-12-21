@@ -23,7 +23,7 @@ This document provides a complete summary of the test suite for STORY-056, inclu
 
 ### File Structure
 ```
-.devforgeai/tests/skills/
+devforgeai/tests/skills/
 ├── test-story-creation-guidance-unit.sh              (15 unit tests)
 ├── test-story-creation-guidance-integration.sh       (12 integration tests)
 ├── test-story-creation-regression.sh                 (10 regression tests)
@@ -624,7 +624,7 @@ This document provides a complete summary of the test suite for STORY-056, inclu
 
 ### Files Generated
 ```
-.devforgeai/tests/skills/
+devforgeai/tests/skills/
 ├── test-story-creation-guidance-unit.sh              (324 lines, 15 tests)
 ├── test-story-creation-guidance-integration.sh       (312 lines, 12 tests)
 ├── test-story-creation-regression.sh                 (298 lines, 10 tests)

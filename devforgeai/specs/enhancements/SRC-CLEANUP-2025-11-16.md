@@ -162,7 +162,7 @@ Renamed/Deleted (Git detected as moves):
 ```
 DevForgeAI2/
 ├── .claude/                    ✅ Framework components
-├── .devforgeai/               ✅ Framework context
+├── devforgeai/               ✅ Framework context
 ├── src/                       ❌ Python implementation (14 files, 8,218 lines)
 │   ├── feedback_*.py          ❌ Language-specific
 │   ├── hook_*.py              ❌ Language-specific
@@ -189,7 +189,7 @@ DevForgeAI2/
 │   ├── commands/               ✅ 11 commands (documentation)
 │   ├── scripts/devforgeai_cli/ ✅ CLI tool (language-agnostic invocation)
 │   └── memory/                 ✅ Reference documentation
-├── .devforgeai/               ✅ Framework context (Markdown only)
+├── devforgeai/               ✅ Framework context (Markdown only)
 │   ├── context/                ✅ 6 constraint files
 │   ├── protocols/              ✅ Pattern documentation
 │   └── specs/                  ✅ Specifications
@@ -364,7 +364,7 @@ DevForgeAI2/
 **Framework Purity:**
 - [x] NO Python files in src/ directory
 - [x] NO language-specific implementation in framework root
-- [x] Framework components are Markdown only (.claude/, .devforgeai/)
+- [x] Framework components are Markdown only (.claude/, devforgeai/)
 - [x] CLI tools in .claude/scripts/ (external binaries)
 
 **Backup Integrity:**
@@ -423,7 +423,7 @@ DevForgeAI2/
 
 **Quality gate enhancement:**
 - Add to pre-commit hook: Check for src/ directory creation in framework
-- Add to context-validator: Warn if executable code found in .claude/ or .devforgeai/
+- Add to context-validator: Warn if executable code found in .claude/ or devforgeai/
 - Add to RCA triggers: Flag language-specific implementation in framework
 
 ---

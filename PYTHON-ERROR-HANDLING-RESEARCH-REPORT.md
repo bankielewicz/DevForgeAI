@@ -622,7 +622,7 @@ class LockFileManager:
     """
     Manage installation lock files with PID validation.
 
-    Lock file format: .devforgeai/install.lock
+    Lock file format: devforgeai/install.lock
     Contents: <pid>:<timestamp>
     """
 
@@ -631,9 +631,9 @@ class LockFileManager:
         Initialize lock manager.
 
         Args:
-            lock_dir: Directory for lock file (default: .devforgeai)
+            lock_dir: Directory for lock file (default: devforgeai)
         """
-        self.lock_dir = lock_dir or Path(".devforgeai")
+        self.lock_dir = lock_dir or Path("devforgeai")
         self.lock_file = self.lock_dir / "install.lock"
         self.current_pid = os.getpid()
         self._lock_acquired = False

@@ -210,9 +210,9 @@ def create_backup(project_path, backup_reason='upgrade'):
         shutil.copytree(Path(project_path, '.claude'),
                        backup_dir / '.claude')
 
-    if Path(project_path, '.devforgeai').exists():
-        shutil.copytree(Path(project_path, '.devforgeai'),
-                       backup_dir / '.devforgeai')
+    if Path(project_path, 'devforgeai').exists():
+        shutil.copytree(Path(project_path, 'devforgeai'),
+                       backup_dir / 'devforgeai')
 
     # Backup CLAUDE.md
     claude_md = Path(project_path, 'CLAUDE.md')
@@ -256,10 +256,10 @@ def rollback(project_path, backup_timestamp=None):
         shutil.copytree(backup_dir / '.claude',
                        Path(project_path, '.claude'))
 
-    if (backup_dir / '.devforgeai').exists():
-        shutil.rmtree(Path(project_path, '.devforgeai'))
-        shutil.copytree(backup_dir / '.devforgeai',
-                       Path(project_path, '.devforgeai'))
+    if (backup_dir / 'devforgeai').exists():
+        shutil.rmtree(Path(project_path, 'devforgeai'))
+        shutil.copytree(backup_dir / 'devforgeai',
+                       Path(project_path, 'devforgeai'))
 
     # Restore CLAUDE.md
     if (backup_dir / 'CLAUDE.md').exists():
@@ -393,7 +393,7 @@ def deploy_framework(source_root, target_project, mode='full'):
     source_devforgeai = Path(source_root) / 'src/devforgeai'
 
     target_claude = Path(target_project) / '.claude'
-    target_devforgeai = Path(target_project) / '.devforgeai'
+    target_devforgeai = Path(target_project) / 'devforgeai'
 
     # Backup if existing installation
     if target_claude.exists() or target_devforgeai.exists():

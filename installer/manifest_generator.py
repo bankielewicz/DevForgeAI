@@ -48,10 +48,10 @@ class ManifestGenerator:
             Path object pointing to the generated manifest file
         """
         target_path = Path(target_directory)
-        devforgeai_dir = target_path / ".devforgeai"
+        devforgeai_dir = target_path / "devforgeai"
         manifest_path = devforgeai_dir / ".install-manifest.json"
 
-        # Ensure .devforgeai directory exists
+        # Ensure devforgeai directory exists
         devforgeai_dir.mkdir(parents=True, exist_ok=True)
 
         # Generate manifest data
@@ -156,8 +156,8 @@ class ManifestGenerator:
             ((".claude/agents/", ".claude\\agents\\"), "agent"),
             ((".claude/commands/", ".claude\\commands\\"), "command"),
             ((".claude/memory/", ".claude\\memory\\"), "memory"),
-            (("devforgeai/scripts/", ".devforgeai\\scripts\\"), "script"),
-            (("devforgeai/specs/context/", ".devforgeai\\context\\"), "config"),
+            (("devforgeai/scripts/", "devforgeai\\scripts\\"), "script"),
+            (("devforgeai/specs/context/", "devforgeai\\context\\"), "config"),
         ]
 
         for patterns, category in categories:

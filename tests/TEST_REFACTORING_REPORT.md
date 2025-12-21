@@ -128,7 +128,7 @@ TOTAL (3 modules)              87% (295 of 338 statements)
 - ❌ `_run_subprocess_command()` exception handling - 62% (command not found fallback)
 
 **Why gaps exist:**
-- Framework version detection requires .devforgeai/version.json file (infrastructure concern)
+- Framework version detection requires devforgeai/version.json file (infrastructure concern)
 - Subprocess exception paths tested but some error conditions require real environment
 
 #### installer/claude_parser.py - 77% Coverage

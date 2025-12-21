@@ -6,13 +6,13 @@
 
 Added **Phase 5: Hook Integration** to the `/create-story` command that:
 
-1. **Loads hook configuration** from `.devforgeai/config/hooks.yaml`
+1. **Loads hook configuration** from `devforgeai/config/hooks.yaml`
 2. **Checks if hooks enabled** via `devforgeai check-hooks --operation=story-create` (<100ms)
 3. **Detects batch mode** via `**Batch Mode:** true` marker
 4. **Assembles 7 metadata fields** from story YAML (story_id, epic_id, sprint, title, points, priority, timestamp)
 5. **Invokes hooks** with context if enabled
 6. **Handles failures gracefully** - story creation always succeeds (exit code 0)
-7. **Logs results** to `.devforgeai/feedback/.logs/hooks.log` (success) and `hook-errors.log` (errors)
+7. **Logs results** to `devforgeai/feedback/.logs/hooks.log` (success) and `hook-errors.log` (errors)
 8. **Defers batch hooks** - single invocation at batch end with all story IDs
 
 ## Files Modified/Created
@@ -45,7 +45,7 @@ python3 -m pytest tests/unit/test_hook_integration_phase.py \
 
 ## Key Features
 
-✅ **Configuration Driven** - Respects `.devforgeai/config/hooks.yaml`
+✅ **Configuration Driven** - Respects `devforgeai/config/hooks.yaml`
 ✅ **Safe Defaults** - Hooks disabled by default (safe default)
 ✅ **Performance Optimized** - Hook check <100ms (p95 requirement)
 ✅ **Batch-Aware** - Defers invocation in batch mode

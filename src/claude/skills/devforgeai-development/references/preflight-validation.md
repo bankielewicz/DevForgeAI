@@ -808,7 +808,7 @@ ELIF result.status == "BLOCKED":
     IF $FORCE_FLAG == true:
         // Log bypass to audit file
         timestamp = current_datetime_iso()
-        log_path = ".devforgeai/logs/dependency-bypass-{timestamp}.log"
+        log_path = "devforgeai/logs/dependency-bypass-{timestamp}.log"
 
         Write(
             file_path=log_path,
@@ -1013,7 +1013,7 @@ ELIF result.status == "BLOCKED":
     IF $FORCE_FLAG == true:
         // Log bypass
         timestamp = current_datetime_iso()
-        log_path = ".devforgeai/logs/overlap-bypass-{timestamp}.log"
+        log_path = "devforgeai/logs/overlap-bypass-{timestamp}.log"
 
         Write(
             file_path=log_path,

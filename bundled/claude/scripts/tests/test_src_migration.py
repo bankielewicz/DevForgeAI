@@ -176,7 +176,7 @@ class TestPathResolution:
 
     def test_context_files_directory_structure(self):
         """Test context files are in correct location"""
-        context_dir = PROJECT_ROOT / ".devforgeai" / "context"
+        context_dir = PROJECT_ROOT / "devforgeai" / "context"
         assert context_dir.exists(), "Context directory not found"
 
         required_context_files = [
@@ -211,13 +211,13 @@ class TestPathResolution:
 
     def test_qa_directory_structure(self):
         """Test QA directory structure"""
-        qa_dir = PROJECT_ROOT / ".devforgeai" / "qa"
+        qa_dir = PROJECT_ROOT / "devforgeai" / "qa"
         assert qa_dir.exists(), "QA directory not found"
         assert qa_dir.is_dir(), "QA should be a directory"
 
     def test_adr_directory_structure(self):
         """Test ADR directory structure"""
-        adr_dir = PROJECT_ROOT / ".devforgeai" / "adrs"
+        adr_dir = PROJECT_ROOT / "devforgeai" / "adrs"
         assert adr_dir.exists(), "ADR directory not found"
         assert adr_dir.is_dir(), "ADR should be a directory"
 
@@ -251,7 +251,7 @@ class TestIntegrationWorkflows:
         # All 6 context files
         for ctx_file in ["tech-stack.md", "source-tree.md", "dependencies.md",
                         "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"]:
-            assert (PROJECT_ROOT / ".devforgeai" / "context" / ctx_file).exists(), \
+            assert (PROJECT_ROOT / "devforgeai" / "context" / ctx_file).exists(), \
                 f"Missing context file: {ctx_file}"
 
     def test_workflow_2_context_to_story_qa_paths(self):
@@ -259,13 +259,13 @@ class TestIntegrationWorkflows:
         # All 6 context files
         for ctx_file in ["tech-stack.md", "source-tree.md", "dependencies.md",
                         "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"]:
-            assert (PROJECT_ROOT / ".devforgeai" / "context" / ctx_file).exists()
+            assert (PROJECT_ROOT / "devforgeai" / "context" / ctx_file).exists()
 
         # Story directory
         assert (PROJECT_ROOT / ".ai_docs" / "Stories").exists()
 
         # QA directory
-        assert (PROJECT_ROOT / ".devforgeai" / "qa").exists()
+        assert (PROJECT_ROOT / "devforgeai" / "qa").exists()
 
         # QA skill
         assert (PROJECT_ROOT / ".claude" / "skills" / "devforgeai-qa" / "SKILL.md").exists()
@@ -285,7 +285,7 @@ class TestIntegrationWorkflows:
         assert (PROJECT_ROOT / ".claude" / "skills" / "devforgeai-story-creation" / "SKILL.md").exists()
 
         # ADR directory
-        assert (PROJECT_ROOT / ".devforgeai" / "adrs").exists()
+        assert (PROJECT_ROOT / "devforgeai" / "adrs").exists()
 
 
 class TestFileStructureIntegrity:

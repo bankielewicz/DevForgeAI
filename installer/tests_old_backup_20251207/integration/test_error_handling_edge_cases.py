@@ -60,7 +60,7 @@ class TestBackupCreationFailures:
 
         # Arrange
         target_root = integration_project["root"]
-        backup_base = target_root / ".devforgeai"
+        backup_base = target_root / "devforgeai"
         logger = InstallLogger(str(backup_base / "install.log"))
 
         # Make backup directory unwritable
@@ -98,7 +98,7 @@ class TestBackupCreationFailures:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
 
         # Create 100 files
@@ -126,7 +126,7 @@ class TestBackupCreationFailures:
         assert "No space left" in str(exc_info.value)
 
         # Assert - Partial backup cleaned up
-        backup_dirs = list((target_root / ".devforgeai").glob("install-backup-*"))
+        backup_dirs = list((target_root / "devforgeai").glob("install-backup-*"))
         assert len(backup_dirs) == 0, "Partial backup should be cleaned up on failure"
 
     def test_backup_with_large_files_handles_memory_efficiently(
@@ -147,7 +147,7 @@ class TestBackupCreationFailures:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
 
         # Create 5 large files (100MB each)
@@ -192,7 +192,7 @@ class TestLogFileEdgeCases:
 
         # Arrange
         target_root = integration_project["root"]
-        log_dir = target_root / ".devforgeai"
+        log_dir = target_root / "devforgeai"
         log_path = log_dir / "install.log"
 
         # Create log directory but make it unwritable
@@ -225,7 +225,7 @@ class TestLogFileEdgeCases:
 
         # Arrange
         target_root = integration_project["root"]
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         logger = InstallLogger(str(log_path))
 
         # Write 10MB of log data (simulate large log)
@@ -261,7 +261,7 @@ class TestLogFileEdgeCases:
 
         # Arrange
         target_root = integration_project["root"]
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         logger = InstallLogger(str(log_path))
         error_handler = ErrorHandler(logger)
 
@@ -301,7 +301,7 @@ class TestPartialRollbackScenarios:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         rollback_service = RollbackService(logger)
 
         non_existent_backup = "/tmp/non_existent_backup_12345"
@@ -314,7 +314,7 @@ class TestPartialRollbackScenarios:
         assert "Backup directory not found" in str(exc_info.value)
 
         # Assert - Error also logged to file
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should be created"
         log_contents = log_path.read_text()
         # Either the error was logged, or at least the rollback was started
@@ -341,7 +341,7 @@ class TestPartialRollbackScenarios:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -372,7 +372,7 @@ class TestPartialRollbackScenarios:
         assert result.files_restored > 0, "Some files should be restored from partial backup"
 
         # Assert - Some files actually restored (remaining 50 files)
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should exist"
 
     def test_rollback_with_corrupted_backup_manifest(
@@ -395,7 +395,7 @@ class TestPartialRollbackScenarios:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -448,7 +448,7 @@ class TestPartialRollbackScenarios:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         rollback_service = RollbackService(logger, installation_root=target_root)
 
         # Create nested directory structure
@@ -507,7 +507,7 @@ class TestInterruptionHandling:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
 
         # Create files to backup
@@ -551,7 +551,7 @@ class TestInterruptionHandling:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -606,7 +606,7 @@ class TestPathSanitization:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         # Act - Format error with username path
@@ -635,7 +635,7 @@ class TestPathSanitization:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         # Act - Format console output with Windows path
@@ -672,7 +672,7 @@ class TestConcurrentErrors:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -699,7 +699,7 @@ class TestConcurrentErrors:
         assert result.files_restored >= 7, f"At least 7 files should be restored (≥10-3), got {result.files_restored}"
 
         # Assert - Logs exist and contain operation records
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should exist"
         log_contents = log_path.read_text()
         # Rollback logs INFO messages about restoration or cleanup operations
@@ -729,7 +729,7 @@ class TestConcurrentErrors:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         errors_logged = []
@@ -754,7 +754,7 @@ class TestConcurrentErrors:
         assert len(errors_logged) == 10, "All 10 threads should log errors"
 
         # Assert - Log file has error entries (read log file directly)
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should exist"
         log_contents = log_path.read_text()
         # Count error entries (may be formatted differently)
@@ -786,7 +786,7 @@ class TestDiskFullScenarios:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -812,7 +812,7 @@ class TestDiskFullScenarios:
         # Note: Rollback uses best-effort approach, continuing despite file copy errors
 
         # Assert - Logs record rollback activity (best-effort continues despite errors)
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         if log_path.exists():
             log_contents = log_path.read_text()
             # Rollback logs INFO messages about cleanup even when restore fails

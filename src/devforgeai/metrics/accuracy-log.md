@@ -78,7 +78,7 @@ purpose: "Track accuracy issues (rule violations, hallucinations, missing citati
 **Examples:**
 
 - *Critical:* "The /dev command executes automatically without user input" (false - /dev is a slash command that requires explicit invocation)
-- *High:* "The file `.devforgeai/metrics/baseline-2025-12-01.md` already exists in the repository" (without verifying - could be false)
+- *High:* "The file `devforgeai/metrics/baseline-2025-12-01.md` already exists in the repository" (without verifying - could be false)
 - *Medium:* "There are 100 tests passing" (when actually there are 95)
 - *Low:* "The framework supports three deployment environments" (should verify exact count)
 

@@ -27,7 +27,7 @@ deferred_to_phase: 2
 
 ### AC#1: CI Answers Configuration File
 
-**Given** `.devforgeai/config/ci-answers.yaml` exists
+**Given** `devforgeai/config/ci-answers.yaml` exists
 **When** Claude Code runs in headless mode (`-p` flag)
 **Then** reads pre-defined answers from configuration
 **And** uses them to respond to AskUserQuestion prompts automatically
@@ -150,7 +150,7 @@ technical_specification:
 ## Configuration File Format
 
 ```yaml
-# .devforgeai/config/ci-answers.yaml
+# devforgeai/config/ci-answers.yaml
 headless_mode:
   enabled: true
   fail_on_unanswered: true

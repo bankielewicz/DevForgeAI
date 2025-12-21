@@ -47,7 +47,7 @@
 - Test count: 8 tests
 - Validates:
   - Phase N has error handling for hook failures
-  - Hook failures logged to .devforgeai/feedback/logs/hook-errors.log
+  - Hook failures logged to devforgeai/feedback/logs/hook-errors.log
   - User sees warning when hook fails
   - Sprint creation succeeds despite hook failure
   - Story statuses updated even with hook failure

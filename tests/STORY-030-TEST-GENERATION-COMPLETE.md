@@ -103,7 +103,7 @@ Comprehensive error handling testing for AC3:
 - Coverage goals
 
 ### Test Generation Report
-**File:** `.devforgeai/qa/reports/STORY-030-test-generation-report.md`
+**File:** `devforgeai/qa/reports/STORY-030-test-generation-report.md`
 - Executive summary
 - Complete test suite composition
 - Acceptance criteria coverage (100%)
@@ -318,7 +318,7 @@ tests/
 
 ### Documentation Files
 ```
-.devforgeai/qa/reports/
+devforgeai/qa/reports/
 └── STORY-030-test-generation-report.md         (Comprehensive analysis)
 
 Root:
@@ -417,7 +417,7 @@ Root:
 - **Pilot:** `devforgeai/specs/Stories/STORY-023-wire-hooks-into-dev-command-pilot.story.md`
 
 ### Pattern References
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
 - **Hook System:** `STORY-021`, `STORY-022` (check-hooks, invoke-hooks CLI)
 
 ### Similar Test Suites

@@ -42,7 +42,7 @@ format_version: "2.1"
 
 **Given** the pre-flight validation is running
 **When** the installer checks for previous DevForgeAI installations
-**Then** the system detects existing `.claude/` directory or `.devforgeai/` directory, marks check as ⚠ WARN if found, displays message "Existing DevForgeAI installation detected at {path}. Choose: [U]pgrade existing, [F]resh install (removes old files), [C]ancel", and prompts user for selection
+**Then** the system detects existing `.claude/` directory or `devforgeai/` directory, marks check as ⚠ WARN if found, displays message "Existing DevForgeAI installation detected at {path}. Choose: [U]pgrade existing, [F]resh install (removes old files), [C]ancel", and prompts user for selection
 
 ---
 
@@ -50,7 +50,7 @@ format_version: "2.1"
 
 **Given** the pre-flight validation is running
 **When** the installer checks write permissions on the target directory
-**Then** the system attempts to create a temporary test file `.devforgeai-write-test`, marks check as ✓ PASS if file creation succeeds (and deletes test file), or ✗ FAIL if permission denied with message "Write permission denied on {path}. Run installer with appropriate permissions or choose different directory."
+**Then** the system attempts to create a temporary test file `devforgeai-write-test`, marks check as ✓ PASS if file creation succeeds (and deletes test file), or ✗ FAIL if permission denied with message "Write permission denied on {path}. Run installer with appropriate permissions or choose different directory."
 
 ---
 
@@ -176,7 +176,7 @@ technical_specification:
         - "json"
       requirements:
         - id: "SVC-010"
-          description: "Detect existing installation by checking for .claude/ or .devforgeai/ directories"
+          description: "Detect existing installation by checking for .claude/ or devforgeai/ directories"
           testable: true
           test_requirement: "Test: WARN if either directory exists, PASS if neither"
           priority: "Critical"
@@ -203,7 +203,7 @@ technical_specification:
         - id: "SVC-013"
           description: "Clean up test file immediately after creation"
           testable: true
-          test_requirement: "Test: .devforgeai-write-test does not exist after check"
+          test_requirement: "Test: devforgeai-write-test does not exist after check"
           priority: "High"
         - id: "SVC-014"
           description: "Handle missing target directory"
@@ -504,7 +504,7 @@ No external packages required.
 
 3. **Existing installation detection:** Check for `.claude/skills/` or `devforgeai/context/` directories.
 
-4. **Permission check:** Create temp file `.devforgeai-write-test`. Delete immediately.
+4. **Permission check:** Create temp file `devforgeai-write-test`. Delete immediately.
 
 5. **Force flag:** Accept `--force`, `-f`, `--skip-warnings`. Bypasses WARN only, never FAIL.
 
@@ -534,7 +534,7 @@ No external packages required.
 ### AC#3: Existing Installation Detection
 
 - [ ] .claude/ detected - **Phase:** 2 - **Evidence:** installation_detector.test.py
-- [ ] .devforgeai/ detected - **Phase:** 2 - **Evidence:** installation_detector.test.py
+- [ ] devforgeai/ detected - **Phase:** 2 - **Evidence:** installation_detector.test.py
 - [ ] Version read if present - **Phase:** 2 - **Evidence:** installation_detector.test.py
 
 ### AC#4: Write Permission Validation

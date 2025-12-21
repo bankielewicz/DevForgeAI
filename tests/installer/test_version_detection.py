@@ -2,7 +2,7 @@
 Unit tests for version detection (STORY-045 AC1, WKR-010, WKR-011, WKR-012).
 
 Tests validate:
-- Detecting existing installations by reading .devforgeai/.version.json
+- Detecting existing installations by reading devforgeai/.version.json
 - Reading source version from src/devforgeai/version.json
 - Semantic version comparison (1.0.0 vs 1.0.1 vs 1.1.0 vs 2.0.0)
 - Installation mode determination (fresh, patch_upgrade, minor_upgrade, major_upgrade, reinstall, downgrade)
@@ -25,7 +25,7 @@ class TestVersionDetection:
         """
         AC1: Installer detects fresh install when .version.json missing.
 
-        Given: Target project has no .devforgeai/.version.json
+        Given: Target project has no devforgeai/.version.json
         When: Installer checks installation state
         Then: Mode detected as 'fresh_install'
         """
@@ -43,9 +43,9 @@ class TestVersionDetection:
 
     def test_read_installed_version_from_existing_file(self, installed_version_1_0_0, tmp_project):
         """
-        WKR-010: Read installed version from .devforgeai/.version.json.
+        WKR-010: Read installed version from devforgeai/.version.json.
 
-        Given: .devforgeai/.version.json exists with version "1.0.0"
+        Given: devforgeai/.version.json exists with version "1.0.0"
         When: Installer reads version file
         Then: Returns dict with version and installed_at timestamp
         """

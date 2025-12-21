@@ -77,7 +77,7 @@ SKILL.md (1,782 lines total):
 | story-documentation-pattern.md | 532 | ✅ Good | Story updates |
 | tdd-patterns.md | 1,013 | ✅ Excellent | Phases 1-4 TDD guidance |
 
-**Observation:** `slash-command-argument-validation-pattern.md` is framework-level documentation, should potentially move to `.claude/memory/` or `.devforgeai/protocols/`.
+**Observation:** `slash-command-argument-validation-pattern.md` is framework-level documentation, should potentially move to `.claude/memory/` or `devforgeai/protocols/`.
 
 ### Problems Identified
 
@@ -175,7 +175,7 @@ Total: ~180 lines
 | refactoring-patterns.md | 797 | ✅ KEEP | Phase 3 patterns |
 | tdd-patterns.md | 1,013 | ✅ KEEP | Phases 1-4 guidance |
 | story-documentation-pattern.md | 532 | ✅ KEEP | Story updates |
-| slash-command-argument-validation-pattern.md | 779 | 🔄 MOVE | Move to .devforgeai/protocols/ |
+| slash-command-argument-validation-pattern.md | 779 | 🔄 MOVE | Move to devforgeai/protocols/ |
 
 ### File Reorganization
 
@@ -183,7 +183,7 @@ Total: ~180 lines
 
 ```bash
 mv .claude/skills/devforgeai-development/references/slash-command-argument-validation-pattern.md \
-   .devforgeai/protocols/slash-command-argument-validation-pattern.md
+   devforgeai/protocols/slash-command-argument-validation-pattern.md
 ```
 
 **Rationale:** This pattern applies to ALL slash commands, not just development skill.
@@ -226,11 +226,11 @@ cp SKILL.md SKILL.md.original-1782-lines
 ```bash
 # Move slash command pattern to protocols
 mv references/slash-command-argument-validation-pattern.md \
-   ../../../.devforgeai/protocols/slash-command-argument-validation-pattern.md
+   ../../../devforgeai/protocols/slash-command-argument-validation-pattern.md
 ```
 
 **Validation:**
-- [ ] File moved to `.devforgeai/protocols/`
+- [ ] File moved to `devforgeai/protocols/`
 - [ ] File no longer in skill references/
 - [ ] Framework protocols directory contains file
 
@@ -1049,7 +1049,7 @@ Expected:
 cd /mnt/c/Projects/DevForgeAI2
 
 git add .claude/skills/devforgeai-development/
-git add .devforgeai/protocols/slash-command-argument-validation-pattern.md
+git add devforgeai/protocols/slash-command-argument-validation-pattern.md
 
 git commit -m "refactor(development): Progressive disclosure - 1782→180 lines
 
@@ -1178,7 +1178,7 @@ Testing: All phases validated, Git/file-based modes tested"
     7. qa-deferral-recovery.md (218 lines)
     8. ambiguity-protocol.md (234 lines)
   - Moved out: slash-command-argument-validation-pattern.md (779 lines → protocols)
-- `.devforgeai/protocols/` (+1 file: slash-command-argument-validation-pattern.md)
+- `devforgeai/protocols/` (+1 file: slash-command-argument-validation-pattern.md)
 
 ### Lessons Learned
 

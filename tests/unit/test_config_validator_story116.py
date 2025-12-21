@@ -14,7 +14,7 @@ from pathlib import Path
 import yaml
 
 # Import from the actual module
-from claude.scripts.devforgeai_cli.ast_grep.config_validator import (
+from claude.scriptsdevforgeai_cli.ast_grep.config_validator import (
     ConfigurationValidator,
     ValidationResult,
     ValidationError,
@@ -490,7 +490,7 @@ class TestConfigurationValidatorErrorPaths:
         Covers: config_validator.py lines 73-78
         """
         # Arrange
-        import claude.scripts.devforgeai_cli.ast_grep.config_validator as validator_module
+        import claude.scriptsdevforgeai_cli.ast_grep.config_validator as validator_module
 
         config_path = tmp_path / "sgconfig.yml"
         config_path.write_text("ruleDirs: []\nlanguageGlobs: {}\n")

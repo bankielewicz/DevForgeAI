@@ -25,7 +25,7 @@ format_version: "2.0"
 ### AC1: Character budget reduction achieved
 
 **Given** the /create-context command currently at 16,210 characters (108% of budget),
-**When** Phase N pattern documentation is extracted to `.devforgeai/protocols/hook-integration-pattern.md`,
+**When** Phase N pattern documentation is extracted to `devforgeai/protocols/hook-integration-pattern.md`,
 **Then** the command file size is reduced to ≤14,000 characters (93% of budget) while preserving all essential workflow steps.
 
 ---
@@ -41,8 +41,8 @@ format_version: "2.0"
 ### AC3: Pattern documentation externalized and accessible
 
 **Given** hook integration pattern details are currently inline in Phase N (~2,500 characters),
-**When** pattern documentation is moved to `.devforgeai/protocols/hook-integration-pattern.md`,
-**Then** the pattern file contains comprehensive hook registration guidance (hook types, naming conventions, lifecycle integration, examples) and is referenced in Phase N with: `Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")`.
+**When** pattern documentation is moved to `devforgeai/protocols/hook-integration-pattern.md`,
+**Then** the pattern file contains comprehensive hook registration guidance (hook types, naming conventions, lifecycle integration, examples) and is referenced in Phase N with: `Read(file_path="devforgeai/protocols/hook-integration-pattern.md")`.
 
 ---
 
@@ -82,7 +82,7 @@ technical_specification:
         - id: "CONF-002"
           description: "Extract Phase N pattern documentation (Steps 1-4 explanations, Key Characteristics, Pattern Consistency sections)"
           testable: true
-          test_requirement: "Phase N contains only workflow steps, references .devforgeai/protocols/hook-integration-pattern.md"
+          test_requirement: "Phase N contains only workflow steps, references devforgeai/protocols/hook-integration-pattern.md"
           priority: "High"
 
         - id: "CONF-003"
@@ -107,7 +107,7 @@ technical_specification:
   dependencies:
     - name: "hook-integration-pattern.md"
       version: "1.0"
-      location: ".devforgeai/protocols/"
+      location: "devforgeai/protocols/"
       purpose: "Pattern reference for hook integration"
       status: "exists"
 
@@ -137,11 +137,11 @@ Not applicable - This is a command refactoring story with no graphical UI compon
 
 ## Edge Cases
 
-- **Hook registration with missing pattern file:** If `.devforgeai/protocols/hook-integration-pattern.md` doesn't exist during hook registration, command should display clear error: "Hook integration pattern file not found. Run: Read(file_path='.devforgeai/protocols/hook-integration-pattern.md') to load guidance" and continue without hooks (graceful degradation).
+- **Hook registration with missing pattern file:** If `devforgeai/protocols/hook-integration-pattern.md` doesn't exist during hook registration, command should display clear error: "Hook integration pattern file not found. Run: Read(file_path='devforgeai/protocols/hook-integration-pattern.md') to load guidance" and continue without hooks (graceful degradation).
 
-- **Long hook configurations exceeding available budget:** If user provides extensive hook templates or multiple hook registrations that would cause Phase N to exceed remaining character budget, command should warn: "Hook configuration verbose - consider reviewing `.devforgeai/protocols/hook-integration-pattern.md` for best practices" but still complete registration (inform, don't block).
+- **Long hook configurations exceeding available budget:** If user provides extensive hook templates or multiple hook registrations that would cause Phase N to exceed remaining character budget, command should warn: "Hook configuration verbose - consider reviewing `devforgeai/protocols/hook-integration-pattern.md` for best practices" but still complete registration (inform, don't block).
 
-- **Brownfield migration with existing hooks:** If `.devforgeai/.hooks/` already exists during brownfield context creation, command should detect existing hooks, skip re-registration, and note in output: "Existing hooks detected - preserved. Review `.devforgeai/protocols/hook-integration-pattern.md` for integration updates" (preserve existing work).
+- **Brownfield migration with existing hooks:** If `devforgeai/.hooks/` already exists during brownfield context creation, command should detect existing hooks, skip re-registration, and note in output: "Existing hooks detected - preserved. Review `devforgeai/protocols/hook-integration-pattern.md` for integration updates" (preserve existing work).
 
 ## Non-Functional Requirements
 
@@ -154,7 +154,7 @@ Not applicable - This is a command refactoring story with no graphical UI compon
 ## Dependencies
 
 ### Prerequisites
-- STORY-030: Wire hooks into /create-context command (pattern already created in `.devforgeai/protocols/hook-integration-pattern.md`)
+- STORY-030: Wire hooks into /create-context command (pattern already created in `devforgeai/protocols/hook-integration-pattern.md`)
 
 ### Dependent Stories
 - None (this is a refactoring cleanup story for STORY-030)
@@ -339,7 +339,7 @@ Not applicable - This is a command refactoring story with no graphical UI compon
 
 **Next Steps:** /release STORY-049 staging → smoke test → production deployment
 
-**Report:** `.devforgeai/qa/reports/STORY-049-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-049-qa-report.md`
 
 ---
 
@@ -356,5 +356,5 @@ Not applicable - This is a command refactoring story with no graphical UI compon
 - Epic: `devforgeai/specs/Epics/EPIC-007-lean-orchestration-compliance.epic.md`
 - Sprint: `devforgeai/specs/Sprints/Sprint-3.md`
 - Parent Story: `devforgeai/specs/Stories/STORY-030-wire-hooks-into-create-context-command.story.md`
-- Pattern File: `.devforgeai/protocols/hook-integration-pattern.md` (created in STORY-030)
-- Protocol: `.devforgeai/protocols/lean-orchestration-pattern.md` (budget guidelines)
+- Pattern File: `devforgeai/protocols/hook-integration-pattern.md` (created in STORY-030)
+- Protocol: `devforgeai/protocols/lean-orchestration-pattern.md` (budget guidelines)

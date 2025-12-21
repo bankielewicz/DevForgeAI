@@ -24,7 +24,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 **Status:** ✓ Complete and Tested
 
 **Functionality:**
-- Scans entire codebase for `.claude/` and `.devforgeai/` references
+- Scans entire codebase for `.claude/` and `devforgeai/` references
 - Classifies 12,869 references into 4 categories:
   - Deploy-time: 1,047 refs (PRESERVE)
   - Source-time: 1,774 refs (UPDATE)
@@ -130,7 +130,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 ### 2. Classification Files (5 total)
 
 #### path-audit-deploy-time.txt
-**Location:** `.devforgeai/specs/STORY-043/path-audit-deploy-time.txt`
+**Location:** `devforgeai/specs/STORY-043/path-audit-deploy-time.txt`
 **Size:** 152 KB
 **References:** 1,047
 
@@ -141,7 +141,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - devforgeai/context/ references (417 refs)
 
 #### path-audit-source-time.txt
-**Location:** `.devforgeai/specs/STORY-043/path-audit-source-time.txt`
+**Location:** `devforgeai/specs/STORY-043/path-audit-source-time.txt`
 **Size:** 294 KB
 **References:** 1,774
 
@@ -152,7 +152,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - Other source references (1,610 refs)
 
 #### path-audit-ambiguous.txt
-**Location:** `.devforgeai/specs/STORY-043/path-audit-ambiguous.txt`
+**Location:** `devforgeai/specs/STORY-043/path-audit-ambiguous.txt`
 **Size:** 2.2 MB
 **References:** 9,723
 
@@ -163,7 +163,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - Mixed-context references
 
 #### path-audit-excluded.txt
-**Location:** `.devforgeai/specs/STORY-043/path-audit-excluded.txt`
+**Location:** `devforgeai/specs/STORY-043/path-audit-excluded.txt`
 **Size:** 51 KB
 **References:** 325
 
@@ -173,7 +173,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - .pre-* files (historical records)
 
 #### path-audit-report.txt
-**Location:** `.devforgeai/specs/STORY-043/path-audit-report.txt`
+**Location:** `devforgeai/specs/STORY-043/path-audit-report.txt`
 **Size:** 1.3 KB
 
 **Contents:** Classification statistics and summary
@@ -186,7 +186,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 ### 3. Documentation Files (4 total)
 
 #### update-diff-summary.md
-**Location:** `.devforgeai/specs/STORY-043/update-diff-summary.md`
+**Location:** `devforgeai/specs/STORY-043/update-diff-summary.md`
 **Size:** 7.3 KB
 
 **Contents:**
@@ -199,7 +199,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - Next steps and references
 
 #### validation-report.md
-**Location:** `.devforgeai/specs/STORY-043/validation-report.md`
+**Location:** `devforgeai/specs/STORY-043/validation-report.md`
 **Size:** 6.6 KB
 
 **Contents:**
@@ -215,7 +215,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 - Regression testing checklist
 
 #### integration-test-report.md
-**Location:** `.devforgeai/specs/STORY-043/integration-test-report.md`
+**Location:** `devforgeai/specs/STORY-043/integration-test-report.md`
 **Size:** 7.8 KB
 
 **Contents:**
@@ -236,7 +236,7 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
   - Path errors: 0
 
 #### IMPLEMENTATION-STATUS.md
-**Location:** `.devforgeai/specs/STORY-043/IMPLEMENTATION-STATUS.md`
+**Location:** `devforgeai/specs/STORY-043/IMPLEMENTATION-STATUS.md`
 **Size:** 8.9 KB
 
 **Contents:**
@@ -312,8 +312,8 @@ STORY-043 implementation is complete with 4 production-ready shell scripts and c
 ### source-tree.md (LOCKED)
 ✓ Files in correct locations:
 - Scripts: `src/scripts/`
-- Support files: `.devforgeai/specs/STORY-043/`
-- Classification files: `.devforgeai/specs/STORY-043/`
+- Support files: `devforgeai/specs/STORY-043/`
+- Classification files: `devforgeai/specs/STORY-043/`
 
 ### coding-standards.md (LOCKED)
 ✓ Follows coding standards:

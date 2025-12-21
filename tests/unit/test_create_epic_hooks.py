@@ -762,7 +762,7 @@ class TestEpicHookExceptionHandling:
         # Arrange
         exit_code_from_cli = 127  # Command not found
         expected_behavior_exit_code = 0  # Epic creation succeeds
-        log_file = '.devforgeai/feedback/.logs/hook-errors.log'
+        log_file = 'devforgeai/feedback/.logs/hook-errors.log'
 
         # Act
         is_cli_failed = exit_code_from_cli != 0

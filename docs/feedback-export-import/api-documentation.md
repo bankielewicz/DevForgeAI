@@ -499,7 +499,7 @@ result = export_feedback_sessions(date_range="all")  # ✅ One export
 import os
 from pathlib import Path
 
-feedback_dir = Path(".devforgeai/feedback/sessions")
+feedback_dir = Path("devforgeai/feedback/sessions")
 total_size = sum(f.stat().st_size for f in feedback_dir.glob("*.md"))
 
 if total_size > 100 * 1024 * 1024:  # 100MB
@@ -529,7 +529,7 @@ logging.basicConfig(
 2025-11-11 14:30:01 - feedback_export_import - INFO - Found 47 sessions matching date range
 2025-11-11 14:30:01 - feedback_export_import - INFO - Applying sanitization rules
 2025-11-11 14:30:02 - feedback_export_import - INFO - Replaced 12 story IDs
-2025-11-11 14:30:03 - feedback_export_import - INFO - Created archive: .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+2025-11-11 14:30:03 - feedback_export_import - INFO - Created archive: devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 2025-11-11 14:30:03 - feedback_export_import - INFO - Export complete (2847 ms)
 ```
 
@@ -537,7 +537,7 @@ logging.basicConfig(
 ```
 2025-11-11 14:35:00 - feedback_export_import - INFO - Starting import from: export.zip
 2025-11-11 14:35:00 - feedback_export_import - INFO - Validating archive format
-2025-11-11 14:35:01 - feedback_export_import - INFO - Extracting to: .devforgeai/feedback/imported/2025-11-11T14-30-00/
+2025-11-11 14:35:01 - feedback_export_import - INFO - Extracting to: devforgeai/feedback/imported/2025-11-11T14-30-00/
 2025-11-11 14:35:02 - feedback_export_import - INFO - Merging 47 sessions into main index
 2025-11-11 14:35:02 - feedback_export_import - INFO - Resolved 3 duplicate IDs
 2025-11-11 14:35:03 - feedback_export_import - INFO - Import complete (3127 ms)
@@ -559,7 +559,7 @@ DATE_RANGE_DAYS = {
 }
 
 # Archive naming
-ARCHIVE_PREFIX = ".devforgeai-feedback-export"
+ARCHIVE_PREFIX = "devforgeai-feedback-export"
 
 # Limits
 MAX_EXPORT_SIZE_MB = 100

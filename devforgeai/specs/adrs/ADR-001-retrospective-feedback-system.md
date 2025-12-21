@@ -29,8 +29,8 @@ Implement a **Retrospective Feedback System** as a comprehensive DevForgeAI fram
 
 1. **Post-operation retrospective conversations** using AskUserQuestion (5-10 questions)
 2. **Context-aware template system** (adapts to operation type and success/failure)
-3. **YAML-based configuration** (`.devforgeai/config/feedback.yaml`)
-4. **File-based storage with searchable indexing** (`.devforgeai/feedback/`)
+3. **YAML-based configuration** (`devforgeai/config/feedback.yaml`)
+4. **File-based storage with searchable indexing** (`devforgeai/feedback/`)
 5. **Event-driven hooks** (TodoWrite completion triggers)
 6. **Cross-project export/import** (feedback portability for maintainer communication)
 
@@ -79,7 +79,7 @@ Implement a **Retrospective Feedback System** as a comprehensive DevForgeAI fram
   - **Pros:** No dependencies, Git-compatible, simple, aligns with DevForgeAI patterns
   - **Cons:** Limited query performance (acceptable for <10K sessions)
 
-**Decision:** Markdown files in `.devforgeai/feedback/sessions/` + JSON index
+**Decision:** Markdown files in `devforgeai/feedback/sessions/` + JSON index
 **Rationale:**
 - Aligns with DevForgeAI's Markdown-first design philosophy
 - Git-compatible (can version control feedback if desired)
@@ -90,7 +90,7 @@ Implement a **Retrospective Feedback System** as a comprehensive DevForgeAI fram
 ### Why YAML Configuration (vs JSON or Code)?
 
 **Considered Alternatives:**
-- **Alternative A:** JSON configuration (`.devforgeai/config/feedback.json`)
+- **Alternative A:** JSON configuration (`devforgeai/config/feedback.json`)
   - **Pros:** Widely supported, schema validation
   - **Cons:** Less human-readable (no comments), verbose syntax
 
@@ -102,7 +102,7 @@ Implement a **Retrospective Feedback System** as a comprehensive DevForgeAI fram
   - **Pros:** Human-readable, supports comments, language-neutral, schema validation available
   - **Cons:** Requires YAML parser (acceptable)
 
-**Decision:** `.devforgeai/config/feedback.yaml`
+**Decision:** `devforgeai/config/feedback.yaml`
 **Rationale:**
 - Human-readable (users can easily edit)
 - Supports comments (inline documentation)
@@ -168,7 +168,7 @@ Implement a **Retrospective Feedback System** as a comprehensive DevForgeAI fram
 
 **Layer 4: Infrastructure (File System & Hooks)**
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── sessions/                     # Feedback session files
 │   ├── 2025-11-07T10-30-00-command-dev-success.md
 │   ├── 2025-11-07T11-15-30-skill-qa-failure.md
@@ -375,7 +375,7 @@ Control returns to user
 - model: haiku (requires AskUserQuestion, complex orchestration)
 
 **Configuration:**
-- Format: YAML (`.devforgeai/config/feedback.yaml`)
+- Format: YAML (`devforgeai/config/feedback.yaml`)
 - Schema Validation: JSON Schema for YAML validation
 - Default: Disabled (opt-in feature)
 
@@ -386,9 +386,9 @@ Control returns to user
 
 **Storage:**
 - Format: Markdown files with YAML frontmatter
-- Location: `.devforgeai/feedback/sessions/`
+- Location: `devforgeai/feedback/sessions/`
 - Naming: `{timestamp}-{operation-type}-{status}.md`
-- Index: JSON (`.devforgeai/feedback/index.json`)
+- Index: JSON (`devforgeai/feedback/index.json`)
 
 **Event Hooks:**
 - Trigger: TodoWrite completion events
@@ -412,8 +412,8 @@ Control returns to user
 **Source Tree Constraints:** ✅ COMPLIANT
 - Feedback skill: `.claude/skills/devforgeai-feedback/`
 - Feedback commands: `.claude/commands/feedback/`
-- Configuration: `.devforgeai/config/feedback.yaml`
-- Storage: `.devforgeai/feedback/`
+- Configuration: `devforgeai/config/feedback.yaml`
+- Storage: `devforgeai/feedback/`
 - Size limits: Commands <500 lines, skill <1,000 lines
 
 **Token Budget Constraints:** ✅ ACCEPTABLE
@@ -464,7 +464,7 @@ schema:
 - Hooks must check config before execution (no-op if disabled)
 
 **Action on Hook Failure:**
-- Log error to `.devforgeai/feedback/hook-errors.log`
+- Log error to `devforgeai/feedback/hook-errors.log`
 - Display warning to user (not error)
 - Allow operation to complete successfully
 
@@ -539,7 +539,7 @@ schema:
   - [EPIC-005: Framework Integration](devforgeai/specs/Epics/EPIC-005-framework-integration.epic.md)
 
 - **Requirements:**
-  - [Retrospective Feedback System Requirements](.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md)
+  - [Retrospective Feedback System Requirements](devforgeai/specs/requirements/retrospective-feedback-system-requirements.md)
 
 - **Context Files:**
   - [Architecture Constraints](devforgeai/context/architecture-constraints.md)

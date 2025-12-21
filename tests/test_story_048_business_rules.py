@@ -170,7 +170,7 @@ class TestBusinessRuleOnboardingCompletion:
     @pytest.fixture
     def training_log_content(self):
         """Load training log"""
-        path = Path(".devforgeai/onboarding/team-training-log.md")
+        path = Path("devforgeai/onboarding/team-training-log.md")
         if not path.exists():
             pytest.skip("Training log not found")
         return path.read_text()
@@ -178,7 +178,7 @@ class TestBusinessRuleOnboardingCompletion:
     def test_training_log_exists(self):
         """Test: Training log created"""
         # Assert
-        path = Path(".devforgeai/onboarding/team-training-log.md")
+        path = Path("devforgeai/onboarding/team-training-log.md")
         assert path.exists(), "Training log must exist"
 
     def test_training_log_documents_participants(self, training_log_content):
@@ -333,7 +333,7 @@ class TestDataValidationRuleEnforcement:
                 version_locations.append("ROADMAP.md")
 
         # Check version.json
-        for candidate in [Path("version.json"), Path(".devforgeai/version.json")]:
+        for candidate in [Path("version.json"), Path("devforgeai/version.json")]:
             if candidate.exists():
                 import json
                 try:
@@ -368,7 +368,7 @@ class TestDataValidationRuleEnforcement:
     def test_onboarding_completion_documented(self):
         """Test: Onboarding completion is recorded"""
         # Check for training log
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
 
         assert log_path.exists(), \
             "Onboarding completion must be documented"

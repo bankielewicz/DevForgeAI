@@ -37,7 +37,7 @@ The retrospective feedback system (STORY-007 through STORY-020) is **architectur
    - Status: ✅ Properly integrated into CLI
 
 4. **Hook System Infrastructure**
-   - Configuration: `.devforgeai/config/hooks.yaml`
+   - Configuration: `devforgeai/config/hooks.yaml`
    - 6 example hooks defined (dev, qa, release, sprint, epic, subagent)
    - Status: ✅ Architecture correct
 
@@ -80,7 +80,7 @@ The retrospective feedback system (STORY-007 through STORY-020) is **architectur
 
 | Story | Feature | Status | Implementation |
 |-------|---------|--------|----------------|
-| STORY-013 | File Persistence | ✅ COMPLETE | `.devforgeai/feedback/sessions/` with atomic writes |
+| STORY-013 | File Persistence | ✅ COMPLETE | `devforgeai/feedback/sessions/` with atomic writes |
 | STORY-016 | Searchable Index | ✅ COMPLETE | `index.json`, `/feedback-reindex` command |
 | STORY-017 | Cross-Project Export | ✅ COMPLETE | `/export-feedback`, `/import-feedback` with sanitization |
 
@@ -117,7 +117,7 @@ grep -r "devforgeai.*hook\|invoke.*hook" .claude/commands/*.md
 ```
 
 **Evidence:**
-- Hook configurations exist in `.devforgeai/config/hooks.yaml`
+- Hook configurations exist in `devforgeai/config/hooks.yaml`
 - All 6 hooks have `enabled: false`
 - NO commands invoke `devforgeai check-hooks` or `devforgeai invoke-hooks`
 - Hook system is "dormant infrastructure"
@@ -161,7 +161,7 @@ grep -r "devforgeai.*hook\|invoke.*hook" .claude/commands/*.md
 **Issue:**
 - 116 test artifact zip files created in project root (now deleted by user)
 - Tests in `tests/test_feedback_export_import.py` don't use temp directories
-- Files use production naming: `.devforgeai-feedback-export-*.zip`
+- Files use production naming: `devforgeai-feedback-export-*.zip`
 
 **Impact:**
 - Test pollution in project root
@@ -233,7 +233,7 @@ devforgeai-feedback skill triggered
     ↓
 Retrospective conversation (5-10 questions)
     ↓
-Feedback saved to .devforgeai/feedback/sessions/
+Feedback saved to devforgeai/feedback/sessions/
     ↓
 Index updated
 ```
@@ -377,7 +377,7 @@ hooks:
 ```python
 # Before
 def test_export():
-    export_path = ".devforgeai-feedback-export-{timestamp}.zip"
+    export_path = "devforgeai-feedback-export-{timestamp}.zip"
 
 # After
 @pytest.fixture
@@ -509,7 +509,7 @@ The feedback system is **well-architected** and **follows DevForgeAI patterns co
 - `.claude/commands/export-feedback.md`
 
 **Configuration:**
-- `.devforgeai/config/hooks.yaml`
+- `devforgeai/config/hooks.yaml`
 - `.claude/settings.local.json`
 
 **CLI Implementation:**
@@ -533,7 +533,7 @@ The feedback system is **well-architected** and **follows DevForgeAI patterns co
 - `devforgeai/specs/Stories/STORY-020-feedback-cli-commands.story.md`
 
 **Requirements:**
-- `.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md`
+- `devforgeai/specs/requirements/retrospective-feedback-system-requirements.md`
 
 **Test Files:**
 - `tests/test_feedback_export_import.py`

@@ -30,11 +30,11 @@ depends_on: ["STORY-046"]
 **Then** installation completes successfully:
 - Installer detects Node.js project (package.json found)
 - Creates .claude/ with 450 framework files
-- Creates .devforgeai/ with config, docs, protocols, tests
+- Creates devforgeai/ with config, docs, protocols, tests
 - Merges CLAUDE.md (user Node.js instructions + DevForgeAI framework)
 - Substitutes variables ({{PROJECT_NAME}}="NodeJsTestProject", {{TECH_STACK}}="Node.js")
 - Installs CLI (`devforgeai --version` works)
-- Writes .devforgeai/.version.json (version: "1.0.1", mode: "fresh_install")
+- Writes devforgeai/.version.json (version: "1.0.1", mode: "fresh_install")
 **And** installation report shows:
   - Files deployed: 450
   - CLAUDE.md merged: 1 user section + 30 framework sections
@@ -125,7 +125,7 @@ depends_on: ["STORY-046"]
 - Verifies backup integrity (manifest.json validation, file count: 450)
 - Restores all files from backup:
   - .claude/ restored (450 files)
-  - .devforgeai/ restored (config, protocols, etc.)
+  - devforgeai/ restored (config, protocols, etc.)
   - CLAUDE.md restored to pre-merge state (user + framework v1.0.1)
 - Reverts version.json (removed or version set to backup version)
 - Displays: "✅ Rolled back to version 1.0.1 (450 files restored)"
@@ -145,7 +145,7 @@ depends_on: ["STORY-046"]
 - Detects .NET project (*.csproj found)
 - Variables substituted: {{TECH_STACK}}=".NET", {{PROJECT_NAME}}="DotNetTestProject"
 - Creates CLAUDE.md from template (no merge, just template + variables)
-- All 450 files deployed to .claude/ and .devforgeai/
+- All 450 files deployed to .claude/ and devforgeai/
 - CLI installed successfully
 - Version.json written
 **And** installation report shows:
@@ -170,19 +170,19 @@ depends_on: ["STORY-046"]
 **NodeJsTestProject:**
 - devforgeai/specs/Stories/STORY-001.story.md references NodeJsTestProject context
 - devforgeai/context/tech-stack.md shows Node.js
-- .devforgeai/.version.json shows install path: /tmp/NodeJsTestProject
+- devforgeai/.version.json shows install path: /tmp/NodeJsTestProject
 
 **DotNetTestProject:**
 - devforgeai/specs/Stories/STORY-001.story.md references DotNetTestProject context
 - devforgeai/context/tech-stack.md shows .NET
-- .devforgeai/.version.json shows install path: /tmp/DotNetTestProject
+- devforgeai/.version.json shows install path: /tmp/DotNetTestProject
 
 **And** no cross-references:
   - grep -r "NodeJsTestProject" /tmp/DotNetTestProject returns 0 matches (except .git/ history)
   - grep -r "DotNetTestProject" /tmp/NodeJsTestProject returns 0 matches
 **And** commands execute in correct context:
   - Running /dev in NodeJsTestProject doesn't affect DotNetTestProject
-  - Separate .devforgeai/qa/reports/ in each project (no shared state)
+  - Separate devforgeai/qa/reports/ in each project (no shared state)
 
 ---
 
@@ -473,8 +473,8 @@ technical_specification:
 - [x] 3 upgrade tests (patch, minor, major) - Completed: Phase 2 (ac7_upgrade_workflow tests PASSING, version comparison validated)
 - [x] Rollback test (checksum validation) - Completed: Phase 2 (ac4_rollback tests, SHA256 checksum validation implemented)
 - [x] Installation test report (results for all scenarios) - Completed: Phase 4 (STORY-047-IMPLEMENTATION-SUMMARY.md, 23/24 test results documented)
-- [x] Known issues documented (if any found) - Completed: Phase 4 (.devforgeai/qa/known-issues-STORY-047.md, 12 issues analyzed, 6 resolved)
-- [x] External project setup guide - Completed: Phase 4 (.devforgeai/docs/EXTERNAL-PROJECT-SETUP-GUIDE.md, Node.js/.NET/Python setup instructions)
+- [x] Known issues documented (if any found) - Completed: Phase 4 (devforgeai/qa/known-issues-STORY-047.md, 12 issues analyzed, 6 resolved)
+- [x] External project setup guide - Completed: Phase 4 (devforgeai/docs/EXTERNAL-PROJECT-SETUP-GUIDE.md, Node.js/.NET/Python setup instructions)
 
 **Deferred Items (9 remaining, validly deferred to QA/Test Execution Phase):**
 - [ ] 100% installation success rate (6/6: Node.js ×3, .NET ×3) - Deferred: Blocked by full test suite execution (current: 23/24 subset = 95.8%), requires external test environment
@@ -494,8 +494,8 @@ technical_specification:
 - Cross-platform support (Node.js, .NET detection via package.json, *.csproj)
 - CLAUDE.md merge integration from STORY-046
 - Backup/rollback with SHA256 checksums
-- 945-file deployment (.claude/ + .devforgeai/ directories)
-- Version tracking in .devforgeai/.version.json (v1.0.1)
+- 945-file deployment (.claude/ + devforgeai/ directories)
+- Version tracking in devforgeai/.version.json (v1.0.1)
 
 **Test Suite:**
 - 45 comprehensive integration tests (tests/external/test_install_integration.py)

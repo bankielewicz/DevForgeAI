@@ -131,7 +131,7 @@ Tests measure performance against requirements:
 
 **`feedback_index`**
 - Pre-initialized FeedbackIndex instance
-- Points to temp directory `.devforgeai/feedback/`
+- Points to temp directory `devforgeai/feedback/`
 - Ready for immediate use
 
 ---

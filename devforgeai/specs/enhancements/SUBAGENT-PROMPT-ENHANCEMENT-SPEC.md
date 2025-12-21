@@ -992,7 +992,7 @@ python .claude/scripts/validate-subagent-output.py \
 
 ### Violation Log Format
 
-**File:** `.devforgeai/logs/rca-007-violations.log`
+**File:** `devforgeai/logs/rca-007-violations.log`
 
 ```
 [VIOLATION DETECTED]
@@ -1025,17 +1025,17 @@ Recovery Result: FAILED (manual intervention required)
 **Log analysis:**
 ```bash
 # Count violations
-grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
+grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
 
 # Count by subagent
-grep "Subagent:" .devforgeai/logs/rca-007-violations.log | sort | uniq -c
+grep "Subagent:" devforgeai/logs/rca-007-violations.log | sort | uniq -c
 
 # Count by violation type
-grep "Violation Type:" .devforgeai/logs/rca-007-violations.log | sort | uniq -c
+grep "Violation Type:" devforgeai/logs/rca-007-violations.log | sort | uniq -c
 
 # Check recovery success rate
-total=$(grep -c "Recovery Action" .devforgeai/logs/rca-007-violations.log)
-success=$(grep -c "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log)
+total=$(grep -c "Recovery Action" devforgeai/logs/rca-007-violations.log)
+success=$(grep -c "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log)
 rate=$((success * 100 / total))
 echo "Recovery success rate: ${rate}%"
 ```
@@ -1089,10 +1089,10 @@ echo "Recovery success rate: ${rate}%"
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Implementation Plan:** `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
-- **Contract Spec:** `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md` (next document)
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Implementation Plan:** `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+- **Contract Spec:** `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md` (next document)
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

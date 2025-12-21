@@ -31,14 +31,14 @@ class TestLockFileManagerEdgeCases:
         """
         Test: acquire_lock() creates lock directory if it doesn't exist.
 
-        Given: Lock directory (.devforgeai/) does not exist
+        Given: Lock directory (devforgeai/) does not exist
         When: acquire_lock() is called
         Then: Directory is created and lock file is created
         """
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / "nonexistent" / ".devforgeai"
+        lock_dir = tmp_path / "nonexistent" / "devforgeai"
         assert not lock_dir.exists()
 
         manager = LockFileManager(lock_dir=str(lock_dir))
@@ -61,7 +61,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         # Create lock file with current process PID
@@ -88,7 +88,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         lock_file = lock_dir / "install.lock"
@@ -127,7 +127,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         # Create initial lock with high PID (should exist)
@@ -157,7 +157,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         manager1 = LockFileManager(lock_dir=str(lock_dir))
@@ -183,7 +183,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         manager = LockFileManager(lock_dir=str(lock_dir))
@@ -209,7 +209,7 @@ class TestLockFileManagerEdgeCases:
         # Arrange
         from installer.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir(parents=True)
 
         manager = LockFileManager(lock_dir=str(lock_dir))
@@ -567,7 +567,7 @@ class TestErrorCategorizerEdgeCases:
 
     def test_error_message_includes_log_file_reference(self, tmp_path):
         """
-        Test: Error message references .devforgeai/install.log.
+        Test: Error message references devforgeai/install.log.
 
         Given: Error is categorized
         When: Error message is formatted
@@ -594,14 +594,14 @@ class TestVersionDetectionEdgeCases:
         """
         Test: get_installed_version() returns None when .version.json missing.
 
-        Given: .devforgeai/.version.json does not exist
+        Given: devforgeai/.version.json does not exist
         When: get_installed_version() is called
         Then: Returns None (fresh install)
         """
         # Arrange
         from installer.version import get_installed_version
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         # Act
@@ -640,7 +640,7 @@ class TestVersionDetectionEdgeCases:
         from installer.version import get_installed_version
         import json
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         version_file = devforgeai_dir / ".version.json"

@@ -34,7 +34,7 @@
    - Timeline and costs
    - Decision points
 
-2. **RCA Root Cause Analysis** - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+2. **RCA Root Cause Analysis** - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - 5 Whys analysis
    - Root causes identified (5)
    - Framework violations (4)
@@ -348,7 +348,7 @@ ls devforgeai/specs/Stories/STORY-*-SUMMARY.md  # Should not exist
 - [ ] `.claude/skills/devforgeai-story-creation/contracts/api-designer-contract.yaml`
 - [ ] `.claude/skills/devforgeai-story-creation/scripts/validate_contract.py`
 - [ ] `.claude/agents/story-requirements-analyst.md`
-- [ ] `.devforgeai/logs/rca-007-violations.log` (empty file, will be populated)
+- [ ] `devforgeai/logs/rca-007-violations.log` (empty file, will be populated)
 
 **Files to update (documentation):**
 - [ ] `.claude/memory/commands-reference.md`
@@ -367,8 +367,8 @@ ls devforgeai/specs/Stories/STORY-*-SUMMARY.md  # Should not exist
 
 **Files to create:**
 - [ ] `.claude/skills/devforgeai-story-creation/references/batch-mode-guide.md`
-- [ ] `.devforgeai/tests/rca-007-test-suite.sh`
-- [ ] `.devforgeai/tests/batch-creation-tests.sh`
+- [ ] `devforgeai/tests/rca-007-test-suite.sh`
+- [ ] `devforgeai/tests/batch-creation-tests.sh`
 
 **Files to update (documentation):**
 - [ ] `.claude/memory/commands-reference.md` (add batch mode examples)
@@ -565,7 +565,7 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 **Created files (verify existence):**
 - `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
 - `.claude/agents/story-requirements-analyst.md`
-- `.devforgeai/logs/rca-007-violations.log`
+- `devforgeai/logs/rca-007-violations.log`
 
 **Monitored locations (check for violations):**
 - `devforgeai/specs/Stories/STORY-*-SUMMARY.md` (should NOT exist)
@@ -582,7 +582,7 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 
 **Created files:**
 - `.claude/skills/devforgeai-story-creation/references/batch-mode-guide.md`
-- `.devforgeai/tests/rca-007-test-suite.sh`
+- `devforgeai/tests/rca-007-test-suite.sh`
 
 **Test artifacts (verify during testing):**
 - `devforgeai/specs/Stories/STORY-009*.story.md` through `STORY-015*.story.md` (batch creation test)
@@ -638,16 +638,16 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_contract.py \
 
 ```bash
 # Run all tests
-bash .devforgeai/tests/rca-007-test-suite.sh all
+bash devforgeai/tests/rca-007-test-suite.sh all
 
 # Run specific phase
-bash .devforgeai/tests/rca-007-test-suite.sh phase1
+bash devforgeai/tests/rca-007-test-suite.sh phase1
 
 # Run single test
-bash .devforgeai/tests/rca-007-test-suite.sh test_1_6
+bash devforgeai/tests/rca-007-test-suite.sh test_1_6
 
 # Check test results
-cat .devforgeai/tests/results/test-report-*.md | tail -50
+cat devforgeai/tests/results/test-report-*.md | tail -50
 ```
 
 ---
@@ -737,7 +737,7 @@ cat .devforgeai/tests/results/test-report-*.md | tail -50
 ## Document Map
 
 ```
-.devforgeai/
+devforgeai/
 ├── RCA/
 │   └── RCA-007-multi-file-story-creation.md  ← Root cause analysis (5 Whys)
 │
@@ -794,7 +794,7 @@ Is 6-week timeline acceptable?
 
 **Technical questions:**
 - See detailed specs in this directory (7 documents)
-- Check related RCA analysis: `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- Check related RCA analysis: `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
 
 **Implementation questions:**
 - See implementation plans (Fix Plan, Enhancement Plan)
@@ -835,11 +835,11 @@ Is 6-week timeline acceptable?
 ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l
 
 # Violations logged (target: 0 after fix)
-grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log
+grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log
 
 # Recovery success rate (target: 90%+)
-success=$(grep -c "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log)
-total=$(grep -c "Recovery Action" .devforgeai/logs/rca-007-violations.log)
+success=$(grep -c "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log)
+total=$(grep -c "Recovery Action" devforgeai/logs/rca-007-violations.log)
 echo "Recovery rate: $((success * 100 / total))%"
 ```
 

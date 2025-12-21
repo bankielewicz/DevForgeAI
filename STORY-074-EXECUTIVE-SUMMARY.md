@@ -18,7 +18,7 @@ service = BackupService(logger=Mock())
 backup_dir = service.create_backup(target_dir=path, files_to_backup=[files])
 
 # Implementation has:
-def __init__(self, backup_base: str = ".devforgeai"):  # No logger!
+def __init__(self, backup_base: str = "devforgeai"):  # No logger!
 def create_backup(self, source_paths: List[str]) -> str:  # Different params!
 ```
 

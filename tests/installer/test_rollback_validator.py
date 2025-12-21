@@ -64,7 +64,7 @@ class TestValidationSuccess:
 
         Given: Restored directory has all critical files
         When: validate() is called
-        Then: Critical files are verified (CLAUDE.md, .devforgeai/)
+        Then: Critical files are verified (CLAUDE.md, devforgeai/)
         """
         # Arrange
         from installer.rollback_validator import RollbackValidator
@@ -74,7 +74,7 @@ class TestValidationSuccess:
 
         # Create critical files
         (restored_dir / "CLAUDE.md").write_text("# Claude")
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
         (restored_dir / ".claude").mkdir()
 
         validator = RollbackValidator(logger=Mock())
@@ -146,7 +146,7 @@ class TestValidationFailure:
         restored_dir.mkdir()
 
         # Create some files but NOT CLAUDE.md
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
 
         validator = RollbackValidator(logger=Mock())
 
@@ -296,7 +296,7 @@ class TestValidationReport:
         restored_dir = tmp_path / "restored"
         restored_dir.mkdir()
         (restored_dir / "CLAUDE.md").write_text("# Claude")
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
 
         validator = RollbackValidator(logger=Mock())
 

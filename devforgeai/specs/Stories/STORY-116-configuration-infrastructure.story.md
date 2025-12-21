@@ -30,7 +30,7 @@ format_version: "2.2"
 **When** the user initializes ast-grep integration,
 **Then** the CLI creates the following directory structure:
 ```
-.devforgeai/
+devforgeai/
 └── ast-grep/
     ├── sgconfig.yml
     └── rules/
@@ -95,7 +95,7 @@ technical_specification:
         - "yaml"
       requirements:
         - id: "SVC-001"
-          description: "Create .devforgeai/ast-grep/ directory structure"
+          description: "Create devforgeai/ast-grep/ directory structure"
           testable: true
           test_requirement: "Test: Verify all directories created with correct permissions"
           priority: "Critical"
@@ -138,7 +138,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "sgconfig.yml"
-      file_path: ".devforgeai/ast-grep/sgconfig.yml"
+      file_path: "devforgeai/ast-grep/sgconfig.yml"
       required_keys:
         - key: "ruleDirs"
           type: "array"
@@ -289,7 +289,7 @@ technical_specification:
 
 ### AC#1: Project-Scoped Rule Storage
 
-- [x] .devforgeai/ast-grep/ created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::TestConfigurationInitializerDirectoryCreation
+- [x] devforgeai/ast-grep/ created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::TestConfigurationInitializerDirectoryCreation
 - [x] rules/ subdirectories created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_rules_*_directory
 - [x] sgconfig.yml created - **Phase:** 03 - **Evidence:** test_config_init_story116.py::test_should_create_sgconfig_yml_file
 
@@ -452,7 +452,7 @@ devforgeai ast-grep validate-config [--config PATH] [--format text|json]
 ## Notes
 
 **Design Decisions:**
-- Using .devforgeai/ as project-scoped storage (consistent with other DevForgeAI data)
+- Using devforgeai/ as project-scoped storage (consistent with other DevForgeAI data)
 - Language-first organization (rules/python/) vs category-first (rules/security/python/)
 - sgconfig.yml is ast-grep's expected config file name
 

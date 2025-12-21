@@ -93,8 +93,8 @@ describe('Integration: npm pack tarball creation', () => {
       expect(hasGitFiles).toBe(false);
     });
 
-    test('tarball excludes .devforgeai/qa/ directory', () => {
-      const hasQaFiles = tarballFiles.some(file => file.includes('.devforgeai/qa/'));
+    test('tarball excludes devforgeai/qa/ directory', () => {
+      const hasQaFiles = tarballFiles.some(file => file.includes('devforgeai/qa/'));
       expect(hasQaFiles).toBe(false);
     });
 

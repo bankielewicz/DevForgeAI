@@ -52,7 +52,7 @@ The lean-orchestration-pattern.md protocol has been transformed from **passive d
 
 **BEFORE generating command-related subagents:**
 
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 
 **Extract from protocol:**
 - Subagent Responsibilities (lines 81-96)
@@ -98,7 +98,7 @@ Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
 ### Phase 0: Load Protocol Standards
 
 **Load lean orchestration protocol:**
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 
 **Extract budget thresholds from protocol:**
 - Hard Limit: 15,000 characters (MUST refactor if exceeded)
@@ -139,7 +139,7 @@ Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
 **Line 174:**
 ```markdown
 **For detailed guidance, see:**
-- **Lean Orchestration:** @.devforgeai/protocols/lean-orchestration-pattern.md
+- **Lean Orchestration:** @devforgeai/protocols/lean-orchestration-pattern.md
 ```
 
 **Impact:**
@@ -180,13 +180,13 @@ Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
 
 **These document the protocol but don't actively execute it:**
 
-1. `.devforgeai/specs/enhancements/00-START-HERE.md`
-2. `.devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
-3. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
-4. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
-5. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
-6. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-INDEX.md`
-7. `.devforgeai/specs/enhancements/IMPLEMENTATION-SUMMARY-2025-11-05.md`
+1. `devforgeai/specs/enhancements/00-START-HERE.md`
+2. `devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
+3. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
+4. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+5. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
+6. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-INDEX.md`
+7. `devforgeai/specs/enhancements/IMPLEMENTATION-SUMMARY-2025-11-05.md`
 8. `.ai_docs/REFACTORING-SUMMARY-2025-11-05.md`
 9. `.claude/memory/commands-reference.md`
 
@@ -488,7 +488,7 @@ Developer: Create new command /analyze-dependencies
     ↓
 2. agent-generator detects: "command refactoring" trigger
     ↓
-3. agent-generator reads: .devforgeai/protocols/lean-orchestration-pattern.md
+3. agent-generator reads: devforgeai/protocols/lean-orchestration-pattern.md
     ↓
 4. agent-generator extracts:
     - Subagent template (lines 800-916)
@@ -512,7 +512,7 @@ Developer: Create new command /analyze-dependencies
 ```
 1. /audit-budget invoked
     ↓
-2. audit-budget reads: .devforgeai/protocols/lean-orchestration-pattern.md
+2. audit-budget reads: devforgeai/protocols/lean-orchestration-pattern.md
     ↓
 3. audit-budget extracts:
     - Hard limit: 15,000 chars
@@ -541,7 +541,7 @@ Developer: Create new command /analyze-dependencies
 
 **Flow:**
 ```
-1. Developer sees: **Lean Orchestration:** @.devforgeai/protocols/...
+1. Developer sees: **Lean Orchestration:** @devforgeai/protocols/...
     ↓
 2. Developer clicks @notation (instant access)
     ↓
@@ -575,7 +575,7 @@ for cmd in .claude/commands/*.md; do
   chars=$(wc -c < "$cmd")
   if [ $chars -gt 15000 ]; then
     echo "❌ Command over budget: $(basename $cmd)"
-    echo "See: .devforgeai/protocols/lean-orchestration-pattern.md"
+    echo "See: devforgeai/protocols/lean-orchestration-pattern.md"
     exit 1
   fi
 done
@@ -595,7 +595,7 @@ done
 When creating new commands:
 ```markdown
 Before writing command file:
-  Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+  Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
   Extract: Command template (lines 628-782)
   Apply: Template to new command
   Validate: Character count <12K
@@ -621,7 +621,7 @@ Automated refactoring initiator:
 ### Test 1: Protocol File Exists and is Readable
 
 ```bash
-ls -lh .devforgeai/protocols/lean-orchestration-pattern.md
+ls -lh devforgeai/protocols/lean-orchestration-pattern.md
 # Result: 1,512 lines, accessible ✅
 ```
 

@@ -62,7 +62,7 @@ The `/import-feedback` command imports feedback sessions from ZIP packages creat
 
 All feedback sessions from the archive are extracted to:
 ```
-.devforgeai/feedback/imported/{export-timestamp}/
+devforgeai/feedback/imported/{export-timestamp}/
 ├── feedback-sessions/
 │   ├── 2025-11-07T10-30-00-command-dev-success.md
 │   ├── 2025-11-06T14-22-15-skill-qa-success.md
@@ -79,7 +79,7 @@ All feedback sessions from the archive are extracted to:
 
 ### Index Updates
 
-Your main feedback index (`.devforgeai/feedback/feedback-index.json`) is updated to include imported sessions:
+Your main feedback index (`devforgeai/feedback/feedback-index.json`) is updated to include imported sessions:
 
 **Before import:**
 ```json
@@ -114,7 +114,7 @@ If imported sessions have IDs that already exist in your project:
 1. Original ID detected as duplicate
 2. New ID generated with suffix: `{original-id}-imported-1`
 3. If that also exists: `{original-id}-imported-2`
-4. Collision logged in: `.devforgeai/feedback/imported/{timestamp}/conflict-resolution.log`
+4. Collision logged in: `devforgeai/feedback/imported/{timestamp}/conflict-resolution.log`
 5. Original ID preserved in metadata for reference
 
 **Example:**
@@ -135,7 +135,7 @@ Result: Both sessions preserved with different IDs
 2025-11-11T14:30:00Z - Session ID Collision Detected
   Original ID: 550e8400-e29b-41d4-a716-446655440000
   New ID: 550e8400-e29b-41d4-a716-446655440000-imported-1
-  Source: .devforgeai-feedback-export-2025-11-07T10-00-00.zip
+  Source: devforgeai-feedback-export-2025-11-07T10-00-00.zip
   Action: Auto-resolved with suffix
 ```
 
@@ -215,7 +215,7 @@ Error: "Unsafe path detected" if attack attempt
 ✅ Feedback Import Complete
 
 Archive: feedback-export-2025-11-11T14-30-00-abc12345.zip
-Extracted to: .devforgeai/feedback/imported/2025-11-11T14-30-00/
+Extracted to: devforgeai/feedback/imported/2025-11-11T14-30-00/
 
 Sessions Imported: 47
 Duplicate IDs Resolved: 3
@@ -238,10 +238,10 @@ Index Updated:
   Previous sessions: 50
   Imported sessions: 47
   Total sessions: 97
-  Location: .devforgeai/feedback/feedback-index.json
+  Location: devforgeai/feedback/feedback-index.json
 
 Next Steps:
-  - Browse imported sessions in .devforgeai/feedback/imported/
+  - Browse imported sessions in devforgeai/feedback/imported/
   - Search index: /feedback-search
   - Update searchable index: /feedback-reindex
 ```
@@ -285,9 +285,9 @@ cd ~/project3 && /export-feedback --date-range all
 
 # Import all into single project
 cd ~/devforgeai-main
-/import-feedback ~/project1/.devforgeai-feedback-export-*.zip
-/import-feedback ~/project2/.devforgeai-feedback-export-*.zip
-/import-feedback ~/project3/.devforgeai-feedback-export-*.zip
+/import-feedback ~/project1/devforgeai-feedback-export-*.zip
+/import-feedback ~/project2/devforgeai-feedback-export-*.zip
+/import-feedback ~/project3/devforgeai-feedback-export-*.zip
 
 # Result: All 3 projects' feedback in one index
 ```
@@ -354,10 +354,10 @@ If you want to remove imported sessions:
 
 ```bash
 # 1. Identify import directory
-ls .devforgeai/feedback/imported/
+ls devforgeai/feedback/imported/
 
 # 2. Delete the import directory
-rm -rf .devforgeai/feedback/imported/2025-11-11T14-30-00/
+rm -rf devforgeai/feedback/imported/2025-11-11T14-30-00/
 
 # 3. Rebuild index (removes deleted sessions)
 /feedback-reindex

@@ -24,21 +24,21 @@ Comprehensive integration testing for the coverage-analyzer subagent has been co
 ## Test Artifacts Created
 
 ### 1. Test Suite 1: Coverage-Analyzer Scenarios
-**File:** `.devforgeai/test-fixtures/test_integration_coverage_analyzer.py`
+**File:** `devforgeai/test-fixtures/test_integration_coverage_analyzer.py`
 - **Lines:** 821
 - **Tests:** 12 scenarios
 - **Status:** ✅ 12/12 PASSED
 - **Coverage:** Happy path, blocking conditions, warnings, edge cases, parsing, token budget, cross-module integration
 
 ### 2. Test Suite 2: QA Skill Integration
-**File:** `.devforgeai/test-fixtures/test_qa_skill_coverage_integration.py`
+**File:** `devforgeai/test-fixtures/test_qa_skill_coverage_integration.py`
 - **Lines:** 542
 - **Tests:** 17 workflows
 - **Status:** ✅ 17/17 PASSED
 - **Coverage:** Invocation, parsing, state management, workflow progression, error propagation, modes, report integration
 
 ### 3. Integration Test Report
-**File:** `.devforgeai/qa/reports/STORY-061-integration-test-report.md`
+**File:** `devforgeai/qa/reports/STORY-061-integration-test-report.md`
 - **Content:** 500+ lines detailed analysis
 - **Sections:** Executive summary, test results, token efficiency, integration points, performance metrics, error scenarios, recommendations, sign-off
 
@@ -303,16 +303,16 @@ else:
 ## Files Delivered
 
 ### Test Files
-1. `.devforgeai/test-fixtures/test_integration_coverage_analyzer.py` (821 lines)
+1. `devforgeai/test-fixtures/test_integration_coverage_analyzer.py` (821 lines)
    - 12 coverage analyzer scenarios
    - Happy path, blocking, warnings, errors, parsing, token budget, integration
 
-2. `.devforgeai/test-fixtures/test_qa_skill_coverage_integration.py` (542 lines)
+2. `devforgeai/test-fixtures/test_qa_skill_coverage_integration.py` (542 lines)
    - 17 QA skill integration workflows
    - Invocation, parsing, state management, progression, errors, modes
 
 ### Documentation Files
-1. `.devforgeai/qa/reports/STORY-061-integration-test-report.md` (500+ lines)
+1. `devforgeai/qa/reports/STORY-061-integration-test-report.md` (500+ lines)
    - Detailed test results
    - Token efficiency analysis
    - Integration point validation
@@ -328,7 +328,7 @@ else:
    - Rollback plan
 
 ### Summary File
-1. `.devforgeai/test-fixtures/INTEGRATION-TESTING-SUMMARY.md` (this file)
+1. `devforgeai/test-fixtures/INTEGRATION-TESTING-SUMMARY.md` (this file)
    - Executive summary
    - Test results overview
    - Key findings
@@ -405,9 +405,9 @@ All identified integration points have been tested and validated. No blockers fo
 ## Contact & Support
 
 For questions about integration testing:
-1. Review `.devforgeai/qa/reports/STORY-061-integration-test-report.md` for detailed analysis
+1. Review `devforgeai/qa/reports/STORY-061-integration-test-report.md` for detailed analysis
 2. Review `.claude/skills/devforgeai-qa/references/coverage-analyzer-integration-guide.md` for implementation guidance
-3. Run tests locally: `python3 -m pytest .devforgeai/test-fixtures/test_integration_*.py -v`
+3. Run tests locally: `python3 -m pytest devforgeai/test-fixtures/test_integration_*.py -v`
 
 ---
 

@@ -255,7 +255,7 @@ When implementing Phase N in `.claude/commands/ideate.md`:
 ```python
 @pytest.fixture
 def temp_project_structure():
-    # Creates .devforgeai, .ai_docs, .claude directories
+    # Creates devforgeai, .ai_docs, .claude directories
     # Cleaned up after test
 ```
 

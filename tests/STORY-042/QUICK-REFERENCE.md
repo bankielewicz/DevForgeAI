@@ -43,7 +43,7 @@ bash tests/STORY-042/run-tests.sh --suite=ac
 - Nested structure preserved
 - Original .claude/ unchanged
 
-**AC-2: Copy .devforgeai/ config/docs/protocols/specs/tests (~80 files)**
+**AC-2: Copy devforgeai/ config/docs/protocols/specs/tests (~80 files)**
 - src/devforgeai/ directory exists
 - Excluded directories not present (qa/reports, RCA, adrs, etc.)
 - Required subdirectories present
@@ -81,7 +81,7 @@ bash tests/STORY-042/run-tests.sh --suite=ac
 
 **AC-7: Preserve original operational directories**
 - Original .claude/ exists
-- Original .devforgeai/ exists
+- Original devforgeai/ exists
 - File counts unchanged
 - No symlinks in src/
 - Commands still work
@@ -231,7 +231,7 @@ Tests failed: 0
 ### Phase 2A: Core Migration Script
 - Create `migrate-framework-files.sh`
 - Implement .claude/ copy
-- Implement .devforgeai/ copy with exclusions
+- Implement devforgeai/ copy with exclusions
 - Generate checksums
 
 **Expected to pass:** AC-1, AC-2, AC-4, BR-001, BR-002, BR-003, BR-004 (partial)

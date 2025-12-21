@@ -86,7 +86,7 @@ describe('AC#4: Package structure follows NPM best practices', () => {
       expect(fs.statSync(claudeDir).isDirectory()).toBe(true);
     });
 
-    test('src/.devforgeai/ subdirectory exists', () => {
+    test('src/devforgeai/ subdirectory exists', () => {
       const devforgeaiDir = path.join(rootPath, 'src/devforgeai');
       expect(fs.existsSync(devforgeaiDir)).toBe(true);
       expect(fs.statSync(devforgeaiDir).isDirectory()).toBe(true);
@@ -212,10 +212,10 @@ describe('AC#7: Package size optimization', () => {
       expect(content).toMatch(/^\.git/m);
     });
 
-    test('.npmignore excludes .devforgeai/ directory (operational folder)', () => {
+    test('.npmignore excludes devforgeai/ directory (operational folder)', () => {
       const content = fs.readFileSync(npmignorePath, 'utf8');
-      // We exclude the entire .devforgeai/ operational folder (source is in src/devforgeai/)
-      expect(content).toMatch(/^\.devforgeai\/$/m);
+      // We exclude the entire devforgeai/ operational folder (source is in src/devforgeai/)
+      expect(content).toMatch(/^\devforgeai\/$/m);
     });
 
     test('.npmignore excludes .ai_docs/ directory', () => {

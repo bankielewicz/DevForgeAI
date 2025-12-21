@@ -146,7 +146,7 @@ technical_specification:
         - id: "CONF-001"
           description: "bin field points to CLI entry point"
           testable: true
-          test_requirement: "Test: package.json bin.devforgeai = bin/devforgeai.js"
+          test_requirement: "Test: package.json bindevforgeai = bin/devforgeai.js"
           priority: "Critical"
 
   business_rules:
@@ -250,7 +250,7 @@ technical_specification:
 
 **Mode:** Deep
 **Duration:** ~5 minutes
-**QA Report:** `.devforgeai/qa/reports/STORY-068-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-068-qa-report.md`
 
 **Results:**
 - **Test Coverage:** 95.18% overall ✅

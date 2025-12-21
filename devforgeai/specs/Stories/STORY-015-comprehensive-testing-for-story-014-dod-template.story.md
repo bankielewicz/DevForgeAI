@@ -96,7 +96,7 @@ format_version: "2.0"
 **Then** all 4 documentation items are complete:
 - Template comment present: Line immediately before DoD section explains purpose ("Definition of Done - Quality gates before story completion")
 - Validation script documentation updated: `.claude/scripts/devforgeai_cli/README.md` references DoD section structure requirements (4 subsections, checkbox format)
-- Framework maintainer guide updated: `.devforgeai/docs/MAINTAINER-GUIDE.md` section added documenting DoD template structure and validation rules (if guide exists; create if not)
+- Framework maintainer guide updated: `devforgeai/docs/MAINTAINER-GUIDE.md` section added documenting DoD template structure and validation rules (if guide exists; create if not)
 - Test documentation present: `tests/README.md` explains DoD test suite structure (unit/integration/E2E test locations and purposes)
 
 **Validation:** Grep search confirms all 4 documentation artifacts contain DoD references
@@ -112,7 +112,7 @@ format_version: "2.0"
 - Code coverage: ≥95% for template/story file edit operations (measured via `pytest --cov`)
 - Performance: Full test suite completes in <2 minutes
 - No failing tests, no skipped tests, no test warnings
-- Coverage report generated and saved to `.devforgeai/qa/coverage/STORY-015-coverage-report.html`
+- Coverage report generated and saved to `devforgeai/qa/coverage/STORY-015-coverage-report.html`
 
 **Validation:** CI pipeline executes `pytest tests/ --cov=.claude/skills/devforgeai-story-creation --cov-report=html` and confirms ≥95% coverage
 
@@ -722,7 +722,7 @@ def test_future_story_includes_dod():
 - Slowest test: 0.05s (fixture setup)
 - All tests <2s requirement met
 
-**Report:** `.devforgeai/qa/reports/STORY-015-qa-report-deep-2025-11-13.md`
+**Report:** `devforgeai/qa/reports/STORY-015-qa-report-deep-2025-11-13.md`
 
 ## Workflow Status
 
@@ -761,7 +761,7 @@ def test_future_story_includes_dod():
 **Documentation Implementation Section - Completed Items:**
 - [x] Template comment added explaining DoD section purpose - Implemented: Comment in story-template.md line before DoD section
 - [x] Validation script docs updated - Implemented: .claude/scripts/devforgeai_cli/README.md references DoD section structure
-- [x] Framework maintainer guide updated with DoD validation rules - Implemented: .devforgeai/docs/MAINTAINER-GUIDE.md has DoD section (or created if missing)
+- [x] Framework maintainer guide updated with DoD validation rules - Implemented: devforgeai/docs/MAINTAINER-GUIDE.md has DoD section (or created if missing)
 - [x] Test suite README created (tests/README.md) - Implemented: Comprehensive 532-line test documentation
 
 **Code Quality Improvements (Phase 3 Refactoring):**

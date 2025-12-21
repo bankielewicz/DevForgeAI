@@ -504,7 +504,7 @@ DoD Completion Status:
 **Step 1: Automated Compliance Scan**
 ```bash
 # Create audit script
-cat > .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh << 'SCRIPT'
+cat > devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh << 'SCRIPT'
 #!/bin/bash
 
 echo "=== QA Approved Stories Audit (RCA-012) ==="
@@ -548,8 +548,8 @@ echo ""
 echo "=== Audit Complete ==="
 SCRIPT
 
-chmod +x .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > .devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
+chmod +x devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
 ```
 
 **Step 2: Manual Review of Flagged Stories**
@@ -589,7 +589,7 @@ Based on response:
 
 **Step 4: Create Compliance Report**
 ```
-Generate: .devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md
+Generate: devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md
 
 Include:
 - Total stories audited: 39

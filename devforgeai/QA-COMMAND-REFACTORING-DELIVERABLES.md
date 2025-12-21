@@ -24,7 +24,7 @@ The `/qa` command has been analyzed, designed, and refactored to achieve **71% c
 ## Deliverables Summary
 
 ### 1. Analysis Document
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
 
 **Contents:**
 - Line-by-line analysis of current 692-line command
@@ -44,7 +44,7 @@ The `/qa` command has been analyzed, designed, and refactored to achieve **71% c
 ---
 
 ### 2. Summary Document
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
 
 **Contents:**
 - Overview of refactoring scope and impact
@@ -68,7 +68,7 @@ The `/qa` command has been analyzed, designed, and refactored to achieve **71% c
 ---
 
 ### 3. Implementation Checklist
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
 
 **Contents:**
 - Pre-implementation verification (3 items)
@@ -505,9 +505,9 @@ All context files respected:
 ## Files Delivered
 
 **Analysis & Documentation (3 files):**
-1. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` (1,500 lines)
-2. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` (800 lines)
-3. `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` (600 lines)
+1. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` (1,500 lines)
+2. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md` (800 lines)
+3. `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md` (600 lines)
 
 **Code Deliverables (2 new + 1 modified):**
 1. `.claude/agents/qa-result-interpreter.md` (NEW - 300 lines)
@@ -519,7 +519,7 @@ All context files respected:
 2. `.claude/memory/commands-reference.md` (note refactoring)
 
 **This Summary (1 file):**
-- `.devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md` (this file)
+- `devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md` (this file)
 
 ---
 

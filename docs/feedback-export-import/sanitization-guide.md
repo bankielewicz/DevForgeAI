@@ -239,12 +239,12 @@ Every export includes complete sanitization details in `manifest.json`:
 
 Your original unsanitized feedback remains in:
 ```
-.devforgeai/feedback/sessions/  ← Original, never modified
+devforgeai/feedback/sessions/  ← Original, never modified
 ```
 
 Exported sanitized data is in:
 ```
-.devforgeai-feedback-export-*.zip  ← Sanitized copy
+devforgeai-feedback-export-*.zip  ← Sanitized copy
 ```
 
 **Best Practice:** Keep original feedback locally, share only sanitized exports.
@@ -257,7 +257,7 @@ Exported sanitized data is in:
 
 **Step 1: Open the export archive**
 ```bash
-unzip .devforgeai-feedback-export-*.zip -d /tmp/verify/
+unzip devforgeai-feedback-export-*.zip -d /tmp/verify/
 ```
 
 **Step 2: Check feedback session content**
@@ -286,7 +286,7 @@ Should show:
 ## When Sanitization Occurs
 
 **Export Process:**
-1. Read original feedback from `.devforgeai/feedback/sessions/`
+1. Read original feedback from `devforgeai/feedback/sessions/`
 2. Apply all 5 sanitization rules
 3. Write sanitized content to ZIP archive
 4. Document replacements in manifest
@@ -440,7 +440,7 @@ All sanitization operations are logged:
   File Paths Masked: 23 paths
   Repo URLs Removed: 5 URLs
   Custom Fields Scrubbed: 8 fields
-  Output: .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+  Output: devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 ```
 
 ---
@@ -454,13 +454,13 @@ A: No. User exports always apply sanitization. Only framework maintainers with s
 A: Secure by default. Prevents accidental sharing of sensitive data.
 
 **Q: Can I recover original data from export?**
-A: No. Sanitization is irreversible. Keep original feedback in `.devforgeai/feedback/sessions/` if needed.
+A: No. Sanitization is irreversible. Keep original feedback in `devforgeai/feedback/sessions/` if needed.
 
 **Q: How accurate is sanitization?**
 A: 100% for pattern-based rules (story IDs, paths, URLs). Review prose content manually for context-specific data.
 
 **Q: Does sanitization affect local feedback?**
-A: No. Original feedback in `.devforgeai/feedback/sessions/` is never modified.
+A: No. Original feedback in `devforgeai/feedback/sessions/` is never modified.
 
 **Q: Can I see what was sanitized?**
 A: Yes. Check `manifest.json` in the export for complete replacement mappings.

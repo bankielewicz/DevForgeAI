@@ -156,7 +156,7 @@ generate_summary() {
         echo "Coverage Summary:"
         echo "  - Acceptance Criteria (AC): 25 tests"
         echo "    ├─ AC-1 (.claude/ structure): 5 tests"
-        echo "    ├─ AC-2 (.devforgeai/ content): 5 tests"
+        echo "    ├─ AC-2 (devforgeai/ content): 5 tests"
         echo "    ├─ AC-3 (CLAUDE.md template): 5 tests"
         echo "    ├─ AC-4 (Checksum validation): 5 tests"
         echo "    ├─ AC-5 (Exclusions): 7 tests"

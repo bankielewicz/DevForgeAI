@@ -664,6 +664,6 @@ grep -l "format_version.*2\.0" devforgeai/specs/Stories/*.story.md
 
 ---
 
-**See complete audit:** `.devforgeai/specs/enhancements/PHASE2-AUDIT-REPORT.md`
+**See complete audit:** `devforgeai/specs/enhancements/PHASE2-AUDIT-REPORT.md`
 
 **Bottom line:** Agent built excellent tools but didn't execute the migration work. For your use case (implemented stories), this is actually fine. Migration is optional unless you proceed to Phase 3.

@@ -39,7 +39,7 @@ class TestConsoleFormattingBasics:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp/target",
-            log_file="/tmp/target/.devforgeai/install.log",
+            log_file="/tmp/target/devforgeai/install.log",
         )
 
         # Assert
@@ -90,7 +90,7 @@ class TestConsoleFormattingBasics:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert - Should not raise exception, output should be generated
@@ -122,7 +122,7 @@ class TestANSIColorSupport:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert - Should contain ANSI escape sequences
@@ -150,7 +150,7 @@ class TestANSIColorSupport:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert - Should not contain ANSI codes
@@ -177,7 +177,7 @@ class TestANSIColorSupport:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert - Should contain green color code (32)
@@ -205,7 +205,7 @@ class TestANSIColorSupport:
             files_failed=50,
             duration_seconds=1.2,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert - Should contain red color code (31)
@@ -233,7 +233,7 @@ class TestANSIColorSupport:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -357,7 +357,7 @@ class TestReportFormatting:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -387,7 +387,7 @@ class TestReportFormatting:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -416,12 +416,12 @@ class TestReportFormatting:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp/test",
-            log_file="/tmp/test/.devforgeai/install.log",
+            log_file="/tmp/test/devforgeai/install.log",
         )
 
         # Assert
         assert "install.log" in output
-        assert ".devforgeai" in output or "/tmp" in output
+        assert "devforgeai" in output or "/tmp" in output
 
     def test_console_report_with_no_errors(self):
         """
@@ -444,7 +444,7 @@ class TestReportFormatting:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -473,7 +473,7 @@ class TestReportFormatting:
             files_failed=50,
             duration_seconds=1.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
             errors=[
                 {
                     "type": "PERMISSION_DENIED",
@@ -510,7 +510,7 @@ class TestReportFormatting:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
             warnings=[
                 {"message": "Backup failed for old version"},
                 {"message": "Some config not merged"},
@@ -546,7 +546,7 @@ class TestErrorFormatting:
             files_failed=10,
             duration_seconds=1.0,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
             errors=[
                 {
                     "type": "PERMISSION_DENIED",
@@ -581,7 +581,7 @@ class TestErrorFormatting:
             files_failed=5,
             duration_seconds=1.0,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
             errors=[
                 {
                     "type": "FILE_NOT_FOUND",
@@ -620,7 +620,7 @@ class TestBoxDrawing:
             files_failed=0,
             duration_seconds=2.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -655,7 +655,7 @@ class TestEdgeCases:
             files_failed=0,
             duration_seconds=2.5,
             target_directory=long_path,
-            log_file=f"{long_path}/.devforgeai/install.log",
+            log_file=f"{long_path}/devforgeai/install.log",
         )
 
         # Assert
@@ -683,7 +683,7 @@ class TestEdgeCases:
             files_failed=0,
             duration_seconds=120.5,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
         )
 
         # Assert
@@ -710,7 +710,7 @@ class TestEdgeCases:
             files_failed=0,
             duration_seconds=0.1,
             target_directory="/tmp",
-            log_file="/tmp/.devforgeai/install.log",
+            log_file="/tmp/devforgeai/install.log",
             errors=[{"type": "UNKNOWN_ERROR", "message": "No files found"}],
         )
 

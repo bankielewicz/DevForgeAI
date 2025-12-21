@@ -18,7 +18,7 @@ format_version: "2.0"
 
 **As a** DevForgeAI framework maintainer,
 **I want** to establish a clean src/ directory structure with proper .gitignore rules and version tracking,
-**so that** we can develop the framework installer independently without disrupting current operational folders (.claude/, .devforgeai/) and enable clean deployment to user projects.
+**so that** we can develop the framework installer independently without disrupting current operational folders (.claude/, devforgeai/) and enable clean deployment to user projects.
 
 ## Acceptance Criteria
 
@@ -81,7 +81,7 @@ format_version: "2.0"
     "context_templates": 6,
     "protocols": 3
   },
-  "changelog_url": ".devforgeai/CHANGELOG.md",
+  "changelog_url": "devforgeai/CHANGELOG.md",
   "migration_status": {
     "phase": "1-directory-setup",
     "src_structure_complete": true,
@@ -103,7 +103,7 @@ format_version: "2.0"
 
 **Given** the src/ directory structure is created
 **When** any DevForgeAI command is executed
-**Then** the command uses files from operational folders (.claude/, .devforgeai/)
+**Then** the command uses files from operational folders (.claude/, devforgeai/)
 **And** no commands read from src/ directory (verify with `grep -r "src/claude" .claude/commands/` returns no matches)
 **And** all existing 13 commands execute successfully:
 - /dev, /qa, /release, /orchestrate (core workflow)
@@ -174,7 +174,7 @@ format_version: "2.0"
 - Commands: `ls .claude/commands/*.md 2>/dev/null | grep -v backup | wc -l` ≥ 13 (matches version.json "commands": 13)
 - Memory: `ls .claude/memory/*.md | wc -l` ≥ 10 (matches version.json "memory_files": 10)
 - Context: Context templates count (to be determined in Phase 2)
-- Protocols: `ls .devforgeai/protocols/*.md | wc -l` ≥ 3 (matches version.json "protocols": 3)
+- Protocols: `ls devforgeai/protocols/*.md | wc -l` ≥ 3 (matches version.json "protocols": 3)
 
 **And** version.json component counts are programmatically verified (not hardcoded guesses)
 **And** migration_status.phase = "1-directory-setup"
@@ -287,7 +287,7 @@ technical_specification:
       test_requirement: "Test: Run script twice, second run does not create duplicate directories or modify existing"
 
     - id: "BR-002"
-      rule: "Operational folders (.claude/, .devforgeai/) must remain completely unchanged"
+      rule: "Operational folders (.claude/, devforgeai/) must remain completely unchanged"
       test_requirement: "Test: Checksum .claude/ before and after, verify identical"
 
     - id: "BR-003"
@@ -443,7 +443,7 @@ technical_specification:
 ### Testing
 - [x] Unit tests for directory creation (if scripted) - Completed: Phase 1, 35+ test assertions for AC#1
 - [x] Integration test: Full workflow - Completed: Phase 4, 41 tests all PASSED
-- [x] Regression test: Operational folders unchanged - Completed: Phase 4, .claude/ and .devforgeai/ verified intact
+- [x] Regression test: Operational folders unchanged - Completed: Phase 4, .claude/ and devforgeai/ verified intact
 - [x] .gitignore test: Exclusions and negations work - Completed: Phase 4, git check-ignore validated
 - [x] version.json validation: Schema and counts correct - Completed: Phase 4, JSON validation and component counts verified
 - [x] Idempotency test: Run twice, same result - Completed: Phase 4, script idempotency confirmed
@@ -451,7 +451,7 @@ technical_specification:
 ### Documentation
 - [x] README.md updated (mention src/ in structure section) - Completed: Phase 5, added src/ to project structure
 - [x] EPIC-009 updated (link STORY-041, mark Phase 1 complete) - Completed: Phase 5, marked Phase 1 complete
-- [x] .devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
+- [x] devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
 - [x] Comments in .gitignore explain DevForgeAI patterns - Completed: Section header "# DevForgeAI src/ directory - track source, exclude generated"
 
 ### Release Readiness
@@ -473,7 +473,7 @@ technical_specification:
 - [x] Directory permissions set correctly (755/644) - Completed: Phase 2, verified in implementation
 - [x] README.md updated (mention src/ in structure section) - Completed: Phase 5, added src/ to project structure
 - [x] EPIC-009 updated (link STORY-041, mark Phase 1 complete) - Completed: Phase 5, marked Phase 1 complete
-- [x] .devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
+- [x] devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
 - [x] Comments in .gitignore explain DevForgeAI patterns - Completed: Section header "# DevForgeAI src/ directory - track source, exclude generated"
 - [x] Git commit with clear message - Completed: Phase 5, comprehensive commit message prepared
 - [x] No operational impact (commands still work) - Completed: Phase 4, operational folders verified intact
@@ -509,7 +509,7 @@ technical_specification:
 - 7/7 Non-Functional Requirements confirmed
 - 5/5 Business Rules validated
 - 7/7 Edge Cases handled
-- Operational folders (.claude/, .devforgeai/) confirmed intact
+- Operational folders (.claude/, devforgeai/) confirmed intact
 
 **Phase 4.5 - Deferral Challenge:** ✓ COMPLETE
 - No deferred items
@@ -520,8 +520,8 @@ technical_specification:
 - src/devforgeai/ structure: 6 main directories + nested structure (specs, adrs, qa, etc.)
 - .gitignore: 7 new patterns for DevForgeAI src/ exclusions
 - version.json: Valid JSON with component counts
-- Test Suite: 7 test files in .devforgeai/tests/STORY-041/
-- Integration Reports: 2 detailed test reports in .devforgeai/qa/reports/
+- Test Suite: 7 test files in devforgeai/tests/STORY-041/
+- Integration Reports: 2 detailed test reports in devforgeai/qa/reports/
 
 ### Summary
 
@@ -538,7 +538,7 @@ STORY-041 Phase 1 implementation is **complete and production-ready**. All accep
 - [x] Directory permissions set correctly (755/644) - Completed: Phase 2, verified in implementation
 - [x] README.md updated (mention src/ in structure section) - Completed: Phase 5, added src/ to project structure
 - [x] EPIC-009 updated (link STORY-041, mark Phase 1 complete) - Completed: Phase 5, marked Phase 1 complete
-- [x] .devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
+- [x] devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md references this story - Completed: Phase 5, added STORY-041 reference
 - [x] Comments in .gitignore explain DevForgeAI patterns - Completed: Section header "# DevForgeAI src/ directory - track source, exclude generated"
 - [x] Git commit with clear message - Completed: Phase 5, comprehensive commit message prepared
 - [x] No operational impact (commands still work) - Completed: Phase 4, operational folders verified intact
@@ -602,7 +602,7 @@ STORY-041 Phase 1 implementation is **complete and production-ready**. All accep
 
 **Next Action:** Story status updated to "QA Approved" - ready for deployment
 
-**Detailed Report:** `.devforgeai/qa/reports/STORY-041-integration-tests.md`
+**Detailed Report:** `devforgeai/qa/reports/STORY-041-integration-tests.md`
 
 ---
 

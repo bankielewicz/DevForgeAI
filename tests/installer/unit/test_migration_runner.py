@@ -57,7 +57,7 @@ def project_root(tmp_path):
     """
     project = tmp_path / "project"
     project.mkdir()
-    (project / ".devforgeai").mkdir()
+    (project / "devforgeai").mkdir()
     return project
 
 
@@ -719,7 +719,7 @@ class TestMigrationTypesSupport:
         from installer.migration_runner import MigrationRunner, MigrationScript
 
         # Create source file to be moved
-        old_config = project_root / ".devforgeai" / "old_config.json"
+        old_config = project_root / "devforgeai" / "old_config.json"
         old_config.write_text('{"setting": "value"}')
 
         script = migrations_dir / "v1.0.0-to-v1.1.0.py"
@@ -729,8 +729,8 @@ import sys
 from pathlib import Path
 
 project = Path("{project_root}")
-old = project / ".devforgeai" / "old_config.json"
-new = project / ".devforgeai" / "config" / "settings.json"
+old = project / "devforgeai" / "old_config.json"
+new = project / "devforgeai" / "config" / "settings.json"
 new.parent.mkdir(parents=True, exist_ok=True)
 shutil.move(str(old), str(new))
 sys.exit(0)
@@ -745,7 +745,7 @@ sys.exit(0)
         # Assert
         assert result.all_success is True
         assert not old_config.exists()
-        assert (project_root / ".devforgeai" / "config" / "settings.json").exists()
+        assert (project_root / "devforgeai" / "config" / "settings.json").exists()
 
     def test_config_update_migration(self, project_root, migrations_dir):
         """
@@ -759,7 +759,7 @@ sys.exit(0)
         from installer.migration_runner import MigrationRunner, MigrationScript
 
         # Create config file
-        config = project_root / ".devforgeai" / "config.json"
+        config = project_root / "devforgeai" / "config.json"
         config.write_text('{"version": "1.0", "old_key": "value"}')
 
         script = migrations_dir / "v1.0.0-to-v1.1.0.py"
@@ -807,7 +807,7 @@ sys.exit(0)
         from installer.migration_runner import MigrationRunner, MigrationScript
 
         # Create data file with old schema
-        data = project_root / ".devforgeai" / "data.json"
+        data = project_root / "devforgeai" / "data.json"
         data.write_text('{"items": [{"name": "item1"}, {"name": "item2"}]}')
 
         script = migrations_dir / "v1.0.0-to-v1.1.0.py"
@@ -857,7 +857,7 @@ sys.exit(0)
         from installer.migration_runner import MigrationRunner, MigrationScript
 
         # Create deprecated config
-        deprecated = project_root / ".devforgeai" / "deprecated_config.yaml"
+        deprecated = project_root / "devforgeai" / "deprecated_config.yaml"
         deprecated.write_text("deprecated: true\nold_setting: value\n")
 
         script = migrations_dir / "v1.0.0-to-v1.1.0.py"

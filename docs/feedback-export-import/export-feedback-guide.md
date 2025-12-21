@@ -61,7 +61,7 @@ The `/export-feedback` command creates portable ZIP packages of your feedback se
 
 All feedback session files matching your date range filter from:
 ```
-.devforgeai/feedback/sessions/
+devforgeai/feedback/sessions/
 ```
 
 ### Metadata Files
@@ -85,7 +85,7 @@ All feedback session files matching your date range filter from:
 ### Package Structure
 
 ```
-.devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 ├── feedback-sessions/
 │   ├── 2025-11-07T10-30-00-command-dev-success.md
 │   ├── 2025-11-06T14-22-15-skill-qa-success.md
@@ -139,7 +139,7 @@ All feedback session files matching your date range filter from:
 - Complies with privacy best practices
 
 **Irreversibility:**
-Once exported with sanitization, original story IDs and project details **cannot be recovered** from the archive. Keep the original unsanitized feedback in `.devforgeai/feedback/sessions/` for your records.
+Once exported with sanitization, original story IDs and project details **cannot be recovered** from the archive. Keep the original unsanitized feedback in `devforgeai/feedback/sessions/` for your records.
 
 ---
 
@@ -150,7 +150,7 @@ Once exported with sanitization, original story IDs and project details **cannot
 ```
 ✅ Feedback Export Complete
 
-Archive: .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+Archive: devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 Size: 4.2 MB (compressed from 8.7 MB)
 Sessions: 47
 Date Range: last-30-days (2025-10-12 to 2025-11-11)
@@ -168,17 +168,17 @@ Package Contents:
 Next Steps:
 - Share the ZIP with DevForgeAI maintainers
 - Include context about issues you encountered
-- Original unsanitized feedback remains in .devforgeai/feedback/sessions/
+- Original unsanitized feedback remains in devforgeai/feedback/sessions/
 ```
 
 ### Archive Filename Format
 
-**Pattern:** `.devforgeai-feedback-export-{TIMESTAMP}-{UUID}.zip`
+**Pattern:** `devforgeai-feedback-export-{TIMESTAMP}-{UUID}.zip`
 
-**Example:** `.devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip`
+**Example:** `devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip`
 
 **Components:**
-- Prefix: `.devforgeai-feedback-export-`
+- Prefix: `devforgeai-feedback-export-`
 - Timestamp: ISO 8601 format (YYYY-MM-DDTHH-MM-SS)
 - UUID: 8-character unique suffix (prevents collisions)
 - Extension: `.zip`
@@ -231,7 +231,7 @@ All timestamps are in UTC. Local timezone conversions are handled automatically.
 # Export last 7 days (recent issues)
 /export-feedback --date-range last-7-days
 
-# Result: .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+# Result: devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 
 # Email to: devforgeai-support@example.com
 # Or attach to GitHub issue
@@ -245,7 +245,7 @@ All timestamps are in UTC. Local timezone conversions are handled automatically.
 # Export everything to safe location
 /export-feedback --date-range all --output ~/backups/devforgeai/
 
-# Result: ~/backups/devforgeai/.devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+# Result: ~/backups/devforgeai/devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 ```
 
 ### Weekly Feedback Summary
@@ -303,7 +303,7 @@ All timestamps are in UTC. Local timezone conversions are handled automatically.
 ### Source (Original Feedback)
 
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── sessions/
 │   ├── 2025-11-07T10-30-00-command-dev-success.md     ← Original (unsanitized)
 │   ├── 2025-11-06T14-22-15-skill-qa-success.md        ← Original (unsanitized)
@@ -317,7 +317,7 @@ All timestamps are in UTC. Local timezone conversions are handled automatically.
 
 ```
 project-root/
-└── .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+└── devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 ```
 
 ### Export Output (Custom)
@@ -328,7 +328,7 @@ project-root/
 
 ```
 ~/Desktop/exports/
-└── .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+└── devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 ```
 
 ---
@@ -341,7 +341,7 @@ project-root/
 ```
 ERROR: No feedback sessions found for date range: last-7-days
 
-Searched: .devforgeai/feedback/sessions/
+Searched: devforgeai/feedback/sessions/
 Found: 0 sessions in range (2025-11-04 to 2025-11-11)
 
 Suggestions:
@@ -389,7 +389,7 @@ Suggestion: Choose writable directory
 ```
 ERROR: Feedback directory does not exist
 
-Expected: .devforgeai/feedback/sessions/
+Expected: devforgeai/feedback/sessions/
 Found: Directory not found
 
 Suggestion: No feedback has been collected yet.
@@ -434,7 +434,7 @@ cd /path/to/devforgeai/project
 /export-feedback --date-range last-7-days --output ~/weekly-backups/
 
 # Optional: Upload to cloud storage
-# aws s3 cp .devforgeai-feedback-export-*.zip s3://my-bucket/
+# aws s3 cp devforgeai-feedback-export-*.zip s3://my-bucket/
 ```
 
 ---
@@ -448,7 +448,7 @@ A: No. Sanitization is mandatory for user exports to protect sensitive data. Onl
 A: Check `manifest.json` in the exported archive. It lists all replacement mappings and masked fields.
 
 **Q: Is sanitization reversible?**
-A: No. Once exported, original story IDs and project details cannot be recovered. Keep the original unsanitized feedback in `.devforgeai/feedback/sessions/` if you need it.
+A: No. Once exported, original story IDs and project details cannot be recovered. Keep the original unsanitized feedback in `devforgeai/feedback/sessions/` if you need it.
 
 **Q: Can I export multiple times?**
 A: Yes. Each export gets a unique filename (UUID suffix) so they don't overwrite each other.
@@ -466,7 +466,7 @@ A: 30-day exports are typically 2-10 MB (compressed). Depends on feedback volume
 A: Use a narrower date range (e.g., `last-30-days` instead of `all`). The limit prevents huge packages that are hard to share.
 
 **Q: Does export affect my original feedback?**
-A: No. Original feedback in `.devforgeai/feedback/sessions/` is never modified. Exports are read-only operations.
+A: No. Original feedback in `devforgeai/feedback/sessions/` is never modified. Exports are read-only operations.
 
 **Q: Can I export from multiple projects and merge?**
 A: Yes! Export from each project, then use `/import-feedback` to merge them into a single project. See Import Guide for details.

@@ -3,7 +3,7 @@ Unit tests for ExistingInstallationDetector.
 
 Tests AC#3: Existing Installation Detection
 - Detect existing .claude/ directory
-- Detect existing .devforgeai/ directory
+- Detect existing devforgeai/ directory
 - Read version.json if present
 - Display user choice prompt
 
@@ -30,7 +30,7 @@ class TestExistingInstallationDetector:
         """
         Test: No existing installation → PASS status
 
-        Given: Target directory has no .claude/ or .devforgeai/ directories
+        Given: Target directory has no .claude/ or devforgeai/ directories
         When: ExistingInstallationDetector.check() is called
         Then: Returns CheckResult with PASS status
         """
@@ -115,20 +115,20 @@ class TestExistingInstallationDetector:
         assert result.status == "WARN"
         assert "existing" in result.message.lower()
 
-    # AC#3: Existing Installation Detection - .devforgeai/ Directory (WARN)
+    # AC#3: Existing Installation Detection - devforgeai/ Directory (WARN)
 
     def test_should_return_warn_when_devforgeai_directory_exists(self, temp_dir):
         """
-        Test: Existing .devforgeai/ directory → WARN status (SVC-010)
+        Test: Existing devforgeai/ directory → WARN status (SVC-010)
 
-        Given: Target directory contains .devforgeai/ directory
+        Given: Target directory contains devforgeai/ directory
         When: ExistingInstallationDetector.check() is called
         Then: Returns CheckResult with WARN status
         """
         # Arrange
         from src.installer.validators.installation_detector import ExistingInstallationDetector
 
-        devforgeai_dir = temp_dir / ".devforgeai"
+        devforgeai_dir = temp_dir / "devforgeai"
         devforgeai_dir.mkdir()
 
         detector = ExistingInstallationDetector(target_path=str(temp_dir))
@@ -138,7 +138,7 @@ class TestExistingInstallationDetector:
 
         # Assert
         assert result.status == "WARN"
-        assert ".devforgeai" in result.message.lower()
+        assert "devforgeai" in result.message.lower()
 
     def test_should_return_warn_when_devforgeai_context_directory_exists(self, temp_dir):
         """
@@ -151,7 +151,7 @@ class TestExistingInstallationDetector:
         # Arrange
         from src.installer.validators.installation_detector import ExistingInstallationDetector
 
-        context_dir = temp_dir / ".devforgeai" / "context"
+        context_dir = temp_dir / "devforgeai" / "context"
         context_dir.mkdir(parents=True)
 
         detector = ExistingInstallationDetector(target_path=str(temp_dir))
@@ -164,7 +164,7 @@ class TestExistingInstallationDetector:
 
     def test_should_return_warn_when_both_directories_exist(self, existing_installation_dir):
         """
-        Test: Both .claude/ and .devforgeai/ exist → WARN status
+        Test: Both .claude/ and devforgeai/ exist → WARN status
 
         Given: Target directory contains both directories
         When: ExistingInstallationDetector.check() is called
@@ -375,7 +375,7 @@ class TestExistingInstallationDetector:
 
         Given: Target path is Windows format
         When: ExistingInstallationDetector.check() is called
-        Then: Correctly detects .claude/ and .devforgeai/
+        Then: Correctly detects .claude/ and devforgeai/
         """
         # Arrange
         from src.installer.validators.installation_detector import ExistingInstallationDetector

@@ -286,7 +286,7 @@ test_ec5_detects_symlinks() {
     # Scenario: Create symlink, run script, verify it's logged
 
     # Check if any symlinks exist in operational folders
-    local symlink_count=$(find ".claude" ".devforgeai" -type l 2>/dev/null | wc -l)
+    local symlink_count=$(find ".claude" "devforgeai" -type l 2>/dev/null | wc -l)
 
     if [ "$symlink_count" -gt 0 ]; then
         echo -e "${GREEN}✓${NC} Found $symlink_count symlinks to handle"
@@ -336,7 +336,7 @@ test_ec6_detects_large_files() {
     # Test: Script detects files larger than 10MB
     # Scenario: Find any files >10MB, log them specially
 
-    local large_files=$(find ".claude" ".devforgeai" -size +10M 2>/dev/null | wc -l)
+    local large_files=$(find ".claude" "devforgeai" -size +10M 2>/dev/null | wc -l)
 
     if [ "$large_files" -gt 0 ]; then
         echo -e "${YELLOW}⚠${NC}  Found $large_files files >10MB"

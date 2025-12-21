@@ -83,7 +83,7 @@
 | **SCR-001** | Interactive version bump selection | ✅ 8 tests |
 | **SCR-002** | Clean git working tree validation | ✅ 3 tests |
 | **SCR-003** | .claude/ sync with exclusion patterns | ✅ 5 tests |
-| **SCR-004** | .devforgeai/ sync with exclusion patterns | ✅ 4 tests |
+| **SCR-004** | devforgeai/ sync with exclusion patterns | ✅ 4 tests |
 | **SCR-005** | SHA-256 checksum generation | ✅ 15 tests |
 | **SCR-006** | GitHub release creation via gh CLI | ✅ 8 tests |
 | **SCR-007** | NPM publish execution | ✅ 7 tests |
@@ -196,7 +196,7 @@ invalidVersions.forEach(version => {
 **Reason**: Scripts not yet implemented
 - `scripts/release.sh` - Does not exist
 - `scripts/release-functions.sh` - Does not exist
-- `.devforgeai/config/release-config.sh` - Does not exist
+- `devforgeai/config/release-config.sh` - Does not exist
 
 **Next Steps (Green Phase)**:
 1. Implement `scripts/release.sh` (main orchestrator)

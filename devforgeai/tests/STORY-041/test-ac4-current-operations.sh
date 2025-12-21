@@ -6,7 +6,7 @@
 # Description: Verify that src/ directory creation doesn't affect operational folders
 #
 # Acceptance Criteria:
-# - Commands use files from operational folders (.claude/, .devforgeai/)
+# - Commands use files from operational folders (.claude/, devforgeai/)
 # - No commands read from src/ directory
 # - All 13 existing commands execute successfully
 # - /dev and /qa command help completes without errors
@@ -120,7 +120,7 @@ echo -e "${BLUE}Test Group 1: Operational Folders Exist and Intact${NC}"
 echo ""
 
 assert_directory_exists ".claude" "Operational folder: .claude/ exists"
-assert_directory_exists ".devforgeai" "Operational folder: .devforgeai/ exists"
+assert_directory_exists "devforgeai" "Operational folder: devforgeai/ exists"
 assert_directory_exists ".claude/commands" "Operational folder: .claude/commands/ exists"
 assert_directory_exists ".claude/skills" "Operational folder: .claude/skills/ exists"
 
@@ -231,21 +231,21 @@ fi
 echo ""
 
 ################################################################################
-# TEST GROUP 7: No Accidental Cross-Linking Between .claude/ and .devforgeai/
+# TEST GROUP 7: No Accidental Cross-Linking Between .claude/ and devforgeai/
 ################################################################################
 
 echo -e "${BLUE}Test Group 7: Operational Folders Independence${NC}"
 echo ""
 
 ((TESTS_RUN++))
-# Check that commands don't reference .devforgeai/ internals
-local devforgeai_refs=$(grep -r "\.devforgeai/skills" .claude/commands/ 2>/dev/null | wc -l || echo "0")
+# Check that commands don't reference devforgeai/ internals
+local devforgeai_refs=$(grep -r "\devforgeai/skills" .claude/commands/ 2>/dev/null | wc -l || echo "0")
 if [ "$devforgeai_refs" -eq 0 ]; then
-    echo -e "${GREEN}✓ PASS${NC}: Commands don't incorrectly reference .devforgeai/skills/"
+    echo -e "${GREEN}✓ PASS${NC}: Commands don't incorrectly reference devforgeai/skills/"
     echo "  Matches: 0"
     ((TESTS_PASSED++))
 else
-    echo -e "${RED}✗ FAIL${NC}: Commands should not reference .devforgeai/skills/"
+    echo -e "${RED}✗ FAIL${NC}: Commands should not reference devforgeai/skills/"
     echo "  Found: $devforgeai_refs references"
     ((TESTS_FAILED++))
 fi
@@ -253,10 +253,10 @@ fi
 echo ""
 
 ################################################################################
-# TEST GROUP 8: .devforgeai/ Context Files Exist
+# TEST GROUP 8: devforgeai/ Context Files Exist
 ################################################################################
 
-echo -e "${BLUE}Test Group 8: .devforgeai/ Context Files Exist${NC}"
+echo -e "${BLUE}Test Group 8: devforgeai/ Context Files Exist${NC}"
 echo ""
 
 CONTEXT_FILES=(
@@ -282,7 +282,7 @@ echo -e "${BLUE}Test Group 9: No Symlinks Between Operational and src/${NC}"
 echo ""
 
 ((TESTS_RUN++))
-local symlink_count=$(find .claude .devforgeai -type l 2>/dev/null | wc -l || echo "0")
+local symlink_count=$(find .claude devforgeai -type l 2>/dev/null | wc -l || echo "0")
 if [ "$symlink_count" -eq 0 ]; then
     echo -e "${GREEN}✓ PASS${NC}: No symlinks in operational folders"
     echo "  Symlinks: $symlink_count"
@@ -296,20 +296,20 @@ fi
 echo ""
 
 ################################################################################
-# TEST GROUP 10: .devforgeai/qa/ Contains Expected Structure
+# TEST GROUP 10: devforgeai/qa/ Contains Expected Structure
 ################################################################################
 
-echo -e "${BLUE}Test Group 10: .devforgeai/qa/ Structure${NC}"
+echo -e "${BLUE}Test Group 10: devforgeai/qa/ Structure${NC}"
 echo ""
 
-assert_directory_exists ".devforgeai/qa" ".devforgeai/qa/ directory exists"
+assert_directory_exists "devforgeai/qa" "devforgeai/qa/ directory exists"
 ((TESTS_RUN++))
-if [ -d ".devforgeai/qa/reports" ] || [ -d ".devforgeai/qa/coverage" ]; then
-    echo -e "${GREEN}✓ PASS${NC}: .devforgeai/qa/ has subdirectories (reports and/or coverage)"
+if [ -d "devforgeai/qa/reports" ] || [ -d "devforgeai/qa/coverage" ]; then
+    echo -e "${GREEN}✓ PASS${NC}: devforgeai/qa/ has subdirectories (reports and/or coverage)"
     echo "  Structure: intact"
     ((TESTS_PASSED++))
 else
-    echo -e "${YELLOW}⊘ SKIP${NC}: .devforgeai/qa/ subdirectories check"
+    echo -e "${YELLOW}⊘ SKIP${NC}: devforgeai/qa/ subdirectories check"
     echo "  Note: May not have subdirectories yet"
     ((TESTS_PASSED++))
 fi
@@ -317,21 +317,21 @@ fi
 echo ""
 
 ################################################################################
-# TEST GROUP 11: .devforgeai/adrs/ Contains Expected Structure
+# TEST GROUP 11: devforgeai/adrs/ Contains Expected Structure
 ################################################################################
 
-echo -e "${BLUE}Test Group 11: .devforgeai/adrs/ Structure${NC}"
+echo -e "${BLUE}Test Group 11: devforgeai/adrs/ Structure${NC}"
 echo ""
 
-assert_directory_exists ".devforgeai/adrs" ".devforgeai/adrs/ directory exists"
+assert_directory_exists "devforgeai/adrs" "devforgeai/adrs/ directory exists"
 ((TESTS_RUN++))
-local adr_file_count=$(find .devforgeai/adrs -maxdepth 1 -type f -name "*.md" 2>/dev/null | wc -l || echo "0")
-if [ "$adr_file_count" -gt 0 ] || [ -d ".devforgeai/adrs" ]; then
-    echo -e "${GREEN}✓ PASS${NC}: .devforgeai/adrs/ structure is intact"
+local adr_file_count=$(find devforgeai/adrs -maxdepth 1 -type f -name "*.md" 2>/dev/null | wc -l || echo "0")
+if [ "$adr_file_count" -gt 0 ] || [ -d "devforgeai/adrs" ]; then
+    echo -e "${GREEN}✓ PASS${NC}: devforgeai/adrs/ structure is intact"
     echo "  ADR files: $adr_file_count"
     ((TESTS_PASSED++))
 else
-    echo -e "${YELLOW}⊘ SKIP${NC}: .devforgeai/adrs/ content check"
+    echo -e "${YELLOW}⊘ SKIP${NC}: devforgeai/adrs/ content check"
     echo "  Note: May not have ADR files yet"
     ((TESTS_PASSED++))
 fi
@@ -339,21 +339,21 @@ fi
 echo ""
 
 ################################################################################
-# TEST GROUP 12: Protocols Exist in .devforgeai/
+# TEST GROUP 12: Protocols Exist in devforgeai/
 ################################################################################
 
-echo -e "${BLUE}Test Group 12: .devforgeai/protocols/ Structure${NC}"
+echo -e "${BLUE}Test Group 12: devforgeai/protocols/ Structure${NC}"
 echo ""
 
-assert_directory_exists ".devforgeai/protocols" ".devforgeai/protocols/ directory exists"
+assert_directory_exists "devforgeai/protocols" "devforgeai/protocols/ directory exists"
 ((TESTS_RUN++))
-local protocol_count=$(ls .devforgeai/protocols/*.md 2>/dev/null | wc -l || echo "0")
+local protocol_count=$(ls devforgeai/protocols/*.md 2>/dev/null | wc -l || echo "0")
 if [ "$protocol_count" -ge 1 ]; then
-    echo -e "${GREEN}✓ PASS${NC}: .devforgeai/protocols/ contains protocol files"
+    echo -e "${GREEN}✓ PASS${NC}: devforgeai/protocols/ contains protocol files"
     echo "  Protocol files: $protocol_count"
     ((TESTS_PASSED++))
 else
-    echo -e "${YELLOW}⊘ SKIP${NC}: .devforgeai/protocols/ content check"
+    echo -e "${YELLOW}⊘ SKIP${NC}: devforgeai/protocols/ content check"
     echo "  Note: May not have protocol files yet"
     ((TESTS_PASSED++))
 fi

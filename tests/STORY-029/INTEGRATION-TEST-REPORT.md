@@ -131,7 +131,7 @@ IF check-hooks exit == 0:
 **Error Handling:**
 ```bash
 IF invoke-hooks fails:
-    Log to: .devforgeai/feedback/logs/hook-errors.log
+    Log to: devforgeai/feedback/logs/hook-errors.log
     Display: "⚠️ Feedback collection failed (sprint creation succeeded)"
 ```
 ✅ **CORRECT:** Non-blocking failure handling
@@ -162,7 +162,7 @@ IF invoke-hooks fails:
   - `--capacity=${CAPACITY_POINTS}` ✓
 
 **AC4: Hook failure resilience** ✅ **PASS**
-- Error logging to `.devforgeai/feedback/logs/hook-errors.log`
+- Error logging to `devforgeai/feedback/logs/hook-errors.log`
 - Warning displayed to user
 - Sprint creation succeeds (non-blocking)
 

@@ -36,9 +36,9 @@ import shutil
 
 @pytest.fixture
 def temp_devforgeai_dir():
-    """Create a temporary .devforgeai directory structure for testing."""
+    """Create a temporary devforgeai directory structure for testing."""
     with tempfile.TemporaryDirectory() as tmpdir:
-        devdir = Path(tmpdir) / ".devforgeai"
+        devdir = Path(tmpdir) / "devforgeai"
         devdir.mkdir(exist_ok=True)
         context_dir = devdir / "context"
         context_dir.mkdir(exist_ok=True)
@@ -53,10 +53,10 @@ def temp_project_structure():
         project_root = Path(tmpdir)
 
         # Create directory structure
-        (project_root / ".devforgeai").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "context").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "config").mkdir(exist_ok=True)
-        (project_root / ".devforgeai" / "feedback").mkdir(exist_ok=True)
+        (project_root / "devforgeai").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "context").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "config").mkdir(exist_ok=True)
+        (project_root / "devforgeai" / "feedback").mkdir(exist_ok=True)
         (project_root / ".claude").mkdir(exist_ok=True)
         (project_root / ".claude" / "commands").mkdir(exist_ok=True)
         (project_root / ".ai_docs").mkdir(exist_ok=True)
@@ -250,7 +250,7 @@ class TestHookEligibilityCheck:
         Then: Phase N (hook integration) should execute next
         """
         # Arrange - This test validates command structure
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Create marker files to simulate Phase 4 completion
         for filename in [
@@ -458,7 +458,7 @@ class TestCreateContextWithHooksIntegration:
         And: invoke-hooks should be called
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Simulate Phase 4 (create context files)
         for filename in [
@@ -486,7 +486,7 @@ class TestCreateContextWithHooksIntegration:
         And: invoke-hooks should NOT be called
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Simulate Phase 4 (create context files)
         for filename in [
@@ -511,7 +511,7 @@ class TestCreateContextWithHooksIntegration:
         And: All context files should be created
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
         warning_logged = False
 
         # Act - Simulate context file creation with check-hooks error
@@ -543,7 +543,7 @@ class TestCreateContextWithHooksIntegration:
         And: All context files should still exist
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act
         for filename in [
@@ -574,7 +574,7 @@ class TestCreateContextWithHooksIntegration:
         And: Context files should be created
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Create context files first, then simulate hook failure
         for filename in [
@@ -605,7 +605,7 @@ class TestCreateContextWithHooksIntegration:
         And: No hook-related errors occur
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Just create files (simulating original /create-context behavior)
         for filename in [
@@ -660,7 +660,7 @@ class TestCreateContextHooksEdgeCases:
         And: Warning logged: "devforgeai CLI not found, skipping feedback"
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
         warning = "devforgeai CLI not found, skipping feedback"
 
         # Act - Create context files (Phase 4)
@@ -686,15 +686,15 @@ class TestCreateContextHooksEdgeCases:
         """
         Edge Case: Config file corrupted - hooks.yaml is invalid YAML.
 
-        Given: .devforgeai/config/hooks.yaml is corrupted/invalid
+        Given: devforgeai/config/hooks.yaml is corrupted/invalid
         When: check-hooks tries to parse config
         Then: Command should catch parse error and continue
         And: All context files should be created
         And: Warning logged: "Hook configuration invalid, skipping feedback"
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
-        config_dir = temp_project_structure / ".devforgeai" / "config"
+        context_dir = temp_project_structure / "devforgeai" / "context"
+        config_dir = temp_project_structure / "devforgeai" / "config"
 
         # Create invalid config
         invalid_config = config_dir / "hooks.yaml"
@@ -723,7 +723,7 @@ class TestCreateContextHooksEdgeCases:
         And: Partial responses saved if any
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Create context files
         for filename in [
@@ -756,7 +756,7 @@ class TestCreateContextHooksEdgeCases:
         And: No special handling needed in /create-context
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Act - Create context files
         for filename in [
@@ -793,7 +793,7 @@ class TestCreateContextHooksPerformance:
         Then: Total overhead should be <100ms
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
         measurements = []
 
         # Act - Create context files and measure hook check time
@@ -827,7 +827,7 @@ class TestCreateContextHooksPerformance:
         Then: All checks should complete in reasonable time (total <1 second)
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
 
         # Create context files once
         for filename in [
@@ -874,7 +874,7 @@ class TestCreateContextHooksReliability:
         And: All 6 context files created
         """
         # Arrange
-        context_dir = temp_project_structure / ".devforgeai" / "context"
+        context_dir = temp_project_structure / "devforgeai" / "context"
         failure_scenarios = [
             "CLI missing",
             "Config invalid",

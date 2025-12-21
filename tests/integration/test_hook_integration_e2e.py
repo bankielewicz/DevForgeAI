@@ -93,11 +93,11 @@ class TestHookFailureDoesNotBreakWorkflow:
         """
         Given hook invocation fails
         When error occurs
-        Then error should be logged to .devforgeai/feedback/.logs/hook-errors.log
+        Then error should be logged to devforgeai/feedback/.logs/hook-errors.log
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
-            log_dir = Path(tmpdir) / ".devforgeai" / "feedback" / ".logs"
+            log_dir = Path(tmpdir) / "devforgeai" / "feedback" / ".logs"
             log_dir.mkdir(parents=True)
             error_log = log_dir / "hook-errors.log"
 
@@ -150,7 +150,7 @@ class TestHookRespectsConfiguration:
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
-            config_dir = Path(tmpdir) / ".devforgeai" / "config"
+            config_dir = Path(tmpdir) / "devforgeai" / "config"
             config_dir.mkdir(parents=True)
             hooks_config = config_dir / "hooks.yaml"
 
@@ -181,7 +181,7 @@ class TestHookRespectsConfiguration:
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
-            config_dir = Path(tmpdir) / ".devforgeai" / "config"
+            config_dir = Path(tmpdir) / "devforgeai" / "config"
             config_dir.mkdir(parents=True)
             hooks_config = config_dir / "hooks.yaml"
 
@@ -475,17 +475,17 @@ class TestHookContextCompleteness:
 
 
 class TestHookLogging:
-    """Integration test: Hook logging to .devforgeai/feedback/.logs/"""
+    """Integration test: Hook logging to devforgeai/feedback/.logs/"""
 
     def test_successful_hook_logged_to_hooks_log(self):
         """
         Given hook invocation succeeds
         When recording the event
-        Then should log to .devforgeai/feedback/.logs/hooks.log
+        Then should log to devforgeai/feedback/.logs/hooks.log
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
-            log_dir = Path(tmpdir) / ".devforgeai" / "feedback" / ".logs"
+            log_dir = Path(tmpdir) / "devforgeai" / "feedback" / ".logs"
             log_dir.mkdir(parents=True)
             hooks_log = log_dir / "hooks.log"
 
@@ -513,11 +513,11 @@ class TestHookLogging:
         """
         Given hook invocation fails
         When recording the error
-        Then should log to .devforgeai/feedback/.logs/hook-errors.log
+        Then should log to devforgeai/feedback/.logs/hook-errors.log
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
-            log_dir = Path(tmpdir) / ".devforgeai" / "feedback" / ".logs"
+            log_dir = Path(tmpdir) / "devforgeai" / "feedback" / ".logs"
             log_dir.mkdir(parents=True)
             errors_log = log_dir / "hook-errors.log"
 

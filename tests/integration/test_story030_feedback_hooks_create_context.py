@@ -54,9 +54,9 @@ class TestCreateContextFeedbackHooksIntegration:
         project_dir.mkdir(parents=True, exist_ok=True)
 
         # Create basic project structure
-        (project_dir / ".devforgeai").mkdir(exist_ok=True)
-        (project_dir / ".devforgeai" / "context").mkdir(exist_ok=True)
-        (project_dir / ".devforgeai" / "config").mkdir(exist_ok=True)
+        (project_dir / "devforgeai").mkdir(exist_ok=True)
+        (project_dir / "devforgeai" / "context").mkdir(exist_ok=True)
+        (project_dir / "devforgeai" / "config").mkdir(exist_ok=True)
         (project_dir / ".claude").mkdir(exist_ok=True)
         (project_dir / ".ai_docs").mkdir(exist_ok=True)
 
@@ -68,7 +68,7 @@ class TestCreateContextFeedbackHooksIntegration:
     @pytest.fixture
     def hooks_config_path(self, temp_project_dir):
         """Return path to hooks.yaml config file."""
-        return temp_project_dir / ".devforgeai" / "config" / "hooks.yaml"
+        return temp_project_dir / "devforgeai" / "config" / "hooks.yaml"
 
     @pytest.fixture
     def create_hooks_config(self, hooks_config_path):
@@ -84,7 +84,7 @@ class TestCreateContextFeedbackHooksIntegration:
     def create_context_files(self, temp_project_dir):
         """Factory fixture for creating the 6 context files."""
         def _create(count=6):
-            context_dir = temp_project_dir / ".devforgeai" / "context"
+            context_dir = temp_project_dir / "devforgeai" / "context"
             context_dir.mkdir(parents=True, exist_ok=True)
 
             files_to_create = [
@@ -745,7 +745,7 @@ class TestCreateContextFeedbackHooksIntegration:
             exit_code = check_hooks_command(
                 operation="create-context",
                 status="success",
-                config_path=".devforgeai/config/hooks.yaml"
+                config_path="devforgeai/config/hooks.yaml"
             )
             # Should not trigger when config missing
             assert exit_code == EXIT_CODE_DONT_TRIGGER
@@ -953,7 +953,7 @@ class TestCreateContextFeedbackHooksIntegration:
             exit_code = check_hooks_command(
                 operation="create-context",
                 status="success",
-                config_path=".devforgeai/config/hooks.yaml"
+                config_path="devforgeai/config/hooks.yaml"
             )
 
             # Should not fail, just don't trigger
@@ -1065,7 +1065,7 @@ class TestCreateContextFeedbackHooksIntegration:
             exit_code = check_hooks_command(
                 operation="create-context",
                 status="success",
-                config_path=".devforgeai/config/hooks.yaml"
+                config_path="devforgeai/config/hooks.yaml"
             )
             # Should complete regardless of hook check result
             assert exit_code in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
@@ -1134,8 +1134,8 @@ class TestCreateContextFeedbackHooksIntegrationWithPhase6:
         temp_dir = tempfile.mkdtemp()
         project_dir = Path(temp_dir) / "test_project"
         project_dir.mkdir(parents=True, exist_ok=True)
-        (project_dir / ".devforgeai" / "context").mkdir(parents=True, exist_ok=True)
-        (project_dir / ".devforgeai" / "config").mkdir(parents=True, exist_ok=True)
+        (project_dir / "devforgeai" / "context").mkdir(parents=True, exist_ok=True)
+        (project_dir / "devforgeai" / "config").mkdir(parents=True, exist_ok=True)
         yield project_dir
         shutil.rmtree(temp_dir, ignore_errors=True)
 
@@ -1156,7 +1156,7 @@ class TestCreateContextFeedbackHooksIntegrationWithPhase6:
           - operation_status = "success"
         """
         # Simulate Phase 6 output: all 6 validated files
-        context_dir = temp_project_dir / ".devforgeai" / "context"
+        context_dir = temp_project_dir / "devforgeai" / "context"
         files = [
             "tech-stack.md", "source-tree.md", "dependencies.md",
             "coding-standards.md", "architecture-constraints.md", "anti-patterns.md"

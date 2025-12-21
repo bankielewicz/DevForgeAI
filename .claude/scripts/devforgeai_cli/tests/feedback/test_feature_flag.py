@@ -37,7 +37,7 @@ class TestShouldEnableFeedback:
     def test_should_enable_feedback_with_config_disabled(self, tmp_path):
         """Test that feedback is disabled when config.yaml has enable_feedback: false."""
         # Create temporary config directory
-        config_dir = tmp_path / ".devforgeai" / "feedback"
+        config_dir = tmp_path / "devforgeai" / "feedback"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "config.yaml"
 

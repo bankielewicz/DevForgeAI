@@ -437,7 +437,7 @@ For complete feasibility assessment framework, see references/feasibility-analys
 - Feature breakdown
 
 #### Step 2: Create Requirements Spec
-- Write to `.devforgeai/specs/requirements/`
+- Write to `devforgeai/specs/requirements/`
 - Complete requirements documentation
 - Complexity assessment report
 

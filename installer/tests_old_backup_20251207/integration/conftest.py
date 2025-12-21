@@ -60,7 +60,7 @@ def integration_project(tmp_path):
     (claude_dir / "skills").mkdir(parents=True)
 
     # Create devforgeai/ structure with ALL required directories for validation
-    devforgeai_dir = root / ".devforgeai"
+    devforgeai_dir = root / "devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir(parents=True)
     (devforgeai_dir / "context").mkdir(parents=True)  # REQUIRED by validation
@@ -360,7 +360,7 @@ def real_user_files(integration_project):
     project_root = integration_project["root"]
 
     # User context files
-    context_dir = project_root / ".devforgeai" / "context"
+    context_dir = project_root / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     tech_stack_file = context_dir / "tech-stack.md"
@@ -380,7 +380,7 @@ def real_user_files(integration_project):
     story_file.write_text(story_content)
 
     # User hooks configuration
-    config_dir = project_root / ".devforgeai" / "config"
+    config_dir = project_root / "devforgeai" / "config"
     config_dir.mkdir(parents=True, exist_ok=True)
 
     hooks_file = config_dir / "hooks.yaml"
@@ -388,7 +388,7 @@ def real_user_files(integration_project):
     hooks_file.write_text(hooks_content)
 
     # User feedback configuration
-    feedback_dir = project_root / ".devforgeai" / "feedback"
+    feedback_dir = project_root / "devforgeai" / "feedback"
     feedback_dir.mkdir(parents=True, exist_ok=True)
 
     feedback_config = feedback_dir / "config.yaml"

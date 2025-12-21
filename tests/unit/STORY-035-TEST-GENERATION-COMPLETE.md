@@ -214,8 +214,8 @@ Examples:
 1. **project_root** - Project root directory path
 2. **agent_file_path** - Path to internet-sleuth.md
 3. **context_files_dir** - Path to devforgeai/context/
-4. **research_output_dir** - Path to .devforgeai/research/
-5. **adrs_dir** - Path to .devforgeai/adrs/
+4. **research_output_dir** - Path to devforgeai/research/
+5. **adrs_dir** - Path to devforgeai/adrs/
 6. **mock_context_files** - Create all 6 context files for testing
 7. **mock_incomplete_context_files** - Create 4 of 6 files (brownfield edge case)
 8. **mock_tech_stack_with_react** - Create tech-stack.md with React
@@ -308,8 +308,8 @@ pytest tests/unit/ -m story_035 --collect-only
 
 **AC2: Path References (COMP-003)**
 - [ ] Replace .claude/context/ → devforgeai/context/
-- [ ] Replace .claude/adrs/ → .devforgeai/adrs/
-- [ ] Replace devforgeai/specs/research/ → .devforgeai/research/
+- [ ] Replace .claude/adrs/ → devforgeai/adrs/
+- [ ] Replace devforgeai/specs/research/ → devforgeai/research/
 - [ ] Remove .bmad-core/ references
 
 **AC3: Context Awareness (COMP-004, COMP-005)**
@@ -330,7 +330,7 @@ pytest tests/unit/ -m story_035 --collect-only
 - [ ] Replace with narrative Research Capabilities section
 
 **AC6: Output Standardization (COMP-012, COMP-013)**
-- [ ] Update output paths to .devforgeai/research/
+- [ ] Update output paths to devforgeai/research/
 - [ ] Document filename conventions (tech-eval-{topic}-{date}.md)
 - [ ] Document directory creation behavior
 

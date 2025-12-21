@@ -137,7 +137,7 @@ devforgeai-development skill Phase 1 invokes test-automator without setting expl
 
 - **Story Files**: `devforgeai/specs/Stories/*.story.md`
 - **Tech Stack**: `devforgeai/context/tech-stack.md`
-- **Coverage Reports**: `.devforgeai/qa/coverage/coverage-report.json`
+- **Coverage Reports**: `devforgeai/qa/coverage/coverage-report.json`
 ```
 **Significance:** source-tree.md not listed as dependency shows constraint not considered during design.
 

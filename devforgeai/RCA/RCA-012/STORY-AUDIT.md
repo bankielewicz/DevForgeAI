@@ -34,7 +34,7 @@ Audit all QA Approved stories for AC-DoD traceability compliance, identify stori
 
 ### Script Implementation
 
-**File:** `.devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh` (NEW)
+**File:** `devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh` (NEW)
 
 **Script:**
 ```bash
@@ -176,13 +176,13 @@ fi
 
 **Create Script:**
 ```bash
-mkdir -p .devforgeai/RCA/RCA-012/scripts
+mkdir -p devforgeai/RCA/RCA-012/scripts
 
-cat > .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh << 'SCRIPT'
+cat > devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh << 'SCRIPT'
 {paste script above}
 SCRIPT
 
-chmod +x .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+chmod +x devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 
 echo "✓ Audit script created"
 ```
@@ -196,7 +196,7 @@ echo "✓ Audit script created"
 ### Run Audit Script
 
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | tee .devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | tee devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
 ```
 
 **Expected Output Format:**
@@ -538,7 +538,7 @@ fi
 
 ### Create Report
 
-**File:** `.devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md`
+**File:** `devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md`
 
 **Content:**
 ```markdown
@@ -586,7 +586,7 @@ fi
 
 **Final Audit Run:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 ```
 
 **Result:**
@@ -680,7 +680,7 @@ Non-Compliant: 0 (0%)
 
 **Create Tracking File:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/AUDIT-TRACKING.csv << 'CSV'
+cat > devforgeai/RCA/RCA-012/AUDIT-TRACKING.csv << 'CSV'
 Story ID,Title,DoD Complete,DoD Total,Completion %,Has Deferrals,Has Approval,Compliance,Action Required,Status,Fixed Date
 STORY-007,Retrospective Conversation,22,22,100%,N/A,N/A,PASS,None,✓ Compliant,N/A
 STORY-014,Add DoD to Template,6,22,27%,YES,YES,PASS,None,✓ Compliant,N/A
@@ -717,7 +717,7 @@ CSV
 
 **Final Validation Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 ```
 
 **Expected:**

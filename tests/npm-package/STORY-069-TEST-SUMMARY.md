@@ -75,7 +75,7 @@
 ```
 ✕ installation succeeds when Python unavailable (exit code 0)
 ✕ installer creates MISSING_FEATURES.md
-✕ core framework files installed (.claude/, .devforgeai/)
+✕ core framework files installed (.claude/, devforgeai/)
 ```
 
 #### AC#5 - Network Messages (2/4 FAIL)
@@ -109,7 +109,7 @@ Create installer that:
 - Deploys 200+ framework files to target directory
 - Handles Python availability gracefully
 - Returns exit code 0 on success
-- Creates proper directory structure (.claude/, .devforgeai/)
+- Creates proper directory structure (.claude/, devforgeai/)
 - Returns exit code 1 on failure
 
 ### 2. Network Detection ⚠️

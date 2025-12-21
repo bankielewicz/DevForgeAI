@@ -223,7 +223,7 @@ main() {
     echo "=========================================="
     echo ""
     echo "Next Steps:"
-    echo "1. Implement .devforgeai/epic-coverage/generate-report.sh"
+    echo "1. Implement devforgeai/epic-coverage/generate-report.sh"
     echo "2. Implement color-coded terminal output"
     echo "3. Implement markdown report generation"
     echo "4. Implement JSON export"

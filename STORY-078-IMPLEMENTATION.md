@@ -32,7 +32,7 @@ Implemented 5 core Python backend services for STORY-078 with full dependency in
   - `restore()`: SVC-005 - Restore from backup with checksum verification
   - `list_backups()`: SVC-006 - List all backups (newest first)
   - `cleanup()`: SVC-007 - Delete old backups (retention policy)
-  - Excludes: `.git`, `__pycache__`, `.pytest_cache`, `.devforgeai/backups`
+  - Excludes: `.git`, `__pycache__`, `.pytest_cache`, `devforgeai/backups`
   - Performance: Backup creation <30 seconds (NFR-001)
   - Restoration: <60 seconds (NFR-003)
 
@@ -85,19 +85,19 @@ Implemented 5 core Python backend services for STORY-078 with full dependency in
     - Restores from backup
     - Restores version metadata
     - Completes within 1 minute
-  - `_update_version_metadata()`: Updates `.devforgeai/.version.json`
+  - `_update_version_metadata()`: Updates `devforgeai/.version.json`
     - Records version, timestamps, migrations applied
   - `prepare_backup()`: Separate backup preparation
 
 ### Configuration
-**.devforgeai/config/upgrade-config.json** (8 lines)
+**devforgeai/config/upgrade-config.json** (8 lines)
 ```json
 {
   "backup_retention_count": 5,
   "migration_timeout_seconds": 300,
   "validate_after_migration": true,
   "migration_script_directory": "migrations",
-  "backup_directory": ".devforgeai/backups"
+  "backup_directory": "devforgeai/backups"
 }
 ```
 

@@ -22,7 +22,7 @@ Solutions to common configuration issues.
 ls -la devforgeai/config/feedback.yaml
 ```
 
-Expected: `devforgeai/config/feedback.yaml` (note the `.devforgeai` directory with leading dot)
+Expected: `devforgeai/config/feedback.yaml` (note the `devforgeai` directory with leading dot)
 
 **Check YAML syntax:**
 ```bash

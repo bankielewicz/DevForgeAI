@@ -20,7 +20,7 @@ grep -qi "microsoft\|wsl" /proc/version && echo "✓ WSL2" || echo "✗ Native"
 ls -la /mnt/c/Projects/DevForgeAI2/tests/traceability/test_gap_detection.sh
 
 # Verify gap-detector.sh location
-ls -la /mnt/c/Projects/DevForgeAI2/.devforgeai/traceability/gap-detector.sh
+ls -la /mnt/c/Projects/DevForgeAI2/devforgeai/traceability/gap-detector.sh
 ```
 
 ### Step 2: Run Baseline Tests
@@ -39,7 +39,7 @@ grep "✗" baseline_results.txt | wc -l  # Should show 9
 
 ### Target: Tests 1-7 (any using strategy1_extract_epics)
 
-**File:** `.devforgeai/traceability/gap-detector.sh`
+**File:** `devforgeai/traceability/gap-detector.sh`
 
 **Changes Required:**
 
@@ -100,7 +100,7 @@ test_strategy1_build_mapping() {
 
 ### Target: Tests 3-7, 9 (missing/orphan detection)
 
-**File:** `.devforgeai/traceability/gap-detector.sh`
+**File:** `devforgeai/traceability/gap-detector.sh`
 
 **Changes Required:**
 
@@ -168,7 +168,7 @@ test_missing_sort_features() {
 
 ### Target: Tests 8 (consistency score calculation)
 
-**File:** `.devforgeai/traceability/gap-detector.sh`
+**File:** `devforgeai/traceability/gap-detector.sh`
 
 **Changes Required:**
 
@@ -292,7 +292,7 @@ for i in {1..100}; do
     epic_id="EPIC-$(printf "%03d" $((i % 15 + 1)))"
     create_story_file "$(printf "%03d" $i)" "$epic_id" "Story $i"
 done
-source ../../.devforgeai/traceability/gap-detector.sh
+source ../../devforgeai/traceability/gap-detector.sh
 declare -A map
 time strategy1_extract_epics map "$TEST_FIXTURES_DIR"
 teardown_test
@@ -384,13 +384,13 @@ If issues arise, rollback changes:
 
 ```bash
 # Save current version
-cp .devforgeai/traceability/gap-detector.sh .devforgeai/traceability/gap-detector.sh.backup
+cp devforgeai/traceability/gap-detector.sh devforgeai/traceability/gap-detector.sh.backup
 
 # Revert from git
-git checkout .devforgeai/traceability/gap-detector.sh
+git checkout devforgeai/traceability/gap-detector.sh
 
 # Or restore from backup
-cp .devforgeai/traceability/gap-detector.sh.backup .devforgeai/traceability/gap-detector.sh
+cp devforgeai/traceability/gap-detector.sh.backup devforgeai/traceability/gap-detector.sh
 ```
 
 ---
@@ -488,7 +488,7 @@ EOF
 
 Then commit the fixes:
 ```bash
-git add .devforgeai/traceability/gap-detector.sh tests/traceability/test_gap_detection.sh
+git add devforgeai/traceability/gap-detector.sh tests/traceability/test_gap_detection.sh
 git commit -m "fix(STORY-085): Fix 9 failing gap detection tests
 
 - Implement nameref-safe array passing pattern

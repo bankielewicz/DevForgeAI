@@ -104,7 +104,7 @@ Comprehensive test suite generated for STORY-059 "User Input Guidance Validation
 **AC#5 Coverage**: Impact Report Generation & NFR Validation
 
 #### Report Structure Tests (2 tests)
-- ✓ Report file existence (.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md)
+- ✓ Report file existence (devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md)
 - ✓ Content validation (>1000 characters)
 
 #### Content Section Tests (19 tests)
@@ -351,7 +351,7 @@ When implementing STORY-059, these artifacts must be created for tests to pass:
 - [ ] Generate `success-rate-report.md` with breakdown per fixture
 
 ### Phase 4: Impact Report (Tests 75-100)
-- [ ] Create `.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
+- [ ] Create `devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
 - [ ] Include executive summary (≤500 words)
 - [ ] Include findings by business goal
 - [ ] Include evidence tables (10 fixtures)

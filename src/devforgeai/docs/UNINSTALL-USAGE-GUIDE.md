@@ -20,7 +20,7 @@ devforgeai uninstall
 ```
 
 **What happens:**
-- Removes: `.claude/`, `.devforgeai/framework files`, CLI binaries
+- Removes: `.claude/`, `devforgeai/framework files`, CLI binaries
 - Preserves: `.ai_docs/`, custom ADRs, user-modified context files
 - Creates backup of entire installation (for recovery)
 - Displays confirmation prompt with file counts
@@ -46,11 +46,11 @@ Framework files to remove:
 
 User content to preserve:
   - .ai_docs/ (123 files)
-  - .devforgeai/adrs/custom/ (8 files)
-  - .devforgeai/config/ (3 files)
+  - devforgeai/adrs/custom/ (8 files)
+  - devforgeai/config/ (3 files)
 
 Disk space that would be freed: 2.3 MB
-Backup would be created at: ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00/
+Backup would be created at: ~/devforgeai/backups/uninstall-2025-12-08T10-30-00/
 ```
 
 ### Skip Confirmation Prompt
@@ -72,7 +72,7 @@ devforgeai uninstall --complete
 ```
 
 **What happens:**
-- Removes: All `.claude/`, `.devforgeai/`, `.ai_docs/`
+- Removes: All `.claude/`, `devforgeai/`, `.ai_docs/`
 - Removes: All user stories, epics, sprints, ADRs
 - Creates backup (can be restored later)
 - **Irreversible:** Requires explicit `--complete` flag
@@ -100,7 +100,7 @@ Files that will be preserved (131 files):
   [... 129 more files ...]
 
 Backup will be created at:
-  ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+  ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 
 This operation will free 2.3 MB of disk space.
 This action cannot be undone.
@@ -125,7 +125,7 @@ Before uninstalling, DevForgeAI creates a **complete backup** including:
 
 **Backup location:**
 ```
-~/.devforgeai/backups/uninstall-YYYY-MM-DD-HHmmss/
+~/devforgeai/backups/uninstall-YYYY-MM-DD-HHmmss/
 ```
 
 **Why backups are important:**
@@ -159,7 +159,7 @@ These are DevForgeAI components that get removed:
 ├── memory/                  # Reference docs (deleted)
 └── scripts/                 # Setup scripts (deleted)
 
-.devforgeai/
+devforgeai/
 ├── context/                 # Context files (deleted)
 ├── protocols/               # Framework patterns (deleted)
 ├── qa/                      # QA reports (deleted)
@@ -179,7 +179,7 @@ These are your files that get preserved:
 ├── Stories/                 # Your stories (preserved)
 └── Research/                # Your notes (preserved)
 
-.devforgeai/
+devforgeai/
 ├── adrs/custom/             # Your architecture decisions (preserved)
 └── config/                  # Your configurations (preserved)
 ```
@@ -255,10 +255,10 @@ Disk space freed:   2.3 MB
 Duration:           2.3 seconds
 
 Backup location:
-  ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+  ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 
 Report saved:
-  ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/uninstall-report.json
+  ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/uninstall-report.json
 ```
 
 ---
@@ -271,7 +271,7 @@ Report saved:
 **Solution:**
 ```bash
 # Grant write permission to current user
-chmod -R u+w .claude .devforgeai
+chmod -R u+w .claude devforgeai
 
 # Then retry uninstall
 devforgeai uninstall --yes
@@ -331,7 +331,7 @@ git commit -m "Pre-uninstall backup commit"
 devforgeai uninstall
 
 # 4. Remove uninstall backup after confirmation (optional)
-rm -rf ~/.devforgeai/backups/uninstall-*/
+rm -rf ~/devforgeai/backups/uninstall-*/
 ```
 
 ---

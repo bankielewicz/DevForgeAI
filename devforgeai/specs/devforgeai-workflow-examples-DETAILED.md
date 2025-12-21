@@ -771,7 +771,7 @@ Personal productivity tool for managing daily tasks via command line.
 3. **Begin development:** STORY-001 (Add tasks) with TDD
 ```
 
-**Requirements document location:** `.devforgeai/specs/requirements/todo-cli-requirements.md`
+**Requirements document location:** `devforgeai/specs/requirements/todo-cli-requirements.md`
 
 ---
 
@@ -779,7 +779,7 @@ Personal productivity tool for managing daily tasks via command line.
 
 **Output Artifacts:**
 - 📄 `devforgeai/specs/Epics/EPIC-001-todo-cli.epic.md` (Epic document)
-- 📄 `.devforgeai/specs/requirements/todo-cli-requirements.md` (Requirements spec)
+- 📄 `devforgeai/specs/requirements/todo-cli-requirements.md` (Requirements spec)
 
 **Questions Asked:** 10
 **Time Taken:** ~15-20 minutes
@@ -798,7 +798,7 @@ Personal productivity tool for managing daily tasks via command line.
 
 **Architecture skill reads requirements:**
 ```
-Read(file_path=".devforgeai/specs/requirements/todo-cli-requirements.md")
+Read(file_path="devforgeai/specs/requirements/todo-cli-requirements.md")
 ```
 
 **Architecture skill begins technology decisions...**
@@ -1846,7 +1846,7 @@ AskUserQuestion(
 ```
 
 ### Step 5: If User Approves → Create ADR
-- Document in `.devforgeai/adrs/ADR-NNN-[library]-addition.md`
+- Document in `devforgeai/adrs/ADR-NNN-[library]-addition.md`
 - Update this tech-stack.md with new library
 - Update dependencies.md with version constraints
 - Commit changes with reference to ADR
@@ -1901,7 +1901,7 @@ AskUserQuestion(
 
 **LOCK STATUS:** 🔒 IMMUTABLE
 **Last Updated:** 2025-10-31
-**ADRs:** See `.devforgeai/adrs/` for rationale
+**ADRs:** See `devforgeai/adrs/` for rationale
 **Questions:** Use AskUserQuestion for all ambiguities
 ```
 

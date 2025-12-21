@@ -27,7 +27,7 @@ class TestFreshInstallMode:
         """
         AC5 Mode 1: Fresh install deploys all 450 files to empty project.
 
-        Given: Target project empty (no .devforgeai/.version.json)
+        Given: Target project empty (no devforgeai/.version.json)
         When: Installer runs with fresh install mode
         Then:
         - All ~450 files deployed
@@ -56,11 +56,11 @@ class TestFreshInstallMode:
                 deployed_count += 1
 
         # 3. Create initial configs
-        config_dir = target_root / ".devforgeai" / "config"
+        config_dir = target_root / "devforgeai" / "config"
         config_dir.mkdir(parents=True, exist_ok=True)
 
         # 4. Write version.json
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         version_data = {
             "version": "1.0.1",
             "installed_at": "2025-11-17T14:30:00Z",
@@ -330,9 +330,9 @@ class TestValidateMode:
             ".claude/memory",
             ".claude/scripts",
             ".claude/skills",
-            ".devforgeai/config",
+            "devforgeai/config",
             "devforgeai/context",
-            ".devforgeai/protocols",
+            "devforgeai/protocols",
         ]
 
         for dir_path in required_dirs:
@@ -368,7 +368,7 @@ class TestUninstallMode:
         Then:
         - Backup created before removal
         - .claude/ framework files removed
-        - .devforgeai/ framework files removed (except context/)
+        - devforgeai/ framework files removed (except context/)
         - CLAUDE.md DevForgeAI sections removed (preserve user sections)
         - Exit code: 0
         - Displays: "✅ DevForgeAI uninstalled (backup: {timestamp})"
@@ -391,7 +391,7 @@ class TestUninstallMode:
         if (tmp_project["claude"] / "agents" / "test.md").exists():
             (tmp_project["claude"] / "agents" / "test.md").unlink()
 
-        # 3. Remove .devforgeai/ framework files (keep context/)
+        # 3. Remove devforgeai/ framework files (keep context/)
         if (tmp_project["devforgeai"] / "config" / "hooks.yaml").exists():
             (tmp_project["devforgeai"] / "config" / "hooks.yaml").unlink()
 

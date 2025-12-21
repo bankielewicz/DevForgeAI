@@ -3,12 +3,12 @@
 ################################################################################
 # REGRESSION TEST SUITE: Story Creation Backward Compatibility
 #
-# File: .devforgeai/tests/skills/test-story-creation-regression.sh
+# File: devforgeai/tests/skills/test-story-creation-regression.sh
 # Purpose: Ensure guidance integration doesn't break existing functionality
 # Coverage: 10 new regression tests + existing 30+ tests pass
 # Framework: Bash with file-based verification
 #
-# Run: bash .devforgeai/tests/skills/test-story-creation-regression.sh
+# Run: bash devforgeai/tests/skills/test-story-creation-regression.sh
 ################################################################################
 
 set -euo pipefail
@@ -359,7 +359,7 @@ main() {
         echo -e "${GREEN}✓ All regression tests PASSED${NC}"
         echo ""
         echo "Next Step: Run existing 30+ test cases to ensure no regressions"
-        echo "Command: bash .devforgeai/tests/skills/test-story-creation-existing.sh"
+        echo "Command: bash devforgeai/tests/skills/test-story-creation-existing.sh"
         echo ""
         return 0
     else

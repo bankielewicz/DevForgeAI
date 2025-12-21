@@ -316,7 +316,7 @@ For each section of logic, ask:
 
 - [ ] Update `.claude/memory/commands-reference.md`
 - [ ] Update `.claude/memory/subagents-reference.md` (if created subagent)
-- [ ] Document refactoring in `.devforgeai/specs/enhancements/`
+- [ ] Document refactoring in `devforgeai/specs/enhancements/`
 - [ ] Git commit with descriptive message
 - [ ] Restart terminal
 - [ ] Smoke tests (3 command runs)
@@ -1044,9 +1044,9 @@ Refactor when:
 - `/audit-budget` command - Automated budget compliance audit
 
 **Refactoring Documentation:**
-- `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
-- `.devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
-- `.devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring
+- `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md` - Deep analysis
+- `devforgeai/specs/enhancements/CREATE-SPRINT-REFACTORING-SUMMARY.md` - Implementation summary
+- `devforgeai/specs/enhancements/ORCHESTRATE-COMPLETE-2025-11-06.md` - Orchestrate refactoring
 
 ---
 

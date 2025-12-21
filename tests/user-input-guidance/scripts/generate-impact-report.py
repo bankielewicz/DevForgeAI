@@ -385,7 +385,7 @@ def main():
         )
 
         # Write report
-        output_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        output_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
         output_file.parent.mkdir(parents=True, exist_ok=True)
         output_file.write_text(report)
 

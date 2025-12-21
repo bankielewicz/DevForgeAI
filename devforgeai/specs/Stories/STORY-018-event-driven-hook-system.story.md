@@ -47,7 +47,7 @@ completed: 2025-11-11
 
 ### 4. [x] Config-Driven Hook Trigger Rules
 
-**Given** hook trigger conditions are defined in `.devforgeai/config/hooks.yaml`,
+**Given** hook trigger conditions are defined in `devforgeai/config/hooks.yaml`,
 **When** conditions are evaluated (operation_type, status, result_code, etc.),
 **Then** hooks execute only when all conditions match.
 
@@ -87,7 +87,7 @@ completed: 2025-11-11
 
 ### 9. [x] Disabled Hook Configuration Mid-Operation
 
-**Given** hooks are disabled during an active operation (via `.devforgeai/config/hooks.yaml` enabled: false),
+**Given** hooks are disabled during an active operation (via `devforgeai/config/hooks.yaml` enabled: false),
 **When** the operation completes,
 **Then** hooks are skipped and no feedback conversation is triggered.
 
@@ -105,7 +105,7 @@ completed: 2025-11-11
 
 ### Hook Registry Schema
 
-**Location:** `.devforgeai/config/hooks.yaml`
+**Location:** `devforgeai/config/hooks.yaml`
 
 **Schema Definition:**
 
@@ -342,7 +342,7 @@ def validate_registry(registry_path: str) -> ValidationResult:
 
 ### 4. Hook Configuration Modified Between Operation Start and Completion
 
-**Condition:** Operation starts with Hook A registered, Hook A disabled via `.devforgeai/config/hooks.yaml` before operation completes
+**Condition:** Operation starts with Hook A registered, Hook A disabled via `devforgeai/config/hooks.yaml` before operation completes
 
 **Expected Behavior:** Hook registry reloaded at operation completion, Hook A skipped
 
@@ -352,7 +352,7 @@ def validate_registry(registry_path: str) -> ValidationResult:
 
 ### 5. Hook Registry File Missing or Corrupted
 
-**Condition:** `.devforgeai/config/hooks.yaml` missing, or file contains invalid YAML syntax
+**Condition:** `devforgeai/config/hooks.yaml` missing, or file contains invalid YAML syntax
 
 **Expected Behavior:** System falls back to hardcoded defaults, logs configuration error, operations continue without hooks
 
@@ -467,7 +467,7 @@ def validate_registry(registry_path: str) -> ValidationResult:
 
 ### Implementation
 
-- [x] Hook registry loading from `.devforgeai/config/hooks.yaml`
+- [x] Hook registry loading from `devforgeai/config/hooks.yaml`
 - [x] Hook schema validation with clear error reporting
 - [x] Hook invocation triggered by operation completion (integration point ready)
 - [x] Operation pattern matching (glob/regex support)
@@ -581,7 +581,7 @@ def validate_registry(registry_path: str) -> ValidationResult:
 - [x] No technical debt - Completed: Zero deferrals, all items completed
 
 **Deployment:**
-- [x] Default hooks.yaml created - Completed: .devforgeai/config/hooks.yaml with 6 examples and documentation
+- [x] Default hooks.yaml created - Completed: devforgeai/config/hooks.yaml with 6 examples and documentation
 - [x] Migration guide documented - Completed: Migration section in HOOK-SYSTEM.md
 - [x] Rollback plan documented - Completed: Rollback section in HOOK-SYSTEM.md
 - [x] Monitoring integrated - Completed: /audit-hooks command functional (.claude/commands/audit-hooks.md)
@@ -591,7 +591,7 @@ def validate_registry(registry_path: str) -> ValidationResult:
 The event-driven hook system consists of 6 core modules implementing a complete callback framework:
 
 **1. HookRegistry (hook_registry.py - 343 lines):**
-- YAML configuration loading from `.devforgeai/config/hooks.yaml`
+- YAML configuration loading from `devforgeai/config/hooks.yaml`
 - Comprehensive schema validation (12+ field validators)
 - Duplicate ID detection
 - Graceful handling of missing/invalid config
@@ -687,7 +687,7 @@ Default configuration includes 6 example hooks (all disabled by default):
 5. subagent-performance-tracker - For slow subagents
 6. epic-completion-celebration - After epic creation
 
-Enable hooks by setting `enabled: true` in `.devforgeai/config/hooks.yaml`
+Enable hooks by setting `enabled: true` in `devforgeai/config/hooks.yaml`
 
 ### Known Limitations
 
@@ -784,7 +784,7 @@ python3 -m pytest tests/test_hook_*.py --cov=src --cov-report=term-missing
 ### Definition of Done Completion
 
 **Implementation:**
-- [x] Hook registry loading from .devforgeai/config/hooks.yaml
+- [x] Hook registry loading from devforgeai/config/hooks.yaml
 - [x] Hook schema validation with clear error reporting
 - [x] Hook invocation triggered by operation completion
 - [x] Operation pattern matching (glob/regex support)

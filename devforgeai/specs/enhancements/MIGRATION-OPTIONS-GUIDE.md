@@ -104,7 +104,7 @@ Claude reads:
 @devforgeai/specs/Stories/STORY-001.story.md
 
 Claude reads format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Claude:
 1. Parses freeform tech spec from STORY-001
@@ -131,7 +131,7 @@ Result: STORY-001.story.md updated to v2.0
 **Step 1: Load story and format spec**
 ```
 @devforgeai/specs/Stories/STORY-001.story.md
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 
 **Step 2: Request migration**
@@ -309,7 +309,7 @@ Migrate STORY-001 to v2.0 format.
 
 Read files:
 @devforgeai/specs/Stories/STORY-001.story.md
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Tasks:
 1. Extract freeform Technical Specification section
@@ -336,7 +336,7 @@ Ready to migrate STORY-001?
 Migrate ALL stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Context files to read:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process:
 1. Glob(pattern="devforgeai/specs/Stories/*.story.md") - Find all stories
@@ -463,7 +463,7 @@ python3 migrate_story_v1_to_v2.py STORY-001.story.md --validate
 Migrate all stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Read format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process:
 1. Glob all story files
@@ -654,7 +654,7 @@ Prompt: "Migrate all 12 stories to v2.0 format following STRUCTURED-FORMAT-SPECI
 Migrate all stories in devforgeai/specs/Stories/ from v1.0 to v2.0 format.
 
 Format specification:
-@.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+@devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 Process for each story:
 1. Read story file

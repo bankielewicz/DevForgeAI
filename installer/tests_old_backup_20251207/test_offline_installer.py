@@ -504,7 +504,7 @@ class TestGracefulDegradation:
         _create_missing_features_doc(tmp_path, ["Python CLI"])
 
         # Assert
-        missing_features_file = tmp_path / ".devforgeai" / "MISSING_FEATURES.md"
+        missing_features_file = tmp_path / "devforgeai" / "MISSING_FEATURES.md"
         assert missing_features_file.exists(), "MISSING_FEATURES.md not created"
         content = missing_features_file.read_text()
         assert "Python CLI" in content, "Missing features note incomplete"

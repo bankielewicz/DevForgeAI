@@ -193,7 +193,7 @@ technical_specification:
 **Data Protection:**
 - No sensitive file content quoted (exclude files matching `.env*`, `*secret*`, `*credential*`, `*password*`)
 - Quote extraction uses Read tool only (no Bash file access that could bypass permissions)
-- Citation format prevents path traversal (validate paths start with `.devforgeai/`, `.claude/`, or `src/`)
+- Citation format prevents path traversal (validate paths start with `devforgeai/`, `.claude/`, or `src/`)
 
 ---
 

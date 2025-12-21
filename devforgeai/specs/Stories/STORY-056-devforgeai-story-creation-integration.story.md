@@ -321,7 +321,7 @@ except Exception as e:
 - Missing file: Non-fatal (log warning, set flag false, continue)
 - Unreadable file: Non-fatal (log error with exception message, set flag false, continue)
 - Invalid path: Impossible (hardcoded constant)
-**No Fallback Paths:** Do NOT try alternate locations (no `.claude/memory/`, no `.devforgeai/protocols/`) - single canonical path only.
+**No Fallback Paths:** Do NOT try alternate locations (no `.claude/memory/`, no `devforgeai/protocols/`) - single canonical path only.
 
 ---
 
@@ -625,14 +625,14 @@ def normalize_pattern_name(name):
 ```bash
 # Regression test with guidance disabled
 mv user-input-guidance.md user-input-guidance.md.backup
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 # Expected: 30/30 tests pass
 
 # Restore guidance
 mv user-input-guidance.md.backup user-input-guidance.md
 
 # Regression test with guidance enabled
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 # Expected: 30/30 tests pass (same results, potentially different question phrasing)
 ```
 
@@ -894,7 +894,7 @@ def construct_question(question_type, phase, step):
 **Unit Tests (15 minimum - all automated):**
 
 ```bash
-# File: .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+# File: devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 
 test_01_step0_loads_guidance_valid_file() {
     # Given: valid user-input-guidance.md exists
@@ -937,7 +937,7 @@ test_03_step0_handles_corrupted_file() {
 **Integration Tests (12 minimum - mix automated + manual):**
 
 ```bash
-# File: .devforgeai/tests/skills/test-story-creation-guidance-integration.sh
+# File: devforgeai/tests/skills/test-story-creation-guidance-integration.sh
 
 test_01_full_phase1_with_guidance() {
     # End-to-end Phase 1 execution with guidance
@@ -964,7 +964,7 @@ test_06_subagent_reinvocation_reduction() {
 **Regression Tests (10 minimum - automated):**
 
 ```bash
-# File: .devforgeai/tests/skills/test-story-creation-regression.sh
+# File: devforgeai/tests/skills/test-story-creation-regression.sh
 
 test_01_all_existing_phase1_questions_work() {
     # Execute Phase 1 with guidance file deleted
@@ -985,7 +985,7 @@ test_01_all_existing_phase1_questions_work() {
 **Performance Tests (8 minimum - automated with benchmarks):**
 
 ```python
-# File: .devforgeai/tests/skills/test-story-creation-guidance-performance.py
+# File: devforgeai/tests/skills/test-story-creation-guidance-performance.py
 
 def test_01_step0_execution_time_p95():
     """Verify Step 0 executes in <2 seconds (95th percentile)"""
@@ -1087,7 +1087,7 @@ None - Markdown modification and Read tool usage only (no new packages required)
 
 ### Unit Tests (15 test cases)
 
-**Test File:** `.devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
+**Test File:** `devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
 
 **Scenarios:**
 1. Step 0 loads guidance with valid file (success path)
@@ -1112,7 +1112,7 @@ None - Markdown modification and Read tool usage only (no new packages required)
 
 ### Integration Tests (12 test cases)
 
-**Test File:** `.devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
+**Test File:** `devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
 
 **Scenarios:**
 1. Full Phase 1 execution with guidance (all steps, all patterns applied, complete story metadata)
@@ -1134,7 +1134,7 @@ None - Markdown modification and Read tool usage only (no new packages required)
 
 ### Regression Tests (10 test cases)
 
-**Test File:** `.devforgeai/tests/skills/test-story-creation-regression.sh`
+**Test File:** `devforgeai/tests/skills/test-story-creation-regression.sh`
 
 **Scenarios:**
 1. All existing Phase 1 questions still work (no parameter changes)
@@ -1154,7 +1154,7 @@ None - Markdown modification and Read tool usage only (no new packages required)
 
 ### Performance Tests (8 test cases)
 
-**Test File:** `.devforgeai/tests/skills/test-story-creation-guidance-performance.py`
+**Test File:** `devforgeai/tests/skills/test-story-creation-guidance-performance.py`
 
 **Scenarios:**
 1. Step 0 execution time with 8K char file (target: <2s p95)

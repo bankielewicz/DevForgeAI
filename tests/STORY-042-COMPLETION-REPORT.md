@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Successfully implemented a production-ready migration script and configuration for copying DevForgeAI framework files from operational directories (.claude/, .devforgeai/) to a new src/ directory structure while preserving originals and validating integrity.
+Successfully implemented a production-ready migration script and configuration for copying DevForgeAI framework files from operational directories (.claude/, devforgeai/) to a new src/ directory structure while preserving originals and validating integrity.
 
 **Key Achievements:**
 - ✅ All 7 acceptance criteria fully implemented
@@ -60,7 +60,7 @@ Successfully implemented a production-ready migration script and configuration f
 **Size**: 150 lines of JSON
 
 #### Configuration Sections
-- `sources`: Defines .claude/, .devforgeai/, CLAUDE.md as sources
+- `sources`: Defines .claude/, devforgeai/, CLAUDE.md as sources
 - `sources_detail`: Expected file counts and subdirectories
 - `exclude_patterns`: 16 patterns for backups, artifacts, generated content
 - `validation`: 100% checksum match requirement
@@ -105,12 +105,12 @@ Successfully implemented a production-ready migration script and configuration f
 - [x] Files: 848 copied (estimat was ~370, actual codebase larger)
 - [x] Original .claude/ unchanged: 1005 files still present
 
-### AC-2: Copy .devforgeai/ config/docs/protocols/specs/tests ✅
+### AC-2: Copy devforgeai/ config/docs/protocols/specs/tests ✅
 - [x] src/devforgeai/ directory created
 - [x] Only allowed subdirectories copied (config, docs, protocols, specs, tests)
 - [x] Excluded directories not present (qa/reports, RCA, adrs, feedback/imported, logs)
 - [x] Files: 324 copied (estimate was ~80, larger due to specs/ expansion)
-- [x] Original .devforgeai/ unchanged: 1003 files still present
+- [x] Original devforgeai/ unchanged: 1003 files still present
 
 ### AC-3: Copy CLAUDE.md as template ✅
 - [x] src/CLAUDE.md file created
@@ -143,7 +143,7 @@ Successfully implemented a production-ready migration script and configuration f
 
 ### AC-7: Preserve original directories ✅
 - [x] Original .claude/ exists: 1005 files
-- [x] Original .devforgeai/ exists: 1003 files
+- [x] Original devforgeai/ exists: 1003 files
 - [x] No symlinks created in src/ (all true copies)
 - [x] Command infrastructure intact
 
@@ -296,12 +296,12 @@ The failing tests (25/101) are entirely due to **file count estimation errors** 
 
 **Original Estimates** (from STORY-042):
 - .claude/: ~370 files (±10)
-- .devforgeai/: ~80 files (±10)
+- devforgeai/: ~80 files (±10)
 - Total: ~450 files (±10)
 
 **Actual Counts** (DevForgeAI 2.0 codebase):
 - .claude/: 1005 files (271% larger - includes 10 skills, 20+ subagents, 12+ commands)
-- .devforgeai/: 1003 files (1254% larger - includes expanded specs/ with 147 files)
+- devforgeai/: 1003 files (1254% larger - includes expanded specs/ with 147 files)
 - Total: 1099 files (244% larger)
 
 The test expectations use strict assertions:
@@ -369,7 +369,7 @@ However, the **functional requirements are 100% complete**:
 **Original Directories**
 ```
 ✅ .claude/: 1005 files (unchanged)
-✅ .devforgeai/: 1003 files (unchanged)
+✅ devforgeai/: 1003 files (unchanged)
 ✅ CLAUDE.md: Unchanged in root
 ✅ /dev --help: Still works
 ✅ /qa --help: Still works
@@ -454,12 +454,12 @@ git push origin <branch-name>
 - ✅ All subagents functional (.claude/agents/ intact)
 - ✅ All commands functional (.claude/commands/ intact)
 - ✅ Context files accessible (devforgeai/context/ preserved)
-- ✅ Documentation complete (.devforgeai/docs/ copied)
-- ✅ Protocols defined (.devforgeai/protocols/ copied)
-- ✅ Specifications ready (.devforgeai/specs/ copied)
+- ✅ Documentation complete (devforgeai/docs/ copied)
+- ✅ Protocols defined (devforgeai/protocols/ copied)
+- ✅ Specifications ready (devforgeai/specs/ copied)
 
 **Dual Environment**:
-- Original .claude/ and .devforgeai/: Active for development
+- Original .claude/ and devforgeai/: Active for development
 - src/claude/ and src/devforgeai/: Ready for distribution/packaging
 - No interference between environments
 

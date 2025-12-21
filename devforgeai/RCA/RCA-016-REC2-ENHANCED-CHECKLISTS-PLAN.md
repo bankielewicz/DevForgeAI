@@ -101,7 +101,7 @@ These are the actual steps in each reference workflow file. Checklists must matc
 |------|-------------|-------------|
 | Step 1 | Collect All Results | Gather from Phases 0.9, 1, 2, 3, 4 |
 | Step 2 | Determine Overall Result | PASSED/FAILED/PARTIAL based on violations |
-| Step 3 | Generate QA Report File | Write to .devforgeai/qa/reports/ (deep mode) |
+| Step 3 | Generate QA Report File | Write to devforgeai/qa/reports/ (deep mode) |
 | Step 4 | Create Formatted Display | Invoke qa-result-interpreter subagent |
 | Step 5 | Document Blocking Violations | List with remediation steps |
 | Step 6 | Prepare Next Steps | Recommendations based on result |
@@ -319,7 +319,7 @@ Before proceeding to Phase 6, verify you executed ALL 6 steps:
   - [ ] Quality metrics from Phase 4
 - [ ] Step 2: Determined overall QA result (PASSED/FAILED/PARTIAL)
 - [ ] Step 3: Generated QA report file (deep mode only)
-  - [ ] IF deep mode: Created `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+  - [ ] IF deep mode: Created `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
   - [ ] IF light mode: Skipped report file (this is correct)
 - [ ] Step 4: Invoked qa-result-interpreter subagent for formatted display
 - [ ] Step 5: Documented all blocking violations with remediation steps
@@ -330,7 +330,7 @@ Before proceeding to Phase 6, verify you executed ALL 6 steps:
 ```
 ✓ Phase 5 Complete: QA Report Generated
   Result: [PASSED ✅ / FAILED ❌ / PARTIAL ⚠️]
-  Report: [.devforgeai/qa/reports/{STORY-ID}-qa-report.md / Not generated (light mode)]
+  Report: [devforgeai/qa/reports/{STORY-ID}-qa-report.md / Not generated (light mode)]
   Blocking violations: [X]
   Next steps: [Listed below]
 ```
@@ -538,7 +538,7 @@ To resume this plan in a new terminal session:
 
 1. **Read this plan:**
 ```
-Read(file_path=".devforgeai/RCA/RCA-016-REC2-ENHANCED-CHECKLISTS-PLAN.md")
+Read(file_path="devforgeai/RCA/RCA-016-REC2-ENHANCED-CHECKLISTS-PLAN.md")
 ```
 
 2. **Read current SKILL.md:**

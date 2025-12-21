@@ -20,7 +20,7 @@ class TestCompleteStoryCreationWithHookWorkflow:
         """
         CRITICAL USER JOURNEY (AC-1, AC-2, AC-3, AC-4, AC-5, AC-6 combined):
         Given user runs /create-story "Test feature"
-        And feedback hooks are enabled in .devforgeai/config/hooks.yaml
+        And feedback hooks are enabled in devforgeai/config/hooks.yaml
         When story creation completes successfully
         Then:
           1. Story file created at devforgeai/specs/Stories/STORY-NNN-*.story.md
@@ -28,7 +28,7 @@ class TestCompleteStoryCreationWithHookWorkflow:
           3. devforgeai invoke-hooks --operation=story-create invoked
           4. User receives feedback questions
           5. User provides feedback responses
-          6. Responses saved to .devforgeai/feedback/STORY-NNN-feedback.json
+          6. Responses saved to devforgeai/feedback/STORY-NNN-feedback.json
           7. Command exits 0 (success)
         """
         # Arrange
@@ -36,9 +36,9 @@ class TestCompleteStoryCreationWithHookWorkflow:
             # Setup directory structure
             stories_dir = Path(tmpdir) / ".ai_docs" / "Stories"
             stories_dir.mkdir(parents=True)
-            config_dir = Path(tmpdir) / ".devforgeai" / "config"
+            config_dir = Path(tmpdir) / "devforgeai" / "config"
             config_dir.mkdir(parents=True)
-            feedback_dir = Path(tmpdir) / ".devforgeai" / "feedback"
+            feedback_dir = Path(tmpdir) / "devforgeai" / "feedback"
             feedback_dir.mkdir(parents=True)
 
             # Setup hooks config (enabled)
@@ -135,7 +135,7 @@ class TestStoryCreationWithHooksDisabled:
 
     def test_story_creation_skips_hook_when_disabled(self):
         """
-        Given feedback hooks are disabled in .devforgeai/config/hooks.yaml
+        Given feedback hooks are disabled in devforgeai/config/hooks.yaml
         When user runs /create-story "Test feature"
         Then:
           1. Story file created
@@ -148,7 +148,7 @@ class TestStoryCreationWithHooksDisabled:
         with tempfile.TemporaryDirectory() as tmpdir:
             stories_dir = Path(tmpdir) / ".ai_docs" / "Stories"
             stories_dir.mkdir(parents=True)
-            config_dir = Path(tmpdir) / ".devforgeai" / "config"
+            config_dir = Path(tmpdir) / "devforgeai" / "config"
             config_dir.mkdir(parents=True)
 
             hooks_config = config_dir / "hooks.yaml"
@@ -197,9 +197,9 @@ class TestBatchStoryCreationWithHooks:
         with tempfile.TemporaryDirectory() as tmpdir:
             stories_dir = Path(tmpdir) / ".ai_docs" / "Stories"
             stories_dir.mkdir(parents=True)
-            config_dir = Path(tmpdir) / ".devforgeai" / "config"
+            config_dir = Path(tmpdir) / "devforgeai" / "config"
             config_dir.mkdir(parents=True)
-            feedback_dir = Path(tmpdir) / ".devforgeai" / "feedback"
+            feedback_dir = Path(tmpdir) / "devforgeai" / "feedback"
             feedback_dir.mkdir(parents=True)
 
             # Setup hooks enabled
@@ -276,14 +276,14 @@ class TestHookFailureRecoveryWorkflow:
         Then:
           1. Story file created successfully
           2. Warning displayed: "Feedback hook failed - story created successfully"
-          3. Error logged to .devforgeai/feedback/.logs/hook-errors.log
+          3. Error logged to devforgeai/feedback/.logs/hook-errors.log
           4. Command exits 0 (success)
         """
         # Arrange
         with tempfile.TemporaryDirectory() as tmpdir:
             stories_dir = Path(tmpdir) / ".ai_docs" / "Stories"
             stories_dir.mkdir(parents=True)
-            log_dir = Path(tmpdir) / ".devforgeai" / "feedback" / ".logs"
+            log_dir = Path(tmpdir) / "devforgeai" / "feedback" / ".logs"
             log_dir.mkdir(parents=True)
 
             # Act 1: Create story

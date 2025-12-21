@@ -25,7 +25,7 @@ class CLICleaner:
     LOCAL_BIN_DIRS = [
         Path.home() / "bin",
         Path.home() / ".local" / "bin",
-        Path.home() / ".devforgeai" / "bin",
+        Path.home() / "devforgeai" / "bin",
     ]
 
     # Shell config files for integration cleanup

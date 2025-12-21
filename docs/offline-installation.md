@@ -81,8 +81,8 @@ devforgeai install .
 
 ### Template Files
 - `devforgeai/context/` - 6 context file templates
-- `.devforgeai/protocols/` - Workflow protocols
-- `.devforgeai/specs/` - Specification templates
+- `devforgeai/protocols/` - Workflow protocols
+- `devforgeai/specs/` - Specification templates
 
 ### Documentation
 - `CLAUDE.md` - Framework instructions (merged with existing)
@@ -207,7 +207,7 @@ devforgeai --version
 
 # Check installed files
 ls -la .claude/
-ls -la .devforgeai/
+ls -la devforgeai/
 
 # Verify CLAUDE.md exists
 cat CLAUDE.md | head -20

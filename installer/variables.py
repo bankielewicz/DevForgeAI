@@ -210,7 +210,7 @@ class TemplateVariableDetector:
         Returns:
             Version string (e.g., "1.0.1").
         """
-        version_file = self.project_path / ".devforgeai" / "version.json"
+        version_file = self.project_path / "devforgeai" / "version.json"
         if not version_file.exists():
             return DEFAULT_FRAMEWORK_VERSION
 

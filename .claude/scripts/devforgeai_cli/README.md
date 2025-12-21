@@ -182,7 +182,7 @@ Select option [1-3]:
 
 **Configuration:**
 ```yaml
-# .devforgeai/ast-grep/config.yaml
+# devforgeai/ast-grep/config.yaml
 fallback_mode: false        # Use grep by default?
 min_version: "0.40.0"       # Minimum ast-grep version
 max_version: "1.0.0"        # Maximum version (exclusive)

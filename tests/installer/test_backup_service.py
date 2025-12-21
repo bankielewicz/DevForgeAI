@@ -25,7 +25,7 @@ class TestBackupCreation:
 
         Given: Installation is about to copy files
         When: BackupService.create_backup() is called
-        Then: Backup directory created with format .devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/
+        Then: Backup directory created with format devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/
         """
         # Arrange
         from installer.services.backup_service import BackupService
@@ -330,7 +330,7 @@ class TestBackupCleanup:
         """
         # Arrange
         from installer.services.backup_service import BackupService
-        backups_root = tmp_path / ".devforgeai"
+        backups_root = tmp_path / "devforgeai"
         backups_root.mkdir()
 
         # Create old backup (8 days ago)
@@ -364,7 +364,7 @@ class TestBackupCleanup:
         """
         # Arrange
         from installer.services.backup_service import BackupService
-        backups_root = tmp_path / ".devforgeai"
+        backups_root = tmp_path / "devforgeai"
         backups_root.mkdir()
 
         # Create 10 old backups
@@ -513,7 +513,7 @@ class TestBackupIntegration:
         """
         # Arrange
         from installer.services.backup_service import BackupService
-        backups_root = tmp_path / ".devforgeai"
+        backups_root = tmp_path / "devforgeai"
         backups_root.mkdir()
 
         backup1 = backups_root / "install-backup-2025-12-01T10-00-00"
@@ -560,7 +560,7 @@ class TestBackupServiceSecurity:
         service = BackupService(logger=Mock())
 
         root = tmp_path
-        backup_path = tmp_path / ".devforgeai" / "install-backup-2025-12-06T14-30-45"
+        backup_path = tmp_path / "devforgeai" / "install-backup-2025-12-06T14-30-45"
 
         assert service._validate_backup_path_within_root(backup_path, root) is True
 

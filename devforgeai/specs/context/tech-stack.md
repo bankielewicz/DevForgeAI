@@ -1,8 +1,8 @@
 # Technology Stack - DevForgeAI Framework
 
 **Status**: LOCKED
-**Last Updated**: 2025-10-30
-**Version**: 1.0
+**Last Updated**: 2025-12-21
+**Version**: 1.1
 
 ## CRITICAL RULE: Framework-Agnostic Design
 
@@ -61,6 +61,60 @@
 ❌ External Python libraries (RapidFuzz, PyYAML, mistune)
 ❌ npm packages for framework tooling
 ❌ Any dependencies requiring `pip install` or `npm install`
+
+---
+
+## Static Analysis Tools (Code Quality & Security)
+
+### REMOVED: ast-grep (ADR-007)
+
+**Status**: ❌ REMOVED (2025-12-21)
+**Decision**: ADR-007 - Remove ast-grep and Evaluate Tree-sitter
+
+**Reason for Removal**: After comprehensive evaluation (EPIC-018, STORY-115-118), ast-grep was found to have fundamental limitations:
+
+1. **Multi-line Pattern Matching Fails** - Patterns with comments/type annotations between statements don't match
+2. **Cannot Count/Accumulate** - "Detect classes with >20 methods" impossible with pattern matching
+3. **Whitespace Sensitivity** - Python indentation breaks pattern matching
+4. **No Semantic Analysis** - Cannot detect duplicate code, unused variables, or cross-file issues
+5. **C# AST Issues** - Access modifiers and catch blocks don't match expected patterns
+
+**Evidence**: 52/59 tests passing (88.1%) despite comprehensive remediation - 6 tests failed due to tool limitations, NOT implementation issues.
+
+**PROHIBITED**:
+❌ ast-grep for static analysis (REMOVED)
+❌ Pattern-based tools that cannot handle real-world code
+❌ Tools without proper Python/C# AST support
+
+---
+
+### FUTURE: Tree-sitter Integration (PLANNED)
+
+**Status**: 🔄 EVALUATION PLANNED
+**Target**: DevForgeAI CLI enhancement
+
+**Why Tree-sitter**:
+- Direct AST access (traversal, not pattern matching)
+- Python bindings available (`py-tree-sitter`)
+- Can count, traverse, and analyze code
+- Industry standard (GitHub, Neovim, Helix)
+- Supports 100+ languages
+
+**Planned Integration**:
+```
+devforgeai analyze --security /path/to/code
+devforgeai analyze --antipatterns /path/to/code
+```
+
+**Implementation Approach**:
+1. Add `py-tree-sitter` and language bindings to devforgeai CLI
+2. Implement rule engine using AST traversal
+3. Port security rules from ast-grep reference
+4. Port anti-pattern rules from ast-grep reference
+
+**Rationale**: Tree-sitter provides full AST access, enabling counting, traversal, and semantic analysis that ast-grep's pattern matching cannot achieve.
+
+**Reference**: New epic to be created for tree-sitter evaluation
 
 ---
 

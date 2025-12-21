@@ -533,7 +533,7 @@ test_full_update_workflow() {
 - User approval: 2025-11-13
 - Priority: High (Sprint-3 Backlog)
 
-**QA Report:** `.devforgeai/qa/reports/STORY-014-qa-report-deep-2025-11-13.md`
+**QA Report:** `devforgeai/qa/reports/STORY-014-qa-report-deep-2025-11-13.md`
 
 ---
 

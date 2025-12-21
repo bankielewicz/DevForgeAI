@@ -41,7 +41,7 @@ def temp_project_dir():
 @pytest.fixture
 def mock_context_files(temp_project_dir):
     """Create mock context files for testing"""
-    context_dir = temp_project_dir / ".devforgeai" / "context"
+    context_dir = temp_project_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # tech-stack.md
@@ -57,7 +57,7 @@ def mock_context_files(temp_project_dir):
 """)
 
     # quality-metrics.md
-    qa_dir = temp_project_dir / ".devforgeai" / "qa"
+    qa_dir = temp_project_dir / "devforgeai" / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
 
     quality_metrics = qa_dir / "quality-metrics.md"

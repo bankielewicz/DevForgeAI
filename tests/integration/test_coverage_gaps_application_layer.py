@@ -227,7 +227,7 @@ class TestDeployErrorHandling:
         """
         Test: deploy_framework_files preserves existing user config files.
 
-        Given: Target has existing config files in .devforgeai/config/
+        Given: Target has existing config files in devforgeai/config/
         When: deploy_framework_files() is called with preserve_configs=True
         Then: Existing user config files are preserved (not overwritten)
         """
@@ -243,7 +243,7 @@ class TestDeployErrorHandling:
         target_root.mkdir()
 
         # Create existing user config
-        config_dir = target_root / ".devforgeai" / "config"
+        config_dir = target_root / "devforgeai" / "config"
         config_dir.mkdir(parents=True)
         hooks_file = config_dir / "hooks.yaml"
         hooks_file.write_text("user_custom_hook: true\n")
@@ -335,9 +335,9 @@ class TestDeployErrorHandling:
 
     def test_deploy_excludes_no_deploy_directories(self, tmp_path):
         """
-        Test: deploy_framework_files excludes .devforgeai/qa/reports and other dirs.
+        Test: deploy_framework_files excludes devforgeai/qa/reports and other dirs.
 
-        Given: Source contains .devforgeai/qa/reports/ and .devforgeai/RCA/
+        Given: Source contains devforgeai/qa/reports/ and devforgeai/RCA/
         When: deploy_framework_files() is called
         Then: These directories are NOT copied to target
         """
@@ -345,10 +345,10 @@ class TestDeployErrorHandling:
         from installer.deploy import _should_exclude
 
         test_paths = [
-            Path(".devforgeai/qa/reports/report.md"),
-            Path(".devforgeai/RCA/rca-001.md"),
-            Path(".devforgeai/adrs/adr-001.md"),
-            Path(".devforgeai/feedback/imported/data.json"),
+            Path("devforgeai/qa/reports/report.md"),
+            Path("devforgeai/RCA/rca-001.md"),
+            Path("devforgeai/adrs/adr-001.md"),
+            Path("devforgeai/feedback/imported/data.json"),
         ]
 
         # Act & Assert
@@ -488,7 +488,7 @@ class TestInstallLoggerEdgeCases:
         # Arrange
         from installer.install_logger import InstallLogger
 
-        log_file = tmp_path / "deep" / "nested" / "path" / ".devforgeai" / "install.log"
+        log_file = tmp_path / "deep" / "nested" / "path" / "devforgeai" / "install.log"
 
         # Act
         logger = InstallLogger(log_file=str(log_file))
@@ -507,7 +507,7 @@ class TestInstallLoggerEdgeCases:
         # Arrange
         from installer.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir(parents=True)
 
         # Create large existing log (11MB)
@@ -534,7 +534,7 @@ class TestInstallLoggerEdgeCases:
         # Arrange
         from installer.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir(parents=True)
 
         # Act
@@ -557,7 +557,7 @@ class TestInstallLoggerEdgeCases:
         # Arrange
         from installer.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir(parents=True)
 
         existing_content = "Previous log entry\n"
@@ -583,7 +583,7 @@ class TestInstallLoggerEdgeCases:
         # Arrange
         from installer.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir(parents=True)
 
         logger = InstallLogger(log_file=str(log_file))
@@ -610,7 +610,7 @@ class TestInstallLoggerEdgeCases:
         from installer.install_logger import InstallLogger
         import re
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir(parents=True)
 
         logger = InstallLogger(log_file=str(log_file))
@@ -632,7 +632,7 @@ class TestInstallPyErrorHandling:
         """
         Test: install() correctly detects fresh install vs upgrade mode.
 
-        Given: .devforgeai/.version.json does not exist
+        Given: devforgeai/.version.json does not exist
         When: install() is called
         Then: Returns mode="fresh_install"
         """
@@ -725,14 +725,14 @@ class TestInstallPyErrorHandling:
         """
         Test: _update_version_file handles permission error when writing version.json.
 
-        Given: .devforgeai directory is read-only
+        Given: devforgeai directory is read-only
         When: _update_version_file() is called
         Then: Returns False and adds error to result["errors"]
         """
         # Arrange
         from installer.install import _update_version_file
 
-        devforgeai_dir = tmp_path / ".devforgeai"
+        devforgeai_dir = tmp_path / "devforgeai"
         devforgeai_dir.mkdir()
 
         result = {
@@ -765,7 +765,7 @@ class TestInstallPyErrorHandling:
         """
         Test: install() validates required source directories exist.
 
-        Given: Source directory is missing .devforgeai/
+        Given: Source directory is missing devforgeai/
         When: install() is called
         Then: Returns error status without attempting deployment
         """

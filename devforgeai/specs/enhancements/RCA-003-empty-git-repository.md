@@ -113,7 +113,7 @@ The `/dev` command unconditionally executes `git log -1 --oneline` without check
 !`git rev-list -n 1 HEAD 2>/dev/null`
 
 # If no commits exist (empty repository):
-git add .claude/ .devforgeai/ .ai_docs/ CLAUDE.md README.md 2>/dev/null || true
+git add .claude/ devforgeai/ .ai_docs/ CLAUDE.md README.md 2>/dev/null || true
 git commit -m "chore: Initialize DevForgeAI framework structure" 2>/dev/null || true
 ```
 

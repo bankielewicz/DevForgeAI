@@ -63,7 +63,7 @@ format_version: "2.0"
 **When** all tests execute,
 **Then** 37/37 tests pass with 100% pass rate.
 
-**Test Evidence:** `bash .devforgeai/tests/commands/test-dev.sh` output shows 37/37 passed.
+**Test Evidence:** `bash devforgeai/tests/commands/test-dev.sh` output shows 37/37 passed.
 
 ### AC#7: RCA-008 Safeguards Preserved (Git Operations Protected)
 **Given** RCA-008 established user approval requirement for destructive git operations,
@@ -195,7 +195,7 @@ success_metrics:
 ### Edge Case 5: Git Operations Blocked (RCA-008 Safeguard)
 **Scenario:** During Phase 5, git commit is required but user doesn't approve destructive git operations.
 
-**Expected Behavior:** Skill detects missing approval, switches to file-based tracking (changes documented in .devforgeai/stories/{STORY-ID}/changes/). Command displays "Git approval not provided. Using file-based change tracking instead."
+**Expected Behavior:** Skill detects missing approval, switches to file-based tracking (changes documented in devforgeai/stories/{STORY-ID}/changes/). Command displays "Git approval not provided. Using file-based change tracking instead."
 
 **Test Method:** Simulate RCA-008 approval block
 

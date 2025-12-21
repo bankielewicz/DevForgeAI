@@ -28,7 +28,7 @@
 **Procedure:**
 ```bash
 # Run automated validation
-bash .devforgeai/RCA/RCA-012/scripts/validate-template-format.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-template-format.sh
 
 # Manual checks
 grep -c "^### AC#[1-4]:" .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
@@ -365,7 +365,7 @@ Phase 1: Validation Mode = light
 **Procedure:**
 ```bash
 # Run audit on known sample
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > /tmp/audit-test.txt
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > /tmp/audit-test.txt
 
 # Verify known cases
 grep "STORY-007.*100%.*Complete" /tmp/audit-test.txt
@@ -420,7 +420,7 @@ grep -A 50 "Deferred Items:" devforgeai/specs/Stories/STORY-038*.story.md | grep
 # Expected: 4 (items 1-4)
 
 # Re-run audit
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "STORY-038"
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "STORY-038"
 # Expected: "STORY-038...87%...✓ Deferrals documented"
 ```
 
@@ -439,7 +439,7 @@ bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "STORY-
 
 **Before Remediation:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "Non-Compliant:"
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "Non-Compliant:"
 # Expected: "Non-Compliant: X" (where X ≥ 1, likely 7-8 based on sampling)
 ```
 
@@ -447,7 +447,7 @@ bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | grep "Non-Co
 ```bash
 # All flagged stories fixed (per STORY-AUDIT.md)
 # Re-run audit
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | tail -20
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh | tail -20
 
 # Expected output:
 Total Stories Audited: 39
@@ -775,7 +775,7 @@ time bash audit-qa-approved-stories.sh
 
 ### Test Execution Log Template
 
-**File:** `.devforgeai/RCA/RCA-012/TEST-EXECUTION-LOG.md`
+**File:** `devforgeai/RCA/RCA-012/TEST-EXECUTION-LOG.md`
 
 **Format:**
 ```markdown
@@ -858,7 +858,7 @@ time bash audit-qa-approved-stories.sh
 
 ### Automated Test Suite Creation
 
-**File:** `.devforgeai/RCA/RCA-012/scripts/run-all-tests.sh`
+**File:** `devforgeai/RCA/RCA-012/scripts/run-all-tests.sh`
 
 **Script:**
 ```bash
@@ -876,7 +876,7 @@ failed=0
 
 # Test 1.1: Template Format
 echo "[Test 1.1] Template format validation..."
-bash .devforgeai/RCA/RCA-012/scripts/validate-template-format.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-template-format.sh
 if [ $? -eq 0 ]; then
   echo "  ✓ PASS"
   passed=$((passed + 1))
@@ -922,7 +922,7 @@ fi
 
 **Usage:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/run-all-tests.sh
+bash devforgeai/RCA/RCA-012/scripts/run-all-tests.sh
 ```
 
 **Benefit:** One command runs all automated tests
@@ -939,7 +939,7 @@ bash .devforgeai/RCA/RCA-012/scripts/run-all-tests.sh
 4. Re-test results
 5. Sign-off (tester approval)
 
-**Storage:** `.devforgeai/RCA/RCA-012/test-results/`
+**Storage:** `devforgeai/RCA/RCA-012/test-results/`
 
 **Files:**
 - `phase1-test-results.md`

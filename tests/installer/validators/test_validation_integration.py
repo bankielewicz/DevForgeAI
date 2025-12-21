@@ -91,7 +91,7 @@ class TestValidationIntegration:
         """
         Test: Existing installation detected → WARN status
 
-        Given: Directory with existing .claude/ and .devforgeai/
+        Given: Directory with existing .claude/ and devforgeai/
         When: Pre-flight validation runs
         Then: Installation detector returns WARN, overall warnings_present=True
         """

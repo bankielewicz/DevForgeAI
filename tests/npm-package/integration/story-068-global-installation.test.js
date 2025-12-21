@@ -44,7 +44,7 @@ describe('STORY-068: Global Installation Integration Tests', () => {
 
       // Assert
       expect(packageJson.bin).toBeDefined();
-      expect(packageJson.bin.devforgeai).toBe('bin/devforgeai.js');
+      expect(packageJson.bindevforgeai).toBe('bin/devforgeai.js');
     });
 
     test('[INTEGRATION] bin entry point is executable', () => {
@@ -289,7 +289,7 @@ describe('STORY-068: Global Installation Integration Tests', () => {
       expect(packageJson.version).toMatch(/^\d+\.\d+\.\d+/);
       expect(packageJson.description).toBeDefined();
       expect(packageJson.bin).toBeDefined();
-      expect(packageJson.bin.devforgeai).toBe('bin/devforgeai.js');
+      expect(packageJson.bindevforgeai).toBe('bin/devforgeai.js');
       expect(packageJson.engines).toBeDefined();
       expect(packageJson.engines.node).toBeDefined();
     });
@@ -297,7 +297,7 @@ describe('STORY-068: Global Installation Integration Tests', () => {
     test('[INTEGRATION] bin file referenced in package.json exists', () => {
       // Arrange
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-      const binFile = path.join(__dirname, '../../../', packageJson.bin.devforgeai);
+      const binFile = path.join(__dirname, '../../../', packageJson.bindevforgeai);
 
       // Assert
       expect(fs.existsSync(binFile)).toBe(true);

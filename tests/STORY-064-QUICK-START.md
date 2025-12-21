@@ -91,7 +91,7 @@ Location: `/mnt/c/Projects/DevForgeAI2/tests/user-input-guidance/fixtures/`
 
 ## CI/CD Pipeline
 
-**File**: `.devforgeai/ci/story-creation-test-pipeline.yml`
+**File**: `devforgeai/ci/story-creation-test-pipeline.yml`
 
 **Features**:
 - Triggers on story-creation SKILL.md commits
@@ -194,7 +194,7 @@ Tests will FAIL if:
 - Unit tests (UT06-15) validate each rule is tested
 
 **AC-4: CI/CD Integration Configured**
-- Pipeline configuration in .devforgeai/ci/
+- Pipeline configuration in devforgeai/ci/
 - Integration tests (IT04-06) validate pipeline setup
 
 **AC-5: Cross-Reference Added**
@@ -229,7 +229,7 @@ Ensure Phase 1 Step 0 documents guidance loading
 
 ### Test fails: "pipeline configuration missing"
 ```
-Check: .devforgeai/ci/story-creation-test-pipeline.yml
+Check: devforgeai/ci/story-creation-test-pipeline.yml
 Ensure file exists with trigger conditions and job definitions
 ```
 

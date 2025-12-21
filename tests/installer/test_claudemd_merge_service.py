@@ -550,7 +550,7 @@ class TestManualStrategy:
 
     def test_should_create_devforgeai_template_file(self, temp_dir, mock_logger, simple_claudemd, framework_template):
         """
-        Test: CLAUDE.md.devforgeai-template created (AC#7)
+        Test: CLAUDE.mddevforgeai-template created (AC#7)
 
         Given: manual() called
         When: Executes workflow
@@ -567,7 +567,7 @@ class TestManualStrategy:
 
         # Assert
         assert result is not None
-        template_path = temp_dir / "CLAUDE.md.devforgeai-template"
+        template_path = temp_dir / "CLAUDE.mddevforgeai-template"
         assert template_path.exists()
 
     def test_should_display_merge_instructions(self, temp_dir, mock_logger, simple_claudemd, framework_template):

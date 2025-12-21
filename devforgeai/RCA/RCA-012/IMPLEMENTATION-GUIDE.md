@@ -389,7 +389,7 @@ Ask user to:
 
 **Document Feedback:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/user-feedback-phase1.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/user-feedback-phase1.md << 'EOF'
 # Phase 1 User Feedback
 
 **Date:** 2025-01-XX
@@ -439,7 +439,7 @@ EOF
 
 **Validation Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
 ```
 
 **If All Pass:**
@@ -673,7 +673,7 @@ Run QA:
 
 **Validation Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
 ```
 
 **If All Pass:**
@@ -697,7 +697,7 @@ bash .devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
 
 ### Step 3.1: Create Automated Audit Script (30 minutes)
 
-**File:** `.devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh` (NEW)
+**File:** `devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh` (NEW)
 
 **Script Content:** See STORY-AUDIT.md for complete script
 
@@ -708,9 +708,9 @@ bash .devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
 
 **Testing:**
 ```bash
-chmod +x .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+chmod +x devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 # Expected: Output showing all 39 stories with compliance status
 ```
 
@@ -726,9 +726,9 @@ bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 
 **Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > .devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
 
-cat .devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
+cat devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
 ```
 
 **Review Output:**
@@ -738,7 +738,7 @@ cat .devforgeai/RCA/RCA-012/AUDIT-RESULTS.txt
 
 **Create Summary:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md << 'EOF'
 # QA Approved Stories Compliance Report
 
 **Audit Date:** 2025-01-21
@@ -893,7 +893,7 @@ grep -c "Deferred Items" devforgeai/specs/Stories/STORY-038*.story.md | grep "1"
 
 ### Step 3.5: Generate Final Compliance Report (30 minutes)
 
-**File:** `.devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md`
+**File:** `devforgeai/RCA/RCA-012/COMPLIANCE-REPORT.md`
 
 **Content:**
 ```markdown
@@ -925,7 +925,7 @@ All stories now have:
 
 Run verification:
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/verify-compliance.sh
+bash devforgeai/RCA/RCA-012/scripts/verify-compliance.sh
 # Expected: 39/39 PASS
 ```
 ```
@@ -950,7 +950,7 @@ bash .devforgeai/RCA/RCA-012/scripts/verify-compliance.sh
 
 **Validation Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase3.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase3.sh
 ```
 
 **If All Pass:**
@@ -1044,7 +1044,7 @@ grep "| AC | Requirement | DoD Item |" {test-story-file}
 
 **Validation Command:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase4.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase4.sh
 ```
 
 **If All Pass:**
@@ -1092,7 +1092,7 @@ bash .devforgeai/RCA/RCA-012/scripts/validate-phase4.sh
 
 ```bash
 # Run comprehensive validation
-bash .devforgeai/RCA/RCA-012/scripts/validate-all-phases.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-all-phases.sh
 
 # Expected output:
 ✓ Phase 1: Template v2.1 operational
@@ -1233,7 +1233,7 @@ Date: YYYY-MM-DD
 **RCA-012 Status:** RESOLVED
 ```
 
-Save to: `.devforgeai/RCA/RCA-012/IMPLEMENTATION-CERTIFICATION.md`
+Save to: `devforgeai/RCA/RCA-012/IMPLEMENTATION-CERTIFICATION.md`
 
 ---
 

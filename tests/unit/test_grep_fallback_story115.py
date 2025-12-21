@@ -13,7 +13,7 @@ from pathlib import Path
 from unittest.mock import Mock, patch
 
 # Imports will work because conftest.py adds src/ to sys.path
-from claude.scripts.devforgeai_cli.validators.grep_fallback import (
+from claude.scriptsdevforgeai_cli.validators.grep_fallback import (
     GrepFallbackAnalyzer,
     log_fallback_warning,
     GrepPattern,

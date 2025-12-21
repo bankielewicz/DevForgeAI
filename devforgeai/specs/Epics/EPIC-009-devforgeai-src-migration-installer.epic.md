@@ -19,7 +19,7 @@ updated: 2025-11-20
 Transform DevForgeAI from a "development-in-operational-folders" pattern to a proper SDLC-compliant "development-in-src-with-installer-deployment" pattern, enabling the framework to be distributed as an installable package that external projects can adopt reliably.
 
 **Current State Problem:**
-- Development occurs directly in `.claude/` and `.devforgeai/` (operational folders used by Claude Code Terminal)
+- Development occurs directly in `.claude/` and `devforgeai/` (operational folders used by Claude Code Terminal)
 - Framework cannot be tested independently in external projects
 - No separation between source files and deployed/generated files
 - Manual installation requires copying folders (error-prone, no version control)
@@ -27,7 +27,7 @@ Transform DevForgeAI from a "development-in-operational-folders" pattern to a pr
 
 **Target State Solution:**
 - Source files maintained in `src/claude/` and `src/devforgeai/` directories
-- Version-aware installer deploys: src/ → .claude/ and .devforgeai/ in target projects
+- Version-aware installer deploys: src/ → .claude/ and devforgeai/ in target projects
 - Automated backup/rollback capability for safe upgrades
 - External project testing enabled (validate in Node.js, .NET, Python projects)
 - Proper software development lifecycle: source → build → deploy → test → distribute
@@ -97,7 +97,7 @@ Transform DevForgeAI from a "development-in-operational-folders" pattern to a pr
 
 ### 2. File Migration (STORY-042) - 8 points
 
-**Description:** Copy all DevForgeAI framework files (~450 files) from .claude/ and .devforgeai/ operational folders to src/ directories, preserving structure and validating integrity while keeping originals unchanged for parallel development.
+**Description:** Copy all DevForgeAI framework files (~450 files) from .claude/ and devforgeai/ operational folders to src/ directories, preserving structure and validating integrity while keeping originals unchanged for parallel development.
 
 **Complexity:** Medium (5/10)
 - Large file count (450 files)
@@ -119,7 +119,7 @@ Transform DevForgeAI from a "development-in-operational-folders" pattern to a pr
 
 ### 3. Path Reference Updates (STORY-043) - 13 points
 
-**Description:** Update all internal path references from .claude/ and .devforgeai/ to src/claude/ and src/devforgeai/ in framework source files, validating zero broken references through automated scanning and ensuring skills load reference files correctly from new source structure.
+**Description:** Update all internal path references from .claude/ and devforgeai/ to src/claude/ and src/devforgeai/ in framework source files, validating zero broken references through automated scanning and ensuring skills load reference files correctly from new source structure.
 
 **Complexity:** High (8/10)
 - 2,800+ references to audit and classify
@@ -356,7 +356,7 @@ Transform DevForgeAI from a "development-in-operational-folders" pattern to a pr
 
 **Before starting this epic:**
 - [ ] Git repository initialized with commits (for version control)
-- [ ] DevForgeAI framework operational in .claude/ and .devforgeai/ (current state)
+- [ ] DevForgeAI framework operational in .claude/ and devforgeai/ (current state)
 - [ ] Python 3.8+ installed (for installer scripts)
 - [ ] Sufficient disk space (~100 MB for src/ + backups)
 
@@ -518,7 +518,7 @@ Points completed: 31/68 (45.6%)
 - Installer integrates with devforgeai CLI (pip install -e .claude/scripts/)
 - CLAUDE.md merge preserves @file references to .claude/memory/
 - src/ structure mirrors operational folders (1:1 mapping)
-- Generated files stay in .devforgeai/ (not in src/)
+- Generated files stay in devforgeai/ (not in src/)
 
 **With external projects:**
 - Installer detects project type (Node.js, .NET, Python)

@@ -29,7 +29,7 @@ Persist feedback sessions to disk with searchable metadata, enabling users to re
 ## Features
 
 ### Feature 3.1: Feedback File Persistence
-**Description:** Save feedback sessions to `.devforgeai/feedback/` directory with timestamp-based naming, atomic writes, and corruption prevention.
+**Description:** Save feedback sessions to `devforgeai/feedback/` directory with timestamp-based naming, atomic writes, and corruption prevention.
 
 **User Stories (high-level):**
 1. As a user, I want my feedback automatically saved, so that I can review it later
@@ -37,7 +37,7 @@ Persist feedback sessions to disk with searchable metadata, enabling users to re
 3. As a framework maintainer, I want consistent file naming, so that I can programmatically process feedback
 
 **Acceptance Criteria:**
-- Feedback directory: `.devforgeai/feedback/sessions/`
+- Feedback directory: `devforgeai/feedback/sessions/`
 - File naming: `{timestamp}-{operation-type}-{status}.md`
   - Example: `2025-11-07T10-30-00-command-dev-success.md`
 - File format: Markdown with YAML frontmatter (template from Epic 3)
@@ -57,7 +57,7 @@ storage:
 **Estimated Effort:** Small (5-8 story points)
 
 ### Feature 3.2: Searchable Metadata Index
-**Description:** Maintain searchable index (`.devforgeai/feedback/index.json`) with metadata from all feedback sessions, enabling fast filtering by date, operation, status, tags, and keywords.
+**Description:** Maintain searchable index (`devforgeai/feedback/index.json`) with metadata from all feedback sessions, enabling fast filtering by date, operation, status, tags, and keywords.
 
 **User Stories (high-level):**
 1. As a user, I want to search "all failed /qa runs in last month", so that I can identify patterns
@@ -65,7 +65,7 @@ storage:
 3. As a user, I want search to be fast, even with hundreds of feedback sessions
 
 **Acceptance Criteria:**
-- Index file: `.devforgeai/feedback/index.json`
+- Index file: `devforgeai/feedback/index.json`
 - Index structure:
   ```json
   {
@@ -110,7 +110,7 @@ storage:
 
 **Acceptance Criteria:**
 - Export command: `/export-feedback [--date-range=last-30-days] [--sanitize=true]`
-- Export package format: `.devforgeai-feedback-export-{timestamp}.zip`
+- Export package format: `devforgeai-feedback-export-{timestamp}.zip`
 - Package contents:
   - `feedback-sessions/` (all session files, sanitized if requested)
   - `index.json` (filtered index matching exported sessions)
@@ -120,7 +120,7 @@ storage:
   - Remove custom field values (keep field names for analysis)
   - Remove project-specific context (file paths, repo names)
 - Import command: `/import-feedback [file.zip]`
-  - Extract to `.devforgeai/feedback/imported/{timestamp}/`
+  - Extract to `devforgeai/feedback/imported/{timestamp}/`
   - Merge index entries with conflict resolution (duplicate IDs get -imported-N suffix)
   - Validation: Reject corrupted or incompatible exports
 
@@ -151,8 +151,8 @@ storage:
 - Export/import in application layer (orchestration, sanitization)
 
 **Technology Stack:**
-- Storage: File system (`.devforgeai/feedback/`)
-- Index: JSON (`.devforgeai/feedback/index.json`)
+- Storage: File system (`devforgeai/feedback/`)
+- Index: JSON (`devforgeai/feedback/index.json`)
 - Export: ZIP archive with JSON manifest
 - Sanitization: Regex-based replacements + manual review prompts
 

@@ -140,7 +140,7 @@ OSError: Permission denied when creating backup directory
 ```bash
 # View permissions on target directories
 ls -ld /path/to/project/.claude
-ls -ld /path/to/project/.devforgeai
+ls -ld /path/to/project/devforgeai
 ls -ld /path/to/project
 ```
 
@@ -148,12 +148,12 @@ ls -ld /path/to/project
 ```bash
 # Make directories writable by current user
 chmod -R u+w /path/to/project/.claude
-chmod -R u+w /path/to/project/.devforgeai
+chmod -R u+w /path/to/project/devforgeai
 chmod -R u+w /path/to/project
 
 # Or use sudo if necessary
 sudo chmod -R u+w /path/to/project/.claude
-sudo chmod -R u+w /path/to/project/.devforgeai
+sudo chmod -R u+w /path/to/project/devforgeai
 ```
 
 3. **Verify permissions fixed:**
@@ -296,7 +296,7 @@ test -f CLAUDE.md && echo "✓ CLAUDE.md"
 # Compare to expected counts
 echo "Command files: $(find .claude/commands -type f | wc -l) (expected: ~15)"
 echo "Skill files: $(find .claude/skills -type f | wc -l) (expected: ~200)"
-echo "Total files: $(find .claude .devforgeai -type f 2>/dev/null | wc -l) (expected: ~450)"
+echo "Total files: $(find .claude devforgeai -type f 2>/dev/null | wc -l) (expected: ~450)"
 ```
 
 4. **Re-validate installation:**
@@ -469,7 +469,7 @@ jobs:
 ```bash
 # Verify structure matches expectations
 test -d .claude && echo "✓ .claude directory"
-test -d .devforgeai && echo "✓ .devforgeai directory"
+test -d devforgeai && echo "✓ devforgeai directory"
 test -f CLAUDE.md && echo "✓ CLAUDE.md"
 
 # Test framework availability

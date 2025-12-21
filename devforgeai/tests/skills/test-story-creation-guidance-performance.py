@@ -3,7 +3,7 @@
 ################################################################################
 # PERFORMANCE TEST SUITE: Story Creation Guidance Integration
 #
-# File: .devforgeai/tests/skills/test-story-creation-guidance-performance.py
+# File: devforgeai/tests/skills/test-story-creation-guidance-performance.py
 # Purpose: Measure execution time, token overhead, and memory usage
 # Coverage: 8 performance tests with benchmarks and p95/p99 percentiles
 # Framework: Python + timing measurements

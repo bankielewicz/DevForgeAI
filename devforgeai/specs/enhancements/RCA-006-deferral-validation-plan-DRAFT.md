@@ -102,7 +102,7 @@ FOR each incomplete item:
 
 2. **Scope Change with ADR (Requirements changed)**
    - Pattern: "Out of scope: ADR-XXX"
-   - Validation: Verify ADR-XXX exists in .devforgeai/adrs/
+   - Validation: Verify ADR-XXX exists in devforgeai/adrs/
    - Validation: ADR created within last 30 days (recent decision)
    - Example: "Out of scope: ADR-042 descoped performance benchmarks"
    - Action: Verify ADR documents this specific scope change
@@ -156,7 +156,7 @@ FOR each incomplete DoD item:
             Severity: HIGH
 
     ELSE IF reason matches "Out of scope: ADR-XXX":
-        Glob(pattern=".devforgeai/adrs/ADR-{XXX}*.md")
+        Glob(pattern="devforgeai/adrs/ADR-{XXX}*.md")
         IF not found:
             VIOLATION: "ADR-{XXX} not found"
             Severity: MEDIUM
@@ -276,7 +276,7 @@ Edit story file to add QA iteration entry:
 - {count} follow-up stories created
 - {count} ADRs documented
 
-**Report:** .devforgeai/qa/reports/{story-id}-qa-report-attempt-{N}.md
+**Report:** devforgeai/qa/reports/{story-id}-qa-report-attempt-{N}.md
 ```
 
 **Track metrics:**
@@ -432,7 +432,7 @@ FOR each DoD item in story acceptance criteria:
         Mark: [ ] {item} - Blocked by: {blocker_description}
 
         # Log to technical debt register
-        Add to .devforgeai/technical-debt-register.md:
+        Add to devforgeai/technical-debt-register.md:
             "- {item} (from {story_id}): Blocked by {blocker_description}"
         ```
 ```
@@ -472,7 +472,7 @@ IF incomplete_items > 0:
 
 ```
 Check for QA report:
-Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/{story-id}-qa-report*.md")
 
 IF multiple reports found (multiple QA attempts):
     Read most recent report
@@ -821,7 +821,7 @@ Analyze technical debt accumulated from deferred Definition of Done items across
 ### Input
 
 Read from conversation context or default sources:
-- Technical debt register: .devforgeai/technical-debt-register.md
+- Technical debt register: devforgeai/technical-debt-register.md
 - All story files: devforgeai/specs/Stories/*.story.md
 - Sprint data: devforgeai/specs/Sprints/*.md
 - Epic data: devforgeai/specs/Epics/*.md
@@ -928,7 +928,7 @@ IF pattern detected (e.g., 50% deferrals are "not enough time"):
 
 ```
 Write(
-    file_path=".devforgeai/technical-debt-analysis-{date}.md",
+    file_path="devforgeai/technical-debt-analysis-{date}.md",
     content={comprehensive analysis report}
 )
 
@@ -973,7 +973,7 @@ Return to orchestration skill:
 
 ```
 Wait for QA skill to complete
-Read QA report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+Read QA report: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 Parse report status: PASSED or FAILED
 ```
 
@@ -1025,7 +1025,7 @@ IF deferral failures found:
         Exit command
 
     IF "Review detailed QA report":
-        Display: "QA Report: .devforgeai/qa/reports/{STORY_ID}-qa-report.md"
+        Display: "QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
         Display: "After review, run /dev {STORY_ID} to fix issues"
         Exit command
 
@@ -1051,7 +1051,7 @@ ELSE IF other QA failures (coverage, anti-patterns, etc.):
 **Check for previous QA failures:**
 
 ```
-Glob(pattern=".devforgeai/qa/reports/{STORY_ID}-qa-report*.md")
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}-qa-report*.md")
 
 IF QA report(s) found:
     Read most recent report
@@ -1339,7 +1339,7 @@ FOR each deferral:
     ELSE IF reason_type == "scope_change":
         adr_reference = extract_adr_id(reason)
 
-        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
+        Glob(pattern="devforgeai/adrs/{adr_reference}*.md")
 
         IF not found:
             WARN: "Referenced {adr_reference} not found"
@@ -1359,13 +1359,13 @@ FOR each deferral:
 
     ELSE IF reason_type == "external_blocker":
         # Log to technical debt register
-        Ensure entry exists in .devforgeai/technical-debt-register.md
+        Ensure entry exists in devforgeai/technical-debt-register.md
 ```
 
 **Step 3: Update Technical Debt Register**
 
 ```
-Read or create: .devforgeai/technical-debt-register.md
+Read or create: devforgeai/technical-debt-register.md
 
 FOR each deferral:
     Check if already logged
@@ -1601,7 +1601,7 @@ THEN:
 
 IF deferral references ADR:
 ```
-Glob(pattern=".devforgeai/adrs/{ADR_REF}*.md")
+Glob(pattern="devforgeai/adrs/{ADR_REF}*.md")
 
 IF not found:
     VIOLATION:
@@ -1811,7 +1811,7 @@ IF any incomplete items found:
 
 **15.2: Technical Debt Register Template**
 
-**File:** `.devforgeai/technical-debt-register.md` (NEW)
+**File:** `devforgeai/technical-debt-register.md` (NEW)
 
 **Content:**
 - Header explaining purpose
@@ -1830,7 +1830,7 @@ IF any incomplete items found:
 
 ### Component 16: Create RCA-006 Document (1.5 hours)
 
-**File:** `.devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md` (NEW)
+**File:** `devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md` (NEW)
 
 **Content:**
 - Problem statement (from STORY-004/005 evidence)

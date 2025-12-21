@@ -710,7 +710,7 @@ for feature in story_features:
 
 ## See Also
 
-- `.devforgeai/research/parallel-orchestration-research.md` - Full research report
+- `devforgeai/research/parallel-orchestration-research.md` - Full research report
 - `devforgeai/context/architecture-constraints.md` - Updated constraints
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration skill implementation
 - `.claude/skills/devforgeai-development/SKILL.md` - Development skill with background tasks

@@ -6,8 +6,8 @@
 **Applies To:** All DevForgeAI state transitions
 
 **Related:**
-- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
-- **State Transitions:** `.devforgeai/protocols/state-transitions.md` - Transition rules
+- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
+- **State Transitions:** `devforgeai/protocols/state-transitions.md` - Transition rules
 
 ---
 
@@ -328,7 +328,7 @@ git diff --exit-code  # Exit code 0 = no uncommitted changes
 
 **Deferral Allowed:** Yes (with proper justification)
 
-**Reference:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**Reference:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 
 ---
 
@@ -482,7 +482,7 @@ npm test -- --coverage
 
 **Deferral Allowed:** N/A (this IS the deferral validation gate)
 
-**Reference:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md`
+**Reference:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md`
 
 ---
 
@@ -714,10 +714,10 @@ Each story tracks quality metrics in QA Validation section:
 
 ## Related Documentation
 
-- **Workflow States:** `.devforgeai/protocols/workflow-states.md` - State definitions
-- **State Transitions:** `.devforgeai/protocols/state-transitions.md` - Transition rules
-- **Lean Orchestration:** `.devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture
-- **RCA-006:** `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
+- **Workflow States:** `devforgeai/protocols/workflow-states.md` - State definitions
+- **State Transitions:** `devforgeai/protocols/state-transitions.md` - Transition rules
+- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture
+- **RCA-006:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` - Deferral validation pattern
 - **Anti-Patterns:** `devforgeai/context/anti-patterns.md` - Framework anti-patterns
 - **Coding Standards:** `devforgeai/context/coding-standards.md` - Code quality standards
 

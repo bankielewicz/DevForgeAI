@@ -107,7 +107,7 @@ class BackupService(IBackupService):
                 ONLY use for testing scenarios. Production code should never use this.
         """
         if backups_root is None:
-            backups_root = Path.cwd() / ".devforgeai" / "backups"
+            backups_root = Path.cwd() / "devforgeai" / "backups"
 
         # Validate path to prevent traversal attacks
         backups_root = Path(backups_root).resolve()
@@ -136,7 +136,7 @@ class BackupService(IBackupService):
         Create complete backup of installation.
 
         Args:
-            source_root: Root directory to backup (.devforgeai, .claude, CLAUDE.md, etc.)
+            source_root: Root directory to backup (devforgeai, .claude, CLAUDE.md, etc.)
             version: Version being backed up
             reason: Reason for backup creation
 

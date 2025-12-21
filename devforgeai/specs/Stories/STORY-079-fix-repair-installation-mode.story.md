@@ -27,7 +27,7 @@ Installations can become corrupted through incomplete upgrades, manual file dele
 
 ### AC#1: Installation Integrity Validation
 
-**Given** DevForgeAI is installed with a valid manifest (`.devforgeai/.install-manifest.json`),
+**Given** DevForgeAI is installed with a valid manifest (`devforgeai/.install-manifest.json`),
 **When** the fix command runs,
 **Then** all files in the manifest are checked for existence,
 **And** file checksums are verified against manifest values,
@@ -103,7 +103,7 @@ Installations can become corrupted through incomplete upgrades, manual file dele
   - Issues remaining: count (manual intervention needed)
   - Time taken: duration
 **And** detailed issue list is available with --verbose flag,
-**And** report is saved to `.devforgeai/logs/fix-{timestamp}.log`.
+**And** report is saved to `devforgeai/logs/fix-{timestamp}.log`.
 
 ---
 
@@ -123,7 +123,7 @@ Installations can become corrupted through incomplete upgrades, manual file dele
 
 ### AC#8: Missing Manifest Handling
 
-**Given** `.devforgeai/.install-manifest.json` does not exist,
+**Given** `devforgeai/.install-manifest.json` does not exist,
 **When** fix command runs,
 **Then** user is notified that manifest is missing,
 **And** user is offered options:
@@ -247,7 +247,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "InstallManifest"
-      table: ".devforgeai/.install-manifest.json"
+      table: "devforgeai/.install-manifest.json"
       purpose: "Tracks all installed files for integrity validation"
       fields:
         - name: "version"
@@ -341,7 +341,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "RepairReport"
-      table: ".devforgeai/logs/fix-{timestamp}.log"
+      table: "devforgeai/logs/fix-{timestamp}.log"
       purpose: "Summary of repair operation"
       fields:
         - name: "timestamp"
@@ -427,7 +427,7 @@ technical_specification:
     - id: "NFR-004"
       category: "Security"
       requirement: "Repair does not modify files outside DevForgeAI directories"
-      metric: "0 modifications outside .claude/, .devforgeai/, CLAUDE.md"
+      metric: "0 modifications outside .claude/, devforgeai/, CLAUDE.md"
       test_requirement: "Test: Files outside DevForgeAI directories unchanged"
       priority: "Critical"
 ```
@@ -630,7 +630,7 @@ Implemented `devforgeai fix` command with comprehensive installation repair capa
 
 ### Security Hardening
 - Path traversal prevention (checks for ".." sequences)
-- Whitelist approach for allowed paths (.claude/, .devforgeai/, CLAUDE.md)
+- Whitelist approach for allowed paths (.claude/, devforgeai/, CLAUDE.md)
 - Blacklist for forbidden directories (user_project/, .git/, node_modules/, etc.)
 - Non-destructive by default (user consent required)
 
@@ -657,7 +657,7 @@ Implemented `devforgeai fix` command with comprehensive installation repair capa
 - Passing: 80 (100%)
 - Execution: 3.86s
 
-**Report:** `.devforgeai/qa/reports/STORY-079-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-079-qa-report.md`
 
 ---
 

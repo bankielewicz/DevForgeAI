@@ -80,18 +80,18 @@ class TestAC2PathMigration:
 
     def test_no_dotdevforgeai_path_references(self, agent_content):
         """
-        AC2: No references to old .devforgeai/ path (project uses devforgeai/ without dot)
+        AC2: No references to old devforgeai/ path (project uses devforgeai/ without dot)
 
         Arrange: Load agent file content
-        Act: Search for old .devforgeai path pattern
+        Act: Search for old devforgeai path pattern
         Assert: Zero matches found
         """
         # Act
-        old_dotdevforgeai_matches = re.findall(r'\.devforgeai/', agent_content)
+        old_dotdevforgeai_matches = re.findall(r'\devforgeai/', agent_content)
 
         # Assert
         assert len(old_dotdevforgeai_matches) == 0, \
-            f"Found {len(old_dotdevforgeai_matches)} references to deprecated path '.devforgeai/' - project uses 'devforgeai/' (no dot)"
+            f"Found {len(old_dotdevforgeai_matches)} references to deprecated path 'devforgeai/' - project uses 'devforgeai/' (no dot)"
 
     def test_uses_new_devforgeai_context_path(self, agent_content):
         """
@@ -182,7 +182,7 @@ class TestAC2PathMigration:
             len(re.findall(r'\.claude/context/', agent_content)) +
             len(re.findall(r'\.claude/adrs/', agent_content)) +
             len(re.findall(r'\.bmad-core/', agent_content)) +
-            len(re.findall(r'\.devforgeai/', agent_content))  # old dot convention
+            len(re.findall(r'\devforgeai/', agent_content))  # old dot convention
         )
 
         # Act - new standard paths (devforgeai/specs/...)
@@ -247,7 +247,7 @@ class TestAC2PathMigration:
             len(re.findall(r'\.claude/context/', agent_content)) +
             len(re.findall(r'\.claude/adrs/', agent_content)) +
             len(re.findall(r'\.bmad-core/', agent_content)) +
-            len(re.findall(r'\.devforgeai/', agent_content))  # old dot convention
+            len(re.findall(r'\devforgeai/', agent_content))  # old dot convention
         )
 
         # Act - new standard paths

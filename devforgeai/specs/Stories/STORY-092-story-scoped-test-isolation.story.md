@@ -50,7 +50,7 @@ depends_on: ["STORY-091"]
 
 **Given** a QA report is generated for STORY-037
 **When** the report references test output paths
-**Then** all paths in `.devforgeai/qa/reports/STORY-037-qa-report.md` reference story-scoped directories:
+**Then** all paths in `devforgeai/qa/reports/STORY-037-qa-report.md` reference story-scoped directories:
 - Test results: `tests/results/STORY-037/`
 - Coverage: `tests/coverage/STORY-037/`
 - Logs: `tests/logs/STORY-037/`
@@ -72,7 +72,7 @@ depends_on: ["STORY-091"]
 ### AC#5: Configuration File Support
 
 **Given** a project requires customization of test isolation paths
-**When** `.devforgeai/config/test-isolation.yaml` exists
+**When** `devforgeai/config/test-isolation.yaml` exists
 **Then** the framework reads configuration for:
 - Base results directory (default: `tests/results/`)
 - Base coverage directory (default: `tests/coverage/`)

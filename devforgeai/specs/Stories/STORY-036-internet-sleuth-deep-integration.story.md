@@ -39,7 +39,7 @@ format_version: "2.0"
 **Then** the skill invokes internet-sleuth agent with Task tool
 **And** internet-sleuth returns structured research report with feasibility findings (technical feasibility score 0-10, market viability evidence, competitive landscape, risk factors)
 **And** ideation skill incorporates research findings into feasibility assessment
-**And** research report is saved to `.devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
+**And** research report is saved to `devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md`
 **And** research findings validate against context files (no unapproved technologies recommended)
 
 ---
@@ -84,7 +84,7 @@ format_version: "2.0"
 
 **Given** internet-sleuth is integrated with framework skills
 **When** example research scenarios are documented
-**Then** 3 example research reports exist in `.devforgeai/research/examples/`:
+**Then** 3 example research reports exist in `devforgeai/research/examples/`:
   - `technology-evaluation-example.md` (comparative analysis with ADR-ready evidence)
   - `competitive-analysis-example.md` (market research with feasibility implications)
   - `repository-archaeology-example.md` (implementation pattern mining with code examples)
@@ -265,23 +265,23 @@ technical_specification:
 
     - type: "Configuration"
       name: "ResearchDirectoryStructure"
-      file_path: ".devforgeai/research/"
+      file_path: "devforgeai/research/"
       requirements:
         - id: "COMP-018"
           description: "Create directory structure: research/{feasibility, examples, shared, cache, logs}/"
           testable: true
-          test_requirement: "Test: mkdir -p .devforgeai/research/{feasibility,examples,shared,cache,logs} succeeds, .gitkeep files added to prevent empty directory issues"
+          test_requirement: "Test: mkdir -p devforgeai/research/{feasibility,examples,shared,cache,logs} succeeds, .gitkeep files added to prevent empty directory issues"
           priority: "High"
 
         - id: "COMP-019"
           description: "Create README.md documenting directory purposes, file naming conventions, archival policy"
           testable: true
-          test_requirement: "Test: README exists at .devforgeai/research/README.md, contains directory explanations, naming pattern (RESEARCH-001), archival guidance (6 months)"
+          test_requirement: "Test: README exists at devforgeai/research/README.md, contains directory explanations, naming pattern (RESEARCH-001), archival guidance (6 months)"
           priority: "Low"
 
     - type: "Configuration"
       name: "ExampleResearchReports"
-      file_path: ".devforgeai/research/examples/"
+      file_path: "devforgeai/research/examples/"
       requirements:
         - id: "COMP-020"
           description: "Create technology-evaluation-example.md demonstrating comparative analysis with ADR-ready evidence"
@@ -421,7 +421,7 @@ technical_specification:
 ### 5. Rate limiting during deep research
 **Scenario:** internet-sleuth hits Perplexity API rate limits mid-research
 
-**Expected Behavior:** Cache partial results in `.devforgeai/research/cache/{research_id}-partial.json` and resume from checkpoint on retry, not restart from scratch.
+**Expected Behavior:** Cache partial results in `devforgeai/research/cache/{research_id}-partial.json` and resume from checkpoint on retry, not restart from scratch.
 
 **Test:** Mock Perplexity API to return 429 rate limit after 2 of 5 sections completed, verify cache file created with 2 sections, retry resumes from section 3
 
@@ -430,7 +430,7 @@ technical_specification:
 ### 6. Multi-epic research scope
 **Scenario:** Research is relevant to multiple epics (e.g., "evaluate GraphQL for all API development")
 
-**Expected Behavior:** Research report must be stored in `.devforgeai/research/shared/` and linked from all relevant epic/story files via YAML frontmatter reference (research_references: [RESEARCH-001]).
+**Expected Behavior:** Research report must be stored in `devforgeai/research/shared/` and linked from all relevant epic/story files via YAML frontmatter reference (research_references: [RESEARCH-001]).
 
 **Test:** Research spans EPIC-001 and EPIC-002, assert stored in shared/, both epic files include research_references: [RESEARCH-001] in frontmatter
 
@@ -494,7 +494,7 @@ technical_specification:
 
 **Error Handling:**
 - **Perplexity API failures:** Max 3 retries with exponential backoff (1s, 2s, 4s delays)
-- **Partial result recovery:** Cache partial results in `.devforgeai/research/cache/`, resume from checkpoint on retry
+- **Partial result recovery:** Cache partial results in `devforgeai/research/cache/`, resume from checkpoint on retry
 - **Validation failures:** Quality gate validation failures do not crash agent, return structured error with remediation steps
 - **Graceful degradation:** If repository archaeology finds no results, fall back to documentation research with DEGRADED flag
 
@@ -504,7 +504,7 @@ technical_specification:
 - **Retry conditions:** Retry on: rate limits (429), network timeouts (504, 503); Do not retry on: 404 (not found), 403 (forbidden)
 
 **Monitoring:**
-- **Log all research operations:** .devforgeai/research/logs/{YYYY-MM-DD}-research.log (INFO level minimum)
+- **Log all research operations:** devforgeai/research/logs/{YYYY-MM-DD}-research.log (INFO level minimum)
 - **Track completion rate:** % of research operations completing successfully
 - **Track retry frequency:** Average retries per operation
 - **Alert on:** Consistent Perplexity API failures (>50% retry rate), cache corruption (partial results unrecoverable)
@@ -518,7 +518,7 @@ technical_specification:
 
 **Research Report Storage:**
 - **No hard limit:** File-based storage scales with disk space
-- **Archival policy:** Move reports >6 months old to .devforgeai/research/archive/ (maintain .devforgeai/research/ performance)
+- **Archival policy:** Move reports >6 months old to devforgeai/research/archive/ (maintain devforgeai/research/ performance)
 
 **Methodology Reference Files:**
 - **Scale to 10 research modes:** Progressive disclosure prevents token bloat (lazy loading)
@@ -633,7 +633,7 @@ test_quality_gate_critical_violation() {
 test_ideation_integration() {
   # Simulate devforgeai-ideation Phase 5
   # Invoke Task(subagent_type="internet-sleuth", prompt="Research React ecosystem feasibility")
-  # Assert: research report generated in .devforgeai/research/feasibility/
+  # Assert: research report generated in devforgeai/research/feasibility/
   # Assert: report includes technical_feasibility_score (0-10)
   # Assert: report validates against context files
 }
@@ -670,8 +670,8 @@ test_ideation_integration() {
 - [x] COMP-015: competitive-analysis-patterns.md created (515 lines - target: 500 ✓)
 - [x] COMP-016: Research report template YAML frontmatter schema defined
 - [x] COMP-017: Research report template 9 standard sections defined
-- [x] COMP-018: .devforgeai/research/ directory structure created
-- [x] COMP-019: .devforgeai/research/README.md created
+- [x] COMP-018: devforgeai/research/ directory structure created
+- [x] COMP-019: devforgeai/research/README.md created
 - [x] COMP-020: technology-evaluation-example.md created
 - [x] COMP-021: competitive-analysis-example.md created
 - [x] COMP-022: repository-archaeology-example.md created
@@ -705,7 +705,7 @@ test_ideation_integration() {
 
 **Mode:** Deep
 **Result:** APPROVED
-**Report:** `.devforgeai/qa/reports/STORY-036-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-036-qa-report.md`
 
 **Validation Results:**
 - Test Coverage: ✅ 100% pass rate (49/49 tests), ~87% estimated coverage
@@ -756,8 +756,8 @@ test_ideation_integration() {
 - [x] COMP-015: competitive-analysis-patterns.md created (515 lines - target: 500 ✓) - Completed: 7-step workflow for market analysis
 - [x] COMP-016: Research report template YAML frontmatter schema defined - Completed: 7 required fields in research-report-template.md
 - [x] COMP-017: Research report template 9 standard sections defined - Completed: Executive Summary → ADR Readiness sections documented
-- [x] COMP-018: .devforgeai/research/ directory structure created - Completed: 5 subdirectories with .gitkeep files
-- [x] COMP-019: .devforgeai/research/README.md created - Completed: Directory purposes, naming conventions, archival policy documented
+- [x] COMP-018: devforgeai/research/ directory structure created - Completed: 5 subdirectories with .gitkeep files
+- [x] COMP-019: devforgeai/research/README.md created - Completed: Directory purposes, naming conventions, archival policy documented
 - [x] COMP-020: technology-evaluation-example.md created - Completed: Complete example with 3 patterns, 3 pitfalls, ADR evidence
 - [x] COMP-021: competitive-analysis-example.md created - Completed: 5 competitors, SWOT, positioning map, pricing analysis
 - [x] COMP-022: repository-archaeology-example.md created - Completed: 8 repos analyzed, 3 patterns extracted, 3 pitfalls, 2 insights
@@ -811,7 +811,7 @@ test_ideation_integration() {
    - 2 complete skill integration examples (ideation Phase 5, architecture Phase 2)
    - Error handling for PARTIAL, FAILED, RATE_LIMITED, BLOCKED states
 
-6. ✅ `.devforgeai/research/README.md` (directory documentation)
+6. ✅ `devforgeai/research/README.md` (directory documentation)
    - 5 subdirectories: feasibility/, examples/, shared/, cache/, logs/
    - Naming conventions, archival policy (6 months)
    - Gap-aware research ID assignment algorithm
@@ -915,7 +915,7 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py -v
 4. `.claude/skills/devforgeai-architecture/references/adr-creation-workflow.md` (+60 lines for research integration)
 
 **Files Created:**
-1. `.devforgeai/research/` directory structure (5 subdirectories + README.md)
+1. `devforgeai/research/` directory structure (5 subdirectories + README.md)
 2. 5 methodology reference files (2,280 lines total)
 3. 1 research report template (assets/)
 4. 3 example research reports (examples/)
@@ -979,7 +979,7 @@ This is Phase 2 of a hybrid migration approach for the internet-sleuth agent. It
 - **Workflow state awareness:** Research recommendations adapt to current development phase
 - **Skill coordination:** devforgeai-ideation and devforgeai-architecture invoke internet-sleuth via Task tool
 - **Research report templates:** Standardized structure ensures consistency and framework compliance
-- **Directory structure:** .devforgeai/research/ with subdirectories for organization (feasibility/, examples/, shared/, cache/, logs/)
+- **Directory structure:** devforgeai/research/ with subdirectories for organization (feasibility/, examples/, shared/, cache/, logs/)
 
 **Related Stories:**
 - STORY-035: Internet-Sleuth Framework Compliance (Phase 1) - Prerequisite
@@ -991,7 +991,7 @@ This is Phase 2 of a hybrid migration approach for the internet-sleuth agent. It
 - Phase 1 agent: .claude/agents/internet-sleuth.md (after STORY-035 completion)
 - devforgeai-ideation skill: .claude/skills/devforgeai-ideation/SKILL.md
 - devforgeai-architecture skill: .claude/skills/devforgeai-architecture/SKILL.md
-- Research report examples: .devforgeai/research/examples/
+- Research report examples: devforgeai/research/examples/
 
 ---
 

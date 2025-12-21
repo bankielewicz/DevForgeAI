@@ -27,7 +27,7 @@ Enable Opus to orchestrate multiple parallel subagents to reduce wait time for c
 ## Features
 
 ### Feature 1: Parallel Configuration Infrastructure (Sprint 1, Week 1)
-**Description:** Create `.devforgeai/config/parallel-orchestration.yaml` with profile support, timeout settings, and retry configuration. Foundation for all parallel patterns.
+**Description:** Create `devforgeai/config/parallel-orchestration.yaml` with profile support, timeout settings, and retry configuration. Foundation for all parallel patterns.
 
 **User Stories (high-level):**
 1. As a DevForgeAI user, I want to configure maximum concurrent tasks so I can match my Anthropic subscription tier
@@ -102,7 +102,7 @@ Enable Opus to orchestrate multiple parallel subagents to reduce wait time for c
 - Multiple Task() calls in single message (4-6 concurrent subagents with implicit sync)
 - Background Bash execution via `run_in_background=true` for long operations
 - Subagent registry auto-discovery via generated CLAUDE.md section
-- Configurable parallel limits via `.devforgeai/config/parallel-orchestration.yaml`
+- Configurable parallel limits via `devforgeai/config/parallel-orchestration.yaml`
 
 ### Data Model
 **Entities:**

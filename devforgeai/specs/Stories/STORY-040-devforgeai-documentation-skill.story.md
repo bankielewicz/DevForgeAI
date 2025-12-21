@@ -81,7 +81,7 @@ tags: [documentation, skill, command, automation, code-analysis]
 **Then** the system should:
 - Display available templates (README, Developer Guide, API Docs, Troubleshooting, Contributing, Changelog)
 - Allow template selection via AskUserQuestion
-- Support custom templates in .devforgeai/templates/documentation/
+- Support custom templates in devforgeai/templates/documentation/
 - Apply project-specific customizations from coding-standards.md
 
 ### AC7: Multi-Format Documentation Export
@@ -140,7 +140,7 @@ User → /document command → devforgeai-documentation skill → Subagents
    - Generate Mermaid diagrams from architecture patterns
 
 4. **Phase 3: Template Application**
-   - Load templates from assets/ or custom .devforgeai/templates/
+   - Load templates from assets/ or custom devforgeai/templates/
    - Apply project-specific customizations
    - Populate template sections with generated content
 
@@ -622,7 +622,7 @@ Before `/release`, verify:
 - ✅ Created ADR-003 documenting framework design principle
 - ✅ Planned correct implementation: `devforgeai-documentation` SKILL (Markdown-based)
 
-**Reference**: `.devforgeai/adrs/ADR-003-framework-markdown-only-constraint.md`
+**Reference**: `devforgeai/adrs/ADR-003-framework-markdown-only-constraint.md`
 
 ### Correct Implementation Path
 

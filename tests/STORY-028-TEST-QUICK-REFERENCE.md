@@ -179,7 +179,7 @@ def test_example(self):
 ```python
 @pytest.fixture
 def temp_project_dir(self):
-    """Temporary .devforgeai directory structure"""
+    """Temporary devforgeai directory structure"""
     with tempfile.TemporaryDirectory() as tmpdir:
         # Create structure
         yield tmpdir_path
@@ -295,10 +295,10 @@ Based on test structure, implementation needs:
    ```
 
 3. **Configuration Files**
-   - `.devforgeai/config/hooks.yaml` (enable/disable)
-   - `.devforgeai/feedback/.logs/hooks.log` (success log)
-   - `.devforgeai/feedback/.logs/hook-errors.log` (error log)
-   - `.devforgeai/feedback/epic-create/{EPIC-ID}_{timestamp}.json` (responses)
+   - `devforgeai/config/hooks.yaml` (enable/disable)
+   - `devforgeai/feedback/.logs/hooks.log` (success log)
+   - `devforgeai/feedback/.logs/hook-errors.log` (error log)
+   - `devforgeai/feedback/epic-create/{EPIC-ID}_{timestamp}.json` (responses)
 
 4. **CLI Requirements**
    - `devforgeai check-hooks --operation=epic-create` → JSON response
@@ -311,7 +311,7 @@ Based on test structure, implementation needs:
 - **Story**: `devforgeai/specs/Stories/STORY-028-wire-hooks-into-create-epic-command.story.md`
 - **Skill**: `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A.9 to add)
 - **Command**: `.claude/commands/create-epic.md` (Phase 4 to update)
-- **Config Example**: `.devforgeai/config/hooks.yaml.example` (to create)
+- **Config Example**: `devforgeai/config/hooks.yaml.example` (to create)
 - **Dependency Stories**: STORY-021 (check-hooks), STORY-022 (invoke-hooks)
 
 ---

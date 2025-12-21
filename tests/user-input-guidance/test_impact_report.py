@@ -18,7 +18,7 @@ class TestImpactReportExistence:
         Act: Check for USER-INPUT-GUIDANCE-IMPACT-REPORT.md
         Assert: Impact report file exists"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         file_exists = report_file.exists() and report_file.is_file()
@@ -31,7 +31,7 @@ class TestImpactReportExistence:
         Act: Read content and validate length
         Assert: Report has substantial content (>1000 characters)"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_content = False
@@ -51,7 +51,7 @@ class TestImpactReportExecutiveSummary:
         Act: Check for executive summary section
         Assert: Report includes executive summary section"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_summary = False
@@ -69,7 +69,7 @@ class TestImpactReportExecutiveSummary:
         Act: Check for headline metrics in executive summary
         Assert: Summary includes key metrics (token savings %, incomplete reduction %)"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_metrics = False
@@ -86,7 +86,7 @@ class TestImpactReportExecutiveSummary:
         Act: Estimate word count of executive summary section
         Assert: Executive summary ≤ 500 words"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         summary_length = 0
@@ -113,7 +113,7 @@ class TestImpactReportFindingsByBusinessGoal:
         Act: Check for detailed findings section
         Assert: Report includes findings by business goal"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_findings = False
@@ -132,7 +132,7 @@ class TestImpactReportFindingsByBusinessGoal:
         Act: Check for incomplete story rate findings
         Assert: Report documents baseline ~40%, enhanced ≤13%, reduction ≥67%"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_incomplete_findings = False
@@ -149,7 +149,7 @@ class TestImpactReportFindingsByBusinessGoal:
         Act: Check for token efficiency findings
         Assert: Report documents token savings percentage and p-value"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_token_findings = False
@@ -166,7 +166,7 @@ class TestImpactReportFindingsByBusinessGoal:
         Act: Check for iteration cycle findings
         Assert: Report documents baseline ~2.5, enhanced ≤1.2 iterations"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_iteration_findings = False
@@ -188,7 +188,7 @@ class TestImpactReportEvidenceTables:
         Act: Check for evidence tables or data tables
         Assert: Report includes tables with before/after metrics"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_tables = False
@@ -205,7 +205,7 @@ class TestImpactReportEvidenceTables:
         Act: Count fixture references in tables
         Assert: Report includes data for all 10 test fixtures"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         fixture_count = 0
@@ -234,7 +234,7 @@ class TestImpactReportStatisticalAnalysis:
         Act: Check for statistical analysis section
         Assert: Report includes statistical analysis section"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_statistics = False
@@ -252,7 +252,7 @@ class TestImpactReportStatisticalAnalysis:
         Act: Check for confidence interval reporting
         Assert: Report includes confidence intervals"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_confidence = False
@@ -271,7 +271,7 @@ class TestImpactReportStatisticalAnalysis:
         Act: Check for significance test reporting
         Assert: Report includes p-value and significance statement"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_significance = False
@@ -292,7 +292,7 @@ class TestImpactReportRecommendations:
         Act: Check for recommendations section
         Assert: Report includes recommendations"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_recommendations = False
@@ -311,7 +311,7 @@ class TestImpactReportRecommendations:
         Act: Count numbered/bulleted recommendations
         Assert: Report includes 3-5 actionable recommendations"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         recommendation_count = 0
@@ -349,7 +349,7 @@ class TestImpactReportLimitations:
         Act: Check for limitations section
         Assert: Report includes limitations and caveats"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_limitations = False
@@ -368,7 +368,7 @@ class TestImpactReportLimitations:
         Act: Check for acknowledgment of 10-story sample size
         Assert: Report acknowledges limited sample size (n=10)"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         acknowledges_sample = False
@@ -387,7 +387,7 @@ class TestImpactReportLimitations:
         Act: Check for acknowledgment of fixture selection bias
         Assert: Report acknowledges potential bias in fixture selection"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         acknowledges_bias = False
@@ -410,7 +410,7 @@ class TestImpactReportAppendix:
         Act: Check for appendix section with raw data tables
         Assert: Report includes appendix for reproducibility"""
         # Arrange
-        report_file = Path("/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
+        report_file = Path("/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md")
 
         # Act
         has_appendix = False

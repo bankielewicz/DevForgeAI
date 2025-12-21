@@ -238,7 +238,7 @@
           "description": "Document scope boundary decision: why AC#5 (skill enhancement) deferred from AC#1-4 (template updates)",
           "owner": "Framework Team or User",
           "deadline": "Before QA Approval transition",
-          "deliverable": ".devforgeai/adrs/ADR-008-*.md file"
+          "deliverable": "devforgeai/adrs/ADR-008-*.md file"
         },
         {
           "action": "Update Story Implementation Notes",

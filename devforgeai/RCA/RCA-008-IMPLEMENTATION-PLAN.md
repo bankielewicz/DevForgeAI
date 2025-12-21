@@ -21,7 +21,7 @@
 **Risk Level:** LOW (all changes use existing tools, no breaking changes)
 
 **Related Documents:**
-- RCA Analysis: `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (to be created in Phase 3)
+- RCA Analysis: `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (to be created in Phase 3)
 - Incident Date: 2025-11-13
 - Root Cause: Missing user consent checkpoint for git stash operations affecting >10 files
 
@@ -68,15 +68,15 @@
 **Priority:** MEDIUM | **Effort:** 2-3 hours | **Risk:** LOW
 
 - [x] **Story 3.1:** Create RCA-008 Document (REC-6)
-  - [x] Create .devforgeai/RCA/RCA-008-autonomous-git-stashing.md
-  - [x] Create .devforgeai/RCA/README.md
+  - [x] Create devforgeai/RCA/RCA-008-autonomous-git-stashing.md
+  - [x] Create devforgeai/RCA/README.md
   - [x] Add RCA to framework documentation
 - [x] **Story 3.2:** Update Skill Documentation
   - [x] Update devforgeai-development/SKILL.md
   - [x] Update git-workflow-conventions.md line counts
   - [x] Update preflight-validation.md line count
 - [x] **Story 3.3:** Add Regression Test Suite
-  - [x] Create .devforgeai/tests/regression/test_rca_008_git_stashing.md
+  - [x] Create devforgeai/tests/regression/test_rca_008_git_stashing.md
   - [x] Document 12 regression tests (expanded from 8)
   - [x] Document test execution procedures
 
@@ -661,13 +661,13 @@ touch src/test{1..30}.py                          # 30 code files
 **Status:** ✅ COMPLETE
 **Effort:** 1 hour
 **Files to Create:**
-- `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
-- `.devforgeai/RCA/README.md`
+- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+- `devforgeai/RCA/README.md`
 
 #### Task 3.1.1: Create RCA-008 document
 **Status:** ⬜ NOT STARTED
 
-**Location:** `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+**Location:** `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
 
 **Content:** [See full RCA document structure in detailed plan above - includes incident summary, 5 whys, root cause, recommendations status, verification tests, lessons learned]
 
@@ -684,13 +684,13 @@ touch src/test{1..30}.py                          # 30 code files
 **Status:** ⬜ NOT STARTED
 
 **Files:**
-- `.devforgeai/RCA/` (directory)
-- `.devforgeai/RCA/README.md`
+- `devforgeai/RCA/` (directory)
+- `devforgeai/RCA/README.md`
 
 [See full README content in detailed plan above - lists all RCAs, describes process]
 
 **Acceptance Criteria:**
-- [x] Directory created (.devforgeai/RCA/ exists)
+- [x] Directory created (devforgeai/RCA/ exists)
 - [x] README documents RCA-006, RCA-007, RCA-008 (all 3 documented)
 - [x] RCA process explained (10-step workflow documented)
 
@@ -732,12 +732,12 @@ touch src/test{1..30}.py                          # 30 code files
 **Status:** ✅ COMPLETE
 **Effort:** 1 hour
 **Files to Create:**
-- `.devforgeai/tests/regression/test_rca_008_git_stashing.md`
+- `devforgeai/tests/regression/test_rca_008_git_stashing.md`
 
 #### Task 3.3.1: Create regression test suite
 **Status:** ⬜ NOT STARTED
 
-**Location:** `.devforgeai/tests/regression/test_rca_008_git_stashing.md`
+**Location:** `devforgeai/tests/regression/test_rca_008_git_stashing.md`
 
 **Content:** [See full test suite in detailed plan above - 8 regression tests]
 
@@ -752,7 +752,7 @@ touch src/test{1..30}.py                          # 30 code files
 8. Enhanced git-validator Output
 
 **Acceptance Criteria:**
-- [x] Test suite document created (.devforgeai/tests/regression/test_rca_008_git_stashing.md verified)
+- [x] Test suite document created (devforgeai/tests/regression/test_rca_008_git_stashing.md verified)
 - [x] 12 test cases documented (expanded from 8 - all documented)
 - [x] Expected vs Actual fields for recording results (template complete)
 - [x] Success criteria defined (12/12 must pass) (documented in test suite)
@@ -793,12 +793,12 @@ touch src/test{1..30}.py                          # 30 code files
 **Verification:**
 ```bash
 # Check documentation exists
-ls .devforgeai/RCA/RCA-008-autonomous-git-stashing.md
-ls .devforgeai/RCA/README.md
-ls .devforgeai/tests/regression/test_rca_008_git_stashing.md
+ls devforgeai/RCA/RCA-008-autonomous-git-stashing.md
+ls devforgeai/RCA/README.md
+ls devforgeai/tests/regression/test_rca_008_git_stashing.md
 
 # Verify test results
-grep "Actual:" .devforgeai/tests/regression/test_rca_008_git_stashing.md
+grep "Actual:" devforgeai/tests/regression/test_rca_008_git_stashing.md
 # Should show 8 test results, all passing
 ```
 
@@ -827,9 +827,9 @@ grep "Actual:" .devforgeai/tests/regression/test_rca_008_git_stashing.md
 - [x] `CLAUDE.md` (Added Critical Rule #11 - 64 lines)
 
 **Created (3 files):**
-- [x] `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
-- [x] `.devforgeai/RCA/README.md`
-- [x] `.devforgeai/tests/regression/test_rca_008_git_stashing.md`
+- [x] `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+- [x] `devforgeai/RCA/README.md`
+- [x] `devforgeai/tests/regression/test_rca_008_git_stashing.md`
 
 ### Acceptance Criteria (Overall)
 - [x] Phase 1 complete (3 critical safeguards implemented)
@@ -874,7 +874,7 @@ grep "Actual:" .devforgeai/tests/regression/test_rca_008_git_stashing.md
 
 1. **Read this file:**
    ```bash
-   Read(.devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md)
+   Read(devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md)
    ```
 
 2. **Check current progress:**
@@ -891,8 +891,8 @@ grep "Actual:" .devforgeai/tests/regression/test_rca_008_git_stashing.md
 
 4. **Related documents:**
    - Full detailed plan: See sections above for each task
-   - RCA analysis: (Will be in `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md` after Phase 3)
-   - Test results: (Will be in `.devforgeai/tests/regression/test_rca_008_git_stashing.md` after Phase 3)
+   - RCA analysis: (Will be in `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` after Phase 3)
+   - Test results: (Will be in `devforgeai/tests/regression/test_rca_008_git_stashing.md` after Phase 3)
 
 ---
 

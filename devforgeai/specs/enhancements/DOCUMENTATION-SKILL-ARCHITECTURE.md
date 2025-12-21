@@ -261,7 +261,7 @@ sequenceDiagram
 #### Phase 3: Template Application
 
 **Step 3.1: Load Templates**
-- Check for custom templates: `.devforgeai/templates/documentation/`
+- Check for custom templates: `devforgeai/templates/documentation/`
 - If custom exist → Use custom
 - If not → Use built-in from `assets/templates/`
 
@@ -407,7 +407,7 @@ Coverage = (Documented APIs / Total Public APIs) * 100%
 - Use markdown-to-html converter (internal or Pandoc)
 - Apply CSS styling:
   - Default: Clean, professional theme
-  - Custom: Load from `.devforgeai/templates/documentation/styles.css`
+  - Custom: Load from `devforgeai/templates/documentation/styles.css`
 - Embed Mermaid diagrams as SVG (render with mermaid-cli if available)
 - Generate navigation (sidebar, breadcrumbs)
 - Output to `docs/html/` or specified directory
@@ -687,7 +687,7 @@ Generate comprehensive project documentation from story implementations or codeb
 
 **If `--list-templates`:**
 - Glob: `.claude/skills/devforgeai-documentation/assets/templates/*.md`
-- Glob: `.devforgeai/templates/documentation/*.md` (custom)
+- Glob: `devforgeai/templates/documentation/*.md` (custom)
 - Display list with descriptions
 - Exit (do not invoke skill)
 

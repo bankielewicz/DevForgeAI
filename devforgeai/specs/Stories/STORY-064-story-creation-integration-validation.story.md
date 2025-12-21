@@ -81,7 +81,7 @@ format_version: "2.0"
 - Pull requests modifying story-creation skill
 **And** pipeline executes all 45 tests automatically
 **And** pipeline fails if any test fails (blocking merge)
-**And** configuration documented in .devforgeai/ci/story-creation-test-pipeline.yml
+**And** configuration documented in devforgeai/ci/story-creation-test-pipeline.yml
 
 ---
 
@@ -144,7 +144,7 @@ format_version: "2.0"
 - [x] Test execution results documented (45/45 passing - 100%) - Phase 1, 3
 - [x] No test failures (zero failures, zero remediation plans needed) - Phase 1, 3
 - [ ] Production validation screenshots/logs captured - Deferred to QA phase
-- [x] CI/CD configuration documented (.devforgeai/ci/story-creation-test-pipeline.yml with comments) - Phase 2
+- [x] CI/CD configuration documented (devforgeai/ci/story-creation-test-pipeline.yml with comments) - Phase 2
 
 ---
 
@@ -164,7 +164,7 @@ format_version: "2.0"
 - [x] All 8 data validation rules have test assertions (UT06-UT13) - Phase 1 - Completed: Unit test suite ✓
 
 **Integration - All Items Completed:**
-- [x] CI/CD pipeline configured (story-creation-test-pipeline.yml) - Phase 2 - Completed: .devforgeai/ci/story-creation-test-pipeline.yml, 171 lines ✓
+- [x] CI/CD pipeline configured (story-creation-test-pipeline.yml) - Phase 2 - Completed: devforgeai/ci/story-creation-test-pipeline.yml, 171 lines ✓
 - [x] Pipeline runs on SKILL.md commits (triggers: story-creation SKILL.md changes) - Phase 2 - Completed: Triggers section, lines 3-28 ✓
 - [x] Pipeline blocks merge if tests fail (merge-gate job: exit 1 on failure) - Phase 2 - Completed: merge-gate job, lines 160-170 ✓
 - [x] Cross-reference added to user-input-guidance.md (Section 5.1 + integration-guide.md Section 11) - Phase 2 - Completed: Bidirectional links ✓
@@ -172,7 +172,7 @@ format_version: "2.0"
 **Documentation - Completed Items:**
 - [x] Test execution results documented (45/45 passing - 100%) - Phase 1, 3 - Completed: pytest shows 45 passed ✓
 - [x] No test failures (zero failures, zero remediation plans needed) - Phase 1, 3 - Completed: 45/45 PASSED ✓
-- [x] CI/CD configuration documented (.devforgeai/ci/story-creation-test-pipeline.yml with comments) - Phase 2 - Completed: YAML comments, lines 1-24 ✓
+- [x] CI/CD configuration documented (devforgeai/ci/story-creation-test-pipeline.yml with comments) - Phase 2 - Completed: YAML comments, lines 1-24 ✓
 
 ### Completed in Development Phase
 
@@ -191,7 +191,7 @@ format_version: "2.0"
 - ✓ Overall test pass rate ≥ 95% (45/45 = 100%) - Phase 1, 3 - Completed: pytest execution, 45 passed in 1.22s ✓
 
 **Integration & Cross-References (Phase 2):**
-- ✓ CI/CD pipeline configured: .devforgeai/ci/story-creation-test-pipeline.yml - Completed: Phase 2, 171 lines, triggers on story-creation SKILL.md ✓
+- ✓ CI/CD pipeline configured: devforgeai/ci/story-creation-test-pipeline.yml - Completed: Phase 2, 171 lines, triggers on story-creation SKILL.md ✓
 - ✓ Pipeline triggers on story-creation SKILL.md changes - Completed: Phase 2, triggers section lines 3-28, path filters include story-creation/** ✓
 - ✓ Pipeline blocks merge on test failures (merge-gate job) - Completed: Phase 2, merge-gate job lines 160-170, exit 1 on failure ✓
 - ✓ user-input-guidance.md updated: Added STORY-055 reference in Section 5.1 - Completed: Phase 2, src/claude/skills/devforgeai-ideation/references/user-input-guidance.md line 545 ✓
@@ -211,7 +211,7 @@ format_version: "2.0"
 **Documentation & Test Results (Phase 1-3):**
 - ✓ Test execution results documented (45/45 passing - 100%) - Completed: Phase 1-3, pytest output shows 45 passed in 1.22s ✓
 - ✓ No test failures (zero failures, zero remediation plans needed) - Completed: Phase 1-3, 45/45 PASSED, zero failures ✓
-- ✓ CI/CD configuration documented (.devforgeai/ci/story-creation-test-pipeline.yml with comments) - Completed: Phase 2, YAML header comments lines 1-24 explain purpose and triggers ✓
+- ✓ CI/CD configuration documented (devforgeai/ci/story-creation-test-pipeline.yml with comments) - Completed: Phase 2, YAML header comments lines 1-24 explain purpose and triggers ✓
 
 ### Approved Deferrals (Story-Level Design - Not Autonomous)
 
@@ -268,7 +268,7 @@ format_version: "2.0"
 - All 45 test suites executed and passing (1.22s execution time)
 - 5 test fixtures created (simple, moderate, complex, ambiguous, edge-case)
 - All 8 data validation rules tested (UT06-UT13)
-- CI/CD pipeline configured (171 lines, .devforgeai/ci/story-creation-test-pipeline.yml)
+- CI/CD pipeline configured (171 lines, devforgeai/ci/story-creation-test-pipeline.yml)
 - Cross-references added (user-input-guidance.md, integration-guide.md)
 - Code quality improved (duplication 35% → <5%, test methods 10-12 → 3-5 lines)
 

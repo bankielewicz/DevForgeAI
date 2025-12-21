@@ -9,7 +9,7 @@ This document defines the complete YAML schema for `feedback-preferences.yaml`, 
 ## File Location
 
 ```
-.devforgeai/config/feedback-preferences.yaml
+devforgeai/config/feedback-preferences.yaml
 ```
 
 **File Permissions:** Mode 600 (user read/write only, no group/other access)
@@ -245,7 +245,7 @@ disable_reasons (changes with disabled_feedback)
 import yaml
 
 # Load config
-with open('.devforgeai/config/feedback-preferences.yaml', 'r') as f:
+with open('devforgeai/config/feedback-preferences.yaml', 'r') as f:
     config = yaml.safe_load(f)
 
 # Access fields
@@ -308,7 +308,7 @@ disable_reasons:
 
 If the config file is corrupted (invalid YAML):
 1. System logs error
-2. Creates backup: `.devforgeai/config/feedback-preferences-{timestamp}.yaml.backup`
+2. Creates backup: `devforgeai/config/feedback-preferences-{timestamp}.yaml.backup`
 3. Creates fresh config (same as above)
 4. User notified (non-blocking notification)
 

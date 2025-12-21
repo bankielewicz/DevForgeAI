@@ -48,7 +48,7 @@ format_version: "2.0"
 **When** the failure occurs during hook integration phase,
 **Then** the command logs a warning message: "Feedback system unavailable (reason: [error_type]), continuing without feedback...",
 **And** the /audit-deferrals workflow completes normally without throwing exceptions,
-**And** the user receives their complete audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`,
+**And** the user receives their complete audit report in `devforgeai/qa/deferral-audit-{timestamp}.md`,
 **And** the command exits with status code 0 (success).
 
 ---
@@ -79,7 +79,7 @@ format_version: "2.0"
 
 **Given** hooks are invoked during /audit-deferrals execution,
 **When** either check-hooks or invoke-hooks is called,
-**Then** all invocations are logged to `.devforgeai/feedback/logs/hook-invocations.log` with timestamp, operation, status, and outcome,
+**Then** all invocations are logged to `devforgeai/feedback/logs/hook-invocations.log` with timestamp, operation, status, and outcome,
 **And** failures include error messages and stack traces for debugging,
 **And** successful invocations include feedback session ID for traceability,
 **And** the log file is created if it doesn't exist (with proper permissions).
@@ -134,7 +134,7 @@ technical_specification:
           priority: "High"
 
         - id: "CONF-007"
-          description: "Log all hook invocations to .devforgeai/feedback/logs/hook-invocations.log"
+          description: "Log all hook invocations to devforgeai/feedback/logs/hook-invocations.log"
           testable: true
           test_requirement: "Test: After hook invocation, verify log file contains entry with timestamp, operation, status, outcome"
           priority: "Medium"
@@ -197,7 +197,7 @@ technical_specification:
       category: "Reliability"
       requirement: "All hook invocations must be logged for audit trail and debugging"
       metric: "100% invocation logging with structured format (timestamp, operation, status, outcome, session_id)"
-      test_requirement: "Test: Run 10 audits with hooks enabled, verify all 10 invocations logged to .devforgeai/feedback/logs/hook-invocations.log with complete metadata"
+      test_requirement: "Test: Run 10 audits with hooks enabled, verify all 10 invocations logged to devforgeai/feedback/logs/hook-invocations.log with complete metadata"
 
     - id: "NFR-S1"
       category: "Security"
@@ -226,11 +226,11 @@ Not applicable - This is a command-line interface modification with no graphical
 
 - **CLI not installed:** If `devforgeai` CLI command is not found in PATH, the check-hooks invocation will fail with "command not found" error. Command catches this error, logs warning "devforgeai CLI not found, skipping feedback. Install with: pip install --break-system-packages -e .claude/scripts/", and completes successfully with audit report. User can install CLI later and re-run audit to trigger feedback.
 
-- **Config file corrupted or missing:** If `.devforgeai/config/hooks.yaml` is invalid YAML, has syntax errors, or doesn't exist, check-hooks may fail to parse configuration. Command catches YAML parsing errors, logs warning "Hook configuration invalid or missing, skipping feedback. Validate with: devforgeai check-hooks --validate", and completes successfully. User can fix config and re-run to enable feedback.
+- **Config file corrupted or missing:** If `devforgeai/config/hooks.yaml` is invalid YAML, has syntax errors, or doesn't exist, check-hooks may fail to parse configuration. Command catches YAML parsing errors, logs warning "Hook configuration invalid or missing, skipping feedback. Validate with: devforgeai check-hooks --validate", and completes successfully. User can fix config and re-run to enable feedback.
 
 - **No deferrals found (empty audit):** If audit discovers zero deferred DoD items across all QA Approved/Released stories, audit_summary includes zero counts: {resolvable_count: 0, valid_count: 0, invalid_count: 0, oldest_age: null, circular_chains: []}. Hook is still invoked if eligible (captures insights about clean debt state). Feedback questions adapt: "No deferrals found. What practices helped maintain zero technical debt?"
 
-- **Massive audit results (100+ deferrals):** If audit discovers 100+ deferred items, audit_summary is truncated to top 20 deferrals by priority (circular dependencies first, then oldest resolvable items). Context size validated to be ≤50KB. Feedback questions focus on high-priority items only. Full audit report remains available in `.devforgeai/qa/deferral-audit-{timestamp}.md` for detailed review.
+- **Massive audit results (100+ deferrals):** If audit discovers 100+ deferred items, audit_summary is truncated to top 20 deferrals by priority (circular dependencies first, then oldest resolvable items). Context size validated to be ≤50KB. Feedback questions focus on high-priority items only. Full audit report remains available in `devforgeai/qa/deferral-audit-{timestamp}.md` for detailed review.
 
 - **User interrupts feedback (Ctrl+C during conversation):** If user presses Ctrl+C mid-feedback, invoke-hooks catches KeyboardInterrupt, saves partial responses (if any questions were answered), logs "Feedback interrupted by user", and exits gracefully. /audit-deferrals detects non-zero exit code from invoke-hooks, logs "Feedback session interrupted", and completes successfully. Feedback is marked incomplete but not re-triggered on subsequent audit runs (uses session_id tracking).
 
@@ -250,7 +250,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 - **NFR-R1 (Reliability):** Command success rate 100% regardless of hook failures (graceful degradation), exit code 0 always
 
-- **NFR-R2 (Reliability):** All hook invocations logged to `.devforgeai/feedback/logs/hook-invocations.log` with structured format for debugging
+- **NFR-R2 (Reliability):** All hook invocations logged to `devforgeai/feedback/logs/hook-invocations.log` with structured format for debugging
 
 - **NFR-S1 (Security):** Sensitive data sanitized before passing to feedback (credentials, API keys, secrets replaced with [REDACTED])
 
@@ -280,7 +280,7 @@ None (this is the last story in Feature 6.2 - Command Integration Rollout)
 - [x] User-friendly messaging for feedback invocation
 - [x] Warning messages for hook failures (<50 words, non-alarming)
 - [x] Pattern matches /dev pilot (STORY-023) for consistency
-- [x] Invocation logging to .devforgeai/feedback/logs/hook-invocations.log
+- [x] Invocation logging to devforgeai/feedback/logs/hook-invocations.log
 - [x] Circular invocation prevention guard implemented
 
 ### Quality
@@ -312,7 +312,7 @@ None (this is the last story in Feature 6.2 - Command Integration Rollout)
 
 ### Documentation
 - [x] Command integration documented in `.claude/commands/audit-deferrals.md`
-- [x] Pattern documented in `.devforgeai/protocols/hook-integration-pattern.md` - **Completed:** Updated to v1.1 with STORY-033 performance optimizations and executable bash patterns
+- [x] Pattern documented in `devforgeai/protocols/hook-integration-pattern.md` - **Completed:** Updated to v1.1 with STORY-033 performance optimizations and executable bash patterns
 - [x] Audit context passing format documented
 - [x] User guide updated with /audit-deferrals feedback capability - **Completed:** Integration section in audit-deferrals.md (lines 810-833) documents feedback capability
 - [x] Troubleshooting section added for hook failures
@@ -339,7 +339,7 @@ None (this is the last story in Feature 6.2 - Command Integration Rollout)
 - [x] User-friendly messaging for feedback invocation - **Completed:** Steps 6.1-6.4 include clear messages for eligibility, invocation, and context passing
 - [x] Warning messages for hook failures (<50 words, non-alarming) - **Completed:** Step 6.6 (lines 758-772) includes 4 warning messages, all <40 words, tone is informative not alarming
 - [x] Pattern matches /dev pilot (STORY-023) for consistency - **Completed:** Phase 6 follows /dev pilot pattern: eligibility check → conditional invoke → graceful degradation with proper documentation
-- [x] Invocation logging to .devforgeai/feedback/logs/hook-invocations.log - **Completed:** Step 6.5 (lines 735-751) implements structured logging with timestamp, operation, status, exit_code, session_id, and metrics
+- [x] Invocation logging to devforgeai/feedback/logs/hook-invocations.log - **Completed:** Step 6.5 (lines 735-751) implements structured logging with timestamp, operation, status, exit_code, session_id, and metrics
 - [x] Circular invocation prevention guard implemented - **Completed:** Step 6.7 (lines 777-786) implements guard check for operation_context.parent_operation == "audit-deferrals" with warning message
 
 ### Phase 6 Hook Integration Added to /audit-deferrals Command
@@ -355,7 +355,7 @@ None (this is the last story in Feature 6.2 - Command Integration Rollout)
   2. Audit context preparation (5 metadata fields)
   3. Sensitive data sanitization (api_key, secret, password, token patterns)
   4. Conditional `devforgeai invoke-hooks` invocation (if eligible)
-  5. Structured logging to `.devforgeai/feedback/logs/hook-invocations.log`
+  5. Structured logging to `devforgeai/feedback/logs/hook-invocations.log`
   6. Error handling with graceful degradation (non-blocking)
   7. Circular invocation prevention guard
 
@@ -477,7 +477,7 @@ None (this is the last story in Feature 6.2 - Command Integration Rollout)
 - Functional implementation is complete and production-ready
 - Architectural compliance requires follow-up
 
-**Report:** `.devforgeai/qa/reports/STORY-033-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-033-qa-report.md`
 
 ---
 

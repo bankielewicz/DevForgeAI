@@ -864,7 +864,7 @@ async def login(
 **ADR 1: Hexagonal Architecture**
 
 **Next Steps:**
-1. Create `.devforgeai/adrs/ADR-XXX-hexagonal-architecture-auth.md`
+1. Create `devforgeai/adrs/ADR-XXX-hexagonal-architecture-auth.md`
 2. Document context: STORY-042 requires OAuth implementation, multiple patterns available
 3. Record decision: Hexagonal architecture with ports/adapters
 4. Document alternatives:
@@ -877,7 +877,7 @@ async def login(
 **ADR 2: OAuth 2.0 Flow**
 
 **Next Steps:**
-1. Create `.devforgeai/adrs/ADR-XXY-oauth-refresh-token-flow.md`
+1. Create `devforgeai/adrs/ADR-XXY-oauth-refresh-token-flow.md`
 2. Document context: Need secure authentication with logout capability
 3. Record decision: Password grant + refresh token with rotation
 4. Document alternatives:
@@ -890,6 +890,6 @@ async def login(
 ---
 
 **Report Generated:** 2025-11-17 19:48:22
-**Report Location:** .devforgeai/research/examples/repository-archaeology-example.md
+**Report Location:** devforgeai/research/examples/repository-archaeology-example.md
 **Research ID:** RESEARCH-EXAMPLE-003
 **Version:** 2.0 (template version)

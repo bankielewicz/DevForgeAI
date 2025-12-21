@@ -449,21 +449,21 @@ Integration test execution for STORY-011 Configuration Management completed succ
 ### Test Reports
 
 ✅ **Comprehensive Integration Test Report** (25KB)
-- `.devforgeai/qa/reports/STORY-011-integration-test-report.md`
+- `devforgeai/qa/reports/STORY-011-integration-test-report.md`
 - Detailed breakdown of all 75 tests
 - Complete analysis of each test category
 - Integration point verification
 - Performance metrics and analysis
 
 ✅ **Integration Test Scenarios** (19KB)
-- `.devforgeai/qa/integration-test-scenarios.md`
+- `devforgeai/qa/integration-test-scenarios.md`
 - Detailed scenario walkthroughs
 - Step-by-step flow validation
 - Expected vs actual results
 - Performance integration tests
 
 ✅ **Test Summary** (12KB)
-- `.devforgeai/qa/STORY-011-test-summary.md`
+- `devforgeai/qa/STORY-011-test-summary.md`
 - Quick facts and statistics
 - Test results by category
 - Key findings and recommendations

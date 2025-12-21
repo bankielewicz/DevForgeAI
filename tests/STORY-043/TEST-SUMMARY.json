@@ -247,7 +247,7 @@
     "Create src/scripts/update-paths.sh",
     "Create src/scripts/validate-paths.sh",
     "Create src/scripts/rollback-path-updates.sh",
-    "Create .devforgeai/specs/STORY-043/ directory",
+    "Create devforgeai/specs/STORY-043/ directory",
     "Generate classification files (path-audit-*.txt)",
     "Execute path updates (GREEN phase)",
     "Run tests and iterate until all pass",

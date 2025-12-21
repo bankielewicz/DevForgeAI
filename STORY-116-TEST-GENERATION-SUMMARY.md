@@ -53,7 +53,7 @@ test_should_preserve_all_fields_in_roundtrip
 **Tests:** 17 test cases (15 passed, 2 skipped)
 
 Test coverage:
-- Directory structure creation (.devforgeai/ast-grep/)
+- Directory structure creation (devforgeai/ast-grep/)
 - Language-specific directories (python/, csharp/, typescript/, javascript/)
 - sgconfig.yml file generation
 - Configuration fields: ruleDirs, languageGlobs, testDirs, devforgeai metadata
@@ -151,7 +151,7 @@ All 4 acceptance criteria from STORY-116 are fully covered by test cases:
 
 | AC # | Requirement | Tests | Status |
 |------|-------------|-------|--------|
-| AC#1 | Project-scoped rule storage (.devforgeai/ast-grep/) | 2 | ✓ COVERED |
+| AC#1 | Project-scoped rule storage (devforgeai/ast-grep/) | 2 | ✓ COVERED |
 | AC#2 | Language-specific directories | 4 | ✓ COVERED |
 | AC#3 | Auto-generated sgconfig.yml with fields | 5 | ✓ COVERED |
 | AC#4 | Configuration validation | 4+ | ✓ COVERED |
@@ -218,7 +218,7 @@ These tests serve as executable specification for implementation:
 ### ConfigurationInitializer Class Contract
 - Constructor: accepts project_root Path
 - Method initialize(force=False) → InitResult with created_paths and config_path
-- Creates: .devforgeai/ast-grep/ with rules/{python,csharp,typescript,javascript}/
+- Creates: devforgeai/ast-grep/ with rules/{python,csharp,typescript,javascript}/
 - Generates: sgconfig.yml with ruleDirs, languageGlobs, testDirs, devforgeai metadata
 - Behavior: Skips existing config unless force=True
 - State check: is_initialized() → boolean

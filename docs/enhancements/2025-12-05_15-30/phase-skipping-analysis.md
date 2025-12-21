@@ -250,7 +250,7 @@ IF story.status == "QA Failed":
   )
 
   IF "Targeted remediation" selected:
-    Read QA report from .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+    Read QA report from devforgeai/qa/reports/{STORY_ID}-qa-report.md
     Extract blocking issues
     Display: "Blocking issues to address: {issues}"
     Display: "After fixing, you MUST still run Phases 3-5 for validation."

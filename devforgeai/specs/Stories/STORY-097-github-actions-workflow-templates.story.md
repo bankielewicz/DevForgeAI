@@ -72,8 +72,8 @@ deferred_to_phase: 2
 - `.github/workflows/qa-validation.yml`
 - `.github/workflows/parallel-stories.yml`
 - `.github/workflows/installer-testing.yml`
-- `.devforgeai/config/github-actions.yaml`
-- `.devforgeai/config/ci-answers.yaml`
+- `devforgeai/config/github-actions.yaml`
+- `devforgeai/config/ci-answers.yaml`
 
 ---
 
@@ -432,7 +432,7 @@ technical_specification:
 - **2025-12-17 20:09:00Z**: QA Remediation Complete
   - CRITICAL #1 & #2 (Hard-coded secrets): FALSE POSITIVE - Config files already had proper placeholders, no `ghp_` or `sk-` patterns found
   - HIGH #3 (Security docs): FIXED - Added "Security Prerequisites" section to SKILL.md with secrets setup instructions
-  - HIGH #4 (Config directory): FIXED - Moved files from `.devforgeai/config/` to `devforgeai/config/ci/` per source-tree.md migration
+  - HIGH #4 (Config directory): FIXED - Moved files from `devforgeai/config/` to `devforgeai/config/ci/` per source-tree.md migration
   - Updated all test files to reference new paths (108/108 tests passing)
   - Ready for QA re-run
 

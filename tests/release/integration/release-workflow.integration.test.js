@@ -358,10 +358,10 @@ describe('Release Workflow Integration Tests (STORY-070)', () => {
       // Arrange
       const version = '1.2.4';
       const timestamp = '2025-11-25T10-30-00';
-      const logPath = `.devforgeai/releases/release-${version}-${timestamp}.log`;
+      const logPath = `devforgeai/releases/release-${version}-${timestamp}.log`;
 
       // Assert
-      expect(logPath).toMatch(/\.devforgeai\/releases\/release-\d+\.\d+\.\d+-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.log/);
+      expect(logPath).toMatch(/\devforgeai\/releases\/release-\d+\.\d+\.\d+-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.log/);
     });
 
   });

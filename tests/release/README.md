@@ -225,6 +225,6 @@ npm test tests/release/
 
 - **Story**: `devforgeai/specs/Stories/STORY-070-framework-release-automation.story.md`
 - **Script** (to be created): `scripts/release.sh`
-- **Config** (to be created): `.devforgeai/config/release-config.sh`
+- **Config** (to be created): `devforgeai/config/release-config.sh`
 - **Jest Docs**: https://jestjs.io/docs/getting-started
 - **Subprocess Mocking**: https://jestjs.io/docs/mock-functions

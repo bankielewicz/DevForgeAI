@@ -92,9 +92,9 @@ class TestTemplateLibrary:
         assert len(variables) > 0
 
     def test_should_support_custom_templates(self):
-        """Test that custom templates in .devforgeai/templates/ are supported."""
+        """Test that custom templates in devforgeai/templates/ are supported."""
         # Arrange
-        custom_template_path = ".devforgeai/templates/documentation/custom-template.md"
+        custom_template_path = "devforgeai/templates/documentation/custom-template.md"
 
         # Act
         from devforgeai_documentation import TemplateLibrary
@@ -605,7 +605,7 @@ class TestBranding:
     def test_should_read_branding_from_config(self):
         """Test that branding can be read from project config."""
         # Arrange
-        config_file = ".devforgeai/branding.yaml"
+        config_file = "devforgeai/branding.yaml"
 
         # Act
         from devforgeai_documentation import BrandingConfig

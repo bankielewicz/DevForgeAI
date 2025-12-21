@@ -11,7 +11,7 @@
 
 ### Test Files Location
 ```
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/
 
 Files:
   1. STORY-090-template-depends-on-tests.md (45 tests)

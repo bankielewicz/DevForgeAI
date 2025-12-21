@@ -96,7 +96,7 @@ from typing import List
 class BackupService:
     def __init__(self, logger=None):
         self.logger = logger
-        self.backup_base = Path(".devforgeai")
+        self.backup_base = Path("devforgeai")
 
     def create_backup(
         self,
@@ -424,12 +424,12 @@ class LockFileManager:
     """
     Lock file manager with PID validation and stale lock detection.
 
-    Lock file format: .devforgeai/install.lock
+    Lock file format: devforgeai/install.lock
     Contents: <pid>:<timestamp>
     """
 
     def __init__(self, lock_dir: Path = None):
-        self.lock_dir = lock_dir or Path(".devforgeai")
+        self.lock_dir = lock_dir or Path("devforgeai")
         self.lock_file = self.lock_dir / "install.lock"
         self.current_pid = os.getpid()
         self._lock_acquired = False
@@ -731,7 +731,7 @@ if __name__ == "__main__":
     import tempfile
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        log_file = Path(tmpdir) / ".devforgeai" / "install.log"
+        log_file = Path(tmpdir) / "devforgeai" / "install.log"
         logger = InstallLogger(log_file)
 
         logger.log_session_start()

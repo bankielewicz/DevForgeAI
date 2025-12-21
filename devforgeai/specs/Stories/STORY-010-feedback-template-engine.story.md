@@ -54,7 +54,7 @@ updated: 2025-11-11
 **When** the template engine generates the final document
 **Then** YAML frontmatter includes: operation, type, status, timestamp, story-id (if applicable)
 **And** markdown content follows template structure
-**And** rendered template saved to `.devforgeai/feedback/{operation-type}/{timestamp}-retrospective.md`
+**And** rendered template saved to `devforgeai/feedback/{operation-type}/{timestamp}-retrospective.md`
 
 ---
 
@@ -297,7 +297,7 @@ None - Internal template rendering engine
 
 4. **File Path Validation:**
    - Templates stored in `.claude/skills/devforgeai-feedback/templates/`
-   - Rendered feedback stored in `.devforgeai/feedback/{operation-type}/`
+   - Rendered feedback stored in `devforgeai/feedback/{operation-type}/`
    - Filenames: `{timestamp}-retrospective.md` (ISO 8601 timestamp)
 
 ## Non-Functional Requirements
@@ -333,7 +333,7 @@ None - Internal template rendering engine
 - [x] Template rendering engine (YAML frontmatter + Markdown content)
 - [x] Auto-population logic (Context, User Sentiment, Actionable Insights)
 - [x] Fallback to generic template if specific template missing
-- [x] Rendered templates saved to `.devforgeai/feedback/{operation-type}/`
+- [x] Rendered templates saved to `devforgeai/feedback/{operation-type}/`
 
 ### Quality
 - [x] All 6 acceptance criteria have passing tests
@@ -423,7 +423,7 @@ None - Internal template rendering engine
 - [x] Template rendering engine (YAML frontmatter + Markdown content) - Completed: `render_template()` function with yaml.dump() and markdown assembly
 - [x] Auto-population logic (Context, User Sentiment, Actionable Insights) - Completed: Helper functions `_generate_context_section()`, `_calculate_sentiment()`, `_extract_insights()`
 - [x] Fallback to generic template if specific template missing - Completed: Fallback chain in `select_template()` with generic.yaml as final fallback
-- [x] Rendered templates saved to `.devforgeai/feedback/{operation-type}/` - Completed: `save_rendered_template()` function with directory creation
+- [x] Rendered templates saved to `devforgeai/feedback/{operation-type}/` - Completed: `save_rendered_template()` function with directory creation
 
 **Quality:**
 - [x] All 6 acceptance criteria have passing tests - Completed: 61 tests covering all 6 AC

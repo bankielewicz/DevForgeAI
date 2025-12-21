@@ -23,7 +23,7 @@ format_version: "2.0"
 
 ### 1. [ ] Hook triggers after successful story creation
 
-**Given** feedback hooks are enabled in `.devforgeai/config/hooks.yaml`,
+**Given** feedback hooks are enabled in `devforgeai/config/hooks.yaml`,
 **When** `/create-story` command completes successfully and creates a .story.md file,
 **Then** the system automatically invokes `devforgeai invoke-hooks --operation=story-create --story-id=STORY-NNN` and presents the feedback conversation to the user.
 
@@ -39,7 +39,7 @@ format_version: "2.0"
 
 ### 3. [ ] Hook respects configuration (enabled/disabled state)
 
-**Given** the user has set `feedback.hooks.story_create.enabled: false` in `.devforgeai/config/hooks.yaml`,
+**Given** the user has set `feedback.hooks.story_create.enabled: false` in `devforgeai/config/hooks.yaml`,
 **When** `/create-story` command completes successfully,
 **Then** no feedback hook is invoked, and the command proceeds directly to completion summary.
 
@@ -106,7 +106,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "HookConfiguration"
-      file_path: ".devforgeai/config/hooks.yaml"
+      file_path: "devforgeai/config/hooks.yaml"
       dependencies:
         - "hooks.schema.json"
       required_keys:
@@ -127,15 +127,15 @@ technical_specification:
 
     - type: "Logging"
       name: "HookLogging"
-      file_path: ".devforgeai/feedback/.logs/hooks.log"
+      file_path: "devforgeai/feedback/.logs/hooks.log"
       dependencies:
         - "Python logging module"
       sinks:
         - name: "File"
-          path: ".devforgeai/feedback/.logs/hooks.log"
+          path: "devforgeai/feedback/.logs/hooks.log"
           test_requirement: "Test: Create story, verify hooks.log contains entry with timestamp, operation, story-id, status, duration"
         - name: "File"
-          path: ".devforgeai/feedback/.logs/hook-errors.log"
+          path: "devforgeai/feedback/.logs/hook-errors.log"
           test_requirement: "Test: Mock hook failure, verify hook-errors.log contains timestamp, operation, story-id, error message, stack trace"
 
   business_rules:
@@ -259,7 +259,7 @@ technical_specification:
 ### Reliability
 
 **Error Handling:**
-- Hook failures logged to `.devforgeai/feedback/.logs/hook-errors.log`
+- Hook failures logged to `devforgeai/feedback/.logs/hook-errors.log`
 - User-friendly warning displayed ("Feedback hook failed - story created successfully")
 - Story creation exits with code 0 (success)
 
@@ -324,7 +324,7 @@ technical_specification:
 
 3. **Hook invocation timeout (feedback conversation takes >30s):** After 30 seconds, hook invocation should timeout with graceful degradation. Warning displayed: "Feedback timeout - you can manually run 'devforgeai invoke-hooks --operation=story-create --story-id=STORY-NNN' later."
 
-4. **Hook configuration file missing or corrupted:** If `.devforgeai/config/hooks.yaml` doesn't exist or is malformed, `devforgeai check-hooks` returns `enabled: false` (safe default). No error thrown, hook silently skipped with debug log entry.
+4. **Hook configuration file missing or corrupted:** If `devforgeai/config/hooks.yaml` doesn't exist or is malformed, `devforgeai check-hooks` returns `enabled: false` (safe default). No error thrown, hook silently skipped with debug log entry.
 
 5. **Story created via orchestration skill (not direct command):** When devforgeai-orchestration skill creates stories during sprint planning, hooks should still trigger (same Phase N integration pattern applies to skill).
 
@@ -374,7 +374,7 @@ technical_specification:
 → Verify: Hook invoked (logs contain invoke-hooks invocation)
 
 # Test 2: Hook respects disabled config
-echo "enabled: false" > .devforgeai/config/hooks.yaml
+echo "enabled: false" > devforgeai/config/hooks.yaml
 /create-story "Test feature"
 → Verify: Story created (.story.md exists)
 → Verify: No hook invoked (logs do not contain invoke-hooks)
@@ -409,12 +409,12 @@ Mock devforgeai invoke-hooks to exit 1
 # 3. invoke-hooks --operation=story-create --story-id=STORY-NNN executed
 # 4. Feedback conversation starts
 # 5. User answers questions
-# 6. Responses saved to .devforgeai/feedback/STORY-NNN-feedback.json
+# 6. Responses saved to devforgeai/feedback/STORY-NNN-feedback.json
 # 7. Command exits 0
 
 # Verify:
 assert file_exists("devforgeai/specs/Stories/STORY-NNN-*.story.md")
-assert file_exists(".devforgeai/feedback/STORY-NNN-feedback.json")
+assert file_exists("devforgeai/feedback/STORY-NNN-feedback.json")
 assert exit_code == 0
 ```
 
@@ -435,7 +435,7 @@ assert exit_code == 0
 - [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow
 - [x] `devforgeai check-hooks --operation=story-create` command functional (<100ms execution) - Completed: Hook check executes in ~50ms p95 (50% better than target), verified by 5 performance tests
 - [x] `devforgeai invoke-hooks --operation=story-create` command functional with story context - Completed: Hook invocation includes all 7 required metadata fields, verified by 15 context completeness tests
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading with safe defaults (enabled: false), verified by 6 configuration tests
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading with safe defaults (enabled: false), verified by 6 configuration tests
 - [x] Batch mode story creation defers hooks until all stories created - Completed: Batch mode detection and deferral logic implemented, verified by 9 batch mode tests
 - [x] Graceful degradation implemented (hook failures don't break story creation, exit code 0) - Completed: Hook failures logged to hook-errors.log, exit code 0 guaranteed, verified by 10 failure handling tests
 
@@ -457,7 +457,7 @@ assert exit_code == 0
 
 ### Documentation
 - [x] Hook integration documentation added to devforgeai-story-creation skill guide - Completed: Created .claude/commands/references/hook-integration-guide.md (10,981 bytes, 9-step detailed guide)
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` - Completed: Safe defaults documented in hook-integration-guide.md
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` - Completed: Safe defaults documented in hook-integration-guide.md
 - [x] Troubleshooting guide: "Hook not triggering after story creation" - resolution steps - Completed: Section 7 in hook-integration-guide.md covers all error scenarios
 - [x] Framework maintainer guide updated with hook lifecycle for /create-story - Completed: Integration pattern documented in hook-integration-guide.md
 
@@ -473,7 +473,7 @@ assert exit_code == 0
 - [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow
 - [x] `devforgeai check-hooks --operation=story-create` command functional (<100ms execution) - Completed: Hook check executes in ~50ms p95 (50% better than target), verified by 5 performance tests
 - [x] `devforgeai invoke-hooks --operation=story-create` command functional with story context - Completed: Hook invocation includes all 7 required metadata fields, verified by 15 context completeness tests
-- [x] Hook configuration read from `.devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading with safe defaults (enabled: false), verified by 6 configuration tests
+- [x] Hook configuration read from `devforgeai/config/hooks.yaml` (enabled/disabled state respected) - Completed: Configuration loading with safe defaults (enabled: false), verified by 6 configuration tests
 - [x] Batch mode story creation defers hooks until all stories created - Completed: Batch mode detection and deferral logic implemented, verified by 9 batch mode tests
 - [x] Graceful degradation implemented (hook failures don't break story creation, exit code 0) - Completed: Hook failures logged to hook-errors.log, exit code 0 guaranteed, verified by 10 failure handling tests
 - [x] All 6 acceptance criteria have passing tests - Completed: 62 tests covering all 6 ACs (100% coverage)
@@ -489,7 +489,7 @@ assert exit_code == 0
 - [x] Integration test: Batch story creation defers hooks until batch completion - Completed: 3 integration tests for batch mode deferral
 - [x] E2E test: Complete story creation workflow with hook triggering - Completed: 7 E2E tests in test_create_story_hook_workflow.py
 - [x] Hook integration documentation added to devforgeai-story-creation skill guide - Completed: Created .claude/commands/references/hook-integration-guide.md (10,981 bytes, 9-step detailed guide)
-- [x] Configuration example added to `.devforgeai/config/hooks.yaml.example` - Completed: Safe defaults documented in hook-integration-guide.md
+- [x] Configuration example added to `devforgeai/config/hooks.yaml.example` - Completed: Safe defaults documented in hook-integration-guide.md
 - [x] Troubleshooting guide: "Hook not triggering after story creation" - resolution steps - Completed: Section 7 in hook-integration-guide.md covers all error scenarios
 - [x] Framework maintainer guide updated with hook lifecycle for /create-story - Completed: Integration pattern documented in hook-integration-guide.md
 
@@ -504,7 +504,7 @@ assert exit_code == 0
 **Phase 2 (Green): Implementation**
 - Implemented minimal code to pass tests via backend-architect subagent
 - Hook integration phase added to /create-story command (Phase 5)
-- Configuration loading from .devforgeai/config/hooks.yaml
+- Configuration loading from devforgeai/config/hooks.yaml
 - Hook check executes in ~50ms p95 (<100ms target)
 - Story context metadata assembly (7 fields)
 - Batch mode deferral logic
@@ -565,12 +565,12 @@ assert exit_code == 0
 - Story ID, Epic ID, Sprint reference, Title, Points, Priority, Timestamp (7 fields)
 
 **Graceful degradation:**
-- Hook failures logged to .devforgeai/feedback/.logs/hook-errors.log
+- Hook failures logged to devforgeai/feedback/.logs/hook-errors.log
 - Story creation always exits 0 (success)
 - Warning displayed to user on failure
 
 **Configuration:**
-- Controlled via `.devforgeai/config/hooks.yaml` enabled/disabled flag
+- Controlled via `devforgeai/config/hooks.yaml` enabled/disabled flag
 - Safe default: hooks disabled if config missing
 - Batch mode defers hook invocation until all stories complete
 
@@ -613,7 +613,7 @@ assert exit_code == 0
 
 **Recommendation:** ✅ APPROVED for release
 
-**Report:** `.devforgeai/qa/reports/STORY-027-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-027-qa-report.md`
 
 ---
 

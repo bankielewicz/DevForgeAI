@@ -231,13 +231,13 @@ class TestUserContentPreservation:
 
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
-        (backup_dir / ".devforgeai" / "context").mkdir(parents=True)
-        (backup_dir / ".devforgeai" / "context" / "tech-stack.md").write_text("# Old tech-stack")
+        (backup_dir / "devforgeai" / "context").mkdir(parents=True)
+        (backup_dir / "devforgeai" / "context" / "tech-stack.md").write_text("# Old tech-stack")
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
-        (target_dir / ".devforgeai" / "context").mkdir(parents=True)
-        (target_dir / ".devforgeai" / "context" / "tech-stack.md").write_text("# New tech-stack")
+        (target_dir / "devforgeai" / "context").mkdir(parents=True)
+        (target_dir / "devforgeai" / "context" / "tech-stack.md").write_text("# New tech-stack")
 
         restorer = BackupRestorer(logger=Mock())
 
@@ -249,7 +249,7 @@ class TestUserContentPreservation:
         )
 
         # Assert
-        assert (target_dir / ".devforgeai" / "context" / "tech-stack.md").read_text() == "# New tech-stack"
+        assert (target_dir / "devforgeai" / "context" / "tech-stack.md").read_text() == "# New tech-stack"
 
     def test_restore_skips_devforgeai_adrs(self, tmp_path):
         """
@@ -264,13 +264,13 @@ class TestUserContentPreservation:
 
         backup_dir = tmp_path / "backup"
         backup_dir.mkdir()
-        (backup_dir / ".devforgeai" / "adrs").mkdir(parents=True)
-        (backup_dir / ".devforgeai" / "adrs" / "ADR-001.md").write_text("# Old ADR")
+        (backup_dir / "devforgeai" / "adrs").mkdir(parents=True)
+        (backup_dir / "devforgeai" / "adrs" / "ADR-001.md").write_text("# Old ADR")
 
         target_dir = tmp_path / "target"
         target_dir.mkdir()
-        (target_dir / ".devforgeai" / "adrs").mkdir(parents=True)
-        (target_dir / ".devforgeai" / "adrs" / "ADR-001.md").write_text("# New ADR")
+        (target_dir / "devforgeai" / "adrs").mkdir(parents=True)
+        (target_dir / "devforgeai" / "adrs" / "ADR-001.md").write_text("# New ADR")
 
         restorer = BackupRestorer(logger=Mock())
 
@@ -282,7 +282,7 @@ class TestUserContentPreservation:
         )
 
         # Assert
-        assert (target_dir / ".devforgeai" / "adrs" / "ADR-001.md").read_text() == "# New ADR"
+        assert (target_dir / "devforgeai" / "adrs" / "ADR-001.md").read_text() == "# New ADR"
 
 
 class TestChecksumVerification:

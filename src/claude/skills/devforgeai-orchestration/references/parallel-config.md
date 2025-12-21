@@ -170,7 +170,7 @@ done
 **Symptom:** Skills report using default settings despite config file existing
 
 **Solutions:**
-1. Verify file path: `devforgeai/config/parallel-orchestration.yaml` (not `.devforgeai/`)
+1. Verify file path: `devforgeai/config/parallel-orchestration.yaml` (not `devforgeai/`)
 2. Check YAML syntax: `python3 -c "import yaml; yaml.safe_load(open('...'))`
 3. Ensure file is readable: `ls -la devforgeai/config/parallel-orchestration.yaml`
 

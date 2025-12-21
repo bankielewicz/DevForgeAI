@@ -33,7 +33,7 @@ describe('STORY-068: Global CLI Entry Point', () => {
 
       // Assert
       expect(packageJson.bin).toBeDefined();
-      expect(packageJson.bin.devforgeai).toBe('bin/devforgeai.js');
+      expect(packageJson.bindevforgeai).toBe('bin/devforgeai.js');
     });
 
     test('[NEW] bin/devforgeai.js file exists at package root', () => {

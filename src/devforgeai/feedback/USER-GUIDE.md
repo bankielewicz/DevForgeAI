@@ -161,7 +161,7 @@ Only collect feedback when operations fail:
 
 ```bash
 # Enable failures-only mode
-echo "mode: failures_only" >> .devforgeai/feedback/config.yaml
+echo "mode: failures_only" >> devforgeai/feedback/config.yaml
 ```
 
 ### Disable Completely
@@ -170,7 +170,7 @@ Turn off feedback system:
 
 ```bash
 # Disable feedback
-echo "enable_feedback: false" >> .devforgeai/feedback/config.yaml
+echo "enable_feedback: false" >> devforgeai/feedback/config.yaml
 ```
 
 Or set environment variable:
@@ -183,7 +183,7 @@ export DEVFORGEAI_DISABLE_FEEDBACK=true
 
 ```bash
 # Remove disable flag
-# Edit .devforgeai/feedback/config.yaml:
+# Edit devforgeai/feedback/config.yaml:
 enable_feedback: true
 mode: all  # or failures_only
 ```
@@ -214,7 +214,7 @@ mode: all  # or failures_only
 All feedback stored locally on your machine:
 
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── STORY-001/
 │   └── 20250109_143022-retrospective.json
 ├── STORY-002/
@@ -230,7 +230,7 @@ All feedback stored locally on your machine:
 
 ### Local Storage Only
 
-- Feedback stored in `.devforgeai/feedback/` (local machine)
+- Feedback stored in `devforgeai/feedback/` (local machine)
 - **Never** automatically transmitted anywhere
 - You control when/if to share with maintainers
 
@@ -330,7 +330,7 @@ Question 4 of 4:
 Additional feedback on development experience (optional)
 > The refactor phase guidance could use more examples. Otherwise great!
 
-Thank you! Feedback saved to .devforgeai/feedback/STORY-042/
+Thank you! Feedback saved to devforgeai/feedback/STORY-042/
 ```
 
 ### Failed QA Session
@@ -431,10 +431,10 @@ Thank you! Feedback will help improve QA guidance.
 
 ```bash
 # List all your feedback
-ls -la .devforgeai/feedback/*/
+ls -la devforgeai/feedback/*/
 
 # Read specific feedback
-cat .devforgeai/feedback/STORY-042/*-retrospective.json
+cat devforgeai/feedback/STORY-042/*-retrospective.json
 ```
 
 ---
@@ -443,9 +443,9 @@ cat .devforgeai/feedback/STORY-042/*-retrospective.json
 
 If you have questions about the feedback system:
 
-1. **Check maintainer guide:** `.devforgeai/feedback/MAINTAINER-GUIDE.md`
-2. **Review question bank:** `.devforgeai/feedback/questions.md`
-3. **Check schema:** `.devforgeai/feedback/schema.json`
+1. **Check maintainer guide:** `devforgeai/feedback/MAINTAINER-GUIDE.md`
+2. **Review question bank:** `devforgeai/feedback/questions.md`
+3. **Check schema:** `devforgeai/feedback/schema.json`
 4. **File an issue:** Report bugs or suggestions via project issue tracker
 
 ---

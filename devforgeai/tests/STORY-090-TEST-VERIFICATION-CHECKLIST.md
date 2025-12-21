@@ -10,35 +10,35 @@
 ## File Integrity Verification
 
 ### Primary Test File
-- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-090-template-depends-on-tests.md`
+- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-090-template-depends-on-tests.md`
 - [ ] File is readable
 - [ ] File contains ~2,200 lines
 - [ ] File contains 45 tests (AC#1-AC#7)
 - [ ] All tests marked as FAILING
 
 ### Secondary Test File
-- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-090-technical-spec-coverage.md`
+- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-090-technical-spec-coverage.md`
 - [ ] File is readable
 - [ ] File contains ~1,200 lines
 - [ ] File contains 40+ component tests
 - [ ] All tests marked as FAILING
 
 ### Summary Document
-- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-090-TEST-SUITE-SUMMARY.md`
+- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-090-TEST-SUITE-SUMMARY.md`
 - [ ] File is readable
 - [ ] File contains complete overview
 - [ ] File links to test files
 - [ ] File contains execution instructions
 
 ### Execution Guide
-- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/TEST-EXECUTION-GUIDE.md`
+- [ ] File exists: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/TEST-EXECUTION-GUIDE.md`
 - [ ] File is readable
 - [ ] File contains quick reference
 - [ ] File contains troubleshooting
 - [ ] File contains success criteria
 
 ### Verification Checklist
-- [ ] This file exists: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-090-TEST-VERIFICATION-CHECKLIST.md`
+- [ ] This file exists: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-090-TEST-VERIFICATION-CHECKLIST.md`
 - [ ] This file is readable
 - [ ] This file contains verification tasks
 

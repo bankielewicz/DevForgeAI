@@ -292,9 +292,9 @@ Validates hook failures don't break deployment:
 ### With DevForgeAI Framework
 - Context files: `devforgeai/context/*.md` (used in tests)
 - Story format: `devforgeai/specs/Stories/*.story.md` (STORY-025)
-- Configuration: `.devforgeai/config/hooks.yaml`
-- Logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
-- Feedback: `.devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`
+- Configuration: `devforgeai/config/hooks.yaml`
+- Logs: `devforgeai/logs/release-hooks-{STORY-ID}.log`
+- Feedback: `devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`
 
 ## Test Metrics
 

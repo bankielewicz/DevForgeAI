@@ -99,7 +99,7 @@ invoke-hooks returned exit code 1
 3. **Review extraction logs:**
    ```bash
    # invoke-hooks logs full context extraction details
-   grep "Context extracted" ~/.devforgeai/logs/hooks.log
+   grep "Context extracted" ~/devforgeai/logs/hooks.log
    ```
 
 **Workaround:**
@@ -189,7 +189,7 @@ Hook invocation skipped (hooks not configured)
    devforgeai check-hooks --operation=dev --status=completed
    ```
 
-2. **Verify `.devforgeai/config/hooks.yaml`:**
+2. **Verify `devforgeai/config/hooks.yaml`:**
    ```yaml
    hooks:
      enabled: true
@@ -200,7 +200,7 @@ Hook invocation skipped (hooks not configured)
    ```
 
 3. **Enable hooks:**
-   Edit `.devforgeai/config/hooks.yaml` and set `enabled: true`
+   Edit `devforgeai/config/hooks.yaml` and set `enabled: true`
 
 ---
 
@@ -222,7 +222,7 @@ Context truncated to 48KB
 **Verification:**
 ```bash
 # Check context size in logs
-grep "Context size" ~/.devforgeai/logs/hooks.log
+grep "Context size" ~/devforgeai/logs/hooks.log
 ```
 
 **Impact:**
@@ -256,7 +256,7 @@ devforgeai invoke-hooks --operation=dev --story=STORY-001 &
 
 **Symptom:**
 ```
-invoke-hooks completed but no session file in .devforgeai/feedback/sessions/
+invoke-hooks completed but no session file in devforgeai/feedback/sessions/
 ```
 
 **Cause:** User cancelled feedback conversation or skill failed
@@ -264,17 +264,17 @@ invoke-hooks completed but no session file in .devforgeai/feedback/sessions/
 **Solution:**
 1. **Check logs for cancellation:**
    ```bash
-   grep "User cancelled" ~/.devforgeai/logs/hooks.log
+   grep "User cancelled" ~/devforgeai/logs/hooks.log
    ```
 
 2. **Check for skill errors:**
    ```bash
-   grep "ERROR" ~/.devforgeai/logs/hooks.log
+   grep "ERROR" ~/devforgeai/logs/hooks.log
    ```
 
 3. **Verify feedback directory:**
    ```bash
-   ls -la .devforgeai/feedback/sessions/
+   ls -la devforgeai/feedback/sessions/
    ```
 
 **Expected Behavior:**
@@ -307,8 +307,8 @@ Success rate: 94% (below 99% requirement)
 
 3. **Check file system:**
    ```bash
-   # Verify .devforgeai/feedback/sessions/ is writable
-   ls -ld .devforgeai/feedback/sessions/
+   # Verify devforgeai/feedback/sessions/ is writable
+   ls -ld devforgeai/feedback/sessions/
    ```
 
 **Expected Performance:**
@@ -333,7 +333,7 @@ devforgeai invoke-hooks --operation=dev --story=STORY-001 --verbose
 devforgeai check-hooks --operation=dev --status=completed
 
 # Check hook configuration
-cat .devforgeai/config/hooks.yaml
+cat devforgeai/config/hooks.yaml
 ```
 
 ### View Context Extraction
@@ -385,11 +385,11 @@ bash .claude/scripts/devforgeai_cli/tests/manual_test_invoke_hooks.sh
 ## Log Locations
 
 **Hook invocation logs:**
-- `~/.devforgeai/logs/hooks.log` (if logging configured)
+- `~/devforgeai/logs/hooks.log` (if logging configured)
 - Standard output (if --verbose flag used)
 
 **Feedback session files:**
-- `.devforgeai/feedback/sessions/<operation-id>.json`
+- `devforgeai/feedback/sessions/<operation-id>.json`
 
 **Context extraction logs:**
 - Included in hook invocation logs

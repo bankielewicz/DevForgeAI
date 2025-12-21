@@ -28,7 +28,7 @@ class InstallationValidator:
             installation_root: Path to installation directory
         """
         self.installation_root = Path(installation_root)
-        self.manifest_path = self.installation_root / ".devforgeai" / ".install-manifest.json"
+        self.manifest_path = self.installation_root / "devforgeai" / ".install-manifest.json"
 
     def validate(self) -> List[ValidationIssue]:
         """Validate all files against manifest.

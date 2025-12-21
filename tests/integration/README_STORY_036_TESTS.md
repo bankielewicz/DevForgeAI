@@ -228,7 +228,7 @@ Result: STALE (both age >30 days AND state >2 states behind)
 **Tests:**
 1. `test_ideation_phase_5_invokes_internet_sleuth()` - Phase 5 uses Task tool with correct syntax
 2. `test_research_result_parsing_feasibility_score()` - Parses technical_feasibility_score (0-10)
-3. `test_research_report_saved_to_feasibility_directory()` - Report saved to .devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md
+3. `test_research_report_saved_to_feasibility_directory()` - Report saved to devforgeai/research/feasibility/{EPIC-ID}-{timestamp}-research.md
 4. `test_epic_yaml_updated_with_research_references()` - Epic YAML includes research_references: [RESEARCH-IDs]
 
 **Expected Behavior:**
@@ -359,7 +359,7 @@ pytest tests/integration/test_story_036_internet_sleuth_deep_integration.py -v -
 
 | Fixture | Purpose | Scope |
 |---------|---------|-------|
-| `temp_research_dir` | Temporary .devforgeai/research/ directory structure | function |
+| `temp_research_dir` | Temporary devforgeai/research/ directory structure | function |
 | `mock_context_files` | Mock devforgeai/context/ with 6 context files | function |
 | `mock_epic_file` | Mock EPIC-007.epic.md | function |
 | `mock_story_file` | Mock STORY-036.story.md | function |

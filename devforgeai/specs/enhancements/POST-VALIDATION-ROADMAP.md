@@ -55,7 +55,7 @@ All new stories will use structured YAML.
 Critical gap RESOLVED.
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-GAP-FIX-SUCCESS-REPORT.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-GAP-FIX-SUCCESS-REPORT.md`
 
 ---
 
@@ -85,7 +85,7 @@ Add to devforgeai-story-creation section:
 - Explicit test requirements
 - 95%+ parsing accuracy
 
-**See:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for schema
+**See:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for schema
 ```
 
 **Time:** 15 minutes
@@ -108,10 +108,10 @@ Add to devforgeai-story-creation section:
 
 **Archive (13 files):**
 ```bash
-mkdir -p .devforgeai/specs/enhancements/archive/phase2-docs/
-mv .devforgeai/specs/enhancements/PHASE2-WEEK*.md archive/phase2-docs/
-mv .devforgeai/specs/enhancements/PHASE2-COMPLETE-PACKAGE.md archive/phase2-docs/
-mv .devforgeai/specs/enhancements/PHASE2-VISUAL-SUMMARY.txt archive/phase2-docs/
+mkdir -p devforgeai/specs/enhancements/archive/phase2-docs/
+mv devforgeai/specs/enhancements/PHASE2-WEEK*.md archive/phase2-docs/
+mv devforgeai/specs/enhancements/PHASE2-COMPLETE-PACKAGE.md archive/phase2-docs/
+mv devforgeai/specs/enhancements/PHASE2-VISUAL-SUMMARY.txt archive/phase2-docs/
 # (Move redundant docs)
 ```
 

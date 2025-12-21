@@ -45,8 +45,8 @@ format_version: "2.0"
 **When** any path is referenced in agent documentation or examples
 **Then** all paths must use DevForgeAI structure:
 - `devforgeai/context/` (NOT `.claude/context/`)
-- `.devforgeai/adrs/` (NOT `.claude/adrs/`)
-- `.devforgeai/research/` (NOT `devforgeai/specs/research/`)
+- `devforgeai/adrs/` (NOT `.claude/adrs/`)
+- `devforgeai/research/` (NOT `devforgeai/specs/research/`)
 - `devforgeai/specs/Stories/` (DevForgeAI standard)
 - `devforgeai/specs/Epics/` (DevForgeAI standard)
 
@@ -66,7 +66,7 @@ format_version: "2.0"
 - `devforgeai/context/architecture-constraints.md` (layer boundaries)
 - `devforgeai/context/anti-patterns.md` (forbidden patterns)
 
-**And** the agent must check for ADRs in `.devforgeai/adrs/` before recommending technology changes
+**And** the agent must check for ADRs in `devforgeai/adrs/` before recommending technology changes
 **And** the agent must NOT operate autonomously (framework-aware behavior required)
 
 ---
@@ -103,12 +103,12 @@ format_version: "2.0"
 
 **Given** the agent generates research reports
 **When** output files are created
-**Then** all outputs must be written to `.devforgeai/research/` directory:
-- Technology evaluations: `.devforgeai/research/tech-eval-{topic}-{date}.md`
-- Pattern analyses: `.devforgeai/research/pattern-analysis-{repo}-{date}.md`
-- Competitive research: `.devforgeai/research/competitive-{topic}-{date}.md`
+**Then** all outputs must be written to `devforgeai/research/` directory:
+- Technology evaluations: `devforgeai/research/tech-eval-{topic}-{date}.md`
+- Pattern analyses: `devforgeai/research/pattern-analysis-{repo}-{date}.md`
+- Competitive research: `devforgeai/research/competitive-{topic}-{date}.md`
 
-**And** the `.devforgeai/research/` directory must be created if it doesn't exist
+**And** the `devforgeai/research/` directory must be created if it doesn't exist
 **And** no outputs written to deprecated locations (`devforgeai/specs/research/`)
 
 ---
@@ -141,9 +141,9 @@ technical_specification:
       file_path: ".claude/agents/internet-sleuth.md"
       requirements:
         - id: "COMP-003"
-          description: "Replace all old path references with DevForgeAI structure (devforgeai/context/, .devforgeai/adrs/, .devforgeai/research/)"
+          description: "Replace all old path references with DevForgeAI structure (devforgeai/context/, devforgeai/adrs/, devforgeai/research/)"
           testable: true
-          test_requirement: "Test: Grep for old paths (.claude/context, .claude/adrs, .bmad-core), assert zero matches; grep for new paths (devforgeai/context, .devforgeai/adrs), assert >0 matches"
+          test_requirement: "Test: Grep for old paths (.claude/context, .claude/adrs, .bmad-core), assert zero matches; grep for new paths (devforgeai/context, devforgeai/adrs), assert >0 matches"
           priority: "Critical"
 
     - type: "Service"
@@ -157,7 +157,7 @@ technical_specification:
           priority: "Critical"
 
         - id: "COMP-005"
-          description: "Add ADR awareness workflow step (check .devforgeai/adrs/ before technology recommendations)"
+          description: "Add ADR awareness workflow step (check devforgeai/adrs/ before technology recommendations)"
           testable: true
           test_requirement: "Test: Parse workflow section, assert contains ADR check step with AskUserQuestion for conflicts"
           priority: "High"
@@ -211,9 +211,9 @@ technical_specification:
       file_path: ".claude/agents/internet-sleuth.md"
       requirements:
         - id: "COMP-012"
-          description: "Update 'Repository Management' section to use .devforgeai/research/ output path"
+          description: "Update 'Repository Management' section to use devforgeai/research/ output path"
           testable: true
-          test_requirement: "Test: Grep for '.devforgeai/research/' in Repository Management section, assert >0 matches; grep for old output paths (tmp/repos/research-), update to include .devforgeai/research/ copy step"
+          test_requirement: "Test: Grep for 'devforgeai/research/' in Repository Management section, assert >0 matches; grep for old output paths (tmp/repos/research-), update to include devforgeai/research/ copy step"
           priority: "High"
 
         - id: "COMP-013"
@@ -232,8 +232,8 @@ technical_specification:
       test_requirement: "Test: Mock tech-stack.md with React only, invoke agent to research Vue.js patterns, assert response contains 'REQUIRES ADR' and AskUserQuestion with 2 options"
 
     - id: "BR-003"
-      rule: "Research output files must be written to .devforgeai/research/ directory. Directory must be created with 755 permissions if it doesn't exist."
-      test_requirement: "Test: Delete .devforgeai/research/ directory, invoke agent with research task, assert directory created with correct permissions (755) before file write"
+      rule: "Research output files must be written to devforgeai/research/ directory. Directory must be created with 755 permissions if it doesn't exist."
+      test_requirement: "Test: Delete devforgeai/research/ directory, invoke agent with research task, assert directory created with correct permissions (755) before file write"
 
     - id: "BR-004"
       rule: "Repository URLs must match GitHub pattern (https://github.com/{owner}/{repo} or git@github.com:{owner}/{repo}.git). Malformed URLs must be rejected with structured error."
@@ -311,7 +311,7 @@ technical_specification:
 ### 4. ADR-required scenarios
 **Scenario:** Agent recommends technology not in tech-stack.md or dependencies.md
 
-**Expected Behavior:** Workflow must include step: "Check .devforgeai/adrs/ for existing ADR on {technology}. If none found, recommend creating ADR-{NNN}-{technology-decision}.md before proceeding."
+**Expected Behavior:** Workflow must include step: "Check devforgeai/adrs/ for existing ADR on {technology}. If none found, recommend creating ADR-{NNN}-{technology-decision}.md before proceeding."
 
 **Test:** Invoke agent to recommend new framework, assert workflow output includes ADR check step and ADR creation recommendation with proper naming format
 
@@ -561,7 +561,7 @@ test_context_file_check() {
 test_ideation_integration() {
   # Simulate devforgeai-ideation invoking internet-sleuth
   # Invoke Task(subagent_type="internet-sleuth", prompt="Research React patterns")
-  # Assert: research report generated in .devforgeai/research/
+  # Assert: research report generated in devforgeai/research/
   # Assert: report contains tech-stack.md validation
 }
 ```
@@ -582,7 +582,7 @@ test_ideation_integration() {
 ### Implementation
 - [x] COMP-001: Frontmatter updated to DevForgeAI standard (name, description, tools, model, color)
 - [x] COMP-002: Description includes proactive triggers (ideation, architecture)
-- [x] COMP-003: All path references updated (.devforgeai/*, .ai_docs/*)
+- [x] COMP-003: All path references updated (devforgeai/*, .ai_docs/*)
 - [x] COMP-004: Framework Integration section lists 6 context files
 - [x] COMP-005: ADR awareness workflow step added
 - [x] COMP-006: When Invoked section with proactive triggers
@@ -591,7 +591,7 @@ test_ideation_integration() {
 - [x] COMP-009: Command Execution Framework section removed
 - [x] COMP-010: Available Commands section with *command syntax removed
 - [x] COMP-011: Research Capabilities narrative section added
-- [x] COMP-012: Repository Management uses .devforgeai/research/ output
+- [x] COMP-012: Repository Management uses devforgeai/research/ output
 - [x] COMP-013: Output filename conventions documented
 
 ### Quality
@@ -665,7 +665,7 @@ test_ideation_integration() {
    - Required: Document "max 3 retries" or "3 retry attempts"
 
 **Test Fixes Applied (not implementation fixes):**
-- Updated 5 test files for path convention (`devforgeai/specs/` not `.devforgeai/`)
+- Updated 5 test files for path convention (`devforgeai/specs/` not `devforgeai/`)
 - Fixed regex patterns (removed invalid `\d` escapes)
 - Fixed test logic bugs (correct path incorrectly marked as deprecated)
 
@@ -681,7 +681,7 @@ This is Phase 1 of a hybrid migration approach for the internet-sleuth agent. Th
 **Design Decisions:**
 - **Keep repository archaeology capability:** No other DevForgeAI subagent provides this functionality, valuable for technology evaluation
 - **Standalone subagent (not skill):** Research is specialized task, invoked by multiple skills, operates in isolated context
-- **Output location: .devforgeai/research/:** Consistent with framework structure, separate from story/epic documentation
+- **Output location: devforgeai/research/:** Consistent with framework structure, separate from story/epic documentation
 - **Token budget: 40K:** Allows single repository analysis with progressive disclosure for larger repos
 
 **Related Stories:**
@@ -705,7 +705,7 @@ This is Phase 1 of a hybrid migration approach for the internet-sleuth agent. Th
 
 - [x] COMP-001: Frontmatter updated to DevForgeAI standard (name, description, tools, model, color) - Completed via backend-architect implementation
 - [x] COMP-002: Description includes proactive triggers (ideation, architecture) - Completed via backend-architect implementation
-- [x] COMP-003: All path references updated (.devforgeai/*, .ai_docs/*) - Completed via backend-architect implementation
+- [x] COMP-003: All path references updated (devforgeai/*, .ai_docs/*) - Completed via backend-architect implementation
 - [x] COMP-004: Framework Integration section lists 6 context files - Completed via backend-architect implementation
 - [x] COMP-005: ADR awareness workflow step added - Completed via backend-architect implementation
 - [x] COMP-006: When Invoked section with proactive triggers - Completed via backend-architect implementation
@@ -714,7 +714,7 @@ This is Phase 1 of a hybrid migration approach for the internet-sleuth agent. Th
 - [x] COMP-009: Command Execution Framework section removed - Completed via backend-architect implementation
 - [x] COMP-010: Available Commands section with *command syntax removed - Completed via backend-architect implementation
 - [x] COMP-011: Research Capabilities narrative section added - Completed via backend-architect implementation
-- [x] COMP-012: Repository Management uses .devforgeai/research/ output - Completed via backend-architect implementation
+- [x] COMP-012: Repository Management uses devforgeai/research/ output - Completed via backend-architect implementation
 - [x] COMP-013: Output filename conventions documented - Completed via backend-architect implementation
 
 **TDD Workflow Completion Summary:**

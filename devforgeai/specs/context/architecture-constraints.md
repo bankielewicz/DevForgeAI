@@ -285,7 +285,7 @@ PreFlightValidation
 │  - User manually integrates DevForgeAI instructions          │
 ├─────────────────────────────────────────────────────────────┤
 │  MANUAL                                                      │
-│  - Create CLAUDE.md.devforgeai (new content)                 │
+│  - Create CLAUDE.mddevforgeai (new content)                 │
 │  - User merges manually with existing CLAUDE.md              │
 └─────────────────────────────────────────────────────────────┘
 ```

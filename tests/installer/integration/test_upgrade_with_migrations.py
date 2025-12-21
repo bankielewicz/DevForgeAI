@@ -45,8 +45,8 @@ def integration_project(tmp_path):
     project = tmp_path / "integration_project"
     project.mkdir()
 
-    # Create .devforgeai structure
-    devforgeai = project / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai = project / "devforgeai"
     devforgeai.mkdir()
     (devforgeai / "config").mkdir()
     (devforgeai / "context").mkdir()
@@ -162,7 +162,7 @@ def migrate(project_root):
     project = Path(project_root)
 
     # Add new config key
-    config_file = project / ".devforgeai" / "config" / "upgrade-config.json"
+    config_file = project / "devforgeai" / "config" / "upgrade-config.json"
     if config_file.exists():
         config = json.loads(config_file.read_text())
         config["new_feature_enabled"] = True
@@ -223,7 +223,7 @@ def migrate(project_root):
     project = Path(project_root)
 
     # Add another config key
-    config_file = project / ".devforgeai" / "config" / "upgrade-config.json"
+    config_file = project / "devforgeai" / "config" / "upgrade-config.json"
     if config_file.exists():
         config = json.loads(config_file.read_text())
         config["v1_2_feature"] = "enabled"
@@ -320,7 +320,7 @@ class TestUpgradeHappyPath:
         assert result.to_version == "1.1.0"
 
         # Verify version file updated
-        version_data = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+        version_data = json.loads((project_root / "devforgeai" / ".version.json").read_text())
         assert version_data["version"] == "1.1.0"
         assert version_data["upgraded_from"] == "1.0.0"
 
@@ -396,7 +396,7 @@ class TestUpgradeHappyPath:
         assert result.to_version == "1.2.0"
 
         # Version metadata should be updated
-        version_data = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+        version_data = json.loads((project_root / "devforgeai" / ".version.json").read_text())
         assert version_data["version"] == "1.2.0"
         assert version_data["upgraded_from"] == "1.0.0"
 
@@ -462,7 +462,7 @@ class TestUpgradeHappyPath:
         assert result.backup_path is not None
         backup_path = Path(result.backup_path)
         assert backup_path.exists()
-        assert (backup_path / ".devforgeai" / ".version.json").exists()
+        assert (backup_path / "devforgeai" / ".version.json").exists()
 
 
 # ============================================================================
@@ -542,7 +542,7 @@ class TestUpgradeRollback:
 
         Given: Rollback triggered
         When: Restore completes
-        Then: All .claude/ and .devforgeai/ files match backup
+        Then: All .claude/ and devforgeai/ files match backup
         """
         # Arrange
         from installer.upgrade_orchestrator import UpgradeOrchestrator
@@ -612,7 +612,7 @@ class TestUpgradeSummaryAndLogging:
 
     def test_summary_saved_to_log_file(self, integration_project, source_framework_1_1_0):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log.
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log.
 
         Given: Upgrade completes
         When: Summary generated
@@ -735,7 +735,7 @@ class TestVersionMetadata:
         )
 
         # Assert
-        version_data = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+        version_data = json.loads((project_root / "devforgeai" / ".version.json").read_text())
         assert version_data["version"] == "1.1.0"
         assert version_data["upgraded_from"] == "1.0.0"
         assert "upgrade_timestamp" in version_data
@@ -767,7 +767,7 @@ class TestVersionMetadata:
         )
 
         # Assert
-        version_data = json.loads((project_root / ".devforgeai" / ".version.json").read_text())
+        version_data = json.loads((project_root / "devforgeai" / ".version.json").read_text())
         migrations = version_data.get("migrations_applied", [])
         assert len(migrations) == 2
         assert any("1.0.0-to-v1.1.0" in m or "v1.0.0-to-v1.1.0" in m for m in migrations)
@@ -984,7 +984,7 @@ class TestUpgradeEdgeCases:
         source_root = source_framework_1_1_0["root"]
 
         # Corrupt version file
-        version_file = project_root / ".devforgeai" / ".version.json"
+        version_file = project_root / "devforgeai" / ".version.json"
         version_file.write_text("{ invalid json")
 
         orchestrator = UpgradeOrchestrator()

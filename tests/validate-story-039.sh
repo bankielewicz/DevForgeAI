@@ -38,19 +38,19 @@ echo ""
 # AC-1: Protocol Documentation Updated
 echo "AC-1: Protocol Documentation Updated"
 echo "---"
-test -f ".devforgeai/protocols/lean-orchestration-pattern.md"
+test -f "devforgeai/protocols/lean-orchestration-pattern.md"
 test_result "Protocol file exists" $?
-grep -q "Case Study" ".devforgeai/protocols/lean-orchestration-pattern.md"
+grep -q "Case Study" "devforgeai/protocols/lean-orchestration-pattern.md"
 test_result "Case Study references exist" $?
-grep -q "Pattern Consistency Analysis" ".devforgeai/protocols/lean-orchestration-pattern.md"
+grep -q "Pattern Consistency Analysis" "devforgeai/protocols/lean-orchestration-pattern.md"
 test_result "Pattern Consistency Analysis section exists" $?
 
 echo ""
 echo "AC-2: Command Budget Reference Updated"
 echo "---"
-test -f ".devforgeai/protocols/command-budget-reference.md"
+test -f "devforgeai/protocols/command-budget-reference.md"
 test_result "Budget reference file exists" $?
-grep -q "Current Command Status" ".devforgeai/protocols/command-budget-reference.md"
+grep -q "Current Command Status" "devforgeai/protocols/command-budget-reference.md"
 test_result "Current Command Status section exists" $?
 
 echo ""
@@ -70,19 +70,19 @@ test_result "Command template file exists" $?
 echo ""
 echo "AC-5: Troubleshooting Guide"
 echo "---"
-test -f ".devforgeai/protocols/troubleshooting-lean-orchestration-violations.md"
+test -f "devforgeai/protocols/troubleshooting-lean-orchestration-violations.md"
 test_result "Troubleshooting guide file exists" $?
 
 echo ""
 echo "AC-6: Documentation Completeness"
 echo "---"
-grep -q "refactoring-case-studies.md" ".devforgeai/protocols/lean-orchestration-pattern.md"
+grep -q "refactoring-case-studies.md" "devforgeai/protocols/lean-orchestration-pattern.md"
 test_result "Cross-references present" $?
 
 echo ""
 echo "AC-7: Documentation Accuracy"
 echo "---"
-grep -q "Commands orchestrate" ".devforgeai/protocols/lean-orchestration-pattern.md"
+grep -q "Commands orchestrate" "devforgeai/protocols/lean-orchestration-pattern.md"
 test_result "Constitutional principle defined" $?
 
 echo ""

@@ -62,7 +62,7 @@ Create sample CLAUDE.md (50 lines user content)
 Run: python installer/install.py --target=/tmp/NodeJsTestProject
   ↓
 ✓ Creates .claude/ directory (756 files)
-✓ Creates .devforgeai/ directory (189 files)
+✓ Creates devforgeai/ directory (189 files)
 ✓ Merges CLAUDE.md (user + framework)
 ✓ Substitutes variables (PROJECT_NAME, TECH_STACK, PYTHON_PATH)
 ✓ Installs CLI (devforgeai --version works)
@@ -71,7 +71,7 @@ Run: python installer/install.py --target=/tmp/NodeJsTestProject
 
 **Expected Results:**
 - .claude/ exists with ~700-800 files
-- .devforgeai/ exists with ~150-250 files
+- devforgeai/ exists with ~150-250 files
 - CLAUDE.md contains both user and framework content
 - No unsubstituted {{VAR}} placeholders
 - CLI tool installed and functional
@@ -279,7 +279,7 @@ DotNetTestProject:
 **Verification:**
 - Each project maintains completely isolated state
 - Stories created in Project A don't appear in Project B
-- Config files (.devforgeai/) separate per project
+- Config files (devforgeai/) separate per project
 - Version metadata points to correct installation path
 - No shared dependencies or cross-references
 
@@ -297,7 +297,7 @@ Upgrade Workflow:
 
 Current State:
   Version: 1.0.1 (installation complete)
-  Files: 945 (756 .claude/ + 189 .devforgeai/)
+  Files: 945 (756 .claude/ + 189 devforgeai/)
 
 Simulate Version 1.0.2:
   - 5 files changed (modified checksums)
@@ -340,7 +340,7 @@ Result:
 | Test Case | Status | Notes |
 |-----------|--------|-------|
 | AC1: Node.js Installation | TESTING | Fresh install, 945 files deployed |
-| AC1: File Count | TESTING | 700-800 .claude/ + 150-250 .devforgeai/ |
+| AC1: File Count | TESTING | 700-800 .claude/ + 150-250 devforgeai/ |
 | AC1: CLAUDE.md Merge | TESTING | User + framework content preserved |
 | AC1: Variable Substitution | TESTING | All {{VAR}} placeholders replaced |
 | AC1: CLI Installation | TESTING | devforgeai --version works |
@@ -433,7 +433,7 @@ Result:
 **Interaction:** All 14 commands work seamlessly in external project context
 - ✓ Framework location: Commands load from deployed `.claude/` in project
 - ✓ Context files: Skills respect project's context files (tech-stack.md)
-- ✓ State isolation: Each project has separate .ai_docs/, .devforgeai/
+- ✓ State isolation: Each project has separate .ai_docs/, devforgeai/
 - ✓ Command matrix: All 14 commands execute without path errors
   - Workflow: create-context, create-story, dev, qa, release, orchestrate
   - Planning: ideate, create-epic, create-sprint, create-ui
@@ -451,7 +451,7 @@ Result:
   - `CLAUDE.md` (50 lines user-defined instructions)
 - **Installation creates:**
   - `.claude/` (756 files)
-  - `.devforgeai/` (189 files)
+  - `devforgeai/` (189 files)
   - `.backups/` (backup for rollback)
   - `CLAUDE.md` merged (≈1,050 lines)
 
@@ -462,7 +462,7 @@ Result:
   - `Program.cs` (sample .NET code)
 - **Installation creates:**
   - `.claude/` (756 files)
-  - `.devforgeai/` (189 files)
+  - `devforgeai/` (189 files)
   - `.backups/` (backup for rollback)
   - `CLAUDE.md` created (≈1,000 lines, no user content)
 
@@ -481,7 +481,7 @@ assert install_result["files_deployed"] >= 700  # .claude/ files
 ```python
 claude_files = count_files(".claude/")
 assert 700 <= claude_files <= 800  # Accept variance
-devforgeai_files = count_files(".devforgeai/")
+devforgeai_files = count_files("devforgeai/")
 assert 150 <= devforgeai_files <= 250
 ```
 

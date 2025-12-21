@@ -358,9 +358,9 @@ def test_example(self):
 ### Optional Files (For full integration testing)
 - `tests/unit/test_story033_conf_requirements.py` (STORY-033 tests)
 - `tests/integration/test_hook_integration_story033.py` (STORY-033 tests)
-- `.devforgeai/tests/story033_baseline.json` (baseline results)
-- `.devforgeai/tests/baseline_audit_report.md` (baseline report)
-- `.devforgeai/tests/performance/story050_baseline.json` (performance baseline)
+- `devforgeai/tests/story033_baseline.json` (baseline results)
+- `devforgeai/tests/baseline_audit_report.md` (baseline report)
+- `devforgeai/tests/performance/story050_baseline.json` (performance baseline)
 
 ### Framework Requirements
 - Python 3.8+
@@ -420,9 +420,9 @@ def test_example(self):
 **Story:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md`
 
 **Framework Documentation:**
-- Lean Orchestration Pattern: `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/lean-orchestration-pattern.md`
-- Refactoring Case Studies: `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/refactoring-case-studies.md`
-- Command Budget Reference: `/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/command-budget-reference.md`
+- Lean Orchestration Pattern: `/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/lean-orchestration-pattern.md`
+- Refactoring Case Studies: `/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/refactoring-case-studies.md`
+- Command Budget Reference: `/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/command-budget-reference.md`
 
 **Reference Implementations:**
 - `/qa` command (primary template) - 295 lines, 7.2K chars (48% budget)

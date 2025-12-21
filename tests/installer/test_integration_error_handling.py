@@ -36,7 +36,7 @@ class TestFullRollbackFlow:
         target_dir.mkdir()
         (target_dir / "original.txt").write_text("original content")
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -84,7 +84,7 @@ class TestFullRollbackFlow:
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -125,7 +125,7 @@ class TestFullRollbackFlow:
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -165,7 +165,7 @@ class TestConcurrentInstallationPrevention:
         from installer.services.lock_file_manager import LockFileManager
         from installer.error_handler import ErrorHandler
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir()
 
         # First installation acquires lock
@@ -196,7 +196,7 @@ class TestConcurrentInstallationPrevention:
         from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
         from installer.services.install_logger import InstallLogger
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir()
 
         log_file = lock_dir / "install.log"
@@ -240,7 +240,7 @@ class TestSigintHandling:
         from installer.services.lock_file_manager import LockFileManager
         from installer.services.install_logger import InstallLogger
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir()
 
         log_file = lock_dir / "install.log"
@@ -284,7 +284,7 @@ class TestSigintHandling:
         from installer.services.rollback_service import RollbackService
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -352,7 +352,7 @@ class TestBackupBeforeModification:
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -381,7 +381,7 @@ class TestBackupBeforeModification:
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -441,7 +441,7 @@ class TestEndToEndErrorScenarios:
         from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -470,7 +470,7 @@ class TestEndToEndErrorScenarios:
         from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -499,7 +499,7 @@ class TestEndToEndErrorScenarios:
         from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)

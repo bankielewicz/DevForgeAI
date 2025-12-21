@@ -455,7 +455,7 @@ class UpgradeOrchestrator:
             UpgradeError: If update fails
         """
         try:
-            version_file = target_root / ".devforgeai" / ".version.json"
+            version_file = target_root / "devforgeai" / ".version.json"
             version_file.parent.mkdir(parents=True, exist_ok=True)
 
             now = datetime.now(timezone.utc)
@@ -500,7 +500,7 @@ class UpgradeOrchestrator:
             self.backup_service.restore(backup_metadata.backup_id, target_root)
 
             # Restore version metadata
-            version_file = target_root / ".devforgeai" / ".version.json"
+            version_file = target_root / "devforgeai" / ".version.json"
             if version_file.exists():
                 version_file.unlink()
 

@@ -163,7 +163,7 @@ Initializing Git repository...
 ⚠️  WARNING: Proceeding without Git
   - File-based change tracking will be used
   - No commits will be created
-  - Changes documented in .devforgeai/stories/STORY-001/changes/
+  - Changes documented in devforgeai/stories/STORY-001/changes/
   - Version history limited
 
 Note: You can initialize Git later with:

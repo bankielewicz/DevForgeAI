@@ -235,8 +235,8 @@ AssertionError: Incorrect pattern file path or missing Read tool reference
 ```
 
 **Solution:**
-1. Add Phase N section with: `Read(file_path=".devforgeai/protocols/hook-integration-pattern.md")`
-2. Path must be exact: `.devforgeai/protocols/hook-integration-pattern.md`
+1. Add Phase N section with: `Read(file_path="devforgeai/protocols/hook-integration-pattern.md")`
+2. Path must be exact: `devforgeai/protocols/hook-integration-pattern.md`
 3. File already exists (created in STORY-030)
 
 ### Issue: "Phase N not found"
@@ -265,7 +265,7 @@ Use this checklist while implementing (Green phase):
 
 **Implementation:**
 - [ ] Extract Phase N pattern documentation from command
-- [ ] Create/verify `.devforgeai/protocols/hook-integration-pattern.md` exists
+- [ ] Create/verify `devforgeai/protocols/hook-integration-pattern.md` exists
 - [ ] Update Phase N in command to reference pattern file via Read tool
 - [ ] Condense inline comments in Phase N (~300 chars reduction)
 - [ ] Verify all 4 workflow steps still present (Steps 1-4)
@@ -327,7 +327,7 @@ Use this checklist while implementing (Green phase):
 ### Related Story Files
 - `devforgeai/specs/Stories/STORY-049-refactor-create-context-budget-compliance.story.md` - Story details
 - `.claude/commands/create-context.md` - Command to refactor
-- `.devforgeai/protocols/hook-integration-pattern.md` - Pattern file (reference)
+- `devforgeai/protocols/hook-integration-pattern.md` - Pattern file (reference)
 
 ---
 

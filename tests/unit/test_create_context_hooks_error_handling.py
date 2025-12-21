@@ -291,7 +291,7 @@ class TestErrorTypeHandling:
         """
         Test AC3 Edge Case: Config file corrupted (YAML parse error)
 
-        Given: .devforgeai/config/hooks.yaml is invalid
+        Given: devforgeai/config/hooks.yaml is invalid
         When: check-hooks tries to parse it
         Then: Should catch YAML parse error
         And: Log warning, continue
@@ -363,7 +363,7 @@ class TestErrorTypeHandling:
         """
         Test AC3 Edge Case: Permission denied reading config
 
-        Given: .devforgeai/config/hooks.yaml not readable
+        Given: devforgeai/config/hooks.yaml not readable
         When: check-hooks tries to read it
         Then: Should catch permission error
         And: Log warning, continue
@@ -371,7 +371,7 @@ class TestErrorTypeHandling:
         # Arrange
         mock_run.return_value = MagicMock(
             returncode=13,
-            stderr="Permission denied: .devforgeai/config/hooks.yaml"
+            stderr="Permission denied: devforgeai/config/hooks.yaml"
         )
 
         # Act

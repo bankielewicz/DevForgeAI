@@ -408,7 +408,7 @@ fi
 
 **Implementation Details:**
 
-**File:** `.devforgeai/scripts/analyze-hook-patterns.py` (NEW)
+**File:** `devforgeai/scripts/analyze-hook-patterns.py` (NEW)
 **Purpose:** Analyze hook logs and suggest SAFE_PATTERNS additions
 
 **Script Logic:**
@@ -421,7 +421,7 @@ from collections import Counter
 from pathlib import Path
 
 # Parse hook-unknown-commands.log
-log_file = Path(".devforgeai/logs/hook-unknown-commands.log")
+log_file = Path("devforgeai/logs/hook-unknown-commands.log")
 commands = []
 
 with open(log_file) as f:
@@ -465,7 +465,7 @@ print(f"Reduction in approvals: {sum(c for p,c in safe_candidates[:20]) / len(co
 
 **Usage:**
 ```bash
-python3 .devforgeai/scripts/analyze-hook-patterns.py
+python3 devforgeai/scripts/analyze-hook-patterns.py
 # Reviews last 1000 unknown commands
 # Outputs top 20 safe patterns to add
 # Shows frequency and impact percentage
@@ -478,9 +478,9 @@ python3 .devforgeai/scripts/analyze-hook-patterns.py
 - Enables periodic hook optimization (run monthly, add top patterns)
 
 **Testing Procedure:**
-1. Create script at `.devforgeai/scripts/analyze-hook-patterns.py`
+1. Create script at `devforgeai/scripts/analyze-hook-patterns.py`
 2. Make executable: `chmod +x`
-3. Run: `python3 .devforgeai/scripts/analyze-hook-patterns.py`
+3. Run: `python3 devforgeai/scripts/analyze-hook-patterns.py`
 4. Verify: Outputs top 20 patterns with frequencies
 5. Verify: Suggests patterns like "cd ", "python3 -c ", "devforgeai "
 6. Add top 5 patterns to pre-tool-use.sh
@@ -533,7 +533,7 @@ Commands that are NOT:
 - curl/wget
 
 ### Update Process
-1. Run monthly: `python3 .devforgeai/scripts/analyze-hook-patterns.py`
+1. Run monthly: `python3 devforgeai/scripts/analyze-hook-patterns.py`
 2. Review top 20 suggested patterns
 3. Validate each against safety criteriare
 4. Add safe patterns to SAFE_PATTERNS array
@@ -542,9 +542,9 @@ Commands that are NOT:
 7. Monitor hook-unknown-commands.log for reduction
 
 ### Debugging
-- Unknown commands logged: `.devforgeai/logs/hook-unknown-commands.log`
-- Full hook execution log: `.devforgeai/logs/pre-tool-use.log`
-- Analysis tool: `.devforgeai/scripts/analyze-hook-patterns.py`
+- Unknown commands logged: `devforgeai/logs/hook-unknown-commands.log`
+- Full hook execution log: `devforgeai/logs/pre-tool-use.log`
+- Analysis tool: `devforgeai/scripts/analyze-hook-patterns.py`
 ```
 
 **Rationale:**
@@ -574,7 +574,7 @@ Commands that are NOT:
 
 **Implementation Details:**
 
-**File:** `.devforgeai/scripts/hook-telemetry.sh` (NEW)
+**File:** `devforgeai/scripts/hook-telemetry.sh` (NEW)
 **Purpose:** Generate weekly hook effectiveness report
 
 **Script calculates:**
@@ -674,5 +674,5 @@ The pre-tool-use.sh hook reduces friction for only ~90% of commands. The remaini
 ---
 
 **RCA Complete**
-**Document:** .devforgeai/RCA/RCA-015-pre-tool-use-hook-friction-remains.md
+**Document:** devforgeai/RCA/RCA-015-pre-tool-use-hook-friction-remains.md
 **Recommendations:** 6 total (1 CRITICAL, 2 HIGH, 2 MEDIUM, 1 LOW)

@@ -9,17 +9,17 @@ This guide explains how to manage DevForgeAI backups. Backups are created automa
 ### Automatic Backup Storage
 
 ```
-.devforgeai/backups/
+devforgeai/backups/
 ├── vX.Y.Z-YYYYMMDD-HHMMSS/
 │   ├── backup-manifest.json
 │   ├── .claude/
-│   ├── .devforgeai/
+│   ├── devforgeai/
 │   ├── CLAUDE.md
 │   └── ...
 ├── vA.B.C-YYYYMMDD-HHMMSS/
 │   ├── backup-manifest.json
 │   ├── .claude/
-│   ├── .devforgeai/
+│   ├── devforgeai/
 │   └── ...
 ```
 
@@ -37,7 +37,7 @@ Format: `v{VERSION}-{TIMESTAMP}`
 
 **Files included:**
 - `.claude/` - All agents and skills
-- `.devforgeai/` - Configuration and metadata (except logs)
+- `devforgeai/` - Configuration and metadata (except logs)
 - `CLAUDE.md` - Project instructions
 - `.version.json` - Version metadata
 
@@ -74,7 +74,7 @@ Format: `v{VERSION}-{TIMESTAMP}`
 
 ```
 Before upgrade:
-  .devforgeai/backups/
+  devforgeai/backups/
   ├── v1.0.0-20241201-100000/
   ├── v1.0.0-20241215-100000/
   ├── v1.0.1-20241220-100000/
@@ -82,7 +82,7 @@ Before upgrade:
   └── v1.0.2-20250101-100000/
 
 After upgrade (new backup created):
-  .devforgeai/backups/
+  devforgeai/backups/
   ├── v1.0.0-20241215-100000/  ← oldest deleted
   ├── v1.0.1-20241220-100000/
   ├── v1.0.1-20241227-100000/
@@ -151,22 +151,22 @@ Backups are automatically created:
 
 ```bash
 # List all backups
-ls -lh .devforgeai/backups/
+ls -lh devforgeai/backups/
 
 # List with sorting by date (newest first)
-ls -lht .devforgeai/backups/
+ls -lht devforgeai/backups/
 
 # Show backup sizes
-du -sh .devforgeai/backups/*/
+du -sh devforgeai/backups/*/
 
 # Show total backup storage used
-du -sh .devforgeai/backups/
+du -sh devforgeai/backups/
 ```
 
 ### Understanding Backup Output
 
 ```bash
-$ ls -lht .devforgeai/backups/
+$ ls -lht devforgeai/backups/
 
 total 125
 drwxr-xr-x 5 user group 4096 Jan  5 12:00 v1.0.2-20250105-120000
@@ -197,7 +197,7 @@ cd /path/to/DevForgeAI
 bash install.sh backup-create "before-ai-docs-cleanup"
 
 # Output:
-# Backup created: .devforgeai/backups/v1.0.2-20250105-120030/
+# Backup created: devforgeai/backups/v1.0.2-20250105-120030/
 # Size: 45 MB
 # Ready for restore if needed
 ```
@@ -208,7 +208,7 @@ bash install.sh backup-create "before-ai-docs-cleanup"
 
 ```bash
 # Show all backups with version and date
-for backup in .devforgeai/backups/*/; do
+for backup in devforgeai/backups/*/; do
     version=$(basename "$backup")
     size=$(du -sh "$backup" | cut -f1)
     echo "$version ($size)"
@@ -229,7 +229,7 @@ done
 bash install.sh restore latest
 
 # Output:
-# Restoring from: .devforgeai/backups/v1.0.2-20250105-120000/
+# Restoring from: devforgeai/backups/v1.0.2-20250105-120000/
 # Restoring files...
 # Restoration complete
 # Version restored to: v1.0.2
@@ -240,12 +240,12 @@ bash install.sh restore latest
 ```bash
 # Restore specific backup by version
 backup_id="v1.0.1-20241227-153000"
-backup_path=".devforgeai/backups/$backup_id"
+backup_path="devforgeai/backups/$backup_id"
 
 bash install.sh restore "$backup_path"
 
 # Output:
-# Restoring from: .devforgeai/backups/v1.0.1-20241227-153000/
+# Restoring from: devforgeai/backups/v1.0.1-20241227-153000/
 # Restoring files...
 # Restoration complete
 # Version restored to: v1.0.1
@@ -260,7 +260,7 @@ source_file=".claude/skills/devforgeai-development/SKILL.md"
 destination=".claude/skills/devforgeai-development/SKILL.md"
 
 # Restore single file
-cp ".devforgeai/backups/$backup_id/$source_file" "$destination"
+cp "devforgeai/backups/$backup_id/$source_file" "$destination"
 
 # Verify restoration
 cat "$destination" | head -5
@@ -272,7 +272,7 @@ cat "$destination" | head -5
 # Restore entire .claude directory
 backup_id="v1.0.1-20241227-153000"
 
-cp -r ".devforgeai/backups/$backup_id/.claude/"* ".claude/"
+cp -r "devforgeai/backups/$backup_id/.claude/"* ".claude/"
 
 # Verify restoration
 ls -la .claude/
@@ -284,25 +284,25 @@ ls -la .claude/
 
 ```bash
 # 1. Check manifest is valid JSON
-python3 -m json.tool .devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json > /dev/null
+python3 -m json.tool devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json > /dev/null
 echo $? -eq 0 && echo "✓ Manifest valid"
 
 # 2. Check file count
-manifest=".devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json"
+manifest="devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json"
 expected_count=$(python3 -c "import json; print(len(json.load(open('$manifest')).get('files', [])))")
-actual_count=$(find ".devforgeai/backups/v1.0.0-20250101-120000" -type f ! -name 'backup-manifest.json' | wc -l)
+actual_count=$(find "devforgeai/backups/v1.0.0-20250101-120000" -type f ! -name 'backup-manifest.json' | wc -l)
 echo "Files: $expected_count expected, $actual_count actual"
 
 # 3. Verify backup size reasonable
-du -sh .devforgeai/backups/v1.0.0-20250101-120000/
+du -sh devforgeai/backups/v1.0.0-20250101-120000/
 ```
 
 ### Verify File Checksums
 
 ```bash
 # Extract checksums from manifest
-manifest=".devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json"
-backup_dir=".devforgeai/backups/v1.0.0-20250101-120000"
+manifest="devforgeai/backups/v1.0.0-20250101-120000/backup-manifest.json"
+backup_dir="devforgeai/backups/v1.0.0-20250101-120000"
 
 # Create checksum file
 python3 << 'PYTHON'
@@ -332,7 +332,7 @@ test_dir=$(mktemp -d)
 echo "Testing backup restoration to: $test_dir"
 
 # Copy backup to test location
-cp -r .devforgeai/backups/v1.0.0-20250101-120000 "$test_dir/test-restore"
+cp -r devforgeai/backups/v1.0.0-20250101-120000 "$test_dir/test-restore"
 
 # Verify files copied
 ls -la "$test_dir/test-restore/.claude/" | head -10
@@ -351,15 +351,15 @@ echo "Backup test complete"
 
 ```bash
 # List backups (oldest first)
-ls -lt .devforgeai/backups/ | tail -10
+ls -lt devforgeai/backups/ | tail -10
 
 # Remove specific backup
 backup_id="v1.0.0-20241215-144500"
-rm -rf ".devforgeai/backups/$backup_id"
+rm -rf "devforgeai/backups/$backup_id"
 echo "Deleted: $backup_id"
 
 # Verify deletion
-ls .devforgeai/backups/
+ls devforgeai/backups/
 ```
 
 ### Cleanup - Keep Only Recent Backups
@@ -369,7 +369,7 @@ ls .devforgeai/backups/
 # (by default 5 are kept)
 
 backup_count=3
-cd .devforgeai/backups/
+cd devforgeai/backups/
 
 # Sort by modification time, keep N newest
 ls -t | tail -n +$((backup_count+1)) | xargs -r rm -rf
@@ -387,7 +387,7 @@ cd -
 days_old=30
 cutoff_timestamp=$(date -d "$days_old days ago" +%s)
 
-for backup_dir in .devforgeai/backups/*/; do
+for backup_dir in devforgeai/backups/*/; do
     backup_date=$(stat "$backup_dir" | grep Modify | awk '{print $2, $3}' | xargs -I {} date -d "{}" +%s)
     if [ "$backup_date" -lt "$cutoff_timestamp" ]; then
         echo "Removing old backup: $(basename $backup_dir)"
@@ -401,10 +401,10 @@ done
 ```bash
 # Check current backup storage
 echo "Current backup storage:"
-du -sh .devforgeai/backups/
+du -sh devforgeai/backups/
 
 # Remove all but most recent backup
-cd .devforgeai/backups/
+cd devforgeai/backups/
 ls -t | tail -n +2 | xargs -r rm -rf
 echo "Cleanup complete"
 du -sh .
@@ -430,16 +430,16 @@ cd -
 ### Check Available Disk Space
 
 ```bash
-# Check partition containing .devforgeai
-df -h .devforgeai
+# Check partition containing devforgeai
+df -h devforgeai
 
 # Output:
 # Filesystem      Size  Used Avail Use% Mounted on
 # /dev/sda1       100G   45G   55G  45% /
 
 # Calculate safe upgrade margin
-total_free_mb=$(($(df .devforgeai | tail -1 | awk '{print $4}')))
-current_backups_mb=$(($(du -s .devforgeai/backups | awk '{print $1}') / 1024))
+total_free_mb=$(($(df devforgeai | tail -1 | awk '{print $4}')))
+current_backups_mb=$(($(du -s devforgeai/backups | awk '{print $1}') / 1024))
 
 echo "Free space: ${total_free_mb}MB"
 echo "Current backups: ${current_backups_mb}MB"
@@ -456,7 +456,7 @@ echo "Safe to upgrade if free > $((current_backups_mb * 3))MB"
 
 ```bash
 # Find backup containing the file
-for backup_dir in .devforgeai/backups/*/; do
+for backup_dir in devforgeai/backups/*/; do
     if [ -f "$backup_dir/.claude/agents/test-automator.md" ]; then
         echo "Found in: $backup_dir"
         # Restore it
@@ -475,32 +475,32 @@ done
 ```bash
 # Find backup from before failed upgrade
 echo "Backup created before upgrade:"
-ls -t .devforgeai/backups/ | head -1
+ls -t devforgeai/backups/ | head -1
 
 # Manually restore
-latest_backup=$(ls -t .devforgeai/backups/ | head -1)
-bash install.sh restore ".devforgeai/backups/$latest_backup/"
+latest_backup=$(ls -t devforgeai/backups/ | head -1)
+bash install.sh restore "devforgeai/backups/$latest_backup/"
 
 # Verify restoration
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 ### Scenario 3: Configuration Corruption
 
-**Problem:** `.devforgeai/config/upgrade-config.json` corrupted
+**Problem:** `devforgeai/config/upgrade-config.json` corrupted
 
 **Solution:**
 
 ```bash
 # Find most recent backup with valid config
-for backup_dir in .devforgeai/backups/*/; do
-    config_file="$backup_dir/.devforgeai/config/upgrade-config.json"
+for backup_dir in devforgeai/backups/*/; do
+    config_file="$backup_dir/devforgeai/config/upgrade-config.json"
     if [ -f "$config_file" ]; then
         # Validate JSON
         python3 -m json.tool "$config_file" > /dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo "Found valid config in: $backup_dir"
-            cp "$config_file" ".devforgeai/config/upgrade-config.json"
+            cp "$config_file" "devforgeai/config/upgrade-config.json"
             break
         fi
     fi
@@ -515,10 +515,10 @@ done
 
 ```bash
 # Check current usage
-du -sh .devforgeai/backups/
+du -sh devforgeai/backups/
 
 # Remove old backups (keep 2 most recent)
-cd .devforgeai/backups/
+cd devforgeai/backups/
 ls -t | tail -n +3 | xargs -r rm -rf
 echo "Old backups removed"
 
@@ -549,7 +549,7 @@ crontab -e
 
 0 3 1 * * \
   cd /path/to/DevForgeAI && \
-  cd .devforgeai/backups && \
+  cd devforgeai/backups && \
   ls -t | tail -n +6 | xargs -r rm -rf
 ```
 
@@ -559,13 +559,13 @@ crontab -e
 Always test critical backups:
 ```bash
 # Spot check: Can manifest be read?
-python3 -m json.tool .devforgeai/backups/*/backup-manifest.json > /dev/null
+python3 -m json.tool devforgeai/backups/*/backup-manifest.json > /dev/null
 ```
 
 ### 2. **Monitor Backup Growth**
 ```bash
 # Monthly check
-du -sh .devforgeai/backups/ >> .devforgeai/logs/backup-monitoring.log
+du -sh devforgeai/backups/ >> devforgeai/logs/backup-monitoring.log
 ```
 
 ### 3. **Keep Important Backups**
@@ -573,20 +573,20 @@ du -sh .devforgeai/backups/ >> .devforgeai/logs/backup-monitoring.log
 # Don't delete backups of major upgrades
 # Archive separately if needed
 mkdir -p ~/.backups/devforgeai
-cp -r .devforgeai/backups/v1.0.0* ~/.backups/devforgeai/
+cp -r devforgeai/backups/v1.0.0* ~/.backups/devforgeai/
 ```
 
 ### 4. **Test Restoration Procedures**
 ```bash
 # Periodically test that backups actually restore
 test_dir=$(mktemp -d)
-cp -r .devforgeai/backups/v1.0.0-*/ "$test_dir/" && echo "✓ Backup copyable"
+cp -r devforgeai/backups/v1.0.0-*/ "$test_dir/" && echo "✓ Backup copyable"
 ```
 
 ### 5. **Document Backup Policy**
 Keep note of your backup approach:
 ```bash
-cat > .devforgeai/BACKUP-POLICY.txt <<'EOF'
+cat > devforgeai/BACKUP-POLICY.txt <<'EOF'
 - Automatic backups: 5 most recent retained
 - Manual backups: None created (auto-backup sufficient)
 - Retention: 90 days max age
@@ -607,21 +607,21 @@ EOF
 
 | Task | Command |
 |------|---------|
-| List backups | `ls -lht .devforgeai/backups/` |
-| Backup size | `du -sh .devforgeai/backups/` |
+| List backups | `ls -lht devforgeai/backups/` |
+| Backup size | `du -sh devforgeai/backups/` |
 | Create manual backup | `bash install.sh backup-create "label"` |
 | Restore latest | `bash install.sh restore latest` |
-| Restore specific | `bash install.sh restore .devforgeai/backups/v1.0.0-*` |
-| Check manifest | `python3 -m json.tool .devforgeai/backups/*/backup-manifest.json` |
+| Restore specific | `bash install.sh restore devforgeai/backups/v1.0.0-*` |
+| Check manifest | `python3 -m json.tool devforgeai/backups/*/backup-manifest.json` |
 | Verify checksums | See "Verify File Checksums" section |
-| Cleanup old backups | `cd .devforgeai/backups && ls -t \| tail -n +6 \| xargs -r rm -rf` |
+| Cleanup old backups | `cd devforgeai/backups && ls -t \| tail -n +6 \| xargs -r rm -rf` |
 | Monitor free space | `df -h .` |
 
 ## Frequently Asked Questions
 
 ### Q: Where are backups stored?
 
-**A:** In `.devforgeai/backups/` directory next to your DevForgeAI installation. Each backup is in its own timestamped directory.
+**A:** In `devforgeai/backups/` directory next to your DevForgeAI installation. Each backup is in its own timestamped directory.
 
 ### Q: How much disk space do backups use?
 
@@ -629,16 +629,16 @@ EOF
 
 ### Q: Can I move backups to external drive?
 
-**A:** Yes, but restoration requires backups in `.devforgeai/backups/`. For long-term archival:
+**A:** Yes, but restoration requires backups in `devforgeai/backups/`. For long-term archival:
 ```bash
-cp -r .devforgeai/backups/v1.0.0-* /external/archive/
+cp -r devforgeai/backups/v1.0.0-* /external/archive/
 ```
 
 ### Q: What if backup is incomplete?
 
 **A:** Automatic rollback handles this. Manual check:
 ```bash
-backup_status=$(python3 -c "import json; print(json.load(open('.devforgeai/backups/*/backup-manifest.json')).get('backup_status'))")
+backup_status=$(python3 -c "import json; print(json.load(open('devforgeai/backups/*/backup-manifest.json')).get('backup_status'))")
 [ "$backup_status" != "SUCCESS" ] && echo "⚠ Backup incomplete"
 ```
 
@@ -651,12 +651,12 @@ backup_status=$(python3 -c "import json; print(json.load(open('.devforgeai/backu
 **A:** Not built-in. For sensitive data:
 ```bash
 # Manual encryption (7-Zip with AES-256)
-7z a -t7z -p -mhe=on backup.7z .devforgeai/backups/
+7z a -t7z -p -mhe=on backup.7z devforgeai/backups/
 ```
 
 ### Q: How do I know if backup is working?
 
 **A:** Check after upgrade:
-1. `ls .devforgeai/backups/` shows new backup
-2. Backup manifest valid: `python3 -m json.tool .devforgeai/backups/*/backup-manifest.json`
-3. File count matches: `find .devforgeai/backups/v*/ -type f | wc -l`
+1. `ls devforgeai/backups/` shows new backup
+2. Backup manifest valid: `python3 -m json.tool devforgeai/backups/*/backup-manifest.json`
+3. File count matches: `find devforgeai/backups/v*/ -type f | wc -l`

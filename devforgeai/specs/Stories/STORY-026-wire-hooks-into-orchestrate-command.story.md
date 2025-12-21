@@ -77,12 +77,12 @@ format_version: "2.0"
 **Handling:** Hook invokes with checkpoint_resumed=true, resume_point="QA_APPROVED", phases_executed=["release"] (only phase run in resumed session). Workflow duration reflects only current session time. Feedback questions acknowledge manual intervention and focus on release phase experience.
 
 ### Edge Case 4: Hook Configuration File Missing or Invalid
-**Scenario:** `.devforgeai/config/hooks.yaml` file is deleted, corrupted, or has invalid YAML syntax.
+**Scenario:** `devforgeai/config/hooks.yaml` file is deleted, corrupted, or has invalid YAML syntax.
 **Handling:** `devforgeai check-hooks` exits with code 1, /orchestrate logs warning "Hook configuration invalid or missing: [parse error], skipping feedback session", continues with standard completion summary. No workflow failure triggered by hook configuration issues (graceful degradation).
 
 ### Edge Case 5: Concurrent /orchestrate Executions (Multiple Stories)
 **Scenario:** User runs `/orchestrate STORY-001` and `/orchestrate STORY-002` in parallel terminal sessions.
-**Handling:** Each workflow invokes hooks independently with story-specific context (story_id, workflow_id=timestamp-STORY-ID). Hook check/invocation isolates operation context per story. No race conditions in feedback file writes (filenames include story_id). Each session generates separate feedback files in `.devforgeai/feedback/orchestrate/`.
+**Handling:** Each workflow invokes hooks independently with story-specific context (story_id, workflow_id=timestamp-STORY-ID). Hook check/invocation isolates operation context per story. No race conditions in feedback file writes (filenames include story_id). Each session generates separate feedback files in `devforgeai/feedback/orchestrate/`.
 
 ### Edge Case 6: Extremely Long Workflow Duration (>6 Hours)
 **Scenario:** /orchestrate workflow spans multiple work sessions due to manual interventions, checkpoint resumes, or complex implementation (workflow_duration >21,600 seconds).
@@ -102,7 +102,7 @@ components:
     dependencies:
       - devforgeai CLI (check-hooks command)
       - devforgeai CLI (invoke-hooks command)
-      - .devforgeai/config/hooks.yaml
+      - devforgeai/config/hooks.yaml
       - Workflow state tracking (checkpoints, phase results)
     interfaces:
       - name: check-hooks CLI
@@ -174,7 +174,7 @@ components:
 
   - type: Configuration
     name: OrchestrateHooksConfiguration
-    file_path: .devforgeai/config/hooks.yaml
+    file_path: devforgeai/config/hooks.yaml
     description: |
       Hook configuration for /orchestrate command. Defines workflow-level triggers
       (failures-only default), custom questions covering end-to-end experience,
@@ -200,7 +200,7 @@ components:
 
   - type: Logging
     name: OrchestrateHookLogger
-    file_path: .devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
+    file_path: devforgeai/logs/hooks-orchestrate-{STORY-ID}.log
     description: |
       Structured logging for /orchestrate hook invocations. Logs hook attempts,
       workflow context, operation status, and any errors with full context.
@@ -227,7 +227,7 @@ components:
 
   - type: DataModel
     name: OrchestrateFeedbackRecord
-    file_path: .devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json
+    file_path: devforgeai/feedback/orchestrate/{STORY-ID}-{timestamp}.json
     description: |
       Feedback record schema for /orchestrate workflows. Extends base feedback
       schema with workflow-level fields: phases_executed, workflow_duration,
@@ -375,7 +375,7 @@ non_functional_requirements:
 - [x] Hook check invoked: `devforgeai check-hooks --operation=orchestrate --status=$OVERALL_STATUS` - Completed: Integration pattern defined in implementation, ready for /orchestrate.md Phase N
 - [x] Hook invocation conditional: `if [ $? -eq 0 ]; then devforgeai invoke-hooks --operation=orchestrate --story=$STORY_ID --context=$CONTEXT_JSON` - Completed: Pattern implemented in orchestrate_hooks.py with graceful degradation tested
 - [x] Operation context JSON passed to invoke-hooks with workflow-level data - Completed: AC5 implementation tested in 8 unit tests, full JSON serialization verified
-- [x] Graceful degradation: Hook errors logged to `.devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`, workflow proceeds - Completed: AC6 implementation with 7 integration tests validating error handling
+- [x] Graceful degradation: Hook errors logged to `devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`, workflow proceeds - Completed: AC6 implementation with 7 integration tests validating error handling
 - [x] Checkpoint resume handling: Context includes checkpoint_resumed=true, resume_point, phases_executed (current session only) - Completed: AC3 implementation with 5 integration tests validating checkpoint logic
 
 ### Configuration ✅ COMPLETE (Unblocked 2025-11-14)
@@ -403,9 +403,9 @@ non_functional_requirements:
 - [ ] Manual test: User Ctrl+C during feedback (partial responses saved, workflow status accurate) - **Deferred**: Requires end-to-end integration testing in QA phase
 
 ### Documentation ✅ COMPLETE (Unblocked 2025-11-14)
-- [x] /orchestrate Phase N documented with inline comments - **Completed**: Created .devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md with comprehensive integration instructions
+- [x] /orchestrate Phase N documented with inline comments - **Completed**: Created devforgeai/specs/STORY-026-PHASE-N-INTEGRATION-PATTERN.md with comprehensive integration instructions
 - [x] Workflow-level context extraction documented - **Completed**: 100% docstring coverage in orchestrate_hooks.py (completed in Phase 3 refactoring)
-- [x] Hook configuration example in `.devforgeai/config/hooks.yaml.example` - **Completed**: Created hooks.yaml.example with orchestrate hook configuration and customization examples
+- [x] Hook configuration example in `devforgeai/config/hooks.yaml.example` - **Completed**: Created hooks.yaml.example with orchestrate hook configuration and customization examples
 - [x] Troubleshooting guide updated with orchestrate-specific scenarios - **Completed**: Created STORY-026-TROUBLESHOOTING-GUIDE.md with 10 common issues and solutions
 
 ### Deployment ⏳ PARTIAL (1/4 Complete, 3/4 Blocked)
@@ -487,7 +487,7 @@ Execution Time:      0.65 seconds
 - [x] Hook check invoked: `devforgeai check-hooks --operation=orchestrate --status=$OVERALL_STATUS` - Completed: Integration pattern defined in implementation, ready for /orchestrate.md Phase N
 - [x] Hook invocation conditional: `if [ $? -eq 0 ]; then devforgeai invoke-hooks --operation=orchestrate --story=$STORY_ID --context=$CONTEXT_JSON` - Completed: Pattern implemented in orchestrate_hooks.py with graceful degradation tested
 - [x] Operation context JSON passed to invoke-hooks with workflow-level data - Completed: AC5 implementation tested in 8 unit tests, full JSON serialization verified
-- [x] Graceful degradation: Hook errors logged to `.devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`, workflow proceeds - Completed: AC6 implementation with 7 integration tests validating error handling
+- [x] Graceful degradation: Hook errors logged to `devforgeai/logs/hooks-orchestrate-{STORY-ID}.log`, workflow proceeds - Completed: AC6 implementation with 7 integration tests validating error handling
 - [x] Checkpoint resume handling: Context includes checkpoint_resumed=true, resume_point, phases_executed (current session only) - Completed: AC3 implementation with 5 integration tests validating checkpoint logic
 
 **Quality (Complete):**

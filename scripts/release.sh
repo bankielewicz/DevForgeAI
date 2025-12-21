@@ -7,7 +7,7 @@
 # Phases:
 #   0. Pre-flight validation (git, tests, authentication)
 #   1. Interactive version selection
-#   2. Operational files sync (.claude → src/claude, .devforgeai → src/devforgeai)
+#   2. Operational files sync (.claude → src/claude, devforgeai → src/devforgeai)
 #   3. Version metadata update (version.json, CHANGELOG.md, git tag)
 #   4. Integrity verification (SHA-256 checksums)
 #   5. GitHub release creation
@@ -27,7 +27,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Load configuration
-CONFIG_FILE="${PROJECT_ROOT}/.devforgeai/config/release-config.sh"
+CONFIG_FILE="${PROJECT_ROOT}/devforgeai/config/release-config.sh"
 if [[ -f "$CONFIG_FILE" ]]; then
     source "$CONFIG_FILE"
 fi
@@ -48,7 +48,7 @@ PACKAGE_JSON="${PROJECT_ROOT}/src/package.json"
 CHECKSUMS_FILE="${PROJECT_ROOT}/src/checksums.txt"
 SYNC_MANIFEST="${PROJECT_ROOT}/src/.sync-manifest.json"
 CHANGELOG_FILE="${PROJECT_ROOT}/CHANGELOG.md"
-RELEASE_LOG_DIR="${PROJECT_ROOT}/.devforgeai/releases"
+RELEASE_LOG_DIR="${PROJECT_ROOT}/devforgeai/releases"
 
 # Phase tracking for rollback
 PHASE_COMPLETED=()
@@ -420,7 +420,7 @@ phase_version_selection() {
 # =============================================================================
 # Sync operational directories to distribution source:
 # - .claude/ → src/claude/ (framework skills, commands, agents)
-# - .devforgeai/ → src/devforgeai/ (context files, templates, configs)
+# - devforgeai/ → src/devforgeai/ (context files, templates, configs)
 # - Apply exclusion patterns (backups, logs, temp files)
 # - Validate sync completeness
 # - Generate sync manifest for audit trail
@@ -532,13 +532,13 @@ phase_operational_files_sync() {
 
     validate_sync "${PROJECT_ROOT}/.claude" "${PROJECT_ROOT}/src/claude"
 
-    # Sync .devforgeai → src/devforgeai
+    # Sync devforgeai → src/devforgeai
     sync_directory \
-        "${PROJECT_ROOT}/.devforgeai" \
+        "${PROJECT_ROOT}/devforgeai" \
         "${PROJECT_ROOT}/src/devforgeai" \
         "${DEVFORGEAI_EXCLUDE_PATTERNS[@]}"
 
-    validate_sync "${PROJECT_ROOT}/.devforgeai" "${PROJECT_ROOT}/src/devforgeai"
+    validate_sync "${PROJECT_ROOT}/devforgeai" "${PROJECT_ROOT}/src/devforgeai"
 
     # Generate sync manifest
     generate_sync_manifest
@@ -955,7 +955,7 @@ phase_npm_publication() {
 # PHASE 7: FINALIZATION
 # =============================================================================
 # Complete release workflow:
-# - Create release log in .devforgeai/releases/
+# - Create release log in devforgeai/releases/
 # - Display success summary with URLs
 # - Mark all phases complete
 

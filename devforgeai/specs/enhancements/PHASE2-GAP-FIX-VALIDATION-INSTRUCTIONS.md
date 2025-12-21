@@ -18,7 +18,7 @@
 | validation-checklists.md | +114 | v2.0 validation procedures |
 | acceptance-criteria-patterns.md | +38 | AC to v2.0 component mapping |
 
-**Backup location:** `.devforgeai/backups/phase2-gap-fix/`
+**Backup location:** `devforgeai/backups/phase2-gap-fix/`
 
 ---
 
@@ -273,26 +273,26 @@ echo $?
 
 ```bash
 # Restore original files (10 minutes)
-cp .devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
+cp devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
    .claude/skills/devforgeai-story-creation/SKILL.md
 
-cp .devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup \
+cp devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup \
    .claude/agents/story-requirements-analyst.md
 
-cp .devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup \
+cp devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup \
    .claude/skills/devforgeai-story-creation/references/story-structure-guide.md
 
-cp .devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup \
+cp devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup \
    .claude/skills/devforgeai-story-creation/references/validation-checklists.md
 
-cp .devforgeai/backups/phase2-gap-fix/acceptance-criteria-patterns.md.backup \
+cp devforgeai/backups/phase2-gap-fix/acceptance-criteria-patterns.md.backup \
    .claude/skills/devforgeai-story-creation/references/acceptance-criteria-patterns.md
 
 # Restart terminal
 # Test /create-story (should work with old behavior)
 
 # Document rollback reason
-echo "Rollback reason: [ISSUE]" > .devforgeai/backups/phase2-gap-fix/ROLLBACK-REASON.txt
+echo "Rollback reason: [ISSUE]" > devforgeai/backups/phase2-gap-fix/ROLLBACK-REASON.txt
 ```
 
 ---

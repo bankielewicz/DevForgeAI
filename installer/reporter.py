@@ -51,16 +51,16 @@ class InstallationReporter:
             Path object pointing to the log file
 
         Raises:
-            PermissionError: If .devforgeai directory not writable (with fallback to TMPDIR)
+            PermissionError: If devforgeai directory not writable (with fallback to TMPDIR)
         """
         target_path = Path(target_directory)
-        devforgeai_dir = target_path / ".devforgeai"
+        devforgeai_dir = target_path / "devforgeai"
 
         try:
-            # Create .devforgeai directory if it doesn't exist
+            # Create devforgeai directory if it doesn't exist
             devforgeai_dir.mkdir(parents=True, exist_ok=True)
         except PermissionError:
-            # Fallback to TMPDIR if .devforgeai not writable
+            # Fallback to TMPDIR if devforgeai not writable
             import tempfile
 
             tmpdir = Path(tempfile.gettempdir())

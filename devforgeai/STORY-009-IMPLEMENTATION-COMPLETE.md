@@ -64,7 +64,7 @@ def validate_config_permissions(config_file: Path) -> bool:
 
 ### Task 2: Documentation Files ✅
 
-**Location:** `.devforgeai/docs/`
+**Location:** `devforgeai/docs/`
 
 **5 Files Created:**
 
@@ -284,7 +284,7 @@ logger = logging.getLogger(__name__)
 - [x] Skip counter increments per operation type
 - [x] Pattern detection triggers at 3+ consecutive skips
 - [x] AskUserQuestion appears with disable/keep/ask-later options
-- [x] User preference stored in `.devforgeai/config/feedback-preferences.yaml`
+- [x] User preference stored in `devforgeai/config/feedback-preferences.yaml`
 - [x] Preferences persist across sessions
 - [x] Disabled feedback types enforced (no prompts)
 - [x] Token waste calculation accurate
@@ -337,11 +337,11 @@ logger = logging.getLogger(__name__)
   - Added `__all__` export list
 
 ### Documentation Created (5 files)
-1. `.devforgeai/docs/config-schema-reference.md` (9.7 KB)
-2. `.devforgeai/docs/skip-event-schema.md` (12 KB)
-3. `.devforgeai/docs/token-waste-formula.md` (12 KB)
-4. `.devforgeai/docs/user-guide-feedback-preferences.md` (15 KB)
-5. `.devforgeai/docs/developer-guide-operation-types.md` (16 KB)
+1. `devforgeai/docs/config-schema-reference.md` (9.7 KB)
+2. `devforgeai/docs/skip-event-schema.md` (12 KB)
+3. `devforgeai/docs/token-waste-formula.md` (12 KB)
+4. `devforgeai/docs/user-guide-feedback-preferences.md` (15 KB)
+5. `devforgeai/docs/developer-guide-operation-types.md` (16 KB)
 
 **Total Documentation:** 64.7 KB (5 comprehensive guides)
 
@@ -396,7 +396,7 @@ logger = logging.getLogger(__name__)
 
 ### For QA Review
 1. Run test suite: `pytest .claude/scripts/devforgeai_cli/tests/feedback/ -v`
-2. Verify file permissions on generated configs: `ls -l .devforgeai/config/feedback-preferences.yaml`
+2. Verify file permissions on generated configs: `ls -l devforgeai/config/feedback-preferences.yaml`
 3. Check logging output for debug/warning messages
 4. Manual config file testing with real operation types
 

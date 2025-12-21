@@ -47,9 +47,9 @@ def test_project_structure(temp_project_dir: str) -> Dict[str, Path]:
     dirs = [
         base / '.claude' / 'commands',
         base / '.claude' / 'skills',
-        base / '.devforgeai' / 'context',
-        base / '.devforgeai' / 'adrs',
-        base / '.devforgeai' / 'protocols',
+        base / 'devforgeai' / 'context',
+        base / 'devforgeai' / 'adrs',
+        base / 'devforgeai' / 'protocols',
         base / '.ai_docs' / 'Stories',
     ]
 
@@ -58,9 +58,9 @@ def test_project_structure(temp_project_dir: str) -> Dict[str, Path]:
 
     return {
         'base': base,
-        'context': base / '.devforgeai' / 'context',
-        'adrs': base / '.devforgeai' / 'adrs',
-        'protocols': base / '.devforgeai' / 'protocols',
+        'context': base / 'devforgeai' / 'context',
+        'adrs': base / 'devforgeai' / 'adrs',
+        'protocols': base / 'devforgeai' / 'protocols',
         'commands': base / '.claude' / 'commands',
     }
 
@@ -457,8 +457,8 @@ class TestPatternFileIntegration:
 
     def test_pattern_file_path_correct(self, command_content: str):
         """Test: Pattern file path in Read() tool is correct."""
-        # Should be: .devforgeai/protocols/hook-integration-pattern.md
-        assert '.devforgeai/protocols/hook-integration-pattern.md' in command_content, (
+        # Should be: devforgeai/protocols/hook-integration-pattern.md
+        assert 'devforgeai/protocols/hook-integration-pattern.md' in command_content, (
             "Incorrect pattern file path or missing Read tool reference"
         )
 

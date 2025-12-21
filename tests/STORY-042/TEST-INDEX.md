@@ -11,7 +11,7 @@ Complete list of all test functions organized by test file and category.
 - `test_ac1_nested_structure_preserved()` - Deep structure preserved
 - `test_ac1_original_unchanged()` - Original .claude/ unchanged
 
-### AC-2: Copy .devforgeai/ content (5 tests)
+### AC-2: Copy devforgeai/ content (5 tests)
 - `test_ac2_devforgeai_directory_exists()` - src/devforgeai/ directory exists
 - `test_ac2_allowed_subdirs_only()` - Only allowed subdirectories present
 - `test_ac2_required_subdirs_present()` - Required subdirectories present
@@ -49,7 +49,7 @@ Complete list of all test functions organized by test file and category.
 
 ### AC-7: Preserve originals (5 tests)
 - `test_ac7_original_claude_exists()` - Original .claude/ exists
-- `test_ac7_original_devforgeai_exists()` - Original .devforgeai/ exists
+- `test_ac7_original_devforgeai_exists()` - Original devforgeai/ exists
 - `test_ac7_original_claude_unchanged_filecount()` - File count unchanged
 - `test_ac7_no_symlinks_in_src()` - No symlinks (true copies)
 - `test_ac7_commands_still_work()` - DevForgeAI commands functional

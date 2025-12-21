@@ -294,7 +294,7 @@ test_story_031_ideate_hooks_integration.py::TestHookEligibilityCheck::test_check
 ### Common Fixtures
 
 **`temp_project_structure`**
-- Creates complete temp project with .devforgeai, .ai_docs, .claude structure
+- Creates complete temp project with devforgeai, .ai_docs, .claude structure
 - All required directories present
 - Cleaned up after test
 
@@ -460,8 +460,8 @@ When implementing Phase N in `.claude/commands/ideate.md`:
 - `STORY-022` - devforgeai invoke-hooks command
 
 **Framework Documentation:**
-- `.devforgeai/protocols/hook-integration-pattern.md`
-- `.devforgeai/protocols/lean-orchestration-pattern.md`
+- `devforgeai/protocols/hook-integration-pattern.md`
+- `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 
@@ -536,7 +536,7 @@ result = subprocess.run(
 ```python
 epic_file = Path("devforgeai/specs/Epics/EPIC-001.epic.md")
 assert epic_file.exists()
-req_file = Path(".devforgeai/specs/requirements/project-requirements.md")
+req_file = Path("devforgeai/specs/requirements/project-requirements.md")
 assert req_file.exists()
 ```
 

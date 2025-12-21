@@ -292,7 +292,7 @@ technical_specification:
 
     - type: "Logging"
       name: "OnboardingTracker"
-      file_path: ".devforgeai/onboarding/team-training-log.md"
+      file_path: "devforgeai/onboarding/team-training-log.md"
       requirements:
         - id: "LOG-001"
           description: "Track team member onboarding completion"
@@ -514,7 +514,7 @@ technical_specification:
 
 **Mode:** deep (comprehensive validation)
 **Duration:** ~8 minutes
-**QA Report:** `.devforgeai/qa/reports/STORY-048-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-048-qa-report.md`
 
 **Results:**
 - **Test Coverage:** 100% PASS

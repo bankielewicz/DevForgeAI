@@ -754,9 +754,9 @@ When adding Phase 0 validation to a slash command:
 - `.claude/memory/skills-reference.md` - Skill invocation patterns
 
 **RCA Context:**
-- `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
-- `.devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
-- `.devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
+- `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md` - Root cause analysis
+- `devforgeai/specs/enhancements/RCA-005-command-audit.md` - Audit findings
+- `devforgeai/specs/enhancements/RCA-005-slash-command-parameter-fix-plan.md` - Implementation plan
 
 ---
 

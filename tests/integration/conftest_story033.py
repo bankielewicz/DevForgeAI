@@ -32,10 +32,10 @@ def temp_project_dir():
 
     # Create standard DevForgeAI directory structure
     dirs = [
-        ".devforgeai/qa",
-        ".devforgeai/config",
-        ".devforgeai/feedback/logs",
-        ".devforgeai/adrs",
+        "devforgeai/qa",
+        "devforgeai/config",
+        "devforgeai/feedback/logs",
+        "devforgeai/adrs",
         ".ai_docs/Stories",
         ".claude/commands",
     ]
@@ -64,7 +64,7 @@ def project_with_context(temp_project_dir):
         }
     }
 
-    config_dir = f"{temp_project_dir}/.devforgeai/config"
+    config_dir = f"{temp_project_dir}/devforgeai/config"
     with open(f"{config_dir}/hooks.yaml", 'w') as f:
         json.dump(config, f)
 
@@ -151,7 +151,7 @@ def sample_audit_report(temp_project_dir):
         ]
     }
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-sample.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-sample.json"
     with open(report_path, 'w') as f:
         json.dump(report_content, f, indent=2)
 
@@ -174,7 +174,7 @@ def empty_audit_report(temp_project_dir):
         "deferrals": []
     }
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-empty.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-empty.json"
     with open(report_path, 'w') as f:
         json.dump(report_content, f)
 
@@ -231,7 +231,7 @@ def massive_audit_report(temp_project_dir):
         ]
     }
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-massive.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-massive.json"
     with open(report_path, 'w') as f:
         json.dump(report_content, f)
 
@@ -261,7 +261,7 @@ def audit_with_sensitive_data(temp_project_dir):
         ]
     }
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-sensitive.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-sensitive.json"
     with open(report_path, 'w') as f:
         json.dump(report_content, f)
 
@@ -292,7 +292,7 @@ def valid_hooks_config(temp_project_dir):
         }
     }
 
-    config_dir = f"{temp_project_dir}/.devforgeai/config"
+    config_dir = f"{temp_project_dir}/devforgeai/config"
     os.makedirs(config_dir, exist_ok=True)
 
     config_path = f"{config_dir}/hooks.yaml"
@@ -305,7 +305,7 @@ def valid_hooks_config(temp_project_dir):
 @pytest.fixture
 def invalid_hooks_config(temp_project_dir):
     """Create invalid/corrupted hooks.yaml"""
-    config_dir = f"{temp_project_dir}/.devforgeai/config"
+    config_dir = f"{temp_project_dir}/devforgeai/config"
     os.makedirs(config_dir, exist_ok=True)
 
     config_path = f"{config_dir}/hooks.yaml"
@@ -328,7 +328,7 @@ def hooks_disabled_config(temp_project_dir):
         }
     }
 
-    config_dir = f"{temp_project_dir}/.devforgeai/config"
+    config_dir = f"{temp_project_dir}/devforgeai/config"
     os.makedirs(config_dir, exist_ok=True)
 
     config_path = f"{config_dir}/hooks.yaml"
@@ -399,7 +399,7 @@ def mock_invoke_hooks_failure():
 @pytest.fixture
 def invocation_log_path(temp_project_dir):
     """Get path to hook invocations log"""
-    log_dir = f"{temp_project_dir}/.devforgeai/feedback/logs"
+    log_dir = f"{temp_project_dir}/devforgeai/feedback/logs"
     os.makedirs(log_dir, exist_ok=True)
     return f"{log_dir}/hook-invocations.log"
 

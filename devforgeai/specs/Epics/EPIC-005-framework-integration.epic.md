@@ -111,7 +111,7 @@ Make retrospective feedback a **native part of DevForgeAI's operation lifecycle*
   - Adapt questions based on context (e.g., ask about specific failed todo)
 - Operation history update:
   - Append feedback link to story workflow history (if story-based operation)
-  - Example: `STORY-042.story.md` → "Workflow History" section → "[Feedback: 2025-11-07T10:30](.devforgeai/feedback/sessions/...)"
+  - Example: `STORY-042.story.md` → "Workflow History" section → "[Feedback: 2025-11-07T10:30](devforgeai/feedback/sessions/...)"
 
 **Estimated Effort:** Medium (8-13 story points)
 

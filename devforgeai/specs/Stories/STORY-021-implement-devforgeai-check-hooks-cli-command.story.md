@@ -26,7 +26,7 @@ updated: 2025-11-13
 
 ### 1. [x] Configuration Check
 
-**Given** the feedback system configuration file exists at `.devforgeai/config/hooks.yaml`,
+**Given** the feedback system configuration file exists at `devforgeai/config/hooks.yaml`,
 **When** I run `devforgeai check-hooks --operation=dev --status=completed`,
 **Then** the command reads the `enabled` field from configuration,
 **And** returns exit code 1 (don't trigger) if `enabled: false`,
@@ -69,7 +69,7 @@ updated: 2025-11-13
 
 ### 5. [x] Error Handling - Missing Config
 
-**Given** the configuration file does not exist at `.devforgeai/config/hooks.yaml`,
+**Given** the configuration file does not exist at `devforgeai/config/hooks.yaml`,
 **When** I run `devforgeai check-hooks --operation=dev --status=completed`,
 **Then** the command logs a warning "Hooks config not found, assuming disabled",
 **And** returns exit code 1 (don't trigger),
@@ -139,7 +139,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "HooksConfiguration"
-      file_path: ".devforgeai/config/hooks.yaml"
+      file_path: "devforgeai/config/hooks.yaml"
       requirements:
         - id: "CONF-001"
           description: "Define schema: enabled (bool), trigger_on (enum), operations (dict)"
@@ -301,7 +301,7 @@ technical_specification:
 
 ### Prerequisites
 - EPIC-006 Feature 6.1 started
-- `.devforgeai/config/hooks.yaml` configuration schema defined
+- `devforgeai/config/hooks.yaml` configuration schema defined
 - `devforgeai_cli` Python package structure exists
 
 ### Blocked By
@@ -380,7 +380,7 @@ fi
 ### Phase 4: Integration Testing ✅
 - 82 total tests passing (72 unit + 10 integration)
 - CLI command: `devforgeai check-hooks` fully functional
-- Configuration integration: Reads .devforgeai/config/hooks.yaml
+- Configuration integration: Reads devforgeai/config/hooks.yaml
 - Cross-component: Works with devforgeai CLI infrastructure
 - Performance: 0.281ms average (355x faster than <100ms target)
 

@@ -201,7 +201,7 @@ Create comprehensive test suite validating guidance system impact.
 - [ ] Token savings validation script (Python)
 - [ ] Success rate measurement script (Python)
 - [ ] Sync validation script (Bash)
-- [ ] Impact report generated in `.devforgeai/specs/enhancements/`
+- [ ] Impact report generated in `devforgeai/specs/enhancements/`
 
 **Success Metrics:**
 - All tests pass
@@ -464,7 +464,7 @@ Use patterns to:
 
 ### 9.1 Internal Dependencies
 
-- DevForgeAI framework operational (.claude/ and .devforgeai/ exist)
+- DevForgeAI framework operational (.claude/ and devforgeai/ exist)
 - 5 skills to integrate with (ideation, story-creation, architecture, ui-generator, orchestration)
 - claude-code-terminal-expert skill exists
 - Source tree structure established (src/ directory)

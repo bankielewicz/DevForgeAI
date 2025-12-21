@@ -11,7 +11,7 @@ Test Coverage: 95%+ for business logic
 import pytest
 
 # Import from the actual module
-from claude.scripts.devforgeai_cli.ast_grep.models import (
+from claude.scriptsdevforgeai_cli.ast_grep.models import (
     RuleMetadata,
     RuleSeverity,
     RuleLanguage,

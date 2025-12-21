@@ -15,9 +15,9 @@
 ### Prerequisites
 
 - [ ] devforgeai CLI installed: `devforgeai --version`
-- [ ] hooks.yaml configured in `.devforgeai/config/`
-- [ ] Feedback directory exists: `.devforgeai/feedback/releases/`
-- [ ] Log directory exists: `.devforgeai/logs/`
+- [ ] hooks.yaml configured in `devforgeai/config/`
+- [ ] Feedback directory exists: `devforgeai/feedback/releases/`
+- [ ] Log directory exists: `devforgeai/logs/`
 - [ ] Test story in "QA Approved" status (for actual deployment)
 - [ ] Staging environment accessible
 - [ ] Production environment accessible (if testing production hooks)
@@ -47,7 +47,7 @@ time /release {TEST-STORY-ID} staging
 
 ```bash
 # Enable staging hooks
-cat > .devforgeai/config/hooks.yaml << 'EOF'
+cat > devforgeai/config/hooks.yaml << 'EOF'
 enabled: true
 operations:
   release-staging:
@@ -71,7 +71,7 @@ EOF
 1. ✅ Staging deployment completes successfully
 2. ✅ Feedback prompt appears: "How did the staging deployment go?"
 3. ✅ User answers questions (or skips)
-4. ✅ Feedback saved to `.devforgeai/feedback/releases/STORY-TEST-001-staging-{timestamp}.json`
+4. ✅ Feedback saved to `devforgeai/feedback/releases/STORY-TEST-001-staging-{timestamp}.json`
 5. ✅ Deployment proceeds to completion message
 6. ✅ Hook overhead <3.5 seconds
 
@@ -81,7 +81,7 @@ EOF
 - [ ] JSON structure includes: `operation`, `story_id`, `environment`, `deployment_status`
 - [ ] `deployment_status`: "SUCCESS"
 - [ ] `environment`: "staging"
-- [ ] Log file created: `.devforgeai/logs/release-hooks-STORY-TEST-001.log`
+- [ ] Log file created: `devforgeai/logs/release-hooks-STORY-TEST-001.log`
 - [ ] Log shows: check-hooks returned 0, invoke-hooks completed
 - [ ] Deployment completed successfully (status updated in story file)
 
@@ -107,8 +107,8 @@ Same as Scenario 1 (hooks enabled)
 Option A: Intentionally fail smoke tests
 ```bash
 # Temporarily break smoke test config
-mv .devforgeai/smoke-tests/config.json .devforgeai/smoke-tests/config.json.backup
-echo '{"invalid": "config"}' > .devforgeai/smoke-tests/config.json
+mv devforgeai/smoke-tests/config.json devforgeai/smoke-tests/config.json.backup
+echo '{"invalid": "config"}' > devforgeai/smoke-tests/config.json
 ```
 
 Option B: Break deployment configuration
@@ -139,7 +139,7 @@ Option B: Break deployment configuration
 
 ```bash
 # Restore smoke test config
-mv .devforgeai/smoke-tests/config.json.backup .devforgeai/smoke-tests/config.json
+mv devforgeai/smoke-tests/config.json.backup devforgeai/smoke-tests/config.json
 ```
 
 **Test Result:** ⬜ PASS / ⬜ FAIL
@@ -159,7 +159,7 @@ mv .devforgeai/smoke-tests/config.json.backup .devforgeai/smoke-tests/config.jso
 
 ```bash
 # Configure production hooks in failures-only mode (default)
-cat > .devforgeai/config/hooks.yaml << 'EOF'
+cat > devforgeai/config/hooks.yaml << 'EOF'
 enabled: true
 operations:
   release-production:
@@ -186,7 +186,7 @@ EOF
 
 ### Verification
 
-- [ ] NO production feedback file created: `ls .devforgeai/feedback/releases/*-production-*.json`
+- [ ] NO production feedback file created: `ls devforgeai/feedback/releases/*-production-*.json`
 - [ ] Log shows: "check-hooks returned: 1 (not eligible - failures-only mode)"
 - [ ] Deployment marked as SUCCESS
 - [ ] Story status updated to "Released"
@@ -495,7 +495,7 @@ echo "Hook overhead: ${HOOK_OVERHEAD}s (target: <3.5s)"
 
 ```bash
 # Disable hooks
-cat > .devforgeai/config/hooks.yaml << 'EOF'
+cat > devforgeai/config/hooks.yaml << 'EOF'
 enabled: false
 EOF
 
@@ -526,17 +526,17 @@ EOF
 
 ```bash
 # Restore production hooks.yaml
-cp .devforgeai/config/hooks.yaml.production .devforgeai/config/hooks.yaml
+cp devforgeai/config/hooks.yaml.production devforgeai/config/hooks.yaml
 
 # Clean up test feedback files
-rm .devforgeai/feedback/releases/STORY-TEST-*.json
+rm devforgeai/feedback/releases/STORY-TEST-*.json
 
 # Clean up test logs
-rm .devforgeai/logs/release-hooks-STORY-TEST-*.log
+rm devforgeai/logs/release-hooks-STORY-TEST-*.log
 
 # Verify cleanup
-ls .devforgeai/feedback/releases/
-ls .devforgeai/logs/
+ls devforgeai/feedback/releases/
+ls devforgeai/logs/
 ```
 
 ---

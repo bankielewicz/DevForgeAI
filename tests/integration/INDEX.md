@@ -353,9 +353,9 @@ collected 116 items
 
 ### With DevForgeAI Framework
 - Context files: `devforgeai/context/*.md`
-- Configurations: `.devforgeai/config/hooks.yaml`
-- Logs: `.devforgeai/logs/release-hooks-{STORY-ID}.log`
-- Feedback: `.devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`
+- Configurations: `devforgeai/config/hooks.yaml`
+- Logs: `devforgeai/logs/release-hooks-{STORY-ID}.log`
+- Feedback: `devforgeai/feedback/releases/{STORY-ID}-{env}-{timestamp}.json`
 
 ## Next Steps
 

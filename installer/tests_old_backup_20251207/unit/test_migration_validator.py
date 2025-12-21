@@ -44,7 +44,7 @@ def project_root(tmp_path):
     """
     project = tmp_path / "project"
     project.mkdir()
-    (project / ".devforgeai").mkdir()
+    (project / "devforgeai").mkdir()
     (project / ".claude").mkdir()
     return project
 
@@ -59,8 +59,8 @@ def valid_project_structure(project_root):
     """
     files = {}
 
-    # Create .devforgeai structure
-    devforgeai = project_root / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai = project_root / "devforgeai"
     (devforgeai / "config").mkdir()
     (devforgeai / "context").mkdir()
     (devforgeai / "protocols").mkdir()
@@ -177,7 +177,7 @@ class TestFileExistenceValidation:
         validator = MigrationValidator(logger=Mock())
 
         # Create partial structure (missing .version.json)
-        (project_root / ".devforgeai" / "config").mkdir(parents=True)
+        (project_root / "devforgeai" / "config").mkdir(parents=True)
         (project_root / ".claude" / "agents").mkdir(parents=True)
         (project_root / ".claude" / "commands").mkdir(parents=True)
         (project_root / ".claude" / "skills").mkdir(parents=True)

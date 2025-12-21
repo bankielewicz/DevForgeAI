@@ -276,7 +276,7 @@ Note: Initialize Git to enable full DevForgeAI features:
 ✅ **Phase 5: File-Based Change Tracking**
 
 Instead of Git workflow, executes:
-1. Creates `.devforgeai/stories/STORY-001/changes/` directory
+1. Creates `devforgeai/stories/STORY-001/changes/` directory
 2. Generates `implementation-{timestamp}.md` manifest
 3. Updates story file with file-based tracking reference
 4. Displays completion summary with Git migration instructions
@@ -294,7 +294,7 @@ Output:
 │ Coverage: Z%                                                    │
 │                                                                 │
 │ Changes tracked in:                                             │
-│   .devforgeai/stories/STORY-001/changes/implementation-...     │
+│   devforgeai/stories/STORY-001/changes/implementation-...     │
 │                                                                 │
 │ Git Integration: Not Available                                  │
 │                                                                 │
@@ -308,7 +308,7 @@ Output:
 ```
 
 ✅ **Artifacts Created**
-- `.devforgeai/stories/STORY-001/changes/implementation-{timestamp}.md` exists
+- `devforgeai/stories/STORY-001/changes/implementation-{timestamp}.md` exists
 - Contains file lists, test results, acceptance criteria status
 - Story file updated with "File-Based" workflow history entry
 - Story status = "Dev Complete"

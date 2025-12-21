@@ -42,7 +42,7 @@ updated: 2025-11-13
 **Then** the feedback conversation starts automatically,
 **And** I'm prompted with context-aware retrospective questions,
 **And** the conversation references specific todos/phases from my dev session,
-**And** my responses are persisted to `.devforgeai/feedback/sessions/`.
+**And** my responses are persisted to `devforgeai/feedback/sessions/`.
 
 ---
 
@@ -333,7 +333,7 @@ fi
 
 ### Enabling Hooks
 
-**Default Configuration** (`.devforgeai/config/hooks.yaml`):
+**Default Configuration** (`devforgeai/config/hooks.yaml`):
 ```yaml
 hooks:
   enabled: true           # Master switch for all hooks
@@ -346,7 +346,7 @@ hooks:
 ```
 
 **To enable feedback hooks for /dev:**
-1. Ensure `.devforgeai/config/hooks.yaml` has `hooks.enabled: true`
+1. Ensure `devforgeai/config/hooks.yaml` has `hooks.enabled: true`
 2. Set `hooks.operations.dev.enabled: true`
 3. Configure trigger conditions:
    - `on_success: true` - Feedback after successful /dev completion
@@ -387,7 +387,7 @@ hooks:
 
 ### Configuration Reference
 
-**File:** `.devforgeai/config/hooks.yaml`
+**File:** `devforgeai/config/hooks.yaml`
 
 **Key Settings:**
 - `hooks.enabled` - Master switch (true/false)
@@ -476,7 +476,7 @@ fi
 
 ### Configuration for Each Command
 
-**Add to `.devforgeai/config/hooks.yaml`:**
+**Add to `devforgeai/config/hooks.yaml`:**
 
 ```yaml
 hooks:
@@ -532,7 +532,7 @@ hooks:
 **Diagnosis:**
 ```bash
 # Check hook configuration
-cat .devforgeai/config/hooks.yaml
+cat devforgeai/config/hooks.yaml
 
 # Manually test check-hooks
 devforgeai check-hooks --operation=dev --status=completed
@@ -622,7 +622,7 @@ time devforgeai invoke-hooks --operation=dev --story=STORY-023
 
 3. **File I/O bottleneck**
    - Too many feedback session files
-   - Check `.devforgeai/feedback/sessions/` size
+   - Check `devforgeai/feedback/sessions/` size
 
 **Resolution:**
 ```yaml
@@ -640,7 +640,7 @@ timeout 5 devforgeai check-hooks --operation=dev --status=$STATUS || {
 **Performance Optimization:**
 ```bash
 # Clean old feedback sessions (>30 days)
-find .devforgeai/feedback/sessions/ -mtime +30 -delete
+find devforgeai/feedback/sessions/ -mtime +30 -delete
 
 # Reduce skill token usage
 # (Review devforgeai-feedback skill for optimization)
@@ -728,17 +728,17 @@ devforgeai check-hooks --operation=dev --status=$STATUS
 **Diagnosis:**
 ```bash
 # Check if config exists
-ls -la .devforgeai/config/hooks.yaml
+ls -la devforgeai/config/hooks.yaml
 
 # Validate YAML syntax
-python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
 ```
 
 **Resolution:**
 ```bash
 # Create default config if missing
-mkdir -p .devforgeai/config
-cat > .devforgeai/config/hooks.yaml << 'EOF'
+mkdir -p devforgeai/config
+cat > devforgeai/config/hooks.yaml << 'EOF'
 hooks:
   enabled: true
   mode: "all"
@@ -761,7 +761,7 @@ EOF
 3. [ ] Verify `on_success` or `on_failure` matches status
 4. [ ] Run `devforgeai check-hooks` manually (exit code 0?)
 5. [ ] Check devforgeai CLI is installed (`which devforgeai`)
-6. [ ] Verify `.devforgeai/config/hooks.yaml` exists and valid
+6. [ ] Verify `devforgeai/config/hooks.yaml` exists and valid
 7. [ ] Check for error messages in command output
 8. [ ] Test with `mode: "all"` to eliminate mode issues
 
@@ -789,7 +789,7 @@ EOF
 - All edge cases covered (timeout, circular, failures)
 
 **Configuration Examples:**
-- `.devforgeai/config/hooks.yaml` - Default configuration
+- `devforgeai/config/hooks.yaml` - Default configuration
 - See "User Guide" section above for all configuration modes
 
 ## Implementation Notes
@@ -841,7 +841,7 @@ EOF
 **[x] Performance verified: <5s overhead measured**
 - **Completion:** Measured <350ms overhead (well under 5s target)
 - **Details:** 3 tests measure Phase 6 execution time, all pass
-- **Reference:** .devforgeai/qa/reports/STORY-023-phase6-integration-test-execution.md
+- **Reference:** devforgeai/qa/reports/STORY-023-phase6-integration-test-execution.md
 - **Date:** 2025-11-13
 
 **[x] Test: /dev with hooks enabled → feedback triggers**
@@ -883,7 +883,7 @@ EOF
 **[x] Test: Measure overhead → <5s confirmed**
 - **Completion:** Performance baseline: 350ms (93% within 5s budget)
 - **Details:** 3 runs measured, average <350ms
-- **Reference:** .devforgeai/qa/reports/STORY-023-phase6-integration-test-execution.md
+- **Reference:** devforgeai/qa/reports/STORY-023-phase6-integration-test-execution.md
 - **Date:** 2025-11-13
 
 **[x] /dev command documentation updated (Phase 6 described)**
@@ -919,21 +919,21 @@ EOF
 **Deferred Item 4: User guide: How to enable/disable hooks for /dev**
 - **Blocker:** Design documentation created, but describes future implementation
 - **Reason:** User guide requires working implementation to be accurate
-- **User Approved:** Yes - Design spec created (.devforgeai/docs/hooks/user-guide.md)
+- **User Approved:** Yes - Design spec created (devforgeai/docs/hooks/user-guide.md)
 - **Follow-up:** Update to actual user guide after Phase 6 implementation
 - **Timestamp:** 2025-11-13
 
 **Deferred Item 5: Integration pattern documented for remaining 10 commands**
 - **Blocker:** Design specification created, but not validated in production
 - **Reason:** Pattern requires pilot validation before rollout documentation
-- **User Approved:** Yes - Design spec created (.devforgeai/docs/hooks/integration-pattern.md)
+- **User Approved:** Yes - Design spec created (devforgeai/docs/hooks/integration-pattern.md)
 - **Follow-up:** Validate pattern in pilot, then document actual rollout
 - **Timestamp:** 2025-11-13
 
 **Deferred Item 6: Troubleshooting: Hook failures, timeout, circular invocation**
 - **Blocker:** Design documentation based on tests, not real production issues
 - **Reason:** Real troubleshooting guide requires production deployment experience
-- **User Approved:** Yes - Test-based scenarios documented (.devforgeai/docs/hooks/troubleshooting.md)
+- **User Approved:** Yes - Test-based scenarios documented (devforgeai/docs/hooks/troubleshooting.md)
 - **Follow-up:** Update with actual production issues after pilot phase
 - **Timestamp:** 2025-11-13
 
@@ -1001,9 +1001,9 @@ EOF
 **Files Validated:**
 - tests/integration/test_phase6_hooks_integration.py (735 lines, 23 tests)
 - .claude/commands/dev.md (Phase 6 documentation)
-- .devforgeai/docs/hooks/user-guide.md (2,664 lines)
-- .devforgeai/docs/hooks/integration-pattern.md (9,757 lines)
-- .devforgeai/docs/hooks/troubleshooting.md (7,781 lines)
+- devforgeai/docs/hooks/user-guide.md (2,664 lines)
+- devforgeai/docs/hooks/integration-pattern.md (9,757 lines)
+- devforgeai/docs/hooks/troubleshooting.md (7,781 lines)
 
 **Deferral Status:**
 - Total Deferrals: 7
@@ -1015,7 +1015,7 @@ EOF
 - Test execution time: 2.98 seconds
 - Phase 6 overhead baseline: <350ms (93% within 5s budget)
 
-**QA Report:** `.devforgeai/qa/reports/STORY-023-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-023-qa-report.md`
 
 ---
 

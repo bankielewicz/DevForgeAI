@@ -114,6 +114,6 @@ Status: In Development → Continue to 100%
 
 ---
 
-**File-Based Tracking**: Changes documented in `.devforgeai/stories/STORY-057/changes/`
+**File-Based Tracking**: Changes documented in `devforgeai/stories/STORY-057/changes/`
 **Git Commit**: Deferred until work complete (user preserving 54 uncommitted files)
 **Development Session**: 2025-11-22 14:00-15:30 UTC

@@ -13,8 +13,8 @@ import shutil
 from pathlib import Path
 import yaml
 
-from claude.scripts.devforgeai_cli.ast_grep.config_init import ConfigurationInitializer
-from claude.scripts.devforgeai_cli.ast_grep.config_validator import ConfigurationValidator
+from claude.scriptsdevforgeai_cli.ast_grep.config_init import ConfigurationInitializer
+from claude.scriptsdevforgeai_cli.ast_grep.config_validator import ConfigurationValidator
 
 
 # ============================================================================
@@ -49,7 +49,7 @@ class TestAstGrepInitCommand:
         Scenario: CLI init creates expected directory structure
         Given: Empty project directory
         When: devforgeai ast-grep init is executed
-        Then: .devforgeai/ast-grep/ directory and subdirectories are created
+        Then: devforgeai/ast-grep/ directory and subdirectories are created
         """
         # Act
         initializer = ConfigurationInitializer(temp_project)
@@ -57,11 +57,11 @@ class TestAstGrepInitCommand:
 
         # Assert
         assert result.success, f"Init failed: {result.error}"
-        assert (temp_project / ".devforgeai" / "ast-grep" / "sgconfig.yml").exists()
-        assert (temp_project / ".devforgeai" / "ast-grep" / "rules" / "python").exists()
-        assert (temp_project / ".devforgeai" / "ast-grep" / "rules" / "csharp").exists()
-        assert (temp_project / ".devforgeai" / "ast-grep" / "rules" / "typescript").exists()
-        assert (temp_project / ".devforgeai" / "ast-grep" / "rules" / "javascript").exists()
+        assert (temp_project / "devforgeai" / "ast-grep" / "sgconfig.yml").exists()
+        assert (temp_project / "devforgeai" / "ast-grep" / "rules" / "python").exists()
+        assert (temp_project / "devforgeai" / "ast-grep" / "rules" / "csharp").exists()
+        assert (temp_project / "devforgeai" / "ast-grep" / "rules" / "typescript").exists()
+        assert (temp_project / "devforgeai" / "ast-grep" / "rules" / "javascript").exists()
 
     def test_cli_init_force_flag_overwrites(self, initialized_project):
         """
@@ -71,7 +71,7 @@ class TestAstGrepInitCommand:
         Then: Configuration is regenerated
         """
         # Arrange - Add marker to existing config
-        config_path = initialized_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = initialized_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         with open(config_path, "a") as f:
             f.write("\n# MARKER\n")
 
@@ -93,7 +93,7 @@ class TestAstGrepInitCommand:
         Then: Existing configuration is not overwritten
         """
         # Arrange - Add marker to existing config
-        config_path = initialized_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = initialized_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         with open(config_path, "a") as f:
             f.write("\n# MARKER\n")
 
@@ -123,7 +123,7 @@ class TestAstGrepValidateConfigCommand:
         Then: Returns success (valid=True)
         """
         # Act
-        config_path = initialized_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = initialized_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         validator = ConfigurationValidator(config_path)
         result = validator.validate()
 
@@ -138,7 +138,7 @@ class TestAstGrepValidateConfigCommand:
         Then: Result contains valid, errors, and warnings fields
         """
         # Act
-        config_path = initialized_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = initialized_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         validator = ConfigurationValidator(config_path)
         result = validator.validate()
 
@@ -173,7 +173,7 @@ class TestAstGrepValidateConfigCommand:
         Then: Returns error indicating YAML syntax error
         """
         # Arrange
-        config_dir = temp_project / ".devforgeai" / "ast-grep"
+        config_dir = temp_project / "devforgeai" / "ast-grep"
         config_dir.mkdir(parents=True)
         config_path = config_dir / "sgconfig.yml"
         with open(config_path, "w") as f:
@@ -208,7 +208,7 @@ class TestAstGrepWorkflows:
         assert init_result.success
 
         # Step 2: Validate
-        config_path = temp_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = temp_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         validator = ConfigurationValidator(config_path)
         validate_result = validator.validate()
 
@@ -227,7 +227,7 @@ class TestAstGrepWorkflows:
         initializer.initialize()
 
         # Act - Validate
-        config_path = temp_project / ".devforgeai" / "ast-grep" / "sgconfig.yml"
+        config_path = temp_project / "devforgeai" / "ast-grep" / "sgconfig.yml"
         validator = ConfigurationValidator(config_path)
         result = validator.validate()
 

@@ -196,7 +196,7 @@ def test_example():
 
 ### Mock Fixtures (9 total)
 
-1. **temp_research_dir** - Creates .devforgeai/research/ with subdirectories
+1. **temp_research_dir** - Creates devforgeai/research/ with subdirectories
 2. **mock_context_files** - Creates 6 context files with sample content
 3. **mock_epic_file** - Creates EPIC-007.epic.md
 4. **mock_story_file** - Creates STORY-036.story.md

@@ -341,7 +341,7 @@ class TestFixWorkflowReporting:
         assert hasattr(report, 'issues_skipped')
 
     def test_should_save_log_file(self, tmp_project):
-        """AC#6: Report is saved to `.devforgeai/logs/fix-{timestamp}.log`."""
+        """AC#6: Report is saved to `devforgeai/logs/fix-{timestamp}.log`."""
         # Arrange
         manifest_path = tmp_project["devforgeai"] / ".install-manifest.json"
         (tmp_project["devforgeai"] / "logs").mkdir()

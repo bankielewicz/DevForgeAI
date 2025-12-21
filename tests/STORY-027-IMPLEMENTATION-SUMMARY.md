@@ -61,7 +61,7 @@ Successfully implemented hook integration architecture for the `/create-story` c
 ### AC-3: Hook Respects Configuration ✅
 **Status:** IMPLEMENTED & TESTED (6 tests)
 
-- Load `.devforgeai/config/hooks.yaml` → parse `feedback.hooks.story_create.enabled`
+- Load `devforgeai/config/hooks.yaml` → parse `feedback.hooks.story_create.enabled`
 - Missing config defaults to `enabled: false` (safe default)
 - If disabled → hook not invoked, story proceeds to completion
 - Respects state at check time (can change during execution)
@@ -177,7 +177,7 @@ Successfully implemented hook integration architecture for the `/create-story` c
 Phase 3: Verify Story Created
     ↓
 Phase 5: Hook Integration (NEW)
-    ├─ Step 1: Check if hooks enabled (.devforgeai/config/hooks.yaml)
+    ├─ Step 1: Check if hooks enabled (devforgeai/config/hooks.yaml)
     ├─ Step 2: Detect batch mode (**Batch Mode:** true marker)
     ├─ Step 3: Validate story file exists (devforgeai/specs/Stories/STORY-NNN-*.story.md)
     ├─ Step 4: Validate story ID (STORY-\d{3} regex, prevent injection)

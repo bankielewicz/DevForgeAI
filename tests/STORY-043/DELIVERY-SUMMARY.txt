@@ -211,10 +211,10 @@ Phase 2: GREEN (PENDING)
     - src/scripts/validate-paths.sh
     - src/scripts/rollback-path-updates.sh
   Output:
-    - .devforgeai/specs/STORY-043/path-audit-*.txt (4 files)
-    - .devforgeai/specs/STORY-043/update-diff-summary.md
-    - .devforgeai/specs/STORY-043/validation-report.md
-    - .devforgeai/specs/STORY-043/integration-test-report.md
+    - devforgeai/specs/STORY-043/path-audit-*.txt (4 files)
+    - devforgeai/specs/STORY-043/update-diff-summary.md
+    - devforgeai/specs/STORY-043/validation-report.md
+    - devforgeai/specs/STORY-043/integration-test-report.md
   Expected: 119/119 tests PASSING
 
 Phase 3: REFACTOR (PENDING)
@@ -243,7 +243,7 @@ For Story Implementation Team:
    - rollback-path-updates.sh (restore from backup)
 
 3. Create output files:
-   - .devforgeai/specs/STORY-043/ directory
+   - devforgeai/specs/STORY-043/ directory
    - Classification files (path-audit-*.txt)
    - Report files (update-diff-summary.md, validation-report.md, etc.)
 
@@ -397,7 +397,7 @@ For Test Details:
 
 For Implementation Questions:
   - Refer to STORY-043.story.md for requirements
-  - Check .devforgeai/specs/STORY-043/ for output format
+  - Check devforgeai/specs/STORY-043/ for output format
   - Review story acceptance criteria for detailed specs
 
 For Test Execution Issues:

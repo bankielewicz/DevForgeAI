@@ -667,7 +667,7 @@ All source code MUST be written in TypeScript.')"
 
 **Mitigation:**
 - Add "Memory Loading Quick Reference" table to CLAUDE.md
-- Document loading protocol in `.devforgeai/CONTRIBUTING.md`
+- Document loading protocol in `devforgeai/CONTRIBUTING.md`
 - Provide examples in skill templates (Phase 0: Load reference file)
 
 ## 9. ADR Readiness
@@ -728,7 +728,7 @@ All source code MUST be written in TypeScript.')"
 ---
 
 **Report Generated:** 2025-11-29T19:30:00Z
-**Location:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
+**Location:** `/mnt/c/Projects/DevForgeAI2/devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
 **Research ID:** RESEARCH-001
 **Version:** 2.0
 
@@ -854,7 +854,7 @@ Focus areas: (1) Optional CLAUDE.md trimming from 1,416 to ~700 lines by moving
 detailed content to memory files, (2) Evidence-based grounding to reduce
 hallucinations via citation requirements. Research confirms progressive disclosure
 IS already implemented; this is optimization not critical fix. See
-.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md for
+devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md for
 full analysis.
 ```
 

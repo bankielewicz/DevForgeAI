@@ -387,7 +387,7 @@ def create_backup(
 **Purpose:** Create timestamped backup directory and copy files (AC#7).
 
 **Parameters:**
-- `target_dir` (Path): Base directory where .devforgeai will be created
+- `target_dir` (Path): Base directory where devforgeai will be created
 - `files_to_backup` (List[Path]): File paths to backup
 
 **Returns:** Path to created backup directory

@@ -131,7 +131,7 @@ class BackupService:
         - All path operations use validated paths
 
         Args:
-            target_dir: Base directory where .devforgeai will be created.
+            target_dir: Base directory where devforgeai will be created.
             files_to_backup: List of file paths to backup (relative to target_dir).
 
         Returns:
@@ -160,7 +160,7 @@ class BackupService:
         if not self._validate_timestamp(timestamp):
             raise ValueError(f"Invalid timestamp format: {timestamp} (security violation)")
 
-        backup_base = target_dir / ".devforgeai"
+        backup_base = target_dir / "devforgeai"
         self.backup_dir = backup_base / f"install-backup-{timestamp}"
 
         # SECURITY: Validate backup path stays within installation root
@@ -234,7 +234,7 @@ class BackupService:
 
         Args:
             backups_root: Root directory containing backup directories
-                         (e.g., .devforgeai).
+                         (e.g., devforgeai).
 
         Returns:
             Path to most recent backup directory, or None if no backups exist.
@@ -260,13 +260,13 @@ class BackupService:
 
         Args:
             backups_root: Root directory containing backup directories
-                         (e.g., .devforgeai).
+                         (e.g., devforgeai).
             days: Age threshold in days (default 7). Backups older than this
                   are candidates for deletion.
 
         Example:
             >>> service.cleanup_old_backups(
-            ...     backups_root=Path("/home/user/.devforgeai"),
+            ...     backups_root=Path("/home/user/devforgeai"),
             ...     days=7
             ... )
             # Removes backups older than 7 days, keeping minimum 5 recent ones

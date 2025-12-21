@@ -30,7 +30,7 @@ The `installer/` package:
 **Reasoning**:
 
 1. **Location & Scope**
-   - Framework components: `.claude/`, `.devforgeai/` (MUST be Markdown)
+   - Framework components: `.claude/`, `devforgeai/` (MUST be Markdown)
    - Distribution tooling: `installer/` at repo root (CAN be Python)
    - Distinction: `installer/` is **infrastructure**, not **framework**
 

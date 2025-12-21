@@ -99,7 +99,7 @@
 6. **audit-qa-approved-stories.sh** - Compliance audit for 39 stories
 7. **migrate-ac-headers.sh** - Story format migration (v2.0 → v2.1)
 
-**Location:** `.devforgeai/RCA/RCA-012/scripts/`
+**Location:** `devforgeai/RCA/RCA-012/scripts/`
 
 ---
 

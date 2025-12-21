@@ -61,7 +61,7 @@ class TestErrorRecovery:
 
         # Record initial state
         initial_version = json.loads(
-            (target_root / ".devforgeai" / ".version.json").read_text()
+            (target_root / "devforgeai" / ".version.json").read_text()
         )
         assert initial_version["version"] == "1.0.0"
 
@@ -280,6 +280,6 @@ class TestErrorRecovery:
         assert result.get("status") == "rollback" or result.get("exit_code") == 3
 
         # Verify critical files still exist (basic validation)
-        assert (target_root / ".devforgeai" / ".version.json").exists(), ".version.json should exist after rollback"
+        assert (target_root / "devforgeai" / ".version.json").exists(), ".version.json should exist after rollback"
         assert (target_root / ".claude").exists(), ".claude directory should exist after rollback"
-        assert (target_root / ".devforgeai").exists(), ".devforgeai directory should exist after rollback"
+        assert (target_root / "devforgeai").exists(), "devforgeai directory should exist after rollback"

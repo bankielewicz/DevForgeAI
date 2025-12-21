@@ -29,7 +29,7 @@
 
 **1. Executive Summary** (THIS IS THE STARTING POINT)
 ```
-.devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
+devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
 ```
 - 5-minute overview
 - What, why, when, status
@@ -37,7 +37,7 @@
 
 **2. Implementation Guide** (FOR USERS)
 ```
-.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
+devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
 ```
 - How to use v2.0 format
 - Migration procedures
@@ -46,7 +46,7 @@
 
 **3. Format Specification** (FOR DEVELOPERS)
 ```
-.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 - Complete v2.0 schema
 - 7 component type definitions
@@ -59,7 +59,7 @@
 
 **4. Testing Checklist**
 ```
-.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md
+devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md
 ```
 - 51 test cases (validator, migration, integration)
 - Pilot and full migration procedures
@@ -68,7 +68,7 @@
 
 **5. Migration Guide**
 ```
-.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md
+devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md
 ```
 - Step-by-step migration procedures
 - Rollback instructions
@@ -77,7 +77,7 @@
 
 **6. Implementation Summary**
 ```
-.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md
+devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md
 ```
 - Week 2 status tracking
 - Metrics and progress
@@ -86,7 +86,7 @@
 
 **7. Week 2 Completion Report**
 ```
-.devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
+devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
 ```
 - What was delivered
 - Timeline status
@@ -95,7 +95,7 @@
 
 **8. Week 2 Delivery Package** (THIS DOCUMENT)
 ```
-.devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md
+devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md
 ```
 - Complete inventory
 - How to use this package
@@ -183,12 +183,12 @@ python migrate_story_v1_to_v2.py STORY-001.md --dry-run --validate
 
 **1. Read executive summary:**
 ```bash
-cat .devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
+cat devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md
 ```
 
 **2. Review Week 2 deliverables:**
 ```bash
-cat .devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
+cat devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
 ```
 
 **3. Understand enhancement task:**
@@ -207,12 +207,12 @@ cat .devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md
 
 **1. Read implementation guide:**
 ```bash
-cat .devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
+cat devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md
 ```
 
 **2. Review format specification:**
 ```bash
-cat .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+cat devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 ```
 
 **3. Try validator on existing story:**
@@ -334,16 +334,16 @@ python migrate_story_v1_to_v2.py devforgeai/specs/Stories/STORY-007*.md --dry-ru
 
 ### Created Files (12)
 
-1. `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (505 lines)
+1. `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (505 lines)
 2. `.claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py` (235 lines)
 3. `.claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py` (165 lines)
-4. `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` (600 lines)
-5. `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (500 lines)
-6. `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (450 lines)
-7. `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` (300 lines)
-8. `.devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md` (250 lines)
-9. `.devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md` (200 lines)
-10. `.devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md` (300 lines - this doc)
+4. `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` (600 lines)
+5. `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (500 lines)
+6. `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (450 lines)
+7. `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` (300 lines)
+8. `devforgeai/specs/enhancements/PHASE2-WEEK2-COMPLETE.md` (250 lines)
+9. `devforgeai/specs/enhancements/PHASE2-EXECUTIVE-SUMMARY.md` (200 lines)
+10. `devforgeai/specs/enhancements/PHASE2-WEEK2-DELIVERY-PACKAGE.md` (300 lines - this doc)
 
 ### Modified Files (4)
 

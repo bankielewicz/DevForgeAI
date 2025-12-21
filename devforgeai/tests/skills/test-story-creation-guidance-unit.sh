@@ -3,12 +3,12 @@
 ################################################################################
 # UNIT TEST SUITE: Story Creation Guidance Loading
 #
-# File: .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+# File: devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 # Purpose: Test guidance file loading, pattern extraction, mapping, and fallback
 # Coverage: 15 unit tests for Step 0 and pattern operations
 # Framework: Bash + grep for verification
 #
-# Run: bash .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+# Run: bash devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 ################################################################################
 
 set -euo pipefail

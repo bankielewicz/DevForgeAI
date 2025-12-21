@@ -99,10 +99,10 @@ from installer.services.rollback_service import RollbackService
 
 ```python
 # OLD
-backup_service = BackupService(str(target_root / ".devforgeai"))
+backup_service = BackupService(str(target_root / "devforgeai"))
 
 # NEW
-logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
 backup_service = BackupService(logger)
 ```
 

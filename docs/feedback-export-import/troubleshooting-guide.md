@@ -12,7 +12,7 @@ Common issues and solutions for feedback export/import operations.
 ```
 ERROR: No feedback sessions found for date range: last-7-days
 
-Searched: .devforgeai/feedback/sessions/
+Searched: devforgeai/feedback/sessions/
 Found: 0 sessions in range (2025-11-04 to 2025-11-11)
 ```
 
@@ -30,7 +30,7 @@ Found: 0 sessions in range (2025-11-04 to 2025-11-11)
 
 2. **Check if feedback exists:**
    ```bash
-   ls .devforgeai/feedback/sessions/
+   ls devforgeai/feedback/sessions/
    ```
 
 3. **Generate feedback first:**
@@ -67,7 +67,7 @@ Date range: all
 
 2. **Calculate size before export:**
    ```bash
-   du -sh .devforgeai/feedback/sessions/
+   du -sh devforgeai/feedback/sessions/
    ```
 
 3. **Split into multiple exports:**
@@ -121,7 +121,7 @@ Error: [Errno 13] Permission denied
 ```
 ERROR: Feedback directory does not exist
 
-Expected: .devforgeai/feedback/sessions/
+Expected: devforgeai/feedback/sessions/
 Found: Directory not found
 ```
 
@@ -328,25 +328,25 @@ All conflicts logged: conflict-resolution.log
 ```
 ERROR: Cannot create import directory
 
-Path: .devforgeai/feedback/imported/2025-11-11T14-30-00/
+Path: devforgeai/feedback/imported/2025-11-11T14-30-00/
 Error: [Errno 13] Permission denied
 ```
 
 **Causes:**
-- No write permission to .devforgeai/
+- No write permission to devforgeai/
 - Parent directory doesn't exist
 - Filesystem read-only
 
 **Solutions:**
 1. **Check permissions:**
    ```bash
-   ls -ld .devforgeai/feedback/
-   chmod 755 .devforgeai/feedback/
+   ls -ld devforgeai/feedback/
+   chmod 755 devforgeai/feedback/
    ```
 
 2. **Create parent directory:**
    ```bash
-   mkdir -p .devforgeai/feedback/imported
+   mkdir -p devforgeai/feedback/imported
    ```
 
 3. **Check disk space:**
@@ -438,7 +438,7 @@ Import will proceed. Review file for corruption.
 **Solutions:**
 1. **Review imported file:**
    ```bash
-   cat .devforgeai/feedback/imported/*/feedback-sessions/2025-11-07*.md
+   cat devforgeai/feedback/imported/*/feedback-sessions/2025-11-07*.md
    # Check for corruption or unexpected content
    ```
 
@@ -555,7 +555,7 @@ Error: Encoding issue detected
 
 **Reality:** All user exports are sanitized (secure by default)
 
-**Solution:** Original feedback remains in `.devforgeai/feedback/sessions/` for local use
+**Solution:** Original feedback remains in `devforgeai/feedback/sessions/` for local use
 
 ---
 
@@ -568,12 +568,12 @@ Error: Encoding issue detected
 **Solution:**
 1. Check import directory before importing:
    ```bash
-   ls .devforgeai/feedback/imported/
+   ls devforgeai/feedback/imported/
    ```
 
 2. Delete duplicate import:
    ```bash
-   rm -rf .devforgeai/feedback/imported/2025-11-11T14-30-00/
+   rm -rf devforgeai/feedback/imported/2025-11-11T14-30-00/
    /feedback-reindex
    ```
 
@@ -595,7 +595,7 @@ Error: Encoding issue detected
 3. **Review logs:**
    ```bash
    # Export/import operations are logged
-   grep "export\|import" .devforgeai/logs/*.log
+   grep "export\|import" devforgeai/logs/*.log
    ```
 
 4. **Check framework version:**

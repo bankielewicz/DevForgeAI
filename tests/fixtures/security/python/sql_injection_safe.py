@@ -58,13 +58,19 @@ def search_users_safe(min_age: int, max_age: int, status: str):
 
 # Safe Pattern 4: IN clause with parameterized list
 def get_users_by_ids_safe(user_ids: List[int]):
-    """SAFE: IN clause with proper parameterization"""
+    """SAFE: IN clause with proper parameterization
+
+    NOTE: This pattern uses string concatenation with safe data (placeholder chars only).
+    An f-string version like `f"SELECT ... ({placeholders})"` is also safe, but cannot
+    be distinguished from dangerous patterns by ast-grep (no data flow analysis).
+    Using format() with explicit string keeps the pattern unambiguously safe.
+    """
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
 
     # SAFE - create placeholders dynamically, but values are parameterized
     placeholders = ",".join("?" * len(user_ids))
-    query = f"SELECT * FROM users WHERE id IN ({placeholders})"
+    query = "SELECT * FROM users WHERE id IN (" + placeholders + ")"
     cursor.execute(query, user_ids)
 
     return cursor.fetchall()

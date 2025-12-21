@@ -42,7 +42,7 @@ format_version: "2.1"
 - Plain English description of what went wrong
 - NO stack traces or technical details in console output
 - 1-3 actionable resolution steps
-- Reference to log file location (.devforgeai/install.log)
+- Reference to log file location (devforgeai/install.log)
 
 ---
 
@@ -76,7 +76,7 @@ format_version: "2.1"
 ### AC#5: Error Logging - Detailed Technical Log with Timestamps
 
 **Given** any error occurs during installation
-**When** the error is logged to .devforgeai/install.log
+**When** the error is logged to devforgeai/install.log
 **Then** the log entry includes:
 - ISO 8601 timestamp with milliseconds
 - Error category and exit code
@@ -105,7 +105,7 @@ format_version: "2.1"
 **Given** the installer is about to copy files to the target directory
 **When** backup creation is initiated
 **Then** the system:
-- Creates .devforgeai/install-backup-{timestamp}/ directory
+- Creates devforgeai/install-backup-{timestamp}/ directory
 - Copies all files that will be overwritten to backup location
 - Preserves directory structure in backup
 - Logs backup location to install.log
@@ -234,7 +234,7 @@ technical_specification:
       file_path: "src/installer/install_logger.py"
       sinks:
         - name: "File"
-          path: ".devforgeai/install.log"
+          path: "devforgeai/install.log"
           test_requirement: "Test: Log entries written to install.log"
       requirements:
         - id: "LOG-001"
@@ -271,7 +271,7 @@ technical_specification:
         - id: "SVC-013"
           description: "Create lock file at installation start"
           testable: true
-          test_requirement: "Test: .devforgeai/install.lock exists during installation"
+          test_requirement: "Test: devforgeai/install.lock exists during installation"
           priority: "High"
         - id: "SVC-014"
           description: "Detect concurrent installations via PID check"
@@ -558,7 +558,7 @@ No external packages required - uses standard library.
 1. **Exit codes:** Integers 0-4 only
 2. **Timestamps:** ISO 8601 format with milliseconds
 3. **Error categories:** 5 defined categories, case-sensitive
-4. **Log file path:** .devforgeai/install.log relative to target
+4. **Log file path:** devforgeai/install.log relative to target
 5. **Backup directory naming:** ISO 8601 timestamp with hyphens
 6. **Resolution step length:** ≤200 characters each, max 3 steps
 7. **Path sanitization:** Replace /home/{username} with /home/$USER

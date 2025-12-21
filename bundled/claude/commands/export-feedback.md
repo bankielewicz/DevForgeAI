@@ -61,7 +61,7 @@ Export your project's feedback sessions into a portable, shareable ZIP package w
 ```bash
 /export-feedback --date-range last-7-days
 ```
-Output: `.devforgeai-feedback-export-2025-11-11T14-30-00.zip`
+Output: `devforgeai-feedback-export-2025-11-11T14-30-00.zip`
 
 **Export everything to shared directory:**
 ```bash
@@ -79,7 +79,7 @@ Upon success:
 ```
 ✅ Feedback Export Complete
 
-Archive: .devforgeai-feedback-export-2025-11-11T14-30-00.zip
+Archive: devforgeai-feedback-export-2025-11-11T14-30-00.zip
 Size: 4.2 MB
 Sessions: 47
 Date Range: last-30-days (2025-10-12 to 2025-11-11)

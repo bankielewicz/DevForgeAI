@@ -13,7 +13,7 @@ All tests have been generated and are ready to run. **All tests will FAIL initia
 | **Unit Tests** | `tests/unit/test_feedback_cli_commands.py` | 1,222 | 89 |
 | **Integration Tests** | `tests/integration/test_feedback_cli_integration.py` | 742 | 32 |
 | **Edge Case Tests** | `tests/unit/test_feedback_cli_edge_cases.py` | 688 | 28 |
-| **Summary Report** | `.devforgeai/qa/reports/STORY-020-test-suite-summary.md` | - | - |
+| **Summary Report** | `devforgeai/qa/reports/STORY-020-test-suite-summary.md` | - | - |
 | **TOTAL** | | **2,652 lines** | **149 tests** |
 
 ---
@@ -258,7 +258,7 @@ def test_feedback_search_sorts_by_date_descending_for_date_queries(self):
 - ✅ Format options: json, csv, markdown
 - ✅ Selection criteria: date range, story IDs, filters
 - ✅ Create package with metadata, config snapshot
-- ✅ Save to .devforgeai/feedback/exports/
+- ✅ Save to devforgeai/feedback/exports/
 - ✅ Success response with file path, entry count
 
 **Sample Test:**
@@ -266,7 +266,7 @@ def test_feedback_search_sorts_by_date_descending_for_date_queries(self):
 def test_export_feedback_json_format_workflow_integration(self):
     """Test /export-feedback JSON workflow: select -> format -> package -> save."""
     # ARRANGE
-    exports_dir = integration_project_dir / ".devforgeai" / "feedback" / "exports"
+    exports_dir = integration_project_dir / "devforgeai" / "feedback" / "exports"
 
     # ACT - create export
     export_data = {
@@ -409,7 +409,7 @@ tests/
 ├── conftest.py                               (pytest configuration)
 └── __init__.py
 
-.devforgeai/
+devforgeai/
 └── qa/
     └── reports/
         └── STORY-020-test-suite-summary.md   (Detailed reference)
@@ -485,7 +485,7 @@ pip install pytest pytest-cov
 
 ## Next Actions
 
-1. **Read this summary:** `.devforgeai/qa/reports/STORY-020-test-suite-summary.md`
+1. **Read this summary:** `devforgeai/qa/reports/STORY-020-test-suite-summary.md`
 2. **Run all tests to confirm Red phase:** `pytest tests/ -v --tb=short`
 3. **Begin implementation in Phase 2**
 4. **Run tests continuously** to verify progress

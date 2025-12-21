@@ -370,8 +370,8 @@ The test infrastructure confirms the following framework structure is correct:
 
 ✅ **Architecture Structure**
 - `devforgeai/context/` - 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
-- `.devforgeai/adrs` - Architecture Decision Records
-- `.devforgeai/qa` - QA reports directory
+- `devforgeai/adrs` - Architecture Decision Records
+- `devforgeai/qa` - QA reports directory
 - `tests/` - Test framework directory
 
 ---

@@ -175,7 +175,7 @@ title: Coverage Calc
 EOF
 
     # ACT: Execute the behavior being tested
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "{}")
@@ -284,7 +284,7 @@ All validation rules from story are tested:
 - [x] All tests ready (59/59 failing)
 
 ### Phase 2: GREEN (Next)
-- [ ] Implement `.devforgeai/epic-coverage/generate-report.sh`
+- [ ] Implement `devforgeai/epic-coverage/generate-report.sh`
 - [ ] Implement terminal output with ANSI colors
 - [ ] Implement markdown report generation
 - [ ] Implement JSON export with schema validation
@@ -369,7 +369,7 @@ Tests will validate these in GREEN phase.
 3. Review test documentation
 
 ### Implementation (Next Session)
-1. Create `.devforgeai/epic-coverage/generate-report.sh` (500-800 lines)
+1. Create `devforgeai/epic-coverage/generate-report.sh` (500-800 lines)
 2. Implement each AC in order:
    - AC#4 (Statistics) - Foundation
    - AC#1 (Terminal) - Basic output

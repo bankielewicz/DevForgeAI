@@ -248,13 +248,13 @@ test_ac1_successful_installation_nodejs() {
         ((TESTS_RUN++))
     fi
 
-    # Test 1.3: Installer creates .devforgeai/ directory
-    log_test "AC1.3: Installer creates .devforgeai/ directory"
+    # Test 1.3: Installer creates devforgeai/ directory
+    log_test "AC1.3: Installer creates devforgeai/ directory"
     # NOTE: This will FAIL until installer runs
-    if [ -d "$NODEJS_PROJECT_DIR/.devforgeai" ]; then
-        log_pass "AC1.3: .devforgeai/ exists"
+    if [ -d "$NODEJS_PROJECT_DIR/devforgeai" ]; then
+        log_pass "AC1.3: devforgeai/ exists"
     else
-        log_fail "AC1.3: .devforgeai/ not created"
+        log_fail "AC1.3: devforgeai/ not created"
     fi
     ((TESTS_RUN++))
 
@@ -504,7 +504,7 @@ test_ac7_upgrade_workflow() {
 
     log_test "AC7.1: Version file indicates 1.0.1 installation"
     # NOTE: This will FAIL until installer runs
-    local version_file="$NODEJS_PROJECT_DIR/.devforgeai/.version.json"
+    local version_file="$NODEJS_PROJECT_DIR/devforgeai/.version.json"
     if [ -f "$version_file" ]; then
         if grep -q "1.0.1" "$version_file"; then
             log_pass "AC7.1: Version 1.0.1 detected"

@@ -282,7 +282,7 @@ Tests failed: 14
 
 **Why Tests Fail:**
 - Implementation scripts not yet created (STORY-043 in Backlog state)
-- .devforgeai/specs/STORY-043/ directory may not exist
+- devforgeai/specs/STORY-043/ directory may not exist
 - No actual path updates executed yet
 
 **Next Steps (Green Phase):**
@@ -423,7 +423,7 @@ Descriptive names explaining what is being tested:
 
 ### When STORY-043 Moves to In Development
 1. Create the 4 shell scripts in src/scripts/
-2. Generate classification files in .devforgeai/specs/STORY-043/
+2. Generate classification files in devforgeai/specs/STORY-043/
 3. Run test suite to validate implementation
 4. Iterate through Green phase (minimal implementation)
 

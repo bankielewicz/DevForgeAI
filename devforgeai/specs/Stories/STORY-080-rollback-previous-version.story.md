@@ -85,7 +85,7 @@ This feature provides both automatic rollback (triggered when upgrades fail) and
   - Epics: `devforgeai/specs/Epics/*`
   - Sprints: `devforgeai/specs/Sprints/*`
   - Context files: `devforgeai/context/*` (if user-modified)
-  - Custom ADRs: `.devforgeai/adrs/*` (if user-created)
+  - Custom ADRs: `devforgeai/adrs/*` (if user-created)
 **And** user is shown list of preserved files,
 **And** user can optionally include user content in rollback with --include-user-content flag.
 
@@ -114,7 +114,7 @@ This feature provides both automatic rollback (triggered when upgrades fail) and
   - Files preserved: count (user content)
   - Validation status: PASSED/FAILED
   - Duration: time taken
-**And** summary is saved to `.devforgeai/logs/rollback-{timestamp}.log`.
+**And** summary is saved to `devforgeai/logs/rollback-{timestamp}.log`.
 
 ---
 
@@ -257,7 +257,7 @@ technical_specification:
         - id: "SVC-015"
           description: "Check critical files exist"
           testable: true
-          test_requirement: "Test: Given rollback, When validate() called, Then CLAUDE.md, .devforgeai/ exist"
+          test_requirement: "Test: Given rollback, When validate() called, Then CLAUDE.md, devforgeai/ exist"
           priority: "Critical"
         - id: "SVC-016"
           description: "Return validation report"
@@ -295,7 +295,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "RollbackResult"
-      table: ".devforgeai/logs/rollback-{timestamp}.log"
+      table: "devforgeai/logs/rollback-{timestamp}.log"
       purpose: "Result of rollback operation"
       fields:
         - name: "status"
@@ -338,7 +338,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "rollback-config.json"
-      file_path: ".devforgeai/config/rollback-config.json"
+      file_path: "devforgeai/config/rollback-config.json"
       required_keys:
         - key: "backup_retention_count"
           type: "int"
@@ -351,7 +351,7 @@ technical_specification:
           type: "array"
           example: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/']"
           required: false
-          default: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/', 'devforgeai/specs/Sprints/', 'devforgeai/context/', '.devforgeai/adrs/']"
+          default: "['devforgeai/specs/Stories/', 'devforgeai/specs/Epics/', 'devforgeai/specs/Sprints/', 'devforgeai/context/', 'devforgeai/adrs/']"
           validation: "Array of valid paths"
           test_requirement: "Test: User content paths are skipped during rollback"
         - key: "validate_after_rollback"

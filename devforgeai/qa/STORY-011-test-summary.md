@@ -313,8 +313,8 @@ devforgeai_cli/tests/feedback/test_configuration_management.py PASSED [100%]
 ```
 
 ### Supporting Documentation
-- Detailed integration test report: `.devforgeai/qa/reports/STORY-011-integration-test-report.md`
-- Integration test scenarios: `.devforgeai/qa/integration-test-scenarios.md`
+- Detailed integration test report: `devforgeai/qa/reports/STORY-011-integration-test-report.md`
+- Integration test scenarios: `devforgeai/qa/integration-test-scenarios.md`
 - Test suite source: `.claude/scripts/devforgeai_cli/tests/feedback/test_configuration_management.py`
 
 ---

@@ -292,7 +292,7 @@ open htmlcov/index.html
 - **invoke_hooks_command.py:** 149 lines (CLI command)
 
 ### Generated Report
-- **File:** `.devforgeai/qa/reports/STORY-022-integration-test-report.md`
+- **File:** `devforgeai/qa/reports/STORY-022-integration-test-report.md`
 - **Status:** Complete
 - **Date:** 2025-11-13
 
@@ -302,7 +302,7 @@ open htmlcov/index.html
 
 Comprehensive integration test report available at:
 ```
-.devforgeai/qa/reports/STORY-022-integration-test-report.md
+devforgeai/qa/reports/STORY-022-integration-test-report.md
 ```
 
 Contains:

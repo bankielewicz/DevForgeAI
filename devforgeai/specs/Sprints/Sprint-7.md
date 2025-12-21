@@ -62,7 +62,7 @@ Complete the foundation and core rules layer for ast-grep integration into DevFo
 - **Acceptance Criteria:** 4 criteria
 - **Status:** Ready for Dev
 - **Dependencies:** STORY-115
-- **Description:** Establish rule storage structure (.devforgeai/ast-grep/rules/), language-specific directories (python/, csharp/, typescript/, javascript/), and auto-generated sgconfig.yml configuration.
+- **Description:** Establish rule storage structure (devforgeai/ast-grep/rules/), language-specific directories (python/, csharp/, typescript/, javascript/), and auto-generated sgconfig.yml configuration.
 
 #### STORY-117: Core Security Rules - CRITICAL Severity Detection
 - **Points:** 8
@@ -136,7 +136,7 @@ STORY-115 (CLI Foundation)
 **Architecture Alignment:**
 - **Pattern:** Modular integration following DevForgeAI 3-layer architecture
 - **Layers:** CLI validator (Layer 3) → Validation logic (Layer 2) → ast-grep wrapper (utility)
-- **Storage:** File-based rule storage (`.devforgeai/ast-grep/rules/`)
+- **Storage:** File-based rule storage (`devforgeai/ast-grep/rules/`)
 - **Scope:** Project-scoped integration, no shared infrastructure
 
 **Integration Points:**

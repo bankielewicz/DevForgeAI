@@ -72,7 +72,7 @@ Phase 2 introduces structured YAML format (v2.0) for technical specifications, r
 
 ### 1. Structured Format Specification (NEW)
 
-**File:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+**File:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **Defines:**
 - 7 component types (Service, Worker, Configuration, Logging, Repository, API, DataModel)
@@ -697,13 +697,13 @@ def _convert_to_structured_format_ai(self, freeform_text: str):
 
 ### New Files (7)
 
-1. ✅ `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (505 lines)
+1. ✅ `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` (505 lines)
 2. ✅ `.claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py` (235 lines)
 3. ✅ `.claude/skills/devforgeai-story-creation/scripts/migrate_story_v1_to_v2.py` (165 lines)
-4. ✅ `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` (600 lines)
-5. ✅ `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (500 lines)
-6. ✅ `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (450 lines)
-7. ✅ `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` (300 lines - this doc)
+4. ✅ `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` (600 lines)
+5. ✅ `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` (500 lines)
+6. ✅ `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` (450 lines)
+7. ✅ `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` (300 lines - this doc)
 
 **Total new:** ~2,755 lines
 
@@ -874,7 +874,7 @@ Week 5 (Full): ⏳ CONDITIONAL ON WEEK 4 GO
 ## Files Reference
 
 **Specifications:**
-- `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` - Complete v2.0 schema reference
+- `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` - Complete v2.0 schema reference
 
 **Scripts:**
 - `.claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py` - Validation library
@@ -884,10 +884,10 @@ Week 5 (Full): ⏳ CONDITIONAL ON WEEK 4 GO
 - `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md` - Updated to v2.0
 
 **Documentation:**
-- `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` - User guide
-- `.devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` - 51 test cases
-- `.devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` - Migration procedures
-- `.devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` - This document
+- `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-GUIDE.md` - User guide
+- `devforgeai/specs/enhancements/PHASE2-TESTING-CHECKLIST.md` - 51 test cases
+- `devforgeai/specs/enhancements/PHASE2-MIGRATION-GUIDE.md` - Migration procedures
+- `devforgeai/specs/enhancements/PHASE2-IMPLEMENTATION-SUMMARY.md` - This document
 
 **Updated files:**
 - `.claude/skills/devforgeai-development/references/tdd-red-phase.md` - Format detection

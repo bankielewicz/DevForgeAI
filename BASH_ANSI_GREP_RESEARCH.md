@@ -202,7 +202,7 @@ test_should_display_green_color_for_perfect_coverage() {
 
     # ... setup code ...
 
-    local output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=terminal \
         --epics-dir="${TEMP_DIR}" \
         2>/dev/null || echo "FAIL")

@@ -10,13 +10,13 @@ This guide helps you diagnose and fix issues that may occur during DevForgeAI ve
 
 ```bash
 # View current installed version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # Check upgrade logs
-tail -50 .devforgeai/logs/upgrade-*.log
+tail -50 devforgeai/logs/upgrade-*.log
 
 # List available backups
-ls -lh .devforgeai/backups/
+ls -lh devforgeai/backups/
 ```
 
 ### Step 2: Identify Issue Category
@@ -59,7 +59,7 @@ Required: 500 MB, Available: 250 MB
 1. **Free up disk space:**
    ```bash
    # Remove old backups (keeping current version only)
-   rm -rf .devforgeai/backups/*/
+   rm -rf devforgeai/backups/*/
 
    # Clear package cache if available
    # npm cache clean --force  (if Node.js project)
@@ -103,13 +103,13 @@ Output: [migration script output]
 
 1. **Check migration script logs:**
    ```bash
-   tail -100 .devforgeai/logs/upgrade-*.log | grep -A 10 "Migration script"
+   tail -100 devforgeai/logs/upgrade-*.log | grep -A 10 "Migration script"
    ```
 
 2. **Verify required files exist:**
    ```bash
    # Common files required by migrations
-   ls -la .devforgeai/
+   ls -la devforgeai/
    ls -la .claude/
    ls -la .ai_docs/
    ```
@@ -117,7 +117,7 @@ Output: [migration script output]
 3. **Check file permissions:**
    ```bash
    # Ensure files are readable/writable
-   chmod -R 755 .devforgeai/
+   chmod -R 755 devforgeai/
    chmod -R 755 .claude/
    ```
 
@@ -154,12 +154,12 @@ Check failed: Expected file missing: .claude/skills/new-skill/SKILL.md
 1. **Check backup is valid:**
    ```bash
    # Verify backup manifest
-   cat .devforgeai/backups/vX.Y.Z-{timestamp}/backup-manifest.json
+   cat devforgeai/backups/vX.Y.Z-{timestamp}/backup-manifest.json
    ```
 
 2. **Restore from backup:**
    ```bash
-   bash install.sh restore .devforgeai/backups/vX.Y.Z-{timestamp}/
+   bash install.sh restore devforgeai/backups/vX.Y.Z-{timestamp}/
    ```
 
 3. **Check for partial upgrade artifacts:**
@@ -172,8 +172,8 @@ Check failed: Expected file missing: .claude/skills/new-skill/SKILL.md
    ```
 
 4. **Contact support with:**
-   - Upgrade log file (.devforgeai/logs/upgrade-*.log)
-   - Current version (cat .devforgeai/.version.json)
+   - Upgrade log file (devforgeai/logs/upgrade-*.log)
+   - Current version (cat devforgeai/.version.json)
    - Source version you attempted to upgrade from
 
 ---
@@ -196,7 +196,7 @@ Reason: Permission denied
 1. **Check filesystem read/write permissions:**
    ```bash
    # Test write permission in target directory
-   touch .devforgeai/test-write.tmp && rm .devforgeai/test-write.tmp
+   touch devforgeai/test-write.tmp && rm devforgeai/test-write.tmp
    if [ $? -ne 0 ]; then
        echo "Write permission denied!"
    fi
@@ -205,7 +205,7 @@ Reason: Permission denied
 2. **Fix directory permissions:**
    ```bash
    # Make directories writable
-   chmod -R u+w .devforgeai/
+   chmod -R u+w devforgeai/
    chmod -R u+w .claude/
    chmod -R u+w .ai_docs/
    ```
@@ -213,12 +213,12 @@ Reason: Permission denied
 3. **Check for running processes:**
    ```bash
    # Ensure no processes holding locks on files
-   lsof 2>/dev/null | grep "\.devforgeai\|\.claude" | awk '{print $2}' | sort | uniq
+   lsof 2>/dev/null | grep "\devforgeai\|\.claude" | awk '{print $2}' | sort | uniq
    ```
 
 4. **Retry restoration:**
    ```bash
-   bash install.sh restore .devforgeai/backups/vX.Y.Z-{timestamp}/
+   bash install.sh restore devforgeai/backups/vX.Y.Z-{timestamp}/
    ```
 
 ---
@@ -227,7 +227,7 @@ Reason: Permission denied
 
 **Message:**
 ```
-ERROR: Cannot parse .devforgeai/.version.json
+ERROR: Cannot parse devforgeai/.version.json
 JSON decode error at line 5
 ```
 
@@ -239,18 +239,18 @@ JSON decode error at line 5
 
 1. **Backup corrupted file:**
    ```bash
-   cp .devforgeai/.version.json .devforgeai/.version.json.corrupted
+   cp devforgeai/.version.json devforgeai/.version.json.corrupted
    ```
 
 2. **Restore from backup metadata:**
    ```bash
    # Extract version info from backup manifest
-   cat .devforgeai/backups/vX.Y.Z-{timestamp}/backup-manifest.json | jq '.version'
+   cat devforgeai/backups/vX.Y.Z-{timestamp}/backup-manifest.json | jq '.version'
    ```
 
 3. **Recreate version file:**
    ```bash
-   cat > .devforgeai/.version.json <<'EOF'
+   cat > devforgeai/.version.json <<'EOF'
    {
      "version": "X.Y.Z",
      "installed_at": "2025-01-01T00:00:00Z",
@@ -263,7 +263,7 @@ JSON decode error at line 5
 
 4. **Verify file is valid JSON:**
    ```bash
-   python3 -m json.tool .devforgeai/.version.json > /dev/null && echo "Valid JSON"
+   python3 -m json.tool devforgeai/.version.json > /dev/null && echo "Valid JSON"
    ```
 
 ---
@@ -284,7 +284,7 @@ ps aux | grep install
 ps aux | grep upgrade
 
 # Check last log update time
-stat .devforgeai/logs/upgrade-*.log | grep Modify
+stat devforgeai/logs/upgrade-*.log | grep Modify
 
 # Monitor system resources
 top -b -n 1 | head -20
@@ -313,7 +313,7 @@ timeout 600 bash install.sh upgrade
 iostat -x 1 5
 
 # Monitor backup progress
-du -sh .devforgeai/backups/*/
+du -sh devforgeai/backups/*/
 ```
 
 **Fix:**
@@ -330,7 +330,7 @@ du -sh .devforgeai/backups/*/
 pkill -f "upgrade"
 
 # Check what was executing
-tail -20 .devforgeai/logs/upgrade-*.log
+tail -20 devforgeai/logs/upgrade-*.log
 
 # Restore from backup
 bash install.sh restore latest
@@ -342,20 +342,20 @@ bash install.sh restore latest
 
 ```bash
 # List available backups
-ls -lh .devforgeai/backups/
+ls -lh devforgeai/backups/
 
 # Get backup timestamp you want to restore
 # Format: vX.Y.Z-YYYYMMDD-HHMMSS
 
 # Restore specific backup
-bash install.sh restore .devforgeai/backups/v1.0.0-20250101-120000/
+bash install.sh restore devforgeai/backups/v1.0.0-20250101-120000/
 ```
 
 ### Verify Backup Before Restoring
 
 ```bash
 # Check backup manifest
-BACKUP_DIR=".devforgeai/backups/v1.0.0-20250101-120000"
+BACKUP_DIR="devforgeai/backups/v1.0.0-20250101-120000"
 
 # Verify manifest exists and is valid JSON
 python3 -m json.tool "$BACKUP_DIR/backup-manifest.json" > /dev/null
@@ -372,7 +372,7 @@ ls -la "$BACKUP_DIR" | head -20
 ```bash
 # If you only need to restore specific files
 
-BACKUP_DIR=".devforgeai/backups/v1.0.0-20250101-120000"
+BACKUP_DIR="devforgeai/backups/v1.0.0-20250101-120000"
 
 # Restore single file
 cp "$BACKUP_DIR/.claude/agents/test-automator.md" ".claude/agents/test-automator.md"
@@ -389,7 +389,7 @@ Use this if automatic rollback didn't work or you need manual control:
 
 ```bash
 # List backups with details
-ls -lth .devforgeai/backups/ | head -5
+ls -lth devforgeai/backups/ | head -5
 
 # Use most recent (first in list)
 BACKUP_ID="v1.0.0-20250101-120000"
@@ -414,12 +414,12 @@ ps aux | grep -E "install|upgrade|migration" | grep -v grep
 
 ```bash
 # Create debug snapshot before rollback
-DEBUG_DIR=".devforgeai/rollback-debug-$(date +%s)"
+DEBUG_DIR="devforgeai/rollback-debug-$(date +%s)"
 mkdir -p "$DEBUG_DIR"
 
 # Copy current state for investigation
-cp .devforgeai/.version.json "$DEBUG_DIR/"
-cp .devforgeai/logs/upgrade-*.log "$DEBUG_DIR/" 2>/dev/null
+cp devforgeai/.version.json "$DEBUG_DIR/"
+cp devforgeai/logs/upgrade-*.log "$DEBUG_DIR/" 2>/dev/null
 
 echo "Debug files saved to: $DEBUG_DIR"
 ```
@@ -427,10 +427,10 @@ echo "Debug files saved to: $DEBUG_DIR"
 ### Step 4: Restore from Backup
 
 ```bash
-BACKUP_DIR=".devforgeai/backups/$BACKUP_ID"
+BACKUP_DIR="devforgeai/backups/$BACKUP_ID"
 
 # Restore all DevForgeAI files
-cp -r "$BACKUP_DIR/.devforgeai"/* ".devforgeai/"
+cp -r "$BACKUP_DIR/devforgeai"/* "devforgeai/"
 cp -r "$BACKUP_DIR/.claude"/* ".claude/"
 [ -f "$BACKUP_DIR/CLAUDE.md" ] && cp "$BACKUP_DIR/CLAUDE.md" "CLAUDE.md"
 
@@ -441,12 +441,12 @@ echo "Restoration complete"
 
 ```bash
 # Check version restored to correct version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # Verify key files exist
-[ -f ".devforgeai/.version.json" ] && echo "✓ Version file present"
+[ -f "devforgeai/.version.json" ] && echo "✓ Version file present"
 [ -d ".claude/" ] && echo "✓ .claude directory present"
-[ -d ".devforgeai/" ] && echo "✓ .devforgeai directory present"
+[ -d "devforgeai/" ] && echo "✓ devforgeai directory present"
 
 # Git status should show no unexpected changes
 git status
@@ -458,10 +458,10 @@ git status
 
 ```bash
 # Upgrade logs stored here
-ls -lh .devforgeai/logs/upgrade-*.log
+ls -lh devforgeai/logs/upgrade-*.log
 
 # View recent upgrade log
-tail -100 .devforgeai/logs/upgrade-$(ls -t .devforgeai/logs/upgrade-*.log | head -1 | xargs basename | sed 's/upgrade-//').log
+tail -100 devforgeai/logs/upgrade-$(ls -t devforgeai/logs/upgrade-*.log | head -1 | xargs basename | sed 's/upgrade-//').log
 ```
 
 ### Log Format
@@ -469,7 +469,7 @@ tail -100 .devforgeai/logs/upgrade-$(ls -t .devforgeai/logs/upgrade-*.log | head
 ```
 2025-01-01T12:00:00Z [INFO] Starting upgrade from v1.0.0 to v1.1.0
 2025-01-01T12:00:01Z [INFO] Creating backup...
-2025-01-01T12:00:15Z [INFO] Backup created: .devforgeai/backups/v1.0.0-20250101-120000/
+2025-01-01T12:00:15Z [INFO] Backup created: devforgeai/backups/v1.0.0-20250101-120000/
 2025-01-01T12:00:16Z [INFO] Running migration: migrations/v1.0.0-to-v1.1.0.py
 2025-01-01T12:00:20Z [INFO] Migration completed successfully
 2025-01-01T12:00:21Z [INFO] Validating migration...
@@ -504,16 +504,16 @@ tail -100 .devforgeai/logs/upgrade-$(ls -t .devforgeai/logs/upgrade-*.log | head
 
 ```bash
 # Find error messages
-grep ERROR .devforgeai/logs/upgrade-*.log
+grep ERROR devforgeai/logs/upgrade-*.log
 
 # Find specific migration output
-grep "migration/v1.0.0" .devforgeai/logs/upgrade-*.log
+grep "migration/v1.0.0" devforgeai/logs/upgrade-*.log
 
 # Find lines around error (context)
-grep -A 5 -B 5 ERROR .devforgeai/logs/upgrade-*.log
+grep -A 5 -B 5 ERROR devforgeai/logs/upgrade-*.log
 
 # Count errors
-grep -c ERROR .devforgeai/logs/upgrade-*.log
+grep -c ERROR devforgeai/logs/upgrade-*.log
 ```
 
 ## Data Loss Prevention
@@ -524,7 +524,7 @@ Before deleting old backups:
 
 ```bash
 # Verify backup integrity
-BACKUP_DIR=".devforgeai/backups/v1.0.0-20250101-120000"
+BACKUP_DIR="devforgeai/backups/v1.0.0-20250101-120000"
 
 # 1. Check manifest exists and is valid JSON
 python3 -c "import json; json.load(open('$BACKUP_DIR/backup-manifest.json'))" && echo "✓ Manifest valid"
@@ -545,7 +545,7 @@ Before starting upgrade:
 ```bash
 # Check current version
 echo "Current version:"
-cat .devforgeai/.version.json | python3 -m json.tool
+cat devforgeai/.version.json | python3 -m json.tool
 
 # Verify upgrade path is valid
 echo "Source package version:"
@@ -565,7 +565,7 @@ After upgrade completes:
 
 ```bash
 # Verify version updated
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # Check all key files present
 ls -la devforgeai/context/
@@ -574,7 +574,7 @@ ls -la .ai_docs/
 
 # Quick sanity check: try running a command
 # (this depends on your framework)
-python3 -c "import os; os.path.exists('.devforgeai')" && echo "✓ Framework accessible"
+python3 -c "import os; os.path.exists('devforgeai')" && echo "✓ Framework accessible"
 ```
 
 ## When to Contact Support
@@ -585,17 +585,17 @@ If you need support, gather this information first:
 
 ```bash
 # 1. Version information
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 
 # 2. Full upgrade log
-cat .devforgeai/logs/upgrade-*.log
+cat devforgeai/logs/upgrade-*.log
 
 # 3. System information
 uname -a
 df -h
 
 # 4. List of backups
-ls -lh .devforgeai/backups/
+ls -lh devforgeai/backups/
 
 # 5. Git status
 git status
@@ -604,17 +604,17 @@ git log --oneline -10
 # Export to file for sharing
 {
   echo "=== Version Info ==="
-  cat .devforgeai/.version.json
+  cat devforgeai/.version.json
   echo ""
   echo "=== Recent Logs ==="
-  tail -100 .devforgeai/logs/upgrade-*.log
+  tail -100 devforgeai/logs/upgrade-*.log
   echo ""
   echo "=== System Info ==="
   uname -a
   df -h
   echo ""
   echo "=== Backups ==="
-  ls -lh .devforgeai/backups/
+  ls -lh devforgeai/backups/
 } > upgrade-diagnostics.txt
 
 echo "Diagnostics saved to: upgrade-diagnostics.txt"
@@ -675,7 +675,7 @@ v1.0.0 → v1.2.0 runs: v1.0→v1.1, then v1.1→v1.2
 **A:** By default, 5 backups are retained. Cleanup happens automatically when limit exceeded. To manual cleanup:
 ```bash
 # Keep only most recent backup
-ls -t .devforgeai/backups/ | tail -n +2 | xargs -I {} rm -rf ".devforgeai/backups/{}"
+ls -t devforgeai/backups/ | tail -n +2 | xargs -I {} rm -rf "devforgeai/backups/{}"
 ```
 
 ## Related Documentation

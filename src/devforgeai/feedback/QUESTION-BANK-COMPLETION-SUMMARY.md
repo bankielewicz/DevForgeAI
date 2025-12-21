@@ -312,7 +312,7 @@ categories:
 
 ### Framework Integration Ready
 
-**Location:** `.devforgeai/feedback/`
+**Location:** `devforgeai/feedback/`
 
 **Files Created:**
 1. `question-bank/dev-questions.yaml` (100 questions)
@@ -332,7 +332,7 @@ categories:
 **Zero code changes needed!**
 
 The implementation uses existing YAML loading mechanisms in the AdaptiveQuestioningEngine:
-- Engine looks for question banks in `.devforgeai/feedback/question-bank/`
+- Engine looks for question banks in `devforgeai/feedback/question-bank/`
 - Falls back to `question-defaults.yaml` when needed
 - All question structure already validated by existing tests
 
@@ -394,7 +394,7 @@ The implementation uses existing YAML loading mechanisms in the AdaptiveQuestion
 - [x] Quality metadata included
 
 ### Integration
-- [x] Files in correct location (`.devforgeai/feedback/`)
+- [x] Files in correct location (`devforgeai/feedback/`)
 - [x] YAML format validated
 - [x] Naming conventions followed
 - [x] Documentation complete
@@ -413,7 +413,7 @@ The implementation uses existing YAML loading mechanisms in the AdaptiveQuestion
 
 ## File Locations
 
-**All production-ready files created in `.devforgeai/feedback/`:**
+**All production-ready files created in `devforgeai/feedback/`:**
 
 1. **Question Banks** (in `question-bank/` subdirectory):
    - `dev-questions.yaml` (40 passed + 35 failed + 25 partial)

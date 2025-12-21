@@ -79,7 +79,7 @@ Framework built on assumption that Skills accept runtime parameters. Research co
 
 **Objective:** Document the 5 Whys analysis and root causes
 
-**File:** `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
+**File:** `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
 
 **Content:**
 - Problem statement (3 errors from Codelens session)
@@ -1163,7 +1163,7 @@ Each should trigger AskUserQuestion with helpful options.
 | /create-ui | STORY-001 | ✓ UI generation |
 
 **Create test log:**
-`.devforgeai/specs/enhancements/RCA-005-test-results.md`
+`devforgeai/specs/enhancements/RCA-005-test-results.md`
 
 **Document:**
 - Each test scenario
@@ -1198,7 +1198,7 @@ Each should trigger AskUserQuestion with helpful options.
 
 #### Task 7.1: Complete RCA-005 Enhancement Document
 
-**File:** `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
+**File:** `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
 
 **Sections:**
 - Problem statement (3 errors from Codelens)
@@ -1217,7 +1217,7 @@ Each should trigger AskUserQuestion with helpful options.
 
 #### Task 7.2: Create Framework Validation Summary
 
-**File:** `.devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md`
+**File:** `devforgeai/FRAMEWORK-VALIDATION-SUMMARY.md`
 
 **Content:**
 - All 5 RCAs summary

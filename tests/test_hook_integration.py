@@ -440,7 +440,7 @@ class TestDisabledHookConfiguration:
     @pytest.mark.asyncio
     async def test_disabled_hook_not_invoked(self, hook_system_with_config, invocation_tracker, mock_operation_context):
         """
-        GIVEN hooks are disabled during an active operation (via `.devforgeai/config/hooks.yaml` enabled: false),
+        GIVEN hooks are disabled during an active operation (via `devforgeai/config/hooks.yaml` enabled: false),
         WHEN the operation completes,
         THEN hooks are skipped and no feedback conversation is triggered.
         """

@@ -163,7 +163,7 @@ This test suite validates the creation and quality of `user-input-guidance.md`, 
 - Workflow states correctly referenced
 - Story structure terminology correct
 - Core concepts (DoD, TDD, AAA) present
-- File path references use correct format (.claude/ or .devforgeai/)
+- File path references use correct format (.claude/ or devforgeai/)
 - No external URLs (framework-only references)
 - Referenced framework files exist
 - Key terms match CLAUDE.md definitions

@@ -38,7 +38,7 @@ def temp_project_dir():
         project_path = Path(tmpdir)
 
         # Create feedback directory structure
-        feedback_dir = project_path / ".devforgeai" / "feedback"
+        feedback_dir = project_path / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
 
         exports_dir = feedback_dir / "exports"
@@ -295,7 +295,7 @@ class TestFeedbackCommandFeedbackRegisterPersistence:
     def test_feedback_command_writes_to_feedback_register_md(self, temp_project_dir):
         """Test /feedback command writes entry to feedback-register.md."""
         # Arrange
-        register_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         assert register_path.exists()
 
         # Act
@@ -307,7 +307,7 @@ class TestFeedbackCommandFeedbackRegisterPersistence:
     def test_feedback_command_appends_not_overwrites_register(self, temp_project_dir):
         """Test /feedback command appends to register without overwriting."""
         # Arrange
-        register_path = temp_project_dir / ".devforgeai" / "feedback" / "feedback-register.md"
+        register_path = temp_project_dir / "devforgeai" / "feedback" / "feedback-register.md"
         initial_content = register_path.read_text()
         initial_lines = len(initial_content.splitlines())
 
@@ -515,7 +515,7 @@ class TestFeedbackConfigPersistence:
     def test_feedback_config_edit_persists_to_yaml(self, temp_project_dir):
         """Test /feedback-config edit persists changes to config.yaml."""
         # Arrange
-        config_path = temp_project_dir / ".devforgeai" / "feedback" / "config.yaml"
+        config_path = temp_project_dir / "devforgeai" / "feedback" / "config.yaml"
 
         # Act
         assert config_path.exists()
@@ -947,9 +947,9 @@ class TestExportFeedbackFileOperations:
     """Unit tests for /export-feedback file operations."""
 
     def test_export_feedback_saves_to_exports_directory(self, temp_project_dir):
-        """Test /export-feedback saves file to .devforgeai/feedback/exports/."""
+        """Test /export-feedback saves file to devforgeai/feedback/exports/."""
         # Arrange
-        exports_dir = temp_project_dir / ".devforgeai" / "feedback" / "exports"
+        exports_dir = temp_project_dir / "devforgeai" / "feedback" / "exports"
         assert exports_dir.exists()
 
         # Act
@@ -981,14 +981,14 @@ class TestExportFeedbackResponseFormat:
             "status": "success",
             "export_id": "EXP-2025-11-07-001",
             "timestamp": "2025-11-07T14:35:00Z",
-            "file_path": ".devforgeai/feedback/exports/2025-11-07-feedback-export.json",
+            "file_path": "devforgeai/feedback/exports/2025-11-07-feedback-export.json",
             "format": "json",
             "entries_count": 23
         }
 
         # Act & Assert
         assert "file_path" in response
-        assert ".devforgeai/feedback/exports/" in response["file_path"]
+        assert "devforgeai/feedback/exports/" in response["file_path"]
 
     def test_export_feedback_response_includes_entries_count(self):
         """Test /export-feedback response includes entries_count."""
@@ -997,7 +997,7 @@ class TestExportFeedbackResponseFormat:
             "status": "success",
             "export_id": "EXP-2025-11-07-001",
             "timestamp": "2025-11-07T14:35:00Z",
-            "file_path": ".devforgeai/feedback/exports/2025-11-07-feedback-export.json",
+            "file_path": "devforgeai/feedback/exports/2025-11-07-feedback-export.json",
             "format": "json",
             "entries_count": 23
         }
@@ -1013,7 +1013,7 @@ class TestExportFeedbackResponseFormat:
             "status": "success",
             "export_id": "EXP-2025-11-07-001",
             "timestamp": "2025-11-07T14:35:00Z",
-            "file_path": ".devforgeai/feedback/exports/2025-11-07-feedback-export.json",
+            "file_path": "devforgeai/feedback/exports/2025-11-07-feedback-export.json",
             "format": "json",
             "entries_count": 23,
             "metadata": {

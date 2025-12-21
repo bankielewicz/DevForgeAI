@@ -317,7 +317,7 @@ Before implementation, review:
 - [ ] Read all 77 test cases
 - [ ] Understand test fixtures (conftest.py additions)
 - [ ] Review data models in tests (FileEntry, InstallManifest, etc.)
-- [ ] Check manifest format (.devforgeai/.install-manifest.json)
+- [ ] Check manifest format (devforgeai/.install-manifest.json)
 - [ ] Review exit codes (0, 1, 2, 3, 4, 5)
 - [ ] Review user options (keep, restore, show_diff, backup_and_restore)
 

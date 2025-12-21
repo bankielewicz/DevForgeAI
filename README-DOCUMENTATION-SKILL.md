@@ -445,11 +445,11 @@ Override default templates with project-specific versions:
 
 ```bash
 # Create custom template directory
-mkdir -p .devforgeai/templates/documentation/
+mkdir -p devforgeai/templates/documentation/
 
 # Copy template to customize
 cp .claude/skills/devforgeai-documentation/assets/templates/readme-template.md \
-   .devforgeai/templates/documentation/readme-template.md
+   devforgeai/templates/documentation/readme-template.md
 
 # Edit custom template (will be used instead of default)
 # The skill automatically uses custom versions if they exist
@@ -749,10 +749,10 @@ Not recommended, but if necessary:
 Create custom template:
 
 ```bash
-mkdir -p .devforgeai/templates/documentation/
+mkdir -p devforgeai/templates/documentation/
 ```
 
-Edit `.devforgeai/templates/documentation/readme-template.md`:
+Edit `devforgeai/templates/documentation/readme-template.md`:
 
 ```markdown
 # {{project_name}}
@@ -1169,14 +1169,14 @@ Then check:
 
 - **Run after each story:** `/document STORY-XXX` when story is QA Approved
 - **Monitor coverage:** Aim for 85%+ documentation coverage
-- **Update templates:** Create `.devforgeai/templates/documentation/` overrides
+- **Update templates:** Create `devforgeai/templates/documentation/` overrides
 - **Collect feedback:** Ask users/developers what documentation helps most
 
 ### Related Features
 
 - **Code coverage:** [Coverage validation in `/qa` command]
 - **Story specifications:** [Story templates in `devforgeai-story-creation`]
-- **Architecture decisions:** [ADRs in `.devforgeai/adrs/`]
+- **Architecture decisions:** [ADRs in `devforgeai/adrs/`]
 - **API design:** [API specifications in `devforgeai-ui-generator`]
 
 ### Learn More

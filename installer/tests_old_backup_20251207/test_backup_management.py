@@ -91,7 +91,7 @@ class TestBackupCreation:
         (devforgeai_dir / "protocols" / "protocol.md").write_text("# protocol")
 
         # Act
-        backup_devforgeai = tmp_project["backups"] / "backup" / ".devforgeai"
+        backup_devforgeai = tmp_project["backups"] / "backup" / "devforgeai"
         backup_devforgeai.mkdir(parents=True, exist_ok=True)
         (backup_devforgeai / "config").mkdir()
         (backup_devforgeai / "protocols").mkdir()

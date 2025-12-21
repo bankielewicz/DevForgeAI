@@ -132,7 +132,7 @@ src/claude/scripts/tests/
 **Workflow 2: Context → Story → QA**
 - All 6 context files exist
 - `.ai_docs/Stories` exists
-- `.devforgeai/qa` directory exists
+- `devforgeai/qa` directory exists
 - devforgeai-qa skill exists
 - QA reference files loadable
 
@@ -141,7 +141,7 @@ src/claude/scripts/tests/
 - `.ai_docs/Stories` exists
 - devforgeai-orchestration skill exists
 - devforgeai-story-creation skill exists
-- `.devforgeai/adrs` directory exists
+- `devforgeai/adrs` directory exists
 
 **Success Criteria:** 3/3 workflows complete, 0 path errors
 

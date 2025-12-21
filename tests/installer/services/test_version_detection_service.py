@@ -2,13 +2,13 @@
 Unit tests for VersionDetectionService.
 
 Tests AC#1 and AC#2:
-- Read .devforgeai/.version.json file
+- Read devforgeai/.version.json file
 - Parse installed_version, installed_at, installation_source fields
 - Compare semantic versions and provide recommendations
 - Handle corrupted JSON and malformed versions
 
 Component Requirements:
-- SVC-004: Read .devforgeai/.version.json and parse installed version
+- SVC-004: Read devforgeai/.version.json and parse installed version
 - SVC-005: Compare installed vs source version using semantic versioning
 - SVC-006: Handle corrupted version.json gracefully
 - SVC-007: Handle non-standard versions (null, 'latest', 'dev')
@@ -36,14 +36,14 @@ class TestVersionDetectionService:
         """
         Test: Read valid version.json file → VersionInfo returned
 
-        Given: .devforgeai/.version.json exists with valid structure
+        Given: devforgeai/.version.json exists with valid structure
         When: read_version() is called
         Then: Returns VersionInfo with all fields populated
         """
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
 
@@ -70,7 +70,7 @@ class TestVersionDetectionService:
         """
         Test: Missing version.json → None returned (SVC-004)
 
-        Given: .devforgeai/.version.json does not exist
+        Given: devforgeai/.version.json does not exist
         When: read_version() is called
         Then: Returns None without error
         """
@@ -88,9 +88,9 @@ class TestVersionDetectionService:
     # AC marker removed
     def test_should_return_none_when_devforgeai_directory_missing(self, temp_dir):
         """
-        Test: Missing .devforgeai directory → None returned
+        Test: Missing devforgeai directory → None returned
 
-        Given: .devforgeai/ directory does not exist
+        Given: devforgeai/ directory does not exist
         When: read_version() is called
         Then: Returns None without error
         """
@@ -117,7 +117,7 @@ class TestVersionDetectionService:
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text("{ invalid json content")
@@ -142,7 +142,7 @@ class TestVersionDetectionService:
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
 
@@ -172,7 +172,7 @@ class TestVersionDetectionService:
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
 
@@ -477,7 +477,7 @@ class TestVersionDetectionService:
         import time
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
 
@@ -558,7 +558,7 @@ class TestVersionDetectionService:
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"installed_version": "1.0.0"}')
@@ -583,7 +583,7 @@ class TestVersionDetectionService:
         # Arrange
         from src.installer.services.version_detection_service import VersionDetectionService
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"installed_version": "1.0.0"}')
@@ -647,7 +647,7 @@ class TestVersionDetectionService:
         from src.installer.services.version_detection_service import VersionDetectionService
         from unittest.mock import patch
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"installed_version": "1.0.0"')  # Missing closing brace
@@ -677,7 +677,7 @@ class TestVersionDetectionService:
         from src.installer.services.version_detection_service import VersionDetectionService
         from unittest.mock import patch
 
-        version_dir = temp_dir / ".devforgeai"
+        version_dir = temp_dir / "devforgeai"
         version_dir.mkdir()
         version_file = version_dir / ".version.json"
         version_file.write_text('{"wrong_key": "value"}')  # Missing installed_version

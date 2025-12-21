@@ -49,7 +49,7 @@
 4. `.claude/skills/devforgeai-story-creation/references/validation-checklists.md` (+114 lines)
 5. `.claude/skills/devforgeai-story-creation/references/acceptance-criteria-patterns.md` (+38 lines)
 
-**Backups created:** 5 files in `.devforgeai/backups/phase2-gap-fix/`
+**Backups created:** 5 files in `devforgeai/backups/phase2-gap-fix/`
 
 ---
 
@@ -277,7 +277,7 @@ STATUS:
 7. PHASE2-GAP-FIX-SUMMARY.txt - Visual summary
 8. SESSION-COMPLETE-PHASE2-GAP-FIX.md - This document
 
-**Location:** `.devforgeai/specs/enhancements/`
+**Location:** `devforgeai/specs/enhancements/`
 
 ---
 

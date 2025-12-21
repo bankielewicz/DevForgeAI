@@ -52,7 +52,7 @@ qa_approved: 2025-11-13
 **Then** the skill receives pre-populated context metadata,
 **And** the skill starts a retrospective conversation with the user,
 **And** the conversation uses adaptive questions based on context,
-**And** the skill persists feedback to `.devforgeai/feedback/sessions/`.
+**And** the skill persists feedback to `devforgeai/feedback/sessions/`.
 
 ---
 
@@ -347,14 +347,14 @@ technical_specification:
 - [x] CLI help text complete (`devforgeai invoke-hooks --help`) ✓
 - [x] Context extraction format documented with examples ✓
 - [x] Secret patterns documented (54 patterns, 11 categories) ✓
-- [x] Integration guide updated (how commands call invoke-hooks) ✓ (.devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md)
-- [x] Troubleshooting guide (timeout, failures, circular invocation) ✓ (.devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md)
+- [x] Integration guide updated (how commands call invoke-hooks) ✓ (devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md)
+- [x] Troubleshooting guide (timeout, failures, circular invocation) ✓ (devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md)
 
 ## Dependencies
 
 ### Prerequisites
 - STORY-021 (check-hooks command) completed
-- `.devforgeai/config/hooks.yaml` configuration exists
+- `devforgeai/config/hooks.yaml` configuration exists
 - devforgeai-feedback skill functional
 
 ### Blocked By
@@ -423,8 +423,8 @@ context = {
 - [x] CLI help text complete (`devforgeai invoke-hooks --help`) ✓ - Completed: Help text
 - [x] Context extraction format documented with examples ✓ - Completed: Documentation
 - [x] Secret patterns documented (54 patterns, 11 categories) ✓ - Completed: All documented
-- [x] Integration guide updated (how commands call invoke-hooks) ✓ (.devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md) - Completed: Guide created
-- [x] Troubleshooting guide (timeout, failures, circular invocation) ✓ (.devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md) - Completed: Guide created
+- [x] Integration guide updated (how commands call invoke-hooks) ✓ (devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md) - Completed: Guide created
+- [x] Troubleshooting guide (timeout, failures, circular invocation) ✓ (devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md) - Completed: Guide created
 
 ### Development Summary
 - **TDD Cycle:** Completed (Red → Green → Refactor → Integration)
@@ -440,8 +440,8 @@ context = {
 - ✅ Test 4: CLI command executable (devforgeai invoke-hooks --help) returns help text
 
 **Documentation Deliverables:**
-- ✅ .devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md (integration patterns for all commands)
-- ✅ .devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md (10 common issues with solutions)
+- ✅ devforgeai/docs/INVOKE-HOOKS-INTEGRATION-GUIDE.md (integration patterns for all commands)
+- ✅ devforgeai/docs/INVOKE-HOOKS-TROUBLESHOOTING.md (10 common issues with solutions)
 
 ### Quality Verification
 - ✅ 117/117 tests passing (100% pass rate)
@@ -496,7 +496,7 @@ context = {
 
 **Recommendation:** APPROVED FOR RELEASE - Production-ready implementation with exceptional quality metrics. Zero violations, comprehensive testing, and complete DoD. Ready for integration in STORY-023.
 
-**Report:** `.devforgeai/qa/reports/STORY-022-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-022-qa-report.md`
 
 ## Workflow History
 

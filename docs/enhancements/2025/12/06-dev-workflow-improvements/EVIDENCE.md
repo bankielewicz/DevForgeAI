@@ -120,7 +120,7 @@
 
 **Step 0.8:** Detect QA failures (check for remediation mode)
 - **Actual:** NOT EXECUTED
-- **Evidence:** No check for `.devforgeai/qa/reports/{STORY-ID}-gaps.json`
+- **Evidence:** No check for `devforgeai/qa/reports/{STORY-ID}-gaps.json`
 
 **Impact:**
 - Proceeded without Git validation

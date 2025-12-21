@@ -7,8 +7,8 @@
 **Last Run:** _Not yet executed_
 
 **Related Documents:**
-- RCA Analysis: `.devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
-- Implementation Plan: `.devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md`
+- RCA Analysis: `devforgeai/RCA/RCA-008-autonomous-git-stashing.md`
+- Implementation Plan: `devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md`
 
 ---
 
@@ -324,7 +324,7 @@ touch test{1..50}.txt
 ### Expected Behavior
 
 - [ ] Message: "✅ Proceeding with file-based tracking. Your files remain visible."
-- [ ] Message: "Changes will be tracked in .devforgeai/stories/STORY-021/changes/"
+- [ ] Message: "Changes will be tracked in devforgeai/stories/STORY-021/changes/"
 - [ ] No git stash executed
 - [ ] Workflow proceeds to TDD phases
 - [ ] workflow_mode = "file-based"
@@ -341,7 +341,7 @@ git stash list
 # Should be: Empty or unchanged from before
 
 # File-based tracking directory may be created
-ls .devforgeai/stories/STORY-021/changes/ 2>/dev/null
+ls devforgeai/stories/STORY-021/changes/ 2>/dev/null
 # May exist (created during Phase 5 if workflow completes)
 ```
 

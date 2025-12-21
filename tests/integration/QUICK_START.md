@@ -284,7 +284,7 @@ Tests use fixtures to provide test data:
 @pytest.fixture
 def temp_feedback_dir(tmp_path):
     """Temporary feedback directory"""
-    feedback_dir = tmp_path / ".devforgeai" / "feedback" / "releases"
+    feedback_dir = tmp_path / "devforgeai" / "feedback" / "releases"
     feedback_dir.mkdir(parents=True)
     return feedback_dir
 

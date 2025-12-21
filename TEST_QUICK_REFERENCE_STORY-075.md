@@ -25,7 +25,7 @@ python3 -m pytest installer/tests/test_*.py --cov=installer --cov-report=term -v
 
 **Key Tests:**
 - Console report has 7 fields: status, version, files_installed, files_failed, duration, target_directory, log_file
-- Log file: .devforgeai/install.log with ISO 8601 timestamps
+- Log file: devforgeai/install.log with ISO 8601 timestamps
 - JSON valid: all 11 required fields, compact format
 - Error types: PERMISSION_DENIED, FILE_NOT_FOUND, CHECKSUM_MISMATCH, GIT_ERROR, VALIDATION_ERROR, DEPENDENCY_ERROR, UNKNOWN_ERROR
 
@@ -45,7 +45,7 @@ python3 -m pytest installer/tests/test_*.py --cov=installer --cov-report=term -v
 | TestEdgeCases | 3 | Special scenarios |
 
 **Key Tests:**
-- Manifest: .devforgeai/.install-manifest.json with version, timestamp, installer_version, files array
+- Manifest: devforgeai/.install-manifest.json with version, timestamp, installer_version, files array
 - Checksums: SHA256, 64 hex characters, matches file content
 - Categories: skill, agent, command, memory, script, config
 - Entry fields: path (relative), source, checksum, size_bytes, category
@@ -113,7 +113,7 @@ python3 -m pytest installer/tests/test_*.py --cov=installer --cov-report=term -v
 
 ### AC#2: Log File (9 tests)
 ```python
-# Log file location: .devforgeai/install.log
+# Log file location: devforgeai/install.log
 # Contents:
 - ISO 8601 timestamps (YYYY-MM-DDTHH:MM:SSZ)
 - File operations (copy, create, modify)
@@ -150,7 +150,7 @@ python3 -m pytest installer/tests/test_*.py --cov=installer --cov-report=term -v
 
 ### AC#4: Manifest (13 tests)
 ```python
-# Location: .devforgeai/.install-manifest.json
+# Location: devforgeai/.install-manifest.json
 # Structure:
 {
   "version": "1.0.0",
@@ -252,7 +252,7 @@ test_json_output_with_500_error_entries
 
 | # | Edge Case | Test |
 |---|-----------|------|
-| 1 | Permission denied on .devforgeai | test_log_creation_falls_back_to_tmpdir_if_permission_denied |
+| 1 | Permission denied on devforgeai | test_log_creation_falls_back_to_tmpdir_if_permission_denied |
 | 2 | Partial install (50% files) | test_partial_installation_50_percent_files_reports_partial_success |
 | 3 | JSON with failure status | test_json_with_failure_status |
 | 4 | Manifest corruption recovery | test_manifest_survives_interrupted_write |
@@ -439,7 +439,7 @@ def test_example(tmp_path):
 ### Testing File Operations
 ```python
 def test_log_file_created(tmp_path):
-    devforgeai_dir = tmp_path / ".devforgeai"
+    devforgeai_dir = tmp_path / "devforgeai"
     devforgeai_dir.mkdir()
 
     reporter = InstallationReporter()

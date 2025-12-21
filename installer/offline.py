@@ -329,7 +329,7 @@ def _create_missing_features_doc(target_dir: Path, missing_features: list[str]) 
         >>> _create_missing_features_doc(Path("/project"), ["Python CLI"])
         # Creates devforgeai/MISSING_FEATURES.md
     """
-    devforgeai_dir = target_dir / ".devforgeai"
+    devforgeai_dir = target_dir / "devforgeai"
     devforgeai_dir.mkdir(parents=True, exist_ok=True)
 
     missing_features_file = devforgeai_dir / "MISSING_FEATURES.md"
@@ -396,8 +396,8 @@ def validate_offline_installation(target_dir: Path) -> dict:
         target_dir / ".claude" / "agents",
         target_dir / ".claude" / "commands",
         target_dir / ".claude" / "skills",
-        target_dir / ".devforgeai",
-        target_dir / ".devforgeai" / "context",
+        target_dir / "devforgeai",
+        target_dir / "devforgeai" / "context",
     ]
 
     for dir_path in critical_dirs:
@@ -410,7 +410,7 @@ def validate_offline_installation(target_dir: Path) -> dict:
 
     # Count total files deployed
     total_files = 0
-    for directory in [target_dir / ".claude", target_dir / ".devforgeai"]:
+    for directory in [target_dir / ".claude", target_dir / "devforgeai"]:
         if directory.exists():
             for file_path in directory.rglob("*"):
                 if file_path.is_file():

@@ -193,7 +193,7 @@ for pattern in file_creation_patterns:
 
         # Log violation
         Write(
-            file_path=".devforgeai/logs/rca-007-violations.log",
+            file_path="devforgeai/logs/rca-007-violations.log",
             content=f"""
             [VIOLATION DETECTED]
             Timestamp: {datetime.now()}
@@ -359,8 +359,8 @@ Manually trigger violation by modifying subagent prompt to create files:
 # 5. Only 1 .story.md file remains
 
 # Assertions:
-ls .devforgeai/logs/rca-007-violations.log  # Violation logged
-cat .devforgeai/logs/rca-007-violations.log | grep "Pattern matched"  # Has violation entry
+ls devforgeai/logs/rca-007-violations.log  # Violation logged
+cat devforgeai/logs/rca-007-violations.log | grep "Pattern matched"  # Has violation entry
 ```
 
 **Success Criteria:**
@@ -535,7 +535,7 @@ error_handling:
 monitoring:
   log_violations:
     enabled: true
-    log_path: ".devforgeai/logs/rca-007-violations.log"
+    log_path: "devforgeai/logs/rca-007-violations.log"
 
   track_retries:
     enabled: true
@@ -752,7 +752,7 @@ if len(new_supporting_files) > 0:
 
     # Log violation
     Write(
-        file_path=".devforgeai/logs/rca-007-violations.log",
+        file_path="devforgeai/logs/rca-007-violations.log",
         content=f"""
         [FILE CREATION VIOLATION]
         Timestamp: {datetime.now()}
@@ -1486,8 +1486,8 @@ assert "Next Steps" in output
 
 ## Related Documents
 
-- **RCA:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Enhancement:** `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-PLAN.md` (next document)
+- **RCA:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+- **Enhancement:** `devforgeai/specs/enhancements/BATCH-STORY-CREATION-PLAN.md` (next document)
 - **Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
 - **Subagent:** `.claude/agents/requirements-analyst.md`
 - **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml` (to be created)

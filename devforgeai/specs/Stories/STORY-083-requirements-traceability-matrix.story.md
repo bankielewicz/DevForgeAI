@@ -60,7 +60,7 @@ format_version: "2.1"
 - `stories`: Map of story_id to {title, epic_id, status, file_path}
 - `orphaned_stories`: List of story_ids with no valid epic reference
 - `unlinked_epics`: List of epic_ids with no stories
-**And** the structure is persisted to `.devforgeai/traceability/requirements-matrix.json`
+**And** the structure is persisted to `devforgeai/traceability/requirements-matrix.json`
 
 ---
 
@@ -112,7 +112,7 @@ technical_specification:
   components:
     - type: "Service"
       name: "RequirementsTraceabilityParser"
-      file_path: ".devforgeai/traceability/parse-requirements.sh"
+      file_path: "devforgeai/traceability/parse-requirements.sh"
       dependencies:
         - "Grep"
         - "Read"
@@ -146,7 +146,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "RequirementsMatrix"
-      file_path: ".devforgeai/traceability/requirements-matrix.json"
+      file_path: "devforgeai/traceability/requirements-matrix.json"
       dependencies: []
       requirements:
         - id: "DATA-001"
@@ -172,7 +172,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "TraceabilityConfig"
-      file_path: ".devforgeai/traceability/config.json"
+      file_path: "devforgeai/traceability/config.json"
       dependencies: []
       requirements:
         - id: "CFG-001"
@@ -256,7 +256,7 @@ technical_specification:
 
 **Access Control:**
 - Read-only operations: Parser does not modify source files
-- Writes only to `.devforgeai/traceability/` directory
+- Writes only to `devforgeai/traceability/` directory
 - Operates with current user permissions; no elevated privileges required
 
 ---
@@ -430,8 +430,8 @@ None - uses only Claude Code native tools (Grep, Read, Write, Bash).
 ## Definition of Done
 
 ### Implementation
-- [x] Parser script created at `.devforgeai/traceability/parse-requirements.sh` - 400 lines, 20 functions
-- [x] Configuration file created at `.devforgeai/traceability/config.json` - Pattern definitions, paths
+- [x] Parser script created at `devforgeai/traceability/parse-requirements.sh` - 400 lines, 20 functions
+- [x] Configuration file created at `devforgeai/traceability/config.json` - Pattern definitions, paths
 - [x] JSON output schema implemented for requirements-matrix.json - epics, stories, validation sections
 - [x] Epic frontmatter parsing implemented with Grep patterns - Handles epic_id/id fields, CRLF line endings
 - [x] Story epic: field parsing implemented - Extracts from frontmatter, handles None/missing
@@ -453,7 +453,7 @@ None - uses only Claude Code native tools (Grep, Read, Write, Bash).
 - [x] Performance test for timing requirements - test_performance.sh (6 tests, 100% pass with WSL2_SLOW)
 
 ### Documentation
-- [x] README in `.devforgeai/traceability/` explaining usage - Complete with examples, commands, security notes
+- [x] README in `devforgeai/traceability/` explaining usage - Complete with examples, commands, security notes
 - [x] JSON schema documented - Full schema with field descriptions in README
 - [x] Error codes and messages documented - Exit codes 0, 1, 2 defined
 
@@ -519,8 +519,8 @@ None - uses only Claude Code native tools (Grep, Read, Write, Bash).
 ## Implementation Notes
 
 ### Definition of Done - Completed Items
-- [x] Parser script created at `.devforgeai/traceability/parse-requirements.sh` - 400 lines, 20 functions - Completed: 2025-12-10
-- [x] Configuration file created at `.devforgeai/traceability/config.json` - Pattern definitions, paths - Completed: 2025-12-10
+- [x] Parser script created at `devforgeai/traceability/parse-requirements.sh` - 400 lines, 20 functions - Completed: 2025-12-10
+- [x] Configuration file created at `devforgeai/traceability/config.json` - Pattern definitions, paths - Completed: 2025-12-10
 - [x] JSON output schema implemented for requirements-matrix.json - epics, stories, validation sections - Completed: 2025-12-10
 - [x] Epic frontmatter parsing implemented with Grep patterns - Handles epic_id/id fields, CRLF line endings - Completed: 2025-12-10
 - [x] Story epic: field parsing implemented - Extracts from frontmatter, handles None/missing - Completed: 2025-12-10
@@ -536,15 +536,15 @@ None - uses only Claude Code native tools (Grep, Read, Write, Bash).
 - [x] Unit tests for validation logic - Completed: 2025-12-10
 - [x] Integration test for full parse workflow - Completed: 2025-12-10
 - [x] Performance test for timing requirements - Completed: 2025-12-10
-- [x] README in `.devforgeai/traceability/` explaining usage - Completed: 2025-12-10
+- [x] README in `devforgeai/traceability/` explaining usage - Completed: 2025-12-10
 - [x] JSON schema documented - Completed: 2025-12-10
 - [x] Error codes and messages documented - Completed: 2025-12-10
 
 **Test Results:** 53/53 tests passing (100%)
 **Files Created:**
-- `.devforgeai/traceability/parse-requirements.sh` (400 lines)
-- `.devforgeai/traceability/config.json`
-- `.devforgeai/traceability/README.md`
+- `devforgeai/traceability/parse-requirements.sh` (400 lines)
+- `devforgeai/traceability/config.json`
+- `devforgeai/traceability/README.md`
 - `src/devforgeai/traceability/` (synced distribution copies)
 - `tests/traceability/test_*.sh` (6 test files)
 - `tests/traceability/run-tests.sh` (master runner)

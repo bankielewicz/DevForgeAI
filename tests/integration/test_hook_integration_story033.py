@@ -55,9 +55,9 @@ def temp_project_dir():
     temp_dir = tempfile.mkdtemp(prefix="devforgeai_test_")
 
     # Create directory structure
-    os.makedirs(f"{temp_dir}/.devforgeai/qa", exist_ok=True)
-    os.makedirs(f"{temp_dir}/.devforgeai/feedback/logs", exist_ok=True)
-    os.makedirs(f"{temp_dir}/.devforgeai/adrs", exist_ok=True)
+    os.makedirs(f"{temp_dir}/devforgeai/qa", exist_ok=True)
+    os.makedirs(f"{temp_dir}/devforgeai/feedback/logs", exist_ok=True)
+    os.makedirs(f"{temp_dir}/devforgeai/adrs", exist_ok=True)
     os.makedirs(f"{temp_dir}/.ai_docs/Stories", exist_ok=True)
     os.makedirs(f"{temp_dir}/.claude/commands", exist_ok=True)
 
@@ -104,7 +104,7 @@ def sample_audit_report(temp_project_dir: str) -> str:
         ]
     }
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-test.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-test.json"
     with open(report_path, 'w') as f:
         json.dump(report, f)
 
@@ -137,7 +137,7 @@ def massive_audit_report(temp_project_dir: str) -> str:
             "priority": "CRITICAL" if i < 5 else "HIGH" if i < 25 else "MEDIUM"
         })
 
-    report_path = f"{temp_project_dir}/.devforgeai/qa/deferral-audit-massive.json"
+    report_path = f"{temp_project_dir}/devforgeai/qa/deferral-audit-massive.json"
     with open(report_path, 'w') as f:
         json.dump(report, f)
 
@@ -147,7 +147,7 @@ def massive_audit_report(temp_project_dir: str) -> str:
 @pytest.fixture
 def mock_hooks_config(temp_project_dir: str) -> Dict[str, Any]:
     """Create a valid hooks.yaml configuration"""
-    config_dir = f"{temp_project_dir}/.devforgeai/config"
+    config_dir = f"{temp_project_dir}/devforgeai/config"
     os.makedirs(config_dir, exist_ok=True)
 
     config = {
@@ -171,7 +171,7 @@ def mock_hooks_config(temp_project_dir: str) -> Dict[str, Any]:
 @pytest.fixture
 def mock_invocation_log(temp_project_dir: str) -> str:
     """Get path to invocation log file"""
-    log_path = f"{temp_project_dir}/.devforgeai/feedback/logs/hook-invocations.log"
+    log_path = f"{temp_project_dir}/devforgeai/feedback/logs/hook-invocations.log"
     return log_path
 
 
@@ -381,10 +381,10 @@ class TestErrorHandling:
 
     def test_audit_report_created_despite_hook_failure(self, temp_project_dir):
         """CONF-006: Audit report should be created even if hooks fail"""
-        # Even if invoke-hooks fails, .devforgeai/qa/deferral-audit-{timestamp}.md
+        # Even if invoke-hooks fails, devforgeai/qa/deferral-audit-{timestamp}.md
         # should be created and user should receive complete audit report
 
-        report_dir = f"{temp_project_dir}/.devforgeai/qa"
+        report_dir = f"{temp_project_dir}/devforgeai/qa"
         os.makedirs(report_dir, exist_ok=True)
 
         # Verify directory exists
@@ -645,7 +645,7 @@ class TestConcurrentAudits:
         - Each gets unique timestamp-based filename
         - No conflicts or overwrites
         """
-        report_dir = f"{temp_project_dir}/.devforgeai/qa"
+        report_dir = f"{temp_project_dir}/devforgeai/qa"
         os.makedirs(report_dir, exist_ok=True)
 
         # Create two reports with slightly different timestamps

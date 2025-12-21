@@ -103,7 +103,7 @@ technical_specification:
         - "datetime (stdlib)"
       requirements:
         - id: "write_checkpoint"
-          description: "Write checkpoint to .devforgeai/sessions/{story_id}/checkpoint.json"
+          description: "Write checkpoint to devforgeai/sessions/{story_id}/checkpoint.json"
           signature: "def write_checkpoint(story_id: str, phase: int, progress: dict) -> bool"
           test_requirement: "Test: Creates directory if missing, writes valid JSON"
         - id: "read_checkpoint"
@@ -200,10 +200,10 @@ technical_specification:
           required: true
 
   directory_structure:
-    - path: ".devforgeai/sessions/"
+    - path: "devforgeai/sessions/"
       purpose: "Session checkpoint directory"
       owner: "devforgeai-development skill"
-    - path: ".devforgeai/sessions/{STORY-ID}/"
+    - path: "devforgeai/sessions/{STORY-ID}/"
       purpose: "Per-story checkpoint storage"
       files:
         - "checkpoint.json"
@@ -254,7 +254,7 @@ technical_specification:
 - **Test 12:** Checkpoint deleted when story reaches Released
 
 ### Edge Cases
-- **Test 13:** Missing .devforgeai/sessions/ directory is created
+- **Test 13:** Missing devforgeai/sessions/ directory is created
 - **Test 14:** Corrupted checkpoint.json falls back to Phase 0
 - **Test 15:** Concurrent checkpoint writes (if parallel dev) handled safely
 

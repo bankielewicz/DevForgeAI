@@ -113,7 +113,7 @@ pytest tests/ --cov=.claude/commands --cov=tests \
 - ✗ Audit report created despite hook failure
 
 #### CONF-007: Hook Invocation Logging
-- ✗ Log file created at .devforgeai/feedback/logs/hook-invocations.log
+- ✗ Log file created at devforgeai/feedback/logs/hook-invocations.log
 - ✗ Log entry has timestamp (ISO format)
 - ✗ Log entry has operation name
 - ✗ Log entry has status

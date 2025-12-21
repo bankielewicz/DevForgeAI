@@ -504,10 +504,10 @@ def create_test_context_files(temp_dir: Path, language: str = "Python") -> dict:
     Returns:
         Dict with file paths
     """
-    context_dir = temp_dir / ".devforgeai" / "context"
+    context_dir = temp_dir / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
-    qa_dir = temp_dir / ".devforgeai" / "qa"
+    qa_dir = temp_dir / "devforgeai" / "qa"
     qa_dir.mkdir(parents=True, exist_ok=True)
 
     # tech-stack.md

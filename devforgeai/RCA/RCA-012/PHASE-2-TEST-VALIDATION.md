@@ -568,7 +568,7 @@ assert deferral_status == "VALID"  # STORY-023 has documented deferrals
 **Date:** {timestamp}
 ```
 
-**Save to:** `.devforgeai/RCA/RCA-012/test-results/phase2-test-results.md`
+**Save to:** `devforgeai/RCA/RCA-012/test-results/phase2-test-results.md`
 
 ---
 

@@ -2,7 +2,7 @@
 
 **Issue:** Codelens ideation session revealed gap where only 3/7 epics were created
 **Date:** 2025-11-01
-**RCA Source:** `/mnt/c/Projects/codelens/.devforgeai/RCA-incomplete-epic-generation.md`
+**RCA Source:** `/mnt/c/Projects/codelens/devforgeai/RCA-incomplete-epic-generation.md`
 **Status:** ✅ IMPLEMENTED
 
 ---

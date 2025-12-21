@@ -101,7 +101,7 @@ Phase 6: Report (metrics, diff)              ✓
 ## Artifacts Created
 
 ```
-.devforgeai/specs/STORY-043/
+devforgeai/specs/STORY-043/
 ├── path-audit-deploy-time.txt        (971 refs)
 ├── path-audit-source-time.txt        (209 refs)
 ├── path-audit-ambiguous.txt          (92 refs)
@@ -166,7 +166,7 @@ Phase 6: Report (metrics, diff)              ✓
 
 **Specification:**
 - `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-043-update-path-references-to-src.story.md`
-- `/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/`
+- `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/`
 
 **Reports:**
 - `/mnt/c/Projects/DevForgeAI2/STORY-043-INTEGRATION-TEST-REPORT.md` (detailed)

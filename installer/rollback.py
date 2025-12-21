@@ -121,9 +121,9 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
             f"Security violation: Backup path is not within .backups/: {backup_path}"
         )
 
-    # Validate backup has at least some content (.claude or .devforgeai or CLAUDE.md)
+    # Validate backup has at least some content (.claude or devforgeai or CLAUDE.md)
     backup_claude = backup_path / ".claude"
-    backup_devforgeai = backup_path / ".devforgeai"
+    backup_devforgeai = backup_path / "devforgeai"
     backup_claude_md = backup_path / "CLAUDE.md"
 
     has_content = backup_claude.exists() or backup_devforgeai.exists() or backup_claude_md.exists()
@@ -154,8 +154,8 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
                 return result
 
         # Restore devforgeai/ directory
-        backup_devforgeai = backup_path / ".devforgeai"
-        target_devforgeai = project_root / ".devforgeai"
+        backup_devforgeai = backup_path / "devforgeai"
+        target_devforgeai = project_root / "devforgeai"
 
         if backup_devforgeai.exists():
             # CRITICAL-1 FIX: Validate no symlinks in backup
@@ -172,7 +172,7 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
                 )
             except PermissionError as e:
                 result["status"] = "failed"
-                result["errors"].append(f"Permission denied restoring .devforgeai: {e}")
+                result["errors"].append(f"Permission denied restoring devforgeai: {e}")
                 return result
 
         # Restore CLAUDE.md
@@ -250,7 +250,7 @@ def verify_rollback(project_root: Path, backup_path: Path) -> dict:
     restored_files = 0
     restored_hashes = {}
 
-    for backup_subdir in [".claude", ".devforgeai", "CLAUDE.md"]:
+    for backup_subdir in [".claude", "devforgeai", "CLAUDE.md"]:
         if backup_subdir == "CLAUDE.md":
             target_file = project_root / "CLAUDE.md"
             if target_file.exists():

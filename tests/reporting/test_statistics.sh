@@ -65,7 +65,7 @@ title: Epic Three
 EOF
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -124,7 +124,7 @@ title: Epic Five
 EOF
 
     # Act: Generate JSON (total should be 7)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         2>/dev/null || echo "{}")
@@ -178,7 +178,7 @@ EOF
     done
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -236,7 +236,7 @@ EOF
     done
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -287,7 +287,7 @@ epic: EPIC-008
 EOF
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -340,7 +340,7 @@ EOF
     done
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -382,7 +382,7 @@ title: No Coverage
 EOF
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \
@@ -442,7 +442,7 @@ title: Empty Epic
 EOF
 
     # Act: Generate JSON (use test_dir for both epics and stories to isolate from real data)
-    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/.devforgeai/epic-coverage/generate-report.sh \
+    local json_output=$(bash /mnt/c/Projects/DevForgeAI2/devforgeai/epic-coverage/generate-report.sh \
         --format=json \
         --epics-dir="${test_dir}" \
         --stories-dir="${test_dir}" \

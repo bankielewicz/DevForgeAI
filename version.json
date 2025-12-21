@@ -24,7 +24,7 @@
       "devforgeai-1.0.1.zip - Windows-compatible package"
     ],
     "training": [
-      ".devforgeai/onboarding/team-training-log.md"
+      "devforgeai/onboarding/team-training-log.md"
     ]
   },
   "features": {

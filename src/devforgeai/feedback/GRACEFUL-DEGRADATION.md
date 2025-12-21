@@ -31,7 +31,7 @@ Commands must succeed even if:
 import os
 from pathlib import Path
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 
 try:
     test_file = feedback_dir / '.write_test'
@@ -50,7 +50,7 @@ except (PermissionError, OSError) as e:
 
 **Error message:**
 ```
-⚠️  Warning: Feedback directory not writable (.devforgeai/feedback)
+⚠️  Warning: Feedback directory not writable (devforgeai/feedback)
     Feedback collection skipped, command will continue.
     Fix: Check file permissions or disk space.
 ```
@@ -58,10 +58,10 @@ except (PermissionError, OSError) as e:
 **Recovery:**
 ```bash
 # Check permissions
-ls -la .devforgeai/feedback/
+ls -la devforgeai/feedback/
 
 # Fix if needed
-chmod 755 .devforgeai/feedback/
+chmod 755 devforgeai/feedback/
 
 # Check disk space
 df -h .
@@ -196,7 +196,7 @@ Would you like to complete the interrupted feedback session from STORY-042?
 import shutil
 
 def check_storage():
-    stat = shutil.disk_usage('.devforgeai/feedback')
+    stat = shutil.disk_usage('devforgeai/feedback')
     available_mb = stat.free / (1024 * 1024)
     return available_mb > 10  # Need at least 10 MB
 ```
@@ -217,13 +217,13 @@ def check_storage():
 **Recovery:**
 ```bash
 # Check disk space
-df -h .devforgeai/
+df -h devforgeai/
 
 # Clean old feedback (12+ months)
-python3 .devforgeai/scripts/cleanup-old-feedback.py --older-than=12m
+python3 devforgeai/scripts/cleanup-old-feedback.py --older-than=12m
 
 # Or manually remove old backups
-rm .devforgeai/backups/feedback/feedback_backup_202401*.tar.gz
+rm devforgeai/backups/feedback/feedback_backup_202401*.tar.gz
 ```
 
 ---
@@ -237,7 +237,7 @@ rm .devforgeai/backups/feedback/feedback_backup_202401*.tar.gz
 
 **Detection:**
 ```python
-config_path = Path('.devforgeai/feedback/config.yaml')
+config_path = Path('devforgeai/feedback/config.yaml')
 if not config_path.exists():
     # No config found
     pass
@@ -251,7 +251,7 @@ if not config_path.exists():
 
 **Default config created:**
 ```yaml
-# .devforgeai/feedback/config.yaml
+# devforgeai/feedback/config.yaml
 enable_feedback: true
 mode: all  # all, failures_only, disabled
 max_skip_count: 3
@@ -262,7 +262,7 @@ anonymize_after: true
 **Console message:**
 ```
 ℹ️  Feedback system initialized with default configuration.
-   Config: .devforgeai/feedback/config.yaml
+   Config: devforgeai/feedback/config.yaml
 ```
 
 **Recovery:**
@@ -280,7 +280,7 @@ anonymize_after: true
 
 **Detection:**
 ```python
-questions_file = Path('.devforgeai/feedback/questions.yaml')
+questions_file = Path('devforgeai/feedback/questions.yaml')
 if not questions_file.exists():
     # Question bank missing
     pass
@@ -295,7 +295,7 @@ if not questions_file.exists():
 **Error message:**
 ```
 ❌ Error: Feedback question bank not found.
-   Expected: .devforgeai/feedback/questions.yaml
+   Expected: devforgeai/feedback/questions.yaml
    Feedback skipped, command will continue.
    Fix: Reinstall framework or restore from backup.
 ```
@@ -303,7 +303,7 @@ if not questions_file.exists():
 **Recovery:**
 ```bash
 # Restore from git
-git checkout .devforgeai/feedback/questions.yaml
+git checkout devforgeai/feedback/questions.yaml
 
 # Or reinstall framework
 pip install --upgrade --force-reinstall devforgeai
@@ -322,7 +322,7 @@ pip install --upgrade --force-reinstall devforgeai
 ```python
 import jsonschema
 
-schema = load_schema('.devforgeai/feedback/schema.json')
+schema = load_schema('devforgeai/feedback/schema.json')
 try:
     jsonschema.validate(feedback_data, schema)
 except jsonschema.ValidationError as e:
@@ -372,10 +372,10 @@ echo "=== Testing Graceful Degradation ==="
 
 # Test 1: Directory not writable
 echo -e "\nTest 1: Read-only feedback directory"
-chmod 444 .devforgeai/feedback/
+chmod 444 devforgeai/feedback/
 /dev STORY-001
 # Expected: Warning logged, feedback skipped, command succeeds
-chmod 755 .devforgeai/feedback/
+chmod 755 devforgeai/feedback/
 
 # Test 2: Disk full (simulate with quota)
 echo -e "\nTest 2: Disk full"
@@ -388,17 +388,17 @@ timeout 5s /dev STORY-001 || true
 
 # Test 4: Missing config
 echo -e "\nTest 4: Missing configuration"
-mv .devforgeai/feedback/config.yaml /tmp/config.yaml.backup
+mv devforgeai/feedback/config.yaml /tmp/config.yaml.backup
 /dev STORY-001
 # Expected: Default config created, command succeeds
-mv /tmp/config.yaml.backup .devforgeai/feedback/config.yaml
+mv /tmp/config.yaml.backup devforgeai/feedback/config.yaml
 
 # Test 5: Missing question bank
 echo -e "\nTest 5: Missing question bank"
-mv .devforgeai/feedback/questions.yaml /tmp/questions.yaml.backup
+mv devforgeai/feedback/questions.yaml /tmp/questions.yaml.backup
 /dev STORY-001
 # Expected: Error logged, feedback skipped, command succeeds
-mv /tmp/questions.yaml.backup .devforgeai/feedback/questions.yaml
+mv /tmp/questions.yaml.backup devforgeai/feedback/questions.yaml
 
 echo -e "\n=== All tests completed ==="
 echo "Review console output to verify graceful degradation behavior."
@@ -438,7 +438,7 @@ After each test:
 ### Log Location
 
 ```
-.devforgeai/feedback/system.log
+devforgeai/feedback/system.log
 ```
 
 ### Log Format
@@ -464,14 +464,14 @@ After each test:
 echo "=== Feedback System Health Check ==="
 
 # Check directory permissions
-if [ -w .devforgeai/feedback ]; then
+if [ -w devforgeai/feedback ]; then
     echo "✅ Directory writable"
 else
     echo "❌ Directory not writable"
 fi
 
 # Check disk space
-AVAILABLE=$(df .devforgeai | tail -1 | awk '{print $4}')
+AVAILABLE=$(df devforgeai | tail -1 | awk '{print $4}')
 if [ $AVAILABLE -gt 10000 ]; then
     echo "✅ Disk space sufficient ($AVAILABLE KB)"
 else
@@ -481,7 +481,7 @@ fi
 # Check required files
 FILES=("schema.json" "questions.yaml" "config.yaml")
 for file in "${FILES[@]}"; do
-    if [ -f ".devforgeai/feedback/$file" ]; then
+    if [ -f "devforgeai/feedback/$file" ]; then
         echo "✅ $file present"
     else
         echo "❌ $file missing"
@@ -489,7 +489,7 @@ for file in "${FILES[@]}"; do
 done
 
 # Check recent errors
-ERRORS=$(grep -c "ERROR" .devforgeai/feedback/system.log 2>/dev/null || echo 0)
+ERRORS=$(grep -c "ERROR" devforgeai/feedback/system.log 2>/dev/null || echo 0)
 echo "Errors in last 24h: $ERRORS"
 ```
 
@@ -514,25 +514,25 @@ echo "Errors in last 24h: $ERRORS"
 echo "=== Feedback System Recovery ==="
 
 # 1. Restore from backup
-LATEST_BACKUP=$(ls -t .devforgeai/backups/feedback/*.tar.gz | head -1)
+LATEST_BACKUP=$(ls -t devforgeai/backups/feedback/*.tar.gz | head -1)
 if [ -n "$LATEST_BACKUP" ]; then
     echo "Restoring from $LATEST_BACKUP"
     tar -xzf "$LATEST_BACKUP"
 fi
 
 # 2. Restore files from git
-git checkout .devforgeai/feedback/schema.json
-git checkout .devforgeai/feedback/questions.yaml
+git checkout devforgeai/feedback/schema.json
+git checkout devforgeai/feedback/questions.yaml
 
 # 3. Reset permissions
-chmod 755 .devforgeai/feedback
-chmod 644 .devforgeai/feedback/*.json
-chmod 644 .devforgeai/feedback/*.yaml
-chmod 644 .devforgeai/feedback/*.md
+chmod 755 devforgeai/feedback
+chmod 644 devforgeai/feedback/*.json
+chmod 644 devforgeai/feedback/*.yaml
+chmod 644 devforgeai/feedback/*.md
 
 # 4. Create default config if missing
-if [ ! -f .devforgeai/feedback/config.yaml ]; then
-    cat > .devforgeai/feedback/config.yaml << 'EOF'
+if [ ! -f devforgeai/feedback/config.yaml ]; then
+    cat > devforgeai/feedback/config.yaml << 'EOF'
 enable_feedback: true
 mode: all
 max_skip_count: 3
@@ -542,10 +542,10 @@ EOF
 fi
 
 # 5. Verify integrity
-python3 .devforgeai/scripts/validate-feedback-integrity.py
+python3 devforgeai/scripts/validate-feedback-integrity.py
 
 echo "=== Recovery complete ==="
-echo "Run health check: .devforgeai/scripts/check-feedback-health.sh"
+echo "Run health check: devforgeai/scripts/check-feedback-health.sh"
 ```
 
 ---

@@ -5,7 +5,7 @@
 #
 # AC-7: Automated Update Script with Safety Guardrails
 # Given: Manual updates across 87 files would be error-prone
-# When: Execute .devforgeai/specs/STORY-043/update-paths.sh
+# When: Execute devforgeai/specs/STORY-043/update-paths.sh
 # Then: Script executes with complete safety guardrails
 #
 # Expected Safety Measures:
@@ -23,7 +23,7 @@ set -euo pipefail
 TEST_NAME="AC-7: Automated Update Script with Safety Guardrails"
 TEST_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$TEST_DIR/../../" && pwd)"
-SPEC_DIR=".devforgeai/specs/STORY-043"
+SPEC_DIR="devforgeai/specs/STORY-043"
 
 # Colors
 RED='\033[0;31m'

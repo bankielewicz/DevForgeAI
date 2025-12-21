@@ -16,7 +16,7 @@ Test Type:              Integration Testing (Automated)
 Test Framework:         Python 3 (unittest-style)
 Total Test Cases:       23
 Execution Time:         0.09 seconds
-Test Location:          .devforgeai/qa/tests/test_story_055_integration.py
+Test Location:          devforgeai/qa/tests/test_story_055_integration.py
 
 ================================================================================
 TEST RESULTS SUMMARY
@@ -142,31 +142,31 @@ DELIVERABLES CREATED
 ================================================================================
 
 ✓ TEST SUITE
-  File:     .devforgeai/qa/tests/test_story_055_integration.py
+  File:     devforgeai/qa/tests/test_story_055_integration.py
   Lines:    853
   Format:   Python 3 (executable)
   Purpose:  23 automated integration tests
 
 ✓ QA REPORT (FORMAL)
-  File:     .devforgeai/qa/reports/STORY-055-qa-report.md
+  File:     devforgeai/qa/reports/STORY-055-qa-report.md
   Lines:    492
   Format:   Markdown (human-readable)
   Purpose:  Comprehensive QA validation report
 
 ✓ FINDINGS DOCUMENT (DETAILED)
-  File:     .devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md
+  File:     devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md
   Lines:    522
   Format:   Markdown (technical deep-dive)
   Purpose:  Detailed issue analysis with exact solutions
 
 ✓ QUICK REFERENCE (SUMMARY)
-  File:     .devforgeai/qa/STORY-055-QUICK-REFERENCE.md
+  File:     devforgeai/qa/STORY-055-QUICK-REFERENCE.md
   Lines:    188
   Format:   Markdown (quick-read)
   Purpose:  At-a-glance summary for decision-making
 
 ✓ THIS SUMMARY
-  File:     .devforgeai/qa/STORY-055-TEST-EXECUTION-SUMMARY.txt
+  File:     devforgeai/qa/STORY-055-TEST-EXECUTION-SUMMARY.txt
   Format:   Plain text (execution log)
   Purpose:  This test execution summary
 
@@ -175,7 +175,7 @@ HOW TO RE-RUN TESTS
 ================================================================================
 
 Command:
-  python3 /mnt/c/Projects/DevForgeAI2/.devforgeai/qa/tests/test_story_055_integration.py
+  python3 /mnt/c/Projects/DevForgeAI2/devforgeai/qa/tests/test_story_055_integration.py
 
 Expected Output:
   - Visual test results with status (✓/✗) for each test
@@ -220,17 +220,17 @@ DOCUMENTS TO REVIEW
 ================================================================================
 
 For Quick Understanding (5 min):
-  → .devforgeai/qa/STORY-055-QUICK-REFERENCE.md
+  → devforgeai/qa/STORY-055-QUICK-REFERENCE.md
 
 For Implementation Guidance (15 min):
-  → .devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md
+  → devforgeai/qa/STORY-055-INTEGRATION-FINDINGS.md
      (See sections: "Critical Issues", "Implementation Required")
 
 For Complete QA Record (30 min):
-  → .devforgeai/qa/reports/STORY-055-qa-report.md
+  → devforgeai/qa/reports/STORY-055-qa-report.md
 
 For Running Tests:
-  → python3 .devforgeai/qa/tests/test_story_055_integration.py
+  → python3 devforgeai/qa/tests/test_story_055_integration.py
 
 ================================================================================
 NEXT STEPS
@@ -239,7 +239,7 @@ NEXT STEPS
 1. STORY OWNER:
    ☐ Review findings in STORY-055-INTEGRATION-FINDINGS.md
    ☐ Apply 3 critical fixes (~30 minutes)
-   ☐ Verify fixes with: python3 .devforgeai/qa/tests/test_story_055_integration.py
+   ☐ Verify fixes with: python3 devforgeai/qa/tests/test_story_055_integration.py
    ☐ Notify QA when ready for re-testing
 
 2. QA (After Fixes):
@@ -258,8 +258,8 @@ TESTING INFRASTRUCTURE
 ================================================================================
 
 Test Framework:     Python 3 (unit-test style)
-Test Location:      /mnt/c/Projects/DevForgeAI2/.devforgeai/qa/tests/
-Report Location:    /mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/
+Test Location:      /mnt/c/Projects/DevForgeAI2/devforgeai/qa/tests/
+Report Location:    /mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/
 
 Coverage Model:
   - File structure validation (existence, sync, format)

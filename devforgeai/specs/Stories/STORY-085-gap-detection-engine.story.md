@@ -103,7 +103,7 @@ technical_specification:
   components:
     - type: "Service"
       name: "GapDetectionEngine"
-      file_path: ".devforgeai/traceability/gap-detector.sh"
+      file_path: "devforgeai/traceability/gap-detector.sh"
       dependencies:
         - "Grep"
         - "Read"
@@ -149,7 +149,7 @@ technical_specification:
 
     - type: "Service"
       name: "MarkdownTableParser"
-      file_path: ".devforgeai/traceability/table-parser.sh"
+      file_path: "devforgeai/traceability/table-parser.sh"
       dependencies:
         - "Grep"
         - "Read"
@@ -172,7 +172,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "GapDetectionResult"
-      file_path: ".devforgeai/traceability/models/gap-result.json"
+      file_path: "devforgeai/traceability/models/gap-result.json"
       dependencies: []
       requirements:
         - id: "RESULT-001"
@@ -193,7 +193,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "OrphanedStory"
-      file_path: ".devforgeai/traceability/models/orphan.json"
+      file_path: "devforgeai/traceability/models/orphan.json"
       dependencies: []
       requirements:
         - id: "ORPHAN-001"
@@ -439,8 +439,8 @@ None - uses only Claude Code native tools.
 ## Definition of Done
 
 ### Implementation
-- [x] Gap detection script created at `.devforgeai/traceability/gap-detector.sh` - **Evidence:** 713 lines, all functions implemented
-- [x] Table parser script created at `.devforgeai/traceability/table-parser.sh` - **Note:** Integrated into gap-detector.sh as parse_epic_stories_table()
+- [x] Gap detection script created at `devforgeai/traceability/gap-detector.sh` - **Evidence:** 713 lines, all functions implemented
+- [x] Table parser script created at `devforgeai/traceability/table-parser.sh` - **Note:** Integrated into gap-detector.sh as parse_epic_stories_table()
 - [x] Strategy 1 (story field matching) implemented - **Evidence:** strategy1_extract_epics() function
 - [x] Strategy 2 (epic table parsing) implemented - **Evidence:** parse_epic_stories_table(), strategy2_parse_tables() functions
 - [x] Strategy 3 (cross-validation) implemented - **Evidence:** strategy3_cross_validate() function
@@ -463,7 +463,7 @@ None - uses only Claude Code native tools.
 - [x] Integration test for full gap detection - **Evidence:** test_report_* tests, performance test
 
 ### Documentation
-- [x] README documenting gap detector usage - **Evidence:** .devforgeai/traceability/README.md
+- [x] README documenting gap detector usage - **Evidence:** devforgeai/traceability/README.md
 - [x] Report format documented - **Evidence:** JSON report structure in gap-detection-report.json
 - [x] Error codes and reasons documented - **Evidence:** EPIC_NOT_FOUND, NOT_IN_EPIC_TABLE, BIDIRECTIONAL_MISMATCH
 
@@ -479,8 +479,8 @@ None - uses only Claude Code native tools.
 ## Implementation Notes
 
 ### Definition of Done - Completed Items
-- [x] Gap detection script created at `.devforgeai/traceability/gap-detector.sh` - Completed: 2025-12-11
-- [x] Table parser script created at `.devforgeai/traceability/table-parser.sh` - Completed: 2025-12-11
+- [x] Gap detection script created at `devforgeai/traceability/gap-detector.sh` - Completed: 2025-12-11
+- [x] Table parser script created at `devforgeai/traceability/table-parser.sh` - Completed: 2025-12-11
 - [x] Strategy 1 (story field matching) implemented - Completed: 2025-12-11
 - [x] Strategy 2 (epic table parsing) implemented - Completed: 2025-12-11
 - [x] Strategy 3 (cross-validation) implemented - Completed: 2025-12-11

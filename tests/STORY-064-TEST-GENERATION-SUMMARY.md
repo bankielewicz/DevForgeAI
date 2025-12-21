@@ -168,7 +168,7 @@ All 8 data validation rules are covered with ≥1 test assertion each:
 
 ## CI/CD Pipeline Configuration
 
-**File**: `/mnt/c/Projects/DevForgeAI2/.devforgeai/ci/story-creation-test-pipeline.yml`
+**File**: `/mnt/c/Projects/DevForgeAI2/devforgeai/ci/story-creation-test-pipeline.yml`
 
 **Pipeline Features**:
 - Triggers on commits to `src/claude/skills/devforgeai-story-creation/`
@@ -289,7 +289,7 @@ Expected Distribution:
    - `/mnt/c/Projects/DevForgeAI2/tests/user-input-guidance/fixtures/edge-case-feature.md`
 
 3. **Created CI/CD Configuration** (1 file):
-   - `/mnt/c/Projects/DevForgeAI2/.devforgeai/ci/story-creation-test-pipeline.yml` (156 lines)
+   - `/mnt/c/Projects/DevForgeAI2/devforgeai/ci/story-creation-test-pipeline.yml` (156 lines)
 
 4. **Modified** (1 file):
    - `/mnt/c/Projects/DevForgeAI2/tests/conftest.py` - Added `regression` marker

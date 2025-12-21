@@ -147,7 +147,7 @@ Location: After Phase 6 in skill (after orchestration modes)
 ### 7.5: Logging
 - Log hook invocation (timestamp, result)
 - Record hook response
-- Append to .devforgeai/feedback/logs/hook-invocations.log
+- Append to devforgeai/feedback/logs/hook-invocations.log
 - Return: log entry
 
 ### 7.6: Error Handling
@@ -439,9 +439,9 @@ Technical changes:
   - 100% functionality preserved
 
 References:
-  - Lean Orchestration Pattern: .devforgeai/protocols/lean-orchestration-pattern.md
-  - Case Study 6: .devforgeai/protocols/refactoring-case-studies.md
-  - Command Budget: .devforgeai/protocols/command-budget-reference.md
+  - Lean Orchestration Pattern: devforgeai/protocols/lean-orchestration-pattern.md
+  - Case Study 6: devforgeai/protocols/refactoring-case-studies.md
+  - Command Budget: devforgeai/protocols/command-budget-reference.md
   - Reference Implementation (/qa): .claude/commands/qa.md
 EOF
 )"
@@ -633,12 +633,12 @@ diff <(jq 'del(.timestamp)' /tmp/baseline.json) \
    - Add Workflow History entries
    - Update Implementation Notes
 
-2. **Refactoring documentation:** `.devforgeai/protocols/refactoring-case-studies.md`
+2. **Refactoring documentation:** `devforgeai/protocols/refactoring-case-studies.md`
    - Add Case Study 6 (STORY-050 refactoring)
    - Include Before/After metrics
    - Document lessons learned
 
-3. **Budget reference:** `.devforgeai/protocols/command-budget-reference.md`
+3. **Budget reference:** `devforgeai/protocols/command-budget-reference.md`
    - Update audit-deferrals from 31.3K (208%) to ~9K (60%)
    - Update priority queue (one less over-budget command)
    - Update compliance summary table
@@ -653,8 +653,8 @@ diff <(jq 'del(.timestamp)' /tmp/baseline.json) \
 git add .claude/commands/audit-deferrals.md \
         .claude/skills/devforgeai-orchestration/SKILL.md \
         devforgeai/specs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md \
-        .devforgeai/protocols/refactoring-case-studies.md \
-        .devforgeai/protocols/command-budget-reference.md
+        devforgeai/protocols/refactoring-case-studies.md \
+        devforgeai/protocols/command-budget-reference.md
 
 git commit -m "refactor(STORY-050): Refactor /audit-deferrals for budget compliance..."
 ```
@@ -806,9 +806,9 @@ Use `/qa` command refactoring as primary template:
 
 ## Related Documentation
 
-- **Lean Orchestration Pattern:** `.devforgeai/protocols/lean-orchestration-pattern.md`
-- **Refactoring Case Studies:** `.devforgeai/protocols/refactoring-case-studies.md`
-- **Command Budget Reference:** `.devforgeai/protocols/command-budget-reference.md`
+- **Lean Orchestration Pattern:** `devforgeai/protocols/lean-orchestration-pattern.md`
+- **Refactoring Case Studies:** `devforgeai/protocols/refactoring-case-studies.md`
+- **Command Budget Reference:** `devforgeai/protocols/command-budget-reference.md`
 - **/qa Reference Implementation:** `.claude/commands/qa.md` (295 lines, 7.2K chars)
 - **/dev Reference Implementation:** `.claude/commands/dev.md` (513 lines, 12.6K chars)
 - **Test Suite:** `tests/unit/test_story050_budget_compliance.py` (18 tests)

@@ -49,7 +49,7 @@ from lock_file_coordinator import (
 @pytest.fixture
 def temp_lock_dir(tmp_path):
     """Create a temporary lock directory for testing."""
-    lock_dir = tmp_path / ".devforgeai" / ".locks"
+    lock_dir = tmp_path / "devforgeai" / ".locks"
     lock_dir.mkdir(parents=True, exist_ok=True)
     return lock_dir
 
@@ -178,12 +178,12 @@ class TestLockAcquisition:
         assert elapsed >= 0.4, "Should have waited for lock release"
 
     def test_lock_directory_created_if_missing(self, tmp_path):
-        """Creates .devforgeai/.locks/ if not exists."""
+        """Creates devforgeai/.locks/ if not exists."""
         lock = GitCommitLock(story_id="STORY-096", lock_dir=str(tmp_path))
         result = lock.acquire(timeout_seconds=0)
 
         assert result.success is True
-        lock_dir = tmp_path / ".devforgeai" / ".locks"
+        lock_dir = tmp_path / "devforgeai" / ".locks"
         assert lock_dir.exists()
         lock.release()
 
@@ -686,7 +686,7 @@ class TestOSErrorHandling:
 
     def test_acquire_oserror_during_stale_cleanup(self, temp_lock_dir):
         """OSError during stale lock file cleanup is handled gracefully."""
-        lock_dir_full = temp_lock_dir / ".devforgeai" / ".locks"
+        lock_dir_full = temp_lock_dir / "devforgeai" / ".locks"
         lock_dir_full.mkdir(parents=True, exist_ok=True)
         lock_file = lock_dir_full / "git-commit.lock"
 
@@ -732,7 +732,7 @@ class TestStaleRetryPaths:
 
     def test_stale_detection_after_retry(self, temp_lock_dir):
         """Stale lock detected on retry after initial failure."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
 
         # Start with non-stale lock
@@ -748,7 +748,7 @@ class TestStaleRetryPaths:
 
     def test_multiple_stale_checks_in_loop(self, temp_lock_dir):
         """Multiple iterations of stale checking work correctly."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
 
         lock = GitCommitLock(story_id="STORY-096", lock_dir=str(temp_lock_dir.parent.parent))
@@ -778,7 +778,7 @@ class TestTimeoutPromptPaths:
 
     def test_timeout_result_has_holder_info(self, temp_lock_dir):
         """Timeout result contains holder information for prompt."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
         lock_file.write_text(f"pid: 12345\nstory_id: STORY-037\ntimestamp: {datetime.utcnow().isoformat()}Z\nhostname: remote-host\n")
 
@@ -794,7 +794,7 @@ class TestTimeoutPromptPaths:
 
     def test_timeout_with_missing_holder_info(self, temp_lock_dir):
         """Timeout handles missing holder information gracefully."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
         # Minimal lock file with PID and timestamp (so not detected as stale)
         lock_file.write_text(f"pid: 1\ntimestamp: {datetime.utcnow().isoformat()}Z\n")
@@ -810,7 +810,7 @@ class TestTimeoutPromptPaths:
 
     def test_timeout_wait_time_tracked(self, temp_lock_dir):
         """Wait time is correctly tracked in timeout result."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
         lock_file.write_text(f"pid: 1\nstory_id: STORY-037\ntimestamp: {datetime.utcnow().isoformat()}Z\nhostname: test\n")
 
@@ -905,7 +905,7 @@ class TestContextManagerExceptionPaths:
     def test_context_manager_releases_on_exception(self, temp_lock_dir):
         """Context manager releases lock even when exception raised inside."""
         lock = GitCommitLock(story_id="STORY-096", lock_dir=str(temp_lock_dir.parent.parent))
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
 
         try:
@@ -972,7 +972,7 @@ class TestBoundaryConditions:
 
     def test_hostname_empty_string(self, temp_lock_dir):
         """Empty hostname in lock file handled correctly."""
-        # temp_lock_dir is already .devforgeai/.locks/
+        # temp_lock_dir is already devforgeai/.locks/
         lock_file = temp_lock_dir / "git-commit.lock"
         lock_file.write_text(f"pid: 12345\nstory_id: STORY-037\ntimestamp: {datetime.utcnow().isoformat()}Z\nhostname: \n")
 

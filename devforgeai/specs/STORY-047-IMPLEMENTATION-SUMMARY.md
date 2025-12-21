@@ -45,11 +45,11 @@
 
 **Key Capabilities:**
 - ✅ Auto-detect project type (Node.js via package.json, .NET via *.csproj)
-- ✅ Deploy 945 files (.claude/ + .devforgeai/ directories)
+- ✅ Deploy 945 files (.claude/ + devforgeai/ directories)
 - ✅ CLAUDE.md merge with user content preservation
 - ✅ Template variable substitution ({{PROJECT_NAME}}, {{TECH_STACK}}, etc.)
 - ✅ Backup creation with SHA256 checksums
-- ✅ Version tracking in .devforgeai/.version.json
+- ✅ Version tracking in devforgeai/.version.json
 - ✅ Installation modes: fresh, upgrade, rollback, validate, uninstall
 - ✅ Atomic transactions (backup before modifications, auto-rollback on failure)
 
@@ -167,7 +167,7 @@ if should_backup:
 1. **Version Mismatch**: Updated src/devforgeai/version.json to 1.0.1
 2. **CLAUDE.md Size**: Adjusted test range to 1000-1200 lines (was 1000-1100)
 3. **Isolation**: Excluded .backups/, test files from cross-reference scan
-4. **Config Preservation**: Check .devforgeai/config and /protocols (not /context)
+4. **Config Preservation**: Check devforgeai/config and /protocols (not /context)
 5. **Placeholder Conversions**: 18 tests converted from `pytest.fail()` to realistic assertions
 
 ### Before/After Test Metrics

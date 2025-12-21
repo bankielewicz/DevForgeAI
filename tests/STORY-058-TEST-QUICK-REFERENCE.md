@@ -158,7 +158,7 @@ All tests still PASS - code improved
 - [ ] Add Learning section to src/CLAUDE.md
 - [ ] Add User Input Guidance to src/claude/memory/commands-reference.md (11 commands)
 - [ ] Add User Input Guidance to src/claude/memory/skills-reference.md (13 skills)
-- [ ] Create sync checklist: .devforgeai/stories/STORY-058/sync-checklist.md
+- [ ] Create sync checklist: devforgeai/stories/STORY-058/sync-checklist.md
 
 ### GREEN Phase
 - [ ] Run AC#1 tests: should PASS
@@ -183,7 +183,7 @@ All tests still PASS - code improved
 - `src/claude/memory/skills-reference.md` - Add 13 cross-references
 
 ### Files Created (by STORY-058)
-- `.devforgeai/stories/STORY-058/sync-checklist.md` - Sync tracking
+- `devforgeai/stories/STORY-058/sync-checklist.md` - Sync tracking
 
 ### Referenced Files (must exist)
 - `src/claude/memory/effective-prompting-guide.md` (from STORY-052)

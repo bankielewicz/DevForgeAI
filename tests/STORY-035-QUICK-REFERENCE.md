@@ -73,7 +73,7 @@ python3 -m pytest -m integration -v
 ### 2. Framework Integration Points (7 tests)
 
 **What it tests:**
-- Context file paths use `.devforgeai/` structure
+- Context file paths use `devforgeai/` structure
 - devforgeai-ideation skill compatibility
 - devforgeai-architecture skill compatibility
 - Output directory compliance
@@ -187,7 +187,7 @@ model: haiku
 
 **Fix:** Replace:
 - `.claude/context/` → `devforgeai/context/`
-- `devforgeai/specs/research/` → `.devforgeai/research/`
+- `devforgeai/specs/research/` → `devforgeai/research/`
 
 ### Missing Context File Documentation
 

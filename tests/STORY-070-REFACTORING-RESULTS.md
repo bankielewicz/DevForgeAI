@@ -107,7 +107,7 @@ Comments:  ~50 → ~110 (+60, +120%)
 - 30 improved inline comments
 - 0 breaking changes
 
-### .devforgeai/config/release-config.sh
+### devforgeai/config/release-config.sh
 ```
 No changes (configuration remains stable)
 ```

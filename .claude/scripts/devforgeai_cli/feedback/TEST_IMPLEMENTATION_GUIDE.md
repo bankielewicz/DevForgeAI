@@ -216,14 +216,14 @@
 @pytest.fixture
 def temp_config_dir(tmp_path):
     """Temporary config directory"""
-    config_dir = tmp_path / ".devforgeai" / "config"
+    config_dir = tmp_path / "devforgeai" / "config"
     config_dir.mkdir(parents=True)
     return config_dir
 
 @pytest.fixture
 def temp_logs_dir(tmp_path):
     """Temporary logs directory"""
-    logs_dir = tmp_path / ".devforgeai" / "logs"
+    logs_dir = tmp_path / "devforgeai" / "logs"
     logs_dir.mkdir(parents=True)
     return logs_dir
 

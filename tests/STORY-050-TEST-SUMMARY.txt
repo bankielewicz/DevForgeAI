@@ -270,9 +270,9 @@ Story File:
   .ai_docs/Stories/STORY-050-refactor-audit-deferrals-budget-compliance.story.md
 
 Framework Documentation:
-  .devforgeai/protocols/lean-orchestration-pattern.md
-  .devforgeai/protocols/refactoring-case-studies.md (Case Study 6 - to be created)
-  .devforgeai/protocols/command-budget-reference.md
+  devforgeai/protocols/lean-orchestration-pattern.md
+  devforgeai/protocols/refactoring-case-studies.md (Case Study 6 - to be created)
+  devforgeai/protocols/command-budget-reference.md
 
 Reference Implementations:
   .claude/commands/qa.md (primary template - 295 lines, 7.2K chars, 48% budget)

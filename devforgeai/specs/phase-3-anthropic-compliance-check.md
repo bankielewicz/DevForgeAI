@@ -302,7 +302,7 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
 
 **File Tool Permissions (if restricting):**
 ```yaml
-allowed-tools: Read(path=.claude/**), Write(path=.devforgeai/**)
+allowed-tools: Read(path=.claude/**), Write(path=devforgeai/**)
 ```
 
 **Phase 3 Plan Compliance:**

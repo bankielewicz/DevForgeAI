@@ -35,9 +35,9 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
 ## Acceptance Criteria
 
 ### Scenario 1: Create and Update Index Entry on Feedback Write (Happy Path)
-- **Given** a feedback session is written to `.devforgeai/feedback/sessions/[timestamp]-[operation]-[status].md`
+- **Given** a feedback session is written to `devforgeai/feedback/sessions/[timestamp]-[operation]-[status].md`
 - **When** the feedback session file is created successfully
-- **Then** a new entry is automatically appended to `.devforgeai/feedback/index.json` with:
+- **Then** a new entry is automatically appended to `devforgeai/feedback/index.json` with:
   - Unique `id` field (format: `[timestamp]-[operation]-[status]`, matching filename)
   - `timestamp` in ISO 8601 format (e.g., `2025-11-07T10:30:00Z`)
   - `operation.type` (e.g., "command", "skill", "subagent")
@@ -51,7 +51,7 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
   - Index file is valid JSON and maintains proper formatting
 
 ### Scenario 2: Index File Format Validation (Happy Path)
-- **Given** the index file `.devforgeai/feedback/index.json` is created
+- **Given** the index file `devforgeai/feedback/index.json` is created
 - **When** the file is read
 - **Then** it contains:
   - `version` field = "1.0"
@@ -116,7 +116,7 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
 ## Edge Cases
 
 ### Edge Case 1: Corrupted Index File Recovery
-- **Given** `.devforgeai/feedback/index.json` exists but is malformed (invalid JSON, missing fields)
+- **Given** `devforgeai/feedback/index.json` exists but is malformed (invalid JSON, missing fields)
 - **When** system attempts to write a new feedback session entry
 - **Then** system detects corruption (JSON parse error)
 - **And** displays error message: "Index file corrupted. Run `/feedback-reindex` to rebuild."
@@ -127,7 +127,7 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
 - **Given** index is corrupted or inconsistent with session files on disk
 - **When** user runs `/feedback-reindex` command
 - **Then** system:
-  1. Scans all files in `.devforgeai/feedback/sessions/` directory
+  1. Scans all files in `devforgeai/feedback/sessions/` directory
   2. Extracts metadata from each valid session file
   3. Rebuilds index from scratch (overwriting existing index.json)
   4. Validates all entries and formats
@@ -156,7 +156,7 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
 
 ### Edge Case 5: Concurrent Index Writes
 - **Given** two feedback operations complete simultaneously
-- **When** both attempt to append to `.devforgeai/feedback/index.json` at the same time
+- **When** both attempt to append to `devforgeai/feedback/index.json` at the same time
 - **Then**:
   - File locking or atomic append prevents data corruption
   - Both entries are successfully added (neither is lost)
@@ -178,7 +178,7 @@ So that I can quickly identify patterns (e.g., "all failed /qa runs in the last 
 
 ### API Contract: Index File Format
 
-**File Path**: `.devforgeai/feedback/index.json`
+**File Path**: `devforgeai/feedback/index.json`
 
 **Index Structure**:
 ```json
@@ -364,7 +364,7 @@ interface SearchResults {
 
 ## Definition of Done
 
-- [x] Index file initialization working (creates `.devforgeai/feedback/index.json` on first session)
+- [x] Index file initialization working (creates `devforgeai/feedback/index.json` on first session)
 - [x] Index entries appended correctly (incremental, not rebuild)
 - [x] All required fields present in index entries
 - [x] Index file valid JSON after every operation
@@ -426,7 +426,7 @@ interface SearchResults {
 ## Implementation Notes
 
 All Definition of Done items completed:
-- [x] Index file initialization working (creates `.devforgeai/feedback/index.json` on first session) - Completed: 2025-11-11 - Implemented in feedback_index.py create_index()
+- [x] Index file initialization working (creates `devforgeai/feedback/index.json` on first session) - Completed: 2025-11-11 - Implemented in feedback_index.py create_index()
 - [x] Index entries appended correctly (incremental, not rebuild) - Completed: 2025-11-11 - Implemented append_index_entry() with file locking
 - [x] All required fields present in index entries - Completed: 2025-11-11 - Validated in SearchResult dataclass
 - [x] Index file valid JSON after every operation - Completed: 2025-11-11 - validate_index_file() checks JSON integrity
@@ -585,7 +585,7 @@ Note: Python prototype implementation removed 2025-11-16 (backed up to .backups/
 - Estimated 30 minutes - Actual: 30 minutes
 
 **2. Comprehensive User Guide** ✓ COMPLETED
-- File: `.devforgeai/feedback/INDEX-USER-GUIDE.md` (592 lines)
+- File: `devforgeai/feedback/INDEX-USER-GUIDE.md` (592 lines)
 - Covers: Quick start, index format, search patterns, performance, troubleshooting, FAQ
 - Includes: 15 usage examples, 4 recovery procedures, performance characteristics
 - Estimated 1 hour - Actual: 1 hour

@@ -189,7 +189,7 @@ format_version: "2.0"
 
 **Given** developers encounter commands that violate lean orchestration pattern but lack clear troubleshooting steps,
 **When** a developer suspects pattern violation (over budget, business logic in command, etc.),
-**Then** a new file `.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` exists with:
+**Then** a new file `devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` exists with:
 
 **Violation Diagnosis Section:**
 - Quick checklist: "Does your command meet these?" (5-item lean pattern checklist)
@@ -268,7 +268,7 @@ START: "Is command over 15K characters?"
 - During design: Use command-template-lean-orchestration.md
 - During review: Check lean orchestration 5-responsibility checklist
 
-**Evidence:** File `.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` exists with 500+ lines containing 6+ violation patterns with diagnosis, resolution, and examples
+**Evidence:** File `devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` exists with 500+ lines containing 6+ violation patterns with diagnosis, resolution, and examples
 
 ---
 
@@ -305,7 +305,7 @@ START: "Is command over 15K characters?"
 - ✅ All cross-references are resolvable (files exist, sections exist)
 
 **Evidence:**
-- `grep -r "lean orchestration" .devforgeai/protocols/ .claude/memory/ .claude/templates/` returns matches in lean-orchestration-pattern.md, command-budget-reference.md, troubleshooting-lean-orchestration-violations.md, commands-reference.md, command-template-lean-orchestration.md
+- `grep -r "lean orchestration" devforgeai/protocols/ .claude/memory/ .claude/templates/` returns matches in lean-orchestration-pattern.md, command-budget-reference.md, troubleshooting-lean-orchestration-violations.md, commands-reference.md, command-template-lean-orchestration.md
 - All 11 commands appear in command-budget-reference.md budget table with status indicators
 - All 5 refactorings documented in refactoring-case-studies.md with before/after metrics
 - All 6 violation patterns documented in troubleshooting guide with resolution steps
@@ -365,12 +365,12 @@ technical_specification:
       purpose: "Update framework documentation to reflect lean orchestration pattern"
 
       files_to_update:
-        - path: ".devforgeai/protocols/lean-orchestration-pattern.md"
+        - path: "devforgeai/protocols/lean-orchestration-pattern.md"
           action: "append"
           section: "Pattern Consistency Analysis + Case Study 5"
           content: "Add orchestrate refactoring example, metrics table for all 5, lessons learned"
 
-        - path: ".devforgeai/protocols/command-budget-reference.md"
+        - path: "devforgeai/protocols/command-budget-reference.md"
           action: "update"
           section: "Current Command Status"
           content: "Update metrics table with post-refactoring numbers for all 5 commands"
@@ -385,7 +385,7 @@ technical_specification:
           purpose: "Template for creating new commands with lean pattern built-in"
           size: "300+ lines with examples and anti-patterns"
 
-        - path: ".devforgeai/protocols/troubleshooting-lean-orchestration-violations.md"
+        - path: "devforgeai/protocols/troubleshooting-lean-orchestration-violations.md"
           purpose: "Troubleshooting guide for pattern violations"
           size: "500+ lines with 6+ violation patterns and resolutions"
 
@@ -649,7 +649,7 @@ technical_specification:
    - Content: Complete command template with anti-patterns, checklist, examples
    - Integration: Used by /create-agent command and devforgeai-subagent-creation skill
 
-2. **`.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md`**
+2. **`devforgeai/protocols/troubleshooting-lean-orchestration-violations.md`**
    - Purpose: Troubleshooting guide for pattern violations
    - Size: 1,511 lines, 46K characters
    - Content: 6 violation patterns with diagnosis/resolution, decision tree, recovery examples
@@ -663,13 +663,13 @@ technical_specification:
 
 ### Files Updated
 
-1. **`.devforgeai/protocols/lean-orchestration-pattern.md`**
+1. **`devforgeai/protocols/lean-orchestration-pattern.md`**
    - Added: Pattern Consistency Analysis section (lines 865-956)
    - Content: Metrics table (all 5 refactorings), 5 common techniques, extraction strategy patterns
    - Case Study count: 7 references (exceeds ≥5 requirement)
    - Updated: Version history, related documentation
 
-2. **`.devforgeai/protocols/command-budget-reference.md`**
+2. **`devforgeai/protocols/command-budget-reference.md`**
    - Updated: Current Command Status table with accurate metrics (2025-11-18)
    - Fixed: Command metrics for qa, dev, create-sprint, create-epic, orchestrate, create-story
    - Flagged: /dev regression (was 84%, now 116% - requires attention)
@@ -750,9 +750,9 @@ technical_specification:
 
 **Files Ready for Commit:**
 - `.claude/skills/devforgeai-subagent-creation/assets/templates/command-template-lean-orchestration.md` (NEW)
-- `.devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` (NEW)
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (MODIFIED - Pattern Consistency Analysis added)
-- `.devforgeai/protocols/command-budget-reference.md` (MODIFIED - Current metrics updated)
+- `devforgeai/protocols/troubleshooting-lean-orchestration-violations.md` (NEW)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (MODIFIED - Pattern Consistency Analysis added)
+- `devforgeai/protocols/command-budget-reference.md` (MODIFIED - Current metrics updated)
 - `.claude/memory/commands-reference.md` (MODIFIED - Pattern Compliance sections added)
 - `devforgeai/specs/Stories/STORY-039-update-framework-documentation-lean-orchestration.story.md` (MODIFIED - AC paths corrected, Implementation Notes added)
 - `validate-story-039.sh` (NEW - Test script)
@@ -823,9 +823,9 @@ technical_specification:
 ## References
 
 **Existing Documentation:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` (v1.2, to be enhanced)
-- `.devforgeai/protocols/refactoring-case-studies.md` (to be extended with /orchestrate case study)
-- `.devforgeai/protocols/command-budget-reference.md` (to be updated with current metrics)
+- `devforgeai/protocols/lean-orchestration-pattern.md` (v1.2, to be enhanced)
+- `devforgeai/protocols/refactoring-case-studies.md` (to be extended with /orchestrate case study)
+- `devforgeai/protocols/command-budget-reference.md` (to be updated with current metrics)
 - `.claude/memory/commands-reference.md` (to be enhanced with pattern sections)
 - `.claude/agents/agent-generator.md` (v2.0 framework-aware version)
 

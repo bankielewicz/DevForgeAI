@@ -75,7 +75,7 @@ Generated specialized `sprint-planner` subagent following DevForgeAI framework s
 
 ### 3. Generation Summary
 
-**File:** `.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
+**File:** `devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md`
 **Lines:** ~380
 **Size:** ~10 KB
 **Status:** Documentation
@@ -103,7 +103,7 @@ Generated specialized `sprint-planner` subagent following DevForgeAI framework s
 
 ### 4. Command Refactoring Guide
 
-**File:** `.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
+**File:** `devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md`
 **Lines:** ~450
 **Size:** ~12 KB
 **Status:** Implementation guide
@@ -133,7 +133,7 @@ Generated specialized `sprint-planner` subagent following DevForgeAI framework s
 
 ### 5. Verification Guide
 
-**File:** `.devforgeai/SPRINT-PLANNER-VERIFICATION.md`
+**File:** `devforgeai/SPRINT-PLANNER-VERIFICATION.md`
 **Lines:** ~450
 **Size:** ~12.5 KB
 **Status:** Verification checklist
@@ -506,10 +506,10 @@ IF workflow_phase == "sprint_planning":
 
 ### Documentation
 ```
-.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
-.devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md
-.devforgeai/SPRINT-PLANNER-VERIFICATION.md
-.devforgeai/GENERATION-COMPLETE.md (this file)
+devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md
+devforgeai/COMMAND-REFACTORING-GUIDE-CREATE-SPRINT.md
+devforgeai/SPRINT-PLANNER-VERIFICATION.md
+devforgeai/GENERATION-COMPLETE.md (this file)
 ```
 
 ---

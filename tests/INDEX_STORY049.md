@@ -334,12 +334,12 @@ pytest tests/unit/test_story_049_create_context_refactoring.py::TestAC1Character
 - **Key Phase:** Phase N (Hook Integration)
 
 ### Pattern File (Reference)
-- **Path:** `.devforgeai/protocols/hook-integration-pattern.md`
+- **Path:** `devforgeai/protocols/hook-integration-pattern.md`
 - **Size:** 11,951 characters (comprehensive)
 - **Use:** Referenced by Phase N via Read tool
 
 ### Lean Orchestration Protocol
-- **Path:** `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Path:** `devforgeai/protocols/lean-orchestration-pattern.md`
 - **Content:** Framework guidelines, budget limits, refactoring methodology
 - **Use:** Framework compliance reference
 

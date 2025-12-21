@@ -21,19 +21,19 @@ def agent_file_path(project_root):
 @pytest.fixture(scope="session")
 def context_files_dir(project_root):
     """Path to DevForgeAI context files directory"""
-    return project_root / ".devforgeai" / "context"
+    return project_root / "devforgeai" / "context"
 
 
 @pytest.fixture(scope="session")
 def research_output_dir(project_root):
     """Path to research output directory"""
-    return project_root / ".devforgeai" / "research"
+    return project_root / "devforgeai" / "research"
 
 
 @pytest.fixture(scope="session")
 def adrs_dir(project_root):
     """Path to ADRs directory"""
-    return project_root / ".devforgeai" / "adrs"
+    return project_root / "devforgeai" / "adrs"
 
 
 @pytest.fixture
@@ -43,7 +43,7 @@ def mock_context_files(tmp_path):
 
     Returns dict with file paths for all 6 context files
     """
-    context_dir = tmp_path / ".devforgeai" / "context"
+    context_dir = tmp_path / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     context_files = {
@@ -69,7 +69,7 @@ def mock_incomplete_context_files(tmp_path):
 
     Returns dict with file paths (2 missing)
     """
-    context_dir = tmp_path / ".devforgeai" / "context"
+    context_dir = tmp_path / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     # Only create 4 of 6 files
@@ -96,7 +96,7 @@ def mock_tech_stack_with_react(tmp_path):
     """
     Create mock tech-stack.md with React (for technology conflict testing)
     """
-    context_dir = tmp_path / ".devforgeai" / "context"
+    context_dir = tmp_path / "devforgeai" / "context"
     context_dir.mkdir(parents=True, exist_ok=True)
 
     tech_stack = context_dir / 'tech-stack.md'

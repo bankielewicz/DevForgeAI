@@ -44,7 +44,7 @@ class TestManualRollbackWorkflow:
         project_dir.mkdir()
         backup_dir = project_dir / ".backups"
         backup_dir.mkdir()
-        logs_dir = project_dir / ".devforgeai" / "logs"
+        logs_dir = project_dir / "devforgeai" / "logs"
         logs_dir.mkdir(parents=True)
 
         # Create backup with known state
@@ -385,7 +385,7 @@ class TestRollbackValidationReport:
 
         # Add critical files
         (restored_dir / "CLAUDE.md").write_text("# Claude")
-        (restored_dir / ".devforgeai").mkdir()
+        (restored_dir / "devforgeai").mkdir()
 
         validator = RollbackValidator(logger=Mock())
 

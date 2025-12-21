@@ -658,7 +658,7 @@ technical_specification:
 
 **Deferred Items:** 0 (no deferrals)
 
-**Report:** `.devforgeai/qa/reports/STORY-046-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-046-qa-report.md`
 
 **Next Steps:** Deploy to staging via `/release STORY-046 staging`
 

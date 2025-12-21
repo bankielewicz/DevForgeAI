@@ -47,7 +47,7 @@ Comprehensive test suite generated for STORY-075 covering **all 7 acceptance cri
   - Formatting respects terminal width
 
 - `TestLogFileCreation` (9 tests)
-  - Log file created at .devforgeai/install.log
+  - Log file created at devforgeai/install.log
   - ISO 8601 timestamps
   - File operation details logged
   - Validation checkpoints logged
@@ -96,7 +96,7 @@ Comprehensive test suite generated for STORY-075 covering **all 7 acceptance cri
 
 **Test Classes:**
 - `TestManifestGeneration` (6 tests)
-  - Manifest created at .devforgeai/.install-manifest.json
+  - Manifest created at devforgeai/.install-manifest.json
   - Contains version field
   - Contains ISO 8601 timestamp
   - Contains installer_version
@@ -256,7 +256,7 @@ Comprehensive test suite generated for STORY-075 covering **all 7 acceptance cri
 ```
 
 **Requirements Validated:**
-- File created at .devforgeai/install.log
+- File created at devforgeai/install.log
 - ISO 8601 timestamps on every operation
 - File operation details (copy/create/modify with paths)
 - Validation checks logged
@@ -662,8 +662,8 @@ class ConsoleFormatter:
 ### Configuration (installer/config/reporting_config.py)
 
 **Required Keys:**
-- LOG_FILE_PATH: ".devforgeai/install.log"
-- MANIFEST_FILE_PATH: ".devforgeai/.install-manifest.json"
+- LOG_FILE_PATH: "devforgeai/install.log"
+- MANIFEST_FILE_PATH: "devforgeai/.install-manifest.json"
 - LOG_MAX_SIZE_MB: 10
 - PROGRESS_THRESHOLD: 100
 

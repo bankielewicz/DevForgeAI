@@ -265,10 +265,10 @@ This RCA contains multiple coordinated documents:
 **If Option A (Begin Phase 1):**
 ```bash
 # Read execution guide
-cat .devforgeai/RCA/RCA-012/IMPLEMENTATION-GUIDE.md
+cat devforgeai/RCA/RCA-012/IMPLEMENTATION-GUIDE.md
 
 # Read template refactoring details
-cat .devforgeai/RCA/RCA-012/TEMPLATE-REFACTORING.md
+cat devforgeai/RCA/RCA-012/TEMPLATE-REFACTORING.md
 
 # Start Step 1.1: Backup template
 cd .claude/skills/devforgeai-story-creation/assets/templates/

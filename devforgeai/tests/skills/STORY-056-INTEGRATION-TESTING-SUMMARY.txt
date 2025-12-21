@@ -65,7 +65,7 @@ TEST CATEGORIES:
    - Performance tests: 8 tests, 597 lines ✓
    - Test documentation: 3 comprehensive guides (1,200+ lines) ✓
    - Total test coverage: 45 tests ✓
-   - File organization: All in .devforgeai/tests/skills/ ✓
+   - File organization: All in devforgeai/tests/skills/ ✓
 
 7. GUIDANCE FILE INTEGRATION (2/2 PASS)
    - user-input-guidance.md exists in ideation skill ✓
@@ -140,7 +140,7 @@ OPERATIONAL TREE (.claude/) STRUCTURE:
   └─ ✓ [other skill files...]
 
 TEST INFRASTRUCTURE (tests/skills/) STRUCTURE:
-✓ .devforgeai/tests/skills/
+✓ devforgeai/tests/skills/
   ├─ ✓ test-story-creation-guidance-unit.sh (324 lines, 15 tests)
   ├─ ✓ test-story-creation-guidance-integration.sh (312 lines, 12 tests)
   ├─ ✓ test-story-creation-regression.sh (298 lines, 10 tests)

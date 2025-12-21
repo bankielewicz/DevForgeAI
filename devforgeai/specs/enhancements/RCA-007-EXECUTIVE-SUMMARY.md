@@ -160,7 +160,7 @@ The `requirements-analyst` subagent created comprehensive deliverables (6 files 
 **Phase 1:**
 1. ✅ Enhanced subagent prompt (`.claude/skills/devforgeai-story-creation/references/requirements-analysis.md`)
 2. ✅ Validation checkpoint (Step 2.2 in requirements-analysis.md)
-3. ✅ Violation log (`.devforgeai/logs/rca-007-violations.log`)
+3. ✅ Violation log (`devforgeai/logs/rca-007-violations.log`)
 
 **Phase 2:**
 4. ✅ Contract YAML (`.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`)
@@ -625,31 +625,31 @@ BATCH_MODE_ENABLED = false
 
 ### Analysis & Planning (5 Documents)
 
-1. ✅ **RCA-007 Root Cause Analysis** - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+1. ✅ **RCA-007 Root Cause Analysis** - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - 5 Whys analysis
    - Root causes identified
    - Impact assessment
    - Recommendations (7 fixes)
 
-2. ✅ **RCA-007 Fix Implementation Plan** - `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
+2. ✅ **RCA-007 Fix Implementation Plan** - `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md`
    - 3-phase implementation roadmap
    - Detailed task breakdowns
    - Testing procedures
    - Success criteria
 
-3. ✅ **Batch Story Creation Enhancement** - `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
+3. ✅ **Batch Story Creation Enhancement** - `devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md`
    - 6-phase enhancement design
    - User experience examples
    - Feature comparison table
    - Performance targets
 
-4. ✅ **Subagent Prompt Enhancement Spec** - `.devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
+4. ✅ **Subagent Prompt Enhancement Spec** - `devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md`
    - Standard 4-section template
    - Prompt enhancement procedure
    - Self-validation checklist
    - Rollout strategy
 
-5. ✅ **YAML Contract Specification** - `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
+5. ✅ **YAML Contract Specification** - `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md`
    - Complete contract schema
    - Example contracts (2)
    - Validation helper functions
@@ -657,7 +657,7 @@ BATCH_MODE_ENABLED = false
 
 ### Testing & Quality (1 Document)
 
-6. ✅ **Testing Strategy** - `.devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
+6. ✅ **Testing Strategy** - `devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md`
    - 87 test cases (42 RCA + 45 batch)
    - Unit, integration, regression, performance tests
    - Test automation scripts
@@ -665,7 +665,7 @@ BATCH_MODE_ENABLED = false
 
 ### Summary (This Document)
 
-7. ✅ **Executive Summary** - `.devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
+7. ✅ **Executive Summary** - `devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md`
    - Problem statement
    - Solution overview
    - Implementation timeline
@@ -759,13 +759,13 @@ This two-part solution addresses both a **critical framework violation** (RCA-00
 
 | Document | Path | Purpose | Lines |
 |----------|------|---------|-------|
-| RCA-007 Analysis | `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` | Root cause analysis | ~350 |
-| Fix Implementation Plan | `.devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md` | Detailed fix roadmap | ~1,200 |
-| Batch Enhancement | `.devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md` | Enhancement design | ~1,800 |
-| Prompt Enhancement Spec | `.devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md` | Prompt template | ~1,100 |
-| Contract Specification | `.devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md` | Contract schema | ~1,300 |
-| Testing Strategy | `.devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md` | Test plan (87 cases) | ~1,400 |
-| Executive Summary | `.devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md` | Overview (this doc) | ~700 |
+| RCA-007 Analysis | `devforgeai/RCA/RCA-007-multi-file-story-creation.md` | Root cause analysis | ~350 |
+| Fix Implementation Plan | `devforgeai/specs/enhancements/RCA-007-FIX-IMPLEMENTATION-PLAN.md` | Detailed fix roadmap | ~1,200 |
+| Batch Enhancement | `devforgeai/specs/enhancements/BATCH-STORY-CREATION-ENHANCEMENT.md` | Enhancement design | ~1,800 |
+| Prompt Enhancement Spec | `devforgeai/specs/enhancements/SUBAGENT-PROMPT-ENHANCEMENT-SPEC.md` | Prompt template | ~1,100 |
+| Contract Specification | `devforgeai/specs/enhancements/YAML-CONTRACT-SPECIFICATION.md` | Contract schema | ~1,300 |
+| Testing Strategy | `devforgeai/specs/enhancements/RCA-007-TESTING-STRATEGY.md` | Test plan (87 cases) | ~1,400 |
+| Executive Summary | `devforgeai/specs/enhancements/RCA-007-EXECUTIVE-SUMMARY.md` | Overview (this doc) | ~700 |
 
 **Total:** ~7,850 lines of comprehensive specification documentation
 

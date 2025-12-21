@@ -64,7 +64,7 @@ format_version: "2.0"
 **And** command delegates Phase 6 to skill via `Skill(command="devforgeai-orchestration")`,
 **And** skill contains all Phase 6 business logic (7 substeps),
 **And** separation of concerns verified: Command orchestrates, skill validates, subagents specialize,
-**And** code review confirms pattern consistency with `.devforgeai/protocols/lean-orchestration-pattern.md`.
+**And** code review confirms pattern consistency with `devforgeai/protocols/lean-orchestration-pattern.md`.
 
 ---
 
@@ -223,7 +223,7 @@ Not applicable - This is a command/skill refactoring story with no UI components
 
 ### Prerequisites
 - **STORY-033:** Must be in "Dev Complete" status (provides Phase 6 implementation to refactor)
-- **Lean Orchestration Pattern:** Protocol documented in `.devforgeai/protocols/lean-orchestration-pattern.md`
+- **Lean Orchestration Pattern:** Protocol documented in `devforgeai/protocols/lean-orchestration-pattern.md`
 - **Reference Implementations:** /qa (primary template), /dev, /create-sprint, /create-epic, /orchestrate (5 proven refactorings)
 
 ### Dependent Stories
@@ -260,7 +260,7 @@ Not applicable - This is a command/skill refactoring story with no UI components
 - [x] Test Case 10: Regression - No new test failures introduced (35/35 STORY-050 tests pass, 71/84 STORY-033 pass)
 
 ### Documentation
-- [ ] Refactoring documented in `.devforgeai/protocols/refactoring-case-studies.md` (Case Study 6)
+- [ ] Refactoring documented in `devforgeai/protocols/refactoring-case-studies.md` (Case Study 6)
 - [ ] Command budget reference updated (31.3K → 8-10K chars)
 - [ ] Skill Phase 7 documented with audit-deferrals hook integration
 - [ ] Pattern consistency notes added to lean-orchestration-pattern.md
@@ -307,7 +307,7 @@ Not applicable - This is a command/skill refactoring story with no UI components
 - [ ] Performance verified (execution time within 10% of baseline: 7.2-8.8 min) | **Deferred:** User approved skip (2025-11-17T14:45:00Z). Reason: Performance benchmark requires 20 audit runs (2-3 hours). Refactoring doesn't change audit logic (Phases 1-5), only relocates hook integration. Logic relocation has minimal performance impact (<5ms skill invocation overhead). Test coverage sufficient.
 - [ ] Test Case 3: Functionality preservation - Run audit before/after, compare reports | **Deferred:** User approved skip (2025-11-17T14:45:00Z). See Quality item above.
 - [ ] Test Case 4: Performance benchmark - 10 runs before/after, P95 within 10% | **Deferred:** User approved skip (2025-11-17T14:45:00Z). See Quality item above.
-- [ ] Refactoring documented in `.devforgeai/protocols/refactoring-case-studies.md` (Case Study 6) | **Deferred:** Post-commit documentation task. Reason: Documentation updates after implementation complete.
+- [ ] Refactoring documented in `devforgeai/protocols/refactoring-case-studies.md` (Case Study 6) | **Deferred:** Post-commit documentation task. Reason: Documentation updates after implementation complete.
 - [ ] Command budget reference updated (31.3K → 8-10K chars) | **Deferred:** Post-commit documentation task. Reason: Documentation updates after implementation complete.
 - [ ] Skill Phase 7 documented with audit-deferrals hook integration | **Already complete:** Phase 7 exists in skill with 7 substeps. This item redundant.
 - [ ] Pattern consistency notes added to lean-orchestration-pattern.md | **Deferred:** Post-commit documentation task. Reason: Documentation updates after implementation complete.
@@ -376,10 +376,10 @@ Not applicable - This is a command/skill refactoring story with no UI components
 
 **Related Documents:**
 - Parent Story: `devforgeai/specs/Stories/STORY-033-wire-hooks-into-audit-deferrals-command.story.md`
-- QA Report: `.devforgeai/qa/reports/STORY-033-qa-report.md`
-- Protocol: `.devforgeai/protocols/lean-orchestration-pattern.md`
-- Reference: `.devforgeai/protocols/refactoring-case-studies.md` (Case Studies 1-5)
-- Command Budget: `.devforgeai/protocols/command-budget-reference.md`
+- QA Report: `devforgeai/qa/reports/STORY-033-qa-report.md`
+- Protocol: `devforgeai/protocols/lean-orchestration-pattern.md`
+- Reference: `devforgeai/protocols/refactoring-case-studies.md` (Case Studies 1-5)
+- Command Budget: `devforgeai/protocols/command-budget-reference.md`
 
 ---
 
@@ -388,7 +388,7 @@ Not applicable - This is a command/skill refactoring story with no UI components
 ### 2025-11-17 - Deep Validation (Attempt 1) - ✅ PASSED
 
 **Validation Mode:** Deep
-**QA Report:** `.devforgeai/qa/reports/STORY-050-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-050-qa-report.md`
 
 **Test Results:**
 - STORY-050 Tests: 35/35 passed (100% pass rate)

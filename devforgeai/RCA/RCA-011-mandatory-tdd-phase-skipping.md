@@ -69,7 +69,7 @@ Phase 3: Refactor (tdd-refactor-phase.md + refactoring-patterns.md)
 
 **Answer:** The skill uses progressive disclosure (loading reference files on-demand), but Claude doesn't systematically execute every step in loaded references, treating them as "background information" rather than "mandatory execution checklist"
 
-**Evidence:** `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md:25`
+**Evidence:** `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md:25`
 ```markdown
 **Root Cause:** Skill reference files loaded progressively but Claude doesn't
 systematically execute every instruction in loaded references. Treats reference
@@ -119,7 +119,7 @@ loading as "information gathering" rather than "execution checklist."
      - Phase 7: Step 7.1 (dev-result-interpreter)
    - Marking "Phase 2: completed" doesn't validate that Steps 1-2 AND Step 3 were executed
 
-3. `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md:25`
+3. `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md:25`
    - Same root cause identified 5 days ago
    - Same skill (devforgeai-development)
    - Same pattern (visual markers ignored, steps skipped)
@@ -177,7 +177,7 @@ Phase 3: Refactor (tdd-refactor-phase.md)
 - No enforcement mechanism
 - Relies entirely on Claude's self-discipline
 
-#### 2. `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (RELATED - HIGH)
+#### 2. `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md` (RELATED - HIGH)
 
 **Lines examined:** 1-80 (executive summary and root cause)
 
@@ -382,7 +382,7 @@ todos=[
 
 **Implementation:**
 
-**File:** `.devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`
+**File:** `devforgeai/RCA/RCA-009-skill-execution-incomplete-workflow.md`
 **Section:** Header (line 7)
 **Change Type:** Modify status line
 
@@ -396,7 +396,7 @@ todos=[
 **Status:** Recurred - See RCA-011 (2025-11-19, STORY-044, same root cause)
 ```
 
-**File:** `.devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md` (this document)
+**File:** `devforgeai/RCA/RCA-011-mandatory-tdd-phase-skipping.md` (this document)
 **Section:** Related RCAs
 **Add:**
 ```markdown

@@ -243,7 +243,7 @@ Component 4: Framework Bundle
   Impact on Tests: 3 tests blocked
 
 Component 5: MISSING_FEATURES.md
-  Location: .devforgeai/MISSING_FEATURES.md (generated)
+  Location: devforgeai/MISSING_FEATURES.md (generated)
   Requirements:
     - Feature list
     - Impact documentation

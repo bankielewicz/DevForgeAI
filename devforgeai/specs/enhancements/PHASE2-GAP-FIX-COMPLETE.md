@@ -46,11 +46,11 @@
 
 | File | Size | Location |
 |------|------|----------|
-| SKILL.md.backup | 11K | .devforgeai/backups/phase2-gap-fix/ |
-| story-requirements-analyst.md.backup | 28K | .devforgeai/backups/phase2-gap-fix/ |
-| story-structure-guide.md.backup | 22K | .devforgeai/backups/phase2-gap-fix/ |
-| validation-checklists.md.backup | 27K | .devforgeai/backups/phase2-gap-fix/ |
-| acceptance-criteria-patterns.md.backup | 36K | .devforgeai/backups/phase2-gap-fix/ |
+| SKILL.md.backup | 11K | devforgeai/backups/phase2-gap-fix/ |
+| story-requirements-analyst.md.backup | 28K | devforgeai/backups/phase2-gap-fix/ |
+| story-structure-guide.md.backup | 22K | devforgeai/backups/phase2-gap-fix/ |
+| validation-checklists.md.backup | 27K | devforgeai/backups/phase2-gap-fix/ |
+| acceptance-criteria-patterns.md.backup | 36K | devforgeai/backups/phase2-gap-fix/ |
 
 **Rollback time:** <10 minutes (tested procedure)
 
@@ -384,6 +384,6 @@ NEXT ACTION:
 
 ---
 
-**See validation instructions:** `.devforgeai/specs/enhancements/PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md`
+**See validation instructions:** `devforgeai/specs/enhancements/PHASE2-GAP-FIX-VALIDATION-INSTRUCTIONS.md`
 
 **All fixes implemented. Awaiting your validation results.**

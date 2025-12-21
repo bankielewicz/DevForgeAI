@@ -40,7 +40,7 @@ def existing_installation_dir(temp_dir: Path) -> Path:
     claude_dir = temp_dir / ".claude" / "skills"
     claude_dir.mkdir(parents=True)
 
-    devforgeai_dir = temp_dir / ".devforgeai" / "context"
+    devforgeai_dir = temp_dir / "devforgeai" / "context"
     devforgeai_dir.mkdir(parents=True)
 
     # Create version.json

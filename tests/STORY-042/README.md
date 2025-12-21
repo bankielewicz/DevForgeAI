@@ -30,7 +30,7 @@ bash tests/STORY-042/run-tests.sh --suite=ac
 
 ### Acceptance Criteria (25 tests)
 - AC-1: Copy .claude/ to src/claude/ (5 tests)
-- AC-2: Copy .devforgeai/ content (5 tests)
+- AC-2: Copy devforgeai/ content (5 tests)
 - AC-3: Copy CLAUDE.md template (5 tests)
 - AC-4: Checksum verification (5 tests)
 - AC-5: Exclude backup/artifacts (7 tests)
@@ -180,7 +180,7 @@ Tests written before implementation. All 101 tests currently failing.
 ## Implementation Roadmap
 
 ### Milestone 1: Basic Copy (10-15 tests passing)
-Copy operations for .claude/ and .devforgeai/
+Copy operations for .claude/ and devforgeai/
 
 ### Milestone 2: Validation (30-40 tests passing)
 Checksums, file integrity, and migration reports

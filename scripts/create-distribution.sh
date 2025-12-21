@@ -85,8 +85,8 @@ echo "  Copying version metadata"
 cp version.json "$STAGE_DIR/" 2>/dev/null || echo "    (version.json not found)"
 
 # DevForgeAI specs and configs
-echo "  Copying .devforgeai/"
-cp -r .devforgeai "$STAGE_DIR/" 2>/dev/null || echo "    (.devforgeai/ not found)"
+echo "  Copying devforgeai/"
+cp -r devforgeai "$STAGE_DIR/" 2>/dev/null || echo "    (devforgeai/ not found)"
 
 # .claude directory (deployed files)
 echo "  Copying .claude/"
@@ -230,7 +230,7 @@ echo ""
 echo "Package Contents:"
 echo "  • src/ - Framework source code"
 echo "  • .claude/ - Deployed framework files"
-echo "  • .devforgeai/ - Configuration and specifications"
+echo "  • devforgeai/ - Configuration and specifications"
 echo "  • .ai_docs/ - Examples and documentation"
 echo "  • installer/ - Installation scripts"
 echo "  • Documentation files (README, INSTALL.md, MIGRATION-GUIDE.md, LICENSE)"

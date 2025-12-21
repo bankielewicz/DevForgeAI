@@ -161,7 +161,7 @@ Parse result:
 | 5 (Git Workflow) | Normal Git operations | File-based change tracking |
 
 **File-Based Change Tracking:**
-1. Creates `.devforgeai/stories/{STORY-ID}/changes/` directory
+1. Creates `devforgeai/stories/{STORY-ID}/changes/` directory
 2. Generates `implementation-{timestamp}.md` manifest with:
    - Files created/modified/deleted
    - Test results and coverage

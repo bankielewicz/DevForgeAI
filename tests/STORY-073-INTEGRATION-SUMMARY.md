@@ -33,7 +33,7 @@ Performance: PASS (<500ms target)
 ```
 
 **Services Invoked:**
-1. VersionDetectionService → Reads `.devforgeai/.version.json` (none found)
+1. VersionDetectionService → Reads `devforgeai/.version.json` (none found)
 2. ClaudeMdDetectionService → Detects `CLAUDE.md` (exists, 52409 bytes)
 3. GitDetectionService → Executes `git rev-parse --show-toplevel` (found repo)
 4. FileConflictDetectionService → Scans target directory (1 conflict)

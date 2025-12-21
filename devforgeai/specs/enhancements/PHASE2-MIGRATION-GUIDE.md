@@ -198,7 +198,7 @@ ls -lh devforgeai/specs/Stories/*.story.md
 **Pre-flight:**
 ```bash
 # 1. Backup
-cp devforgeai/specs/Stories/STORY-XXX.md .devforgeai/backups/phase2-pilot/
+cp devforgeai/specs/Stories/STORY-XXX.md devforgeai/backups/phase2-pilot/
 
 # 2. Test baseline (v1.0)
 /dev STORY-XXX
@@ -224,7 +224,7 @@ cat devforgeai/specs/Stories/STORY-XXX.md
 # Check: YAML quality, component accuracy, test requirements
 
 # 5. Rate quality (1-5)
-echo "Quality: 4/5" >> .devforgeai/pilot-results.txt
+echo "Quality: 4/5" >> devforgeai/pilot-results.txt
 
 # 6. Test with /dev
 /dev STORY-XXX
@@ -251,13 +251,13 @@ echo "Quality: 4/5" >> .devforgeai/pilot-results.txt
 
 ```bash
 # Migration success rate
-migrated=$(grep "✅ PASS" .devforgeai/pilot-results.txt | wc -l)
+migrated=$(grep "✅ PASS" devforgeai/pilot-results.txt | wc -l)
 total=10
 success_rate=$((migrated * 100 / total))
 echo "Migration success rate: $success_rate%"
 
 # Average quality score
-avg_quality=$(grep "Quality:" .devforgeai/pilot-results.txt | awk '{sum+=$2; count++} END {print sum/count}')
+avg_quality=$(grep "Quality:" devforgeai/pilot-results.txt | awk '{sum+=$2; count++} END {print sum/count}')
 echo "Average quality: $avg_quality/5"
 
 # Component detection improvement
@@ -287,11 +287,11 @@ echo "Average quality: $avg_quality/5"
 
 **Step 1: Complete backup**
 ```bash
-mkdir -p .devforgeai/backups/phase2-full
-cp devforgeai/specs/Stories/*.md .devforgeai/backups/phase2-full/
+mkdir -p devforgeai/backups/phase2-full
+cp devforgeai/specs/Stories/*.md devforgeai/backups/phase2-full/
 
 # Verify backup
-backup_count=$(ls .devforgeai/backups/phase2-full/*.md | wc -l)
+backup_count=$(ls devforgeai/backups/phase2-full/*.md | wc -l)
 story_count=$(ls devforgeai/specs/Stories/*.md | wc -l)
 echo "Backed up $backup_count of $story_count stories"
 # Should match
@@ -419,7 +419,7 @@ done
 ```bash
 # Find backup
 story_id="STORY-042"
-backup=$(ls .devforgeai/backups/phase2-*/STORY-042*.md | tail -1)
+backup=$(ls devforgeai/backups/phase2-*/STORY-042*.md | tail -1)
 
 # Restore
 cp "$backup" devforgeai/specs/Stories/
@@ -443,7 +443,7 @@ diff "$backup" devforgeai/specs/Stories/STORY-042*.md
 # Restore batch 3 (stories 31-40)
 for i in {31..40}; do
   story_num=$(printf "%03d" $i)
-  backup=$(ls .devforgeai/backups/phase2-full/STORY-$story_num*.md)
+  backup=$(ls devforgeai/backups/phase2-full/STORY-$story_num*.md)
   cp "$backup" devforgeai/specs/Stories/
 done
 
@@ -462,10 +462,10 @@ echo "Restored: $restored stories"
 ```bash
 # 1. Restore ALL stories from full backup
 rm devforgeai/specs/Stories/*.md
-cp .devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
+cp devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
 
 # 2. Verify restoration
-original_count=$(ls .devforgeai/backups/phase2-full/*.md | wc -l)
+original_count=$(ls devforgeai/backups/phase2-full/*.md | wc -l)
 restored_count=$(ls devforgeai/specs/Stories/*.md | wc -l)
 echo "Original: $original_count, Restored: $restored_count"
 # Should match
@@ -479,8 +479,8 @@ grep -c 'format_version: "1.0"' devforgeai/specs/Stories/*.md
 /dev STORY-050  # Should work with v1.0 format
 
 # 5. Document rollback
-echo "Phase 2 rolled back on $(date)" > .devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
-echo "Reason: [DESCRIBE REASON]" >> .devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
+echo "Phase 2 rolled back on $(date)" > devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
+echo "Reason: [DESCRIBE REASON]" >> devforgeai/specs/enhancements/PHASE2-ROLLBACK.md
 
 # 6. Revert code changes
 git checkout HEAD~N .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
@@ -610,7 +610,7 @@ test_requirement: "Test: Worker polls at 30s intervals until cancellation"
 **If unfixable:**
 ```bash
 # Rollback this story
-cp .devforgeai/backups/phase2-pilot/STORY-XXX*.md devforgeai/specs/Stories/
+cp devforgeai/backups/phase2-pilot/STORY-XXX*.md devforgeai/specs/Stories/
 ```
 
 ---

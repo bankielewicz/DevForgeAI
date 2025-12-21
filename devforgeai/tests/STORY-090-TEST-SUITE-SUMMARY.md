@@ -25,12 +25,12 @@ Generated comprehensive test suite for STORY-090 using Test-Driven Development (
 ### Test Files Created
 
 1. **Primary Test File:** `STORY-090-template-depends-on-tests.md`
-   - Location: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/`
+   - Location: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/`
    - Contains: 45 tests across all 7 acceptance criteria
    - Coverage: Acceptance criteria validation
 
 2. **Secondary Test File:** `STORY-090-technical-spec-coverage.md`
-   - Location: `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/`
+   - Location: `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/`
    - Contains: 40+ tests for technical specifications
    - Coverage: Components, business rules, NFRs, edge cases
 
@@ -253,7 +253,7 @@ Generated comprehensive test suite for STORY-090 using Test-Driven Development (
 
 ### Phase 1: Red Phase (Current)
 **Status:** All tests FAILING (expected)
-**Location:** Test files in `.devforgeai/tests/`
+**Location:** Test files in `devforgeai/tests/`
 **Objective:** Tests document requirements
 
 **Tests validate:**
@@ -444,7 +444,7 @@ Tests are designed to be independent and executable in any order:
 
 ## Test Files
 
-**Location:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/`
+**Location:** `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/`
 
 **Files Created:**
 1. `STORY-090-template-depends-on-tests.md` (45 tests)

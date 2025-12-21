@@ -277,9 +277,9 @@ Execution Time:  0.93 seconds
 - **Status:** ✅ COMPLETE
 
 ### Documentation
-- **Test Coverage Summary:** `.devforgeai/qa/test-merge-coverage-summary.md`
+- **Test Coverage Summary:** `devforgeai/qa/test-merge-coverage-summary.md`
 - **Test README:** `tests/TEST_MERGE_README.md`
-- **Phase 1 Report:** `.devforgeai/qa/STORY-046-PHASE1-COMPLETION-REPORT.md` (this file)
+- **Phase 1 Report:** `devforgeai/qa/STORY-046-PHASE1-COMPLETION-REPORT.md` (this file)
 
 ### Test Statistics
 - **Total Tests:** 68

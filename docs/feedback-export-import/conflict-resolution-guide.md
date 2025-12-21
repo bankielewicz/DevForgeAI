@@ -62,7 +62,7 @@ New ID: 550e8400-e29b-41d4-a716-446655440000-imported-1
 
 **4. Log Collision**
 ```
-.devforgeai/feedback/imported/2025-11-11T14-30-00/conflict-resolution.log
+devforgeai/feedback/imported/2025-11-11T14-30-00/conflict-resolution.log
 
 2025-11-11T14:30:00Z - Session ID Collision
   Original ID: 550e8400-e29b-41d4-a716-446655440000
@@ -180,7 +180,7 @@ Total: 80 sessions (50 from A + 30 from B, with 10 duplicates resolved)
 # Result: 50 sessions imported
 
 # Delete some imported sessions manually
-rm .devforgeai/feedback/imported/2025-11-11T14-30-00/feedback-sessions/2025-11-07*.md
+rm devforgeai/feedback/imported/2025-11-11T14-30-00/feedback-sessions/2025-11-07*.md
 
 # Rebuild index
 /feedback-reindex
@@ -203,7 +203,7 @@ Recommendation: Delete entire import directory before re-import
 
 ### Log Format
 
-**Location:** `.devforgeai/feedback/imported/{timestamp}/conflict-resolution.log`
+**Location:** `devforgeai/feedback/imported/{timestamp}/conflict-resolution.log`
 
 **Content:**
 ```
@@ -246,14 +246,14 @@ Recommendation: Delete entire import directory before re-import
 **Example:**
 ```bash
 # Find duplicates
-grep "imported-1" .devforgeai/feedback/feedback-index.json
+grep "imported-1" devforgeai/feedback/feedback-index.json
 
 # Review both versions
-cat .devforgeai/feedback/sessions/2025-11-07T10-00-00-command-dev-success.md
-cat .devforgeai/feedback/imported/*/feedback-sessions/2025-11-07T10-00-00-command-dev-success.md
+cat devforgeai/feedback/sessions/2025-11-07T10-00-00-command-dev-success.md
+cat devforgeai/feedback/imported/*/feedback-sessions/2025-11-07T10-00-00-command-dev-success.md
 
 # Delete one (if truly duplicate content)
-rm .devforgeai/feedback/imported/*/feedback-sessions/2025-11-07T10-00-00-command-dev-success.md
+rm devforgeai/feedback/imported/*/feedback-sessions/2025-11-07T10-00-00-command-dev-success.md
 
 # Rebuild index
 /feedback-reindex
@@ -268,7 +268,7 @@ rm .devforgeai/feedback/imported/*/feedback-sessions/2025-11-07T10-00-00-command
 **1. Don't Import Same Package Twice**
 ```bash
 # Keep track of what you've imported
-ls .devforgeai/feedback/imported/
+ls devforgeai/feedback/imported/
 # Check timestamp before re-import
 ```
 
@@ -281,7 +281,7 @@ ls .devforgeai/feedback/imported/
 **3. Delete Before Re-Import**
 ```bash
 # If you must re-import, delete old import first
-rm -rf .devforgeai/feedback/imported/2025-11-11T14-30-00/
+rm -rf devforgeai/feedback/imported/2025-11-11T14-30-00/
 /feedback-reindex
 # Then re-import
 /import-feedback export.zip

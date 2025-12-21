@@ -165,7 +165,7 @@ For each skill, verified:
 - ambiguity-protocol.md (234 lines)
 
 **Framework reorganization:**
-- Moved: slash-command-argument-validation-pattern.md (779 lines) → .devforgeai/protocols/ ✅
+- Moved: slash-command-argument-validation-pattern.md (779 lines) → devforgeai/protocols/ ✅
 
 **Validation:**
 - ✅ Phase 0 pre-flight (534 lines → 567 in reference) properly expanded

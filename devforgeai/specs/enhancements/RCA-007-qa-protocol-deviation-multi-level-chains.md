@@ -212,7 +212,7 @@ QA skill's deferral validation protocol (Phase 3, Step 2.5) is **documented but 
 
 ### 2. ADR Policy for Deferrals ✅
 
-**File:** `.devforgeai/adrs/README.md` (created)
+**File:** `devforgeai/adrs/README.md` (created)
 
 **Content:**
 - 4 scenarios requiring ADR (scope change, architectural impact, multi-story deferral, cross-epic)
@@ -394,7 +394,7 @@ MEDIUM Violations:
 
 ### Components Created (3 files)
 
-1. **`.devforgeai/adrs/README.md`** (168 lines)
+1. **`devforgeai/adrs/README.md`** (168 lines)
    - ADR policy documentation
    - When ADRs required for deferrals
    - 4 scenarios requiring ADR, 3 scenarios not requiring
@@ -404,7 +404,7 @@ MEDIUM Violations:
    - Scans all QA Approved stories
    - Generates violation reports
 
-3. **`.devforgeai/qa/deferral-decision-tree.md`** (385 lines)
+3. **`devforgeai/qa/deferral-decision-tree.md`** (385 lines)
    - Step-by-step decision flowchart
    - Validation checklists for each deferral type
    - Severity guidelines and examples
@@ -611,7 +611,7 @@ IF reason contains "Deferred to STORY-":
 
 ## Related Documents
 
-- **RCA-006:** `.devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md`
+- **RCA-006:** `devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md`
 - **ADR Policy:** `.claude/skills/devforgeai-architecture/references/adr-policy.md`
 - **Decision Tree:** `.claude/skills/devforgeai-qa/references/deferral-decision-tree.md`
 - **Audit Command:** `.claude/commands/audit-deferrals.md`

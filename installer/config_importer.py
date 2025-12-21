@@ -24,7 +24,7 @@ class ConfigImporter:
 
     def __init__(
         self,
-        config_dir: str = ".devforgeai",
+        config_dir: str = "devforgeai",
         validator: Optional[ConfigValidator] = None,
         migrator: Optional[ConfigMigrator] = None,
     ):

@@ -184,7 +184,7 @@ Create a cohesive user input guidance system for the DevForgeAI framework to imp
 - `tests/user-input-guidance/validate-token-savings.py`
 - `tests/user-input-guidance/measure-success-rate.py`
 - 10 test fixtures in `tests/user-input-guidance/fixtures/`
-- Impact report: `.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
+- Impact report: `devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md`
 
 **Value:** Validates hypothesis, provides evidence for future improvements
 
@@ -286,7 +286,7 @@ CLAUDE.md (synced)
 
 **Source vs Operational:**
 - Primary development in `src/` tree
-- Sync to `.claude/` and `.devforgeai/` for runtime
+- Sync to `.claude/` and `devforgeai/` for runtime
 - Tests validate both source and operational versions
 
 ### Integration Strategy

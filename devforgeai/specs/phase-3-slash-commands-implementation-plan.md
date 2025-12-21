@@ -6,7 +6,7 @@
 **Updated:** 2025-10-31 (Post Gap Analysis)
 **Status:** ✅ OPTIMIZED & READY FOR IMPLEMENTATION
 **Prerequisites:** Phase 1 & 2 Complete (6 skills + 14 subagents)
-**Gap Analysis:** See `.devforgeai/specs/framework-alignment-gap-analysis.md`
+**Gap Analysis:** See `devforgeai/specs/framework-alignment-gap-analysis.md`
 
 ---
 
@@ -48,7 +48,7 @@ The framework asks **23-113 detailed questions** (depending on complexity) via A
 
 **NO assumptions. NO guessing. NO "vibe coding."**
 
-See `.devforgeai/specs/devforgeai-questioning-rigor-summary.md` for complete question breakdown.
+See `devforgeai/specs/devforgeai-questioning-rigor-summary.md` for complete question breakdown.
 
 ---
 
@@ -571,7 +571,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, Skill(devforgeai-qa), Task(context
 
 **Phase 4: Report Generation**
 1. Aggregate all validation results
-2. Write QA report to `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+2. Write QA report to `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 3. Include: violations (CRITICAL/HIGH/MEDIUM/LOW), coverage data, metrics
 
 **Phase 5: Status Transition**
@@ -683,7 +683,7 @@ allowed-tools: Read, Write, Edit, Glob, Skill(devforgeai-release), Task(deployme
 
 **Phase 2: Environment Selection**
 1. Parse --env flag (default: staging)
-2. Read deployment config from `.devforgeai/deployment/config.json`
+2. Read deployment config from `devforgeai/deployment/config.json`
 3. Verify environment availability
 
 **Phase 3: Deployment Execution**
@@ -884,7 +884,7 @@ allowed-tools: Read, Write, Edit, Skill(devforgeai-ideation), Task(requirements-
 **Phase 4: Epic Generation**
 1. Generate epic document(s) in `devforgeai/specs/Epics/`
 2. Include feature breakdown, high-level stories
-3. Create requirements spec in `.devforgeai/specs/requirements/`
+3. Create requirements spec in `devforgeai/specs/requirements/`
 
 **Phase 5: Next Steps**
 1. Suggest invoking /create-context next
@@ -1023,13 +1023,13 @@ SlashCommand(command="/release STORY-001 --env=staging")
 **Read Operations** (using Read tool):
 - Story files: `devforgeai/specs/Stories/*.story.md`
 - Context files: `devforgeai/context/*.md`
-- Configuration: `.devforgeai/deployment/config.json`
+- Configuration: `devforgeai/deployment/config.json`
 
 **Write Operations** (using Write tool):
 - Story files: `devforgeai/specs/Stories/{STORY-ID}.story.md`
 - Epic files: `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
 - Sprint files: `devforgeai/specs/Sprints/Sprint-{N}.md`
-- QA reports: `.devforgeai/qa/reports/{STORY-ID}-qa-report.md`
+- QA reports: `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
 
 **Edit Operations** (using Edit tool):
 - Update story status

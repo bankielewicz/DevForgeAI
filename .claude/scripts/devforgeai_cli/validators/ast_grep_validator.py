@@ -157,7 +157,7 @@ def load_config(config_path: Optional[str] = None) -> Dict:
     }
 
     if not config_path:
-        config_path = ".devforgeai/ast-grep/config.yaml"
+        config_path = "devforgeai/ast-grep/config.yaml"
 
     config_file = Path(config_path)
     if not config_file.exists():
@@ -189,7 +189,7 @@ class AstGrepValidator:
         Initialize validator.
 
         Args:
-            config_path: Path to .devforgeai/ast-grep/config.yaml
+            config_path: Path to devforgeai/ast-grep/config.yaml
             interactive: Whether to show prompts (False for CI/headless)
         """
         self.config = load_config(config_path)

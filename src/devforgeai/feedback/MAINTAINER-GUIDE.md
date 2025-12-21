@@ -32,7 +32,7 @@ from pathlib import Path
 from collections import defaultdict
 from datetime import datetime, timedelta
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 week_ago = datetime.now() - timedelta(days=7)
 
 aggregated = defaultdict(lambda: defaultdict(list))
@@ -97,7 +97,7 @@ import json
 from pathlib import Path
 from collections import Counter
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 pattern_threshold = 0.80
 
 # Analyze open text responses for patterns
@@ -190,7 +190,7 @@ from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 
 # Group by month
 monthly_data = defaultdict(lambda: {
@@ -265,7 +265,7 @@ for month in sorted(monthly_data.keys()):
 # Generate quarterly report
 
 QUARTER=$(date +%Y-Q$(($(date +%-m)/3+1)))
-OUTPUT=".devforgeai/feedback/quarterly-insights-${QUARTER}.md"
+OUTPUT="devforgeai/feedback/quarterly-insights-${QUARTER}.md"
 
 python3 << 'EOF' > "$OUTPUT"
 import json
@@ -273,7 +273,7 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from collections import defaultdict
 
-feedback_dir = Path('.devforgeai/feedback')
+feedback_dir = Path('devforgeai/feedback')
 three_months_ago = datetime.now() - timedelta(days=90)
 
 # Collect all feedback from last 3 months
@@ -393,7 +393,7 @@ def validate_feedback(data: dict) -> bool:
 # Restore from weekly backup
 
 STORY_ID="$1"
-BACKUP_DIR=".devforgeai/backups/feedback"
+BACKUP_DIR="devforgeai/backups/feedback"
 
 # Find latest backup
 LATEST_BACKUP=$(ls -t "$BACKUP_DIR"/feedback_backup_*.tar.gz | head -1)
@@ -405,17 +405,17 @@ fi
 
 # Extract feedback for story
 echo "Restoring from $LATEST_BACKUP"
-tar -xzf "$LATEST_BACKUP" ".devforgeai/feedback/$STORY_ID/"
+tar -xzf "$LATEST_BACKUP" "devforgeai/feedback/$STORY_ID/"
 
 echo "Feedback restored for $STORY_ID"
-echo "Please review: .devforgeai/feedback/$STORY_ID/"
+echo "Please review: devforgeai/feedback/$STORY_ID/"
 ```
 
 **Log incident:**
 
 ```bash
 echo "$(date): Corrupted feedback restored for $STORY_ID from $LATEST_BACKUP" >> \
-  .devforgeai/feedback/corruption-incidents.log
+  devforgeai/feedback/corruption-incidents.log
 ```
 
 ---
@@ -444,9 +444,9 @@ def is_sensitive(response: str) -> bool:
 1. **Flag for review:**
    ```bash
    # Move to secure directory
-   mkdir -p .devforgeai/feedback/sensitive/
-   mv ".devforgeai/feedback/$STORY_ID/$FILENAME" \
-      ".devforgeai/feedback/sensitive/"
+   mkdir -p devforgeai/feedback/sensitive/
+   mv "devforgeai/feedback/$STORY_ID/$FILENAME" \
+      "devforgeai/feedback/sensitive/"
    ```
 
 2. **Notify appropriate stakeholders:**
@@ -476,10 +476,10 @@ def is_sensitive(response: str) -> bool:
 
 USER_PATTERN="$1"  # e.g., "STORY-0*" for stories 001-099
 
-OUTPUT_DIR=".devforgeai/feedback/exports/$(date +%Y%m%d)"
+OUTPUT_DIR="devforgeai/feedback/exports/$(date +%Y%m%d)"
 mkdir -p "$OUTPUT_DIR"
 
-for story_dir in .devforgeai/feedback/$USER_PATTERN/; do
+for story_dir in devforgeai/feedback/$USER_PATTERN/; do
     cp -r "$story_dir" "$OUTPUT_DIR/"
 done
 
@@ -505,10 +505,10 @@ fi
 
 # Log deletion
 echo "$(date): Deleted feedback for $USER_PATTERN" >> \
-  .devforgeai/feedback/deletion-audit.log
+  devforgeai/feedback/deletion-audit.log
 
 # Remove feedback
-rm -rf .devforgeai/feedback/$USER_PATTERN/
+rm -rf devforgeai/feedback/$USER_PATTERN/
 
 echo "Feedback deleted for $USER_PATTERN"
 ```
@@ -524,16 +524,16 @@ echo "Feedback deleted for $USER_PATTERN"
 # Weekly maintenance (run Saturdays 2 AM)
 
 # 1. Backup feedback files
-.devforgeai/scripts/backup-feedback.sh
+devforgeai/scripts/backup-feedback.sh
 
 # 2. Validate integrity
-python3 .devforgeai/scripts/validate-feedback-integrity.py
+python3 devforgeai/scripts/validate-feedback-integrity.py
 
 # 3. Generate weekly summary
-python3 .devforgeai/scripts/aggregate-feedback.py --period=week
+python3 devforgeai/scripts/aggregate-feedback.py --period=week
 
 # 4. Check for patterns
-python3 .devforgeai/scripts/detect-patterns.py --threshold=0.80
+python3 devforgeai/scripts/detect-patterns.py --threshold=0.80
 ```
 
 ### Monthly Tasks
@@ -543,16 +543,16 @@ python3 .devforgeai/scripts/detect-patterns.py --threshold=0.80
 # Monthly maintenance (1st of month)
 
 # 1. Aggregate by category
-python3 .devforgeai/scripts/aggregate-feedback.py --period=month
+python3 devforgeai/scripts/aggregate-feedback.py --period=month
 
 # 2. Identify emerging patterns
-python3 .devforgeai/scripts/detect-patterns.py --period=month
+python3 devforgeai/scripts/detect-patterns.py --period=month
 
 # 3. Flag urgent issues
-python3 .devforgeai/scripts/flag-urgent-issues.py
+python3 devforgeai/scripts/flag-urgent-issues.py
 
 # 4. Update tracking metrics
-python3 .devforgeai/scripts/update-metrics.py
+python3 devforgeai/scripts/update-metrics.py
 ```
 
 ### Quarterly Tasks
@@ -562,7 +562,7 @@ python3 .devforgeai/scripts/update-metrics.py
 # Quarterly maintenance
 
 # 1. Generate quarterly report
-.devforgeai/scripts/generate-quarterly-report.sh
+devforgeai/scripts/generate-quarterly-report.sh
 
 # 2. Review high-priority items
 # (Manual: Schedule meeting with maintainers)
@@ -571,7 +571,7 @@ python3 .devforgeai/scripts/update-metrics.py
 # (Manual: Implement top 3-5 improvements)
 
 # 4. Check retention policy
-python3 .devforgeai/scripts/check-retention.py
+python3 devforgeai/scripts/check-retention.py
 ```
 
 ---
@@ -641,12 +641,12 @@ resolution_time = fix_date - detection_date
 
 ## Related Documentation
 
-- **User Guide:** `.devforgeai/feedback/USER-GUIDE.md`
-- **Question Bank:** `.devforgeai/feedback/questions.md`
-- **JSON Schema:** `.devforgeai/feedback/schema.json`
-- **Questions YAML:** `.devforgeai/feedback/questions.yaml`
-- **Retention Policy:** `.devforgeai/feedback/RETENTION-POLICY.md`
-- **Graceful Degradation:** `.devforgeai/feedback/GRACEFUL-DEGRADATION.md`
+- **User Guide:** `devforgeai/feedback/USER-GUIDE.md`
+- **Question Bank:** `devforgeai/feedback/questions.md`
+- **JSON Schema:** `devforgeai/feedback/schema.json`
+- **Questions YAML:** `devforgeai/feedback/questions.yaml`
+- **Retention Policy:** `devforgeai/feedback/RETENTION-POLICY.md`
+- **Graceful Degradation:** `devforgeai/feedback/GRACEFUL-DEGRADATION.md`
 
 ---
 

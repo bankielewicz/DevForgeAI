@@ -34,7 +34,7 @@ TEST_LOG="/tmp/story-089-error-handling.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-ERROR_HANDLER="${PROJECT_ROOT}/.devforgeai/traceability/error-handler.sh"
+ERROR_HANDLER="${PROJECT_ROOT}/devforgeai/traceability/error-handler.sh"
 FIXTURES_DIR="${SCRIPT_DIR}/fixtures"
 
 # Initialize log

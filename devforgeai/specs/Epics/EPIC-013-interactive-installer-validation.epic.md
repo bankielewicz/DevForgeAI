@@ -87,7 +87,7 @@ This leads to:
 **Estimated Effort:** Medium (8-12 story points)
 
 **Acceptance Criteria:**
-- **Existing install detection:** Read `.devforgeai/.version.json` to identify version
+- **Existing install detection:** Read `devforgeai/.version.json` to identify version
 - **Version comparison:** Compare installed vs source version, recommend upgrade/downgrade/reinstall
 - **CLAUDE.md detection:** Detect existing CLAUDE.md, warn about merge, offer backup
 - **Project root detection:** Find git repository root as default target directory
@@ -108,7 +108,7 @@ This leads to:
 - **User-friendly messages:** No stack traces in console (technical details in log file)
 - **Resolution guidance:** Each error includes 1-3 steps to resolve
 - **Automatic rollback:** On failure, restore backup and clean up partial installation
-- **Error logging:** Write detailed log to `.devforgeai/install.log` with timestamps
+- **Error logging:** Write detailed log to `devforgeai/install.log` with timestamps
 - **Exit codes:** 0=success, 1=source missing, 2=permission denied, 3=rollback occurred, 4=validation failed
 
 ### Feature 5: Installation Reporting & Logging
@@ -122,9 +122,9 @@ This leads to:
 
 **Acceptance Criteria:**
 - **Installation summary report:** Success/failure, version installed, files count, errors encountered
-- **Detailed log file:** `.devforgeai/install.log` with all actions, timestamps, file operations
+- **Detailed log file:** `devforgeai/install.log` with all actions, timestamps, file operations
 - **JSON output mode:** --json flag outputs structured JSON for parsing
-- **Manifest file:** `.devforgeai/.install-manifest.json` lists all installed files
+- **Manifest file:** `devforgeai/.install-manifest.json` lists all installed files
 - **Report display:** Console summary (interactive), log file (always), JSON (if --json)
 
 ### Feature 6: CLAUDE.md Smart Merge

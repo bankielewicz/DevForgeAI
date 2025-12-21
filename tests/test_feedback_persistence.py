@@ -66,15 +66,15 @@ def valid_feedback_data():
 
 @pytest.fixture
 def devforgeai_context(temp_feedback_dir):
-    """Simulated .devforgeai context with feedback directory."""
-    devforgeai_path = temp_feedback_dir / ".devforgeai"
+    """Simulated devforgeai context with feedback directory."""
+    devforgeai_path = temp_feedback_dir / "devforgeai"
     devforgeai_path.mkdir(exist_ok=True)
     return devforgeai_path
 
 
 @pytest.fixture
 def feedback_dir(devforgeai_context):
-    """Feedback directory within .devforgeai."""
+    """Feedback directory within devforgeai."""
     feedback_path = devforgeai_context / "feedback"
     feedback_path.mkdir(exist_ok=True)
     return feedback_path
@@ -105,8 +105,8 @@ class TestAC1_DirectoryCreation:
     """Tests for AC1: Feedback Directory Creation and Organization"""
 
     def test_ac1_creates_feedback_directory_if_not_exists(self, temp_feedback_dir):
-        """AC1: Creates .devforgeai/feedback directory if it doesn't exist."""
-        feedback_dir = temp_feedback_dir / ".devforgeai" / "feedback"
+        """AC1: Creates devforgeai/feedback directory if it doesn't exist."""
+        feedback_dir = temp_feedback_dir / "devforgeai" / "feedback"
         assert not feedback_dir.exists()
 
         result = persist_feedback_session(
@@ -160,7 +160,7 @@ class TestAC1_DirectoryCreation:
         )
 
         # Verify nested directory structure created
-        feedback_dir = temp_feedback_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_feedback_dir / "devforgeai" / "feedback"
         assert feedback_dir.exists()
 
     def test_ac1_handles_deeply_nested_paths(self, temp_feedback_dir):
@@ -180,7 +180,7 @@ class TestAC1_DirectoryCreation:
             details={},
         )
 
-        feedback_dir = deeply_nested / ".devforgeai" / "feedback"
+        feedback_dir = deeply_nested / "devforgeai" / "feedback"
         assert feedback_dir.exists()
 
 
@@ -334,7 +334,7 @@ class TestAC3_AtomicWrites:
             )
 
         # No partial files should remain
-        feedback_dir = feedback_dir.parent.parent / ".devforgeai" / "feedback"
+        feedback_dir = feedback_dir.parent.parent / "devforgeai" / "feedback"
         if feedback_dir.exists():
             temp_files = list(feedback_dir.glob("*.tmp"))
             assert len(temp_files) == 0
@@ -582,7 +582,7 @@ class TestAC5_FilePermissions:
         )
 
         # Check directory permissions
-        feedback_dir_path = feedback_dir.parent.parent / ".devforgeai" / "feedback"
+        feedback_dir_path = feedback_dir.parent.parent / "devforgeai" / "feedback"
         dir_stat = feedback_dir_path.stat()
         mode = stat.S_IMODE(dir_stat.st_mode)
 
@@ -599,7 +599,7 @@ class TestAC6_DirectoryConfiguration:
     """Tests for AC6: Directory Organization Configuration (Optional)"""
 
     def test_ac6_uses_default_feedback_organization(self, feedback_dir):
-        """AC6: Uses default .devforgeai/feedback organization."""
+        """AC6: Uses default devforgeai/feedback organization."""
         result = persist_feedback_session(
             base_path=feedback_dir.parent.parent,
             operation_type="skill",
@@ -613,8 +613,8 @@ class TestAC6_DirectoryConfiguration:
         )
 
         assert result.file_path is not None
-        # Should be under .devforgeai/feedback/
-        assert ".devforgeai" in result.file_path
+        # Should be under devforgeai/feedback/
+        assert "devforgeai" in result.file_path
         assert "feedback" in result.file_path
 
     def test_ac6_supports_custom_feedback_directory(self, temp_feedback_dir):
@@ -952,7 +952,7 @@ class TestEdgeCase2_FilesystemFull:
                 pass
 
             # No temp/partial files should remain
-            feedback_dir_path = feedback_dir.parent.parent / ".devforgeai" / "feedback"
+            feedback_dir_path = feedback_dir.parent.parent / "devforgeai" / "feedback"
             if feedback_dir_path.exists():
                 temp_files = list(feedback_dir_path.glob("*.tmp")) + list(
                     feedback_dir_path.glob("*.partial")
@@ -1220,7 +1220,7 @@ class TestEdgeCase9_SymlinkAttackPrevention:
     def test_edge_case9_rejects_symlink_traversal(self, temp_feedback_dir):
         """Edge Case 9: Rejects symlink-based directory traversal."""
         # Create a symlink pointing outside the feedback directory
-        feedback_dir = temp_feedback_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_feedback_dir / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
 
         outside_dir = temp_feedback_dir / "outside"
@@ -1244,7 +1244,7 @@ class TestEdgeCase9_SymlinkAttackPrevention:
             )
 
             # File should be in feedback_dir, not through symlink
-            assert ".devforgeai" in result.file_path
+            assert "devforgeai" in result.file_path
         finally:
             if symlink.exists() or symlink.is_symlink():
                 symlink.unlink()
@@ -1482,7 +1482,7 @@ class TestValidation_Filename:
 
         file_path = Path(result.file_path)
         # File should be within feedback directory
-        assert ".devforgeai" in str(file_path)
+        assert "devforgeai" in str(file_path)
         assert "evil" not in file_path.parent.name  # Not in parent dir
 
     def test_validation_filename_sanitizes_special_chars(self, feedback_dir):
@@ -1507,7 +1507,7 @@ class TestValidation_DirectoryPath:
     """Tests for directory path validation"""
 
     def test_validation_directory_stays_within_devforgeai(self, feedback_dir):
-        """Validates that feedback directory stays within .devforgeai."""
+        """Validates that feedback directory stays within devforgeai."""
         result = persist_feedback_session(
             base_path=feedback_dir.parent.parent,
             operation_type="skill",
@@ -1521,8 +1521,8 @@ class TestValidation_DirectoryPath:
         )
 
         file_path = Path(result.file_path)
-        # Should contain .devforgeai in path
-        assert ".devforgeai" in str(file_path)
+        # Should contain devforgeai in path
+        assert "devforgeai" in str(file_path)
 
 
 # ============================================================================
@@ -1649,7 +1649,7 @@ class TestNFR_Reliability:
                 pass
 
             # No temp files should remain
-            feedback_dir_path = feedback_dir.parent.parent / ".devforgeai" / "feedback"
+            feedback_dir_path = feedback_dir.parent.parent / "devforgeai" / "feedback"
             if feedback_dir_path.exists():
                 temp_files = (
                     list(feedback_dir_path.glob("*.tmp"))
@@ -1708,7 +1708,7 @@ class TestNFR_Security:
     @pytest.mark.skipif(os.name == "nt", reason="Unix-only permission test")
     def test_nfr_symlink_prevention(self, temp_feedback_dir):
         """NFR: 100% symlink attack prevention."""
-        feedback_dir = temp_feedback_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_feedback_dir / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
 
         # Create a symlink trap
@@ -1733,7 +1733,7 @@ class TestNFR_Security:
             )
 
             # File should be in feedback_dir, not in evil_dir
-            assert ".devforgeai" in result.file_path
+            assert "devforgeai" in result.file_path
             evil_files = list(evil_dir.glob("*"))
             assert len(evil_files) == 0
         finally:
@@ -2099,7 +2099,7 @@ class TestCoverageGap_PathologicalCollisions:
         from src.feedback_persistence import _resolve_filename_collision
         from pathlib import Path
         
-        target_dir = temp_feedback_dir / ".devforgeai" / "feedback" / "sessions"
+        target_dir = temp_feedback_dir / "devforgeai" / "feedback" / "sessions"
         target_dir.mkdir(parents=True, exist_ok=True)
         
         base_filename = "2025-11-11T10-00-00-command-success.md"
@@ -2275,7 +2275,7 @@ class TestCleanupTempFiles:
         from src.feedback_persistence import cleanup_temp_feedback_files
 
         # Create some temp files manually (simulating crash)
-        sessions_dir = temp_feedback_dir / ".devforgeai" / "feedback" / "sessions"
+        sessions_dir = temp_feedback_dir / "devforgeai" / "feedback" / "sessions"
         sessions_dir.mkdir(parents=True, exist_ok=True)
 
         temp1 = sessions_dir / "2025-11-11T14-00-00-command-success.md.tmp"
@@ -2287,7 +2287,7 @@ class TestCleanupTempFiles:
         temp3.write_text("partial content 3")
 
         # Run cleanup
-        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / ".devforgeai")
+        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / "devforgeai")
 
         assert deleted == 3
         assert not temp1.exists()
@@ -2313,13 +2313,13 @@ class TestCleanupTempFiles:
         assert result.success
 
         # Create temp file (directory already exists from persist call above)
-        sessions_dir = temp_feedback_dir / ".devforgeai" / "feedback" / "sessions"
+        sessions_dir = temp_feedback_dir / "devforgeai" / "feedback" / "sessions"
         sessions_dir.mkdir(parents=True, exist_ok=True)  # Ensure exists
         temp_file = sessions_dir / "temp.md.tmp"
         temp_file.write_text("temp content")
 
         # Run cleanup
-        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / ".devforgeai")
+        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / "devforgeai")
 
         assert deleted == 1  # Only temp file deleted
         assert Path(result.file_path).exists()  # Valid file preserved
@@ -2328,7 +2328,7 @@ class TestCleanupTempFiles:
         """Test cleanup returns 0 if no temp files present."""
         from src.feedback_persistence import cleanup_temp_feedback_files
 
-        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / ".devforgeai")
+        deleted = cleanup_temp_feedback_files(base_path=temp_feedback_dir / "devforgeai")
 
         assert deleted == 0
 
@@ -2336,7 +2336,7 @@ class TestCleanupTempFiles:
         """Test cleanup handles non-existent directory gracefully."""
         from src.feedback_persistence import cleanup_temp_feedback_files
 
-        deleted = cleanup_temp_feedback_files(base_path=Path("/nonexistent/path/.devforgeai"))
+        deleted = cleanup_temp_feedback_files(base_path=Path("/nonexistent/path/devforgeai"))
 
         assert deleted == 0  # No error, returns 0
 
@@ -2363,7 +2363,7 @@ class TestFeedbackStatistics:
             )
             time.sleep(0.01)  # Ensure unique timestamps
 
-        stats = get_feedback_statistics(base_path=temp_feedback_dir / ".devforgeai")
+        stats = get_feedback_statistics(base_path=temp_feedback_dir / "devforgeai")
 
         assert stats["total_files"] == 5
         assert stats.get("by_operation", {}).get("command", 0) == 5
@@ -2398,7 +2398,7 @@ class TestFeedbackStatistics:
             details={}
         )
 
-        stats = get_feedback_statistics(base_path=temp_feedback_dir / ".devforgeai")
+        stats = get_feedback_statistics(base_path=temp_feedback_dir / "devforgeai")
 
         assert stats.get("by_operation", {}).get("command", 0) == 1
         assert stats.get("by_operation", {}).get("skill", 0) == 1
@@ -2407,7 +2407,7 @@ class TestFeedbackStatistics:
         """Test statistics returns empty dict if directory missing."""
         from src.feedback_persistence import get_feedback_statistics
 
-        stats = get_feedback_statistics(base_path=Path("/nonexistent/.devforgeai"))
+        stats = get_feedback_statistics(base_path=Path("/nonexistent/devforgeai"))
 
         assert stats["total_files"] == 0
         assert stats["by_operation"] == {}

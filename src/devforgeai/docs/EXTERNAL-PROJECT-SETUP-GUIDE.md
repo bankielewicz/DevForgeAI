@@ -20,7 +20,7 @@ npm init -y
 python3 /path/to/DevForgeAI/installer/install.py --target=$(pwd) --source=/path/to/DevForgeAI/src
 
 # 3. Verify installation
-ls -la .claude .devforgeai
+ls -la .claude devforgeai
 cat CLAUDE.md  # Should show merged content
 ```
 
@@ -102,13 +102,13 @@ python3 installer/install.py --target=/tmp/NodeJsTestProject --source=src/
 ```bash
 # Check framework directories
 ls -la .claude  # Should have ~370 files (skills, commands, agents)
-ls -la .devforgeai  # Should have ~80 files (config, protocols, specs)
+ls -la devforgeai  # Should have ~80 files (config, protocols, specs)
 
 # Check CLAUDE.md merge
 cat CLAUDE.md | head -50  # Should show user content + DevForgeAI framework
 
 # Check version tracking
-cat .devforgeai/.version.json  # Should show version 1.0.1, mode: fresh_install
+cat devforgeai/.version.json  # Should show version 1.0.1, mode: fresh_install
 
 # Check backups (if CLAUDE.md existed)
 ls -la .backups  # Should have devforgeai-fresh-YYYYMMDD-HHMMSS/
@@ -196,13 +196,13 @@ python3 installer/install.py --target=/tmp/DotNetTestProject --source=src/
 ```bash
 # Check framework directories
 ls -la .claude
-ls -la .devforgeai
+ls -la devforgeai
 
 # Check CLAUDE.md
 cat CLAUDE.md | grep ".NET"  # Should detect .NET in tech stack section
 
 # Check version
-cat .devforgeai/.version.json
+cat devforgeai/.version.json
 ```
 
 ---
@@ -263,7 +263,7 @@ After installation, verify these requirements:
 ### Framework Deployment
 
 - [ ] `.claude/` directory exists with ~370 files
-- [ ] `.devforgeai/` directory exists with ~80 files
+- [ ] `devforgeai/` directory exists with ~80 files
 - [ ] Total files deployed: ~450 ±50
 
 ### CLAUDE.md Merge
@@ -278,7 +278,7 @@ After installation, verify these requirements:
 
 ### Version Tracking
 
-- [ ] `.devforgeai/.version.json` exists
+- [ ] `devforgeai/.version.json` exists
 - [ ] Version: 1.0.1
 - [ ] Mode: fresh_install (or upgrade/rollback depending on scenario)
 - [ ] Schema version: 1.0
@@ -286,7 +286,7 @@ After installation, verify these requirements:
 ### Backup Creation
 
 - [ ] `.backups/` directory exists (if CLAUDE.md existed before install)
-- [ ] Backup contains: .claude/, .devforgeai/, CLAUDE.md
+- [ ] Backup contains: .claude/, devforgeai/, CLAUDE.md
 - [ ] Manifest.json with checksums present
 
 ### Command Infrastructure
@@ -347,7 +347,7 @@ To test upgrade workflow:
 
 ```bash
 python3 installer/install.py --target=/tmp/TestProject --source=src/
-cat /tmp/TestProject/.devforgeai/.version.json  # Shows: 1.0.1
+cat /tmp/TestProject/devforgeai/.version.json  # Shows: 1.0.1
 ```
 
 **2. Simulate Version 1.0.2**
@@ -369,7 +369,7 @@ python3 installer/install.py --target=/tmp/TestProject --source=src/ --mode=upgr
 
 ```bash
 # Check version updated
-cat /tmp/TestProject/.devforgeai/.version.json  # Should show: 1.0.2
+cat /tmp/TestProject/devforgeai/.version.json  # Should show: 1.0.2
 
 # Verify only 5 files changed (not all 450)
 # Check installer output: "Files updated: 5, Files unchanged: 445"
@@ -409,8 +409,8 @@ grep -r "ProjectA" /tmp/ProjectB  # Should return: 0 results
 ls /tmp/ProjectB/devforgeai/specs/Stories/  # Should be empty (or only ProjectB stories)
 
 # Verify version tracking
-cat /tmp/ProjectA/.devforgeai/.version.json  # Shows: ProjectA install path
-cat /tmp/ProjectB/.devforgeai/.version.json  # Shows: ProjectB install path (different)
+cat /tmp/ProjectA/devforgeai/.version.json  # Shows: ProjectA install path
+cat /tmp/ProjectB/devforgeai/.version.json  # Shows: ProjectB install path (different)
 ```
 
 ---

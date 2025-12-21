@@ -6,7 +6,7 @@
 **Test Coverage**: 80% (92/115 tests passing)
 **Lines of Code**:
 - `scripts/release.sh`: 780 lines
-- `.devforgeai/config/release-config.sh`: 150 lines
+- `devforgeai/config/release-config.sh`: 150 lines
 
 ---
 
@@ -20,7 +20,7 @@
 **Implements all 7 phases**:
 - ✅ Phase 0: Pre-flight validation (git, tests, authentication)
 - ✅ Phase 1: Interactive version selection
-- ✅ Phase 2: Operational files sync (.claude → src/claude, .devforgeai → src/devforgeai)
+- ✅ Phase 2: Operational files sync (.claude → src/claude, devforgeai → src/devforgeai)
 - ✅ Phase 3: Version metadata update (version.json, CHANGELOG.md, git tag)
 - ✅ Phase 4: Integrity verification (SHA-256 checksums)
 - ✅ Phase 5: GitHub release creation
@@ -43,7 +43,7 @@
 - Comprehensive error handling
 
 ### 2. Configuration File
-**File**: `.devforgeai/config/release-config.sh`
+**File**: `devforgeai/config/release-config.sh`
 **Size**: 5.7KB (150 lines)
 
 **Configuration options**:
@@ -83,7 +83,7 @@
 
 **Phase 2: Operational Files Sync** (34/35 = 97%)
 - ✅ .claude/ → src/claude/ sync
-- ✅ .devforgeai/ → src/devforgeai/ sync
+- ✅ devforgeai/ → src/devforgeai/ sync
 - ✅ Exclusion patterns (*.backup*, __pycache__/, backups/, qa/reports/)
 - ✅ File count validation
 - ✅ Sync manifest generation
@@ -161,7 +161,7 @@ The passing 92 tests successfully verify:
 
 **AC#2: Operational Files Sync** ✅
 - .claude/ → src/claude/ sync with exclusions
-- .devforgeai/ → src/devforgeai/ sync with exclusions
+- devforgeai/ → src/devforgeai/ sync with exclusions
 - File count validation implemented
 - sync-manifest.json generation implemented
 
@@ -204,7 +204,7 @@ The passing 92 tests successfully verify:
 **SCR-001**: Interactive version selection ✅
 **SCR-002**: Git working tree validation ✅
 **SCR-003**: .claude/ sync with exclusions ✅
-**SCR-004**: .devforgeai/ sync with exclusions ✅
+**SCR-004**: devforgeai/ sync with exclusions ✅
 **SCR-005**: SHA-256 checksum generation ✅
 **SCR-006**: GitHub release via gh CLI ✅
 **SCR-007**: NPM publish execution ✅
@@ -386,7 +386,7 @@ bash scripts/release.sh
 
 ✅ **Implementation**
 - scripts/release.sh created with all 7 phases
-- .devforgeai/config/release-config.sh created
+- devforgeai/config/release-config.sh created
 - All interactive and automated modes implemented
 - All flags (--dry-run, --yes) implemented
 

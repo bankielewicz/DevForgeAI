@@ -252,7 +252,7 @@ NEW: Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 **Minor Recommendations:**
 1. **Script Documentation**: Python scripts created but need integration examples in main SKILL.md
-2. **Coverage Report Location**: Specify where coverage reports should be saved (`.devforgeai/qa/coverage/` ?)
+2. **Coverage Report Location**: Specify where coverage reports should be saved (`devforgeai/qa/coverage/` ?)
 
 **Recommendation Action:**
 ```markdown
@@ -292,7 +292,7 @@ See scripts/README.md for detailed usage.
 - ✅ Story status updates match orchestration's expectations
 
 **Minor Recommendations:**
-1. **Deployment Config Location**: Specify where deployment configs should live (`.devforgeai/deployment/` ?)
+1. **Deployment Config Location**: Specify where deployment configs should live (`devforgeai/deployment/` ?)
 2. **Rollback Trigger**: Add integration point for orchestration to trigger rollback if needed
 
 **Recommendation Action:**
@@ -302,9 +302,9 @@ Add to release SKILL.md:
 ## Configuration Location
 
 Deployment configurations:
-- .devforgeai/deployment/config.yaml - Environment settings
-- .devforgeai/deployment/staging.yaml - Staging config
-- .devforgeai/deployment/production.yaml - Production config
+- devforgeai/deployment/config.yaml - Environment settings
+- devforgeai/deployment/staging.yaml - Staging config
+- devforgeai/deployment/production.yaml - Production config
 
 This standardizes where orchestration looks for deployment info.
 ```
@@ -387,7 +387,7 @@ This standardizes where orchestration looks for deployment info.
 
 **Current Structure:**
 ```
-.devforgeai/
+devforgeai/
 ├── context/          # Architecture outputs (6 files)
 ├── qa/
 │   ├── reports/      # QA outputs
@@ -413,14 +413,14 @@ This standardizes where orchestration looks for deployment info.
 ```
 
 **Missing:**
-- ⚠️ `.devforgeai/deployment/` - Release skill needs deployment configs
-- ⚠️ `.devforgeai/adrs/` - Architecture ADR storage location not specified
+- ⚠️ `devforgeai/deployment/` - Release skill needs deployment configs
+- ⚠️ `devforgeai/adrs/` - Architecture ADR storage location not specified
 
 **Recommendation:**
 ```markdown
 Standardize additional directories:
 
-.devforgeai/
+devforgeai/
 ├── context/          # Architecture outputs (6 context files)
 ├── adrs/             # Architecture Decision Records
 ├── qa/               # QA outputs and configs
@@ -456,15 +456,15 @@ Standardize additional directories:
    - **Issue**: Release skill didn't specify where deployment configs should be stored
    - **Impact**: Users wouldn't know where to put deployment configurations
    - **Fix Applied**: Added comprehensive "Configuration" section to release SKILL.md documenting:
-     - Deployment configs: `.devforgeai/deployment/` (K8s, Helm, Terraform, etc.)
-     - Smoke test config: `.devforgeai/smoke-tests/config.json`
+     - Deployment configs: `devforgeai/deployment/` (K8s, Helm, Terraform, etc.)
+     - Smoke test config: `devforgeai/smoke-tests/config.json`
      - Release credentials: Environment variables (never committed)
    - **Location**: `.claude/skills/devforgeai-release/SKILL.md:80-130`
 
 4. **ADR Storage Location** ✅ FIXED (2025-10-30)
    - **Issue**: Architecture skill created ADRs but didn't standardize storage location
    - **Impact**: ADRs could be stored inconsistently
-   - **Fix Applied**: Standardized on `.devforgeai/adrs/` directory with:
+   - **Fix Applied**: Standardized on `devforgeai/adrs/` directory with:
      - ADR naming convention (ADR-001-database-selection.md)
      - Directory structure example
      - README.md for ADR index
@@ -559,7 +559,7 @@ The DevForgeAI spec-driven development framework is **well-architected, cohesive
 - ✅ Comprehensive documentation (6 SKILL.md + 31 reference files + 6 templates)
 - ✅ Token-efficient implementations (native tools for 40-73% savings)
 - ✅ AskUserQuestion prevents ambiguity (no wrong assumptions)
-- ✅ All file paths standardized (`.ai_docs/`, `.devforgeai/`)
+- ✅ All file paths standardized (`.ai_docs/`, `devforgeai/`)
 - ✅ All configuration locations documented
 
 **Framework Readiness:**
@@ -596,10 +596,10 @@ All 5 identified issues have been resolved:
 
 3. **✅ Deployment Config Location in Release Skill** (FIXED)
    - Added "Configuration" section to `.claude/skills/devforgeai-release/SKILL.md:80-130`
-   - Documented: `.devforgeai/deployment/`, `.devforgeai/smoke-tests/config.json`
+   - Documented: `devforgeai/deployment/`, `devforgeai/smoke-tests/config.json`
 
 4. **✅ ADR Storage Location in Architecture Skill** (FIXED)
-   - Standardized on `.devforgeai/adrs/` directory
+   - Standardized on `devforgeai/adrs/` directory
    - Added naming convention and structure to `.claude/skills/devforgeai-architecture/SKILL.md:709-723`
 
 5. **✅ Script Integration Documentation in QA Skill** (FIXED)

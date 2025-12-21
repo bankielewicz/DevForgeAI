@@ -78,7 +78,7 @@ pytest tests/integration/test_release_hooks_integration.py -m "not slow"
 - Tests feedback JSON schema
 - Tests filename format (story-id-environment-timestamp)
 - Tests metadata fields
-- Tests file organization in `.devforgeai/feedback/releases/`
+- Tests file organization in `devforgeai/feedback/releases/`
 
 **Coverage**: Feedback persistence schema, file naming conventions
 

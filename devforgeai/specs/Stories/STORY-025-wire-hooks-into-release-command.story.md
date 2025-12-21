@@ -57,7 +57,7 @@ format_version: "2.0"
 ### AC5: Graceful Degradation on Hook Failures
 **Given** a user runs `/release STORY-025` and hook infrastructure encounters errors (CLI not installed, config file missing, hook script crashes),
 **When** `devforgeai check-hooks` or `devforgeai invoke-hooks` fails (exit code ≠ 0),
-**Then** the system logs warning "Hook execution failed: [error details]" to `.devforgeai/logs/release-hooks-STORY-025.log`,
+**Then** the system logs warning "Hook execution failed: [error details]" to `devforgeai/logs/release-hooks-STORY-025.log`,
 **And** continues deployment workflow without interruption,
 **And** displays note "Note: Post-deployment feedback unavailable (hook error)" in completion message,
 **And** deployment status remains accurate (success/failure based on deployment, not hook status).
@@ -79,7 +79,7 @@ format_version: "2.0"
 - Question routing based on operation context (release-specific questions: deployment speed, rollback effectiveness, infrastructure issues)
 - Skip tracking active (user can skip questions, patterns recorded)
 - Retrospective config respected (same hot-reload behavior, same question customization)
-- Answer persistence to `.devforgeai/feedback/releases/STORY-025-staging-[timestamp].json` (same file structure as dev/qa feedback)
+- Answer persistence to `devforgeai/feedback/releases/STORY-025-staging-[timestamp].json` (same file structure as dev/qa feedback)
 **And** user experience feels identical (same CLI output formatting, same question flow, same skip behavior).
 
 ## Edge Cases
@@ -98,7 +98,7 @@ format_version: "2.0"
 - Staging hook completes successfully (feedback saved)
 - Production deployment never starts (user canceled)
 - No production hook triggered (operation never executed)
-- Staging feedback persists in `.devforgeai/feedback/releases/STORY-025-staging-[timestamp].json`
+- Staging feedback persists in `devforgeai/feedback/releases/STORY-025-staging-[timestamp].json`
 - Story status remains "Staging Complete" (not "Released")
 
 ### Edge Case 3: Simultaneous Staging and Production Hooks (Unlikely but Possible)
@@ -111,7 +111,7 @@ format_version: "2.0"
 - Hook invocation total time: <6s (3s staging + 3s production, within acceptable delay)
 
 ### Edge Case 4: Hook Configuration Changed Mid-Deployment
-**Scenario:** Deployment starts with hooks enabled, during deployment user edits `.devforgeai/config/hooks.yaml` to disable release hooks, deployment completes.
+**Scenario:** Deployment starts with hooks enabled, during deployment user edits `devforgeai/config/hooks.yaml` to disable release hooks, deployment completes.
 **Expected Behavior:**
 - Hook eligibility checked at deployment completion time (not deployment start time)
 - If hooks disabled by completion, `check-hooks` returns exit code 1 (not eligible)
@@ -149,7 +149,7 @@ components:
     dependencies:
       - devforgeai CLI (check-hooks command)
       - devforgeai CLI (invoke-hooks command)
-      - .devforgeai/config/hooks.yaml
+      - devforgeai/config/hooks.yaml
       - Feedback persistence layer
     interfaces:
       - name: check-hooks CLI
@@ -189,7 +189,7 @@ components:
 
   - type: Configuration
     name: ReleaseHooksConfiguration
-    file_path: .devforgeai/config/hooks.yaml
+    file_path: devforgeai/config/hooks.yaml
     description: |
       Hook configuration schema extension for release command. Defines staging and
       production hook triggers, questions, and behavior. Defaults to failures-only
@@ -218,7 +218,7 @@ components:
 
   - type: Logging
     name: ReleaseHookLogger
-    file_path: .devforgeai/logs/release-hooks-{STORY-ID}.log
+    file_path: devforgeai/logs/release-hooks-{STORY-ID}.log
     description: |
       Structured logging for release hook invocations. Logs all hook attempts
       (success, failure, skip) with timestamps, operation context, and exit codes.
@@ -249,7 +249,7 @@ components:
 
   - type: DataModel
     name: ReleaseFeedbackRecord
-    file_path: .devforgeai/feedback/releases/{STORY-ID}-{environment}-{timestamp}.json
+    file_path: devforgeai/feedback/releases/{STORY-ID}-{environment}-{timestamp}.json
     description: |
       Extended feedback record schema for deployment-specific metadata. Includes
       environment (staging/production), deployment status, rollback flag, deployed
@@ -396,7 +396,7 @@ non_functional_requirements:
 - [x] Hook invocation conditional on check result for production (implemented in post-production-hooks.md Step 3)
 - [x] Operation context passed to invoke-hooks (environment, deployment status, rollback flag, deployed services) - JSON schema defined in both reference files
 - [x] Graceful degradation implemented (hook errors logged, deployment proceeds) - 5 error scenarios documented in both reference files
-- [x] Hook invocation logs written to `.devforgeai/logs/release-hooks-{STORY-ID}.log` - Logging format and requirements documented
+- [x] Hook invocation logs written to `devforgeai/logs/release-hooks-{STORY-ID}.log` - Logging format and requirements documented
 
 ### Configuration
 - [x] `release-staging` hook definition added to hooks.yaml schema example (lines 24-67 in hooks.yaml.example-release)
@@ -424,13 +424,13 @@ non_functional_requirements:
 - [ ] Manual test: User aborts feedback with Ctrl+C (deployment status accurate) - **DEFERRED: Requires infrastructure**
 - [ ] Manual test: Multiple deployment retries (separate feedback files per attempt) - **DEFERRED: Requires infrastructure**
 
-**Deferral Justification:** All 8 manual tests require real staging/production environments to execute actual /release deployments. Development environment has no infrastructure access. All test scenarios fully documented in `.devforgeai/qa/manual-testing-checklist-STORY-025.md` for execution when infrastructure available. **Blocker:** External (infrastructure dependency). **Approved:** 2025-11-14 (RCA-006 compliant - external blocker, properly tracked)
+**Deferral Justification:** All 8 manual tests require real staging/production environments to execute actual /release deployments. Development environment has no infrastructure access. All test scenarios fully documented in `devforgeai/qa/manual-testing-checklist-STORY-025.md` for execution when infrastructure available. **Blocker:** External (infrastructure dependency). **Approved:** 2025-11-14 (RCA-006 compliant - external blocker, properly tracked)
 
 ### Documentation
 - [x] /release command Phase 2.5 & 3.5 documented in `.claude/commands/release.md` (Hook Integration section, lines 628-676)
-- [x] Hook integration pattern documented in `.devforgeai/docs/hook-integration-pattern.md` (771 lines - comprehensive pattern guide)
-- [x] Release hook configuration examples in `.devforgeai/config/hooks.yaml.example-release` (268 lines with staging and production examples)
-- [x] Troubleshooting guide created: `.devforgeai/docs/release-hooks-troubleshooting.md` (523 lines - 8 error scenarios, 8 manual test scenarios, emergency procedures)
+- [x] Hook integration pattern documented in `devforgeai/docs/hook-integration-pattern.md` (771 lines - comprehensive pattern guide)
+- [x] Release hook configuration examples in `devforgeai/config/hooks.yaml.example-release` (268 lines with staging and production examples)
+- [x] Troubleshooting guide created: `devforgeai/docs/release-hooks-troubleshooting.md` (523 lines - 8 error scenarios, 8 manual test scenarios, emergency procedures)
 
 ### Deployment
 - [ ] Changes committed to version control - **PENDING: Awaiting final DoD validation and git commit (Phase 5)**
@@ -489,12 +489,12 @@ Successfully integrated DevForgeAI hook system into /release command workflow fo
 **Created:**
 3. `.claude/skills/devforgeai-release/references/post-staging-hooks.md` (353 lines)
 4. `.claude/skills/devforgeai-release/references/post-production-hooks.md` (418 lines)
-5. `.devforgeai/config/hooks.yaml.example-release` (268 lines)
-6. `.devforgeai/docs/hook-integration-pattern.md` (771 lines)
-7. `.devforgeai/docs/release-hooks-troubleshooting.md` (523 lines)
+5. `devforgeai/config/hooks.yaml.example-release` (268 lines)
+6. `devforgeai/docs/hook-integration-pattern.md` (771 lines)
+7. `devforgeai/docs/release-hooks-troubleshooting.md` (523 lines)
 8. `tests/integration/test_release_hooks_integration.py` (1,855 lines, 100 tests)
 9. `tests/integration/pytest.ini` (65 lines)
-10. `.devforgeai/qa/manual-testing-checklist-STORY-025.md` (397 lines)
+10. `devforgeai/qa/manual-testing-checklist-STORY-025.md` (397 lines)
 11. `.backups/story-025/` - Safety backups of modified files
 
 **Total:** 2 files modified, 9 files created, 4,651 lines of implementation and documentation
@@ -513,7 +513,7 @@ Successfully integrated DevForgeAI hook system into /release command workflow fo
 
 **Manual Tests: 8 scenarios deferred**
 - Valid blocker: Infrastructure dependency (staging/production environments)
-- Properly tracked: `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+- Properly tracked: `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 - RCA-006 compliant: External blocker, user approved
 
 ### Technical Implementation
@@ -524,7 +524,7 @@ Successfully integrated DevForgeAI hook system into /release command workflow fo
 +   - Check eligibility: devforgeai check-hooks --operation=release-staging --status=$STATUS
 +   - Invoke if eligible: devforgeai invoke-hooks --operation=release-staging --story=$STORY_ID
 +   - Graceful degradation on errors
-+   - Logging to .devforgeai/logs/release-hooks-{STORY-ID}.log
++   - Logging to devforgeai/logs/release-hooks-{STORY-ID}.log
 +
 + Phase 3.5: Post-Production Hooks
 +   - Check eligibility: devforgeai check-hooks --operation=release-production --status=$STATUS
@@ -576,7 +576,7 @@ Successfully integrated DevForgeAI hook system into /release command workflow fo
 ### Deferred Work Tracking
 
 **Manual Testing (8 scenarios):** Execute when infrastructure available
-- Checklist: `.devforgeai/qa/manual-testing-checklist-STORY-025.md`
+- Checklist: `devforgeai/qa/manual-testing-checklist-STORY-025.md`
 - Blocker: External (infrastructure dependency)
 - Approved: 2025-11-14
 
@@ -619,11 +619,11 @@ git diff .claude/skills/devforgeai-release/SKILL.md
 ls -la .claude/skills/devforgeai-release/references/post-*-hooks.md
 
 # Verify configuration examples
-cat .devforgeai/config/hooks.yaml.example-release | head -30
+cat devforgeai/config/hooks.yaml.example-release | head -30
 
 # Verify documentation
-cat .devforgeai/docs/hook-integration-pattern.md | head -50
-cat .devforgeai/docs/release-hooks-troubleshooting.md | head -30
+cat devforgeai/docs/hook-integration-pattern.md | head -50
+cat devforgeai/docs/release-hooks-troubleshooting.md | head -30
 
 # Run tests
 python3 -m pytest tests/integration/test_release_hooks_integration.py -v

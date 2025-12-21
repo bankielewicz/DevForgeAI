@@ -47,7 +47,7 @@ ls -la "$TEMP_DIR"
 echo ""
 
 # Run the report generator
-output=$(bash .devforgeai/epic-coverage/generate-report.sh \
+output=$(bash devforgeai/epic-coverage/generate-report.sh \
     --format=terminal \
     --epics-dir="$TEMP_DIR" \
     --stories-dir="$TEMP_DIR" \

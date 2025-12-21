@@ -1071,7 +1071,7 @@ def fallback_ask_user_question(question_type, context):
 
 **Validation Mode:** Deep
 **Result:** PASSED
-**Report:** .devforgeai/qa/reports/STORY-057-qa-report.md
+**Report:** devforgeai/qa/reports/STORY-057-qa-report.md
 
 **Phase Results:**
 - Phase 0.9 (AC-DoD Traceability): PASS (100% traceability, 26/26 DoD complete)

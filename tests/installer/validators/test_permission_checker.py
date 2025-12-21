@@ -49,7 +49,7 @@ class TestPermissionChecker:
 
     def test_should_create_test_file_during_check(self, temp_dir):
         """
-        Test: Creates .devforgeai-write-test file (SVC-012)
+        Test: Creates devforgeai-write-test file (SVC-012)
 
         Given: Target directory is writable
         When: PermissionChecker.check() is called
@@ -59,7 +59,7 @@ class TestPermissionChecker:
         from src.installer.validators.permission_checker import PermissionChecker
 
         checker = PermissionChecker(target_path=str(temp_dir))
-        test_file_path = temp_dir / ".devforgeai-write-test"
+        test_file_path = temp_dir / "devforgeai-write-test"
 
         # Act
         with patch.object(Path, 'touch') as mock_touch:
@@ -74,7 +74,7 @@ class TestPermissionChecker:
 
     def test_should_delete_test_file_after_check(self, temp_dir):
         """
-        Test: Deletes .devforgeai-write-test immediately (SVC-013)
+        Test: Deletes devforgeai-write-test immediately (SVC-013)
 
         Given: Test file was created successfully
         When: PermissionChecker.check() completes
@@ -89,7 +89,7 @@ class TestPermissionChecker:
         result = checker.check()
 
         # Assert
-        test_file = temp_dir / ".devforgeai-write-test"
+        test_file = temp_dir / "devforgeai-write-test"
         assert not test_file.exists(), "Test file should be deleted after check"
         assert result.status == "PASS"
 
@@ -99,7 +99,7 @@ class TestPermissionChecker:
 
         Given: Write permission check passes
         When: PermissionChecker.check() completes
-        Then: No .devforgeai-write-test file exists in directory
+        Then: No devforgeai-write-test file exists in directory
         """
         # Arrange
         from src.installer.validators.permission_checker import PermissionChecker
@@ -112,7 +112,7 @@ class TestPermissionChecker:
         # Assert
         assert result.status == "PASS"
         # Verify test file does not exist
-        test_file = temp_dir / ".devforgeai-write-test"
+        test_file = temp_dir / "devforgeai-write-test"
         assert not test_file.exists()
 
     def test_should_delete_test_file_even_on_failure(self, read_only_dir):
@@ -134,7 +134,7 @@ class TestPermissionChecker:
         # Assert
         assert result.status == "FAIL"
         # Test file should not exist (cleanup attempted)
-        test_file = read_only_dir / ".devforgeai-write-test"
+        test_file = read_only_dir / "devforgeai-write-test"
         # Note: In read-only dir, file creation fails, so nothing to clean up
 
     # AC#4: Write Permission Validation - Read-Only Directory (FAIL)
@@ -458,7 +458,7 @@ class TestPermissionChecker:
                 # Simulate exception after successful creation
                 def side_effect(*args, **kwargs):
                     # Create actual file
-                    test_file = temp_dir / ".devforgeai-write-test"
+                    test_file = temp_dir / "devforgeai-write-test"
                     test_file.touch()
                     raise Exception("Unexpected error")
 
@@ -469,7 +469,7 @@ class TestPermissionChecker:
             pass
 
         # Assert
-        test_file = temp_dir / ".devforgeai-write-test"
+        test_file = temp_dir / "devforgeai-write-test"
         # File should still be cleaned up (may be via finally block)
         # In real implementation, should use try/finally for cleanup
 
@@ -533,7 +533,7 @@ class TestPermissionChecker:
         """
         Test: Uses configured test filename
 
-        Given: Test filename is ".devforgeai-write-test"
+        Given: Test filename is "devforgeai-write-test"
         When: PermissionChecker.check() is called
         Then: Creates file with exact name
         """
@@ -550,4 +550,4 @@ class TestPermissionChecker:
                 # Assert
                 # Verify touch was called on correct filename
                 call_args = str(mock_touch.call_args)
-                assert ".devforgeai-write-test" in call_args or result.status == "PASS"
+                assert "devforgeai-write-test" in call_args or result.status == "PASS"

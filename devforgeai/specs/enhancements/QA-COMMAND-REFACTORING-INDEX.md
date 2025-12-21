@@ -34,7 +34,7 @@
 ## Document Navigation
 
 ### START HERE: Executive Summary
-**File:** `.devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
+**File:** `devforgeai/QA-COMMAND-REFACTORING-DELIVERABLES.md`
 - 1-page executive overview
 - Key metrics and deliverables
 - Architecture before/after comparison
@@ -43,7 +43,7 @@
 - 5-minute read
 
 ### THEN READ: High-Level Summary
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-SUMMARY.md`
 - Complete scope overview
 - Token efficiency analysis
 - How reference file prevents "bull in china shop" behavior
@@ -53,7 +53,7 @@
 - 15-minute read
 
 ### FOR DETAILS: Deep Analysis
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
 - Line-by-line breakdown of current 692-line command
 - Gap analysis vs skill
 - Design decision: Option A vs B (with rationale)
@@ -62,7 +62,7 @@
 - 30-minute read
 
 ### FOR IMPLEMENTATION: Step-by-Step Checklist
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-CHECKLIST.md`
 - Pre-implementation verification (3 items)
 - 7 implementation phases (detailed checklists)
 - 30 test cases (11 unit + 9 integration + 10 regression)
@@ -300,7 +300,7 @@
 
 ### Documentation (This Folder)
 ```
-.devforgeai/specs/enhancements/
+devforgeai/specs/enhancements/
 ├── QA-COMMAND-REFACTORING-ANALYSIS.md       (Deep analysis)
 ├── QA-COMMAND-REFACTORING-SUMMARY.md        (Architecture overview)
 ├── QA-COMMAND-REFACTORING-CHECKLIST.md      (Implementation guide)
@@ -327,7 +327,7 @@
 
 ### Executive Summary
 ```
-.devforgeai/
+devforgeai/
 └── QA-COMMAND-REFACTORING-DELIVERABLES.md  (1-page overview)
 ```
 

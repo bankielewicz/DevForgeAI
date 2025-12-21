@@ -384,7 +384,7 @@ class TestFeedbackMetadataCapture:
     @patch('subprocess.run')
     def test_metadata_saved_to_feedback_directory(self, mock_run):
         """
-        Test AC2: Metadata saved to .devforgeai/feedback/sessions/
+        Test AC2: Metadata saved to devforgeai/feedback/sessions/
 
         Given: Feedback conversation completes with metadata
         When: Conversation ends
@@ -402,7 +402,7 @@ class TestFeedbackMetadataCapture:
         subprocess.run(["devforgeai", "invoke-hooks"])
 
         # Assert - In real test would verify file exists
-        # .devforgeai/feedback/sessions/sess-123.json should contain metadata
+        # devforgeai/feedback/sessions/sess-123.json should contain metadata
         assert True  # Verification would happen in integration test
 
 

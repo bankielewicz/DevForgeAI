@@ -70,7 +70,7 @@
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-018-event-driven-hook-system.story.md:- [x] Code follows coding standards (`devforgeai/context/coding-standards.md`)
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-018-event-driven-hook-system.story.md:- [x] No violations of anti-patterns (`devforgeai/context/anti-patterns.md`)
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-030-wire-hooks-into-create-context-command.story.md:**Given** the /create-context command has successfully created all 6 context files (devforgeai/context/*.md),
-/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md:          description: "Replace all old path references with DevForgeAI structure (devforgeai/context/, .devforgeai/adrs/, .devforgeai/research/)"
+/mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md:          description: "Replace all old path references with DevForgeAI structure (devforgeai/context/, devforgeai/adrs/, devforgeai/research/)"
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md:**Scenario:** Agent invoked on project where `devforgeai/context/` doesn't exist yet
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md:**Test:** Delete devforgeai/context/ directory, invoke agent, assert output contains greenfield mode message and tech-stack recommendations
 /mnt/c/Projects/DevForgeAI2/.ai_docs/Stories/STORY-035-internet-sleuth-framework-compliance.story.md:- `devforgeai/context/` (NOT `.claude/context/`)
@@ -410,12 +410,12 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/specification-validation.md:Read(file_path="devforgeai/context/dependencies.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/specification-validation.md:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ui-generator/references/specification-validation.md:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md:rm devforgeai/context/tech-stack.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md:- `devforgeai/context/source-tree.md` (for story context)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md:- `devforgeai/context/tech-stack.md` (for sprint goals context)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Architecture Constraints](devforgeai/context/architecture-constraints.md)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Source Tree](devforgeai/context/source-tree.md)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Tech Stack](devforgeai/context/tech-stack.md)
+/mnt/c/Projects/DevForgeAI2/devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md:rm devforgeai/context/tech-stack.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md:- `devforgeai/context/source-tree.md` (for story context)
+/mnt/c/Projects/DevForgeAI2/devforgeai/SPRINT-PLANNER-GENERATION-SUMMARY.md:- `devforgeai/context/tech-stack.md` (for sprint goals context)
+/mnt/c/Projects/DevForgeAI2/devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Architecture Constraints](devforgeai/context/architecture-constraints.md)
+/mnt/c/Projects/DevForgeAI2/devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Source Tree](devforgeai/context/source-tree.md)
+/mnt/c/Projects/DevForgeAI2/devforgeai/adrs/ADR-001-retrospective-feedback-system.md:  - [Tech Stack](devforgeai/context/tech-stack.md)
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/architecture-constraints.md:- Read(file_path="devforgeai/context/anti-patterns.md")
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/architecture-constraints.md:- Read(file_path="devforgeai/context/architecture-constraints.md")
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/architecture-constraints.md:- Read(file_path="devforgeai/context/coding-standards.md")
@@ -431,92 +431,92 @@
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/source-tree.md:- [ ] Context files are in `devforgeai/context/`
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/source-tree.md:- ✅ Framework's context files go in `devforgeai/context/`
 /mnt/c/Projects/DevForgeAI2/devforgeai/context/source-tree.md:devforgeai/context/
-/mnt/c/Projects/DevForgeAI2/.devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/anti-patterns.md` (lines 91-111)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/architecture-constraints.md` (lines 28-44)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/source-tree.md` (line 160)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/tech-stack.md` (lines 27-39)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/anti-patterns.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/architecture-constraints.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/dependencies.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:# Ensure devforgeai/context/*.md exist
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:context_files = Glob(pattern="devforgeai/context/*.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:rm -rf devforgeai/context/
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md:# Ensure devforgeai/context/*.md exist
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md:rm -rf devforgeai/context/
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/create-epic-refactoring-plan.md:   - Check if context files exist (devforgeai/context/*.md)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/anti-patterns.md" ] && \
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/architecture-constraints.md" ] && \
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/coding-standards.md" ] && \
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/dependencies.md" ] && \
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/source-tree.md" ]; then
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/hook-integration-pattern.md:if [ -f "devforgeai/context/tech-stack.md" ] && \
-/mnt/c/Projects/DevForgeAI2/.devforgeai/protocols/slash-command-argument-validation-pattern.md:- `devforgeai/context/anti-patterns.md` - Copy-paste warnings
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-011-INDEX.md:- **Architecture:** `devforgeai/context/architecture-constraints.md` (design)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-011-INDEX.md:- **Coding Standards:** `devforgeai/context/coding-standards.md` (test quality)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-011-INDEX.md:- **Tech Stack:** `devforgeai/context/tech-stack.md` (pytest framework)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/anti-patterns.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/architecture-constraints.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/coding-standards.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/dependencies.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/source-tree.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/tech-stack.md` ✅
-/mnt/c/Projects/DevForgeAI2/.devforgeai/qa/reports/STORY-041-integration-tests.md:| devforgeai/context/ exists | ✓ | ✓ | ✓ |
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/DELIVERY-REPORT.md:  - Confirms devforgeai/context/ paths preserved
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/DELIVERY-REPORT.md:- devforgeai/context/ references (417 refs)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/integration-test-report.md:✓ devforgeai/context/ references
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:   - Example: Files reading `devforgeai/context/tech-stack.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/update-diff-summary.md:2. **devforgeai/context/ paths** (~417 refs)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/validation-report.md:### Check 2: devforgeai/context/ References
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/validation-report.md:grep "\devforgeai/context/" .claude/skills/*/*.md  # Should find all unchanged
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md:   ls devforgeai/context/  # Should have 6 context files
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md:- devforgeai/context/ (created by /create-context)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md:   - Check `devforgeai/context/*.md` exist (all 6 files)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md:# In devforgeai/context/architecture-constraints.md or tech-stack.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-002-hardcoded-test-commands.md:  Step 1: Glob(devforgeai/context/*.md) → 0 files
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-003-empty-git-repository.md:   Glob(pattern="devforgeai/context/*.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:    Read: devforgeai/context/*.md (if constraint issue)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:  - Context files: `devforgeai/context/*.md` (if constraint violation)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:- Expected: Auto-reads `devforgeai/context/tech-stack.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:Glob(pattern="devforgeai/context/*.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/SRC-CLEANUP-2025-11-16.md:**Source Tree Rules:** `devforgeai/context/source-tree.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/enhancements/SRC-CLEANUP-2025-11-16.md:- Context: 6 context files in `devforgeai/context/` (Markdown)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/framework-alignment-gap-analysis.md:     prompt="Review context files in devforgeai/context/ for architectural soundness..."
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/framework-alignment-gap-analysis.md:     prompt="Review context files in devforgeai/context/ for:
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/framework-alignment-gap-analysis.md:2. Generate design-system.md in devforgeai/context/
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/framework-alignment-gap-analysis.md:3. Generate design-system.md in devforgeai/context/
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/phase-2-subagents-generation-report.md:3. **Context File Dependency**: Ensure `devforgeai/context/` files exist before invoking subagents that require them
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/phase-3-slash-commands-implementation-plan.md:- Context files: `devforgeai/context/*.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/phase-3-slash-commands-implementation-plan.md:- [ ] All 6 context files generated in `devforgeai/context/`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-framework-requirements.md:- [ ] All 6 context files generated in `devforgeai/context/`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/anti-patterns.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/architecture-constraints.md"),
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/coding-standards.md"),
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/dependencies.md"),
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/source-tree.md"),
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/tech-stack.md"),
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/anti-patterns.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/architecture-constraints.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/coding-standards.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/dependencies.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/source-tree.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/anti-patterns.md` - Detect violations
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/architecture-constraints.md` - Validate layer boundaries
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/coding-standards.md` - Validate code patterns
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/dependencies.md` - Validate package usage
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/source-tree.md` - Validate file locations
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/tech-stack.md` - Validate technology usage
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/anti-patterns.md` (patterns to avoid)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/architecture-constraints.md` (compliance validation)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/tech-stack.md` (framework implementation constraints)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:- Read `devforgeai/context/architecture-constraints.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/reviews/skill-alignment-review.md:│ • Output: devforgeai/context/*.md                           │
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/TEST-STATUS-REPORT.md:- Context files exist (devforgeai/context/*.md)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac4-current-operations.sh:    assert_file_exists "devforgeai/context/$ctx_file" "Context file exists: $ctx_file"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/regression/test_rca_008_git_stashing.md:  - Context files (devforgeai/context/)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/regression/test_rca_008_git_stashing.md:ls devforgeai/context/*.md | wc -l
+/mnt/c/Projects/DevForgeAI2/devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/anti-patterns.md` (lines 91-111)
+/mnt/c/Projects/DevForgeAI2/devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/architecture-constraints.md` (lines 28-44)
+/mnt/c/Projects/DevForgeAI2/devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/source-tree.md` (line 160)
+/mnt/c/Projects/DevForgeAI2/devforgeai/deferral-validation/STORY-040-deferral-validation-report.md:- File: `devforgeai/context/tech-stack.md` (lines 27-39)
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/anti-patterns.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/architecture-constraints.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/dependencies.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:  Read(file_path="devforgeai/context/tech-stack.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:# Ensure devforgeai/context/*.md exist
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:context_files = Glob(pattern="devforgeai/context/*.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-REFACTORING-IMPLEMENTATION-PLAN.md:rm -rf devforgeai/context/
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md:# Ensure devforgeai/context/*.md exist
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/CREATE-EPIC-SKILL-ENHANCEMENT-COMPLETE.md:rm -rf devforgeai/context/
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/create-epic-refactoring-plan.md:   - Check if context files exist (devforgeai/context/*.md)
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/anti-patterns.md" ] && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/architecture-constraints.md" ] && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/coding-standards.md" ] && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/dependencies.md" ] && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:   [ -f "devforgeai/context/source-tree.md" ]; then
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/hook-integration-pattern.md:if [ -f "devforgeai/context/tech-stack.md" ] && \
+/mnt/c/Projects/DevForgeAI2/devforgeai/protocols/slash-command-argument-validation-pattern.md:- `devforgeai/context/anti-patterns.md` - Copy-paste warnings
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-011-INDEX.md:- **Architecture:** `devforgeai/context/architecture-constraints.md` (design)
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-011-INDEX.md:- **Coding Standards:** `devforgeai/context/coding-standards.md` (test quality)
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-011-INDEX.md:- **Tech Stack:** `devforgeai/context/tech-stack.md` (pytest framework)
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/anti-patterns.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/architecture-constraints.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/coding-standards.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/dependencies.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/source-tree.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-026-qa-report.md:- `devforgeai/context/tech-stack.md` ✅
+/mnt/c/Projects/DevForgeAI2/devforgeai/qa/reports/STORY-041-integration-tests.md:| devforgeai/context/ exists | ✓ | ✓ | ✓ |
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/DELIVERY-REPORT.md:  - Confirms devforgeai/context/ paths preserved
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/DELIVERY-REPORT.md:- devforgeai/context/ references (417 refs)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/integration-test-report.md:✓ devforgeai/context/ references
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/update-diff-summary.md:   - Example: Files reading `devforgeai/context/tech-stack.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/update-diff-summary.md:2. **devforgeai/context/ paths** (~417 refs)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/validation-report.md:### Check 2: devforgeai/context/ References
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/validation-report.md:grep "\devforgeai/context/" .claude/skills/*/*.md  # Should find all unchanged
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md:   ls devforgeai/context/  # Should have 6 context files
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/DEVFORGEAI-SRC-MIGRATION-PLAN.md:- devforgeai/context/ (created by /create-context)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/DOCUMENTATION-SKILL-ARCHITECTURE.md:   - Check `devforgeai/context/*.md` exist (all 6 files)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md:# In devforgeai/context/architecture-constraints.md or tech-stack.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-002-hardcoded-test-commands.md:  Step 1: Glob(devforgeai/context/*.md) → 0 files
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-003-empty-git-repository.md:   Glob(pattern="devforgeai/context/*.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:    Read: devforgeai/context/*.md (if constraint issue)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:  - Context files: `devforgeai/context/*.md` (if constraint violation)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:- Expected: Auto-reads `devforgeai/context/tech-stack.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/RCA-IMPLEMENTATION-PLAN.md:Glob(pattern="devforgeai/context/*.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/SRC-CLEANUP-2025-11-16.md:**Source Tree Rules:** `devforgeai/context/source-tree.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/enhancements/SRC-CLEANUP-2025-11-16.md:- Context: 6 context files in `devforgeai/context/` (Markdown)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/framework-alignment-gap-analysis.md:     prompt="Review context files in devforgeai/context/ for architectural soundness..."
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/framework-alignment-gap-analysis.md:     prompt="Review context files in devforgeai/context/ for:
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/framework-alignment-gap-analysis.md:2. Generate design-system.md in devforgeai/context/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/framework-alignment-gap-analysis.md:3. Generate design-system.md in devforgeai/context/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/phase-2-subagents-generation-report.md:3. **Context File Dependency**: Ensure `devforgeai/context/` files exist before invoking subagents that require them
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/phase-3-slash-commands-implementation-plan.md:- Context files: `devforgeai/context/*.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/phase-3-slash-commands-implementation-plan.md:- [ ] All 6 context files generated in `devforgeai/context/`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-framework-requirements.md:- [ ] All 6 context files generated in `devforgeai/context/`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/anti-patterns.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/architecture-constraints.md"),
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/coding-standards.md"),
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/dependencies.md"),
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/source-tree.md"),
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:    file_exists("devforgeai/context/tech-stack.md"),
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-ideation-skill-design.md:Read(file_path="devforgeai/context/tech-stack.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/anti-patterns.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/architecture-constraints.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/coding-standards.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/dependencies.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/source-tree.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-orchestration-phase3-4-plan.md:  Read(file_path="devforgeai/context/tech-stack.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/anti-patterns.md` - Detect violations
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/architecture-constraints.md` - Validate layer boundaries
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/coding-standards.md` - Validate code patterns
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/dependencies.md` - Validate package usage
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/source-tree.md` - Validate file locations
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/devforgeai-qa-implementation-plan.md:- `devforgeai/context/tech-stack.md` - Validate technology usage
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/anti-patterns.md` (patterns to avoid)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/architecture-constraints.md` (compliance validation)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:  - `devforgeai/context/tech-stack.md` (framework implementation constraints)
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/requirements/retrospective-feedback-system-requirements.md:- Read `devforgeai/context/architecture-constraints.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/reviews/skill-alignment-review.md:│ • Output: devforgeai/context/*.md                           │
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/TEST-STATUS-REPORT.md:- Context files exist (devforgeai/context/*.md)
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac4-current-operations.sh:    assert_file_exists "devforgeai/context/$ctx_file" "Context file exists: $ctx_file"
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/regression/test_rca_008_git_stashing.md:  - Context files (devforgeai/context/)
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/regression/test_rca_008_git_stashing.md:ls devforgeai/context/*.md | wc -l
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md:   Glob(pattern="devforgeai/context/*.md")
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.claude/memory/architecture-patterns.md
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.claude/memory/commands-reference.md
@@ -535,9 +535,9 @@
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.claude/memory/token-budget-guidelines.md
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.claude/memory/token-efficiency.md
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.claude/memory/ui-generator-guide.md
-/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.devforgeai/protocols/command-budget-reference.md - Budget tables and monitoring
-/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.devforgeai/protocols/lean-orchestration-pattern.md - Command architecture and refactoring
-/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @.devforgeai/protocols/refactoring-case-studies.md - Detailed refactoring examples
+/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @devforgeai/protocols/command-budget-reference.md - Budget tables and monitoring
+/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @devforgeai/protocols/lean-orchestration-pattern.md - Command architecture and refactoring
+/mnt/c/Projects/DevForgeAI2/CLAUDE.md: - @devforgeai/protocols/refactoring-case-studies.md - Detailed refactoring examples
 /mnt/c/Projects/DevForgeAI2/CLAUDE.md:**Context Files:** `devforgeai/context/` (6 constraint files)
 /mnt/c/Projects/DevForgeAI2/IMPLEMENTATION_NOTES.md:- Framework context still accessible (devforgeai/context/ in src/)
 /mnt/c/Projects/DevForgeAI2/README-DOCUMENTATION-SKILL.md:# - devforgeai/context/anti-patterns.md
@@ -957,7 +957,7 @@
 /mnt/c/Projects/DevForgeAI2/tests/integration/STORY_036_TEST_SUMMARY.md:- **Tech Stack:** `devforgeai/context/tech-stack.md`
 /mnt/c/Projects/DevForgeAI2/tests/integration/STORY_036_TEST_SUMMARY.md:- [x] Tests follow DevForgeAI coding standards (devforgeai/context/coding-standards.md)
 /mnt/c/Projects/DevForgeAI2/tests/integration/TEST_STORY030_SUMMARY.md:   [ -f "devforgeai/context/source-tree.md" ] && \
-/mnt/c/Projects/DevForgeAI2/tests/integration/TEST_STORY030_SUMMARY.md:- Contains devforgeai/context/, .devforgeai/config/
+/mnt/c/Projects/DevForgeAI2/tests/integration/TEST_STORY030_SUMMARY.md:- Contains devforgeai/context/, devforgeai/config/
 /mnt/c/Projects/DevForgeAI2/tests/integration/TEST_STORY030_SUMMARY.md:if [ -f "devforgeai/context/tech-stack.md" ] && \
 /mnt/c/Projects/DevForgeAI2/tests/integration/TEST_SUITE_SUMMARY.md:- Context files: `devforgeai/context/*.md` (used in tests)
 /mnt/c/Projects/DevForgeAI2/tests/unit/STORY-035-TEST-GENERATION-COMPLETE.md:- [ ] Replace .claude/context/ → devforgeai/context/

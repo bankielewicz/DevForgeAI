@@ -188,7 +188,7 @@
 **Tests:** 20 tests
 
 **Coverage:**
-- [x] Training log created at .devforgeai/onboarding/team-training-log.md
+- [x] Training log created at devforgeai/onboarding/team-training-log.md
 - [x] Log documents session metadata (date, attendees, topics)
 - [x] Log lists team members
 - [x] Log shows 7-item onboarding checklist
@@ -201,7 +201,7 @@
 - [x] Checklist includes "Understand rollback procedure"
 - [x] Log shows completion status
 - [x] At least some items marked complete
-- [x] .devforgeai/onboarding/ directory exists
+- [x] devforgeai/onboarding/ directory exists
 - [x] Training mentions presentation component
 - [x] Training mentions hands-on component
 - [x] Training timing documented

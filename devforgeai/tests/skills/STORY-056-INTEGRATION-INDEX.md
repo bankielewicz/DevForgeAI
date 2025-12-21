@@ -99,7 +99,7 @@
 
 ### Integration Test Reports
 ```
-.devforgeai/tests/skills/
+devforgeai/tests/skills/
 ├── STORY-056-INTEGRATION-TESTING-SUMMARY.txt (←START HERE)
 ├── STORY-056-INTEGRATION-TEST-REPORT.md
 └── STORY-056-VALIDATION-CHECKLIST.md
@@ -107,7 +107,7 @@
 
 ### Test Code
 ```
-.devforgeai/tests/skills/
+devforgeai/tests/skills/
 ├── test-story-creation-guidance-unit.sh
 ├── test-story-creation-guidance-integration.sh
 ├── test-story-creation-regression.sh
@@ -116,7 +116,7 @@
 
 ### Test Documentation
 ```
-.devforgeai/tests/skills/
+devforgeai/tests/skills/
 ├── STORY-056-TEST-EXECUTION-GUIDE.md
 ├── STORY-056-TEST-SUMMARY.md
 └── README-STORY-056.md
@@ -197,7 +197,7 @@ src/claude/skills/devforgeai-story-creation/
 
 ### Run All Tests (Automated Only)
 ```bash
-cd /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/skills/
+cd /mnt/c/Projects/DevForgeAI2/devforgeai/tests/skills/
 bash test-story-creation-guidance-unit.sh && \
 bash test-story-creation-regression.sh && \
 python3 test-story-creation-guidance-performance.py

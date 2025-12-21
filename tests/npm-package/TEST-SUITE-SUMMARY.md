@@ -175,7 +175,7 @@ FAIL  AC#4: Package structure follows NPM best practices
   ✕ installer/deploy.py exists
   ✕ src/ directory exists
   ✕ src/.claude/ subdirectory exists
-  ✕ src/.devforgeai/ subdirectory exists
+  ✕ src/devforgeai/ subdirectory exists
   ✕ LICENSE file exists
   ✕ LICENSE contains MIT License
   ✕ LICENSE ≥ 1000 characters
@@ -207,7 +207,7 @@ FAIL  Integration: npm pack tarball creation
   ✕ tarball excludes tests/ directory
   ✕ tarball excludes docs/ directory
   ✕ tarball excludes .git directory
-  ✕ tarball excludes .devforgeai/qa/
+  ✕ tarball excludes devforgeai/qa/
   ✕ tarball excludes .ai_docs/
   ✕ tarball excludes *.test.js files
   ✕ tarball excludes .vscode
@@ -297,7 +297,7 @@ To make tests pass (GREEN phase), implement:
 - [ ] Execute < 200ms for --version/--help
 
 ### 3. Create `.npmignore`
-- [ ] Exclude: tests/, docs/, .git, .devforgeai/qa/, .ai_docs/
+- [ ] Exclude: tests/, docs/, .git, devforgeai/qa/, .ai_docs/
 - [ ] Exclude: *.test.js, .vscode, .idea
 - [ ] Verify npm pack --dry-run excludes correctly
 

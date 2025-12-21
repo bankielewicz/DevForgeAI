@@ -47,10 +47,10 @@ During TreeLint Codelens project development:
 ## Your Task
 
 Implement the comprehensive fix plan documented in:
-`.devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md`
+`devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md`
 
 **Read these files for complete context:**
-1. `.devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md` - Complete implementation plan
+1. `devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md` - Complete implementation plan
 2. `tmp/RCA-exit-code-deferral-story-004.md` - Dev agent RCA with 5 Whys
 3. `tmp/RCA-qa-process-failure-story-004.md` - QA process RCA with 5 Whys
 4. `.claude/skills/devforgeai-development/SKILL.md` - Current dev workflow
@@ -263,7 +263,7 @@ After implementation:
 
 **Templates (2):**
 11. .claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-004-scope-descope.md
-12. .devforgeai/technical-debt-register.md
+12. devforgeai/technical-debt-register.md
 
 **Documentation (3):**
 13. .claude/memory/skills-reference.md
@@ -274,7 +274,7 @@ After implementation:
 16. devforgeai/specs/Stories/STORY-0XX-integrate-error-handling-main.story.md
 
 **RCA (1):**
-17. .devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md
+17. devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md
 
 **Total: 17 files**
 
@@ -303,11 +303,11 @@ If you encounter ambiguity, HALT and use AskUserQuestion:
 ## Reference Materials
 
 **In this repository:**
-- Complete plan: `.devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md`
+- Complete plan: `devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md`
 - Dev RCA: `tmp/RCA-exit-code-deferral-story-004.md`
 - QA RCA: `tmp/RCA-qa-process-failure-story-004.md`
 - Evidence: `tmp/output.md`, `tmp/STORY-004-qa-report.md`, `tmp/STORY-005-qa-report.md`
-- Previous RCA: `.devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
+- Previous RCA: `devforgeai/specs/enhancements/RCA-005-skill-parameter-passing.md`
 - Framework docs: `CLAUDE.md`, `README.md`, `ROADMAP.md`
 
 **Pattern to follow:**
@@ -321,7 +321,7 @@ If you encounter ambiguity, HALT and use AskUserQuestion:
 Begin by reading the complete plan and both RCA documents:
 
 ```
-Read(.devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md)
+Read(devforgeai/specs/enhancements/RCA-006-deferral-validation-plan-DRAFT.md)
 Read(tmp/RCA-exit-code-deferral-story-004.md)
 Read(tmp/RCA-qa-process-failure-story-004.md)
 ```

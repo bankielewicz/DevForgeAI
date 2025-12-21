@@ -52,7 +52,7 @@ def temp_feedback_dir():
 @pytest.fixture
 def index_file(temp_feedback_dir):
     """Index file path in temporary directory."""
-    index_path = temp_feedback_dir / ".devforgeai" / "feedback" / "index.json"
+    index_path = temp_feedback_dir / "devforgeai" / "feedback" / "index.json"
     index_path.parent.mkdir(parents=True, exist_ok=True)
     return index_path
 
@@ -60,7 +60,7 @@ def index_file(temp_feedback_dir):
 @pytest.fixture
 def sessions_dir(temp_feedback_dir):
     """Sessions directory for test feedback files."""
-    sessions_path = temp_feedback_dir / ".devforgeai" / "feedback" / "sessions"
+    sessions_path = temp_feedback_dir / "devforgeai" / "feedback" / "sessions"
     sessions_path.mkdir(parents=True, exist_ok=True)
     return sessions_path
 
@@ -945,7 +945,7 @@ class TestEdgeCase2_IndexReindex:
     """Tests for Edge Case 2: Index reindex command"""
 
     def test_edge_case2_reindex_scans_sessions_directory(self, index_file, sessions_dir):
-        """Edge Case 2: Reindex scans .devforgeai/feedback/sessions/ directory."""
+        """Edge Case 2: Reindex scans devforgeai/feedback/sessions/ directory."""
         # Create some session files
         session1 = sessions_dir / "2025-11-07T10-00-00-command-dev-success.md"
         session1.write_text("---\nid: test1\n---\nContent")

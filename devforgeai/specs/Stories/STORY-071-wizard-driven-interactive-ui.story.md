@@ -518,7 +518,7 @@ technical_specification:
 **Error Handling:**
 - All file operations wrapped in try-catch
 - User-friendly error messages (no stack traces)
-- Detailed errors logged to `.devforgeai/logs/install-error-{timestamp}.log`
+- Detailed errors logged to `devforgeai/logs/install-error-{timestamp}.log`
 
 **Graceful Degradation:**
 - If spinner library fails, fallback to text updates
@@ -535,7 +535,7 @@ technical_specification:
 
 **Logging:**
 - Log level: INFO default, DEBUG with --verbose
-- Log file: `.devforgeai/logs/install.log`
+- Log file: `devforgeai/logs/install.log`
 - Include timestamps and operation descriptions
 
 **Metrics:**
@@ -666,7 +666,7 @@ describe('InstallWizard', () => {
 
 2. **Terminal without color support (TERM=dumb, NO_COLOR env var):** Detect color support via `chalk.supportsColor`. Disable Chalk colors, use ASCII symbols instead: "✓" → "[OK]", "✗" → "[ERROR]", "⚠" → "[WARN]". Spinner uses simple text updates (no animations).
 
-3. **Interrupted prompts mid-operation (Ctrl+C during file copy):** Inquirer.js emits 'SIGINT' event. Catch via `process.on('SIGINT')`. Stop file operations immediately. Remove partially written files. Restore original state if possible. Log interruption to `.devforgeai/logs/install-interrupted-{timestamp}.log`.
+3. **Interrupted prompts mid-operation (Ctrl+C during file copy):** Inquirer.js emits 'SIGINT' event. Catch via `process.on('SIGINT')`. Stop file operations immediately. Remove partially written files. Restore original state if possible. Log interruption to `devforgeai/logs/install-interrupted-{timestamp}.log`.
 
 4. **Invalid user input to prompts (wrong directory format, unknown mode):** Inquirer.js validate function checks input. Display red error message below prompt. Keep prompt active (don't advance). Allow user to correct input. After 3 consecutive failures, offer to use default value.
 
@@ -910,7 +910,7 @@ Object.defineProperty(process.stdin, 'isTTY', { value: true });
 - tests/npm-package/unit/wizard-config.test.js
 - tests/npm-package/integration/wizard-flow.integration.test.js
 - tests/npm-package/e2e/interactive-install.e2e.test.js
-- .devforgeai/adrs/ADR-006-inquirer-esm-cjs-compatibility.md
+- devforgeai/adrs/ADR-006-inquirer-esm-cjs-compatibility.md
 
 **Modified Files:**
 - package.json (added dependencies)
@@ -1038,7 +1038,7 @@ Object.defineProperty(process.stdin, 'isTTY', { value: true });
 - devforgeai/context/dependencies.md (updated locked versions)
 
 **Documentation:**
-- .devforgeai/adrs/ADR-006-inquirer-esm-cjs-compatibility.md (expanded to all CLI libs)
+- devforgeai/adrs/ADR-006-inquirer-esm-cjs-compatibility.md (expanded to all CLI libs)
 
 ### Session 3 Resolution (Continued)
 

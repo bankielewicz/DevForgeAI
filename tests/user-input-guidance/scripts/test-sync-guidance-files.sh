@@ -174,7 +174,7 @@ setup_test_environment() {
     rm -rf "$TEST_DIR"
     mkdir -p "$TEST_DIR"/src/.claude/memory
     mkdir -p "$TEST_DIR"/operational/.claude/memory
-    mkdir -p "$TEST_DIR"/.devforgeai/qa/reports
+    mkdir -p "$TEST_DIR"/devforgeai/qa/reports
 
     # Create test source files
     echo "# Test CLAUDE.md content" > "$TEST_DIR/src/CLAUDE.md"

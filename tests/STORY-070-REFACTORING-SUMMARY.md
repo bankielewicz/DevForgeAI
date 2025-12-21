@@ -86,7 +86,7 @@ Refactored `scripts/release.sh` (780 lines → 1143 lines) to improve code quali
 # =============================================================================
 # Sync operational directories to distribution source:
 # - .claude/ → src/claude/ (framework skills, commands, agents)
-# - .devforgeai/ → src/devforgeai/ (context files, templates, configs)
+# - devforgeai/ → src/devforgeai/ (context files, templates, configs)
 # ...
 ```
 
@@ -134,7 +134,7 @@ Refactored `scripts/release.sh` (780 lines → 1143 lines) to improve code quali
    - +30 improved inline comments
    - Maintained all existing functionality
 
-2. **.devforgeai/config/release-config.sh** (no changes)
+2. **devforgeai/config/release-config.sh** (no changes)
    - Configuration remains unchanged
 
 ## Backward Compatibility

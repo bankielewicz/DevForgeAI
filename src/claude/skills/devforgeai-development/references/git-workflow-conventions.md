@@ -207,7 +207,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/lock-file-coord
 
 **Execute Steps 5.0.1 through 5.0.4 from lock-file-coordination.md:**
 
-1. **Step 5.0.1:** Acquire `.devforgeai/.locks/git-commit.lock`
+1. **Step 5.0.1:** Acquire `devforgeai/.locks/git-commit.lock`
 2. **Step 5.0.2:** Wait with progress display if lock held (AC#2)
 3. **Step 5.0.3:** Auto-remove stale locks (PID dead + age > 5 min) (AC#3)
 4. **Step 5.0.4:** Prompt user if timeout exceeds 10 minutes (AC#4)

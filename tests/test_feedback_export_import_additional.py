@@ -454,7 +454,7 @@ class TestIndexLoadingAndWriting:
         from feedback_export_import import _load_or_create_main_index
 
         # Create index file
-        feedback_dir = temp_project_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_project_dir / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
         index_path = feedback_dir / "feedback-index.json"
 
@@ -471,7 +471,7 @@ class TestIndexLoadingAndWriting:
         """Creates new index when none exists."""
         from feedback_export_import import _load_or_create_main_index
 
-        feedback_dir = temp_project_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_project_dir / "devforgeai" / "feedback"
         index_path = feedback_dir / "feedback-index.json"
 
         with patch('feedback_export_import.FEEDBACK_INDEX_FILE', index_path):
@@ -484,7 +484,7 @@ class TestIndexLoadingAndWriting:
         """Creates parent directory if it doesn't exist."""
         from feedback_export_import import _write_merged_index_atomically
 
-        feedback_dir = temp_project_dir / ".devforgeai" / "feedback" / "deep" / "nested"
+        feedback_dir = temp_project_dir / "devforgeai" / "feedback" / "deep" / "nested"
         index_path = feedback_dir / "feedback-index.json"
 
         test_data = {"sessions": []}
@@ -502,7 +502,7 @@ class TestIndexLoadingAndWriting:
         """Overwrites existing index atomically."""
         from feedback_export_import import _write_merged_index_atomically
 
-        feedback_dir = temp_project_dir / ".devforgeai" / "feedback"
+        feedback_dir = temp_project_dir / "devforgeai" / "feedback"
         feedback_dir.mkdir(parents=True, exist_ok=True)
         index_path = feedback_dir / "feedback-index.json"
 
@@ -579,8 +579,8 @@ def temp_project_dir():
 
     temp_dir = tempfile.mkdtemp()
 
-    # Create .devforgeai/feedback/ structure
-    feedback_dir = Path(temp_dir) / ".devforgeai" / "feedback"
+    # Create devforgeai/feedback/ structure
+    feedback_dir = Path(temp_dir) / "devforgeai" / "feedback"
     feedback_dir.mkdir(parents=True, exist_ok=True)
 
     sessions_dir = feedback_dir / "sessions"

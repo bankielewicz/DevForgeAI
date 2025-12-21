@@ -229,7 +229,7 @@ grep 'format_version:' story-template.md
 #     - Clarifies AC headers are static definitions
 #     - All future stories (58+) benefit from clear format
 #   References:
-#     - RCA-012: .devforgeai/RCA/RCA-012/
+#     - RCA-012: devforgeai/RCA/RCA-012/
 #     - Root cause: Vestigial checkboxes from pre-RCA-011 design
 #
 # v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)
@@ -242,7 +242,7 @@ grep 'format_version:' story-template.md
 #     - Test generation accuracy improved (85% → 95%+)
 #     - Validation automation enabled
 #   References:
-#     - .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+#     - devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 #
 # v1.0 (Initial) - Original Template
 #   Features:
@@ -256,7 +256,7 @@ grep 'format_version:' story-template.md
 #   v2.0 → v2.1: Optional script available
 #     Location: .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh
 #     Usage: bash migrate-ac-headers.sh <story-file>
-#     See: .devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md
+#     See: devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md
 #
 # Backward Compatibility:
 #   All versions (v1.0, v2.0, v2.1) supported by framework
@@ -384,7 +384,7 @@ echo "=== Validation Complete ==="
   - After: `### AC#1: Criterion Title`
 - **Rationale:** AC headers are definitions (what to test), not trackers (what's complete)
 - **Impact:** Eliminates systematic user confusion about unchecked AC headers in completed stories
-- **RCA Reference:** .devforgeai/RCA/RCA-012/
+- **RCA Reference:** devforgeai/RCA/RCA-012/
 
 **v2.0 (2025-10-30) - Structured Tech Spec (RCA-006 Phase 2)**
 - **Change:** Added machine-readable technical_specification YAML block
@@ -392,7 +392,7 @@ echo "=== Validation Complete ==="
   - Embedded test requirements for each component
   - Deterministic parsing for test generation
 - **Impact:** Test generation accuracy improved from 85% to 95%+
-- **Specification:** .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+- **Specification:** devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
 **v1.0 (Initial) - Original Template**
 - **Features:** User story format, AC headers with checkboxes, freeform tech spec, Definition of Done
@@ -403,7 +403,7 @@ echo "=== Validation Complete ==="
 - **v2.0 → v2.1:** Optional automated migration
   - Script: `.claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh`
   - Usage: `bash migrate-ac-headers.sh <story-file>`
-  - Documentation: `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`
+  - Documentation: `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`
 - **Backward Compatibility:** All versions supported by framework
 
 **Template Location:** `assets/templates/story-template.md`
@@ -629,7 +629,7 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 - Story is archived (no active work)
 - Migration risk outweighs benefit
 
-**See:** `.devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
+**See:** `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
 
 ---
 ```
@@ -792,7 +792,7 @@ Expected Answers:
 **User Feedback Collection:**
 ```bash
 # Create feedback file
-cat > .devforgeai/RCA/RCA-012/phase1-user-feedback.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/phase1-user-feedback.md << 'EOF'
 # Phase 1 User Feedback
 
 **Reviewer:** {User Name}
@@ -973,7 +973,7 @@ Save changes
 
 ### Step R4: Document Rollback Reason
 ```bash
-cat > .devforgeai/RCA/RCA-012/PHASE1-ROLLBACK-LOG.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/PHASE1-ROLLBACK-LOG.md << 'EOF'
 # Phase 1 Rollback Log
 
 **Date:** {timestamp}
@@ -1078,7 +1078,7 @@ Proceed to Phase 2? (User Decision)
 
 ### Files Created
 - [ ] `story-template.md.v2.0-backup` (safety backup)
-- [ ] `.devforgeai/RCA/RCA-012/phase1-user-feedback.md` (approval record)
+- [ ] `devforgeai/RCA/RCA-012/phase1-user-feedback.md` (approval record)
 
 ### Validation Evidence
 - [ ] Template validation results (6/6 tests pass)
@@ -1126,7 +1126,7 @@ Proceed to Phase 2? (User Decision)
 **After Phase 1 completes successfully:**
 
 ### Immediate
-1. Mark Phase 1 complete in `.devforgeai/RCA/RCA-012/INDEX.md`
+1. Mark Phase 1 complete in `devforgeai/RCA/RCA-012/INDEX.md`
 2. Update Implementation Phases section (mark checkboxes [x])
 3. Document actual effort vs. estimated (for future planning)
 
@@ -1147,7 +1147,7 @@ Proceed to Phase 2? (User Decision)
 
 **Create success record:**
 ```bash
-cat > .devforgeai/RCA/RCA-012/PHASE1-SUCCESS-RECORD.md << 'EOF'
+cat > devforgeai/RCA/RCA-012/PHASE1-SUCCESS-RECORD.md << 'EOF'
 # Phase 1 Success Record
 
 **Completion Date:** 2025-01-21

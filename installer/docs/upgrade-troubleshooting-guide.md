@@ -275,8 +275,8 @@ If `devforgeai rollback` doesn't work:
 BACKUP=$(ls -td devforgeai/backups/* | head -1)
 
 # Manually restore
-rm -rf .devforgeai .claude CLAUDE.md
-cp -r "$BACKUP/.devforgeai" .
+rm -rf devforgeai .claude CLAUDE.md
+cp -r "$BACKUP/devforgeai" .
 cp -r "$BACKUP/.claude" .
 cp "$BACKUP/CLAUDE.md" .
 

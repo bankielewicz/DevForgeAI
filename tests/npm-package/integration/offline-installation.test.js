@@ -234,13 +234,13 @@ describe('AC#4 & BR-002: Graceful degradation for optional dependencies', () => 
      *
      * Given: Python unavailable during installation
      * When: Installation completes
-     * Then: .devforgeai/MISSING_FEATURES.md file created with:
+     * Then: devforgeai/MISSING_FEATURES.md file created with:
      * - Feature name: "Python CLI"
      * - Impact: "CLI validation commands unavailable"
      * - Mitigation: "Install Python 3.8+ and run: devforgeai install --python-only"
      */
 
-    const missingFeaturesPath = path.join(testInstallDir, '.devforgeai/MISSING_FEATURES.md');
+    const missingFeaturesPath = path.join(testInstallDir, 'devforgeai/MISSING_FEATURES.md');
 
     // After installation without Python
     // expect(fs.existsSync(missingFeaturesPath)).toBe(true);
@@ -260,12 +260,12 @@ describe('AC#4 & BR-002: Graceful degradation for optional dependencies', () => 
      *
      * Given: Python not installed
      * When: Installer runs
-     * Then: Core directories exist (.claude/, .devforgeai/)
+     * Then: Core directories exist (.claude/, devforgeai/)
      */
 
     // After installation without Python
     // const claudeDir = path.join(testInstallDir, '.claude');
-    // const devforgeaiDir = path.join(testInstallDir, '.devforgeai');
+    // const devforgeaiDir = path.join(testInstallDir, 'devforgeai');
 
     // expect(fs.existsSync(claudeDir)).toBe(true);
     // expect(fs.existsSync(devforgeaiDir)).toBe(true);

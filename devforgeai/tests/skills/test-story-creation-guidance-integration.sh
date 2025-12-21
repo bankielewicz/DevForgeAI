@@ -3,12 +3,12 @@
 ################################################################################
 # INTEGRATION TEST SUITE: Story Creation Guidance Integration
 #
-# File: .devforgeai/tests/skills/test-story-creation-guidance-integration.sh
+# File: devforgeai/tests/skills/test-story-creation-guidance-integration.sh
 # Purpose: Test guidance integration with Phase 1 execution, subagent impact
 # Coverage: 12 integration tests for full skill workflow with guidance
 # Framework: Bash + manual verification points (interactive tests)
 #
-# Run: bash .devforgeai/tests/skills/test-story-creation-guidance-integration.sh
+# Run: bash devforgeai/tests/skills/test-story-creation-guidance-integration.sh
 ################################################################################
 
 set -euo pipefail
@@ -179,7 +179,7 @@ test_05_backward_compatibility_existing_tests() {
     run_test 05 "Backward compatibility (30+ existing test cases pass)"
 
     # Verify regression test suite exists
-    local regression_suite="$REPO_ROOT/.devforgeai/tests/skills/test-story-creation-regression.sh"
+    local regression_suite="$REPO_ROOT/devforgeai/tests/skills/test-story-creation-regression.sh"
 
     if [[ -f "$regression_suite" ]]; then
         echo -e "${GREEN}PASS${NC}: Regression test suite exists"

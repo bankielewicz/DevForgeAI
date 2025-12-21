@@ -102,7 +102,7 @@
   - Example from STORY-004 exit code deferral incident
 
 - [x] **technical-debt-register.md** (NEW - 213 lines)
-  - Location: `.devforgeai/technical-debt-register.md`
+  - Location: `devforgeai/technical-debt-register.md`
   - Template for tracking deferred work
   - Sections: Open/In Progress/Resolved, Analysis, Guidelines
   - Auto-updated by dev skill when external blockers deferred
@@ -136,7 +136,7 @@
 ### Phase 6: RCA Document ✅
 
 - [x] **RCA-006-deferral-validation-quality-gate-failure.md** (NEW - 382 lines)
-  - Location: `.devforgeai/specs/enhancements/`
+  - Location: `devforgeai/specs/enhancements/`
   - Complete RCA with dual perspective (dev + QA)
   - Evidence from STORY-004/005
   - Solution design with 3-tier enforcement
@@ -152,9 +152,9 @@
 1. `.claude/agents/deferral-validator.md`
 2. `.claude/agents/technical-debt-analyzer.md`
 3. `.claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-006-scope-descope.md`
-4. `.devforgeai/technical-debt-register.md`
+4. `devforgeai/technical-debt-register.md`
 5. `devforgeai/specs/Stories/STORY-006-integrate-error-handling-main.story.md`
-6. `.devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md`
+6. `devforgeai/specs/enhancements/RCA-006-deferral-validation-quality-gate-failure.md`
 
 **Modified Files (11):**
 1. `.claude/skills/devforgeai-development/SKILL.md` (major changes)

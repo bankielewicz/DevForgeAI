@@ -30,20 +30,20 @@ This document provides comprehensive guidance for executing the test suite for S
 cd /mnt/c/Projects/DevForgeAI2
 
 # Make scripts executable
-chmod +x .devforgeai/tests/skills/test-story-creation-*.sh
+chmod +x devforgeai/tests/skills/test-story-creation-*.sh
 
 # Run test suites in sequence
 echo "Running Unit Tests..."
-bash .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+bash devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 
 echo "Running Integration Tests..."
-bash .devforgeai/tests/skills/test-story-creation-guidance-integration.sh
+bash devforgeai/tests/skills/test-story-creation-guidance-integration.sh
 
 echo "Running Regression Tests..."
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 
 echo "Running Performance Tests..."
-python3 .devforgeai/tests/skills/test-story-creation-guidance-performance.py
+python3 devforgeai/tests/skills/test-story-creation-guidance-performance.py
 ```
 
 ---
@@ -52,7 +52,7 @@ python3 .devforgeai/tests/skills/test-story-creation-guidance-performance.py
 
 ### Unit Tests (15 tests)
 
-**File:** `.devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
+**File:** `devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
 
 **Purpose:** Verify guidance file loading, pattern extraction, and mapping operations in isolation
 
@@ -75,7 +75,7 @@ python3 .devforgeai/tests/skills/test-story-creation-guidance-performance.py
 
 **Run:**
 ```bash
-bash .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+bash devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 ```
 
 **Expected Output:**
@@ -88,7 +88,7 @@ Tests Passed: 15/15
 
 ### Integration Tests (12 tests)
 
-**File:** `.devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
+**File:** `devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
 
 **Purpose:** Verify guidance integration with full Phase 1 workflow and measure subagent impact
 
@@ -110,7 +110,7 @@ Tests Passed: 15/15
 
 **Run:**
 ```bash
-bash .devforgeai/tests/skills/test-story-creation-guidance-integration.sh
+bash devforgeai/tests/skills/test-story-creation-guidance-integration.sh
 ```
 
 **Expected Output:**
@@ -164,7 +164,7 @@ done
 
 ### Regression Tests (10 tests)
 
-**File:** `.devforgeai/tests/skills/test-story-creation-regression.sh`
+**File:** `devforgeai/tests/skills/test-story-creation-regression.sh`
 
 **Purpose:** Ensure guidance integration doesn't break existing functionality
 
@@ -182,7 +182,7 @@ done
 
 **Run:**
 ```bash
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 ```
 
 **Expected Output:**
@@ -191,7 +191,7 @@ Tests Passed: 10/10
 ✓ All regression tests PASSED
 
 Next Step: Run existing 30+ test cases to ensure no regressions
-Command: bash .devforgeai/tests/skills/test-story-creation-existing.sh
+Command: bash devforgeai/tests/skills/test-story-creation-existing.sh
 ```
 
 **Full Regression with Guidance Disabled:**
@@ -201,14 +201,14 @@ mv src/claude/skills/devforgeai-ideation/references/user-input-guidance.md \
    src/claude/skills/devforgeai-ideation/references/user-input-guidance.md.disabled
 
 # Run regression tests (should pass identically)
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 
 # Re-enable guidance
 mv src/claude/skills/devforgeai-ideation/references/user-input-guidance.md.disabled \
    src/claude/skills/devforgeai-ideation/references/user-input-guidance.md
 
 # Run regression tests again (should pass identically)
-bash .devforgeai/tests/skills/test-story-creation-regression.sh
+bash devforgeai/tests/skills/test-story-creation-regression.sh
 
 # Results should be identical (same PASS count)
 ```
@@ -217,7 +217,7 @@ bash .devforgeai/tests/skills/test-story-creation-regression.sh
 
 ### Performance Tests (8 tests)
 
-**File:** `.devforgeai/tests/skills/test-story-creation-guidance-performance.py`
+**File:** `devforgeai/tests/skills/test-story-creation-guidance-performance.py`
 
 **Purpose:** Measure execution time, token overhead, and memory footprint
 
@@ -233,7 +233,7 @@ bash .devforgeai/tests/skills/test-story-creation-regression.sh
 
 **Run:**
 ```bash
-python3 .devforgeai/tests/skills/test-story-creation-guidance-performance.py
+python3 devforgeai/tests/skills/test-story-creation-guidance-performance.py
 ```
 
 **Expected Output:**
@@ -427,15 +427,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run Unit Tests
-        run: bash .devforgeai/tests/skills/test-story-creation-guidance-unit.sh
+        run: bash devforgeai/tests/skills/test-story-creation-guidance-unit.sh
 
       - name: Run Regression Tests
-        run: bash .devforgeai/tests/skills/test-story-creation-regression.sh
+        run: bash devforgeai/tests/skills/test-story-creation-regression.sh
 
       - name: Run Performance Tests
         run: |
           pip3 install numpy
-          python3 .devforgeai/tests/skills/test-story-creation-guidance-performance.py
+          python3 devforgeai/tests/skills/test-story-creation-guidance-performance.py
 
       - name: Report Results
         if: always()

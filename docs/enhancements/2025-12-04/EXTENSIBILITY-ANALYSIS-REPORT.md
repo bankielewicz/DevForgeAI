@@ -21,7 +21,7 @@ This analysis examined the DevForgeAI framework's extensibility for supporting a
 | Skills | 16 | `.claude/skills/*/SKILL.md` + references |
 | Commands | 25 | `.claude/commands/*.md` |
 | Subagents | 30 | `.claude/agents/*.md` |
-| Protocols | 4 | `.devforgeai/protocols/*.md` |
+| Protocols | 4 | `devforgeai/protocols/*.md` |
 
 ---
 
@@ -210,7 +210,7 @@ Subagent (200-500 lines, specialized tasks)
 ```python
 # Step 1: Opus creates orchestration context
 Write(
-    file_path=".devforgeai/stories/STORY-074/orchestration-context.md",
+    file_path="devforgeai/stories/STORY-074/orchestration-context.md",
     content="""
     # STORY-074 Orchestration Context
 
@@ -236,7 +236,7 @@ Write(
 Task(
     subagent_type="test-automator",
     prompt="""
-    Read orchestration context: .devforgeai/stories/STORY-074/orchestration-context.md
+    Read orchestration context: devforgeai/stories/STORY-074/orchestration-context.md
     Read story: devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md
 
     Your assignment: AC#1, AC#2 unit tests ONLY.
@@ -250,7 +250,7 @@ Task(
 Task(
     subagent_type="integration-tester",
     prompt="""
-    Read orchestration context: .devforgeai/stories/STORY-074/orchestration-context.md
+    Read orchestration context: devforgeai/stories/STORY-074/orchestration-context.md
     Read story: devforgeai/specs/Stories/STORY-074-comprehensive-error-handling.story.md
 
     Your assignment: AC#3 integration tests ONLY.

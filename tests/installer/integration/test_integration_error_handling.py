@@ -57,7 +57,7 @@ class TestFullRollbackFlow:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
@@ -111,7 +111,7 @@ class TestFullRollbackFlow:
             assert content == f"Initial content {i}", "Restored content should match original"
 
         # Assert - Log file was created and contains rollback info
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should be created"
         log_contents = log_path.read_text()
         assert len(log_contents) > 0, "Log file should not be empty"
@@ -136,7 +136,7 @@ class TestFullRollbackFlow:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -188,7 +188,7 @@ class TestFullRollbackFlow:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         rollback_service = RollbackService(logger)
 
         # Create nested empty directories
@@ -229,7 +229,7 @@ class TestFullRollbackFlow:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
         rollback_service = RollbackService(logger)
 
@@ -274,7 +274,7 @@ class TestConcurrentPrevention:
         AC#8 (RCA-004): Concurrent installations prevented via lock file.
 
         Scenario:
-        1. Process A acquires lock (creates .devforgeai/install.lock with PID)
+        1. Process A acquires lock (creates devforgeai/install.lock with PID)
         2. Process B attempts installation
         3. Process B detects lock file
         4. Process B exits with clear error message
@@ -285,7 +285,7 @@ class TestConcurrentPrevention:
 
         # Arrange
         target_root = integration_project["root"]
-        lock_dir = str(target_root / ".devforgeai")
+        lock_dir = str(target_root / "devforgeai")
         lock_manager_1 = LockFileManager(lock_dir)
         lock_manager_2 = LockFileManager(lock_dir)
 
@@ -323,8 +323,8 @@ class TestConcurrentPrevention:
 
         # Arrange
         target_root = integration_project["root"]
-        lock_dir = str(target_root / ".devforgeai")
-        lock_path = target_root / ".devforgeai" / "install.lock"
+        lock_dir = str(target_root / "devforgeai")
+        lock_path = target_root / "devforgeai" / "install.lock"
 
         # Create stale lock file with non-existent PID
         lock_path.write_text("99999")  # PID unlikely to exist
@@ -363,7 +363,7 @@ class TestConcurrentPrevention:
 
         # Arrange
         target_root = integration_project["root"]
-        lock_dir = str(target_root / ".devforgeai")
+        lock_dir = str(target_root / "devforgeai")
         lock_manager_1 = LockFileManager(lock_dir)
         lock_manager_2 = LockFileManager(lock_dir)
 
@@ -411,7 +411,7 @@ class TestRealFileOperations:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         # Simulate missing source error
@@ -433,10 +433,10 @@ class TestRealFileOperations:
         # Assert - Message contains helpful guidance
         assert "Missing Source Files" in message
         assert "resolution steps" in message.lower()
-        assert ".devforgeai/install.log" in message
+        assert "devforgeai/install.log" in message
 
         # Assert - Log created
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         assert log_path.exists(), "Log file should be created"
 
     def test_permission_denied_error_exit_code_2(
@@ -460,7 +460,7 @@ class TestRealFileOperations:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         # Create directory and make it read-only
@@ -511,7 +511,7 @@ class TestRealFileOperations:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         error_handler = ErrorHandler(logger)
 
         # Simulate validation error
@@ -549,7 +549,7 @@ class TestPerformanceValidation:
 
         # Arrange
         target_root = integration_project["root"]
-        logger = InstallLogger(str(target_root / ".devforgeai" / "install.log"))
+        logger = InstallLogger(str(target_root / "devforgeai" / "install.log"))
         backup_service = BackupService(logger)
 
         # Create 500 files with varying sizes
@@ -596,7 +596,7 @@ class TestPerformanceValidation:
 
         # Arrange
         target_root = integration_project["root"]
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         logger = InstallLogger(str(log_path))
 
         # Act - Log 100 entries with timer
@@ -635,7 +635,7 @@ class TestLogCreationAndContent:
 
         # Arrange
         target_root = integration_project["root"]
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         logger = InstallLogger(str(log_path))
 
         # Act - Write first log entry
@@ -666,7 +666,7 @@ class TestLogCreationAndContent:
 
         # Arrange
         target_root = integration_project["root"]
-        log_path = target_root / ".devforgeai" / "install.log"
+        log_path = target_root / "devforgeai" / "install.log"
         logger = InstallLogger(str(log_path))
         error_handler = ErrorHandler(logger)
 

@@ -105,7 +105,7 @@ def capture_feedback(
 
     # Determine feedback directory
     if feedback_dir is None:
-        feedback_dir = Path.cwd() / '.devforgeai' / 'feedback'
+        feedback_dir = Path.cwd() / 'devforgeai' / 'feedback'
 
     # Create story-specific directory
     story_feedback_dir = feedback_dir / story_id

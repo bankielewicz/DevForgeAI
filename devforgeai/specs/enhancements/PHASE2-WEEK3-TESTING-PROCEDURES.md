@@ -166,7 +166,7 @@ python3 migrate_story_v1_to_v2.py \
 
 # Expected:
 # 🤖 Using AI-assisted conversion (95%+ accuracy)...
-# 📁 Backup created: .devforgeai/backups/phase2-migration/test-story-1-temp-20251107-HHMMSS.md
+# 📁 Backup created: devforgeai/backups/phase2-migration/test-story-1-temp-20251107-HHMMSS.md
 # 🔄 Converting test-story-1-temp.md to v2.0 format...
 # ✅ test-story-1-temp.md: Migrated to v2.0
 #

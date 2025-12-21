@@ -941,7 +941,7 @@ Only use for isolated greenfield tasks in sandboxed environments.
       "Write(tests/**)",
       "Write(scripts/**)",
       "Write(.claude/**)",
-      "Write(.devforgeai/**)",
+      "Write(devforgeai/**)",
       "Edit(src/**)",
       "Edit(tests/**)",
       "Bash(npm run test:*)",
@@ -1037,7 +1037,7 @@ Only use for isolated greenfield tasks in sandboxed environments.
 
 ```bash
 # Create a simple metric tracking file
-.devforgeai/metrics/bash-approvals.json
+devforgeai/metrics/bash-approvals.json
 
 {
   "story_id": "STORY-001",
@@ -1060,7 +1060,7 @@ Only use for isolated greenfield tasks in sandboxed environments.
 ### 6.2 Iteration Plan
 
 **Weekly Reviews:**
-1. Check approval logs (`.devforgeai/metrics/bash-approvals.json`)
+1. Check approval logs (`devforgeai/metrics/bash-approvals.json`)
 2. Identify patterns of repeated approvals
 3. Add frequently-needed commands to allowlist
 4. Test additions with 1-2 stories before commit

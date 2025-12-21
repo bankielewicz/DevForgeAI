@@ -56,7 +56,7 @@ Choosing "Use DevForgeAI version" gets those updates.
 
 **What happens:**
 - Auto-merge stops completely
-- `CLAUDE.md.devforgeai-template` is created
+- `CLAUDE.mddevforgeai-template` is created
 - You manually compare and merge the files
 
 ## Manual Resolution Steps
@@ -69,7 +69,7 @@ After choosing manual resolution, you'll have:
 ```
 CLAUDE.md                        # Your original (unchanged)
 CLAUDE.md.backup-YYYYMMDD-HHMMSS # Backup copy
-CLAUDE.md.devforgeai-template    # DevForgeAI template
+CLAUDE.mddevforgeai-template    # DevForgeAI template
 ```
 
 ### Step 2: Compare Files
@@ -78,13 +78,13 @@ Use a diff tool to compare your CLAUDE.md with the template:
 
 ```bash
 # Using diff
-diff CLAUDE.md CLAUDE.md.devforgeai-template
+diff CLAUDE.md CLAUDE.mddevforgeai-template
 
 # Using VS Code
-code --diff CLAUDE.md CLAUDE.md.devforgeai-template
+code --diff CLAUDE.md CLAUDE.mddevforgeai-template
 
 # Using vim
-vimdiff CLAUDE.md CLAUDE.md.devforgeai-template
+vimdiff CLAUDE.md CLAUDE.mddevforgeai-template
 ```
 
 ### Step 3: Identify Sections
@@ -104,7 +104,7 @@ User sections to preserve (from your file):
 
 ### Step 4: Merge Content
 
-1. **Copy framework sections** from `.devforgeai-template` to your CLAUDE.md
+1. **Copy framework sections** from `devforgeai-template` to your CLAUDE.md
 2. **Keep your custom sections** in their original positions
 3. **Resolve any overlaps** by deciding which content to keep
 
@@ -120,7 +120,7 @@ After manual merge, verify:
 
 Remove temporary files:
 ```bash
-rm CLAUDE.md.devforgeai-template
+rm CLAUDE.mddevforgeai-template
 # Keep backup until you've verified everything works
 ```
 

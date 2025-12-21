@@ -428,7 +428,7 @@ python .claude/skills/devforgeai-story-creation/scripts/validate_tech_spec.py \
 [Day 2 tasks broken down]
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-DESIGN.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-AI-INTEGRATION-DESIGN.md`
 
 ---
 
@@ -539,7 +539,7 @@ def main():
     TASK FOR CLAUDE: Convert the following freeform technical specification to
     DevForgeAI v2.0 structured YAML format.
 
-    Use schema from: .devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
+    Use schema from: devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md
 
     Freeform text:
     {freeform_text}
@@ -591,7 +591,7 @@ def _load_schema_reference() -> str:
     global _SCHEMA_CACHE
 
     if _SCHEMA_CACHE is None:
-        schema_file = Path(".devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
+        schema_file = Path("devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
         if schema_file.exists():
             _SCHEMA_CACHE = schema_file.read_text()
         else:
@@ -939,7 +939,7 @@ Tests: 12/12 passing"
 VALIDATOR: 12/12 tests passing (100%) ✅
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-VALIDATOR-TEST-RESULTS.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-VALIDATOR-TEST-RESULTS.md`
 
 ---
 
@@ -1144,7 +1144,7 @@ Create results report:
 Migration script ready for production use on real stories.
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-ACCURACY-RESULTS.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-ACCURACY-RESULTS.md`
 
 ---
 
@@ -1299,7 +1299,7 @@ python migrate_story_v1_to_v2.py STORY-007*.md --ai-assisted --validate
 Confidence: 95% (High - all tests passing, accuracy verified)
 ```
 
-**File:** `.devforgeai/specs/enhancements/PHASE2-WEEK3-COMPLETE.md`
+**File:** `devforgeai/specs/enhancements/PHASE2-WEEK3-COMPLETE.md`
 
 ---
 
@@ -1363,7 +1363,7 @@ If AI unavailable:
 
 **Task 5.3: Create AI integration documentation**
 
-**File:** `.devforgeai/specs/enhancements/AI-ASSISTED-MIGRATION-GUIDE.md`
+**File:** `devforgeai/specs/enhancements/AI-ASSISTED-MIGRATION-GUIDE.md`
 
 Content:
 - How AI parsing works
@@ -1777,7 +1777,7 @@ class AIConverter:
     def _build_prompt(self, freeform_text: str) -> str:
         """Build conversion prompt."""
         # Load schema reference
-        schema_file = Path(".devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
+        schema_file = Path("devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
         schema_excerpt = schema_file.read_text()[:3000]  # First 3K chars
 
         prompt = f"""

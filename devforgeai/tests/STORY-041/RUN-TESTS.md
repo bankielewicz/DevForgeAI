@@ -11,7 +11,7 @@ Quick reference for running the test suite for STORY-041.
 cd /mnt/c/Projects/DevForgeAI2
 
 # Run all tests in order
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     bash "$test" || true
 done
 ```
@@ -20,37 +20,37 @@ done
 
 **AC#1: Directory Structure**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
 ```
 
 **AC#2: .gitignore Rules**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
+bash devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
 ```
 
 **AC#3: version.json Schema**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac3-version-json.sh
+bash devforgeai/tests/STORY-041/test-ac3-version-json.sh
 ```
 
 **AC#4: Current Operations**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac4-current-operations.sh
+bash devforgeai/tests/STORY-041/test-ac4-current-operations.sh
 ```
 
 **AC#5: Git Tracking**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
+bash devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
 ```
 
 **AC#6: Specification Match**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac6-specification-match.sh
+bash devforgeai/tests/STORY-041/test-ac6-specification-match.sh
 ```
 
 **AC#7: Component Counts**
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac7-component-counts.sh
+bash devforgeai/tests/STORY-041/test-ac7-component-counts.sh
 ```
 
 ---
@@ -169,18 +169,18 @@ assert_component_count_matches "Skills" 10 5 "Skills count accurate"
 
 ### Save results to file:
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh | tee test-ac1-results.txt
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh | tee test-ac1-results.txt
 ```
 
 ### View only failures:
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep "FAIL"
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep "FAIL"
 ```
 
 ### Count test results:
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep -c "PASS"
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep -c "FAIL"
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep -c "PASS"
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh 2>&1 | grep -c "FAIL"
 ```
 
 ---
@@ -199,7 +199,7 @@ echo ""
 TOTAL_PASSED=0
 TOTAL_FAILED=0
 
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     NAME=$(basename "$test" .sh)
     AC=$(echo "$NAME" | grep -o "ac[0-9]")
 
@@ -241,7 +241,7 @@ echo "Validating STORY-041 Implementation..."
 echo ""
 
 ALL_PASS=true
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     AC=$(basename "$test" | grep -o "ac[0-9]")
 
     if bash "$test" > /dev/null 2>&1; then
@@ -293,7 +293,7 @@ pwd  # Should show /mnt/c/Projects/DevForgeAI2
 ### "Permission denied"
 Make test files executable:
 ```bash
-chmod +x .devforgeai/tests/STORY-041/*.sh
+chmod +x devforgeai/tests/STORY-041/*.sh
 ```
 
 ### "python3: command not found"
@@ -305,7 +305,7 @@ For AC#3 and AC#7 only. Install Python or use:
 
 ### "test-ac4 fails unexpectedly"
 AC#4 validates current operational code. If it fails:
-- Check that .claude/ and .devforgeai/ folders exist
+- Check that .claude/ and devforgeai/ folders exist
 - Verify operational code hasn't been modified
 - This test should always PASS (validates baseline)
 

@@ -184,7 +184,7 @@ Required Fields Tested:
 ### AC#2: Detailed Log File Creation ✓
 ```
 9 tests cover:
-- File created at .devforgeai/install.log
+- File created at devforgeai/install.log
 - ISO 8601 timestamps
 - File operation details
 - Validation checkpoints
@@ -223,7 +223,7 @@ JSON Schema Fields Tested:
 ### AC#4: Installation Manifest File ✓
 ```
 13 tests cover:
-- File created at .devforgeai/.install-manifest.json
+- File created at devforgeai/.install-manifest.json
 - version field
 - ISO 8601 timestamp
 - installer_version field
@@ -460,7 +460,7 @@ Total Test Classes: 27
 
 1. **Implement InstallationReporter** (~4 hours)
    - generate_console_report() - format 7 fields
-   - create_log_file() - create .devforgeai/install.log
+   - create_log_file() - create devforgeai/install.log
    - log_operation(), log_validation(), log_error(), etc - append to log
    - generate_json_output() - serialize to 11-field JSON
    - categorize_error() - map exceptions to 7 types

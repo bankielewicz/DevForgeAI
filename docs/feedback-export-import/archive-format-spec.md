@@ -8,7 +8,7 @@ Technical specification of the feedback export ZIP archive structure and schemas
 
 **Format:** ZIP (DEFLATE compression)
 **Extension:** `.zip`
-**Naming:** `.devforgeai-feedback-export-{ISO8601}-{UUID}.zip`
+**Naming:** `devforgeai-feedback-export-{ISO8601}-{UUID}.zip`
 **Compatibility:** Cross-platform (Windows, macOS, Linux)
 
 ---
@@ -18,14 +18,14 @@ Technical specification of the feedback export ZIP archive structure and schemas
 ### Pattern
 
 ```
-.devforgeai-feedback-export-{TIMESTAMP}-{UUID}.zip
+devforgeai-feedback-export-{TIMESTAMP}-{UUID}.zip
 ```
 
 ### Components
 
 | Component | Format | Example | Purpose |
 |-----------|--------|---------|---------|
-| Prefix | Fixed string | `.devforgeai-feedback-export-` | Identifies DevForgeAI exports |
+| Prefix | Fixed string | `devforgeai-feedback-export-` | Identifies DevForgeAI exports |
 | Timestamp | ISO 8601 (YYYY-MM-DDTHH-MM-SS) | `2025-11-11T14-30-00` | Export creation time |
 | UUID | 8-character hex | `abc12345` | Uniqueness guarantee |
 | Extension | `.zip` | `.zip` | Archive format indicator |
@@ -33,9 +33,9 @@ Technical specification of the feedback export ZIP archive structure and schemas
 ### Example Filenames
 
 ```
-.devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
-.devforgeai-feedback-export-2025-11-07T09-15-42-def67890.zip
-.devforgeai-feedback-export-2025-10-23T16-45-11-123abc45.zip
+devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+devforgeai-feedback-export-2025-11-07T09-15-42-def67890.zip
+devforgeai-feedback-export-2025-10-23T16-45-11-123abc45.zip
 ```
 
 ---
@@ -43,7 +43,7 @@ Technical specification of the feedback export ZIP archive structure and schemas
 ## Directory Structure
 
 ```
-.devforgeai-feedback-export-{timestamp}-{uuid}/
+devforgeai-feedback-export-{timestamp}-{uuid}/
 ├── feedback-sessions/
 │   ├── 2025-11-07T10-30-00-command-dev-success.md
 │   ├── 2025-11-06T14-22-15-skill-qa-success.md
@@ -561,11 +561,11 @@ def safe_extract(archive_path, extract_to):
 ### Small Export (10 sessions, last-7-days)
 
 ```
-Archive: .devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
+Archive: devforgeai-feedback-export-2025-11-11T14-30-00-abc12345.zip
 Size: 847 KB (compressed from 1.6 MB)
 
 Contents:
-.devforgeai-feedback-export-2025-11-11T14-30-00-abc12345/
+devforgeai-feedback-export-2025-11-11T14-30-00-abc12345/
 ├── feedback-sessions/ (10 files, 1.5 MB)
 │   ├── 2025-11-11T10-00-00-command-dev-success.md (142 KB)
 │   ├── 2025-11-10T14-30-15-skill-qa-partial.md (87 KB)
@@ -577,11 +577,11 @@ Contents:
 ### Medium Export (100 sessions, last-30-days)
 
 ```
-Archive: .devforgeai-feedback-export-2025-11-11T14-30-00-def67890.zip
+Archive: devforgeai-feedback-export-2025-11-11T14-30-00-def67890.zip
 Size: 4.2 MB (compressed from 8.7 MB)
 
 Contents:
-.devforgeai-feedback-export-2025-11-11T14-30-00-def67890/
+devforgeai-feedback-export-2025-11-11T14-30-00-def67890/
 ├── feedback-sessions/ (100 files, 8.5 MB)
 ├── index.json (87 KB)
 └── manifest.json (45 KB)
@@ -590,11 +590,11 @@ Contents:
 ### Large Export (500 sessions, last-90-days)
 
 ```
-Archive: .devforgeai-feedback-export-2025-11-11T14-30-00-123abc45.zip
+Archive: devforgeai-feedback-export-2025-11-11T14-30-00-123abc45.zip
 Size: 18.7 MB (compressed from 42 MB)
 
 Contents:
-.devforgeai-feedback-export-2025-11-11T14-30-00-123abc45/
+devforgeai-feedback-export-2025-11-11T14-30-00-123abc45/
 ├── feedback-sessions/ (500 files, 41 MB)
 ├── index.json (412 KB)
 └── manifest.json (187 KB)
@@ -636,10 +636,10 @@ Contents:
 
 ```bash
 # Unzip to temp directory
-unzip .devforgeai-feedback-export-*.zip -d /tmp/verify/
+unzip devforgeai-feedback-export-*.zip -d /tmp/verify/
 
 # Check structure
-ls /tmp/verify/.devforgeai-feedback-export-*/
+ls /tmp/verify/devforgeai-feedback-export-*/
 
 # Validate JSON
 cat /tmp/verify/*/index.json | jq .

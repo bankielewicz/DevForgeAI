@@ -204,7 +204,7 @@ FAIL tests/release/unit/release-script.test.js
         ✓ should exclude *.pyc files from sync (1 ms)
         ✓ should exclude .DS_Store files from sync
       DevForgeAI Directory Sync
-        ✕ should sync .devforgeai/ to src/devforgeai/ recursively (1 ms)
+        ✕ should sync devforgeai/ to src/devforgeai/ recursively (1 ms)
         ✓ should exclude backups/ directory from sync
         ✓ should exclude qa/reports/ directory from sync
         ✓ should exclude feedback/sessions/ directory from sync (1 ms)
@@ -455,11 +455,11 @@ FAIL tests/release/unit/release-script.test.js
 
       at Object.toHaveBeenCalledWith (tests/release/unit/release-script.test.js:421:26)
 
-  ● Release Script Unit Tests (STORY-070) › Phase 2: Operational Files Sync (SCR-003, SCR-004) › DevForgeAI Directory Sync › should sync .devforgeai/ to src/devforgeai/ recursively
+  ● Release Script Unit Tests (STORY-070) › Phase 2: Operational Files Sync (SCR-003, SCR-004) › DevForgeAI Directory Sync › should sync devforgeai/ to src/devforgeai/ recursively
 
     expect(jest.fn()).toHaveBeenCalledWith(...expected)
 
-    Expected: StringMatching /\.devforgeai\/.*src\/devforgeai\//
+    Expected: StringMatching /\devforgeai\/.*src\/devforgeai\//
     Received: "bash scripts/release.sh --dry-run"
 
     Number of calls: 1
@@ -468,7 +468,7 @@ FAIL tests/release/unit/release-script.test.js
       477 |         // Assert
     > 478 |         expect(execSync).toHaveBeenCalledWith(
           |                          ^
-      479 |           expect.stringMatching(/\.devforgeai\/.*src\/devforgeai\//)
+      479 |           expect.stringMatching(/\devforgeai\/.*src\/devforgeai\//)
       480 |         );
       481 |       });
 

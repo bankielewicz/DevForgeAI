@@ -30,7 +30,7 @@ This index provides navigation for the complete RCA-007 fix and batch story crea
    - Decision points
    - Risk assessment
 
-3. **RCA Analysis** (10 min - skim) - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+3. **RCA Analysis** (10 min - skim) - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - 5 Whys analysis
    - Root causes (scan only)
 
@@ -45,7 +45,7 @@ This index provides navigation for the complete RCA-007 fix and batch story crea
 1. **Quick Reference** (5 min) - `RCA-007-QUICK-REFERENCE.md`
    - Navigation guide
 
-2. **RCA Analysis** (20 min) - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+2. **RCA Analysis** (20 min) - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - Full 5 Whys
    - Root causes
    - Violations
@@ -106,7 +106,7 @@ This index provides navigation for the complete RCA-007 fix and batch story crea
 1. **Executive Summary** (15 min) - `RCA-007-EXECUTIVE-SUMMARY.md`
    - Overall architecture
 
-2. **RCA Analysis** (30 min) - `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+2. **RCA Analysis** (30 min) - `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
    - Architectural trade-offs
    - Design decisions
 
@@ -127,7 +127,7 @@ This index provides navigation for the complete RCA-007 fix and batch story crea
 
 ### 1. RCA-007 Root Cause Analysis
 
-**File:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+**File:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
 **Lines:** ~350
 **Read time:** 20 minutes
 **Audience:** All stakeholders
@@ -340,7 +340,7 @@ This index provides navigation for the complete RCA-007 fix and batch story crea
 ## File Tree
 
 ```
-.devforgeai/
+devforgeai/
 ├── RCA/
 │   └── RCA-007-multi-file-story-creation.md  (350 lines)
 │       ├── 5 Whys Analysis
@@ -716,12 +716,12 @@ extra_count=$(ls devforgeai/specs/Stories/STORY-*-SUMMARY.md 2>/dev/null | wc -l
 echo "Extra files: $extra_count (target: 0)"
 
 # Violations detected (target: 0 after fix deployed)
-violation_count=$(grep -c "VIOLATION DETECTED" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+violation_count=$(grep -c "VIOLATION DETECTED" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
 echo "Violations: $violation_count (target: 0)"
 
 # Recovery success rate (target: 90%+)
-success=$(grep -c "Recovery Result: SUCCESS" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
-total=$(grep -c "Recovery Action" .devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 1)
+success=$(grep -c "Recovery Result: SUCCESS" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 0)
+total=$(grep -c "Recovery Action" devforgeai/logs/rca-007-violations.log 2>/dev/null || echo 1)
 rate=$((success * 100 / total))
 echo "Recovery rate: ${rate}% (target: 90%+)"
 ```
@@ -756,10 +756,10 @@ echo "Batch creations: $batch_count"
 
 ```bash
 # Run all RCA-007 tests
-bash .devforgeai/tests/rca-007-test-suite.sh all
+bash devforgeai/tests/rca-007-test-suite.sh all
 
 # Run specific phase tests
-bash .devforgeai/tests/rca-007-test-suite.sh phase1
+bash devforgeai/tests/rca-007-test-suite.sh phase1
 
 # Validate contract YAML
 python -c "import yaml; yaml.safe_load(open('.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml'))"
@@ -800,14 +800,14 @@ grep "STORY-0" devforgeai/specs/Epics/EPIC-001.epic.md
 
 ```bash
 # Check violation log
-tail -50 .devforgeai/logs/rca-007-violations.log
+tail -50 devforgeai/logs/rca-007-violations.log
 
 # Count violations by type
-grep "Violation Type:" .devforgeai/logs/rca-007-violations.log | sort | uniq -c
+grep "Violation Type:" devforgeai/logs/rca-007-violations.log | sort | uniq -c
 
 # Check test results
-ls .devforgeai/tests/results/*.md | tail -1  # Latest test report
-cat $(ls -t .devforgeai/tests/results/*.md | head -1)  # Display latest
+ls devforgeai/tests/results/*.md | tail -1  # Latest test report
+cat $(ls -t devforgeai/tests/results/*.md | head -1)  # Display latest
 ```
 
 ---
@@ -844,8 +844,8 @@ cat $(ls -t .devforgeai/tests/results/*.md | head -1)  # Display latest
 - Subagents: `.claude/agents/`
 - Commands: `.claude/commands/create-story.md`
 - Contracts: `.claude/skills/devforgeai-story-creation/contracts/`
-- Tests: `.devforgeai/tests/`
-- Logs: `.devforgeai/logs/`
+- Tests: `devforgeai/tests/`
+- Logs: `devforgeai/logs/`
 
 **Documentation:**
 - Framework: `CLAUDE.md`
@@ -873,7 +873,7 @@ cat $(ls -t .devforgeai/tests/results/*.md | head -1)  # Display latest
 **Testing issues:**
 1. Check `RCA-007-TESTING-STRATEGY.md` for test procedures
 2. Run specific test case: `bash test-suite.sh test_X_Y`
-3. Review test fixtures in `.devforgeai/tests/fixtures/`
+3. Review test fixtures in `devforgeai/tests/fixtures/`
 
 ---
 

@@ -347,7 +347,7 @@ Total workflow    | <120s  | ~18s   | ✅ 85% faster
 
 ### Reference & Report Files
 ```
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/
 ├── path-audit-deploy-time.txt
 ├── path-audit-source-time.txt
 ├── path-audit-ambiguous.txt
@@ -369,7 +369,7 @@ Total workflow    | <120s  | ~18s   | ✅ 85% faster
 3. Get user approval if needed
 
 ### Phase 5 (Git Commit)
-1. Review `.devforgeai/specs/STORY-043/update-diff-summary.md`
+1. Review `devforgeai/specs/STORY-043/update-diff-summary.md`
 2. Verify backup exists: `.backups/story-043-path-updates-{timestamp}/`
 3. Stage 87 modified files
 4. Commit with provided commit message

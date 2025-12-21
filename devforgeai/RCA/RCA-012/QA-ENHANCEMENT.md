@@ -988,7 +988,7 @@ Save changes
 
 ### Step 2: Document False Positive Pattern
 ```
-Record in .devforgeai/RCA/RCA-012/FALSE-POSITIVE-LOG.md:
+Record in devforgeai/RCA/RCA-012/FALSE-POSITIVE-LOG.md:
 - Which story triggered false positive
 - What was incorrectly flagged
 - Why algorithm missed valid coverage

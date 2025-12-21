@@ -27,7 +27,7 @@ format_version: "2.1"
 **When** the installer executes in an environment with no internet connectivity
 **Then** all required framework files are available locally:
 - All `.claude/` directory contents (skills, agents, commands, memory files)
-- All `.devforgeai/` template files (context templates, protocols, specs)
+- All `devforgeai/` template files (context templates, protocols, specs)
 - All documentation files (CLAUDE.md template, README.md, guides)
 - Package size is ≤ 60MB compressed, ≤ 150MB uncompressed
 
@@ -149,7 +149,7 @@ technical_specification:
         - id: "DM-001"
           description: "All framework source files bundled"
           testable: true
-          test_requirement: "Test: .claude/ and .devforgeai/ directories present"
+          test_requirement: "Test: .claude/ and devforgeai/ directories present"
           priority: "Critical"
         - id: "DM-002"
           description: "Python wheel files bundled for CLI"

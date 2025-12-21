@@ -648,8 +648,8 @@ Skill(command="devforgeai-qa --mode=light --story={STORY_ID}")
 1. **Commit implementation:**
    ```bash
    git add .claude/skills/devforgeai-development/
-   git add .devforgeai/RCA/
-   git add .devforgeai/specs/enhancements/RCA-009-REC3*
+   git add devforgeai/RCA/
+   git add devforgeai/specs/enhancements/RCA-009-REC3*
    git commit -m "fix(RCA-009): Implement Rec 3 - Promote Light QA to Explicit Step"
    ```
 

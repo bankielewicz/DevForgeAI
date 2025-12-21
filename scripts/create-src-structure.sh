@@ -177,7 +177,7 @@ SKILL_COUNT=$(ls -d .claude/skills/devforgeai-* .claude/skills/claude-code-termi
 AGENT_COUNT=$(ls .claude/agents/*.md 2>/dev/null | grep -v backup | wc -l || echo 0)
 COMMAND_COUNT=$(ls .claude/commands/*.md 2>/dev/null | grep -v backup | wc -l || echo 0)
 MEMORY_COUNT=$(ls .claude/memory/*.md 2>/dev/null | wc -l || echo 0)
-PROTOCOL_COUNT=$(ls .devforgeai/protocols/*.md 2>/dev/null | wc -l || echo 0)
+PROTOCOL_COUNT=$(ls devforgeai/protocols/*.md 2>/dev/null | wc -l || echo 0)
 
 # Create version.json
 cat > "$VERSION_FILE" << EOF
@@ -193,7 +193,7 @@ cat > "$VERSION_FILE" << EOF
     "context_templates": 6,
     "protocols": $PROTOCOL_COUNT
   },
-  "changelog_url": ".devforgeai/CHANGELOG.md",
+  "changelog_url": "devforgeai/CHANGELOG.md",
   "migration_status": {
     "phase": "1-directory-setup",
     "src_structure_complete": true,
@@ -268,7 +268,7 @@ log_success "✓ version.json created with framework metadata"
 log_success "✓ All operations completed successfully"
 echo ""
 log_info "Next step: Run tests to verify implementation"
-log_info "  bash .devforgeai/tests/STORY-041/RUN-TESTS.md"
+log_info "  bash devforgeai/tests/STORY-041/RUN-TESTS.md"
 echo ""
 
 exit 0

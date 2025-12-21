@@ -99,7 +99,7 @@ class TestTeamWorkflowAdherence:
     @pytest.fixture
     def training_log_content(self):
         """Load training log"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()
@@ -207,7 +207,7 @@ class TestVersionConsistency:
         # Look for version.json in project root or common locations
         version_candidates = [
             Path("version.json"),
-            Path(".devforgeai/version.json"),
+            Path("devforgeai/version.json"),
             Path("installer/version.json"),
         ]
 
@@ -272,7 +272,7 @@ class TestTrainingAsyncSupport:
     @pytest.fixture
     def training_log_content(self):
         """Load training log"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()
@@ -344,7 +344,7 @@ class TestDataValidationRules:
 
     def test_onboarding_completion_percentage(self):
         """Test: Onboarding log shows completion metrics"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
 

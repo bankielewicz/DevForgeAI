@@ -174,7 +174,7 @@ Technical Specification section contains YAML code block with:
 - `non_functional_requirements`: Array of NFRs with measurable metrics
 
 **Complete schema reference:**
-`.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+`devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **The reference file `technical-specification-creation.md` contains:**
 - Complete v2.0 generation instructions
@@ -278,7 +278,7 @@ Use these component types based on feature description:
 - **API:** HTTP endpoints (keywords: "API", "endpoint", "REST", "GraphQL", "HTTP")
 - **DataModel:** Database entities, DTOs (keywords: "entity", "table", "model", "DTO")
 
-**See `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete component schemas.**
+**See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete component schemas.**
 ```
 
 **Location:** After "Purpose" section, before "Workflow"
@@ -338,7 +338,7 @@ technical_specification:
 ```
 ````
 
-**Complete schema:** `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+**Complete schema:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
 
 **Legacy v1.0 Format (Deprecated):**
 
@@ -656,15 +656,15 @@ $ python3 validate_tech_spec.py STORY-XXX.story.md
 ```bash
 # 1. Backup modified files BEFORE fixes
 cp .claude/skills/devforgeai-story-creation/SKILL.md \
-   .devforgeai/backups/phase2-gap-fix/SKILL.md.backup
+   devforgeai/backups/phase2-gap-fix/SKILL.md.backup
 
 cp .claude/agents/story-requirements-analyst.md \
-   .devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup
+   devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup
 
 # (Repeat for other modified files)
 
 # 2. If rollback needed, restore originals
-cp .devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
+cp devforgeai/backups/phase2-gap-fix/SKILL.md.backup \
    .claude/skills/devforgeai-story-creation/SKILL.md
 
 # 3. Restart terminal

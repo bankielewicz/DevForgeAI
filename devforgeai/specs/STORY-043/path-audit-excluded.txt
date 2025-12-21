@@ -1,48 +1,48 @@
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:**Prerequisites:** QA approved, tests passing, build successful, config exists in `.devforgeai/deployment/`
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:Platform configs required in `.devforgeai/deployment/` (K8s, Docker, AWS, Azure, GCP, Vercel, Netlify, VPS)
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:Smoke tests config in `.devforgeai/smoke-tests/config.json` (URLs, test users, API keys)
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - **HALT if config missing:** "Deployment configuration not found. Expected: .devforgeai/deployment/config.json"
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Load `.devforgeai/deployment/config.json`
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Read smoke test results from `.devforgeai/qa/smoke-tests/{STORY-ID}-{env}-results.json`
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Release Notes: .devforgeai/releases/{STORY-ID}-release-notes.md
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- Release notes in `.devforgeai/releases/{STORY-ID}-release-notes.md`
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:**Prerequisites:** QA approved, tests passing, build successful, config exists in `devforgeai/deployment/`
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:Platform configs required in `devforgeai/deployment/` (K8s, Docker, AWS, Azure, GCP, Vercel, Netlify, VPS)
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/devforgeai-release-SKILL.md.backup:Smoke tests config in `devforgeai/smoke-tests/config.json` (URLs, test users, API keys)
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - **HALT if config missing:** "Deployment configuration not found. Expected: devforgeai/deployment/config.json"
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Load `devforgeai/deployment/config.json`
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Read smoke test results from `devforgeai/qa/smoke-tests/{STORY-ID}-{env}-results.json`
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:   - Release Notes: devforgeai/releases/{STORY-ID}-release-notes.md
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- Release notes in `devforgeai/releases/{STORY-ID}-release-notes.md`
 /mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- `devforgeai/context/tech-stack.md` (platform information)
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- `.devforgeai/deployment/config.json` (deployment configuration)
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- `.devforgeai/smoke-tests/config.json` (smoke test configuration)
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:1. Add environment configuration to .devforgeai/deployment/config.json
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:2. Save to `.devforgeai/releases/{STORY-ID}-deployment-error.log`
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:2. Verify environment configuration: .devforgeai/deployment/config.json
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- `devforgeai/deployment/config.json` (deployment configuration)
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:- `devforgeai/smoke-tests/config.json` (smoke test configuration)
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:1. Add environment configuration to devforgeai/deployment/config.json
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:2. Save to `devforgeai/releases/{STORY-ID}-deployment-error.log`
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:2. Verify environment configuration: devforgeai/deployment/config.json
 /mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:@devforgeai/context/tech-stack.md
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:@.devforgeai/deployment/config.json
-/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:Configuration File: .devforgeai/deployment/config.json
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:            Glob(pattern=".devforgeai/adrs/${adr_reference}*.md")
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:@devforgeai/deployment/config.json
+/mnt/c/Projects/DevForgeAI2/.backups/story-025/release.md.backup:Configuration File: devforgeai/deployment/config.json
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:            Glob(pattern="devforgeai/adrs/${adr_reference}*.md")
 /mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:   - Template: `.claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-006-scope-descope.md`
 /mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:  echo "⚠️ Feedback system unavailable (devforgeai CLI not found). Install with: pip install --break-system-packages -e .claude/scripts/" >&2
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:) 200>.devforgeai/feedback/logs/hook-invocations.log.lock
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:**Log all hook operations to `.devforgeai/feedback/logs/hook-invocations.log`:**
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Hook invocation log in `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Session data saved to `.devforgeai/feedback/sessions/` (if user accepts feedback)
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:) 200>devforgeai/feedback/logs/hook-invocations.log.lock
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:**Log all hook operations to `devforgeai/feedback/logs/hook-invocations.log`:**
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Audit report in `devforgeai/qa/deferral-audit-{timestamp}.md`
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Hook invocation log in `devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:- Session data saved to `devforgeai/feedback/sessions/` (if user accepts feedback)
 /mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:.claude/scripts/check-hooks-fast.sh audit-deferrals success
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:audit_report=$(ls -t .devforgeai/qa/deferral-audit-*.md | head -1)
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:echo "$LOG_ENTRY" >> .devforgeai/feedback/logs/hook-invocations.log
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:audit_report=$(ls -t devforgeai/qa/deferral-audit-*.md | head -1)
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:echo "$LOG_ENTRY" >> devforgeai/feedback/logs/hook-invocations.log
 /mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:elif ! .claude/scripts/check-hooks-fast.sh audit-deferrals success; then
 /mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:if ! command -v .claude/scripts/check-hooks-fast.sh &>/dev/null; then
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:mkdir -p .devforgeai/feedback/logs
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:report_path = ".devforgeai/qa/deferral-audit-{timestamp}.md"
-/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:📄 .devforgeai/qa/deferral-audit-{timestamp}.md
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  file_path=".devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  new_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  old_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  📁 .devforgeai/specs/requirements/[EPIC-ID]-requirements.md
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
-/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:Format as structured markdown suitable for `.devforgeai/specs/requirements/`"
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:mkdir -p devforgeai/feedback/logs
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:report_path = "devforgeai/qa/deferral-audit-{timestamp}.md"
+/mnt/c/Projects/DevForgeAI2/.claude/commands/audit-deferrals.md.backup:📄 devforgeai/qa/deferral-audit-{timestamp}.md
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  file_path="devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  new_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  old_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:  📁 devforgeai/specs/requirements/[EPIC-ID]-requirements.md
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
+/mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:Format as structured markdown suitable for `devforgeai/specs/requirements/`"
 /mnt/c/Projects/DevForgeAI2/.claude/commands/create-epic.md.backup:Glob(pattern="devforgeai/context/*.md")
 /mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.20251113.backup:[//]: # (For architecture details, token optimization metrics, and design rationale, see .claude/memory/commands-reference.md)
-/mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:    Display: "  - Changes documented in .devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:    Display: "  - Changes documented in devforgeai/stories/{STORY-ID}/changes/"
 /mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:Bash(command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet")
 /mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:Check: Glob(pattern="devforgeai/context/*.md")
-/mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
 /mnt/c/Projects/DevForgeAI2/.claude/commands/dev.md.backup:See: @.claude/tasks/dod-validation-checkpoint.md
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.backup:Edit(file_path="devforgeai/context/dependencies.md",
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.backup:Edit(file_path="devforgeai/context/source-tree.md",
@@ -53,13 +53,13 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Write(.devforgeai/technical-debt-register.md, content=template)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Check if .devforgeai/technical-debt-register.md exists
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Read .devforgeai/technical-debt-register.md
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Write(devforgeai/technical-debt-register.md, content=template)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Check if devforgeai/technical-debt-register.md exists
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Display: "    devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Read devforgeai/technical-debt-register.md
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        file_path="devforgeai/stories/${STORY_ID}/changes/.gitkeep",
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet",
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    file_path="devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/anti-patterns.md (check for violations)
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/architecture-constraints.md (layer boundaries)
@@ -75,20 +75,20 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  Then validate against devforgeai/context/tech-stack.md if it exists.
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- **Changes:** devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/anti-patterns.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/architecture-constraints.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/coding-standards.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/dependencies.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:IF not exists .devforgeai/stories/${STORY_ID}/changes/:
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification (`.devforgeai/specs/requirements/`)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification in .devforgeai/specs/requirements/
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Display: "  Location: devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern="devforgeai/qa/reports/{story-id}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:IF not exists devforgeai/stories/${STORY_ID}/changes/:
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:│   devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification (`devforgeai/specs/requirements/`)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification in devforgeai/specs/requirements/
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Glob(pattern="devforgeai/context/*.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/epic-template.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/requirements-spec-template.md")
@@ -98,17 +98,17 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md", content="""
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-ideation/SKILL.md.backup:Write(file_path="devforgeai/specs/requirements/[project-name]-requirements.md", content="""
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:            Write(.devforgeai/technical-debt-register.md, content=template)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Check if .devforgeai/technical-debt-register.md exists
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Read .devforgeai/technical-debt-register.md
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:            Write(devforgeai/technical-debt-register.md, content=template)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Check if devforgeai/technical-debt-register.md exists
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Glob(pattern="devforgeai/adrs/{adr_reference}*.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:        Read devforgeai/technical-debt-register.md
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:Check for context files (devforgeai/context/*.md)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path=\".claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md\")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:- Full Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:.devforgeai/qa/
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:- Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:devforgeai/qa/
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-qa/assets/templates/qa-report-template.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-qa/assets/templates/test-stub-template.cs")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/anti-patterns.md")
@@ -117,118 +117,118 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/dependencies.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".devforgeai/qa/coverage-thresholds.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".devforgeai/qa/quality-metrics.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Write(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md",
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/qa/coverage-thresholds.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/qa/quality-metrics.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-qa/SKILL.md.backup:Write(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md",
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:    Read(file_path=".claude/skills/devforgeai-release/references/deployment-strategies.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:  ✓ Release notes: .devforgeai/releases/release-{version}.md
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- **Release Notes:** .devforgeai/releases/release-{version}.md
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- QA report with PASS status (.devforgeai/qa/reports/{story-id}-qa-report.md)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- Release notes: `.devforgeai/releases/release-{version}.md`
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- Rollback report generated: `.devforgeai/releases/rollback-{version}.md`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:  ✓ Release notes: devforgeai/releases/release-{version}.md
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- **Release Notes:** devforgeai/releases/release-{version}.md
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- QA report with PASS status (devforgeai/qa/reports/{story-id}-qa-report.md)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- Release notes: `devforgeai/releases/release-{version}.md`
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:- Rollback report generated: `devforgeai/releases/rollback-{version}.md`
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-release/assets/templates/release-notes-template.md")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-release/references/smoke-testing-guide.md")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".devforgeai/releases/active-deployments.json")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Report: f"✓ Release notes generated: .devforgeai/releases/release-{version}.md"
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/monitoring/alerts/{story_id}-post-release.json",
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/post-release/{story_id}-review.md", content=review_document)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/releases/release-{version}.md", content=release_notes)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/releases/rollback-{version}.md", content=rollback_report)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:qa_report_path = f".devforgeai/qa/reports/{story_id}-qa-report.md"
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:✅ CORRECT: Write(file_path=".devforgeai/releases/release-{version}.md", content=notes)
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:❌ FORBIDDEN: Bash(command="cat > .devforgeai/releases/release-{version}.md <<EOF...")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/coding-standards.md (test patterns, AAA format)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/source-tree.md (test file placement rules)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:   Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:   Read(file_path=".devforgeai/qa/coverage/coverage-report.json")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:- **Coverage Reports**: `.devforgeai/qa/coverage/coverage-report.json`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:- **Coverage Thresholds**: `.devforgeai/qa/coverage-thresholds.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:- **Tech Stack**: `devforgeai/context/tech-stack.md` (test framework choice)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase1/test-automator.md.backup:1. Read `devforgeai/context/tech-stack.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:# contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:**Contract Reference:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Invoked From:** `.claude/skills/devforgeai-story-creation/references/requirements-analysis.md` (Step 2.1)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Parent Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **RCA Analysis:** `.devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Template:** `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:template = Read(".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:| **Location** | `.claude/agents/requirements-analyst.md` | `.claude/agents/story-requirements-analyst.md` |
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup:`.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup:template = Read(file_path=".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup:    Read: devforgeai/context/coding-standards.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup:    Read: devforgeai/context/tech-stack.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:  new_string="- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/integration-testing.md.backup:  - devforgeai/context/architecture-constraints.md (layer boundaries)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/integration-testing.md.backup:  - devforgeai/context/coding-standards.md (coverage requirements)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:   - Check: .devforgeai/adrs/{adr_reference}.md exists
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:  Check if .devforgeai/technical-debt-register.md exists
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:  Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:- `.claude/agents/deferral-validator.md` (subagent for blocker validation)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:- `.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md` (Phase 5 checkpoint, different purpose)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:                    description: "Proceed without touching git. Framework uses file-based change tracking in .devforgeai/stories/{STORY-ID}/changes/. All your files stay visible."
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:            Display: "   Changes will be tracked in .devforgeai/stories/{STORY-ID}/changes/"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:  Then validate against devforgeai/context/tech-stack.md if it exists.
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/anti-patterns.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/architecture-constraints.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/coding-standards.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/dependencies.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/source-tree.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:IF not exists .devforgeai/stories/${STORY_ID}/changes/:
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/architecture-constraints.md (layer boundaries, DI patterns)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/coding-standards.md (code patterns, naming conventions)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/dependencies.md (approved packages only)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/source-tree.md (file placement rules)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/coding-standards.md (test patterns, AAA format)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/source-tree.md (test file placement rules)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/anti-patterns.md (check for violations)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/architecture-constraints.md (maintain layer boundaries)
-/mnt/c/Projects/DevForgeAI2/.devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/coding-standards.md (apply patterns)
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:            Glob(pattern=".devforgeai/adrs/${adr_reference}*.md")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path="devforgeai/releases/active-deployments.json")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Report: f"✓ Release notes generated: devforgeai/releases/release-{version}.md"
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/monitoring/alerts/{story_id}-post-release.json",
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/post-release/{story_id}-review.md", content=review_document)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/releases/release-{version}.md", content=release_notes)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/releases/rollback-{version}.md", content=rollback_report)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:qa_report_path = f"devforgeai/qa/reports/{story_id}-qa-report.md"
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:✅ CORRECT: Write(file_path="devforgeai/releases/release-{version}.md", content=notes)
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-release/SKILL.md.backup:❌ FORBIDDEN: Bash(command="cat > devforgeai/releases/release-{version}.md <<EOF...")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/coding-standards.md (test patterns, AAA format)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/source-tree.md (test file placement rules)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/tdd-red-phase.md.backup:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:   Read(file_path="devforgeai/context/tech-stack.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:   Read(file_path="devforgeai/qa/coverage/coverage-report.json")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:- **Coverage Reports**: `devforgeai/qa/coverage/coverage-report.json`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:- **Coverage Thresholds**: `devforgeai/qa/coverage-thresholds.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:- **Tech Stack**: `devforgeai/context/tech-stack.md` (test framework choice)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase1/test-automator.md.backup:1. Read `devforgeai/context/tech-stack.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:# contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:**Contract Reference:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Invoked From:** `.claude/skills/devforgeai-story-creation/references/requirements-analysis.md` (Step 2.1)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Parent Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:- **Template:** `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:template = Read(".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-requirements-analyst.md.backup:| **Location** | `.claude/agents/requirements-analyst.md` | `.claude/agents/story-requirements-analyst.md` |
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup:`.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/story-structure-guide.md.backup:template = Read(file_path=".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup:    Read: devforgeai/context/coding-standards.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/phase2-gap-fix/validation-checklists.md.backup:    Read: devforgeai/context/tech-stack.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:  new_string="- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow"
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:- [x] Hook integration phase added to /create-story command (Phase N after story file creation) - Completed: Phase 5 added to .claude/commands/create-story.md with full hook integration workflow
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/dod-update-workflow.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/integration-testing.md.backup:  - devforgeai/context/architecture-constraints.md (layer boundaries)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/integration-testing.md.backup:  - devforgeai/context/coding-standards.md (coverage requirements)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:   - Check: devforgeai/adrs/{adr_reference}.md exists
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:  Check if devforgeai/technical-debt-register.md exists
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:  Glob(pattern="devforgeai/adrs/{adr_reference}*.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:- `.claude/agents/deferral-validator.md` (subagent for blocker validation)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:- `.claude/skills/devforgeai-development/references/dod-validation-checkpoint.md` (Phase 5 checkpoint, different purpose)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/phase-4.5-deferral-challenge.md.backup:Read(file_path=".claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:                    description: "Proceed without touching git. Framework uses file-based change tracking in devforgeai/stories/{STORY-ID}/changes/. All your files stay visible."
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:            Display: "   Changes will be tracked in devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:        Display: "    devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:        file_path="devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:    file_path="devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:  Then validate against devforgeai/context/tech-stack.md if it exists.
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- **Changes:** devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/anti-patterns.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/architecture-constraints.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/coding-standards.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/dependencies.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/source-tree.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:- Read(file_path="devforgeai/context/tech-stack.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:Display: "  Location: devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:IF not exists devforgeai/stories/${STORY_ID}/changes/:
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/preflight-validation.md.backup:│   devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/architecture-constraints.md (layer boundaries, DI patterns)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/coding-standards.md (code patterns, naming conventions)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/dependencies.md (approved packages only)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/source-tree.md (file placement rules)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-green-phase.md.backup:  - devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/coding-standards.md (test patterns, AAA format)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/source-tree.md (test file placement rules)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-red-phase.md.backup:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/anti-patterns.md (check for violations)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/architecture-constraints.md (maintain layer boundaries)
+/mnt/c/Projects/DevForgeAI2/devforgeai/backups/rca-010-20251118-085536/tdd-refactor-phase.md.backup:  - devforgeai/context/coding-standards.md (apply patterns)
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:            Glob(pattern="devforgeai/adrs/${adr_reference}*.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:   - Template: `.claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-006-scope-descope.md`
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:  echo "⚠️ Feedback system unavailable (devforgeai CLI not found). Install with: pip install --break-system-packages -e .claude/scripts/" >&2
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:) 200>.devforgeai/feedback/logs/hook-invocations.log.lock
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:**Log all hook operations to `.devforgeai/feedback/logs/hook-invocations.log`:**
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Audit report in `.devforgeai/qa/deferral-audit-{timestamp}.md`
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Hook invocation log in `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Session data saved to `.devforgeai/feedback/sessions/` (if user accepts feedback)
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:) 200>devforgeai/feedback/logs/hook-invocations.log.lock
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:**Log all hook operations to `devforgeai/feedback/logs/hook-invocations.log`:**
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Audit report in `devforgeai/qa/deferral-audit-{timestamp}.md`
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Hook invocation log in `devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:- Session data saved to `devforgeai/feedback/sessions/` (if user accepts feedback)
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:.claude/scripts/check-hooks-fast.sh audit-deferrals success
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:audit_report=$(ls -t .devforgeai/qa/deferral-audit-*.md | head -1)
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:echo "$LOG_ENTRY" >> .devforgeai/feedback/logs/hook-invocations.log
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:audit_report=$(ls -t devforgeai/qa/deferral-audit-*.md | head -1)
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:echo "$LOG_ENTRY" >> devforgeai/feedback/logs/hook-invocations.log
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:elif ! .claude/scripts/check-hooks-fast.sh audit-deferrals success; then
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:if ! command -v .claude/scripts/check-hooks-fast.sh &>/dev/null; then
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:mkdir -p .devforgeai/feedback/logs
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:report_path = ".devforgeai/qa/deferral-audit-{timestamp}.md"
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:📄 .devforgeai/qa/deferral-audit-{timestamp}.md
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  file_path=".devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  new_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  old_string="- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  📁 .devforgeai/specs/requirements/[EPIC-ID]-requirements.md
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:- Requirements Spec: `.devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:Format as structured markdown suitable for `.devforgeai/specs/requirements/`"
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:mkdir -p devforgeai/feedback/logs
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:report_path = "devforgeai/qa/deferral-audit-{timestamp}.md"
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/audit-deferrals.md.backup:📄 devforgeai/qa/deferral-audit-{timestamp}.md
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  file_path="devforgeai/specs/requirements/[EPIC-ID]-requirements.md",
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  new_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md`"
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  old_string="- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)",
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:  📁 devforgeai/specs/requirements/[EPIC-ID]-requirements.md
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:- Requirements Spec: `devforgeai/specs/requirements/[EPIC-ID]-requirements.md` (to be created)
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:Format as structured markdown suitable for `devforgeai/specs/requirements/`"
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/create-epic.md.backup:Glob(pattern="devforgeai/context/*.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.20251113.backup:[//]: # (For architecture details, token optimization metrics, and design rationale, see .claude/memory/commands-reference.md)
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:    Display: "  - Changes documented in .devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:    Display: "  - Changes documented in devforgeai/stories/{STORY-ID}/changes/"
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:Bash(command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet")
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:Check: Glob(pattern="devforgeai/context/*.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/commands/dev.md.backup:See: @.claude/tasks/dod-validation-checkpoint.md
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.backup:Edit(file_path="devforgeai/context/dependencies.md",
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.backup:Edit(file_path="devforgeai/context/source-tree.md",
@@ -239,13 +239,13 @@
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Write(.devforgeai/technical-debt-register.md, content=template)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Check if .devforgeai/technical-debt-register.md exists
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Display: "    .devforgeai/stories/{STORY-ID}/changes/"
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Read .devforgeai/technical-debt-register.md
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        file_path=".devforgeai/stories/${STORY_ID}/changes/.gitkeep",
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:            Write(devforgeai/technical-debt-register.md, content=template)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Check if devforgeai/technical-debt-register.md exists
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Display: "    devforgeai/stories/{STORY-ID}/changes/"
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        Read devforgeai/technical-debt-register.md
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:        file_path="devforgeai/stories/${STORY_ID}/changes/.gitkeep",
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    command="python .claude/scripts/validate_deferrals.py --story-file .ai_docs/Stories/${STORY_ID}*.story.md --format-only --quiet",
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    file_path=".devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:    file_path="devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md",
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/anti-patterns.md (check for violations)
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/anti-patterns.md (forbidden patterns to avoid)
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/architecture-constraints.md (layer boundaries)
@@ -261,20 +261,20 @@
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/tech-stack.md (locked technologies: {LANGUAGE}, {FRAMEWORK})
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  - devforgeai/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:  Then validate against devforgeai/context/tech-stack.md if it exists.
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- **Changes:** .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- **Changes:** devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/anti-patterns.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/architecture-constraints.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/coding-standards.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/dependencies.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:- Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Display: "  Location: .devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern=".devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern=".devforgeai/qa/reports/{story-id}-qa-report*.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:IF not exists .devforgeai/stories/${STORY_ID}/changes/:
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:│   .devforgeai/stories/${STORY_ID}/changes/implementation-...   │
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification (`.devforgeai/specs/requirements/`)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification in .devforgeai/specs/requirements/
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Display: "  Location: devforgeai/stories/${STORY_ID}/changes/implementation-${TIMESTAMP}.md"
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern="devforgeai/qa/reports/${STORY_ID}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:Glob(pattern="devforgeai/qa/reports/{story-id}-qa-report*.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:IF not exists devforgeai/stories/${STORY_ID}/changes/:
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor:│   devforgeai/stories/${STORY_ID}/changes/implementation-...   │
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification (`devforgeai/specs/requirements/`)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:- Requirements specification in devforgeai/specs/requirements/
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Glob(pattern="devforgeai/context/*.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/epic-template.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/assets/templates/requirements-spec-template.md")
@@ -284,17 +284,17 @@
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-ideation/references/requirements-elicitation-guide.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Write(file_path=".devforgeai/specs/requirements/[project-name]-requirements.md", content="""
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup:Write(file_path="devforgeai/specs/requirements/[project-name]-requirements.md", content="""
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:            Read template: .claude/skills/devforgeai-orchestration/assets/templates/technical-debt-register-template.md
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:            Write(.devforgeai/technical-debt-register.md, content=template)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Check if .devforgeai/technical-debt-register.md exists
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Glob(pattern=".devforgeai/adrs/{adr_reference}*.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Read .devforgeai/technical-debt-register.md
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:            Write(devforgeai/technical-debt-register.md, content=template)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Check if devforgeai/technical-debt-register.md exists
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Glob(pattern="devforgeai/adrs/{adr_reference}*.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:        Read devforgeai/technical-debt-register.md
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:Check for context files (devforgeai/context/*.md)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/SKILL.md.backup:Read(file_path=\".claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md\")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:- Full Report: `.devforgeai/qa/reports/{story_id}-qa-report.md`
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:.devforgeai/qa/
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:- Full Report: `devforgeai/qa/reports/{story_id}-qa-report.md`
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:devforgeai/qa/
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-qa/assets/templates/qa-report-template.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-qa/assets/templates/test-stub-template.cs")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/anti-patterns.md")
@@ -303,23 +303,23 @@
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/dependencies.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/source-tree.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/context/tech-stack.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".devforgeai/qa/coverage-thresholds.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path=".devforgeai/qa/quality-metrics.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Write(file_path=f".devforgeai/qa/reports/{story_id}-qa-report.md",
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/qa/coverage-thresholds.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Read(file_path="devforgeai/qa/quality-metrics.md")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-qa/SKILL.md.backup:Write(file_path=f"devforgeai/qa/reports/{story_id}-qa-report.md",
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:    Read(file_path=".claude/skills/devforgeai-release/references/deployment-strategies.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:  ✓ Release notes: .devforgeai/releases/release-{version}.md
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- **Release Notes:** .devforgeai/releases/release-{version}.md
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- QA report with PASS status (.devforgeai/qa/reports/{story-id}-qa-report.md)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- Release notes: `.devforgeai/releases/release-{version}.md`
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- Rollback report generated: `.devforgeai/releases/rollback-{version}.md`
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:  ✓ Release notes: devforgeai/releases/release-{version}.md
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- **Release Notes:** devforgeai/releases/release-{version}.md
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- QA report with PASS status (devforgeai/qa/reports/{story-id}-qa-report.md)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- Release notes: `devforgeai/releases/release-{version}.md`
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:- Rollback report generated: `devforgeai/releases/rollback-{version}.md`
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-release/assets/templates/release-notes-template.md")
 /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".claude/skills/devforgeai-release/references/smoke-testing-guide.md")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path=".devforgeai/releases/active-deployments.json")
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Report: f"✓ Release notes generated: .devforgeai/releases/release-{version}.md"
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/monitoring/alerts/{story_id}-post-release.json",
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/post-release/{story_id}-review.md", content=review_document)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/releases/release-{version}.md", content=release_notes)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f".devforgeai/releases/rollback-{version}.md", content=rollback_report)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:qa_report_path = f".devforgeai/qa/reports/{story_id}-qa-report.md"
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:✅ CORRECT: Write(file_path=".devforgeai/releases/release-{version}.md", content=notes)
-/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:❌ FORBIDDEN: Bash(command="cat > .devforgeai/releases/release-{version}.md <<EOF...")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Read(file_path="devforgeai/releases/active-deployments.json")
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Report: f"✓ Release notes generated: devforgeai/releases/release-{version}.md"
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/monitoring/alerts/{story_id}-post-release.json",
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/post-release/{story_id}-review.md", content=review_document)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/releases/release-{version}.md", content=release_notes)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:Write(file_path=f"devforgeai/releases/rollback-{version}.md", content=rollback_report)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:qa_report_path = f"devforgeai/qa/reports/{story_id}-qa-report.md"
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:✅ CORRECT: Write(file_path="devforgeai/releases/release-{version}.md", content=notes)
+/mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/SKILL.md.backup:❌ FORBIDDEN: Bash(command="cat > devforgeai/releases/release-{version}.md <<EOF...")

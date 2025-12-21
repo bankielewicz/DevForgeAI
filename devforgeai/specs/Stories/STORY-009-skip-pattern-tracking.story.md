@@ -26,7 +26,7 @@ qa_approved: 2025-11-10
 **Given** a user is executing operations that trigger feedback prompts
 **When** the user skips 1, 2, or 5 feedback prompts across different operation types
 **Then** the skip counter increments correctly per operation type (e.g., "skill_invocation_skips: 2", "subagent_invocation_skips: 1")
-**And** counters are stored in `.devforgeai/config/feedback-preferences.yaml` in YAML format
+**And** counters are stored in `devforgeai/config/feedback-preferences.yaml` in YAML format
 **And** counters persist across sessions (survive terminal restart)
 
 ---
@@ -42,7 +42,7 @@ qa_approved: 2025-11-10
 
 ### 3. [x] Preference Storage and Enforcement
 **Given** a user confirms "Disable feedback for [operation-type]" via AskUserQuestion
-**When** the preference is stored in `.devforgeai/config/feedback-preferences.yaml`
+**When** the preference is stored in `devforgeai/config/feedback-preferences.yaml`
 **Then** subsequent operations of that type DO NOT trigger feedback prompts
 **And** the disabled status is clearly documented (reason: "User disabled after 3+ skips")
 **And** users can re-enable via manual config edit (documented process)
@@ -160,9 +160,9 @@ None - Configuration management only (no HTTP API)
 
 ### File Locations
 
-- **Config:** `.devforgeai/config/feedback-preferences.yaml`
-- **Backups:** `.devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
-- **Logs:** `.devforgeai/logs/skip-pattern-detection.log`
+- **Config:** `devforgeai/config/feedback-preferences.yaml`
+- **Backups:** `devforgeai/config/backups/feedback-preferences-{timestamp}.yaml.backup`
+- **Logs:** `devforgeai/logs/skip-pattern-detection.log`
 
 ## Edge Cases
 
@@ -177,7 +177,7 @@ None - Configuration management only (no HTTP API)
 **Validation:** Only consecutive skips count toward 3+ threshold
 
 ### 3. Config File Missing on First Skip
-**Scenario:** `.devforgeai/config/feedback-preferences.yaml` does not exist
+**Scenario:** `devforgeai/config/feedback-preferences.yaml` does not exist
 **Expected:** System creates config file with initial structure and skip counter increments
 **Validation:** File created with YAML frontmatter and initial counters
 
@@ -187,7 +187,7 @@ None - Configuration management only (no HTTP API)
 **Validation:** Disabled status enforced regardless of counter value
 
 ### 5. Corrupted Config File
-**Scenario:** `.devforgeai/config/feedback-preferences.yaml` is malformed YAML
+**Scenario:** `devforgeai/config/feedback-preferences.yaml` is malformed YAML
 **Expected:** System logs error, creates backup (`.yaml.backup`), creates fresh config
 **Validation:** Fresh config created, user notified (non-blocking), operations continue
 
@@ -273,7 +273,7 @@ None - Configuration management only (no HTTP API)
 - [x] Skip counter increments per operation type - Completed: 2025-11-09
 - [x] Pattern detection triggers at 3+ consecutive skips - Completed: 2025-11-09
 - [x] AskUserQuestion appears with disable/keep/ask-later options - Completed: 2025-11-09
-- [x] User preference stored in `.devforgeai/config/feedback-preferences.yaml` - Completed: 2025-11-09
+- [x] User preference stored in `devforgeai/config/feedback-preferences.yaml` - Completed: 2025-11-09
 - [x] Preferences persist across sessions - Completed: 2025-11-09
 - [x] Disabled feedback types enforced (no prompts) - Completed: 2025-11-09
 - [x] Token waste calculation accurate - Completed: 2025-11-09
@@ -322,7 +322,7 @@ None - Configuration management only (no HTTP API)
 - [x] Skip counter increments per operation type
 - [x] Pattern detection triggers at 3+ consecutive skips
 - [x] AskUserQuestion appears with disable/keep/ask-later options
-- [x] User preference stored in `.devforgeai/config/feedback-preferences.yaml`
+- [x] User preference stored in `devforgeai/config/feedback-preferences.yaml`
 - [x] Preferences persist across sessions
 - [x] Disabled feedback types enforced (no prompts)
 - [x] Token waste calculation accurate
@@ -478,5 +478,5 @@ None - Configuration management only (no HTTP API)
     - User approval: 2025-11-09
     - Impact: No blocking impact - skip tracking fully functional
   - Quality Score: 99.73/100 (Exceptional)
-  - QA Report: .devforgeai/qa/reports/STORY-009-qa-report.md
+  - QA Report: devforgeai/qa/reports/STORY-009-qa-report.md
   - Status: Ready for production release

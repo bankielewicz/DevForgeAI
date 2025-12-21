@@ -29,7 +29,7 @@ All commands follow the lean orchestration pattern with comprehensive test cover
 
 **Functionality:**
 - Captures session metadata with unique feedback ID
-- Records feedback to `.devforgeai/feedback/feedback-register.md`
+- Records feedback to `devforgeai/feedback/feedback-register.md`
 - Validates context input (max 500 chars, alphanumeric + hyphens + underscores)
 - Prevents ID collisions through register parsing
 
@@ -130,7 +130,7 @@ devforgeai export-feedback --date-range=2025-11-01..2025-11-07 --story-ids=STORY
 devforgeai export-feedback --severity=high --status=open
 ```
 
-**Export Location:** `.devforgeai/feedback/exports/{timestamp}-feedback-export.{format}`
+**Export Location:** `devforgeai/feedback/exports/{timestamp}-feedback-export.{format}`
 
 **Response Time:** <1.5s for <100 entries, <4s for <10K entries (targets: <2s, <5s)
 
@@ -158,7 +158,7 @@ devforgeai export-feedback --severity=high --status=open
 
 **File Structure:**
 ```
-.devforgeai/feedback/
+devforgeai/feedback/
 ├── config.yaml              # Configuration settings
 ├── feedback-register.md     # Master feedback log
 └── exports/                 # Export packages
@@ -403,7 +403,7 @@ If issues are discovered in production:
    ```
 
 5. **Report issue:**
-   - Document issue in `.devforgeai/releases/STORY-020-rollback-report.md`
+   - Document issue in `devforgeai/releases/STORY-020-rollback-report.md`
    - Include error messages, reproduction steps, environment details
 
 ---
@@ -455,8 +455,8 @@ Or use full orchestration from current checkpoint:
 
 - **Slash Command Docs:** `.claude/commands/feedback*.md`
 - **Story File:** `devforgeai/specs/Stories/STORY-020-feedback-cli-commands.story.md`
-- **QA Report:** `.devforgeai/qa/reports/STORY-020-qa-report.md`
-- **Smoke Test Results:** `.devforgeai/qa/smoke-tests/STORY-020-staging-results.json`
+- **QA Report:** `devforgeai/qa/reports/STORY-020-qa-report.md`
+- **Smoke Test Results:** `devforgeai/qa/smoke-tests/STORY-020-staging-results.json`
 
 ### Help Commands
 
@@ -480,8 +480,8 @@ Or use full orchestration from current checkpoint:
    - Capture first feedback: `devforgeai feedback test`
 
 4. **"Export directory not writable"**
-   - Check permissions: `ls -ld .devforgeai/feedback/exports/`
-   - Create if missing: `mkdir -p .devforgeai/feedback/exports/`
+   - Check permissions: `ls -ld devforgeai/feedback/exports/`
+   - Create if missing: `mkdir -p devforgeai/feedback/exports/`
 
 ---
 
@@ -512,9 +512,9 @@ Or use full orchestration from current checkpoint:
 - `.claude/commands/feedback-export-data.md` (NEW - 85 lines)
 
 **Release Files:**
-- `.devforgeai/qa/reports/STORY-020-qa-report.md` (QA validation report)
-- `.devforgeai/qa/smoke-tests/STORY-020-staging-results.json` (Smoke test results)
-- `.devforgeai/releases/STORY-020-release-notes.md` (This file)
+- `devforgeai/qa/reports/STORY-020-qa-report.md` (QA validation report)
+- `devforgeai/qa/smoke-tests/STORY-020-staging-results.json` (Smoke test results)
+- `devforgeai/releases/STORY-020-release-notes.md` (This file)
 
 ---
 

@@ -84,7 +84,7 @@ format_version: "2.1"
 
 **Given** all 10 operations have been collected
 **When** the baseline document is generated
-**Then** the file `.devforgeai/metrics/baseline-YYYY-MM-DD.md` is created containing:
+**Then** the file `devforgeai/metrics/baseline-YYYY-MM-DD.md` is created containing:
 - Summary statistics (total violations, hallucinations, citation rate)
 - Per-operation breakdown (10 entries)
 - Categorized issues (rule violations by rule number, hallucination types)
@@ -96,12 +96,12 @@ format_version: "2.1"
 
 ### AC#6: Metrics Directory Structure
 
-**Given** the `.devforgeai/metrics/` directory does not exist
+**Given** the `devforgeai/metrics/` directory does not exist
 **When** baseline collection is initiated
 **Then** the directory structure is created:
-- `.devforgeai/metrics/` directory created
-- `.devforgeai/metrics/baseline-YYYY-MM-DD.md` file created
-- `.devforgeai/metrics/README.md` with usage instructions created
+- `devforgeai/metrics/` directory created
+- `devforgeai/metrics/baseline-YYYY-MM-DD.md` file created
+- `devforgeai/metrics/README.md` with usage instructions created
 - File permissions set appropriately (644 for files, 755 for directory)
 
 ---
@@ -115,7 +115,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "BaselineMetricsConfig"
-      file_path: ".devforgeai/metrics/README.md"
+      file_path: "devforgeai/metrics/README.md"
       dependencies: []
       requirements:
         - id: "CONF-001"
@@ -131,7 +131,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "BaselineMetricsDocument"
-      file_path: ".devforgeai/metrics/baseline-YYYY-MM-DD.md"
+      file_path: "devforgeai/metrics/baseline-YYYY-MM-DD.md"
       dependencies: []
       requirements:
         - id: "DM-001"
@@ -157,7 +157,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "MetricsDirectoryStructure"
-      file_path: ".devforgeai/metrics/"
+      file_path: "devforgeai/metrics/"
       dependencies: []
       requirements:
         - id: "CONF-003"
@@ -249,7 +249,7 @@ technical_specification:
 **Data Protection:**
 - No sensitive data: Baseline documents must not contain API keys, tokens, or user credentials
 - Sanitize operation logs before writing to baseline
-- Path traversal prevention: File paths validated to prevent writing outside `.devforgeai/metrics/`
+- Path traversal prevention: File paths validated to prevent writing outside `devforgeai/metrics/`
 
 ---
 
@@ -281,7 +281,7 @@ technical_specification:
 
 2. **Zero Violations/Hallucinations Scenario:** If an operation completes with zero rule violations and zero hallucinations, record explicit "0" values (not blank or N/A) to establish a valid baseline data point.
 
-3. **Pre-existing Metrics Directory:** If `.devforgeai/metrics/` already exists (from prior runs), append date suffix to avoid overwriting (e.g., `baseline-2025-12-01-v2.md` if `baseline-2025-12-01.md` exists).
+3. **Pre-existing Metrics Directory:** If `devforgeai/metrics/` already exists (from prior runs), append date suffix to avoid overwriting (e.g., `baseline-2025-12-01-v2.md` if `baseline-2025-12-01.md` exists).
 
 4. **Ambiguous Hallucination Classification:** When an inaccurate statement could be classified as either "rule violation" or "hallucination," use these criteria:
    - Rule violation: Statement contradicts explicit text in CLAUDE.md Critical Rules 1-11
@@ -308,7 +308,7 @@ technical_specification:
 
 5. **Citation Count Non-Negative:** Citation used counts must be non-negative integers.
 
-6. **File Path Format:** Baseline file path must match pattern `.devforgeai/metrics/baseline-\d{4}-\d{2}-\d{2}(-v\d+)?\.md`.
+6. **File Path Format:** Baseline file path must match pattern `devforgeai/metrics/baseline-\d{4}-\d{2}-\d{2}(-v\d+)?\.md`.
 
 7. **Aggregate Metric Bounds:** Violation rate, hallucination rate, citation compliance rate: 0-100%.
 
@@ -411,7 +411,7 @@ None - Uses existing markdown file capabilities.
 ## Definition of Done
 
 ### Implementation
-- [ ] Metrics directory structure created (.devforgeai/metrics/)
+- [ ] Metrics directory structure created (devforgeai/metrics/)
 - [ ] README.md with format documentation created
 - [ ] Baseline document template implemented
 - [ ] All 10 operation types captured (3 /dev, 3 /qa, 2 /create-story, 2 architecture)
@@ -432,7 +432,7 @@ None - Uses existing markdown file capabilities.
 - [ ] Integration tests for directory handling
 
 ### Documentation
-- [ ] README.md in .devforgeai/metrics/ with usage guide
+- [ ] README.md in devforgeai/metrics/ with usage guide
 - [ ] Inline field descriptions in baseline document
 - [ ] Format version documented
 
@@ -454,7 +454,7 @@ None - Uses existing markdown file capabilities.
 
 **Research Reference:**
 - RESEARCH-001: Claude Code Memory Management Best Practices (2025-11-30)
-- Location: `.devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
+- Location: `devforgeai/research/shared/RESEARCH-001-claude-memory-best-practices.md`
 
 **Related Stories:**
 - STORY-100: Accuracy Tracking Log Setup (creates ongoing tracking log template)

@@ -168,7 +168,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 - **NFR-P1 (Performance):** Hook eligibility check completes in <500ms (95th percentile), feedback invocation is asynchronous and does NOT block command completion
 
-- **NFR-R1 (Reliability):** Hook integration failures have ZERO impact on ideation success rate (100% graceful degradation), all hook errors logged to .devforgeai/feedback/logs/hook-errors.log with timestamps
+- **NFR-R1 (Reliability):** Hook integration failures have ZERO impact on ideation success rate (100% graceful degradation), all hook errors logged to devforgeai/feedback/logs/hook-errors.log with timestamps
 
 - **NFR-M1 (Maintainability):** Phase N implementation maintains <50 lines of code following DRY principles, hook integration logic is extracted to reusable helper function (can be shared with other commands during Feature 6.2 rollout)
 
@@ -219,7 +219,7 @@ Not applicable - This is a command-line interface modification with no graphical
 
 ### Documentation
 - [x] Command integration documented in `.claude/commands/ideate.md`
-- [ ] Pattern documented in `.devforgeai/protocols/hook-integration-pattern.md` - Deferred: Pattern already exists from STORY-027-030, no updates needed
+- [ ] Pattern documented in `devforgeai/protocols/hook-integration-pattern.md` - Deferred: Pattern already exists from STORY-027-030, no updates needed
 - [x] Context passing format documented
 - [ ] User guide updated with /ideate feedback capability - Deferred: User guide updates can be done in documentation sprint
 - [ ] Troubleshooting section added for hook failures - Deferred: Comprehensive troubleshooting in hook-integration-pattern.md, not needed in command
@@ -284,7 +284,7 @@ All Definition of Done items completed during TDD workflow (2025-11-17):
 - Phase 2 (Anti-Patterns): No violations detected
 - Phase 3 (Spec Compliance): All AC tested, tech spec validated, deferrals approved
 - Phase 4 (Code Quality): High maintainability, low complexity
-- Phase 5 (Report): Generated at .devforgeai/qa/reports/STORY-031-qa-report.md
+- Phase 5 (Report): Generated at devforgeai/qa/reports/STORY-031-qa-report.md
 
 **Deferred Items Validation:**
 1. Pattern documentation - ✅ Valid (comprehensive existing coverage)

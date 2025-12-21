@@ -161,12 +161,12 @@ technical_specification:
               message: "Cannot read command file: [filename]"
       requirements:
         - id: "API-001"
-          description: "Output JSON report to .devforgeai/qa/pattern-compliance-audit-YYYY-MM-DD.json"
+          description: "Output JSON report to devforgeai/qa/pattern-compliance-audit-YYYY-MM-DD.json"
           testable: true
           test_requirement: "Test: Verify JSON report written with valid schema"
           priority: "Critical"
         - id: "API-002"
-          description: "Output Markdown summary to .devforgeai/qa/pattern-compliance-audit-YYYY-MM-DD.md"
+          description: "Output Markdown summary to devforgeai/qa/pattern-compliance-audit-YYYY-MM-DD.md"
           testable: true
           test_requirement: "Test: Verify Markdown report contains executive summary, violations, roadmap"
           priority: "High"
@@ -406,7 +406,7 @@ technical_specification:
 - Handle unreadable command files gracefully
 - Handle malformed command syntax
 - Continue audit on file errors (don't crash)
-- Log all errors to `.devforgeai/qa/pattern-audit-errors.log`
+- Log all errors to `devforgeai/qa/pattern-audit-errors.log`
 
 **Reliability Test:**
 - Provide malformed command file (invalid YAML frontmatter)
@@ -467,7 +467,7 @@ technical_specification:
 
 **Test Files:**
 - `tests/unit/test_pattern_compliance_auditor.py`
-- Test fixtures: `.devforgeai/tests/fixtures/commands/`
+- Test fixtures: `devforgeai/tests/fixtures/commands/`
   - `compliant-command.md` (0 violations)
   - `moderate-violations.md` (5 violations)
   - `severe-violations.md` (15 violations)
@@ -555,7 +555,7 @@ technical_specification:
 - Definition of Done: 100% complete (46/46 items)
 
 **Approval Decision:** APPROVED for release
-**QA Report:** `.devforgeai/qa/reports/STORY-037-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-037-qa-report.md`
 
 ---
 
@@ -685,9 +685,9 @@ technical_specification:
 - None (this is the first comprehensive pattern audit)
 
 **References:**
-- `.devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
-- `.devforgeai/protocols/command-budget-reference.md` - Budget thresholds
-- `.devforgeai/protocols/refactoring-case-studies.md` - Violation examples
+- `devforgeai/protocols/lean-orchestration-pattern.md` - Pattern definition
+- `devforgeai/protocols/command-budget-reference.md` - Budget thresholds
+- `devforgeai/protocols/refactoring-case-studies.md` - Violation examples
 
 ---
 

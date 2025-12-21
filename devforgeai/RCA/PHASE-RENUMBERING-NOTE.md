@@ -11,7 +11,7 @@ On 2025-12-07, the DevForgeAI `/dev` command and `devforgeai-development` skill 
 
 **Reason for Change**: Improve clarity and consistency across workflow documentation.
 
-**Historical RCA documents** (39 files in `.devforgeai/RCA/`) were NOT updated to preserve original incident context. When reading historical RCAs that reference "Phase 0", "Phase 4.5", etc., use this mapping to understand the current equivalent phase.
+**Historical RCA documents** (39 files in `devforgeai/RCA/`) were NOT updated to preserve original incident context. When reading historical RCAs that reference "Phase 0", "Phase 4.5", etc., use this mapping to understand the current equivalent phase.
 
 ---
 
@@ -95,7 +95,7 @@ If you encounter phase references in RCA documents created before 2025-12-07, us
 - `.claude/memory/*.md` files
 
 **Files NOT Updated** (preserved historical context):
-- All 39 RCA documents in `.devforgeai/RCA/`
+- All 39 RCA documents in `devforgeai/RCA/`
 - Backup files with `.backup` suffix
 - Deprecated files with `.DEPRECATED` suffix
 
@@ -103,7 +103,7 @@ If you encounter phase references in RCA documents created before 2025-12-07, us
 
 ## Related Documentation
 
-- **Backup Location**: `.devforgeai/backups/phase-renumbering-20251207-131415/`
+- **Backup Location**: `devforgeai/backups/phase-renumbering-20251207-131415/`
 - **Plan Document**: `/home/bryan/.claude/plans/abundant-wiggling-cocoa.md`
 - **Validation Results**: See CHECKPOINT 7 in plan document
 

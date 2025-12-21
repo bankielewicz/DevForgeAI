@@ -29,7 +29,7 @@ TEST_LOG="/tmp/story-083-validation.log"
 # Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="${SCRIPT_DIR}/../.."
-PARSER_SCRIPT="${PROJECT_ROOT}/.devforgeai/traceability/parse-requirements.sh"
+PARSER_SCRIPT="${PROJECT_ROOT}/devforgeai/traceability/parse-requirements.sh"
 FIXTURES_DIR="${SCRIPT_DIR}/fixtures"
 
 # Initialize log

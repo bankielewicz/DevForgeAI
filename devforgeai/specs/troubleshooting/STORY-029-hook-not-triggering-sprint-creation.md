@@ -13,7 +13,7 @@
 - Sprint file created successfully in `devforgeai/specs/Sprints/`
 - Stories assigned to "Ready for Dev" status
 - No feedback questions presented to user
-- No feedback session file in `.devforgeai/feedback/`
+- No feedback session file in `devforgeai/feedback/`
 - Command exits with code 0 (success)
 
 ---
@@ -22,11 +22,11 @@
 
 ### Step 1: Verify Hooks Are Enabled in Configuration
 
-**Check:** `.devforgeai/config/hooks.yaml`
+**Check:** `devforgeai/config/hooks.yaml`
 
 ```bash
 # Read hook configuration
-cat .devforgeai/config/hooks.yaml | grep -A 10 "post-sprint-create-feedback"
+cat devforgeai/config/hooks.yaml | grep -A 10 "post-sprint-create-feedback"
 ```
 
 **Expected:**
@@ -41,9 +41,9 @@ cat .devforgeai/config/hooks.yaml | grep -A 10 "post-sprint-create-feedback"
 **If enabled: false:**
 ```bash
 # Enable hooks
-sed -i 's/enabled: false/enabled: true/' .devforgeai/config/hooks.yaml
+sed -i 's/enabled: false/enabled: true/' devforgeai/config/hooks.yaml
 
-# Or manually edit .devforgeai/config/hooks.yaml
+# Or manually edit devforgeai/config/hooks.yaml
 # Change: enabled: false → enabled: true
 ```
 
@@ -121,7 +121,7 @@ git show <commit-hash>:.claude/commands/create-sprint.md
 # sudo apt-get install yq
 
 # Validate YAML
-python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
+python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))"
 ```
 
 **Expected:** No errors
@@ -129,7 +129,7 @@ python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))"
 **If syntax error:**
 ```bash
 # Check error message for line number
-python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))" 2>&1
+python3 -c "import yaml; yaml.safe_load(open('devforgeai/config/hooks.yaml'))" 2>&1
 
 # Fix YAML syntax at indicated line
 # Common issues: Missing quotes, wrong indentation, missing colons
@@ -143,14 +143,14 @@ python3 -c "import yaml; yaml.safe_load(open('.devforgeai/config/hooks.yaml'))" 
 
 ```bash
 # Read hook error log
-cat .devforgeai/feedback/logs/hook-errors.log | tail -50
+cat devforgeai/feedback/logs/hook-errors.log | tail -50
 ```
 
 **Check command log:**
 
 ```bash
 # Read command execution log
-cat .devforgeai/logs/command.log | grep "Phase N" | tail -20
+cat devforgeai/logs/command.log | grep "Phase N" | tail -20
 ```
 
 **Look for:**
@@ -177,7 +177,7 @@ echo "Exit code: $?"
 
 **Expected:**
 - Feedback questions presented
-- Session file created in `.devforgeai/feedback/sessions/`
+- Session file created in `devforgeai/feedback/sessions/`
 - Exit code: 0
 
 **If error:**
@@ -284,12 +284,12 @@ sed -i 's/--status=completed/--status=success/' .claude/commands/create-sprint.m
 **Solution:**
 ```bash
 # Enable hooks
-# Edit .devforgeai/config/hooks.yaml
+# Edit devforgeai/config/hooks.yaml
 # Find: enabled: false
 # Change to: enabled: true
 
 # Or use sed:
-sed -i '/post-sprint-create-feedback/,/enabled:/ s/enabled: false/enabled: true/' .devforgeai/config/hooks.yaml
+sed -i '/post-sprint-create-feedback/,/enabled:/ s/enabled: false/enabled: true/' devforgeai/config/hooks.yaml
 ```
 
 ---
@@ -370,19 +370,19 @@ time devforgeai invoke-hooks --operation=create-sprint \
 
 ### Issue 7: Permission Denied on Log Files
 
-**Error:** "Permission denied: .devforgeai/feedback/logs/hook-errors.log"
+**Error:** "Permission denied: devforgeai/feedback/logs/hook-errors.log"
 
 **Cause:** Log directory or file has wrong permissions
 
 **Solution:**
 ```bash
 # Fix permissions
-chmod 755 .devforgeai/feedback/logs/
-chmod 644 .devforgeai/feedback/logs/*.log
+chmod 755 devforgeai/feedback/logs/
+chmod 644 devforgeai/feedback/logs/*.log
 
 # Or recreate log directory
-rm -rf .devforgeai/feedback/logs/
-mkdir -p .devforgeai/feedback/logs/
+rm -rf devforgeai/feedback/logs/
+mkdir -p devforgeai/feedback/logs/
 ```
 
 ---
@@ -410,7 +410,7 @@ mkdir -p .devforgeai/feedback/logs/
 
 ```bash
 # 1. Enable hooks
-sed -i '/post-sprint-create-feedback/,/enabled:/ s/enabled: false/enabled: true/' .devforgeai/config/hooks.yaml
+sed -i '/post-sprint-create-feedback/,/enabled:/ s/enabled: false/enabled: true/' devforgeai/config/hooks.yaml
 
 # 2. Verify check-hooks
 devforgeai check-hooks --operation=create-sprint --status=success
@@ -422,14 +422,14 @@ devforgeai check-hooks --operation=create-sprint --status=success
 
 # 4. Verify hook triggered
 # Expected: Feedback questions presented after sprint creation
-# Expected: Session file: .devforgeai/feedback/sessions/create-sprint-*.json
+# Expected: Session file: devforgeai/feedback/sessions/create-sprint-*.json
 
 # 5. Verify sprint created
 ls devforgeai/specs/Sprints/ | grep Test-Hook-Sprint
 # Expected: Test-Hook-Sprint.md exists
 
 # 6. Check logs
-cat .devforgeai/logs/command.log | grep "Phase N"
+cat devforgeai/logs/command.log | grep "Phase N"
 # Expected: "Phase N: Checking feedback hooks for operation=create-sprint"
 ```
 
@@ -471,8 +471,8 @@ time devforgeai invoke-hooks --operation=create-sprint \
 
 - **Story:** `devforgeai/specs/Stories/STORY-029-wire-hooks-into-create-sprint-command.story.md`
 - **Command:** `.claude/commands/create-sprint.md` (Phase N at lines 311-333)
-- **Hook Config:** `.devforgeai/config/hooks.yaml` (post-sprint-create-feedback hook)
-- **Hook Example:** `.devforgeai/config/hooks.yaml.example` (lines 155-221)
+- **Hook Config:** `devforgeai/config/hooks.yaml` (post-sprint-create-feedback hook)
+- **Hook Example:** `devforgeai/config/hooks.yaml.example` (lines 155-221)
 - **Sprint Planning Guide:** `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` (Hook Integration section)
 
 ---
@@ -481,10 +481,10 @@ time devforgeai invoke-hooks --operation=create-sprint \
 
 **If issue persists after following all steps:**
 
-1. Check DevForgeAI CLI logs: `.devforgeai/logs/cli.log`
+1. Check DevForgeAI CLI logs: `devforgeai/logs/cli.log`
 2. Enable debug mode: `export DEVFORGEAI_DEBUG=1`
 3. Re-run `/create-sprint` and capture full output
-4. Review `.devforgeai/feedback/logs/hook-errors.log` for detailed errors
+4. Review `devforgeai/feedback/logs/hook-errors.log` for detailed errors
 5. Consult framework maintainer or file GitHub issue
 
 ---

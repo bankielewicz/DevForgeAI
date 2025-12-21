@@ -245,4 +245,4 @@ The SKILL.md refactoring is **NOT related** to the duplicate message bug:
 
 ---
 
-**Analysis document created:** `.devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-RESOLUTION.md`
+**Analysis document created:** `devforgeai/specs/bugs/DUPLICATE-SKILL-INVOCATION-RESOLUTION.md`

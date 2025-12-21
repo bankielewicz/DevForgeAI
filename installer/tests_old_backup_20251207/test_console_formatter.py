@@ -421,7 +421,7 @@ class TestReportFormatting:
 
         # Assert
         assert "install.log" in output
-        assert ".devforgeai" in output or "/tmp" in output
+        assert "devforgeai" in output or "/tmp" in output
 
     def test_console_report_with_no_errors(self):
         """

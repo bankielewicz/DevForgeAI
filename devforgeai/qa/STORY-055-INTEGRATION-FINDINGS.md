@@ -504,7 +504,7 @@ File Synchronization:    ❌ 0% Complete (out of sync)
    - Verify Open-Ended and Bounded Choice pattern names
 
 2. **Verification (5 minutes):**
-   - Re-run integration tests: `python3 .devforgeai/qa/tests/test_story_055_integration.py`
+   - Re-run integration tests: `python3 devforgeai/qa/tests/test_story_055_integration.py`
    - Verify all 23 tests pass
 
 3. **Follow-Up Testing (Day 2):**

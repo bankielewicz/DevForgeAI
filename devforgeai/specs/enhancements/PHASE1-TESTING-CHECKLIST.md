@@ -25,7 +25,7 @@ This checklist provides test cases, procedures, and validation criteria for the 
 
 ### Prerequisites
 
-- [ ] Backups verified (`.devforgeai/backups/phase1/`)
+- [ ] Backups verified (`devforgeai/backups/phase1/`)
 - [ ] Files modified (`tdd-red-phase.md`, `test-automator.md`)
 - [ ] Terminal restarted (new configurations loaded)
 - [ ] Test stories prepared (3-5 stories with varying complexity)
@@ -644,20 +644,20 @@ Status: ✅ <15 min | ⚠️ 15-20 min | ❌ >20 min
 
 **Step 1: Trigger rollback**
 ```bash
-cp .devforgeai/backups/phase1/tdd-red-phase.md.backup \
+cp devforgeai/backups/phase1/tdd-red-phase.md.backup \
    .claude/skills/devforgeai-development/references/tdd-red-phase.md
 
-cp .devforgeai/backups/phase1/test-automator.md.backup \
+cp devforgeai/backups/phase1/test-automator.md.backup \
    .claude/agents/test-automator.md
 ```
 
 **Step 2: Verify restoration**
 ```bash
-diff .devforgeai/backups/phase1/tdd-red-phase.md.backup \
+diff devforgeai/backups/phase1/tdd-red-phase.md.backup \
      .claude/skills/devforgeai-development/references/tdd-red-phase.md
 # Expected: No differences
 
-diff .devforgeai/backups/phase1/test-automator.md.backup \
+diff devforgeai/backups/phase1/test-automator.md.backup \
      .claude/agents/test-automator.md
 # Expected: No differences
 ```
@@ -852,12 +852,12 @@ diff .devforgeai/backups/phase1/test-automator.md.backup \
 - `.claude/agents/test-automator.md` (Tech Spec Requirements: lines 43-344)
 
 **Documentation:**
-- `.devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md` (User guide)
+- `devforgeai/specs/enhancements/PHASE1-IMPLEMENTATION-GUIDE.md` (User guide)
 - `/tmp/output.md` (Original RCA analysis)
 
 **Backups:**
-- `.devforgeai/backups/phase1/tdd-red-phase.md.backup`
-- `.devforgeai/backups/phase1/test-automator.md.backup`
+- `devforgeai/backups/phase1/tdd-red-phase.md.backup`
+- `devforgeai/backups/phase1/test-automator.md.backup`
 
 ---
 

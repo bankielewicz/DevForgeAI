@@ -65,7 +65,7 @@ APPROVAL CONDITIONS (Must satisfy to proceed to QA Approval)
 
 MANDATORY (C1):
   [ ] Create ADR-008 documenting scope boundary
-      File: .devforgeai/adrs/ADR-008-*.md
+      File: devforgeai/adrs/ADR-008-*.md
       OR: User approves deferral via AskUserQuestion
   
 RECOMMENDED (C2):

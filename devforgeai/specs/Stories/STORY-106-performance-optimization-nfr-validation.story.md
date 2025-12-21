@@ -136,7 +136,7 @@ The feedback hook system must meet strict NFRs for reliability, performance, and
 - Depends on STORY-103 and STORY-104 for context extraction
 - Performance is critical for user adoption
 - Failures-only mode is the default (lower token usage)
-- **Path corrected:** Uses `devforgeai/qa/performance/` (not `.devforgeai/`) per source-tree.md
+- **Path corrected:** Uses `devforgeai/qa/performance/` (not `devforgeai/`) per source-tree.md
 
 ---
 

@@ -76,7 +76,7 @@ class TestUpgradeWorkflow:
         - Backup created in .backups/ with timestamp
         - Backup contains:
           - Copy of .claude/ (state from 1.0.0)
-          - Copy of .devforgeai/ (state from 1.0.0)
+          - Copy of devforgeai/ (state from 1.0.0)
           - manifest.json with metadata
         - Backup integrity verified
 
@@ -234,7 +234,7 @@ class TestUpgradeWorkflow:
         source_root = source_framework["root"]
 
         # Get original version metadata
-        version_file = target_root / ".devforgeai" / ".version.json"
+        version_file = target_root / "devforgeai" / ".version.json"
         version_before = json.loads(version_file.read_text())
         assert version_before.get("version") == "1.0.0", "Baseline should be 1.0.0"
 
@@ -315,14 +315,14 @@ class TestUpgradeWorkflow:
         assert (backup_path / "manifest.json").exists(), "Backup should have manifest"
 
         # Verify backup contains necessary files for rollback
-        assert (backup_path / ".devforgeai").exists(), "Backup should contain .devforgeai/"
+        assert (backup_path / "devforgeai").exists(), "Backup should contain devforgeai/"
         assert (
-            backup_path / ".devforgeai" / ".version.json"
+            backup_path / "devforgeai" / ".version.json"
         ).exists(), "Backup should contain version.json"
 
         # Verify version.json in backup is from old version
         backup_version = json.loads(
-            (backup_path / ".devforgeai" / ".version.json").read_text()
+            (backup_path / "devforgeai" / ".version.json").read_text()
         )
         assert (
             backup_version.get("version") == "1.0.0"

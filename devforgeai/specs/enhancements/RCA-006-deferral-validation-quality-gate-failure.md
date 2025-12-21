@@ -256,7 +256,7 @@ Definition of Done Status:
 
 ### STORY-004 QA Report
 
-**From:** `.devforgeai/qa/reports/STORY-004-qa-report.md`
+**From:** `devforgeai/qa/reports/STORY-004-qa-report.md`
 
 ```markdown
 Line 33: ✅ Definition of Done fully documented (14/14 items addressed)

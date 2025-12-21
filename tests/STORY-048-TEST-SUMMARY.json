@@ -208,7 +208,7 @@
       "tests": 20,
       "status": "complete",
       "validates": [
-        "Training log created at .devforgeai/onboarding/team-training-log.md",
+        "Training log created at devforgeai/onboarding/team-training-log.md",
         "Session metadata documented",
         "7-item checklist per developer",
         "Completion status tracked",

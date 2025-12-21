@@ -171,7 +171,7 @@ FOR each story in deferred_stories:
 
         CASE "scope_change":
             # Check if ADR exists
-            Glob(pattern=".devforgeai/adrs/${adr_reference}*.md")
+            Glob(pattern="devforgeai/adrs/${adr_reference}*.md")
 
             IF file found:
                 blocker_status = "RESOLVED (ADR documented)"
@@ -275,7 +275,7 @@ FOR each story_result in validation_results:
 
 **Create comprehensive report:**
 
-report_path = ".devforgeai/qa/deferral-audit-{timestamp}.md"
+report_path = "devforgeai/qa/deferral-audit-{timestamp}.md"
 
 Write(
     file_path=report_path,
@@ -332,7 +332,7 @@ ELSE:
 
 bash
 # Get the most recent audit report (Phase 5 just created it)
-audit_report=$(ls -t .devforgeai/qa/deferral-audit-*.md | head -1)
+audit_report=$(ls -t devforgeai/qa/deferral-audit-*.md | head -1)
 
 if [ ! -f "$audit_report" ]; then
   echo "⚠️ Audit report not found, skipping feedback" >&2
@@ -407,7 +407,7 @@ bash
 /audit-deferrals
 
 # Typical duration: 5-15 minutes depending on story count
-# Output: .devforgeai/qa/deferral-audit-{timestamp}.md
+# Output: devforgeai/qa/deferral-audit-{timestamp}.md
 
 
 ---
@@ -531,8 +531,8 @@ IF deferral-validator subagent fails:
   - feedback hooks (if eligible, STORY-033)
 
 **Generates:**
-- `.devforgeai/qa/deferral-audit-{timestamp}.md` (comprehensive report)
-- `.devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
+- `devforgeai/qa/deferral-audit-{timestamp}.md` (comprehensive report)
+- `devforgeai/feedback/logs/hook-invocations.log` (if hooks enabled)
 
 **Updates:**
 - None (read-only audit, doesn't modify stories)
@@ -563,7 +563,7 @@ IF deferral-validator subagent fails:
 
 **Typical output size:**
 - Summary display: ~50 lines in main conversation
-- Full report: 200-400 lines in `.devforgeai/qa/deferral-audit-{timestamp}.md`
+- Full report: 200-400 lines in `devforgeai/qa/deferral-audit-{timestamp}.md`
 - Feedback log entry: 1 line (if hooks enabled)
 
 ---
@@ -588,8 +588,8 @@ IF deferral-validator subagent fails:
 - STORY-033: Feedback hook integration for insights capture
 
 **See also:**
-- `.devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
-- `.devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
+- `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
+- `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
 - `.claude/agents/deferral-validator.md` (validation subagent)
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (skill Phase 7 audit workflow)
 ```

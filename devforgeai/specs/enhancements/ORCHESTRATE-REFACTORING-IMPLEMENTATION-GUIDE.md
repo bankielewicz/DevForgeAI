@@ -78,20 +78,20 @@ This guide provides step-by-step instructions for implementing the /orchestrate 
 All implementation details are in:
 
 **For skill enhancements:**
-→ `.devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md`
+→ `devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md`
   - Complete Phase 0 specification
   - Complete Phase 3.5 specification
   - Complete Phase 6 enhancement
   - All 3 skill integration specifications
 
 **For command refactoring:**
-→ `.devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md`
+→ `devforgeai/specs/enhancements/ORCHESTRATE-AGENT-GENERATOR-SUMMARY-2025-11-06.md`
   - Lean command template (~365 lines)
   - Extraction guidance
   - Testing strategy (30+ cases)
 
 **For audit findings:**
-→ `.devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md`
+→ `devforgeai/specs/enhancements/ORCHESTRATE-AUDIT-FINDINGS-2025-11-05.md`
 
 ---
 

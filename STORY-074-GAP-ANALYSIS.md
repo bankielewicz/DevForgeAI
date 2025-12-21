@@ -54,7 +54,7 @@ service.get_latest_backup(backups_root=Path)
 
 **Constructor:**
 ```python
-def __init__(self, backup_base: str = ".devforgeai"):  # Wrong: no logger parameter
+def __init__(self, backup_base: str = "devforgeai"):  # Wrong: no logger parameter
 ```
 
 **Methods:**
@@ -217,7 +217,7 @@ logger.log_session_start()
 
 **Constructor:**
 ```python
-def __init__(self, log_path: str = ".devforgeai/install.log"):  # Wrong: log_path instead of log_file
+def __init__(self, log_path: str = "devforgeai/install.log"):  # Wrong: log_path instead of log_file
 ```
 
 **Methods:**
@@ -312,7 +312,7 @@ with LockFileManager(lock_dir=lock_dir) as manager:
 
 **Constructor:**
 ```python
-def __init__(self, lock_path: str = ".devforgeai/install.lock"):  # Wrong: lock_path instead of lock_dir
+def __init__(self, lock_path: str = "devforgeai/install.lock"):  # Wrong: lock_path instead of lock_dir
     # Creates file path directly, not directory
 ```
 
@@ -545,7 +545,7 @@ Expected Result: 114/114 tests passing (100%)
 **Current (WRONG):**
 ```python
 class BackupService:
-    def __init__(self, backup_base: str = ".devforgeai"):
+    def __init__(self, backup_base: str = "devforgeai"):
         pass
 
     def create_backup(self, source_paths: List[str]) -> str:
@@ -610,7 +610,7 @@ class RollbackService:
 **Current (WRONG):**
 ```python
 class InstallLogger:
-    def __init__(self, log_path: str = ".devforgeai/install.log"):  # Wrong param name
+    def __init__(self, log_path: str = "devforgeai/install.log"):  # Wrong param name
         pass
 
     def log_error(self, error_category: str, exit_code: int, message: str,
@@ -654,7 +654,7 @@ class InstallLogger:
 **Current (WRONG):**
 ```python
 class LockFileManager:
-    def __init__(self, lock_path: str = ".devforgeai/install.lock"):  # Wrong param name
+    def __init__(self, lock_path: str = "devforgeai/install.lock"):  # Wrong param name
         pass
 
     def acquire_lock(self) -> bool:

@@ -54,7 +54,7 @@ def tmp_project(tmp_path):
     (claude_dir / "skills").mkdir()
 
     # Create devforgeai/ structure
-    devforgeai_dir = root / ".devforgeai"
+    devforgeai_dir = root / "devforgeai"
     devforgeai_dir.mkdir()
     (devforgeai_dir / "config").mkdir()
     (devforgeai_dir / "context").mkdir()
@@ -486,7 +486,7 @@ def mock_source_package(tmp_path):
 
     # Create various source files
     (source_root / ".claude").mkdir()
-    (source_root / ".devforgeai").mkdir()
+    (source_root / "devforgeai").mkdir()
 
     source_files = [
         (".claude/agents/test.md", "Test agent content"),

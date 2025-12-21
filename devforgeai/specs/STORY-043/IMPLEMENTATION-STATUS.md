@@ -18,14 +18,14 @@
 
 | File | Status | Location | Purpose |
 |------|--------|----------|---------|
-| path-audit-deploy-time.txt | ✓ Generated | .devforgeai/specs/STORY-043/ | 1,047 deploy-time refs |
-| path-audit-source-time.txt | ✓ Generated | .devforgeai/specs/STORY-043/ | 1,774 source-time refs |
-| path-audit-ambiguous.txt | ✓ Generated | .devforgeai/specs/STORY-043/ | 9,723 ambiguous refs |
-| path-audit-excluded.txt | ✓ Generated | .devforgeai/specs/STORY-043/ | 325 backup file refs |
-| path-audit-report.txt | ✓ Generated | .devforgeai/specs/STORY-043/ | Classification statistics |
-| update-diff-summary.md | ✓ Created | .devforgeai/specs/STORY-043/ | Update strategy document |
-| validation-report.md | ✓ Created | .devforgeai/specs/STORY-043/ | 3-layer validation spec |
-| integration-test-report.md | ✓ Created | .devforgeai/specs/STORY-043/ | Integration test results |
+| path-audit-deploy-time.txt | ✓ Generated | devforgeai/specs/STORY-043/ | 1,047 deploy-time refs |
+| path-audit-source-time.txt | ✓ Generated | devforgeai/specs/STORY-043/ | 1,774 source-time refs |
+| path-audit-ambiguous.txt | ✓ Generated | devforgeai/specs/STORY-043/ | 9,723 ambiguous refs |
+| path-audit-excluded.txt | ✓ Generated | devforgeai/specs/STORY-043/ | 325 backup file refs |
+| path-audit-report.txt | ✓ Generated | devforgeai/specs/STORY-043/ | Classification statistics |
+| update-diff-summary.md | ✓ Created | devforgeai/specs/STORY-043/ | Update strategy document |
+| validation-report.md | ✓ Created | devforgeai/specs/STORY-043/ | 3-layer validation spec |
+| integration-test-report.md | ✓ Created | devforgeai/specs/STORY-043/ | Integration test results |
 
 ## Test Results
 

@@ -204,20 +204,20 @@ Missing enforcement checkpoints for Phases 4.5-7. Claude's execution model treat
 
 ### Feature 5: Pattern Knowledge Base
 
-**Description:** Create `.devforgeai/RCA/PATTERNS.md` documenting "Premature Workflow Completion" recurring pattern.
+**Description:** Create `devforgeai/RCA/PATTERNS.md` documenting "Premature Workflow Completion" recurring pattern.
 
 **User Stories:**
 - As future RCA analysis, I want to recognize recurring patterns immediately, so that I can reference known solutions
 - As framework monitoring, I want documented patterns with detection/prevention strategies, so that I can track if fixes worked
 
 **Acceptance Criteria:**
-- PATTERNS.md file created in `.devforgeai/RCA/`
+- PATTERNS.md file created in `devforgeai/RCA/`
 - Pattern documented with ID, behavior, root cause, solution, detection, prevention
 - Links to related RCAs (RCA-009, RCA-013, RCA-018)
 - Metrics section showing incident rate and fix date
 
 **Implementation:**
-- File: `.devforgeai/RCA/PATTERNS.md` (new file)
+- File: `devforgeai/RCA/PATTERNS.md` (new file)
 - Content: Pattern template with PATTERN-001 fully documented
 - Reference: From REC-5 in RCA-018
 - Test: Verify pattern recognition in next phase-skipping incident (if any)
@@ -294,7 +294,7 @@ Missing enforcement checkpoints for Phases 4.5-7. Claude's execution model treat
 - **RCA-009:** Incomplete Skill Workflow Execution (first identification)
 - **RCA-013:** Development Workflow Stops Before Completion (recurrence)
 - **.claude/skills/devforgeai-development/SKILL.md:** Target file for changes
-- **.devforgeai/protocols/lean-orchestration-pattern.md:** Checkpoint pattern aligns with lean principles
+- **devforgeai/protocols/lean-orchestration-pattern.md:** Checkpoint pattern aligns with lean principles
 
 ---
 

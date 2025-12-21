@@ -140,7 +140,7 @@ story_metadata = extract_yaml_frontmatter(story)
   - sprint
 
 # Load QA report
-Read(file_path=".devforgeai/qa/reports/{story_id}-qa-report.md")
+Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 # Parse QA status
 qa_status = extract_qa_status(qa_report)
@@ -634,7 +634,7 @@ multiSelect: false
 #### 5.1 Generate Release Notes
 
 ```
-Write(file_path=".devforgeai/releases/release-{version}.md", content="""
+Write(file_path="devforgeai/releases/release-{version}.md", content="""
 # Release {version} - {date}
 
 ## Story: {story_id} - {story_title}
@@ -711,7 +711,7 @@ history_entry = f"""
 - **Deployment:** Successful
 - **Smoke Tests:** PASS
 - **Metrics:** Within acceptable thresholds
-- **Release Notes:** .devforgeai/releases/release-{version}.md
+- **Release Notes:** devforgeai/releases/release-{version}.md
 """
 
 # Append to workflow history section
@@ -786,7 +786,7 @@ alert_config = {
 
 ```
 # Create follow-up task
-Write(file_path=".devforgeai/post-release/{story_id}-review.md", content="""
+Write(file_path="devforgeai/post-release/{story_id}-review.md", content="""
 # Post-Release Review: {story_id}
 
 **Review Date:** {date + 24h}
@@ -831,7 +831,7 @@ Validation:
   ✓ Metrics: Within thresholds
 
 Documentation:
-  ✓ Release notes: .devforgeai/releases/release-{version}.md
+  ✓ Release notes: devforgeai/releases/release-{version}.md
   ✓ Story updated: Status = Released
   ✓ Changelog updated
 
@@ -903,7 +903,7 @@ Edit(file_path="devforgeai/specs/Stories/{story_id}.story.md",
      new_string="status: QA Approved")
 
 # Document rollback
-Write(file_path=".devforgeai/releases/rollback-{version}.md", content="""
+Write(file_path="devforgeai/releases/rollback-{version}.md", content="""
 # Rollback: {version}
 
 **Reason:** {rollback_reason}
@@ -1122,7 +1122,7 @@ multiSelect: false
 - [ ] No rollback required
 
 **Output Artifacts:**
-- Release notes (`.devforgeai/releases/release-{version}.md`)
+- Release notes (`devforgeai/releases/release-{version}.md`)
 - Updated story document (status = "Released")
 - Updated changelog (`CHANGELOG.md`)
 - Deployment logs

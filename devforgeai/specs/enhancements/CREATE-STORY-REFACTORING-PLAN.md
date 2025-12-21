@@ -1046,11 +1046,11 @@ cp .claude/commands/create-story.md.backup-pre-lean-refactor .claude/commands/cr
    - Document batch mode support in devforgeai-story-creation
    - Add batch mode context markers
 
-3. **`.devforgeai/protocols/lean-orchestration-pattern.md`**
+3. **`devforgeai/protocols/lean-orchestration-pattern.md`**
    - Add /create-story to refactored commands list
    - Update priority queue (remove create-story from CRITICAL)
 
-4. **`.devforgeai/protocols/command-budget-reference.md`**
+4. **`devforgeai/protocols/command-budget-reference.md`**
    - Update command status table
    - Show create-story improvement (153% → 67%)
 

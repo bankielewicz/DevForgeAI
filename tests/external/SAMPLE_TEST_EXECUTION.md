@@ -29,15 +29,15 @@ AC1: Successful Installation on Node.js Test Project
 [PASS] AC1.1
 [TEST] AC1.2: Installer creates .claude/ directory with 450 files
 [FAIL] AC1.2: .claude/ directory not created (installer not run)
-[TEST] AC1.3: Installer creates .devforgeai/ directory
-[FAIL] AC1.3: .devforgeai/ not created (exit code: 1)
+[TEST] AC1.3: Installer creates devforgeai/ directory
+[FAIL] AC1.3: devforgeai/ not created (exit code: 1)
 [TEST] AC1.4: CLAUDE.md merged with user and framework content
 [FAIL] AC1.4: CLAUDE.md file missing
 [TEST] AC1.5: Variables substituted ({{PROJECT_NAME}}, {{TECH_STACK}}, etc.)
 [FAIL] AC1.5: Cannot check - CLAUDE.md missing
 [TEST] AC1.6: CLI installed (devforgeai --version works)
 [FAIL] AC1.6: devforgeai command not found
-[TEST] AC1.7: Installation metadata (.devforgeai/.version.json created)
+[TEST] AC1.7: Installation metadata (devforgeai/.version.json created)
 [FAIL] AC1.7: .version.json not created
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

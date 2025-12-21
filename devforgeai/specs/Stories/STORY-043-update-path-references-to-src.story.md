@@ -18,7 +18,7 @@ format_version: "2.0"
 ## Description
 
 **As a** framework developer performing package distribution,
-**I want** all internal path references updated from `.claude/` and `.devforgeai/` to `src/claude/` and `src/devforgeai/` in framework source files,
+**I want** all internal path references updated from `.claude/` and `devforgeai/` to `src/claude/` and `src/devforgeai/` in framework source files,
 **so that** the framework operates correctly from the packaged source structure with zero broken references and proper progressive disclosure loading.
 
 ## Acceptance Criteria
@@ -26,13 +26,13 @@ format_version: "2.0"
 ### 1. [ ] Comprehensive Path Audit with Classification
 
 **Given** the framework contains ~2,800+ path references across 450+ files
-**When** I execute the audit scan with grep patterns for `.claude/` and `.devforgeai/`
+**When** I execute the audit scan with grep patterns for `.claude/` and `devforgeai/`
 **Then** the audit produces a classification report with 4 categories:
 - **Deploy-time references** (KEEP AS-IS): @file references in CLAUDE.md, deployed devforgeai/context/ references, CLI tool paths (~689 refs)
 - **Source-time references** (UPDATE): Read() calls in skills loading references/ and assets/, documentation referencing source structure (~164 refs)
 - **Ambiguous references** (MANUAL REVIEW): Mixed contexts requiring developer judgment (~35 refs)
 - **Backup/archive files** (EXCLUDE): .backup, .original files that don't need updates (~1,926 refs)
-**And** classification files created in `.devforgeai/specs/STORY-043/`:
+**And** classification files created in `devforgeai/specs/STORY-043/`:
   - path-audit-deploy-time.txt (689 refs)
   - path-audit-source-time.txt (164 refs)
   - path-audit-ambiguous.txt (35 refs)
@@ -50,8 +50,8 @@ format_version: "2.0"
   1. Phase 1: Skills Read() calls for references/ and assets/ (74 refs updated)
   2. Phase 2: Documentation referencing source structure (52 refs updated)
   3. Phase 3: Agent/subagent framework integration references (38 refs updated)
-**And** generates diff summary (`.devforgeai/specs/STORY-043/update-diff-summary.md`)
-**And** provides rollback script (`.devforgeai/specs/STORY-043/rollback-updates.sh`)
+**And** generates diff summary (`devforgeai/specs/STORY-043/update-diff-summary.md`)
+**And** provides rollback script (`devforgeai/specs/STORY-043/rollback-updates.sh`)
 **And** update execution report shows: "164 references updated across 87 files, 0 errors"
 
 ---
@@ -126,7 +126,7 @@ format_version: "2.0"
 - @.claude/memory/skills-reference.md ✓
 - @.claude/memory/subagents-reference.md ✓
 - @.claude/memory/commands-reference.md ✓
-- @.devforgeai/protocols/lean-orchestration-pattern.md ✓
+- @devforgeai/protocols/lean-orchestration-pattern.md ✓
 - ... (17 more)
 **And** rationale documented: "These reference deployed framework files after installer runs, NOT source files"
 **And** grep validation confirms:
@@ -139,7 +139,7 @@ format_version: "2.0"
 ### 7. [ ] Automated Update Script with Safety Guardrails
 
 **Given** manual updates across 87 files would be error-prone
-**When** I execute `.devforgeai/specs/STORY-043/update-paths.sh`
+**When** I execute `devforgeai/specs/STORY-043/update-paths.sh`
 **Then** the script executes with safety guardrails:
 - **Pre-flight checks**: Git status clean, backup space available (50 MB)
 - **Backup creation**: Timestamped backup in .backups/ (87 files)
@@ -164,7 +164,7 @@ technical_specification:
       file_path: "src/scripts/audit-path-references.sh"
       requirements:
         - id: "WKR-001"
-          description: "Scan all files in src/ for .claude/ and .devforgeai/ path patterns"
+          description: "Scan all files in src/ for .claude/ and devforgeai/ path patterns"
           testable: true
           test_requirement: "Test: grep -r '\\.claude/' src/ | wc -l returns ~2800"
           priority: "Critical"
@@ -414,7 +414,7 @@ technical_specification:
 
 ### Implementation
 - [x] Path audit script created and executed - Phase 2 Complete: src/scripts/audit-path-references.sh
-- [x] Classification files generated (4 categories) - Phase 2 Complete: 4 files in .devforgeai/specs/STORY-043/
+- [x] Classification files generated (4 categories) - Phase 2 Complete: 4 files in devforgeai/specs/STORY-043/
 - [x] Update script created with 3-phase logic - Phase 2 Complete: src/scripts/update-paths.sh
 - [x] 164 source-time references updated across 87 files - Phase 2 Complete: Verified in tests
 - [x] Validation script created (3-layer validation) - Phase 2 Complete: src/scripts/validate-paths.sh
@@ -471,7 +471,7 @@ technical_specification:
 **Phase 2: Implementation (Green Phase)** ✅
 - Scripts created: 4 total (audit, update, validate, rollback)
 - Scripts location: src/scripts/ (follows STORY-042 migration pattern)
-- Classification files: 4 categories generated in .devforgeai/specs/STORY-043/
+- Classification files: 4 categories generated in devforgeai/specs/STORY-043/
 - Tests passing: 65/119 (after initial implementation)
 - Backend architect completed implementation work
 
@@ -564,12 +564,12 @@ technical_specification:
 ### Implementation Items
 
 - [x] Path audit script created and executed - Phase 2 Complete: src/scripts/audit-path-references.sh (8.9K)
-- [x] Classification files generated (4 categories) - Phase 2 Complete: 4 files in .devforgeai/specs/STORY-043/ (689+164+35+1926 refs)
+- [x] Classification files generated (4 categories) - Phase 2 Complete: 4 files in devforgeai/specs/STORY-043/ (689+164+35+1926 refs)
 - [x] Update script created with 3-phase logic - Phase 2 Complete: src/scripts/update-paths.sh (14K, 3-phase implementation)
 - [x] 164 source-time references updated across 87 files - Phase 2 Complete: All 164 updates applied and verified
 - [x] Validation script created (3-layer validation) - Phase 2 Complete: src/scripts/validate-paths.sh (11K)
 - [x] Rollback script created and tested - Phase 2 Complete: src/scripts/rollback-path-updates.sh (6.9K)
-- [x] Diff summary generated for review - Phase 3 Complete: .devforgeai/specs/STORY-043/update-diff-summary.md (7.4K)
+- [x] Diff summary generated for review - Phase 3 Complete: devforgeai/specs/STORY-043/update-diff-summary.md (7.4K)
 - [x] Git staged (87 modified files) - Phase 5 Ready: All 87 files staged for commit
 
 ### Quality Items
@@ -628,7 +628,7 @@ All 27 Definition of Done items completed. No deferrals. No blockers encountered
 **Security:** Clean (no critical/high violations)
 
 **Validated By:** DevForgeAI QA Skill v1.0
-**Report:** `.devforgeai/qa/reports/STORY-043-qa-report.md`
+**Report:** `devforgeai/qa/reports/STORY-043-qa-report.md`
 
 **Quality Gate 3:** PASSED
 **Status Transition:** Dev Complete → QA Approved

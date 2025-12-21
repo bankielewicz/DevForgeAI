@@ -34,7 +34,7 @@ Comprehensive integration test suite created for STORY-045 Version-Aware Install
 
 | Fixture | Purpose | Returns |
 |---------|---------|---------|
-| `integration_project` | Temp project dir with .claude/, .devforgeai/ | dict with paths |
+| `integration_project` | Temp project dir with .claude/, devforgeai/ | dict with paths |
 | `source_framework` | Mock src/claude/ (370) + src/devforgeai/ (80) | dict with source root |
 | `baseline_project` | Project with v1.0.0 installed | dict with version metadata |
 | `real_user_files` | User data (.ai_docs, context, hooks) | dict with file paths |
@@ -55,7 +55,7 @@ Comprehensive integration test suite created for STORY-045 Version-Aware Install
 **Tests (8 total):**
 
 1. **test_fresh_install_deploys_all_files**
-   - AC-1.1: Deploys 370 .claude/ + 80 .devforgeai/ files
+   - AC-1.1: Deploys 370 .claude/ + 80 devforgeai/ files
    - Validates: File count, directory structure
    - Expected: 450+ files in target
 
@@ -380,7 +380,7 @@ pytest installer/tests/integration/ -k "performance" -v
 ## Acceptance Criteria Coverage
 
 ### Fresh Install (AC-1)
-- [x] AC-1.1: Deploy .claude/ (370 files) and .devforgeai/ (80 files)
+- [x] AC-1.1: Deploy .claude/ (370 files) and devforgeai/ (80 files)
 - [x] AC-1.2: Create .backups/ directory
 - [x] AC-1.3: Create .version.json with metadata
 - [x] AC-1.4: Set correct file permissions

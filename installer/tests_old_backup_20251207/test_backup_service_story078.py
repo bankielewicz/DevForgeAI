@@ -51,7 +51,7 @@ class TestBackupCreation:
         claude_dir.mkdir()
         (claude_dir / "test.md").write_text("test content")
 
-        devforgeai_dir = source_root / ".devforgeai"
+        devforgeai_dir = source_root / "devforgeai"
         devforgeai_dir.mkdir()
         (devforgeai_dir / "config.json").write_text('{"key": "value"}')
 
@@ -71,7 +71,7 @@ class TestBackupCreation:
         # Verify files were backed up
         backup_dir = backups_root / metadata.backup_id
         assert (backup_dir / ".claude" / "test.md").exists()
-        assert (backup_dir / ".devforgeai" / "config.json").exists()
+        assert (backup_dir / "devforgeai" / "config.json").exists()
         assert (backup_dir / "CLAUDE.md").exists()
 
         # Verify manifest was created
@@ -114,7 +114,7 @@ class TestBackupCreation:
         source_root.mkdir()
         (source_root / "file.txt").write_text("content")
 
-        backups_root = tmp_path / ".devforgeai" / "backups"
+        backups_root = tmp_path / "devforgeai" / "backups"
         service = BackupService(backups_root=backups_root, allow_external_path=True)
 
         # Act
@@ -2018,7 +2018,7 @@ class TestExclusionPatterns:
         source_root.mkdir()
 
         # Create devforgeai/backups with old backups
-        old_backups = source_root / ".devforgeai" / "backups"
+        old_backups = source_root / "devforgeai" / "backups"
         old_backups.mkdir(parents=True)
         (old_backups / "old_backup.tar").write_bytes(b"backup")
 
@@ -2030,7 +2030,7 @@ class TestExclusionPatterns:
 
         # Assert
         backup_dir = backups_root / metadata.backup_id
-        assert not (backup_dir / ".devforgeai" / "backups").exists()
+        assert not (backup_dir / "devforgeai" / "backups").exists()
 
 
 class TestChecksumValidation:

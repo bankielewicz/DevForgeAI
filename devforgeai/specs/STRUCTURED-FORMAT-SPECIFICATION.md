@@ -927,7 +927,7 @@ for req in component["requirements"]:
 ### Full Migration (All Stories)
 
 **Process:**
-1. Backup all stories: `cp devforgeai/specs/Stories/*.md .devforgeai/backups/phase2-full/`
+1. Backup all stories: `cp devforgeai/specs/Stories/*.md devforgeai/backups/phase2-full/`
 2. Count stories: `find .ai_docs/Stories -name "*.story.md" | wc -l`
 3. Batch migrate: 10 stories at a time
 4. Validate each batch: `validate_tech_spec.py`
@@ -937,7 +937,7 @@ for req in component["requirements"]:
 **Rollback capability:**
 ```bash
 # Restore from backup
-cp .devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
+cp devforgeai/backups/phase2-full/*.md devforgeai/specs/Stories/
 ```
 
 ---

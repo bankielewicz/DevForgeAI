@@ -12,7 +12,7 @@ from pathlib import Path
 
 def create_test_config(tmp_path: Path, fail_on_unanswered: bool = True) -> Path:
     """Helper to create test configuration file."""
-    config_dir = tmp_path / ".devforgeai" / "config"
+    config_dir = tmp_path / "devforgeai" / "config"
     config_dir.mkdir(parents=True)
     config_file = config_dir / "ci-answers.yaml"
     config_file.write_text(f"""
@@ -34,7 +34,7 @@ class TestConfigurationLoading:
     """AC#1: CI Answers Configuration File"""
 
     def test_loads_config_from_devforgeai_path(self, tmp_path):
-        """Given .devforgeai/config/ci-answers.yaml exists
+        """Given devforgeai/config/ci-answers.yaml exists
         When HeadlessAnswerResolver initializes
         Then reads configuration successfully"""
         # Arrange
@@ -58,7 +58,7 @@ class TestConfigurationLoading:
         assert resolver.is_configured() is False
 
     def test_fallback_to_devforgeai_config_ci(self, tmp_path):
-        """Given .devforgeai/config/ doesn't exist
+        """Given devforgeai/config/ doesn't exist
         When config exists at devforgeai/config/ci/
         Then loads from fallback path"""
         # Arrange - create fallback config
@@ -78,7 +78,7 @@ defaults:
         # Act
         from devforgeai_cli.headless.answer_resolver import HeadlessAnswerResolver
         resolver = HeadlessAnswerResolver(search_paths=[
-            tmp_path / ".devforgeai" / "config" / "ci-answers.yaml",
+            tmp_path / "devforgeai" / "config" / "ci-answers.yaml",
             config_file
         ])
         config = resolver.load_configuration()
@@ -150,7 +150,7 @@ class TestFailOnUnanswered:
         When resolve called
         Then returns None (no exception)"""
         # Arrange
-        config_dir = tmp_path / ".devforgeai" / "config"
+        config_dir = tmp_path / "devforgeai" / "config"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "ci-answers.yaml"
         config_file.write_text("""
@@ -296,7 +296,7 @@ class TestCoverageGapRemediation:
 
     def test_resolve_auto_loads_configuration(self, tmp_path):
         """Line 188: resolve() calls load_configuration() if not loaded"""
-        config_dir = tmp_path / ".devforgeai" / "config"
+        config_dir = tmp_path / "devforgeai" / "config"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "ci-answers.yaml"
         config_file.write_text("""
@@ -323,7 +323,7 @@ defaults:
 
     def test_resolve_with_fail_on_unanswered_false_uses_match_with_fallback(self, tmp_path):
         """Line 198: resolve with fail_on_unanswered=false uses match_with_fallback path"""
-        config_dir = tmp_path / ".devforgeai" / "config"
+        config_dir = tmp_path / "devforgeai" / "config"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "ci-answers.yaml"
         config_file.write_text("""
@@ -367,7 +367,7 @@ defaults:
 
     def test_resolve_with_fail_on_unanswered_true_and_match(self, tmp_path):
         """Line 198: resolve returns answer when fail_on_unanswered=true AND match found"""
-        config_dir = tmp_path / ".devforgeai" / "config"
+        config_dir = tmp_path / "devforgeai" / "config"
         config_dir.mkdir(parents=True)
         config_file = config_dir / "ci-answers.yaml"
         config_file.write_text("""

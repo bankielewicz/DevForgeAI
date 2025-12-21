@@ -15,7 +15,7 @@ This document provides step-by-step validation procedures for each recommendatio
 
 ## Validation Scripts
 
-All validation scripts are stored in: `.devforgeai/RCA/RCA-012/scripts/`
+All validation scripts are stored in: `devforgeai/RCA/RCA-012/scripts/`
 
 ### Script: validate-phase1.sh
 
@@ -139,7 +139,7 @@ fi
 
 **Usage:**
 ```bash
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
 ```
 
 **Expected:** All 7 tests pass, exit code 0
@@ -244,7 +244,7 @@ echo "RCA-012 Phase 3 Validation"
 echo "========================================================================="
 
 # Test 1: Audit script exists
-if [ -f ".devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh" ]; then
+if [ -f "devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh" ]; then
   echo "✓ Audit script exists"
 else
   echo "✗ Audit script missing"
@@ -254,7 +254,7 @@ fi
 # Test 2: Run audit and check compliance
 echo ""
 echo "Running compliance audit..."
-bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > /tmp/phase3-audit.txt
+bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh > /tmp/phase3-audit.txt
 
 # Extract compliance metrics
 non_compliant=$(grep "Non-Compliant:" /tmp/phase3-audit.txt | awk '{print $2}')
@@ -324,12 +324,12 @@ total=$((total + 1))
 echo "[3/3] Checking documentation..."
 doc_complete=true
 
-if [ ! -f ".devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md" ]; then
+if [ ! -f "devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md" ]; then
   echo "  ⚠️  Missing: MIGRATION-SCRIPT.md"
   doc_complete=false
 fi
 
-if [ ! -f ".devforgeai/RCA/RCA-012/TRACEABILITY-MATRIX.md" ]; then
+if [ ! -f "devforgeai/RCA/RCA-012/TRACEABILITY-MATRIX.md" ]; then
   echo "  ⚠️  Missing: TRACEABILITY-MATRIX.md"
   doc_complete=false
 fi
@@ -381,25 +381,25 @@ echo ""
 
 # Phase 1
 echo "Phase 1: Foundation"
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase1.sh
 phase1_result=$?
 
 # Phase 2
 echo ""
 echo "Phase 2: Quality Gate Enhancement"
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase2.sh
 phase2_result=$?
 
 # Phase 3
 echo ""
 echo "Phase 3: Historical Cleanup"
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase3.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase3.sh
 phase3_result=$?
 
 # Phase 4
 echo ""
 echo "Phase 4: Automation"
-bash .devforgeai/RCA/RCA-012/scripts/validate-phase4.sh
+bash devforgeai/RCA/RCA-012/scripts/validate-phase4.sh
 phase4_result=$?
 
 # Overall summary
@@ -587,7 +587,7 @@ fi
 **Objective:** Verify audit script correctly identifies compliant vs. non-compliant stories
 
 **Steps:**
-1. Run: `bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh`
+1. Run: `bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh`
 2. Review output for known cases:
    - STORY-007: Should show "✓ Complete (100% DoD)"
    - STORY-023: Should show "✓ Deferrals documented"
@@ -830,7 +830,7 @@ fi
 
 **Procedure:**
 ```bash
-time bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
+time bash devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 ```
 
 **Record:**
@@ -945,7 +945,7 @@ time bash .devforgeai/RCA/RCA-012/scripts/audit-qa-approved-stories.sh
 **Timestamp:** {UTC timestamp}
 ```
 
-Save to: `.devforgeai/RCA/RCA-012/validation/phase{N}-signoff.md`
+Save to: `devforgeai/RCA/RCA-012/validation/phase{N}-signoff.md`
 
 ---
 
@@ -996,7 +996,7 @@ Date: YYYY-MM-DD HH:MM UTC
 **RCA-012 Status:** ✅ RESOLVED
 ```
 
-Save to: `.devforgeai/RCA/RCA-012/FINAL-VALIDATION-SIGNOFF.md`
+Save to: `devforgeai/RCA/RCA-012/FINAL-VALIDATION-SIGNOFF.md`
 
 ---
 
@@ -1110,7 +1110,7 @@ grep "^### AC#" .claude/skills/devforgeai-story-creation/assets/templates/story-
 ## Validation Artifacts
 
 **Store all validation results in:**
-`.devforgeai/RCA/RCA-012/validation/`
+`devforgeai/RCA/RCA-012/validation/`
 
 **Files to Create:**
 - `phase1-validation-results.md`

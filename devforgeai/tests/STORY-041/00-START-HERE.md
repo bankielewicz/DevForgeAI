@@ -51,7 +51,7 @@ cat GENERATION-SUMMARY.md  # 10 min - Overview
 cd /mnt/c/Projects/DevForgeAI2
 
 # Run all tests
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     bash "$test" || true
 done
 ```
@@ -170,7 +170,7 @@ Improve code quality while keeping tests green
 
 **All test files are located in:**
 ```
-/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/
+/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/
 ```
 
 **File listing:**
@@ -230,43 +230,43 @@ Tests first → Implementation → Validation
 
 ### AC#1: Directory Structure
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
 ```
 Tests: 35+ assertions about directory hierarchy
 
 ### AC#2: .gitignore Rules
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
+bash devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
 ```
 Tests: 18+ assertions about ignore patterns
 
 ### AC#3: version.json Schema
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac3-version-json.sh
+bash devforgeai/tests/STORY-041/test-ac3-version-json.sh
 ```
 Tests: 28+ assertions about JSON structure
 
 ### AC#4: Current Operations
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac4-current-operations.sh
+bash devforgeai/tests/STORY-041/test-ac4-current-operations.sh
 ```
 Tests: 25+ assertions (should PASS - validates baseline)
 
 ### AC#5: Git Tracking
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
+bash devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
 ```
 Tests: 24+ assertions about git operations
 
 ### AC#6: Specification Match
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac6-specification-match.sh
+bash devforgeai/tests/STORY-041/test-ac6-specification-match.sh
 ```
 Tests: 30+ assertions about EPIC-009 compliance
 
 ### AC#7: Component Counts
 ```bash
-bash .devforgeai/tests/STORY-041/test-ac7-component-counts.sh
+bash devforgeai/tests/STORY-041/test-ac7-component-counts.sh
 ```
 Tests: 24+ assertions about programmatic counting
 
@@ -375,7 +375,7 @@ You have received:
 
 2. **Run Tests** (5 min)
    ```bash
-   for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+   for test in devforgeai/tests/STORY-041/test-ac*.sh; do
        bash "$test" || true
    done
    ```

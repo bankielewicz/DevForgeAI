@@ -69,11 +69,11 @@ find "$BUNDLED_DIR" -type d -name "htmlcov" -exec rm -rf {} + 2>/dev/null || tru
 find "$BUNDLED_DIR" -type d -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
 find "$BUNDLED_DIR" -type d -name "build" -exec rm -rf {} + 2>/dev/null || true
 
-echo "Copying .devforgeai/ framework files..."
+echo "Copying devforgeai/ framework files..."
 if [ -d "$SRC_DIR/devforgeai" ]; then
     cp -r "$SRC_DIR/devforgeai/"* "$BUNDLED_DIR/devforgeai/"
 else
-    echo -e "${YELLOW}Warning: $SRC_DIR/devforgeai not found, using operational .devforgeai/${NC}"
+    echo -e "${YELLOW}Warning: $SRC_DIR/devforgeai not found, using operational devforgeai/${NC}"
     # Copy only essential directories (exclude operational files)
     mkdir -p "$BUNDLED_DIR/devforgeai/context"
     mkdir -p "$BUNDLED_DIR/devforgeai/protocols"
@@ -82,11 +82,11 @@ else
     if [ -d "$PROJECT_ROOT/devforgeai/context" ]; then
         cp -r "$PROJECT_ROOT/devforgeai/context/"* "$BUNDLED_DIR/devforgeai/context/" 2>/dev/null || true
     fi
-    if [ -d "$PROJECT_ROOT/.devforgeai/protocols" ]; then
-        cp -r "$PROJECT_ROOT/.devforgeai/protocols/"* "$BUNDLED_DIR/devforgeai/protocols/" 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/devforgeai/protocols" ]; then
+        cp -r "$PROJECT_ROOT/devforgeai/protocols/"* "$BUNDLED_DIR/devforgeai/protocols/" 2>/dev/null || true
     fi
-    if [ -d "$PROJECT_ROOT/.devforgeai/specs" ]; then
-        cp -r "$PROJECT_ROOT/.devforgeai/specs/"*.md "$BUNDLED_DIR/devforgeai/specs/" 2>/dev/null || true
+    if [ -d "$PROJECT_ROOT/devforgeai/specs" ]; then
+        cp -r "$PROJECT_ROOT/devforgeai/specs/"*.md "$BUNDLED_DIR/devforgeai/specs/" 2>/dev/null || true
     fi
 fi
 

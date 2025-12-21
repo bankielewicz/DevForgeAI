@@ -126,7 +126,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "ast-grep-config"
-      file_path: ".devforgeai/ast-grep/config.yaml"
+      file_path: "devforgeai/ast-grep/config.yaml"
       required_keys:
         - key: "fallback_mode"
           type: "bool"
@@ -344,7 +344,7 @@ None - this is the foundation story for EPIC-018.
 - [x] AstGrepValidator class created with detection logic - **Completed:** ast_grep_validator.py (170 lines, 92% coverage)
 - [x] GrepFallbackAnalyzer class created with pattern matching - **Completed:** grep_fallback.py (124 lines, 94% coverage)
 - [x] CLI command `devforgeai ast-grep scan` registered - **Completed:** cli.py:226-268
-- [x] Configuration file schema defined - **Completed:** .devforgeai/ast-grep/config.yaml
+- [x] Configuration file schema defined - **Completed:** devforgeai/ast-grep/config.yaml
 - [x] Interactive prompts implemented with input() pattern - **Completed:** prompt_missing_dependency() method
 
 ### Quality
@@ -442,7 +442,7 @@ None - this is the foundation story for EPIC-018.
 5. `tests/fixtures/ast_grep_sql_injection_sample.py` (test fixture)
 6. `tests/fixtures/ast_grep_clean_code_sample.py` (test fixture)
 7. `tests/fixtures/ast_grep_hardcoded_secret_sample.py` (test fixture)
-8. `.devforgeai/ast-grep/config.yaml` (configuration)
+8. `devforgeai/ast-grep/config.yaml` (configuration)
 
 **Files Modified:**
 1. `.claude/scripts/devforgeai_cli/validators/__init__.py` + distribution copy - Export new validators

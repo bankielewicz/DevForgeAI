@@ -125,7 +125,7 @@ The remediation workflow is integrated at multiple levels:
    - Clear flow: Phase 0 → Decision → (Remediation OR Normal)
 
 **New directories created:**
-- `.devforgeai/qa/resolved/` - Archive for resolved gap files
+- `devforgeai/qa/resolved/` - Archive for resolved gap files
 - `src/devforgeai/qa/resolved/` - Distribution copy
 
 ---
@@ -134,7 +134,7 @@ The remediation workflow is integrated at multiple levels:
 
 ```
 QA FAILS:
-  → Generate: .devforgeai/qa/reports/{STORY-ID}-gaps.json
+  → Generate: devforgeai/qa/reports/{STORY-ID}-gaps.json
 
 /dev RUNS:
   → Step 0.8.5 detects gaps.json
@@ -144,7 +144,7 @@ QA FAILS:
   → Generates targeted tests
 
 QA PASSES:
-  → Move gaps.json → .devforgeai/qa/resolved/{STORY-ID}-gaps.json
+  → Move gaps.json → devforgeai/qa/resolved/{STORY-ID}-gaps.json
   → Update story Implementation Notes
 ```
 
@@ -186,7 +186,7 @@ To validate this enhancement:
 
 ## Backup and Rollback
 
-**Backups created at:** `.devforgeai/backups/2025-12-06_qa-dev-integration/`
+**Backups created at:** `devforgeai/backups/2025-12-06_qa-dev-integration/`
 
 **Files backed up:**
 - `report-generation.md.bak`
@@ -195,13 +195,13 @@ To validate this enhancement:
 
 **To rollback:**
 ```bash
-cp .devforgeai/backups/2025-12-06_qa-dev-integration/report-generation.md.bak \
+cp devforgeai/backups/2025-12-06_qa-dev-integration/report-generation.md.bak \
    .claude/skills/devforgeai-qa/references/report-generation.md
 
-cp .devforgeai/backups/2025-12-06_qa-dev-integration/preflight-validation.md.bak \
+cp devforgeai/backups/2025-12-06_qa-dev-integration/preflight-validation.md.bak \
    .claude/skills/devforgeai-development/references/preflight-validation.md
 
-cp .devforgeai/backups/2025-12-06_qa-dev-integration/test-automator.md.bak \
+cp devforgeai/backups/2025-12-06_qa-dev-integration/test-automator.md.bak \
    .claude/agents/test-automator.md
 
 rm .claude/skills/devforgeai-development/references/qa-remediation-workflow.md

@@ -44,8 +44,8 @@ def project_with_framework(tmp_path):
     commands_dir.mkdir()
     (commands_dir / "test-command.md").write_text("# Test Command")
 
-    # Create .devforgeai directory with content
-    devforgeai_dir = tmp_path / ".devforgeai"
+    # Create devforgeai directory with content
+    devforgeai_dir = tmp_path / "devforgeai"
     devforgeai_dir.mkdir()
 
     context_dir = devforgeai_dir / "context"
@@ -79,7 +79,7 @@ def project_with_backups(project_with_framework):
     backup1 = backups_dir / "devforgeai-upgrade-20251205120000"
     backup1.mkdir()
     (backup1 / ".claude").mkdir()
-    (backup1 / ".devforgeai").mkdir()
+    (backup1 / "devforgeai").mkdir()
     (backup1 / "CLAUDE.md").write_text("# Old content")
     (backup1 / "manifest.json").write_text(json.dumps({
         "backup_id": "devforgeai-upgrade-20251205120000",
@@ -94,7 +94,7 @@ def project_with_backups(project_with_framework):
     backup2 = backups_dir / "devforgeai-upgrade-20251206120000"
     backup2.mkdir()
     (backup2 / ".claude").mkdir()
-    (backup2 / ".devforgeai").mkdir()
+    (backup2 / "devforgeai").mkdir()
     (backup2 / "CLAUDE.md").write_text("# New content")
     (backup2 / "manifest.json").write_text(json.dumps({
         "backup_id": "devforgeai-upgrade-20251206120000",
@@ -152,8 +152,8 @@ class TestBackupCreation:
             reason="upgrade"
         )
 
-        assert (backup_path / ".devforgeai").exists()
-        assert (backup_path / ".devforgeai" / "context" / "tech-stack.md").exists()
+        assert (backup_path / "devforgeai").exists()
+        assert (backup_path / "devforgeai" / "context" / "tech-stack.md").exists()
 
     def test_create_backup_copies_claude_md(self, project_with_framework):
         """Test backup includes CLAUDE.md file."""
@@ -234,8 +234,8 @@ class TestBackupCreation:
         # Create minimal structure without CLAUDE.md
         (tmp_path / ".claude").mkdir()
         (tmp_path / ".claude" / "settings.json").write_text("{}")
-        (tmp_path / ".devforgeai").mkdir()
-        (tmp_path / ".devforgeai" / ".version.json").write_text('{"version": "1.0.0"}')
+        (tmp_path / "devforgeai").mkdir()
+        (tmp_path / "devforgeai" / ".version.json").write_text('{"version": "1.0.0"}')
 
         backup_path, manifest = backup.create_backup(
             tmp_path,
@@ -375,7 +375,7 @@ class TestBackupEdgeCases:
 
         # Create minimal structure
         (tmp_path / ".claude").mkdir()
-        (tmp_path / ".devforgeai").mkdir()
+        (tmp_path / "devforgeai").mkdir()
 
         backup_path, _ = backup.create_backup(
             tmp_path,
@@ -512,8 +512,8 @@ class TestBackupErrorHandling:
         original_copytree = shutil.copytree
 
         def mock_copytree_fail_on_devforgeai(src, dst, *args, **kwargs):
-            """Fail when copying .devforgeai to simulate disk full."""
-            if ".devforgeai" in str(src):
+            """Fail when copying devforgeai to simulate disk full."""
+            if "devforgeai" in str(src):
                 raise OSError(28, "No space left on device")
             return original_copytree(src, dst, *args, **kwargs)
 

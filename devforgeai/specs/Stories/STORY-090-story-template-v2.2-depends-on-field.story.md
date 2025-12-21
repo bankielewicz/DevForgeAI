@@ -566,7 +566,7 @@ None
 - EPIC-010: Parallel Story Development with CI/CD Integration
 
 **References:**
-- `.devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` - Tech spec schema
+- `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` - Tech spec schema
 - `src/claude/skills/devforgeai-story-creation/references/story-discovery.md` - Phase 1 workflow
 
 ---

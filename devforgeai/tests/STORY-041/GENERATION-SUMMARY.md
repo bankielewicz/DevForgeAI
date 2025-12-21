@@ -133,7 +133,7 @@ Tests validate:
 **Assertions:** 25+
 
 Tests validate:
-- ✓ Operational folders intact (.claude/, .devforgeai/)
+- ✓ Operational folders intact (.claude/, devforgeai/)
 - ✓ Commands don't reference src/
 - ✓ Skills don't reference src/
 - ✓ All 13 command files exist
@@ -271,7 +271,7 @@ Each test file contains:
 cd /mnt/c/Projects/DevForgeAI2
 
 # Run all tests
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     bash "$test" || true
 done
 ```
@@ -279,19 +279,19 @@ done
 ### Individual Tests
 ```bash
 # Run AC#1 test only
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
 
 # Run AC#3 test only
-bash .devforgeai/tests/STORY-041/test-ac3-version-json.sh
+bash devforgeai/tests/STORY-041/test-ac3-version-json.sh
 ```
 
 ### View Documentation
 ```bash
 # Comprehensive guide
-cat .devforgeai/tests/STORY-041/TEST-STATUS-REPORT.md
+cat devforgeai/tests/STORY-041/TEST-STATUS-REPORT.md
 
 # Quick reference
-cat .devforgeai/tests/STORY-041/RUN-TESTS.md
+cat devforgeai/tests/STORY-041/RUN-TESTS.md
 ```
 
 ---
@@ -412,7 +412,7 @@ All 7 ACs covered by tests = Implementation complete and validated
 ## Next Steps
 
 1. **Review Tests** (You are here)
-   - Review test files in .devforgeai/tests/STORY-041/
+   - Review test files in devforgeai/tests/STORY-041/
    - Read TEST-STATUS-REPORT.md for details
 
 2. **Implement Features** (Next)
@@ -437,7 +437,7 @@ All 7 ACs covered by tests = Implementation complete and validated
 
 ## File Locations
 
-**Test Directory:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/`
+**Test Directory:** `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/`
 
 **Files Created:**
 - test-ac1-directory-structure.sh (14 KB)

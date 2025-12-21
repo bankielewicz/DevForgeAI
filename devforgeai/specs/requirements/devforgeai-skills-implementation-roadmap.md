@@ -105,8 +105,8 @@ Ideation → Architecture → Orchestration (Epic/Sprint/Story) → Development 
 ### Phase 4: Documentation & Examples (Priority: MEDIUM)
 
 **User-facing documentation:**
-1. Complete framework guide (`.devforgeai/docs/framework-guide.md`)
-2. Skill invocation reference (`.devforgeai/docs/skill-reference.md`)
+1. Complete framework guide (`devforgeai/docs/framework-guide.md`)
+2. Skill invocation reference (`devforgeai/docs/skill-reference.md`)
 3. Example projects (3 complexity tiers):
    - Simple: Todo app
    - Moderate: E-commerce site
@@ -624,24 +624,24 @@ Already well-implemented in existing skill.
 
 ### User-Facing Documentation
 
-**1. Framework Guide** (`.devforgeai/docs/framework-guide.md`)
+**1. Framework Guide** (`devforgeai/docs/framework-guide.md`)
 - Overview of spec-driven development
 - Complete workflow explanation
 - When to use each skill
 - Best practices
 - Common pitfalls
 
-**2. Skill Reference** (`.devforgeai/docs/skill-reference.md`)
+**2. Skill Reference** (`devforgeai/docs/skill-reference.md`)
 - All 6 skills documented
 - Invocation patterns
 - Input/output specifications
 - Integration points
 
-**3. Quick Start Guide** (`.devforgeai/docs/quick-start.md`)
+**3. Quick Start Guide** (`devforgeai/docs/quick-start.md`)
 - 5-minute tutorial: Simple todo app from idea to deployment
 - Step-by-step with screenshots
 
-**4. Troubleshooting Guide** (`.devforgeai/docs/troubleshooting.md`)
+**4. Troubleshooting Guide** (`devforgeai/docs/troubleshooting.md`)
 - Common issues and solutions
 - Debugging workflow state
 - Handling blocked stories

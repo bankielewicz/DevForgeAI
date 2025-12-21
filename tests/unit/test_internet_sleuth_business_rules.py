@@ -155,13 +155,13 @@ class TestInternetSleuthBusinessRules:
         has_research_dir = bool(re.search(r'devforgeai/specs/research/', agent_content))
 
         # Also check no old deprecated output locations remain
-        has_old_output = bool(re.search(r'\.devforgeai/research/|tmp/repos/research-', agent_content))
+        has_old_output = bool(re.search(r'\devforgeai/research/|tmp/repos/research-', agent_content))
 
         # Assert
         assert has_research_dir, \
             "BR-003 FAILED: Output files must be written to 'devforgeai/specs/research/'"
         assert not has_old_output, \
-            "BR-003 FAILED: Must NOT write outputs to deprecated locations (.devforgeai/research/ or tmp/repos/)"
+            "BR-003 FAILED: Must NOT write outputs to deprecated locations (devforgeai/research/ or tmp/repos/)"
 
     def test_br_003_directory_created_if_not_exists(self, agent_content):
         """

@@ -42,7 +42,7 @@ Generated comprehensive failing test suite for STORY-041 with **7 test files** c
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
 ```
 
 ---
@@ -73,7 +73,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac1-directory-
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
 ```
 
 ---
@@ -110,7 +110,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac2-gitignore-
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac3-version-json.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac3-version-json.sh
 ```
 
 ---
@@ -122,7 +122,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac3-version-js
 **Test Coverage:**
 - Operational folders exist and intact:
   - .claude/ directory
-  - .devforgeai/ directory
+  - devforgeai/ directory
   - Command and skill subdirectories
 - Commands don't reference src/:
   - grep -r "src/claude" .claude/commands/ returns 0 matches
@@ -139,7 +139,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac3-version-js
 - No accidental cross-linking between folders
 - Context files exist (devforgeai/context/*.md)
 - No symlinks from operational to src/
-- .devforgeai/qa/, adrs/, protocols/ structure intact
+- devforgeai/qa/, adrs/, protocols/ structure intact
 
 **Test Count:** 25+ assertions
 **Status:** PASSING (operational code is current)
@@ -147,7 +147,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac3-version-js
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac4-current-operations.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac4-current-operations.sh
 ```
 
 ---
@@ -179,7 +179,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac4-current-op
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac5-git-tracking.sh
 ```
 
 ---
@@ -217,7 +217,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac5-git-tracki
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac6-specification-match.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac6-specification-match.sh
 ```
 
 ---
@@ -232,7 +232,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac6-specificat
   - Agents: ls .claude/agents/*.md | grep -v backup | wc -l
   - Commands: ls .claude/commands/*.md | grep -v backup | wc -l
   - Memory: ls .claude/memory/*.md | wc -l
-  - Protocols: ls .devforgeai/protocols/*.md | wc -l
+  - Protocols: ls devforgeai/protocols/*.md | wc -l
 - Version.json component count comparison:
   - Skills count matches (9 or 10)
   - Agents count matches (21)
@@ -254,7 +254,7 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac6-specificat
 
 **Run Command:**
 ```bash
-bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac7-component-counts.sh
+bash /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/test-ac7-component-counts.sh
 ```
 
 ---
@@ -268,13 +268,13 @@ bash /mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/test-ac7-component-
 cd /mnt/c/Projects/DevForgeAI2
 
 # Run AC#1 test
-bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
 
 # Run AC#2 test
-bash .devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
+bash devforgeai/tests/STORY-041/test-ac2-gitignore-rules.sh
 
 # Run all tests sequentially
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     echo "Running $(basename $test)..."
     bash "$test" || true
     echo ""
@@ -289,7 +289,7 @@ cd /mnt/c/Projects/DevForgeAI2
 PASSED=0
 FAILED=0
 
-for test in .devforgeai/tests/STORY-041/test-ac*.sh; do
+for test in devforgeai/tests/STORY-041/test-ac*.sh; do
     echo "Running $(basename $test)..."
     if bash "$test" > /tmp/test-output.txt 2>&1; then
         ((PASSED++))
@@ -367,7 +367,7 @@ echo "Summary: $PASSED passed, $FAILED failed"
 
 ### Phase 1: RED (Current)
 - ✅ Tests generated (failing)
-- ✅ Test structure created (.devforgeai/tests/STORY-041/)
+- ✅ Test structure created (devforgeai/tests/STORY-041/)
 - ✅ All acceptance criteria covered
 - ⏳ Next: Implementation
 
@@ -472,7 +472,7 @@ AC#5 handles non-Git scenarios:
 1. **Run in Project Root**
    ```bash
    cd /mnt/c/Projects/DevForgeAI2
-   bash .devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
+   bash devforgeai/tests/STORY-041/test-ac1-directory-structure.sh
    ```
 
 2. **Capture Output for Analysis**
@@ -495,7 +495,7 @@ AC#5 handles non-Git scenarios:
 
 ## File Locations
 
-**Test Directory:** `/mnt/c/Projects/DevForgeAI2/.devforgeai/tests/STORY-041/`
+**Test Directory:** `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-041/`
 
 **Test Files:**
 - test-ac1-directory-structure.sh (14 KB)

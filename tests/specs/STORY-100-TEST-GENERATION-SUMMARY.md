@@ -10,7 +10,7 @@
 
 ## Executive Summary
 
-Comprehensive test suite generated for STORY-100 following Test-Driven Development (TDD) Red phase principles. All 55 tests are designed to **FAIL** initially because the template file (`.devforgeai/metrics/accuracy-log.md`) does not exist yet.
+Comprehensive test suite generated for STORY-100 following Test-Driven Development (TDD) Red phase principles. All 55 tests are designed to **FAIL** initially because the template file (`devforgeai/metrics/accuracy-log.md`) does not exist yet.
 
 ### Key Metrics
 
@@ -38,7 +38,7 @@ Comprehensive test suite generated for STORY-100 following Test-Driven Developme
 
 Tests verify the template file exists and has valid markdown syntax:
 
-1. **test_ac1_file_exists** - File exists at `.devforgeai/metrics/accuracy-log.md`
+1. **test_ac1_file_exists** - File exists at `devforgeai/metrics/accuracy-log.md`
 2. **test_ac1_minimum_size** - File contains >= 500 characters minimum
 3. **test_ac1_valid_markdown_headers** - File contains markdown headers (##, ###)
 4. **test_ac1_markdown_parsing** - Backticks are balanced (no unclosed code blocks)
@@ -196,7 +196,7 @@ bash tests/specs/STORY-100-accuracy-log.test.sh
 ║  Framework: Bash/grep/wc - Native Tools (per tech-stack.md)    ║
 ╚════════════════════════════════════════════════════════════════╝
 
-✗ FAIL: File does not exist at .devforgeai/metrics/accuracy-log.md
+✗ FAIL: File does not exist at devforgeai/metrics/accuracy-log.md
 ✗ FAIL: Cannot check file size - file does not exist
 ... (55 tests all failing)
 
@@ -224,7 +224,7 @@ Tests serve as specifications for implementation. Each test validates one aspect
 ### Phase 2: GREEN (Next)
 
 Implementation team should:
-1. Create `.devforgeai/metrics/accuracy-log.md` file
+1. Create `devforgeai/metrics/accuracy-log.md` file
 2. Add all required sections (categories, entry template, usage guidance, baseline reference)
 3. Ensure all 55 tests pass
 
@@ -304,7 +304,7 @@ Per `tech-stack.md`, tests use only bash native tools:
 
 ## Expected Test Results After Implementation
 
-Once `.devforgeai/metrics/accuracy-log.md` is created properly:
+Once `devforgeai/metrics/accuracy-log.md` is created properly:
 
 ### All Tests Should PASS
 
@@ -448,6 +448,6 @@ This test suite aligns with test pyramid:
 **Next Steps**:
 
 1. Review test file: `tests/specs/STORY-100-accuracy-log.test.sh`
-2. Create accuracy log template at `.devforgeai/metrics/accuracy-log.md`
+2. Create accuracy log template at `devforgeai/metrics/accuracy-log.md`
 3. Ensure all 55 tests pass (GREEN phase)
 4. Refactor and optimize as needed (REFACTOR phase)

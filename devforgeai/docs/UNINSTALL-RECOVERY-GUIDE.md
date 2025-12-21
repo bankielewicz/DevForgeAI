@@ -16,7 +16,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 
 1. **Verify backup exists:**
    ```bash
-   ls ~/.devforgeai/backups/
+   ls ~/devforgeai/backups/
    # Output: uninstall-2025-12-08T10-30-00Z/
    ```
 
@@ -29,7 +29,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 3. **Your data is safe:**
    ```bash
    ls .ai_docs/        # All your stories, epics, sprints are still here
-   ls .devforgeai/adrs/custom/  # Your custom ADRs are preserved
+   ls devforgeai/adrs/custom/  # Your custom ADRs are preserved
    ```
 
 **Result:** Framework reinstalled, all user content preserved
@@ -44,8 +44,8 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 
 1. **Find the backup directory:**
    ```bash
-   ls -la ~/.devforgeai/backups/
-   cd ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+   ls -la ~/devforgeai/backups/
+   cd ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
    ```
 
 2. **Browse backup contents:**
@@ -57,7 +57,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 3. **Restore specific file:**
    ```bash
    # Copy from backup to current location
-   cp ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/.claude/skills/devforgeai-ideation/SKILL.md .claude/skills/devforgeai-ideation/SKILL.md
+   cp ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/.claude/skills/devforgeai-ideation/SKILL.md .claude/skills/devforgeai-ideation/SKILL.md
    ```
 
 4. **Verify restoration:**
@@ -78,14 +78,14 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 
 1. **Locate backup:**
    ```bash
-   BACKUP_DIR=~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z
+   BACKUP_DIR=~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z
    ls $BACKUP_DIR
    ```
 
 2. **Check what's in backup:**
    ```bash
    ls -la $BACKUP_DIR/.claude/
-   ls -la $BACKUP_DIR/.devforgeai/
+   ls -la $BACKUP_DIR/devforgeai/
    # Verify all framework files are there
    ```
 
@@ -94,10 +94,10 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
    # Restore .claude/ directory
    cp -r $BACKUP_DIR/.claude/ .
 
-   # Restore .devforgeai/ framework files (be careful not to overwrite user content)
-   cp -r $BACKUP_DIR/devforgeai/context/ .devforgeai/
-   cp -r $BACKUP_DIR/.devforgeai/protocols/ .devforgeai/
-   cp -r $BACKUP_DIR/.devforgeai/qa/ .devforgeai/
+   # Restore devforgeai/ framework files (be careful not to overwrite user content)
+   cp -r $BACKUP_DIR/devforgeai/context/ devforgeai/
+   cp -r $BACKUP_DIR/devforgeai/protocols/ devforgeai/
+   cp -r $BACKUP_DIR/devforgeai/qa/ devforgeai/
 
    # Restore CLAUDE.md
    cp $BACKUP_DIR/CLAUDE.md .
@@ -122,7 +122,7 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 
 1. **Locate backup:**
    ```bash
-   BACKUP_DIR=~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z
+   BACKUP_DIR=~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z
    ```
 
 2. **Restore .ai_docs/:**
@@ -154,10 +154,10 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 ### Where Backups Are Stored
 
 ```
-~/.devforgeai/backups/
+~/devforgeai/backups/
 └── uninstall-2025-12-08T10-30-00Z/
     ├── .claude/                 # Framework files
-    ├── .devforgeai/             # Framework config
+    ├── devforgeai/             # Framework config
     ├── .ai_docs/                # User stories, epics, sprints
     ├── CLAUDE.md                # Framework config
     ├── uninstall-report.json    # Detailed report
@@ -168,10 +168,10 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 
 ```bash
 # Show all uninstall backups (newest first)
-ls -lt ~/.devforgeai/backups/uninstall-* | head -5
+ls -lt ~/devforgeai/backups/uninstall-* | head -5
 
 # Get the newest backup directory
-LATEST_BACKUP=$(ls -td ~/.devforgeai/backups/uninstall-*/ | head -1)
+LATEST_BACKUP=$(ls -td ~/devforgeai/backups/uninstall-*/ | head -1)
 echo $LATEST_BACKUP
 ```
 
@@ -179,7 +179,7 @@ echo $LATEST_BACKUP
 
 ```bash
 # Verify backup contains expected files
-cd ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+cd ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 
 # Should show framework files
 test -d .claude/skills && echo "✓ Framework skills found"
@@ -209,7 +209,7 @@ Machine-readable report:
   "files_preserved": 131,
   "space_freed_mb": 2.3,
   "duration_seconds": 2.3,
-  "backup_location": "/home/user/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z",
+  "backup_location": "/home/user/devforgeai/backups/uninstall-2025-12-08T10-30-00Z",
   "errors": [],
   "warnings": []
 }
@@ -231,7 +231,7 @@ Errors: 0
 Warnings: 0
 Duration: 2.3 seconds
 
-Backup: ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+Backup: ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 ```
 
 ---
@@ -241,34 +241,34 @@ Backup: ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 ### View All Backups
 
 ```bash
-du -sh ~/.devforgeai/backups/*/
+du -sh ~/devforgeai/backups/*/
 # Shows size of each backup
 ```
 
 ### Delete Specific Backup
 
 ```bash
-rm -rf ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
+rm -rf ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/
 ```
 
 ### Delete Old Backups (Keep Last 3)
 
 ```bash
 # List backups (oldest first)
-ls -t ~/.devforgeai/backups/uninstall-*/ | tail -n +4
+ls -t ~/devforgeai/backups/uninstall-*/ | tail -n +4
 
 # Delete all but last 3
-ls -td ~/.devforgeai/backups/uninstall-*/ | tail -n +4 | xargs rm -rf
+ls -td ~/devforgeai/backups/uninstall-*/ | tail -n +4 | xargs rm -rf
 ```
 
 ### Free Up Disk Space
 
 ```bash
 # Show backup directory size
-du -sh ~/.devforgeai/backups/
+du -sh ~/devforgeai/backups/
 
 # Delete all backups (after confirming you don't need them)
-rm -rf ~/.devforgeai/backups/*
+rm -rf ~/devforgeai/backups/*
 ```
 
 ---
@@ -282,7 +282,7 @@ rm -rf ~/.devforgeai/backups/*
 **Solution:**
 ```bash
 # Check if backup directory exists
-ls ~/.devforgeai/backups/
+ls ~/devforgeai/backups/
 
 # If empty or missing:
 # 1. Check your Git history
@@ -293,7 +293,7 @@ git show COMMIT:.claude/skills/... > recovered-skill.md
 git checkout HEAD~1 -- .claude/
 
 # 3. If using version control, restore from last commit
-git restore .claude/ .devforgeai/ CLAUDE.md
+git restore .claude/ devforgeai/ CLAUDE.md
 ```
 
 ### Issue: Backup Is Corrupted
@@ -303,7 +303,7 @@ git restore .claude/ .devforgeai/ CLAUDE.md
 **Solution:**
 ```bash
 # Verify backup integrity
-tar -tzf ~/.devforgeai/backups/uninstall-2025-12-08T10-30-00Z.tar.gz > /dev/null
+tar -tzf ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z.tar.gz > /dev/null
 
 # If error: Try using Git instead
 git log --all -- .claude/ | head -1
@@ -316,8 +316,8 @@ git show COMMIT_HASH:.claude/ > restore.tar
 
 **Solution:**
 ```bash
-# Check if files are in .devforgeai/qa/reports/ (might have copies)
-ls .devforgeai/qa/reports/
+# Check if files are in devforgeai/qa/reports/ (might have copies)
+ls devforgeai/qa/reports/
 
 # Check your Git history
 git log --oneline -- .ai_docs/ | head -5
@@ -356,10 +356,10 @@ git log --all --grep="story" | head -5
 ```bash
 # Don't delete uninstall backup immediately
 # Keep for at least 1-2 weeks after uninstall
-ls -lh ~/.devforgeai/backups/
+ls -lh ~/devforgeai/backups/
 
 # Before deleting, verify you don't need it
-tar -tzf ~/.devforgeai/backups/uninstall-*/uninstall-backup.tar | grep -c ".ai_docs"
+tar -tzf ~/devforgeai/backups/uninstall-*/uninstall-backup.tar | grep -c ".ai_docs"
 # If count > 0, backup is valuable
 ```
 

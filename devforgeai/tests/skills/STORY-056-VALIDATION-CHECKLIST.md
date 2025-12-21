@@ -157,45 +157,45 @@
 
 ### Unit Tests
 - [x] Unit test file exists
-  - File: `.devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
+  - File: `devforgeai/tests/skills/test-story-creation-guidance-unit.sh`
   - Lines: 324
   - Tests: 15
   - Status: VERIFIED
 
 ### Integration Tests
 - [x] Integration test file exists
-  - File: `.devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
+  - File: `devforgeai/tests/skills/test-story-creation-guidance-integration.sh`
   - Lines: 312
   - Tests: 12
   - Status: VERIFIED
 
 ### Regression Tests
 - [x] Regression test file exists
-  - File: `.devforgeai/tests/skills/test-story-creation-regression.sh`
+  - File: `devforgeai/tests/skills/test-story-creation-regression.sh`
   - Lines: 298
   - Tests: 10
   - Status: VERIFIED
 
 ### Performance Tests
 - [x] Performance test file exists
-  - File: `.devforgeai/tests/skills/test-story-creation-guidance-performance.py`
+  - File: `devforgeai/tests/skills/test-story-creation-guidance-performance.py`
   - Lines: 597
   - Tests: 8
   - Status: VERIFIED
 
 ### Test Documentation
 - [x] Execution guide exists
-  - File: `.devforgeai/tests/skills/STORY-056-TEST-EXECUTION-GUIDE.md`
+  - File: `devforgeai/tests/skills/STORY-056-TEST-EXECUTION-GUIDE.md`
   - Size: 1,200+ lines
   - Status: VERIFIED
 
 - [x] Test summary exists
-  - File: `.devforgeai/tests/skills/STORY-056-TEST-SUMMARY.md`
+  - File: `devforgeai/tests/skills/STORY-056-TEST-SUMMARY.md`
   - Size: 1,300+ lines
   - Status: VERIFIED
 
 - [x] Quick reference exists
-  - File: `.devforgeai/tests/skills/README-STORY-056.md`
+  - File: `devforgeai/tests/skills/README-STORY-056.md`
   - Size: 400+ lines
   - Status: VERIFIED
 
@@ -209,7 +209,7 @@
   - Status: VERIFIED
 
 - [x] Test files organized in correct location
-  - Location: `.devforgeai/tests/skills/`
+  - Location: `devforgeai/tests/skills/`
   - Status: VERIFIED
 
 ---
@@ -406,7 +406,7 @@ This integration test validation confirms that STORY-056 is ready to proceed to 
 
 **Command:**
 ```bash
-cd .devforgeai/tests/skills/
+cd devforgeai/tests/skills/
 bash test-story-creation-guidance-unit.sh && \
 bash test-story-creation-guidance-integration.sh && \
 bash test-story-creation-regression.sh && \

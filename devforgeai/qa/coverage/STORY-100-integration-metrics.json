@@ -26,7 +26,7 @@
   "acceptance_criteria_validation": {
     "ac1": {
       "title": "File at Specified Location with Valid Markdown",
-      "requirement": "File exists at .devforgeai/metrics/accuracy-log.md with valid markdown and >=500 chars",
+      "requirement": "File exists at devforgeai/metrics/accuracy-log.md with valid markdown and >=500 chars",
       "status": "VERIFIED",
       "tests_passed": 4,
       "tests_failed": 0,

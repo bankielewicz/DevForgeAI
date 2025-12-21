@@ -628,6 +628,6 @@ Price (High) ──┼───────────────────�
 ---
 
 **Report Generated:** 2025-11-17 19:15:42
-**Report Location:** .devforgeai/research/examples/competitive-analysis-example.md
+**Report Location:** devforgeai/research/examples/competitive-analysis-example.md
 **Research ID:** RESEARCH-EXAMPLE-002
 **Version:** 2.0 (template version)

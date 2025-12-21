@@ -346,7 +346,7 @@ All tests generated from:
    ```
 
 3. **Start implementation** (GREEN phase)
-   - Create `.devforgeai/traceability/gap-detector.sh`
+   - Create `devforgeai/traceability/gap-detector.sh`
    - Implement functions one by one
    - Run tests after each implementation
    - Watch pass rate increase from 9% → 100%

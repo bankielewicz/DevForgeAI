@@ -27,7 +27,7 @@ class TestRollbackFailureScenarios:
         from installer.services.rollback_service import RollbackService
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -63,7 +63,7 @@ class TestRollbackFailureScenarios:
         target_dir = tmp_path / "target"
         target_dir.mkdir()
 
-        logger = InstallLogger(log_file=tmp_path / ".devforgeai" / "install.log")
+        logger = InstallLogger(log_file=tmp_path / "devforgeai" / "install.log")
         logger.log_file.parent.mkdir(exist_ok=True)
         rollback_service = RollbackService(logger=logger)
 
@@ -95,7 +95,7 @@ class TestConcurrentInstallationEdgeCases:
         # Arrange
         from installer.services.lock_file_manager import LockFileManager
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir()
 
         # Create stale lock
@@ -126,7 +126,7 @@ class TestConcurrentInstallationEdgeCases:
         from installer.services.lock_file_manager import LockFileManager
         import threading
 
-        lock_dir = tmp_path / ".devforgeai"
+        lock_dir = tmp_path / "devforgeai"
         lock_dir.mkdir()
 
         manager1 = LockFileManager(lock_dir=lock_dir)
@@ -272,7 +272,7 @@ class TestValidationFailureEdgeCase:
         from installer.services.error_recovery_orchestrator import ErrorRecoveryOrchestrator, ErrorRecoveryContext
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -405,7 +405,7 @@ class TestUserInterruptHandling:
         from installer.services.rollback_service import RollbackService
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)
@@ -476,7 +476,7 @@ class TestMultipleErrorsSequence:
         from installer.services.rollback_service import RollbackService
         from installer.services.install_logger import InstallLogger
 
-        log_file = tmp_path / ".devforgeai" / "install.log"
+        log_file = tmp_path / "devforgeai" / "install.log"
         log_file.parent.mkdir()
 
         logger = InstallLogger(log_file=log_file)

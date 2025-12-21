@@ -41,8 +41,8 @@ tags: [feedback, export, import, portability, data-sharing, sanitization, privac
 **Given** the export operation completes successfully
 **When** examining the exported file
 **Then** the package is a `.zip` archive (or `.tar.gz` alternative)
-**And** filename follows pattern: `.devforgeai-feedback-export-{timestamp}.zip`
-**And** timestamp is ISO 8601 format: `YYYY-MM-DDTHH-MM-SS` (example: `.devforgeai-feedback-export-2025-11-07T14-30-00.zip`)
+**And** filename follows pattern: `devforgeai-feedback-export-{timestamp}.zip`
+**And** timestamp is ISO 8601 format: `YYYY-MM-DDTHH-MM-SS` (example: `devforgeai-feedback-export-2025-11-07T14-30-00.zip`)
 **And** archive is created in project root directory (or user-specified location via `--output`)
 **And** compressed size is reasonable for sharing (typically <10MB for 30-day export)
 **And** archive contents are deterministic (same input → same output for reproducibility)
@@ -173,7 +173,7 @@ tags: [feedback, export, import, portability, data-sharing, sanitization, privac
 **And** framework-standard fields preserved (operation-type, status, timestamp, etc.)
 **And** list of removed fields documented in manifest for transparency
 **And** sanitization rules applied consistently across all session files
-**And** original unsanitized version remains in user's `.devforgeai/feedback/` directory
+**And** original unsanitized version remains in user's `devforgeai/feedback/` directory
 
 ---
 
@@ -194,7 +194,7 @@ tags: [feedback, export, import, portability, data-sharing, sanitization, privac
 ### 9. Import Package Extraction and Placement
 **Given** import validation succeeds
 **When** extracting the imported package
-**Then** package is extracted to `.devforgeai/feedback/imported/{timestamp}/`
+**Then** package is extracted to `devforgeai/feedback/imported/{timestamp}/`
 **And** timestamp is ISO 8601 format matching export time for traceability
 **And** extraction creates subdirectory structure: `imported/{timestamp}/feedback-sessions/`, `imported/{timestamp}/index.json`, `imported/{timestamp}/manifest.json`
 **And** original ZIP file is NOT deleted (preserved for audit trail)
@@ -206,7 +206,7 @@ tags: [feedback, export, import, portability, data-sharing, sanitization, privac
 
 ### 10. Merge Index Entries with Conflict Resolution
 **Given** feedback is being imported
-**When** merging imported session index with existing `.devforgeai/feedback-index.json`
+**When** merging imported session index with existing `devforgeai/feedback-index.json`
 **Then** sessions with new session IDs are added directly
 **And** sessions with duplicate IDs trigger conflict resolution:
   - Duplicate IDs get suffix: `-imported-1`, `-imported-2`, etc.
@@ -263,7 +263,7 @@ export_config:
 ```json
 {
   "success": true,
-  "archive_path": "/absolute/path/.devforgeai-feedback-export-2025-11-07T14-30-00.zip",
+  "archive_path": "/absolute/path/devforgeai-feedback-export-2025-11-07T14-30-00.zip",
   "archive_size_bytes": 45892,
   "sessions_exported": 15,
   "sanitization_applied": true,
@@ -290,7 +290,7 @@ import_config:
 ```json
 {
   "success": true,
-  "extracted_path": "/absolute/path/.devforgeai/feedback/imported/2025-11-07T14-30-00/",
+  "extracted_path": "/absolute/path/devforgeai/feedback/imported/2025-11-07T14-30-00/",
   "sessions_imported": 15,
   "duplicate_ids_found": 0,
   "duplicate_ids_resolved": 0,
@@ -351,8 +351,8 @@ def import_feedback_sessions(
 **After Export:**
 ```
 project-root/
-├── .devforgeai-feedback-export-2025-11-07T14-30-00.zip  ← Export package
-├── .devforgeai/
+├── devforgeai-feedback-export-2025-11-07T14-30-00.zip  ← Export package
+├── devforgeai/
 │   └── feedback/
 │       ├── sessions/
 │       │   ├── 2025-11-07T10-30-00-command-dev-success.md       (original)
@@ -364,8 +364,8 @@ project-root/
 **After Import:**
 ```
 project-root/
-├── .devforgeai-feedback-export-2025-11-07T14-30-00.zip           (original export)
-├── .devforgeai/
+├── devforgeai-feedback-export-2025-11-07T14-30-00.zip           (original export)
+├── devforgeai/
 │   └── feedback/
 │       ├── sessions/
 │       │   └── ... (original sessions unchanged)
@@ -382,9 +382,9 @@ project-root/
 
 ### Export Package Contents (Detailed)
 
-**.devforgeai-feedback-export-2025-11-07T14-30-00.zip:**
+**devforgeai-feedback-export-2025-11-07T14-30-00.zip:**
 ```
-.devforgeai-feedback-export-2025-11-07T14-30-00/
+devforgeai-feedback-export-2025-11-07T14-30-00/
 ├── feedback-sessions/
 │   ├── 2025-11-07T10-30-00-command-dev-success.md
 │   ├── 2025-11-07T10-35-15-skill-qa-success.md
@@ -534,8 +534,8 @@ project-root/
 
 ### Integration Points
 
-- **Feedback Collection:** Export reads from `.devforgeai/feedback/sessions/` (created by STORY-013)
-- **Feedback Index:** Export includes filtered subset of `.devforgeai/feedback/feedback-index.json`
+- **Feedback Collection:** Export reads from `devforgeai/feedback/sessions/` (created by STORY-013)
+- **Feedback Index:** Export includes filtered subset of `devforgeai/feedback/feedback-index.json`
 - **Index Merging:** Import updates main index with imported sessions
 - **Framework Reporting:** Exported feedback can be analyzed by DevForgeAI maintainers for insights
 - **User Sharing:** Users share exported packages with maintainers via email, GitHub issues, etc.
@@ -609,7 +609,7 @@ project-root/
 ---
 
 ### 9. Symlink Attack During Import Extraction
-**Scenario:** Malicious archive contains symlink attempting to escape `.devforgeai/` directory
+**Scenario:** Malicious archive contains symlink attempting to escape `devforgeai/` directory
 **Expected:** Extraction safely contained within import directory, symlink not followed
 **Handling:** Use safe extraction method, validate all paths stay within target directory
 **Test:** Create archive with `../../../etc/passwd` symlink, verify extraction fails or contained
@@ -633,10 +633,10 @@ project-root/
 ---
 
 ### 12. Permission Denied on Import Directory Creation
-**Scenario:** User lacks write permissions to `.devforgeai/feedback/imported/`
+**Scenario:** User lacks write permissions to `devforgeai/feedback/imported/`
 **Expected:** Import fails with clear error about directory permissions
 **Handling:** Check directory permissions before import, provide guidance on fixing
-**Test:** Create read-only `.devforgeai/` directory, attempt import
+**Test:** Create read-only `devforgeai/` directory, attempt import
 
 ---
 
@@ -757,7 +757,7 @@ project-root/
   - [x] `--output` parameter for custom output path
 - [x] Export package generation
   - [x] ZIP archive creation with deflate compression
-  - [x] Filename follows pattern: `.devforgeai-feedback-export-{timestamp}.zip`
+  - [x] Filename follows pattern: `devforgeai-feedback-export-{timestamp}.zip`
   - [x] Directory structure: `feedback-sessions/`, `index.json`, `manifest.json`
 - [x] Sanitization implementation
   - [x] Story ID replacement with sequential placeholders (STORY-001, STORY-002, etc.)
@@ -776,7 +776,7 @@ project-root/
   - [x] File path parameter (absolute or relative)
   - [x] Archive validation (ZIP format, required files present)
   - [x] Compatibility checking (version comparison)
-  - [x] Extract to `.devforgeai/feedback/imported/{timestamp}/`
+  - [x] Extract to `devforgeai/feedback/imported/{timestamp}/`
 - [x] Conflict resolution during import
   - [x] Detect duplicate session IDs
   - [x] Auto-suffix duplicates (e.g., `-imported-1`, `-imported-2`)
@@ -842,7 +842,7 @@ project-root/
 - [x] `--output` parameter for custom output path - Completed: Optional output_path parameter
 - [x] Export package generation - Completed: export_feedback_sessions() function
 - [x] ZIP archive creation with deflate compression - Completed: Using zipfile.ZIP_DEFLATED
-- [x] Filename follows pattern: `.devforgeai-feedback-export-{timestamp}.zip` - Completed: _get_unique_archive_path() with UUID suffix
+- [x] Filename follows pattern: `devforgeai-feedback-export-{timestamp}.zip` - Completed: _get_unique_archive_path() with UUID suffix
 - [x] Directory structure: `feedback-sessions/`, `index.json`, `manifest.json` - Completed: _write_export_archive()
 - [x] Sanitization implementation - Completed: _sanitize_content() and _build_story_id_mapping()
 - [x] Story ID replacement with sequential placeholders (STORY-001, STORY-002, etc.) - Completed: Deterministic sequential mapping
@@ -861,7 +861,7 @@ project-root/
 - [x] File path parameter (absolute or relative) - Completed: Accepts both path types
 - [x] Archive validation (ZIP format, required files present) - Completed: _validate_zip_archive() and _validate_zip_contents()
 - [x] Compatibility checking (version comparison) - Completed: _check_framework_compatibility()
-- [x] Extract to `.devforgeai/feedback/imported/{timestamp}/` - Completed: _extract_archive_to_import_dir()
+- [x] Extract to `devforgeai/feedback/imported/{timestamp}/` - Completed: _extract_archive_to_import_dir()
 - [x] Conflict resolution during import - Completed: _merge_indices() with duplicate handling
 - [x] Detect duplicate session IDs - Completed: ID collision detection
 - [x] Auto-suffix duplicates (e.g., `-imported-1`, `-imported-2`) - Completed: _generate_unique_session_id()

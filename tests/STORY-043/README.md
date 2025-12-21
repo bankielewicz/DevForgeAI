@@ -78,7 +78,7 @@ For tests to pass, create these scripts:
 - `src/scripts/rollback-path-updates.sh` - Restore files from backup
 
 Output directories required:
-- `.devforgeai/specs/STORY-043/` - Classification and report files
+- `devforgeai/specs/STORY-043/` - Classification and report files
 
 ## Test Design Principles
 
@@ -234,7 +234,7 @@ echo "STORY-043 Test Results: PASSED (119/119)" > reports/story-043-results.txt
 
 ### Story Documentation
 - Story: `devforgeai/specs/Stories/STORY-043-update-path-references-to-src.story.md`
-- Specs: `.devforgeai/specs/STORY-043/`
+- Specs: `devforgeai/specs/STORY-043/`
 
 ### Framework
 - Tech Stack: `devforgeai/context/tech-stack.md`

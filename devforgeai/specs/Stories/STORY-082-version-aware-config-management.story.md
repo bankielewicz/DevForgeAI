@@ -28,7 +28,7 @@ Users configure DevForgeAI with specific preferences (target paths, merge strate
 
 **Given** user installs DevForgeAI with specific preferences,
 **When** installation completes,
-**Then** preferences are saved to `.devforgeai/.install-config.json`,
+**Then** preferences are saved to `devforgeai/.install-config.json`,
 **And** configuration includes:
   - target_path: installation location
   - merge_strategy: how to handle CLAUDE.md conflicts
@@ -40,7 +40,7 @@ Users configure DevForgeAI with specific preferences (target paths, merge strate
 
 ### AC#2: Configuration Loading
 
-**Given** `.devforgeai/.install-config.json` exists,
+**Given** `devforgeai/.install-config.json` exists,
 **When** DevForgeAI runs any command,
 **Then** configuration is loaded automatically,
 **And** settings are applied without user intervention,
@@ -275,7 +275,7 @@ technical_specification:
 
     - type: "DataModel"
       name: "InstallConfig"
-      table: ".devforgeai/.install-config.json"
+      table: "devforgeai/.install-config.json"
       purpose: "User preferences and installation settings"
       fields:
         - name: "schema_version"
@@ -369,7 +369,7 @@ technical_specification:
 
     - type: "Configuration"
       name: ".install-config.json"
-      file_path: ".devforgeai/.install-config.json"
+      file_path: "devforgeai/.install-config.json"
       required_keys:
         - key: "schema_version"
           type: "int"
@@ -658,7 +658,7 @@ None - uses Python standard library (json).
 
 **Mode:** deep
 **Duration:** ~5 minutes
-**QA Report:** `.devforgeai/qa/reports/STORY-082-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-082-qa-report.md`
 
 **Results:**
 - **Test Results:** 148/149 (99.3%) - 1 FAILING
@@ -687,7 +687,7 @@ None - uses Python standard library (json).
 **Fixes Applied:**
 
 1. **Test Fix:** `test_should_create_directory_if_missing_when_saving`
-   - Added `temp_empty_install_dir` fixture to `conftest.py` (provides clean directory without `.devforgeai`)
+   - Added `temp_empty_install_dir` fixture to `conftest.py` (provides clean directory without `devforgeai`)
    - Rewrote test to use new fixture and properly call `ConfigurationManager.save()`
    - Added missing imports: `ConfigurationManager`, `InstallConfig`
    - Test now correctly validates directory auto-creation behavior
@@ -772,7 +772,7 @@ QA gaps.json identified 3 blocking violations. Remediation workflow addressed al
 
 **Mode:** deep
 **Duration:** ~8 minutes
-**QA Report:** `.devforgeai/qa/reports/STORY-082-qa-report.md`
+**QA Report:** `devforgeai/qa/reports/STORY-082-qa-report.md`
 
 **Results:**
 - **Test Results:** 204/204 PASSED (100%)

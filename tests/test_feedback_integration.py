@@ -56,7 +56,7 @@ def temp_project_dir():
 @pytest.fixture
 def feedback_index(temp_project_dir):
     """Create FeedbackIndex instance for testing."""
-    feedback_path = temp_project_dir / ".devforgeai" / "feedback"
+    feedback_path = temp_project_dir / "devforgeai" / "feedback"
     feedback_path.mkdir(parents=True, exist_ok=True)
     return FeedbackIndex(feedback_path)
 
@@ -701,7 +701,7 @@ class TestIndexRecovery:
         """EC2.3: Reindex gracefully skips malformed session files."""
         # Arrange
         project_path = temp_project_dir
-        sessions_dir = project_path / ".devforgeai" / "feedback" / "sessions"
+        sessions_dir = project_path / "devforgeai" / "feedback" / "sessions"
         sessions_dir.mkdir(parents=True, exist_ok=True)
 
         # Create one valid session

@@ -76,7 +76,7 @@ depends_on: ["STORY-090"]
 
 ### AC#5: Configurable Cleanup Threshold
 
-**Given** the configuration file `.devforgeai/config/parallel.yaml` exists
+**Given** the configuration file `devforgeai/config/parallel.yaml` exists
 **When** the system checks for idle worktrees
 **Then** it reads the cleanup threshold from configuration:
 ```yaml
@@ -306,7 +306,7 @@ technical_specification:
 - Idempotency: Running `/dev STORY-037` multiple times produces same result
 - Atomic operations: Worktree creation either fully succeeds or fully rolls back
 - Error recovery: Corrupted worktrees detected and repairable
-- Failure logging: All worktree failures logged to `.devforgeai/logs/worktree.log`
+- Failure logging: All worktree failures logged to `devforgeai/logs/worktree.log`
 
 ### Scalability
 - Concurrent worktrees: Support up to 20 simultaneous worktrees (configurable limit)
@@ -553,7 +553,7 @@ technical_specification:
 
 **References:**
 - Git worktree documentation: https://git-scm.com/docs/git-worktree
-- `.devforgeai/protocols/lean-orchestration-pattern.md`
+- `devforgeai/protocols/lean-orchestration-pattern.md`
 
 ---
 

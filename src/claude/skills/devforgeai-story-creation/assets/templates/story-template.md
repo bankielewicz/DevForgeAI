@@ -2,11 +2,24 @@
 # STORY TEMPLATE CHANGELOG
 # =============================================================================
 #
-# Version: 2.2
-# Last Updated: 2025-12-14
+# Version: 2.3
+# Last Updated: 2025-12-21
 # Maintained by: devforgeai-story-creation skill
 #
 # Version History:
+#
+# v2.3 (2025-12-21) - Technical Limitations Section
+#   Changes:
+#     - Added Technical Limitations section after Technical Specification
+#     - YAML format with id, component, limitation, decision, discovered_phase, impact
+#     - Decision options: pending, defer:STORY-XXX, descope:ADR-XXX, workaround:description
+#     - Discovered phase options: Architecture, Development, QA
+#   Rationale:
+#     - Prevents late-stage discovery of tool/technology blockers
+#     - Enables explicit decision-making for capability gaps
+#     - Provides audit trail for limitation handling
+#   References:
+#     - Architectural review of /qa STORY-118 execution
 #
 # v2.2 (2025-12-14) - STORY-090 Parallel Development Support
 #   Changes:
@@ -86,7 +99,7 @@ depends_on: []
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
-format_version: "2.2"
+format_version: "2.3"
 ---
 
 # Story: [Title]
@@ -303,6 +316,35 @@ technical_specification:
 6. Metrics must be measurable (include numbers, thresholds, or ranges)
 
 **See `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md` for complete schema reference and examples.**
+
+---
+
+## Technical Limitations
+
+Document known tool or technology limitations discovered during architecture, development, or QA phases. This prevents late-stage discovery of blockers and enables explicit decision-making.
+
+```yaml
+technical_limitations:
+  # Example entries - remove or replace with actual limitations
+  - id: TL-001
+    component: "[Component or tool name]"
+    limitation: "[Description of what cannot be done]"
+    decision: "pending"  # Options: pending | defer:STORY-XXX | descope:ADR-XXX | workaround:description
+    discovered_phase: "Architecture"  # Options: Architecture | Development | QA
+    impact: "[How this affects the story]"
+```
+
+**Decision Options:**
+- `pending` - Not yet decided, requires user input
+- `defer:STORY-XXX` - Deferred to follow-up story for resolution
+- `descope:ADR-XXX` - Removed from scope via Architecture Decision Record
+- `workaround:description` - Alternative approach implemented
+
+**When to Add Entries:**
+- Tool cannot perform required analysis
+- Framework limitation prevents full implementation
+- External dependency has capability gaps
+- Performance constraints prevent ideal solution
 
 ---
 

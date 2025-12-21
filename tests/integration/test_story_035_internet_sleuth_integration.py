@@ -188,7 +188,7 @@ class TestInternetSleuthFrameworkIntegration:
         self.content = self.agent_file.read_text()
 
     def test_context_file_paths_use_devforgeai_structure(self):
-        """INT-009: All context file paths use .devforgeai/ structure"""
+        """INT-009: All context file paths use devforgeai/ structure"""
         # Check for old paths
         old_paths = [
             r'\.claude/context/',
@@ -203,8 +203,8 @@ class TestInternetSleuthFrameworkIntegration:
         # Verify correct paths used
         assert 'devforgeai/context/' in self.content, \
             "Missing devforgeai/context/ path"
-        assert '.devforgeai/research/' in self.content, \
-            "Missing .devforgeai/research/ path"
+        assert 'devforgeai/research/' in self.content, \
+            "Missing devforgeai/research/ path"
 
     def test_ideation_skill_compatibility(self):
         """INT-010: Agent compatible with devforgeai-ideation skill invocation"""
@@ -231,13 +231,13 @@ class TestInternetSleuthFrameworkIntegration:
             "Missing Phase 2 reference for architecture skill"
 
     def test_output_directory_compliance(self):
-        """INT-012: Research outputs use .devforgeai/research/ directory"""
+        """INT-012: Research outputs use devforgeai/research/ directory"""
         # Check Phase 4 workflow
         phase4 = self._extract_section('### Phase 4: Output Generation')
         assert phase4, "Phase 4: Output Generation section not found"
 
-        assert '.devforgeai/research/' in phase4, \
-            "Missing .devforgeai/research/ in Phase 4"
+        assert 'devforgeai/research/' in phase4, \
+            "Missing devforgeai/research/ in Phase 4"
 
         # Check output examples
         assert 'tech-eval-' in phase4, \
@@ -253,7 +253,7 @@ class TestInternetSleuthFrameworkIntegration:
 
         assert 'ADR Integration:' in framework_section, \
             "Missing ADR Integration subsection"
-        assert '.devforgeai/adrs/' in framework_section, \
+        assert 'devforgeai/adrs/' in framework_section, \
             "Missing ADR directory path"
         assert 'REQUIRES ADR' in framework_section or 'REQUIRES ADR' in self.content, \
             "Missing REQUIRES ADR flag documentation"
@@ -388,12 +388,12 @@ class TestInternetSleuthOutputCompliance:
         self.content = self.agent_file.read_text()
 
     def test_research_output_directory_documented(self):
-        """INT-022: .devforgeai/research/ directory is documented"""
+        """INT-022: devforgeai/research/ directory is documented"""
         # Check Phase 4
         phase4 = self._extract_section('### Phase 4: Output Generation')
 
-        assert '.devforgeai/research/' in phase4, \
-            "Missing .devforgeai/research/ in Phase 4"
+        assert 'devforgeai/research/' in phase4, \
+            "Missing devforgeai/research/ in Phase 4"
 
     def test_filename_conventions_documented(self):
         """INT-023: Filename conventions are documented"""
@@ -436,7 +436,7 @@ class TestInternetSleuthOutputCompliance:
         """INT-026: Output examples are provided"""
         # Check for example output section
         assert 'Research Output Directory:' in self.content or \
-               '`.devforgeai/research/`' in self.content, \
+               '`devforgeai/research/`' in self.content, \
             "Missing research output directory examples"
 
         # Check for at least one filename example

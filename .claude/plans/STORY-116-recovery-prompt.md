@@ -79,7 +79,7 @@ I was implementing STORY-116 (Configuration Infrastructure - ast-grep Rule Stora
 
 ### Acceptance Criteria Reminder
 
-- AC#1: Create `.devforgeai/ast-grep/` directory structure
+- AC#1: Create `devforgeai/ast-grep/` directory structure
 - AC#2: Rules organized by language directory
 - AC#3: `devforgeai ast-grep init` creates sgconfig.yml
 - AC#4: `devforgeai ast-grep validate-config` validates configuration

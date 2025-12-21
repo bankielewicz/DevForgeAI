@@ -33,20 +33,20 @@ Tests import from these module paths. Your implementation must provide these:
 
 ```python
 # In tests/unit/test_rule_metadata_story116.py:
-from claude.scripts.devforgeai_cli.ast_grep.models import (
+from claude.scriptsdevforgeai_cli.ast_grep.models import (
     RuleMetadata,
     RuleSeverity,
     RuleLanguage,
 )
 
 # In tests/unit/test_config_init_story116.py:
-from claude.scripts.devforgeai_cli.ast_grep.config_init import (
+from claude.scriptsdevforgeai_cli.ast_grep.config_init import (
     ConfigurationInitializer,
     InitResult,
 )
 
 # In tests/unit/test_config_validator_story116.py:
-from claude.scripts.devforgeai_cli.ast_grep.config_validator import (
+from claude.scriptsdevforgeai_cli.ast_grep.config_validator import (
     ConfigurationValidator,
     ValidationResult,
     ValidationError,
@@ -166,7 +166,7 @@ class ConfigurationInitializer:
         Initialize ast-grep configuration.
 
         Actions:
-        - Creates .devforgeai/ast-grep/ directory
+        - Creates devforgeai/ast-grep/ directory
         - Creates rules/ subdirectories: python, csharp, typescript, javascript
         - Generates sgconfig.yml with default configuration
 
@@ -197,7 +197,7 @@ class ConfigurationInitializer:
         Check if ast-grep is initialized.
 
         Returns True if:
-        - .devforgeai/ast-grep/sgconfig.yml exists
+        - devforgeai/ast-grep/sgconfig.yml exists
         - All language directories exist
         """
 ```
@@ -284,7 +284,7 @@ devforgeai ast-grep init [--force]
 ```
 
 **Behavior:**
-- Creates .devforgeai/ast-grep/ directory structure
+- Creates devforgeai/ast-grep/ directory structure
 - Creates sgconfig.yml with default configuration
 - With --force: overwrites existing sgconfig.yml
 - Without --force: skips if sgconfig.yml exists
@@ -303,7 +303,7 @@ devforgeai ast-grep validate-config [--format json]
 ```
 
 **Behavior:**
-- Validates .devforgeai/ast-grep/sgconfig.yml
+- Validates devforgeai/ast-grep/sgconfig.yml
 - Returns detailed error/warning messages
 - With --format json: returns JSON output
 

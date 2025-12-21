@@ -82,7 +82,7 @@ format_version: "2.1"
 
 **Given** token savings and success rate reports exist
 **When** I review the consolidated impact report
-**Then** `.devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md` contains:
+**Then** `devforgeai/specs/enhancements/USER-INPUT-GUIDANCE-IMPACT-REPORT.md` contains:
 - Executive summary (≤500 words) with headline metrics
 - Detailed findings by business goal (incomplete rate, token efficiency, iteration cycles)
 - Evidence tables (10 test fixtures with before/after metrics)
@@ -370,7 +370,7 @@ technical_specification:
 
 **Summary:** Exceptional implementation quality with zero violations across all quality gates. Production-ready.
 
-**Detailed Report:** `.devforgeai/qa/reports/STORY-059-qa-report.md`
+**Detailed Report:** `devforgeai/qa/reports/STORY-059-qa-report.md`
 
 **Validated By:** DevForgeAI QA Skill (Deep Mode)
 **Next Status:** QA Approved → Ready for Release

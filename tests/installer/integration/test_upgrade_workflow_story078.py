@@ -77,7 +77,7 @@ class TestEndToEndUpgradeFlow:
 
     def test_should_save_upgrade_summary_to_log_file(self, tmp_path):
         """
-        AC#8: Summary saved to .devforgeai/logs/upgrade-{timestamp}.log
+        AC#8: Summary saved to devforgeai/logs/upgrade-{timestamp}.log
 
         Arrange: Upgrade executed
         Act: Execute upgrade

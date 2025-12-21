@@ -15,7 +15,7 @@ Test Results:
 Coverage Summary:
   - Acceptance Criteria (AC): 25 tests
     ├─ AC-1 (.claude/ structure): 5 tests
-    ├─ AC-2 (.devforgeai/ content): 5 tests
+    ├─ AC-2 (devforgeai/ content): 5 tests
     ├─ AC-3 (CLAUDE.md template): 5 tests
     ├─ AC-4 (Checksum validation): 5 tests
     ├─ AC-5 (Exclusions): 7 tests

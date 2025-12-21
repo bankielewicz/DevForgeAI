@@ -140,7 +140,7 @@ DevForgeAI framework has achieved **100% subagent compliance** with the native t
 - code-analyzer.md (line 4: tools specification)
 
 **Backups:**
-- .devforgeai/backups/subagent-tool-tightening-20251119-232948/ (6 files)
+- devforgeai/backups/subagent-tool-tightening-20251119-232948/ (6 files)
 
 ---
 
@@ -371,7 +371,7 @@ grep "^tools:" .claude/agents/*.md | grep -c "Read"
 **Framework Protocols:**
 - CLAUDE.md - Critical Rule #2: File Operations mandate
 - .claude/memory/token-efficiency.md - Native tool guidance
-- .devforgeai/protocols/lean-orchestration-pattern.md - Efficiency standards
+- devforgeai/protocols/lean-orchestration-pattern.md - Efficiency standards
 
 ---
 

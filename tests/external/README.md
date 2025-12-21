@@ -283,7 +283,7 @@ Ready for Phase 3: Refactoring
 2. Implement tech detection (Node.js, .NET, Python)
 3. Integrate CLAUDE.md merge (from STORY-046)
 4. Implement rollback and upgrade workflows
-5. Deploy framework files (.claude/, .devforgeai/)
+5. Deploy framework files (.claude/, devforgeai/)
 6. Test all 14 commands in external context
 
 ### Phase 3: REFACTOR

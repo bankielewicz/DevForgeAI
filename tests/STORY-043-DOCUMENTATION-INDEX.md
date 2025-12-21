@@ -34,12 +34,12 @@
 
 ### For Test Results & Metrics
 1. **Detailed Test Report:** `STORY-043-INTEGRATION-TEST-REPORT.md` (20 min read)
-2. **Classification Files:** `.devforgeai/specs/STORY-043/path-audit-*.txt`
-3. **Validation Report:** `.devforgeai/specs/STORY-043/validation-report.md`
+2. **Classification Files:** `devforgeai/specs/STORY-043/path-audit-*.txt`
+3. **Validation Report:** `devforgeai/specs/STORY-043/validation-report.md`
 
 ### For Code Review & Commit Preparation
-1. **Diff Summary:** `.devforgeai/specs/STORY-043/update-diff-summary.md`
-2. **Rollback Procedure:** `.devforgeai/specs/STORY-043/rollback-updates.sh`
+1. **Diff Summary:** `devforgeai/specs/STORY-043/update-diff-summary.md`
+2. **Rollback Procedure:** `devforgeai/specs/STORY-043/rollback-updates.sh`
 3. **Backup Location:** `.backups/story-043-path-updates-{timestamp}/`
 
 ---
@@ -108,7 +108,7 @@ AC#7 (Safety):           25/25 ✅
 
 ### Generated Artifacts
 ```
-/mnt/c/Projects/DevForgeAI2/.devforgeai/specs/STORY-043/
+/mnt/c/Projects/DevForgeAI2/devforgeai/specs/STORY-043/
 ├── path-audit-deploy-time.txt                (971 refs)
 ├── path-audit-source-time.txt                (209 refs)
 ├── path-audit-ambiguous.txt                  (92 refs)
@@ -206,13 +206,13 @@ Validate:  ~3s  (<45s target) - 93% faster ✅
 1. Overview: `INTEGRATION-TEST-FINAL-REPORT.md`
 2. Detailed: `STORY-043-INTEGRATION-TEST-REPORT.md`
 3. Technical: `STORY-043-IMPLEMENTATION-DETAILS.md`
-4. Artifacts: Review `.devforgeai/specs/STORY-043/`
+4. Artifacts: Review `devforgeai/specs/STORY-043/`
 
 ### For Code Review & Commit (30 minutes)
-1. Diff summary: `.devforgeai/specs/STORY-043/update-diff-summary.md`
-2. Classification: `.devforgeai/specs/STORY-043/path-audit-*.txt`
-3. Validation: `.devforgeai/specs/STORY-043/validation-report.md`
-4. Rollback: `.devforgeai/specs/STORY-043/rollback-updates.sh`
+1. Diff summary: `devforgeai/specs/STORY-043/update-diff-summary.md`
+2. Classification: `devforgeai/specs/STORY-043/path-audit-*.txt`
+3. Validation: `devforgeai/specs/STORY-043/validation-report.md`
+4. Rollback: `devforgeai/specs/STORY-043/rollback-updates.sh`
 
 ---
 
@@ -256,13 +256,13 @@ See: `STORY-043-IMPLEMENTATION-DETAILS.md` (Implementation Overview section)
 Command: `bash tests/STORY-043/run_all_tests.sh`
 
 ### Need to Understand Validation?
-See: `.devforgeai/specs/STORY-043/validation-report.md` (3-layer validation approach)
+See: `devforgeai/specs/STORY-043/validation-report.md` (3-layer validation approach)
 
 ### Ready to Commit Changes?
-See: `.devforgeai/specs/STORY-043/update-diff-summary.md` (what changed)
+See: `devforgeai/specs/STORY-043/update-diff-summary.md` (what changed)
 
 ### Need to Rollback?
-Script: `.devforgeai/specs/STORY-043/rollback-updates.sh`
+Script: `devforgeai/specs/STORY-043/rollback-updates.sh`
 Backup: `.backups/story-043-path-updates-{timestamp}/`
 
 ---

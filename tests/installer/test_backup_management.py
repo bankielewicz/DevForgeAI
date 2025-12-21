@@ -3,7 +3,7 @@ Unit tests for backup management (STORY-045 AC2, WKR-013, WKR-014, WKR-015, WKR-
 
 Tests validate:
 - Creating timestamped backup directories (.backups/devforgeai-upgrade-YYYYMMDD-HHMMSS)
-- Copying .claude/, .devforgeai/, CLAUDE.md files to backup
+- Copying .claude/, devforgeai/, CLAUDE.md files to backup
 - Generating backup manifest.json with metadata and integrity hash
 - Verifying backup integrity before proceeding
 
@@ -79,11 +79,11 @@ class TestBackupCreation:
 
     def test_backup_copies_devforgeai_directory(self, tmp_project):
         """
-        WKR-014: Copy .devforgeai/ files to backup (preserves structure).
+        WKR-014: Copy devforgeai/ files to backup (preserves structure).
 
-        Given: .devforgeai/ contains config/, context/, protocols/
+        Given: devforgeai/ contains config/, context/, protocols/
         When: Backup created
-        Then: All .devforgeai/ files copied to backup/.devforgeai/
+        Then: All devforgeai/ files copied to backup/devforgeai/
         """
         # Arrange
         devforgeai_dir = tmp_project["devforgeai"]
@@ -91,7 +91,7 @@ class TestBackupCreation:
         (devforgeai_dir / "protocols" / "protocol.md").write_text("# protocol")
 
         # Act
-        backup_devforgeai = tmp_project["backups"] / "backup" / ".devforgeai"
+        backup_devforgeai = tmp_project["backups"] / "backup" / "devforgeai"
         backup_devforgeai.mkdir(parents=True, exist_ok=True)
         (backup_devforgeai / "config").mkdir()
         (backup_devforgeai / "protocols").mkdir()

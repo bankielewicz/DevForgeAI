@@ -320,7 +320,7 @@ Each phase has a single Read() instruction to load its detailed workflow:
 - `.claude/commands/create-context.md` (updated phase count and descriptions)
 
 **Created:**
-- `.devforgeai/specs/enhancements/ARCHITECTURE-SKILL-REFACTORING-COMPLETE.md` (this file)
+- `devforgeai/specs/enhancements/ARCHITECTURE-SKILL-REFACTORING-COMPLETE.md` (this file)
 
 ---
 

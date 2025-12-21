@@ -511,6 +511,37 @@ Update DoD format for git commit → Validate format → Prepare for Phase 08
 **CRITICAL:** Execute AFTER Phase 06, BEFORE Phase 08 - git commit will FAIL if skipped
 **Note (RCA-014):** Phase 06-R removed - resumption now happens immediately in Phase 06 Step 7
 
+**Pre-Check: Implementation Notes Section [MANDATORY]**
+
+Before executing DoD update workflow, verify story has Implementation Notes section:
+
+```
+Grep(pattern="^## Implementation Notes", path="${STORY_FILE}")
+
+IF NOT found:
+    Display: "❌ Story file missing ## Implementation Notes section"
+    Display: ""
+    Display: "Required section structure:"
+    Display: "  ## Implementation Notes"
+    Display: "  **Developer:** [name]"
+    Display: "  **Implemented:** [date]"
+    Display: "  - [x] DoD items... (flat list, no ### subsections)"
+    Display: "  ### TDD Workflow Summary (optional)"
+    Display: "  ### Files Created/Modified (optional)"
+    Display: "  ### Test Results (optional)"
+    Display: ""
+    Display: "Adding Implementation Notes section..."
+
+    # Auto-create section before Workflow Status
+    Edit(
+        file_path="${STORY_FILE}",
+        old_string="## Workflow Status",
+        new_string="## Implementation Notes\n\n**Developer:** DevForgeAI AI Agent\n**Implemented:** {current_date}\n\n## Workflow Status"
+    )
+
+    Display: "✓ Implementation Notes section created"
+```
+
 ---
 
 ### Bridge Validation Checkpoint (HALT IF FAILED)
@@ -586,6 +617,7 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
 - [ ] AC Checklist (deployment items) updated? ✓ MANDATORY
       Search for: Edit with AC Checklist deployment items marked [x]
       Found? YES → Check box | NO → Leave unchecked
+      **See `references/dod-update-workflow.md` for comprehensive knowledge of the DOD workflow.**
 
 IF any checkbox UNCHECKED:
   Display:

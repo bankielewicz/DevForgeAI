@@ -377,7 +377,7 @@ model: haiku
 
 **Completion Date**: 2025-10-31 (Phase 2), 2025-11-03 (RCA-006 enhancements)
 **Generation Method**: agent-generator subagent (batch mode)
-**Validation Report**: `.devforgeai/specs/phase-2-subagents-generation-report.md`
+**Validation Report**: `devforgeai/specs/phase-2-subagents-generation-report.md`
 
 ### Week 2 Success Criteria
 
@@ -771,7 +771,7 @@ All Phase 4 implementation stories have been completed:
 - Release notes and compatibility information
 
 **Team Training Complete:**
-- .devforgeai/onboarding/team-training-log.md (10+ topics)
+- devforgeai/onboarding/team-training-log.md (10+ topics)
 - Training checklist and completion tracking
 - Developer onboarding workflow documentation
 - Framework migration documentation

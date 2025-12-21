@@ -116,7 +116,7 @@ header "AC4: Framework Integration and Navigation"
 
 test_case "Links to source documentation"
 if [ -f "$GUIDE_FILE" ]; then
-    refs=$(grep -c "@\.claude\|\.devforgeai\|SKILL\.md\|README\|See:" "$GUIDE_FILE" 2>/dev/null || echo "0")
+    refs=$(grep -c "@\.claude\|\devforgeai\|SKILL\.md\|README\|See:" "$GUIDE_FILE" 2>/dev/null || echo "0")
     if [ "$refs" -ge 5 ]; then
         pass_test "Found $refs documentation references"
     else

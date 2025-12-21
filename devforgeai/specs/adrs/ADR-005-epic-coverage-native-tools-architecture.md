@@ -133,7 +133,7 @@ This evidence showed that **exact `epic:` field matching** would cover 95% of st
 
 ### Alternative 3: Manual Mapping File
 
-**Description:** User creates `.devforgeai/epic-story-mappings.yaml` manually mapping epics to stories
+**Description:** User creates `devforgeai/epic-story-mappings.yaml` manually mapping epics to stories
 
 **Pros:**
 - 100% accurate (user explicitly defines mappings)
@@ -258,7 +258,7 @@ Summary: 1/2 epics complete (50%), 4/11 features have stories (36%)
 - **Revisit Date:** After EPIC-015 implementation (Sprint 2 completion)
 - **Related Documents:**
   - EPIC-015: `devforgeai/specs/Epics/EPIC-015-epic-coverage-validation-traceability.epic.md`
-  - RESEARCH-002: `.devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md`
+  - RESEARCH-002: `devforgeai/research/shared/RESEARCH-002-epic-coverage-traceability.md`
   - Evidence: `grep "^epic:" devforgeai/specs/Stories/STORY-*.story.md` (60/63 = 95%)
 
 ---

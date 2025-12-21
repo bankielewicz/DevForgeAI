@@ -38,7 +38,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 - `compare_versions(installed, source)` → str
 
 **Key Features:**
-- Reads installed version from `.devforgeai/.version.json`
+- Reads installed version from `devforgeai/.version.json`
 - Reads source version from `src/devforgeai/version.json`
 - Uses `packaging.version` for semantic version comparison
 - Determines installation mode: `fresh_install`, `patch_upgrade`, `minor_upgrade`, `major_upgrade`, `reinstall`, `downgrade`
@@ -61,7 +61,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 
 **Key Features:**
 - Creates timestamped backup directories: `.backups/devforgeai-upgrade-YYYYMMDD-HHMMSS/`
-- Copies `.claude/`, `.devforgeai/`, and `CLAUDE.md` to backup
+- Copies `.claude/`, `devforgeai/`, and `CLAUDE.md` to backup
 - Generates `manifest.json` with:
   - `created_at`: ISO timestamp
   - `reason`: upgrade/downgrade/uninstall
@@ -75,7 +75,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 
 **Test Coverage:** 10/10 tests passing
 - Backup directory creation with correct timestamp format
-- Copying .claude/, .devforgeai/, CLAUDE.md
+- Copying .claude/, devforgeai/, CLAUDE.md
 - Manifest generation with all required fields
 - Integrity hash calculation
 - Integrity verification (success/failure cases)
@@ -91,7 +91,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 
 **Key Features:**
 - Deploys `src/claude/` → `.claude/` (~370 files)
-- Deploys `src/devforgeai/` → `.devforgeai/` (~80 files)
+- Deploys `src/devforgeai/` → `devforgeai/` (~80 files)
 
 **Exclusion Patterns:**
 - `*.backup`, `*.bak`
@@ -100,8 +100,8 @@ Successfully implemented a production-ready version-aware installer framework fo
 - Generated directories: `qa/reports/`, `RCA/`, `adrs/`, `feedback/imported/`, `logs/`
 
 **Preservation (Never Overwritten):**
-- `.devforgeai/config/hooks.yaml` (user custom hooks)
-- `.devforgeai/feedback/config.yaml` (user feedback settings)
+- `devforgeai/config/hooks.yaml` (user custom hooks)
+- `devforgeai/feedback/config.yaml` (user feedback settings)
 - `devforgeai/context/*.md` (user-defined tech stack, constraints, etc.)
 
 **Untouched Directories:**
@@ -159,7 +159,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 - `validate_version_json(version_file)` → dict
 
 **Key Features:**
-- Validates directory structure (`.claude/skills/`, `.devforgeai/protocols/`, etc.)
+- Validates directory structure (`.claude/skills/`, `devforgeai/protocols/`, etc.)
 - Validates `version.json` schema:
   - Required fields: version, installed_at, mode, schema_version
   - Version format: semantic versioning (X.Y.Z)
@@ -168,7 +168,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 - Checks critical files:
   - 11+ commands in `.claude/commands/`
   - 10+ skills in `.claude/skills/`
-  - 3+ protocols in `.devforgeai/protocols/`
+  - 3+ protocols in `devforgeai/protocols/`
   - `CLAUDE.md` in project root
 - Verifies CLI installation and accessibility
 - Returns comprehensive validation report
@@ -247,7 +247,7 @@ Successfully implemented a production-ready version-aware installer framework fo
 
 **Backup Management (10/10)** ✅
 - Timestamped directory creation
-- Directory copying (.claude, .devforgeai)
+- Directory copying (.claude, devforgeai)
 - Manifest generation
 - Integrity hash calculation
 - Integrity verification

@@ -213,7 +213,7 @@ test_config_sources_defined() {
     if command -v jq &> /dev/null; then
         local sources=$(jq -r '.sources[]?' "$config_path" 2>/dev/null | wc -l)
         if [ "$sources" -ge 3 ]; then
-            echo -e "${GREEN}✓${NC} Three sources defined (.claude, .devforgeai, CLAUDE.md)"
+            echo -e "${GREEN}✓${NC} Three sources defined (.claude, devforgeai, CLAUDE.md)"
             return 0
         else
             echo -e "${RED}✗${NC} Sources not properly defined (found $sources)"

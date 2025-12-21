@@ -39,7 +39,7 @@ class ILogger(ABC):
 # Files that must exist for critical files check to pass
 CRITICAL_FILES = [
     "CLAUDE.md",
-    ".devforgeai",
+    "devforgeai",
 ]
 # Optional files (presence is nice but not required)
 OPTIONAL_FILES = [

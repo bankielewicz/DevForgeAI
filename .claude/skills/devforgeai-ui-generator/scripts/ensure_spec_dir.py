@@ -21,7 +21,7 @@ def ensure_spec_dir():
     project_root = script_dir.parent.parent.parent.parent
 
     # Define UI spec directory path
-    ui_spec_dir = project_root / ".devforgeai" / "specs" / "ui"
+    ui_spec_dir = project_root / "devforgeai" / "specs" / "ui"
 
     try:
         # Create directory with parents, don't error if exists

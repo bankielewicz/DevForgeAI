@@ -17,7 +17,7 @@ The `/qa` command has been refactored from a 692-line "top-heavy" implementation
 ## Artifacts Created
 
 ### 1. Analysis Document
-**File:** `.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
+**File:** `devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`
 - Line-by-line analysis of current command structure
 - Gap analysis vs skill implementation
 - Design decision rationale (Option A vs B)
@@ -296,7 +296,7 @@ After generating report, skill invokes subagent:
 Task(
     subagent_type="qa-result-interpreter",
     description="Interpret QA results",
-    prompt="QA report generated at .devforgeai/qa/reports/{STORY_ID}-qa-report.md
+    prompt="QA report generated at devforgeai/qa/reports/{STORY_ID}-qa-report.md
 
             Interpret and generate user-friendly display.
 
@@ -488,7 +488,7 @@ Verify that refactoring doesn't change QA behavior:
    - Link to analysis
 
 ### Analysis Documentation (1 file)
-1. **`.devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`**
+1. **`devforgeai/specs/enhancements/QA-COMMAND-REFACTORING-ANALYSIS.md`**
    - Complete gap analysis
    - Design decisions documented
    - Risk mitigation strategies

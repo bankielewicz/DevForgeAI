@@ -94,9 +94,9 @@ format_version: "2.1"
 
 **Given** sync operation completed (success or failure)
 **When** the sync script finalizes execution
-**Then** the script generates timestamped sync report in `.devforgeai/qa/reports/guidance-sync-YYYYMMDD-HHMMSS.md`
+**Then** the script generates timestamped sync report in `devforgeai/qa/reports/guidance-sync-YYYYMMDD-HHMMSS.md`
 **And** the report includes sync timestamp, exit code, source file paths with sizes, operational file paths with sizes, pre-sync hashes, post-sync hashes, conflict detection results, and any errors encountered
-**And** the script appends summary entry to cumulative sync log (`.devforgeai/qa/reports/guidance-sync-cumulative.log`) with format: `YYYY-MM-DD HH:MM:SS | EXIT_CODE | FILES_SYNCED | CONFLICTS | NOTES`
+**And** the script appends summary entry to cumulative sync log (`devforgeai/qa/reports/guidance-sync-cumulative.log`) with format: `YYYY-MM-DD HH:MM:SS | EXIT_CODE | FILES_SYNCED | CONFLICTS | NOTES`
 **And** the report is generated regardless of sync success or failure
 **And** the report includes rollback details if rollback was triggered
 **And** the cumulative log maintains chronological order with most recent entries at bottom
@@ -157,7 +157,7 @@ technical_specification:
           priority: "High"
 
         - id: "SYNC-008"
-          description: "Timestamped sync report generation in .devforgeai/qa/reports/ with cumulative log append"
+          description: "Timestamped sync report generation in devforgeai/qa/reports/ with cumulative log append"
           testable: true
           test_requirement: "Test: Run sync, verify markdown report created with timestamp, cumulative log has new entry with pipe-delimited format"
           priority: "High"
@@ -281,8 +281,8 @@ technical_specification:
 - [x] Post-sync hash validation implemented
 - [x] Rollback mechanism on any failure
 - [x] Sync state JSON persistence (tests/user-input-guidance/sync-state.json)
-- [x] Sync report generation (.devforgeai/qa/reports/)
-- [x] Cumulative log append (.devforgeai/qa/reports/guidance-sync-cumulative.log)
+- [x] Sync report generation (devforgeai/qa/reports/)
+- [x] Cumulative log append (devforgeai/qa/reports/guidance-sync-cumulative.log)
 - [x] Lock file mechanism implemented (.sync.lock)
 - [x] Exit codes 0-6 implemented correctly
 
@@ -335,8 +335,8 @@ technical_specification:
 - [x] Post-sync hash validation implemented - Completed: Phase 2, AC#5 tests pass
 - [x] Rollback mechanism on any failure - Completed: Phase 2, integration tests pass
 - [x] Sync state JSON persistence (tests/user-input-guidance/sync-state.json) - Completed: Phase 2, DVR3 tests pass
-- [x] Sync report generation (.devforgeai/qa/reports/) - Completed: Phase 2, integration tests pass
-- [x] Cumulative log append (.devforgeai/qa/reports/guidance-sync-cumulative.log) - Completed: Phase 2, integration tests pass
+- [x] Sync report generation (devforgeai/qa/reports/) - Completed: Phase 2, integration tests pass
+- [x] Cumulative log append (devforgeai/qa/reports/guidance-sync-cumulative.log) - Completed: Phase 2, integration tests pass
 - [x] Lock file mechanism implemented (.sync.lock) - Completed: Phase 2, edge case tests pass
 - [x] Exit codes 0-6 implemented correctly - Completed: Phase 2, all exit codes validated
 - [x] All 6 acceptance criteria have validation tests - Completed: Phase 1, test suite 924 lines

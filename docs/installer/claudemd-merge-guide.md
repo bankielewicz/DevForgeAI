@@ -68,7 +68,7 @@ Your CLAUDE.md has:
 
 **What it does:**
 - Creates backup of existing CLAUDE.md
-- Creates `CLAUDE.md.devforgeai-template` reference file
+- Creates `CLAUDE.mddevforgeai-template` reference file
 - You manually merge the two files
 
 **Best for:**
@@ -78,7 +78,7 @@ Your CLAUDE.md has:
 
 **How it works:**
 1. Creates timestamped backup
-2. Writes DevForgeAI template to `.devforgeai-template` file
+2. Writes DevForgeAI template to `devforgeai-template` file
 3. Displays merge instructions
 4. You compare and merge manually
 

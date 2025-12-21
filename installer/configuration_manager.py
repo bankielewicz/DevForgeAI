@@ -26,12 +26,12 @@ class ConfigurationManager:
 
     CONFIG_FILE_NAME = ".install-config.json"
 
-    def __init__(self, config_dir: str = ".devforgeai", validator: Optional[ConfigValidator] = None):
+    def __init__(self, config_dir: str = "devforgeai", validator: Optional[ConfigValidator] = None):
         """Initialize configuration manager.
 
         Args:
             config_dir: Directory containing .install-config.json.
-                       Default: .devforgeai
+                       Default: devforgeai
             validator: ConfigValidator instance for validation.
                       Default: new instance created
         """

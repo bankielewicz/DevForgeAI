@@ -68,7 +68,7 @@ This document defines the updates needed to make the **agent-generator subagent*
 **Example workflow:**
 ```
 User: "Generate all Phase 2 subagents"
-→ Reads .devforgeai/specs/requirements/phase-2-subagents-requirements.md
+→ Reads devforgeai/specs/requirements/phase-2-subagents-requirements.md
 → Extracts 13 subagent specifications
 → Generates in priority order (Critical → High → Medium → Low)
 → Validates each after generation
@@ -231,7 +231,7 @@ Store in memory: DEVFORGEAI_CONTEXT
 
 If generating command-related subagent (e.g., for /create-story refactoring):
 ```
-Read(file_path=".devforgeai/protocols/lean-orchestration-pattern.md")
+Read(file_path="devforgeai/protocols/lean-orchestration-pattern.md")
 # Extract:
 # - Subagent Creation Guidelines (lines 783-916)
 # - Subagent Template (lines 800-916)
@@ -837,7 +837,7 @@ ELSE:
 - When Phase 2 subagent implementation begins (existing)
 - When user runs /create-agent command (NEW)
 - When lean orchestration refactoring needs subagent (NEW)
-- When requirements document exists in `.devforgeai/specs/requirements/` (existing)
+- When requirements document exists in `devforgeai/specs/requirements/` (existing)
 
 **Explicit invocation:**
 - "Generate subagent for [purpose]" (existing)
@@ -869,7 +869,7 @@ mode_markers = {
   "template": "**Creation Mode:** template" in conversation,
   "domain": "**Creation Mode:** domain" in conversation,
   "custom": "**Creation Mode:** custom" in conversation,
-  "requirements": ".devforgeai/specs/requirements/" file reference in conversation
+  "requirements": "devforgeai/specs/requirements/" file reference in conversation
 }
 
 # Detect mode (priority order)

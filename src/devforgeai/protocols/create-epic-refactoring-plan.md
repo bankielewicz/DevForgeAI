@@ -80,7 +80,7 @@ Compliance: ⚠️ HIGH USAGE (95% - approaching limit)
 6. **Phase 6: Requirements Spec (Optional)** (Lines 295-348)
    - AskUserQuestion for requirements spec
    - Invoke requirements-writer subagent
-   - Write to .devforgeai/specs/requirements/
+   - Write to devforgeai/specs/requirements/
    - Update epic with requirements link
 
 7. **Phase 7: Success Report** (Lines 350-384)
@@ -184,7 +184,7 @@ Technical Assessment:
 Files Created:
   📁 devforgeai/specs/Epics/{EPIC-ID}.epic.md
   [If requirements created]
-  📁 .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+  📁 devforgeai/specs/requirements/{EPIC-ID}-requirements.md
 
 ### Phase 4: Next Steps Guidance (10 lines)
 
@@ -307,7 +307,7 @@ Next Steps:
    - AskUserQuestion: Create detailed requirements spec?
    - If yes: Invoke requirements-analyst subagent
    - Generate comprehensive requirements document
-   - Write to .devforgeai/specs/requirements/{EPIC-ID}-requirements.md
+   - Write to devforgeai/specs/requirements/{EPIC-ID}-requirements.md
    - Update epic file with requirements link
 
 7. **Phase 7: Completion Summary**

@@ -303,7 +303,7 @@ These are test-based scenarios that will be validated/enhanced by pilot phase.
 
 **Check:**
 ```
-Glob: .devforgeai/adrs/ADR-001*
+Glob: devforgeai/adrs/ADR-001*
 Result: FOUND
 ```
 

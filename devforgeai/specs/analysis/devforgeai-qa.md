@@ -1002,7 +1002,7 @@ Expected:
 7. Formatted display returned
 
 Output:
-- QA report in .devforgeai/qa/reports/
+- QA report in devforgeai/qa/reports/
 - Story status: "QA Approved" or "QA Failed"
 - Formatted display (from qa-result-interpreter)
 ```

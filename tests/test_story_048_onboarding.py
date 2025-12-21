@@ -18,7 +18,7 @@ class TestOnboardingTrainingLog:
     @pytest.fixture
     def training_log_path(self):
         """Return path to team training log"""
-        return Path(".devforgeai/onboarding/team-training-log.md")
+        return Path("devforgeai/onboarding/team-training-log.md")
 
     @pytest.fixture
     def training_log_content(self, training_log_path):
@@ -30,7 +30,7 @@ class TestOnboardingTrainingLog:
     # AC-7 Tests
 
     def test_training_log_file_exists(self, training_log_path):
-        """Test: Training log created at .devforgeai/onboarding/team-training-log.md"""
+        """Test: Training log created at devforgeai/onboarding/team-training-log.md"""
         # Assert
         assert training_log_path.exists(), \
             f"Training log must exist at {training_log_path}"
@@ -128,7 +128,7 @@ class TestTrainingLogCompletion:
     @pytest.fixture
     def training_log_content(self):
         """Load training log content"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()
@@ -158,20 +158,20 @@ class TestOnboardingDocumentation:
     @pytest.fixture
     def onboarding_dir(self):
         """Return onboarding directory"""
-        return Path(".devforgeai/onboarding")
+        return Path("devforgeai/onboarding")
 
     def test_onboarding_directory_exists(self, onboarding_dir):
-        """Test: .devforgeai/onboarding/ directory exists"""
+        """Test: devforgeai/onboarding/ directory exists"""
         # Assert
         assert onboarding_dir.exists() and onboarding_dir.is_dir(), \
-            ".devforgeai/onboarding/ directory should exist"
+            "devforgeai/onboarding/ directory should exist"
 
     def test_training_log_in_onboarding_dir(self, onboarding_dir):
         """Test: Training log file in onboarding directory"""
         # Assert
         training_log = onboarding_dir / "team-training-log.md"
         assert training_log.exists(), \
-            "team-training-log.md should be in .devforgeai/onboarding/"
+            "team-training-log.md should be in devforgeai/onboarding/"
 
 
 class TestTrainingSessionDocumentation:
@@ -180,7 +180,7 @@ class TestTrainingSessionDocumentation:
     @pytest.fixture
     def training_log_content(self):
         """Load training log content"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()
@@ -223,7 +223,7 @@ class TestTrainingCompletionMetrics:
     @pytest.fixture
     def training_log_content(self):
         """Load training log content"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()
@@ -247,7 +247,7 @@ class TestTrainingIntegration:
     @pytest.fixture
     def training_log_content(self):
         """Load training log content"""
-        log_path = Path(".devforgeai/onboarding/team-training-log.md")
+        log_path = Path("devforgeai/onboarding/team-training-log.md")
         if not log_path.exists():
             pytest.skip("Training log not found")
         return log_path.read_text()

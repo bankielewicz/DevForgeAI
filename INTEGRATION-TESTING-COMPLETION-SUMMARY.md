@@ -132,7 +132,7 @@ Tests:
 
 Tests:
 1. ✓ `test_log_creation_falls_back_to_tmpdir_if_permission_denied`
-   - Verifies: Fallback to TMPDIR when .devforgeai not writable
+   - Verifies: Fallback to TMPDIR when devforgeai not writable
    - Status: PASS
 
 **Coverage:** 100% (1/1 tests passed)
@@ -356,10 +356,10 @@ All cross-component data flows verified with 8 consistency checks:
 - Test: `test_interactive_mode_produces_console_summary_plus_log`
 
 ### AC#2: Log File with ISO 8601 Timestamps
-**Requirement:** Create .devforgeai/install.log with ISO 8601 UTC timestamps
+**Requirement:** Create devforgeai/install.log with ISO 8601 UTC timestamps
 
 ✓ **VERIFIED**
-- Log location: {target}/.devforgeai/install.log
+- Log location: {target}/devforgeai/install.log
 - Timestamp format: YYYY-MM-DDTHH:MM:SS
 - Encoding: UTF-8 with LF line endings
 - Test: `test_log_file_always_created_all_modes`
@@ -377,7 +377,7 @@ All cross-component data flows verified with 8 consistency checks:
 **Requirement:** Create .install-manifest.json with checksums
 
 ✓ **VERIFIED**
-- Manifest location: {target}/.devforgeai/.install-manifest.json
+- Manifest location: {target}/devforgeai/.install-manifest.json
 - Files with: path, checksum, size_bytes, category
 - Atomic writes (temp + rename)
 - Test: `test_checksums_are_64_char_hex`
@@ -417,7 +417,7 @@ All cross-component data flows verified with 8 consistency checks:
 - Created in interactive mode
 - Created in JSON mode
 - Created in quiet mode
-- Location: {target}/.devforgeai/install.log
+- Location: {target}/devforgeai/install.log
 - Test: `test_log_file_always_created_all_modes`
 
 ### BR-002: Manifest Always Created on Success

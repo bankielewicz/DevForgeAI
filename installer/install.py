@@ -74,7 +74,7 @@ def _update_version_file(devforgeai_path: Path, source_version: str, source_vers
     Update version.json with current installation data.
 
     Args:
-        devforgeai_path: Path to .devforgeai directory
+        devforgeai_path: Path to devforgeai directory
         source_version: Version string being installed
         source_version_data: Version data dict from source
         mode: Installation mode (fresh_install, upgrade, etc.)
@@ -125,7 +125,7 @@ def _handle_uninstall_mode(target_root: Path, devforgeai_path: Path, result: dic
 
     Args:
         target_root: Root path of target project
-        devforgeai_path: Path to .devforgeai directory
+        devforgeai_path: Path to devforgeai directory
         result: Result dict to update
 
     Returns:
@@ -207,8 +207,8 @@ def _remove_framework_files(target_root: Path, result: dict) -> None:
         shutil.rmtree(target_root / ".claude")
         result["messages"].append("Removed .claude/")
 
-    # Remove .devforgeai subdirs except context, .backups, config
-    devforgeai_dir = target_root / ".devforgeai"
+    # Remove devforgeai subdirs except context, .backups, config
+    devforgeai_dir = target_root / "devforgeai"
     if devforgeai_dir.exists():
         for subdir in devforgeai_dir.iterdir():
             if subdir.name not in {"context", ".backups", "config"}:
@@ -281,7 +281,7 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
 
         # Remove directories that shouldn't exist after rollback
         # devforgeai/ and .claude/ should be completely restored from backup
-        devforgeai_target = target_root / ".devforgeai"
+        devforgeai_target = target_root / "devforgeai"
         claude_target = target_root / ".claude"
 
         # Delete and restore .claude/ to ensure complete cleanup
@@ -290,9 +290,9 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
             shutil.copytree(backup_path / ".claude", claude_target, symlinks=False)
 
         # Delete and restore devforgeai/ to ensure complete cleanup
-        if (backup_path / ".devforgeai").exists() and devforgeai_target.exists():
+        if (backup_path / "devforgeai").exists() and devforgeai_target.exists():
             shutil.rmtree(devforgeai_target)
-            shutil.copytree(backup_path / ".devforgeai", devforgeai_target, symlinks=False)
+            shutil.copytree(backup_path / "devforgeai", devforgeai_target, symlinks=False)
 
         result["messages"].append(
             f"Rolled back to version {backup_to_restore.get('to_version', 'unknown')} "
@@ -317,7 +317,7 @@ def _handle_rollback_mode(target_root: Path, result: dict) -> dict:
 
         # Step 5: Update version metadata (reverted from backup)
         # Version.json should already be restored from backup by rollback_service
-        devforgeai_path = target_root / ".devforgeai"
+        devforgeai_path = target_root / "devforgeai"
         current_version_data = ver_module.get_installed_version(devforgeai_path)
         if current_version_data:
             reverted_version = current_version_data.get("version", "unknown")
@@ -352,7 +352,7 @@ def _detect_installation_mode(
     Returns:
         str: Installation mode
     """
-    devforgeai_path = target_root / ".devforgeai"
+    devforgeai_path = target_root / "devforgeai"
     installed_data = ver_module.get_installed_version(devforgeai_path)
 
     if installed_data is None:
@@ -422,8 +422,8 @@ def install(
             target_root.mkdir(parents=True, exist_ok=True)
             result["messages"].append(f"Created project directory: {target_root}")
 
-        # Ensure .devforgeai directory exists
-        devforgeai_path = target_root / ".devforgeai"
+        # Ensure devforgeai directory exists
+        devforgeai_path = target_root / "devforgeai"
         devforgeai_path.mkdir(parents=True, exist_ok=True)
 
         # Handle "validate" mode (no modifications, no source needed)

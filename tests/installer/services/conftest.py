@@ -42,14 +42,14 @@ def existing_installation_dir(temp_dir: Path) -> Path:
     Create directory with existing DevForgeAI installation structure.
 
     Contains:
-    - .devforgeai/.version.json file
+    - devforgeai/.version.json file
     - .claude/skills/ directory
     - devforgeai/context/ directory
     """
     import json
 
-    # Create .devforgeai structure
-    devforgeai_dir = temp_dir / ".devforgeai"
+    # Create devforgeai structure
+    devforgeai_dir = temp_dir / "devforgeai"
     devforgeai_dir.mkdir()
 
     version_file = devforgeai_dir / ".version.json"

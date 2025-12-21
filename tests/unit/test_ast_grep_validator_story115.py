@@ -14,7 +14,7 @@ from typing import Optional
 import tempfile
 
 # Imports will work because conftest.py adds src/ to sys.path
-from claude.scripts.devforgeai_cli.validators.ast_grep_validator import (
+from claude.scriptsdevforgeai_cli.validators.ast_grep_validator import (
     parse_version,
     detect_headless_mode,
     AstGrepValidator,
