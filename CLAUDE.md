@@ -36,6 +36,7 @@ Before file operations, verify CWD is project root:
 Spec-driven development with zero technical debt. Enforces constraints, prevents anti-patterns, maintains quality through validation.
 
 **Core:** Immutable context files → TDD workflow → Quality gates
+**Constitution** documents in {project-root}/claude/memory/Constitution/.  Reading these files will reduce QA fix cycles.
 
 ---
 

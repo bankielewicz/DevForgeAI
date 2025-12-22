@@ -3,8 +3,13 @@
 # Test Suite: Injection Scenario Coverage
 # Purpose: Comprehensive security testing of all injection vectors
 # Severity: CRITICAL - Command injection vulnerability from QA gap
+# Reference: anti-patterns.md Category 10 - No hardcoded paths
 
 set -euo pipefail
+
+# Directory setup (anti-patterns.md Cat 10: Use relative paths)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -14,6 +19,11 @@ NC='\033[0m'
 TESTS_PASSED=0
 TESTS_FAILED=0
 
+# Function: test_injection
+# Purpose: Tests an injection payload against ^STORY-[0-9]+$ validation
+# Args: $1=test_num, $2=injection_vector, $3=description, $4=expected_to_block
+# Returns: None (updates TESTS_PASSED/TESTS_FAILED counters)
+# Security: Validates OWASP A03:2021 injection prevention
 test_injection() {
     local test_num="$1"
     local injection_vector="$2"
@@ -27,18 +37,18 @@ test_injection() {
     # Validation function (should block injection)
     if [[ ! "$injection_vector" =~ ^STORY-[0-9]+$ ]]; then
         if [ "$expected_to_block" = "true" ]; then
-            ((TESTS_PASSED++))
+            TESTS_PASSED=$((TESTS_PASSED + 1))
             echo -e "  ${GREEN}✓ PASS${NC}: Injection blocked as expected"
         else
-            ((TESTS_FAILED++))
+            TESTS_FAILED=$((TESTS_FAILED + 1))
             echo -e "  ${RED}✗ FAIL${NC}: Injection should have been allowed"
         fi
     else
         if [ "$expected_to_block" = "false" ]; then
-            ((TESTS_PASSED++))
+            TESTS_PASSED=$((TESTS_PASSED + 1))
             echo -e "  ${GREEN}✓ PASS${NC}: Valid input allowed as expected"
         else
-            ((TESTS_FAILED++))
+            TESTS_FAILED=$((TESTS_FAILED + 1))
             echo -e "  ${RED}✗ FAIL${NC}: Input should have been blocked"
         fi
     fi

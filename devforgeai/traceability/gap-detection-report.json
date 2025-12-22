@@ -1,10 +1,10 @@
 {
-  "timestamp": "2025-12-22T13:50:19Z",
-  "consistency_score": 19.8,
-  "story_count": 116,
-  "epic_entry_count": 23,
+  "timestamp": "2025-12-22T19:01:56Z",
+  "consistency_score": 24.2,
+  "story_count": 128,
+  "epic_entry_count": 31,
   "mismatch_count": 0,
-  "orphan_count": 93,
+  "orphan_count": 97,
   "mismatches": [],
   "orphaned_stories": [
     {
@@ -66,6 +66,16 @@
       "story_id": "STORY-075",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-013"
+    },
+    {
+      "story_id": "STORY-140",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-029"
+    },
+    {
+      "story_id": "STORY-141",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-029"
     },
     {
       "story_id": "STORY-114",
@@ -131,6 +141,16 @@
       "story_id": "STORY-059",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-011"
+    },
+    {
+      "story_id": "STORY-139",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-029"
+    },
+    {
+      "story_id": "STORY-136",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-029"
     },
     {
       "story_id": "STORY-065",
@@ -486,6 +506,8 @@
     "Add STORY-077 to EPIC-014 Stories table",
     "Add STORY-074 to EPIC-013 Stories table",
     "Add STORY-075 to EPIC-013 Stories table",
+    "Add STORY-140 to EPIC-029 Stories table",
+    "Add STORY-141 to EPIC-029 Stories table",
     "Add STORY-114 to EPIC-017 Stories table",
     "Add STORY-111 to EPIC-017 Stories table",
     "Add STORY-110 to EPIC-017 Stories table",
@@ -499,6 +521,8 @@
     "Add STORY-053 to EPIC-011 Stories table",
     "Add STORY-058 to EPIC-011 Stories table",
     "Add STORY-059 to EPIC-011 Stories table",
+    "Add STORY-139 to EPIC-029 Stories table",
+    "Add STORY-136 to EPIC-029 Stories table",
     "Add STORY-065 to EPIC-011 Stories table",
     "Add STORY-064 to EPIC-011 Stories table",
     "Add STORY-060 to EPIC-011 Stories table",

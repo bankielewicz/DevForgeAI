@@ -77,8 +77,8 @@ test_extract_story_id_from_path() {
     # Arrange: File path with story ID
     local file_path="devforgeai/specs/Stories/STORY-123-uncommitted-story-file-warning.story.md"
 
-    # Act: Extract STORY-123
-    local story_id=$(echo "$file_path" | sed 's|devforgeai/specs/Stories/||' | sed 's|-.*||')
+    # Act: Extract STORY-123 (extract STORY-NNN pattern)
+    local story_id=$(echo "$file_path" | grep -o 'STORY-[0-9]\+')
 
     # Assert: Should extract "STORY-123"
     if [ "$story_id" = "STORY-123" ]; then

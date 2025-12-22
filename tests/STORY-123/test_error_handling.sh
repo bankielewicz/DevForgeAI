@@ -3,8 +3,13 @@
 # Test Suite: Error Handling for Git Command Failures
 # Purpose: Verify graceful handling of all failure scenarios
 # Coverage: HIGH priority from QA gaps.json
+# Reference: anti-patterns.md Category 10 - No hardcoded paths
 
 set -euo pipefail
+
+# Directory setup (anti-patterns.md Cat 10: Use relative paths)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -14,6 +19,10 @@ NC='\033[0m'
 TESTS_PASSED=0
 TESTS_FAILED=0
 
+# Function: test_error_scenario
+# Purpose: Logs test scenario details with colored output
+# Args: $1=test_num, $2=scenario, $3=description, $4=expected_exit_code
+# Returns: None (output only)
 test_error_scenario() {
     local test_num="$1"
     local scenario="$2"
@@ -26,16 +35,20 @@ test_error_scenario() {
     echo "  Expected exit code: $expected_exit_code"
 }
 
+# Function: assert_exit_code
+# Purpose: Compares expected vs actual exit code, updates test counters
+# Args: $1=expected, $2=actual, $3=test_msg
+# Returns: None (updates TESTS_PASSED/TESTS_FAILED counters)
 assert_exit_code() {
     local expected="$1"
     local actual="$2"
     local test_msg="$3"
 
     if [ "$actual" -eq "$expected" ]; then
-        ((TESTS_PASSED++))
+        TESTS_PASSED=$((TESTS_PASSED + 1))
         echo -e "  ${GREEN}✓ PASS${NC}: $test_msg"
     else
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         echo -e "  ${RED}✗ FAIL${NC}: $test_msg"
         echo "    Expected: $expected, Got: $actual"
     fi
@@ -52,6 +65,10 @@ echo "  [ERROR CATEGORY] Invalid Input"
 test_error_scenario 1 "Empty story_id" \
     "Function should handle empty story_id gracefully" 1
 
+# Function: validate_story_id
+# Purpose: Validates story ID matches ^STORY-[0-9]+$ pattern
+# Args: $1=story_id to validate
+# Returns: 0 on valid, 1 on invalid (with error message to stderr)
 validate_story_id() {
     local story_id="$1"
     if [[ -z "${story_id}" ]]; then
@@ -98,27 +115,27 @@ test_error_scenario 4 "Not in git repository" \
 
 # Create a temporary non-git directory
 test_non_git_dir=$(mktemp -d)
-trap "rm -rf $test_non_git_dir" EXIT
+trap 'rm -rf "${test_non_git_dir}"' EXIT
 
 cd "$test_non_git_dir" 2>/dev/null || true
 
 # Test that git status fails appropriately
 if git status 2>/dev/null; then
-    ((TESTS_FAILED++))
+    TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "  ${RED}✗ FAIL${NC}: Non-git directory should cause git to fail"
 else
     git_exit_code=$?
     if [ $git_exit_code -eq 128 ]; then
-        ((TESTS_PASSED++))
+        TESTS_PASSED=$((TESTS_PASSED + 1))
         echo -e "  ${GREEN}✓ PASS${NC}: Git returns exit code 128 for non-repo"
     else
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         echo -e "  ${RED}✗ FAIL${NC}: Expected exit code 128, got $git_exit_code"
     fi
 fi
 
-# Return to project directory
-cd /mnt/c/Projects/DevForgeAI2
+# Return to project directory (anti-patterns.md Cat 10: Use PROJECT_ROOT)
+cd "${PROJECT_ROOT}"
 
 test_error_scenario 5 "Permission denied" \
     "Function should handle permission errors gracefully" 1
@@ -130,12 +147,12 @@ chmod 000 "$restricted_dir" 2>/dev/null || true
 
 if [ -d "$restricted_dir" ]; then
     if cd "$restricted_dir" 2>/dev/null; then
-        # If we could cd, it's not actually restricted
-        cd /mnt/c/Projects/DevForgeAI2
+        # If we could cd, it's not actually restricted (use PROJECT_ROOT per anti-patterns.md Cat 10)
+        cd "${PROJECT_ROOT}"
         echo -e "  ${YELLOW}⊘ SKIP${NC}: Could not create permission-denied scenario"
     else
         # Could not cd to restricted dir - good
-        ((TESTS_PASSED++))
+        TESTS_PASSED=$((TESTS_PASSED + 1))
         echo -e "  ${GREEN}✓ PASS${NC}: Permission denied handling works"
     fi
     rm -rf "$restricted_dir" 2>/dev/null || true
@@ -152,10 +169,10 @@ test_error_scenario 6 "Error message clarity" \
 
 error_msg=$(validate_story_id "" 2>&1 || true)
 if echo "$error_msg" | grep -q "cannot be empty"; then
-    ((TESTS_PASSED++))
+    TESTS_PASSED=$((TESTS_PASSED + 1))
     echo -e "  ${GREEN}✓ PASS${NC}: Error message is clear (mentions 'empty')"
 else
-    ((TESTS_FAILED++))
+    TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "  ${RED}✗ FAIL${NC}: Error message lacks clarity"
 fi
 
@@ -164,10 +181,10 @@ test_error_scenario 7 "Error message includes context" \
 
 error_msg=$(validate_story_id "bad-format" 2>&1 || true)
 if echo "$error_msg" | grep -iE "(STORY|format|expected)"; then
-    ((TESTS_PASSED++))
+    TESTS_PASSED=$((TESTS_PASSED + 1))
     echo -e "  ${GREEN}✓ PASS${NC}: Error message provides context"
 else
-    ((TESTS_FAILED++))
+    TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "  ${RED}✗ FAIL${NC}: Error message lacks context"
 fi
 
@@ -180,7 +197,7 @@ test_error_scenario 8 "Null/nil handling" \
 
 # Test with unset variable
 if validate_story_id "${UNDEFINED_VAR:-}" 2>/dev/null; then
-    ((TESTS_FAILED++))
+    TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "  ${RED}✗ FAIL${NC}: Null value should be rejected"
 else
     assert_exit_code 1 $? "Null value handling"
@@ -215,7 +232,7 @@ test_error_scenario 11 "File not found" \
 if git status -- "NONEXISTENT.story.md" 2>/dev/null; then
     echo -e "  ${YELLOW}⊘ INFO${NC}: File doesn't exist but git didn't error"
 else
-    ((TESTS_PASSED++))
+    TESTS_PASSED=$((TESTS_PASSED + 1))
     echo -e "  ${GREEN}✓ PASS${NC}: Git safely handles non-existent files"
 fi
 
@@ -224,10 +241,10 @@ test_error_scenario 12 "File permission denied" \
 
 if [ -f "/etc/shadow" ] && ! [ -r "/etc/shadow" ]; then
     if git status -- "/etc/shadow" 2>/dev/null; then
-        ((TESTS_FAILED++))
+        TESTS_FAILED=$((TESTS_FAILED + 1))
         echo -e "  ${RED}✗ FAIL${NC}: Should not access restricted files"
     else
-        ((TESTS_PASSED++))
+        TESTS_PASSED=$((TESTS_PASSED + 1))
         echo -e "  ${GREEN}✓ PASS${NC}: Access to restricted files blocked"
     fi
 else
@@ -251,10 +268,10 @@ validate_story_id "invalid" 2>/dev/null || true
 final_state=$(pwd)
 
 if [ "$initial_state" = "$final_state" ]; then
-    ((TESTS_PASSED++))
+    TESTS_PASSED=$((TESTS_PASSED + 1))
     echo -e "  ${GREEN}✓ PASS${NC}: No side effects after error"
 else
-    ((TESTS_FAILED++))
+    TESTS_FAILED=$((TESTS_FAILED + 1))
     echo -e "  ${RED}✗ FAIL${NC}: State changed after error"
 fi
 

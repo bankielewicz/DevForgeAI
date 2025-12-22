@@ -1,0 +1,305 @@
+---
+id: STORY-147
+title: Keep Separate Tech Recommendation Files with Smart Referencing
+epic: EPIC-030
+sprint: Backlog
+status: Backlog
+points: 3
+depends_on: []
+priority: High
+assigned_to: TBD
+created: 2025-12-22
+format_version: "2.3"
+---
+
+# Story: Keep Separate Tech Recommendation Files with Smart Referencing
+
+## Description
+
+**As a** developer in Phase 3 (Complexity Assessment),
+**I want** detailed tech recommendations for my complexity tier from the authoritative source,
+**so that** I receive accurate recommendations without duplicated content across multiple files.
+
+## Acceptance Criteria
+
+### AC#1: complexity-assessment-matrix.md remains authoritative source
+
+**Given** complexity-assessment-matrix.md contains full technology recommendations per tier,
+**When** developers need detailed tech recommendations,
+**Then** this file is the single source of truth with:
+- Tier 1 (Simple) recommendations
+- Tier 2 (Moderate) recommendations
+- Tier 3 (Complex) recommendations
+- Tier 4 (Enterprise) recommendations
+
+---
+
+### AC#2: output-templates.md uses cross-references
+
+**Given** output-templates.md previously duplicated tech recommendations,
+**When** the file is updated with smart referencing,
+**Then** it contains:
+- Brief summary of recommendations (not full details)
+- Cross-reference: "For full details, see: complexity-assessment-matrix.md Section [Tier N]"
+- No duplicated technology lists
+
+---
+
+### AC#3: completion-handoff.md uses cross-references
+
+**Given** completion-handoff.md previously duplicated tech recommendations,
+**When** the file is updated with smart referencing,
+**Then** it contains:
+- Recommended next steps referencing the matrix
+- Format: "Review technology recommendations in complexity-assessment-matrix.md (Tier {N})"
+- No duplicated technology lists
+
+---
+
+### AC#4: Zero duplication between files
+
+**Given** tech recommendations exist in three files,
+**When** duplication check is performed,
+**Then**:
+- complexity-assessment-matrix.md contains full recommendations (authoritative)
+- output-templates.md contains only brief summary + reference
+- completion-handoff.md contains only next steps + reference
+- No copy-pasted technology lists in output-templates.md or completion-handoff.md
+
+---
+
+### AC#5: Cross-references use consistent format
+
+**Given** multiple files reference complexity-assessment-matrix.md,
+**When** cross-references are reviewed,
+**Then** all references use format:
+```markdown
+For full details, see: [complexity-assessment-matrix.md](complexity-assessment-matrix.md) (Tier N)
+```
+
+---
+
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  reference_files:
+    skill_definition: ".claude/skills/devforgeai-ideation/SKILL.md"
+    authoritative_source: ".claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md"
+    files_with_duplication:
+      - ".claude/skills/devforgeai-ideation/references/output-templates.md"
+      - ".claude/skills/devforgeai-ideation/references/completion-handoff.md"
+
+  components:
+    - type: "Configuration"
+      name: "complexity-assessment-matrix.md"
+      file_path: ".claude/skills/devforgeai-ideation/references/complexity-assessment-matrix.md"
+      requirements:
+        - id: "CFG-001"
+          description: "Maintain as authoritative source for tech recommendations per tier"
+          testable: true
+          test_requirement: "Test: File contains complete tech recommendations for all 4 tiers"
+          priority: "Critical"
+        - id: "CFG-002"
+          description: "Section headers match tier references (Tier 1, Tier 2, Tier 3, Tier 4)"
+          testable: true
+          test_requirement: "Test: Grep for '## Tier [1-4]' returns 4 matches"
+          priority: "High"
+
+    - type: "Configuration"
+      name: "output-templates.md"
+      file_path: ".claude/skills/devforgeai-ideation/references/output-templates.md"
+      requirements:
+        - id: "CFG-003"
+          description: "Remove duplicated tech recommendation lists"
+          testable: true
+          test_requirement: "Test: No copy-pasted tech lists remain"
+          priority: "Critical"
+        - id: "CFG-004"
+          description: "Add cross-reference to complexity-assessment-matrix.md"
+          testable: true
+          test_requirement: "Test: File contains reference link to matrix"
+          priority: "Critical"
+
+    - type: "Configuration"
+      name: "completion-handoff.md"
+      file_path: ".claude/skills/devforgeai-ideation/references/completion-handoff.md"
+      requirements:
+        - id: "CFG-005"
+          description: "Remove duplicated tech recommendation lists"
+          testable: true
+          test_requirement: "Test: No copy-pasted tech lists remain"
+          priority: "Critical"
+        - id: "CFG-006"
+          description: "Add cross-reference to complexity-assessment-matrix.md"
+          testable: true
+          test_requirement: "Test: File contains reference link to matrix"
+          priority: "Critical"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "complexity-assessment-matrix.md is single source of truth for tech recommendations"
+      test_requirement: "Test: Matrix contains complete recommendations; others reference it"
+
+    - id: "BR-002"
+      rule: "DRY principle: No duplicated technology lists across files"
+      test_requirement: "Test: Grep for specific tech lists finds them only in matrix"
+
+    - id: "BR-003"
+      rule: "Cross-references use relative Markdown links"
+      test_requirement: "Test: Links use format [text](filename.md)"
+
+  non_functional_requirements:
+    - id: "NFR-001"
+      category: "Maintainability"
+      requirement: "Single source of truth reduces update burden"
+      metric: "Tech recommendations updated in 1 file instead of 3"
+      test_requirement: "Test: Only matrix needs updates when tech stack changes"
+
+    - id: "NFR-002"
+      category: "Reliability"
+      requirement: "Consistent recommendations across phases"
+      metric: "Zero drift between files (references always point to matrix)"
+      test_requirement: "Test: Cross-references resolve correctly"
+```
+
+## Technical Limitations
+
+```yaml
+technical_limitations: []
+# No technical limitations identified for this story
+```
+
+## Edge Cases
+
+1. **Matrix section restructured:** If complexity-assessment-matrix.md sections change, cross-references should use section titles not line numbers for stability.
+
+2. **New tier added (Tier 5):** Adding new tiers to matrix requires updating cross-references in other files to mention new tier.
+
+3. **Brief summary becomes outdated:** output-templates.md brief summary should be generic enough to remain valid when matrix details change.
+
+4. **Broken relative links:** If files move to different directories, relative links break. Use consistent directory structure.
+
+## Data Validation Rules
+
+1. **Cross-reference format:**
+   ```markdown
+   For full details, see: [complexity-assessment-matrix.md](complexity-assessment-matrix.md) (Tier N)
+   ```
+
+2. **Brief summary content:** output-templates.md summary should be 2-3 sentences max, not duplicated tech list.
+
+3. **Tier reference format:** Use "(Tier 1)", "(Tier 2)", "(Tier 3)", "(Tier 4)" consistently.
+
+4. **Link validation:** All relative links must resolve to existing files.
+
+## Non-Functional Requirements
+
+### Maintainability
+- Single source of truth: Matrix is only file with detailed tech recommendations
+- Updates to tech stack require editing 1 file instead of 3
+- Cross-references reduce maintenance burden
+
+### Consistency
+- All three files present consistent information
+- No conflicting recommendations between files
+- References always point to current matrix content
+
+### Token Efficiency
+- output-templates.md and completion-handoff.md are smaller (no duplicated content)
+- Users load matrix only when detailed recommendations needed
+
+## UI Specification
+
+N/A - This story modifies reference documentation. No user interface changes required.
+
+## Definition of Done
+
+### Implementation
+- [ ] complexity-assessment-matrix.md verified as complete authoritative source
+- [ ] output-templates.md: Duplicated tech lists removed
+- [ ] output-templates.md: Cross-reference to matrix added
+- [ ] completion-handoff.md: Duplicated tech lists removed
+- [ ] completion-handoff.md: Cross-reference to matrix added
+
+### Quality
+- [ ] Zero duplicated tech lists in output-templates.md
+- [ ] Zero duplicated tech lists in completion-handoff.md
+- [ ] All cross-references use consistent format
+- [ ] All relative links resolve correctly
+
+### Testing
+- [ ] Manual test: Follow cross-references, verify they link to correct matrix sections
+- [ ] Grep validation: Tech-specific terms only appear in matrix, not in other files
+- [ ] Link validation: All markdown links resolve
+
+### Documentation
+- [ ] Story file updated with implementation notes
+
+## Implementation Notes
+
+*To be filled during development*
+
+### Current State Analysis (To Be Completed)
+
+**complexity-assessment-matrix.md:**
+- Line count: ___
+- Contains Tier 1-4 recommendations: [ ] Yes / [ ] No
+
+**output-templates.md:**
+- Line count: ___
+- Contains duplicated tech lists: [ ] Yes / [ ] No
+- Lines to remove: ___
+
+**completion-handoff.md:**
+- Line count: ___
+- Contains duplicated tech lists: [ ] Yes / [ ] No
+- Lines to remove: ___
+
+### Cross-Reference Template
+
+```markdown
+**Technology Recommendations:**
+Based on complexity assessment, see tier-specific recommendations.
+For full details, see: [complexity-assessment-matrix.md](complexity-assessment-matrix.md) (Tier {N})
+```
+
+## Workflow Status
+
+- [ ] Architecture phase complete
+- [ ] Development phase complete
+- [ ] QA phase complete
+- [ ] Released
+
+## Acceptance Criteria Verification Checklist
+
+### AC#1: complexity-assessment-matrix.md remains authoritative source
+- [ ] File contains Tier 1 recommendations
+- [ ] File contains Tier 2 recommendations
+- [ ] File contains Tier 3 recommendations
+- [ ] File contains Tier 4 recommendations
+- [ ] No content removed from matrix
+
+### AC#2: output-templates.md uses cross-references
+- [ ] Duplicated tech lists removed
+- [ ] Brief summary retained
+- [ ] Cross-reference to matrix added
+- [ ] Format: "For full details, see: [matrix](matrix.md) (Tier N)"
+
+### AC#3: completion-handoff.md uses cross-references
+- [ ] Duplicated tech lists removed
+- [ ] Next steps reference matrix
+- [ ] Cross-reference to matrix added
+- [ ] Format consistent with AC#2
+
+### AC#4: Zero duplication between files
+- [ ] Grep for specific tech terms finds only in matrix
+- [ ] output-templates.md has no copy-pasted lists
+- [ ] completion-handoff.md has no copy-pasted lists
+
+### AC#5: Cross-references use consistent format
+- [ ] All references use markdown link format
+- [ ] Tier numbers included in references
+- [ ] Links resolve correctly
