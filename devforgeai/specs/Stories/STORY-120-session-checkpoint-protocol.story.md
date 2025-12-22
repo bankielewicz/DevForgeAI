@@ -3,7 +3,7 @@ id: STORY-120
 title: Session Checkpoint Protocol
 epic: EPIC-024
 sprint: Sprint-8
-status: Dev Complete
+status: QA Approved ✅
 points: 8
 depends_on: []
 priority: Critical
@@ -308,6 +308,20 @@ technical_specification:
 2. **Atomic Writes:** Write to .tmp file, then rename (prevents corruption)
 3. **Graceful Fallback:** Missing/corrupted checkpoint → DoD analysis
 4. **Auto-Cleanup:** Checkpoint deleted when story reaches Released status
+
+## QA Validation History
+
+**Deep QA Validation - 2025-12-22 02:29:52 UTC**
+- Result: **PASSED ✅**
+- Coverage: 83% (infrastructure layer, threshold 80%)
+- Tests: 22/22 passing (100%)
+- Traceability: 100% (5/5 AC mapped)
+- Anti-Patterns: 0 violations
+- Security: PASS + 1 minor (newline regex)
+- Recommendation: **APPROVED FOR RELEASE**
+- Report: `devforgeai/qa/reports/STORY-120-qa-report.md`
+
+---
 
 ## Definition of Done
 
