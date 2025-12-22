@@ -250,6 +250,11 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 02 (or Remediation Mode if QA gaps detected)..."
 
+  **Session Checkpoint (Phase 0):**
+  ```
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 0, {\"next_action\": \"Phase 02: Test-First Design\"}) and print(\"✓ Checkpoint: Phase 0 (10%)\")'")
+  ```
+
   Proceed to next phase
 
 **Purpose:** Prevents skipping git validation, context file loading, and tech stack detection (RCA: STORY-080 skipped Phase 01 completely)
@@ -345,6 +350,11 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 03..."
 
+  **Session Checkpoint (Phase 1):**
+  ```
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 1, {\"next_action\": \"Phase 03: Implementation\"}) and print(\"✓ Checkpoint: Phase 1 (20%)\")'")
+  ```
+
   Proceed to Phase 03
 
 **Purpose:** Ensures tests are generated before implementation begins (TDD Red phase complete)
@@ -419,6 +429,9 @@ IF all checkboxes CHECKED:
   "  ✓ AC Checklist updated"
   ""
   Display: "Proceeding to Phase 06..."
+
+  **Session Checkpoint (Phase 4):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 4, {\"next_action\": \"Phase 06: Deferral Challenge\"}) and print(\"✓ Checkpoint: Phase 4 (50%)\")'")
 
   Proceed to Phase 06
 
@@ -498,6 +511,9 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 07..."
 
+  **Session Checkpoint (Phase 5):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 5, {\"next_action\": \"Phase 07: DoD Update\"}) and print(\"✓ Checkpoint: Phase 5 (56%)\")'")
+
   Proceed to Bridge
 
 **Purpose:** Ensures deferrals have EXPLICIT user approval (not autonomous) before DoD update. Step c.1. is defense-in-depth against auto-approval.
@@ -510,6 +526,37 @@ Update DoD format for git commit → Validate format → Prepare for Phase 08
 **Purpose:** Ensure DoD items formatted correctly (flat list in Implementation Notes, no ### subsections)
 **CRITICAL:** Execute AFTER Phase 06, BEFORE Phase 08 - git commit will FAIL if skipped
 **Note (RCA-014):** Phase 06-R removed - resumption now happens immediately in Phase 06 Step 7
+
+**Pre-Check: Implementation Notes Section [MANDATORY]**
+
+Before executing DoD update workflow, verify story has Implementation Notes section:
+
+```
+Grep(pattern="^## Implementation Notes", path="${STORY_FILE}")
+
+IF NOT found:
+    Display: "❌ Story file missing ## Implementation Notes section"
+    Display: ""
+    Display: "Required section structure:"
+    Display: "  ## Implementation Notes"
+    Display: "  **Developer:** [name]"
+    Display: "  **Implemented:** [date]"
+    Display: "  - [x] DoD items... (flat list, no ### subsections)"
+    Display: "  ### TDD Workflow Summary (optional)"
+    Display: "  ### Files Created/Modified (optional)"
+    Display: "  ### Test Results (optional)"
+    Display: ""
+    Display: "Adding Implementation Notes section..."
+
+    # Auto-create section before Workflow Status
+    Edit(
+        file_path="${STORY_FILE}",
+        old_string="## Workflow Status",
+        new_string="## Implementation Notes\n\n**Developer:** DevForgeAI AI Agent\n**Implemented:** {current_date}\n\n## Workflow Status"
+    )
+
+    Display: "✓ Implementation Notes section created"
+```
 
 ---
 
@@ -553,6 +600,9 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 08 (Git Commit)..."
 
+  **Session Checkpoint (Phase 6):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 6, {\"next_action\": \"Phase 08: Git Workflow\"}) and print(\"✓ Checkpoint: Phase 6 (67%)\")'")
+
   Proceed to Phase 08
 
 **Purpose:** Prevents git commit without proper DoD documentation (RCA: STORY-080 skipped Bridge)
@@ -586,6 +636,7 @@ CHECK CONVERSATION HISTORY FOR EVIDENCE:
 - [ ] AC Checklist (deployment items) updated? ✓ MANDATORY
       Search for: Edit with AC Checklist deployment items marked [x]
       Found? YES → Check box | NO → Leave unchecked
+      **See `references/dod-update-workflow.md` for comprehensive knowledge of the DOD workflow.**
 
 IF any checkbox UNCHECKED:
   Display:
@@ -608,6 +659,9 @@ IF all checkboxes CHECKED:
   "  ✓ AC Checklist updated"
   ""
   Display: "Proceeding to Phase 09..."
+
+  **Session Checkpoint (Phase 7):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 7, {\"next_action\": \"Phase 09: Feedback Hook\"}) and print(\"✓ Checkpoint: Phase 7 (78%)\")'")
 
   Proceed to Phase 09
 
@@ -991,6 +1045,9 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 04..."
 
+  **Session Checkpoint (Phase 2):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 2, {\"next_action\": \"Phase 04: Refactoring\"}) and print(\"✓ Checkpoint: Phase 2 (30%)\")'")
+
   Proceed to Phase 04
 ```
 
@@ -1077,6 +1134,9 @@ IF all checkboxes CHECKED:
   "  ✓ Light QA executed"
   ""
   Display: "Proceeding to Phase 05..."
+
+  **Session Checkpoint (Phase 3):**
+  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 3, {\"next_action\": \"Phase 05: Integration Testing\"}) and print(\"✓ Checkpoint: Phase 3 (40%)\")'")
 
   Proceed to Phase 05
 ```

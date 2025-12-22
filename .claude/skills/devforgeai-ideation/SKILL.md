@@ -92,7 +92,50 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 1: Discovery & Problem Understanding
 **Reference:** `discovery-workflow.md` | **Questions:** 5-10 | **Output:** Problem statement, user personas, scope boundaries
 
-**Step 0 - Load User Input Patterns (Error-Tolerant):**
+**Step 0 - Brainstorm Handoff Detection:**
+
+Before proceeding with discovery, check if brainstorm context is available:
+
+```
+IF $BRAINSTORM_CONTEXT is provided (from /ideate command Phase 0):
+  # Load brainstorm handoff reference
+  Read(file_path=".claude/skills/devforgeai-ideation/references/brainstorm-handoff-workflow.md")
+
+  # Pre-populate session from brainstorm
+  session.problem_statement = $BRAINSTORM_CONTEXT.problem_statement
+  session.user_personas = $BRAINSTORM_CONTEXT.user_personas
+  session.constraints = $BRAINSTORM_CONTEXT.hard_constraints
+  session.must_have_requirements = $BRAINSTORM_CONTEXT.must_have_capabilities
+
+  # Display pre-population summary
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    Continuing from Brainstorm: {$BRAINSTORM_CONTEXT.brainstorm_id}
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Pre-populated:
+    ✓ Problem: {problem_statement}
+    ✓ Users: {len(user_personas)} persona(s)
+    ✓ Constraints: {len(constraints)} identified
+    ✓ Must-haves: {len(must_have_requirements)} capabilities
+
+  Confidence: {$BRAINSTORM_CONTEXT.confidence_level}"
+
+  IF $BRAINSTORM_CONTEXT.confidence_level == "HIGH":
+    # Skip Phase 1 discovery, proceed to Phase 2
+    Display: "→ Skipping discovery (HIGH confidence from brainstorm)"
+    GOTO Phase 2
+  ELSE:
+    # Shortened Phase 1 - validate only
+    session.skip_discovery = true
+    # Continue to Step 0.5 with validation-only questions
+
+ELSE:
+  # No brainstorm context - full discovery
+  session.skip_discovery = false
+```
+
+**Step 0.5 - Load User Input Patterns (Error-Tolerant):**
 
 Before proceeding with discovery questions, attempt to load guidance patterns:
 
@@ -107,9 +150,17 @@ If load fails: Continue with standard discovery questions (no halt)
 - Explicit Classification (persona types, user roles)
 - Comparative Ranking (feature priorities, 1-5 scale)
 
-**Selective Loading Strategy:** Full file loads in Step 0 (~40% used in Phase 1, remainder for Phases 2-6). Reduces Phase 1 token overhead to acceptable levels.
+**Selective Loading Strategy:** Full file loads in Step 0.5 (~40% used in Phase 1, remainder for Phases 2-6). Reduces Phase 1 token overhead to acceptable levels.
 
-Determine project type (greenfield/brownfield), analyze existing system, explore problem space, define scope.
+**Step 1 - Discovery Execution:**
+
+IF session.skip_discovery (from brainstorm):
+  # Validate only - ask 1-3 confirmation questions
+  AskUserQuestion: "Is the problem statement still accurate?"
+  AskUserQuestion: "Any personas to add?"
+ELSE:
+  # Full discovery
+  Determine project type (greenfield/brownfield), analyze existing system, explore problem space, define scope.
 
 **Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/discovery-workflow.md")`
 

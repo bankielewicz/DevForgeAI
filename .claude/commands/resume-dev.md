@@ -172,9 +172,68 @@ Display: "✓ Spec validated against context files"
 
 ---
 
+### Step 1.0: Session Checkpoint Detection (AC#3 - STORY-120)
+
+**Execute FIRST if RESUME_MODE == "auto" (before DoD analysis):**
+
+```
+IF RESUME_MODE == "auto":
+  # Check for session checkpoint file
+  checkpoint_path = "devforgeai/sessions/$STORY_ID/checkpoint.json"
+
+  Bash(command="python3 -c '
+from devforgeai_cli.session.checkpoint import read_checkpoint
+import json
+cp = read_checkpoint(\"$STORY_ID\")
+if cp:
+    print(f\"CHECKPOINT_FOUND|{cp[\"phase\"]}|{cp[\"phase_name\"]}|{cp[\"progress_percentage\"]}\")
+else:
+    print(\"NO_CHECKPOINT\")
+'")
+
+  IF output starts with "CHECKPOINT_FOUND":
+    # Parse checkpoint data
+    CHECKPOINT_PHASE = parsed[1]  # Last completed phase
+    PHASE_NAME = parsed[2]
+    PROGRESS = parsed[3]
+    PHASE_NUM = CHECKPOINT_PHASE + 1  # Resume from NEXT phase
+
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  ✓ SESSION CHECKPOINT DETECTED"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "  Last checkpoint: Phase {CHECKPOINT_PHASE} ({PHASE_NAME})"
+    Display: "  Progress: {PROGRESS}%"
+    Display: "  Resuming from: Phase {PHASE_NUM}"
+    Display: ""
+
+    # Skip DoD analysis - checkpoint provides exact resumption point
+    SKIP: "Step 1.1: Read DoD Section"
+    GOTO: "Phase 2: Set Resume Context Markers"
+
+  ELSE IF output contains "error" or "corrupt":
+    Display: "⚠ Checkpoint corrupted - falling back to DoD analysis"
+    Display: ""
+    Continue to Step 1.1 (DoD analysis)
+
+  ELSE:
+    # No checkpoint file - AC#5 graceful fallback
+    Display: "ℹ No session checkpoint found - analyzing DoD for resumption point"
+    Display: ""
+    Continue to Step 1.1 (DoD analysis)
+```
+
+**Why checkpoint-first:**
+- Checkpoints are precise (exact phase number from /dev execution)
+- DoD analysis is approximate (infers phase from incomplete items)
+- Checkpoint provides faster resumption (no DoD parsing needed)
+
+---
+
 ### Phase 2: Auto-Detect Resumption Point (If Applicable)
 
-**Execute if RESUME_MODE == "auto":**
+**Execute if RESUME_MODE == "auto" AND no checkpoint detected:**
 
 **Step 1.1: Read DoD Section**
 ```

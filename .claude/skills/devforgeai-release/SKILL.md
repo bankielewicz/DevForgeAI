@@ -236,6 +236,22 @@ Before proceeding to Phase 5, verify:
 **Setup:** Error tracking, performance monitoring, alerting rules
 **Output:** Monitoring configured, story closed
 
+### Phase 7: Session Checkpoint Cleanup (AC#4 - STORY-120)
+**Purpose:** Clean up session checkpoint after story reaches Released status
+**Trigger:** After story status = "Released"
+
+```
+Bash(command="python3 -c '
+from devforgeai_cli.session.checkpoint import delete_checkpoint
+if delete_checkpoint(\"$STORY_ID\"):
+    print(\"✓ Session checkpoint cleaned up\")
+else:
+    print(\"ℹ No checkpoint to clean up\")
+'")
+```
+
+**Rationale:** Checkpoints are only needed for resuming in-progress development. Once Released, checkpoint is no longer needed and should be cleaned up to prevent storage bloat.
+
 **See individual phase reference files for complete deployment workflows.**
 
 ---

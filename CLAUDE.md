@@ -80,7 +80,7 @@ Spec-driven development with zero technical debt. Enforces constraints, prevents
 ## Workflow
 
 ```
-IDEATION → ARCHITECTURE → STORY → DEV (TDD) → QA → RELEASE
+BRAINSTORM → IDEATION → ARCHITECTURE → STORY → DEV (TDD) → QA → RELEASE
 ```
 
 **States:** Backlog -> Architecture -> Ready -> In Dev -> Complete -> QA -> Approved -> Releasing -> Released
@@ -114,7 +114,7 @@ Enable 35-40% time reduction through parallel execution patterns.
 
 | Category | Commands |
 |----------|----------|
-| Planning | `/ideate`, `/create-context`, `/create-epic`, `/create-sprint` |
+| Planning | `/brainstorm`, `/ideate`, `/create-context`, `/create-epic`, `/create-sprint` |
 | Development | `/create-story`, `/create-ui`, `/dev` |
 | Validation | `/qa`, `/release`, `/orchestrate` |
 | Maintenance | `/audit-deferrals`, `/rca`, `/chat-search` |
