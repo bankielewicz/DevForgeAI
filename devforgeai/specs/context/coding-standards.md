@@ -130,4 +130,98 @@ multiSelect: false
 
 ---
 
-**REMEMBER**: Projects using DevForgeAI will have their own coding-standards.md with language-specific patterns (C#, Python, JavaScript, etc.).
+## WSL Test Execution
+
+### Path Handling
+
+**Use `/mnt/c/` paths in WSL, not `C:\`**
+
+When running tests on Windows Subsystem for Linux (WSL), always reference files using Unix-style paths with the `/mnt/c/` prefix. pytest discovers tests from Unix-style paths, and coverage reports use Unix paths.
+
+✅ **Correct**:
+```
+/mnt/c/Projects/DevForgeAI2/tests/
+/mnt/c/Projects/DevForgeAI2/src/
+```
+
+❌ **Incorrect**:
+```
+C:\Projects\DevForgeAI2\tests\
+C:\Projects\DevForgeAI2\src\
+```
+
+**Rationale**: WSL mount points may not preserve file metadata or execute permissions when using Windows-style paths. Unix paths work consistently across WSL and native Linux.
+
+---
+
+### Environment Setup
+
+**Set Python path and navigate to project root**
+
+Before running tests, configure your WSL environment with these commands:
+
+```bash
+cd /mnt/c/Projects/DevForgeAI2
+export PYTHONPATH=".:$PYTHONPATH"
+```
+
+**Why**: `PYTHONPATH` tells Python where to find module imports. This export adds the current directory (`.`) to the search path, allowing pytest to discover project modules. Without this, you'll get "ModuleNotFoundError" when running tests.
+
+---
+
+### Common Issues and Fixes
+
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| Module not found | PYTHONPATH not set | `export PYTHONPATH=".:$PYTHONPATH"` |
+| Permission denied on .sh | Windows file locks | Close file in other programs, or `chmod +x script.sh` |
+| Line ending errors (`$'\r': command not found`) | CRLF in shell scripts | `dos2unix script.sh` or `sed -i 's/\r$//' script.sh` |
+| Slow file operations | Windows filesystem overhead | Run tests from WSL native filesystem if possible |
+| pytest not found | Virtual env not activated | `source venv/bin/activate` or `pip install pytest` |
+
+---
+
+### Test Commands
+
+**Run pytest with these commands**:
+
+```bash
+pytest tests/ -v                                          # Run all tests
+
+pytest tests/test_validators.py -v                        # Run specific test file
+
+pytest tests/ --cov=src --cov-report=term-missing        # Run with coverage report
+
+pytest tests/test_validators.py::test_dod_validation -v  # Run single test
+```
+
+---
+
+### Shell Script Testing
+
+**Always run shell scripts with `bash`, not direct execution**
+
+When executing shell scripts on WSL, use explicit `bash` invocation instead of direct execution.
+
+✅ **Correct**:
+```bash
+bash path/to/test.sh
+bash tests/run_story_tests.sh
+```
+
+❌ **Incorrect**:
+```bash
+./path/to/test.sh
+./tests/run_story_tests.sh
+```
+
+**Why**: WSL mount points (especially when accessing Windows filesystem) may not preserve execute permissions correctly. Explicit `bash` invocation bypasses permission issues.
+
+**Fix line endings first**: Before running, ensure scripts have Unix line endings:
+```bash
+dos2unix path/to/test.sh && bash path/to/test.sh
+```
+
+---
+
+> **Note**: Projects using DevForgeAI will have their own coding-standards.md with language-specific patterns (CSharp, Python, JavaScript, etc.).
