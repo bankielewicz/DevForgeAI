@@ -3,7 +3,7 @@
 # Orchestrates all unit, integration, and edge case tests
 # Status: RED PHASE (All tests fail - no implementation yet)
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
