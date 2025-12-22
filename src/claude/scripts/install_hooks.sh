@@ -69,8 +69,49 @@ echo ""
 echo "🔍 DevForgeAI Validators Running..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-# Find story files in staging area (exclude deleted files)
-STORY_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.story\.md$' || true)
+VALIDATION_FAILED=0
+
+# ============================================================================
+# Registry Drift Detection (STORY-109)
+# ============================================================================
+AGENT_FILES=$(git diff --cached --name-only --diff-filter=d | grep '^\.claude/agents/.*\.md$' || true)
+if [ -n "$AGENT_FILES" ]; then
+    echo "  📋 Checking subagent registry..."
+    if [ -f "scripts/generate-subagent-registry.sh" ]; then
+        if ! bash scripts/generate-subagent-registry.sh --check 2>/dev/null; then
+            echo "     ❌ Registry out of date"
+            echo "     Run: bash scripts/generate-subagent-registry.sh"
+            echo "     Then: git add CLAUDE.md"
+            VALIDATION_FAILED=1
+        else
+            echo "     ✅ Registry up to date"
+        fi
+    fi
+fi
+
+# ============================================================================
+# Story-Scoped Validation (STORY-121)
+# Set DEVFORGEAI_STORY=STORY-NNN to validate only that story
+# ============================================================================
+
+if [ -n "$DEVFORGEAI_STORY" ]; then
+    # Validate format: STORY-NNN (3+ digits, uppercase only)
+    if ! echo "$DEVFORGEAI_STORY" | grep -qE '^STORY-[0-9]{3,}$'; then
+        echo "  WARNING: Invalid DEVFORGEAI_STORY format: $DEVFORGEAI_STORY"
+        echo "  Expected: STORY-NNN (e.g., STORY-120)"
+        echo "  Falling back to unscoped validation..."
+        DEVFORGEAI_STORY=""
+    fi
+fi
+
+if [ -n "$DEVFORGEAI_STORY" ]; then
+    # Scoped validation - only validate specific story
+    STORY_FILES=$(git diff --cached --name-only --diff-filter=d | grep "${DEVFORGEAI_STORY}" | grep -v '^tests/' || true)
+    echo "  Scoped to: $DEVFORGEAI_STORY"
+else
+    # Default behavior - validate all staged story files
+    STORY_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.story\.md$' | grep -v '^tests/' || true)
+fi
 
 if [ -z "$STORY_FILES" ]; then
     echo "  No story files to validate"
