@@ -22,11 +22,12 @@
 
 ## Overview
 
-Phase 01 executes 9 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
+Phase 01 executes 10 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
 0. **Validate Project Root (CWD)** - NEW
 1. Validate Git repository status
+1.7. **Story File Isolation Check** (STORY-123) - NEW
 2. **Git Worktree Auto-Management** (STORY-091)
 2.5. **Dependency Graph Validation** (STORY-093) - NEW
 3. Adapt TDD workflow based on Git availability
@@ -599,6 +600,335 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 **Token cost:** ~2,000 tokens (includes file listing, warning box, second AskUserQuestion)
 
 **Rationale:** The RCA-008 incident showed users don't understand git stash behavior with `--include-untracked`. This double-confirmation with clear warnings prevents accidental file hiding.
+
+---
+
+## Step 0.1.7: Story File Isolation Check [CONDITIONAL] (STORY-123)
+
+**Purpose:** Warn about uncommitted story files that may conflict with current story development. Distinguishes "your story" from "other uncommitted stories" to help users understand the scope of changes.
+
+**When to execute:** Only when $GIT_AVAILABLE == true AND uncommitted .story.md files exist beyond the current story.
+
+**Skip conditions:**
+- Git not available ($GIT_AVAILABLE == false)
+- No uncommitted .story.md files
+- Only current story is uncommitted (no others)
+
+**Depends On:** STORY-121 (DEVFORGEAI_STORY environment variable scoping)
+
+---
+
+### Step 0.1.7.1: Detect Uncommitted Story Files
+
+```
+# Get current story ID from /dev argument (e.g., "STORY-123")
+CURRENT_STORY_ID = $STORY_ID  # Set by /dev command parameter extraction
+
+# Find all uncommitted .story.md files via git status
+uncommitted_output = Bash(command="git status --porcelain | grep '\\.story\\.md$'")
+
+IF uncommitted_output is empty:
+    Display: "✓ No uncommitted story files detected"
+    SKIP Step 0.1.7 (proceed to Step 0.2)
+
+# Parse uncommitted story files
+UNCOMMITTED_STORY_FILES = []
+FOR line in uncommitted_output.lines:
+    # Format: " M devforgeai/specs/Stories/STORY-100-title.story.md"
+    #     or: "?? devforgeai/specs/Stories/STORY-125-new.story.md"
+    file_path = line.split()[-1]  # Get file path (last field)
+
+    IF file_path ends with ".story.md":
+        UNCOMMITTED_STORY_FILES.append(file_path)
+
+Display: "Found {len(UNCOMMITTED_STORY_FILES)} uncommitted story file(s)"
+```
+
+---
+
+### Step 0.1.7.2: Extract Story IDs and Separate Current vs. Others
+
+```
+# Extract story IDs from file paths
+# Path format: devforgeai/specs/Stories/STORY-NNN-title.story.md
+
+STORY_IDS = []
+FOR file_path in UNCOMMITTED_STORY_FILES:
+    # Extract STORY-NNN from path
+    filename = file_path.split("/")[-1]  # e.g., "STORY-123-title.story.md"
+
+    # Parse story ID (extract number between "STORY-" and next "-")
+    # Pattern: STORY-{number}-
+    match = regex_match(filename, r"STORY-(\d+)")
+
+    IF match:
+        story_num = int(match.group(1))
+        STORY_IDS.append({
+            "id": f"STORY-{story_num}",
+            "number": story_num,
+            "path": file_path
+        })
+
+# Separate current story from others
+current_story_num = int(CURRENT_STORY_ID.replace("STORY-", ""))
+
+CURRENT_STORY_FILE = None
+OTHER_STORY_IDS = []
+
+FOR story in STORY_IDS:
+    IF story["number"] == current_story_num:
+        CURRENT_STORY_FILE = story
+    ELSE:
+        OTHER_STORY_IDS.append(story)
+
+# Validate current story found in uncommitted list
+IF CURRENT_STORY_FILE == None:
+    Display: "⚠️ Warning: Current story {CURRENT_STORY_ID} not in uncommitted changes"
+    Display: "  Possible causes:"
+    Display: "    - Story file was already committed"
+    Display: "    - Wrong story ID provided to /dev command"
+    Display: "  Proceeding without story isolation warning..."
+    SKIP Step 0.1.7 (proceed to Step 0.2)
+
+# Check skip condition - only current story uncommitted
+IF len(OTHER_STORY_IDS) == 0:
+    Display: "✓ Only current story ({CURRENT_STORY_ID}) is uncommitted - no warning needed"
+    SKIP Step 0.1.7 (proceed to Step 0.2)
+
+Display: "  - Current story: {CURRENT_STORY_ID}"
+Display: "  - Other uncommitted stories: {len(OTHER_STORY_IDS)}"
+```
+
+---
+
+### Step 0.1.7.3: Detect Story Ranges (Format Consecutive Numbers)
+
+```
+# Sort other story numbers
+other_numbers = sorted([s["number"] for s in OTHER_STORY_IDS])
+
+# Group into consecutive ranges
+# Example: [100, 101, 102, 103, 115, 116, 125]
+#       -> [(100, 103), (115, 116), (125, 125)]
+
+STORY_RANGES = []
+range_start = other_numbers[0]
+range_end = other_numbers[0]
+
+FOR i in range(1, len(other_numbers)):
+    current = other_numbers[i]
+    previous = other_numbers[i - 1]
+
+    IF current == previous + 1:
+        # Consecutive - extend range
+        range_end = current
+    ELSE:
+        # Gap detected - close previous range, start new one
+        STORY_RANGES.append({
+            "start": range_start,
+            "end": range_end,
+            "count": range_end - range_start + 1
+        })
+        range_start = current
+        range_end = current
+
+# Close final range
+STORY_RANGES.append({
+    "start": range_start,
+    "end": range_end,
+    "count": range_end - range_start + 1
+})
+
+# Format ranges for display
+FORMATTED_RANGES = []
+FOR r in STORY_RANGES:
+    IF r["start"] == r["end"]:
+        # Single story (not a range)
+        FORMATTED_RANGES.append(f"STORY-{r['start']} (1 file)")
+    ELSE:
+        # Range of consecutive stories
+        FORMATTED_RANGES.append(f"STORY-{r['start']} through STORY-{r['end']} ({r['count']} files)")
+```
+
+---
+
+### Step 0.1.7.4: Display Warning Box
+
+```
+# Build warning display
+OTHER_COUNT = len(OTHER_STORY_IDS)
+
+Display: ""
+Display: "+-------------------------------------------+"
+Display: "| WARNING: UNCOMMITTED STORY FILES DETECTED |"
+Display: "+-------------------------------------------+"
+Display: ""
+Display: "Your story: {CURRENT_STORY_ID} (will be modified by this /dev run)"
+Display: ""
+Display: "Other uncommitted stories: {OTHER_COUNT} file(s)"
+
+FOR range_text in FORMATTED_RANGES:
+    Display: "  - {range_text}"
+
+Display: ""
+Display: "Impact:"
+Display: "  • Git commits will include ONLY your story (scoped via DEVFORGEAI_STORY)"
+Display: "  • Pre-commit validation will focus on {CURRENT_STORY_ID}"
+Display: "  • Other story files remain uncommitted"
+Display: ""
+Display: "+-------------------------------------------+"
+Display: ""
+```
+
+---
+
+### Step 0.1.7.5: Ask User for Action
+
+```
+# Present options to user
+USER_CHOICE = AskUserQuestion(
+    questions=[
+        {
+            "question": "How would you like to proceed with {OTHER_COUNT} other uncommitted story files?",
+            "header": "Story Scope",
+            "multiSelect": false,
+            "options": [
+                {
+                    "label": "Continue with scoped commits (recommended)",
+                    "description": "Proceed with development. Git commits will include ONLY {CURRENT_STORY_ID}, other stories remain uncommitted."
+                },
+                {
+                    "label": "Commit other stories first",
+                    "description": "HALT workflow. You'll commit other stories manually, then re-run /dev {CURRENT_STORY_ID}."
+                },
+                {
+                    "label": "Show me the list",
+                    "description": "Display full list of uncommitted story files, then ask again."
+                }
+            ]
+        }
+    ]
+)
+```
+
+---
+
+### Step 0.1.7.6: Process User Choice
+
+```
+IF USER_CHOICE == "Continue with scoped commits (recommended)":
+    # Set environment variable for story-scoped commits (STORY-121 integration)
+    $DEVFORGEAI_STORY = CURRENT_STORY_ID
+
+    Display: ""
+    Display: "✓ Proceeding with scoped commits"
+    Display: "  DEVFORGEAI_STORY={CURRENT_STORY_ID}"
+    Display: "  Pre-commit hooks will validate only this story's changes"
+    Display: ""
+
+    # Continue to Step 0.2
+    PROCEED to Step 0.2
+
+ELIF USER_CHOICE == "Commit other stories first":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  WORKFLOW HALTED - Commit Other Stories First"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "To commit other stories:"
+    Display: ""
+    Display: "  # Option 1: Commit all story files"
+    Display: "  git add devforgeai/specs/Stories/"
+    Display: "  git commit -m 'chore: update story files'"
+    Display: ""
+    Display: "  # Option 2: Commit specific stories"
+    Display: "  git add devforgeai/specs/Stories/STORY-100*.story.md"
+    Display: "  git commit -m 'chore(STORY-100): update story'"
+    Display: ""
+    Display: "After committing, re-run:"
+    Display: "  /dev {CURRENT_STORY_ID}"
+    Display: ""
+
+    HALT workflow (do not proceed to Step 0.2)
+
+ELIF USER_CHOICE == "Show me the list":
+    # Display full git status for story files
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  UNCOMMITTED STORY FILES"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Show git status output for story files
+    git_output = Bash(command="git status --porcelain | grep '\\.story\\.md$'")
+
+    FOR line in git_output.lines:
+        status_code = line[:2]
+        file_path = line[3:]
+
+        IF status_code == " M":
+            status_text = "modified"
+        ELIF status_code == "??":
+            status_text = "untracked"
+        ELIF status_code == "A ":
+            status_text = "staged"
+        ELSE:
+            status_text = status_code.strip()
+
+        # Highlight current story
+        IF CURRENT_STORY_ID in file_path:
+            Display: "  [{status_text}] {file_path}  ← YOUR STORY"
+        ELSE:
+            Display: "  [{status_text}] {file_path}"
+
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Re-ask the question (per user decision: re-ask automatically)
+    GOTO Step 0.1.7.5  # Re-display options
+```
+
+---
+
+### Step 0.1.7 Edge Cases
+
+**Edge Case 1: No uncommitted story files**
+- Detection: `git status --porcelain | grep '\.story\.md$'` returns empty
+- Action: Skip Step 0.1.7 entirely, proceed to Step 0.2
+
+**Edge Case 2: Only current story uncommitted**
+- Detection: `OTHER_STORY_IDS` is empty after separation
+- Action: Skip warning, display "✓ Only current story uncommitted - no warning needed"
+
+**Edge Case 3: Non-consecutive story numbers**
+- Example: STORY-100, STORY-105, STORY-110, STORY-115
+- Range output: Each becomes individual entry (no "through" ranges)
+
+**Edge Case 4: Single uncommitted other story**
+- Example: Only STORY-115 is uncommitted (besides current)
+- Display: "STORY-115 (1 file)" (not "STORY-115 through STORY-115")
+
+**Edge Case 5: Large number of uncommitted stories (100+)**
+- Display: Show ALL ranges (no truncation per user decision)
+- Performance: Detection must complete in <100ms
+
+---
+
+### Step 0.1.7 Success Criteria
+
+- [ ] Detects all uncommitted .story.md files via `git status --porcelain`
+- [ ] Correctly separates current story from other stories
+- [ ] Formats consecutive story numbers as ranges (e.g., "100 through 113")
+- [ ] Displays warning box with clear visual separation
+- [ ] Presents 3 user options via AskUserQuestion
+- [ ] Sets DEVFORGEAI_STORY environment variable on "Continue"
+- [ ] HALTs workflow on "Commit other stories first"
+- [ ] Re-asks question after "Show me the list"
+- [ ] Completes detection in <100ms (performance requirement)
+- [ ] Integrates with STORY-121 DEVFORGEAI_STORY scoping
+
+**Token cost:** ~3,000 tokens (includes git status parsing, range detection, warning display, AskUserQuestion)
 
 ---
 
