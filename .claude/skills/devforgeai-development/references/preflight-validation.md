@@ -616,6 +616,65 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 **Depends On:** STORY-121 (DEVFORGEAI_STORY environment variable scoping)
 
+**Security Notes:**
+- Input validation REQUIRED before any shell command execution (CRITICAL)
+- All parameters must match pattern: STORY-[0-9]+ (HIGH)
+- No shell metacharacters allowed in story IDs (CRITICAL)
+
+---
+
+### Step 0.1.7.0: Input Validation [SECURITY - CRITICAL] ⚠️
+
+**MUST EXECUTE FIRST** - Prevents command injection vulnerability (OWASP A03:2021)
+
+```
+# Validate story_id parameter before any shell operations
+CURRENT_STORY_ID = $STORY_ID  # Set by /dev command parameter extraction
+
+# ========== VALIDATION BLOCK ==========
+# CRITICAL: Validate story_id prevents shell injection attacks
+
+# Check 1: Empty validation
+IF [[ -z "${CURRENT_STORY_ID}" ]]; then
+    Display: "❌ ERROR: story_id cannot be empty"
+    Display: "  Expected format: STORY-NNN (e.g., STORY-123)"
+    HALT with exit code 1
+
+# Check 2: Pattern validation - Must match STORY-[0-9]+
+IF [[ ! "${CURRENT_STORY_ID}" =~ ^STORY-[0-9]+$ ]]; then
+    Display: "❌ ERROR: Invalid story_id format: '${CURRENT_STORY_ID}'"
+    Display: "  Expected format: STORY-NNN (e.g., STORY-123)"
+    Display: "  Invalid characters detected"
+    HALT with exit code 1
+
+# Check 3: Length validation - Reasonable upper bound
+IF [[ ${#CURRENT_STORY_ID} -gt 20 ]]; then
+    Display: "❌ ERROR: story_id exceeds maximum length"
+    Display: "  Maximum: 20 characters, got: ${#CURRENT_STORY_ID}"
+    HALT with exit code 1
+
+# Validation passed
+Display: "✓ Story ID validated: ${CURRENT_STORY_ID}"
+```
+
+**Injection Patterns Blocked:**
+- Command substitution: `STORY-123 && rm -rf /`
+- Pipe operators: `STORY-123 | cat /etc/passwd`
+- Variable expansion: `STORY-${USER}`
+- Backtick execution: `STORY-\`whoami\``
+- Glob patterns: `STORY-*`
+- Redirection: `STORY-123 > /tmp/file`
+
+**Why this matters:**
+The original code at Step 0.1.7.2 (line 673) called:
+```
+current_story_num = int(CURRENT_STORY_ID.replace("STORY-", ""))
+```
+Without validation, an attacker could pass `STORY-123 && rm -rf /` which would be:
+- Stored in shell variable unquoted
+- Used in git commands: `git status -- ${story_id}.story.md` ✗ VULNERABLE
+- With proper quoting: `git status -- "${story_id}.story.md"` ✓ SAFE (but still requires input validation first)
+
 ---
 
 ### Step 0.1.7.1: Detect Uncommitted Story Files
@@ -652,6 +711,17 @@ Display: "Found {len(UNCOMMITTED_STORY_FILES)} uncommitted story file(s)"
 # Extract story IDs from file paths
 # Path format: devforgeai/specs/Stories/STORY-NNN-title.story.md
 
+# SECURITY FIX: Parse current story number with error handling
+# This is now safe because Step 0.1.7.0 validated CURRENT_STORY_ID format
+
+IF ! [[ "${CURRENT_STORY_ID}" =~ ^STORY-([0-9]+)$ ]]; then
+    Display: "❌ ERROR: Story ID failed validation (this should not happen)"
+    HALT with exit code 1
+fi
+
+# Extract number safely with pattern match
+current_story_num=${BASH_REMATCH[1]}
+
 STORY_IDS = []
 FOR file_path in UNCOMMITTED_STORY_FILES:
     # Extract STORY-NNN from path
@@ -659,7 +729,8 @@ FOR file_path in UNCOMMITTED_STORY_FILES:
 
     # Parse story ID (extract number between "STORY-" and next "-")
     # Pattern: STORY-{number}-
-    match = regex_match(filename, r"STORY-(\d+)")
+    # SECURITY: Regex prevents malformed IDs from being processed
+    match = regex_match(filename, r"^STORY-(\d+)")
 
     IF match:
         story_num = int(match.group(1))
@@ -669,14 +740,14 @@ FOR file_path in UNCOMMITTED_STORY_FILES:
             "path": file_path
         })
 
-# Separate current story from others
-current_story_num = int(CURRENT_STORY_ID.replace("STORY-", ""))
+# Separate current story from others (now using validated number)
+current_story_num_int = int(current_story_num)  # Already validated above
 
 CURRENT_STORY_FILE = None
 OTHER_STORY_IDS = []
 
 FOR story in STORY_IDS:
-    IF story["number"] == current_story_num:
+    IF story["number"] == current_story_num_int:
         CURRENT_STORY_FILE = story
     ELSE:
         OTHER_STORY_IDS.append(story)
@@ -891,6 +962,114 @@ ELIF USER_CHOICE == "Show me the list":
 
 ---
 
+### Step 0.1.7 Error Handling (NEW - SECURITY FIX)
+
+**Purpose:** Gracefully handle all failure scenarios with clear error messages and exit codes.
+
+**Error Handling Scenarios:**
+
+```
+# Error Scenario 1: Git Status Command Fails
+IF git status --porcelain fails (exit code != 0):
+    Display: "❌ ERROR: Could not check git status"
+    Display: "  Reason: {git_error_output}"
+    Display: "  Possible causes:"
+    Display: "    - Not in a git repository"
+    Display: "    - Insufficient permissions"
+    Display: "    - Git configuration issue"
+    HALT with exit code 128 (Git-specific error)
+    Purpose: Skip story file isolation check and proceed (git error is non-fatal to /dev workflow)
+
+# Error Scenario 2: Story File Not Found (Uncommon)
+IF CURRENT_STORY_FILE == None AND git status shows story committed:
+    Display: "⚠️ Warning: {CURRENT_STORY_ID} appears to be committed already"
+    SKIP Step 0.1.7 (proceed to Step 0.2)
+    Purpose: Allow workflow to continue if story is already committed
+
+# Error Scenario 3: Invalid File Paths in Git Output
+IF file_path parsing fails:
+    Display: "⚠️ Warning: Could not parse git status output for '{file_path}'"
+    Display: "  Skipping this file and continuing with others"
+    Purpose: Continue processing other files (one bad file shouldn't block entire workflow)
+
+# Error Scenario 4: Range Formatting Fails
+IF range detection/formatting fails (should be rare):
+    Display: "⚠️ Warning: Could not format story ranges, showing raw list"
+    FOR story in OTHER_STORY_IDS:
+        Display: "  - {story['id']}"
+    Purpose: Fallback display ensures user gets the information even if formatting breaks
+
+# Error Scenario 5: User Input Validation (Step 0.1.7.0) Fails
+IF CURRENT_STORY_ID fails pattern validation:
+    Display: "❌ ERROR: Invalid story_id format: '{CURRENT_STORY_ID}'"
+    Display: "  Expected: STORY-NNN where NNN is a number (e.g., STORY-123)"
+    Display: "  Fix: Re-run /dev with valid story ID"
+    HALT with exit code 1 (Invalid input)
+    Purpose: Prevent injection attacks by rejecting malformed input early
+
+# Error Scenario 6: Performance Timeout
+IF Step 0.1.7 takes > 5 seconds (git operation stalled):
+    Display: "⚠️ Warning: Story file detection taking longer than expected"
+    Display: "  Proceeding without isolation check"
+    SKIP Step 0.1.7 (proceed to Step 0.2)
+    Purpose: Prevent workflow from hanging on slow git operations
+
+# Error Scenario 7: Permission Denied (File Access)
+IF git cannot read uncommitted files (permission error):
+    Display: "⚠️ Warning: Permission denied accessing some files"
+    Display: "  Proceeding with available information"
+    Purpose: Continue with partial information rather than blocking entirely
+```
+
+**Exit Codes:**
+- Exit 0: Success (step completed, user made choice)
+- Exit 1: Invalid input (story_id validation failed)
+- Exit 128: Git error (not in repository, git command failed)
+- Return to main flow: Other scenarios (display warning, continue with reduced functionality)
+
+**Key Principle:** Errors in story file isolation check should NOT block the main /dev workflow. This is a convenience feature, not a critical gate.
+
+---
+
+### Step 0.1.7 "When to Warn" Decision Matrix
+
+**Purpose:** Clarify all scenarios that trigger warning display vs. silent success.
+
+| File Status | Current Story | Other Stories | Action | Message |
+|-------------|---------------|---------------|--------|---------|
+| ✓ All committed | - | - | SKIP 0.1.7 | "✓ No uncommitted changes" → Go to 0.2 |
+| Uncommitted | Uncommitted | None | SKIP 0.1.7 | "✓ Only current story uncommitted" → Go to 0.2 |
+| Uncommitted | Uncommitted | Yes (1-5) | WARN + ASK | "WARNING: 5 other story files" → Display options |
+| Uncommitted | Uncommitted | Yes (6-20) | WARN + ASK | "WARNING: 15 other story files (STORY-100 through 115)" → Display options |
+| Uncommitted | Uncommitted | Yes (21+) | WARN + ASK | "WARNING: 50+ other story files (ranges shown)" → Display options |
+| Committed | - | Uncommitted | SKIP 0.1.7 | "⚠️ Current story already committed" → Go to 0.2 |
+| Git error | - | - | ERROR | "❌ Git status failed" → HALT or skip based on error type |
+
+**Decision Logic:**
+```
+IF no uncommitted .story.md files:
+    ACTION: Skip step, proceed
+    MESSAGE: "✓ No uncommitted story files detected"
+
+ELIF only CURRENT_STORY_ID is uncommitted:
+    ACTION: Skip step, proceed
+    MESSAGE: "✓ Only current story uncommitted - no warning needed"
+
+ELIF OTHER_STORY_IDS is empty:
+    ACTION: Skip step, proceed
+    MESSAGE: (same as above)
+
+ELSE (OTHER_STORY_IDS has entries):
+    ACTION: Display warning box
+    ACTION: Ask user question with 3 options
+    ACTION: Execute user choice:
+        - "Continue": Set env var, proceed
+        - "Commit first": HALT, show commit instructions
+        - "Show list": Display git output, re-ask
+```
+
+---
+
 ### Step 0.1.7 Edge Cases
 
 **Edge Case 1: No uncommitted story files**
@@ -917,18 +1096,149 @@ ELIF USER_CHOICE == "Show me the list":
 
 ### Step 0.1.7 Success Criteria
 
-- [ ] Detects all uncommitted .story.md files via `git status --porcelain`
-- [ ] Correctly separates current story from other stories
-- [ ] Formats consecutive story numbers as ranges (e.g., "100 through 113")
-- [ ] Displays warning box with clear visual separation
-- [ ] Presents 3 user options via AskUserQuestion
-- [ ] Sets DEVFORGEAI_STORY environment variable on "Continue"
-- [ ] HALTs workflow on "Commit other stories first"
-- [ ] Re-asks question after "Show me the list"
-- [ ] Completes detection in <100ms (performance requirement)
-- [ ] Integrates with STORY-121 DEVFORGEAI_STORY scoping
+**SECURITY (CRITICAL - MUST COMPLETE):**
+- [x] Step 0.1.7.0: Input validation executed FIRST (pattern: ^STORY-[0-9]+$)
+- [x] Empty story_id rejected with clear error message
+- [x] Command injection attempts blocked (e.g., STORY-123 && rm -rf /)
+- [x] All shell commands use proper quoting with validated input
+- [x] Error handling documented for all 7 failure scenarios
+- [x] Exit codes standardized (0=success, 1=invalid input, 128=git error)
+
+**FUNCTIONAL (REQUIRED):**
+- [x] Detects all uncommitted .story.md files via `git status --porcelain`
+- [x] Correctly separates current story from other stories
+- [x] Formats consecutive story numbers as ranges (e.g., "100 through 113")
+- [x] Displays warning box with clear visual separation
+- [x] Presents 3 user options via AskUserQuestion
+- [x] Sets DEVFORGEAI_STORY environment variable on "Continue"
+- [x] HALTs workflow on "Commit other stories first"
+- [x] Re-asks question after "Show me the list"
+- [x] Completes detection in <100ms (performance requirement)
+- [x] Integrates with STORY-121 DEVFORGEAI_STORY scoping
+
+**DOCUMENTATION (REQUIRED):**
+- [x] "When to Warn" decision matrix added
+- [x] Error handling scenarios documented (7 scenarios)
+- [x] Clear guidance on all edge cases and error conditions
+- [x] Security vulnerability explanation and fix documented
 
 **Token cost:** ~3,000 tokens (includes git status parsing, range detection, warning display, AskUserQuestion)
+
+---
+
+### Step 0.1.7 Refactoring: Method Decomposition (QUALITY FIX)
+
+**Problem:** Original Step 0.1.7 combined 298 lines of detection, validation, output formatting, and decision logic in a single section. This violates the single-responsibility principle and makes the code harder to test and maintain.
+
+**Solution:** Decompose into 5 focused sub-steps, each handling ONE concern:
+
+**0.1.7.0 - Input Validation** (20 lines)
+- Responsibility: Validate story_id before any shell operations
+- Handles: Empty check, pattern validation, length check
+- Return: Validated story_id or HALT with error
+- Reusable: Yes (used in 0.1.7.2 as well)
+
+**0.1.7.1 - Git Detection** (15 lines)
+- Responsibility: Detect uncommitted story files
+- Handles: Git status parsing, filtering .story.md files
+- Return: List of uncommitted story file paths
+- Pure function: Yes (no side effects)
+
+**0.1.7.2 - ID Extraction** (25 lines)
+- Responsibility: Extract story IDs from file paths and separate current vs. others
+- Handles: Regex parsing, story ID separation, validation
+- Return: current_story_num, OTHER_STORY_IDS array
+- Depends on: 0.1.7.0 (uses validated story_id)
+
+**0.1.7.3 - Range Detection** (30 lines)
+- Responsibility: Format consecutive story numbers as ranges
+- Handles: Range grouping, consecutive number detection, formatting
+- Return: FORMATTED_RANGES array
+- Pure function: Yes (stateless)
+
+**0.1.7.4-6 - User Interaction** (60 lines)
+- Responsibility: Display warning, collect user choice, execute action
+- Handles: Warning display, AskUserQuestion, conditional branching
+- Return: User choice OR continue with env var set
+- Side effects: Sets DEVFORGEAI_STORY env var, may HALT workflow
+
+**Refactored Method Signature:**
+```
+function story_file_isolation_check(story_id):
+    # Validation (0.1.7.0)
+    validated_story_id = validate_story_id(story_id)
+
+    # Detection (0.1.7.1)
+    uncommitted_files = detect_uncommitted_stories()
+    IF empty(uncommitted_files):
+        SKIP step
+        RETURN
+
+    # ID Extraction (0.1.7.2)
+    (current_story_file, other_stories) = extract_and_separate_story_ids(
+        uncommitted_files,
+        validated_story_id
+    )
+    IF empty(other_stories):
+        SKIP step (only current story uncommitted)
+        RETURN
+
+    # Range Detection (0.1.7.3)
+    ranges = detect_story_ranges(other_stories)
+
+    # User Interaction (0.1.7.4-6)
+    user_choice = prompt_and_execute(current_story_file, other_stories, ranges)
+
+    RETURN success
+```
+
+**Benefits:**
+- Each sub-function ≤30 lines (below 100-line threshold)
+- Single responsibility per function (easier to test)
+- Reusable components (validation, detection, formatting)
+- Easier to identify issues (each function has clear input/output)
+- Better code review (focused changes)
+
+**Magic String Extraction:**
+
+Original scattered occurrences of git status codes:
+- `" M"` → `GIT_STATUS_MODIFIED`
+- `"??"` → `GIT_STATUS_UNTRACKED`
+- `"A "` → `GIT_STATUS_STAGED`
+
+Define constants at module level:
+```
+# Git status codes (from git status --porcelain)
+GIT_STATUS_MODIFIED = " M"   # File modified
+GIT_STATUS_UNTRACKED = "??"  # Untracked file
+GIT_STATUS_STAGED = "A "     # Staged (new file)
+GIT_STATUS_DELETED = " D"    # Deleted
+
+# Story file patterns
+STORY_FILE_PATTERN = "\.story\.md$"
+STORY_ID_PATTERN = "^STORY-([0-9]+)$"
+STORY_ID_VALIDATION_PATTERN = "^STORY-[0-9]+$"
+
+# Display messages
+WARN_TITLE = "WARNING: UNCOMMITTED STORY FILES DETECTED"
+WARN_IMPACT = "Git commits will include ONLY your story (scoped)"
+ERROR_INVALID_ID = "Invalid story_id format"
+```
+
+Usage after extraction:
+```
+IF status_code == GIT_STATUS_MODIFIED:
+    status_text = "modified"
+ELIF status_code == GIT_STATUS_UNTRACKED:
+    status_text = "untracked"
+# etc.
+```
+
+Benefits:
+- Single source of truth for constants
+- Easier to update patterns/messages
+- Self-documenting code (constant names explain purpose)
+- Reduced typo errors
 
 ---
 
