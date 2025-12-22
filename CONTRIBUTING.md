@@ -201,6 +201,39 @@ npm view devforgeai@0.0.0-test.1
 npm unpublish devforgeai@0.0.0-test.1
 ```
 
+## Line Ending Normalization
+
+This project uses `.gitattributes` to normalize all text files to LF line endings. This prevents CRLF/LF inconsistencies when developing on Windows/WSL.
+
+### How It Works
+
+- **Text files:** Automatically normalized to LF on commit (`* text=auto eol=lf`)
+- **Shell scripts:** Explicitly set to LF (`*.sh text eol=lf`) - critical for WSL execution
+- **Binary files:** Marked as binary to prevent corruption (`.png`, `.jpg`, `.pdf`, `.zip`, etc.)
+
+### For Developers on Windows
+
+No special configuration needed. Git will automatically:
+- Convert CRLF to LF when you commit
+- Keep your working copy with your preferred line endings
+
+### If You See Line Ending Issues
+
+If you encounter `$'\r': command not found` errors when running shell scripts on WSL/Linux, the file has CRLF line endings. Fix with:
+
+```bash
+# Fix single file
+sed -i 's/\r$//' script.sh
+
+# Renormalize entire repository
+git add --renormalize .
+git commit -m "chore: normalize line endings to LF"
+```
+
+### Technical Details
+
+See `.gitattributes` at project root for the complete rule set. Implemented in STORY-122.
+
 ## Development Workflow
 
 For general development workflow, see:

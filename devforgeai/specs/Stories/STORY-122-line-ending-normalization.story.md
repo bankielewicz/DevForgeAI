@@ -173,7 +173,7 @@ technical_specification:
 
 ### Documentation
 - [x] .gitattributes has inline comments explaining rules - Completed: Comprehensive section headers and comments
-- [ ] STORY-SCOPED-COMMITS.md or main README mentions line ending normalization - Deferred: Follow-up story STORY-123 for documentation update
+- [x] STORY-SCOPED-COMMITS.md or main README mentions line ending normalization - Completed: Added "Line Ending Normalization" section to CONTRIBUTING.md
 - [x] Renormalization procedure documented - Completed: Instructions in .gitattributes header comments
 
 ### Release
@@ -201,7 +201,7 @@ technical_specification:
 - [x] Manual test: PNG/JPG binary files unchanged - Completed: test_binary_unchanged.sh verifies via checksum
 - [x] Manual test: Renormalize existing files successfully - Completed: 3,353 files renormalized in commit 63bd1dd9
 - [x] .gitattributes has inline comments explaining rules - Completed: Comprehensive section headers and comments
-- [ ] STORY-SCOPED-COMMITS.md or main README mentions line ending normalization - Deferred: Follow-up story STORY-123 for documentation update (User approved: Documentation update is out of scope for this story)
+- [x] STORY-SCOPED-COMMITS.md or main README mentions line ending normalization - Completed: Added "Line Ending Normalization" section to CONTRIBUTING.md
 - [x] Renormalization procedure documented - Completed: Instructions in .gitattributes header comments
 - [x] All tests passing - Completed: 11/11 tests pass
 - [x] Backward compatibility verified (unaffected on systems already using LF) - Completed: LF-only systems unaffected
