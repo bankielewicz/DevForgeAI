@@ -164,6 +164,7 @@ Enable 35-40% time reduction through parallel execution patterns.
 | requirements-analyst | Requirements analysis and user story creation expert. Use proactively when cr... | Read, Write, Edit, Grep, Glob, AskUserQuestion |
 | security-auditor | Application security audit specialist covering OWASP Top 10, authentication/a... | Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable) |
 | sprint-planner | Sprint planning and execution specialist. Handles story selection, capacity v... | Read, Write, Edit, Glob, Grep |
+| stakeholder-analyst | Stakeholder analysis specialist for identifying decision makers, users, affec... | (none) |
 | story-requirements-analyst | Requirements analysis subagent specifically for devforgeai-story-creation ski... | [Read, Grep, Glob, AskUserQuestion] |
 | tech-stack-detector | Technology stack detection and validation specialist. Detects project languag... | Read, Glob, Grep |
 | technical-debt-analyzer | Analyzes accumulated technical debt from deferred DoD items. Generates debt t... | (none) |

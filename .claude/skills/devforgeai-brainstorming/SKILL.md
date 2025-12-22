@@ -1,6 +1,7 @@
 ---
+name: devforgeai-brainstorming
 description: Business Analyst discovery skill for pre-ideation brainstorming. Transforms vague business problems into structured, AI-consumable documents.
-model: opus
+model: claude-opus-4-5-20251101
 ---
 
 # devforgeai-brainstorming
