@@ -2,11 +2,29 @@
 # STORY TEMPLATE CHANGELOG
 # =============================================================================
 #
-# Version: 2.3
-# Last Updated: 2025-12-21
+# Version: 2.4
+# Last Updated: 2025-12-23
 # Maintained by: devforgeai-story-creation skill
 #
 # Version History:
+#
+# v2.4 (2025-12-23) - Story Type Classification (STORY-126)
+#   Changes:
+#     - Added type field to YAML frontmatter for TDD phase skipping
+#     - Valid types: feature (default), documentation, bugfix, refactor
+#     - Positioned after title field, before epic field
+#     - Default value: feature (full TDD workflow)
+#   Phase Skip Matrix:
+#     - feature: No phases skipped (full TDD)
+#     - documentation: Skip Phase 05 Integration (no runtime code)
+#     - bugfix: Skip Phase 04 Refactor (minimal changes)
+#     - refactor: Skip Phase 02 Red (tests exist)
+#   Backward Compatibility:
+#     - Stories without type field default to "feature"
+#     - No migration required for existing stories
+#   References:
+#     - STORY-126: Story Type Detection & Phase Skipping
+#     - coding-standards.md: Story Type Classification section
 #
 # v2.3 (2025-12-21) - Technical Limitations Section
 #   Changes:
@@ -90,6 +108,8 @@
 ---
 id: STORY-XXX
 title: [Story Title - What is being built]
+type: feature
+# Story type controls TDD phase skipping. Options: feature (default), documentation, bugfix, refactor
 epic: EPIC-XXX
 sprint: SPRINT-XXX
 status: Backlog
@@ -99,7 +119,7 @@ depends_on: []
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
-format_version: "2.3"
+format_version: "2.4"
 ---
 
 # Story: [Title]

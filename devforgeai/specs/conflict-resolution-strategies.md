@@ -1376,7 +1376,7 @@ Old: 3-layer arch         Docs: "Consider           New: 4-layer arch
    ```bash
    # Rollback to v1.4
    git revert <migration-commit>
-   rm -rf .devforgeai/v2
+   rm -rf devforgeai/v2
    cp CLAUDE.md.v1.backup CLAUDE.md
    npm install devforgeai@1.4  # or @latest-1.x
 

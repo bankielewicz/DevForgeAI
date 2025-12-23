@@ -304,8 +304,8 @@ Action: Log removal, retry acquisition
 ## Integration Points
 
 **Phase 08 Workflow:**
-1. Pre-Commit DoD Validation (Step 0)
-2. **Lock Acquisition (Step 0.5)** ← NEW
+1. Pre-Commit DoD Validation (Phase 08.0)
+2. **Lock Acquisition (Phase 08.0.5)** ← NEW
 3. Git Add (Step 5.1)
 4. Git Commit (Step 5.2)
 5. **Lock Release (Step 5.3)** ← NEW

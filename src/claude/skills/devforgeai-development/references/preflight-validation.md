@@ -22,11 +22,12 @@
 
 ## Overview
 
-Phase 01 executes 9 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
+Phase 01 executes 10 validation steps before proceeding to TDD implementation. This prevents starting work in an invalid environment.
 
 **Steps:**
 0. **Validate Project Root (CWD)** - NEW
 1. Validate Git repository status
+1.7. **Story File Isolation Check** (STORY-123) - NEW
 2. **Git Worktree Auto-Management** (STORY-091)
 2.5. **Dependency Graph Validation** (STORY-093) - NEW
 3. Adapt TDD workflow based on Git availability
@@ -39,11 +40,11 @@ Phase 01 executes 9 validation steps before proceeding to TDD implementation. Th
 
 ---
 
-## Step 0.0: Validate Project Root [MANDATORY - FIRST STEP]
+## Phase 01.0: Validate Project Root [MANDATORY - FIRST STEP]
 
 **Purpose:** Ensure CWD is DevForgeAI project root before ANY file operations.
 
-**Execute BEFORE Step 0.1 (Git validation):**
+**Execute BEFORE Phase 01.1 (Git validation):**
 
 ```
 # 1. Attempt to read project marker file
@@ -100,11 +101,11 @@ ELSE:
    3. Provide absolute path for this session
 ```
 
-**CRITICAL:** Do NOT proceed to Step 0.1 if CWD validation fails.
+**CRITICAL:** Do NOT proceed to Phase 01.1 if CWD validation fails.
 
 ---
 
-## Step 0.1: Validate Git Repository Status [MANDATORY]
+## Phase 01.1: Validate Git Repository Status [MANDATORY]
 
 **Invoke git-validator subagent to check Git availability:**
 
@@ -187,11 +188,11 @@ $CAN_COMMIT = CAN_COMMIT
 
 ---
 
-## Step 0.1.5: User Consent for Git State Changes [MANDATORY IF uncommitted > 10] (RCA-008)
+## Phase 01.1.5: User Consent for Git State Changes [MANDATORY IF uncommitted > 10] (RCA-008)
 
 **CRITICAL: This step prevents autonomous file hiding (RCA-008 incident - 2025-11-13).**
 
-**When to execute:** After git-validator returns results from Step 0.1
+**When to execute:** After git-validator returns results from Phase 01.1
 
 **Trigger condition:**
 - `uncommitted_changes > 10` OR
@@ -304,7 +305,7 @@ IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
             Display: "✅ Proceeding with file-based tracking. Your files remain visible."
             Display: "   Changes will be tracked in devforgeai/stories/{STORY-ID}/changes/"
             Display: ""
-            # Continue to Step 0.2 (adapt workflow)
+            # Continue to Phase 01.2 (adapt workflow)
 
         CASE "Stash ONLY modified files, keep untracked visible ⭐ Recommended":
             Display: ""
@@ -335,7 +336,7 @@ IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
             Display: ""
 
             SET workflow_mode = "git"
-            # Continue to Step 0.2
+            # Continue to Phase 01.2
 
         CASE "Show me the files first":
             Display: ""
@@ -403,18 +404,18 @@ IF git_validator_result["git_status"]["uncommitted_changes"] > 10 OR
             Exit workflow
 
         CASE "Stash ALL files (modified + untracked) - Advanced":
-            # Delegate to Step 0.1.6 (Stash Warning Workflow)
+            # Delegate to Phase 01.1.6 (Stash Warning Workflow)
             # This is implemented in Story 1.2
             Display: ""
             Display: "Proceeding to stash warning workflow..."
             Display: ""
-            # GOTO Step 0.1.6 (will be added in Story 1.2)
-            INVOKE: Step 0.1.6 (Stash Warning and Confirmation)
+            # GOTO Phase 01.1.6 (will be added in Story 1.2)
+            INVOKE: Phase 01.1.6 (Stash Warning and Confirmation)
 
 ELSE:
     # No uncommitted changes, or below threshold
     Display: "✓ Working tree: Clean (or below threshold)"
-    # Continue to Step 0.2
+    # Continue to Phase 01.2
 ```
 
 **Success Criteria:**
@@ -422,7 +423,7 @@ ELSE:
 - User can see file list before deciding (via "Show me files first" option)
 - "Continue anyway" option preserves all files via file-based tracking
 - "Commit first" provides clear instructions and HALTS workflow
-- "Stash" delegates to Step 0.1.6 warning workflow (implemented in Story 1.2)
+- "Stash" delegates to Phase 01.1.6 warning workflow (implemented in Story 1.2)
 - No files ever hidden without explicit user confirmation
 
 **Token cost:** ~1,500 tokens (includes AskUserQuestion and display logic)
@@ -431,16 +432,16 @@ ELSE:
 
 ---
 
-## Step 0.1.6: Stash Warning and Confirmation [MANDATORY IF user selects stash] (RCA-008)
+## Phase 01.1.6: Stash Warning and Confirmation [MANDATORY IF user selects stash] (RCA-008)
 
-**When to execute:** User selected "Stash changes (advanced)" in Step 0.1.5
+**When to execute:** User selected "Stash changes (advanced)" in Phase 01.1.5
 
 **Purpose:** Provide clear warning about file visibility consequences before stashing untracked files
 
 **Implementation:**
 
 ```
-# Called from Step 0.1.5 when user selects "Stash changes (advanced)"
+# Called from Phase 01.1.5 when user selects "Stash changes (advanced)"
 
 # Get file counts from git-validator result (or calculate)
 total_files = git_validator_result["git_status"]["uncommitted_changes"]
@@ -563,7 +564,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
         Display: ""
 
         SET workflow_mode = "git"
-        RETURN workflow_mode to Step 0.1.5
+        RETURN workflow_mode to Phase 01.1.5
 
     CASE "No, continue without stashing instead":
         Display: "✅ Cancelled stashing. Proceeding with file-based tracking."
@@ -571,7 +572,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
         Display: ""
 
         SET workflow_mode = "file-based"
-        RETURN workflow_mode to Step 0.1.5
+        RETURN workflow_mode to Phase 01.1.5
 
     CASE "No, let me commit them first":
         Display: "✅ Cancelled stashing. Development paused."
@@ -592,7 +593,7 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 - User sees list of files that will be hidden (first 10 untracked shown)
 - Story files explicitly called out if present (with count)
 - Recovery commands shown before AND after stashing
-- Double confirmation required (Step 0.1.5 asks once, Step 0.1.6 confirms again)
+- Double confirmation required (Phase 01.1.5 asks once, Phase 01.1.6 confirms again)
 - User can cancel and choose file-based tracking instead (via "No, continue without stashing")
 - User can cancel and commit first (via "No, let me commit them first")
 
@@ -602,7 +603,646 @@ SWITCH confirmation_response_answers["Confirm Stash"]:
 
 ---
 
-## Step 0.2: Git Worktree Auto-Management [CONDITIONAL - IF $GIT_AVAILABLE == true]
+## Phase 01.1.7: Story File Isolation Check [CONDITIONAL] (STORY-123)
+
+**Purpose:** Warn about uncommitted story files that may conflict with current story development. Distinguishes "your story" from "other uncommitted stories" to help users understand the scope of changes.
+
+**When to execute:** Only when $GIT_AVAILABLE == true AND uncommitted .story.md files exist beyond the current story.
+
+**Skip conditions:**
+- Git not available ($GIT_AVAILABLE == false)
+- No uncommitted .story.md files
+- Only current story is uncommitted (no others)
+
+**Depends On:** STORY-121 (DEVFORGEAI_STORY environment variable scoping)
+
+**Security Notes:**
+- Input validation REQUIRED before any shell command execution (CRITICAL)
+- All parameters must match pattern: STORY-[0-9]+ (HIGH)
+- No shell metacharacters allowed in story IDs (CRITICAL)
+
+---
+
+### Phase 01.1.7.0: Input Validation [SECURITY - CRITICAL] ⚠️
+
+**MUST EXECUTE FIRST** - Prevents command injection vulnerability (OWASP A03:2021)
+
+```
+# Validate story_id parameter before any shell operations
+CURRENT_STORY_ID = $STORY_ID  # Set by /dev command parameter extraction
+
+# ========== VALIDATION BLOCK ==========
+# CRITICAL: Validate story_id prevents shell injection attacks
+
+# Check 1: Empty validation
+IF [[ -z "${CURRENT_STORY_ID}" ]]; then
+    Display: "❌ ERROR: story_id cannot be empty"
+    Display: "  Expected format: STORY-NNN (e.g., STORY-123)"
+    HALT with exit code 1
+
+# Check 2: Pattern validation - Must match STORY-[0-9]+
+IF [[ ! "${CURRENT_STORY_ID}" =~ ^STORY-[0-9]+$ ]]; then
+    Display: "❌ ERROR: Invalid story_id format: '${CURRENT_STORY_ID}'"
+    Display: "  Expected format: STORY-NNN (e.g., STORY-123)"
+    Display: "  Invalid characters detected"
+    HALT with exit code 1
+
+# Check 3: Length validation - Reasonable upper bound
+IF [[ ${#CURRENT_STORY_ID} -gt 20 ]]; then
+    Display: "❌ ERROR: story_id exceeds maximum length"
+    Display: "  Maximum: 20 characters, got: ${#CURRENT_STORY_ID}"
+    HALT with exit code 1
+
+# Validation passed
+Display: "✓ Story ID validated: ${CURRENT_STORY_ID}"
+```
+
+**Injection Patterns Blocked:**
+- Command substitution: `STORY-123 && rm -rf /`
+- Pipe operators: `STORY-123 | cat /etc/passwd`
+- Variable expansion: `STORY-${USER}`
+- Backtick execution: `STORY-\`whoami\``
+- Glob patterns: `STORY-*`
+- Redirection: `STORY-123 > /tmp/file`
+
+**Why this matters:**
+The original code at Phase 01.1.7.2 (line 673) called:
+```
+current_story_num = int(CURRENT_STORY_ID.replace("STORY-", ""))
+```
+Without validation, an attacker could pass `STORY-123 && rm -rf /` which would be:
+- Stored in shell variable unquoted
+- Used in git commands: `git status -- ${story_id}.story.md` ✗ VULNERABLE
+- With proper quoting: `git status -- "${story_id}.story.md"` ✓ SAFE (but still requires input validation first)
+
+---
+
+### Phase 01.1.7.1: Detect Uncommitted Story Files
+
+```
+# Get current story ID from /dev argument (e.g., "STORY-123")
+CURRENT_STORY_ID = $STORY_ID  # Set by /dev command parameter extraction
+
+# Find all uncommitted .story.md files via git status
+uncommitted_output = Bash(command="git status --porcelain | grep '\\.story\\.md$'")
+
+IF uncommitted_output is empty:
+    Display: "✓ No uncommitted story files detected"
+    SKIP Phase 01.1.7 (proceed to Phase 01.2)
+
+# Parse uncommitted story files
+UNCOMMITTED_STORY_FILES = []
+FOR line in uncommitted_output.lines:
+    # Format: " M devforgeai/specs/Stories/STORY-100-title.story.md"
+    #     or: "?? devforgeai/specs/Stories/STORY-125-new.story.md"
+    file_path = line.split()[-1]  # Get file path (last field)
+
+    IF file_path ends with ".story.md":
+        UNCOMMITTED_STORY_FILES.append(file_path)
+
+Display: "Found {len(UNCOMMITTED_STORY_FILES)} uncommitted story file(s)"
+```
+
+---
+
+### Phase 01.1.7.2: Extract Story IDs and Separate Current vs. Others
+
+```
+# Extract story IDs from file paths
+# Path format: devforgeai/specs/Stories/STORY-NNN-title.story.md
+
+# SECURITY FIX: Parse current story number with error handling
+# This is now safe because Phase 01.1.7.0 validated CURRENT_STORY_ID format
+
+IF ! [[ "${CURRENT_STORY_ID}" =~ ^STORY-([0-9]+)$ ]]; then
+    Display: "❌ ERROR: Story ID failed validation (this should not happen)"
+    HALT with exit code 1
+fi
+
+# Extract number safely with pattern match
+current_story_num=${BASH_REMATCH[1]}
+
+STORY_IDS = []
+FOR file_path in UNCOMMITTED_STORY_FILES:
+    # Extract STORY-NNN from path
+    filename = file_path.split("/")[-1]  # e.g., "STORY-123-title.story.md"
+
+    # Parse story ID (extract number between "STORY-" and next "-")
+    # Pattern: STORY-{number}-
+    # SECURITY: Regex prevents malformed IDs from being processed
+    match = regex_match(filename, r"^STORY-(\d+)")
+
+    IF match:
+        story_num = int(match.group(1))
+        STORY_IDS.append({
+            "id": f"STORY-{story_num}",
+            "number": story_num,
+            "path": file_path
+        })
+
+# Separate current story from others (now using validated number)
+current_story_num_int = int(current_story_num)  # Already validated above
+
+CURRENT_STORY_FILE = None
+OTHER_STORY_IDS = []
+
+FOR story in STORY_IDS:
+    IF story["number"] == current_story_num_int:
+        CURRENT_STORY_FILE = story
+    ELSE:
+        OTHER_STORY_IDS.append(story)
+
+# Validate current story found in uncommitted list
+IF CURRENT_STORY_FILE == None:
+    Display: "⚠️ Warning: Current story {CURRENT_STORY_ID} not in uncommitted changes"
+    Display: "  Possible causes:"
+    Display: "    - Story file was already committed"
+    Display: "    - Wrong story ID provided to /dev command"
+    Display: "  Proceeding without story isolation warning..."
+    SKIP Phase 01.1.7 (proceed to Phase 01.2)
+
+# Check skip condition - only current story uncommitted
+IF len(OTHER_STORY_IDS) == 0:
+    Display: "✓ Only current story ({CURRENT_STORY_ID}) is uncommitted - no warning needed"
+    SKIP Phase 01.1.7 (proceed to Phase 01.2)
+
+Display: "  - Current story: {CURRENT_STORY_ID}"
+Display: "  - Other uncommitted stories: {len(OTHER_STORY_IDS)}"
+```
+
+---
+
+### Phase 01.1.7.3: Detect Story Ranges (Format Consecutive Numbers)
+
+```
+# Sort other story numbers
+other_numbers = sorted([s["number"] for s in OTHER_STORY_IDS])
+
+# Group into consecutive ranges
+# Example: [100, 101, 102, 103, 115, 116, 125]
+#       -> [(100, 103), (115, 116), (125, 125)]
+
+STORY_RANGES = []
+range_start = other_numbers[0]
+range_end = other_numbers[0]
+
+FOR i in range(1, len(other_numbers)):
+    current = other_numbers[i]
+    previous = other_numbers[i - 1]
+
+    IF current == previous + 1:
+        # Consecutive - extend range
+        range_end = current
+    ELSE:
+        # Gap detected - close previous range, start new one
+        STORY_RANGES.append({
+            "start": range_start,
+            "end": range_end,
+            "count": range_end - range_start + 1
+        })
+        range_start = current
+        range_end = current
+
+# Close final range
+STORY_RANGES.append({
+    "start": range_start,
+    "end": range_end,
+    "count": range_end - range_start + 1
+})
+
+# Format ranges for display
+FORMATTED_RANGES = []
+FOR r in STORY_RANGES:
+    IF r["start"] == r["end"]:
+        # Single story (not a range)
+        FORMATTED_RANGES.append(f"STORY-{r['start']} (1 file)")
+    ELSE:
+        # Range of consecutive stories
+        FORMATTED_RANGES.append(f"STORY-{r['start']} through STORY-{r['end']} ({r['count']} files)")
+```
+
+---
+
+### Phase 01.1.7.4: Display Warning Box
+
+```
+# Build warning display
+OTHER_COUNT = len(OTHER_STORY_IDS)
+
+Display: ""
+Display: "+-------------------------------------------+"
+Display: "| WARNING: UNCOMMITTED STORY FILES DETECTED |"
+Display: "+-------------------------------------------+"
+Display: ""
+Display: "Your story: {CURRENT_STORY_ID} (will be modified by this /dev run)"
+Display: ""
+Display: "Other uncommitted stories: {OTHER_COUNT} file(s)"
+
+FOR range_text in FORMATTED_RANGES:
+    Display: "  - {range_text}"
+
+Display: ""
+Display: "Impact:"
+Display: "  • Git commits will include ONLY your story (scoped via DEVFORGEAI_STORY)"
+Display: "  • Pre-commit validation will focus on {CURRENT_STORY_ID}"
+Display: "  • Other story files remain uncommitted"
+Display: ""
+Display: "+-------------------------------------------+"
+Display: ""
+```
+
+---
+
+### Phase 01.1.7.5: Ask User for Action
+
+```
+# Present options to user
+USER_CHOICE = AskUserQuestion(
+    questions=[
+        {
+            "question": "How would you like to proceed with {OTHER_COUNT} other uncommitted story files?",
+            "header": "Story Scope",
+            "multiSelect": false,
+            "options": [
+                {
+                    "label": "Continue with scoped commits (recommended)",
+                    "description": "Proceed with development. Git commits will include ONLY {CURRENT_STORY_ID}, other stories remain uncommitted."
+                },
+                {
+                    "label": "Commit other stories first",
+                    "description": "HALT workflow. You'll commit other stories manually, then re-run /dev {CURRENT_STORY_ID}."
+                },
+                {
+                    "label": "Show me the list",
+                    "description": "Display full list of uncommitted story files, then ask again."
+                }
+            ]
+        }
+    ]
+)
+```
+
+---
+
+### Phase 01.1.7.6: Process User Choice
+
+```
+IF USER_CHOICE == "Continue with scoped commits (recommended)":
+    # Set environment variable for story-scoped commits (STORY-121 integration)
+    $DEVFORGEAI_STORY = CURRENT_STORY_ID
+
+    Display: ""
+    Display: "✓ Proceeding with scoped commits"
+    Display: "  DEVFORGEAI_STORY={CURRENT_STORY_ID}"
+    Display: "  Pre-commit hooks will validate only this story's changes"
+    Display: ""
+
+    # Continue to Phase 01.2
+    PROCEED to Phase 01.2
+
+ELIF USER_CHOICE == "Commit other stories first":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  WORKFLOW HALTED - Commit Other Stories First"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "To commit other stories:"
+    Display: ""
+    Display: "  # Option 1: Commit all story files"
+    Display: "  git add devforgeai/specs/Stories/"
+    Display: "  git commit -m 'chore: update story files'"
+    Display: ""
+    Display: "  # Option 2: Commit specific stories"
+    Display: "  git add devforgeai/specs/Stories/STORY-100*.story.md"
+    Display: "  git commit -m 'chore(STORY-100): update story'"
+    Display: ""
+    Display: "After committing, re-run:"
+    Display: "  /dev {CURRENT_STORY_ID}"
+    Display: ""
+
+    HALT workflow (do not proceed to Phase 01.2)
+
+ELIF USER_CHOICE == "Show me the list":
+    # Display full git status for story files
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  UNCOMMITTED STORY FILES"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Show git status output for story files
+    git_output = Bash(command="git status --porcelain | grep '\\.story\\.md$'")
+
+    FOR line in git_output.lines:
+        status_code = line[:2]
+        file_path = line[3:]
+
+        IF status_code == " M":
+            status_text = "modified"
+        ELIF status_code == "??":
+            status_text = "untracked"
+        ELIF status_code == "A ":
+            status_text = "staged"
+        ELSE:
+            status_text = status_code.strip()
+
+        # Highlight current story
+        IF CURRENT_STORY_ID in file_path:
+            Display: "  [{status_text}] {file_path}  ← YOUR STORY"
+        ELSE:
+            Display: "  [{status_text}] {file_path}"
+
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+
+    # Re-ask the question (per user decision: re-ask automatically)
+    GOTO Phase 01.1.7.5  # Re-display options
+```
+
+---
+
+### Phase 01.1.7 Error Handling (NEW - SECURITY FIX)
+
+**Purpose:** Gracefully handle all failure scenarios with clear error messages and exit codes.
+
+**Error Handling Scenarios:**
+
+```
+# Error Scenario 1: Git Status Command Fails
+IF git status --porcelain fails (exit code != 0):
+    Display: "❌ ERROR: Could not check git status"
+    Display: "  Reason: {git_error_output}"
+    Display: "  Possible causes:"
+    Display: "    - Not in a git repository"
+    Display: "    - Insufficient permissions"
+    Display: "    - Git configuration issue"
+    HALT with exit code 128 (Git-specific error)
+    Purpose: Skip story file isolation check and proceed (git error is non-fatal to /dev workflow)
+
+# Error Scenario 2: Story File Not Found (Uncommon)
+IF CURRENT_STORY_FILE == None AND git status shows story committed:
+    Display: "⚠️ Warning: {CURRENT_STORY_ID} appears to be committed already"
+    SKIP Phase 01.1.7 (proceed to Phase 01.2)
+    Purpose: Allow workflow to continue if story is already committed
+
+# Error Scenario 3: Invalid File Paths in Git Output
+IF file_path parsing fails:
+    Display: "⚠️ Warning: Could not parse git status output for '{file_path}'"
+    Display: "  Skipping this file and continuing with others"
+    Purpose: Continue processing other files (one bad file shouldn't block entire workflow)
+
+# Error Scenario 4: Range Formatting Fails
+IF range detection/formatting fails (should be rare):
+    Display: "⚠️ Warning: Could not format story ranges, showing raw list"
+    FOR story in OTHER_STORY_IDS:
+        Display: "  - {story['id']}"
+    Purpose: Fallback display ensures user gets the information even if formatting breaks
+
+# Error Scenario 5: User Input Validation (Phase 01.1.7.0) Fails
+IF CURRENT_STORY_ID fails pattern validation:
+    Display: "❌ ERROR: Invalid story_id format: '{CURRENT_STORY_ID}'"
+    Display: "  Expected: STORY-NNN where NNN is a number (e.g., STORY-123)"
+    Display: "  Fix: Re-run /dev with valid story ID"
+    HALT with exit code 1 (Invalid input)
+    Purpose: Prevent injection attacks by rejecting malformed input early
+
+# Error Scenario 6: Performance Timeout
+IF Phase 01.1.7 takes > 5 seconds (git operation stalled):
+    Display: "⚠️ Warning: Story file detection taking longer than expected"
+    Display: "  Proceeding without isolation check"
+    SKIP Phase 01.1.7 (proceed to Phase 01.2)
+    Purpose: Prevent workflow from hanging on slow git operations
+
+# Error Scenario 7: Permission Denied (File Access)
+IF git cannot read uncommitted files (permission error):
+    Display: "⚠️ Warning: Permission denied accessing some files"
+    Display: "  Proceeding with available information"
+    Purpose: Continue with partial information rather than blocking entirely
+```
+
+**Exit Codes:**
+- Exit 0: Success (step completed, user made choice)
+- Exit 1: Invalid input (story_id validation failed)
+- Exit 128: Git error (not in repository, git command failed)
+- Return to main flow: Other scenarios (display warning, continue with reduced functionality)
+
+**Key Principle:** Errors in story file isolation check should NOT block the main /dev workflow. This is a convenience feature, not a critical gate.
+
+---
+
+### Phase 01.1.7 "When to Warn" Decision Matrix
+
+**Purpose:** Clarify all scenarios that trigger warning display vs. silent success.
+
+| File Status | Current Story | Other Stories | Action | Message |
+|-------------|---------------|---------------|--------|---------|
+| ✓ All committed | - | - | SKIP 0.1.7 | "✓ No uncommitted changes" → Go to 0.2 |
+| Uncommitted | Uncommitted | None | SKIP 0.1.7 | "✓ Only current story uncommitted" → Go to 0.2 |
+| Uncommitted | Uncommitted | Yes (1-5) | WARN + ASK | "WARNING: 5 other story files" → Display options |
+| Uncommitted | Uncommitted | Yes (6-20) | WARN + ASK | "WARNING: 15 other story files (STORY-100 through 115)" → Display options |
+| Uncommitted | Uncommitted | Yes (21+) | WARN + ASK | "WARNING: 50+ other story files (ranges shown)" → Display options |
+| Committed | - | Uncommitted | SKIP 0.1.7 | "⚠️ Current story already committed" → Go to 0.2 |
+| Git error | - | - | ERROR | "❌ Git status failed" → HALT or skip based on error type |
+
+**Decision Logic:**
+```
+IF no uncommitted .story.md files:
+    ACTION: Skip step, proceed
+    MESSAGE: "✓ No uncommitted story files detected"
+
+ELIF only CURRENT_STORY_ID is uncommitted:
+    ACTION: Skip step, proceed
+    MESSAGE: "✓ Only current story uncommitted - no warning needed"
+
+ELIF OTHER_STORY_IDS is empty:
+    ACTION: Skip step, proceed
+    MESSAGE: (same as above)
+
+ELSE (OTHER_STORY_IDS has entries):
+    ACTION: Display warning box
+    ACTION: Ask user question with 3 options
+    ACTION: Execute user choice:
+        - "Continue": Set env var, proceed
+        - "Commit first": HALT, show commit instructions
+        - "Show list": Display git output, re-ask
+```
+
+---
+
+### Phase 01.1.7 Edge Cases
+
+**Edge Case 1: No uncommitted story files**
+- Detection: `git status --porcelain | grep '\.story\.md$'` returns empty
+- Action: Skip Phase 01.1.7 entirely, proceed to Phase 01.2
+
+**Edge Case 2: Only current story uncommitted**
+- Detection: `OTHER_STORY_IDS` is empty after separation
+- Action: Skip warning, display "✓ Only current story uncommitted - no warning needed"
+
+**Edge Case 3: Non-consecutive story numbers**
+- Example: STORY-100, STORY-105, STORY-110, STORY-115
+- Range output: Each becomes individual entry (no "through" ranges)
+
+**Edge Case 4: Single uncommitted other story**
+- Example: Only STORY-115 is uncommitted (besides current)
+- Display: "STORY-115 (1 file)" (not "STORY-115 through STORY-115")
+
+**Edge Case 5: Large number of uncommitted stories (100+)**
+- Display: Show ALL ranges (no truncation per user decision)
+- Performance: Detection must complete in <100ms
+
+---
+
+### Phase 01.1.7 Success Criteria
+
+**SECURITY (CRITICAL - MUST COMPLETE):**
+- [x] Phase 01.1.7.0: Input validation executed FIRST (pattern: ^STORY-[0-9]+$)
+- [x] Empty story_id rejected with clear error message
+- [x] Command injection attempts blocked (e.g., STORY-123 && rm -rf /)
+- [x] All shell commands use proper quoting with validated input
+- [x] Error handling documented for all 7 failure scenarios
+- [x] Exit codes standardized (0=success, 1=invalid input, 128=git error)
+
+**FUNCTIONAL (REQUIRED):**
+- [x] Detects all uncommitted .story.md files via `git status --porcelain`
+- [x] Correctly separates current story from other stories
+- [x] Formats consecutive story numbers as ranges (e.g., "100 through 113")
+- [x] Displays warning box with clear visual separation
+- [x] Presents 3 user options via AskUserQuestion
+- [x] Sets DEVFORGEAI_STORY environment variable on "Continue"
+- [x] HALTs workflow on "Commit other stories first"
+- [x] Re-asks question after "Show me the list"
+- [x] Completes detection in <100ms (performance requirement)
+- [x] Integrates with STORY-121 DEVFORGEAI_STORY scoping
+
+**DOCUMENTATION (REQUIRED):**
+- [x] "When to Warn" decision matrix added
+- [x] Error handling scenarios documented (7 scenarios)
+- [x] Clear guidance on all edge cases and error conditions
+- [x] Security vulnerability explanation and fix documented
+
+**Token cost:** ~3,000 tokens (includes git status parsing, range detection, warning display, AskUserQuestion)
+
+---
+
+### Phase 01.1.7 Refactoring: Method Decomposition (QUALITY FIX)
+
+**Problem:** Original Phase 01.1.7 combined 298 lines of detection, validation, output formatting, and decision logic in a single section. This violates the single-responsibility principle and makes the code harder to test and maintain.
+
+**Solution:** Decompose into 5 focused sub-steps, each handling ONE concern:
+
+**0.1.7.0 - Input Validation** (20 lines)
+- Responsibility: Validate story_id before any shell operations
+- Handles: Empty check, pattern validation, length check
+- Return: Validated story_id or HALT with error
+- Reusable: Yes (used in 0.1.7.2 as well)
+
+**0.1.7.1 - Git Detection** (15 lines)
+- Responsibility: Detect uncommitted story files
+- Handles: Git status parsing, filtering .story.md files
+- Return: List of uncommitted story file paths
+- Pure function: Yes (no side effects)
+
+**0.1.7.2 - ID Extraction** (25 lines)
+- Responsibility: Extract story IDs from file paths and separate current vs. others
+- Handles: Regex parsing, story ID separation, validation
+- Return: current_story_num, OTHER_STORY_IDS array
+- Depends on: 0.1.7.0 (uses validated story_id)
+
+**0.1.7.3 - Range Detection** (30 lines)
+- Responsibility: Format consecutive story numbers as ranges
+- Handles: Range grouping, consecutive number detection, formatting
+- Return: FORMATTED_RANGES array
+- Pure function: Yes (stateless)
+
+**0.1.7.4-6 - User Interaction** (60 lines)
+- Responsibility: Display warning, collect user choice, execute action
+- Handles: Warning display, AskUserQuestion, conditional branching
+- Return: User choice OR continue with env var set
+- Side effects: Sets DEVFORGEAI_STORY env var, may HALT workflow
+
+**Refactored Method Signature:**
+```
+function story_file_isolation_check(story_id):
+    # Validation (0.1.7.0)
+    validated_story_id = validate_story_id(story_id)
+
+    # Detection (0.1.7.1)
+    uncommitted_files = detect_uncommitted_stories()
+    IF empty(uncommitted_files):
+        SKIP step
+        RETURN
+
+    # ID Extraction (0.1.7.2)
+    (current_story_file, other_stories) = extract_and_separate_story_ids(
+        uncommitted_files,
+        validated_story_id
+    )
+    IF empty(other_stories):
+        SKIP step (only current story uncommitted)
+        RETURN
+
+    # Range Detection (0.1.7.3)
+    ranges = detect_story_ranges(other_stories)
+
+    # User Interaction (0.1.7.4-6)
+    user_choice = prompt_and_execute(current_story_file, other_stories, ranges)
+
+    RETURN success
+```
+
+**Benefits:**
+- Each sub-function ≤30 lines (below 100-line threshold)
+- Single responsibility per function (easier to test)
+- Reusable components (validation, detection, formatting)
+- Easier to identify issues (each function has clear input/output)
+- Better code review (focused changes)
+
+**Magic String Extraction:**
+
+Original scattered occurrences of git status codes:
+- `" M"` → `GIT_STATUS_MODIFIED`
+- `"??"` → `GIT_STATUS_UNTRACKED`
+- `"A "` → `GIT_STATUS_STAGED`
+
+Define constants at module level:
+```
+# Git status codes (from git status --porcelain)
+GIT_STATUS_MODIFIED = " M"   # File modified
+GIT_STATUS_UNTRACKED = "??"  # Untracked file
+GIT_STATUS_STAGED = "A "     # Staged (new file)
+GIT_STATUS_DELETED = " D"    # Deleted
+
+# Story file patterns
+STORY_FILE_PATTERN = "\.story\.md$"
+STORY_ID_PATTERN = "^STORY-([0-9]+)$"
+STORY_ID_VALIDATION_PATTERN = "^STORY-[0-9]+$"
+
+# Display messages
+WARN_TITLE = "WARNING: UNCOMMITTED STORY FILES DETECTED"
+WARN_IMPACT = "Git commits will include ONLY your story (scoped)"
+ERROR_INVALID_ID = "Invalid story_id format"
+```
+
+Usage after extraction:
+```
+IF status_code == GIT_STATUS_MODIFIED:
+    status_text = "modified"
+ELIF status_code == GIT_STATUS_UNTRACKED:
+    status_text = "untracked"
+# etc.
+```
+
+Benefits:
+- Single source of truth for constants
+- Easier to update patterns/messages
+- Self-documenting code (constant names explain purpose)
+- Reduced typo errors
+
+---
+
+## Phase 01.2: Git Worktree Auto-Management [CONDITIONAL - IF $GIT_AVAILABLE == true]
 
 **Purpose:** Automatically create and manage Git worktrees for parallel story development (STORY-091).
 
@@ -621,7 +1261,7 @@ ELSE:
 
 IF config.enabled == false:
     Display: "Worktree management disabled via config - using branch-only workflow"
-    SKIP to Step 0.3
+    SKIP to Phase 01.3
     RETURN
 ```
 
@@ -751,11 +1391,11 @@ IF result.limit_reached AND result.story_worktree.action_needed == "CREATE":
 
 ---
 
-## Step 0.2.5: Dependency Graph Validation [MANDATORY]
+## Phase 01.2.5: Dependency Graph Validation [MANDATORY]
 
 **Purpose:** Validate story dependencies before TDD workflow begins (STORY-093).
 
-**When to execute:** After git-worktree-manager (Step 0.2), before workflow adaptation (Step 0.3).
+**When to execute:** After git-worktree-manager (Phase 01.2), before workflow adaptation (Phase 01.3).
 
 **Pre-check: Empty depends_on optimization:**
 
@@ -764,7 +1404,7 @@ IF result.limit_reached AND result.story_worktree.action_needed == "CREATE":
 # (Extracted from story frontmatter already loaded in conversation)
 IF depends_on is empty OR depends_on == []:
     Display: "✓ No dependencies declared - skipping dependency validation"
-    SKIP to Step 0.3
+    SKIP to Phase 01.3
     RETURN
 ```
 
@@ -801,7 +1441,7 @@ IF result.status == "PASS":
     Display: ""
     Display: result.chain_visualization
     Display: ""
-    // Continue to Step 0.3
+    // Continue to Phase 01.3
 
 ELIF result.status == "BLOCKED":
     // Check for --force flag
@@ -829,8 +1469,8 @@ User: Requested via --force flag
         Display: ""
         Display: "Bypass logged to: {log_path}"
         Display: ""
-        Display: "Proceeding to Step 0.3..."
-        // Continue to Step 0.3
+        Display: "Proceeding to Phase 01.3..."
+        // Continue to Phase 01.3
 
     ELSE:
         // Block execution
@@ -874,12 +1514,12 @@ User: Requested via --force flag
         Display: ""
         Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-        HALT workflow (do not proceed to Step 0.3)
+        HALT workflow (do not proceed to Phase 01.3)
 
 ELIF result.status == "ERROR":
     Display: "❌ Dependency analysis error: {result.error}"
     Display: "Proceeding with caution..."
-    // Continue to Step 0.3 (graceful degradation)
+    // Continue to Phase 01.3 (graceful degradation)
 ```
 
 **Token cost:** ~2,500 tokens (subagent call + response handling)
@@ -891,11 +1531,11 @@ ELIF result.status == "ERROR":
 
 ---
 
-## Step 0.2.6: File Overlap Detection [CONDITIONAL]
+## Phase 01.2.6: File Overlap Detection [CONDITIONAL]
 
 **Purpose:** Detect file overlaps with parallel stories before TDD workflow begins (STORY-094).
 
-**When to execute:** After dependency-graph-analyzer (Step 0.2.5), before workflow adaptation (Step 0.3).
+**When to execute:** After dependency-graph-analyzer (Phase 01.2.5), before workflow adaptation (Phase 01.3).
 
 **Pre-check: Has technical_specification optimization:**
 
@@ -906,7 +1546,7 @@ IF technical_specification section is empty OR not present:
     Display: "ℹ️ No technical_specification - skipping spec-based overlap detection"
     Display: "   Post-flight git-based detection will still run after Phase 3"
     $FILE_OVERLAP_PRE_FLIGHT = false
-    SKIP to Step 0.3
+    SKIP to Phase 01.3
     RETURN
 ```
 
@@ -944,7 +1584,7 @@ IF result.status == "PASS":
     Display: "✓ File overlap check passed"
     Display: "  No overlapping files with parallel stories"
     $FILE_OVERLAP_PRE_FLIGHT = true
-    // Continue to Step 0.3
+    // Continue to Phase 01.3
 
 ELIF result.status == "WARNING":
     // Overlaps detected but below blocking threshold
@@ -985,7 +1625,7 @@ ELIF result.status == "WARNING":
         CASE "Yes - Proceed":
             Display: "✓ Proceeding with acknowledged overlaps"
             $FILE_OVERLAP_PRE_FLIGHT = true
-            // Continue to Step 0.3
+            // Continue to Phase 01.3
 
         CASE "No - Cancel":
             Display: "Development cancelled due to file overlaps"
@@ -1030,7 +1670,7 @@ User: Requested via --force flag
         Display: "⚠️ FILE OVERLAP CHECK BYPASSED (--force flag)"
         Display: "Bypass logged to: {log_path}"
         $FILE_OVERLAP_PRE_FLIGHT = true
-        // Continue to Step 0.3
+        // Continue to Phase 01.3
 
     ELSE:
         Display: "To bypass (not recommended):"
@@ -1043,7 +1683,7 @@ ELIF result.status == "ERROR":
     Display: "⚠️ File overlap analysis error: {result.error}"
     Display: "Proceeding with caution (spec-based detection skipped)..."
     $FILE_OVERLAP_PRE_FLIGHT = false
-    // Continue to Step 0.3 (graceful degradation)
+    // Continue to Phase 01.3 (graceful degradation)
 ```
 
 **Token cost:** ~2,000 tokens (subagent call + response handling)
@@ -1055,7 +1695,7 @@ ELIF result.status == "ERROR":
 
 ---
 
-## Step 0.3: Adapt TDD Workflow Based on Git Availability [MANDATORY]
+## Phase 01.3: Adapt TDD Workflow Based on Git Availability [MANDATORY]
 
 **Workflow adaptations apply throughout all phases:**
 
@@ -1080,7 +1720,7 @@ ELIF result.status == "ERROR":
 
 ---
 
-## Step 0.4: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
+## Phase 01.4: File-Based Change Tracking [MANDATORY IF WORKFLOW_MODE == "file_based"]
 
 **ONLY executed when WORKFLOW_MODE == "file_based"**
 
@@ -1226,7 +1866,7 @@ Display:
 
 ---
 
-## Step 0.5: Validate Context Files Exist [MANDATORY]
+## Phase 01.5: Validate Context Files Exist [MANDATORY]
 
 **Check for all 6 DevForgeAI context files:**
 
@@ -1269,7 +1909,7 @@ Display: "Re-validating context files..."
 
 ---
 
-## Step 0.6: Load Story Specification [MANDATORY]
+## Phase 01.6: Load Story Specification [MANDATORY]
 
 **Story already loaded via @file reference from slash command.**
 
@@ -1297,7 +1937,92 @@ Please ensure /dev command properly loads story file before invoking this skill.
 
 ---
 
-## Step 0.7: Validate Spec vs Context Files [MANDATORY]
+## Phase 01.6.5: Story Type Detection & Phase Skip Configuration [MANDATORY] (STORY-126)
+
+**Purpose:** Extract story type from frontmatter and configure phase skipping based on type.
+
+**When to execute:** After Phase 01.6 (Load Story Specification), before Phase 01.7.
+
+**Story Types:**
+- `feature` (default) - Full TDD workflow, all phases required
+- `documentation` - Skip Phase 05 Integration (no runtime code)
+- `bugfix` - Skip Phase 04 Refactor (minimal changes)
+- `refactor` - Skip Phase 02 Red (tests exist)
+
+**Implementation:**
+
+```
+# Extract type field from story YAML frontmatter (already loaded in conversation)
+# Frontmatter format:
+# ---
+# id: STORY-XXX
+# title: ...
+# type: feature|documentation|bugfix|refactor
+# status: ...
+# ---
+#
+# Story Type Enum Reference: .claude/skills/devforgeai-story-creation/references/story-type-classification.md
+
+# Parse story type from frontmatter
+story_type = extract_yaml_field(story_frontmatter, "type")
+
+# Default to "feature" if type field missing (backward compatibility - AC#5)
+IF story_type is empty OR story_type is null:
+    story_type = "feature"
+    Display: "✓ Story type: feature (default - no type field specified)"
+ELSE:
+    # Validate type enum (see story-type-classification.md for authoritative definition)
+    valid_types = ["feature", "documentation", "bugfix", "refactor"]
+
+    IF story_type NOT IN valid_types:
+        Display: "❌ Invalid story type: '{story_type}'"
+        Display: "   Valid types: feature, documentation, bugfix, refactor"
+        Display: ""
+        HALT with validation error
+
+    Display: "✓ Story type: {story_type}"
+
+# Configure phase skip rules based on type
+$STORY_TYPE = story_type
+$SKIP_PHASES = []
+
+SWITCH story_type:
+    CASE "feature":
+        Display: "  → Full TDD workflow (no phases skipped)"
+        $SKIP_PHASES = []
+
+    CASE "documentation":
+        Display: "  → Skipping Phase 05 Integration Testing"
+        Display: "    Reason: Documentation stories have no runtime code to test"
+        $SKIP_PHASES = ["Phase 05"]
+
+    CASE "bugfix":
+        Display: "  → Skipping Phase 04 Refactoring"
+        Display: "    Reason: Bugfix stories require minimal, targeted changes"
+        $SKIP_PHASES = ["Phase 04"]
+
+    CASE "refactor":
+        Display: "  → Skipping Phase 02 Red (Test Generation)"
+        Display: "    Reason: Refactor stories work with existing tests"
+        $SKIP_PHASES = ["Phase 02"]
+
+Display: ""
+```
+
+**Phase Skip Matrix (Reference):**
+
+| Story Type | Skipped Phase | Rationale |
+|------------|---------------|-----------|
+| `feature` | None | Full TDD workflow required for new functionality |
+| `documentation` | Phase 05 Integration | No runtime code, no integration points to test |
+| `bugfix` | Phase 04 Refactor | Minimal changes preferred, avoid scope creep |
+| `refactor` | Phase 02 Red | Tests already exist, refactoring preserves behavior |
+
+**Token cost:** ~100 tokens (simple string extraction and switch)
+
+---
+
+## Phase 01.7: Validate Spec vs Context Files [MANDATORY]
 
 **Check for conflicts between story requirements and context file constraints:**
 
@@ -1336,7 +2061,7 @@ multiSelect: false
 
 ---
 
-## Step 0.8: Detect and Validate Technology Stack [MANDATORY]
+## Phase 01.8: Detect and Validate Technology Stack [MANDATORY]
 
 **Invoke tech-stack-detector subagent to detect technologies and validate against tech-stack.md:**
 
@@ -1429,7 +2154,7 @@ $BUILD_COMMAND = BUILD_COMMAND
 
 ---
 
-## Step 0.9: Detect Previous QA Failures [MANDATORY]
+## Phase 01.9: Detect Previous QA Failures [MANDATORY]
 
 **Check if story has failed QA due to deferral or other issues:**
 
@@ -1505,11 +2230,11 @@ ELSE:
 
 ---
 
-## Step 0.9.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
+## Phase 01.9.5: Load Structured Gap Data (gaps.json) [IF QA FAILED]
 
 **Purpose:** Parse machine-readable gap data for targeted remediation workflow.
 
-**When to execute:** After Step 0.9 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
+**When to execute:** After Phase 01.9 detects `$QA_COVERAGE_FAILURE`, `$QA_ANTIPATTERN_FAILURE`, or `$QA_DEFERRAL_FAILURE`
 
 ```
 # Check if structured gap export exists
@@ -1590,7 +2315,7 @@ IF gaps_file EXISTS:
     Display: ""
 
 ELSE:
-    # No gaps.json - use legacy markdown parsing (Step 0.8 results)
+    # No gaps.json - use legacy markdown parsing (Phase 01.8 results)
     Display: "ℹ️  No structured gap data (gaps.json) found"
     Display: "   Using legacy QA report parsing for failure context"
     Display: "   (To enable targeted remediation, re-run /qa {STORY_ID})"
@@ -1621,19 +2346,19 @@ ELSE:
 
 ### Mandatory Steps Executed
 
-- [ ] **Step 0.1:** git-validator subagent invoked, Git status assessed
-- [ ] **Step 0.1.5:** User consent obtained (if uncommitted changes > 10)
-- [ ] **Step 0.1.6:** Stash warnings shown (if user selected stash)
-- [ ] **Step 0.2:** Git Worktree Auto-Management (if Git available + enabled)
-- [ ] **Step 0.2.5:** Dependency Graph Validation (STORY-093) - validated or --force bypassed
-- [ ] **Step 0.3:** Workflow mode determined (git-based or file-based)
-- [ ] **Step 0.4:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
-- [ ] **Step 0.5:** All 6 context files validated (exist and non-empty)
-- [ ] **Step 0.6:** Story specification loaded (via @file reference)
-- [ ] **Step 0.7:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
-- [ ] **Step 0.8:** tech-stack-detector invoked, technologies validated
-- [ ] **Step 0.9:** Previous QA failures detected (recovery mode if needed)
-- [ ] **Step 0.9.5:** Structured gap data loaded (if gaps.json exists)
+- [ ] **Phase 01.1:** git-validator subagent invoked, Git status assessed
+- [ ] **Phase 01.1.5:** User consent obtained (if uncommitted changes > 10)
+- [ ] **Phase 01.1.6:** Stash warnings shown (if user selected stash)
+- [ ] **Phase 01.2:** Git Worktree Auto-Management (if Git available + enabled)
+- [ ] **Phase 01.2.5:** Dependency Graph Validation (STORY-093) - validated or --force bypassed
+- [ ] **Phase 01.3:** Workflow mode determined (git-based or file-based)
+- [ ] **Phase 01.4:** File-based tracking setup (if WORKFLOW_MODE == "file_based")
+- [ ] **Phase 01.5:** All 6 context files validated (exist and non-empty)
+- [ ] **Phase 01.6:** Story specification loaded (via @file reference)
+- [ ] **Phase 01.7:** Spec vs. context conflicts resolved (via AskUserQuestion if conflicts)
+- [ ] **Phase 01.8:** tech-stack-detector invoked, technologies validated
+- [ ] **Phase 01.9:** Previous QA failures detected (recovery mode if needed)
+- [ ] **Phase 01.9.5:** Structured gap data loaded (if gaps.json exists)
 
 ### Variables Set for Phases 02-08
 

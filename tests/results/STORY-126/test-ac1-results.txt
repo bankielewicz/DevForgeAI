@@ -1,0 +1,11 @@
+
+================================================================================================
+AC#1: Story Frontmatter Supports Type Field - TEST SUITE
+STORY-126: Story Type Detection & Phase Skipping
+================================================================================================
+
+Status: RED PHASE (Tests expected to fail - implementation to follow)
+
+Setup: Created temp directory /mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-126/tmp-ac1-142462
+
+[1;33mTEST: AC#1.1: Frontmatter accepts type: feature[0m

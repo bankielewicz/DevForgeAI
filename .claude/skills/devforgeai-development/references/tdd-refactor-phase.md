@@ -38,7 +38,7 @@ The Refactor phase improves code quality without changing behavior. Tests remain
 
 ```
 # Check if Phase 04 should be skipped based on story type
-# $STORY_TYPE set in Phase 01 Step 0.6.5
+# $STORY_TYPE set in Phase 01.6.5 (Pre-Flight Validation)
 
 IF $STORY_TYPE == "bugfix":
     Display: ""

@@ -99,3 +99,5 @@ src/devforgeai/qa/reports/*
 src/**/*.pyc
 src/**/__pycache__/
 src/**/node_modules/
+# Block .devforgeai folder creation attempts
+.devforgeai

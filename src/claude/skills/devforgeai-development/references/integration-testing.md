@@ -30,11 +30,53 @@ Phase 05 validates that the implementation integrates correctly with other compo
 
 ---
 
+## Story Type Skip Check [MANDATORY FIRST] (STORY-126)
+
+**Purpose:** Skip Phase 05 for `documentation` story types (no runtime code).
+
+**When to execute:** Before any Phase 05 processing.
+
+```
+# Check if Phase 05 should be skipped based on story type
+# $STORY_TYPE set in Phase 01.6.5 (Pre-Flight Validation)
+
+IF $STORY_TYPE == "documentation":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  ℹ️  SKIPPING PHASE 05: Story Type 'documentation'"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Reason: Documentation stories have no runtime code to test."
+    Display: "        Integration tests validate cross-component behavior,"
+    Display: "        which doesn't exist for documentation-only changes."
+    Display: ""
+    Display: "Proceeding to Phase 06 (Deferral Challenge)..."
+    Display: ""
+
+    # Skip Phase 05 entirely
+    GOTO Phase 06
+
+    RETURN
+```
+
+### Phase Skip Decision Matrix
+
+| Story Type | Phase 02 (Red) | Phase 04 (Refactor) | Phase 05 (Integration) |
+|------------|----------------|---------------------|------------------------|
+| `feature` | Execute | Execute | Execute |
+| `documentation` | Execute | Execute | **SKIP** |
+| `bugfix` | Execute | **SKIP** | Execute |
+| `refactor` | **SKIP** | Execute | Execute |
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/story-type-classification.md`
+
+---
+
 ## Phase 05: Integration & Validation
 
 **Delegate integration testing to integration-tester subagent.**
 
-### Step 0: Anti-Gaming Validation [MANDATORY - RUN FIRST - NEW]
+### Phase 05.0: Anti-Gaming Validation [MANDATORY - RUN FIRST - NEW]
 
 **Purpose:** Prevent coverage gaming BEFORE test execution.
 
@@ -52,7 +94,7 @@ By validating BEFORE test execution, we ensure coverage scores reflect real test
 
 #### 0.2 Execute Gaming Detection via integration-tester
 
-The integration-tester subagent (invoked in Step 1 below) now includes Step 0 gaming validation FIRST.
+The integration-tester subagent (invoked in Step 1 below) now includes Phase 05.0gaming validation FIRST.
 
 **Gaming detection happens automatically inside integration-tester subagent:**
 
@@ -107,7 +149,7 @@ IF gaming_scan.status == "PASS":
     PROCEED to Step 1
 ```
 
-**Integration:** The integration-tester subagent runs Step 0 automatically as its first action. No separate invocation needed.
+**Integration:** The integration-tester subagent runs Phase 05.0automatically as its first action. No separate invocation needed.
 
 ---
 
@@ -273,14 +315,14 @@ Phase 05 succeeds when:
 
 ### Mandatory Steps Executed
 
-- [ ] **Step 0:** Anti-Gaming Validation PASSED [MANDATORY - NEW]
+- [ ] **Phase 05.0:** Anti-Gaming Validation PASSED [MANDATORY - NEW]
   - Verification: integration-tester ran gaming validation BEFORE tests
   - Verification: No skip decorators, empty tests, TODO placeholders, excessive mocking
   - Output: "✓ Anti-gaming validation passed" displayed
   - HALT IF: gaming_scan.status == "BLOCKED"
 
 - [ ] **Step 1:** integration-tester subagent invoked
-  - Verification: Full test suite executed with coverage (AFTER Step 0 PASS)
+  - Verification: Full test suite executed with coverage (AFTER Phase 05.0PASS)
   - Output: Test results and coverage percentages displayed
 
 - [ ] **Step 2:** Integration test results parsed and validated

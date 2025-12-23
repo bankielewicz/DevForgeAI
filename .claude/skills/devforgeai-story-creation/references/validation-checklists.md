@@ -1017,6 +1017,176 @@ If 8-12:
 
 ---
 
+## Context File Compliance Validation
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+
+### Greenfield Detection
+
+```
+Check for context files:
+
+context_dir = "devforgeai/specs/context/"
+context_files = Glob(pattern=f"{context_dir}*.md")
+
+IF len(context_files) == 0:
+    # Greenfield mode
+    Display: "ℹ️ Greenfield mode: context compliance validation skipped"
+    SKIP context validation checklists
+    RETURN { greenfield: true }
+```
+
+### Technology Compliance (tech-stack.md)
+
+```
+Validate against tech-stack.md:
+
+- [ ] All technologies in tech spec are in LOCKED list
+- [ ] No PROHIBITED technologies referenced
+- [ ] Framework versions match approved versions (if specified)
+
+If violation found:
+    HIGH: Unapproved technology '{technology}'
+
+    AskUserQuestion:
+      Question: "'{technology}' not in tech-stack.md. How to proceed?"
+      Header: "Tech violation"
+      Options:
+        - "Remove from spec" - Use approved alternative
+        - "Add to tech-stack.md" - Requires ADR
+        - "Flag for review" - Proceed with warning
+```
+
+### File Path Compliance (source-tree.md)
+
+```
+Validate against source-tree.md:
+
+- [ ] All file_path values in tech spec match source-tree.md structure
+- [ ] Story output directory is devforgeai/specs/Stories/
+- [ ] No files in FORBIDDEN directories
+
+Critical check (BLOCKING):
+- [ ] Story file written to correct directory
+
+If violation found:
+    CRITICAL (path): Invalid file path '{path}'
+    HIGH (directory): Story in wrong directory
+
+    Auto-fix: Redirect to devforgeai/specs/Stories/
+```
+
+### Dependency Compliance (dependencies.md)
+
+```
+Validate against dependencies.md:
+
+- [ ] All packages in Dependencies section are LOCKED
+- [ ] No FORBIDDEN alternatives used
+- [ ] Package versions compatible (if specified)
+
+If violation found:
+    HIGH: Unapproved dependency '{package}'
+
+    AskUserQuestion:
+      Question: "'{package}' not in dependencies.md. How to proceed?"
+      Header: "Dep violation"
+      Options:
+        - "Remove dependency" - Find alternative
+        - "Add to dependencies.md" - Requires ADR
+        - "Flag for review" - Proceed with warning
+```
+
+### Coverage Threshold Compliance (coding-standards.md)
+
+```
+Validate against coding-standards.md:
+
+- [ ] Coverage thresholds in DoD match layer requirements:
+  - Business logic layer: 95%
+  - Application layer: 85%
+  - Infrastructure layer: 80%
+
+- [ ] Story correctly identifies its architectural layer
+
+If violation found:
+    MEDIUM: Incorrect coverage threshold
+
+    Auto-fix: Update DoD to correct threshold for layer
+```
+
+### Architecture Compliance (architecture-constraints.md)
+
+```
+Validate against architecture-constraints.md:
+
+- [ ] No direct controller→repository dependencies
+- [ ] Layer boundaries respected in tech spec design
+- [ ] No circular dependencies proposed
+
+If violation found:
+    HIGH: Layer boundary violation '{from}' → '{to}'
+
+    AskUserQuestion:
+      Question: "Design violates architecture constraints. Redesign?"
+      Header: "Arch violation"
+      Options:
+        - "Redesign" - I'll provide compliant design
+        - "Flag for review" - Proceed with warning
+```
+
+### Anti-Pattern Compliance (anti-patterns.md)
+
+```
+Validate against anti-patterns.md:
+
+- [ ] No God Objects proposed (classes >500 lines or >20 methods)
+- [ ] No SQL string concatenation in data access patterns
+- [ ] No hardcoded secrets in config examples
+- [ ] No Bash commands for file operations (use native tools)
+- [ ] No monolithic skill designs
+
+If violation found:
+    CRITICAL: Anti-pattern detected '{pattern}'
+
+    HALT: "Anti-pattern '{pattern}' detected. Technical spec must be revised."
+    Cannot proceed until anti-pattern removed from spec
+```
+
+### Context Validation Summary
+
+```
+Generate summary after all context checks:
+
+Context Compliance Report:
+========================
+
+Files Checked: {count}/6
+- [x] tech-stack.md      (or [-] not found)
+- [x] source-tree.md     (or [-] not found)
+- [x] dependencies.md    (or [-] not found)
+- [x] coding-standards.md (or [-] not found)
+- [x] architecture-constraints.md (or [-] not found)
+- [x] anti-patterns.md   (or [-] not found)
+
+Violations:
+- CRITICAL: {count}  ← BLOCKING
+- HIGH: {count}      ← BLOCKING
+- MEDIUM: {count}    ← Warning only
+- LOW: {count}       ← Warning only
+
+Status: {COMPLIANT | FAILED | WARNINGS}
+
+IF CRITICAL or HIGH > 0:
+    HALT: Resolve violations before completing story
+ELIF MEDIUM or LOW > 0:
+    WARN: Proceeding with warnings
+ELSE:
+    ✓ Fully compliant with all context files
+```
+
+---
+
 ## Handoff Readiness Validation
 
 ### Ready for Development
@@ -1033,6 +1203,7 @@ Prerequisites:
 - [ ] UI specification complete (if UI story)
 - [ ] Dependencies documented (if external services)
 - [ ] NFRs are measurable
+- [ ] Context file compliance passed (or greenfield mode)
 
 If prerequisites met:
     ✓ Story is ready for development (/dev command)

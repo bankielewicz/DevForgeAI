@@ -28,7 +28,7 @@ This reference provides conventions for:
 
 ---
 
-## Step 0: Pre-Commit DoD Validation [MANDATORY - RCA-014 REC-3]
+## Phase 08.0: Pre-Commit DoD Validation [MANDATORY - RCA-014 REC-3]
 
 **Execute BEFORE any git operations.**
 
@@ -196,7 +196,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/dod-update-work
 
 ---
 
-## Step 0.5: Lock Coordination for Parallel Commits [NEW - STORY-096]
+## Phase 08.0.5: Lock Coordination for Parallel Commits [NEW - STORY-096]
 
 **Purpose:** Serialize git commits across parallel story worktrees to prevent git index lock conflicts.
 
@@ -434,13 +434,13 @@ git stash drop     # Delete stash permanently (use with caution)
 - User has untracked files (story files, new code, documentation)
 - Want clean working tree for tracked files only
 - Untracked files are user-created content (high value)
-- DEFAULT RECOMMENDATION in Step 0.1.5
+- DEFAULT RECOMMENDATION in Phase 01.1.5
 
 **Use "Stash all (--include-untracked)" when:**
 - User explicitly requests it after seeing warning
 - All files are regenerable (cache, build artifacts, temp files)
 - User has been warned about file visibility consequences
-- User confirmed via Step 0.1.6 double-confirmation flow
+- User confirmed via Phase 01.1.6 double-confirmation flow
 
 **Use "File-based tracking" when:**
 - User wants all files visible (safest option)
@@ -451,7 +451,7 @@ git stash drop     # Delete stash permanently (use with caution)
 ### Stash Safety Checklist
 
 **Before executing git stash --include-untracked:**
-- [ ] User has been shown file list (via Step 0.1.5 "Show files" option or Step 0.1.6)
+- [ ] User has been shown file list (via Phase 01.1.5 "Show files" option or Phase 01.1.6)
 - [ ] Warning box displayed explaining visibility consequences
 - [ ] Untracked file count shown (especially story files)
 - [ ] Recovery commands provided BEFORE stashing
@@ -508,7 +508,7 @@ git stash push -m "WIP: Modified files only"
 - User has untracked files (especially story files, new code, documentation)
 - Want clean working tree for tracked files only
 - Untracked files are user-created content (high value)
-- DEFAULT in Step 0.1.5 (marked with ⭐ Recommended)
+- DEFAULT in Phase 01.1.5 (marked with ⭐ Recommended)
 
 ---
 
@@ -529,14 +529,14 @@ git stash push -m "WIP: All files" --include-untracked
 - ⚠️ Confusing for non-git-experts
 
 **Use when:**
-- User explicitly requests it after seeing full warning (Step 0.1.6)
+- User explicitly requests it after seeing full warning (Phase 01.1.6)
 - All files are regenerable (cache, build artifacts, temp files)
 - User understands git stash behavior
 - User confirmed via double-confirmation flow
 
 **Required safeguards (MANDATORY):**
-- Step 0.1.5: Initial choice warning
-- Step 0.1.6: Second confirmation with file list
+- Phase 01.1.5: Initial choice warning
+- Phase 01.1.6: Second confirmation with file list
 - Warning box explaining visibility consequences
 - Recovery instructions shown before AND after stashing
 
@@ -610,15 +610,15 @@ Do you have uncommitted changes?
               └─ Mixed → Recommend: Stash modified only, keep untracked visible ⭐
 ```
 
-### Implementation in Step 0.1.5
+### Implementation in Phase 01.1.5
 
-The smart stash strategy is implemented in Step 0.1.5 of preflight-validation.md with these options (in order of safety):
+The smart stash strategy is implemented in Phase 01.1.5 of preflight-validation.md with these options (in order of safety):
 
 1. **Continue anyway** - File-based tracking (safest, all files visible)
 2. **Stash ONLY modified** - Recommended (clean tracked files, preserve untracked)
 3. **Show files first** - Review before deciding
 4. **Commit first** - Most organized (creates proper git history)
-5. **Stash ALL** - Use with caution (requires Step 0.1.6 warning)
+5. **Stash ALL** - Use with caution (requires Phase 01.1.6 warning)
 
 **Default selection logic:**
 - IF story_files > 0: Recommend option 2 (stash modified only) or option 1 (continue anyway)
@@ -836,7 +836,7 @@ Closes #STORY-050
 # After Phase 08: Integration complete
 # All tests passing, QA approved, ready to commit
 
-# Step 0.5: Acquire lock (STORY-096)
+# Phase 08.0.5: Acquire lock (STORY-096)
 python3 src/lock_file_coordinator.py acquire --story-id STORY-001 --timeout 600
 
 # Step 5.1-5.2: Git add and commit (with lock held)

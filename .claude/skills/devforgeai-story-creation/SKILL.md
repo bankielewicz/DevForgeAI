@@ -340,39 +340,25 @@ ELSE:
     AskUserQuestion with simple priority list
 ```
 
-**Story Type Selection (STORY-126 - Explicit Classification):**
+**Story Type Selection (STORY-126):**
+
+**Reference:** `references/story-type-classification.md` for full enum, phase skip matrix, and workflow diagrams.
+
 ```
-IF GUIDANCE_AVAILABLE:
-    pattern = lookup_pattern("explicit classification")
-    AskUserQuestion(
-        question:"What type of story is this?",
-        header:"Story Type",
-        options=[
-            {label:"feature", description:"Full TDD workflow - New functionality or enhancements (default)"},
-            {label:"documentation", description:"Skip Integration tests - Documentation-only, no runtime code"},
-            {label:"bugfix", description:"Skip Refactoring - Bug fixes, minimal targeted changes"},
-            {label:"refactor", description:"Skip Test Generation - Code refactoring, tests already exist"}
-        ]
-    )
-ELSE:
-    AskUserQuestion(
-        question:"What type of story is this?",
-        header:"Story Type",
-        options=[
-            {label:"feature", description:"Full TDD workflow (default)"},
-            {label:"documentation", description:"Skip integration testing"},
-            {label:"bugfix", description:"Skip refactoring phase"},
-            {label:"refactor", description:"Skip test generation"}
-        ]
-    )
+AskUserQuestion(
+    question:"What type of story is this?",
+    header:"Story Type",
+    options=[
+        {label:"feature", description:"Full TDD workflow (default)"},
+        {label:"documentation", description:"Skip integration testing"},
+        {label:"bugfix", description:"Skip refactoring phase"},
+        {label:"refactor", description:"Skip test generation"}
+    ]
+)
 
 # Default to "feature" if user skips or selects "Other"
-IF user_response is empty OR user_response == "Other":
-    story_type = "feature"
-    Display:"Using default story type: feature (full TDD workflow)"
-ELSE:
-    story_type = user_response
-    Display:"Story type set to: {story_type}"
+story_type = user_response OR "feature"
+Display:"Story type: {story_type}"
 ```
 
 **Story Points (Fibonacci Bounded Choice):**

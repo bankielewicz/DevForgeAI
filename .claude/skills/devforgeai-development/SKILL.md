@@ -517,6 +517,21 @@ Update DoD format for git commit → Validate format → Prepare for Phase 08
 **CRITICAL:** Execute AFTER Phase 06, BEFORE Phase 08 - git commit will FAIL if skipped
 **Note (RCA-014):** Phase 06-R removed - resumption now happens immediately in Phase 06 Step 7
 
+**MANDATORY: Load and Execute Reference Document**
+
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+```
+
+**After reading, execute ALL steps in dod-update-workflow.md:**
+1. Step 1: Mark completed items [x] in Definition of Done section
+2. Step 2: Add DoD items to Implementation Notes (FLAT LIST - no ### subsections)
+3. Step 3: Validate format: `devforgeai-validate validate-dod ${STORY_FILE}`
+4. Step 4: Update Workflow Status section
+5. Step 5: Final validation (exit code 0 required)
+
+**DO NOT PROCEED TO PHASE 08 UNTIL dod-update-workflow.md IS FULLY EXECUTED**
+
 **Pre-Check: Implementation Notes Section [MANDATORY]**
 
 Before executing DoD update workflow, verify story has Implementation Notes section:

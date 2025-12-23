@@ -1,6 +1,6 @@
 ---
 description: Implement user story using TDD workflow
-argument-hint: [STORY-ID]
+argument-hint: [STORY-ID] [mode]
 model: opus
 allowed-tools: Read, Skill, Bash(git:*)
 ---
@@ -20,6 +20,9 @@ Execute full Test-Driven Development cycle for a user story following lean orche
 # Bypass dependency checks (not recommended)
 /dev STORY-001 --force
 
+# devforgeai-development skill will resolve QA issues noted in STORY-[0-9]-gaps.json file
+/dev STORY-001 --fix
+
 # Development workflow states
 Backlog | Ready for Dev | In Development → Dev Complete
 
@@ -38,6 +41,7 @@ Backlog | Ready for Dev | In Development → Dev Complete
 ```
 STORY_ID = null
 FORCE_FLAG = false
+Mode = TDD
 
 # Parse arguments
 FOR arg in arguments:
@@ -45,22 +49,35 @@ FOR arg in arguments:
         FORCE_FLAG = true
     ELIF arg matches "STORY-[0-9]+":
         STORY_ID = arg
+    ELIF arg == "--fix":
+        REMEDIATION_MODE = true
 
 IF STORY_ID empty:
     Display: "Usage: /dev STORY-NNN [--force]"
     Display: "Example: /dev STORY-001"
     Display: "         /dev STORY-001 --force  (bypass dependency checks)"
+    Display: "         /dev STORY-001 --FIX    (Resolve QA issues noted in STORY-[0-9]-gaps.json file)
     HALT
 
 IF FORCE_FLAG == true:
     Display: "⚠️  Force mode enabled - dependency checks will be bypassed"
     Display: "    This is logged for audit purposes."
     Display: ""
+
+IF REMEDIATION_MODE == true:
+    Display: "⚠️  Remediation mode enabled"    
+    Display: ""
+    $MODE = Remediation Mode
 ```
 
 **Set force flag for skill context:**
 ```
 $FORCE_FLAG = FORCE_FLAG
+```
+
+**Set remediation mode flag for skill context:**
+```
+$REMEDIATION_MODE = REMEDIATION_MODE
 ```
 
 **Load story file:**
@@ -94,6 +111,9 @@ Display: ""
 
 **Invoke devforgeai-development skill:**
 ```
+**Story ID:** ${STORY_ID}
+**Development Mode:** ${MODE}
+
 Skill(command="devforgeai-development")
 ```
 

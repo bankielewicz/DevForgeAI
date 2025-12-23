@@ -197,7 +197,9 @@ The architecture skill will:
 4. Create ADRs for technology decisions
 5. Validate requirements against constraints
 
-After context creation, run `/create-sprint 1` to begin sprint planning.
+After context creation:
+1. Run `/create-missing-stories` to generate stories from epic features
+2. Run `/create-sprint 1` to begin sprint planning
 """
 ```
 
@@ -283,7 +285,9 @@ AskUserQuestion(
 Report: """
 ✅ Requirements validated against existing constraints
 
-Next step: Run `/create-sprint 1`
+Next steps:
+1. Run `/create-missing-stories` to generate stories from epic features
+2. Run `/create-sprint 1` to begin sprint planning
 
 The orchestration skill will:
 1. Use existing context files (tech-stack, architecture-constraints, etc.)
@@ -348,7 +352,8 @@ Check context files exist?
   │   ↓
   │   If "Create context":
   │       → /create-context (architecture skill)
-  │       → Then /create-sprint (orchestration skill)
+  │       → /create-missing-stories (story generation)
+  │       → /create-sprint (orchestration skill)
   │   If "Review first":
   │       → User reviews files
   │       → Then /create-context when ready
@@ -381,6 +386,79 @@ Check context files exist?
 - User review (pause for manual editing)
 
 **Ideation skill completes** - Handoff successful
+
+---
+
+## Step 6.7: Display Final Summary
+
+**Purpose:** Present compact, actionable summary following QA skill pattern (Step 4.3).
+
+**Display Template:**
+
+```
+╔════════════════════════════════════════════════════════╗
+║               IDEATION COMPLETE                        ║
+╠════════════════════════════════════════════════════════╣
+║ Project: {project_name}                                ║
+║ Mode: {Greenfield|Brownfield}                          ║
+║ Complexity: {score}/60 (Tier {tier})                   ║
+╠════════════════════════════════════════════════════════╣
+║ Generated Artifacts:                                   ║
+║   Epics: {count} in devforgeai/specs/Epics/            ║
+║   Features: {total_features} across all epics          ║
+║   Requirements Spec: {Yes|No}                          ║
+╠════════════════════════════════════════════════════════╣
+║ Next Steps (in order):                                 ║
+║   1. /create-context {project}                         ║
+║   2. /create-missing-stories                           ║
+║   3. /create-sprint 1                                  ║
+║   4. /dev {STORY-ID}                                   ║
+╚════════════════════════════════════════════════════════╝
+```
+
+**Brownfield Variant (context files exist):**
+
+```
+╔════════════════════════════════════════════════════════╗
+║               IDEATION COMPLETE                        ║
+╠════════════════════════════════════════════════════════╣
+║ Project: {project_name}                                ║
+║ Mode: Brownfield (context files exist)                 ║
+║ Complexity: {score}/60 (Tier {tier})                   ║
+╠════════════════════════════════════════════════════════╣
+║ Generated Artifacts:                                   ║
+║   Epics: {count} in devforgeai/specs/Epics/            ║
+║   Features: {total_features} across all epics          ║
+║   Requirements Spec: {Yes|No}                          ║
+╠════════════════════════════════════════════════════════╣
+║ Next Steps (in order):                                 ║
+║   1. /create-missing-stories                           ║
+║   2. /create-sprint 1                                  ║
+║   3. /dev {STORY-ID}                                   ║
+╚════════════════════════════════════════════════════════╝
+```
+
+**Implementation:**
+```python
+def display_final_summary(session):
+    mode = "Greenfield" if not session.context_files_exist else "Brownfield"
+
+    Display: """
+    ╔════════════════════════════════════════════════════════╗
+    ║               IDEATION COMPLETE                        ║
+    ╠════════════════════════════════════════════════════════╣
+    ║ Project: {session.project_name}                        ║
+    ║ Mode: {mode}                                           ║
+    ║ Complexity: {session.complexity_score}/60 (Tier {session.tier}) ║
+    ╠════════════════════════════════════════════════════════╣
+    ...
+    """
+```
+
+**Key Difference from QA Skill:**
+- QA has pass/fail outcome variants
+- Ideation has greenfield/brownfield path variants
+- Both use numbered next steps for clarity
 
 ---
 
@@ -587,8 +665,8 @@ The architecture skill will:
 5. Validate requirements against constraints
 
 After context creation:
-- Run `/create-sprint 1` to begin sprint planning
-- Orchestration skill will create Sprint 1 plan and generate stories from epic features
+1. Run `/create-missing-stories` to generate stories from epic features
+2. Run `/create-sprint 1` to select stories into sprint capacity
 
 ---
 

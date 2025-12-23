@@ -250,11 +250,6 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 02 (or Remediation Mode if QA gaps detected)..."
 
-  **Session Checkpoint (Phase 0):**
-  ```
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 0, {\"next_action\": \"Phase 02: Test-First Design\"}) and print(\"✓ Checkpoint: Phase 0 (10%)\")'")
-  ```
-
   Proceed to next phase
 
 **Purpose:** Prevents skipping git validation, context file loading, and tech stack detection (RCA: STORY-080 skipped Phase 01 completely)
@@ -303,7 +298,7 @@ ELSE:
 
 ## TDD Workflow (6 Phases)
 
-### Phase 02: Test-First Design (Red Phase)
+### Phase 02: Test-First Design
 Write failing tests from AC → test-automator subagent → Tests RED → **Update AC Checklist (test items) ✓ MANDATORY**
 **Reference:** `tdd-red-phase.md`
 **AC Updates:** Test count, test coverage, test file creation items
@@ -350,23 +345,18 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 03..."
 
-  **Session Checkpoint (Phase 1):**
-  ```
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 1, {\"next_action\": \"Phase 03: Implementation\"}) and print(\"✓ Checkpoint: Phase 1 (20%)\")'")
-  ```
-
   Proceed to Phase 03
 
 **Purpose:** Ensures tests are generated before implementation begins (TDD Red phase complete)
 
 ---
 
-### Phase 03: Implementation (Green Phase)
+### Phase 03: Implementation
 Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN → **Update AC Checklist (implementation items) ✓ MANDATORY**
 **Reference:** `tdd-green-phase.md`
 **AC Updates:** Code implementation, business logic location, size metrics items
 
-### Phase 04: Refactor (Refactor Phase)
+### Phase 04: Refactoring
 Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved → **Update AC Checklist (quality items) ✓ MANDATORY**
 **Reference:** `tdd-refactor-phase.md`
 **Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY], 6 AC Checklist update
@@ -385,7 +375,7 @@ Cross-component testing, coverage validation → integration-tester → Threshol
 
 CHECK CONVERSATION HISTORY FOR EVIDENCE:
 
-- [ ] Step 0: Anti-Gaming Validation PASSED? [NEW - BLOCKING - RUN FIRST]
+- [ ] Phase 05.0: Anti-Gaming Validation PASSED? [NEW - BLOCKING - RUN FIRST]
       Search for: integration-tester response with "✓ Anti-gaming validation passed"
       OR: gaming_scan.status == "PASS"
       Found? YES → Check box | NO → Leave unchecked
@@ -429,9 +419,6 @@ IF all checkboxes CHECKED:
   "  ✓ AC Checklist updated"
   ""
   Display: "Proceeding to Phase 06..."
-
-  **Session Checkpoint (Phase 4):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 4, {\"next_action\": \"Phase 06: Deferral Challenge\"}) and print(\"✓ Checkpoint: Phase 4 (50%)\")'")
 
   Proceed to Phase 06
 
@@ -511,9 +498,6 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 07..."
 
-  **Session Checkpoint (Phase 5):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 5, {\"next_action\": \"Phase 07: DoD Update\"}) and print(\"✓ Checkpoint: Phase 5 (56%)\")'")
-
   Proceed to Bridge
 
 **Purpose:** Ensures deferrals have EXPLICIT user approval (not autonomous) before DoD update. Step c.1. is defense-in-depth against auto-approval.
@@ -526,6 +510,21 @@ Update DoD format for git commit → Validate format → Prepare for Phase 08
 **Purpose:** Ensure DoD items formatted correctly (flat list in Implementation Notes, no ### subsections)
 **CRITICAL:** Execute AFTER Phase 06, BEFORE Phase 08 - git commit will FAIL if skipped
 **Note (RCA-014):** Phase 06-R removed - resumption now happens immediately in Phase 06 Step 7
+
+**MANDATORY: Load and Execute Reference Document**
+
+```
+Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
+```
+
+**After reading, execute ALL steps in dod-update-workflow.md:**
+1. Step 1: Mark completed items [x] in Definition of Done section
+2. Step 2: Add DoD items to Implementation Notes (FLAT LIST - no ### subsections)
+3. Step 3: Validate format: `devforgeai-validate validate-dod ${STORY_FILE}`
+4. Step 4: Update Workflow Status section
+5. Step 5: Final validation (exit code 0 required)
+
+**DO NOT PROCEED TO PHASE 08 UNTIL dod-update-workflow.md IS FULLY EXECUTED**
 
 **Pre-Check: Implementation Notes Section [MANDATORY]**
 
@@ -600,9 +599,6 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 08 (Git Commit)..."
 
-  **Session Checkpoint (Phase 6):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 6, {\"next_action\": \"Phase 08: Git Workflow\"}) and print(\"✓ Checkpoint: Phase 6 (67%)\")'")
-
   Proceed to Phase 08
 
 **Purpose:** Prevents git commit without proper DoD documentation (RCA: STORY-080 skipped Bridge)
@@ -660,9 +656,6 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 09..."
 
-  **Session Checkpoint (Phase 7):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 7, {\"next_action\": \"Phase 09: Feedback Hook\"}) and print(\"✓ Checkpoint: Phase 7 (78%)\")'")
-
   Proceed to Phase 09
 
 **Purpose:** Ensures git commit includes story file and documentation
@@ -719,7 +712,7 @@ Phase 04: Refactor (tdd-refactor-phase.md + refactoring-patterns.md)
   └─ Step 5: Light QA (devforgeai-qa --mode=light) ✓ MANDATORY ← OFTEN MISSED
   ↓
 Phase 05: Integration (integration-testing.md)
-  ├─ **Step 0: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← RUN FIRST, BLOCKS COVERAGE
+  ├─ **Phase 05.0: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← RUN FIRST, BLOCKS COVERAGE
   │   └─ HALT if: gaming patterns detected BEFORE coverage calculation
   └─ Step 1: integration-tester ✓ MANDATORY
   ↓
@@ -975,7 +968,7 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
 
 ---
 
-### Phase 02: Test-First Design (Red Phase)
+### Phase 02: Test-First Design
 
 1. **test-automator** (Test generation) [MANDATORY]
    - Purpose: Generate failing tests from acceptance criteria
@@ -987,7 +980,7 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
 
 ---
 
-### Phase 03: Implementation (Green Phase)
+### Phase 03: Implementation
 
 1. **backend-architect OR frontend-developer** (Implementation) [MANDATORY - CHOOSE ONE]
    - Purpose: Write minimal code to pass tests
@@ -1045,9 +1038,6 @@ IF all checkboxes CHECKED:
   ""
   Display: "Proceeding to Phase 04..."
 
-  **Session Checkpoint (Phase 2):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 2, {\"next_action\": \"Phase 04: Refactoring\"}) and print(\"✓ Checkpoint: Phase 2 (30%)\")'")
-
   Proceed to Phase 04
 ```
 
@@ -1055,7 +1045,7 @@ IF all checkboxes CHECKED:
 
 ---
 
-### Phase 04: Refactor (Refactor Phase)
+### Phase 04: Refactoring
 
 1. **refactoring-specialist** (Code improvement) [MANDATORY]
    - Purpose: Apply refactoring patterns, remove code smells
@@ -1134,9 +1124,6 @@ IF all checkboxes CHECKED:
   "  ✓ Light QA executed"
   ""
   Display: "Proceeding to Phase 05..."
-
-  **Session Checkpoint (Phase 3):**
-  Bash(command="python3 -c 'from devforgeai_cli.session.checkpoint import write_checkpoint; write_checkpoint(\"$STORY_ID\", 3, {\"next_action\": \"Phase 05: Integration Testing\"}) and print(\"✓ Checkpoint: Phase 3 (40%)\")'")
 
   Proceed to Phase 05
 ```

@@ -134,16 +134,16 @@ IF resume_mode == true:
 When resume_mode = true, Phase 01 is marked "skipped" but **CRITICAL validations must still execute**:
 
 **These Phase 01 steps are MANDATORY even in resume mode:**
-- Step 0.4: Validate Context Files Exist (devforgeai-validate validate-context)
-- Step 0.6: Validate Spec vs Context Files (conflict detection)
-- Step 0.7: Detect and Validate Technology Stack (tech-stack-detector)
+- Phase 01.4: Validate Context Files Exist (devforgeai-validate validate-context)
+- Phase 01.6: Validate Spec vs Context Files (conflict detection)
+- Phase 01.7: Detect and Validate Technology Stack (tech-stack-detector)
 
 **These Phase 01 steps are SKIPPED in resume mode:**
-- Step 0.1: Validate Git Repository Status (git-validator)
-- Step 0.1.5: User Consent for Git Operations
-- Step 0.1.6: Stash Warning
-- Step 0.2: Adapt TDD Workflow (git vs file-based)
-- Step 0.3: File-Based Tracking Setup
+- Phase 01.1: Validate Git Repository Status (git-validator)
+- Phase 01.1.5: User Consent for Git Operations
+- Phase 01.1.6: Stash Warning
+- Phase 01.2: Adapt TDD Workflow (git vs file-based)
+- Phase 01.3: File-Based Tracking Setup
 
 **Rationale:**
 - Context files: Required for ALL phases (implementation, quality, integration all need constraints)

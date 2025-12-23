@@ -8,6 +8,77 @@ This phase assembles all information gathered from Phases 1-4 into a complete st
 
 ---
 
+## Step 5.0: Output Directory Validation
+
+**Objective:** Validate story output directory against source-tree.md before file write
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+
+**Trigger:** Before any Write tool invocation
+
+**Workflow:**
+
+```
+1. Check for source-tree.md:
+   source_tree_exists = file_exists("devforgeai/specs/context/source-tree.md")
+
+   IF source_tree_exists:
+     source_tree = Read(file_path="devforgeai/specs/context/source-tree.md")
+
+     # Extract canonical story directory from source-tree.md
+     # Look for pattern: "Stories/" or "specs/Stories/"
+     story_dir_pattern = extract_story_directory(source_tree)
+
+     IF story_dir_pattern found:
+       OUTPUT_DIR = story_dir_pattern  # e.g., "devforgeai/specs/Stories/"
+     ELSE:
+       OUTPUT_DIR = "devforgeai/specs/Stories/"  # Framework default
+```
+
+```
+2. If source-tree.md not found (greenfield):
+   OUTPUT_DIR = "devforgeai/specs/Stories/"  # Framework standard default
+   Display: "ℹ️ Using default story directory: devforgeai/specs/Stories/"
+```
+
+```
+3. Validate directory exists or create:
+   Bash(command="mkdir -p {OUTPUT_DIR}")
+```
+
+```
+4. CRITICAL validation - prevent wrong directory:
+   FORBIDDEN_PATHS = [
+     "devforgeai/stories/",      # Wrong: lowercase, no specs/
+     ".ai_docs/stories/",        # Wrong: old structure
+     "stories/",                 # Wrong: root level
+     ".claude/stories/"          # Wrong: in .claude/
+   ]
+
+   FOR each forbidden in FORBIDDEN_PATHS:
+     IF OUTPUT_DIR matches forbidden:
+       HALT: """
+       ❌ CRITICAL: Invalid story directory detected
+
+       Attempted: {OUTPUT_DIR}
+       Required:  devforgeai/specs/Stories/
+
+       Stories MUST be in devforgeai/specs/Stories/ per source-tree.md
+       """
+       OUTPUT_DIR = "devforgeai/specs/Stories/"  # Force correct path
+```
+
+```
+5. Set OUTPUT_DIR for Step 5.4 (Write Story File):
+   story_output_path = f"{OUTPUT_DIR}{story_id}-{slug}.story.md"
+
+   Display: f"✓ Story will be written to: {story_output_path}"
+```
+
+**Output:** Validated OUTPUT_DIR for use in Step 5.4
+
+---
+
 ## Step 5.1: Load Story Template
 
 **Objective:** Load base template structure

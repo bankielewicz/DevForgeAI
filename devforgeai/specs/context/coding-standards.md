@@ -130,70 +130,50 @@ multiSelect: false
 
 ---
 
-## Story Type Classification (STORY-126)
+## Story Type Classification
 
-Stories can specify a `type` field in YAML frontmatter to optimize the TDD workflow. This enables phase skipping based on story characteristics.
+Story types (`feature`, `documentation`, `bugfix`, `refactor`) define TDD phase skipping behavior.
 
-### Story Type Enum
+**See:** `.claude/skills/devforgeai-story-creation/references/story-type-classification.md`
 
-```yaml
-# Valid story types in frontmatter
-type: feature        # Default - all phases required
-type: documentation  # Skip Phase 05 Integration
-type: bugfix         # Skip Phase 04 Refactor
-type: refactor       # Skip Phase 02 Red
-```
-
-### Phase Skip Matrix
-
-| Story Type | Skipped Phase | When to Use | Rationale |
-|------------|---------------|-------------|-----------|
-| `feature` | None | New functionality, feature enhancements | Full TDD workflow required |
-| `documentation` | Phase 05 Integration | Documentation-only, no runtime code | No integration points to test |
-| `bugfix` | Phase 04 Refactor | Bug fixes, quick patches | Minimal changes, avoid scope creep |
-| `refactor` | Phase 02 Red | Code refactoring, quality improvements | Tests already exist |
-
-### Workflow by Type
-
-**Feature (Default):**
-```
-Phase 01 → Phase 02 → Phase 03 → Phase 04 → Phase 05 → Phase 06 → ...
-(Pre-Flight) (Red)    (Green)   (Refactor) (Integrate) (Deferral)
-```
-
-**Documentation:**
-```
-Phase 01 → Phase 02 → Phase 03 → Phase 04 → [SKIP] → Phase 06 → ...
-(Pre-Flight) (Red)    (Green)   (Refactor)          (Deferral)
-```
-
-**Bugfix:**
-```
-Phase 01 → Phase 02 → Phase 03 → [SKIP] → Phase 05 → Phase 06 → ...
-(Pre-Flight) (Red)    (Green)          (Integrate) (Deferral)
-```
-
-**Refactor:**
-```
-Phase 01 → [SKIP] → Phase 03 → Phase 04 → Phase 05 → Phase 06 → ...
-(Pre-Flight)        (Green)   (Refactor) (Integrate) (Deferral)
-```
-
-### Backward Compatibility
-
-Stories without the `type` field default to `feature` type (full TDD workflow). No migration required for existing stories.
-
-### Usage Example
-
-```yaml
 ---
-id: STORY-126
-title: Story Type Detection & Phase Skipping
-type: feature    # Explicitly set story type
-status: Backlog
-priority: MEDIUM
----
-```
+
+## Phase Naming Convention (STORY-126)
+
+All development workflow phases use standardized naming:
+
+### Phase Numbering
+
+| Phase | Name | Reference File |
+|-------|------|----------------|
+| Phase 01 | Pre-Flight Validation | `preflight-validation.md` |
+| Phase 02 | Test-First Design | `tdd-red-phase.md` |
+| Phase 03 | Implementation | `tdd-green-phase.md` |
+| Phase 04 | Refactoring | `tdd-refactor-phase.md` |
+| Phase 05 | Integration & Validation | `integration-testing.md` |
+| Phase 06 | Deferral Challenge | `phase-4.5-deferral-challenge.md` |
+| Phase 07 | DoD Update | `dod-update-workflow.md` |
+| Phase 08 | Git Workflow | `git-workflow-conventions.md` |
+| Phase 09 | Feedback Hook | (inline in SKILL.md) |
+| Phase 10 | Result Interpretation | (inline in SKILL.md) |
+
+### Sub-Step Naming (Phase 01 Only)
+
+Phase 01 has granular sub-steps: `Phase 01.X` or `Phase 01.X.Y`
+
+Examples:
+- `Phase 01.0` - Project root validation
+- `Phase 01.1` - Git repository validation
+- `Phase 01.1.5` - User consent (conditional)
+- `Phase 01.6.5` - Story type detection
+
+### Documentation Standards
+
+- **Headings:** Use `Phase NN: Full Name` format (no color suffixes)
+- **References:** Use `Phase 01.X` in prose (not "Step 0.X")
+- **TDD Patterns:** RED/GREEN/REFACTOR appear in body text, not headings
+
+**See:** `.claude/skills/devforgeai-development/` for workflow implementation
 
 ---
 

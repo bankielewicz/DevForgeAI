@@ -22,7 +22,7 @@ import pytest
 # These imports will FAIL (RED phase) - checkpoint module doesn't exist yet
 # This is intentional for TDD
 try:
-    from src.claude.scripts.devforgeai_cli.session.checkpoint import (
+    from src.claude.scriptsdevforgeai_cli.session.checkpoint import (
         write_checkpoint,
         read_checkpoint,
         delete_checkpoint,

@@ -173,31 +173,58 @@ Story creation respects all 6 context files **when present**:
 - Technology references in technical specification
 - Validates proposed technologies match approved stack
 - Used by api-designer subagent
+- **Validated in:** Step 3.6, Step 7.7
 
 **coding-standards.md**
 - Code pattern references in technical spec
 - Naming conventions for entities, endpoints
-- Referenced during specification generation
+- Coverage thresholds by architectural layer (95%/85%/80%)
+- **Validated in:** Step 7.7
 
 **architecture-constraints.md**
 - Layer boundary awareness in technical spec
 - Ensures proposed design respects constraints
 - Validates API placement, data access patterns
+- **Validated in:** Step 3.6, Step 7.7
 
 **anti-patterns.md**
 - Forbidden pattern avoidance in specifications
 - Alerts if proposed design matches anti-patterns
 - Prevents technical debt at specification stage
+- **Validated in:** Step 3.6, Step 7.7
 
 **dependencies.md**
 - Package references in Dependencies section
 - Validates proposed dependencies are approved
 - Flags unapproved packages for user decision
+- **Validated in:** Step 3.6, Step 7.7
 
 **source-tree.md**
 - File location awareness for implementation notes
 - Suggests correct directories for code placement
-- Used in technical specification guidance
+- **CRITICAL:** Validates story output directory
+- **Validated in:** Step 5.0, Step 7.7
+
+### Context Validation Integration Points
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+
+| Phase | Step | Validation Performed |
+|-------|------|---------------------|
+| 3 | 3.6 | Tech stack, dependencies, architecture, anti-patterns |
+| 5 | 5.0 | Output directory validation against source-tree.md |
+| 7 | 7.7 | Comprehensive validation of all 6 context files |
+
+**Blocking Behavior:**
+- CRITICAL/HIGH violations block story completion
+- User prompted via AskUserQuestion for resolution
+- Options: Fix in story, Update context file (ADR required), Defer
+
+**Greenfield Mode:**
+- When `devforgeai/specs/context/` is empty
+- Validation steps are skipped
+- Story creation proceeds without constraints
+- Recommend: Run `/create-context` to enable validation
 
 ### Operating Modes
 

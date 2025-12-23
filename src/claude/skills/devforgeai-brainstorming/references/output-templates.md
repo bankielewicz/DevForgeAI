@@ -567,4 +567,103 @@ Resuming: Phase 4 (Constraint Discovery)
 
 ---
 
+## Section 5: Artifact Generation Display Templates
+
+### 5.1 Artifact Generation Prompt
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Initialization
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your brainstorm document has been created successfully.
+
+Would you like to generate initial project files?
+
+These files help future Claude sessions understand your project:
+
+  README.md  - Project overview for humans/GitHub
+  CLAUDE.md  - AI context differentiating project vs framework
+  .gitignore - Standard ignore patterns for version control
+```
+
+### 5.2 Artifact Created Confirmation
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Files Created
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ README.md created at project root
+  - Problem statement from brainstorm
+  - MVP features from MoSCoW priorities
+  - Post-MVP roadmap
+
+✓ CLAUDE.md created at project root
+  - Project vs Framework distinction
+  - DevForgeAI workflow reference
+  - Context files guidance
+
+✓ .gitignore created at project root
+  - Standard development ignores
+  - DevForgeAI artifact patterns
+
+These files are initial drafts. You can customize them
+after running /ideate and /create-context.
+```
+
+### 5.3 Conflict Resolution Display
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  File Conflict Detected
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{filename} already exists at project root.
+
+Options:
+  1. Overwrite - Replace with brainstorm-generated version
+  2. Create {filename}-brainstorm - Keep both versions
+  3. Skip - Keep existing file unchanged
+
+Note: Existing file contents will be preserved if you
+choose option 2 or 3.
+```
+
+### 5.4 Skip Confirmation
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Artifact Generation Skipped
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+You chose to skip project file generation.
+
+You can manually create these files later using:
+  - The brainstorm document as reference
+  - Templates at: .claude/skills/devforgeai-brainstorming/assets/templates/
+
+Proceeding to session validation...
+```
+
+### 5.5 Partial Generation Display
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Files Created (Partial)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{#each created_files}
+✓ {this.name} created at project root
+{/each}
+
+{#each skipped_files}
+○ {this.name} skipped ({this.reason})
+{/each}
+
+Proceeding to session validation...
+```
+
+---
+
 **Version:** 1.0 | **Status:** Published | **Created:** 2025-12-21

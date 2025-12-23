@@ -230,5 +230,5 @@ Ambiguity resolution succeeds when:
 - `devforgeai/specs/adrs/` - Architecture Decision Records
 
 **Related workflows:**
-- `preflight-validation.md` - Step 0.6 validates spec vs context conflicts
+- `preflight-validation.md` - Phase 01.6 validates spec vs context conflicts
 - `dod-validation-checkpoint.md` - Layer 2 user approval for deferrals

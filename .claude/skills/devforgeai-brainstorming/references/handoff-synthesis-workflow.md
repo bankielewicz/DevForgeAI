@@ -300,7 +300,105 @@ EXCEPT:
 
 ---
 
-## Step 7.7: Delete Checkpoint (if exists)
+## Step 7.7: Generate Project Artifacts (Optional)
+
+**Purpose:** Create initial README.md, CLAUDE.md, and .gitignore from session data
+
+**Trigger:** After brainstorm.md written successfully
+
+**User Consent:**
+```
+AskUserQuestion:
+  questions:
+    - question: "Would you like to generate initial project files?"
+      header: "Artifacts"
+      multiSelect: false
+      options:
+        - label: "Yes - Generate all (README.md, CLAUDE.md, .gitignore)"
+          description: "Complete project initialization from brainstorm"
+        - label: "README.md and CLAUDE.md only"
+          description: "Documentation files, no .gitignore"
+        - label: "README.md only"
+          description: "Human-readable project overview"
+        - label: "Skip"
+          description: "I'll create these manually later"
+```
+
+**Template Loading:**
+```
+IF user_choice != "Skip":
+  # Load templates
+  readme_template = Read(file_path=".claude/skills/devforgeai-brainstorming/assets/templates/readme-brainstorm-template.md")
+  claude_template = Read(file_path=".claude/skills/devforgeai-brainstorming/assets/templates/claude-md-template.md")
+  gitignore_template = Read(file_path=".claude/skills/devforgeai-brainstorming/assets/templates/gitignore-template.md")
+```
+
+**Variable Mapping:**
+```
+# Map session data to template variables
+template_vars = {
+  project_name: sanitize_title(session.topic),
+  project_slug: slugify(session.topic),
+  tagline: session.topic,
+  problem_statement: session.problem_statement,
+  pain_points: session.pain_points,
+  mvp_features: session.moscow.must_have,
+  post_mvp: session.moscow.should_have + session.moscow.could_have,
+  tech_stack: session.technology_ideas,
+  constraints: session.constraints,
+  design_decisions: session.hypotheses,
+  brainstorm_file: session.output_file.basename,
+  key_insights: extract_key_insights(session),
+  research_artifacts: session.market_research.files if session.research_enabled else null
+}
+```
+
+**Conflict Handling:**
+```
+FOR each artifact in [README.md, CLAUDE.md, .gitignore]:
+  IF artifact exists at project root:
+    AskUserQuestion:
+      questions:
+        - question: f"{artifact} already exists. What should I do?"
+          header: "Conflict"
+          multiSelect: false
+          options:
+            - label: "Overwrite"
+              description: f"Replace existing {artifact}"
+            - label: f"Create {artifact.stem}-brainstorm{artifact.suffix}"
+              description: "Create with alternative name"
+            - label: f"Skip {artifact}"
+              description: "Keep existing file"
+```
+
+**File Writing:**
+```
+IF generating README.md:
+  content = populate_template(readme_template, template_vars)
+  Write(file_path="README.md", content=content)
+  Display: "✓ README.md created at project root"
+
+IF generating CLAUDE.md:
+  content = populate_template(claude_template, template_vars)
+  Write(file_path="CLAUDE.md", content=content)
+  Display: "✓ CLAUDE.md created at project root"
+
+IF generating .gitignore:
+  content = populate_template(gitignore_template, template_vars)
+  Write(file_path=".gitignore", content=content)
+  Display: "✓ .gitignore created at project root"
+```
+
+**Skip Handling:**
+```
+IF user_choice == "Skip":
+  Display: "Skipping project artifact generation."
+  Display: "You can manually create README.md and CLAUDE.md later."
+```
+
+---
+
+## Step 7.8: Delete Checkpoint (if exists)
 
 **Purpose:** Clean up checkpoint file after successful completion
 
@@ -314,7 +412,7 @@ IF session.checkpoint_file exists:
 
 ---
 
-## Step 7.8: Validate with User
+## Step 7.9: Validate with User
 
 **Purpose:** Confirm output is accurate
 
@@ -363,7 +461,7 @@ IF response == "Missing something important":
 
 ---
 
-## Step 7.9: Display Completion Summary
+## Step 7.10: Display Completion Summary
 
 **Purpose:** Provide clear next steps
 
@@ -403,7 +501,7 @@ Recommended command:
 
 ---
 
-## Step 7.10: Next Steps Prompt
+## Step 7.11: Next Steps Prompt
 
 **Purpose:** Guide user to next action
 
@@ -480,6 +578,7 @@ devforgeai/specs/brainstorms/
 - [ ] YAML frontmatter generated
 - [ ] Document body generated with all sections
 - [ ] File written successfully
+- [ ] Project artifacts generated (if requested)
 - [ ] Checkpoint cleaned up (if existed)
 - [ ] User validated output
 - [ ] Next steps displayed

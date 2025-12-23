@@ -184,7 +184,175 @@ If any CRITICAL failures (missing sections, invalid frontmatter):
     # If still failing: Report to user with specific issues
 
 If all validations pass:
-    ✅ Proceed to Phase 8
+    ✅ Proceed to Step 7.7 (Context File Compliance)
+```
+
+---
+
+## Step 7.7: Context File Compliance Validation
+
+**Objective:** Final validation that story adheres to all constitutional context files
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+
+**Purpose:** This is the comprehensive final gate that validates the complete story against all 6 context files before story creation completes.
+
+**Workflow:**
+
+```
+1. Load context files (if exist):
+   context_dir = "devforgeai/specs/context/"
+   context_files = Glob(pattern=f"{context_dir}*.md")
+
+   IF len(context_files) == 0:
+     Display: "ℹ️ Greenfield mode: context compliance validation skipped"
+     SKIP to Phase 8
+     RETURN { greenfield: true, compliant: true }
+```
+
+```
+2. Load all available context files in PARALLEL:
+   Read(file_path="devforgeai/specs/context/tech-stack.md")
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   Read(file_path="devforgeai/specs/context/dependencies.md")
+   Read(file_path="devforgeai/specs/context/coding-standards.md")
+   Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+   Read(file_path="devforgeai/specs/context/anti-patterns.md")
+```
+
+```
+3. For each context file that exists, call validation functions:
+
+   violations = []
+
+   # From context-validation.md:
+   IF tech_stack_exists:
+     violations.extend(validate_technologies(tech_spec_content))
+
+   IF source_tree_exists:
+     violations.extend(validate_file_paths(tech_spec_content))
+
+   IF dependencies_exists:
+     violations.extend(validate_dependencies(dependencies_section))
+
+   IF coding_standards_exists:
+     violations.extend(validate_coverage_thresholds(dod_content, file_paths))
+
+   IF architecture_exists:
+     violations.extend(validate_architecture(tech_spec_content))
+
+   IF anti_patterns_exists:
+     violations.extend(validate_anti_patterns(tech_spec_content))
+```
+
+```
+4. Generate compliance report:
+
+   context_compliance = {
+     "validated_at": datetime.now().isoformat(),
+     "context_files_checked": count_files_checked,
+     "violations": {
+       "CRITICAL": [v for v in violations if v.severity == "CRITICAL"],
+       "HIGH": [v for v in violations if v.severity == "HIGH"],
+       "MEDIUM": [v for v in violations if v.severity == "MEDIUM"],
+       "LOW": [v for v in violations if v.severity == "LOW"]
+     },
+     "total_violations": len(violations),
+     "status": "COMPLIANT" if len(critical + high) == 0 else "FAILED"
+   }
+```
+
+```
+5. Handle violations by severity:
+
+   IF CRITICAL or HIGH violations found:
+     HALT workflow
+
+     Display: f"""
+     ❌ Context Compliance Validation FAILED
+
+     CRITICAL Issues: {len(critical)}
+     HIGH Issues: {len(high)}
+
+     {format_violations(critical + high)}
+
+     Story cannot be completed until violations are resolved.
+     """
+
+     FOR each violation in (critical + high):
+       AskUserQuestion:
+         Question: f"How to resolve: {violation.type} - {violation.description}?"
+         Header: "Fix needed"
+         Options:
+           - "Fix in story"
+             Description: "I'll provide the correct value"
+           - "Update context file"
+             Description: "Requires ADR - constraint should change"
+           - "Defer to manual review"
+             Description: "Flag for later, proceed with warning"
+
+       Apply resolution based on user choice
+
+     # Re-run validation after fixes
+     GOTO Step 7.7 (max 2 retry attempts)
+```
+
+```
+6. If only MEDIUM or LOW violations:
+   Display: f"""
+   ⚠️ Context Compliance Validation PASSED with warnings
+
+   MEDIUM Issues: {len(medium)}
+   LOW Issues: {len(low)}
+
+   {format_violations(medium + low)}
+
+   Proceeding to Phase 8 with warnings noted.
+   """
+
+   # Embed warning note in story file
+   Edit story file to add:
+   """
+   <!-- Context Validation Warnings
+   {format_violations(medium + low)}
+   -->
+   """
+```
+
+```
+7. If no violations:
+   Display: f"""
+   ✅ Context Compliance Validation PASSED
+
+   Context files checked: {count}/6
+   Violations found: 0
+   Status: COMPLIANT
+
+   Story is fully compliant with all constitutional context files.
+   """
+```
+
+**Validation Summary Table:**
+
+| Context File | Validation Checks |
+|--------------|-------------------|
+| tech-stack.md | All technologies in tech spec are LOCKED or approved |
+| source-tree.md | File paths in tech spec match allowed directories |
+| dependencies.md | All packages in Dependencies section are approved |
+| coding-standards.md | Coverage thresholds match layer (95%/85%/80%) |
+| architecture-constraints.md | No cross-layer violations in design |
+| anti-patterns.md | No forbidden patterns in technical spec |
+
+**Exit Criteria:** All CRITICAL and HIGH violations resolved
+
+**Output:**
+
+```yaml
+context_compliance:
+  validated_at: "2025-12-23T14:30:00Z"
+  context_files_checked: 6
+  violations_found: 0
+  status: "COMPLIANT"
 ```
 
 ---

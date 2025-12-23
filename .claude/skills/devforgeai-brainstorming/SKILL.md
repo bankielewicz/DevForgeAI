@@ -596,13 +596,37 @@ context_tracking:
    )
    ```
 
-4. **Delete checkpoint (if exists):**
+4. **Generate project artifacts (optional):**
+   ```
+   Reference: references/handoff-synthesis-workflow.md Step 7.7
+
+   AskUserQuestion:
+     Question: "Would you like to generate initial project files?"
+     Header: "Artifacts"
+     Options:
+       - "Yes - Generate all (README.md, CLAUDE.md, .gitignore)"
+       - "README.md and CLAUDE.md only"
+       - "Skip"
+
+   IF user wants artifacts:
+     Load templates from assets/templates/
+     Populate with session data
+     Check for existing files (conflict handling)
+     Write to project root
+
+   Templates:
+     - assets/templates/readme-brainstorm-template.md
+     - assets/templates/claude-md-template.md
+     - assets/templates/gitignore-template.md
+   ```
+
+5. **Delete checkpoint (if exists):**
    ```
    IF checkpoint_file exists:
      Delete checkpoint_file (no longer needed)
    ```
 
-5. **Display completion summary:**
+6. **Display completion summary:**
    ```
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
      Brainstorm Session Complete
@@ -705,6 +729,9 @@ To resume in your next session:
 | `references/user-interaction-patterns.md` | Question templates |
 | `references/error-handling.md` | Error recovery procedures |
 | `references/output-templates.md` | Document templates |
+| `assets/templates/readme-brainstorm-template.md` | README.md artifact template |
+| `assets/templates/claude-md-template.md` | CLAUDE.md artifact template |
+| `assets/templates/gitignore-template.md` | .gitignore artifact template |
 
 ---
 

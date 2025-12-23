@@ -15,6 +15,103 @@ allowed-tools: Read, Write, Edit, Glob, Skill, AskUserQuestion
 
 ---
 
+## Phase 0: Brainstorm Auto-Detection
+
+**Purpose:** Check for existing brainstorm documents and offer to use them as input.
+
+### 0.1 Check for Existing Brainstorms
+
+**Search for brainstorm documents:**
+```
+brainstorms = Glob(pattern="devforgeai/specs/brainstorms/BRAINSTORM-*.brainstorm.md")
+```
+
+**If brainstorms found:**
+```
+IF len(brainstorms) > 0:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    Existing Brainstorm(s) Detected
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  FOR each brainstorm:
+    # Read frontmatter to get title and confidence
+    Read(file_path=brainstorm, limit=30)
+    Display: "- {id}: {title} (Confidence: {confidence_level})"
+```
+
+**Ask user if they want to use a brainstorm:**
+```
+AskUserQuestion(
+  questions=[{
+    question: "Would you like to use an existing brainstorm as input for ideation?",
+    header: "Brainstorm",
+    options: [
+      {
+        label: "Yes - use most recent",
+        description: "Pre-populate ideation with brainstorm data"
+      },
+      {
+        label: "Yes - let me choose",
+        description: "Select which brainstorm to use"
+      },
+      {
+        label: "No - start fresh",
+        description: "Begin new ideation discovery"
+      }
+    ],
+    multiSelect: false
+  }]
+)
+```
+
+### 0.2 Load Brainstorm Context (if selected)
+
+**If user selected a brainstorm:**
+```
+# Read full brainstorm document
+brainstorm_content = Read(file_path=selected_brainstorm)
+
+# Extract YAML frontmatter
+frontmatter = parse_yaml_frontmatter(brainstorm_content)
+
+# Set context markers for skill
+$BRAINSTORM_CONTEXT = {
+  brainstorm_id: frontmatter.id,
+  problem_statement: frontmatter.problem_statement,
+  target_outcome: frontmatter.target_outcome,
+  user_personas: frontmatter.user_personas,
+  hard_constraints: frontmatter.hard_constraints,
+  must_have_capabilities: frontmatter.must_have_capabilities,
+  critical_assumptions: frontmatter.critical_assumptions,
+  confidence_level: frontmatter.confidence_level
+}
+
+Display:
+"Pre-populated from {brainstorm_id}:
+  ✓ Problem: {problem_statement}
+  ✓ Users: {len(user_personas)} persona(s)
+  ✓ Constraints: {len(hard_constraints)} identified
+  ✓ Must-haves: {len(must_have_capabilities)} capabilities
+
+Proceeding to ideation with brainstorm context..."
+```
+
+**If no brainstorms or user chose "start fresh":**
+```
+$BRAINSTORM_CONTEXT = null
+# Continue to Phase 1 normally
+```
+
+### 0.3 Continue to Phase 1
+
+Pass `$BRAINSTORM_CONTEXT` to subsequent phases. The ideation skill will use this to:
+- Skip or shorten Phase 1 discovery questions (already answered in brainstorm)
+- Pre-populate requirements with must-have capabilities
+- Validate constraints against brainstorm findings
+
+---
+
 ## Phase 1: Argument Validation
 
 ### 1.1 Capture Business Idea

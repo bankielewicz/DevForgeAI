@@ -637,6 +637,106 @@ Dependencies:
 
 ---
 
+## Step 3.6: Context File Validation (Conditional)
+
+**Objective:** Validate technical specification against constitutional context files
+
+**Reference:** `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+
+**Trigger:** Only if `devforgeai/specs/context/` directory exists with context files
+
+**Workflow:**
+
+```
+1. Check for context files:
+   context_files = Glob(pattern="devforgeai/specs/context/*.md")
+
+   IF len(context_files) == 0:
+     Display: "ℹ️ Greenfield mode: context validation skipped"
+     SKIP to Phase 4
+```
+
+```
+2. If tech-stack.md exists:
+   Read tech-stack.md
+   Extract all technology names from generated technical spec
+   Validate each technology appears in approved list
+
+   IF violation found:
+     AskUserQuestion:
+       Question: "Technical spec references '{technology}' which is not in tech-stack.md. How to proceed?"
+       Header: "Tech violation"
+       Options:
+         - "Remove from spec"
+           Description: "Use approved alternative from tech-stack.md"
+         - "Add to tech-stack.md"
+           Description: "Requires ADR - update approved technologies"
+         - "Flag for review"
+           Description: "Proceed with warning, review later"
+```
+
+```
+3. If dependencies.md exists:
+   Read dependencies.md
+   Extract all package names from Dependencies section (Step 3.5)
+   Validate each package appears in approved list
+
+   IF violation found:
+     AskUserQuestion:
+       Question: "Dependency '{package}' is not in dependencies.md. How to proceed?"
+       Header: "Dep violation"
+       Options:
+         - "Remove dependency"
+           Description: "Find alternative or remove requirement"
+         - "Add to dependencies.md"
+           Description: "Requires ADR - add approved package"
+         - "Flag for review"
+           Description: "Proceed with warning, review later"
+```
+
+```
+4. If architecture-constraints.md exists:
+   Read architecture-constraints.md
+   Check layer dependency matrix against proposed design
+   Validate no forbidden cross-layer imports
+
+   IF violation found:
+     AskUserQuestion:
+       Question: "Design violates layer boundary: {from_layer} → {to_layer}. How to proceed?"
+       Header: "Arch violation"
+       Options:
+         - "Redesign"
+           Description: "I'll provide compliant design"
+         - "Flag for review"
+           Description: "Proceed with warning, review later"
+```
+
+```
+5. If anti-patterns.md exists:
+   Read anti-patterns.md
+   Scan technical spec for forbidden patterns
+   Alert if SQL concatenation, God class, etc. detected
+
+   IF violation found (CRITICAL severity):
+     HALT: "Anti-pattern detected: {pattern}. Technical spec must be revised."
+     AskUserQuestion for redesign guidance
+```
+
+**Output:** Validation report embedded in workflow state
+
+```yaml
+context_validation:
+  phase: "3.6"
+  files_checked: ["tech-stack.md", "dependencies.md", "architecture-constraints.md", "anti-patterns.md"]
+  violations_found: 0
+  status: "PASSED"
+```
+
+**On CRITICAL/HIGH Violations:** HALT and use AskUserQuestion
+**On MEDIUM/LOW Violations:** Warn and continue with note
+
+---
+
 ## Subagent Coordination
 
 **Subagent used:** api-designer (conditional)
