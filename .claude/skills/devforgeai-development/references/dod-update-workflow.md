@@ -8,6 +8,8 @@
 
 **Token Cost:** ~1,500 tokens (loaded on-demand after Phase 06)
 
+**Template File:** See `.claude/skills/devforgeai-development/assets/templates/implementation-notes-template.md` for the minimal Implementation Notes template format (≤25 lines).
+
 ---
 
 ## Phase Progress Indicator
