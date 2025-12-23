@@ -2,7 +2,7 @@
 id: STORY-126
 title: Story Type Detection & Phase Skipping
 type: feature
-status: Backlog
+status: QA Approved
 priority: MEDIUM
 story-points: 5
 epic: EPIC-025
