@@ -156,6 +156,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 **Feature Description:** Implement user registration form with email validation...
 **Priority:** High
 **Points:** 5
+**Type:** feature
 **Sprint:** Sprint-1
 **Batch Mode:** true
 **Batch Index:** 0
@@ -163,8 +164,8 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 
 **When batch mode detected:**
 1. Extract all metadata from conversation context
-2. Validate all required markers present (Story ID, Epic ID, Feature Description, Priority, Points, Sprint)
-3. Skip Phase 1 interactive questions (epic/sprint/priority/points selection)
+2. Validate all required markers present (Story ID, Epic ID, Feature Description, Priority, Points, Type, Sprint)
+3. Skip Phase 1 interactive questions (epic/sprint/priority/points/type selection)
 4. Use provided values instead of asking user
 5. Execute Phases 2-7 normally (full story generation)
 6. Skip Phase 8 next action question (batch loop handles this)
@@ -339,6 +340,41 @@ ELSE:
     AskUserQuestion with simple priority list
 ```
 
+**Story Type Selection (STORY-126 - Explicit Classification):**
+```
+IF GUIDANCE_AVAILABLE:
+    pattern = lookup_pattern("explicit classification")
+    AskUserQuestion(
+        question:"What type of story is this?",
+        header:"Story Type",
+        options=[
+            {label:"feature", description:"Full TDD workflow - New functionality or enhancements (default)"},
+            {label:"documentation", description:"Skip Integration tests - Documentation-only, no runtime code"},
+            {label:"bugfix", description:"Skip Refactoring - Bug fixes, minimal targeted changes"},
+            {label:"refactor", description:"Skip Test Generation - Code refactoring, tests already exist"}
+        ]
+    )
+ELSE:
+    AskUserQuestion(
+        question:"What type of story is this?",
+        header:"Story Type",
+        options=[
+            {label:"feature", description:"Full TDD workflow (default)"},
+            {label:"documentation", description:"Skip integration testing"},
+            {label:"bugfix", description:"Skip refactoring phase"},
+            {label:"refactor", description:"Skip test generation"}
+        ]
+    )
+
+# Default to "feature" if user skips or selects "Other"
+IF user_response is empty OR user_response == "Other":
+    story_type = "feature"
+    Display:"Using default story type: feature (full TDD workflow)"
+ELSE:
+    story_type = user_response
+    Display:"Story type set to: {story_type}"
+```
+
 **Story Points (Fibonacci Bounded Choice):**
 ```
 IF GUIDANCE_AVAILABLE:
@@ -363,7 +399,7 @@ ELSE:
     AskUserQuestion with simple points list
 ```
 
-**Output:** Story ID, epic/sprint links, priority, points (with enhanced user input quality via patterns)
+**Output:** Story ID, epic/sprint links, priority, points, type (with enhanced user input quality via patterns)
 
 ### Phase 2: Requirements Analysis
 **Purpose:** Generate user story and acceptance criteria

@@ -30,7 +30,37 @@ The Red phase is the foundation of TDD: create tests that define expected behavi
 
 ---
 
-## Remediation Mode Check [MANDATORY FIRST]
+## Story Type Skip Check [MANDATORY FIRST] (STORY-126)
+
+**Purpose:** Skip Phase 02 for `refactor` story types (tests already exist).
+
+**When to execute:** Before any Phase 02 processing.
+
+```
+# Check if Phase 02 should be skipped based on story type
+# $STORY_TYPE set in Phase 01 Step 0.6.5
+
+IF $STORY_TYPE == "refactor":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  ℹ️  SKIPPING PHASE 02: Story Type 'refactor'"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Reason: Refactor stories work with existing tests."
+    Display: "        Tests should already be GREEN before refactoring begins."
+    Display: ""
+    Display: "Proceeding to Phase 03 (Green - Implementation)..."
+    Display: ""
+
+    # Skip Phase 02 entirely
+    GOTO Phase 03
+
+    RETURN
+```
+
+---
+
+## Remediation Mode Check [MANDATORY AFTER SKIP CHECK]
 
 **CRITICAL:** Before executing normal Phase 02, check if remediation mode is active.
 

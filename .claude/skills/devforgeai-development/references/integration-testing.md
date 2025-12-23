@@ -30,6 +30,37 @@ Phase 05 validates that the implementation integrates correctly with other compo
 
 ---
 
+## Story Type Skip Check [MANDATORY FIRST] (STORY-126)
+
+**Purpose:** Skip Phase 05 for `documentation` story types (no runtime code).
+
+**When to execute:** Before any Phase 05 processing.
+
+```
+# Check if Phase 05 should be skipped based on story type
+# $STORY_TYPE set in Phase 01 Step 0.6.5
+
+IF $STORY_TYPE == "documentation":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  ℹ️  SKIPPING PHASE 05: Story Type 'documentation'"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Reason: Documentation stories have no runtime code to test."
+    Display: "        Integration tests validate cross-component behavior,"
+    Display: "        which doesn't exist for documentation-only changes."
+    Display: ""
+    Display: "Proceeding to Phase 06 (Deferral Challenge)..."
+    Display: ""
+
+    # Skip Phase 05 entirely
+    GOTO Phase 06
+
+    RETURN
+```
+
+---
+
 ## Phase 05: Integration & Validation
 
 **Delegate integration testing to integration-tester subagent.**

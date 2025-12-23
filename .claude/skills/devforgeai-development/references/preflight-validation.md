@@ -1937,6 +1937,89 @@ Please ensure /dev command properly loads story file before invoking this skill.
 
 ---
 
+## Step 0.6.5: Story Type Detection & Phase Skip Configuration [MANDATORY] (STORY-126)
+
+**Purpose:** Extract story type from frontmatter and configure phase skipping based on type.
+
+**When to execute:** After Step 0.6 (Load Story Specification), before Step 0.7.
+
+**Story Types:**
+- `feature` (default) - Full TDD workflow, all phases required
+- `documentation` - Skip Phase 05 Integration (no runtime code)
+- `bugfix` - Skip Phase 04 Refactor (minimal changes)
+- `refactor` - Skip Phase 02 Red (tests exist)
+
+**Implementation:**
+
+```
+# Extract type field from story YAML frontmatter (already loaded in conversation)
+# Frontmatter format:
+# ---
+# id: STORY-XXX
+# title: ...
+# type: feature|documentation|bugfix|refactor
+# status: ...
+# ---
+
+# Parse story type from frontmatter
+story_type = extract_yaml_field(story_frontmatter, "type")
+
+# Default to "feature" if type field missing (backward compatibility - AC#5)
+IF story_type is empty OR story_type is null:
+    story_type = "feature"
+    Display: "✓ Story type: feature (default - no type field specified)"
+ELSE:
+    # Validate type enum
+    valid_types = ["feature", "documentation", "bugfix", "refactor"]
+
+    IF story_type NOT IN valid_types:
+        Display: "❌ Invalid story type: '{story_type}'"
+        Display: "   Valid types: feature, documentation, bugfix, refactor"
+        Display: ""
+        HALT with validation error
+
+    Display: "✓ Story type: {story_type}"
+
+# Configure phase skip rules based on type
+$STORY_TYPE = story_type
+$SKIP_PHASES = []
+
+SWITCH story_type:
+    CASE "feature":
+        Display: "  → Full TDD workflow (no phases skipped)"
+        $SKIP_PHASES = []
+
+    CASE "documentation":
+        Display: "  → Skipping Phase 05 Integration Testing"
+        Display: "    Reason: Documentation stories have no runtime code to test"
+        $SKIP_PHASES = ["Phase 05"]
+
+    CASE "bugfix":
+        Display: "  → Skipping Phase 04 Refactoring"
+        Display: "    Reason: Bugfix stories require minimal, targeted changes"
+        $SKIP_PHASES = ["Phase 04"]
+
+    CASE "refactor":
+        Display: "  → Skipping Phase 02 Red (Test Generation)"
+        Display: "    Reason: Refactor stories work with existing tests"
+        $SKIP_PHASES = ["Phase 02"]
+
+Display: ""
+```
+
+**Phase Skip Matrix (Reference):**
+
+| Story Type | Skipped Phase | Rationale |
+|------------|---------------|-----------|
+| `feature` | None | Full TDD workflow required for new functionality |
+| `documentation` | Phase 05 Integration | No runtime code, no integration points to test |
+| `bugfix` | Phase 04 Refactor | Minimal changes preferred, avoid scope creep |
+| `refactor` | Phase 02 Red | Tests already exist, refactoring preserves behavior |
+
+**Token cost:** ~100 tokens (simple string extraction and switch)
+
+---
+
 ## Step 0.7: Validate Spec vs Context Files [MANDATORY]
 
 **Check for conflicts between story requirements and context file constraints:**

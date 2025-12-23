@@ -30,6 +30,36 @@ The Refactor phase improves code quality without changing behavior. Tests remain
 
 ---
 
+## Story Type Skip Check [MANDATORY FIRST] (STORY-126)
+
+**Purpose:** Skip Phase 04 for `bugfix` story types (minimal changes preferred).
+
+**When to execute:** Before any Phase 04 processing.
+
+```
+# Check if Phase 04 should be skipped based on story type
+# $STORY_TYPE set in Phase 01 Step 0.6.5
+
+IF $STORY_TYPE == "bugfix":
+    Display: ""
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: "  ℹ️  SKIPPING PHASE 04: Story Type 'bugfix'"
+    Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    Display: ""
+    Display: "Reason: Bugfix stories require minimal, targeted changes."
+    Display: "        Refactoring may introduce scope creep or unrelated changes."
+    Display: ""
+    Display: "Proceeding to Phase 05 (Integration Testing)..."
+    Display: ""
+
+    # Skip Phase 04 entirely
+    GOTO Phase 05
+
+    RETURN
+```
+
+---
+
 ## Phase 04: Refactor (Refactor Phase)
 
 **Delegate refactoring to refactoring-specialist and code-reviewer subagents.**
