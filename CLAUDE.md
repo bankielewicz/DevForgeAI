@@ -31,6 +31,40 @@ Before file operations, verify CWD is project root:
 
 ---
 
+## Plan File Convention
+
+Before creating new plan file, check for existing:
+
+**Search Algorithm:**
+1. `Glob(".claude/plans/*.md")` - list all plan files
+2. For each file, `Grep(pattern="STORY-XXX", path="{plan_file}")` - search for story ID with word boundaries
+3. If match found, offer to resume existing plan via `AskUserQuestion`
+4. If no match, create new plan with story ID in filename
+
+**Naming Convention:**
+- Include story ID when working on a specific story
+- Good: `STORY-127-plan-file-resume.md`
+- Avoid: Random adjective-noun combinations for story work
+- Exception: Exploratory work without story can use random names
+
+**Resume Detection Logic:**
+- **Prioritize** files with story ID in filename (e.g., `STORY-127-*.md`) - suggest first
+- Secondary: Files containing story ID in content - prefer filename matches
+- Deprioritize: Random-named files without story ID
+
+**Resume Prompt (when plan exists):**
+```
+"Existing plan file found: .claude/plans/STORY-127-plan-file-resume.md
+Resume this plan? [Y/n]"
+```
+
+**Backward Compatibility with Existing Random-Named Plans:**
+- **Backward compatibility**: Random-named plan files (e.g., `clever-snuggling-otter.md`) are still detected if they contain the story ID
+- No errors occur when existing random-named plan files are found
+- Both old naming conventions (random adjectives) and new naming conventions (story ID prefix) work seamlessly together
+
+---
+
 ## DevForgeAI Framework
 
 Spec-driven development with zero technical debt. Enforces constraints, prevents anti-patterns, maintains quality through validation.

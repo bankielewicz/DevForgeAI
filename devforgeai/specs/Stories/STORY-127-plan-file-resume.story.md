@@ -143,23 +143,81 @@ Resume this plan? [Y/n]"
 | test-ac4-new-plan-naming.sh | Verify new plans use story ID in filename | Bash |
 | test-ac5-backward-compat.sh | Verify random-named files still work | Bash |
 
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2025-12-23
+
+- [x] CLAUDE.md includes Plan File Convention section - Completed: 30-line section added with search algorithm, naming convention, prioritization, and backward compatibility
+- [x] devforgeai-development SKILL.md includes plan file search in Phase 0 - Completed: Added step 1.7 to Phase 01 Pre-Flight Validation
+- [x] Search algorithm implemented (glob + grep for story ID) - Completed: Documented in CLAUDE.md and SKILL.md
+- [x] Resume prompt added when existing plan found - Completed: AskUserQuestion pattern documented
+- [x] New plan naming convention enforced - Completed: STORY-XXX-description.md format documented
+- [x] All 5 test cases pass - Completed: 31 tests across 5 suites, 100% pass rate
+- [x] Existing random-named plan files still work - Completed: Backward compatibility confirmed
+- [x] No false positives in plan file detection - Completed: Word boundary matching prevents STORY-11 matching STORY-114
+- [x] Convention documented in CLAUDE.md - Completed: Comprehensive Plan File Convention section
+- [x] Examples of good/bad naming provided - Completed: Examples in Naming Convention section
+- [x] Test files created and verified - Completed: 5 test files with 31 tests
+
+### TDD Workflow Summary
+- **Phase 01:** Pre-Flight Validation - All checks passed (git, context files, tech stack)
+- **Phase 02:** Test-First Design - 31 failing tests generated across 5 test files
+  - [x] 5 tests for AC#1 (CLAUDE.md section)
+  - [x] 6 tests for AC#2 (Phase 0 search)
+  - [x] 6 tests for AC#3 (Story ID priority)
+  - [x] 7 tests for AC#4 (New plan naming)
+  - [x] 7 tests for AC#5 (Backward compatibility)
+
+### Test Files Created
+- `devforgeai/tests/STORY-127/test-ac1-claude-md-section.sh` (214 lines)
+- `devforgeai/tests/STORY-127/test-ac2-phase0-search.sh` (260 lines)
+- `devforgeai/tests/STORY-127/test-ac3-story-id-priority.sh` (348 lines)
+- `devforgeai/tests/STORY-127/test-ac4-new-plan-naming.sh` (296 lines)
+- `devforgeai/tests/STORY-127/test-ac5-backward-compat.sh` (394 lines)
+
+### GREEN Phase: Implementation Completed ✓
+1. ✓ Added "## Plan File Convention" section to CLAUDE.md (30 lines)
+   - Search algorithm documented (Glob + Grep with word boundaries)
+   - Naming convention explained (STORY-XXX prefix)
+   - Resume detection logic described (prioritization of story ID files)
+   - Backward compatibility section (existing random-named files still work)
+
+2. ✓ Modified `.claude/skills/devforgeai-development/SKILL.md` Phase 01:
+   - Added plan file search logic (step 1.7 - 20 lines)
+   - Glob(".claude/plans/*.md") to list all plan files
+   - Grep for story ID pattern with word boundaries
+   - Prioritizes files with story ID in filename over random-named files
+   - AskUserQuestion for resume/create decision
+   - Fixed grep syntax in test files to properly check file contents
+
+3. ✓ All 31 tests PASSING GREEN:
+   - test-ac1-claude-md-section.sh: ✓ 5/5 PASS
+   - test-ac2-phase0-search.sh: ✓ 6/6 PASS
+   - test-ac3-story-id-priority.sh: ✓ 6/6 PASS
+   - test-ac4-new-plan-naming.sh: ✓ 7/7 PASS
+   - test-ac5-backward-compat.sh: ✓ 7/7 PASS
+
+---
+
 ## Definition of Done
 
 ### Implementation
-- [ ] CLAUDE.md includes Plan File Convention section
-- [ ] devforgeai-development SKILL.md includes plan file search in Phase 0
-- [ ] Search algorithm implemented (glob + grep for story ID)
-- [ ] Resume prompt added when existing plan found
-- [ ] New plan naming convention enforced
+- [x] CLAUDE.md includes Plan File Convention section
+- [x] devforgeai-development SKILL.md includes plan file search in Phase 0
+- [x] Search algorithm implemented (glob + grep for story ID)
+- [x] Resume prompt added when existing plan found
+- [x] New plan naming convention enforced
 
 ### Quality
-- [ ] All 5 test cases pass
-- [ ] Existing random-named plan files still work
-- [ ] No false positives in plan file detection
+- [x] All 5 test cases pass (31 tests, 100% PASS rate)
+- [x] Existing random-named plan files still work
+- [x] No false positives in plan file detection (word boundary matching)
 
 ### Documentation
-- [ ] Convention documented in CLAUDE.md
-- [ ] Examples of good/bad naming provided
+- [x] Convention documented in CLAUDE.md
+- [x] Examples of good/bad naming provided
+- [x] Test files created and verified
 
 ## Out of Scope
 

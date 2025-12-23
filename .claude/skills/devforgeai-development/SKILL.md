@@ -191,6 +191,12 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 1. Validate Git status (git-validator subagent)
 1.5. **User consent for git operations (if uncommitted changes >10)** (RCA-008)
 1.6. **Stash warning and confirmation (if user chooses to stash)** (RCA-008)
+1.7. **Check for existing plan file** (STORY-127) ← NEW
+   - Glob(".claude/plans/*.md") to list all plan files
+   - Grep for story ID pattern (e.g., "STORY-127") with word boundaries
+   - If match found, offer to resume via AskUserQuestion
+   - Prioritize files with story ID in filename over random-named files
+   - If resumed, HALT (don't proceed with new plan creation)
 2. **Git Worktree Auto-Management** (git-worktree-manager subagent) ← NEW (STORY-091)
 3. Adapt workflow (Git vs file-based)
 4. File-based tracking setup (if no Git)
@@ -298,7 +304,7 @@ ELSE:
 
 ## TDD Workflow (6 Phases)
 
-### Phase 02: Test-First Design (Red Phase)
+### Phase 02: Test-First Design
 Write failing tests from AC → test-automator subagent → Tests RED → **Update AC Checklist (test items) ✓ MANDATORY**
 **Reference:** `tdd-red-phase.md`
 **AC Updates:** Test count, test coverage, test file creation items
@@ -351,12 +357,12 @@ IF all checkboxes CHECKED:
 
 ---
 
-### Phase 03: Implementation (Green Phase)
+### Phase 03: Implementation
 Minimal code to pass tests → backend-architect/frontend-developer → Tests GREEN → **Update AC Checklist (implementation items) ✓ MANDATORY**
 **Reference:** `tdd-green-phase.md`
 **AC Updates:** Code implementation, business logic location, size metrics items
 
-### Phase 04: Refactor (Refactor Phase)
+### Phase 04: Refactoring
 Improve quality, keep tests green → refactoring-specialist, code-reviewer, Light QA → Code improved → **Update AC Checklist (quality items) ✓ MANDATORY**
 **Reference:** `tdd-refactor-phase.md`
 **Steps:** 1-4 Refactoring + code review, 5 Light QA validation [MANDATORY], 6 AC Checklist update
@@ -375,7 +381,7 @@ Cross-component testing, coverage validation → integration-tester → Threshol
 
 CHECK CONVERSATION HISTORY FOR EVIDENCE:
 
-- [ ] Step 0: Anti-Gaming Validation PASSED? [NEW - BLOCKING - RUN FIRST]
+- [ ] Phase 05.0: Anti-Gaming Validation PASSED? [NEW - BLOCKING - RUN FIRST]
       Search for: integration-tester response with "✓ Anti-gaming validation passed"
       OR: gaming_scan.status == "PASS"
       Found? YES → Check box | NO → Leave unchecked
@@ -697,7 +703,7 @@ Phase 04: Refactor (tdd-refactor-phase.md + refactoring-patterns.md)
   └─ Step 5: Light QA (devforgeai-qa --mode=light) ✓ MANDATORY ← OFTEN MISSED
   ↓
 Phase 05: Integration (integration-testing.md)
-  ├─ **Step 0: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← RUN FIRST, BLOCKS COVERAGE
+  ├─ **Phase 05.0: Anti-Gaming Validation ✓ MANDATORY [NEW]** ← RUN FIRST, BLOCKS COVERAGE
   │   └─ HALT if: gaming patterns detected BEFORE coverage calculation
   └─ Step 1: integration-tester ✓ MANDATORY
   ↓
@@ -953,7 +959,7 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
 
 ---
 
-### Phase 02: Test-First Design (Red Phase)
+### Phase 02: Test-First Design
 
 1. **test-automator** (Test generation) [MANDATORY]
    - Purpose: Generate failing tests from acceptance criteria
@@ -965,7 +971,7 @@ Triggered when QA fails due to deferrals. Phase 01 Step h. detects, then 3-step 
 
 ---
 
-### Phase 03: Implementation (Green Phase)
+### Phase 03: Implementation
 
 1. **backend-architect OR frontend-developer** (Implementation) [MANDATORY - CHOOSE ONE]
    - Purpose: Write minimal code to pass tests
@@ -1030,7 +1036,7 @@ IF all checkboxes CHECKED:
 
 ---
 
-### Phase 04: Refactor (Refactor Phase)
+### Phase 04: Refactoring
 
 1. **refactoring-specialist** (Code improvement) [MANDATORY]
    - Purpose: Apply refactoring patterns, remove code smells
