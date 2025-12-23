@@ -627,6 +627,58 @@ The smart stash strategy is implemented in Phase 01.1.5 of preflight-validation.
 
 ---
 
+## Lock File Recovery
+
+### Problem
+
+Git fails with error: `fatal: Unable to create '.git/index.lock': File exists`
+
+This occurs when a previous git operation was interrupted or another process is holding the lock.
+
+### Diagnosis
+
+```bash
+# Check if lock file exists
+ls -la .git/index.lock
+
+# Check for running git processes
+ps aux | grep git
+
+# On Windows (if using PowerShell)
+tasklist | findstr git
+```
+
+### Recovery
+
+**WARNING:** Only run this if no git processes are running.
+
+```bash
+# Remove stale lock file
+rm -f .git/index.lock
+```
+
+### WSL2-Specific Notes
+
+**Common Causes:**
+- VS Code with Git extension is open and polling for changes
+- Cross-filesystem access between Windows (`C:\`) and WSL (`/mnt/c/`)
+- Previous git command crashed without cleanup
+- File system sync issues between Windows and WSL
+
+**Prevention:**
+1. Close VS Code Git panels before terminal git operations
+2. Use native WSL paths (`/mnt/c/`) not Windows paths (`C:\`)
+3. Avoid running git from both Windows and WSL on same repo
+4. If using VS Code, disable "Git: Autofetch" setting temporarily
+
+**Alternative Recovery (if rm fails):**
+```bash
+# Force remove on Windows filesystem
+rm -rf .git/index.lock 2>/dev/null || cmd.exe /c "del /f /q .git\\index.lock"
+```
+
+---
+
 ## Branch Naming Conventions
 
 ### Feature Branches
