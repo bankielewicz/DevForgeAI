@@ -22,7 +22,8 @@ BEFORE starting any phase: Verify previous phase completed.
 AFTER completing any phase: Write phase marker or log completion.
 
 Update DoD Checkboxes:
- - @.claude/skills/devforgeai-development/references/dod-update-workflow.md
+ - **READ** @.claude/skills/devforgeai-development/references/dod-update-workflow.md
+  - The Implementation Notes MUST be a FLAT list directly under ## Implementation Notes, NOT under a ### Definition of Done - Completed Items subsection!
 
 ### /qa Command - 5 Phases (SEQUENTIAL, NO SKIP):
 0-Setup → 1-Validation → 2-Analysis → 3-Reporting → 4-Cleanup
