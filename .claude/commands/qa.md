@@ -3,12 +3,14 @@ description: Run QA validation on story implementation
 argument-hint: [STORY-ID] [mode]
 # Mode: 'deep' or 'light' (no -- prefix)
 model: opus
-allowed-tools: Read, Write, Edit, Glob, Grep, Skill, Bash
+allowed-tools: AskUserQuestion, Read, Write, Edit, Glob, Grep, Skill, Bash
 ---
 
 # /qa - Quality Assurance Validation Command
 
 Execute QA validation on story implementation. Supports light validation during development and deep validation after completion.
+
+Do not skip any phases nor skip the devforgeai-qa skill.
 
 ---
 

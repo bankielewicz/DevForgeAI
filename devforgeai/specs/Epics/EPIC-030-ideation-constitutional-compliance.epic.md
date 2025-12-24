@@ -289,7 +289,20 @@ Fix critical constitutional violations (Bash used for file operations, missing d
 2. **Testing:** Validate no Bash file operations remain (Grep check), all cross-references resolve
 3. **Documentation:** Update devforgeai/FRAMEWORK-STATUS.md to reflect constitutional compliance
 
+## Stories
+
+| Story ID | Feature | Title | Status | Points |
+|----------|---------|-------|--------|--------|
+| STORY-142 | Feature 1 | Replace Bash mkdir with Write/.gitkeep Pattern | Backlog | 3 |
+| STORY-143 | Feature 2 | Document user-input-guidance.md in SKILL.md | Backlog | 2 |
+| STORY-144 | Feature 3 | Integrate or Remove Orphaned Files | Backlog | 3 |
+| STORY-145 | Feature 4 | Split error-handling.md into 6 Error-Type Files | Backlog | 6 |
+| STORY-146 | Feature 5 | Enforce TodoWrite in All 6 Phases | Backlog | 3 |
+| STORY-147 | Feature 6 | Keep Separate Tech Recommendation Files with Smart Referencing | Backlog | 3 |
+
+**Total Points:** 20
+
 ---
 
 **Created from:** BRAINSTORM-001 (HIGH confidence)
-**Related Stories:** TBD (create stories via /create-story after architecture phase)
+**Related Stories:** See Stories table above

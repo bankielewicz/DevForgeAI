@@ -2,7 +2,7 @@
 id: STORY-129
 title: CLI Command Availability Check
 type: feature
-status: Dev Complete
+status: QA Approved
 priority: MEDIUM
 story-points: 2
 epic: EPIC-026

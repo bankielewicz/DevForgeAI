@@ -1,0 +1,19 @@
+
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                    STORY-128: Git Lock File Recovery                      ║
+║                         TDD RED PHASE TEST SUITE                          ║
+║                                                                           ║
+║  Expected: ALL TESTS FAIL (Red phase - documentation doesn't exist yet)  ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+Available Test Files:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✓ test-ac1-section-exists.sh
+  ✓ test-ac2-diagnosis-commands.sh
+  ✓ test-ac3-recovery-warning.sh
+  ✓ test-ac4-wsl2-guidance.sh
+  ✓ test-ac5-prevention-tips.sh
+
+Running Tests (Red Phase - Expecting Failures):
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
