@@ -191,6 +191,7 @@ Enable 35-40% time reduction through parallel execution patterns.
 | frontend-developer | Frontend development expert specializing in modern component-based architectu... | Read, Write, Edit, Grep, Glob, Bash(npm:*) |
 | git-validator | Git repository validation and workflow strategy specialist. Checks Git availa... | Bash, Read |
 | git-worktree-manager | Git worktree management for parallel story development. Creates isolated work... | Bash, Read, Glob, Grep |
+| ideation-result-interpreter | Interprets ideation workflow results and generates user-facing display templa... | Read, Glob, Grep |
 | integration-tester | Integration testing expert validating cross-component interactions, API contr... | Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test) |
 | internet-sleuth | Expert Research & Competitive Intelligence Specialist for web research automa... | Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch |
 | pattern-compliance-auditor | Audits DevForgeAI commands for lean orchestration pattern compliance. Detects... | Read, Grep, Glob |
