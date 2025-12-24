@@ -284,7 +284,45 @@ Skill(command="devforgeai-ideation")
 - Handle all validation, error recovery, and user interaction (AskUserQuestion flows)
 - Generate all output artifacts (epics, requirements spec, complexity assessment)
 - Perform self-validation in Phase 6.4
-- Present completion summary in Phase 6.5
+
+---
+
+## Phase 3: Result Interpretation
+
+**Purpose:** Transform skill output into user-facing summary using ideation-result-interpreter subagent.
+
+**Invoke result interpreter:**
+
+```
+Task(
+  subagent_type="ideation-result-interpreter",
+  description="Format ideation results for display",
+  prompt="""
+Interpret ideation workflow results.
+
+Context:
+- Project mode: ${PROJECT_MODE_CONTEXT.mode}
+- Context files found: ${PROJECT_MODE_CONTEXT.context_files_found}/6
+
+Task:
+1. Read generated epic files from devforgeai/specs/Epics/
+2. Extract: epic count, complexity score, architecture tier
+3. Determine result status (SUCCESS/WARNING/FAILURE)
+4. Generate display template per ideation-result-interpreter workflow
+5. Provide next step recommendations based on project mode
+
+Return structured result with display template.
+"""
+)
+```
+
+**Display result:**
+
+```
+Display: result.display.template
+```
+
+**Next:** Proceed to Phase N (Hook Integration)
 
 ---
 
@@ -389,6 +427,7 @@ Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing
 - ✅ Argument validation and capture
 - ✅ Brainstorm auto-detection and loading
 - ✅ Skill invocation with context markers
+- ✅ Result interpretation via ideation-result-interpreter subagent (Phase 3)
 - ✅ Hook eligibility checking and feedback invocation (Phase N)
 - ✅ Error propagation from skill (HALT on skill validation failure)
 
@@ -397,9 +436,9 @@ Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing
 - ✅ User interaction (10-60 questions)
 - ✅ Epic and requirements generation
 - ✅ Self-validation of all artifacts (Phase 6.4)
-- ✅ Detailed summary presentation (Phase 6.5)
-- ✅ Next action determination (Phase 6.6)
 - ✅ Error handling and recovery
+
+**Result interpretation:** Summary presentation delegated to ideation-result-interpreter subagent (STORY-131).
 
 **Validation delegation:** Command trusts skill's Phase 6.4 self-validation for artifact verification (YAML syntax, ID format, required fields). No duplicate validation logic in command.
 
