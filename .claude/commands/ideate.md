@@ -174,6 +174,63 @@ Prompt user: "Please provide more details about:
 - What success looks like"
 ```
 
+### 1.3 Smart Project Mode Detection (STORY-134)
+
+**Purpose:** Auto-detect greenfield vs brownfield mode based on context file existence.
+
+**Step 1: Count Context Files**
+```
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
+context_file_count = len(context_files)
+```
+
+**Step 2: Determine Project Mode**
+```
+# Business Rule:
+# - context_file_count == 6 → brownfield (all context files present)
+# - context_file_count < 6 → greenfield (missing context files)
+IF context_file_count == 6:
+    project_mode = "brownfield"
+ELSE:  # context_file_count < 6 → greenfield
+    project_mode = "greenfield"
+```
+
+**Step 3: Display Mode Context**
+```
+Display:
+"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Mode Detection
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+**Project Mode Context:**
+- **Mode:** {project_mode}
+  - If 6 files: **Mode:** brownfield
+  - If <6 files: **Mode:** greenfield
+- **Context Files Found:** {context_file_count}/6
+- **Detection Method:** Filesystem glob
+
+IF project_mode == "brownfield":
+    Display: "✓ All 6 context files present - existing project detected"
+    Display: "  Next steps after ideation: /orchestrate or /create-sprint"
+ELSE:
+    Display: "⚠ Context files incomplete ({context_file_count}/6)"
+    Display: "  Next steps after ideation: /create-context to establish architecture"
+```
+
+**Step 4: Set Mode Context for Skill**
+
+The skill's Phase 6.6 (completion-handoff.md) will read this mode marker to determine next-action recommendation:
+- **Greenfield** → recommend `/create-context [project-name]`
+- **Brownfield** → recommend `/orchestrate` or `/create-story`
+
+```
+$PROJECT_MODE_CONTEXT = {
+    mode: project_mode,
+    context_files_found: context_file_count,
+    detection_method: "filesystem_glob"
+}
+```
+
 ---
 
 ## Phase 2: Invoke Ideation Skill
