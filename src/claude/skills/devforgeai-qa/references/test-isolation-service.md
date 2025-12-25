@@ -330,3 +330,85 @@ See `devforgeai/config/test-isolation.yaml` for full configuration options.
 - `directory.auto_create`: Auto-create directories
 - `concurrency.locking_enabled`: Enable file locking
 - `cleanup.enabled`: Auto-cleanup old results
+
+---
+
+## Session Checkpoint Protocol [STORY-126 Enhancement]
+
+**Purpose:** Persist workflow state to survive context clears and enable resume capability.
+
+**Constitution Alignment:** Skills MUST NOT assume state from previous invocations (architecture-constraints.md line 38)
+
+### Checkpoint File Location
+
+```
+devforgeai/qa/reports/{STORY_ID}/.qa-session-checkpoint.json
+```
+
+### Checkpoint File Format
+
+```json
+{
+  "schema_version": "1.0",
+  "story_id": "STORY-126",
+  "skill": "devforgeai-qa",
+  "mode": "deep",
+  "started_at": "2025-12-23T16:00:00Z",
+  "last_updated": "2025-12-23T16:15:00Z",
+  "current_phase": 2,
+  "completed_phases": [0, 1],
+  "phase_details": {
+    "0": {"status": "complete", "lock_acquired": true},
+    "1": {"status": "complete", "traceability_score": 100, "coverage": 95},
+    "2": {"status": "in_progress", "validators_invoked": ["code-reviewer", "security-auditor"], "validators_pending": ["test-automator"]}
+  },
+  "can_resume": true,
+  "expiry": "2025-12-24T16:00:00Z"
+}
+```
+
+### Checkpoint Write (End of Each Phase)
+
+```
+Read existing checkpoint (if any)
+Update checkpoint with:
+  - current_phase = {N+1}
+  - completed_phases.append({N})
+  - phase_details[{N}] = {completion_data}
+  - last_updated = {TIMESTAMP}
+  - expiry = {TIMESTAMP + 24 hours}
+
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-session-checkpoint.json",
+      content={updated_checkpoint_json})
+
+Display: "✓ Checkpoint saved at Phase {N}"
+```
+
+### Checkpoint Detection (Phase 0 Step 0.0)
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-session-checkpoint.json")
+
+IF checkpoint found:
+    Read and parse JSON
+    IF checkpoint.can_resume AND NOT expired:
+        AskUserQuestion: "Resume from Phase {current_phase} or start fresh?"
+    ELSE:
+        Delete expired checkpoint, start fresh
+```
+
+### Checkpoint Cleanup
+
+Checkpoints are automatically cleaned up when:
+1. QA completes successfully (PASSED)
+2. User chooses "Start fresh"
+3. Checkpoint is expired (24 hours old)
+
+### Session Checkpoint vs Phase Markers
+
+| Feature | Session Checkpoint | Phase Markers |
+|---------|-------------------|---------------|
+| Purpose | Resume from interruption | Sequential verification |
+| Format | JSON with state details | Simple YAML status |
+| Cleanup | On completion or fresh start | On QA PASSED only |
+| Contains | Full workflow state | Phase completion flag |

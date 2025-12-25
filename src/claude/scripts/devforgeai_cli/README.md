@@ -132,6 +132,95 @@ devforgeai validate-context --format=json
 
 ---
 
+### ast-grep scan - Semantic Code Analysis (STORY-115)
+
+**Purpose:** Detect security vulnerabilities and anti-patterns using AST-based analysis
+
+**Usage:**
+```bash
+# Basic scan with grep fallback
+devforgeai ast-grep scan ./src --fallback
+
+# Scan with category filter
+devforgeai ast-grep scan ./src --category security --format json
+
+# Scan specific language
+devforgeai ast-grep scan ./tests --language python --format markdown
+
+# Full options
+devforgeai ast-grep scan <path> \
+  --category security \
+  --language python \
+  --format json \
+  --fallback
+```
+
+**What it detects:**
+- ✅ **SQL injection** - String concatenation in queries
+- ✅ **Hardcoded secrets** - API keys, passwords, tokens in code
+- ✅ **AWS credentials** - Access keys, secret keys
+- ⚠️ **Accuracy:** 90-95% with ast-grep, 60-75% with grep fallback
+
+**Options:**
+- `--category` - Filter by: security, anti-patterns, complexity, architecture
+- `--language` - Filter by: python, csharp, typescript, javascript
+- `--format` - Output format: text (default), json, markdown
+- `--fallback` - Force grep-based analysis (skip ast-grep)
+
+**Auto-Install Behavior:**
+```bash
+# If ast-grep not installed, you'll be prompted:
+ast-grep Not Found
+==================================
+Options:
+  1) Install now (pip install ast-grep-cli)
+  2) Use fallback (grep-based analysis)
+  3) Skip
+
+Select option [1-3]:
+```
+
+**Configuration:**
+```yaml
+# devforgeai/ast-grep/config.yaml
+fallback_mode: false        # Use grep by default?
+min_version: "0.40.0"       # Minimum ast-grep version
+max_version: "1.0.0"        # Maximum version (exclusive)
+allow_auto_install: false   # Skip prompt and auto-install?
+```
+
+**Exit codes:**
+- `0` - No violations found (or scan skipped)
+- `1` - Violations detected
+- `2` - Error (invalid arguments, scan failed)
+
+**Example Output (JSON):**
+```json
+{
+  "violations": [
+    {
+      "file": "app.py",
+      "line": 42,
+      "column": 5,
+      "rule_id": "SEC-001",
+      "severity": "CRITICAL",
+      "message": "Potential SQL injection via string concatenation",
+      "evidence": "query = \"SELECT * FROM users WHERE id = \" + user_id",
+      "analysis_method": "grep-fallback",
+      "category": "security"
+    }
+  ],
+  "analysis_method": "grep-fallback",
+  "summary": {
+    "total_violations": 1,
+    "by_severity": {"CRITICAL": 1},
+    "accuracy_note": "60-75% vs 90-95% with ast-grep"
+  }
+}
+```
+
+---
+
 ## Pre-Commit Integration
 
 ### How It Works

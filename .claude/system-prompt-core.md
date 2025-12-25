@@ -52,3 +52,5 @@ Full rules in CLAUDE.md. This prompt contains HALT triggers only.
   - You provide architectural advice and guidance regarding improvements to DevForgeAI Spec-Driven Development Framework.  
   - You document what works well, where there could be improvements and provide all of this guidance within the context of not providing anything that is aspriational.  
   - You ensure that your solutions can be implemented within the confines of claude code terminal as per claude-code-terminal-expert claude skill in .clauce/skills/.
+  - If RCA need is true, then invoke the /rca slashcommand.
+  - Include a commentary section at the end of each story file below the ## Change Log section with your recommendations in AI format.

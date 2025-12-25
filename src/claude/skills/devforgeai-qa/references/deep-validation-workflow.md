@@ -393,4 +393,36 @@ IF exit 0: devforgeai-validate invoke-hooks --operation=qa --story={STORY_ID}
 
 ---
 
+## Phase Marker Protocol [STORY-126 Enhancement]
+
+**Purpose:** Write marker files after each phase to enable sequential verification and resume capability.
+
+### Marker Write Template (End of Each Phase)
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-{N}.marker",
+      content="phase: {N}\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {TIMESTAMP}\nstatus: complete")
+```
+
+### Pre-Flight Verification Template (Start of Phases 1-4)
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-{N-1}.marker")
+IF NOT found: HALT: "Phase {N-1} not completed - run in sequence"
+```
+
+### Marker Locations
+
+| Phase | Marker File |
+|-------|-------------|
+| 0 | `.qa-phase-0.marker` |
+| 1 | `.qa-phase-1.marker` |
+| 2 | `.qa-phase-2.marker` |
+| 3 | `.qa-phase-3.marker` |
+| 4 | `.qa-phase-4.marker` |
+
+**Location:** `devforgeai/qa/reports/{STORY_ID}/`
+
+---
+
 **Token efficiency:** ~2.5K tokens (single load) vs ~5K+ (5 separate loads)

@@ -212,5 +212,68 @@ Phase 3-7: Continue with aggregated results
 
 ---
 
-**Last Updated:** 2025-12-19
-**Story:** STORY-113
+## Phase 2.2 Completion Checkpoint [MANDATORY - BLOCKS PHASE 2.3]
+
+**Purpose:** Ensure all 3 validators were invoked before proceeding.
+
+**Constitution Alignment:** Parallel tasks MUST be independent (architecture-constraints.md line 169)
+
+### Validator Invocation Checklist
+
+Before proceeding to Phase 2.3, verify ALL validators were invoked:
+
+```
+- [ ] test-automator subagent invoked? (verify Task() call in conversation)
+- [ ] code-reviewer subagent invoked? (verify Task() call in conversation)
+- [ ] security-auditor subagent invoked? (verify Task() call in conversation)
+```
+
+### Enforcement Logic
+
+```
+validator_count = count(invoked validators)
+
+IF validator_count < 3:
+    Display: "❌ INCOMPLETE: Only {validator_count}/3 validators invoked"
+    Display: "Missing: {list_missing_validators}"
+    HALT: "All 3 validators MUST be invoked in a SINGLE message for parallel execution"
+
+    AskUserQuestion:
+        Question: "Invoke missing validators now?"
+        Header: "Validator Gap"
+        Options:
+            - label: "Yes, invoke {missing} now"
+              description: "Launch missing validator(s) before continuing"
+            - label: "Continue with {validator_count}/3 (NOT RECOMMENDED)"
+              description: "Proceed without all validators - may miss issues"
+        multiSelect: false
+
+    IF user chooses "Yes": Invoke missing validator(s)
+    IF user chooses "Continue": Log warning, proceed with reduced coverage
+
+IF validator_count == 3:
+    Display: "✓ All 3 validators invoked"
+    PROCEED to Phase 2.3
+```
+
+### Important Distinction
+
+| Concept | Applies To | Threshold |
+|---------|------------|-----------|
+| **Invocation** | Task() calls | 3/3 REQUIRED |
+| **Success Rate** | Validator RESULTS | 66% (2/3) acceptable |
+
+**Note:** The 66% threshold applies to RESULTS, not invocation. All 3 validators MUST be invoked even if one fails.
+
+### Verification Test
+
+```
+# Test: Run QA and deliberately skip one validator
+# Expected: HALT occurs with "Only 2/3 validators invoked" message
+# Resolution: AskUserQuestion prompts for missing validator invocation
+```
+
+---
+
+**Last Updated:** 2025-12-23
+**Story:** STORY-113 (Enhanced with STORY-126 improvements)

@@ -322,6 +322,48 @@ story_update = "completed"
 
 ---
 
+## Atomic Verification Protocol [STORY-126 Enhancement]
+
+**Purpose:** Ensure story status always matches QA result - no divergence allowed.
+
+### Verification Steps (MANDATORY)
+
+After any story status update, execute:
+
+```
+# Step 1: Re-read story file
+Read(file_path="{story_file_path}")
+
+# Step 2: Extract actual status
+actual_status = extract_from_yaml("status")
+
+# Step 3: Compare to expected
+IF qa_result == "PASSED" OR qa_result == "PASS WITH WARNINGS":
+    expected_status = "QA Approved"
+ELSE:
+    expected_status = "QA Failed"
+
+# Step 4: Verify match
+IF actual_status != expected_status:
+    Display: "❌ CRITICAL: Story status diverged from QA result"
+    Display: "   Expected: {expected_status}"
+    Display: "   Actual: {actual_status}"
+    HALT: "Status/reality divergence detected - manual intervention required"
+
+Display: "✓ Story status verified: {actual_status}"
+```
+
+### Divergence Prevention
+
+This verification prevents the issue identified in STORY-126:
+- QA determines "PASSED" but story file not updated
+- User asks "did you skip phases?" to discover the gap
+- Status and reality diverge causing confusion
+
+**With this protocol:** Status always matches result or workflow HALTs.
+
+---
+
 ## Success Criteria
 
 Phase 7 succeeds when:
@@ -331,6 +373,7 @@ Phase 7 succeeds when:
 - [ ] QA Validation History section inserted with complete details
 - [ ] Workflow history entry appended
 - [ ] Confirmation message displayed
+- [ ] **Atomic verification passed** (STORY-126 enhancement)
 - [ ] Returns `story_update="completed"` in result
 - [ ] Performance <300ms
 

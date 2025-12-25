@@ -1,0 +1,126 @@
+# Phase 07: DoD Update Workflow
+
+**Entry Gate:**
+```bash
+devforgeai-validate phase-check ${STORY_ID} --from=06 --to=07
+# Exit code 0: Transition allowed
+# Exit code 1: Phase 06 not complete - HALT
+# Exit code 2: Missing subagents from Phase 06 - HALT
+```
+
+---
+
+## Phase Workflow
+
+**Purpose:** Update DoD format for git commit - prepare documentation
+
+**Required Subagents:** None (file operations only)
+
+**Pre-Check: Implementation Notes Section**
+```
+Grep(pattern="^## Implementation Notes", path="${STORY_FILE}")
+
+IF NOT found:
+  # Auto-create section before Workflow Status
+  Edit(
+    file_path="${STORY_FILE}",
+    old_string="## Workflow Status",
+    new_string="## Implementation Notes\n\n**Developer:** DevForgeAI AI Agent\n**Implemented:** ${CURRENT_DATE}\n\n## Workflow Status"
+  )
+```
+
+**Steps:**
+
+1. **Mark completed items [x] in Definition of Done section**
+   ```
+   Edit(
+     file_path="${STORY_FILE}",
+     old_string="- [ ] {completed_item}",
+     new_string="- [x] {completed_item}"
+   )
+   ```
+
+2. **Add DoD items to Implementation Notes**
+   - CRITICAL: Use FLAT LIST format
+   - NO ### subsections under Implementation Notes
+   ```
+   Edit(
+     file_path="${STORY_FILE}",
+     old_string="## Implementation Notes\n\n**Developer:**",
+     new_string="## Implementation Notes\n\n- [x] DoD item 1 completed\n- [x] DoD item 2 completed\n- [ ] DoD item 3 (DEFERRED: reason)\n\n**Developer:**"
+   )
+   ```
+
+3. **Validate DoD format**
+   ```bash
+   devforgeai validate-dod ${STORY_FILE}
+   # Exit code 0: Format valid
+   # Exit code 1: Format invalid - fix and retry
+   ```
+
+4. **Update Workflow Status section**
+   ```
+   Edit(
+     file_path="${STORY_FILE}",
+     old_string="status: In Development",
+     new_string="status: Dev Complete"
+   )
+   ```
+
+5. **Final validation**
+   ```bash
+   devforgeai validate-dod ${STORY_FILE}
+   # Exit code 0 required before proceeding
+   ```
+
+**Reference:** `references/dod-update-workflow.md` for complete workflow
+
+---
+
+## Format Requirements
+
+**CORRECT Implementation Notes Format:**
+```markdown
+## Implementation Notes
+
+- [x] Unit tests written and passing
+- [x] Implementation complete
+- [x] Code review completed
+- [ ] Performance testing (DEFERRED: infrastructure not ready)
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2025-12-25
+
+### TDD Workflow Summary (optional subsection OK)
+...
+```
+
+**INCORRECT Format (will fail validation):**
+```markdown
+## Implementation Notes
+
+### Definition of Done - Completed Items  ← NO! This subsection causes failures
+- [x] Unit tests...
+```
+
+---
+
+## Validation Checkpoint
+
+**Before proceeding to Phase 08, verify:**
+
+- [ ] DoD items marked [x] in story file
+- [ ] Implementation Notes flat list added (no ### subsections)
+- [ ] DoD format validated (exit code 0)
+- [ ] Workflow Status updated
+
+**IF any checkbox UNCHECKED:** HALT - Git commit will FAIL without proper DoD
+
+---
+
+**Exit Gate:**
+```bash
+devforgeai-validate phase-complete ${STORY_ID} --phase=07 --checkpoint-passed
+# Exit code 0: Phase complete, proceed to Phase 08
+# Exit code 1: Cannot complete - DoD format invalid
+```

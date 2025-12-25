@@ -203,8 +203,14 @@ Evaluate technical/business/resource feasibility, identify risks with mitigation
 **6.4 Self-Validation:** Validate artifacts, auto-correct issues, HALT on critical failures
 **Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/self-validation-workflow.md")`
 
-**6.5-6.6 Completion & Handoff:** Present summary, determine next action (greenfield→architecture, brownfield→orchestration)
+**6.5-6.6 Completion & Handoff:** Present summary, determine next action based on project mode
 **Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/completion-handoff.md")`
+
+**Phase 6.6 Mode-Based Next Actions (STORY-134):**
+- **greenfield** mode → recommend `/create-context` to establish architecture constraints
+- **brownfield** mode → recommend `/orchestrate` or `/create-sprint` for sprint planning
+
+The command's **Mode:** marker is read in Phase 6.6 to determine appropriate next steps.
 
 ---
 

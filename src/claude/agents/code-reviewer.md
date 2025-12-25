@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Senior code review specialist ensuring quality, security, maintainability, and standards compliance. Use proactively after code implementation or refactoring to provide comprehensive feedback on code changes.
 tools: Read, Grep, Glob, Bash(git:*)
-model: haiku
+model: opus
 color: green
 permissionMode: acceptEdits
 skills: devforgeai-qa

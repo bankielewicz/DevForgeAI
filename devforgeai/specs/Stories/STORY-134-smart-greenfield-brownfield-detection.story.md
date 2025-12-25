@@ -3,7 +3,7 @@ id: STORY-134
 title: Smart Greenfield/Brownfield Detection
 epic: EPIC-028
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 3
 depends_on: []
 priority: Medium
@@ -266,13 +266,19 @@ technical_limitations: []
 | AC#4 Performance | 8 | 8 | 0 |
 | **Total** | **44** | **44** | **0** |
 
+## QA Validation History
+
+| Date | Mode | Result | Report |
+|------|------|--------|--------|
+| 2025-12-24 | Deep | PASSED ✅ | devforgeai/qa/reports/STORY-134-qa-report.md |
+
 ## Workflow Status
 
 - [x] Backlog
 - [x] Ready for Dev
 - [x] In Development
 - [x] Dev Complete
-- [ ] QA In Progress
-- [ ] QA Approved
+- [x] QA In Progress
+- [x] QA Approved
 - [ ] Releasing
 - [ ] Released

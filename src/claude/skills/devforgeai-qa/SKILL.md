@@ -1,13 +1,15 @@
 ---
 name: devforgeai-qa
 description: Validates code quality through hybrid progressive validation (light checks during development, deep analysis after completion). Enforces test coverage (95%/85%/80% strict thresholds), detects anti-patterns, validates spec compliance, and analyzes code quality metrics. Use when validating implementations, ensuring quality standards, or preparing for release.
-tools: Read, Write, Edit, Glob, Grep, Bash, Task
-model: claude-haiku-4-5-20251001
+tools: AskUserQuestion, Read, Write, Edit, Glob, Grep, Bash, Task
+model: claude-opus-4-5-20251101
 ---
 
 # DevForgeAI QA Skill
 
 Quality validation enforcing architectural constraints, coverage thresholds, and code standards through progressive validation.
+
+Do not skip any phases in the devforgeai-qa skill.
 
 ---
 
@@ -87,6 +89,54 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 ## Phase 0: Setup
 
 **Purpose:** Initialize QA environment - validate CWD, create test isolation, acquire locks.
+
+### Step 0.0: Session Checkpoint Detection [NEW - STORY-126]
+
+**Purpose:** Detect interrupted QA sessions and offer resume capability.
+
+**Constitution Alignment:** Skills MUST NOT assume state from previous invocations (architecture-constraints.md line 38)
+
+```
+checkpoint_path = "devforgeai/qa/reports/{STORY_ID}/.qa-session-checkpoint.json"
+Glob(pattern=checkpoint_path)
+
+IF checkpoint found:
+    Read(file_path=checkpoint_path)
+    checkpoint = parse_json(file_content)
+
+    IF checkpoint.can_resume == true:
+        Display: "Found interrupted QA session for {STORY_ID}"
+        Display: "  Last phase: {checkpoint.current_phase}"
+        Display: "  Completed phases: {checkpoint.completed_phases}"
+        Display: "  Started: {checkpoint.started_at}"
+
+        AskUserQuestion:
+            Question: "Resume from Phase {checkpoint.current_phase} or start fresh?"
+            Header: "Resume Session"
+            Options:
+                - label: "Resume from Phase {current_phase}"
+                  description: "Continue from last checkpoint, skip completed phases"
+                - label: "Start fresh (discard checkpoint)"
+                  description: "Delete checkpoint and run complete QA validation"
+            multiSelect: false
+
+        IF user chooses "Resume":
+            # Load checkpoint state
+            $RESUME_MODE = true
+            $RESUME_PHASE = checkpoint.current_phase
+            $COMPLETED_PHASES = checkpoint.completed_phases
+            Display: "✓ Resuming from Phase {checkpoint.current_phase}"
+            # Skip to RESUME_PHASE (pre-flight will validate markers)
+        ELSE:
+            # Delete checkpoint and start fresh
+            Bash(command="rm {checkpoint_path}")
+            $RESUME_MODE = false
+            Display: "✓ Starting fresh QA validation"
+
+ELSE:
+    $RESUME_MODE = false
+    Display: "✓ No interrupted session found - starting fresh"
+```
 
 ### Step 0.1: Validate Project Root [MANDATORY - FIRST STEP]
 
@@ -196,9 +246,68 @@ IF mode == "deep":
   Mode: [light/deep]
 ```
 
+### Phase 0 Marker Write
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-0.marker",
+      content="phase: 0\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
+
+Display: "✓ Phase 0 marker written"
+```
+
+---
+
+## Phase Marker Protocol [STORY-126 Enhancement]
+
+**Purpose:** Write marker files after each phase completes to enable sequential verification.
+
+**Constitution Alignment:** All-or-Nothing Principle (architecture-constraints.md line 246)
+
+### Marker File Format
+
+```yaml
+# Location: devforgeai/qa/reports/{STORY_ID}/.qa-phase-{N}.marker
+phase: {N}
+story_id: {STORY_ID}
+mode: {MODE}
+timestamp: {ISO_8601}
+status: complete
+```
+
+### Marker Write (End of Each Phase)
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-{N}.marker",
+      content="phase: {N}\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {TIMESTAMP}\nstatus: complete")
+
+Display: "✓ Phase {N} marker written"
+```
+
+### Pre-Flight Verification (Start of Phases 1-4)
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-{N-1}.marker")
+
+IF NOT found:
+    Display: "❌ Phase {N-1} marker not found"
+    Display: "   Previous phase may not have completed"
+    HALT: "Run phases in sequence. Start from Phase {N-1}"
+ELSE:
+    Read marker and verify story_id matches
+    Display: "✓ Phase {N-1} verified complete"
+```
+
 ---
 
 ## Phase 1: Validation
+
+### Phase 1 Pre-Flight
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-0.marker")
+IF NOT found: HALT: "Phase 0 not completed - run setup first"
+Display: "✓ Phase 0 verified complete"
+```
 
 **Purpose:** Execute tests, analyze coverage, validate traceability.
 
@@ -262,9 +371,26 @@ Execute the 7-step coverage workflow:
   Overall: [X]%
 ```
 
+### Phase 1 Marker Write
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker",
+      content="phase: 1\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
+
+Display: "✓ Phase 1 marker written"
+```
+
 ---
 
 ## Phase 2: Analysis
+
+### Phase 2 Pre-Flight
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker")
+IF NOT found: HALT: "Phase 1 not completed - run validation first"
+Display: "✓ Phase 1 verified complete"
+```
 
 **Purpose:** Detect anti-patterns, run parallel validators, check spec compliance, measure quality.
 
@@ -334,14 +460,38 @@ Task(subagent_type="security-auditor", prompt="Scan for security issues...", des
   Quality metrics: Complexity avg [X], MI [X]%, Duplication [X]%
 ```
 
+### Phase 2 Marker Write
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker",
+      content="phase: 2\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
+
+Display: "✓ Phase 2 marker written"
+```
+
 ---
 
 ## Phase 3: Reporting
 
+### Phase 3 Pre-Flight
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker")
+IF NOT found: HALT: "Phase 2 not completed - run analysis first"
+Display: "✓ Phase 2 verified complete"
+```
+
 **Purpose:** Generate QA report, update story status, create gaps.json if failed.
 
-### Step 3.1: Determine Overall Result
+### Step 3.1-3.4: Result Determination and Story Update [ATOMIC]
 
+**Purpose:** Combine result determination with mandatory story update in single atomic operation.
+
+**Constitution Alignment:** HALT pattern for gate failures (architecture-constraints.md line 111)
+
+**Sequence:**
+
+**1. Determine Result:**
 ```
 IF any CRITICAL violations OR coverage < thresholds OR parallel < 66%:
     overall_status = "FAILED"
@@ -349,10 +499,11 @@ ELIF any HIGH violations:
     overall_status = "PASS WITH WARNINGS"
 ELSE:
     overall_status = "PASSED"
+
+Display: "Result determined: {overall_status}"
 ```
 
-### Step 3.2: Generate QA Report (Deep Mode Only)
-
+**2. Generate QA Report (Deep Mode Only):**
 ```
 IF mode == "deep":
     Write(file_path="devforgeai/qa/reports/{STORY-ID}-qa-report.md",
@@ -360,10 +511,9 @@ IF mode == "deep":
     Display: "✓ QA report generated"
 ```
 
-### Step 3.3: Generate gaps.json (FAILED Only)
+**3. Generate gaps.json (FAILED Only):**
 
 **MANDATORY if overall_status == "FAILED":**
-
 ```
 Write(file_path="devforgeai/qa/reports/{STORY-ID}-gaps.json",
       content=JSON containing:
@@ -381,20 +531,50 @@ IF NOT found:
     HALT: "gaps.json not created - required for /dev remediation mode"
 ```
 
-### Step 3.4: Update Story Status
-
+**4. Update Story File IMMEDIATELY:**
 ```
 Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
 IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
-    Edit(old_string="status: Dev Complete", new_string="status: QA Approved ✅")
+    Edit(old_string="status: Dev Complete", new_string="status: QA Approved")
+ELSE:
+    Edit(old_string="status: Dev Complete", new_string="status: QA Failed")
 
-IF overall_status == "FAILED":
-    Edit(old_string="status: Dev Complete", new_string="status: QA Failed ❌")
-
-# Add workflow history entry
-Append: "- **{timestamp}**: QA validation {result} ({mode} mode)"
+# Add QA history entry
+Edit(old_string="## QA Validation History",
+     new_string="## QA Validation History\n\n| Date | Mode | Result |\n|------|------|--------|\n| {timestamp} | {MODE} | {overall_status} |")
 ```
+
+**5. Verify Update (MANDATORY):**
+```
+Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
+
+# Extract current status from file
+actual_status = extract_status_from_yaml(file_content)
+
+IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
+    expected_status = "QA Approved"
+ELSE:
+    expected_status = "QA Failed"
+
+IF actual_status != expected_status:
+    Display: "❌ Story file update FAILED"
+    Display: "Expected: {expected_status}, Found: {actual_status}"
+    HALT: "Story status diverged from QA result - manual intervention required"
+ELSE:
+    Display: "✓ Story status updated to: {actual_status}"
+    $STORY_FILE_UPDATED = true
+```
+
+**This step is ATOMIC - do NOT proceed to Phase 4 until story file verified.**
+
+**Validation Checkpoint:**
+- [ ] Result determined (PASSED/FAILED/PASS WITH WARNINGS)?
+- [ ] Story file Edit executed?
+- [ ] Story file verification Read executed?
+- [ ] Status matches expectation?
+
+IF any checkbox unchecked: HALT with "Atomic update incomplete"
 
 ### Step 3.5: Invoke qa-result-interpreter
 
@@ -411,9 +591,26 @@ Task(subagent_type="qa-result-interpreter",
   Story status: [Updated to QA Approved / QA Failed]
 ```
 
+### Phase 3 Marker Write
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker",
+      content="phase: 3\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
+
+Display: "✓ Phase 3 marker written"
+```
+
 ---
 
 ## Phase 4: Cleanup
+
+### Phase 4 Pre-Flight
+
+```
+Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker")
+IF NOT found: HALT: "Phase 3 not completed - run reporting first"
+Display: "✓ Phase 3 verified complete"
+```
 
 **Purpose:** Release locks, invoke feedback hooks, display final summary.
 
@@ -441,7 +638,72 @@ IF exit_code == 0:
     Bash(command="devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID")
 ```
 
-### Step 4.3: Display Final Summary
+### Step 4.3: Execution Summary [MANDATORY - HALT ON INCOMPLETE]
+
+**Purpose:** Enforce visibility of all phase executions before workflow completion.
+
+**Constitution Alignment:** Quality gates MUST block on violations (architecture-constraints.md line 106)
+
+Display the following summary (CANNOT be skipped):
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║                    QA EXECUTION SUMMARY                      ║
+╠══════════════════════════════════════════════════════════════╣
+║  Story: {STORY_ID}                                           ║
+║  Mode: {MODE}                                                ║
+╠══════════════════════════════════════════════════════════════╣
+║  PHASE EXECUTION STATUS:                                     ║
+║  - [x] Phase 0: Setup (Lock: {YES/NO})                       ║
+║  - [x] Phase 1: Validation (Traceability: {score}%)          ║
+║  - [x] Phase 2: Analysis (Validators: {count}/3)             ║
+║  - [x] Phase 3: Reporting (Status: {status})                 ║
+║  - [x] Phase 4: Cleanup (Hooks: {status})                    ║
+╠══════════════════════════════════════════════════════════════╣
+║  Story File Updated: {YES/NO}                                ║
+║  Result: {PASSED/FAILED}                                     ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+**Enforcement Logic:**
+
+```
+# Count unchecked phases
+unchecked_count = count_unchecked_phases()
+
+IF unchecked_count > 0:
+    Display: "⚠️ WARNING: {unchecked_count} phases may have been skipped"
+
+    AskUserQuestion:
+        Question: "Phases appear incomplete. How should I proceed?"
+        Header: "Incomplete Execution"
+        Options:
+            - label: "Re-run skipped phases now"
+              description: "Return to first skipped phase and complete workflow"
+            - label: "Continue with incomplete execution (NOT RECOMMENDED)"
+              description: "Proceed despite missing phases - may cause issues"
+            - label: "Abort QA validation"
+              description: "Stop workflow and investigate manually"
+        multiSelect: false
+
+    IF user chooses "Re-run": GOTO first skipped phase
+    IF user chooses "Continue": Log warning, proceed with caution
+    IF user chooses "Abort": HALT workflow
+
+IF unchecked_count == 0:
+    Display: "✓ All phases complete - No skipped steps detected"
+```
+
+**Validation Checkpoint:**
+- [ ] Execution summary displayed?
+- [ ] All phases marked complete?
+- [ ] Story file update confirmed?
+
+IF any checkbox unchecked: HALT with "Execution incomplete"
+
+---
+
+### Step 4.4: Display Final Summary
 
 ```
 Display:
@@ -464,6 +726,40 @@ Display:
 ║   [If FAILED] Run /dev {STORY_ID} for remediation      ║
 ╚════════════════════════════════════════════════════════╝
 ```
+
+### Phase 4 Marker Write
+
+```
+Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-4.marker",
+      content="phase: 4\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
+
+Display: "✓ Phase 4 marker written"
+Display: "✓ QA workflow complete - all 5 phase markers written"
+```
+
+### Step 4.5: Marker Cleanup [CONDITIONAL - QA PASSED ONLY]
+
+**Purpose:** Clean up marker files after successful QA validation to prevent file proliferation.
+
+**Trigger:** Execute ONLY when overall_status == "PASSED"
+
+```
+IF overall_status == "PASSED":
+    # Get all phase markers for this story
+    Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-*.marker")
+
+    FOR each marker_file in results:
+        Bash(command="rm {marker_file}")
+
+    Display: "✓ Phase markers cleaned up for {STORY_ID}"
+
+ELSE:
+    Display: "⚠️ QA FAILED - Markers retained for debugging and resume capability"
+```
+
+**Rationale:**
+- PASSED: Markers no longer needed - clean up to prevent file proliferation
+- FAILED: Markers retained for debugging and to enable resume from last completed phase
 
 ---
 

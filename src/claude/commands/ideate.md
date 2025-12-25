@@ -174,6 +174,63 @@ Prompt user: "Please provide more details about:
 - What success looks like"
 ```
 
+### 1.3 Smart Project Mode Detection (STORY-134)
+
+**Purpose:** Auto-detect greenfield vs brownfield mode based on context file existence.
+
+**Step 1: Count Context Files**
+```
+context_files = Glob(pattern="devforgeai/specs/context/*.md")
+context_file_count = len(context_files)
+```
+
+**Step 2: Determine Project Mode**
+```
+# Business Rule:
+# - context_file_count == 6 → brownfield (all context files present)
+# - context_file_count < 6 → greenfield (missing context files)
+IF context_file_count == 6:
+    project_mode = "brownfield"
+ELSE:  # context_file_count < 6 → greenfield
+    project_mode = "greenfield"
+```
+
+**Step 3: Display Mode Context**
+```
+Display:
+"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Project Mode Detection
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+**Project Mode Context:**
+- **Mode:** {project_mode}
+  - If 6 files: **Mode:** brownfield
+  - If <6 files: **Mode:** greenfield
+- **Context Files Found:** {context_file_count}/6
+- **Detection Method:** Filesystem glob
+
+IF project_mode == "brownfield":
+    Display: "✓ All 6 context files present - existing project detected"
+    Display: "  Next steps after ideation: /orchestrate or /create-sprint"
+ELSE:
+    Display: "⚠ Context files incomplete ({context_file_count}/6)"
+    Display: "  Next steps after ideation: /create-context to establish architecture"
+```
+
+**Step 4: Set Mode Context for Skill**
+
+The skill's Phase 6.6 (completion-handoff.md) will read this mode marker to determine next-action recommendation:
+- **Greenfield** → recommend `/create-context [project-name]`
+- **Brownfield** → recommend `/orchestrate` or `/create-story`
+
+```
+$PROJECT_MODE_CONTEXT = {
+    mode: project_mode,
+    context_files_found: context_file_count,
+    detection_method: "filesystem_glob"
+}
+```
+
 ---
 
 ## Phase 2: Invoke Ideation Skill
@@ -227,214 +284,45 @@ Skill(command="devforgeai-ideation")
 - Handle all validation, error recovery, and user interaction (AskUserQuestion flows)
 - Generate all output artifacts (epics, requirements spec, complexity assessment)
 - Perform self-validation in Phase 6.4
-- Present completion summary in Phase 6.5
 
 ---
 
-## Phase 3: Verify Skill Completion
+## Phase 3: Result Interpretation
 
-### 3.1 Check Skill Completion Status
+**Purpose:** Transform skill output into user-facing summary using ideation-result-interpreter subagent.
 
-**After skill returns control:**
-
-Verify skill completed successfully by checking for expected artifacts:
+**Invoke result interpreter:**
 
 ```
-# Check for epic documents
-epic_files = Glob(pattern="devforgeai/specs/Epics/EPIC-*.epic.md")
+Task(
+  subagent_type="ideation-result-interpreter",
+  description="Format ideation results for display",
+  prompt="""
+Interpret ideation workflow results.
 
-# Check for requirements specification
-req_files = Glob(pattern="devforgeai/specs/requirements/*.md")
-```
+Context:
+- Project mode: ${PROJECT_MODE_CONTEXT.mode}
+- Context files found: ${PROJECT_MODE_CONTEXT.context_files_found}/6
 
-**Expected artifacts:**
-- 1+ epic documents in `devforgeai/specs/Epics/`
-- 1 requirements specification in `devforgeai/specs/requirements/`
-- Complexity assessment (embedded in requirements spec)
+Task:
+1. Read generated epic files from devforgeai/specs/Epics/
+2. Extract: epic count, complexity score, architecture tier
+3. Determine result status (SUCCESS/WARNING/FAILURE)
+4. Generate display template per ideation-result-interpreter workflow
+5. Provide next step recommendations based on project mode
 
-### 3.2 Handle Incomplete Execution
-
-**If artifacts missing:**
-
-```
-if len(epic_files) == 0 or len(req_files) == 0:
-    Report: """
-    ⚠️ Ideation Skill Incomplete
-
-    Expected artifacts not found:
-    - Epic documents: {len(epic_files)} found (expected: 1+)
-    - Requirements spec: {len(req_files)} found (expected: 1)
-
-    Possible causes:
-    1. Skill execution interrupted
-    2. File system write permissions issue
-    3. User exited during discovery questions
-
-    Recommended action:
-    - Re-run `/ideate [business-idea]` to complete ideation
-    - Or check `devforgeai/specs/Epics/` and `devforgeai/specs/requirements/` for partial files
-    """
-
-    HALT - Do not proceed to Phase 4
-```
-
-**If artifacts present:**
-
-```
-✓ Skill completed successfully
-✓ {len(epic_files)} epic document(s) created
-✓ Requirements specification created
-
-→ Proceed to Phase 4
-```
-
----
-
-## Phase 4: Quick Summary
-
-**Note:** Skill already presented detailed summary in Phase 6.5. This phase provides brief confirmation only.
-
-### 4.1 Confirm Completion
-
-**Read first epic for quick validation:**
-
-```
-Read(file_path=epic_files[0], limit=20)  # Read frontmatter only
-```
-
-**Extract:**
-- Epic count: {len(epic_files)}
-- First epic title
-- Complexity score (from requirements spec if needed)
-
-**Brief confirmation:**
-
-```
-✅ Ideation phase complete
-
-Generated:
-- {epic_count} epic document(s) in devforgeai/specs/Epics/
-- Requirements specification in devforgeai/specs/requirements/
-
-The devforgeai-ideation skill has:
-✓ Discovered and documented requirements
-✓ Assessed complexity and recommended architecture tier
-✓ Generated epic and requirements artifacts
-✓ Validated all outputs (Phase 6.4)
-✓ Presented detailed summary (Phase 6.5)
-✓ Asked you for next action (Phase 6.6)
-```
-
-**Note:** If user missed skill's summary or next action prompt, they can review:
-- Epic documents: `devforgeai/specs/Epics/EPIC-*.epic.md`
-- Requirements spec: `devforgeai/specs/requirements/*.md`
-
----
-
-## Phase 5: Verify Next Steps Communicated
-
-### 5.1 Ensure User Understands Next Action
-
-**Skill already asked user in Phase 6.6, but confirm understanding:**
-
-```
-The ideation skill should have asked you to choose next action:
-- Create context files (run /create-context)
-- Review requirements first
-- Skip to orchestration (if context files exist)
-
-If you didn't respond to that question or need clarification:
-```
-
-**Ask again:**
-
-```
-AskUserQuestion(
-  questions=[{
-    question: "Ready to proceed with next phase?",
-    header: "Next step",
-    options: [
-      {
-        label: "Yes - create context files",
-        description: "Run /create-context to define architectural constraints (6 context files)"
-      },
-      {
-        label: "Review requirements first",
-        description: "I want to review/edit the generated requirements before proceeding"
-      },
-      {
-        label: "Help - what are context files?",
-        description: "Explain what /create-context does and why it's needed"
-      }
-    ],
-    multiSelect: false
-  }]
+Return structured result with display template.
+"""
 )
 ```
 
-**Based on response:**
+**Display result:**
 
-**"Yes - create context files":**
 ```
-Run: `/create-context [project-name]`
-
-Replace `[project-name]` with a short identifier (e.g., `task-manager`, `inventory-system`)
-
-The architecture skill will:
-1. Reference your requirements and complexity tier
-2. Ask technology preference questions
-3. Generate 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
-4. Create initial ADR
-5. Validate requirements against constraints
+Display: result.display.template
 ```
 
-**"Review requirements first":**
-```
-Review these files:
-- Epics: `devforgeai/specs/Epics/EPIC-*.epic.md`
-- Requirements: `devforgeai/specs/requirements/[project]-requirements.md`
-
-You can:
-- Manually edit files with your editor
-- Ask me to make specific changes
-- Run `/create-context [project-name]` when ready
-```
-
-**"Help - what are context files?":**
-```
-Context files are 6 immutable constraint documents that prevent technical debt:
-
-1. **tech-stack.md** - Locked technology choices
-   - Prevents library substitution
-   - Example: "Use React 18+, not Vue"
-
-2. **source-tree.md** - Project structure rules
-   - Prevents chaos
-   - Example: "Tests in tests/, source in src/"
-
-3. **dependencies.md** - Approved packages
-   - Prevents bloat
-   - Example: "Express ^4.18.0 for web framework"
-
-4. **coding-standards.md** - Code patterns
-   - Enforces consistency
-   - Example: "PascalCase for classes, camelCase for functions"
-
-5. **architecture-constraints.md** - Layer boundaries
-   - Prevents violations
-   - Example: "Domain cannot import Infrastructure"
-
-6. **anti-patterns.md** - Forbidden patterns
-   - Prevents technical debt
-   - Example: "No God Objects (classes >500 lines)"
-
-These files ensure all development follows defined standards, preventing technical debt accumulation.
-
-Once created, run:
-- `/create-sprint 1` to plan first sprint
-- `/create-story [description]` to create individual stories
-- `/dev STORY-ID` to implement stories with TDD
-```
+**Next:** Proceed to Phase N (Hook Integration)
 
 ---
 
@@ -492,26 +380,28 @@ If issue persists:
 - Try invoking skill directly: Skill(command="devforgeai-ideation")
 ```
 
-### Artifacts Missing After Skill Completion
+### Skill Validation Failure (Phase 6.4)
 
-**If skill completes but artifacts missing:**
+**If skill's Phase 6.4 self-validation detects critical failures:**
+
+The skill's Phase 6.4 validates all generated artifacts and reports failures. When skill validation fails:
 
 ```
-⚠️ Skill completed but expected artifacts not found
+HALT: Skill validation failed
 
-This indicates either:
-1. Skill encountered errors during artifact generation
-2. File system write permissions issue
-3. Incorrect directory paths
+The devforgeai-ideation skill's Phase 6.4 self-validation reported critical failure(s).
+Error details are displayed in the skill's validation report above.
 
-Recommended action:
-1. Check if skill reported any errors during execution
-2. Verify directories exist and are writable:
-   - devforgeai/specs/Epics/
-   - devforgeai/specs/requirements/
-3. Re-run `/ideate [business-idea]` to retry artifact generation
-4. If persistent: Create artifacts manually and proceed to /create-context
+The command does NOT attempt recovery or re-validation.
+Error messages from skill Phase 6.4 are passed through verbatim.
+
+To resolve:
+1. Review the validation error message from the skill
+2. Address the specific issue (e.g., missing required field, invalid YAML)
+3. Re-run `/ideate [business-idea]` to retry ideation
 ```
+
+**Note:** Artifact verification (YAML syntax, ID format, required fields) is delegated entirely to the skill's Phase 6.4 self-validation workflow. The command trusts skill validation results without re-verification.
 
 ### User Exits During Discovery
 
@@ -533,21 +423,23 @@ Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing
 
 **This command delegates all implementation logic to the devforgeai-ideation skill.**
 
-**Command responsibilities:**
+**Command responsibilities (lean orchestration):**
 - ✅ Argument validation and capture
+- ✅ Brainstorm auto-detection and loading
 - ✅ Skill invocation with context markers
-- ✅ Basic artifact existence verification
-- ✅ Brief completion confirmation
-- ✅ Next steps guidance
+- ✅ Result interpretation via ideation-result-interpreter subagent (Phase 3)
 - ✅ Hook eligibility checking and feedback invocation (Phase N)
+- ✅ Error propagation from skill (HALT on skill validation failure)
 
-**Skill responsibilities:**
+**Skill responsibilities (all implementation):**
 - ✅ Complete 6-phase discovery workflow
 - ✅ User interaction (10-60 questions)
 - ✅ Epic and requirements generation
-- ✅ Self-validation (Phase 6.4)
-- ✅ Detailed summary presentation (Phase 6.5)
-- ✅ Next action determination (Phase 6.6)
+- ✅ Self-validation of all artifacts (Phase 6.4)
 - ✅ Error handling and recovery
+
+**Result interpretation:** Summary presentation delegated to ideation-result-interpreter subagent (STORY-131).
+
+**Validation delegation:** Command trusts skill's Phase 6.4 self-validation for artifact verification (YAML syntax, ID format, required fields). No duplicate validation logic in command.
 
 **Architecture principle:** Commands orchestrate, skills implement, references provide deep knowledge through progressive disclosure.

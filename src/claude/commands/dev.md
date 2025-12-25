@@ -2,12 +2,14 @@
 description: Implement user story using TDD workflow
 argument-hint: [STORY-ID] [mode]
 model: opus
-allowed-tools: Read, Skill, Bash(git:*)
+allowed-tools: AskUserQuestion, Read, Skill, Bash(git:*)
 ---
 
 # /dev - TDD Development Workflow
 
-Execute full Test-Driven Development cycle for a user story following lean orchestration pattern.
+Execute full Test-Driven Development cycle for a user story following lean orchestration pattern.  
+
+Do not skip any phases nor skip the devforgeai-development skill.
 
 ---
 
@@ -118,11 +120,11 @@ Skill(command="devforgeai-development")
 ```
 
 **Skill executes:**
-- Phase 01: Pre-Flight Validation (git, context files, tech stack)
-- Phase 02-05: TDD Cycle (Red → Green → Refactor → Integration)
-- Phase 06: Deferral Challenge (validate deferrals, user approval)
-- Phase 07: DoD Update (format validation)
-- Phase 08: Git Workflow (commit or file-based tracking)
+- Phase 01: Pre-Flight Validation (git, context files, tech stack) **READ** .claude/skills/devforgeai-development/references/preflight-validation.md
+- Phase 02-05: TDD Cycle (Red → Green → Refactor → Integration) **READ** .claude/rules/workflow/tdd-workflow.md  
+- Phase 06: Deferral Challenge (validate deferrals, user approval) **READ** .claude/skills/devforgeai-development/references/phase-06-deferral-challenge.md
+- Phase 07: DoD Update (format validation) **READ** .claude/skills/devforgeai-development/references/dod-update-workflow.md
+- Phase 08: Git Workflow (commit or file-based tracking) **READ** claude/skills/devforgeai-development/references/git-workflow-conventions.md
 - Phase 09: Feedback Hook (check/invoke hooks if enabled)
 - Phase 10: Result Interpretation (invoke dev-result-interpreter, return display)
 

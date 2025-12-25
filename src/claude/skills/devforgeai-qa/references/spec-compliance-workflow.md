@@ -168,6 +168,60 @@ FOR each acceptance_criterion:
 
 ---
 
+## Step 2.4: Pre-Flight Deferral Detection [MANDATORY]
+
+**Purpose:** Technically enforce deferral-validator invocation when deferrals exist.
+
+**Background:** RCA-007 documented manual validation missing multi-level chains. This pre-flight check ensures deferral-validator subagent is ALWAYS invoked when DoD items are incomplete.
+
+**Constitution Alignment:** HALT immediately on violations (anti-patterns.md line 218)
+
+### Detection Logic
+
+```
+# Step 1: Count unchecked DoD items
+Grep(pattern="- \\[ \\]", file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
+
+unchecked_count = grep_result.count
+
+# Step 2: Set deferral flag
+IF unchecked_count > 0:
+    $DEFERRALS_EXIST = true
+    Display: "⚠️ Found {unchecked_count} unchecked DoD items"
+    Display: "   deferral-validator subagent REQUIRED per RCA-007"
+ELSE:
+    $DEFERRALS_EXIST = false
+    Display: "✓ All DoD items complete - no deferrals"
+```
+
+### Enforcement at Step 2.5 End
+
+```
+IF $DEFERRALS_EXIST == true:
+    # Verify deferral-validator was invoked
+    Check conversation for: Task(subagent_type="deferral-validator"...)
+
+    IF NOT found:
+        Display: "❌ VIOLATION: Deferral validation CANNOT be skipped (RCA-007)"
+        Display: "Found {unchecked_count} unchecked DoD items but deferral-validator was not invoked"
+        Display: "Resolution: Invoke deferral-validator subagent now"
+        HALT: "Deferral validation is MANDATORY when deferrals exist"
+
+        # Force invocation
+        Task(subagent_type="deferral-validator",
+             prompt="Validate deferred DoD items for {STORY_ID}. Check for:
+                     - User approval for each deferral
+                     - Story/ADR references exist
+                     - No circular chains (A→B→A)
+                     - No multi-level chains (A→B→C)")
+    ELSE:
+        Display: "✓ deferral-validator invoked - protocol followed"
+```
+
+**Reference:** See RCA-007 in `devforgeai/RCA/` for incident details.
+
+---
+
 ## Step 2.5: Validate Deferred Definition of Done Items (MANDATORY - CANNOT SKIP)
 
 ⚠️ **CRITICAL ENFORCEMENT RULE (RCA-007):**
