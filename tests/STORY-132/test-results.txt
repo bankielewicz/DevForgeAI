@@ -1,0 +1,5 @@
+
+[PASS] AC#1: Command Phase 5 Removed
+[PASS] AC#2: Skill Phase 6.6 Owns Next Action
+[PASS] AC#3: Command Shows Brief Confirmation Only
+[PASS] AC#4: No Duplicate Next-Action Questions
