@@ -3,7 +3,7 @@ id: STORY-137
 title: Resume-from-Checkpoint Logic for Ideation Sessions
 epic: EPIC-029
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 12
 depends_on: ["STORY-136"]
 priority: Medium
@@ -310,6 +310,31 @@ technical_limitations: []
 
 ## Implementation Notes
 
+- [x] Checkpoint detection logic implemented (Phase 1 Step 0)
+- [x] AskUserQuestion for resume/fresh choice implemented
+- [x] Checkpoint loading and validation implemented
+- [x] Phase replay with pre-filled answers implemented
+- [x] Multi-checkpoint selection implemented
+- [x] Graceful error handling for invalid checkpoints
+- [x] All acceptance criteria verified with tests (80 tests)
+- [x] Code follows coding-standards.md patterns
+- [x] No CRITICAL or HIGH anti-pattern violations
+- [x] Cyclomatic complexity < 10 per function
+- [x] Unit tests for CheckpointDetector (10 tests)
+- [x] Unit tests for CheckpointLoader (14 tests)
+- [x] Unit tests for PhaseReplayEngine (19 tests)
+- [x] Integration tests for complete resume workflow (10 tests)
+- [x] Edge case tests (deletion, version, age)
+- [x] Coverage meets thresholds (100% test pass rate)
+- [x] Resume workflow documented in skill reference
+- [x] User-facing resume options documented
+- [x] Error recovery procedures documented
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2025-12-26
+**Implementation File:** .claude/skills/devforgeai-ideation/references/resume-logic.md
+**Test Files:** tests/STORY-137/*.py (80 tests, 100% passing)
+
 ### Architecture Decisions
 - **Decision:** User choice required for resume (no auto-resume)
 - **Rationale:** User may want fresh start even with existing checkpoint
@@ -323,9 +348,9 @@ technical_limitations: []
 
 ## Workflow Status
 
-- [ ] Story created
-- [ ] Architecture phase complete
-- [ ] Development phase complete
+- [x] Story created
+- [x] Architecture phase complete
+- [x] Development phase complete
 - [ ] QA phase complete
 - [ ] Released
 
