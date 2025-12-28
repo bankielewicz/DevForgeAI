@@ -359,6 +359,122 @@ EPIC_FILES=$(ls -1 devforgeai/specs/Epics/EPIC-*.epic.md 2>/dev/null | tr '\n' '
 
 ## Error Handling
 
+### Skill Loading Failure (STORY-139)
+
+**Purpose:** Detect and handle skill loading failures with actionable recovery instructions.
+
+**Pre-Invocation Check (Phase 2.2):**
+
+Before invoking the skill, perform a quick validation:
+
+```
+# Check if SKILL.md exists
+skill_check = Glob(pattern=".claude/skills/devforgeai-ideation/SKILL.md")
+
+IF skill_check is empty:
+    # FILE_MISSING error
+    GOTO Skill Load Error Handler with errorType="FILE_MISSING"
+```
+
+**Error Detection Logic:**
+
+```
+TRY:
+    Skill(command="devforgeai-ideation")
+CATCH error:
+    # Categorize error type
+    IF error contains "ENOENT" OR error contains "no such file":
+        errorType = "FILE_MISSING"
+        errorDetails = "SKILL.md not found at .claude/skills/devforgeai-ideation/"
+
+    ELIF error contains "YAML" OR error contains "parse" OR error contains "syntax":
+        errorType = "YAML_PARSE_ERROR"
+        # Extract line number if available
+        lineNumber = extract_line_number(error) OR "unknown"
+        errorDetails = "Invalid YAML in frontmatter at line {lineNumber}"
+
+    ELIF error contains "missing" AND (error contains "section" OR error contains "field"):
+        errorType = "INVALID_STRUCTURE"
+        sectionName = extract_missing_section(error) OR "unknown"
+        errorDetails = "Missing required section: {sectionName}"
+
+    ELIF error contains "EACCES" OR error contains "permission":
+        errorType = "PERMISSION_DENIED"
+        errorDetails = "Cannot read SKILL.md - permission denied"
+
+    ELSE:
+        errorType = "UNKNOWN"
+        errorDetails = error.message
+
+    # Preserve error context
+    errorContext = {
+        errorType: errorType,
+        filePath: ".claude/skills/devforgeai-ideation/SKILL.md",
+        expectedLocation: ".claude/skills/devforgeai-ideation/",
+        details: errorDetails,
+        timestamp: current_timestamp
+    }
+
+    GOTO Skill Load Error Handler
+```
+
+**Skill Load Error Handler:**
+
+Display the following error message template:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ❌ Skill Loading Failure
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The devforgeai-ideation skill failed to load.
+
+Error Type: {errorType}
+Details: {errorDetails}
+
+Possible causes:
+- SKILL.md has invalid YAML frontmatter
+- SKILL.md file is missing or corrupted
+- Reference files in references/ are missing
+
+Recovery steps:
+1. Check: .claude/skills/devforgeai-ideation/SKILL.md exists
+2. Validate YAML frontmatter (lines 1-10)
+3. Compare with GitHub version: https://github.com/anthropics/claude-code
+4. Run: git checkout .claude/skills/devforgeai-ideation/
+
+If issue persists, report at: https://github.com/anthropics/claude-code/issues
+```
+
+**Error-Specific Recovery Actions:**
+
+| Error Type | Message | Recovery Action |
+|------------|---------|-----------------|
+| FILE_MISSING | "SKILL.md not found at expected location" | "Run: git checkout .claude/skills/devforgeai-ideation/" |
+| YAML_PARSE_ERROR | "Invalid YAML in frontmatter at line {N}" | "Check frontmatter syntax (lines 1-10)" |
+| INVALID_STRUCTURE | "Missing required section: {section_name}" | "Compare with template at https://github.com/anthropics/claude-code" |
+| PERMISSION_DENIED | "Cannot read SKILL.md - permission denied" | "Check file permissions: chmod 644" |
+
+**Session Continuity:**
+
+After displaying the error message:
+- Session remains active (no terminal crash)
+- User can run other commands
+- User can retry `/ideate` after repair
+- No orphaned processes or corrupted state
+
+```
+# After error display, session continues
+Display: "Session active. You can run other commands or retry /ideate after repair."
+```
+
+**HALT behavior:**
+
+The error handler HALTS the /ideate command but does NOT crash the session.
+The user receives actionable recovery instructions and can continue working.
+
+---
+
 ### Skill Invocation Failed
 
 **If skill does not execute or throws error:**
