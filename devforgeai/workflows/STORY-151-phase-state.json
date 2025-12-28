@@ -1,0 +1,28 @@
+{
+  "story_id": "STORY-151",
+  "title": "Post-Subagent Recording Hook",
+  "created": "2025-12-28T12:00:00Z",
+  "current_phase": "03",
+  "phases": {
+    "01": {
+      "name": "Pre-Flight Validation",
+      "status": "complete",
+      "started": "2025-12-28T12:00:00Z",
+      "completed": "2025-12-28T12:05:00Z",
+      "subagents_invoked": ["git-validator", "tech-stack-detector"],
+      "checkpoint_passed": true
+    },
+    "02": {"name": "Test-First Design", "status": "complete", "started": "2025-12-28T12:05:00Z", "completed": "2025-12-28T12:15:00Z", "subagents_invoked": ["test-automator"], "checkpoint_passed": true, "tests_created": 38, "tests_failing": true},
+    "03": {"name": "Implementation", "status": "complete", "started": "2025-12-28T12:15:00Z", "completed": "2025-12-28T12:30:00Z", "subagents_invoked": ["backend-architect", "context-validator"], "checkpoint_passed": true, "tests_passing": true},
+    "04": {"name": "Refactoring", "status": "pending", "subagents_invoked": []},
+    "05": {"name": "Integration Testing", "status": "pending", "subagents_invoked": []},
+    "06": {"name": "Deferral Challenge", "status": "pending", "subagents_invoked": []},
+    "07": {"name": "DoD Update", "status": "pending", "subagents_invoked": []},
+    "08": {"name": "Git Workflow", "status": "pending", "subagents_invoked": []},
+    "09": {"name": "Feedback Hook", "status": "pending", "subagents_invoked": []},
+    "10": {"name": "Result Interpretation", "status": "pending", "subagents_invoked": []}
+  },
+  "workflow_mode": "full_git",
+  "remediation_mode": false,
+  "iteration_count": 1
+}

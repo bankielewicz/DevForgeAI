@@ -29,6 +29,8 @@ Enable automated and on-demand feedback collection across DevForgeAI operations 
 - After /qa completes (if post-qa-retrospective hook enabled)
 - After /release completes (if post-release-monitoring hook enabled)
 - After sprint planning (if sprint-retrospective hook enabled)
+- After /dev completes (if post-dev-ai-analysis hook enabled) - **AI Analysis**
+- After /qa completes (if post-qa-ai-analysis hook enabled) - **AI Analysis**
 
 **Manual invocation:**
 ```
@@ -96,6 +98,51 @@ feedback_config:
     - "Technical debt addressed?"
 ```
 
+### 5. AI Architectural Analysis (NEW)
+
+AI-generated framework improvement recommendations. This is NOT user-facing feedback - it captures Claude's architectural analysis after workflows.
+
+**Example:**
+```yaml
+feedback_type: ai_analysis
+feedback_config:
+  mode: architectural
+  analysis_prompts:
+    - what_worked_well
+    - areas_for_improvement
+    - recommendations
+    - patterns_observed
+    - anti_patterns_detected
+    - constraint_analysis
+  constraint_check: claude-code-terminal
+  storage_path: devforgeai/feedback/ai-analysis/
+```
+
+**Purpose:** Systematize the manual post-workflow prompt:
+> "You are Claude - you provide architectural advice and guidance regarding improvements to DevForgeAI Spec-Driven Development Framework..."
+
+**Output Structure:**
+```json
+{
+  "ai_analysis": {
+    "what_worked_well": ["..."],
+    "areas_for_improvement": ["..."],
+    "recommendations": [
+      {
+        "description": "...",
+        "affected_files": ["..."],
+        "implementation_notes": "...",
+        "priority": "medium",
+        "feasible_in_claude_code": true
+      }
+    ],
+    "patterns_observed": ["..."],
+    "anti_patterns_detected": ["..."],
+    "constraint_analysis": "..."
+  }
+}
+```
+
 ---
 
 ## Workflow (Auto-Triggered via Hooks)
@@ -157,6 +204,28 @@ FOR hook in matching_hooks:
 3. Capture checked items
 4. Persist to devforgeai/feedback/{operation_id}-checklist.md
 5. Return completion percentage
+```
+
+**Type 5: AI Analysis** (NEW)
+```
+1. Read workflow context (story file, phases completed, errors, deferrals)
+2. Load analysis prompts from ai-analysis-questions.yaml
+3. For each analysis_prompt:
+   a. Generate AI response (what_worked_well, areas_for_improvement, etc.)
+   b. Validate recommendations are feasible in Claude Code Terminal
+   c. Structure output per schema
+4. Persist to devforgeai/feedback/ai-analysis/{story_id}/{timestamp}-ai-analysis.json
+5. Update ai-analysis/index.json
+6. Update aggregated/recommendations-queue.json (if high priority)
+7. Return structured analysis summary
+```
+
+**AI Analysis Constraint Check:**
+```
+# Before accepting a recommendation, verify feasibility:
+IF recommendation.requires NOT IN [Read, Write, Edit, Glob, Grep, Bash, Task, AskUserQuestion]:
+  WARN: "Recommendation may not be implementable in Claude Code Terminal"
+  SET recommendation.feasible_in_claude_code = false
 ```
 
 ---

@@ -1,0 +1,18 @@
+{
+  "story_id": "STORY-142",
+  "current_phase": "08",
+  "phases": {
+    "01": { "status": "completed", "started_at": "2025-12-28T00:00:00Z", "completed_at": "2025-12-28T00:01:00Z", "subagents": ["git-validator", "tech-stack-detector"] },
+    "02": { "status": "completed", "started_at": "2025-12-28T00:01:00Z", "completed_at": "2025-12-28T00:02:00Z", "subagents": ["test-automator"] },
+    "03": { "status": "completed", "started_at": "2025-12-28T00:02:00Z", "completed_at": "2025-12-28T00:03:00Z", "subagents": ["context-validator"] },
+    "04": { "status": "completed", "started_at": "2025-12-28T00:03:00Z", "completed_at": "2025-12-28T00:04:00Z", "subagents": ["code-reviewer"] },
+    "05": { "status": "completed", "started_at": "2025-12-28T00:04:00Z", "completed_at": "2025-12-28T00:05:00Z", "subagents": ["integration-tester"] },
+    "06": { "status": "completed", "started_at": "2025-12-28T00:05:00Z", "completed_at": "2025-12-28T00:06:00Z", "subagents": [], "notes": "No deferrals - all work complete" },
+    "07": { "status": "completed", "started_at": "2025-12-28T00:06:00Z", "completed_at": "2025-12-28T00:07:00Z", "subagents": [], "notes": "DoD updated, story status = Dev Complete" },
+    "08": { "status": "pending", "started_at": null, "completed_at": null, "subagents": [] },
+    "09": { "status": "pending", "started_at": null, "completed_at": null, "subagents": [] },
+    "10": { "status": "pending", "started_at": null, "completed_at": null, "subagents": [] }
+  },
+  "created_at": "2025-12-28T00:00:00Z",
+  "updated_at": "2025-12-28T00:00:00Z"
+}

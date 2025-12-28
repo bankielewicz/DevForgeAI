@@ -8,13 +8,15 @@ module.exports = {
   rootDir: '.',
   testMatch: [
     '**/tests/npm-package/**/*.test.js',
-    '**/tests/release/**/*.test.js'
+    '**/tests/release/**/*.test.js',
+    '**/tests/STORY-*/**/*.js'
   ],
   setupFiles: ['<rootDir>/tests/npm-package/jest.setup.js'],
   coverageDirectory: 'tests/coverage',
   collectCoverageFrom: [
     'bin/**/*.js',
     'lib/**/*.js',
+    'src/**/*.js',
     'scripts/**/*.sh',
     '!**/node_modules/**',
     '!**/tests/**'

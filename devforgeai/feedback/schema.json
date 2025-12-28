@@ -90,6 +90,90 @@
           "description": "Number of questions skipped"
         }
       }
+    },
+    "ai_analysis": {
+      "type": "object",
+      "description": "AI-generated architectural analysis and recommendations",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether AI analysis was performed for this session"
+        },
+        "what_worked_well": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Framework aspects that worked effectively during workflow"
+        },
+        "areas_for_improvement": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Identified opportunities for framework enhancement"
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": {
+                "type": "string",
+                "description": "Specific, actionable recommendation"
+              },
+              "affected_files": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Files that would need modification"
+              },
+              "implementation_notes": {
+                "type": "string",
+                "description": "How to implement within Claude Code Terminal"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["low", "medium", "high"],
+                "description": "Implementation priority"
+              },
+              "feasible_in_claude_code": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether implementable within Claude Code Terminal constraints"
+              }
+            }
+          },
+          "description": "Structured recommendations for framework improvements"
+        },
+        "patterns_observed": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Positive patterns observed during workflow"
+        },
+        "anti_patterns_detected": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Anti-patterns or issues detected during workflow"
+        },
+        "constraint_analysis": {
+          "type": "string",
+          "description": "Analysis of how well context files supported the workflow"
+        },
+        "feasibility": {
+          "type": "object",
+          "properties": {
+            "implementable_in_claude_code": {
+              "type": "boolean",
+              "default": true
+            },
+            "requires_changes_to": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "complexity": {
+              "type": "string",
+              "enum": ["low", "medium", "high"]
+            }
+          }
+        }
+      }
     }
   }
 }

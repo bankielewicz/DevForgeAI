@@ -146,6 +146,130 @@ def main():
     )
 
     # ======================================================================
+    # phase-init command (STORY-148)
+    # ======================================================================
+    phase_init_parser = subparsers.add_parser(
+        'phase-init',
+        help='Initialize phase state file for a story',
+        description='Creates a new phase state file to track TDD workflow execution'
+    )
+    phase_init_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_init_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory (default: current directory)'
+    )
+    phase_init_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format (default: text)'
+    )
+
+    # ======================================================================
+    # phase-check command (STORY-148)
+    # ======================================================================
+    phase_check_parser = subparsers.add_parser(
+        'phase-check',
+        help='Check if phase transition is allowed',
+        description='Validates that phase transition follows sequential order and all subagents were invoked'
+    )
+    phase_check_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_check_parser.add_argument(
+        '--from',
+        dest='from_phase',
+        required=True,
+        help='Source phase (e.g., 01)'
+    )
+    phase_check_parser.add_argument(
+        '--to',
+        dest='to_phase',
+        required=True,
+        help='Target phase (e.g., 02)'
+    )
+    phase_check_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory'
+    )
+    phase_check_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format'
+    )
+
+    # ======================================================================
+    # phase-complete command (STORY-148)
+    # ======================================================================
+    phase_complete_parser = subparsers.add_parser(
+        'phase-complete',
+        help='Mark a phase as complete',
+        description='Updates phase status to completed and advances current phase'
+    )
+    phase_complete_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_complete_parser.add_argument(
+        '--phase',
+        required=True,
+        help='Phase to complete (e.g., 02)'
+    )
+    phase_complete_parser.add_argument(
+        '--checkpoint-passed',
+        action='store_true',
+        default=True,
+        help='Whether checkpoint validation passed'
+    )
+    phase_complete_parser.add_argument(
+        '--checkpoint-failed',
+        action='store_true',
+        help='Mark checkpoint as failed'
+    )
+    phase_complete_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory'
+    )
+    phase_complete_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format'
+    )
+
+    # ======================================================================
+    # phase-status command (STORY-148)
+    # ======================================================================
+    phase_status_parser = subparsers.add_parser(
+        'phase-status',
+        help='Display current phase status',
+        description='Shows workflow progress and phase completion status'
+    )
+    phase_status_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_status_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory'
+    )
+    phase_status_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format'
+    )
+
+    # ======================================================================
     # ast-grep command (STORY-115)
     # ======================================================================
     astgrep_parser = subparsers.add_parser(
@@ -255,6 +379,43 @@ def main():
                 operation=args.operation,
                 story_id=args.story,
                 verbose=args.verbose
+            )
+
+        elif args.command == 'phase-init':
+            from .commands.phase_commands import phase_init_command
+            return phase_init_command(
+                story_id=args.story_id,
+                project_root=args.project_root,
+                format=args.format
+            )
+
+        elif args.command == 'phase-check':
+            from .commands.phase_commands import phase_check_command
+            return phase_check_command(
+                story_id=args.story_id,
+                from_phase=args.from_phase,
+                to_phase=args.to_phase,
+                project_root=args.project_root,
+                format=args.format
+            )
+
+        elif args.command == 'phase-complete':
+            from .commands.phase_commands import phase_complete_command
+            checkpoint = not args.checkpoint_failed if hasattr(args, 'checkpoint_failed') else True
+            return phase_complete_command(
+                story_id=args.story_id,
+                phase=args.phase,
+                checkpoint_passed=checkpoint,
+                project_root=args.project_root,
+                format=args.format
+            )
+
+        elif args.command == 'phase-status':
+            from .commands.phase_commands import phase_status_command
+            return phase_status_command(
+                story_id=args.story_id,
+                project_root=args.project_root,
+                format=args.format
             )
 
         elif args.command == 'ast-grep':

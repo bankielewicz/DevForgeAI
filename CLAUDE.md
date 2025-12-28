@@ -244,4 +244,36 @@ Path-specific rules loaded automatically from `.claude/rules/conditional/`:
 
 ---
 
+## AI Architectural Analysis (Automatic)
+
+After `/dev` and `/qa` workflows complete, AI architectural analysis is **automatically captured** via hooks:
+
+**Hooks:** `post-dev-ai-analysis`, `post-qa-ai-analysis`
+
+**What is captured:**
+- What worked well (framework effectiveness)
+- Areas for improvement (non-aspirational)
+- Specific, actionable recommendations
+- Patterns observed
+- Anti-patterns detected
+- Constraint analysis (context file effectiveness)
+
+**Key constraint:** All recommendations MUST be implementable within Claude Code Terminal.
+
+**Storage:** `devforgeai/feedback/ai-analysis/{STORY_ID}/`
+
+**Search recommendations:**
+```bash
+/feedback-search --type=ai-analysis --priority=high
+```
+
+**Manual trigger (if needed):**
+```
+Skill(command="devforgeai-feedback", args="--type=ai_analysis")
+```
+
+**Reference:** `docs/guides/feedback-overview.md` (AI Architectural Analysis section)
+
+---
+
 **When in doubt → HALT → AskUserQuestion**

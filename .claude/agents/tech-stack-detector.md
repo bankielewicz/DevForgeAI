@@ -578,8 +578,10 @@ elif result["validation"]["status"] == "FAIL":
             )
 
 elif result["validation"]["context_missing"]:
-    # Invoke architecture skill
-    Skill(command="devforgeai-architecture")
+    # W3 COMPLIANT: Subagent returns recommendation, parent skill decides action
+    # Display recommendation to user (display-only pattern)
+    print("Recommended Next Action: Run `/create-context [project-name]`")
+    # Parent skill/command handles skill invocation, NOT the subagent
 ```
 
 ---

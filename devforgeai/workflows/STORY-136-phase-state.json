@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-136",
   "workflow_started": "2025-12-25T18:52:22.611664Z",
-  "current_phase": "08",
+  "current_phase": "10",
   "phases": {
     "01": {
       "status": "completed",
@@ -80,21 +80,31 @@
       "checkpoint_passed": true
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2025-12-26T11:22:21.672812Z",
+      "checkpoint_passed": true,
+      "commit_hash": "15300aacbc5de23ad35a1762de771b5d349a21f4"
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2025-12-26T11:22:55.250504Z",
+      "checkpoint_passed": true,
+      "notes": "No feedback hooks configured"
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "completed_at": "2025-12-26T11:22:55.403006Z",
+      "checkpoint_passed": true
     }
   },
   "validation_errors": [],

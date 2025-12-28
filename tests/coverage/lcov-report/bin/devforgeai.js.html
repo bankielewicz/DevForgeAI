@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.61% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.61% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/13</span>
+                <span class='fraction'>0/13</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -123,7 +123,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,32 +131,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,40 +172,40 @@
  * Business logic extracted to ../lib/cli.js for testability and coverage collection.
  */
 &nbsp;
-const cli = require('../lib/cli');
+const cli = <span class="cstat-no" title="statement not covered" >require('../lib/cli');</span>
 &nbsp;
 /**
  * Main entry point function (exported for testing)
  * @param {string[]} argv - Command-line arguments
  * @returns {Promise&lt;number&gt;} Exit code
  */
-async function main(argv) {
-  try {
-    const result = await cli.run(argv);
+async function <span class="fstat-no" title="function not covered" >main(</span>argv) {
+<span class="cstat-no" title="statement not covered" >  try {</span>
+    const result = <span class="cstat-no" title="statement not covered" >await cli.run(argv);</span>
 &nbsp;
     // cli.run() returns Promise&lt;number&gt; or number
     // await resolves Promise to number before this check
     // result is always a number here (never a Promise object)
-    if (typeof result === 'number') {
-      return result;
+<span class="cstat-no" title="statement not covered" >    if (typeof result === 'number') {</span>
+<span class="cstat-no" title="statement not covered" >      return result;</span>
     }
 &nbsp;
     // Defensive fallback (should never reach here)
-    return 0;
+<span class="cstat-no" title="statement not covered" >    return 0;</span>
   } catch (error) {
     // Error thrown by lib/cli.js (from exitWithError)
-    if (process.env.NODE_ENV !== 'test') {
-      console.error(error.message);
+<span class="cstat-no" title="statement not covered" >    if (process.env.NODE_ENV !== 'test') {</span>
+<span class="cstat-no" title="statement not covered" >      console.error(error.message);</span>
     }
-    return error.exitCode || <span class="branch-1 cbranch-no" title="branch not covered" >1;</span>
+<span class="cstat-no" title="statement not covered" >    return error.exitCode || 1;</span>
   }
 }
 &nbsp;
 // Export for testing
-module.exports = { main };
+<span class="cstat-no" title="statement not covered" >module.exports = { main };</span>
 &nbsp;
 // Run if executed directly (not imported)
-<span class="missing-if-branch" title="if path not taken" >I</span>if (require.main === module) {
+<span class="cstat-no" title="statement not covered" >if (require.main === module) {</span>
 <span class="cstat-no" title="statement not covered" >  main(process.argv.slice(2)).then(<span class="fstat-no" title="function not covered" >ex</span>itCode =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    process.exit(exitCode);</span>
   });
@@ -217,7 +217,7 @@ module.exports = { main };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-12-01T16:44:18.944Z
+                at 2025-12-28T13:58:25.847Z
             </div>
         <script src="../prettify.js"></script>
         <script>

@@ -3,7 +3,7 @@ id: STORY-140
 title: YAML-Malformed Brainstorm Detection
 epic: EPIC-029
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 4
 depends_on: []
 priority: Medium
@@ -321,13 +321,29 @@ technical_limitations: []
 
 ---
 
+## QA Validation History
+
+| Date | Mode | Result | Report |
+|------|------|--------|--------|
+| 2025-12-28 | deep | PASSED ✅ | devforgeai/qa/reports/STORY-140-qa-report.md |
+
+**Validation Summary:**
+- Tests: 33/33 passing (100%)
+- Coverage: 81.25% lines (exceeds 80% threshold)
+- Traceability: 100% (5/5 ACs mapped)
+- Code Quality: 82/100
+- Security: 82/100
+- Anti-patterns: No blocking violations
+
+---
+
 ## Workflow Status
 
 - [x] Story created - Completed: 2025-12-22
 - [x] Architecture phase complete - Not required (framework-level story, architecture exists)
 - [x] Development phase complete - Completed: 2025-12-28, TDD workflow
-- [ ] QA phase complete - Pending: Run /qa STORY-140
-- [ ] Released - Pending: Run /release STORY-140 after QA approval
+- [x] QA phase complete - Completed: 2025-12-28, Deep validation PASSED
+- [ ] Released - Pending: Run /release STORY-140
 
 ---
 

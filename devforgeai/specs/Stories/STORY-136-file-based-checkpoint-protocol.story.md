@@ -3,7 +3,7 @@ id: STORY-136
 title: File-Based Checkpoint Protocol for Ideation Sessions
 epic: EPIC-029
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 8
 depends_on: []
 priority: Medium
@@ -417,7 +417,7 @@ phase_completion:
 - [x] Story created
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ---

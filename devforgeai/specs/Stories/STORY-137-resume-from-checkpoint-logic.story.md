@@ -3,7 +3,7 @@ id: STORY-137
 title: Resume-from-Checkpoint Logic for Ideation Sessions
 epic: EPIC-029
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 12
 depends_on: ["STORY-136"]
 priority: Medium
@@ -351,7 +351,7 @@ technical_limitations: []
 - [x] Story created
 - [x] Architecture phase complete
 - [x] Development phase complete
-- [ ] QA phase complete
+- [x] QA phase complete
 - [ ] Released
 
 ---

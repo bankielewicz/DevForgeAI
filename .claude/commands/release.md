@@ -52,6 +52,34 @@ Release QA-approved stories to target environments with automated validation and
 
 **Step 0.5: Confirm and proceed**
 - Display: ✓ Story ID: {STORY_ID}, ✓ Environment: {ENVIRONMENT}
+- Proceed to Phase 0.6
+
+---
+
+### Phase 0.6: W3 Compliance Check
+
+**Purpose:** Ensure no CRITICAL W3 violations before release.
+
+```
+# Run W3 audit in quiet mode
+w3_result = Invoke: /audit-w3 --quiet
+
+IF w3_result.exit_code == 1:
+    Display:
+    "╔════════════════════════════════════════════════════════════════════╗"
+    "║  ❌ RELEASE BLOCKED: CRITICAL W3 Violations Detected              ║"
+    "╠════════════════════════════════════════════════════════════════════╣"
+    "║  W3 violations prevent release to avoid token overflow and        ║"
+    "║  lean orchestration principle violations.                         ║"
+    "║                                                                   ║"
+    "║  Run `/audit-w3` for detailed violation report.                   ║"
+    "║  Run `/audit-w3 --fix-hints` for remediation patterns.            ║"
+    "╚════════════════════════════════════════════════════════════════════╝"
+    HALT
+
+Display: "✓ W3 compliance check passed"
+```
+
 - Proceed to Phase 1
 
 ---

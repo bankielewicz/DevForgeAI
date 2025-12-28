@@ -404,22 +404,23 @@ Generated Documents:
 - Requirements specification in devforgeai/specs/requirements/
 
 Next Steps:
-1. Invoking devforgeai-architecture skill to create context files
-2. After context creation, use devforgeai-orchestration to create Sprint 1
+1. Run `/create-context [project-name]` to create context files
+2. After context creation, run `/create-sprint 1` to begin sprint planning
 ```
 
-**Then invoke architecture skill:**
+**Recommended Next Action (display-only, no auto-invocation):**
 
-```
-Skill(command="devforgeai-architecture")
-```
+Run `/create-context [project-name]`
 
-**Architecture skill will:**
+The architecture skill will:
 1. Reference requirements spec and complexity tier
 2. Ask technology preference questions
 3. Generate 6 context files (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
 4. Create ADRs for technology decisions
 5. Validate requirements against constraints
+
+**NOTE:** Per W3 compliance (STORY-135), the ideation skill does NOT auto-invoke
+the architecture skill. The user manually runs `/create-context` when ready.
 
 ### Brownfield Path (Context Files Exist)
 

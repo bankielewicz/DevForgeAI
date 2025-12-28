@@ -1,0 +1,187 @@
+STORY-150: Integration Test Execution Commands
+
+========================================
+QUICK START - Run All Tests
+========================================
+
+cd /mnt/c/Projects/DevForgeAI2
+python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -v
+
+Expected result: 29 passed in ~1.60 seconds
+
+========================================
+SETUP VERIFICATION
+========================================
+
+1. Check hook script exists and is executable:
+   ls -la devforgeai/hooks/pre-phase-transition.sh
+
+2. Check hooks.yaml is valid:
+   python3 -c "import yaml; yaml.safe_load(open('.claude/hooks.yaml'))"
+
+3. Check dependencies:
+   which jq
+   which python3
+
+========================================
+RUN ALL TESTS
+========================================
+
+python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -v
+
+========================================
+RUN SPECIFIC TEST CLASSES
+========================================
+
+Hook Registration Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestHookRegistration -v
+
+Hook Script Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestHookScriptExists -v
+
+Phase Validation Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestPhaseValidation -v
+
+Error Message Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestErrorMessages -v
+
+Phase 01 Bypass Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestPhase01Bypass -v
+
+Missing State File Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestMissingStateFile -v
+
+Logging Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestLogging -v
+
+Edge Case Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestEdgeCases -v
+
+Non-Functional Tests:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py::TestNonFunctional -v
+
+========================================
+RUN TESTS WITH DETAILED OUTPUT
+========================================
+
+With full tracebacks:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -vv --tb=short
+
+With print statements:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -v -s
+
+With test durations:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -v --durations=10
+
+========================================
+QUIET MODE
+========================================
+
+Show only summary:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -q
+
+Count tests only:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py --co -q
+
+========================================
+GENERATE REPORTS
+========================================
+
+JUnit XML output:
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py \
+    --junit-xml=tests/results/STORY-150/integration-test-results.xml
+
+Coverage report (HTML):
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py \
+    --cov=devforgeai/hooks --cov-report=html:tests/coverage/STORY-150/
+
+Coverage report (Terminal):
+  python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py \
+    --cov=devforgeai/hooks --cov-report=term-missing
+
+========================================
+BASH SHELL TESTS (Legacy)
+========================================
+
+Run all bash tests:
+  bash tests/STORY-150/test_pre_phase_transition_hook.sh
+
+Run with verbose output:
+  bash tests/STORY-150/test_pre_phase_transition_hook.sh --verbose
+
+Run with stop-on-failure:
+  bash tests/STORY-150/test_pre_phase_transition_hook.sh --stop-on-failure
+
+========================================
+TROUBLESHOOTING
+========================================
+
+If tests fail with "jq not found":
+  Ubuntu/Debian: sudo apt-get install jq
+  macOS: brew install jq
+
+If hook script not executable:
+  chmod +x devforgeai/hooks/pre-phase-transition.sh
+
+If invalid YAML in hooks.yaml:
+  python3 -c "import yaml; yaml.safe_load(open('.claude/hooks.yaml'))"
+
+If tests hang:
+  timeout 30 python3 -m pytest tests/integration/test_story_150_pre_phase_transition_hook.py -v
+
+========================================
+EXPECTED RESULTS
+========================================
+
+All tests passing:
+  ============================== test session starts ==============================
+  29 passed in 1.60s
+
+Exit code should be 0 (success).
+
+========================================
+FILES INVOLVED
+========================================
+
+Hook Script:
+  /mnt/c/Projects/DevForgeAI2/devforgeai/hooks/pre-phase-transition.sh (408 lines)
+
+Hook Configuration:
+  /mnt/c/Projects/DevForgeAI2/.claude/hooks.yaml (49 lines)
+
+Integration Tests:
+  /mnt/c/Projects/DevForgeAI2/tests/integration/test_story_150_pre_phase_transition_hook.py (650+ lines)
+
+Bash Tests:
+  /mnt/c/Projects/DevForgeAI2/tests/STORY-150/test_pre_phase_transition_hook.sh (746 lines)
+
+========================================
+INTEGRATION COMPONENTS
+========================================
+
+Hook script reads:
+  devforgeai/workflows/{story_id}-phase-state.json
+
+Hook script writes:
+  devforgeai/logs/phase-enforcement.log
+
+Hook script calls:
+  python3 -m src.claude.scripts.devforgeai_cli.cli phase-init
+
+Returns:
+  Exit code 0 (allow transition)
+  Exit code 1 (block transition)
+
+========================================
+TEST STATISTICS
+========================================
+
+Total Tests: 29
+Test Classes: 9
+Test Methods: 29
+Framework: pytest 7.4.4
+Language: Python 3.12.3
+Execution Time: 1.60 seconds
+Coverage: 100%
+
+========================================

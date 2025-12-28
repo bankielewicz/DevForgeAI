@@ -180,8 +180,8 @@ required_dirs = [
 ]
 
 for dir in required_dirs:
-    # Create if missing
-    Bash(command=f"mkdir -p {dir}")
+    # Create if missing using Write/.gitkeep pattern (Constitutional C1 compliant)
+    Write(file_path=f"{dir}.gitkeep", content="")
 
 # Retry write operation
 Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content=epic_content)
@@ -864,8 +864,8 @@ required_dirs = [
 ]
 
 for dir in required_dirs:
-    # Create directory
-    Bash(command=f"mkdir -p {dir}")
+    # Create directory using Write/.gitkeep pattern (Constitutional C1 compliant)
+    Write(file_path=f"{dir}.gitkeep", content="")
 
     # Verify creation
     check = Glob(pattern=dir)
