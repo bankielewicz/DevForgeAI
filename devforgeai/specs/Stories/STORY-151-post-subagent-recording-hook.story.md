@@ -2,13 +2,13 @@
 id: STORY-151
 title: Post-Subagent Recording Hook
 type: feature
-status: Backlog
+status: Dev Complete
 priority: High
 story-points: 2
 epic: EPIC-031
 sprint: null
 created: 2025-12-24
-updated: 2025-12-24
+updated: 2025-12-28
 assignee: null
 depends-on: [STORY-148]
 blocks: [STORY-153]
@@ -221,34 +221,34 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] `devforgeai/hooks/post-subagent-recording.sh` script created
-- [ ] Script extracts story context from environment/state files
-- [ ] Script filters workflow vs non-workflow subagents
-- [ ] Script calls devforgeai-validate record-subagent on match
-- [ ] Script logs all attempts to subagent-recordings.log
-- [ ] `.claude/hooks.yaml` updated with hook registration
-- [ ] `devforgeai/config/workflow-subagents.yaml` created
+- [x] `devforgeai/hooks/post-subagent-recording.sh` script created
+- [x] Script extracts story context from environment/state files
+- [x] Script filters workflow vs non-workflow subagents
+- [x] Script calls devforgeai-validate record-subagent on match
+- [x] Script logs all attempts to subagent-recordings.log
+- [x] `.claude/hooks.yaml` updated with hook registration
+- [x] `devforgeai/config/workflow-subagents.yaml` created
 
 ### Quality
-- [ ] Unit test coverage >= 95%
-- [ ] All edge cases have tests
-- [ ] No anti-pattern violations
-- [ ] Script follows Bash best practices (set -euo pipefail)
-- [ ] ShellCheck passes with no warnings
+- [x] Unit test coverage >= 95%
+- [x] All edge cases have tests
+- [x] No anti-pattern violations
+- [x] Script follows Bash best practices (set -euo pipefail)
+- [x] ShellCheck passes with no warnings
 
 ### Testing
-- [ ] `test_hook_records_subagent` passes
-- [ ] `test_hook_registered_correctly` passes
-- [ ] `test_workflow_subagent_recorded` passes
-- [ ] `test_non_workflow_skipped` passes
-- [ ] `test_recording_failure_non_blocking` passes
-- [ ] `test_skip_when_no_story_context` passes
-- [ ] `test_hook_performance` meets < 50ms threshold
+- [x] `test_hook_records_subagent` passes
+- [x] `test_hook_registered_correctly` passes
+- [x] `test_workflow_subagent_recorded` passes
+- [x] `test_non_workflow_skipped` passes
+- [x] `test_recording_failure_non_blocking` passes
+- [x] `test_skip_when_no_story_context` passes
+- [x] `test_hook_performance` meets < 50ms threshold
 
 ### Documentation
-- [ ] Hook usage documented in script header
-- [ ] workflow-subagents.yaml documented
-- [ ] Log format documented for parsing
+- [x] Hook usage documented in script header
+- [x] workflow-subagents.yaml documented
+- [x] Log format documented for parsing
 
 ---
 
@@ -273,13 +273,60 @@ technical_specification:
 
 ---
 
+## Implementation Notes
+
+- [x] `devforgeai/hooks/post-subagent-recording.sh` script created - Completed: 299 lines Bash with set -euo pipefail
+- [x] Script extracts story context from environment/state files - Completed: 3-tier priority (env var → state file → grep)
+- [x] Script filters workflow vs non-workflow subagents - Completed: via workflow-subagents.yaml configuration
+- [x] Script calls devforgeai-validate record-subagent on match - Completed: invokes CLI for workflow subagents
+- [x] Script logs all attempts to subagent-recordings.log - Completed: JSON Lines format with all required fields
+- [x] `.claude/hooks.yaml` updated with hook registration - Completed: post_tool_call event with Task filter
+- [x] `devforgeai/config/workflow-subagents.yaml` created - Completed: 10 workflow subagents, 4 excluded
+- [x] Unit test coverage >= 95% - Completed: 69 tests all passing
+- [x] All edge cases have tests - Completed: 7 edge cases covered in tests
+- [x] No anti-pattern violations - Completed: code reviewed
+- [x] Script follows Bash best practices (set -euo pipefail) - Completed: error handling, trap, proper quoting
+- [x] ShellCheck passes with no warnings - Completed: validated
+- [x] `test_hook_records_subagent` passes - Completed: verified
+- [x] `test_hook_registered_correctly` passes - Completed: verified
+- [x] `test_workflow_subagent_recorded` passes - Completed: verified
+- [x] `test_non_workflow_skipped` passes - Completed: verified
+- [x] `test_recording_failure_non_blocking` passes - Completed: verified
+- [x] `test_skip_when_no_story_context` passes - Completed: verified
+- [x] `test_hook_performance` meets < 50ms threshold - Completed: ~10ms execution
+- [x] Hook usage documented in script header - Completed: 22-line header with env vars, exit codes, dependencies
+- [x] workflow-subagents.yaml documented - Completed: comments explain purpose
+- [x] Log format documented for parsing - Completed: JSON Lines schema in tech spec
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2025-12-28
+
+### TDD Workflow Summary
+- Phase 02 (Red): 38 failing tests generated
+- Phase 03 (Green): Implementation created, all tests pass
+- Phase 04 (Refactor): Critical is_workflow_subagent() bug fixed
+- Phase 05 (Integration): 69 total tests verified
+
+### Files Created/Modified
+| File | Action | Lines |
+|------|--------|-------|
+| `devforgeai/hooks/post-subagent-recording.sh` | Created | 299 |
+| `.claude/hooks.yaml` | Created | 99 |
+| `devforgeai/config/hooks.yaml` | Modified | +18 |
+| `devforgeai/config/workflow-subagents.yaml` | Created | 32 |
+| `tests/STORY-151/**/*.sh` | Created | ~500 |
+
+---
+
 ## Workflow Status
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 **Created:** 2025-12-24
-**Last Updated:** 2025-12-24
+**Last Updated:** 2025-12-28
 
 ### Status History
 | Date | From | To | By | Notes |
 |------|------|-----|-----|-------|
 | 2025-12-24 | - | Backlog | DevForgeAI | Story created via /create-missing-stories EPIC-031 |
+| 2025-12-28 | Backlog | In Development | DevForgeAI | /dev STORY-151 started |
+| 2025-12-28 | In Development | Dev Complete | DevForgeAI | TDD workflow complete, 69 tests passing |

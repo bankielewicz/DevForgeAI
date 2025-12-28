@@ -2,7 +2,7 @@
   "story_id": "STORY-151",
   "title": "Post-Subagent Recording Hook",
   "created": "2025-12-28T12:00:00Z",
-  "current_phase": "03",
+  "current_phase": "07",
   "phases": {
     "01": {
       "name": "Pre-Flight Validation",
@@ -14,10 +14,10 @@
     },
     "02": {"name": "Test-First Design", "status": "complete", "started": "2025-12-28T12:05:00Z", "completed": "2025-12-28T12:15:00Z", "subagents_invoked": ["test-automator"], "checkpoint_passed": true, "tests_created": 38, "tests_failing": true},
     "03": {"name": "Implementation", "status": "complete", "started": "2025-12-28T12:15:00Z", "completed": "2025-12-28T12:30:00Z", "subagents_invoked": ["backend-architect", "context-validator"], "checkpoint_passed": true, "tests_passing": true},
-    "04": {"name": "Refactoring", "status": "pending", "subagents_invoked": []},
-    "05": {"name": "Integration Testing", "status": "pending", "subagents_invoked": []},
-    "06": {"name": "Deferral Challenge", "status": "pending", "subagents_invoked": []},
-    "07": {"name": "DoD Update", "status": "pending", "subagents_invoked": []},
+    "04": {"name": "Refactoring", "status": "complete", "started": "2025-12-28T12:30:00Z", "completed": "2025-12-28T12:40:00Z", "subagents_invoked": ["refactoring-specialist", "code-reviewer"], "checkpoint_passed": true, "critical_fixes_applied": 1},
+    "05": {"name": "Integration Testing", "status": "complete", "started": "2025-12-28T12:40:00Z", "completed": "2025-12-28T12:45:00Z", "subagents_invoked": ["integration-tester"], "checkpoint_passed": true, "tests_total": 69, "tests_passing": 69},
+    "06": {"name": "Deferral Challenge", "status": "complete", "started": "2025-12-28T12:45:00Z", "completed": "2025-12-28T12:46:00Z", "subagents_invoked": [], "checkpoint_passed": true, "deferrals_found": 0, "deferrals_approved": 0},
+    "07": {"name": "DoD Update", "status": "complete", "started": "2025-12-28T12:46:00Z", "completed": "2025-12-28T12:50:00Z", "subagents_invoked": [], "checkpoint_passed": true, "dod_items_completed": 22},
     "08": {"name": "Git Workflow", "status": "pending", "subagents_invoked": []},
     "09": {"name": "Feedback Hook", "status": "pending", "subagents_invoked": []},
     "10": {"name": "Result Interpretation", "status": "pending", "subagents_invoked": []}

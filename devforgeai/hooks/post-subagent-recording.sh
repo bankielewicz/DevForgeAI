@@ -181,14 +181,13 @@ is_workflow_subagent() {
         return 0
     fi
 
-    # Check if subagent is in workflow_subagents list
-    if grep -q "^  - $subagent$" "$CONFIG_FILE" 2>/dev/null; then
-        # Check if it's under workflow_subagents section (not excluded)
-        local workflow_section
-        workflow_section=$(sed -n '/^workflow_subagents:/,/^excluded_subagents:/p' "$CONFIG_FILE" 2>/dev/null || true)
-        if echo "$workflow_section" | grep -q "^  - $subagent$"; then
-            return 0
-        fi
+    # Extract workflow_subagents section only (before excluded_subagents:)
+    local workflow_section
+    workflow_section=$(sed -n '/^workflow_subagents:/,/^excluded_subagents:/p' "$CONFIG_FILE" 2>/dev/null || true)
+
+    # Check if subagent is in workflow section (use -F for fixed string matching)
+    if echo "$workflow_section" | grep -qF -- "- $subagent"; then
+        return 0
     fi
 
     return 1
