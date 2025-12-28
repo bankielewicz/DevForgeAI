@@ -7,11 +7,11 @@ allowed-tools: Read, Write, Edit, Glob, Skill, AskUserQuestion
 
 # /ideate - Transform Business Idea into Structured Requirements
 
-**Purpose:** Entry point for DevForgeAI framework - transforms business ideas into structured epics and requirements through comprehensive discovery.
+**Purpose:** Entry point for DevForgeAI framework - transforms business ideas into structured epics and requirements through comprehensive analysis.
 
 **Output:** Epic documents, requirements specification, complexity assessment
 
-**Process:** Invokes `devforgeai-ideation` skill which executes 6-phase discovery with 10-60 interactive questions.
+**Process:** Invokes `devforgeai-ideation` skill which executes 6-phase requirements gathering with 10-60 interactive questions.
 
 ---
 
@@ -57,7 +57,7 @@ AskUserQuestion(
       },
       {
         label: "No - start fresh",
-        description: "Begin new ideation discovery"
+        description: "Begin new ideation session"
       }
     ],
     multiSelect: false
@@ -106,7 +106,7 @@ $BRAINSTORM_CONTEXT = null
 ### 0.3 Continue to Phase 1
 
 Pass `$BRAINSTORM_CONTEXT` to subsequent phases. The ideation skill will use this to:
-- Skip or shorten Phase 1 discovery questions (already answered in brainstorm)
+- Skip or shorten Phase 1 exploration questions (already answered in brainstorm)
 - Pre-populate requirements with must-have capabilities
 - Validate constraints against brainstorm findings
 
@@ -123,40 +123,20 @@ $ARGUMENTS
 
 **If no arguments provided:**
 
-Use AskUserQuestion to capture business idea:
+Prompt user for business idea description (free-form text input):
 
 ```
-AskUserQuestion(
-  questions=[{
-    question: "Please describe the business idea, feature, or problem you want to explore",
-    header: "Business idea",
-    options: [
-      {
-        label: "New project/product",
-        description: "Starting from scratch (greenfield)"
-      },
-      {
-        label: "Feature for existing system",
-        description: "Adding to existing codebase (brownfield)"
-      },
-      {
-        label: "Modernization/migration",
-        description: "Replacing or upgrading legacy system"
-      },
-      {
-        label: "Problem-solving",
-        description: "Fixing issues in current system"
-      }
-    ],
-    multiSelect: false
-  }]
-)
+"Please describe the business idea, feature, or problem you want to explore.
+
+Include:
+- What business problem this solves
+- Who the primary users/beneficiaries are
+- What success looks like
+
+(Example: 'Build a task management app for remote teams with real-time collaboration')"
 ```
 
-**Then ask for description:**
-```
-"Please provide a detailed description of the {project_type} you want to explore"
-```
+**Note:** Detailed categorization and exploration are handled by the skill, NOT here. Command only captures the initial business idea text.
 
 **Wait for user response before proceeding to Phase 2.**
 
@@ -174,9 +154,13 @@ Prompt user: "Please provide more details about:
 - What success looks like"
 ```
 
-### 1.3 Smart Project Mode Detection (STORY-134)
+---
 
-**Purpose:** Auto-detect greenfield vs brownfield mode based on context file existence.
+## Phase 2: Invoke Ideation Skill
+
+### 2.0 Smart Project Mode Detection (STORY-134)
+
+**Purpose:** Auto-detect project mode based on context file existence before invoking skill.
 
 **Step 1: Count Context Files**
 ```
@@ -187,12 +171,12 @@ context_file_count = len(context_files)
 **Step 2: Determine Project Mode**
 ```
 # Business Rule:
-# - context_file_count == 6 → brownfield (all context files present)
-# - context_file_count < 6 → greenfield (missing context files)
+# - context_file_count == 6 → existing project (all context files present)
+# - context_file_count < 6 → new project (missing context files)
 IF context_file_count == 6:
-    project_mode = "brownfield"
-ELSE:  # context_file_count < 6 → greenfield
-    project_mode = "greenfield"
+    project_mode = "existing"
+ELSE:
+    project_mode = "new"
 ```
 
 **Step 3: Display Mode Context**
@@ -202,14 +186,7 @@ Display:
   Project Mode Detection
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
-**Project Mode Context:**
-- **Mode:** {project_mode}
-  - If 6 files: **Mode:** brownfield
-  - If <6 files: **Mode:** greenfield
-- **Context Files Found:** {context_file_count}/6
-- **Detection Method:** Filesystem glob
-
-IF project_mode == "brownfield":
+IF project_mode == "existing":
     Display: "✓ All 6 context files present - existing project detected"
     Display: "  Next steps after ideation: /orchestrate or /create-sprint"
 ELSE:
@@ -220,8 +197,8 @@ ELSE:
 **Step 4: Set Mode Context for Skill**
 
 The skill's Phase 6.6 (completion-handoff.md) will read this mode marker to determine next-action recommendation:
-- **Greenfield** → recommend `/create-context [project-name]`
-- **Brownfield** → recommend `/orchestrate` or `/create-story`
+- **New project** → recommend `/create-context [project-name]`
+- **Existing project** → recommend `/orchestrate` or `/create-story`
 
 ```
 $PROJECT_MODE_CONTEXT = {
@@ -231,25 +208,53 @@ $PROJECT_MODE_CONTEXT = {
 }
 ```
 
----
-
-## Phase 2: Invoke Ideation Skill
-
 ### 2.1 Set Context for Skill
+
+**Purpose:** Pass all collected context to skill via conversation markers. This prevents duplicate questions - skill reads context markers instead of re-asking.
 
 **Prepare context markers for skill execution:**
 
 ```
-**Business Idea:** $ARGUMENTS (or user-provided description)
-
-**Project Type:** {Greenfield|Brownfield|Modernization|Problem-solving}
+Display:
+"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Context for Ideation Skill
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 ```
+
+**Required Context Markers (set before Skill invocation):**
+
+```
+**Business Idea:** $ARGUMENTS (or user-provided description from Phase 1)
+
+**Brainstorm Context:** {brainstorm_id} (if selected from Phase 0, else "none")
+
+**Brainstorm File:** {path to selected brainstorm file} (if selected, else "none")
+
+**Project Mode:** {existing|new} (from Phase 2.0 detection)
+```
+
+**Display context summary:**
+
+```
+Display:
+"Context passed to skill:
+  • Business Idea: {first 50 chars of business idea}...
+  • Brainstorm: {brainstorm_id or 'Starting fresh'}
+  • Project Mode: {existing|new}
+
+Proceeding to ideation skill..."
+```
+
+**Context Marker Protocol:** Skill Phase 1 reads these markers to skip redundant questions. When context is provided:
+- Skill DOES NOT re-ask for business idea (uses **Business Idea:** marker)
+- Skill DOES NOT re-ask for project classification (uses **Project Mode:** marker)
+- Skill validates/confirms context instead of full exploration (when brainstorm provided)
 
 ### 2.2 Skill Invocation
 
 **The devforgeai-ideation skill handles complete workflow:**
 
-- **Phase 1:** Discovery & Problem Understanding (5-10 questions)
+- **Phase 1:** Problem Exploration (5-10 questions)
 - **Phase 2:** Requirements Elicitation (15-25 questions)
 - **Phase 3:** Complexity Assessment (0-60 scoring)
 - **Phase 4:** Epic & Feature Decomposition
@@ -261,7 +266,7 @@ $PROJECT_MODE_CONTEXT = {
 
 **Expected interaction:**
 - Skill asks 10-60 questions across 6 phases
-- User answers guide requirements discovery
+- User answers guide requirements elicitation
 - Skill validates completeness internally (Phase 6.4)
 - Skill generates all output artifacts
 - Skill presents completion summary (Phase 6.5)
@@ -280,7 +285,7 @@ Skill(command="devforgeai-ideation")
 - Produce output as skill instructs
 
 **The skill instructs you to:**
-- Execute all 6 phases: Discovery, Requirements Elicitation, Complexity Assessment, Epic Decomposition, Feasibility Analysis, Documentation
+- Execute all 6 phases: Problem Exploration, Requirements Elicitation, Complexity Assessment, Epic Decomposition, Feasibility Analysis, Documentation
 - Handle all validation, error recovery, and user interaction (AskUserQuestion flows)
 - Generate all output artifacts (epics, requirements spec, complexity assessment)
 - Perform self-validation in Phase 6.4
@@ -519,18 +524,18 @@ To resolve:
 
 **Note:** Artifact verification (YAML syntax, ID format, required fields) is delegated entirely to the skill's Phase 6.4 self-validation workflow. The command trusts skill validation results without re-verification.
 
-### User Exits During Discovery
+### User Exits During Session
 
-**If user cancels during skill's 10-60 question discovery:**
+**If user cancels during skill's 10-60 question session:**
 
 ```
-Ideation incomplete - user exited during discovery phase
+Ideation incomplete - user exited during requirements phase
 
 To complete ideation:
-- Re-run `/ideate [business-idea]` and answer all discovery questions
+- Re-run `/ideate [business-idea]` and answer all questions
 - Or skip ideation and create requirements manually
 
-Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing technical debt downstream.
+Note: Comprehensive requirements gathering ensures zero ambiguity in specifications, preventing technical debt downstream.
 ```
 
 ---
@@ -548,7 +553,7 @@ Note: Comprehensive discovery ensures zero ambiguity in requirements, preventing
 - ✅ Error propagation from skill (HALT on skill validation failure)
 
 **Skill responsibilities (all implementation):**
-- ✅ Complete 6-phase discovery workflow
+- ✅ Complete 6-phase requirements workflow
 - ✅ User interaction (10-60 questions)
 - ✅ Epic and requirements generation
 - ✅ Self-validation of all artifacts (Phase 6.4)
