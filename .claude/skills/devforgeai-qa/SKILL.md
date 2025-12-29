@@ -483,13 +483,9 @@ Display: "✓ Phase 2 verified complete"
 
 **Purpose:** Generate QA report, update story status, create gaps.json if failed.
 
-### Step 3.1-3.4: Result Determination and Story Update [ATOMIC]
+### Step 3.1-3.3: Result Determination and Report Generation
 
-**Purpose:** Combine result determination with mandatory story update in single atomic operation.
-
-**Constitution Alignment:** HALT pattern for gate failures (architecture-constraints.md line 111)
-
-**Sequence:**
+**Purpose:** Determine QA result and generate reports.
 
 **1. Determine Result:**
 ```
@@ -531,7 +527,13 @@ IF NOT found:
     HALT: "gaps.json not created - required for /dev remediation mode"
 ```
 
-**4. Update Story File IMMEDIATELY:**
+### Step 3.4: Story File Update with Change Log Entry
+
+**Purpose:** Update story status and append Change Log entry with QA results.
+
+**Reference:** `.claude/references/changelog-update-guide.md`
+
+**1. Update Story YAML Status:**
 ```
 Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
@@ -539,13 +541,41 @@ IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
     Edit(old_string="status: Dev Complete", new_string="status: QA Approved")
 ELSE:
     Edit(old_string="status: Dev Complete", new_string="status: QA Failed")
-
-# Add QA history entry
-Edit(old_string="## QA Validation History",
-     new_string="## QA Validation History\n\n| Date | Mode | Result |\n|------|------|--------|\n| {timestamp} | {MODE} | {overall_status} |")
 ```
 
-**5. Verify Update (MANDATORY):**
+**2. Append Change Log Entry:**
+
+Author: `claude/qa-result-interpreter`
+Phase/Action: `QA Light` or `QA Deep`
+Change: `{result}: Coverage {pct}%, {violations} violations`
+
+Example entry for QA Light mode:
+```
+| 2025-12-29 16:00 | claude/qa-result-interpreter | QA Light | Passed: Coverage 96%, 0 violations | - |
+```
+
+Example entry for QA Deep mode:
+```
+| 2025-12-29 17:30 | claude/qa-result-interpreter | QA Deep | Passed: Coverage 98%, 0 violations | qa-report.md |
+```
+
+```
+# Append changelog entry using Edit tool
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="| {last_date} | {last_author} | {last_action} | {last_change} | {last_files} |",
+    new_string="| {last_date} | {last_author} | {last_action} | {last_change} | {last_files} |\n| {current_timestamp} | claude/qa-result-interpreter | QA {MODE} | {overall_status}: Coverage {coverage}%, {violations} violations | - |"
+)
+
+# Update Current Status
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="**Current Status:** Dev Complete",
+    new_string="**Current Status:** QA Approved"  # or "QA Failed" if failed
+)
+```
+
+**3. Verify Update (MANDATORY):**
 ```
 Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
@@ -571,6 +601,7 @@ ELSE:
 **Validation Checkpoint:**
 - [ ] Result determined (PASSED/FAILED/PASS WITH WARNINGS)?
 - [ ] Story file Edit executed?
+- [ ] Change Log entry appended with `claude/qa-result-interpreter` author?
 - [ ] Story file verification Read executed?
 - [ ] Status matches expectation?
 

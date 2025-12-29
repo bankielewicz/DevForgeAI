@@ -214,8 +214,8 @@ Edit(
 ```
 Edit(
   file_path="${STORY_FILE}",
-  old_string="**Branch:** {branch}\n\n## Workflow Status",
-  new_string="**Branch:** {branch}\n\n${dod_items_list}\n\n## Workflow Status"
+  old_string="**Branch:** {branch}\n\n## Change Log",
+  new_string="**Branch:** {branch}\n\n${dod_items_list}\n\n## Change Log"
 )
 ```
 
@@ -272,45 +272,32 @@ Display: "Ready for Phase 08 git commit"
 
 ---
 
-## Step 4: Update Workflow Status Section
+## Step 4: Update Change Log Section
 
-**Mark Development phase complete:**
+**Append Development phase complete entry to ## Change Log:**
 
 ```
 Read(file_path="${STORY_FILE}")
 
-# Find ## Workflow Status section
-# Update checkboxes
+# Find ## Change Log section
+# Locate last table entry
 
+# Append changelog entry for DoD Update phase
 Edit(
   file_path="${STORY_FILE}",
-  old_string="- [ ] Development phase complete",
-  new_string="- [x] Development phase complete - Completed: {current_date}, commit {commit_sha}"
+  old_string="| {last_date} | {last_author} | {last_action} | {last_change} | {last_files} |",
+  new_string="| {last_date} | {last_author} | {last_action} | {last_change} | {last_files} |\n| {current_date} | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | ${STORY_FILE} |"
 )
 
+# Update **Current Status:** field
 Edit(
   file_path="${STORY_FILE}",
-  old_string="- [ ] QA phase complete",
-  new_string="- [ ] QA phase complete - Pending: Run /qa {STORY_ID}"
-)
-
-Edit(
-  file_path="${STORY_FILE}",
-  old_string="- [ ] Released",
-  new_string="- [ ] Released - Pending: Run /release {STORY_ID} after QA approval"
+  old_string="**Current Status:** In Development",
+  new_string="**Current Status:** Dev Complete"
 )
 ```
 
-**Handle "Architecture phase complete":**
-
-```
-# Most stories don't need architecture phase (context files already exist)
-Edit(
-  file_path="${STORY_FILE}",
-  old_string="- [ ] Architecture phase complete",
-  new_string="- [x] Architecture phase complete - Not required (framework-level story, architecture already exists)"
-)
-```
+**Note:** The unified `## Change Log` section replaces the deprecated Workflow Status section as of STORY-152 (template v2.5).
 
 ---
 
@@ -319,7 +306,7 @@ Edit(
 **If Implementation Notes doesn't have TDD workflow summary yet:**
 
 ```
-# After DoD items, before Workflow Status, add:
+# After DoD items, before Change Log section, add:
 
 ### TDD Workflow Summary
 
@@ -380,7 +367,7 @@ Edit(
 - [ ] All completed DoD items marked [x] in Definition of Done section
 - [ ] All completed DoD items added to Implementation Notes (flat list, directly under ##, no ### subsection)
 - [ ] devforgeai-validate validate-dod passes (exit code 0)
-- [ ] Workflow Status section updated (Development [x], QA/Release [ ])
+- [ ] Change Log section updated (Current Status, new entry appended)
 - [ ] Implementation Notes contains developer info (name, date, commit, branch)
 - [ ] Optional: TDD Workflow Summary added for traceability
 - [ ] Ready for Phase 08 git commit (no format blockers)
@@ -438,12 +425,12 @@ Impl: - [x] `devforgeai-validate check-hooks` command functional - Completed: ..
 
 **Fix:**
 ```
-# Add section after Definition of Done, before Workflow Status
+# Add section after Definition of Done, before Change Log
 
 Edit(
   file_path="${STORY_FILE}",
-  old_string="## Workflow Status",
-  new_string="## Implementation Notes\n\n**Developer:** DevForgeAI AI Agent\n**Implemented:** {date}\n**Commit:** {SHA}\n**Branch:** {branch}\n\n{dod_items_list}\n\n## Workflow Status"
+  old_string="## Change Log",
+  new_string="## Implementation Notes\n\n**Developer:** DevForgeAI AI Agent\n**Implemented:** {date}\n**Commit:** {SHA}\n**Branch:** {branch}\n\n{dod_items_list}\n\n## Change Log"
 )
 ```
 
@@ -479,7 +466,7 @@ Phase 06: Deferral Challenge
 │  Step 3: Validate format                 │
 │          (devforgeai-validate validate-dod)       │
 │          ↓                                │
-│  Step 4: Update Workflow Status          │
+│  Step 4: Update Change Log               │
 │          ↓                                │
 │  Step 5: Optional TDD Summary            │
 └──────────────────────────────────────────┘
@@ -582,7 +569,7 @@ Output: ✅ All DoD items validated
 Exit code: 0
 ```
 
-**Step 4: Update Workflow Status**
+**Step 4: Update Change Log**
 
 ```
 Edit:
@@ -626,10 +613,13 @@ Edit:
 - file1.md
 ...
 
-## Workflow Status
+## Change Log
 
-- [x] Development phase complete - Completed: 2025-11-14, commit abc123
-- [ ] QA phase complete - Pending: Run /qa STORY-NNN
+**Current Status:** Dev Complete
+
+| Date | Author | Phase/Action | Change | Files Affected |
+|------|--------|--------------|--------|----------------|
+| 2025-11-14 14:30 | claude/opus | DoD Update (Phase 07) | Development complete | story.md |
 ```
 
 **Why this works:**
@@ -709,10 +699,10 @@ Edit:
   - [ ] If fails: Review errors, fix format, re-validate
   - [ ] If passes: Proceed to Step 4
 
-- [ ] **Step 4:** Update Workflow Status
-  - [ ] Mark Development [x] with date and commit SHA
-  - [ ] Mark QA [ ] with "Pending: Run /qa {STORY_ID}"
-  - [ ] Mark Released [ ] with "Pending: Run /release after QA"
+- [ ] **Step 4:** Update Change Log
+  - [ ] Append DoD Update entry with author `claude/opus`
+  - [ ] Update **Current Status:** to "Dev Complete"
+  - [ ] Verify changelog table format is valid
 
 - [ ] **Step 5:** Final validation
   - [ ] Re-run: `devforgeai-validate validate-dod ${STORY_FILE}`
@@ -731,7 +721,7 @@ Edit:
 - Marking DoD items [x]: ~200 tokens (22 Edit operations)
 - Adding items to Implementation Notes: ~300 tokens (1 large Edit)
 - Validation: ~100 tokens (Bash command)
-- Workflow Status updates: ~200 tokens (3 Edit operations)
+- Change Log updates: ~200 tokens (3 Edit operations)
 - **Total:** ~1,300 tokens
 
 **Benefit:** Prevents 3 failed commit attempts (~1,500 tokens each = 4,500 tokens wasted)

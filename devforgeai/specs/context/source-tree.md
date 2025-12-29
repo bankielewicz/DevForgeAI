@@ -300,6 +300,7 @@ DevForgeAI2/
 ├── devforgeai/                  # Framework context and project specs (VISIBLE TO GLOB)
 │   ├── specs/                   # Project specifications
 │   │   ├── Stories/             # User stories (STORY-NNN-title.story.md)
+│   │   │   └── archive/         # Released stories (moved here after /release)
 │   │   ├── Epics/               # Epic definitions (EPIC-NNN-title.epic.md)
 │   │   ├── Sprints/             # Sprint plans (Sprint-N.md)
 │   │   ├── brainstorms/         # Brainstorm session outputs (BRAINSTORM-NNN.brainstorm.md)

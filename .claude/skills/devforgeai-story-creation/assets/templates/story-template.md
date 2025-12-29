@@ -1,12 +1,33 @@
+---
+# Story Template Metadata
+format_version: "2.5"
+template_updated: 2025-12-29
+---
+
 # =============================================================================
 # STORY TEMPLATE CHANGELOG
 # =============================================================================
 #
-# Version: 2.4
-# Last Updated: 2025-12-23
+# Version: 2.5
+# Last Updated: 2025-12-29
 # Maintained by: devforgeai-story-creation skill
 #
 # Version History:
+#
+# v2.5 (2025-12-29) - Unified Change Log Section (STORY-152)
+#   Changes:
+#     - Replaced ## Workflow Status with unified ## Change Log section
+#     - Added **Current Status:** field for tracking story state
+#     - Added 5-column table: Date | Author | Phase/Action | Change | Files Affected
+#     - Initial entry with author `claude/story-requirements-analyst`
+#     - Shared reference guide at .claude/references/changelog-update-guide.md
+#   Rationale:
+#     - Unified tracking of workflow state AND file modifications
+#     - Subagent attribution for audit trail
+#     - Single source of truth for story history
+#   References:
+#     - STORY-152: Unified Story Change Log Tracking
+#     - .claude/references/changelog-update-guide.md
 #
 # v2.4 (2025-12-23) - Story Type Classification (STORY-126)
 #   Changes:
@@ -119,7 +140,7 @@ depends_on: []
 priority: [High / Medium / Low]
 assigned_to: [Developer Name]
 created: YYYY-MM-DD
-format_version: "2.4"
+format_version: "2.5"
 ---
 
 # Story: [Title]
@@ -672,12 +693,13 @@ public async Task PostEndpoint_ValidRequest_CreatesResource()
 
 ---
 
-## Workflow Status
+## Change Log
 
-- [ ] Architecture phase complete
-- [ ] Development phase complete
-- [ ] QA phase complete
-- [ ] Released
+**Current Status:** Backlog
+
+| Date | Author | Phase/Action | Change | Files Affected |
+|------|--------|--------------|--------|----------------|
+| YYYY-MM-DD HH:MM | claude/story-requirements-analyst | Created | Story created | STORY-XXX.story.md |
 
 ## Notes
 

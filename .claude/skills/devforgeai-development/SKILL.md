@@ -363,6 +363,25 @@ Load on-demand during workflow execution:
 - **tdd-patterns.md** - Comprehensive TDD guidance
 - **ambiguity-protocol.md** - When to ask user questions
 
+### Change Log Integration (STORY-152)
+- **changelog-update-guide.md** - Shared reference at `.claude/references/changelog-update-guide.md`
+
+**Changelog Entry Authors by Phase:**
+- Phase 02 Red Test-First: `claude/test-automator` for Change Log entries
+- Phase 03 Green Implementation: `claude/backend-architect` or `claude/frontend-developer` for changelog
+- Phase 04 Refactor: `claude/refactoring-specialist`
+- Phase 05 Integration: `claude/integration-tester`
+- Phase 07 DoD: `claude/opus`
+
+**Example Edit() for appending changelog entry:**
+```python
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
+    old_string="| {last_entry} |",
+    new_string="| {last_entry} |\n| {date} | claude/test-automator | Red (Phase 02) | Tests generated | tests/*.sh |"
+)
+```
+
 ---
 
 ## CLI Commands Reference
