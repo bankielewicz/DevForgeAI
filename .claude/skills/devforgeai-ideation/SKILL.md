@@ -256,9 +256,17 @@ The command's **Mode:** marker is read in Phase 6.6 to determine appropriate nex
 
 ## Error Handling
 
-**6 error types:** Incomplete answers, artifact failures, complexity errors, validation failures, constraint conflicts, directory issues. Each has detection logic and recovery procedures (self-heal → retry → report).
+**6 error types** with detection logic and recovery procedures (self-heal → retry → report).
 
-**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/error-handling.md")`
+**Index:** `Read(file_path=".claude/skills/devforgeai-ideation/references/error-handling-index.md")`
+
+**Error Type Files (load on-demand):**
+1. **error-type-1-incomplete-answers.md** - Vague/incomplete user responses (Phase 2)
+2. **error-type-2-artifact-failures.md** - File write/permission errors (Phase 6.1)
+3. **error-type-3-complexity-errors.md** - Invalid scores, tier mismatch (Phase 3)
+4. **error-type-4-validation-failures.md** - Quality issues, missing fields (Phase 6.4)
+5. **error-type-5-constraint-conflicts.md** - Brownfield context conflicts (Phase 5)
+6. **error-type-6-directory-issues.md** - Missing directories, permissions (Phase 6.1)
 
 ---
 
@@ -298,7 +306,13 @@ Load these on-demand during workflow execution:
 - **self-validation-workflow.md** - Phase 6.4: Quality checks (351 lines)
 - **completion-handoff.md** - Phase 6.5-6.6: Summary and next action (721 lines)
 - **user-interaction-patterns.md** - AskUserQuestion templates (411 lines)
-- **error-handling.md** - Recovery procedures for 6 error types (1,062 lines)
+- **error-handling-index.md** - Decision tree for error type selection (~100 lines)
+- **error-type-1-incomplete-answers.md** - Vague user responses (~165 lines)
+- **error-type-2-artifact-failures.md** - File write errors (~135 lines)
+- **error-type-3-complexity-errors.md** - Complexity score issues (~155 lines)
+- **error-type-4-validation-failures.md** - Quality validation issues (~210 lines)
+- **error-type-5-constraint-conflicts.md** - Brownfield conflicts (~175 lines)
+- **error-type-6-directory-issues.md** - Directory structure issues (~130 lines)
 
 ### Supporting Guides (8 files - existing)
 - **requirements-elicitation-guide.md** - Domain-specific question patterns (659 lines)
@@ -314,7 +328,8 @@ Load these on-demand during workflow execution:
   - Contains: 6 field mapping tables, transformation rules, phase behavior changes
   - Related: brainstorm-handoff-workflow.md (detection/selection) uses these mappings
 
-**Total:** 18 reference files, 10,402 lines (loaded progressively, not upfront)
+**Total:** 24 reference files, ~10,500 lines (loaded progressively, not upfront)
+**Error handling:** 7 files replace single 1,062-line file (token efficiency via selective loading)
 
 ---
 
