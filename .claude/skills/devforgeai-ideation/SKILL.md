@@ -300,15 +300,18 @@ Load these on-demand during workflow execution:
 - **user-interaction-patterns.md** - AskUserQuestion templates (411 lines)
 - **error-handling.md** - Recovery procedures for 6 error types (1,062 lines)
 
-### Supporting Guides (6 files - existing)
+### Supporting Guides (7 files - existing)
 - **requirements-elicitation-guide.md** - Domain-specific question patterns (659 lines)
 - **complexity-assessment-matrix.md** - Complete 0-60 scoring rubric (617 lines)
 - **domain-specific-patterns.md** - Decomposition patterns by domain (744 lines)
 - **feasibility-analysis-framework.md** - Feasibility checklists (587 lines)
 - **validation-checklists.md** - Quality validation procedures (604 lines)
 - **output-templates.md** - Summary templates, tech recommendations (780 lines)
+- **user-input-guidance.md** - Framework-internal guidance for eliciting complete requirements (~898 lines)
+  - Contains: 15 elicitation patterns, 28 AskUserQuestion templates, NFR quantification table
+  - Section 5: Skill Integration Guide (devforgeai-ideation and devforgeai-story-creation patterns)
 
-**Total:** 16 reference files, 8,862 lines (loaded progressively, not upfront)
+**Total:** 17 reference files, 9,759 lines (loaded progressively, not upfront)
 
 ---
 
