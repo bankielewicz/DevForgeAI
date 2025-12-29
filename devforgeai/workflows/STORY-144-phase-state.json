@@ -1,0 +1,103 @@
+{
+  "story_id": "STORY-144",
+  "workflow_started": "2025-12-29T11:45:48.536952Z",
+  "current_phase": "08",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2025-12-29T11:47:34.643931Z",
+      "completed_at": "2025-12-29T11:49:43.805445Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2025-12-29T12:48:10.100513Z",
+      "completed_at": "2025-12-29T12:51:11.668697Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2025-12-29T13:00:06.562025Z",
+      "completed_at": "2025-12-29T13:16:32.648241Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2025-12-29T13:17:06.862075Z",
+      "completed_at": "2025-12-29T13:22:29.909216Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2025-12-29T13:28:10.360123Z",
+      "completed_at": "2025-12-29T13:28:18.501797Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2025-12-29T13:29:04.481220Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2025-12-29T13:31:00.184678Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "09": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "10": {
+      "status": "pending",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": []
+    }
+  },
+  "validation_errors": [],
+  "blocking_status": false
+}
