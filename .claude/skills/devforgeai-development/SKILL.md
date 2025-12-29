@@ -168,6 +168,15 @@ IF exit_code == 2:
     HALT workflow
 ```
 
+**Backward Compatibility Warning:**
+```
+IF devforgeai-validate command not found (exit code 127):
+    Display: "⚠️  Warning: Phase enforcement CLI not installed"
+    Display: "    To enable enforcement, run: pip install devforgeai-validate"
+    Display: "    Continuing workflow without enforcement (backward compatibility mode)"
+    # Continue workflow without enforcement
+```
+
 ---
 
 ## Phase Orchestration Loop
@@ -295,6 +304,98 @@ ELSE:
 
 ---
 
+## Phase Transition Validation Calls (STORY-153)
+
+**Validation calls are required at every phase transition.** See `devforgeai/config/validation-call-locations.yaml` for the complete mapping.
+
+**Phase-check calls at each transition (9 total):**
+
+| From | To | Command |
+|------|-----|---------|
+| 01 | 02 | `devforgeai-validate phase-check STORY-XXX --from=01 --to=02` |
+| 02 | 03 | `devforgeai-validate phase-check STORY-XXX --from=02 --to=03` |
+| 03 | 04 | `devforgeai-validate phase-check STORY-XXX --from=03 --to=04` |
+| 04 | 05 | `devforgeai-validate phase-check STORY-XXX --from=04 --to=05` |
+| 05 | 06 | `devforgeai-validate phase-check STORY-XXX --from=05 --to=06` |
+| 06 | 07 | `devforgeai-validate phase-check STORY-XXX --from=06 --to=07` |
+| 07 | 08 | `devforgeai-validate phase-check STORY-XXX --from=07 --to=08` |
+| 08 | 09 | `devforgeai-validate phase-check STORY-XXX --from=08 --to=09` |
+| 09 | 10 | `devforgeai-validate phase-check STORY-XXX --from=09 --to=10` |
+
+**Complete-phase calls at phase end (10 total):**
+
+Per AC#3, use `devforgeai-validate complete-phase` (alias: `phase-complete`):
+
+| Phase | Command |
+|-------|---------|
+| 01 | `devforgeai-validate complete-phase STORY-XXX --phase=01 --checkpoint-passed` |
+| 02 | `devforgeai-validate complete-phase STORY-XXX --phase=02 --checkpoint-passed` |
+| 03 | `devforgeai-validate complete-phase STORY-XXX --phase=03 --checkpoint-passed` |
+| 04 | `devforgeai-validate complete-phase STORY-XXX --phase=04 --checkpoint-passed` |
+| 05 | `devforgeai-validate complete-phase STORY-XXX --phase=05 --checkpoint-passed` |
+| 06 | `devforgeai-validate complete-phase STORY-XXX --phase=06 --checkpoint-passed` |
+| 07 | `devforgeai-validate complete-phase STORY-XXX --phase=07 --checkpoint-passed` |
+| 08 | `devforgeai-validate complete-phase STORY-XXX --phase=08 --checkpoint-passed` |
+| 09 | `devforgeai-validate complete-phase STORY-XXX --phase=09 --checkpoint-passed` |
+| 10 | `devforgeai-validate complete-phase STORY-XXX --phase=10 --checkpoint-passed` |
+
+**Record-subagent calls after Task invocations:**
+
+After each `Task(subagent_type="...")` invocation completes:
+```bash
+devforgeai-validate record-subagent STORY-XXX --phase=NN --subagent=SUBAGENT_NAME
+```
+
+**Exit code handling:** Non-zero exit code = HALT workflow (see CLI Commands Reference below for exit codes).
+
+---
+
+## Phase 00: Initialization
+
+Phase state file creation via `devforgeai-validate phase-init` (or `devforgeai-validate init-state` per AC#4).
+
+## Phase 01: Pre-Flight
+
+Context validation, Git status, story loading. Subagents: git-validator, tech-stack-detector.
+
+## Phase 02: Test-First (Red)
+
+Write failing tests from acceptance criteria. Subagents: test-automator.
+
+## Phase 03: Implementation (Green)
+
+Implement minimal code to pass tests. Subagents: backend-architect OR frontend-developer, context-validator.
+
+## Phase 04: Refactoring
+
+Improve code quality without changing behavior. Subagents: refactoring-specialist, code-reviewer.
+
+## Phase 05: Integration Testing
+
+Verify cross-component interactions. Subagents: integration-tester.
+
+## Phase 06: Deferral Challenge
+
+Validate any deferred items have proper justification. Subagents: deferral-validator (conditional).
+
+## Phase 07: DoD Update
+
+Update Definition of Done checkboxes in story file.
+
+## Phase 08: Git Workflow
+
+Commit changes with conventional commit message.
+
+## Phase 09: Feedback Hook
+
+Trigger post-dev feedback collection if hooks enabled.
+
+## Phase 10: Result Interpretation
+
+Generate workflow result summary. Subagents: dev-result-interpreter.
+
+---
+
 ## Complete Workflow Execution Map
 
 ```
@@ -362,6 +463,9 @@ Load on-demand during workflow execution:
 - **git-workflow-conventions.md** - Phase 08 detailed workflow
 - **tdd-patterns.md** - Comprehensive TDD guidance
 - **ambiguity-protocol.md** - When to ask user questions
+
+### Validation Call Configuration (STORY-153)
+- **validation-call-locations.yaml** - Phase-to-validation mapping at `devforgeai/config/validation-call-locations.yaml`
 
 ### Change Log Integration (STORY-152)
 - **changelog-update-guide.md** - Shared reference at `.claude/references/changelog-update-guide.md`
