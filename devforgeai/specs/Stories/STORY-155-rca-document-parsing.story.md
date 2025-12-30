@@ -6,7 +6,7 @@ epic: EPIC-032
 priority: Medium
 points: 5
 depends_on: []
-status: Backlog
+status: Dev Complete
 created: 2025-12-25
 ---
 
@@ -183,63 +183,98 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] RCA frontmatter parsing implemented
-- [ ] Recommendation section extraction implemented
-- [ ] Priority extraction with validation implemented
-- [ ] Effort estimate extraction with conversion implemented
-- [ ] Success criteria extraction implemented
-- [ ] Effort threshold filtering implemented
-- [ ] Priority sorting implemented
+- [x] RCA frontmatter parsing implemented
+- [x] Recommendation section extraction implemented
+- [x] Priority extraction with validation implemented
+- [x] Effort estimate extraction with conversion implemented
+- [x] Success criteria extraction implemented
+- [x] Effort threshold filtering implemented
+- [x] Priority sorting implemented
 
 ### Quality
-- [ ] All 5 acceptance criteria have passing tests
-- [ ] Edge cases handled with graceful degradation
-- [ ] No console errors or warnings in normal operation
-- [ ] Code follows DevForgeAI coding standards
+- [x] All 5 acceptance criteria have passing tests
+- [x] Edge cases handled with graceful degradation
+- [x] No console errors or warnings in normal operation
+- [x] Code follows DevForgeAI coding standards
 
 ### Testing
-- [ ] Unit tests for frontmatter parsing
-- [ ] Unit tests for recommendation extraction
-- [ ] Unit tests for filtering and sorting
-- [ ] Integration test with real RCA file (RCA-022)
+- [x] Unit tests for frontmatter parsing
+- [x] Unit tests for recommendation extraction
+- [x] Unit tests for filtering and sorting
+- [x] Integration test with real RCA file (RCA-022)
 
 ### Documentation
-- [ ] Parser logic documented in command file
-- [ ] Usage examples in command help text
+- [x] Parser logic documented in command file
+- [x] Usage examples in command help text
 
 ## AC Verification Checklist
 
 ### AC#1: Parse RCA Frontmatter
-- [ ] Read RCA file from devforgeai/RCA/
-- [ ] Extract YAML between --- markers
-- [ ] Parse id, title, date, severity, status fields
-- [ ] Handle missing optional fields gracefully
+- [x] Read RCA file from devforgeai/RCA/
+- [x] Extract YAML between --- markers
+- [x] Parse id, title, date, severity, status fields
+- [x] Handle missing optional fields gracefully
 
 ### AC#2: Extract Recommendations
-- [ ] Identify ### REC-N: sections
-- [ ] Extract priority from header
-- [ ] Extract title from header
-- [ ] Extract description from body
+- [x] Identify ### REC-N: sections
+- [x] Extract priority from header
+- [x] Extract title from header
+- [x] Extract description from body
 
 ### AC#3: Extract Effort Estimates
-- [ ] Find **Effort Estimate:** line
-- [ ] Parse hours value
-- [ ] Parse story points if present
-- [ ] Convert points to hours (1pt = 4hrs)
+- [x] Find **Effort Estimate:** line
+- [x] Parse hours value
+- [x] Parse story points if present
+- [x] Convert points to hours (1pt = 4hrs)
 
 ### AC#4: Extract Success Criteria
-- [ ] Find **Success Criteria:** subsection
-- [ ] Parse checklist items (- [ ] format)
-- [ ] Associate with parent recommendation
+- [x] Find **Success Criteria:** subsection
+- [x] Parse checklist items (- [ ] format)
+- [x] Associate with parent recommendation
 
 ### AC#5: Filter by Effort Threshold
-- [ ] Accept threshold parameter
-- [ ] Filter recommendations by effort_hours >= threshold
-- [ ] Sort by priority (CRITICAL > HIGH > MEDIUM > LOW)
-- [ ] Return filtered and sorted list
+- [x] Accept threshold parameter
+- [x] Filter recommendations by effort_hours >= threshold
+- [x] Sort by priority (CRITICAL > HIGH > MEDIUM > LOW)
+- [x] Return filtered and sorted list
+
+## Implementation Notes
+
+- [x] RCA frontmatter parsing implemented (AC#1)
+- [x] Recommendation section extraction implemented (AC#2)
+- [x] Priority extraction with validation implemented
+- [x] Effort estimate extraction with conversion implemented (AC#3)
+- [x] Success criteria extraction implemented (AC#4)
+- [x] Effort threshold filtering implemented (AC#5)
+- [x] Priority sorting implemented (BR-002)
+- [x] Story point conversion (1pt = 4hrs) implemented (BR-003)
+- [x] Edge cases handled with graceful degradation
+- [x] Unit tests generated (75 tests covering 5 ACs)
+- [x] Integration tests validated
+- [x] Parser logic documented in command file
+- [x] Usage examples included
+
+**Developer:** claude/opus (DevForgeAI AI Agent)
+**Implemented:** 2025-12-30
+
+### TDD Workflow Summary
+
+| Phase | Status | Subagent |
+|-------|--------|----------|
+| 01 Pre-Flight | Complete | git-validator, tech-stack-detector |
+| 02 Test-First (Red) | Complete | test-automator |
+| 03 Implementation (Green) | Complete | backend-architect |
+| 04 Refactoring | Complete | refactoring-specialist, code-reviewer |
+| 05 Integration | Complete | integration-tester |
+| 06 Deferral | Complete | (no deferrals) |
+| 07 DoD Update | Complete | - |
 
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-25 | DevForgeAI | Story created via /create-missing-stories batch mode |
+| 2025-12-30 | claude/test-automator | Red (Phase 02) | 75 failing tests generated for 5 ACs | tests/results/STORY-155/*.sh |
+| 2025-12-30 | claude/backend-architect | Green (Phase 03) | RCA parser command implemented | .claude/commands/create-stories-from-rca.md |
+| 2025-12-30 | claude/refactoring-specialist | Refactor (Phase 04) | DRY constants, reusable helpers | .claude/commands/create-stories-from-rca.md |
+| 2025-12-30 | claude/integration-tester | Integration (Phase 05) | 100% AC/BR coverage validated | tests/results/STORY-155/*.md |
