@@ -1,0 +1,185 @@
+---
+# Integration Test Configuration for STORY-154
+# Phase Execution Enforcement System Integration Tests
+
+test_environment:
+  # Test execution directories
+  workflows_dir: "devforgeai/tests/STORY-154/test-workflows"
+  logs_dir: "devforgeai/tests/STORY-154/test-logs"
+  archive_dir: "devforgeai/tests/STORY-154/test-workflows/completed"
+  fixtures_dir: "devforgeai/tests/STORY-154/fixtures"
+
+  # Mock directories
+  mock_subagent_responses: "devforgeai/tests/STORY-154/fixtures/mock-subagent-responses"
+  expected_state_files: "devforgeai/tests/STORY-154/fixtures/expected-state-files"
+
+  # Test harness
+  harness_dir: "devforgeai/tests/STORY-154/harness"
+
+# Test execution parameters
+execution:
+  # Maximum time per test before timeout
+  timeout_per_test: 30  # seconds
+
+  # Maximum time for entire test suite
+  timeout_total_suite: 300  # seconds (5 minutes)
+
+  # Test execution mode
+  mode: "sequential"  # sequential or parallel (currently sequential for stability)
+
+  # Stop on first failure
+  fail_fast: false
+
+  # Number of retry attempts for flaky tests
+  max_retries: 3
+
+# Test cleanup configuration
+cleanup:
+  # Enable automatic cleanup after tests
+  enabled: true
+
+  # Preserve test artifacts on failure for debugging
+  preserve_on_failure: true
+
+  # Directories to clean after test suite
+  clean_targets:
+    - "devforgeai/tests/STORY-154/test-workflows/*.json"
+    - "devforgeai/tests/STORY-154/test-logs/*.log"
+
+  # Preserve these on failure
+  preserve_on_failure_patterns:
+    - "devforgeai/tests/STORY-154/test-logs/*.log"
+    - "devforgeai/tests/STORY-154/test-workflows/*.json"
+
+# Test suite definition
+test_suite:
+  name: "Phase Execution Enforcement Integration Tests"
+  version: "1.0"
+  description: "End-to-end tests for STORY-154"
+
+  tests:
+    - name: "test-rca022-scenario-blocked.sh"
+      description: "Verify RCA-022 phase skipping is blocked"
+      requirement: "AC#1"
+      timeout: 30
+      enabled: true
+
+    - name: "test-complete-workflow.sh"
+      description: "Verify full workflow succeeds"
+      requirement: "AC#2"
+      timeout: 30
+      enabled: true
+
+    - name: "test-subagent-recording.sh"
+      description: "Verify subagent invocations recorded"
+      requirement: "AC#3"
+      timeout: 30
+      enabled: true
+
+    - name: "test-state-archival.sh"
+      description: "Verify state file archival"
+      requirement: "AC#4"
+      timeout: 30
+      enabled: true
+
+    - name: "test-enforcement-logging.sh"
+      description: "Verify enforcement log completeness"
+      requirement: "AC#5"
+      timeout: 30
+      enabled: true
+
+    - name: "test-backward-compatibility.sh"
+      description: "Verify CLI-absent behavior"
+      requirement: "AC#6"
+      timeout: 30
+      enabled: true
+
+# Expected outcomes
+expected_outcomes:
+  # All tests should pass
+  pass_rate: 100
+
+  # Each test validates one acceptance criterion
+  acceptance_criteria_coverage: 6
+
+  # Log entries expected
+  enforcement_log_entries: 13
+
+  # Subagent invocations recorded
+  subagent_invocations: 5
+
+  # State file archival completed
+  state_files_archived: 1
+
+# Reporting
+reporting:
+  # Generate test report
+  generate_report: true
+
+  # Report format
+  report_format: "markdown"
+
+  # Report location
+  report_path: "devforgeai/tests/STORY-154/TEST-RESULTS.md"
+
+  # Include detailed logs
+  include_logs: true
+
+  # Include timing information
+  include_timing: true
+
+# Determinism validation
+determinism:
+  # Run tests multiple times to verify determinism
+  enabled: true
+
+  # Number of runs for determinism check
+  num_runs: 3
+
+  # All runs must produce identical results
+  require_identical_results: true
+
+# Performance thresholds
+performance:
+  # Target total execution time
+  target_time_seconds: 300  # 5 minutes total
+
+  # Per-test time limit
+  per_test_time_seconds: 30
+
+# Logging
+logging:
+  # Log level (DEBUG, INFO, WARN, ERROR)
+  level: "INFO"
+
+  # Log file for test harness
+  harness_log: "devforgeai/tests/STORY-154/test-logs/harness.log"
+
+  # Timestamp format for logs
+  timestamp_format: "ISO8601"  # YYYY-MM-DDTHH:MM:SSZ
+
+# Validation rules
+validation:
+  # State file must be valid JSON
+  require_valid_json: true
+
+  # All log entries must have required fields
+  require_complete_context: true
+
+  # Timestamps must be valid ISO 8601
+  require_valid_timestamps: true
+
+  # Required fields in enforcement log
+  required_log_fields:
+    - timestamp
+    - decision
+    - story
+    - from_phase
+    - to_phase
+
+  # Required fields in state file
+  required_state_fields:
+    - story_id
+    - current_phase
+    - phases
+    - workflow_start
