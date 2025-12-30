@@ -2,7 +2,7 @@
   "story_id": "STORY-151",
   "title": "Post-Subagent Recording Hook",
   "created": "2025-12-28T12:00:00Z",
-  "current_phase": "07",
+  "current_phase": "10",
   "phases": {
     "01": {
       "name": "Pre-Flight Validation",
@@ -18,9 +18,9 @@
     "05": {"name": "Integration Testing", "status": "complete", "started": "2025-12-28T12:40:00Z", "completed": "2025-12-28T12:45:00Z", "subagents_invoked": ["integration-tester"], "checkpoint_passed": true, "tests_total": 69, "tests_passing": 69},
     "06": {"name": "Deferral Challenge", "status": "complete", "started": "2025-12-28T12:45:00Z", "completed": "2025-12-28T12:46:00Z", "subagents_invoked": [], "checkpoint_passed": true, "deferrals_found": 0, "deferrals_approved": 0},
     "07": {"name": "DoD Update", "status": "complete", "started": "2025-12-28T12:46:00Z", "completed": "2025-12-28T12:50:00Z", "subagents_invoked": [], "checkpoint_passed": true, "dod_items_completed": 22},
-    "08": {"name": "Git Workflow", "status": "pending", "subagents_invoked": []},
-    "09": {"name": "Feedback Hook", "status": "pending", "subagents_invoked": []},
-    "10": {"name": "Result Interpretation", "status": "pending", "subagents_invoked": []}
+    "08": {"name": "Git Workflow", "status": "complete", "started": "2025-12-28T12:50:00Z", "completed": "2025-12-28T12:55:00Z", "subagents_invoked": [], "checkpoint_passed": true, "commit_sha": "81ffd792"},
+    "09": {"name": "Feedback Hook", "status": "complete", "started": "2025-12-28T12:55:00Z", "completed": "2025-12-28T12:55:30Z", "subagents_invoked": [], "checkpoint_passed": true, "hooks_triggered": ["post-dev-ai-analysis"]},
+    "10": {"name": "Result Interpretation", "status": "complete", "started": "2025-12-28T12:55:30Z", "completed": "2025-12-28T12:56:00Z", "subagents_invoked": ["dev-result-interpreter"], "checkpoint_passed": true}
   },
   "workflow_mode": "full_git",
   "remediation_mode": false,

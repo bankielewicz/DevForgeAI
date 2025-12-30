@@ -232,6 +232,7 @@ These files are **immutable constraints** that all AI agents must follow:
 | `/audit-deferrals` | Audit technical debt and deferral chains |
 | `/rca [issue] [severity]` | Root Cause Analysis with 5 Whys |
 | `/chat-search [keywords]` | Find and resume previous sessions |
+| `/recommendations-triage` | Convert AI-generated framework recommendations to stories |
 
 ---
 
@@ -249,6 +250,8 @@ The development skill enforces 10 strict phases:
 - Tests written BEFORE implementation
 - Coverage thresholds: 95% (business), 85% (application), 80% (infrastructure)
 - All deferrals require user approval (Phase 6)
+- **Observation capture** during phases 01-08 feeds AI analysis at Phase 09
+- Framework improvement recommendations auto-generated via `framework-analyst` subagent
 
 ### Quality Gates
 
@@ -261,7 +264,7 @@ The development skill enforces 10 strict phases:
 | **Gate 3** | QA → Releasing | All acceptance criteria verified, deferrals justified |
 | **Gate 4** | Releasing → Released | Smoke tests pass, rollback plan ready |
 
-### 26 Specialized Subagents
+### 27 Specialized Subagents
 
 Domain experts auto-invoked by skills:
 
@@ -274,6 +277,8 @@ Domain experts auto-invoked by skills:
 **Operations:** `git-validator`, `git-worktree-manager`, `deployment-engineer`, `documentation-writer`
 
 **Research:** `internet-sleuth`, `tech-stack-detector`, `stakeholder-analyst`
+
+**Analysis:** `framework-analyst` (synthesizes workflow observations into improvement recommendations)
 
 **Utilities:** `agent-generator`, `dev-result-interpreter`, `qa-result-interpreter`, `ui-spec-formatter`
 

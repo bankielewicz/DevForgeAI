@@ -10,6 +10,11 @@ Commands:
   validate-context Validate context files exist
   check-hooks      Check if hooks should trigger for an operation
   invoke-hooks     Invoke devforgeai-feedback skill for operation
+  phase-init       Initialize phase state file for a story
+  phase-check      Check if phase transition is allowed
+  phase-complete   Mark a phase as complete
+  phase-status     Display current phase status
+  phase-record     Record subagent invocation for a phase
   ast-grep scan    Semantic code analysis with ast-grep or grep fallback
 
 Based on industry research (SpecDriven AI, pre-commit patterns, DoD checkers).
@@ -270,6 +275,40 @@ def main():
     )
 
     # ======================================================================
+    # phase-record command (STORY-149 AC#4)
+    # ======================================================================
+    phase_record_parser = subparsers.add_parser(
+        'phase-record',
+        help='Record subagent invocation for a phase',
+        description='Appends subagent to phase subagents_invoked list (idempotent)'
+    )
+    phase_record_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_record_parser.add_argument(
+        '--phase',
+        required=True,
+        help='Phase ID (01-10)'
+    )
+    phase_record_parser.add_argument(
+        '--subagent',
+        required=True,
+        help='Subagent name that was invoked'
+    )
+    phase_record_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory (default: current directory)'
+    )
+    phase_record_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format (default: text)'
+    )
+
+    # ======================================================================
     # ast-grep command (STORY-115)
     # ======================================================================
     astgrep_parser = subparsers.add_parser(
@@ -414,6 +453,16 @@ def main():
             from .commands.phase_commands import phase_status_command
             return phase_status_command(
                 story_id=args.story_id,
+                project_root=args.project_root,
+                format=args.format
+            )
+
+        elif args.command == 'phase-record':
+            from .commands.phase_commands import phase_record_command
+            return phase_record_command(
+                story_id=args.story_id,
+                phase=args.phase,
+                subagent=args.subagent,
                 project_root=args.project_root,
                 format=args.format
             )

@@ -159,14 +159,46 @@ checklist_items:
 
 **Best for:** Sprint retrospectives and process compliance
 
-### 5. AI Architectural Analysis (NEW)
+### 5. AI Architectural Analysis (Enhanced)
 
-AI-generated framework improvement recommendations. This captures Claude's architectural insights after workflows - NOT user-facing feedback.
+AI-generated framework improvement recommendations with **real-time observation capture**. This captures Claude's architectural insights during and after workflows - NOT user-facing feedback.
+
+#### How It Works: Two-Part System
+
+**Part 1: Observation Capture (Phases 01-08)**
+
+As Claude works through each development phase, it captures "friction notes" - things that worked well, caused friction, or could be improved.
+
+```
+Phase 01 completes → Capture observations → phase-state.json
+Phase 02 completes → Capture observations → phase-state.json
+... (phases 03-08) ...
+Phase 09 starts → framework-analyst subagent reads observations
+```
+
+**Observation Categories:**
+| Category | When to Log | Examples |
+|----------|-------------|----------|
+| `friction` | Something slowed you down | "Had to read 4 files to find naming convention" |
+| `success` | Something worked well | "anti-patterns.md caught God Object before commit" |
+| `pattern` | Noticed repeated behavior | "3rd time manually updating DoD - should automate" |
+| `gap` | Missing documentation/tooling | "No example for handling edge case X" |
+| `idea` | Improvement opportunity | "Phase could run in parallel with previous" |
+| `bug` | Framework defect discovered | "CLI exits 0 even on validation failure" |
+
+**Part 2: Subagent Synthesis (Phase 09)**
+
+The `framework-analyst` subagent (DevForgeAI expert) reads the captured observations and:
+1. Expands terse notes into structured recommendations
+2. Validates each recommendation (file paths, effort, feasibility)
+3. Applies merit filter (no duplicates, not already implemented)
+4. Stores meritorious items to queue
 
 ```yaml
 feedback_type: ai_analysis
 feedback_config:
   mode: architectural
+  observation_capture: true  # NEW - enables inline capture
   analysis_prompts:
     - what_worked_well
     - areas_for_improvement
@@ -190,31 +222,68 @@ feedback_config:
 
 **Best for:** Continuous framework improvement, systematizing post-workflow architectural advice
 
-**Example output:**
+**Validation Gate (Strict):**
+
+Recommendations are rejected if they contain:
+- Aspirational language: "could", "might", "consider", "should explore", "potentially"
+- Missing file paths (each recommendation MUST cite specific files)
+- Missing effort estimates (valid: "15 min", "30 min", "1 hour", "2 hours", "4 hours")
+- `feasible_in_claude_code: false` or missing
+
+**Example output (expanded schema):**
 ```json
 {
-  "ai_analysis": {
-    "what_worked_well": [
-      "Context file validation caught 2 potential violations",
-      "TDD Red phase test generation was comprehensive"
-    ],
-    "areas_for_improvement": [
-      "Phase 06 deferral validation duplicates some Phase 03 checks"
-    ],
-    "recommendations": [
-      {
-        "description": "Consolidate deferral validation into single phase",
-        "affected_files": ["phase-03-implementation.md", "phase-06-deferral.md"],
-        "implementation_notes": "Move deferral checks to Phase 06 only",
-        "priority": "medium",
-        "feasible_in_claude_code": true
-      }
-    ],
-    "patterns_observed": ["CRUD stories benefit from batch test generation"],
-    "constraint_analysis": "Context files effectively prevented library substitution"
-  }
+  "story_id": "STORY-XXX",
+  "workflow_type": "dev",
+  "analysis_date": "2025-12-29T10:00:00Z",
+  "observations_processed": 3,
+  "what_worked_well": [
+    {
+      "observation": "Phase state validation prevented skipping Phase 03",
+      "evidence": ".claude/scripts/devforgeai_cli/commands/phase_commands.py:45",
+      "impact": "Enforced TDD discipline, caught implementation without tests"
+    }
+  ],
+  "areas_for_improvement": [
+    {
+      "issue": "Test naming convention for shell scripts unclear",
+      "evidence": "Checked test-automator.md, tdd-patterns.md - no shell guidance",
+      "root_cause": "Framework originally designed for Python/JS, shell testing added later"
+    }
+  ],
+  "recommendations": [
+    {
+      "title": "Document shell script test naming convention",
+      "description": "Add explicit guidance for shell script test naming",
+      "affected_files": [".claude/agents/test-automator.md"],
+      "implementation_code": "Add ### Shell Script Testing section with Bats/shell patterns",
+      "effort_estimate": "15 min",
+      "priority": "MEDIUM",
+      "feasible_in_claude_code": true
+    }
+  ],
+  "patterns_observed": ["Phase state enforcement working well across all 10 phases"],
+  "anti_patterns_detected": [],
+  "constraint_analysis": "Context files effectively prevented 2 anti-pattern violations"
 }
 ```
+
+#### Converting Recommendations to Stories
+
+Use `/recommendations-triage` to convert accumulated recommendations to user stories:
+
+```bash
+# View all pending recommendations
+/recommendations-triage
+
+# Filter by priority
+/recommendations-triage --priority=HIGH
+
+# Convert selected recommendations to stories
+# (Interactive multi-select, then invokes /create-story)
+```
+
+See [AI Analysis Hook Guide](./ai-analysis-hook-guide.md) for detailed documentation.
 
 ---
 
@@ -231,6 +300,7 @@ feedback_config:
 | `/export-feedback` | Export feedback data | `/export-feedback --format=json` |
 | `/feedback-reindex` | Rebuild feedback index | `/feedback-reindex` |
 | `/audit-hooks` | Audit hook registry | `/audit-hooks` |
+| `/recommendations-triage` | Convert AI recommendations to stories | `/recommendations-triage --priority=HIGH` |
 
 ### Feedback Search Examples
 
@@ -480,6 +550,7 @@ Hooks support three pattern types:
 | Document | Description |
 |----------|-------------|
 | [User Guide](./feedback-system-user-guide.md) | Detailed configuration and use cases |
+| [AI Analysis Hook Guide](./ai-analysis-hook-guide.md) | Observation capture and framework improvement workflow |
 | [Troubleshooting](./feedback-troubleshooting.md) | Common issues and solutions |
 | [Migration Guide](./feedback-migration-guide.md) | Enable on existing projects |
 | [Hook System Design](../architecture/hook-system-design.md) | Technical architecture |

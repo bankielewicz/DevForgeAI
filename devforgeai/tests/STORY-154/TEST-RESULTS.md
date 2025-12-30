@@ -1,6 +1,6 @@
 # STORY-154 Integration Test Results
 
-**Date**: 2025-12-30T04:09:56Z
+**Date**: 2025-12-30T04:24:36Z
 **Duration**: 2 seconds
 
 ## Summary
@@ -24,7 +24,7 @@ All acceptance criteria tests passed successfully.
 ================================================================
 TEST: Backward Compatibility with CLI Not Installed (AC#6)
 ================================================================
-Start Time: 2025-12-30T04:09:54Z
+Start Time: 2025-12-30T04:24:34Z
 
 [ARRANGE] Temporarily hiding devforgeai-validate CLI from PATH...
   Original CLI location: /home/bryan/.local/bin/devforgeai-validate
@@ -50,7 +50,7 @@ Start Time: 2025-12-30T04:09:54Z
   Warnings Displayed: YES
   Enforcement Applied: NO (as expected without CLI)
   PATH Restoration: Will occur in cleanup trap
-End Time: 2025-12-30T04:09:54Z
+End Time: 2025-12-30T04:24:34Z
 ```
 
 ### test-complete-workflow.sh
@@ -59,7 +59,7 @@ End Time: 2025-12-30T04:09:54Z
 ================================================================
 TEST: Complete Workflow Succeeds (AC#2)
 ================================================================
-Start Time: 2025-12-30T04:09:54Z
+Start Time: 2025-12-30T04:24:34Z
 
 [ARRANGE] Creating test story state file with all 10 phases...
 
@@ -73,7 +73,7 @@ Start Time: 2025-12-30T04:09:54Z
   Phases Completed: 10/10
   Checkpoints Passed: 10/10
   Workflow Status: COMPLETED
-End Time: 2025-12-30T04:09:55Z
+End Time: 2025-12-30T04:24:35Z
 ================================================================
  01 checkpoint_passed=true
 ASSERT PASSED: Phase 02 checkpoint_passed=true
@@ -94,7 +94,7 @@ ASSERT PASSED: Phase 10 checkpoint_passed=true
 ================================================================
 TEST: Enforcement Logging Completeness (AC#5)
 ================================================================
-Start Time: 2025-12-30T04:09:55Z
+Start Time: 2025-12-30T04:24:35Z
 
 [ARRANGE] Creating test enforcement log with 13 decision entries...
 
@@ -109,18 +109,18 @@ Start Time: 2025-12-30T04:09:55Z
   BLOCKED Decisions: 3
   ALLOWED Decisions: 10
   Decision Context: COMPLETE
-End Time: 2025-12-30T04:09:55Z
+End Time: 2025-12-30T04:24:35Z
 ================================================================
-ns exactly 3 BLOCKED transition entries
+ 13 enforcement decision entries
+
+[ACT] Analyzing enforcement log entries...
+ASSERT PASSED: Log contains exactly 3 BLOCKED transition entries
 ASSERT PASSED: Log contains exactly 10 ALLOWED transition entries
 
 [ASSERT] Verifying complete decision context in each entry...
 ASSERT PASSED: Entry 1 has valid timestamp
 ASSERT PASSED: Entry 1 contains decision field
 ASSERT PASSED: Entry 1 contains story field
-ASSERT PASSED: Entry 1 contains from_phase field
-ASSERT PASSED: Entry 1 contains to_phase field
-ASSERT PASSED: Entry 2 has valid timestamp
 ```
 
 ### test-rca022-scenario-blocked.sh
@@ -129,7 +129,7 @@ ASSERT PASSED: Entry 2 has valid timestamp
 ================================================================
 TEST: RCA-022 Scenario Blocked (AC#1)
 ================================================================
-Start Time: 2025-12-30T04:09:55Z
+Start Time: 2025-12-30T04:24:35Z
 
 [ARRANGE] Initializing test story state file...
 
@@ -141,7 +141,7 @@ Start Time: 2025-12-30T04:09:55Z
 [ASSERT] Verifying error message correctness...
 
 [VERIFY] RCA-022 scenario successfully blocked
-End Time: 2025-12-30T04:09:56Z
+End Time: 2025-12-30T04:24:35Z
 ================================================================
 ```
 
@@ -151,7 +151,7 @@ End Time: 2025-12-30T04:09:56Z
 ================================================================
 TEST: State File Archival on Completion (AC#4)
 ================================================================
-Start Time: 2025-12-30T04:09:56Z
+Start Time: 2025-12-30T04:24:35Z
 
 [PRECONDITION] Verifying test environment...
 
@@ -163,8 +163,7 @@ Start Time: 2025-12-30T04:09:56Z
 [ASSERT] Verifying file removed from active directory...
 [ASSERT] Verifying file exists in completed directory...
 [ASSERT] Verifying file content integrity...
-SED: completed subdirectory exists
-ASSERT PASSED: workflows directory is writable
+ED: workflows directory is writable
 ASSERT PASSED: completed directory is writable
 
 [ARRANGE] Creating test state file in active directory...
@@ -178,6 +177,7 @@ ASSERT PASSED: State file removed from active workflows directory
 [ASSERT] Verifying file exists in completed directory...
 ASSERT PASSED: State file present in completed subdirectory
 [ASSERT] Verifying file content integrity...
+ASSERT PASSED: Archived file content matches original
 ```
 
 ### test-subagent-recording.sh
@@ -186,7 +186,7 @@ ASSERT PASSED: State file present in completed subdirectory
 ================================================================
 TEST: Subagent Recording Accuracy (AC#3)
 ================================================================
-Start Time: 2025-12-30T04:09:56Z
+Start Time: 2025-12-30T04:24:36Z
 
 [ARRANGE] Creating test state file with 5 subagent invocations...
 
@@ -200,7 +200,7 @@ Start Time: 2025-12-30T04:09:56Z
   Subagents Recorded: 5/5
   Metadata Accuracy: VERIFIED
   Timestamp Format: VALID
-End Time: 2025-12-30T04:09:56Z
+End Time: 2025-12-30T04:24:36Z
 ================================================================
 agent recording accuracy...
 ASSERT PASSED: Exactly 5 subagent invocations recorded

@@ -9,6 +9,7 @@ Commands:
 - phase-check: Validate transition (exit 0=allowed, 1=blocked, 2=missing subagents)
 - phase-complete: Mark phase done (exit 0=success, 1=incomplete)
 - phase-status: Show current state (exit 0=success, 1=not found)
+- phase-record: Record subagent invocation (exit 0=recorded, 1=not found, 2=error)
 """
 
 import json
@@ -337,3 +338,62 @@ def phase_status_command(
         else:
             print(f"ERROR: {e}")
         return 1
+
+
+def phase_record_command(
+    story_id: str,
+    phase: str,
+    subagent: str,
+    project_root: str,
+    format: str = "text"
+) -> int:
+    """
+    Record a subagent invocation for a phase.
+
+    Args:
+        story_id: Story identifier (e.g., "STORY-001")
+        phase: Phase ID (e.g., "02")
+        subagent: Subagent name that was invoked
+        project_root: Project root directory
+        format: Output format ("text" or "json")
+
+    Returns:
+        Exit code: 0=recorded, 1=not found, 2=error
+    """
+    try:
+        ps = _get_phase_state(project_root)
+        success = ps.record_subagent(story_id, phase, subagent)
+
+        if not success:
+            if format == "json":
+                print(json.dumps({
+                    "success": False,
+                    "error": "State file not found",
+                    "story_id": story_id
+                }))
+            else:
+                print(f"State file not found for {story_id}")
+            return 1
+
+        if format == "json":
+            print(json.dumps({
+                "success": True,
+                "story_id": story_id,
+                "phase": phase,
+                "subagent": subagent
+            }))
+        else:
+            print(f"Recorded subagent '{subagent}' for {story_id} phase {phase}")
+
+        return 0
+
+    except Exception as e:
+        if format == "json":
+            print(json.dumps({
+                "success": False,
+                "error": str(e),
+                "story_id": story_id
+            }))
+        else:
+            print(f"ERROR: {e}")
+        return 2

@@ -2,7 +2,7 @@
 id: STORY-151
 title: Post-Subagent Recording Hook
 type: feature
-status: Dev Complete
+status: QA Approved
 priority: High
 story-points: 2
 epic: EPIC-031
@@ -320,7 +320,7 @@ technical_specification:
 
 ## Workflow Status
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 **Created:** 2025-12-24
 **Last Updated:** 2025-12-28
 
@@ -330,3 +330,12 @@ technical_specification:
 | 2025-12-24 | - | Backlog | DevForgeAI | Story created via /create-missing-stories EPIC-031 |
 | 2025-12-28 | Backlog | In Development | DevForgeAI | /dev STORY-151 started |
 | 2025-12-28 | In Development | Dev Complete | DevForgeAI | TDD workflow complete, 69 tests passing |
+| 2025-12-28 | Dev Complete | QA Approved | DevForgeAI | Deep QA validation passed, 58/58 tests, 95% coverage |
+
+---
+
+## QA Validation History
+
+| Date | Mode | Result | Tests | Coverage | Report |
+|------|------|--------|-------|----------|--------|
+| 2025-12-28 | deep | PASSED | 58/58 | 95% | [STORY-151-qa-report.md](../../qa/reports/STORY-151-qa-report.md) |

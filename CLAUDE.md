@@ -188,6 +188,7 @@ Enable 35-40% time reduction through parallel execution patterns.
 | dev-result-interpreter | Interprets development workflow results from devforgeai-development skill exe... | Read, Grep, Glob |
 | documentation-writer | Technical documentation expert. Use proactively after API implementation, whe... | Read, Write, Edit, Grep, Glob |
 | file-overlap-detector | Detect file overlaps between parallel stories using spec-based pre-flight and... | Read, Glob, Grep, Bash(git:*) |
+| framework-analyst | DevForgeAI framework expert that synthesizes workflow observations into actio... | Read, Grep, Glob |
 | frontend-developer | Frontend development expert specializing in modern component-based architectu... | Read, Write, Edit, Grep, Glob, Bash(npm:*) |
 | git-validator | Git repository validation and workflow strategy specialist. Checks Git availa... | Bash, Read |
 | git-worktree-manager | Git worktree management for parallel story development. Creates isolated work... | Bash, Read, Glob, Grep |
