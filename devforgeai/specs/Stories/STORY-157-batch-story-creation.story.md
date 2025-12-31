@@ -6,7 +6,7 @@ epic: EPIC-032
 priority: Medium
 points: 5
 depends_on: ["STORY-155", "STORY-156"]
-status: Backlog
+status: Dev Complete
 created: 2025-12-25
 ---
 
@@ -49,6 +49,28 @@ created: 2025-12-25
 **Given** all selected recommendations have been processed
 **When** batch creation completes
 **Then** display summary: "✅ Created: N stories" and "❌ Failed: M stories" with story IDs and failure reasons
+
+## CRITICAL: Constitutional Document Requirements
+
+**BEFORE generating tests or implementation, Claude MUST read ALL 6 DevForgeAI constitutional documents:**
+
+1. `devforgeai/specs/context/tech-stack.md` - Framework implementation constraints
+2. `devforgeai/specs/context/source-tree.md` - Directory structure rules
+3. `devforgeai/specs/context/dependencies.md` - Framework dependencies
+4. `devforgeai/specs/context/coding-standards.md` - Code patterns
+5. `devforgeai/specs/context/architecture-constraints.md` - Design rules
+6. `devforgeai/specs/context/anti-patterns.md` - Forbidden patterns
+
+**Key Constraints for This Story:**
+- `.claude/commands/` contains **Markdown files ONLY** (not JavaScript modules)
+- Framework components are **pseudocode in Markdown** - NOT executable code
+- Commands invoke skills and subagents via `Skill()` and `Task()` - NOT function calls
+- Tests for Markdown commands are **shell/Bash tests** validating Claude execution output
+
+**Failure Mode (Documented 2025-12-30):**
+Previous test-automator session generated Jest tests expecting a `.js` module at `.claude/commands/batch-story-creator.js`, violating tech-stack.md lines 22-25 and source-tree.md line 562 which prohibit executable code in `.claude/commands/`.
+
+---
 
 ## Technical Specification
 
@@ -170,28 +192,50 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] Batch context marker mapping implemented
-- [ ] devforgeai-story-creation skill invocation in batch mode
-- [ ] Sequential processing with progress display
-- [ ] Failure handling with continuation
-- [ ] Success/failure summary report
+- [x] Batch context marker mapping implemented
+- [x] devforgeai-story-creation skill invocation in batch mode
+- [x] Sequential processing with progress display
+- [x] Failure handling with continuation
+- [x] Success/failure summary report
 
 ### Quality
-- [ ] All 5 acceptance criteria have passing tests
-- [ ] Stories match quality of manual creation
-- [ ] Failures logged with actionable messages
+- [x] All 5 acceptance criteria have passing tests
+- [ ] Stories match quality of manual creation - DEFERRED: Requires runtime comparison during QA (User approved: 2025-12-30)
+- [x] Failures logged with actionable messages
 
 ### Testing
-- [ ] Unit test for marker mapping
-- [ ] Integration test with skill invocation
-- [ ] End-to-end test with real RCA
+- [x] Unit test for marker mapping
+- [x] Integration test with skill invocation
+- [ ] End-to-end test with real RCA - DEFERRED: Requires actual RCA execution during QA (User approved: 2025-12-30)
 
 ### Documentation
-- [ ] Batch creation flow documented
-- [ ] Failure recovery documented
+- [x] Batch creation flow documented
+- [x] Failure recovery documented
+
+## Implementation Notes
+
+- [x] Batch context marker mapping implemented - Completed: Maps RCA recommendation fields to story batch context markers (AC#1)
+- [x] devforgeai-story-creation skill invocation in batch mode - Completed: Invokes skill with --batch flag, skips Phase 1 questions (AC#2)
+- [x] Sequential processing with progress display - Completed: FOR loop with "[N/Total] Creating: {title}" format (AC#3)
+- [x] Failure handling with continuation - Completed: BR-004 failure isolation, tracks failed_stories array (AC#4)
+- [x] Success/failure summary report - Completed: Displays "✅ Created: N" and "❌ Failed: M" with details (AC#5)
+- [x] All 5 acceptance criteria have passing tests - Completed: 7/7 Bash tests pass
+- [x] Failures logged with actionable messages - Completed: Error types and recovery documented in Error Handling section
+- [x] Unit test for marker mapping - Completed: test-ac1-marker-mapping.sh validates AC#1
+- [x] Integration test with skill invocation - Completed: test-ac2-batch-mode-invocation.sh validates AC#2
+- [x] Batch creation flow documented - Completed: batch-creation-workflow.md reference file (321 lines)
+- [x] Failure recovery documented - Completed: Error Handling section with 4 error types
+- [x] Refactored from 800 lines to 278 lines with progressive disclosure pattern
+- [ ] Stories match quality of manual creation - DEFERRED: Requires runtime comparison during QA (User approved: 2025-12-30)
+- [ ] End-to-end test with real RCA - DEFERRED: Requires actual RCA execution during QA (User approved: 2025-12-30)
+
+**Developer:** claude/opus
+**Implemented:** 2025-12-30
 
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-25 | DevForgeAI | Story created via /create-missing-stories batch mode |
+| 2025-12-30 | claude/opus | Added CRITICAL section: Constitutional document requirements after test-automator generated incorrect Jest tests expecting .js module |
+| 2025-12-30 | claude/test-automator | Red (Phase 02) | Generated 7 failing Bash test files validating command file structure | devforgeai/tests/STORY-157/ |
