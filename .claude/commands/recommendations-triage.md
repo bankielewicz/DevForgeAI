@@ -1,7 +1,7 @@
 ---
 description: Triage AI-generated framework improvement recommendations into stories
 argument-hint: [--priority=HIGH|MEDIUM|LOW] [--limit=N]
-model: haiku
+model: opus
 allowed-tools: Read, Glob, Write, Skill, AskUserQuestion, TodoWrite
 ---
 

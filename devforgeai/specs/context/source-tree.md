@@ -107,13 +107,24 @@ DevForgeAI2/
 │   │   │           └── terminal-component-template.md
 │   │   ├── devforgeai-development/
 │   │   │   ├── SKILL.md
-│   │   │   └── references/
+│   │   │   ├── phases/              # Phase-specific execution guides (10 phases)
+│   │   │   │   ├── phase-01-preflight.md
+│   │   │   │   ├── phase-02-test-first.md
+│   │   │   │   ├── phase-03-implementation.md
+│   │   │   │   ├── phase-04-refactoring.md
+│   │   │   │   ├── phase-05-integration.md
+│   │   │   │   ├── phase-06-deferral.md
+│   │   │   │   ├── phase-07-dod-update.md
+│   │   │   │   ├── phase-08-git-workflow.md
+│   │   │   │   ├── phase-09-feedback.md
+│   │   │   │   └── phase-10-result.md
+│   │   │   └── references/          # Deep documentation (loaded on demand)
 │   │   │       ├── preflight-validation.md
 │   │   │       ├── tdd-red-phase.md
 │   │   │       ├── tdd-green-phase.md
 │   │   │       ├── tdd-refactor-phase.md
 │   │   │       ├── integration-testing.md
-│   │   │       ├── phase-4.5-deferral-challenge.md
+│   │   │       ├── phase-06-deferral-challenge.md
 │   │   │       ├── dod-update-workflow.md
 │   │   │       ├── ac-checklist-update-workflow.md
 │   │   │       └── git-workflow-conventions.md
@@ -484,17 +495,31 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ✅ Keep SKILL.md under 1,000 lines (target: 500-800 lines)
 - ✅ Deep documentation goes in `references/` subdirectory
 - ✅ Templates and assets go in `assets/` subdirectory
+- ✅ Phase-specific execution guides go in `phases/` subdirectory (optional)
 - ❌ NO skills in root `.claude/` directory
 - ❌ NO executable scripts in skill directories (documentation only)
 
 **Naming Convention**: `devforgeai-[phase]` (e.g., `devforgeai-architecture`)
 
-**Example**:
+**Example** (simple skill):
+```
+.claude/skills/devforgeai-architecture/
+├── SKILL.md                 # Main skill (500-800 lines)
+└── references/              # Loaded on demand
+    ├── context-file-creation.md
+    └── adr-creation.md
+```
+
+**Example** (complex skill with phases):
 ```
 .claude/skills/devforgeai-development/
 ├── SKILL.md                 # Main skill (500-800 lines)
-└── references/              # Loaded on demand
-    ├── tdd-workflow-guide.md
+├── phases/                  # Phase-specific execution guides
+│   ├── phase-01-preflight.md
+│   ├── phase-02-test-first.md
+│   └── ...                  # (10 phases total)
+└── references/              # Deep documentation (loaded on demand)
+    ├── tdd-patterns.md
     └── refactoring-patterns.md
 ```
 

@@ -4,7 +4,7 @@
 **Reporter:** User
 **Component:** .claude/hooks/pre-tool-use.sh
 **Severity:** HIGH
-**Status:** Analysis Complete
+**Status:** IN_PROGRESS
 
 ---
 
@@ -233,6 +233,7 @@ done
 ### CRITICAL Priority
 
 **REC-1: Add Common Command Composition Patterns**
+**Implemented in:** STORY-195
 
 **Problem Addressed:** 90%+ of unknown commands use composition (`cd &&`, `python3 -c`, pipes) not in safe patterns
 
@@ -291,6 +292,7 @@ done
 ### HIGH Priority
 
 **REC-2: Add Pattern for Pipes and Redirects**
+**Implemented in:** STORY-196
 
 **Problem Addressed:** Commands with pipes (`|`), output redirection (`>`), and process substitution require approval even if base command is safe
 
@@ -347,6 +349,7 @@ done
 ### HIGH Priority
 
 **REC-3: Log Pattern Match Failures for Continuous Improvement**
+**Implemented in:** STORY-197
 
 **Problem Addressed:** No visibility into WHY commands don't match (helps identify missing patterns)
 
@@ -401,6 +404,7 @@ fi
 ### MEDIUM Priority
 
 **REC-4: Create Command Pattern Analysis Tool**
+**Implemented in:** STORY-198
 
 **Problem Addressed:** Future hook updates need data-driven pattern selection
 
@@ -494,6 +498,7 @@ python3 devforgeai/scripts/analyze-hook-patterns.py
 ### MEDIUM Priority
 
 **REC-5: Document Hook Design Philosophy and Update Process**
+**Implemented in:** STORY-199
 
 **Problem Addressed:** Future hook maintainers don't know criteria for adding patterns
 
@@ -567,6 +572,7 @@ Commands that are NOT:
 ### LOW Priority
 
 **REC-6: Add Telemetry for Hook Performance Metrics**
+**Implemented in:** STORY-200
 
 **Problem Addressed:** No visibility into hook effectiveness over time
 
@@ -598,25 +604,25 @@ Commands that are NOT:
 ## Implementation Checklist
 
 **Immediate (CRITICAL):**
-- [ ] Add 15 common composition patterns to SAFE_PATTERNS (REC-1)
+- [ ] Add 15 common composition patterns to SAFE_PATTERNS (REC-1): See STORY-195
 - [ ] Test with `cd`, `python3 -c`, `devforgeai` commands
 - [ ] Verify approval reduction (run 10 commands, should auto-approve)
 - [ ] Monitor logs for 24 hours
 
 **This Sprint (HIGH):**
-- [ ] Implement pipe/redirect handling (REC-2)
-- [ ] Add near-miss logging (REC-3)
+- [ ] Implement pipe/redirect handling (REC-2): See STORY-196
+- [ ] Add near-miss logging (REC-3): See STORY-197
 - [ ] Test combined changes
 - [ ] Verify 90%+ auto-approval rate
 
 **Next Sprint (MEDIUM):**
-- [ ] Create pattern analysis tool (REC-4)
-- [ ] Create hook documentation (REC-5)
+- [ ] Create pattern analysis tool (REC-4): See STORY-198
+- [ ] Create hook documentation (REC-5): See STORY-199
 - [ ] Run analysis monthly
 - [ ] Add top patterns from analysis
 
 **Backlog (LOW):**
-- [ ] Add hook telemetry (REC-6)
+- [ ] Add hook telemetry (REC-6): See STORY-200
 - [ ] Generate weekly effectiveness reports
 - [ ] Track approval rate trends
 

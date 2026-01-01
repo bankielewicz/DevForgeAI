@@ -4,7 +4,7 @@
 **Reporter:** User
 **Component:** devforgeai-development skill
 **Severity:** HIGH
-**Status:** IDENTIFIED
+**Status:** PARTIALLY ADDRESSED (REC-1 superseded by CLI gates, STORY-207/208/209/210 created 2025-01-01)
 **Related RCAs:** RCA-009 (Incomplete Skill Workflow), RCA-013 (Workflow Stops Before Completion), RCA-011 (Mandatory Phase Skipping)
 
 ---
@@ -868,35 +868,40 @@ Add Phase Validation Checkpoints for Phases 4.5-7 (REC-1 from RCA-018)
 
 ## Implementation Checklist
 
-**Phase 1: Critical Fixes (Week 1)**
-- [ ] Implement REC-1: Add Phase 4.5 Validation Checkpoint
-- [ ] Implement REC-1: Add Phase 4.5-5 Bridge Validation Checkpoint
-- [ ] Implement REC-1: Add Phase 5 Validation Checkpoint
-- [ ] Implement REC-1: Add Phase 6 Validation Checkpoint
-- [ ] Implement REC-1: Add Phase 7 Validation Checkpoint
-- [ ] Test all 5 checkpoints with sample story
-- [ ] Verify checkpoints HALT when steps missing
-- [ ] Verify checkpoints PASS when steps complete
+**Status Update (2025-01-01):** RCA-018 recommendations evaluated and stories created.
 
-**Phase 2: Enforcement Integration (Week 2)**
-- [ ] Implement REC-2: Modify TodoWrite usage pattern
-- [ ] Update all 7 phase transitions to use checkpoint-first pattern
-- [ ] Test that phase cannot be marked complete without checkpoint pass
-- [ ] Verify workflow blocks progression when checkpoint fails
+**REC-1 (CRITICAL): Phase Validation Checkpoints**
+- [x] ✅ SUPERSEDED by CLI validation gates (different, better approach)
+- [x] Skill restructured from 7 phases to 10 phases (Phases 01-10)
+- [x] CLI gates implemented: `devforgeai-validate phase-ready` and `devforgeai-validate phase-complete`
+- [x] Entry/exit gate pattern documented in SKILL.md (lines 234-259)
+- **Note:** Original inline checkpoints replaced by CLI-based validation
 
-**Phase 3: Recovery & Documentation (Week 2-3)**
-- [ ] Implement REC-3: Add Workflow Completion Self-Check
-- [ ] Test final self-check catches skipped phases
-- [ ] Implement REC-4: Add Phase Resumption Protocol
-- [ ] Test resumption from mid-workflow stop
-- [ ] Implement REC-5: Create PATTERNS.md knowledge base
-- [ ] Link RCA-018 to pattern in PATTERNS.md
+**REC-2 (HIGH): TodoWrite Integration with Gates**
+- [ ] **STORY-207:** Integrate TodoWrite with CLI Validation Gates
+- [ ] TodoWrite "completed" status tied to CLI gate exit code 0
+- [ ] Enforcement pattern documented in SKILL.md
 
-**Phase 4: Validation (Week 3)**
+**REC-3 (HIGH): Workflow Completion Self-Check**
+- [ ] **STORY-208:** Add Workflow Completion Self-Check Before Final Result
+- [ ] Count all 10 phases for "completed" status (10/10 required)
+- [ ] HALT if any phase not completed
+
+**REC-4 (MEDIUM): Phase Resumption Protocol**
+- [ ] **STORY-209:** Document Phase Resumption Protocol
+- [ ] User detection indicators documented
+- [ ] Claude resumption steps documented
+- [ ] Resume vs fresh start decision matrix
+
+**REC-5 (LOW): PATTERNS.md Knowledge Base**
+- [ ] **STORY-210:** Create PATTERNS.md for Recurring RCA Patterns
+- [ ] PATTERN-001 (Premature Workflow Completion) documented
+- [ ] Detection indicators and prevention strategies included
+
+**Validation (After Stories Implemented)**
 - [ ] Run `/dev` on 3 different stories
 - [ ] Verify: Zero phase skipping incidents
-- [ ] Verify: All checkpoints execute and validate correctly
-- [ ] Verify: User intervention not required for standard stories
+- [ ] Verify: Self-check catches any bypassed phases
 - [ ] Mark RCA-018 as RESOLVED
 
 ---

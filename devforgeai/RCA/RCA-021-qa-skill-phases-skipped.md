@@ -2,7 +2,7 @@
 
 **Date:** 2025-12-23
 **Severity:** HIGH
-**Status:** COMPLETE
+**Status:** STORIES CREATED (2025-01-01)
 **Component:** devforgeai-qa skill + /qa command orchestration
 **Reporter:** User feedback via /rca command
 
@@ -456,17 +456,19 @@ When creating new skill, use this pattern:
 
 ## Implementation Checklist
 
+**Status Update (2025-01-01):** Stories created for all 5 recommendations.
+
 **Critical (Block Release):**
-- [ ] REC-1: Add pre-skill execution checklist to CLAUDE.md
-- [ ] REC-2: Add Phase 0 Step 0.5 enforcement to devforgeai-qa SKILL.md
-- [ ] REC-3: Add pre-flight HALT logic to Phases 1-4
+- [ ] **STORY-215:** REC-1 - Add pre-skill execution checklist to CLAUDE.md
+- [ ] **STORY-216:** REC-2 - Add Phase 0 Step 0.5 enforcement to devforgeai-qa SKILL.md
+- [ ] **STORY-217:** REC-3 - Add pre-flight HALT logic to Phases 1-4
 
 **High (This Sprint):**
-- [ ] REC-4: Add TodoWrite status updates to devforgeai-qa phases
+- [ ] **STORY-218:** REC-4 - Add TodoWrite status updates to devforgeai-qa phases
 - [ ] Create test story and validate all REC-1 through REC-4
 
 **Medium (Next Sprint):**
-- [ ] REC-5: Create shared reference loader utility
+- [ ] **STORY-219:** REC-5 - Create shared reference loader utility
 - [ ] Refactor devforgeai-development, devforgeai-orchestration to use utility
 
 ---
@@ -505,4 +507,4 @@ When creating new skill, use this pattern:
 **Prepared by:** devforgeai-rca skill
 **Date:** 2025-12-23
 **Severity:** HIGH (workflow violation)
-**Status:** READY FOR IMPLEMENTATION
+**Status:** STORIES CREATED (STORY-215/216/217/218/219 created 2025-01-01)

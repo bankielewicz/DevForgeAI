@@ -185,6 +185,8 @@ When conditions create rationalization opportunity (QA Failed status, outcome se
 
 ### REC-1 (CRITICAL): Phase Gate Enforcement Mechanism
 
+**Status:** ✅ ALREADY IMPLEMENTED via CLI validation gates (Entry/Exit gates in all phase files)
+
 **Problem Addressed:** Phases can be skipped without barrier
 
 **Proposed Solution:**
@@ -307,6 +309,8 @@ AFTER invocation completes:
 
 ### REC-3 (HIGH): Recovery Mode Workflow Definition
 
+**Status:** ✅ ALREADY IMPLEMENTED via qa-deferral-recovery.md reference file
+
 **Problem Addressed:** No documented procedure for QA-Failed stories causes ambiguity
 
 **Proposed Solution:**
@@ -390,6 +394,8 @@ Defines explicit recovery mode with documented phases. Ensures that even in reco
 ---
 
 ### REC-4 (HIGH): Mandatory Deviation Consent
+
+**Implemented in:** [STORY-214](../specs/Stories/STORY-214-mandatory-deviation-consent-protocol.story.md)
 
 **Problem Addressed:** User preference can be misinterpreted as permission to skip phases
 
@@ -579,24 +585,24 @@ Recommendation: Run /rca to investigate missing phases
 
 ### Immediate (Next Sprint)
 
-- [ ] **REC-1:** Implement Phase Gate Enforcement
-  - [ ] Add Phase Transition Protocol to SKILL.md
-  - [ ] Test with 3+ sample stories
-  - [ ] Verify HALT behavior works correctly
+- [x] **REC-1:** Implement Phase Gate Enforcement → **✅ ALREADY IMPLEMENTED**
+  - [x] CLI Entry/Exit gates exist in all 10 phase files
+  - [x] `devforgeai-validate phase-check` and `phase-complete` commands
+  - [x] HALT behavior via exit codes (0=proceed, 1=blocked)
 
-- [ ] **REC-2:** Add Subagent Invocation Tracking
+- [ ] **REC-2:** Add Subagent Invocation Tracking → **PARTIAL (checkpoints exist, explicit TodoWrite tracking missing)**
   - [ ] Update Workflow Execution Checklist in SKILL.md
   - [ ] Test with Phase 1 execution
   - [ ] Verify TodoWrite audit trail visible
 
-- [ ] **REC-3:** Define Recovery Mode Workflow
-  - [ ] Add Step 0.8.5 to preflight-validation.md
-  - [ ] Test with QA-Failed story
-  - [ ] Verify recovery options work correctly
+- [x] **REC-3:** Define Recovery Mode Workflow → **✅ ALREADY IMPLEMENTED**
+  - [x] qa-deferral-recovery.md handles QA-Failed scenarios
+  - [x] QA failure context detection implemented
+  - [x] Recovery options with user prompts
 
 ### Later (2-3 Sprints)
 
-- [ ] **REC-4:** Add Deviation Consent Protocol
+- [ ] **REC-4:** Add Deviation Consent Protocol → **See STORY-214**
   - [ ] Add protocol to SKILL.md
   - [ ] Test with hypothetical deviation
   - [ ] Verify /rca invocation works

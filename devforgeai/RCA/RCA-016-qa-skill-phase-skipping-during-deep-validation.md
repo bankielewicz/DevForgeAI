@@ -4,7 +4,7 @@
 **Incident:** Claude skipped mandatory phases (2, 3, 4, 6, 7) during STORY-070 deep QA validation
 **Story:** STORY-070 (Framework Release Automation)
 **Severity:** HIGH
-**Status:** IMPLEMENTED (2025-12-01)
+**Status:** REGRESSED (Fixes lost in later refactoring - see Regression Record below)
 **Related RCAs:** RCA-009 (Incomplete Skill Workflow Execution), RCA-011 (Mandatory TDD Phase Skipping)
 
 ---
@@ -642,38 +642,28 @@ Load workflow references on-demand for implementation details.
 Priority order for implementing recommendations:
 
 **Immediate (This Sprint):**
-- [ ] **REC-1 (CRITICAL):** Add mandatory reference loading checkpoints to devforgeai-qa
-  - [ ] Update Phase 2 with checkpoint
-  - [ ] Update Phase 3 with checkpoint
-  - [ ] Update Phase 4 with checkpoint
-  - [ ] Update Phase 6 with checkpoint
-  - [ ] Update Phase 7 with checkpoint
-  - [ ] Test on STORY-001 (deep mode)
-  - [ ] Test on STORY-002 (light mode)
-  - [ ] Commit changes to git
+- [x] **REC-1 (CRITICAL):** Add mandatory reference loading checkpoints to devforgeai-qa
+  - [x] Original implementation: 2025-12-01 (commit 3654474c)
+  - **REGRESSED** - See Regression Record
+  - [ ] **NEW:** STORY-201 - Re-implement for 5-phase structure
 
 **This Sprint:**
-- [ ] **REC-2 (HIGH):** Add phase completion checklists
-  - [ ] Write checklist for Phase 2
-  - [ ] Write checklist for Phase 3
-  - [ ] Write checklist for Phase 4
-  - [ ] Write checklist for Phase 6
-  - [ ] Write checklist for Phase 7
-  - [ ] Test checklist display
-  - [ ] Commit changes
+- [x] **REC-2 (HIGH):** Add phase completion checklists
+  - [x] Original implementation: 2025-12-01 (commit 0d6744f2)
+  - **REGRESSED** - See Regression Record
+  - [ ] **NEW:** STORY-202 - Re-implement for 5-phase structure
 
-- [ ] **REC-3 (HIGH):** Create pattern recognition guide
-  - [ ] Write skill-execution-troubleshooting.md
-  - [ ] Add reference to CLAUDE.md
-  - [ ] Add reference to affected skills
-  - [ ] Test guide accessibility
-  - [ ] Commit changes
+- [x] **REC-3 (HIGH):** Create pattern recognition guide ✅ STILL PRESENT
+  - [x] Write skill-execution-troubleshooting.md
+  - [x] Contains "Progressive Disclosure Phase Skipping" pattern (lines 358-615)
+  - [x] Documents RCA-009, RCA-011, RCA-016
+  - [x] Not affected by regression
 
 **Next Sprint:**
-- [ ] **REC-4 (MEDIUM):** Clarify "on-demand" language
-  - [ ] Update line 77 in devforgeai-qa/SKILL.md
-  - [ ] Test readability
-  - [ ] Commit changes
+- [x] **REC-4 (MEDIUM):** Clarify "on-demand" language
+  - [x] Original implementation: 2025-12-01 (included in REC-1 commit)
+  - **REGRESSED** - See Regression Record
+  - [ ] **NEW:** Included in STORY-201 (AC-3)
 
 **Cross-Skill Application:**
 - [ ] Apply REC-1 pattern to devforgeai-development (addresses RCA-009, RCA-011)
@@ -835,4 +825,64 @@ Priority order for implementing recommendations:
 - [ ] Apply REC-1 pattern to devforgeai-development (addresses RCA-009, RCA-011)
 - [ ] Apply REC-1 pattern to devforgeai-orchestration
 - [ ] Apply REC-1 pattern to devforgeai-release
-- [ ] Create skill-execution-troubleshooting.md (REC-3)
+- [x] Create skill-execution-troubleshooting.md (REC-3) ✅ COMPLETE
+
+---
+
+## Regression Record (2025-01-01)
+
+**Discovery:** During `/create-stories-from-rca RCA-016` execution, deep-dive verification revealed RCA-016 fixes were lost.
+
+**Timeline:**
+| Date | Event | Impact |
+|------|-------|--------|
+| 2025-12-01 | REC-1, REC-2 implemented (commits 3654474c, 0d6744f2) | ✅ Fixes applied to 7-phase structure |
+| 2025-12-XX | Major skill refactoring (STORY-114/133) | ⚠️ Restructured to 5-phase workflow |
+| 2025-01-01 | Regression discovered via /create-stories-from-rca | ❌ REC-1/REC-2 fixes no longer present |
+
+**Evidence:**
+```
+Old Structure (at RCA-016 implementation):
+- 7 Phases (0.9, 1-7)
+- ⚠️ CHECKPOINT markers before each phase
+- Explicit "Load reference file (REQUIRED)" instructions
+- Phase completion checklists with checkboxes
+
+Current Structure (regressed):
+- 5 Phases (0-4)
+- Phase Pre-Flight markers (different mechanism)
+- No CHECKPOINT enforcement
+- No explicit reference loading requirements
+```
+
+**Git Evidence:**
+```
+Commit 3654474c: fix(RCA-016): Add mandatory reference loading checkpoints
+  - Added 116 lines to SKILL.md
+  - All REC-1 changes present
+
+Current HEAD:
+  - SKILL.md completely restructured (849 lines vs 486 lines)
+  - CHECKPOINT markers not present
+  - Reference loading enforcement lost
+```
+
+**Root Cause of Regression:**
+Later skill refactoring (likely STORY-114 or STORY-133) restructured the entire devforgeai-qa skill from 7 phases to 5 phases. The refactoring did not preserve the RCA-016 checkpoint enforcement patterns.
+
+**Current State by Recommendation:**
+| REC | Original Status | Current Status | Action Needed |
+|-----|-----------------|----------------|---------------|
+| REC-1 (CRITICAL) | ✅ Implemented | ❌ REGRESSED | See STORY-201 |
+| REC-2 (HIGH) | ✅ Implemented | ❌ REGRESSED | See STORY-202 |
+| REC-3 (HIGH) | ✅ Implemented | ✅ Still Present | None |
+| REC-4 (MEDIUM) | ✅ Implemented | ❌ REGRESSED | Included in STORY-201 |
+
+**New Stories Created:**
+- **STORY-201:** Re-implement REC-1 (Checkpoint Markers) for 5-phase structure
+- **STORY-202:** Re-implement REC-2 (Phase Completion Checklists) for 5-phase structure
+
+**Lessons Learned:**
+1. **Major refactorings must preserve RCA fixes** - Check RCA implementation records before restructuring
+2. **Add regression tests for RCA fixes** - Automated validation would have caught this
+3. **RCA status should be verified periodically** - Not just at implementation time

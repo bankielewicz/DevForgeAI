@@ -3,7 +3,7 @@
 **Date:** 2025-12-05
 **Severity:** HIGH
 **Component:** test-automator subagent
-**Status:** ANALYSIS COMPLETE
+**Status:** IN_PROGRESS
 
 ---
 
@@ -173,6 +173,7 @@ devforgeai-development skill Phase 1 invokes test-automator without setting expl
 ## Recommendations
 
 ### REC-1: CRITICAL - Add source-tree.md validation to test-automator Phase 2
+**Implemented in:** STORY-203
 
 **Priority:** CRITICAL - Prevents immediate constraint violations
 **Problem Addressed:** test-automator generates tests without validating correct directory location
@@ -291,6 +292,7 @@ This pattern already exists in devforgeai-development skill (Phase 0 reads and v
 ---
 
 ### REC-2: HIGH - Update ALL file-generation subagents with source-tree.md validation
+**Implemented in:** STORY-204
 
 **Priority:** HIGH - Prevents pattern from recurring in other file-generation subagents
 **Problem Addressed:** This issue could occur with any subagent that writes files
@@ -339,6 +341,7 @@ Validate all file_path parameters match source-tree.md constraints
 ---
 
 ### REC-3: MEDIUM - Create subagent design guidance document
+**Implemented in:** STORY-205
 
 **Priority:** MEDIUM - Prevents future designers from making same mistake
 **Problem Addressed:** Future subagent designers need clear guidance on which context files to validate
@@ -410,6 +413,7 @@ Write(file_path="installer/tests/test_version.py")
 ---
 
 ### REC-4: MEDIUM - Update devforgeai-development skill to explicitly pass source-tree context
+**Implemented in:** STORY-206
 
 **Priority:** MEDIUM - Provides redundant validation (defense in depth)
 **Problem Addressed:** The skill invoking test-automator doesn't provide explicit context about expected test location
@@ -502,15 +506,15 @@ This context is now available to test-automator subagent.
 
 ## Implementation Checklist
 
-- [ ] **REC-1:** Add Step 4.5 to test-automator.md
+- [ ] **REC-1:** Add Step 4.5 to test-automator.md: See STORY-203
 - [ ] Test REC-1 with new test story
 - [ ] Verify tests generate in correct installer/tests/ directory
 - [ ] Update test-automator References section with source-tree.md
-- [ ] **REC-2:** Audit 5 file-generation subagents
+- [ ] **REC-2:** Audit 5 file-generation subagents: See STORY-204
 - [ ] Apply source-tree.md validation to each
 - [ ] Run existing tests for each subagent
-- [ ] **REC-3:** Create subagent design guidance document
-- [ ] **REC-4:** Add context markers to devforgeai-development Phase 1
+- [ ] **REC-3:** Create subagent design guidance document: See STORY-205
+- [ ] **REC-4:** Add context markers to devforgeai-development Phase 1: See STORY-206
 - [ ] Manual testing: /dev with new story verifies context markers appear
 - [ ] Commit all changes with message referencing RCA-017
 

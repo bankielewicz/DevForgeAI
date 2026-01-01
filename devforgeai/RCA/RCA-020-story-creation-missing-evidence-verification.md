@@ -218,6 +218,7 @@ All 6 context files reviewed:
 ## Recommendations
 
 ### CRITICAL: REC-1 - Add Evidence-Verification Gate to Phase 3
+**Implemented in:** STORY-211
 
 **Priority:** CRITICAL
 **Component:** devforgeai-story-creation skill Phase 3
@@ -361,6 +362,7 @@ Evidence references:
 ---
 
 ### HIGH: REC-2 - Add Citation Validation to Phase 7 (Self-Validation)
+**Implemented in:** STORY-212
 
 **Priority:** HIGH
 **Component:** devforgeai-story-creation skill Phase 7
@@ -429,6 +431,7 @@ Evidence references:
 ---
 
 ### MEDIUM: REC-3 - Update /create-missing-stories Command Documentation
+**Implemented in:** STORY-213
 
 **Priority:** MEDIUM
 **Component:** .claude/commands/create-missing-stories.md
@@ -472,7 +475,7 @@ This ensures all created stories can be implemented without requiring post-hoc v
 
 ## Implementation Checklist
 
-**Phase 1: Evidence-Verification Gate (CRITICAL)**
+**Phase 1: Evidence-Verification Gate (CRITICAL)** - See STORY-211
 - [ ] Add "Evidence-Verification Pre-Flight" section to technical-specification-creation.md
 - [ ] Implement file reading and verification logic (Grep patterns for violations)
 - [ ] Create verified_violations YAML generation code
@@ -480,14 +483,14 @@ This ensures all created stories can be implemented without requiring post-hoc v
 - [ ] Test with false claims (verify HALT)
 - [ ] Test with valid claims (verify story creation + verified_violations)
 
-**Phase 2: Citation Validation (HIGH)**
+**Phase 2: Citation Validation (HIGH)** - See STORY-212
 - [ ] Add validation checklist to story-validation-workflow.md
 - [ ] Implement Phase 7 validation logic
 - [ ] Test validation catches missing verified_violations
 - [ ] Test validation catches generic descriptions
 - [ ] Test valid stories pass validation
 
-**Phase 3: Documentation Update (MEDIUM)**
+**Phase 3: Documentation Update (MEDIUM)** - See STORY-213
 - [ ] Update /create-missing-stories.md Implementation Notes
 - [ ] Document story quality requirements
 - [ ] Explain verification gate behavior
@@ -538,4 +541,4 @@ This ensures all created stories can be implemented without requiring post-hoc v
 
 **RCA-020 Created:** 2025-12-22
 **Severity:** HIGH
-**Status:** OPEN (Awaiting Implementation)
+**Status:** IN_PROGRESS

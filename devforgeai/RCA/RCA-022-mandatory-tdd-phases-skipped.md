@@ -187,6 +187,8 @@ Documented in: `.claude/skills/devforgeai-story-creation/references/story-type-c
 
 ### REC-1: CRITICAL - Complete Phase 07 (DoD Update) for STORY-128
 
+**Status:** ✅ ALREADY COMPLETED - STORY-128 has complete Implementation Notes section (lines 163-183)
+
 **Problem Addressed:** Phase 07 Bridge workflow never executed. Story file committed without Implementation Notes section and DoD completion markers.
 
 **Priority:** CRITICAL (blocks story completion evidence documentation)
@@ -255,6 +257,8 @@ Documented in: `.claude/skills/devforgeai-story-creation/references/story-type-c
 ---
 
 ### REC-2: CRITICAL - Implement Validation Checkpoints in Future TDD Workflows
+
+**Status:** ✅ ALREADY IMPLEMENTED - CLI Entry/Exit gates exist in all 10 phase files using `devforgeai-validate phase-check` and `phase-complete`
 
 **Problem Addressed:** Validation checkpoints exist in skill documentation but were never executed. These checkpoints are designed to HALT workflow if phases incomplete.
 
@@ -345,6 +349,8 @@ ELSE: Proceed to Phase 04
 
 ### REC-3: HIGH - Create Story to Fix STORY-128 Phase 07
 
+**Status:** ⚠️ OBSOLETE - STORY-129 exists but for different purpose (CLI Availability Check). REC-1 already resolved via direct update to STORY-128.
+
 **Problem Addressed:** STORY-128 needs complete Phase 07 execution to properly document completion evidence.
 
 **Priority:** HIGH (enables story to reach fully documented state)
@@ -397,6 +403,8 @@ This is necessary for story status to be fully documented as required by framewo
 ---
 
 ### REC-4: HIGH - Document Mandatory Execution Principle
+
+**Implemented in:** [STORY-220](../specs/Stories/STORY-220-mandatory-skill-execution-principle.story.md)
 
 **Problem Addressed:** Root cause shows gap between documentation and execution discipline. Need explicit clarity that skills are NOT guidelines.
 
@@ -462,33 +470,26 @@ This is necessary for story status to be fully documented as required by framewo
 
 ## Implementation Checklist
 
-- [ ] **REC-1 (CRITICAL):** Update STORY-128 story file with Implementation Notes
-  - [ ] Add Implementation Notes section with Developer, Implemented, Branch, Commit metadata
-  - [ ] Document all DoD items as completed with evidence
-  - [ ] Run validation: `devforgeai-validate validate-dod`
-  - [ ] Commit changes
-  - [ ] Estimated: 30-45 min
+- [x] **REC-1 (CRITICAL):** Update STORY-128 story file with Implementation Notes → **✅ ALREADY DONE**
+  - [x] Add Implementation Notes section with Developer, Implemented, Branch, Commit metadata
+  - [x] Document all DoD items as completed with evidence
+  - [x] Run validation: `devforgeai-validate validate-dod`
+  - [x] Commit changes
+  - [x] Completed: 2025-12-23
 
-- [ ] **REC-2 (CRITICAL):** Implement validation checkpoints in next TDD workflow
-  - [ ] Execute Phase 02→03 validation checkpoint
-  - [ ] Execute Phase 03→04 validation checkpoint
-  - [ ] Execute Phase 04→05 validation checkpoint
-  - [ ] Execute Phase 05→06 validation checkpoint (if applicable)
-  - [ ] Execute Phase 06→07 validation checkpoint
-  - [ ] Execute Phase 07→08 validation checkpoint
-  - [ ] Document evidence for all [MANDATORY] subagents
-  - [ ] HALT immediately if any subagent missing
-  - [ ] Estimated: 10-15 min per workflow
+- [x] **REC-2 (CRITICAL):** Implement validation checkpoints in next TDD workflow → **✅ ALREADY IMPLEMENTED**
+  - [x] CLI Entry gates: `devforgeai-validate phase-check --from=N-1 --to=N`
+  - [x] CLI Exit gates: `devforgeai-validate phase-complete --phase=N`
+  - [x] All 10 phase files have Entry/Exit gate commands
+  - [x] External validation (not self-enforced checkpoints)
+  - [x] HALT behavior via exit codes (0=proceed, 1=blocked)
 
-- [ ] **REC-3 (HIGH):** Create STORY-129 for STORY-128 Phase 07 completion
-  - [ ] Run: `/create-story "Complete STORY-128 Phase 07 Documentation"`
-  - [ ] Implementation notes documented in story
-  - [ ] Run: `/dev STORY-129` (complete TDD workflow with validation checkpoints)
-  - [ ] Run: `/qa STORY-129`
-  - [ ] Verify STORY-128 has Implementation Notes section
-  - [ ] Estimated: 4 hours (2 story points)
+- [x] **REC-3 (HIGH):** Create STORY-129 for STORY-128 Phase 07 completion → **⚠️ OBSOLETE**
+  - [x] STORY-129 exists but for different purpose (CLI Availability Check)
+  - [x] REC-1 already completed STORY-128 Implementation Notes directly
+  - [x] No remediation story needed
 
-- [ ] **REC-4 (HIGH):** Update CLAUDE.md with mandatory execution principle
+- [ ] **REC-4 (HIGH):** Update CLAUDE.md with mandatory execution principle → **See STORY-220**
   - [ ] Add "CRITICAL: No Deviation from Skill Phases" section
   - [ ] Include examples of wrong vs right behavior
   - [ ] Update CLAUDE.md in git
