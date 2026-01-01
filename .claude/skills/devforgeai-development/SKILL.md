@@ -356,7 +356,7 @@ Phase state file creation via `devforgeai-validate phase-init` (or `devforgeai-v
 
 ## Phase 01: Pre-Flight
 
-Context validation, Git status, story loading. Subagents: git-validator, tech-stack-detector.
+Context validation, Git status, story loading. Includes RCA-008 user consent checkpoints (Steps 0.1.5-0.1.6) for git operations affecting >10 files. Subagents: git-validator (with enhanced file analysis), tech-stack-detector.
 
 ## Phase 02: Test-First (Red)
 
@@ -453,14 +453,14 @@ Load on-demand during workflow execution:
 
 ### Supporting References (in references/ directory)
 - **parameter-extraction.md** - Story ID extraction
-- **preflight-validation.md** - Phase 01 detailed workflow
+- **preflight-validation.md** - Phase 01 detailed workflow (includes RCA-008 Steps 0.1.5-0.1.6 for user consent)
 - **tdd-red-phase.md** - Phase 02 detailed workflow
 - **tdd-green-phase.md** - Phase 03 detailed workflow
 - **tdd-refactor-phase.md** - Phase 04 detailed workflow
 - **integration-testing.md** - Phase 05 detailed workflow
 - **phase-06-deferral-challenge.md** - Phase 06 detailed workflow
 - **dod-update-workflow.md** - Phase 07 detailed workflow
-- **git-workflow-conventions.md** - Phase 08 detailed workflow
+- **git-workflow-conventions.md** - Phase 08 detailed workflow (includes RCA-008 Git Stash Safety Protocol)
 - **tdd-patterns.md** - Comprehensive TDD guidance
 - **ambiguity-protocol.md** - When to ask user questions
 
@@ -565,3 +565,11 @@ Backup of original: `SKILL.md.backup-1240-lines`
 - CLI enforcement (blocking gates)
 - State persistence (resume from any phase)
 - Audit trail (subagent invocations recorded)
+
+---
+
+## Change Log
+
+| Date | Change | Reference |
+|------|--------|-----------|
+| 2025-11-13 | Added RCA-008 git safety enhancements: user consent checkpoint (Step 0.1.5), stash warning workflow (Step 0.1.6), smart stash strategy, git-validator file analysis (Phase 2.5) | RCA-008 |

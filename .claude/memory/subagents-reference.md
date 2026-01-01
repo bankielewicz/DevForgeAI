@@ -120,7 +120,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **deferral-validator** | Deferral justification validation, circular detection | haiku | <5K | Before commits (dev), before QA approval (qa) |
 | **technical-debt-analyzer** | Debt trend analysis, pattern detection, reporting | sonnet | <30K | Sprint planning, retrospectives, debt reviews |
 | **tech-stack-detector** | Technology detection and tech-stack.md validation | haiku | <10K | Development workflow init, architecture validation |
-| **git-validator** | Git availability check and workflow strategy | haiku | <5K | Before development workflows, release validation |
+| **git-validator** | Git availability check, workflow strategy, and enhanced file analysis (RCA-008 Phase 2.5) | haiku | <5K | Before development workflows, release validation (enhanced with file categorization per RCA-008) |
 | **qa-result-interpreter** | QA result interpretation and display generation | haiku | <8K | After QA report generation, before user display (NEW - QA Refactoring) |
 | **sprint-planner** | Sprint creation and capacity validation | sonnet | <40K | Sprint planning, story selection, capacity validation (NEW - Sprint Refactoring) |
 | **ui-spec-formatter** | UI spec validation and display generation | haiku | <10K | After UI spec generation, before user display (NEW - UI Refactoring 2025-11-05) |
@@ -166,7 +166,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 ## Subagent Integration with Skills
 
 **devforgeai-development** uses:
-- **git-validator** (NEW - Phase 0 Step 1)
+- **git-validator** (Phase 01 Step 1) - Enhanced with RCA-008 file categorization (story_files, code, cache) and user consent recommendations
 - **tech-stack-detector** (NEW - Phase 0 Step 7)
 - test-automator → backend-architect/frontend-developer → context-validator → refactoring-specialist + code-reviewer (enhanced with deferral review) → integration-tester → **deferral-validator** (Phase 5 Step 1.5)
 - requirements-analyst (when creating follow-up stories for deferrals)
