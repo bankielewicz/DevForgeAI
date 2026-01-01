@@ -1,0 +1,281 @@
+================================================================================
+STORY-159: TEST GENERATION COMPLETE (TDD Red Phase)
+================================================================================
+
+Story: STORY-159 - Create /create-stories-from-rca Command Shell
+Status: All failing tests generated (expected before implementation)
+Framework: Bash shell scripts (DevForgeAI standard)
+Date: 2025-12-31
+
+================================================================================
+DELIVERABLES SUMMARY
+================================================================================
+
+Test Files Created (5):
+  1. /mnt/c/Projects/DevForgeAI2/tests/STORY-159/test-ac1-command-file-creation.sh
+  2. /mnt/c/Projects/DevForgeAI2/tests/STORY-159/test-ac2-argument-parsing.sh
+  3. /mnt/c/Projects/DevForgeAI2/tests/STORY-159/test-ac3-help-text.sh
+  4. /mnt/c/Projects/DevForgeAI2/tests/STORY-159/test-ac4-invalid-arguments.sh
+  5. /mnt/c/Projects/DevForgeAI2/tests/STORY-159/test-ac5-orchestration.sh
+
+Supporting Files:
+  - /mnt/c/Projects/DevForgeAI2/tests/STORY-159/RUN_ALL_TESTS.sh (test runner)
+  - /mnt/c/Projects/DevForgeAI2/.claude/plans/STORY-159-test-generation-plan.md (plan)
+  - /mnt/c/Projects/DevForgeAI2/STORY-159-TEST-GENERATION-SUMMARY.md (summary)
+
+Total Test Cases: 28 (all currently failing)
+
+================================================================================
+TEST COVERAGE BY ACCEPTANCE CRITERIA
+================================================================================
+
+AC#1: Create Command File with YAML Frontmatter
+  Tests: 7
+  File: test-ac1-command-file-creation.sh
+  Coverage:
+    - Command file exists at .claude/commands/create-stories-from-rca.md
+    - YAML frontmatter has all required fields
+    - Field validation: name, description, argument-hint, allowed-tools, model
+
+AC#2: Implement Argument Parsing and Validation
+  Tests: 5
+  File: test-ac2-argument-parsing.sh
+  Coverage:
+    - RCA-NNN format validation (exactly 3 digits)
+    - Case-insensitive parsing (rca-022 → RCA-022)
+    - RCA file location in devforgeai/RCA/
+    - Invalid format rejection
+
+AC#3: Implement Help Text
+  Tests: 5
+  File: test-ac3-help-text.sh
+  Coverage:
+    - --help flag displays help
+    - help argument displays help
+    - Usage information included
+    - Examples included
+    - Related commands referenced
+
+AC#4: Handle Invalid Arguments
+  Tests: 5
+  File: test-ac4-invalid-arguments.sh
+  Coverage:
+    - Missing argument error message
+    - Format guidance in errors
+    - Available RCA list in errors
+    - Non-existent RCA error
+    - Actionable error guidance
+
+AC#5: Orchestrate to Story Creation Components
+  Tests: 6
+  File: test-ac5-orchestration.sh
+  Coverage:
+    - Skill/Task invocation for story creation
+    - STORY-155 reference (RCA Parser)
+    - STORY-156 reference (Recommendation Selector)
+    - STORY-157 reference (Batch Story Creator)
+    - STORY-158 reference (RCA Story Linker)
+    - File size < 15,000 characters (BR-001)
+
+TOTAL: 28 tests covering 100% of acceptance criteria
+
+================================================================================
+CURRENT TEST STATUS: RED PHASE (All Failing)
+================================================================================
+
+Expected Failures (Before Implementation):
+
+test-ac1-command-file-creation.sh:      7/7 FAIL
+  Reason: Command file does not exist
+
+test-ac2-argument-parsing.sh:           5/5 FAIL
+  Reason: No argument parsing logic implemented
+
+test-ac3-help-text.sh:                  5/5 FAIL
+  Reason: No help text documentation
+
+test-ac4-invalid-arguments.sh:          5/5 FAIL
+  Reason: No error handling implemented
+
+test-ac5-orchestration.sh:              6/6 FAIL
+  Reason: No skill orchestration implemented
+
+Total: 28/28 FAIL (EXPECTED FOR TDD RED PHASE)
+
+================================================================================
+HOW TO RUN TESTS
+================================================================================
+
+Run All Tests:
+  $ cd /mnt/c/Projects/DevForgeAI2
+  $ bash tests/STORY-159/RUN_ALL_TESTS.sh
+
+Run Individual Test Suite:
+  $ bash tests/STORY-159/test-ac1-command-file-creation.sh
+  $ bash tests/STORY-159/test-ac2-argument-parsing.sh
+  $ bash tests/STORY-159/test-ac3-help-text.sh
+  $ bash tests/STORY-159/test-ac4-invalid-arguments.sh
+  $ bash tests/STORY-159/test-ac5-orchestration.sh
+
+Expected Output:
+  Each test will show:
+    - Test name and number
+    - "✗ FAIL" status with reason
+    - Final summary showing all failures
+
+================================================================================
+WHAT NEEDS TO BE IMPLEMENTED (NEXT PHASE)
+================================================================================
+
+To transition from RED to GREEN phase, implement:
+
+1. COMMAND FILE STRUCTURE
+   File: .claude/commands/create-stories-from-rca.md
+
+   YAML Frontmatter Required:
+   - name: create-stories-from-rca
+   - description: Create user stories from RCA recommendations
+   - argument-hint: "RCA-NNN [--help]"
+   - allowed-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion, Skill, TodoWrite]
+   - model: sonnet
+
+2. ARGUMENT PARSING
+   - Parse RCA ID argument (format: RCA-NNN)
+   - Normalize case (rca-022 → RCA-022)
+   - Validate exactly 3 digits
+   - Check RCA file exists in devforgeai/RCA/
+
+3. HELP TEXT
+   - Document --help flag
+   - Document help argument
+   - Provide usage examples
+   - List related commands
+
+4. ERROR HANDLING
+   - Clear error for missing arguments
+   - Format guidance for invalid RCA IDs
+   - List available RCAs in errors
+   - Actionable error messages
+
+5. ORCHESTRATION
+   - Invoke story creation workflow
+   - Reference STORY-155 (RCA Parser)
+   - Reference STORY-156 (Recommendation Selector)
+   - Reference STORY-157 (Batch Story Creator)
+   - Reference STORY-158 (RCA Story Linker)
+   - Keep file < 15,000 characters (BR-001)
+
+================================================================================
+TEST DESIGN HIGHLIGHTS
+================================================================================
+
+AAA Pattern (Arrange, Act, Assert)
+  Each test follows standard pattern for clarity
+
+Reusable Assertions
+  Functions like assert_file_exists() reduce code duplication
+
+Color-Coded Output
+  GREEN for passes, RED for failures, YELLOW for test labels
+
+Detailed Error Messages
+  Each failure explains exactly what went wrong
+
+Bash Standard
+  Tests use only bash builtins and POSIX commands (portable)
+
+================================================================================
+VALIDATION CHECKLIST
+================================================================================
+
+Tests Validate:
+  [✓] AC#1: Command file structure
+  [✓] AC#2: Argument parsing and validation
+  [✓] AC#3: Help text implementation
+  [✓] AC#4: Error handling
+  [✓] AC#5: Orchestration and story references
+  [✓] BR-001: Size limit (< 15K characters)
+  [✓] BR-002: Case-insensitive RCA ID
+  [✓] BR-003: File existence check
+  [✓] Tech Spec: YAML frontmatter compliance
+  [✓] Tech Spec: Allowed tools validation
+  [✓] Tech Spec: Model field (sonnet)
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+Phase 03 (TDD Green):
+  1. Implement command file: .claude/commands/create-stories-from-rca.md
+  2. Add YAML frontmatter with all required fields
+  3. Implement argument parsing (RCA-NNN validation)
+  4. Add help text documentation
+  5. Add error handling for invalid inputs
+  6. Add orchestration to story creation skills
+  7. Run tests: bash tests/STORY-159/RUN_ALL_TESTS.sh
+  8. Verify all 28 tests pass
+
+Phase 04 (Refactor):
+  1. Review command for code quality
+  2. Extract common logic if needed
+  3. Improve documentation
+  4. Verify DevForgeAI patterns followed
+
+Phase 05+ (Integration, DoD, Git, Release):
+  Continue with devforgeai-development skill workflow
+
+================================================================================
+REFERENCES
+================================================================================
+
+Story File:
+  /mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-159-create-stories-from-rca-command.story.md
+
+Test Plan:
+  /mnt/c/Projects/DevForgeAI2/.claude/plans/STORY-159-test-generation-plan.md
+
+Test Summary:
+  /mnt/c/Projects/DevForgeAI2/STORY-159-TEST-GENERATION-SUMMARY.md
+
+Source Tree:
+  /mnt/c/Projects/DevForgeAI2/devforgeai/specs/context/source-tree.md
+
+Tech Stack:
+  /mnt/c/Projects/DevForgeAI2/devforgeai/specs/context/tech-stack.md
+
+================================================================================
+TDD WORKFLOW OVERVIEW
+================================================================================
+
+PHASE 1 (RED - CURRENT):
+  ✓ All tests written and failing
+  ✓ Tests directly from acceptance criteria
+  ✓ No implementation yet
+  Current Status: COMPLETE
+
+PHASE 2 (GREEN - NEXT):
+  - Implement code to pass tests
+  - Minimal implementation, no extra features
+  - Run tests until all pass
+
+PHASE 3 (REFACTOR):
+  - Improve code quality
+  - Reduce duplication
+  - Keep tests green throughout
+
+PHASE 4+ (INTEGRATION, QA, RELEASE):
+  - Integration testing
+  - Final validation
+  - Release preparation
+
+================================================================================
+STATUS: RED PHASE COMPLETE
+================================================================================
+
+All 28 tests generated, organized, and validated to fail as expected.
+Ready to proceed with implementation (TDD Green phase).
+
+For questions or to proceed with implementation, run:
+  /dev STORY-159
+
+================================================================================

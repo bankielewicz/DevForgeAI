@@ -1,0 +1,119 @@
+STORY-158 CROSS-COMPONENT INTEGRATION VALIDATION - COMPLETE
+================================================================
+
+Story ID: STORY-158: RCA-Story Linking
+Validation Type: Framework Documentation Story Integration
+Implementation: Phase 11 of /create-stories-from-rca command
+Validation Date: 2025-12-31
+
+VALIDATION RESULT: PASS
+=====================
+
+All integration points verified successfully. STORY-158 Phase 11 (RCA-Story Linking)
+properly integrates with the existing command structure and dependency chain.
+
+INTEGRATION POINTS VALIDATED:
+============================
+
+1. Phase Flow Integration
+   ✓ Entry gate properly references Phase 10 completion
+   ✓ Exit gate marks Phase 11 completion
+   ✓ Phase Overview table includes Phase 11 (line 65)
+   ✓ All phases 1-11 properly chained in workflow
+
+2. Data Flow Integration
+   ✓ Receives created_stories array from Phase 10
+   ✓ Uses source_recommendation field for linking
+   ✓ Uses story_id for RCA updates
+   ✓ Properly handles failed_stories array
+
+3. Acceptance Criteria Coverage
+   ✓ AC#1: Update Implementation Checklist with story refs (lines 220-237)
+   ✓ AC#2: Add inline story references (lines 239-263)
+   ✓ AC#3: Preserve original RCA content (lines 265-269)
+   ✓ AC#4: Handle partial story creation (lines 271-283)
+   ✓ AC#5: Update RCA status field (lines 285-300)
+
+4. Business Rules Implementation
+   ✓ BR-001: Traceability - bidirectional linking
+   ✓ BR-002: Idempotency - prevents duplicate linking
+   ✓ BR-003: Partial Linking - only created stories linked
+   ✓ BR-004: Status Transition - IN_PROGRESS only when all linked
+
+5. Framework Documentation Standards
+   ✓ Validation Checkpoint present (lines 331-342)
+   ✓ Observation Capture protocol documented (lines 346-367)
+   ✓ YAML frontmatter complete
+   ✓ All edge cases listed
+   ✓ Error handling specified
+
+6. Dependency Chain
+   ✓ STORY-155 (RCA Parser) → provides document structure
+   ✓ STORY-156 (Interactive Selection) → provides selected recommendations
+   ✓ STORY-157 (Batch Creation) → provides created_stories array
+   ✓ STORY-158 (RCA Linking) → consumes created_stories, updates RCA
+
+FINDINGS:
+=========
+
+CRITICAL ISSUES: None
+HIGH-PRIORITY ISSUES: None
+MEDIUM-PRIORITY ISSUES:
+  • Line 327: References non-existent linking-workflow.md
+    (Phase 11 is fully inline - correct; update comment only)
+
+LOW-PRIORITY ISSUES:
+  • Line 333: References "Phase 12" not yet documented
+    (Minor wording clarity)
+
+COMPLIANCE MATRIX:
+==================
+
+| Dimension | Status | Evidence |
+|-----------|--------|----------|
+| Phase flow | PASS | Entry/exit gates correctly specified |
+| Data flow | PASS | Input from Phase 10 fully utilized |
+| AC coverage | PASS | All 5 AC fully implemented |
+| BR coverage | PASS | All business rules documented |
+| Edge cases | PASS | Partial creation & idempotency handled |
+| Framework | PASS | Checkpoint & observation capture present |
+| Story file | PASS | Inline implementation matches story AC |
+| Dependencies | PASS | STORY-155→156→157→158 chain intact |
+
+DETAILED REPORT:
+================
+
+Full validation report available at:
+  /mnt/c/Projects/DevForgeAI2/devforgeai/qa/STORY-158-integration-validation.md
+
+NEXT STEPS:
+===========
+
+1. Review integration validation report (see path above)
+2. (Optional) Apply recommended documentation fixes:
+   - Update line 327 reference comment
+   - Clarify or remove Phase 12 reference (line 333)
+3. Proceed with Phase 6 development/documentation work for STORY-158
+
+COMMAND FILE STRUCTURE VERIFIED:
+=================================
+
+✓ YAML frontmatter (metadata complete)
+✓ Phase 1-5: RCA Parsing (summary + references)
+✓ Phase 6-9: Interactive Selection (full inline)
+✓ Phase 10: Batch Story Creation (summary + reference)
+✓ Phase 11: RCA-Story Linking (full inline implementation)
+✓ Business Rules (comprehensive, phases 1-11)
+✓ Edge Cases (all scenarios covered)
+✓ Error Handling (partial creation handled)
+✓ Return Value (specified for phases 1-9)
+✓ Non-Functional Requirements (documented)
+✓ Validation Checkpoint (enforces all AC)
+✓ Observation Capture (framework-standard format)
+✓ Exit Gate (marks phase completion)
+
+VALIDATION COMPLETED SUCCESSFULLY
+==================================
+Status: READY FOR NEXT PHASE
+Date: 2025-12-31
+Token Efficiency: Optimized documentation validation
