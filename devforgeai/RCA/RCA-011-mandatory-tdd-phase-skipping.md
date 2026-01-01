@@ -622,12 +622,12 @@ The test session in `tmp/output.md` demonstrates this exact failure mode:
 
 ### Updated Implementation Checklist
 
-**For REC-1B (CRITICAL - Addendum):**
-- [ ] Add Immediate Execution Checkpoint after line 45 in SKILL.md
-- [ ] Test checkpoint catches "stop and ask" behavior
-- [ ] Verify references CLAUDE.md guidance correctly
-- [ ] Confirm provides clear recovery path
-- [ ] Update both .claude/ and src/claude/ versions
+**For REC-1B (CRITICAL - Addendum):** ✅ IMPLEMENTED (STORY-161, 2025-01-01)
+- [x] Add Immediate Execution Checkpoint after line 45 in SKILL.md
+- [x] Test checkpoint catches "stop and ask" behavior
+- [x] Verify references CLAUDE.md guidance correctly
+- [x] Confirm provides clear recovery path
+- [x] Update both .claude/ and src/claude/ versions
 
 ---
 
@@ -642,7 +642,7 @@ Both stem from same root cause: **No programmatic enforcement of execution model
 
 **Complete solution requires:**
 - ✅ REC-1: Phase 2/3/7 validation checkpoints (IMPLEMENTED)
-- ⏳ REC-1B: Immediate execution checkpoint (PENDING)
+- ✅ REC-1B: Immediate execution checkpoint (IMPLEMENTED - STORY-161, 2025-01-01)
 
 ---
 

@@ -1,0 +1,17 @@
+tests/STORY-161/run-tests.sh: line 2: $'\r': command not found
+tests/STORY-161/run-tests.sh: line 6: $'\r': command not found
+tests/STORY-161/run-tests.sh: line 7: set: -: invalid option
+set: usage: set [-abefhkmnptuvxBCEHPT] [-o option-name] [--] [-] [arg ...]
+tests/STORY-161/run-tests.sh: line 8: $'\r': command not found
+tests/STORY-161/run-tests.sh: line 12: $'\r': command not found
+==========================================
+STORY-161 Test Suite Runner
+==========================================
+Project Root: /mnt/c/Projects/DevForgeAI2
+Test Directory: /mnt/c/Projects/DevForgeAI2/tests/STORY-161
+Target File: /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/SKILL.md
+==========================================
+
+tests/STORY-161/run-tests.sh: line 21: $'\r': command not found
+tests/STORY-161/run-tests.sh: line 54: syntax error near unexpected token `$'do\r''
+tests/STORY-161/run-tests.sh: line 54: `for TEST in "${TESTS[@]}"; do'

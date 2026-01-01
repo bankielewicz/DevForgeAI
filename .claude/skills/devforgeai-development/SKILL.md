@@ -71,7 +71,22 @@ Self-Check (Check boxes if TRUE - any checked = VIOLATION):
 - [ ] Asking "should I execute this?"
 ```
 
-**IF any box checked:** Display violation message and self-correct.
+**IF any box checked:**
+
+```
+EXECUTION MODEL VIOLATION DETECTED
+
+You are stopping to ask for permission instead of executing.
+
+Per CLAUDE.md:
+- "There are no time constraints"
+- "Your context window is plenty big"
+- "Focus on quality"
+
+RECOVERY: Go directly to Phase 0 now. Do not ask questions.
+```
+
+**Reference:** See CLAUDE.md for complete execution model guidance.
 
 ---
 
