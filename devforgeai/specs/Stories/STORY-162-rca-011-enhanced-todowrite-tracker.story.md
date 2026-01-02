@@ -4,7 +4,7 @@ title: "RCA-011 Enhanced TodoWrite Tracker"
 type: enhancement
 priority: High
 points: 2
-status: QA Approved
+status: Dev Complete
 epic: N/A
 sprint: N/A
 created: 2025-12-31
