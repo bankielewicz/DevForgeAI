@@ -320,7 +320,7 @@ IF all checkboxes checked:
 
 ### HIGH Priority (Implement This Sprint)
 
-**REC-2: Enhance TodoWrite Tracker to Include Mandatory Sub-Steps**
+**REC-2: Enhance TodoWrite Tracker to Include Mandatory Sub-Steps** ✅ IMPLEMENTED (STORY-162, 2026-01-01)
 
 **Problem Addressed:** TodoWrite tracks 9 phases but not ~20+ mandatory sub-steps, allowing phase completion without sub-step validation
 
@@ -643,6 +643,10 @@ Both stem from same root cause: **No programmatic enforcement of execution model
 **Complete solution requires:**
 - ✅ REC-1: Phase 2/3/7 validation checkpoints (IMPLEMENTED)
 - ✅ REC-1B: Immediate execution checkpoint (IMPLEMENTED - STORY-161, 2025-01-01)
+- ✅ REC-2: Enhanced TodoWrite Tracker (IMPLEMENTED - STORY-162, 2026-01-01)
+  - Expanded from 10 to 14 granular items
+  - Each mandatory sub-step has explicit todo item
+  - User sees granular progress with unique activeForm descriptions
 
 ---
 

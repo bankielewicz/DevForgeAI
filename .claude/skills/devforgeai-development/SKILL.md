@@ -110,15 +110,19 @@ iteration_count = 1  # Track TDD cycle iterations (for Phase 06 resumption)
 TodoWrite(
   todos=[
     {content: "Execute Phase 01: Pre-Flight Validation", status: "pending", activeForm: "Executing Phase 01 Pre-Flight Validation"},
-    {content: "Execute Phase 02: Test-First Design (TDD Red)", status: "pending", activeForm: "Executing Phase 02 Test-First Design"},
-    {content: "Execute Phase 03: Implementation (TDD Green)", status: "pending", activeForm: "Executing Phase 03 Implementation"},
-    {content: "Execute Phase 04: Refactoring + Light QA", status: "pending", activeForm: "Executing Phase 04 Refactoring"},
-    {content: "Execute Phase 05: Integration Testing", status: "pending", activeForm: "Executing Phase 05 Integration Testing"},
-    {content: "Execute Phase 06: Deferral Challenge", status: "pending", activeForm: "Executing Phase 06 Deferral Challenge"},
-    {content: "Execute Phase 07: DoD Update (Bridge)", status: "pending", activeForm: "Executing Phase 07 DoD Update"},
-    {content: "Execute Phase 08: Git Workflow", status: "pending", activeForm: "Executing Phase 08 Git Workflow"},
-    {content: "Execute Phase 09: Feedback Hook", status: "pending", activeForm: "Executing Phase 09 Feedback Hook"},
-    {content: "Execute Phase 10: Result Interpretation", status: "pending", activeForm: "Executing Phase 10 Result Interpretation"}
+    {content: "Execute Phase 02: Test-First Design (test-automator)", status: "pending", activeForm: "Executing Phase 02 test-automator"},
+    {content: "Execute Phase 02 Step 4: Tech Spec Coverage Validation", status: "pending", activeForm: "Validating Tech Spec Coverage"},
+    {content: "Execute Phase 03 Step 1-2: backend-architect OR frontend-developer", status: "pending", activeForm: "Executing backend/frontend architect"},
+    {content: "Execute Phase 03 Step 3: context-validator", status: "pending", activeForm: "Validating context constraints"},
+    {content: "Execute Phase 04 Step 1-2: refactoring-specialist", status: "pending", activeForm: "Executing refactoring specialist"},
+    {content: "Execute Phase 04 Step 3: code-reviewer", status: "pending", activeForm: "Executing code reviewer"},
+    {content: "Execute Phase 04 Step 5: Light QA", status: "pending", activeForm: "Executing Light QA validation"},
+    {content: "Execute Phase 05: Integration Testing (integration-tester)", status: "pending", activeForm: "Executing integration testing"},
+    {content: "Execute Phase 06: Deferral Challenge", status: "pending", activeForm: "Executing deferral challenge"},
+    {content: "Execute Phase 07: DoD Update (Bridge)", status: "pending", activeForm: "Updating DoD checkboxes"},
+    {content: "Execute Phase 08: Git Workflow", status: "pending", activeForm: "Executing git workflow"},
+    {content: "Execute Phase 09: Feedback Hooks", status: "pending", activeForm: "Executing feedback hooks"},
+    {content: "Execute Phase 10 Step 10.1: dev-result-interpreter", status: "pending", activeForm: "Interpreting dev results"}
   ]
 )
 

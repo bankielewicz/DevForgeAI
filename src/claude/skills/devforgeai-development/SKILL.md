@@ -110,15 +110,19 @@ iteration_count = 1  # Track TDD cycle iterations (for Phase 06 resumption)
 TodoWrite(
   todos=[
     {content: "Execute Phase 01: Pre-Flight Validation", status: "pending", activeForm: "Executing Phase 01 Pre-Flight Validation"},
-    {content: "Execute Phase 02: Test-First Design (TDD Red)", status: "pending", activeForm: "Executing Phase 02 Test-First Design"},
-    {content: "Execute Phase 03: Implementation (TDD Green)", status: "pending", activeForm: "Executing Phase 03 Implementation"},
-    {content: "Execute Phase 04: Refactoring + Light QA", status: "pending", activeForm: "Executing Phase 04 Refactoring"},
-    {content: "Execute Phase 05: Integration Testing", status: "pending", activeForm: "Executing Phase 05 Integration Testing"},
-    {content: "Execute Phase 06: Deferral Challenge", status: "pending", activeForm: "Executing Phase 06 Deferral Challenge"},
-    {content: "Execute Phase 07: DoD Update (Bridge)", status: "pending", activeForm: "Executing Phase 07 DoD Update"},
-    {content: "Execute Phase 08: Git Workflow", status: "pending", activeForm: "Executing Phase 08 Git Workflow"},
-    {content: "Execute Phase 09: Feedback Hook", status: "pending", activeForm: "Executing Phase 09 Feedback Hook"},
-    {content: "Execute Phase 10: Result Interpretation", status: "pending", activeForm: "Executing Phase 10 Result Interpretation"}
+    {content: "Execute Phase 02: Test-First Design (test-automator)", status: "pending", activeForm: "Executing Phase 02 test-automator"},
+    {content: "Execute Phase 02 Step 4: Tech Spec Coverage Validation", status: "pending", activeForm: "Validating Tech Spec Coverage"},
+    {content: "Execute Phase 03 Step 1-2: backend-architect OR frontend-developer", status: "pending", activeForm: "Executing backend/frontend architect"},
+    {content: "Execute Phase 03 Step 3: context-validator", status: "pending", activeForm: "Validating context constraints"},
+    {content: "Execute Phase 04 Step 1-2: refactoring-specialist", status: "pending", activeForm: "Executing refactoring specialist"},
+    {content: "Execute Phase 04 Step 3: code-reviewer", status: "pending", activeForm: "Executing code reviewer"},
+    {content: "Execute Phase 04 Step 5: Light QA", status: "pending", activeForm: "Executing Light QA validation"},
+    {content: "Execute Phase 05: Integration Testing (integration-tester)", status: "pending", activeForm: "Executing integration testing"},
+    {content: "Execute Phase 06: Deferral Challenge", status: "pending", activeForm: "Executing deferral challenge"},
+    {content: "Execute Phase 07: DoD Update (Bridge)", status: "pending", activeForm: "Updating DoD checkboxes"},
+    {content: "Execute Phase 08: Git Workflow", status: "pending", activeForm: "Executing git workflow"},
+    {content: "Execute Phase 09: Feedback Hooks", status: "pending", activeForm: "Executing feedback hooks"},
+    {content: "Execute Phase 10 Step 10.1: dev-result-interpreter", status: "pending", activeForm: "Interpreting dev results"}
   ]
 )
 
@@ -181,6 +185,15 @@ IF exit_code == 2:
     Display: "❌ Invalid story ID: ${STORY_ID}"
     Display: "  Story ID must match pattern STORY-XXX (e.g., STORY-001)"
     HALT workflow
+```
+
+**Backward Compatibility Warning:**
+```
+IF devforgeai-validate command not found (exit code 127):
+    Display: "⚠️  Warning: Phase enforcement CLI not installed"
+    Display: "    To enable enforcement, run: pip install devforgeai-validate"
+    Display: "    Continuing workflow without enforcement (backward compatibility mode)"
+    # Continue workflow without enforcement
 ```
 
 ---
@@ -310,6 +323,98 @@ ELSE:
 
 ---
 
+## Phase Transition Validation Calls (STORY-153)
+
+**Validation calls are required at every phase transition.** See `devforgeai/config/validation-call-locations.yaml` for the complete mapping.
+
+**Phase-check calls at each transition (9 total):**
+
+| From | To | Command |
+|------|-----|---------|
+| 01 | 02 | `devforgeai-validate phase-check STORY-XXX --from=01 --to=02` |
+| 02 | 03 | `devforgeai-validate phase-check STORY-XXX --from=02 --to=03` |
+| 03 | 04 | `devforgeai-validate phase-check STORY-XXX --from=03 --to=04` |
+| 04 | 05 | `devforgeai-validate phase-check STORY-XXX --from=04 --to=05` |
+| 05 | 06 | `devforgeai-validate phase-check STORY-XXX --from=05 --to=06` |
+| 06 | 07 | `devforgeai-validate phase-check STORY-XXX --from=06 --to=07` |
+| 07 | 08 | `devforgeai-validate phase-check STORY-XXX --from=07 --to=08` |
+| 08 | 09 | `devforgeai-validate phase-check STORY-XXX --from=08 --to=09` |
+| 09 | 10 | `devforgeai-validate phase-check STORY-XXX --from=09 --to=10` |
+
+**Complete-phase calls at phase end (10 total):**
+
+Per AC#3, use `devforgeai-validate complete-phase` (alias: `phase-complete`):
+
+| Phase | Command |
+|-------|---------|
+| 01 | `devforgeai-validate complete-phase STORY-XXX --phase=01 --checkpoint-passed` |
+| 02 | `devforgeai-validate complete-phase STORY-XXX --phase=02 --checkpoint-passed` |
+| 03 | `devforgeai-validate complete-phase STORY-XXX --phase=03 --checkpoint-passed` |
+| 04 | `devforgeai-validate complete-phase STORY-XXX --phase=04 --checkpoint-passed` |
+| 05 | `devforgeai-validate complete-phase STORY-XXX --phase=05 --checkpoint-passed` |
+| 06 | `devforgeai-validate complete-phase STORY-XXX --phase=06 --checkpoint-passed` |
+| 07 | `devforgeai-validate complete-phase STORY-XXX --phase=07 --checkpoint-passed` |
+| 08 | `devforgeai-validate complete-phase STORY-XXX --phase=08 --checkpoint-passed` |
+| 09 | `devforgeai-validate complete-phase STORY-XXX --phase=09 --checkpoint-passed` |
+| 10 | `devforgeai-validate complete-phase STORY-XXX --phase=10 --checkpoint-passed` |
+
+**Record-subagent calls after Task invocations:**
+
+After each `Task(subagent_type="...")` invocation completes:
+```bash
+devforgeai-validate record-subagent STORY-XXX --phase=NN --subagent=SUBAGENT_NAME
+```
+
+**Exit code handling:** Non-zero exit code = HALT workflow (see CLI Commands Reference below for exit codes).
+
+---
+
+## Phase 00: Initialization
+
+Phase state file creation via `devforgeai-validate phase-init` (or `devforgeai-validate init-state` per AC#4).
+
+## Phase 01: Pre-Flight
+
+Context validation, Git status, story loading. Includes RCA-008 user consent checkpoints (Steps 0.1.5-0.1.6) for git operations affecting >10 files. Subagents: git-validator (with enhanced file analysis), tech-stack-detector.
+
+## Phase 02: Test-First (Red)
+
+Write failing tests from acceptance criteria. Subagents: test-automator.
+
+## Phase 03: Implementation (Green)
+
+Implement minimal code to pass tests. Subagents: backend-architect OR frontend-developer, context-validator.
+
+## Phase 04: Refactoring
+
+Improve code quality without changing behavior. Subagents: refactoring-specialist, code-reviewer.
+
+## Phase 05: Integration Testing
+
+Verify cross-component interactions. Subagents: integration-tester.
+
+## Phase 06: Deferral Challenge
+
+Validate any deferred items have proper justification. Subagents: deferral-validator (conditional).
+
+## Phase 07: DoD Update
+
+Update Definition of Done checkboxes in story file.
+
+## Phase 08: Git Workflow
+
+Commit changes with conventional commit message.
+
+## Phase 09: Feedback Hook
+
+Trigger post-dev feedback collection if hooks enabled.
+
+## Phase 10: Result Interpretation
+
+Generate workflow result summary. Subagents: dev-result-interpreter.
+
+---
+
 ## Complete Workflow Execution Map
 
 ```
@@ -367,16 +472,38 @@ Load on-demand during workflow execution:
 
 ### Supporting References (in references/ directory)
 - **parameter-extraction.md** - Story ID extraction
-- **preflight-validation.md** - Phase 01 detailed workflow
+- **preflight-validation.md** - Phase 01 detailed workflow (includes RCA-008 Steps 0.1.5-0.1.6 for user consent)
 - **tdd-red-phase.md** - Phase 02 detailed workflow
 - **tdd-green-phase.md** - Phase 03 detailed workflow
 - **tdd-refactor-phase.md** - Phase 04 detailed workflow
 - **integration-testing.md** - Phase 05 detailed workflow
 - **phase-06-deferral-challenge.md** - Phase 06 detailed workflow
 - **dod-update-workflow.md** - Phase 07 detailed workflow
-- **git-workflow-conventions.md** - Phase 08 detailed workflow
+- **git-workflow-conventions.md** - Phase 08 detailed workflow (includes RCA-008 Git Stash Safety Protocol)
 - **tdd-patterns.md** - Comprehensive TDD guidance
 - **ambiguity-protocol.md** - When to ask user questions
+
+### Validation Call Configuration (STORY-153)
+- **validation-call-locations.yaml** - Phase-to-validation mapping at `devforgeai/config/validation-call-locations.yaml`
+
+### Change Log Integration (STORY-152)
+- **changelog-update-guide.md** - Shared reference at `.claude/references/changelog-update-guide.md`
+
+**Changelog Entry Authors by Phase:**
+- Phase 02 Red Test-First: `claude/test-automator` for Change Log entries
+- Phase 03 Green Implementation: `claude/backend-architect` or `claude/frontend-developer` for changelog
+- Phase 04 Refactor: `claude/refactoring-specialist`
+- Phase 05 Integration: `claude/integration-tester`
+- Phase 07 DoD: `claude/opus`
+
+**Example Edit() for appending changelog entry:**
+```python
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY_ID}.story.md",
+    old_string="| {last_entry} |",
+    new_string="| {last_entry} |\n| {date} | claude/test-automator | Red (Phase 02) | Tests generated | tests/*.sh |"
+)
+```
 
 ---
 
@@ -457,3 +584,11 @@ Backup of original: `SKILL.md.backup-1240-lines`
 - CLI enforcement (blocking gates)
 - State persistence (resume from any phase)
 - Audit trail (subagent invocations recorded)
+
+---
+
+## Change Log
+
+| Date | Change | Reference |
+|------|--------|-----------|
+| 2025-11-13 | Added RCA-008 git safety enhancements: user consent checkpoint (Step 0.1.5), stash warning workflow (Step 0.1.6), smart stash strategy, git-validator file analysis (Phase 2.5) | RCA-008 |
