@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-162",
   "workflow_started": "2026-01-01T18:39:02.911307Z",
-  "current_phase": "08",
+  "current_phase": "10",
   "phases": {
     "01": {
       "status": "completed",
@@ -80,21 +80,30 @@
       "checkpoint_passed": true
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:24:15.506805Z",
+      "checkpoint_passed": true
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:24:55.764270Z",
+      "checkpoint_passed": true
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-02T02:26:10.378768Z",
+      "completed_at": "2026-01-02T02:26:17.611161Z",
+      "checkpoint_passed": true
     }
   },
   "validation_errors": [],
