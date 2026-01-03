@@ -1,5 +1,7 @@
 ---
 # Story Template Metadata
+template_version: "2.5"
+last_updated: "2025-12-31"
 format_version: "2.5"
 template_updated: 2025-12-29
 ---
