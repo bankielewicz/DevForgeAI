@@ -415,6 +415,89 @@ Generate workflow result summary. Subagents: dev-result-interpreter.
 
 ---
 
+## Phase Completion Self-Check Displays (RCA-011)
+
+**Purpose:** Visual confirmation of mandatory step completion with line number references for audit trail.
+
+**Line Number Reference Format:** `(lines XXX-YYY)` where XXX-YYY are the conversation lines where the Task/Skill was invoked.
+
+**Example:** `backend-architect invoked (lines 150-180)` means Task invocation spans conversation lines 150-180.
+
+### Display Template Pattern
+
+All phase completion displays follow this structure:
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase NN/10: [Phase Name] - Mandatory Steps Completed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[checkmarks for completed steps with line references]
+
+All Phase NN mandatory steps completed. Proceeding to Phase NN+1...
+```
+
+### Phase 03 Completion Display (TDD Green)
+
+**Before marking Phase 03 (Implementation) complete, display:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 03/10: Implementation - Mandatory Steps Completed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  backend-architect invoked (lines XXX-YYY)
+  context-validator invoked (lines XXX-YYY)
+
+All Phase 03 mandatory steps completed. Proceeding to Phase 04...
+```
+
+**Required checks:**
+- backend-architect OR frontend-developer subagent was invoked
+- context-validator subagent was invoked
+- All tests GREEN (passing)
+
+### Phase 04 Completion Display (Refactoring)
+
+**Before marking Phase 04 (Refactoring) complete, display:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 04/10: Refactoring - Mandatory Steps Completed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  refactoring-specialist invoked (lines XXX-YYY)
+  code-reviewer invoked (lines XXX-YYY)
+  Light QA executed (lines XXX-YYY)
+
+All Phase 04 mandatory steps completed. Proceeding to Phase 05...
+```
+
+**Required checks:**
+- refactoring-specialist subagent was invoked
+- code-reviewer subagent was invoked
+- Light QA validation executed
+- All tests still passing
+
+### Phase 10 Completion Display (Result Interpretation)
+
+**Before returning results (Phase 10), display:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 10/10: Result Interpretation - Mandatory Steps Completed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  dev-result-interpreter invoked (lines XXX-YYY)
+
+All mandatory steps completed. Returning final results...
+```
+
+**Required checks:**
+- dev-result-interpreter subagent was invoked
+- Result display template generated
+
+---
+
 ## Complete Workflow Execution Map
 
 ```
@@ -592,3 +675,4 @@ Backup of original: `SKILL.md.backup-1240-lines`
 | Date | Change | Reference |
 |------|--------|-----------|
 | 2025-11-13 | Added RCA-008 git safety enhancements: user consent checkpoint (Step 0.1.5), stash warning workflow (Step 0.1.6), smart stash strategy, git-validator file analysis (Phase 2.5) | RCA-008 |
+| 2026-01-02 | Added Phase Completion Self-Check Displays for Phase 03, 04, 10 with line number references for audit trail | RCA-011, STORY-164 |
