@@ -122,6 +122,30 @@ BRAINSTORM → IDEATION → ARCHITECTURE → STORY → DEV (TDD) → QA → RELE
 
 ---
 
+## Story Progress Tracking
+
+### Acceptance Criteria vs. Tracking Mechanisms
+
+**IMPORTANT:** Stories contain both AC **definitions** and AC **tracking**:
+
+| Element | Purpose | Checkbox Behavior |
+|---------|---------|-------------------|
+| **AC Headers** (e.g., `### AC#1: Title`) | **Define what to test** (immutable) | **Never marked complete** |
+| **AC Verification Checklist** | **Track granular progress** (real-time) | Marked complete during TDD phases |
+| **Definition of Done** | **Official completion record** (quality gate) | Marked complete in Phase 4.5-5 Bridge |
+
+**Why AC headers have no checkboxes (as of template v2.1):**
+- AC headers are **specifications**, not **progress trackers**
+- Marking them "complete" would imply AC is no longer relevant (incorrect)
+- Progress tracking happens in AC Checklist (granular) and DoD (official)
+
+**For older stories (template v2.0 and earlier):**
+- AC headers may show `### 1. [ ]` checkbox syntax (vestigial)
+- These checkboxes are **never meant to be checked**
+- Look at DoD section for actual completion status
+
+---
+
 ## Parallel Orchestration
 
 Enable 35-40% time reduction through parallel execution patterns.
