@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-164",
   "workflow_started": "2026-01-02T14:17:36.127059Z",
-  "current_phase": "08",
+  "current_phase": "10",
   "phases": {
     "01": {
       "status": "completed",
@@ -83,23 +83,38 @@
       "notes": "DoD checkboxes updated, Implementation Notes added, story status set to Dev Complete"
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "started_at": "2026-01-02T19:05:00.000000Z",
+      "completed_at": "2026-01-02T19:10:00.000000Z",
+      "checkpoint_passed": true,
+      "notes": "Commit e1d74919 - 14 files changed, 2715 insertions"
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "started_at": "2026-01-02T19:12:00.000000Z",
+      "completed_at": "2026-01-02T19:12:30.000000Z",
+      "checkpoint_passed": true,
+      "notes": "Hooks not configured (hooks.yaml not found) - skipped"
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-02T19:13:00.000000Z",
+      "completed_at": "2026-01-02T19:15:47.000000Z",
+      "checkpoint_passed": true
     }
   },
+  "workflow_completed": true,
+  "workflow_completed_at": "2026-01-02T19:15:47.000000Z",
   "validation_errors": [],
   "blocking_status": false
 }

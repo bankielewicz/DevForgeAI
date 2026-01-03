@@ -223,10 +223,52 @@ Before proceeding to Phase 5, verify:
 
 **IF success_rate < 50%:** Trigger rollback and HALT.
 
-### Phase 5: Release Documentation
-**Purpose:** Generate release notes and update story
-**Reference:** `release-documentation.md`
-**Updates:** Story status = "Released", workflow history, release notes, changelog
+### Phase 5: Release Documentation and Story Archival
+**Purpose:** Generate release notes, update story, archive to Stories/archive/, update CHANGELOG.md
+**Reference:** `release-documentation.md`, `.claude/references/changelog-update-guide.md`
+
+**Step 5.1: Generate Release Notes**
+See `release-documentation.md` Step 1 for template.
+
+**Step 5.2: Append Change Log Entry**
+Author: `claude/deployment-engineer`
+Phase/Action: `Released`
+Change: Description (e.g., "Deployed v1.2.3 to production")
+
+```
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="| {last_entry} |",
+    new_string="| {last_entry} |\n| {timestamp} | claude/deployment-engineer | Released | Deployed {version} to production | CHANGELOG.md |"
+)
+
+# Update Current Status to Released
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="**Current Status:** QA Approved",
+    new_string="**Current Status:** Released"
+)
+```
+
+**Step 5.3: Update CHANGELOG.md (Keep a Changelog format)**
+
+If CHANGELOG.md exists, add entry under `## [Unreleased]`:
+```
+Edit(file_path="CHANGELOG.md",
+     old_string="## [Unreleased]",
+     new_string="## [Unreleased]\n\n- {story_title} ([{STORY_ID}])")
+
+# Add reference link at bottom
+Append: "[{STORY_ID}]: devforgeai/specs/Stories/archive/{STORY_ID}.story.md"
+```
+
+**Step 5.4: Archive Story File**
+Move story to archive directory:
+```
+Bash(command="mv devforgeai/specs/Stories/{STORY_ID}.story.md devforgeai/specs/Stories/archive/")
+```
+
+**Updates:** Story status = "Released", changelog entry, CHANGELOG.md, story archived
 **Output:** Documentation complete, audit trail created
 
 ### Phase 6: Post-Release Monitoring & Closure

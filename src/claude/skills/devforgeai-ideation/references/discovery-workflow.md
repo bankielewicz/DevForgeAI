@@ -2,6 +2,15 @@
 
 Initial problem exploration through strategic questioning to establish foundational understanding.
 
+## TodoWrite - Phase Start
+
+**At phase start, update todo list:**
+```
+TodoWrite([
+  {"content": "Phase 1: Discovery & Problem Understanding", "status": "in_progress", "activeForm": "Discovering problem space"}
+])
+```
+
 ## Overview
 
 Phase 1 establishes foundational understanding of the business problem, users, and desired outcomes before diving into detailed requirements. This phase prevents wasted effort by ensuring alignment on problem definition and project type.
@@ -268,6 +277,17 @@ Phase 1 complete when:
 - [ ] No critical ambiguities remain
 
 **Token Budget:** ~2,000-4,000 tokens (5-10 AskUserQuestion interactions)
+
+---
+
+## TodoWrite - Phase Completion
+
+**At phase end, mark as completed:**
+```
+TodoWrite([
+  {"content": "Phase 1: Discovery & Problem Understanding", "status": "completed", "activeForm": "Discovering problem space"}
+])
+```
 
 ---
 

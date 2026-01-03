@@ -28,6 +28,10 @@ View, edit, and reset feedback system configuration settings.
 
 # Reset to defaults
 /feedback-config reset
+
+# No parameter
+/feedback-config
+ - Use AskUserQuestion tool to ask questions, if no parameter is passed.
 ```
 
 ---

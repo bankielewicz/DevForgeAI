@@ -466,8 +466,8 @@ Recommended: Run `/create-sprint 1` to begin sprint planning
 **Recovery:**
 
 ```
-# Ensure directory exists
-Bash(command="mkdir -p devforgeai/specs/Epics")
+# Ensure directory exists using Write/.gitkeep pattern (Constitutional C1 compliant)
+Write(file_path="devforgeai/specs/Epics/.gitkeep", content="")
 
 # Retry write
 Write(file_path="devforgeai/specs/Epics/EPIC-001.epic.md", content=epic_content)
@@ -595,9 +595,9 @@ devforgeai/
 **Validation:**
 
 ```
-# Ensure directories exist
-Bash(command="mkdir -p devforgeai/specs/Epics")
-Bash(command="mkdir -p devforgeai/specs/requirements")
+# Ensure directories exist using Write/.gitkeep pattern (Constitutional C1 compliant)
+Write(file_path="devforgeai/specs/Epics/.gitkeep", content="")
+Write(file_path="devforgeai/specs/requirements/.gitkeep", content="")
 
 # Verify creation
 Glob(pattern="devforgeai/specs/Epics/")  # Should exist

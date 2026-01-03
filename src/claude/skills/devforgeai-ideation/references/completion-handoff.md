@@ -24,7 +24,8 @@ This reference provides standardized templates for:
 - Technology recommendations by architecture tier (Tier 1-4)
 - Next steps templates for greenfield/brownfield transitions
 
-**See output-templates.md for complete template library.**
+For output templates, see: [output-templates.md](output-templates.md) (Completion Summary & Next Steps templates)
+For technology recommendations, see: [complexity-assessment-matrix.md](complexity-assessment-matrix.md) (Technology Recommendations by Tier)
 
 ### Generate Completion Summary
 
@@ -788,11 +789,11 @@ Steps 6.5-6.6 complete when:
 ## References Used
 
 **Primary:**
-- **output-templates.md** (619 lines) - Summary templates, tech recommendations
+- [output-templates.md](output-templates.md) - Summary templates (cross-references matrix for tech details)
 
 **Supporting:**
-- **validation-checklists.md** - Handoff readiness validation
-- **complexity-assessment-matrix.md** - Technology recommendations per tier
+- [validation-checklists.md](validation-checklists.md) - Handoff readiness validation
+- [complexity-assessment-matrix.md](complexity-assessment-matrix.md) - Technology recommendations per tier (authoritative source)
 
 ---
 

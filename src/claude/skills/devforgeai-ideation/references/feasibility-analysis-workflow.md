@@ -2,6 +2,15 @@
 
 Evaluate technical, business, and resource constraints to identify risks before implementation.
 
+## TodoWrite - Phase Start
+
+**At phase start, update todo list:**
+```
+TodoWrite([
+  {"content": "Phase 5: Feasibility & Constraints Analysis", "status": "in_progress", "activeForm": "Analyzing constraints"}
+])
+```
+
 ## Overview
 
 Phase 5 assesses whether requirements are technically and practically achievable given constraints. This phase identifies risks early, proposes mitigations, and validates that the solution is feasible within timeline and budget.
@@ -517,6 +526,17 @@ Phase 5 complete when:
 - [ ] Recommendation documented (proceed/adjust/defer)
 
 **Token Budget:** ~3,000-6,000 tokens (load framework, assess, document)
+
+---
+
+## TodoWrite - Phase Completion
+
+**At phase end, mark as completed:**
+```
+TodoWrite([
+  {"content": "Phase 5: Feasibility & Constraints Analysis", "status": "completed", "activeForm": "Analyzing constraints"}
+])
+```
 
 ---
 

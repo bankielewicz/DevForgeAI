@@ -2,7 +2,7 @@
 name: architect-reviewer
 description: Software architecture review specialist. Use proactively after ADRs created, when major architectural changes proposed, or when validating technical designs for scalability and maintainability.
 tools: Read, Grep, Glob, WebFetch, AskUserQuestion
-model: haiku
+model: opus
 color: green
 ---
 

@@ -517,12 +517,17 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 
 **Example:** Story file contains 5+ Given/When/Then AC and detailed tech spec with API contracts, data models, and business rules - skill uses these directly as TDD requirements.
 
-**Key Features (Enhanced 2025-11-06 - RCA-006):**
+**Key Features (Enhanced 2025-11-06 - RCA-006, 2025-11-13 - RCA-008):**
 - **Lean command architecture:** /dev command delegates to skill (513 lines, down from 860)
 - **Subagent-powered validation:**
-  - **git-validator** subagent (Phase 01 Step a.) - Git status and workflow strategy
+  - **git-validator** subagent (Phase 01 Step a.) - Git status and workflow strategy (enhanced with file analysis per RCA-008)
   - **tech-stack-detector** subagent (Phase 01 Step g.) - Technology detection and validation
 - **Git-aware workflow:** Automatically detects Git and uses file-based fallback if unavailable
+- **RCA-008 Git Safety Enhancements (2025-11-13):**
+  - **User consent checkpoint** (Step 0.1.5): Requires explicit approval for git operations affecting >10 files
+  - **Stash warning workflow** (Step 0.1.6): Double confirmation with file visibility warnings for stash operations
+  - **Smart stash strategy**: Recommends stashing modified-only files, preserving untracked user content
+  - **git-validator file analysis**: Categorizes files (story_files, code, cache) for informed consent
 - **Phase 06: Deferral Challenge Checkpoint** (RCA-006):
   - Challenges ALL deferrals (pre-existing from template + new from TDD)
   - Invokes deferral-validator subagent for blocker validation

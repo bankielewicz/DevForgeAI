@@ -122,6 +122,31 @@ IF NOT found:
 
 ---
 
+## Observation Capture
+
+**Before exiting this phase, reflect:**
+1. Did I encounter any friction? (unclear docs, missing tools, workarounds)
+2. Did anything work particularly well? (constraints that helped, patterns that fit)
+3. Did I notice any repeated patterns?
+4. Are there gaps in tooling/docs?
+5. Did I discover any bugs?
+
+**If YES to any:** Append to phase-state.json `observations` array:
+```json
+{
+  "id": "obs-07-{seq}",
+  "phase": "07",
+  "category": "{friction|success|pattern|gap|idea|bug}",
+  "note": "{1-2 sentence description}",
+  "files": ["{relevant files}"],
+  "severity": "{low|medium|high}"
+}
+```
+
+**Reference:** `references/observation-capture.md`
+
+---
+
 **Exit Gate:**
 ```bash
 devforgeai-validate phase-complete ${STORY_ID} --phase=07 --checkpoint-passed

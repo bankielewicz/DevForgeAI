@@ -4,7 +4,7 @@ title: "RCA-012 Remove Checkbox Syntax from AC Headers"
 type: enhancement
 priority: Critical
 points: 2
-status: Dev Complete
+status: QA Approved
 epic: N/A
 sprint: N/A
 created: 2025-12-31
@@ -179,9 +179,10 @@ AC header checkboxes are vestigial and should be removed.
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2025-12-31 | /create-stories-from-rca | Created | Story created from RCA-012 REC-1 | STORY-165.story.md |
 | 2026-01-03 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-165.story.md, test-ac3.sh, INDEX.md |
+| 2026-01-03 | claude/qa-result-interpreter | QA Deep | PASSED: Coverage 100%, 0 violations, 4/4 tests pass | STORY-165-qa-report.md |

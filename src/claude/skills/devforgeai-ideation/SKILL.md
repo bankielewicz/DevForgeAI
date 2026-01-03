@@ -92,9 +92,41 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 1: Discovery & Problem Understanding
 **Reference:** `discovery-workflow.md` | **Questions:** 5-10 | **Output:** Problem statement, user personas, scope boundaries
 
-**Step 0 - Brainstorm Handoff Detection:**
+**Step 0 - Context Marker Detection (from /ideate command):**
 
-Before proceeding with discovery, check if brainstorm context is available:
+Before proceeding with discovery, check if context markers are available from command:
+
+```
+# Detect context markers passed from /ideate command Phase 2
+IF context contains "**Business Idea:**":
+  # Extract business idea from conversation context
+  session.business_idea = extract_from_context("**Business Idea:**")
+  session.context_provided = true
+
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    Context Received from Command
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ Business Idea: {session.business_idea}
+  ✓ Project Mode: {extract_from_context('**Project Mode:**') or 'to be determined'}
+  ✓ Brainstorm: {extract_from_context('**Brainstorm Context:**') or 'none'}
+
+  Skipping redundant questions - context already provided."
+
+ELSE:
+  session.context_provided = false
+  # Proceed with full discovery
+```
+
+**Context-Aware Discovery:** When context is provided:
+- DO NOT ask for business idea (already provided in **Business Idea:** marker)
+- DO NOT ask for project type if **Project Mode:** marker is present
+- Validate/confirm context instead of re-asking
+
+**Step 0.1 - Brainstorm Handoff Detection:**
+
+After context marker detection, check if brainstorm context is available:
 
 ```
 IF $BRAINSTORM_CONTEXT is provided (from /ideate command Phase 0):
@@ -122,9 +154,9 @@ IF $BRAINSTORM_CONTEXT is provided (from /ideate command Phase 0):
   Confidence: {$BRAINSTORM_CONTEXT.confidence_level}"
 
   IF $BRAINSTORM_CONTEXT.confidence_level == "HIGH":
-    # Skip Phase 1 discovery, proceed to Phase 2
+    # Skip Phase 1 discovery, proceed to Requirements Elicitation
     Display: "→ Skipping discovery (HIGH confidence from brainstorm)"
-    GOTO Phase 2
+    GOTO Requirements Elicitation Phase
   ELSE:
     # Shortened Phase 1 - validate only
     session.skip_discovery = true
@@ -224,9 +256,17 @@ The command's **Mode:** marker is read in Phase 6.6 to determine appropriate nex
 
 ## Error Handling
 
-**6 error types:** Incomplete answers, artifact failures, complexity errors, validation failures, constraint conflicts, directory issues. Each has detection logic and recovery procedures (self-heal → retry → report).
+**6 error types** with detection logic and recovery procedures (self-heal → retry → report).
 
-**Load:** `Read(file_path=".claude/skills/devforgeai-ideation/references/error-handling.md")`
+**Index:** `Read(file_path=".claude/skills/devforgeai-ideation/references/error-handling-index.md")`
+
+**Error Type Files (load on-demand):**
+1. **error-type-1-incomplete-answers.md** - Vague/incomplete user responses (Phase 2)
+2. **error-type-2-artifact-failures.md** - File write/permission errors (Phase 6.1)
+3. **error-type-3-complexity-errors.md** - Invalid scores, tier mismatch (Phase 3)
+4. **error-type-4-validation-failures.md** - Quality issues, missing fields (Phase 6.4)
+5. **error-type-5-constraint-conflicts.md** - Brownfield context conflicts (Phase 5)
+6. **error-type-6-directory-issues.md** - Missing directories, permissions (Phase 6.1)
 
 ---
 
@@ -266,17 +306,30 @@ Load these on-demand during workflow execution:
 - **self-validation-workflow.md** - Phase 6.4: Quality checks (351 lines)
 - **completion-handoff.md** - Phase 6.5-6.6: Summary and next action (721 lines)
 - **user-interaction-patterns.md** - AskUserQuestion templates (411 lines)
-- **error-handling.md** - Recovery procedures for 6 error types (1,062 lines)
+- **error-handling-index.md** - Decision tree for error type selection (~100 lines)
+- **error-type-1-incomplete-answers.md** - Vague user responses (~165 lines)
+- **error-type-2-artifact-failures.md** - File write errors (~135 lines)
+- **error-type-3-complexity-errors.md** - Complexity score issues (~155 lines)
+- **error-type-4-validation-failures.md** - Quality validation issues (~210 lines)
+- **error-type-5-constraint-conflicts.md** - Brownfield conflicts (~175 lines)
+- **error-type-6-directory-issues.md** - Directory structure issues (~130 lines)
 
-### Supporting Guides (6 files - existing)
+### Supporting Guides (8 files - existing)
 - **requirements-elicitation-guide.md** - Domain-specific question patterns (659 lines)
 - **complexity-assessment-matrix.md** - Complete 0-60 scoring rubric (617 lines)
 - **domain-specific-patterns.md** - Decomposition patterns by domain (744 lines)
 - **feasibility-analysis-framework.md** - Feasibility checklists (587 lines)
 - **validation-checklists.md** - Quality validation procedures (604 lines)
 - **output-templates.md** - Summary templates, tech recommendations (780 lines)
+- **user-input-guidance.md** - Framework-internal guidance for eliciting complete requirements (897 lines)
+  - Contains: 15 elicitation patterns, 28 AskUserQuestion templates, NFR quantification table
+  - Section 5: Skill Integration Guide (devforgeai-ideation and devforgeai-story-creation patterns)
+- **brainstorm-data-mapping.md** - Field mapping between brainstorm output and ideation input (419 lines)
+  - Contains: 6 field mapping tables, transformation rules, phase behavior changes
+  - Related: brainstorm-handoff-workflow.md (detection/selection) uses these mappings
 
-**Total:** 16 reference files, 8,862 lines (loaded progressively, not upfront)
+**Total:** 24 reference files, ~10,500 lines (loaded progressively, not upfront)
+**Error handling:** 7 files replace single 1,062-line file (token efficiency via selective loading)
 
 ---
 

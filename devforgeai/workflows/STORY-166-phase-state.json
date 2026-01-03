@@ -1,0 +1,77 @@
+{
+  "story_id": "STORY-166",
+  "workflow_started": "2026-01-03T13:16:05.314989Z",
+  "current_phase": "02",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-01-03T13:42:27.084313Z",
+      "completed_at": "2026-01-03T13:42:34.104368Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "pending",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": []
+    },
+    "03": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "04": {
+      "status": "pending",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": []
+    },
+    "05": {
+      "status": "pending",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": []
+    },
+    "06": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "07": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "08": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "09": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "10": {
+      "status": "pending",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": []
+    }
+  },
+  "validation_errors": [],
+  "blocking_status": false
+}

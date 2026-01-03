@@ -29,10 +29,11 @@ DevForgeAI provides 13 slash commands organized into 6 categories:
 **Orchestration (1 command):**
 - `/orchestrate` - Full lifecycle: Dev → QA → Release
 
-**Framework Maintenance (3 commands):**
+**Framework Maintenance (4 commands):**
 - `/audit-deferrals` - Audit deferred work in stories for circular chains and invalid references
 - `/audit-budget` - Audit command character budgets against lean orchestration protocol
 - `/rca` - Perform Root Cause Analysis with 5 Whys methodology for framework breakdowns
+- `/create-stories-from-rca` - Create user stories from RCA document recommendations (NEW)
 
 **Session Management (1 command):**
 - `/chat-search` - Search chat history and resume previous conversations by keywords, project, or timeframe
@@ -1283,6 +1284,61 @@ This command exemplifies lean orchestration for simple tasks:
 - `/audit-deferrals` - Audit technical debt
 - `/audit-budget` - Audit command budgets
 - Framework breakdowns can be analyzed systematically
+
+---
+
+### /create-stories-from-rca RCA-NNN [--threshold HOURS]
+
+**Purpose:** Create user stories from RCA document recommendations
+
+**Syntax:** `/create-stories-from-rca RCA-NNN [--threshold HOURS]`
+- RCA-NNN: RCA document ID (case-insensitive, e.g., RCA-022 or rca-022)
+- --threshold: Optional. Filter recommendations with effort >= N hours
+
+**Invokes:** `devforgeai-story-creation` skill (batch mode)
+
+**Workflow:**
+1. Parse RCA document and extract recommendations (STORY-155)
+2. Filter by effort threshold and sort by priority (STORY-156)
+3. Display summary table for interactive selection
+4. Create stories for selected recommendations (STORY-157)
+5. Update RCA document with story links (STORY-158)
+
+**Example:**
+```bash
+/create-stories-from-rca RCA-022
+/create-stories-from-rca RCA-022 --threshold 2
+/create-stories-from-rca --help
+```
+
+**Output:**
+- Stories created in `devforgeai/specs/Stories/`
+- RCA document updated with story references
+- Completion summary with success/failure counts
+
+**Architecture (2025-12-31):**
+
+**Command (198 lines, 5,350 chars - Lean Orchestration):**
+- Argument parsing and validation
+- Progressive disclosure to 4 reference files
+- Skill invocation for batch story creation
+- RCA-Story linking after creation
+
+**Reference Files:**
+- `references/create-stories-from-rca/parsing-workflow.md` - Phases 1-5
+- `references/create-stories-from-rca/selection-workflow.md` - Phases 6-9
+- `references/create-stories-from-rca/batch-creation-workflow.md` - Phase 10
+- `references/create-stories-from-rca/linking-workflow.md` - Phase 11
+
+**Token Efficiency:**
+- Command: ~2K tokens
+- Progressive disclosure: 4 reference files (~28K total, loaded on demand)
+- **Character budget: 5,350 chars (36% of 15K limit) - COMPLIANT**
+
+**Related:**
+- `/rca` - Create new RCA document
+- `/create-story` - Create individual story
+- `/audit-deferrals` - Audit deferred work
 
 ---
 

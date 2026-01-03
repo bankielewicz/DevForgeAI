@@ -2,6 +2,15 @@
 
 Score project complexity (0-60) across 4 dimensions and determine appropriate architecture tier.
 
+## TodoWrite - Phase Start
+
+**At phase start, update todo list:**
+```
+TodoWrite([
+  {"content": "Phase 3: Complexity Assessment", "status": "in_progress", "activeForm": "Calculating complexity score"}
+])
+```
+
 ## Overview
 
 Phase 3 evaluates solution complexity to prevent over-engineering simple problems or under-architecting complex platforms. The scoring system produces a quantified complexity score (0-60) that maps to one of four architecture tiers.
@@ -302,6 +311,22 @@ Phase 3 complete when:
 - [ ] User validated tier recommendation
 
 **Token Budget:** ~3,000-5,000 tokens (load matrix, calculate, validate)
+
+---
+
+## TodoWrite - Phase Completion
+
+**At phase end, mark as completed with complexity score:**
+```
+TodoWrite([
+  {"content": "Phase 3: Complexity Assessment", "status": "completed", "activeForm": "Calculating complexity score"}
+])
+```
+
+**Display complexity score summary before marking complete:**
+```
+Display: "✓ Complexity Score: {total_score}/60 → Tier {tier_number}: {tier_name}"
+```
 
 ---
 

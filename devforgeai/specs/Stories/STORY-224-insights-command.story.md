@@ -1,0 +1,137 @@
+---
+id: STORY-224
+title: Create /insights Command with Query Routing
+type: feature
+epic: EPIC-034
+sprint: Backlog
+status: Backlog
+points: 3
+depends_on: ["STORY-221"]
+priority: High
+assigned_to: TBD
+created: 2025-01-02
+format_version: "2.5"
+---
+
+# Story: Create /insights Command with Query Routing
+
+## Description
+
+**As a** Developer using DevForgeAI,
+**I want** to execute insights queries via `/insights` command,
+**so that** I can discover workflow patterns, errors, and decisions on-demand.
+
+**Context:**
+This is the user interface for EPIC-034 (Session Data Mining). The command routes queries to the devforgeai-insights skill which orchestrates the session-miner subagent.
+
+## Acceptance Criteria
+
+### AC#1: Command Parameter Support
+
+**Given** the /insights command is invoked,
+**When** parameters are provided,
+**Then** the following query types are supported:
+- `/insights` (dashboard overview)
+- `/insights workflows` (pattern analysis)
+- `/insights errors` (error mining)
+- `/insights decisions [query]` (archive search)
+- `/insights story STORY-XXX` (story-specific)
+
+---
+
+### AC#2: Query Routing to Skill
+
+**Given** a valid query type,
+**When** the command processes the request,
+**Then** it invokes `devforgeai-insights` skill with appropriate parameters.
+
+---
+
+### AC#3: Help Documentation
+
+**Given** the user runs `/insights --help`,
+**When** help is displayed,
+**Then** all query types, parameters, and examples are shown.
+
+---
+
+### AC#4: Error Handling
+
+**Given** an invalid query type,
+**When** the command processes the request,
+**Then** a clear error message with valid options is displayed.
+
+---
+
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:
+    - type: "Command"
+      name: "insights"
+      file_path: ".claude/commands/insights.md"
+      interface: "Slash command"
+      requirements:
+        - id: "CMD-001"
+          description: "Parse $ARGUMENTS for query type and parameters"
+          testable: true
+          priority: "Critical"
+        - id: "CMD-002"
+          description: "Route to devforgeai-insights skill"
+          testable: true
+          priority: "Critical"
+        - id: "CMD-003"
+          description: "Display help with --help flag"
+          testable: true
+          priority: "High"
+
+  non_functional_requirements:
+    - id: "NFR-CMD-001"
+      category: "Performance"
+      requirement: "Command initialization <2 seconds"
+      metric: "<2 seconds to skill invocation"
+      priority: "High"
+```
+
+---
+
+## Definition of Done
+
+### Implementation
+- [ ] Command file created at .claude/commands/insights.md
+- [ ] YAML frontmatter with description and argument-hint
+- [ ] Query type parsing logic
+- [ ] Skill invocation pattern
+- [ ] Help text
+
+### Quality
+- [ ] All 4 acceptance criteria verified
+- [ ] Command under 500 lines
+
+### Testing
+- [ ] Test each query type
+- [ ] Test help display
+- [ ] Test error handling
+
+### Documentation
+- [ ] Command usage documented
+- [ ] Examples provided
+
+---
+
+## Implementation Notes
+
+*Pending implementation*
+
+---
+
+## Change Log
+
+**Current Status:** Backlog
+
+| Date | Author | Phase/Action | Change | Files Affected |
+|------|--------|--------------|--------|----------------|
+| 2025-01-02 | claude/story-creation-skill | Created | Story created for EPIC-034 Feature 2 | STORY-224-insights-command.story.md |
