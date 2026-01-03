@@ -200,6 +200,7 @@ Enable 35-40% time reduction through parallel execution patterns.
 | refactoring-specialist | Code refactoring expert applying systematic improvement patterns while preser... | Read, Edit, Update, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test) |
 | requirements-analyst | Requirements analysis and user story creation expert. Use proactively when cr... | Read, Write, Edit, Grep, Glob, AskUserQuestion |
 | security-auditor | Application security audit specialist covering OWASP Top 10, authentication/a... | Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable) |
+| session-miner | > | Read, Glob, Grep |
 | sprint-planner | Sprint planning and execution specialist. Handles story selection, capacity v... | Read, Write, Edit, Glob, Grep |
 | stakeholder-analyst | Stakeholder analysis specialist for identifying decision makers, users, affec... | (none) |
 | story-requirements-analyst | Requirements analysis subagent specifically for devforgeai-story-creation ski... | [Read, Grep, Glob, AskUserQuestion] |
@@ -215,6 +216,9 @@ Enable 35-40% time reduction through parallel execution patterns.
 | after refactoring | code-reviewer |
 | before git commit | code-reviewer |
 | when pull request created | code-reviewer |
+| when mining session data for EPIC-034 | session-miner |
+| when analyzing command patterns | session-miner |
+| when generating workflow insights | session-miner |
 | when implementing features requiring test coverage | test-automator |
 | when generating tests from acceptance criteria | test-automator |
 | when coverage gaps detected | test-automator |
