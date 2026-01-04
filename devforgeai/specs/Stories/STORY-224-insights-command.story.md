@@ -4,7 +4,7 @@ title: Create /insights Command with Query Routing
 type: feature
 epic: EPIC-034
 sprint: Backlog
-status: Backlog
+status: QA Approved
 points: 3
 depends_on: ["STORY-221"]
 priority: High
@@ -101,37 +101,52 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [ ] Command file created at .claude/commands/insights.md
-- [ ] YAML frontmatter with description and argument-hint
-- [ ] Query type parsing logic
-- [ ] Skill invocation pattern
-- [ ] Help text
+- [x] Command file created at .claude/commands/insights.md
+- [x] YAML frontmatter with description and argument-hint
+- [x] Query type parsing logic
+- [x] Skill invocation pattern
+- [x] Help text
 
 ### Quality
-- [ ] All 4 acceptance criteria verified
-- [ ] Command under 500 lines
+- [x] All 4 acceptance criteria verified
+- [x] Command under 500 lines (274 lines)
 
 ### Testing
-- [ ] Test each query type
-- [ ] Test help display
-- [ ] Test error handling
+- [x] Test each query type
+- [x] Test help display
+- [x] Test error handling
 
 ### Documentation
-- [ ] Command usage documented
-- [ ] Examples provided
+- [x] Command usage documented (Help section lines 156-205)
+- [x] Examples provided (Quick Reference lines 16-36)
 
 ---
 
 ## Implementation Notes
 
-*Pending implementation*
+- [x] Command file created at .claude/commands/insights.md - Completed: 274 lines, all 25 tests passing
+- [x] YAML frontmatter with description and argument-hint - Completed: description, argument-hint, model, allowed-tools
+- [x] Query type parsing logic - Completed: Supports dashboard, workflows, errors, decisions, story query types
+- [x] Skill invocation pattern - Completed: Routes to devforgeai-insights skill (STORY-221 dependency)
+- [x] Help text - Completed: Comprehensive help section (lines 156-205)
+- [x] All 4 acceptance criteria verified - Completed: 25/25 tests passing
+- [x] Command under 500 lines - Completed: 274 lines
+- [x] Test each query type - Completed: Tests 8-13 in test suite
+- [x] Test help display - Completed: Tests 17-20 in test suite
+- [x] Test error handling - Completed: Tests 21-24 in test suite
+- [x] Command usage documented - Completed: Help section lines 156-205
+- [x] Examples provided - Completed: Quick Reference lines 16-36
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2025-01-02 | claude/story-creation-skill | Created | Story created for EPIC-034 Feature 2 | STORY-224-insights-command.story.md |
+| 2025-01-03 | claude/test-automator | Red (Phase 02) | 25 tests generated for all 4 ACs + 3 CMD requirements | tests/STORY-224/test-insights-command.sh |
+| 2025-01-03 | claude/backend-architect | Green (Phase 03) | Command implemented, all 25 tests passing | .claude/commands/insights.md |
+| 2025-01-03 | claude/refactoring-specialist | Refactor (Phase 04) | Code reviewed: CLEAN - no refactoring needed | .claude/commands/insights.md |
+| 2025-01-04 | claude/integration-tester | QA Light | Passed: Integration validation (25/25 tests), 0 violations | STORY-224-integration-test-report.md |
