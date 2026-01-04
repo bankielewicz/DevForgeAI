@@ -788,6 +788,83 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 
 ---
 
+### /dev-status [STORY-ID]
+
+**Purpose:** Display development progress for a story without invoking full workflow
+
+**Syntax:** `/dev-status [STORY-ID]`
+
+**Invokes:** None (read-only utility command - no skill)
+
+**Workflow:**
+1. **Phase 0:** Argument validation (story ID format, locate story file)
+2. **Phase 1:** Extract current state (phase-state.json, DoD checkboxes)
+3. **Phase 2:** Display status (progress, remaining items)
+4. **Phase 3:** Suggest next action (based on story state)
+
+**Example:**
+```
+> /dev-status STORY-057
+```
+
+**Output:**
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Development Status: STORY-057
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**Story:** Additional Skill Integrations
+**Status:** In Development
+
+**Progress:**
+- Current Phase: 06 (Deferral Challenge)
+- DoD Completion: 26/30 (87%)
+- TDD Iteration: 2
+
+**Remaining DoD Items:**
+- Implementation: 2 items
+- Quality: 1 item
+- Testing: 1 item
+
+**Suggested Next Action:**
+Run `/dev STORY-057` to continue development
+```
+
+**Architecture (2026-01-04):**
+
+**Command (236 lines, ~6,000 chars - Read-Only Utility):**
+- Argument parsing and validation
+- Phase-state.json reading (if exists)
+- Story file DoD counting
+- Progress display with formatting
+- Next action suggestion (state-based)
+
+**Tools Used:**
+- `Read` - Read story file and phase-state.json
+- `Glob` - Locate story and phase-state files
+- `Grep` - (optional) Count DoD checkboxes
+
+**Key Features:**
+- **Read-only:** No file modifications, no skill invocation
+- **Lightweight:** Uses haiku model for fast execution
+- **Progress visibility:** Shows "where am I?" without re-running /dev
+- **Smart suggestions:** Different next actions based on story state
+
+**Character Budget:** ~6,000 chars (40% of 15K budget) - COMPLIANT
+
+**Data Sources:**
+- Story file: `devforgeai/specs/Stories/STORY-XXX*.story.md`
+- Phase state: `devforgeai/workflows/STORY-XXX-phase-state.json`
+
+**Related:**
+- `/dev` - Execute full TDD development workflow
+- `/resume-dev` - Resume development from specific phase
+- `/qa` - Run QA validation
+
+**Created:** 2026-01-04 (STORY-171, RCA-013 REC-5)
+
+---
+
 ### /qa [STORY-ID] [mode]
 
 **Purpose:** Run quality validation (light or deep mode)

@@ -667,7 +667,7 @@ IF any check fails:
 **Next Sprint:**
 - [x] Implement REC-3 (Validation Checkpoints) - DONE via STORY-169 (2025-01-04)
 - [x] Implement REC-4 (Visual Iteration Counter) - DONE via STORY-170 (2026-01-04)
-- [ ] Create story for REC-5 (MEDIUM priority)
+- [x] Implement REC-5 (/dev-status Command) - DONE via STORY-171 (2026-01-04)
 - [x] Review RCA-009, RCA-011 - addressed by REC-3 (STORY-169)
 - [ ] Update framework documentation with resumption capability
 
