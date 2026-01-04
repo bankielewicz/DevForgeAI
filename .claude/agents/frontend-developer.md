@@ -2,7 +2,7 @@
 name: frontend-developer
 description: Frontend development expert specializing in modern component-based architectures (React, Vue, Angular). Use proactively for UI implementation, state management, API integration, and accessibility requirements.
 tools: Read, Write, Edit, Grep, Glob, Bash(npm:*)
-model: haiku
+model: opus
 color: green
 ---
 

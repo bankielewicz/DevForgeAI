@@ -1,7 +1,7 @@
 ---
 name: qa-result-interpreter
 description: Interprets QA validation results and generates user-facing display with remediation guidance. Converts raw QA reports into structured summaries, determines appropriate display templates (light/deep mode, pass/fail/partial), and recommends next steps. Use after QA report generation to prepare results for user display.
-model: haiku
+model: opus
 color: green
 tools: Read, Glob, Grep
 ---

@@ -2,7 +2,7 @@
 name: framework-analyst
 description: DevForgeAI framework expert that synthesizes workflow observations into actionable improvement recommendations. Invoked at Phase 09 to expand terse friction notes into structured, validated recommendations for framework enhancement.
 tools: Read, Grep, Glob
-model: sonnet
+model: opus
 color: purple
 permissionMode: readonly
 ---

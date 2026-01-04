@@ -6,7 +6,7 @@ description: >
   and normalized output. Use when analyzing session patterns, command sequences,
   workflow success metrics, or error categorization from history.jsonl files.
 tools: Read, Glob, Grep
-model: haiku
+model: opus
 color: cyan
 permissionMode: readonly
 proactive_triggers:

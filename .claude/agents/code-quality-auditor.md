@@ -9,7 +9,7 @@ tools:
   - Bash(eslint:*)
   - Bash(rubocop:*)
   - Bash(cloc:*)
-model: haiku
+model: opus
 ---
 
 # Code Quality Auditor Subagent
