@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-223",
   "workflow_started": "2026-01-03T16:25:42.271923Z",
-  "current_phase": "03",
+  "current_phase": "08",
   "phases": {
     "01": {
       "status": "completed",
@@ -30,37 +30,55 @@
       "checkpoint_passed": true
     },
     "03": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
       "subagents_invoked": [
-        "backend-architect"
+        "backend-architect",
+        "context-validator"
       ],
-      "started_at": "2026-01-03T18:50:56.365186Z"
+      "started_at": "2026-01-03T18:50:56.365186Z",
+      "completed_at": "2026-01-04T00:27:06.091733Z",
+      "checkpoint_passed": true
     },
     "04": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "refactoring-specialist",
         "code-reviewer"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-01-04T03:32:29.233531Z",
+      "completed_at": "2026-01-04T03:36:42.770922Z",
+      "checkpoint_passed": true
     },
     "05": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "integration-tester"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-01-04T03:43:15.465098Z",
+      "completed_at": "2026-01-04T03:43:16.102870Z",
+      "checkpoint_passed": true
     },
     "06": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-04T03:43:39.053788Z",
+      "checkpoint_passed": true
     },
     "07": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-04T03:45:02.790831Z",
+      "checkpoint_passed": true
     },
     "08": {
       "status": "pending",

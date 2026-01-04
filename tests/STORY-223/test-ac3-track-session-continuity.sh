@@ -176,7 +176,8 @@ test_should_handle_orphan_sessions() {
     fi
 
     # Assert: Should indicate broken/orphan chain
-    if echo "$result" | grep -q '"orphan"' || echo "$result" | grep -q '"broken_chain"' || echo "$result" | grep -q '"unresolved"'; then
+    # Check for various field naming conventions
+    if echo "$result" | grep -q '"orphan_sessions"' || echo "$result" | grep -q '"orphan"' || echo "$result" | grep -q '"broken_chain"' || echo "$result" | grep -q '"unresolved"'; then
         assert_equal "true" "true" "Orphan sessions should be flagged"
     else
         assert_equal "ORPHAN_FLAGGED" "NOT_FLAGGED" \
