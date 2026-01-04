@@ -6,7 +6,7 @@ devforgeai-validate phase-check ${STORY_ID} --from=04 --to=05
 
 Examples:
  - Correct: devforgeai-validate phase-init ${STORY_ID} --project-root=.
- - Incorrrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
+ - Incorrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
 # Exit code 0: Transition allowed
 # Exit code 1: Phase 04 not complete - HALT
 # Exit code 2: Missing subagents from Phase 04 - HALT
@@ -72,12 +72,12 @@ Examples:
 
 ---
 
-## Validation Checkpoint
+## Phase 05 Validation Checkpoint
 
 **Before proceeding to Phase 06, verify:**
 
 - [ ] Anti-gaming validation PASSED
-- [ ] integration-tester subagent invoked
+- [ ] integration-tester subagent invoked (check for Task() call in conversation)
 - [ ] Coverage thresholds validated (95%/85%/80%)
 - [ ] AC Checklist (integration items) updated
 
@@ -87,6 +87,23 @@ Examples:
 - Fix: Remove skip decorators, add assertions, reduce mocking
 
 **IF any other checkbox UNCHECKED:** HALT workflow
+
+### Subagent Invocation Verification
+
+FOR required_subagent in [integration-tester]:
+  IF conversation contains Task(subagent_type="{required_subagent}"):
+    mark_verified(required_subagent)
+  ELSE:
+    add_to_missing(required_subagent)
+
+IF any check fails:
+  Display: "Phase 05 incomplete: {missing items}"
+  HALT (do not proceed to Phase 06)
+  Prompt: "Complete missing items before proceeding"
+
+IF all checks pass:
+  Display: "Phase 05 validation passed - all mandatory steps completed"
+  Proceed to Phase 06
 
 ---
 

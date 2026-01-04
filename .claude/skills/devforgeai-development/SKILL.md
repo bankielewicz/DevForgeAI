@@ -496,6 +496,36 @@ All mandatory steps completed. Returning final results...
 - dev-result-interpreter subagent was invoked
 - Result display template generated
 
+### Phase Validation Checkpoint Template (STORY-169 / RCA-013)
+
+**Purpose:** Verify all mandatory subagents were invoked before proceeding to next phase.
+
+**Verification Method:** For each required subagent, check for Task() call in conversation history.
+
+**Subagent Verification Logic:**
+
+```
+FOR required_subagent in phase_required_subagents:
+  # Check for Task() call in conversation for this subagent
+  IF conversation contains Task(subagent_type="{required_subagent}"):
+    mark_verified(required_subagent)
+  ELSE:
+    add_to_missing(required_subagent)
+```
+
+**IF any check fails:**
+```
+Display: "Phase X incomplete: {missing items}"
+HALT (do not proceed to Phase X+1)
+Prompt: "Complete missing items before proceeding"
+```
+
+**IF all checks pass:**
+```
+Display: "Phase X validation passed - all mandatory steps completed"
+Proceed to Phase X+1
+```
+
 ---
 
 ## Complete Workflow Execution Map

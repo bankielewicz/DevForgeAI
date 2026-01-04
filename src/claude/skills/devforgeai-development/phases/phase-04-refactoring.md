@@ -6,7 +6,7 @@ devforgeai-validate phase-check ${STORY_ID} --from=03 --to=04
 
 Examples:
  - Correct: devforgeai-validate phase-init ${STORY_ID} --project-root=.
- - Incorrrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
+ - Incorrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
 # Exit code 0: Transition allowed
 # Exit code 1: Phase 03 not complete - HALT
 # Exit code 2: Missing subagents from Phase 03 - HALT
@@ -94,17 +94,34 @@ Examples:
 
 ---
 
-## Validation Checkpoint
+## Phase 04 Validation Checkpoint
 
 **Before proceeding to Phase 05, verify:**
 
-- [ ] refactoring-specialist invoked
-- [ ] code-reviewer invoked
+- [ ] refactoring-specialist invoked (check for Task() call in conversation)
+- [ ] code-reviewer invoked (check for Task() call in conversation)
 - [ ] Anti-gaming validation passed
-- [ ] Light QA validation passed
+- [ ] Light QA validation passed (check for devforgeai-qa --mode=light)
 - [ ] AC Checklist (quality items) updated
 
 **IF any checkbox UNCHECKED:** HALT workflow
+
+### Subagent Invocation Verification
+
+FOR required_subagent in [refactoring-specialist, code-reviewer, Light QA]:
+  IF conversation contains Task(subagent_type="{required_subagent}"):
+    mark_verified(required_subagent)
+  ELSE:
+    add_to_missing(required_subagent)
+
+IF any check fails:
+  Display: "Phase 04 incomplete: {missing items}"
+  HALT (do not proceed to Phase 05)
+  Prompt: "Complete missing items before proceeding"
+
+IF all checks pass:
+  Display: "Phase 04 validation passed - all mandatory steps completed"
+  Proceed to Phase 05
 
 ---
 

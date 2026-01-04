@@ -665,9 +665,9 @@ IF any check fails:
 - [ ] Document new workflow in CLAUDE.md
 
 **Next Sprint:**
-- [ ] Implement REC-3 (Validation Checkpoints)
+- [x] Implement REC-3 (Validation Checkpoints) - DONE via STORY-169 (2025-01-04)
 - [ ] Create story for REC-4, REC-5 (MEDIUM priority)
-- [ ] Review RCA-009, RCA-011 - mark as "addressed by REC-3"
+- [x] Review RCA-009, RCA-011 - addressed by REC-3 (STORY-169)
 - [ ] Update framework documentation with resumption capability
 
 **Future:**
