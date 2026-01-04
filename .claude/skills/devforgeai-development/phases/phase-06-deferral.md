@@ -71,6 +71,27 @@ Examples:
    )
    ```
 
+5.1. **IF user selects "HALT and implement NOW": Increment iteration counter** (RCA-013 REC-4)
+   ```
+   # User chose to loop back and implement - increment iteration counter
+   iteration_count += 1
+   last_iteration_date = CURRENT_DATE
+
+   # Update phase-state.json with new iteration count
+   Write iteration_count and last_iteration_date to phase-state.json
+
+   # Display warning if approaching limit
+   IF iteration_count >= 4:
+       Display: "⚠️ TDD Iteration: {iteration_count}/5 - Approaching limit"
+
+   # Block if max iterations reached
+   IF iteration_count >= 5:
+       HALT: "Maximum TDD iterations (5) reached. Story may need decomposition."
+
+   # Loop back to Phase 02 (Test-First) for next iteration
+   GOTO Phase 02
+   ```
+
 6. **AskUserQuestion for EVERY deferral** [ENFORCED]
    - First option MUST be "HALT and implement NOW"
    - No autonomous deferral approval

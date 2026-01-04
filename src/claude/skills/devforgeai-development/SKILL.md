@@ -105,6 +105,13 @@ This skill extracts the story ID from conversation context (loaded story file YA
 **Initialize iteration counter:**
 ```
 iteration_count = 1  # Track TDD cycle iterations (for Phase 06 resumption)
+max_iterations = 5   # Maximum allowed iterations before blocking
+last_iteration_date = null
+
+# Resume logic: Read iteration_count from phase-state.json if resuming
+IF resuming from existing workflow:
+    iteration_count = phase_state.iteration_count OR 1
+    last_iteration_date = phase_state.last_iteration_date OR null
 ```
 
 TodoWrite(
@@ -397,6 +404,12 @@ Verify cross-component interactions. Subagents: integration-tester.
 
 Validate any deferred items have proper justification. Subagents: deferral-validator (conditional).
 
+**Resumption Trigger - Phase 4.5-R (RCA-013 REC-4):** If user selects "HALT and implement NOW" for a deferral:
+- `iteration_count += 1` (increment before looping back to earlier phase)
+- IF iteration_count >= 4: Display "TDD Iteration: X/5 ⚠️ Approaching limit"
+- IF iteration_count >= 5: HALT "Maximum iterations reached"
+- Loop back to Phase 02 (Test-First) for next TDD iteration
+
 ## Phase 07: DoD Update
 
 Update Definition of Done checkboxes in story file.
@@ -429,12 +442,18 @@ All phase completion displays follow this structure:
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   Phase NN/10: [Phase Name] - Mandatory Steps Completed
+  TDD Iteration: 1/5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 [checkmarks for completed steps with line references]
 
 All Phase NN mandatory steps completed. Proceeding to Phase NN+1...
 ```
+
+**Iteration Counter Display Rules:**
+- Display "TDD Iteration: X/5" in every phase header
+- IF iteration_count >= 4: Display "TDD Iteration: X/5 ⚠️ Approaching limit"
+- IF iteration_count >= max_iterations (5): HALT with "Maximum iterations reached"
 
 ### Phase 03 Completion Display (TDD Green)
 
@@ -681,6 +700,31 @@ If workflow fails mid-execution:
 
 **State file location:** `devforgeai/workflows/STORY-XXX-phase-state.json`
 
+**Phase State Schema (includes iteration tracking):**
+```json
+{
+  "story_id": "STORY-XXX",
+  "current_phase": "03",
+  "completed_phases": ["01", "02"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"]
+  },
+  "iteration_count": 1,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-04",
+  "created": "2026-01-04T12:00:00Z",
+  "updated": "2026-01-04T12:30:00Z"
+}
+```
+
+**Story Workflow Section Format (for persistence across sessions):**
+```yaml
+## Workflow Status
+- iteration_count: 2
+- last_iteration_date: 2026-01-04
+```
+
 ---
 
 ## Migration Notes
@@ -706,3 +750,4 @@ Backup of original: `SKILL.md.backup-1240-lines`
 |------|--------|-----------|
 | 2025-11-13 | Added RCA-008 git safety enhancements: user consent checkpoint (Step 0.1.5), stash warning workflow (Step 0.1.6), smart stash strategy, git-validator file analysis (Phase 2.5) | RCA-008 |
 | 2026-01-02 | Added Phase Completion Self-Check Displays for Phase 03, 04, 10 with line number references for audit trail | RCA-011, STORY-164 |
+| 2026-01-04 | Added Visual Iteration Counter: TDD Iteration X/5 in phase headers, iteration increment on resumption, warning at 4/5, persistence in phase-state.json | RCA-013, STORY-170 |
