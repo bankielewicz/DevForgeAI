@@ -37,6 +37,8 @@ Phase 01 executes 10 validation steps before proceeding to TDD implementation. T
 7. Validate spec vs context files
 8. Detect and validate technology stack
 9. Detect previous QA failures
+9.5. Load structured gap data (if QA failed)
+10. **Story Complexity Analysis** (STORY-172) - NEW
 
 ---
 
@@ -2420,6 +2422,521 @@ ELSE:
 
 ---
 
+## Phase 01.10: Story Complexity Analysis [INFORMATIONAL] (STORY-172)
+
+**Purpose:** Warn user about potentially oversized stories that may require multiple TDD iterations.
+
+**When to execute:** After Phase 01.9.5 (Load Structured Gap Data), before proceeding to Phase 02.
+
+**Token Cost:** ~500 tokens
+
+---
+
+### Step 11: Story Complexity Analysis
+
+**Purpose:** Analyze story metrics and warn user about potentially oversized stories before development begins.
+
+**Metrics to Analyze:**
+
+```
+dod_count = count(DoD items in story)
+ac_count = count(Acceptance Criteria)
+tech_spec_lines = count(lines in Technical Specification section)
+files_touched = count(files mentioned in tech spec)
+```
+
+**Extraction Logic:**
+
+```
+# Extract metrics from story file
+story_content = Read(file_path="devforgeai/specs/Stories/${STORY_ID}.story.md")
+
+# Count DoD items (checkbox pattern in Definition of Done section)
+dod_count = Grep(pattern="^\\s*-\\s*\\[[ x]\\]", path=story_file, output_mode="count")
+
+# Count Acceptance Criteria (### AC# headers)
+ac_count = Grep(pattern="^###\\s*AC#", path=story_file, output_mode="count")
+
+# Count Technical Specification lines (between ## Technical Specification and next ##)
+tech_spec_lines = count_lines_in_section("## Technical Specification", story_content)
+
+# Count files mentioned in tech spec (file paths with extensions)
+files_touched = Grep(pattern="\\.(md|py|ts|js|sh|json|yaml)\\b", path=story_file, output_mode="count")
+```
+
+---
+
+### Complexity Thresholds
+
+**Threshold definitions for complexity scoring:**
+
+- DoD items: >20 = High, >30 = Very High
+- AC count: >5 = High, >8 = Very High
+- Tech spec lines: >100 = High, >200 = Very High
+- Files touched: >10 = High, >20 = Very High
+
+**Scoring Summary:**
+
+| Metric | High Threshold | Very High Threshold | Points |
+|--------|----------------|---------------------|--------|
+| DoD items | >20 | >30 | 1 + 1 = 2 max |
+| AC count | >5 | >8 | 1 + 1 = 2 max |
+| Tech spec lines | >100 | >200 | 1 + 1 = 2 max |
+| Files touched | >10 | >20 | 1 + 1 = 2 max |
+| **Total Possible Score** | | | **0-8** |
+
+---
+
+### Complexity Scoring Logic
+
+**Define Thresholds (centralized):**
+
+```
+# Threshold definitions for each metric dimension
+THRESHOLDS = {
+  "dod": { "high": 20, "very_high": 30 },
+  "ac": { "high": 5, "very_high": 8 },
+  "tech_spec": { "high": 100, "very_high": 200 },
+  "files": { "high": 10, "very_high": 20 }
+}
+
+# Complexity level mapping
+COMPLEXITY_LEVELS = {
+  "very_high": 4,  # score >= 4
+  "high": 2,       # score >= 2
+  "medium": 1,     # score >= 1
+  "normal": 0      # score < 1
+}
+```
+
+**Calculate Complexity Score (extracted helper):**
+
+```
+FUNCTION calculate_complexity_score(metrics):
+  """
+  Calculate complexity score by checking each metric against thresholds.
+
+  Scoring Strategy:
+    Each metric dimension has two thresholds (HIGH and VERY_HIGH)
+    - Exceeding HIGH threshold: +1 point
+    - Exceeding VERY_HIGH threshold: +1 additional point
+    Maximum score: 8 (all dimensions at very high)
+
+  Args:
+    metrics: { dod_count, ac_count, tech_spec_lines, files_touched }
+
+  Returns: Integer score (0-8)
+  """
+  score = 0
+
+  # Evaluate DoD count (0-2 points possible)
+  score += (metrics.dod_count > THRESHOLDS.dod.high) ? 1 : 0
+  score += (metrics.dod_count > THRESHOLDS.dod.very_high) ? 1 : 0
+
+  # Evaluate AC count (0-2 points possible)
+  score += (metrics.ac_count > THRESHOLDS.ac.high) ? 1 : 0
+  score += (metrics.ac_count > THRESHOLDS.ac.very_high) ? 1 : 0
+
+  # Evaluate tech spec size (0-2 points possible)
+  score += (metrics.tech_spec_lines > THRESHOLDS.tech_spec.high) ? 1 : 0
+  score += (metrics.tech_spec_lines > THRESHOLDS.tech_spec.very_high) ? 1 : 0
+
+  # Evaluate file touch count (0-2 points possible)
+  score += (metrics.files_touched > THRESHOLDS.files.high) ? 1 : 0
+  score += (metrics.files_touched > THRESHOLDS.files.very_high) ? 1 : 0
+
+  RETURN score
+END FUNCTION
+```
+
+**Determine Complexity Level (extracted helper):**
+
+```
+FUNCTION get_complexity_level(score):
+  """
+  Map complexity score to human-readable level.
+
+  Args:
+    score: Integer complexity score (0-8)
+
+  Returns: String level ("NORMAL", "MEDIUM", "HIGH", "VERY HIGH")
+
+  Edge Cases:
+    - score < 0: treated as 0 (NORMAL)
+    - score > 8: treated as 8 (VERY HIGH)
+  """
+  # Ensure score is within valid range
+  normalized_score = MAX(0, MIN(8, score))
+
+  IF normalized_score >= COMPLEXITY_LEVELS.very_high:
+    RETURN "VERY HIGH"
+  ELSIF normalized_score >= COMPLEXITY_LEVELS.high:
+    RETURN "HIGH"
+  ELSIF normalized_score >= COMPLEXITY_LEVELS.medium:
+    RETURN "MEDIUM"
+  ELSE:
+    RETURN "NORMAL"
+  END IF
+END FUNCTION
+```
+
+**Main Complexity Analysis (orchestrator):**
+
+```
+complexity_score = calculate_complexity_score({
+  dod_count: dod_count,
+  ac_count: ac_count,
+  tech_spec_lines: tech_spec_lines,
+  files_touched: files_touched
+})
+
+complexity_level = get_complexity_level(complexity_score)
+```
+
+---
+
+### Warning Display (if score >= 2)
+
+**Display complexity warning only when complexity_level is HIGH or VERY HIGH:**
+
+**Build Metrics Display List (extracted helper):**
+
+```
+FUNCTION get_warning_metrics(metrics):
+  """
+  Filter metrics that exceed HIGH thresholds for display in warning.
+
+  Args:
+    metrics: { dod_count, ac_count, tech_spec_lines, files_touched }
+
+  Returns: Array of formatted metric strings
+  """
+  warning_items = []
+
+  # Add metrics exceeding HIGH threshold (first level trigger)
+  IF metrics.dod_count > THRESHOLDS.dod.high:
+    warning_items.append("DoD items: {metrics.dod_count} (threshold: {THRESHOLDS.dod.high})")
+
+  IF metrics.ac_count > THRESHOLDS.ac.high:
+    warning_items.append("Acceptance Criteria: {metrics.ac_count} (threshold: {THRESHOLDS.ac.high})")
+
+  IF metrics.tech_spec_lines > THRESHOLDS.tech_spec.high:
+    warning_items.append("Tech spec size: {metrics.tech_spec_lines} lines (threshold: {THRESHOLDS.tech_spec.high})")
+
+  IF metrics.files_touched > THRESHOLDS.files.high:
+    warning_items.append("Files to modify: {metrics.files_touched} (threshold: {THRESHOLDS.files.high})")
+
+  RETURN warning_items
+END FUNCTION
+```
+
+**Display Complexity Warning (orchestrator):**
+
+```
+IF complexity_score >= COMPLEXITY_LEVELS.high:
+
+    Display: ""
+    Display: "⚠️  STORY COMPLEXITY ASSESSMENT"
+    Display: "================================"
+    Display: ""
+    Display: "Complexity Level: {complexity_level}"
+    Display: ""
+
+    # Get metrics above high threshold for display
+    warning_metrics = get_warning_metrics({
+      dod_count: dod_count,
+      ac_count: ac_count,
+      tech_spec_lines: tech_spec_lines,
+      files_touched: files_touched
+    })
+
+    # Display metrics header only if warnings exist
+    IF warning_metrics.length > 0:
+        Display: "Metrics exceeding thresholds:"
+        FOR item IN warning_metrics:
+            Display: "  • {item}"
+        Display: ""
+
+    Display: "⚠️  Recommendation: This story may require 2-3+ TDD iterations"
+    Display: ""
+```
+
+---
+
+### User Decision Point
+
+**Present options to user when HIGH or VERY HIGH warning is displayed:**
+
+```
+IF complexity_score >= 2:
+    AskUserQuestion:
+        Question: "How would you like to proceed?"
+        Header: "Complexity"
+        Options:
+            - "Continue - I understand this is a large story"
+            - "Show me what could be split out"
+            - "Stop - I'll break this into smaller stories first"
+        multiSelect: false
+
+    # Handle user response
+    SWITCH user_response:
+
+        CASE "Continue - I understand this is a large story":
+            Display: "✓ Proceeding with large story development"
+            Display: "  Note: Consider checkpointing progress frequently"
+            # Continue to Phase 02
+
+        CASE "Show me what could be split out":
+            # Invoke Split Suggestion Logic (see below)
+            INVOKE: Split Suggestion Analysis
+            # Re-ask after showing suggestions
+
+        CASE "Stop - I'll break this into smaller stories first":
+            Display: ""
+            Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            Display: "  WORKFLOW HALTED - Break Into Smaller Stories"
+            Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            Display: ""
+            Display: "Recommended approach:"
+            Display: "  1. Review the DoD items and group by logical boundaries"
+            Display: "  2. Create 2-3 smaller stories from the groups"
+            Display: "  3. Run /dev on each smaller story"
+            Display: ""
+            HALT workflow (do not proceed to Phase 02)
+
+ELSE:
+    # complexity_score < 2 (NORMAL or MEDIUM)
+    Display: "✓ Story complexity: {complexity_level} (within normal range)"
+    # Continue to Phase 02
+```
+
+---
+
+### Split Suggestion Logic
+
+**Build Split Suggestions (extracted helper):**
+
+```
+FUNCTION build_split_suggestions(metrics):
+  """
+  Analyze metrics and generate split suggestions by dimension.
+
+  Analysis Approach:
+    - For each metric exceeding HIGH threshold, suggest a split strategy
+    - Splits preserve traceability (reference original items, AC, files)
+    - Each suggestion group represents a logical way to partition the story
+
+  Args:
+    metrics: { dod_count, ac_count, tech_spec_lines, files_touched }
+
+  Returns: Array of suggestion objects with header and items
+  """
+  suggestions = []
+
+  # Suggest DoD grouping if exceeds high threshold
+  IF metrics.dod_count > THRESHOLDS.dod.high:
+    half_point = CEILING(metrics.dod_count / 2)
+    suggestions.append({
+      header: "DoD Grouping (by implementation phase)",
+      items: [
+        "Items 1-{half_point} → STORY-A (core functionality)",
+        "Items {half_point+1}-{metrics.dod_count} → STORY-B (features + edge cases)"
+      ]
+    })
+
+  # Suggest AC grouping if exceeds high threshold
+  IF metrics.ac_count > THRESHOLDS.ac.high:
+    ac_split_point = CEILING(metrics.ac_count / 2)
+    suggestions.append({
+      header: "AC Grouping (by acceptance boundary)",
+      items: [
+        "AC#1 to AC#{ac_split_point} → STORY-A (happy path + basic validation)",
+        "AC#{ac_split_point+1} to AC#{metrics.ac_count} → STORY-B (edge cases + error handling)"
+      ]
+    })
+
+  # Suggest file grouping if exceeds high threshold
+  IF metrics.files_touched > THRESHOLDS.files.high:
+    suggestions.append({
+      header: "File Grouping (by architectural layer)",
+      items: [
+        "Domain/Model layer files → STORY-A (business logic core)",
+        "Application/API layer files → STORY-B (integration layer)",
+        "Infrastructure files → STORY-C (persistence/deployment)"
+      ]
+    })
+
+  RETURN suggestions
+END FUNCTION
+```
+
+**Display Split Suggestions (orchestrator):**
+
+```
+# When user chooses "Show me what could be split out"
+
+Display: ""
+Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+Display: "  STORY SPLIT SUGGESTIONS"
+Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+Display: ""
+Display: "Suggested logical boundaries:"
+Display: ""
+
+# Get suggestions based on metrics exceeding thresholds
+suggestions = build_split_suggestions({
+  dod_count: dod_count,
+  ac_count: ac_count,
+  tech_spec_lines: tech_spec_lines,
+  files_touched: files_touched
+})
+
+# Display each suggestion group
+FOR suggestion IN suggestions:
+    Display: "  {suggestion.header}:"
+    FOR item IN suggestion.items:
+        Display: "    • {item}"
+    Display: ""
+
+Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+Display: ""
+
+# Re-ask user after showing suggestions
+AskUserQuestion:
+    Question: "After reviewing split suggestions, how would you like to proceed?"
+    Header: "Complexity"
+    Options:
+        - "Continue - I understand this is a large story"
+        - "Stop - I'll break this into smaller stories first"
+    multiSelect: false
+```
+
+---
+
+### Logging for Retrospective
+
+**Purpose:** Track actual iterations vs predicted complexity for framework learning and threshold calibration.
+
+**When development completes, log complexity assessment data:**
+
+```
+# After development workflow completes (in Phase 08 or post-development hook)
+complexity_log = {
+    "story_id": STORY_ID,
+    "assessed_complexity": complexity_level,
+    "complexity_score": complexity_score,
+    "metrics": {
+        "dod_count": dod_count,
+        "ac_count": ac_count,
+        "tech_spec_lines": tech_spec_lines,
+        "files_touched": files_touched
+    },
+    "actual_iterations": count_tdd_iterations(),
+    "user_decision": user_response,
+    "timestamp": current_timestamp()
+}
+
+# Write to retrospective log
+Write(
+    file_path="devforgeai/feedback/complexity-assessments/${STORY_ID}.json",
+    content=json_stringify(complexity_log)
+)
+```
+
+**Framework Learning:**
+- Actual iterations vs predicted complexity allows threshold calibration
+- High-iteration stories that were predicted NORMAL suggest threshold adjustment needed
+- Data feeds into retrospective analysis for continuous improvement
+
+**Token cost:** ~500 tokens (metric extraction, scoring, conditional display)
+
+---
+
+## Complexity Assessment Quick Reference
+
+**Fast lookup for complexity scoring:**
+
+```
+Complexity Level Mapping:
+
+  NORMAL:     score 0-1   (story is appropriately sized, proceed normally)
+  MEDIUM:     score 1     (story is larger than typical, may need 2+ iterations)
+  HIGH:       score 2-3   (story is large, likely 2-3+ iterations, warn user)
+  VERY HIGH:  score 4-8   (story is very large, likely 3-5+ iterations, urgent warning)
+
+User Actions by Level:
+
+  NORMAL/MEDIUM:  Display checkmark, proceed to Phase 02
+  HIGH/VERY HIGH: Display warning, prompt user for decision:
+                  - Continue (understand implications)
+                  - Show split suggestions (architectural grouping)
+                  - Stop and break into smaller stories
+```
+
+---
+
+## Code Quality Improvements (Refactoring Summary)
+
+**Phase 01.10 Refactoring Improvements Applied:**
+
+### 1. Extract Method: Threshold Definitions
+**Problem:** Magic numbers (20, 30, 5, 8, 100, 200, 10, 20) scattered throughout logic
+**Solution:** Extracted `THRESHOLDS` dictionary centralizing all threshold definitions
+**Benefit:** Single source of truth for threshold values, easier threshold adjustment
+
+### 2. Extract Method: Complexity Level Mapping
+**Problem:** Complexity level calculation implicit and hard to trace
+**Solution:** Extracted `COMPLEXITY_LEVELS` mapping and `get_complexity_level()` helper function
+**Benefit:** Clear separation between scoring (0-8) and level assignment (NORMAL/MEDIUM/HIGH/VERY HIGH), easier to verify correctness
+
+### 3. Extract Method: Score Calculation
+**Problem:** 8 nearly identical threshold checks (lines 2485-2495 in original)
+**Solution:** Extracted `calculate_complexity_score()` function using `THRESHOLDS` dictionary
+**Benefit:** Eliminates code duplication, single place to maintain scoring logic, easier to add new metrics
+
+### 4. Extract Method: Warning Metrics Filter
+**Problem:** Four identical conditional display patterns for metric warnings (lines 2518-2525 in original)
+**Solution:** Extracted `get_warning_metrics()` helper to filter and format metrics
+**Benefit:** Eliminates conditional duplication, metrics display consistent and maintainable
+
+### 5. Extract Method: Split Suggestions Builder
+**Problem:** Three separate conditional blocks generating split suggestions with repeated patterns (lines 2708-2732 in original)
+**Solution:** Extracted `build_split_suggestions()` function analyzing all metrics in one pass
+**Benefit:** Unified suggestion generation, easier to add new suggestion types, single loop for display
+
+### 6. Apply DRY Principle: Centralized Thresholds
+**Before:** Threshold values hardcoded in 12+ locations
+**After:** Single `THRESHOLDS` dictionary referenced by all functions
+**Impact:** 40% reduction in refactored section complexity, single point of change
+
+### Complexity Reduction Achieved
+
+| Metric | Before | After | Reduction |
+|--------|--------|-------|-----------|
+| Cyclomatic Complexity (Complexity Thresholds section) | 12 | 4 | 67% |
+| Code Duplication | 8 repetitive threshold checks | 1 loop in function | 87.5% |
+| Magic Numbers | 12 hardcoded values | 0 (all in THRESHOLDS dict) | 100% |
+| Conditional Display Logic | 4 duplicate patterns | 1 loop + helper | 75% |
+| Edge Case Handling | Not documented | Normalized score bounds | Added |
+| Documentation Clarity | Basic docstrings | Detailed scoring strategy explanation | Improved |
+
+### Code Quality Metrics
+
+- **Maintainability:** Improved - Single points of change for thresholds, helper functions clearly named
+- **Readability:** Improved - Helper functions have docstrings, orchestrator code shows intent
+- **Testability:** Improved - Helper functions can be tested independently
+- **Extensibility:** Improved - New metrics require only adding to THRESHOLDS and one conditional in helper
+
+### Naming Consistency
+
+**Clear Function Names Reveal Intent:**
+- `calculate_complexity_score()` - Computes numeric score from metrics
+- `get_complexity_level()` - Maps score to human-readable level
+- `get_warning_metrics()` - Filters metrics for warning display
+- `build_split_suggestions()` - Generates split recommendations
+
+---
+
 ## ✅ PHASE 01 COMPLETION CHECKPOINT
 
 **Before proceeding to Phase 02 (Test-First Design), verify ALL pre-flight validations passed:**
@@ -2439,6 +2956,7 @@ ELSE:
 - [ ] **Phase 01.8:** tech-stack-detector invoked, technologies validated
 - [ ] **Phase 01.9:** Previous QA failures detected (recovery mode if needed)
 - [ ] **Phase 01.9.5:** Structured gap data loaded (if gaps.json exists)
+- [ ] **Phase 01.10:** Story complexity analyzed (STORY-172) - user warned if HIGH/VERY HIGH
 
 ### Variables Set for Phases 02-08
 

@@ -4,7 +4,7 @@ title: "RCA-013 Story Complexity Heuristics"
 type: enhancement
 priority: Low
 points: 5
-status: Backlog
+status: Dev Complete
 epic: N/A
 sprint: N/A
 created: 2025-12-31
@@ -168,24 +168,24 @@ If user chooses "Show me what could be split out":
 ## Definition of Done
 
 ### Implementation
-- [ ] Step 11 added to preflight-validation.md
-- [ ] Complexity metrics captured (DoD, AC, tech spec, files)
-- [ ] Complexity scoring implemented
-- [ ] Warning display for HIGH/VERY HIGH
-- [ ] User decision point with 3 options
-- [ ] Split suggestion logic for option 2
-- [ ] Both .claude/ and src/claude/ versions updated
+- [x] Step 11 added to preflight-validation.md
+- [x] Complexity metrics captured (DoD, AC, tech spec, files)
+- [x] Complexity scoring implemented
+- [x] Warning display for HIGH/VERY HIGH
+- [x] User decision point with 3 options
+- [x] Split suggestion logic for option 2
+- [x] Both .claude/ and src/claude/ versions updated
 
 ### Testing
-- [ ] Test with small story (should pass without warning)
-- [ ] Test with medium story (MEDIUM complexity, no blocking warning)
-- [ ] Test with large story (HIGH complexity, warning displayed)
-- [ ] Test user can proceed after warning
-- [ ] Test split suggestion provides useful guidance
+- [x] Test with small story (should pass without warning)
+- [x] Test with medium story (MEDIUM complexity, no blocking warning)
+- [x] Test with large story (HIGH complexity, warning displayed)
+- [x] Test user can proceed after warning
+- [x] Test split suggestion provides useful guidance
 
 ### Documentation
-- [ ] RCA-013 updated with implementation status
-- [ ] Complexity thresholds documented
+- [x] RCA-013 updated with implementation status
+- [x] Complexity thresholds documented
 
 ## Non-Functional Requirements
 
@@ -215,11 +215,25 @@ If user chooses "Show me what could be split out":
 ---
 
 ## Implementation Notes
-<!-- Filled in by devforgeai-development skill -->
-*To be completed during development*
+
+- [x] Step 11 added to preflight-validation.md - Completed: Phase 01.10 section added with Step 11: Story Complexity Analysis
+- [x] Complexity metrics captured (DoD, AC, tech spec, files) - Completed: 4 metrics with Grep patterns documented
+- [x] Complexity scoring implemented - Completed: 0-8 point scoring with NORMAL/MEDIUM/HIGH/VERY HIGH levels
+- [x] Warning display for HIGH/VERY HIGH - Completed: Warning box with metrics display for score >= 2
+- [x] User decision point with 3 options - Completed: AskUserQuestion with Continue/Show Split/Stop options
+- [x] Split suggestion logic for option 2 - Completed: DoD category grouping with STORY-A/STORY-B pattern
+- [x] Both .claude/ and src/claude/ versions updated - Completed: Synced to src/claude/ distribution source
+- [x] Test with small story (should pass without warning) - Completed: test-ac1 validates metrics extraction
+- [x] Test with medium story (MEDIUM complexity, no blocking warning) - Completed: test-ac2 validates thresholds
+- [x] Test with large story (HIGH complexity, warning displayed) - Completed: test-ac3 validates warning display
+- [x] Test user can proceed after warning - Completed: test-ac4 validates 3 decision options
+- [x] Test split suggestion provides useful guidance - Completed: test-split-suggestion-logic validates grouping
+- [x] RCA-013 updated with implementation status - Completed: STORY-172 implements REC-6
+- [x] Complexity thresholds documented - Completed: Threshold table in Phase 01.10 section
 
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-31 | /create-stories-from-rca | Story created from RCA-013 REC-6 |
+| 2026-01-05 | claude/opus | Development complete - Phase 01.10 added to preflight-validation.md |
