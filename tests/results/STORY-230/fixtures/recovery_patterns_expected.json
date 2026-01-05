@@ -1,0 +1,54 @@
+{
+  "recovery_actions": {
+    "retry": {
+      "description": "Same command executed again after error",
+      "pattern": "error -> same_command -> success|error"
+    },
+    "manual-fix": {
+      "description": "Different command executed to fix the issue, then original retried",
+      "pattern": "error -> different_command -> original_command"
+    },
+    "skip": {
+      "description": "Different command/story executed without addressing error",
+      "pattern": "error -> different_story_command"
+    },
+    "escalate": {
+      "description": "User interaction (AskUserQuestion) to get human input",
+      "pattern": "error -> AskUserQuestion"
+    }
+  },
+  "expected_analysis": {
+    "session-001": {
+      "error": "API rate limit exceeded",
+      "recovery_action": "retry",
+      "success": true
+    },
+    "session-002": {
+      "error": "Connection timeout after 30000ms",
+      "recovery_action": "retry",
+      "success": true,
+      "attempts": 3
+    },
+    "session-003": {
+      "error": "File not found: src/main.py",
+      "recovery_action": "manual-fix",
+      "success": true
+    },
+    "session-004": {
+      "error": "Critical security vulnerability detected",
+      "recovery_action": "escalate",
+      "success": true
+    },
+    "session-005": {
+      "error": "Context window overflow",
+      "recovery_action": "skip",
+      "success": false
+    },
+    "session-006": {
+      "error": "Validation failed: missing required field",
+      "recovery_action": "retry",
+      "success": false,
+      "attempts": 3
+    }
+  }
+}

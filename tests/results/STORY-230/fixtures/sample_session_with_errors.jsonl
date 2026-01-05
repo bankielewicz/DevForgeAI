@@ -1,0 +1,15 @@
+{"timestamp": "2025-01-02T10:00:00Z", "command": "/dev STORY-001", "status": "error", "error_message": "API rate limit exceeded", "session_id": "session-001", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T10:00:30Z", "command": "/dev STORY-001", "status": "success", "session_id": "session-001", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T11:00:00Z", "command": "/qa STORY-002", "status": "error", "error_message": "Connection timeout after 30000ms", "session_id": "session-002", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T11:01:00Z", "command": "/qa STORY-002", "status": "error", "error_message": "Connection timeout after 30000ms", "session_id": "session-002", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T11:02:00Z", "command": "/qa STORY-002", "status": "success", "session_id": "session-002", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T12:00:00Z", "command": "/dev STORY-003", "status": "error", "error_message": "File not found: src/main.py", "session_id": "session-003", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T12:01:00Z", "command": "touch src/main.py", "status": "success", "session_id": "session-003", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T12:02:00Z", "command": "/dev STORY-003", "status": "success", "session_id": "session-003", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T13:00:00Z", "command": "/release STORY-004", "status": "error", "error_message": "Critical security vulnerability detected", "session_id": "session-004", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T13:05:00Z", "command": "AskUserQuestion", "status": "success", "user_input": "escalate to security team", "session_id": "session-004", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T14:00:00Z", "command": "/dev STORY-005", "status": "error", "error_message": "Context window overflow", "session_id": "session-005", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T14:01:00Z", "command": "/dev STORY-006", "status": "success", "session_id": "session-005", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T15:00:00Z", "command": "/qa STORY-007", "status": "error", "error_message": "Validation failed: missing required field", "session_id": "session-006", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T15:01:00Z", "command": "/qa STORY-007", "status": "error", "error_message": "Validation failed: missing required field", "session_id": "session-006", "project": "/mnt/c/Projects/TestProject"}
+{"timestamp": "2025-01-02T15:02:00Z", "command": "/qa STORY-007", "status": "error", "error_message": "Validation failed: missing required field", "session_id": "session-006", "project": "/mnt/c/Projects/TestProject"}
