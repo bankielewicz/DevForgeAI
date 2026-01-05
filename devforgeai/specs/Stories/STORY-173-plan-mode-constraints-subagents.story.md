@@ -4,7 +4,7 @@ title: "Add Plan File Creation Constraints to Subagents"
 type: refactor
 priority: HIGH
 points: 1
-status: Backlog
+status: Dev Complete
 epic: EPIC-033
 sprint: N/A
 created: 2025-12-31
@@ -64,18 +64,74 @@ Currently, `backend-architect.md` and `api-designer.md` subagents have `permissi
 
 ## Definition of Done
 
-- [ ] Backend-architect.md updated with plan file creation constraint
-- [ ] API-designer.md updated with plan file creation constraint
-- [ ] Both files instruct to return plan content in response
-- [ ] Markdown formatting consistent with existing document style
+- [x] Backend-architect.md updated with plan file creation constraint - Completed: Added ## Constraints section with Plan File Restrictions subsection at lines 714-720
+- [x] API-designer.md updated with plan file creation constraint - Completed: Added ## Constraints section with Plan File Restrictions subsection at lines 735-741
+- [x] Both files instruct to return plan content in response - Completed: Both contain "Return all plan content directly in your response"
+- [x] Markdown formatting consistent with existing document style - Completed: Follows ## section with ### subsection pattern matching existing agent files
 
 ## Effort Estimate
 - **Points:** 1
 - **Estimated Hours:** 30 minutes
 - **Complexity:** Low (documentation only)
 
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2026-01-05
+**Branch:** refactor/devforgeai-migration
+
+- [x] Backend-architect.md updated with plan file creation constraint - Completed: Added ## Constraints section with Plan File Restrictions subsection at lines 714-720
+- [x] API-designer.md updated with plan file creation constraint - Completed: Added ## Constraints section with Plan File Restrictions subsection at lines 735-741
+- [x] Both files instruct to return plan content in response - Completed: Both contain "Return all plan content directly in your response"
+- [x] Markdown formatting consistent with existing document style - Completed: Follows ## section with ### subsection pattern matching existing agent files
+
+### TDD Workflow Summary
+
+**Phase 02 (Red): Test-First Design**
+- Generated 29 tests covering all 4 acceptance criteria
+- Tests placed in tests/STORY-173/
+- Test frameworks: Bash shell scripts with grep assertions
+
+**Phase 03 (Green): Implementation**
+- Added Constraints section to backend-architect.md (lines 714-720)
+- Added Constraints section to api-designer.md (lines 735-741)
+- All 29 tests passing (100% pass rate)
+
+**Phase 04 (Refactor): Code Quality**
+- Code review completed - approved with suggestion for future DRY improvement
+- Light QA validation passed
+
+**Phase 05 (Integration): Full Validation**
+- Integration testing completed - all cross-component checks pass
+- All tests remain green
+
+**Phase 06 (Deferral Challenge): DoD Validation**
+- No deferrals - all DoD items implemented
+
+### Files Modified
+
+- `.claude/agents/backend-architect.md` - Added Constraints section
+- `.claude/agents/api-designer.md` - Added Constraints section
+
+### Files Created
+
+- `tests/STORY-173/test_ac1_backend_architect_constraint.sh`
+- `tests/STORY-173/test_ac2_api_designer_constraint.sh`
+- `tests/STORY-173/test_ac3_inline_plan_content_instruction.sh`
+- `tests/STORY-173/test_ac4_existing_functionality_preserved.sh`
+- `tests/STORY-173/run_all_tests.sh`
+
+### Test Results
+
+- **Total tests:** 29
+- **Pass rate:** 100%
+- **Execution time:** <5 seconds
+
 ## Change Log
 
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-31 | claude/opus | Story created from STORY-156 framework enhancement analysis |
+| 2026-01-05 | claude/test-automator | Red (Phase 02): Tests generated for all 4 ACs |
+| 2026-01-05 | claude/opus | Green (Phase 03): Implementation complete |
+| 2026-01-05 | claude/opus | DoD Update (Phase 07): Development complete, DoD validated |

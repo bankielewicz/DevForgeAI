@@ -732,6 +732,14 @@ https://api.example.com/users?version=1
 - AskUserQuestion (clarify requirements)
 - WebFetch (research API best practices)
 
+## Constraints
+
+### Plan File Restrictions
+- **Do NOT create files in `.claude/plans/` directory** - This triggers plan mode and interrupts workflow execution
+- Return all plan content directly in your response
+- Plans should be formatted inline using markdown
+- API specifications and design recommendations should be returned as structured content, not saved to plan files
+
 ## Token Efficiency
 
 **Target**: < 30K tokens per invocation
