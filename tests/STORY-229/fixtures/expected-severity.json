@@ -1,0 +1,52 @@
+{
+  "description": "Expected severity assignment results for AC#3 verification",
+  "severity_levels": {
+    "critical": {
+      "description": "Errors that halt workflow completely, require immediate intervention",
+      "criteria": ["context-overflow", "API connection failures"],
+      "count": 2,
+      "examples": [
+        "Context window overflow: conversation exceeds 200K tokens",
+        "API connection failed: ECONNREFUSED"
+      ]
+    },
+    "high": {
+      "description": "Errors that block current operation but system can recover",
+      "criteria": ["timeout", "API rate limits"],
+      "count": 4,
+      "examples": [
+        "API rate limit exceeded",
+        "Request timeout after 120000ms",
+        "Request timeout after 60000ms"
+      ]
+    },
+    "medium": {
+      "description": "Errors that can be worked around or retried",
+      "criteria": ["validation failures", "file not found"],
+      "count": 4,
+      "examples": [
+        "Validation failed: Missing required field 'acceptance_criteria'",
+        "File not found: devforgeai/specs/Stories/STORY-999.story.md",
+        "Validation failed: Coverage below threshold (85% < 95%)"
+      ]
+    },
+    "low": {
+      "description": "Minor errors with limited impact",
+      "criteria": ["unknown errors", "other category"],
+      "count": 2,
+      "examples": [
+        "Unknown error occurred during execution",
+        "Invalid JSON response from API"
+      ]
+    }
+  },
+  "severity_rules": [
+    {"pattern": "context.*overflow", "severity": "critical"},
+    {"pattern": "ECONNREFUSED|connection failed", "severity": "critical"},
+    {"pattern": "rate limit", "severity": "high"},
+    {"pattern": "timeout", "severity": "high"},
+    {"pattern": "Validation failed", "severity": "medium"},
+    {"pattern": "File not found|not found", "severity": "medium"},
+    {"pattern": ".*", "severity": "low"}
+  ]
+}

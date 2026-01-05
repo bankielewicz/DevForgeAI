@@ -1,0 +1,60 @@
+{
+  "description": "Expected error categorization results for AC#2 verification",
+  "categories": {
+    "api": {
+      "description": "API-related errors (rate limits, connection failures, invalid responses)",
+      "count": 4,
+      "errors": [
+        "API rate limit exceeded",
+        "API connection failed: ECONNREFUSED",
+        "Invalid JSON response from API",
+        "API rate limit exceeded"
+      ]
+    },
+    "validation": {
+      "description": "Validation errors (missing fields, threshold failures)",
+      "count": 2,
+      "errors": [
+        "Validation failed: Missing required field 'acceptance_criteria'",
+        "Validation failed: Coverage below threshold (85% < 95%)"
+      ]
+    },
+    "timeout": {
+      "description": "Timeout errors (request timeouts, execution timeouts)",
+      "count": 2,
+      "errors": [
+        "Request timeout after 120000ms",
+        "Request timeout after 60000ms"
+      ]
+    },
+    "context-overflow": {
+      "description": "Context window overflow errors",
+      "count": 1,
+      "errors": [
+        "Context window overflow: conversation exceeds 200K tokens"
+      ]
+    },
+    "file-not-found": {
+      "description": "File not found errors (missing stories, agents, files)",
+      "count": 2,
+      "errors": [
+        "File not found: devforgeai/specs/Stories/STORY-999.story.md",
+        "File not found: .claude/agents/missing-agent.md"
+      ]
+    },
+    "other": {
+      "description": "Uncategorized errors",
+      "count": 1,
+      "errors": [
+        "Unknown error occurred during execution"
+      ]
+    }
+  },
+  "category_patterns": {
+    "api": ["rate limit", "API", "ECONNREFUSED", "JSON response", "connection"],
+    "validation": ["Validation failed", "invalid", "missing.*field", "threshold"],
+    "timeout": ["timeout", "timed out", "ms$"],
+    "context-overflow": ["context.*overflow", "token", "window"],
+    "file-not-found": ["File not found", "not found", "missing"]
+  }
+}
