@@ -4,6 +4,7 @@ argument-hint: [STORY-ID] [environment]
 # Environment: 'staging' or 'production' (no -- prefix)
 model: haiku
 allowed-tools: Read, Skill, AskUserQuestion, Glob
+execution-mode: immediate
 ---
 
 # /release - Release to Environment
@@ -29,9 +30,21 @@ Release QA-approved stories to target environments with automated validation and
 
 ## Command Workflow
 
-### Phase 0: Argument Validation and Context Loading
+### Phase 0: Plan Mode Detection and Argument Validation
 
-**Step 0.1: Validate story ID**
+**Step 0.0: Plan Mode Auto-Exit [execution-mode: immediate]**
+
+This command has `execution-mode: immediate` in frontmatter. If plan mode is currently active, auto-exit plan mode before proceeding:
+
+```
+IF plan mode is active:
+    Display: "Note: /release is an execution command. Exiting plan mode automatically."
+    ExitPlanMode()
+```
+
+---
+
+**Step 0.1: Validate Story ID**
 - Check $1 matches format `STORY-[0-9]+`
 - If invalid: Use AskUserQuestion to get valid story ID
 - If empty: Prompt user for story ID
@@ -44,21 +57,23 @@ Release QA-approved stories to target environments with automated validation and
 - Reference: `@devforgeai/specs/Stories/{STORY_ID}.story.md`
 - Story content now available in conversation for skill extraction
 
-**Step 0.4: Parse and normalize environment**
+**Step 0.4: Parse and Normalize Environment**
+
 - Default: "test" environment (safe default if $2 not provided)
 - If $2 provided: Normalize short forms to full names
 - Valid values: test environment or production environment
 - If invalid: AskUserQuestion for valid environment
 
-**Step 0.5: Confirm and proceed**
+**Step 0.5: Confirm and Proceed**
+
 - Display: ✓ Story ID: {STORY_ID}, ✓ Environment: {ENVIRONMENT}
-- Proceed to Phase 0.6
+- Proceed to Step 0.6
 
 ---
 
-### Phase 0.6: W3 Compliance Check
+**Step 0.6: W3 Compliance Check**
 
-**Purpose:** Ensure no CRITICAL W3 violations before release.
+Ensure no CRITICAL W3 violations before release:
 
 ```
 # Run W3 audit in quiet mode
@@ -80,11 +95,11 @@ IF w3_result.exit_code == 1:
 Display: "✓ W3 compliance check passed"
 ```
 
-- Proceed to Phase 1
-
 ---
 
-### Phase 1: Set Context Markers for Skill
+### Phase 1: Invoke Release Skill
+
+**Set context markers for skill:**
 
 Clear markers enable skill parameter extraction from conversation context.
 
@@ -92,10 +107,6 @@ Clear markers enable skill parameter extraction from conversation context.
 **Environment:** [parsed and normalized from Phase 0]
 
 Skill extracts these values from YAML frontmatter and context markers in conversation.
-
----
-
-### Phase 2: Invoke Release Skill
 
 **Single orchestration point:**
 ```
@@ -114,7 +125,7 @@ See devforgeai-release skill for complete 8-phase workflow.
 
 ---
 
-### Phase 3: Display Results
+### Phase 2: Display Results
 
 Output skill response containing:
 - Deployment status
