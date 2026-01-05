@@ -1,0 +1,79 @@
+{
+  "anti_pattern_violations": [
+    {
+      "timestamp": "2025-01-02T10:30:00Z",
+      "session_id": "abc123-def456",
+      "command": "/dev STORY-100",
+      "category": "bash_for_file_ops",
+      "category_id": 1,
+      "severity": "critical",
+      "pattern_matched": "Bash(command=\"cat",
+      "violation_code": "AP-001"
+    },
+    {
+      "timestamp": "2025-01-02T10:35:00Z",
+      "session_id": "ghi789-jkl012",
+      "command": "/dev STORY-101",
+      "category": "bash_for_file_ops",
+      "category_id": 1,
+      "severity": "critical",
+      "pattern_matched": "Bash(command=\"echo",
+      "violation_code": "AP-001"
+    },
+    {
+      "timestamp": "2025-01-02T10:40:00Z",
+      "session_id": "ghi789-jkl012",
+      "command": "/dev STORY-101",
+      "category": "making_assumptions",
+      "category_id": 3,
+      "severity": "critical",
+      "pattern_matched": "Install Redis",
+      "violation_code": "AP-003"
+    },
+    {
+      "timestamp": "2025-01-02T10:45:00Z",
+      "session_id": "mno345-pqr678",
+      "command": "/dev STORY-102",
+      "category": "bash_for_file_ops",
+      "category_id": 1,
+      "severity": "critical",
+      "pattern_matched": "Bash(command=\"find",
+      "violation_code": "AP-001"
+    },
+    {
+      "timestamp": "2025-01-02T10:50:00Z",
+      "session_id": "mno345-pqr678",
+      "command": "/dev STORY-102",
+      "category": "context_file_violations",
+      "category_id": 6,
+      "severity": "critical",
+      "pattern_matched": "Proceeding without context",
+      "violation_code": "AP-006"
+    },
+    {
+      "timestamp": "2025-01-02T11:00:00Z",
+      "session_id": "stu901-vwx234",
+      "command": "/dev STORY-103",
+      "category": "hardcoded_paths",
+      "category_id": 10,
+      "severity": "medium",
+      "pattern_matched": "/home/user/project/",
+      "violation_code": "AP-010"
+    },
+    {
+      "timestamp": "2025-01-02T11:05:00Z",
+      "session_id": "stu901-vwx234",
+      "command": "/dev STORY-103",
+      "category": "size_violations",
+      "category_id": 4,
+      "severity": "high",
+      "pattern_matched": "2000 lines",
+      "violation_code": "AP-004"
+    }
+  ],
+  "metadata": {
+    "total_entries": 8,
+    "total_violations": 7,
+    "violation_rate": 0.875
+  }
+}

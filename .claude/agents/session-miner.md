@@ -1001,3 +1001,860 @@ STORY-225 (devforgeai-insights) → Error Analysis Report
 - [ ] Compatible with devforgeai-insights skill (STORY-225)
 - [ ] Extends existing session-miner pipeline
 - [ ] JSON output format for downstream consumers
+
+---
+
+## Anti-Pattern Mining (STORY-231)
+
+Detect, categorize, and track anti-pattern occurrences from session history for framework compliance monitoring.
+
+### Purpose
+
+Extract and analyze anti-pattern violations from SessionEntry data with:
+- Pattern matching against anti-patterns.md rules (10 categories)
+- Violation counting with AP-XXX codes and severity distribution
+- Consequence tracking with error correlation analysis
+
+### When Invoked
+
+**Proactive triggers:**
+- When analyzing anti-pattern frequency for EPIC-034
+- When monitoring framework compliance
+- When identifying high-risk patterns causing errors
+
+**Explicit invocation:**
+- "Mine anti-patterns from history.jsonl"
+- "Detect framework violations from sessions"
+- "Build anti-pattern violation registry"
+
+### Data Model: AntiPatternViolation
+
+Extends SessionEntry with anti-pattern-specific fields:
+
+```yaml
+AntiPatternViolation:
+  # Inherited from SessionEntry
+  timestamp: DateTime (ISO8601)
+  session_id: UUID
+  command: String
+  user_input: String
+  project: String
+
+  # Anti-pattern-specific fields
+  category:
+    type: Enum
+    values:
+      - bash_for_file_ops
+      - monolithic_components
+      - making_assumptions
+      - size_violations
+      - language_specific_code
+      - context_file_violations
+      - circular_dependencies
+      - narrative_documentation
+      - missing_frontmatter
+      - hardcoded_paths
+    description: Classified anti-pattern category from anti-patterns.md
+
+  category_id:
+    type: Integer (1-10)
+    description: Numeric category identifier matching anti-patterns.md
+
+  severity:
+    type: Enum (critical|high|medium|low)
+    description: Impact severity level per category
+    derived: true
+
+  pattern_matched:
+    type: String
+    description: The specific pattern text that triggered detection
+    extraction: Substring of user_input matching rule
+
+  violation_code:
+    type: String (AP-XXX format)
+    description: Unique violation code for tracking
+    derived: true
+```
+
+### AC#1: Anti-Pattern Matching
+
+**Detection Workflow:**
+
+```
+Input: SessionEntry[] from session-miner
+  ↓
+For each entry:
+  Extract user_input field
+  ↓
+  Apply pattern matching (all 10 categories)
+  ↓
+  Skip if legitimate exception (npm test, git, etc.)
+  ↓
+  Create AntiPatternViolation for each match
+  ↓
+Output: AntiPatternViolation[] with categories assigned
+```
+
+**Category Definition Reference (from anti-patterns.md):**
+
+| ID | Category | Severity | Primary Patterns | Exception Rules |
+|----|----------|----------|---------|-----------------|
+| 1 | bash_for_file_ops | critical | `cat`, `echo >`, `find`, `grep`, `sed` | npm test, git, docker, build, install |
+| 2 | monolithic_components | high | `everything`, `all-in-one`, `ideation + architecture + dev` | None |
+| 3 | making_assumptions | critical | `Install Redis`, `Use PostgreSQL`, `Build with React`, `Using EF Core` | Must check AskUserQuestion context |
+| 4 | size_violations | high | `>1000 lines`, `>500 lines`, `2000 lines` | None |
+| 5 | language_specific_code | critical | `.py` in skills/, `executable code` in docs | None |
+| 6 | context_file_violations | critical | `without context`, `Proceeding without`, `skip context` | None |
+| 7 | circular_dependencies | high | `A → B → A` invocation chains | None |
+| 8 | narrative_documentation | medium | `should first`, `might want to`, `The system should` | None |
+| 9 | missing_frontmatter | high | `no frontmatter`, `no YAML`, `missing ---` | None |
+| 10 | hardcoded_paths | medium | `/home/user/`, `/Users/`, `C:\Users\` | None |
+
+**Pattern Matching Algorithm:**
+
+```
+FUNCTION match_anti_patterns(user_input):
+  violations = []
+  input_normalized = normalize_input(user_input)
+
+  FOR category_id in [1..10]:
+    FOR pattern in PATTERNS[category_id]:
+      IF pattern_matches(input_normalized, pattern):
+        IF NOT is_legitimate_exception(user_input, category_id):
+          violations.append({
+            category: CATEGORY_NAME[category_id],
+            category_id: category_id,
+            severity: SEVERITY_MAP[category_id],
+            pattern_matched: extract_matched_text(user_input, pattern)
+          })
+
+  RETURN violations
+
+FUNCTION normalize_input(user_input):
+  # Normalize for pattern matching
+  normalized = user_input.lower()
+  IF len(normalized) > 10000:
+    normalized = normalized[:10000]
+  RETURN normalized
+```
+
+**Legitimate Bash Exceptions (NOT violations):**
+
+Category 1 (bash_for_file_ops) does NOT apply when Bash is used for:
+
+| Pattern | Reason | Exception Rule |
+|---------|--------|----------------|
+| `Bash(command="npm test")` | Test execution | Contains `test` or `pytest` or `dotnet test` |
+| `Bash(command="npm run build")` | Build execution | Contains `build` or `compile` |
+| `Bash(command="git`)` | Git operations | Starts with `git ` |
+| `Bash(command="npm install")` | Package management | Contains `install` or `pip install` |
+| `Bash(command="docker`)` | Container operations | Starts with `docker ` |
+
+**Exception Checking:**
+
+Only Category 1 (bash_for_file_ops) has exceptions for legitimate use cases:
+
+```
+FUNCTION is_legitimate_exception(user_input, category_id):
+  # Only Category 1 has exceptions
+  IF category_id != 1:
+    RETURN false
+
+  command = extract_bash_command(user_input).lower()
+
+  # Allowed prefixes: git, docker, kubectl, npm, yarn, pnpm
+  allowed_prefixes = ["git ", "docker ", "kubectl ", "npm ", "yarn ", "pnpm "]
+  IF any(command.starts_with(prefix) for prefix in allowed_prefixes):
+    RETURN true
+
+  # Allowed keywords: test, build, install, publish, deploy
+  allowed_keywords = ["test", "build", "install", "publish", "deploy"]
+  IF any(keyword in command for keyword in allowed_keywords):
+    RETURN true
+
+  RETURN false
+```
+
+**Case-Insensitive Matching:**
+
+All pattern matching is case-insensitive:
+- `Bash(command="CAT file")` matches Category 1
+- `BASH(COMMAND="cat")` matches Category 1
+- `bash(command="Cat")` matches Category 1
+
+**Multi-Violation Detection:**
+
+A single entry can trigger multiple violations:
+
+```
+Example: Bash(command="cat /home/user/file.md")
+
+Violations detected:
+  1. Category 1 (bash_for_file_ops) - Bash cat command
+  2. Category 10 (hardcoded_paths) - /home/user/ absolute path
+
+Both violations counted separately with unique entries.
+```
+
+**Context-Aware Matching (False Positive Prevention):**
+
+Filter out documentation references and quoted examples:
+
+```
+FUNCTION is_false_positive_context(user_input, matched_pattern):
+  input_lower = user_input.lower()
+
+  # Documentation references (NOT violations)
+  documentation_markers = ["documentation says", "anti-patterns.md mentions", "example:", "like:"]
+  FOR marker in documentation_markers:
+    IF marker in input_lower:
+      RETURN true
+
+  # Patterns in quotes with preceding example markers (NOT violations)
+  IF quoted_pattern_with_example_marker(user_input, matched_pattern):
+    RETURN true
+
+  RETURN false
+
+FUNCTION pattern_matches(input_normalized, pattern):
+  # Simple substring match on normalized input
+  RETURN pattern_lower in input_normalized
+```
+
+### AC#2: Violation Counting
+
+**Aggregation Workflow:**
+
+```
+Input: AntiPatternViolation[] from AC#1
+  ↓
+Count violations per category (category_distribution)
+  ↓
+Aggregate total violations
+  ↓
+Calculate violation_rate (violations / total_entries)
+  ↓
+Map to severity_distribution (count per severity level)
+  ↓
+Assign AP-XXX codes from registry
+  ↓
+Output: Aggregated statistics with distributions
+```
+
+**Category Distribution:**
+
+Count occurrences per anti-pattern category:
+
+```json
+{
+  "category_distribution": {
+    "bash_for_file_ops": 3,
+    "monolithic_components": 0,
+    "making_assumptions": 1,
+    "size_violations": 1,
+    "language_specific_code": 0,
+    "context_file_violations": 1,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 1
+  }
+}
+```
+
+**Severity Distribution:**
+
+Map categories to severity levels per Category Definition Reference (AC#1):
+
+```
+Severity Mapping:
+  critical = Categories: 1, 3, 5, 6
+  high = Categories: 2, 4, 7, 9
+  medium = Categories: 8, 10
+  low = (none)
+```
+
+**Severity Assignment Function:**
+
+```
+FUNCTION get_severity(category_id):
+  IF category_id in [1, 3, 5, 6]: RETURN "critical"
+  IF category_id in [2, 4, 7, 9]: RETURN "high"
+  IF category_id in [8, 10]: RETURN "medium"
+  RETURN "low"
+```
+
+**Severity Distribution Output (Template):**
+
+```json
+{
+  "severity_distribution": {
+    "critical": <count of AP-001,003,005,006>,
+    "high": <count of AP-002,004,007,009>,
+    "medium": <count of AP-008,010>,
+    "low": 0
+  }
+}
+```
+
+Example output with 7 violations:
+```json
+{
+  "severity_distribution": {
+    "critical": 5,
+    "high": 1,
+    "medium": 1,
+    "low": 0
+  }
+}
+```
+
+**Violation Rate Calculation:**
+
+```
+violation_rate = total_violations / total_entries
+
+Example:
+  total_entries = 8
+  total_violations = 7
+  violation_rate = 7 / 8 = 0.875
+```
+
+**Violation Code (AP-XXX) Assignment:**
+
+Auto-assign violation codes by category ID using formula:
+
+```
+violation_code = "AP-" + sprintf("%03d", category_id)
+
+Code Mapping (derived from Category Definition Reference):
+  AP-001 = bash_for_file_ops (critical)
+  AP-002 = monolithic_components (high)
+  AP-003 = making_assumptions (critical)
+  AP-004 = size_violations (high)
+  AP-005 = language_specific_code (critical)
+  AP-006 = context_file_violations (critical)
+  AP-007 = circular_dependencies (high)
+  AP-008 = narrative_documentation (medium)
+  AP-009 = missing_frontmatter (high)
+  AP-010 = hardcoded_paths (medium)
+```
+
+**Violation Registry:**
+
+Track unique patterns with occurrence counts:
+
+```json
+{
+  "registry": {
+    "AP-001": {
+      "category": "bash_for_file_ops",
+      "severity": "critical",
+      "patterns": [
+        {"pattern": "Bash(command=\"cat", "occurrences": 2},
+        {"pattern": "Bash(command=\"echo", "occurrences": 1}
+      ],
+      "total_occurrences": 3,
+      "first_seen": "2025-01-01T08:00:00Z",
+      "last_seen": "2025-01-02T14:30:00Z"
+    },
+    "AP-003": {
+      "category": "making_assumptions",
+      "severity": "critical",
+      "patterns": [
+        {"pattern": "Install Redis", "occurrences": 1}
+      ],
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:40:00Z",
+      "last_seen": "2025-01-02T10:40:00Z"
+    }
+  }
+}
+```
+
+**Zero Violations Edge Case:**
+
+When no violations found, return empty distributions with zeros:
+
+```json
+{
+  "violations": [],
+  "category_distribution": {
+    "bash_for_file_ops": 0,
+    "monolithic_components": 0,
+    "making_assumptions": 0,
+    "size_violations": 0,
+    "language_specific_code": 0,
+    "context_file_violations": 0,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 0
+  },
+  "severity_distribution": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "metadata": {
+    "total_entries": 10,
+    "total_violations": 0,
+    "violation_rate": 0.00,
+    "unique_patterns": 0
+  }
+}
+```
+
+### AC#3: Consequence Tracking
+
+**Correlation Analysis Workflow:**
+
+```
+Input: AntiPatternViolation[] + ErrorEntry[] (from STORY-229)
+  ↓
+Group both by session_id
+  ↓
+For each session:
+  Sort violations and errors by timestamp
+  ↓
+  For each violation:
+    Find subsequent error in same session
+    Check temporal proximity (<10 minutes)
+    ↓
+    If found: Mark as correlated
+  ↓
+Calculate correlation_rate
+  ↓
+Identify high_risk_patterns (>50% correlation)
+  ↓
+Output: ConsequenceCorrelation report
+```
+
+**Session-Scoped Correlation:**
+
+Correlations are ONLY detected within the same session:
+
+```
+RULE: Violation in session A does NOT correlate with error in session B
+
+Example (CORRELATED):
+  Session abc123:
+    Entry 1: Violation (Bash cat) at 10:30:00
+    Entry 2: Error (File not found) at 10:31:00
+  → Correlation detected
+
+Example (NOT CORRELATED):
+  Session abc123:
+    Entry 1: Violation (Bash cat) at 10:30:00
+  Session def456:
+    Entry 2: Error (File not found) at 10:31:00
+  → No correlation (different sessions)
+```
+
+**Temporal Proximity Check:**
+
+Only correlate if violation precedes error within time window:
+
+```
+FUNCTION check_temporal_proximity(violation, error):
+  # Violation must precede error
+  IF violation.timestamp >= error.timestamp:
+    RETURN false
+
+  # Within 10-minute window (600000ms)
+  time_delta_ms = error.timestamp - violation.timestamp
+  IF time_delta_ms > 600000:
+    RETURN false
+
+  RETURN true
+```
+
+**Correlation Detection Algorithm:**
+
+```
+FUNCTION find_correlations(violations, errors):
+  correlations = []
+
+  # Process per session (no cross-session correlations)
+  sessions_violations = group_by_session_id(violations)
+  sessions_errors = group_by_session_id(errors)
+
+  FOR session_id, violations_in_session in sessions_violations:
+    errors_in_session = sessions_errors.get(session_id, [])
+    IF len(errors_in_session) == 0:
+      CONTINUE
+
+    # Sort by timestamp
+    violations_in_session.sort(by="timestamp")
+    errors_in_session.sort(by="timestamp")
+
+    FOR violation in violations_in_session:
+      # Find first error after this violation within 10-minute window
+      FOR error in errors_in_session:
+        IF error.timestamp > violation.timestamp AND
+           (error.timestamp - violation.timestamp) <= 600000:  # 10 minutes
+          correlations.append({
+            violation: violation,
+            error: error,
+            time_delta_ms: error.timestamp - violation.timestamp,
+            session_id: session_id
+          })
+          BREAK  # Only first error per violation
+
+  RETURN correlations
+```
+
+**Correlation Rate Calculation:**
+
+```
+correlation_rate = violations_with_subsequent_error / total_violations
+
+Example:
+  total_violations = 7
+  violations_with_subsequent_error = 2
+  correlation_rate = 2 / 7 = 0.286
+
+Edge case:
+  IF total_violations == 0:
+    correlation_rate = 0.00
+```
+
+**High-Risk Pattern Identification:**
+
+Flag categories with >50% error correlation as high-risk:
+
+```
+FUNCTION identify_high_risk_patterns(violations, correlations):
+  # Count violations per category
+  category_total = {}
+  category_correlated = {}
+
+  FOR violation in violations:
+    category = violation.category
+    category_total[category] = category_total.get(category, 0) + 1
+    category_correlated[category] = category_correlated.get(category, 0)
+
+  # Count correlated violations per category
+  FOR correlation in correlations:
+    category = correlation.violation.category
+    category_correlated[category] += 1
+
+  # Calculate correlation rates and identify high-risk
+  high_risk = []
+  FOR category, total in category_total:
+    correlated = category_correlated[category]
+    rate = correlated / total
+    IF rate > 0.50:
+      high_risk.append({
+        category: category,
+        violation_code: violation_code_for_category(category),
+        correlation_rate: rate,
+        sample_size: total
+      })
+
+  RETURN high_risk.sort_by("correlation_rate", descending=true)
+```
+
+**Consequence Correlation Output:**
+
+```json
+{
+  "consequence_correlation": {
+    "total_violations": 7,
+    "total_violations_with_errors": 2,
+    "correlation_rate": 0.286,
+    "correlated_violations": [
+      {
+        "violation": {
+          "timestamp": "2025-01-02T10:30:00Z",
+          "category": "bash_for_file_ops",
+          "pattern_matched": "Bash(command=\"cat"
+        },
+        "error": {
+          "timestamp": "2025-01-02T10:31:00Z",
+          "message": "File not found: story.md",
+          "category": "file-not-found"
+        },
+        "time_delta_ms": 60000,
+        "session_id": "abc123-def456"
+      },
+      {
+        "violation": {
+          "timestamp": "2025-01-02T10:50:00Z",
+          "category": "context_file_violations",
+          "pattern_matched": "Proceeding without context"
+        },
+        "error": {
+          "timestamp": "2025-01-02T10:50:30Z",
+          "message": "Context file not found",
+          "category": "validation"
+        },
+        "time_delta_ms": 30000,
+        "session_id": "mno345-pqr678"
+      }
+    ],
+    "uncorrelated_violations": [
+      {
+        "timestamp": "2025-01-02T10:35:00Z",
+        "category": "bash_for_file_ops",
+        "pattern_matched": "Bash(command=\"echo",
+        "session_id": "ghi789-jkl012"
+      }
+    ],
+    "high_risk_patterns": [
+      {
+        "category": "context_file_violations",
+        "violation_code": "AP-006",
+        "correlation_rate": 1.00,
+        "sample_size": 1,
+        "recommendation": "Context file violations have 100% error correlation - always validate context"
+      },
+      {
+        "category": "bash_for_file_ops",
+        "violation_code": "AP-001",
+        "correlation_rate": 0.33,
+        "sample_size": 3,
+        "recommendation": "Below 50% threshold - monitor but not flagged as high-risk"
+      }
+    ]
+  }
+}
+```
+
+### Anti-Pattern Analysis Pipeline
+
+**Complete Workflow (7 Steps):**
+
+```
+Input: SessionEntry[] from history.jsonl
+  ↓
+[1] Filter entries with user_input field
+[2] Apply anti-pattern matching rules (AC#1 - 10 categories)
+[3] Aggregate violation counts and codes (AC#2)
+[4] Load error entries (from STORY-229 ErrorEntry[])
+[5] Correlate violations with errors (AC#3 - session-scoped)
+[6] Identify high-risk patterns (>50% correlation)
+[7] Generate AntiPatternAnalysisReport
+  ↓
+Output: Violations, distributions, correlations, registry
+```
+
+**Graceful Error Handling:**
+
+Continue with partial results on errors:
+
+```
+FOR each SessionEntry:
+  TRY:
+    violations = match_anti_patterns(entry.user_input)
+    process violations through steps 2-6
+  CATCH error:
+    Log error with context
+    Include partial results in report
+    Continue to next entry
+```
+
+### Output Structure
+
+**Complete Anti-Pattern Analysis Report:**
+
+```json
+{
+  "violations": [
+    {
+      "timestamp": "2025-01-02T10:30:00Z",
+      "session_id": "abc123-def456",
+      "command": "/dev STORY-100",
+      "user_input": "Bash(command=\"cat story.md\")",
+      "category": "bash_for_file_ops",
+      "category_id": 1,
+      "severity": "critical",
+      "pattern_matched": "Bash(command=\"cat",
+      "violation_code": "AP-001"
+    }
+  ],
+  "category_distribution": {
+    "bash_for_file_ops": 3,
+    "monolithic_components": 0,
+    "making_assumptions": 1,
+    "size_violations": 1,
+    "language_specific_code": 0,
+    "context_file_violations": 1,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 1
+  },
+  "severity_distribution": {
+    "critical": 5,
+    "high": 1,
+    "medium": 1,
+    "low": 0
+  },
+  "metadata": {
+    "total_entries": 8,
+    "total_violations": 7,
+    "violation_rate": 0.875,
+    "unique_patterns": 6
+  },
+  "consequence_correlation": {
+    "total_violations_with_errors": 2,
+    "correlation_rate": 0.286,
+    "high_risk_patterns": [
+      {
+        "category": "context_file_violations",
+        "violation_code": "AP-006",
+        "correlation_rate": 1.00
+      }
+    ]
+  },
+  "registry": {
+    "AP-001": {
+      "category": "bash_for_file_ops",
+      "severity": "critical",
+      "total_occurrences": 3,
+      "first_seen": "2025-01-02T10:30:00Z",
+      "last_seen": "2025-01-02T10:45:00Z"
+    },
+    "AP-003": {
+      "category": "making_assumptions",
+      "severity": "critical",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:40:00Z",
+      "last_seen": "2025-01-02T10:40:00Z"
+    },
+    "AP-004": {
+      "category": "size_violations",
+      "severity": "high",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T11:05:00Z",
+      "last_seen": "2025-01-02T11:05:00Z"
+    },
+    "AP-006": {
+      "category": "context_file_violations",
+      "severity": "critical",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:50:00Z",
+      "last_seen": "2025-01-02T10:50:00Z"
+    },
+    "AP-010": {
+      "category": "hardcoded_paths",
+      "severity": "medium",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T11:00:00Z",
+      "last_seen": "2025-01-02T11:00:00Z"
+    }
+  }
+}
+```
+
+### Edge Case Handling
+
+| Case | Handling |
+|------|----------|
+| Empty session file | Return empty violations array, totals at 0 |
+| All entries have violations | Process all, violation_rate approaches 1.00 |
+| No errors in session | correlation_rate = 0.00, empty high_risk_patterns |
+| Legitimate Bash usage | Apply exception rules, NOT flagged as violation |
+| Multiple violations per entry | Each violation counted separately |
+| Very long user_input (>10000) | Truncate before pattern matching |
+| Unicode content | Preserve encoding, case-insensitive matching |
+| Bash in quotes (documentation) | Context-aware matching, NOT flagged |
+| Missing user_input field | Skip entry for anti-pattern analysis |
+
+### Integration with STORY-229 Error Categorization
+
+**Data Flow:**
+
+```
+session-miner (SessionEntry[])
+       ↓
+STORY-229 Error Categorization (ErrorEntry[])
+       ↓
+STORY-231 Anti-Pattern Mining (AntiPatternViolation[])
+       ↓
+Consequence Correlation (correlate violations with errors)
+       ↓
+Combined Analysis Report for devforgeai-insights
+```
+
+**Integration Points:**
+
+1. **ErrorEntry Reuse:** Anti-pattern correlation uses ErrorEntry from STORY-229
+2. **Session Grouping:** Both features use same session_id grouping logic
+3. **Timestamp Alignment:** Same ISO8601 timestamp format for correlation
+4. **Combined Reporting:** Anti-pattern report references error categories
+
+**Invocation Template:**
+
+```markdown
+Task(
+  subagent_type="session-miner",
+  description="Analyze anti-patterns from session history",
+  prompt="""
+  Perform anti-pattern analysis on history.jsonl:
+
+  1. Parse history with session-miner (offset=0, limit=1000)
+  2. Apply anti-pattern matching rules (10 categories)
+  3. Aggregate violation counts and codes
+  4. Load error entries (STORY-229)
+  5. Correlate violations with subsequent errors
+  6. Identify high-risk patterns (>50% correlation)
+  7. Generate anti-pattern analysis report
+
+  Return AntiPatternAnalysisReport with recommendations.
+  """
+)
+```
+
+### Core Helper Functions (Shared Reference)
+
+These functions are referenced throughout algorithms above:
+
+```
+FUNCTION group_by_session_id(entries):
+  # Partition entries into groups by session_id
+  # Entries with null session_id grouped together
+  RETURN Map<session_id, Entry[]>
+
+FUNCTION extract_bash_command(user_input):
+  # Extract command text from Bash(command="...") pattern
+  # Returns lowercase command text
+  RETURN command_string
+
+FUNCTION extract_matched_text(user_input, pattern):
+  # Return substring of user_input that matched pattern
+  RETURN matched_substring
+
+FUNCTION violation_code_for_category(category_name):
+  # Map category name to AP-XXX code
+  # Use CATEGORY_ID mapping from Category Definition Reference
+  RETURN "AP-" + sprintf("%03d", category_id)
+```
+
+### Success Criteria (STORY-231)
+
+**Functional Requirements:**
+- [ ] Match all 10 anti-pattern categories from Category Definition Reference (AC#1)
+- [ ] Apply legitimate Bash exceptions (npm test, git, docker, build, install)
+- [ ] Count violations per category with category_distribution (AC#2)
+- [ ] Assign AP-XXX codes using formula from Violation Code Assignment
+- [ ] Calculate violation_rate and severity_distribution
+- [ ] Correlate violations with subsequent errors within 10-minute window (AC#3)
+- [ ] Identify high-risk patterns with >50% error correlation rate
+- [ ] Session-scoped correlation (no cross-session correlations)
+
+**Non-Functional Requirements:**
+- [ ] Case-insensitive pattern matching (normalize_input function)
+- [ ] Handle multiple violations per entry (all matched patterns counted)
+- [ ] Truncate inputs >10000 chars for performance
+- [ ] Context-aware matching (avoid false positives in documentation)
+- [ ] Preserve Unicode content in pattern matching
+- [ ] Graceful error handling (continue on partial failures)
+
+**Integration Requirements:**
+- [ ] Reuse ErrorEntry from STORY-229 for correlation
+- [ ] Use same session_id grouping logic as error categorization
+- [ ] Compatible JSON output format for downstream consumers
+- [ ] Extends session-miner pipeline without modifying core
