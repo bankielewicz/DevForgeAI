@@ -4,7 +4,7 @@ title: Analyze Command Sequence Patterns for Workflow Discovery
 type: feature
 epic: EPIC-034
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 3
 depends_on: ["STORY-225"]
 priority: Medium
@@ -50,26 +50,37 @@ format_version: "2.5"
 ## Definition of Done
 
 ### Implementation
-- [ ] N-gram extraction logic in session-miner
-- [ ] Success rate calculation
-- [ ] Report formatting in insights skill
+- [x] N-gram extraction logic in session-miner
+- [x] Success rate calculation
+- [x] Report formatting in insights skill
 
 ### Quality
-- [ ] All 3 acceptance criteria verified
-- [ ] Patterns are actionable (not obvious)
+- [x] All 3 acceptance criteria verified
+- [x] Patterns are actionable (not obvious)
 
 ---
 
 ## Implementation Notes
 
-*Pending implementation*
+- [x] N-gram extraction logic in session-miner - Completed: session-miner.md lines 417-540
+- [x] Success rate calculation - Completed: session-miner.md lines 453-474
+- [x] Report formatting in insights skill - Completed: SKILL.md lines 58-61, 123, 253-260
+- Added 2-gram (bigram) and 3-gram (trigram) sliding window extraction
+- Tie-breaking for equal frequency: alphabetical order of first command
+- Added command-patterns to /insights command VALID_QUERY_TYPES
+- Created 12 tests: 6 unit, 2 integration, 4 edge cases
+- All tests pass (100% pass rate)
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2025-01-02 | claude/story-creation-skill | Created | Story created for EPIC-034 Feature 3 | STORY-226-command-sequence-patterns.story.md |
+| 2026-01-04 | claude/test-automator | Red (Phase 02) | Tests generated | tests/STORY-226/*.sh |
+| 2026-01-04 | claude/backend-architect | Green (Phase 03) | N-gram implementation | .claude/agents/session-miner.md |
+| 2026-01-04 | claude/refactoring-specialist | Refactor (Phase 04) | Documentation consistency | .claude/skills/devforgeai-insights/SKILL.md |
+| 2026-01-04 | claude/opus | DoD (Phase 07) | Status updated to Dev Complete | STORY-226-command-sequence-patterns.story.md |

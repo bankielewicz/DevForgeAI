@@ -55,6 +55,11 @@ The skill supports multiple query types, each generating specialized prompts for
 **Purpose:** Deep analysis of a specific story's development history
 **Prompt Generation:** Filters by story ID, extracts timeline, identifies key events
 
+### Command-Patterns Query (STORY-226)
+**Purpose:** Identify high-frequency command sequences for workflow optimization
+**Prompt Generation:** Routes to session-miner n-gram analysis, extracts 2-grams and 3-grams
+**Output:** Top 10 command sequences ranked by frequency with success rates
+
 ---
 
 ## Workflow
@@ -115,6 +120,7 @@ Task(
 | errors | Extract error patterns from sessions | Find error messages, categorize by type, rank by frequency |
 | decisions | Surface development decisions from sessions | Extract ADR references, AskUserQuestion interactions |
 | story | Deep analysis of story {story_id} | Filter by story ID, extract timeline, identify key events |
+| command-patterns | Extract high-frequency command sequences | Route to session-miner n-gram analysis, top 10 by frequency |
 
 **Common Parameters (all queries):**
 - `filters`: Applied filter criteria
@@ -251,6 +257,7 @@ All templates follow a consistent structure with three sections:
 | errors | Top Errors by Frequency | Error Type, Count, Last Seen |
 | decisions | Key Decisions | Date, Story, Decision, Rationale |
 | story | Timeline | Phase, Started, Completed, Duration |
+| command-patterns | Top Command Sequences | Rank, Sequence, Frequency, Success Rate |
 
 ### Template Examples
 
@@ -330,7 +337,7 @@ This skill succeeds when:
 - [ ] Results aggregated, filtered, and ranked
 - [ ] Output formatted as markdown with tables
 - [ ] Cache mechanism operational (1-hour TTL)
-- [ ] All 5 query types supported
+- [ ] All 6 query types supported (dashboard, workflows, errors, decisions, story, command-patterns)
 - [ ] Cached queries return in <10 seconds
 - [ ] SKILL.md under 1000 lines
 

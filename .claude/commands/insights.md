@@ -73,7 +73,7 @@ IF QUERY_TYPE is empty AND $ARGUMENTS is empty:
 
 **Validate query type:**
 ```
-VALID_QUERY_TYPES = ["dashboard", "workflows", "errors", "decisions", "story"]
+VALID_QUERY_TYPES = ["dashboard", "workflows", "errors", "decisions", "story", "command-patterns"]
 
 IF QUERY_TYPE not in VALID_QUERY_TYPES AND QUERY_TYPE is not null:
     # Error: Invalid query type
@@ -84,11 +84,12 @@ IF QUERY_TYPE not in VALID_QUERY_TYPES AND QUERY_TYPE is not null:
     Display: "Invalid query type: '${QUERY_TYPE}'"
     Display: ""
     Display: "Valid query types:"
-    Display: "  • dashboard  - Overview of session insights (default)"
-    Display: "  • workflows  - Workflow pattern analysis"
-    Display: "  • errors     - Error mining and frequency analysis"
-    Display: "  • decisions  - Search decision archive"
-    Display: "  • story      - Story-specific insights (requires STORY-ID)"
+    Display: "  • dashboard         - Overview of session insights (default)"
+    Display: "  • workflows         - Workflow pattern analysis"
+    Display: "  • errors            - Error mining and frequency analysis"
+    Display: "  • decisions         - Search decision archive"
+    Display: "  • story             - Story-specific insights (requires STORY-ID)"
+    Display: "  • command-patterns  - Top 10 command sequences by frequency"
     Display: ""
     Display: "Usage: /insights [query-type] [options]"
     Display: "       /insights --help for more information"

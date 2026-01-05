@@ -414,6 +414,131 @@ Task(
 )
 ```
 
+## N-gram Sequence Analysis (STORY-226)
+
+Extract and analyze command sequence patterns from parsed SessionEntry data.
+
+### N-gram Extraction Workflow
+
+**Phase 1: Build Sequence Windows**
+
+Steps:
+1. GROUP all SessionEntry objects by `session_id`
+2. SORT entries within each session by `timestamp` (ascending)
+3. FOR each session with 2+ commands:
+   - EXTRACT 2-grams (bigrams): sliding window of consecutive command pairs
+   - EXTRACT 3-grams (trigrams): sliding window of consecutive command triples
+4. DO NOT span sequences across session boundaries (each session is independent)
+
+**2-gram (Bigram) Extraction:**
+
+```
+FOR session in sessions:
+  commands = [entry.command for entry in session.entries]
+  FOR i in range(len(commands) - 1):
+    bigram = (commands[i], commands[i+1])
+    increment frequency_count[bigram]
+```
+
+**3-gram (Trigram) Extraction:**
+
+```
+FOR session in sessions:
+  commands = [entry.command for entry in session.entries]
+  FOR i in range(len(commands) - 2):
+    trigram = (commands[i], commands[i+1], commands[i+2])
+    increment frequency_count[trigram]
+```
+
+### Success Rate Calculation
+
+**Phase 2: Calculate Per-Sequence Success Rates**
+
+Steps:
+1. FOR each unique n-gram sequence:
+   - COUNT total_attempts (occurrences across all sessions)
+   - COUNT successful_completions (where final command status = "success")
+2. CALCULATE success_rate using formula:
+   ```
+   success_rate = successful_completions / total_attempts
+   ```
+3. HANDLE partial status as non-success for rate calculation
+4. ROUND success_rate to 2 decimal places (percentage precision: 0.XX)
+
+**Status Mapping for Success Rate:**
+| Status | Counts as Success |
+|--------|-------------------|
+| success | Yes |
+| error | No |
+| partial | No |
+
+### Top Patterns Report Generation
+
+**Phase 3: Generate Ranked Pattern Report**
+
+Steps:
+1. RANK all sequences by frequency (descending)
+2. APPLY tie-breaking rule for sequences with equal frequency:
+   - When two sequences have same frequency, apply secondary sort
+   - Use alphabetical order of first command as tie-breaker
+3. SELECT top 10 sequences (or fewer if less than 10 unique patterns exist)
+4. OUTPUT report with columns: rank, sequence, frequency, success_rate
+
+**Output Format:**
+
+```json
+{
+  "top_patterns": [
+    {
+      "rank": 1,
+      "sequence": ["/dev", "/qa"],
+      "frequency": 47,
+      "success_rate": 0.85
+    },
+    {
+      "rank": 2,
+      "sequence": ["/ideate", "/create-story", "/dev"],
+      "frequency": 23,
+      "success_rate": 0.78
+    }
+  ],
+  "metadata": {
+    "total_unique_bigrams": 156,
+    "total_unique_trigrams": 89,
+    "sessions_analyzed": 42
+  }
+}
+```
+
+### Edge Cases
+
+| Case | Handling |
+|------|----------|
+| Empty file | Return empty top_patterns array, metadata counts = 0 |
+| Single command sessions | Skip for n-gram extraction (no pairs/triples possible) |
+| Malformed entries | Exclude from sequence building (already filtered by parser) |
+| Fewer than 10 patterns | Return all available patterns (may be less than 10) |
+| Missing session_id | Group by null session_id as single session |
+| Duplicate timestamps | Preserve original order from file |
+
+### Integration with session-miner Workflow
+
+N-gram analysis operates on SessionEntry output from Steps 1-6:
+
+```
+session-miner parsing (Steps 1-6)
+       ↓
+SessionEntry[] with session_id grouping
+       ↓
+N-gram Extraction (Phase 1)
+       ↓
+Success Rate Calculation (Phase 2)
+       ↓
+Top Patterns Report (Phase 3)
+       ↓
+STORY-226 output ready for insights
+```
+
 ## Success Criteria
 
 **Functional Requirements:**
