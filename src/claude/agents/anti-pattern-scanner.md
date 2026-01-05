@@ -333,6 +333,11 @@ Validate 3 types of structure violations using source-tree.md rules:
 
 **Detection:** Glob for all source files, read imports to classify layer, grep Domain layer for forbidden patterns
 
+**File Exclusions:**
+- Skip files matching `.claude/commands/*.md` (framework specification files)
+- When skipped, log: "Skipping {file}: Framework specification file (excluded from structure validation)"
+- Rationale: Slash command files are documentation/specification artifacts, not application source code
+
 ---
 
 ### Phase 4: Category 3 - Layer Boundary Violations Scanning
@@ -380,6 +385,12 @@ Detect 3 types of code quality issues using coding-standards.md thresholds (MEDI
 
 **Detection:** Read all source files, count methods/lines, extract method signatures, grep for numeric literals
 
+**File Exclusions:**
+- Skip files matching `.claude/skills/**/*.md` (skill specification files)
+- Skip files matching `.claude/agents/*.md` (agent specification files)
+- When skipped, log: "Skipping {file}: Framework specification file (excluded from code smell detection)"
+- Rationale: Framework specification files follow documentation patterns, not application code patterns
+
 ---
 
 ### Phase 6: Category 5 - Security Vulnerabilities Scanning
@@ -411,6 +422,13 @@ Detect 4 OWASP Top 10 security issues (CRITICAL = blocks QA):
 - Remediation: Validate input before deserialization, use schema validation
 
 **Detection:** Grep for secret patterns, SQL patterns, innerHTML, deserialization without validation
+
+**Content Exclusions:**
+- Skip fenced code blocks (```) in Markdown files - code examples are excluded from security scanning
+- These are documentation examples, not executable code
+- Detection mechanism: Identify code block boundaries using ``` delimiters and exclude content within
+- Rationale: Security patterns in documentation examples are illustrative, not actual vulnerabilities
+- Note: Applies to `.claude/commands/*.md`, `.claude/skills/**/*.md`, and `.claude/agents/*.md`
 
 ---
 
@@ -467,6 +485,66 @@ If low > 0: "💡 ADVISORY: Consider fixing LOW style issues (documentation, nam
 ```
 
 **Return JSON response** with all fields populated (see Output Contract section)
+
+---
+
+## Exclusions
+
+Framework specification files are excluded from specific detection phases to prevent false positives. These files follow documentation patterns, not application code patterns.
+
+### Exclusion Patterns
+
+| File Pattern | Excluded From | Rationale |
+|--------------|---------------|-----------|
+| `.claude/commands/*.md` | Phase 3 (Structure), Phase 6 (Security code examples) | Slash commands are specification files, not application code |
+| `.claude/skills/**/*.md` | Phase 5 (Code Smells), Phase 6 (Security code examples) | Skill files contain documentation with embedded examples |
+| `.claude/agents/*.md` | Phase 5 (Code Smells) | Agent specifications are documentation, not application code |
+
+### Phase-Specific Exclusion Rules
+
+**Phase 3 (Structure Violations):**
+- Skip files matching `.claude/commands/*.md`
+- Log: "Skipping [file]: Framework specification file (excluded from structure validation)"
+
+**Phase 5 (Code Smells):**
+- Skip files matching `.claude/skills/**/*.md`
+- Skip files matching `.claude/agents/*.md`
+- Log: "Skipping [file]: Framework specification file (excluded from code smell detection)"
+
+**Phase 6 (Security Vulnerabilities):**
+- Skip fenced code blocks (``` ... ```) in Markdown files
+- These are documentation examples, not executable code
+- Rationale: Code examples in specifications demonstrate patterns but are not actual implementation
+
+### Zero False Positive Expectation
+
+Valid framework specification files (commands, skills, agents) should generate **zero** CRITICAL, HIGH, or MEDIUM violations when scanned. These files are documentation artifacts that follow Markdown conventions, not application code conventions.
+
+---
+
+## Pre-Report Verification
+
+Before reporting a violation, verify the target exists and the violation is genuine.
+
+### Structure Violation Verification
+
+Before flagging a structure violation (Category 2):
+1. Read source-tree.md context file
+2. Check if flagged path exists in allowed directory structure
+3. If path exists in source-tree.md as allowed location → DO NOT flag (not a violation)
+4. If path NOT in source-tree.md → Flag as violation
+
+**Rationale:** Prevents false positives when source-tree.md has been updated to include new directories that the scanner's static rules don't yet recognize.
+
+### Example Verification Flow
+
+```
+Potential violation: File at .claude/commands/dev.md
+Step 1: Read source-tree.md
+Step 2: Check if .claude/commands/ is in allowed locations
+Step 3: Found: ".claude/commands/ # User-facing workflows"
+Step 4: Result: NOT a violation - path is explicitly allowed
+```
 
 ---
 
