@@ -177,6 +177,65 @@ qa_report_data["anti_pattern_violations"] = {...}
 
 ---
 
+### 2.1.5 Regression vs Pre-existing Classification (STORY-175)
+
+**Purpose:** Classify violations as REGRESSION or PRE_EXISTING based on changed files.
+
+**Step 1: Identify Changed Files**
+```
+changed_files = git diff --name-only HEAD~1
+
+Edge cases:
+- First commit: Use `git diff --name-only origin/main...HEAD`
+- No git repo: Fallback to all REGRESSION (blocking)
+```
+
+**Step 2: Classify Each Violation**
+```
+FOR each violation:
+    IF violation.file IN changed_files:
+        classification = "REGRESSION"
+    ELSE:
+        classification = "PRE_EXISTING"
+```
+
+**Step 3: Set Blocking Status**
+```
+REGRESSION violations:
+    blocking = true  (blocks QA approval)
+
+PRE_EXISTING violations:
+    blocking = false (warning only, does not block)
+```
+
+**Step 4: Display Breakdown**
+```
+Format: "Regressions: {count} | Pre-existing: {count}"
+
+Example output:
+Regressions: 3 | Pre-existing: 7
+Blocking: 3 | Warnings: 7
+```
+
+**Implementation Module:** `devforgeai/qa/regression_classifier.py`
+
+**Key Functions:**
+- `get_changed_files()` - Execute git diff
+- `classify_violations()` - Classify batch of violations
+- `set_all_blocking_status()` - Set blocking for all
+- `should_block_qa()` - Check if any blocking violations
+- `get_breakdown()` - Format display string
+
+**Edge Case Handling:**
+| Scenario | Behavior |
+|----------|----------|
+| No git repository | All REGRESSION (blocking) |
+| First commit | Use `origin/main...HEAD` |
+| Empty changed files | All PRE_EXISTING (non-blocking) |
+| Permission/Timeout errors | Return empty list safely |
+
+---
+
 ### 2.2 Parallel Validation (3 Validators)
 
 **Execute in SINGLE message:**
