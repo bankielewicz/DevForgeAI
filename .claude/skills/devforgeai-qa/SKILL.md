@@ -527,39 +527,85 @@ IF NOT found:
     HALT: "gaps.json not created - required for /dev remediation mode"
 ```
 
-### Step 3.4: Story File Update with Change Log Entry
+### Step 3.4: Story File Update [Atomic Update Protocol - STORY-177]
 
-**Purpose:** Update story status and append Change Log entry with QA results.
+**Purpose:** Update story YAML frontmatter status using atomic update protocol with QA results.
 
-**Reference:** `.claude/references/changelog-update-guide.md`
+---
 
-**1. Update Story YAML Status:**
+#### Atomic Update Protocol (STORY-177)
+
+**CRITICAL:** Status updates MUST follow this 5-step atomic sequence to prevent YAML frontmatter divergence.
+
+**Protocol Sequence:**
+1. read current status from yaml frontmatter (capture for rollback)
+2. edit yaml frontmatter status field (FIRST - before second edit)
+3. grep verify new status in frontmatter (MANDATORY)
+4. edit append record entry (ONLY after step 3 passes)
+5. rollback: restore original status if verification fails (skip step 4)
+
+---
+
+**Step 1: Read Current Status (capture for rollback):**
 ```
 Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
 
-IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
-    Edit(old_string="status: Dev Complete", new_string="status: QA Approved")
-ELSE:
-    Edit(old_string="status: Dev Complete", new_string="status: QA Failed")
+# Extract and store original status for potential rollback
+original_status = extract_status_from_yaml(file_content)
+# Example: original_status = "Dev Complete"
+
+Display: "✓ Original status captured: {original_status}"
 ```
 
-**2. Append Change Log Entry:**
+**Step 2: Edit YAML Frontmatter Status (FIRST - yaml first):**
+```
+# Determine target status
+IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
+    target_status = "QA Approved"
+ELSE:
+    target_status = "QA Failed"
+
+# Edit YAML frontmatter status FIRST (before Step 4)
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="status: {original_status}",
+    new_string="status: {target_status}"
+)
+
+Display: "✓ YAML status edited: {original_status} → {target_status}"
+```
+
+**Step 3: Grep Verify New Status (MANDATORY):**
+```
+# Verify the status update succeeded using Grep
+Grep(
+    pattern="^status: {target_status}",
+    path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    output_mode="content"
+)
+
+IF grep_result.found == false:
+    # ROLLBACK TRIGGERED - verification failed
+    GOTO Step 5 (Rollback)
+ELSE:
+    # status before history - Grep verification complete, proceed to history
+    Display: "✓ Status verification passed: {target_status} confirmed in frontmatter"
+    # Proceed to Step 4
+```
+
+**Step 4: Edit Append History Entry (ONLY after verification succeeds):**
+**Reference:** `.claude/references/changelog-update-guide.md`
+```
+# IF verification succeeds THEN append history
+# do not append if fail - skip history on fail
+# 3-step sequence: Edit status -> Grep verify -> Edit history
+# This step executes ONLY if Step 3 verification passed
+# History entry is CONDITIONAL on successful status update
 
 Author: `claude/qa-result-interpreter`
 Phase/Action: `QA Light` or `QA Deep`
 Change: `{result}: Coverage {pct}%, {violations} violations`
 
-Example entry for QA Light mode:
-```
-| 2025-12-29 16:00 | claude/qa-result-interpreter | QA Light | Passed: Coverage 96%, 0 violations | - |
-```
-
-Example entry for QA Deep mode:
-```
-| 2025-12-29 17:30 | claude/qa-result-interpreter | QA Deep | Passed: Coverage 98%, 0 violations | qa-report.md |
-```
-
-```
 # Append changelog entry using Edit tool
 Edit(
     file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
@@ -567,45 +613,75 @@ Edit(
     new_string="| {last_date} | {last_author} | {last_action} | {last_change} | {last_files} |\n| {current_timestamp} | claude/qa-result-interpreter | QA {MODE} | {overall_status}: Coverage {coverage}%, {violations} violations | - |"
 )
 
-# Update Current Status
+# Update Current Status display
 Edit(
     file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
-    old_string="**Current Status:** Dev Complete",
-    new_string="**Current Status:** QA Approved"  # or "QA Failed" if failed
+    old_string="**Current Status:** {original_status}",
+    new_string="**Current Status:** {target_status}"
 )
+
+Display: "✓ Change Log entry appended"
+$STORY_FILE_UPDATED = true
 ```
 
-**3. Verify Update (MANDATORY):**
+**Step 5: Rollback Restore Original on Verification Failure:**
 ```
-Read(file_path="devforgeai/specs/Stories/{STORY-ID}.story.md")
+# This step executes ONLY if Step 3 verification FAILED
+# Restores original status, no history append on rollback
+# Use Edit to restore original value
 
-# Extract current status from file
-actual_status = extract_status_from_yaml(file_content)
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="status: {target_status}",
+    new_string="status: {original_status}"
+)
+# Edit restores original value - rollback complete
 
-IF overall_status == "PASSED" OR overall_status == "PASS WITH WARNINGS":
-    expected_status = "QA Approved"
-ELSE:
-    expected_status = "QA Failed"
+Display: "❌ Status verification FAILED - rolled back to: {original_status}"
+Display: "   No history entry appended (rollback scenario)"
+Display: "   Manual intervention required"
 
-IF actual_status != expected_status:
-    Display: "❌ Story file update FAILED"
-    Display: "Expected: {expected_status}, Found: {actual_status}"
-    HALT: "Story status diverged from QA result - manual intervention required"
-ELSE:
-    Display: "✓ Story status updated to: {actual_status}"
-    $STORY_FILE_UPDATED = true
+HALT: "Atomic status update failed - divergence prevented by rollback"
 ```
 
-**This step is ATOMIC - do NOT proceed to Phase 4 until story file verified.**
+---
 
-**Validation Checkpoint:**
-- [ ] Result determined (PASSED/FAILED/PASS WITH WARNINGS)?
-- [ ] Story file Edit executed?
-- [ ] Change Log entry appended with `claude/qa-result-interpreter` author?
-- [ ] Story file verification Read executed?
-- [ ] Status matches expectation?
+#### Single Edit Sequence Optimization (AC#4)
+
+**when possible use single Edit to combine YAML update and append in one sequence.**
+**Use single Edit when:** file structure allows, both updates in proximity.
+**Fallback to separate edits when:** file structure prevents combined edit.
+**Optimization rationale:** token efficiency - reduces tool calls.
+```
+# Optimized: Single Edit for both status and history (reduces tool calls)
+# Use when story file structure allows combined edit
+
+Edit(
+    file_path="devforgeai/specs/Stories/{STORY-ID}.story.md",
+    old_string="status: {original_status}\n...\n| {last_changelog_row} |",
+    new_string="status: {target_status}\n...\n| {last_changelog_row} |\n| {new_changelog_row} |"
+)
+
+# Still require Grep verification after combined edit
+Grep(pattern="^status: {target_status}", path="...")
+```
+
+**Fallback:** Use separate Edits (Steps 2 and 4) when single Edit not possible due to file structure.
+
+---
+
+**Validation Checkpoint (Atomic Update):**
+- [ ] Original status captured (Step 1)?
+- [ ] YAML frontmatter Edit executed FIRST (Step 2)?
+- [ ] Grep verification executed (Step 3)?
+- [ ] Verification passed (no rollback triggered)?
+- [ ] History entry appended AFTER verification (Step 4)?
+- [ ] Change Log entry has `claude/qa-result-interpreter` author?
 
 IF any checkbox unchecked: HALT with "Atomic update incomplete"
+IF rollback triggered: HALT with "Atomic update failed - rolled back"
+
+**This step is ATOMIC - do NOT proceed to Phase 4 until story file verified.**
 
 ### Step 3.5: Invoke qa-result-interpreter
 
