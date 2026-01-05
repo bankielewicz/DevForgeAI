@@ -23,25 +23,16 @@ echo "========================================="
 test_detect_technology_assumption() {
     echo -n "Test 1.1: Detect technology assumption (Install Redis) without AskUserQuestion... "
 
-    # Expected: "Install Redis for caching" without prior AskUserQuestion should trigger
-    sample_input='Install Redis for caching layer'
-
-    # FAIL: No detection logic implemented yet
-    if grep -q "Making Assumptions\|Assuming Technology Choices" "$PROJECT_ROOT/devforgeai/specs/context/anti-patterns.md" 2>/dev/null; then
-        # Check if session-miner has assumption detection
-        if grep -q "assumption\|AskUserQuestion" "$PROJECT_ROOT/.claude/agents/session-miner.md" | grep -q "anti-pattern\|detect"; then
-            echo -e "${GREEN}PASS${NC}"
-            return 0
-        else
-            echo -e "${RED}FAIL${NC}"
-            echo "  Expected: session-miner to detect assumption anti-patterns"
-            echo "  Actual: Assumption detection not implemented"
-            return 1
-        fi
+    # Check if session-miner has assumption detection implementation
+    # Pattern must include making_assumptions category AND Install Redis example
+    if grep -q "making_assumptions" "$PROJECT_ROOT/.claude/agents/session-miner.md" && \
+       grep -q "Install Redis" "$PROJECT_ROOT/.claude/agents/session-miner.md"; then
+        echo -e "${GREEN}PASS${NC}"
+        return 0
     else
         echo -e "${RED}FAIL${NC}"
-        echo "  Expected: Making Assumptions pattern in anti-patterns.md Category 3"
-        echo "  Actual: Pattern not found"
+        echo "  Expected: session-miner to have making_assumptions category with Install Redis pattern"
+        echo "  Actual: Pattern not found in session-miner.md"
         return 1
     fi
 }
@@ -50,42 +41,48 @@ test_detect_technology_assumption() {
 test_askuserquestion_not_flagged() {
     echo -n "Test 1.2: AskUserQuestion usage should NOT be flagged as anti-pattern... "
 
-    # Expected: Using AskUserQuestion is the CORRECT behavior
-    sample_input='AskUserQuestion for caching technology selection'
-
-    # FAIL: No detection logic to verify this yet
-    echo -e "${RED}FAIL${NC}"
-    echo "  Expected: session-miner to NOT flag AskUserQuestion as violation"
-    echo "  Actual: Detection logic not implemented"
-    return 1
+    # Check if session-miner has exception rule for AskUserQuestion
+    if grep -q "Must check AskUserQuestion context" "$PROJECT_ROOT/.claude/agents/session-miner.md"; then
+        echo -e "${GREEN}PASS${NC}"
+        return 0
+    else
+        echo -e "${RED}FAIL${NC}"
+        echo "  Expected: session-miner to have AskUserQuestion exception rule"
+        echo "  Actual: Exception rule not found"
+        return 1
+    fi
 }
 
 # Test 3: Detect database assumption
 test_detect_database_assumption() {
     echo -n "Test 1.3: Detect database assumption (Use PostgreSQL) without AskUserQuestion... "
 
-    # Expected: "Use PostgreSQL for database" without prior choice should trigger
-    sample_input='Use PostgreSQL for the database layer'
-
-    # FAIL: No detection logic implemented yet
-    echo -e "${RED}FAIL${NC}"
-    echo "  Expected: session-miner to detect database technology assumption"
-    echo "  Actual: Detection logic not implemented"
-    return 1
+    # Check if session-miner has PostgreSQL assumption pattern
+    if grep -q "Use PostgreSQL" "$PROJECT_ROOT/.claude/agents/session-miner.md"; then
+        echo -e "${GREEN}PASS${NC}"
+        return 0
+    else
+        echo -e "${RED}FAIL${NC}"
+        echo "  Expected: session-miner to have Use PostgreSQL pattern"
+        echo "  Actual: Pattern not found"
+        return 1
+    fi
 }
 
 # Test 4: Detect framework assumption
 test_detect_framework_assumption() {
     echo -n "Test 1.4: Detect framework assumption (Using React) without AskUserQuestion... "
 
-    # Expected: "Build with React" without prior selection should trigger
-    sample_input='Build frontend using React with TypeScript'
-
-    # FAIL: No detection logic implemented yet
-    echo -e "${RED}FAIL${NC}"
-    echo "  Expected: session-miner to detect frontend framework assumption"
-    echo "  Actual: Detection logic not implemented"
-    return 1
+    # Check if session-miner has React assumption pattern
+    if grep -q "Build with React" "$PROJECT_ROOT/.claude/agents/session-miner.md"; then
+        echo -e "${GREEN}PASS${NC}"
+        return 0
+    else
+        echo -e "${RED}FAIL${NC}"
+        echo "  Expected: session-miner to have Build with React pattern"
+        echo "  Actual: Pattern not found"
+        return 1
+    fi
 }
 
 # Run all tests
@@ -102,6 +99,5 @@ if [ $FAILED_TESTS -eq 0 ]; then
     exit 0
 else
     echo -e "${RED}$FAILED_TESTS TEST(S) FAILED${NC}"
-    echo -e "${YELLOW}This is expected - TDD Red Phase${NC}"
     exit 1
 fi
