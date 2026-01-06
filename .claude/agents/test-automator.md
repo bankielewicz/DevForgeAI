@@ -1061,6 +1061,33 @@ dotnet test --collect:"XPlat Code Coverage"
     - Remove duplication
     - Extract common setup to fixtures/helpers
 
+## Line Ending Normalization (WSL Compatibility)
+
+When generating shell script test files (`.sh`), ensure line endings are normalized to LF for WSL compatibility.
+
+**Problem:** Shell scripts with CRLF line endings cause `$'\r': command not found` errors in WSL/Linux.
+
+**Detection:** If generated test file fails with carriage return errors, normalize using native Edit tool:
+
+```markdown
+# Per tech-stack.md lines 206-210: Use native tools, not Bash for file operations
+Edit(
+    file_path="${TEST_FILE}",
+    old_string="\r\n",
+    new_string="\n",
+    replace_all=true
+)
+```
+
+**Why native Edit tool:**
+- `.gitattributes` enforces LF on commit, but generated files need immediate normalization for test execution
+- Native Edit tool is 40-73% more token-efficient than Bash `sed` (per tech-stack.md constraints)
+
+**When to apply:**
+- After generating any `.sh` test file on Windows/WSL environment
+- When test execution fails with `$'\r': command not found` errors
+- Proactively when `file` command shows CRLF line terminators
+
 ## Specification File Testing (Markdown Commands/Skills)
 
 For Markdown specification files (commands, skills, agents), generate tests that validate **structure** rather than **narrative content**.

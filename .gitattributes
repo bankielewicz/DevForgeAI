@@ -24,6 +24,7 @@
 # =============================================================================
 # Shell scripts MUST be LF or execution fails with "$'\r': command not found"
 *.sh text eol=lf
+tests/**/*.sh text eol=lf
 
 # =============================================================================
 # PYTHON: Explicit LF
