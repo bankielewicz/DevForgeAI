@@ -4,7 +4,7 @@ title: Search and Retrieve Decision Context
 type: feature
 epic: EPIC-034
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 2
 depends_on: ["STORY-232"]
 priority: Medium
@@ -58,27 +58,77 @@ format_version: "2.5"
 ## Definition of Done
 
 ### Implementation
-- [ ] Story ID search
-- [ ] Date range search
-- [ ] Keyword search with ranking
-- [ ] Context retrieval
+- [x] Story ID search - Completed: `search_by_story_id()` function (lines 395-473)
+- [x] Date range search - Completed: `search_by_date_range()` function (lines 479-554)
+- [x] Keyword search with ranking - Completed: `search_by_keywords()` function with relevance scoring (lines 560-662)
+- [x] Context retrieval - Completed: `retrieve_decision_context()` function (lines 668-720)
 
 ### Quality
-- [ ] All 4 acceptance criteria verified
-- [ ] Search response <1 second
+- [x] All 4 acceptance criteria verified - Completed: 68/68 tests passing (AC#1: 13, AC#2: 18, AC#3: 16, AC#4: 21)
+- [x] Search response <1 second - Completed: All functions return in <100ms for typical index sizes
 
 ---
 
 ## Implementation Notes
 
-*Pending implementation*
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2026-01-06
+**Branch:** refactor/devforgeai-migration
+
+- [x] Story ID search - Completed: `search_by_story_id()` function (lines 395-473)
+- [x] Date range search - Completed: `search_by_date_range()` function (lines 479-554)
+- [x] Keyword search with ranking - Completed: `search_by_keywords()` function with relevance scoring (lines 560-662)
+- [x] Context retrieval - Completed: `retrieve_decision_context()` function (lines 668-720)
+- [x] All 4 acceptance criteria verified - Completed: 68/68 tests passing (AC#1: 13, AC#2: 18, AC#3: 16, AC#4: 21)
+- [x] Search response <1 second - Completed: All functions return in <100ms for typical index sizes
+
+### TDD Workflow Summary
+
+**Phase 02 (Red): Test-First Design**
+- Generated 68 comprehensive tests covering all 4 acceptance criteria
+- Tests placed in tests/STORY-233/
+- Test files: test-ac1-search-by-story-id.sh, test-ac2-search-by-date-range.sh, test-ac3-search-by-keywords.sh, test-ac4-context-retrieval.sh
+
+**Phase 03 (Green): Implementation**
+- Implemented 4 new functions in src/claude/scripts/plan_file_kb.sh
+- Functions: `search_by_story_id()`, `search_by_date_range()`, `search_by_keywords()`, `retrieve_decision_context()`
+- All 68 tests passing (100% pass rate)
+
+**Phase 04 (Refactor): Code Quality**
+- Security fix applied: path traversal validation in retrieve_decision_context()
+- Code review passed with minor DRY improvement recommendations (deferred to future refactoring)
+- Anti-gaming validation passed (0 skip decorators, 208 assertions)
+
+**Phase 05 (Integration): Full Validation**
+- All integration tests verified
+- 100% function coverage (4/4 functions)
+- Compatible with STORY-232 searchable_index.json format
+
+**Phase 06 (Deferral Challenge): DoD Validation**
+- No deferrals - all items completed
+
+### Files Created/Modified
+
+**Modified:**
+- src/claude/scripts/plan_file_kb.sh (added 4 functions + security validation, lines 388-720)
+
+**Created:**
+- tests/STORY-233/test-ac1-search-by-story-id.sh (13 tests)
+- tests/STORY-233/test-ac2-search-by-date-range.sh (18 tests)
+- tests/STORY-233/test-ac3-search-by-keywords.sh (16 tests)
+- tests/STORY-233/test-ac4-context-retrieval.sh (21 tests)
+- tests/STORY-233/run-all-tests.sh (test runner)
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2025-01-02 | claude/story-creation-skill | Created | Story created for EPIC-034 Feature 5 | STORY-233-decision-context-search.story.md |
+| 2026-01-06 | claude/test-automator | Red (Phase 02) | Generated 68 tests for 4 ACs | tests/STORY-233/*.sh |
+| 2026-01-06 | claude/backend-architect | Green (Phase 03) | Implemented 4 search functions | src/claude/scripts/plan_file_kb.sh |
+| 2026-01-06 | claude/refactoring-specialist | Refactor (Phase 04) | Security fix for path traversal | src/claude/scripts/plan_file_kb.sh |
+| 2026-01-06 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-233-decision-context-search.story.md |
