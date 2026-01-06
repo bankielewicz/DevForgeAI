@@ -8,12 +8,14 @@ Single-load reference for deep QA validation. Contains all workflow steps for Ph
 
 This file consolidates the following workflows for single-load efficiency:
 - Coverage Analysis (7 steps)
+- Traceability Validation (5 steps)
+- Documentation Accuracy Validation (4 steps)
 - Anti-Pattern Detection (6 steps)
 - Spec Compliance (6 steps)
 - Code Quality Metrics (5 steps)
 - Report Generation (6 steps)
 
-**Token savings:** ~3K tokens (load once vs 5 separate files at ~500 each)
+**Token savings:** ~3.5K tokens (load once vs 7 separate files at ~500 each)
 
 ---
 
@@ -128,6 +130,60 @@ IF dod_unchecked > 0:
     Match unchecked items to approved list
     IF unmatched: deferral_status = "INVALID"
 ```
+
+---
+
+### 1.3 Documentation Accuracy Validation (4 Steps)
+
+**Purpose:** Validate that SKILL.md file claims match actual filesystem state.
+
+**Step 1: Extract Documentation Claims**
+```
+FOR each SKILL.md in .claude/skills/:
+    file_count_claims = grep "Total: (\d+) reference files"
+    line_count_claims = grep "(\d+) lines"
+    section_claims = grep "(\d+) (sections|phases)"
+
+    Store: {skill_name, claim_type, claimed_count}
+```
+
+**Step 2: Count Actual Resources**
+```
+FOR each skill with claims:
+    actual_file_count = Glob(pattern=".claude/skills/{skill}/references/*.md").count()
+    actual_line_count = sum(Read(file).line_count for file in references/)
+    actual_section_count = grep "^## " SKILL.md | count
+```
+
+**Step 3: Compare and Generate Violations**
+```
+FOR each claim in claims:
+    IF claimed_count != actual_count:
+        violations.append({
+            severity: "MEDIUM",
+            type: "documentation_drift",
+            file: skill_path,
+            message: "Claims {claimed_count} files, found {actual_count}",
+            remediation: "Update SKILL.md count or add/remove files"
+        })
+```
+
+**Step 4: Aggregate Results**
+```
+doc_accuracy_result = {
+    claims_validated: total_claims,
+    discrepancies: violations.length,
+    details: violations
+}
+```
+
+**Claim Types Validated:**
+
+| Claim Type | Pattern | Validation Method |
+|------------|---------|-------------------|
+| file_count | "Total: N reference files" | Glob count |
+| line_count | "N lines" | Sum of file lines |
+| section_count | "N sections/phases" | Grep header count |
 
 ---
 
