@@ -39,6 +39,12 @@ Examples:
      3. Follow test naming: test_<function>_<scenario>_<expected>
      4. Use project's test framework (from tech-stack.md)
      5. Return test files and run command
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```

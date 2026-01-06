@@ -46,6 +46,12 @@ Examples:
      3. Follow coding-standards.md patterns
      4. Follow source-tree.md for file placement
      5. No premature optimization
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```
@@ -61,7 +67,15 @@ Examples:
    Task(
      subagent_type="context-validator",
      description="Validate constraints for ${STORY_ID}",
-     prompt="Validate implementation against all 6 context files"
+     prompt="""
+     Validate implementation against all 6 context files.
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
+     """
    )
    ```
 

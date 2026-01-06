@@ -41,6 +41,12 @@ Examples:
      3. Improve naming consistency
      4. Apply DRY principle
      5. Ensure all tests still pass after changes
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```
@@ -66,6 +72,12 @@ Examples:
      2. Security vulnerabilities
      3. Pattern compliance
      4. Standards adherence
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```

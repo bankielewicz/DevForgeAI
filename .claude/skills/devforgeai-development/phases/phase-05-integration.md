@@ -48,6 +48,12 @@ Examples:
         - Business logic: 95%
         - Application layer: 85%
         - Infrastructure: 80%
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```
