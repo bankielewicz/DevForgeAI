@@ -1,0 +1,26 @@
+{
+  "story_id": "STORY-237",
+  "current_phase": "08",
+  "completed_phases": ["01", "02", "03", "04", "05", "06", "07"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["backend-architect", "context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer"],
+    "05": ["integration-tester"],
+    "06": ["deferral-challenge-completed"],
+    "07": ["dod-update-completed"]
+  },
+  "iteration_count": 2,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-06",
+  "created": "2026-01-06T12:00:00Z",
+  "updated": "2026-01-06T13:10:00Z",
+  "deferral_resolution": {
+    "phase_06_decision": "HALT and implement NOW",
+    "missing_ac4_integration": false,
+    "loop_back_to": "Phase 02",
+    "resolved": true,
+    "ac4_integration_added": "get_exit_code_for_check() function"
+  }
+}
