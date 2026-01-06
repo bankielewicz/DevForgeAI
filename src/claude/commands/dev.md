@@ -3,6 +3,7 @@ description: Implement user story using TDD workflow
 argument-hint: [STORY-ID] [mode]
 model: opus
 allowed-tools: AskUserQuestion, Read, Skill, Bash(git:*)
+execution-mode: immediate
 ---
 
 # /dev - TDD Development Workflow
@@ -37,9 +38,22 @@ Backlog | Ready for Dev | In Development → Dev Complete
 
 ## Command Workflow
 
-### Phase 01: Argument Validation
+### Phase 0: Plan Mode Detection and Argument Validation
 
-**Parse arguments and flags:**
+**Step 0.0: Plan Mode Auto-Exit [execution-mode: immediate]**
+
+This command has `execution-mode: immediate` in frontmatter. If plan mode is currently active, auto-exit plan mode before proceeding:
+
+```
+IF plan mode is active:
+    Display: "Note: /dev is an execution command. Exiting plan mode automatically."
+    ExitPlanMode()
+```
+
+---
+
+**Step 0.1: Parse Arguments and Flags**
+
 ```
 STORY_ID = null
 FORCE_FLAG = false
@@ -58,7 +72,7 @@ IF STORY_ID empty:
     Display: "Usage: /dev STORY-NNN [--force]"
     Display: "Example: /dev STORY-001"
     Display: "         /dev STORY-001 --force  (bypass dependency checks)"
-    Display: "         /dev STORY-001 --FIX    (Resolve QA issues noted in STORY-[0-9]-gaps.json file)
+    Display: "         /dev STORY-001 --fix    (Resolve QA issues noted in STORY-[0-9]-gaps.json file)"
     HALT
 
 IF FORCE_FLAG == true:
@@ -67,22 +81,13 @@ IF FORCE_FLAG == true:
     Display: ""
 
 IF REMEDIATION_MODE == true:
-    Display: "⚠️  Remediation mode enabled"    
+    Display: "⚠️  Remediation mode enabled"
     Display: ""
     $MODE = Remediation Mode
 ```
 
-**Set force flag for skill context:**
-```
-$FORCE_FLAG = FORCE_FLAG
-```
+**Step 0.2: Load Story File**
 
-**Set remediation mode flag for skill context:**
-```
-$REMEDIATION_MODE = REMEDIATION_MODE
-```
-
-**Load story file:**
 ```
 @devforgeai/specs/Stories/$1*.story.md
 
@@ -96,7 +101,7 @@ Display: "✓ Story: $1"
 
 ---
 
-### Phase 02: Invoke Skill
+### Phase 1: Invoke Skill
 
 **Set context markers for skill:**
 ```
@@ -132,7 +137,7 @@ Skill(command="devforgeai-development")
 
 ---
 
-### Phase 03: Display Results
+### Phase 2: Display Results
 
 **Skill has returned result object with display template:**
 

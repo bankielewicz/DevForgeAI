@@ -1,7 +1,7 @@
 ---
 name: ui-spec-formatter
 description: Formats UI specification results for display after devforgeai-ui-generator skill completes. Interprets generated UI specifications and creates structured display templates showing component details, file locations, accessibility features, and responsive breakpoints. Use after UI spec generation to prepare results for /create-ui command output.
-model: haiku
+model: opus
 color: green
 tools: Read, Grep, Glob
 ---

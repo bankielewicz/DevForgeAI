@@ -97,6 +97,26 @@ When devforgeai-architecture skill creates dependencies.md for projects:
 - ❌ cli-spinners (use Ora only)
 - ❌ colors (use Chalk only)
 
+**Optional GUI Dependencies (EPIC-039, ADR-009):**
+```json
+{
+  "electron": "^28.0.0",
+  "electron-builder": "^24.0.0"
+}
+```
+
+**GUI Dependency Constraints (per ADR-009):**
+- `electron`: 28.x+ (LTS version with security patches)
+- `electron-builder`: 24.x (Multi-platform packaging)
+- **OPTIONAL**: GUI installer is optional; CLI wizard works without Electron
+- **SCOPE**: Only for `installer/gui/` directory (STORY-248)
+- **NOT REQUIRED**: Core DevForgeAI framework does NOT require Electron
+
+**GUI Alternatives FORBIDDEN:**
+- ❌ Tauri (use Electron only - more mature ecosystem)
+- ❌ NW.js (use Electron only - better maintained)
+- ❌ Qt/PySide6 (use Electron only - cross-platform consistency)
+
 **Dev Dependencies:**
 ```json
 {

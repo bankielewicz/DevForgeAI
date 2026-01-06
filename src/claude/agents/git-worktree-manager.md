@@ -2,7 +2,7 @@
 name: git-worktree-manager
 description: Git worktree management for parallel story development. Creates isolated worktrees per story, detects idle worktrees, enforces max limits, and returns structured JSON with status and recommendations. Used by /dev command Phase 0 Step 0.2 for automatic worktree lifecycle management.
 tools: Bash, Read, Glob, Grep
-model: haiku
+model: opus
 color: blue
 ---
 

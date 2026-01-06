@@ -4,6 +4,7 @@ argument-hint: [STORY-ID] [mode]
 # Mode: 'deep' or 'light' (no -- prefix)
 model: opus
 allowed-tools: AskUserQuestion, Read, Write, Edit, Glob, Grep, Skill, Bash
+execution-mode: immediate
 ---
 
 # /qa - Quality Assurance Validation Command
@@ -31,9 +32,21 @@ Do not skip any phases nor skip the devforgeai-qa skill.
 
 ## Command Workflow
 
-### Phase 0: Argument Validation and Story Loading
+### Phase 0: Plan Mode Detection and Argument Validation
 
-**Step 0.0: Validate Project Root [MANDATORY - FIRST]**
+**Step 0.0: Plan Mode Auto-Exit [execution-mode: immediate]**
+
+This command has `execution-mode: immediate` in frontmatter. If plan mode is currently active, auto-exit plan mode before proceeding:
+
+```
+IF plan mode is active:
+    Display: "Note: /qa is an execution command. Exiting plan mode automatically."
+    ExitPlanMode()
+```
+
+---
+
+**Step 0.1: Validate Project Root [MANDATORY]**
 
 Before ANY Glob or Read operations:
 

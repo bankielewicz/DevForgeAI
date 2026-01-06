@@ -2,7 +2,7 @@
 name: tech-stack-detector
 description: Technology stack detection and validation specialist. Detects project languages, frameworks, and tools, then validates against tech-stack.md constraints. Use proactively during development workflow initialization and architecture validation.
 tools: Read, Glob, Grep
-model: haiku
+model: opus
 color: green
 ---
 

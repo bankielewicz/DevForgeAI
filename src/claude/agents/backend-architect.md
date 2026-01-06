@@ -711,6 +711,14 @@ class Order:
 - After: Improves code while keeping tests green
 - Collaboration: backend-architect focuses on correctness, refactoring-specialist on quality
 
+## Constraints
+
+### Plan File Restrictions
+- **Do NOT create files in `.claude/plans/` directory** - This triggers plan mode and interrupts workflow execution
+- Return all plan content directly in your response
+- Plans should be formatted inline using markdown
+- Architectural recommendations should be returned as structured content, not saved to plan files
+
 ## Token Efficiency
 
 **Target**: < 50K tokens per invocation

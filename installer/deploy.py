@@ -23,13 +23,30 @@ PERM_EXECUTABLE = 0o755
 PERM_REGULAR = 0o644
 
 # Patterns to exclude during deployment
+# Organized by category for maintainability
 EXCLUDE_PATTERNS = {
+    # Backup files
     "*.backup",
+    "*.backup.*",
     "*.bak",
+    # Python cache/build artifacts
     "__pycache__",
     "*.pyc",
+    "*.pyo",
     ".pytest_cache",
     ".coverage",
+    ".coverage.*",
+    # Build artifacts
+    "*.egg-info",
+    "SOURCES.txt",
+    # Workflow lock files
+    "*-phase-state.lock",
+    "*.lock",
+    # SECURITY: Files with hardcoded secrets - NEVER deployed
+    "settings.json.glm",      # Contains hardcoded API token
+    # Platform-specific settings - excluded by default
+    "settings.json.anthropic",
+    "settings.local.json",
 }
 
 # Directories to preserve (user configs)
@@ -41,12 +58,23 @@ PRESERVE_PATHS = {
 
 # Directories to NOT deploy (generated content or development-specific)
 NO_DEPLOY_DIRS = {
+    # Generated content (project-specific)
     "devforgeai/qa/reports",
     "devforgeai/RCA",
     "devforgeai/adrs",
     "devforgeai/feedback/imported",
     "devforgeai/logs",
     "devforgeai/specs/enhancements",  # Development planning docs (not for production deployment)
+    # Workflow state files (session-specific)
+    "devforgeai/workflows",
+    # Test directories - not deployed to target projects
+    "tests",
+    "test",
+    "spec",
+    # Build output directories
+    "build",
+    "dist",
+    "node_modules",
 }
 
 # File extensions and names that should be executable

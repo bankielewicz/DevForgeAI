@@ -4,7 +4,7 @@ title: Index Plan Files by Story and Decision Type
 type: feature
 epic: EPIC-034
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-222"]
 priority: Medium
@@ -115,7 +115,7 @@ format_version: "2.5"
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
@@ -124,3 +124,4 @@ format_version: "2.5"
 | 2026-01-06 | claude/backend-architect | Green (Phase 03) | Implemented 3 functions | .claude/scripts/plan_file_kb.sh |
 | 2026-01-06 | claude/refactoring-specialist | Refactor (Phase 04) | Security fixes, DRY refactoring | .claude/scripts/plan_file_kb.sh |
 | 2026-01-06 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-232-plan-file-indexing.story.md |
+| 2026-01-06 | claude/qa-result-interpreter | QA Deep | PASS WITH WARNINGS: 36/36 tests, 3/3 validators passed, 2 MEDIUM violations | devforgeai/qa/reports/STORY-232-qa-report.md |

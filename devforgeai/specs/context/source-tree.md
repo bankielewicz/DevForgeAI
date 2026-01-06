@@ -381,7 +381,7 @@ DevForgeAI2/
 │   ├── version.json             # Version metadata
 │   └── checksums.txt            # File integrity checksums
 │
-├── installer/                   # PYTHON INSTALLER PACKAGE (EPIC-012, 013, 014)
+├── installer/                   # PYTHON INSTALLER PACKAGE (EPIC-012, 013, 014, 035-039)
 │   ├── __init__.py             # Package initialization
 │   ├── __main__.py             # CLI entry point (python -m installer)
 │   │
@@ -397,8 +397,38 @@ DevForgeAI2/
 │   │
 │   ├── network.py              # Network availability detection (STORY-069)
 │   ├── checksum.py             # SHA256 integrity verification (STORY-069)
-│   ├── offline.py              # Offline installation workflow (STORY-069)
+│   ├── offline.py              # Offline installation workflow (STORY-069, STORY-250)
 │   ├── bundle.py               # Bundle structure validation (STORY-069)
+│   │
+│   ├── platform_detector.py    # Platform detection module (STORY-235)
+│   ├── preflight.py            # Pre-flight validation (STORY-236)
+│   ├── exit_codes.py           # Enhanced exit codes (STORY-237)
+│   ├── tech_stack_detector.py  # Tech stack detection (STORY-238)
+│   ├── build_executor.py       # Build command execution (STORY-239)
+│   ├── package_creator.py      # Language-specific packages (STORY-241)
+│   ├── installer_generator.py  # OS-specific installers (STORY-242)
+│   ├── installer_mode_config.py # Installer mode config (STORY-243)
+│   ├── registry_publisher.py   # Registry publishing (STORY-244)
+│   ├── registry_config.py      # Registry configuration (STORY-245)
+│   ├── credential_masker.py    # Credential masking (STORY-244)
+│   ├── wizard.py               # CLI wizard installer (STORY-247)
+│   ├── silent.py               # Silent/headless installer (STORY-249)
+│   ├── upgrade.py              # Upgrade operations (STORY-251)
+│   ├── repair.py               # Repair operations (STORY-251)
+│   ├── uninstall.py            # Uninstall operations (STORY-251)
+│   ├── status.py               # Status reporting (STORY-251)
+│   │
+│   ├── gui/                    # GUI installer template (STORY-248, ADR-009)
+│   │   ├── package.json        # Electron dependencies
+│   │   ├── main.js             # Electron main process
+│   │   ├── preload.js          # Context bridge
+│   │   ├── renderer/           # Frontend (HTML/CSS/JS)
+│   │   │   ├── index.html
+│   │   │   ├── styles.css
+│   │   │   ├── app.js
+│   │   │   └── pages/          # Page templates
+│   │   ├── assets/             # Icons, logos
+│   │   └── build/              # electron-builder config
 │   │
 │   ├── config.yaml             # Installer configuration
 │   ├── merge-config.yaml       # CLAUDE.md merge configuration

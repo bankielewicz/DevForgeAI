@@ -4,7 +4,7 @@ description: Requirements analysis subagent specifically for devforgeai-story-cr
 parent_skill: devforgeai-story-creation
 output_format: content_only
 tools: [Read, Grep, Glob, AskUserQuestion]
-model: haiku
+model: opus
 contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
 color: blue
 ---

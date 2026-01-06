@@ -8,6 +8,17 @@
 # .claude/skills/devforgeai-feedback/HOOK-SYSTEM.md
 
 # ============================================================================
+# Global Hook Settings
+# ============================================================================
+
+# Master switch for hook system (required for any hooks to trigger)
+enabled: true
+
+# Global trigger rules (can be overridden per-operation)
+global_rules:
+  trigger_on: all  # all | failures-only | none
+
+# ============================================================================
 # Hook Registry
 # ============================================================================
 
@@ -66,7 +77,7 @@ hooks:
     feedback_config:
       metrics: [deployment_duration, test_pass_rate, rollback_needed]
     max_duration_ms: 3000
-    enabled: false
+    enabled: true
     tags: [release, monitoring, deployment]
 
   # Post-Orchestrate Workflow Retrospective
@@ -94,7 +105,7 @@ hooks:
         # Performance reflection
         - "Was the total workflow duration acceptable for this story complexity?"
     max_duration_ms: 5000
-    enabled: false  # DISABLED by default until Phase N wiring complete
+    enabled: true
     tags: [orchestrate, workflow, end-to-end, retrospective, story-026]
     metadata:
       story_id: "STORY-026"
@@ -116,7 +127,7 @@ hooks:
         - "Story dependencies identified?"
         - "Technical debt addressed?"
     max_duration_ms: 5000
-    enabled: false
+    enabled: true
     tags: [sprint, planning, retrospective]
 
   # Example 5: Subagent Performance Tracking
@@ -133,7 +144,7 @@ hooks:
     feedback_config:
       metrics: [execution_time, token_usage, result_quality]
     max_duration_ms: 2000
-    enabled: false
+    enabled: true
     tags: [subagent, performance, monitoring]
 
   # Example 6: Epic Completion Celebration
@@ -147,8 +158,88 @@ hooks:
     feedback_config:
       summary_sections: [features_created, complexity_score, timeline_estimate]
     max_duration_ms: 3000
-    enabled: false
+    enabled: true
     tags: [epic, planning, completion]
+
+  # ============================================================================
+  # AI Architectural Analysis Hooks
+  # ============================================================================
+
+  # AI Analysis: Post-Development Architectural Review
+  # Triggers after /dev command to capture Claude's framework recommendations
+  - id: post-dev-ai-analysis
+    name: "Post-Development AI Architectural Analysis"
+    operation_type: command
+    operation_pattern: "^dev$"
+    trigger_status: [success, partial, failure]
+    trigger_conditions:
+      user_approval_required: false  # Auto-trigger for AI analysis
+    feedback_type: ai_analysis  # NEW feedback type for AI-generated recommendations
+    feedback_config:
+      mode: "architectural"
+      analysis_prompts:
+        - what_worked_well
+        - areas_for_improvement
+        - recommendations
+        - patterns_observed
+        - anti_patterns_detected
+        - constraint_analysis
+      constraint_check: "claude-code-terminal"  # Ensure recommendations are feasible
+      storage_path: "devforgeai/feedback/ai-analysis/"
+    max_duration_ms: 30000  # Allow more time for thorough analysis
+    enabled: true
+    tags: [ai-analysis, architectural, dev, framework-improvement]
+    metadata:
+      description: "Captures Claude's architectural recommendations after development workflows"
+      implementation_date: "2025-12-28"
+      purpose: "Systematize manual post-workflow architectural advice prompts"
+
+  # AI Analysis: Post-QA Architectural Review
+  # Triggers after /qa command to capture Claude's quality insights
+  - id: post-qa-ai-analysis
+    name: "Post-QA AI Architectural Analysis"
+    operation_type: command
+    operation_pattern: "^qa$"
+    trigger_status: [success, partial, failure]
+    trigger_conditions:
+      user_approval_required: false  # Auto-trigger for AI analysis
+    feedback_type: ai_analysis
+    feedback_config:
+      mode: "architectural"
+      analysis_prompts:
+        - what_worked_well
+        - areas_for_improvement
+        - recommendations
+        - patterns_observed
+        - anti_patterns_detected
+        - constraint_analysis
+      constraint_check: "claude-code-terminal"
+      storage_path: "devforgeai/feedback/ai-analysis/"
+    max_duration_ms: 30000
+    enabled: true
+    tags: [ai-analysis, architectural, qa, framework-improvement]
+    metadata:
+      description: "Captures Claude's architectural recommendations after QA validation"
+      implementation_date: "2025-12-28"
+      purpose: "Systematize manual post-workflow architectural advice prompts"
+
+# ============================================================================
+# Post Tool Call Hooks (STORY-151)
+# ============================================================================
+
+post_tool_call:
+  hooks:
+    - name: post-subagent-recording
+      script: devforgeai/hooks/post-subagent-recording.sh
+      blocking: false
+      filter:
+        tool: Task
+        has_param: subagent_type
+      description: "Records subagent invocations to phase state file for audit trail"
+      tags: [phase-enforcement, audit, story-151]
+      metadata:
+        story_id: "STORY-151"
+        implementation_date: "2025-12-28"
 
 # ============================================================================
 # Configuration Guidelines
