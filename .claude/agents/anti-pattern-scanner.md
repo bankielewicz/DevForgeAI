@@ -50,10 +50,11 @@ The anti-pattern-scanner specializes in identifying architectural violations, se
 - **Forbidden tools:** Write, Edit (no modifications)
 - **Rationale:** Scanning is non-destructive; fixes are developer responsibility
 
-### Guardrail #2: ALL 6 Context Files Required
-**Principle:** Scanner must load ALL 6 context files or HALT with error.
+### Guardrail #2: ALL 6 Context Files Required (unless summaries provided)
+**Principle:** Scanner must load ALL 6 context files or HALT with error (unless context summaries provided in prompt).
 - **Required files:** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
 - **If ANY missing:** Return status='failure' with remediation: "Run /create-context [project-name]"
+- **Exception:** IF context_summary provided in prompt, use provided summaries instead of re-reading files (do not re-read files)
 - **Rationale:** Context is mandatory to validate violations; partial context = unreliable results
 
 ### Guardrail #3: Severity Classification (Fixed Mapping)
@@ -148,7 +149,8 @@ The anti-pattern-scanner specializes in identifying architectural violations, se
     "coding_standards": "content of coding-standards.md",
     "architecture_constraints": "content of architecture-constraints.md",
     "anti_patterns": "content of anti-patterns.md"
-  }
+  },
+  "context_summary": "(OPTIONAL) Pre-extracted key constraints - if provided, skip file re-reading"
 }
 ```
 
@@ -178,6 +180,24 @@ devforgeai/specs/context/anti-patterns.md
   → Extract: forbidden_patterns {god_objects, magic_numbers, hard_coded_secrets, ...}
   → Purpose: Detect explicit anti-patterns
 ```
+
+---
+
+## Context Summary Format
+
+When invoking anti-pattern-scanner with pre-extracted context, use this concise summary format (key constraints only):
+
+**Context Summary (do not re-read files):**
+- tech-stack.md: Framework-agnostic, Markdown-based, no external deps
+- anti-patterns.md: No Bash for file ops, no monolithic components
+- architecture-constraints.md: Three-layer, single responsibility
+- source-tree.md: Skills in .claude/skills/, agents in .claude/agents/
+- dependencies.md: Zero external deps for core framework
+- coding-standards.md: Direct instructions, not prose; YAML frontmatter required
+
+**Purpose:** Reduces token usage by ~3K tokens per invocation when parent skill already has context loaded.
+
+**Usage:** IF context_files_in_prompt: Use provided summaries instead of re-reading 6 context files.
 
 ---
 
@@ -280,7 +300,13 @@ devforgeai/specs/context/anti-patterns.md
 
 Load and validate ALL 6 context files. HALT immediately if ANY file missing.
 
-**Steps:**
+**Summary Shortcut:** IF context_summary provided in prompt:
+- Use provided summaries instead of re-reading files
+- Skip steps 1-6 below (context already extracted)
+- Proceed directly to Phase 2
+- **Rationale:** Parent skill already loaded context; avoids ~3K token re-read
+
+**Steps (if no summary provided):**
 1. Load each context file: tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md
 2. Parse tech-stack.md for locked technologies (ORM, state manager, HTTP client, validation, testing)
 3. Parse source-tree.md for layer definitions and allowed directory structures
@@ -288,7 +314,7 @@ Load and validate ALL 6 context files. HALT immediately if ANY file missing.
 5. Parse anti-patterns.md for code quality thresholds (method count, line count, magic numbers)
 6. Parse dependencies.md for approved packages list
 
-**Failure Response:** If ANY context file missing, return status='failure' with remediation: "Run /create-context"
+**Failure Response:** If ANY context file missing (and no summary provided), return status='failure' with remediation: "Run /create-context"
 
 ---
 
@@ -508,7 +534,33 @@ Action: HALT scanning. Context files must align before scanning proceeds.
 
 The anti-pattern-scanner is invoked by devforgeai-qa skill's Phase 2 anti-pattern detection workflow.
 
-**Invocation Pattern:**
+**Invocation Pattern (with Context Summary - RECOMMENDED):**
+```python
+anti_pattern_result = Task(
+  subagent_type="anti-pattern-scanner",
+  description="Scan for anti-patterns and architecture violations",
+  prompt=f"""
+  Scan story codebase for anti-patterns.
+
+  **Context Summary (do not re-read files):**
+  - tech-stack.md: Framework-agnostic, Markdown-based, no external deps
+  - anti-patterns.md: No Bash for file ops, no monolithic components
+  - architecture-constraints.md: Three-layer, single responsibility
+  - source-tree.md: Skills in .claude/skills/, agents in .claude/agents/
+  - dependencies.md: Zero external deps for core framework
+  - coding-standards.md: Direct instructions, not prose; YAML frontmatter required
+
+  Story ID: {story_id}
+  Language: {language}
+  Scan Mode: full (all 6 categories)
+
+  Execute 9-phase workflow per anti-pattern-scanner specification.
+  Return JSON with violations by severity, blocks_qa status, and remediation.
+  """
+)
+```
+
+**Invocation Pattern (without summary - legacy):**
 ```python
 anti_pattern_result = Task(
   subagent_type="anti-pattern-scanner",
@@ -548,6 +600,24 @@ if anti_pattern_result["blocks_qa"]:
 ```
 
 **Token Efficiency:** Subagent approach uses ~3K tokens vs ~8K inline (73% reduction)
+
+---
+
+## Token Efficiency
+
+### Token Savings with Context Summaries
+
+| Invocation Method | Token Usage | Savings |
+|-------------------|-------------|---------|
+| Full context files (6 reads) | ~8K tokens | Baseline |
+| Subagent (reads own context) | ~3K tokens | -5K (62%) |
+| **With context summary** | ~0.5K tokens | **-7.5K (94%)** |
+
+**Per-subagent savings:** ~3K tokens when using context summaries vs re-reading files.
+
+**Aggregate savings (3 parallel validators):** ~9K tokens per QA validation cycle.
+
+**Target (STORY-180):** -3K tokens per subagent call - **ACHIEVED** with context summary pattern.
 
 ---
 

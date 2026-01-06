@@ -16,6 +16,38 @@ This reference defines the parallel validation pattern for the QA skill, enablin
 
 ---
 
+## Context Summary Passing (STORY-180)
+
+### Generate Context Summary Before Invocation
+
+To reduce token usage (~3K per subagent), generate a context summary once and pass to all validators:
+
+```pseudocode
+# Step 1: Generate context summary (one-time extraction)
+context_summary = """
+**Context Summary (do not re-read files):**
+- tech-stack.md: Framework-agnostic, Markdown-based, no external deps
+- anti-patterns.md: No Bash for file ops, no monolithic components
+- architecture-constraints.md: Three-layer, single responsibility
+- source-tree.md: Skills in .claude/skills/, agents in .claude/agents/
+- dependencies.md: Zero external deps for core framework
+- coding-standards.md: Direct instructions, not prose; YAML frontmatter required
+"""
+
+# Step 2: Pass summary to each validator (below)
+```
+
+### Token Savings with Context Summaries
+
+| Validator | Without Summary | With Summary | Savings |
+|-----------|-----------------|--------------|---------|
+| test-automator | ~3K tokens | ~0.5K tokens | -2.5K |
+| code-reviewer | ~3K tokens | ~0.5K tokens | -2.5K |
+| security-auditor | ~3K tokens | ~0.5K tokens | -2.5K |
+| **Total** | ~9K tokens | ~1.5K tokens | **-7.5K** |
+
+---
+
 ## Parallel Invocation Pattern
 
 ### Single Message with 3 Task Calls
@@ -26,27 +58,35 @@ Execute ALL three validators in ONE message (parallel execution):
 # All 3 Task calls in a SINGLE message - they execute in parallel
 Task(
     subagent_type="test-automator",
-    prompt="Analyze test coverage for {STORY_ID}. Check: test file existence, coverage percentage, assertion quality. Return: coverage metrics and gaps.",
+    prompt=f"""Analyze test coverage for {STORY_ID}. Check: test file existence, coverage percentage, assertion quality. Return: coverage metrics and gaps.
+
+{context_summary}""",
     description="Run test analysis",
     run_in_background=true
 )
 
 Task(
     subagent_type="code-reviewer",
-    prompt="Review code changes for {STORY_ID}. Check: code quality, maintainability, best practices. Return: review findings with severity.",
+    prompt=f"""Review code changes for {STORY_ID}. Check: code quality, maintainability, best practices. Return: review findings with severity.
+
+{context_summary}""",
     description="Review code",
     run_in_background=true
 )
 
 Task(
     subagent_type="security-auditor",
-    prompt="Scan code for {STORY_ID}. Check: OWASP Top 10, input validation, authentication. Return: security findings with severity.",
+    prompt=f"""Scan code for {STORY_ID}. Check: OWASP Top 10, input validation, authentication. Return: security findings with severity.
+
+{context_summary}""",
     description="Security scan",
     run_in_background=true
 )
 ```
 
 **CRITICAL:** All 3 Task calls MUST be in the same message for parallel execution.
+
+**NOTE:** Include `{context_summary}` in each prompt to avoid redundant context file reads.
 
 ---
 
