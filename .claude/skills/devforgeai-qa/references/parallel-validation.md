@@ -124,6 +124,15 @@ Task(
     subagent_type="test-automator",
     prompt=f"""Analyze test coverage for {STORY_ID}. Check: test file existence, coverage percentage, assertion quality. Return: coverage metrics and gaps.
 
+**Response Constraints:**
+Return ONLY:
+1. Status: PASS/FAIL
+2. Coverage %: {{number}}
+3. Key findings (max 3 bullets)
+4. Blocking issues (if any)
+
+Do NOT include: full analysis, code snippets, detailed recommendations.
+
 {context_summary}""",
     description="Run test analysis",
     run_in_background=true
@@ -133,6 +142,15 @@ Task(
     subagent_type="code-reviewer",
     prompt=f"""Review code changes for {STORY_ID}. Check: code quality, maintainability, best practices. Return: review findings with severity.
 
+**Response Constraints:**
+Return ONLY:
+1. Status: PASS/FAIL
+2. Coverage %: {{number}}
+3. Key findings (max 3 bullets)
+4. Blocking issues (if any)
+
+Do NOT include: full analysis, code snippets, detailed recommendations.
+
 {context_summary}""",
     description="Review code",
     run_in_background=true
@@ -141,6 +159,15 @@ Task(
 Task(
     subagent_type="security-auditor",
     prompt=f"""Scan code for {STORY_ID}. Check: OWASP Top 10, input validation, authentication. Return: security findings with severity.
+
+**Response Constraints:**
+Return ONLY:
+1. Status: PASS/FAIL
+2. Coverage %: {{number}}
+3. Key findings (max 3 bullets)
+4. Blocking issues (if any)
+
+Do NOT include: full analysis, code snippets, detailed recommendations.
 
 {context_summary}""",
     description="Security scan",
