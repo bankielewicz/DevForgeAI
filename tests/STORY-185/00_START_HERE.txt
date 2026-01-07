@@ -1,0 +1,260 @@
+================================================================================
+STORY-185 INTEGRATION TESTS - START HERE
+================================================================================
+
+Welcome! This directory contains comprehensive integration tests for STORY-185:
+"Implement --type Flag for check-hooks CLI Command"
+
+Quick Navigation:
+
+1. WANT A QUICK OVERVIEW?
+   Read: EXECUTION_SUMMARY.txt (this directory)
+   Time: 5 minutes
+   
+2. WANT TO UNDERSTAND THE TESTS?
+   Read: README.md (this directory)
+   Time: 10 minutes
+   
+3. WANT TO RUN THE TESTS?
+   Command: pytest integration_test_check_hooks_type_flag.py -v
+   Time: 3 seconds
+   Expected: 14 passed, 13 failed (feature not yet implemented)
+   
+4. WANT TO IMPLEMENT THE FEATURE?
+   Read: MANUAL_CLI_TESTS.md (section: Implementation Plan)
+   Time: 15-20 minutes to implement
+
+5. NEED DETAILED ANALYSIS?
+   Read: INTEGRATION_TEST_SUMMARY.md (this directory)
+   Time: 20 minutes
+
+================================================================================
+FILES IN THIS DIRECTORY
+================================================================================
+
+00_START_HERE.txt
+  └─ This file (navigation guide)
+
+EXECUTION_SUMMARY.txt
+  └─ Quick facts, test results, root causes, implementation steps
+
+README.md
+  └─ Overview, test results, implementation checklist, documentation references
+
+TEST_REPORT.md
+  └─ Detailed test plan, AC mapping, requirements, testing strategy
+
+INTEGRATION_TEST_SUMMARY.md
+  └─ Full execution results, category breakdown, failure analysis
+
+MANUAL_CLI_TESTS.md
+  └─ CLI test scenarios, module tests, implementation plan (4 steps)
+
+integration_test_check_hooks_type_flag.py
+  └─ Main test suite (27 comprehensive tests, 521 lines)
+
+test_execution_results.log
+  └─ Raw pytest output from test execution
+
+================================================================================
+QUICK START
+================================================================================
+
+Option A: I Just Want to Run Tests
+  cd /mnt/c/Projects/DevForgeAI2
+  python3 -m pytest tests/STORY-185/integration_test_check_hooks_type_flag.py -v
+  
+  Expected: 14 passed, 13 failed
+  Duration: ~3 seconds
+
+Option B: I Want to Implement the Feature
+  1. Open: tests/STORY-185/MANUAL_CLI_TESTS.md
+  2. Go to: "Implementation Plan" section
+  3. Follow: 4-step implementation
+  4. Run: pytest (should see 27/27 passing)
+  
+  Duration: ~20 minutes
+
+Option C: I Want to Understand Everything
+  1. Read: tests/STORY-185/README.md
+  2. Read: tests/STORY-185/INTEGRATION_TEST_SUMMARY.md
+  3. Review: tests/STORY-185/integration_test_check_hooks_type_flag.py
+  4. Check: tests/STORY-185/MANUAL_CLI_TESTS.md
+  
+  Duration: ~45 minutes
+
+================================================================================
+TEST RESULTS SUMMARY
+================================================================================
+
+Total Tests:     27
+Currently Pass:  14 (51.9%)
+Currently Fail:  13 (48.1%)
+Expected Fail:   13 (feature not yet implemented)
+
+Category Breakdown:
+  CLI Argument Parsing ............ 1/5 pass (20%)
+  Module Type Functionality ....... 1/5 pass (20%)
+  Hook Filtering Logic ........... 3/3 pass (100%)
+  End-to-End Integration ......... 3/4 pass (75%)
+  Error Handling ................. 0/2 pass (0%)
+  Type Filtering Logic ........... 2/3 pass (67%)
+  CLI Command Execution .......... 4/5 pass (80%)
+
+Note: 13 failures are EXPECTED (feature not implemented)
+      After implementation: should see 27/27 PASS
+
+================================================================================
+KEY FACTS
+================================================================================
+
+Feature Status:
+  NOT YET IMPLEMENTED (tests ready for validation)
+
+Implementation Effort:
+  Time: 15-20 minutes
+  Code: ~10 lines
+  Files: 1 (check_hooks.py)
+  Risk: VERY LOW (backward compatible)
+
+What's Missing:
+  ✗ --type argument in CLI parser
+  ✗ hook_type parameter in function
+  ✗ Hook filtering logic
+  ✗ Help text for --type
+  ✗ Parameter passing from CLI to function
+
+Acceptance Criteria Coverage:
+  AC#1: --type parameter ..................... NOT IMPLEMENTED
+  AC#2: Valid values (user, ai, all) ........ NOT IMPLEMENTED
+  AC#3: Hooks filtered by type ............. NOT IMPLEMENTED
+  AC#4: Error message improved ............. NOT IMPLEMENTED
+  AC#5: Help text updated .................. NOT IMPLEMENTED
+
+================================================================================
+READING RECOMMENDATIONS
+================================================================================
+
+For Different Users:
+
+QA/Tester:
+  1. EXECUTION_SUMMARY.txt (results overview)
+  2. README.md (what tests do)
+  3. Run tests (see results)
+  → 20 minutes total
+
+Developer (Implementing Feature):
+  1. MANUAL_CLI_TESTS.md (implementation plan)
+  2. Implement 4 steps (15 minutes)
+  3. Run pytest (verify)
+  → 20 minutes total
+
+Architect/Tech Lead:
+  1. README.md (overview)
+  2. INTEGRATION_TEST_SUMMARY.md (analysis)
+  3. TEST_REPORT.md (full specification)
+  → 45 minutes total
+
+Manager/Product Owner:
+  1. EXECUTION_SUMMARY.txt (this summarizes everything)
+  2. README.md (success criteria)
+  3. MANUAL_CLI_TESTS.md (implementation effort)
+  → 15 minutes total
+
+================================================================================
+IMPLEMENTATION PATH (Quick Reference)
+================================================================================
+
+Step 1: Read Implementation Plan
+  File: MANUAL_CLI_TESTS.md
+  Section: "Implementation Plan"
+  Time: 5 minutes
+
+Step 2: Apply 4 Changes to check_hooks.py
+  Change 1: Add --type argument to parser (2 min)
+  Change 2: Add hook_type parameter (1 min)
+  Change 3: Implement filtering logic (3 min)
+  Change 4: Pass type from CLI to function (1 min)
+  Time: 7 minutes (total)
+
+Step 3: Run Tests
+  Command: pytest tests/STORY-185/integration_test_check_hooks_type_flag.py -v
+  Expected: 27/27 PASS
+  Time: 3 seconds
+
+Step 4: Commit Changes
+  Time: 2 minutes
+
+Total Time: ~17 minutes
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Q: Tests fail - is that normal?
+A: YES! Feature not implemented yet. 13 failures are expected.
+   After implementing feature, should see 27/27 pass.
+
+Q: How do I run just one test?
+A: pytest tests/STORY-185/integration_test_check_hooks_type_flag.py::TestCLIArgumentParsing::test_parser_has_type_option -v
+
+Q: Where's the implementation guide?
+A: Read MANUAL_CLI_TESTS.md (section: Implementation Plan)
+
+Q: Can I see what's expected after implementation?
+A: Yes! See INTEGRATION_TEST_SUMMARY.md (section: Expected Results)
+
+Q: Why are 14 tests passing?
+A: They test backward compatibility (function works without hook_type parameter)
+   and helper functions that work independently of the missing feature.
+
+Q: How long will implementation take?
+A: 15-20 minutes (see MANUAL_CLI_TESTS.md for step-by-step guide)
+
+================================================================================
+NEXT ACTIONS
+================================================================================
+
+Choose one:
+
+A) I want to RUN THE TESTS NOW
+   → Run: pytest integration_test_check_hooks_type_flag.py -v
+   → Read: EXECUTION_SUMMARY.txt (to understand results)
+
+B) I want to IMPLEMENT THE FEATURE
+   → Read: MANUAL_CLI_TESTS.md (Implementation Plan)
+   → Follow: 4-step implementation
+   → Run: pytest (to verify)
+
+C) I want to UNDERSTAND THE REQUIREMENTS
+   → Read: README.md (overview)
+   → Read: TEST_REPORT.md (detailed spec)
+   → Review: integration_test_check_hooks_type_flag.py (tests)
+
+D) I want EVERYTHING EXPLAINED
+   → Read: INTEGRATION_TEST_SUMMARY.md (full analysis)
+   → This covers all test results and failure analysis
+
+================================================================================
+DOCUMENT MAP
+================================================================================
+
+Start Here
+    ↓
+00_START_HERE.txt ← You are here
+    ↓
+Choose Your Path:
+    
+Path 1 (Quick):           Path 2 (Implementation):    Path 3 (Complete):
+  1. EXECUTION_SUMMARY.txt   1. MANUAL_CLI_TESTS.md      1. README.md
+  2. Run tests               2. Implement (15 min)        2. TEST_REPORT.md
+  3. INTEGRATION_TEST_SUMMARY  3. Run tests             3. INTEGRATION_TEST_SUMMARY.md
+                                                        4. MANUAL_CLI_TESTS.md
+                                                        5. Run tests
+
+================================================================================
+
+Questions? Everything is documented in this directory!
+Ready to get started? Pick one of the "Next Actions" above.
+
+================================================================================

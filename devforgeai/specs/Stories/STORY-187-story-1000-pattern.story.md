@@ -5,7 +5,7 @@ type: bugfix
 epic: EPIC-033
 priority: LOW
 points: 1
-status: Backlog
+status: Cancelled
 created: 2025-12-31
 source: STORY-148 framework enhancement analysis
 ---

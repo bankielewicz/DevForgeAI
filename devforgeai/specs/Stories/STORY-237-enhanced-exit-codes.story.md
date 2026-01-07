@@ -4,7 +4,7 @@ title: Enhanced Exit Codes
 type: feature
 epic: EPIC-035
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-236"]
 priority: Critical
@@ -413,7 +413,7 @@ None.
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
@@ -422,6 +422,7 @@ None.
 | 2026-01-06 | claude/backend-architect | Green (Phase 03) | Implemented exit codes and resolution messages | installer/exit_codes.py |
 | 2026-01-06 | claude/opus | Deferral (Phase 06) | AC#4 integration: added get_exit_code_for_check() | installer/exit_codes.py, test_exit_codes.py |
 | 2026-01-06 | claude/opus | DoD Update (Phase 07) | Development complete, all 17 DoD items verified | STORY-237-enhanced-exit-codes.story.md |
+| 2026-01-06 | claude/qa-result-interpreter | QA Deep | PASSED: Coverage 100%, 0 violations, 3/3 validators | devforgeai/qa/reports/STORY-237-qa-report.md |
 
 ## Notes
 

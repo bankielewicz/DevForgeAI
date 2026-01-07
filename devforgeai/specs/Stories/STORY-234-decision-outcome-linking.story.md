@@ -4,7 +4,7 @@ title: Link Decisions to Story Outcomes (Optional)
 type: feature
 epic: EPIC-034
 sprint: Backlog
-status: Backlog
+status: Cancelled
 points: 1
 depends_on: ["STORY-233"]
 priority: Low
