@@ -48,9 +48,73 @@ context_summary = """
 
 ---
 
+## Adaptive Validator Selection (STORY-183)
+
+### Validator Mapping by Story Type
+
+Select validators based on story type extracted in Phase 0 (Step 0.6):
+
+| Story Type | Validators | Count | Success Threshold | Token Savings |
+|------------|------------|-------|-------------------|---------------|
+| `documentation` | code-reviewer only | 1 | 1/1 (100%) | ~6K (-67%) |
+| `refactor` | code-reviewer, security-auditor | 2 | 1/2 (50%) | ~3K (-33%) |
+| `feature` | all 3 validators | 3 | 2/3 (66%) | 0 (full) |
+| `bugfix` | all 3 validators | 3 | 2/3 (66%) | 0 (full) |
+| (unknown/missing) | all 3 validators | 3 | 2/3 (66%) | 0 (default) |
+
+### Selection Algorithm
+
+```pseudocode
+# Step 1: Get story type from Phase 0 (default: "feature" for unknown/missing)
+story_type = $STORY_TYPE  # Set in Step 0.6
+
+# Step 2: Select validators based on story type
+IF story_type == "documentation":
+    # Documentation stories: only code-reviewer (skip test-automator, security-auditor)
+    validators = ["code-reviewer"]
+    success_threshold = 1  # 1/1 required
+    Display: "ℹ️ Documentation story - running code-reviewer only"
+
+ELIF story_type == "refactor":
+    # Refactor stories: skip test-automator (tests already exist)
+    validators = ["code-reviewer", "security-auditor"]
+    success_threshold = 1  # 1/2 required
+    Display: "ℹ️ Refactor story - skipping test-automator (tests exist)"
+
+ELSE:  # "feature", "bugfix", or fallback for unknown
+    # Feature/bugfix: full validation suite with all 3 validators
+    validators = ["test-automator", "code-reviewer", "security-auditor"]
+    success_threshold = 2  # 2/3 required
+    Display: "ℹ️ Feature/bugfix story - running all validators"
+
+# Step 3: Display validator count for transparency
+validator_count = len(validators)
+Display: f"  Validators: {validator_count}"
+Display: f"  Threshold: {success_threshold}/{validator_count}"
+```
+
+### Rationale by Story Type
+
+**Documentation Stories:**
+- documentation stories skip test-automator (no executable code)
+- documentation stories skip security-auditor (no attack surface)
+- documentation stories only run code-reviewer for quality review
+
+**Refactor Stories:**
+- refactor stories skip test-automator (tests already exist)
+- refactor stories include code-reviewer (code quality critical)
+- refactor stories include security-auditor (security review needed)
+
+**Feature/Bugfix Stories:**
+- feature stories run all 3 validators (full validation suite)
+- bugfix stories run all 3 validators (comprehensive testing needed)
+- New code requires all validators: test-automator, code-reviewer, security-auditor
+
+---
+
 ## Parallel Invocation Pattern
 
-### Single Message with 3 Task Calls
+### Single Message with 3 Task Calls (Default - Feature/Bugfix)
 
 Execute ALL three validators in ONE message (parallel execution):
 
@@ -122,10 +186,21 @@ PartialResult:
 
 ## Success Threshold
 
-### QA Requires 66% Success (2 of 3 Validators)
+### Adaptive Threshold Based on Validator Count (STORY-183)
+
+Threshold adjusts based on story type and validator count.
+
+**Threshold formula:** `validators_passed / validators_run >= success_threshold`
+
+The pass ratio determines success based on story type requirements.
 
 ```pseudocode
-min_success_rate = 0.66  # 2 of 3 validators must succeed
+# Get validator count and threshold from adaptive selection
+validator_count = len(validators)  # 1, 2, or 3 based on story type
+success_threshold = threshold_from_story_type  # Set in selection algorithm
+
+# Calculate minimum success rate (threshold formula)
+min_success_rate = success_threshold / validator_count  # pass ratio calculation
 
 IF partial_result.success_rate < min_success_rate:
     Display: "⚠️ QA validation below threshold"
@@ -141,7 +216,9 @@ ELSE:
     Continue to result aggregation
 ```
 
-### Threshold Rationale
+### Threshold Rationale by Story Type (STORY-183)
+
+**Feature/Bugfix Stories (3 validators, threshold: 2):**
 
 | Scenario | Validators | Success Rate | Decision |
 |----------|------------|--------------|----------|
@@ -149,6 +226,21 @@ ELSE:
 | 2 pass, 1 fail | 2/3 | 67% | Continue (acceptable) |
 | 1 pass, 2 fail | 1/3 | 33% | **HALT** (below 66%) |
 | All fail | 0/3 | 0% | **HALT** (critical failure) |
+
+**Refactor Stories (2 validators, threshold: 1):**
+
+| Scenario | Validators | Success Rate | Decision |
+|----------|------------|--------------|----------|
+| All pass | 2/2 | 100% | Continue (ideal) |
+| 1 pass, 1 fail | 1/2 | 50% | Continue (threshold met) |
+| All fail | 0/2 | 0% | **HALT** (critical failure) |
+
+**Documentation Stories (1 validator, threshold: 1):**
+
+| Scenario | Validators | Success Rate | Decision |
+|----------|------------|--------------|----------|
+| Pass | 1/1 | 100% | Continue |
+| Fail | 0/1 | 0% | **HALT** |
 
 ---
 
@@ -254,29 +346,46 @@ Phase 3-7: Continue with aggregated results
 
 ## Phase 2.2 Completion Checkpoint [MANDATORY - BLOCKS PHASE 2.3]
 
-**Purpose:** Ensure all 3 validators were invoked before proceeding.
+**Purpose:** Ensure all required validators (based on story type) were invoked before proceeding.
 
 **Constitution Alignment:** Parallel tasks MUST be independent (architecture-constraints.md line 169)
 
-### Validator Invocation Checklist
+### Validator Invocation Checklist (Adaptive - STORY-183)
 
-Before proceeding to Phase 2.3, verify ALL validators were invoked:
+Before proceeding to Phase 2.3, verify ALL required validators were invoked based on story type:
 
+**For feature/bugfix stories (3 validators required):**
 ```
 - [ ] test-automator subagent invoked? (verify Task() call in conversation)
 - [ ] code-reviewer subagent invoked? (verify Task() call in conversation)
 - [ ] security-auditor subagent invoked? (verify Task() call in conversation)
 ```
 
-### Enforcement Logic
+**For refactor stories (2 validators required):**
+```
+- [ ] code-reviewer subagent invoked? (verify Task() call in conversation)
+- [ ] security-auditor subagent invoked? (verify Task() call in conversation)
+```
+
+**For documentation stories (1 validator required):**
+```
+- [ ] code-reviewer subagent invoked? (verify Task() call in conversation)
+```
+
+### Enforcement Logic (Adaptive)
 
 ```
-validator_count = count(invoked validators)
+# Get required validators from story type selection
+required_validators = validators  # Set by adaptive selection algorithm
+required_count = len(required_validators)
 
-IF validator_count < 3:
-    Display: "❌ INCOMPLETE: Only {validator_count}/3 validators invoked"
+# Count actually invoked validators
+invoked_count = count(invoked validators in required_validators)
+
+IF invoked_count < required_count:
+    Display: "❌ INCOMPLETE: Only {invoked_count}/{required_count} validators invoked"
     Display: "Missing: {list_missing_validators}"
-    HALT: "All 3 validators MUST be invoked in a SINGLE message for parallel execution"
+    HALT: "All required validators MUST be invoked in a SINGLE message for parallel execution"
 
     AskUserQuestion:
         Question: "Invoke missing validators now?"
@@ -284,26 +393,26 @@ IF validator_count < 3:
         Options:
             - label: "Yes, invoke {missing} now"
               description: "Launch missing validator(s) before continuing"
-            - label: "Continue with {validator_count}/3 (NOT RECOMMENDED)"
+            - label: "Continue with {invoked_count}/{required_count} (NOT RECOMMENDED)"
               description: "Proceed without all validators - may miss issues"
         multiSelect: false
 
     IF user chooses "Yes": Invoke missing validator(s)
     IF user chooses "Continue": Log warning, proceed with reduced coverage
 
-IF validator_count == 3:
-    Display: "✓ All 3 validators invoked"
+IF invoked_count == required_count:
+    Display: "✓ All {required_count} validators invoked"
     PROCEED to Phase 2.3
 ```
 
-### Important Distinction
+### Important Distinction (Adaptive - STORY-183)
 
 | Concept | Applies To | Threshold |
 |---------|------------|-----------|
-| **Invocation** | Task() calls | 3/3 REQUIRED |
-| **Success Rate** | Validator RESULTS | 66% (2/3) acceptable |
+| **Invocation** | Task() calls | N/N REQUIRED (N = validators for story type) |
+| **Success Rate** | Validator RESULTS | Varies by story type (see threshold table) |
 
-**Note:** The 66% threshold applies to RESULTS, not invocation. All 3 validators MUST be invoked even if one fails.
+**Note:** The success threshold applies to RESULTS, not invocation. ALL required validators for the story type MUST be invoked even if some fail.
 
 ### Verification Test
 
@@ -315,5 +424,5 @@ IF validator_count == 3:
 
 ---
 
-**Last Updated:** 2025-12-23
-**Story:** STORY-113 (Enhanced with STORY-126 improvements)
+**Last Updated:** 2026-01-06
+**Story:** STORY-113, STORY-126, STORY-183 (Adaptive Validator Selection)

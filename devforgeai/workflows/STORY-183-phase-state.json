@@ -1,0 +1,17 @@
+{
+  "story_id": "STORY-183",
+  "current_phase": "08",
+  "completed_phases": ["01", "02", "03", "04", "05", "06", "07"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["backend-architect", "context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer"],
+    "05": ["integration-tester"]
+  },
+  "iteration_count": 1,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-06",
+  "created": "2026-01-06T00:00:00Z",
+  "updated": "2026-01-06T00:00:00Z"
+}

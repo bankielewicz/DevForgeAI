@@ -5,7 +5,7 @@ type: feature
 epic: EPIC-033
 priority: MEDIUM
 points: 2
-status: Backlog
+status: Dev Complete
 created: 2025-12-31
 source: STORY-144 framework enhancement analysis
 ---
@@ -60,10 +60,22 @@ ELSE:
 
 ## Definition of Done
 
-- [ ] Story type detection in Phase 0
-- [ ] Adaptive validator selection implemented
-- [ ] Success threshold calculation updated
-- [ ] Rationale documented in parallel-validation.md
+- [x] Story type detection in Phase 0
+- [x] Adaptive validator selection implemented
+- [x] Success threshold calculation updated
+- [x] Rationale documented in parallel-validation.md
+
+## Implementation Notes
+
+- [x] Story type detection in Phase 0 - Completed: Step 0.6 added to SKILL.md (lines 233-263) extracts type from YAML frontmatter
+- [x] Adaptive validator selection implemented - Completed: Adaptive Validator Selection section in parallel-validation.md (lines 51-113)
+- [x] Success threshold calculation updated - Completed: Threshold formula and rationale tables in parallel-validation.md (lines 189-240)
+- [x] Rationale documented in parallel-validation.md - Completed: Rationale by Story Type section (lines 96-111)
+- Validator mapping: documentation=1, refactor=2, feature/bugfix=3 validators
+- Success thresholds: documentation=1/1, refactor=1/2, feature/bugfix=2/3
+- Token savings: ~6K for documentation stories, ~3K for refactor stories
+- All 15 tests pass (100% coverage of acceptance criteria)
+- Test file: tests/STORY-183/test-adaptive-validation.sh
 
 ## Effort Estimate
 - **Points:** 2
@@ -74,3 +86,7 @@ ELSE:
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-31 | claude/opus | Story created from STORY-144 framework enhancement |
+| 2026-01-06 | claude/test-automator | Red (Phase 02): 15 failing tests generated |
+| 2026-01-06 | claude/backend-architect | Green (Phase 03): Implementation complete - all tests pass |
+| 2026-01-06 | claude/refactoring-specialist | Refactor (Phase 04): Added validator preview display |
+| 2026-01-06 | claude/opus | DoD Update (Phase 07): All checkboxes marked complete |

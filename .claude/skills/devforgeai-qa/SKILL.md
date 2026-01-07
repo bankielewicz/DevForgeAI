@@ -230,12 +230,54 @@ IF mode == "deep":
     Display: "✓ Deep validation workflow loaded"
 ```
 
+### Step 0.6: Extract Story Type for Adaptive Validation (STORY-183)
+
+**Purpose:** Extract story type from YAML frontmatter to select appropriate validators.
+
+This step detects story type in Phase 0 for adaptive validator selection.
+
+```
+# Read story file and extract type from frontmatter
+story_content = Read(file_path="devforgeai/specs/Stories/{STORY_ID}*.story.md")
+
+# Extract story_type from YAML frontmatter (type: field)
+story_type = grep_extract("^type:\s*(.+)$", story_content)
+
+IF $STORY_TYPE is empty OR $STORY_TYPE not in ["feature", "bugfix", "refactor", "documentation"]:
+    # Default to feature for unknown/missing types (full validation)
+    $STORY_TYPE = "feature"
+    Display: "ℹ️ Story type not specified - defaulting to 'feature' (full validation)"
+ELSE:
+    Display: "✓ Story type detected: {$STORY_TYPE}"
+
+# Display which validators will run (adaptive selection preview)
+IF $STORY_TYPE == "documentation":
+    Display: "  → Validators: [code-reviewer] (1/1 threshold)"
+ELIF $STORY_TYPE == "refactor":
+    Display: "  → Validators: [code-reviewer, security-auditor] (1/2 threshold)"
+ELSE:
+    Display: "  → Validators: [test-automator, code-reviewer, security-auditor] (2/3 threshold)"
+
+# Store for Phase 2 adaptive validator selection
+# See references/parallel-validation.md for validator mapping
+```
+
+**Validator Selection by Story Type:**
+
+| Story Type | Validators | Threshold | Rationale |
+|------------|------------|-----------|-----------|
+| `documentation` | code-reviewer only | 1/1 | No code tests needed |
+| `refactor` | code-reviewer, security-auditor | 1/2 | Tests already exist |
+| `feature`/`bugfix` | all 3 validators | 2/3 | Full validation suite |
+| (unknown/missing) | all 3 validators | 2/3 | Conservative default |
+
 **Phase 0 Completion Checklist:**
 - [ ] CWD validated
 - [ ] Test isolation config loaded
 - [ ] Story directories created
 - [ ] Lock acquired (if enabled)
 - [ ] Deep workflow loaded (if deep mode)
+- [ ] Story type extracted for adaptive validation
 
 **Display:**
 ```
