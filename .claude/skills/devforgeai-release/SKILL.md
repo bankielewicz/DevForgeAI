@@ -109,11 +109,54 @@ Smoke tests config in `devforgeai/smoke-tests/config.json` (URLs, test users, AP
 
 ---
 
-## Release Workflow (8 Phases)
+## Build Phase Enhancement (EPIC-036)
+
+The release workflow includes optional build phases before deployment. These phases detect the project's technology stack and execute appropriate build commands.
+
+**Configuration:** `devforgeai/deployment/build-config.yaml` (optional - defaults used if missing)
+
+### Phase 0.1: Tech Stack Detection
+**Purpose:** Automatically detect project's technology stack from indicator files
+**Reference:** `references/tech-stack-detection.md`
+**Detects:** Node.js, Python, .NET, Go, Rust, Java (Maven/Gradle)
+**Output:** TechStackInfo with stack_type, build_command, output_directory
+
+**Workflow:**
+1. Load build-config.yaml (use defaults if missing)
+2. If `build.enabled` = false, skip to Phase 1
+3. Scan for indicator files (package.json, pyproject.toml, *.csproj, etc.)
+4. Return TechStackInfo for each detected stack
+5. Pass results to Phase 0.2
+
+### Phase 0.2: Build/Compile
+**Purpose:** Execute build commands for detected technology stacks
+**Reference:** `references/build-commands.md`
+**Commands:** npm run build, dotnet publish, python -m build, cargo build, etc.
+**Output:** BuildResult with success, output_path, duration_ms, stdout, stderr
+
+**Workflow:**
+1. For each TechStackInfo from Phase 0.1:
+   - Execute build command with configured timeout
+   - Capture stdout/stderr
+   - Record success/failure
+2. Aggregate BuildResult objects
+3. If `build.fail_on_build_error` = true and any build failed: HALT
+4. Pass BuildResult list to Phase 1 (Pre-Release Validation)
+
+**Build Results Available to Subsequent Phases:**
+The BuildResult objects from Phase 0.2 are available to Phase 1 for validation:
+- `build_results[]` - Array of BuildResult objects
+- Each contains: success, stack_type, output_path, duration_ms
+
+---
+
+## Release Workflow (10 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
 Each phase loads its reference file on-demand for detailed implementation.
+
+**Build Phases (0.x):** Tech stack detection and build execution (optional, enabled by default)
 
 ### Phase 1: Pre-Release Validation
 **Purpose:** Validate all prerequisites before deployment
@@ -338,9 +381,11 @@ Release complete when:
 
 Load these on-demand during workflow execution.
 
-### Workflow Files (11 files)
+### Workflow Files (13 files)
 - **parameter-extraction.md** (104 lines) - Story ID, environment, strategy extraction algorithm
 - **configuration-guide.md** (52 lines) - Platform config requirements, schemas, examples
+- **tech-stack-detection.md** (NEW - STORY-238) - Phase 0.1: Technology stack auto-detection
+- **build-commands.md** (NEW - STORY-240) - Phase 0.2: Build command execution templates
 - **pre-release-validation.md** (66 lines) - Phase 1: Validation checks and release gates
 - **staging-deployment.md** (75 lines) - Phase 2: Staging workflow and smoke testing
 - **post-staging-hooks.md** (NEW - STORY-025) - Phase 2.5: Hook integration after staging deployment
@@ -359,8 +404,8 @@ Load these on-demand during workflow execution.
 - **rollback-procedures.md** (178 lines) - Rollback execution procedures and recovery strategies
 - **smoke-testing-guide.md** (389 lines) - Post-deployment test procedures and validation
 
-**Total: 17 reference files, ~4,800 lines of comprehensive deployment guidance.**
-- 11 workflow files (phases 1-6 + 2 hook phases + 1 parallel pattern)
+**Total: 19 reference files, ~5,200 lines of comprehensive deployment guidance.**
+- 13 workflow files (phases 0.1-0.2 + phases 1-6 + 2 hook phases + 1 parallel pattern)
 - 6 guide files (strategies, monitoring, platforms, checklists, rollback, smoke testing)
 
 **Progressive loading ensures only needed references consume tokens during execution.**
