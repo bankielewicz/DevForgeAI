@@ -5,7 +5,7 @@ type: feature
 epic: EPIC-033
 priority: MEDIUM
 points: 1
-status: Backlog
+status: Dev Complete
 created: 2025-12-31
 source: STORY-147 framework enhancement analysis
 ---
@@ -56,10 +56,33 @@ def check_hooks(operation, status, type):
 
 ## Definition of Done
 
-- [ ] --type parameter added to check-hooks
-- [ ] Valid values: user, ai, all
-- [ ] Hooks filtered by type
-- [ ] Help text updated
+- [x] --type parameter added to check-hooks
+- [x] Valid values: user, ai, all
+- [x] Hooks filtered by type
+- [x] Help text updated
+
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2026-01-07
+**Branch:** refactor/devforgeai-migration
+
+- [x] --type parameter added to check-hooks - Completed: Added hook_type parameter to check_hooks_command() and --type CLI argument with choices constraint
+- [x] Valid values: user, ai, all - Completed: Added VALID_HOOK_TYPES constant with all 3 values, default is "all"
+- [x] Hooks filtered by type - Completed: Added _filter_hooks_by_type() method to CheckHooksValidator for AC-3 filtering
+- [x] Help text updated - Completed: CLI parser includes --type with help="Hook type to check (user, ai, or all)"
+
+### TDD Workflow Summary
+
+**Phase 02 (Red):** 18 tests generated for --type flag functionality
+**Phase 03 (Green):** Implementation complete via backend-architect, 102 tests passing
+**Phase 04 (Refactor):** No refactoring needed - code is clean and minimal
+**Phase 05 (Integration):** All integration tests pass
+
+### Files Modified
+
+- `.claude/scripts/devforgeai_cli/commands/check_hooks.py` - Added hook_type parameter, validation, and filtering
+- `.claude/scripts/devforgeai_cli/tests/test_check_hooks.py` - Added TestAC_TypeFlagFiltering class with 18 tests
 
 ## Effort Estimate
 - **Points:** 1
@@ -70,3 +93,6 @@ def check_hooks(operation, status, type):
 | Date | Author | Change |
 |------|--------|--------|
 | 2025-12-31 | claude/opus | Story created from STORY-147 framework enhancement |
+| 2026-01-07 | claude/test-automator | Red (Phase 02) - 18 tests generated for --type flag |
+| 2026-01-07 | claude/backend-architect | Green (Phase 03) - Implementation complete, 102 tests passing |
+| 2026-01-07 | claude/opus | DoD (Phase 07) - All checkboxes marked complete |

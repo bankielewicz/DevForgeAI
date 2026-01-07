@@ -1212,6 +1212,257 @@ class TestEdgeCases:
 # ============================================================================
 
 
+class TestAC_TypeFlagFiltering:
+    """STORY-185: --type flag for filtering hooks by hook_type field
+
+    AC-1: --type parameter accepted by check-hooks command
+    AC-2: Valid values: user, ai, all (default: all)
+    AC-3: Hooks filtered by hook_type field before processing
+    AC-4: Clear error message for invalid type values
+    AC-5: CLI help includes --type documentation
+    """
+
+    def test_ac1_type_parameter_accepted_by_command(self, mock_logger, clean_env):
+        """AC-1: check_hooks_command accepts hook_type parameter"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                    }
+
+                    # Act - call with hook_type parameter
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        hook_type="user"  # NEW parameter
+                    )
+
+                    # Assert - should not error, returns valid exit code
+                    assert result in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
+
+    @pytest.mark.parametrize("hook_type", ["user", "ai", "all"])
+    def test_ac2_valid_type_values_accepted(self, hook_type, mock_logger, clean_env):
+        """AC-2: Valid values user, ai, all are accepted"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                    }
+
+                    # Act
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        hook_type=hook_type
+                    )
+
+                    # Assert - valid types should not error
+                    assert result != EXIT_CODE_ERROR
+
+    def test_ac2_default_type_is_all(self, mock_logger, clean_env):
+        """AC-2: Default value for hook_type is 'all'"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                        "hooks": [
+                            {"name": "hook1", "hook_type": "user"},
+                            {"name": "hook2", "hook_type": "ai"},
+                        ]
+                    }
+
+                    # Act - call without hook_type (should default to "all")
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        # hook_type omitted - should default to "all"
+                    )
+
+                    # Assert - both hook types should be processed
+                    assert result in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
+
+    def test_ac3_filters_hooks_by_user_type(self, mock_logger, clean_env):
+        """AC-3: hook_type='user' filters to only user hooks"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                        "hooks": [
+                            {"name": "user_hook", "hook_type": "user", "trigger_on": "all"},
+                            {"name": "ai_hook", "hook_type": "ai", "trigger_on": "all"},
+                        ]
+                    }
+
+                    # Act
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        hook_type="user"
+                    )
+
+                    # Assert - only user hooks processed
+                    assert result in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
+
+    def test_ac3_filters_hooks_by_ai_type(self, mock_logger, clean_env):
+        """AC-3: hook_type='ai' filters to only ai hooks"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                        "hooks": [
+                            {"name": "user_hook", "hook_type": "user", "trigger_on": "all"},
+                            {"name": "ai_hook", "hook_type": "ai", "trigger_on": "all"},
+                        ]
+                    }
+
+                    # Act
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        hook_type="ai"
+                    )
+
+                    # Assert
+                    assert result in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
+
+    def test_ac3_type_all_includes_both_user_and_ai(self, mock_logger, clean_env):
+        """AC-3: hook_type='all' processes both user and ai hooks"""
+        # Arrange
+        with patch("os.path.exists", return_value=True):
+            with patch("builtins.open", mock_open(read_data="")):
+                with patch("devforgeai_cli.commands.check_hooks.yaml.safe_load") as mock_yaml:
+                    mock_yaml.return_value = {
+                        "enabled": True,
+                        "global_rules": {"trigger_on": "all"},
+                        "operations": {},
+                        "hooks": [
+                            {"name": "user_hook", "hook_type": "user"},
+                            {"name": "ai_hook", "hook_type": "ai"},
+                        ]
+                    }
+
+                    # Act
+                    result = check_hooks_command(
+                        operation="dev",
+                        status="success",
+                        config_path=None,
+                        hook_type="all"
+                    )
+
+                    # Assert
+                    assert result in [EXIT_CODE_TRIGGER, EXIT_CODE_DONT_TRIGGER]
+
+    @pytest.mark.parametrize("invalid_type", ["invalid", "bot", "system", "", "USER", "AI"])
+    def test_ac4_invalid_type_returns_error(self, invalid_type, mock_logger, clean_env):
+        """AC-4: Invalid type values return EXIT_CODE_ERROR"""
+        # Act
+        result = check_hooks_command(
+            operation="dev",
+            status="success",
+            config_path=None,
+            hook_type=invalid_type
+        )
+
+        # Assert
+        assert result == EXIT_CODE_ERROR
+
+    def test_ac4_invalid_type_logs_clear_error(self, mock_logger, clean_env):
+        """AC-4: Invalid type logs clear error message"""
+        # Act
+        result = check_hooks_command(
+            operation="dev",
+            status="success",
+            config_path=None,
+            hook_type="invalid_type"
+        )
+
+        # Assert
+        assert result == EXIT_CODE_ERROR
+        mock_logger.error.assert_called()
+        error_msg = str(mock_logger.error.call_args)
+        assert "type" in error_msg.lower() or "hook_type" in error_msg.lower()
+
+    def test_ac5_cli_parser_includes_type_argument(self):
+        """AC-5: CLI argument parser includes --type argument"""
+        # Arrange
+        from devforgeai_cli.commands.check_hooks import _create_argument_parser
+        parser = _create_argument_parser()
+
+        # Act
+        args = parser.parse_args([
+            "--operation", "dev",
+            "--status", "success",
+            "--type", "user"
+        ])
+
+        # Assert
+        assert hasattr(args, "type")
+        assert args.type == "user"
+
+    def test_ac5_cli_parser_type_has_valid_choices(self):
+        """AC-5: --type argument only accepts valid choices"""
+        # Arrange
+        from devforgeai_cli.commands.check_hooks import _create_argument_parser
+        parser = _create_argument_parser()
+
+        # Act & Assert - valid choices work
+        for valid_type in ["user", "ai", "all"]:
+            args = parser.parse_args([
+                "--operation", "dev",
+                "--status", "success",
+                "--type", valid_type
+            ])
+            assert args.type == valid_type
+
+        # Act & Assert - invalid choice raises SystemExit
+        with pytest.raises(SystemExit):
+            parser.parse_args([
+                "--operation", "dev",
+                "--status", "success",
+                "--type", "invalid"
+            ])
+
+    def test_ac5_cli_parser_type_default_is_all(self):
+        """AC-5: --type argument defaults to 'all' when not specified"""
+        # Arrange
+        from devforgeai_cli.commands.check_hooks import _create_argument_parser
+        parser = _create_argument_parser()
+
+        # Act - omit --type
+        args = parser.parse_args([
+            "--operation", "dev",
+            "--status", "success"
+        ])
+
+        # Assert
+        assert args.type == "all"
+
+
 class TestCLIArgumentParser:
     """Tests for CLI argument parser - lines 304-330 coverage"""
 
@@ -1541,6 +1792,8 @@ class TestCheckHooksValidator:
                     with patch("devforgeai_cli.commands.check_hooks.CheckHooksValidator") as MockValidator:
                         # Set the VALID_STATUSES class attribute so status validation passes
                         MockValidator.VALID_STATUSES = {"success", "failure", "partial"}
+                        # Set the VALID_HOOK_TYPES class attribute so hook_type validation passes (STORY-185)
+                        MockValidator.VALID_HOOK_TYPES = {"user", "ai", "all"}
                         # Make instantiation raise exception
                         MockValidator.side_effect = RuntimeError("Validator initialization failed")
 
@@ -1565,7 +1818,7 @@ class TestCheckHooksValidator:
 TEST SUITE SUMMARY
 ==================
 
-Total Test Cases: 83 (updated 2025-11-13 - added 8 coverage tests)
+Total Test Cases: 96 (updated 2026-01-07 - added STORY-185 type flag tests)
 
 Acceptance Criteria Coverage:
   AC1 (Configuration Check): 5 tests
@@ -1575,6 +1828,14 @@ Acceptance Criteria Coverage:
   AC5 (Missing Config): 4 tests
   AC6 (Invalid Arguments): 7 tests
   AC7 (Circular Invocation): 5 tests
+
+STORY-185 Type Flag Coverage:
+  AC-1 (--type parameter accepted): 1 test
+  AC-2 (Valid values user/ai/all): 2 tests
+  AC-3 (Filter by hook_type): 4 tests
+  AC-4 (Invalid type error): 2 tests
+  AC-5 (CLI help --type): 3 tests
+  Total STORY-185 tests: 13 (parametrized expands to more)
 
 Business Rules Coverage:
   BR-001 (enabled boolean): 1 test

@@ -39,18 +39,35 @@ class CheckHooksValidator:
     VALID_TRIGGER_ON = {"all", "failures-only", "none"}
     # Valid status values
     VALID_STATUSES = {"success", "failure", "partial"}
+    # Valid hook_type values (STORY-185)
+    VALID_HOOK_TYPES = {"user", "ai", "all"}
 
-    def __init__(self, config: Dict[str, Any]):
+    def __init__(self, config: Dict[str, Any], hook_type: str = "all"):
         """
         Initialize validator with configuration.
 
         Args:
             config: Hook configuration dictionary
+            hook_type: Filter hooks by type ('user', 'ai', or 'all') (STORY-185)
         """
         self.config = config or {}
+        self.hook_type = hook_type  # STORY-185: Store hook_type for filtering
         self.enabled = self.config.get("enabled", False)
         self.global_rules = self.config.get("global_rules") or {}
         self.operations = self.config.get("operations") or {}
+        self.hooks = self._filter_hooks_by_type()  # STORY-185: Filter hooks
+
+    def _filter_hooks_by_type(self) -> list:
+        """
+        Filter hooks list by hook_type (STORY-185: AC-3).
+
+        Returns:
+            Filtered list of hooks matching hook_type, or all hooks if type is 'all'
+        """
+        hooks = self.config.get("hooks", [])
+        if self.hook_type == "all":
+            return hooks
+        return [h for h in hooks if h.get("hook_type") == self.hook_type]
 
     def _is_valid_enum(self, value: str, allowed_set: set, field_name: str) -> bool:
         """
@@ -228,6 +245,7 @@ def check_hooks_command(
     operation: str,
     status: str,
     config_path: Optional[str] = None,
+    hook_type: str = "all",
 ) -> int:
     """
     Main check-hooks command implementation.
@@ -238,6 +256,7 @@ def check_hooks_command(
         operation: Operation name (e.g., 'dev', 'qa', 'release')
         status: Operation status ('success', 'failure', or 'partial')
         config_path: Path to hooks.yaml config file (optional)
+        hook_type: Hook type filter ('user', 'ai', or 'all') (STORY-185)
 
     Returns:
         Exit code:
@@ -267,6 +286,13 @@ def check_hooks_command(
         )
         return EXIT_CODE_ERROR
 
+    # STORY-185: Validate hook_type against allowed values
+    if hook_type not in CheckHooksValidator.VALID_HOOK_TYPES:
+        logger.error(
+            f"Invalid hook_type: '{hook_type}' must be one of {CheckHooksValidator.VALID_HOOK_TYPES}"
+        )
+        return EXIT_CODE_ERROR
+
     # Load configuration
     config = load_config(config_path)
 
@@ -280,9 +306,9 @@ def check_hooks_command(
         logger.warning("Hooks are disabled in configuration")
         return EXIT_CODE_DONT_TRIGGER
 
-    # Create validator
+    # Create validator with hook_type filtering (STORY-185: AC-3)
     try:
-        validator = CheckHooksValidator(config)
+        validator = CheckHooksValidator(config, hook_type=hook_type)
     except Exception as e:
         logger.error(f"Failed to initialize hooks validator: {e}")
         return EXIT_CODE_ERROR
@@ -327,6 +353,15 @@ def _create_argument_parser() -> "argparse.ArgumentParser":
         help="Path to hooks.yaml config file (default: devforgeai/config/hooks.yaml)",
     )
 
+    # STORY-185: Add --type argument for hook type filtering
+    parser.add_argument(
+        "--type",
+        type=str,
+        choices=["user", "ai", "all"],
+        default="all",
+        help="Hook type to check (user, ai, or all)",
+    )
+
     return parser
 
 
@@ -339,6 +374,7 @@ def main():
         operation=args.operation,
         status=args.status,
         config_path=args.config,
+        hook_type=args.type,  # STORY-185: Pass hook_type from CLI
     )
 
     sys.exit(exit_code)
