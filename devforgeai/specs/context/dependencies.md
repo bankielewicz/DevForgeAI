@@ -153,6 +153,7 @@ devforgeai-cli
 **Python Requirements:**
 - Python 3.10+ (LOCKED)
 - PyYAML 6.0+ (LOCKED - for configuration file parsing)
+- jsonschema 4.0+ (LOCKED - for JSON Schema validation of configuration files, STORY-245)
 
 ### Optional CLI Dependencies (EPIC-018)
 

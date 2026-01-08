@@ -948,6 +948,46 @@ Before committing framework changes:
 
 ---
 
+## Class Names Registry
+
+**Purpose:** Track public class names across modules to prevent naming collisions.
+
+**Collision Resolution:** When two modules define the same class name, use fully qualified imports:
+```python
+# Option 1: Namespace imports
+from installer import registry_config
+from installer import registry_publisher
+config = registry_config.RegistryConfig(...)
+pub_config = registry_publisher.RegistryConfig(...)
+
+# Option 2: Aliased imports
+from installer.registry_config import RegistryConfig as ConfigSettings
+from installer.registry_publisher import RegistryConfig as PublisherConfig
+```
+
+### installer/ Module Classes
+
+| Class Name | Module | Story | Description |
+|------------|--------|-------|-------------|
+| RegistryConfig | registry_config.py | STORY-245 | Container for all registry configurations |
+| RegistryConfig | registry_publisher.py | STORY-244 | Configuration for package registry publishing |
+| RegistrySettings | registry_config.py | STORY-245 | Per-registry configuration settings |
+| CredentialConfig | registry_config.py | STORY-245 | Credential environment variable mapping |
+| ConfigValidationResult | registry_config.py | STORY-245 | Validation result container |
+| ConfigError | registry_config.py | STORY-245 | Validation error with field/message/line |
+| ConfigWarning | registry_config.py | STORY-245 | Validation warning (non-blocking) |
+| RegistryResult | registry_publisher.py | STORY-244 | Result of registry publish operation |
+| PublishResult | registry_publisher.py | STORY-244 | Result of publish_all operation |
+| RegistryPublisher | registry_publisher.py | STORY-244 | Publishes packages to registries |
+| InstallerModeConfig | installer_mode_config.py | STORY-243 | Installer mode configuration |
+| CredentialMasker | credential_masker.py | STORY-244 | Masks credentials in output |
+
+**Known Collisions:**
+- `RegistryConfig`: Exists in both `registry_config.py` (STORY-245) and `registry_publisher.py` (STORY-244)
+  - Resolution: Use fully qualified imports when both modules needed
+
+---
+
 ## References
 
 - [CLAUDE.md](src/CLAUDE.md) - Project instructions for Claude Code
