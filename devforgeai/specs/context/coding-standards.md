@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2026-01-08
-**Version**: 1.0
+**Version**: 1.1
 
 ## Framework Coding Standards
 
@@ -216,6 +216,50 @@ fi
 Coverage = (found patterns / required patterns) × 100%
 
 Where patterns are the assertions documented in acceptance criteria.
+
+---
+
+## Documentation Cross-Reference Format (LOCKED)
+
+When referencing other documentation files, use this standardized format for consistency and navigation.
+
+### Standard Format
+
+```
+For full details, see: [filename.md](filename.md) (Section Name)
+```
+
+### Required Elements
+
+| Element | Description | Example |
+|---------|-------------|---------|
+| Introductory phrase | Always use "For full details, see:" | `For full details, see:` |
+| Markdown link | Standard `[text](url)` format | `[complexity-assessment-matrix.md](complexity-assessment-matrix.md)` |
+| Context hint | Actual section header in parentheses | `(Scoring Rubric)` |
+
+### Examples
+
+✅ **CORRECT**:
+```markdown
+For full details, see: [story-type-classification.md](story-type-classification.md) (Type Definitions)
+
+For full details, see: [preflight-validation.md](preflight-validation.md) (Phase 01.0 Validation)
+```
+
+❌ **DEPRECATED** (do not use):
+```markdown
+See: story-type-classification.md, lines 45-60
+Reference: story-type-classification.md#type-definitions
+Details in story-type-classification.md (lines 45-60)
+```
+
+### Context Hint Requirements
+
+- Use actual section header text, not line numbers
+- Match the heading exactly as it appears in the target file
+- If no specific section, omit the context hint entirely
+
+**Rationale**: Section headers are stable identifiers; line numbers change with edits.
 
 ---
 
