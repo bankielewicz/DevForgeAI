@@ -958,8 +958,8 @@ ELSE:
 
 **Single consolidated workflow (deep mode):** `references/deep-validation-workflow.md`
 
-**Individual references (20 total):**
-- Workflows: parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, parallel-validation, spec-compliance-workflow, code-quality-workflow, report-generation, feedback-hooks-workflow, story-update-workflow
+**Individual references (21 total):**
+- Workflows: parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, parallel-validation, spec-compliance-workflow, code-quality-workflow, report-generation, feedback-hooks-workflow, story-update-workflow, marker-operations
 - Guides: coverage-analysis, anti-pattern-detection, deferral-decision-tree, language-specific-tooling, qa-result-formatting-guide, quality-metrics, security-scanning, spec-validation, traceability-validation-algorithm, test-isolation-service
 
 ---
