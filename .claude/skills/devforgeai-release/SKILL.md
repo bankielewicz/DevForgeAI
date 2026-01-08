@@ -158,6 +158,32 @@ Each phase loads its reference file on-demand for detailed implementation.
 
 **Build Phases (0.x):** Tech stack detection and build execution (optional, enabled by default)
 
+### Phase 0.5: Registry Publishing (Optional) - EPIC-038
+
+**Purpose:** Publish packages to configured registries before deployment
+
+**Skip with:** `--skip-registry` flag | **Dry-run:** `--dry-run` flag validates without publishing
+
+**Reference:** See `references/registry-publishing.md` for detailed commands and credentials
+
+**Workflow:**
+1. Load `devforgeai/deployment/registry-config.yaml` (skip if missing)
+2. Validate credentials for enabled registries
+3. Publish to each registry in sequence (npm, PyPI, NuGet, Docker, GitHub, crates.io)
+4. Aggregate results and display per-registry status
+
+**Failure Handling:** If any registry fails, prompt user:
+- "Registry publish failed: {registries}. Continue to deployment? [Y/n]"
+- Continue: Proceed with warning logged to story change log
+- Abort: Halt release workflow
+
+**Output Format:**
+```
+[npm]    ✓ Published package@1.0.0
+[pypi]   ✓ Published package-1.0.0
+[docker] ✗ Failed: authentication error (retry 2/3)
+```
+
 ### Phase 1: Pre-Release Validation
 **Purpose:** Validate all prerequisites before deployment
 **Reference:** `pre-release-validation.md`
@@ -381,11 +407,12 @@ Release complete when:
 
 Load these on-demand during workflow execution.
 
-### Workflow Files (13 files)
+### Workflow Files (14 files)
 - **parameter-extraction.md** (104 lines) - Story ID, environment, strategy extraction algorithm
 - **configuration-guide.md** (52 lines) - Platform config requirements, schemas, examples
 - **tech-stack-detection.md** (NEW - STORY-238) - Phase 0.1: Technology stack auto-detection
 - **build-commands.md** (NEW - STORY-240) - Phase 0.2: Build command execution templates
+- **registry-publishing.md** (NEW - STORY-246) - Phase 0.5: Registry publishing commands and credentials
 - **pre-release-validation.md** (66 lines) - Phase 1: Validation checks and release gates
 - **staging-deployment.md** (75 lines) - Phase 2: Staging workflow and smoke testing
 - **post-staging-hooks.md** (NEW - STORY-025) - Phase 2.5: Hook integration after staging deployment

@@ -109,6 +109,36 @@ Smoke tests config in `devforgeai/smoke-tests/config.json` (URLs, test users, AP
 
 ---
 
+## Registry Publishing Phase (EPIC-038)
+
+### Phase 0.5: Registry Publishing (Optional)
+
+**Purpose:** Publish packages to configured registries before deployment
+
+**Skip with:** `--skip-registry` flag | **Dry-run:** `--dry-run` flag validates without publishing
+
+**Reference:** See `references/registry-publishing.md` for detailed commands and credentials
+
+**Workflow:**
+1. Load `devforgeai/deployment/registry-config.yaml` (skip if missing)
+2. Validate credentials for enabled registries
+3. Publish to each registry in sequence (npm, PyPI, NuGet, Docker, GitHub, crates.io)
+4. Aggregate results and display per-registry status
+
+**Failure Handling:** If any registry fails, prompt user:
+- "Registry publish failed: {registries}. Continue to deployment? [Y/n]"
+- Continue: Proceed with warning logged to story change log
+- Abort: Halt release workflow
+
+**Output Format:**
+```
+[npm]    ✓ Published package@1.0.0
+[pypi]   ✓ Published package-1.0.0
+[docker] ✗ Failed: authentication error (retry 2/3)
+```
+
+---
+
 ## Release Workflow (8 Phases)
 
 **⚠️ EXECUTION STARTS HERE - You are now executing the skill's workflow.**
@@ -338,9 +368,10 @@ Release complete when:
 
 Load these on-demand during workflow execution.
 
-### Workflow Files (11 files)
+### Workflow Files (12 files)
 - **parameter-extraction.md** (104 lines) - Story ID, environment, strategy extraction algorithm
 - **configuration-guide.md** (52 lines) - Platform config requirements, schemas, examples
+- **registry-publishing.md** (NEW - STORY-246) - Phase 0.5: Registry publishing commands and credentials
 - **pre-release-validation.md** (66 lines) - Phase 1: Validation checks and release gates
 - **staging-deployment.md** (75 lines) - Phase 2: Staging workflow and smoke testing
 - **post-staging-hooks.md** (NEW - STORY-025) - Phase 2.5: Hook integration after staging deployment
@@ -359,8 +390,8 @@ Load these on-demand during workflow execution.
 - **rollback-procedures.md** (178 lines) - Rollback execution procedures and recovery strategies
 - **smoke-testing-guide.md** (389 lines) - Post-deployment test procedures and validation
 
-**Total: 17 reference files, ~4,800 lines of comprehensive deployment guidance.**
-- 11 workflow files (phases 1-6 + 2 hook phases + 1 parallel pattern)
+**Total: 18 reference files, ~5,200 lines of comprehensive deployment guidance.**
+- 12 workflow files (phase 0.5 + phases 1-6 + 2 hook phases + 1 parallel pattern)
 - 6 guide files (strategies, monitoring, platforms, checklists, rollback, smoke testing)
 
 **Progressive loading ensures only needed references consume tokens during execution.**
