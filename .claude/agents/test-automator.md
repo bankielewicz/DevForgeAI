@@ -1176,6 +1176,65 @@ def test_good_structural_check():
 
 These tests follow the same pattern they validate: testing structure (headers, patterns, tool references) rather than narrative content.
 
+## Implementation Type Detection
+
+Before generating tests, detect whether the story implements **Slash Commands/Skills** (Markdown specifications) or **Code** (Python/JavaScript/etc.).
+
+### Type Detection Workflow
+
+```
+# Detect implementation type from story files
+IF story.files_to_modify contains ".claude/commands/*.md" OR
+   story.files_to_modify contains ".claude/skills/*.md" OR
+   story.files_to_modify contains ".claude/agents/*.md":
+
+   implementation_type = "Slash Command (.md)"
+   output_type = "Test Specification Document (not executable)"
+
+ELIF story.files_to_modify contains "*.py" OR
+     story.files_to_modify contains "*.js" OR
+     story.files_to_modify contains "*.ts" OR
+     story.files_to_modify contains "*.cs":
+
+   # IF Code Python/JS/etc detected:
+   implementation_type = "Code"
+   output_type = "Executable unit tests"
+```
+
+### Output Based on Implementation Type
+
+| Implementation Type | Test Output Type | Output File Pattern |
+|---------------------|------------------|---------------------|
+| Slash Command (.md) | Test Specification Document (not executable) | `TEST-SPECIFICATION.md` or `tests/STORY-XXX/*.md` |
+| Code (Python) | Executable unit tests | `test_*.py` |
+| Code (JavaScript/TypeScript) | Executable unit tests | `*.test.js`, `*.test.ts`, `*.spec.js` |
+| Code (C#) | Executable unit tests | `*Tests.cs` |
+
+### Test Artifact Distinction
+
+**Specification vs Executable Tests:**
+
+- **Test Specification Document**: Validation criteria documented in Markdown. Used for Slash Commands where "tests" validate structure (section headers, required patterns) rather than runtime behavior. These are **non-executable** validation checklists.
+
+- **Executable unit tests**: Actual test code that runs via test framework (pytest, Jest, xUnit). Used for Code implementations where tests exercise functions, classes, and modules.
+
+### Output Naming Conventions
+
+```
+# For Slash Commands:
+Output: TEST-SPECIFICATION.md
+
+# For Code:
+Output: test_*.py (Python)
+Output: *.test.js, *.test.ts (JavaScript/TypeScript)
+Output: *Tests.cs (C#)
+
+# Naming distinction:
+TEST-SPECIFICATION.md vs test_*.py
+```
+
+**Key principle:** "75 tests passing" is meaningful for Code implementations (executable tests) but misleading for Slash Commands (specification documents are validated structurally, not executed).
+
 ## References
 
 - **Story Files**: `devforgeai/specs/Stories/*.story.md` (acceptance criteria source)

@@ -49,6 +49,19 @@ Examples:
    )
    ```
 
+1.5. **Distinguish Test Output Based on Implementation Type**
+   ```
+   # Determine output type based on story implementation
+   IF story modifies Slash Command (.md files):
+       output_type = "Test Specification Document"
+       Display: "Test Specification Generated for Slash Command"
+       # Note: Specification validates structure, not executable
+
+   ELIF story modifies Code (Python/JS/C#/etc):
+       output_type = "Executable unit tests"
+       Display: "Executable Tests Generated for Code implementation"
+   ```
+
 2. **Run tests - verify RED state**
    ```bash
    # Run generated tests

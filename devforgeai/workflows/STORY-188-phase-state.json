@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-188",
   "workflow_started": "2026-01-07T18:44:27.861718Z",
-  "current_phase": "02",
+  "current_phase": "10",
   "phases": {
     "01": {
       "status": "completed",
@@ -18,60 +18,241 @@
       "checkpoint_passed": true
     },
     "02": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "test-automator"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-01-08T02:44:41.146350Z",
+      "completed_at": "2026-01-08T02:44:45.325543Z",
+      "checkpoint_passed": true
     },
     "03": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2026-01-08T04:04:40.641757Z",
+      "completed_at": "2026-01-08T04:05:37.823104Z",
+      "checkpoint_passed": true
     },
     "04": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "refactoring-specialist",
         "code-reviewer"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-01-08T04:19:40.099027Z",
+      "completed_at": "2026-01-08T04:19:54.169165Z",
+      "checkpoint_passed": true
     },
     "05": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "integration-tester"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-01-08T11:36:09.932110Z",
+      "completed_at": "2026-01-08T11:36:10.094235Z",
+      "checkpoint_passed": true
     },
     "06": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-08T11:36:48.020232Z",
+      "checkpoint_passed": true
     },
     "07": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-08T11:38:06.917319Z",
+      "checkpoint_passed": true
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-08T11:39:31.252896Z",
+      "checkpoint_passed": true
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-08T11:39:52.065685Z",
+      "checkpoint_passed": true
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-08T11:41:34.289439Z",
+      "completed_at": "2026-01-08T11:41:34.424142Z",
+      "checkpoint_passed": true
     }
   },
   "validation_errors": [],
-  "blocking_status": false
+  "blocking_status": false,
+  "observations": [
+    {
+      "id": "obs-04-1b81bc3d",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:04:16.366073Z"
+    },
+    {
+      "id": "obs-04-c728ba36",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:04:34.277744Z"
+    },
+    {
+      "id": "obs-04-820669e5",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:07:25.025701Z"
+    },
+    {
+      "id": "obs-04-d98dd983",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:16:36.996620Z"
+    },
+    {
+      "id": "obs-04-7f2344bd",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:18:30.494875Z"
+    },
+    {
+      "id": "obs-04-8fa80428",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:19:30.838465Z"
+    },
+    {
+      "id": "obs-04-79ed3d74",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:21:02.449349Z"
+    },
+    {
+      "id": "obs-04-7a8aa722",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:21:07.530089Z"
+    },
+    {
+      "id": "obs-04-de3927b4",
+      "phase": "04",
+      "category": "friction",
+      "note": "Workflow observation test",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:21:11.710001Z"
+    },
+    {
+      "id": "obs-04-400b0aa1",
+      "phase": "04",
+      "category": "gap",
+      "note": "Missing test coverage",
+      "severity": "high",
+      "timestamp": "2026-01-08T04:25:15.768945Z"
+    },
+    {
+      "id": "obs-05-6896e455",
+      "phase": "05",
+      "category": "success",
+      "note": "Integration tests passed",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:25:15.920453Z"
+    },
+    {
+      "id": "obs-04-69f0818e",
+      "phase": "04",
+      "category": "friction",
+      "note": "test",
+      "severity": "low",
+      "timestamp": "2026-01-08T04:25:16.081620Z"
+    },
+    {
+      "id": "obs-04-142cc17d",
+      "phase": "04",
+      "category": "gap",
+      "note": "test",
+      "severity": "medium",
+      "timestamp": "2026-01-08T04:25:16.253046Z"
+    },
+    {
+      "id": "obs-04-50ec8be1",
+      "phase": "04",
+      "category": "success",
+      "note": "test",
+      "severity": "high",
+      "timestamp": "2026-01-08T04:25:16.412265Z"
+    },
+    {
+      "id": "obs-04-2ec67753",
+      "phase": "04",
+      "category": "pattern",
+      "note": "test",
+      "severity": "low",
+      "timestamp": "2026-01-08T04:25:16.557191Z"
+    },
+    {
+      "id": "obs-04-c01c73a8",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T12:05:05.169747Z"
+    },
+    {
+      "id": "obs-04-9a6905bb",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T12:05:12.348831Z"
+    },
+    {
+      "id": "obs-04-2a10f8c8",
+      "phase": "04",
+      "category": "friction",
+      "note": "Test observation",
+      "severity": "medium",
+      "timestamp": "2026-01-08T12:05:21.092365Z"
+    }
+  ]
 }
