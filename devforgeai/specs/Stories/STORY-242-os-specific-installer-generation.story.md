@@ -462,7 +462,7 @@ technical_limitations:
 - [x] macOS pkg script generation implemented
 - [x] Tool detection for all 5 installer tools
 - [x] GUID generation for Windows installers
-- [ ] Reference file created at .claude/skills/devforgeai-release/references/installer-modes.md (Deferred: STORY-TBD)
+- [x] Reference file created at .claude/skills/devforgeai-release/references/installer-modes.md
 
 ### Quality
 - [x] All 6 acceptance criteria have passing tests
@@ -479,8 +479,8 @@ technical_limitations:
 
 ### Documentation
 - [x] Docstrings for InstallerConfig and InstallerGenerator
-- [ ] Installer format matrix documented in reference file (Deferred: STORY-TBD)
-- [ ] Template customization guide documented (Deferred: STORY-TBD)
+- [x] Installer format matrix documented in reference file
+- [x] Template customization guide documented
 
 ---
 
@@ -495,7 +495,7 @@ technical_limitations:
 - [x] macOS pkg script generation implemented - Completed: _generate_pkg() creates distribution.xml and scripts/postinstall
 - [x] Tool detection for all 5 installer tools - Completed: shutil.which() for wix, nsis, dpkg-deb, rpmbuild, pkgbuild
 - [x] GUID generation for Windows installers - Completed: uuid.uuid4() for unique product/upgrade codes (BR-002)
-- [ ] Reference file created at .claude/skills/devforgeai-release/references/installer-modes.md - Deferred: STORY-TBD (documentation scope)
+- [x] Reference file created at .claude/skills/devforgeai-release/references/installer-modes.md - Completed: Comprehensive reference with format matrix and customization guide
 - [x] All 6 acceptance criteria have passing tests - Completed: 81 tests in tests/STORY-242/test_installer_generator.py
 - [x] Edge cases covered (14 test scenarios minimum) - Completed: TestEdgeCasesAndErrors class with 6 edge case tests
 - [x] Templates validate against tool schemas - Completed: Generated configs follow official format specs
@@ -506,8 +506,8 @@ technical_limitations:
 - [x] Unit tests for edge cases (4 tests) - Completed: TestEdgeCasesAndErrors class
 - [x] Integration test with real tool (if available) - Completed: TestMultiPlatformGeneration tests generate_all()
 - [x] Docstrings for InstallerConfig and InstallerGenerator - Completed: All public methods documented
-- [ ] Installer format matrix documented in reference file - Deferred: STORY-TBD (documentation scope)
-- [ ] Template customization guide documented - Deferred: STORY-TBD (documentation scope)
+- [x] Installer format matrix documented in reference file - Completed: Full matrix with platform, format, tool, build commands
+- [x] Template customization guide documented - Completed: Guide with variables, common scenarios, API reference
 
 ---
 
@@ -522,6 +522,7 @@ technical_limitations:
 | 2026-01-07 | claude/backend-architect | Green (Phase 03) | Implemented InstallerGenerator module | installer/installer_generator.py |
 | 2026-01-07 | claude/refactoring-specialist | Refactor (Phase 04) | Code quality verified | installer/installer_generator.py |
 | 2026-01-07 | claude/opus | DoD (Phase 07) | Updated status to Dev Complete | STORY-242-os-specific-installer-generation.story.md |
+| 2026-01-07 | claude/opus | Documentation | Created installer-modes.md reference file | .claude/skills/devforgeai-release/references/installer-modes.md |
 
 ## Notes
 
