@@ -1,7 +1,7 @@
 # Coding Standards - DevForgeAI Framework
 
 **Status**: LOCKED
-**Last Updated**: 2025-10-30
+**Last Updated**: 2026-01-08
 **Version**: 1.0
 
 ## Framework Coding Standards
@@ -174,6 +174,48 @@ Examples:
 - **TDD Patterns:** RED/GREEN/REFACTOR appear in body text, not headings
 
 **See:** `.claude/skills/devforgeai-development/` for workflow implementation
+
+---
+
+## Markdown Command Testing Pattern
+
+For `.claude/commands/*.md` specification files, test via three levels:
+
+### Structural Tests
+
+Verify required sections exist using Grep for section headers:
+
+```bash
+# Verify required section exists in command file
+grep -qE "^## Required Section" target_file.md
+```
+
+### Pattern Tests
+
+Verify code blocks contain expected tool references:
+
+```bash
+# Validate tool patterns appear in code examples
+grep -qE "Read\(|Edit\(|Grep\(" target_file.md
+```
+
+### Integration Tests
+
+Invoke command and verify output matches expected behavior:
+
+```bash
+# Execute command and validate output
+output=$(invoke_command)
+if [[ "$output" == *"expected_pattern"* ]]; then
+  echo "PASS: Output validation"
+fi
+```
+
+### Coverage Calculation
+
+Coverage = (found patterns / required patterns) × 100%
+
+Where patterns are the assertions documented in acceptance criteria.
 
 ---
 
