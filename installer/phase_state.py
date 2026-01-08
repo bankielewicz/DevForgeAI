@@ -46,6 +46,12 @@ VALID_PHASES = [f"{i:02d}" for i in range(1, 11)]
 # Valid phase statuses
 VALID_STATUSES = ["pending", "in_progress", "completed", "skipped"]
 
+# Observation categories (STORY-188: AC-4) - Single source of truth
+VALID_CATEGORIES = ["friction", "gap", "success", "pattern"]
+
+# Observation severities (STORY-188: AC-5) - Single source of truth
+VALID_SEVERITIES = ["low", "medium", "high"]
+
 # Required subagents per phase (from plan)
 REQUIRED_SUBAGENTS = {
     1: ["git-validator", "tech-stack-detector"],
@@ -297,7 +303,8 @@ class PhaseState:
             "current_phase": "01",
             "phases": phases,
             "validation_errors": [],
-            "blocking_status": False
+            "blocking_status": False,
+            "observations": []  # AC-6: Empty observations array (STORY-188)
         }
 
     # =========================================================================
@@ -417,6 +424,92 @@ class PhaseState:
 
         logger.debug(f"Recorded subagent {subagent_name} for {story_id} phase {phase_id}")
         return True
+
+    def add_observation(
+        self,
+        story_id: str,
+        phase_id: str,
+        category: str,
+        note: str,
+        severity: str = "medium"
+    ) -> Optional[str]:
+        """
+        Add an observation to the phase state file.
+
+        Observations capture friction, gaps, successes, and patterns
+        during workflow execution for AI analysis.
+
+        Args:
+            story_id: The story identifier.
+            phase_id: The phase identifier (e.g., "04").
+            category: Observation category (friction, gap, success, pattern).
+            note: Description of the observation.
+            severity: Severity level (low, medium, high). Default: medium.
+
+        Returns:
+            The observation ID if successful, None if state file doesn't exist.
+
+        Raises:
+            PhaseNotFoundError: If phase_id is invalid.
+            ValueError: If category or severity is invalid.
+        """
+        import uuid
+
+        # Validate inputs
+        self._validate_phase_id(phase_id)
+
+        if category not in VALID_CATEGORIES:
+            raise ValueError(
+                f"Invalid category: '{category}'. "
+                f"Must be one of: {VALID_CATEGORIES}"
+            )
+
+        if severity not in VALID_SEVERITIES:
+            raise ValueError(
+                f"Invalid severity: '{severity}'. "
+                f"Must be one of: {VALID_SEVERITIES}"
+            )
+
+        if not note or not note.strip():
+            raise ValueError("Observation note cannot be empty")
+
+        state_path = self._get_state_path(story_id)
+
+        if not state_path.exists():
+            return None
+
+        lock_fd = self._acquire_lock(state_path)
+        try:
+            state = self.read(story_id)
+            if state is None:
+                return None
+
+            # Generate unique observation ID
+            observation_id = f"obs-{phase_id}-{uuid.uuid4().hex[:8]}"
+
+            # Create observation structure (AC-3)
+            observation = {
+                "id": observation_id,
+                "phase": phase_id,
+                "category": category,
+                "note": note.strip(),
+                "severity": severity,
+                "timestamp": self._get_timestamp()
+            }
+
+            # Ensure observations array exists (backward compatibility)
+            if "observations" not in state:
+                state["observations"] = []
+
+            # Append observation
+            state["observations"].append(observation)
+
+            self._atomic_write(state_path, state)
+        finally:
+            self._release_lock(lock_fd)
+
+        logger.info(f"Added observation {observation_id} for {story_id} phase {phase_id}")
+        return observation_id
 
     def complete_phase(
         self,
