@@ -4,9 +4,9 @@
 ```bash
 devforgeai-validate phase-check ${STORY_ID} --from=07 --to=08
 
-Examples:
+Examples (--project-root applies to phase-* commands only, not check-hooks/invoke-hooks):
  - Correct: devforgeai-validate phase-init ${STORY_ID} --project-root=.
- - Incorrrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
+ - Incorrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
 # Exit code 0: Transition allowed
 # Exit code 1: Phase 07 not complete - HALT (DoD not validated)
 # Exit code 2: DoD validation failed - HALT

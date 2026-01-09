@@ -4,7 +4,7 @@
 ```bash
 devforgeai-validate phase-check ${STORY_ID} --from=04 --to=05
 
-Examples:
+Examples (--project-root applies to phase-* commands only, not check-hooks/invoke-hooks):
  - Correct: devforgeai-validate phase-init ${STORY_ID} --project-root=.
  - Incorrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
 # Exit code 0: Transition allowed
@@ -48,6 +48,12 @@ Examples:
         - Business logic: 95%
         - Application layer: 85%
         - Infrastructure: 80%
+
+     **Response Constraints:**
+     - Limit response to 500 words maximum
+     - Use bullet points, not paragraphs
+     - Only include actionable findings
+     - No code snippets unless essential
      """
    )
    ```

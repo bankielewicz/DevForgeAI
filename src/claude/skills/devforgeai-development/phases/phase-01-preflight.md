@@ -4,9 +4,9 @@
 ```bash
 devforgeai-validate phase-init ${STORY_ID} --project-root=.
 
-Examples:
+Examples (--project-root applies to phase-* commands only, not check-hooks/invoke-hooks):
  - Correct: devforgeai-validate phase-init ${STORY_ID} --project-root=.
- - Incorrrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
+ - Incorrect: python -m devforgeai.cli.devforgeai_validate phase-init ${STORY_ID} --project-root=.
 # Exit code 0: State file created, proceed
 # Exit code 1: State file exists (resume scenario)
 # Exit code 2: Invalid story ID - HALT
