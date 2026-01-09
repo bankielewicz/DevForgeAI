@@ -1,0 +1,43 @@
+<!-- STORY-248: Component Selection Page Template -->
+<div class="page-components">
+  <h2>Select Components</h2>
+  <div class="components-list">
+    <div class="component-item">
+      <label>
+        <input type="checkbox" id="component-core" checked disabled />
+        <span class="component-name">Core Framework</span>
+      </label>
+      <p class="component-description">Essential DevForgeAI framework files</p>
+      <span class="component-size">50 MB</span>
+    </div>
+    <div class="component-item">
+      <label>
+        <input type="checkbox" id="component-cli" onchange="app.selectComponent('cli', this.checked)" />
+        <span class="component-name">CLI Tools</span>
+      </label>
+      <p class="component-description">Command-line interface and validators</p>
+      <span class="component-size">25 MB</span>
+    </div>
+    <div class="component-item">
+      <label>
+        <input type="checkbox" id="component-templates" onchange="app.selectComponent('templates', this.checked)" />
+        <span class="component-name">Templates</span>
+      </label>
+      <p class="component-description">Project templates and boilerplate</p>
+      <span class="component-size">15 MB</span>
+    </div>
+    <div class="component-item">
+      <label>
+        <input type="checkbox" id="component-examples" onchange="app.selectComponent('examples', this.checked)" />
+        <span class="component-name">Examples</span>
+      </label>
+      <p class="component-description">Example projects and tutorials</p>
+      <span class="component-size">30 MB</span>
+    </div>
+  </div>
+  <div class="total-size">Total: 50 MB</div>
+  <div class="button-row">
+    <button class="btn-back" onclick="app.goBack()">Back</button>
+    <button class="btn-next" onclick="app.navigateTo('path')">Next</button>
+  </div>
+</div>

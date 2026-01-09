@@ -1,0 +1,17 @@
+<!-- STORY-248: Error Page Template -->
+<div class="page-error">
+  <div class="error-icon">&#10007;</div>
+  <h2>Installation Failed</h2>
+  <p class="error-message">An error occurred during installation.</p>
+  <div class="error-details-toggle">
+    <button onclick="app.toggleErrorDetails()">Show Technical Details</button>
+  </div>
+  <div class="error-details-panel">
+    <pre>No additional details available.</pre>
+  </div>
+  <div class="button-row">
+    <button class="btn-save-log" onclick="app.saveErrorLog()">Save Log</button>
+    <button class="btn-retry" onclick="app.retry()">Retry</button>
+    <button class="btn-exit" onclick="app.exit()">Exit</button>
+  </div>
+</div>

@@ -1,0 +1,479 @@
+/**
+ * STORY-248: GUI Installer Template - Styles
+ *
+ * Professional styling with dark mode support.
+ * AC#1: Professional styling
+ * AC#8: Cross-platform native look with system fonts
+ */
+
+/* Base styles */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --bg-color: #ffffff;
+  --text-color: #1f2937;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode */
+.dark-mode {
+  --bg-color: #1f2937;
+  --text-color: #f9fafb;
+  --text-secondary: #9ca3af;
+  --border-color: #374151;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Typography */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+p {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-next,
+.btn-finish {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-next:hover,
+.btn-finish:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-back,
+.btn-browse {
+  background-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.btn-cancel,
+.btn-exit {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.btn-retry {
+  background-color: var(--warning-color);
+  color: white;
+}
+
+.btn-save-log {
+  background-color: var(--text-secondary);
+  color: white;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Logo */
+.logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Version display */
+.version-display {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+}
+
+/* Requirements */
+.requirements-list {
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.requirements-list > div {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--bg-color);
+}
+
+.requirements-list > div:last-child {
+  border-bottom: none;
+}
+
+.requirement-warning {
+  color: var(--warning-color);
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+/* Components */
+.page-components {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.components-list {
+  margin-bottom: 1.5rem;
+}
+
+.component-item {
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.component-item label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.component-item input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.component-item input[type="checkbox"]:disabled {
+  opacity: 0.7;
+}
+
+.component-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0.5rem 0 0 2rem;
+}
+
+.component-size {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-left: 2rem;
+}
+
+.total-size {
+  text-align: right;
+  font-weight: 600;
+  padding: 0.75rem;
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+}
+
+/* Path picker */
+.page-path {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.path-input-row {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.path-input-row input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.path-validation-indicator {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-block;
+}
+
+.path-validation-indicator.valid::after {
+  content: "\2713";
+  color: var(--success-color);
+  font-size: 1.25rem;
+}
+
+.path-validation-indicator.invalid::after {
+  content: "\2717";
+  color: var(--error-color);
+  font-size: 1.25rem;
+}
+
+.path-error-message {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  min-height: 1.5rem;
+}
+
+/* Progress */
+.page-progress {
+  text-align: center;
+}
+
+.progress-container {
+  width: 100%;
+  height: 1.5rem;
+  background-color: var(--border-color);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+  border-radius: 0.75rem;
+  transition: width 0.3s ease;
+}
+
+.current-operation {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.details-toggle {
+  margin-bottom: 1rem;
+}
+
+.details-toggle button {
+  background: transparent;
+  color: var(--primary-color);
+  text-decoration: underline;
+  padding: 0.5rem;
+}
+
+.details-panel {
+  display: none;
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.details-panel.visible {
+  display: block;
+}
+
+.log-output {
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Complete */
+.page-complete {
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: var(--success-color);
+  margin-bottom: 1rem;
+  animation: checkmark 0.5s ease-out;
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.installed-components {
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 1.5rem auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.installed-components ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+
+.installed-components li {
+  padding: 0.25rem 0;
+}
+
+.installed-components li::before {
+  content: "\2713 ";
+  color: var(--success-color);
+}
+
+.launch-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+  cursor: pointer;
+}
+
+.launch-option input {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Error */
+.page-error {
+  text-align: center;
+}
+
+.error-icon {
+  font-size: 4rem;
+  color: var(--error-color);
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: var(--error-color);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.error-details-toggle {
+  margin-bottom: 1rem;
+}
+
+.error-details-toggle button {
+  background: transparent;
+  color: var(--primary-color);
+  text-decoration: underline;
+  padding: 0.5rem;
+}
+
+.error-details-panel {
+  display: none;
+  background-color: var(--border-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: left;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+}
+
+.error-details-panel.visible {
+  display: block;
+}
+
+.error-details-panel pre {
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-break: break-all;
+  color: var(--error-color);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #app {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  .path-input-row {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,17 @@
+<!-- STORY-248: Installation Progress Page Template -->
+<div class="page-progress">
+  <h2>Installing DevForgeAI</h2>
+  <div class="progress-container">
+    <div class="progress-bar" style="width: 0%"></div>
+  </div>
+  <p class="current-operation">Preparing installation...</p>
+  <div class="details-toggle">
+    <button onclick="app.toggleDetails()">Show Details</button>
+  </div>
+  <div class="details-panel">
+    <pre class="log-output"></pre>
+  </div>
+  <div class="button-row">
+    <button class="btn-cancel" onclick="app.confirmCancel()">Cancel</button>
+  </div>
+</div>

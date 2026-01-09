@@ -1,0 +1,14 @@
+<!-- STORY-248: Installation Path Page Template -->
+<div class="page-path">
+  <h2>Installation Path</h2>
+  <div class="path-input-row">
+    <input type="text" id="install-path" value="/opt/devforgeai" onchange="app.setInstallPath(this.value)" />
+    <button class="btn-browse" onclick="app.browseDirectory()">Browse</button>
+  </div>
+  <div class="path-validation-indicator"></div>
+  <div class="path-error-message"></div>
+  <div class="button-row">
+    <button class="btn-back" onclick="app.goBack()">Back</button>
+    <button class="btn-next" onclick="app.startInstallation()">Install</button>
+  </div>
+</div>
