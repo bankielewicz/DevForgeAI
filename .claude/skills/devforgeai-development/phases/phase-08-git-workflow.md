@@ -36,6 +36,8 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
    # Acquire story lock for commit
    # See references/lock-file-coordination.md
+       Read(file_path=".claude/skills/devforgeai-development/references/lock-file-coordination.md")
+
    ```
 
 2.0. **Stage files for commit**
@@ -83,6 +85,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
 
 **Reference:** `references/git-workflow-conventions.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/git-workflow-conventions.md")
 
 ---
 
@@ -141,6 +144,7 @@ Refs: STORY-XXX
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

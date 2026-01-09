@@ -88,6 +88,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
 
 **Reference:** `references/tdd-red-phase.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/tdd-red-phase.md")
 
 ---
 
@@ -125,6 +126,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

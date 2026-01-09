@@ -1061,6 +1061,180 @@ dotnet test --collect:"XPlat Code Coverage"
     - Remove duplication
     - Extract common setup to fixtures/helpers
 
+## Line Ending Normalization (WSL Compatibility)
+
+When generating shell script test files (`.sh`), ensure line endings are normalized to LF for WSL compatibility.
+
+**Problem:** Shell scripts with CRLF line endings cause `$'\r': command not found` errors in WSL/Linux.
+
+**Detection:** If generated test file fails with carriage return errors, normalize using native Edit tool:
+
+```markdown
+# Per tech-stack.md lines 206-210: Use native tools, not Bash for file operations
+Edit(
+    file_path="${TEST_FILE}",
+    old_string="\r\n",
+    new_string="\n",
+    replace_all=true
+)
+```
+
+**Why native Edit tool:**
+- `.gitattributes` enforces LF on commit, but generated files need immediate normalization for test execution
+- Native Edit tool is 40-73% more token-efficient than Bash `sed` (per tech-stack.md constraints)
+
+**When to apply:**
+- After generating any `.sh` test file on Windows/WSL environment
+- When test execution fails with `$'\r': command not found` errors
+- Proactively when `file` command shows CRLF line terminators
+
+## Specification File Testing (Markdown Commands/Skills)
+
+For Markdown specification files (commands, skills, agents), generate tests that validate **structure** rather than **narrative content**.
+
+### What to Test
+
+1. **Structural Elements** - Section headers, phase markers, numbered steps
+2. **Tool Invocations** - References to AskUserQuestion, Read, Write, Edit, Glob, Grep
+3. **Data Contracts** - YAML frontmatter fields, input/output schemas
+4. **Required Sections** - Purpose, When to Use, Workflow, Success Criteria
+
+### Structural Testing Patterns
+
+**Test section headers exist:**
+```bash
+# Test: Required sections present
+grep -qE "^## (Purpose|Workflow|Success Criteria)" "$FILE"
+```
+
+**Test phase markers:**
+```bash
+# Test: Phase numbering consistent
+grep -qE "^### Phase [0-9]+:" "$FILE"
+```
+
+**Test tool invocations documented:**
+```bash
+# Test: Tool usage patterns present
+grep -qE "(Read|Write|Edit|Glob|Grep)\s*\(" "$FILE"
+```
+
+### Tool Invocation Testing
+
+Validate that specification files reference appropriate tools:
+
+```python
+def test_specification_references_askuserquestion_for_ambiguity():
+    """Spec files should use AskUserQuestion for user decisions."""
+    content = read_file("path/to/spec.md")
+
+    # Structural check - tool is referenced
+    assert "AskUserQuestion" in content, "Missing AskUserQuestion for ambiguity handling"
+
+    # Context check - prevents false positives by validating tool is used appropriately
+    assert re.search(r"ambiguit|unclear|decision", content, re.IGNORECASE), \
+        "AskUserQuestion should be near ambiguity-related content"
+```
+
+### ❌ Anti-Pattern: Testing Narrative Content
+
+**AVOID testing for specific comment text or narrative phrases.**
+
+Narrative content changes during documentation refactoring without affecting behavior. Tests that validate specific wording are brittle and create false failures. This anti-pattern is especially common in documentation refactoring, where narrative clarity improvements cause test failures without any actual behavior change.
+
+**❌ BAD - Brittle text matching:**
+```python
+def test_bad_narrative_check():
+    # This test breaks when documentation is reworded
+    assert "The system should first analyze" in content  # FRAGILE
+```
+
+**✅ GOOD - Structural validation:**
+```python
+def test_good_structural_check():
+    # This test validates structure, survives rewording
+    assert re.search(r"^## .*Workflow", content, re.MULTILINE)  # ROBUST
+```
+
+**Why this matters:**
+- Documentation rewording is common (clarity improvements)
+- Tests should validate **contracts**, not **commentary**
+- Structural elements ARE the contract; narrative explains them
+
+### Example Test Patterns for Markdown Specifications
+
+| Element | Pattern | Purpose |
+|---------|---------|---------|
+| Section headers | `^## [A-Z]` | Validate required sections |
+| Phase markers | `^### Phase [0-9]+:` | Validate workflow structure |
+| Tool invocations | `(Read\|Write\|Edit)\s*\(` | Validate tool usage |
+| YAML frontmatter | `^---\n.*name:.*\n---` | Validate metadata |
+| Success criteria | `- \[ \]` | Validate checkboxes present |
+| Code blocks | ` ```[a-z]+` | Validate examples included |
+
+### Self-Referential Principle
+
+These tests follow the same pattern they validate: testing structure (headers, patterns, tool references) rather than narrative content.
+
+## Implementation Type Detection
+
+Before generating tests, detect whether the story implements **Slash Commands/Skills** (Markdown specifications) or **Code** (Python/JavaScript/etc.).
+
+### Type Detection Workflow
+
+```
+# Detect implementation type from story files
+IF story.files_to_modify contains ".claude/commands/*.md" OR
+   story.files_to_modify contains ".claude/skills/*.md" OR
+   story.files_to_modify contains ".claude/agents/*.md":
+
+   implementation_type = "Slash Command (.md)"
+   output_type = "Test Specification Document (not executable)"
+
+ELIF story.files_to_modify contains "*.py" OR
+     story.files_to_modify contains "*.js" OR
+     story.files_to_modify contains "*.ts" OR
+     story.files_to_modify contains "*.cs":
+
+   # IF Code Python/JS/etc detected:
+   implementation_type = "Code"
+   output_type = "Executable unit tests"
+```
+
+### Output Based on Implementation Type
+
+| Implementation Type | Test Output Type | Output File Pattern |
+|---------------------|------------------|---------------------|
+| Slash Command (.md) | Test Specification Document (not executable) | `TEST-SPECIFICATION.md` or `tests/STORY-XXX/*.md` |
+| Code (Python) | Executable unit tests | `test_*.py` |
+| Code (JavaScript/TypeScript) | Executable unit tests | `*.test.js`, `*.test.ts`, `*.spec.js` |
+| Code (C#) | Executable unit tests | `*Tests.cs` |
+
+### Test Artifact Distinction
+
+**Specification vs Executable Tests:**
+
+- **Test Specification Document**: Validation criteria documented in Markdown. Used for Slash Commands where "tests" validate structure (section headers, required patterns) rather than runtime behavior. These are **non-executable** validation checklists.
+
+- **Executable unit tests**: Actual test code that runs via test framework (pytest, Jest, xUnit). Used for Code implementations where tests exercise functions, classes, and modules.
+
+### Output Naming Conventions
+
+```
+# For Slash Commands:
+Output: TEST-SPECIFICATION.md
+
+# For Code:
+Output: test_*.py (Python)
+Output: *.test.js, *.test.ts (JavaScript/TypeScript)
+Output: *Tests.cs (C#)
+
+# Naming distinction:
+TEST-SPECIFICATION.md vs test_*.py
+```
+
+**Key principle:** "75 tests passing" is meaningful for Code implementations (executable tests) but misleading for Slash Commands (specification documents are validated structurally, not executed).
+
 ## References
 
 - **Story Files**: `devforgeai/specs/Stories/*.story.md` (acceptance criteria source)

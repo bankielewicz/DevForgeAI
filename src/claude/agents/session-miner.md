@@ -724,39 +724,41 @@ FUNCTION classify_error(error_message):
 
 ### AC#3: Severity Assignment
 
-**Severity Levels and Mapping:**
+**Severity Assignment Decision Matrix:**
 
-| Severity | Categories | Impact Description |
-|----------|------------|-------------------|
-| **critical** | context-overflow (system halt), API connection failures (ECONNREFUSED) | System cannot proceed, requires immediate attention |
-| **high** | timeout (blocks operation), API rate limits (blocks service) | Operation failed, may require retry or workaround |
-| **medium** | validation (recoverable errors), file-not-found (missing resources) | Specific operation failed, can recover with user action |
-| **low** | other/unknown (requires investigation) | Unknown impact, needs analysis |
+| Category | Critical Conditions | Default Severity | Notes |
+|----------|-------------------|------------------|-------|
+| **api** | "rate limit", "503", "502", "connection refused" in message | high | Service integration failures blocking operation |
+| **timeout** | (none - inherently high impact) | high | Operation duration limits block execution |
+| **context-overflow** | (always critical - system halt) | critical | Resource exhaustion prevents continuation |
+| **validation** | (none - recoverable) | medium | Data constraint violations can be corrected |
+| **file-not-found** | (none - recoverable) | medium | Missing resources can be provided |
+| **other** | (requires investigation) | low | Unknown impact requires analysis |
 
-**Severity Assignment Rules:**
+**Severity Assignment Algorithm:**
 
 ```
 FUNCTION assign_severity(category, error_message):
-  # Critical: API errors that block service
-  IF category == "api":
-    IF any of ["rate limit", "503", "502", "connection refused"] in error_message:
-      RETURN "critical"
-    ELSE:
-      RETURN "high"
+  # Check critical conditions first (highest impact)
+  IF category == "context-overflow":
+    RETURN "critical"
 
-  # High: Timeout and context overflow
-  IF category in ["timeout", "context-overflow"]:
+  IF category == "api":
+    RETURN "critical" IF ["rate limit", "503", "502", "connection refused"] in message
     RETURN "high"
 
-  # Medium: Recoverable errors
-  IF category in ["validation", "file-not-found"]:
-    RETURN "medium"
+  # Map category to default severity
+  severity_map = {
+    "timeout": "high",
+    "validation": "medium",
+    "file-not-found": "medium",
+    "other": "low"
+  }
 
-  # Low: Unknown/other
-  RETURN "low"
+  RETURN severity_map[category]
 ```
 
-**Severity Distribution Output:**
+**Example Severity Distribution:**
 
 ```json
 {
@@ -811,99 +813,103 @@ FUNCTION assign_severity(category, error_message):
 
 **Error Code Assignment Workflow:**
 
-Auto-assign sequential codes (ERR-001, ERR-002, etc.) and increment code for new patterns.
+Auto-assign sequential codes (ERR-001, ERR-002, etc.) based on normalized error patterns.
+
+**Pattern Normalization Rules:**
+
+Apply these transformations to identify unique error patterns (removes variable parts):
+
+| Pattern Type | Regex | Replacement |
+|--------------|-------|-------------|
+| ISO8601 Timestamps | `\d{4}-\d{2}-\d{2}T[\d:]+Z?` | `<TIMESTAMP>` |
+| UUID Values | `[a-f0-9-]{36}` | `<UUID>` |
+| File Paths | `/[\w/.-]+` | `<PATH>` |
+| Numeric Values | `\d+` | `<NUM>` |
+
+**Error Code Assignment Algorithm:**
+
+For duplicate errors with identical messages, aggregate occurrence counts and sum occurrences together.
 
 ```
 FUNCTION assign_error_code(error_message, registry):
-  # Normalize message for pattern matching - group similar errors together
-  normalized = normalize_error_pattern(error_message)
+  # Step 1: Normalize message for pattern grouping
+  normalized = normalize_pattern(error_message)
 
-  # Check if pattern exists in registry - handle duplicate errors
+  # Step 2: Check if pattern exists - occurrence aggregate for duplicates
   FOR code, entry in registry.items():
     IF patterns_match(normalized, entry.pattern):
-      # Existing pattern - aggregate occurrence count
+      # Aggregate count for same pattern
       entry.occurrences += 1
       entry.last_seen = current_timestamp()
       RETURN code
 
-  # New pattern - auto assign next sequential code
+  # Step 3: New pattern - assign sequential code
   new_code = registry.metadata.next_code
-  registry[new_code] = {
-    pattern: normalized,
-    category: classify_error(error_message),
-    severity: assign_severity(category, error_message),
-    occurrences: 1,
-    first_seen: current_timestamp(),
-    last_seen: current_timestamp(),
-    sessions: [current_session_id]
-  }
+  registry[new_code] = create_registry_entry(
+    pattern=normalized,
+    category=classify_error(error_message),
+    severity=assign_severity(category, error_message),
+    timestamp=current_timestamp(),
+    session=current_session_id
+  )
   registry.metadata.next_code = increment_code(new_code)
 
   RETURN new_code
 
-FUNCTION normalize_error_pattern(message):
-  # Identify unique patterns by removing variable parts (timestamps, IDs, paths)
-  pattern = regex_replace(message, r'\d{4}-\d{2}-\d{2}T[\d:]+Z?', '<TIMESTAMP>')
-  pattern = regex_replace(pattern, r'[a-f0-9-]{36}', '<UUID>')
-  pattern = regex_replace(pattern, r'/[\w/.-]+', '<PATH>')
-  pattern = regex_replace(pattern, r'\d+', '<NUM>')
+FUNCTION normalize_pattern(message):
+  # Remove variable components to group similar errors
+  pattern = message
+    .replace(/\d{4}-\d{2}-\d{2}T[\d:]+Z?/g, '<TIMESTAMP>')
+    .replace(/[a-f0-9-]{36}/g, '<UUID>')
+    .replace(/\/[\w/.-]+/g, '<PATH>')
+    .replace(/\d+/g, '<NUM>')
   RETURN pattern
 ```
 
-**Registry Persistence and Versioning:**
-
-Persist registry to JSON file and update on each analysis:
+**Registry Persistence:**
 
 ```
-FUNCTION save_registry(registry):
-  # Registry file location
-  registry_file = "devforgeai/data/error-registry.json"
-
-  # Update version timestamp
+FUNCTION save_registry(registry, file_path="devforgeai/data/error-registry.json"):
   registry.metadata.last_updated = current_timestamp()
-
-  Write(file_path=registry_file, content=JSON.stringify(registry))
+  Write(file_path=file_path, content=JSON.stringify(registry, null, 2))
 ```
 
 ### Error Analysis Pipeline
 
-**Complete Workflow (Error Analysis Pipeline):**
+**Pipeline Workflow (6 Steps):**
 
-This pipeline workflow orchestrates the error analysis with graceful failure handling:
+Orchestrates error analysis from raw session data to categorized report. Each step flows into the next: extract then classify, classify then assign severity, severity then register in registry.
 
 ```
-Input: history.jsonl (via session-miner parsing)
+Input: history.jsonl (SessionEntry[])
   ↓
-Step 1: Filter errors (status == "error") - Extract then classify
+[1] Filter errors (status == "error")
+[2] Extract error messages with context (command, timestamp, session) - after extract, classify
+[3] Classify categories using pattern matching (priority 1-6) - category then assign severity
+[4] Assign severity using decision matrix - severity then register in error registry
+[5] Assign/lookup error codes from registry (auto-increment)
+[6] Aggregate statistics (distribution, top patterns)
   ↓
-Step 2: Extract error messages with context - after extract, classify errors
-  ↓
-Step 3: Classify categories (pattern matching) - category then assign severity
-  ↓
-Step 4: Assign severity (category mapping) - severity then register in registry
-  ↓
-Step 5: Assign/lookup error codes (registry)
-  ↓
-Step 6: Aggregate statistics
-  ↓
-Output: ErrorAnalysisReport (Pipeline Output Format)
+Output: ErrorAnalysisReport with all above sections
 ```
 
 **Pipeline Error Handling:**
 
-Handle pipeline errors gracefully - if any step fails, continue with partial results:
+If any step fails, continue with partial results (graceful degradation):
 
 ```
 TRY:
-  Execute pipeline steps 1-6
-CATCH:
-  Log error and continue with graceful fail strategy
-  Return partial results with error flag
+  For each SessionEntry:
+    IF status == "error": process through steps 1-6
+CATCH error_in_step:
+  Log error with context
+  Include partial results in report with error_flag=true
+  Continue to next entry
 ```
 
-**Error Analysis Report Structure (Analysis Result):**
+**Error Analysis Report Structure:**
 
-Generate error report with category summary, severity summary, and registry reference sections:
+Complete report with summary, categorized errors, and recommendations:
 
 ```json
 {
@@ -998,476 +1004,764 @@ STORY-225 (devforgeai-insights) → Error Analysis Report
 
 ---
 
-## Error Recovery Patterns (STORY-230)
+## Anti-Pattern Mining (STORY-231)
 
-Track and analyze how developers recover from errors to improve error handling guidance and identify effective recovery strategies.
+Detect, categorize, and track anti-pattern occurrences from session history for framework compliance monitoring.
 
 ### Purpose
 
-Extend error analysis with recovery pattern tracking:
-- Identify recovery actions taken after errors (retry, manual-fix, skip, escalate)
-- Track recovery success rates per action type
-- Correlate error categories with most effective recovery strategies
-- Generate actionable recovery recommendations
+Extract and analyze anti-pattern violations from SessionEntry data with:
+- Pattern matching against anti-patterns.md rules (10 categories)
+- Violation counting with AP-XXX codes and severity distribution
+- Consequence tracking with error correlation analysis
 
 ### When Invoked
 
 **Proactive triggers:**
-- When analyzing error recovery patterns for EPIC-034
-- When generating recovery effectiveness reports
-- When building error handling guidance
+- When analyzing anti-pattern frequency for EPIC-034
+- When monitoring framework compliance
+- When identifying high-risk patterns causing errors
 
 **Explicit invocation:**
-- "Analyze recovery patterns from session history"
-- "Track error recovery success rates"
-- "Identify best recovery strategies per error type"
+- "Mine anti-patterns from history.jsonl"
+- "Detect framework violations from sessions"
+- "Build anti-pattern violation registry"
 
-### Data Model: RecoveryEntry
+### Data Model: AntiPatternViolation
 
-Extends ErrorEntry (STORY-229) with recovery-specific fields:
+Extends SessionEntry with anti-pattern-specific fields:
 
 ```yaml
-RecoveryEntry:
-  # Inherited from ErrorEntry (STORY-229)
+AntiPatternViolation:
+  # Inherited from SessionEntry
   timestamp: DateTime (ISO8601)
-  command: String
-  status: "error"
-  duration_ms: Integer
   session_id: UUID
+  command: String
+  user_input: String
   project: String
-  error_message: String
-  category: Enum (api|validation|timeout|context-overflow|file-not-found|other)
-  severity: Enum (critical|high|medium|low)
-  error_code: String (ERR-XXX format)
 
-  # Recovery-specific fields (STORY-230)
-  recovery_action:
-    type: Enum (retry|manual-fix|skip|escalate)
-    description: The recovery action taken after the error
-    derived: true  # Classified from subsequent commands
+  # Anti-pattern-specific fields
+  category:
+    type: Enum
+    values:
+      - bash_for_file_ops
+      - monolithic_components
+      - making_assumptions
+      - size_violations
+      - language_specific_code
+      - context_file_violations
+      - circular_dependencies
+      - narrative_documentation
+      - missing_frontmatter
+      - hardcoded_paths
+    description: Classified anti-pattern category from anti-patterns.md
 
-  recovery_successful:
-    type: Boolean
-    description: Whether the recovery action succeeded
-    derived: true  # Determined from next attempt outcome
+  category_id:
+    type: Integer (1-10)
+    description: Numeric category identifier matching anti-patterns.md
 
-  next_command:
+  severity:
+    type: Enum (critical|high|medium|low)
+    description: Impact severity level per category
+    derived: true
+
+  pattern_matched:
     type: String
-    description: The command executed after the error
-    extraction: Next SessionEntry.command in same session
-    fallback: null
+    description: The specific pattern text that triggered detection
+    extraction: Substring of user_input matching rule
 
-  next_attempt_succeeded:
-    type: Boolean
-    description: Whether the next attempt (if retry) succeeded
-    derived: true  # status of next command == "success"
-
-  time_to_recovery_ms:
-    type: Integer
-    description: Time between error and successful recovery
-    derived: true  # Difference between error timestamp and next success
-
-  recovered:
-    type: Boolean
-    description: Whether recovery was ultimately successful
-    derived: true  # Alias for recovery_successful for backward compatibility
+  violation_code:
+    type: String (AP-XXX format)
+    description: Unique violation code for tracking
+    derived: true
 ```
 
-### AC#1: Recovery Action Identification
+### AC#1: Anti-Pattern Matching
 
-**Recovery Action Types:**
-
-| Action | Pattern Indicators | Description |
-|--------|-------------------|-------------|
-| **retry** | Same command executed again, similar command with minor changes | Developer re-attempts the same operation |
-| **manual-fix** | Different command (edit, fix, update), followed by retry | Developer makes changes then re-attempts |
-| **skip** | Different unrelated command, workflow continues without retry | Developer abandons the operation |
-| **escalate** | Session ends, /rca command, help/support queries | Developer seeks external help |
-
-**Classification Algorithm:**
+**Detection Workflow:**
 
 ```
-FUNCTION classify_recovery_action(error_entry, subsequent_commands):
-  IF subsequent_commands is empty:
-    RETURN "escalate"  # Session ended after error
-
-  next_command = subsequent_commands[0]
-  error_command = error_entry.command
-
-  # Check for retry (same or similar command)
-  IF is_same_command(error_command, next_command):
-    RETURN "retry"
-
-  # Check for manual-fix (edit/fix then retry)
-  IF is_fix_command(next_command):
-    IF len(subsequent_commands) > 1:
-      IF is_same_command(error_command, subsequent_commands[1]):
-        RETURN "manual-fix"
-
-  # Check for escalation (help-seeking behavior)
-  IF is_escalation_command(next_command):
-    RETURN "escalate"
-
-  # Default: skip (moved on to different work)
-  RETURN "skip"
-
-
-FUNCTION is_same_command(cmd1, cmd2):
-  # Normalize commands for comparison
-  base1 = extract_base_command(cmd1)  # e.g., "/dev STORY-001" -> "/dev"
-  base2 = extract_base_command(cmd2)
-  RETURN base1 == base2
-
-
-FUNCTION is_fix_command(cmd):
-  fix_patterns = ["edit", "fix", "update", "modify", "change", "correct"]
-  RETURN any(pattern in cmd.lower() for pattern in fix_patterns)
-
-
-FUNCTION is_escalation_command(cmd):
-  escalation_patterns = ["/rca", "help", "support", "?", "why", "debug"]
-  RETURN any(pattern in cmd.lower() for pattern in escalation_patterns)
+Input: SessionEntry[] from session-miner
+  ↓
+For each entry:
+  Extract user_input field
+  ↓
+  Apply pattern matching (all 10 categories)
+  ↓
+  Skip if legitimate exception (npm test, git, etc.)
+  ↓
+  Create AntiPatternViolation for each match
+  ↓
+Output: AntiPatternViolation[] with categories assigned
 ```
 
-**AC#1 Workflow:**
+**Category Definition Reference (from anti-patterns.md):**
+
+| ID | Category | Severity | Primary Patterns | Exception Rules |
+|----|----------|----------|---------|-----------------|
+| 1 | bash_for_file_ops | critical | `cat`, `echo >`, `find`, `grep`, `sed` | npm test, git, docker, build, install |
+| 2 | monolithic_components | high | `everything`, `all-in-one`, `ideation + architecture + dev` | None |
+| 3 | making_assumptions | critical | `Install Redis`, `Use PostgreSQL`, `Build with React`, `Using EF Core` | Must check AskUserQuestion context |
+| 4 | size_violations | high | `>1000 lines`, `>500 lines`, `2000 lines` | None |
+| 5 | language_specific_code | critical | `.py` in skills/, `executable code` in docs | None |
+| 6 | context_file_violations | critical | `without context`, `Proceeding without`, `skip context` | None |
+| 7 | circular_dependencies | high | `A → B → A` invocation chains | None |
+| 8 | narrative_documentation | medium | `should first`, `might want to`, `The system should` | None |
+| 9 | missing_frontmatter | high | `no frontmatter`, `no YAML`, `missing ---` | None |
+| 10 | hardcoded_paths | medium | `/home/user/`, `/Users/`, `C:\Users\` | None |
+
+**Pattern Matching Algorithm:**
 
 ```
-Input: ErrorEntry[] from STORY-229 Error Categorization
-  ↓
-Step 1: Group errors by session_id
-  ↓
-Step 2: Order entries by timestamp within each session
-  ↓
-Step 3: For each error, get subsequent commands in same session
-  ↓
-Step 4: Classify recovery action using classify_recovery_action()
-  ↓
-Step 5: Build RecoveryEntry with action classification
-  ↓
-Output: RecoveryEntry[] with recovery_action populated
+FUNCTION match_anti_patterns(user_input):
+  violations = []
+  input_normalized = normalize_input(user_input)
+
+  FOR category_id in [1..10]:
+    FOR pattern in PATTERNS[category_id]:
+      IF pattern_matches(input_normalized, pattern):
+        IF NOT is_legitimate_exception(user_input, category_id):
+          violations.append({
+            category: CATEGORY_NAME[category_id],
+            category_id: category_id,
+            severity: SEVERITY_MAP[category_id],
+            pattern_matched: extract_matched_text(user_input, pattern)
+          })
+
+  RETURN violations
+
+FUNCTION normalize_input(user_input):
+  # Normalize for pattern matching
+  normalized = user_input.lower()
+  IF len(normalized) > 10000:
+    normalized = normalized[:10000]
+  RETURN normalized
 ```
 
-**Recovery Action Output:**
+**Legitimate Bash Exceptions (NOT violations):**
+
+Category 1 (bash_for_file_ops) does NOT apply when Bash is used for:
+
+| Pattern | Reason | Exception Rule |
+|---------|--------|----------------|
+| `Bash(command="npm test")` | Test execution | Contains `test` or `pytest` or `dotnet test` |
+| `Bash(command="npm run build")` | Build execution | Contains `build` or `compile` |
+| `Bash(command="git`)` | Git operations | Starts with `git ` |
+| `Bash(command="npm install")` | Package management | Contains `install` or `pip install` |
+| `Bash(command="docker`)` | Container operations | Starts with `docker ` |
+
+**Exception Checking:**
+
+Only Category 1 (bash_for_file_ops) has exceptions for legitimate use cases:
+
+```
+FUNCTION is_legitimate_exception(user_input, category_id):
+  # Only Category 1 has exceptions
+  IF category_id != 1:
+    RETURN false
+
+  command = extract_bash_command(user_input).lower()
+
+  # Allowed prefixes: git, docker, kubectl, npm, yarn, pnpm
+  allowed_prefixes = ["git ", "docker ", "kubectl ", "npm ", "yarn ", "pnpm "]
+  IF any(command.starts_with(prefix) for prefix in allowed_prefixes):
+    RETURN true
+
+  # Allowed keywords: test, build, install, publish, deploy
+  allowed_keywords = ["test", "build", "install", "publish", "deploy"]
+  IF any(keyword in command for keyword in allowed_keywords):
+    RETURN true
+
+  RETURN false
+```
+
+**Case-Insensitive Matching:**
+
+All pattern matching is case-insensitive:
+- `Bash(command="CAT file")` matches Category 1
+- `BASH(COMMAND="cat")` matches Category 1
+- `bash(command="Cat")` matches Category 1
+
+**Multi-Violation Detection:**
+
+A single entry can trigger multiple violations:
+
+```
+Example: Bash(command="cat /home/user/file.md")
+
+Violations detected:
+  1. Category 1 (bash_for_file_ops) - Bash cat command
+  2. Category 10 (hardcoded_paths) - /home/user/ absolute path
+
+Both violations counted separately with unique entries.
+```
+
+**Context-Aware Matching (False Positive Prevention):**
+
+Filter out documentation references and quoted examples:
+
+```
+FUNCTION is_false_positive_context(user_input, matched_pattern):
+  input_lower = user_input.lower()
+
+  # Documentation references (NOT violations)
+  documentation_markers = ["documentation says", "anti-patterns.md mentions", "example:", "like:"]
+  FOR marker in documentation_markers:
+    IF marker in input_lower:
+      RETURN true
+
+  # Patterns in quotes with preceding example markers (NOT violations)
+  IF quoted_pattern_with_example_marker(user_input, matched_pattern):
+    RETURN true
+
+  RETURN false
+
+FUNCTION pattern_matches(input_normalized, pattern):
+  # Simple substring match on normalized input
+  RETURN pattern_lower in input_normalized
+```
+
+### AC#2: Violation Counting
+
+**Aggregation Workflow:**
+
+```
+Input: AntiPatternViolation[] from AC#1
+  ↓
+Count violations per category (category_distribution)
+  ↓
+Aggregate total violations
+  ↓
+Calculate violation_rate (violations / total_entries)
+  ↓
+Map to severity_distribution (count per severity level)
+  ↓
+Assign AP-XXX codes from registry
+  ↓
+Output: Aggregated statistics with distributions
+```
+
+**Category Distribution:**
+
+Count occurrences per anti-pattern category:
 
 ```json
 {
-  "recovery_actions": [
-    {
-      "error_code": "ERR-001",
-      "error_category": "api",
-      "recovery_action": "retry",
-      "next_command": "/dev STORY-001",
-      "session_id": "abc123"
-    }
-  ],
-  "action_distribution": {
-    "retry": 15,
-    "manual-fix": 8,
-    "skip": 5,
-    "escalate": 2
+  "category_distribution": {
+    "bash_for_file_ops": 3,
+    "monolithic_components": 0,
+    "making_assumptions": 1,
+    "size_violations": 1,
+    "language_specific_code": 0,
+    "context_file_violations": 1,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 1
   }
 }
 ```
 
-### AC#2: Recovery Success Tracking
+**Severity Distribution:**
 
-**Success Rate Calculation:**
-
-```
-success_rate = successful_recoveries / total_attempts
-```
-
-Where:
-- `successful_recoveries` = count of RecoveryEntry where recovery_successful == true
-- `total_attempts` = count of RecoveryEntry (all recovery attempts)
-
-**Per-Action Success Rate:**
+Map categories to severity levels per Category Definition Reference (AC#1):
 
 ```
-action_success_rates = {
-  "retry": successful_retries / total_retries,
-  "manual-fix": successful_manual_fixes / total_manual_fixes,
-  "skip": N/A (skip is not a recovery attempt),
-  "escalate": successful_escalations / total_escalations
-}
+Severity Mapping:
+  critical = Categories: 1, 3, 5, 6
+  high = Categories: 2, 4, 7, 9
+  medium = Categories: 8, 10
+  low = (none)
 ```
 
-**Success Determination Logic:**
+**Severity Assignment Function:**
 
 ```
-FUNCTION determine_recovery_success(recovery_entry, subsequent_entries):
-  action = recovery_entry.recovery_action
-
-  IF action == "skip":
-    # Skip is not recovery - mark as not applicable
-    recovery_entry.recovery_successful = null
-    recovery_entry.next_attempt_succeeded = null
-    recovery_entry.recovered = null
-    RETURN recovery_entry
-
-  IF action == "retry":
-    # Check if immediate next attempt succeeded
-    IF len(subsequent_entries) > 0:
-      next_entry = subsequent_entries[0]
-      IF is_same_command(recovery_entry.command, next_entry.command):
-        recovery_entry.next_attempt_succeeded = (next_entry.status == "success")
-        recovery_entry.recovery_successful = recovery_entry.next_attempt_succeeded
-        IF recovery_entry.recovery_successful:
-          recovery_entry.time_to_recovery_ms = calculate_time_diff(
-            recovery_entry.timestamp, next_entry.timestamp
-          )
-    recovery_entry.recovered = recovery_entry.recovery_successful
-    RETURN recovery_entry
-
-  IF action == "manual-fix":
-    # Check if retry after fix succeeded
-    # Look for same command after fix command
-    FOR i, entry in enumerate(subsequent_entries[1:]):
-      IF is_same_command(recovery_entry.command, entry.command):
-        recovery_entry.next_attempt_succeeded = (entry.status == "success")
-        recovery_entry.recovery_successful = recovery_entry.next_attempt_succeeded
-        IF recovery_entry.recovery_successful:
-          recovery_entry.time_to_recovery_ms = calculate_time_diff(
-            recovery_entry.timestamp, entry.timestamp
-          )
-        BREAK
-    recovery_entry.recovered = recovery_entry.recovery_successful
-    RETURN recovery_entry
-
-  IF action == "escalate":
-    # Check if issue was eventually resolved in session
-    FOR entry in subsequent_entries:
-      IF is_same_command(recovery_entry.command, entry.command):
-        IF entry.status == "success":
-          recovery_entry.recovery_successful = true
-          recovery_entry.next_attempt_succeeded = true
-          recovery_entry.time_to_recovery_ms = calculate_time_diff(
-            recovery_entry.timestamp, entry.timestamp
-          )
-          recovery_entry.recovered = true
-          RETURN recovery_entry
-    # No resolution found
-    recovery_entry.recovery_successful = false
-    recovery_entry.next_attempt_succeeded = false
-    recovery_entry.recovered = false
-    RETURN recovery_entry
+FUNCTION get_severity(category_id):
+  IF category_id in [1, 3, 5, 6]: RETURN "critical"
+  IF category_id in [2, 4, 7, 9]: RETURN "high"
+  IF category_id in [8, 10]: RETURN "medium"
+  RETURN "low"
 ```
 
-**Recovery Metrics Output:**
+**Severity Distribution Output (Template):**
 
 ```json
 {
-  "recovery_metrics": {
-    "total_errors": 30,
-    "total_recovery_attempts": 25,
-    "successful_recoveries": 18,
-    "overall_success_rate": 0.72,
-    "action_success_rates": {
-      "retry": {"attempts": 15, "successes": 12, "rate": 0.80},
-      "manual-fix": {"attempts": 8, "successes": 5, "rate": 0.625},
-      "skip": {"attempts": 5, "successes": null, "rate": null},
-      "escalate": {"attempts": 2, "successes": 1, "rate": 0.50}
+  "severity_distribution": {
+    "critical": <count of AP-001,003,005,006>,
+    "high": <count of AP-002,004,007,009>,
+    "medium": <count of AP-008,010>,
+    "low": 0
+  }
+}
+```
+
+Example output with 7 violations:
+```json
+{
+  "severity_distribution": {
+    "critical": 5,
+    "high": 1,
+    "medium": 1,
+    "low": 0
+  }
+}
+```
+
+**Violation Rate Calculation:**
+
+```
+violation_rate = total_violations / total_entries
+
+Example:
+  total_entries = 8
+  total_violations = 7
+  violation_rate = 7 / 8 = 0.875
+```
+
+**Violation Code (AP-XXX) Assignment:**
+
+Auto-assign violation codes by category ID using formula:
+
+```
+violation_code = "AP-" + sprintf("%03d", category_id)
+
+Code Mapping (derived from Category Definition Reference):
+  AP-001 = bash_for_file_ops (critical)
+  AP-002 = monolithic_components (high)
+  AP-003 = making_assumptions (critical)
+  AP-004 = size_violations (high)
+  AP-005 = language_specific_code (critical)
+  AP-006 = context_file_violations (critical)
+  AP-007 = circular_dependencies (high)
+  AP-008 = narrative_documentation (medium)
+  AP-009 = missing_frontmatter (high)
+  AP-010 = hardcoded_paths (medium)
+```
+
+**Violation Registry:**
+
+Track unique patterns with occurrence counts:
+
+```json
+{
+  "registry": {
+    "AP-001": {
+      "category": "bash_for_file_ops",
+      "severity": "critical",
+      "patterns": [
+        {"pattern": "Bash(command=\"cat", "occurrences": 2},
+        {"pattern": "Bash(command=\"echo", "occurrences": 1}
+      ],
+      "total_occurrences": 3,
+      "first_seen": "2025-01-01T08:00:00Z",
+      "last_seen": "2025-01-02T14:30:00Z"
     },
-    "average_time_to_recovery_ms": 45000
+    "AP-003": {
+      "category": "making_assumptions",
+      "severity": "critical",
+      "patterns": [
+        {"pattern": "Install Redis", "occurrences": 1}
+      ],
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:40:00Z",
+      "last_seen": "2025-01-02T10:40:00Z"
+    }
   }
 }
 ```
 
-### AC#3: Best Recovery Per Error Type
+**Zero Violations Edge Case:**
 
-**Error-Recovery Correlation:**
+When no violations found, return empty distributions with zeros:
 
-Correlate error categories (from STORY-229) with recovery action effectiveness:
-
-```
-FUNCTION build_error_recovery_correlation(recovery_entries):
-  correlation = {}
-
-  # Initialize with STORY-229 error categories
-  error_categories = ["api", "timeout", "validation", "file-not-found", "context-overflow", "other"]
-
-  FOR category in error_categories:
-    correlation[category] = {
-      "retry": {"attempts": 0, "successes": 0},
-      "manual-fix": {"attempts": 0, "successes": 0},
-      "skip": {"attempts": 0, "successes": 0},
-      "escalate": {"attempts": 0, "successes": 0}
-    }
-
-  # Populate correlation matrix
-  FOR entry in recovery_entries:
-    category = entry.category
-    action = entry.recovery_action
-
-    correlation[category][action]["attempts"] += 1
-    IF entry.recovery_successful:
-      correlation[category][action]["successes"] += 1
-
-  RETURN correlation
-```
-
-**Best Recovery Action Determination:**
-
-```
-FUNCTION get_most_effective_action(category, correlation):
-  actions = correlation[category]
-  best_action = null
-  best_rate = -1
-
-  FOR action, stats in actions.items():
-    IF action == "skip":
-      CONTINUE  # Skip is not recovery
-
-    IF stats["attempts"] > 0:
-      rate = stats["successes"] / stats["attempts"]
-      IF rate > best_rate:
-        best_rate = rate
-        best_action = action
-
-  RETURN {
-    "action": best_action,
-    "success_rate": best_rate,
-    "sample_size": actions[best_action]["attempts"] if best_action else 0
+```json
+{
+  "violations": [],
+  "category_distribution": {
+    "bash_for_file_ops": 0,
+    "monolithic_components": 0,
+    "making_assumptions": 0,
+    "size_violations": 0,
+    "language_specific_code": 0,
+    "context_file_violations": 0,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 0
+  },
+  "severity_distribution": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "metadata": {
+    "total_entries": 10,
+    "total_violations": 0,
+    "violation_rate": 0.00,
+    "unique_patterns": 0
   }
+}
 ```
 
-**Effectiveness Ranking:**
+### AC#3: Consequence Tracking
+
+**Correlation Analysis Workflow:**
 
 ```
-FUNCTION rank_recovery_effectiveness(correlation):
-  rankings = {}
+Input: AntiPatternViolation[] + ErrorEntry[] (from STORY-229)
+  ↓
+Group both by session_id
+  ↓
+For each session:
+  Sort violations and errors by timestamp
+  ↓
+  For each violation:
+    Find subsequent error in same session
+    Check temporal proximity (<10 minutes)
+    ↓
+    If found: Mark as correlated
+  ↓
+Calculate correlation_rate
+  ↓
+Identify high_risk_patterns (>50% correlation)
+  ↓
+Output: ConsequenceCorrelation report
+```
 
-  FOR category, actions in correlation.items():
-    category_rankings = []
+**Session-Scoped Correlation:**
 
-    FOR action, stats in actions.items():
-      IF action == "skip" OR stats["attempts"] == 0:
-        CONTINUE
+Correlations are ONLY detected within the same session:
 
-      effectiveness_score = stats["successes"] / stats["attempts"]
-      category_rankings.append({
-        "action": action,
-        "effectiveness_score": effectiveness_score,
-        "attempts": stats["attempts"],
-        "successes": stats["successes"]
+```
+RULE: Violation in session A does NOT correlate with error in session B
+
+Example (CORRELATED):
+  Session abc123:
+    Entry 1: Violation (Bash cat) at 10:30:00
+    Entry 2: Error (File not found) at 10:31:00
+  → Correlation detected
+
+Example (NOT CORRELATED):
+  Session abc123:
+    Entry 1: Violation (Bash cat) at 10:30:00
+  Session def456:
+    Entry 2: Error (File not found) at 10:31:00
+  → No correlation (different sessions)
+```
+
+**Temporal Proximity Check:**
+
+Only correlate if violation precedes error within time window:
+
+```
+FUNCTION check_temporal_proximity(violation, error):
+  # Violation must precede error
+  IF violation.timestamp >= error.timestamp:
+    RETURN false
+
+  # Within 10-minute window (600000ms)
+  time_delta_ms = error.timestamp - violation.timestamp
+  IF time_delta_ms > 600000:
+    RETURN false
+
+  RETURN true
+```
+
+**Correlation Detection Algorithm:**
+
+```
+FUNCTION find_correlations(violations, errors):
+  correlations = []
+
+  # Process per session (no cross-session correlations)
+  sessions_violations = group_by_session_id(violations)
+  sessions_errors = group_by_session_id(errors)
+
+  FOR session_id, violations_in_session in sessions_violations:
+    errors_in_session = sessions_errors.get(session_id, [])
+    IF len(errors_in_session) == 0:
+      CONTINUE
+
+    # Sort by timestamp
+    violations_in_session.sort(by="timestamp")
+    errors_in_session.sort(by="timestamp")
+
+    FOR violation in violations_in_session:
+      # Find first error after this violation within 10-minute window
+      FOR error in errors_in_session:
+        IF error.timestamp > violation.timestamp AND
+           (error.timestamp - violation.timestamp) <= 600000:  # 10 minutes
+          correlations.append({
+            violation: violation,
+            error: error,
+            time_delta_ms: error.timestamp - violation.timestamp,
+            session_id: session_id
+          })
+          BREAK  # Only first error per violation
+
+  RETURN correlations
+```
+
+**Correlation Rate Calculation:**
+
+```
+correlation_rate = violations_with_subsequent_error / total_violations
+
+Example:
+  total_violations = 7
+  violations_with_subsequent_error = 2
+  correlation_rate = 2 / 7 = 0.286
+
+Edge case:
+  IF total_violations == 0:
+    correlation_rate = 0.00
+```
+
+**High-Risk Pattern Identification:**
+
+Flag categories with >50% error correlation as high-risk:
+
+```
+FUNCTION identify_high_risk_patterns(violations, correlations):
+  # Count violations per category
+  category_total = {}
+  category_correlated = {}
+
+  FOR violation in violations:
+    category = violation.category
+    category_total[category] = category_total.get(category, 0) + 1
+    category_correlated[category] = category_correlated.get(category, 0)
+
+  # Count correlated violations per category
+  FOR correlation in correlations:
+    category = correlation.violation.category
+    category_correlated[category] += 1
+
+  # Calculate correlation rates and identify high-risk
+  high_risk = []
+  FOR category, total in category_total:
+    correlated = category_correlated[category]
+    rate = correlated / total
+    IF rate > 0.50:
+      high_risk.append({
+        category: category,
+        violation_code: violation_code_for_category(category),
+        correlation_rate: rate,
+        sample_size: total
       })
 
-    # Sort by effectiveness_score descending
-    category_rankings.sort(key=lambda x: x["effectiveness_score"], reverse=true)
-    rankings[category] = category_rankings
-
-  RETURN rankings
+  RETURN high_risk.sort_by("correlation_rate", descending=true)
 ```
 
-**Error-Recovery Correlation Output:**
+**Consequence Correlation Output:**
 
 ```json
 {
-  "error_recovery_correlation": {
-    "api": {
-      "retry": {"attempts": 10, "successes": 8, "rate": 0.80},
-      "manual-fix": {"attempts": 3, "successes": 2, "rate": 0.67},
-      "escalate": {"attempts": 2, "successes": 1, "rate": 0.50}
-    },
-    "timeout": {
-      "retry": {"attempts": 5, "successes": 4, "rate": 0.80},
-      "manual-fix": {"attempts": 1, "successes": 0, "rate": 0.00}
-    },
-    "validation": {
-      "retry": {"attempts": 2, "successes": 0, "rate": 0.00},
-      "manual-fix": {"attempts": 8, "successes": 7, "rate": 0.875}
-    },
-    "file-not-found": {
-      "manual-fix": {"attempts": 5, "successes": 5, "rate": 1.00}
-    },
-    "context-overflow": {
-      "manual-fix": {"attempts": 3, "successes": 2, "rate": 0.67},
-      "escalate": {"attempts": 2, "successes": 1, "rate": 0.50}
-    },
-    "other": {
-      "escalate": {"attempts": 3, "successes": 1, "rate": 0.33}
-    }
-  },
-  "best_actions_by_category": {
-    "api": {"action": "retry", "success_rate": 0.80, "sample_size": 10},
-    "timeout": {"action": "retry", "success_rate": 0.80, "sample_size": 5},
-    "validation": {"action": "manual-fix", "success_rate": 0.875, "sample_size": 8},
-    "file-not-found": {"action": "manual-fix", "success_rate": 1.00, "sample_size": 5},
-    "context-overflow": {"action": "manual-fix", "success_rate": 0.67, "sample_size": 3},
-    "other": {"action": "escalate", "success_rate": 0.33, "sample_size": 3}
-  },
-  "error_recovery_recommendations": [
-    "API errors: Retry is most effective (80% success) - typically transient issues",
-    "Timeout errors: Retry is most effective (80% success) - often resolves on second attempt",
-    "Validation errors: Manual fix is most effective (87.5% success) - requires code/config changes",
-    "File not found: Manual fix is 100% effective - create missing file or fix path",
-    "Context overflow: Manual fix is most effective (67% success) - split or simplify prompts",
-    "Other errors: Escalation recommended (33% success) - requires investigation"
-  ]
-}
-```
-
-### Recovery Analysis Pipeline
-
-**Complete Workflow:**
-
-```
-Input: history.jsonl (via session-miner parsing)
-  ↓
-Step 1: Parse sessions using session-miner (STORY-221)
-  ↓
-Step 2: Extract and categorize errors using STORY-229 Error Categorization
-  ↓
-Step 3: For each error, identify recovery action (AC#1)
-  - Group by session_id
-  - Analyze subsequent commands
-  - Classify recovery action type
-  ↓
-Step 4: Track recovery success (AC#2)
-  - Determine if recovery succeeded
-  - Calculate success rates per action type
-  - Calculate average time to recovery
-  ↓
-Step 5: Build error-recovery correlation (AC#3)
-  - Correlate error categories with recovery actions
-  - Identify most effective recovery per error type
-  - Rank recovery effectiveness
-  ↓
-Step 6: Generate recommendations
-  - Best recovery action per error category
-  - Actionable guidance based on data
-  ↓
-Output: RecoveryAnalysisReport
-```
-
-**Recovery Analysis Report Structure:**
-
-```json
-{
-  "summary": {
-    "total_sessions": 42,
-    "total_errors": 30,
-    "total_recovery_attempts": 25,
-    "overall_recovery_rate": 0.72
-  },
-  "recovery_entries": [/* RecoveryEntry[] */],
-  "action_distribution": {
-    "retry": 15,
-    "manual-fix": 8,
-    "skip": 5,
-    "escalate": 2
-  },
-  "recovery_metrics": {/* per-action success rates */},
-  "error_recovery_correlation": {/* category -> action -> stats */},
-  "best_actions_by_category": {/* most effective action per error type */},
-  "error_recovery_recommendations": [/* actionable guidance */],
-  "metadata": {
-    "analysis_timestamp": "2025-01-05T15:00:00Z",
-    "story_id": "STORY-230",
-    "depends_on": ["STORY-229"]
+  "consequence_correlation": {
+    "total_violations": 7,
+    "total_violations_with_errors": 2,
+    "correlation_rate": 0.286,
+    "correlated_violations": [
+      {
+        "violation": {
+          "timestamp": "2025-01-02T10:30:00Z",
+          "category": "bash_for_file_ops",
+          "pattern_matched": "Bash(command=\"cat"
+        },
+        "error": {
+          "timestamp": "2025-01-02T10:31:00Z",
+          "message": "File not found: story.md",
+          "category": "file-not-found"
+        },
+        "time_delta_ms": 60000,
+        "session_id": "abc123-def456"
+      },
+      {
+        "violation": {
+          "timestamp": "2025-01-02T10:50:00Z",
+          "category": "context_file_violations",
+          "pattern_matched": "Proceeding without context"
+        },
+        "error": {
+          "timestamp": "2025-01-02T10:50:30Z",
+          "message": "Context file not found",
+          "category": "validation"
+        },
+        "time_delta_ms": 30000,
+        "session_id": "mno345-pqr678"
+      }
+    ],
+    "uncorrelated_violations": [
+      {
+        "timestamp": "2025-01-02T10:35:00Z",
+        "category": "bash_for_file_ops",
+        "pattern_matched": "Bash(command=\"echo",
+        "session_id": "ghi789-jkl012"
+      }
+    ],
+    "high_risk_patterns": [
+      {
+        "category": "context_file_violations",
+        "violation_code": "AP-006",
+        "correlation_rate": 1.00,
+        "sample_size": 1,
+        "recommendation": "Context file violations have 100% error correlation - always validate context"
+      },
+      {
+        "category": "bash_for_file_ops",
+        "violation_code": "AP-001",
+        "correlation_rate": 0.33,
+        "sample_size": 3,
+        "recommendation": "Below 50% threshold - monitor but not flagged as high-risk"
+      }
+    ]
   }
 }
 ```
+
+### Anti-Pattern Analysis Pipeline
+
+**Complete Workflow (7 Steps):**
+
+```
+Input: SessionEntry[] from history.jsonl
+  ↓
+[1] Filter entries with user_input field
+[2] Apply anti-pattern matching rules (AC#1 - 10 categories)
+[3] Aggregate violation counts and codes (AC#2)
+[4] Load error entries (from STORY-229 ErrorEntry[])
+[5] Correlate violations with errors (AC#3 - session-scoped)
+[6] Identify high-risk patterns (>50% correlation)
+[7] Generate AntiPatternAnalysisReport
+  ↓
+Output: Violations, distributions, correlations, registry
+```
+
+**Graceful Error Handling:**
+
+Continue with partial results on errors:
+
+```
+FOR each SessionEntry:
+  TRY:
+    violations = match_anti_patterns(entry.user_input)
+    process violations through steps 2-6
+  CATCH error:
+    Log error with context
+    Include partial results in report
+    Continue to next entry
+```
+
+### Output Structure
+
+**Complete Anti-Pattern Analysis Report:**
+
+```json
+{
+  "violations": [
+    {
+      "timestamp": "2025-01-02T10:30:00Z",
+      "session_id": "abc123-def456",
+      "command": "/dev STORY-100",
+      "user_input": "Bash(command=\"cat story.md\")",
+      "category": "bash_for_file_ops",
+      "category_id": 1,
+      "severity": "critical",
+      "pattern_matched": "Bash(command=\"cat",
+      "violation_code": "AP-001"
+    }
+  ],
+  "category_distribution": {
+    "bash_for_file_ops": 3,
+    "monolithic_components": 0,
+    "making_assumptions": 1,
+    "size_violations": 1,
+    "language_specific_code": 0,
+    "context_file_violations": 1,
+    "circular_dependencies": 0,
+    "narrative_documentation": 0,
+    "missing_frontmatter": 0,
+    "hardcoded_paths": 1
+  },
+  "severity_distribution": {
+    "critical": 5,
+    "high": 1,
+    "medium": 1,
+    "low": 0
+  },
+  "metadata": {
+    "total_entries": 8,
+    "total_violations": 7,
+    "violation_rate": 0.875,
+    "unique_patterns": 6
+  },
+  "consequence_correlation": {
+    "total_violations_with_errors": 2,
+    "correlation_rate": 0.286,
+    "high_risk_patterns": [
+      {
+        "category": "context_file_violations",
+        "violation_code": "AP-006",
+        "correlation_rate": 1.00
+      }
+    ]
+  },
+  "registry": {
+    "AP-001": {
+      "category": "bash_for_file_ops",
+      "severity": "critical",
+      "total_occurrences": 3,
+      "first_seen": "2025-01-02T10:30:00Z",
+      "last_seen": "2025-01-02T10:45:00Z"
+    },
+    "AP-003": {
+      "category": "making_assumptions",
+      "severity": "critical",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:40:00Z",
+      "last_seen": "2025-01-02T10:40:00Z"
+    },
+    "AP-004": {
+      "category": "size_violations",
+      "severity": "high",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T11:05:00Z",
+      "last_seen": "2025-01-02T11:05:00Z"
+    },
+    "AP-006": {
+      "category": "context_file_violations",
+      "severity": "critical",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T10:50:00Z",
+      "last_seen": "2025-01-02T10:50:00Z"
+    },
+    "AP-010": {
+      "category": "hardcoded_paths",
+      "severity": "medium",
+      "total_occurrences": 1,
+      "first_seen": "2025-01-02T11:00:00Z",
+      "last_seen": "2025-01-02T11:00:00Z"
+    }
+  }
+}
+```
+
+### Edge Case Handling
+
+| Case | Handling |
+|------|----------|
+| Empty session file | Return empty violations array, totals at 0 |
+| All entries have violations | Process all, violation_rate approaches 1.00 |
+| No errors in session | correlation_rate = 0.00, empty high_risk_patterns |
+| Legitimate Bash usage | Apply exception rules, NOT flagged as violation |
+| Multiple violations per entry | Each violation counted separately |
+| Very long user_input (>10000) | Truncate before pattern matching |
+| Unicode content | Preserve encoding, case-insensitive matching |
+| Bash in quotes (documentation) | Context-aware matching, NOT flagged |
+| Missing user_input field | Skip entry for anti-pattern analysis |
 
 ### Integration with STORY-229 Error Categorization
 
@@ -1478,63 +1772,89 @@ session-miner (SessionEntry[])
        ↓
 STORY-229 Error Categorization (ErrorEntry[])
        ↓
-STORY-230 Error Recovery Patterns (RecoveryEntry[])
+STORY-231 Anti-Pattern Mining (AntiPatternViolation[])
        ↓
-/insights recovery → Recovery Analysis Report
+Consequence Correlation (correlate violations with errors)
+       ↓
+Combined Analysis Report for devforgeai-insights
 ```
+
+**Integration Points:**
+
+1. **ErrorEntry Reuse:** Anti-pattern correlation uses ErrorEntry from STORY-229
+2. **Session Grouping:** Both features use same session_id grouping logic
+3. **Timestamp Alignment:** Same ISO8601 timestamp format for correlation
+4. **Combined Reporting:** Anti-pattern report references error categories
 
 **Invocation Template:**
 
 ```markdown
 Task(
   subagent_type="session-miner",
-  description="Analyze error recovery patterns",
+  description="Analyze anti-patterns from session history",
   prompt="""
-  Perform recovery pattern analysis on history.jsonl:
+  Perform anti-pattern analysis on history.jsonl:
 
-  1. Parse history with session-miner (STORY-221)
-  2. Categorize errors using STORY-229 Error Categorization
-  3. Identify recovery actions for each error (AC#1)
-  4. Track recovery success rates (AC#2)
-  5. Build error-recovery correlation (AC#3)
-  6. Generate recommendations
+  1. Parse history with session-miner (offset=0, limit=1000)
+  2. Apply anti-pattern matching rules (10 categories)
+  3. Aggregate violation counts and codes
+  4. Load error entries (STORY-229)
+  5. Correlate violations with subsequent errors
+  6. Identify high-risk patterns (>50% correlation)
+  7. Generate anti-pattern analysis report
 
-  Return RecoveryAnalysisReport with best recovery actions per error type.
+  Return AntiPatternAnalysisReport with recommendations.
   """
 )
 ```
 
-### Edge Case Handling
+### Core Helper Functions (Shared Reference)
 
-| Case | Handling |
-|------|----------|
-| No subsequent commands after error | recovery_action = "escalate" (session ended) |
-| Error is last entry in session | recovery_action = "escalate", recovery_successful = false |
-| Multiple errors in sequence | Each error analyzed independently with its own subsequent commands |
-| Same error repeated | Each occurrence gets own RecoveryEntry |
-| Skip action success | recovery_successful = null (skip is not recovery) |
-| Missing error_category | Use "other" category from STORY-229 |
+These functions are referenced throughout algorithms above:
 
-### Success Criteria (STORY-230)
+```
+FUNCTION group_by_session_id(entries):
+  # Partition entries into groups by session_id
+  # Entries with null session_id grouped together
+  RETURN Map<session_id, Entry[]>
+
+FUNCTION extract_bash_command(user_input):
+  # Extract command text from Bash(command="...") pattern
+  # Returns lowercase command text
+  RETURN command_string
+
+FUNCTION extract_matched_text(user_input, pattern):
+  # Return substring of user_input that matched pattern
+  RETURN matched_substring
+
+FUNCTION violation_code_for_category(category_name):
+  # Map category name to AP-XXX code
+  # Use CATEGORY_ID mapping from Category Definition Reference
+  RETURN "AP-" + sprintf("%03d", category_id)
+```
+
+### Success Criteria (STORY-231)
 
 **Functional Requirements:**
-- [ ] Identify recovery actions (retry, manual-fix, skip, escalate) from subsequent commands (AC#1)
-- [ ] Calculate recovery success rates per action type (AC#2)
-- [ ] Identify most effective recovery action per error category (AC#3)
+- [ ] Match all 10 anti-pattern categories from Category Definition Reference (AC#1)
+- [ ] Apply legitimate Bash exceptions (npm test, git, docker, build, install)
+- [ ] Count violations per category with category_distribution (AC#2)
+- [ ] Assign AP-XXX codes using formula from Violation Code Assignment
+- [ ] Calculate violation_rate and severity_distribution
+- [ ] Correlate violations with subsequent errors within 10-minute window (AC#3)
+- [ ] Identify high-risk patterns with >50% error correlation rate
+- [ ] Session-scoped correlation (no cross-session correlations)
 
 **Non-Functional Requirements:**
-- [ ] Process recovery patterns within session context (session_id grouping)
-- [ ] Handle edge cases (no subsequent commands, session boundaries)
-- [ ] Support incremental analysis (pagination-compatible)
+- [ ] Case-insensitive pattern matching (normalize_input function)
+- [ ] Handle multiple violations per entry (all matched patterns counted)
+- [ ] Truncate inputs >10000 chars for performance
+- [ ] Context-aware matching (avoid false positives in documentation)
+- [ ] Preserve Unicode content in pattern matching
+- [ ] Graceful error handling (continue on partial failures)
 
 **Integration Requirements:**
-- [ ] Compatible with STORY-229 Error Categorization (extends ErrorEntry)
-- [ ] References all 6 error categories (api, timeout, validation, file-not-found, context-overflow, other)
-- [ ] JSON output format for downstream consumers (devforgeai-insights)
-
-### References
-
-- **Story:** devforgeai/specs/Stories/STORY-230-error-recovery-patterns.story.md
-- **Depends on:** STORY-229 (Error Categorization)
-- **Epic:** devforgeai/specs/Epics/EPIC-034-session-data-mining.epic.md
-- **Tech Stack:** devforgeai/specs/context/tech-stack.md (lines 196-210)
+- [ ] Reuse ErrorEntry from STORY-229 for correlation
+- [ ] Use same session_id grouping logic as error categorization
+- [ ] Compatible JSON output format for downstream consumers
+- [ ] Extends session-miner pipeline without modifying core

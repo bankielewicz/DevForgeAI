@@ -364,6 +364,10 @@ Skill(command="devforgeai-feedback")
 - `references/feedback-persistence-guide.md` - Storage patterns and indexing
 - `references/feedback-analysis-patterns.md` - Analyzing feedback trends
 - `references/feedback-export-formats.md` - Export to JSON, CSV, markdown
+    Read(file_path=".claude/skills/devforgeai-feedback/references/feedback-question-templates.md")
+    Read(file_path=".claude/skills/devforgeai-feedback/references/feedback-persistence-guide.md")
+    Read(file_path=".claude/skills/devforgeai-feedback/references/feedback-analysis-patterns.md")
+    Read(file_path=".claude/skills/devforgeai-feedback/references/feedback-export-formats.md")
 
 **Current status:** Reference files pending (EPIC-004)
 

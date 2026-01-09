@@ -368,6 +368,305 @@ echo "Approval rate: $(echo "scale=1; $AUTO * 100 / $TOTAL" | bc)%"
 
 ---
 
-**Hook Version:** 2.0 (post-RCA-015)
-**Pattern Count:** 69 safe, 6 blocked
-**Last Updated:** 2025-11-24
+## QA Lifecycle Hooks
+
+**Purpose:** Automatically execute custom actions when QA validation completes, enabling post-test automation, result processing, and notifications.
+
+**Invocation Point:** Phase 4.2 (QA Validation) in devforgeai-qa skill, triggered after QA passes/fails/warns.
+
+**Current Working Directory:** Project root (`/mnt/c/Projects/DevForgeAI2`)
+
+---
+
+### Hook Names and Triggers
+
+#### post-qa-success.sh
+**Trigger:** QA validation PASSED (all acceptance criteria verified, no critical/high violations)
+
+**Invocation:**
+```bash
+if [ -f .claude/hooks/post-qa-success.sh ]; then
+    bash .claude/hooks/post-qa-success.sh "$STORY_ID"
+fi
+```
+
+**Arguments:**
+- `$1` = STORY_ID (e.g., "STORY-189")
+
+**Exit Code Convention:**
+- `0` = Success, proceed with next phase
+- `1` = Non-fatal warning, log and continue
+- `2` = Fatal error, halt QA workflow
+
+#### post-qa-failure.sh
+**Trigger:** QA validation FAILED (critical/high violations detected, acceptance criteria not met)
+
+**Invocation:**
+```bash
+if [ -f .claude/hooks/post-qa-failure.sh ]; then
+    bash .claude/hooks/post-qa-failure.sh "$STORY_ID"
+fi
+```
+
+**Arguments:**
+- `$1` = STORY_ID (e.g., "STORY-189")
+
+**Exit Code Convention:**
+- `0` = Hook completed (failure was expected/handled)
+- `1` = Hook encountered warning
+- `2` = Hook encountered fatal error
+
+#### post-qa-warning.sh
+**Trigger:** QA validation PASSED WITH WARNINGS (tests pass but warnings generated: coverage gaps, style issues, documentation gaps)
+
+**Invocation:**
+```bash
+if [ -f .claude/hooks/post-qa-warning.sh ]; then
+    bash .claude/hooks/post-qa-warning.sh "$STORY_ID"
+fi
+```
+
+**Arguments:**
+- `$1` = STORY_ID (e.g., "STORY-189")
+
+**Exit Code Convention:**
+- `0` = Warnings acknowledged, proceed to release
+- `1` = Request manual review before release
+- `2` = Escalate warnings (block release)
+
+---
+
+### Example Implementations
+
+#### Example 1: Auto-Generate QA Report
+
+**Purpose:** Automatically create QA report when tests pass, saving to `tests/results/`
+
+**File:** `.claude/hooks/post-qa-success.sh`
+
+```bash
+#!/bin/bash
+# QA Success Hook: Generate QA report and update story status
+
+STORY_ID="${1:-UNKNOWN}"
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+REPORT_DIR="tests/results"
+
+# Create report directory if missing
+mkdir -p "$REPORT_DIR"
+
+# Generate report
+REPORT_FILE="$REPORT_DIR/QA-$STORY_ID-$TIMESTAMP.md"
+
+cat > "$REPORT_FILE" << 'EOF'
+# QA Report
+
+**Story:** STORY_PLACEHOLDER
+**Date:** TIMESTAMP_PLACEHOLDER
+**Status:** PASSED
+
+## Summary
+All acceptance criteria verified. No critical/high violations detected.
+
+## Test Results
+- Unit Tests: PASS
+- Integration Tests: PASS
+- Coverage: Meets threshold
+
+## Acceptance Criteria Verification
+- AC#1: VERIFIED
+- AC#2: VERIFIED
+- AC#3: VERIFIED
+
+## Artifacts
+- Test logs: tests/logs/
+- Coverage report: coverage/
+- Story file: devforgeai/specs/Stories/STORY_PLACEHOLDER.story.md
+
+---
+EOF
+
+# Replace placeholders
+sed -i "s/STORY_PLACEHOLDER/$STORY_ID/g" "$REPORT_FILE"
+sed -i "s/TIMESTAMP_PLACEHOLDER/$TIMESTAMP/g" "$REPORT_FILE"
+
+echo "✓ QA report generated: $REPORT_FILE"
+exit 0
+```
+
+#### Example 2: Notification on Failure
+
+**Purpose:** Log QA failures for developer review, post notification to CI/CD system
+
+**File:** `.claude/hooks/post-qa-failure.sh`
+
+```bash
+#!/bin/bash
+# QA Failure Hook: Log failure details and notify CI system
+
+STORY_ID="${1:-UNKNOWN}"
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+FAILURE_LOG="devforgeai/logs/qa-failures.log"
+
+# Create log directory if missing
+mkdir -p "$(dirname "$FAILURE_LOG")"
+
+# Log failure with timestamp and story ID
+echo "[${TIMESTAMP}] FAILED: $STORY_ID" >> "$FAILURE_LOG"
+
+# Optional: Post to CI/CD webhook (if configured)
+if [ -n "$CI_WEBHOOK_URL" ]; then
+    curl -X POST "$CI_WEBHOOK_URL" \
+        -H "Content-Type: application/json" \
+        -d "{\"status\":\"failed\",\"story\":\"$STORY_ID\",\"timestamp\":\"$TIMESTAMP\"}" \
+        2>/dev/null || true
+fi
+
+# Print summary to console
+echo "❌ QA Failed for $STORY_ID"
+echo "   Details logged to: $FAILURE_LOG"
+echo "   Timestamp: $TIMESTAMP"
+
+exit 0
+```
+
+#### Example 3: Documentation Coverage Check on Warnings
+
+**Purpose:** Flag documentation gaps when QA passes with warnings, generate reminder for docs update
+
+**File:** `.claude/hooks/post-qa-warning.sh`
+
+```bash
+#!/bin/bash
+# QA Warning Hook: Document coverage warnings and create action item
+
+STORY_ID="${1:-UNKNOWN}"
+WARNING_DIR="devforgeai/warnings"
+STORY_FILE="devforgeai/specs/Stories/$STORY_ID.story.md"
+
+# Create warning directory
+mkdir -p "$WARNING_DIR"
+
+# Check if documentation section exists and is incomplete
+if grep -q "## Generated Documentation" "$STORY_FILE"; then
+    DOC_COVERAGE=$(grep -A 2 "Coverage:" "$STORY_FILE" | grep "Coverage:" | sed 's/.*: //')
+
+    if [ -n "$DOC_COVERAGE" ] && [ "${DOC_COVERAGE%\%}" -lt 80 ]; then
+        # Generate warning action item
+        cat > "$WARNING_DIR/$STORY_ID-doc-warning.md" << EOF
+# Documentation Coverage Warning
+
+**Story:** $STORY_ID
+**Date:** $(date +%Y-%m-%d)
+**Issue:** Documentation coverage below 80% threshold
+
+**Current Coverage:** $DOC_COVERAGE
+**Threshold:** 80%
+
+**Action Required:** Run documentation generation before release
+
+**Next Steps:**
+1. Review undocumented APIs in test results
+2. Run: \`/document $STORY_ID\`
+3. Re-run QA to verify coverage meets threshold
+4. Delete this warning file when resolved
+
+EOF
+
+        echo "⚠️  Documentation warning created: $WARNING_DIR/$STORY_ID-doc-warning.md"
+        exit 1  # Request manual review
+    fi
+fi
+
+# No blocking warnings found
+exit 0
+```
+
+---
+
+### Hook Development Guidelines
+
+**When Creating QA Lifecycle Hooks:**
+
+1. **Always accept STORY_ID as argument:**
+   ```bash
+   STORY_ID="${1:-UNKNOWN}"
+   ```
+
+2. **Use project root for paths:**
+   ```bash
+   mkdir -p "devforgeai/logs"        # Create if missing
+   FILE="devforgeai/logs/qa.log"     # Use absolute project paths
+   ```
+
+3. **Follow exit code convention:**
+   - `0` = Success/proceed
+   - `1` = Warning/review requested
+   - `2` = Error/halt workflow
+
+4. **Log operations for visibility:**
+   ```bash
+   echo "✓ Operation completed: description"
+   echo "⚠️  Warning: description"
+   echo "❌ Error: description"
+   ```
+
+5. **Test IF EXISTS pattern:**
+   ```bash
+   if [ -f .claude/hooks/post-qa-success.sh ]; then
+       bash .claude/hooks/post-qa-success.sh "$STORY_ID"
+   fi
+   ```
+
+6. **Avoid interactive prompts:**
+   - Hooks run in automation context
+   - Use exit codes and logging instead
+   - If user input needed, create action items for manual completion
+
+---
+
+### Hook Testing
+
+**Test hook execution manually:**
+
+```bash
+# Make hook executable
+chmod +x .claude/hooks/post-qa-success.sh
+
+# Test with sample story ID
+bash .claude/hooks/post-qa-success.sh "STORY-189"
+
+# Check exit code
+echo $?  # Should be 0 (success)
+
+# Verify artifacts created
+ls -la devforgeai/logs/
+ls -la tests/results/
+```
+
+**Validate hook syntax:**
+
+```bash
+# Check for bash syntax errors
+bash -n .claude/hooks/post-qa-success.sh
+# Should exit 0 with no output
+```
+
+---
+
+### Related Documentation
+
+**QA Workflow:**
+- `.claude/skills/devforgeai-qa.md` - QA validation skill with hook integration
+
+**Story Lifecycle:**
+- `devforgeai/specs/Stories/STORY-189.story.md` - Original QA Lifecycle Hooks story
+
+**Existing Hooks:**
+- `.claude/hooks/pre-tool-use.sh` - Pre-tool-use hook for bash command approval
+
+---
+
+**QA Hooks Version:** 1.0
+**Added:** 2025-01-08 (STORY-189)
+**Status:** Ready for use

@@ -89,6 +89,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
 
 **Reference:** `references/tdd-green-phase.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/tdd-green-phase.md")
 
 ---
 
@@ -144,6 +145,7 @@ IF all checks pass:
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

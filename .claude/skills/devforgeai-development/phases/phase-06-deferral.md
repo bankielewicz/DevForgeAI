@@ -108,6 +108,7 @@ c.1. **Record user approval timestamp** [MANDATORY]
 7. **Update AC Checklist (deferral items)**
 
 **Reference:** `references/phase-06-deferral-challenge.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/phase-06-deferral-challenge.md")
 
 ---
 
@@ -154,6 +155,7 @@ c.1. **Record user approval timestamp** [MANDATORY]
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

@@ -8,12 +8,14 @@ Single-load reference for deep QA validation. Contains all workflow steps for Ph
 
 This file consolidates the following workflows for single-load efficiency:
 - Coverage Analysis (7 steps)
+- Traceability Validation (5 steps)
+- Documentation Accuracy Validation (4 steps)
 - Anti-Pattern Detection (6 steps)
 - Spec Compliance (6 steps)
 - Code Quality Metrics (5 steps)
 - Report Generation (6 steps)
 
-**Token savings:** ~3K tokens (load once vs 5 separate files at ~500 each)
+**Token savings:** ~3.5K tokens (load once vs 7 separate files at ~500 each)
 
 ---
 
@@ -131,6 +133,60 @@ IF dod_unchecked > 0:
 
 ---
 
+### 1.3 Documentation Accuracy Validation (4 Steps)
+
+**Purpose:** Validate that SKILL.md file claims match actual filesystem state.
+
+**Step 1: Extract Documentation Claims**
+```
+FOR each SKILL.md in .claude/skills/:
+    file_count_claims = grep "Total: (\d+) reference files"
+    line_count_claims = grep "(\d+) lines"
+    section_claims = grep "(\d+) (sections|phases)"
+
+    Store: {skill_name, claim_type, claimed_count}
+```
+
+**Step 2: Count Actual Resources**
+```
+FOR each skill with claims:
+    actual_file_count = Glob(pattern=".claude/skills/{skill}/references/*.md").count()
+    actual_line_count = sum(Read(file).line_count for file in references/)
+    actual_section_count = grep "^## " SKILL.md | count
+```
+
+**Step 3: Compare and Generate Violations**
+```
+FOR each claim in claims:
+    IF claimed_count != actual_count:
+        violations.append({
+            severity: "MEDIUM",
+            type: "documentation_drift",
+            file: skill_path,
+            message: "Claims {claimed_count} files, found {actual_count}",
+            remediation: "Update SKILL.md count or add/remove files"
+        })
+```
+
+**Step 4: Aggregate Results**
+```
+doc_accuracy_result = {
+    claims_validated: total_claims,
+    discrepancies: violations.length,
+    details: violations
+}
+```
+
+**Claim Types Validated:**
+
+| Claim Type | Pattern | Validation Method |
+|------------|---------|-------------------|
+| file_count | "Total: N reference files" | Glob count |
+| line_count | "N lines" | Sum of file lines |
+| section_count | "N sections/phases" | Grep header count |
+
+---
+
 ## Phase 2: Analysis Workflows
 
 ### 2.1 Anti-Pattern Detection (6 Steps)
@@ -174,6 +230,65 @@ LOW: advisory only
 ```
 qa_report_data["anti_pattern_violations"] = {...}
 ```
+
+---
+
+### 2.1.5 Regression vs Pre-existing Classification (STORY-175)
+
+**Purpose:** Classify violations as REGRESSION or PRE_EXISTING based on changed files.
+
+**Step 1: Identify Changed Files**
+```
+changed_files = git diff --name-only HEAD~1
+
+Edge cases:
+- First commit: Use `git diff --name-only origin/main...HEAD`
+- No git repo: Fallback to all REGRESSION (blocking)
+```
+
+**Step 2: Classify Each Violation**
+```
+FOR each violation:
+    IF violation.file IN changed_files:
+        classification = "REGRESSION"
+    ELSE:
+        classification = "PRE_EXISTING"
+```
+
+**Step 3: Set Blocking Status**
+```
+REGRESSION violations:
+    blocking = true  (blocks QA approval)
+
+PRE_EXISTING violations:
+    blocking = false (warning only, does not block)
+```
+
+**Step 4: Display Breakdown**
+```
+Format: "Regressions: {count} | Pre-existing: {count}"
+
+Example output:
+Regressions: 3 | Pre-existing: 7
+Blocking: 3 | Warnings: 7
+```
+
+**Implementation Module:** `devforgeai/qa/regression_classifier.py`
+
+**Key Functions:**
+- `get_changed_files()` - Execute git diff
+- `classify_violations()` - Classify batch of violations
+- `set_all_blocking_status()` - Set blocking for all
+- `should_block_qa()` - Check if any blocking violations
+- `get_breakdown()` - Format display string
+
+**Edge Case Handling:**
+| Scenario | Behavior |
+|----------|----------|
+| No git repository | All REGRESSION (blocking) |
+| First commit | Use `origin/main...HEAD` |
+| Empty changed files | All PRE_EXISTING (non-blocking) |
+| Permission/Timeout errors | Return empty list safely |
 
 ---
 

@@ -97,6 +97,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
   - Deterministic parsing for automated test generation
 - **Impact:** Test generation accuracy improved from 85% to 95%+
 - **References:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+    Read(file_path="devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
 
 **v1.0 (Initial) - Original Template**
 - **Features:** User story format, AC headers with checkboxes, freeform tech spec, Definition of Done section
@@ -114,6 +115,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 **Backward Compatibility:** All versions (v1.0, v2.0, v2.1) supported by framework. Old stories continue to work without migration. Migration is optional (for visual consistency only).
 
 **Template Location:** `assets/templates/story-template.md`
+    Read(file_path=".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
 
 **See Also:** Template changelog in `story-template.md` header (lines 1-58) for complete version history
 
@@ -174,6 +176,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 **Fallback:** If required markers missing, switch to interactive mode and ask questions
 
 **See `references/story-discovery.md` for batch mode detection and metadata extraction logic.**
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-discovery.md.md")
 
 ---
 
@@ -187,6 +190,8 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Purpose:** Generate story ID, discover epic/sprint context, collect metadata (with user-input guidance patterns)
 **Reference:** `references/story-discovery.md` (306 lines)
 **Guidance Integration:** `references/user-input-integration-guide.md` (1,247 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-discovery.md")
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/user-input-integration-guide.md")
 
 **Steps:**
 
@@ -197,6 +202,7 @@ Each phase loads its reference file on-demand for detailed implementation.
 **Execution:**
 ```
 guidance_path = "src/claude/skills/devforgeai-ideation/references/user-input-guidance.md"
+    Read(file_path=".claude/skills/devforgeai-ideation/references/user-input-guidance.md")
 
 TRY:
     guidance_content = Read(file_path=guidance_path)
@@ -343,6 +349,7 @@ ELSE:
 **Story Type Selection (STORY-126):**
 
 **Reference:** `references/story-type-classification.md` for full enum, phase skip matrix, and workflow diagrams.
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-type-classification.md")
 
 ```
 AskUserQuestion(
@@ -390,6 +397,7 @@ ELSE:
 ### Phase 2: Requirements Analysis
 **Purpose:** Generate user story and acceptance criteria
 **Reference:** `references/requirements-analysis.md` (201 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/requirements-analysis.md")
 **Subagent:** requirements-analyst
 **Steps:** Invoke subagent, validate output, refine if incomplete
 **Output:** User story, 3+ AC (Given/When/Then format), edge cases, NFRs
@@ -397,6 +405,7 @@ ELSE:
 ### Phase 3: Technical Specification
 **Purpose:** Define API contracts, data models, business rules
 **Reference:** `references/technical-specification-creation.md` (303 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/technical-specification-creation.md")
 **Subagent:** api-designer (conditional - if API endpoints detected)
 **Steps:** Detect API needs, generate contracts, define data models, document rules, identify dependencies
 **Output:** API contracts, data models, business rules, dependencies
@@ -416,6 +425,7 @@ Technical Specification section contains YAML code block with:
 
 **Complete schema reference:**
 `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`
+    Read(file_path="devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md")
 
 **The reference file `technical-specification-creation.md` contains:**
 - Complete v2.0 generation instructions
@@ -428,32 +438,39 @@ Technical Specification section contains YAML code block with:
 ### Phase 4: UI Specification
 **Purpose:** Document UI components, mockups, accessibility
 **Reference:** `references/ui-specification-creation.md` (312 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/ui-specification-creation.md")
 **Steps:** Detect UI needs, document components, create ASCII mockup, define interfaces, specify interactions, WCAG AA compliance
 **Output:** Component list, layout mockup, interfaces, interaction flows, accessibility requirements
 
 ### Phase 5: Story File Creation
 **Purpose:** Assemble complete story document
 **Reference:** `references/story-file-creation.md` (323 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-file-creation.md")
 **Template:** `assets/templates/story-template.md` (609 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-template.md")
 **Steps:** Load template, construct frontmatter, build sections, write to disk, verify
 **Output:** Complete .story.md file in devforgeai/specs/Stories/
 
 ### Phase 6: Epic/Sprint Linking
 **Purpose:** Update parent documents with story references
 **Reference:** `references/epic-sprint-linking.md` (140 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/epic-sprint-linking.md")
 **Steps:** Update epic file, update sprint file, verify linking
 **Output:** Epic/sprint files updated, links verified
 
 ### Phase 7: Self-Validation
 **Purpose:** Quality checks and self-healing
 **Reference:** `references/story-validation-workflow.md` (233 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/story-validation-workflow.md")
 **Checklist:** `references/validation-checklists.md` (1,038 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/validation-checklists.md")
 **Steps:** Validate frontmatter, user story, AC, tech spec, NFRs
 **Output:** Validated story, auto-corrected issues
 
 ### Phase 8: Completion Report
 **Purpose:** Generate summary and guide next actions
 **Reference:** `references/completion-report.md` (160 lines)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/completion-report.md")
 **Steps:** Generate completion summary, determine next action (AskUserQuestion)
 **Output:** Structured completion summary, next step recommendations
 
@@ -470,7 +487,9 @@ This skill delegates specialized tasks to subagents:
 
 **Subagent invocation details in:**
 - `references/requirements-analysis.md` (requirements-analyst coordination)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/requirements-analysis.md")
 - `references/technical-specification-creation.md` (api-designer coordination)
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/technical-specification-creation.md")
 
 ---
 
@@ -487,6 +506,7 @@ This skill delegates specialized tasks to subagents:
 - devforgeai-qa (AC → validation targets)
 
 **See `references/integration-guide.md` for complete integration patterns.**
+    Read(file_path=".claude/skills/devforgeai-story-creation/references/integration-guide.md")
 
 ---
 

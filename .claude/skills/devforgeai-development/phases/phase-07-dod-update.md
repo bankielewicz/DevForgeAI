@@ -78,6 +78,7 @@ IF NOT found:
    ```
 
 **Reference:** `references/dod-update-workflow.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
 
 ---
 
@@ -144,6 +145,7 @@ IF NOT found:
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

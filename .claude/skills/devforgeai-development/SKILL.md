@@ -249,6 +249,7 @@ FOR phase_num in range(CURRENT_PHASE, 11):
 
     # 7. Record subagent invocations (automatic)
     #    After each Task(), record: devforgeai-validate phase-record ${STORY_ID} --phase={phase_id} --subagent={name}
+    Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
 ```
 
 ---

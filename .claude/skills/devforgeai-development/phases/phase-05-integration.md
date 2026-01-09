@@ -75,6 +75,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
 
 **Reference:** `references/integration-testing.md` for complete workflow
+    Read(file_path=".claude/skills/devforgeai-development/references/integration-testing.md")
 
 ---
 
@@ -135,6 +136,7 @@ IF all checks pass:
 ```
 
 **Reference:** `references/observation-capture.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/observation-capture.md")
 
 ---
 

@@ -37,7 +37,6 @@ Do not skip any phases in the devforgeai-qa skill.
 Extracts story ID and mode (light/deep) from conversation context.
 
 **See `references/parameter-extraction.md`** for extraction algorithm (YAML frontmatter, file reference, explicit statement, status inference).
-    Read(file_path=".claude/skills/devforgeai-qa/references/parameter-extraction.md.md")
 
 ---
 
@@ -52,7 +51,6 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 **Rationale:** RCA-007 - Manual validation missed STORY-004→005→006 chain, causing work loss.
 
 **See `references/dod-protocol.md`** for protocol requirements and enforcement.
-    Read(file_path=".claude/skills/devforgeai-qa/references/dod-protocol.md")
 
 ---
 
@@ -97,7 +95,6 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 **Purpose:** Detect interrupted QA sessions and offer resume capability.
 
 **Constitution Alignment:** Skills MUST NOT assume state from previous invocations (architecture-constraints.md line 38)
-    Read(file_path=".claude/skills/devforgeai-qa/references/deep-validation-workflow.md")
 
 ```
 checkpoint_path = "devforgeai/qa/reports/{STORY_ID}/.qa-session-checkpoint.json"
@@ -171,7 +168,6 @@ ELSE:
 ### Step 0.2: Load Test Isolation Configuration
 
 **Reference:** `references/test-isolation-service.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/test-isolation-service.md")
 
 ```
 Read(file_path="devforgeai/config/test-isolation.yaml")
@@ -264,8 +260,6 @@ ELSE:
 
 # Store for Phase 2 adaptive validator selection
 # See references/parallel-validation.md for validator mapping
-    Read(file_path=".claude/skills/devforgeai-qa/references/parallel-validation.md")
-
 ```
 
 **Validator Selection by Story Type:**
@@ -364,8 +358,6 @@ Display: "✓ Phase 0 verified complete"
 
 **Reference:** `references/traceability-validation-algorithm.md`
 **Templates:** `assets/traceability-report-template.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md")
-    Read(file_path=".claude/skills/devforgeai-qa/assets/traceability-report-template.md")
 
 ```
 # Extract AC Requirements
@@ -400,8 +392,6 @@ IF traceability_score < 100:
 
 **Reference:** `references/coverage-analysis-workflow.md`
 **Guide:** `references/coverage-analysis.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/coverage-analysis-workflow.md")
-    Read(file_path=".claude/skills/devforgeai-qa/references/coverage-analysis.md")
 
 Execute the 7-step coverage workflow:
 1. Load coverage thresholds (95%/85%/80%)
@@ -452,7 +442,6 @@ Display: "✓ Phase 1 verified complete"
 
 **Reference:** `references/anti-pattern-detection-workflow.md`
 **Subagent:** anti-pattern-scanner
-    Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
 
 ```
 # Load ALL 6 context files
@@ -472,7 +461,6 @@ violations = parse_json_response()
 ### Step 2.2: Parallel Validation (Deep Mode Only)
 
 **Reference:** `references/parallel-validation.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/parallel-validation.md")
 
 Execute 3 validators in SINGLE message (parallel):
 ```
@@ -487,7 +475,6 @@ Task(subagent_type="security-auditor", prompt="Scan for security issues...", des
 
 **Reference:** `references/spec-compliance-workflow.md`
 **Subagent:** deferral-validator (MANDATORY if deferrals exist)
-    Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
 
 1. Validate story documentation (Implementation Notes, DoD Status, Test Results)
 2. Validate acceptance criteria (tests exist and pass for each)
@@ -499,7 +486,6 @@ Task(subagent_type="security-auditor", prompt="Scan for security issues...", des
 ### Step 2.4: Code Quality Metrics
 
 **Reference:** `references/code-quality-workflow.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
 
 1. Analyze cyclomatic complexity (tool: radon/complexity-report)
 2. Calculate maintainability index (MI <70 = MEDIUM, <50 = HIGH)
@@ -654,8 +640,6 @@ ELSE:
 
 **Step 4: Edit Append History Entry (ONLY after verification succeeds):**
 **Reference:** `.claude/references/changelog-update-guide.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/changelog-update-guide.md")
-
 ```
 # IF verification succeeds THEN append history
 # do not append if fail - skip history on fail
@@ -794,7 +778,6 @@ IF config.concurrency.locking_enabled:
 ### Step 4.2: Invoke Feedback Hooks
 
 **Reference:** `references/feedback-hooks-workflow.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
 
 ```
 # Map QA result to hook status
@@ -904,7 +887,6 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-4.marker",
       content="phase: 4\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 4 marker written"
-Display: "Phase 4 ✓ | Cleanup | Complete"
 Display: "✓ QA workflow complete - all 5 phase markers written"
 ```
 
@@ -945,7 +927,6 @@ ELSE:
 6. generate_test_stubs.py
 
 **See `references/automation-scripts.md`** for usage.
-    Read(file_path=".claude/skills/devforgeai-qa/references/automation-scripts.md")
 
 ---
 
@@ -980,7 +961,6 @@ ELSE:
 ## Reference Files
 
 **Single consolidated workflow (deep mode):** `references/deep-validation-workflow.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/deep-validation-workflow.md")
 
 **Individual references (21 total):**
 - Workflows: parameter-extraction, dod-protocol, coverage-analysis-workflow, anti-pattern-detection-workflow, parallel-validation, spec-compliance-workflow, code-quality-workflow, report-generation, feedback-hooks-workflow, story-update-workflow, marker-operations

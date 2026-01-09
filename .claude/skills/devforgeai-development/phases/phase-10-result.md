@@ -86,6 +86,7 @@ c. **Return Result to Command**
    - No further processing needed in skill
 
 **Reference:** `references/dev-result-formatting-guide.md`
+    Read(file_path=".claude/skills/devforgeai-development/references/dev-result-formatting-guide.md")
 
 ---
 

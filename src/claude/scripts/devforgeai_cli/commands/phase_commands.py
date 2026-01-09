@@ -397,3 +397,142 @@ def phase_record_command(
         else:
             print(f"ERROR: {e}")
         return 2
+
+
+# =============================================================================
+# STORY-188: Observation Constants
+# =============================================================================
+
+# Observation categories (AC-4)
+VALID_CATEGORIES = ["friction", "gap", "success", "pattern"]
+
+# Observation severities (AC-5)
+VALID_SEVERITIES = ["low", "medium", "high"]
+
+
+def phase_observe_command(
+    story_id: str,
+    phase: str,
+    category: str,
+    note: str,
+    severity: str = "medium",
+    project_root: str = ".",
+    format: str = "text"
+) -> int:
+    """
+    Record a workflow observation for a phase.
+
+    Captures friction, gaps, successes, and patterns during
+    TDD workflow execution for AI analysis.
+
+    Args:
+        story_id: Story identifier (e.g., "STORY-188")
+        phase: Phase ID (e.g., "04")
+        category: Observation category (friction, gap, success, pattern)
+        note: Description of the observation
+        severity: Severity level (low, medium, high). Default: medium
+        project_root: Project root directory
+        format: Output format ("text" or "json")
+
+    Returns:
+        Exit code: 0=recorded, 1=not found, 2=invalid input
+    """
+    try:
+        # Validate category
+        if category not in VALID_CATEGORIES:
+            if format == "json":
+                print(json.dumps({
+                    "success": False,
+                    "error": f"Invalid category: '{category}'. Must be one of: {VALID_CATEGORIES}",
+                    "story_id": story_id
+                }))
+            else:
+                print(f"ERROR: Invalid category '{category}'")
+                print(f"  Valid categories: {', '.join(VALID_CATEGORIES)}")
+            return 2
+
+        # Validate severity
+        if severity not in VALID_SEVERITIES:
+            if format == "json":
+                print(json.dumps({
+                    "success": False,
+                    "error": f"Invalid severity: '{severity}'. Must be one of: {VALID_SEVERITIES}",
+                    "story_id": story_id
+                }))
+            else:
+                print(f"ERROR: Invalid severity '{severity}'")
+                print(f"  Valid severities: {', '.join(VALID_SEVERITIES)}")
+            return 2
+
+        # Validate note is not empty
+        if not note or not note.strip():
+            if format == "json":
+                print(json.dumps({
+                    "success": False,
+                    "error": "Observation note cannot be empty",
+                    "story_id": story_id
+                }))
+            else:
+                print("ERROR: Observation note cannot be empty")
+            return 2
+
+        ps = _get_phase_state(project_root)
+
+        # Add observation
+        observation_id = ps.add_observation(
+            story_id=story_id,
+            phase_id=phase,
+            category=category,
+            note=note,
+            severity=severity
+        )
+
+        if observation_id is None:
+            if format == "json":
+                print(json.dumps({
+                    "success": False,
+                    "error": "State file not found",
+                    "story_id": story_id
+                }))
+            else:
+                print(f"State file not found for {story_id}")
+            return 1
+
+        if format == "json":
+            print(json.dumps({
+                "success": True,
+                "story_id": story_id,
+                "phase": phase,
+                "category": category,
+                "severity": severity,
+                "observation_id": observation_id
+            }))
+        else:
+            print(f"Recorded observation for {story_id} phase {phase}")
+            print(f"  Category: {category}")
+            print(f"  Severity: {severity}")
+            print(f"  ID: {observation_id}")
+
+        return 0
+
+    except ValueError as e:
+        if format == "json":
+            print(json.dumps({
+                "success": False,
+                "error": str(e),
+                "story_id": story_id
+            }))
+        else:
+            print(f"ERROR: {e}")
+        return 2
+
+    except Exception as e:
+        if format == "json":
+            print(json.dumps({
+                "success": False,
+                "error": str(e),
+                "story_id": story_id
+            }))
+        else:
+            print(f"ERROR: {e}")
+        return 2

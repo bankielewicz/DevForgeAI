@@ -309,6 +309,52 @@ def main():
     )
 
     # ======================================================================
+    # phase-observe command (STORY-188)
+    # ======================================================================
+    phase_observe_parser = subparsers.add_parser(
+        'phase-observe',
+        help='Record workflow observation for a phase',
+        description='Captures friction, gaps, successes, and patterns during TDD workflow execution'
+    )
+    phase_observe_parser.add_argument(
+        'story_id',
+        help='Story ID (format: STORY-XXX)'
+    )
+    phase_observe_parser.add_argument(
+        '--phase',
+        required=True,
+        help='Phase ID (01-10)'
+    )
+    phase_observe_parser.add_argument(
+        '--category',
+        required=True,
+        choices=['friction', 'gap', 'success', 'pattern'],
+        help='Observation category'
+    )
+    phase_observe_parser.add_argument(
+        '--note',
+        required=True,
+        help='Observation description'
+    )
+    phase_observe_parser.add_argument(
+        '--severity',
+        default='medium',
+        choices=['low', 'medium', 'high'],
+        help='Severity level (default: medium)'
+    )
+    phase_observe_parser.add_argument(
+        '--project-root',
+        default='.',
+        help='Project root directory (default: current directory)'
+    )
+    phase_observe_parser.add_argument(
+        '--format',
+        choices=['text', 'json'],
+        default='text',
+        help='Output format (default: text)'
+    )
+
+    # ======================================================================
     # ast-grep command (STORY-115)
     # ======================================================================
     astgrep_parser = subparsers.add_parser(
@@ -463,6 +509,18 @@ def main():
                 story_id=args.story_id,
                 phase=args.phase,
                 subagent=args.subagent,
+                project_root=args.project_root,
+                format=args.format
+            )
+
+        elif args.command == 'phase-observe':
+            from .commands.phase_commands import phase_observe_command
+            return phase_observe_command(
+                story_id=args.story_id,
+                phase=args.phase,
+                category=args.category,
+                note=args.note,
+                severity=args.severity,
                 project_root=args.project_root,
                 format=args.format
             )
