@@ -295,6 +295,7 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-0.marker",
       content="phase: 0\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 0 marker written"
+Display: "Phase 0 ✓ | Setup | Lock acquired"
 ```
 
 ---
@@ -420,6 +421,7 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker",
       content="phase: 1\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 1 marker written"
+Display: "Phase 1 ✓ | Validation | {traceability_score}% traceability"
 ```
 
 ---
@@ -509,6 +511,7 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker",
       content="phase: 2\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 2 marker written"
+Display: "Phase 2 ✓ | Analysis | {validator_count}/3 validators"
 ```
 
 ---
@@ -747,6 +750,7 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker",
       content="phase: 3\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 3 marker written"
+Display: "Phase 3 ✓ | Reporting | {overall_status}"
 ```
 
 ---
@@ -883,6 +887,7 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-4.marker",
       content="phase: 4\nstory_id: {STORY_ID}\nmode: {MODE}\ntimestamp: {ISO_8601}\nstatus: complete")
 
 Display: "✓ Phase 4 marker written"
+Display: "Phase 4 ✓ | Cleanup | Complete"
 Display: "✓ QA workflow complete - all 5 phase markers written"
 ```
 
