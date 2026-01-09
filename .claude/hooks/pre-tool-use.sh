@@ -109,6 +109,16 @@ SAFE_PATTERNS=(
   "basename "                     # Path manipulation (safe)
 )
 
+# CRITICAL: Define BLOCKED_PATTERNS before SAFE_PATTERNS loop uses it (STORY-195 fix)
+BLOCKED_PATTERNS=(
+  "rm -rf"
+  "sudo"
+  "git push"
+  "npm publish"
+  "curl"
+  "wget"
+)
+
 log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
 
 # RCA-015 REC-02: Quote-aware base command extraction
@@ -214,16 +224,7 @@ done
 
 log "No safe pattern matched"
 
-# Block anti-patterns
-BLOCKED_PATTERNS=(
-  "rm -rf"
-  "sudo"
-  "git push"
-  "npm publish"
-  "curl"
-  "wget"
-)
-
+# Block anti-patterns (BLOCKED_PATTERNS defined at top for use in safety checks)
 log "Checking against ${#BLOCKED_PATTERNS[@]} blocked patterns..."
 
 for pattern in "${BLOCKED_PATTERNS[@]}"; do
