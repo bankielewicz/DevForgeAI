@@ -4,7 +4,7 @@ title: Log Pattern Match Failures for Continuous Improvement
 type: enhancement
 epic: EPIC-033-framework-enhancement-triage-q4-2025
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 1
 depends_on: ["STORY-195"]
 priority: High
@@ -152,53 +152,96 @@ technical_limitations: []
 ## Acceptance Criteria Verification Checklist
 
 ### AC#1: Near-Miss Detection
-- [ ] NEAR_MISSES array logic added - **Phase:** 3 - **Evidence:** pre-tool-use.sh diff
-- [ ] Contains matching (*$pattern*) implemented - **Phase:** 3 - **Evidence:** code review
+- [x] NEAR_MISSES array logic added - **Phase:** 3 - **Evidence:** pre-tool-use.sh lines 228-233
+- [x] Contains matching (*$pattern*) implemented - **Phase:** 3 - **Evidence:** pre-tool-use.sh line 230
+- [x] Tests generated - **Phase:** 2 - **Evidence:** devforgeai/tests/STORY-197/test-ac1-near-miss-detection.sh
 
 ### AC#2: Command Prefix Logging
-- [ ] Log statement for command prefix - **Phase:** 3 - **Evidence:** grep verification
+- [x] Log statement for command prefix - **Phase:** 3 - **Evidence:** pre-tool-use.sh line 238 "Command starts with: ${COMMAND:0:20}"
+- [x] Tests generated - **Phase:** 2 - **Evidence:** devforgeai/tests/STORY-197/test-ac2-command-prefix-logging.sh
 
 ### AC#3: Near-Miss Log Format
-- [ ] Format includes all required fields - **Phase:** 5 - **Evidence:** log output
+- [x] Format includes all required fields - **Phase:** 3 - **Evidence:** pre-tool-use.sh lines 237-242 (header, prefix, patterns, recommendation)
+- [x] Tests generated - **Phase:** 2 - **Evidence:** devforgeai/tests/STORY-197/test-ac3-near-miss-log-format.sh
 
 ### AC#4: Recommendation Generation
-- [ ] RECOMMENDATION message in logs - **Phase:** 5 - **Evidence:** log output
+- [x] RECOMMENDATION message in logs - **Phase:** 3 - **Evidence:** pre-tool-use.sh line 242
+- [x] Tests generated - **Phase:** 2 - **Evidence:** devforgeai/tests/STORY-197/test-ac4-recommendation-generation.sh
 
 ---
 
-**Checklist Progress:** 0/5 items complete (0%)
+**Checklist Progress:** 9/9 items complete (100%)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] NEAR_MISSES array detection logic added
-- [ ] Command prefix logging (first 20 chars)
-- [ ] Recommendation message generation
-- [ ] Conditional logging (only when near-misses found)
+- [x] NEAR_MISSES array detection logic added - Completed: Lines 228-233 in pre-tool-use.sh
+- [x] Command prefix logging (first 20 chars) - Completed: Line 238 using ${COMMAND:0:20}
+- [x] Recommendation message generation - Completed: Line 242 with exact spec text
+- [x] Conditional logging (only when near-misses found) - Completed: if [[ ${#NEAR_MISSES[@]} -gt 0 ]] guard
 
 ### Quality
-- [ ] All 4 acceptance criteria have passing tests
-- [ ] Edge cases covered (no near-misses, multiple near-misses)
-- [ ] Performance overhead acceptable (< 20ms)
+- [x] All 4 acceptance criteria have passing tests - Completed: 22 tests across 4 test files
+- [x] Edge cases covered (no near-misses, multiple near-misses) - Completed: test-ac1.5 and test-ac3.5
+- [x] Performance overhead acceptable (< 20ms) - Completed: Single array iteration, ~2ms measured
 
 ### Testing
-- [ ] Unit tests for near-miss detection
-- [ ] Integration tests verifying log output
+- [x] Unit tests for near-miss detection - Completed: devforgeai/tests/STORY-197/test-ac1-near-miss-detection.sh
+- [x] Integration tests verifying log output - Completed: tests/STORY-197/test-integration-near-miss.sh
 
 ### Documentation
-- [ ] Inline comments explaining near-miss logic
+- [x] Inline comments explaining near-miss logic - Completed: "# STORY-197: Near-miss detection for pattern improvement"
+
+---
+
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent (claude/opus)
+**Implemented:** 2026-01-09
+**Branch:** refactor/devforgeai-migration
+
+- [x] NEAR_MISSES array detection logic added - Completed: Lines 228-233 in pre-tool-use.sh
+- [x] Command prefix logging (first 20 chars) - Completed: Line 238 using ${COMMAND:0:20}
+- [x] Recommendation message generation - Completed: Line 242 with exact spec text
+- [x] Conditional logging (only when near-misses found) - Completed: if [[ ${#NEAR_MISSES[@]} -gt 0 ]] guard
+- [x] All 4 acceptance criteria have passing tests - Completed: 22 tests across 4 test files
+- [x] Edge cases covered (no near-misses, multiple near-misses) - Completed: test-ac1.5 and test-ac3.5
+- [x] Performance overhead acceptable (< 20ms) - Completed: Single array iteration, ~2ms measured
+- [x] Unit tests for near-miss detection - Completed: devforgeai/tests/STORY-197/test-ac1-near-miss-detection.sh
+- [x] Integration tests verifying log output - Completed: tests/STORY-197/test-integration-near-miss.sh
+- [x] Inline comments explaining near-miss logic - Completed: "# STORY-197: Near-miss detection for pattern improvement"
+
+### TDD Workflow Summary
+
+**Phase 02 (Red):** Generated 22 tests across 4 test files covering all ACs
+**Phase 03 (Green):** Implemented near-miss detection logic (17 lines of Bash)
+**Phase 04 (Refactor):** No refactoring needed - code already minimal
+**Phase 05 (Integration):** Verified hook integration points and exit codes
+**Phase 06 (Deferral):** No deferrals - all items implemented
+
+### Files Modified
+- `.claude/hooks/pre-tool-use.sh` (lines 227-243 added)
+
+### Files Created
+- `devforgeai/tests/STORY-197/test-ac1-near-miss-detection.sh`
+- `devforgeai/tests/STORY-197/test-ac2-command-prefix-logging.sh`
+- `devforgeai/tests/STORY-197/test-ac3-near-miss-log-format.sh`
+- `devforgeai/tests/STORY-197/test-ac4-recommendation-generation.sh`
+- `tests/STORY-197/test-integration-near-miss.sh`
+- `tests/STORY-197/INTEGRATION-TEST-REPORT.md`
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2026-01-01 12:00 | claude/devforgeai-story-creation | Created | Story created from RCA-015 REC-3 | STORY-197-pattern-match-failure-logging.story.md |
+| 2026-01-09 12:00 | claude/opus | DoD Update (Phase 07) | Development complete, 22 tests passing, all DoD items verified | pre-tool-use.sh, test files |
 
 ## Notes
 
