@@ -385,335 +385,320 @@ get_archive_stats() {
 }
 
 # =============================================================================
-# STORY-233: Search and Retrieve Decision Context Functions
+# STORY-232 Helper: Extract markdown section by header name
+# Usage: extract_markdown_section "$file" "Section Name"
+# Extracts content from "## Section Name" to next "##" or EOF
 # =============================================================================
+extract_markdown_section() {
+    local file="$1"
+    local section_name="$2"
 
-# =============================================================================
-# Function 5: search_by_story_id
-# AC#1: Search decisions by story ID
-# =============================================================================
-search_by_story_id() {
-    local index_dir="$1"
-    local story_id="$2"
-
-    local index_file="$index_dir/searchable_index.json"
-
-    # Validate index exists
-    if [[ ! -f "$index_file" ]]; then
-        echo '{"error": "Index not found", "story_id": "'"$story_id"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    # Validate story ID format
-    if [[ ! "$story_id" =~ ^STORY-[0-9]+$ ]]; then
-        echo '{"error": "Invalid story ID format", "story_id": "'"$story_id"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    # Flatten JSON to single line for regex parsing
-    local index_content
-    index_content=$(cat "$index_file" | tr '\n' ' ' | tr -s ' ')
-
-    # Check for story_index first (optimized path)
-    local plan_files
-    plan_files=$(echo "$index_content" | grep -oE "\"$story_id\": *\[[^\]]*\]" | sed 's/.*\[\([^]]*\)\]/\1/' | tr -d '"' | tr ',' '\n' | tr -d ' ' | grep -v '^$')
-
-    if [[ -z "$plan_files" ]]; then
-        # Fallback: search through plans section for matching story_id
-        # Extract all plan file names
-        local all_plans
-        all_plans=$(echo "$index_content" | grep -oE '"[A-Za-z0-9_-]+\.md": *\{' | sed 's/": *{//' | tr -d '"')
-
-        while IFS= read -r pfile; do
-            [[ -z "$pfile" ]] && continue
-            # Check if this plan has the target story_id
-            if echo "$index_content" | grep -qE "\"$pfile\": *\{[^}]*\"story_id\": *\"$story_id\""; then
-                plan_files+="$pfile"$'\n'
-            fi
-        done <<< "$all_plans"
-    fi
-
-    if [[ -z "$plan_files" ]]; then
-        echo '{"story_id": "'"$story_id"'", "decisions": [], "count": 0}'
-        return 0
-    fi
-
-    # Build decisions array
-    local decisions="["
-    local is_first=true
-    local count=0
-
-    while IFS= read -r plan_file; do
-        [[ -z "$plan_file" ]] && continue
-
-        # Extract plan data block (everything between this plan and next plan or end)
-        local plan_data
-        plan_data=$(echo "$index_content" | grep -oP "\"$plan_file\": *\{[^}]+\}" | head -1)
-
-        if [[ -n "$plan_data" ]]; then
-            # Extract fields
-            local decision=$(echo "$plan_data" | grep -oE '"decision": *"[^"]*"' | sed 's/"decision": *"//' | sed 's/"$//')
-            local status=$(echo "$plan_data" | grep -oE '"status": *"[^"]*"' | sed 's/"status": *"//' | sed 's/"$//')
-            local created=$(echo "$plan_data" | grep -oE '"created": *"[^"]*"' | sed 's/"created": *"//' | sed 's/"$//')
-
-            if [[ "$is_first" == "true" ]]; then
-                is_first=false
-            else
-                decisions+=", "
-            fi
-
-            decisions+="{\"plan_file\": \"$plan_file\", \"decision\": \"$decision\", \"status\": \"$status\", \"created\": \"$created\"}"
-            ((count++))
-        fi
-    done <<< "$plan_files"
-
-    decisions+="]"
-
-    printf '{"story_id": "%s", "decisions": %s, "count": %d}\n' "$story_id" "$decisions" "$count"
+    awk -v section="$section_name" '
+        $0 ~ ("^## " section "$") { capture=1; next }
+        /^## / && capture { capture=0 }
+        capture { print }
+    ' "$file" 2>/dev/null | sed '/^$/d' | tr '\n' ' ' | sed 's/  */ /g' | sed 's/^ //;s/ $//' || echo ""
 }
 
 # =============================================================================
-# Function 6: search_by_date_range
-# AC#2: Search decisions by date range
+# STORY-232 Helper: Extract JSON field value from JSON string
+# Usage: extract_json_field "$json_string" "field_name"
 # =============================================================================
-search_by_date_range() {
-    local index_dir="$1"
-    local start_date="$2"
-    local end_date="$3"
+extract_json_field() {
+    local json_string="$1"
+    local field_name="$2"
 
-    local index_file="$index_dir/searchable_index.json"
-
-    # Validate index exists
-    if [[ ! -f "$index_file" ]]; then
-        echo '{"error": "Index not found", "start_date": "'"$start_date"'", "end_date": "'"$end_date"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    # Validate date format (YYYY-MM-DD)
-    if [[ ! "$start_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-        echo '{"error": "Invalid start date format", "start_date": "'"$start_date"'", "end_date": "'"$end_date"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    if [[ ! "$end_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
-        echo '{"error": "Invalid end date format", "start_date": "'"$start_date"'", "end_date": "'"$end_date"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    # Handle reversed dates
-    if [[ "$start_date" > "$end_date" ]]; then
-        echo '{"error": "Start date after end date", "start_date": "'"$start_date"'", "end_date": "'"$end_date"'", "decisions": [], "count": 0}'
-        return 1
-    fi
-
-    # Flatten JSON to single line for regex parsing
-    local index_content
-    index_content=$(cat "$index_file" | tr '\n' ' ' | tr -s ' ')
-
-    # Extract all plans with their dates
-    local decisions="["
-    local is_first=true
-    local count=0
-
-    # Get all plan entries
-    local plan_files
-    plan_files=$(echo "$index_content" | grep -oE '"[A-Za-z0-9_-]+\.md":' | tr -d '":')
-
-    while IFS= read -r plan_file; do
-        [[ -z "$plan_file" ]] && continue
-
-        # Extract plan data
-        local plan_data
-        plan_data=$(echo "$index_content" | grep -oP "\"$plan_file\": *\{[^}]+\}" | head -1)
-
-        if [[ -n "$plan_data" ]]; then
-            local created=$(echo "$plan_data" | grep -oE '"created": *"[^"]*"' | sed 's/"created": *"//' | sed 's/"$//')
-
-            # Check if date is in range (inclusive)
-            # String comparison: dates in YYYY-MM-DD format can be compared lexicographically
-            if [[ -n "$created" ]] && [[ ! "$created" < "$start_date" ]] && [[ ! "$created" > "$end_date" ]]; then
-                local decision=$(echo "$plan_data" | grep -oE '"decision": *"[^"]*"' | sed 's/"decision": *"//' | sed 's/"$//')
-                local story_id=$(echo "$plan_data" | grep -oE '"story_id": *"[^"]*"' | sed 's/"story_id": *"//' | sed 's/"$//')
-                local status=$(echo "$plan_data" | grep -oE '"status": *"[^"]*"' | sed 's/"status": *"//' | sed 's/"$//')
-
-                if [[ "$is_first" == "true" ]]; then
-                    is_first=false
-                else
-                    decisions+=", "
-                fi
-
-                decisions+="{\"plan_file\": \"$plan_file\", \"story_id\": \"$story_id\", \"decision\": \"$decision\", \"status\": \"$status\", \"created\": \"$created\"}"
-                ((count++))
-            fi
-        fi
-    done <<< "$plan_files"
-
-    decisions+="]"
-
-    printf '{"start_date": "%s", "end_date": "%s", "decisions": %s, "count": %d}\n' "$start_date" "$end_date" "$decisions" "$count"
+    echo "$json_string" | grep -oE "\"$field_name\": *\"[^\"]*\"" | \
+        sed "s/\"$field_name\": *\"//" | sed 's/"$//' || echo ""
 }
 
 # =============================================================================
-# Function 7: search_by_keywords
-# AC#3: Search with relevance ranking
+# STORY-232 Helper: Add keyword-to-plan mapping
+# Usage: add_keyword_mapping keyword_array_name "$keyword" "$plan_name"
 # =============================================================================
-search_by_keywords() {
-    local index_dir="$1"
-    local keywords="$2"
+add_keyword_mapping() {
+    local -n keyword_map_ref=$1
+    local keyword="$2"
+    local plan_name="$3"
 
-    local index_file="$index_dir/searchable_index.json"
+    if [[ -z "$keyword" ]]; then return; fi
 
-    # Validate index exists
-    if [[ ! -f "$index_file" ]]; then
-        echo '{"error": "Index not found", "keywords": "'"$keywords"'", "results": [], "count": 0}'
+    if [[ -n "${keyword_map_ref[$keyword]:-}" ]]; then
+        # Check if plan already in list
+        if ! echo "${keyword_map_ref[$keyword]}" | grep -q "\"$plan_name\""; then
+            keyword_map_ref["$keyword"]="${keyword_map_ref[$keyword]}, \"$plan_name\""
+        fi
+    else
+        keyword_map_ref["$keyword"]="\"$plan_name\""
+    fi
+}
+
+# =============================================================================
+# STORY-232: Function 5: extract_decision_sections
+# AC#2: Extract ## Decision and ## Technical Approach sections from plan file
+# Usage: extract_decision_sections "$plan_file"
+# Returns: JSON with "decision" and "technical_approach" keys
+# =============================================================================
+extract_decision_sections() {
+    local plan_file="${1:-}"
+
+    # Validate argument provided
+    if [[ -z "$plan_file" ]]; then
+        echo '{"error": "plan_file argument required"}'
         return 1
     fi
 
-    # Handle empty keywords
-    if [[ -z "$keywords" ]]; then
-        echo '{"keywords": "", "results": [], "count": 0}'
-        return 0
+    # Validate path doesn't contain traversal
+    if [[ "$plan_file" == *".."* ]]; then
+        echo '{"error": "Path traversal not allowed"}'
+        return 1
     fi
 
-    # Flatten JSON to single line for regex parsing
-    local index_content
-    index_content=$(cat "$index_file" | tr '\n' ' ' | tr -s ' ')
+    validate_file_exists "$plan_file" || return 1
 
-    # Convert keywords to lowercase for case-insensitive search
-    local keywords_lower
-    keywords_lower=$(echo "$keywords" | tr '[:upper:]' '[:lower:]')
+    # Extract sections using helper
+    local decision_content
+    decision_content=$(extract_markdown_section "$plan_file" "Decision")
 
-    # Split keywords into array
-    local -a keyword_array
-    IFS=' ' read -ra keyword_array <<< "$keywords_lower"
+    local technical_approach_content
+    technical_approach_content=$(extract_markdown_section "$plan_file" "Technical Approach")
 
-    # Declare associative array for relevance scores
-    declare -A relevance_scores
-    declare -A plan_data_cache
+    # Escape content for JSON
+    local escaped_decision
+    escaped_decision=$(json_escape "$decision_content")
 
-    # Get all plan files
-    local plan_files
-    plan_files=$(echo "$index_content" | grep -oE '"[A-Za-z0-9_-]+\.md":' | tr -d '":')
+    local escaped_technical
+    escaped_technical=$(json_escape "$technical_approach_content")
 
-    while IFS= read -r plan_file; do
-        [[ -z "$plan_file" ]] && continue
+    # Return JSON
+    printf '{"decision": "%s", "technical_approach": "%s"}\n' "$escaped_decision" "$escaped_technical"
+}
 
-        # Extract plan data
-        local plan_data
-        plan_data=$(echo "$index_content" | grep -oP "\"$plan_file\": *\{[^}]+\}" | head -1)
+# =============================================================================
+# STORY-232: Function 6: build_searchable_index
+# AC#1: Build searchable index with frontmatter (story ID, status, created date)
+# AC#3: Create searchable_index.json with full-text content
+# Usage: build_searchable_index "$plans_dir" "$index_dir"
+# Returns: JSON with "status", "plan_count", "index_path" keys
+# =============================================================================
+build_searchable_index() {
+    local plans_dir="${1:-}"
+    local index_dir="${2:-}"
 
-        if [[ -n "$plan_data" ]]; then
-            plan_data_cache["$plan_file"]="$plan_data"
+    # Validate arguments provided
+    if [[ -z "$plans_dir" ]] || [[ -z "$index_dir" ]]; then
+        echo '{"error": "plans_dir and index_dir arguments required"}'
+        return 1
+    fi
 
-            # Get full text for searching (combine all text fields)
-            local full_text
-            full_text=$(echo "$plan_data" | grep -oE '"(decision|technical_approach|rationale|outcome|full_text)": *"[^"]*"' | sed 's/.*: *"//' | sed 's/"$//' | tr '\n' ' ')
-            local full_text_lower
-            full_text_lower=$(echo "$full_text" | tr '[:upper:]' '[:lower:]')
+    # Validate paths don't contain traversal
+    if [[ "$plans_dir" == *".."* ]] || [[ "$index_dir" == *".."* ]]; then
+        echo '{"error": "Path traversal not allowed"}'
+        return 1
+    fi
 
-            # Calculate relevance score
-            local score=0
-            for keyword in "${keyword_array[@]}"; do
-                # Count occurrences of keyword
-                local matches
-                matches=$(echo "$full_text_lower" | grep -o "$keyword" | wc -l)
-                score=$((score + matches))
-            done
+    if [[ ! -d "$plans_dir" ]]; then
+        echo '{"error": "Plans directory not found"}'
+        return 1
+    fi
 
-            if [[ $score -gt 0 ]]; then
-                relevance_scores["$plan_file"]=$score
-            fi
+    # Create index directory if it doesn't exist
+    mkdir -p "$index_dir"
+
+    # Start building JSON
+    local plans_json="{"
+    local keywords_json="{"
+    local is_first_plan=true
+    local plan_count=0
+
+    # Associative array for keyword tracking
+    declare -A keyword_to_plans
+
+    # Process all plan files - OPTIMIZED: Single file read per plan
+    while IFS= read -r -d '' plan_file; do
+        local plan_name
+        plan_name=$(basename "$plan_file")
+
+        # Extract story ID from filename (STORY-NNN pattern) - no subshell
+        local story_id=""
+        [[ "$plan_name" =~ STORY-([0-9]+) ]] && story_id="STORY-${BASH_REMATCH[1]}"
+
+        # OPTIMIZATION: Read file content ONCE into memory
+        local file_content
+        file_content=$(cat "$plan_file" 2>/dev/null) || file_content=""
+
+        # Extract frontmatter from cached content
+        local status="" created=""
+        if [[ "$file_content" == "---"* ]]; then
+            local yaml_block
+            yaml_block=$(echo "$file_content" | awk 'BEGIN{f=0} /^---$/{f++; if(f==2) exit; next} f==1{print}')
+            status=$(echo "$yaml_block" | grep -E "^status:" | sed 's/^status:[[:space:]]*//' | tr -d '"' | tr -d "'" || echo "")
+            created=$(echo "$yaml_block" | grep -E "^created:" | sed 's/^created:[[:space:]]*//' | tr -d '"' | tr -d "'" || echo "")
         fi
-    done <<< "$plan_files"
 
-    # Sort by relevance score (descending)
-    local sorted_plans
-    sorted_plans=$(for plan in "${!relevance_scores[@]}"; do
-        echo "${relevance_scores[$plan]} $plan"
-    done | sort -rn | awk '{print $2}')
+        # Extract decision sections from cached content
+        local decision="" technical_approach=""
+        decision=$(echo "$file_content" | awk '/^## Decision$/{capture=1; next} /^## /{capture=0} capture{print}' | tr '\n' ' ' | sed 's/  */ /g;s/^ //;s/ $//' || echo "")
+        technical_approach=$(echo "$file_content" | awk '/^## Technical Approach$/{capture=1; next} /^## /{capture=0} capture{print}' | tr '\n' ' ' | sed 's/  */ /g;s/^ //;s/ $//' || echo "")
 
-    # Build results array
-    local results="["
+        # Build full text from cached content
+        local full_text
+        full_text=$(echo "$file_content" | tr '\n' ' ' | sed 's/  */ /g' | head -c 500 || echo "")
+        local escaped_full_text escaped_decision escaped_technical
+        escaped_full_text=$(json_escape "$full_text")
+        escaped_decision=$(json_escape "$decision")
+        escaped_technical=$(json_escape "$technical_approach")
+
+        # Build keywords from cached content - use word list directly, skip common words
+        local content_words
+        content_words=$(echo "$file_content" | tr '[:upper:]' '[:lower:]' | grep -oE '[a-z]{4,}' | \
+            grep -vE '^(that|this|with|from|have|been|were|will|would|could|should|their|there|which|about)$' | \
+            sort -u | head -50 || echo "")
+
+        # Track keywords for this plan using helper
+        while IFS= read -r word; do
+            [[ -n "$word" ]] && add_keyword_mapping keyword_to_plans "$word" "$plan_name"
+        done <<< "$content_words"
+
+        # Add to plans JSON
+        if [[ "$is_first_plan" == "true" ]]; then
+            is_first_plan=false
+        else
+            plans_json+=", "
+        fi
+
+        plans_json+="\"$plan_name\": {\"story_id\": \"$story_id\", \"status\": \"$status\", \"created\": \"$created\", \"decision\": \"$escaped_decision\", \"technical_approach\": \"$escaped_technical\", \"full_text\": \"$escaped_full_text\"}"
+
+        ((plan_count++))
+    done < <(find "$plans_dir" -name "*.md" -type f -print0 2>/dev/null)
+
+    plans_json+="}"
+
+    # Build keywords JSON
+    local is_first_keyword=true
+    for keyword in "${!keyword_to_plans[@]}"; do
+        if [[ "$is_first_keyword" == "true" ]]; then
+            is_first_keyword=false
+        else
+            keywords_json+=", "
+        fi
+        keywords_json+="\"$keyword\": [${keyword_to_plans[$keyword]}]"
+    done
+    keywords_json+="}"
+
+    # Combine into final index
+    local index_json="{\"plans\": $plans_json, \"keywords\": $keywords_json}"
+
+    # Write to file
+    echo "$index_json" > "$index_dir/searchable_index.json"
+
+    # Return success
+    printf '{"status": "success", "plan_count": %d, "index_path": "%s/searchable_index.json"}\n' \
+        "$plan_count" "$index_dir"
+}
+
+# =============================================================================
+# STORY-232: Function 7: search_index
+# AC#3: Search index for keyword matches in decision, technical approach, full text
+# Usage: search_index "$index_dir" "$keyword"
+# Returns: JSON with "query", "matches", "count" keys
+# =============================================================================
+search_index() {
+    local index_dir="${1:-}"
+    local keyword="${2:-}"
+
+    # Validate index_dir provided
+    if [[ -z "$index_dir" ]]; then
+        echo '{"error": "index_dir argument required", "query": "", "matches": [], "count": 0}'
+        return 1
+    fi
+
+    # Validate path doesn't contain traversal
+    if [[ "$index_dir" == *".."* ]]; then
+        echo '{"error": "Path traversal not allowed", "query": "", "matches": [], "count": 0}'
+        return 1
+    fi
+
+    local index_file="$index_dir/searchable_index.json"
+
+    if [[ ! -f "$index_file" ]]; then
+        echo '{"error": "Index not found", "query": "'"$keyword"'", "matches": [], "count": 0}'
+        return 1
+    fi
+
+    # Handle empty keyword
+    if [[ -z "$keyword" ]]; then
+        echo '{"error": "Empty query", "query": "", "matches": [], "count": 0}'
+        return 1
+    fi
+
+    local index_content
+    index_content=$(cat "$index_file")
+
+    # Convert keyword to lowercase for case-insensitive search
+    local keyword_lower
+    keyword_lower=$(echo "$keyword" | tr '[:upper:]' '[:lower:]')
+
+    # Sanitize regex metacharacters to prevent command injection
+    local sanitized_keyword
+    sanitized_keyword=$(printf '%s\n' "$keyword_lower" | sed 's/[.[\*^$()+?{|\\]/\\&/g')
+
+    # Collect matching plan files
+    declare -A matches_set
+
+    # Method 1: Check keyword index (pre-built keywords section)
+    # Look for "keyword": ["plan1.md", "plan2.md"] pattern
+    local keyword_matches
+    keyword_matches=$(echo "$index_content" | grep -oE "\"$sanitized_keyword\": *\[[^\]]*\]" | \
+        grep -oE '"STORY-[^"]+\.md"' | tr -d '"' || echo "")
+
+    while IFS= read -r match; do
+        if [[ -n "$match" ]]; then
+            matches_set["$match"]=1
+        fi
+    done <<< "$keyword_matches"
+
+    # Method 2: Search in full text content (case insensitive grep through entire file)
+    # Find plan names that contain the keyword in their content
+    local plan_names
+    plan_names=$(echo "$index_content" | grep -oE '"STORY-[^"]+\.md":' | tr -d '":' || echo "")
+
+    while IFS= read -r plan_name; do
+        if [[ -z "$plan_name" ]]; then continue; fi
+
+        # Use awk to extract the block for this plan and search for keyword
+        local found
+        found=$(echo "$index_content" | awk -v plan="$plan_name" -v kw="$keyword_lower" '
+            BEGIN { IGNORECASE=1; in_plan=0; content="" }
+            $0 ~ ("\"" plan "\":") { in_plan=1 }
+            in_plan { content = content $0 }
+            in_plan && /\}[,]?$/ && !/\{/ {
+                if (content ~ kw) print plan
+                in_plan=0; content=""
+            }
+        ' || echo "")
+
+        if [[ -n "$found" ]]; then
+            matches_set["$plan_name"]=1
+        fi
+    done <<< "$plan_names"
+
+    # Build matches array
+    local matches_json="["
     local is_first=true
     local count=0
 
-    while IFS= read -r plan_file; do
-        [[ -z "$plan_file" ]] && continue
-
-        local plan_data="${plan_data_cache[$plan_file]}"
-        local score="${relevance_scores[$plan_file]}"
-
-        local decision=$(echo "$plan_data" | grep -oE '"decision": *"[^"]*"' | sed 's/"decision": *"//' | sed 's/"$//')
-        local story_id=$(echo "$plan_data" | grep -oE '"story_id": *"[^"]*"' | sed 's/"story_id": *"//' | sed 's/"$//')
-
+    for match in "${!matches_set[@]}"; do
         if [[ "$is_first" == "true" ]]; then
             is_first=false
         else
-            results+=", "
+            matches_json+=", "
         fi
-
-        results+="{\"plan_file\": \"$plan_file\", \"story_id\": \"$story_id\", \"decision\": \"$decision\", \"relevance_score\": $score}"
+        matches_json+="\"$match\""
         ((count++))
-    done <<< "$sorted_plans"
+    done
+    matches_json+="]"
 
-    results+="]"
-
-    printf '{"keywords": "%s", "results": %s, "count": %d}\n' "$keywords" "$results" "$count"
-}
-
-# =============================================================================
-# Function 8: retrieve_decision_context
-# AC#4: Get full decision context
-# =============================================================================
-retrieve_decision_context() {
-    local index_dir="$1"
-    local plan_file="$2"
-
-    local index_file="$index_dir/searchable_index.json"
-
-    # Validate index exists
-    if [[ ! -f "$index_file" ]]; then
-        echo '{"error": "Index not found", "plan_file": "'"$plan_file"'"}'
-        return 1
-    fi
-
-    # Security: Validate plan_file format to prevent path traversal
-    if [[ ! "$plan_file" =~ ^[a-zA-Z0-9_.-]+\.md$ ]]; then
-        echo '{"error": "Invalid filename format", "plan_file": "'"$plan_file"'"}'
-        return 1
-    fi
-
-    # Flatten JSON to single line for regex parsing
-    local index_content
-    index_content=$(cat "$index_file" | tr '\n' ' ' | tr -s ' ')
-
-    # Extract plan data
-    local plan_data
-    plan_data=$(echo "$index_content" | grep -oP "\"$plan_file\": *\{[^}]+\}" | head -1)
-
-    if [[ -z "$plan_data" ]]; then
-        echo '{"error": "Plan not found", "plan_file": "'"$plan_file"'"}'
-        return 1
-    fi
-
-    # Extract all fields
-    local story_id=$(echo "$plan_data" | grep -oE '"story_id": *"[^"]*"' | sed 's/"story_id": *"//' | sed 's/"$//')
-    local status=$(echo "$plan_data" | grep -oE '"status": *"[^"]*"' | sed 's/"status": *"//' | sed 's/"$//')
-    local created=$(echo "$plan_data" | grep -oE '"created": *"[^"]*"' | sed 's/"created": *"//' | sed 's/"$//')
-    local decision=$(echo "$plan_data" | grep -oE '"decision": *"[^"]*"' | sed 's/"decision": *"//' | sed 's/"$//')
-    local technical_approach=$(echo "$plan_data" | grep -oE '"technical_approach": *"[^"]*"' | sed 's/"technical_approach": *"//' | sed 's/"$//')
-    local rationale=$(echo "$plan_data" | grep -oE '"rationale": *"[^"]*"' | sed 's/"rationale": *"//' | sed 's/"$//')
-    local outcome=$(echo "$plan_data" | grep -oE '"outcome": *"[^"]*"' | sed 's/"outcome": *"//' | sed 's/"$//')
-
-    # Ensure empty strings for missing fields
-    story_id="${story_id:-}"
-    status="${status:-}"
-    created="${created:-}"
-    decision="${decision:-}"
-    technical_approach="${technical_approach:-}"
-    rationale="${rationale:-}"
-    outcome="${outcome:-}"
-
-    printf '{"plan_file": "%s", "story_id": "%s", "status": "%s", "created": "%s", "decision": "%s", "rationale": "%s", "outcome": "%s", "technical_approach": "%s"}\n' \
-        "$plan_file" "$story_id" "$status" "$created" "$decision" "$rationale" "$outcome" "$technical_approach"
+    # Return result
+    printf '{"query": "%s", "matches": %s, "count": %d}\n' "$keyword" "$matches_json" "$count"
 }
