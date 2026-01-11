@@ -4,7 +4,7 @@ title: Add Telemetry for Hook Performance Metrics
 type: feature
 epic: EPIC-033-framework-enhancement-triage-q4-2025
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 2
 depends_on: ["STORY-195", "STORY-197"]
 priority: Low
@@ -191,64 +191,134 @@ technical_limitations: []
 ## Acceptance Criteria Verification Checklist
 
 ### AC#1: Total Invocation Count
-- [x] wc -l count implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 55
-- [ ] Output format correct - **Phase:** 5 - **Evidence:** script output
+- [x] wc -l count implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 59
+- [x] Output format correct - **Phase:** 5 - **Evidence:** "Total invocations: 100"
 
 ### AC#2: Auto-Approval Count
-- [x] grep AUTO-APPROVE implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 61
-- [ ] Output format correct - **Phase:** 5 - **Evidence:** script output
+- [x] grep AUTO-APPROVE implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 60
+- [x] Output format correct - **Phase:** 5 - **Evidence:** "Auto-approved: 50"
 
 ### AC#3: Blocked Count
-- [x] grep BLOCK implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 66
+- [x] grep BLOCK implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 61
 
 ### AC#4: Approval Rate Calculation
-- [x] Rate calculation formula - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 78
-- [ ] Percentage displayed - **Phase:** 5 - **Evidence:** script output
+- [x] Rate calculation formula - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 65
+- [x] Percentage displayed - **Phase:** 5 - **Evidence:** "Approval rate: 50.0%"
 
 ### AC#5: Top Unknown Patterns Report
-- [x] Unknown patterns extraction - **Phase:** 3 - **Evidence:** hook-telemetry.sh lines 122-144
-- [ ] Top 10 display - **Phase:** 5 - **Evidence:** script output
+- [x] Unknown patterns extraction - **Phase:** 3 - **Evidence:** hook-telemetry.sh lines 97-145
+- [x] Top 10 display - **Phase:** 5 - **Evidence:** Verified in integration tests
 
 ---
 
-**Checklist Progress:** 5/9 items complete (55%)
+**Checklist Progress:** 9/9 items complete (100%)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] hook-telemetry.sh created at devforgeai/scripts/
-- [ ] Total invocation count
-- [ ] Auto-approved count
-- [ ] Blocked count
-- [ ] Manual approval count
-- [ ] Approval rate calculation with percentage
-- [ ] Top 10 unknown patterns
-- [ ] Warning when rate < 90%
+- [x] hook-telemetry.sh created at devforgeai/scripts/ - Completed: Script created at devforgeai/scripts/hook-telemetry.sh (204 lines)
+- [x] Total invocation count - Completed: count_data_lines() function, line 59
+- [x] Auto-approved count - Completed: count_matches("Decision: AUTO-APPROVE"), line 60
+- [x] Blocked count - Completed: count_matches("Decision: BLOCK"), line 61
+- [x] Manual approval count - Completed: count_matches("Decision: ASK USER"), line 62
+- [x] Approval rate calculation with percentage - Completed: calculate_percentage() function, line 65
+- [x] Top 10 unknown patterns - Completed: process_unknown_patterns() function, lines 97-145
+- [x] Warning when rate < 90% - Completed: Displays warning when rate_int < APPROVAL_RATE_TARGET, lines 87-90
 
 ### Quality
-- [ ] All 5 acceptance criteria have passing tests
-- [ ] Edge cases covered (empty logs, missing files)
-- [ ] Rate calculation accurate
+- [x] All 5 acceptance criteria have passing tests - Completed: 30/30 tests passing (100%)
+- [x] Edge cases covered (empty logs, missing files) - Completed: Tests for empty.log and missing file handling
+- [x] Rate calculation accurate - Completed: 50/100 = 50.0% verified in tests
 
 ### Testing
-- [ ] Unit tests for each metric
-- [ ] Integration test with sample logs
+- [x] Unit tests for each metric - Completed: test-ac1 through test-ac5 (30 tests total)
+- [x] Integration test with sample logs - Completed: Tested with fixtures/sample-pre-tool-use.log (100 entries)
 
 ### Documentation
-- [ ] Script header with usage instructions
-- [ ] Output format documented
+- [x] Script header with usage instructions - Completed: Lines 2-18 with usage, parameters, and exit codes
+- [x] Output format documented - Completed: Sample output in story file lines 259-281
+
+---
+
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent (claude/opus)
+**Implemented:** 2026-01-11
+**Branch:** refactor/devforgeai-migration
+
+- [x] hook-telemetry.sh created at devforgeai/scripts/ - Completed: Script created at devforgeai/scripts/hook-telemetry.sh (204 lines)
+- [x] Total invocation count - Completed: count_data_lines() function, line 59
+- [x] Auto-approved count - Completed: count_matches("Decision: AUTO-APPROVE"), line 60
+- [x] Blocked count - Completed: count_matches("Decision: BLOCK"), line 61
+- [x] Manual approval count - Completed: count_matches("Decision: ASK USER"), line 62
+- [x] Approval rate calculation with percentage - Completed: calculate_percentage() function, line 65
+- [x] Top 10 unknown patterns - Completed: process_unknown_patterns() function, lines 97-145
+- [x] Warning when rate < 90% - Completed: Displays warning when rate_int < APPROVAL_RATE_TARGET, lines 87-90
+- [x] All 5 acceptance criteria have passing tests - Completed: 30/30 tests passing (100%)
+- [x] Edge cases covered (empty logs, missing files) - Completed: Tests for empty.log and missing file handling
+- [x] Rate calculation accurate - Completed: 50/100 = 50.0% verified in tests
+- [x] Unit tests for each metric - Completed: test-ac1 through test-ac5 (30 tests total)
+- [x] Integration test with sample logs - Completed: Tested with fixtures/sample-pre-tool-use.log (100 entries)
+- [x] Script header with usage instructions - Completed: Lines 2-18 with usage, parameters, and exit codes
+- [x] Output format documented - Completed: Sample output in story file lines 259-281
+
+### TDD Workflow Summary
+
+**Phase 02 (Red): Test-First Design**
+- Generated 30 tests via test-automator subagent
+- Tests: test-ac1 through test-ac5 plus comprehensive test-hook-telemetry.sh
+- All tests followed AAA pattern with fixtures
+
+**Phase 03 (Green): Implementation**
+- Implemented hook-telemetry.sh via backend-architect subagent
+- All 30 tests passing (100% pass rate)
+
+**Phase 04 (Refactor): Code Quality**
+- Extracted utility functions: count_matches(), count_data_lines(), calculate_percentage(), get_integer_part()
+- Added APPROVAL_RATE_TARGET constant
+- Improved code organization with section headers
+
+**Phase 05 (Integration): Full Validation**
+- Tested with real production log (8,924 invocations)
+- All acceptance criteria verified
+
+**Phase 06 (Deferral Challenge): DoD Validation**
+- All 15 Definition of Done items completed
+- No deferrals required
+
+### Files Created/Modified
+
+**Created:**
+- devforgeai/scripts/hook-telemetry.sh
+- devforgeai/tests/STORY-200/test-ac1-total-count.sh
+- devforgeai/tests/STORY-200/test-ac2-auto-approve-count.sh
+- devforgeai/tests/STORY-200/test-ac3-blocked-count.sh
+- devforgeai/tests/STORY-200/test-ac4-approval-rate.sh
+- devforgeai/tests/STORY-200/test-ac5-unknown-patterns.sh
+- devforgeai/tests/STORY-200/test-hook-telemetry.sh
+- devforgeai/tests/STORY-200/run-all-tests.sh
+- devforgeai/tests/STORY-200/fixtures/sample-pre-tool-use.log
+- devforgeai/tests/STORY-200/fixtures/sample-unknown-commands.log
+
+**Modified:**
+- devforgeai/specs/Stories/STORY-200-hook-telemetry-metrics.story.md
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2026-01-01 12:00 | claude/devforgeai-story-creation | Created | Story created from RCA-015 REC-6 | STORY-200-hook-telemetry-metrics.story.md |
+| 2026-01-11 | claude/test-automator | Red (Phase 02) | Tests generated | devforgeai/tests/STORY-200/*.sh |
+| 2026-01-11 | claude/backend-architect | Green (Phase 03) | Implementation complete | devforgeai/scripts/hook-telemetry.sh |
+| 2026-01-11 | claude/refactoring-specialist | Refactor (Phase 04) | Code quality improved | devforgeai/scripts/hook-telemetry.sh |
+| 2026-01-11 | claude/integration-tester | Integration (Phase 05) | All 30 tests passing | devforgeai/tests/STORY-200/*.sh |
+| 2026-01-11 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-200-hook-telemetry-metrics.story.md |
 
 ## Notes
 
