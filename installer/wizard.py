@@ -34,6 +34,7 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Union
 
 from installer.exit_codes import ExitCodes
+from installer import deploy
 
 
 # Framework version for display
@@ -534,10 +535,10 @@ class WizardInstaller:
 
     def _execute_file_installation(self) -> bool:
         """
-        Perform actual file installation.
+        Perform actual file installation by deploying framework files.
 
-        This is a placeholder for the actual installation logic.
-        Override or mock for testing.
+        Resolves source path from module location and calls deploy.deploy_framework_files()
+        to copy framework files to the target directory.
 
         Returns:
             True on success, False on failure.
@@ -545,8 +546,33 @@ class WizardInstaller:
         self._log("Installation started")
         self._log(f"Target path: {self.state.target_path}")
         self._log(f"Selected components: {[c.id for c in self.state.components if c.selected]}")
-        self._log("Installation completed successfully")
-        return True
+
+        # Resolve source_root from module location
+        # installer/wizard.py -> installer/ -> project_root/src/
+        source_root = Path(__file__).parent.parent / "src"
+
+        try:
+            # Call deploy module to perform actual file deployment
+            result = deploy.deploy_framework_files(source_root, self.state.target_path)
+
+            # Handle deployment result
+            if result.get("status") == "success":
+                files_deployed = result.get("files_deployed", 0)
+                self._log(f"Deployed {files_deployed} files successfully")
+                return True
+            else:
+                # Deployment failed
+                errors = result.get("errors", [])
+                error_msg = "; ".join(errors) if errors else "Unknown deployment error"
+                self._log(f"Deployment failed: {error_msg}")
+                return False
+
+        except PermissionError as e:
+            self._log(f"Permission error during deployment: {e}")
+            return False
+        except OSError as e:
+            self._log(f"OS error during deployment: {e}")
+            return False
 
     def _handle_installation_error(self, error_type: str, error: Exception) -> bool:
         """Handle and log installation errors."""
