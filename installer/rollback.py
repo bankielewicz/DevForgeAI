@@ -25,6 +25,10 @@ def list_backups(project_root: Path) -> list[dict]:
     """
     List all available backups sorted by timestamp (newest first).
 
+    Searches both:
+    - project_root/.backups/ (legacy location)
+    - project_root/../project.backup-* (STORY-251 pattern)
+
     Args:
         project_root: Root path of project
 
@@ -39,42 +43,63 @@ def list_backups(project_root: Path) -> list[dict]:
 
     Returns empty list if no backups found.
     """
-    backups_dir = project_root / ".backups"
-
-    if not backups_dir.exists():
-        return []
-
     backups = []
 
-    for backup_path in sorted(backups_dir.iterdir(), reverse=True):
-        if not backup_path.is_dir():
-            continue
+    # Check legacy .backups directory
+    backups_dir = project_root / ".backups"
+    if backups_dir.exists():
+        for backup_path in sorted(backups_dir.iterdir(), reverse=True):
+            if not backup_path.is_dir():
+                continue
+            backup_info = _create_backup_info(backup_path)
+            backups.append(backup_info)
 
-        backup_info = {
-            "path": backup_path,
-            "name": backup_path.name,
-            "timestamp": None,
-            "reason": None,
-            "from_version": None,
-            "to_version": None,
-        }
+    # Check parent directory for STORY-251 pattern: project.backup-YYYYMMDD-HHMMSS
+    parent_dir = project_root.parent
+    project_name = project_root.name
 
-        # Try to load manifest for additional info
-        manifest_file = backup_path / "manifest.json"
-        if manifest_file.exists():
-            try:
-                manifest = json.loads(manifest_file.read_text())
-                backup_info["timestamp"] = manifest.get("created_at")
-                backup_info["reason"] = manifest.get("reason")
-                backup_info["from_version"] = manifest.get("from_version")
-                backup_info["to_version"] = manifest.get("to_version")
-            except (json.JSONDecodeError, IOError):
-                # Manifest unavailable, use what we have
-                pass
+    # Also check if project_root itself is a parent containing backups
+    for search_dir in [parent_dir, project_root]:
+        for backup_path in search_dir.glob(f"*.backup-*"):
+            if not backup_path.is_dir():
+                continue
+            # Avoid duplicates
+            if any(b["path"] == backup_path for b in backups):
+                continue
+            backup_info = _create_backup_info(backup_path)
+            backups.append(backup_info)
 
-        backups.append(backup_info)
+    # Sort by name (includes timestamp) - newest first
+    backups.sort(key=lambda b: b["name"], reverse=True)
 
     return backups
+
+
+def _create_backup_info(backup_path: Path) -> dict:
+    """Create backup info dict from backup path."""
+    backup_info = {
+        "path": backup_path,
+        "name": backup_path.name,
+        "timestamp": None,
+        "reason": None,
+        "from_version": None,
+        "to_version": None,
+    }
+
+    # Try to load manifest for additional info
+    manifest_file = backup_path / "manifest.json"
+    if manifest_file.exists():
+        try:
+            manifest = json.loads(manifest_file.read_text())
+            backup_info["timestamp"] = manifest.get("created_at")
+            backup_info["reason"] = manifest.get("reason")
+            backup_info["from_version"] = manifest.get("from_version")
+            backup_info["to_version"] = manifest.get("to_version")
+        except (json.JSONDecodeError, IOError):
+            # Manifest unavailable, use what we have
+            pass
+
+    return backup_info
 
 
 def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
@@ -112,13 +137,27 @@ def restore_from_backup(project_root: Path, backup_path: Path) -> dict:
     if not backup_path.exists():
         raise FileNotFoundError(f"Backup not found: {backup_path}")
 
-    # CRITICAL-1 FIX: Validate backup path is within .backups/ directory (prevent path traversal)
+    # CRITICAL-1 FIX: Validate backup path is within allowed directories (prevent path traversal)
     backups_dir = project_root / ".backups"
+    parent_dir = project_root.parent
+
+    # Check if backup is in .backups/ OR in parent directory with backup pattern
+    is_in_backups = False
     try:
         backup_path.relative_to(backups_dir)
+        is_in_backups = True
     except ValueError:
+        pass
+
+    # Also allow parent directory backups (STORY-251 pattern: project.backup-*)
+    is_parent_backup = (
+        backup_path.parent == parent_dir and
+        ".backup-" in backup_path.name
+    )
+
+    if not is_in_backups and not is_parent_backup:
         raise ValueError(
-            f"Security violation: Backup path is not within .backups/: {backup_path}"
+            f"Security violation: Backup path is not within .backups/ or parent: {backup_path}"
         )
 
     # Validate backup has at least some content (.claude or devforgeai or CLAUDE.md)

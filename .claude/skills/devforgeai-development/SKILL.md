@@ -412,6 +412,7 @@ Validate any deferred items have proper justification. Subagents: deferral-valid
 - Loop back to Phase 02 (Test-First) for next TDD iteration
 
 ## Phase 07: DoD Update
+    Read(file_path=".claude/skills/devforgeai-development/references/dod-update-workflow.md")
 
 Update Definition of Done checkboxes in story file.
 

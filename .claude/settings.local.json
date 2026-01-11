@@ -30,7 +30,12 @@
       "Bash(if [ $? -eq 0 ])",
       "Bash(then)",
       "Bash(else)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(python3 -m pytest:*)",
+      "Bash(./devforgeai/tests/STORY-199/run-all-tests.sh:*)",
+      "Bash(/usr/bin/python3 -m pytest:*)",
+      "Bash(for f in test-ac*.sh)",
+      "Bash(do echo \"=== $f ===\")"
     ]
   }
 }

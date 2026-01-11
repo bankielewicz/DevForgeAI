@@ -191,27 +191,27 @@ technical_limitations: []
 ## Acceptance Criteria Verification Checklist
 
 ### AC#1: Total Invocation Count
-- [ ] wc -l count implemented - **Phase:** 3 - **Evidence:** script code
+- [x] wc -l count implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 55
 - [ ] Output format correct - **Phase:** 5 - **Evidence:** script output
 
 ### AC#2: Auto-Approval Count
-- [ ] grep AUTO-APPROVE implemented - **Phase:** 3 - **Evidence:** script code
+- [x] grep AUTO-APPROVE implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 61
 - [ ] Output format correct - **Phase:** 5 - **Evidence:** script output
 
 ### AC#3: Blocked Count
-- [ ] grep BLOCK implemented - **Phase:** 3 - **Evidence:** script code
+- [x] grep BLOCK implemented - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 66
 
 ### AC#4: Approval Rate Calculation
-- [ ] Rate calculation formula - **Phase:** 3 - **Evidence:** script code
+- [x] Rate calculation formula - **Phase:** 3 - **Evidence:** hook-telemetry.sh line 78
 - [ ] Percentage displayed - **Phase:** 5 - **Evidence:** script output
 
 ### AC#5: Top Unknown Patterns Report
-- [ ] Unknown patterns extraction - **Phase:** 3 - **Evidence:** script code
+- [x] Unknown patterns extraction - **Phase:** 3 - **Evidence:** hook-telemetry.sh lines 122-144
 - [ ] Top 10 display - **Phase:** 5 - **Evidence:** script output
 
 ---
 
-**Checklist Progress:** 0/9 items complete (0%)
+**Checklist Progress:** 5/9 items complete (55%)
 
 ---
 

@@ -43,7 +43,7 @@ No match → ASK USER for approval (exit 1)
 
 ---
 
-## Safe Patterns (69 Total)
+## Safe Patterns (63 Total)
 
 ### Original Patterns (54)
 
