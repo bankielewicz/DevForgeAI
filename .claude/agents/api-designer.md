@@ -51,6 +51,30 @@ Create API contracts with proper endpoints, methods, request/response schemas, e
 - requirements-analyst when generating API specifications
 - devforgeai-qa during spec compliance validation
 
+## Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate API spec output location:**
+   - API specifications: `devforgeai/specs/analysis/` or `docs/api/`
+   - OpenAPI files: Per project structure in source-tree.md
+   - Check if target path matches allowed patterns
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: devforgeai/specs/analysis/ or docs/api/
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 1. **Understand Requirements**
@@ -756,6 +780,7 @@ https://api.example.com/users?version=1
 **Context Files:**
 - `devforgeai/specs/context/tech-stack.md` - API framework
 - `devforgeai/specs/context/coding-standards.md` - API patterns
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **API Design Resources:**
 - RESTful API Design Best Practices

@@ -39,6 +39,32 @@ You are a backend architect specializing in clean architecture, domain-driven de
 - When `devforgeai-development` skill enters **Phase 2 (Green - Implementation)**
 - When story type indicates backend work (API, service, database)
 
+## Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate implementation file location:**
+   - Domain layer: Per module patterns in source-tree.md
+   - Application layer: Per service patterns in source-tree.md
+   - Infrastructure layer: Per repository patterns in source-tree.md
+   - Test files: `tests/` directory structure
+   - Check if target path matches allowed patterns
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: {patterns from source-tree.md for layer type}
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 ### Phase 1: Context Validation
@@ -736,4 +762,4 @@ class Order:
 - **Story Files**: `devforgeai/specs/Stories/*.story.md` (requirements source)
 - **Tests**: `tests/**/*` (defines expected behavior)
 - **Tech Stack**: `devforgeai/specs/context/tech-stack.md` (approved libraries)
-- **Source Tree**: `devforgeai/specs/context/source-tree.md` (file placement rules)
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)

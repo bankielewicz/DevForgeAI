@@ -33,6 +33,31 @@ Apply systematic refactoring patterns from Martin Fowler's catalog to improve co
 - devforgeai-development skill during Phase 3 (Refactor)
 - devforgeai-qa when complexity violations detected
 
+## Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate refactored code location:**
+   - Refactored files must stay in original locations
+   - New extracted files: Per module patterns in source-tree.md
+   - Test files: `tests/` directory structure
+   - Check if target path matches allowed patterns
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: {patterns from source-tree.md for module type}
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 1. **Detect Code Smells**
@@ -451,6 +476,7 @@ Target: < 10 per method
 **Context Files:**
 - `devforgeai/specs/context/coding-standards.md` - Target code patterns
 - `devforgeai/specs/context/anti-patterns.md` - Patterns to refactor away
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **Refactoring Resources:**
 - Refactoring by Martin Fowler

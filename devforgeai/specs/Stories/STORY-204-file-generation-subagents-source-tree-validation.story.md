@@ -4,7 +4,7 @@ title: Update ALL File-Generation Subagents with source-tree.md Validation
 type: enhancement
 epic: EPIC-033-framework-enhancement-triage-q4-2025
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 3
 depends_on: ["STORY-203"]
 priority: High
@@ -407,36 +407,58 @@ None.
 ## Definition of Done
 
 ### Implementation
-- [ ] 7 file-generation subagents identified (excluding test-automator from STORY-203)
-- [ ] source-tree.md added to References section of each subagent
-- [ ] Pre-Generation Validation section added to each subagent
-- [ ] HALT pattern with clear error message in each validation
-- [ ] Pattern customized for each subagent's output type
+- [x] 7 file-generation subagents identified (excluding test-automator from STORY-203) - Completed: All 7 target subagents identified and updated
+- [x] source-tree.md added to References section of each subagent - Completed: Added `- **Source Tree:** \`devforgeai/specs/context/source-tree.md\`` to all 7 files
+- [x] Pre-Generation Validation section added to each subagent - Completed: Added standardized validation section to all 7 files
+- [x] HALT pattern with clear error message in each validation - Completed: SOURCE-TREE CONSTRAINT VIOLATION pattern in all files
+- [x] Pattern customized for each subagent's output type - Completed: Per AC#4, each subagent has domain-specific expected directories
 
 ### Quality
-- [ ] All 5 acceptance criteria have passing tests
-- [ ] Pattern is consistent across all 7 subagents
-- [ ] No regressions in existing functionality
-- [ ] Error messages provide actionable guidance
+- [x] All 5 acceptance criteria have passing tests - Completed: 14/14 tests passing
+- [x] Pattern is consistent across all 7 subagents - Completed: NFR-002 validation passed
+- [x] No regressions in existing functionality - Completed: AC#5 regression tests passed
+- [x] Error messages provide actionable guidance - Completed: Expected directory + Attempted location format
 
 ### Testing
-- [ ] Unit tests verify pattern presence in each subagent
-- [ ] Integration tests verify pattern functions correctly
-- [ ] Regression tests for existing subagent functionality
+- [x] Unit tests verify pattern presence in each subagent - Completed: tests/STORY-204/test-subagent-validation-pattern.sh (14 tests)
+- [x] Integration tests verify pattern functions correctly - Completed: integration-tester 6/6 checks passed
+- [x] Regression tests for existing subagent functionality - Completed: AC#5 tests verified YAML, tools, sections
 
 ### Documentation
-- [ ] Each subagent has updated References section
-- [ ] Pattern rationale documented (source-tree.md is immutable constraint)
+- [x] Each subagent has updated References section - Completed: All 7 files have source-tree.md reference
+- [x] Pattern rationale documented (source-tree.md is immutable constraint) - Completed: Pre-Generation Validation section explains mandatory Read()
+
+---
+
+## Implementation Notes
+
+- [x] 7 file-generation subagents identified (excluding test-automator from STORY-203) - Completed: All 7 target subagents identified and updated
+- [x] source-tree.md added to References section of each subagent - Completed: Added `- **Source Tree:** \`devforgeai/specs/context/source-tree.md\`` to all 7 files
+- [x] Pre-Generation Validation section added to each subagent - Completed: Added standardized validation section to all 7 files
+- [x] HALT pattern with clear error message in each validation - Completed: SOURCE-TREE CONSTRAINT VIOLATION pattern in all files
+- [x] Pattern customized for each subagent's output type - Completed: Per AC#4, each subagent has domain-specific expected directories
+- [x] All 5 acceptance criteria have passing tests - Completed: 14/14 tests passing
+- [x] Pattern is consistent across all 7 subagents - Completed: NFR-002 validation passed
+- [x] No regressions in existing functionality - Completed: AC#5 regression tests passed
+- [x] Error messages provide actionable guidance - Completed: Expected directory + Attempted location format
+- [x] Unit tests verify pattern presence in each subagent - Completed: tests/STORY-204/test-subagent-validation-pattern.sh (14 tests)
+- [x] Integration tests verify pattern functions correctly - Completed: integration-tester 6/6 checks passed
+- [x] Regression tests for existing subagent functionality - Completed: AC#5 tests verified YAML, tools, sections
+- [x] Each subagent has updated References section - Completed: All 7 files have source-tree.md reference
+- [x] Pattern rationale documented (source-tree.md is immutable constraint) - Completed: Pre-Generation Validation section explains mandatory Read()
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2026-01-01 12:00 | claude/devforgeai-story-creation | Created | Story created from RCA-017 REC-2 | STORY-204-file-generation-subagents-source-tree-validation.story.md |
+| 2026-01-12 13:03 | claude/test-automator | Red (Phase 02) | Tests generated: 14 tests (5 pass, 9 fail) | tests/STORY-204/test-subagent-validation-pattern.sh |
+| 2026-01-12 14:17 | claude/backend-architect | Green (Phase 03) | Implementation complete: All 14 tests pass | .claude/agents/*.md (7 files) |
+| 2026-01-12 14:30 | claude/opus | DoD (Phase 07) | All 14 DoD items marked complete | STORY-204 story file |
 
 ## Notes
 

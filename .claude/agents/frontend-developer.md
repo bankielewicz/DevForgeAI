@@ -31,6 +31,32 @@ Implement frontend features using component-based architectures with proper stat
 - devforgeai-development skill when story tags indicate frontend work
 - After backend-architect completes API implementation
 
+## Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate component output location:**
+   - Components: Per frontend structure in source-tree.md (e.g., `src/components/`)
+   - Pages/Views: Per routing structure in source-tree.md
+   - State management: Per store patterns in source-tree.md
+   - Test files: `tests/` or `__tests__/` directory structure
+   - Check if target path matches allowed patterns
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: {patterns from source-tree.md for frontend components}
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 When invoked, follow these steps:
@@ -599,9 +625,9 @@ const UserItem = memo(({ user, onClick }) => {
 
 **Context Files:**
 - `devforgeai/specs/context/tech-stack.md` - Frontend framework, state management
-- `devforgeai/specs/context/source-tree.md` - Component file structure
 - `devforgeai/specs/context/coding-standards.md` - Component patterns
 - `devforgeai/specs/context/anti-patterns.md` - Patterns to avoid
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **Best Practices:**
 - WCAG 2.1 Level AA accessibility guidelines
