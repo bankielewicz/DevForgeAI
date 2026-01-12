@@ -1,9 +1,15 @@
 {
   "story_id": "STORY-205",
-  "current_phase": "01",
-  "completed_phases": [],
+  "current_phase": "07",
+  "completed_phases": ["01", "02", "03", "04", "05", "06"],
   "subagent_invocations": {
-    "01": ["git-validator", "tech-stack-detector"]
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["documentation-writer", "context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer", "light-qa"],
+    "05": ["integration-tester"],
+    "06": ["deferral-challenge-user-approved"],
+    "07": ["dod-update"]
   },
   "iteration_count": 1,
   "max_iterations": 5,
