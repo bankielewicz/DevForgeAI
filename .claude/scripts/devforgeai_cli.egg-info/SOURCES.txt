@@ -5,6 +5,7 @@ devforgeai_cli/cli.py
 devforgeai_cli/context_extraction.py
 devforgeai_cli/hooks.py
 devforgeai_cli/orchestrate_hooks.py
+devforgeai_cli/phase_state.py
 devforgeai_cli.egg-info/PKG-INFO
 devforgeai_cli.egg-info/SOURCES.txt
 devforgeai_cli.egg-info/dependency_links.txt
@@ -48,6 +49,8 @@ devforgeai_cli/tests/test_depends_on_normalizer.py
 devforgeai_cli/tests/test_dod_validator.py
 devforgeai_cli/tests/test_invoke_hooks.py
 devforgeai_cli/tests/test_phase_commands.py
+devforgeai_cli/tests/test_phase_commands_import.py
+devforgeai_cli/tests/test_phase_state.py
 devforgeai_cli/tests/test_skip_tracking.py
 devforgeai_cli/tests/test_skip_tracking_coverage_gap.py
 devforgeai_cli/tests/feedback/__init__.py

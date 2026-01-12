@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-254",
   "workflow_started": "2026-01-12T21:06:04.293296Z",
-  "current_phase": "08",
+  "current_phase": "09",
   "phases": {
     "01": {
       "status": "completed",
@@ -74,9 +74,13 @@
       "checkpoint_passed": true
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "started_at": "2026-01-12T22:22:00.000000Z",
+      "completed_at": "2026-01-12T22:25:00.000000Z",
+      "checkpoint_passed": true,
+      "commit_sha": "5430d1a4"
     },
     "09": {
       "status": "pending",
