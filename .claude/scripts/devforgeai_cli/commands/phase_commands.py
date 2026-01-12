@@ -13,23 +13,12 @@ Commands:
 """
 
 import json
-import sys
 from pathlib import Path
-from typing import Optional
 
 
 def _get_phase_state(project_root: str):
-    """
-    Get PhaseState instance.
-
-    Handles import path complexity for both CLI and test contexts.
-    """
-    # Add installer directory to path for PhaseState import
-    installer_path = Path(project_root) / "installer"
-    if installer_path.exists() and str(installer_path) not in sys.path:
-        sys.path.insert(0, str(installer_path.parent))
-
-    from installer.phase_state import PhaseState
+    """Get PhaseState instance using relative import."""
+    from ..phase_state import PhaseState
     return PhaseState(project_root=Path(project_root))
 
 
