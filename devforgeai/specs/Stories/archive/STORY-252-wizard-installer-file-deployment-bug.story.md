@@ -4,7 +4,7 @@ title: Bug - Wizard Installer Does Not Deploy Framework Files
 type: bugfix
 epic: None
 sprint: Backlog
-status: QA Approved
+status: Released
 points: 3
 depends_on: []
 priority: Critical
@@ -419,7 +419,7 @@ None - all required modules already exist.
 
 ## Change Log
 
-**Current Status:** QA Approved
+**Current Status:** Released
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
@@ -429,6 +429,7 @@ None - all required modules already exist.
 | 2025-01-11 14:40 | claude/integration-tester | Integration (Phase 05) | 13 integration tests | test_wizard_integration.py |
 | 2025-01-11 14:45 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-252.story.md |
 | 2025-01-11 21:55 | claude/qa-result-interpreter | QA Deep | PASSED: 31 tests, 100% traceability, 0 violations | STORY-252-qa-report.md |
+| 2025-01-12 09:00 | claude/deployment-engineer | Released | Deployed to test environment, all smoke tests passed, promoted to production | installer/wizard.py |
 
 ## Notes
 

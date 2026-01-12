@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-203",
   "workflow_started": "2026-01-12T03:30:52.078480Z",
-  "current_phase": "05",
+  "current_phase": "10",
   "phases": {
     "01": {
       "status": "completed",
@@ -55,38 +55,56 @@
       "checkpoint_passed": true
     },
     "05": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "integration-tester"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-01-12T12:18:46.524359Z",
+      "completed_at": "2026-01-12T12:18:48.046703Z",
+      "checkpoint_passed": true
     },
     "06": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-12T12:19:20.980630Z",
+      "checkpoint_passed": true
     },
     "07": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-12T12:20:33.992251Z",
+      "checkpoint_passed": true
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-12T12:24:58.882813Z",
+      "checkpoint_passed": true
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [],
-      "subagents_invoked": []
+      "subagents_invoked": [],
+      "completed_at": "2026-01-12T12:25:31.060823Z",
+      "checkpoint_passed": true
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-12T12:26:26.619819Z",
+      "completed_at": "2026-01-12T12:26:26.726501Z",
+      "checkpoint_passed": true
     }
   },
   "validation_errors": [],
