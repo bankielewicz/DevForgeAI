@@ -94,9 +94,44 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
      SET $REMEDIATION_MODE = true
    ```
 
-**Reference:** `references/preflight-validation.md` for complete workflow
-    **Important** Read in chunks - 3021 lines in length
-    Read(file_path=".claude/skills/devforgeai-development/references/preflight-validation.md")  
+**Reference:** `references/preflight/_index.md` for navigation (decomposed into 18 files)
+
+**Load workflow references as needed:**
+```
+# Index with navigation links
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/_index.md")
+
+# Mandatory steps (load in sequence)
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.0-project-root.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.0.5-cli-check.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.1-git-status.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.5-context-files.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.6-load-story.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.7-validate-spec.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.8-tech-stack.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.9-qa-failures.md")
+
+# Conditional steps (load when triggered)
+# IF uncommitted_changes > 10:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.1.5-user-consent.md")
+# IF user selects stash:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.1.6-stash-warning.md")
+# IF uncommitted story files:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.1.7-story-isolation.md")
+# IF Git available + enabled:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.2-worktree.md")
+# IF story has dependencies:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.2.5-dependency-graph.md")
+# IF parallel stories:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.2.6-file-overlap.md")
+# IF Git unavailable:
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.4-file-tracking.md")
+
+# Informational
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.3-workflow-adapt.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/01.10-complexity.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/completion-checkpoint.md")
+```  
 
 ---
 

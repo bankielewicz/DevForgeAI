@@ -1,128 +1,428 @@
-bryan@DESKTOP-88FARC5:/mnt/c/Projects/DevForgeAI2$ python3 -m installer wizard /mnt/c/Projects/GPUXtend
+● integration-tester(Integration test for STORY-204)
 
-============================================================
-  Welcome to DevForgeAI Framework Installer
-============================================================
+● integration-tester(Integration test for STORY-204)
 
-  Version: v1.0.0
+● integration-tester(Integration test for STORY-204)
 
-  This wizard will guide you through the installation of
-  the DevForgeAI framework in your project.
+  integration-tester(Integration test for STORY-204)
 
-  What will be installed:
-    - Skills, agents, and commands (.claude/)
-    - Project specifications (devforgeai/)
-    - Configuration files (CLAUDE.md)
+  integration-tester(Integration test for STORY-204)
 
-------------------------------------------------------------
+  integration-tester(Integration test for STORY-204)
 
-  Press Enter to continue or Ctrl+C to cancel...
+  integration-tester(Integration test for STORY-204)
 
-============================================================
-  License Agreement
-============================================================
+  integration-tester(Integration test for STORY-204)
 
-  DevForgeAI is released under the MIT License.
+  integration-tester(Integration test for STORY-204)
 
-  Copyright (c) 2025 DevForgeAI
+  integration-tester(Integration test for STORY-204)
 
-  Permission is hereby granted, free of charge, to any person
-  obtaining a copy of this software and associated documentation
-  files, to deal in the Software without restriction, including
-  without limitation the rights to use, copy, modify, merge,
-  publish, distribute, sublicense, and/or sell copies of the
-  Software.
+  integration-tester(Integration test for STORY-204)
 
-  THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND.
+● integration-tester(Integration test for STORY-204)
 
-------------------------------------------------------------
+● integration-tester(Integration test for STORY-204)
 
-  Type 'accept' to agree to the license terms: accept
+● integration-tester(Integration test for STORY-204)
 
-============================================================
-  Installation Path
-============================================================
+● integration-tester(Integration test for STORY-204)
 
-  Default path: /mnt/c/Projects/GPUXtend
+● integration-tester(Integration test for STORY-204)
 
-  Press Enter to accept the default or type a new path.
-------------------------------------------------------------
+● integration-tester(Integration test for STORY-204)
 
-  Installation path:
-  Selected: /mnt/c/Projects/GPUXtend
+  integration-tester(Integration test for STORY-204)
 
-============================================================
-  Component Selection
-============================================================
+  integration-tester(Integration test for STORY-204)
 
-  Select components to install:
-  (Core Framework is required and cannot be deselected)
-------------------------------------------------------------
-  1. [x] Core Framework - .claude/, devforgeai/ (2.5 MB) (required)
-  2. [ ] CLI Tools - devforgeai command (0.5 MB)
-  3. [ ] Templates - project templates (1.0 MB)
-  4. [ ] Examples - example projects (3.0 MB)
+  integration-tester(Integration test for STORY-204)
 
-  Total size: 2.5 MB
+  integration-tester(Integration test for STORY-204)
 
-  Enter component numbers to toggle (e.g., '2,3'), or press Enter to continue.
+  integration-tester(Integration test for STORY-204)
 
-  Toggle components: 1,2,3
-  1. [x] Core Framework - .claude/, devforgeai/ (2.5 MB) (required)
-  2. [x] CLI Tools - devforgeai command (0.5 MB)
-  3. [x] Templates - project templates (1.0 MB)
-  4. [ ] Examples - example projects (3.0 MB)
+  integration-tester(Integration test for STORY-204)
 
-  Total size: 4.0 MB
+  integration-tester(Integration test for STORY-204)
 
-============================================================
-  Configuration Options
-============================================================
+  integration-tester(Integration test for STORY-204)
 
-  Options:
-------------------------------------------------------------
-  1. [ ] Initialize Git repository
-  2. [ ] Create initial commit
-  3. [ ] Run validation after install
+● integration-tester(Integration test for STORY-204)
 
-  Enter option numbers to toggle (e.g., '1,3'), or press Enter to continue.
+● integration-tester(Integration test for STORY-204)
 
-  Toggle options: 1,2,3
+● integration-tester(Integration test for STORY-204)
 
-============================================================
-  Installing DevForgeAI
-============================================================
-  [1/5] Preparing installation...
-  [2/5] Copying framework files...
-  [3/5] Configuring components...
-  [4/5] Initializing Git repository...
-  [5/5] Finalizing installation...
+● integration-tester(Integration test for STORY-204)
 
-  Installation complete! (100%)
+● integration-tester(Integration test for STORY-204)
 
-============================================================
-  Installation Complete!
-============================================================
+● integration-tester(Integration test for STORY-204)
 
-  [*] Success! DevForgeAI has been installed.
+● integration-tester(Integration test for STORY-204)
 
-  Installation path: /mnt/c/Projects/GPUXtend
+● integration-tester(Integration test for STORY-204)
 
-  Installed components:
-    - Core Framework
-    - CLI Tools
-    - Templates
+● integration-tester(Integration test for STORY-204)
 
-  Next steps:
-    1. Navigate to your project directory:
-       cd /mnt/c/Projects/GPUXtend
-    2. Open Claude Code Terminal and run:
-       /create-context
-    3. Create your first story:
-       /create-story [feature description]
+  integration-tester(Integration test for STORY-204)
 
-============================================================
-  Thank you for installing DevForgeAI!
-============================================================
+  integration-tester(Integration test for STORY-204)
 
-bryan@DESKTOP-88FARC5:/mnt/c/Projects/DevForgeAI2$
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+  integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+● integration-tester(Integration test for STORY-204)
+
+
+
+● integration-tester(Integration test for STORY-204)
+  ⎿  Done (18 tool uses · 130.5k tokens · 22m 54s)
