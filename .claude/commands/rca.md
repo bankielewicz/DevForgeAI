@@ -1,7 +1,7 @@
 ---
 description: Perform Root Cause Analysis with 5 Whys methodology
 argument-hint: [issue-description] [severity]
-model: claude-sonnet-4-5-20250929[1m]
+model: opus
 allowed-tools: Read, Skill, AskUserQuestion, Glob, Grep
 ---
 

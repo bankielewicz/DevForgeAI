@@ -24,6 +24,28 @@ CHUNK_SIZE = 65536  # 64KB chunks for reading files
 MANIFEST_FILENAME = "manifest.json"
 
 
+def _safe_copy2(src: str, dst: str) -> str:
+    """
+    Copy function that skips non-existent files gracefully.
+
+    This handles race conditions where files are listed by copytree's walk
+    but are deleted or don't exist before the actual copy occurs.
+    Also handles exclusion mismatches where deploy.py excludes files
+    that backup.py's copytree tries to copy.
+
+    Args:
+        src: Source file path (from shutil.copytree)
+        dst: Destination file path
+
+    Returns:
+        Destination path if copied, or src path if skipped
+    """
+    src_path = Path(src)
+    if not src_path.exists():
+        return src  # Skip non-existent files silently
+    return shutil.copy2(src, dst)
+
+
 def _generate_backup_hash(backup_path: Path) -> str:
     """
     Generate SHA256 hash of all backup files for integrity verification.
@@ -135,13 +157,13 @@ def create_backup(
         source_claude = project_root / ".claude"
         if source_claude.exists():
             backup_claude = backup_path / ".claude"
-            shutil.copytree(source_claude, backup_claude)
+            shutil.copytree(source_claude, backup_claude, copy_function=_safe_copy2)
 
         # Copy devforgeai/ directory
         source_devforgeai = project_root / "devforgeai"
         if source_devforgeai.exists():
             backup_devforgeai = backup_path / "devforgeai"
-            shutil.copytree(source_devforgeai, backup_devforgeai)
+            shutil.copytree(source_devforgeai, backup_devforgeai, copy_function=_safe_copy2)
 
         # Copy CLAUDE.md if it exists
         source_claude_md = project_root / "CLAUDE.md"

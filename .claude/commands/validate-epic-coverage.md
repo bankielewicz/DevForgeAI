@@ -1,7 +1,7 @@
 ---
 description: Validate epic coverage and report gaps
 argument-hint: "[EPIC-ID] [--interactive | --quiet | --ci] [--help]"
-model: haiku
+model: opus
 allowed-tools: Read, Glob, Grep, Bash, AskUserQuestion, Skill
 ---
 

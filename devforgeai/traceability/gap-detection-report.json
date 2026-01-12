@@ -1,10 +1,10 @@
 {
-  "timestamp": "2026-01-06T13:22:25Z",
-  "consistency_score": 16.8,
-  "story_count": 219,
+  "timestamp": "2026-01-11T12:47:06Z",
+  "consistency_score": 16.5,
+  "story_count": 224,
   "epic_entry_count": 37,
   "mismatch_count": 0,
-  "orphan_count": 182,
+  "orphan_count": 187,
   "mismatches": [],
   "orphaned_stories": [
     {
@@ -138,6 +138,11 @@
       "claimed_epic": "EPIC-011"
     },
     {
+      "story_id": "STORY-247",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-039"
+    },
+    {
       "story_id": "STORY-057",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-011"
@@ -183,9 +188,19 @@
       "claimed_epic": "EPIC-011"
     },
     {
+      "story_id": "STORY-249",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-039"
+    },
+    {
       "story_id": "STORY-059",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-011"
+    },
+    {
+      "story_id": "STORY-248",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-039"
     },
     {
       "story_id": "STORY-199",
@@ -718,9 +733,19 @@
       "claimed_epic": "EPIC-006"
     },
     {
+      "story_id": "STORY-250",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-039"
+    },
+    {
       "story_id": "STORY-022",
       "reason": "NOT_IN_EPIC_TABLE",
       "claimed_epic": "EPIC-006"
+    },
+    {
+      "story_id": "STORY-251",
+      "reason": "NOT_IN_EPIC_TABLE",
+      "claimed_epic": "EPIC-039"
     },
     {
       "story_id": "STORY-025",
@@ -945,6 +970,7 @@
     "Add STORY-055 to EPIC-011 Stories table",
     "Add STORY-244 to EPIC-038 Stories table",
     "Add STORY-056 to EPIC-011 Stories table",
+    "Add STORY-247 to EPIC-039 Stories table",
     "Add STORY-057 to EPIC-011 Stories table",
     "Add STORY-246 to EPIC-038 Stories table",
     "Add STORY-241 to EPIC-037 Stories table",
@@ -954,7 +980,9 @@
     "Add STORY-053 to EPIC-011 Stories table",
     "Add STORY-242 to EPIC-037 Stories table",
     "Add STORY-058 to EPIC-011 Stories table",
+    "Add STORY-249 to EPIC-039 Stories table",
     "Add STORY-059 to EPIC-011 Stories table",
+    "Add STORY-248 to EPIC-039 Stories table",
     "Add STORY-199 to EPIC-033 Stories table",
     "Add STORY-198 to EPIC-033 Stories table",
     "Add STORY-195 to EPIC-033 Stories table",
@@ -1061,7 +1089,9 @@
     "Add STORY-178 to EPIC-033 Stories table",
     "Add STORY-021 to EPIC-006 Stories table",
     "Add STORY-023 to EPIC-006 Stories table",
+    "Add STORY-250 to EPIC-039 Stories table",
     "Add STORY-022 to EPIC-006 Stories table",
+    "Add STORY-251 to EPIC-039 Stories table",
     "Add STORY-025 to EPIC-006 Stories table",
     "Add STORY-024 to EPIC-006 Stories table",
     "Add STORY-027 to EPIC-006 Stories table",

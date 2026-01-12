@@ -95,7 +95,8 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
    ```
 
 **Reference:** `references/preflight-validation.md` for complete workflow
-    Read(file_path=".claude/skills/devforgeai-development/references/preflight-validation.md")  **Important** Read in chunks - 3021 lines in length
+    **Important** Read in chunks - 3021 lines in length
+    Read(file_path=".claude/skills/devforgeai-development/references/preflight-validation.md")  
 
 ---
 

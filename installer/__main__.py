@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 
 from . import install as install_module
+from . import wizard as wizard_module
 
 
 def main():
@@ -31,12 +32,14 @@ def main():
 
 Usage:
     python -m installer install <target_path> [--force]
+    python -m installer wizard <target_path>
     python -m installer validate <target_path>
     python -m installer rollback <target_path>
     python -m installer uninstall <target_path>
 
 Commands:
     install     Install or upgrade DevForgeAI to target directory
+    wizard      Interactive installation wizard with step-by-step prompts
     validate    Validate existing installation
     rollback    Restore previous version from backup
     uninstall   Remove DevForgeAI from target directory
@@ -47,6 +50,7 @@ Options:
 
 Examples:
     python -m installer install .
+    python -m installer wizard /path/to/project
     python -m installer install /path/to/project --force
     python -m installer validate .
 """)
@@ -56,7 +60,7 @@ Examples:
     command = args[0]
 
     # Check for valid command
-    valid_commands = ['install', 'validate', 'rollback', 'uninstall']
+    valid_commands = ['install', 'validate', 'rollback', 'uninstall', 'wizard']
     if command not in valid_commands:
         print(f"Error: Unknown command '{command}'")
         print(f"Valid commands: {', '.join(valid_commands)}")
@@ -84,6 +88,11 @@ Examples:
             result = install_module.install(target_path, mode='rollback')
         elif command == 'uninstall':
             result = install_module.install(target_path, mode='uninstall')
+        elif command == 'wizard':
+            # Wizard runs its own interactive flow and handles its own exit
+            wizard_installer = wizard_module.WizardInstaller(target_path)
+            exit_code = wizard_installer.run()
+            sys.exit(exit_code)
 
         # Display result
         status = result.get('status', 'unknown')

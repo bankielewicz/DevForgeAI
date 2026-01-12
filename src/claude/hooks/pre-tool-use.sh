@@ -109,6 +109,16 @@ SAFE_PATTERNS=(
   "basename "                     # Path manipulation (safe)
 )
 
+# CRITICAL: Define BLOCKED_PATTERNS before SAFE_PATTERNS loop uses it (STORY-195 fix)
+BLOCKED_PATTERNS=(
+  "rm -rf"
+  "sudo"
+  "git push"
+  "npm publish"
+  "curl"
+  "wget"
+)
+
 log "Checking against ${#SAFE_PATTERNS[@]} safe patterns..."
 
 # RCA-015 REC-02: Quote-aware base command extraction
@@ -214,16 +224,25 @@ done
 
 log "No safe pattern matched"
 
-# Block anti-patterns
-BLOCKED_PATTERNS=(
-  "rm -rf"
-  "sudo"
-  "git push"
-  "npm publish"
-  "curl"
-  "wget"
-)
+# STORY-197: Near-miss detection for pattern improvement
+NEAR_MISSES=()
+for pattern in "${SAFE_PATTERNS[@]}"; do
+    if [[ "$COMMAND" == *"$pattern"* ]]; then
+        NEAR_MISSES+=("$pattern")
+    fi
+done
 
+# Log near-misses if any found
+if [[ ${#NEAR_MISSES[@]} -gt 0 ]]; then
+    log "NEAR-MISS DETECTED"
+    log "Command starts with: ${COMMAND:0:20}"
+    for nm in "${NEAR_MISSES[@]}"; do
+        log "  Near-miss pattern: $nm"
+    done
+    log "RECOMMENDATION: Command contains safe pattern but doesn't start with it - consider adding pattern"
+fi
+
+# Block anti-patterns (BLOCKED_PATTERNS defined at top for use in safety checks)
 log "Checking against ${#BLOCKED_PATTERNS[@]} blocked patterns..."
 
 for pattern in "${BLOCKED_PATTERNS[@]}"; do

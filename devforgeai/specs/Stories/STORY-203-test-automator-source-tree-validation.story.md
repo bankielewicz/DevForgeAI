@@ -262,35 +262,35 @@ None - this is an independent enhancement to test-automator.
 
 ### AC#1: source-tree.md Reading Step Added
 
-- [ ] Step 4.5 added to Phase 2 workflow - **Phase:** 3 - **Evidence:** test-automator.md diff
-- [ ] Read() call for source-tree.md present - **Phase:** 3 - **Evidence:** grep verification
-- [ ] Step positioned correctly (after Step 4, before Step 5) - **Phase:** 3 - **Evidence:** line number check
+- [x] Step 4.5 added to Phase 2 workflow - **Phase:** 2 - **Evidence:** Line 549 `4.5. **Read Source Tree for Test File Locations (MANDATORY)**`
+- [x] Read() call for source-tree.md present - **Phase:** 2 - **Evidence:** Line 552 `Read(file_path="devforgeai/specs/context/source-tree.md")`
+- [x] Step positioned correctly (after Step 4, before Step 5) - **Phase:** 2 - **Evidence:** Lines 549-591 (between Step 4 at 541 and Step 5 at 593)
 
 ### AC#2: Test Directory Extraction from source-tree.md
 
-- [ ] Extraction logic documented - **Phase:** 3 - **Evidence:** Step 4.5 content
-- [ ] installer/tests/ pattern recognized - **Phase:** 5 - **Evidence:** test output
-- [ ] Default pattern for undefined modules - **Phase:** 5 - **Evidence:** test output
+- [x] Extraction logic documented - **Phase:** 2 - **Evidence:** Lines 555-565 show extraction logic
+- [x] installer/tests/ pattern recognized - **Phase:** 2 - **Evidence:** Line 561 `test_directory = "installer/tests/"  # Per source-tree.md line 378`
+- [x] Default pattern for undefined modules - **Phase:** 2 - **Evidence:** Line 565 `test_directory = determine from source-tree.md pattern`
 
 ### AC#3: Test Path Validation Before Write
 
-- [ ] Validation loop over planned paths - **Phase:** 3 - **Evidence:** Step 4.5 content
-- [ ] HALT pattern for violations - **Phase:** 3 - **Evidence:** grep "HALT" in step
-- [ ] Validation before Write() confirmed - **Phase:** 5 - **Evidence:** execution log
+- [x] Validation loop over planned paths - **Phase:** 2 - **Evidence:** Lines 572-573 `FOR each test_file_path in planned_test_outputs`
+- [x] HALT pattern for violations - **Phase:** 2 - **Evidence:** Line 574 `HALT test generation`
+- [x] Validation before Write() confirmed - **Phase:** 2 - **Evidence:** Step 4.5 at line 549, Step 5 (Write) at line 593
 
 ### AC#4: Error Message with Fix Guidance
 
-- [ ] Error message template defined - **Phase:** 3 - **Evidence:** Step 4.5 content
-- [ ] Expected/attempted locations shown - **Phase:** 5 - **Evidence:** error output
-- [ ] source-tree.md excerpt included - **Phase:** 5 - **Evidence:** error output
+- [x] Error message template defined - **Phase:** 2 - **Evidence:** Lines 575-591 complete error template
+- [x] Expected/attempted locations shown - **Phase:** 2 - **Evidence:** Lines 580-581 `Expected directory:` and `Attempted location:`
+- [x] source-tree.md excerpt included - **Phase:** 2 - **Evidence:** Lines 589-590 `source-tree.md constraint (line 378):`
 
 ### AC#5: References Section Updated
 
-- [ ] source-tree.md added to References - **Phase:** 3 - **Evidence:** grep verification
+- [x] source-tree.md added to References - **Phase:** 3 - **Evidence:** Line 1244 `- **Source Tree**: \`devforgeai/specs/context/source-tree.md\` (test file location constraints)`
 
 ---
 
-**Checklist Progress:** 0/13 items complete (0%)
+**Checklist Progress:** 13/13 items complete (100%)
 
 ---
 

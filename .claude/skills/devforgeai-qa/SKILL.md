@@ -37,7 +37,7 @@ Do not skip any phases in the devforgeai-qa skill.
 Extracts story ID and mode (light/deep) from conversation context.
 
 **See `references/parameter-extraction.md`** for extraction algorithm (YAML frontmatter, file reference, explicit statement, status inference).
-    Read(file_path=".claude/skills/devforgeai-qa/references/parameter-extraction.md.md")
+    Read(file_path=".claude/skills/devforgeai-qa/references/parameter-extraction.md")
 
 ---
 
@@ -78,13 +78,19 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 **EXECUTION STARTS HERE - You are now executing the skill's workflow.**
 
-**Progressive Disclosure:** Load `references/deep-validation-workflow.md` once at Phase 0 for deep mode (contains all workflow details).
+**Progressive Disclosure:** Workflow references are loaded when each phase executes (not before) to optimize token usage.
+
+**IMPORTANT:** "On-demand" means "load when phase starts" - NOT "loading is optional."
 
 **Execution Pattern:**
-1. Complete Phase 0 (Setup)
-2. Execute Phase 1-3 per mode requirements
-3. Complete Phase 4 (Cleanup)
-4. Display final results
+1. Reach phase (e.g., Phase 2: Analysis)
+2. See "⚠️ CHECKPOINT" marker
+3. Load reference file (REQUIRED)
+4. Execute ALL steps from reference file
+5. Complete phase marker write
+6. Proceed to next phase
+
+**IF you skip loading a reference:** You will execute the phase incorrectly and miss mandatory steps.
 
 ---
 
@@ -358,6 +364,23 @@ IF NOT found: HALT: "Phase 0 not completed - run setup first"
 Display: "✓ Phase 0 verified complete"
 ```
 
+### ⚠️ CHECKPOINT: Phase 1 Reference Loading [MANDATORY]
+
+**You MUST execute ALL steps before proceeding to phase content.**
+
+**Step 1.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md")
+```
+
+**This reference contains the complete workflow. Execute ALL steps from the reference file.**
+
+**After loading:** Proceed to Step 1.1 (in reference file)
+
+**IF you skip this step:** You will execute the phase incorrectly and miss mandatory steps.
+
+---
+
 **Purpose:** Execute tests, analyze coverage, validate traceability.
 
 ### Step 1.1: AC-DoD Traceability Validation
@@ -424,6 +447,24 @@ Execute the 7-step coverage workflow:
   Overall: [X]%
 ```
 
+### Phase 1 Completion Checklist
+
+**Before writing Phase 1 marker, verify you have:**
+
+- [ ] Loaded traceability-validation-algorithm.md (Step 1.0)
+- [ ] Validated AC-DoD traceability (Step 1.1)
+- [ ] Executed test runner (Step 1.2)
+- [ ] Analyzed coverage results (Step 1.3)
+- [ ] Verified critical threshold (100% pass required)
+- [ ] Displayed Phase 1 completion summary
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 2.
+
+**Display to user:**
+```
+✓ Phase 1 Complete: Validation | {traceability_score}% traceability
+```
+
 ### Phase 1 Marker Write
 
 ```
@@ -445,6 +486,26 @@ Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker")
 IF NOT found: HALT: "Phase 1 not completed - run validation first"
 Display: "✓ Phase 1 verified complete"
 ```
+
+### ⚠️ CHECKPOINT: Phase 2 Reference Loading [MANDATORY]
+
+**You MUST execute ALL steps before proceeding to phase content.**
+
+**Step 2.0: Load Workflow References (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/parallel-validation.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
+Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
+```
+
+**These references contain the complete workflows. Execute ALL steps from the reference files.**
+
+**After loading:** Proceed to Step 2.1 (Anti-Pattern Detection)
+
+**IF you skip this step:** You will execute the phase incorrectly and miss mandatory steps.
+
+---
 
 **Purpose:** Detect anti-patterns, run parallel validators, check spec compliance, measure quality.
 
@@ -518,6 +579,25 @@ Task(subagent_type="security-auditor", prompt="Scan for security issues...", des
   Quality metrics: Complexity avg [X], MI [X]%, Duplication [X]%
 ```
 
+### Phase 2 Completion Checklist
+
+**Before writing Phase 2 marker, verify you have:**
+
+- [ ] Loaded anti-pattern-detection-workflow.md (Step 2.0)
+- [ ] Invoked anti-pattern-scanner subagent (Step 2.1)
+- [ ] Ran parallel validators (Step 2.2) - deep mode only
+- [ ] Executed spec compliance validation (Step 2.3)
+- [ ] Analyzed code quality metrics (Step 2.4)
+- [ ] Checked blocking violations (CRITICAL/HIGH)
+- [ ] Displayed Phase 2 completion summary
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 3.
+
+**Display to user:**
+```
+✓ Phase 2 Complete: Analysis | {validator_count}/3 validators
+```
+
 ### Phase 2 Marker Write
 
 ```
@@ -539,6 +619,23 @@ Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker")
 IF NOT found: HALT: "Phase 2 not completed - run analysis first"
 Display: "✓ Phase 2 verified complete"
 ```
+
+### ⚠️ CHECKPOINT: Phase 3 Reference Loading [MANDATORY]
+
+**You MUST execute ALL steps before proceeding to phase content.**
+
+**Step 3.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/qa-result-formatting-guide.md")
+```
+
+**This reference contains the complete workflow. Execute ALL steps from the reference file.**
+
+**After loading:** Proceed to Step 3.1 (Result Determination)
+
+**IF you skip this step:** You will execute the phase incorrectly and miss mandatory steps.
+
+---
 
 **Purpose:** Generate QA report, update story status, create gaps.json if failed.
 
@@ -654,7 +751,7 @@ ELSE:
 
 **Step 4: Edit Append History Entry (ONLY after verification succeeds):**
 **Reference:** `.claude/references/changelog-update-guide.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/changelog-update-guide.md")
+    Read(file_path=".claude/references/changelog-update-guide.md")
 
 ```
 # IF verification succeeds THEN append history
@@ -759,6 +856,24 @@ Task(subagent_type="qa-result-interpreter",
   Story status: [Updated to QA Approved / QA Failed]
 ```
 
+### Phase 3 Completion Checklist
+
+**Before writing Phase 3 marker, verify you have:**
+
+- [ ] Loaded qa-result-formatting.md (Step 3.0)
+- [ ] Aggregated results from Phases 1-2 (Step 3.1)
+- [ ] Invoked qa-result-interpreter subagent (Step 3.2)
+- [ ] Generated QA report (Step 3.3)
+- [ ] Updated story file if applicable (Step 3.4)
+- [ ] Displayed final QA status to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 4.
+
+**Display to user:**
+```
+✓ Phase 3 Complete: Reporting | {overall_status}
+```
+
 ### Phase 3 Marker Write
 
 ```
@@ -780,6 +895,23 @@ Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker")
 IF NOT found: HALT: "Phase 3 not completed - run reporting first"
 Display: "✓ Phase 3 verified complete"
 ```
+
+### ⚠️ CHECKPOINT: Phase 4 Reference Loading [MANDATORY]
+
+**You MUST execute ALL steps before proceeding to phase content.**
+
+**Step 4.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
+```
+
+**This reference contains the complete workflow. Execute ALL steps from the reference file.**
+
+**After loading:** Proceed to Step 4.1 (Release Lock File)
+
+**IF you skip this step:** You will execute the phase incorrectly and miss mandatory steps.
+
+---
 
 **Purpose:** Release locks, invoke feedback hooks, display final summary.
 
@@ -895,6 +1027,22 @@ Display:
 ║   [If PASSED] Ready for /release {STORY_ID}            ║
 ║   [If FAILED] Run /dev {STORY_ID} for remediation      ║
 ╚════════════════════════════════════════════════════════╝
+```
+
+### Phase 4 Completion Checklist
+
+**Before writing Phase 4 marker, verify you have:**
+
+- [ ] Released lock file (Step 4.1)
+- [ ] Cleaned up temporary files (Step 4.2)
+- [ ] Archived session checkpoint (Step 4.3)
+- [ ] Displayed cleanup confirmation
+
+**IF any checkbox unchecked:** HALT and complete missing steps before QA completion.
+
+**Display to user:**
+```
+✓ Phase 4 Complete: Cleanup | Complete
 ```
 
 ### Phase 4 Marker Write

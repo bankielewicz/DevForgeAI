@@ -1,0 +1,95 @@
+{
+  "story_id": "STORY-203",
+  "workflow_started": "2026-01-12T03:30:52.078480Z",
+  "current_phase": "05",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-01-12T03:32:36.267532Z",
+      "completed_at": "2026-01-12T03:33:32.277496Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-01-12T03:35:53.078439Z",
+      "completed_at": "2026-01-12T03:59:21.825504Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2026-01-12T04:00:25.123799Z",
+      "completed_at": "2026-01-12T04:01:39.216960Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-01-12T04:15:31.252601Z",
+      "completed_at": "2026-01-12T12:12:37.884332Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "pending",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": []
+    },
+    "06": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "07": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "08": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "09": {
+      "status": "pending",
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "10": {
+      "status": "pending",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": []
+    }
+  },
+  "validation_errors": [],
+  "blocking_status": false,
+  "observations": []
+}

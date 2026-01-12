@@ -344,6 +344,10 @@ class BackupService(IBackupService):
             rel_path: Relative path for metadata
             files_list: List to accumulate FileEntry objects
         """
+        # Skip if file no longer exists (race condition or exclusion mismatch)
+        if not src_path.exists():
+            return
+
         # Create parent directories
         dst_path.parent.mkdir(parents=True, exist_ok=True)
 

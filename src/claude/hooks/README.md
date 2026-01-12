@@ -1,6 +1,8 @@
 # DevForgeAI Pre-Tool-Use Hook
 
-**Purpose:** Auto-approve safe bash commands to reduce user approval friction while blocking dangerous operations.
+## Purpose
+
+Auto-approve safe bash commands to reduce user approval friction while blocking dangerous operations.
 
 **Effectiveness:** >95% of commands auto-approved (RCA-015 REC-01 + REC-02)
 
@@ -41,7 +43,7 @@ No match → ASK USER for approval (exit 1)
 
 ---
 
-## Safe Patterns (69 Total)
+## Safe Patterns (63 Total)
 
 ### Original Patterns (54)
 
@@ -150,19 +152,44 @@ Do NOT add if command:
 
 ### Monthly Pattern Review
 
-**Run pattern analysis tool:**
-```bash
-python3 devforgeai/scripts/analyze-hook-patterns.py
-# Outputs top 20 safe pattern candidates
-# Shows frequency and impact percentage
-```
+**7-Step Update Process:**
 
-**Review suggestions:**
-1. Check each pattern against safety criteria
-2. Validate pattern is genuinely safe
-3. Add to SAFE_PATTERNS if passes criteria
-4. Test with sample commands
-5. Commit with rationale: `chore(hooks): Add pattern '{pattern}' (used {count}× per analysis)`
+1. **Run analysis** - Execute pattern analysis tool:
+   ```bash
+   python3 devforgeai/scripts/analyze-hook-patterns.py
+   # Outputs top 20 safe pattern candidates
+   # Shows frequency and impact percentage
+   ```
+
+2. **Review candidates** - Examine each suggested pattern:
+   - Check pattern frequency (higher = more impactful)
+   - Verify pattern is used by DevForgeAI workflows
+   - Identify any edge cases or variants
+
+3. **Validate safety** - Check each pattern against safety criteria:
+   - Is it read-only or framework-internal?
+   - Could it be misused in dangerous combinations?
+   - Does it meet all 4 safe pattern checklist items?
+
+4. **Add patterns** - Update SAFE_PATTERNS array:
+   - Add to appropriate category (DevForgeAI, Git, Shell, etc.)
+   - Use prefix matching for safe patterns
+   - Document rationale in code comments
+
+5. **Test** - Verify changes work correctly:
+   - Run `bash -n .claude/hooks/pre-tool-use.sh` (syntax check)
+   - Test that new patterns auto-approve
+   - Verify dangerous variants still block
+
+6. **Commit** - Save changes with descriptive message:
+   ```bash
+   git commit -m "chore(hooks): Add pattern '{pattern}' (used {count}× per analysis)"
+   ```
+
+7. **Monitor** - Watch for issues post-deployment:
+   - Check logs for 24-48 hours
+   - Verify no unsafe commands auto-approved
+   - Track approval rate improvement
 
 ### Weekly Unknown Command Review
 

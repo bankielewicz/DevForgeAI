@@ -5,7 +5,7 @@ type: fix
 epic: EPIC-033
 priority: CRITICAL
 points: 3
-status: Dev Complete
+status: QA Approved
 created: 2025-01-01
 source: RCA-016 Regression Record
 depends_on: []
@@ -235,3 +235,5 @@ Update line ~77-86 in SKILL.md:
 |------|--------|--------------|--------|----------------|
 | 2025-01-01 | claude/opus | Story created | Story created from RCA-016 regression discovery | STORY-201.story.md |
 | 2026-01-11 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-201.story.md |
+| 2026-01-11 | claude/qa-result-interpreter | QA Deep | FAILED: CHECKPOINT markers not deployed to active file, 4 CRITICAL + 2 HIGH violations | STORY-201-qa-report.md |
+| 2026-01-11 | claude/qa-result-interpreter | QA Deep (Re-test) | PASSED: Files synced, all 4 CHECKPOINT markers verified, 2/2 validators passed | STORY-201-qa-report.md |

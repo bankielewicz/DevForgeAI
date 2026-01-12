@@ -1241,3 +1241,4 @@ TEST-SPECIFICATION.md vs test_*.py
 - **Tech Stack**: `devforgeai/specs/context/tech-stack.md` (test framework choice)
 - **Coverage Reports**: `devforgeai/qa/coverage/coverage-report.json`
 - **Coverage Thresholds**: `devforgeai/qa/coverage-thresholds.md`
+- **Source Tree**: `devforgeai/specs/context/source-tree.md` (test file location constraints)

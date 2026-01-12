@@ -35,7 +35,11 @@
       "Bash(./devforgeai/tests/STORY-199/run-all-tests.sh:*)",
       "Bash(/usr/bin/python3 -m pytest:*)",
       "Bash(for f in test-ac*.sh)",
-      "Bash(do echo \"=== $f ===\")"
+      "Bash(do echo \"=== $f ===\")",
+      "Skill(DF:feedback)",
+      "Bash(xargs -I{} sh -c 'if [ {} -eq 4 ]; then echo \"\"   [PASS] All 4 Phase Completion Checklists found\"\"; else echo \"\"   [FAIL] Expected 4, found {}\"\"; fi')",
+      "Bash(xargs -I{} sh -c 'if [ {} -ge 20 ]; then echo \"\"   [PASS] {} checkbox items found \\(≥20\\)\"\"; else echo \"\"   [WARN] Only {} checkbox items found\"\"; fi')",
+      "Bash(python -m pytest:*)"
     ]
   }
 }

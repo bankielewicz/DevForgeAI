@@ -447,6 +447,24 @@ Execute the 7-step coverage workflow:
   Overall: [X]%
 ```
 
+### Phase 1 Completion Checklist
+
+**Before writing Phase 1 marker, verify you have:**
+
+- [ ] Loaded traceability-validation-algorithm.md (Step 1.0)
+- [ ] Validated AC-DoD traceability (Step 1.1)
+- [ ] Executed test runner (Step 1.2)
+- [ ] Analyzed coverage results (Step 1.3)
+- [ ] Verified critical threshold (100% pass required)
+- [ ] Displayed Phase 1 completion summary
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 2.
+
+**Display to user:**
+```
+✓ Phase 1 Complete: Validation | {traceability_score}% traceability
+```
+
 ### Phase 1 Marker Write
 
 ```
@@ -559,6 +577,25 @@ Task(subagent_type="security-auditor", prompt="Scan for security issues...", des
   Parallel validators: [X]/3 passed (threshold: 2/3)
   Spec compliance: [X]/[Y] criteria validated
   Quality metrics: Complexity avg [X], MI [X]%, Duplication [X]%
+```
+
+### Phase 2 Completion Checklist
+
+**Before writing Phase 2 marker, verify you have:**
+
+- [ ] Loaded anti-pattern-detection-workflow.md (Step 2.0)
+- [ ] Invoked anti-pattern-scanner subagent (Step 2.1)
+- [ ] Ran parallel validators (Step 2.2) - deep mode only
+- [ ] Executed spec compliance validation (Step 2.3)
+- [ ] Analyzed code quality metrics (Step 2.4)
+- [ ] Checked blocking violations (CRITICAL/HIGH)
+- [ ] Displayed Phase 2 completion summary
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 3.
+
+**Display to user:**
+```
+✓ Phase 2 Complete: Analysis | {validator_count}/3 validators
 ```
 
 ### Phase 2 Marker Write
@@ -714,7 +751,7 @@ ELSE:
 
 **Step 4: Edit Append History Entry (ONLY after verification succeeds):**
 **Reference:** `.claude/references/changelog-update-guide.md`
-    Read(file_path=".claude/skills/devforgeai-qa/references/changelog-update-guide.md")
+    Read(file_path=".claude/references/changelog-update-guide.md")
 
 ```
 # IF verification succeeds THEN append history
@@ -817,6 +854,24 @@ Task(subagent_type="qa-result-interpreter",
   Result: [PASSED ✅ / FAILED ❌ / PASS WITH WARNINGS ⚠️]
   Report: [path / Not generated (light mode)]
   Story status: [Updated to QA Approved / QA Failed]
+```
+
+### Phase 3 Completion Checklist
+
+**Before writing Phase 3 marker, verify you have:**
+
+- [ ] Loaded qa-result-formatting.md (Step 3.0)
+- [ ] Aggregated results from Phases 1-2 (Step 3.1)
+- [ ] Invoked qa-result-interpreter subagent (Step 3.2)
+- [ ] Generated QA report (Step 3.3)
+- [ ] Updated story file if applicable (Step 3.4)
+- [ ] Displayed final QA status to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps before Phase 4.
+
+**Display to user:**
+```
+✓ Phase 3 Complete: Reporting | {overall_status}
 ```
 
 ### Phase 3 Marker Write
@@ -972,6 +1027,22 @@ Display:
 ║   [If PASSED] Ready for /release {STORY_ID}            ║
 ║   [If FAILED] Run /dev {STORY_ID} for remediation      ║
 ╚════════════════════════════════════════════════════════╝
+```
+
+### Phase 4 Completion Checklist
+
+**Before writing Phase 4 marker, verify you have:**
+
+- [ ] Released lock file (Step 4.1)
+- [ ] Cleaned up temporary files (Step 4.2)
+- [ ] Archived session checkpoint (Step 4.3)
+- [ ] Displayed cleanup confirmation
+
+**IF any checkbox unchecked:** HALT and complete missing steps before QA completion.
+
+**Display to user:**
+```
+✓ Phase 4 Complete: Cleanup | Complete
 ```
 
 ### Phase 4 Marker Write
