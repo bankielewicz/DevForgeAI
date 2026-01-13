@@ -480,6 +480,124 @@ test_integration_citation_requirements_reference() {
     fi
 }
 
+# --- Integration Tests: End-to-End Workflow Verification ---
+
+test_integration_false_claims_trigger_halt() {
+    incr_run
+    print_test "Integration: False claims workflow documented (HALT on unverified)"
+
+    # Verify the workflow documents what happens when claims cannot be verified:
+    # 1. Must have check for unverified claims
+    # 2. Must have HALT action
+    # 3. Must have "speculative" or "remove from story" guidance
+
+    local checks_passed=0
+
+    # Check 1: Unverified claims detection documented
+    if grep -qE "unverified.*claim|claim.*unverified|Cannot verify claim" "${FULL_PATH}"; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    # Check 2: HALT action documented for this scenario
+    if grep -qE "HALT.*claim|HALT.*unverified|HALT.*Cannot verify" "${FULL_PATH}"; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    # Check 3: Recovery guidance for speculative claims
+    if grep -qE "speculative|[Rr]emove from story|[Rr]emove.*claim" "${FULL_PATH}"; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    if [[ ${checks_passed} -eq 3 ]]; then
+        pass
+    else
+        fail "False claims workflow incomplete (${checks_passed}/3 checks passed)"
+    fi
+}
+
+test_integration_valid_claims_generate_yaml() {
+    incr_run
+    print_test "Integration: Valid claims workflow documented (verified_violations YAML)"
+
+    # Verify the workflow documents what happens when all claims are verified:
+    # 1. Must have "all claims verified" or similar success state
+    # 2. Must have verified_violations YAML generation step
+    # 3. Must have complete YAML template with required fields
+
+    local checks_passed=0
+
+    # Check 1: Success state documented (all claims verified)
+    if grep -qE "[Aa]ll.*claim.*verif|verification.*passed|Evidence Sufficiency.*PASSED" "${FULL_PATH}"; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    # Check 2: YAML generation step documented
+    if grep -qE "[Gg]enerate.*verified_violations|verified_violations.*YAML|Step (4|EV-4)" "${FULL_PATH}"; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    # Check 3: Complete YAML template with file, lines, count, note
+    local yaml_fields=0
+    if grep -q -- "- file:" "${FULL_PATH}"; then yaml_fields=$((yaml_fields + 1)); fi
+    if grep -qE -- 'lines:.*\[' "${FULL_PATH}"; then yaml_fields=$((yaml_fields + 1)); fi
+    if grep -q -- "count:" "${FULL_PATH}"; then yaml_fields=$((yaml_fields + 1)); fi
+    if grep -q -- "note:" "${FULL_PATH}"; then yaml_fields=$((yaml_fields + 1)); fi
+
+    if [[ ${yaml_fields} -ge 4 ]]; then
+        checks_passed=$((checks_passed + 1))
+    fi
+
+    if [[ ${checks_passed} -eq 3 ]]; then
+        pass
+    else
+        fail "Valid claims workflow incomplete (${checks_passed}/3 checks passed)"
+    fi
+}
+
+test_integration_workflow_order_correct() {
+    incr_run
+    print_test "Integration: Workflow step order is correct (EV-1 before EV-2 before EV-3 before EV-4)"
+
+    # Get line numbers for each step
+    local ev1_line ev2_line ev3_line ev4_line
+
+    ev1_line=$(grep -n "Step EV-1" "${FULL_PATH}" | head -1 | cut -d: -f1)
+    ev2_line=$(grep -n "Step EV-2" "${FULL_PATH}" | head -1 | cut -d: -f1)
+    ev3_line=$(grep -n "Step EV-3" "${FULL_PATH}" | head -1 | cut -d: -f1)
+    ev4_line=$(grep -n "Step EV-4" "${FULL_PATH}" | head -1 | cut -d: -f1)
+
+    if [[ -n "${ev1_line}" && -n "${ev2_line}" && -n "${ev3_line}" && -n "${ev4_line}" ]]; then
+        if [[ ${ev1_line} -lt ${ev2_line} && ${ev2_line} -lt ${ev3_line} && ${ev3_line} -lt ${ev4_line} ]]; then
+            pass
+        else
+            fail "Steps not in correct order: EV-1@${ev1_line}, EV-2@${ev2_line}, EV-3@${ev3_line}, EV-4@${ev4_line}"
+        fi
+    else
+        fail "Could not find all 4 EV steps"
+    fi
+}
+
+test_integration_evidence_verification_before_step30() {
+    incr_run
+    print_test "Integration: Evidence-Verification executes before Step 3.0"
+
+    # The Evidence-Verification Pre-Flight must come before Step 3.0 in the workflow
+    local ev_section_line step30_line
+
+    ev_section_line=$(grep -n "Evidence-Verification Pre-Flight" "${FULL_PATH}" | head -1 | cut -d: -f1)
+    step30_line=$(grep -n "^## Step 3.0:" "${FULL_PATH}" | head -1 | cut -d: -f1)
+
+    if [[ -n "${ev_section_line}" && -n "${step30_line}" ]]; then
+        if [[ ${ev_section_line} -lt ${step30_line} ]]; then
+            pass
+        else
+            fail "Evidence-Verification (line ${ev_section_line}) should come before Step 3.0 (line ${step30_line})"
+        fi
+    else
+        fail "Could not determine section positions"
+    fi
+}
+
 # =============================================================================
 # Main Test Execution
 # =============================================================================
@@ -546,6 +664,14 @@ main() {
     test_integration_four_steps_exist
     test_integration_rca020_reference
     test_integration_citation_requirements_reference
+
+    # End-to-End Workflow Integration Tests
+    echo ""
+    echo "--- End-to-End Workflow Integration Tests ---"
+    test_integration_false_claims_trigger_halt
+    test_integration_valid_claims_generate_yaml
+    test_integration_workflow_order_correct
+    test_integration_evidence_verification_before_step30
 
     print_summary
 }
