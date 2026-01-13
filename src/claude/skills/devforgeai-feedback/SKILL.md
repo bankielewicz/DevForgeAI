@@ -3,7 +3,7 @@ name: devforgeai-feedback
 description: Retrospective feedback system with event-driven hooks for DevForgeAI operations. Use after operations complete (dev, qa, release) to capture insights, challenges, and improvements.
 version: 1.0
 status: Implemented (Core), Integration Pending (TodoWrite)
-model: claude-haiku-4-5-20251001
+model: claude-opus-4-5-20251101
 ---
 
 # DevForgeAI Feedback Skill

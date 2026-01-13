@@ -892,6 +892,30 @@ ELSE IF status == PASS:
 
 ---
 
+### Step 3.7: Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate subagent output location:**
+   - Subagent files: `.claude/agents/` (ONLY allowed location)
+   - Reference files: `.claude/skills/[skill]/references/`
+   - Check if target path matches allowed patterns
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: .claude/agents/ or .claude/skills/*/references/
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ### Step 4: Write Subagent File
 
 ```
@@ -2314,6 +2338,9 @@ Before writing command refactoring subagent file:
 ---
 
 ## References
+
+**Context Files:**
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **Requirements Document:**
 - `devforgeai/specs/requirements/phase-2-subagents-requirements.md` - Detailed subagent specifications

@@ -165,6 +165,32 @@ Use these component types based on feature description:
 
 ---
 
+## Pre-Generation Validation
+
+**Note:** This subagent does NOT have Write() or Edit() tools (by design for RCA-007 compliance).
+It returns markdown content for the parent skill (devforgeai-story-creation) to write.
+
+**Pattern for reference (applies when parent skill writes):**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate story output location (enforced by parent skill):**
+   - Story files: `devforgeai/specs/Stories/` (ONLY allowed location)
+   - Parent skill validates before Write()
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: devforgeai/specs/Stories/
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 ### Step 1: Receive Context from Parent Skill
@@ -917,8 +943,13 @@ Write(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", content=
 
 ---
 
-## Related Documents
+## References
 
+**Context Files:**
+- `devforgeai/specs/context/tech-stack.md` - Technology stack reference
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
+
+**Related Documents:**
 - **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
 - **Parent Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
 - **Invoked From:** `.claude/skills/devforgeai-story-creation/references/requirements-analysis.md` (Step 2.1)

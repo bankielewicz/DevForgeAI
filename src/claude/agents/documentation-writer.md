@@ -33,6 +33,32 @@ Generate clear, accurate technical documentation for APIs, codebases, and system
 - devforgeai-qa when documentation coverage < 80%
 - devforgeai-development after Phase 4 (Integration)
 
+## Pre-Generation Validation
+
+**MANDATORY before any Write() or Edit() operation:**
+
+1. **Load source-tree.md constraints:**
+   ```
+   Read(file_path="devforgeai/specs/context/source-tree.md")
+   ```
+
+2. **Validate documentation output location:**
+   - Developer guides: `docs/guides/`
+   - API documentation: `docs/api/`
+   - Architecture docs: `docs/architecture/`
+   - Memory files: `.claude/memory/`
+   - Check if target path matches patterns in source-tree.md
+
+3. **If validation fails:**
+   ```
+   HALT: SOURCE-TREE CONSTRAINT VIOLATION
+   - Expected directory: docs/* or .claude/memory/
+   - Attempted location: {target_path}
+   - Action: Use AskUserQuestion for user guidance
+   ```
+
+---
+
 ## Workflow
 
 1. **Read Code and Context**
@@ -496,7 +522,7 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 
 **Context Files:**
 - `devforgeai/specs/context/tech-stack.md` - Technology terminology
-- `devforgeai/specs/context/source-tree.md` - Project structure
+- **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **Documentation Standards:**
 - OpenAPI Specification 3.0

@@ -99,6 +99,53 @@ ELSE:
 
 **Delegate test generation to test-automator subagent.**
 
+### Step 0: Read source-tree.md Context [MANDATORY - STORY-206]
+
+**Purpose:** Extract test directory context from source-tree.md for defense in depth validation.
+
+**Why this step exists (Defense in Depth):**
+1. **Layer 1 (This Step):** Skill reads source-tree.md and sets context markers
+2. **Layer 2 (test-automator):** Subagent reads source-tree.md independently (STORY-203)
+3. **Redundant validation:** If either layer fails, the other catches violations
+
+```
+Read(file_path="devforgeai/specs/context/source-tree.md")
+```
+
+**Extract test directory based on module path pattern:**
+
+| Module Path | Expected Test Directory | Rule Source |
+|-------------|------------------------|-------------|
+| `installer/*` | `installer/tests/` | source-tree.md lines 384-443 |
+| `.claude/scripts/devforgeai_cli/*` | `.claude/scripts/devforgeai_cli/tests/` | source-tree.md lines 299-309 |
+| `src/*` | `tests/` (default) | source-tree.md lines 352 |
+
+**Pattern Extraction Logic:**
+```
+# Determine module under test from story Technical Specification
+$MODULE_PATH = story.technical_specification.components[0].file_path
+
+# Extract test directory per source-tree.md rules
+IF $MODULE_PATH starts with "installer/":
+    $TEST_DIRECTORY = "installer/tests/"
+ELIF $MODULE_PATH starts with ".claude/scripts/devforgeai_cli/":
+    $TEST_DIRECTORY = ".claude/scripts/devforgeai_cli/tests/"
+ELIF $MODULE_PATH starts with "src/":
+    $TEST_DIRECTORY = "tests/"
+ELSE:
+    $TEST_DIRECTORY = "tests/"  # Default fallback
+```
+
+**Set context markers BEFORE test-automator invocation:**
+
+```markdown
+**Module Under Test:** ${MODULE_PATH}
+**Expected Test Directory:** ${TEST_DIRECTORY} (per source-tree.md)
+**Constraint:** All generated tests must be placed in ${TEST_DIRECTORY}
+```
+
+---
+
 ### Step 1: Invoke test-automator Subagent [MANDATORY]
 
 ```
@@ -119,11 +166,16 @@ Task(
   - devforgeai/specs/context/coding-standards.md (test patterns, AAA format)
   - devforgeai/specs/context/tech-stack.md (test framework: {TEST_FRAMEWORK})
 
+  **source-tree.md Context for test file placement:**
+  - Module Under Test: ${MODULE_PATH}
+  - Expected Test Directory: ${TEST_DIRECTORY} (per source-tree.md)
+  - Constraint: All generated tests must be placed in ${TEST_DIRECTORY}
+
   Generate tests that:
   1. Cover all acceptance criteria
   2. Follow AAA pattern (Arrange, Act, Assert)
   3. Use test framework: {TEST_FRAMEWORK}
-  4. Place tests according to source-tree.md rules
+  4. Place tests according to source-tree.md rules in ${TEST_DIRECTORY}
   5. Initially FAIL (Red phase of TDD)
 
   Test command to verify: {TEST_COMMAND}

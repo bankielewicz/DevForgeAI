@@ -558,7 +558,7 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
 
    ```
    IF module in "installer/":
-       test_directory = "installer/tests/"  # Per source-tree.md line 378
+       test_directory = "installer/tests/"  # Per source-tree.md line 436
    ELSE IF module in ".claude/":
        test_directory = determine from source-tree.md (if defined)
    ELSE:
@@ -586,7 +586,7 @@ Assert.NotNull(config.GetConnectionString("OmniWatchDb"));
            2. OR update source-tree.md with new pattern
            3. Retry test generation
 
-           source-tree.md constraint (line 378):
+           source-tree.md constraint (line 436):
            {excerpt from source-tree.md showing correct location}
            """
 
@@ -1241,3 +1241,4 @@ TEST-SPECIFICATION.md vs test_*.py
 - **Tech Stack**: `devforgeai/specs/context/tech-stack.md` (test framework choice)
 - **Coverage Reports**: `devforgeai/qa/coverage/coverage-report.json`
 - **Coverage Thresholds**: `devforgeai/qa/coverage-thresholds.md`
+- **Source Tree**: `devforgeai/specs/context/source-tree.md` (test file location constraints)

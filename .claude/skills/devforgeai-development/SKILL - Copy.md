@@ -636,6 +636,52 @@ END
 
 ---
 
+## Workflow Completion Self-Check (MANDATORY BEFORE RESULT DISPLAY)
+
+**Before displaying final result or returning to user, verify ALL phases completed:**
+
+```
+FINAL VALIDATION:
+
+# Count completed phases from TodoWrite list
+completed_count = 0
+missing_phases = []
+
+FOR each phase in [01, 02, 03, 04, 05, 06, 07, 08, 09, 10]:
+  IF phase.status == "completed":
+    completed_count += 1
+  ELSE:
+    missing_phases.append(phase)
+
+# Validate count
+IF completed_count < 10:
+  Display:
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+  "❌ WORKFLOW INCOMPLETE - Cannot declare completion"
+  ""
+  "Phases completed: {completed_count}/10"
+  "Missing phases:"
+  FOR each phase in missing_phases:
+    Display: "  ✗ Phase {phase.number}: {phase.name} (status: {phase.status})"
+  ""
+  "Complete missing phases before displaying final result."
+  "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  HALT (do not display "Workflow Complete" banner, do not return to user)
+
+IF completed_count == 10:
+  Display:
+  "✓ All 10 phases completed - Workflow validation passed"
+  ""
+  "Proceeding to final result display..."
+
+  Proceed to display final result
+```
+
+**Purpose:** Last-line defense against phase skipping. Catches any bypass of individual phase gates before user sees "complete" status.
+
+---
+
 ## Integration Points
 
 **From:** devforgeai-story-creation (story+AC), devforgeai-architecture (context files)

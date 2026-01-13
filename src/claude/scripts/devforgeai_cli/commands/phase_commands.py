@@ -13,24 +13,52 @@ Commands:
 """
 
 import json
-import sys
 from pathlib import Path
-from typing import Optional
 
 
 def _get_phase_state(project_root: str):
     """
-    Get PhaseState instance.
+    Get PhaseState instance with graceful error handling.
 
-    Handles import path complexity for both CLI and test contexts.
+    PhaseState is co-located in the same package for simple imports.
+
+    Args:
+        project_root: Path to the project root directory
+
+    Returns:
+        PhaseState instance for phase tracking
+
+    Raises:
+        ImportError: If phase_state.py module cannot be imported, with
+                     helpful diagnostic message including:
+                     - Original error details
+                     - Expected module location
+                     - Fix instructions
+                     - Note about /dev workflow continuation
     """
-    # Add installer directory to path for PhaseState import
-    installer_path = Path(project_root) / "installer"
-    if installer_path.exists() and str(installer_path) not in sys.path:
-        sys.path.insert(0, str(installer_path.parent))
-
-    from installer.phase_state import PhaseState
-    return PhaseState(project_root=Path(project_root))
+    try:
+        from ..phase_state import PhaseState
+        return PhaseState(project_root=Path(project_root))
+    except ImportError as e:
+        raise ImportError(
+            f"PhaseState module not found: {e}\n\n"
+            "The phase_state.py module is required for phase tracking.\n"
+            "Expected location: .claude/scripts/devforgeai_cli/phase_state.py\n\n"
+            "To fix:\n"
+            "  1. Ensure STORY-253 (PhaseState module) is implemented\n"
+            "  2. Reinstall CLI using one of these methods:\n\n"
+            "     # Using pipx (recommended for CLI tools):\n"
+            "     pipx install -e .claude/scripts/ --force\n\n"
+            "     # Using virtual environment:\n"
+            "     python3 -m venv .venv && source .venv/bin/activate\n"
+            "     pip install -e .claude/scripts/\n\n"
+            "     # Direct pip (if not externally-managed):\n"
+            "     pip install -e .claude/scripts/\n\n"
+            "  3. Retry your command\n\n"
+            "Note: The /dev workflow can continue without CLI-based phase\n"
+            "enforcement if this module is unavailable. Phase tracking is\n"
+            "optional and does not block story development."
+        ) from e
 
 
 def phase_init_command(

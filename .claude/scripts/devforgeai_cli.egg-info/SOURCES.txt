@@ -49,6 +49,7 @@ devforgeai_cli/tests/test_depends_on_normalizer.py
 devforgeai_cli/tests/test_dod_validator.py
 devforgeai_cli/tests/test_invoke_hooks.py
 devforgeai_cli/tests/test_phase_commands.py
+devforgeai_cli/tests/test_phase_commands_error_handling.py
 devforgeai_cli/tests/test_phase_commands_import.py
 devforgeai_cli/tests/test_phase_state.py
 devforgeai_cli/tests/test_skip_tracking.py
