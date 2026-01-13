@@ -688,6 +688,7 @@ Control returns to user
 ### Feature 6.1: Hook Invocation Infrastructure (13 points)
 - STORY-021: Implement devforgeai check-hooks CLI command (5 points) - QA Approved
 - STORY-022: Implement devforgeai invoke-hooks CLI command (8 points) - QA Approved
+- STORY-256: Implement invoke_feedback_skill() Method in Hooks Service (3 points) - Backlog
 
 ### Feature 6.2: Command Integration Rollout (55 points)
 - STORY-023: Wire hooks into /dev command (pilot) (8 points) - QA Approved
