@@ -184,8 +184,194 @@ If any CRITICAL failures (missing sections, invalid frontmatter):
     # If still failing: Report to user with specific issues
 
 If all validations pass:
-    ✅ Proceed to Step 7.7 (Context File Compliance)
+    ✅ Proceed to Step 7.6.5 (Citation Compliance Validation)
 ```
+
+---
+
+## Step 7.6.5: Citation Compliance Validation
+
+### Citation Compliance Validation
+
+**Objective:** Validate that all technology and architecture claims in the story follow the Read-Quote-Cite-Verify protocol, ensuring modification claims are grounded in verified evidence.
+
+**Reference:** `.claude/rules/core/citation-requirements.md`
+
+**Purpose:** This validation ensures that technical specifications making claims about existing code or files (e.g., "modifies Component X", "updates File Y") have proper citation evidence. Stories without grounded citations risk implementing changes to non-existent components or incorrect file locations.
+
+**Defense in Depth:**
+- **Layer 1 (Phase 3):** Evidence-Verification Gate proactively gathers evidence
+- **Layer 2 (Phase 7):** Citation Compliance Validation (this step) validates evidence exists before story creation
+
+```
+1. Check if story contains modification claims:
+
+   modification_indicators = [
+     "modifies", "updates", "changes", "extends", "enhances",
+     "adds to", "removes from", "refactors", "integrates with",
+     "violation", "replace", "remove"
+   ]
+
+   story_content = Read(story_file_path)
+
+   has_modification_claims = any(
+     indicator in story_content.lower()
+     for indicator in modification_indicators
+   )
+
+   IF NOT has_modification_claims:
+     Display: "ℹ️ Documentation-only story: Citation compliance validation skipped"
+     Log: "Citation compliance validation skipped - no modification claims"
+     SKIP to Step 7.7
+     RETURN { documentation_only: true, citation_compliant: true }
+```
+
+```
+2. Validate citation structure for modification claims:
+
+   violations = []
+
+   FOR each component in tech_spec.components:
+
+     # **Item 1:** Check for verified_violations when claims exist
+     IF component.description contains ["violation", "replace", "remove", "refactor"]:
+       IF component does NOT have verified_violations:
+         violations.append({
+           "item": 1,
+           "type": "MISSING_VERIFIED_VIOLATIONS",
+           "component": component.name,
+           "reason": "Modification claim without verified_violations section",
+           "evidence": f"Component '{component.name}' claims modification but lacks grounding"
+         })
+
+     # **Item 2:** Check line number format is array of integers
+     IF component.verified_violations exists:
+       IF lines field exists AND is NOT array of integers:
+         violations.append({
+           "item": 2,
+           "type": "INVALID_LINE_FORMAT",
+           "component": component.name,
+           "reason": "Line numbers must be array of integers [N, M, O], not generic ranges",
+           "evidence": f"Found: {type(component.lines).__name__}, expected: list of positive integers"
+         })
+       IF lines contains generic values like "around", "approx", "~":
+         violations.append({
+           "item": 2,
+           "type": "GENERIC_LINE_NUMBERS",
+           "component": component.name,
+           "reason": "Generic line numbers not allowed",
+           "evidence": f"Line reference contains vague terms"
+         })
+
+     # **Item 3:** Check for generic descriptions
+     IF component.description matches /[Rr]emove.*commands?$/ without specific count and lines:
+       violations.append({
+         "item": 3,
+         "type": "GENERIC_DESCRIPTION",
+         "component": component.name,
+         "reason": "Description uses vague terms without specific counts or line numbers",
+         "evidence": f"Generic language detected: '{component.description}' - must include specific count and line numbers"
+       })
+
+     # **Item 4:** Check file paths exist (use cached results from Phase 3)
+     IF verified_violations.file NOT in validated_files_cache:
+       violations.append({
+         "item": 4,
+         "type": "UNVALIDATED_FILE_PATH",
+         "component": component.name,
+         "reason": "File path not validated in Phase 3 evidence collection",
+         "evidence": f"Path '{verified_violations.file}' not found in phase3_validated_files cache"
+       })
+
+     # **Item 5:** Check for placeholders
+     IF verified_violations contains ["TBD", "TODO", "PLACEHOLDER", "N/A"]:
+       violations.append({
+         "item": 5,
+         "type": "PLACEHOLDER_VALUE",
+         "component": component.name,
+         "reason": "Placeholder values detected - all values must be concrete",
+         "evidence": f"Found placeholder in verified_violations section"
+       })
+```
+
+```
+3. Handle Citation Compliance Violation Detected:
+
+   IF len(violations) > 0:
+     HALT workflow
+
+     Display: f"""
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Citation Compliance Violation Detected
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❌ CRITICAL: Story fails Citation Compliance validation
+
+Violations found: {len(violations)}
+     """
+
+     FOR violation in violations:
+       Display: f"""
+**Violation:** Item {violation['item']} - {violation['type']}
+
+**Component:** {violation['component']}
+
+**Reason:** {violation['reason']}
+
+**Evidence:** {violation['evidence']}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       """
+
+     # Provide fix instructions
+     Display: """
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Fix Required
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+| Violation | Fix Instruction |
+|-----------|-----------------|
+| Item 1 (Missing verified_violations) | Add verified_violations section to component. Read target file and gather line numbers. |
+| Item 2 (Invalid line format) | Convert lines to array of integers: lines: [469, 598, 599] |
+| Item 3 (Generic description) | Add specific count and line numbers: 'Remove 3 Bash mkdir commands (lines 469, 598, 599)' |
+| Item 4 (Invalid file path) | Verify file path exists. Check for typos or outdated references. |
+| Item 5 (Placeholder values) | Replace TBD/TODO with actual values from target file verification. |
+
+**Reference:** .claude/rules/core/citation-requirements.md (Read-Quote-Cite-Verify protocol)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Story file NOT created. Address violation and retry.
+     """
+
+     # Re-run validation after fixes (max 2 retries)
+     GOTO Step 7.6.5 (max 2 retry attempts)
+```
+
+```
+4. If validation passes:
+   Display: f"""
+   ✅ Citation Compliance Validation PASSED
+
+   Components validated: {len(tech_spec.components)}
+   Modification claims verified: {count_modification_claims}
+   All citations properly grounded per Read-Quote-Cite-Verify protocol.
+   """
+
+   PROCEED to Step 7.7 (Context File Compliance)
+```
+
+**Validation Checklist:**
+
+| Item | Check | Severity |
+|------|-------|----------|
+| **Item 1** | All components with modification claims have `verified_violations` section | CRITICAL |
+| **Item 2** | Line numbers in format `lines: [N, M, O]` (array of integers) | HIGH |
+| **Item 3** | No generic descriptions - must have specific count and line numbers | HIGH |
+| **Item 4** | File paths validated (from Phase 3 cache) | CRITICAL |
+| **Item 5** | No placeholder values (TBD, TODO, PLACEHOLDER) | CRITICAL |
+
+**Exit Criteria:** All 5 validation items pass for every component with modification claims
 
 ---
 
