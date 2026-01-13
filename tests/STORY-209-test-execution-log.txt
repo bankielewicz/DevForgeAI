@@ -1,0 +1,155 @@
+==========================================================================
+STORY-209: Phase Resumption Protocol Documentation Tests
+==========================================================================
+
+Target file: .claude/skills/devforgeai-development/SKILL.md
+
+[0;32m✓[0m Target file exists
+
+==========================================================================
+AC#1: User Detection Indicators Documented
+==========================================================================
+
+[1;33m[TEST][0m AC#1.1: Section 'User Detection Indicators' exists
+[0;31m✗ FAIL[0m: AC#1.1: Section 'User Detection Indicators' exists
+  Reason: Section header not found - expected pattern: ### User Detection Indicators
+
+[1;33m[TEST][0m AC#1.2: TodoWrite list shows phases as 'pending' or 'in_progress' indicator documented
+[0;32m✓ PASS[0m: AC#1.2: TodoWrite pending/in_progress indicator documented
+
+[1;33m[TEST][0m AC#1.3: DoD completion indicator (<100% but workflow declared complete) documented
+[0;31m✗ FAIL[0m: AC#1.3: DoD completion indicator documented
+  Reason: Pattern about DoD completion percentage not found
+
+[1;33m[TEST][0m AC#1.4: Story status indicator documented
+[0;32m✓ PASS[0m: AC#1.4: Story status indicator documented
+
+[1;33m[TEST][0m AC#1.5: Git commit detection indicator documented
+[0;31m✗ FAIL[0m: AC#1.5: Git commit detection indicator documented
+  Reason: Pattern about git commit detection not found
+
+==========================================================================
+AC#2: User Recovery Command Documented
+==========================================================================
+
+[1;33m[TEST][0m AC#2.1: Section 'User Recovery Command' exists
+[0;31m✗ FAIL[0m: AC#2.1: Section 'User Recovery Command' exists
+  Reason: Section header not found - expected pattern: ### User Recovery Command
+
+[1;33m[TEST][0m AC#2.2: Code block with recovery command template documented
+[0;31m✗ FAIL[0m: AC#2.2: Code block with recovery command template documented
+  Reason: Recovery command template pattern not found
+
+[1;33m[TEST][0m AC#2.3: References to pending phases list in recovery command
+[0;32m✓ PASS[0m: AC#2.3: References to pending phases list in recovery command
+
+[1;33m[TEST][0m AC#2.4: 'Resume execution now' or similar action phrase documented
+[0;31m✗ FAIL[0m: AC#2.4: 'Resume execution now' or similar action phrase documented
+  Reason: Action phrase pattern not found
+
+==========================================================================
+AC#3: Claude Resumption Steps Documented
+==========================================================================
+
+[1;33m[TEST][0m AC#3.1: Section 'Claude Resumption Steps' exists
+[0;31m✗ FAIL[0m: AC#3.1: Section 'Claude Resumption Steps' exists
+  Reason: Section header not found - expected pattern: ### Claude Resumption Steps
+
+[1;33m[TEST][0m AC#3.2: Step 1 - Check TodoWrite State documented
+[0;32m✓ PASS[0m: AC#3.2: Step 1 - Check TodoWrite State documented
+
+[1;33m[TEST][0m AC#3.3: Step 2 - Verify Previous Phases documented
+[0;32m✓ PASS[0m: AC#3.3: Step 2 - Verify Previous Phases documented
+
+[1;33m[TEST][0m AC#3.4: Step 3 - Load Phase Reference documented
+[0;32m✓ PASS[0m: AC#3.4: Step 3 - Load Phase Reference documented
+
+[1;33m[TEST][0m AC#3.5: Step 4 - Execute Remaining Phases documented
+[0;32m✓ PASS[0m: AC#3.5: Step 4 - Execute Remaining Phases documented
+
+[1;33m[TEST][0m AC#3.6: Step 5 - Final Validation documented
+[0;32m✓ PASS[0m: AC#3.6: Step 5 - Final Validation documented
+
+[1;33m[TEST][0m AC#3.7: Six numbered steps exist (1-6)
+[0;32m✓ PASS[0m: AC#3.7: Multiple numbered steps documented (found: 13)
+
+==========================================================================
+AC#4: Resumption Validation Checklist
+==========================================================================
+
+[1;33m[TEST][0m AC#4.1: Checklist section exists
+[0;32m✓ PASS[0m: AC#4.1: Checklist section exists
+
+[1;33m[TEST][0m AC#4.2: User confirmed resumption checklist item
+[0;31m✗ FAIL[0m: AC#4.2: User confirmed resumption checklist item
+  Reason: User confirmation checklist item not found
+
+[1;33m[TEST][0m AC#4.3: Previous phases completion evidence checklist item
+[0;32m✓ PASS[0m: AC#4.3: Previous phases completion evidence checklist item
+
+[1;33m[TEST][0m AC#4.4: No conflicting git changes checklist item
+[0;32m✓ PASS[0m: AC#4.4: No conflicting git changes checklist item
+
+[1;33m[TEST][0m AC#4.5: Story file readable checklist item
+[0;31m✗ FAIL[0m: AC#4.5: Story file readable checklist item
+  Reason: Story file readability/existence checklist item not found
+
+==========================================================================
+AC#5: Fresh Start vs Resume Recommendation
+==========================================================================
+
+[1;33m[TEST][0m AC#5.1: Decision guidance section exists
+[0;31m✗ FAIL[0m: AC#5.1: Decision guidance section exists
+  Reason: Decision guidance/matrix section not found
+
+[1;33m[TEST][0m AC#5.2: 'Start fresh' recommendation documented
+[0;31m✗ FAIL[0m: AC#5.2: 'Start fresh' recommendation documented
+  Reason: Start fresh recommendation not found
+
+[1;33m[TEST][0m AC#5.3: Recommendation when state is unclear
+[0;31m✗ FAIL[0m: AC#5.3: Recommendation when state is unclear
+  Reason: Unclear state recommendation not found
+
+[1;33m[TEST][0m AC#5.4: Table or matrix format for scenarios
+[0;32m✓ PASS[0m: AC#5.4: Table or decision format for scenarios documented
+
+==========================================================================
+TEST SUMMARY
+==========================================================================
+
+Tests run:     25
+Tests passed:  \033[0;32m13\033[0m
+Tests failed:  \033[0;31m12\033[0m
+
+[0;31m12 test(s) failed.[0m
+
+The Phase Resumption Protocol documentation is incomplete.
+The following sections need to be added to .claude/skills/devforgeai-development/SKILL.md:
+
+1. User Detection Indicators
+   - Document the indicators users will notice when workflow interrupted
+   - Include TodoWrite status changes
+   - Include DoD completion percentage checks
+   - Include story status verification
+   - Include git commit detection
+
+2. User Recovery Command
+   - Provide template command for resuming /dev
+   - Include references to pending phases
+   - Include action phrase like 'Resume execution now'
+
+3. Claude Resumption Steps
+   - Document 5-6 numbered steps Claude must follow
+   - Include: Check TodoWrite, Verify Previous Phases, Load Reference,
+     Execute Remaining, Final Validation
+
+4. Resumption Validation Checklist
+   - Document checklist items for pre-flight validation
+   - Include: user confirmation, completion evidence, git conflicts,
+     story file readability
+
+5. Fresh Start vs Resume Recommendation
+   - Document decision guidance matrix
+   - Include 'Start fresh' recommendation for unclear state
+   - Include scenarios/conditions for each recommendation
+

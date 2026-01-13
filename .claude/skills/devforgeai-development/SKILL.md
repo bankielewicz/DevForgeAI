@@ -682,6 +682,107 @@ IF completed_count == 10:
 
 ---
 
+## Phase Resumption Protocol
+
+**When workflow stops incomplete (user detects phases still pending):**
+
+### User Detection Indicators
+
+User may notice:
+- TodoWrite list shows phases as "pending" or "in_progress"
+- DoD completion <100% but workflow declared complete
+- Story status not updated (still "Backlog" or "In Development")
+- No git commit of story file
+- Result display shows "INCOMPLETE" status
+
+### User Recovery Command
+
+User can resume workflow with:
+```
+Continue /dev workflow for STORY-XXX from Phase Y.
+The todo list shows these phases pending: [list phases]
+Resume execution now.
+```
+
+### Claude Resumption Steps
+
+1. **Check TodoWrite State**
+   ```
+   Review current todo list
+   first_incomplete = first phase with status != "completed"
+   ```
+
+2. **Verify Previous Phases**
+   ```
+   FOR each phase before first_incomplete:
+     Check evidence:
+       - Phase state marker exists?
+       - Expected files/artifacts present?
+       - CLI gate previously passed?
+
+     IF evidence missing:
+       Display: "⚠️ Phase {N} appears incomplete despite prior execution"
+       Ask: "Re-execute Phase {N}? [Y/n]"
+   ```
+
+3. **Load Phase Reference**
+   ```
+   Read(file_path=".claude/skills/devforgeai-development/references/{phase-reference}.md")
+   Display: "Resuming workflow from Phase {N}..."
+   ```
+
+4. **Execute Remaining Phases**
+   ```
+   FOR each phase from first_incomplete to Phase 10:
+     TodoWrite(mark phase "in_progress")
+     Execute ALL steps from phase reference
+     Call CLI gate: devforgeai-validate phase-complete
+     IF gate passes:
+       TodoWrite(mark phase "completed")
+       Proceed to next phase
+     ELSE:
+       HALT with gate error
+   ```
+
+5. **Final Validation**
+   ```
+   Execute Workflow Completion Self-Check
+   IF all 10 phases completed:
+     Display result
+   ELSE:
+     Report still-missing phases
+   ```
+
+### Resumption Pre-Flight Checklist
+
+Before resuming, verify:
+- [ ] User confirmed resumption (not starting fresh /dev)
+- [ ] Previous phases have completion evidence (state markers, artifacts)
+- [ ] No conflicting git changes since last execution
+- [ ] Story file exists and is readable
+- [ ] Phase state JSON exists (if using file-based tracking)
+
+**IF any check fails:**
+```
+Recommend: "Previous execution state is unclear.
+            Start fresh with '/dev STORY-XXX' for reliable results.
+            Fresh start ensures all phases execute with validation."
+```
+
+### Resumption vs Fresh Start Decision
+
+| Scenario | Recommendation |
+|----------|----------------|
+| Phases 01-05 complete, 06-10 pending | Resume from Phase 06 |
+| Phase state markers exist | Resume (state is reliable) |
+| No state markers, but artifacts exist | Ask user, then resume or fresh |
+| No evidence of prior execution | Fresh start |
+| Git conflicts detected | Fresh start after resolving conflicts |
+
+**Purpose:** Enable recovery from premature stopping without requiring complete re-execution of all phases.
+
+---
+
 ## Integration Points
 
 **From:** devforgeai-story-creation (story+AC), devforgeai-architecture (context files)
