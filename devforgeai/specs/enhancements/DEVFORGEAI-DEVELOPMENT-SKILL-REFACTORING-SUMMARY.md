@@ -114,7 +114,7 @@ Read(file_path=".claude/skills/devforgeai-development/references/tdd-green-phase
 
 All 10 reference file paths verified and confirmed to exist:
 
-- ✅ `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- ✅ `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - ✅ `.claude/skills/devforgeai-development/references/tdd-red-phase.md`
 - ✅ `.claude/skills/devforgeai-development/references/tdd-green-phase.md` **← PRIMARY FIX**
 - ✅ `.claude/skills/devforgeai-development/references/tdd-refactor-phase.md`

@@ -70,7 +70,7 @@ WARN: devforgeai CLI not installed
 ### Files to Modify
 | File | Changes |
 |------|---------|
-| `.claude/skills/devforgeai-development/references/preflight-validation.md` | Add Step 0.0.5 CLI Availability Check |
+| `.claude/skills/devforgeai-development/references/preflight/_index.md` | Add Step 0.0.5 CLI Availability Check |
 
 ### New Preflight Step (Step 0.0.5)
 ```markdown
@@ -217,7 +217,7 @@ If ANY Read fails: Context incomplete - run /create-context
 - **Created:** devforgeai/tests/STORY-129/test-ac3-version-display.sh
 - **Created:** devforgeai/tests/STORY-129/test-ac4-skip-gracefully.sh
 - **Created:** devforgeai/tests/STORY-129/test-ac5-fallback-docs.sh
-- **Modified:** .claude/skills/devforgeai-development/references/preflight-validation.md
+- **Modified:** .claude/skills/devforgeai-development/references/preflight/_index.md
 
 ### Test Results
 ✓ Phase 01.0.5 section header found

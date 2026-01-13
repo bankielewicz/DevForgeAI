@@ -246,7 +246,7 @@ Checkpoint:
 **Corrective Action Taken**: None (assumed STORY-077 is complete despite "Backlog" status)
 
 **Framework Fix Required**:
-Add to `.claude/skills/devforgeai-development/references/preflight-validation.md`:
+Add to `.claude/skills/devforgeai-development/references/preflight/_index.md`:
 ```markdown
 ## Step 0.9: Validate Prerequisite Stories
 

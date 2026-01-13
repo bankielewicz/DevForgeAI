@@ -72,7 +72,7 @@ Implement a new preflight validation step (Phase 01.0.5) that gracefully handles
 ## File Structure Analysis
 
 ### Target File
-**File:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**File:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 **Current Structure:**
 - Line 43-105: Phase 01.0 (Validate Project Root)
@@ -344,7 +344,7 @@ If ANY Read fails: Context is incomplete. Run `/create-context` to generate miss
 
 **Story File:** `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-129-cli-availability-check.story.md`
 
-**Target File:** `/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md`
+**Target File:** `/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 **Test Files:**
 - `/mnt/c/Projects/DevForgeAI2/devforgeai/tests/STORY-129/test-ac1-step-exists.sh`

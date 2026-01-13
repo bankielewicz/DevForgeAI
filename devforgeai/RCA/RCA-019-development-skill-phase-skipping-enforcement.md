@@ -132,7 +132,7 @@ Without technical barriers, Claude (and potentially other AIs) will rationalize 
   ```
 - **Significance:** Demonstrates story is incomplete; Phase 4.5 deferral validation not executed
 
-**3. `.claude/skills/devforgeai-development/references/preflight-validation.md` (HIGH)**
+**3. `.claude/skills/devforgeai-development/references/preflight/_index.md` (HIGH)**
 - **Lines:** Unknown (referenced in skill)
 - **Finding:** Phase 0 preflight validation documented but recovery mode not covered
 - **Significance:** Phase 0 has no documented path for QA-Failed story recovery
@@ -318,7 +318,7 @@ Add explicit detection and decision tree for recovery scenarios.
 
 **Implementation Details:**
 
-**File:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**File:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Location:** Add new section "Recovery Mode Detection" after Step 0.8
 
 **Code to Add:**

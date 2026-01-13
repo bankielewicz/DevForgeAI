@@ -140,7 +140,7 @@ This story ensures all documentation accurately reflects these changes.
 - Implementation Plan: `devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md`
 - Files Modified:
   - `.claude/skills/devforgeai-development/SKILL.md`
-  - `.claude/skills/devforgeai-development/references/preflight-validation.md`
+  - `.claude/skills/devforgeai-development/references/preflight/_index.md`
   - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
   - `.claude/agents/git-validator.md`
   - `.claude/commands/dev.md`

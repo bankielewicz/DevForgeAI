@@ -228,7 +228,7 @@ status: Backlog
 **Implementation Date:** 2025-12-23
 
 **Files Modified:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` - Added Step 0.6.5 Story Type Detection (~70 lines)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` - Added Step 0.6.5 Story Type Detection (~70 lines)
 - `.claude/skills/devforgeai-development/references/tdd-red-phase.md` - Added skip check (~30 lines)
 - `.claude/skills/devforgeai-development/references/tdd-refactor-phase.md` - Added skip check (~30 lines)
 - `.claude/skills/devforgeai-development/references/integration-testing.md` - Added skip check (~30 lines)

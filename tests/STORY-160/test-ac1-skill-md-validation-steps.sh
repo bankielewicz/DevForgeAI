@@ -23,7 +23,7 @@ NC='\033[0m' # No Color
 
 PROJECT_ROOT="/mnt/c/Projects/DevForgeAI2"
 SKILL_FILE="${PROJECT_ROOT}/.claude/skills/devforgeai-development/SKILL.md"
-PREFLIGHT_REFERENCE="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_REFERENCE="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight/_index.md"
 
 # Test counter
 tests_passed=0

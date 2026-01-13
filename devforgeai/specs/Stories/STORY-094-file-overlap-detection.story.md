@@ -245,7 +245,7 @@ technical_specification:
 - [x] NEW: file-overlap-detector subagent (340 lines) - `.claude/agents/file-overlap-detector.md`
 - [x] NEW: Python implementation (671 lines) - `src/file_overlap_detector.py`
 - [x] NEW: Test suite (71 tests, 92% coverage) - `tests/file-overlap/`
-- [x] NEW: Integration Step 0.2.6 - `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- [x] NEW: Integration Step 0.2.6 - `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 ---
 
@@ -372,7 +372,7 @@ technical_specification:
    - `test_file_overlap_detector.py` - 71 tests across 10 test classes
    - `fixtures/` - 10 story fixture files
 
-4. **Integration:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+4. **Integration:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
    - Step 0.2.6 added after dependency-graph-analyzer
    - AskUserQuestion prompt for WARNING status
    - --force bypass with logging for BLOCKED status

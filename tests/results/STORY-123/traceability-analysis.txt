@@ -9,7 +9,7 @@ Acceptance Criteria Identified (5 total):
 
 Definition of Done Items Checked:
 IMPLEMENTATION:
-  [x] .claude/skills/devforgeai-development/references/preflight-validation.md updated
+  [x] .claude/skills/devforgeai-development/references/preflight/_index.md updated
   [x] Story file detection logic implemented
   [x] Range detection algorithm implemented
   [x] Warning display formatted

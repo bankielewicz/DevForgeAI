@@ -87,9 +87,9 @@
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/integration-testing.md:Task(
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/parameter-extraction.md:3. Invokes skill WITHOUT arguments: `Skill(command="devforgeai-development")`
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/phase-4.5-deferral-challenge.md:Task(
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:        Skill(command="devforgeai-architecture")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:Skill(command="devforgeai-architecture")
-/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight-validation.md:Task(
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight/_index.md:        Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight/_index.md:Skill(command="devforgeai-architecture")
+/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/preflight/_index.md:Task(
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/qa-deferral-recovery.md:   Skill(command="devforgeai-story-creation")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/refactoring-patterns.md:Skill(command="devforgeai-qa --mode=light --story={story_id}")
 /mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-development/references/tdd-green-phase.md:Task(

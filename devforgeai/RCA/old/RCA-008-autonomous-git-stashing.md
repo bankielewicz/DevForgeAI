@@ -82,7 +82,7 @@ All recommendations have been implemented across 3 phases. Status tracked below.
 
 **Files Modified:**
 - `.claude/skills/devforgeai-development/SKILL.md`
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 **Verification:**
 - [x] User ALWAYS prompted when uncommitted_changes > 10
@@ -102,7 +102,7 @@ All recommendations have been implemented across 3 phases. Status tracked below.
 - Double confirmation required (Step 0.1.5 + Step 0.1.6)
 
 **Files Modified:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
 
 **Verification:**
@@ -163,7 +163,7 @@ All recommendations have been implemented across 3 phases. Status tracked below.
 - Decision tree for strategy selection
 
 **Files Modified:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
 
 **Verification:**
@@ -567,7 +567,7 @@ touch src/module{1..10}.py  # 10 code files
 **Implementation:**
 - `devforgeai/RCA/RCA-008-IMPLEMENTATION-PLAN.md` (detailed implementation plan with checkboxes)
 - `.claude/skills/devforgeai-development/SKILL.md` (10-step validation)
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5, 0.1.6)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` (Steps 0.1.5, 0.1.6)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (Stash Safety Protocol, Smart Strategy)
 - `.claude/agents/git-validator.md` (Phase 2.5 file analysis)
 - `.claude/commands/dev.md` (Phase 0 checklist)

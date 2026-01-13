@@ -112,7 +112,7 @@ Comprehensive bash script test suite created for STORY-160 to verify that all do
 | File | Purpose | AC Coverage |
 |------|---------|------------|
 | `.claude/skills/devforgeai-development/SKILL.md` | Skill overview and references | AC-1, AC-2, AC-3, AC-4 |
-| `.claude/skills/devforgeai-development/references/preflight-validation.md` | Phase 01 details | AC-1, AC-2 |
+| `.claude/skills/devforgeai-development/references/preflight/_index.md` | Phase 01 details | AC-1, AC-2 |
 | `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` | Git safety protocol | AC-2, AC-3 |
 | `.claude/memory/skills-reference.md` | Skills guide | AC-5 |
 | `.claude/agents/git-validator.md` | Subagent documentation | AC-3 |

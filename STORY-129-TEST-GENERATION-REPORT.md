@@ -267,7 +267,7 @@ All 52 assertions are expected to fail because:
 
 ```
 ✗ FAIL: Step 0.0.5 or Phase 01.0.5 section exists with 'CLI Availability Check'
-  File: .claude/skills/devforgeai-development/references/preflight-validation.md
+  File: .claude/skills/devforgeai-development/references/preflight/_index.md
   Expected section: ## Phase 01.0.5 or ## Step 0.0.5 with 'CLI Availability Check'
   Section not found
 ```

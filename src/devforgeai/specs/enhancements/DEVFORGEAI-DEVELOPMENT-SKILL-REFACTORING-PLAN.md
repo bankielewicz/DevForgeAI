@@ -92,7 +92,7 @@ cp .claude/skills/devforgeai-development/SKILL.md \
 ```markdown
 **⚠️ NOW LOAD AND EXECUTE Phase 0 workflow:**
 
-Read(file_path=".claude/skills/devforgeai-development/references/preflight-validation.md")
+Read(file_path=".claude/skills/devforgeai-development/references/preflight/_index.md")
 
 **After loading preflight-validation.md, execute its 10-step validation workflow.**
 ```

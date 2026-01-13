@@ -74,7 +74,7 @@
 - Status: IMPLEMENTED
 
 ### 3. Step 0.6.5 Story Type Detection ✓
-- Location: `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- Location: `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - Line 1940: `## Phase 01.6.5: Story Type Detection`
 - Status: IMPLEMENTED
 

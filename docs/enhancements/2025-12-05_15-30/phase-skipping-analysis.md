@@ -260,7 +260,7 @@ IF story.status == "QA Failed":
     minimum_phases = [3, 4, 4.5, 5, 6, 7]  # Always execute these
 ```
 
-**File to Modify:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**File to Modify:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Effort:** 3 hours
 **Feasibility:** 100% - Uses existing tools
 

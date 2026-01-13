@@ -348,7 +348,7 @@ When git operations are declined or unavailable:
 **See also:**
 - `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (stash safety protocol)
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` (Steps 0.1.5 and 0.1.6)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` (Steps 0.1.5 and 0.1.6)
 
 ---
 

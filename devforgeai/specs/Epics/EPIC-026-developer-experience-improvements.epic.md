@@ -122,7 +122,7 @@ rm -f .git/index.lock
 **Files to Create/Modify:**
 | Action | File Path | Purpose |
 |--------|-----------|---------|
-| MODIFY | `.claude/skills/devforgeai-development/references/preflight-validation.md` | Add CLI availability check |
+| MODIFY | `.claude/skills/devforgeai-development/references/preflight/_index.md` | Add CLI availability check |
 
 **New Preflight Step (Step 0.0.5):**
 ```bash

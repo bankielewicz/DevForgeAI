@@ -125,7 +125,7 @@ Skill(command="devforgeai-development")
 ```
 
 **Skill executes:**
-- Phase 01: Pre-Flight Validation (git, context files, tech stack) **READ** .claude/skills/devforgeai-development/references/preflight-validation.md
+- Phase 01: Pre-Flight Validation (git, context files, tech stack) **READ** .claude/skills/devforgeai-development/references/preflight/_index.md
 - Phase 02-05: TDD Cycle (Red → Green → Refactor → Integration) **READ** .claude/rules/workflow/tdd-workflow.md  
 - Phase 06: Deferral Challenge (validate deferrals, user approval) **READ** .claude/skills/devforgeai-development/references/phase-06-deferral-challenge.md
 - Phase 07: DoD Update (format validation) **READ** .claude/skills/devforgeai-development/references/dod-update-workflow.md

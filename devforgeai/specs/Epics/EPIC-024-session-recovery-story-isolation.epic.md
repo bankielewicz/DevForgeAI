@@ -205,7 +205,7 @@ git commit -m "chore: normalize line endings to LF"
 **Files to Create/Modify:**
 | Action | File Path | Purpose |
 |--------|-----------|---------|
-| MODIFY | `.claude/skills/devforgeai-development/references/preflight-validation.md` | Add Step 1.8: Story File Isolation Check |
+| MODIFY | `.claude/skills/devforgeai-development/references/preflight/_index.md` | Add Step 1.8: Story File Isolation Check |
 
 **New Preflight Step (Step 1.8):**
 ```markdown

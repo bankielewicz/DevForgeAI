@@ -10,7 +10,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Test file location
-PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight/_index.md"
 
 # Function to check file exists
 check_file_exists() {

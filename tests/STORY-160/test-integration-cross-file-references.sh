@@ -33,7 +33,7 @@ tests_failed=0
 echo -e "${YELLOW}[Integration Test I-1]${NC} Verify all reference files exist"
 files_to_check=(
     ".claude/skills/devforgeai-development/SKILL.md"
-    ".claude/skills/devforgeai-development/references/preflight-validation.md"
+    ".claude/skills/devforgeai-development/references/preflight/_index.md"
     ".claude/skills/devforgeai-development/references/git-workflow-conventions.md"
     ".claude/memory/skills-reference.md"
     ".claude/agents/git-validator.md"
@@ -62,7 +62,7 @@ fi
 ##############################################################################
 echo -e "${YELLOW}[Integration Test I-2]${NC} Verify SKILL.md references are accurate"
 skill_file="${PROJECT_ROOT}/.claude/skills/devforgeai-development/SKILL.md"
-preflight_file="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight-validation.md"
+preflight_file="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight/_index.md"
 
 if grep -q "preflight-validation\.md" "${skill_file}"; then
     if [ -f "${preflight_file}" ]; then

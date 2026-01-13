@@ -151,7 +151,7 @@ The test suite validates the following files:
    - Contains Subagent Coordination section
    - Contains Change Log
 
-2. **`.claude/skills/devforgeai-development/references/preflight-validation.md`**
+2. **`.claude/skills/devforgeai-development/references/preflight/_index.md`**
    - Detailed Phase 01 workflow
    - Documents 10 validation steps
    - Includes Steps 0.1.5 and 0.1.6 details

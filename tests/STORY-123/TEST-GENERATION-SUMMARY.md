@@ -236,7 +236,7 @@ Status: RED PHASE (expected behavior)
 
 **Implementation Location:**
 ```
-File: .claude/skills/devforgeai-development/references/preflight-validation.md
+File: .claude/skills/devforgeai-development/references/preflight/_index.md
 Location: Add Step 1.8 after Step 1.7, before Step 2
 ```
 

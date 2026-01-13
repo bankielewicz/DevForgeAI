@@ -76,7 +76,7 @@ technical_specification:
   components:
     - type: "Preflight Validation"
       name: "Step 1.8: Story File Isolation Check (NEW)"
-      file_path: ".claude/skills/devforgeai-development/references/preflight-validation.md"
+      file_path: ".claude/skills/devforgeai-development/references/preflight/_index.md"
       insertion_point: "After Step 1.7, before Step 2"
       purpose: "Warn about uncommitted story files that may conflict"
 
@@ -160,7 +160,7 @@ technical_specification:
 ## Definition of Done
 
 ### Implementation
-- [x] `.claude/skills/devforgeai-development/references/preflight-validation.md` updated with Step 0.1.7 - Completed: Added comprehensive documentation with 6 substeps, edge case handling, and success criteria
+- [x] `.claude/skills/devforgeai-development/references/preflight/_index.md` updated with Step 0.1.7 - Completed: Added comprehensive documentation with 6 substeps, edge case handling, and success criteria
 - [x] Story file detection logic implemented - Completed: Step 0.1.7.1 detects uncommitted .story.md files via git status --porcelain
 - [x] Range detection algorithm implemented - Completed: Step 0.1.7.3 groups consecutive story numbers into ranges
 - [x] Warning display formatted with visual clarity - Completed: Step 0.1.7.4 displays box-formatted warning with +---+ borders
@@ -221,7 +221,7 @@ technical_specification:
    - Anti-patterns.md Category 10 compliance verified
 
 **Definition of Done - Completed Items (matching DoD section):**
-- [x] `.claude/skills/devforgeai-development/references/preflight-validation.md` updated with Step 0.1.7 - Completed: Added comprehensive documentation with 6 substeps, edge case handling, and success criteria
+- [x] `.claude/skills/devforgeai-development/references/preflight/_index.md` updated with Step 0.1.7 - Completed: Added comprehensive documentation with 6 substeps, edge case handling, and success criteria
 - [x] Story file detection logic implemented - Completed: Step 0.1.7.1 detects uncommitted .story.md files via git status --porcelain
 - [x] Range detection algorithm implemented - Completed: Step 0.1.7.3 groups consecutive story numbers into ranges
 - [x] Warning display formatted with visual clarity - Completed: Step 0.1.7.4 displays box-formatted warning with +---+ borders

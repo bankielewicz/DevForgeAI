@@ -81,7 +81,7 @@ Consider: Break into 2-3 smaller stories?
 
 ### File to Modify
 
-**`.claude/skills/devforgeai-development/references/preflight-validation.md`**
+**`.claude/skills/devforgeai-development/references/preflight/_index.md`**
 
 ### Complexity Analysis Logic
 

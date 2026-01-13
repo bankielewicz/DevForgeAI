@@ -12,7 +12,7 @@ TESTS_RUN=0
 TESTS_PASSED=0
 TESTS_FAILED=0
 
-TARGET_FILE=".claude/skills/devforgeai-development/references/preflight-validation.md"
+TARGET_FILE=".claude/skills/devforgeai-development/references/preflight/_index.md"
 
 echo -e "${BLUE}=== STORY-129 AC#4: Skip Gracefully ===${NC}"
 echo ""

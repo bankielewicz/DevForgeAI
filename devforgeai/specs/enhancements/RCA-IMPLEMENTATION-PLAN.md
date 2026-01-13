@@ -1557,7 +1557,7 @@ IF <6 files found:
 ### HIGH Priority (Implement This Sprint)
 
 **Recommendation 2: Update Pre-Flight Validation Reference**
-- **File:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- **File:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - **Section:** Validation Checklist
 - **Change:** Add context file validation
 

@@ -581,7 +581,7 @@ technical_specification:
 - `.claude/skills/devforgeai-development/assets/templates/parallel.yaml.example` (133 lines)
 
 **Files Modified:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` (+150 lines)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` (+150 lines)
 - `.claude/skills/devforgeai-development/SKILL.md` (+33 lines)
 
 **Code Review Fixes:**

@@ -91,7 +91,7 @@ epic: EPIC-025
 
 ## Cross-References
 
-- **Phase 01.6 Type Detection**: `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- **Phase 01.6 Type Detection**: `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - **Phase Skip Logic**: `.claude/skills/devforgeai-development/references/integration-testing.md`
 - **Story Template**: `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
 

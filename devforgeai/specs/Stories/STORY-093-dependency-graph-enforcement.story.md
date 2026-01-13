@@ -353,7 +353,7 @@ Phase 3 & 4 completed:
 - `devforgeai/specs/adrs/ADR-008-exclude-test-fixtures-from-precommit-validation.md`
 
 **Files Modified:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - `.claude/commands/dev.md`
 - `.git/hooks/pre-commit`
 

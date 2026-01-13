@@ -57,7 +57,7 @@ After (Fixed):
 
 ### Part 2: Dev Skill Enhancement (Consumer)
 
-**File:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**File:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 **Changes:**
 - Added Step 0.8.5: Load Structured Gap Data (gaps.json)
@@ -94,7 +94,7 @@ After (Fixed):
 | File | Change Type | Lines Added |
 |------|-------------|-------------|
 | `.claude/skills/devforgeai-qa/references/report-generation.md` | Edit | ~150 |
-| `.claude/skills/devforgeai-development/references/preflight-validation.md` | Edit | ~120 |
+| `.claude/skills/devforgeai-development/references/preflight/_index.md` | Edit | ~120 |
 | `.claude/skills/devforgeai-development/references/qa-remediation-workflow.md` | Create | ~400 |
 | `.claude/skills/devforgeai-development/SKILL.md` | Edit | ~50 (remediation mode decision point) |
 | `.claude/skills/devforgeai-development/references/tdd-red-phase.md` | Edit | ~35 (remediation mode check) |
@@ -199,7 +199,7 @@ cp devforgeai/backups/2025-12-06_qa-dev-integration/report-generation.md.bak \
    .claude/skills/devforgeai-qa/references/report-generation.md
 
 cp devforgeai/backups/2025-12-06_qa-dev-integration/preflight-validation.md.bak \
-   .claude/skills/devforgeai-development/references/preflight-validation.md
+   .claude/skills/devforgeai-development/references/preflight/_index.md
 
 cp devforgeai/backups/2025-12-06_qa-dev-integration/test-automator.md.bak \
    .claude/agents/test-automator.md

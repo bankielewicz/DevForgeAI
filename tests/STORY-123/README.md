@@ -420,7 +420,7 @@ Tests are committed to git as specification documentation:
 
 ### Skill Files
 - **devforgeai-development:** `.claude/skills/devforgeai-development/SKILL.md`
-- **Preflight Validation:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- **Preflight Validation:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 ### Framework Documentation
 - **Tech Stack:** `devforgeai/specs/context/tech-stack.md` (Bash scripting)

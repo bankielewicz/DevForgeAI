@@ -6,7 +6,7 @@
 
 set -e
 
-PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight/_index.md"
 TEST_NAME="AC#3: Display Complexity Warning"
 
 echo "Running test: $TEST_NAME"

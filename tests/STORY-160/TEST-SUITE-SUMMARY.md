@@ -111,7 +111,7 @@ AC-5: Skills Reference Memory File
 | File | Tests | Status |
 |------|-------|--------|
 | `.claude/skills/devforgeai-development/SKILL.md` | 15+ | Present, documented |
-| `.claude/skills/devforgeai-development/references/preflight-validation.md` | 12+ | ~2500 lines, 10 steps documented |
+| `.claude/skills/devforgeai-development/references/preflight/_index.md` | 12+ | ~2500 lines, 10 steps documented |
 | `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` | 8+ | Present, stash safety documented |
 | `.claude/memory/skills-reference.md` | 8+ | devforgeai-development section present |
 | `.claude/agents/git-validator.md` | 3+ | Present, may reference RCA-008 |

@@ -90,7 +90,7 @@ bash tests/STORY-123/test-edge-cases.sh
 ## Implementation Guide
 
 ### Where to Implement
-**File:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**File:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Location:** Add Step 1.8 after Step 1.7, before Step 2
 
 ### What Tests Expect
@@ -209,7 +209,7 @@ bash --version
 - **STORY-123** - `/mnt/c/Projects/DevForgeAI2/devforgeai/specs/Stories/STORY-123-uncommitted-story-file-warning.story.md`
 
 **Implementation Reference:**
-- **Preflight Validation** - `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- **Preflight Validation** - `.claude/skills/devforgeai-development/references/preflight/_index.md`
 - **STORY-121** - Integration: DEVFORGEAI_STORY env var
 
 ---

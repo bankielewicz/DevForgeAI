@@ -16,7 +16,7 @@ Detect when two or more concurrent stories will modify overlapping files. Provid
 3. Dependency-aware filtering (excludes depends_on story overlaps)
 4. Actionable recommendations based on overlap severity
 
-**Invoked by:** `.claude/skills/devforgeai-development/references/preflight-validation.md` Step 0.2.6
+**Invoked by:** `.claude/skills/devforgeai-development/references/preflight/_index.md` Step 0.2.6
 **Story:** STORY-094 - File Overlap Detection with Hybrid Analysis
 **Related:** EPIC-010 - Parallel Story Development with CI/CD Integration
 
@@ -495,4 +495,4 @@ IF result.status == "BLOCKED":
 - **Python Implementation:** `src/file_overlap_detector.py` (~670 lines)
 - **Test Suite:** `tests/file-overlap/test_file_overlap_detector.py` (~500 lines, 59 tests)
 - **Test Fixtures:** `tests/file-overlap/fixtures/` (10 story files)
-- **Integration:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- **Integration:** `.claude/skills/devforgeai-development/references/preflight/_index.md`

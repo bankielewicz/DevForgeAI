@@ -1,7 +1,7 @@
 === STORY-123 TEST COVERAGE ANALYSIS ===
 
 Story Type: Documentation-based Specification (no production code)
-Tech Stack Reference: STORY-123 implements preflight validation Step 0.1.7 in .claude/skills/devforgeai-development/references/preflight-validation.md
+Tech Stack Reference: STORY-123 implements preflight validation Step 0.1.7 in .claude/skills/devforgeai-development/references/preflight/_index.md
 
 Test Suite Summary:
 - Unit Tests: 4 documented (test-unit-git-parsing.sh)

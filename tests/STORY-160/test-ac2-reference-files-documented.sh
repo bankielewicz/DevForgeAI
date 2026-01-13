@@ -24,7 +24,7 @@ NC='\033[0m' # No Color
 
 PROJECT_ROOT="/mnt/c/Projects/DevForgeAI2"
 SKILL_FILE="${PROJECT_ROOT}/.claude/skills/devforgeai-development/SKILL.md"
-PREFLIGHT_REF="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_REF="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/preflight/_index.md"
 GIT_WORKFLOW_REF="${PROJECT_ROOT}/.claude/skills/devforgeai-development/references/git-workflow-conventions.md"
 
 # Test counter

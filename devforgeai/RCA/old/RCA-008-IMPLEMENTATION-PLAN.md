@@ -92,12 +92,12 @@
 **Effort:** 1.5 hours
 **Files to Modify:**
 - `.claude/skills/devforgeai-development/SKILL.md`
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 #### Task 1.1.1: Update preflight-validation.md (Phase 0 Step 1.5 - NEW)
 **Status:** ✅ COMPLETE
 
-**Location:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**Location:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Insert after:** Phase 0 Step 1 (git-validator subagent invocation)
 
 **Implementation:**
@@ -193,13 +193,13 @@ touch test{1..50}.txt
 **Status:** ⬜ NOT STARTED
 **Effort:** 1 hour
 **Files to Modify:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` (add Step 1.6)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` (add Step 1.6)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
 
 #### Task 1.2.1: Add Phase 0 Step 1.6 (Stash Warning Workflow)
 **Status:** ✅ COMPLETE
 
-**Location:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**Location:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Insert after:** Phase 0 Step 1.5 (from Story 1.1)
 
 **Implementation:**
@@ -367,7 +367,7 @@ touch test{1..50}.txt
 **Effort:** 1.5 hours
 **Files to Modify:**
 - `.claude/agents/git-validator.md`
-- `.claude/skills/devforgeai-development/references/preflight-validation.md`
+- `.claude/skills/devforgeai-development/references/preflight/_index.md`
 
 #### Task 2.1.1: Update git-validator.md - Add file categorization
 **Status:** ✅ COMPLETE
@@ -421,7 +421,7 @@ touch test{1..50}.txt
 #### Task 2.1.2: Update preflight-validation.md to use enhanced data
 **Status:** ✅ COMPLETE (Already implemented in Step 0.1.5 lines 159-181)
 
-**Location:** `.claude/skills/devforgeai-development/references/preflight-validation.md`
+**Location:** `.claude/skills/devforgeai-development/references/preflight/_index.md`
 **Modify:** Phase 0 Step 1.5 display box
 
 **Add breakdown display:**
@@ -483,7 +483,7 @@ touch __pycache__/{1..15}.pyc
 **Status:** ✅ COMPLETE
 **Effort:** 1 hour
 **Files to Modify:**
-- `.claude/skills/devforgeai-development/references/preflight-validation.md` (update Step 1.5)
+- `.claude/skills/devforgeai-development/references/preflight/_index.md` (update Step 1.5)
 - `.claude/skills/devforgeai-development/references/git-workflow-conventions.md`
 
 #### Task 2.2.1: Add "smart split" option to Step 1.5
@@ -820,7 +820,7 @@ grep "Actual:" devforgeai/tests/regression/test_rca_008_git_stashing.md
 
 **Modified (6 files):**
 - [x] `.claude/skills/devforgeai-development/SKILL.md` (Updated to 10-step validation, line counts)
-- [x] `.claude/skills/devforgeai-development/references/preflight-validation.md` (Added Steps 0.1.5, 0.1.6 - 380 lines added)
+- [x] `.claude/skills/devforgeai-development/references/preflight/_index.md` (Added Steps 0.1.5, 0.1.6 - 380 lines added)
 - [x] `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (Added 356 lines: Stash Safety + Smart Strategy)
 - [x] `.claude/agents/git-validator.md` (Added Phase 2.5 file analysis - 94 lines)
 - [x] `.claude/commands/dev.md` (Added Phase 0 checklist - 68 lines)

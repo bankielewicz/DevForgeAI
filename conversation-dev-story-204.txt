@@ -63,14 +63,14 @@
 ● Read(.claude/skills/devforgeai-development/phases/phase-01-preflight.md)
   ⎿  Read 158 lines
 
-● Read(.claude/skills/devforgeai-development/references/preflight-validation.md)
+● Read(.claude/skills/devforgeai-development/references/preflight/_index.md)
   ⎿  Error: File content (32410 tokens) exceeds maximum allowed tokens (25000). 
      Please use offset and limit parameters to read specific portions of the 
      file, or use the GrepTool to search for specific content.
 
 ● The preflight reference is too large. Let me read the key sections I need and execute Phase 01:
 
-● Read(.claude/skills/devforgeai-development/references/preflight-validation.md)
+● Read(.claude/skills/devforgeai-development/references/preflight/_index.md)
   ⎿  Read 200 lines
 
 ● Good, I have enough context to execute Phase 01. Let me proceed:

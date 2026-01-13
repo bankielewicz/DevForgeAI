@@ -16,7 +16,7 @@ Validate story dependencies before TDD workflow begins in the `/dev` command. En
 3. No circular dependencies in the graph
 4. Transitive dependencies fully resolved and validated
 
-**Invoked by:** `.claude/skills/devforgeai-development/references/preflight-validation.md` Step 0.2.5
+**Invoked by:** `.claude/skills/devforgeai-development/references/preflight/_index.md` Step 0.2.5
 **Story:** STORY-093 - Dependency Graph Enforcement with Transitive Resolution
 **Related:** EPIC-010 - Parallel Story Development with CI/CD Integration
 

@@ -54,7 +54,7 @@
 1. Phase 0: Reads SKILL.md
 2. Sees: "**⚠️ EXECUTION STARTS HERE**"
 3. Sees: "**⚠️ NOW LOAD AND EXECUTE Phase 0 workflow:**"
-4. Sees: **Read(file_path=".claude/skills/devforgeai-development/references/preflight-validation.md")**
+4. Sees: **Read(file_path=".claude/skills/devforgeai-development/references/preflight/_index.md")**
 5. **Executes Read()** ✅ (explicit command, not inferred)
 6. Loads preflight-validation.md ✅
 7. Executes 10-step validation workflow ✅

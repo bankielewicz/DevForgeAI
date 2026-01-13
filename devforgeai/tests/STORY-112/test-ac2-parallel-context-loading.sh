@@ -9,7 +9,7 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 # Test files to validate
 PARALLEL_LOADER_FILE="$PROJECT_ROOT/.claude/skills/devforgeai-development/references/parallel-context-loader.md"
-PREFLIGHT_FILE="$PROJECT_ROOT/.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_FILE="$PROJECT_ROOT/.claude/skills/devforgeai-development/references/preflight/_index.md"
 
 # Colors for output
 RED='\033[0;31m'

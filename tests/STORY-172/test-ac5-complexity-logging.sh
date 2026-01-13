@@ -6,7 +6,7 @@
 
 set -e
 
-PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight-validation.md"
+PREFLIGHT_FILE="./.claude/skills/devforgeai-development/references/preflight/_index.md"
 TEST_NAME="AC#5: Log Complexity for Retrospective"
 
 echo "Running test: $TEST_NAME"
