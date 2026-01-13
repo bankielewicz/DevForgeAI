@@ -4,7 +4,7 @@
 **Reporter:** User
 **Component:** devforgeai-development skill
 **Severity:** HIGH
-**Status:** PARTIALLY ADDRESSED (REC-1 superseded by CLI gates, STORY-207/208/209/210 created 2025-01-01)
+**Status:** PARTIALLY ADDRESSED (REC-1 superseded by CLI gates, REC-2 STORY-207 implemented 2026-01-12, STORY-208/209/210 pending)
 **Related RCAs:** RCA-009 (Incomplete Skill Workflow), RCA-013 (Workflow Stops Before Completion), RCA-011 (Mandatory Phase Skipping)
 
 ---
@@ -878,9 +878,9 @@ Add Phase Validation Checkpoints for Phases 4.5-7 (REC-1 from RCA-018)
 - **Note:** Original inline checkpoints replaced by CLI-based validation
 
 **REC-2 (HIGH): TodoWrite Integration with Gates**
-- [ ] **STORY-207:** Integrate TodoWrite with CLI Validation Gates
-- [ ] TodoWrite "completed" status tied to CLI gate exit code 0
-- [ ] Enforcement pattern documented in SKILL.md
+- [x] **STORY-207:** Integrate TodoWrite with CLI Validation Gates (Implemented 2026-01-12)
+- [x] TodoWrite "completed" status tied to CLI gate exit code 0
+- [x] Enforcement pattern documented in SKILL.md (lines 140-193)
 
 **REC-3 (HIGH): Workflow Completion Self-Check**
 - [ ] **STORY-208:** Add Workflow Completion Self-Check Before Final Result

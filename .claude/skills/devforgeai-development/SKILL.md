@@ -137,6 +137,62 @@ TodoWrite(
 
 ---
 
+### TodoWrite-Gate Integration Pattern (MANDATORY)
+
+**ENFORCEMENT:** Phase completion status in TodoWrite is GATED by CLI validation.
+
+**5-Step TodoWrite Enforcement Pattern:**
+
+```
+FOR each phase N in [01..10]:
+
+  1. Mark phase "in_progress" at phase start
+     TodoWrite(mark phase N "in_progress")
+     Display: "Phase {N}/{10}: {phase_name}"
+
+  2. Execute all phase steps
+     Read(file_path=".claude/skills/devforgeai-development/references/{phase-reference}.md")
+     [Execute all steps from reference file]
+
+  3. Call CLI gate: devforgeai-validate phase-complete
+     Bash(command="devforgeai-validate phase-complete ${STORY_ID} --phase={N} --checkpoint-passed")
+
+  4. IF gate exit code 0: Mark phase "completed"
+     TodoWrite(mark phase N "completed")
+     Display: "✓ Phase {N} complete"
+     Proceed to Phase N+1
+
+  5. IF gate exit code != 0: Keep "in_progress", HALT
+     Display: "❌ Phase {N} gate failed - see error message"
+     HALT (keep phase N as "in_progress")
+```
+
+**Visual Progress Indicator Display Pattern:**
+
+When a phase completes (gate passes), display combines gate result with TodoWrite update:
+
+```
+devforgeai-validate phase-complete STORY-XXX --phase=03 --checkpoint-passed
+Exit code: 0
+TodoWrite: Phase 03 status transition from "in_progress" to "completed"
+✓ Phase 03 complete - Proceeding to Phase 04...
+```
+
+**CRITICAL RULES for TodoWrite Completion:**
+
+- ❌ **CANNOT** mark phase "completed" without gate exit code 0
+- ❌ **CANNOT** start Phase X+1 while Phase X shows "in_progress" or "pending"
+- ✅ Phase **MUST** remain "in_progress" until CLI gate passes
+- ✅ CLI gate **MUST** be called before TodoWrite status change
+- ✅ **Never** mark completed without gate call - gate failure = HALT
+- ✅ Gate failure = HALT (address issues before retry)
+
+**CRITICAL TodoWrite completion enforcement:** Do not mark phase completed until CLI gate `devforgeai-validate phase-complete` returns exit code 0.
+
+**Display status change pattern:** When gate passes, display shows status transition from "in_progress" to "completed" in the visual display.
+
+---
+
 ## Purpose
 
 Implement features following strict TDD workflow (Red → Green → Refactor) while enforcing all 6 context file constraints.
