@@ -67,6 +67,249 @@ technical_specification:
 
 ---
 
+## Evidence-Verification Pre-Flight (NEW - RCA-020)
+
+**Purpose:** Enforce the Read-Quote-Cite-Verify protocol before generating technical specifications.
+
+This section ensures all technical specification claims are verified against actual target files BEFORE story creation. This prevents stories with unverified claims (e.g., "Remove Bash mkdir commands" when no such commands exist in target files).
+
+**Source:** RCA-020 (Story Creation Missing Evidence-Based Verification)
+**Protocol Reference:** `.claude/rules/core/citation-requirements.md` (Read-Quote-Cite-Verify protocol)
+
+**When to Execute:** Before Step 3.0 (Pre-Invocation File System Snapshot), immediately after feature description is provided.
+
+---
+
+### Step EV-1: Target File Identification
+
+**Objective:** Identify all target files mentioned in the feature description for verification.
+
+**Extract target_files from feature description and technical scope:**
+
+```python
+# Extraction logic
+target_files = []
+
+# Parse feature description for file references
+# Look for:
+# - Files claimed to have violations (e.g., "SKILL.md has Bash cat commands")
+# - Files needing modifications (e.g., "Update technical-specification-creation.md")
+# - Configuration files requiring updates (e.g., "Modify devforgeai/config/settings.yaml")
+
+patterns_to_extract = [
+    r'[\w\-/]+\.md',           # Markdown files
+    r'[\w\-/]+\.yaml',         # YAML files
+    r'[\w\-/]+\.py',           # Python files
+    r'[\w\-/]+\.ts',           # TypeScript files
+    r'\.claude/[\w\-/]+',      # .claude directory paths
+    r'devforgeai/[\w\-/]+',    # devforgeai directory paths
+]
+
+for pattern in patterns_to_extract:
+    matches = Grep(pattern=pattern, path=feature_description_text)
+    target_files.extend(matches)
+
+# Deduplicate
+target_files = list(set(target_files))
+
+Display: f"""
+Step EV-1: Target File Identification Complete
+
+Extracted {len(target_files)} target files from feature description:
+{chr(10).join(f"  - {f}" for f in target_files)}
+
+Proceeding to Step EV-2 (Read and Verify)...
+"""
+```
+
+---
+
+### Step EV-2: Read and Verify Each Target File
+
+**Objective:** Verify all claims about target files using native Read() and Grep tools.
+
+**Verification workflow:**
+
+```python
+verification_results = []
+
+FOR each file in target_files:
+
+    # Step 2a: Check file existence
+    IF file does NOT exist:
+        # HALT if file not found - cannot verify claims
+        HALT: f"""❌ CRITICAL: Target file not found: {file}
+
+Cannot verify claims about this file.
+Aborting story creation.
+
+Recovery options:
+1. Check file path is correct
+2. Remove unverifiable claims from feature description
+3. Create the file first if it should exist
+"""
+
+    ELSE:
+        # Step 2b: Read file content
+        file_content = Read(file_path=file)
+
+        # Step 2c: Verify each claim about this file
+        FOR each claim about this file:
+
+            # Use Grep to search for claimed content
+            search_result = Grep(
+                pattern=claim.pattern,
+                path=file,
+                output_mode="content"
+            )
+
+            # Record verification result
+            verification_results.append({
+                "file": file,
+                "claim": claim.description,
+                "verified": len(search_result.matches) > 0,
+                "lines": [match.line_number for match in search_result.matches],
+                "count": len(search_result.matches)
+            })
+
+            Display: f"""
+Verifying claim: "{claim.description}"
+  File: {file}
+  Pattern: {claim.pattern}
+  Found: {len(search_result.matches)} matches
+  Lines: {[match.line_number for match in search_result.matches]}
+  Status: {"✓ VERIFIED" if len(search_result.matches) > 0 else "✗ NOT FOUND"}
+"""
+```
+
+---
+
+### Step EV-3: Evidence Sufficiency Validation
+
+**Objective:** Validate that EVERY claim has supporting evidence before proceeding.
+
+**Validation logic:**
+
+```python
+# Check: For EVERY claim, is there supporting evidence?
+unverified_claims = [r for r in verification_results if not r["verified"]]
+
+IF len(unverified_claims) > 0:
+    HALT: f"""
+❌ CRITICAL: Cannot verify claim(s)
+
+The following claims could not be verified against target files:
+
+{chr(10).join(f'''
+Claim: "{c['claim']}"
+  File checked: {c['file']}
+  Evidence found: None
+''' for c in unverified_claims)}
+
+Recovery options:
+1. If claim is speculative → Remove from story
+2. If claim is valid → Check target file path is correct
+3. If pattern is wrong → Adjust search pattern
+
+Story creation cannot proceed with unverified claims.
+All technical specifications must have evidence.
+"""
+
+ELSE:
+    # All claims verified
+    Display: f"""
+✓ Step EV-3: Evidence Sufficiency Validation PASSED
+
+All {len(verification_results)} claims verified:
+{chr(10).join(f"  ✓ {r['claim']} ({r['count']} matches in {r['file']})" for r in verification_results)}
+
+Proceeding to Step EV-4 (Generate verified_violations YAML)...
+"""
+```
+
+---
+
+### Step EV-4: Generate verified_violations YAML Section
+
+**Objective:** Generate a structured YAML section documenting all verified violations with specific file paths, line numbers, and counts.
+
+**YAML Template:**
+
+```yaml
+verified_violations:
+  description: "Claims verified during story creation ({YYYY-MM-DD})"
+  protocol: "Read-Quote-Cite-Verify"
+  source_rca: "RCA-020"
+  locations:
+    - file: "{target_file_1}"
+      lines: [12, 45, 89]
+      count: 3
+      claim: "Bash mkdir commands found"
+    - file: "{target_file_2}"
+      lines: []
+      count: 0
+      note: "No violations found - file compliant"
+    - file: "{target_file_3}"
+      lines: [156, 203]
+      count: 2
+      claim: "Hardcoded paths detected"
+```
+
+**Generation logic:**
+
+```python
+from datetime import date
+
+verified_violations_yaml = {
+    "verified_violations": {
+        "description": f"Claims verified during story creation ({date.today().isoformat()})",
+        "protocol": "Read-Quote-Cite-Verify",
+        "source_rca": "RCA-020",
+        "locations": []
+    }
+}
+
+FOR result in verification_results:
+    location_entry = {
+        "file": result["file"],
+        "lines": result["lines"],  # Specific line numbers, e.g., [12, 45, 89]
+        "count": result["count"]
+    }
+
+    IF result["count"] == 0:
+        location_entry["note"] = "No violations found - file compliant"
+    ELSE:
+        location_entry["claim"] = result["claim"]
+
+    verified_violations_yaml["verified_violations"]["locations"].append(location_entry)
+
+Display: f"""
+Step EV-4: verified_violations YAML Generated
+
+```yaml
+{yaml.dump(verified_violations_yaml, default_flow_style=False)}
+```
+
+This section will be embedded in the story's Technical Specification.
+Evidence verification complete. Proceeding to Step 3.0...
+"""
+```
+
+---
+
+### Evidence-Verification Pre-Flight Summary
+
+| Step | Action | Output |
+|------|--------|--------|
+| EV-1 | Target File Identification | `target_files` array |
+| EV-2 | Read and Verify Each File | `verification_results` with lines/counts |
+| EV-3 | Evidence Sufficiency Check | HALT if unverified, CONTINUE if all verified |
+| EV-4 | Generate verified_violations YAML | Structured YAML for story embedding |
+
+**On Completion:** Proceed to Step 3.0 (Pre-Invocation File System Snapshot) with verified claims.
+
+---
+
 ## Step 3.0: Pre-Invocation File System Snapshot (NEW - RCA-007 Phase 2)
 
 **Objective:** Capture file system state before api-designer execution
