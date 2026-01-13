@@ -17,9 +17,41 @@ from pathlib import Path
 
 
 def _get_phase_state(project_root: str):
-    """Get PhaseState instance using relative import."""
-    from ..phase_state import PhaseState
-    return PhaseState(project_root=Path(project_root))
+    """
+    Get PhaseState instance with graceful error handling.
+
+    PhaseState is co-located in the same package for simple imports.
+
+    Args:
+        project_root: Path to the project root directory
+
+    Returns:
+        PhaseState instance for phase tracking
+
+    Raises:
+        ImportError: If phase_state.py module cannot be imported, with
+                     helpful diagnostic message including:
+                     - Original error details
+                     - Expected module location
+                     - Fix instructions
+                     - Note about /dev workflow continuation
+    """
+    try:
+        from ..phase_state import PhaseState
+        return PhaseState(project_root=Path(project_root))
+    except ImportError as e:
+        raise ImportError(
+            f"PhaseState module not found: {e}\n\n"
+            "The phase_state.py module is required for phase tracking.\n"
+            "Expected location: .claude/scripts/devforgeai_cli/phase_state.py\n\n"
+            "To fix:\n"
+            "  1. Ensure STORY-253 (PhaseState module) is implemented\n"
+            "  2. Reinstall CLI: pip install -e .claude/scripts/\n"
+            "  3. Retry your command\n\n"
+            "Note: The /dev workflow can continue without CLI-based phase\n"
+            "enforcement if this module is unavailable. Phase tracking is\n"
+            "optional and does not block story development."
+        ) from e
 
 
 def phase_init_command(
