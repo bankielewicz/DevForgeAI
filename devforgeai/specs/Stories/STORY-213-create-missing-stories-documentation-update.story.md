@@ -4,7 +4,7 @@ title: Update /create-missing-stories Command Documentation with Story Quality R
 type: documentation
 epic: EPIC-033-framework-enhancement-triage-q4-2025
 sprint: Backlog
-status: Backlog
+status: Dev Complete
 points: 1
 depends_on: ["STORY-211", "STORY-212"]
 priority: Medium
@@ -357,74 +357,111 @@ None.
 
 ### AC#1: Story Quality Gates Section Added
 
-- [ ] Section header added - **Phase:** 3 - **Evidence:** grep for header
-- [ ] RCA-020 reference included - **Phase:** 3 - **Evidence:** grep for "RCA-020"
-- [ ] Position correct (after Implementation Notes) - **Phase:** 3 - **Evidence:** line number check
+- [x] Section header added - **Phase:** 3 - **Evidence:** DOC-001 test passes
+- [x] RCA-020 reference included - **Phase:** 3 - **Evidence:** DOC-009 test passes
+- [x] Position correct (after Implementation Notes) - **Phase:** 3 - **Evidence:** DOC-008 test passes
 
 ### AC#2: Required Story Elements Documented
 
-- [ ] verified_violations requirement documented - **Phase:** 3 - **Evidence:** content review
-- [ ] Specific file paths and line numbers documented - **Phase:** 3 - **Evidence:** content review
-- [ ] Target file validation documented - **Phase:** 3 - **Evidence:** content review
-- [ ] No placeholders requirement documented - **Phase:** 3 - **Evidence:** content review
+- [x] verified_violations requirement documented - **Phase:** 3 - **Evidence:** DOC-002a test passes
+- [x] Specific file paths and line numbers documented - **Phase:** 3 - **Evidence:** DOC-002b, DOC-002c tests pass
+- [x] Target file validation documented - **Phase:** 3 - **Evidence:** Content at lines 442-443
+- [x] No placeholders requirement documented - **Phase:** 3 - **Evidence:** DOC-002d test passes
 
 ### AC#3: Story Creation Failure Explanation
 
-- [ ] Failure reasons table with 4+ entries - **Phase:** 3 - **Evidence:** table present
-- [ ] Example error message included - **Phase:** 3 - **Evidence:** code block present
-- [ ] Fix instructions for each failure reason - **Phase:** 3 - **Evidence:** table review
+- [x] Failure reasons table with 4+ entries - **Phase:** 3 - **Evidence:** DOC-003 test passes
+- [x] Example error message included - **Phase:** 3 - **Evidence:** DOC-004 test passes (CRITICAL marker)
+- [x] Fix instructions for each failure reason - **Phase:** 3 - **Evidence:** Table includes Fix column
 
 ### AC#4: Evidence Requirement Rationale Documented
 
-- [ ] 4 reasons for evidence requirement - **Phase:** 3 - **Evidence:** numbered list
-- [ ] Explanation of Read-Quote-Cite-Verify - **Phase:** 3 - **Evidence:** content review
+- [x] 4 reasons for evidence requirement - **Phase:** 3 - **Evidence:** DOC-005 test passes
+- [x] Explanation of Read-Quote-Cite-Verify - **Phase:** 3 - **Evidence:** Line 473 references protocol
 
 ### AC#5: Reference to Citation Requirements
 
-- [ ] Path to citation-requirements.md included - **Phase:** 3 - **Evidence:** grep
-- [ ] References to STORY-211 and STORY-212 - **Phase:** 3 - **Evidence:** grep
+- [x] Path to citation-requirements.md included - **Phase:** 3 - **Evidence:** DOC-006 test passes
+- [x] References to STORY-211 and STORY-212 - **Phase:** 3 - **Evidence:** DOC-007a, DOC-007b tests pass
 
 ---
 
-**Checklist Progress:** 0/14 items complete (0%)
+**Checklist Progress:** 14/14 items complete (100%)
 
 ---
 
 ## Definition of Done
 
 ### Implementation
-- [ ] Story Quality Gates section added to create-missing-stories.md
-- [ ] All 4 required story elements documented (AC#2)
-- [ ] Failure reasons table with fix instructions (AC#3)
-- [ ] Example error message included (AC#3)
-- [ ] Evidence requirement rationale explained (AC#4)
-- [ ] Reference to citation-requirements.md (AC#5)
-- [ ] References to STORY-211 and STORY-212 (AC#5)
-- [ ] RCA-020 reference as motivation
+- [x] Story Quality Gates section added to create-missing-stories.md - Completed: Section added at lines 430-480
+- [x] All 4 required story elements documented (AC#2) - Completed: verified_violations, file paths, line numbers, no placeholders
+- [x] Failure reasons table with fix instructions (AC#3) - Completed: 4-row table with causes and fixes
+- [x] Example error message included (AC#3) - Completed: CRITICAL marker example with actionable guidance
+- [x] Evidence requirement rationale explained (AC#4) - Completed: 4 reasons documented
+- [x] Reference to citation-requirements.md (AC#5) - Completed: Grounding Protocol section referenced
+- [x] References to STORY-211 and STORY-212 (AC#5) - Completed: Both stories referenced in References section
+- [x] RCA-020 reference as motivation - Completed: Section header includes "(RCA-020 Fix)"
 
 ### Quality
-- [ ] All 5 acceptance criteria verified
-- [ ] Documentation reviewed by team member unfamiliar with evidence requirements
-- [ ] Accuracy verified against actual command behavior
+- [x] All 5 acceptance criteria verified - Completed: 13/13 tests passing
+- [ ] Documentation reviewed by team member unfamiliar with evidence requirements - DEFERRED: Manual review step
+- [ ] Accuracy verified against actual command behavior - DEFERRED: Manual verification step
 
 ### Testing
-- [ ] Grep verification for all required sections
-- [ ] Manual review for clarity and actionability
-- [ ] Accuracy check against command behavior
+- [x] Grep verification for all required sections - Completed: All DOC-001 through DOC-009 tests pass
+- [ ] Manual review for clarity and actionability - DEFERRED: Manual review step
+- [ ] Accuracy check against command behavior - DEFERRED: Manual verification step
 
 ### Documentation
-- [ ] Self-documenting (this IS the documentation deliverable)
-- [ ] Cross-references accurate and up-to-date
+- [x] Self-documenting (this IS the documentation deliverable) - Completed: Documentation update is the deliverable
+- [x] Cross-references accurate and up-to-date - Completed: All cross-references validated
+
+---
+
+## Implementation Notes
+
+**Developer:** DevForgeAI AI Agent (claude/opus)
+**Implemented:** 2026-01-13
+**Branch:** refactor/devforgeai-migration
+
+- [x] Story Quality Gates section added to create-missing-stories.md - Completed: Section added at lines 430-480
+- [x] All 4 required story elements documented (AC#2) - Completed: verified_violations, file paths, line numbers, no placeholders
+- [x] Failure reasons table with fix instructions (AC#3) - Completed: 4-row table with causes and fixes
+- [x] Example error message included (AC#3) - Completed: CRITICAL marker example with actionable guidance
+- [x] Evidence requirement rationale explained (AC#4) - Completed: 4 reasons documented
+- [x] Reference to citation-requirements.md (AC#5) - Completed: Grounding Protocol section referenced
+- [x] References to STORY-211 and STORY-212 (AC#5) - Completed: Both stories referenced in References section
+- [x] RCA-020 reference as motivation - Completed: Section header includes "(RCA-020 Fix)"
+- [x] All 5 acceptance criteria verified - Completed: 13/13 tests passing
+- [x] Grep verification for all required sections - Completed: All DOC-001 through DOC-009 tests pass
+- [x] Self-documenting (this IS the documentation deliverable) - Completed: Documentation update is the deliverable
+- [x] Cross-references accurate and up-to-date - Completed: All cross-references validated
+
+### TDD Workflow Summary
+
+**Phase 02 (Red):** Generated 13 documentation verification tests (DOC-001 through DOC-009)
+**Phase 03 (Green):** Added Story Quality Gates section to create-missing-stories.md (52 lines)
+**Phase 04 (Refactor):** Code review fix for hardcoded line numbers → section references
+**Phase 05 (Integration):** Cross-reference validation passed (citation-requirements.md, STORY-211, STORY-212)
+
+### Files Modified
+
+- `.claude/commands/create-missing-stories.md` - Added Story Quality Gates section (lines 430-480)
+- `tests/STORY-213/test-documentation-update.sh` - Created test specification (13 tests)
 
 ---
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2026-01-01 12:00 | claude/devforgeai-story-creation | Created | Story created from RCA-020 REC-3 | STORY-213-create-missing-stories-documentation-update.story.md |
+| 2026-01-13 | claude/test-automator | Red (Phase 02) | Generated 13 documentation tests | tests/STORY-213/test-documentation-update.sh |
+| 2026-01-13 | claude/documentation-writer | Green (Phase 03) | Added Story Quality Gates section | .claude/commands/create-missing-stories.md |
+| 2026-01-13 | claude/code-reviewer | Refactor (Phase 04) | Fixed hardcoded line reference | .claude/commands/create-missing-stories.md |
+| 2026-01-13 | claude/opus | DoD Update (Phase 07) | Development complete, DoD validated | STORY-213*.story.md |
 
 ## Notes
 
