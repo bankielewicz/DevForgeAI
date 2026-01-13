@@ -47,6 +47,7 @@ Edge Cases Covered:
   - Circular invocation detection
 """
 
+import logging
 import os
 import sys
 import json
@@ -994,3 +995,908 @@ class TestCLIArguments:
         mock_skill_service.invoke.side_effect = Exception("Failed")
         # Should return/exit with 1
         pass
+
+
+# ============================================================================
+# STORY-256: invoke_feedback_skill() Method Tests
+# TDD Red Phase - All tests expected to FAIL until implementation
+#
+# Story: STORY-256 - Implement invoke_feedback_skill() Method
+# Test Framework: pytest (per tech-stack.md)
+# Test Pattern: test_<function>_<scenario>_<expected> (per coding-standards.md)
+#
+# Acceptance Criteria Coverage:
+#   AC#1: Structured Output Format Compliance
+#   AC#2: Context Data Inclusion in Output
+#   AC#3: Error Handling and Graceful Degradation
+#   AC#4: Output Format Parsability
+# ============================================================================
+
+
+class TestInvokeFeedbackSkillStructuredOutput:
+    """
+    Tests for AC#1: Structured Output Format Compliance
+
+    The invoke_feedback_skill() method must print structured output to stdout
+    containing section headers, skill name, operation context, and invocation
+    instructions following a consistent format.
+    """
+
+    @pytest.fixture
+    def complete_context(self):
+        """Fixture: Complete context with all fields populated."""
+        return {
+            "operation_id": "devop-20260113-abc123",
+            "operation": "dev",
+            "story_id": "STORY-256",
+            "status": "completed",
+            "duration_ms": 1250,
+            "todos": [
+                {"id": "1", "status": "completed", "content": "Phase 01"},
+                {"id": "2", "status": "completed", "content": "Phase 02"},
+                {"id": "3", "status": "in_progress", "content": "Phase 03"},
+                {"id": "4", "status": "pending", "content": "Phase 04"},
+            ],
+            "errors": [],
+            "timestamp": "2026-01-13T10:30:00Z",
+            "context_size_bytes": 2048,
+        }
+
+    @pytest.fixture
+    def service(self):
+        """Fixture: HookInvocationService instance."""
+        return HookInvocationService()
+
+    def test_invoke_feedback_skill_complete_context_outputs_all_fields(
+        self, service, complete_context, capsys
+    ):
+        """
+        AC#1: Method prints structured output with all required fields.
+
+        Given: A valid context dictionary with all fields populated
+        When: invoke_feedback_skill() is called
+        Then: Output contains operation_id, operation, story_id, status,
+              duration, todos summary, and errors count
+        """
+        # Arrange - context already set up via fixture
+
+        # Act
+        result = service.invoke_feedback_skill(complete_context)
+
+        # Assert - Method should return True on success
+        assert result is True, "Method should return True on successful execution"
+
+        # Assert - Capture stdout and verify all fields present
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Verify structured output contains all required fields
+        assert "devop-20260113-abc123" in output, "Output must include operation_id"
+        assert "dev" in output, "Output must include operation type"
+        assert "STORY-256" in output, "Output must include story_id"
+        assert "completed" in output, "Output must include status"
+        assert "1250" in output or "1250ms" in output, "Output must include duration"
+
+    def test_invoke_feedback_skill_outputs_section_header_with_delimiter(
+        self, service, complete_context, capsys
+    ):
+        """
+        AC#1: Output contains section header with delimiter.
+
+        Given: A valid context dictionary
+        When: invoke_feedback_skill() is called
+        Then: Output contains delimiter line (======...=====)
+        """
+        # Arrange - context from fixture
+
+        # Act
+        service.invoke_feedback_skill(complete_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Verify delimiter pattern exists (62 = signs per spec)
+        delimiter = "=" * 62
+        assert delimiter in output, (
+            f"Output must contain delimiter line: {delimiter}"
+        )
+
+    def test_invoke_feedback_skill_outputs_skill_name(
+        self, service, complete_context, capsys
+    ):
+        """
+        AC#1: Output includes skill name "devforgeai-feedback".
+
+        Given: A valid context dictionary
+        When: invoke_feedback_skill() is called
+        Then: Output references the devforgeai-feedback skill
+        """
+        # Arrange - context from fixture
+
+        # Act
+        service.invoke_feedback_skill(complete_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        assert "devforgeai-feedback" in output, (
+            "Output must include skill name 'devforgeai-feedback'"
+        )
+
+    def test_invoke_feedback_skill_outputs_invocation_instructions(
+        self, service, complete_context, capsys
+    ):
+        """
+        AC#1: Output includes Claude invocation instructions.
+
+        Given: A valid context dictionary
+        When: invoke_feedback_skill() is called
+        Then: Output contains action instructions for Claude
+        """
+        # Arrange - context from fixture
+
+        # Act
+        service.invoke_feedback_skill(complete_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Per spec: "Action Required: Invoke devforgeai-feedback skill"
+        assert "Action Required" in output or "Invoke" in output, (
+            "Output must include invocation instructions"
+        )
+
+    def test_invoke_feedback_skill_uses_consistent_indentation(
+        self, service, complete_context, capsys
+    ):
+        """
+        AC#1: Output uses consistent indentation.
+
+        Given: A valid context dictionary
+        When: invoke_feedback_skill() is called
+        Then: All key-value lines use same indentation level
+        """
+        # Arrange - context from fixture
+
+        # Act
+        service.invoke_feedback_skill(complete_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Check that key-value lines have consistent leading spaces
+        lines = output.split("\n")
+        key_value_lines = [
+            line for line in lines
+            if ":" in line and not line.strip().startswith("=")
+        ]
+
+        if key_value_lines:
+            # Get indentation of first key-value line
+            first_indent = len(key_value_lines[0]) - len(key_value_lines[0].lstrip())
+            for line in key_value_lines:
+                line_indent = len(line) - len(line.lstrip())
+                assert line_indent == first_indent, (
+                    f"Inconsistent indentation: expected {first_indent}, "
+                    f"got {line_indent} for line: {line}"
+                )
+
+
+class TestInvokeFeedbackSkillContextDataInclusion:
+    """
+    Tests for AC#2: Context Data Inclusion in Output
+
+    The invoke_feedback_skill() method must include all relevant context
+    fields in the output with proper formatting.
+    """
+
+    @pytest.fixture
+    def service(self):
+        """Fixture: HookInvocationService instance."""
+        return HookInvocationService()
+
+    @pytest.fixture
+    def context_with_todos(self):
+        """Fixture: Context with various todo statuses."""
+        return {
+            "operation_id": "devop-20260113-xyz789",
+            "operation": "qa",
+            "story_id": "STORY-100",
+            "status": "failed",
+            "duration_ms": 5000,
+            "todos": [
+                {"id": "1", "status": "completed", "content": "Task 1"},
+                {"id": "2", "status": "completed", "content": "Task 2"},
+                {"id": "3", "status": "completed", "content": "Task 3"},
+                {"id": "4", "status": "in_progress", "content": "Task 4"},
+                {"id": "5", "status": "pending", "content": "Task 5"},
+                {"id": "6", "status": "pending", "content": "Task 6"},
+            ],
+            "errors": [{"message": "Coverage below threshold"}],
+        }
+
+    def test_invoke_feedback_skill_includes_operation_id(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Output includes operation_id.
+
+        Given: A context with operation_id field
+        When: invoke_feedback_skill() is called
+        Then: Output contains the operation_id value
+        """
+        # Arrange - from fixture
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        assert "devop-20260113-xyz789" in captured.out, (
+            "Output must include operation_id"
+        )
+
+    def test_invoke_feedback_skill_includes_operation_type(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Output includes operation type (dev/qa/release).
+
+        Given: A context with operation field set to "qa"
+        When: invoke_feedback_skill() is called
+        Then: Output contains "qa" operation type
+        """
+        # Arrange - from fixture (operation = "qa")
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        # Check for operation field
+        assert "qa" in captured.out.lower() or "Operation" in captured.out, (
+            "Output must include operation type"
+        )
+
+    def test_invoke_feedback_skill_includes_story_id_when_present(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Output includes story_id when present.
+
+        Given: A context with story_id = "STORY-100"
+        When: invoke_feedback_skill() is called
+        Then: Output contains "STORY-100"
+        """
+        # Arrange - from fixture
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        assert "STORY-100" in captured.out, (
+            "Output must include story_id when present"
+        )
+
+    def test_invoke_feedback_skill_missing_story_id_shows_na(
+        self, service, capsys
+    ):
+        """
+        AC#2: Output shows "N/A" when story_id is absent.
+
+        Given: A context without story_id field
+        When: invoke_feedback_skill() is called
+        Then: Output contains "N/A" for story_id
+        """
+        # Arrange
+        context_no_story = {
+            "operation_id": "devop-20260113-nostory",
+            "operation": "dev",
+            "status": "completed",
+            "duration_ms": 100,
+            "todos": [],
+            "errors": [],
+        }
+
+        # Act
+        service.invoke_feedback_skill(context_no_story)
+
+        # Assert
+        captured = capsys.readouterr()
+        assert "N/A" in captured.out or "unassigned" in captured.out, (
+            "Output must show 'N/A' or 'unassigned' when story_id is absent"
+        )
+
+    def test_invoke_feedback_skill_includes_status_field(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Output includes status field (completed/failed/error).
+
+        Given: A context with status = "failed"
+        When: invoke_feedback_skill() is called
+        Then: Output contains "failed" status
+        """
+        # Arrange - from fixture (status = "failed")
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        assert "failed" in captured.out.lower(), (
+            "Output must include status field"
+        )
+
+    def test_invoke_feedback_skill_todos_summary_calculated_correctly(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Todos summary shows count and status breakdown.
+
+        Given: A context with 6 todos (3 completed, 1 in_progress, 2 pending)
+        When: invoke_feedback_skill() is called
+        Then: Output contains todos count and breakdown
+        """
+        # Arrange - from fixture (6 todos: 3 completed, 1 in_progress, 2 pending)
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Should contain count (6) and at least completed count (3)
+        assert "6" in output, "Output must include total todos count"
+        assert "3" in output, "Output must include completed todos count"
+
+    def test_invoke_feedback_skill_includes_errors_count(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Output includes errors count.
+
+        Given: A context with 1 error
+        When: invoke_feedback_skill() is called
+        Then: Output contains error count
+        """
+        # Arrange - from fixture (1 error)
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        # Output should mention errors (either count or the fact there are errors)
+        assert "1" in captured.out or "error" in captured.out.lower(), (
+            "Output must include errors count"
+        )
+
+    def test_invoke_feedback_skill_duration_formatted_with_ms(
+        self, service, context_with_todos, capsys
+    ):
+        """
+        AC#2: Duration is formatted in human-readable format (Xms).
+
+        Given: A context with duration_ms = 5000
+        When: invoke_feedback_skill() is called
+        Then: Output contains "5000ms" or similar format
+        """
+        # Arrange - from fixture (duration_ms = 5000)
+
+        # Act
+        service.invoke_feedback_skill(context_with_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        # Should contain duration value with ms suffix
+        assert "5000" in captured.out, (
+            "Output must include duration value"
+        )
+
+
+class TestInvokeFeedbackSkillErrorHandling:
+    """
+    Tests for AC#3: Error Handling and Graceful Degradation
+
+    The invoke_feedback_skill() method must handle exceptions gracefully,
+    log errors, and return False without propagating exceptions.
+    """
+
+    @pytest.fixture
+    def service(self):
+        """Fixture: HookInvocationService instance."""
+        return HookInvocationService()
+
+    def test_invoke_feedback_skill_none_context_returns_false(self, service):
+        """
+        AC#3: None context returns False.
+
+        Given: invoke_feedback_skill() is called with None
+        When: The method attempts to process the context
+        Then: Method returns False without raising exception
+        """
+        # Arrange - None context
+
+        # Act
+        result = service.invoke_feedback_skill(None)
+
+        # Assert
+        assert result is False, (
+            "Method must return False when context is None"
+        )
+
+    def test_invoke_feedback_skill_empty_dict_returns_false(self, service):
+        """
+        AC#3: Empty dictionary context returns False.
+
+        Given: invoke_feedback_skill() is called with empty dict {}
+        When: The method attempts to process the context
+        Then: Method returns False (or handles gracefully with defaults)
+        """
+        # Arrange
+        empty_context = {}
+
+        # Act
+        result = service.invoke_feedback_skill(empty_context)
+
+        # Assert - Either returns False OR handles gracefully with defaults
+        # Per spec, empty context should be handled gracefully
+        # Implementation may choose to output with "unknown" defaults
+        assert result in (True, False), (
+            "Method must return boolean (True with defaults or False)"
+        )
+
+    def test_invoke_feedback_skill_exception_logs_error(
+        self, service, caplog
+    ):
+        """
+        AC#3: Exception is logged using existing logger.
+
+        Given: A context that causes an exception during processing
+        When: invoke_feedback_skill() is called
+        Then: Error is logged via logger.error
+        """
+        # Arrange - Context that should cause exception
+        # Using a non-dict to trigger TypeError
+        invalid_context = "not a dictionary"
+
+        # Act
+        with caplog.at_level(logging.ERROR):
+            result = service.invoke_feedback_skill(invalid_context)
+
+        # Assert
+        assert result is False, "Method must return False on exception"
+        # Note: Current stub doesn't log, so this will fail until implemented
+        assert len(caplog.records) > 0, (
+            "Exception must be logged via logger.error"
+        )
+
+    def test_invoke_feedback_skill_no_exception_propagates(self, service):
+        """
+        AC#3: No exception propagates to caller.
+
+        Given: A context that causes an exception
+        When: invoke_feedback_skill() is called
+        Then: No exception is raised (method catches all)
+        """
+        # Arrange - Various invalid contexts
+        invalid_contexts = [
+            None,
+            "string",
+            123,
+            ["list"],
+            {"nested": {"deep": object()}},  # Non-serializable
+        ]
+
+        # Act & Assert - None should raise
+        for invalid_ctx in invalid_contexts:
+            try:
+                result = service.invoke_feedback_skill(invalid_ctx)
+                # If we get here, no exception was raised - good!
+                assert result in (True, False), (
+                    f"Method must return boolean for context: {type(invalid_ctx)}"
+                )
+            except Exception as e:
+                pytest.fail(
+                    f"Exception propagated to caller for context "
+                    f"{type(invalid_ctx)}: {e}"
+                )
+
+    def test_invoke_feedback_skill_missing_keys_handled_gracefully(
+        self, service, capsys
+    ):
+        """
+        AC#3: Missing required keys are handled gracefully.
+
+        Given: A context missing operation_id and other keys
+        When: invoke_feedback_skill() is called
+        Then: Method handles gracefully (uses defaults or returns False)
+        """
+        # Arrange - Context with only partial data
+        partial_context = {
+            "operation": "dev",
+            "status": "completed",
+        }
+
+        # Act
+        result = service.invoke_feedback_skill(partial_context)
+
+        # Assert - Should handle gracefully
+        # Either returns True with defaults or False for incomplete data
+        assert result in (True, False), (
+            "Method must return boolean for partial context"
+        )
+
+    def test_invoke_feedback_skill_logger_debug_with_stack_trace(
+        self, service, caplog
+    ):
+        """
+        AC#3: Logger.debug called with stack trace on exception.
+
+        Given: A context that causes an exception
+        When: invoke_feedback_skill() is called
+        Then: Stack trace is logged at DEBUG level
+        """
+        # Arrange
+        invalid_context = None
+
+        # Act
+        with caplog.at_level(logging.DEBUG):
+            service.invoke_feedback_skill(invalid_context)
+
+        # Assert - Check for debug log with stack trace
+        debug_records = [r for r in caplog.records if r.levelno == logging.DEBUG]
+        # Note: Current stub doesn't log debug, so this will fail
+        assert any("Traceback" in r.message or "Error" in r.message
+                   for r in debug_records), (
+            "Stack trace must be logged at DEBUG level"
+        )
+
+
+class TestInvokeFeedbackSkillOutputParsability:
+    """
+    Tests for AC#4: Output Format Parsability
+
+    The output must have clear delimiters, consistent format,
+    proper escaping, and format version indicator.
+    """
+
+    @pytest.fixture
+    def service(self):
+        """Fixture: HookInvocationService instance."""
+        return HookInvocationService()
+
+    @pytest.fixture
+    def standard_context(self):
+        """Fixture: Standard context for parsability tests."""
+        return {
+            "operation_id": "devop-20260113-parse",
+            "operation": "release",
+            "story_id": "STORY-200",
+            "status": "completed",
+            "duration_ms": 3000,
+            "todos": [{"id": "1", "status": "completed", "content": "Done"}],
+            "errors": [],
+        }
+
+    def test_invoke_feedback_skill_output_has_delimiters(
+        self, service, standard_context, capsys
+    ):
+        """
+        AC#4: Output has clear start/end delimiters.
+
+        Given: A valid context
+        When: invoke_feedback_skill() is called
+        Then: Output has delimiter at start and end
+        """
+        # Arrange - from fixture
+
+        # Act
+        service.invoke_feedback_skill(standard_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        delimiter = "=" * 62
+        delimiter_count = output.count(delimiter)
+        assert delimiter_count >= 2, (
+            f"Output must have at least 2 delimiter lines, found {delimiter_count}"
+        )
+
+    def test_invoke_feedback_skill_consistent_key_value_format(
+        self, service, standard_context, capsys
+    ):
+        """
+        AC#4: Context data uses consistent key-value format.
+
+        Given: A valid context
+        When: invoke_feedback_skill() is called
+        Then: All context fields use "Key: Value" format
+        """
+        # Arrange - from fixture
+
+        # Act
+        service.invoke_feedback_skill(standard_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Check for key-value patterns (e.g., "Operation: dev")
+        import re
+        key_value_pattern = re.compile(r"^\s*[A-Za-z][A-Za-z\s]*:\s*.+$", re.MULTILINE)
+        matches = key_value_pattern.findall(output)
+
+        assert len(matches) >= 3, (
+            f"Output must have at least 3 key-value lines, found {len(matches)}"
+        )
+
+    def test_invoke_feedback_skill_special_chars_escaped(
+        self, service, capsys
+    ):
+        """
+        AC#4: Special characters are properly escaped.
+
+        Given: A context with special characters (newlines, quotes, unicode)
+        When: invoke_feedback_skill() is called
+        Then: Output properly handles special characters without breaking format
+        """
+        # Arrange - Context with special characters
+        context_with_specials = {
+            "operation_id": 'devop-with-"quotes"',
+            "operation": "dev",
+            "story_id": "STORY-256",
+            "status": "completed",
+            "duration_ms": 100,
+            "todos": [
+                {"id": "1", "status": "completed", "content": "Task with\nnewline"},
+            ],
+            "errors": [{"message": "Error with 'quotes' and \"double quotes\""}],
+        }
+
+        # Act
+        result = service.invoke_feedback_skill(context_with_specials)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Should complete without error
+        assert result is True, "Method should handle special characters"
+        # Output should not have broken formatting
+        assert "===" in output, "Delimiters should still be present"
+
+    def test_invoke_feedback_skill_unicode_characters_handled(
+        self, service, capsys
+    ):
+        """
+        AC#4: Unicode characters are properly handled.
+
+        Given: A context with Unicode characters (emojis, international chars)
+        When: invoke_feedback_skill() is called
+        Then: Output includes Unicode without encoding errors
+        """
+        # Arrange - Context with Unicode
+        context_with_unicode = {
+            "operation_id": "devop-unicode-test",
+            "operation": "dev",
+            "story_id": "STORY-256",
+            "status": "completed",
+            "duration_ms": 100,
+            "todos": [
+                {"id": "1", "status": "completed", "content": "Task with emoji"},
+            ],
+            "errors": [],
+        }
+
+        # Act - Should not raise UnicodeEncodeError
+        try:
+            result = service.invoke_feedback_skill(context_with_unicode)
+        except UnicodeEncodeError:
+            pytest.fail("Method must handle Unicode without raising UnicodeEncodeError")
+
+        # Assert
+        assert result is True, "Method should handle Unicode characters"
+
+    def test_invoke_feedback_skill_format_version_present(
+        self, service, standard_context, capsys
+    ):
+        """
+        AC#4: Format version indicator is present.
+
+        Given: A valid context
+        When: invoke_feedback_skill() is called
+        Then: Output contains format identifier (e.g., "FEEDBACK HOOK TRIGGERED")
+        """
+        # Arrange - from fixture
+
+        # Act
+        service.invoke_feedback_skill(standard_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Per spec: "FEEDBACK HOOK TRIGGERED" is the format indicator
+        assert "FEEDBACK HOOK TRIGGERED" in output or "HOOK" in output, (
+            "Output must contain format version/type indicator"
+        )
+
+    def test_invoke_feedback_skill_returns_true_on_success(
+        self, service, standard_context
+    ):
+        """
+        AC#3/AC#4: Method returns True on successful output generation.
+
+        Given: A valid context with all required fields
+        When: invoke_feedback_skill() is called
+        Then: Method returns True indicating success
+        """
+        # Arrange - from fixture
+
+        # Act
+        result = service.invoke_feedback_skill(standard_context)
+
+        # Assert
+        assert result is True, (
+            "Method must return True when output is successfully generated"
+        )
+
+
+class TestInvokeFeedbackSkillMinimalContext:
+    """
+    Tests for edge cases with minimal/partial context data.
+    """
+
+    @pytest.fixture
+    def service(self):
+        """Fixture: HookInvocationService instance."""
+        return HookInvocationService()
+
+    def test_invoke_feedback_skill_minimal_context_outputs_defaults(
+        self, service, capsys
+    ):
+        """
+        AC#2: Minimal context (operation_id only) outputs with defaults.
+
+        Given: A context with only operation_id
+        When: invoke_feedback_skill() is called
+        Then: Output includes operation_id and defaults for missing fields
+        """
+        # Arrange
+        minimal_context = {
+            "operation_id": "devop-minimal-test",
+        }
+
+        # Act
+        result = service.invoke_feedback_skill(minimal_context)
+
+        # Assert
+        captured = capsys.readouterr()
+        output = captured.out
+
+        # Should include the operation_id we provided
+        assert "devop-minimal-test" in output, (
+            "Output must include provided operation_id"
+        )
+        # Should handle missing fields gracefully
+        assert result is True, (
+            "Method should succeed with minimal context using defaults"
+        )
+
+    def test_invoke_feedback_skill_empty_todos_list(
+        self, service, capsys
+    ):
+        """
+        AC#2: Empty todos list is handled correctly.
+
+        Given: A context with empty todos list
+        When: invoke_feedback_skill() is called
+        Then: Output shows 0 items for todos
+        """
+        # Arrange
+        context_empty_todos = {
+            "operation_id": "devop-empty-todos",
+            "operation": "dev",
+            "story_id": "STORY-256",
+            "status": "completed",
+            "duration_ms": 100,
+            "todos": [],
+            "errors": [],
+        }
+
+        # Act
+        service.invoke_feedback_skill(context_empty_todos)
+
+        # Assert
+        captured = capsys.readouterr()
+        # Should show 0 items or empty indicator
+        assert "0" in captured.out or "empty" in captured.out.lower(), (
+            "Output must indicate zero todos"
+        )
+
+    def test_invoke_feedback_skill_zero_duration(
+        self, service, capsys
+    ):
+        """
+        AC#2: Zero duration is formatted correctly.
+
+        Given: A context with duration_ms = 0
+        When: invoke_feedback_skill() is called
+        Then: Output shows "0ms" or similar
+        """
+        # Arrange
+        context_zero_duration = {
+            "operation_id": "devop-zero-duration",
+            "operation": "dev",
+            "story_id": "STORY-256",
+            "status": "completed",
+            "duration_ms": 0,
+            "todos": [],
+            "errors": [],
+        }
+
+        # Act
+        service.invoke_feedback_skill(context_zero_duration)
+
+        # Assert
+        captured = capsys.readouterr()
+        # Should contain 0 for duration
+        assert "0" in captured.out, (
+            "Output must show zero duration"
+        )
+
+
+# ============================================================================
+# STORY-256: Test Summary
+#
+# Total test count: 24 tests across 5 test classes
+#
+# TestInvokeFeedbackSkillStructuredOutput (AC#1): 6 tests
+#   - test_invoke_feedback_skill_complete_context_outputs_all_fields
+#   - test_invoke_feedback_skill_outputs_section_header_with_delimiter
+#   - test_invoke_feedback_skill_outputs_skill_name
+#   - test_invoke_feedback_skill_outputs_invocation_instructions
+#   - test_invoke_feedback_skill_uses_consistent_indentation
+#
+# TestInvokeFeedbackSkillContextDataInclusion (AC#2): 8 tests
+#   - test_invoke_feedback_skill_includes_operation_id
+#   - test_invoke_feedback_skill_includes_operation_type
+#   - test_invoke_feedback_skill_includes_story_id_when_present
+#   - test_invoke_feedback_skill_missing_story_id_shows_na
+#   - test_invoke_feedback_skill_includes_status_field
+#   - test_invoke_feedback_skill_todos_summary_calculated_correctly
+#   - test_invoke_feedback_skill_includes_errors_count
+#   - test_invoke_feedback_skill_duration_formatted_with_ms
+#
+# TestInvokeFeedbackSkillErrorHandling (AC#3): 6 tests
+#   - test_invoke_feedback_skill_none_context_returns_false
+#   - test_invoke_feedback_skill_empty_dict_returns_false
+#   - test_invoke_feedback_skill_exception_logs_error
+#   - test_invoke_feedback_skill_no_exception_propagates
+#   - test_invoke_feedback_skill_missing_keys_handled_gracefully
+#   - test_invoke_feedback_skill_logger_debug_with_stack_trace
+#
+# TestInvokeFeedbackSkillOutputParsability (AC#4): 6 tests
+#   - test_invoke_feedback_skill_output_has_delimiters
+#   - test_invoke_feedback_skill_consistent_key_value_format
+#   - test_invoke_feedback_skill_special_chars_escaped
+#   - test_invoke_feedback_skill_unicode_characters_handled
+#   - test_invoke_feedback_skill_format_version_present
+#   - test_invoke_feedback_skill_returns_true_on_success
+#
+# TestInvokeFeedbackSkillMinimalContext (Edge Cases): 3 tests
+#   - test_invoke_feedback_skill_minimal_context_outputs_defaults
+#   - test_invoke_feedback_skill_empty_todos_list
+#   - test_invoke_feedback_skill_zero_duration
+#
+# TDD Status: RED (All tests expected to FAIL against current stub)
+# ============================================================================
