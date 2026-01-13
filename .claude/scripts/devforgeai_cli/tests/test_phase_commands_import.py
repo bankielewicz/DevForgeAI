@@ -457,12 +457,16 @@ class TestNFR_NonFunctionalRequirements:
         get_phase_state_function_source: str
     ):
         """
-        NFR-002: Function reduced from 8 lines to 3 lines.
+        NFR-002: Function reduced from original sys.path approach.
 
-        The refactored function should be approximately 3 lines:
-            def _get_phase_state(project_root: str):
-                from ..phase_state import PhaseState
-                return PhaseState(project_root=Path(project_root))
+        STORY-254: Reduced from 8 lines (sys.path) to 3 lines (relative import)
+        STORY-255: Added graceful error handling (~20 additional lines for
+                   helpful diagnostic message when PhaseState module missing)
+
+        The refactored function should have:
+        - Relative import (from ..phase_state) - STORY-254
+        - try/except error handling with helpful message - STORY-255
+        - Comprehensive docstring documenting the ImportError behavior
         """
         # Count non-empty, non-comment lines
         lines = get_phase_state_function_source.split('\n')
@@ -472,19 +476,28 @@ class TestNFR_NonFunctionalRequirements:
             and not line.strip().startswith('"""')
         ]
 
-        # Allow for docstring lines (3) + code lines (3) = ~6 max
-        # Or just code lines if no docstring: ~3
-        max_expected_lines = 8  # Allow some docstring
-        min_expected_lines = 3  # Just the function
+        # STORY-255 adds error handling which increases line count legitimately:
+        # - ~18 lines for docstring
+        # - ~4 lines for try block (def, try, import, return)
+        # - ~15 lines for except block (error message)
+        # Total: ~35-40 lines maximum
+        max_expected_lines = 40  # With error handling from STORY-255
+        min_expected_lines = 15  # Minimum for proper error handling
 
         actual_line_count = len(code_lines)
 
-        # For TDD Red, we expect MORE lines (current is ~8)
-        # After refactoring, should be ~3-6 lines
+        # Verify function has error handling (STORY-255) but isn't bloated
         assert actual_line_count <= max_expected_lines, (
-            f"FAIL (TDD Red): _get_phase_state() should have ~3 code lines "
-            f"(excluding docstring), but has {actual_line_count}.\n"
+            f"_get_phase_state() should have ≤{max_expected_lines} lines "
+            f"(with STORY-255 error handling), but has {actual_line_count}.\n"
             f"Current function:\n{get_phase_state_function_source}"
+        )
+
+        # Verify function has minimum content for error handling
+        assert actual_line_count >= min_expected_lines, (
+            f"_get_phase_state() should have ≥{min_expected_lines} lines "
+            f"(must include STORY-255 error handling), but has {actual_line_count}.\n"
+            f"Verify try/except block and helpful error message are present."
         )
 
     def test_get_phase_state_import_latency(self, temp_project_dir):
