@@ -374,12 +374,19 @@ ELSE:
 
 ## Phase 1: Validation
 
-### Phase 1 Pre-Flight
+### Pre-Flight: Verify Phase 0 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-0.marker")
-IF NOT found: HALT: "Phase 0 not completed - run setup first"
-Display: "✓ Phase 0 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 0 not verified complete"
+    HALT: "Phase 1 cannot execute without Phase 0 completion"
+    Display: "Previous phase (Phase 0) must complete successfully before starting Phase 1"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 0 verified complete - Phase 1 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 1 Reference Loading [MANDATORY]
@@ -497,12 +504,19 @@ Display: "Phase 1 ✓ | Validation | {traceability_score}% traceability"
 
 ## Phase 2: Analysis
 
-### Phase 2 Pre-Flight
+### Pre-Flight: Verify Phase 1 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker")
-IF NOT found: HALT: "Phase 1 not completed - run validation first"
-Display: "✓ Phase 1 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 1 not verified complete"
+    HALT: "Phase 2 cannot execute without Phase 1 completion"
+    Display: "Previous phase (Phase 1) must complete successfully before starting Phase 2"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 1 verified complete - Phase 2 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 2 Reference Loading [MANDATORY]
@@ -630,12 +644,19 @@ Display: "Phase 2 ✓ | Analysis | {validator_count}/3 validators"
 
 ## Phase 3: Reporting
 
-### Phase 3 Pre-Flight
+### Pre-Flight: Verify Phase 2 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker")
-IF NOT found: HALT: "Phase 2 not completed - run analysis first"
-Display: "✓ Phase 2 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 2 not verified complete"
+    HALT: "Phase 3 cannot execute without Phase 2 completion"
+    Display: "Previous phase (Phase 2) must complete successfully before starting Phase 3"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 2 verified complete - Phase 3 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 3 Reference Loading [MANDATORY]
@@ -906,12 +927,19 @@ Display: "Phase 3 ✓ | Reporting | {overall_status}"
 
 ## Phase 4: Cleanup
 
-### Phase 4 Pre-Flight
+### Pre-Flight: Verify Phase 3 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker")
-IF NOT found: HALT: "Phase 3 not completed - run reporting first"
-Display: "✓ Phase 3 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 3 not verified complete"
+    HALT: "Phase 4 cannot execute without Phase 3 completion"
+    Display: "Previous phase (Phase 3) must complete successfully before starting Phase 4"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 3 verified complete - Phase 4 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 4 Reference Loading [MANDATORY]
