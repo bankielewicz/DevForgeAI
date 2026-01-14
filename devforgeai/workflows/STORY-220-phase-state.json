@@ -1,0 +1,18 @@
+{
+  "story_id": "STORY-220",
+  "current_phase": "07",
+  "completed_phases": ["01", "02", "03", "04", "05", "06"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer"],
+    "05": ["integration-tester"]
+  },
+  "iteration_count": 1,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-14",
+  "story_type": "documentation",
+  "created": "2026-01-14T00:00:00Z",
+  "updated": "2026-01-14T00:00:00Z"
+}

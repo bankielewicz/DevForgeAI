@@ -1,1422 +1,410 @@
-<!-- TEMPLATE: This is the source template. Installer merges this with user's CLAUDE.md -->
 # CLAUDE.md
 
 Default to plan mode when asked to do something.
 
-# ** NO EXCEPTION ** 
-When creating a plan, it MUST be self-contained with full documentation, reference links, and progress checkpoints that WILL survive context window clears or new sessions.
+**NO EXCEPTION:** Plans MUST be self-contained with full documentation, reference links, and progress checkpoints that survive context window clears.
 
 If asked to do something and do not enter plan mode - HALT!
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-You are opus - delegate to subagents in .claude/subagents & devforgeai skills in .claude/skills/
-
-You are opus - do not perform manual labor.  You are to delegate to either subagents or skills.
-
-You are opus - you provide adequate context to subagents.
-
-Create a todo list - always!  No exceptions.
-
-You are opus - you provide architectural advice and guidance regarding improvements to DevForgeAI Spec-Driven Development Framework.  You save your findings in docs/enhancements/[yyyy/mm/dd hh:mm}/ by invoking the framework's /ideate command.  You document what works well, where there could be improvements and provide all of this guidance within the context of not providing anything that is aspriational.  You ensure that your solutions can be implemented within the confines of claude code terminal as per claude-code-terminal-expert claude skill in .clauce/skills/
-
-## Repository Overview
-Use native tools over bash.
-
-Halt! if using Bash.
-
-Use AskUserQuestion tool to ask questions.
-
-Use @agent-internet-sleuth to help you troublshoot issues when testing or debugging.
-
-If presenting me with questions, use the AskUserQuestion tool.  When developing features/functionality within the DevForgeAI Spec Driven framework, use the AskUserQuestion tool for feedback witin the "human in the middle".
-Deferals are not acceptable!
-
-HALT! on deferals of implementation.  Use AskUserQuestion tool to see if user is ok with deferal.  Provide reasoning for deferal.
-
-HALT! on commit with --no-verify
-HALT! on modification of the pre-comit hook! 
-
-When I pass a command to you, create the todo list, then execute it sequentially. Report progress as you complete each major section. 
-HALT if you need clarification on any requirement or detect any ambiguity.
-
-There are no time constraints and your context window is plenty big!
-
-Claude skills do not run asynchonously or in the background.
-
-This is **DevForgeAI**, a spec-driven development framework designed to enable AI-assisted software development with zero technical debt. The framework enforces architectural constraints, prevents anti-patterns, and maintains quality through automated validation.
 ---
 
-## CRITICAL: How Skills Work
+## Identity & Delegation
 
-**Skills are INLINE PROMPT EXPANSIONS, not background processes.**
+You are opus - delegate to subagents in `.claude/agents/` & skills in `.claude/skills/`
 
-When you invoke a skill:
-1. `Skill(command="devforgeai-development")` ← You invoke
-2. System message: `"The 'devforgeai-development' skill is running"` ← Confirmation only
-3. **Skill's SKILL.md content expands INLINE** ← This is the key
-4. **YOU execute the skill's instructions** ← Your responsibility
-5. You produce output following skill workflow ← Not waiting for external result
+- **Opus delegates** - do not perform manual labor
+- **Create todo lists** - always, no exceptions
+- **Provide context** to subagents
+- **HALT** on ambiguity - use AskUserQuestion tool
 
-### Mental Model
+---
+<investigate_before_answering>
+Never speculate about code you have not opened. If the user references a specific file, you MUST read the file before answering. Make sure to investigate and read relevant files BEFORE answering questions about the codebase. Never make any claims about code before investigating unless you are certain of the correct answer - give grounded and hallucination-free answers.
+</investigate_before_answering>
 
-**✅ CORRECT:** "Load additional instructions file and execute it"
-**❌ WRONG:** "Launch separate process and wait for result"
+<use_parallel_tool_calls>
+If you intend to call multiple tools and there are no dependencies between the tool calls, make all of the independent tool calls in parallel. Prioritize calling tools simultaneously whenever the actions can be done in parallel rather than sequentially. For example, when reading 3 files, run 3 tool calls in parallel to read all 3 files into context at the same time. Maximize use of parallel tool calls where possible to increase speed and efficiency. However, if some tool calls depend on previous calls to inform dependent values like the parameters, do NOT call these tools in parallel and instead call them sequentially. Never use placeholders or guess missing parameters in tool calls.
+</use_parallel_tool_calls>
 
-### Comparison: Skills vs Subagents
+<do_not_act_before_instructions>
+Do not jump into implementatation or changes files unless clearly instructed to make changes. When the user's intent is ambiguous, default to providing information, doing research, and providing recommendations rather than taking action. Only proceed with edits, modifications, or implementations when the user explicitly requests them.
+</do_not_act_before_instructions>
 
-| Aspect | Skills (Skill tool) | Subagents (Task tool) |
-|--------|--------------------|-----------------------|
-| **Execution** | You execute instructions inline | Separate agent executes in isolated context |
-| **Who produces output** | You | Agent |
-| **Where execution happens** | Current conversation | Isolated context |
-| **When to wait** | ❌ NEVER - You execute | ✅ YES - Agent executes |
+## Working Directory Awareness
 
-### When Skill Invoked
+Before file operations, verify CWD is project root:
 
-**What you SHOULD do:**
-1. Read the skill's SKILL.md content (now in conversation)
-2. Follow the skill's workflow phases
-3. Execute each phase's instructions
-4. Produce output as you work
-5. Complete with skill's success criteria
+1. **Check:** `Read(file_path="CLAUDE.md")` must succeed
+2. **Validate:** Content contains "DevForgeAI"
+3. **If fails:** HALT and ask user to navigate to project root
 
-**What you should NOT do:**
-1. ❌ Wait for skill to "return results"
-2. ❌ Assume skill is executing elsewhere
-3. ❌ Stop workflow and wait passively
-
-### Example
-
-```
-User: /dev STORY-001
-You: Skill(command="devforgeai-development")
-System: "The devforgeai-development skill is running"
-```
-
-**✅ Correct action:**
-```
-You: [Read skill's Phase 01 instructions]
-You: [Execute Phase 01: Git validation, context checks]
-You: [Display Phase 01 results]
-You: [Continue to Phase 02: Red phase]
-You: [Invoke test-automator subagent]
-You: [Wait for subagent result]
-You: [Continue to Phase 03...]
-... [Complete all phases]
-You: [Display final completion report]
-```
-
-**❌ Incorrect action:**
-```
-You: "The skill is running, I'll wait for it to complete"
-You: [Stops and waits passively] ← THIS IS WRONG
-```
-
-### Understanding System Messages
-
-When you see:
-```
-<command-message>The "devforgeai-development" skill is running</command-message>
-```
-
-**This message means:**
-- ✅ Skill invocation successful
-- ✅ Skill's SKILL.md content is now in conversation
-- ✅ **You must now execute the skill's instructions**
-
-**This message does NOT mean:**
-- ❌ Skill is executing elsewhere
-- ❌ Wait for skill to return results
-- ❌ Skill is running in background
-
-**Immediately after seeing this message:**
-1. Locate the skill's SKILL.md content in conversation
-2. Read Phase 01 instructions
-3. Begin executing Phase 01
-4. Continue through all phases
-
-### Emergency Recovery
-
-**If you've already stopped and are reading this:**
-1. Apologize to user: "I incorrectly stopped after skill invocation"
-2. Explain: "Skills expand inline - I should have executed the instructions"
-3. Resume: "Let me now execute the skill's workflow starting from Phase 01"
-4. Continue: Execute all phases to completion
-5. Learn: Remember this for future skill invocations
-
-**See also:** `.claude/memory/skill-execution-troubleshooting.md` for detailed recovery procedures
+**Glob tool behavior:** Always recursive. Use `path` param with absolute paths for reliability. For single files, use `Read()` instead.
 
 ---
 
-## Core Philosophy
+## Plan File Convention
 
-**Spec-Driven Development with AI Enforcement:**
-- Immutable context files define architectural boundaries (tech-stack, source-tree, dependencies)
-- AI agents MUST follow constraints; ambiguities trigger explicit user questions
-- Quality gates enforce standards at every workflow stage
-- Test-Driven Development (TDD) workflow: Red → Green → Refactor
+Before creating new plan file, check for existing:
 
-**Constitution:** Evidence-based only. All patterns backed by research, official documentation, or proven practices. No aspirational content.
+**Search Algorithm:**
+1. `Glob(".claude/plans/*.md")` - list all plan files
+2. For each file, `Grep(pattern="STORY-XXX", path="{plan_file}")` - search for story ID with word boundaries
+3. If match found, offer to resume existing plan via `AskUserQuestion`
+4. If no match, create new plan with story ID in filename
+
+**Naming Convention:**
+- Include story ID when working on a specific story
+- Good: `STORY-127-plan-file-resume.md`
+- Avoid: Random adjective-noun combinations for story work
+- Exception: Exploratory work without story can use random names
+
+**Resume Detection Logic:**
+- **Prioritize** files with story ID in filename (e.g., `STORY-127-*.md`) - suggest first
+- Secondary: Files containing story ID in content - prefer filename matches
+- Deprioritize: Random-named files without story ID
+
+**Resume Prompt (when plan exists):**
+```
+"Existing plan file found: .claude/plans/STORY-127-plan-file-resume.md
+Resume this plan? [Y/n]"
+```
+
+**Backward Compatibility with Existing Random-Named Plans:**
+- **Backward compatibility**: Random-named plan files (e.g., `clever-snuggling-otter.md`) are still detected if they contain the story ID
+- No errors occur when existing random-named plan files are found
+- Both old naming conventions (random adjectives) and new naming conventions (story ID prefix) work seamlessly together
 
 ---
 
-## Prerequisites
+## DevForgeAI Framework
 
-### Git Repository Requirement
+Spec-driven development with zero technical debt. Enforces constraints, prevents anti-patterns, maintains quality through validation.
 
-DevForgeAI workflows require Git initialization for version control and change tracking.
+**Core:** Immutable context files → TDD workflow → Quality gates
+**Constitution** documents in {project-root}/claude/memory/Constitution/.  Reading these files will reduce QA fix cycles.
 
-**Initialize Git:**
+---
+
+## Critical Rules
+
+**Load from:** `.claude/rules/core/critical-rules.md`
+
+**Summary (12 rules):**
+1. Check tech-stack.md before technologies
+2. Use native tools over Bash for files
+3. AskUserQuestion for ALL ambiguities
+4. Context files are immutable
+5. TDD is mandatory
+6. Quality gates are strict
+7. No library substitution
+8. Anti-patterns forbidden
+9. Document decisions in ADRs
+10. Ask, don't assume
+11. Git operations require user approval
+12. Citation requirements for recommendations
+
+**HALT triggers:** Bash for files, deferrals without approval, --no-verify commits, pre-commit modifications
+
+---
+
+## Quick Reference
+
+| Topic | File |
+|-------|------|
+| Rules | `.claude/rules/` |
+| Skills | `.claude/memory/skills-reference.md` |
+| Commands | `.claude/memory/commands-reference.md` |
+| Git Policy | `.claude/rules/core/git-operations.md` |
+| Quality Gates | `.claude/rules/core/quality-gates.md` |
+| Citations | `.claude/rules/core/citation-requirements.md` |
+| Framework Status | `devforgeai/FRAMEWORK-STATUS.md` |
+| Parallel Guide | `docs/guides/parallel-orchestration-guide.md` |
+| Parallel Quick Ref | `docs/guides/parallel-patterns-quick-reference.md` |
+
+---
+
+## Workflow
+
+```
+BRAINSTORM → IDEATION → ARCHITECTURE → STORY → DEV (TDD) → QA → RELEASE
+```
+
+**States:** Backlog -> Architecture -> Ready -> In Dev -> Complete -> QA -> Approved -> Releasing -> Released
+
+---
+
+## Story Progress Tracking
+
+### Acceptance Criteria vs. Tracking Mechanisms
+
+**IMPORTANT:** Stories contain both AC **definitions** and AC **tracking**:
+
+| Element | Purpose | Checkbox Behavior |
+|---------|---------|-------------------|
+| **AC Headers** (e.g., `### AC#1: Title`) | **Define what to test** (immutable) | **Never marked complete** |
+| **AC Verification Checklist** | **Track granular progress** (real-time) | Marked complete during TDD phases |
+| **Definition of Done** | **Official completion record** (quality gate) | Marked complete in Phase 4.5-5 Bridge |
+
+**Why AC headers have no checkboxes (as of template v2.1):**
+- AC headers are **specifications**, not **progress trackers**
+- Marking them "complete" would imply AC is no longer relevant (incorrect)
+- Progress tracking happens in AC Checklist (granular) and DoD (official)
+
+**For older stories (template v2.0 and earlier):**
+- AC headers may show `### 1. [ ]` checkbox syntax (vestigial)
+- These checkboxes are **never meant to be checked**
+- Look at DoD section for actual completion status
+
+---
+
+## Parallel Orchestration
+
+Enable 35-40% time reduction through parallel execution patterns.
+
+**Three Patterns:**
+- **Parallel Subagents:** Multiple Task() calls in single message (4-6 recommended, 10 max)
+- **Background Tasks:** Long Bash with `run_in_background=true` (3-4 concurrent)
+- **Parallel Tools:** Multiple independent Read/Grep calls (automatic)
+
+**When to Parallelize:**
+- Tasks are completely independent (no cross-dependencies)
+- No shared state between tasks
+- No order requirements
+
+**When to Keep Sequential:**
+- Task B needs output from Task A
+- Validation chains (lint -> review -> deploy)
+- Resource conflicts possible
+
+**Reference:** See `docs/guides/parallel-patterns-quick-reference.md` for copy-paste templates.
+
+---
+
+## Commands
+
+| Category | Commands |
+|----------|----------|
+| Planning | `/brainstorm`, `/ideate`, `/create-context`, `/create-epic`, `/create-sprint` |
+| Development | `/create-story`, `/create-ui`, `/dev` |
+| Validation | `/qa`, `/release`, `/orchestrate` |
+| Maintenance | `/audit-deferrals`, `/rca`, `/chat-search` |
+
+---
+
+## Key Locations
+
+| Type | Path |
+|------|------|
+| Context Files | `devforgeai/specs/context/` |
+| Stories | `devforgeai/specs/Stories/` |
+| Rules | `.claude/rules/` |
+| ADRs | `devforgeai/specs/adrs/` |
+
+<!-- BEGIN SUBAGENT REGISTRY -->
+## Subagent Registry
+
+*Auto-generated from .claude/agents/*.md - DO NOT EDIT MANUALLY*
+
+| Agent | Description | Tools |
+|-------|-------------|-------|
+| agent-generator | Generate specialized Claude Code subagents following DevForgeAI specification... | Read, Write, Glob, Grep |
+| anti-pattern-scanner | Specialist subagent for architecture violation detection across 6 categories ... | (none) |
+| api-designer | API design expert for REST, GraphQL, and gRPC contracts. Use proactively when... | Read, Write, Edit, WebFetch |
+| architect-reviewer | Software architecture review specialist. Use proactively after ADRs created, ... | Read, Grep, Glob, WebFetch, AskUserQuestion |
+| backend-architect | Backend implementation expert specializing in clean architecture, domain-driv... | Read, Write, Edit, Grep, Glob, Bash |
+| code-analyzer | Deep codebase analysis to extract documentation metadata. Discovers architect... | Read, Glob, Grep |
+| code-quality-auditor | Code quality metrics analysis specialist calculating cyclomatic complexity, c... | (none) |
+| code-reviewer | Senior code review specialist ensuring quality, security, maintainability, an... | Read, Grep, Glob, Bash(git:*) |
+| context-validator | Context file constraint enforcement expert. Use proactively before every git ... | Read, Grep, Glob |
+| coverage-analyzer | Test coverage analysis specialist validating coverage thresholds by architect... | (none) |
+| deferral-validator | Validates that deferred Definition of Done items have justified technical rea... | (none) |
+| dependency-graph-analyzer | Analyze and validate story dependencies with transitive resolution, cycle det... | Read, Glob, Grep |
+| deployment-engineer | Deployment and infrastructure expert for cloud-native platforms. Use proactiv... | Read, Write, Edit, Bash(kubectl:*), Bash(docker:*), Bash(terraform:*), Bash(ansible:*), Bash(helm:*), Bash(git:*) |
+| dev-result-interpreter | Interprets development workflow results from devforgeai-development skill exe... | Read, Grep, Glob |
+| documentation-writer | Technical documentation expert. Use proactively after API implementation, whe... | Read, Write, Edit, Grep, Glob |
+| file-overlap-detector | Detect file overlaps between parallel stories using spec-based pre-flight and... | Read, Glob, Grep, Bash(git:*) |
+| framework-analyst | DevForgeAI framework expert that synthesizes workflow observations into actio... | Read, Grep, Glob |
+| frontend-developer | Frontend development expert specializing in modern component-based architectu... | Read, Write, Edit, Grep, Glob, Bash(npm:*) |
+| git-validator | Git repository validation and workflow strategy specialist. Checks Git availa... | Bash, Read |
+| git-worktree-manager | Git worktree management for parallel story development. Creates isolated work... | Bash, Read, Glob, Grep |
+| ideation-result-interpreter | Interprets ideation workflow results and generates user-facing display templa... | Read, Glob, Grep |
+| integration-tester | Integration testing expert validating cross-component interactions, API contr... | Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test) |
+| internet-sleuth | Expert Research & Competitive Intelligence Specialist for web research automa... | Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch |
+| pattern-compliance-auditor | Audits DevForgeAI commands for lean orchestration pattern compliance. Detects... | Read, Grep, Glob |
+| qa-result-interpreter | Interprets QA validation results and generates user-facing display with remed... | Read, Glob, Grep |
+| refactoring-specialist | Code refactoring expert applying systematic improvement patterns while preser... | Read, Edit, Update, Bash(pytest:*), Bash(npm:test), Bash(dotnet:test) |
+| requirements-analyst | Requirements analysis and user story creation expert. Use proactively when cr... | Read, Write, Edit, Grep, Glob, AskUserQuestion |
+| security-auditor | Application security audit specialist covering OWASP Top 10, authentication/a... | Read, Grep, Glob, Bash(npm:audit), Bash(pip:check), Bash(dotnet:list package --vulnerable) |
+| session-miner | > | Read, Glob, Grep |
+| sprint-planner | Sprint planning and execution specialist. Handles story selection, capacity v... | Read, Write, Edit, Glob, Grep |
+| stakeholder-analyst | Stakeholder analysis specialist for identifying decision makers, users, affec... | (none) |
+| story-requirements-analyst | Requirements analysis subagent specifically for devforgeai-story-creation ski... | [Read, Grep, Glob, AskUserQuestion] |
+| tech-stack-detector | Technology stack detection and validation specialist. Detects project languag... | Read, Glob, Grep |
+| technical-debt-analyzer | Analyzes accumulated technical debt from deferred DoD items. Generates debt t... | (none) |
+| test-automator | Test generation expert specializing in Test-Driven Development (TDD). Use pro... | Read, Write, Edit, Grep, Glob, Bash |
+| ui-spec-formatter | Formats UI specification results for display after devforgeai-ui-generator sk... | Read, Grep, Glob |
+### Proactive Trigger Mapping
+
+| Trigger Pattern | Recommended Agent |
+|-----------------|-------------------|
+| after code implementation | code-reviewer |
+| after refactoring | code-reviewer |
+| before git commit | code-reviewer |
+| when pull request created | code-reviewer |
+| when mining session data for EPIC-034 | session-miner |
+| when analyzing command patterns | session-miner |
+| when generating workflow insights | session-miner |
+| when implementing features requiring test coverage | test-automator |
+| when generating tests from acceptance criteria | test-automator |
+| when coverage gaps detected | test-automator |
+| during TDD Red phase | test-automator |<!-- END SUBAGENT REGISTRY -->
+
+---
+
+## Skills Execution
+
+Skills are **INLINE PROMPT EXPANSIONS**, not background processes.
+
+After `Skill(command="...")`:
+1. SKILL.md content expands inline
+2. YOU execute the skill's phases
+3. YOU produce output
+
+**NEVER wait passively after skill invocation.**
+
+### Pre-Skill Execution Checklist
+
+**Before invoking ANY skill with Skill(command="..."), verify:**
+
+1. **Skill contains phases?**
+   - Skills contain phases (Phase 01, Phase 02, etc.)
+   - ALL phases must execute in sequence (not optional)
+   - If phases exist, you must execute all of them
+
+2. **Phase 0 has reference loading?**
+   - Check for "Step 0.N: Load reference files" or similar
+   - If deep mode → Load reference files in Phase 0 BEFORE Phase 1 starts
+   - Reference files contain complete workflow details needed for later phases
+
+3. **Phases 1-4 have pre-flight checks?**
+   - Check each phase for "Pre-Flight: Verify previous phase" section
+   - Run pre-flight verification BEFORE executing phase's main work
+   - HALT if previous phase not verified complete
+
+4. **Skill says "YOU execute"?**
+   - Explicit statements like "YOU execute the skill's phases"
+   - This means you run all steps systematically
+   - Not a reference to read selectively - mandatory instructions to follow
+
+5. **Mode requested matches execution scope?**
+   - Light mode → Execute specified light validation subset
+   - Deep mode → Execute all documented phases completely
+   - User clarification overrides defaults: If user says "run them all", execute all
+
+**Enforcement:** If any checklist item is unclear, HALT before invoking skill and ask for clarification with AskUserQuestion tool.
+
+---
+
+## CRITICAL: No Deviation from Skill Phases
+
+**Fundamental Principle**: Skills are NOT guidelines that can be optimized or skipped. Skills are **state machines** where execution discipline is non-negotiable.
+
+### Mandatory Execution Rules
+
+When executing ANY skill with defined phases:
+
+1. You **MUST** execute EVERY phase in documented order - No skipping, no reordering
+2. You **MUST** verify EVERY validation checkpoint - Do not proceed if checkpoint fails
+3. You **MUST** complete EVERY [MANDATORY] step - These are not suggestions
+4. You **MUST** invoke EVERY required subagent - Missing invocations = incomplete execution
+
+### Examples: Wrong vs Right Behavior
+
+**WRONG** (Phase Skipping):
+```
+Skill invoked → Skip Phase 02 (tests) → Jump to Phase 03 (implementation)
+```
+
+**RIGHT** (Sequential Execution):
+```
+Skill invoked → Phase 01 → Phase 02 → Phase 03 → ... → Phase 10
+```
+
+**WRONG** (Subagent Omission):
+```
+Phase 03 requires backend-architect → Skip because "implementation is simple"
+```
+
+**RIGHT** (Mandatory Invocation):
+```
+Phase 03 requires backend-architect → Task(subagent_type="backend-architect", ...)
+```
+
+**WRONG** (Checkpoint Bypass):
+```
+Validation checkpoint shows failures → Continue anyway "to save time"
+```
+
+**RIGHT** (Checkpoint Enforcement):
+```
+Validation checkpoint shows failures → HALT → Fix issues → Retry phase
+```
+
+### Self-Test: Skill Execution Verification
+
+**Before declaring any skill workflow complete, verify:**
+
+- [ ] Did I execute ALL numbered phases (01 through 10)?
+- [ ] Did I invoke ALL [MANDATORY] subagents listed for each phase?
+- [ ] Did I verify ALL validation checkpoints before proceeding?
+- [ ] Did I update phase state after each phase completion?
+
+**Test**: If you did not invoke all [MANDATORY] subagents, you skipped required phases. **HALT and complete them.**
+
+**Reference**: RCA-022 identified this principle after phases were skipped during STORY-128 development.
+
+---
+
+## Conditional Rules
+
+Path-specific rules loaded automatically from `.claude/rules/conditional/`:
+
+- `python-testing.md` - `**/*.py, tests/**/*`
+- `typescript-strict.md` - `**/*.ts, **/*.tsx`
+- `api-endpoints.md` - `src/api/**/*.ts, src/api/**/*.py`
+
+---
+
+## AI Architectural Analysis (Automatic)
+
+After `/dev` and `/qa` workflows complete, AI architectural analysis is **automatically captured** via hooks:
+
+**Hooks:** `post-dev-ai-analysis`, `post-qa-ai-analysis`
+
+**What is captured:**
+- What worked well (framework effectiveness)
+- Areas for improvement (non-aspirational)
+- Specific, actionable recommendations
+- Patterns observed
+- Anti-patterns detected
+- Constraint analysis (context file effectiveness)
+
+**Key constraint:** All recommendations MUST be implementable within Claude Code Terminal.
+
+**Storage:** `devforgeai/feedback/ai-analysis/{STORY_ID}/`
+
+**Search recommendations:**
 ```bash
-git init
-git add .
-git commit -m "Initial commit"
+/feedback-search --type=ai-analysis --priority=high
 ```
 
-**Commands requiring Git:**
-- `/dev` - Development workflow (TDD cycle)
-- `/qa` - Quality assurance (validation)
-- `/release` - Deployment (production)
-- `/orchestrate` - Full lifecycle (dev → qa → release)
+**Manual trigger (if needed):**
+```
+Skill(command="devforgeai-feedback", args="--type=ai_analysis")
+```
 
-**Commands Git-independent:**
-- `/ideate` - Requirements gathering
-- `/create-context` - Architecture setup (auto-initializes Git if empty repo)
-- `/create-story` - Story generation
-- `/create-epic` - Epic planning
-- `/create-sprint` - Sprint planning
-
-**File-Based Fallback:**
-
-If Git is not available, DevForgeAI automatically uses file-based change tracking:
-- Changes documented in `devforgeai/stories/{STORY-ID}/changes/`
-- Manual file organization required
-- Full version control features disabled
-- Recommended: Initialize Git for best experience
-
-**Error Prevention:**
-
-The `/dev` command checks `<env>` context for Git availability before execution:
-- If Git missing → Clear error message with resolution steps
-- If Git available → Full TDD workflow with version control
-- No cryptic Git errors exposed to users
+**Reference:** `docs/guides/feedback-overview.md` (AI Architectural Analysis section)
 
 ---
 
-## Critical Rules - ALWAYS Follow
-
-### 1. Technology Decisions
-
-**ALWAYS check tech-stack.md before suggesting technologies.**
-
-If spec requires technology not in tech-stack.md → STOP and use AskUserQuestion:
-```
-Question: "Spec requires [X], but tech-stack.md specifies [Y]. Which is correct?"
-Options:
-  - Use spec requirement [X] (update tech-stack.md + create ADR)
-  - Use existing standard [Y] (spec is incorrect)
-```
-
-### 2. File Operations (CRITICAL for Token Efficiency)
-
-**Use native tools (40-73% token savings vs Bash):**
-
-✅ **CORRECT:**
-- `Read(file_path="...")` NOT `cat`
-- `Edit(...)` NOT `sed`
-- `Write(...)` NOT `echo >` or `cat <<EOF`
-- `Glob(pattern="...")` NOT `find`
-- `Grep(pattern="...")` NOT `grep` command
-
-❌ **FORBIDDEN:**
-- Bash for file reading/editing/searching
-- Only use Bash for: tests, builds, git, package managers
-
-### 3. Ambiguity Resolution
-
-**Use AskUserQuestion for ALL ambiguities:**
-- Technology not specified in context files
-- Multiple valid implementation approaches
-- Conflicting requirements (spec vs context)
-- Security-sensitive decisions
-- Performance targets unclear ("fast", "scalable" without metrics)
-
-### 4. Context Files Are Immutable
-
-Never violate:
-- `tech-stack.md` (locked technologies)
-- `source-tree.md` (file structure rules)
-- `dependencies.md` (approved packages)
-- `coding-standards.md` (code patterns)
-- `architecture-constraints.md` (layer boundaries)
-- `anti-patterns.md` (forbidden patterns)
-
-Changes require Architecture Decision Records (ADRs).
-
-### 5. TDD Is Mandatory
-
-Tests before implementation, always:
-- Red phase: Write failing tests
-- Green phase: Minimal code to pass
-- Refactor phase: Improve while keeping tests green
-
-### 6. Quality Gates Are Strict
-
-Critical/High violations **block progression**:
-- Light QA blocks immediately during development
-- Deep QA blocks before release
-- Coverage thresholds enforced: 95%/85%/80%
-
-### 7. No Library Substitution
-
-Technologies in tech-stack.md are **locked**. Cannot swap without:
-1. User approval via AskUserQuestion
-2. Creating ADR documenting decision
-3. Updating tech-stack.md
-
-### 8. Anti-Patterns Are Forbidden
-
-Check anti-patterns.md before suggesting:
-- God Objects (classes >500 lines)
-- Direct instantiation (use DI)
-- SQL concatenation (use parameterized queries)
-- Hardcoded secrets (use environment variables)
-
-### 9. Document All Decisions
-
-Architecture decisions require ADRs in `devforgeai/specs/adrs/`:
-- Technology selections
-- Framework choices
-- Design pattern decisions
-- Structure changes
-
-### 10. Ask, Don't Assume
-
-When in doubt → **HALT and use AskUserQuestion**. Never make assumptions about:
-- Technology preferences
-- Architecture patterns
-- Security requirements
-- Performance targets
-
----
-
-### 11. Git Operations Require User Approval (RCA-008)
-
-**NEVER execute git commands autonomously that:**
-- Stash files (especially with `--include-untracked`)
-- Reset uncommitted changes (`git reset --hard`)
-- Delete branches (`git branch -D`)
-- Force push (`git push --force`)
-- Amend commits not created in current session (`git commit --amend`)
-- Affect >10 files without user knowledge
-
-**ALWAYS use AskUserQuestion before git operations that:**
-- Hide files from filesystem
-- Permanently delete uncommitted work
-- Modify git history
-- Affect user-created files outside current story
-
-**Required approval pattern:**
-```
-AskUserQuestion(
-    questions=[{
-        question: "Git operation will affect {N} files. How should we proceed?",
-        header: "Git Action",
-        multiSelect: false,
-        options: [
-            {
-                label: "Show me the files first",
-                description: "Display file list before deciding."
-            },
-            {
-                label: "Proceed (I understand the consequences)",
-                description: "[Clear explanation of what will happen]"
-            },
-            {
-                label: "Cancel (use alternative approach)",
-                description: "[What alternative will be used instead]"
-            }
-        ]
-    }]
-)
-```
-
-**Exceptions (NO user approval needed):**
-- `git status` (read-only)
-- `git diff` (read-only)
-- `git log` (read-only)
-- `git add` for current story files (≤5 files created in this session)
-- `git commit` for current story implementation (TDD workflow)
-
-**File-Based Fallback:**
-When git operations are declined or unavailable:
-- Use `devforgeai/stories/{STORY-ID}/changes/` directory
-- Document changes in `changes-manifest.md`
-- Preserve all user files (nothing hidden)
-
-**Rationale:** RCA-008 incident (2025-11-13) showed autonomous `git stash --include-untracked` hid 21 user-created story files without consent, causing confusion and workflow disruption. User approval prevents data loss and maintains trust.
-
-**See also:**
-- `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
-- `.claude/skills/devforgeai-development/references/git-workflow-conventions.md` (stash safety protocol)
-- `.claude/skills/devforgeai-development/references/preflight/_index.md` (Steps 0.1.5 and 0.1.6)
-
----
-
-## Quick Reference - Progressive Disclosure
-
-**For detailed guidance, load reference files as needed using the Read tool:**
-
-```
-Read(file_path=".claude/memory/skills-reference.md")
-Read(file_path=".claude/memory/subagents-reference.md")
-Read(file_path=".claude/memory/commands-reference.md")
-Read(file_path=".claude/memory/documentation-command-guide.md")
-```
-
-**Available reference files:**
-- **Skills:** `.claude/memory/skills-reference.md`
-- **Subagents:** `.claude/memory/subagents-reference.md`
-- **Slash Commands:** `.claude/memory/commands-reference.md`
-- **Documentation Command:** `.claude/memory/documentation-command-guide.md`
-- **QA Automation:** `.claude/memory/qa-automation.md`
-- **Context Files:** `.claude/memory/context-files-guide.md`
-- **UI Generator:** `.claude/memory/ui-generator-guide.md`
-- **Token Efficiency:** `.claude/memory/token-efficiency.md`
-- **Epic Creation:** `.claude/memory/epic-creation-guide.md`
-- **Token Budgets:** `.claude/memory/token-budget-guidelines.md`
-- **Lean Orchestration:** `devforgeai/protocols/lean-orchestration-pattern.md`
-  - Case Studies: `devforgeai/protocols/refactoring-case-studies.md`
-  - Budget Reference: `devforgeai/protocols/command-budget-reference.md`
-
----
-
-## Learning DevForgeAI
-
-**New to DevForgeAI? Start here.** This section guides you to resources for writing effective input descriptions at every stage of the framework.
-
-### Writing Effective Feature Descriptions
-
-Clear, specific input is essential for DevForgeAI skills to generate high-quality outputs. Here are practical examples:
-
-**❌ Vague (What NOT to write):**
-```
-"Build a login system"
-"User management"
-"Dashboard with stuff"
-```
-
-**✅ Specific (What TO write):**
-```
-"Implement user login with email/password authentication, multi-factor authentication support, and session management"
-"Create user management system with role-based access control (RBAC), user provisioning, and audit logging"
-"Build admin dashboard with user analytics, system metrics, and real-time notifications"
-```
-
-**❌ Missing business context:**
-```
-"Add a feature"
-"Make it faster"
-"Better database queries"
-```
-
-**✅ With context:**
-```
-"Add real-time notification system for order status changes to reduce customer support inquiries by 30%"
-"Optimize report generation from 2 minutes to <10 seconds for 100K records to meet SLA requirements"
-"Refactor database queries using connection pooling and prepared statements to support 1000 concurrent users"
-```
-
-**❌ Incomplete specifications:**
-```
-"API for payments"
-"Data validation"
-```
-
-**✅ Complete specifications:**
-```
-"REST API for Stripe payment processing with webhook handling, idempotency keys, error recovery, and retry logic for failed transactions"
-"Form input validation (client-side + server-side) for email, phone, credit card with regex patterns and detailed error messages"
-```
-
-### User Input Guidance Resources
-
-DevForgeAI provides three guidance documents for different stages:
-
-**1. Effective Prompting Guide** - General prompting best practices for all framework operations
-- **File:** `src/claude/memory/effective-prompting-guide.md`
-- **When to use:** Before any skill invocation (/ideate, /create-story, /create-ui, /dev, etc.)
-- **Load command:**
-```
-Read(file_path="src/claude/memory/effective-prompting-guide.md")
-```
-
-**2. Framework-Internal Guidance** - Specialized guidance for DevForgeAI-specific inputs
-- **File:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md`
-- **When to use:** Before /ideate command (business ideas, epic descriptions)
-- **Load command:**
-```
-Read(file_path="src/claude/skills/devforgeai-ideation/references/user-input-guidance.md")
-```
-
-**3. Skill-Specific Guidance** - Input requirements for each individual skill
-- **Ideation:** `src/claude/skills/devforgeai-ideation/references/user-input-guidance.md` - Business ideas, market analysis, requirements discovery
-- **Architecture:** `src/claude/skills/devforgeai-architecture/references/user-input-guidance.md` - Technology decisions, project structure, constraints
-- **Orchestration:** `src/claude/skills/devforgeai-orchestration/references/user-input-guidance.md` - Epic requirements, sprint planning, story context
-- **UI Generator:** `src/claude/skills/devforgeai-ui-generator/references/user-input-guidance.md` - Component descriptions, interface specifications, mockup requirements
-
-### Progressive Learning Path
-
-**Level 1: Basic (Start Here)**
-- Read: Effective Prompting Guide (general best practices)
-- Goal: Learn to write clear, specific feature descriptions
-- Time: 10-15 minutes
-- Use for: First /create-story, /ideate, /create-ui commands
-
-**Level 2: Advanced (Skills-Specific)**
-- Read: Individual skill guidance documents
-- Goal: Understand framework-specific input patterns per skill
-- Time: 20-30 minutes
-- Use for: Complex stories, custom epics, performance-critical features
-
-**Level 3: Framework-Specific (Expert)**
-- Review: Architecture constraints, context files, coding standards
-- Goal: Align specifications with project constraints and patterns
-- Time: 30+ minutes
-- Use for: Major architectural decisions, multi-story epics, production systems
-
-**Quick Reference:**
-- Short feature? → Level 1 (5 min read) → /create-story
-- Complex epic? → Level 1 + Level 2 (25 min read) → /create-epic
-- New project? → Level 1 + Level 2 + Level 3 (45 min read) → /create-context → /ideate
-
----
-
-## Development Workflow Overview
-
-### Complete Lifecycle
-
-```
-1. IDEATION (devforgeai-ideation)
-   ↓ Transforms business ideas → structured requirements
-
-2. ARCHITECTURE (devforgeai-architecture)
-   ↓ Creates 6 immutable context files
-
-3. ORCHESTRATION (devforgeai-orchestration)
-   ↓ Manages story lifecycle through 11 workflow states
-
-3.5. STORY CREATION (devforgeai-story-creation) [AS NEEDED]
-   ↓ Generates complete stories with AC, tech/UI specs, self-validation
-
-4. UI GENERATION (devforgeai-ui-generator) [OPTIONAL]
-   ↓ Generates UI specifications and code
-
-5. DEVELOPMENT (devforgeai-development)
-   ↓ TDD implementation: Write tests → Implement → Refactor
-
-6. QA (devforgeai-qa)
-   ↓ Light validation (during dev) + Deep validation (after)
-
-6.5. DOCUMENTATION (devforgeai-documentation) [AFTER QA]
-   ↓ Generate/update docs, diagrams, coverage validation (≥80%)
-
-7. RELEASE (devforgeai-release)
-   ↓ Automated deployment with smoke tests and rollback
-```
-
-### Story Workflow States
-
-Stories progress through **11 sequential states**:
-```
-Backlog → Architecture → Ready for Dev → In Development → Dev Complete →
-QA In Progress → [QA Approved | QA Failed] → Releasing → Released
-```
-
-### Quality Gates
-
-**Gate 1: Context Validation** (Architecture → Ready for Dev)
-- All 6 context files exist and non-empty
-- No placeholder content (TODO, TBD)
-
-**Gate 2: Test Passing** (Dev Complete → QA In Progress)
-- Build succeeds
-- All tests pass (100% pass rate)
-- Light validation passed
-
-**Gate 3: QA Approval** (QA Approved → Releasing)
-- Deep validation PASSED
-- Coverage meets thresholds (95%/85%/80%)
-- Zero CRITICAL violations
-- Zero HIGH violations (or approved exceptions)
-
-**Gate 4: Release Readiness** (Releasing → Released)
-- QA approved
-- All workflow checkboxes complete
-- No blocking dependencies
-
----
-
-## DevForgeAI-CLI Validators
-
-**Purpose:** Automated workflow validation to prevent autonomous deferrals and enforce quality gates.
-
-### Installation
-
-```bash
-# Install CLI package
-pip install --break-system-packages -e .claude/scripts/
-
-# Install pre-commit hooks
-bash .claude/scripts/install_hooks.sh
-
-# Verify
-devforgeai --version
-```
-
-### Commands
-
-**validate-dod** - Validate Definition of Done completion
-```bash
-devforgeai-validate validate-dod devforgeai/specs/Stories/STORY-001.story.md
-```
-- Detects autonomous deferrals (DoD [x] but Impl [ ] without approval)
-- Validates user approval markers for all deferred items
-- Checks story/ADR references exist
-- **Blocks git commits via pre-commit hook**
-
-**check-git** - Validate Git availability
-```bash
-devforgeai-validate check-git
-```
-- Checks if directory is Git repository
-- Prevents RCA-006 errors
-- Can be called from slash commands
-
-**validate-context** - Validate context files
-```bash
-devforgeai-validate validate-context
-```
-- Ensures all 6 context files exist
-- Quality gate before development
-- Validates non-empty content
-
-### Pre-Commit Hook
-
-Automatically installed via `install_hooks.sh`:
-- Runs `validate-dod` on all staged `.story.md` files
-- Blocks commits with autonomous deferrals
-- Requires user approval markers for all deferrals
-- Exit code 1 = commit blocked
-
-**Three-Layer Validation:**
-1. **Layer 1:** CLI validators (fast, <100ms, deterministic) ← NEW
-2. **Layer 2:** AskUserQuestion (interactive, mandatory user approval)
-3. **Layer 3:** AI subagents (comprehensive, semantic analysis)
-
-Combined: 99% violation detection, zero autonomous deferrals.
-
-**Documentation:** `.claude/scripts/devforgeai_cli/README.md`
-
----
-
-## Common Commands
-
-### Testing
-
-```bash
-# .NET
-dotnet test
-dotnet test --collect:"XPlat Code Coverage"
-
-# Python
-pytest
-pytest --cov=src --cov-report=term
-
-# JavaScript
-npm test
-npm test -- --coverage
-```
-
-### Building
-
-```bash
-# .NET
-dotnet build
-dotnet restore
-
-# JavaScript
-npm install
-npm run build
-
-# Python
-pip install -r requirements.txt
-```
-
-### Linting and Formatting
-
-```bash
-# .NET
-dotnet format
-dotnet format --verify-no-changes
-
-# Python
-black src/
-pylint src/
-
-# JavaScript
-npm run lint
-prettier --write src/
-```
-
-### Git Workflow
-
-```bash
-git status
-git diff
-git add [files]
-git commit -m "$(cat <<'EOF'
-[type]: [brief description]
-
-- Implemented [feature] following TDD
-- Tests: [description]
-- Compliance: tech-stack.md, coding-standards.md
-- Coverage: [percentage]
-
-Closes #[issue-number]
-EOF
-)"
-git push origin [branch]
-```
-
----
-
-## CRITICAL: Skill Invocation Constraints
-
-**Skills CANNOT accept parameters at invocation time.**
-
-From official Claude documentation:
-> "Skills CANNOT accept command-line style parameters. All parameters are conveyed through natural language in the conversation."
-
-### ❌ WRONG - Skills with Parameters
-```
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-Skill(command="devforgeai-development --story=STORY-001")
-Skill(command="devforgeai-release --env=production")
-```
-
-### ✅ CORRECT - Context-Based Invocation
-```
-# Step 1: Load story content into conversation
-@devforgeai/specs/Stories/STORY-001.story.md
-
-# Step 2: Set context with explicit statements
-**Story ID:** STORY-001
-**Validation Mode:** deep
-**Environment:** staging
-
-# Step 3: Invoke skill WITHOUT arguments
-Skill(command="devforgeai-qa")
-
-# Skill extracts story ID from YAML frontmatter in loaded story file
-# Skill extracts mode/environment from explicit statements in conversation
-```
-
-### Why This Works
-
-1. **@file loads content** - Story YAML frontmatter becomes part of conversation
-2. **Explicit statements provide context** - Skills search for patterns like "Mode: deep"
-3. **Skills read conversation** - Extract information using pattern matching on conversation
-4. **No parameter mechanism** - Skills operate purely on available conversation context
-
----
-
-## Slash Commands (User-Facing Workflows)
-
-DevForgeAI provides **11 slash commands** for common tasks:
-
-### Command Syntax
-
-**Parameter format:**
-- Use positional arguments: `/command ARG1 ARG2 ARG3`
-- NOT flag syntax: `/command --flag=value` (will trigger clarification)
-- Access via: `$1`, `$2`, `$3` in command definitions
-
-**Examples:**
-```
-/qa STORY-001 deep        ✅ Correct
-/qa STORY-001 --mode=deep ⚠️ Works but educates to use: /qa STORY-001 deep
-/release STORY-001 production     ✅ Correct
-/release STORY-001 --env=production ⚠️ Works but educates
-```
-
-### Planning & Setup
-- `/ideate [business-idea]` - Transform idea to requirements
-- `/create-context [project-name]` - Generate 6 context files
-- `/create-epic [epic-name]` - Create epic document
-- `/create-sprint [sprint-number]` - Plan sprint
-- `/create-agent [name] [options]` - Create framework-aware subagent (NEW)
-
-### Story Development
-- `/create-story [description]` - Generate story with acceptance criteria
-- `/create-ui [STORY-ID]` - Generate UI components
-- `/dev [STORY-ID]` - Execute TDD cycle
-
-### Validation & Release
-- `/qa [STORY-ID] [mode]` - Run quality validation (mode: deep or light)
-- `/release [STORY-ID] [environment]` - Deploy to staging/production
-- `/orchestrate [STORY-ID]` - Full lifecycle (dev → qa → release)
-
-### Framework Maintenance
-- `/audit-deferrals` - Audit all stories for deferral violations
-- `/audit-budget` - Audit commands for character budget compliance
-
-### Session Management
-- `/chat-search [keywords]` - Search chat history and resume previous conversations
-
-**See:** `.claude/memory/commands-reference.md` for complete command documentation (load with Read tool).
-
----
-
-## Framework Status
-
-**Last Review:** 2025-11-04
-**Version:** 1.0.1
-**Status:** 🟢 **PRODUCTION READY** (Phase 3 Complete + RCA-006 Enhancements)
-
-### Implementation Progress
-
-**Phase 1: Core Skills** ✅ Enhanced (2025-11-05)
-- 8 skills implemented (devforgeai-ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release)
-- New: devforgeai-story-creation (complete story generation with self-validation)
-
-**Phase 2: Subagents** ✅ Enhanced (2025-11-05)
-- 20 specialized subagents created (14 original + 2 from RCA-006 + 2 from /dev refactoring + 1 from /qa refactoring + 1 from /create-ui refactoring)
-- New: tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter
-- Context isolation verified
-- Parallel execution tested
-- Framework-aware subagents (prevent silos)
-
-**Phase 3: Slash Commands** ✅ Enhanced (2025-11-05)
-- 9 user-facing commands in `.claude/commands/`
-- /dev refactored: 860 → 513 lines (40% reduction, lean orchestration)
-- All optimized for character budget (~16K, close to 15K limit)
-- All integrate with skills via Skill tool
-- Clear separation: commands delegate to skills, skills delegate to subagents
-
-**RCA-006: Deferral Validation** ✅ Phase 1 & Original Phase 2 Complete (2025-11-06)
-- **Phase 1 (CRITICAL):** Phase 06 Deferral Challenge Checkpoint prevents autonomous deferrals
-  - All deferrals (pre-existing + new) require user approval
-  - deferral-validator subagent checks blocker validity
-  - Timestamp all approvals for audit trail
-  - "Attempt First, Defer Only If Blocked" pattern enforced
-- **Original Phase 2 (HIGH):** Quality improvements and proactive monitoring
-  - Deferral budget limits (max 3, max 20% of DoD items) enforced in Phase 08 Step b.
-  - Enhanced /audit-deferrals with blocker validation (dependency, toolchain, artifact, ADR checks)
-  - Auto-invoke /audit-deferrals at sprint retrospective with debt reduction sprint creation
-  - Actionable insights (resolvable vs valid deferrals with specific commands)
-  - Technical debt metrics (age tracking, trend analysis, stale deferral detection)
-- **Story template guidance:** Anti-pattern documentation prevents pre-deferrals
-- **Three-layer validation:** Python format check + Interactive checkpoint + AI subagent
-- **See:** `devforgeai/RCA/RCA-006-autonomous-deferrals.md` for complete analysis
-
-**RCA-006: Structured Technical Specifications (Phase 2 - NEW Phasing)** 🟢 Weeks 2-3/4 Complete (2025-11-07)
-- **Purpose:** Machine-readable tech specs for deterministic parsing and automated validation
-- **Status:** Weeks 2-3 implementation complete (code ready), Weeks 4-5 testing pending
-- **Phase 2 New Implementation (4-week plan):**
-  - **Week 2 ✅ COMPLETE:** Structured YAML format v2.0 defined (7 component types: Service, Worker, Configuration, Logging, Repository, API, DataModel)
-  - **Week 2 ✅ COMPLETE:** Validation library created (validate_tech_spec.py - 235 lines)
-  - **Week 2 ✅ COMPLETE:** Basic migration script (migrate_story_v1_to_v2.py - 165 lines, 60-70% accuracy)
-  - **Week 2 ✅ COMPLETE:** Story template updated to v2.0 (YAML code blocks, test requirements)
-  - **Week 2 ✅ COMPLETE:** Dual format detection in /dev (Step 4.1 parses v1.0 or v2.0)
-  - **Week 3 ✅ CODE COMPLETE:** AI-assisted migration enhancement (migrate_story_v1_to_v2.py enhanced to 659 lines)
-    - AIConverter class with Claude API integration (+100 lines)
-    - Conversion prompt template (660 lines with examples, quality standards)
-    - Hybrid strategy (AI 95%+ → Pattern matching 60-70% fallback)
-    - 27 test fixtures (5 test stories + ground truth, 12 validator tests)
-    - Accuracy measurement script (measure_accuracy.py - 141 lines)
-    - Automated test runner (run_all_tests.sh)
-    - Requires: ANTHROPIC_API_KEY for AI mode, works without (fallback)
-  - **Week 3 ⏳ TESTING PENDING:** External validation with Claude API key (expected 95%+ accuracy)
-  - **Week 4 ⏳ PENDING:** Pilot migration (10 stories), manual review, GO/NO-GO decision
-  - **Week 5 ⏳ PENDING:** Full migration (all stories), Decision Point 2
-- **Impact (projected):** Coverage gap detection 85% → 95%+, enables Phase 3 implementation validation
-- **Backward compatibility:** v1.0 freeform stories still supported (dual format)
-- **Migration:** Optional (gradual path), AI-assisted tool ready for use
-- **See:** `devforgeai/specs/STRUCTURED-FORMAT-SPECIFICATION.md`, `AI-ASSISTED-MIGRATION-GUIDE.md`, `PHASE2-WEEK3-DELIVERY-PACKAGE.md`
-
-**RCA-007: Multi-File Story Creation** ✅ Complete (2025-11-06 - All 3 Phases)
-- **Phase 1 (HIGH):** Enhanced subagent prompts with 4-section template
-  - Pre-Flight Briefing explains workflow context
-  - Critical Output Constraints prohibit file creation
-  - Prohibited Actions list (8 forbidden operations)
-  - Expected Output Format with examples
-  - Validation checkpoint (Step 2.1.5) detects file creation attempts
-  - Automatic recovery (re-invoke with STRICT MODE)
-- **Phase 2 (MEDIUM):** Contract-based validation and file system monitoring
-  - YAML contracts (requirements-analyst-contract.yaml, api-designer-contract.yaml)
-  - Contract validation (Step 2.2.5, Step 3.2.5)
-  - File system diff check (Steps 2.0, 2.2.7, 3.0, 3.2.7)
-  - Validation script (validate_contract.py) with test fixtures
-  - 4-layer defense in depth (prompt → output → contract → file system)
-- **Phase 3 (MEDIUM):** Skill-specific subagent creation
-  - story-requirements-analyst subagent (21st subagent)
-  - No Write/Edit tools (file creation impossible by design)
-  - Tight coupling to devforgeai-story-creation workflow
-  - Content-only output (returns markdown for assembly)
-  - 99.9% violation prevention (architectural constraint)
-- **Result:** Single-file design enforced, zero extra files (SUMMARY.md, QUICK-START.md, etc.)
-- **See:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md` for complete analysis
-
-**Phase 4: Real Project Validation** ⏳ Ready to Begin
-- Framework complete and ready for production testing
-
-### Component Summary
-
-- **Skills:** 15 functional + 1 incomplete (16 total directories)
-  - **Core Workflow (9):** ideation, architecture, orchestration, story-creation, ui-generator, development, qa, release, rca
-  - **DevForgeAI Infrastructure (4):** documentation, feedback, mcp-cli-converter, subagent-creation
-  - **Claude Code Infrastructure (2):** claude-code-terminal-expert, skill-creator
-  - **Incomplete (1):** internet-sleuth-integration (missing SKILL.md, use internet-sleuth subagent instead)
-  - **EPIC-010 Will Add (1):** github (GitHub Actions CI/CD)
-- **Subagents:** 26 (includes deferral-validator, technical-debt-analyzer, tech-stack-detector, git-validator, qa-result-interpreter, ui-spec-formatter, sprint-planner, story-requirements-analyst, code-analyzer, **internet-sleuth**, pattern-compliance-auditor, dev-result-interpreter)
-- **Commands:** 24 total
-  - **Core Workflow (11):** ideate, create-context, create-epic, create-sprint, create-story, create-ui, dev, qa, release, orchestrate, create-agent
-  - **Feedback System (7):** feedback, feedback-config, feedback-search, feedback-reindex, feedback-export-data, export-feedback, import-feedback
-  - **Framework Maintenance (4):** audit-deferrals, audit-budget, audit-hooks, rca
-  - **Session Management (1):** chat-search
-  - **Documentation (1):** document
-  - **EPIC-010 Will Add (2):** worktrees, setup-github-actions
-- **Context Files:** 6 (immutable constraints)
-- **Quality Gates:** 4 (Gate 3 enhanced with deferral validation)
-- **Protocols:** 1 (lean-orchestration-pattern.md - defines command architecture)
-
----
-
-## Project Structure
-
-```
-.claude/
-├── skills/              # 9 skills (8 DevForgeAI + 1 infrastructure)
-│   ├── devforgeai-ideation/
-│   ├── devforgeai-architecture/
-│   ├── devforgeai-orchestration/
-│   ├── devforgeai-story-creation/
-│   ├── devforgeai-ui-generator/
-│   ├── devforgeai-development/
-│   ├── devforgeai-qa/
-│   ├── devforgeai-release/
-│   └── claude-code-terminal-expert/  # Claude Code Terminal knowledge
-│
-├── agents/              # 20 specialized subagents
-│   └── [20 .md files]
-│
-├── commands/            # 11 slash commands
-│   └── [11 .md files]
-│
-└── memory/              # Progressive disclosure references
-    ├── skills-reference.md
-    ├── subagents-reference.md
-    ├── commands-reference.md
-    ├── qa-automation.md
-    ├── context-files-guide.md
-    ├── ui-generator-guide.md
-    └── token-efficiency.md
-
-devforgeai/
-├── context/             # 6 immutable constraint files
-│   ├── tech-stack.md
-│   ├── source-tree.md
-│   ├── dependencies.md
-│   ├── coding-standards.md
-│   ├── architecture-constraints.md
-│   └── anti-patterns.md
-│
-├── protocols/           # Framework protocols and patterns
-│   └── lean-orchestration-pattern.md
-│
-├── adrs/                # Architecture Decision Records
-├── deployment/          # Deployment configurations
-├── qa/                  # QA outputs and reports
-└── specs/               # Requirements and planning docs
-
-devforgeai/specs/
-├── Epics/               # Business initiatives
-├── Sprints/             # 2-week iterations
-└── Stories/             # Work units with acceptance criteria
-```
-
----
-
-## Root Cause Analysis Protocol
-
-When you encounter a framework breakdown, use the RCA capability to systematically analyze and prevent recurrence.
-
-### Trigger Command
-
-```bash
-/rca [issue-description] [severity]
-```
-
-**Examples:**
-- `/rca "devforgeai-development didn't validate context files" CRITICAL`
-- `/rca "QA skill accepted pre-existing deferrals without challenge" HIGH`
-- `/rca "orchestration skill skipped checkpoint detection" MEDIUM`
-- `/rca "/dev command contains business logic"`
-
-### What Happens
-
-**8-Phase RCA Workflow:**
-
-1. **Auto-Read Files** - Relevant skills, commands, subagents, context files
-2. **5 Whys Analysis** - Progressive questioning to root cause
-3. **Evidence Collection** - File excerpts, line numbers, quotes
-4. **Recommendations** - Exact implementation (CRITICAL → LOW priority)
-5. **RCA Document** - Created in `devforgeai/RCA/RCA-XXX-title.md`
-6. **Validation** - Self-check for completeness
-7. **Completion Report** - Summary with next steps
-
-### Output Format
-
-**RCA document includes:**
-- Issue description and metadata (date, component, severity)
-- 5 Whys analysis with evidence backing each answer
-- Files examined (comprehensive excerpts with line numbers)
-- Recommendations by priority (CRITICAL/HIGH/MEDIUM/LOW)
-- Exact implementation code/text (copy-paste ready)
-- Testing procedures for each recommendation
-- Implementation checklist
-- Prevention strategy (short-term and long-term)
-- Related RCAs
-
-### Protocol Rules
-
-**Evidence-Based Only:**
-- No aspirational recommendations
-- All solutions backed by file evidence
-- Works within Claude Code Terminal capabilities
-- References actual files examined during analysis
-
-**Framework-Aware:**
-- Respects 6 immutable context files
-- Understands quality gates and workflow states
-- Applies lean orchestration pattern
-- References existing RCA patterns (RCA-006, RCA-007, RCA-008, RCA-009)
-
-**Actionable:**
-- Exact file paths and sections (Phase X, Step Y)
-- Copy-paste ready implementation
-- Clear testing procedures (3+ verification steps)
-- Effort estimates (time and complexity)
-
-**User Preferences (Confirmed):**
-- ✅ Auto-read relevant files during RCA
-- ✅ Create RCA document automatically
-- ✅ Comprehensive evidence with file excerpts
-- ✅ Include exact implementation code/text
-
-### When to Trigger RCA
-
-**Strong indicators:**
-- Process failures (skill/command didn't work as intended)
-- Workflow violations (quality gate bypassed, state incorrect)
-- Constraint violations (context files ignored)
-- Autonomous operations (without user approval)
-- Recurrent issues (happened before)
-
-**Examples from existing RCAs:**
-- RCA-006: Autonomous deferrals without user approval
-- RCA-007: Subagent created multiple files (should return content only)
-- RCA-008: Autonomous git stashing without user consent
-- RCA-009: Skill invoked but workflow stopped prematurely
-
----
-
-## Story Progress Tracking (NEW - RCA-011)
-
-**DevForgeAI provides three complementary progress tracking mechanisms during TDD implementation:**
-
-### 1. TodoWrite (Phase-Level Tracking)
-**Purpose:** AI self-monitoring - tracks which TDD phase is executing
-**Updated:** Real-time as phases start/complete
-**Granularity:** Phase-level (10 phases: Phase 01-10)
-**Visible to:** User sees visual progress bars in terminal
-**Example:** "✓ Execute Phase 03: Implementation (pending → completed)"
-
-### 2. AC Verification Checklist (Sub-Item Tracking)
-**Purpose:** User visibility into AC completion progress
-**Updated:** End of each TDD phase (batch update Phase 02-08 items)
-**Granularity:** AC sub-item level (20-50 items per story, mapped to phases)
-**Visible to:** User in story file's "Acceptance Criteria Verification Checklist" section
-**Example:** "✓ Character count ≤15,000 - Phase: 03 - Evidence: wc -c"
-
-**When items are checked:**
-- Phase 02: Test generation items (test count, coverage, file creation)
-- Phase 03: Implementation items (code written, business logic location, metrics)
-- Phase 04: Quality items (complexity, patterns, code review)
-- Phase 05: Integration items (scenarios, performance, coverage thresholds)
-- Phase 06: Deferral items (validations, approvals)
-- Phase 08: Deployment items (commit, status, backward compatibility)
-
-### 3. Definition of Done (Official Completion Record)
-**Purpose:** Quality gate validation - official record of what's complete
-**Updated:** Phase 07 (after deferrals validated, before git commit)
-**Granularity:** DoD item level (30-40 items per story, categorized)
-**Visible to:** User in story file's "Definition of Done" section + "Implementation Notes"
-**Example:** "- [x] All tests passing - Completed: Phase 05, 165/168 tests (98.2%)"
-
-### Why All Three?
-
-**TodoWrite** → AI knows where it is (prevents skipped phases)
-**AC Checklist** → User sees granular progress (transparency)
-**Definition of Done** → Framework validates completion (quality gate)
-
-Each serves a distinct purpose. Together they provide comprehensive progress visibility and prevent autonomous deferrals.
-
-**See:** `.claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md` for AC Checklist implementation details
-
----
-
-## Acceptance Criteria vs. Tracking Mechanisms (RCA-012 Clarification)
-
-**IMPORTANT:** Stories contain both AC **definitions** and AC **tracking**. Understanding the distinction eliminates confusion about unchecked checkboxes.
-
-### Three Tracking Mechanisms Comparison
-
-| Element | Purpose | Checkbox Behavior | Updated When | Source of Truth |
-|---------|---------|-------------------|--------------|-----------------|
-| **AC Headers** (e.g., `### AC#1: Title`) | **Define what to test** (immutable specification) | **Never marked** (no checkboxes as of v2.1) | Never (definitions are static) | Story creation |
-| **AC Verification Checklist** | **Track granular progress** (real-time sub-items) | Marked `[x]` during TDD phases | End of each TDD phase (02-08) | TDD execution |
-| **Definition of Done** | **Official completion record** (quality gate) | Marked `[x]` in Phase 07 | After deferrals validated, before commit | Quality gate validation |
-
-### Why AC Headers Have No Checkboxes (Template v2.1+)
-
-**AC headers are specifications, not progress trackers.**
-
-Acceptance Criteria define **WHAT needs to be tested/implemented**. They are static requirements that remain valid throughout the story lifecycle. Marking an AC header "complete" would incorrectly imply the requirement is no longer relevant.
-
-**Progress tracking happens in two places:**
-1. **AC Verification Checklist** - Granular sub-item tracking (20-50 items per story, updated during TDD phases)
-2. **Definition of Done** - Official completion tracking (30-40 items per story, updated in Phase 07)
-
-**Example (STORY-052 - Documentation Story):**
-
-**AC Header (Definition - Never Marked):**
-```markdown
-### AC#1: Document Completeness - Core Content Coverage
-
-**Given** the effective prompting guide exists
-**When** a user reads the guide
-**Then** the document contains:
-- Introduction explaining why clear input matters (≥200 words)
-- Command-specific guidance for 11 commands
-- 20-30 before/after examples
-```
-↑ This is a **specification** - defines what success looks like
-
-**DoD Items (Completion Tracker - Marked When Complete):**
-```markdown
-### Implementation
-- [x] Document includes introduction (648 words explaining purpose and value)
-- [x] All 11 commands have dedicated guidance sections
-- [x] 24 before/after examples included with explanations
-```
-↑ These are **completion records** - marked [x] when work is done
-
-**The Distinction:**
-- **AC Header:** "Document must have ≥200 word introduction" (requirement definition)
-- **DoD Item:** "Document includes introduction (648 words)" (completion evidence)
-
-### For Older Stories (Template v2.0 and Earlier)
-
-**Template Evolution Timeline:**
-- **v1.0 stories:** AC headers have `### 1. [ ]` checkbox syntax (vestigial)
-- **v2.0 stories:** AC headers have `### 1. [ ]` checkbox syntax (vestigial)
-- **v2.1 stories:** AC headers have `### AC#1:` format (no checkboxes) ← NEW (as of 2025-01-21)
-
-**Important:** In v1.0/v2.0 stories, AC header checkboxes may or may not be marked:
-- **20% of stories (e.g., STORY-007):** AC headers marked `[x]` when DoD 100% complete
-- **80% of stories (e.g., STORY-014, STORY-023, STORY-030, STORY-052):** AC headers left `[ ]` regardless of completion
-
-**No documented convention existed** for v1.0/v2.0 templates, leading to framework-wide inconsistency discovered in RCA-012.
-
-### How to Determine Story Completion Status
-
-**Single Source of Truth: Definition of Done Section**
-
-**❌ Do NOT rely on AC header checkboxes** in v1.0/v2.0 stories - they don't reliably indicate completion
-
-**✅ Check Definition of Done section instead:**
-```markdown
-## Definition of Done
-
-### Implementation
-- [x] Feature implemented  ← All items [x] = Implementation complete
-- [x] Code reviewed
-
-### Quality
-- [x] Tests passing        ← All items [x] = Quality validated
-- [x] Coverage met
-
-### Testing
-- [x] Unit tests           ← All items [x] = Testing complete
-- [x] Integration tests
-
-### Documentation
-- [x] Docs updated          ← All items [x] = Documentation complete
-```
-
-**If DoD has unchecked items `[ ]`:**
-1. Check for **"Approved Deferrals"** section in Implementation Notes
-2. **If section exists** with user approval timestamp → Valid deferral (story complete per agreement)
-3. **If section missing** → Story incomplete (should NOT be "QA Approved" - quality gate violation)
-
-**Decision Tree:**
-```
-Want to know if story is complete?
-  ↓
-Check DoD section
-  ├─ All items [x]? → Story 100% complete ✅
-  └─ Some items [ ]?
-      ↓
-      Check for "Approved Deferrals" section
-        ├─ Section exists with user approval timestamp?
-        │   → Story complete with documented deferrals ✅
-        └─ Section missing?
-            → Story incomplete (quality gate violation) ❌
-```
-
-**Secondary Indicator: Workflow Status**
-```markdown
-## Workflow Status
-- [x] Architecture phase complete
-- [x] Development phase complete  ← Status "Dev Complete" matches this
-- [ ] QA phase complete           ← Status "QA Approved" would mark this [x]
-- [ ] Released                    ← Status "Released" would mark this [x]
-```
-
-### Quality Gate Rule (As of RCA-012 Remediation)
-
-**QA Validation Now Enforces (Phase 0.9):**
-
-1. **100% AC-to-DoD traceability**
-   - Every AC requirement must have corresponding DoD item
-   - Validated via explicit checkbox OR test validation OR metric validation
-
-2. **Documented deferrals**
-   - Any unchecked DoD item `[ ]` requires "Approved Deferrals" section
-   - Section must include:
-     - User approval timestamp (e.g., "2025-01-21 10:30 UTC")
-     - Blocker justification (Dependency, Toolchain, Artifact, ADR, Low-Priority)
-     - Follow-up reference (story ID or completion condition)
-
-**QA Will HALT If:**
-- AC requirement has no DoD coverage (traceability <100%)
-- DoD has unchecked items without "Approved Deferrals" section
-- Deferral section exists but missing user approval timestamp
-
-**See:** `.claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md` (created in RCA-012 Phase 2)
-
-### Migration Guidance (Optional)
-
-**Want to update old stories (v2.0) to new format (v2.1)?**
-
-Use migration script:
-```bash
-bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <story-file>
-```
-
-**What it does:**
-- Changes `### 1. [ ]` → `### AC#1:`
-- Updates `format_version: "2.0"` → `"2.1"`
-- Creates backup (`.v2.0-backup`) before changes
-- Validates migration success
-
-**When to migrate:**
-- Want visual consistency across all stories
-- Find checkbox syntax confusing in old stories
-- Preparing stories for presentation/review
-
-**When to skip:**
-- Old format doesn't bother you
-- Story is archived (no active work)
-- Migration risk outweighs benefit
-
-**See:** `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md` for complete migration documentation
-
----
-
-## What NOT to Do
-
-### ❌ No Aspirational Content
-- No features that "might be nice" without evidence
-- No hypothetical benefits without research backing
-- If unsure → HALT and request human approval to research
-
-### ❌ Don't Assume Files Exist
-- Research docs (`devforgeai/specs/research/`) show PATTERNS as examples
-- Most examples are NOT actual project files
-- When in doubt: Use Glob/Read to verify file existence
-
-### ❌ Don't Break Framework-Agnostic Principle
-- Avoid language-specific recommendations in process docs
-- Examples can be language-specific (mark clearly)
-- Commands must work for Node.js, Python, C#, Go, Java, etc.
-
-### ❌ Don't Violate Context Files
-- Never swap locked technologies without approval + ADR
-- Never put files in wrong locations
-- Never add unapproved dependencies
-- Never implement forbidden anti-patterns
-
-### ❌ Don't Execute Destructive Git Operations Without Approval
-- Never stash files without showing user what will be hidden
-- Never reset uncommitted changes without confirmation
-- Never force push without explicit user request
-- Never amend commits not created in current session
-- See Critical Rule #11 for complete git operation policy
-
----
-
-## When Working in This Repository
-
-### Starting New Work
-
-1. **Ensure git repository initialized with commits:**
-   ```bash
-   git rev-list -n 1 HEAD 2>/dev/null
-   # If no commits: Run /create-context (auto-creates initial commit)
-   ```
-
-2. **Check context files exist:**
-   ```
-   Glob(pattern="devforgeai/specs/context/*.md")
-   # Should show 6 files
-   ```
-
-3. **If missing, create them:**
-   ```
-   > /create-context [project-name]
-   # Also creates initial commit if repo is empty
-   ```
-
-4. **Then create story or epic:**
-   ```
-   > /create-story [description]
-   ```
-
-### Implementing a Story
-
-**Option 1: Full Orchestration**
-```
-> /orchestrate STORY-001
-# Executes: Dev → QA → Release automatically
-```
-
-**Option 2: Step-by-Step**
-```
-> /dev STORY-001        # Development with TDD
-> /qa STORY-001         # Quality validation
-> /release STORY-001    # Production deployment
-```
-
-### Adding UI Components
-
-```
-> /create-ui STORY-001
-# Interactive: Choose web/GUI/terminal → Choose tech → Choose styling
-# Output: UI specs and code in devforgeai/specs/ui/
-```
-
----
-
-## Key File Locations
-
-**Context Files:** `devforgeai/specs/context/` (6 constraint files)
-**Stories:** `devforgeai/specs/Stories/{STORY-ID}.story.md`
-**Epics:** `devforgeai/specs/Epics/{EPIC-ID}.epic.md`
-**Sprints:** `devforgeai/specs/Sprints/Sprint-{N}.md`
-**ADRs:** `devforgeai/specs/adrs/ADR-{NNN}-title.md`
-**QA Reports:** `devforgeai/qa/reports/{STORY-ID}-qa-report.md`
-**Deployment:** `devforgeai/deployment/` (platform configs)
-
----
-
-## Integration Patterns
-
-### Skills
-```
-Skill(command="devforgeai-architecture")
-Skill(command="devforgeai-development --story=STORY-001")
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-```
-
-### Subagents
-```
-Task(
-  subagent_type="test-automator",
-  description="Generate tests",
-  prompt="Generate comprehensive tests for..."
-)
-```
-
-### Commands
-```
-> /dev STORY-001
-> /qa STORY-001
-> /release STORY-001
-```
-
----
-
-## Security and Quality Standards
-
-**Security:**
-- No hardcoded secrets (use environment variables)
-- Parameterized queries (prevent SQL injection)
-- Input validation (prevent XSS)
-- Strong cryptography (SHA256+, not MD5/SHA1)
-
-**Code Quality:**
-- Cyclomatic complexity <10 per method
-- Maintainability index ≥70
-- Code duplication <5%
-- Documentation coverage ≥80% for public APIs
-
-**Testing:**
-- Test pyramid: 70% unit, 20% integration, 10% E2E
-- Coverage: 95% business logic, 85% application, 80% infrastructure
-- All acceptance criteria have tests
-- Tests follow AAA pattern (Arrange, Act, Assert)
-
----
-
-## References
-
-**For detailed guidance:**
-- Framework documentation: `ROADMAP.md`, `README.md`
-- Skills: `.claude/skills/*/SKILL.md`
-- Subagents: `.claude/agents/*.md`
-- Commands: `.claude/commands/*.md`
-- Research: `devforgeai/specs/` (prompt engineering, workflows, terminal best practices)
-
-**Progressive disclosure references (load as needed with Read tool):**
-- `.claude/memory/skills-reference.md`
-- `.claude/memory/subagents-reference.md`
-- `.claude/memory/commands-reference.md`
-- `.claude/memory/documentation-command-guide.md`
-- `.claude/memory/qa-automation.md`
-- `.claude/memory/context-files-guide.md`
-- `.claude/memory/ui-generator-guide.md`
-- `.claude/memory/token-efficiency.md`
-- `.claude/memory/token-budget-guidelines.md`
-
-**Framework protocols (load as needed with Read tool):**
-- `devforgeai/protocols/lean-orchestration-pattern.md` - Command architecture and refactoring
-- `devforgeai/protocols/refactoring-case-studies.md` - Detailed refactoring examples
-- `devforgeai/protocols/command-budget-reference.md` - Budget tables and monitoring
-
----
-
-**The framework exists to prevent technical debt through explicit constraints and automated validation. When in doubt, ask the user—never make assumptions.**
+**When in doubt → HALT → AskUserQuestion**
