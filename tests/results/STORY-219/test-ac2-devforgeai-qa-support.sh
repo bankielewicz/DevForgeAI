@@ -1,0 +1,37 @@
+#!/bin/bash
+###############################################################################
+# Test: AC#2 - Supports devforgeai-qa (loads deep-validation-workflow.md)
+# EXPECTED: FAIL (TDD Red phase - file doesn't exist yet)
+###############################################################################
+set -e
+RED='\033[0;31m'; GREEN='\033[0;32m'; NC='\033[0m'
+TEST_NAME="AC#2: Documents devforgeai-qa deep mode reference loading"
+TARGET_FILE="/mnt/c/Projects/DevForgeAI2/.claude/skills/devforgeai-shared/shared-phase-0-loader.md"
+
+echo "============================================================================"
+echo "TEST: $TEST_NAME"
+echo "============================================================================"
+
+if [[ ! -f "$TARGET_FILE" ]]; then
+    echo -e "  ${RED}FAIL${NC}: Target file does not exist"
+    exit 1
+fi
+
+# ASSERT: Contains devforgeai-qa skill reference
+if grep -q "devforgeai-qa" "$TARGET_FILE"; then
+    echo -e "  ${GREEN}PASS${NC}: devforgeai-qa skill documented"
+else
+    echo -e "  ${RED}FAIL${NC}: devforgeai-qa skill NOT documented"
+    exit 1
+fi
+
+# ASSERT: References deep-validation-workflow.md
+if grep -q "deep-validation-workflow.md" "$TARGET_FILE"; then
+    echo -e "  ${GREEN}PASS${NC}: deep-validation-workflow.md reference found"
+else
+    echo -e "  ${RED}FAIL${NC}: deep-validation-workflow.md reference NOT found"
+    exit 1
+fi
+
+echo -e "\n${GREEN}RESULT: PASS${NC}"
+exit 0
