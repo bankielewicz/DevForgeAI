@@ -459,7 +459,7 @@ When creating new skill, use this pattern:
 **Status Update (2025-01-01):** Stories created for all 5 recommendations.
 
 **Critical (Block Release):**
-- [ ] **STORY-215:** REC-1 - Add pre-skill execution checklist to CLAUDE.md
+- [x] **STORY-215:** REC-1 - Add pre-skill execution checklist to CLAUDE.md (Completed 2026-01-14)
 - [ ] **STORY-216:** REC-2 - Add Phase 0 Step 0.5 enforcement to devforgeai-qa SKILL.md
 - [ ] **STORY-217:** REC-3 - Add pre-flight HALT logic to Phases 1-4
 

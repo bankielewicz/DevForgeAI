@@ -272,6 +272,37 @@ After `Skill(command="...")`:
 
 **NEVER wait passively after skill invocation.**
 
+### Pre-Skill Execution Checklist
+
+**Before invoking ANY skill with Skill(command="..."), verify:**
+
+1. **Skill contains phases?**
+   - Skills contain phases (Phase 01, Phase 02, etc.)
+   - ALL phases must execute in sequence (not optional)
+   - If phases exist, you must execute all of them
+
+2. **Phase 0 has reference loading?**
+   - Check for "Step 0.N: Load reference files" or similar
+   - If deep mode → Load reference files in Phase 0 BEFORE Phase 1 starts
+   - Reference files contain complete workflow details needed for later phases
+
+3. **Phases 1-4 have pre-flight checks?**
+   - Check each phase for "Pre-Flight: Verify previous phase" section
+   - Run pre-flight verification BEFORE executing phase's main work
+   - HALT if previous phase not verified complete
+
+4. **Skill says "YOU execute"?**
+   - Explicit statements like "YOU execute the skill's phases"
+   - This means you run all steps systematically
+   - Not a reference to read selectively - mandatory instructions to follow
+
+5. **Mode requested matches execution scope?**
+   - Light mode → Execute specified light validation subset
+   - Deep mode → Execute all documented phases completely
+   - User clarification overrides defaults: If user says "run them all", execute all
+
+**Enforcement:** If any checklist item is unclear, HALT before invoking skill and ask for clarification with AskUserQuestion tool.
+
 ---
 
 ## Conditional Rules
