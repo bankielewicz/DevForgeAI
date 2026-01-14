@@ -310,6 +310,24 @@ Display: "✓ Phase 0 marker written"
 Display: "Phase 0 ✓ | Setup | Lock acquired"
 ```
 
+### Phase 0 Completion Enforcement
+
+**Verify deep-validation-workflow.md was loaded (deep mode only):**
+
+```
+IF mode == "deep":
+    IF "deep-validation-workflow.md" NOT loaded in conversation:
+        Display: "❌ CRITICAL ERROR: Phase 0 Step 0.5 incomplete"
+        Display: "   Deep validation workflow reference file was not loaded"
+        Display: "   Load file: .claude/skills/devforgeai-qa/references/deep-validation-workflow.md"
+        HALT: "Cannot proceed to Phase 1 without deep workflow reference"
+        Instruction: "Load the reference file manually, then resume /qa {STORY_ID} deep"
+    ELSE:
+        Display: "✓ Deep mode workflow reference verified loaded"
+```
+
+This enforcement prevents Phase 1-3 from executing without complete initialization.
+
 ---
 
 ## Phase Marker Protocol [STORY-126 Enhancement]
