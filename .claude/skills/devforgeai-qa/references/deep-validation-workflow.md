@@ -7,14 +7,15 @@ Single-load reference for deep QA validation. Contains all workflow steps for Ph
 ## Overview
 
 This file consolidates the following workflows for single-load efficiency:
-- Coverage Analysis (7 steps)
-- Traceability Validation (5 steps)
-- Runtime Smoke Test (6 steps) - NEW (STORY-266)
-- Documentation Accuracy Validation (4 steps)
-- Anti-Pattern Detection (6 steps)
-- Spec Compliance (6 steps)
-- Code Quality Metrics (5 steps)
-- Report Generation (6 steps)
+- 1.1 Coverage Analysis (7 steps)
+- 1.2 Traceability Validation (5 steps)
+- 1.3 Traceability Enhancement (placeholder)
+- 1.4 Runtime Smoke Test (6 steps) - Comprehensive (STORY-266, STORY-267)
+- 1.5 Documentation Accuracy Validation (4 steps)
+- 2.1 Anti-Pattern Detection (6 steps)
+- 2.3 Spec Compliance (6 steps)
+- 2.4 Code Quality Metrics (5 steps)
+- 3.x Report Generation (6 steps)
 
 **Token savings:** ~3.5K tokens (load once vs 7 separate files at ~500 each)
 
@@ -134,37 +135,345 @@ IF dod_unchecked > 0:
 
 ---
 
-### 1.3 Runtime Smoke Test (6 Steps) - STORY-266
+### 1.3 Traceability Enhancement (Placeholder)
+
+**Note:** This section is a placeholder to maintain sequential numbering. Traceability validation details are covered in Section 1.2.
+
+---
+
+### 1.4 Runtime Smoke Test (6 Steps) - STORY-266
 
 **Purpose:** Verify that implemented deliverables actually execute at runtime. Prevents stories from being falsely marked "QA Approved" when the CLI/API fails to run.
 
-**Framework-Agnostic:** Detects language from `tech-stack.md` and executes appropriate smoke test.
+**Framework-Agnostic:** Detects language from `tech-stack.md` and executes appropriate smoke test. Supports ALL 6 backend languages per tech-stack.md lines 127-134.
 
-**Detailed Reference:** `phases/phase-01-deep-validation.md`
+**Source:** RCA-002 REC-4 (Runtime validation gaps)
 
-**Quick Summary:**
+**Cross-References:**
+- Implementation: STORY-266 (Language-Agnostic Runtime Smoke Test)
+- Configuration: `.claude/skills/devforgeai-qa/assets/language-smoke-tests.yaml`
+- Authority: `devforgeai/specs/context/tech-stack.md` (lines 7-11, 121-188)
+
+---
+
+#### Step 1: Detect Language from tech-stack.md
+
+**Detection Priority** (authoritative source first):
+1. **tech-stack.md** (authoritative): Read project's `devforgeai/specs/context/tech-stack.md`
+2. **File system fallback**: If no tech-stack.md, detect from project files
+
 ```
-Step 1: Detect language from tech-stack.md (Python, Node.js, .NET, Go, Java, Rust)
-Step 2: Load language config from assets/language-smoke-tests.yaml
-Step 3: Extract entry point (pyproject.toml, package.json, *.csproj, etc.)
-Step 4: Execute smoke test command with 10s timeout
-Step 5: Process results (exit code 0 = PASS, != 0 = CRITICAL violation)
-Step 6: Handle edge cases (missing files, timeout, library projects)
+Read: devforgeai/specs/context/tech-stack.md
+
+Extract: Backend technology from "Backend Technology Options" section
+Pattern: grep "C#|Python|Node.js|Java|Go|Rust"
+
+IF NOT found in tech-stack.md:
+    Fallback detection via file patterns (see Step 1b)
 ```
 
-**Failure Behavior:**
-- Exit code != 0: Create CRITICAL violation (type: RUNTIME_EXECUTION_FAILURE)
-- Set overall_status = "FAILED"
-- Include in gaps.json for remediation
+**Fallback Detection Patterns** (Step 1b):
 
-**Load Full Reference:**
+| Language | Detection File | Secondary Pattern |
+|----------|---------------|-------------------|
+| Python | `pyproject.toml` OR `setup.py` | `requirements.txt` |
+| Node.js | `package.json` | `node_modules/` |
+| .NET | `*.csproj` OR `*.sln` | `bin/Debug/` |
+| Go | `go.mod` | `main.go` |
+| Java | `pom.xml` OR `build.gradle` | `src/main/java/` |
+| Rust | `Cargo.toml` | `src/main.rs` |
+
+---
+
+#### Step 2: Determine Project Type
+
+**Project Type Classification** (determines smoke test behavior):
+
+CLI project type detection identifies command-line interface applications that can be executed directly. API project type detection identifies web services that require a running server. Library project type detection identifies packages that provide functionality to other code but cannot be executed standalone.
+
+| Project Type | Detection Criteria | Smoke Test Action |
+|--------------|--------------------|--------------------|
+| **CLI** | Entry point script, `[scripts]` in config, `main()` function | Execute `--help` or `--version` |
+| **API** | HTTP server dependency, `uvicorn`/`gunicorn`/`kestrel` | SKIP (API requires running server) |
+| **Library** | No entry point, `[library]` in config, no `main()` | SKIP (libraries not directly executable) |
+
+**Detection Decision Tree:**
+
 ```
-Read(file_path=".claude/skills/devforgeai-qa/phases/phase-01-deep-validation.md")
+IF pyproject.toml contains [tool.poetry.scripts]:
+    TYPE = CLI
+ELIF package.json contains "bin":
+    TYPE = CLI
+ELIF *.csproj OutputType is "Exe":
+    TYPE = CLI
+ELIF go.mod exists AND main.go exists:
+    TYPE = CLI
+ELIF pom.xml packaging is "jar" with mainClass:
+    TYPE = CLI
+ELIF Cargo.toml contains [[bin]]:
+    TYPE = CLI
+ELIF http server dependency detected:
+    TYPE = API
+    ACTION = SKIP with reason "API projects require running server"
+ELSE:
+    TYPE = Library
+    ACTION = SKIP with reason "Library projects not directly executable"
 ```
 
 ---
 
-### 1.4 Documentation Accuracy Validation (4 Steps)
+#### Step 3: Load Language Configuration
+
+**Configuration File:** `.claude/skills/devforgeai-qa/assets/language-smoke-tests.yaml`
+
+```yaml
+# Language Smoke Test Configuration
+languages:
+  python:
+    detection_pattern: "Python 3.9+"
+    entry_point_source: "pyproject.toml [tool.poetry.scripts] OR setup.py entry_points"
+    smoke_test_command: "{package_name} --help"
+    timeout_seconds: 10
+    remediation_guidance: |
+      1. Verify pyproject.toml has [tool.poetry.scripts] section
+      2. Ensure package installed: pip install -e .
+      3. Check entry point function exists and is importable
+
+  nodejs:
+    detection_pattern: "Node.js 18+"
+    entry_point_source: "package.json 'bin' field OR 'main' field"
+    smoke_test_command: "node {entry_point} --help"
+    timeout_seconds: 10
+    remediation_guidance: |
+      1. Verify package.json has 'bin' or 'main' field
+      2. Ensure dependencies installed: npm install
+      3. Check entry point file exists and has shebang
+
+  dotnet:
+    detection_pattern: ".NET 6.0+"
+    entry_point_source: "*.csproj AssemblyName OR project directory name"
+    smoke_test_command: "dotnet run --project {project_path} -- --help"
+    alt_command: "dotnet {assembly_path}.dll --help"
+    timeout_seconds: 10
+    remediation_guidance: |
+      1. Verify *.csproj OutputType is 'Exe' (not 'Library')
+      2. Build project: dotnet build
+      3. Check Program.cs exists with Main() method
+
+  go:
+    detection_pattern: "Go 1.20+"
+    entry_point_source: "go.mod module name + main.go"
+    smoke_test_command: "go run . --help"
+    alt_command: "./{binary_name} --help"
+    timeout_seconds: 10
+    remediation_guidance: |
+      1. Verify go.mod exists in project root
+      2. Ensure main.go has package main and func main()
+      3. Build: go build -o {binary_name}
+
+  java:
+    detection_pattern: "Java 11+"
+    entry_point_source: "pom.xml mainClass OR MANIFEST.MF Main-Class"
+    smoke_test_command: "mvn exec:java -Dexec.args='--help'"
+    alt_command: "java -jar {artifact_path}.jar --help"
+    timeout_seconds: 15
+    remediation_guidance: |
+      1. Verify pom.xml has exec-maven-plugin with mainClass
+      2. Build: mvn package
+      3. Check main class has public static void main(String[] args)
+
+  rust:
+    detection_pattern: "Rust 1.70+"
+    entry_point_source: "Cargo.toml [[bin]] name OR package name"
+    smoke_test_command: "cargo run -- --help"
+    alt_command: "./target/release/{binary_name} --help"
+    timeout_seconds: 10
+    remediation_guidance: |
+      1. Verify Cargo.toml has [[bin]] section or src/main.rs exists
+      2. Build: cargo build --release
+      3. Check main.rs has fn main()
+```
+
+---
+
+#### Step 4: Execute Smoke Test
+
+**Execution Protocol:**
+
+```
+timeout = language_config.timeout_seconds  # Default: 10s
+
+IF project_type == "CLI":
+    command = substitute_placeholders(language_config.smoke_test_command)
+
+    Bash(command="{command}", timeout={timeout})
+
+    IF exit_code == 0:
+        result = "PASSED"
+    ELIF timeout_exceeded:
+        result = "TIMEOUT"
+        violation_type = "RUNTIME_EXECUTION_TIMEOUT"
+    ELSE:
+        result = "FAILED"
+        violation_type = "RUNTIME_EXECUTION_FAILURE"
+
+ELIF project_type IN ["API", "Library"]:
+    result = "SKIPPED"
+    skip_reason = language_config.skip_reason
+```
+
+**Language-Specific Commands Matrix:**
+
+| Language | Primary Command | Alternative Command | Entry Point Source |
+|----------|----------------|---------------------|-------------------|
+| Python | `{package_name} --help` | `python -m {module_name} --help` | pyproject.toml `[tool.poetry.scripts]` |
+| Node.js | `node {entry_point} --help` | `npx {package_name} --help` | package.json `bin` field |
+| .NET | `dotnet run --project {path} -- --help` | `dotnet {assembly}.dll --help` | *.csproj `AssemblyName` |
+| Go | `go run . --help` | `./{binary_name} --help` | go.mod `module` + main.go |
+| Java | `mvn exec:java -Dexec.args='--help'` | `java -jar {artifact}.jar --help` | pom.xml `mainClass` |
+| Rust | `cargo run -- --help` | `./target/release/{binary} --help` | Cargo.toml `[[bin]]` |
+
+---
+
+#### Step 5: Process Results and Generate Violations
+
+**Success Output Format:**
+```
+Runtime smoke test PASSED: {language} CLI is executable
+  Command: {executed_command}
+  Exit code: 0
+  Duration: {duration}ms
+```
+
+**Failure Output Format (CRITICAL Violation):**
+```
+Runtime smoke test FAILED: {language} CLI execution error
+  Command: {executed_command}
+  Exit code: {exit_code}
+  Error: {stderr_output}
+  Duration: {duration}ms
+
+CRITICAL: RUNTIME_EXECUTION_FAILURE - Implementation does not execute
+```
+
+**Timeout Output Format:**
+```
+Runtime smoke test TIMEOUT: {language} CLI exceeded {timeout}s
+  Command: {executed_command}
+  Timeout: {timeout}s exceeded
+
+CRITICAL: RUNTIME_EXECUTION_TIMEOUT - Implementation unresponsive
+```
+
+**Skip Output Format:**
+```
+Runtime smoke test SKIPPED: {reason}
+  Project type: {project_type}
+  Language: {language}
+
+INFO: Smoke test not applicable for {project_type} projects
+```
+
+**JSON Violation Format (for gaps.json):**
+
+```json
+{
+  "violations": [
+    {
+      "id": "RUNTIME-001",
+      "severity": "CRITICAL",
+      "type": "RUNTIME_EXECUTION_FAILURE",
+      "category": "runtime_validation",
+      "file": "{entry_point_file}",
+      "line": null,
+      "message": "CLI execution failed with exit code {exit_code}",
+      "details": {
+        "language": "{language}",
+        "command": "{executed_command}",
+        "exit_code": "{exit_code}",
+        "stderr": "{stderr_output}",
+        "duration_ms": "{duration}"
+      },
+      "remediation": "{language_specific_remediation}",
+      "blocking": true,
+      "classification": "REGRESSION"
+    }
+  ]
+}
+```
+
+---
+
+#### Step 6: Handle Edge Cases
+
+**Edge Case Matrix:**
+
+| Scenario | Behavior | Output |
+|----------|----------|--------|
+| No tech-stack.md | Fallback to file detection | Warning + continue |
+| Multiple languages (monorepo) | Test each sequentially | Per-language status |
+| Missing entry point config | Language-specific guidance | CRITICAL + remediation |
+| Build not run | Attempt build first | Warning if fails |
+| Unsupported language | Skip with notice | INFO: Language not in supported list |
+| Permission denied | Report permissions issue | CRITICAL + chmod guidance |
+| Missing dependencies | Report dependency error | CRITICAL + install guidance |
+
+**Unsupported Language Handling:**
+
+```
+IF language NOT IN ["python", "nodejs", "dotnet", "go", "java", "rust"]:
+    Display: "Runtime smoke test SKIPPED: {language} not in supported list"
+    Display: "Supported languages: Python, Node.js, .NET, Go, Java, Rust"
+    Display: "To add support, see Extensibility section below"
+    result = "SKIPPED"
+    skip_reason = "unsupported_language"
+```
+
+---
+
+#### Extensibility Pattern (Adding New Languages)
+
+**Configuration-Only Extension:** No code modification required. Add entry to `language-smoke-tests.yaml`.
+
+**Required Fields per Language Entry:**
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `detection_pattern` | string | Language version pattern | "Kotlin 1.8+" |
+| `entry_point_source` | string | Where to find entry point | "build.gradle.kts" |
+| `smoke_test_command` | string | Command with placeholders | `kotlinc {source} -include-runtime -d {output}.jar && java -jar {output}.jar --help` |
+| `timeout_seconds` | int | Execution timeout | 15 |
+| `remediation_guidance` | string | Multi-line fix instructions | "1. Ensure build.gradle.kts..." |
+
+**Example: Adding Kotlin Support:**
+
+```yaml
+# Append to .claude/skills/devforgeai-qa/assets/language-smoke-tests.yaml
+
+  kotlin:
+    detection_pattern: "Kotlin 1.8+"
+    entry_point_source: "build.gradle.kts mainClass OR src/main/kotlin/Main.kt"
+    smoke_test_command: "gradle run --args='--help'"
+    alt_command: "java -jar build/libs/{artifact}.jar --help"
+    timeout_seconds: 15
+    remediation_guidance: |
+      1. Verify build.gradle.kts has application plugin and mainClass
+      2. Build: gradle build
+      3. Check Main.kt has fun main(args: Array<String>)
+```
+
+**Verification Steps for New Language:**
+
+1. Add configuration entry to `language-smoke-tests.yaml`
+2. Create test project with entry point
+3. Run `/qa {STORY-ID} --mode=deep` on project
+4. Verify smoke test executes correct command
+5. Verify success/failure detection works
+6. Update this documentation with new language in matrices
+
+---
+
+### 1.5 Documentation Accuracy Validation (4 Steps)
 
 **Purpose:** Validate that SKILL.md file claims match actual filesystem state.
 
@@ -516,6 +825,8 @@ IF exit 0: devforgeai-validate invoke-hooks --operation=qa --story={STORY_ID}
 | 1 | Application coverage <85% | CRITICAL | Yes |
 | 1 | Infrastructure coverage <80% | HIGH | Yes |
 | 1 | Traceability <100% | CRITICAL | Yes |
+| 1 | Runtime smoke test failure | CRITICAL | Yes |
+| 1 | Runtime smoke test timeout | CRITICAL | Yes |
 | 2 | Security vulnerabilities | CRITICAL | Yes |
 | 2 | Library substitution | CRITICAL | Yes |
 | 2 | Structure violations | HIGH | Yes |
