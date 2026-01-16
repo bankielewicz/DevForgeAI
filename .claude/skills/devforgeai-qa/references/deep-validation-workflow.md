@@ -9,6 +9,7 @@ Single-load reference for deep QA validation. Contains all workflow steps for Ph
 This file consolidates the following workflows for single-load efficiency:
 - Coverage Analysis (7 steps)
 - Traceability Validation (5 steps)
+- Runtime Smoke Test (6 steps) - NEW (STORY-266)
 - Documentation Accuracy Validation (4 steps)
 - Anti-Pattern Detection (6 steps)
 - Spec Compliance (6 steps)
@@ -133,7 +134,37 @@ IF dod_unchecked > 0:
 
 ---
 
-### 1.3 Documentation Accuracy Validation (4 Steps)
+### 1.3 Runtime Smoke Test (6 Steps) - STORY-266
+
+**Purpose:** Verify that implemented deliverables actually execute at runtime. Prevents stories from being falsely marked "QA Approved" when the CLI/API fails to run.
+
+**Framework-Agnostic:** Detects language from `tech-stack.md` and executes appropriate smoke test.
+
+**Detailed Reference:** `phases/phase-01-deep-validation.md`
+
+**Quick Summary:**
+```
+Step 1: Detect language from tech-stack.md (Python, Node.js, .NET, Go, Java, Rust)
+Step 2: Load language config from assets/language-smoke-tests.yaml
+Step 3: Extract entry point (pyproject.toml, package.json, *.csproj, etc.)
+Step 4: Execute smoke test command with 10s timeout
+Step 5: Process results (exit code 0 = PASS, != 0 = CRITICAL violation)
+Step 6: Handle edge cases (missing files, timeout, library projects)
+```
+
+**Failure Behavior:**
+- Exit code != 0: Create CRITICAL violation (type: RUNTIME_EXECUTION_FAILURE)
+- Set overall_status = "FAILED"
+- Include in gaps.json for remediation
+
+**Load Full Reference:**
+```
+Read(file_path=".claude/skills/devforgeai-qa/phases/phase-01-deep-validation.md")
+```
+
+---
+
+### 1.4 Documentation Accuracy Validation (4 Steps)
 
 **Purpose:** Validate that SKILL.md file claims match actual filesystem state.
 
