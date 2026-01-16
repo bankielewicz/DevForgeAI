@@ -1161,6 +1161,21 @@ IF unchecked_count == 0:
 - [ ] Execution summary displayed?
 - [ ] All phases marked complete?
 - [ ] Story file update confirmed?
+- [ ] **IF QA FAILED: gaps.json exists?** [RCA-002]
+
+**gaps.json Verification (Conditional):**
+```
+IF overall_status == "FAILED":
+    gaps_file = Glob(pattern="devforgeai/qa/reports/{STORY-ID}-gaps.json")
+    IF NOT gaps_file:
+        Display: "❌ CRITICAL: gaps.json missing for failed QA"
+        HALT: "Create gaps.json before completing QA workflow"
+    ELSE:
+        Display: "✓ gaps.json verified: {gaps_file}"
+ELSE:
+    # PASSED or PASS WITH WARNINGS - skip gaps.json check
+    Display: "✓ gaps.json check skipped (QA passed)"
+```
 
 IF any checkbox unchecked: HALT with "Execution incomplete"
 

@@ -98,6 +98,20 @@ Deferred DoD items MUST have user approval, story/ADR references, and deferral-v
 
 **Purpose:** Initialize QA environment - validate CWD, create test isolation, acquire locks.
 
+**Create execution tracker at Phase 0 start:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "in_progress", activeForm: "Running Phase 0: Setup" },
+    { content: "Phase 1: Validation", status: "pending", activeForm: "Running Phase 1: Validation" },
+    { content: "Phase 2: Analysis", status: "pending", activeForm: "Running Phase 2: Analysis" },
+    { content: "Phase 3: Reporting", status: "pending", activeForm: "Running Phase 3: Reporting" },
+    { content: "Phase 4: Cleanup", status: "pending", activeForm: "Running Phase 4: Cleanup" }
+  ]
+})
+```
+
 ### Step 0.0: Session Checkpoint Detection [NEW - STORY-126]
 
 **Purpose:** Detect interrupted QA sessions and offer resume capability.
@@ -310,6 +324,38 @@ Display: "✓ Phase 0 marker written"
 Display: "Phase 0 ✓ | Setup | Lock acquired"
 ```
 
+**Update execution tracker:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "completed", activeForm: "Phase 0 complete" },
+    { content: "Phase 1: Validation", status: "in_progress", activeForm: "Running Phase 1: Validation" },
+    { content: "Phase 2: Analysis", status: "pending", activeForm: "Running Phase 2: Analysis" },
+    { content: "Phase 3: Reporting", status: "pending", activeForm: "Running Phase 3: Reporting" },
+    { content: "Phase 4: Cleanup", status: "pending", activeForm: "Running Phase 4: Cleanup" }
+  ]
+})
+```
+
+### Phase 0 Completion Enforcement
+
+**Verify deep-validation-workflow.md was loaded (deep mode only):**
+
+```
+IF mode == "deep":
+    IF "deep-validation-workflow.md" NOT loaded in conversation:
+        Display: "❌ CRITICAL ERROR: Phase 0 Step 0.5 incomplete"
+        Display: "   Deep validation workflow reference file was not loaded"
+        Display: "   Load file: .claude/skills/devforgeai-qa/references/deep-validation-workflow.md"
+        HALT: "Cannot proceed to Phase 1 without deep workflow reference"
+        Instruction: "Load the reference file manually, then resume /qa {STORY_ID} deep"
+    ELSE:
+        Display: "✓ Deep mode workflow reference verified loaded"
+```
+
+This enforcement prevents Phase 1-3 from executing without complete initialization.
+
 ---
 
 ## Phase Marker Protocol [STORY-126 Enhancement]
@@ -356,12 +402,19 @@ ELSE:
 
 ## Phase 1: Validation
 
-### Phase 1 Pre-Flight
+### Pre-Flight: Verify Phase 0 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-0.marker")
-IF NOT found: HALT: "Phase 0 not completed - run setup first"
-Display: "✓ Phase 0 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 0 not verified complete"
+    HALT: "Phase 1 cannot execute without Phase 0 completion"
+    Display: "Previous phase (Phase 0) must complete successfully before starting Phase 1"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 0 verified complete - Phase 1 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 1 Reference Loading [MANDATORY]
@@ -475,16 +528,37 @@ Display: "✓ Phase 1 marker written"
 Display: "Phase 1 ✓ | Validation | {traceability_score}% traceability"
 ```
 
+**Update execution tracker:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "completed", activeForm: "Phase 0 complete" },
+    { content: "Phase 1: Validation", status: "completed", activeForm: "Phase 1 complete" },
+    { content: "Phase 2: Analysis", status: "in_progress", activeForm: "Running Phase 2: Analysis" },
+    { content: "Phase 3: Reporting", status: "pending", activeForm: "Running Phase 3: Reporting" },
+    { content: "Phase 4: Cleanup", status: "pending", activeForm: "Running Phase 4: Cleanup" }
+  ]
+})
+```
+
 ---
 
 ## Phase 2: Analysis
 
-### Phase 2 Pre-Flight
+### Pre-Flight: Verify Phase 1 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-1.marker")
-IF NOT found: HALT: "Phase 1 not completed - run validation first"
-Display: "✓ Phase 1 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 1 not verified complete"
+    HALT: "Phase 2 cannot execute without Phase 1 completion"
+    Display: "Previous phase (Phase 1) must complete successfully before starting Phase 2"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 1 verified complete - Phase 2 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 2 Reference Loading [MANDATORY]
@@ -608,16 +682,37 @@ Display: "✓ Phase 2 marker written"
 Display: "Phase 2 ✓ | Analysis | {validator_count}/3 validators"
 ```
 
+**Update execution tracker:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "completed", activeForm: "Phase 0 complete" },
+    { content: "Phase 1: Validation", status: "completed", activeForm: "Phase 1 complete" },
+    { content: "Phase 2: Analysis", status: "completed", activeForm: "Phase 2 complete" },
+    { content: "Phase 3: Reporting", status: "in_progress", activeForm: "Running Phase 3: Reporting" },
+    { content: "Phase 4: Cleanup", status: "pending", activeForm: "Running Phase 4: Cleanup" }
+  ]
+})
+```
+
 ---
 
 ## Phase 3: Reporting
 
-### Phase 3 Pre-Flight
+### Pre-Flight: Verify Phase 2 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-2.marker")
-IF NOT found: HALT: "Phase 2 not completed - run analysis first"
-Display: "✓ Phase 2 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 2 not verified complete"
+    HALT: "Phase 3 cannot execute without Phase 2 completion"
+    Display: "Previous phase (Phase 2) must complete successfully before starting Phase 3"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 2 verified complete - Phase 3 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 3 Reference Loading [MANDATORY]
@@ -644,11 +739,21 @@ Read(file_path=".claude/skills/devforgeai-qa/references/qa-result-formatting-gui
 **Purpose:** Determine QA result and generate reports.
 
 **1. Determine Result:**
+
+**CRITICAL (ADR-010):** Coverage below thresholds is a BLOCKING condition.
+- Coverage gaps are NOT warnings - they trigger FAILED status
+- test-automator WARN for coverage → escalates to FAILED here
+- No deferral path exists for coverage gaps
+
 ```
+# Coverage thresholds: Business 95%, Application 85%, Infrastructure 80%
+# IMPORTANT: coverage < thresholds → FAILED (not PASS WITH WARNINGS)
 IF any CRITICAL violations OR coverage < thresholds OR parallel < 66%:
     overall_status = "FAILED"
+    # Coverage gap = FAILED (non-negotiable, per ADR-010)
 ELIF any HIGH violations:
     overall_status = "PASS WITH WARNINGS"
+    # HIGH violations (NOT coverage) allow approval with warnings
 ELSE:
     overall_status = "PASSED"
 
@@ -682,6 +787,41 @@ Glob(pattern="devforgeai/qa/reports/{STORY-ID}-gaps.json")
 IF NOT found:
     HALT: "gaps.json not created - required for /dev remediation mode"
 ```
+
+### Step 3.3.5: MANDATORY gaps.json Creation BEFORE Status Transition [RCA-002]
+
+**Purpose:** Ensure gaps.json exists BEFORE any status update to "QA Failed". This is a mandatory prerequisite for the atomic status update protocol.
+
+**CRITICAL:** Create gaps.json BEFORE status update in Step 3.4. This ensures `/dev --fix` remediation mode has the required gap file regardless of how the failure was detected.
+
+**Source:** RCA-002 discovered that gaps.json creation was conditional on deep mode, not status transition. This step links gaps.json creation to status="QA Failed" unconditionally.
+
+**When overall_status == "FAILED":**
+```
+# MANDATORY: Write gaps.json BEFORE status Edit [RCA-002]
+# Idempotent: Write() overwrites existing gaps.json (not append)
+
+Write(file_path="devforgeai/qa/reports/{STORY-ID}-gaps.json",
+      content=JSON containing:
+        - story_id: "{STORY-ID}"
+        - qa_timestamp: "{ISO_8601}"
+        - overall_status: "FAILED"
+        - violations: [
+            {type, severity, message, remediation}
+          ]
+)
+
+# Verify creation
+Glob(pattern="devforgeai/qa/reports/{STORY-ID}-gaps.json")
+IF NOT found:
+    HALT: "gaps.json not created - cannot proceed to status update"
+
+Display: "✓ gaps.json created (required for QA Failed status)"
+```
+
+**Idempotent Behavior:** Write() tool overwrites existing file. Each QA run produces fresh gaps.json with current violations only.
+
+**Proceed to Step 3.4 only after gaps.json creation confirmed.**
 
 ### Step 3.4: Story File Update [Atomic Update Protocol - STORY-177]
 
@@ -884,16 +1024,37 @@ Display: "✓ Phase 3 marker written"
 Display: "Phase 3 ✓ | Reporting | {overall_status}"
 ```
 
+**Update execution tracker:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "completed", activeForm: "Phase 0 complete" },
+    { content: "Phase 1: Validation", status: "completed", activeForm: "Phase 1 complete" },
+    { content: "Phase 2: Analysis", status: "completed", activeForm: "Phase 2 complete" },
+    { content: "Phase 3: Reporting", status: "completed", activeForm: "Phase 3 complete" },
+    { content: "Phase 4: Cleanup", status: "in_progress", activeForm: "Running Phase 4: Cleanup" }
+  ]
+})
+```
+
 ---
 
 ## Phase 4: Cleanup
 
-### Phase 4 Pre-Flight
+### Pre-Flight: Verify Phase 3 Complete
 
 ```
 Glob(pattern="devforgeai/qa/reports/{STORY_ID}/.qa-phase-3.marker")
-IF NOT found: HALT: "Phase 3 not completed - run reporting first"
-Display: "✓ Phase 3 verified complete"
+
+IF marker file NOT found:
+    CRITICAL ERROR: "Phase 3 not verified complete"
+    HALT: "Phase 4 cannot execute without Phase 3 completion"
+    Display: "Previous phase (Phase 3) must complete successfully before starting Phase 4"
+    Instruction: "Start workflow from Phase 0. Run setup first."
+    Exit: Code 1 (phase sequencing violation)
+
+Display: "✓ Phase 3 verified complete - Phase 4 preconditions met"
 ```
 
 ### ⚠️ CHECKPOINT: Phase 4 Reference Loading [MANDATORY]
@@ -1000,6 +1161,21 @@ IF unchecked_count == 0:
 - [ ] Execution summary displayed?
 - [ ] All phases marked complete?
 - [ ] Story file update confirmed?
+- [ ] **IF QA FAILED: gaps.json exists?** [RCA-002]
+
+**gaps.json Verification (Conditional):**
+```
+IF overall_status == "FAILED":
+    gaps_file = Glob(pattern="devforgeai/qa/reports/{STORY-ID}-gaps.json")
+    IF NOT gaps_file:
+        Display: "❌ CRITICAL: gaps.json missing for failed QA"
+        HALT: "Create gaps.json before completing QA workflow"
+    ELSE:
+        Display: "✓ gaps.json verified: {gaps_file}"
+ELSE:
+    # PASSED or PASS WITH WARNINGS - skip gaps.json check
+    Display: "✓ gaps.json check skipped (QA passed)"
+```
 
 IF any checkbox unchecked: HALT with "Execution incomplete"
 
@@ -1054,6 +1230,20 @@ Write(file_path="devforgeai/qa/reports/{STORY_ID}/.qa-phase-4.marker",
 Display: "✓ Phase 4 marker written"
 Display: "Phase 4 ✓ | Cleanup | Complete"
 Display: "✓ QA workflow complete - all 5 phase markers written"
+```
+
+**Update execution tracker:**
+
+```
+TodoWrite({
+  todos: [
+    { content: "Phase 0: Setup", status: "completed", activeForm: "Phase 0 complete" },
+    { content: "Phase 1: Validation", status: "completed", activeForm: "Phase 1 complete" },
+    { content: "Phase 2: Analysis", status: "completed", activeForm: "Phase 2 complete" },
+    { content: "Phase 3: Reporting", status: "completed", activeForm: "Phase 3 complete" },
+    { content: "Phase 4: Cleanup", status: "completed", activeForm: "Phase 4 complete" }
+  ]
+})
 ```
 
 ### Step 4.5: Marker Cleanup [CONDITIONAL - QA PASSED ONLY]
