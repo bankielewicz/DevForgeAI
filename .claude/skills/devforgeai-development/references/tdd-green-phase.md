@@ -306,6 +306,14 @@ Grep(pattern="Phase.*: 2", path="${STORY_FILE}", output_mode="content", -B=1)
 
 **Display:** "Phase 03 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
 
+**Graceful Skip:**
+```
+IF AC Verification Checklist section not found in story:
+  Display: "ℹ️ Story uses DoD-only tracking (AC Checklist not present)"
+  Skip AC checklist updates
+  Continue to Phase 03 Checkpoint
+```
+
 **Performance:** ~30-60 seconds for 4-8 items
 
 ---

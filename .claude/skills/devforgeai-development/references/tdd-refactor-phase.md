@@ -364,6 +364,46 @@ DO NOT proceed to Phase 05 until Light QA passes
 
 ---
 
+### Step 6: Update AC Verification Checklist (Phase 04 Items) [NEW - RCA-011]
+
+**Purpose:** Check off AC items related to code quality and refactoring (real-time progress tracking)
+
+**Execution:** After Step 5 (Light QA) completes, before Phase 04 checkpoint
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 04 AC Items:**
+```
+Grep(pattern="Phase.*: 3", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 04 items:**
+- [ ] Code complexity reduced (cyclomatic <10)
+- [ ] Code duplication eliminated
+- [ ] Pattern compliance verified (5-responsibility checklist)
+- [ ] Anti-patterns removed
+- [ ] Code review passed
+- [ ] Maintainability index improved
+
+**Update Procedure:** Batch-update all Phase 04 items that are complete
+
+**Display:** "Phase 04 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+
+**Graceful Skip:**
+```
+IF AC Verification Checklist section not found in story:
+  Display: "ℹ️ Story uses DoD-only tracking (AC Checklist not present)"
+  Skip AC checklist updates
+  Continue to Phase 04 Checkpoint
+```
+
+**Performance:** ~30-60 seconds for 4-6 items
+
+---
+
 ## Subagents Invoked
 
 **refactoring-specialist:**
