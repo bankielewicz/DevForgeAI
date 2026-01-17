@@ -348,6 +348,13 @@ FOR phase_num in range(CURRENT_PHASE, 11):
     #    Each phase has specific subagents to invoke
     #    Update TodoWrite status as phases execute
 
+    # 5.5. Execute AC Checklist Update (RCA-003)
+    #    IF story has AC Verification Checklist section:
+    #      Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+    #      Identify phase-specific AC items
+    #      Update completed items ([ ] → [x])
+    #      Display: "  ✓ AC Checklist: {count} items updated"
+
     # 6. Exit Gate records completion
     #    Exit gate calls: devforgeai-validate phase-complete ${STORY_ID} --phase={phase_id} --checkpoint-passed
     #    If fails, workflow HALTs
@@ -573,6 +580,7 @@ All Phase NN mandatory steps completed. Proceeding to Phase NN+1...
 
   backend-architect invoked (lines XXX-YYY)
   context-validator invoked (lines XXX-YYY)
+  AC Checklist items updated (implementation items)
 
 All Phase 03 mandatory steps completed. Proceeding to Phase 04...
 ```
@@ -594,6 +602,7 @@ All Phase 03 mandatory steps completed. Proceeding to Phase 04...
   refactoring-specialist invoked (lines XXX-YYY)
   code-reviewer invoked (lines XXX-YYY)
   Light QA executed (lines XXX-YYY)
+  AC Checklist items updated (quality items)
 
 All Phase 04 mandatory steps completed. Proceeding to Phase 05...
 ```

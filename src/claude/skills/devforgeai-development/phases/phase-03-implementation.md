@@ -100,9 +100,18 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 - [ ] backend-architect OR frontend-developer invoked (check for Task() call in conversation)
 - [ ] All tests GREEN (passing)
 - [ ] context-validator invoked (check for Task() call in conversation)
-- [ ] AC Checklist (implementation items) updated
+- [ ] AC Checklist (implementation items) updated ([ ] → [x])
 
 **IF any checkbox UNCHECKED:** HALT workflow
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 5 completes, verify AC Checklist was actually updated:
+```
+Grep(pattern="- \\[x\\].*[Ii]mplementation", path="${STORY_FILE}")
+# Should find checked implementation-related items
+# If no matches found: AC Checklist update was skipped - HALT
+```
 
 ### Subagent Invocation Verification
 

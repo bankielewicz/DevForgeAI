@@ -98,9 +98,18 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 
 - [ ] test-automator subagent invoked
 - [ ] Tech Spec Coverage Validation completed
-- [ ] AC Checklist (test items) updated
+- [ ] AC Checklist (test items) updated ([ ] → [x])
 
 **IF any checkbox UNCHECKED:** HALT workflow
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 5 completes, verify AC Checklist was actually updated:
+```
+Grep(pattern="- \\[x\\].*test", path="${STORY_FILE}")
+# Should find checked test-related items
+# If no matches found: AC Checklist update was skipped - HALT
+```
 
 ---
 

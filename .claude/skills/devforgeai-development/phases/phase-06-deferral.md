@@ -47,6 +47,19 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
      1. Technical justification exists
      2. Follow-up story referenced
      3. Not a circular deferral
+     4. Challenge with user
+            AskUserQuestion(
+            questions=[{
+               question: "How should we handle this incomplete item?",
+               header: "Deferral",
+               options: [
+                  {label: "HALT and implement NOW (Recommended)", description: "Stop and implement this item"},
+                  {label: "Defer with follow-up story", description: "Create follow-up story and continue"},
+                  {label: "Mark as out of scope", description: "Document as intentionally excluded"}
+               ],
+               multiSelect: false
+            }]
+            )
      """
    )
    ```
@@ -120,7 +133,18 @@ c.1. **Record user approval timestamp** [MANDATORY]
 - [ ] IF deferrals exist: deferral-validator invoked
 - [ ] AskUserQuestion invoked for EVERY deferral
 - [ ] User approval timestamp recorded for each kept deferral
-- [ ] AC Checklist (deferral items) updated
+- [ ] AC Checklist (deferral items) updated if applicable ([ ] → [x])
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 7 completes (if deferrals were processed), verify AC Checklist was updated:
+```
+# Only required if deferrals were processed in this phase
+IF deferrals_exist:
+    Grep(pattern="- \\[x\\].*[Dd]eferr", path="${STORY_FILE}")
+    # Should find checked deferral-related items
+    # If no matches found AND deferrals were processed: AC Checklist update was skipped - HALT
+```
 
 **IF AskUserQuestion SKIPPED:**
 - AUTONOMOUS DEFERRAL DETECTED - HALT

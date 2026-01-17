@@ -116,9 +116,18 @@ Refs: STORY-XXX
 
 - [ ] Git commit succeeded (commit hash exists)
 - [ ] Story file included in commit
-- [ ] AC Checklist (deployment items) updated
+- [ ] AC Checklist (deployment items) updated ([ ] → [x])
 
 **IF any checkbox UNCHECKED:** HALT workflow
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 2.5 completes, verify AC Checklist was actually updated:
+```
+Grep(pattern="- \\[x\\].*[Gg]it", path="${STORY_FILE}")
+# Should find checked git/deployment-related items
+# If no matches found: AC Checklist update was skipped - HALT
+```
 
 ---
 

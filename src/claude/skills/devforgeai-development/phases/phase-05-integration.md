@@ -86,7 +86,16 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 - [ ] Anti-gaming validation PASSED
 - [ ] integration-tester subagent invoked (check for Task() call in conversation)
 - [ ] Coverage thresholds validated (95%/85%/80%)
-- [ ] AC Checklist (integration items) updated
+- [ ] AC Checklist (integration items) updated ([ ] → [x])
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 3 completes, verify AC Checklist was actually updated:
+```
+Grep(pattern="- \\[x\\].*[Ii]ntegration", path="${STORY_FILE}")
+# Should find checked integration-related items
+# If no matches found: AC Checklist update was skipped - HALT
+```
 
 **IF Anti-Gaming validation FAILED:**
 - HALT immediately

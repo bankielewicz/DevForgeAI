@@ -203,6 +203,55 @@ Implement features following strict TDD workflow (Red → Green → Refactor) wh
 
 ---
 
+## Workflow Deviation Protocol
+
+**Purpose:** Require explicit user consent before phase skipping, subagent omission, or out-of-sequence execution. **(Source: RCA-019 REC-4)**
+
+### Deviation Types
+
+| Type | Description | Trigger |
+|------|-------------|---------|
+| **Phase Skipping** | Skip Phase N to N+2 | Claude considers phase unnecessary |
+| **Subagent Omission** | Skip required subagent | Claude believes subagent adds no value |
+| **Out-of-Sequence** | Execute N+1 before N | Claude wants to parallelize/reorder |
+
+**MANDATORY vs OPTIONAL:** BLOCKING subagents = MANDATORY (cannot omit). Conditional subagents = OPTIONAL (may skip with reason).
+
+### Consent Protocol (MANDATORY)
+
+**IF considering ANY workflow deviation, you MUST invoke AskUserQuestion:**
+```
+HALT - Before proceeding, invoke:
+AskUserQuestion(questions=[{
+  question: "I am considering: {deviation}. This deviates from TDD workflow. How should I proceed?",
+  header: "Workflow Deviation Request",
+  options: [
+    {label: "Follow workflow", description: "Execute required {phase/subagent} as documented"},
+    {label: "Skip with documentation", description: "Skip and document in story Implementation Notes"},
+    {label: "User override", description: "I authorize this specific deviation"}
+  ]
+}])
+```
+**CRITICAL:** Do NOT proceed until user responds.
+
+### Response Processing
+
+| Option | Action | Story File Update |
+|--------|--------|-------------------|
+| **Follow workflow** | Execute required phase/subagent | None |
+| **Skip with documentation** | Update Implementation Notes with: Deviation, Reason, Authorization timestamp, Impact | `### Authorized Deviations` table |
+| **User override** | Record override with timestamp | `### User Overrides` list |
+
+**RCA Recommendation (Optional):** After "Skip with documentation", display: *"Consider running '/rca {reason}' to analyze deviation pattern. (Optional - not blocking)"*
+
+### Enforcement Notes
+
+Per architecture-constraints.md HALT pattern (lines 116-132): Claude MUST NOT rationalize deviations without explicit user consent via AskUserQuestion.
+
+**Reference:** RCA-019, architecture-constraints.md
+
+---
+
 ## When to Use This Skill
 
 **Prerequisites:** Git repo (recommended), context files (6), story file
@@ -298,6 +347,13 @@ FOR phase_num in range(CURRENT_PHASE, 11):
     # 5. Execute phase workflow (from phase file content)
     #    Each phase has specific subagents to invoke
     #    Update TodoWrite status as phases execute
+
+    # 5.5. Execute AC Checklist Update (RCA-003)
+    #    IF story has AC Verification Checklist section:
+    #      Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+    #      Identify phase-specific AC items
+    #      Update completed items ([ ] → [x])
+    #      Display: "  ✓ AC Checklist: {count} items updated"
 
     # 6. Exit Gate records completion
     #    Exit gate calls: devforgeai-validate phase-complete ${STORY_ID} --phase={phase_id} --checkpoint-passed
@@ -524,6 +580,7 @@ All Phase NN mandatory steps completed. Proceeding to Phase NN+1...
 
   backend-architect invoked (lines XXX-YYY)
   context-validator invoked (lines XXX-YYY)
+  AC Checklist items updated (implementation items)
 
 All Phase 03 mandatory steps completed. Proceeding to Phase 04...
 ```
@@ -545,6 +602,7 @@ All Phase 03 mandatory steps completed. Proceeding to Phase 04...
   refactoring-specialist invoked (lines XXX-YYY)
   code-reviewer invoked (lines XXX-YYY)
   Light QA executed (lines XXX-YYY)
+  AC Checklist items updated (quality items)
 
 All Phase 04 mandatory steps completed. Proceeding to Phase 05...
 ```

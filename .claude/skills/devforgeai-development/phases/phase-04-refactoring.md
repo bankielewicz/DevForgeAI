@@ -292,9 +292,18 @@ IF coverage_command_exit_code != 0 OR coverage_tool_unavailable:
 - [ ] code-reviewer invoked (check for Task() call in conversation)
 - [ ] Anti-gaming validation passed
 - [ ] Light QA validation passed (check for devforgeai-qa --mode=light)
-- [ ] AC Checklist (quality items) updated
+- [ ] AC Checklist (quality items) updated ([ ] → [x])
 
 **IF any checkbox UNCHECKED:** HALT workflow
+
+### AC Checklist Update Verification (RCA-003)
+
+After Step 6 completes, verify AC Checklist was actually updated:
+```
+Grep(pattern="- \\[x\\].*[Qq]uality", path="${STORY_FILE}")
+# Should find checked quality-related items
+# If no matches found: AC Checklist update was skipped - HALT
+```
 
 ### Subagent Invocation Verification
 
