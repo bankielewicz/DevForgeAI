@@ -558,6 +558,52 @@ If `allowed-tools` is not specified, Claude will ask for permission to use tools
 
 **Note**: `allowed-tools` is only supported for Skills in Claude Code.
 
+### Agent Skills Specification Compliance
+
+Claude Code Skills follow the **Agent Skills specification** (agentskills.io), an open standard by Anthropic adopted by Microsoft, GitHub, Cursor, Spring AI, and VS Code.
+
+#### YAML Frontmatter Schema
+
+**Required fields:**
+- `name`: 1-64 chars, lowercase-with-hyphens only
+- `description`: 1-1024 chars, MUST include trigger context ("Use when...")
+
+**Optional fields:**
+- `license`: License identifier (e.g., `MIT`, `Apache-2.0`)
+- `compatibility`: Version requirements (e.g., `"Claude Code v2.0+"`)
+- `metadata`: Key-value map for author, version, category (NOT at top level)
+- `allowed-tools`: Space-delimited tool whitelist
+- `disable-model-invocation`: Boolean to prevent auto-triggering
+
+**Example (fully compliant):**
+```yaml
+---
+name: code-reviewer
+description: |
+  Expert code review assistant. Use when users ask for code review,
+  want feedback on their code, or need security analysis.
+license: MIT
+compatibility: "Claude Code v2.0+"
+metadata:
+  author: TeamName
+  version: "2.0.0"
+  category: development-tools
+allowed-tools: Read Grep Glob
+---
+```
+
+**CRITICAL:** Fields like `version`, `author`, `category` MUST be nested under `metadata`, not at the top level.
+
+#### Validation
+
+Install and run the official validator:
+```bash
+pip install skills-ref
+skills-ref validate .claude/skills/my-skill/
+```
+
+**For complete Agent Skills specification:** See `references/agent-skills-spec.md`
+
 ### View available Skills
 
 Skills are automatically discovered by Claude from three sources:

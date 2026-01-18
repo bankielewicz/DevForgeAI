@@ -682,3 +682,100 @@ After implementing prevention strategies, verify:
 2. After resuming, you might skip phases (Pattern 2)
 
 **Check for BOTH patterns when troubleshooting skill execution issues.**
+
+---
+
+## Pattern: WSL File Corruption (ENOENT / Inaccessible Files)
+
+**Pattern ID:** Observed 2026-01-13
+**Severity:** BLOCKING
+**Environment:** WSL (Windows Subsystem for Linux)
+
+---
+
+### What Is This Pattern?
+
+**Problem:** File becomes corrupted/inaccessible after Claude Code edit operations.
+
+**Symptoms:**
+- `ls -la` shows file with `?????????` permissions (e.g., `-????????? ? ? ? ? ? filename.md`)
+- Read tool returns: `ENOENT: no such file or directory, statx '/path/to/file.md'`
+- File appears in directory listing but cannot be accessed
+- Occurs after Edit/Write operations, especially during unit test runs
+
+**Root Cause:** WSL filesystem caching issue, potentially caused by rapid file operations or character encoding conflicts between Windows and Linux.
+
+---
+
+### Recovery Procedure
+
+#### Step 1: Create Backup Copy (if possible)
+
+If file is readable before corruption detected:
+```bash
+cp file.md file-backup.txt
+```
+
+#### Step 2: Install dos2unix (if not installed)
+
+```bash
+sudo apt-get update && sudo apt-get install dos2unix
+```
+
+#### Step 3: Convert Line Endings
+
+```bash
+dos2unix file-backup.txt
+```
+
+#### Step 4: Remove Corrupted File
+
+```bash
+rm -f file.md
+```
+
+#### Step 5: Restore from Backup
+
+```bash
+mv file-backup.txt file.md
+```
+
+OR
+
+```bash
+cp file-backup.txt file.md
+```
+
+#### Step 6: Verify File Accessible
+
+```bash
+ls -la file.md  # Should show normal permissions
+head -10 file.md  # Should display content
+```
+
+---
+
+### Prevention Strategies
+
+1. **After large edits:** Wait a moment before running tests or further operations
+2. **Copy before editing:** `cp original.md original.backup.md`
+3. **Use Write over Edit for complete rewrites:** Write creates fresh file vs. in-place edit
+4. **Monitor for corruption signs:** Watch `ls -la` output during workflows
+
+---
+
+### Quick Fix Command Sequence
+
+```bash
+# If file shows ????????? in ls:
+dos2unix backup-copy.txt
+rm -f corrupted-file.md
+mv backup-copy.txt corrupted-file.md
+```
+
+---
+
+### Related
+
+- Claude Code Terminal update (2026-01-xx) introduced potential WSL filesystem interaction changes
+- May be related to rapid file operations during TDD test execution

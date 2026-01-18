@@ -29,6 +29,7 @@ created: 2025-12-10
 - Story file has "QA APPROVED" marker
 - All acceptance criteria verified
 - No deferred items without justification
+- runtime smoke test passes (CLI/API must execute) <!-- RCA-002 -->
 
 ## Gate 4: Release Readiness
 **Transition:** Releasing → Released

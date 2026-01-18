@@ -74,14 +74,17 @@ Analyze test coverage by architectural layer and validate against DevForgeAI's s
 ### Context Files Required
 ```
 devforgeai/specs/context/tech-stack.md
+  Read(file_path="devforgeai/specs/context/tech-stack.md")
   → Extract: primary_language, framework, orm
   → Purpose: Determine coverage tooling
 
 devforgeai/specs/context/source-tree.md
+  Read(file_path="devforgeai/specs/context/source-tree.md")
   → Extract: layer_patterns (business_logic, application, infrastructure)
   → Purpose: Classify files by architectural layer
 
 .claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md
+  Read(file_path="claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
   → Extract: threshold values (may override defaults)
   → Purpose: Validate coverage against project-specific thresholds
 ```
@@ -158,6 +161,9 @@ devforgeai/specs/context/source-tree.md
 
 1. **Load context files:** tech-stack.md, source-tree.md, coverage-thresholds.md
    - HALT if any missing with failure status
+      Read(file_path="devforgeai/specs/context/tech-stack.md")
+      Read(file_path="devforgeai/specs/context/source-tree.md")    
+      Read(file_path="claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
 2. **Extract language:** Parse tech-stack.md Core Technologies section
    - Supported: C#/.NET, Python, Node.js, Go, Rust, Java
 3. **Map language to coverage tool:**

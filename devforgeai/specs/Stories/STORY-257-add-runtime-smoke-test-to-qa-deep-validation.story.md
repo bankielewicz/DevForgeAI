@@ -1,0 +1,327 @@
+---
+id: STORY-257
+title: Add Runtime Smoke Test to QA Deep Validation
+type: feature
+epic: EPIC-040
+sprint: Backlog
+status: Replaced by Story-266
+points: 1
+depends_on: []
+priority: Critical
+assigned_to: Unassigned
+created: 2026-01-15
+format_version: "2.5"
+source_rca: RCA-002
+source_recommendation: REC-1
+---
+
+# Story: Add Runtime Smoke Test to QA Deep Validation
+
+## Description
+
+**As a** DevForgeAI framework user,
+**I want** QA deep validation to include actual runtime execution testing,
+**so that** stories are not falsely marked as "QA Approved" when the deliverable cannot actually execute.
+
+**Context:** RCA-002 discovered that QA validation passed STORY-004 despite the CLI being non-functional (`python -m treelint` failed due to missing `__main__.py`). Tests passed because `typer.testing.CliRunner` bypasses the entry point. This story adds Step 1.3 Runtime Smoke Test to Phase 1 validation.
+
+## Acceptance Criteria
+
+### AC#1: Project Type Detection
+
+**Given** a story is being validated with `/qa STORY-XXX deep`,
+**When** QA skill reaches Phase 1 Step 1.3,
+**Then** the project type is detected from story content and file patterns:
+- CLI project: story mentions "CLI" OR files include `cli.py`, `__main__.py`
+- API project: story mentions "API" OR files include `routes.py`, `endpoints.py`
+- Library project: no CLI or API indicators
+
+---
+
+### AC#2: CLI Runtime Smoke Test Execution
+
+**Given** a CLI project is being validated,
+**When** Phase 1 Step 1.3 executes,
+**Then** the following command is run:
+```
+python -m {package_name} --help
+```
+And the package name is extracted from `pyproject.toml` or `setup.py`.
+
+---
+
+### AC#3: Runtime Failure Detection and Reporting
+
+**Given** a CLI runtime smoke test fails (exit code != 0),
+**When** the test result is processed,
+**Then**:
+- Display "❌ CRITICAL: CLI not executable"
+- Include the command that was run
+- Include the stderr output
+- Add a RUNTIME_EXECUTION_FAILURE violation with severity CRITICAL
+- Set overall_status to "FAILED"
+
+---
+
+### AC#4: Runtime Success Confirmation
+
+**Given** a CLI runtime smoke test passes (exit code == 0),
+**When** the test result is processed,
+**Then**:
+- Display "✓ CLI smoke test passed"
+- Proceed to next validation step without adding violations
+
+---
+
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:
+    - type: "Configuration"
+      name: "SKILL.md"
+      file_path: ".claude/skills/devforgeai-qa/SKILL.md"
+      required_keys:
+        - key: "Step 1.3: Runtime Smoke Test"
+          type: "markdown"
+          example: "### Step 1.3: Runtime Smoke Test [RCA-002]"
+          required: true
+          validation: "Section exists after Step 1.2"
+          test_requirement: "Test: Grep for 'Step 1.3' in SKILL.md"
+
+    - type: "Service"
+      name: "RuntimeSmokeTestStep"
+      file_path: ".claude/skills/devforgeai-qa/SKILL.md"
+      interface: "Markdown instructions"
+      lifecycle: "Phase 1 execution"
+      dependencies:
+        - "pyproject.toml parser"
+        - "Bash tool for execution"
+      requirements:
+        - id: "SVC-001"
+          description: "Detect project type from story and files"
+          testable: true
+          test_requirement: "Test: CLI project detection returns 'cli' type"
+          priority: "Critical"
+        - id: "SVC-002"
+          description: "Extract package name from pyproject.toml"
+          testable: true
+          test_requirement: "Test: Package name extracted correctly"
+          priority: "Critical"
+        - id: "SVC-003"
+          description: "Execute python -m {package} --help command"
+          testable: true
+          test_requirement: "Test: Command executes with 10s timeout"
+          priority: "Critical"
+        - id: "SVC-004"
+          description: "Process exit code and stderr for failure detection"
+          testable: true
+          test_requirement: "Test: Non-zero exit code triggers CRITICAL violation"
+          priority: "Critical"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "Runtime smoke test is MANDATORY for CLI projects"
+      trigger: "Project type detected as 'cli'"
+      validation: "Step 1.3 executed and result recorded"
+      error_handling: "HALT if smoke test fails"
+      test_requirement: "Test: CLI project without Step 1.3 execution fails validation"
+      priority: "Critical"
+
+    - id: "BR-002"
+      rule: "Runtime smoke test is MANDATORY for API projects"
+      trigger: "Project type detected as 'api'"
+      validation: "Health endpoint returns 200 OK"
+      error_handling: "HALT if health check fails"
+      test_requirement: "Test: API project health check failure triggers CRITICAL"
+      priority: "Critical"
+
+    - id: "BR-003"
+      rule: "Library projects skip runtime smoke test"
+      trigger: "Project type detected as 'library'"
+      validation: "Step 1.3 logs 'Skipped: library project'"
+      error_handling: "N/A"
+      test_requirement: "Test: Library project skips Step 1.3 with log message"
+      priority: "Medium"
+
+  non_functional_requirements:
+    - id: "NFR-001"
+      category: "Performance"
+      requirement: "Smoke test timeout"
+      metric: "10 second maximum execution time"
+      test_requirement: "Test: Long-running command times out after 10s"
+      priority: "High"
+
+    - id: "NFR-002"
+      category: "Reliability"
+      requirement: "Graceful handling of missing pyproject.toml"
+      metric: "Clear error message with fallback detection"
+      test_requirement: "Test: Missing pyproject.toml produces helpful error"
+      priority: "Medium"
+```
+
+---
+
+## Technical Limitations
+
+```yaml
+technical_limitations: []
+```
+
+---
+
+## Non-Functional Requirements (NFRs)
+
+### Performance
+
+**Execution Time:**
+- Smoke test command: < 10s timeout
+- Total Phase 1 increase: < 15s additional time
+
+---
+
+### Reliability
+
+**Error Handling:**
+- Missing pyproject.toml: Attempt setup.py fallback, then error
+- Command not found: Clear error with installation instructions
+- Timeout: Kill process and report as failure
+
+---
+
+## Dependencies
+
+### Prerequisite Stories
+
+None - this is a standalone QA enhancement.
+
+### External Dependencies
+
+None.
+
+### Technology Dependencies
+
+None - uses existing Bash tool and file parsing capabilities.
+
+---
+
+## Test Strategy
+
+### Unit Tests
+
+**Coverage Target:** 95%+ for project type detection logic
+
+**Test Scenarios:**
+1. **Happy Path:** CLI project detected, smoke test passes
+2. **Edge Cases:**
+   - Project with both CLI and API indicators
+   - No pyproject.toml but setup.py exists
+   - Library project (no smoke test needed)
+3. **Error Cases:**
+   - Missing __main__.py causes failure
+   - Timeout on long-running command
+   - Invalid pyproject.toml syntax
+
+---
+
+### Integration Tests
+
+**Coverage Target:** 85%+ for smoke test execution
+
+**Test Scenarios:**
+1. **End-to-End:** Run `/qa STORY-XXX deep` on CLI project
+2. **Failure Detection:** Verify missing __main__.py is caught
+
+---
+
+## Acceptance Criteria Verification Checklist
+
+### AC#1: Project Type Detection
+
+- [ ] CLI detection from story content - **Phase:** 2 - **Evidence:** Test file
+- [ ] CLI detection from file patterns - **Phase:** 2 - **Evidence:** Test file
+- [ ] API detection logic - **Phase:** 2 - **Evidence:** Test file
+- [ ] Library fallback logic - **Phase:** 2 - **Evidence:** Test file
+
+### AC#2: CLI Runtime Smoke Test Execution
+
+- [ ] Package name extraction from pyproject.toml - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Command construction - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Bash execution with timeout - **Phase:** 3 - **Evidence:** Implementation
+
+### AC#3: Runtime Failure Detection and Reporting
+
+- [ ] CRITICAL violation added on failure - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Error message includes command and stderr - **Phase:** 3 - **Evidence:** Implementation
+- [ ] overall_status set to FAILED - **Phase:** 3 - **Evidence:** Implementation
+
+### AC#4: Runtime Success Confirmation
+
+- [ ] Success message displayed - **Phase:** 3 - **Evidence:** Implementation
+- [ ] No violations added on success - **Phase:** 3 - **Evidence:** Implementation
+
+---
+
+**Checklist Progress:** 0/11 items complete (0%)
+
+---
+
+## Definition of Done
+
+### Implementation
+- [ ] Step 1.3 Runtime Smoke Test added to SKILL.md after Step 1.2
+- [ ] Project type detection logic implemented
+- [ ] Package name extraction from pyproject.toml implemented
+- [ ] CLI smoke test execution with timeout implemented
+- [ ] API health check placeholder documented (for future)
+- [ ] CRITICAL violation creation on failure implemented
+- [ ] Success/skip logging implemented
+
+### Quality
+- [ ] All 4 acceptance criteria have passing tests
+- [ ] Edge cases covered (missing files, timeout, library projects)
+- [ ] Error messages are clear and actionable
+- [ ] NFRs met (10s timeout, graceful degradation)
+
+### Testing
+- [ ] Unit tests for project type detection
+- [ ] Unit tests for package name extraction
+- [ ] Integration test with real CLI project
+- [ ] Integration test with missing __main__.py
+
+### Documentation
+- [ ] Step 1.3 documented in SKILL.md
+- [ ] RCA-002 reference added to step header
+- [ ] deep-validation-workflow.md updated (covered in STORY-260)
+
+---
+
+## Change Log
+
+**Current Status:** Backlog
+
+| Date | Author | Phase/Action | Change | Files Affected |
+|------|--------|--------------|--------|----------------|
+| 2026-01-15 10:00 | claude/create-stories-from-rca | Created | Story created from RCA-002 REC-1 | STORY-257.story.md |
+
+## Notes
+
+**Design Decisions:**
+- Timeout of 10 seconds balances thoroughness with execution speed
+- CRITICAL severity ensures smoke test failures block QA approval
+- Library projects skip smoke test to avoid false failures
+
+**Source:**
+- **RCA:** RCA-002 (QA CLI Execution and Gaps File Validation Missing)
+- **Recommendation:** REC-1 (Add Runtime Smoke Test to QA Deep Validation)
+
+**References:**
+- `devforgeai/RCA/RCA-002-qa-cli-execution-gaps-validation.md`
+- `.claude/skills/devforgeai-qa/SKILL.md`
+
+---
+
+**Story Template Version:** 2.5
+**Last Updated:** 2026-01-15

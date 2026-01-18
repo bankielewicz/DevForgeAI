@@ -305,6 +305,66 @@ After `Skill(command="...")`:
 
 ---
 
+## CRITICAL: No Deviation from Skill Phases
+
+**Fundamental Principle**: Skills are NOT guidelines that can be optimized or skipped. Skills are **state machines** where execution discipline is non-negotiable.
+
+### Mandatory Execution Rules
+
+When executing ANY skill with defined phases:
+
+1. You **MUST** execute EVERY phase in documented order - No skipping, no reordering
+2. You **MUST** verify EVERY validation checkpoint - Do not proceed if checkpoint fails
+3. You **MUST** complete EVERY [MANDATORY] step - These are not suggestions
+4. You **MUST** invoke EVERY required subagent - Missing invocations = incomplete execution
+
+### Examples: Wrong vs Right Behavior
+
+**WRONG** (Phase Skipping):
+```
+Skill invoked → Skip Phase 02 (tests) → Jump to Phase 03 (implementation)
+```
+
+**RIGHT** (Sequential Execution):
+```
+Skill invoked → Phase 01 → Phase 02 → Phase 03 → ... → Phase 10
+```
+
+**WRONG** (Subagent Omission):
+```
+Phase 03 requires backend-architect → Skip because "implementation is simple"
+```
+
+**RIGHT** (Mandatory Invocation):
+```
+Phase 03 requires backend-architect → Task(subagent_type="backend-architect", ...)
+```
+
+**WRONG** (Checkpoint Bypass):
+```
+Validation checkpoint shows failures → Continue anyway "to save time"
+```
+
+**RIGHT** (Checkpoint Enforcement):
+```
+Validation checkpoint shows failures → HALT → Fix issues → Retry phase
+```
+
+### Self-Test: Skill Execution Verification
+
+**Before declaring any skill workflow complete, verify:**
+
+- [ ] Did I execute ALL numbered phases (01 through 10)?
+- [ ] Did I invoke ALL [MANDATORY] subagents listed for each phase?
+- [ ] Did I verify ALL validation checkpoints before proceeding?
+- [ ] Did I update phase state after each phase completion?
+
+**Test**: If you did not invoke all [MANDATORY] subagents, you skipped required phases. **HALT and complete them.**
+
+**Reference**: RCA-022 identified this principle after phases were skipped during STORY-128 development.
+
+---
+
 ## Conditional Rules
 
 Path-specific rules loaded automatically from `.claude/rules/conditional/`:

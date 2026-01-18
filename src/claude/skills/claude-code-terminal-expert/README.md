@@ -1,11 +1,12 @@
 # claude-code-terminal-expert Skill
 
-**Version:** 2.0
+**Version:** 3.0.0
 **Created:** 2025-11-06
-**Last Updated:** 2025-12-20
-**Claude Code Version:** 2.0.74
+**Last Updated:** 2026-01-18
+**Claude Code Version:** 2.1.12
 **Status:** ✅ Production Ready
 **Type:** Knowledge/Infrastructure Skill
+**Agent Skills Spec:** ✅ Compliant (v1.0)
 
 ---
 
@@ -23,11 +24,11 @@ Comprehensive expert knowledge of Claude Code Terminal's complete feature set, e
 
 | Metric | Value |
 |--------|-------|
-| **Total Files** | 9 (1 SKILL.md + 6 references + 2 assets) |
-| **Total Lines** | ~17,000 lines |
-| **Topics Covered** | 34+ (December 2025 features) |
-| **Source Docs** | 60+ (local + official web docs) |
-| **Claude Code Version** | 2.0.74 |
+| **Total Files** | 10 (1 SKILL.md + 7 references + 2 assets) |
+| **Total Lines** | ~18,000 lines |
+| **Topics Covered** | 35+ (including Agent Skills spec) |
+| **Source Docs** | 65+ (local + official web docs + agentskills.io) |
+| **Claude Code Version** | 2.1.12 |
 | **Token Efficiency** | 95% savings (progressive disclosure) |
 
 ### December 2025 Update Highlights
@@ -47,17 +48,18 @@ Comprehensive expert knowledge of Claude Code Terminal's complete feature set, e
 
 ```
 claude-code-terminal-expert/
-├── SKILL.md                          # Discovery & routing (440 lines)
-├── references/                       # Progressive disclosure (6 files)
-│   ├── core-features.md             # 2,428 lines (subagents, skills, commands, plugins, MCP)
-│   ├── configuration-guide.md       # 1,513 lines (settings, models, CLI, permissions)
-│   ├── integration-patterns.md      # 2,790 lines (CI/CD, hooks, headless, containers)
-│   ├── troubleshooting-guide.md     # 2,128 lines (installation, auth, performance, errors)
-│   ├── advanced-features.md         # 3,553 lines (sandboxing, network, monitoring, security)
-│   └── best-practices.md            # 1,230 lines (workflows, efficiency, prompts, token optimization)
+├── SKILL.md                          # Discovery & routing (~700 lines)
+├── references/                       # Progressive disclosure (7 files)
+│   ├── core-features.md             # ~2,700 lines (subagents, skills, commands, plugins, MCP)
+│   ├── configuration-guide.md       # ~1,800 lines (settings, models, CLI, permissions, DevForgeAI)
+│   ├── integration-patterns.md      # ~2,950 lines (CI/CD, hooks, headless, containers)
+│   ├── troubleshooting-guide.md     # ~2,128 lines (installation, auth, performance, errors)
+│   ├── advanced-features.md         # ~3,635 lines (sandboxing, network, monitoring, security)
+│   ├── best-practices.md            # ~1,400 lines (workflows, efficiency, Agent Skills practices)
+│   └── agent-skills-spec.md         # ~800 lines (Agent Skills specification reference) [NEW]
 └── assets/                           # Quick lookup (2 files)
-    ├── quick-reference.md           # 726 lines (commands, shortcuts, configs)
-    └── comparison-matrix.md         # 600 lines (feature comparison, decision trees)
+    ├── quick-reference.md           # ~797 lines (commands, shortcuts, configs)
+    └── comparison-matrix.md         # ~651 lines (feature comparison, decision trees)
 ```
 
 ---
@@ -312,6 +314,26 @@ All current official documentation retrieved and verified.
 6. Notify user of changes
 
 ### Version History
+
+- **v3.0.0 (2026-01-18):** Agent Skills Specification Compliance
+  - Updated YAML frontmatter to Agent Skills spec (agentskills.io)
+  - Added `license`, `compatibility`, `metadata`, `allowed-tools` fields
+  - New reference: `agent-skills-spec.md` (complete specification docs)
+  - Updated `core-features.md` with Agent Skills compliance section
+  - Updated `configuration-guide.md` with DevForgeAI integration section
+  - Updated `best-practices.md` with Agent Skills best practices
+  - Claude Code Version: 2.1.12
+
+- **v2.0 (2025-12-20):** December 2025 Features Update
+  - Added Background Tasks & Agents documentation
+  - Added Checkpoints & Rewind features
+  - Added Named Sessions documentation
+  - Added Claude Opus 4.5 configuration
+  - Added Remote MCP with OAuth
+  - Added IDE Integrations (Chrome, JetBrains, VS Code)
+  - Added Claude Agent SDK documentation
+  - Claude Code Version: 2.0.74
+
 - **v1.0 (2025-11-06):** Initial creation
   - Migrated 15,788 lines from devforgeai/specs/Terminal/
   - Fetched 29 official web docs from code.claude.com

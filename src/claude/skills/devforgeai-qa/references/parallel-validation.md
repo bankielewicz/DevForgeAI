@@ -322,6 +322,40 @@ This reference uses error handling patterns defined in:
 
 ---
 
+## Coverage WARN Escalation (ADR-010)
+
+**CRITICAL:** test-automator returning WARN for coverage gaps → QA FAILED (not PASS WITH WARNINGS)
+
+### Coverage Result Interpretation
+
+| test-automator Result | Coverage Status | Phase 3 Outcome |
+|----------------------|-----------------|-----------------|
+| PASS (≥ thresholds) | Met | PASSED (if no other issues) |
+| WARN (< thresholds) | Below | **FAILED** (blocking - ADR-010) |
+| FAIL (execution error) | Unknown | Depends on 2/3 threshold |
+
+### Escalation Logic
+
+```pseudocode
+# At Phase 3 Step 3.1 (Result Determination)
+IF test_automator_result.status == "WARN":
+    IF test_automator_result.reason == "coverage_below_threshold":
+        # Coverage WARN is NOT a warning - it's a blocking FAILED
+        coverage_blocking = true
+        overall_status = "FAILED"  # Non-negotiable
+        Display: "❌ Coverage below thresholds - QA FAILED (ADR-010)"
+```
+
+### Rationale
+
+- **Coverage gaps cannot be deferred** - they must be remediated
+- **test-automator WARN ≠ other validator WARN** - coverage is special case
+- **Enforcement prevents "approved with warnings" for incomplete coverage**
+
+**Reference:** `.claude/rules/workflow/qa-validation.md` (Coverage Threshold Enforcement section)
+
+---
+
 ## Configuration Reference
 
 ### Loading Parallel Config

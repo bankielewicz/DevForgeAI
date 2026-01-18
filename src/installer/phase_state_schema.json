@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://devforgeai.com/schemas/phase-state.json",
+  "title": "PhaseState",
+  "description": "Schema for TDD phase state tracking in DevForgeAI development workflow",
+  "type": "object",
+  "required": [
+    "story_id",
+    "workflow_started",
+    "current_phase",
+    "phases",
+    "validation_errors",
+    "blocking_status"
+  ],
+  "properties": {
+    "story_id": {
+      "type": "string",
+      "pattern": "^STORY-\\d{3}$",
+      "description": "Story identifier in format STORY-XXX"
+    },
+    "workflow_started": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC ISO-8601 timestamp when workflow started"
+    },
+    "workflow_completed": {
+      "type": "string",
+      "format": "date-time",
+      "description": "UTC ISO-8601 timestamp when workflow completed (optional)"
+    },
+    "current_phase": {
+      "type": "string",
+      "enum": ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"],
+      "description": "Current active phase identifier"
+    },
+    "phases": {
+      "type": "object",
+      "description": "State tracking for each of the 10 TDD phases",
+      "patternProperties": {
+        "^(0[1-9]|10)$": {
+          "$ref": "#/definitions/PhaseData"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation_errors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of validation errors encountered during workflow"
+    },
+    "blocking_status": {
+      "type": "boolean",
+      "description": "Whether workflow progression is blocked due to errors"
+    }
+  },
+  "definitions": {
+    "PhaseData": {
+      "type": "object",
+      "description": "State data for a single TDD phase",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pending", "in_progress", "completed", "skipped"],
+          "description": "Current status of this phase"
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC ISO-8601 timestamp when phase started"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "UTC ISO-8601 timestamp when phase completed"
+        },
+        "subagents_required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of subagents required to be invoked in this phase"
+        },
+        "subagents_invoked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of subagents that have been invoked in this phase"
+        },
+        "checkpoint_passed": {
+          "type": "boolean",
+          "description": "Whether the phase checkpoint validation passed"
+        }
+      },
+      "required": ["status", "subagents_invoked"]
+    }
+  },
+  "examples": [
+    {
+      "story_id": "STORY-001",
+      "workflow_started": "2025-12-24T10:00:00Z",
+      "current_phase": "02",
+      "phases": {
+        "01": {
+          "status": "completed",
+          "started_at": "2025-12-24T10:00:00Z",
+          "completed_at": "2025-12-24T10:05:00Z",
+          "subagents_required": ["git-validator", "tech-stack-detector"],
+          "subagents_invoked": ["git-validator", "tech-stack-detector"],
+          "checkpoint_passed": true
+        },
+        "02": {
+          "status": "pending",
+          "subagents_required": ["test-automator"],
+          "subagents_invoked": []
+        }
+      },
+      "validation_errors": [],
+      "blocking_status": false
+    }
+  ]
+}

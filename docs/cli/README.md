@@ -43,6 +43,49 @@ Both use the command name `devforgeai`. The Python CLI takes precedence when bot
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### How the CLIs Interact
+
+The Node.js CLI routes the `install` command to the Python installer:
+
+```
+User runs: devforgeai install /path/to/project
+         ↓
+Node.js CLI (bin/devforgeai.js)
+         ↓
+Spawns: python -m installer --mode=fresh --target /path/to/project
+         ↓
+Python installer (installer/install.py)
+         ↓
+Framework deployed to target project
+```
+
+All validation commands (`validate-dod`, `phase-*`, `ast-grep`) are Python-only and run directly without Node.js involvement.
+
+### Building from Source
+
+```bash
+# Node.js CLI
+npm install                     # Install dependencies
+npm install -g .                # Install CLI globally
+
+# Python CLI
+pip install -e .claude/scripts/ # Install in editable mode
+
+# Verify both work
+devforgeai --version            # Node.js CLI (shows vX.X.X)
+devforgeai validate-dod --help  # Python CLI
+```
+
+**Source Code Locations:**
+| Component | Location |
+|-----------|----------|
+| Node.js entry point | `bin/devforgeai.js` |
+| Node.js CLI logic | `lib/cli.js` |
+| Wizard modules | `src/cli/wizard/` |
+| Python CLI | `.claude/scripts/devforgeai_cli/` |
+
+See [docs/BUILD.md](../BUILD.md) for comprehensive build documentation.
+
 ---
 
 ## Quick Start

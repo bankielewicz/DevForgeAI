@@ -1,7 +1,7 @@
 ---
 description: Manually trigger feedback collection with optional context
 argument-hint: [context]
-model: haiku
+model: opus
 allowed-tools: Skill
 ---
 

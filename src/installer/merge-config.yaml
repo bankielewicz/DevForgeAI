@@ -1,0 +1,153 @@
+---
+# CLAUDE.md Merge Configuration
+# Defines variables, strategies, and resolution options
+
+# Framework Template Variables
+# Auto-detected with fallback values
+variables:
+  - name: PROJECT_NAME
+    detection_method: git_remote_or_dirname
+    fallback: "MyProject"
+    description: "Repository name or project directory name"
+
+  - name: PROJECT_PATH
+    detection_method: directory_path
+    fallback: "/home/user/project"
+    description: "Absolute path to project directory"
+
+  - name: PYTHON_VERSION
+    detection_method: subprocess_python3_version
+    fallback: "Python 3.8+"
+    description: "Output from 'python3 --version'"
+
+  - name: PYTHON_PATH
+    detection_method: subprocess_which_python3
+    fallback: "/usr/bin/python3"
+    description: "Output from 'which python3'"
+
+  - name: TECH_STACK
+    detection_method: file_detection
+    fallback: "Mixed"
+    description: "Detected from package.json (Node.js), requirements.txt (Python), or *.csproj (.NET)"
+
+  - name: INSTALLATION_DATE
+    detection_method: iso8601_date
+    fallback: "2025-11-17"
+    description: "Current date in YYYY-MM-DD format"
+
+  - name: FRAMEWORK_VERSION
+    detection_method: version_json_or_hardcoded
+    fallback: "1.0.1"
+    description: "Framework version from devforgeai/version.json"
+
+# Merge Strategies
+strategies:
+  - name: preserve_user_append_framework
+    description: "User sections first, framework sections follow"
+    default: true
+    conflict_handling: "detect_and_prompt"
+    user_loss_prevention: true
+    rollback_capability: true
+
+  - name: replace_all
+    description: "Replace entire CLAUDE.md with framework template"
+    default: false
+    conflict_handling: "none"
+    user_loss_prevention: false
+    rollback_capability: true
+
+  - name: manual
+    description: "User manually edits merged candidate file"
+    default: false
+    conflict_handling: "user_decides"
+    user_loss_prevention: true
+    rollback_capability: true
+
+# Conflict Resolution Options
+conflict_resolution:
+  options:
+    - id: keep_user
+      label: "Keep mine, add DevForgeAI as subsection"
+      description: "Preserves user version, renames framework to ## DevForgeAI Critical Rules"
+      data_safe: true
+
+    - id: use_framework
+      label: "Use DevForgeAI, move mine to 'Original Instructions'"
+      description: "Uses framework version, saves user version in ## Original Instructions"
+      data_safe: true
+
+    - id: merge_both
+      label: "Merge both (I want all rules)"
+      description: "Combines both versions into one section with clear separation"
+      data_safe: true
+
+    - id: manual
+      label: "Manual (I'll edit afterward)"
+      description: "Creates candidate file, user edits before approval"
+      data_safe: true
+
+# Performance Targets
+performance_targets:
+  parsing: 2  # seconds
+  variable_substitution: 2  # seconds
+  merge_algorithm: 5  # seconds (parse + substitute + merge + diff)
+  diff_generation: 3  # seconds
+  total_operation: 12  # seconds
+
+# Backup Configuration
+backup:
+  enabled: true
+  format: "CLAUDE.md.pre-merge-backup-{YYYY-MM-DD}"
+  preservation: "byte-identical"
+  cleanup_after_days: 30
+
+# File Locations
+files:
+  user_claude_md: "CLAUDE.md"
+  framework_template: "devforgeai/templates/CLAUDE.md.template"
+  candidate_output: "CLAUDE.md.candidate"
+  backup_output: "CLAUDE.md.pre-merge-backup-{date}"
+  diff_output: "merge-diff.txt"
+  report_output: "merge-report.md"
+  installation_report: "installation-report.md"
+
+# Validation Rules
+validation:
+  user_content_required: true
+  framework_sections_required:
+    - "Core Philosophy"
+    - "Critical Rules"
+    - "Quick Reference"
+    - "Development Workflow"
+    - "Skills Reference"
+    - "Subagents Reference"
+    - "Context Files Guide"
+    - "Best Practices Summary"
+  minimum_framework_lines: 800
+  unsubstituted_variables_allowed: 0  # For framework vars only
+
+# Approval Workflow
+approval_workflow:
+  enabled: true
+  options:
+    - id: approve
+      label: "Approve merge"
+      action: "apply_changes_to_claude_md"
+      preserves_backup: true
+
+    - id: review_diff
+      label: "Review diff first"
+      action: "open_merge_diff_then_approve_or_reject"
+      preserves_backup: true
+
+    - id: reject
+      label: "Reject merge"
+      action: "keep_original_claude_md_skip_framework"
+      preserves_backup: true
+
+    - id: manual
+      label: "Manual merge"
+      action: "edit_candidate_file_then_approve"
+      preserves_backup: true
+
+  default_option: "review_diff"

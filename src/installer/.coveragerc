@@ -1,0 +1,48 @@
+# Coverage configuration for STORY-078 installer components
+# Excludes abstract interface methods per industry best practices
+# References:
+# - https://coverage.readthedocs.io/en/latest/excluding.html
+# - https://github.com/pytest-dev/pytest-cov/issues/428
+
+[run]
+source = .
+omit =
+    */tests/*
+    */__pycache__/*
+    */venv/*
+    */.venv/*
+    */site-packages/*
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+
+# Use exclude_also to preserve defaults like "pragma: no cover"
+exclude_also =
+    # Abstract methods and interfaces (lines 56, 61, 66, 71, 74)
+    @(abc\.)?abstractmethod
+    @(abc\.)?abstractproperty
+    @(abc\.)?abstractclassmethod
+
+    # Defensive programming
+    raise NotImplementedError
+    raise AssertionError
+
+    # Type checking
+    if TYPE_CHECKING:
+
+    # Debugging
+    if self\.debug
+    if settings\.DEBUG
+
+    # Script entry points
+    if __name__ == .__main__.:
+
+[html]
+directory = htmlcov
+
+[paths]
+source =
+    installer/
+    */site-packages/

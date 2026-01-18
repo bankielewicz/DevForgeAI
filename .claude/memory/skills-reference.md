@@ -587,6 +587,57 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 
 ---
 
+### devforgeai-qa-remediation
+
+**Use when:**
+- QA gap files need to be converted to stories
+- Processing imported QA reports from external projects
+- Systematically addressing accumulated technical debt
+- After QA validation produces gap files (`*-gaps.json`)
+
+**Invoked by:** `/review-qa-reports` command
+
+**Invocation:**
+```
+# Via command (recommended)
+/review-qa-reports --source local --min-severity HIGH
+
+# Direct skill invocation
+Skill(command="devforgeai-qa-remediation")
+```
+
+### User Input Guidance
+
+**For gap remediation:** Specify source (`local`, `imports`, or `all`) and minimum severity threshold. The skill discovers gap files, aggregates and scores gaps, presents interactive selection, then creates stories for selected gaps.
+
+**Gap Sources:**
+- Local: `devforgeai/qa/reports/*-gaps.json`
+- Imports: `devforgeai/qa/imports/**/*-gaps.json`
+
+**7-Phase Workflow:**
+1. **Phase 01:** Pre-flight validation, load config
+2. **Phase 02:** Discovery & parsing (glob gap files, parse JSON)
+3. **Phase 03:** Aggregation & prioritization (dedupe, score, filter)
+4. **Phase 04:** Interactive selection (display summary, user selects)
+5. **Phase 05:** Batch story creation (invoke devforgeai-story-creation)
+6. **Phase 06:** Source report update (add `implemented_in` to gap JSON)
+7. **Phase 07:** Technical debt integration (add skipped gaps to register)
+
+**Key Features:**
+- Processes 4 gap types: coverage, anti-pattern, code quality, deferral
+- Severity scoring: CRITICAL=100, HIGH=75, MEDIUM=50, LOW=25
+- Skipped gaps automatically added to `devforgeai/technical-debt-register.md`
+- Enhancement reports generated in `devforgeai/qa/enhancement-reports/`
+
+**Reference Files:**
+- `references/gap-discovery-workflow.md` - Phase 02 parsing
+- `references/gap-aggregation-algorithm.md` - Phase 03 scoring
+- `references/gap-to-story-mapping.md` - Phase 05 context markers
+- `references/report-update-protocol.md` - Phase 06 updates
+- `references/technical-debt-update.md` - Phase 07 debt register
+
+---
+
 ### devforgeai-release
 
 **Use when:**

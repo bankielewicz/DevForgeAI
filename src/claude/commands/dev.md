@@ -20,10 +20,13 @@ Do not skip any phases nor skip the devforgeai-development skill.
 # Standard usage
 /dev STORY-001
 
+# Auto-detection: If gaps.json exists, remediation mode is enabled automatically
+# The command checks devforgeai/qa/reports/STORY-XXX-gaps.json before invoking skill
+
 # Bypass dependency checks (not recommended)
 /dev STORY-001 --force
 
-# devforgeai-development skill will resolve QA issues noted in STORY-[0-9]-gaps.json file
+# Explicit remediation mode (overrides auto-detection)
 /dev STORY-001 --fix
 
 # Development workflow states
@@ -57,6 +60,8 @@ IF plan mode is active:
 ```
 STORY_ID = null
 FORCE_FLAG = false
+REMEDIATION_MODE = false
+GAPS_AUTO_DETECTED = false
 Mode = TDD
 
 # Parse arguments
@@ -97,6 +102,31 @@ IF file not found:
     HALT
 
 Display: "✓ Story: $1"
+```
+
+**Step 0.3: Auto-detect gaps.json (Remediation Mode)**
+
+```
+# Construct canonical gaps path (COMP-002)
+# Security: STORY_ID validated in Step 0.1 (regex: STORY-[0-9]+) - no path traversal possible
+GAPS_FILE_PATH = "devforgeai/qa/reports/${STORY_ID}-gaps.json"
+
+# Check if gaps file exists using Glob (COMP-003)
+# Uses native Glob tool for gaps.json detection (per tech-stack.md)
+gaps_result = Glob(pattern="${GAPS_FILE_PATH}")  # Returns match if gaps.json exists
+
+IF gaps_result is not empty AND REMEDIATION_MODE != true:
+    # Auto-detection found gaps file
+    GAPS_AUTO_DETECTED = true
+    REMEDIATION_MODE = true
+    Display: "🔧 Auto-detected gaps.json - Remediation mode enabled"
+    Display: "   Path: ${GAPS_FILE_PATH}"
+    Display: ""
+ELSE:  # gaps.json not found OR explicit --fix already set
+    # REMEDIATION_MODE remains unchanged (false from Step 0.1 OR true from --fix)
+    # No additional notification needed
+
+# Note: Explicit --fix flag (Step 0.1) takes priority over auto-detection
 ```
 
 ---

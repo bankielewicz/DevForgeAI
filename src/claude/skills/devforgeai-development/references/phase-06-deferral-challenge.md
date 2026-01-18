@@ -1015,6 +1015,45 @@ User Decisions:
 
 ---
 
+### Step 9: Update AC Verification Checklist (Phase 06 Items) [NEW - RCA-011]
+
+**Purpose:** Check off AC items related to deferral validation (real-time progress tracking)
+
+**Execution:** After Step 8 (Final Summary Display), before Phase 06 checkpoint
+
+**Load AC Checklist Update Workflow:**
+```
+Read(file_path=".claude/skills/devforgeai-development/references/ac-checklist-update-workflow.md")
+```
+
+**Identify Phase 06 AC Items:**
+```
+Grep(pattern="Phase.*: 4.5", path="${STORY_FILE}", output_mode="content", -B=1)
+```
+
+**Common Phase 06 items:**
+- [ ] All deferrals user-approved
+- [ ] No circular deferral chains
+- [ ] Follow-up stories created (if applicable)
+- [ ] Deferral timestamps recorded
+- [ ] Technical debt register updated
+
+**Update Procedure:** Batch-update all Phase 06 items that are complete
+
+**Display:** "Phase 06 AC Checklist: ✓ {count} items checked | AC Progress: {X}/{Y}"
+
+**Graceful Skip:**
+```
+IF AC Verification Checklist section not found in story:
+  Display: "ℹ️ Story uses DoD-only tracking (AC Checklist not present)"
+  Skip AC checklist updates
+  Continue to Phase 06 Checkpoint
+```
+
+**Performance:** ~15-30 seconds for 2-4 items
+
+---
+
 ## Success Criteria (Updated RCA-014)
 
 This checkpoint succeeds when:
@@ -1237,7 +1276,7 @@ Proceeding without complete Phase 06 results in:
   - Git commit may fail (DoD validation requires approved deferrals)
 ```
 
-- [ ] **Step 7:** AC Verification Checklist updated (Phase 06 items) [NEW - RCA-011]
+- [ ] **Step 9:** AC Verification Checklist updated (Phase 06 items) [NEW - RCA-011]
   - Verification: All Phase 06 AC items checked off (deferral validation items)
   - Output: "AC Progress: X/Y items complete" displayed
   - Graceful: Skipped if story doesn't have AC Checklist section

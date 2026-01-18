@@ -1,0 +1,18 @@
+<!-- STORY-248: Completion Page Template -->
+<div class="page-complete">
+  <div class="success-icon">&#10003;</div>
+  <h2>Installation Complete!</h2>
+  <div class="installed-components">
+    <h3>Installed Components:</h3>
+    <ul>
+      <li>Core Framework</li>
+    </ul>
+  </div>
+  <label class="launch-option">
+    <input type="checkbox" id="launch-after-install" onchange="app.setLaunchAfterInstall(this.checked)" />
+    Launch DevForgeAI after closing
+  </label>
+  <div class="button-row">
+    <button class="btn-finish" onclick="app.finish()">Finish</button>
+  </div>
+</div>

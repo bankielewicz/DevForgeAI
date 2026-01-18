@@ -1,38 +1,27 @@
-"""
-Services for DevForgeAI installer.
+"""Services package - Infrastructure layer for installer (STORY-074).
 
-Provides:
-- Auto-detection services (installations, CLAUDE.md, Git, conflicts)
-- CLAUDE.md merge services (markdown parsing, backup, conflict detection)
-- Formatted summaries (color-coded output)
+This package contains service implementations that handle low-level concerns:
+- Backup operations (backup_service.py)
+- Rollback operations (rollback_service.py)
+- Installation logging (install_logger.py)
+- Lock file management (lock_file_manager.py)
+
+Services are designed to be independent, with no circular dependencies.
+They are invoked by higher-level components (orchestrators, handlers).
+
+Architecture pattern:
+- Domain Layer: ErrorCategorizer (error_handler.py) - pure business logic
+- Infrastructure Layer: ErrorRecoveryOrchestrator (error_orchestrator.py) - service composition
 """
 
-from .version_detection_service import VersionDetectionService, VersionInfo, VersionComparisonResult
-from .claudemd_detection_service import ClaudeMdDetectionService, ClaudeMdInfo
-from .git_detection_service import GitDetectionService, GitInfo
-from .file_conflict_detection_service import FileConflictDetectionService, ConflictInfo
-from .summary_formatter_service import SummaryFormatterService
-from .auto_detection_service import AutoDetectionService, DetectionResult
-from .markdown_parser import MarkdownParser
-from .merge_backup_service import MergeBackupService
-from .merge_conflict_detection_service import MergeConflictDetectionService
-from .claudemd_merge_service import ClaudeMdMergeService
+from .backup_service import BackupService
+from .rollback_service import RollbackService
+from .install_logger import InstallLogger
+from .lock_file_manager import LockFileManager
 
 __all__ = [
-    'VersionDetectionService',
-    'VersionInfo',
-    'VersionComparisonResult',
-    'ClaudeMdDetectionService',
-    'ClaudeMdInfo',
-    'GitDetectionService',
-    'GitInfo',
-    'FileConflictDetectionService',
-    'ConflictInfo',
-    'SummaryFormatterService',
-    'AutoDetectionService',
-    'DetectionResult',
-    'MarkdownParser',
-    'MergeBackupService',
-    'MergeConflictDetectionService',
-    'ClaudeMdMergeService',
+    'BackupService',
+    'RollbackService',
+    'InstallLogger',
+    'LockFileManager',
 ]

@@ -117,7 +117,9 @@ Feasibility indicators:
 1. Code pattern provided? (search for code blocks, examples)
 2. Estimated size mentioned? (look for "15 lines", "simple", etc.)
 3. Dependencies available? (check tech-stack.md, dependencies.md)
-
+   Read(file_path="devforgeai/specs/context/tech-stack.md")   
+   Read(file_path="devforgeai/specs/context/dependencies.md")
+   
 IF ALL true (feasible now):
     AND no technical blocker documented:
     VIOLATION:

@@ -1,7 +1,33 @@
 ---
 name: claude-code-terminal-expert
-description: Comprehensive expert knowledge of Claude Code Terminal features, configuration, and capabilities. Use when users ask about Claude Code functionality ("Can Claude Code...?", "Does Claude Code have...?"), creating subagents/skills/commands/plugins, configuring settings/models/permissions, installing MCP servers, setting up hooks/automation, CI/CD integration, troubleshooting issues, or any Claude Code Terminal questions. Provides authoritative guidance on all terminal features.
+description: |
+  Comprehensive expert knowledge of Claude Code Terminal features, configuration,
+  and capabilities. Use when users ask about Claude Code functionality ("Can Claude
+  Code...?", "Does Claude Code have...?"), creating subagents/skills/commands/plugins,
+  configuring settings/models/permissions, installing MCP servers, setting up
+  hooks/automation, CI/CD integration, troubleshooting issues, or any Claude Code
+  Terminal questions. Provides authoritative guidance on all terminal features
+  including the Agent Skills specification for creating compliant skills.
 model: claude-sonnet-4-5-20250929
+license: MIT
+compatibility: "Claude Code v2.0+ (tested on v2.1.12)"
+metadata:
+  author: DevForgeAI
+  version: "3.0.0"
+  category: knowledge-infrastructure
+  last-updated: "2026-01-17"
+  agent-skills-spec-version: "1.0"
+  topics:
+    - subagents
+    - skills
+    - slash-commands
+    - plugins
+    - mcp-servers
+    - hooks
+    - configuration
+    - ci-cd
+    - agent-skills-specification
+allowed-tools: Read Grep Glob WebFetch WebSearch
 ---
 
 # Claude Code Terminal Expert
@@ -97,6 +123,35 @@ Invoke this skill when users ask about:
 **Quick start:** Create `.claude/skills/my-skill/SKILL.md` with frontmatter
 
 **Details:** See `references/core-features.md` (Section 2)
+
+---
+
+### Agent Skills Specification
+
+**Official Standard:** https://agentskills.io/specification
+**GitHub:** https://github.com/agentskills/agentskills
+
+Agent Skills is an open standard (Dec 2025) by Anthropic defining how AI agents discover and use modular capabilities. Adopted by Microsoft, GitHub, Cursor, Spring AI, VS Code.
+
+**Progressive Disclosure (3-Tier Loading):**
+| Level | When Loaded | Token Budget | Purpose |
+|-------|-------------|--------------|---------|
+| **Discovery** | Always (startup) | ~100 tokens | Metadata only (name + description) |
+| **Activation** | When triggered | <5,000 tokens | SKILL.md body (instructions) |
+| **Execution** | On-demand | Unlimited | references/, scripts/, assets/ |
+
+**YAML Frontmatter Requirements:**
+- `name`: **Required**, 1-64 chars, lowercase-with-hyphens only
+- `description`: **Required**, 1-1024 chars, MUST include "Use when..." trigger context
+- `metadata`: Optional, for version/author/category (NOT at top level)
+- `allowed-tools`: Optional (experimental), space-delimited tool whitelist
+- `license`: Optional, license reference (e.g., MIT)
+- `compatibility`: Optional, version requirements
+
+**Validation:** `pip install skills-ref && skills-ref validate path/to/skill/`
+
+**For complete Agent Skills documentation:**
+→ Load `references/agent-skills-spec.md`
 
 ---
 
@@ -489,6 +544,9 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 **Documentation URLs by topic:**
 - Subagents: https://code.claude.com/docs/en/sub-agents
 - Skills: https://code.claude.com/docs/en/skills
+- Agent Skills Spec: https://agentskills.io/specification
+- Agent Skills GitHub: https://github.com/agentskills/agentskills
+- Agent Skills Overview: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview
 - Slash Commands: https://code.claude.com/docs/en/slash-commands
 - Plugins: https://code.claude.com/docs/en/plugins
 - Plugin Reference: https://code.claude.com/docs/en/plugins-reference
@@ -594,9 +652,10 @@ Read(file_path=".claude/skills/claude-code-terminal-expert/assets/comparison-mat
 4. Confirm update with user
 
 **Version History:**
-- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
-- v1.1 (2025-12-09): Added rules system, new CLI flags, hook events, subagent enhancements, DevForgeAI integration
+- v3.0 (2026-01-18): Agent Skills Specification compliance - updated YAML frontmatter, new agent-skills-spec.md reference, DevForgeAI integration sections
 - v2.0 (2025-12-20): Major update with December 2025 features - background tasks, checkpoints, sessions, Opus 4.5, model switching, remote MCP, plugins enhancement
+- v1.1 (2025-12-09): Added rules system, new CLI flags, hook events, subagent enhancements, DevForgeAI integration
+- v1.0 (2025-11-06): Initial creation, migrated 15,788 lines from devforgeai/specs/Terminal/
 
 ---
 

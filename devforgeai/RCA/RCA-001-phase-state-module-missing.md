@@ -291,14 +291,14 @@ def _get_phase_state(project_root: str):
 
 ## Implementation Checklist
 
-- [ ] **REC-1:** [STORY-253](../specs/Stories/STORY-253-create-phase-state-module.story.md) - Create `.claude/scripts/devforgeai_cli/phase_state.py` with PhaseState class
-- [ ] **REC-2:** [STORY-254](../specs/Stories/STORY-254-update-phase-commands-import.story.md) - Update `phase_commands.py` to use relative import `from ..phase_state import PhaseState`
+- [ ] **REC-1:** Create `.claude/scripts/devforgeai_cli/phase_state.py` with PhaseState class
+- [ ] **REC-2:** Update `phase_commands.py` to use relative import `from ..phase_state import PhaseState`
 - [ ] Reinstall CLI: `pip install -e .claude/scripts/`
 - [ ] Test `devforgeai-validate phase-init STORY-TEST --project-root=.`
 - [ ] Test `devforgeai-validate phase-status STORY-TEST`
 - [ ] Test `devforgeai-validate phase-complete STORY-TEST --phase=01 --checkpoint-passed`
 - [ ] Test `devforgeai-validate phase-record STORY-TEST --phase=01 --subagent=git-validator`
-- [ ] **REC-3:** [STORY-255](../specs/Stories/STORY-255-add-graceful-error-handling.story.md) - Add graceful error handling to `_get_phase_state()`
+- [ ] **REC-3:** Add graceful error handling to `_get_phase_state()`
 - [ ] Clean up test state file: `rm devforgeai/workflows/STORY-TEST-phase-state.json`
 - [ ] Update this RCA status to RESOLVED
 - [ ] Commit changes with reference to RCA-001
@@ -335,7 +335,6 @@ None - This is the first RCA (RCA-001).
 |------|--------|--------|
 | 2026-01-11 | Claude | RCA created |
 | 2026-01-11 | Claude | Updated: Corrected PhaseState location from `installer/` to `.claude/scripts/devforgeai_cli/` per architectural review |
-| 2026-01-12 | Claude | Stories created from recommendations: STORY-253 (REC-1), STORY-254 (REC-2), STORY-255 (REC-3) - using devforgeai-story-creation skill |
 
 ---
 

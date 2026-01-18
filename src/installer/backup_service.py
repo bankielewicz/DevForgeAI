@@ -1,221 +1,623 @@
-"""Backup service (AC#7).
-
-Creates timestamped backups before file operations, with structure preservation.
-Story: STORY-074 - Comprehensive Error Handling
-AC#7: Creates devforgeai/install-backup-{timestamp}/ directory, copies files,
-      preserves directory structure, logs backup location, cleans old backups (>7 days, min 5).
 """
+BackupService for creating and restoring DevForgeAI installation backups (STORY-078).
+
+Implements:
+- SVC-004: Create complete backup of DevForgeAI installation
+- SVC-005: Restore from backup
+- SVC-006: List available backups
+- SVC-007: Delete old backups (retention policy)
+
+Follows clean architecture with dependency injection and atomic operations.
+"""
+
+import json
 import shutil
-import time
-from datetime import datetime
+import hashlib
 from pathlib import Path
-from typing import List, Optional
+from datetime import datetime, timezone
+from typing import List, Optional, Dict, Any
+from abc import ABC, abstractmethod
+import time
+import os
+import stat
+
+from installer.models import (
+    BackupMetadata,
+    FileEntry,
+    BackupReason,
+    BackupError,
+)
+
+# Constants for backup operations
+BACKUP_TIMEOUT_SECONDS = 30
+CHECKSUM_CHUNK_SIZE = 65536  # 64KB chunks for SHA256 calculation
+PERMISSION_PRESERVE_ERRORS = (OSError, AttributeError)  # Errors to ignore when preserving permissions
+
+# Directory permissions for security (owner only)
+BACKUP_DIR_PERMISSIONS = 0o700  # rwx------
+MANIFEST_FILE_PERMISSIONS = 0o600  # rw-------
+
+# JSON formatting
+JSON_INDENT = 2
+JSON_ENCODING = "utf-8"
 
 
-class BackupService:
-    """Creates and manages installation backups with timestamped directory structure.
+class IBackupService(ABC):
+    """Interface for backup operations."""
 
-    Implements AC#7 requirements:
-    - Timestamped backup directory creation (devforgeai/install-backup-YYYY-MM-DDTHH-MM-SS/)
-    - Directory structure preservation in backup
-    - Backup location logging to install.log
-    - Automatic cleanup of backups >7 days old (keeping minimum 5)
-    """
+    @abstractmethod
+    def create_backup(
+        self,
+        source_root: Path,
+        version: str,
+        reason: BackupReason = BackupReason.UPGRADE,
+    ) -> BackupMetadata:
+        """Create backup of installation."""
+        pass
 
-    def __init__(self, logger):
-        """Initialize backup service with logger dependency.
+    @abstractmethod
+    def restore(self, backup_id: str, target_root: Path) -> None:
+        """Restore installation from backup."""
+        pass
+
+    @abstractmethod
+    def list_backups(self) -> List[BackupMetadata]:
+        """List all available backups."""
+        pass
+
+    @abstractmethod
+    def cleanup(self, retention_count: int = 5) -> int:
+        """Delete old backups, keep most recent N."""
+        pass
+
+
+class BackupService(IBackupService):
+    """Creates and manages installation backups."""
+
+    # Directories to exclude from backup
+    EXCLUDED_DIRS = {
+        ".git",
+        "__pycache__",
+        ".pytest_cache",
+        ".tox",
+        ".venv",
+        "venv",
+        "node_modules",
+        ".egg-info",
+        ".dist-info",
+        "devforgeai/backups",  # Don't backup old backups
+    }
+
+    # Files to exclude from backup
+    EXCLUDED_FILES = {
+        ".pyc",
+        ".pyo",
+        ".DS_Store",
+        "thumbs.db",
+    }
+
+    def __init__(self, backups_root: Optional[Path] = None, allow_external_path: bool = False) -> None:
+        """
+        Initialize BackupService.
 
         Args:
-            logger: InstallLogger instance for logging backup operations.
+            backups_root: Root directory for backups.
+                Defaults to devforgeai/backups in current directory.
+            allow_external_path: If True, bypass path traversal validation.
+                ONLY use for testing scenarios. Production code should never use this.
         """
-        self.logger = logger
-        self.backup_dir: Optional[Path] = None
+        if backups_root is None:
+            backups_root = Path.cwd() / "devforgeai" / "backups"
 
-    def _get_timestamp(self) -> str:
-        """Return ISO 8601 timestamp for backup directory name.
+        # Validate path to prevent traversal attacks
+        backups_root = Path(backups_root).resolve()
+        cwd_root = Path.cwd().resolve()
 
-        Format: YYYY-MM-DDTHH-MM-SS (19 characters total)
-        Example: 2025-12-03T14-30-45
+        # Ensure backup directory is within or at current working directory
+        # Skip validation if allow_external_path=True (testing only)
+        if not allow_external_path:
+            try:
+                backups_root.relative_to(cwd_root)
+            except ValueError:
+                raise BackupError(
+                    f"Backup directory must be within current working directory. "
+                    f"Provided: {backups_root}, Current: {cwd_root}"
+                )
 
-        Returns:
-            ISO 8601 formatted timestamp string.
+        self.backups_root = backups_root
+
+    def create_backup(
+        self,
+        source_root: Path,
+        version: str,
+        reason: BackupReason = BackupReason.UPGRADE,
+    ) -> BackupMetadata:
         """
-        return datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-
-    def create_backup(self, target_dir: Path, files_to_backup: List[Path]) -> Path:
-        """Create timestamped backup directory and copy files (AC#7).
-
-        Creates backup directory in target_dir/devforgeai/install-backup-{timestamp}/.
-        Preserves relative directory structure from target_dir.
+        Create complete backup of installation.
 
         Args:
-            target_dir: Base directory where devforgeai will be created.
-            files_to_backup: List of file paths to backup (relative to target_dir).
+            source_root: Root directory to backup (devforgeai, .claude, CLAUDE.md, etc.)
+            version: Version being backed up
+            reason: Reason for backup creation
 
         Returns:
-            Path to created backup directory.
+            BackupMetadata with backup information
 
         Raises:
-            PermissionError: If backup directory cannot be created (halts installation).
-            OSError: If file copy fails (disk full, permission denied, etc.).
-
-        Example:
-            >>> backup_service = BackupService(logger)
-            >>> backup_dir = backup_service.create_backup(
-            ...     target_dir=Path("/home/user/project"),
-            ...     files_to_backup=[Path("/home/user/project/.claude/commands/dev.md")]
-            ... )
-            >>> backup_dir
-            PosixPath('/home/user/project/devforgeai/install-backup-2025-12-03T14-30-45')
+            BackupError: If backup creation fails
         """
         start_time = time.time()
 
-        # Create backup directory path: target_dir/devforgeai/install-backup-{timestamp}/
-        timestamp = self._get_timestamp()
-        backup_base = target_dir / "devforgeai"
-        self.backup_dir = backup_base / f"install-backup-{timestamp}"
-
         try:
-            # Create backup directory (may raise PermissionError)
-            self.backup_dir.mkdir(parents=True, exist_ok=True)
+            # Validate source exists
+            source_root = Path(source_root)
+            if not source_root.exists():
+                raise BackupError(f"Source directory not found: {source_root}")
 
-            # Copy files to backup, preserving relative directory structure
-            backed_up_count = 0
-            for file_path in files_to_backup:
-                if not file_path.exists():
-                    # Skip nonexistent files with warning
-                    self.logger.log_warning(
-                        f"Backup: File does not exist, skipping: {file_path}"
-                    )
-                    continue
+            # Create backup directory
+            now = datetime.now(timezone.utc)
+            backup_dir = self._create_backup_directory(version, now)
 
-                # Calculate relative path from target_dir
-                try:
-                    rel_path = file_path.relative_to(target_dir)
-                except ValueError:
-                    # File not relative to target_dir, use just the name
-                    rel_path = Path(file_path.name)
+            # Copy files and collect metadata
+            files: List[FileEntry] = []
+            self._copy_directory_tree(source_root, backup_dir, files)
 
-                dest_path = self.backup_dir / rel_path
-
-                # Handle symlinks (backup the link, not the target)
-                if file_path.is_symlink():
-                    dest_path.parent.mkdir(parents=True, exist_ok=True)
-                    # Copy symlink without following it
-                    shutil.copy2(file_path, dest_path, follow_symlinks=False)
-                    backed_up_count += 1
-                elif file_path.is_file():
-                    # Ensure parent directory exists
-                    dest_path.parent.mkdir(parents=True, exist_ok=True)
-                    # Copy file with metadata preservation
-                    shutil.copy2(file_path, dest_path)
-                    backed_up_count += 1
-                elif file_path.is_dir():
-                    # Copy entire directory tree
-                    dest_path.mkdir(parents=True, exist_ok=True)
-                    shutil.copytree(file_path, dest_path, dirs_exist_ok=True)
-                    backed_up_count += 1
-
-            # Set restrictive permissions (0700 - owner access only)
-            self.backup_dir.chmod(0o700)
-
-            # Log backup completion with metrics
-            elapsed = time.time() - start_time
-            self.logger.log_info(
-                f"Backup created: {self.backup_dir} ({backed_up_count} files, "
-                f"duration: {elapsed:.2f}s)"
-            )
-
-            return self.backup_dir
-
-        except Exception as e:
-            # Clean up partial backup on failure
-            if self.backup_dir and self.backup_dir.exists():
-                shutil.rmtree(self.backup_dir, ignore_errors=True)
-            raise
-
-    def get_latest_backup(self, backups_root: Path) -> Optional[Path]:
-        """Get the most recent backup directory.
-
-        Args:
-            backups_root: Root directory containing backup directories
-                         (e.g., devforgeai).
-
-        Returns:
-            Path to most recent backup directory, or None if no backups exist.
-        """
-        backup_dirs = [
-            d for d in backups_root.iterdir()
-            if d.is_dir() and d.name.startswith("install-backup-")
-        ]
-
-        if not backup_dirs:
-            return None
-
-        # Sort by directory name (timestamp format YYYY-MM-DDTHH-MM-SS sorts correctly)
-        backup_dirs.sort()
-        return backup_dirs[-1]  # Return most recent
-
-    def cleanup_old_backups(self, backups_root: Path, days: int = 7) -> None:
-        """Clean up backups older than specified days, keeping minimum 5 (AC#7, SVC-012).
-
-        Removes backups that meet BOTH conditions:
-        1. Older than specified days (default 7 days)
-        2. AND there are more than 5 backups total (keep minimum 5)
-
-        Args:
-            backups_root: Root directory containing backup directories
-                         (e.g., devforgeai).
-            days: Age threshold in days (default 7). Backups older than this
-                  are candidates for deletion.
-
-        Example:
-            >>> service.cleanup_old_backups(
-            ...     backups_root=Path("/home/user/devforgeai"),
-            ...     days=7
-            ... )
-            # Removes backups older than 7 days, keeping minimum 5 recent ones
-        """
-        if not backups_root.exists():
-            return
-
-        # Find all backup directories
-        backup_dirs = [
-            d for d in backups_root.iterdir()
-            if d.is_dir() and d.name.startswith("install-backup-")
-        ]
-
-        if len(backup_dirs) <= 5:
-            # Keep all if 5 or fewer exist
-            return
-
-        # Sort by name (timestamp format sorts chronologically)
-        backup_dirs.sort()
-
-        # Calculate age threshold
-        now = datetime.now()
-        max_age_seconds = days * 24 * 60 * 60
-
-        # Remove old backups, keeping at least 5 most recent
-        for backup_dir in backup_dirs[:-5]:  # Keep last 5
-            try:
-                # Get backup modification time
-                mtime = backup_dir.stat().st_mtime
-                backup_age_seconds = time.time() - mtime
-
-                # Delete if older than threshold
-                if backup_age_seconds > max_age_seconds:
-                    shutil.rmtree(backup_dir, ignore_errors=True)
-                    self.logger.log_info(f"Cleaned up old backup: {backup_dir.name}")
-            except Exception as e:
-                self.logger.log_warning(
-                    f"Failed to clean up backup {backup_dir.name}: {e}"
+            # Check timeout
+            duration = time.time() - start_time
+            if duration > BACKUP_TIMEOUT_SECONDS:
+                raise BackupError(
+                    f"Backup creation exceeded {BACKUP_TIMEOUT_SECONDS} seconds: {duration:.1f}s"
                 )
 
-    def get_backup_location(self) -> Optional[Path]:
-        """Get the path of the current backup directory.
+            # Generate manifest
+            metadata = self._generate_backup_manifest(
+                backup_id=backup_dir.name,
+                version=version,
+                created_at=now.isoformat(),
+                duration=duration,
+                reason=reason,
+                files=files
+            )
+
+            # Write manifest file
+            self._write_manifest_file(backup_dir, metadata)
+
+            return metadata
+
+        except BackupError:
+            raise
+        except OSError as e:
+            if "No space left on device" in str(e):
+                raise BackupError(f"Insufficient disk space for backup: {e}")
+            if "Permission denied" in str(e):
+                raise BackupError(
+                    f"Permission denied creating backup at {self.backups_root}: {e}"
+                )
+            raise BackupError(f"OS error during backup creation: {e}")
+        except Exception as e:
+            raise BackupError(f"Backup creation failed: {e}")
+
+    def _create_backup_directory(
+        self,
+        version: str,
+        now: datetime
+    ) -> Path:
+        """
+        Create timestamped backup directory with secure permissions.
+
+        Args:
+            version: Version being backed up
+            now: Current datetime (UTC)
 
         Returns:
-            Path to current backup directory, or None if no backup created yet.
+            Path to created backup directory
+
+        Raises:
+            BackupError: If directory creation fails
         """
-        return self.backup_dir
+        timestamp = now.strftime("%Y%m%d-%H%M%S-%f")[:-3]  # millisecond precision
+        backup_id = f"v{version}-{timestamp}"
+        backup_dir = self.backups_root / backup_id
+
+        # Ensure backups root exists
+        self.backups_root.mkdir(parents=True, exist_ok=True)
+
+        # Check for collision
+        if backup_dir.exists():
+            raise BackupError(f"Backup directory already exists: {backup_dir}")
+
+        # Create directory with restrictive permissions
+        backup_dir.mkdir(parents=True, exist_ok=False)
+        os.chmod(backup_dir, BACKUP_DIR_PERMISSIONS)
+
+        return backup_dir
+
+    def _generate_backup_manifest(
+        self,
+        backup_id: str,
+        version: str,
+        created_at: str,
+        duration: float,
+        reason: BackupReason,
+        files: List[FileEntry]
+    ) -> BackupMetadata:
+        """
+        Generate backup manifest from collected file metadata.
+
+        Args:
+            backup_id: Unique backup identifier
+            version: Version being backed up
+            created_at: ISO8601 timestamp
+            duration: Backup duration in seconds
+            reason: Backup reason enum
+            files: List of backed-up files
+
+        Returns:
+            BackupMetadata with manifest information
+        """
+        return BackupMetadata(
+            backup_id=backup_id,
+            version=version,
+            created_at=created_at,
+            files=files,
+            reason=reason,
+            duration_seconds=duration,
+        )
+
+    def _write_manifest_file(
+        self,
+        backup_dir: Path,
+        metadata: BackupMetadata
+    ) -> None:
+        """
+        Write backup manifest to JSON file with secure permissions.
+
+        Args:
+            backup_dir: Backup directory path
+            metadata: Backup metadata to serialize
+
+        Raises:
+            BackupError: If manifest write fails
+        """
+        manifest_path = backup_dir / "backup-manifest.json"
+        manifest_json = {
+            "backup_id": metadata.backup_id,
+            "version": metadata.version,
+            "created_at": metadata.created_at,
+            "duration_seconds": metadata.duration_seconds,
+            "reason": metadata.reason.value,
+            "files": [
+                {
+                    "relative_path": f.relative_path,
+                    "checksum_sha256": f.checksum_sha256,
+                    "size_bytes": f.size_bytes,
+                    "modification_time": f.modification_time,
+                }
+                for f in metadata.files
+            ],
+        }
+
+        manifest_path.write_text(
+            json.dumps(manifest_json, indent=JSON_INDENT),
+            encoding=JSON_ENCODING
+        )
+        # Set restrictive permissions (owner only)
+        os.chmod(manifest_path, MANIFEST_FILE_PERMISSIONS)
+
+    def _should_exclude_path(self, rel_path: Path, src_path: Path) -> bool:
+        """
+        Check if path should be excluded from backup.
+
+        Args:
+            rel_path: Relative path within source
+            src_path: Absolute source path
+
+        Returns:
+            True if path should be excluded, False otherwise
+        """
+        # Check if any part of path is in excluded directories
+        # Handle both single-part (e.g., "__pycache__") and multi-part paths (e.g., "devforgeai/backups")
+        rel_path_str = str(rel_path)
+        for excluded in self.EXCLUDED_DIRS:
+            # For single-part excludes, check if it's in the path parts
+            if "/" not in excluded and excluded in rel_path.parts:
+                return True
+            # For multi-part excludes, check if the path string contains or starts with it
+            if "/" in excluded and (rel_path_str.startswith(excluded) or f"/{excluded}" in f"/{rel_path_str}"):
+                return True
+
+        # Check if file has excluded extension
+        if any(src_path.name.endswith(ext) for ext in self.EXCLUDED_FILES):
+            return True
+
+        return False
+
+    def _copy_file_with_metadata(
+        self, src_path: Path, dst_path: Path, rel_path: Path, files_list: List[FileEntry]
+    ) -> None:
+        """
+        Copy a file and record its metadata.
+
+        Args:
+            src_path: Source file path
+            dst_path: Destination file path
+            rel_path: Relative path for metadata
+            files_list: List to accumulate FileEntry objects
+        """
+        # Skip if file no longer exists (race condition or exclusion mismatch)
+        if not src_path.exists():
+            return
+
+        # Create parent directories
+        dst_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Copy file
+        shutil.copy2(src_path, dst_path)
+
+        # Calculate checksum
+        checksum = self._calculate_sha256(dst_path)
+
+        # Get file info
+        stat_info = src_path.stat()
+
+        # Add to files list
+        files_list.append(
+            FileEntry(
+                relative_path=str(rel_path),
+                checksum_sha256=checksum,
+                size_bytes=stat_info.st_size,
+                modification_time=stat_info.st_mtime,
+            )
+        )
+
+    def _copy_directory_with_permissions(self, src_path: Path, dst_path: Path) -> None:
+        """
+        Copy directory and preserve permissions.
+
+        Args:
+            src_path: Source directory path
+            dst_path: Destination directory path
+        """
+        # Create directory
+        dst_path.mkdir(parents=True, exist_ok=True)
+
+        # Preserve permissions
+        try:
+            stat_info = src_path.stat()
+            os.chmod(dst_path, stat.S_IMODE(stat_info.st_mode))
+        except PERMISSION_PRESERVE_ERRORS:
+            pass
+
+    def _copy_symlink(self, src_path: Path, dst_path: Path) -> None:
+        """
+        Copy symlink or target if symlinks not supported.
+
+        Args:
+            src_path: Source symlink path
+            dst_path: Destination symlink path
+        """
+        try:
+            link_target = src_path.readlink()
+            dst_path.symlink_to(link_target)
+        except (OSError, NotImplementedError):
+            # If symlink not supported (Windows), copy target
+            if src_path.exists():
+                shutil.copy2(src_path, dst_path)
+
+    def _copy_directory_tree(
+        self, src_dir: Path, dst_dir: Path, files_list: List[FileEntry]
+    ) -> None:
+        """
+        Recursively copy directory tree, excluding certain directories/files.
+
+        Args:
+            src_dir: Source directory
+            dst_dir: Destination directory
+            files_list: List to accumulate FileEntry objects
+        """
+        for src_path in src_dir.rglob("*"):
+            # Get relative path and skip excluded paths
+            try:
+                rel_path = src_path.relative_to(src_dir)
+                if self._should_exclude_path(rel_path, src_path):
+                    continue
+            except ValueError:
+                continue
+
+            dst_path = dst_dir / rel_path
+
+            if src_path.is_dir():
+                self._copy_directory_with_permissions(src_path, dst_path)
+            elif src_path.is_file():
+                self._copy_file_with_metadata(src_path, dst_path, rel_path, files_list)
+            elif src_path.is_symlink():
+                self._copy_symlink(src_path, dst_path)
+
+    def _calculate_sha256(self, file_path: Path) -> str:
+        """Calculate SHA256 checksum of file."""
+        sha256 = hashlib.sha256()
+        with open(file_path, "rb") as f:
+            for chunk in iter(lambda: f.read(CHECKSUM_CHUNK_SIZE), b""):
+                sha256.update(chunk)
+        return sha256.hexdigest()
+
+    def _validate_path_safety(self, rel_path: str, target_root: Path) -> Path:
+        """
+        Validate path is safe and within target directory (prevent traversal attacks).
+
+        Args:
+            rel_path: Relative path from manifest
+            target_root: Target installation root
+
+        Returns:
+            Resolved absolute path
+
+        Raises:
+            BackupError: If path is outside target directory
+        """
+        try:
+            rel_path_obj = Path(rel_path)
+            # Resolve to absolute and check if within target directory
+            resolved = (target_root / rel_path_obj).resolve()
+            target_resolved = target_root.resolve()
+            if not str(resolved).startswith(str(target_resolved)):
+                raise BackupError(
+                    f"Invalid path in manifest (directory traversal attempt): {rel_path}"
+                )
+            return resolved
+        except ValueError:
+            raise BackupError(f"Invalid path format in manifest: {rel_path}")
+
+    def _restore_file(
+        self, file_entry_dict: dict, backup_dir: Path, target_root: Path
+    ) -> None:
+        """
+        Restore a single file from backup with checksum verification.
+
+        Args:
+            file_entry_dict: File entry from manifest
+            backup_dir: Backup directory
+            target_root: Target installation root
+
+        Raises:
+            BackupError: If file restoration fails
+        """
+        rel_path = file_entry_dict["relative_path"]
+        expected_checksum = file_entry_dict["checksum_sha256"]
+
+        # Validate path safety
+        dst_file = self._validate_path_safety(rel_path, target_root)
+
+        src_file = backup_dir / rel_path
+
+        if not src_file.exists():
+            raise BackupError(f"Backup file missing: {rel_path}")
+
+        # Verify checksum
+        actual_checksum = self._calculate_sha256(src_file)
+        if actual_checksum != expected_checksum:
+            raise BackupError(
+                f"Backup file corrupted (checksum mismatch): {rel_path}"
+            )
+
+        # Ensure parent directory exists
+        dst_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # Restore file
+        shutil.copy2(src_file, dst_file)
+
+    def restore(self, backup_id: str, target_root: Path) -> None:
+        """
+        Restore installation from backup.
+
+        Args:
+            backup_id: ID of backup to restore (e.g., "v1.0.0-20240115-143022-001")
+            target_root: Root directory to restore to
+
+        Raises:
+            BackupError: If restoration fails
+        """
+        try:
+            backup_dir = self.backups_root / backup_id
+            if not backup_dir.exists():
+                raise BackupError(f"Backup not found: {backup_id}")
+
+            # Read and validate manifest
+            manifest_path = backup_dir / "backup-manifest.json"
+            if not manifest_path.exists():
+                raise BackupError(f"Backup manifest not found: {manifest_path}")
+
+            try:
+                manifest_json = json.loads(manifest_path.read_text(encoding=JSON_ENCODING))
+            except json.JSONDecodeError as e:
+                raise BackupError(f"Invalid backup manifest JSON: {e}")
+
+            # Create target root if needed
+            target_root = Path(target_root)
+            target_root.mkdir(parents=True, exist_ok=True)
+
+            # Restore files with checksum verification
+            for file_entry_dict in manifest_json.get("files", []):
+                self._restore_file(file_entry_dict, backup_dir, target_root)
+
+        except BackupError:
+            raise
+        except Exception as e:
+            raise BackupError(f"Restore failed: {e}")
+
+    def list_backups(self) -> List[BackupMetadata]:
+        """
+        List all available backups.
+
+        Returns:
+            List of BackupMetadata objects, sorted by creation time (newest first)
+        """
+        backups = []
+
+        if not self.backups_root.exists():
+            return backups
+
+        for backup_dir in sorted(self.backups_root.iterdir(), reverse=True):
+            if not backup_dir.is_dir():
+                continue
+
+            manifest_path = backup_dir / "backup-manifest.json"
+            if not manifest_path.exists():
+                continue
+
+            try:
+                manifest_json = json.loads(manifest_path.read_text(encoding=JSON_ENCODING))
+
+                files = [
+                    FileEntry(
+                        relative_path=f["relative_path"],
+                        checksum_sha256=f["checksum_sha256"],
+                        size_bytes=f["size_bytes"],
+                        modification_time=f["modification_time"],
+                    )
+                    for f in manifest_json.get("files", [])
+                ]
+
+                metadata = BackupMetadata(
+                    backup_id=manifest_json["backup_id"],
+                    version=manifest_json["version"],
+                    created_at=manifest_json["created_at"],
+                    files=files,
+                    reason=BackupReason(manifest_json.get("reason", "UPGRADE")),
+                    duration_seconds=manifest_json.get("duration_seconds"),
+                )
+
+                backups.append(metadata)
+            except (json.JSONDecodeError, ValueError, KeyError):
+                # Skip invalid backups
+                continue
+
+        return backups
+
+    def cleanup(self, retention_count: int = 5) -> int:
+        """
+        Delete old backups, keeping most recent N.
+
+        Args:
+            retention_count: Number of backups to keep
+
+        Returns:
+            Number of backups deleted
+        """
+        if retention_count < 1:
+            raise ValueError("retention_count must be at least 1")
+
+        backups = self.list_backups()
+        deleted_count = 0
+
+        # Delete backups beyond retention count (older ones)
+        for backup in backups[retention_count:]:
+            backup_dir = self.backups_root / backup.backup_id
+            try:
+                shutil.rmtree(backup_dir)
+                deleted_count += 1
+            except Exception:
+                # Continue cleanup even if one fails
+                continue
+
+        return deleted_count

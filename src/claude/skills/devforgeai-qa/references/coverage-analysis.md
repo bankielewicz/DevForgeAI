@@ -1,8 +1,112 @@
-# Test Coverage Analysis Reference
+# Test Coverage Analysis Reference (Consolidated)
+
+**Consolidated:** coverage-analysis.md + coverage-analysis-workflow.md
+**Token savings:** ~1.2K tokens (single load vs 2 separate loads)
+**Version:** 2.0 (STORY-265)
+
+---
 
 ## Overview
 
 Test coverage measures how much of your source code is executed during testing. This guide provides comprehensive techniques for analyzing, improving, and maintaining test coverage.
+
+---
+
+## Phase 1: Coverage Analysis Workflow (7 Steps)
+
+### Step 1: Load Coverage Thresholds
+
+```
+Read(file_path=".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
+
+IF file not found:
+    Use default strict thresholds:
+    - Business Logic: 95%
+    - Application: 85%
+    - Infrastructure: 80%
+    - Overall: 80%
+```
+
+### Step 2: Generate Coverage Reports (Story-Scoped)
+
+```
+# Get story-scoped paths from Phase 0.5
+results_dir = test_isolation_paths.results_dir
+coverage_dir = test_isolation_paths.coverage_dir
+
+IF language == ".NET":
+    Bash(command="dotnet test --collect:'XPlat Code Coverage' --results-directory={results_dir}")
+    coverage_file = "{results_dir}/*/coverage.cobertura.xml"
+
+IF language == "Python":
+    Bash(command="pytest --cov=src --cov-report=json:{coverage_dir}/coverage.json")
+    coverage_file = "{coverage_dir}/coverage.json"
+
+IF language == "Node.js":
+    Bash(command="npm test -- --coverage --coverageDirectory={coverage_dir}")
+    coverage_file = "{coverage_dir}/coverage-summary.json"
+
+IF language == "Go":
+    Bash(command="go test ./... -coverprofile={coverage_dir}/coverage.out")
+    coverage_file = "{coverage_dir}/coverage.out"
+
+IF language == "Rust":
+    Bash(command="cargo tarpaulin --out Json --output-dir {coverage_dir}")
+    coverage_file = "{coverage_dir}/tarpaulin-report.json"
+
+IF language == "Java":
+    Bash(command="mvn test jacoco:report -Djacoco.destFile={coverage_dir}/jacoco.exec")
+    coverage_file = "{coverage_dir}/jacoco.xml"
+```
+
+### Step 3: Classify Files by Layer
+
+```
+Read(file_path="devforgeai/specs/context/source-tree.md")
+
+Layer patterns (from source-tree):
+- Business Logic: src/domain/*, src/core/*, src/services/*
+- Application: src/api/*, src/controllers/*, src/handlers/*
+- Infrastructure: src/data/*, src/repositories/*, src/external/*
+```
+
+### Step 4: Calculate Coverage by Layer
+
+```
+FOR each file in coverage_report:
+    layer = classify_file(file, source_tree_patterns)
+    layer_coverage[layer].add(file.coverage)
+
+Calculate: business_avg, application_avg, infrastructure_avg, overall_avg
+```
+
+### Step 5: Validate Against Thresholds
+
+```
+IF business_logic_coverage < 95%: CRITICAL violation
+IF application_coverage < 85%: CRITICAL violation
+IF infrastructure_coverage < 80%: HIGH violation
+IF overall_coverage < 80%: CRITICAL violation
+```
+
+### Step 6: Identify Coverage Gaps
+
+```
+FOR each uncovered_block:
+    test_suggestion = {
+        file, function, lines,
+        suggested_test: generate_test_name(),
+        priority: HIGH (business) | MEDIUM (app) | LOW (infra)
+    }
+```
+
+### Step 7: Analyze Test Quality
+
+- Assertion ratio (target: ≥1.5 per test)
+- Over-mocking detection (mocks > tests * 2)
+- Test pyramid validation (70% unit, 20% integration, 10% E2E)
+
+---
 
 ## Coverage Metrics Explained
 

@@ -511,11 +511,28 @@ For contributing to DevForgeAI:
 git clone https://github.com/bankielewicz/DevForgeAI.git
 cd DevForgeAI
 
-# 2. Run the installer directly
-python3 installer/install.py --mode=fresh --target ~/.claude
+# 2. Install Node.js dependencies
+npm install
 
-# 3. Restart your Claude Code Terminal
+# 3. Install Node.js CLI globally (optional - for testing)
+npm install -g .
+
+# 4. Install Python CLI in editable mode
+pip install --break-system-packages -e .claude/scripts/
+
+# 5. Verify installation
+devforgeai --version                     # Node.js CLI
+devforgeai validate-dod --help           # Python CLI
+
+# 6. Run tests
+npm test                                 # Node.js tests
+
+# 7. Build offline bundle (optional)
+bash scripts/build-offline-bundle.sh
 ```
+
+For detailed setup instructions, see **[docs/DEVELOPER-SETUP.md](docs/DEVELOPER-SETUP.md)**.
+For CLI build documentation, see **[docs/BUILD.md](docs/BUILD.md)**.
 
 ### Migration Guide
 

@@ -1794,6 +1794,92 @@ Suggestions appear based on context and recent actions.
 
 ---
 
+## Section 7: DevForgeAI Integration
+
+DevForgeAI is a spec-driven development framework that extends Claude Code with structured workflows, quality gates, and architectural constraints.
+
+### Skill-Framework Alignment
+
+DevForgeAI's spec-driven development aligns with Agent Skills principles:
+
+| Agent Skills Concept | DevForgeAI Equivalent |
+|---------------------|----------------------|
+| YAML frontmatter | Skill/Subagent metadata |
+| Progressive disclosure | Reference file loading |
+| `allowed-tools` | Tool access patterns in agents |
+| `metadata.category` | Skill classification |
+| Validation framework | Context file validation |
+
+### Configuration Integration
+
+**DevForgeAI Skills Configuration:**
+```yaml
+# In .claude/skills/devforgeai-*/SKILL.md
+metadata:
+  author: DevForgeAI
+  version: "X.Y.Z"
+  category: devforgeai-workflow
+  agent-skills-spec-version: "1.0"
+```
+
+**DevForgeAI Subagents Configuration:**
+```yaml
+# In .claude/agents/*.md
+name: agent-name
+description: Agent description with "Use when..." trigger
+tools: [Read, Grep, Glob, ...]
+model: claude-sonnet-4-5-20250929
+```
+
+### Recommended Patterns
+
+1. **Skill Metadata Consistency:**
+   - All DevForgeAI skills follow Agent Skills spec
+   - Use `metadata.category` for skill grouping (e.g., `devforgeai-workflow`)
+   - Track versions with `metadata.version` using semver
+
+2. **Tool Whitelisting:**
+   - Document `allowed-tools` for security audits
+   - Match tool access patterns in `.claude/agents/*.md`
+   - Principle of least privilege for subagents
+
+3. **Validation Integration:**
+   - Add `skills-ref validate` to `/qa` Phase 1
+   - Fail QA if skills don't meet Agent Skills spec
+
+4. **Progressive Disclosure:**
+   - Keep SKILL.md under 500 lines
+   - Use `references/` for detailed documentation
+   - Reference with: `→ Load references/detailed-guide.md`
+
+### Context File Cross-References
+
+DevForgeAI context files complement Agent Skills:
+
+| Context File | Purpose | Location |
+|-------------|---------|----------|
+| `tech-stack.md` | Technology constraints | `devforgeai/specs/context/` |
+| `source-tree.md` | Directory structure rules | `devforgeai/specs/context/` |
+| `architecture-constraints.md` | Pattern enforcement | `devforgeai/specs/context/` |
+| `anti-patterns.md` | Forbidden patterns | `devforgeai/specs/context/` |
+| `coding-standards.md` | Code style rules | `devforgeai/specs/context/` |
+| `dependencies.md` | Allowed packages | `devforgeai/specs/context/` |
+
+### DevForgeAI Commands
+
+| Command | Purpose | Skill Invoked |
+|---------|---------|---------------|
+| `/ideate` | Transform business idea to requirements | devforgeai-ideation |
+| `/create-context` | Generate architectural context files | devforgeai-architecture |
+| `/create-story` | Create user story with acceptance criteria | devforgeai-story-creation |
+| `/dev` | Implement story using TDD workflow | devforgeai-development |
+| `/qa` | Validate implementation quality | devforgeai-qa |
+| `/release` | Deploy to target environment | devforgeai-release |
+
+**For complete DevForgeAI documentation:** See `CLAUDE.md` and `.claude/memory/skills-reference.md`
+
+---
+
 ## External References
 
 - **Official Documentation**: https://docs.claude.com/en/docs/claude-code/

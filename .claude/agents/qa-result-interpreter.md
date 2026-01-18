@@ -151,6 +151,21 @@ Group violations:
     "deferral": [...],
     etc.
   }
+
+# Determine gap file indicator for remediation workflow
+  IF status == "FAILED" AND mode == "deep":
+    gap_file_generated = true
+    gap_file_path = "devforgeai/qa/reports/{STORY_ID}-gaps.json"
+  ELSE:
+    gap_file_generated = false
+    gap_file_path = null
+
+# Count violations for remediation threshold
+  total_violation_count = len(violations_by_severity["CRITICAL"]) +
+                          len(violations_by_severity["HIGH"]) +
+                          len(violations_by_severity["MEDIUM"]) +
+                          len(violations_by_severity["LOW"])
+  coverage_violation_count = len(violations_by_type.get("coverage", []))
 ```
 
 ### Step 5: Generate Display Template
@@ -168,16 +183,19 @@ MODE: Deep
   STATUS: PASSED → template="deep_pass_full"
 
   STATUS: FAILED
-    IF deferral_violations present:
+    # Prioritize multiple violations template when >2 violations exist
+    IF total_violation_count > 2:
+      → template="deep_fail_multiple"
+    ELSE IF deferral_violations present:
       → template="deep_fail_deferral"
     ELSE IF coverage_violations present:
       → template="deep_fail_coverage"
     ELSE IF compliance_violations present:
       → template="deep_fail_compliance"
-    ELSE IF violation_count > 5:
-      → template="deep_fail_multiple"
     ELSE:
       → template="deep_fail_standard"
+
+    # Note: deep_fail_multiple recommends /review-qa-reports workflow
 ```
 
 **Template Generation (Haiku-optimized):**
@@ -299,6 +317,13 @@ See: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 - Fix justifications or complete deferred work
 - Re-run: `/qa {STORY_ID}` to validate
 
+**Option 4: Batch Remediation** (if multiple deferrals across stories)
+Run: `/review-qa-reports --source local`
+- Processes deferral issues systematically across all gap files
+- Creates remediation stories with proper prioritization
+- Links stories to source QA reports
+- Tracks deferred items in technical debt register
+
 ---
 
 # Coverage Failure Template
@@ -315,10 +340,19 @@ See: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 ### Uncovered Code
 {List top 3-5 uncovered methods/files}
 
-### Required Actions
+### Remediation Options
+
+**Option A: Fix Immediately**
 1. Add unit tests for uncovered business logic
 2. Add integration tests for uncovered application code
 3. Run: `/qa {STORY_ID}` to validate improvements
+
+**Option B: Systematic Analysis** (Recommended for multiple gaps)
+Run: `/review-qa-reports --source local`
+- Analyzes all coverage gaps across your project
+- Creates remediation stories in batch with proper prioritization
+- Tracks progress in technical debt register
+- Gap file: `devforgeai/qa/reports/{STORY_ID}-gaps.json`
 
 ---
 
@@ -342,6 +376,48 @@ See: devforgeai/qa/reports/{STORY_ID}-qa-report.md
 2. Update implementation to match API contracts
 3. Implement or validate NFRs
 4. Re-run: `/qa {STORY_ID}` to validate
+
+---
+
+# Multiple Violations Template
+## ⚠️ QA Validation FAILED - Multiple Issues - {STORY_ID}
+
+**Story:** {STORY_TITLE}
+**Mode:** {MODE}
+**Total Violations:** {VIOLATION_COUNT}
+
+### Summary by Type
+- Coverage gaps: {COVERAGE_COUNT}
+- Anti-pattern violations: {AP_COUNT}
+- Deferral issues: {DEFERRAL_COUNT}
+- Compliance issues: {COMPLIANCE_COUNT}
+
+### Recommended Approach
+
+Given {VIOLATION_COUNT} violations detected, **systematic remediation** is recommended:
+
+**Run:** `/review-qa-reports --source local`
+
+This command will:
+1. Parse gap file: `devforgeai/qa/reports/{STORY_ID}-gaps.json`
+2. Aggregate and prioritize all violations by severity
+3. Allow you to select which gaps to address
+4. Create remediation stories in batch
+5. Track deferred items in technical debt register
+
+### Alternative Approaches
+
+**Option A: Return to Development**
+Run: `/dev {STORY_ID}`
+- Fix issues one by one in TDD workflow
+- Suitable for <3 violations
+
+**Option B: Fix Manually**
+- Review violations in detailed report
+- Fix each issue directly
+- Re-run: `/qa {STORY_ID}` to validate
+
+**Detailed Report:** `devforgeai/qa/reports/{STORY_ID}-qa-report.md`
 
 ---
 ```
@@ -435,9 +511,19 @@ ELSE IF status == "FAILED":
             "Re-run QA: `/qa {STORY_ID}` to validate"
         ]
 
+# NEW: Systematic remediation recommendation for multiple violations
+# Triggered when gap file exists AND (multiple violations OR coverage gaps)
+IF gap_file_generated AND (total_violation_count > 2 OR coverage_violation_count > 0):
+    next_steps.append("**Systematic Remediation Available:**")
+    next_steps.append("Run `/review-qa-reports --source local` to:")
+    next_steps.append("  - Analyze all gaps across your project")
+    next_steps.append("  - Create remediation stories in batch")
+    next_steps.append("  - Track progress in technical debt register")
+    next_steps.append("Gap file: devforgeai/qa/reports/{STORY_ID}-gaps.json")
+
 # Track retry guidance
 IF previous_qa_attempts_count > 1:
-    next_steps.append("Note: This is QA attempt #{count}. Consider story size if >3 attempts.")
+    next_steps.append("Note: This is QA attempt #{count}. Consider `/review-qa-reports` for systematic analysis if >2 attempts.")
 ```
 
 ### Step 8: Return Structured Result
@@ -499,6 +585,14 @@ IF previous_qa_attempts_count > 1:
     "attempt_number": 1,
     "previous_attempts": 0,
     "warnings": []
+  },
+
+  "gap_remediation": {
+    "gap_file_generated": true,
+    "gap_file_path": "devforgeai/qa/reports/{STORY_ID}-gaps.json",
+    "remediation_command": "/review-qa-reports --source local",
+    "recommendation": "systematic_analysis | manual_fix | none",
+    "trigger_reason": "total_violations > 2 OR coverage_gaps present"
   }
 }
 ```

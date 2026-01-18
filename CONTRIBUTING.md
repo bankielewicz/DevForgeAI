@@ -2,6 +2,57 @@
 
 Thank you for contributing to DevForgeAI! This document provides guidelines for contributing to the project.
 
+---
+
+## Development Setup
+
+Before contributing, set up your local development environment.
+
+### Prerequisites
+
+| Software | Minimum Version | Verify Command |
+|----------|-----------------|----------------|
+| Node.js | 18.0.0 | `node --version` |
+| npm | 8.0.0 | `npm --version` |
+| Python | 3.8.0 | `python3 --version` |
+| Git | 2.30.0 | `git --version` |
+
+### Quick Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/bankielewicz/DevForgeAI.git
+cd DevForgeAI
+
+# 2. Install Node.js dependencies
+npm install
+
+# 3. Install Python CLI in editable mode
+pip install --break-system-packages -e .claude/scripts/
+
+# 4. Verify setup
+npm test
+devforgeai --version
+```
+
+### Building from Source
+
+```bash
+# Install Node.js CLI globally (for testing)
+npm install -g .
+
+# Build offline bundle
+bash scripts/build-offline-bundle.sh
+
+# Create npm package
+npm pack
+```
+
+See [docs/DEVELOPER-SETUP.md](docs/DEVELOPER-SETUP.md) for detailed setup instructions.
+See [docs/BUILD.md](docs/BUILD.md) for comprehensive build documentation.
+
+---
+
 ## Release Process
 
 ### Prerequisites

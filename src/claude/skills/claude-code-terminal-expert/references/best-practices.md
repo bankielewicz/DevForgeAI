@@ -1207,6 +1207,119 @@ EFFICIENCY: Native tools for 90% of operations, Bash only for test execution
 
 ---
 
+## Section 8: Agent Skills Best Practices
+
+Best practices for creating Agent Skills specification-compliant skills.
+
+### Skill Size Guidelines
+
+| Component | Target | Maximum | Rationale |
+|-----------|--------|---------|-----------|
+| SKILL.md | 300-500 lines | 1,000 lines | Activation token budget |
+| Description | 100-300 chars | 1,024 chars | Discovery efficiency |
+| References | Unlimited | N/A | On-demand loading |
+
+**Rule of Thumb:** If SKILL.md exceeds 500 lines, move detailed content to `references/`.
+
+### Trigger Description Patterns
+
+**Effective patterns (include "Use when..."):**
+```yaml
+description: |
+  Expert code review assistant. Use when users ask for code review,
+  want feedback on their code, need security analysis, or ask about
+  best practices for code they've written.
+```
+
+**Ineffective patterns (avoid):**
+```yaml
+# TOO VAGUE - no trigger context
+description: Helps with code.
+
+# TOO LONG - exceeds budget
+description: |
+  This is a very comprehensive skill that does many things including
+  [500 more words describing every possible capability...]
+```
+
+### YAML Frontmatter Checklist
+
+Before committing a skill, verify:
+
+- [ ] `name` is lowercase-with-hyphens (1-64 chars)
+- [ ] `description` includes "Use when..." clause
+- [ ] `version`, `author`, `category` are under `metadata:` (NOT top-level)
+- [ ] `allowed-tools` lists only required tools (principle of least privilege)
+- [ ] `skills-ref validate` passes with no errors
+
+### Version Management
+
+Use semantic versioning (`MAJOR.MINOR.PATCH`):
+
+| Change Type | Version Bump | Example |
+|-------------|--------------|---------|
+| Breaking changes | MAJOR | 1.0.0 → 2.0.0 |
+| New features | MINOR | 1.0.0 → 1.1.0 |
+| Bug fixes | PATCH | 1.0.0 → 1.0.1 |
+
+**Track in metadata:**
+```yaml
+metadata:
+  version: "3.0.0"
+  last-updated: "2026-01-18"
+```
+
+### Progressive Disclosure Implementation
+
+**Pattern in SKILL.md:**
+```markdown
+## Quick Start
+
+Brief instructions here (fits in activation budget)...
+
+**For detailed implementation:** → Load `references/detailed-guide.md`
+
+## Common Use Cases
+
+Essential examples here...
+
+**For advanced scenarios:** → Load `references/advanced-scenarios.md`
+```
+
+**Benefits:**
+- 61% token reduction vs monolithic skills
+- Faster activation (only core instructions loaded)
+- Unlimited depth for complex topics
+
+### Testing Skills
+
+**Manual Testing:**
+```
+What Skills are available?
+[Verify skill appears in list]
+
+Help me with [trigger phrase from description]
+[Verify skill activates correctly]
+```
+
+**Automated Validation:**
+```bash
+pip install skills-ref
+skills-ref validate .claude/skills/my-skill/
+```
+
+### Common Mistakes to Avoid
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Top-level `version` | Spec violation | Move to `metadata.version` |
+| Missing trigger context | Skill never activates | Add "Use when..." to description |
+| Monolithic SKILL.md | Token budget exceeded | Split into references/ |
+| CamelCase name | Validation failure | Use lowercase-with-hyphens |
+| All tools allowed | Security risk | Whitelist with `allowed-tools` |
+
+---
+
 ## Appendix: Evidence Base
 
 All best practices in this document are backed by:
