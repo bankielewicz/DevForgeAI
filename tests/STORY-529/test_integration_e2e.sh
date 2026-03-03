@@ -198,21 +198,37 @@ run_test "Context indicates required subagents section" \
 
 # --- Test 14: Verify output chain integrity (JSON → hookSpecificOutput → additionalContext) ---
 # All three levels must be present and nested correctly
-CHAIN_RESULT=$(echo "$HOOK_OUTPUT" | python3 << 'PYEOF'
+# Verify the nesting hierarchy exists by checking for specific field structure
+CHAIN_VALID=$(echo "$HOOK_OUTPUT" | python3 -c "
 import json, sys
 try:
     data = json.load(sys.stdin)
-    hso = data.get('hookSpecificOutput', {})
-    ctx = hso.get('additionalContext', '')
-    if isinstance(data, dict) and isinstance(hso, dict) and isinstance(ctx, str) and len(ctx) > 0:
+    # Verify structure: data is dict with hookSpecificOutput key
+    if not isinstance(data, dict):
+        print('1')
+        sys.exit(0)
+    # Verify hookSpecificOutput is a dict
+    if 'hookSpecificOutput' not in data:
+        print('1')
+        sys.exit(0)
+    hso = data['hookSpecificOutput']
+    if not isinstance(hso, dict):
+        print('1')
+        sys.exit(0)
+    # Verify additionalContext is in hookSpecificOutput
+    if 'additionalContext' not in hso:
+        print('1')
+        sys.exit(0)
+    ctx = hso['additionalContext']
+    # Verify additionalContext is non-empty string
+    if isinstance(ctx, str) and len(ctx) > 0:
         print('0')
     else:
         print('1')
 except:
     print('1')
-PYEOF
-)
-run_test "Complete output chain verified (JSON → hookSpecificOutput → additionalContext)" "$CHAIN_RESULT"
+" 2>/dev/null)
+run_test "Complete output chain verified (JSON → hookSpecificOutput → additionalContext)" "$CHAIN_VALID"
 
 # --- Test 15: Verify hook script is executable and located correctly ---
 run_test "Hook script exists and is executable" \

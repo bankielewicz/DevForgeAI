@@ -14,7 +14,7 @@ echo "  Test Suite Runner"
 echo "=============================================="
 echo ""
 
-for test_file in "$SCRIPT_DIR"/test_ac*.sh; do
+for test_file in "$SCRIPT_DIR"/test_ac*.sh "$SCRIPT_DIR"/test_integration_e2e.sh; do
     echo "----------------------------------------------"
     echo "Running: $(basename "$test_file")"
     echo "----------------------------------------------"
