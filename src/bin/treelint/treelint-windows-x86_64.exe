@@ -1,0 +1,4 @@
+@echo off
+REM Placeholder treelint binary for Windows x86_64
+REM Version: 0.12.0
+echo treelint version 0.12.0

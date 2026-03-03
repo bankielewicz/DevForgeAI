@@ -1,0 +1,15 @@
+TEST: AC-4 - Counter Persists Across Session
+=============================================
+
+Checking for iteration persistence logic...
+
+PASS: Found iteration persistence reference in SKILL.md
+PASS: Found phase-state.json iteration storage reference
+PASS: Found resume-iteration connection
+PASS: Found iteration_count YAML format example
+PASS: Phase state schema documentation includes iteration_count field
+PASS: Phase state schema includes last_iteration_date for audit
+
+=============================================
+ALL TESTS PASSED: AC-4 Counter Persists Across Session
+=============================================

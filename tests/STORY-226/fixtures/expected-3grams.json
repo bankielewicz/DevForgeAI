@@ -1,0 +1,32 @@
+{
+  "description": "Expected 3-gram sequences from sample-history.jsonl",
+  "note": "3-grams are consecutive command triples within the same session",
+  "expected_3grams": [
+    {
+      "sequence": ["/ideate", "/create-epic", "/dev"],
+      "frequency": 2,
+      "sessions": ["session-001", "session-004"],
+      "success_rate": 0.5
+    },
+    {
+      "sequence": ["/dev", "/qa", "/release"],
+      "frequency": 1,
+      "sessions": ["session-002"],
+      "success_rate": 1.0
+    },
+    {
+      "sequence": ["/dev", "/qa", "/dev"],
+      "frequency": 1,
+      "sessions": ["session-003"],
+      "success_rate": 1.0
+    },
+    {
+      "sequence": ["/qa", "/dev", "/qa"],
+      "frequency": 1,
+      "sessions": ["session-003"],
+      "success_rate": 1.0
+    }
+  ],
+  "total_3grams": 4,
+  "total_occurrences": 5
+}

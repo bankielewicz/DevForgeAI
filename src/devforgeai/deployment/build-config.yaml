@@ -1,0 +1,62 @@
+# DevForgeAI Build Configuration
+# Configuration for Phase 0.1 (Tech Stack Detection) and Phase 0.2 (Build/Compile)
+# in the devforgeai-release skill workflow.
+#
+# This file is OPTIONAL - if missing, sensible defaults are used.
+# Location: devforgeai/deployment/build-config.yaml
+#
+# Reference: .claude/skills/devforgeai-release/references/build-commands.md
+
+build:
+  # Enable/disable build phase entirely
+  # When false, Phase 0.1 and 0.2 are skipped
+  # Default: true
+  enabled: true
+
+  # Maximum time allowed for build commands (milliseconds)
+  # Range: 60000 (1 min) to 3600000 (1 hour)
+  # Default: 600000 (10 minutes)
+  timeout_ms: 600000
+
+  # .NET cross-platform build targets
+  # Used by dotnet publish --runtime <target>
+  # Default: ["win-x64", "linux-x64", "osx-x64"]
+  cross_platform_targets:
+    - win-x64
+    - linux-x64
+    - osx-x64
+
+  # Skip builds for specific tech stacks
+  # Valid values: nodejs, python, dotnet, go, rust, java-maven, java-gradle
+  # Default: [] (build all detected stacks)
+  skip_stacks: []
+
+  # Halt release workflow if any build fails
+  # When true: Build failure = HALT workflow
+  # When false: Log warning and continue to Phase 1
+  # Default: false (permissive - continue on failure)
+  fail_on_build_error: false
+
+# Example configurations:
+#
+# Disable Python builds, fail on errors:
+# build:
+#   enabled: true
+#   skip_stacks:
+#     - python
+#   fail_on_build_error: true
+#
+# Minimal .NET-only build:
+# build:
+#   enabled: true
+#   cross_platform_targets:
+#     - linux-x64
+#   skip_stacks:
+#     - nodejs
+#     - python
+#     - java-maven
+#     - java-gradle
+#
+# Disable build phase entirely:
+# build:
+#   enabled: false

@@ -1,0 +1,15 @@
+{
+  "story_id": "STORY-192",
+  "current_phase": "01",
+  "completed_phases": [],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"]
+  },
+  "iteration_count": 1,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-08",
+  "implementation_type": "specification",
+  "test_type": "structural",
+  "created": "2026-01-08T00:00:00Z",
+  "updated": "2026-01-08T00:00:00Z"
+}

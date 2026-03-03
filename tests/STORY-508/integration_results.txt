@@ -1,0 +1,37 @@
+========================================
+STORY-508 Integration Test Results
+Date: 2026-02-28
+========================================
+
+1. UNIT TEST EXECUTION
+   Command: bash tests/STORY-508/run_all_tests.sh
+   Result: ALL PASSED (7/7 assertions)
+
+   AC#1 (Checklist Row): 4/4 passed
+     - Decision Context row exists
+     - Required checkmark present
+     - Purpose description correct
+     - Exactly 13 required sections
+
+   AC#2 (Count References): 3/3 passed
+     - Zero "12 constitutional sections" references remain
+     - At least one "13 constitutional sections" reference exists
+     - No "verify all 12 sections" references remain
+
+2. CONSISTENCY VALIDATION: src/ vs operational (.claude/)
+   Result: INCONSISTENT - operational file needs update
+
+   Differences found (diff src/ .claude/):
+   - .claude/ still says "12 required sections" (line 23)
+   - .claude/ missing "Decision Context" row in checklist table
+   - .claude/ still says "verify all 12 sections" (line 45)
+   - src/ correctly updated to 13 sections with Decision Context row
+
+   Action Required: Sync .claude/skills/designing-systems/references/artifact-generation.md
+   with src/claude/skills/designing-systems/references/artifact-generation.md
+
+3. SUMMARY
+   Unit Tests: PASSED
+   Consistency: FAILED (operational file out of sync)
+   Overall: PASS WITH WARNINGS
+========================================

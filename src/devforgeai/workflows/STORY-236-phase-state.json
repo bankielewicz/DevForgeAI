@@ -1,0 +1,38 @@
+{
+  "story_id": "STORY-236",
+  "current_phase": "05",
+  "completed_phases": ["01", "02", "03", "04", "05"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["backend-architect", "context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer"],
+    "05": ["integration-tester"]
+  },
+  "iteration_count": 1,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-06",
+  "created": "2026-01-06T00:00:00Z",
+  "updated": "2026-01-06T00:00:00Z",
+  "observations": [],
+  "test_results": {
+    "red_phase": {
+      "tests_generated": 35,
+      "all_failing": true,
+      "failure_reason": "ModuleNotFoundError: No module named 'installer.preflight'",
+      "test_file": "tests/STORY-236/test_preflight.py"
+    },
+    "green_phase": {
+      "tests_passing": 35,
+      "tests_failing": 0,
+      "all_green": true,
+      "implementation_file": "installer/preflight.py",
+      "test_file": "tests/installer/test_preflight_story236.py"
+    }
+  },
+  "context_validation": {
+    "status": "PASSED",
+    "violations": 0,
+    "files_scanned": 2
+  }
+}

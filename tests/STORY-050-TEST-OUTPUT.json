@@ -1,0 +1,363 @@
+{
+  "story_id": "STORY-050",
+  "story_title": "Refactor /audit-deferrals command for budget compliance",
+  "test_generation_status": "COMPLETE",
+  "phase": "Red Phase - TDD (All tests FAIL)",
+  "date_generated": "2025-11-17",
+  "test_framework": "pytest (Python)",
+
+  "test_files": [
+    {
+      "path": "tests/unit/test_story050_budget_compliance.py",
+      "file_type": "Unit Tests",
+      "lines": 611,
+      "test_count": 18,
+      "test_classes": [
+        {
+          "name": "TestBudgetCompliance",
+          "tests": [
+            "test_command_character_count_under_limit",
+            "test_command_character_count_buffer"
+          ],
+          "ac_covered": ["AC-1"],
+          "description": "Budget compliance tests (character count <12K)"
+        },
+        {
+          "name": "TestCommandStructure",
+          "tests": [
+            "test_command_has_three_phases",
+            "test_command_delegates_to_skill",
+            "test_command_no_direct_subagent_calls",
+            "test_command_matches_qa_reference_structure"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "Pattern consistency with /qa reference implementation"
+        },
+        {
+          "name": "TestBusinessLogicExtraction",
+          "tests": [
+            "test_command_no_business_logic",
+            "test_no_hook_logic_in_command",
+            "test_context_markers_present"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "Business logic extraction to skill layer"
+        },
+        {
+          "name": "TestSkillEnhancement",
+          "tests": [
+            "test_skill_has_phase_7_audit_deferrals",
+            "test_skill_phase_7_has_seven_substeps",
+            "test_skill_size_under_3500_lines",
+            "test_skill_phase_7_preserves_functionality"
+          ],
+          "ac_covered": ["AC-2"],
+          "description": "Skill enhancement with Phase 7 hook integration"
+        },
+        {
+          "name": "TestErrorHandling",
+          "tests": [
+            "test_error_handling_minimal"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "Error handling is minimal (<30 lines)"
+        },
+        {
+          "name": "TestBackwardCompatibility",
+          "tests": [
+            "test_command_preserves_interface",
+            "test_command_backward_compatible_with_existing_scripts"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "100% backward compatibility preservation"
+        },
+        {
+          "name": "TestDocumentation",
+          "tests": [
+            "test_documentation_strings_present",
+            "test_phase_documentation_complete"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "Documentation and comments present"
+        }
+      ]
+    },
+    {
+      "path": "tests/integration/test_story050_functionality.py",
+      "file_type": "Integration Tests",
+      "lines": 567,
+      "test_count": 15,
+      "test_classes": [
+        {
+          "name": "TestFunctionalityPreservation",
+          "tests": [
+            "test_audit_deferrals_phase_1_5_unchanged",
+            "test_all_seven_phase_6_substeps_documented",
+            "test_hook_invocation_still_triggers",
+            "test_graceful_degradation_on_hook_failure"
+          ],
+          "ac_covered": ["AC-2"],
+          "description": "All 7 Phase 6 substeps function identically"
+        },
+        {
+          "name": "TestBackupCompatibility",
+          "tests": [
+            "test_story033_test_count",
+            "test_story033_tests_pass_with_identical_results",
+            "test_no_new_test_failures_introduced"
+          ],
+          "ac_covered": ["AC-3"],
+          "description": "All 84 STORY-033 tests pass identically"
+        },
+        {
+          "name": "TestPerformance",
+          "tests": [
+            "test_execution_baseline_measurement",
+            "test_execution_time_within_10_percent",
+            "test_hook_integration_performance"
+          ],
+          "ac_covered": ["AC-5"],
+          "description": "Execution time within 10% of baseline"
+        },
+        {
+          "name": "TestOutputConsistency",
+          "tests": [
+            "test_audit_report_format_preserved",
+            "test_audit_metrics_consistency"
+          ],
+          "ac_covered": ["AC-2"],
+          "description": "Audit report output byte-identical"
+        },
+        {
+          "name": "TestPatternValidation",
+          "tests": [
+            "test_refactored_command_pattern_matches_qa"
+          ],
+          "ac_covered": ["AC-4"],
+          "description": "Pattern consistency with /qa reference"
+        },
+        {
+          "name": "TestCompleteRefactoringValidation",
+          "tests": [
+            "test_refactoring_complete_checklist",
+            "test_quality_checklist"
+          ],
+          "ac_covered": ["All"],
+          "description": "Definition of Done checklist verification"
+        }
+      ]
+    },
+    {
+      "path": "tests/story050_test_execution_guide.md",
+      "file_type": "Documentation",
+      "lines": 600,
+      "description": "Comprehensive test execution guide with baseline establishment procedures"
+    },
+    {
+      "path": "tests/STORY-050-TEST-GENERATION-SUMMARY.md",
+      "file_type": "Documentation",
+      "lines": 450,
+      "description": "Test generation summary with coverage analysis"
+    }
+  ],
+
+  "test_statistics": {
+    "total_tests": 33,
+    "unit_tests": 18,
+    "integration_tests": 15,
+    "test_classes": 13,
+    "documentation_files": 2,
+    "total_code_lines": 1178,
+    "total_documentation_lines": 1050
+  },
+
+  "acceptance_criteria_coverage": {
+    "AC-1": {
+      "title": "Budget Compliance Achieved",
+      "target": "Command <12K chars",
+      "tests": 2,
+      "status": "COVERED"
+    },
+    "AC-2": {
+      "title": "Functionality Preservation Verified",
+      "target": "All 7 Phase 6 substeps work identically",
+      "tests": 4,
+      "status": "COVERED"
+    },
+    "AC-3": {
+      "title": "Test Compatibility Maintained",
+      "target": "All 84 STORY-033 tests pass identically",
+      "tests": 3,
+      "status": "COVERED"
+    },
+    "AC-4": {
+      "title": "Pattern Consistency with Reference Implementations",
+      "target": "Matches /qa structure (lean orchestration)",
+      "tests": 5,
+      "status": "COVERED"
+    },
+    "AC-5": {
+      "title": "Performance Maintained or Improved",
+      "target": "Execution time within 10% of baseline",
+      "tests": 3,
+      "status": "COVERED"
+    }
+  },
+
+  "technical_specification_coverage": {
+    "configuration_requirements": {
+      "CONF-001": "Extract Phase 6 logic to skill",
+      "CONF-002": "Reduce to <12K chars",
+      "CONF-003": "Delegate via Skill() call",
+      "CONF-004": "Preserve all 7 substeps",
+      "CONF-005": "Backward compatible",
+      "tests": 5,
+      "status": "COVERED"
+    },
+    "service_requirements": {
+      "SVC-001": "Add Phase 7 to skill",
+      "SVC-002": "All 7 substeps in skill",
+      "SVC-003": "Skill stays <3.5K lines",
+      "tests": 4,
+      "status": "COVERED"
+    },
+    "business_rules": {
+      "BR-001": "100% functionality preserved",
+      "BR-002": "Lean orchestration pattern",
+      "BR-003": "Budget compliance",
+      "BR-004": "Pattern matches /qa reference",
+      "tests": 4,
+      "status": "COVERED"
+    },
+    "non_functional_requirements": {
+      "NFR-P1": "Performance - <10% execution time change",
+      "NFR-M1": "Maintainability - Single responsibility",
+      "NFR-C1": "Compatibility - 100% backward compatible",
+      "NFR-Q1": "Quality - 100% test pass rate",
+      "NFR-S1": "Scalability - 40% budget buffer",
+      "tests": 8,
+      "status": "COVERED"
+    }
+  },
+
+  "test_execution_instructions": {
+    "quick_start": "pytest tests/unit/test_story050_budget_compliance.py tests/integration/test_story050_functionality.py -v",
+    "unit_tests_only": "pytest tests/unit/test_story050_budget_compliance.py -v",
+    "integration_tests_only": "pytest tests/integration/test_story050_functionality.py -v",
+    "with_coverage": "pytest tests/unit/test_story050_budget_compliance.py tests/integration/test_story050_functionality.py --cov=.claude/commands --cov-report=term",
+    "specific_test": "pytest tests/unit/test_story050_budget_compliance.py::TestBudgetCompliance::test_command_character_count_under_limit -v"
+  },
+
+  "current_test_status": {
+    "phase": "Red Phase",
+    "all_tests": "FAIL",
+    "reason": "Refactoring not started - command still 31.3K chars, Phase 7 not added to skill, business logic not extracted",
+    "expected_count": {
+      "fail": 33,
+      "pass": 0,
+      "skip": 0
+    }
+  },
+
+  "expected_after_refactoring": {
+    "phase": "Green Phase",
+    "all_tests": "PASS",
+    "expected_count": {
+      "fail": 0,
+      "pass": 33,
+      "skip": 0
+    },
+    "refactoring_metrics": {
+      "command_chars_before": 31300,
+      "command_chars_after": "8000-12000 (target)",
+      "command_lines_before": 1100,
+      "command_lines_after": "250-300 (target)",
+      "skill_lines_before": 3249,
+      "skill_lines_after": "3250-3500 (target)",
+      "budget_reduction": "73%",
+      "functionality_preserved": "100%",
+      "test_compatibility": "100% (84/84 tests identical)"
+    }
+  },
+
+  "test_design_patterns": {
+    "aaa_pattern": {
+      "arrange": "Set up test preconditions",
+      "act": "Execute behavior being tested",
+      "assert": "Verify the outcome",
+      "applied_to_all_tests": true
+    },
+    "independence": {
+      "no_shared_state": true,
+      "any_execution_order": true,
+      "no_test_dependencies": true
+    },
+    "assertion_types": [
+      "File existence checks",
+      "String pattern matching",
+      "Regex matching",
+      "Numeric comparisons",
+      "Count assertions"
+    ]
+  },
+
+  "test_methodology": {
+    "framework": "pytest",
+    "language": "Python",
+    "test_style": "Unit + Integration",
+    "coverage_approach": "Acceptance Criteria + Technical Specification",
+    "baseline_approach": "Pre-refactoring baseline establishment in Phase 0",
+    "graceful_degradation": "Tests skip if dependencies unavailable (with explanatory messages)"
+  },
+
+  "documentation_provided": {
+    "test_execution_guide": "Complete guide with Phase 0-2 instructions, troubleshooting, success criteria",
+    "test_generation_summary": "Coverage analysis, test patterns, maintenance procedures",
+    "inline_comments": "All tests have docstrings explaining purpose, flow, assertions"
+  },
+
+  "next_steps": {
+    "phase_0": [
+      "Create backup: cp audit-deferrals.md audit-deferrals.md.backup",
+      "Establish STORY-033 test baseline",
+      "Record performance baseline (10 audit runs)",
+      "Generate baseline audit report",
+      "Run unit tests (all fail - confirms test framework)"
+    ],
+    "phase_1": [
+      "Analyze command structure (1 hour)",
+      "Enhance skill with Phase 7 (1.5 hours)",
+      "Refactor command Phase 6 (1 hour)",
+      "Bug fixes and regression testing (1 hour)",
+      "Performance validation and dry-run (1 hour)"
+    ],
+    "phase_2": [
+      "Run all 33 tests (expect 33/33 PASS)",
+      "Run STORY-033 tests (expect identical results)",
+      "Verify backward compatibility",
+      "Confirm performance within 10%"
+    ],
+    "estimated_total_time": "6.5 hours refactoring + 2 hours testing = 8.5 hours"
+  },
+
+  "success_criteria": {
+    "all_tests_pass": "33/33 tests PASSING",
+    "budget_compliance": "Command <12K chars (target 8-10K)",
+    "functionality_preserved": "All 84 STORY-033 tests pass identically",
+    "performance_maintained": "Execution time within 10% of baseline",
+    "pattern_consistency": "Matches /qa reference implementation",
+    "backward_compatibility": "100% compatible, no breaking changes",
+    "code_review": "Pattern consistency verified"
+  },
+
+  "test_file_locations": {
+    "unit_tests": "/mnt/c/Projects/DevForgeAI2/tests/unit/test_story050_budget_compliance.py",
+    "integration_tests": "/mnt/c/Projects/DevForgeAI2/tests/integration/test_story050_functionality.py",
+    "execution_guide": "/mnt/c/Projects/DevForgeAI2/tests/story050_test_execution_guide.md",
+    "summary": "/mnt/c/Projects/DevForgeAI2/tests/STORY-050-TEST-GENERATION-SUMMARY.md"
+  },
+
+  "summary": "Generated comprehensive test suite covering all 5 acceptance criteria (10+ tests), all technical specifications (13+ tests), and all non-functional requirements (5+ tests). Total 33 tests using TDD Red phase approach - all tests fail initially (refactoring not started), will pass after implementation complete.",
+
+  "status": "COMPLETE ✓"
+}

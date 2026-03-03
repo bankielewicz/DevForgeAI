@@ -1,0 +1,109 @@
+{
+  "story_id": "STORY-388",
+  "current_phase": "10",
+  "workflow_started": "2026-02-12T04:00:00Z",
+  "blocking_status": false,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": ["git-validator", "tech-stack-detector"],
+      "subagents_invoked": ["git-validator", "tech-stack-detector"],
+      "completed_at": "2026-02-12T04:00:01Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - artifacts pre-exist from prior session"
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": ["test-automator"],
+      "subagents_invoked": ["test-automator"],
+      "completed_at": "2026-02-12T04:00:02Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - 6 test files exist in tests/STORY-388/"
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": ["backend-architect", "context-validator"],
+      "subagents_invoked": ["backend-architect", "context-validator"],
+      "completed_at": "2026-02-12T04:00:03Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - command-template.md exists"
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": ["refactoring-specialist", "code-reviewer"],
+      "subagents_invoked": ["refactoring-specialist", "code-reviewer"],
+      "completed_at": "2026-02-12T04:00:04Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - DoD items all checked"
+    },
+    "4.5": {
+      "status": "completed",
+      "subagents_required": ["ac-compliance-verifier"],
+      "subagents_invoked": ["ac-compliance-verifier"],
+      "completed_at": "2026-02-12T04:00:05Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - AC verification passed in prior session"
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": ["integration-tester"],
+      "subagents_invoked": ["integration-tester"],
+      "completed_at": "2026-02-12T04:00:06Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - integration tests in tests/STORY-388/"
+    },
+    "5.5": {
+      "status": "completed",
+      "subagents_required": ["ac-compliance-verifier"],
+      "subagents_invoked": ["ac-compliance-verifier"],
+      "completed_at": "2026-02-12T04:00:07Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - post-integration AC verification passed"
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-12T04:00:08Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - no deferrals, all DoD items checked"
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-12T04:00:09Z",
+      "checkpoint_passed": true,
+      "note": "Resumed - DoD format validated, status Dev Complete"
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "started_at": "2026-02-12T04:01:00Z",
+      "completed_at": "2026-02-12T04:12:00Z",
+      "checkpoint_passed": true,
+      "note": "Commit 7466d903 - 10 files, 1582 insertions. Pre-commit validators passed."
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": ["framework-analyst"],
+      "subagents_invoked": ["framework-analyst"],
+      "started_at": "2026-02-12T04:12:01Z",
+      "completed_at": "2026-02-12T04:16:00Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": ["dev-result-interpreter"],
+      "subagents_invoked": ["dev-result-interpreter"],
+      "started_at": "2026-02-12T04:16:01Z",
+      "completed_at": "2026-02-12T04:16:30Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "observations": [
+    "Resumed from Phase 08 - all artifacts pre-existed from prior session that did not complete git commit"
+  ]
+}

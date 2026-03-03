@@ -1,0 +1,101 @@
+{
+  "story_id": "STORY-212",
+  "current_phase": "10",
+  "workflow_started": "2026-01-13T18:07:25Z",
+  "blocking_status": false,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-01-13T18:10:19Z",
+      "completed_at": "2026-01-13T18:11:08Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-01-13T18:14:28Z",
+      "completed_at": "2026-01-13T18:15:01Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2026-01-13T18:16:38Z",
+      "completed_at": "2026-01-13T18:20:49Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-01-13T18:21:56Z",
+      "completed_at": "2026-01-13T18:27:18Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-01-13T18:28:41Z",
+      "completed_at": "2026-01-13T18:28:41Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-13T18:29:26Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-13T18:30:37Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-13T18:31:41Z",
+      "checkpoint_passed": true
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-13T18:32:01Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-13T18:32:57Z",
+      "completed_at": "2026-01-13T18:32:58Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "observations": []
+}

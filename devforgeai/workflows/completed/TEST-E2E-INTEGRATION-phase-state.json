@@ -1,0 +1,16 @@
+{
+  "story_id": "TEST-E2E-INTEGRATION",
+  "current_phase": "02",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "checkpoint_passed": true,
+      "subagents": []
+    },
+    "02": {
+      "status": "in_progress",
+      "checkpoint_passed": false,
+      "subagents": []
+    }
+  }
+}

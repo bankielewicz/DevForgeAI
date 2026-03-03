@@ -1,0 +1,152 @@
+name: NPM Package Publishing
+
+# Trigger workflow on version tags matching vX.Y.Z or vX.Y.Z-prerelease pattern
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+# Permissions required for provenance
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish to NPM Registry
+    runs-on: ubuntu-latest
+    timeout-minutes: 5  # Workflow timeout to prevent stuck jobs
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    steps:
+      # Step 1: Checkout repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'  # Minimum LTS version required
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+
+      # Step 3: Install dependencies (reproducible with npm ci)
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Run tests to ensure package quality
+      - name: Run tests
+        run: npm test
+
+      # Step 5: Validate version tag matches package.json
+      - name: Validate version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Validating tag: $TAG"
+          node .github/scripts/validate-version.js $TAG
+
+          if [ $? -ne 0 ]; then
+            echo "✗ Version validation failed"
+            echo "Tag must match package.json version and follow semver format (vX.Y.Z or vX.Y.Z-prerelease)"
+            exit 1
+          fi
+
+          echo "✓ Version validation passed"
+
+      # Step 6: Check if package version already exists (idempotency)
+      - name: Check if version exists
+        id: version_check
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+
+          # Query NPM registry for this version
+          if npm view ${PACKAGE_NAME}@${VERSION} version 2>/dev/null; then
+            echo "Version ${VERSION} already published to NPM registry - skipping (exit 0 for idempotent behavior)"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Version ${VERSION} not found in NPM registry - proceeding with publish"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Step 7: Publish to NPM with provenance, dist-tag logic, and retry
+      - name: Publish to NPM
+        if: steps.version_check.outputs.exists == 'false'
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}
+
+          # Determine dist-tag based on version pattern
+          if echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            # Stable version (e.g., 1.0.0) -> use --tag latest
+            DIST_TAG="latest"
+          elif echo "$VERSION" | grep -qE 'beta'; then
+            # Beta version (e.g., 1.0.0-beta.1) -> use --tag beta
+            DIST_TAG="beta"
+          elif echo "$VERSION" | grep -qE 'rc'; then
+            # Release candidate (e.g., 1.0.0-rc.1) -> use --tag rc
+            DIST_TAG="rc"
+          else
+            # Other pre-release versions default to next
+            DIST_TAG="next"
+          fi
+
+          echo "Publishing version ${VERSION} with dist-tag: ${DIST_TAG}"
+
+          # Retry logic: 3 attempts with exponential backoff
+          # Handles transient failures (network, 502/503) and duplicate version (409 Conflict)
+          MAX_ATTEMPTS=3  # Maximum retry attempts for npm publish
+          ATTEMPT=1       # Current attempt counter
+          BACKOFF=2       # Exponential backoff base (seconds: 2^1, 2^2, 2^3)
+
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            echo "Publish attempt ${ATTEMPT}/${MAX_ATTEMPTS}..."
+
+            if npm publish --provenance --tag ${DIST_TAG} --access public; then
+              echo "✓ Successfully published ${VERSION} to NPM registry with --tag ${DIST_TAG}"
+              exit 0
+            else
+              EXIT_CODE=$?
+
+              # Check for 409 Conflict (version already exists) - safe to ignore due to idempotency
+              if [ $EXIT_CODE -eq 1 ]; then
+                echo "Note: If error is 409 Conflict (duplicate version), this is expected for idempotent operation"
+              fi
+
+              if [ $ATTEMPT -lt $MAX_ATTEMPTS ]; then
+                WAIT_TIME=$((BACKOFF ** ATTEMPT))
+                echo "✗ Publish attempt ${ATTEMPT} failed (exit code: ${EXIT_CODE})"
+                echo "Waiting ${WAIT_TIME} seconds before retry..."
+                sleep ${WAIT_TIME}
+                ATTEMPT=$((ATTEMPT + 1))
+              else
+                echo "✗ All ${MAX_ATTEMPTS} publish attempts failed"
+                exit ${EXIT_CODE}
+              fi
+            fi
+          done
+
+      # Step 8: Skip publish if version already exists
+      - name: Skip publish (version exists)
+        if: steps.version_check.outputs.exists == 'true'
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          VERSION=${TAG#v}
+          echo "Skipping publish - version ${VERSION} already published to NPM registry (idempotency check)"
+          exit 0
+
+# Required GitHub Secrets:
+# - NPM_TOKEN: NPM registry authentication token with Automation access level
+#   - Scope: @devforgeai or unscoped for public packages
+#   - Access: Automation (for CI/CD publishing)
+#   - Security: Token is automatically masked in logs by GitHub Actions
+#   - Registry: https://registry.npmjs.org
+#
+# Setup Instructions:
+# 1. Generate NPM token at https://www.npmjs.com/settings/<username>/tokens
+# 2. Select "Automation" token type
+# 3. Add token to GitHub repository secrets as NPM_TOKEN
+# 4. Token will be used via NODE_AUTH_TOKEN environment variable

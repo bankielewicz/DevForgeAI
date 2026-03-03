@@ -1,0 +1,170 @@
+{
+  "story_id": "STORY-376",
+  "current_phase": "10",
+  "workflow_started": "2026-02-09T17:02:58Z",
+  "blocking_status": false,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-02-09T17:07:56Z",
+      "completed_at": "2026-02-09T17:08:00Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-02-09T17:36:54Z",
+      "completed_at": "2026-02-09T17:37:28Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [
+        [
+          "backend-architect",
+          "frontend-developer"
+        ],
+        "context-validator"
+      ],
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2026-02-09T17:45:55Z",
+      "completed_at": "2026-02-09T17:45:59Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-02-09T17:57:16Z",
+      "completed_at": "2026-02-09T19:09:02Z",
+      "checkpoint_passed": true
+    },
+    "4.5": {
+      "status": "completed",
+      "subagents_required": [
+        "ac-compliance-verifier"
+      ],
+      "subagents_invoked": [
+        "ac-compliance-verifier"
+      ],
+      "started_at": "2026-02-09T19:13:07Z",
+      "completed_at": "2026-02-09T19:13:07Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-02-09T19:51:03Z",
+      "completed_at": "2026-02-09T19:51:03Z",
+      "checkpoint_passed": true
+    },
+    "5.5": {
+      "status": "completed",
+      "subagents_required": [
+        "ac-compliance-verifier"
+      ],
+      "subagents_invoked": [
+        "ac-compliance-verifier"
+      ],
+      "started_at": "2026-02-09T19:51:10Z",
+      "completed_at": "2026-02-09T19:51:10Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-09T19:54:40Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-09T19:56:29Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-09T20:06:51Z",
+      "checkpoint_passed": true
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": [
+        "framework-analyst"
+      ],
+      "subagents_invoked": [
+        "framework-analyst"
+      ],
+      "started_at": "2026-02-09T20:09:24Z",
+      "completed_at": "2026-02-09T20:09:24Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-02-09T20:10:51Z",
+      "completed_at": "2026-02-09T20:10:51Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "observations": [
+    {
+      "phase": "02",
+      "source": "test-automator",
+      "type": "success",
+      "content": "6 POSIX-compatible test scripts generated covering all 6 ACs with 131 individual test assertions",
+      "timestamp": "2026-02-09T17:37:00Z"
+    },
+    {
+      "phase": "02",
+      "source": "test-automator",
+      "type": "gap",
+      "content": "anti-pattern-scanner.md lacks inline --format json and fallback-to-Grep; references external phase file instead",
+      "timestamp": "2026-02-09T17:37:10Z"
+    },
+    {
+      "phase": "02",
+      "source": "test-automator",
+      "type": "friction",
+      "content": "Self-referential pattern detection in AC#5 test caused false positives; grep patterns matched their own comments",
+      "timestamp": "2026-02-09T17:37:20Z"
+    }
+  ]
+}

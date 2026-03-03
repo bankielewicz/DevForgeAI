@@ -1,0 +1,4 @@
+#!/bin/bash
+# Placeholder treelint binary for Linux x86_64
+# Version: 0.12.0
+echo "treelint version 0.12.0"

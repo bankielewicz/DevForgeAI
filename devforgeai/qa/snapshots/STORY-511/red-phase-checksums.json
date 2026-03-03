@@ -1,0 +1,10 @@
+{
+  "story_id": "STORY-511",
+  "phase": "red",
+  "created": "2026-03-01T03:12:29.875113Z",
+  "test_files": {
+    "test_ac1_completeness_check.sh": "ffac23fc27ad6baa129cbd4bb6d3b57012e6cd0f186b7d4c78b56e02b34b317e",
+    "test_ac2_missing_section_warning.sh": "70b16b10925d8573d7ddddb105953f861b4cbe73db4eeed94f9207dc18388b5c",
+    "test_ac3_incomplete_section_warning.sh": "b3a65457f85c19ea0edf0fef24e1e223acdf19f549abc72c6a3b5df36e58a235"
+  }
+}

@@ -1,0 +1,79 @@
+name: DevForgeAI Story Development
+
+# AC#1: Automated /dev Execution Workflow with headless mode
+"on":
+  workflow_dispatch:
+    inputs:
+      story_id:
+        description: "Story ID (e.g., STORY-001)"
+        required: true
+        type: string
+
+# Cost optimization: Prompt caching enabled
+env:
+  CLAUDE_CODE_CACHE_ENABLED: "true"
+  CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  develop-story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Validate Story ID
+        run: |
+          if ! echo "${{ inputs.story_id }}" | grep -qE '^STORY-[0-9]+$'; then
+            echo "::error::Invalid story ID format. Expected: STORY-NNN"
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Claude Code
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          export ANTHROPIC_API_KEY="${{ secrets.ANTHROPIC_API_KEY }}"
+
+      - name: Validate API Key
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "::error::ANTHROPIC_API_KEY secret not configured"
+            echo "Setup instructions: https://github.com/settings/secrets/actions"
+            exit 1
+          fi
+
+      - name: Execute /dev Workflow
+        id: dev
+        run: |
+          claude -p "/dev ${{ inputs.story_id }}" \
+            --dangerously-skip-permissions \
+            --max-turns 20 \
+            --output-format json > dev-result.json
+
+          # Extract cost for tracking
+          cost=$(jq -r '.total_cost_usd // 0' dev-result.json)
+          echo "cost=$cost" >> $GITHUB_OUTPUT
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-results-${{ inputs.story_id }}
+          path: |
+            dev-result.json
+            devforgeai/specs/Stories/${{ inputs.story_id }}*.story.md
+            tests/results/${{ inputs.story_id }}/
+            devforgeai/qa/coverage/
+          retention-days: 7
+
+      - name: Cost Summary
+        run: |
+          echo "## Cost Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Story: ${{ inputs.story_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "Cost: \$${{ steps.dev.outputs.cost }}" >> $GITHUB_STEP_SUMMARY

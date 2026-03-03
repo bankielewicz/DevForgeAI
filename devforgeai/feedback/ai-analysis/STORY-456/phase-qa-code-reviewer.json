@@ -1,0 +1,45 @@
+{
+  "subagent": "code-reviewer",
+  "phase": "QA",
+  "story_id": "STORY-456",
+  "timestamp": "2026-02-20T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-qa-001",
+      "category": "success",
+      "note": "CoT block is well-structured with 4 clear factors and MoSCoW mapping. Additions-only approach preserves existing logic.",
+      "severity": "low",
+      "files": ["src/claude/skills/discovering-requirements/references/requirements-elicitation-workflow.md"]
+    },
+    {
+      "id": "obs-qa-002",
+      "category": "success",
+      "note": "Per-phase Read() line ranges accurately match actual examples.md phase boundaries. Progressive loading reduces Phase 1 context by ~74%.",
+      "severity": "low",
+      "files": ["src/claude/skills/discovering-requirements/SKILL.md"]
+    },
+    {
+      "id": "obs-qa-003",
+      "category": "warning",
+      "note": "Line 335 in requirements-elicitation-workflow.md changed from 'Prioritize by business value' to 'Prioritize by business value using explicit reasoning:' - technically 1 modification, not pure addition. Semantically equivalent, acceptable.",
+      "severity": "low",
+      "files": ["src/claude/skills/discovering-requirements/references/requirements-elicitation-workflow.md"]
+    },
+    {
+      "id": "obs-qa-004",
+      "category": "success",
+      "note": "Test script has 25 well-structured assertions covering all 3 ACs. No skip decorators, no empty tests, no placeholder patterns detected.",
+      "severity": "low",
+      "files": ["tests/test-story-456-verification.sh"]
+    },
+    {
+      "id": "obs-qa-005",
+      "category": "pattern",
+      "note": "SKILL.md has 6 offset-based Read() references (3 in header summary + 3 per-phase). Duplication is intentional for progressive disclosure but creates double maintenance burden.",
+      "severity": "low",
+      "files": ["src/claude/skills/discovering-requirements/SKILL.md"]
+    }
+  ],
+  "metadata": { "version": "1.0", "write_timestamp": "2026-02-20T00:00:00Z" }
+}

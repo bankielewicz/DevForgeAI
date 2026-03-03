@@ -1,0 +1,30 @@
+========================================================================
+STORY-169 AC#4: HALT Behavior on Checkpoint Failure
+========================================================================
+
+Test 1: SKILL.md contains checkpoint HALT behavior template
+[0;32mPASS[0m SKILL.md contains 'Phase X incomplete: missing items' message
+
+Test 2: 'Complete missing items before proceeding' message exists
+[0;32mPASS[0m Contains 'Complete missing items before proceeding' message
+
+Test 3: HALT explicitly prevents phase progression
+[0;32mPASS[0m HALT behavior explicitly prevents phase progression
+
+Test 4: Phase 03 contains HALT behavior with error display
+[0;32mPASS[0m Phase 03 has HALT with error indication
+
+Test 5: Phase 04 contains HALT behavior with error display
+[0;32mPASS[0m Phase 04 has HALT with error indication
+
+Test 6: Phase 05 contains HALT behavior with error display
+[0;32mPASS[0m Phase 05 has HALT with error indication
+
+========================================================================
+AC#4: HALT Behavior Tests
+========================================================================
+Tests run:    6
+Tests passed: 6
+Tests failed: 0
+
+[0;32mRESULT: PASSED[0m

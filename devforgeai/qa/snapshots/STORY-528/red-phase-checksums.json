@@ -1,0 +1,15 @@
+{
+  "story_id": "STORY-528",
+  "phase": "red",
+  "test_files": {
+    "test_ac1_block_incomplete.sh": "14d8bc3eb284f369adc350f479cc8a1a5a5583ed329aa279e095cd7b966fc6a3",
+    "test_ac2_allow_complete.sh": "749fac8ef43dd6ebc8399c6484626f960585e9f1780c1448a9f688099f8a8e90",
+    "test_ac3_counter.sh": "e51d8d4dec52c0a9adbe47bc3dd6288bc4a926d2a03ef46950e6b6955070dfd2",
+    "test_ac4_discovery.sh": "640bd6559b75b8cb3f9b60b8f0f6db3bdb00c9f0013d06699ef15d95ddd6d30e",
+    "test_ac5_config.sh": "26c8e94f79c081dab55b7730692235ccb5bad68439d1c0528ccdf3b4905fe8d6",
+    "test_ac6_reporting.sh": "fe104c778d0ae7effdc3e30f48cf8f8e7fd9814b8f7a47be3162511427c8a72e",
+    "test_edge_malformed_json.sh": "cd0744dc57c4f70e8373dca7951c94b689369c0700a2ef557b319e7f5d353082",
+    "test_edge_no_workflows.sh": "77ad15644194504f57621198c65c148e840268b6fc45b8ce33fcf670027c361a",
+    "test_edge_stop_hook_active.sh": "4913589ac7ff4d6e60f5a082312019315d334cc43e2a759b8ab0dcbf47096d8c"
+  }
+}

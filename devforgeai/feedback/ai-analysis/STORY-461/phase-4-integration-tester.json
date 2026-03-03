@@ -1,0 +1,378 @@
+{
+  "metadata": {
+    "subagent": "integration-tester",
+    "phase": 4,
+    "story_id": "STORY-461",
+    "story_title": "Trim Documentation-Heavy Commands to Lean Orchestration Pattern",
+    "timestamp": "2026-02-21T00:00:00Z",
+    "test_type": "integration",
+    "duration_seconds": 180
+  },
+  "test_summary": {
+    "total_checks": 4,
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0,
+    "status": "PASS"
+  },
+  "integration_tests": {
+    "check_1_dual_path_sync": {
+      "name": "Dual-Path Synchronization",
+      "description": "Verify .claude/commands/ and src/claude/commands/ are identical for all 5 commands",
+      "checks": [
+        {
+          "command": "create-epic.md",
+          "status": "PASS",
+          "detail": "diff returned 0 - files identical"
+        },
+        {
+          "command": "document.md",
+          "status": "PASS",
+          "detail": "diff returned 0 - files identical"
+        },
+        {
+          "command": "create-agent.md",
+          "status": "PASS",
+          "detail": "diff returned 0 - files identical"
+        },
+        {
+          "command": "rca.md",
+          "status": "PASS",
+          "detail": "diff returned 0 - files identical"
+        },
+        {
+          "command": "insights.md",
+          "status": "PASS",
+          "detail": "diff returned 0 - files identical"
+        }
+      ],
+      "summary": "5/5 command pairs identical",
+      "result": "PASS"
+    },
+    "check_2_reference_file_existence": {
+      "name": "Reference File Dual-Path Existence",
+      "description": "Verify reference files exist in .claude/skills/ tree",
+      "checks": [
+        {
+          "file": ".claude/skills/designing-systems/references/create-epic-help.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "file": ".claude/skills/devforgeai-documentation/references/document-help.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "file": ".claude/skills/devforgeai-subagent-creation/references/create-agent-help.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "file": ".claude/skills/devforgeai-rca/references/rca-help.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "file": ".claude/skills/devforgeai-insights/references/insights-help.md",
+          "status": "PASS",
+          "exists": true
+        }
+      ],
+      "summary": "5/5 reference files exist",
+      "result": "PASS"
+    },
+    "check_3_skill_file_references": {
+      "name": "Skill File Path Validation",
+      "description": "Verify skill SKILL.md files referenced in commands actually exist",
+      "checks": [
+        {
+          "skill": ".claude/skills/designing-systems/SKILL.md",
+          "referenced_by": "create-epic.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "skill": ".claude/skills/devforgeai-documentation/SKILL.md",
+          "referenced_by": "document.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "skill": ".claude/skills/devforgeai-subagent-creation/SKILL.md",
+          "referenced_by": "create-agent.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "skill": ".claude/skills/devforgeai-rca/SKILL.md",
+          "referenced_by": "rca.md",
+          "status": "PASS",
+          "exists": true
+        },
+        {
+          "skill": ".claude/skills/devforgeai-insights/SKILL.md",
+          "referenced_by": "insights.md",
+          "status": "PASS",
+          "exists": true
+        }
+      ],
+      "summary": "5/5 skill files exist",
+      "result": "PASS"
+    },
+    "check_4_cross_reference_integrity": {
+      "name": "Cross-Reference Integrity",
+      "description": "Verify commands reference help files and no broken links exist",
+      "checks": [
+        {
+          "command": "create-epic.md",
+          "references": {
+            "skill": "designing-systems",
+            "help_file": "create-epic-help.md"
+          },
+          "status": "PASS",
+          "detail": "Command refs designing-systems skill, includes reference to create-epic-help.md (1 match)"
+        },
+        {
+          "command": "document.md",
+          "references": {
+            "skill": "devforgeai-documentation",
+            "help_file": "document-help.md"
+          },
+          "status": "PASS",
+          "detail": "Command refs devforgeai-documentation skill, includes reference to document-help.md (1 match)"
+        },
+        {
+          "command": "create-agent.md",
+          "references": {
+            "skill": "devforgeai-subagent-creation",
+            "help_file": "create-agent-help.md"
+          },
+          "status": "PASS",
+          "detail": "Command refs devforgeai-subagent-creation skill, includes reference to create-agent-help.md (1 match)"
+        },
+        {
+          "command": "rca.md",
+          "references": {
+            "skill": "devforgeai-rca",
+            "help_file": "rca-help.md"
+          },
+          "status": "PASS",
+          "detail": "Command refs devforgeai-rca skill, includes reference to rca-help.md (2 matches)"
+        },
+        {
+          "command": "insights.md",
+          "references": {
+            "skill": "devforgeai-insights",
+            "help_file": "insights-help.md"
+          },
+          "status": "PASS",
+          "detail": "Command refs devforgeai-insights skill, includes reference to insights-help.md (2 matches)"
+        }
+      ],
+      "summary": "5/5 commands have valid cross-references",
+      "result": "PASS"
+    }
+  },
+  "acceptance_criteria_metrics": {
+    "AC_1_create_epic": {
+      "lines": 105,
+      "target": "<=150",
+      "characters": 3362,
+      "target_chars": "<=12000",
+      "code_blocks_before_skill": 4,
+      "target_blocks": "<=4",
+      "status": "PASS"
+    },
+    "AC_2_document": {
+      "lines": 85,
+      "target": "<=100",
+      "characters": 2757,
+      "target_chars": "<=12000",
+      "code_blocks_before_skill": 1,
+      "target_blocks": "<=4",
+      "status": "PASS"
+    },
+    "AC_3_create_agent": {
+      "lines": 91,
+      "target": "<=100",
+      "characters": 3216,
+      "target_chars": "<=12000",
+      "code_blocks_before_skill": 1,
+      "target_blocks": "<=4",
+      "status": "PASS"
+    },
+    "AC_4_rca": {
+      "lines": 101,
+      "target": "<=120",
+      "characters": 3182,
+      "target_chars": "<=12000",
+      "code_blocks_before_skill": 1,
+      "target_blocks": "<=4",
+      "status": "PASS"
+    },
+    "AC_5_insights": {
+      "lines": 88,
+      "target": "<=100",
+      "characters": 2760,
+      "target_chars": "<=12000",
+      "code_blocks_before_skill": 1,
+      "target_blocks": "<=4",
+      "status": "PASS"
+    }
+  },
+  "business_rule_validation": {
+    "BR_001_zero_business_logic": {
+      "description": "Zero business logic in commands: no schema validation, mode detection, conditional display",
+      "checks": {
+        "create-epic": {
+          "bash_patterns": 0,
+          "task_patterns": 0,
+          "status": "PASS"
+        },
+        "document": {
+          "bash_patterns": 0,
+          "task_patterns": 0,
+          "status": "PASS"
+        },
+        "create-agent": {
+          "bash_patterns": 0,
+          "task_patterns": 0,
+          "status": "PASS"
+        },
+        "rca": {
+          "bash_patterns": 0,
+          "task_patterns": 0,
+          "status": "PASS"
+        },
+        "insights": {
+          "bash_patterns": 0,
+          "task_patterns": 0,
+          "status": "PASS"
+        }
+      },
+      "result": "PASS"
+    },
+    "BR_002_dual_path_sync": {
+      "description": "Dual-path sync: .claude/ and src/claude/ identical for all 5 commands",
+      "result": "PASS",
+      "detail": "All 5 command pairs verified with diff (0 differences)"
+    }
+  },
+  "enforcement_checks": {
+    "lean_orchestration_enforcement_section": {
+      "create_epic": {
+        "present": true,
+        "status": "PASS"
+      },
+      "document": {
+        "present": true,
+        "status": "PASS"
+      },
+      "create_agent": {
+        "present": true,
+        "status": "PASS"
+      },
+      "rca": {
+        "present": true,
+        "status": "PASS"
+      },
+      "insights": {
+        "present": true,
+        "status": "PASS"
+      }
+    }
+  },
+  "observations": [
+    {
+      "id": "INT-001",
+      "category": "dual_path_sync",
+      "note": "All 5 commands identical in .claude/ and src/ trees - dual-path integration verified",
+      "severity": "info",
+      "files": [
+        ".claude/commands/create-epic.md",
+        ".claude/commands/document.md",
+        ".claude/commands/create-agent.md",
+        ".claude/commands/rca.md",
+        ".claude/commands/insights.md",
+        "src/claude/commands/create-epic.md",
+        "src/claude/commands/document.md",
+        "src/claude/commands/create-agent.md",
+        "src/claude/commands/rca.md",
+        "src/claude/commands/insights.md"
+      ]
+    },
+    {
+      "id": "INT-002",
+      "category": "reference_files",
+      "note": "All 5 reference files created and accessible from commands - progressive disclosure pattern fully implemented",
+      "severity": "info",
+      "files": [
+        ".claude/skills/designing-systems/references/create-epic-help.md",
+        ".claude/skills/devforgeai-documentation/references/document-help.md",
+        ".claude/skills/devforgeai-subagent-creation/references/create-agent-help.md",
+        ".claude/skills/devforgeai-rca/references/rca-help.md",
+        ".claude/skills/devforgeai-insights/references/insights-help.md"
+      ]
+    },
+    {
+      "id": "INT-003",
+      "category": "acceptance_criteria",
+      "note": "All AC#1-5 metrics met: create-epic 105/150 lines, document 85/100, create-agent 91/100, rca 101/120, insights 88/100. All under 12K characters. All <=4 code blocks before Skill().",
+      "severity": "info",
+      "files": [
+        ".claude/commands/create-epic.md",
+        ".claude/commands/document.md",
+        ".claude/commands/create-agent.md",
+        ".claude/commands/rca.md",
+        ".claude/commands/insights.md"
+      ]
+    },
+    {
+      "id": "INT-004",
+      "category": "business_rules",
+      "note": "BR-001 verified: Zero business logic patterns (Bash(command=, Task() calls) in any of 5 commands. Lean orchestration pattern enforced.",
+      "severity": "info",
+      "files": [
+        ".claude/commands/create-epic.md",
+        ".claude/commands/document.md",
+        ".claude/commands/create-agent.md",
+        ".claude/commands/rca.md",
+        ".claude/commands/insights.md"
+      ]
+    },
+    {
+      "id": "INT-005",
+      "category": "governance",
+      "note": "Lean Orchestration Enforcement section present in all 5 commands - governance and constraint visibility maintained",
+      "severity": "info",
+      "files": [
+        ".claude/commands/create-epic.md",
+        ".claude/commands/document.md",
+        ".claude/commands/create-agent.md",
+        ".claude/commands/rca.md",
+        ".claude/commands/insights.md"
+      ]
+    }
+  ],
+  "anti_gaming_validation": {
+    "status": "PASSED",
+    "note": "Integration tests are not subject to anti-gaming validation (Step 0 applies to unit/integration test coverage, not specification validation). STORY-461 is markdown-only refactoring with no tests generated."
+  },
+  "overall_assessment": {
+    "integration_test_status": "PASS",
+    "all_checks_passed": true,
+    "total_checks_executed": 4,
+    "coverage": "100%",
+    "blocking_issues": 0,
+    "warnings": 0
+  },
+  "recommendations": [
+    {
+      "id": "REC-001",
+      "category": "follow_up",
+      "recommendation": "All integration checks passed. Ready for AC#6-9 verification (backward compatibility output, governance preservation, interactive prompts, AskUserQuestion placement) in subsequent QA phase.",
+      "priority": "low"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "description": "Expected error extraction results for AC#1 verification",
+  "total_entries": 15,
+  "error_count": 12,
+  "success_count": 3,
+  "extracted_errors": [
+    {
+      "timestamp": "2025-01-02T10:00:00Z",
+      "command": "/dev STORY-100",
+      "session_id": "error-session-001",
+      "error_message": "API rate limit exceeded"
+    },
+    {
+      "timestamp": "2025-01-02T10:10:00Z",
+      "command": "/dev STORY-101",
+      "session_id": "error-session-001",
+      "error_message": "Validation failed: Missing required field 'acceptance_criteria'"
+    },
+    {
+      "timestamp": "2025-01-02T11:00:00Z",
+      "command": "/release STORY-102",
+      "session_id": "error-session-002",
+      "error_message": "Request timeout after 120000ms"
+    },
+    {
+      "timestamp": "2025-01-02T11:30:00Z",
+      "command": "/dev STORY-103",
+      "session_id": "error-session-002",
+      "error_message": "Context window overflow: conversation exceeds 200K tokens"
+    },
+    {
+      "timestamp": "2025-01-02T12:00:00Z",
+      "command": "/ideate feature-x",
+      "session_id": "error-session-002",
+      "error_message": "File not found: devforgeai/specs/Stories/STORY-999.story.md"
+    },
+    {
+      "timestamp": "2025-01-02T13:00:00Z",
+      "command": "/dev STORY-104",
+      "session_id": "error-session-003",
+      "error_message": "API connection failed: ECONNREFUSED"
+    },
+    {
+      "timestamp": "2025-01-02T13:30:00Z",
+      "command": "/qa STORY-104",
+      "session_id": "error-session-003",
+      "error_message": "Invalid JSON response from API"
+    },
+    {
+      "timestamp": "2025-01-02T14:30:00Z",
+      "command": "/release STORY-105",
+      "session_id": "error-session-003",
+      "error_message": "Validation failed: Coverage below threshold (85% < 95%)"
+    },
+    {
+      "timestamp": "2025-01-02T15:00:00Z",
+      "command": "/create-story epic-001",
+      "session_id": "error-session-004",
+      "error_message": "Request timeout after 60000ms"
+    },
+    {
+      "timestamp": "2025-01-02T15:10:00Z",
+      "command": "/dev STORY-106",
+      "session_id": "error-session-004",
+      "error_message": "File not found: .claude/agents/missing-agent.md"
+    },
+    {
+      "timestamp": "2025-01-02T15:20:00Z",
+      "command": "/dev STORY-107",
+      "session_id": "error-session-004",
+      "error_message": "Unknown error occurred during execution"
+    },
+    {
+      "timestamp": "2025-01-02T16:30:00Z",
+      "command": "/dev STORY-108",
+      "session_id": "error-session-005",
+      "error_message": "API rate limit exceeded"
+    }
+  ]
+}

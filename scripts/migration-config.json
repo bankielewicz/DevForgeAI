@@ -1,0 +1,110 @@
+{
+  "version": "1.0",
+  "description": "STORY-042: Framework File Migration Configuration",
+  "created": "2025-11-18",
+
+  "sources": [
+    ".claude",
+    "devforgeai",
+    "CLAUDE.md"
+  ],
+
+  "sources_detail": {
+    ".claude": {
+      "type": "directory",
+      "description": "Framework skills, subagents, commands, and memory modules",
+      "expected_file_count": 370,
+      "tolerance": 10,
+      "subdirectories": ["agents", "commands", "memory", "scripts", "skills"]
+    },
+    "devforgeai": {
+      "type": "directory",
+      "description": "Framework configuration, documentation, protocols, and specifications (pure source only, no tests)",
+      "expected_file_count": 65,
+      "tolerance": 10,
+      "included_subdirectories": ["config", "docs", "protocols", "specs"],
+      "excluded_subdirectories": ["qa/reports", "RCA", "adrs", "feedback/imported", "logs", "tests", "backups", "deferral-validation", "deployment", "feedback", "guides", "releases", "research", "scripts", "silo", "stories", "validation"]
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "description": "Project instructions for Claude Code - copied as template",
+      "add_template_marker": true
+    }
+  },
+
+  "exclude_patterns": [
+    "*.backup*",
+    "*.bak",
+    "*.tmp",
+    "*.temp",
+    "__pycache__",
+    "*.pyc",
+    "*.egg-info",
+    "htmlcov",
+    ".coverage",
+    "node_modules",
+    ".git",
+    ".gitkeep",
+    "qa/reports/*",
+    "RCA/*",
+    "adrs/*",
+    "feedback/imported/*",
+    "logs/*"
+  ],
+
+  "exclude_directories": [
+    "qa/reports",
+    "RCA",
+    "adrs",
+    "feedback/imported",
+    "logs",
+    "tests"
+  ],
+
+  "validation": {
+    "checksum_algorithm": "SHA256",
+    "checksum_match_percentage": 100,
+    "file_count_tolerance": 10,
+    "expected_total_files": 450,
+    "verify_original_unchanged": true,
+    "fail_fast_on_corruption": true
+  },
+
+  "copy_strategy": {
+    "method": "atomic_per_directory",
+    "preserve_permissions": true,
+    "follow_symlinks": true,
+    "create_checksums": true,
+    "create_manifest": true,
+    "create_log": true,
+    "stage_in_git": true
+  },
+
+  "performance": {
+    "copy_target_seconds": 120,
+    "checksum_target_seconds": 60,
+    "memory_limit_mb": 50,
+    "parallel_threads": 4
+  },
+
+  "output_files": {
+    "checksums": "checksums.txt",
+    "log": "src/scripts/migration.log",
+    "report": "src/scripts/migration-report.md",
+    "checkpoint": "src/scripts/.migration-checkpoint.json"
+  },
+
+  "error_handling": {
+    "fail_fast": true,
+    "rollback_on_error": true,
+    "checkpoint_enabled": true,
+    "resume_enabled": true
+  },
+
+  "logging": {
+    "level": "INFO",
+    "include_timestamps": true,
+    "include_checksums": true,
+    "include_operation_summary": true
+  }
+}

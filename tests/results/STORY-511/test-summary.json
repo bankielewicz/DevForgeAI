@@ -1,0 +1,110 @@
+{
+  "story_id": "STORY-511",
+  "story_title": "Extend Context Preservation Validator for Decision Context Completeness",
+  "test_date": "2026-02-28",
+  "test_type": "integration",
+  "test_summary": {
+    "total_tests": 13,
+    "passed": 13,
+    "failed": 0,
+    "skipped": 0,
+    "success_rate": "100%"
+  },
+  "acceptance_criteria": {
+    "AC#1": {
+      "title": "Decision Context Completeness Check Added",
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "status": "PASSED"
+    },
+    "AC#2": {
+      "title": "Missing Section Produces Warning",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "status": "PASSED"
+    },
+    "AC#3": {
+      "title": "Incomplete Section Produces Warning",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "status": "PASSED"
+    }
+  },
+  "integration_coverage": {
+    "file_synchronization": {
+      "operational_path": ".claude/agents/context-preservation-validator.md",
+      "source_path": "src/claude/agents/context-preservation-validator.md",
+      "sync_status": "IDENTICAL",
+      "lines": 222
+    },
+    "document_structure": {
+      "yaml_frontmatter": "VALID",
+      "decision_context_section": "PRESENT",
+      "validation_criteria": "COMPLETE",
+      "warn_findings": "BOTH_DEFINED",
+      "remediation_guidance": "COMPLETE",
+      "references": "UPDATED"
+    },
+    "no_external_dependencies": {
+      "api_endpoints": "NONE",
+      "database_operations": "NONE",
+      "external_services": "NONE",
+      "cross_component_interfaces": "NONE"
+    }
+  },
+  "test_files": [
+    {
+      "name": "test_ac1_completeness_check.sh",
+      "tests": 7,
+      "passed": 7,
+      "failed": 0
+    },
+    {
+      "name": "test_ac2_missing_section_warning.sh",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "name": "test_ac3_incomplete_section_warning.sh",
+      "tests": 3,
+      "passed": 3,
+      "failed": 0
+    }
+  ],
+  "findings": [
+    {
+      "category": "implementation",
+      "severity": "info",
+      "message": "Decision Context Completeness Check properly integrated into validator at line 183"
+    },
+    {
+      "category": "file_sync",
+      "severity": "info",
+      "message": "Operational and source copies are identical - 100% sync"
+    },
+    {
+      "category": "documentation",
+      "severity": "info",
+      "message": "All validation criteria documented with Design Rationale, Rejected Alternatives, Implementation Constraints"
+    },
+    {
+      "category": "warnings",
+      "severity": "info",
+      "message": "Both WARN-level findings properly defined: Missing Decision Context section, Decision Context section incomplete"
+    },
+    {
+      "category": "remediation",
+      "severity": "info",
+      "message": "Clear remediation guidance provided for both warning scenarios"
+    }
+  ],
+  "blockers": [],
+  "warnings": [],
+  "recommendations": [],
+  "overall_status": "PASSED",
+  "conclusion": "All integration tests for STORY-511 passed. The markdown-only configuration change is properly implemented with complete file sync between operational and source copies. Ready for QA validation."
+}

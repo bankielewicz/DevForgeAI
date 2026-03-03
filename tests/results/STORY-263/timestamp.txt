@@ -1,0 +1,71 @@
+STORY-263 Test Generation - TDD Red Phase
+==========================================
+
+Generated: 2026-01-17T07:37:00Z
+Author: claude/test-automator
+Phase: Red (Tests First)
+Status: All tests FAILING (expected)
+
+Test Files Generated:
+---------------------
+1. test-ac1-gaps-json-auto-detection-phase-0103.sh
+   - Tests Phase 01.0.3 section exists
+   - Tests gaps.json detection logic
+   - Tests REMEDIATION_MODE set from detection
+   - Tests step ordering (after 0.2, before Phase 1)
+
+2. test-ac2-notification-banner.sh
+   - Tests auto-detection notification exists
+   - Tests Display pattern usage
+   - Tests distinct messaging from --fix
+
+3. test-ac3-no-change-when-absent.sh
+   - Tests conditional logic for absence
+   - Tests REMEDIATION_MODE defaults to false
+   - Tests normal workflow continuation
+
+4. test-ac4-explicit-fix-flag-priority.sh
+   - Tests --fix flag backward compatibility
+   - Tests priority over auto-detection
+   - Tests usage documentation
+
+5. test-ac5-detection-timing.sh
+   - Tests Step 0.3 in Phase 0 section
+   - Tests step sequence ordering
+   - Tests STORY_ID availability before detection
+
+6. test-comp002-canonical-path-construction.sh
+   - Tests canonical path pattern
+   - Tests STORY_ID variable usage in path
+   - Tests path construction in Step 0.3
+
+7. test-comp003-glob-pattern-check.sh
+   - Tests Glob tool usage for detection
+   - Tests native tool (not Bash find/ls)
+   - Tests Glob result handling
+
+8. test-br001-exact-story-id-matching.sh
+   - Tests no STORY_ID normalization
+   - Tests exact variable usage in path
+   - Tests no ambiguous wildcards
+
+9. test-nfr003-story-id-validation.sh
+   - Tests STORY_ID regex validation
+   - Tests validation before path construction
+   - Tests path traversal prevention
+
+Test Summary:
+------------
+Total Tests: 9
+Passed: 0
+Failed: 9
+
+TDD Red Phase: CONFIRMED
+Implementation Required: Add Step 0.3 to .claude/commands/dev.md
+
+Coverage:
+---------
+- AC#1-5: All acceptance criteria covered
+- COMP-002, COMP-003: Technical spec components covered
+- BR-001, BR-002, BR-004: Business rules covered (BR-002, BR-004 via AC tests)
+- NFR-003: Security validation covered

@@ -1,0 +1,10 @@
+{
+  "story_id": "STORY-518",
+  "created": "2026-03-01T21:01:46.514528Z",
+  "phase": "red",
+  "test_files": {
+    "tests/STORY-518/test_ac1_step6_present.sh": "727e359fb36cc870d987382daeae07357fee9762a04631d2c3ff2b5f5d8ac657",
+    "tests/STORY-518/test_ac2_step_recording.sh": "6619dea359faeb2377d443c9ef460db55769783f5bd04858f5dcb790da71771a",
+    "tests/STORY-518/test_ac3_graceful_degradation.sh": "19ff26b3b94438e03455f551eb50bf0aa8b6732058a53de3bbfde8f5eb4dc15c"
+  }
+}

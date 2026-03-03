@@ -1,0 +1,32 @@
+{
+  "story_id": "STORY-300",
+  "current_phase": "10",
+  "iteration_count": 2,
+  "max_iterations": 5,
+  "phases": {
+    "01": {"status": "completed", "subagents": ["git-validator", "tech-stack-detector", "context-preservation-validator"]},
+    "02": {"status": "completed", "subagents": ["test-automator"]},
+    "03": {"status": "completed", "subagents": ["backend-architect", "context-validator"]},
+    "04": {"status": "completed", "subagents": ["refactoring-specialist", "code-reviewer"]},
+    "4.5": {"status": "completed", "subagents": ["ac-compliance-verifier"]},
+    "05": {"status": "completed", "subagents": ["integration-tester"]},
+    "5.5": {"status": "completed", "subagents": ["ac-compliance-verifier"]},
+    "06": {"status": "completed", "subagents": []},
+    "07": {"status": "completed", "subagents": []},
+    "08": {"status": "completed", "subagents": [], "git_mode": "file-based", "note": "Tracked via phase-state.json - 82 other uncommitted changes in repo"},
+    "09": {"status": "completed", "subagents": []},
+    "10": {"status": "completed", "subagents": ["dev-result-interpreter"]}
+  },
+  "remediation": {
+    "iteration": 2,
+    "timestamp": "2026-01-23T10:30:00Z",
+    "gaps_fixed": [
+      {"id": "CR-001", "severity": "CRITICAL", "file": "src/claude/hooks/post-epic-create.sh", "fix": "Replaced grep -P with POSIX-compatible pattern"},
+      {"id": "CR-002", "severity": "CRITICAL", "file": "src/claude/hooks/pre-epic-create.sh", "fix": "Differentiated exit codes for greenfield vs permission errors"},
+      {"id": "CR-003", "severity": "CRITICAL", "file": "src/claude/hooks/pre-epic-create.sh", "fix": "Added xml_escape() function for special characters"}
+    ],
+    "test_result": "PASS (58 assertions)"
+  },
+  "created_at": "2026-01-23T10:00:00Z",
+  "updated_at": "2026-01-23T10:30:00Z"
+}

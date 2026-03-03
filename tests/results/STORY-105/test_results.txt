@@ -1,0 +1,37 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-7.4.4, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/c/Projects/DevForgeAI2/tests
+configfile: pytest.ini
+plugins: mock-3.15.0, cov-4.1.0, asyncio-0.21.2, anyio-4.10.0
+asyncio: mode=Mode.STRICT
+collecting ... collected 16 items
+
+tests/STORY-105/test_cleanup_fixtures.py::TestTempZipDirFixture::test_fixture_creates_directory PASSED [  6%]
+tests/STORY-105/test_cleanup_fixtures.py::TestTempZipDirFixture::test_fixture_is_path_object PASSED [ 12%]
+tests/STORY-105/test_cleanup_fixtures.py::TestTempZipDirFixture::test_fixture_allows_file_creation PASSED [ 18%]
+tests/STORY-105/test_cleanup_fixtures.py::TestTempZipDirFixture::test_fixture_allows_zip_creation PASSED [ 25%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCreateTestZipFixture::test_fixture_creates_valid_zip PASSED [ 31%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCreateTestZipFixture::test_fixture_includes_all_files PASSED [ 37%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCreateTestZipFixture::test_fixture_file_contents_match PASSED [ 43%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCreateTestZipFixture::test_fixture_supports_prefix PASSED [ 50%]
+tests/STORY-105/test_cleanup_fixtures.py::TestValidImportZipFixture::test_fixture_is_valid_zip PASSED [ 56%]
+tests/STORY-105/test_cleanup_fixtures.py::TestValidImportZipFixture::test_fixture_contains_required_files PASSED [ 62%]
+tests/STORY-105/test_cleanup_fixtures.py::TestValidImportZipFixture::test_fixture_has_valid_index_json PASSED [ 68%]
+tests/STORY-105/test_cleanup_fixtures.py::TestValidImportZipFixture::test_fixture_has_valid_manifest_json PASSED [ 75%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCleanupVerification::test_temp_zip_dir_cleaned_after_test PASSED [ 81%]
+tests/STORY-105/test_cleanup_fixtures.py::TestCleanupVerification::test_no_orphan_zips_in_project_root PASSED [ 87%]
+tests/STORY-105/test_cleanup_fixtures.py::TestLargerImportZipFixture::test_fixture_creates_larger_zip PASSED [ 93%]
+tests/STORY-105/test_cleanup_fixtures.py::TestLargerImportZipFixture::test_fixture_has_matching_session_count PASSED [100%]/home/bryan/.local/lib/python3.12/site-packages/coverage/control.py:945: CoverageWarning: No data was collected. (no-data-collected)
+  self._warn("No data was collected.", slug="no-data-collected")
+/home/bryan/.local/lib/python3.12/site-packages/pytest_cov/plugin.py:312: CovReportWarning: Failed to generate report: No data to report.
+
+  warnings.warn(CovReportWarning(message))
+WARNING: Failed to generate report: No data to report.
+
+
+
+---------- coverage: platform linux, python 3.12.3-final-0 -----------
+
+
+============================== 16 passed in 0.52s ==============================

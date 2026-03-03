@@ -1,0 +1,30 @@
+========================================================================
+STORY-169: Checkpoint Template Structure Validation (Integration)
+========================================================================
+
+Test 1: Checkpoint template documentation exists in SKILL.md
+[0;32mPASS[0m Phase Validation Checkpoint section exists
+
+Test 2: Template includes Task() call verification instruction
+[0;32mPASS[0m Template includes Task() call verification
+
+Test 3: Template has both HALT (fail) and PASS (success) branches
+[0;32mPASS[0m Template has both HALT and PASS branches
+
+Test 4: Subagent Verification Logic section exists
+[0;32mPASS[0m Subagent Verification Logic section exists
+
+Test 5: Required Subagents Per Phase table contains all required subagents
+[0;32mPASS[0m Required Subagents table is complete
+
+Test 6: Checking for src/claude/ version (if exists)
+[0;32mPASS[0m src/claude/ version also has Phase Validation Checkpoint
+
+========================================================================
+Checkpoint Template Structure Tests
+========================================================================
+Tests run:    6
+Tests passed: 6
+Tests failed: 0
+
+[0;32mRESULT: PASSED[0m

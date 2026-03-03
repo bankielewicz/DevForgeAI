@@ -1,0 +1,11 @@
+phase: 2
+story_id: STORY-001
+mode: deep
+timestamp: 2026-01-12T14:45:00Z
+status: complete
+anti_patterns_critical: 0
+anti_patterns_high: 4
+anti_patterns_medium: 2
+anti_patterns_low: 2
+parallel_validators_passed: 3
+parallel_validators_total: 4

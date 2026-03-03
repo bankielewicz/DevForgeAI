@@ -1,0 +1,21 @@
+{
+  "story_id": "STORY-289",
+  "current_phase": "10",
+  "completed_phases": ["01", "02", "03", "04", "4.5", "05", "5.5", "06", "07", "08", "09", "10"],
+  "subagent_invocations": {
+    "01": ["git-validator", "tech-stack-detector"],
+    "02": ["test-automator"],
+    "03": ["backend-architect", "context-validator"],
+    "04": ["refactoring-specialist", "code-reviewer"],
+    "4.5": ["ac-compliance-verifier"],
+    "05": ["integration-tester"],
+    "5.5": ["ac-compliance-verifier"]
+  },
+  "iteration_count": 2,
+  "max_iterations": 5,
+  "last_iteration_date": "2026-01-21",
+  "created": "2026-01-21T12:00:00Z",
+  "updated": "2026-01-21T16:00:00Z",
+  "remediation_mode": true,
+  "remediation_gaps": ["DOC-001", "DOC-002"]
+}

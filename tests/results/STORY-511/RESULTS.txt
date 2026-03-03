@@ -1,0 +1,142 @@
+================================================================================
+STORY-511 INTEGRATION TEST RESULTS
+================================================================================
+
+Story: Extend Context Preservation Validator for Decision Context Completeness
+Type: Integration Tests (Markdown-only configuration change)
+Date: 2026-02-28
+Status: PASSED ✓
+
+================================================================================
+SUMMARY
+================================================================================
+
+All 13 unit tests passed with 100% success rate.
+Both operational and source file copies are synchronized (identical).
+No runtime code, API endpoints, database transactions, or external dependencies.
+
+================================================================================
+TEST RESULTS
+================================================================================
+
+AC#1: Decision Context Completeness Check Added
+  - Tests: 7 PASSED / 7 TOTAL
+  - File: tests/STORY-511/test_ac1_completeness_check.sh
+
+AC#2: Missing Section Produces Warning
+  - Tests: 3 PASSED / 3 TOTAL
+  - File: tests/STORY-511/test_ac2_missing_section_warning.sh
+
+AC#3: Incomplete Section Produces Warning
+  - Tests: 3 PASSED / 3 TOTAL
+  - File: tests/STORY-511/test_ac3_incomplete_section_warning.sh
+
+OVERALL: 13 PASSED / 13 TOTAL (100%)
+
+================================================================================
+FILE SYNCHRONIZATION
+================================================================================
+
+Operational File: .claude/agents/context-preservation-validator.md
+Source File:      src/claude/agents/context-preservation-validator.md
+Sync Status:      ✓ IDENTICAL (222 lines, byte-for-byte match)
+
+================================================================================
+IMPLEMENTATION VERIFICATION
+================================================================================
+
+✓ Decision Context Completeness Check section exists (line 183)
+✓ Validation Criteria section complete:
+  - Design Rationale requirement (line 191)
+  - Rejected Alternatives requirement (line 193)
+  - Implementation Constraints requirement (line 195)
+✓ WARN findings properly defined:
+  - Missing Decision Context section (line 201)
+  - Decision Context section incomplete (line 208)
+✓ Remediation guidance provided for both warnings
+✓ References section updated with STORY-511 link (line 221)
+✓ Document structure intact and properly formatted
+
+================================================================================
+INTEGRATION POINTS
+================================================================================
+
+1. Document Structure: ✓ PASS
+   - New section properly placed before References
+   - Markdown hierarchy respected
+   - No formatting conflicts
+   - Consistent with existing document style
+
+2. File Synchronization: ✓ PASS
+   - Both copies exist at expected paths
+   - Binary-identical content
+   - YAML frontmatter consistent
+   - All changes reflected in both locations
+
+3. Validation Logic: ✓ PASS
+   - Section title matches test expectations
+   - Field names match test patterns
+   - WARN findings match test assertions
+   - Severity levels consistent
+
+4. Cross-References: ✓ PASS
+   - STORY-511 linked in References section
+   - Existing references preserved
+   - No broken links
+
+================================================================================
+NO EXTERNAL DEPENDENCIES
+================================================================================
+
+Configuration Type: Pure Markdown documentation
+Implementation Type: No runtime code
+
+Verified absence of:
+  ✗ API endpoints
+  ✗ Database transactions
+  ✗ Database migrations
+  ✗ External service integrations
+  ✗ Cross-component interfaces
+  ✗ Docker requirements
+  ✗ Build steps
+
+================================================================================
+ARTIFACTS GENERATED
+================================================================================
+
+Test Results Directory: tests/results/STORY-511/
+
+Files:
+  1. RESULTS.txt (this file) - Quick summary
+  2. test-summary.json - Structured test results
+  3. integration-test-report.md - Detailed markdown report
+  4. detailed-verification.txt - Complete verification checklist
+
+Test Files:
+  - tests/STORY-511/test_ac1_completeness_check.sh (7 tests)
+  - tests/STORY-511/test_ac2_missing_section_warning.sh (3 tests)
+  - tests/STORY-511/test_ac3_incomplete_section_warning.sh (3 tests)
+
+Configuration Files Validated:
+  - .claude/agents/context-preservation-validator.md (operational)
+  - src/claude/agents/context-preservation-validator.md (source)
+
+================================================================================
+CONCLUSION
+================================================================================
+
+STORY-511 integration testing PASSED with 100% success rate.
+
+The Decision Context Completeness Check has been successfully integrated into
+the context-preservation-validator subagent with complete validation criteria,
+proper WARN-level findings, clear remediation guidance, and full document
+structure integration.
+
+Both operational and source file copies are synchronized. No external
+dependencies or integration challenges identified.
+
+Status: READY FOR QA VALIDATION
+
+Verification timestamp: 2026-02-28
+Generated by: integration-tester subagent
+================================================================================

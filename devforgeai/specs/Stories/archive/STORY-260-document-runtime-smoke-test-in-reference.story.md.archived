@@ -1,0 +1,212 @@
+---
+id: STORY-260
+title: Document Runtime Smoke Test in Deep Validation Workflow Reference
+type: documentation
+epic: EPIC-040
+sprint: Backlog
+status: Backlog
+points: 1
+depends_on: ["STORY-257"]
+priority: Medium
+assigned_to: Unassigned
+created: 2026-01-15
+format_version: "2.5"
+source_rca: RCA-002
+source_recommendation: REC-4
+---
+
+# Story: Document Runtime Smoke Test in Deep Validation Workflow Reference
+
+## Description
+
+**As a** DevForgeAI framework developer,
+**I want** runtime smoke test procedures documented in the deep validation workflow reference,
+**so that** future maintainers understand the smoke test commands and project type detection logic.
+
+**Context:** RCA-002 REC-4 recommends documenting the runtime smoke test in the reference file to provide comprehensive guidance on language-specific smoke test commands, project type detection logic, and expected outputs.
+
+## Acceptance Criteria
+
+### AC#1: Section Addition to Reference File
+
+**Given** `.claude/skills/devforgeai-qa/references/deep-validation-workflow.md` exists,
+**When** the documentation is added,
+**Then** a new section "1.4 Runtime Smoke Test" is present after section 1.3.
+
+---
+
+### AC#2: Language-Specific Smoke Test Commands
+
+**Given** the Runtime Smoke Test section exists,
+**When** reviewing the content,
+**Then** it includes smoke test commands for:
+- Python CLI: `python -m {package} --help`
+- Python API: `curl http://localhost:{port}/health`
+- Node.js CLI: `node {entry_point} --help`
+- Node.js API: `curl http://localhost:{port}/health`
+
+---
+
+### AC#3: Project Type Detection Logic
+
+**Given** the Runtime Smoke Test section exists,
+**When** reviewing the content,
+**Then** it includes:
+- Detection patterns for CLI projects (file patterns, story keywords)
+- Detection patterns for API projects (file patterns, story keywords)
+- Detection patterns for library projects (exclusion logic)
+
+---
+
+### AC#4: Expected Outputs Documentation
+
+**Given** the Runtime Smoke Test section exists,
+**When** reviewing the content,
+**Then** it includes:
+- Example success output
+- Example failure output
+- Violation format for failures
+
+---
+
+## Technical Specification
+
+```yaml
+technical_specification:
+  format_version: "2.0"
+
+  components:
+    - type: "Configuration"
+      name: "deep-validation-workflow.md"
+      file_path: ".claude/skills/devforgeai-qa/references/deep-validation-workflow.md"
+      required_keys:
+        - key: "## 1.4 Runtime Smoke Test"
+          type: "markdown"
+          example: "## 1.4 Runtime Smoke Test [RCA-002]"
+          required: true
+          validation: "Section header exists"
+          test_requirement: "Test: Grep for '## 1.4 Runtime' in file"
+
+  business_rules:
+    - id: "BR-001"
+      rule: "Documentation must cover all supported project types"
+      trigger: "Documentation review"
+      validation: "CLI, API, and Library types documented"
+      error_handling: "N/A - documentation story"
+      test_requirement: "Test: All 3 project types mentioned in section"
+      priority: "Medium"
+
+  non_functional_requirements:
+    - id: "NFR-001"
+      category: "Maintainability"
+      requirement: "Clear, actionable documentation"
+      metric: "New developer can understand smoke test in < 5 min"
+      test_requirement: "Test: Documentation review by developer"
+      priority: "Medium"
+```
+
+---
+
+## Technical Limitations
+
+```yaml
+technical_limitations: []
+```
+
+---
+
+## Dependencies
+
+### Prerequisite Stories
+
+- [x] **STORY-257:** Add Runtime Smoke Test to QA Deep Validation
+  - **Why:** Implements the smoke test that this story documents
+  - **Status:** Backlog
+
+---
+
+## Test Strategy
+
+### Unit Tests
+
+**Test Scenarios:**
+1. **Structural Test:** Section 1.4 exists in file
+2. **Content Test:** All language commands present
+3. **Content Test:** All project types documented
+
+---
+
+## Acceptance Criteria Verification Checklist
+
+### AC#1: Section Addition to Reference File
+
+- [ ] Section 1.4 header added - **Phase:** 3 - **Evidence:** Implementation
+
+### AC#2: Language-Specific Smoke Test Commands
+
+- [ ] Python CLI command documented - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Python API command documented - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Node.js CLI command documented - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Node.js API command documented - **Phase:** 3 - **Evidence:** Implementation
+
+### AC#3: Project Type Detection Logic
+
+- [ ] CLI detection patterns documented - **Phase:** 3 - **Evidence:** Implementation
+- [ ] API detection patterns documented - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Library detection logic documented - **Phase:** 3 - **Evidence:** Implementation
+
+### AC#4: Expected Outputs Documentation
+
+- [ ] Success output example - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Failure output example - **Phase:** 3 - **Evidence:** Implementation
+- [ ] Violation format example - **Phase:** 3 - **Evidence:** Implementation
+
+---
+
+**Checklist Progress:** 0/11 items complete (0%)
+
+---
+
+## Definition of Done
+
+### Implementation
+- [ ] Section 1.4 added to deep-validation-workflow.md
+- [ ] Python smoke test commands documented
+- [ ] Node.js smoke test commands documented
+- [ ] Project type detection logic documented
+- [ ] Expected outputs documented
+- [ ] RCA-002 reference in section header
+
+### Quality
+- [ ] All 4 acceptance criteria satisfied
+- [ ] Documentation is clear and actionable
+
+### Testing
+- [ ] Grep test for section header
+- [ ] Content validation tests
+
+### Documentation
+- [ ] Self-referential - this IS the documentation
+
+---
+
+## Change Log
+
+**Current Status:** Backlog
+
+| Date | Author | Phase/Action | Change | Files Affected |
+|------|--------|--------------|--------|----------------|
+| 2026-01-15 10:00 | claude/create-stories-from-rca | Created | Story created from RCA-002 REC-4 | STORY-260.story.md |
+
+## Notes
+
+**Story Type:** documentation (skips Phase 05 Integration per template v2.4)
+
+**Source:**
+- **RCA:** RCA-002
+- **Recommendation:** REC-4
+
+---
+
+**Story Template Version:** 2.5
+**Last Updated:** 2026-01-15

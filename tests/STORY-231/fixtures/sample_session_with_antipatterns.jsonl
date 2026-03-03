@@ -1,0 +1,8 @@
+{"timestamp": "2025-01-02T10:30:00Z", "command": "/dev STORY-100", "status": "success", "user_input": "Bash(command=\"cat story.md\")", "session_id": "abc123-def456", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T10:31:00Z", "command": "/dev STORY-100", "status": "error", "error_message": "File not found: story.md", "user_input": "Reading story file", "session_id": "abc123-def456", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T10:35:00Z", "command": "/dev STORY-101", "status": "success", "user_input": "Bash(command=\"echo 'content' > file.md\")", "session_id": "ghi789-jkl012", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T10:40:00Z", "command": "/dev STORY-101", "status": "success", "user_input": "Install Redis for caching layer", "session_id": "ghi789-jkl012", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T10:45:00Z", "command": "/dev STORY-102", "status": "success", "user_input": "Bash(command=\"find . -name '*.md'\")", "session_id": "mno345-pqr678", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T10:50:00Z", "command": "/dev STORY-102", "status": "error", "error_message": "Context file not found", "user_input": "Proceeding without context files", "session_id": "mno345-pqr678", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T11:00:00Z", "command": "/dev STORY-103", "status": "success", "user_input": "Read(file_path=\"/home/user/project/story.md\")", "session_id": "stu901-vwx234", "project": "/mnt/c/Projects/Test"}
+{"timestamp": "2025-01-02T11:05:00Z", "command": "/dev STORY-103", "status": "success", "user_input": "Create SKILL.md with 2000 lines", "session_id": "stu901-vwx234", "project": "/mnt/c/Projects/Test"}

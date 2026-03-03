@@ -1,0 +1,1 @@
+Create order tracking system. Users can view their order history with status updates. Each order shows items, quantities, prices, and delivery date estimates. Customers receive email notifications when order status changes. The system integrates with shipping provider APIs.

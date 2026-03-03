@@ -1,0 +1,44 @@
+{
+  "description": "Expected 2-gram sequences from sample-history.jsonl",
+  "note": "2-grams are consecutive command pairs within the same session",
+  "expected_2grams": [
+    {
+      "sequence": ["/ideate", "/create-epic"],
+      "frequency": 2,
+      "sessions": ["session-001", "session-004"],
+      "success_rate": 1.0
+    },
+    {
+      "sequence": ["/create-epic", "/dev"],
+      "frequency": 2,
+      "sessions": ["session-001", "session-004"],
+      "success_rate": 0.5
+    },
+    {
+      "sequence": ["/dev", "/qa"],
+      "frequency": 3,
+      "sessions": ["session-002", "session-003", "session-003"],
+      "success_rate": 0.67
+    },
+    {
+      "sequence": ["/qa", "/release"],
+      "frequency": 1,
+      "sessions": ["session-002"],
+      "success_rate": 1.0
+    },
+    {
+      "sequence": ["/qa", "/dev"],
+      "frequency": 1,
+      "sessions": ["session-003"],
+      "success_rate": 1.0
+    },
+    {
+      "sequence": ["/brainstorm", "/ideate"],
+      "frequency": 1,
+      "sessions": ["session-005"],
+      "success_rate": 1.0
+    }
+  ],
+  "total_2grams": 6,
+  "total_occurrences": 10
+}

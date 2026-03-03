@@ -1,0 +1,85 @@
+name: Verify Mirror Sync
+
+# STORY-313: CI workflow to verify src/ and operational directories are in sync
+# Runs on every PR to ensure mirrors haven't drifted
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - 'src/claude/**'
+      - 'src/devforgeai/**'
+      - '.claude/**'
+      - 'devforgeai/**'
+
+jobs:
+  verify-sync:
+    name: Verify Mirror Sync
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify src/claude matches .claude
+        id: verify-claude
+        run: |
+          echo "Comparing src/claude with .claude..."
+
+          # Use diff -r for recursive comparison
+          # Exclude backup files and generated files
+          if diff -r --exclude='*.backup' --exclude='*.pyc' --exclude='__pycache__' \
+                    src/claude .claude > /tmp/claude-diff.txt 2>&1; then
+            echo "✅ src/claude and .claude are in sync"
+            echo "status=synced" >> $GITHUB_OUTPUT
+          else
+            echo "❌ src/claude and .claude are out of sync"
+            echo "Differences found:"
+            cat /tmp/claude-diff.txt | head -50
+            echo "status=out-of-sync" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Verify src/devforgeai matches devforgeai
+        id: verify-devforgeai
+        run: |
+          echo "Comparing src/devforgeai with devforgeai..."
+
+          # Use diff -r for recursive comparison
+          # Exclude runtime artifacts (backups, reports, workflows state)
+          if diff -r --exclude='*.backup' --exclude='*.pyc' --exclude='__pycache__' \
+                    --exclude='backups' --exclude='reports' --exclude='workflows' \
+                    --exclude='feedback' --exclude='epic-coverage' \
+                    src/devforgeai devforgeai > /tmp/devforgeai-diff.txt 2>&1; then
+            echo "✅ src/devforgeai and devforgeai are in sync"
+            echo "status=synced" >> $GITHUB_OUTPUT
+          else
+            echo "❌ src/devforgeai and devforgeai are out of sync"
+            echo "Differences found:"
+            cat /tmp/devforgeai-diff.txt | head -50
+            echo "status=out-of-sync" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Mirror Sync Verification" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.verify-claude.outputs.status }}" == "synced" ]; then
+            echo "✅ src/claude → .claude: **In Sync**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ src/claude → .claude: **Out of Sync**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          if [ "${{ steps.verify-devforgeai.outputs.status }}" == "synced" ]; then
+            echo "✅ src/devforgeai → devforgeai: **In Sync**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ src/devforgeai → devforgeai: **Out of Sync**" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Run \`bash scripts/sync-mirrors.sh\` to sync mirrors." >> $GITHUB_STEP_SUMMARY

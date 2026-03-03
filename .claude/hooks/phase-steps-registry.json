@@ -1,0 +1,158 @@
+{
+  "01": {
+    "name": "Pre-Flight Validation",
+    "entry_gate": "devforgeai-validate phase-init ${STORY_ID} --project-root=.",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=01 --checkpoint-passed",
+    "steps": [
+      {"id": "01.1", "check": "git-validator invoked", "subagent": "git-validator", "conditional": false},
+      {"id": "01.2", "check": "6 context files loaded and validated", "subagent": null, "conditional": false},
+      {"id": "01.3", "check": "Story loaded and validated", "subagent": null, "conditional": false},
+      {"id": "01.4", "check": "tech-stack-detector invoked", "subagent": "tech-stack-detector", "conditional": false},
+      {"id": "01.5", "check": "Plan file check for resume", "subagent": null, "conditional": true},
+      {"id": "01.6", "check": "Session memory created", "subagent": null, "conditional": false},
+      {"id": "01.7", "check": "Stale cleanup executed", "subagent": null, "conditional": false},
+      {"id": "01.8", "check": "context-preservation-validator invoked", "subagent": "context-preservation-validator", "conditional": false}
+    ]
+  },
+  "02": {
+    "name": "Test-First (Red)",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=01 --to=02",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=02 --checkpoint-passed",
+    "steps": [
+      {"id": "02.1", "check": "Memory context loaded (TDD patterns)", "subagent": null, "conditional": false},
+      {"id": "02.2", "check": "test-automator invoked", "subagent": "test-automator", "conditional": false},
+      {"id": "02.3", "check": "RED state verified (all tests fail)", "subagent": null, "conditional": false},
+      {"id": "02.4", "check": "Test integrity snapshot created", "subagent": null, "conditional": false},
+      {"id": "02.5", "check": "Snapshot verified via Glob", "subagent": null, "conditional": false},
+      {"id": "02.6", "check": "AC checklist updated (test items)", "subagent": null, "conditional": false},
+      {"id": "02.7", "check": "Observation capture executed", "subagent": null, "conditional": false}
+    ]
+  },
+  "03": {
+    "name": "Implementation (Green)",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=02 --to=03",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=03 --checkpoint-passed",
+    "steps": [
+      {"id": "03.1", "check": "Friction awareness loaded (friction catalog)", "subagent": null, "conditional": false},
+      {"id": "03.2", "check": "backend-architect OR frontend-developer subagent invoked", "subagent": ["backend-architect", "frontend-developer"], "conditional": false},
+      {"id": "03.3", "check": "All tests GREEN (passing)", "subagent": null, "conditional": false},
+      {"id": "03.4", "check": "context-validator subagent invoked", "subagent": "context-validator", "conditional": false},
+      {"id": "03.5", "check": "AC checklist updated (implementation items)", "subagent": null, "conditional": false},
+      {"id": "03.6", "check": "Observation capture executed", "subagent": null, "conditional": false},
+      {"id": "03.7", "check": "Diagnostic hook executed", "subagent": "diagnostic-analyst", "conditional": true}
+    ]
+  },
+  "04": {
+    "name": "Refactoring",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=03 --to=04",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=04 --checkpoint-passed",
+    "steps": [
+      {"id": "04.1", "check": "refactoring-specialist invoked", "subagent": "refactoring-specialist", "conditional": false},
+      {"id": "04.2", "check": "Coverage validation passed (95%/85%/80% thresholds)", "subagent": null, "conditional": false},
+      {"id": "04.3", "check": "code-reviewer invoked", "subagent": "code-reviewer", "conditional": false},
+      {"id": "04.4", "check": "Anti-gaming validation completed", "subagent": null, "conditional": false},
+      {"id": "04.5", "check": "Light QA executed (devforgeai-qa --mode=light)", "subagent": null, "conditional": false},
+      {"id": "04.6", "check": "AC checklist updated (quality items)", "subagent": null, "conditional": false},
+      {"id": "04.7", "check": "Observation capture executed", "subagent": null, "conditional": false}
+    ]
+  },
+  "4.5": {
+    "name": "AC Compliance Verification (Post-Refactor)",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=04 --to=4.5",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=4.5 --checkpoint-passed",
+    "steps": [
+      {"id": "4.5.1", "check": "ac-compliance-verifier subagent invoked", "subagent": "ac-compliance-verifier", "conditional": false},
+      {"id": "4.5.2", "check": "Verification completed (not timed out)", "subagent": null, "conditional": false},
+      {"id": "4.5.3", "check": "All ACs passed OR user override documented", "subagent": null, "conditional": false},
+      {"id": "4.5.4", "check": "Subagent invocation recorded via phase-record", "subagent": null, "conditional": false}
+    ]
+  },
+  "05": {
+    "name": "Integration & Validation",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=4.5 --to=05",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=05 --checkpoint-passed",
+    "steps": [
+      {"id": "05.1", "check": "Anti-gaming validation passed", "subagent": null, "conditional": false},
+      {"id": "05.2", "check": "integration-tester subagent invoked", "subagent": "integration-tester", "conditional": false},
+      {"id": "05.3", "check": "Coverage thresholds validated (95%/85%/80%)", "subagent": null, "conditional": false},
+      {"id": "05.4", "check": "AC checklist updated (integration items)", "subagent": null, "conditional": false},
+      {"id": "05.5", "check": "Observation capture executed", "subagent": null, "conditional": false}
+    ]
+  },
+  "5.5": {
+    "name": "AC Compliance Verification (Post-Integration)",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=05 --to=5.5",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=5.5 --checkpoint-passed",
+    "steps": [
+      {"id": "5.5.1", "check": "ac-compliance-verifier subagent invoked", "subagent": "ac-compliance-verifier", "conditional": false},
+      {"id": "5.5.2", "check": "Verification completed (not timed out)", "subagent": null, "conditional": false},
+      {"id": "5.5.3", "check": "All ACs passed OR user override documented", "subagent": null, "conditional": false},
+      {"id": "5.5.4", "check": "Subagent invocation recorded via phase-record", "subagent": null, "conditional": false}
+    ]
+  },
+  "06": {
+    "name": "Deferral Challenge",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=5.5 --to=06",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=06 --checkpoint-passed",
+    "steps": [
+      {"id": "06.1", "check": "DoD reviewed for incomplete items", "subagent": null, "conditional": false},
+      {"id": "06.2", "check": "deferral-validator subagent invoked", "subagent": "deferral-validator", "conditional": true},
+      {"id": "06.3", "check": "AskUserQuestion invoked for EVERY deferral", "subagent": null, "conditional": true},
+      {"id": "06.4", "check": "User approval timestamp recorded for each kept deferral", "subagent": null, "conditional": true},
+      {"id": "06.5", "check": "Technical debt register updated", "subagent": null, "conditional": true},
+      {"id": "06.6", "check": "AC checklist updated (deferral items) if applicable", "subagent": null, "conditional": true},
+      {"id": "06.7", "check": "Observation capture executed", "subagent": null, "conditional": false}
+    ]
+  },
+  "07": {
+    "name": "DoD Update",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=06 --to=07",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=07 --checkpoint-passed",
+    "steps": [
+      {"id": "07.1", "check": "DoD items marked [x] in story file", "subagent": null, "conditional": false},
+      {"id": "07.2", "check": "Implementation Notes flat list added (no ### subsections)", "subagent": null, "conditional": false},
+      {"id": "07.3", "check": "DoD format validated via devforgeai-validate (exit code 0)", "subagent": null, "conditional": false},
+      {"id": "07.4", "check": "Workflow Status updated in story file", "subagent": null, "conditional": false},
+      {"id": "07.5", "check": "TDD Workflow Summary table populated", "subagent": null, "conditional": false}
+    ]
+  },
+  "08": {
+    "name": "Git Workflow",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=07 --to=08",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=08 --checkpoint-passed",
+    "steps": [
+      {"id": "08.1", "check": "Budget enforcement checked (deferral budget per story)", "subagent": null, "conditional": false},
+      {"id": "08.2", "check": "Files staged for commit (story file, impl files, test files)", "subagent": null, "conditional": false},
+      {"id": "08.3", "check": "Git commit succeeded (commit hash exists)", "subagent": null, "conditional": false},
+      {"id": "08.4", "check": "Story file included in commit", "subagent": null, "conditional": false},
+      {"id": "08.5", "check": "AC checklist updated (deployment items)", "subagent": null, "conditional": false},
+      {"id": "08.6", "check": "Observation capture executed", "subagent": null, "conditional": false}
+    ]
+  },
+  "09": {
+    "name": "Feedback Hook",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=08 --to=09",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=09 --checkpoint-passed",
+    "steps": [
+      {"id": "09.1", "check": "check-hooks command executed (user feedback)", "subagent": null, "conditional": false},
+      {"id": "09.2", "check": "invoke-hooks command executed", "subagent": null, "conditional": true},
+      {"id": "09.3", "check": "Observation files read from disk", "subagent": null, "conditional": false},
+      {"id": "09.4", "check": "Observations consolidated from all phase observation files", "subagent": null, "conditional": false},
+      {"id": "09.5", "check": "framework-analyst subagent invoked with consolidated observations", "subagent": "framework-analyst", "conditional": false},
+      {"id": "09.6", "check": "Subagent output validated (JSON, aspirational check, evidence, effort, feasibility)", "subagent": null, "conditional": false},
+      {"id": "09.7", "check": "Merit filter applied (duplicates, already-implemented)", "subagent": null, "conditional": false},
+      {"id": "09.8", "check": "AI analysis report written to disk", "subagent": null, "conditional": false}
+    ]
+  },
+  "10": {
+    "name": "Result Interpretation",
+    "entry_gate": "devforgeai-validate phase-check ${STORY_ID} --from=09 --to=10",
+    "exit_gate": "devforgeai-validate phase-complete ${STORY_ID} --phase=10 --checkpoint-passed",
+    "steps": [
+      {"id": "10.1", "check": "dev-result-interpreter subagent invoked", "subagent": "dev-result-interpreter", "conditional": false},
+      {"id": "10.2", "check": "Structured result returned to command", "subagent": null, "conditional": false},
+      {"id": "10.3", "check": "Display template generated (success/incomplete/failure)", "subagent": null, "conditional": false},
+      {"id": "10.4", "check": "Story status updated to Dev Complete", "subagent": null, "conditional": false}
+    ]
+  }
+}

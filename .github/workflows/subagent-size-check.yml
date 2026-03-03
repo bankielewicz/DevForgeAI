@@ -1,0 +1,152 @@
+# Subagent Size Check - CI Enforcement
+# STORY-335: Add Subagent Size Enforcement Mechanism
+# ADR-012: Subagent Progressive Disclosure Architecture
+#
+# Purpose: Fail PRs that introduce subagent files exceeding 600 lines
+#          to prevent constitutional debt (81% violation rate requiring EPIC-053)
+#
+# Thresholds:
+#   - 500 lines: WARNING (pre-commit only, not CI - handled by pre-commit-subagent-size.sh)
+#   - 600 lines: Hard failure (PR blocked) - FAILED
+#
+# Business Rules:
+#   - Only core .md files are checked, NOT files in references/ subdirectories
+#   - Files in references/ exist specifically for overflow (excluded from limits)
+#
+# Reference: ADR-012 - Subagent Progressive Disclosure Architecture
+
+name: Subagent Size Check
+
+on:
+  pull_request:
+    paths:
+      - "src/claude/agents/**/*.md"
+      - ".claude/agents/**/*.md"
+    # Note: GitHub Actions paths don't support negative patterns
+    # Reference file exclusion handled in the check script
+
+env:
+  FAIL_THRESHOLD: 600
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check-subagent-size:
+    name: Check Subagent File Sizes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Subagent Sizes
+        id: size-check
+        run: |
+          echo "Checking subagent file sizes (threshold: ${FAIL_THRESHOLD} lines)..."
+          echo ""
+
+          # Track violations
+          HAS_FAIL=0
+          violation_count=0
+
+          # Build results table
+          results="| File | Lines | Threshold | Status |\n"
+          results+="|------|-------|-----------|--------|\n"
+
+          # CI-001: Check both agent directories
+          # CI-002: Exclude references/ subdirectories using find -not -path
+          for dir in "src/claude/agents" ".claude/agents"; do
+            if [ -d "$dir" ]; then
+              # Find all .md files, excluding references/ subdirectories
+              # Use find -not -path to exclude */references/* pattern
+              while IFS= read -r file; do
+                if [ -n "$file" ]; then
+                  # Get line count
+                  line_count=$(wc -l < "$file" | tr -d ' ')
+
+                  # Check against threshold
+                  if [ "$line_count" -ge "$FAIL_THRESHOLD" ]; then
+                    HAS_FAIL=1
+                    ((violation_count++))
+                    results+="| ${file} | ${line_count} | ${FAIL_THRESHOLD} | :x: FAILED |\n"
+                    echo "::error file=${file}::${file} has ${line_count} lines (exceeds ${FAIL_THRESHOLD}-line maximum). Must refactor with progressive disclosure per ADR-012."
+                  fi
+                fi
+              done < <(find "$dir" -name "*.md" -type f -not -path "*/references/*" 2>/dev/null)
+            fi
+          done
+
+          # Output results
+          echo ""
+          echo "## Subagent Size Check Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ $HAS_FAIL -eq 1 ]; then
+            echo "**Status: :x: FAILED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Found ${violation_count} file(s) exceeding the ${FAIL_THRESHOLD}-line limit:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo -e "$results" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Recommendation" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Extract content to a \`references/\` subdirectory per [ADR-012](devforgeai/specs/adrs/ADR-012-subagent-progressive-disclosure.md)." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Example structure:" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo ".claude/agents/" >> $GITHUB_STEP_SUMMARY
+            echo "├── my-agent.md              # Core agent (≤300 lines)" >> $GITHUB_STEP_SUMMARY
+            echo "└── my-agent/" >> $GITHUB_STEP_SUMMARY
+            echo "    └── references/" >> $GITHUB_STEP_SUMMARY
+            echo "        └── detailed-docs.md # Extracted content" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+            # CI-003: Fail PR if any file exceeds threshold
+            exit 1
+          else
+            echo "**Status: :white_check_mark: PASSED**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "All subagent files are within the ${FAIL_THRESHOLD}-line limit." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+
+      - name: Comment on PR (Failure Only)
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            // Read the summary to get violation details
+            const body = `## :x: Subagent Size Check Failed
+
+            One or more subagent files exceed the **600-line maximum**.
+
+            Per [ADR-012](devforgeai/specs/adrs/ADR-012-subagent-progressive-disclosure.md), subagent files must not exceed 600 lines. Files exceeding this limit must be refactored using progressive disclosure:
+
+            1. Keep core agent content in the main \`.md\` file (target: ≤300 lines)
+            2. Extract detailed documentation to a \`references/\` subdirectory
+            3. Use \`Read()\` instructions to load references on-demand
+
+            **Example:**
+            \`\`\`
+            .claude/agents/
+            ├── my-agent.md                    # Core (≤300 lines)
+            └── my-agent/
+                └── references/
+                    └── detailed-workflow.md   # Extracted content
+            \`\`\`
+
+            See the [Actions Summary](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}) for specific files.`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body
+            });

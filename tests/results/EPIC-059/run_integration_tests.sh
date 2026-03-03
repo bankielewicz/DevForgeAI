@@ -1,0 +1,163 @@
+#!/bin/sh
+# STORY-376: Run all 6 AC integration test scripts and generate results file
+# Usage: bash tests/results/EPIC-059/run_integration_tests.sh
+#
+# Generates: tests/results/EPIC-059/STORY-376-integration-test-results.md
+# POSIX-compatible shell syntax for cross-platform support
+
+set -e
+
+# Resolve project root relative to this script
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+TEST_DIR="${PROJECT_ROOT}/tests/STORY-376"
+RESULTS_DIR="${SCRIPT_DIR}"
+RESULTS_FILE="${RESULTS_DIR}/STORY-376-integration-test-results.md"
+
+# Test scripts to execute (in order)
+TEST_SCRIPTS="test_ac1_subagent_treelint_integration.sh test_ac2_hybrid_fallback_logic.sh test_ac3_advanced_features.sh test_ac4_error_scenarios.sh test_ac5_platform_compatibility.sh test_ac6_results_documentation.sh"
+
+# Counters
+TOTAL_PASS=0
+TOTAL_FAIL=0
+TOTAL_TESTS=0
+AC_RESULTS=""
+FAILURE_DETAILS=""
+OVERALL_VERDICT="PASS"
+
+# -------------------------------------------------------------------
+# Detect platform
+# -------------------------------------------------------------------
+detect_platform() {
+    case "$(uname -s)" in
+        Linux*)
+            if grep -qi microsoft /proc/version 2>/dev/null; then
+                echo "WSL (Windows Subsystem for Linux)"
+            else
+                echo "Linux ($(uname -m))"
+            fi
+            ;;
+        Darwin*)  echo "macOS ($(uname -m))" ;;
+        MINGW*|MSYS*|CYGWIN*) echo "Windows" ;;
+        *)        echo "Unknown ($(uname -s))" ;;
+    esac
+}
+
+# -------------------------------------------------------------------
+# Detect Treelint version
+# -------------------------------------------------------------------
+detect_treelint_version() {
+    if command -v treelint >/dev/null 2>&1; then
+        treelint --version 2>/dev/null || echo "v0.12.0+ (binary found, version unknown)"
+    else
+        echo "Not installed (binary not found in PATH)"
+    fi
+}
+
+# -------------------------------------------------------------------
+# Run each AC test script and capture results
+# -------------------------------------------------------------------
+PLATFORM="$(detect_platform)"
+TREELINT_VERSION="$(detect_treelint_version)"
+TIMESTAMP="$(date -u '+%Y-%m-%dT%H:%M:%SZ' 2>/dev/null || date '+%Y-%m-%d %H:%M:%S')"
+
+ac_num=0
+for script in $TEST_SCRIPTS; do
+    ac_num=$((ac_num + 1))
+    script_path="${TEST_DIR}/${script}"
+
+    if [ ! -f "$script_path" ]; then
+        AC_RESULTS="${AC_RESULTS}| AC#${ac_num} | SKIP | 0 | 0 | Script not found |\n"
+        FAILURE_DETAILS="${FAILURE_DETAILS}\n### AC#${ac_num}: ${script}\n- Script file not found at ${script_path}\n"
+        OVERALL_VERDICT="FAIL"
+        continue
+    fi
+
+    # Run test and capture output
+    test_output=""
+    test_exit=0
+    test_output=$(sh "$script_path" 2>&1) || test_exit=$?
+
+    # Parse pass/fail counts from output
+    summary_line=$(echo "$test_output" | grep -E "^Total:" | tail -1)
+    ac_pass=$(echo "$summary_line" | sed -n 's/.*Pass: \([0-9]*\).*/\1/p')
+    ac_fail=$(echo "$summary_line" | sed -n 's/.*Fail: \([0-9]*\).*/\1/p')
+    ac_total=$(echo "$summary_line" | sed -n 's/^Total: \([0-9]*\).*/\1/p')
+
+    # Default to 0 if parsing fails
+    ac_pass=${ac_pass:-0}
+    ac_fail=${ac_fail:-0}
+    ac_total=${ac_total:-0}
+
+    # Determine AC result
+    if [ "$test_exit" -eq 0 ]; then
+        ac_result="PASS"
+    else
+        ac_result="FAIL"
+        OVERALL_VERDICT="FAIL"
+    fi
+
+    # Accumulate totals
+    TOTAL_PASS=$((TOTAL_PASS + ac_pass))
+    TOTAL_FAIL=$((TOTAL_FAIL + ac_fail))
+    TOTAL_TESTS=$((TOTAL_TESTS + ac_total))
+
+    AC_RESULTS="${AC_RESULTS}| AC#${ac_num} | ${ac_result} | ${ac_pass} | ${ac_fail} | ${script} |\n"
+
+    # Capture failure details
+    if [ "$ac_result" = "FAIL" ]; then
+        failed_tests=$(echo "$test_output" | grep "FAIL:" || true)
+        FAILURE_DETAILS="${FAILURE_DETAILS}\n### AC#${ac_num}: ${script}\n\`\`\`\n${failed_tests}\n\`\`\`\n"
+    fi
+done
+
+# -------------------------------------------------------------------
+# Generate results file
+# -------------------------------------------------------------------
+printf '%s' "# STORY-376 Integration Test Results
+
+## Test Execution Summary
+
+| Field | Value |
+|-------|-------|
+| **Total Tests Executed** | ${TOTAL_TESTS} |
+| **Tests Passed** | ${TOTAL_PASS} |
+| **Tests Failed** | ${TOTAL_FAIL} |
+| **Platform** | ${PLATFORM} |
+| **Treelint Version** | ${TREELINT_VERSION} |
+| **Executed At (Timestamp)** | ${TIMESTAMP} |
+| **Overall Verdict** | **${OVERALL_VERDICT}** |
+
+## Per-AC Breakdown
+
+| AC | Result | Pass | Fail | Script |
+|----|--------|------|------|--------|
+$(printf '%b' "$AC_RESULTS")
+## Failure Details
+
+" > "$RESULTS_FILE"
+
+if [ "$TOTAL_FAIL" -gt 0 ]; then
+    printf '%b' "$FAILURE_DETAILS" >> "$RESULTS_FILE"
+else
+    printf '%s\n' "No failed tests." >> "$RESULTS_FILE"
+fi
+
+printf '\n---\n\n**Generated by:** run_integration_tests.sh\n**Date:** %s\n' "$TIMESTAMP" >> "$RESULTS_FILE"
+
+# -------------------------------------------------------------------
+# Display summary
+# -------------------------------------------------------------------
+printf "\n=== STORY-376 Integration Test Results ===\n"
+printf "Total: %d | Pass: %d | Fail: %d\n" "$TOTAL_TESTS" "$TOTAL_PASS" "$TOTAL_FAIL"
+printf "Platform: %s\n" "$PLATFORM"
+printf "Treelint Version: %s\n" "$TREELINT_VERSION"
+printf "Timestamp: %s\n" "$TIMESTAMP"
+printf "Verdict: %s\n" "$OVERALL_VERDICT"
+printf "Results written to: %s\n" "$RESULTS_FILE"
+
+if [ "$OVERALL_VERDICT" = "FAIL" ]; then
+    exit 1
+else
+    exit 0
+fi

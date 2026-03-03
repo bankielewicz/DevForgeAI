@@ -1,0 +1,76 @@
+name: Installer Testing
+
+on:
+  push:
+    paths:
+      - 'src/installer/**'
+      - 'package.json'
+      - 'tests/installer/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  test-installer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Installer Tests
+        run: |
+          npm run test:installer 2>&1 | tee installer-test-results.txt
+        continue-on-error: true
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-test-results
+          path: |
+            installer-test-results.txt
+            coverage/
+          retention-days: 7
+
+      - name: Report Test Status
+        run: |
+          if grep -q "PASS" installer-test-results.txt; then
+            echo "✅ Installer tests passed"
+          else
+            echo "❌ Installer tests failed"
+            exit 1
+          fi
+
+      - name: Verify No Stale Test Artifacts
+        if: always()
+        run: |
+          # STORY-105: Check for orphaned zip files from tests
+          echo "Checking for stale test artifacts in project root..."
+
+          # Find any .zip files that match test artifact patterns
+          stale_zips=$(find . -maxdepth 1 -name "*.zip" \
+            ! -name "devforgeai-*.zip" \
+            -type f 2>/dev/null || true)
+
+          if [ -n "$stale_zips" ]; then
+            echo "❌ ERROR: Found stale test artifacts in project root:"
+            echo "$stale_zips"
+            echo ""
+            echo "Tests should use tempfile.TemporaryDirectory() for cleanup."
+            echo "See tests/conftest.py for fixture examples."
+            exit 1
+          else
+            echo "✅ No stale test artifacts found"
+          fi

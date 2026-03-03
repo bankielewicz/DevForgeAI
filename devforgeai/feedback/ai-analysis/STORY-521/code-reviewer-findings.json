@@ -1,0 +1,152 @@
+{
+  "subagent": "code-reviewer",
+  "story_id": "STORY-521",
+  "timestamp": "2026-03-01T00:00:00Z",
+  "review_scope": "phase_state.py, phase_commands.py",
+  "overall_status": "CHANGES_REQUESTED",
+  "severity_summary": {
+    "critical": 3,
+    "high": 2,
+    "medium": 2,
+    "low": 4
+  },
+  "findings": [
+    {
+      "id": "SEC-001",
+      "severity": "critical",
+      "category": "security",
+      "type": "path_traversal",
+      "file": "phase_state.py",
+      "line": 951,
+      "description": "Workflow parameter not validated before path construction in complete_workflow_phase()",
+      "evidence": "Line 951: path = self.workflows_dir / f\"{story_id}-{workflow}-phase-state.json\" - workflow comes from user input without validation in class method",
+      "fix": "Add workflow validation: if workflow not in VALID_WORKFLOWS: raise ValueError(...)"
+    },
+    {
+      "id": "SEC-002",
+      "severity": "critical",
+      "category": "security",
+      "type": "path_traversal",
+      "file": "phase_commands.py",
+      "line": 526,
+      "description": "Story ID not validated in cleanup_qa_markers() before path construction",
+      "evidence": "Line 526: reports_dir = Path(project_root) / \"devforgeai\" / \"qa\" / \"reports\" / story_id - story_id used without format validation",
+      "fix": "Add story ID validation: if not re.match(r'^STORY-\\d{3}$', story_id): raise ValueError(...)"
+    },
+    {
+      "id": "SEC-003",
+      "severity": "critical",
+      "category": "security",
+      "type": "timing_vulnerability",
+      "file": "phase_state.py",
+      "line": 1006,
+      "description": "Workflow validation happens after unsafe .get() call in create_workflow()",
+      "evidence": "Lines 1006-1009: path construction happens even if WORKFLOW_SCHEMAS.get(workflow) returns None - should validate before path ops",
+      "fix": "Validate workflow before any path operations: if workflow not in VALID_WORKFLOWS: raise ValueError(...)"
+    },
+    {
+      "id": "ERR-001",
+      "severity": "high",
+      "category": "error_handling",
+      "type": "unhelpful_error_message",
+      "file": "phase_state.py",
+      "line": 401,
+      "description": "Lock timeout error uses placeholder '<file>' instead of actual path",
+      "evidence": "Line 401: raise LockTimeoutError('<file>', timeout) - misleading error message",
+      "fix": "Add file_path parameter to _acquire_lock() and pass actual file path to error"
+    },
+    {
+      "id": "ERR-002",
+      "severity": "medium",
+      "category": "error_handling",
+      "type": "silent_exception_handling",
+      "file": "phase_state.py",
+      "line": 430,
+      "description": "_release_lock() silently ignores all exceptions without logging",
+      "evidence": "Line 430: except (IOError, OSError): pass - no warning logged for lock release failures",
+      "fix": "Add logging: logger.warning(f'Failed to release file lock: {e}')"
+    },
+    {
+      "id": "CODE-001",
+      "severity": "medium",
+      "category": "code_quality",
+      "type": "unreachable_code",
+      "file": "phase_commands.py",
+      "line": 468,
+      "description": "Dead code path in phase_record_command - record_subagent() never returns falsy value",
+      "evidence": "Line 466: success = ps.record_subagent(...) returns Dict, not bool; line 468: if not success - this branch is unreachable",
+      "fix": "Check state file existence before calling record_subagent() or modify method return type"
+    },
+    {
+      "id": "MAINT-001",
+      "severity": "low",
+      "category": "maintainability",
+      "type": "hardcoded_format",
+      "file": "phase_state.py",
+      "line": 836,
+      "description": "Observation ID format hardcoded inline without centralization",
+      "evidence": "Lines 835-836: hex_suffix = uuid.uuid4().hex[:8]; obs_id = f'obs-{phase_id}-{hex_suffix}' - format string scattered in method",
+      "fix": "Extract to class constant or dedicated method for consistency"
+    },
+    {
+      "id": "MAINT-002",
+      "severity": "low",
+      "category": "code_quality",
+      "type": "incomplete_docstring",
+      "file": "phase_state.py",
+      "line": 1047,
+      "description": "QA methods lack comprehensive docstring documentation",
+      "evidence": "Lines 1047-1056: read_qa() and complete_qa_phase() methods have minimal docstrings without Raises sections",
+      "fix": "Add complete docstrings with Args, Returns, and Raises sections"
+    },
+    {
+      "id": "MAINT-003",
+      "severity": "low",
+      "category": "maintainability",
+      "type": "phase_validation_duplication",
+      "file": "phase_commands.py",
+      "line": 226,
+      "description": "Phase validation logic duplicated across commands",
+      "evidence": "phase_check_command uses _get_valid_phases() but other commands re-implement validation - inconsistent pattern",
+      "fix": "Create centralized _validate_phase(phase, workflow) helper function"
+    }
+  ],
+  "positive_observations": [
+    {
+      "id": "POS-001",
+      "category": "security",
+      "description": "Excellent input validation in _validate_story_id() with path traversal checks",
+      "evidence": "Lines 277-306: Checks for .., /, \\, null bytes, plus regex pattern matching",
+      "impact": "Prevents security vulnerabilities"
+    },
+    {
+      "id": "POS-002",
+      "category": "reliability",
+      "description": "Atomic write operations using temp files and rename",
+      "evidence": "Lines 433-468: mkstemp in same directory + shutil.move ensures crash-safe writes",
+      "impact": "State files cannot be corrupted by partial writes"
+    },
+    {
+      "id": "POS-003",
+      "category": "maintainability",
+      "description": "Backward compatibility through _ensure_phases_exist() migration",
+      "evidence": "Lines 503-543: Gracefully adds missing phases and migrates legacy fields",
+      "impact": "Zero-breaking-change schema evolution"
+    },
+    {
+      "id": "POS-004",
+      "category": "usability",
+      "description": "Comprehensive custom exception hierarchy",
+      "evidence": "Lines 61-142: PhaseNotFoundError, StateFileCorruptionError, PhaseTransitionError, SubagentEnforcementError",
+      "impact": "Callers can handle specific error types for better UX"
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "write_timestamp": "2026-03-01T00:00:00Z",
+    "files_reviewed": [
+      "src/claude/scripts/devforgeai_cli/phase_state.py",
+      "src/claude/scripts/devforgeai_cli/commands/phase_commands.py"
+    ]
+  }
+}

@@ -1,0 +1,189 @@
+# Story-064 Test Pipeline: devforgeai-story-creation Integration Validation
+#
+# This pipeline runs 45 automated tests (unit, integration, regression, performance)
+# to validate the integration between devforgeai-story-creation and user-input-guidance.
+#
+# Triggers:
+#   - Push to story-064* or main branches with relevant file changes
+#   - Pull requests to main with relevant file changes
+#
+# Test Suite: 45 tests organized in 4 categories
+#   - Unit Tests (UT01-UT15): Fixture validation + data rules (15 tests)
+#   - Integration Tests (IT01-IT12): Skill integration + CI/CD + cross-references (12 tests)
+#   - Regression Tests (REG01-REG10): Backward compatibility + production scenarios (10 tests)
+#   - Performance Tests (PERF01-PERF08): Loading time + question generation (8 tests)
+#
+# Quality Gate: All 45 tests must pass (100% pass rate) before merge
+# Pass Rate Target: >= 95% (43/45 minimum, but enforces 100%)
+
+name: STORY-064 Test Pipeline - Story-Creation Integration Validation
+
+on:
+  push:
+    branches:
+      - story-064*
+      - main
+    paths:
+      - 'src/.claude/skills/devforgeai-story-creation/**'
+      - 'src/.claude/skills/discovering-requirements/references/user-input-guidance.md'
+      - 'tests/unit/test_story_064_unit_suite.py'
+      - 'tests/integration/test_story_064_integration_suite.py'
+      - 'tests/regression/test_story_064_regression_suite.py'
+      - 'tests/performance/test_story_064_performance_suite.py'
+      - 'tests/user-input-guidance/fixtures/**'
+      - 'devforgeai/ci/story-creation-test-pipeline.yml'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'src/.claude/skills/devforgeai-story-creation/**'
+      - 'src/.claude/skills/discovering-requirements/references/user-input-guidance.md'
+      - 'tests/unit/test_story_064_unit_suite.py'
+      - 'tests/integration/test_story_064_integration_suite.py'
+      - 'tests/regression/test_story_064_regression_suite.py'
+      - 'tests/performance/test_story_064_performance_suite.py'
+      - 'tests/user-input-guidance/fixtures/**'
+      - 'devforgeai/ci/story-creation-test-pipeline.yml'
+
+jobs:
+  unit-tests:
+    name: Unit Tests (UT01-UT15)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pytest-cov
+
+      - name: Run Unit Tests
+        run: |
+          pytest tests/unit/test_story_064_unit_suite.py -v --tb=short
+        continue-on-error: false
+
+      - name: Generate Coverage Report
+        run: |
+          pytest tests/unit/test_story_064_unit_suite.py --cov=tests --cov-report=xml --cov-report=term
+        continue-on-error: true
+
+  integration-tests:
+    name: Integration Tests (IT01-IT12)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run Integration Tests
+        run: |
+          pytest tests/integration/test_story_064_integration_suite.py -v --tb=short
+        continue-on-error: false
+
+  regression-tests:
+    name: Regression Tests (REG01-REG10)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run Regression Tests
+        run: |
+          pytest tests/regression/test_story_064_regression_suite.py -v --tb=short
+        continue-on-error: false
+
+  performance-tests:
+    name: Performance Tests (PERF01-PERF08)
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run Performance Tests
+        run: |
+          pytest tests/performance/test_story_064_performance_suite.py -v --tb=short
+        continue-on-error: false
+
+  test-summary:
+    name: Test Summary (45 tests total)
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, regression-tests, performance-tests]
+    if: always()
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run All Tests for Summary
+        run: |
+          pytest tests/unit/test_story_064_unit_suite.py tests/integration/test_story_064_integration_suite.py tests/regression/test_story_064_regression_suite.py tests/performance/test_story_064_performance_suite.py -v --tb=line > test-results.txt 2>&1
+        continue-on-error: true
+
+      - name: Display Summary
+        run: |
+          echo "=== STORY-064 Test Execution Summary ==="
+          echo "Total test suites: 4 (Unit, Integration, Regression, Performance)"
+          echo "Total tests: 45 (15 unit + 12 integration + 10 regression + 8 performance)"
+          echo ""
+          echo "Expected results:"
+          echo "- Unit Tests (UT01-UT15): 15/15"
+          echo "- Integration Tests (IT01-IT12): 12/12"
+          echo "- Regression Tests (REG01-REG10): 10/10"
+          echo "- Performance Tests (PERF01-PERF08): 8/8"
+          echo ""
+          echo "Pass rate target: >= 95% (43/45 minimum)"
+
+  merge-gate:
+    name: Merge Gate
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, regression-tests, performance-tests]
+    if: failure()
+    steps:
+      - name: Block Merge on Test Failure
+        run: |
+          echo "MERGE BLOCKED: STORY-064 tests failed"
+          echo "AC-4 requires all tests pass before merge"
+          exit 1

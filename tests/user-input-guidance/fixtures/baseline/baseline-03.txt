@@ -1,0 +1,1 @@
+Add shopping cart functionality. Users can add items to cart, modify quantities, and remove items. The cart should persist across sessions and show subtotal, taxes, and total. Checkout button proceeds to payment.

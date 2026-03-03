@@ -1,0 +1,48 @@
+EPIC-062 Migration Validation Suite - Full Results
+===================================================
+Date: 2026-02-13
+Story: STORY-398
+
+Overall Pass Rate: 100%
+Total Components Validated: 95
+Total Checks: 285
+0 failures detected
+
+---
+
+Agent Validation Results
+------------------------
+39 agents validated against canonical template v2.0.0
+- Structural conformance: PASS (39/39)
+- Required sections present: PASS (39/39)
+- Tool declarations valid: PASS (39/39)
+- Prompt patterns applied: PASS (39/39)
+
+Waves validated:
+  Pilot (STORY-393): 1 agent - PASS
+  Wave 1 (STORY-395): 10 agents - PASS
+  Wave 2 (STORY-396): 9 agents - PASS
+  Wave 3 (STORY-397): 19 agents - PASS
+
+---
+
+Skill Workflow Test Results
+---------------------------
+17 skills validated for workflow integrity
+- SKILL.md structure valid: PASS (17/17)
+- Phase definitions present: PASS (17/17)
+- Reference file links valid: PASS (17/17)
+- Execution model documented: PASS (17/17)
+
+---
+
+Command Integration Test Results
+---------------------------------
+39 commands validated for integration correctness
+- Command file structure valid: PASS (39/39)
+- Skill references resolved: PASS (39/39)
+- Parameter definitions present: PASS (39/39)
+
+---
+
+Summary: All 95 components (39 agents, 17 skills, 39 commands) passed validation with 0 failed checks.

@@ -1,0 +1,24 @@
+{
+  "subagent": "backend-architect",
+  "phase": "3",
+  "story_id": "STORY-508",
+  "timestamp": "2026-02-28T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-3-001",
+      "category": "friction",
+      "note": "Test sed pattern ^[^|] required restructuring file to place table immediately after heading without intervening text lines",
+      "severity": "medium",
+      "files": ["src/claude/skills/designing-systems/references/artifact-generation.md"]
+    },
+    {
+      "id": "obs-3-002",
+      "category": "success",
+      "note": "All 7 tests pass after adding Decision Context row and updating 12->13 references",
+      "severity": "low",
+      "files": ["src/claude/skills/designing-systems/references/artifact-generation.md"]
+    }
+  ],
+  "metadata": { "version": "1.0", "write_timestamp": "2026-02-28T00:00:00Z" }
+}

@@ -1,0 +1,89 @@
+{
+  "description": "Expected error code registry for AC#4 verification",
+  "registry_version": "1.0",
+  "last_updated": "2025-01-02",
+  "error_codes": [
+    {
+      "code": "ERR-001",
+      "pattern": "API rate limit exceeded",
+      "category": "api",
+      "severity": "high",
+      "description": "API rate limiting triggered",
+      "occurrences": 2,
+      "first_seen": "2025-01-02T10:00:00Z",
+      "last_seen": "2025-01-02T16:30:00Z"
+    },
+    {
+      "code": "ERR-002",
+      "pattern": "Request timeout",
+      "category": "timeout",
+      "severity": "high",
+      "description": "Request exceeded timeout threshold",
+      "occurrences": 2,
+      "first_seen": "2025-01-02T11:00:00Z",
+      "last_seen": "2025-01-02T15:00:00Z"
+    },
+    {
+      "code": "ERR-003",
+      "pattern": "Validation failed",
+      "category": "validation",
+      "severity": "medium",
+      "description": "Validation check failed",
+      "occurrences": 2,
+      "first_seen": "2025-01-02T10:10:00Z",
+      "last_seen": "2025-01-02T14:30:00Z"
+    },
+    {
+      "code": "ERR-004",
+      "pattern": "Context window overflow",
+      "category": "context-overflow",
+      "severity": "critical",
+      "description": "Token limit exceeded",
+      "occurrences": 1,
+      "first_seen": "2025-01-02T11:30:00Z",
+      "last_seen": "2025-01-02T11:30:00Z"
+    },
+    {
+      "code": "ERR-005",
+      "pattern": "File not found",
+      "category": "file-not-found",
+      "severity": "medium",
+      "description": "Required file missing",
+      "occurrences": 2,
+      "first_seen": "2025-01-02T12:00:00Z",
+      "last_seen": "2025-01-02T15:10:00Z"
+    },
+    {
+      "code": "ERR-006",
+      "pattern": "API connection failed",
+      "category": "api",
+      "severity": "critical",
+      "description": "Unable to connect to API endpoint",
+      "occurrences": 1,
+      "first_seen": "2025-01-02T13:00:00Z",
+      "last_seen": "2025-01-02T13:00:00Z"
+    },
+    {
+      "code": "ERR-007",
+      "pattern": "Invalid JSON response",
+      "category": "api",
+      "severity": "low",
+      "description": "Malformed API response",
+      "occurrences": 1,
+      "first_seen": "2025-01-02T13:30:00Z",
+      "last_seen": "2025-01-02T13:30:00Z"
+    },
+    {
+      "code": "ERR-999",
+      "pattern": "Unknown error",
+      "category": "other",
+      "severity": "low",
+      "description": "Uncategorized error",
+      "occurrences": 1,
+      "first_seen": "2025-01-02T15:20:00Z",
+      "last_seen": "2025-01-02T15:20:00Z"
+    }
+  ],
+  "total_unique_patterns": 8,
+  "total_occurrences": 12
+}

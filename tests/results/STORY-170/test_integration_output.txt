@@ -1,0 +1,36 @@
+TEST: STORY-170 Integration - Visual Iteration Counter
+=======================================================
+
+Checking that all AC components integrate correctly...
+
+--- Individual AC Tests ---
+Running: AC-1: Iteration Counter in Phase Headers
+  [PASS] AC-1: Iteration Counter in Phase Headers
+Running: AC-2: Counter Increments on Resumption
+  [PASS] AC-2: Counter Increments on Resumption
+Running: AC-3: Warning at High Iterations
+  [PASS] AC-3: Warning at High Iterations
+Running: AC-4: Counter Persists Across Session
+  [PASS] AC-4: Counter Persists Across Session
+
+--- Integration Checks ---
+Checking iteration lifecycle completeness...
+  [PASS] Iteration lifecycle appears complete (6/6 items found)
+Checking iteration-phase display integration...
+  [PASS] Iteration counter integrated with phase display template
+Checking max iterations consistency...
+  [PASS] Max iterations (5) used consistently (6 occurrences)
+Checking warning threshold integration...
+  [PASS] Warning threshold (4) connected to display logic
+Checking persistence-resume integration...
+  [PASS] Persistence mechanism (phase-state.json) references iteration_count
+
+=======================================================
+INTEGRATION TEST SUMMARY
+=======================================================
+
+Tests Run: 9
+Passed:    9
+Failed:    0
+
+RESULT: ALL TESTS PASSED

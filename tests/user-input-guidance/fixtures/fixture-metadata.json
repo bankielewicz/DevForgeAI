@@ -1,0 +1,94 @@
+{
+  "fixtures": [
+    {
+      "fixture_number": 1,
+      "fixture_name": "authentication-registration",
+      "baseline_filename": "baseline-01.txt",
+      "enhanced_filename": "enhanced-01.txt",
+      "complexity_level": "Simple",
+      "category": "Authentication",
+      "description": "User registration with email and password"
+    },
+    {
+      "fixture_number": 2,
+      "fixture_name": "product-listing",
+      "baseline_filename": "baseline-02.txt",
+      "enhanced_filename": "enhanced-02.txt",
+      "complexity_level": "Simple",
+      "category": "CRUD",
+      "description": "Product listing with filtering and pagination"
+    },
+    {
+      "fixture_number": 3,
+      "fixture_name": "shopping-cart",
+      "baseline_filename": "baseline-03.txt",
+      "enhanced_filename": "enhanced-03.txt",
+      "complexity_level": "Simple",
+      "category": "Shopping Cart",
+      "description": "Shopping cart with persistence"
+    },
+    {
+      "fixture_number": 4,
+      "fixture_name": "error-handling",
+      "baseline_filename": "baseline-04.txt",
+      "enhanced_filename": "enhanced-04.txt",
+      "complexity_level": "Medium",
+      "category": "Error Handling",
+      "description": "Comprehensive error handling and resilience"
+    },
+    {
+      "fixture_number": 5,
+      "fixture_name": "user-profile",
+      "baseline_filename": "baseline-05.txt",
+      "enhanced_filename": "enhanced-05.txt",
+      "complexity_level": "Medium",
+      "category": "User Management",
+      "description": "User profile management with audit trail"
+    },
+    {
+      "fixture_number": 6,
+      "fixture_name": "order-tracking",
+      "baseline_filename": "baseline-06.txt",
+      "enhanced_filename": "enhanced-06.txt",
+      "complexity_level": "Medium",
+      "category": "Order Tracking",
+      "description": "Order tracking with real-time status updates"
+    },
+    {
+      "fixture_number": 7,
+      "fixture_name": "analytics-dashboard",
+      "baseline_filename": "baseline-07.txt",
+      "enhanced_filename": "enhanced-07.txt",
+      "complexity_level": "Medium",
+      "category": "Reporting",
+      "description": "Analytics dashboard with multi-dimensional reporting"
+    },
+    {
+      "fixture_number": 8,
+      "fixture_name": "product-search",
+      "baseline_filename": "baseline-08.txt",
+      "enhanced_filename": "enhanced-08.txt",
+      "complexity_level": "Complex",
+      "category": "Search",
+      "description": "Product search with relevance ranking"
+    },
+    {
+      "fixture_number": 9,
+      "fixture_name": "notification-system",
+      "baseline_filename": "baseline-09.txt",
+      "enhanced_filename": "enhanced-09.txt",
+      "complexity_level": "Complex",
+      "category": "Notifications",
+      "description": "Multi-channel notification system"
+    },
+    {
+      "fixture_number": 10,
+      "fixture_name": "payment-processing",
+      "baseline_filename": "baseline-10.txt",
+      "enhanced_filename": "enhanced-10.txt",
+      "complexity_level": "Complex",
+      "category": "Payment",
+      "description": "Secure payment processing with PCI compliance"
+    }
+  ]
+}
