@@ -1,5 +1,11 @@
 # DevForgeAI - Spec-Driven Development Meta-Framework
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js >= 18](https://img.shields.io/badge/Node.js-%3E%3D18-green.svg)](https://nodejs.org/)
+[![Python >= 3.10](https://img.shields.io/badge/Python-%3E%3D3.10-blue.svg)](https://www.python.org/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Built with Claude Code](https://img.shields.io/badge/Built%20with-Claude%20Code-blueviolet.svg)](https://docs.anthropic.com/en/docs/claude-code)
+
 > **Transform vague business ideas into production-ready code with zero technical debt.**
 
 DevForgeAI is a **Claude Code Terminal meta-framework** that orchestrates the entire software development lifecycle -- from brainstorming through production release -- using 44 specialized subagents, 26 skills, 46 slash commands, and 6 constitutional constraint files. It works with **any technology stack**.
@@ -18,7 +24,9 @@ DevForgeAI is a **Claude Code Terminal meta-framework** that orchestrates the en
 - [Constitutional Context Files](#constitutional-context-files)
 - [The /dev Workflow](#the-dev-workflow)
 - [Configuration Layer Alignment Protocol](#configuration-layer-alignment-protocol)
+- [Why DevForgeAI?](#why-devforgeai)
 - [Contributing](#contributing)
+- [Security](#security)
 - [Support](#support)
 - [License](#license)
 
@@ -489,7 +497,23 @@ DevForgeAI itself is built with:
 
 ---
 
+## Why DevForgeAI?
+
+AI coding assistants are powerful but undisciplined. Without guardrails, they make autonomous technology decisions, skip tests, introduce dependencies, and accumulate technical debt faster than any human team could.
+
+**DevForgeAI solves this** by treating software engineering discipline as a constraint satisfaction problem:
+
+- **The problem:** AI agents writing code without architectural boundaries produce inconsistent, untestable, debt-laden software.
+- **The solution:** Constitutional context files define what technologies, patterns, and structures are allowed. 44 specialized subagents enforce those constraints at every phase. Quality gates block progression until standards are met.
+- **The result:** Every feature goes through brainstorming, requirements, architecture, TDD implementation, QA validation, and release -- with automated enforcement at each step.
+
+DevForgeAI is not another code generator. It is a **development process enforcer** that makes it structurally impossible to ship low-quality software through AI-assisted development.
+
+---
+
 ## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/your-feature`)
@@ -538,6 +562,12 @@ If DevForgeAI has been useful to you, consider buying me a coffee!
 </a>
 
 <img src="devforgeai/bmc_qr.png" alt="Buy Me a Coffee QR Code" width="200">
+
+---
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for our security policy and how to report vulnerabilities.
 
 ---
 
