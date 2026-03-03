@@ -1,0 +1,130 @@
+# ============================================================================
+# .gitattributes - Line Ending Normalization for DevForgeAI
+# ============================================================================
+#
+# Purpose: Normalize all text files to LF line endings on commit
+# Created: STORY-122 (EPIC-024 Feature 3)
+#
+# WSL Requirement: Shell scripts MUST use LF or $'\r': command not found errors
+# occur. This file ensures consistent line endings across Windows/Linux/Mac.
+#
+# Usage: After creating this file, run:
+#   git add --renormalize .
+#   git commit -m "chore: normalize line endings to LF"
+#
+# ============================================================================
+
+# =============================================================================
+# GLOBAL DEFAULT: Auto-detect text files, normalize to LF
+# =============================================================================
+* text=auto eol=lf
+
+# =============================================================================
+# SHELL SCRIPTS: Explicit LF (WSL Critical)
+# =============================================================================
+# Shell scripts MUST be LF or execution fails with "$'\r': command not found"
+*.sh text eol=lf
+tests/**/*.sh text eol=lf
+
+# =============================================================================
+# PYTHON: Explicit LF
+# =============================================================================
+*.py text eol=lf
+*.pyw text eol=lf
+*.pyi text eol=lf
+
+# =============================================================================
+# MARKDOWN & DOCUMENTATION: Explicit LF
+# =============================================================================
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+
+# =============================================================================
+# JSON & YAML CONFIGURATION: Explicit LF
+# =============================================================================
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+
+# =============================================================================
+# TYPESCRIPT/JAVASCRIPT: Explicit LF
+# =============================================================================
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+
+# =============================================================================
+# WEB ASSETS: Explicit LF
+# =============================================================================
+*.html text eol=lf
+*.htm text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.less text eol=lf
+*.svg text eol=lf
+
+# =============================================================================
+# GIT & CONFIG FILES: Explicit LF
+# =============================================================================
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.editorconfig text eol=lf
+.npmignore text eol=lf
+.dockerignore text eol=lf
+Dockerfile text eol=lf
+Makefile text eol=lf
+
+# =============================================================================
+# BINARY FILES: Never modify (no line ending conversion)
+# =============================================================================
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.bmp binary
+*.tiff binary
+*.tif binary
+
+# Documents
+*.pdf binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+*.tgz binary
+*.bz2 binary
+*.7z binary
+*.rar binary
+
+# Fonts
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
+
+# Other binary formats
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+*.pyc binary
+*.pyo binary
+
+# =============================================================================
+# LINGUIST OVERRIDES (GitHub language detection)
+# =============================================================================
+# Ensure test fixtures don't skew language statistics
+tests/** linguist-vendored
+
+# Node modules should be ignored by linguist
+node_modules/** linguist-vendored

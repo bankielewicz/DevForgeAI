@@ -367,11 +367,13 @@ DevForgeAI2/
 │   │   ├── install_hooks.sh
 │   │   └── setup.py
 │   │
-│   └── hooks/                   # .claude/hooks/ directory for workflow event hooks (EPIC-048)
-│       │                        # Naming convention: post-{workflow}-{action}.sh
-│       │                        # Examples: post-dev-debt-detection.sh, post-qa-gap-analysis.sh
+│   └── hooks/                   # .claude/hooks/ directory for workflow and event hooks
+│       │                        # Workflow hooks (EPIC-048): post-{workflow}-{action}.sh
+│       │                        # Event-driven hooks (EPIC-086): inject-{context}-context.sh (ADR-027)
+│       │                        # Claude Code event hooks registered in .claude/settings.json
 │       ├── pre-tool-use.sh             # Pre-tool execution hook
-│       └── post-qa-debt-detection.sh   # QA gap detection hook
+│       ├── post-qa-debt-detection.sh   # QA gap detection hook
+│       └── inject-phase-context.sh     # SessionStart hook: workflow state injection (STORY-529)
 │
 ├── .treelint/                   # Treelint AST-aware code search working directory (ADR-013)
 │   ├── index.db                 # SQLite AST index (gitignored, regenerable on demand)

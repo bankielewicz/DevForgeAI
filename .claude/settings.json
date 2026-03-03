@@ -123,6 +123,18 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "resume|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/inject-phase-context.sh",
+            "timeout": 10
+          }
+        ]
+      }
     ]
   }
 }

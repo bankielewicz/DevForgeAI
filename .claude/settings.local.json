@@ -152,7 +152,8 @@
       "Bash(do:*)",
       "Bash(PYTHONPATH=\".:$PYTHONPATH\" python3:*)",
       "Bash(/tmp/refactoring_report.md:*)",
-      "Bash(/tmp/REFACTORING_SUMMARY.md:*)"
+      "Bash(/tmp/REFACTORING_SUMMARY.md:*)",
+      "Bash(npm version:*)"
     ],
     "deny": [],
     "ask": []
