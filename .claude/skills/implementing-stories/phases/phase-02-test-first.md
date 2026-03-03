@@ -271,6 +271,106 @@ Edit(
 
 ---
 
+## Optional Captures
+
+### Phase Completion Display
+
+**Before marking Phase 02 complete, display:**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Phase 02/10: Test-First Design - Mandatory Steps Completed
+  TDD Iteration: X/5 | Observations: N captured
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ test-automator invoked
+✓ RED state verified (all tests fail)
+✓ Test integrity snapshot created
+✓ AC Checklist items updated (test items)
+
+All Phase 02 mandatory steps completed. Proceeding to Phase 03...
+```
+
+**Iteration counter display:**
+- IF iteration_count >= 4: Display "TDD Iteration: X/5 ⚠️ Approaching limit"
+- IF iteration_count >= max_iterations (5): HALT with "Maximum iterations reached"
+
+### Observation Capture (EPIC-051)
+
+Before exiting this phase, capture observations from subagent outputs:
+
+1. **Collect Explicit Observations:**
+   IF test-automator returned `observations[]` in output:
+   - Extract each observation object
+   - Set source: "explicit"
+
+2. **Invoke Observation Extractor:**
+   ```
+   Task(subagent_type="observation-extractor",
+        description="Extract observations from Phase 02 subagent outputs",
+        prompt="Extract implicit observations from test-automator output including coverage gaps, test patterns, and potential issues.")
+   ```
+   - Set source: "extracted" for returned observations
+
+3. **Append to Phase State:**
+   FOR each observation (explicit OR extracted):
+   - Generate ID: "OBS-02-{timestamp}" (ISO8601 milliseconds)
+   - Set fields: id, phase ("02"), category, note, severity, files[], source, timestamp
+   - Append to phase-state.json observations[] array
+   - Ensure no duplicate observations (skip if same finding in explicit and extracted)
+
+**Error Handling:** If observation capture fails, log warning and continue phase completion (non-blocking per BR-001).
+
+### Session Memory Update (STORY-341)
+
+Before exiting this phase, append observations to the session memory file:
+
+```
+# Append Phase 02 observations to session memory
+session_path = ".claude/memory/sessions/${STORY_ID}-session.md"
+
+Edit(
+  file_path=session_path,
+  old_string="## Observations\n\n(Observations from phases 02-08 will be appended here)",
+  new_string="## Observations\n\n### Phase 02 (Test-First)\n${OBSERVATIONS_LIST}\n"
+)
+
+# Update last_updated timestamp
+Edit(
+  file_path=session_path,
+  old_string="last_updated: ${OLD_TIMESTAMP}",
+  new_string="last_updated: ${CURRENT_TIMESTAMP}"
+)
+```
+
+**Reference:** EPIC-052 Session Memory Layer specification
+
+### Reflection
+
+**Before exiting this phase, reflect:**
+1. Did I encounter any friction? (unclear docs, missing tools, workarounds)
+2. Did anything work particularly well? (constraints that helped, patterns that fit)
+3. Did I notice any repeated patterns?
+4. Are there gaps in tooling/docs?
+5. Did I discover any bugs?
+
+**If YES to any:** Append to phase-state.json `observations` array:
+```json
+{
+  "id": "obs-02-{seq}",
+  "phase": "02",
+  "category": "{friction|success|pattern|gap|idea|bug}",
+  "note": "{1-2 sentence description}",
+  "files": ["{relevant files}"],
+  "severity": "{low|medium|high}"
+}
+```
+
+**Reference:** `references/observation-capture.md`
+    Read(file_path="references/observation-capture.md")
+
+---
+
 ## Exit Gate
 
 ```bash

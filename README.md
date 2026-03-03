@@ -16,6 +16,7 @@ DevForgeAI is a **Claude Code Terminal meta-framework** that orchestrates the en
 
 - [Overview](#overview)
 - [Features](#features)
+- [Competitive Analysis](#competitive-analysis)
 - [Quick Start](#quick-start)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -75,6 +76,28 @@ Unguided AI development leads to chaos: autonomous decisions, technical debt, an
 - **Cross-AI Collaboration** -- `/collaborate` generates portable documents for sharing issues with external LLMs.
 - **Sprint Planning** -- `/create-sprint` with automated story selection and capacity planning.
 - **Hook-Based Phase Enforcement** -- Step-level validation gates prevent phase skipping (EPIC-086).
+
+---
+
+## Competitive Analysis
+
+DevForgeAI has been benchmarked against 10 competitors in the AI-driven development framework space. The analysis covers spec-driven enforcement, TDD methodology, quality gates, subagent architecture, and market positioning.
+
+### How DevForgeAI Compares
+
+| Capability | DevForgeAI | BMAD | AWS Kiro | Cursor | Cline | Tessl |
+|------------|:----------:|:----:|:--------:|:------:|:-----:|:-----:|
+| Mandatory TDD | ✅ | ❌ | ❌ | ❌ | ❌ | ⚠️ |
+| Coverage thresholds (95/85/80%) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Immutable constraint files | ✅ | ❌ | ❌ | ❌ | ❌ | ⚠️ |
+| ADR change management | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Pre-commit enforcement | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Specialized subagents | ✅ 44 | ✅ 7+ | ⚠️ | ❌ | ⚠️ | ❌ |
+| Phase-enforced workflow | ✅ 10 | ❌ | ⚠️ | ❌ | ⚠️ | ❌ |
+
+**Key finding:** DevForgeAI occupies the only position combining full lifecycle methodology with mandatory mechanical enforcement — a quadrant currently unoccupied by any publicly available competitor.
+
+**Full analysis:** [Comparison Tables](devforgeai/specs/research/shared/RESEARCH-001-comparison-tables.md) | [Detailed Report](devforgeai/specs/research/shared/RESEARCH-001-ai-dev-frameworks-competitive-analysis.md) | [Research Index](devforgeai/specs/research/research-index.md)
 
 ---
 
