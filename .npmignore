@@ -1,0 +1,112 @@
+# ============================================================
+# DevForgeAI .npmignore
+# ============================================================
+# The npm package MUST include:
+#   bin/devforgeai.js        - CLI entry point
+#   lib/cli.js               - CLI logic (Commander router)
+#   src/cli/                 - Installer wizard code
+#   .claude/                 - Framework files (copied to target projects)
+#   devforgeai/specs/context/ - Constitutional templates (copied to targets)
+#   package.json, README.md, LICENSE
+# ============================================================
+
+# --- Large files / caches (CRITICAL - saves 600+ MB) ---
+.treelint/
+bin/act
+src/bin/act
+.venv/
+
+# --- Operational folders (not copied by installer) ---
+.claude/
+/scripts/
+
+# --- Development & test ---
+tests/
+docs/
+*.test.js
+*.spec.js
+jest.config.js
+.coverage
+coverage*.json
+.pytest_cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+pytest.ini
+
+# --- IDE / OS ---
+.git
+.gitignore
+.gitattributes
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# --- Backups ---
+.backups/
+*.backup
+*.backup-*
+CLAUDE.md.backup-*
+
+# --- Archives / artifacts ---
+.test-extract/
+*.tgz
+*.tar.gz
+*.zip
+node_modules/
+
+# --- Story deliverables (not needed in package) ---
+STORY-*
+MIGRATION-GUIDE.md
+README-DOCUMENTATION-SKILL.md
+SHA256SUMS
+
+# --- DevForgeAI: exclude everything EXCEPT specs/context/ templates ---
+# Blacklist the entire tree, then un-ignore what we need
+devforgeai/*
+!devforgeai/specs/
+devforgeai/specs/*
+!devforgeai/specs/context/
+
+# --- Source files: keep src/cli/ (installer) and src/claude/ (framework files) ---
+# NOTE: Do NOT use bare "src/scripts/" — it also matches src/claude/scripts/
+src/__init__.py
+src/*.py
+src/*.js
+src/bin/
+src/devforgeai/
+src/lib/
+src/tests/
+src/validators/
+src/hook_*.py
+src/__pycache__/
+src/CLAUDE.md
+
+# --- Misc development files ---
+tmp/
+scripts/create-*.sh
+.ai_docs/
+.github/
+DEVELOPER.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+APPLICATION_NOTES.md
+ROADMAP.md
+copy.md
+claude.sh
+setup.cfg
+.devforgeai
+prompting-to-guide-Claudes-behavior.md
