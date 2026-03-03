@@ -81,30 +81,27 @@ Unguided AI development leads to chaos: autonomous decisions, technical debt, an
 ## Quick Start
 
 ```bash
-# 1. Install DevForgeAI
-npm install -g devforgeai
+# 1. Install DevForgeAI into your project
+npx devforgeai install
 
-# 2. Install Python CLI tools (validation, phase management)
-pip install -e .claude/scripts/
+# 2. Open your project in Claude Code Terminal
 
-# 3. Open your project in Claude Code Terminal
-
-# 4. Generate constitutional context files for your project
+# 3. Generate constitutional context files for your project
 /create-context my-project
 
-# 5. Create an epic from your requirements
+# 4. Create an epic from your requirements
 /create-epic user-authentication
 
-# 6. Break the epic into implementable stories
+# 5. Break the epic into implementable stories
 /create-story login-endpoint
 
-# 7. Develop with TDD enforcement
+# 6. Develop with TDD enforcement
 /dev STORY-001
 
-# 8. Validate quality
+# 7. Validate quality
 /qa STORY-001 deep
 
-# 9. Release
+# 8. Release
 /release STORY-001
 ```
 
@@ -128,26 +125,99 @@ For a guided experience starting from a vague idea:
 
 - **Node.js** >= 18.0.0
 - **npm** >= 8.0.0
-- **Python** >= 3.10 (for CLI validation tools)
+- **Python** >= 3.10 (optional — for CLI validation tools)
 - **Git** (for version control hooks and workflow tracking)
 - **Claude Code Terminal** (the runtime environment)
 
-### NPM Package
+### Option A: Install via npx (Recommended)
+
+The fastest way to get started. Run this from your project directory:
+
+```bash
+npx devforgeai install
+```
+
+The interactive wizard will guide you through:
+1. **Directory selection** — where to install (default: current directory)
+2. **Component selection** — agents, skills, commands, hooks, Python CLI, etc.
+3. **Python check** — auto-detects Python 3.10+ for validation tools
+4. **Project name** — used in template files
+
+For CI/CD or scripted installs, use non-interactive mode:
+
+```bash
+npx devforgeai install --yes                    # All defaults, current directory
+npx devforgeai install ./my-project --yes       # Specific directory
+npx devforgeai install --yes --skip-python      # Skip Python CLI
+```
+
+### Option B: Install from Downloaded Source
+
+If you downloaded or cloned the DevForgeAI repository:
+
+```bash
+# 1. Navigate to the DevForgeAI source directory
+cd DevForgeAI
+
+# 2. Install Node.js dependencies
+npm install
+
+# 3. Run the installer targeting your project
+node bin/devforgeai.js install /path/to/your-project
+
+# Or install to the current directory
+node bin/devforgeai.js install .
+```
+
+### Option C: Global Install via npm
 
 ```bash
 npm install -g devforgeai
+devforgeai install
 ```
 
-### Python CLI Tools
+### What Gets Installed
 
-The Python CLI provides validation commands (`devforgeai-validate`) for phase management, DoD validation, and story file checks:
+The installer copies the following components into your project:
+
+| Component | Contents | Location |
+|-----------|----------|----------|
+| **Core Framework** | CLAUDE.md, rules, memory files, context templates | `.claude/rules/`, `.claude/memory/`, `devforgeai/specs/context/` |
+| **Agents** | 44 specialized AI subagent definitions | `.claude/agents/` |
+| **Skills** | 26 inline skill workflows | `.claude/skills/` |
+| **Commands** | 46 slash command definitions | `.claude/commands/` |
+| **Hooks** | Workflow validation hooks | `.claude/hooks/` |
+| **Python CLI** | Validation tools (`devforgeai-validate`) | `.claude/scripts/` |
+| **Project Structure** | Standard directories | `src/`, `tests/`, `docs/`, `devforgeai/` |
+
+### Post-Install Setup
+
+After installation, customize the 6 constitutional context files for your project:
 
 ```bash
-cd your-project
-pip install -e .claude/scripts/
+# Edit these files in devforgeai/specs/context/ to match your tech stack:
+#   tech-stack.md           — Your approved technologies
+#   source-tree.md          — Your directory structure
+#   dependencies.md         — Your allowed packages
+#   coding-standards.md     — Your code style rules
+#   architecture-constraints.md — Your layer boundaries
+#   anti-patterns.md        — Your forbidden patterns
 
-# Verify installation
-devforgeai-validate --help
+# Or generate them interactively:
+/create-context my-project
+```
+
+### Managing Your Installation
+
+```bash
+# Check installation status
+devforgeai status
+
+# Update framework files (preserves your context customizations)
+devforgeai install          # Select "Update" when prompted
+
+# Remove DevForgeAI (preserves your src/, tests/, docs/)
+devforgeai uninstall
 ```
 
 ### Verify Installation
@@ -156,11 +226,11 @@ devforgeai-validate --help
 # Check Node.js CLI
 devforgeai --version
 
-# Check Python validation
+# Check Python validation (if installed)
 devforgeai-validate --help
 
-# Check phase management
-devforgeai-validate phase-init STORY-001
+# Check installation status
+devforgeai status
 ```
 
 ---
