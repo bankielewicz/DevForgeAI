@@ -1,8 +1,8 @@
 # Source Tree Structure - DevForgeAI Framework
 
 **Status**: LOCKED
-**Last Updated**: 2026-03-03
-**Version**: 5.2 (Added: legal-check command for EPIC-076 — ADR-031)
+**Last Updated**: 2026-03-04
+**Version**: 5.3 (Added: coaching-entrepreneur skill and business-coach agent — ADR-032)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -71,6 +71,11 @@ DevForgeAI2/
 │   │   │   └── assets/
 │   │   │       └── templates/
 │   │   │           └── brainstorm-template.md
+│   │   ├── coaching-entrepreneur/          # Confidence coaching skill (STORY-469, EPIC-072)
+│   │   │   ├── SKILL.md                    # Main skill (placeholder)
+│   │   │   └── references/
+│   │   │       ├── confidence-building-patterns.md
+│   │   │       └── imposter-syndrome-interventions.md
 │   │   ├── designing-systems/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
@@ -287,7 +292,7 @@ DevForgeAI2/
 │   │           ├── workflow-generation.md
 │   │           └── cost-optimization-guide.md
 │   │
-│   ├── agents/                  # Specialized subagents (33 agents)
+│   ├── agents/                  # Specialized subagents (34 agents)
 │   │   ├── agent-generator.md
 │   │   ├── anti-pattern-scanner.md
 │   │   ├── anti-pattern-scanner/
@@ -297,6 +302,7 @@ DevForgeAI2/
 │   │   ├── api-designer.md
 │   │   ├── architect-reviewer.md
 │   │   ├── backend-architect.md
+│   │   ├── business-coach.md                # Confidence detection coaching (STORY-469, EPIC-072)
 │   │   ├── code-analyzer.md
 │   │   ├── code-quality-auditor.md
 │   │   ├── code-reviewer.md
