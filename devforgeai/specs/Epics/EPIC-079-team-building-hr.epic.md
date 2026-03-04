@@ -11,7 +11,7 @@ owner: DevForgeAI
 tech_lead: DevForgeAI AI Agent
 team: DevForgeAI
 source_brainstorm: BRAINSTORM-011-business-skills-framework
-source_requirements: devforgeai/specs/requirements/business-skills-framework-requirements.md
+source_requirements: devforgeai/specs/requirements/archive/business-skills-framework-requirements.md
 plan_file: /home/bryan/.claude/plans/jiggly-launching-backus.md
 ---
 
@@ -259,10 +259,10 @@ Stories: 5
 
 | Story ID | Feature | Title | Points | Status |
 |----------|---------|-------|--------|--------|
-| STORY-562 | Feature 1 | First Hire Decision Framework | 3 | Backlog |
-| STORY-563 | Feature 2 | Co-Founder Compatibility Assessment | 2 | Backlog |
-| STORY-564 | Feature 3 | /build-team Command & Skill Assembly | 1 | Backlog |
-| STORY-565 | Feature 4 | Contractor vs Employee Decision Tree | 1 | Backlog |
+| STORY-562 | Feature 1 | First Hire Decision Framework | 3 | Ready for Dev |
+| STORY-563 | Feature 2 | Co-Founder Compatibility Assessment | 2 | Ready for Dev |
+| STORY-564 | Feature 3 | /build-team Command & Skill Assembly | 1 | Ready for Dev |
+| STORY-565 | Feature 4 | Contractor vs Employee Decision Tree | 1 | Ready for Dev |
 
 ## Source Documents
 

@@ -394,7 +394,7 @@ technical_limitations:
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Ready for Dev
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

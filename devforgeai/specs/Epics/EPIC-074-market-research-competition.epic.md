@@ -102,7 +102,7 @@ Users currently lack the structured approach to answer critical questions: "Is m
 **Estimated Points:** 4
 **Features:**
 - Feature 3: Customer Interview Question Generator (STORY-537)
-- Feature 5: Market Research Report Synthesis (not yet created)
+- Feature 5: Market Research Report Synthesis (STORY-573)
 
 **Key Deliverables:**
 - `src/claude/skills/researching-market/references/customer-interview-guide.md`

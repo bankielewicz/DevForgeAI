@@ -34,7 +34,7 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC1" implements="SVC-001">
-  <given>The workforce-strategy.md reference file exists</given>
+  <given>The contractor-vs-employee.md reference file exists</given>
   <when>A user reads the contractor vs employee decision section</when>
   <then>The file contains at minimum 5 distinct classification factors (e.g., behavioral control, financial control, relationship type, work schedule control, equipment provision) each with a clear contractor indicator and employee indicator</then>
   <verification>
@@ -52,7 +52,7 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC2" implements="SVC-002">
-  <given>The workforce-strategy.md reference file exists</given>
+  <given>The contractor-vs-employee.md reference file exists</given>
   <when>A user reads the cost comparison section</when>
   <then>The file includes a side-by-side comparison table covering at minimum: base compensation, payroll taxes (with approximate percentage ranges), benefits cost, equipment/tools, onboarding cost, and management overhead — for both contractor and employee classifications</then>
   <verification>
@@ -70,7 +70,7 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC3" implements="SVC-003">
-  <given>The workforce-strategy.md reference file exists</given>
+  <given>The contractor-vs-employee.md reference file exists</given>
   <when>A user encounters a complex or high-risk scenario</when>
   <then>The file contains at minimum 3 explicit "consult a professional" trigger conditions (e.g., multi-state workers, misclassification risk, IP-heavy roles) each specifying what type of professional to consult (employment attorney, CPA, HR consultant)</then>
   <verification>
@@ -88,7 +88,7 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC4" implements="SVC-004">
-  <given>The workforce-strategy.md reference file exists</given>
+  <given>The contractor-vs-employee.md reference file exists</given>
   <when>A user reads the IP considerations section</when>
   <then>The file covers work-for-hire doctrine differences between contractors and employees, recommends specific agreement clauses (IP assignment, NDA), and flags jurisdictional variance as a professional-consultation trigger</then>
   <verification>
@@ -106,7 +106,7 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC5" implements="SVC-005">
-  <given>The workforce-strategy.md reference file exists</given>
+  <given>The contractor-vs-employee.md reference file exists</given>
   <when>The user reads any section of the file</when>
   <then>The file contains a prominent disclaimer within the first 20 lines stating the content is educational only, not legal advice, and that employment law varies by jurisdiction</then>
   <verification>
@@ -389,7 +389,7 @@ technical_limitations: []
 
 ## Change Log
 
-**Current Status:** Backlog
+**Current Status:** Ready for Dev
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

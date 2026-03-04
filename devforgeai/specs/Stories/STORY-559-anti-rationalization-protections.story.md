@@ -3,7 +3,7 @@ id: STORY-559
 title: Anti-Rationalization Protections for Test Integrity
 type: feature
 epic: EPIC-087
-sprint: Sprint-27
+sprint: Sprint-30
 status: Backlog
 points: 2
 depends_on: []
@@ -32,12 +32,12 @@ format_version: "2.9"
 
 ```xml
 <acceptance_criteria id="AC1" implements="REC-3">
-  <given>The file .claude/skills/devforgeai-qa/references/diff-regression-detection.md exists</given>
+  <given>The file src/claude/skills/devforgeai-qa/references/diff-regression-detection.md exists</given>
   <when>A developer reads Section 8 (Test Integrity Verification)</when>
   <then>An "ANTI-RATIONALIZATION WARNING" block appears immediately after the "no override mechanism" statement (line 206), explicitly naming forbidden rationalization patterns: WSL line endings, git analysis, encoding differences, platform artifacts. The warning states that snapshot checksums are ground truth and any mismatch sets overall_verdict = FAIL with no exceptions.</then>
   <verification>
     <source_files>
-      <file hint="Target file">.claude/skills/devforgeai-qa/references/diff-regression-detection.md</file>
+      <file hint="Target file">src/claude/skills/devforgeai-qa/references/diff-regression-detection.md</file>
     </source_files>
     <test_file>tests/STORY-559/test_ac1_anti_rationalization_warning.sh</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -56,7 +56,7 @@ format_version: "2.9"
   <then>A new halt trigger (number 10) exists for "Checksum/hash mismatch findings" that explicitly prohibits environmental rationalizations (WSL, line endings, encoding) as overrides for integrity failures, and instructs to report mismatches as-is without attempting to explain them away.</then>
   <verification>
     <source_files>
-      <file hint="Target file">CLAUDE.md</file>
+      <file hint="Target file">src/CLAUDE.md</file>
     </source_files>
     <test_file>tests/STORY-559/test_ac2_halt_trigger.sh</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -75,7 +75,7 @@ format_version: "2.9"
   <then>The system prompt halt_triggers section also contains the checksum integrity halt trigger, aligned with CLAUDE.md halt trigger #10</then>
   <verification>
     <source_files>
-      <file hint="System prompt reference">CLAUDE.md</file>
+      <file hint="System prompt reference">src/CLAUDE.md</file>
     </source_files>
     <test_file>tests/STORY-559/test_ac3_system_prompt_alignment.sh</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -92,7 +92,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "diff-regression-detection-update"
-      file_path: ".claude/skills/devforgeai-qa/references/diff-regression-detection.md"
+      file_path: "src/claude/skills/devforgeai-qa/references/diff-regression-detection.md"
       required_keys:
         - key: "anti_rationalization_warning"
           type: "string"
@@ -103,7 +103,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "claude-md-halt-trigger"
-      file_path: "CLAUDE.md"
+      file_path: "src/CLAUDE.md"
       required_keys:
         - key: "halt_trigger_10"
           type: "string"
@@ -275,7 +275,7 @@ technical_limitations:
 
 ### AC#1 — Exact Text to Insert
 
-**Target file:** `.claude/skills/devforgeai-qa/references/diff-regression-detection.md`
+**Target file:** `src/claude/skills/devforgeai-qa/references/diff-regression-detection.md`
 
 **Insert AFTER this exact text** (the "No Override Rule" paragraph):
 ```
@@ -306,7 +306,7 @@ Do not construct alternative explanations. Report the mismatch and HALT.
 
 ### AC#2 — Exact Text to Insert
 
-**Target file:** `CLAUDE.md`
+**Target file:** `src/CLAUDE.md`
 
 **Insert AFTER** halt trigger #9 (`3+ consecutive fix attempts fail`) in the `<halt_triggers>` section:
 ```markdown

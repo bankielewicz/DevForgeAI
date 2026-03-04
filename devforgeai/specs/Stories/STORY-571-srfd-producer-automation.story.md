@@ -62,58 +62,65 @@ This story creates the SRFD format reference file, extends the framework-analyst
 
 ---
 
-### AC#3: Phase 09 Writes SRFD Markdown File
+### AC#3: Phase 09 Contains SRFD Write Instructions
 
 ```xml
 <acceptance_criteria id="AC3">
-  <given>Phase 09 receives SRFD-enriched data from framework-analyst</given>
-  <when>The orchestrator executes the SRFD production step</when>
-  <then>A file is written to devforgeai/feedback/ai-analysis/{STORY-NNN}/SRFD-{STORY-NNN}-{YYYY-MM-DD}.md matching the format specification in srfd-format.md, with all required sections populated</then>
+  <given>src/claude/skills/implementing-stories/phases/phase-09-feedback.md exists</given>
+  <when>The file content is examined after STORY-571 implementation</when>
+  <then>phase-09-feedback.md contains: (a) an SRFD write step that uses Write() to produce a file at the runtime path pattern devforgeai/feedback/ai-analysis/{STORY-NNN}/SRFD-{STORY-NNN}-{YYYY-MM-DD}.md, (b) a reference to srfd-format.md for section structure, and (c) instructions to populate all required sections from the SRFD-enriched data received from framework-analyst</then>
   <verification>
     <source_files>
-      <file hint="Phase 09 feedback workflow">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
-      <file hint="SRFD format reference">src/claude/skills/devforgeai-feedback/references/srfd-format.md</file>
+      <file hint="Phase 09 feedback workflow — file under test">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
+      <file hint="SRFD format reference — structural contract">src/claude/skills/devforgeai-feedback/references/srfd-format.md</file>
     </source_files>
-    <test_file>tests/STORY-571/test_ac3_srfd_write.md</test_file>
+    <test_file>tests/STORY-571/test_ac3_srfd_write_instructions.md</test_file>
   </verification>
 </acceptance_criteria>
 ```
 
+> **Dual-path note:** Tests verify that `phase-09-feedback.md` (in `src/`) contains the correct SRFD write instructions. Tests do NOT create files in `devforgeai/feedback/` — that is a runtime artifact produced when Phase 09 executes in deployed projects. See source-tree.md lines 14-15.
+
 ---
 
-### AC#4: Phase 09 Creates or Updates srfd-index.json
+### AC#4: Phase 09 Contains Index Management Instructions
 
 ```xml
 <acceptance_criteria id="AC4">
-  <given>Phase 09 has written an SRFD markdown file</given>
-  <when>The index update step executes</when>
-  <then>If devforgeai/feedback/ai-analysis/aggregated/srfd-index.json does not exist, it is created from the empty template in srfd-format.md; the new SRFD entry (id, path, source_story, workflow, generated, recommendation_count, open_count, implemented_count) is appended to the documents array</then>
+  <given>src/claude/skills/implementing-stories/phases/phase-09-feedback.md exists</given>
+  <when>The file content is examined after STORY-571 implementation</when>
+  <then>phase-09-feedback.md contains: (a) conditional creation logic — if srfd-index.json does not exist at runtime, create it from the empty template defined in srfd-format.md, (b) entry append logic with all 8 required fields (id, path, source_story, workflow, generated, recommendation_count, open_count, implemented_count), and (c) duplicate-entry handling — if an entry with the same story_id and date already exists, update it rather than appending a duplicate</then>
   <verification>
     <source_files>
-      <file hint="Phase 09 feedback workflow">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
+      <file hint="Phase 09 feedback workflow — file under test">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
+      <file hint="SRFD format reference — contains empty index template">src/claude/skills/devforgeai-feedback/references/srfd-format.md</file>
     </source_files>
-    <test_file>tests/STORY-571/test_ac4_index_management.md</test_file>
+    <test_file>tests/STORY-571/test_ac4_index_management_instructions.md</test_file>
   </verification>
 </acceptance_criteria>
 ```
+
+> **Dual-path note:** Tests verify that `phase-09-feedback.md` (in `src/`) contains correct index management instructions. The actual `srfd-index.json` file is a runtime artifact created in `devforgeai/feedback/ai-analysis/aggregated/` when Phase 09 executes in deployed projects. Tests do NOT create or modify this operational file.
 
 ---
 
-### AC#5: Recommendations in Queue Reference Source SRFD
+### AC#5: Phase 09 Contains Queue Backlink Instructions
 
 ```xml
 <acceptance_criteria id="AC5">
-  <given>Phase 09 produces recommendations for the feedback queue</given>
-  <when>Each recommendation object is added to recommendations-queue.json</when>
-  <then>It includes a source_srfd field containing the relative path to the SRFD markdown file (e.g., "STORY-NNN/SRFD-STORY-NNN-YYYY-MM-DD.md")</then>
+  <given>src/claude/skills/implementing-stories/phases/phase-09-feedback.md exists</given>
+  <when>The file content is examined after STORY-571 implementation</when>
+  <then>phase-09-feedback.md contains instructions to add a source_srfd field to each recommendation object when writing to recommendations-queue.json, with the field value following the pattern "{STORY-NNN}/SRFD-{STORY-NNN}-{YYYY-MM-DD}.md"</then>
   <verification>
     <source_files>
-      <file hint="Phase 09 feedback workflow">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
+      <file hint="Phase 09 feedback workflow — file under test">src/claude/skills/implementing-stories/phases/phase-09-feedback.md</file>
     </source_files>
-    <test_file>tests/STORY-571/test_ac5_queue_backlink.md</test_file>
+    <test_file>tests/STORY-571/test_ac5_queue_backlink_instructions.md</test_file>
   </verification>
 </acceptance_criteria>
 ```
+
+> **Dual-path note:** Tests verify that `phase-09-feedback.md` (in `src/`) contains the `source_srfd` field assignment instruction. The actual `recommendations-queue.json` mutation is a runtime operation. Tests do NOT modify files in `devforgeai/feedback/`.
 
 ---
 
@@ -353,21 +360,23 @@ Not applicable — framework prompt files, not compiled code.
 - [ ] Extracts epic/sprint from story frontmatter - **Phase:** 3 - **Evidence:** YAML parsing in Step 8
 - [ ] No Write/Edit calls (readonly preserved) - **Phase:** 3 - **Evidence:** Tools list unchanged
 
-### AC#3: Phase 09 Writes SRFD Markdown File
-- [ ] SRFD write step added to phase-09-feedback.md - **Phase:** 3 - **Evidence:** Write() call with SRFD path
-- [ ] SRFD conforms to srfd-format.md specification - **Phase:** 3 - **Evidence:** All required sections present
+### AC#3: Phase 09 Contains SRFD Write Instructions
+- [ ] phase-09-feedback.md contains SRFD write step using Write() - **Phase:** 3 - **Evidence:** Grep for Write() + SRFD path pattern in src/ file
+- [ ] SRFD write step references srfd-format.md for section structure - **Phase:** 3 - **Evidence:** Grep for srfd-format.md reference in src/ file
+- [ ] Instructions specify all required sections from enriched data - **Phase:** 3 - **Evidence:** Section list in src/ file matches format spec
 
-### AC#4: Phase 09 Creates or Updates srfd-index.json
-- [ ] Index creation from template on first run - **Phase:** 3 - **Evidence:** Conditional create logic
-- [ ] Index entry appended on subsequent runs - **Phase:** 3 - **Evidence:** Append logic documented
-- [ ] Duplicate entry handling on same-day re-run - **Phase:** 3 - **Evidence:** Update-not-duplicate logic
+### AC#4: Phase 09 Contains Index Management Instructions
+- [ ] Conditional creation logic from template present - **Phase:** 3 - **Evidence:** Grep for template creation logic in src/ file
+- [ ] Entry append logic with all 8 required fields - **Phase:** 3 - **Evidence:** All 8 field names present in src/ file
+- [ ] Duplicate entry update-not-append logic present - **Phase:** 3 - **Evidence:** Grep for duplicate handling in src/ file
 
-### AC#5: Recommendations in Queue Reference Source SRFD
-- [ ] source_srfd field added to recommendation objects - **Phase:** 3 - **Evidence:** Field assignment in Phase 09
+### AC#5: Phase 09 Contains Queue Backlink Instructions
+- [ ] source_srfd field assignment instruction present - **Phase:** 3 - **Evidence:** Grep for source_srfd in src/ file
+- [ ] Field value follows STORY-NNN/SRFD-STORY-NNN-YYYY-MM-DD.md pattern - **Phase:** 3 - **Evidence:** Path pattern in src/ file
 
 ---
 
-**Checklist Progress:** 0/16 items complete (0%)
+**Checklist Progress:** 0/17 items complete (0%)
 
 ---
 
@@ -437,6 +446,16 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 | 2026-03-03 | .claude/story-requirements-analyst | Created | Story created from SRFD pipeline Layer 3 plan | STORY-571.story.md |
 
 ## Notes
+
+**Dual-Path Architecture Constraint (CRITICAL — read before implementing):**
+
+This project uses a dual-path architecture (source-tree.md, lines 14-15):
+> "Do not modify operational files. Only modify src/, tests/ files."
+
+- **What the `/dev` workflow creates/modifies:** Only files in `src/` — specifically `src/claude/agents/framework-analyst.md`, `src/claude/skills/implementing-stories/phases/phase-09-feedback.md`, and `src/claude/skills/devforgeai-feedback/references/srfd-format.md`
+- **What those files instruct at runtime (NOT touched by `/dev`):** SRFD markdown files in `devforgeai/feedback/ai-analysis/`, `srfd-index.json` in `devforgeai/feedback/ai-analysis/aggregated/`, `source_srfd` field additions to `recommendations-queue.json`
+- **TDD tests verify:** Prompt file content in `src/` — structural assertions (section headers exist, instruction patterns present, field names documented). Tests do NOT create, modify, or assert against files in `devforgeai/feedback/`.
+- **Runtime artifacts** (`devforgeai/feedback/`) are produced when Phase 09 executes in deployed projects. They are validated post-deployment, not during TDD.
 
 **Design Decisions:**
 - Phase 09 orchestrator performs all SRFD writes, keeping framework-analyst readonly. This follows the existing pattern where Phase 09 already handles ai-analysis JSON storage.

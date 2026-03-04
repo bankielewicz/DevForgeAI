@@ -3,7 +3,7 @@ id: STORY-560
 title: CLI Test Integrity Verification Command
 type: feature
 epic: EPIC-087
-sprint: Sprint-27
+sprint: Sprint-30
 status: Backlog
 points: 5
 depends_on: []
@@ -38,8 +38,8 @@ format_version: "2.9"
   <then>The command executes without error and returns an exit code (0 for pass or missing snapshot with warning, 1 for mismatch, 2 for error such as corrupted JSON)</then>
   <verification>
     <source_files>
-      <file hint="CLI entry point">.claude/scripts/devforgeai_cli/cli.py</file>
-      <file hint="Command implementation">.claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
+      <file hint="CLI entry point">src/claude/scripts/devforgeai_cli/cli.py</file>
+      <file hint="Command implementation">src/claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
     </source_files>
     <test_file>tests/STORY-560/test_ac1_cli_command.sh</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -58,7 +58,7 @@ format_version: "2.9"
   <then>The command returns exit code 1 and prints each mismatched file with expected and actual SHA-256 values. Output includes "CRITICAL: TEST TAMPERING" for each mismatched file.</then>
   <verification>
     <source_files>
-      <file hint="Command implementation">.claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
+      <file hint="Command implementation">src/claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
     </source_files>
     <test_file>tests/STORY-560/test_ac2_mismatch_detection.py</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -77,7 +77,7 @@ format_version: "2.9"
   <then>The command returns exit code 0 (pass) with a WARNING message: "Test integrity snapshot not found — skipping verification (graceful degradation for pre-STORY-502 stories)". It does NOT block QA.</then>
   <verification>
     <source_files>
-      <file hint="Command implementation">.claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
+      <file hint="Command implementation">src/claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
     </source_files>
     <test_file>tests/STORY-560/test_ac3_missing_snapshot.py</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -96,7 +96,7 @@ format_version: "2.9"
   <then>The command returns exit code 0 and prints "Test integrity verified — all checksums match red-phase snapshot"</then>
   <verification>
     <source_files>
-      <file hint="Command implementation">.claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
+      <file hint="Command implementation">src/claude/scripts/devforgeai_cli/commands/verify_test_integrity.py</file>
     </source_files>
     <test_file>tests/STORY-560/test_ac4_all_match.py</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -115,7 +115,7 @@ format_version: "2.9"
   <then>The orchestrator calls `devforgeai-validate verify-test-integrity {STORY_ID} --project-root=.` via Bash and uses the exit code to determine pass/fail, instead of computing checksums itself. Exit code 1 sets overall_verdict = FAIL unconditionally.</then>
   <verification>
     <source_files>
-      <file hint="QA Phase 1.5 reference">.claude/skills/devforgeai-qa/references/diff-regression-detection.md</file>
+      <file hint="QA Phase 1.5 reference">src/claude/skills/devforgeai-qa/references/diff-regression-detection.md</file>
     </source_files>
     <test_file>tests/STORY-560/test_ac5_phase_integration.sh</test_file>
     <coverage_threshold>95</coverage_threshold>
@@ -132,7 +132,7 @@ technical_specification:
   components:
     - type: "Service"
       name: "verify-test-integrity-command"
-      file_path: ".claude/scripts/devforgeai_cli/commands/verify_test_integrity.py"
+      file_path: "src/claude/scripts/devforgeai_cli/commands/verify_test_integrity.py"
       required_keys:
         - key: "verify_test_integrity"
           type: "function"
@@ -155,7 +155,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "cli-registration"
-      file_path: ".claude/scripts/devforgeai_cli/cli.py"
+      file_path: "src/claude/scripts/devforgeai_cli/cli.py"
       required_keys:
         - key: "verify_test_integrity_subcommand"
           type: "string"
@@ -166,7 +166,7 @@ technical_specification:
 
     - type: "Configuration"
       name: "phase-1.5-integration"
-      file_path: ".claude/skills/devforgeai-qa/references/diff-regression-detection.md"
+      file_path: "src/claude/skills/devforgeai-qa/references/diff-regression-detection.md"
       required_keys:
         - key: "cli_invocation"
           type: "string"
@@ -399,7 +399,7 @@ Key fields: `test_files` is a dict mapping relative file paths to SHA-256 hex di
 
 **File structure:**
 ```
-.claude/scripts/devforgeai_cli/
+src/claude/scripts/devforgeai_cli/
 ├── cli.py                          # Main entry point, subparser registration
 ├── phase_state.py                  # Phase state management class
 ├── commands/

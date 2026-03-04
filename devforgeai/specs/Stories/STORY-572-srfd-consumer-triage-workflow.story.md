@@ -353,6 +353,16 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Notes
 
+**Dual-Path Architecture Constraint (CRITICAL — read before implementing):**
+
+This project uses a dual-path architecture (source-tree.md, lines 14-15):
+> "Do not modify operational files. Only modify src/, tests/ files."
+
+- **What the `/dev` workflow modifies:** Only `src/claude/skills/devforgeai-feedback/references/triage-workflow.md`
+- **What the triage workflow reads at runtime (NOT touched by `/dev`):** SRFD files in `devforgeai/feedback/ai-analysis/`, `source_srfd` field from `recommendations-queue.json`
+- **TDD tests verify:** That `triage-workflow.md` (in `src/`) contains correct SRFD lookup instructions, REC section extraction logic, enriched context assembly, and graceful fallback behavior. Tests do NOT read from or assert against files in `devforgeai/feedback/`.
+- **Runtime reads** from `devforgeai/feedback/` occur when `/recommendations-triage` executes in deployed projects. This story's ACs only **read** from operational paths (no writes), which is constitutionally compliant, but TDD tests still verify the `src/` prompt file content, not runtime behavior.
+
 **Design Decisions:**
 - Enriched context fields are all optional — missing subsections in the REC section are simply omitted, not passed as empty strings.
 - REC section matching uses exact string match (not fuzzy) to avoid false positives.
