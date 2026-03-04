@@ -88,9 +88,9 @@ Users currently lack the structured approach to answer critical questions: "Is m
 **Goal:** Deliver market sizing, competitive analysis, and the `/market-research` command
 **Estimated Points:** 9
 **Features:**
-- Feature 1: Market Sizing Guided Workflow (STORY-A, STORY-B)
-- Feature 2: Competitive Landscape Analysis (STORY-C, STORY-D)
-- Feature 4: /market-research Command & Skill Assembly (STORY-E)
+- Feature 1: Market Sizing Guided Workflow (STORY-535)
+- Feature 2: Competitive Landscape Analysis (STORY-536)
+- Feature 4: /market-research Command & Skill Assembly (STORY-538)
 
 **Key Deliverables:**
 - `src/claude/skills/researching-market/SKILL.md` + references/
@@ -101,8 +101,8 @@ Users currently lack the structured approach to answer critical questions: "Is m
 **Goal:** Deliver customer interview generator and research report synthesis
 **Estimated Points:** 4
 **Features:**
-- Feature 3: Customer Interview Question Generator (STORY-F)
-- Feature 5: Market Research Report Synthesis (STORY-G)
+- Feature 3: Customer Interview Question Generator (STORY-537)
+- Feature 5: Market Research Report Synthesis (not yet created)
 
 **Key Deliverables:**
 - `src/claude/skills/researching-market/references/customer-interview-guide.md`
@@ -219,7 +219,7 @@ Users currently lack the structured approach to answer critical questions: "Is m
 
 | Reference File | Purpose | Feature |
 |----------------|---------|---------|
-| `market-sizing-workflow.md` | TAM/SAM/SOM estimation guide with Fermi methodology | F1 |
+| `market-sizing-methodology.md` | TAM/SAM/SOM estimation guide with Fermi methodology | F1 |
 | `competitive-analysis-framework.md` | Competitor identification, positioning matrix, SWOT | F2 |
 | `trend-analysis-patterns.md` | Industry trend detection and validation patterns | F2, F5 |
 | `customer-interview-guide.md` | Interview question generation, best practices | F3 |

@@ -97,6 +97,15 @@ Guide DevForgeAI users through fundamental legal decisions for their business �
 **Key Deliverables:**
 - `src/claude/skills/advising-legal/references/when-to-hire-professional.md`
 
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-544 | Feature 1 | Business Structure Decision Tree | 3 | Ready for Dev |
+| STORY-545 | Feature 2 | IP Protection Checklist for Software Projects | 2 | Backlog |
+| STORY-546 | Feature 3 | /legal-check Command and Skill Assembly | 2 | Ready for Dev |
+| STORY-547 | Feature 4 | When to Hire a Professional Framework | 1 | Ready for Dev |
+
 ## User Stories
 
 1. **As a** new entrepreneur, **I want** guidance on business structure **so that** I make an informed legal decision
@@ -207,9 +216,9 @@ Guide DevForgeAI users through fundamental legal decisions for their business �
 ```
 Feature 3 (/legal-check Command + Skill Assembly)
   ├── Feature 1 (Business Structure Decision Tree)
-  │     └── Feature 4 (When to Hire Professional)
   └── Feature 2 (IP Protection Checklist)
-        └── Feature 4 (When to Hire Professional)
+
+Feature 4 (When to Hire Professional) — Independent
 ```
 
 ## Complexity Assessment

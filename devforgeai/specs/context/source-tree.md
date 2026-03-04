@@ -1,8 +1,8 @@
 # Source Tree Structure - DevForgeAI Framework
 
 **Status**: LOCKED
-**Last Updated**: 2026-02-28
-**Version**: 4.3 (Added: devforgeai_cli/commands/ directory per ADR-026)
+**Last Updated**: 2026-03-03
+**Version**: 5.2 (Added: legal-check command for EPIC-076 — ADR-031)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -24,7 +24,7 @@ DevForgeAI2/
 │       └── installer-testing.yml # Installer test workflow
 │
 ├── .claude/                     # Claude Code Terminal configuration (OPERATIONAL - do not modify files)
-│   ├── skills/                  # Framework implementation (20 skills)
+│   ├── skills/                  # Framework implementation (21 skills)
 │   │   ├── discovering-requirements/
 │   │   │   ├── SKILL.md         # Main skill (500-800 lines)
 │   │   │   ├── references/      # Deep documentation (loaded on demand)
@@ -57,6 +57,13 @@ DevForgeAI2/
 │   │   │       ├── confidence-assessment-workflow.md
 │   │   │       ├── work-style-questionnaire.md
 │   │   │       └── plan-calibration-engine.md
+│   │   ├── researching-market/            # Market research skill (EPIC-074, ADR-029)
+│   │   │   ├── SKILL.md                   # Market sizing, competitive analysis, interviews
+│   │   │   └── references/
+│   │   │       ├── market-sizing-methodology.md   # TAM/SAM/SOM estimation (STORY-535)
+│   │   │       ├── fermi-estimation.md            # Fermi estimation guidance (STORY-535)
+│   │   │       ├── competitive-analysis-framework.md  # Competitor positioning (STORY-536)
+│   │   │       └── customer-interview-guide.md    # Interview best practices (STORY-537)
 │   │   ├── auditing-w3-compliance/        # W3 compliance scanning skill (STORY-462, ADR-020)
 │   │   │   └── SKILL.md                  # 4-phase violation scanning (CRITICAL/HIGH/MEDIUM/INFO)
 │   │   ├── brainstorming/                # Business Analyst discovery skill
@@ -254,13 +261,33 @@ DevForgeAI2/
 │   │   │   └── references/
 │   │   │       ├── fix-actions-catalog.md
 │   │   │       └── fix-verification-workflow.md
+│   │   ├── advising-legal/                 # Legal guidance skill (EPIC-076, ADR-028)
+│   │   │   ├── SKILL.md                   # Legal assessment orchestrator (< 1,000 lines)
+│   │   │   └── references/
+│   │   │       ├── business-structure-guide.md     # LLC/S-Corp/Sole Prop decision tree (STORY-544)
+│   │   │       ├── ip-protection-checklist.md      # Copyright/trademark/patent guidance (STORY-545)
+│   │   │       └── when-to-hire-professional.md    # Professional referral framework (STORY-547)
+│   │   ├── managing-finances/               # Financial planning skill (EPIC-077, ADR-030)
+│   │   │   ├── SKILL.md                    # Financial planning orchestrator (< 1,000 lines)
+│   │   │   └── references/
+│   │   │       ├── pricing-strategy-framework.md    # Cost-plus/value-based/competitive pricing (STORY-549)
+│   │   │       ├── break-even-analysis.md           # Break-even calculation + ASCII chart (STORY-550)
+│   │   │       ├── funding-options-guide.md          # Funding decision tree (STORY-552)
+│   │   │       └── startup-financial-model.md        # 12-month projection generator (STORY-553)
+│   │   ├── operating-business/              # Operations & launch skill (EPIC-078, ADR-029)
+│   │   │   ├── SKILL.md                    # Operations orchestrator with progressive disclosure menu
+│   │   │   └── references/
+│   │   │       ├── mvp-launch-checklist.md          # 5-domain launch checklist (STORY-554)
+│   │   │       ├── tool-selection-guide.md          # Budget-aware tool recommendations (STORY-555)
+│   │   │       ├── process-design-framework.md      # Core business process templates (STORY-557)
+│   │   │       └── scaling-readiness-assessment.md  # Post-launch scaling criteria (STORY-558)
 │   │   └── devforgeai-github-actions/
 │   │       ├── SKILL.md             # GitHub Actions workflow generation (STORY-097)
 │   │       └── references/          # Loaded on demand
 │   │           ├── workflow-generation.md
 │   │           └── cost-optimization-guide.md
 │   │
-│   ├── agents/                  # Specialized subagents (31 agents)
+│   ├── agents/                  # Specialized subagents (33 agents)
 │   │   ├── agent-generator.md
 │   │   ├── anti-pattern-scanner.md
 │   │   ├── anti-pattern-scanner/
@@ -283,11 +310,13 @@ DevForgeAI2/
 │   │   ├── deployment-engineer.md
 │   │   ├── dev-result-interpreter.md
 │   │   ├── epic-coverage-result-interpreter.md  # STORY-457, ADR-020
+│   │   ├── financial-modeler.md             # Financial projections subagent (STORY-551, EPIC-077, ADR-030)
 │   │   ├── documentation-writer.md
 │   │   ├── frontend-developer.md
 │   │   ├── git-validator.md
 │   │   ├── integration-tester.md
 │   │   ├── internet-sleuth.md
+│   │   ├── market-analyst.md              # Research synthesis subagent (STORY-536, EPIC-074, ADR-029)
 │   │   ├── pattern-compliance-auditor.md
 │   │   ├── qa-result-interpreter.md
 │   │   ├── refactoring-specialist.md
@@ -301,7 +330,7 @@ DevForgeAI2/
 │   │   ├── test-automator.md
 │   │   └── ui-spec-formatter.md
 │   │
-│   ├── commands/                # User-facing workflows (25 commands - do not modify files)
+│   ├── commands/                # User-facing workflows (28 commands - do not modify files)
 │   │   ├── audit-alignment.md
 │   │   ├── audit-budget.md
 │   │   ├── audit-deferrals.md
@@ -321,8 +350,12 @@ DevForgeAI2/
 │   │   ├── feedback-export-data.md
 │   │   ├── feedback-reindex.md
 │   │   ├── feedback-search.md
+│   │   ├── financial-model.md             # /financial-model command (STORY-551, EPIC-077, ADR-030)
 │   │   ├── ideate.md
 │   │   ├── import-feedback.md
+│   │   ├── legal-check.md                 # /legal-check command (STORY-546, EPIC-076, ADR-031)
+│   │   ├── market-research.md             # /market-research command (STORY-538, EPIC-074, ADR-028)
+│   │   ├── ops-plan.md                    # /ops-plan command (STORY-556, EPIC-078, ADR-029)
 │   │   ├── orchestrate.md
 │   │   ├── qa.md
 │   │   ├── rca.md
@@ -400,6 +433,11 @@ DevForgeAI2/
 │   │   ├── analysis/            # Analysis documents
 │   │   ├── requirements/        # Requirements and analysis deliverables
 │   │   │   └── dev-analysis/    # /dev command conformance analysis outputs
+│   │   ├── business/             # Business planning outputs (EPIC-073, EPIC-074, EPIC-075, EPIC-076)
+│   │   │   ├── market-research/  # Market sizing, competitive analysis, customer interviews
+│   │   │   ├── marketing/        # Go-to-market strategy, positioning, content strategy (EPIC-075)
+│   │   │   ├── legal/            # Legal guidance outputs (EPIC-076)
+│   │   │   └── operations/       # Operations & launch artifacts (EPIC-078)
 │   │   └── implementation-notes/
 │   │
 │   ├── RCA/                     # Root Cause Analysis documents
@@ -445,7 +483,7 @@ DevForgeAI2/
 │   │   │   ├── workflow/        # TDD and story lifecycle rules
 │   │   │   ├── security/        # Security and compliance rules
 │   │   │   └── conditional/     # Path-specific rules (activate by file type)
-│   │   ├── skills/              # All 17 skills (source copies)
+│   │   ├── skills/              # All 18 skills (source copies)
 │   │   ├── memory/              # Progressive disclosure references
 │   │   └── scripts/             # DevForgeAI CLI tools
 │   │
@@ -760,7 +798,7 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 
 **Naming Convention**: `[action]` or `[action]-[object]` (e.g., `dev`, `create-context`)
 
-**Current commands (25 total):**
+**Current commands (26 total):**
 ```
 .claude/commands/
 ├── audit-alignment.md       # /audit-alignment [--layer=all|claudemd|prompt|context|rules|adrs] [--fix] [--output=console|file]
@@ -787,6 +825,7 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 ├── import-feedback.md       # /import-feedback <archive-path>
 ├── orchestrate.md           # /orchestrate [STORY-ID]
 ├── qa.md                    # /qa [STORY-ID] [mode]
+├── marketing-plan.md        # /marketing-plan [--mode=standalone|project]
 ├── rca.md                   # /rca [issue-description] [severity]
 └── release.md               # /release [STORY-ID] [environment]
 ```
@@ -869,6 +908,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 - ✅ ADRs go in `devforgeai/specs/adrs/`
 - ✅ Research documentation in `devforgeai/specs/research/`
 - ✅ Prompt version snapshots go in `devforgeai/specs/prompt-versions/` (ADR-015)
+- ✅ Business planning outputs go in `devforgeai/specs/business/` (EPIC-073, EPIC-074, EPIC-075, EPIC-076, EPIC-077)
 - ✅ Stories MUST have YAML frontmatter with id, title, epic, sprint, status, points, priority
 - ❌ NO code in `devforgeai/specs/` (documentation only)
 

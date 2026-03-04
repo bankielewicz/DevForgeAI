@@ -1,7 +1,7 @@
 {
   "story_id": "STORY-530",
   "workflow": "dev",
-  "current_phase": "08",
+  "current_phase": "10",
   "workflow_started": "2026-03-03T19:04:20Z",
   "blocking_status": false,
   "phases": {
@@ -155,41 +155,50 @@
       "completed_at": "2026-03-03T19:33:52Z"
     },
     "08": {
-      "status": "pending",
+      "status": "completed",
       "steps_required": [
         "git_commit"
       ],
       "steps_completed": [],
-      "checkpoint_passed": false,
+      "checkpoint_passed": true,
       "subagents_required": [],
       "subagents_invoked": [
         "internet-sleuth"
       ],
-      "started_at": "2026-03-03T19:40:34Z"
+      "started_at": "2026-03-03T19:40:34Z",
+      "completed_at": "2026-03-03T20:02:04Z"
     },
     "09": {
-      "status": "pending",
+      "status": "completed",
       "steps_required": [
         "feedback_capture"
       ],
       "steps_completed": [],
-      "checkpoint_passed": false,
+      "checkpoint_passed": true,
       "subagents_required": [
         "framework-analyst"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "framework-analyst"
+      ],
+      "started_at": "2026-03-03T20:03:46Z",
+      "completed_at": "2026-03-03T20:03:50Z"
     },
     "10": {
-      "status": "pending",
+      "status": "completed",
       "steps_required": [
         "result_interpretation"
       ],
       "steps_completed": [],
-      "checkpoint_passed": false,
+      "checkpoint_passed": true,
       "subagents_required": [
         "dev-result-interpreter"
       ],
-      "subagents_invoked": []
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-03-03T20:05:18Z",
+      "completed_at": "2026-03-03T20:05:23Z"
     }
   },
   "validation_errors": [],

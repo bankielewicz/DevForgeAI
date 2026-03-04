@@ -32,7 +32,7 @@ A comprehensive guide for contributors to the DevForgeAI spec-driven development
 ```bash
 # Clone the repository
 git clone https://github.com/bankielewicz/DevForgeAI.git
-cd DevForgeAI2
+cd DevForgeAI
 
 # Install Node.js dependencies
 npm install
@@ -50,7 +50,7 @@ DevForgeAI runs on WSL. Always use Unix-style paths with the `/mnt/c/` prefix.
 
 ```bash
 # Navigate to project root
-cd /mnt/c/Projects/DevForgeAI2
+cd /mnt/c/Projects/DevForgeAI
 
 # Set PYTHONPATH (required for pytest module discovery)
 export PYTHONPATH=".:$PYTHONPATH"
@@ -58,8 +58,8 @@ export PYTHONPATH=".:$PYTHONPATH"
 
 | Path Style | Correct |
 |------------|---------|
-| `/mnt/c/Projects/DevForgeAI2/src/` | Yes |
-| `C:\Projects\DevForgeAI2\src\` | No |
+| `/mnt/c/Projects/DevForgeAI/src/` | Yes |
+| `C:\Projects\DevForgeAI\src\` | No |
 
 ### Verify Your Environment
 
@@ -81,7 +81,7 @@ npm test
 DevForgeAI uses a **dual-path architecture**: `src/` for source code and `.claude/` for operational runtime files.
 
 ```
-DevForgeAI2/
+DevForgeAI/
 ├── .claude/                     # OPERATIONAL - do not modify directly
 │   ├── agents/                  # Subagent definitions (44 agents)
 │   ├── commands/                # Slash commands
@@ -328,7 +328,7 @@ Tests for the Python CLI live in `.claude/scripts/devforgeai_cli/tests/`.
 
 ```bash
 # Set environment
-cd /mnt/c/Projects/DevForgeAI2
+cd /mnt/c/Projects/DevForgeAI
 export PYTHONPATH=".:$PYTHONPATH"
 
 # Run all Python tests

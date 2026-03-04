@@ -82,28 +82,19 @@ Guide DevForgeAI users from "business plan complete" to "business launched" thro
 
 ## Target Sprints
 
-### Sprint 1: Launch Foundations
-**Goal:** Deliver launch checklist, tool selection, and `/ops-plan` command
-**Estimated Points:** 7
+### Sprint 28: Operations Launch (Consolidated)
+**Goal:** Deliver all operations & launch features in a single sprint
+**Estimated Points:** 10
 **Features:**
-- Feature 1: MVP Launch Checklist (STORY-A, STORY-B)
-- Feature 2: Tool Selection Guide (STORY-C)
-- Feature 3: /ops-plan Command & Skill Assembly (STORY-D)
+- Feature 1: MVP Launch Checklist (STORY-554)
+- Feature 2: Tool Selection Guide (STORY-555)
+- Feature 3: /ops-plan Command & Skill Assembly (STORY-556) — depends on STORY-554, STORY-555
+- Feature 4: Process Design Framework (STORY-557)
+- Feature 5: Scaling Readiness Assessment (STORY-558)
 
 **Key Deliverables:**
 - `src/claude/skills/operating-business/SKILL.md` + references/
 - `src/claude/commands/ops-plan.md`
-
-### Sprint 2: Process & Scale
-**Goal:** Deliver process design and scaling readiness
-**Estimated Points:** 3
-**Features:**
-- Feature 4: Process Design Framework (STORY-E)
-- Feature 5: Scaling Readiness Assessment (STORY-F)
-
-**Key Deliverables:**
-- `src/claude/skills/operating-business/references/process-design-framework.md`
-- `src/claude/skills/operating-business/references/scaling-readiness-assessment.md`
 
 ## User Stories
 
@@ -243,17 +234,15 @@ Feature 3 (/ops-plan Command + Skill Assembly)
 ```
 Epic Timeline:
 ================================
-Sprint 1: Launch Foundations (7 pts)
-Sprint 2: Process & Scale (3 pts)
+Sprint 28: Operations Launch (10 pts)
 ================================
-Total Duration: 2 sprints
+Total Duration: 1 sprint
 Total Points: 10
-Stories: 6
+Stories: 5
 ```
 
 ### Key Milestones
-- [ ] **Sprint 1 Complete:** `/ops-plan` generates launch checklist and tool recommendations
-- [ ] **Sprint 2 Complete:** Process design and scaling readiness available
+- [ ] **Sprint 28 Complete:** All operations & launch features delivered (checklist, tools, command, processes, scaling)
 - [ ] **Epic Complete:** Full operations workflow functional with adaptive pacing
 
 ## Progress Tracking
@@ -262,9 +251,18 @@ Stories: 6
 
 | Sprint | Status | Points | Stories | Completed | In Progress | Blocked |
 |--------|--------|--------|---------|-----------|-------------|---------|
-| Sprint 1 | Not Started | 7 | 4 | 0 | 0 | 0 |
-| Sprint 2 | Not Started | 3 | 2 | 0 | 0 | 0 |
-| **Total** | **0%** | **10** | **6** | **0** | **0** | **0** |
+| Sprint 28 | Active | 10 | 5 | 0 | 0 | 0 |
+| **Total** | **0%** | **10** | **5** | **0** | **0** | **0** |
+
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-554 | Feature 1 | MVP Launch Checklist | 3 | Backlog |
+| STORY-555 | Feature 2 | Tool Selection Guide | 2 | Backlog |
+| STORY-556 | Feature 3 | /ops-plan Command & Skill Assembly | 2 | Backlog |
+| STORY-557 | Feature 4 | Process Design Framework | 2 | Backlog |
+| STORY-558 | Feature 5 | Scaling Readiness Assessment | 1 | Backlog |
 
 ## Source Documents
 

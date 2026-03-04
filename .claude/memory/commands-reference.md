@@ -1757,7 +1757,6 @@ Session 1:
 
 **By Project:**
 - Current: `/mnt/c/Projects/DevForgeAI2`
-- Other: `/mnt/c/Projects/SQLServer`
 - All: Show all projects
 
 **By Time Range:**

@@ -55,7 +55,7 @@ Quick start:
 
 ```bash
 # 1. Go to repository
-cd /path/to/DevForgeAI2
+cd /path/to/DevForgeAI
 
 # 2. Run installer
 python installer/install.py --mode=upgrade

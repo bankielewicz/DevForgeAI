@@ -106,11 +106,11 @@ The system guides users through positioning, messaging, channel selection, and g
 
 ## User Stories
 
-1. **As an** entrepreneur, **I want** a go-to-market strategy **so that** I know how to reach my first customers
-2. **As a** user, **I want** help crafting positioning and messaging **so that** my marketing is consistent and compelling
-3. **As a** user, **I want** one command (`/marketing-plan`) **so that** I can run the full marketing planning workflow
-4. **As a** user who completed customer interviews, **I want** guidance synthesizing feedback **so that** I can refine my approach
-5. **As a** solo entrepreneur, **I want** a simple content strategy outline **so that** I know what to post and where
+1. **STORY-539:** Go-to-Market Strategy Builder (3 pts, High) — **As an** entrepreneur, **I want** a go-to-market strategy **so that** I know how to reach my first customers
+2. **STORY-540:** Positioning & Messaging Framework (3 pts, High) — **As a** user, **I want** help crafting positioning and messaging **so that** my marketing is consistent and compelling
+3. **STORY-541:** /marketing-plan Command & Skill Assembly (2 pts, High) — **As a** user, **I want** one command (`/marketing-plan`) **so that** I can run the full marketing planning workflow
+4. **STORY-542:** Customer Discovery Workflow (2 pts, Medium) — **As a** user who completed customer interviews, **I want** guidance synthesizing feedback **so that** I can refine my approach
+5. **STORY-543:** Content & Channel Strategy Outline (1 pt, Low) — **As a** solo entrepreneur, **I want** a simple content strategy outline **so that** I know what to post and where
 
 ## Technical Considerations
 

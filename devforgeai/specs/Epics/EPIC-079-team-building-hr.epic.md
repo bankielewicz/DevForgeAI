@@ -79,9 +79,9 @@ Guide solo entrepreneurs through the transition from solopreneur to employer —
 **Goal:** Deliver first hire framework, co-founder assessment, and `/build-team` command
 **Estimated Points:** 6
 **Features:**
-- Feature 1: First Hire Decision Framework (STORY-A, STORY-B)
-- Feature 2: Co-Founder Compatibility Assessment (STORY-C)
-- Feature 3: /build-team Command & Skill Assembly (STORY-D)
+- Feature 1: First Hire Decision Framework (STORY-562)
+- Feature 2: Co-Founder Compatibility Assessment (STORY-563)
+- Feature 3: /build-team Command & Skill Assembly (STORY-564)
 
 **Key Deliverables:**
 - `src/claude/skills/building-team/SKILL.md` + references/
@@ -91,7 +91,7 @@ Guide solo entrepreneurs through the transition from solopreneur to employer —
 **Goal:** Deliver contractor vs employee guidance
 **Estimated Points:** 1
 **Features:**
-- Feature 4: Contractor vs Employee Decision Tree (STORY-E)
+- Feature 4: Contractor vs Employee Decision Tree (STORY-565)
 
 **Key Deliverables:**
 - `src/claude/skills/building-team/references/contractor-vs-employee.md`
@@ -254,6 +254,15 @@ Stories: 5
 | Sprint 1 | Not Started | 6 | 4 | 0 | 0 | 0 |
 | Sprint 2 | Not Started | 1 | 1 | 0 | 0 | 0 |
 | **Total** | **0%** | **7** | **5** | **0** | **0** | **0** |
+
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-562 | Feature 1 | First Hire Decision Framework | 3 | Backlog |
+| STORY-563 | Feature 2 | Co-Founder Compatibility Assessment | 2 | Backlog |
+| STORY-564 | Feature 3 | /build-team Command & Skill Assembly | 1 | Backlog |
+| STORY-565 | Feature 4 | Contractor vs Employee Decision Tree | 1 | Backlog |
 
 ## Source Documents
 

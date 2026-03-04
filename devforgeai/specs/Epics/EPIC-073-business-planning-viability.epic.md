@@ -104,10 +104,10 @@ This epic delivers the core deliverable users expect — a business plan — mak
 
 ## User Stories
 
-1. **As an** aspiring entrepreneur, **I want** to complete a Lean Canvas **so that** I have a structured one-page business model
-2. **As a** user, **I want** a milestone-based business plan **so that** I progress at my own pace without deadline anxiety
-3. **As a** user, **I want** the AI to identify my business model type **so that** I can apply the right frameworks
-4. **As a** user without a coding project, **I want** standalone mode **so that** I can plan my business without a DevForgeAI project
+1. **STORY-531:** Lean Canvas Guided Workflow (5 pts, High) — Feature 1
+2. **STORY-532:** Milestone-Based Plan Generator (5 pts, High) — Feature 2
+3. **STORY-533:** Business Model Pattern Matching (3 pts, Medium) — Feature 3
+4. **STORY-534:** Dual-Mode /business-plan Command (3 pts, High) — Feature 4
 
 ## Technical Considerations
 

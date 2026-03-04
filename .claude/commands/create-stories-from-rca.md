@@ -60,6 +60,9 @@ IF Glob("devforgeai/RCA/${RCA_ID}*.md") not found:
 
 ## Phase 1-5: RCA Parsing
 
+IF RCA_ID ISNOT empty:
+    Skill(command="devforgeai-story-creation", args="--RCA")
+
 **See:** `references/create-stories-from-rca/parsing-workflow.md`
 
 1. **Locate RCA File**: `Glob(pattern="devforgeai/RCA/${RCA_ID}*.md")`

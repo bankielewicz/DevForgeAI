@@ -262,7 +262,7 @@ Sprint 2: Funding Guide (1 pt)
 ================================
 Total Duration: 1-2 sprints
 Total Points: 10
-Stories: 6
+Stories: 5
 ```
 
 ### Key Milestones
@@ -279,6 +279,16 @@ Stories: 6
 | Sprint 1 | Not Started | 9 | 5 | 0 | 0 | 0 |
 | Sprint 2 | Not Started | 1 | 1 | 0 | 0 | 0 |
 | **Total** | **0%** | **10** | **6** | **0** | **0** | **0** |
+
+## Stories
+
+| Story ID | Feature | Title | Points | Status |
+|----------|---------|-------|--------|--------|
+| STORY-553 | Feature 1 | Startup Financial Model Generator | 3 | Ready for Dev |
+| STORY-549 | Feature 2 | Pricing Strategy Framework | 3 | Ready for Dev |
+| STORY-550 | Feature 3 | Break-Even Analysis | 2 | Ready for Dev |
+| STORY-551 | Feature 4 | Financial Model Command and Skill Assembly | 1 | Ready for Dev |
+| STORY-552 | Feature 5 | Funding Options Guide | 1 | Ready for Dev |
 
 ## Source Documents
 
