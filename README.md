@@ -9,7 +9,7 @@
 
 DevForgeAI is a development framework for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that enforces TDD, quality gates, and architectural constraints across the entire software lifecycle. It works with **any technology stack**.
 
-**[Try the Interactive Demo](https://devforgeai.com)** | **[Full Documentation](docs/)**
+**[Interactive Demo (Coming Soon)](https://www.devforgeai.com)** | **[Full Documentation](docs/)**
 
 ---
 
@@ -33,6 +33,20 @@ Or start from scratch with a vague idea:
 /brainstorm "I want to build a marketplace for local artisans"
 # The framework guides you from idea -> requirements -> architecture -> code -> release
 ```
+
+---
+
+## See It in Action
+
+<p align="center">
+  <a href="https://www.devforgeai.com">
+    <img src="https://img.shields.io/badge/Interactive%20Demo-Coming%20Soon-blueviolet?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPjxwb2x5Z29uIHBvaW50cz0iNSAzIDIxIDEyIDUgMjEgNSAzIi8+PC9zdmc+" alt="Interactive Demo">
+  </a>
+</p>
+
+Explore the full development pipeline, TDD cycle, quality gates, and architecture — all interactive, right in your browser.
+
+**[www.devforgeai.com](https://www.devforgeai.com)**
 
 ---
 
