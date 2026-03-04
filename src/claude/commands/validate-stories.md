@@ -229,7 +229,7 @@ circular dependencies, ambiguous acceptance criteria, and stale labels.
      IF context_status.coding_standards: violations.extend(validate_coverage_thresholds(dod, file_paths))
      IF context_status.architecture:     violations.extend(validate_architecture(tech_spec))
      IF context_status.anti_patterns:    violations.extend(validate_anti_patterns(tech_spec))
-     IF context_status.source_tree:      violations.extend(validate_dual_path(tech_spec))
+     IF context_status.source_tree:      violations.extend(validate_dual_path(tech_spec, meta.content))
 
      result = {
        story_id, file: meta.file, violations,

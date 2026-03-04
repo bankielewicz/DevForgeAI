@@ -39,7 +39,7 @@ format_version: "2.9"
   <then>The table has 4 rows including "Phase Regression" with description "Return from Phase N to earlier Phase M (M &lt; N)" and trigger "Test infrastructure defect, subagent output defect"</then>
   <verification>
     <source_files>
-      <file hint="Deviation protocol">.claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
+      <file hint="Deviation protocol">src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
     </source_files>
     <test_file>tests/STORY-568/test_ac1_deviation_table.sh</test_file>
   </verification>
@@ -57,7 +57,7 @@ format_version: "2.9"
   <then>Rules document: must use test-folder-protection AskUserQuestion, must re-invoke authorized subagent, must regenerate integrity snapshots, maximum 2 regressions per story per phase</then>
   <verification>
     <source_files>
-      <file hint="Deviation protocol">.claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
+      <file hint="Deviation protocol">src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
     </source_files>
     <test_file>tests/STORY-568/test_ac2_regression_rules.sh</test_file>
   </verification>
@@ -75,7 +75,7 @@ format_version: "2.9"
   <then>A rule states "MUST regenerate any integrity snapshots (e.g., red-phase checksums) after re-execution"</then>
   <verification>
     <source_files>
-      <file hint="Deviation protocol">.claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
+      <file hint="Deviation protocol">src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md</file>
     </source_files>
     <test_file>tests/STORY-568/test_ac3_snapshot_rule.sh</test_file>
   </verification>
@@ -86,7 +86,7 @@ format_version: "2.9"
 
 ## Technical Specification
 
-**Target File:** `.claude/skills/implementing-stories/references/workflow-deviation-protocol.md`
+**Target File:** `src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md`
 **Change Type:** Replace the `## Deviation Types` section (approximately lines 8-16)
 
 ### Current State (REPLACE THIS)
@@ -133,7 +133,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "workflow-deviation-protocol"
-      file_path: ".claude/skills/implementing-stories/references/workflow-deviation-protocol.md"
+      file_path: "src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md"
       required_keys:
         - key: "Deviation Types table"
           type: "array"
@@ -204,7 +204,11 @@ N/A
 
 ### Prerequisite Stories
 
-- None
+- None (standalone documentation change)
+
+### Advisory Dependencies
+
+- **STORY-567** (phase regression backward transition) — The Phase Regression deviation type documented here is the concept implemented by STORY-567 in the SKILL.md. Can be implemented in any order since both are additive documentation changes.
 
 ### External Dependencies
 
@@ -323,7 +327,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 **References:**
 - RCA-047: devforgeai/RCA/RCA-047-orchestrator-test-modification-phase-violation.md
-- workflow-deviation-protocol.md: .claude/skills/implementing-stories/references/workflow-deviation-protocol.md
+- workflow-deviation-protocol.md: src/claude/skills/implementing-stories/references/workflow-deviation-protocol.md
 
 ---
 

@@ -425,6 +425,10 @@ N/A — single-file JSON operation
 
 - None (existing phase_commands.py provides implementation pattern)
 
+### Advisory Dependencies
+
+- **STORY-566** and **STORY-567** consume this CLI command. Implementing STORY-569 first removes the need for manual fallback workarounds in those stories. (Source: Audit F-002, recommended implementation order)
+
 ### External Dependencies
 
 - None

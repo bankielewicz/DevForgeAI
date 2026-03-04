@@ -39,7 +39,7 @@ format_version: "2.9"
   <then>A "FORBIDDEN" block documents `((PASSED++))` and `((FAILED++))` as forbidden patterns with explanation that they fail under set -e when variable is 0</then>
   <verification>
     <source_files>
-      <file hint="Agent definition">.claude/agents/test-automator.md</file>
+      <file hint="Agent definition">src/claude/agents/test-automator.md</file>
     </source_files>
     <test_file>tests/STORY-570/test_ac1_forbidden_pattern.sh</test_file>
   </verification>
@@ -57,7 +57,7 @@ format_version: "2.9"
   <then>`PASSED=$((PASSED + 1))` and `FAILED=$((FAILED + 1))` documented as correct patterns</then>
   <verification>
     <source_files>
-      <file hint="Agent definition">.claude/agents/test-automator.md</file>
+      <file hint="Agent definition">src/claude/agents/test-automator.md</file>
     </source_files>
     <test_file>tests/STORY-570/test_ac2_correct_pattern.sh</test_file>
   </verification>
@@ -75,7 +75,7 @@ format_version: "2.9"
   <then>Guidance states to use `set -uo pipefail` instead of `set -euo pipefail` when test harness must accumulate pass/fail counts</then>
   <verification>
     <source_files>
-      <file hint="Agent definition">.claude/agents/test-automator.md</file>
+      <file hint="Agent definition">src/claude/agents/test-automator.md</file>
     </source_files>
     <test_file>tests/STORY-570/test_ac3_set_e_guidance.sh</test_file>
   </verification>
@@ -93,7 +93,7 @@ format_version: "2.9"
   <then>RCA-047 is referenced as the rationale for this rule</then>
   <verification>
     <source_files>
-      <file hint="Agent definition">.claude/agents/test-automator.md</file>
+      <file hint="Agent definition">src/claude/agents/test-automator.md</file>
     </source_files>
     <test_file>tests/STORY-570/test_ac4_rca_reference.sh</test_file>
   </verification>
@@ -104,7 +104,7 @@ format_version: "2.9"
 
 ## Technical Specification
 
-**Target File:** `.claude/agents/test-automator.md`
+**Target File:** `src/claude/agents/test-automator.md`
 **Change Type:** Insert new section
 **Insertion Point:** After the `**Scope Boundaries:**` list (which ends with `- Does NOT modify existing tests without explicit request`), before the next `---` separator
 
@@ -155,7 +155,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "test-automator.md"
-      file_path: ".claude/agents/test-automator.md"
+      file_path: "src/claude/agents/test-automator.md"
       required_keys:
         - key: "Shell Test Arithmetic Safety section"
           type: "object"
@@ -220,7 +220,7 @@ N/A
 
 ### Prerequisite Stories
 
-- None
+- None (standalone documentation change, no dependencies on other stories in this cluster)
 
 ### External Dependencies
 
@@ -347,7 +347,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 **References:**
 - RCA-047: devforgeai/RCA/RCA-047-orchestrator-test-modification-phase-violation.md
-- test-automator.md: .claude/agents/test-automator.md
+- test-automator.md: src/claude/agents/test-automator.md
 
 ---
 

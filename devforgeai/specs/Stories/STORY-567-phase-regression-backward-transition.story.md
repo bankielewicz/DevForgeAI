@@ -6,7 +6,7 @@ epic: EPIC-087
 sprint: null
 status: Backlog
 points: 3
-depends_on: []
+depends_on: [STORY-569, STORY-566, STORY-568]
 priority: Critical
 advisory: false
 source_gap: null
@@ -39,7 +39,7 @@ format_version: "2.9"
   <then>A "## Phase Regression (Backward Transition)" section exists with backward transition table showing "03 (Green) → 02 (Red)" and "04 (Refactor) → 02 (Red)" rows</then>
   <verification>
     <source_files>
-      <file hint="Workflow SKILL">.claude/skills/implementing-stories/SKILL.md</file>
+      <file hint="Workflow SKILL">src/claude/skills/implementing-stories/SKILL.md</file>
     </source_files>
     <test_file>tests/STORY-567/test_ac1_regression_section.sh</test_file>
   </verification>
@@ -57,7 +57,7 @@ format_version: "2.9"
   <then>6 steps documented: user approval → reset phase state → re-invoke test-automator → verify RED state → re-create checksum snapshot → resume forward</then>
   <verification>
     <source_files>
-      <file hint="Workflow SKILL">.claude/skills/implementing-stories/SKILL.md</file>
+      <file hint="Workflow SKILL">src/claude/skills/implementing-stories/SKILL.md</file>
     </source_files>
     <test_file>tests/STORY-567/test_ac2_six_steps.sh</test_file>
   </verification>
@@ -75,7 +75,7 @@ format_version: "2.9"
   <then>Statement exists that "Only test-automator may write test files during Phase 02 re-entry"</then>
   <verification>
     <source_files>
-      <file hint="Workflow SKILL">.claude/skills/implementing-stories/SKILL.md</file>
+      <file hint="Workflow SKILL">src/claude/skills/implementing-stories/SKILL.md</file>
     </source_files>
     <test_file>tests/STORY-567/test_ac3_authorized_agent.sh</test_file>
   </verification>
@@ -93,7 +93,7 @@ format_version: "2.9"
   <then>Statement exists that "Maximum 2 regressions per story" to prevent infinite loops</then>
   <verification>
     <source_files>
-      <file hint="Workflow SKILL">.claude/skills/implementing-stories/SKILL.md</file>
+      <file hint="Workflow SKILL">src/claude/skills/implementing-stories/SKILL.md</file>
     </source_files>
     <test_file>tests/STORY-567/test_ac4_max_regressions.sh</test_file>
   </verification>
@@ -111,7 +111,7 @@ format_version: "2.9"
   <then>Manual phase-state.json editing steps documented for when phase-reset CLI (STORY-569) is not yet available</then>
   <verification>
     <source_files>
-      <file hint="Workflow SKILL">.claude/skills/implementing-stories/SKILL.md</file>
+      <file hint="Workflow SKILL">src/claude/skills/implementing-stories/SKILL.md</file>
     </source_files>
     <test_file>tests/STORY-567/test_ac5_fallback.sh</test_file>
   </verification>
@@ -122,7 +122,7 @@ format_version: "2.9"
 
 ## Technical Specification
 
-**Target File:** `.claude/skills/implementing-stories/SKILL.md`
+**Target File:** `src/claude/skills/implementing-stories/SKILL.md`
 **Change Type:** Insert new section
 **Insertion Point:** After the `## Phase Resumption` section (which ends with the resumption table), BEFORE `## Success Criteria`
 
@@ -213,7 +213,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "implementing-stories-skill"
-      file_path: ".claude/skills/implementing-stories/SKILL.md"
+      file_path: "src/claude/skills/implementing-stories/SKILL.md"
       required_keys:
         - key: "Phase Regression section"
           type: "object"
@@ -303,7 +303,12 @@ N/A — workflow rule documentation
 
 ### Prerequisite Stories
 
-- None (STORY-566 references this but can be implemented independently)
+- None (can be implemented independently)
+
+### Advisory Dependencies
+
+- **STORY-569** (phase-reset CLI command) — Phase Regression Protocol step 2 references `devforgeai-validate phase-reset`. AC#5 documents a manual fallback for when STORY-569 is not yet available. Implementing STORY-569 first is recommended but not required. (Source: TL-001, Audit F-002)
+- **STORY-566** (test-folder-protection phase return option) — Phase Regression is triggered via the "Return to Phase 02" option added by STORY-566. Can be implemented independently since the SKILL.md section is self-contained.
 
 ### External Dependencies
 
@@ -438,7 +443,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 **References:**
 - RCA-047: devforgeai/RCA/RCA-047-orchestrator-test-modification-phase-violation.md
-- SKILL.md: .claude/skills/implementing-stories/SKILL.md
+- SKILL.md: src/claude/skills/implementing-stories/SKILL.md
 - test-integrity-snapshot.md BR-005: supports re-running Phase 02
 
 ---

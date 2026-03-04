@@ -337,69 +337,81 @@ IF story_output_path != "devforgeai/specs/Stories/":
 
 ---
 
-### 7. validate_dual_path(tech_spec_content)
+### 7. validate_dual_path(tech_spec_content, story_content)
 
-**Purpose:** Detect stories specifying `.claude/` operational paths instead of `.claude/` source-of-truth paths
+**Purpose:** Detect stories specifying `.claude/` operational paths as development targets instead of `src/claude/` source-of-truth paths
 
-**Severity:** HIGH
+**Severity:** CRITICAL
 
-**Input:** Technical specification text from story
+**Constitutional Rule:** source-tree.md lines 13-15: "Do not modify operational files. Only modify src/, tests/ files."
+
+**Input:**
+- `tech_spec_content` — Technical Specification section text
+- `story_content` — Full story file content (for scanning AC `<file>` verification blocks)
 
 **Process:**
 ```
-1. Read source-tree.md:
-   source_tree = Read(file_path="devforgeai/specs/context/source-tree.md")
+1. Extract ALL file paths from BOTH inputs:
+   proposed_paths = []
 
-   IF "Dual-Location Architecture" NOT in source_tree:
-     RETURN []   # Graceful skip: no Dual-Location Architecture section found
-                 # violations = [] (empty violations list returned)
+   # From tech_spec_content:
+   - Extract paths from: **Target File:** `{path}` lines
+   - Extract paths from: file_path: "{path}" in YAML blocks
+   - Extract paths from: <file hint="...">{path}</file> elements
 
-2. Extract all file_path values from tech_spec_content:
-   - Scan for path patterns in YAML fields, code blocks, and prose
-   - Build proposed_paths list
+   # From story_content (AC verification blocks):
+   - Extract paths from: <file hint="...">{path}</file> elements
+   - Extract paths from: <file>{path}</file> elements
 
-3. Define exempt prefixes (operational paths that are intentionally .claude/-free):
+   # Deduplicate
+   proposed_paths = unique(proposed_paths)
+
+2. Define exempt prefixes (paths that are NOT subject to dual-path rule):
    exempt_prefixes = [
-     "devforgeai/specs/", "devforgeai/RCA/", "devforgeai/qa/",
-     "devforgeai/config/", "devforgeai/feedback/", "devforgeai/workflows/",
-     "CLAUDE.md", "README.md", "tests/", "docs/", ".github/",
-     "src/", "installer/", "node_modules/", "dist/"
+     "devforgeai/",     # Framework specs, RCA, qa, config, feedback, workflows
+     "tests/",          # Test tree (allowed target)
+     "src/",            # Already in source tree (correct)
+     "installer/",      # Installer code
+     ".github/",        # GitHub config
+     "docs/",           # Documentation
+     "CLAUDE.md",       # Root config (no src/ mirror)
+     "README.md",       # Root doc
+     "package.json",    # Root config
+     "node_modules/",   # Dependencies
+     "dist/",           # Build output
+     "tmp/",            # Temporary files
    ]
+
+3. Define operational prefixes (paths that MUST use src/ equivalent):
+   operational_prefixes = [".claude/"]
 
 4. violations = []
 
    FOR each path in proposed_paths:
+     # Skip exempt paths
      IF path starts with any exempt_prefix:
-       SKIP
+       CONTINUE
 
-     IF path starts with ".claude/":
-       # Check IF dual_path_sync block is present
-       IF dual_path_sync found in tech_spec_content:
-         source_paths = extract source_paths list from dual_path_sync block
-         src_equivalent = path.replace(".claude/", ".claude/", 1)
-         IF src_equivalent NOT in source_paths:
-           violations.append({
-             "type": "DUAL_PATH_SYNC_MISSING_SRC",
-             "path": path,
-             "severity": "HIGH",
-             "source": "source-tree.md",
-             "remediation": f"Add {src_equivalent} to dual_path_sync source_paths list"
-           })
-         # ELSE: dual_path_sync present with src/ equivalent → no violation (pass)
+     # Check for operational path violations
+     IF path starts with any operational_prefix:
+       src_equivalent = path.replace(".claude/", "src/claude/", 1)
 
-       ELSE:
-         # dual_path_sync block NOT found → violation
-         src_equivalent = path.replace(".claude/", ".claude/", 1)
-         violations.append({
-           "type": "MISSING_DUAL_PATH_SYNC",
-           "path": path,
-           "severity": "HIGH",
-           "source": "source-tree.md",
-           "remediation": f"Use src/ equivalent: {src_equivalent} and add dual_path_sync block specifying both paths"
-         })
+       violations.append({
+         "type": "DUAL_PATH_OPERATIONAL_TARGET",
+         "path": path,
+         "severity": "CRITICAL",
+         "source": "source-tree.md lines 13-15",
+         "src_equivalent": src_equivalent,
+         "remediation": f"Replace '{path}' with '{src_equivalent}' — /dev workflow must only modify src/ tree, not operational .claude/ files"
+       })
 
 5. Return violations list
 ```
+
+**Rationale for CRITICAL severity:**
+- The /dev workflow will modify operational files if the story is implemented as written
+- This violates an IMMUTABLE constitutional rule (source-tree.md is LOCKED)
+- Previous severity of HIGH allowed violations to be missed during audits (see custody-chain-audit-stories-566-570.md Rev 2)
 
 ---
 

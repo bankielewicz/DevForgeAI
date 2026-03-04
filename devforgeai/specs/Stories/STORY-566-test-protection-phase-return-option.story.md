@@ -6,7 +6,7 @@ epic: EPIC-087
 sprint: null
 status: Backlog
 points: 1
-depends_on: []
+depends_on: [STORY-569]
 priority: Critical
 advisory: false
 source_gap: null
@@ -39,7 +39,7 @@ format_version: "2.9"
   <then>The AskUserQuestion presents 3 options: "Return to Phase 02 (Recommended)", "Approve direct modification", and "Deny and HALT"</then>
   <verification>
     <source_files>
-      <file hint="Test protection rule">.claude/rules/workflow/test-folder-protection.md</file>
+      <file hint="Test protection rule">src/claude/rules/workflow/test-folder-protection.md</file>
     </source_files>
     <test_file>tests/STORY-566/test_ac1_three_options.sh</test_file>
   </verification>
@@ -57,7 +57,7 @@ format_version: "2.9"
   <then>The first option is "Return to Phase 02 (Recommended)" with description explaining re-entry to Phase 02 for test-automator regeneration</then>
   <verification>
     <source_files>
-      <file hint="Test protection rule">.claude/rules/workflow/test-folder-protection.md</file>
+      <file hint="Test protection rule">src/claude/rules/workflow/test-folder-protection.md</file>
     </source_files>
     <test_file>tests/STORY-566/test_ac2_recommended_first.sh</test_file>
   </verification>
@@ -75,7 +75,7 @@ format_version: "2.9"
   <then>The description contains "WARNING" and mentions "checksum mismatch" and "TEST TAMPERING" consequences</then>
   <verification>
     <source_files>
-      <file hint="Test protection rule">.claude/rules/workflow/test-folder-protection.md</file>
+      <file hint="Test protection rule">src/claude/rules/workflow/test-folder-protection.md</file>
     </source_files>
     <test_file>tests/STORY-566/test_ac3_warning_present.sh</test_file>
   </verification>
@@ -93,7 +93,7 @@ format_version: "2.9"
   <then>All 3 options have documented actions including phase-reset invocation for "Return to Phase 02"</then>
   <verification>
     <source_files>
-      <file hint="Test protection rule">.claude/rules/workflow/test-folder-protection.md</file>
+      <file hint="Test protection rule">src/claude/rules/workflow/test-folder-protection.md</file>
     </source_files>
     <test_file>tests/STORY-566/test_ac4_option_processing.sh</test_file>
   </verification>
@@ -111,7 +111,7 @@ format_version: "2.9"
   <then>A statement exists that "The orchestrator MUST NOT select on behalf of the user" and must wait for explicit user choice</then>
   <verification>
     <source_files>
-      <file hint="Test protection rule">.claude/rules/workflow/test-folder-protection.md</file>
+      <file hint="Test protection rule">src/claude/rules/workflow/test-folder-protection.md</file>
     </source_files>
     <test_file>tests/STORY-566/test_ac5_no_auto_select.sh</test_file>
   </verification>
@@ -122,7 +122,7 @@ format_version: "2.9"
 
 ## Technical Specification
 
-**Target File:** `.claude/rules/workflow/test-folder-protection.md`
+**Target File:** `src/claude/rules/workflow/test-folder-protection.md`
 **Change Type:** Replace existing AskUserQuestion Protocol section (lines 61-79 approximately)
 **Insertion Point:** The `## AskUserQuestion Protocol` section
 
@@ -193,7 +193,7 @@ technical_specification:
   components:
     - type: "Configuration"
       name: "test-folder-protection.md"
-      file_path: ".claude/rules/workflow/test-folder-protection.md"
+      file_path: "src/claude/rules/workflow/test-folder-protection.md"
       required_keys:
         - key: "AskUserQuestion.options"
           type: "array"
@@ -285,7 +285,11 @@ technical_limitations:
 
 ### Prerequisite Stories
 
-- None
+- None (can be implemented independently)
+
+### Advisory Dependencies
+
+- **STORY-569** (phase-reset CLI command) — The "Return to Phase 02" option references `devforgeai-validate phase-reset` which is implemented by STORY-569. A manual fallback (direct phase-state.json editing) exists if STORY-569 is not yet complete. Implementing STORY-569 first is recommended but not required. (Source: TL-001, Audit F-002)
 
 ### External Dependencies
 
@@ -430,7 +434,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 **References:**
 - RCA-047: devforgeai/RCA/RCA-047-orchestrator-test-modification-phase-violation.md
-- test-folder-protection.md: .claude/rules/workflow/test-folder-protection.md
+- test-folder-protection.md: src/claude/rules/workflow/test-folder-protection.md
 - test-integrity-snapshot.md BR-005: supports Phase 02 re-entry
 
 ---
