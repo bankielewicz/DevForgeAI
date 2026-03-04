@@ -1,3 +1,13 @@
+---
+id: milestone-generator
+title: Milestone Generator Reference
+version: "1.0"
+story: STORY-532
+created: 2026-03-04
+status: Published
+phase: milestone-generation
+---
+
 # Milestone Generator Reference
 
 Defines the milestone generation phase for the planning-business skill. Generates 10 sequential milestones from user-profile.yaml data, producing milestones.yaml output.
