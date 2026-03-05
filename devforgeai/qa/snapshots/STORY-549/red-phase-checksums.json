@@ -1,0 +1,14 @@
+{
+  "story_id": "STORY-549",
+  "phase": "02",
+  "timestamp": "2026-03-04T00:00:00Z",
+  "test_file_count": 6,
+  "checksums": {
+    "tests/STORY-549/test_ac1_strategy_selection.py": "8003ae15fe621817493e40532921959339bbe819d506ddbf41ce9d33c70ddf82",
+    "tests/STORY-549/test_ac2_cost_plus_calculation.py": "5eb0bb4b000e155968d0154c1e8b5b82b739ca1ae92307615179f0a84077e356",
+    "tests/STORY-549/test_ac3_competitive_pricing_integration.py": "d92f8330167647ff98da247bce1e001aecff11de5a04a4d80c3e9ee9152829e9",
+    "tests/STORY-549/test_ac4_graceful_degradation.py": "794560ade66a1b502289e6b921f026a5ed3b8c136d41f451fc18189299596844",
+    "tests/STORY-549/test_ac5_output_file.py": "698f40466970fe054b38ecc613687e7fd91c74c59682dd86e33d3a5f3a2bac52",
+    "tests/STORY-549/test_ac6_value_based_pricing.py": "5ba2f0b0b2a9172a215e478a44533f1e35ba5f7682b50d5ba843460a4b7d6ac8"
+  }
+}
