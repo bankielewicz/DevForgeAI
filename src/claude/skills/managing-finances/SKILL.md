@@ -39,11 +39,20 @@ Build revenue projections based on the selected pricing model and market assumpt
 
 Compile all financial artifacts into a cohesive financial plan.
 
+### Phase 5: Break-Even Analysis
+
+Calculate break-even point in units and revenue, generate an ASCII chart visualization, and append results to the financial projections file.
+
+This phase guides the user through providing fixed costs, variable cost per unit, and selling price per unit, then computes break-even metrics with full formula transparency.
+
+For full details, see: [break-even-analysis.md](references/break-even-analysis.md) (Break-Even Analysis)
+
 ## References
 
 | Reference | Path | When to Load |
 |-----------|------|--------------|
 | Pricing Strategy Framework | `references/pricing-strategy-framework.md` | Phase 2: Pricing strategy selection and calculation |
+| Break-Even Analysis | `references/break-even-analysis.md` | Phase 5: Break-even calculation, chart, and projections output |
 
 ## Success Criteria
 
