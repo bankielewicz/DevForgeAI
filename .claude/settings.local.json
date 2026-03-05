@@ -170,7 +170,9 @@
       "WebFetch(domain:docs.github.com)",
       "Bash(PYTHONPATH=\".:$PYTHONPATH\" python:*)",
       "Bash(rm:*)",
-      "Bash(.venv/bin/devforgeai-validate phase-init:*)"
+      "Bash(.venv/bin/devforgeai-validate phase-init:*)",
+      "Read(//home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036/skills/skill-creator/scripts/**)",
+      "Read(//home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036/skills/skill-creator/eval-viewer/**)"
     ],
     "deny": [],
     "ask": []
