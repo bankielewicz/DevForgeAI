@@ -1,0 +1,119 @@
+schema_version: "1.0"
+created: "2026-02-23"
+last_calibrated: "2026-02-23"
+assessment_type: "self-reported-preferences"
+
+dimensions:
+  work_style:
+    primary_pattern: "flexible-flow"
+    secondary_pattern: "inspiration-driven"
+    environment: "home-office"
+    collaboration_mode: "mixed"
+    adaptations:
+      - "flexible-scheduling"
+      - "environment-anchoring"
+      - "inspiration-capture-triggers"
+
+  task_completion:
+    primary_pattern: "burst-completer"
+    risk_areas:
+      - "last-mile-completion"
+      - "interruption-recovery"
+    adaptations:
+      - "micro-milestones"
+      - "accountability-checkpoints"
+      - "re-entry-rituals-after-interruption"
+      - "completion-bridging-tasks"
+
+  motivation:
+    primary_drivers:
+      - "visible-progress"
+      - "learning-and-novelty"
+      - "financial-goals"
+      - "autonomy"
+    drop_off_triggers:
+      - "slow-progress-perception"
+      - "repetitive-tasks"
+      - "scope-overwhelm"
+    sustaining_factors:
+      - "measurable-milestones"
+      - "task-variety"
+      - "quick-wins"
+    adaptations:
+      - "progress-dashboards"
+      - "novelty-rotation"
+      - "interest-boring-sandwiching"
+      - "revenue-milestone-framing"
+
+  energy_management:
+    peak_hours: "unpredictable"
+    energy_pattern: "variable"
+    recovery_methods:
+      - "physical-movement"
+      - "stimulant-management"
+    adaptations:
+      - "energy-matched-task-scheduling"
+      - "flexibility-buffers-in-day"
+      - "daily-energy-self-rating"
+      - "pre-planned-low-energy-alternatives"
+
+  previous_attempts:
+    experience_level: "one-abandoned-attempt"
+    lessons_learned:
+      - "scope-overreach"
+      - "motivation-decay-over-time"
+      - "business-operations-gap"
+    adaptations:
+      - "smaller-scope-mvp"
+      - "motivation-renewal-checkpoints"
+      - "business-basics-scaffolding"
+
+  self_reported_challenges:
+    primary_challenges:
+      - "finishing-what-i-start"
+      - "time-management-and-estimation"
+    support_preferences:
+      - "accountability-check-ins"
+      - "prioritization-help"
+      - "goal-decomposition"
+      - "templates-and-frameworks"
+    adaptations:
+      - "micro-chunking"
+      - "routine-anchoring"
+      - "structured-frameworks-provided"
+      - "estimation-with-2x-buffer"
+
+adaptive_profile:
+  task_chunk_size: micro        # 5-15 min per task
+  session_length: short         # 15-30 min per session
+  check_in_frequency: frequent  # daily accountability
+  progress_visualization: per_task  # see completion after every task
+  celebration_intensity: high   # acknowledge every win
+  reminder_style: specific      # exact next action, not vague nudges
+  overwhelm_prevention: strict  # next-3-tasks-only visibility
+
+recommendations:
+  task_granularity: "micro"
+  timeline_buffer: 2.0
+  check_in_frequency: "daily"
+  coaching_style: "structured-flexible"
+  schedule:
+    peak_work_hours: "context-dependent"
+    admin_hours: "low-energy-slots"
+    flexible_hours: "all-day"
+  milestones:
+    size: "micro"
+    celebration: true
+    visual_tracking: true
+  risk_mitigation:
+    scope_guard: true
+    pivot_plan: true
+    energy_matching: true
+    last_mile_protocol: true
+
+cross_dimension_flags:
+  reinforcing_patterns:
+    - "Variable energy + burst-completer -> short session design confirmed"
+    - "Scope overwhelm + prior over-scoping -> strict overwhelm prevention confirmed"
+    - "All motivation drivers active -> broad engagement hooks available"
+  contradictions: []
