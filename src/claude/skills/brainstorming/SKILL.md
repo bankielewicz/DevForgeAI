@@ -2,6 +2,10 @@
 name: brainstorming
 description: Business Analyst discovery skill for pre-ideation brainstorming. Transforms vague business problems into structured, AI-consumable documents.
 model: claude-opus-4-6
+version: "1.1.0"
+last-updated: "2026-03-05"
+allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Task
+topics: brainstorm, discovery, business analysis, ideation, stakeholder, problem exploration
 ---
 
 # brainstorming
@@ -12,13 +16,36 @@ focusing on stakeholder analysis, problem exploration, opportunity mapping, and 
 
 ---
 
-## Skill Metadata
+## When to Use
 
-- **Skill ID:** brainstorming
-- **Version:** 1.0.0
+Activate this skill when the user:
+- Says "brainstorm", "let's brainstorm", or "brainstorming session"
+- Wants to explore a vague business problem before formal ideation
+- Needs stakeholder analysis, problem exploration, or opportunity mapping
+- Says "I have a business idea but need to think it through"
+- Runs the `/brainstorm` command
+
+Do NOT use when the user already has structured requirements (use `discovering-requirements` instead) or wants to generate a business plan directly (use `planning-business`).
+
+---
+
+## Execution Model
+
 - **Category:** Planning/Discovery
 - **Invoked By:** `/brainstorm` command
 - **Invokes:** stakeholder-analyst subagent, internet-sleuth subagent (optional)
+- **Mode:** Interactive 7-phase guided discovery with checkpoint/resume support
+- **Output:** Self-contained brainstorm document at `devforgeai/specs/brainstorms/BRAINSTORM-{NNN}.brainstorm.md`
+- **Feeds Into:** `/ideate` command for formal requirements generation
+
+---
+
+## Progressive Disclosure
+
+- **SKILL.md** contains phase summaries and session flow
+- **references/*.md** contain detailed step-by-step workflows for each phase
+- **assets/templates/** contain output document templates
+- Load reference files only when entering the corresponding phase
 
 ---
 
@@ -823,9 +850,20 @@ To resume in your next session:
 | `references/user-interaction-patterns.md` | Question templates |
 | `references/error-handling.md` | Error recovery procedures |
 | `references/output-templates.md` | Document templates |
+| `assets/templates/brainstorm-template.md` | Main brainstorm output document template |
 | `assets/templates/readme-brainstorm-template.md` | README.md artifact template |
 | `assets/templates/claude-md-template.md` | CLAUDE.md artifact template |
 | `assets/templates/gitignore-template.md` | .gitignore artifact template |
+
+---
+
+## Success Criteria
+
+- [ ] Brainstorm ID generated (BRAINSTORM-{NNN})
+- [ ] All 7 phases completed (or checkpointed with resume instructions)
+- [ ] Brainstorm document written to `devforgeai/specs/brainstorms/`
+- [ ] Cross-session portability validated (glossary and key files sections)
+- [ ] Completion summary displayed with next steps
 
 ---
 
@@ -860,4 +898,5 @@ To resume in your next session:
 
 ## Version History
 
+- **1.1.0** (2026-03-05): Structural update — added When to Use, Execution Model, Progressive Disclosure, Success Criteria sections; consolidated metadata into frontmatter; added missing template to reference table
 - **1.0.0** (2025-12-20): Initial creation
