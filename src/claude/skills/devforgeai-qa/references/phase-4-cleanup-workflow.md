@@ -1,4 +1,6 @@
-# Phase 4: Cleanup - Detailed Workflow
+# Cleanup Workflow (SKILL.md Phase 6)
+
+> **Phase mapping:** This file uses legacy step numbering (4.1-4.5). In SKILL.md v3.0, Cleanup is **Phase 6** with steps 6.1-6.5. The step content is identical — only the numbering prefix differs.
 
 **Purpose:** Release locks, invoke feedback hooks, display final summary.
 

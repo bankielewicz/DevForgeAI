@@ -1,6 +1,8 @@
-# Phase 3: Reporting - Detailed Workflow
+# Reporting Workflow (SKILL.md Phase 5)
 
-Extracted from SKILL.md Phase 3. Contains complete implementation for Steps 3.1 through 3.4 including ADR-010 coverage enforcement, RCA-002 gaps.json creation, and the Atomic Update Protocol (STORY-177).
+> **Phase mapping:** This file uses legacy step numbering (3.1-3.4). In SKILL.md v3.0, Reporting is **Phase 5** with steps 5.1-5.4. The step content is identical.
+
+Contains complete implementation for reporting steps including ADR-010 coverage enforcement, RCA-002 gaps.json creation, and the Atomic Update Protocol (STORY-177).
 
 ---
 

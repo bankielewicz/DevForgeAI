@@ -1,21 +1,28 @@
 # Deep Validation Workflow (Consolidated)
 
-Single-load reference for deep QA validation. Contains all workflow steps for Phases 1-3.
+Single-load reference for deep QA validation. Load once at Phase 1 (Setup) — covers workflow steps for Phases 2-5.
+
+> **Phase mapping:** This file uses legacy section numbering (1.x, 2.x, 3.x). In SKILL.md v3.0, the mapping is:
+> - Sections 1.x → **Phase 2** (Validation)
+> - Sections 2.x → **Phase 4** (Analysis)
+> - Sections 3.x → **Phase 5** (Reporting)
+>
+> When executing deep mode, use this file as your primary reference for those phases. Do NOT re-load the individual reference files listed in SKILL.md's phase sections — this consolidated file already contains that content.
 
 ---
 
 ## Overview
 
 This file consolidates the following workflows for single-load efficiency:
-- 1.1 Coverage Analysis (7 steps)
-- 1.2 Traceability Validation (5 steps)
+- 1.1 Coverage Analysis (7 steps) → SKILL.md Phase 2, Step 2.2
+- 1.2 Traceability Validation (5 steps) → SKILL.md Phase 2, Step 2.1
 - 1.3 Traceability Enhancement (placeholder)
-- 1.4 Runtime Smoke Test (6 steps) - Comprehensive (STORY-266, STORY-267)
-- 1.5 Documentation Accuracy Validation (4 steps)
-- 2.1 Anti-Pattern Detection (6 steps)
-- 2.3 Spec Compliance (6 steps)
-- 2.4 Code Quality Metrics (5 steps)
-- 3.x Report Generation (6 steps)
+- 1.4 Runtime Smoke Test (6 steps) → SKILL.md Phase 2 (STORY-266, STORY-267)
+- 1.5 Documentation Accuracy Validation (4 steps) → SKILL.md Phase 2
+- 2.1 Anti-Pattern Detection (6 steps) → SKILL.md Phase 4, Step 4.1
+- 2.3 Spec Compliance (6 steps) → SKILL.md Phase 4, Step 4.3
+- 2.4 Code Quality Metrics (5 steps) → SKILL.md Phase 4, Step 4.4
+- 3.x Report Generation (6 steps) → SKILL.md Phase 5
 
 **Token savings:** ~3.5K tokens (load once vs 7 separate files at ~500 each)
 
@@ -24,6 +31,13 @@ This file consolidates the following workflows for single-load efficiency:
 ## Phase 1: Validation Workflows
 
 ### 1.1 Coverage Analysis (7 Steps)
+
+**Non-code implementation check:** If `$DELIVERABLE_TYPE == "non-code"` (set in Setup Step 0.7), skip Steps 1-7 below. Instead:
+- Verify structural test coverage: confirm test files exist, assertions validate content structure, all ACs have corresponding tests
+- Report coverage as "N/A (non-code implementation, structural tests only)"
+- Proceed to Section 1.2 (Traceability Validation)
+
+**For code or mixed deliverables, execute Steps 1-7:**
 
 **Step 1: Load Thresholds**
 ```
@@ -709,6 +723,13 @@ Matrix: Requirement → Test → Implementation
 ---
 
 ### 2.4 Code Quality Metrics (5 Steps)
+
+**Non-code implementation check:** If `$DELIVERABLE_TYPE == "non-code"` (set in Setup Step 0.7), skip Steps 1-5 below. Instead:
+- Report cyclomatic complexity, maintainability index, and duplication as "N/A (non-code implementation)"
+- Documentation coverage still applies — verify deliverable files are well-documented
+- Proceed to Section 3.x (Report Generation)
+
+**For code or mixed deliverables, execute Steps 1-5:**
 
 **Step 1: Cyclomatic Complexity**
 ```

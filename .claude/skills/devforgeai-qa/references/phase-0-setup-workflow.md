@@ -1,6 +1,8 @@
-# Phase 0: Setup - Detailed Workflow
+# Setup Workflow (SKILL.md Phase 1)
 
-Extracted from SKILL.md Phase 0. Contains complete implementation for Steps 0.0 through 0.6.
+> **Phase mapping:** This file uses legacy step numbering (0.0-0.6). In SKILL.md v3.0, Setup is **Phase 1** with steps 1.1-1.7. The step content is identical — only the numbering prefix differs.
+
+Contains complete implementation for setup steps.
 
 ---
 
@@ -188,3 +190,44 @@ ELSE:
 | `refactor` | code-reviewer, security-auditor | 1/2 | Tests already exist |
 | `feature`/`bugfix` | all 3 validators | 2/3 | Full validation suite |
 | (unknown/missing) | all 3 validators | 2/3 | Conservative default |
+
+### Step 0.7: Detect Deliverable Type (Non-Code Handling)
+
+**Purpose:** Determine if the story delivers executable code or non-code files (Markdown, YAML, JSON). This affects coverage analysis (Phase 2) and code quality metrics (Phase 4).
+
+```
+# Read story's Implementation Notes or Files Created/Modified section
+# Check file extensions of implementation deliverables
+
+implementation_files = extract_files_from_story(story_content)
+
+code_extensions = [".py", ".ts", ".js", ".cs", ".go", ".rs", ".java", ".cpp", ".c", ".rb"]
+noncode_extensions = [".md", ".yaml", ".yml", ".json", ".xml", ".toml"]
+
+has_code = any(file.endswith(ext) for file in implementation_files for ext in code_extensions)
+has_noncode = any(file.endswith(ext) for file in implementation_files for ext in noncode_extensions)
+
+IF has_code AND has_noncode:
+    $DELIVERABLE_TYPE = "mixed"
+    Display: "Deliverable type: mixed (code + non-code files)"
+ELIF has_code:
+    $DELIVERABLE_TYPE = "code"
+    Display: "Deliverable type: code"
+ELIF has_noncode:
+    $DELIVERABLE_TYPE = "non-code"
+    Display: "Deliverable type: non-code (Markdown/config only)"
+    Display: "  Coverage tooling and code quality metrics will be skipped"
+    Display: "  Structural test coverage will be verified instead"
+ELSE:
+    $DELIVERABLE_TYPE = "code"  # Conservative default
+    Display: "Deliverable type: unknown — defaulting to code"
+```
+
+**How $DELIVERABLE_TYPE affects later phases:**
+
+| Phase | Step | If `non-code` | If `code` or `mixed` |
+|-------|------|---------------|---------------------|
+| 2 | 2.2 Coverage | Skip language-specific tooling. Verify structural test coverage instead. Report "N/A (non-code)." | Execute 7-step coverage workflow normally. |
+| 3 | 3.3 Regression | Runs normally. Additive-only Markdown changes pass. | Runs normally with full pattern detection. |
+| 4 | 4.1 Anti-patterns | Runs normally. Context violations apply to any file type. | Runs normally. |
+| 4 | 4.4 Quality | Skip complexity, MI, duplication tools. Documentation coverage still applies. Report "N/A (non-code)." | Execute full quality metrics. |
