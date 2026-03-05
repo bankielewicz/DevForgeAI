@@ -268,12 +268,38 @@ Write(file_path="devforgeai/specs/business/market-research/market-sizing.md", co
 
 ---
 
+## Competitive Analysis Phase
+
+After market sizing is complete (or independently when invoked for competitive landscape research), execute the competitive analysis phase.
+
+### Step 10: Invoke Market-Analyst for Competitive Analysis
+
+Invoke the market-analyst subagent to research competitors and build a positioning matrix:
+
+```
+Task(
+  subagent_type="market-analyst",
+  description="Analyze competitive landscape for [business] in [market]",
+  prompt="Research competitors in [market]. Build positioning matrix with name, category, strengths, weaknesses, market position summary, and differentiation for each competitor. Enforce 3-10 competitor bounds. Write output to devforgeai/specs/business/market-research/competitive-analysis.md"
+)
+```
+
+**Competitive Analysis Output:**
+- Positioning matrix with per-competitor profiles
+- Differentiation opportunities analysis
+- Written to `devforgeai/specs/business/market-research/competitive-analysis.md`
+
+For detailed competitive analysis framework, see: [competitive-analysis-framework.md](references/competitive-analysis-framework.md)
+
+---
+
 ## Reference Files
 
 | Reference | Path | When to Load |
 |-----------|------|--------------|
 | Market Sizing Methodology | references/market-sizing-methodology.md | During TAM/SAM/SOM calculation (Steps 6-8) |
 | Fermi Estimation | references/fermi-estimation.md | When internet-sleuth fails or as supplementary method |
+| Competitive Analysis Framework | references/competitive-analysis-framework.md | During competitive analysis phase (Step 10) |
 
 ---
 
@@ -282,6 +308,7 @@ Write(file_path="devforgeai/specs/business/market-research/market-sizing.md", co
 ### Subagent Dependencies
 
 - **internet-sleuth**: Web research for market data. Invoked via Task() with subagent_type="internet-sleuth". Maximum 3 calls per workflow run.
+- **market-analyst**: Competitive landscape analysis. Invoked via Task() with subagent_type="market-analyst". Synthesizes research into positioning matrix.
 
 ### Skill Dependencies
 
@@ -295,6 +322,7 @@ Write(file_path="devforgeai/specs/business/market-research/market-sizing.md", co
 ### Output Files
 
 - `devforgeai/specs/business/market-research/market-sizing.md` - Final market sizing output
+- `devforgeai/specs/business/market-research/competitive-analysis.md` - Competitive analysis output
 
 ---
 

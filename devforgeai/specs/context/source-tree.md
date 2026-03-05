@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2026-03-04
-**Version**: 5.4 (Added: marketing-business skill — ADR-033)
+**Version**: 5.5 (Added: planning-business skill — ADR-034)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -163,6 +163,13 @@ DevForgeAI2/
 │   │   │   └── references/
 │   │   │       ├── go-to-market-framework.md
 │   │   │       └── channel-selection-matrix.md
+│   │   ├── planning-business/           # Business planning skill (STORY-531/532/533, EPIC-073, ADR-034)
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   │       ├── lean-canvas-workflow.md
+│   │   │       ├── milestone-generator.md
+│   │   │       ├── business-model-patterns.md
+│   │   │       └── viability-scoring.md
 │   │   ├── validating-epic-coverage/    # STORY-457, ADR-020
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
