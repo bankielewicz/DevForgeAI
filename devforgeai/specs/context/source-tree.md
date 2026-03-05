@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2026-03-04
-**Version**: 5.3 (Added: coaching-entrepreneur skill and business-coach agent — ADR-032)
+**Version**: 5.4 (Added: marketing-business skill — ADR-033)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -158,6 +158,11 @@ DevForgeAI2/
 │   │   │       ├── dod-update-workflow.md
 │   │   │       ├── ac-checklist-update-workflow.md
 │   │   │       └── git-workflow-conventions.md
+│   │   ├── marketing-business/          # Marketing skill (STORY-539, EPIC-075, ADR-033)
+│   │   │   ├── SKILL.md
+│   │   │   └── references/
+│   │   │       ├── go-to-market-framework.md
+│   │   │       └── channel-selection-matrix.md
 │   │   ├── validating-epic-coverage/    # STORY-457, ADR-020
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
