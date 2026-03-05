@@ -4,7 +4,7 @@ title: Go-to-Market Strategy Builder
 type: feature
 epic: EPIC-075
 sprint: Sprint-25
-status: Dev Complete
+status: QA Failed
 points: 3
 depends_on: []
 priority: High
@@ -480,11 +480,12 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Failed
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
 | 2026-03-03 12:00 | .claude/story-requirements-analyst | Created | Story created from EPIC-075 Feature 1 | STORY-539.story.md |
+| 2026-03-04 | .claude/qa-result-interpreter | QA Deep | FAILED: 2 HIGH violations (missing SKILL.md, unregistered skill directory) | STORY-539-qa-report.md |
 
 ## Notes
 

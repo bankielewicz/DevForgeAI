@@ -4,7 +4,7 @@ title: Terminal-Compatible Gamification
 type: feature
 epic: EPIC-072
 sprint: Sprint-17
-status: Dev Complete
+status: QA Approved
 points: 3
 depends_on: ["STORY-467"]
 priority: Low

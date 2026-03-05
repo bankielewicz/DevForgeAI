@@ -348,42 +348,42 @@ technical_limitations:
 
 ### AC#1: Decision Tree Guides User Through Entity Selection Factors
 
-- [ ] Decision tree presents revenue expectations question - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Decision tree presents partners/co-founders question - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Decision tree presents liability exposure question - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Decision tree presents tax preferences question - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Skill file under 1,000 lines - **Phase:** 2 - **Evidence:** wc -l
+- [x] Decision tree presents revenue expectations question - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac1_decision_tree_factors.sh
+- [x] Decision tree presents partners/co-founders question - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac1_decision_tree_factors.sh
+- [x] Decision tree presents liability exposure question - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac1_decision_tree_factors.sh
+- [x] Decision tree presents tax preferences question - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac1_decision_tree_factors.sh
+- [x] Skill file under 1,000 lines - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac1_decision_tree_factors.sh
 
 ### AC#2: Entity Recommendations Include Contextual Rationale
 
-- [ ] Recommendation includes entity name - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Recommendation includes rationale - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Tie-score comparison shown when applicable - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Disclaimer header present - **Phase:** 2 - **Evidence:** tests/STORY-544/
+- [x] Recommendation includes entity name - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac2_entity_recommendations.sh
+- [x] Recommendation includes rationale - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac2_entity_recommendations.sh
+- [x] Tie-score comparison shown when applicable - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac2_entity_recommendations.sh
+- [x] Disclaimer header present - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac2_entity_recommendations.sh
 
 ### AC#3: Professional Referral Triggers Fire for Complex Situations
 
-- [ ] Multi-state trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] International trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] 2+ partners trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] S-Corp election trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] C-Corp equity trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/
+- [x] Multi-state trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac3_professional_referral_triggers.sh
+- [x] International trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac3_professional_referral_triggers.sh
+- [x] 2+ partners trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac3_professional_referral_triggers.sh
+- [x] S-Corp election trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac3_professional_referral_triggers.sh
+- [x] C-Corp equity trigger fires - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac3_professional_referral_triggers.sh
 
 ### AC#4: Output Artifact Written to Correct Path with Disclaimer Header
 
-- [ ] File written to devforgeai/specs/business/legal/business-structure.md - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Disclaimer in first 3 lines - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Decision path summary included - **Phase:** 2 - **Evidence:** tests/STORY-544/
+- [x] File written to devforgeai/specs/business/legal/business-structure.md - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac4_output_artifact.sh
+- [x] Disclaimer in first 3 lines - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac4_output_artifact.sh
+- [x] Decision path summary included - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac4_output_artifact.sh
 
 ### AC#5: Adaptive Pacing Reads User Profile Without Modification
 
-- [ ] Profile read in read-only mode - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Pacing adjusts to experience level - **Phase:** 2 - **Evidence:** tests/STORY-544/
-- [ ] Fallback to intermediate when profile absent - **Phase:** 2 - **Evidence:** tests/STORY-544/
+- [x] Profile read in read-only mode - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac5_adaptive_pacing.sh
+- [x] Pacing adjusts to experience level - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac5_adaptive_pacing.sh
+- [x] Fallback to intermediate when profile absent - **Phase:** 2 - **Evidence:** tests/STORY-544/test_ac5_adaptive_pacing.sh
 
 ---
 
-**Checklist Progress:** 0/18 items complete (0%)
+**Checklist Progress:** 18/18 items complete (100%) - Tests written
 
 ---
 

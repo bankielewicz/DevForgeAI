@@ -155,7 +155,22 @@
       "Bash(/tmp/REFACTORING_SUMMARY.md:*)",
       "Bash(npm version:*)",
       "Skill(create-sprint)",
-      "Skill(fix-story)"
+      "Skill(fix-story)",
+      "Bash(__NEW_LINE_a76e7e67485095f2__ echo:*)",
+      "Bash(__NEW_LINE_47b96f076298a3b3__ echo:*)",
+      "Bash(__NEW_LINE_32b2bdc31d86a508__ echo:*)",
+      "Bash(__NEW_LINE_d81b0b75f15ff632__ echo:*)",
+      "Bash(__NEW_LINE_c64412460b5f712f__ echo:*)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "mcp__plugin_playwright_playwright__browser_console_messages",
+      "mcp__plugin_playwright_playwright__browser_click",
+      "Bash(git commit:*)",
+      "WebFetch(domain:docs.github.com)",
+      "Bash(PYTHONPATH=\".:$PYTHONPATH\" python:*)",
+      "Bash(rm:*)",
+      "Bash(.venv/bin/devforgeai-validate phase-init:*)"
     ],
     "deny": [],
     "ask": []

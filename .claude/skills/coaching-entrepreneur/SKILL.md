@@ -130,6 +130,67 @@ For detailed intervention patterns, see:
 
 ---
 
+## Emotional State Tracking
+
+### Session Log
+
+Track coaching session emotional state and outcomes across sessions. The session log persists to `devforgeai/specs/business/coaching/session-log.yaml`.
+
+**Session Log Schema:**
+
+| Field | Type | Constraints | Description |
+|-------|------|-------------|-------------|
+| `sessions[]` | Array | Required | Array of session entries |
+| `sessions[].date` | DateTime | Required | Session date |
+| `sessions[].emotional_state` | String | Required, Enum | Self-reported emotional state at session start |
+| `sessions[].outcomes` | String | Optional | Session outcomes and key takeaways |
+| `sessions[].override` | String | Optional | User override of AI-suggested tone |
+
+**Emotional State Enum Values:**
+
+The emotional state field accepts one of the following self-reported values:
+- `energized` — High energy, ready to tackle challenges
+- `focused` — Clear-headed, in the zone
+- `neutral` — Baseline, no strong emotional signal
+- `tired` — Low energy, may need lighter session
+- `frustrated` — Encountering blockers, needs support
+- `anxious` — Worried about outcomes, needs reassurance
+- `overwhelmed` — Too many things at once, needs prioritization help
+
+**Business Rule (BR-001):** Emotional state is self-reported only — the AI must never infer emotional state. Use AskUserQuestion for emotional state collection. If the user declines to report, default to `neutral`.
+
+### Tone Adaptation on Session Start
+
+At the beginning of each coaching session, read the previous session state and adapt the opening tone accordingly:
+
+```
+Read(file_path="devforgeai/specs/business/coaching/session-log.yaml")
+```
+
+If a previous session exists in session-log.yaml with emotional state data, adapt the opening tone based on the recorded state:
+
+| Previous State | Tone Adaptation Example |
+|----------------|------------------------|
+| frustrated | "Last time you seemed frustrated — let's start lighter today and build some momentum." |
+| energized | "You were on fire last time — ready to keep that momentum going?" |
+| tired | "Last session you mentioned feeling tired — let's keep things focused and manageable today." |
+| anxious | "I noticed some anxiety last time — let's start with a quick win to build confidence." |
+| overwhelmed | "Last session felt overwhelming — let's prioritize and tackle just one thing today." |
+
+If no previous session exists (first-time user), start with a warm Coach mode introduction without referencing prior state.
+
+### Override Handling
+
+User overrides are immediately respected. When a user provides emotional state information that differs from the AI's tone adaptation (e.g., "I'm feeling great today, let's push hard"), the coaching skill must:
+
+1. **Immediately respect the override** — Switch tone within the same response
+2. **Log the override** — Record the override in session-log.yaml for future reference
+3. **Adjust session approach** — Adapt the remainder of the session to match the overridden state
+
+**Override Logging:** When an override occurs, write the override text to the `sessions[].override` field in session-log.yaml so future sessions can account for the user's tendency to self-correct.
+
+---
+
 ## References
 
 - `references/celebration-engine.md` - Celebration tiers, ASCII progress patterns, streak tracking

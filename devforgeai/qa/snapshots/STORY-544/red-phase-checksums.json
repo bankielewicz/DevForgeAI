@@ -1,0 +1,16 @@
+{
+  "story_id": "STORY-544",
+  "phase": "02-red",
+  "created": "2026-03-04T00:00:00Z",
+  "test_framework": "bash",
+  "checksums": {
+    "tests/STORY-544/test_ac1_decision_tree_factors.sh": "968c535da4fd6ef6db45c04a01672068c5f2a23d667843904f75944ecc41f47f",
+    "tests/STORY-544/test_ac2_entity_recommendations.sh": "bbef0359c1b174fbd43f83762dbf0ecf291129157c5d64905a4137c6a8328f6e",
+    "tests/STORY-544/test_ac3_professional_referral_triggers.sh": "c0a630974bd1341c3964587a3db83f305897d1f665dfe2a10a2ebe15712eb22c",
+    "tests/STORY-544/test_ac4_output_artifact.sh": "872ac09575b165b1a7419b5d8817ff839bf2257955916de576b086c6470c6e0b",
+    "tests/STORY-544/test_ac5_adaptive_pacing.sh": "2041578a0982ea8c2397c0b497dbda8df4269177457e10ffb8f09b73d6d6b0ad",
+    "tests/STORY-544/run_all_tests.sh": "398875537c047d77f32bcead68b4ddd9d7de861d2ad489d5cb4cbddea4a27267"
+  },
+  "total_files": 6,
+  "total_tests": 45
+}
