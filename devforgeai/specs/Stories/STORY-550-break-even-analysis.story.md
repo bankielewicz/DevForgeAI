@@ -4,7 +4,7 @@ title: Break-Even Analysis
 type: feature
 epic: EPIC-077
 sprint: Sprint-27
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: []
 priority: Medium
