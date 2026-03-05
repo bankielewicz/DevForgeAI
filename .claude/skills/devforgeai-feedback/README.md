@@ -40,7 +40,7 @@ hooks:
 - **Timeout protection** prevents hanging operations
 
 ### Context Extraction
-- **TodoWrite analysis** extracts operation context automatically
+- **TaskList analysis** extracts operation context automatically
 - **Phase detection** identifies completed workflow phases
 - **Error capture** extracts failure details for targeted questions
 - **Secret sanitization** removes sensitive data before feedback
@@ -73,31 +73,35 @@ hooks:
 | `trigger_status` | Yes | [success], [failure], or [success, failure] |
 | `enabled` | No | Default: true |
 
-## Documentation
-
-| Document | Description |
-|----------|-------------|
-| [User Guide](../../../docs/guides/feedback-system-user-guide.md) | Complete configuration guide |
-| [Architecture](../../../docs/architecture/hook-system-design.md) | System design with diagrams |
-| [Troubleshooting](../../../docs/guides/feedback-troubleshooting.md) | Common issues and solutions |
-| [Migration Guide](../../../docs/guides/feedback-migration-guide.md) | Enable on existing projects |
-| [HOOK-SYSTEM.md](./HOOK-SYSTEM.md) | Complete technical reference |
-| [SKILL.md](./SKILL.md) | Skill execution workflow |
-
 ## Directory Structure
 
 ```
 .claude/skills/devforgeai-feedback/
-├── README.md                 # This file
-├── SKILL.md                  # Skill execution workflow
-├── HOOK-SYSTEM.md            # Complete hook system reference (27KB)
+├── README.md                              # This file
+├── SKILL.md                               # Skill execution workflow (v2.0)
+├── HOOK-SYSTEM.md                         # Complete hook system reference
 ├── references/
-│   ├── context-extraction.md      # Context extraction patterns
-│   ├── context-sanitization.md    # Secret/PII removal
-│   ├── adaptive-questioning.md    # Question selection logic
-│   └── feedback-question-templates.md  # Question templates
+│   ├── adaptive-questioning.md            # Question selection logic
+│   ├── context-extraction.md              # Context extraction patterns
+│   ├── context-sanitization.md            # Secret/PII removal
+│   ├── feedback-analysis-patterns.md      # Trend analysis patterns
+│   ├── feedback-export-formats.md         # Export format specs
+│   ├── feedback-persistence-guide.md      # Storage patterns
+│   ├── feedback-question-templates.md     # Question templates
+│   ├── feedback-search-help.md            # Search query help
+│   ├── field-mapping-guide.md             # Template field mappings
+│   ├── template-examples.md              # Sample templates
+│   ├── template-format-specification.md   # Template YAML structure
+│   ├── triage-workflow.md                 # Recommendation triage
+│   └── user-customization-guide.md        # User config options
 └── templates/
-    └── message-templates.md       # Feedback message formats
+    ├── command-passed.yaml                # Successful command
+    ├── command-failed.yaml                # Failed command
+    ├── skill-passed.yaml                  # Successful skill
+    ├── skill-failed.yaml                  # Failed skill
+    ├── subagent-passed.yaml               # Successful subagent
+    ├── subagent-failed.yaml               # Failed subagent
+    └── generic.yaml                       # Fallback template
 ```
 
 ## Related Commands
@@ -107,10 +111,16 @@ hooks:
 | `/feedback` | Manual feedback collection |
 | `/feedback-config` | View/edit configuration |
 | `/feedback-search` | Search feedback history |
+| `/feedback-reindex` | Rebuild feedback index |
+| `/feedback-export-data` | Export filtered data |
+| `/export-feedback` | Export ZIP package |
+| `/import-feedback` | Import ZIP package |
+| `/recommendations-triage` | Process AI recommendations |
 | `/audit-hooks` | Audit hook registry |
 
-## Support
+## Documentation
 
-- **Issues:** Check [Troubleshooting Guide](../../../docs/guides/feedback-troubleshooting.md)
-- **Configuration:** See [User Guide](../../../docs/guides/feedback-system-user-guide.md)
-- **Architecture:** See [Hook System Design](../../../docs/architecture/hook-system-design.md)
+| Document | Description |
+|----------|-------------|
+| [HOOK-SYSTEM.md](./HOOK-SYSTEM.md) | Complete hook system technical reference |
+| [SKILL.md](./SKILL.md) | Skill execution workflow |
