@@ -39,14 +39,14 @@ Or start from scratch with a vague idea:
 ## See It in Action
 
 <p align="center">
-  <a href="https://bankielewicz.github.io/DevForgeAI/">
+  <a href="https://devforgeai.com/">
     <img src="https://img.shields.io/badge/Interactive%20Demo-Live-blueviolet?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiPjxwb2x5Z29uIHBvaW50cz0iNSAzIDIxIDEyIDUgMjEgNSAzIi8+PC9zdmc+" alt="Interactive Demo">
   </a>
 </p>
 
 Explore the full development pipeline, TDD cycle, quality gates, and architecture — all interactive, right in your browser.
 
-**[https://bankielewicz.github.io/DevForgeAI/](https://bankielewicz.github.io/DevForgeAI/)**
+**[https://devforgeai.com/](https://devforgeai.com/)**
 
 ---
 
