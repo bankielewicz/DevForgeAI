@@ -1,0 +1,37 @@
+{
+  "story_id": "STORY-536",
+  "timestamp": "2026-03-05T02:49:40Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-536/conftest.py",
+      "sha256": "3578632c223965a4d0a170dfcad84c9e84d47f3881b95698132217231158521a",
+      "size_bytes": 1474
+    },
+    {
+      "path": "tests/STORY-536/test_ac1_subagent_structure.py",
+      "sha256": "9e03f7761cc818da78f00573afe7f36e2c09ce5a08eca0756d71ed88b5b7ac5f",
+      "size_bytes": 3731
+    },
+    {
+      "path": "tests/STORY-536/test_ac2_output_structure.py",
+      "sha256": "969b19ccca757a8567a8bb404383b450d984bd060da9ecf7f557b10aadc55438",
+      "size_bytes": 1796
+    },
+    {
+      "path": "tests/STORY-536/test_ac3_competitor_count.py",
+      "sha256": "738751982227d7ebf42b899357f37fcac990d10ed1620ab845c6ea03b52eac7a",
+      "size_bytes": 2576
+    },
+    {
+      "path": "tests/STORY-536/test_ac4_positioning_matrix.py",
+      "sha256": "5aa056053494eca965d103e9af22558a45321907cf4dfcf15777ee35ebdefdc2",
+      "size_bytes": 3704
+    },
+    {
+      "path": "tests/STORY-536/test_ac5_skill_integration.py",
+      "sha256": "7f8a26db9ee64eecc86a0f93955bf32e757f910396b882d7e734274f4539bceb",
+      "size_bytes": 2146
+    }
+  ]
+}
