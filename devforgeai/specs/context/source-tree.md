@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2026-03-04
-**Version**: 5.5 (Added: planning-business skill — ADR-034)
+**Version**: 5.6 (Added: positioning-strategy.md reference — ADR-035)
 
 ## CRITICAL RULE: Framework Organization
 
@@ -162,7 +162,8 @@ DevForgeAI2/
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
 │   │   │       ├── go-to-market-framework.md
-│   │   │       └── channel-selection-matrix.md
+│   │   │       ├── channel-selection-matrix.md
+│   │   │       └── positioning-strategy.md    # STORY-540, ADR-035
 │   │   ├── planning-business/           # Business planning skill (STORY-531/532/533, EPIC-073, ADR-034)
 │   │   │   ├── SKILL.md
 │   │   │   └── references/

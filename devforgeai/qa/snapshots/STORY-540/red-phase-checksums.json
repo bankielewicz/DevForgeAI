@@ -1,0 +1,37 @@
+{
+  "story_id": "STORY-540",
+  "timestamp": "2026-03-05T20:43:21.083090Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-540/conftest.py",
+      "sha256": "f6310e1f48037407887448df07d2cabb6a76b1893edad7a17da8e78b7bc31491",
+      "size_bytes": 1446
+    },
+    {
+      "path": "tests/STORY-540/test_ac1_positioning_statement.py",
+      "sha256": "b040a0c8743bbe4899cad6513ab472a1992d4c6a9a11e7a33d1ddc93a35c1d44",
+      "size_bytes": 3786
+    },
+    {
+      "path": "tests/STORY-540/test_ac2_key_messages.py",
+      "sha256": "34ea10076e47dc85fda0929be7a1157cdd41f926f550314cb9975787e3f4e386",
+      "size_bytes": 4999
+    },
+    {
+      "path": "tests/STORY-540/test_ac3_output_creation.py",
+      "sha256": "5d4bb51b51b54d4630523f9dd204457e4ec2860b22a7b275b6a93b7996f89e02",
+      "size_bytes": 2993
+    },
+    {
+      "path": "tests/STORY-540/test_ac4_overwrite.py",
+      "sha256": "90b781c8b3ead7104520aac8e30d3d058fc7b3d446eb9137fbcb2e8ae700ad0f",
+      "size_bytes": 2008
+    },
+    {
+      "path": "tests/STORY-540/test_ac5_line_limits.py",
+      "sha256": "78797c85380fafefdc52d5f3d63f67f2d1c972e5deecbe5362000a3db0206dd0",
+      "size_bytes": 2229
+    }
+  ]
+}
