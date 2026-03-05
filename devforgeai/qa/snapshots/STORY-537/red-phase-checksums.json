@@ -1,0 +1,42 @@
+{
+  "story_id": "STORY-537",
+  "timestamp": "2026-03-05T20:33:54Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-537/test_ac1_question_output.py",
+      "sha256": "6de2d504d3c49d16ea455dabdce1ef7473a797ca2791e126c0fb02cd9a704945",
+      "size_bytes": 3438
+    },
+    {
+      "path": "tests/STORY-537/test_ac2_reference_file.py",
+      "sha256": "862f4d9e56a0d953a33761f84a77ac37168abf86e976c1e2acc62187e46dd616",
+      "size_bytes": 3499
+    },
+    {
+      "path": "tests/STORY-537/test_ac3_hypothesis_driven.py",
+      "sha256": "918e7645143c692ae099177d8b42a79042dab8a9070d2ad21d0619808e67a714",
+      "size_bytes": 4754
+    },
+    {
+      "path": "tests/STORY-537/test_ac4_skill_size.py",
+      "sha256": "b8e5930a062f0db94e98a212b4bf6679218510b0624a2a82e6aaa92c34215aec",
+      "size_bytes": 1560
+    },
+    {
+      "path": "tests/STORY-537/test_ac5_output_structure.py",
+      "sha256": "85caba091bd2b2217acc6cf3eb543b8e0e2c491e3a8c478ee9959c3b6df86949",
+      "size_bytes": 4534
+    },
+    {
+      "path": "tests/STORY-537/conftest.py",
+      "sha256": "e99ebe176d1b196b32e001233d8140bb9a8586062f8820724795fd506575f000",
+      "size_bytes": 1378
+    },
+    {
+      "path": "tests/STORY-537/__init__.py",
+      "sha256": "e565c7c2a94564b1bf80a5a276dccfb0dbf1865717dc4a96bbd2b54bb79c8216",
+      "size_bytes": 66
+    }
+  ]
+}

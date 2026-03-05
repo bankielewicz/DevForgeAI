@@ -293,6 +293,104 @@ For detailed competitive analysis framework, see: [competitive-analysis-framewor
 
 ---
 
+## Customer Interview Question Generation Phase
+
+After market sizing and competitive analysis (or independently when invoked for interview preparation), generate hypothesis-driven customer interview questions.
+
+### Step 11: Load Interview Best Practices
+
+Load the customer interview guide reference for methodology guidance:
+
+```
+Read(file_path="references/customer-interview-guide.md")
+```
+
+For detailed interviewing methodology, see: [customer-interview-guide.md](references/customer-interview-guide.md) (Open-Ended Question Techniques)
+
+### Step 12: Identify Business Hypotheses
+
+Extract business hypotheses from prior market research outputs or user input:
+
+```
+# Check for existing research outputs
+Glob(pattern="devforgeai/specs/business/market-research/market-sizing.md")
+
+# If no prior research, prompt user for hypotheses
+IF no hypotheses found:
+    AskUserQuestion:
+      Question: "What business assumptions do you want to validate through customer interviews?"
+      Header: "Business Hypotheses"
+      Description: "List 2-5 specific assumptions about your customers, market, or product that you want to test."
+      Options:
+        - label: "Enter hypotheses"
+          description: "Provide your business assumptions to validate"
+        - label: "Cancel"
+          description: "Abort interview question generation"
+      multiSelect: false
+
+IF zero hypotheses identified:
+    HALT: "No business hypotheses found. Please articulate at least one assumption to validate."
+    AskUserQuestion:
+      Question: "Please describe at least one business assumption you want to validate."
+      Header: "Required: Business Hypothesis"
+```
+
+### Step 13: Generate Interview Questions
+
+Generate 10-20 hypothesis-driven questions following these rules:
+
+**Question Rules:**
+- Each question must map to a named hypothesis
+- All questions must be open-ended (start with: How, What, Tell me about, Describe, Walk me through)
+- No closed-ended questions (starting with: Do, Is, Are, Was, Were, Will, Would, Can, Could, Should, Did, Has)
+- No leading phrasing (don't you think, wouldn't you agree, isn't it true, obviously, clearly, of course)
+- 2-5 questions per hypothesis
+- 10-20 questions total
+
+**Question Count Validation:**
+```
+IF total_questions < 10: Regenerate with more questions per hypothesis
+IF total_questions > 20: Prune to highest-priority questions per hypothesis
+```
+
+### Step 14: Write Interview Output
+
+Write the interview questions to `devforgeai/specs/business/market-research/customer-interviews.md`:
+
+**Output Format:**
+```markdown
+---
+date: YYYY-MM-DD
+hypothesis_count: N
+question_count: N
+---
+
+# Customer Interview Questions
+
+## Hypothesis: [Hypothesis Name]
+
+1. [Open-ended question mapped to this hypothesis]
+2. [Open-ended question mapped to this hypothesis]
+...
+
+## Next Steps
+
+[Actionable guidance for conducting interviews and analyzing results]
+```
+
+**Validation Before Write:**
+1. Verify question count (10-20 total)
+2. Verify questions per hypothesis (2-5 each)
+3. Verify all questions are open-ended
+4. Verify no leading phrasing
+5. Verify YAML frontmatter counts match actual counts
+
+```
+Write(file_path="devforgeai/specs/business/market-research/customer-interviews.md", content=output)
+```
+
+---
+
 ## Reference Files
 
 | Reference | Path | When to Load |
@@ -300,6 +398,7 @@ For detailed competitive analysis framework, see: [competitive-analysis-framewor
 | Market Sizing Methodology | references/market-sizing-methodology.md | During TAM/SAM/SOM calculation (Steps 6-8) |
 | Fermi Estimation | references/fermi-estimation.md | When internet-sleuth fails or as supplementary method |
 | Competitive Analysis Framework | references/competitive-analysis-framework.md | During competitive analysis phase (Step 10) |
+| Customer Interview Guide | references/customer-interview-guide.md | During interview question generation (Steps 11-14) |
 
 ---
 
@@ -323,6 +422,7 @@ For detailed competitive analysis framework, see: [competitive-analysis-framewor
 
 - `devforgeai/specs/business/market-research/market-sizing.md` - Final market sizing output
 - `devforgeai/specs/business/market-research/competitive-analysis.md` - Competitive analysis output
+- `devforgeai/specs/business/market-research/customer-interviews.md` - Customer interview questions
 
 ---
 
@@ -348,3 +448,5 @@ For detailed competitive analysis framework, see: [competitive-analysis-framewor
 - [ ] At least 2 external data points incorporated (when internet-sleuth available)
 - [ ] Questions adapted to user knowledge level
 - [ ] Output written to devforgeai/specs/business/market-research/market-sizing.md
+- [ ] Interview questions written to devforgeai/specs/business/market-research/customer-interviews.md
+- [ ] 10-20 open-ended questions generated with hypothesis mapping
