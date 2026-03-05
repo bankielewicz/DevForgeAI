@@ -61,66 +61,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 
 ## Progressive Task Disclosure
 
-**Purpose:** Create phase-specific tasks to reduce context bloat. Only 4-8 tasks for the current phase are shown instead of ~72 for all phases.
-
-### Registry Read
-
-```
-registry_path = ".claude/hooks/phase-steps-registry.json"
-
-result = Glob(pattern=registry_path)
-IF result is empty:
-    HALT: "Phase steps registry not found at {registry_path}. Ensure STORY-525 is complete."
-
-Read(file_path=registry_path)
-
-IF JSON parse fails:
-    HALT: "Registry JSON is malformed. Validate .claude/hooks/phase-steps-registry.json"
-```
-
-### Phase Filtering
-
-```
-current_phase_id = "02"  // Extracted from filename: phase-{NN}-*.md → NN
-
-phase_steps = registry[current_phase_id].steps  // Filter for current phase only
-
-IF phase_steps is empty:
-    Display: "No steps defined for phase 02 in registry"
-```
-
-### Task Creation
-
-```
-FOR each step in phase_steps:
-    // Example: "Step 02.1: Generate test files" or "Step 02.2: Run red phase"
-    subject = "Step 02.{step.id}: {step.check}"
-    IF step.conditional == true:
-        subject = subject + " (conditional)"
-
-    TaskCreate(
-        subject=subject,
-        description=step.check,
-        activeForm="Executing Step 02.{step.id}"
-    )
-```
-
-### Task Completion
-
-```
-// After completing each step:
-TaskUpdate(taskId=${step_task_id}, status="completed")
-```
-
-### Error Handling
-
-```
-// Invalid step entries (missing id or check fields):
-FOR each step in phase_steps:
-    IF step.id is missing OR step.check is missing:
-        Display: "Warning: Skipping invalid step entry: {step}"
-        CONTINUE
-```
+Read and follow `references/progressive-task-disclosure.md` (substitute PHASE_ID = "02").
 
 ---
 
@@ -217,6 +158,20 @@ IF not found: HALT "Snapshot file not created — cannot complete Phase 02"
 ```
 
 **Note:** `${STORY_ID}` is a runtime template variable — do NOT replace it with an actual story ID.
+
+### Test File Immutability Declaration [MANDATORY] (RCA-046, RCA-047)
+
+After Phase 02 completes, test files created by test-automator are **IMMUTABLE** until Phase 05 (integration-tester only).
+
+**ANTI-RATIONALIZATION WARNING:** If test checksums mismatch at any point during Phases 03-04, this is TEST TAMPERING by definition. Do NOT explain away mismatches using environmental factors (line endings, WSL, encoding, git autocrlf). The snapshot was computed in the same environment. A mismatch means the file was modified — HALT immediately.
+
+**If tests have bugs (e.g., syntax errors, incorrect assertions):**
+- Do NOT modify test files directly in Phase 03 or 04
+- Mark the current phase as incomplete
+- Return to Phase 02 and invoke test-automator to regenerate corrected tests
+- Create a new test integrity snapshot after regeneration
+
+**Reference:** RCA-046 (Test Integrity Bypass Via Rationalization), RCA-047 (Orchestrator Test Modification Phase Violation)
 
 ### AC Checklist Update Verification [MANDATORY] (RCA-003)
 

@@ -1,10 +1,14 @@
-# /resume-dev - Resume Development from Specific Phase
-
-Resume TDD workflow from specified phase when previous `/dev` execution was incomplete. Implements the "rewind" capability requested in RCA-013.
+---
+description: Resume development from specific phase
 argument-hint: [STORY-ID] [phase-number]
 model: opus
 allowed-tools: Read, Skill, Bash(git:*)
+execution-mode: immediate
 ---
+
+# /resume-dev - Resume Development from Specific Phase
+
+Resume TDD workflow from specified phase when previous `/dev` execution was incomplete.
 
 ## Quick Reference
 

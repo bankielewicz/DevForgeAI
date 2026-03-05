@@ -16,66 +16,7 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 
 ## Progressive Task Disclosure
 
-**Purpose:** Create phase-specific tasks to reduce context bloat. Only 4-8 tasks for the current phase are shown instead of ~72 for all phases.
-
-### Registry Read
-
-```
-registry_path = ".claude/hooks/phase-steps-registry.json"
-
-result = Glob(pattern=registry_path)
-IF result is empty:
-    HALT: "Phase steps registry not found at {registry_path}. Ensure STORY-525 is complete."
-
-Read(file_path=registry_path)
-
-IF JSON parse fails:
-    HALT: "Registry JSON is malformed. Validate .claude/hooks/phase-steps-registry.json"
-```
-
-### Phase Filtering
-
-```
-current_phase_id = "01"  // Extracted from filename: phase-{NN}-*.md → NN
-
-phase_steps = registry[current_phase_id].steps  // Filter for current phase only
-
-IF phase_steps is empty:
-    Display: "No steps defined for phase 01 in registry"
-```
-
-### Task Creation
-
-```
-FOR each step in phase_steps:
-    // Example: "Step 01.1: Validate Git status" or "Step 01.2: Check context files"
-    subject = "Step 01.{step.id}: {step.check}"
-    IF step.conditional == true:
-        subject = subject + " (conditional)"
-
-    TaskCreate(
-        subject=subject,
-        description=step.check,
-        activeForm="Executing Step 01.{step.id}"
-    )
-```
-
-### Task Completion
-
-```
-// After completing each step:
-TaskUpdate(taskId=${step_task_id}, status="completed")
-```
-
-### Error Handling
-
-```
-// Invalid step entries (missing id or check fields):
-FOR each step in phase_steps:
-    IF step.id is missing OR step.check is missing:
-        Display: "Warning: Skipping invalid step entry: {step}"
-        CONTINUE
-```
+Read and follow `references/progressive-task-disclosure.md` (substitute PHASE_ID = "01").
 
 ---
 

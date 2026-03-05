@@ -61,66 +61,21 @@ Examples (--project-root applies to phase-* commands only, not check-hooks/invok
 
 ## Progressive Task Disclosure
 
-**Purpose:** Create phase-specific tasks to reduce context bloat. Only 4-8 tasks for the current phase are shown instead of ~72 for all phases.
+Read and follow `references/progressive-task-disclosure.md` (substitute PHASE_ID = "03").
 
-### Registry Read
+---
 
-```
-registry_path = ".claude/hooks/phase-steps-registry.json"
+## Test File Immutability (RCA-046, RCA-047)
 
-result = Glob(pattern=registry_path)
-IF result is empty:
-    HALT: "Phase steps registry not found at {registry_path}. Ensure STORY-525 is complete."
+**PROHIBITION:** Do NOT modify any test files during this phase. Test files created in Phase 02 are IMMUTABLE.
 
-Read(file_path=registry_path)
+If tests have bugs that prevent implementation:
+1. Mark Phase 03 as incomplete
+2. Return to Phase 02 (re-invoke test-automator to regenerate corrected tests)
+3. Create new test integrity snapshot
+4. Re-enter Phase 03
 
-IF JSON parse fails:
-    HALT: "Registry JSON is malformed. Validate .claude/hooks/phase-steps-registry.json"
-```
-
-### Phase Filtering
-
-```
-current_phase_id = "03"  // Extracted from filename: phase-{NN}-*.md → NN
-
-phase_steps = registry[current_phase_id].steps  // Filter for current phase only
-
-IF phase_steps is empty:
-    Display: "No steps defined for phase 03 in registry"
-```
-
-### Task Creation
-
-```
-FOR each step in phase_steps:
-    // Example: "Step 03.1: Implement production code" or "Step 03.2: Run green phase"
-    subject = "Step 03.{step.id}: {step.check}"
-    IF step.conditional == true:
-        subject = subject + " (conditional)"
-
-    TaskCreate(
-        subject=subject,
-        description=step.check,
-        activeForm="Executing Step 03.{step.id}"
-    )
-```
-
-### Task Completion
-
-```
-// After completing each step:
-TaskUpdate(taskId=${step_task_id}, status="completed")
-```
-
-### Error Handling
-
-```
-// Invalid step entries (missing id or check fields):
-FOR each step in phase_steps:
-    IF step.id is missing OR step.check is missing:
-        Display: "Warning: Skipping invalid step entry: {step}"
-        CONTINUE
-```
+**ANTI-RATIONALIZATION:** Any justification for modifying tests in this phase — including "fixing a bash arithmetic bug", "correcting syntax", or "updating assertions" — is a violation. The correct remedy is ALWAYS to return to Phase 02.
 
 ---
 

@@ -70,6 +70,25 @@ Extract story ID from conversation context (YAML frontmatter, context markers, o
 
 ---
 
+## Command Integration
+
+This skill is invoked by `/dev` and `/resume-dev` commands. Commands parse arguments and pass structured context markers:
+
+| Context Marker | Set By | Description |
+|----------------|--------|-------------|
+| `$STORY_ID` | /dev, /resume-dev | Story identifier (STORY-NNN) |
+| `$FORCE_FLAG` | /dev | `--force` flag — bypass dependency checks |
+| `$REMEDIATION_MODE` | /dev | `--fix` flag or auto-detected from gaps.json |
+| `$GAPS_AUTO_DETECTED` | /dev | True if gaps.json was auto-detected |
+| `$IGNORE_DEBT_FLAG` | /dev | `--ignore-debt-threshold` flag |
+| `$RESUME_MODE` | /resume-dev | "manual" or "auto" |
+| `$PHASE_NUM` | /resume-dev | Phase number to resume from (0-7) |
+
+Commands handle only: argument parsing, flag extraction, banner display, result display.
+Skill handles all business logic: validation, orchestration, subagent invocation, state management.
+
+---
+
 ## Required Subagents Per Phase
 
 | Phase | Required Subagents | Enforcement |
@@ -90,6 +109,23 @@ Extract story ID from conversation context (YAML frontmatter, context markers, o
 BLOCKING = MANDATORY (cannot omit). CONDITIONAL = may skip with documented reason.
 
 **Workflow Deviation Protocol:** Any phase skip, subagent omission, or out-of-sequence execution requires explicit user consent via AskUserQuestion. See `references/workflow-deviation-protocol.md`.
+
+---
+
+## Test File Immutability (RCA-046, RCA-047)
+
+After Phase 02 creates tests, test files are **IMMUTABLE** until Phase 05 (integration-tester only). Any other modification requires returning to Phase 02 and re-invoking test-automator.
+
+**ANTI-RATIONALIZATION:** If test checksums mismatch at any point, HALT immediately. Do not explain away mismatches using environmental factors (line endings, WSL, encoding, git autocrlf, platform differences). The snapshot was computed in the same environment — a mismatch IS test tampering by definition, regardless of the reason.
+
+**Back-to-Red Protocol:** If tests have bugs discovered during Phase 03 or 04:
+1. Mark current phase incomplete
+2. Return to Phase 02
+3. Re-invoke test-automator with bug context
+4. Create new test integrity snapshot
+5. Resume from Phase 03
+
+**References:** RCA-046, RCA-047, `.claude/rules/workflow/test-folder-protection.md`
 
 ---
 
@@ -195,22 +231,9 @@ FOR each phase N in [01..10]:
 
 ## Treelint AST-Aware Search Integration
 
-**AST-Powered Code Search:** Phases 02-04 invoke Treelint-enabled subagents for semantic code analysis, providing 40-80% token reduction compared to text-based search.
+Phases 02-04 invoke Treelint-enabled subagents for semantic code analysis (40-80% token reduction). Automatic fallback to Grep when unavailable.
 
-**Phase-to-Subagent Mapping:**
-
-| Phase | Subagent | Treelint Feature |
-|-------|----------|------------------|
-| Phase 02 (Red) | test-automator | Pattern discovery for test generation |
-| Phase 03 (Green) | backend-architect | Code structure analysis for implementation |
-| Phase 04 (Refactor) | refactoring-specialist | Code smell detection and refactoring targets |
-| Phase 04 (Refactor) | code-reviewer | Quality pattern validation |
-
-**Automatic Fallback:** Each subagent detects Treelint availability and falls back to Grep-based search when unavailable. No workflow changes required.
-
-**Supported Languages:** Python, TypeScript, JavaScript, Rust, Markdown
-
-**Reference:** See `.claude/agents/references/treelint-search-patterns.md` for AST query patterns and usage examples.
+**Reference:** `references/treelint-integration.md` and `.claude/agents/references/treelint-search-patterns.md`
 
 ---
 
@@ -409,25 +432,6 @@ When workflow stops incomplete:
 
 ---
 
-## CLI Commands Reference
-
-```bash
-devforgeai-validate phase-init STORY-XXX --project-root=.
-devforgeai-validate phase-check STORY-XXX --from=01 --to=02
-devforgeai-validate phase-complete STORY-XXX --phase=02 --checkpoint-passed
-devforgeai-validate phase-status STORY-XXX
-devforgeai-validate phase-record STORY-XXX --phase=02 --subagent=test-automator
-```
-
-| Exit Code | Meaning |
-|-----------|---------|
-| 0 | Success / Allowed |
-| 1 | State exists (resume) / Previous phase incomplete |
-| 2 | Invalid story ID / Missing required subagents |
-| 3 | Cannot skip phases |
-
----
-
 ## Rollback Recovery
 
 1. Check phase: `devforgeai-validate phase-status STORY-XXX`
@@ -437,29 +441,6 @@ devforgeai-validate phase-record STORY-XXX --phase=02 --subagent=test-automator
 
 **State file:** `devforgeai/workflows/STORY-XXX-phase-state.json`
 
----
+**CLI reference:** See `references/phase-transition-validation.md` for full CLI command reference and exit codes.
 
-## Change Log
-
-**2026-02-16** - EPIC-065 Migration
-- Renamed from `devforgeai-development` to `implementing-stories` per ADR-017 (gerund naming convention)
-- Reduced SKILL.md from 1,099 lines to 436 lines (-60%, progressive disclosure improvement)
-- Extracted 3 large inline sections to dedicated reference files
-- Migrated all 30+ reference files and 18 preflight sub-files
-- Updated 145+ cross-references across codebase
-- See: `.claude/skills/implementing-stories/MIGRATION-NOTES.md`
-
-**2025-02** - STORY-400
-- Added inline observation capture protocol for framework self-improvement
-- Phase 09 framework-analyst synthesizes observations into recommendations
-
-**2025-01** - STORY-303
-- Added session state persistence for cross-session recovery
-- Memory file schema supports resume after API errors or crashes
-
-**2025-01** - RCA-019
-- Added workflow deviation protocol requiring explicit user consent for phase skips
-
-**2024-12** - Initial Implementation
-- Created 10-phase TDD workflow with context file enforcement
-- Implemented git-validator, tech-stack-detector, and subagent orchestration
+**Change log:** See `MIGRATION-NOTES.md` for version history.
