@@ -4,7 +4,7 @@ title: Positioning & Messaging Framework
 type: feature
 epic: EPIC-075
 sprint: Sprint-25
-status: Dev Complete
+status: QA Approved
 points: 3
 depends_on: []
 priority: High
