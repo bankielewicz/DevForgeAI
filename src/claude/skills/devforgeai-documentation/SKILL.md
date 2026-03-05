@@ -104,13 +104,27 @@ Generate and maintain comprehensive project documentation automatically:
    ```
    TYPE = extracted type OR default
 
-   IF TYPE == "all":
-       TYPES = ["readme", "developer-guide", "api", "troubleshooting", "architecture", "roadmap"]
+   IF TYPE == "all" OR TYPE == "module":
+       TYPES = ["api", "architecture", "developer-guide", "troubleshooting", "roadmap"]
+       # Note: "readme" is handled via README.md module blurb (Phase 4.5), not as a separate file
    ELSE:
        TYPES = [TYPE]
    ```
 
-**Output**: Mode, types, export format confirmed
+5. **Resolve output strategy** (section-level consolidation):
+   ```
+   # All story-based documentation merges into framework-level files as sections.
+   # No per-module files are created. See references/post-generation-workflow.md Section 2.
+   #
+   # Target files (fixed, never grows):
+   #   docs/api/API.md              ← all API docs
+   #   docs/architecture/ARCHITECTURE.md  ← all architecture docs
+   #   docs/guides/DEVELOPER-GUIDE.md     ← all dev guidance
+   #   docs/guides/TROUBLESHOOTING.md     ← all troubleshooting (problem-first headings)
+   #   docs/guides/ROADMAP.md             ← single project roadmap by priority tier
+   ```
+
+**Output**: Mode, types, output strategy, export format confirmed
 
 ---
 
@@ -186,24 +200,47 @@ Generate and maintain comprehensive project documentation automatically:
 
 **For each documentation type in TYPES:**
 
-1. **Invoke documentation-writer subagent**:
+1. **Load framework doc and invoke documentation-writer subagent**:
+
+   ```
+   # Reference: references/post-generation-workflow.md (Section 2 — Section Insertion Map)
+   # Reference: references/anti-aspirational-guidelines.md
+
+   target_file = resolve_target(doc_type)   # e.g., docs/api/API.md
+   existing_content = Read(target_file)
+   module_name = derived from Phase 0 / post-generation-workflow.md Section 1
+   ```
+
    ```
    Task(
        subagent_type="documentation-writer",
-       description="Generate {type} documentation",
-       prompt="Generate {type} documentation.
+       description="Generate {type} section for {module_name}",
+       prompt="Generate a SECTION (not a full document) for insertion into an existing
+       framework document.
 
-       Context:
+       Module: {module_name}
+       Doc type: {type}
+       Story context:
        {documentation_context}
 
-       Requirements:
-       - Follow coding-standards.md conventions
-       - Include all sections per template
-       - Use clear, concise language
-       - Include code examples where helpful
-       - Add table of contents for long docs
+       Existing framework document (your section must match this voice and style):
+       {existing_content}
 
-       Return: Markdown content for {type}"
+       Section markers — wrap your output in these exact markers:
+       <!-- SECTION: {module_name} START -->
+       ## {Module Display Name}
+       (your content here)
+       <!-- SECTION: {module_name} END -->
+
+       Content rules (from anti-aspirational-guidelines.md):
+       - No future tense for unimplemented features
+       - No filler — if nothing to say for this doc type, return SKIP
+       - Problem-first headings for troubleshooting (symptom as heading, not module name)
+       - Concrete examples with real values, no placeholders
+       - Match the tone and depth of surrounding sections in the existing document
+       - No duplicate introductions — one sentence on what the module does, then specifics
+
+       Return: Markdown section content wrapped in markers, OR the word SKIP"
    )
    ```
 
@@ -298,74 +335,79 @@ Generate and maintain comprehensive project documentation automatically:
 
 ---
 
-### Phase 4: Integration and Updates
+### Phase 4: Section-Level Integration
 
-**Reference:** `references/greenfield-workflow.md` (incremental updates)
+**Reference:** `references/post-generation-workflow.md` (Section 2 — Section Insertion Map)
 
-**For New Documentation:**
+All documentation is inserted as sections into fixed framework files. No per-module files are created.
 
-1. **Determine file location** per source-tree.md:
+**Section Insertion Map:**
+
+| Doc Type | Target File |
+|----------|-------------|
+| api | `docs/api/API.md` |
+| architecture | `docs/architecture/ARCHITECTURE.md` |
+| developer-guide | `docs/guides/DEVELOPER-GUIDE.md` |
+| troubleshooting | `docs/guides/TROUBLESHOOTING.md` |
+| roadmap | `docs/guides/ROADMAP.md` |
+
+**For each generated section:**
+
+1. **Skip if documentation-writer returned SKIP** (no content for this doc type)
+
+2. **Read target framework file**:
    ```
-   Read: devforgeai/specs/context/source-tree.md
-   Extract: Documentation directory rules
-
-   Default locations:
-   - README.md → project root
-   - docs/DEVELOPER.md → docs/ directory
-   - docs/API.md → docs/ directory
-   - docs/ARCHITECTURE.md → docs/ directory
-   ```
-
-2. **Write documentation files**:
-   ```
-   FOR each doc type:
-       Write(
-           file_path="{determined_location}/{filename}",
-           content="{generated_content}"
-       )
-   ```
-
-**For Existing Documentation Updates:**
-
-1. **Detect existing files**:
-   ```
-   IF file exists at target location:
-       Read existing content
-
-       # Check for user-authored sections
-       Look for markers: <!-- USER CONTENT START/END -->
-       OR: Git blame to detect user edits
+   target_path = section_insertion_map[doc_type]
+   content = Read(target_path)
    ```
 
-2. **Merge content intelligently**:
+3. **Insert or update section using HTML comment markers**:
    ```
-   Preserve:
-   - User-authored sections (marked)
-   - Custom examples added by users
-   - Project-specific notes
+   MARKER_START = "<!-- SECTION: {module_name} START -->"
+   MARKER_END = "<!-- SECTION: {module_name} END -->"
 
-   Update:
-   - Auto-generated sections (marked with <!-- AUTO-GENERATED -->)
-   - API endpoint lists
-   - Feature lists
-   - Version numbers
-   ```
+   IF MARKER_START found in content:
+       # Update existing section (idempotent)
+       Extract old_block from MARKER_START to MARKER_END (inclusive)
+       Edit(file_path=target_path, old_string=old_block, new_string=generated_section)
+       Display: "Updated {module_name} section in {target_path}"
 
-3. **Create backup** before updating:
-   ```
-   IF file exists:
-       backup_path = "{file}.backup-{timestamp}"
-       Bash(command="cp {file} {backup_path}")
-       Display: "Backup created: {backup_path}"
+   ELSE:
+       # Insert new section before the last --- separator or at end of file
+       # Preserve user-authored content (<!-- USER CONTENT START/END -->)
+       Append generated_section to end of document (before final ---)
+       Display: "Added {module_name} section to {target_path}"
    ```
 
-4. **Add changelog entry** (if updating):
+4. **Track updated files** for Phase 7 summary:
    ```
-   changelog_entry = "- {date}: Updated {section} for STORY-{id}"
-   Append to CHANGELOG.md or create if missing
+   updated_files[doc_type] = target_path
    ```
 
-**Output**: Documentation files written/updated
+**Output**: Framework files updated with module sections
+
+---
+
+### Phase 4.5: Post-Generation Integration
+
+**Reference:** `references/post-generation-workflow.md`
+
+**Trigger:** Executes ONLY when mode=greenfield AND story_id provided.
+**Skip:** If trigger conditions not met, proceed directly to Phase 5.
+
+**Steps:**
+
+1. Derive module name — see reference (Section 1: Module Name Derivation)
+2. Update root README.md module blurb — see reference (Section 4: Action 2)
+   - Uses HTML comment markers for idempotency: `<!-- MODULE-DOC: {module} START/END -->`
+   - Module blurb links to anchors within framework docs (not to per-module files)
+3. Update CHANGELOG.md with documentation entry — see reference (Section 5: Action 3)
+   - Per-story idempotency
+4. Update story file Change Log with documentation row — see reference (Section 6: Action 4)
+
+All actions are idempotent — safe to re-run without duplicating entries.
+
+**Output**: README.md, CHANGELOG.md, and story file updated
 
 ---
 
@@ -426,6 +468,31 @@ Generate and maintain comprehensive project documentation automatically:
                Display: "Missing section: {section} in {doc_file}"
    ```
 
+5. **Anti-aspirational content check**:
+   ```
+   # Reference: references/anti-aspirational-guidelines.md
+
+   FOR each generated section:
+       # Check for prohibited language
+       Grep for: "will be", "will support", "planned", "in the future",
+                  "upcoming", "powerful", "robust", "seamless",
+                  "easy to use", "simple", "intuitive"
+
+       IF violations found:
+           Display: "⚠️ Aspirational language detected in {module_name} {doc_type} section"
+           List violations with line context
+           Return content to documentation-writer with fix instructions
+
+       # Check for empty/filler sections
+       IF section contains heading followed immediately by another heading:
+           Display: "⚠️ Empty section detected — remove or populate"
+
+       # Check for placeholder examples
+       Grep for: "your-", "example-", "<placeholder>", "..."
+       IF found:
+           Display: "⚠️ Placeholder detected — replace with real values"
+   ```
+
 **Output**: Validation report, any issues flagged
 
 ---
@@ -473,7 +540,10 @@ Generate and maintain comprehensive project documentation automatically:
 
 **Update story file** (if story-based):
 
-1. **Add documentation references**:
+1. **Story Change Log** — If Phase 4.5 executed (module docs mode),
+   the story Change Log row was already added in that phase. Skip duplicate entry here.
+
+2. **Add documentation references**:
    ```
    Edit story file to add section:
 
@@ -500,9 +570,11 @@ Display: "━━━━━━━━━━━━━━━━━━━━━━━�
 Display: "  Documentation Generation Complete"
 Display: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 Display: ""
-Display: "Generated Documentation:"
-FOR each file in generated_files:
-    Display: "  ✓ {file.type}: {file.path} ({file.word_count} words)"
+Display: "Updated Sections ({module_name}):"
+FOR each doc_type in updated_files:
+    Display: "  ✓ {doc_type}: {updated_files[doc_type]} ({word_count} words)"
+FOR each skipped_type in skipped_types:
+    Display: "  ○ {skipped_type}: skipped (no content for this module)"
 
 Display: ""
 Display: "Documentation Coverage: {coverage}%"
@@ -511,6 +583,13 @@ IF coverage >= 80:
     Display: "  ✅ Meets quality gate threshold (≥80%)"
 ELSE:
     Display: "  ⚠️ Below threshold (≥80% required for release)"
+
+IF story_id provided:
+    Display: ""
+    Display: "Also updated:"
+    Display: "  → README.md (module blurb)"
+    Display: "  → CHANGELOG.md ([Unreleased] > Added)"
+    Display: "  → {story_file} (Change Log table)"
 
 Display: ""
 Display: "Next Steps:"
@@ -615,8 +694,10 @@ Load these on-demand during workflow execution:
 - **brownfield-analysis.md** (~520 lines) - Codebase scanning, gap identification
 - **diagram-generation-guide.md** (~410 lines) - Mermaid syntax, flowcharts, sequences
 - **template-customization.md** (~290 lines) - Variable substitution, custom templates
+- **post-generation-workflow.md** (~300 lines) - Module name derivation, section insertion map, README/CHANGELOG/story updates, idempotency
+- **anti-aspirational-guidelines.md** (~100 lines) - Prohibited language, structural rules, content quality enforcement
 
-**Total reference content:** ~2,050 lines (loaded progressively as needed)
+**Total reference content:** ~2,450 lines (loaded progressively as needed)
 
 ---
 

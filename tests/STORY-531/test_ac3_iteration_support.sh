@@ -1,7 +1,7 @@
 #!/bin/bash
 # Test: AC#3 - Iteration and Refinement Support
 # Story: STORY-531
-# Generated: 2026-03-03
+# Generated: 2026-03-04
 
 set -uo pipefail
 
@@ -25,26 +25,51 @@ run_test() {
 
 echo "=== AC#3: Iteration and Refinement Support ==="
 
-# Test 1: Reference file exists
-test -f "$REF_FILE"; run_test "Reference file exists" $?
+# Test 1: Iteration section exists with correct heading
+grep -q "^## 4\. Iteration and Refinement Workflow$" "$REF_FILE" 2>/dev/null
+run_test "Section '## 4. Iteration and Refinement Workflow' exists" $?
 
-# Test 2: Defines iteration workflow
-grep -qiE "(iteration|refinement|refine)" "$REF_FILE" 2>/dev/null; run_test "Defines iteration/refinement workflow" $?
+# Extract iteration section
+ITER_SECTION=$(sed -n '/^## 4\. Iteration and Refinement Workflow$/,/^## [0-9]/p' "$REF_FILE" | head -n -1)
 
-# Test 3: Workflow reads existing canvas
-grep -qiE "(read existing|existing.*canvas|load.*canvas)" "$REF_FILE" 2>/dev/null; run_test "Workflow handles reading existing canvas" $?
+# Test 2: All 4 steps present with correct ### headers
+echo "$ITER_SECTION" | grep -q "^### Step 1: Read"
+run_test "Iteration has ### Step 1: Read" $?
 
-# Test 4: Workflow presents current state
-grep -qiE "(present|display|show.*current)" "$REF_FILE" 2>/dev/null; run_test "Workflow presents current canvas state" $?
+echo "$ITER_SECTION" | grep -q "^### Step 2: Present"
+run_test "Iteration has ### Step 2: Present" $?
 
-# Test 5: Workflow supports modification
-grep -qiE "(modify|update|edit|change)" "$REF_FILE" 2>/dev/null; run_test "Workflow supports canvas modification" $?
+echo "$ITER_SECTION" | grep -q "^### Step 3: Modify"
+run_test "Iteration has ### Step 3: Modify" $?
 
-# Test 6: Workflow writes updated canvas
-grep -qiE "(write|save|output|generate)" "$REF_FILE" 2>/dev/null; run_test "Workflow writes updated canvas" $?
+echo "$ITER_SECTION" | grep -q "^### Step 4: Write"
+run_test "Iteration has ### Step 4: Write" $?
 
-# Test 7: Handles existing lean-canvas.md
-grep -qi "lean-canvas.md" "$REF_FILE" 2>/dev/null; run_test "References lean-canvas.md file" $?
+# Test 3: Read step references Read(file_path= pattern for existing canvas
+echo "$ITER_SECTION" | grep -q 'Read(file_path='
+run_test "Read step uses Read(file_path= pattern" $?
+
+# Test 4: Write step references Write(file_path= pattern for updated canvas
+echo "$ITER_SECTION" | grep -q 'Write(file_path='
+run_test "Write step uses Write(file_path= pattern" $?
+
+# Test 5: AskUserQuestion is used for presenting iteration options
+echo "$ITER_SECTION" | grep -q "AskUserQuestion"
+run_test "Iteration workflow uses AskUserQuestion for options" $?
+
+# Test 6: Options include keep/modify/clear-like choices
+echo "$ITER_SECTION" | grep -qi "keep"
+run_test "Iteration options include 'keep' choice" $?
+
+echo "$ITER_SECTION" | grep -qi "modify"
+run_test "Iteration options include 'modify' choice" $?
+
+echo "$ITER_SECTION" | grep -qi "fresh\|clear"
+run_test "Iteration options include 'fresh' or 'clear' choice" $?
+
+# Test 7: Unchanged blocks preservation explicitly stated
+echo "$ITER_SECTION" | grep -qi "unchanged blocks"
+run_test "Iteration explicitly states unchanged blocks are preserved" $?
 
 echo ""
 echo "Results: $PASSED passed, $FAILED failed"

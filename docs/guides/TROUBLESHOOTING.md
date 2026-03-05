@@ -426,6 +426,200 @@ Never modify `.git/hooks/` directly. If the pre-commit hook has a bug or incorre
 
 ---
 
+<!-- SECTION: assessing-entrepreneur START -->
+
+### 16. Profile not generated after running /assess-me
+
+**Symptoms:**
+- The `/assess-me` command completes all 9 phases but no `user-profile.yaml` file appears at `devforgeai/specs/business/user-profile.yaml`
+- Phase 9 (Results Summary) displays recommendations but the profile data is not persisted
+
+**Cause:** The `entrepreneur-assessor` subagent (Phase 8) is responsible for writing the profile file. If the subagent was not invoked, or its Task() prompt did not include the collected responses from Phases 2-7, the profile is never written.
+
+**Solution:**
+1. Verify the subagent file exists at `src/claude/agents/entrepreneur-assessor.md`
+2. Confirm Phase 8 invokes the subagent with a Task() call that includes all 6 dimension responses
+3. Check that the subagent's output targets `devforgeai/specs/business/user-profile.yaml`
+4. If the file was generated but is empty or malformed, verify the schema contains required fields:
+   ```yaml
+   schema_version: "1.0"
+   adaptive_profile:
+     task_chunk_size: micro | standard | extended
+     session_length: short | medium | long
+     check_in_frequency: frequent | moderate | minimal
+   ```
+5. Re-run `/assess-me` if the profile is missing entirely
+
+---
+
+### 17. Assessment reference files not found during Phase 8-9
+
+**Symptoms:**
+- Phase 8 (Profile Generation) or Phase 9 (Results Summary) fails with a file-not-found error
+- Error references one of the adaptation or calibration reference files
+
+**Cause:** The skill loads 4 reference files on demand from `src/claude/skills/assessing-entrepreneur/references/`. If any file is missing or the path has changed, the phase cannot proceed.
+
+**Required files:**
+```
+src/claude/skills/assessing-entrepreneur/references/work-style-questionnaire.md
+src/claude/skills/assessing-entrepreneur/references/plan-calibration-engine.md
+src/claude/skills/assessing-entrepreneur/references/adhd-adaptation-framework.md
+src/claude/skills/assessing-entrepreneur/references/confidence-assessment-workflow.md
+```
+
+**Solution:**
+1. Verify all 4 files exist at the paths above
+2. If a file is missing, restore it from source control:
+   ```bash
+   git checkout main -- src/claude/skills/assessing-entrepreneur/references/
+   ```
+3. Confirm the skill file references use relative paths matching the actual directory layout
+
+---
+
+### 18. Assessment dimension skipped or missing from profile
+
+**Symptoms:**
+- The generated `user-profile.yaml` is missing one or more of the 6 dimensions
+- The `entrepreneur-assessor` subagent reports incomplete input
+
+**Cause:** One of Phases 2-7 was skipped, or the user's response to a dimension question was not captured and passed to the subagent in the Phase 8 Task() prompt.
+
+**Solution:**
+1. The subagent uses AskUserQuestion to request any missing dimension -- check if this prompt appeared and was answered
+2. If the prompt did not appear, verify the Phase 8 Task() prompt includes all 6 dimension responses collected during Phases 2-7
+3. Re-run `/assess-me` to complete the missing dimension. The skill does not support partial re-assessment; a full run is required
+
+---
+
+### 19. /assess-me command not found or fails to start
+
+**Symptoms:**
+- Running `/assess-me` produces no response or a "command not found" error
+- The command appears in listings but does not execute
+
+**Cause:** Either the command file is missing or its YAML frontmatter is malformed.
+
+**Solution:**
+1. Verify the command file exists at `src/claude/commands/assess-me.md`
+2. Verify the skill file exists at `.claude/skills/assessing-entrepreneur/SKILL.md` (operational) or `src/claude/skills/assessing-entrepreneur/SKILL.md` (source)
+3. Open the command file and confirm valid YAML frontmatter with `name: assess-me`
+4. If the file is missing, restore from source control or re-run the story that created it (STORY-465)
+
+---
+
+### 20. entrepreneur-assessor subagent not found
+
+**Symptoms:**
+- Phase 8 fails with a subagent resolution error
+- Error message references `entrepreneur-assessor` not being found
+
+**Cause:** The subagent definition file is missing from the agents directory.
+
+**Solution:**
+1. Verify the subagent file exists at `src/claude/agents/entrepreneur-assessor.md`
+2. Confirm the operational copy also exists at `.claude/agents/entrepreneur-assessor.md`
+3. If missing, restore from source control:
+   ```bash
+   git checkout main -- src/claude/agents/entrepreneur-assessor.md
+   ```
+4. Verify the file contains valid YAML frontmatter with `name: entrepreneur-assessor` and a `tools:` field
+
+<!-- SECTION: assessing-entrepreneur END -->
+
+---
+
+<!-- SECTION: coaching-entrepreneur START -->
+
+### 21. Session log not created after coaching session completes
+
+**Symptoms:**
+- The coaching session completes normally but no `session-log.yaml` file exists at `devforgeai/specs/business/coaching/session-log.yaml`
+- Subsequent sessions open without any tone adaptation
+
+**Cause:** The session log is written at session close. If the coaching skill did not execute its session-close phase — for example, because the session ended abruptly — the file is never created. If the target directory `devforgeai/specs/business/coaching/` does not exist, the write fails silently.
+
+**Solution:**
+1. Verify the target directory exists: `devforgeai/specs/business/coaching/`
+2. If the directory is missing, create it and re-run the coaching session
+3. After a successful session, the file should contain at minimum:
+   ```yaml
+   sessions:
+     - date: "2026-03-04T00:00:00Z"
+       emotional_state: neutral
+   ```
+4. If the file is still not created, restore the coaching skill from source control:
+   ```bash
+   git checkout main -- src/claude/skills/coaching-entrepreneur/
+   ```
+
+---
+
+### 22. Tone adaptation not applied at session start despite existing session log
+
+**Symptoms:**
+- `session-log.yaml` exists and contains a prior entry with an emotional state value
+- The coaching session opens with neutral, generic tone rather than adapted tone
+
+**Cause:** The coaching skill reads `session-log.yaml` during session initialization. If the file is present but the initialization step does not read it, or the file is malformed (missing `emotional_state` key), adaptation is skipped.
+
+**Solution:**
+1. Open `session-log.yaml` and confirm each entry has a valid `emotional_state` value:
+   ```yaml
+   emotional_state: frustrated   # valid: energized|focused|neutral|tired|frustrated|anxious|overwhelmed
+   ```
+2. Verify the skill's session-initialization step reads the log and extracts the most recent entry's `emotional_state`
+3. If the key is present but adaptation still does not apply, trace the flow from the Read() call through to the opening message
+
+---
+
+### 23. User override of emotional state not persisted in session log
+
+**Symptoms:**
+- During a session, the user states a different emotional state
+- The coaching skill acknowledges and adapts tone for the remainder of the session
+- At session close, `session-log.yaml` still shows the original state
+
+**Cause:** The session-close write step may use the session-open value rather than the current (overridden) value.
+
+**Solution:**
+1. Verify the skill tracks the active emotional state in a mutable variable, updating it on override
+2. Confirm the session-close write step reads the current (post-override) state
+3. After a session with an override, `session-log.yaml` should reflect:
+   ```yaml
+   - date: "2026-03-04T12:00:00Z"
+     emotional_state: tired
+     override: "Actually feeling great, let's push hard"
+   ```
+
+---
+
+### 24. Emotional state enum validation fails on session-log.yaml load
+
+**Symptoms:**
+- Session initialization fails with a validation error referencing `session-log.yaml`
+- Error indicates an unrecognized value for `emotional_state`
+
+**Cause:** The `emotional_state` field holds a value outside the defined enum. This occurs if the file was edited manually or a typo was introduced.
+
+**Valid enum values:**
+```
+energized | focused | neutral | tired | frustrated | anxious | overwhelmed
+```
+
+**Solution:**
+1. Open `session-log.yaml` and locate the invalid value
+2. Replace with the closest valid enum member or the safe default:
+   ```yaml
+   emotional_state: neutral
+   ```
+3. If the user declined to provide a state, the log must record `neutral` — verify the decline path writes `neutral` rather than an empty string
+
+<!-- SECTION: coaching-entrepreneur END -->
+
+---
+
 ## Getting Help
 
 If none of the above solutions resolve your issue:

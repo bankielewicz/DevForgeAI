@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-534",
+  "phase": "red",
+  "timestamp": "2026-03-04T16:09:52.100693",
+  "checksums": {
+    "run_all_tests.sh": "69124a33ff29658ca854eb8beacb07ee",
+    "test_ac1_project_mode.sh": "ff5430ff5f70c5a42d1c726a8588d162",
+    "test_ac2_standalone_mode.sh": "f8716bd6d0b6a0d8aac7d7404df59cb9",
+    "test_ac3_consistent_output.sh": "106b388f295f6f69f4f9828a0b4d2ecf",
+    "test_ac4_mode_override.sh": "ca51ce7064e19b04430adce6e8d19af8",
+    "test_ac5_graceful_degradation.sh": "a63e84532321ee1ba777883d21a95ced"
+  }
+}

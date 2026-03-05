@@ -1,14 +1,16 @@
 {
   "story_id": "STORY-531",
   "phase": "02-red",
-  "created": "2026-03-03T00:00:00Z",
+  "created": "2026-03-04T00:00:00Z",
+  "remediation_note": "Rewritten tests replacing weak keyword-grep assertions with structural behavioral verification (RCA-046 remediation)",
   "test_files": {
-    "tests/STORY-531/test_ac1_lean_canvas_generation.sh": "51b0a8ebee321faff7355b6dcf7d3304b04fdc08fd32e9f30742de1ba0cf1e3f",
-    "tests/STORY-531/test_ac2_adaptive_depth.sh": "370bc2f5b207a36788f34033c7b990bbcbbb0e0c887f19fcb3d0635cb0a0d5fe",
-    "tests/STORY-531/test_ac3_iteration_support.sh": "24249f7c881ae34bfbc37ec300131c1eb4aa5965e256aa8d33cdcaa1b610d037",
-    "tests/STORY-531/test_ac4_missing_profile_fallback.sh": "ff1434304dd942e6fc7d171a1364d4dd3314699d9e059825dfd9664f2efb3a02",
-    "tests/STORY-531/test_ac5_partial_resume.sh": "e20cbf1d1d416a76467fb7b669ba33e6f304d0fcdb4490e3ee8f672b4e21a187"
+    "tests/STORY-531/test_ac1_lean_canvas_generation.sh": "dd66f79410661f6e6d64e79b581e2a9d358035e36fc0f6e17434cb83b803610f",
+    "tests/STORY-531/test_ac2_adaptive_depth.sh": "0b4ff1f147782b013c91f8725479771a92f01ba699145d3c58bff9c787982e09",
+    "tests/STORY-531/test_ac3_iteration_support.sh": "81b01a6789267c0da14461362d1e039da8918c88ddac9f093000e62a82b430dd",
+    "tests/STORY-531/test_ac4_missing_profile_fallback.sh": "fff5f0bbe4bb18b41603b04a0b14644fb0d5561a0dccacb2dec46ac1bd605348",
+    "tests/STORY-531/test_ac5_partial_resume.sh": "0aa86430e39e8df3411465454a846cd1e2c8fee02bb4763a43c2e7d02a48cb8a"
   },
   "total_tests": 5,
+  "total_assertions": 68,
   "all_red": true
 }

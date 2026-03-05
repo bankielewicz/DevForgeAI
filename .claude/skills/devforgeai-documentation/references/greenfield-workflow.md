@@ -156,13 +156,17 @@ ELIF type == "api":
 ELIF type == "architecture":
     templates = ["architecture-template.md"]
 
-ELIF type == "all":
+ELIF type == "all" OR type == "module":
+    # Section-level consolidation: content merges into framework files
+    # Templates provide structural guidance for section generation
     templates = [
-        "readme-template.md",
-        "developer-guide-template.md",
         "api-docs-template.md",
+        "architecture-template.md",
+        "developer-guide-template.md",
         "troubleshooting-template.md"
     ]
+    # Note: No readme template — module blurb in README.md handled by Phase 4.5
+    # Note: Roadmap entries are appended to docs/guides/ROADMAP.md by priority tier
 ```
 
 **Step 3.2: Load templates**
@@ -251,69 +255,48 @@ FOR each template in template_content:
 
 ---
 
-### Phase 5: Incremental Updates
+### Phase 5: Incremental Updates (Section-Level)
 
-**For existing documentation files:**
+All documentation merges as sections into fixed framework files. See `references/post-generation-workflow.md` for the section insertion map and idempotency mechanism.
 
-**Step 5.1: Detect existing files**
-
-```
-documentation_dir = from source-tree.md OR "docs/"
-
-Glob(pattern="{documentation_dir}/*.md")
-existing_files = results
-```
-
-**Step 5.2: Read existing content**
+**Step 5.1: Detect existing module sections**
 
 ```
-FOR each existing_file in existing_files:
-    content = Read(existing_file)
+# Check framework files for existing sections from this module
+FOR each target_file in section_insertion_map.values():
+    content = Read(target_file)
+    Grep(pattern="<!-- SECTION: {module_name} START -->", path=target_file)
 
-    # Check for user-authored sections
-    Check for markers:
-    - <!-- USER CONTENT START -->
-    - <!-- USER CONTENT END -->
-
-    Extract user sections
-    Store for preservation
+    IF found:
+        mode = "update"   # Section exists, will be replaced between markers
+    ELSE:
+        mode = "create"   # New section will be appended
 ```
 
-**Step 5.3: Merge strategies**
-
-**Strategy 1: Preserve user content**
-```
-IF user markers found:
-    Keep: Content between <!-- USER CONTENT START/END -->
-    Update: Everything else
-
-merged_content = replace_non_user_sections(existing, new)
-```
-
-**Strategy 2: Side-by-side (if conflicts)**
-```
-IF substantial differences AND no markers:
-    AskUserQuestion: "Merge or replace?"
-    Options:
-    - Merge (preserve existing + add new)
-    - Replace (use new, backup old)
-    - Manual (show diff, I'll merge)
-```
-
-**Step 5.4: Create backup**
+**Step 5.2: Preserve user-authored content**
 
 ```
-IF updating existing file:
-    timestamp = current_timestamp
-    backup_path = "{file}.backup-{timestamp}"
+FOR each target_file:
+    content = Read(target_file)
 
-    Bash(command="cp {file} {backup_path}")
-
-    Display: "Backup created: {backup_path}"
+    # User-authored sections are preserved — they exist outside module markers
+    # Only content BETWEEN <!-- SECTION: {module_name} START/END --> is replaced
+    # Content outside all markers is never touched
 ```
 
-**Step 5.5: Add changelog entry**
+**Step 5.3: Section insertion**
 
+```
+# Handled by Phase 4 in SKILL.md using the section insertion map
+# See post-generation-workflow.md Section 3 for create/update logic
+```
+
+**Step 5.4: Changelog entry**
+
+**For module-level documentation (--type=all or --type=module):**
+See `references/post-generation-workflow.md` Section 5 for CHANGELOG update with idempotency guards and per-story deduplication.
+
+**For single-doc updates:**
 ```
 IF CHANGELOG.md exists:
     entry = "- {date}: Updated {section} for STORY-{id}"
@@ -336,9 +319,9 @@ Edit story file to add section (or update existing):
 
 ## Generated Documentation
 
-- **README.md**: {path} (generated {timestamp})
-- **Developer Guide**: {path} (generated {timestamp})
-- **API Documentation**: {path} (generated {timestamp})
+- **API section**: docs/api/API.md#{module_anchor} (updated {timestamp})
+- **Architecture section**: docs/architecture/ARCHITECTURE.md#{module_anchor} (updated {timestamp})
+- **Developer Guide section**: docs/guides/DEVELOPER-GUIDE.md#{module_anchor} (updated {timestamp})
 - **Coverage**: {coverage}%
 - **Last Generated**: {timestamp}
 
@@ -346,7 +329,7 @@ Documentation validates:
 ✅ All acceptance criteria covered in docs
 ✅ API endpoints documented
 ✅ Configuration explained
-✅ Troubleshooting guide includes edge cases
+✅ Troubleshooting guide includes edge cases (problem-first headings)
 ```
 
 ---
@@ -413,15 +396,12 @@ Edit story file:
    - User story: "As a user, I want to see task list..."
    - AC1: "Given tasks exist, When I view list, Then see all tasks"
    - Tech spec: "GET /api/tasks endpoint returns Task[]"
-3. Load readme-template.md
-4. Populate variables:
-   - {{project_name}} = "TaskManager"
-   - {{feature_list}} = "• View task list\n• Filter tasks\n• Sort tasks"
-   - {{api_endpoints}} = "GET /api/tasks - List all tasks"
-5. Generate README.md
-6. Write to project root
-7. Update STORY-042 with documentation reference
-8. Display: "✅ README.md generated (1,240 words, 85% coverage)"
+3. Read existing docs/api/API.md
+4. Generate API section for task-manager module (documentation-writer)
+5. Insert section into docs/api/API.md using `<!-- SECTION: task-manager START/END -->` markers
+6. Repeat for architecture, developer-guide, troubleshooting (skip roadmap if nothing to say)
+7. Update README.md module blurb, CHANGELOG.md, story Change Log
+8. Display: "✅ Updated 4 sections in framework docs (85% coverage)"
 
 ---
 

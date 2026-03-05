@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Documentation: Coaching Entrepreneur — Emotional State Tracking (STORY-468)**
+  - Updated API section in docs/api/API.md (session log schema, tone mapping, business rules BR-004/BR-005)
+  - Updated architecture section in docs/architecture/ARCHITECTURE.md (data flow, check-in flow diagram, design decisions)
+  - Updated developer guide section in docs/guides/DEVELOPER-GUIDE.md (session log schema, extension points, STORY-468 tests)
+  - Added troubleshooting entries 21-24 in docs/guides/TROUBLESHOOTING.md (session log, tone adaptation, override, enum validation)
+  - Added roadmap section in docs/guides/ROADMAP.md (3 feature items)
+  - Updated README.md module blurb with new doc links
+
+- **Documentation: Coaching Entrepreneur (STORY-467)**
+  - API section in docs/api/API.md (skill invocation, subagent contract, persona triggers, profile integration)
+  - Architecture section in docs/architecture/ARCHITECTURE.md (data flow, persona architecture, design decisions)
+  - Developer guide section in docs/guides/DEVELOPER-GUIDE.md (file layout, extension points, testing)
+  - Module blurb updated in README.md
+
+- **Updated Module Documentation: Assessing Entrepreneur (STORY-466)**
+  - Merged adaptive profile generation, /assess-me command, recalibration support, and business rules into all 6 module docs
+  - README updated with /assess-me quick start and recalibration section (docs/assessing-entrepreneur-README.md)
+  - API documentation updated with command interface, recalibration contract, and business rules (docs/api/assessing-entrepreneur-API.md)
+  - Architecture documentation updated with command entry point and recalibration data flow (docs/architecture/assessing-entrepreneur-ARCHITECTURE.md)
+  - Developer guide updated with assess-me.md component, business rules, and STORY-466 tests (docs/guides/assessing-entrepreneur-DEVELOPER-GUIDE.md)
+  - Troubleshooting guide updated with 5 new diagnostic scenarios (docs/guides/assessing-entrepreneur-TROUBLESHOOTING.md)
+  - Roadmap updated with STORY-466 delivered features and revised short-term items (docs/guides/assessing-entrepreneur-ROADMAP.md)
+
+- **Module Documentation: Assessing Entrepreneur (STORY-465)**
+  - README with overview, quick start, and output schema (docs/assessing-entrepreneur-README.md)
+  - API documentation with skill invocation, questionnaire interface, and profile schemas (docs/api/assessing-entrepreneur-API.md)
+  - Architecture documentation with Mermaid diagrams for component, data flow, sequence, and calibration mapping (docs/architecture/assessing-entrepreneur-ARCHITECTURE.md)
+  - Developer guide with extension points and testing reference (docs/guides/assessing-entrepreneur-DEVELOPER-GUIDE.md)
+  - Troubleshooting guide with 8 diagnostic scenarios (docs/guides/assessing-entrepreneur-TROUBLESHOOTING.md)
+  - Roadmap with short/medium/long-term enhancement plans (docs/guides/assessing-entrepreneur-ROADMAP.md)
+  - Module documentation blurb added to root README.md with links to all 6 docs
+
 ## [1.0.0] - 2026-03-03
 
 ### Added

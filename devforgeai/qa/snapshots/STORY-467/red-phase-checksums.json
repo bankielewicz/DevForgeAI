@@ -1,0 +1,27 @@
+{
+  "story_id": "STORY-467",
+  "timestamp": "2026-03-04T21:50:36Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-467/test_ac1_coaching_skill_structure.py",
+      "sha256": "a2238f0997ae45e42a183350a744369b7ceffefc5b98855804902f62384b2bd9",
+      "size_bytes": 4263
+    },
+    {
+      "path": "tests/STORY-467/test_ac2_persona_definitions.py",
+      "sha256": "e57fdc13018db7dbec4e40b074683b1a70ef5864b60938162730cad53a17bdeb",
+      "size_bytes": 4693
+    },
+    {
+      "path": "tests/STORY-467/test_ac3_business_coach_subagent.py",
+      "sha256": "59d1f8dbcc3bb8f6b58062f69f995b77c19261a54eca8ccf4098f173fdc6a7cc",
+      "size_bytes": 5774
+    },
+    {
+      "path": "tests/STORY-467/test_ac4_profile_reading.py",
+      "sha256": "13af39a42d1c16679400f0cf7885caaa2facff5f8b55ec86bbe8039511d76425",
+      "size_bytes": 4136
+    }
+  ]
+}

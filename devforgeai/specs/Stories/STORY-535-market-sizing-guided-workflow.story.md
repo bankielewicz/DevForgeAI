@@ -4,7 +4,7 @@ title: Market Sizing Guided Workflow
 type: feature
 epic: EPIC-074
 sprint: Sprint-24
-status: Ready for Dev
+status: Dev Complete
 points: 3
 depends_on: []
 priority: High
@@ -441,39 +441,39 @@ technical_limitations:
 
 ### AC#1: TAM/SAM/SOM Output Structure
 
-- [ ] Output file contains ## TAM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
-- [ ] Output file contains ## SAM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
-- [ ] Output file contains ## SOM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
-- [ ] Each tier has methodology notes - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
-- [ ] Each tier has cited data sources - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
-- [ ] Each tier has confidence level (High/Medium/Low) - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Output file contains ## TAM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Output file contains ## SAM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Output file contains ## SOM section with dollar value - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Each tier has methodology notes - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Each tier has cited data sources - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
+- [x] Each tier has confidence level (High/Medium/Low) - **Phase:** 2 - **Evidence:** tests/STORY-535/test_ac1_market_sizing_output.py
 
 ### AC#2: Internet-Sleuth Integration
 
-- [ ] internet-sleuth subagent is invoked during workflow - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
-- [ ] At least 2 external data points in output - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
-- [ ] Source attribution for external data - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
+- [x] internet-sleuth subagent is invoked during workflow - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
+- [x] At least 2 external data points in output - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
+- [x] Source attribution for external data - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac2_internet_sleuth_integration.py
 
 ### AC#3: Adaptive Question Depth
 
-- [ ] Beginner receives explanatory context - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
-- [ ] Intermediate receives standard prompts - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
-- [ ] Advanced receives abbreviated prompts - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
+- [x] Beginner receives explanatory context - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
+- [x] Intermediate receives standard prompts - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
+- [x] Advanced receives abbreviated prompts - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac3_adaptive_questions.py
 
 ### AC#4: Progressive Disclosure via AskUserQuestion
 
-- [ ] All user inputs use AskUserQuestion - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac4_progressive_disclosure.py
-- [ ] Questions presented sequentially - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac4_progressive_disclosure.py
+- [x] All user inputs use AskUserQuestion - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac4_progressive_disclosure.py
+- [x] Questions presented sequentially - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac4_progressive_disclosure.py
 
 ### AC#5: Skill File Structure Compliance
 
-- [ ] SKILL.md under 1,000 lines - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
-- [ ] references/market-sizing-methodology.md exists - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
-- [ ] references/fermi-estimation.md exists - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
+- [x] SKILL.md under 1,000 lines - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
+- [x] references/market-sizing-methodology.md exists - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
+- [x] references/fermi-estimation.md exists - **Phase:** 3 - **Evidence:** tests/STORY-535/test_ac5_skill_structure.py
 
 ---
 
-**Checklist Progress:** 0/18 items complete (0%)
+**Checklist Progress:** 18/18 items complete (100%)
 
 ---
 
@@ -489,37 +489,85 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Implementation Notes
 
-*To be filled during implementation*
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2026-03-04
+**Branch:** main
+
+- [x] Create `src/claude/skills/researching-market/SKILL.md` with market sizing workflow - Completed: Created 323-line SKILL.md with 9-step guided workflow
+- [x] Create `src/claude/skills/researching-market/references/market-sizing-methodology.md` - Completed: Created 130-line methodology reference covering top-down, bottom-up, and Fermi approaches
+- [x] Create `src/claude/skills/researching-market/references/fermi-estimation.md` - Completed: Created 114-line Fermi estimation guide with 5-step process
+- [x] Implement TAM/SAM/SOM calculation with Fermi estimation methodology - Completed: Output template with TAM/SAM/SOM sections, dollar values, methodology, confidence, sources
+- [x] Implement internet-sleuth subagent invocation for market data - Completed: Task() invocation with min 2 data points, max 3 calls, Fermi fallback
+- [x] Implement adaptive question depth based on user profile - Completed: Reads business_knowledge from user-profile.md, 3 levels with beginner default
+- [x] Implement output file generation to `devforgeai/specs/business/market-research/market-sizing.md` - Completed: Write-on-completion pattern specified in workflow
+- [x] All 5 acceptance criteria have passing tests - Completed: 54/54 tests passing across 5 test files
+- [x] Edge cases covered (missing profile, no internet data, pre-existing figures, existing output, broad/narrow market) - Completed: All edge cases documented with fallback behavior
+- [x] Data validation enforced (TAM>=SAM>=SOM>0, source attribution, confidence levels) - Completed: BR-001 ordering invariant, BR-002 source attribution, confidence levels
+- [x] NFRs met (120s processing, 3 max internet-sleuth calls, Fermi fallback) - Completed: NFR-002 max 3 calls, NFR-003 Fermi fallback for reliability
+- [x] SKILL.md under 1,000 lines - Completed: 323 lines (well under 1,000 limit)
+- [x] Unit tests for market sizing calculation logic - Completed: 15 tests in test_ac1_market_sizing_output.py
+- [x] Unit tests for adaptive question depth - Completed: 10 tests in test_ac3_adaptive_questions.py
+- [x] Unit tests for output file structure validation - Completed: 14 tests in test_ac5_skill_structure.py
+- [x] Integration tests for internet-sleuth workflow - Completed: 8 tests in test_ac2_internet_sleuth_integration.py
+- [x] Integration tests for end-to-end workflow - Completed: 7 tests in test_ac4_progressive_disclosure.py
+- [x] SKILL.md contains YAML frontmatter and usage instructions - Completed: YAML frontmatter with name, description, tools
+- [x] Reference files contain methodology documentation - Completed: Two reference files with substantive content
+- [x] Edge case handling documented in skill - Completed: Error handling table in SKILL.md covers all edge cases
+
+### TDD Workflow Summary
+
+| Phase | Status | Details |
+|-------|--------|---------|
+| 01 Pre-Flight | ✓ Complete | Git validated, 6 context files loaded, tech-stack detected |
+| 02 Red | ✓ Complete | 54 failing tests generated across 5 files |
+| 03 Green | ✓ Complete | 3 skill files created, 54/54 tests passing |
+| 04 Refactor | ✓ Complete | Code review completed, no critical issues |
+| 04.5 AC Verify | ✓ Complete | 5/5 ACs verified with HIGH confidence |
+| 05 Integration | ✓ Complete | 54/54 integration tests passing |
+| 05.5 AC Verify | ✓ Complete | 5/5 ACs verified post-integration |
+
+### Files Created/Modified
+
+| File | Action | Lines |
+|------|--------|-------|
+| src/claude/skills/researching-market/SKILL.md | Created | 323 |
+| src/claude/skills/researching-market/references/market-sizing-methodology.md | Created | 130 |
+| src/claude/skills/researching-market/references/fermi-estimation.md | Created | 114 |
+| tests/STORY-535/test_ac1_market_sizing_output.py | Created | ~173 |
+| tests/STORY-535/test_ac2_internet_sleuth_integration.py | Created | ~96 |
+| tests/STORY-535/test_ac3_adaptive_questions.py | Created | ~109 |
+| tests/STORY-535/test_ac4_progressive_disclosure.py | Created | ~82 |
+| tests/STORY-535/test_ac5_skill_structure.py | Created | ~157 |
 
 ## Definition of Done
 
 ### Implementation
-- [ ] Create `src/claude/skills/researching-market/SKILL.md` with market sizing workflow
-- [ ] Create `src/claude/skills/researching-market/references/market-sizing-methodology.md`
-- [ ] Create `src/claude/skills/researching-market/references/fermi-estimation.md`
-- [ ] Implement TAM/SAM/SOM calculation with Fermi estimation methodology
-- [ ] Implement internet-sleuth subagent invocation for market data
-- [ ] Implement adaptive question depth based on user profile
-- [ ] Implement output file generation to `devforgeai/specs/business/market-research/market-sizing.md`
+- [x] Create `src/claude/skills/researching-market/SKILL.md` with market sizing workflow
+- [x] Create `src/claude/skills/researching-market/references/market-sizing-methodology.md`
+- [x] Create `src/claude/skills/researching-market/references/fermi-estimation.md`
+- [x] Implement TAM/SAM/SOM calculation with Fermi estimation methodology
+- [x] Implement internet-sleuth subagent invocation for market data
+- [x] Implement adaptive question depth based on user profile
+- [x] Implement output file generation to `devforgeai/specs/business/market-research/market-sizing.md`
 
 ### Quality
-- [ ] All 5 acceptance criteria have passing tests
-- [ ] Edge cases covered (missing profile, no internet data, pre-existing figures, existing output, broad/narrow market)
-- [ ] Data validation enforced (TAM>=SAM>=SOM>0, source attribution, confidence levels)
-- [ ] NFRs met (120s processing, 3 max internet-sleuth calls, Fermi fallback)
-- [ ] SKILL.md under 1,000 lines
+- [x] All 5 acceptance criteria have passing tests
+- [x] Edge cases covered (missing profile, no internet data, pre-existing figures, existing output, broad/narrow market)
+- [x] Data validation enforced (TAM>=SAM>=SOM>0, source attribution, confidence levels)
+- [x] NFRs met (120s processing, 3 max internet-sleuth calls, Fermi fallback)
+- [x] SKILL.md under 1,000 lines
 
 ### Testing
-- [ ] Unit tests for market sizing calculation logic
-- [ ] Unit tests for adaptive question depth
-- [ ] Unit tests for output file structure validation
-- [ ] Integration tests for internet-sleuth workflow
-- [ ] Integration tests for end-to-end workflow
+- [x] Unit tests for market sizing calculation logic
+- [x] Unit tests for adaptive question depth
+- [x] Unit tests for output file structure validation
+- [x] Integration tests for internet-sleuth workflow
+- [x] Integration tests for end-to-end workflow
 
 ### Documentation
-- [ ] SKILL.md contains YAML frontmatter and usage instructions
-- [ ] Reference files contain methodology documentation
-- [ ] Edge case handling documented in skill
+- [x] SKILL.md contains YAML frontmatter and usage instructions
+- [x] Reference files contain methodology documentation
+- [x] Edge case handling documented in skill
 
 ---
 
@@ -537,7 +585,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Change Log
 
-**Current Status:** Ready for Dev
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

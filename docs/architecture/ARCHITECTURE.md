@@ -401,6 +401,317 @@ DevForgeAI2/
 
 ---
 
+<!-- SECTION: assessing-entrepreneur START -->
+## Assessing Entrepreneur
+
+The assessing-entrepreneur skill guides solo developers and aspiring entrepreneurs through a 6-dimension self-assessment questionnaire. It produces a structured `user-profile.yaml` consumed by downstream coaching and planning workflows.
+
+**Story:** STORY-465 (Guided Self-Assessment Skill)
+**Epic:** EPIC-072
+
+### Components
+
+| Component | Type | Path | Lines | Constraints |
+|-----------|------|------|-------|-------------|
+| `SKILL.md` | Skill (inline expansion) | `src/claude/skills/assessing-entrepreneur/SKILL.md` | ~196 | < 1000 lines |
+| `entrepreneur-assessor.md` | Subagent | `src/claude/agents/entrepreneur-assessor.md` | ~128 | < 500 lines |
+| `work-style-questionnaire.md` | Reference | `src/claude/skills/assessing-entrepreneur/references/` | ~270 | Loaded Phases 2-7 |
+| `adhd-adaptation-framework.md` | Reference | `src/claude/skills/assessing-entrepreneur/references/` | ~95 | Loaded Phases 8-9 (conditional) |
+| `confidence-assessment-workflow.md` | Reference | `src/claude/skills/assessing-entrepreneur/references/` | ~121 | Loaded Phases 8-9 (conditional) |
+| `plan-calibration-engine.md` | Reference | `src/claude/skills/assessing-entrepreneur/references/` | ~132 | Loaded Phases 8-9 |
+
+(Source: devforgeai/specs/Stories/archive/STORY-465-guided-self-assessment-skill.story.md, lines 393-406)
+
+### Data Flow
+
+```mermaid
+flowchart LR
+    A["/assess-me Command"] --> B["Phase 1: Consent Disclaimer"]
+    B --> C["Phases 2-7: AskUserQuestion\n14 questions, 6 dimensions"]
+    C --> D["entrepreneur-assessor\nSubagent via Task()"]
+    D --> E["5-Step Normalization\nValidate - Normalize - Generate - Cross-Ref - Output"]
+    E --> F["devforgeai/specs/business/\nuser-profile.yaml"]
+    F --> G["Phase 9: Results Summary"]
+    F --> H["Downstream Consumers\ncoaching-entrepreneur, milestone-generator"]
+```
+
+### Assessment Dimensions
+
+The questionnaire covers 6 dimensions with 14 total questions. All questions use AskUserQuestion with bounded options (2-7 choices per question). No free-text input.
+
+| Dimension | Questions | Option Count | Multi-Select |
+|-----------|-----------|-------------|--------------|
+| Work Style | Q1.1 Daily Structure, Q1.2 Environment, Q1.3 Collaboration | 5, 5, 5 | No |
+| Task Completion | Q2.1 Multi-Step Projects, Q2.2 Interruptions | 5, 5 | No |
+| Motivation | Q3.1 Primary Drivers, Q3.2 Losing Motivation | 6, 6 | Yes |
+| Energy Management | Q4.1 Peak Focus Time, Q4.2 Energy Recovery | 7, 6 | Q4.2: Yes |
+| Previous Attempts | Q5.1 Experience Level, Q5.2 Lessons Learned | 5, 7 | Q5.2: Yes (conditional) |
+| Self-Reported Challenges | Q6.1 Primary Challenges, Q6.2 Support Preferences | 8, 6 | Yes |
+
+(Source: src/claude/skills/assessing-entrepreneur/references/work-style-questionnaire.md, lines 13-263)
+
+### Profile Output Schema
+
+The entrepreneur-assessor subagent writes a 7-dimension adaptive profile to `devforgeai/specs/business/user-profile.yaml`:
+
+```yaml
+adaptive_profile:
+  task_chunk_size: micro | standard | extended     # 5-60 min per task
+  session_length: short | medium | long            # 15-60 min per session
+  check_in_frequency: frequent | moderate | minimal  # every 1-5 tasks
+  progress_visualization: per_task | daily | weekly
+  celebration_intensity: high | medium | low
+  reminder_style: specific | balanced | gentle
+  overwhelm_prevention: strict | moderate | open     # next-3-tasks-only to full-roadmap
+```
+
+(Source: src/claude/skills/assessing-entrepreneur/SKILL.md, lines 159-184)
+
+### Calibration Pipeline
+
+The plan-calibration-engine maps 6 profile signals through a 4-area intermediate calibration to the 7-dimension adaptive profile:
+
+```mermaid
+flowchart LR
+    subgraph "Profile Signals"
+        F[focus_level]
+        C[completion_pattern]
+        M[motivation_drivers]
+        CH[challenge_areas]
+        E[experience_level]
+        W[work_style]
+    end
+
+    subgraph "4-Area Calibration"
+        TG["Task Granularity\nmicro - large"]
+        TB["Timeline Buffer\n1.1x - 2.0x"]
+        CF["Check-in Frequency\ntwice-daily - weekly"]
+        CS["Coaching Style\npeer - adaptive"]
+    end
+
+    subgraph "7-Dimension Output"
+        D1[task_chunk_size]
+        D2[session_length]
+        D3[check_in_frequency]
+        D4[progress_visualization]
+        D5[celebration_intensity]
+        D6[reminder_style]
+        D7[overwhelm_prevention]
+    end
+
+    F --> TG
+    C --> TG
+    C --> TB
+    CH --> TB
+    C --> CF
+    E --> CF
+    E --> CS
+    M --> CS
+
+    TG --> D1
+    TG --> D2
+    CF --> D3
+    TG --> D4
+    M --> D5
+    CS --> D6
+    CH --> D7
+```
+
+Cross-dimension adjustments apply after initial mapping: motivation drops with routine tasks combined with consistency challenges increase check-in frequency; failed previous attempts due to scope reduce task granularity by one level; variable energy patterns add flexibility buffers.
+
+(Source: src/claude/skills/assessing-entrepreneur/references/plan-calibration-engine.md, lines 63-96)
+
+### Subagent: entrepreneur-assessor
+
+| Property | Value |
+|----------|-------|
+| **Tools** | Read, Glob, Grep, AskUserQuestion |
+| **Responsibility** | Response normalization only (no plan generation) |
+| **Input** | Raw responses from 6 dimensions |
+| **Output** | `user-profile.yaml` (sole authorized writer) |
+| **AskUserQuestion usage** | Clarify ambiguous or missing responses only |
+
+The subagent processes responses through 5 steps:
+
+1. **Validate** -- Ensure all 6 dimensions present; request missing via AskUserQuestion
+2. **Normalize** -- Categorical responses to profile tags, multi-select to weighted lists
+3. **Generate** -- Produce YAML profile with dimension-level adaptations
+4. **Cross-reference** -- Identify reinforcing or contradicting patterns across dimensions
+5. **Output** -- Write `user-profile.yaml` and return summary to the skill
+
+(Source: src/claude/agents/entrepreneur-assessor.md, lines 37-109)
+
+### Integration Points
+
+| Direction | Component | Mechanism | Constraint |
+|-----------|-----------|-----------|------------|
+| **Invoked by** | `/assess-me` command | `Skill(command="assessing-entrepreneur")` | Thin orchestrator |
+| **Invoked by** | Business coaching workflows | Direct skill invocation | Optional pre-coaching step |
+| **Writes to** | `devforgeai/specs/business/user-profile.yaml` | entrepreneur-assessor subagent | BR-001: sole writer |
+| **Read by** | coaching-entrepreneur skill | `Read()` -- read-only | Never modifies profile |
+| **Read by** | Plan calibration, milestone generator | `Read()` -- read-only | Downstream consumers |
+
+### Design Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| Progressive disclosure (4 reference files) | Token efficiency; SKILL.md stays at 196 lines, deep content loaded on demand |
+| Subagent for normalization | Single responsibility; SKILL.md orchestrates, entrepreneur-assessor transforms |
+| AskUserQuestion for all input | Bounded options (2-7 per question) eliminate free-text parsing |
+| 7-dimension enum profile | Discrete values consumable by any downstream workflow without parsing |
+| Non-clinical framing | Ethical requirement; skill NEVER diagnoses mental health conditions |
+| Gerund naming (`assessing-entrepreneur`) | Per ADR-017 skill naming convention |
+| Sole writer rule (BR-001) | Prevents race conditions; entrepreneur-assessor is the only writer of `user-profile.yaml` |
+<!-- SECTION: assessing-entrepreneur END -->
+
+<!-- SECTION: coaching-entrepreneur START -->
+## Coaching Entrepreneur
+
+The coaching-entrepreneur skill provides adaptive business coaching through dynamic persona blending. It shifts between Coach mode (empathetic, supportive, celebration-focused) and Consultant mode (structured, deliverable-oriented, framework-driven) based on user emotional state and readiness level. The skill reads user adaptation profiles from STORY-466 to calibrate coaching intensity, task granularity, and communication style. It also reads the session log from STORY-468 to adapt its opening tone based on the user's self-reported emotional state from the previous session.
+
+**Stories:** STORY-467 (Dynamic Persona Blend Engine), STORY-468 (Emotional State Tracking)
+**Epic:** EPIC-072
+**Depends on:** STORY-466 (Adaptive Profile Generation), STORY-467 (Dynamic Persona Blend Engine)
+
+### Components
+
+| Component | Type | Path | Lines | Constraints |
+|-----------|------|------|-------|-------------|
+| `SKILL.md` | Skill (inline expansion) | `src/claude/skills/coaching-entrepreneur/SKILL.md` | target ≤1000 | < 1000 lines |
+| `business-coach.md` | Subagent | `src/claude/agents/business-coach.md` | target ≤500 | < 500 lines, Read/Grep/Glob/AskUserQuestion only |
+
+(Source: devforgeai/specs/Stories/archive/STORY-467-dynamic-persona-blend-engine.story.md, lines 52-100)
+
+### Data Flow
+```mermaid
+flowchart LR
+    A["Coaching Command"] --> B["Phase 1: Init & Profile Loading"]
+    B --> C["business-coach Subagent<br/>via Task()"]
+    C --> D["Persona Detection<br/>Assess user state via AskUserQuestion"]
+    D --> E["Calibration<br/>Apply profile to persona blend"]
+    E --> F["Coaching Delivery<br/>Coach or Consultant mode"]
+    F --> G["User Interaction<br/>AskUserQuestion feedback loop"]
+    B -.->|Read-only| H["devforgeai/specs/business/<br/>user-profile.yaml"]
+```
+
+### Persona Architecture
+
+| Dimension | Coach Mode | Consultant Mode |
+|-----------|-----------|-----------------|
+| **Language** | Empathetic, encouraging, personal | Professional, framework-driven, structured |
+| **Celebration** | Celebrates every win, emphasizes effort | Acknowledges progress, focuses on outputs |
+| **Self-Doubt** | Directly addresses confidence gaps | Reframes as problem-solving opportunities |
+| **Trigger Conditions** | Low energy, early stage, first attempt | High focus, clear direction, experienced |
+
+(Source: devforgeai/specs/Stories/archive/STORY-467-dynamic-persona-blend-engine.story.md, lines 72-75)
+
+### Business Rules
+
+| Rule | Constraint | Enforcement |
+|------|-----------|-------------|
+| **BR-001** | Coach mode uses empathetic language; Consultant mode uses structured language | Both personas defined with explicit language guides in SKILL.md |
+| **BR-002** | Coaching skill reads user-profile.yaml but NEVER writes to it | No Write() calls; read-only Read() only |
+| **BR-003** | Default to Coach mode if profile unavailable | Graceful fallback without profile |
+| **BR-EST-001** | Emotional state is self-reported only — the AI never infers emotional state | AskUserQuestion used for all emotional state collection; no inference logic permitted |
+| **BR-EST-002** | User overrides are respected immediately within the same session and logged for future reference | Override detected via AskUserQuestion response; tone switches without delay; override field written to session-log.yaml |
+
+### Integration Points
+
+| Direction | Component | Mechanism | Constraint |
+|-----------|-----------|-----------|------------|
+| **Invoked by** | Coaching commands | `Skill(command="coaching-entrepreneur")` | Thin orchestrator |
+| **Reads from** | User profile | `Read("devforgeai/specs/business/user-profile.yaml")` | Optional (defaults gracefully) |
+| **Reads from** | Session log | `Read("devforgeai/specs/business/coaching/session-log.yaml")` | Optional; absent on first session |
+| **Writes to** | Session log | `Write("devforgeai/specs/business/coaching/session-log.yaml")` | Appends one entry per completed session |
+| **Uses subagent** | business-coach | `Task(subagent_type="business-coach")` | Isolated coaching context |
+| **Depends on** | STORY-466 profile | Profile creation via `/assess-me` command | Upstream dependency |
+| **Depends on** | STORY-467 persona engine | Dynamic persona blend logic | Upstream dependency |
+
+---
+
+### Emotional State Tracking (STORY-468)
+
+#### Session Log Data Model
+
+**File path:** `devforgeai/specs/business/coaching/session-log.yaml`
+
+```yaml
+sessions:
+  - date: "2026-03-01T10:14:00Z"
+    emotional_state: frustrated
+    override: null
+  - date: "2026-03-03T09:02:00Z"
+    emotional_state: energized
+    override: "Actually feeling tired today, let's keep it light"
+```
+
+| Field | Type | Required | Enum / Notes |
+|-------|------|----------|--------------|
+| `sessions` | Array | Yes | One entry per completed session; chronological order |
+| `sessions[].date` | DateTime | Yes | ISO 8601 UTC timestamp of session start |
+| `sessions[].emotional_state` | String | Yes | `energized` \| `focused` \| `neutral` \| `tired` \| `frustrated` \| `anxious` \| `overwhelmed` |
+| `sessions[].override` | String | No | Verbatim user override text; `null` when no override occurred |
+
+#### Emotional State Check-in Flow
+
+```mermaid
+flowchart TD
+    A["Session Start"] --> B{"session-log.yaml<br/>exists?"}
+    B -- No --> C["First-time user path<br/>No tone adaptation"]
+    B -- Yes --> D["Read last session entry<br/>emotional_state + override"]
+    D --> E["Compose opening tone<br/>based on previous state"]
+    E --> F["AskUserQuestion:<br/>How are you feeling today?"]
+    C --> F
+    F -- State selected --> G["Log emotional_state to current entry<br/>Proceed with adapted tone"]
+    F -- Skipped --> H["Default to neutral<br/>Proceed with neutral tone"]
+    G --> I["Coaching Session"]
+    H --> I
+    I --> J{"User override<br/>detected?"}
+    J -- Yes --> K["Switch tone immediately<br/>Log override field in current entry"]
+    J -- No --> L["Session Completes"]
+    K --> L
+    L --> M["Append session entry<br/>to session-log.yaml"]
+```
+
+#### Tone Adaptation Examples
+
+| Previous `emotional_state` | Opening Tone | Example Opening Line |
+|---------------------------|--------------|----------------------|
+| `energized` | Momentum-building | "You were on fire last time — ready to keep that momentum going?" |
+| `focused` | Continuity | "Last session you were locked in. Let's build on that focus." |
+| `neutral` | Standard | "Welcome back. Where would you like to pick up today?" |
+| `tired` | Lighter, supportive | "Last session you were running low. No pressure today." |
+| `frustrated` | Lighter, empathetic | "Last session felt tough. Let's start somewhere achievable." |
+| `anxious` | Grounding, reassuring | "Things felt uncertain last time. Let's slow down and find solid ground." |
+| `overwhelmed` | Minimal, one thing only | "Last session was a lot. Today we find one thing and only one thing." |
+
+#### Design Decisions (STORY-468)
+
+| Decision | Rationale |
+|----------|-----------|
+| Self-reported state only | AI inference of emotional/mental state raises ethical concerns; explicit reporting preserves user trust |
+| Bounded enum over free text | Seven discrete states produce consistent tone mappings |
+| Default to `neutral` on skip | Graceful degradation; avoids forcing disclosure |
+| Override logged verbatim | Preserves user's exact words for future sessions |
+| File persistence over memory | YAML file survives context window clears and Claude Code restarts (NFR-001) |
+| Append-only session entries | Historical record enables future trend awareness without rewriting past data |
+
+---
+
+### Design Decisions (Skill-Wide)
+
+| Decision | Rationale |
+|----------|-----------|
+| Two distinct personas | Some users need encouragement (Coach); others need structure (Consultant); adaptive blend serves both |
+| Subagent for detection | Business logic isolated from SKILL.md orchestration; single responsibility |
+| Profile read-only in coaching | Assessment skill is sole writer (BR-001); prevents data coordination bugs |
+| Graceful fallback if profile missing | New users can start coaching before assessment; Coach mode is safer default |
+| AskUserQuestion for all input | Bounded options eliminate free-text parsing; aligns with assessing-entrepreneur pattern |
+| Session log written by coaching skill | Assessment skill owns user-profile.yaml; coaching skill owns session-log.yaml — clear write ownership per file |
+<!-- SECTION: coaching-entrepreneur END -->
+
+---
+
 ## References
 
 - **Tech Stack**: `devforgeai/specs/context/tech-stack.md`

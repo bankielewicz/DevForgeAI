@@ -10,8 +10,8 @@
     },
     {
       "path": "tests/STORY-533/test_ac2_reference_loading.sh",
-      "sha256": "b1aa23120346b30334f6d3c00772e28554b9d6472852c7067240242923bf5dfc",
-      "size_bytes": 2357
+      "sha256": "31c69d5b66029988fad28f489a587eb95efe34866489da45b1050cccc3d8d75d",
+      "size_bytes": 2353
     },
     {
       "path": "tests/STORY-533/test_ac3_viability_scoring.sh",

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Test: AC#5 - Partial Completion and Resume
 # Story: STORY-531
-# Generated: 2026-03-03
+# Generated: 2026-03-04
 
 set -uo pipefail
 
@@ -25,17 +25,47 @@ run_test() {
 
 echo "=== AC#5: Partial Completion and Resume ==="
 
-# Test 1: Reference file exists
-test -f "$REF_FILE"; run_test "Reference file exists" $?
+# Test 1: Resume section exists with correct heading
+grep -q "^## 5\. Partial Completion and Resume$" "$REF_FILE" 2>/dev/null
+run_test "Section '## 5. Partial Completion and Resume' exists" $?
 
-# Test 2: Defines resume from incomplete blocks
-grep -qiE "(resume|incomplete|partial.*completion|continue)" "$REF_FILE" 2>/dev/null; run_test "Defines resume from incomplete blocks" $?
+# Extract resume section (between ## 5 and ## 6 or ---)
+RESUME_SECTION=$(sed -n '/^## 5\. Partial Completion and Resume$/,/^## [0-9]/p' "$REF_FILE" | head -n -1)
 
-# Test 3: Partial blocks preserved on re-invocation
-grep -qiE "(preserv|retain|keep|maintain).*partial" "$REF_FILE" 2>/dev/null; run_test "Partial blocks preserved on re-invocation" $?
+# Test 2: Detection subsection defines complete vs incomplete identification
+echo "$RESUME_SECTION" | grep -q "^### Detection$"
+run_test "Resume section has ### Detection subsection" $?
 
-# Test 4: Identifies which blocks are complete vs incomplete
-grep -qiE "(complete|incomplete|filled|empty|missing).*block" "$REF_FILE" 2>/dev/null; run_test "Identifies complete vs incomplete blocks" $?
+echo "$RESUME_SECTION" | grep -qi "complete vs incomplete\|which are complete"
+run_test "Detection defines complete vs incomplete block identification" $?
+
+echo "$RESUME_SECTION" | grep -qi "TODO\|empty\|missing"
+run_test "Detection identifies incomplete markers (TODO/empty/missing)" $?
+
+# Test 3: Resume offers interaction with specific options (shown in code block)
+echo "$RESUME_SECTION" | grep -qi "Continue from first incomplete block"
+run_test "Resume offers 'Continue from first incomplete block' option" $?
+
+echo "$RESUME_SECTION" | grep -qi "Review all blocks"
+run_test "Resume offers 'Review all blocks' option" $?
+
+echo "$RESUME_SECTION" | grep -qi "Start fresh"
+run_test "Resume offers 'Start fresh' option" $?
+
+# Test 4: Preservation Rules subsection explicitly states completed blocks never overwritten
+echo "$RESUME_SECTION" | grep -q "^### Preservation Rules$"
+run_test "Resume section has ### Preservation Rules subsection" $?
+
+PRESERVATION=$(echo "$RESUME_SECTION" | sed -n '/^### Preservation Rules$/,/^### \|^---$/p')
+echo "$PRESERVATION" | grep -qi "completed blocks are never overwritten"
+run_test "Preservation rules: completed blocks are never overwritten during resume" $?
+
+# Test 5: Incremental save pattern documented for interruption safety
+echo "$RESUME_SECTION" | grep -qi "written after each block"
+run_test "Resume documents write-per-block for interruption safety" $?
+
+echo "$RESUME_SECTION" | grep -qi "minimize data loss"
+run_test "Resume documents minimize data loss rationale" $?
 
 echo ""
 echo "Results: $PASSED passed, $FAILED failed"
