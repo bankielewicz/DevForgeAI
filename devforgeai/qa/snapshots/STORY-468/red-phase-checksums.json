@@ -1,0 +1,22 @@
+{
+  "story_id": "STORY-468",
+  "timestamp": "2026-03-05T00:26:26Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-468/test_ac1_session_log.py",
+      "sha256": "b5e605dd81ad5f8a7076822740d22128b20d2ce83baf3eb22020420405780179",
+      "size_bytes": 2587
+    },
+    {
+      "path": "tests/STORY-468/test_ac2_tone_adaptation.py",
+      "sha256": "595acbcd3da2341b30938bc17939613dbc72cc44515f5898496239c815b30999",
+      "size_bytes": 2015
+    },
+    {
+      "path": "tests/STORY-468/test_ac3_user_override.py",
+      "sha256": "0f35bef411579f9b73bea966d888f9077f9d10491bb2fb0babc64f148ae81ea9",
+      "size_bytes": 1871
+    }
+  ]
+}
