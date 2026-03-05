@@ -1,6 +1,7 @@
 # Temporary directories
 tmp/
 .treelint/
+.playwright-mcp/
 
 # Backups (generated during development)
 .backups/
