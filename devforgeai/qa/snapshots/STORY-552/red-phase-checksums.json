@@ -1,0 +1,12 @@
+{
+  "story_id": "STORY-552",
+  "phase": "02-red",
+  "test_files": {
+    "conftest.py": "bf9230d4267d658c191af59c77055b77dc6dd512a1663c3d33b996a09377f280",
+    "test_ac1_decision_tree_ranked_shortlist.py": "8a5c3da8a24be5c602efba3bbe46617178bafe87f941099be3f5141dd44772b1",
+    "test_ac2_equity_funding_path.py": "5d82b38276476e1ef4c20501e0d8c4995599ed0498f7b7b8ec4fa0f6a685e48a",
+    "test_ac3_bootstrapping_grants_path.py": "332b5e9315083c167e6b0f580b048e9d746f8813751ed74abca6a2ab9d5b3ec5",
+    "test_ac4_output_artifact.py": "91d603b88ce64abfa42d27e5e898ba34e41c053b60ddb1002cffde1fa1ec24d9",
+    "test_ac5_boundary_ambiguous_results.py": "ca8ae690ac04726c456a9e74cab6a7189e776fd141520213dd093e9354f0e1c1"
+  }
+}
