@@ -94,6 +94,7 @@ devforgeai-feedback-export-*.zip
 
 # Personal documentation (not for version control)
 docs/git/
+docs/NPM-Publish.md
 
 # DevForgeAI src/ directory - track source, exclude generated
 src/devforgeai/qa/coverage/*
