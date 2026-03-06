@@ -1,6 +1,6 @@
 {
   "name": "devforgeai",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "DevForgeAI is a spec-driven development framework designed to enable AI-assisted software development with zero technical debt through automated validation, architectural constraints enforcement, and test-driven development workflows.",
   "keywords": [
     "ai",
@@ -16,6 +16,22 @@
   ],
   "author": "DevForgeAI Maintainers",
   "license": "MIT",
+  "files": [
+    "bin/devforgeai.js",
+    "lib/",
+    "src/cli/",
+    "src/claude/agents/",
+    "src/claude/commands/",
+    "src/claude/hooks/",
+    "src/claude/memory/",
+    "src/claude/plans/",
+    "src/claude/rules/",
+    "src/claude/settings.json",
+    "src/claude/skills/",
+    "src/scripts/*.sh",
+    "src/scripts/*.json",
+    "devforgeai/specs/context/"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/bankielewicz/DevForgeAI"

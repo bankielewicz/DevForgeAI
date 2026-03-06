@@ -4,7 +4,7 @@ title: Pricing Strategy Framework
 type: feature
 epic: EPIC-077
 sprint: Sprint-27
-status: Dev Complete
+status: QA Approved
 points: 3
 depends_on: []
 priority: Medium
@@ -538,7 +538,7 @@ technical_limitations:
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

@@ -1,72 +1,93 @@
 ---
 name: advising-legal
-description: "Use when providing educational legal structure guidance for entrepreneurs. Covers business entity selection, liability considerations, and professional referral triggers. Educational only - not legal advice."
+description: "Use when providing educational legal structure guidance for entrepreneurs. Covers business entity selection, liability considerations, IP protection, and professional referral triggers. Educational only - not legal advice."
 ---
 
 # Advising Legal Skill
 
-Educational legal guidance for entrepreneurs navigating business structure decisions in the terminal.
+Educational legal guidance for entrepreneurs navigating business structure and IP protection decisions.
+
+**This skill provides informational purposes only and is not legal advice.**
 
 ---
 
-## Core Workflow
+## Disclaimer Enforcement
 
-### Step 1: Read User Profile at Session Start
+Every output produced by this skill MUST include a disclaimer header within the first 10 lines. The disclaimer is automatically prepended before any substantive content, including in standalone mode. Every output file and all output sections include the disclaimer.
 
-At the beginning of each session, read the user profile file to adapt explanation depth based on experience level:
+Use the canonical disclaimer template file at `references/disclaimer-template.md`. If the disclaimer template is missing, HALT immediately.
+
+---
+
+## Step 1: Read User Profile at Session Start
+
+Read the user profile file to adjust explanation depth based on experience level:
 
 ```
 Read(file_path="user-profile.yaml")
 ```
 
-- The user profile is **read-only** - this skill must **not write to** or **mutate** user profile data
-- The user profile is **profile optional** - if missing, apply graceful fallback with **no error** produced
-- Extract the experience level dimension from the user profile path to determine verbosity
+- The user profile is **read-only** - this skill does not modify the profile file and must not write to or mutate user profile data
+- The user profile is **profile optional** - if absent or missing, apply graceful fallback with **no error** produced
 
-### Step 2: Determine Experience Level and Adjust Verbosity
+## Step 2: Determine Experience Level and Adjust Explanation Depth
 
-This skill supports three experience levels for adaptive pacing. The verbosity and explanation depth adjust based on the detected level:
+Adjust explanation depth to match the detected experience level:
 
 | Experience Level | Verbosity | Behavior |
 |-----------------|-----------|----------|
-| **beginner** | High verbosity - full explanations with definitions of legal terms, examples for every concept, and step-by-step walkthroughs | Adjust pacing to be slower and more thorough |
-| **intermediate** | Moderate verbosity - concise explanations assuming basic business knowledge, focused on decision-relevant details | Standard detail level for most users |
-| **advanced** | Low verbosity - brief summaries, direct recommendations, skip foundational explanations | Adjust pacing to be faster and more direct |
+| **beginner** | High verbosity - full explanations with definitions, examples, step-by-step walkthroughs | Adjust pacing to be slower and more thorough |
+| **intermediate** | Moderate verbosity - concise explanations assuming basic knowledge | Standard detail level for most users |
+| **advanced** | Low verbosity - brief summaries, direct recommendations | Adjust pacing to be faster and more direct |
 
-**Fallback behavior:** When user profile is absent or experience level is not specified, **fallback to intermediate** as the default experience level. This ensures a silent fallback with no error message displayed to the user.
+**Fallback behavior:** When user profile is absent or experience level is not specified, **fallback to intermediate** as the default experience level with silent fallback.
 
-### Step 3: Load Business Structure Decision Tree
+## Step 3: Detect Mode (Standalone vs Project-Anchored)
 
-Load the canonical reference for entity selection guidance:
+Determine operating mode by checking for project context:
+
+```
+Read(file_path="devforgeai/specs/context/source-tree.md")
+```
+
+**If source-tree.md is present** -> **Project-anchored mode**: Read context files in read-only mode and enrich guidance with project-specific details. Cite source context file and line range in recommendations.
+
+```
+Read(file_path="devforgeai/specs/context/tech-stack.md")
+Read(file_path="devforgeai/specs/context/architecture-constraints.md")
+```
+
+**If source-tree.md is absent** -> **Standalone mode**: Complete the full guided legal assessment without project context. Gracefully omit project-specific references and inform the user that project-anchored enrichment is unavailable. The skill operates without a project directory and handles context missing scenarios by continuing with general guidance only.
+
+## Step 4: Load Reference for Requested Topic
+
+Load the appropriate reference file based on the workflow order declared below. Each legal guidance phase is sourced from a separate reference file via progressive loading.
+
+**Business Structure Guidance:**
 
 ```
 Read(file_path=".claude/skills/advising-legal/references/business-structure-guide.md")
 ```
 
-This reference file is the sole authoritative source for entity descriptions, decision factors, and professional referral triggers.
+Walk the user through decision factors: revenue expectations, partners/co-founders, liability exposure, tax preferences.
 
-### Step 4: Guide User Through Decision Factors
+**IP Protection Guidance:**
 
-Walk the user through the sequential decision factors defined in the business structure guide:
+```
+Read(file_path=".claude/skills/advising-legal/references/ip-protection-checklist.md")
+```
 
-1. Revenue expectations
-2. Partners/co-founders
-3. Liability exposure
-4. Tax preferences
+Walk the user through IP protection considerations for software projects.
 
-Present each factor sequentially, using adaptive pacing from Step 2.
+## Step 5: Generate Recommendation Output
 
-### Step 5: Generate Recommendation Output
+Based on user responses, generate the recommendation artifact.
 
-Based on user responses, generate the recommendation artifact to the output path specified in the business structure guide.
+In project-anchored mode, cite source context file references with line range for project-specific citations.
 
-Include disclaimer header, entity recommendation with rationale, and decision path summary.
+In standalone mode, produce general recommendations without project-specific context.
 
----
-
-## Output
-
-The skill produces a business structure recommendation artifact. See `references/business-structure-guide.md` for output format, disclaimer template, and artifact path specification.
+All output MUST automatically prepend the disclaimer header from the canonical disclaimer template before any substantive content.
 
 ---
 
@@ -75,6 +96,8 @@ The skill produces a business structure recommendation artifact. See `references
 | Reference | Path | Purpose |
 |-----------|------|---------|
 | Business Structure Guide | `references/business-structure-guide.md` | Decision tree, entity descriptions, referral triggers |
+| IP Protection Checklist | `references/ip-protection-checklist.md` | Software IP protection considerations |
+| Disclaimer Template | `references/disclaimer-template.md` | Canonical disclaimer template file for all output |
 
 ---
 
@@ -84,3 +107,5 @@ The skill produces a business structure recommendation artifact. See `references
 - All recommendations use "consider" language, never "you should" or "you must"
 - Professional referral triggers halt the branch when complexity exceeds educational scope
 - User profile access is strictly read-only with no mutation permitted
+- Context files are read-only - this skill must never Write or Edit context files
+- Disclaimer enforcement is non-negotiable - missing template means HALT

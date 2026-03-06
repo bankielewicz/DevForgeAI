@@ -37,8 +37,7 @@
       "Bash(git branch -D*)"
     ],
     "deny": [
-      "Bash(rm -rf /)",
-      "Bash(npx claude-flow*)"
+      "Bash(rm -rf /)"
     ]
   },
   "includeCoAuthoredBy": false,

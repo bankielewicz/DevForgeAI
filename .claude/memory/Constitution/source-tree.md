@@ -2,7 +2,7 @@
 
 **Status**: LOCKED
 **Last Updated**: 2026-03-04
-**Version**: 5.5 (Added: planning-business skill — ADR-034)
+**Version**: 5.6 (Added: positioning-strategy.md reference — ADR-035)
 
 ## CRITICAL RULE: Framework Organization
 

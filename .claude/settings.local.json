@@ -172,7 +172,12 @@
       "Bash(rm:*)",
       "Bash(.venv/bin/devforgeai-validate phase-init:*)",
       "Read(//home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036/skills/skill-creator/scripts/**)",
-      "Read(//home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036/skills/skill-creator/eval-viewer/**)"
+      "Read(//home/bryan/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036/skills/skill-creator/eval-viewer/**)",
+      "Bash(explorer.exe:*)",
+      "Bash(git filter-branch:*)",
+      "Bash(icacls C:\\\\Projects\\\\DevForgeAI2\\\\src\\\\tests:*)",
+      "Bash(npm config:*)",
+      "Bash(npm:*)"
     ],
     "deny": [],
     "ask": []

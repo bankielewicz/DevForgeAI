@@ -16,6 +16,11 @@ bin/act
 src/bin/act
 .venv/
 
+.playwright-mcp/
+README.md.bak
+Copy.txt
+CLAUDE.md
+
 # --- Operational folders (not copied by installer) ---
 .claude/
 /scripts/

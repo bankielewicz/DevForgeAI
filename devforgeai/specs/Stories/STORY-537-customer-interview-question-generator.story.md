@@ -4,7 +4,7 @@ title: Customer Interview Question Generator
 type: feature
 epic: EPIC-074
 sprint: Sprint-24
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-535"]
 priority: High
@@ -491,7 +491,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|
