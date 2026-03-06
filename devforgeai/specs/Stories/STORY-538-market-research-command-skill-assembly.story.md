@@ -4,7 +4,7 @@ title: /market-research Command & Skill Assembly
 type: feature
 epic: EPIC-074
 sprint: Sprint-24
-status: Ready for Dev
+status: Dev Complete
 points: 3
 depends_on: ["STORY-535", "STORY-536", "STORY-537"]
 priority: High
@@ -411,38 +411,38 @@ technical_limitations:
 
 ### AC#1: Command Invokes Skill
 
-- [ ] Valid phase args invoke skill - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac1_command_invocation.py
-- [ ] Invalid args return error - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac1_command_invocation.py
+- [x] Valid phase args invoke skill - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac1_command_invocation.sh
+- [x] Invalid args return error - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac1_command_invocation.sh
 
 ### AC#2: Standalone Phase Execution
 
-- [ ] market-sizing phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.py
-- [ ] competitive-analysis phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.py
-- [ ] customer-interviews phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.py
+- [x] market-sizing phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.sh
+- [x] competitive-analysis phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.sh
+- [x] customer-interviews phase runs alone - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac2_standalone_phase.sh
 
 ### AC#3: Full Workflow Mode
 
-- [ ] All 3 phases execute sequentially - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac3_full_workflow.py
-- [ ] Context passes between phases - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac3_full_workflow.py
+- [x] All 3 phases execute sequentially - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac3_full_workflow.sh
+- [x] Context passes between phases - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac3_full_workflow.sh
 
 ### AC#4: User Profile Integration
 
-- [ ] Profile read adapts pacing - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac4_profile_integration.py
-- [ ] Missing profile uses defaults - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac4_profile_integration.py
+- [x] Profile read adapts pacing - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac4_profile_integration.sh
+- [x] Missing profile uses defaults - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac4_profile_integration.sh
 
 ### AC#5: Command Line Limit
 
-- [ ] Under 500 lines - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac5_command_size.py
-- [ ] No business logic in command - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac5_command_size.py
+- [x] Under 500 lines - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac5_command_size.sh
+- [x] No business logic in command - **Phase:** 2 - **Evidence:** tests/STORY-538/test_ac5_command_size.sh
 
 ### AC#6: Skill Progressive Disclosure
 
-- [ ] SKILL.md under 1,000 lines - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac6_skill_structure.py
-- [ ] At least 3 reference files - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac6_skill_structure.py
+- [x] SKILL.md under 1,000 lines - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac6_skill_structure.sh
+- [x] At least 3 reference files - **Phase:** 3 - **Evidence:** tests/STORY-538/test_ac6_skill_structure.sh
 
 ---
 
-**Checklist Progress:** 0/14 items complete (0%)
+**Checklist Progress:** 14/14 items complete (100%)
 
 ---
 
@@ -455,54 +455,94 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Implementation Notes
 
-*To be filled during implementation*
+**Developer:** DevForgeAI AI Agent
+**Implemented:** 2026-03-05
 
-## Definition of Done
-
-### Implementation
-- [ ] Create `src/claude/commands/market-research.md` with argument validation and skill delegation
-- [ ] Assemble `src/claude/skills/researching-market/SKILL.md` with all three phases
-- [ ] Implement standalone mode (any phase runs independently)
-- [ ] Implement full workflow mode (sequential phase orchestration)
-- [ ] Implement user profile integration with graceful fallback
-- [ ] Ensure progressive disclosure with references/ directory
-
-### Quality
-- [ ] All 6 acceptance criteria have passing tests
-- [ ] Edge cases covered (invalid args, missing profile, no project context, existing outputs)
-- [ ] Data validation enforced (phase enum, file size limits, profile path)
-- [ ] NFRs met (200ms validation, independent phases, graceful fallback)
-- [ ] Command < 500 lines, skill < 1,000 lines
-
-### Testing
-- [ ] Unit tests for command argument validation
-- [ ] Unit tests for profile integration fallback
-- [ ] Unit tests for standalone phase routing
-- [ ] Integration tests for command-to-skill flow
-- [ ] Integration tests for full workflow mode
-
-### Documentation
-- [ ] Command contains usage instructions
-- [ ] Skill contains phase routing documentation
-- [ ] Progressive disclosure references documented
-
----
+- [x] Create `src/claude/commands/market-research.md` with argument validation and skill delegation - Completed: Created 80-line command with YAML frontmatter, argument-hint, 4-phase enum validation, and Skill() delegation
+- [x] Assemble `src/claude/skills/researching-market/SKILL.md` with all three phases - Completed: Updated SKILL.md (485 lines) with market sizing, competitive analysis, and customer interview phases
+- [x] Implement standalone mode (any phase runs independently) - Completed: Added Execution Mode and Phase Routing section documenting standalone execution for all 3 phases
+- [x] Implement full workflow mode (sequential phase orchestration) - Completed: Added full mode documentation with sequential execution and context passing between phases
+- [x] Implement user profile integration with graceful fallback - Completed: Profile read at Step 0 with adaptive pacing/task chunking, defaults to beginner when missing
+- [x] Ensure progressive disclosure with references/ directory - Completed: 4 reference files (market-sizing-methodology, fermi-estimation, competitive-analysis-framework, customer-interview-guide)
+- [x] All 6 acceptance criteria have passing tests - Completed: 35 unit test assertions across 6 test files, all passing
+- [x] Edge cases covered (invalid args, missing profile, no project context, existing outputs) - Completed: Tests cover invalid args, missing profile fallback, existing output reuse prompt
+- [x] Data validation enforced (phase enum, file size limits, profile path) - Completed: Phase enum validation in command, size limits verified in tests
+- [x] NFRs met (200ms validation, independent phases, graceful fallback) - Completed: Argument validation is instant (Markdown), phases independent, fallback implemented
+- [x] Command < 500 lines, skill < 1,000 lines - Completed: Command 80 lines (16% of limit), skill 485 lines (48.5% of limit)
+- [x] Unit tests for command argument validation - Completed: test_ac1_command_invocation.sh (6 assertions)
+- [x] Unit tests for profile integration fallback - Completed: test_ac4_profile_integration.sh (6 assertions)
+- [x] Unit tests for standalone phase routing - Completed: test_ac2_standalone_phase.sh (6 assertions)
+- [x] Integration tests for command-to-skill flow - Completed: test_integration.sh validates command-skill-reference-subagent links (23 assertions)
+- [x] Integration tests for full workflow mode - Completed: test_ac3_full_workflow.sh (5 assertions)
+- [x] Command contains usage instructions - Completed: Usage section with examples in command file
+- [x] Skill contains phase routing documentation - Completed: Execution Mode and Phase Routing section added
+- [x] Progressive disclosure references documented - Completed: Reference Files table with 4 entries and load triggers
 
 ### TDD Workflow Summary
 
 | Phase | Status | Details |
 |-------|--------|---------|
+| 01 Pre-Flight | Complete | 6 context files validated, all dependencies QA Approved |
+| 02 Red | Complete | 36 assertions, 21 failing (RED confirmed) |
+| 03 Green | Complete | 35 assertions all passing (GREEN) |
+| 04 Refactor | Complete | Title/description updated, code review APPROVED |
+| 04.5 AC Verify | Complete | 6/6 ACs PASS with HIGH confidence |
+| 05 Integration | Complete | 23 integration tests passing |
+| 05.5 AC Verify | Complete | 6/6 ACs PASS post-integration |
+| 06 Deferral | Complete | No deferrals needed |
+| 07 DoD Update | Complete | All 19 DoD items marked complete |
 
 ### Files Created/Modified
 
 | File | Action | Lines |
 |------|--------|-------|
+| src/claude/commands/market-research.md | Created | 80 |
+| src/claude/skills/researching-market/SKILL.md | Modified | 485 |
+| tests/STORY-538/test_ac1_command_invocation.sh | Created | 60 |
+| tests/STORY-538/test_ac2_standalone_phase.sh | Created | 56 |
+| tests/STORY-538/test_ac3_full_workflow.sh | Created | 64 |
+| tests/STORY-538/test_ac4_profile_integration.sh | Created | 55 |
+| tests/STORY-538/test_ac5_command_size.sh | Created | 83 |
+| tests/STORY-538/test_ac6_skill_structure.sh | Created | 56 |
+| tests/STORY-538/test_integration.sh | Created | ~80 |
+| tests/STORY-538/run_all_tests.sh | Created | ~30 |
+
+---
+
+## Definition of Done
+
+### Implementation
+- [x] Create `src/claude/commands/market-research.md` with argument validation and skill delegation
+- [x] Assemble `src/claude/skills/researching-market/SKILL.md` with all three phases
+- [x] Implement standalone mode (any phase runs independently)
+- [x] Implement full workflow mode (sequential phase orchestration)
+- [x] Implement user profile integration with graceful fallback
+- [x] Ensure progressive disclosure with references/ directory
+
+### Quality
+- [x] All 6 acceptance criteria have passing tests
+- [x] Edge cases covered (invalid args, missing profile, no project context, existing outputs)
+- [x] Data validation enforced (phase enum, file size limits, profile path)
+- [x] NFRs met (200ms validation, independent phases, graceful fallback)
+- [x] Command < 500 lines, skill < 1,000 lines
+
+### Testing
+- [x] Unit tests for command argument validation
+- [x] Unit tests for profile integration fallback
+- [x] Unit tests for standalone phase routing
+- [x] Integration tests for command-to-skill flow
+- [x] Integration tests for full workflow mode
+
+### Documentation
+- [x] Command contains usage instructions
+- [x] Skill contains phase routing documentation
+- [x] Progressive disclosure references documented
 
 ---
 
 ## Change Log
 
-**Current Status:** Ready for Dev
+**Current Status:** Dev Complete
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

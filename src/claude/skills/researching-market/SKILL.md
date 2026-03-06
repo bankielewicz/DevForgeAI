@@ -1,12 +1,12 @@
 ---
 name: researching-market
-description: Guided TAM/SAM/SOM market sizing workflow with web research and Fermi estimation
+description: Guided market research workflow covering TAM/SAM/SOM market sizing, competitive landscape analysis, and customer interview preparation
 tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Agent
 ---
 
-# Market Sizing Guided Workflow
+# Market Research Guided Workflow
 
-Guided TAM/SAM/SOM market sizing skill that researches real market data and adapts questions to the user's business knowledge level.
+Guided market research skill covering three phases: TAM/SAM/SOM market sizing with web research, competitive landscape analysis with positioning matrices, and hypothesis-driven customer interview question generation. Adapts questions to the user's business knowledge level.
 
 ---
 
@@ -30,8 +30,40 @@ Each tier includes a dollar value estimate, methodology notes, source citations,
 - Market research data is needed before investor conversations
 
 **Invoked by:**
-- `/research-market` command
+- `/market-research` command
 - `planning-business` skill (market research phase)
+
+---
+
+## Execution Mode and Phase Routing
+
+This skill supports two execution modes: **standalone** and **full workflow**.
+
+### Standalone Mode
+
+Each phase can run standalone without requiring prior phases. There is no prerequisite for running any individual phase independently:
+
+- **market-sizing** standalone - Runs market sizing analysis independently, producing `market-sizing.md` without prior phases
+- **competitive-analysis** standalone - Runs competitive landscape analysis independently, producing `competitive-analysis.md` without prior phases
+- **customer-interviews** standalone - Generates interview questions independently, producing `customer-interviews.md` without prior phases
+
+Each phase independently completes and produces its designated output. No prior phase outputs are required.
+
+### Full Workflow Mode
+
+When invoked with the `full` argument, all three phases run sequentially:
+
+1. **market-sizing** (Phase 1)
+2. **competitive-analysis** (Phase 2)
+3. **customer-interviews** (Phase 3)
+
+In full mode, context is passed between phases: market sizing outputs carry forward into competitive analysis, and both carry forward into customer interview question generation. This context passing enriches later phases with data from earlier ones.
+
+**Existing Output Reuse (BR-003):** Before starting each phase in full mode, check for existing outputs. If a phase output already exists, offer to reuse or regenerate via AskUserQuestion.
+
+### Adaptive Pacing and Task Chunking
+
+When a user profile exists (via EPIC-072), the skill reads it at initialization to adapt pacing and task chunking to user preferences. The profile's `business_knowledge` field controls question depth and adaptive chunking behavior. If the profile is missing, default pacing applies (beginner level, 5 questions per prompt, medium detail).
 
 ---
 
