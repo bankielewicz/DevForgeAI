@@ -2,7 +2,7 @@
 story_id: STORY-342
 created: 2026-02-02T10:00:00Z
 last_updated: 2026-02-02T10:00:00Z
-status: active
+status: archived
 ---
 
 # Session Memory: STORY-342
