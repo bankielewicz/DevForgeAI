@@ -1,0 +1,12 @@
+{
+  "story_id": "STORY-542",
+  "phase": "02-red",
+  "test_count": 5,
+  "checksums": {
+    "test_ac1_epic074_integration.py": "89e6a62c9a3c5cb11a5e3303914db77d64c388f961f87211c6d4dbb7f59eeb93",
+    "test_ac2_fallback_templates.py": "b01f09f0249cc218bcd9f4c6c04615a934fe28c9beadbbea4b27689b0aec84f4",
+    "test_ac3_feedback_synthesis.py": "ef3213b74b9b1707e24ddad93c0c3462909ac87429edbf3b3eaa6218578c9ad5",
+    "test_ac4_milestone_tracking.py": "460a484e6625edf77e1df6e422bbb62922de334bd1453b641b8878976a18f8e9",
+    "test_ac5_partial_progress.py": "46b5fb3ac2c42578f2e564ab50b5af5810d8660f30f195e3ad78d8e7530cf864"
+  }
+}
