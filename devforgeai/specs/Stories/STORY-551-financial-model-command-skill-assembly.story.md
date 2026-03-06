@@ -4,7 +4,7 @@ title: Financial Model Command and Skill Assembly
 type: feature
 epic: EPIC-077
 sprint: Sprint-27
-status: Dev Complete
+status: QA Approved
 points: 1
 depends_on: ["STORY-553", "STORY-549", "STORY-550"]
 priority: Medium
