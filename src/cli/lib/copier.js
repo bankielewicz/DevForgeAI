@@ -78,7 +78,19 @@ class Copier {
     // Preserve execute permissions from source (important for .sh scripts)
     try {
       const srcStat = await fsp.stat(srcFile);
-      await fsp.chmod(destFile, srcStat.mode);
+      let mode = srcStat.mode;
+
+      // Ensure .sh files and shebanged scripts are always executable.
+      // NTFS/Windows doesn't preserve Unix execute bits, so npm tarballs
+      // packed on Windows will contain .sh files with mode 0o644.
+      // We force +x on known executable extensions to guarantee they work
+      // after installation on Linux/macOS.
+      const ext = path.extname(destFile).toLowerCase();
+      if (ext === '.sh' || ext === '.py' || destFile.endsWith('/devforgeai-validate')) {
+        mode = mode | 0o755;
+      }
+
+      await fsp.chmod(destFile, mode);
     } catch {
       // chmod may fail on Windows — non-fatal
     }
