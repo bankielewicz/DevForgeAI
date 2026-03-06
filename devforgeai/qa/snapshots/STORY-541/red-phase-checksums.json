@@ -1,0 +1,32 @@
+{
+  "story_id": "STORY-541",
+  "timestamp": "2026-03-06T04:11:56Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-541/test_ac1_command_invocation.py",
+      "sha256": "6ad797290b5db0f0b317fb5f3cc0b3db74513d0a0cff752941b6b57bd38547a4",
+      "size_bytes": 4662
+    },
+    {
+      "path": "tests/STORY-541/test_ac2_adaptive_pacing.py",
+      "sha256": "0998ff6453361f74ff71853d2211974f51d1f442a8d8e4c74c4dec0977c03c79",
+      "size_bytes": 3925
+    },
+    {
+      "path": "tests/STORY-541/test_ac3_progressive_disclosure.py",
+      "sha256": "ad751cb76a0f04cf752065e4eab380837f8bcc2cec14a3af9ea257e5808cf2ed",
+      "size_bytes": 3335
+    },
+    {
+      "path": "tests/STORY-541/test_ac4_project_mode.py",
+      "sha256": "8b6b47e7a0d743d26cee3b1d086b3d511d6d76be0367109b61b7535ded8462dc",
+      "size_bytes": 4703
+    },
+    {
+      "path": "tests/STORY-541/test_ac5_session_resume.py",
+      "sha256": "e6098a3955ecee0010514c6544c610c63e75555928cac7d2e0320e7956fdd155",
+      "size_bytes": 3782
+    }
+  ]
+}
