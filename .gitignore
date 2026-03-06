@@ -1,3 +1,6 @@
+# npm tarballs (build artifacts - regenerate with npm pack)
+*.tgz
+
 # Temporary directories
 tmp/
 .treelint/
