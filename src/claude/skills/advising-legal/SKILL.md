@@ -79,6 +79,14 @@ Read(file_path=".claude/skills/advising-legal/references/ip-protection-checklist
 
 Walk the user through IP protection considerations for software projects.
 
+**Professional Referral Guidance:**
+
+```
+Read(file_path=".claude/skills/advising-legal/references/when-to-hire-professional.md")
+```
+
+When a user asks about finding or working with a business attorney, or when complexity indicators are triggered, load this reference to provide guidance on when to hire professional counsel versus self-help, how to find a qualified attorney, how to prepare for a consultation, and how to evaluate attorney fit.
+
 ## Step 5: Generate Recommendation Output
 
 Based on user responses, generate the recommendation artifact.
@@ -97,6 +105,7 @@ All output MUST automatically prepend the disclaimer header from the canonical d
 |-----------|------|---------|
 | Business Structure Guide | `references/business-structure-guide.md` | Decision tree, entity descriptions, referral triggers |
 | IP Protection Checklist | `references/ip-protection-checklist.md` | Software IP protection considerations |
+| When to Hire a Professional | `references/when-to-hire-professional.md` | Complexity indicators, professional referral, self-help thresholds |
 | Disclaimer Template | `references/disclaimer-template.md` | Canonical disclaimer template file for all output |
 
 ---

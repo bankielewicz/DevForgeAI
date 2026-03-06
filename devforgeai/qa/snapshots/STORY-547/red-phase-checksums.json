@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-547",
+  "phase": "02-red",
+  "created": "2026-03-06T00:00:00Z",
+  "checksums": {
+    "run_all_tests.sh": "f2e95783b9c507a88cb4449f7772d5842dce312407d8df1285b05cb7fab4b1dc",
+    "test_ac1_complexity_triggers.sh": "fa8aec2dd79342ce3ceebf7e766cbc8cff02003ef1039ee8dbe878884220178d",
+    "test_ac2_reference_accessible.sh": "829f4c99e229a5fd88d49b2b6e82c114a614ac72cb2e51da81f81dd28bd34c7c",
+    "test_ac3_self_help_threshold.sh": "3660a692c33ea51f6ea5971d4def78043df420233b4ea7f993704fff0b260af4",
+    "test_ac4_disclaimer.sh": "4d4edfc4312fdbca01f5fb83bc17909c42519c4a636f03945f3b82c82b9a9697",
+    "test_ac5_line_count.sh": "7c11dd7deec8acf008d0ec76acc8be6e7a4b5fb0d78e6d9310404b501468a725"
+  }
+}
