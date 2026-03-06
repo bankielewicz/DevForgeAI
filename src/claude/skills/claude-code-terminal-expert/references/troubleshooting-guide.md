@@ -1817,7 +1817,7 @@ claude --verbose
 
 ```
 [DEBUG] Loaded settings from: /home/user/.claude/settings.json
-[DEBUG] Model: claude-model: opus-4-5-20251001
+[DEBUG] Model: claude-opus-4-6
 [DEBUG] Permission check: Read(src/app.ts) → allowed
 [DEBUG] Tool execution: Read(src/app.ts) → success (234ms)
 [DEBUG] MCP server github: connected

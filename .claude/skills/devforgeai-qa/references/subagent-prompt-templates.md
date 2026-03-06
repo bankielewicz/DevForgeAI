@@ -92,7 +92,7 @@ Execute your 8-phase coverage analysis workflow:
 
 Return JSON matching the output contract specified in your agent definition.
 """,
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 
 # Step 5: Parse subagent response
@@ -298,7 +298,7 @@ Execute your 9-phase anti-pattern scanning workflow:
 
 Return JSON matching the output contract specified in your agent definition.
 """,
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 
 # Step 4: Parse subagent response
@@ -467,7 +467,7 @@ For EACH extreme violation, provide:
 
 Return JSON matching the output contract specified in your agent definition.
 """,
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 
 # Step 4: Parse subagent response
@@ -659,7 +659,7 @@ Before invoking ANY subagent, verify:
 - [ ] Language extracted from tech-stack.md
 - [ ] Story ID available in scope
 - [ ] Subagent name spelled correctly
-- [ ] Model specified (claude-model: opus-4-5-20251001)
+- [ ] Model specified (claude-opus-4-6)
 - [ ] Prompt includes complete context (all 6 context files for anti-pattern-scanner)
 - [ ] Prompt specifies expected output format (JSON structure)
 - [ ] Prompt includes guardrails (read-only, HALT conditions)

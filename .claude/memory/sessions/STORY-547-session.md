@@ -2,7 +2,7 @@
 story_id: STORY-547
 created: 2026-03-06T00:00:00Z
 last_updated: 2026-03-06T00:00:00Z
-status: active
+status: archived
 ---
 # Session Memory: STORY-547
 ## Observations

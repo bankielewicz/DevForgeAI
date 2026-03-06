@@ -58,7 +58,7 @@ Use Haiku for routine operations:
 
 ```yaml
 env:
-  CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+  CLAUDE_CODE_MODEL: claude-opus-4-6
 ```
 
 **When Haiku is sufficient:**
@@ -156,7 +156,7 @@ cost_optimization:
 | Variable | Purpose | Default |
 |----------|---------|---------|
 | CLAUDE_CODE_CACHE_ENABLED | Enable prompt caching | false |
-| CLAUDE_CODE_MODEL | Override model | claude-opus-4-5 |
+| CLAUDE_CODE_MODEL | Override model | claude-opus-4-6 |
 | CLAUDE_CODE_MAX_TURNS | Turn limit | unlimited |
 
 ## Best Practices
@@ -217,7 +217,7 @@ Pre-load story context before development:
 **Solution:**
 ```yaml
 env:
-  CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+  CLAUDE_CODE_MODEL: claude-opus-4-6
   CLAUDE_CODE_CACHE_ENABLED: true
 ```
 

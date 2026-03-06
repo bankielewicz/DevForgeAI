@@ -4,7 +4,7 @@ title: /legal-check Command and Skill Assembly
 type: feature
 epic: EPIC-076
 sprint: Sprint-26
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-544", "STORY-545"]
 priority: High
@@ -454,7 +454,7 @@ technical_limitations:
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

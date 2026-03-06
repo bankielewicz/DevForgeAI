@@ -1,23 +1,38 @@
+const path = require('path');
+const fs = require('fs');
+const fsp = fs.promises;
 const { BaseIDE } = require('./base');
+const { SettingsMerger } = require('../settings-merger');
 
 class ClaudeCodeIDE extends BaseIDE {
   constructor() {
     super({ name: 'claude-code', displayName: 'Claude Code' });
   }
 
-  async setup(targetRoot, copier) {
-    // Claude Code uses .claude/ directory which is already handled
-    // by the core-framework, agents, skills, commands, hooks components.
-    // This integration ensures the directory structure is correct
-    // and any Claude Code-specific config is in place.
+  async setup(targetRoot, copier, options = {}) {
+    const merger = new SettingsMerger(targetRoot);
 
-    // No additional steps needed - all .claude/ content
-    // is handled by component copier
-    return { success: true, message: 'Claude Code integration ready' };
+    // Load template settings from the package source
+    const templatePath = path.join(copier.sourceRoot, 'src', 'claude', 'settings.json');
+    let templateSettings;
+    try {
+      const raw = await fsp.readFile(templatePath, 'utf8');
+      templateSettings = JSON.parse(raw);
+    } catch (err) {
+      return { success: false, message: `Could not read template settings: ${err.message}` };
+    }
+
+    const mode = options.reinstall ? 'overwrite' : 'merge';
+    const result = await merger.install(templateSettings, { mode });
+
+    return {
+      success: true,
+      message: `Claude Code settings ${result.action}${result.backupCreated ? ' (backup created)' : ''}`,
+    };
   }
 
   describe() {
-    return 'Claude Code — .claude/ directory with agents, skills, commands, rules, hooks';
+    return 'Claude Code — .claude/ directory with agents, skills, commands, rules, hooks, settings';
   }
 }
 

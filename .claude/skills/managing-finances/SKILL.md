@@ -33,7 +33,12 @@ For full details, see: [pricing-strategy-framework.md](references/pricing-strate
 
 ### Phase 3: Revenue Projection
 
-Build revenue projections based on the selected pricing model and market assumptions.
+Invoke the financial-modeler subagent to build revenue projections based on the selected pricing model and market assumptions:
+
+```
+Agent(subagent_type="financial-modeler",
+      prompt="Generate revenue projections based on the pricing model and market assumptions gathered in Phases 1-2")
+```
 
 ### Phase 4: Financial Summary
 

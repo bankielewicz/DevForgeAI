@@ -38,7 +38,7 @@ labels: [subagent, qa, test-coverage, technical-debt-reduction]
 **Given** the DevForgeAI framework needs a coverage analysis specialist
 **When** I create the `.claude/agents/coverage-analyzer.md` subagent file
 **Then** the subagent specification must include:
-- [ ] YAML frontmatter with `name: coverage-analyzer`, `description`, `tools` (Read, Grep, Glob, Bash language-specific coverage tools), `model: claude-model: opus-4-5-20251001`
+- [ ] YAML frontmatter with `name: coverage-analyzer`, `description`, `tools` (Read, Grep, Glob, Bash language-specific coverage tools), `model: claude-opus-4-6`
 - [ ] Complete 8-phase workflow: Context Loading, Execute Coverage, Classify by Layer, Calculate Coverage, Validate Thresholds, Identify Gaps, Generate Recommendations, Return Results
 - [ ] Input contract specifying required context (story_id, language, test_command, thresholds, context_files)
 - [ ] Output contract specifying JSON structure (coverage_summary, validation_result, gaps, blocks_qa, violations, recommendations)
@@ -54,7 +54,7 @@ labels: [subagent, qa, test-coverage, technical-debt-reduction]
 # Validate subagent file exists and is valid
 test -f .claude/agents/coverage-analyzer.md
 grep -q "name: coverage-analyzer" .claude/agents/coverage-analyzer.md
-grep -q "model: claude-model: opus-4-5-20251001" .claude/agents/coverage-analyzer.md
+grep -q "model: claude-opus-4-6" .claude/agents/coverage-analyzer.md
 
 # Validate 8-phase workflow documented
 grep -q "Phase 1: Context Loading" .claude/agents/coverage-analyzer.md
@@ -296,7 +296,7 @@ components:
       - Bash(go:*) (Go coverage)
       - Bash(cargo:*) (Rust coverage)
       - Bash(mvn:*) (Java coverage)
-    model: claude-model: opus-4-5-20251001
+    model: claude-opus-4-6
     responsibilities:
       - Execute language-specific coverage analysis commands
       - Parse coverage reports (XML, JSON, text formats)
@@ -674,7 +674,7 @@ None. Story meets all quality standards and is ready for production release.
 - **Context File Enforcement:** Loads ALL required context files, HALTs if missing
 - **Evidence-Based Reporting:** Every gap must have file:line evidence
 - **Language Agnostic:** Supports 6 languages with appropriate tooling
-- **Haiku Model:** Uses claude-model: opus-4-5-20251001 for cost efficiency (analysis task, not creative writing)
+- **Haiku Model:** Uses claude-opus-4-6 for cost efficiency (analysis task, not creative writing)
 
 **Integration Pattern:**
 ```python
@@ -682,7 +682,7 @@ None. Story meets all quality standards and is ready for production release.
 coverage_result = Task(
     subagent_type="coverage-analyzer",
     prompt=f"Analyze coverage for {story_id}...",
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 blocks_qa = blocks_qa OR coverage_result["blocks_qa"]
 ```

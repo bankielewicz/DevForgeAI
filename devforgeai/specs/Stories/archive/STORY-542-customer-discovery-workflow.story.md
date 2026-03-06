@@ -4,7 +4,7 @@ title: Customer Discovery Workflow
 type: feature
 epic: EPIC-075
 sprint: Backlog
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-541"]
 priority: Medium
@@ -484,7 +484,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

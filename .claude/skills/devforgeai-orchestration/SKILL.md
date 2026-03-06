@@ -1,7 +1,7 @@
 ---
 name: devforgeai-orchestration
 description: Coordinates spec-driven development workflow from Epic → Sprint → Story → Architecture → Development → QA → Release. Manages story lifecycle, enforces quality gates, and orchestrates skill invocation. Use when starting sprints, creating stories, managing workflow progression, or enforcing quality checkpoints.
-model: claude-model: opus-4-5-20251001
+model: claude-opus-4-6
 allowed-tools:
   - Read
   - Write

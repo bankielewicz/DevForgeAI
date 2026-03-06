@@ -55,7 +55,7 @@ Tests that anti-pattern-scanner subagent specification file exists with proper s
 - ✓ Guardrails documented
 - ✓ Error handling documented
 - ✓ 6 categories documented
-- ✗ Model field validation (expected claude-model: opus-4-5-20251001, got sonnet)
+- ✗ Model field validation (expected claude-opus-4-6, got sonnet)
 
 #### AC2: Library Substitution Detection (6 tests)
 Tests detection of CRITICAL violations when locked technologies are substituted:
@@ -308,8 +308,8 @@ Fixtures provided for:
 ### 1. Subagent Model Field Mismatch
 **Test**: `test_ac1_subagent_has_yaml_frontmatter`
 **Severity**: FAILED
-**Issue**: Existing subagent uses model "sonnet" instead of required "claude-model: opus-4-5-20251001"
-**Expected**: claude-model: opus-4-5-20251001 (for token efficiency)
+**Issue**: Existing subagent uses model "sonnet" instead of required "claude-opus-4-6"
+**Expected**: claude-opus-4-6 (for token efficiency)
 **Actual**: sonnet (more expensive model)
 **Remediation**: Update subagent YAML frontmatter model field before implementation
 
@@ -319,7 +319,7 @@ To transition to GREEN phase, implement:
 
 ### Phase 1: Subagent Implementation
 1. Create/update `.claude/agents/anti-pattern-scanner.md`
-   - Fix model field to claude-model: opus-4-5-20251001
+   - Fix model field to claude-opus-4-6
    - Implement 9-phase workflow
    - Add detection logic for all 6 categories
 

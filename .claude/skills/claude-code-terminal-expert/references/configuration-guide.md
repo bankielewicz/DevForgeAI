@@ -858,7 +858,7 @@ Or use model names directly:
 
 ```bash
 /model claude-opus-4-6
-/model claude-model: opus-4-5-20251001
+/model claude-opus-4-6
 ```
 
 **Quick Model Switching (December 2025):**
@@ -1331,7 +1331,7 @@ Customize Claude Code's behavior with these command-line flags:
 | `--include-partial-messages`     | Include partial streaming events in output (requires `--print` and `--output-format=stream-json`)                                                        | `claude -p --output-format stream-json --include-partial-messages "query"`                         |
 | `--verbose`                      | Enable verbose logging, shows full turn-by-turn output (helpful for debugging in both print and interactive modes)                                       | `claude --verbose`                                                                                 |
 | `--max-turns`                    | Limit the number of agentic turns in non-interactive mode                                                                                                | `claude -p --max-turns 3 "query"`                                                                  |
-| `--model`                        | Sets the model for the current session with an alias for the latest model (`sonnet` or `opus`) or a model's full name                                    | `claude --model claude-model: opus-4-5-20251001`                                                        |
+| `--model`                        | Sets the model for the current session with an alias for the latest model (`sonnet` or `opus`) or a model's full name                                    | `claude --model claude-opus-4-6`                                                        |
 | `--permission-mode`              | Begin in a specified [permission mode](iam#permission-modes)                                                                                             | `claude --permission-mode plan`                                                                    |
 | `--permission-prompt-tool`       | Specify an MCP tool to handle permission prompts in non-interactive mode                                                                                 | `claude -p --permission-prompt-tool mcp_auth_tool "query"`                                         |
 | `--resume`                       | Resume a specific session by ID, or by choosing in interactive mode                                                                                      | `claude --resume abc123 "query"`                                                                   |
@@ -1859,7 +1859,7 @@ metadata:
 name: agent-name
 description: Agent description with "Use when..." trigger
 tools: [Read, Grep, Glob, ...]
-model: claude-model: opus-4-5-20251001
+model: claude-opus-4-6
 ```
 
 ### Recommended Patterns

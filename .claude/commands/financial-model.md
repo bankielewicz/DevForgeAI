@@ -1,7 +1,8 @@
 ---
+name: financial-model
 description: Generate financial projections, revenue models, and break-even analysis for your business
 argument-hint: "[--standalone]"
-allowed_tools: Read, Write, Edit, Bash
+allowed_tools: Read, Write, Edit
 ---
 
 # /financial-model

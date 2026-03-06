@@ -12,7 +12,7 @@ name: Parallel Story Development
 # Cost optimization: Prompt caching enabled
 env:
   CLAUDE_CODE_CACHE_ENABLED: "true"
-  CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+  CLAUDE_CODE_MODEL: claude-opus-4-6
 
 permissions:
   contents: write

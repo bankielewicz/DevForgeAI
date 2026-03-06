@@ -34,7 +34,7 @@ def valid_subagent_yaml_frontmatter():
             "Glob",
             "Bash"
         ],
-        "model": "claude-model: opus-4-5-20251001"
+        "model": "claude-opus-4-6"
     }
 
 

@@ -38,7 +38,7 @@ labels: [subagent, qa, code-quality, refactoring, technical-debt]
 **Given** the DevForgeAI framework needs a code quality analysis specialist
 **When** I create the `src/claude/agents/code-quality-auditor.md` subagent file
 **Then** the subagent specification must include:
-- [ ] YAML frontmatter with `name: code-quality-auditor`, `description`, `tools` (Read, Bash language analysis tools), `model: claude-model: opus-4-5-20251001`
+- [ ] YAML frontmatter with `name: code-quality-auditor`, `description`, `tools` (Read, Bash language analysis tools), `model: claude-opus-4-6`
 - [ ] Complete 8-phase workflow: Context Loading, Complexity Analysis, Duplication Analysis, Maintainability Analysis, Business Impact Explanation, Refactoring Patterns, Aggregate Results, Return Results
 - [ ] Input contract specifying required context (story_id, language, source_paths, exclude_paths, thresholds)
 - [ ] Output contract specifying JSON structure (metrics, extreme_violations, blocks_qa, recommendations)
@@ -54,7 +54,7 @@ labels: [subagent, qa, code-quality, refactoring, technical-debt]
 # Validate subagent file exists in source tree
 test -f src/claude/agents/code-quality-auditor.md
 grep -q "name: code-quality-auditor" src/claude/agents/code-quality-auditor.md
-grep -q "model: claude-model: opus-4-5-20251001" src/claude/agents/code-quality-auditor.md
+grep -q "model: claude-opus-4-6" src/claude/agents/code-quality-auditor.md
 
 # Validate 8-phase workflow documented
 grep -q "Phase 1: Context Loading" src/claude/agents/code-quality-auditor.md
@@ -345,7 +345,7 @@ components:
       - Bash(eslint:*) (JavaScript/TypeScript complexity)
       - Bash(rubocop:*) (Ruby complexity)
       - Bash(cloc:*) (Line counting)
-    model: claude-model: opus-4-5-20251001
+    model: claude-opus-4-6
     responsibilities:
       - Execute language-specific complexity analysis
       - Calculate cyclomatic complexity (per function, per file, average, max)
@@ -730,7 +730,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 - **Actionable Patterns:** Specific refactoring patterns with implementation steps
 - **Positive Feedback:** Acknowledge good metrics ("✅ EXCELLENT: MI 72.4")
 - **Language Agnostic:** Supports 6 languages with appropriate tooling
-- **Haiku Model:** Uses claude-model: opus-4-5-20251001 for cost efficiency
+- **Haiku Model:** Uses claude-opus-4-6 for cost efficiency
 
 **Metric Thresholds:**
 - **Complexity:** <15 acceptable, 15-20 warning, >20 critical
@@ -743,7 +743,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 quality_result = Task(
     subagent_type="code-quality-auditor",
     prompt=f"Analyze quality metrics for {story_id}...",
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 blocks_qa = blocks_qa OR quality_result["blocks_qa"]
 ```

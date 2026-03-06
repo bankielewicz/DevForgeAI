@@ -235,8 +235,8 @@ class TestAC1SubagentSpecification:
             f"Expected name='anti-pattern-scanner', got {frontmatter.get('name')}"
         assert frontmatter.get("description"), "Missing description in frontmatter"
         assert frontmatter.get("tools"), "Missing tools in frontmatter"
-        assert frontmatter.get("model") == "claude-model: opus-4-5-20251001", \
-            f"Expected model='claude-model: opus-4-5-20251001', got {frontmatter.get('model')}"
+        assert frontmatter.get("model") == "claude-opus-4-6", \
+            f"Expected model='claude-opus-4-6', got {frontmatter.get('model')}"
 
     def test_ac1_has_9_phase_workflow(self, subagent_file_path):
         """
@@ -1130,7 +1130,7 @@ class TestAC9QAIntegration:
         # result = Task(
         #     subagent_type="anti-pattern-scanner",
         #     prompt="Scan for anti-patterns in STORY-062 using all 6 context files",
-        #     model="claude-model: opus-4-5-20251001"
+        #     model="claude-opus-4-6"
         # )
         # assert "violations" in result
         # assert "blocks_qa" in result

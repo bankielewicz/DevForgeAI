@@ -131,7 +131,7 @@ All beta users must make these changes to their workflow files in order to upgra
     claude_args: |
       --system-prompt "Follow our coding standards"
       --max-turns 10
-      --model claude-model: opus-4-5-20251001
+      --model claude-opus-4-6
 ```
 
 <Tip>
@@ -519,7 +519,7 @@ jobs:
         with:
           github_token: ${{ steps.app-token.outputs.token }}
           use_bedrock: "true"
-          claude_args: '--model us.anthropic.claude-model: opus-4-5-20251001-v1:0 --max-turns 10'
+          claude_args: '--model us.anthropic.claude-opus-4-6-v1:0 --max-turns 10'
 ```
 
 <Tip>
@@ -639,13 +639,13 @@ The Claude Code Action v1 uses a simplified configuration:
 The `claude_args` parameter accepts any Claude Code CLI arguments:
 
 ```yaml
-claude_args: "--max-turns 5 --model claude-model: opus-4-5-20251001 --mcp-config /path/to/config.json"
+claude_args: "--max-turns 5 --model claude-opus-4-6 --mcp-config /path/to/config.json"
 ```
 
 Common arguments:
 
 * `--max-turns`: Maximum conversation turns (default: 10)
-* `--model`: Model to use (e.g., `claude-model: opus-4-5-20251001`)
+* `--model`: Model to use (e.g., `claude-opus-4-6`)
 * `--mcp-config`: Path to MCP configuration
 * `--allowed-tools`: Comma-separated list of allowed tools
 * `--debug`: Enable debug output

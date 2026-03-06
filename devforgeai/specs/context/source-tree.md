@@ -164,7 +164,8 @@ DevForgeAI2/
 │   │   │       ├── go-to-market-framework.md
 │   │   │       ├── channel-selection-matrix.md
 │   │   │       ├── positioning-strategy.md    # STORY-540, ADR-035
-│   │   │       └── customer-discovery-workflow.md  # STORY-542, ADR-036
+│   │   │       ├── customer-discovery-workflow.md  # STORY-542, ADR-036
+│   │   │       └── content-channel-strategy.md  # STORY-543, ADR-037
 │   │   ├── planning-business/           # Business planning skill (STORY-531/532/533, EPIC-073, ADR-034)
 │   │   │   ├── SKILL.md
 │   │   │   └── references/

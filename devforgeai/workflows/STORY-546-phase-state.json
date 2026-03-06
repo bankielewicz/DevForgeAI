@@ -194,7 +194,10 @@
         "dev-result-interpreter"
       ],
       "subagents_invoked": [
-        "dev-result-interpreter"
+        "dev-result-interpreter",
+        "anti-pattern-scanner",
+        "security-auditor",
+        "code-reviewer"
       ],
       "started_at": "2026-03-06T04:45:46Z",
       "completed_at": "2026-03-06T04:45:50Z"

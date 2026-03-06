@@ -11,7 +11,6 @@ const COMPONENTS = [
       { from: 'CLAUDE.md', to: 'CLAUDE.md', template: true },
       { from: 'src/claude/rules/', to: '.claude/rules/', template: false },
       { from: 'src/claude/memory/', to: '.claude/memory/', template: false },
-      { from: 'devforgeai/specs/context/', to: 'devforgeai/specs/context/', template: true },
     ],
   },
   {
@@ -71,15 +70,12 @@ const COMPONENTS = [
     required: false,
     defaultSelected: true,
     directories: [
-      'src/',
-      'tests/',
-      'docs/',
       'devforgeai/',
-      'devforgeai/specs/',
-      'devforgeai/specs/adrs/',
-      'devforgeai/specs/Stories/',
-      'devforgeai/specs/Epics/',
-      'tmp/',
+    ],
+    sources: [
+      { from: 'docs/api/', to: 'docs/api/', template: false },
+      { from: 'docs/architecture/', to: 'docs/architecture/', template: false },
+      { from: 'docs/guides/', to: 'docs/guides/', template: false },
     ],
   },
 ];

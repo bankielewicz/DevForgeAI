@@ -1,5 +1,6 @@
-# npm tarballs (build artifacts - regenerate with npm pack)
+# npm tarballs and manifest (build artifacts - regenerate with npm pack)
 *.tgz
+npm-pack-manifest.txt
 
 # Temporary directories
 tmp/

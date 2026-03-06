@@ -82,15 +82,15 @@ class TestAC1YAMLFrontmatter:
         assert has_bash, "Tools missing 'Bash' (for coverage commands)"
 
     def test_frontmatter_has_model_field(self, subagent_spec_path):
-        """Test: YAML frontmatter includes 'model: claude-model: opus-4-5-20251001'."""
+        """Test: YAML frontmatter includes 'model: claude-opus-4-6'."""
         # Arrange
         content = subagent_spec_path.read_text()
 
         # Act
-        model_present = "model: claude-model: opus-4-5-20251001" in content
+        model_present = "model: claude-opus-4-6" in content
 
         # Assert
-        assert model_present, "YAML frontmatter missing 'model: claude-model: opus-4-5-20251001'"
+        assert model_present, "YAML frontmatter missing 'model: claude-opus-4-6'"
 
 
 class TestAC1EightPhaseWorkflow:

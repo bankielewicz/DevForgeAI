@@ -46,7 +46,7 @@ allowed-tools: Read Grep Glob       # Space-delimited tool whitelist (experiment
 disable-model-invocation: false     # Prevent automatic triggering
 
 # CLAUDE CODE EXTENSIONS (Not in Agent Skills spec, but valid)
-model: claude-model: opus-4-5-20251001   # Preferred model for this skill
+model: claude-opus-4-6   # Preferred model for this skill
 ---
 ```
 

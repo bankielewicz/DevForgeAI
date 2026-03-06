@@ -38,7 +38,7 @@ labels: [subagent, qa, anti-patterns, security, architecture-validation]
 **Given** the DevForgeAI framework needs an architecture violation detection specialist
 **When** I create the `src/claude/agents/anti-pattern-scanner.md` subagent file
 **Then** the subagent specification must include:
-- [ ] YAML frontmatter with `name: anti-pattern-scanner`, `description`, `tools` (Read, Grep, Glob, Bash linters), `model: claude-model: opus-4-5-20251001`
+- [ ] YAML frontmatter with `name: anti-pattern-scanner`, `description`, `tools` (Read, Grep, Glob, Bash linters), `model: claude-opus-4-6`
 - [ ] Complete 9-phase workflow: Context Loading (6 files), Library Substitution Detection, Structure Violations, Layer Violations, Code Smells, Security Issues, Style Inconsistencies, Aggregate, Return Results
 - [ ] Input contract specifying required context (story_id, language, scan_mode, all 6 context files)
 - [ ] Output contract specifying JSON structure (violations categorized by severity, summary, blocks_qa, blocking_reasons, recommendations)
@@ -54,7 +54,7 @@ labels: [subagent, qa, anti-patterns, security, architecture-validation]
 # Validate subagent file exists in source tree
 test -f src/claude/agents/anti-pattern-scanner.md
 grep -q "name: anti-pattern-scanner" src/claude/agents/anti-pattern-scanner.md
-grep -q "model: claude-model: opus-4-5-20251001" src/claude/agents/anti-pattern-scanner.md
+grep -q "model: claude-opus-4-6" src/claude/agents/anti-pattern-scanner.md
 
 # Validate 9-phase workflow documented
 grep -q "Phase 1: Context Loading" src/claude/agents/anti-pattern-scanner.md
@@ -415,7 +415,7 @@ components:
       - Bash(eslint:*) (JavaScript/TypeScript linting)
       - Bash(pylint:*) (Python linting)
       - Bash(rubocop:*) (Ruby linting)
-    model: claude-model: opus-4-5-20251001
+    model: claude-opus-4-6
     responsibilities:
       - Load and validate ALL 6 context files
       - Detect library substitution (CRITICAL) - 5 technology types
@@ -774,7 +774,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 - **Context File Enforcement:** Loads ALL 6 files, HALTs if any missing
 - **Severity-Based Blocking:** CRITICAL and HIGH block QA, MEDIUM and LOW warn/advise
 - **Evidence-Based Reporting:** Every violation includes file:line:evidence:remediation
-- **Haiku Model:** Uses claude-model: opus-4-5-20251001 for cost efficiency
+- **Haiku Model:** Uses claude-opus-4-6 for cost efficiency
 
 **Detection Categories Rationale:**
 - **Library Substitution (CRITICAL):** Prevents tech debt from incompatible library swaps
@@ -790,7 +790,7 @@ N/A - This is a subagent (backend component) with no user interface. Interaction
 anti_pattern_result = Task(
     subagent_type="anti-pattern-scanner",
     prompt=f"Scan for anti-patterns... [ALL 6 context files included]",
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 blocks_qa = blocks_qa OR anti_pattern_result["blocks_qa"]
 ```

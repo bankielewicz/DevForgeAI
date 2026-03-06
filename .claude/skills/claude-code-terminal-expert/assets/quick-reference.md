@@ -265,7 +265,7 @@ claude --settings ./settings.json     # Load settings file
 | Alias | Full Name | Use Case | Cost |
 |-------|-----------|----------|------|
 | `default` | (account-dependent) | Recommended starting point | Varies |
-| `sonnet` | claude-model: opus-4-5-20251001 | Daily coding tasks | Medium |
+| `sonnet` | claude-opus-4-6 | Daily coding tasks | Medium |
 | `opus` | claude-opus-4-1-20250805 | Complex reasoning, architecture | High |
 | `haiku` | claude-3-5-haiku-20241022 | Simple tasks, fast responses | Low |
 | `sonnet[1m]` | (extended context) | Large codebase analysis | High |

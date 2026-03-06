@@ -72,7 +72,7 @@ Create subagent with:
   name: anti-pattern-scanner
   description: Architecture violation and anti-pattern detection specialist
   tools: Read, Grep, Glob, Bash
-  model: claude-model: opus-4-5-20251001  # <-- CRITICAL: Not "sonnet"
+  model: claude-opus-4-6  # <-- CRITICAL: Not "sonnet"
   ```
 - 9-phase workflow documented
 - Input/output contracts specified
@@ -151,7 +151,7 @@ Architecture-Constraints: {context['architecture-constraints']}
 Anti-Patterns: {context['anti-patterns']}
 
 Return JSON with violations categorized by severity.""",
-    model="claude-model: opus-4-5-20251001"
+    model="claude-opus-4-6"
 )
 ```
 
@@ -264,7 +264,7 @@ After all tests PASSED:
 **Severity**: FAILED (should be PASSED)
 **Fix**: Update `.claude/agents/anti-pattern-scanner.md` frontmatter
 ```yaml
-model: claude-model: opus-4-5-20251001  # Changed from: sonnet
+model: claude-opus-4-6  # Changed from: sonnet
 ```
 
 ## Critical Requirements

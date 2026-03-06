@@ -70,7 +70,7 @@ HALT workflow
 anti_pattern_result = Task(
   subagent_type="anti-pattern-scanner",
   description="Scan codebase for architecture violations",
-  model="claude-model: opus-4-5-20251001",
+  model="claude-opus-4-6",
   prompt=f"""
 Scan codebase for architecture violations and security issues.
 

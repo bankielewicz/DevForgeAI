@@ -1,7 +1,7 @@
 ---
 name: devforgeai-github-actions
 description: Generate GitHub Actions workflows for headless DevForgeAI /dev and /qa execution. Creates dev-story.yml, qa-validation.yml, parallel-stories.yml workflows with cost optimization, prompt caching, and Haiku preference. Use when setting up CI/CD automation for DevForgeAI projects.
-model: claude-model: opus-4-5-20251001
+model: claude-opus-4-6
 allowed-tools:
   - Read
   - Write

@@ -1,4 +1,6 @@
 const path = require('path');
+const fs = require('fs');
+const fsp = fs.promises;
 const { OutputFormatter } = require('../wizard/output-formatter');
 const { ProgressService } = require('../wizard/progress-service');
 const { SignalHandler } = require('../wizard/signal-handler');
@@ -176,13 +178,28 @@ async function action(directory, opts) {
       }
     }
 
-    // Python CLI pip install
+    // Python CLI pip install (uses venv to avoid PEP 668 externally-managed errors)
     if (selectedComponents.includes('python-cli')) {
       progress.updateSpinnerText('Installing Python CLI...');
       try {
         const { execSync } = require('child_process');
         const scriptsDir = path.join(installDir, '.claude', 'scripts');
-        execSync(`pip install -e "${scriptsDir}"`, { stdio: 'pipe', cwd: installDir });
+        const venvDir = path.join(installDir, '.venv');
+
+        // Create venv if it doesn't exist
+        try {
+          await fsp.access(path.join(venvDir, 'bin', 'pip'));
+        } catch {
+          execSync(`python3 -m venv "${venvDir}"`, { stdio: 'pipe', cwd: installDir });
+        }
+
+        // Install into venv
+        const venvPip = path.join(venvDir, 'bin', 'pip');
+        execSync(`"${venvPip}" install -e "${scriptsDir}"`, { stdio: 'pipe', cwd: installDir });
+
+        if (!opts.quiet) {
+          formatter.info('Python CLI installed in .venv/ — activate with: source .venv/bin/activate');
+        }
       } catch (e) {
         formatter.warning(`Python CLI install failed: ${e.message}`);
       }
@@ -204,9 +221,14 @@ async function action(directory, opts) {
       ide: ['claude-code'],
     });
 
-    // IDE setup
+    // IDE setup (merge settings on update, overwrite on reinstall)
     const claudeCode = new ClaudeCodeIDE();
-    await claudeCode.setup(installDir, copier);
+    const ideResult = await claudeCode.setup(installDir, copier, {
+      reinstall: !opts._updateMode,
+    });
+    if (!opts.quiet && ideResult.message) {
+      formatter.info(ideResult.message);
+    }
 
     // Phase 9: Summary
     if (!opts.quiet) {
@@ -220,9 +242,9 @@ async function action(directory, opts) {
       console.log(`  Dirs:       ${stats.directoriesCreated}`);
       console.log('');
       formatter.info('Next steps:');
-      console.log('  1. Review and customize context files in devforgeai/specs/context/');
+      console.log('  1. Run /create-context to generate your project context files');
       console.log('  2. Run /brainstorm to start your first project');
-      console.log('  3. See README.md for full documentation');
+      console.log('  3. See docs/ for guides and documentation');
       console.log('');
     }
   } catch (error) {

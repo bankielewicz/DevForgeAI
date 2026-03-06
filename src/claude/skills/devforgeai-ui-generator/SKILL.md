@@ -2,7 +2,7 @@
 name: devforgeai-ui-generator
 description: This skill generates front-end UI specifications and code for Web, GUI, or Terminal interfaces within the DevForgeAI framework. It validates context files, respects architectural constraints, and interactively guides users through technology and styling decisions. Use when stories require UI components or when generating visual specifications from requirements.
 license: Complete terms in LICENSE.txt
-model: claude-model: opus-4-5-20251001
+model: claude-opus-4-6
 ---
 
 # DevForgeAI UI Generator Skill

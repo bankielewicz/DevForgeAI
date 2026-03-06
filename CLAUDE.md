@@ -9,6 +9,8 @@ Be Honest.  Be objective - never sycophantic.
 
 **Important** test against src/ tree not operational folders.  wsl has historically generated corrupt or missing file errors when testing against operational folders.
 
+**Mandatory** Strict phase compliance is a requirement - NOT an option.
+
 ---
 
 ## File Architecture Rules

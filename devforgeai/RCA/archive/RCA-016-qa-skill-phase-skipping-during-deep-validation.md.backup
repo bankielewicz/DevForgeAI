@@ -169,7 +169,7 @@ Load workflow references on-demand for implementation details.
 ### Phase 2: Anti-Pattern Detection
 **Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
 **Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
-**Model:** claude-model: opus-4-5-20251001 (cost-efficient pattern matching)
+**Model:** claude-opus-4-6 (cost-efficient pattern matching)
 **Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
 **Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
 ```
@@ -321,7 +321,7 @@ Claude: Let me complete the skipped phases properly:
 ### Phase 2: Anti-Pattern Detection
 **Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
 **Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
-**Model:** claude-model: opus-4-5-20251001 (cost-efficient pattern matching)
+**Model:** claude-opus-4-6 (cost-efficient pattern matching)
 **Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
 **Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
 ```
@@ -342,7 +342,7 @@ Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-w
 **After loading:** Proceed to Step 2.1 (in reference file)
 
 **Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
-**Model:** claude-model: opus-4-5-20251001 (cost-efficient pattern matching)
+**Model:** claude-opus-4-6 (cost-efficient pattern matching)
 **Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
 **Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
 ```

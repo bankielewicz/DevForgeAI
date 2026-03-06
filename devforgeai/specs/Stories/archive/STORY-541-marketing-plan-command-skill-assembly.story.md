@@ -4,7 +4,7 @@ title: /marketing-plan Command & Skill Assembly
 type: feature
 epic: EPIC-075
 sprint: Sprint-25
-status: Dev Complete
+status: QA Approved
 points: 2
 depends_on: ["STORY-539", "STORY-540"]
 priority: High
@@ -492,7 +492,7 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 ## Change Log
 
-**Current Status:** Dev Complete
+**Current Status:** QA Approved
 
 | Date | Author | Phase/Action | Change | Files Affected |
 |------|--------|--------------|--------|----------------|

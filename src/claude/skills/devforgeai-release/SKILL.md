@@ -1,7 +1,7 @@
 ---
 name: devforgeai-release
 description: Orchestrate production releases with deployment automation, smoke testing, rollback capabilities, and release documentation. Use after QA approval to deploy stories to production. Supports multiple deployment strategies (blue-green, canary, rolling, recreate) and environments (staging, production). Enforces release gates and maintains deployment audit trail.
-model: claude-model: opus-4-5-20251001
+model: claude-opus-4-6
 allowed-tools:
   - Read
   - Write

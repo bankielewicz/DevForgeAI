@@ -1,6 +1,6 @@
 {
   "name": "devforgeai",
-  "version": "1.0.3",
+  "version": "1.0.11",
   "description": "DevForgeAI is a spec-driven development framework designed to enable AI-assisted software development with zero technical debt through automated validation, architectural constraints enforcement, and test-driven development workflows.",
   "keywords": [
     "ai",
@@ -19,6 +19,7 @@
   "files": [
     "bin/devforgeai.js",
     "lib/",
+    "CLAUDE.md",
     "src/cli/",
     "src/claude/agents/",
     "src/claude/commands/",
@@ -26,11 +27,18 @@
     "src/claude/memory/",
     "src/claude/plans/",
     "src/claude/rules/",
+    "src/claude/scripts/**/*.py",
+    "src/claude/scripts/**/*.sh",
+    "src/claude/scripts/**/*.md",
+    "src/claude/scripts/**/*.txt",
+    "src/claude/scripts/**/*.json",
+    "src/claude/scripts/devforgeai-validate",
+    "src/claude/scripts/setup.py",
     "src/claude/settings.json",
     "src/claude/skills/",
     "src/scripts/*.sh",
     "src/scripts/*.json",
-    "devforgeai/specs/context/"
+    "docs/"
   ],
   "repository": {
     "type": "git",

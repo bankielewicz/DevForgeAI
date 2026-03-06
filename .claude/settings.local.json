@@ -177,7 +177,9 @@
       "Bash(git filter-branch:*)",
       "Bash(icacls C:\\\\Projects\\\\DevForgeAI2\\\\src\\\\tests:*)",
       "Bash(npm config:*)",
-      "Bash(npm:*)"
+      "Bash(npm:*)",
+      "Bash(git rm:*)",
+      "Bash(npx devforgeai-validate:*)"
     ],
     "deny": [],
     "ask": []

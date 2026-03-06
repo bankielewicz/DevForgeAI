@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-543",
+  "phase": "02-red",
+  "created": "2026-03-06T00:00:00Z",
+  "checksums": {
+    "tests/STORY-543/test_ac1_strategy_skeleton.py": "7b3c91a01748dda9e28c95a01c5fea94660e5d0c4c4c6c64de01f994f3bd1f01",
+    "tests/STORY-543/test_ac2_social_media_guide.py": "821b5952cc51e1605952b9579b7db9c3eec6a8d6919bc18c434de61fa6ba3a36",
+    "tests/STORY-543/test_ac3_topic_categories.py": "0ef5cc1ba30d4057ebe26355a225397ffae104d765d6a5bc54205682b5061d12",
+    "tests/STORY-543/test_ac4_minimal_input.py": "002df23dd80ce38950d15e4877b96e64ad510a10b21035de0a65b3c4d1a08bc1"
+  },
+  "test_count": 23,
+  "red_state_verified": true
+}

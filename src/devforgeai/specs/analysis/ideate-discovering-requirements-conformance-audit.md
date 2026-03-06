@@ -75,7 +75,7 @@ The `/ideate` command and `discovering-requirements` skill were audited across 1
 #### Finding 1.4: `model` Field Uses Non-Standard Value
 **Status:** PARTIAL | **Severity:** Low
 **File:** `src/claude/skills/discovering-requirements/SKILL.md`, line 15 | **vs Prior:** PERSISTS
-**Anthropic Guidance:** > `model: claude-model: opus-4-5-20251001` (Source: agent-skills-spec.md, line 49)
+**Anthropic Guidance:** > `model: claude-opus-4-6` (Source: agent-skills-spec.md, line 49)
 **Current State:** `model: claude-opus-4-6`. Command uses `model: opus`. Inconsistent.
 **Proposed Fix:** Standardize to one format across files.
 **Impact:** Consistency.

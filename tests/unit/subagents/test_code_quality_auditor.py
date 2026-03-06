@@ -193,8 +193,8 @@ class TestSubagentSpecification:
             "Missing 'description' field"
         assert 'tools:' in frontmatter, \
             "Missing 'tools' field"
-        assert 'model: claude-model: opus-4-5-20251001' in frontmatter, \
-            "Missing 'model: claude-model: opus-4-5-20251001' (cost-efficient Haiku model)"
+        assert 'model: claude-opus-4-6' in frontmatter, \
+            "Missing 'model: claude-opus-4-6' (cost-efficient Haiku model)"
 
     def test_eight_phase_workflow_documented(self, subagent_file_path):
         """Test: All 8 phases of workflow documented"""

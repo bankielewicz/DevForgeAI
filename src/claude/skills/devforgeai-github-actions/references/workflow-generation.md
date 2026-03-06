@@ -40,7 +40,7 @@ jobs:
       - name: Execute Development
         env:
           CLAUDE_CODE_CACHE_ENABLED: true
-          CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+          CLAUDE_CODE_MODEL: claude-opus-4-6
         run: |
           claude -p "/dev ${{ inputs.story_id }}" --output-format json > dev-result.json
 
@@ -141,7 +141,7 @@ jobs:
       - name: Execute Development
         env:
           CLAUDE_CODE_CACHE_ENABLED: true
-          CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001
+          CLAUDE_CODE_MODEL: claude-opus-4-6
         run: |
           claude -p "/dev ${{ matrix.story_id }}" --output-format json > dev-result.json
 
@@ -210,7 +210,7 @@ jobs:
 ```yaml
 env:
   # Model selection
-  CLAUDE_CODE_MODEL: claude-model: opus-4-5-20251001  # Cheaper
+  CLAUDE_CODE_MODEL: claude-opus-4-6  # Cheaper
   # CLAUDE_CODE_MODEL: claude-opus-4-6  # More capable
 
   # Caching
