@@ -1,6 +1,7 @@
 ---
 name: researching-market
 description: Guided market research workflow covering TAM/SAM/SOM market sizing, competitive landscape analysis, and customer interview preparation
+version: "1.0"
 tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Agent
 ---
 
@@ -334,7 +335,7 @@ After market sizing and competitive analysis (or independently when invoked for 
 Load the customer interview guide reference for methodology guidance:
 
 ```
-Read(file_path="references/customer-interview-guide.md")
+Read(file_path=".claude/skills/researching-market/references/customer-interview-guide.md")
 ```
 
 For detailed interviewing methodology, see: [customer-interview-guide.md](references/customer-interview-guide.md) (Open-Ended Question Techniques)
