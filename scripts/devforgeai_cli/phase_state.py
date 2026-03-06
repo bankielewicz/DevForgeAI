@@ -152,15 +152,15 @@ class SubagentEnforcementError(PhaseStateError):
 # =============================================================================
 
 QA_PHASES: Dict[str, Dict[str, list]] = {
-    "00": {"steps_required": ["setup_validation", "story_file_loading"], "subagents_required": []},
-    "01": {"steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "subagents_required": ["anti-pattern-scanner", "security-auditor"]},
-    "1.5": {"steps_required": ["diff_regression_detection", "test_integrity_verification"], "subagents_required": []},
-    "02": {"steps_required": ["coverage_analysis", "code_quality_metrics"], "subagents_required": ["coverage-analyzer", "code-quality-auditor"]},
-    "03": {"steps_required": ["report_generation", "result_determination"], "subagents_required": ["qa-result-interpreter"]},
-    "04": {"steps_required": ["cleanup", "state_preservation"], "subagents_required": []},
+    "01": {"steps_required": ["setup_validation", "story_file_loading"], "subagents_required": []},
+    "02": {"steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "subagents_required": ["anti-pattern-scanner", "security-auditor"]},
+    "03": {"steps_required": ["diff_regression_detection", "test_integrity_verification"], "subagents_required": []},
+    "04": {"steps_required": ["coverage_analysis", "code_quality_metrics"], "subagents_required": ["coverage-analyzer", "code-quality-auditor"]},
+    "05": {"steps_required": ["report_generation", "result_determination"], "subagents_required": ["qa-result-interpreter"]},
+    "06": {"steps_required": ["cleanup", "state_preservation"], "subagents_required": []},
 }
 
-QA_VALID_PHASES: List[str] = ["00", "01", "1.5", "02", "03", "04"]
+QA_VALID_PHASES: List[str] = ["01", "02", "03", "04", "05", "06"]
 
 VALID_WORKFLOWS: List[str] = ["dev", "qa"]
 
@@ -880,66 +880,5 @@ class PhaseState:
 
         return self._read_state(path)
 
-    def complete_qa_phase(
-        self,
-        story_id: str,
-        phase: str,
-        checkpoint_passed: bool,
-    ) -> Dict[str, Any]:
-        """
-        Complete a QA phase with step validation.
-
-        Validates that all steps_required are present in steps_completed
-        before marking the phase complete.
-
-        Returns:
-            Updated state dictionary
-
-        Raises:
-            ValueError: If story_id invalid or steps incomplete
-            FileNotFoundError: If state file doesn't exist
-        """
-        self._validate_story_id(story_id)
-
-        if phase not in QA_VALID_PHASES:
-            raise PhaseNotFoundError(phase, f"Invalid QA phase: '{phase}'. Valid QA phases: {QA_VALID_PHASES}")
-
-        path = self._get_qa_state_path(story_id)
-
-        if not path.exists():
-            raise FileNotFoundError(f"QA state file not found for {story_id}")
-
-        state = self._read_state(path)
-        current = state["current_phase"]
-
-        # Sequential enforcement
-        if phase != current:
-            raise PhaseTransitionError(story_id, current, phase)
-
-        # Step validation: all steps_required must be in steps_completed
-        phase_data = state["phases"][phase]
-        required = set(phase_data.get("steps_required", []))
-        completed = set(phase_data.get("steps_completed", []))
-        missing = required - completed
-
-        if missing:
-            raise ValueError(
-                f"Cannot complete QA phase '{phase}' for '{story_id}'. "
-                f"Missing required steps: {', '.join(sorted(missing))}"
-            )
-
-        # Update phase status
-        now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-        phase_data["status"] = "completed"
-        phase_data["completed_at"] = now
-        phase_data["checkpoint_passed"] = checkpoint_passed
-
-        # Advance to next phase
-        phase_idx = QA_VALID_PHASES.index(phase)
-        if phase_idx < len(QA_VALID_PHASES) - 1:
-            state["current_phase"] = QA_VALID_PHASES[phase_idx + 1]
-
-        self._atomic_write(path, state)
-
-        logger.info(f"Completed QA phase {phase} for {story_id}")
-        return state
+    # complete_qa_phase() removed — step validation now in complete_workflow_phase()
+    # See STORY-517 AC2 fix. The method had zero callers after STORY-521 unification.

@@ -2,6 +2,7 @@
 Test: AC#2 - phase-complete Rejects Incomplete Steps
 Story: STORY-517
 Generated: 2026-02-28
+Updated: 2026-03-06 - Renumbered QA phases from [00,01,1.5,02,03,04] to [01-06]
 
 Tests that phase-complete exits code 1 when steps_completed is missing
 required steps, and identifies the missing step by name.
@@ -22,16 +23,16 @@ def _create_qa_state_file(tmp_path, story_id, phase_data_override=None):
     state = {
         "story_id": story_id,
         "workflow": "qa",
-        "current_phase": "1.5",
+        "current_phase": "03",
         "workflow_started": "2026-02-28T00:00:00Z",
         "blocking_status": False,
         "phases": {
-            "00": {"status": "completed", "steps_required": ["setup_validation", "story_file_loading"], "steps_completed": ["setup_validation", "story_file_loading"], "checkpoint_passed": True},
-            "01": {"status": "completed", "steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "steps_completed": ["constraint_validation", "anti_pattern_scan", "security_audit"], "checkpoint_passed": True},
-            "1.5": {"status": "pending", "steps_required": ["diff_regression_detection", "test_integrity_verification"], "steps_completed": ["diff_regression_detection"], "checkpoint_passed": False},
-            "02": {"status": "pending", "steps_required": ["coverage_analysis", "code_quality_metrics"], "steps_completed": [], "checkpoint_passed": False},
-            "03": {"status": "pending", "steps_required": ["report_generation", "result_determination"], "steps_completed": [], "checkpoint_passed": False},
-            "04": {"status": "pending", "steps_required": ["cleanup", "state_preservation"], "steps_completed": [], "checkpoint_passed": False},
+            "01": {"status": "completed", "steps_required": ["setup_validation", "story_file_loading"], "steps_completed": ["setup_validation", "story_file_loading"], "checkpoint_passed": True},
+            "02": {"status": "completed", "steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "steps_completed": ["constraint_validation", "anti_pattern_scan", "security_audit"], "checkpoint_passed": True},
+            "03": {"status": "pending", "steps_required": ["diff_regression_detection", "test_integrity_verification"], "steps_completed": ["diff_regression_detection"], "checkpoint_passed": False},
+            "04": {"status": "pending", "steps_required": ["coverage_analysis", "code_quality_metrics"], "steps_completed": [], "checkpoint_passed": False},
+            "05": {"status": "pending", "steps_required": ["report_generation", "result_determination"], "steps_completed": [], "checkpoint_passed": False},
+            "06": {"status": "pending", "steps_required": ["cleanup", "state_preservation"], "steps_completed": [], "checkpoint_passed": False},
         },
         "validation_errors": [],
         "observations": [],
@@ -57,7 +58,7 @@ class TestPhaseCompleteRejectsIncompleteSteps:
         # Act
         exit_code = phase_complete_command(
             story_id="STORY-517",
-            phase="1.5",
+            phase="03",
             checkpoint_passed=True,
             project_root=str(tmp_path),
             workflow="qa",
@@ -74,7 +75,7 @@ class TestPhaseCompleteRejectsIncompleteSteps:
         # Act
         phase_complete_command(
             story_id="STORY-517",
-            phase="1.5",
+            phase="03",
             checkpoint_passed=True,
             project_root=str(tmp_path),
             workflow="qa",
@@ -94,7 +95,7 @@ class TestPhaseCompleteRejectsIncompleteSteps:
         # Act
         phase_complete_command(
             story_id="STORY-517",
-            phase="1.5",
+            phase="03",
             checkpoint_passed=True,
             project_root=str(tmp_path),
             workflow="qa",
@@ -102,21 +103,21 @@ class TestPhaseCompleteRejectsIncompleteSteps:
 
         # Assert
         state = json.loads(state_path.read_text())
-        assert state["phases"]["1.5"]["status"] != "completed", (
-            "Phase 1.5 status should NOT be 'completed' when steps are missing"
+        assert state["phases"]["03"]["status"] != "completed", (
+            "Phase 03 status should NOT be 'completed' when steps are missing"
         )
 
     def test_should_exit_1_when_multiple_steps_missing(self, tmp_path, capsys):
         """phase-complete exits 1 when multiple required steps are missing."""
-        # Arrange - phase 1.5 with NO steps completed
+        # Arrange - phase 03 with NO steps completed
         _create_qa_state_file(tmp_path, "STORY-517", {
-            "1.5": {"steps_completed": []},
+            "03": {"steps_completed": []},
         })
 
         # Act
         exit_code = phase_complete_command(
             story_id="STORY-517",
-            phase="1.5",
+            phase="03",
             checkpoint_passed=True,
             project_root=str(tmp_path),
             workflow="qa",

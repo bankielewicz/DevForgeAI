@@ -2,6 +2,7 @@
 Test: AC#5 - qa-phase-state.json Preserved on QA PASS
 Story: STORY-517
 Generated: 2026-02-28
+Updated: 2026-03-06 - Renumbered QA phases from [00,01,1.5,02,03,04] to [01-06]
 
 Tests that after QA completes, the qa-phase-state.json remains on disk
 with all phases completed, and no .qa-phase-N.marker files remain.
@@ -22,12 +23,12 @@ def _create_completed_qa_state(tmp_path, story_id):
 
     phases = {}
     qa_phases = {
-        "00": ["setup_validation", "story_file_loading"],
-        "01": ["constraint_validation", "anti_pattern_scan", "security_audit"],
-        "1.5": ["diff_regression_detection", "test_integrity_verification"],
-        "02": ["coverage_analysis", "code_quality_metrics"],
-        "03": ["report_generation", "result_determination"],
-        "04": ["cleanup", "state_preservation"],
+        "01": ["setup_validation", "story_file_loading"],
+        "02": ["constraint_validation", "anti_pattern_scan", "security_audit"],
+        "03": ["diff_regression_detection", "test_integrity_verification"],
+        "04": ["coverage_analysis", "code_quality_metrics"],
+        "05": ["report_generation", "result_determination"],
+        "06": ["cleanup", "state_preservation"],
     }
     for phase_key, steps in qa_phases.items():
         phases[phase_key] = {
@@ -40,7 +41,7 @@ def _create_completed_qa_state(tmp_path, story_id):
     state = {
         "story_id": story_id,
         "workflow": "qa",
-        "current_phase": "04",
+        "current_phase": "06",
         "workflow_started": "2026-02-28T00:00:00Z",
         "blocking_status": False,
         "phases": phases,
@@ -61,7 +62,7 @@ class TestQaStatePreserved:
         # Arrange
         state_path = _create_completed_qa_state(tmp_path, "STORY-517")
 
-        # Act - simulate Phase 4 cleanup (should NOT delete qa-phase-state.json)
+        # Act - simulate Phase 6 cleanup (should NOT delete qa-phase-state.json)
         # The cleanup logic should preserve the state file.
         # Since cleanup is not yet implemented, we verify the file exists
         # and assert that any future cleanup must not delete it.
@@ -78,7 +79,7 @@ class TestQaStatePreserved:
         state = json.loads(state_path.read_text())
 
         # Assert
-        for phase_key in ["00", "01", "1.5", "02", "03", "04"]:
+        for phase_key in ["01", "02", "03", "04", "05", "06"]:
             assert state["phases"][phase_key]["status"] == "completed", (
                 f"Phase {phase_key} should be 'completed', got '{state['phases'][phase_key]['status']}'"
             )
@@ -104,7 +105,7 @@ class TestQaStatePreserved:
         # Also create the qa state file
         _create_completed_qa_state(tmp_path, "STORY-517")
 
-        # Act - Phase 4 cleanup removes legacy marker files (RCA-045 REC-3)
+        # Act - Phase 6 cleanup removes legacy marker files (RCA-045 REC-3)
         cleanup_qa_markers(story_id="STORY-517", project_root=str(tmp_path))
 
         # Assert - after cleanup, no markers should remain

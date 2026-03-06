@@ -16,17 +16,17 @@ from devforgeai_cli.commands.phase_commands import phase_init_command
 from devforgeai_cli.phase_state import PhaseState
 
 
-# Expected QA phases schema
+# Expected QA phases schema (renumbered to match SKILL.md phases 1-6)
 QA_PHASES = {
-    "00": {"steps_required": ["setup_validation", "story_file_loading"], "subagents_required": []},
-    "01": {"steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "subagents_required": ["anti-pattern-scanner", "security-auditor"]},
-    "1.5": {"steps_required": ["diff_regression_detection", "test_integrity_verification"], "subagents_required": []},
-    "02": {"steps_required": ["coverage_analysis", "code_quality_metrics"], "subagents_required": ["coverage-analyzer", "code-quality-auditor"]},
-    "03": {"steps_required": ["report_generation", "result_determination"], "subagents_required": ["qa-result-interpreter"]},
-    "04": {"steps_required": ["cleanup", "state_preservation"], "subagents_required": []},
+    "01": {"steps_required": ["setup_validation", "story_file_loading"], "subagents_required": []},
+    "02": {"steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"], "subagents_required": ["anti-pattern-scanner", "security-auditor"]},
+    "03": {"steps_required": ["diff_regression_detection", "test_integrity_verification"], "subagents_required": []},
+    "04": {"steps_required": ["coverage_analysis", "code_quality_metrics"], "subagents_required": ["coverage-analyzer", "code-quality-auditor"]},
+    "05": {"steps_required": ["report_generation", "result_determination"], "subagents_required": ["qa-result-interpreter"]},
+    "06": {"steps_required": ["cleanup", "state_preservation"], "subagents_required": []},
 }
 
-QA_PHASE_KEYS = ["00", "01", "1.5", "02", "03", "04"]
+QA_PHASE_KEYS = ["01", "02", "03", "04", "05", "06"]
 
 
 class TestQaPhaseInit:

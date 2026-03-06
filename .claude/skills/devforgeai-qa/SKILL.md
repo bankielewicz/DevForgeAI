@@ -364,7 +364,7 @@ Show phase-by-phase completion status with timing and token usage.
 
 **6.5: Marker Cleanup (PASSED only)**
 - Preserve qa-phase-state.json as permanent audit trail
-- Delete legacy .qa-phase-N.marker files (superseded)
+- Delete legacy QA marker files if present (superseded by qa-phase-state.json)
 
 **CLI gate:**
 ```
