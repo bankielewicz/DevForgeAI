@@ -10,6 +10,7 @@ tmp/
 # Backups (generated during development)
 .backups/
 devforgeai/backups/
+*backups*/
 
 # QA reports (generated during validation)
 devforgeai/qa/reports/
