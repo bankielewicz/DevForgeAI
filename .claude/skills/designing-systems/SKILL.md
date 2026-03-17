@@ -1,6 +1,6 @@
 ---
 name: designing-systems
-description: Create technical specifications, ADRs, and project context documentation that prevents technical debt. Use when designing system architecture, making technology decisions, or establishing project structure. Enforces spec-driven development by creating immutable constraint files (tech-stack.md, source-tree.md, dependencies.md) that AI agents must follow.
+description: HALT - do not use. Use spec-driven-architecture instead. This skill has been replaced by spec-driven-architecture which provides structural anti-skip enforcement (Execute-Verify-Gate pattern) to prevent token optimization bias. Reference files in this directory are still used by spec-driven-architecture via shared reads.
 model: claude-opus-4-6
 allowed-tools:
   - Read

@@ -7,7 +7,7 @@ allowed-tools: AskUserQuestion, Skill
 
 # /create-epic - Create Epic with Feature Breakdown
 
-Creates a new epic with feature breakdown by delegating to the designing-systems skill.
+Creates a new epic with feature breakdown by delegating to the spec-driven-architecture skill.
 
 ## Lean Orchestration Enforcement
 
@@ -76,7 +76,7 @@ IF ideation_output is provided:
 **Mode:** epic-creation
 
 ```
-Skill(command="designing-systems")
+Skill(command="spec-driven-architecture")
 ```
 
 **Skill handles ALL workflow** including discovery (4 AskUserQuestion flows for context gathering), feature decomposition (AskUserQuestion for review loop), technical assessment, epic file creation, context preservation validation (STORY-299), and completion summary.
@@ -90,14 +90,14 @@ Skill(command="designing-systems")
 | Epic name empty | AskUserQuestion if interactive, else provide name: `/create-epic [epic-name]` |
 | Name too short/long | Must be 10-100 characters |
 | Schema validation failed | Fix ideation output format (see architecture skill schema) |
-| Skill invocation failed | Verify `.claude/skills/designing-systems/SKILL.md` exists |
+| Skill invocation failed | Verify `.claude/skills/spec-driven-architecture/SKILL.md` exists |
 | Epic validation failed | Skill reports critical issues; resolve and retry |
 
 ---
 
 ## References
 
-- Skill: `.claude/skills/designing-systems/SKILL.md` (Epic Creation Workflow)
+- Skill: `.claude/skills/spec-driven-architecture/SKILL.md` (Epic Creation Workflow, EVG-enforced)
 - Help: `.claude/skills/designing-systems/references/create-epic-help.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 - Guide: `.claude/memory/epic-creation-guide.md`

@@ -36,7 +36,7 @@ If "Skip" selected: Display "No stories created." and exit.
 
 **Feedback Mode:** triage | **Priority Filter:** ${PRIORITY_FILTER} | **Limit:** ${LIMIT} | **Selected Items:** ${SELECTED_IDS}
 
-Skill(command="devforgeai-feedback")
+Skill(command="spec-driven-feedback")
 
 ### Phase 2: Display Results
 
@@ -50,7 +50,8 @@ Display skill result (pre-formatted by skill).
 - ❌ File write or edit operations
 - ❌ Queue JSON manipulation
 
-All business logic lives in: `.claude/skills/devforgeai-feedback/references/triage-workflow.md`
+All business logic lives in: `src/claude/skills/spec-driven-feedback/phases/phase-03-feedback-execution.md` (triage sub-workflow)
+Reference: `.claude/skills/devforgeai-feedback/references/triage-workflow.md`
 
 ## Error Handling
 

@@ -44,7 +44,7 @@ Empty Feedback: IF feedback history empty → "No feedback collected. Run '/feed
 **Set context markers and invoke:**
 ```
 **Search Query:** ${QUERY}  **Severity:** ${SEVERITY}  **Status:** ${STATUS}  **Limit:** ${LIMIT}  **Page:** ${PAGE}
-Skill(command="devforgeai-feedback")
+Skill(command="spec-driven-feedback")
 ```
 
 ## Phase 2: Display Results
@@ -70,7 +70,7 @@ See: .claude/skills/devforgeai-feedback/references/feedback-search-help.md
 
 ## References
 
-- Skill: `.claude/skills/devforgeai-feedback/SKILL.md`
+- Skill: `src/claude/skills/spec-driven-feedback/SKILL.md`
 - Extended docs: `.claude/skills/devforgeai-feedback/references/feedback-search-help.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 

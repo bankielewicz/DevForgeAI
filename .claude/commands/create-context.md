@@ -67,7 +67,7 @@ Bash(git commit -m "chore: Initialize DevForgeAI framework structure")
 ## Phase 3: Invoke Architecture Skill
 
 ```
-Skill(command="designing-systems")
+Skill(command="spec-driven-architecture")
 ```
 
 The skill owns the complete workflow: context discovery, file generation, ADR creation, technical specs, validation, prompt alignment, domain reference generation, architecture review, design system generation, post-creation validation, and success reporting (Phases 1-10).
@@ -81,14 +81,14 @@ After skill invocation, the skill's SKILL.md expands inline — YOU execute the 
 | Error | Resolution |
 |-------|------------|
 | Context files already exist | AskUserQuestion: Overwrite / Merge / Abort |
-| Skill invocation failed | Verify `.claude/skills/designing-systems/SKILL.md` exists |
+| Skill invocation failed | Verify `.claude/skills/spec-driven-architecture/SKILL.md` exists |
 | Validation failed | Skill reports issues and prompts for resolution |
 
 ---
 
 ## Integration Points
 
-**Invokes:** `designing-systems` skill (all phases)
+**Invokes:** `spec-driven-architecture` skill (all phases, EVG-enforced)
 
 **Prerequisites:** None (entry point for new projects)
 

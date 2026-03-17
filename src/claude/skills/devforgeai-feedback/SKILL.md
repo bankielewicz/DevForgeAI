@@ -1,14 +1,10 @@
 ---
 name: devforgeai-feedback
 description: >
-  Retrospective feedback system with event-driven hooks for DevForgeAI operations.
-  Use this skill whenever feedback needs to be captured — after /dev completes, after /qa
-  validates, after /release deploys, after sprint planning, or when the user manually
-  triggers feedback collection. Also use when the user mentions retrospectives, lessons
-  learned, workflow improvements, process feedback, or wants to review what went well
-  or poorly. Handles AI architectural analysis, recommendation triage, feedback search,
-  export/import, and configuration management. If the user says anything about capturing
-  insights, collecting feedback, or improving the development process, this is the skill.
+  DEPRECATED - Use spec-driven-feedback instead. This skill has been replaced by
+  spec-driven-feedback which provides structural anti-skip enforcement (Execute-Verify-Gate
+  pattern) to prevent token optimization bias. Reference files in this directory are still
+  used by spec-driven-feedback via shared reads. Do NOT invoke this skill directly.
 version: 2.0
 model: claude-opus-4-6
 ---

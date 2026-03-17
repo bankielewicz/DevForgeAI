@@ -84,14 +84,14 @@ class DoDValidator:
         for mismatch in mismatches:
             item_text = mismatch['item']
 
-            if not mismatch['impl_found'] and mismatch['dod_checked']:
-                # DoD item marked [x] but not in Implementation Notes
+            if not mismatch['impl_found']:
+                # DoD item not in Implementation Notes
                 violations.append({
                     'story_id': story_id,
                     'item': item_text,
                     'severity': 'CRITICAL',
                     'error': 'DoD item marked [x] but missing from Implementation Notes',
-                    'dod_status': '[x]',
+                    'dod_status': '[x]' if mismatch['dod_checked'] else '[ ]',
                     'impl_status': 'NOT FOUND',
                     'fix': f'Add "- [x] {item_text} - Completed: ..." to Implementation Notes'
                 })
