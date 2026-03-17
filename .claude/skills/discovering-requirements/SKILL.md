@@ -1,6 +1,6 @@
 ---
 name: discovering-requirements
-description: Transform business ideas and problems into structured requirements through guided discovery and requirements elicitation. Use when users say "I have a business idea", "help me define requirements", "let's explore what to build", "I need to discover user needs", or "act as my PM". Outputs YAML-structured requirements.md for consumption by architecture skill.
+description: HALT - do not use. Use spec-driven-ideation instead. This skill has been replaced by spec-driven-ideation which provides structural anti-skip enforcement (Execute-Verify-Gate pattern) to prevent token optimization bias. Reference files in this directory are still used by spec-driven-ideation via shared reads.
 allowed-tools: Read Write Edit Glob Grep AskUserQuestion Bash Task
 model: opus
 metadata:

@@ -339,7 +339,6 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 | File | Action | Lines |
 |------|--------|-------|
-| `src/claude/skills/devforgeai-feedback/references/triage-workflow.md` | Modify | +60 |
 
 ---
 

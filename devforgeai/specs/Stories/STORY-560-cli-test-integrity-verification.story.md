@@ -334,13 +334,19 @@ technical_limitations:
 - [ ] CLI --help text documents command usage
 - [ ] Exit code meanings documented
 
+---
+
 ### TDD Workflow Summary
 
-*(To be filled during /dev workflow)*
+| Phase | Status | Details |
+|-------|--------|---------|
 
 ### Files Created/Modified
 
-*(To be filled during /dev workflow)*
+| File | Action | Lines |
+|------|--------|-------|
+
+---
 
 ## Change Log
 

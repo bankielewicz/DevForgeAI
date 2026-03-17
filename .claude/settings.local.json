@@ -179,10 +179,47 @@
       "Bash(npm config:*)",
       "Bash(npm:*)",
       "Bash(git rm:*)",
-      "Bash(npx devforgeai-validate:*)"
+      "Bash(npx devforgeai-validate:*)",
+      "Bash(do if:*)",
+      "Read(//tmp/**)",
+      "Bash(devforgeai:*)",
+      "Bash(/mnt/c/Projects/DevForgeAI2/bin/devforgeai validate:*)",
+      "Bash(/mnt/c/Projects/DevForgeAI2/bin/devforgeai phase:*)",
+      "Read(//home/bryan/.claude/plans/**)",
+      "Bash(mkdir -p ~/.claude/plans/)",
+      "Bash(cd /mnt/c/Projects/DevForgeAI-cli && /mnt/c/Projects/DevForgeAI-cli/target/release/devforgeai --version)"
     ],
     "deny": [],
     "ask": []
   },
-  "outputStyle": "default"
+  "outputStyle": "default",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "anthropic.com"
+      ]
+    },
+    "filesystem": {
+      "allowWrite": [
+        ".",
+        "tmp/",
+        ".claude/memory/",
+        ".claude/memory/sessions/",
+        ".claude/plans/",
+        "devforgeai/",
+        "devforgeai/logs/",
+        "devforgeai/feedback/",
+        "devforgeai/specs/Stories/",
+        "devforgeai/specs/adrs/",
+        "devforgeai/workflows/",
+        "devforgeai/RCA/",
+        "~/tmp/"
+      ]
+    },
+    "excludedCommands": []
+  }
 }

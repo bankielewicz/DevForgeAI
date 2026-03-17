@@ -1,7 +1,8 @@
 ---
 description: Implement user story using TDD workflow
 argument-hint: [STORY-ID] [--force] [--fix] [--ignore-debt-threshold]
-model: opus
+model: Sonnet
+effort: High
 allowed-tools: AskUserQuestion, Read, Skill, Bash(git:*)
 execution-mode: immediate
 ---
@@ -10,6 +11,7 @@ execution-mode: immediate
 
 Execute full Test-Driven Development cycle for a user story. Do not skip any phases nor skip the implementing-stories skill.
 
+You MUST execute the implementing-stories skill, when called upon: Skill(command="implementing-stories")
 ---
 
 ## Phase 0: Parse Arguments and Set Context Markers
@@ -62,7 +64,7 @@ Display: "Executing TDD workflow (Red > Green > Refactor > Integration)..."
 **Remediation Mode:** ${REMEDIATION_MODE}
 **Ignore Debt Threshold:** ${IGNORE_DEBT_FLAG}
 
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 ```
 
 ---

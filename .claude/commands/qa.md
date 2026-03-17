@@ -2,7 +2,8 @@
 description: Run QA validation on story implementation
 argument-hint: [STORY-ID] [mode]
 model: opus
-allowed-tools: AskUserQuestion, Read, Glob, Skill
+effort: Medium
+allowed-tools: AskUserQuestion, Read, Glob, Agent
 execution-mode: immediate
 ---
 
@@ -10,7 +11,9 @@ execution-mode: immediate
 
 Execute QA validation on story implementation (light during dev, deep after completion).
 
-Do not skip any phases nor skip the devforgeai-qa skill.
+Do not skip any phases nor skip the spec-driven-qa skill.
+
+You MUST execute the spec-driven-qa skill, when called upon: Skill(command="spec-driven-qa")
 
 ```bash
 /qa STORY-001 light    # Light validation (~1 min)
@@ -51,10 +54,12 @@ ELSE: MODE="auto" (Dev Complete→deep, In Development→light, other→AskUserQ
 ## Phase 1: Invoke Skill
 
 ```
-Skill(command="devforgeai-qa")
+Agent(subagent_type="qa-executor", prompt="Execute QA validation for ${STORY_ID}. Mode: ${MODE}.")
 ```
 
-Skill handles: CWD validation, tests, coverage, anti-patterns, reports, story updates, hooks.
+qa-executor handles: CWD validation, tests, coverage, anti-patterns, reports, story updates, hooks.
+
+Skill(command="spec-driven-qa")
 
 ## Phase 2: Display Results
 
@@ -76,7 +81,7 @@ Story validated, mode set, skill invoked, results displayed, story updated (deep
 ## Integration
 
 **Invoked by:** Developer, implementing-stories (light), orchestration (deep)
-**Invokes:** devforgeai-qa skill → qa-result-interpreter subagent
+**Invokes:** qa-executor subagent → spec-driven-qa workflow → specialist subagents
 **Gates:** Gate 2 (Test Passing), Gate 3 (QA Approval)
 
 ## Related Commands

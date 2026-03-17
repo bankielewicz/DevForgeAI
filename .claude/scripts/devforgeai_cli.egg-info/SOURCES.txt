@@ -26,6 +26,7 @@ devforgeai_cli/feedback/config_manager.py
 devforgeai_cli/feedback/config_models.py
 devforgeai_cli/feedback/config_schema.py
 devforgeai_cli/feedback/feature_flag.py
+devforgeai_cli/feedback/feedback_indexer.py
 devforgeai_cli/feedback/hot_reload.py
 devforgeai_cli/feedback/longitudinal.py
 devforgeai_cli/feedback/models.py
@@ -70,6 +71,7 @@ devforgeai_cli/tests/feedback/test_config_schema.py
 devforgeai_cli/tests/feedback/test_configuration_management.py
 devforgeai_cli/tests/feedback/test_edge_cases.py
 devforgeai_cli/tests/feedback/test_feature_flag.py
+devforgeai_cli/tests/feedback/test_feedback_indexer.py
 devforgeai_cli/tests/feedback/test_hot_reload.py
 devforgeai_cli/tests/feedback/test_integration.py
 devforgeai_cli/tests/feedback/test_models.py

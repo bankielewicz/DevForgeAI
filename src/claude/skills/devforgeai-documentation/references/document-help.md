@@ -30,6 +30,43 @@
 /document --list-templates
 ```
 
+### Documentation Audit
+
+```bash
+# Audit documentation quality (generates findings file)
+/document --audit=dryrun
+
+# Fix all findings from audit
+/document --audit-fix --type=all
+
+# Fix by category
+/document --audit-fix --type=license        # License files only
+/document --audit-fix --type=community      # CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, templates
+/document --audit-fix --type=tone           # README opening, FAQ warmth, human voice
+/document --audit-fix --type=architecture   # Duplicates, navigation, orphans, scope banners
+/document --audit-fix --type=formatting     # Admonitions, badges, CHANGELOG, oversized files
+/document --audit-fix --type=onboarding     # Quick Start, MSRV, prerequisites
+
+# Fix a single finding
+/document --audit-fix --finding=F-003
+```
+
+**Workflow:** Run `--audit=dryrun` first to generate `devforgeai/qa/audit/doc-audit.json`, then `--audit-fix` to apply fixes from that file.
+
+---
+
+## Audit Finding Types
+
+| Type Key | What It Detects |
+|----------|----------------|
+| `license` | Missing LICENSE files, Cargo.toml license field |
+| `community` | Missing CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, issue/PR templates |
+| `tone` | Dry openings, gatekeeping language, missing human voice, clinical troubleshooting |
+| `architecture` | Duplicate files, scope confusion, missing navigation, orphaned files |
+| `formatting` | Missing admonitions/badges, flat CHANGELOG, oversized files, table walls |
+| `onboarding` | Missing Quick Start, prerequisite mismatches, MSRV inconsistencies |
+| `all` | Everything above |
+
 ---
 
 ## Available Templates

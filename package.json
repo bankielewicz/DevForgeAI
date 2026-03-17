@@ -38,6 +38,7 @@
     "src/claude/skills/",
     "src/scripts/*.sh",
     "src/scripts/*.json",
+    "src/scripts/pre-commit",
     "docs/"
   ],
   "repository": {

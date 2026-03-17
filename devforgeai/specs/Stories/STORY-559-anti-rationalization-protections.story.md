@@ -243,13 +243,19 @@ technical_limitations:
 - [ ] RCA-046 referenced in warning text
 - [ ] Change log updated
 
+---
+
 ### TDD Workflow Summary
 
-*(To be filled during /dev workflow)*
+| Phase | Status | Details |
+|-------|--------|---------|
 
 ### Files Created/Modified
 
-*(To be filled during /dev workflow)*
+| File | Action | Lines |
+|------|--------|-------|
+
+---
 
 ## Change Log
 

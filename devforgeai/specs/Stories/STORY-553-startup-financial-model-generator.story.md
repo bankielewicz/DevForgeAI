@@ -384,34 +384,17 @@ technical_limitations:
 - [ ] Reference file self-contained with calculation methodology
 - [ ] Assumption labeling guide documented
 
+---
+
 ### TDD Workflow Summary
 
-| Phase | Status | Notes |
-|-------|--------|-------|
-| Phase 01: Pre-Flight | Not Started | |
-| Phase 02: Red (Tests) | Not Started | |
-| Phase 03: Green (Implementation) | Not Started | |
-| Phase 04: Refactor | Not Started | |
-| Phase 04.5: AC Verify (Post-Refactor) | Not Started | |
-| Phase 05: Integration | Not Started | |
-| Phase 05.5: AC Verify (Post-Integration) | Not Started | |
-| Phase 06: Deferral Review | Not Started | |
-| Phase 07: DoD Update | Not Started | |
-| Phase 08: Git Workflow | Not Started | |
-| Phase 09: Feedback | Not Started | |
-| Phase 10: Result | Not Started | |
+| Phase | Status | Details |
+|-------|--------|---------|
 
-### Files Created
+### Files Created/Modified
 
-| File | Purpose |
-|------|---------|
-| src/claude/skills/managing-finances/SKILL.md | Skill definition with financial model phase |
-| src/claude/skills/managing-finances/references/startup-financial-model.md | Reference file with methodology, templates, and calculation logic |
-| tests/STORY-553/test_ac1_revenue_projection_table.py | AC1 unit tests |
-| tests/STORY-553/test_ac2_cost_structure_analysis.py | AC2 unit tests |
-| tests/STORY-553/test_ac3_combined_pl_output.py | AC3 unit + integration tests |
-| tests/STORY-553/test_ac4_framework_constraints.py | AC4 structural tests |
-| tests/STORY-553/test_ac5_incomplete_input_handling.py | AC5 validation tests |
+| File | Action | Lines |
+|------|--------|-------|
 
 ---
 

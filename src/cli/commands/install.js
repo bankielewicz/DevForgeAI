@@ -205,6 +205,31 @@ async function action(directory, opts) {
       }
     }
 
+    // Phase 7b: Git Hook Installation
+    if (fs.existsSync(path.join(installDir, '.git'))) {
+      progress.updateSpinnerText('Installing pre-commit hook...');
+      try {
+        const hookSource = path.join(sourceRoot, 'src', 'scripts', 'pre-commit');
+        const hooksDir = path.join(installDir, '.git', 'hooks');
+        const hookDest = path.join(hooksDir, 'pre-commit');
+
+        // Ensure hooks directory exists
+        await fsp.mkdir(hooksDir, { recursive: true });
+
+        // Copy hook file
+        await fsp.copyFile(hookSource, hookDest);
+
+        // Make executable (rwxr-xr-x = 0o755)
+        await fsp.chmod(hookDest, 0o755);
+
+        if (!opts.quiet) {
+          formatter.info('Pre-commit hook installed to .git/hooks/pre-commit');
+        }
+      } catch (e) {
+        formatter.warning(`Pre-commit hook install failed: ${e.message}`);
+      }
+    }
+
     progress.stopSpinner({ success: true, message: 'Components installed.' });
 
     // Phase 8: Manifest

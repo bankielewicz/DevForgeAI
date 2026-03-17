@@ -59,10 +59,10 @@ ELSE: Prompt user for description (what problem, who benefits, what success look
   <project-mode>auto-detect</project-mode>
 </ideation-context>
 
-Skill(command="discovering-requirements")
+Skill(command="spec-driven-ideation")
 ```
 
-Skill handles: project mode detection, 6-phase requirements (10-60 questions), complexity, epics, result interpretation, hooks.
+Skill handles: project mode detection, 7-phase requirements with anti-skip enforcement (10-60 questions), complexity, artifact generation, validation, handoff.
 
 ## Phase 3: Display Results
 
@@ -72,7 +72,7 @@ Output `result.display.template` as-is.
 
 | Error | Recovery |
 |-------|----------|
-| Skill load failure | Check `.claude/skills/discovering-requirements/SKILL.md` |
+| Skill load failure | Check `.claude/skills/spec-driven-ideation/SKILL.md` |
 | Invocation failed | Verify registration, restart Claude Code |
 | Validation failure | Review Phase 6.4 output, re-run `/ideate` |
 | User exits | Re-run `/ideate [idea]` |

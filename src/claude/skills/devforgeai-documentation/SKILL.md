@@ -2,7 +2,7 @@
 name: devforgeai-documentation
 description: Automated documentation generation integrated into SDLC workflow. Generates README, developer guides, API docs, architecture diagrams, and roadmaps from stories and codebase analysis. Supports greenfield (story-based) and brownfield (codebase analysis) modes. Use when generating project documentation, updating docs after story completion, or analyzing documentation coverage.
 tools: Read, Write, Edit, Glob, Grep, Bash, Task, AskUserQuestion
-model: claude-opus-4-6
+model: claude-sonnet-4-6
 ---
 
 # DevForgeAI Documentation Skill
@@ -37,11 +37,38 @@ This skill extracts parameters from conversation context:
 - **Documentation Type**: From `--type=` argument or explicit `**Type:** readme|api|architecture|roadmap|all`
 - **Mode**: From `--mode=` argument or explicit `**Mode:** greenfield|brownfield`
 - **Export Format**: From `--export=` argument or explicit `**Export:** html|pdf`
+- **Audit Mode**: From `--audit=` argument → `**Audit Mode:** dryrun`
+- **Audit Fix**: From `--audit-fix` flag → `**Audit Fix:** true`
+- **Finding Filter**: From `--finding=` argument → `**Finding Filter:** F-NNN` or `all`
 
 **Defaults:**
-- Type: `readme` (if story ID provided) or `all` (if no story)
+- Type: `readme` (if story ID provided) or `all` (if no story or audit-fix)
 - Mode: `greenfield` (if story provided) or `brownfield` (if no story)
 - Export: `markdown` (no export)
+- Audit Mode: `null` (not an audit)
+- Audit Fix: `false`
+- Finding Filter: `all`
+
+---
+
+## Mode Router
+
+**⚠️ ROUTING DECISION — evaluate BEFORE executing any workflow phase.**
+
+```
+IF Audit Mode is set (dryrun):
+    → Execute Phase A: Documentation Audit (A.0 through A.4)
+    → SKIP Phases 0-7 (generation workflow)
+    → EXIT after Phase A.4
+
+ELIF Audit Fix is true:
+    → Execute Phase B: Documentation Fix (B.0 through B.5)
+    → SKIP Phases 0-7 (generation workflow)
+    → EXIT after Phase B.5
+
+ELSE:
+    → Execute Phases 0-7 (existing generation workflow, unchanged)
+```
 
 ---
 
@@ -859,6 +886,282 @@ Dev Complete → /qa → Documentation → /release
 
 ---
 
+## Phase A: Documentation Audit (--audit=dryrun)
+
+**⚠️ This phase executes ONLY when Mode Router selects audit path.**
+
+**Reference:** Load `references/audit-workflow.md` before executing.
+
+### Phase A.0: Discovery
+
+1. **Inventory docs files:**
+   ```
+   docs_files = Glob("docs/**/*.md")
+   root_md = Glob("*.md")
+   ```
+
+2. **Read entry points** (README.md, docs/README.md, docs/index.md if they exist)
+
+3. **Inventory community files** — check existence of:
+   - LICENSE / LICENSE-MIT / LICENSE-APACHE
+   - CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md
+   - .github/ISSUE_TEMPLATE/ (bug_report.md, feature_request.md)
+   - .github/PULL_REQUEST_TEMPLATE.md
+
+4. **Check configuration alignment:**
+   - Read project manifest (Cargo.toml / package.json / pyproject.toml)
+   - Extract: license field, MSRV/engine version, project version
+   - Compare against README prerequisites and docs references
+   - Record all discrepancies
+
+### Phase A.1: Analysis
+
+Score 4 dimensions (1-10 each) with evidence. Reference `audit-workflow.md` for full rubric.
+
+**Dimension 1: Tone & Personality**
+- Check README opening for WHY vs WHAT
+- Check for value proposition / elevator pitch
+- Check contributor language (welcoming vs gatekeeping)
+- Check for human voice (we/you pronouns)
+- Check troubleshooting for empathetic language
+
+**Dimension 2: Information Architecture**
+- Detect duplicate filenames across directories
+- Check for scope confusion (mixed versions/products)
+- Check for navigation index (docs/README.md or docs/index.md)
+- Check for cross-references between related docs
+- Check for audience-based routing
+- Check for over-documented modules (>3 files for one module)
+
+**Dimension 3: Visual Design & Formatting**
+- Check for GFM admonitions (`> [!NOTE]`, `> [!WARNING]`, etc.)
+- Check for README badges
+- Check CHANGELOG for Keep a Changelog categories
+- Check for oversized files (>50KB)
+- Check for tables with >10 rows and no visual grouping
+
+**Dimension 4: Onboarding Friction**
+- Check install steps in first 50 lines of README
+- Check for Quick Start narrative
+- Check prerequisites consistency across docs
+- Check LICENSE presence
+- Check MSRV/version consistency with manifest
+
+**Orphan Detection:** Run the orphan detection algorithm from `audit-workflow.md` to identify files with zero inbound references.
+
+### Phase A.2: Prioritization
+
+Classify each finding:
+- **Severity:** CRITICAL (-3 points), HIGH (-2), MEDIUM (-1), LOW (-0.5)
+- **Type:** `category:specific` key from `audit-fix-catalog.md`
+- **Fix mode:** `automated` or `interactive` per fix catalog
+- **Fix action:** action key from fix catalog
+
+Assign sequential IDs (F-001, F-002, ...) ordered by severity.
+
+### Phase A.3: Output
+
+Ensure directory exists:
+```
+Bash("mkdir -p devforgeai/qa/audit")
+```
+
+Write structured JSON to `devforgeai/qa/audit/doc-audit.json` with schema:
+- `version`, `generated`, `project_root`
+- `scorecard` (4 dimensions with score, max, key_blocker)
+- `findings` array (id, severity, type, affected, summary, evidence, remediation, fix_mode, fix_action)
+- `inventory` (docs_files, community_files, orphaned_files, duplicate_groups)
+- `fix_sessions` (empty array for first run)
+
+### Phase A.4: Display
+
+Display summary report:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Documentation Audit Complete
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Scorecard:
+  Tone & Personality:      {score}/10 — {key_blocker}
+  Information Architecture: {score}/10 — {key_blocker}
+  Visual Design:           {score}/10 — {key_blocker}
+  Onboarding Friction:     {score}/10 — {key_blocker}
+
+Findings: {critical} CRITICAL, {high} HIGH, {medium} MEDIUM, {low} LOW
+
+Top findings:
+  F-001 [CRITICAL] {summary}
+  F-002 [CRITICAL] {summary}
+  F-003 [HIGH]     {summary}
+  ...
+
+Next Steps:
+  • /document --audit-fix --type=all     Apply all fixes
+  • /document --audit-fix --type=license Fix license only
+  • /document --audit-fix --finding=F-001 Fix single finding
+
+Audit saved: devforgeai/qa/audit/doc-audit.json
+```
+
+**EXIT after display. Do not proceed to Phases 0-7.**
+
+---
+
+## Phase B: Documentation Fix (--audit-fix)
+
+**⚠️ This phase executes ONLY when Mode Router selects audit-fix path.**
+
+**References:** Load `references/audit-fix-catalog.md` and `references/audit-workflow.md` before executing.
+
+### Phase B.0: Load Findings
+
+1. Read `devforgeai/qa/audit/doc-audit.json`
+   - If not found: HALT with "No audit file found. Run `/document --audit=dryrun` first."
+
+2. Parse findings array
+
+3. **Filter by --type** (if provided):
+   ```
+   IF type_filter != "all":
+       findings = findings.filter(f => f.type.startsWith(type_filter))
+   ```
+
+4. **Filter by --finding** (if provided):
+   ```
+   IF finding_filter != "all":
+       findings = findings.filter(f => f.id == finding_filter)
+   ```
+
+5. **Skip previously applied findings:**
+   ```
+   FOR each session in fix_sessions:
+       FOR each detail in session.details:
+           IF detail.status == "applied":
+               findings = findings.filter(f => f.id != detail.id)
+   ```
+
+6. Display: "Loaded {count} findings to process ({skipped} previously applied)"
+
+### Phase B.1: Classify
+
+Group filtered findings by fix_mode:
+- `automated_findings` — deterministic, safe to apply
+- `interactive_findings` — require user approval per action
+
+Display:
+```
+Fix plan:
+  {n} automated fixes (will apply without prompting)
+  {m} interactive fixes (will ask for approval)
+```
+
+### Phase B.2: Preview
+
+Display all planned changes in a summary table:
+
+```
+| ID | Type | Action | Target File | Mode |
+|----|------|--------|-------------|------|
+| F-001 | license:missing | create_dual_license | LICENSE-MIT, LICENSE-APACHE | interactive |
+| F-003 | community:contributing | create_contributing | CONTRIBUTING.md | automated |
+| F-007 | formatting:missing_badges | insert_badges | README.md | automated |
+| ... | ... | ... | ... | ... |
+```
+
+AskUserQuestion: "Proceed with {n} automated + {m} interactive fixes?"
+- Options: "Proceed" / "Auto-only (skip interactive)" / "Cancel"
+
+IF "Cancel": EXIT
+IF "Auto-only": Remove interactive_findings from execution list
+
+### Phase B.3: Execute
+
+**For each automated finding (in order):**
+
+1. Load fix action from catalog
+2. Read target file(s)
+3. Apply transformation (create file from template, insert text, replace text)
+4. Write result
+5. Log: `"✓ F-{id}: {action} → {file}"`
+
+**For each interactive finding (in order):**
+
+1. Load fix action from catalog
+2. Generate proposed change
+3. Display before/after diff or new file preview
+4. AskUserQuestion:
+   - "Apply" — execute the fix
+   - "Edit first" — user provides modified text, then apply
+   - "Skip" — mark as deferred
+5. Log result
+
+**Template variable resolution** (for file creation actions):
+- Read project manifest for: {{project_name}}, {{version}}, {{license}}
+- Detect from codebase: {{test_command}}, {{lint_command}}, {{format_command}}, {{msrv}}
+- Use git remote for: {{repo_url}}
+- AskUserQuestion for: {{contact_email}}, any unresolvable variable
+- Fallback: {{project_name}} = directory name
+
+### Phase B.4: Verify
+
+After all fixes applied:
+
+1. **Re-run orphan detection** — ensure no new orphans created
+2. **Check link integrity** — all entry points still reference expected files
+3. **Check fact consistency** — MSRV, version numbers still match
+4. **Check community files** — re-inventory, report remaining gaps
+
+Display verification results:
+```
+Verification:
+  ✓ No orphaned files
+  ✓ All links valid
+  ✓ Facts consistent
+  ⚠ 2 community files still missing (CODE_OF_CONDUCT.md, .github/FUNDING.yml)
+```
+
+### Phase B.5: Report
+
+1. **Append fix session to doc-audit.json:**
+   ```json
+   {
+     "timestamp": "...",
+     "type_filter": "all|license|tone|...",
+     "findings_processed": N,
+     "automated_applied": N,
+     "interactive_applied": N,
+     "skipped": N,
+     "details": [
+       { "id": "F-001", "action": "...", "status": "applied|skipped", "reason": "..." }
+     ]
+   }
+   ```
+
+2. **Display summary:**
+   ```
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     Documentation Fix Complete
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Applied: {applied} fixes
+   Skipped: {skipped} fixes (user deferred)
+   Remaining: {remaining} findings not yet addressed
+
+   Files created:  {list}
+   Files modified:  {list}
+
+   Next Steps:
+     • Review changes before committing
+     • Run /document --audit=dryrun to re-score
+     • Commit with: git add ... && git commit
+   ```
+
+**EXIT after report. Do not proceed to Phases 0-7.**
+
+---
+
 **Created:** 2025-11-18
+**Updated:** 2026-03-12 (added Phase A: Audit, Phase B: Fix)
 **Status:** Production Ready
-**Version:** 1.0.0
+**Version:** 1.1.0

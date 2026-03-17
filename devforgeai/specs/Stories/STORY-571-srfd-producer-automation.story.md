@@ -431,9 +431,8 @@ See: .claude/skills/implementing-stories/references/dod-update-workflow.md for c
 
 | File | Action | Lines |
 |------|--------|-------|
-| `src/claude/skills/devforgeai-feedback/references/srfd-format.md` | Create | ~200 |
-| `src/claude/agents/framework-analyst.md` | Modify | +50 |
-| `src/claude/skills/implementing-stories/phases/phase-09-feedback.md` | Modify | +80 |
+
+---
 
 ---
 

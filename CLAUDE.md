@@ -11,6 +11,9 @@ Be Honest.  Be objective - never sycophantic.
 
 **Mandatory** Strict phase compliance is a requirement - NOT an option.
 
+devforgeai-validate example execution:
+  bash('source .venv/bin/activate && devforgeai-validate phase-init STORY-016 --project-root=. 2>&1')
+  
 ---
 
 ## File Architecture Rules
