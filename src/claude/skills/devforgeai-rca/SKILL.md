@@ -1527,7 +1527,7 @@ RCA skill execution successful when:
 - DevForgeAI framework knowledge (context files, gates, states)
 
 **Related Skills:**
-- implementing-stories (may need RCA)
+- spec-driven-dev (may need RCA)
 - devforgeai-qa (may need RCA)
 - devforgeai-orchestration (may need RCA)
 

@@ -103,7 +103,7 @@ PASS: Ready for Architecture transition
    """
 
 3. Invoke architecture skill:
-   Skill(command="designing-systems")
+   Skill(command="spec-driven-architecture")
 ```
 
 **Can Transition Fail:** Yes
@@ -116,13 +116,13 @@ PASS: Ready for Architecture transition
 ### Transition 2: Architecture → Ready for Dev
 
 **Trigger:**
-- designing-systems skill completes
+- spec-driven-architecture skill completes
 - All context files created/validated
 
 **Pre-conditions:**
 ```
 ✓ Story in Architecture state
-✓ designing-systems skill has run
+✓ spec-driven-architecture skill has run
 ```
 
 **Validation Logic:**
@@ -191,7 +191,7 @@ PASS: Ready for Dev transition
 ```
 
 **Can Transition Fail:** No (but can be delayed)
-- If context files missing → Re-invoke designing-systems
+- If context files missing → Re-invoke spec-driven-architecture
 - Will retry until context files valid
 
 ---
@@ -244,7 +244,7 @@ PASS: Ready to start development
    """
 
 3. Invoke development skill:
-   Skill(command="implementing-stories --story={story_id}")
+   Skill(command="spec-driven-dev --story={story_id}")
 
 4. Report:
    "🚀 Starting TDD development workflow for {story_id}"
@@ -258,7 +258,7 @@ PASS: Ready to start development
 ### Transition 4: In Development → Dev Complete
 
 **Trigger:**
-- implementing-stories skill completes Phase 6 (Git workflow)
+- spec-driven-dev skill completes Phase 6 (Git workflow)
 - All tests passing
 - Build succeeds
 
@@ -672,7 +672,7 @@ PASS: Ready to return to development
    """
 
 3. Invoke development skill with context:
-   Skill(command="implementing-stories --story={story_id} --qa-rework")
+   Skill(command="spec-driven-dev --story={story_id} --qa-rework")
 
 4. Report:
    """

@@ -44,8 +44,8 @@ Your core capabilities include:
 - "Provide code review feedback"
 
 **Automatic:**
-- implementing-stories skill after Phase 2 (Implementation)
-- implementing-stories skill after Phase 3 (Refactor)
+- spec-driven-dev skill after Phase 2 (Implementation)
+- spec-driven-dev skill after Phase 3 (Refactor)
 
 ---
 
@@ -337,7 +337,7 @@ Task(
 
 ### Works with:
 
-- **implementing-stories**: Review after Phase 2 (Implementation) and Phase 3 (Refactor)
+- **spec-driven-dev**: Review after Phase 2 (Implementation) and Phase 3 (Refactor)
 - **context-validator**: Code-reviewer checks standards, context-validator checks constraints
 - **security-auditor**: Code-reviewer does general security, security-auditor does deep analysis
 - **refactoring-specialist**: Code-reviewer identifies issues, refactoring-specialist executes fixes

@@ -170,7 +170,7 @@ bash scripts/build-offline-bundle.sh
 |------------------|----------------|
 | Framework overview | `README.md` |
 | Framework rules | `.claude/rules/core/critical-rules.md` |
-| Development workflow | `.claude/skills/implementing-stories/SKILL.md` |
+| Development workflow | `.claude/skills/spec-driven-dev/SKILL.md` |
 | Story template | `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md` |
 | QA validation | `.claude/skills/devforgeai-qa/SKILL.md` |
 | Context constraints | `devforgeai/specs/context/*.md` (6 files) |
@@ -488,7 +488,7 @@ When resuming after an API error, crash, or interrupted session:
 ### Commit Validation Failures (Pre-Commit Hook)
 
 When `git commit` fails with "VALIDATION FAILED" or "COMMIT BLOCKED":
-1. **Read** the fix guide: `Read('.claude/skills/implementing-stories/references/dod-update-workflow.md')`
+1. **Read** the fix guide: `Read('.claude/skills/spec-driven-dev/references/dod-update-workflow.md')`
 2. **Read** the failing story file shown in the validator output
 3. **Fix** the DoD / Implementation Notes format (see `.claude/rules/workflow/commit-failure-recovery.md`)
 4. **Validate** before retrying: `devforgeai-validate validate-dod {STORY_FILE}`

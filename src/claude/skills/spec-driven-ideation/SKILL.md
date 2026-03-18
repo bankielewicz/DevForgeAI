@@ -263,7 +263,7 @@ FOR phase_num in range(CURRENT_PHASE, 8):  # Phases 01-07
        Load the phase file FRESH. Do NOT rely on memory of previous reads.
 
     2. REFERENCE: Read the phase's reference files as specified in the phase Contract section.
-       Each phase references files in .claude/skills/discovering-requirements/references/.
+       Each phase references files in .claude/skills/spec-driven-ideation/references/.
        Load ALL listed references. Do not skip any.
 
     3. EXECUTE: Follow EVERY step in the phase file using EXECUTE-VERIFY-RECORD triplets.
@@ -315,9 +315,9 @@ FOR phase_num in range(CURRENT_PHASE, 8):  # Phases 01-07
 
 - **Checkpoint:** `devforgeai/specs/ideation/${IDEATION_ID}.checkpoint.json`
 - **Output:** `devforgeai/specs/requirements/{project-name}-requirements.md`
-- **References:** `.claude/skills/discovering-requirements/references/` (shared read, not duplicated)
-- **Templates:** `.claude/skills/discovering-requirements/assets/templates/` (shared read)
-- **Scripts:** `.claude/skills/discovering-requirements/scripts/` (shared read)
+- **References:** `.claude/skills/spec-driven-ideation/references/` (shared read, not duplicated)
+- **Templates:** `.claude/skills/spec-driven-ideation/assets/templates/` (shared read)
+- **Scripts:** `.claude/skills/spec-driven-ideation/scripts/` (shared read)
 
 ---
 
@@ -334,7 +334,7 @@ IF checkpoint still exists: Mark checkpoint status = "complete"
 
 ## Error Handling
 
-Load error recovery patterns from: `.claude/skills/discovering-requirements/references/error-handling-index.md`
+Load error recovery patterns from: `.claude/skills/spec-driven-ideation/references/error-handling-index.md`
 
 **Error Type Files (load on-demand):**
 1. `error-type-1-incomplete-answers.md` - Vague/incomplete user responses

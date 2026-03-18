@@ -6,7 +6,7 @@ The `spec-driven-feedback` skill shares ALL reference files and templates with t
 
 ## Why Shared References
 
-Following the established pattern from `spec-driven-dev` (shares with `implementing-stories`), `spec-driven-qa` (shares with `devforgeai-qa`), and `spec-driven-ideation` (shares with `discovering-requirements`):
+Following the established pattern from `spec-driven-dev` (shares with `spec-driven-dev`), `spec-driven-qa` (shares with `devforgeai-qa`), and `spec-driven-ideation` (shares with `spec-driven-ideation`):
 
 1. **No drift** — Single source of truth for reference content
 2. **No maintenance burden** — Updates to `devforgeai-feedback` references automatically apply

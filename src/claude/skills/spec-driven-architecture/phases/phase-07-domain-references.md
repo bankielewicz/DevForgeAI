@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Generate project-specific domain reference files derived from context files for subagent consumption |
-| **REFERENCES** | `.claude/skills/designing-systems/references/domain-reference-generation.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/references/domain-reference-generation.md` |
 | **STEP COUNT** | 5 mandatory steps |
 
 ## Phase Exit Criteria
@@ -23,7 +23,7 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/domain-reference-generation.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/domain-reference-generation.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time.

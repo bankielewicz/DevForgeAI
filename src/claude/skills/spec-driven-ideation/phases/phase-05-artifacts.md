@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Generate the requirements.md output file in YAML per F4 schema format. This file is the primary deliverable of the entire ideation workflow and feeds into /create-epic and /create-context commands. |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/artifact-generation.md` (299 lines), `.claude/skills/discovering-requirements/references/examples.md` |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/artifact-generation.md` (299 lines), `.claude/skills/spec-driven-ideation/references/examples.md` |
 | **STEP COUNT** | 6 mandatory steps (5.1 through 5.6) |
 | **MINIMUM QUESTIONS** | 0-2 |
 
@@ -30,10 +30,10 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/artifact-generation.md")
-Read(file_path=".claude/skills/discovering-requirements/references/examples.md")
-Read(file_path=".claude/skills/discovering-requirements/assets/templates/requirements-schema.yaml")
-Read(file_path=".claude/skills/discovering-requirements/assets/templates/requirements-template.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/artifact-generation.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/examples.md")
+Read(file_path=".claude/skills/spec-driven-ideation/assets/templates/requirements-schema.yaml")
+Read(file_path=".claude/skills/spec-driven-ideation/assets/templates/requirements-template.md")
 ```
 
 IF any Read fails: HALT -- "Phase 05 cannot proceed without reference files and templates."

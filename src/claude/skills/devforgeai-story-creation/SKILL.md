@@ -143,7 +143,7 @@ This skill transforms feature descriptions into comprehensive, implementation-re
 
 - User runs `/create-story [feature-description]` command
 - devforgeai-orchestration decomposes epic features into stories
-- implementing-stories creates tracking stories for deferred DoD items
+- spec-driven-dev creates tracking stories for deferred DoD items
 - Sprint planning requires story generation
 - Manual invocation: `Skill(command="devforgeai-story-creation")`
 
@@ -251,9 +251,9 @@ IF epic_document is provided:
 
 **Execution:**
 ```
-guidance_path = "src/.claude/skills/discovering-requirements/references/user-input-guidance.md"
+guidance_path = "src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md"
     <!-- FULL READ MANDATORY — do not use offset/limit -->
-    Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
+    Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 
 TRY:
     <!-- FULL READ MANDATORY — do not use offset/limit -->
@@ -697,11 +697,11 @@ This skill delegates specialized tasks to subagents:
 **Invoked by:**
 - `/create-story` command (user-initiated)
 - devforgeai-orchestration skill (epic/sprint decomposition)
-- implementing-stories skill (deferred work tracking)
+- spec-driven-dev skill (deferred work tracking)
 
 **Provides output to:**
 - devforgeai-ui-generator (AC → UI requirements)
-- implementing-stories (AC → test generation)
+- spec-driven-dev (AC → test generation)
 - devforgeai-qa (AC → validation targets)
 
 **See `references/integration-guide.md` for complete integration patterns.**

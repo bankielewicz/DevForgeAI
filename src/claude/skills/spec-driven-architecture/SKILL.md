@@ -189,7 +189,7 @@ For each phase from CURRENT_PHASE to 11:
 
 1. **LOAD PHASE:** `Read(file_path=".claude/skills/spec-driven-architecture/phases/{phase_file}")` — Read the phase file FRESH. Do NOT skip this step.
 
-2. **LOAD REFERENCES:** Each phase file specifies which references to load from `.claude/skills/designing-systems/`. Load them ALL via Read(). Do NOT skip or summarize.
+2. **LOAD REFERENCES:** Each phase file specifies which references to load from `.claude/skills/spec-driven-architecture/`. Load them ALL via Read(). Do NOT skip or summarize.
 
 3. **EXECUTE STEPS:** Follow EVERY step's EXECUTE-VERIFY-RECORD triplet in the phase file. Execute them IN ORDER. Do NOT compress or skip steps.
 

@@ -163,7 +163,7 @@ questions:
 
 **Operation Type:** `skill`
 **Status:** `passed`
-**Use Case:** Skill completed successfully (e.g., `implementing-stories`)
+**Use Case:** Skill completed successfully (e.g., `spec-driven-dev`)
 
 ### Core Questions
 

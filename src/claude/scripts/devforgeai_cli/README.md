@@ -384,7 +384,7 @@ Bash(command="devforgeai check-git")
 Bash(command="devforgeai validate-context")
 ```
 
-### implementing-stories Skill
+### spec-driven-dev Skill
 
 The skill already has interactive checkpoints (Layer 2 - AskUserQuestion).
 The CLI validator provides Layer 1 (fast deterministic checks).

@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Validate CLAUDE.md and system-prompt-core.md alignment with context files; detect contradictions and gaps |
-| **REFERENCES** | `.claude/skills/designing-systems/references/prompt-alignment-workflow.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/references/prompt-alignment-workflow.md` |
 | **STEP COUNT** | 6 mandatory steps |
 
 ## Phase Exit Criteria
@@ -24,7 +24,7 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/prompt-alignment-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/prompt-alignment-workflow.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time.

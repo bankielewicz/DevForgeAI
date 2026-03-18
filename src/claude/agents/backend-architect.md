@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Grep, Glob, Bash
 model: opus
 color: green
 permissionMode: plan
-skills: designing-systems
+skills: spec-driven-architecture
 version: "2.0.0"
 ---
 
@@ -37,7 +37,7 @@ You are a backend architect specializing in clean architecture, domain-driven de
 - "Create [service/repository/controller] following clean architecture"
 
 **Automatic:**
-- When `implementing-stories` skill enters **Phase 2 (Green - Implementation)**
+- When `spec-driven-dev` skill enters **Phase 2 (Green - Implementation)**
 - When story type indicates backend work (API, service, database)
 
 ---
@@ -252,7 +252,7 @@ Load references on-demand based on scenario:
 - **context-validator**: Checks constraints before and after implementation
 - **code-reviewer**: Reviews code quality after implementation
 - **refactoring-specialist**: Improves code while keeping tests green
-- **implementing-stories skill**: Phase 2 (Green) invokes backend-architect
+- **spec-driven-dev skill**: Phase 2 (Green) invokes backend-architect
 
 ---
 

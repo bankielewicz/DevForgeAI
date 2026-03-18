@@ -24,7 +24,7 @@ allowed-tools:
   - Bash(gradle:*)
   - Bash(python:*)
   - Skill
-model: Sonnet
+model: claude-opus-4-6
 effort: High
 ---
 
@@ -73,7 +73,7 @@ This skill enforces 4 independent anti-skip layers. ALL FOUR must fail for a ste
 
 ## Parameter Extraction
 
-Extract story ID from conversation context. See `.claude/skills/implementing-stories/references/parameter-extraction.md` for the extraction algorithm.
+Extract story ID from conversation context. See `references/parameter-extraction.md` for the extraction algorithm.
 
 ## Command Integration
 
@@ -162,7 +162,7 @@ FOR phase_num in range(CURRENT_PHASE, 11):
 | 09 | framework-analyst | BLOCKING |
 | 10 | dev-result-interpreter | BLOCKING |
 
-**Deviation Protocol:** Any skip requires explicit user consent via AskUserQuestion. See `.claude/skills/implementing-stories/references/workflow-deviation-protocol.md`.
+**Deviation Protocol:** Any skip requires explicit user consent via AskUserQuestion. See `references/workflow-deviation-protocol.md`.
 
 ---
 
@@ -176,7 +176,7 @@ After Phase 02, test files are IMMUTABLE until Phase 05. Mismatches = HALT immed
 
 ## Remediation Mode
 
-After Phase 01, if `$REMEDIATION_MODE == true`: Read `.claude/skills/implementing-stories/references/qa-remediation-workflow.md`, SKIP Phases 02-08, GOTO Phase 09.
+After Phase 01, if `$REMEDIATION_MODE == true`: Read `references/qa-remediation-workflow.md`, SKIP Phases 02-08, GOTO Phase 09.
 
 ## Technical Debt Override Banner
 
@@ -191,7 +191,7 @@ If `$DEBT_OVERRIDE_BANNER == true`, display at start of each phase:
 
 **Location:** `devforgeai/workflows/${STORY_ID}-phase-state.json`
 **Session Memory:** `.claude/memory/sessions/${STORY_ID}-session.md`
-**References:** `.claude/skills/implementing-stories/references/memory-file-schema.md`, `.claude/skills/implementing-stories/references/memory-file-operations.md`
+**References:** `references/memory-file-schema.md`, `references/memory-file-operations.md`
 
 ---
 
@@ -217,3 +217,63 @@ IF iteration_count >= max_iterations: HALT "Maximum iterations reached"
 - DoD validation passed
 - Changes committed
 - Story status = "Dev Complete"
+
+---
+
+## Treelint AST-Aware Search Integration
+
+Phases 02-04 invoke Treelint-enabled subagents for semantic code analysis (40-80% token reduction). Automatic fallback to Grep when unavailable.
+
+**Reference:** `references/treelint-integration.md` and `.claude/agents/references/treelint-search-patterns.md`
+
+---
+
+## Reference Files
+
+### Phase Execution (phases/ directory)
+
+| File | Phase |
+|------|-------|
+| phase-01-preflight.md | Pre-Flight Validation |
+| phase-02-test-first.md | Test-First (TDD Red) |
+| phase-03-implementation.md | Implementation (TDD Green) |
+| phase-04-refactoring.md | Refactoring + Light QA |
+| phase-04.5-ac-verification.md | AC Verification (Post-Refactor) |
+| phase-05-integration.md | Integration Testing |
+| phase-05.5-ac-verification.md | AC Verification (Post-Integration) |
+| phase-06-deferral.md | Deferral Challenge |
+| phase-07-dod-update.md | DoD Update |
+| phase-08-git-workflow.md | Git Workflow |
+| phase-09-feedback.md | Feedback Hook |
+| phase-10-result.md | Result Interpretation |
+
+### Supporting References (references/ directory)
+
+| File | Purpose |
+|------|---------|
+| parameter-extraction.md | Story ID extraction algorithm |
+| preflight-validation.md | Phase 01 detailed workflow |
+| tdd-red-phase.md | Phase 02 detailed workflow |
+| test-integrity-snapshot.md | Red-phase test checksum snapshot (STORY-502) |
+| tdd-green-phase.md | Phase 03 detailed workflow |
+| tdd-refactor-phase.md | Phase 04 detailed workflow |
+| ac-verification-workflow.md | AC Verification for Phase 4.5/5.5 |
+| ac-checklist-update-workflow.md | AC checklist update procedures |
+| integration-testing.md | Phase 05 detailed workflow |
+| phase-06-deferral-challenge.md | Phase 06 detailed workflow |
+| dod-update-workflow.md | Phase 07 detailed workflow |
+| git-workflow-conventions.md | Phase 08 detailed workflow |
+| tdd-patterns.md | Comprehensive TDD guidance |
+| qa-remediation-workflow.md | Remediation mode workflow |
+| resume-detection.md | Resume workflow detection and pre-flight (STORY-459) |
+| observation-capture.md | Inline observation schema (STORY-400) |
+| workflow-deviation-protocol.md | Deviation consent protocol (RCA-019) |
+| pre-phase-planning.md | Optional pre-phase planning (STORY-FEEDBACK-005) |
+| phase-transition-validation.md | CLI validation call reference (STORY-153) |
+| memory-file-schema.md | Memory file YAML schema (STORY-303) |
+| memory-file-operations.md | Memory file read/write operations (STORY-303) |
+| ambiguity-protocol.md | When to ask user questions |
+| treelint-integration.md | Treelint AST-aware search setup and fallback |
+| treelint-daemon-lifecycle.md | Treelint daemon start/stop management |
+| treelint-dependency-query.md | Treelint dependency query patterns |
+| treelint-repository-map.md | Treelint repository map generation |

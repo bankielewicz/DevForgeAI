@@ -286,7 +286,7 @@ field-mappings:
 **Sample Rendered Output:**
 ```markdown
 ---
-operation: implementing-stories
+operation: spec-driven-dev
 type: skill
 status: passed
 timestamp: 2025-11-10T12:00:00+00:00
@@ -294,7 +294,7 @@ story-id: STORY-042
 template-version: "1.0"
 ---
 
-# Skill Retrospective: implementing-stories
+# Skill Retrospective: spec-driven-dev
 
 ## Workflow Clarity
 The TDD workflow (Red → Green → Refactor) was very clear. Each phase had explicit instructions and success criteria.

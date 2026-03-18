@@ -1,18 +1,14 @@
-# Spec-Driven Architecture — Shared Reference Loading Map
+# Spec-Driven Architecture — Self-Contained Reference Directory
 
-This skill does NOT duplicate reference files. All references are loaded via `Read()` from the `designing-systems` skill directory at runtime.
+This skill's references are **self-contained**. All reference files, assets, templates, and scripts live within this skill directory. There are no external dependencies on other skills.
 
-**Source directory:** `.claude/skills/designing-systems/`
-
-**Why shared reads:** Single source of truth prevents drift between the legacy skill and this replacement. If a reference file is updated in `designing-systems/`, this skill automatically picks up the change.
-
-**Dependency:** The `designing-systems/` skill directory MUST remain intact. It serves as the reference library even though it is deprecated for direct invocation.
+**Historical note:** References were migrated from the deprecated legacy architecture skill per ADR-039. All files that were previously loaded via shared `Read()` calls from the old skill directory now reside directly under `.claude/skills/spec-driven-architecture/`.
 
 ---
 
 ## Phase-to-Reference Loading Map
 
-| Phase | Reference Files (loaded via Read from `.claude/skills/designing-systems/`) |
+| Phase | Reference Files (loaded via Read from `.claude/skills/spec-driven-architecture/`) |
 |---|---|
 | 01 | `references/context-discovery-workflow.md`, `references/user-input-guidance.md`, `references/architecture-user-input-integration.md` |
 | 02 | `references/context-file-creation-workflow.md`, `assets/context-templates/tech-stack.md`, `assets/context-templates/source-tree.md`, `assets/context-templates/dependencies.md`, `assets/context-templates/coding-standards.md`, `assets/context-templates/architecture-constraints.md`, `assets/context-templates/anti-patterns.md` |
@@ -43,7 +39,7 @@ This skill does NOT duplicate reference files. All references are loaded via `Re
 Each phase file begins with a **Reference Loading** section that uses explicit `Read()` calls:
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/{reference-name}.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/{reference-name}.md")
 ```
 
 References are loaded FRESH at the start of each phase. They are NOT consolidated or cached across phases. This prevents the "already covered" rationalization that enables token optimization bias.

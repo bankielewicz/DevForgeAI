@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Independent architecture review of all context files for soundness, coherence, completeness, and practicality |
-| **REFERENCES** | `.claude/skills/designing-systems/references/architecture-review-workflow.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/references/architecture-review-workflow.md` |
 | **STEP COUNT** | 3 mandatory steps |
 
 ## Phase Exit Criteria
@@ -22,7 +22,7 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/architecture-review-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/architecture-review-workflow.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time.

@@ -22,8 +22,8 @@ This document describes how the `claude-code-terminal-expert` skill integrates w
 - Best practices recommendations
 
 **Relationship:** Complements (doesn't replace) DevForgeAI workflow skills:
-- discovering-requirements
-- implementing-stories
+- spec-driven-ideation
+- spec-driven-dev
 - devforgeai-qa
 - devforgeai-release
 
@@ -43,7 +43,7 @@ This document describes how the `claude-code-terminal-expert` skill integrates w
 
 ## Cross-Skill References
 
-### From implementing-stories
+### From spec-driven-dev
 When implementing features and Claude Code questions arise:
 - Subagent invocation fails → `troubleshooting-guide.md` Section 3
 - Permission issues occur → `configuration-guide.md` Section 4
@@ -56,7 +56,7 @@ When validation tools are questioned:
 - Hook behavior unclear → `integration-patterns.md` Section 3
 - Background task issues → `core-features.md` Background Tasks section
 
-### From designing-systems
+### From spec-driven-architecture
 When technology decisions involve Claude Code:
 - CI/CD integration planned → `integration-patterns.md` Section 1-2
 - Hook automation needed → `integration-patterns.md` Section 3

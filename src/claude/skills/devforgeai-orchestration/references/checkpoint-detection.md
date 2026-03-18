@@ -95,7 +95,7 @@ Timestamp: {ISO 8601}
 
 **Meaning:** Development completed, implementation finished
 
-**Created by:** implementing-stories skill (TDD cycle complete)
+**Created by:** spec-driven-dev skill (TDD cycle complete)
 
 **Marker in workflow history:**
 ```
@@ -345,7 +345,7 @@ Return: orchestration_state to workflow controller
 ### Full Workflow (No Checkpoints)
 
 **Phases executed:** 2 → 3 → 4 → 5
-1. Development (implementing-stories)
+1. Development (spec-driven-dev)
 2. QA Validation (devforgeai-qa)
 3. Staging Release (devforgeai-release --env=staging)
 4. Production Release (devforgeai-release --env=production)

@@ -24,7 +24,7 @@ STEP COUNT: 4 mandatory steps
 
 EXECUTE: Read the detailed verification reference.
 ```
-Read(file_path=".claude/skills/implementing-stories/references/ac-verification-workflow.md")
+Read(file_path="references/ac-verification-workflow.md")
 ```
 VERIFY: File content loaded successfully.
 

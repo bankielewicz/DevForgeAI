@@ -131,7 +131,7 @@ EPIC-001: User Authentication System
 - Example: After /ideate requirements discovery
 
 **After requirements discovery:**
-- discovering-requirements skill completed
+- spec-driven-ideation skill completed
 - Requirements documented
 - Ready to plan implementation
 - Example: Ideation generated requirements spec → Create epic

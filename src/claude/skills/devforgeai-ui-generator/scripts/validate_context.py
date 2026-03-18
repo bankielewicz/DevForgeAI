@@ -106,7 +106,7 @@ def main():
             print(f"  ✗ {error}")
         print()
         print("Resolution:")
-        print("  Please invoke the 'designing-systems' skill to create")
+        print("  Please invoke the 'spec-driven-architecture' skill to create")
         print("  or update the required context files.")
         return 1
 

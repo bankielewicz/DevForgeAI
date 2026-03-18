@@ -122,4 +122,4 @@ devforgeai-validate phase-complete ${STORY_ID} --phase=01 --checkpoint-passed
 
 - Capture observations: friction, success, pattern, gap, idea, bug
 - Update session memory with Phase 01 completion timestamp
-- Reference: `.claude/skills/implementing-stories/references/observation-capture.md`
+- Reference: `references/observation-capture.md`

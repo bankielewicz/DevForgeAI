@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Generate design system context file for UI projects. CONDITIONAL phase — skip if no frontend framework detected in tech-stack.md |
-| **REFERENCES** | `.claude/skills/designing-systems/assets/context-templates/design-system.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/assets/context-templates/design-system.md` |
 | **STEP COUNT** | 3 mandatory steps |
 
 ## Phase Exit Criteria
@@ -23,7 +23,7 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/design-system.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/design-system.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time this phase executes.
@@ -137,7 +137,7 @@ checkpoint.phase_09.step_9_1 = {
 
 **EXECUTE:**
 ```
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/design-system.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/design-system.md")
 ```
 Load the template. Customize all template sections with user preferences from Step 9.1:
 - Replace color token placeholders with user-specified palette

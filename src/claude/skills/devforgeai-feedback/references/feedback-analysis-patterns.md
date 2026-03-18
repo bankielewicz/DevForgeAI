@@ -395,7 +395,7 @@ grep -A 5 "## What Went Well" sessions/*.md | wc -w
    - "Improve dependency resolution error messages"
 3. **Group by component:**
    - test-automator subagent: 3 suggestions
-   - implementing-stories skill: 2 suggestions
+   - spec-driven-dev skill: 2 suggestions
    - Error handling: 2 suggestions
 4. **Prioritize by frequency:**
    - Mentioned >5 times → HIGH

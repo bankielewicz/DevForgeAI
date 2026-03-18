@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Validate the generated requirements.md against quality standards, F4 schema compliance, and content completeness. Uses a validate-fix-repeat loop (max 3 retries) with auto-correction for fixable issues. |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/self-validation-workflow.md` (292 lines), `.claude/skills/discovering-requirements/references/validation-checklists.md` (651 lines) |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/self-validation-workflow.md` (292 lines), `.claude/skills/spec-driven-ideation/references/validation-checklists.md` (651 lines) |
 | **STEP COUNT** | 5 mandatory steps |
 | **MINIMUM QUESTIONS** | 0-1 |
 
@@ -28,8 +28,8 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/self-validation-workflow.md")
-Read(file_path=".claude/skills/discovering-requirements/references/validation-checklists.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/self-validation-workflow.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/validation-checklists.md")
 ```
 
 IF either Read fails: HALT -- "Phase 06 reference files not loaded. Cannot proceed without validation reference material."

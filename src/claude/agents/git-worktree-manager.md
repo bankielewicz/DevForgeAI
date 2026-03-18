@@ -23,7 +23,7 @@ Automate Git worktree lifecycle for parallel story development in the `/dev` com
 4. Cross-platform support (Linux, macOS, Windows, WSL)
 5. Structured JSON responses for /dev command integration
 
-**Invoked by:** `.claude/skills/implementing-stories/references/preflight/_index.md` Step 0.2
+**Invoked by:** `.claude/skills/spec-driven-dev/references/preflight/_index.md` Step 0.2
 **Story:** STORY-091 - Git Worktree Auto-Management
 **Related:** EPIC-010 - Parallel Story Development with CI/CD Integration
 

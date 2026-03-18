@@ -2,7 +2,7 @@
 
 **Purpose:** Analyze market landscape, competitive positioning, and SWOT analysis for technology/product decisions.
 
-**When to Use:** discovering-requirements Phase 5 (market viability assessment), strategic planning, vendor selection, differentiation analysis
+**When to Use:** spec-driven-ideation Phase 5 (market viability assessment), strategic planning, vendor selection, differentiation analysis
 
 **Loaded:** Conditionally (when research_mode = "competitive-analysis")
 
@@ -613,7 +613,7 @@ Competitive analysis succeeds when:
 - `discovery-mode-methodology.md` - Feasibility research (technical focus)
 - `skill-coordination-patterns.md` - Task invocation examples
 - `research-report-template.md` - Standard report structure
-- `.claude/skills/discovering-requirements/SKILL.md` - Ideation integration
+- `.claude/skills/spec-driven-ideation/SKILL.md` - Ideation integration
 
 ---
 

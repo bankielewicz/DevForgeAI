@@ -15,7 +15,7 @@ Previously, you edited files directly here:
 
 ```bash
 # OLD (deprecated) - DON'T DO THIS
-vim ~/.claude/skills/implementing-stories/SKILL.md
+vim ~/.claude/skills/spec-driven-dev/SKILL.md
 # Direct edits to deployed files
 ```
 
@@ -25,7 +25,7 @@ Now, edit source files in the repository and deploy with installer:
 
 ```bash
 # NEW (recommended) - DO THIS
-vim src/.claude/skills/implementing-stories/SKILL.md
+vim src/.claude/skills/spec-driven-dev/SKILL.md
 
 # Deploy your changes
 python installer/install.py --mode=upgrade
@@ -63,7 +63,7 @@ python installer/install.py --mode=upgrade
 # 3. Restart Claude Code Terminal
 
 # 4. Now edit in src/ instead
-vim src/.claude/skills/implementing-stories/SKILL.md
+vim src/.claude/skills/spec-driven-dev/SKILL.md
 python installer/install.py --mode=upgrade
 ```
 

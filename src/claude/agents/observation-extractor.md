@@ -574,7 +574,7 @@ Confirm file was created and contains valid JSON. If write fails, log error but 
 
 **Consumed by:**
 - Phase exit gates (01-09)
-- implementing-stories skill (Phase 09 feedback)
+- spec-driven-dev skill (Phase 09 feedback)
 
 **Outputs to:**
 - `devforgeai/workflows/{STORY-ID}-phase-state.json` observations array

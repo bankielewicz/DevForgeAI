@@ -897,7 +897,7 @@ New packages or versions required:
 
 **Purpose:** Real-time progress tracking during TDD implementation. Check off items as each sub-task completes.
 
-**Usage:** The implementing-stories skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.
+**Usage:** The spec-driven-dev skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.
 
 **Tracking Mechanisms:**
 - **TodoWrite:** Phase-level tracking (AI monitors workflow position)
@@ -933,7 +933,7 @@ When filling in the Implementation Notes section during /dev workflow:
 3. The extract_section() validator stops at the first ### header it encounters
 4. If DoD items are under a ### subsection, the validator cannot find them → commit blocked
 5. The ### Additional Notes subsection is OK because it comes AFTER DoD items
-See: .claude/skills/implementing-stories/references/dod-update-workflow.md for complete details
+See: .claude/skills/spec-driven-dev/references/dod-update-workflow.md for complete details
 -->
 
 ## Definition of Done

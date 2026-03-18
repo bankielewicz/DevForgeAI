@@ -48,7 +48,7 @@ devforgeai/feedback/
 - `20251120-083045-dev-STORY-001.md` - /dev command for STORY-001
 - `20251120-091523-qa-STORY-002.md` - /qa validation for STORY-002
 - `20251120-143012-release-production.md` - Production release feedback
-- `20251121-101234-designing-systems-general.md` - Architecture skill, no story
+- `20251121-101234-spec-driven-architecture-general.md` - Architecture skill, no story
 
 ---
 
@@ -119,7 +119,7 @@ Delays: Dependency resolution (5min), test debugging (10min)
 ## Actionable Insights (auto-extracted)
 
 1. **Add mocking examples** - Priority: MEDIUM - Owner: test-automator subagent
-2. **Refactoring guidance** - Priority: LOW - Owner: implementing-stories skill
+2. **Refactoring guidance** - Priority: LOW - Owner: spec-driven-dev skill
 3. **Dependency resolution speedup** - Priority: HIGH - Owner: infrastructure
 
 ---

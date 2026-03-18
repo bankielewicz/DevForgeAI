@@ -247,7 +247,7 @@ Per `devforgeai/specs/Terminal/native-tools-vs-bash-efficiency-analysis.md`:
 ### Framework Validation Pattern
 
 Follows established patterns from:
-- `.claude/skills/designing-systems/scripts/validate_all_context.py` (Color class, exit codes)
+- `.claude/skills/spec-driven-architecture/scripts/validate_all_context.py` (Color class, exit codes)
 - `.claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py` (dataclass patterns, argparse)
 
 **Consistency:** Matches 16 existing framework validation scripts (Python, not Bash)
@@ -349,13 +349,13 @@ ERROR: Story file not found: devforgeai/specs/Stories/STORY-006.story.md
 ## Related Documentation
 
 **RCA-006 Implementation:**
-- Recommendation 1: `.claude/skills/implementing-stories/references/dod-validation-checkpoint.md` (Layer 2)
-- Recommendation 2: `.claude/skills/implementing-stories/SKILL.md` (XML enforcement)
+- Recommendation 1: `.claude/skills/spec-driven-dev/references/dod-validation-checkpoint.md` (Layer 2)
+- Recommendation 2: `.claude/skills/spec-driven-dev/SKILL.md` (XML enforcement)
 - Recommendation 3: This script (Layer 1) + `.claude/agents/deferral-validator.md` (Layer 3)
 
 **Framework Patterns:**
 - `devforgeai/specs/Terminal/native-tools-vs-bash-efficiency-analysis.md` (token efficiency)
-- `.claude/skills/designing-systems/scripts/` (validation script patterns)
+- `.claude/skills/spec-driven-architecture/scripts/` (validation script patterns)
 
 **Integration:**
 - `.claude/commands/dev.md` (Phase 2.5a invokes this script)

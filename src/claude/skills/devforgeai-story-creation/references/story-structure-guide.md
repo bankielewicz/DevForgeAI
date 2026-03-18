@@ -887,7 +887,7 @@ story_content = template
 **Used by:**
 - devforgeai-story-creation skill (this skill)
 - devforgeai-orchestration skill (story lifecycle management)
-- implementing-stories skill (TDD implementation)
+- spec-driven-dev skill (TDD implementation)
 - devforgeai-qa skill (validation against acceptance criteria)
 
 ---

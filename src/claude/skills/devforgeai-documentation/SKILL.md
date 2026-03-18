@@ -634,8 +634,8 @@ Display: ""
 
 **From:**
 - devforgeai-story-creation (story specifications)
-- designing-systems (context files)
-- implementing-stories (completed implementations)
+- spec-driven-architecture (context files)
+- spec-driven-dev (completed implementations)
 
 **To:**
 - devforgeai-release (documentation quality gate)

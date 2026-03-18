@@ -37,7 +37,7 @@ Generate clear, accurate technical documentation for APIs, codebases, and system
 
 **Automatic:**
 - devforgeai-qa when documentation coverage < 80%
-- implementing-stories after Phase 4 (Integration)
+- spec-driven-dev after Phase 4 (Integration)
 
 ## Input/Output Specification
 
@@ -558,12 +558,12 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 ## Integration
 
 **Works with:**
-- implementing-stories: Documents code after implementation
+- spec-driven-dev: Documents code after implementation
 - devforgeai-qa: Invoked when documentation coverage low
 - api-designer: Documents API contracts
 
 **Invoked by:**
-- implementing-stories (Phase 4)
+- spec-driven-dev (Phase 4)
 - devforgeai-qa (when coverage < 80%)
 
 **Invokes:**
@@ -594,7 +594,7 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 - Markdown best practices
 
 **Framework Integration:**
-- implementing-stories skill
+- spec-driven-dev skill
 - devforgeai-qa skill
 
 **Related Subagents:**

@@ -86,7 +86,7 @@ create_dir_with_gitkeep "$SRC_DIR/.claude/memory"
 
 # Create 10 skill subdirectories (9 DevForgeAI + 1 claude-code-terminal-expert)
 SKILLS=(
-    "discovering-requirements"
+    "spec-driven-ideation"
     "designing-systems"
     "devforgeai-orchestration"
     "devforgeai-story-creation"

@@ -70,7 +70,7 @@ Capture retrospective feedback from development workflows to improve processes, 
 3. Generate structured analysis (what_worked_well, areas_for_improvement, recommendations)
 4. Validate: no aspirational language, evidence required, effort estimates, feasibility check
 5. Apply merit filter (duplicate check, already-implemented check)
-6. For detailed Phase 09 integration, see: `.claude/skills/implementing-stories/phases/phase-09-feedback.md`
+6. For detailed Phase 09 integration, see: `.claude/skills/spec-driven-dev/phases/phase-09-feedback.md`
 
 **triage:**
 1. Read `devforgeai/feedback/ai-analysis/aggregated/recommendations-queue.json`
@@ -232,6 +232,6 @@ Templates in `templates/` define question structure by operation type and outcom
 - **Hook System:** `HOOK-SYSTEM.md` (complete technical reference)
 - **Hook Config:** `devforgeai/config/hooks.yaml`
 - **Feedback Config:** `devforgeai/feedback/config.yaml`
-- **Phase 09 Integration:** `.claude/skills/implementing-stories/phases/phase-09-feedback.md`
+- **Phase 09 Integration:** `.claude/skills/spec-driven-dev/phases/phase-09-feedback.md`
 - **Framework Analyst:** `.claude/agents/framework-analyst.md`
 - **Feedback CLI:** `.claude/scripts/devforgeai_cli/feedback/`

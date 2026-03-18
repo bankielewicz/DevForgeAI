@@ -25,7 +25,7 @@ DevForgeAI2/
 │
 ├── .claude/                     # Claude Code Terminal configuration (OPERATIONAL - do not modify files)
 │   ├── skills/                  # Framework implementation (18 skills)
-│   │   ├── discovering-requirements/
+│   │   ├── spec-driven-ideation/
 │   │   │   ├── SKILL.md         # Main skill (500-800 lines)
 │   │   │   ├── references/      # Deep documentation (loaded on demand)
 │   │   │   │   ├── discovery-workflow.md
@@ -926,7 +926,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 **Correct**:
 ```
 .claude/skills/
-├── discovering-requirements/
+├── spec-driven-ideation/
 ├── designing-systems/
 ├── implementing-stories/
 ├── devforgeai-qa/
@@ -999,7 +999,7 @@ devforgeai/specs/context/
 
 **Example**:
 ```
-.claude/skills/discovering-requirements/
+.claude/skills/spec-driven-ideation/
 ├── SKILL.md (500 lines)
 │   # Phase 1: Discovery
 │   # Phase 2: Requirements Elicitation

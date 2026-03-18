@@ -256,7 +256,7 @@ Example format:
 ```
 ac_verification_checklist_section = "## Acceptance Criteria Verification Checklist\n\n"
 ac_verification_checklist_section += "**Purpose:** Real-time progress tracking during TDD implementation. Check off items as each sub-task completes.\n\n"
-ac_verification_checklist_section += "**Usage:** The implementing-stories skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.\n\n"
+ac_verification_checklist_section += "**Usage:** The spec-driven-dev skill updates this checklist at the end of each TDD phase (Phases 1-5), providing granular visibility into AC completion progress.\n\n"
 ac_verification_checklist_section += "**Tracking Mechanisms:**\n"
 ac_verification_checklist_section += "- **TodoWrite:** Phase-level tracking (AI monitors workflow position)\n"
 ac_verification_checklist_section += "- **AC Checklist:** AC sub-item tracking (user sees granular progress) ← YOU ARE HERE\n"

@@ -5,8 +5,8 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 ## Purpose
 
 **Automate skill execution** throughout the story lifecycle:
-- Invoke designing-systems when context files needed
-- Invoke implementing-stories for implementation
+- Invoke spec-driven-architecture when context files needed
+- Invoke spec-driven-dev for implementation
 - Invoke devforgeai-qa for validation
 - Invoke devforgeai-release for deployment
 
@@ -16,7 +16,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 
 ## Skills Coordinated
 
-### 1. designing-systems
+### 1. spec-driven-architecture
 
 **When invoked:** Story status = "Backlog" AND context files missing
 
@@ -26,7 +26,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 
 ---
 
-### 2. implementing-stories
+### 2. spec-driven-dev
 
 **When invoked:** Story status = "Ready for Dev" OR checkpoint resumes from Phase 2
 
@@ -89,7 +89,7 @@ IF count < 6:
 IF context_files_exist == false:
   Display: "Context files missing. Invoking architecture skill..."
 
-  Skill(command="designing-systems")
+  Skill(command="spec-driven-architecture")
 
   Wait for completion
 
@@ -109,7 +109,7 @@ IF context_files_exist == false:
 
   Append workflow history:
     "### {timestamp} - Architecture Phase Complete
-     Context files created by designing-systems skill
+     Context files created by spec-driven-architecture skill
      Status: Architecture → Ready for Dev"
 ```
 
@@ -125,9 +125,9 @@ IF context_files_exist == false:
 
 ```
 Display: "🔨 Starting Development Phase..."
-Display: "Invoking implementing-stories skill for TDD workflow"
+Display: "Invoking spec-driven-dev skill for TDD workflow"
 
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 
 # NOTE: Cannot pass story ID as parameter to skill
 # Story ID must be in conversation context (already loaded in Phase 0/1)
@@ -158,7 +158,7 @@ Verify story status updated:
     Success: "✓ Development phase complete"
     Append workflow history:
       "### {timestamp} - Development Phase Complete
-       Implementation finished by implementing-stories skill
+       Implementation finished by spec-driven-dev skill
        Status: In Development → Dev Complete
        Checkpoint: DEV_COMPLETE"
   ELSE:
@@ -391,7 +391,7 @@ Skill(command="devforgeai-qa")
 Skill(command="devforgeai-qa --mode=deep --story=STORY-048")
 
 # ❌ WRONG - Parameters ignored
-Skill(command="implementing-stories --story=STORY-048")
+Skill(command="spec-driven-dev --story=STORY-048")
 ```
 
 ---
@@ -421,12 +421,12 @@ Validate completion:
 
 **Complete skill integration coverage:**
 
-1. **discovering-requirements** - Requirements discovery → Architecture transition
-2. **designing-systems** - Context file generation (invoked in Architecture phase)
+1. **spec-driven-ideation** - Requirements discovery → Architecture transition
+2. **spec-driven-architecture** - Context file generation (invoked in Architecture phase)
 3. **devforgeai-orchestration** - Workflow coordination (this skill)
 4. **devforgeai-story-creation** - Story generation from features
 5. **devforgeai-ui-generator** - UI specification generation
-6. **implementing-stories** - TDD implementation (invoked in Development phase)
+6. **spec-driven-dev** - TDD implementation (invoked in Development phase)
 7. **devforgeai-qa** - Quality validation (invoked in QA phase)
 8. **devforgeai-release** - Deployment (invoked in Release phase)
 

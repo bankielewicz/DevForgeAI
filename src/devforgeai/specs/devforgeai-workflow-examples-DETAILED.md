@@ -63,7 +63,7 @@ Result: ZERO ambiguity, fully specified system
 
 ---
 
-## Phase 0: Ideation (discovering-requirements)
+## Phase 0: Ideation (spec-driven-ideation)
 
 **User Input:**
 ```bash

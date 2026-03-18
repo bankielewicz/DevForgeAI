@@ -1751,7 +1751,7 @@ This implementation plan provides a complete roadmap for refactoring `/create-ep
 
 **Pattern applied:**
 1. Argument validation (business idea)
-2. Skill invocation (discovering-requirements)
+2. Skill invocation (spec-driven-ideation)
 3. Artifact verification
 4. Brief completion confirmation
 5. Next steps guidance (defers to skill)

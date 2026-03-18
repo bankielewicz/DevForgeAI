@@ -7,7 +7,7 @@ description: >
   Prevents token optimization bias through lean orchestration, per-phase reference
   loading, and artifact verification. Use when user says "brainstorm", wants to
   explore a vague business problem, needs stakeholder analysis, or runs /brainstorm.
-  Do NOT use when user has structured requirements (use discovering-requirements) or
+  Do NOT use when user has structured requirements (use spec-driven-ideation) or
   wants a business plan directly (use planning-business).
 allowed-tools:
   - Read

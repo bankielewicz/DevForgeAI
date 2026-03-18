@@ -23,7 +23,7 @@ Maps Phase 1 Story Discovery questions to user-input-guidance.md patterns.
 ```yaml
 integration_version: "1.0"
 skill_name: "devforgeai-story-creation"
-patterns_file: "src/.claude/skills/discovering-requirements/references/user-input-guidance.md"
+patterns_file: "src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md"
 
 phase_1_pattern_mapping:
 
@@ -240,11 +240,11 @@ Options: [Critical, High, Medium, Low]
 ## 11. Related Documentation
 
 ### Source Patterns
-- **[user-input-guidance.md](../../../discovering-requirements/references/user-input-guidance.md)** - Pattern definitions and integration framework used by all target skills
+- **[user-input-guidance.md](../../../spec-driven-ideation/references/user-input-guidance.md)** - Pattern definitions and integration framework used by all target skills
 
 ### Related Stories
 - **STORY-056:** devforgeai-story-creation Integration (this implementation) - Implements patterns in skill Phase 1
-- **STORY-055:** discovering-requirements Integration (parallel implementation) - Implements patterns in ideation skill phases
+- **STORY-055:** spec-driven-ideation Integration (parallel implementation) - Implements patterns in ideation skill phases
 - **STORY-064:** devforgeai-story-creation Integration Validation (test execution) - Validates patterns work in production
 
 ### Bidirectional Navigation

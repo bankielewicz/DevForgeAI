@@ -6,7 +6,7 @@
 
 ## CRITICAL RULE: Framework Organization
 
-This file defines WHERE framework components belong in the DevForgeAI repository. Projects using DevForgeAI will have their own source-tree.md files created by the designing-systems skill.
+This file defines WHERE framework components belong in the DevForgeAI repository. Projects using DevForgeAI will have their own source-tree.md files created by the spec-driven-architecture skill.
 
 ---
 
@@ -25,37 +25,43 @@ DevForgeAI2/
 │
 ├── .claude/                     # Claude Code Terminal configuration (OPERATIONAL - do not modify files)
 │   ├── skills/                  # Framework implementation (18 skills)
-│   │   ├── discovering-requirements/
-│   │   │   ├── SKILL.md         # Main skill (500-800 lines)
-│   │   │   ├── references/      # Deep documentation (loaded on demand)
+│   │   ├── spec-driven-ideation/       # Requirements discovery (ADR-038 migration)
+│   │   │   ├── SKILL.md                # Main skill with 7-phase orchestration
+│   │   │   ├── phases/                 # Phase execution files
+│   │   │   │   ├── phase-01-preflight.md
+│   │   │   │   ├── phase-02-discovery.md
+│   │   │   │   ├── phase-03-elicitation.md
+│   │   │   │   ├── phase-04-compliance.md
+│   │   │   │   ├── phase-05-artifacts.md
+│   │   │   │   ├── phase-06-validation.md
+│   │   │   │   └── phase-07-handoff.md
+│   │   │   ├── references/             # Deep documentation (loaded on demand)
 │   │   │   │   ├── discovery-workflow.md
 │   │   │   │   ├── requirements-elicitation-workflow.md
-│   │   │   │   ├── complexity-assessment-workflow.md
-│   │   │   │   ├── epic-decomposition-workflow.md
-│   │   │   │   ├── feasibility-analysis-workflow.md
 │   │   │   │   ├── artifact-generation.md
 │   │   │   │   ├── self-validation-workflow.md
 │   │   │   │   ├── completion-handoff.md
 │   │   │   │   ├── user-interaction-patterns.md
 │   │   │   │   ├── error-handling.md
 │   │   │   │   ├── requirements-elicitation-guide.md
-│   │   │   │   ├── complexity-assessment-matrix.md
 │   │   │   │   ├── domain-specific-patterns.md
-│   │   │   │   ├── feasibility-analysis-framework.md
 │   │   │   │   ├── validation-checklists.md
 │   │   │   │   └── output-templates.md
-│   │   │   └── assets/
-│   │   │       └── templates/
-│   │   │           ├── epic-template.md
-│   │   │           ├── requirements-spec-template.md
-│   │   │           ├── feature-prioritization-matrix.md
-│   │   │           └── user-persona-template.md
+│   │   │   ├── assets/
+│   │   │   │   └── templates/
+│   │   │   │       ├── requirements-template.md
+│   │   │   │       ├── requirements-schema.yaml
+│   │   │   │       ├── feature-prioritization-matrix.md
+│   │   │   │       └── user-persona-template.md
+│   │   │   └── scripts/
+│   │   │       ├── complexity_scorer.py
+│   │   │       └── requirements_validator.py
 │   │   ├── brainstorming/                # Business Analyst discovery skill
 │   │   │   ├── SKILL.md                  # Main skill (BA discovery phases)
 │   │   │   └── assets/
 │   │   │       └── templates/
 │   │   │           └── brainstorm-template.md
-│   │   ├── designing-systems/
+│   │   ├── spec-driven-architecture/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── project-context-discovery.md
@@ -112,7 +118,7 @@ DevForgeAI2/
 │   │   │           ├── web-component-template.md
 │   │   │           ├── gui-component-template.md
 │   │   │           └── terminal-component-template.md
-│   │   ├── implementing-stories/
+│   │   ├── spec-driven-dev/
 │   │   │   ├── SKILL.md
 │   │   │   ├── phases/              # Phase-specific execution guides (10 phases)
 │   │   │   │   ├── phase-01-preflight.md
@@ -575,7 +581,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 **Purpose**: Autonomous, model-invoked capabilities for each development phase.
 
 **Rules**:
-- ✅ Each skill in its own subdirectory (e.g., `implementing-stories/`)
+- ✅ Each skill in its own subdirectory (e.g., `spec-driven-dev/`)
 - ✅ Main skill file MUST be named `SKILL.md`
 - ✅ SKILL.md MUST have YAML frontmatter with `name:` and `description:`
 - ✅ Keep SKILL.md under 1,000 lines (target: 500-800 lines)
@@ -585,11 +591,11 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ❌ NO skills in root `.claude/` directory
 - ❌ NO executable scripts in skill directories (documentation only)
 
-**Naming Convention**: `[gerund-phrase]` per ADR-017 (e.g., `implementing-stories`, `designing-systems`)
+**Naming Convention**: `[gerund-phrase]` per ADR-017 (e.g., `spec-driven-dev`, `discovering-requirements`)
 
 **Example** (simple skill):
 ```
-.claude/skills/designing-systems/
+.claude/skills/spec-driven-architecture/
 ├── SKILL.md                 # Main skill (500-800 lines)
 └── references/              # Loaded on demand
     ├── context-file-creation.md
@@ -598,7 +604,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 
 **Example** (complex skill with phases):
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md                 # Main skill (500-800 lines)
 ├── phases/                  # Phase-specific execution guides
 │   ├── phase-01-preflight.md
@@ -775,7 +781,7 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 **Why no dot prefix**: Claude Code's Glob tool skips directories starting with `.` (like `devforgeai/`).
 Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other commands.
 
-**Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by designing-systems skill.
+**Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by spec-driven-architecture skill.
 
 ---
 
@@ -853,13 +859,13 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Pattern**: `[gerund-phrase]` (ADR-017)
 **Examples**:
-- ✅ `implementing-stories`
+- ✅ `spec-driven-dev`
 - ✅ `validating-quality`
 - ✅ `creating-stories`
 - ✅ `designing-architecture`
 - ❌ `IdeationSkill` (no CamelCase)
 - ❌ `dev-skill` (not gerund form)
-- ❌ `implementing-stories` (legacy — prefix removed, use gerund form)
+- ❌ `implementing-stories` (legacy — renamed to spec-driven-dev per ADR-039)
 
 ### Subagents
 
@@ -926,9 +932,9 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 **Correct**:
 ```
 .claude/skills/
-├── discovering-requirements/
-├── designing-systems/
-├── implementing-stories/
+├── spec-driven-ideation/
+├── spec-driven-architecture/
+├── spec-driven-dev/
 ├── devforgeai-qa/
 └── devforgeai-release/
 ```
@@ -939,7 +945,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Wrong**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── scripts/
     └── implement.py    # Python implementation code
@@ -947,7 +953,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Correct**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── references/
     └── tdd-workflow-guide.md    # Documentation only
@@ -999,17 +1005,20 @@ devforgeai/specs/context/
 
 **Example**:
 ```
-.claude/skills/discovering-requirements/
-├── SKILL.md (500 lines)
-│   # Phase 1: Discovery
-│   # Phase 2: Requirements Elicitation
-│   # For detailed questions by domain, see references/requirements-elicitation-guide.md
-│   # Phase 3: Complexity Assessment
-│   # For scoring rubric, see references/complexity-assessment-matrix.md
+.claude/skills/spec-driven-ideation/
+├── SKILL.md (365 lines)
+│   # Phase 00: Initialization
+│   # Phase 01-07: Orchestration loop
+│   # For detailed workflow, see phases/phase-*.md
+│   # For reference loading, see references/
+│
+├── phases/
+│   ├── phase-01-preflight.md
+│   └── ... (7 phase files)
 │
 └── references/
     ├── requirements-elicitation-guide.md (1,000 lines)
-    ├── complexity-assessment-matrix.md (800 lines)
+    ├── validation-checklists.md (651 lines)
     ├── domain-specific-patterns.md (1,200 lines)
     └── feasibility-analysis-framework.md (600 lines)
 ```
@@ -1020,7 +1029,7 @@ devforgeai/specs/context/
 
 ## Project Context Pattern (For Projects Using DevForgeAI)
 
-When designing-systems skill creates context for a **project** using DevForgeAI:
+When spec-driven-architecture skill creates context for a **project** using DevForgeAI:
 
 ```
 my-project/
@@ -1110,4 +1119,4 @@ from installer.registry_publisher import RegistryConfig as PublisherConfig
 
 ---
 
-**REMEMBER**: This source-tree.md defines the **framework's own structure**. Projects using DevForgeAI will have their own source-tree.md files created by the designing-systems skill based on project architecture patterns.
+**REMEMBER**: This source-tree.md defines the **framework's own structure**. Projects using DevForgeAI will have their own source-tree.md files created by the spec-driven-architecture skill based on project architecture patterns.

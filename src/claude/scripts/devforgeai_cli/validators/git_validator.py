@@ -25,7 +25,7 @@ def check_git(directory: str = ".") -> Tuple[bool, str]:
         Tuple of (is_git_repo, message)
 
     Uses the proven pattern: git rev-parse --is-inside-work-tree
-    This is the same pattern used in implementing-stories skill Phase 0.
+    This is the same pattern used in spec-driven-dev skill Phase 0.
     """
     try:
         result = subprocess.run(

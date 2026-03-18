@@ -71,7 +71,7 @@ def validate_evidence(claim, sources):
 ```
 
 **Framework Integration Points:**
-- **Invoked by:** discovering-requirements (Phase 5), designing-systems (Phase 2)
+- **Invoked by:** spec-driven-ideation (Phase 5), spec-driven-architecture (Phase 2)
 - **Invokes:** context-validator (quality gate validation), requirements-analyst (optional), architect-reviewer (optional)
 - **Updates:** Research reports in devforgeai/specs/research/, epic/story YAML frontmatter
 
@@ -236,8 +236,8 @@ def load_methodology(research_mode):
 ### Skill Coordination
 
 **internet-sleuth is invoked by:**
-- discovering-requirements (Phase 5: Feasibility Analysis)
-- designing-systems (Phase 2: Technology Selection)
+- spec-driven-ideation (Phase 5: Feasibility Analysis)
+- spec-driven-architecture (Phase 2: Technology Selection)
 - devforgeai-orchestration (optional: research checkpoints)
 
 **internet-sleuth invokes:**

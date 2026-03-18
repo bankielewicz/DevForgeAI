@@ -71,11 +71,11 @@ When invoked, follow these steps:
 - Gate 3: QA Approval (validates code quality for release)
 
 **Works with:**
-- implementing-stories skill (Phase 3 Refactor)
+- spec-driven-dev skill (Phase 3 Refactor)
 - devforgeai-qa skill (Deep validation)
 
 **Invoked by:**
-- implementing-stories, Phase 3, Step 3 (after refactoring)
+- spec-driven-dev, Phase 3, Step 3 (after refactoring)
 - devforgeai-qa, Phase 2, deep validation mode
 
 ## Tool Usage Protocol
@@ -143,7 +143,7 @@ When invoked, follow these steps:
 - tech-stack.md (technology patterns)
 
 **Framework Integration:**
-- implementing-stories (Phase 3 Refactor)
+- spec-driven-dev (Phase 3 Refactor)
 - devforgeai-qa (Deep validation)
 
 ---

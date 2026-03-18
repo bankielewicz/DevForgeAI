@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Detect greenfield/brownfield project mode, gather technology inventory, apply question patterns for architecture decisions |
-| **REFERENCES** | `designing-systems/references/context-discovery-workflow.md`, `designing-systems/references/user-input-guidance.md`, `designing-systems/references/architecture-user-input-integration.md` |
+| **REFERENCES** | `spec-driven-architecture/references/context-discovery-workflow.md`, `spec-driven-architecture/references/user-input-guidance.md`, `spec-driven-architecture/references/architecture-user-input-integration.md` |
 | **STEP COUNT** | 5 mandatory steps |
 
 ## Phase Exit Criteria
@@ -24,9 +24,9 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/context-discovery-workflow.md")
-Read(file_path=".claude/skills/designing-systems/references/user-input-guidance.md")
-Read(file_path=".claude/skills/designing-systems/references/architecture-user-input-integration.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/context-discovery-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/architecture-user-input-integration.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time this phase executes.
@@ -68,7 +68,7 @@ Count matching files. Classification:
 
 **EXECUTE:**
 ```
-Read(file_path=".claude/skills/designing-systems/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-guidance.md")
 ```
 Parse elicitation patterns from the loaded reference. Extract question categories and prompting strategies.
 

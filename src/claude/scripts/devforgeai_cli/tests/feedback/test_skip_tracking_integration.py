@@ -1006,7 +1006,7 @@ class TestMultiComponentWorkflows:
     """
     SCENARIO 8: Multi-Component Workflows
 
-    implementing-stories skill calls feedback system
+    spec-driven-dev skill calls feedback system
     feedback system calls skip_tracking
     skip_tracking detects pattern
     AskUserQuestion presented to user
@@ -1034,7 +1034,7 @@ class TestMultiComponentWorkflows:
 
     def test_skill_to_feedback_to_skip_tracking_workflow(self, temp_config_dir, sample_question_bank):
         """
-        GIVEN implementing-stories skill completes
+        GIVEN spec-driven-dev skill completes
         WHEN feedback triggered
         THEN skip_tracking invoked with pattern detection
         """

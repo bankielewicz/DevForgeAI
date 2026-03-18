@@ -277,7 +277,7 @@ You are a [domain] expert specializing in:
 
 ### Example 1: Standard Invocation
 
-**Context:** During Phase 2 of implementing-stories skill.
+**Context:** During Phase 2 of spec-driven-dev skill.
 
 ```
 Task(

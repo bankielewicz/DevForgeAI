@@ -180,7 +180,7 @@ Framework supports (but does not mandate) any of:
 - Go 1.20+ with Gin/Echo
 - Rust 1.70+ with Actix/Rocket
 
-**Pattern**: designing-systems skill asks user to select backend technology, then LOCKS it in project's tech-stack.md.
+**Pattern**: spec-driven-architecture skill asks user to select backend technology, then LOCKS it in project's tech-stack.md.
 
 ### Frontend Framework Options
 
@@ -192,7 +192,7 @@ Framework supports (but does not mandate) any of:
 - Solid.js
 - Next.js 14+ (React meta-framework)
 
-**Pattern**: designing-systems skill asks user to select frontend framework, then LOCKS it in project's tech-stack.md.
+**Pattern**: spec-driven-architecture skill asks user to select frontend framework, then LOCKS it in project's tech-stack.md.
 
 ### Database Options
 
@@ -204,7 +204,7 @@ Framework supports (but does not mandate) any of:
 - SQLite 3+
 - Oracle Database 19c+
 
-**Pattern**: designing-systems skill asks user to select database, then LOCKS it in project's tech-stack.md.
+**Pattern**: spec-driven-architecture skill asks user to select database, then LOCKS it in project's tech-stack.md.
 
 ### Testing Framework Options
 
@@ -233,7 +233,7 @@ Framework supports (but does not mandate) any of:
 - testing (standard library)
 - Testify
 
-**Pattern**: designing-systems skill asks user to select testing framework for their language, then LOCKS it in project's tech-stack.md.
+**Pattern**: spec-driven-architecture skill asks user to select testing framework for their language, then LOCKS it in project's tech-stack.md.
 
 ---
 
@@ -362,7 +362,7 @@ When blocked (15+ items), users can override with `--ignore-debt-threshold` flag
 - Override is logged to `devforgeai/workflows/{STORY-ID}-phase-state.json`
 - Persistent warning banner displayed throughout workflow
 
-**Reference:** STORY-289 (Threshold Alerting System), `src/claude/skills/implementing-stories/phases/phase-01-preflight.md` Step 10
+**Reference:** STORY-289 (Threshold Alerting System), `src/claude/skills/spec-driven-dev/phases/phase-01-preflight.md` Step 10
 
 ---
 
@@ -557,4 +557,4 @@ When upgrading projects to new framework version:
 
 ---
 
-**REMEMBER**: This tech-stack.md defines the **framework's own constraints**. Projects using DevForgeAI will have their own tech-stack.md files created by the designing-systems skill based on user technology choices.
+**REMEMBER**: This tech-stack.md defines the **framework's own constraints**. Projects using DevForgeAI will have their own tech-stack.md files created by the spec-driven-architecture skill based on user technology choices.

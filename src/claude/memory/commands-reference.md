@@ -165,11 +165,11 @@ DevForgeAI provides **46 slash commands** organized into **11 categories**:
 
 **Purpose:** Transform business idea into structured requirements
 
-**Invokes:** `discovering-requirements` skill
+**Invokes:** `spec-driven-ideation` skill
 
 **Workflow:**
 1. Argument validation (capture business idea)
-2. Invoke discovering-requirements skill (6-phase discovery)
+2. Invoke spec-driven-ideation skill (6-phase discovery)
 3. Verify artifacts created
 4. Brief completion confirmation
 5. Next steps guidance
@@ -188,11 +188,11 @@ DevForgeAI provides **46 slash commands** organized into **11 categories**:
 
 **For effective ideation input:** Business ideas should describe the problem being solved, target market, and expected benefits. Avoid vague statements like "build an app" - instead, provide specific context.
 
-**File:** `.claude/skills/discovering-requirements/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-ideation/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -215,7 +215,7 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 - Brief completion confirmation
 - Next steps guidance (defers to skill)
 
-**Skill (discovering-requirements - Comprehensive Discovery):**
+**Skill (spec-driven-ideation - Comprehensive Discovery):**
 - Phase 1-5: Complete 6-phase discovery workflow
 - Phase 6.1-6.3: Artifact generation and architecture transition
 - Phase 6.4: Self-Validation (NEW - validates all artifacts)
@@ -240,7 +240,7 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 
 **Purpose:** Generate 6 architectural context files
 
-**Invokes:** `designing-systems` skill
+**Invokes:** `spec-driven-architecture` skill
 
 **Workflow:**
 1. Interactive technology selection (via AskUserQuestion)
@@ -257,11 +257,11 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 
 **For architecture setup:** Context creation is interactive and skill-driven. Provide the project name and be ready to answer questions about technology choices, architecture patterns, and project scope.
 
-**File:** `.claude/skills/designing-systems/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-architecture/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/designing-systems/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -773,11 +773,11 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-gui
 
 **Purpose:** Execute TDD development cycle (Red→Green→Refactor)
 
-**Invokes:** `implementing-stories` skill
+**Invokes:** `spec-driven-dev` skill
 
 **Workflow:**
 1. **Phase 0:** Argument validation (story ID format, file exists, status check)
-2. **Phase 1:** Set context markers and invoke `implementing-stories` skill
+2. **Phase 1:** Set context markers and invoke `spec-driven-dev` skill
 3. **Phase 2:** Verify completion (skill updated story status)
 4. **Phase 3:** Report results (success/incomplete/failure)
 
@@ -824,7 +824,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - Skill invocation
 - Results reporting
 
-**Skill (implementing-stories - Comprehensive Implementation):**
+**Skill (spec-driven-dev - Comprehensive Implementation):**
 - Phase 0: Pre-Flight Validation
   - git-validator subagent
   - tech-stack-detector subagent
@@ -1111,7 +1111,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 
 **Workflow:**
 1. Story validation & checkpoint detection
-2. Development phase (invokes implementing-stories)
+2. Development phase (invokes spec-driven-dev)
 3. QA validation (invokes devforgeai-qa)
 4. **Phase 3.5: QA Failure Handling** (NEW - RCA-006) - Retry loop with max 3 attempts
 5. Staging release (invokes devforgeai-release --env=staging)
@@ -1434,7 +1434,7 @@ This command exemplifies lean orchestration for simple tasks:
 
 **Example:**
 ```bash
-/rca "implementing-stories didn't validate context files" CRITICAL
+/rca "spec-driven-dev didn't validate context files" CRITICAL
 /rca "QA skill accepted pre-existing deferrals without challenge" HIGH
 /rca "orchestration skipped checkpoint detection"
 /rca "/dev command contains business logic"
@@ -1664,10 +1664,10 @@ This command exemplifies lean orchestration for simple tasks:
 
 **Examples:**
 ```bash
-/prompt-version capture .claude/skills/implementing-stories/SKILL.md --reason "Adding phase markers"
-/prompt-version finalize .claude/skills/implementing-stories/SKILL.md
-/prompt-version rollback .claude/skills/implementing-stories/SKILL.md --version previous
-/prompt-version history .claude/skills/implementing-stories/SKILL.md
+/prompt-version capture .claude/skills/spec-driven-dev/SKILL.md --reason "Adding phase markers"
+/prompt-version finalize .claude/skills/spec-driven-dev/SKILL.md
+/prompt-version rollback .claude/skills/spec-driven-dev/SKILL.md --version previous
+/prompt-version history .claude/skills/spec-driven-dev/SKILL.md
 ```
 
 **Output:**
@@ -1985,7 +1985,7 @@ tags: [tag1, tag2]
 
 **Purpose:** Resume TDD workflow from specific phase when previous `/dev` was incomplete
 
-**Invokes:** `implementing-stories` skill with phase override
+**Invokes:** `spec-driven-dev` skill with phase override
 
 **Example:**
 ```bash
@@ -2211,7 +2211,7 @@ Commands integrate with skills using the Skill tool:
 
 <example>
 ```
-Skill(command="implementing-stories --story=STORY-001")
+Skill(command="spec-driven-dev --story=STORY-001")
 Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
 Skill(command="devforgeai-release --story=STORY-001")
 ```

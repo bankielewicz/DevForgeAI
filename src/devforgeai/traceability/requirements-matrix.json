@@ -466,9 +466,9 @@
     },
     "STORY-055": {
       "epic_ref": "EPIC-011",
-      "file_path": "devforgeai/specs/Stories/STORY-055-discovering-requirements-integration.story.md",
+      "file_path": "devforgeai/specs/Stories/STORY-055-spec-driven-ideation-integration.story.md",
       "status": "QA Approved",
-      "title": "discovering-requirements Skill Integration with User Input Guidance"
+      "title": "spec-driven-ideation Skill Integration with User Input Guidance"
     },
     "STORY-056": {
       "epic_ref": "EPIC-011",

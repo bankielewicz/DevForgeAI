@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Present the completion summary, determine the next action based on project mode (greenfield vs brownfield), and hand off to the user with clear next steps. |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/completion-handoff.md` (645 lines), `.claude/skills/discovering-requirements/references/output-templates.md` (365 lines) |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/completion-handoff.md` (645 lines), `.claude/skills/spec-driven-ideation/references/output-templates.md` (365 lines) |
 | **STEP COUNT** | 5 mandatory steps |
 | **MINIMUM QUESTIONS** | 1-3 |
 
@@ -26,8 +26,8 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/completion-handoff.md")
-Read(file_path=".claude/skills/discovering-requirements/references/output-templates.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/completion-handoff.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/output-templates.md")
 ```
 
 IF either Read fails: HALT -- "Phase 07 reference files not loaded. Cannot proceed without handoff reference material."

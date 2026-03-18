@@ -41,7 +41,7 @@ IF file not found: Display "Story not found: $STORY_ID" and HALT
 
 ### Phase 1: Set Resume Context Markers and Invoke Skill
 
-**All pre-flight validation, checkpoint detection, and DoD analysis are handled by the implementing-stories skill via `references/resume-detection.md`.**
+**All pre-flight validation, checkpoint detection, and DoD analysis are handled by the spec-driven-dev skill via `references/resume-detection.md`.**
 
 ```
 Display: ""
@@ -56,7 +56,7 @@ Display: ""
 Display: "Resuming TDD workflow..."
 Display: ""
 
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 ```
 
 ---
@@ -84,4 +84,4 @@ Errors are handled at command level (argument validation) or skill level (busine
 
 **Refactored:** 2026-02-20 (STORY-459) | 676 -> ~80 lines (88% reduction)
 **Pattern:** EPIC-071 Pattern B (Pre-Flight Logic Extraction)
-**Reference:** `.claude/skills/implementing-stories/references/resume-detection.md`
+**Reference:** `.claude/skills/spec-driven-dev/references/resume-detection.md`

@@ -45,7 +45,7 @@ Your core capabilities include:
 - "Validate database transactions for [operation]"
 
 **Automatic:**
-- implementing-stories skill during Phase 4 (Integration)
+- spec-driven-dev skill during Phase 4 (Integration)
 - After backend-architect completes implementation
 
 ---
@@ -242,7 +242,7 @@ Task(
 
 ## Integration
 
-- **implementing-stories**: Phase 4 (Integration) - creates tests during integration phase
+- **spec-driven-dev**: Phase 4 (Integration) - creates tests during integration phase
 - **backend-architect**: Tests backend integration points after implementation
 - **test-automator**: Collaborates on test strategy (unit vs integration boundary)
 - **api-designer**: Validates API contracts defined during design

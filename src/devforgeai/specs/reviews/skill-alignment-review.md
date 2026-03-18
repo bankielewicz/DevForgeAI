@@ -21,7 +21,7 @@ All 6 skills are well-designed, follow consistent patterns, and integrate cohesi
 **Status:** Framework is **production-ready** with all critical and medium-priority issues resolved.
 
 **Skills Reviewed:**
-1. ✅ discovering-requirements (Entry point - Requirements gathering)
+1. ✅ spec-driven-ideation (Entry point - Requirements gathering)
 2. ✅ designing-systems (Context files & ADRs)
 3. ✅ devforgeai-orchestration (Workflow coordinator)
 4. ✅ devforgeai-development (TDD implementation)
@@ -36,7 +36,7 @@ All 6 skills are well-designed, follow consistent patterns, and integrate cohesi
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│ discovering-requirements                                          │
+│ spec-driven-ideation                                          │
 │ • Brainstorming & requirements gathering                     │
 │ • User story creation                                        │
 │ • Feature discovery                                          │
@@ -96,7 +96,7 @@ All skills have clear:
 
 ## Skill-by-Skill Analysis
 
-### 1. discovering-requirements ✅ EXCELLENT
+### 1. spec-driven-ideation ✅ EXCELLENT
 
 **Strengths:**
 - ✅ Clear entry point for framework (transforms ideas → requirements)
@@ -404,7 +404,7 @@ devforgeai/specs/
 
 .claude/
 └── skills/
-    ├── discovering-requirements/
+    ├── spec-driven-ideation/
     ├── designing-systems/
     ├── devforgeai-orchestration/
     ├── devforgeai-development/
@@ -520,7 +520,7 @@ devforgeai/
 
 **Scenario 1: Greenfield Project End-to-End**
 ```
-1. discovering-requirements: Create epic + 3 stories for "User Authentication"
+1. spec-driven-ideation: Create epic + 3 stories for "User Authentication"
 2. designing-systems: Create context files for .NET Web API
 3. devforgeai-orchestration: Create sprint, assign stories
 4. devforgeai-development: Implement STORY-001 (User Registration)
@@ -539,7 +539,7 @@ devforgeai/
 **Scenario 3: Brownfield Feature Addition**
 ```
 1. designing-systems: Analyze existing codebase, load context
-2. discovering-requirements: Create story for new feature
+2. spec-driven-ideation: Create story for new feature
 3. devforgeai-development: Implement feature respecting existing patterns
 4. devforgeai-qa: Validate no anti-patterns introduced
 ```

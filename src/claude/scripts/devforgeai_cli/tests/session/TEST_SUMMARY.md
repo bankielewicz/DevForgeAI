@@ -427,7 +427,7 @@ def test_something():
 
 ---
 
-## Integration with implementing-stories Skill
+## Integration with spec-driven-dev Skill
 
 These tests support **Phase 02: Test-First Design (Red Phase)** of the TDD workflow:
 

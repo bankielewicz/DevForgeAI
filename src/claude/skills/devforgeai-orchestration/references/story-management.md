@@ -291,7 +291,7 @@ IF "## Workflow History" NOT in content:
 ### 2025-10-30 14:23:15 - Architecture
 - **Previous Status:** Backlog
 - **Action Taken:** Story assigned to Sprint 1, moving to architecture validation
-- **Result:** designing-systems skill invoked
+- **Result:** spec-driven-architecture skill invoked
 - **Next Steps:** Create/validate all 6 context files
 ```
 
@@ -309,7 +309,7 @@ IF "## Workflow History" NOT in content:
 ### 2025-10-30 15:10:05 - In Development
 - **Previous Status:** Ready for Dev
 - **Action Taken:** Developer John started TDD workflow
-- **Result:** implementing-stories skill invoked
+- **Result:** spec-driven-dev skill invoked
 - **Next Steps:** Execute 6 TDD phases (Context → Test → Implement → Refactor → Integrate → Git)
 ```
 

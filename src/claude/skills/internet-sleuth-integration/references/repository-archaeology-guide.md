@@ -2,7 +2,7 @@
 
 **Purpose:** Mine GitHub repositories for real-world implementation patterns, code examples, and architectural decisions.
 
-**When to Use:** designing-systems Phase 2 (Technology Selection), implementation research during "Ready for Dev" / "In Development" states, pattern validation
+**When to Use:** spec-driven-architecture Phase 2 (Technology Selection), implementation research during "Ready for Dev" / "In Development" states, pattern validation
 
 **Loaded:** Conditionally (when research_mode = "repository-archaeology")
 
@@ -780,7 +780,7 @@ Repository archaeology succeeds when:
 - `discovery-mode-methodology.md` - Feasibility research (broader scope)
 - `skill-coordination-patterns.md` - Task invocation examples
 - `research-report-template.md` - Standard report structure
-- `.claude/skills/designing-systems/SKILL.md` - Architecture integration
+- `.claude/skills/spec-driven-architecture/SKILL.md` - Architecture integration
 
 ---
 

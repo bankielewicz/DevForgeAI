@@ -28,7 +28,7 @@ thresholds:
 
 **Purpose:** Track deferred Definition of Done items to ensure follow-up and prevent lost work
 
-**Maintained by:** implementing-stories skill (auto-updates when deferrals occur)
+**Maintained by:** spec-driven-dev skill (auto-updates when deferrals occur)
 **Analyzed by:** technical-debt-analyzer subagent (sprint planning, retrospectives)
 
 ---
@@ -126,7 +126,7 @@ All 8 fields (ID, Date, Source, Type, Priority, Status, Effort, Follow-up) are m
 
 | Role | Component |
 |------|-----------|
-| Auto-Updated By | implementing-stories skill (Phase 06), devforgeai-qa skill |
+| Auto-Updated By | spec-driven-dev skill (Phase 06), devforgeai-qa skill |
 | Auto-Analyzed By | technical-debt-analyzer subagent (sprint planning, retrospectives) |
 | Referenced By | devforgeai-orchestration skill, /create-sprint, /review-qa-reports |
 

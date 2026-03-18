@@ -86,9 +86,9 @@ HALT and inform user:
 Missing files: ${missing_files.join(', ')}
 
 **Recovery:**
-Please invoke the `designing-systems` skill first to create the required context files:
+Please invoke the `spec-driven-architecture` skill first to create the required context files:
 
-Skill(command=\"designing-systems\")
+Skill(command=\"spec-driven-architecture\")
 
 Or use the slash command:
 /create-context ${project_name}

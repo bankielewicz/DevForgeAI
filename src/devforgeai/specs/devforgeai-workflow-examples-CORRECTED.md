@@ -29,7 +29,7 @@
 > /ideate CLI todo list app
 ```
 
-**discovering-requirements Skill Executes:**
+**spec-driven-ideation Skill Executes:**
 
 #### Question 1: Project Type
 ```
@@ -1924,7 +1924,7 @@ DevForgeAI asks **extensive, detailed questions** for EVERY decision:
 
 ## Corrected Example: Mid-Size App ACTUAL Questions
 
-### discovering-requirements Questions (24 questions for mid-size)
+### spec-driven-ideation Questions (24 questions for mid-size)
 
 **Discovery (5 questions):**
 1. Project type? (Greenfield/Brownfield/Modernization/Problem-solving)
@@ -2289,7 +2289,7 @@ Claude: *generates architecture with C# and WPF*
 ```
 User: "I want expense tracker"
 
-Claude (discovering-requirements):
+Claude (spec-driven-ideation):
 → Q1: What type of project? [4 options]
 → Q2: What business problem? [4 options]
 → Q3: Who are users? [5 options, multiSelect]

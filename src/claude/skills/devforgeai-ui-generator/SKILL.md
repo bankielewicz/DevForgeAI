@@ -64,7 +64,7 @@ Each phase loads its reference file on-demand for detailed implementation.
 ### Phase 1: Context Validation
 **Purpose:** Verify all 6 context files exist
 **Reference:** `context-validation.md`
-**Halts if:** Context files missing → directs to designing-systems
+**Halts if:** Context files missing → directs to spec-driven-architecture
 
 ### Phase 2: Story Analysis & Interactive Discovery
 
@@ -172,13 +172,13 @@ else:
 **Invoked by:**
 - `/create-ui` command (user-initiated)
 - devforgeai-orchestration (when story has UI requirements)
-- implementing-stories (during implementation)
+- spec-driven-dev (during implementation)
 
 **Invokes:**
 - ui-spec-formatter subagent (Phase 6 Step 3.5)
 
 **Provides output to:**
-- implementing-stories (UI specs → implementation)
+- spec-driven-dev (UI specs → implementation)
 - devforgeai-qa (UI specs → validation)
 
 ---

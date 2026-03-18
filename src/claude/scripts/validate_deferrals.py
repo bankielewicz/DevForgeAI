@@ -48,7 +48,7 @@ class Color:
     ANSI color codes for terminal output.
 
     Pattern from DevForgeAI framework validation scripts:
-    - .claude/skills/designing-systems/scripts/validate_all_context.py
+    - .claude/skills/spec-driven-architecture/scripts/validate_all_context.py
     - .claude/skills/devforgeai-qa/scripts/security_scan.py
     """
     RED = '\033[91m'

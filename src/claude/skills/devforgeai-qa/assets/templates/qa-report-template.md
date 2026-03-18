@@ -355,7 +355,7 @@
 4. Validate all acceptance criteria
 
 **Next Phase:**
-- Return to `implementing-stories` skill
+- Return to `spec-driven-dev` skill
 - Apply fixes from action items
 - Re-run QA validation after fixes
 - Story status: "QA Failed ❌"

@@ -134,7 +134,7 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 
 ## Skill Integration Patterns
 
-### implementing-stories Skill
+### spec-driven-dev Skill
 
 **Subagents invoked:**
 - **Phase 1 (Red):** test-automator
@@ -157,7 +157,7 @@ test-automator → backend-architect → context-validator → refactoring-speci
 **Parallel execution possible:**
 - security-auditor + test-automator (independent analyses)
 
-### designing-systems Skill
+### spec-driven-architecture Skill
 
 **Subagents invoked:**
 - architect-reviewer (validates decisions)

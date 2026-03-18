@@ -1207,7 +1207,7 @@ Ambiguities: MANY
 ```
 User: "Build me a CLI todo app"
 
-discovering-requirements:
+spec-driven-ideation:
 → Q1: Project type? [4 options]
 → Q2: Business problem? [4 options]
 → Q3: Users? [5 options, multiSelect]

@@ -22,7 +22,7 @@ The trigger activates after 2 failed fix attempts to allow normal iterative deve
 ### Invocation Pseudocode
 
 ```python
-# Inside implementing-stories Phase 03 (Green)
+# Inside spec-driven-dev Phase 03 (Green)
 
 def green_phase_with_diagnosis(story_id, test_command, max_attempts=5):
     fix_attempts = 0
@@ -104,7 +104,7 @@ Integration failures invoke diagnosis immediately (no 2-attempt buffer) because 
 ### Invocation Pseudocode
 
 ```python
-# Inside implementing-stories Phase 05 (Integration)
+# Inside spec-driven-dev Phase 05 (Integration)
 
 def integration_phase_with_diagnosis(story_id, integration_tests):
     result = Bash(command=integration_tests)

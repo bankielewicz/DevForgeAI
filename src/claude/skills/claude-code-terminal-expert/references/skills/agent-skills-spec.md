@@ -66,7 +66,7 @@ model: claude-opus-4-6   # Preferred model for this skill
 name: code-reviewer
 name: test-automator
 name: claude-code-terminal-expert
-name: implementing-stories
+name: spec-driven-dev
 ```
 
 **Invalid Examples:**

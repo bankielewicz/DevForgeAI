@@ -17,7 +17,7 @@ Subagents are specialized AI workers with domain expertise that operate in isola
 
 Subagents are automatically invoked by DevForgeAI skills at appropriate workflow phases:
 
-**During implementing-stories:**
+**During spec-driven-dev:**
 - **Phase 0 (Preflight)**: git-worktree-manager creates isolated worktree, dependency-graph-analyzer validates dependencies, file-overlap-detector checks for conflicts
 - **Phase 1 (Red)**: test-automator generates failing tests from acceptance criteria
 - **Phase 2 (Green)**: backend-architect or frontend-developer implements code to pass tests
@@ -37,7 +37,7 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 **During devforgeai-ui-generator:**
 - **Phase 6 Step 3.5**: ui-spec-formatter formats and validates generated UI specifications (NEW - UI Refactoring)
 
-**During designing-systems:**
+**During spec-driven-architecture:**
 - architect-reviewer validates architecture decisions
 - api-designer defines API contract standards
 - CLAP alignment auditor validates cross-layer configuration alignment (Phase 5.5 - NEW EPIC-081)
@@ -164,7 +164,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **epic-coverage-result-interpreter** | Formats epic coverage validation results for display. Generates four display templates: single-epic breakdown, all-epics summary table, actionable gap list, and batch creation summary. | haiku | <8K | After validating-epic-coverage skill completes, before coverage results display |
 | **file-overlap-detector** | Detect file overlaps between parallel stories | opus | <30K | /dev Phase 0 Step 0.2.6 for file overlap prevention (NEW - EPIC-010) |
 | **git-worktree-manager** | Git worktree lifecycle for parallel development | opus | <30K | /dev Phase 0 Step 0.2 for isolated worktree creation (NEW - EPIC-010) |
-| **ideation-result-interpreter** | Format ideation results for user display | opus | <15K | After discovering-requirements completes, before result display (NEW) |
+| **ideation-result-interpreter** | Format ideation results for user display | opus | <15K | After spec-driven-ideation completes, before result display (NEW) |
 | **context-preservation-validator** | Validate brainstorm→epic→story context linkage | opus | <20K | At workflow transitions, detect context loss (NEW) |
 | **anti-pattern-scanner** | Architecture violation detection across 6 categories | opus | <50K | QA Phase 2 for anti-pattern and security scanning (NEW) |
 | **stakeholder-analyst** | Stakeholder discovery for brainstorming sessions | opus | <30K | brainstorming Phase 1 stakeholder analysis (NEW) |
@@ -207,7 +207,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 
 ## Subagent Integration with Skills
 
-**implementing-stories** uses:
+**spec-driven-dev** uses:
 - **git-worktree-manager** (Phase 0 Step 0.2) - Creates isolated worktree for story development
 - **dependency-graph-analyzer** (Phase 0 Step 0.2.5) - Validates story dependencies
 - **file-overlap-detector** (Phase 0 Step 0.2.6) - Detects file conflicts with parallel stories
@@ -232,7 +232,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 **devforgeai-ui-generator** uses:
 - **ui-spec-formatter** (NEW - Phase 6 Step 3.5 - formats and validates UI spec results)
 
-**designing-systems** uses:
+**spec-driven-architecture** uses:
 - architect-reviewer → api-designer
 
 **devforgeai-release** uses:
@@ -256,7 +256,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - **stakeholder-analyst** (Phase 1 - stakeholder discovery and mapping)
 - **internet-sleuth** (Phase 3 - market research and competitive analysis)
 
-**discovering-requirements** uses:
+**spec-driven-ideation** uses:
 - **internet-sleuth** (Phase 2 - technology discovery and repository archaeology)
 - **ideation-result-interpreter** (Phase 6.5 - format results for display)
 

@@ -27,14 +27,14 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /ideate
 - **Status:** ⚠️ High Usage (78% budget, within limit)
 - **Structure:** 5 phases (validate → invoke → verify → confirm → next steps)
-- **Business Logic:** Delegated to `discovering-requirements` skill (6-phase discovery)
+- **Business Logic:** Delegated to `spec-driven-ideation` skill (6-phase discovery)
 - **Token Efficiency:** Before: ~3,837 tokens → After: ~2,929 tokens (24% savings)
 - **Refactoring:** ✅ Complete (2025-11-05)
 
 ### /create-context
 - **Status:** ⚠️ High Usage (84% budget, within limit)
 - **Structure:** 4 phases (validate → invoke → verify → guidance)
-- **Business Logic:** Delegated to `designing-systems` skill (5-phase context creation)
+- **Business Logic:** Delegated to `spec-driven-architecture` skill (5-phase context creation)
 - **Token Efficiency:** Command: ~2K tokens, Skill: ~150K tokens (isolated)
 - **Refactoring:** 🟡 Not yet refactored (stable, no violations)
 
@@ -76,7 +76,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /dev
 - **Status:** ✅ Compliant (25% budget, **BEST IN SUITE**)
 - **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `implementing-stories` skill (7-phase TDD workflow)
+- **Business Logic:** Delegated to `spec-driven-dev` skill (7-phase TDD workflow)
 - **Token Efficiency:** Before: ~15K tokens → After: ~2K tokens (87% savings)
 - **Refactoring:** ✅ Complete (2025-11-18, Case Study 6 - STORY-051)
 
@@ -132,7 +132,7 @@ The following 25 commands were added after the original compliance audit:
 | Command | Estimated Status | Notes |
 |---------|------------------|-------|
 | `/dev-status` | ✅ Likely Compliant | Read-only utility, ~6K chars |
-| `/resume-dev` | ⚠️ Unknown | Skill delegation to implementing-stories |
+| `/resume-dev` | ⚠️ Unknown | Skill delegation to spec-driven-dev |
 | `/insights` | ⚠️ Unknown | Skill delegation to devforgeai-insights |
 | `/worktrees` | ✅ Likely Compliant | Utility command, subagent delegation |
 

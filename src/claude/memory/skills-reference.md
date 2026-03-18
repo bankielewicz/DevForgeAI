@@ -64,7 +64,7 @@ When you use `Skill(command="devforgeai-[name]")`:
 
 **❌ WRONG:**
 ```
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 "The skill is running, I'll wait for results"
 
 [Stops and waits] ← THIS IS WRONG
@@ -72,7 +72,7 @@ Skill(command="implementing-stories")
 
 **✅ CORRECT:**
 ```
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 "Skill expanded, now executing its instructions"
 
 [Reads Phase 01 from expanded skill content]
@@ -200,8 +200,8 @@ Skill(command="brainstorming")
 
 ---
 
-<skill name="discovering-requirements">
-### discovering-requirements
+<skill name="spec-driven-ideation">
+### spec-driven-ideation
 
 **Use when:**
 - User has business idea without technical specs
@@ -215,7 +215,7 @@ Skill(command="brainstorming")
 **Invocation:**
 <example>
 ```
-Skill(command="discovering-requirements")
+Skill(command="spec-driven-ideation")
 ```
 </example>
 </invocation>
@@ -224,18 +224,18 @@ Skill(command="discovering-requirements")
 
 **For effective ideation:** Business ideas should clearly describe the problem, target market, and expected outcomes. Provide specific context rather than vague statements. The skill will guide you through 6 phases of discovery with 10-60 interactive questions.
 
-**File:** `.claude/skills/discovering-requirements/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-ideation/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 ```
 
 **Example:** "Build an AI-powered task prioritization system for software teams that reduces sprint planning time by 40% and improves velocity tracking by 25%"
 
 ---
 
-### designing-systems
+### spec-driven-architecture
 
 **Use when:**
 - Context files missing or need updates
@@ -247,18 +247,18 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 
 **Invocation:**
 ```
-Skill(command="designing-systems")
+Skill(command="spec-driven-architecture")
 ```
 
 ### User Input Guidance
 
 **For architecture setup:** Provide project context (greenfield/brownfield status), team size, deployment targets, and technology preferences. The skill will ask detailed questions about architecture decisions, constraints, and patterns. Be ready to approve or discuss technology selections.
 
-**File:** `.claude/skills/designing-systems/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-architecture/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/designing-systems/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-guidance.md")
 ```
 
 **Example:** "Greenfield SaaS platform for 50-person startup, needs Django backend with PostgreSQL, React frontend, deploy to AWS, must support 10K concurrent users"
@@ -548,7 +548,7 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-gui
 
 ---
 
-### implementing-stories
+### spec-driven-dev
 
 **Use when:**
 - Implementing user stories or features
@@ -571,7 +571,7 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-gui
 # Load story first
 @devforgeai/specs/Stories/STORY-001.story.md
 
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 ```
 
 ### User Input Guidance
@@ -764,10 +764,10 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 1. brainstorming [OPTIONAL]
    ↓ (stakeholder discovery, problem exploration, hypothesis formation)
 
-2. discovering-requirements
+2. spec-driven-ideation
    ↓ (discover requirements, create epics)
 
-3. designing-systems
+3. spec-driven-architecture
    ↓ (create context files, make tech decisions)
 
 4. devforgeai-orchestration
@@ -776,7 +776,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 5. devforgeai-ui-generator [OPTIONAL]
    ↓ (generate UI specs if story has UI components)
 
-6. implementing-stories
+6. spec-driven-dev
    ↓ (implement stories with TDD)
    ↓ (Phase 04.5: AC verification with fresh context)
    ↓ (Phase 05.5: Post-integration AC verification)
@@ -799,7 +799,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 2. devforgeai-ui-generator [OPTIONAL]
    ↓ (generate UI specs if needed)
 
-3. implementing-stories
+3. spec-driven-dev
    ↓ (implement with TDD)
 
 4. devforgeai-qa
@@ -818,7 +818,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 2. devforgeai-ui-generator [OPTIONAL]
    ↓ (add UI specifications if needed)
 
-3. implementing-stories
+3. spec-driven-dev
    ↓ (implement story with TDD)
 
 4. devforgeai-qa
@@ -831,13 +831,13 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 ### For UI-Focused Stories
 
 ```
-1. designing-systems
+1. spec-driven-architecture
    ↓ (ensure context files exist)
 
 2. devforgeai-ui-generator
    ↓ (interactive UI spec generation)
 
-3. implementing-stories
+3. spec-driven-dev
    ↓ (implement UI with tests)
 
 4. devforgeai-qa
@@ -858,7 +858,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 **❌ WRONG:**
 ```
 Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-Skill(command="implementing-stories --story=STORY-001")
+Skill(command="spec-driven-dev --story=STORY-001")
 Skill(command="devforgeai-release --env=production")
 ```
 
@@ -894,8 +894,8 @@ Skill(command="devforgeai-qa")
 ## Skill Integration
 
 Skills automatically invoke each other when needed:
-- **implementing-stories** auto-invokes **devforgeai-qa** (light mode) after each TDD phase
-- **discovering-requirements** auto-transitions to **designing-systems**
+- **spec-driven-dev** auto-invokes **devforgeai-qa** (light mode) after each TDD phase
+- **spec-driven-ideation** auto-transitions to **spec-driven-architecture**
 - **devforgeai-orchestration** invokes other skills based on workflow state
 </integration_patterns>
 
@@ -911,7 +911,7 @@ For detailed skill documentation, see:
 - `.claude/skills/spec-driven-brainstorming/SKILL.md`
 - `.claude/skills/claude-code-terminal-expert/SKILL.md`
 - `.claude/skills/cross-ai-collaboration/SKILL.md`
-- `.claude/skills/designing-systems/SKILL.md`
+- `.claude/skills/spec-driven-architecture/SKILL.md`
 - `.claude/skills/devforgeai-documentation/SKILL.md`
 - `.claude/skills/devforgeai-feedback/SKILL.md`
 - `.claude/skills/devforgeai-github-actions/SKILL.md`
@@ -926,8 +926,8 @@ For detailed skill documentation, see:
 - `.claude/skills/devforgeai-story-creation/SKILL.md`
 - `.claude/skills/devforgeai-subagent-creation/SKILL.md`
 - `.claude/skills/devforgeai-ui-generator/SKILL.md`
-- `.claude/skills/discovering-requirements/SKILL.md`
-- `.claude/skills/implementing-stories/SKILL.md`
+- `.claude/skills/spec-driven-ideation/SKILL.md`
+- `.claude/skills/spec-driven-dev/SKILL.md`
 - `.claude/skills/root-cause-diagnosis/SKILL.md`
 - `.claude/skills/story-remediation/SKILL.md`
 - `.claude/skills/validating-epic-coverage/SKILL.md`
@@ -972,7 +972,7 @@ Skill(command="devforgeai-rca")
 Read(file_path="devforgeai/RCA/")
 ```
 
-**Example:** "implementing-stories didn't validate context files before TDD cycle, allowing use of unapproved technologies (CRITICAL)"
+**Example:** "spec-driven-dev didn't validate context files before TDD cycle, allowing use of unapproved technologies (CRITICAL)"
 
 **Workflow (8 Phases):**
 1. **Phase 0:** Issue Clarification - Extract details or use AskUserQuestion, generate RCA number/title
@@ -1580,7 +1580,7 @@ Skill(command="devforgeai-github-actions")
 |-------|------|----------------|
 | devforgeai-qa | light | inline in SKILL.md |
 | devforgeai-qa | deep | `.claude/skills/devforgeai-qa/references/deep-validation-workflow.md` |
-| implementing-stories | deep | `.claude/skills/implementing-stories/references/tdd-deep-workflow.md` |
+| spec-driven-dev | deep | `.claude/skills/spec-driven-dev/references/tdd-deep-workflow.md` |
 | devforgeai-orchestration | any | skill-specific references |
 
 **Source RCA:** RCA-021 REC-5 (MEDIUM - Reference Document Auto-Load Utility)
@@ -1702,7 +1702,7 @@ Skill(command="validating-epic-coverage")
 ## Skill Count Summary
 
 **Functional Skills: 22**
-- **Workflow - DevForgeAI branded (15):** brainstorming, discovering-requirements, designing-systems, orchestration, story-creation, ui-generator, implementing-stories, devforgeai-qa, qa-remediation, release, rca, documentation, feedback, research, insights
+- **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, devforgeai-qa, qa-remediation, release, rca, documentation, feedback, research, insights
 - **Workflow - Standalone (5):** assessing-entrepreneur, auditing-w3-compliance, cross-ai-collaboration, root-cause-diagnosis, validating-epic-coverage
 - **Infrastructure (2):** claude-code-terminal-expert, skill-creator
 

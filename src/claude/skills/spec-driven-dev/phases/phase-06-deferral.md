@@ -101,7 +101,7 @@ IF deferral exists WITHOUT timestamp: HALT — "DEFERRAL WITHOUT USER APPROVAL."
 
 EXECUTE: When user approves a deferral, update the technical debt register. This is UNCONDITIONAL (BR-001 per STORY-286).
 ```
-Read(file_path=".claude/skills/implementing-stories/references/technical-debt-register-workflow.md")
+Read(file_path="references/technical-debt-register-workflow.md")
 # Follow Step 6.6 of the workflow
 # Write debt entry with DEBT-NNN ID
 ```

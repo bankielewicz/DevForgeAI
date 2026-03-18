@@ -389,7 +389,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   "🔄 Returning to Phase 2 (Development) to fix {failure_type} issues...
 
   Orchestration will:
-  1. Re-invoke implementing-stories skill
+  1. Re-invoke spec-driven-dev skill
   2. Dev skill will address: {failure_description}
   3. After dev complete, automatically retry QA
   4. If QA passes: Continue to staging release
@@ -402,7 +402,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   **Orchestration Retry:** Attempt {current_qa_attempt}
 
   # Re-invoke development skill
-  Skill(command="implementing-stories")
+  Skill(command="spec-driven-dev")
 
   # Development skill executes TDD workflow to fix issues
   # Uses context markers to understand what to fix

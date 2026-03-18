@@ -421,9 +421,9 @@ Usage details: `references/automation-scripts.md`
 
 ## Integration
 
-**Invoked by:** `/qa` command, implementing-stories (light), devforgeai-orchestration (deep)
+**Invoked by:** `/qa` command, spec-driven-dev (light), devforgeai-orchestration (deep)
 **Invokes:** 7 subagents listed above
-**Outputs to:** implementing-stories (via gaps.json), devforgeai-release, user display
+**Outputs to:** spec-driven-dev (via gaps.json), devforgeai-release, user display
 **Gates:** Gate 2 (Test Passing), Gate 3 (QA Approval)
 
 ---

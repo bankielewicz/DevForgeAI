@@ -154,13 +154,13 @@ AskUserQuestion(
 
 ### 3.1 File Locations
 
-**Master File:** `src/.claude/skills/discovering-requirements/references/user-input-guidance.md`
+**Master File:** `src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md`
 
 **Orchestration Deployment:**
 - Location: `src/.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
 - Deployment: Copy from master using:
   ```bash
-  cp src/.claude/skills/discovering-requirements/references/user-input-guidance.md \
+  cp src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md \
      src/.claude/skills/devforgeai-orchestration/references/user-input-guidance.md
   ```
 
@@ -364,7 +364,7 @@ Story Management, Audit, etc.: 0 tokens (no guidance loaded)
 ## Section 8: Consistency Across All 3 Skills
 
 **Same Guidance File:**
-- Architecture uses: `.claude/skills/designing-systems/references/user-input-guidance.md`
+- Architecture uses: `.claude/skills/spec-driven-architecture/references/user-input-guidance.md`
 - UI-Generator uses: `.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
 - Orchestration uses: `.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
 - All 3 are IDENTICAL copies (checksum validated)

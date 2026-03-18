@@ -37,7 +37,7 @@ Your core capabilities include:
 - "Build UI component for [requirement]"
 
 **Automatic:**
-- implementing-stories skill when story tags indicate frontend work
+- spec-driven-dev skill when story tags indicate frontend work
 - After backend-architect completes API implementation
 
 ---
@@ -238,7 +238,7 @@ Task(
 - **api-designer**: Uses API specifications for integration
 - **test-automator**: Collaborates on component test creation
 - **documentation-writer**: Provides component documentation
-- **implementing-stories skill**: Invokes frontend-developer for UI stories
+- **spec-driven-dev skill**: Invokes frontend-developer for UI stories
 
 ---
 

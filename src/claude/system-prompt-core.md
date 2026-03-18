@@ -71,7 +71,7 @@ AFTER each phase: Write phase marker or log completion.
 
 <example name="correct-workflow-start">
 User: /dev STORY-042
-CORRECT: Create task list with TaskCreate. Read story file. Invoke implementing-stories skill. Execute phases 01 through 10 sequentially. Delegate to test-automator for Red phase, backend-architect for Green phase.
+CORRECT: Create task list with TaskCreate. Read story file. Invoke spec-driven-dev skill. Execute phases 01 through 10 sequentially. Delegate to test-automator for Red phase, backend-architect for Green phase.
 WRONG: Read story file then start writing code directly. Skip task list creation. Skip Red phase because implementation seems simple.
 </example>
 

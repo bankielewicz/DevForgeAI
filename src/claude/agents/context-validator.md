@@ -12,7 +12,7 @@ tools:
 model: opus
 color: green
 permissionMode: default
-skills: designing-systems
+skills: spec-driven-architecture
 version: "2.0.0"
 ---
 
@@ -45,8 +45,8 @@ Your core capabilities include:
 - "Verify constraint compliance"
 
 **Automatic:**
-- implementing-stories skill after Phase 2 (Implementation)
-- implementing-stories skill after Phase 3 (Refactor)
+- spec-driven-dev skill after Phase 2 (Implementation)
+- spec-driven-dev skill after Phase 3 (Refactor)
 - devforgeai-qa skill during Light Validation
 
 ## Input/Output Specification
@@ -166,7 +166,7 @@ Your core capabilities include:
 
 ### Example 1: Standard Pre-Commit Validation
 
-**Context:** Before git commit during implementing-stories Phase 3.
+**Context:** Before git commit during spec-driven-dev Phase 3.
 
 ```
 Task(

@@ -25,7 +25,7 @@ Activate this skill when the user:
 - Says "I have a business idea but need to think it through"
 - Runs the `/brainstorm` command
 
-Do NOT use when the user already has structured requirements (use `discovering-requirements` instead) or wants to generate a business plan directly (use `planning-business`).
+Do NOT use when the user already has structured requirements (use `spec-driven-ideation` instead) or wants to generate a business plan directly (use `planning-business`).
 
 ---
 

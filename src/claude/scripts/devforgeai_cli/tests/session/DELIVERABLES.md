@@ -113,7 +113,7 @@ Comprehensive test documentation including:
 - Implementation requirements (exact function signatures)
 - Coverage analysis and gap opportunities
 - TDD workflow integration
-- Integration with implementing-stories skill
+- Integration with spec-driven-dev skill
 
 #### DELIVERABLES.md (This file)
 Executive summary including:

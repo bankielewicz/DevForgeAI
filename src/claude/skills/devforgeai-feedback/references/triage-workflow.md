@@ -130,7 +130,7 @@ Manual fix: Edit queue JSON to move items to implemented array
 ## References
 
 - `.claude/agents/framework-analyst.md` - Subagent that generates recommendations
-- `.claude/skills/implementing-stories/phases/phase-09-feedback.md` - Where recommendations are captured
-- `.claude/skills/implementing-stories/references/observation-capture.md` - Observation capture protocol
+- `.claude/skills/spec-driven-dev/phases/phase-09-feedback.md` - Where recommendations are captured
+- `.claude/skills/spec-driven-dev/references/observation-capture.md` - Observation capture protocol
 - `devforgeai/feedback/ai-analysis/aggregated/recommendations-queue.json` - Queue file
 - `devforgeai/feedback/schema.json` - AI analysis schema

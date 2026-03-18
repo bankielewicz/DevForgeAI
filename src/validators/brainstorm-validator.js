@@ -1,7 +1,7 @@
 /**
  * STORY-140: Brainstorm YAML Validator
  *
- * Validates brainstorm file YAML syntax and schema for the discovering-requirements skill.
+ * Validates brainstorm file YAML syntax and schema for the spec-driven-ideation skill.
  *
  * Features:
  * - AC#1: YAML validation on brainstorm load

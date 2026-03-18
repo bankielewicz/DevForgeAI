@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Deeply understand the business problem, identify users, define goals, assess complexity, and establish scope boundaries |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/discovery-workflow.md` (357 lines), `.claude/skills/discovering-requirements/references/user-interaction-patterns.md` (491 lines) |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/discovery-workflow.md` (357 lines), `.claude/skills/spec-driven-ideation/references/user-interaction-patterns.md` (491 lines) |
 | **STEP COUNT** | 8 mandatory steps |
 | **MINIMUM QUESTIONS** | 5 |
 
@@ -30,8 +30,8 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/discovery-workflow.md")
-Read(file_path=".claude/skills/discovering-requirements/references/user-interaction-patterns.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/discovery-workflow.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-interaction-patterns.md")
 ```
 
 IF either Read fails: HALT -- "Phase 02 reference files not loaded. Cannot proceed without reference material."

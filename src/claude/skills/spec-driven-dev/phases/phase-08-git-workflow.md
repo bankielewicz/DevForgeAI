@@ -24,7 +24,7 @@ STEP COUNT: 6 mandatory steps
 
 EXECUTE: Check deferral budget for this story.
 ```
-Read(file_path=".claude/skills/implementing-stories/references/deferral-budget-enforcement.md")
+Read(file_path="references/deferral-budget-enforcement.md")
 # Parse budget limits, check against deferred items from Phase 06
 ```
 VERIFY: Budget within limits.

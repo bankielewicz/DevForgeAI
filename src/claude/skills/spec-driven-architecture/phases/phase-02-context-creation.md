@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Create all 6 immutable context files. These files become THE LAW for all subsequent development. |
-| **REFERENCES** | `designing-systems/references/context-file-creation-workflow.md`, `designing-systems/assets/context-templates/*.md` (6 templates) |
+| **REFERENCES** | `spec-driven-architecture/references/context-file-creation-workflow.md`, `spec-driven-architecture/assets/context-templates/*.md` (6 templates) |
 | **STEP COUNT** | 7 mandatory steps |
 
 ## Phase Exit Criteria
@@ -23,13 +23,13 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/context-file-creation-workflow.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/tech-stack.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/source-tree.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/dependencies.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/coding-standards.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/architecture-constraints.md")
-Read(file_path=".claude/skills/designing-systems/assets/context-templates/anti-patterns.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/context-file-creation-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/tech-stack.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/source-tree.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/dependencies.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/coding-standards.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/architecture-constraints.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/context-templates/anti-patterns.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time this phase executes.
@@ -41,7 +41,7 @@ Do NOT rely on memory of previous reads. Load fresh every time this phase execut
 ### Step 2.1: Create tech-stack.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/tech-stack.md`. Present user with structured questions:
+Load template from `spec-driven-architecture/assets/context-templates/tech-stack.md`. Present user with structured questions:
 ```
 AskUserQuestion:
   Question: "Define the technology stack for this project. Specify: (1) Primary language and version, (2) Framework and version, (3) Database engine, (4) ORM/data access layer, (5) Testing framework, (6) Build/package tool."
@@ -76,7 +76,7 @@ Glob(pattern="devforgeai/specs/context/tech-stack.md")
 ### Step 2.2: Create source-tree.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/source-tree.md`. Query user:
+Load template from `spec-driven-architecture/assets/context-templates/source-tree.md`. Query user:
 ```
 AskUserQuestion:
   Question: "Define the project directory structure. Specify: (1) Source code root directory, (2) Test directory pattern, (3) Layer structure (e.g., controllers/services/repositories), (4) Configuration directory, (5) Documentation directory."
@@ -109,7 +109,7 @@ Glob(pattern="devforgeai/specs/context/source-tree.md")
 ### Step 2.3: Create dependencies.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/dependencies.md`. Query user:
+Load template from `spec-driven-architecture/assets/context-templates/dependencies.md`. Query user:
 ```
 AskUserQuestion:
   Question: "List the project dependencies. For each: (1) Package name, (2) Version or range, (3) Purpose (runtime/dev/test), (4) Any version constraints or pinning requirements."
@@ -141,7 +141,7 @@ Glob(pattern="devforgeai/specs/context/dependencies.md")
 ### Step 2.4: Create coding-standards.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/coding-standards.md`. Query user:
+Load template from `spec-driven-architecture/assets/context-templates/coding-standards.md`. Query user:
 ```
 AskUserQuestion:
   Question: "Define coding standards. Specify: (1) Naming conventions (variables, classes, files), (2) Error handling pattern, (3) Logging strategy, (4) Comment requirements, (5) Maximum function/file length."
@@ -173,7 +173,7 @@ Glob(pattern="devforgeai/specs/context/coding-standards.md")
 ### Step 2.5: Create architecture-constraints.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/architecture-constraints.md`. Query user:
+Load template from `spec-driven-architecture/assets/context-templates/architecture-constraints.md`. Query user:
 ```
 AskUserQuestion:
   Question: "Define architecture constraints. Specify: (1) Layer boundaries and allowed dependencies, (2) Mandatory design patterns (DI, Repository, etc.), (3) Forbidden cross-layer calls, (4) API versioning strategy, (5) Data access rules."
@@ -205,7 +205,7 @@ Glob(pattern="devforgeai/specs/context/architecture-constraints.md")
 ### Step 2.6: Create anti-patterns.md
 
 **EXECUTE:**
-Load template from `designing-systems/assets/context-templates/anti-patterns.md`. Query user:
+Load template from `spec-driven-architecture/assets/context-templates/anti-patterns.md`. Query user:
 ```
 AskUserQuestion:
   Question: "Define anti-patterns to enforce. Specify: (1) Project-specific code smells to detect, (2) Maximum complexity thresholds, (3) Forbidden library usage patterns, (4) Known pitfalls from prior projects."

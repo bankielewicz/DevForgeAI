@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Create epic documents from structured requirements. CONDITIONAL phase — only executes when invoked via `/create-epic` command (COMMAND_MODE == "epic-creation") |
-| **REFERENCES** | `.claude/skills/designing-systems/references/epic-management.md`, `feature-decomposition.md`, `feature-analyzer.md`, `complexity-assessment-workflow.md`, `complexity-assessment-matrix.md`, `artifact-generation.md`, `epic-validation-checklist.md`, `epic-validation-hook.md`, `technical-assessment-guide.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/references/epic-management.md`, `feature-decomposition.md`, `feature-analyzer.md`, `complexity-assessment-workflow.md`, `complexity-assessment-matrix.md`, `artifact-generation.md`, `epic-validation-checklist.md`, `epic-validation-hook.md`, `technical-assessment-guide.md` |
 | **STEP COUNT** | 8 mandatory steps |
 | **SUBAGENTS** | `requirements-analyst` (BLOCKING), `architect-reviewer` (BLOCKING) |
 
@@ -28,15 +28,15 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/epic-management.md")
-Read(file_path=".claude/skills/designing-systems/references/feature-decomposition.md")
-Read(file_path=".claude/skills/designing-systems/references/feature-analyzer.md")
-Read(file_path=".claude/skills/designing-systems/references/complexity-assessment-workflow.md")
-Read(file_path=".claude/skills/designing-systems/references/complexity-assessment-matrix.md")
-Read(file_path=".claude/skills/designing-systems/references/artifact-generation.md")
-Read(file_path=".claude/skills/designing-systems/references/epic-validation-checklist.md")
-Read(file_path=".claude/skills/designing-systems/references/epic-validation-hook.md")
-Read(file_path=".claude/skills/designing-systems/references/technical-assessment-guide.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-management.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/feature-decomposition.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/feature-analyzer.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/complexity-assessment-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/complexity-assessment-matrix.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/artifact-generation.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-validation-checklist.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-validation-hook.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/technical-assessment-guide.md")
 ```
 
 All 9 reads may be issued in parallel. Do NOT rely on memory of previous reads. Load fresh every time.
@@ -92,7 +92,7 @@ Confirm at least 6 files returned. Read `EPIC_NAME` from conversation context ma
 
 Load epic management reference (already loaded in Reference Loading, but confirm available):
 ```
-Read(file_path=".claude/skills/designing-systems/references/epic-management.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-management.md")
 ```
 
 **VERIFY:**
@@ -260,7 +260,7 @@ checkpoint.phase_11.step_11_4 = {
 **EXECUTE:**
 Load the epic template:
 ```
-Read(file_path=".claude/skills/designing-systems/assets/templates/epic-template.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/templates/epic-template.md")
 ```
 
 Generate sequential EPIC number:
@@ -303,7 +303,7 @@ checkpoint.phase_11.step_11_5 = {
 **EXECUTE:**
 Validate the generated epic document against the validation checklist:
 ```
-Read(file_path=".claude/skills/designing-systems/references/epic-validation-checklist.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-validation-checklist.md")
 ```
 
 Check each validation criterion against the generated document:
@@ -368,7 +368,7 @@ Glob(pattern="devforgeai/specs/Epics/EPIC-<NNN>-*.epic.md")
 
 Invoke epic validation hook (non-blocking):
 ```
-Read(file_path=".claude/skills/designing-systems/references/epic-validation-hook.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/epic-validation-hook.md")
 ```
 Execute any post-creation hooks defined in the reference.
 

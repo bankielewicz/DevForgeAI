@@ -135,7 +135,7 @@ This skill executes workflows in **distinct phases**. Each phase loads its refer
 ### Phase 2: Skill Invocation
 **Purpose:** Coordinate automatic invocation of other skills
 **Reference:** `skill-invocation.md`
-**Skills invoked:** designing-systems, development, qa, release (based on status)
+**Skills invoked:** spec-driven-architecture, development, qa, release (based on status)
 
 ### Phase 3: Sprint Planning
 **Purpose:** Create sprints with capacity validation

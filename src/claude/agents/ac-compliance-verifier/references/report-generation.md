@@ -162,7 +162,7 @@ When anti-pattern violations are found, include in report:
 ## Integration Points
 
 **Invoked by:**
-- implementing-stories skill (Phase 4.5, Phase 5.5)
+- spec-driven-dev skill (Phase 4.5, Phase 5.5)
 - devforgeai-qa skill (deep validation mode)
 - Manual invocation for verification
 

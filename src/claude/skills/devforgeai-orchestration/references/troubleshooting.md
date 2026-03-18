@@ -86,7 +86,7 @@ IF not found:
 
 **If checkpoint missing:**
 1. Verify previous phase completed successfully
-2. Check if implementing-stories/qa/release skills created checkpoint
+2. Check if spec-driven-dev/qa/release skills created checkpoint
 3. Manually add checkpoint if workflow was completed outside orchestration
 
 **If checkpoint malformed:**
@@ -320,7 +320,7 @@ If estimates seem high:
 
 ### Symptom
 
-Orchestration invokes skill (implementing-stories, qa, release) but skill returns error.
+Orchestration invokes skill (spec-driven-dev, qa, release) but skill returns error.
 
 ### Cause
 

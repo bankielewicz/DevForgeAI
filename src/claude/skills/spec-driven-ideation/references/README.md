@@ -1,19 +1,17 @@
 # spec-driven-ideation References
 
-## Shared-Reference Strategy
+## Self-Contained Architecture
 
-This skill uses the **shared-reference pattern** (same approach as `spec-driven-brainstorming` reading from `brainstorming/`). Phase files in `spec-driven-ideation` load references from `discovering-requirements/references/` via `Read()`.
-
-This prevents content duplication and ensures a single source of truth.
+This skill is **self-contained** — all reference files, templates, assets, and scripts are co-located within this skill directory. No external skill dependencies exist.
 
 ## Reference Locations
 
 | Type | Path |
 |------|------|
-| Phase workflows | `.claude/skills/discovering-requirements/references/` |
-| Error handling | `.claude/skills/discovering-requirements/references/error-*.md` |
-| Templates | `.claude/skills/discovering-requirements/assets/templates/` |
-| Scripts | `.claude/skills/discovering-requirements/scripts/` |
+| Phase workflows | `.claude/skills/spec-driven-ideation/references/` |
+| Error handling | `.claude/skills/spec-driven-ideation/references/error-*.md` |
+| Templates | `.claude/skills/spec-driven-ideation/assets/templates/` |
+| Scripts | `.claude/skills/spec-driven-ideation/scripts/` |
 | Phase files | `.claude/skills/spec-driven-ideation/phases/` |
 
 ## Phase-to-Reference Map
@@ -28,9 +26,6 @@ This prevents content duplication and ensures a single source of truth.
 | 06 (Validation) | `self-validation-workflow.md`, `validation-checklists.md` |
 | 07 (Handoff) | `completion-handoff.md`, `output-templates.md` |
 
-## Why Shared References
+## Migration History
 
-1. **Single source of truth** - No content drift between copies
-2. **Maintenance** - Updates to reference files automatically apply to both skills
-3. **Token efficiency** - No duplicated file storage
-4. **Proven pattern** - Same approach used by spec-driven-brainstorming + brainstorming
+This skill was originally created using a shared-reference pattern where phase files loaded references from `discovering-requirements/references/`. As of 2026-03-18, all reference files, assets, and scripts were migrated into this skill directory to make it fully self-sufficient. The `discovering-requirements` skill has been archived.

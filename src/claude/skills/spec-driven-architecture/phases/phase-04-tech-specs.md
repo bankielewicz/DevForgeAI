@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Create technical specifications (functional, API, NFR). This is a CONDITIONAL phase -- skip if project scope does not warrant it. |
-| **REFERENCES** | `designing-systems/references/technical-specification-workflow.md`, `designing-systems/references/system-design-patterns.md` |
+| **REFERENCES** | `spec-driven-architecture/references/technical-specification-workflow.md`, `spec-driven-architecture/references/system-design-patterns.md` |
 | **STEP COUNT** | 4 mandatory steps (Step 4.0 is a gate that may skip Steps 4.1-4.3) |
 
 ## Phase Exit Criteria
@@ -23,8 +23,8 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/technical-specification-workflow.md")
-Read(file_path=".claude/skills/designing-systems/references/system-design-patterns.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/technical-specification-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/system-design-patterns.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time this phase executes.

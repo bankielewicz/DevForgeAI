@@ -203,13 +203,13 @@ Before finalizing recommendation, verify:
 
 **ALWAYS provide:**
 - Absolute path from repo root
-- No ambiguity (not "the skill file" but `.claude/skills/implementing-stories/SKILL.md`)
+- No ambiguity (not "the skill file" but `.claude/skills/spec-driven-dev/SKILL.md`)
 - Correct file extension
 
 **Examples:**
 ```markdown
 ✅ CORRECT:
-**File:** `.claude/skills/implementing-stories/SKILL.md`
+**File:** `.claude/skills/spec-driven-dev/SKILL.md`
 **File:** `.claude/commands/dev.md`
 **File:** `devforgeai/specs/context/tech-stack.md`
 
@@ -654,11 +654,11 @@ ROOT CAUSE: No pre-flight validation in development skill enforces context file 
 
 ### Proposed Solution
 
-Add context file validation step to implementing-stories skill Phase 0 (Pre-Flight Validation), after Step 7 (Tech Stack Detection). Validation checks for 6 required context files before allowing TDD to proceed.
+Add context file validation step to spec-driven-dev skill Phase 0 (Pre-Flight Validation), after Step 7 (Tech Stack Detection). Validation checks for 6 required context files before allowing TDD to proceed.
 
 ### Implementation Details
 
-**File:** `.claude/skills/implementing-stories/SKILL.md`
+**File:** `.claude/skills/spec-driven-dev/SKILL.md`
 **Section:** Phase 0: Pre-Flight Validation, after Step 7
 **Change Type:** Add
 
@@ -710,7 +710,7 @@ Adding context file validation to Phase 0 prevents TDD from starting without arc
 - Evidence from Phase 3 shows Phase 0 has pre-flight checks (Git validation at Step 1, tech detection at Step 7)
 - Evidence from devforgeai/specs/context/ shows 6 immutable constraint files exist and are critical
 - Evidence from RCA-003 shows similar pre-flight validation for Git repository worked effectively
-- Pattern from designing-systems: Context files created before development
+- Pattern from spec-driven-architecture: Context files created before development
 
 **Prevention mechanism:**
 Validation occurs in Phase 0 (before TDD Red phase), ensuring 100% of TDD cycles operate within constraints. Early detection (before any code written) provides immediate, actionable user guidance (/create-context command).
@@ -792,7 +792,7 @@ Context file validation blocks /dev when files missing, provides clear error wit
 - Mitigation: Error message clearly explains /create-context requirement
 
 **Scope:**
-- Files affected: 1 (implementing-stories SKILL.md)
+- Files affected: 1 (spec-driven-dev SKILL.md)
 - Workflows affected: /dev command, /orchestrate command (uses /dev)
 - Users affected: All users (anyone running /dev)
 - Scenarios: Greenfield projects, projects without /create-context run

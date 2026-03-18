@@ -151,7 +151,7 @@ IF STORY-XXX has incomplete items:
 
 **ADR Required?** YES (always for scope changes)
 
-**Reference:** See designing-systems skill references (`adr-policy.md`) for complete ADR policy and deferral requirements
+**Reference:** See spec-driven-architecture skill references (`adr-policy.md`) for complete ADR policy and deferral requirements
 
 ---
 
@@ -612,7 +612,7 @@ AskUserQuestion:
 - Checks: Basic justification format present
 - Result: Warnings for format issues (non-blocking)
 
-**Layer 2: Interactive Checkpoint** (.claude/skills/implementing-stories/references/dod-validation-checkpoint.md)
+**Layer 2: Interactive Checkpoint** (.claude/skills/spec-driven-dev/references/dod-validation-checkpoint.md)
 - Requires: AskUserQuestion for EVERY unjustified item
 - Creates: Follow-up stories, ADRs as user directs
 - Result: BLOCKS commit until user approves all deferrals
@@ -730,7 +730,7 @@ AskUserQuestion:
    - Purpose: Fast format feedback (<100ms)
 
 2. **Interactive Checkpoint**
-   - File: `.claude/skills/implementing-stories/references/dod-validation-checkpoint.md`
+   - File: `.claude/skills/spec-driven-dev/references/dod-validation-checkpoint.md`
    - Usage: Invoked automatically in /dev Phase 5 Step 1b (via progressive loading)
    - Purpose: User approval gate (ZERO autonomous deferrals)
 
@@ -740,7 +740,7 @@ AskUserQuestion:
    - Purpose: Comprehensive AI analysis
 
 4. **Story Size Detection** (NEW - RCA-006 Rec 4)
-   - Location: implementing-stories skill Phase 5 Step 1b
+   - Location: spec-driven-dev skill Phase 5 Step 1b
    - Trigger: >3 deferrals
    - Action: Suggests story splitting to reduce debt
 

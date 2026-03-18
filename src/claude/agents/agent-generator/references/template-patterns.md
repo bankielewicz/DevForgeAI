@@ -411,7 +411,7 @@ Reference ALL 6 context files (comprehensive awareness)
 
 ## Skill Integration Points
 
-### implementing-stories
+### spec-driven-dev
 - Phase 1 (Red): test-automator
 - Phase 2 (Green): backend-architect, frontend-developer
 - Phase 3 (Refactor): refactoring-specialist, code-reviewer
@@ -421,7 +421,7 @@ Reference ALL 6 context files (comprehensive awareness)
 - Phase 1: test-automator (generate missing tests)
 - Phase 2: security-auditor, context-validator
 
-### designing-systems
+### spec-driven-architecture
 - Phase 2: architect-reviewer, api-designer
 
 ### devforgeai-release

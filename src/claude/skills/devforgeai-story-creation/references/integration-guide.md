@@ -17,7 +17,7 @@ The devforgeai-story-creation skill is a core framework component invoked by mul
 - Sprint planning → story generation (Phase 3)
 - Manages story lifecycle through workflow states
 
-**implementing-stories skill**
+**spec-driven-dev skill**
 - Deferred DoD items → tracking story creation (Phase 5)
 - Scope changes → follow-up story creation
 - Creates stories to document technical debt
@@ -52,7 +52,7 @@ The devforgeai-story-creation skill is a core framework component invoked by mul
 - Input: Feature description → Component specification
 - Flow: Story creation → UI generation (optional)
 
-**implementing-stories skill**
+**spec-driven-dev skill**
 - Input: Acceptance criteria → Test generation (TDD Red phase)
 - Input: Technical specification → Implementation guidance
 - Input: API contracts → API implementation
@@ -153,7 +153,7 @@ This skill is invoked by **4+ framework components:**
    - Epic features → multiple stories
    - Sprint planning → story selection
 
-3. **implementing-stories skill** (deferred work tracking)
+3. **spec-driven-dev skill** (deferred work tracking)
    - Deferred DoD items → follow-up stories
    - Scope changes → new story creation
 

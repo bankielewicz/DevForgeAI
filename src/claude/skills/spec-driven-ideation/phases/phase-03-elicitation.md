@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Systematically extract functional requirements, data requirements, integration requirements, and non-functional requirements through progressive questioning. Apply domain-specific patterns and MoSCoW prioritization. |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/requirements-elicitation-workflow.md`, `requirements-elicitation-guide.md`, `domain-specific-patterns.md`, `user-interaction-patterns.md` |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/requirements-elicitation-workflow.md`, `requirements-elicitation-guide.md`, `domain-specific-patterns.md`, `user-interaction-patterns.md` |
 | **STEP COUNT** | 8 mandatory steps (3.1 through 3.8) |
 | **MINIMUM QUESTIONS** | 10 |
 
@@ -29,10 +29,10 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/requirements-elicitation-workflow.md")
-Read(file_path=".claude/skills/discovering-requirements/references/requirements-elicitation-guide.md")
-Read(file_path=".claude/skills/discovering-requirements/references/domain-specific-patterns.md")
-Read(file_path=".claude/skills/discovering-requirements/references/user-interaction-patterns.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/requirements-elicitation-workflow.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/requirements-elicitation-guide.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/domain-specific-patterns.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-interaction-patterns.md")
 ```
 
 IF any Read fails: HALT -- "Phase 03 reference files not loaded. Cannot proceed without reference material."

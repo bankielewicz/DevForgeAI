@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Create Architecture Decision Records for all major technology and design decisions. ADRs provide traceability and prevent revisiting settled decisions. |
-| **REFERENCES** | `designing-systems/references/adr-creation-workflow.md`, `designing-systems/references/adr-policy.md`, `designing-systems/references/adr-template.md`, `designing-systems/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md` |
+| **REFERENCES** | `spec-driven-architecture/references/adr-creation-workflow.md`, `spec-driven-architecture/references/adr-policy.md`, `spec-driven-architecture/references/adr-template.md`, `spec-driven-architecture/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md` |
 | **STEP COUNT** | 4 mandatory steps |
 
 ## Phase Exit Criteria
@@ -23,10 +23,10 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/adr-creation-workflow.md")
-Read(file_path=".claude/skills/designing-systems/references/adr-policy.md")
-Read(file_path=".claude/skills/designing-systems/references/adr-template.md")
-Read(file_path=".claude/skills/designing-systems/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/adr-creation-workflow.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/adr-policy.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/adr-template.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time this phase executes.
@@ -82,8 +82,8 @@ AskUserQuestion:
 
 **EXECUTE:**
 ```
-Read(file_path=".claude/skills/designing-systems/references/adr-template.md")
-Read(file_path=".claude/skills/designing-systems/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/adr-template.md")
+Read(file_path=".claude/skills/spec-driven-architecture/assets/adr-examples/ADR-EXAMPLE-001-database-selection.md")
 ```
 Extract the 6 required ADR sections from the template:
 1. Title

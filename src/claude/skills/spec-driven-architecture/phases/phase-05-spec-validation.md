@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Cross-validate all 6 context files against each other and against technical specs for internal consistency |
-| **REFERENCES** | `.claude/skills/designing-systems/references/architecture-validation.md` |
+| **REFERENCES** | `.claude/skills/spec-driven-architecture/references/architecture-validation.md` |
 | **STEP COUNT** | 5 mandatory steps |
 
 ## Phase Exit Criteria
@@ -23,7 +23,7 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/designing-systems/references/architecture-validation.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/architecture-validation.md")
 ```
 
 Do NOT rely on memory of previous reads. Load fresh every time.

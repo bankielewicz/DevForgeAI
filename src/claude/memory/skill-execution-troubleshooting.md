@@ -18,7 +18,7 @@ Quick reference for diagnosing and recovering from skill execution errors.
 
 When you see:
 ```
-<command-message>The "implementing-stories" skill is running</command-message>
+<command-message>The "spec-driven-dev" skill is running</command-message>
 ```
 
 **This means:**
@@ -42,7 +42,7 @@ Immediately after skill invocation:
 
 **Action required:** Run the Phase 0 instructions now
 
-Example from implementing-stories skill:
+Example from spec-driven-dev skill:
 ```
 Phase 0: Pre-Flight Validation
 Step 1: Validate Git status
@@ -167,16 +167,16 @@ Skill invocation → Load instructions → Execute instructions → Display your
 
 **Command executes:**
 ```
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 ```
 
 **System message appears:**
 ```
-<command-message>The "implementing-stories" skill is running</command-message>
+<command-message>The "spec-driven-dev" skill is running</command-message>
 ```
 
 **✅ Correct action:**
-1. Read implementing-stories skill's Phase 0
+1. Read spec-driven-dev skill's Phase 0
 2. Execute Phase 0 Step 1 (git-validator subagent)
 3. Execute Phase 0 Step 2 (adapt workflow)
 4. Continue through all Phase 0 steps
@@ -222,7 +222,7 @@ Skill(command="devforgeai-orchestration")
 **✅ Correct action:**
 1. Read orchestration skill's Phase 0
 2. Execute checkpoint detection
-3. Invoke implementing-stories skill (if needed)
+3. Invoke spec-driven-dev skill (if needed)
 4. Invoke devforgeai-qa skill (if needed)
 5. Handle QA retry loop (if QA fails)
 6. Invoke devforgeai-release skill (staging, production)
@@ -289,9 +289,9 @@ Skill(command="devforgeai-orchestration")
 
 ## Testing Your Understanding
 
-**Question 1:** After `Skill(command="implementing-stories")`, what should you do?
+**Question 1:** After `Skill(command="spec-driven-dev")`, what should you do?
 
-**✅ Correct answer:** Read the implementing-stories skill's Phase 0 instructions and begin executing them immediately.
+**✅ Correct answer:** Read the spec-driven-dev skill's Phase 0 instructions and begin executing them immediately.
 
 **❌ Incorrect answer:** Wait for the skill to complete and monitor progress.
 
@@ -330,12 +330,12 @@ Skill(command="devforgeai-orchestration")
 - `.claude/memory/skills-reference.md` - Skills overview with execution model
 
 **Skills documentation:**
-- `.claude/skills/implementing-stories/SKILL.md` - Development workflow
+- `.claude/skills/spec-driven-dev/SKILL.md` - Development workflow
 - `.claude/skills/devforgeai-qa/SKILL.md` - QA validation workflow
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration workflow
 
 **Commands documentation:**
-- `.claude/commands/dev.md` - /dev command (invokes implementing-stories skill)
+- `.claude/commands/dev.md` - /dev command (invokes spec-driven-dev skill)
 - `.claude/commands/qa.md` - /qa command (invokes devforgeai-qa skill)
 - `.claude/commands/orchestrate.md` - /orchestrate command (invokes orchestration skill)
 
@@ -577,12 +577,12 @@ If done much faster, verify you didn't skip phases.
 
 | Skill | Reference Files | Risk Level |
 |-------|-----------------|------------|
-| implementing-stories | 8 reference files | HIGH (RCA-009, RCA-011) |
+| spec-driven-dev | 8 reference files | HIGH (RCA-009, RCA-011) |
 | devforgeai-qa | 19 reference files | HIGH (RCA-016) |
 | devforgeai-orchestration | 4 reference files | MEDIUM |
 | devforgeai-release | 5 reference files | MEDIUM |
-| designing-systems | 6 reference files | MEDIUM |
-| discovering-requirements | 16 reference files | MEDIUM |
+| spec-driven-architecture | 6 reference files | MEDIUM |
+| spec-driven-ideation | 16 reference files | MEDIUM |
 | devforgeai-story-creation | 6 reference files | MEDIUM |
 | devforgeai-documentation | 7 reference files | LOW |
 
@@ -596,13 +596,13 @@ If done much faster, verify you didn't skip phases.
 ### Related RCAs
 
 **RCA-009: Incomplete Skill Workflow Execution (2025-11-14)**
-- Skill: implementing-stories
+- Skill: spec-driven-dev
 - Symptom: Skipped Tech Spec Coverage step in Phase 2
 - Root cause: Progressive disclosure - reference file not loaded
 - Status: Partially resolved
 
 **RCA-011: Mandatory TDD Phase Skipping (2025-11-19)**
-- Skill: implementing-stories
+- Skill: spec-driven-dev
 - Symptom: Skipped mandatory TDD phases
 - Root cause: Same as RCA-009 - progressive disclosure ambiguity
 - Status: Recommendations pending

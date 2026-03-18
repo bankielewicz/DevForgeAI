@@ -124,7 +124,7 @@ Edit(
 
 ## Instructions for Skills and Subagents
 
-### implementing-stories Skill
+### spec-driven-dev Skill
 
 At the end of each TDD phase, append a changelog entry:
 
@@ -204,6 +204,6 @@ When adding the Change Log section to existing stories, you MUST:
 ## References
 
 - Story Template: `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
-- Development Skill: `.claude/skills/implementing-stories/SKILL.md`
+- Development Skill: `.claude/skills/spec-driven-dev/SKILL.md`
 - QA Skill: `.claude/skills/devforgeai-qa/SKILL.md`
 - Release Skill: `.claude/skills/devforgeai-release/SKILL.md`

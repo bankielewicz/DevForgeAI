@@ -5,7 +5,7 @@ tools: Read, Write, Edit, WebFetch
 model: opus
 color: green
 permissionMode: plan
-skills: designing-systems
+skills: spec-driven-architecture
 proactive_triggers:
   - "when creating new API endpoints"
   - "during story creation with API requirements"
@@ -66,7 +66,7 @@ Your core capabilities include:
 - "Review API consistency"
 
 **Automatic:**
-- designing-systems skill during technical specification
+- spec-driven-architecture skill during technical specification
 - requirements-analyst when generating API specifications
 - devforgeai-qa during spec compliance validation
 
@@ -275,7 +275,7 @@ Task(
 - **backend-architect**: Provides implementation specification from API design
 - **integration-tester**: Validates API contract compliance
 - **documentation-writer**: Generates API documentation from OpenAPI specs
-- **Invoked by**: designing-systems, requirements-analyst, devforgeai-story-creation (RCA-006)
+- **Invoked by**: spec-driven-architecture, requirements-analyst, devforgeai-story-creation (RCA-006)
 
 ---
 

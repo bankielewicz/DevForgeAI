@@ -89,7 +89,7 @@ When you run uninstall without `--yes`, you'll see:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Files that will be removed (45 files, 2.3 MB):
-  .claude/skills/discovering-requirements/
+  .claude/skills/spec-driven-ideation/
   .claude/agents/test-automator.md
   .claude/commands/dev.md
   [... 42 more files ...]

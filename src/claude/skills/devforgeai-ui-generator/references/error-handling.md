@@ -15,9 +15,9 @@ Error handling for UI generation workflow.
 Missing files: ${missing_files}
 
 Recovery:
-Please invoke the designing-systems skill first to create the required context files:
+Please invoke the spec-driven-architecture skill first to create the required context files:
 
-Skill(command=\"designing-systems\")
+Skill(command=\"spec-driven-architecture\")
 
 Or use the slash command:
 /create-context ${project_name}

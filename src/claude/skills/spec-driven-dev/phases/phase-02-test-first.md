@@ -73,7 +73,7 @@ IF failures are import/config: HALT — "Test failures are environmental, not bu
 
 EXECUTE: Create checksum snapshot of all test files for tamper detection.
 ```
-Read(file_path=".claude/skills/implementing-stories/references/test-integrity-snapshot.md")
+Read(file_path="references/test-integrity-snapshot.md")
 # Follow the snapshot algorithm to generate checksums
 # Write snapshot to: devforgeai/qa/snapshots/${STORY_ID}/red-phase-checksums.json
 ```
@@ -104,7 +104,7 @@ EXECUTE: Write observation file for this phase.
 Write(file_path="devforgeai/feedback/ai-analysis/${STORY_ID}/phase-02-observations.json",
   content=<JSON with phase, category, note, files, severity>)
 ```
-Reference schema: `.claude/skills/implementing-stories/references/observation-capture.md`
+Reference schema: `references/observation-capture.md`
 VERIFY: Observation file exists.
 ```
 Glob(pattern="devforgeai/feedback/ai-analysis/${STORY_ID}/phase-02-observations.json")

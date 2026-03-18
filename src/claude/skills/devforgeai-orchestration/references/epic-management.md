@@ -21,7 +21,7 @@ Reference this document when:
 
 ### Step 1: Load Requirements from Ideation
 
-**Input:** Requirements from `discovering-requirements` skill
+**Input:** Requirements from `spec-driven-ideation` skill
 
 **Actions:**
 ```

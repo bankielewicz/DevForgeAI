@@ -14,7 +14,7 @@ schemas:
   # =============================================================================
   # Brainstorm Document Schema
   # Validates output from brainstorming skill
-  # Used by: discovering-requirements skill (input validation)
+  # Used by: spec-driven-ideation skill (input validation)
   # =============================================================================
   brainstorm:
     description: "Schema for brainstorm session documents"
@@ -50,7 +50,7 @@ schemas:
 
   # =============================================================================
   # Ideation Output Schema
-  # Validates output from discovering-requirements skill
+  # Validates output from spec-driven-ideation skill
   # Used by: architecture skill epic creation (input validation)
   # =============================================================================
   ideation:
@@ -89,8 +89,8 @@ schemas:
 
   # =============================================================================
   # Epic Document Schema - RELOCATED
-  # Epic schema has been moved to designing-systems skill (STORY-439)
-  # See: .claude/skills/designing-systems/references/skill-output-schemas.yaml
+  # Epic schema has been moved to spec-driven-architecture skill (STORY-439)
+  # See: .claude/skills/spec-driven-architecture/references/skill-output-schemas.yaml
   # =============================================================================
 
 # =============================================================================

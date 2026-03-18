@@ -28,7 +28,7 @@ Generate comprehensive test suites from acceptance criteria and technical specif
 - "Identify coverage gaps and generate missing tests"
 
 **Automatic:**
-- When implementing-stories skill enters Phase 1 (Red - Test First)
+- When spec-driven-dev skill enters Phase 1 (Red - Test First)
 - When devforgeai-qa skill detects coverage < thresholds (95%/85%/80%)
 
 ## Workflow
@@ -73,11 +73,11 @@ When invoked, follow these steps:
 - Gate 3: QA Approval (coverage thresholds: 95%/85%/80%)
 
 **Works with:**
-- implementing-stories (Phase 1 Red - generates failing tests)
+- spec-driven-dev (Phase 1 Red - generates failing tests)
 - devforgeai-qa (Coverage gap filling)
 
 **Invoked by:**
-- implementing-stories, Phase 1, Step 1
+- spec-driven-dev, Phase 1, Step 1
 - devforgeai-qa, Phase 3, Step 2 (coverage gaps)
 
 ## Tool Usage Protocol
@@ -140,7 +140,7 @@ When invoked, follow these steps:
 - architecture-constraints.md (test organization)
 
 **Framework Integration:**
-- implementing-stories (Phase 1 Red)
+- spec-driven-dev (Phase 1 Red)
 - devforgeai-qa (Coverage validation)
 
 ---

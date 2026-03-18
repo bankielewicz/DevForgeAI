@@ -697,7 +697,7 @@ Issues:
 - Enhanced Phase 3.5: QA Retry Loop (459 lines)
 - Added Phase 6: Finalization (174 lines)
 - Added 3 missing skill integrations:
-  - discovering-requirements (requirements → architecture)
+  - spec-driven-ideation (requirements → architecture)
   - devforgeai-ui-generator (UI spec generation)
   - devforgeai-story-creation (story generation)
 - Skill enhancement: +898 lines (2,351 → 3,249)

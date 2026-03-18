@@ -14,9 +14,9 @@ related_document: effective-prompting-guide.md (user-facing counterpart)
 **Purpose:** Framework-internal guidance document for DevForgeAI skills to elicit complete, unambiguous requirements from users. This document is NOT for end-users (see `effective-prompting-guide.md` for user-facing counterpart).
 
 **Target Skills:**
-- `discovering-requirements` (discovery phase, feasibility analysis)
+- `spec-driven-ideation` (discovery phase, feasibility analysis)
 - `devforgeai-story-creation` (acceptance criteria specification)
-- `designing-systems` (context file creation, constraint validation)
+- `spec-driven-architecture` (context file creation, constraint validation)
 - `devforgeai-ui-generator` (user requirement specification before design)
 - `devforgeai-orchestration` (feature decomposition, scope clarification)
 
@@ -538,11 +538,11 @@ This table maps 15+ common vague terms to measurable ranges and provides templat
 
 This section documents how each of the 5 target skills should integrate this guidance document.
 
-### 5.1 Integration: discovering-requirements
+### 5.1 Integration: spec-driven-ideation
 
 **Purpose:** Discover business problems and validate feasibility
 
-**Related Story:** STORY-055 (discovering-requirements Integration) - Parallel implementation with consistent cross-references
+**Related Story:** STORY-055 (spec-driven-ideation Integration) - Parallel implementation with consistent cross-references
 
 **Workflow Phases Where Guidance Applied:**
 - Phase 2 (Discovery): Identify ambiguities in business idea
@@ -576,7 +576,7 @@ This section documents how each of the 5 target skills should integrate this gui
 
 ```
 1. Load this guidance at Phase 2 start via:
-   Read(file_path="/mnt/c/Projects/DevForgeAI2/.claude/skills/discovering-requirements/references/user-input-guidance.md")
+   Read(file_path="/mnt/c/Projects/DevForgeAI2/.claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 
 2. During Phase 3 (Requirements Elicitation), check for ambiguities:
    - Is feature scope clear? (no → use Pattern 1)
@@ -659,7 +659,7 @@ This section documents how each of the 5 target skills should integrate this gui
 
 ---
 
-### 5.3 Integration: designing-systems
+### 5.3 Integration: spec-driven-architecture
 
 **Purpose:** Create 6 immutable context files with constraints
 

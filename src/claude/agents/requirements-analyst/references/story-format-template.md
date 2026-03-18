@@ -122,7 +122,7 @@ So that [specific business value or benefit].
 
 ## Implementation Notes
 
-<!-- This section will be filled in by implementing-stories skill during implementation -->
+<!-- This section will be filled in by spec-driven-dev skill during implementation -->
 <!-- Developer will document: DoD status, implementation decisions, files created, test results, AC verification -->
 
 *To be completed during development*

@@ -57,12 +57,12 @@ If you need to recover from an uninstall operation, DevForgeAI provides automati
 3. **Restore specific file:**
    ```bash
    # Copy from backup to current location
-   cp ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/.claude/skills/discovering-requirements/SKILL.md .claude/skills/discovering-requirements/SKILL.md
+   cp ~/devforgeai/backups/uninstall-2025-12-08T10-30-00Z/.claude/skills/spec-driven-ideation/SKILL.md .claude/skills/spec-driven-ideation/SKILL.md
    ```
 
 4. **Verify restoration:**
    ```bash
-   ls -la .claude/skills/discovering-requirements/SKILL.md
+   ls -la .claude/skills/spec-driven-ideation/SKILL.md
    # File should now exist
    ```
 

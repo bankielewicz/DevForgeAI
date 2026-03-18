@@ -156,7 +156,7 @@ When {trigger event}, the {component} {incorrect behavior}. This resulted in {ne
 **Be factual:**
 ```
 ❌ WRONG: "Claude probably forgot to check context files"
-✅ CORRECT: "Phase 0 of implementing-stories skill does not include a context file validation step"
+✅ CORRECT: "Phase 0 of spec-driven-dev skill does not include a context file validation step"
 ```
 
 **Be outcome-focused:**
@@ -173,7 +173,7 @@ When `/dev STORY-042` was executed, the development workflow did not validate th
 
 **What happened:** TDD started without checking for context files
 **When:** /dev STORY-042 invocation
-**Where:** implementing-stories skill, Phase 0
+**Where:** spec-driven-dev skill, Phase 0
 **Expected:** Phase 0 validates context files, halts if missing
 **Actual:** Phase 0 skipped context validation, proceeded to TDD
 **Impact:** Implementation proceeded without constraints, caused QA failure
@@ -185,7 +185,7 @@ When `/dev STORY-008.1` was invoked, the development workflow accepted 3 pre-exi
 
 **What happened:** Pre-existing deferrals accepted without challenge
 **When:** /dev STORY-008.1 execution, Phase 5 (DoD validation)
-**Where:** implementing-stories skill, DoD validation logic
+**Where:** spec-driven-dev skill, DoD validation logic
 **Expected:** All deferrals challenged, user approval required
 **Actual:** Pre-justified deferrals skipped, no user approval
 **Impact:** Story marked "Dev Complete" with untested deferrals
@@ -509,7 +509,7 @@ Add: "Commit changes"
 **Short-term (Immediate):**
 - Implement REC-1: Add context file validation to Phase 0
 - Add validation: Check for 6 context files before TDD
-- Update: implementing-stories SKILL.md Phase 0
+- Update: spec-driven-dev SKILL.md Phase 0
 - Test: Run /dev without context files, verify halt with error
 ```
 

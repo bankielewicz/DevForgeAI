@@ -16,8 +16,8 @@ This utility provides a **standardized pattern** for Phase 0 Step 0.N reference 
 |-------|------|----------------|
 | devforgeai-qa | light | (inline in SKILL.md - no external reference) |
 | devforgeai-qa | deep | `.claude/skills/devforgeai-qa/references/deep-validation-workflow.md` |
-| implementing-stories | light | `.claude/skills/implementing-stories/references/tdd-light-workflow.md` (if exists) |
-| implementing-stories | deep | `.claude/skills/implementing-stories/references/tdd-deep-workflow.md` |
+| spec-driven-dev | light | `.claude/skills/spec-driven-dev/references/tdd-light-workflow.md` (if exists) |
+| spec-driven-dev | deep | `.claude/skills/spec-driven-dev/references/tdd-deep-workflow.md` |
 | devforgeai-orchestration | any | (skill-specific references as needed) |
 
 ---
@@ -85,4 +85,4 @@ When creating new skills that need Phase 0 reference loading:
 
 - **Source RCA:** RCA-021 REC-5 (MEDIUM - Reference Document Auto-Load Utility)
 - **Implementation Story:** STORY-219
-- **Related Skills:** devforgeai-qa, implementing-stories, devforgeai-orchestration
+- **Related Skills:** devforgeai-qa, spec-driven-dev, devforgeai-orchestration

@@ -42,11 +42,11 @@ Three critical gates enforce progression:
 
 **Gate 1: Context Validation** (Architecture → Ready for Dev)
 - All 6 context files exist and are non-empty
-- Enforced by: designing-systems skill
+- Enforced by: spec-driven-architecture skill
 
 **Gate 2: Test Passing** (Dev Complete → QA In Progress)
 - Build succeeds, all tests pass
-- Enforced by: implementing-stories skill (light QA)
+- Enforced by: spec-driven-dev skill (light QA)
 
 **Gate 3: QA Approval** (QA In Progress → Releasing) ← **Where result-interpreter operates**
 - Deep validation passed
@@ -399,7 +399,7 @@ When recommending next steps or remediation, reference context files:
 Display names when recommending next actions:
 
 **Deferral failures:**
-- "Return to dev: `/dev STORY-XXX` (implementing-stories skill will help resolve)"
+- "Return to dev: `/dev STORY-XXX` (spec-driven-dev skill will help resolve)"
 
 **Coverage gaps:**
 - "Use test stub generator (test-automator subagent can help)"

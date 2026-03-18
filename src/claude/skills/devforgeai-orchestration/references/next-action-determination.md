@@ -26,7 +26,7 @@ Determines recommended next steps based on current story status and workflow sta
 Current Status → Recommended Next Action
 
 Backlog → Architecture:
-  Action: Invoke designing-systems
+  Action: Invoke spec-driven-architecture
   Command: Automatic (orchestration handles)
   Reason: Context files needed before development
 

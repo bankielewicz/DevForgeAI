@@ -5,7 +5,7 @@
 | Attribute | Value |
 |-----------|-------|
 | **PURPOSE** | Validate project context, detect greenfield/brownfield mode, load user input patterns, and process brainstorm handoff data if present |
-| **REFERENCE** | `.claude/skills/discovering-requirements/references/brainstorm-handoff-workflow.md`, `.claude/skills/discovering-requirements/references/brainstorm-data-mapping.md`, `.claude/skills/discovering-requirements/references/user-input-guidance.md` |
+| **REFERENCE** | `.claude/skills/spec-driven-ideation/references/brainstorm-handoff-workflow.md`, `.claude/skills/spec-driven-ideation/references/brainstorm-data-mapping.md`, `.claude/skills/spec-driven-ideation/references/user-input-guidance.md` |
 | **STEP COUNT** | 6 mandatory steps |
 | **MINIMUM QUESTIONS** | 0-3 (depends on whether brainstorm context provided and project type) |
 
@@ -27,9 +27,9 @@ Before this phase can complete, ALL of the following MUST be true:
 ## Reference Loading [MANDATORY]
 
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
-Read(file_path=".claude/skills/discovering-requirements/references/brainstorm-handoff-workflow.md")
-Read(file_path=".claude/skills/discovering-requirements/references/brainstorm-data-mapping.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/brainstorm-handoff-workflow.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/brainstorm-data-mapping.md")
 ```
 
 **Error-Tolerant Loading:** Unlike other phases, Phase 01 reference loading uses graceful degradation.
@@ -48,7 +48,7 @@ Do NOT rely on memory of previous reads. Load fresh every time this phase execut
 
 **EXECUTE:**
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 
 IF Read succeeds:
   Parse elicitation patterns (15 patterns expected)
@@ -157,11 +157,11 @@ IF session.brainstorm_input.brainstorm_id is null:
 **EXECUTE:**
 ```
 # Load brainstorm handoff workflow reference
-Read(file_path=".claude/skills/discovering-requirements/references/brainstorm-handoff-workflow.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/brainstorm-handoff-workflow.md")
 IF Read fails: HALT -- "Step 1.3: brainstorm-handoff-workflow.md required but not loadable."
 
 # Load brainstorm data mapping reference
-Read(file_path=".claude/skills/discovering-requirements/references/brainstorm-data-mapping.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/brainstorm-data-mapping.md")
 IF Read fails: HALT -- "Step 1.3: brainstorm-data-mapping.md required but not loadable."
 
 # Apply data mapping from brainstorm output to ideation input

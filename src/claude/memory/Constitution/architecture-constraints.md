@@ -29,10 +29,10 @@ Layer 3: Slash Commands (User Workflows)
 
 **Single Responsibility Principle**:
 - Each skill handles ONE phase of development lifecycle
-- ✅ implementing-stories: TDD implementation only (ADR-017 naming)
+- ✅ spec-driven-dev: TDD implementation only (ADR-039 migration)
 - ✅ validating-quality: Quality validation only (ADR-017 naming)
-- ✅ designing-systems: Architecture and context file creation only (ADR-017 naming)
-- ✅ discovering-requirements: Requirements discovery and elicitation only (ADR-017 naming)
+- ✅ spec-driven-architecture: Architecture and context file creation only (ADR-039 consolidation)
+- ✅ spec-driven-ideation: Requirements discovery and elicitation only (ADR-017 naming, ADR-038 migration)
 - ❌ implementing-and-validating: Multiple responsibilities
 
 **Context Isolation**:
