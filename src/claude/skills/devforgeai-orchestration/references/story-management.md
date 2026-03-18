@@ -456,7 +456,7 @@ Add section to story (before Workflow History):
 
 **Date:** 2025-10-31 17:05:33
 **Status:** ✅ PASS
-**Validator:** devforgeai-qa skill
+**Validator:** spec-driven-qa skill
 
 ### Summary
 - Overall Coverage: 89%
@@ -497,7 +497,7 @@ Full QA Report: `devforgeai/qa/reports/STORY-001-qa-report.md`
 
 **Date:** 2025-10-31 17:05:33
 **Status:** ❌ FAIL
-**Validator:** devforgeai-qa skill
+**Validator:** spec-driven-qa skill
 
 ### Summary
 - Overall Coverage: 78% (below 80% threshold)

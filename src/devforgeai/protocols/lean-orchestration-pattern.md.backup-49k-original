@@ -345,7 +345,7 @@ Phase 0: Argument Validation (99 lines)
 └─ Story file existence checks
 
 Phase 1: Invoke Skill (39 lines)
-└─ Skill(command="devforgeai-qa")
+└─ Skill(command="spec-driven-qa")
 
 Phase 2: Handle QA Results (72 lines) ← BUSINESS LOGIC
 ├─ Read QA report from disk
@@ -400,7 +400,7 @@ Phase 1: Invoke Skill (15 lines)
 ├─ Set context markers
 │   **Story ID:** ${STORY_ID}
 │   **Validation Mode:** ${MODE}
-└─ Skill(command="devforgeai-qa")
+└─ Skill(command="spec-driven-qa")
 
 Phase 2: Display Results (10 lines)
 └─ Output: result.display.template
@@ -520,7 +520,7 @@ Phase 2: Validate Coverage
 ```markdown
 # Command delegates to skill
 Phase 1: Invoke Skill
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
 # Skill contains validation logic
 ```
@@ -1602,7 +1602,7 @@ If all 4 remaining over-budget commands refactored:
 - `.claude/commands/create-sprint.md` - Reference implementation (refactored)
 - `.claude/agents/qa-result-interpreter.md` - Subagent example
 - `.claude/agents/sprint-planner.md` - Subagent example
-- `.claude/skills/devforgeai-qa/references/qa-result-formatting-guide.md` - Reference file example
+- `.claude/skills/spec-driven-qa/references/qa-result-formatting-guide.md` - Reference file example
 - `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` - Reference file example
 
 **Refactoring Documentation:**

@@ -417,7 +417,7 @@ Reference ALL 6 context files (comprehensive awareness)
 - Phase 3 (Refactor): refactoring-specialist, code-reviewer
 - Phase 4 (Integration): integration-tester, documentation-writer
 
-### devforgeai-qa
+### spec-driven-qa
 - Phase 1: test-automator (generate missing tests)
 - Phase 2: security-auditor, context-validator
 

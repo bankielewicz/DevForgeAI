@@ -969,7 +969,7 @@ Run `/dev STORY-057` to continue development
 - Mode: `deep` or `light` (no -- prefix)
 - Default: Inferred from story status (deep if Dev Complete, light if In Development)
 
-**Invokes:** `devforgeai-qa` skill
+**Invokes:** `spec-driven-qa` skill
 
 **Modes:**
 - **Light (~10K tokens)**: Build/syntax checks, test execution, quick anti-pattern scan
@@ -977,7 +977,7 @@ Run `/dev STORY-057` to continue development
 
 **Workflow:**
 1. Argument validation and story loading
-2. Invoke devforgeai-qa skill
+2. Invoke spec-driven-qa skill
 3. Display results (from qa-result-interpreter subagent)
 4. Update story file (deep mode pass only - Phase 4)
 5. Provide next steps
@@ -996,7 +996,7 @@ Run `/dev STORY-057` to continue development
   - Updates YAML frontmatter timestamp
   - Error handling for file write failures
 
-**Skill (devforgeai-qa - Comprehensive Validation):**
+**Skill (spec-driven-qa - Comprehensive Validation):**
 - Phase 0-4: All validation phases (unchanged)
 - Phase 5: Generate QA report + invoke qa-result-interpreter subagent
   - qa-result-interpreter parses report and generates display template
@@ -1049,7 +1049,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - **Phase 4 Enhancement 2025-11-06**: Automatic story file updates on deep mode pass
   - Closes workflow gap identified in RCA (story status not updated after QA)
   - Maintains lean orchestration pattern (73% of 15K budget)
-  - Post-skill orchestration (no bypass of devforgeai-qa skill)
+  - Post-skill orchestration (no bypass of spec-driven-qa skill)
 
 ---
 
@@ -1112,7 +1112,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 **Workflow:**
 1. Story validation & checkpoint detection
 2. Development phase (invokes spec-driven-dev)
-3. QA validation (invokes devforgeai-qa)
+3. QA validation (invokes spec-driven-qa)
 4. **Phase 3.5: QA Failure Handling** (NEW - RCA-006) - Retry loop with max 3 attempts
 5. Staging release (invokes devforgeai-release --env=staging)
 6. Production release (invokes devforgeai-release --env=production)
@@ -1224,7 +1224,7 @@ $3 = Third argument (if needed)
 
 **Skill invocations with arguments:**
 ```
-Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
+Skill(command="spec-driven-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
 ```
 
 ### Correct Parameter Passing to Skills
@@ -1240,7 +1240,7 @@ Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept param
 **Environment:** staging
 
 # Step 3: Invoke skill WITHOUT arguments
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Skill extracts parameters from conversation context
 ```
@@ -2212,7 +2212,7 @@ Commands integrate with skills using the Skill tool:
 <example>
 ```
 Skill(command="spec-driven-dev --story=STORY-001")
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+Skill(command="spec-driven-qa --mode=deep --story=STORY-001")
 Skill(command="devforgeai-release --story=STORY-001")
 ```
 </example>

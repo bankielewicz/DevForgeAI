@@ -6,11 +6,11 @@
 
 ---
 
-## Integration with devforgeai-qa Skill
+## Integration with spec-driven-qa Skill
 
 ### Invocation Point (Phase 2: Anti-Pattern Detection)
 
-The anti-pattern-scanner is invoked by devforgeai-qa skill's Phase 2 anti-pattern detection workflow.
+The anti-pattern-scanner is invoked by spec-driven-qa skill's Phase 2 anti-pattern detection workflow.
 
 **Invocation Pattern (with Context Summary - RECOMMENDED):**
 ```python

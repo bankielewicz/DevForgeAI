@@ -58,7 +58,7 @@ Display: "✓ Epic name: ${epic_name}"
 
 ```
 IF ideation_output is provided:
-    Read(file_path=".claude/skills/designing-systems/references/skill-output-schemas.yaml")
+    Read(file_path=".claude/skills/spec-driven-architecture/references/skill-output-schemas.yaml")
     validation_result = validate_ideation_schema(ideation_output)
     IF validation_result.status == "FAILED":
         Display: "❌ Schema validation failed for ideation output"
@@ -98,7 +98,7 @@ Skill(command="spec-driven-architecture")
 ## References
 
 - Skill: `.claude/skills/spec-driven-architecture/SKILL.md` (Epic Creation Workflow, EVG-enforced)
-- Help: `.claude/skills/designing-systems/references/create-epic-help.md`
+- Help: `.claude/skills/spec-driven-architecture/references/create-epic-help.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 - Guide: `.claude/memory/epic-creation-guide.md`
 

@@ -622,7 +622,7 @@ Skill: "✅ Updated hooks documentation in integration-patterns.md with SessionR
 
 **Comparison to DevForgeAI Skills:**
 - spec-driven-dev SKILL.md: ~25,000 chars (larger, complex workflow)
-- devforgeai-qa SKILL.md: ~18,000 chars (larger, complex validation)
+- spec-driven-qa SKILL.md: ~18,000 chars (larger, complex validation)
 - claude-code-terminal-expert: 15,060 chars (knowledge/docs, acceptable)
 
 **Conclusion:** ✅ Within acceptable range for knowledge skills

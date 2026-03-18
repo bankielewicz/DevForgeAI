@@ -16,7 +16,7 @@ created: 2025-12-10
 
 ## Gate 2: Test Passing
 **Transition:** Dev Complete → QA In Progress
-**Enforced By:** devforgeai-qa skill
+**Enforced By:** spec-driven-qa skill
 **Requirements:**
 - All tests pass (exit code 0)
 - Coverage meets thresholds (95%/85%/80%)

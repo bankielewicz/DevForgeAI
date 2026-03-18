@@ -146,7 +146,7 @@ QA In Progress → [QA Approved | QA Failed] → Releasing → Released
 **Sequential execution:**
 test-automator → backend-architect → context-validator → refactoring-specialist + code-reviewer → integration-tester
 
-### devforgeai-qa Skill
+### spec-driven-qa Skill
 
 **Subagents invoked:**
 - **Phase 0 Step 2.5:** deferral-validator (MANDATORY)

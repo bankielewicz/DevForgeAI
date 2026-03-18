@@ -120,7 +120,7 @@ The devforgeai-orchestration skill executes complete workflow coordination:
 - Phase 0: Checkpoint detection (NEW - was in command)
 - Phase 1: Story validation
 - Phase 2: Development (invokes spec-driven-dev)
-- Phase 3: QA (invokes devforgeai-qa)
+- Phase 3: QA (invokes spec-driven-qa)
 - Phase 3.5: QA retry with loop prevention (NEW - was in command, max 3 attempts)
 - Phase 4: Staging release (invokes devforgeai-release)
 - Phase 5: Production release (invokes devforgeai-release)

@@ -114,7 +114,7 @@ time devforgeai invoke-hooks --operation=dev --story=STORY-023
 
 **Common Causes:**
 1. **Skill execution slow**
-   - devforgeai-feedback skill taking too long
+   - spec-driven-feedback skill taking too long
    - Check skill token usage (should be <50K tokens)
 
 2. **Network latency**
@@ -144,7 +144,7 @@ timeout 5 devforgeai check-hooks --operation=dev --status=$STATUS || {
 find devforgeai/feedback/sessions/ -mtime +30 -delete
 
 # Reduce skill token usage
-# (Review devforgeai-feedback skill for optimization)
+# (Review spec-driven-feedback skill for optimization)
 ```
 
 ---
@@ -284,7 +284,7 @@ EOF
 1. [ ] Measure hook execution time (<5s target)
 2. [ ] Check skill token usage (<50K target)
 3. [ ] Clean old feedback sessions
-4. [ ] Review devforgeai-feedback skill for optimization
+4. [ ] Review spec-driven-feedback skill for optimization
 
 ---
 

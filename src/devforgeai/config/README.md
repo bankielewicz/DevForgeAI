@@ -363,7 +363,7 @@ Configuration system is optimized for minimal overhead:
 
 ### Custom Templates
 
-See `.claude/skills/devforgeai-feedback/templates/` for template customization options.
+See `.claude/skills/spec-driven-feedback/templates/` for template customization options.
 
 ---
 

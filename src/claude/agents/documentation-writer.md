@@ -36,7 +36,7 @@ Generate clear, accurate technical documentation for APIs, codebases, and system
 - "Generate user guide for [feature]"
 
 **Automatic:**
-- devforgeai-qa when documentation coverage < 80%
+- spec-driven-qa when documentation coverage < 80%
 - spec-driven-dev after Phase 4 (Integration)
 
 ## Input/Output Specification
@@ -559,12 +559,12 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 
 **Works with:**
 - spec-driven-dev: Documents code after implementation
-- devforgeai-qa: Invoked when documentation coverage low
+- spec-driven-qa: Invoked when documentation coverage low
 - api-designer: Documents API contracts
 
 **Invoked by:**
 - spec-driven-dev (Phase 4)
-- devforgeai-qa (when coverage < 80%)
+- spec-driven-qa (when coverage < 80%)
 
 **Invokes:**
 - None (terminal subagent)
@@ -595,7 +595,7 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 
 **Framework Integration:**
 - spec-driven-dev skill
-- devforgeai-qa skill
+- spec-driven-qa skill
 
 **Related Subagents:**
 - api-designer (API specifications)

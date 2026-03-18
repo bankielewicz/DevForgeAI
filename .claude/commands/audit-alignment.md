@@ -203,7 +203,7 @@ IF $GENERATE_REFS == true AND $FIX == true:
     description="Regenerate domain references via Phase 5.7",
     prompt="""
     Execute Phase 5.7 Domain Reference Generation per:
-    .claude/skills/designing-systems/references/domain-reference-generation.md
+    .claude/skills/spec-driven-architecture/references/domain-reference-generation.md
 
     1. Re-evaluate ALL 4 heuristics (DH-01, DH-02, DH-03, DH-04) against context files
     2. Overwrite existing project-*.md files (not append), update auto-generation header with date

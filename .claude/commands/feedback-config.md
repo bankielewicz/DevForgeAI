@@ -418,7 +418,7 @@ cp devforgeai/feedback/config.yaml.backup devforgeai/feedback/config.yaml
 
 ## See Also
 
-- devforgeai-feedback skill (SKILL.md)
+- spec-driven-feedback skill (SKILL.md)
 - STORY-011: Configuration Management
 - devforgeai/feedback/config.yaml (configuration file)
 - .claude/scripts/devforgeai_cli/feedback/config_manager.py (implementation)

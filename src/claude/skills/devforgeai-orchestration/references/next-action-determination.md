@@ -46,7 +46,7 @@ In Development → Dev Complete:
   Reason: Implementation finished, ready for QA
 
 Dev Complete → QA In Progress:
-  Action: Invoke devforgeai-qa
+  Action: Invoke spec-driven-qa
   Command: Automatic (orchestration handles)
   Reason: Deep validation needed before release
 
@@ -268,7 +268,7 @@ IF story status == "Released":
 {
   "current_status": "Dev Complete",
   "next_status": "QA In Progress",
-  "recommended_action": "Invoke devforgeai-qa for deep validation",
+  "recommended_action": "Invoke spec-driven-qa for deep validation",
   "command": "Automatic (orchestration handles)",
   "manual_command": "/qa STORY-042",
   "reason": "Implementation finished, quality validation needed",

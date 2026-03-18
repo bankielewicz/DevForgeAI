@@ -93,7 +93,7 @@ Extract structured session metadata from history.jsonl files with:
 **Scope Boundaries:**
 - Does NOT analyze session content deeply (delegates to downstream stories STORY-222 through STORY-227)
 - Does NOT modify existing parsed data
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 
 ---
 

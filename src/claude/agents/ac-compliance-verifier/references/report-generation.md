@@ -163,7 +163,7 @@ When anti-pattern violations are found, include in report:
 
 **Invoked by:**
 - spec-driven-dev skill (Phase 4.5, Phase 5.5)
-- devforgeai-qa skill (deep validation mode)
+- spec-driven-qa skill (deep validation mode)
 - Manual invocation for verification
 
 **Reports to:**

@@ -1719,7 +1719,7 @@ This implementation plan provides a complete roadmap for refactoring `/create-ep
 **Pattern applied:**
 1. Argument validation (story ID, mode)
 2. Context markers (**Story ID:**, **Validation mode:**)
-3. Skill invocation (devforgeai-qa)
+3. Skill invocation (spec-driven-qa)
 4. Display results (from qa-result-interpreter subagent)
 
 **Result:** ✅ Character budget compliant, 74% token reduction

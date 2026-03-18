@@ -51,7 +51,7 @@
       {"id": "04.2", "check": "Coverage validation passed (95%/85%/80% thresholds)", "subagent": null, "conditional": false},
       {"id": "04.3", "check": "code-reviewer invoked", "subagent": "code-reviewer", "conditional": false},
       {"id": "04.4", "check": "Anti-gaming validation completed", "subagent": null, "conditional": false},
-      {"id": "04.5", "check": "Light QA executed (devforgeai-qa --mode=light)", "subagent": null, "conditional": false},
+      {"id": "04.5", "check": "Light QA executed (spec-driven-qa --mode=light)", "subagent": null, "conditional": false},
       {"id": "04.6", "check": "AC checklist updated (quality items)", "subagent": null, "conditional": false},
       {"id": "04.7", "check": "Observation capture executed", "subagent": null, "conditional": false}
     ]

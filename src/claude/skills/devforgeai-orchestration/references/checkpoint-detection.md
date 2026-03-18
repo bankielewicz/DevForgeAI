@@ -67,7 +67,7 @@ Timestamp: {ISO 8601}
 
 **Meaning:** Story passed QA validation, ready for deployment
 
-**Created by:** devforgeai-qa skill (Deep validation passed)
+**Created by:** spec-driven-qa skill (Deep validation passed)
 
 **Marker in workflow history:**
 ```
@@ -346,7 +346,7 @@ Return: orchestration_state to workflow controller
 
 **Phases executed:** 2 → 3 → 4 → 5
 1. Development (spec-driven-dev)
-2. QA Validation (devforgeai-qa)
+2. QA Validation (spec-driven-qa)
 3. Staging Release (devforgeai-release --env=staging)
 4. Production Release (devforgeai-release --env=production)
 
@@ -356,7 +356,7 @@ Return: orchestration_state to workflow controller
 
 **Phases executed:** 3 → 4 → 5
 1. ~~Development~~ (skipped)
-2. QA Validation (devforgeai-qa)
+2. QA Validation (spec-driven-qa)
 3. Staging Release (devforgeai-release --env=staging)
 4. Production Release (devforgeai-release --env=production)
 

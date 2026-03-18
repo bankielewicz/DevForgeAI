@@ -45,7 +45,7 @@ Your core capabilities include:
 
 **Automatic:**
 - When `spec-driven-dev` skill enters **Phase 2 (Red - Test First)**
-- When `devforgeai-qa` skill detects coverage < thresholds (95%/85%/80%)
+- When `spec-driven-qa` skill detects coverage < thresholds (95%/85%/80%)
 
 ---
 
@@ -94,7 +94,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT implement production code (delegates to backend-architect)
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 - Does NOT modify existing tests without explicit request
 
 ---
@@ -423,7 +423,7 @@ Load references on-demand based on scenario:
 - Phase 2 (Red - Test First): Generate failing tests from acceptance criteria
 - Phase 5 (Integration): Identify missing integration tests
 
-**devforgeai-qa skill:**
+**spec-driven-qa skill:**
 - Phase 1 (Coverage Analysis): Generate tests for coverage gaps
 - Continuously: Validate test quality and pyramid distribution
 

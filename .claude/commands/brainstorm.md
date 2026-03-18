@@ -7,11 +7,11 @@ allowed-tools: Read, Skill, AskUserQuestion
 
 # /brainstorm
 
-This command is a pure orchestrator. ALL logic lives in the discovering-problems skill.
+This command is a pure orchestrator. ALL logic lives in the spec-driven-brainstorming skill.
 
 No argument parsing, no resume detection, no display logic, no error handling here.
 The skill handles everything.
 
 ```
-Skill(command="discovering-problems")
+Skill(command="spec-driven-brainstorming")
 ```

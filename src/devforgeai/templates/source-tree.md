@@ -135,7 +135,7 @@ DevForgeAI2/
 │   │   │       ├── dod-update-workflow.md
 │   │   │       ├── ac-checklist-update-workflow.md
 │   │   │       └── git-workflow-conventions.md
-│   │   ├── devforgeai-qa/
+│   │   ├── spec-driven-qa/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── coverage-analysis-workflow.md
@@ -183,7 +183,7 @@ DevForgeAI2/
 │   │   │           ├── api-doc-template.md
 │   │   │           ├── developer-guide-template.md
 │   │   │           └── architecture-diagram-template.md
-│   │   ├── devforgeai-feedback/
+│   │   ├── spec-driven-feedback/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── session-initialization.md
@@ -929,7 +929,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 ├── spec-driven-ideation/
 ├── designing-systems/
 ├── implementing-stories/
-├── devforgeai-qa/
+├── spec-driven-qa/
 └── devforgeai-release/
 ```
 

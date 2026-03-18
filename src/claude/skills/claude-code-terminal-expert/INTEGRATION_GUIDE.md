@@ -24,7 +24,7 @@ This document describes how the `claude-code-terminal-expert` skill integrates w
 **Relationship:** Complements (doesn't replace) DevForgeAI workflow skills:
 - spec-driven-ideation
 - spec-driven-dev
-- devforgeai-qa
+- spec-driven-qa
 - devforgeai-release
 
 ---
@@ -50,7 +50,7 @@ When implementing features and Claude Code questions arise:
 - MCP tools unavailable → `core-features.md` Section 5
 - Task management questions → `core-features.md` Section 6.1
 
-### From devforgeai-qa
+### From spec-driven-qa
 When validation tools are questioned:
 - Tool documentation → `core-features.md`
 - Hook behavior unclear → `integration-patterns.md` Section 3

@@ -145,7 +145,7 @@ This is the default orchestration mode for standard story lifecycle management:
 - Status = "Backlog" → Invoke spec-driven-architecture
 - Status = "Architecture" → Validate context files
 - Status = "Ready for Dev" → Invoke spec-driven-dev
-- Status = "Dev Complete" → Invoke devforgeai-qa
+- Status = "Dev Complete" → Invoke spec-driven-qa
 - Status = "QA Approved" → Invoke devforgeai-release
 
 **Checkpoint resume:**

@@ -349,7 +349,7 @@ model: {suggested_model_for_complexity}
 - agent-generator subagent v2.0 (for actual generation)
 
 **Created subagents work with:**
-- All DevForgeAI skills (spec-driven-dev, devforgeai-qa, spec-driven-architecture, etc.)
+- All DevForgeAI skills (spec-driven-dev, spec-driven-qa, spec-driven-architecture, etc.)
 - Claude Code workflows (official pattern compliance)
 
 ---

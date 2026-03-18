@@ -522,7 +522,7 @@ Expert code review with security, performance, and maintainability analysis.
 
 ```yaml
 ---
-name: devforgeai-qa
+name: spec-driven-qa
 description: |
   Quality assurance validation skill. Use when validating story implementations,
   running QA checks, verifying test coverage, or checking for anti-patterns.

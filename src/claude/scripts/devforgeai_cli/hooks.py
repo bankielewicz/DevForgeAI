@@ -1,7 +1,7 @@
 """
 DevForgeAI Feedback Hook Service
 
-Handles invocation of devforgeai-feedback skill with operation context.
+Handles invocation of spec-driven-feedback skill with operation context.
 Implements graceful degradation, timeout protection, and circular invocation guards.
 
 Features:
@@ -29,7 +29,7 @@ HOOK_ACTIVE_ENV_VAR = "DEVFORGEAI_HOOK_ACTIVE"
 
 
 class HookInvocationService:
-    """Service for invoking devforgeai-feedback skill with operation context."""
+    """Service for invoking spec-driven-feedback skill with operation context."""
 
     def __init__(self, timeout: int = TIMEOUT_SECONDS):
         """
@@ -130,10 +130,10 @@ class HookInvocationService:
 
     def invoke_feedback_skill(self, context: Dict[str, Any]) -> bool:
         """
-        Invoke devforgeai-feedback skill with pre-populated context.
+        Invoke spec-driven-feedback skill with pre-populated context.
 
         Prints structured output to stdout containing operation context and
-        instructions for Claude to invoke the devforgeai-feedback skill.
+        instructions for Claude to invoke the spec-driven-feedback skill.
 
         Output Format (v1.0):
         ==============================================================
@@ -147,7 +147,7 @@ class HookInvocationService:
           Todos: {count} items ({completed} completed, ...)
           Errors: {error_count}
 
-          Action Required: Invoke devforgeai-feedback skill
+          Action Required: Invoke spec-driven-feedback skill
           Context: operation={operation}, story={story_id}, status={status}
         ==============================================================
 
@@ -216,7 +216,7 @@ class HookInvocationService:
                 f"{in_progress} in progress, {pending} pending)",
                 f"  Errors: {error_count}",
                 "",
-                "  Action Required: Invoke devforgeai-feedback skill",
+                "  Action Required: Invoke spec-driven-feedback skill",
                 f"  Context: operation={operation}, story={story_id_context}, status={status}",
                 delimiter,
             ]

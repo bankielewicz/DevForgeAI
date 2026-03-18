@@ -14,8 +14,8 @@ This utility provides a **standardized pattern** for Phase 0 Step 0.N reference 
 
 | Skill | Mode | Reference File |
 |-------|------|----------------|
-| devforgeai-qa | light | (inline in SKILL.md - no external reference) |
-| devforgeai-qa | deep | `.claude/skills/devforgeai-qa/references/deep-validation-workflow.md` |
+| spec-driven-qa | light | (inline in SKILL.md - no external reference) |
+| spec-driven-qa | deep | `.claude/skills/spec-driven-qa/references/deep-validation-workflow.md` |
 | spec-driven-dev | light | `.claude/skills/spec-driven-dev/references/tdd-light-workflow.md` (if exists) |
 | spec-driven-dev | deep | `.claude/skills/spec-driven-dev/references/tdd-deep-workflow.md` |
 | devforgeai-orchestration | any | (skill-specific references as needed) |
@@ -29,7 +29,7 @@ Each skill's Phase 0 should implement this loader pattern:
 ```
 Skill: Reference file loading for Phase 0
 Params:
-  skill_name: "devforgeai-qa"  // or any skill name
+  skill_name: "spec-driven-qa"  // or any skill name
   mode: "deep"  // "light" or "deep"
 
 Execute: Load appropriate reference files based on mapping table
@@ -85,4 +85,4 @@ When creating new skills that need Phase 0 reference loading:
 
 - **Source RCA:** RCA-021 REC-5 (MEDIUM - Reference Document Auto-Load Utility)
 - **Implementation Story:** STORY-219
-- **Related Skills:** devforgeai-qa, spec-driven-dev, devforgeai-orchestration
+- **Related Skills:** spec-driven-qa, spec-driven-dev, devforgeai-orchestration

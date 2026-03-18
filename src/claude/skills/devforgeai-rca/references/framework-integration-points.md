@@ -96,7 +96,7 @@ Evidence Location: anti-patterns.md + violating file + QA validation
 
 **Gate 3: QA Approval** (QA Approved → Releasing)
 - Criteria: Coverage meets thresholds, zero CRITICAL/HIGH violations
-- Validated by: devforgeai-qa skill (deep validation)
+- Validated by: spec-driven-qa skill (deep validation)
 - Blocks: Release if quality insufficient
 
 **Gate 4: Release Readiness** (Releasing → Released)
@@ -471,7 +471,7 @@ Read:
 Read:
 1. .claude/agents/deferral-validator.md (primary)
 2. .claude/skills/spec-driven-dev/SKILL.md (invokes in Phase 4.5)
-3. .claude/skills/devforgeai-qa/SKILL.md (invokes in Phase 0)
+3. .claude/skills/spec-driven-qa/SKILL.md (invokes in Phase 0)
 4. devforgeai/RCA/RCA-006-autonomous-deferrals.md (why created)
 ```
 
@@ -505,7 +505,7 @@ Read:
 2. Story file showing state before/after gate
 
 **Secondary:**
-3. Skill that validates gate (devforgeai-qa, spec-driven-dev, etc.)
+3. Skill that validates gate (spec-driven-qa, spec-driven-dev, etc.)
 4. Validation code in skill
 
 **Tertiary:**
@@ -611,7 +611,7 @@ spec-driven-dev:
   Phase 4: integration-tester
   Phase 4.5: deferral-validator
 
-devforgeai-qa:
+spec-driven-qa:
   Phase 0: deferral-validator
   Phase 2: context-validator
   Phase 3: security-auditor
@@ -630,7 +630,7 @@ devforgeai-orchestration:
 
 ```
 /dev → spec-driven-dev
-/qa → devforgeai-qa
+/qa → spec-driven-qa
 /release → devforgeai-release
 /orchestrate → devforgeai-orchestration
 /create-story → devforgeai-story-creation
@@ -647,7 +647,7 @@ devforgeai-orchestration:
 
 ```
 spec-driven-dev:
-  Auto-invokes: devforgeai-qa (light mode) after each TDD phase
+  Auto-invokes: spec-driven-qa (light mode) after each TDD phase
 
 spec-driven-ideation:
   Auto-transitions: spec-driven-architecture (if context files missing)

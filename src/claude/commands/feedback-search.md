@@ -56,7 +56,7 @@ feedback_id, timestamp, story_id, operation, severity, summary, status, and next
 ```
 No feedback found for query "${QUERY}".
 Run '/feedback' to start collecting or check query format.
-See: .claude/skills/devforgeai-feedback/references/feedback-search-help.md
+See: .claude/skills/spec-driven-feedback/references/feedback-search-help.md
 ```
 
 ## Error Handling
@@ -71,7 +71,7 @@ See: .claude/skills/devforgeai-feedback/references/feedback-search-help.md
 ## References
 
 - Skill: `src/claude/skills/spec-driven-feedback/SKILL.md`
-- Extended docs: `.claude/skills/devforgeai-feedback/references/feedback-search-help.md`
+- Extended docs: `.claude/skills/spec-driven-feedback/references/feedback-search-help.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**
@@ -85,7 +85,7 @@ See: .claude/skills/devforgeai-feedback/references/feedback-search-help.md
 
 ## See Also
 
-- devforgeai-feedback skill (search implementation)
+- spec-driven-feedback skill (search implementation)
 - STORY-016: Searchable Metadata Index
 - devforgeai/feedback/feedback-index.json (search index)
 - devforgeai/feedback/feedback-register.md (feedback storage)

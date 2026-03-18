@@ -854,6 +854,6 @@ Next Steps:
 |-----------|--------------|
 | `/review-qa-reports` command | Invokes this skill |
 | `devforgeai-story-creation` skill | Batch mode story creation |
-| `devforgeai-qa` skill | Produces gap files |
+| `spec-driven-qa` skill | Produces gap files |
 | `technical-debt-analyzer` subagent | Optional debt analysis |
 | `devforgeai/technical-debt-register.md` | Deferred gap tracking |

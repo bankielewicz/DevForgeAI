@@ -80,7 +80,7 @@ Story validated, mode set, skill invoked, results displayed, story updated (deep
 
 ## Integration
 
-**Invoked by:** Developer, implementing-stories (light), orchestration (deep)
+**Invoked by:** Developer, spec-driven-dev (light), orchestration (deep)
 **Invokes:** qa-executor subagent → spec-driven-qa workflow → specialist subagents
 **Gates:** Gate 2 (Test Passing), Gate 3 (QA Approval)
 

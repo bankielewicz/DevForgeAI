@@ -6,7 +6,7 @@
     "01": ["git-validator", "tech-stack-detector"],
     "02": ["test-automator"],
     "03": ["context-validator"],
-    "04": ["refactoring-specialist", "code-reviewer", "devforgeai-qa"],
+    "04": ["refactoring-specialist", "code-reviewer", "spec-driven-qa"],
     "05": ["integration-tester"]
   },
   "iteration_count": 1,

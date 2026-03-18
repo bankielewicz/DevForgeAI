@@ -134,7 +134,7 @@ Action: Check directory permissions and retry
 
 **Invoked by:** User manually, devforgeai-orchestration (after operation completion)
 
-**Invokes:** devforgeai-feedback skill (captures and stores feedback)
+**Invokes:** spec-driven-feedback skill (captures and stores feedback)
 
 **Updates:** devforgeai/feedback/feedback-register.md (appends new entry)
 
@@ -274,7 +274,7 @@ cat devforgeai/feedback/feedback-register.md | grep "^## FB-"
 
 ## See Also
 
-- devforgeai-feedback skill documentation
+- spec-driven-feedback skill documentation
 - STORY-020: Feedback CLI Commands (implementation story)
 - devforgeai/feedback/feedback-register.md (feedback storage)
 - devforgeai/feedback/config.yaml (configuration file)

@@ -45,7 +45,7 @@ Your core capabilities include:
 
 **Automatic:**
 - spec-driven-dev skill during Phase 3 (Refactor)
-- devforgeai-qa when complexity violations detected
+- spec-driven-qa when complexity violations detected
 
 ---
 

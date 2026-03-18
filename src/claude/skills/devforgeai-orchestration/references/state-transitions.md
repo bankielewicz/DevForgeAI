@@ -285,7 +285,7 @@ IF test_result.has_failures:
     ACTION: Fix failing tests, stay in In Development
 
 # Verify light validation passed
-# (devforgeai-qa ran during dev phases 3, 4, 5)
+# (spec-driven-qa ran during dev phases 3, 4, 5)
 IF light_validation_blocked:
     FAIL: "Light validation found blocking issues"
     Detail: {validation_issues}
@@ -384,7 +384,7 @@ PASS: Ready to start QA
    """
 
 3. Invoke QA skill:
-   Skill(command="devforgeai-qa --mode=deep --story={story_id}")
+   Skill(command="spec-driven-qa --mode=deep --story={story_id}")
 
 4. Report:
    "🔍 Starting deep QA validation..."
@@ -399,7 +399,7 @@ PASS: Ready to start QA
 ### Transition 6A: QA In Progress → QA Approved
 
 **Trigger:**
-- devforgeai-qa skill completes with status: PASS
+- spec-driven-qa skill completes with status: PASS
 
 **Pre-conditions:**
 ```
@@ -467,7 +467,7 @@ PASS: QA Approved
 
    **Date:** {timestamp}
    **Status:** ✅ PASS
-   **Validator:** devforgeai-qa skill
+   **Validator:** spec-driven-qa skill
 
    ### Summary
    - Overall Coverage: {coverage_percentage}%
@@ -518,7 +518,7 @@ PASS: QA Approved
 ### Transition 6B: QA In Progress → QA Failed
 
 **Trigger:**
-- devforgeai-qa skill completes with status: FAIL
+- spec-driven-qa skill completes with status: FAIL
 
 **Pre-conditions:**
 ```
@@ -558,7 +558,7 @@ PASS: Transition to QA Failed
 
    **Date:** {timestamp}
    **Status:** ❌ FAIL
-   **Validator:** devforgeai-qa skill
+   **Validator:** spec-driven-qa skill
 
    ### Summary
    - Overall Coverage: {coverage_percentage}%

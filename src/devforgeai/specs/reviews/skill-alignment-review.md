@@ -25,7 +25,7 @@ All 6 skills are well-designed, follow consistent patterns, and integrate cohesi
 2. ✅ designing-systems (Context files & ADRs)
 3. ✅ devforgeai-orchestration (Workflow coordinator)
 4. ✅ devforgeai-development (TDD implementation)
-5. ✅ devforgeai-qa (Quality validation)
+5. ✅ spec-driven-qa (Quality validation)
 6. ✅ devforgeai-release (Production deployment)
 
 ---
@@ -68,7 +68,7 @@ All 6 skills are well-designed, follow consistent patterns, and integrate cohesi
 └──────────────────────────────────────────────────────────────┘
                           ↓
 ┌──────────────────────────────────────────────────────────────┐
-│ devforgeai-qa                                                │
+│ spec-driven-qa                                                │
 │ • Test coverage analysis                                     │
 │ • Anti-pattern detection                                     │
 │ • Spec compliance validation                                 │
@@ -231,7 +231,7 @@ NEW: Read(file_path="devforgeai/specs/Stories/{story_id}.story.md")
 
 ---
 
-### 5. devforgeai-qa ✅ EXCELLENT
+### 5. spec-driven-qa ✅ EXCELLENT
 
 **Strengths:**
 - ✅ Hybrid progressive validation (light during dev + deep after completion)
@@ -260,7 +260,7 @@ Add to QA SKILL.md:
 
 ## Automation Script Integration
 
-Scripts location: .claude/skills/devforgeai-qa/scripts/
+Scripts location: .claude/skills/spec-driven-qa/scripts/
 
 Usage during deep validation:
 - Phase 1: Invoke generate_coverage_report.py
@@ -408,7 +408,7 @@ devforgeai/specs/
     ├── designing-systems/
     ├── devforgeai-orchestration/
     ├── devforgeai-development/
-    ├── devforgeai-qa/
+    ├── spec-driven-qa/
     └── devforgeai-release/
 ```
 
@@ -479,7 +479,7 @@ devforgeai/
      - Installation instructions
      - Integration with deep validation phases
      - Manual usage examples
-   - **Location**: `.claude/skills/devforgeai-qa/SKILL.md:637-760`
+   - **Location**: `.claude/skills/spec-driven-qa/SKILL.md:637-760`
 
 ---
 
@@ -524,16 +524,16 @@ devforgeai/
 2. designing-systems: Create context files for .NET Web API
 3. devforgeai-orchestration: Create sprint, assign stories
 4. devforgeai-development: Implement STORY-001 (User Registration)
-5. devforgeai-qa: Deep validation (should PASS)
+5. spec-driven-qa: Deep validation (should PASS)
 6. devforgeai-release: Deploy to staging → production
 ```
 
 **Scenario 2: QA Failure → Fix → Re-validate**
 ```
 1. devforgeai-development: Implement story with insufficient tests
-2. devforgeai-qa: Deep validation (should FAIL - coverage < 95%)
+2. spec-driven-qa: Deep validation (should FAIL - coverage < 95%)
 3. devforgeai-development: Add missing tests
-4. devforgeai-qa: Deep validation (should PASS)
+4. spec-driven-qa: Deep validation (should PASS)
 ```
 
 **Scenario 3: Brownfield Feature Addition**
@@ -541,7 +541,7 @@ devforgeai/
 1. designing-systems: Analyze existing codebase, load context
 2. spec-driven-ideation: Create story for new feature
 3. devforgeai-development: Implement feature respecting existing patterns
-4. devforgeai-qa: Validate no anti-patterns introduced
+4. spec-driven-qa: Validate no anti-patterns introduced
 ```
 
 ---
@@ -603,7 +603,7 @@ All 5 identified issues have been resolved:
    - Added naming convention and structure to `.claude/skills/designing-systems/SKILL.md:709-723`
 
 5. **✅ Script Integration Documentation in QA Skill** (FIXED)
-   - Added "Automation Scripts" section to `.claude/skills/devforgeai-qa/SKILL.md:637-760`
+   - Added "Automation Scripts" section to `.claude/skills/spec-driven-qa/SKILL.md:637-760`
    - Documented all 6 Python scripts with usage examples
 
 ### Optional Future Enhancements (LOW PRIORITY)

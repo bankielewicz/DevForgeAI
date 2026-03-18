@@ -66,7 +66,7 @@ User → /create-epic → subagents (NO SKILL LAYER!)
 **✅ /qa Command (Compliant Reference):**
 - 295 lines, 7,205 chars (48% budget)
 - Zero business logic
-- Single skill invocation (devforgeai-qa)
+- Single skill invocation (spec-driven-qa)
 - Displays results from qa-result-interpreter subagent
 - Pattern score: 8/8 (100%)
 

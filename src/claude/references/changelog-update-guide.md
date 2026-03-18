@@ -135,7 +135,7 @@ At the end of each TDD phase, append a changelog entry:
 5. **Phase 07 (DoD Update)**: Author = `.claude/opus`, Action = `DoD Update (Phase 07)`
 6. **Phase 08 (Git)**: Author = `.claude/opus`, Action = `Git Commit (Phase 08)`
 
-### devforgeai-qa Skill
+### spec-driven-qa Skill
 
 At Phase 3.4 (Story File Update), append a changelog entry:
 
@@ -205,5 +205,5 @@ When adding the Change Log section to existing stories, you MUST:
 
 - Story Template: `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
 - Development Skill: `.claude/skills/spec-driven-dev/SKILL.md`
-- QA Skill: `.claude/skills/devforgeai-qa/SKILL.md`
+- QA Skill: `.claude/skills/spec-driven-qa/SKILL.md`
 - Release Skill: `.claude/skills/devforgeai-release/SKILL.md`

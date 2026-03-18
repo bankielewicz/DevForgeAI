@@ -46,7 +46,7 @@ Your core capabilities include:
 - "Generate quality audit report"
 
 **Automatic:**
-- devforgeai-qa skill Phase 2: Code Quality Analysis
+- spec-driven-qa skill Phase 2: Code Quality Analysis
 
 ## Input/Output Specification
 
@@ -91,7 +91,7 @@ Your core capabilities include:
    - If Treelint available, enable AST-aware metrics
    ```
    Read(file_path="devforgeai/specs/context/tech-stack.md")
-   Read(file_path=".claude/skills/devforgeai-qa/assets/config/quality-metrics.md")
+   Read(file_path=".claude/skills/spec-driven-qa/assets/config/quality-metrics.md")
    ```
 
 2. **Execute Complexity Analysis**
@@ -195,7 +195,7 @@ Your core capabilities include:
 
 ### Example 1: QA Code Quality Analysis
 
-**Context:** During devforgeai-qa Phase 2.
+**Context:** During spec-driven-qa Phase 2.
 
 ```
 Task(
@@ -239,6 +239,6 @@ Task(
 ## References
 
 - `.claude/agents/code-quality-auditor/references/analysis-workflow.md` - Detailed analysis procedures
-- `.claude/skills/devforgeai-qa/references/code-quality-workflow.md` - QA integration
-- `.claude/skills/devforgeai-qa/scripts/analyze_complexity.py` - Complexity analysis script
-- `.claude/skills/devforgeai-qa/scripts/detect_duplicates.py` - Duplication detection script
+- `.claude/skills/spec-driven-qa/references/code-quality-workflow.md` - QA integration
+- `.claude/skills/spec-driven-qa/scripts/analyze_complexity.py` - Complexity analysis script
+- `.claude/skills/spec-driven-qa/scripts/detect_duplicates.py` - Duplication detection script

@@ -47,7 +47,7 @@ Your core capabilities include:
 **Automatic:**
 - spec-driven-dev skill after Phase 2 (Implementation)
 - spec-driven-dev skill after Phase 3 (Refactor)
-- devforgeai-qa skill during Light Validation
+- spec-driven-qa skill during Light Validation
 
 ## Input/Output Specification
 

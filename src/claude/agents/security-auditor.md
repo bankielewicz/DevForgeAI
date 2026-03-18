@@ -5,7 +5,7 @@ tools: [Read, Grep, Glob, "Bash(npm:audit)", "Bash(pip:check)", "Bash(dotnet:lis
 model: opus
 color: green
 permissionMode: default
-skills: devforgeai-qa
+skills: spec-driven-qa
 version: "2.0.0"
 ---
 
@@ -39,7 +39,7 @@ Your core capabilities include:
 - "Scan for OWASP Top 10 issues"
 
 **Automatic:**
-- devforgeai-qa skill during deep validation (Phase 2)
+- spec-driven-qa skill during deep validation (Phase 2)
 - devforgeai-release skill before production deployment
 
 ---
@@ -271,12 +271,12 @@ Load references on-demand based on scenario:
 ## Integration
 
 **Works with:**
-- devforgeai-qa: Provides security validation during deep QA
+- spec-driven-qa: Provides security validation during deep QA
 - devforgeai-release: Validates security before production deployment
 - code-reviewer: Focuses on general code quality; security-auditor focuses on security
 
 **Invoked by:**
-- devforgeai-qa (Phase 2 - Anti-Pattern Detection)
+- spec-driven-qa (Phase 2 - Anti-Pattern Detection)
 - devforgeai-release (Pre-Release Validation)
 
 ---

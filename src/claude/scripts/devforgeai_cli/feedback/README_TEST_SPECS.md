@@ -393,7 +393,7 @@ After implementation, verify:
 
 ### In DevForgeAI Repository
 - **devforgeai/specs/context/** - Architecture constraints
-- **.claude/skills/devforgeai-qa/** - QA automation patterns
+- **.claude/skills/spec-driven-qa/** - QA automation patterns
 - **devforgeai/specs/Stories/STORY-011.story.md** - Original story file
 
 ### External Resources

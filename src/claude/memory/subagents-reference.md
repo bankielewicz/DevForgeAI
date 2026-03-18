@@ -28,7 +28,7 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 - **Phase 5.5 (AC Verify)**: ac-compliance-verifier validates post-integration acceptance criteria (NEW - EPIC-046)
 - **Phase 9 (Feedback)**: observation-extractor captures workflow insights, framework-analyst synthesizes recommendations
 
-**During devforgeai-qa:**
+**During spec-driven-qa:**
 - **Phase 0 Step 2.5**: deferral-validator validates deferred DoD items (MANDATORY)
 - **Light Validation**: context-validator checks constraints
 - **Deep Validation**: security-auditor scans for vulnerabilities, test-automator fills coverage gaps
@@ -221,7 +221,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - requirements-analyst (when creating follow-up stories for deferrals)
 - architect-reviewer (when creating ADRs for scope changes)
 
-**devforgeai-qa** uses:
+**spec-driven-qa** uses:
 - **deferral-validator** (Phase 0 Step 2.5 - validates deferred DoD items)
 - context-validator → security-auditor → test-automator (coverage gaps)
 - **anti-pattern-scanner** (Phase 2 - architecture violation detection)

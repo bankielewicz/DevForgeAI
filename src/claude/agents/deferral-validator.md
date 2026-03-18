@@ -43,7 +43,7 @@ Your core capabilities include:
 
 **Automatic:**
 - spec-driven-dev skill Phase 6, Step 1.5 (before git commit)
-- devforgeai-qa skill Phase 0, Step 3 (during deferral validation)
+- spec-driven-qa skill Phase 0, Step 3 (during deferral validation)
 
 ## Input/Output Specification
 
@@ -169,7 +169,7 @@ Task(
 
 ### Example 2: QA Phase Validation
 
-**Context:** During devforgeai-qa Phase 0, Step 3.
+**Context:** During spec-driven-qa Phase 0, Step 3.
 
 ```
 Task(
@@ -198,4 +198,4 @@ Task(
 
 - RCA-007: Multi-level deferral chain detection
 - spec-driven-dev skill Phase 6 integration
-- devforgeai-qa skill Phase 0 integration
+- spec-driven-qa skill Phase 0 integration

@@ -350,7 +350,7 @@ git diff --exit-code  # Exit code 0 = no uncommitted changes
 
 **Measurement:**
 ```bash
-# Automated check (devforgeai-qa skill Phase 1)
+# Automated check (spec-driven-qa skill Phase 1)
 # Example for Python:
 pytest --cov=src --cov-report=term-missing
 # Parse coverage percentage from output
@@ -377,7 +377,7 @@ npm test -- --coverage
 
 **Measurement:**
 ```bash
-# Automated check (devforgeai-qa skill Phase 2)
+# Automated check (spec-driven-qa skill Phase 2)
 1. Read devforgeai/context/anti-patterns.md
 2. Scan codebase for each anti-pattern
 3. Report violations with file:line references
@@ -406,7 +406,7 @@ npm test -- --coverage
 
 **Measurement:**
 ```bash
-# Automated check (devforgeai-qa skill Phase 3)
+# Automated check (spec-driven-qa skill Phase 3)
 1. Parse acceptance criteria from story file
 2. For each AC, verify:
    - Test exists covering AC
@@ -428,7 +428,7 @@ npm test -- --coverage
 
 **Measurement:**
 ```bash
-# Automated check (devforgeai-qa skill Phase 4)
+# Automated check (spec-driven-qa skill Phase 4)
 # Composite score from:
 1. Cyclomatic complexity (weight: 30%)
    - Score = 100 - (avg_complexity - 5) * 10

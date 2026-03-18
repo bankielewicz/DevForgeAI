@@ -888,7 +888,7 @@ story_content = template
 - devforgeai-story-creation skill (this skill)
 - devforgeai-orchestration skill (story lifecycle management)
 - spec-driven-dev skill (TDD implementation)
-- devforgeai-qa skill (validation against acceptance criteria)
+- spec-driven-qa skill (validation against acceptance criteria)
 
 ---
 

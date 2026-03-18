@@ -161,7 +161,7 @@ ALL transitions MUST be recorded in Workflow History:
 
 **Validation:**
 ```bash
-# QA validation phases (devforgeai-qa skill)
+# QA validation phases (spec-driven-qa skill)
 1. Phase 1: Test coverage analysis
 2. Phase 2: Anti-pattern detection
 3. Phase 3: Spec compliance check

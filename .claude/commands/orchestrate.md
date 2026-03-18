@@ -124,8 +124,8 @@ Skill(command="devforgeai-orchestration")
 **The skill executes:**
 - **Phase 0:** Load story, detect checkpoints, determine starting phase
 - **Phase 1:** Validate story and workflow state
-- **Phase 2:** Invoke implementing-stories skill (TDD workflow)
-- **Phase 3:** Invoke devforgeai-qa skill (deep validation)
+- **Phase 2:** Invoke spec-driven-dev skill (TDD workflow)
+- **Phase 3:** Invoke spec-driven-qa skill (deep validation)
 - **Phase 3.5:** Handle QA failures with intelligent retry (max 3 attempts)
 - **Phase 4:** Invoke devforgeai-release skill (staging deployment)
 - **Phase 5:** Invoke devforgeai-release skill (production deployment)
@@ -274,9 +274,9 @@ Review error above and retry or contact support.
 **Invoked by:** User via `/orchestrate [STORY-ID]` command
 
 **Invokes:** `devforgeai-orchestration` skill which coordinates:
-- implementing-stories (Phase 2: TDD implementation)
-- devforgeai-qa (Phase 3: Quality validation)
-- devforgeai-qa retry handling (Phase 3.5: Intelligent retry with loop prevention)
+- spec-driven-dev (Phase 2: TDD implementation)
+- spec-driven-qa (Phase 3: Quality validation)
+- spec-driven-qa retry handling (Phase 3.5: Intelligent retry with loop prevention)
 - devforgeai-release (Phases 4-5: Staging and production deployment)
 
 **Updates:**

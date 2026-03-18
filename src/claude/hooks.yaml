@@ -4,7 +4,7 @@
 # Main configuration is stored at: devforgeai/config/hooks.yaml
 #
 # For complete schema reference, see:
-# .claude/skills/devforgeai-feedback/HOOK-SYSTEM.md
+# .claude/skills/spec-driven-feedback/HOOK-SYSTEM.md
 
 # ============================================================================
 # Global Hook Settings

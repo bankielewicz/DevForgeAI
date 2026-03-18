@@ -83,7 +83,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /qa
 - **Status:** ✅ Compliant (56% budget, well under limit)
 - **Structure:** 4 phases (validate → invoke → display → story update)
-- **Business Logic:** Delegated to `devforgeai-qa` skill + `qa-result-interpreter` subagent
+- **Business Logic:** Delegated to `spec-driven-qa` skill + `qa-result-interpreter` subagent
 - **Token Efficiency:** Before: ~8K tokens → After: ~3.5K tokens (56% savings)
 - **Refactoring:** ✅ Complete (2025-11-05 Case Study 2 + 2025-11-06 Phase 4 enhancement)
 

@@ -155,7 +155,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 **Who's Responsible:**
 - Developer (primary)
 - spec-driven-dev skill (orchestration)
-- devforgeai-qa skill (light validation)
+- spec-driven-qa skill (light validation)
 
 **Typical Duration:** Hours to days (depends on story complexity and points)
 
@@ -203,7 +203,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 **Description:** Comprehensive quality validation running
 
 **Characteristics:**
-- devforgeai-qa skill executing deep validation
+- spec-driven-qa skill executing deep validation
 - 5 comprehensive validation phases running:
   1. Test Coverage Analysis
   2. Anti-Pattern Detection
@@ -231,7 +231,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 - Report generation
 
 **Who's Responsible:**
-- devforgeai-qa skill (automated)
+- spec-driven-qa skill (automated)
 - Quality tools (coverage, complexity, security scanners)
 
 **Typical Duration:** Minutes (automated analysis)

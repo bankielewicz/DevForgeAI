@@ -231,7 +231,7 @@ Before writing command refactoring subagent file:
 - Purpose: Interpret QA reports, generate user-facing displays
 - Model: haiku (<8K tokens)
 - Tools: Read, Grep, Glob (view-only)
-- Framework guardrails: `.claude/skills/devforgeai-qa/references/qa-result-formatting-guide.md`
+- Framework guardrails: `.claude/skills/spec-driven-qa/references/qa-result-formatting-guide.md`
 - Output: Structured JSON with display template
 - Result: /qa command reduced from 692 to 295 lines (57% reduction)
 

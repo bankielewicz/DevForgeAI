@@ -67,5 +67,5 @@ bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <sto
 
 ## See Also
 
-- `.claude/skills/devforgeai-qa/references/traceability-validation-algorithm.md`
+- `.claude/skills/spec-driven-qa/references/traceability-validation-algorithm.md`
 - `devforgeai/RCA/RCA-012/MIGRATION-SCRIPT.md`

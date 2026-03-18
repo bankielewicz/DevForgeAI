@@ -25,7 +25,7 @@ When a file path is provided, auto-detect component_type and derive the componen
 | Path Pattern | component_type | component_id Derivation |
 |---|---|---|
 | `.claude/agents/{name}.md` | agent | filename without .md (e.g., `test-automator` from `test-automator.md`) |
-| `.claude/skills/{name}/SKILL.md` | skill | directory name (e.g., `implementing-stories` from `implementing-stories/SKILL.md`) |
+| `.claude/skills/{name}/SKILL.md` | skill | directory name (e.g., `spec-driven-dev` from `spec-driven-dev/SKILL.md`) |
 | `.claude/commands/{name}.md` | command | filename without .md (e.g., `dev` from `dev.md`) |
 
 **Path Validation (BR-003):** Must start with `.claude/` prefix and end with `.md` extension. Paths with `../` are forbidden (path traversal rejection). Reject absolute path outside project root.
@@ -38,7 +38,7 @@ When a file path is provided, auto-detect component_type and derive the componen
 
 **BR-002:** Component type must be one of: `agent`, `skill`, `command`.
 
-**Edge Cases:** Handles nested directory paths (`skills/implementing-stories/SKILL.md`). Handles `.claude/agents/`, `.claude/skills/`, `.claude/commands/` path formats. Component renamed or moved between versions detected via PATH_CHANGED event and path_mismatch logging.
+**Edge Cases:** Handles nested directory paths (`skills/spec-driven-dev/SKILL.md`). Handles `.claude/agents/`, `.claude/skills/`, `.claude/commands/` path formats. Component renamed or moved between versions detected via PATH_CHANGED event and path_mismatch logging.
 
 ---
 

@@ -13,7 +13,7 @@
       "Bash(__NEW_LINE__ echo \"1. Source SKILL.md:\")",
       "Bash(test:*)",
       "Bash(__NEW_LINE__ echo \"\")",
-      "Skill(devforgeai-qa)",
+      "Skill(spec-driven-qa)",
       "Bash(sed:*)",
       "Bash(find devforgeai/specs/Stories -name \"*.story.md\" -exec sh -c 'devforgeai validate-dod \"\"\"\"{}\"\"\"\" 2>&1 | grep -q \"\"\"\"✅\"\"\"\" && echo \"\"\"\"{}\"\"\"\"')",
       "Skill(spec-driven-dev)",

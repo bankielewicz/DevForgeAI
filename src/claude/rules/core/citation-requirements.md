@@ -76,7 +76,7 @@ Before making technology/architecture recommendations, follow this 4-step workfl
    > **Single Responsibility Principle**:
    > - Each skill handles ONE phase of development lifecycle
    > - ✅ spec-driven-dev: TDD implementation only
-   > - ✅ devforgeai-qa: Quality validation only
+   > - ✅ spec-driven-qa: Quality validation only
 3. Cite: (Source: devforgeai/specs/context/architecture-constraints.md, lines 28-34)
 4. Recommendation: "Split the combined dev-qa skill into separate skills per Single Responsibility Principle."
 

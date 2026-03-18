@@ -145,26 +145,26 @@ Secrets appear in logs or feedback session files
 
 **Symptom:**
 ```
-[ERROR] Failed to invoke devforgeai-feedback skill
+[ERROR] Failed to invoke spec-driven-feedback skill
 invoke-hooks returned exit code 1
 ```
 
-**Cause:** devforgeai-feedback skill not available or misconfigured
+**Cause:** spec-driven-feedback skill not available or misconfigured
 
 **Solutions:**
 1. **Verify skill exists:**
    ```bash
-   ls .claude/skills/devforgeai-feedback/SKILL.md
+   ls .claude/skills/spec-driven-feedback/SKILL.md
    ```
 
 2. **Check skill configuration:**
-   - Ensure devforgeai-feedback skill is properly configured
+   - Ensure spec-driven-feedback skill is properly configured
    - Verify skill has required tools (Read, Write, AskUserQuestion)
 
 3. **Test skill invocation:**
    ```bash
    # Test feedback skill manually (once STORY-023 complete)
-   # Skill(command="devforgeai-feedback")
+   # Skill(command="spec-driven-feedback")
    ```
 
 **Workaround:**

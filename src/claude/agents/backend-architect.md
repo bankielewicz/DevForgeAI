@@ -88,7 +88,7 @@ You are a backend architect specializing in clean architecture, domain-driven de
 
 **Scope Boundaries:**
 - Does NOT generate tests (delegates to test-automator)
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 - Does NOT perform code review (delegates to code-reviewer)
 
 ---

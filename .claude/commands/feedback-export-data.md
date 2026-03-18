@@ -64,10 +64,52 @@ This command was implemented as part of STORY-020 to provide **data export** fun
 
 ---
 
-## Documentation
+## Command Workflow
 
-For complete documentation, see the inline implementation at:
-`.claude/scripts/devforgeai_cli/feedback/commands.py:handle_export_feedback()`
+### Phase 0: Parse Arguments
+
+```
+FORMAT     = --format option (json | csv | markdown, default: json)
+DATE_RANGE = --date-range option (YYYY-MM-DD..YYYY-MM-DD)
+STORY_IDS  = --story-ids option (comma-separated STORY-NNN)
+SEVERITY   = --severity option (low | medium | high | critical)
+STATUS     = --status option (open | resolved | archived)
+```
+
+### Phase 1: Invoke Skill
+
+**Set context markers:**
+```
+**Feedback Mode:** export
+**Format:** ${FORMAT}
+**Date Range:** ${DATE_RANGE}
+**Story IDs:** ${STORY_IDS}
+**Severity:** ${SEVERITY}
+**Status:** ${STATUS}
+```
+
+**Invoke skill:**
+```
+Skill(command="spec-driven-feedback")
+```
+
+### Phase 2: Display Results
+
+Display export confirmation from skill (file path, entry count, format).
+
+---
+
+## Lean Orchestration Enforcement
+
+**DO NOT (before skill invocation):**
+- ❌ DO NOT read feedback index files directly
+- ❌ DO NOT parse, filter, or format feedback entries
+- ❌ DO NOT write export files directly
+
+**DO (command responsibilities only):**
+- ✅ MUST validate argument format
+- ✅ MUST set context markers
+- ✅ MUST invoke skill immediately after validation
 
 ---
 

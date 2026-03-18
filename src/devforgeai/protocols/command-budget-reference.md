@@ -594,7 +594,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 3. devforgeai-development (1,782 lines → ~180) - 3-4 hours
 4. devforgeai-ui-generator (1,451 lines → ~190) - 3-4 hours
 5. spec-driven-ideation (1,416 lines → ~185) - 3 hours
-6. devforgeai-qa (1,330 lines → ~190) - 3-4 hours
+6. spec-driven-qa (1,330 lines → ~190) - 3-4 hours
 7. designing-systems (978 lines → ~195) - 2-3 hours
 8. devforgeai-release (791 lines → ~195) - 2-3 hours
 
@@ -643,7 +643,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 - `.claude/agents/tech-stack-detector.md` - Technology validation (300 lines)
 
 **Reference Files (Created During Refactorings):**
-- `.claude/skills/devforgeai-qa/references/qa-result-formatting-guide.md` (580 lines)
+- `.claude/skills/spec-driven-qa/references/qa-result-formatting-guide.md` (580 lines)
 - `.claude/skills/devforgeai-orchestration/references/sprint-planning-guide.md` (631 lines)
 - `.claude/skills/devforgeai-orchestration/references/feature-decomposition-patterns.md` (903 lines)
 - `.claude/skills/devforgeai-orchestration/references/technical-assessment-guide.md` (914 lines)
@@ -665,7 +665,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 - `devforgeai/specs/analysis/devforgeai-development.md` (1,923 lines)
 - `devforgeai/specs/analysis/devforgeai-ui-generator.md` (1,875 lines)
 - `devforgeai/specs/analysis/spec-driven-ideation.md` (1,804 lines)
-- `devforgeai/specs/analysis/devforgeai-qa.md` (1,843 lines)
+- `devforgeai/specs/analysis/spec-driven-qa.md` (1,843 lines)
 - `devforgeai/specs/analysis/designing-systems.md` (1,712 lines)
 - `devforgeai/specs/analysis/devforgeai-release.md` (1,603 lines)
 

@@ -289,7 +289,7 @@ devforgeai-ui-generator (generates UI spec)
     ↓
 spec-driven-dev (implements UI with tests)
     ↓
-devforgeai-qa (validates implementation)
+spec-driven-qa (validates implementation)
 ```
 
 **Example:**
@@ -317,7 +317,7 @@ Development Skill (TDD):
 
 ---
 
-### Integration with devforgeai-qa
+### Integration with spec-driven-qa
 
 **Purpose:** QA validates generated UI meets acceptance criteria.
 
@@ -325,7 +325,7 @@ Development Skill (TDD):
 ```
 spec-driven-dev (implements UI)
     ↓
-devforgeai-qa (validates implementation)
+spec-driven-qa (validates implementation)
     ↓
 [PASS] → devforgeai-release
 [FAIL] → Back to development

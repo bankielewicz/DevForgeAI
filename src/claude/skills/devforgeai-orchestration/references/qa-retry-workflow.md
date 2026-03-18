@@ -49,7 +49,7 @@ When QA fails, this phase manages the retry workflow with maximum 3 attempts.
 
 ```
 Phase 3 executes QA skill:
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
 QA skill returns result in conversation context
 
@@ -418,7 +418,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   **Validation Mode:** deep
   **Retry Attempt:** {current_qa_attempt + 1}
 
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
   # QA skill executes comprehensive validation
   # Returns: "PASSED" or "FAILED"

@@ -248,7 +248,7 @@ Per `devforgeai/specs/Terminal/native-tools-vs-bash-efficiency-analysis.md`:
 
 Follows established patterns from:
 - `.claude/skills/spec-driven-architecture/scripts/validate_all_context.py` (Color class, exit codes)
-- `.claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py` (dataclass patterns, argparse)
+- `.claude/skills/spec-driven-qa/scripts/validate_spec_compliance.py` (dataclass patterns, argparse)
 
 **Consistency:** Matches 16 existing framework validation scripts (Python, not Bash)
 

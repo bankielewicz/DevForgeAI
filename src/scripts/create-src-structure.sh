@@ -92,7 +92,7 @@ SKILLS=(
     "devforgeai-story-creation"
     "devforgeai-ui-generator"
     "devforgeai-development"
-    "devforgeai-qa"
+    "spec-driven-qa"
     "devforgeai-release"
     "devforgeai-documentation"
     "claude-code-terminal-expert"

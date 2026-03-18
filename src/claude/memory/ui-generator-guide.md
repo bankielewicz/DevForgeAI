@@ -158,7 +158,7 @@ Options:
 - Generated UI specs serve as input for TDD implementation
 - Development skill reads specs to write tests and implementation
 
-### devforgeai-qa
+### spec-driven-qa
 - QA validates generated UI matches acceptance criteria
 - Checks for accessibility, best practices, anti-patterns
 
@@ -226,7 +226,7 @@ Load these as needed during UI generation:
    ↓
 3. spec-driven-dev (implement UI with tests)
    ↓
-4. devforgeai-qa (validate UI implementation)
+4. spec-driven-qa (validate UI implementation)
 
 **When to invoke:**
 - After architecture phase (requires context files)

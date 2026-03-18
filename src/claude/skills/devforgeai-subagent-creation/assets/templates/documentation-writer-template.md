@@ -55,7 +55,7 @@ Create comprehensive technical documentation including API specs, user guides, a
 
 **Works with:**
 - spec-driven-dev (after implementation)
-- devforgeai-qa (documentation coverage check)
+- spec-driven-qa (documentation coverage check)
 
 ## Tool Usage Protocol
 

@@ -132,7 +132,7 @@ qa_report_path = f"devforgeai/qa/reports/{story_id}-qa-report.md"
 IF NOT file_exists(qa_report_path):
     BLOCK: "QA report not found"
     Reason: "Cannot verify quality approval without QA report"
-    Action: "Run devforgeai-qa --mode=deep --story={story_id}"
+    Action: "Run spec-driven-qa --mode=deep --story={story_id}"
     Return: BLOCKED
 
 Read(file_path=qa_report_path)
@@ -1409,7 +1409,7 @@ IF answer == "Yes":
 
 ## Integration Points
 
-### From devforgeai-qa
+### From spec-driven-qa
 
 **Handoff Data Required:**
 - Story ID with status "QA Approved"
@@ -1422,7 +1422,7 @@ IF answer == "Yes":
 # This skill MUST validate QA approval before proceeding
 IF story.status != "QA Approved":
     BLOCK: "Story not QA approved"
-    Action: "Run devforgeai-qa --mode=deep first"
+    Action: "Run spec-driven-qa --mode=deep first"
 
 IF NOT file_exists(qa_report):
     BLOCK: "QA report missing"

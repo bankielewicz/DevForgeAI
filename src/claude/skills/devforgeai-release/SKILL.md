@@ -689,7 +689,7 @@ Write(file_path="devforgeai/workflows/.release-phase-7.marker",
 
 ## Integration Points
 
-**From devforgeai-qa:** Story status "QA Approved" enables release
+**From spec-driven-qa:** Story status "QA Approved" enables release
 
 **To devforgeai-orchestration:** Release completion triggers next story
 

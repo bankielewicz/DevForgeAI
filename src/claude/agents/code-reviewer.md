@@ -5,7 +5,7 @@ tools: Read, Write, Grep, Glob, Bash(git:*)
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-qa
+skills: spec-driven-qa
 proactive_triggers:
   - "after code implementation"
   - "after refactoring"
@@ -93,7 +93,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT fix code (provides guidance, delegates fixes to developer)
-- Does NOT run full QA (delegates to devforgeai-qa skill)
+- Does NOT run full QA (delegates to spec-driven-qa skill)
 - Does NOT execute refactoring (delegates to refactoring-specialist)
 
 ---

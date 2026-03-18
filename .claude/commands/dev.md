@@ -9,9 +9,9 @@ execution-mode: immediate
 
 # /dev - TDD Development Workflow
 
-Execute full Test-Driven Development cycle for a user story. Do not skip any phases nor skip the implementing-stories skill.
+Execute full Test-Driven Development cycle for a user story. Do not skip any phases nor skip the spec-driven-dev skill.
 
-You MUST execute the implementing-stories skill, when called upon: Skill(command="implementing-stories")
+You MUST execute the spec-driven-dev skill, when called upon: Skill(command="spec-driven-dev")
 ---
 
 ## Phase 0: Parse Arguments and Set Context Markers

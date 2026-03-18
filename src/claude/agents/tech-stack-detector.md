@@ -42,7 +42,7 @@ Your core capabilities include:
 
 **Automatic:**
 - spec-driven-dev skill Phase 0 (Pre-Flight Validation)
-- devforgeai-qa skill (validate test framework before running tests)
+- spec-driven-qa skill (validate test framework before running tests)
 - spec-driven-architecture skill (validate detected stack during context creation)
 
 ## Input/Output Specification
@@ -213,4 +213,4 @@ Task(
 
 - `devforgeai/specs/context/tech-stack.md` - Locked technology choices
 - spec-driven-dev skill Phase 0 integration
-- devforgeai-qa skill test framework validation
+- spec-driven-qa skill test framework validation

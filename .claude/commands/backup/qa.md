@@ -11,9 +11,9 @@ execution-mode: immediate
 
 Execute QA validation on story implementation (light during dev, deep after completion).
 
-Do not skip any phases nor skip the devforgeai-qa skill.
+Do not skip any phases nor skip the spec-driven-qa skill.
 
-You MUST execute the devforgeai-qa skill, when called upon: Skill(command="devforgeai-qa")
+You MUST execute the spec-driven-qa skill, when called upon: Skill(command="spec-driven-qa")
 
 ```bash
 /qa STORY-001 light    # Light validation (~1 min)
@@ -59,7 +59,7 @@ Agent(subagent_type="qa-executor", prompt="Execute QA validation for ${STORY_ID}
 
 qa-executor handles: CWD validation, tests, coverage, anti-patterns, reports, story updates, hooks.
 
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 ## Phase 2: Display Results
 
@@ -81,7 +81,7 @@ Story validated, mode set, skill invoked, results displayed, story updated (deep
 ## Integration
 
 **Invoked by:** Developer, implementing-stories (light), orchestration (deep)
-**Invokes:** qa-executor subagent -> devforgeai-qa workflow -> specialist subagents
+**Invokes:** qa-executor subagent -> spec-driven-qa workflow -> specialist subagents
 **Gates:** Gate 2 (Test Passing), Gate 3 (QA Approval)
 
 ## Related Commands

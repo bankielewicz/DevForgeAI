@@ -1528,7 +1528,7 @@ RCA skill execution successful when:
 
 **Related Skills:**
 - spec-driven-dev (may need RCA)
-- devforgeai-qa (may need RCA)
+- spec-driven-qa (may need RCA)
 - devforgeai-orchestration (may need RCA)
 
 **Related Documentation:**

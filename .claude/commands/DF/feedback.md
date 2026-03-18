@@ -45,7 +45,7 @@ CONTEXT = All arguments joined as string
 
 ---
 
-### Phase 1: Invoke devforgeai-feedback Skill
+### Phase 1: Invoke spec-driven-feedback Skill
 
 **Set context markers:**
 ```
@@ -55,14 +55,15 @@ CONTEXT = All arguments joined as string
 
 **Invoke skill:**
 ```
-Skill(command="devforgeai-feedback")
+Skill(command="spec-driven-feedback")
 ```
 
 **What the skill does:**
-1. Generate unique feedback ID (FB-YYYY-MM-DD-###)
-2. Capture session metadata (timestamp ISO8601, story ID, operation type)
-3. Record feedback in feedback-register.md
-4. Return confirmation with feedback ID and next steps
+1. Execute 6 EVG-enforced phases (Context Detection → Type Dispatch → Execution → Validation → Persistence → Completion)
+2. Generate unique feedback ID (FB-YYYY-MM-DD-###)
+3. Capture session metadata with checkpoint persistence
+4. Record feedback in feedback-register.md and index.json
+5. Return confirmation with feedback ID and next steps
 
 ---
 
@@ -133,7 +134,7 @@ Action: Check directory permissions and retry
 
 **Invoked by:** User manually, devforgeai-orchestration (after operation completion)
 
-**Invokes:** devforgeai-feedback skill (captures and stores feedback)
+**Invokes:** spec-driven-feedback skill (captures and stores feedback)
 
 **Updates:** devforgeai/feedback/feedback-register.md (appends new entry)
 
@@ -273,7 +274,7 @@ cat devforgeai/feedback/feedback-register.md | grep "^## FB-"
 
 ## See Also
 
-- devforgeai-feedback skill documentation
+- spec-driven-feedback skill documentation
 - STORY-020: Feedback CLI Commands (implementation story)
 - devforgeai/feedback/feedback-register.md (feedback storage)
 - devforgeai/feedback/config.yaml (configuration file)

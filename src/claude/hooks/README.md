@@ -399,7 +399,7 @@ echo "Approval rate: $(echo "scale=1; $AUTO * 100 / $TOTAL" | bc)%"
 
 **Purpose:** Automatically execute custom actions when QA validation completes, enabling post-test automation, result processing, and notifications.
 
-**Invocation Point:** Phase 4.2 (QA Validation) in devforgeai-qa skill, triggered after QA passes/fails/warns.
+**Invocation Point:** Phase 4.2 (QA Validation) in spec-driven-qa skill, triggered after QA passes/fails/warns.
 
 **Current Working Directory:** Project root (`/mnt/c/Projects/DevForgeAI2`)
 
@@ -684,7 +684,7 @@ bash -n .claude/hooks/post-qa-success.sh
 ### Related Documentation
 
 **QA Workflow:**
-- `.claude/skills/devforgeai-qa.md` - QA validation skill with hook integration
+- `.claude/skills/spec-driven-qa.md` - QA validation skill with hook integration
 
 **Story Lifecycle:**
 - `devforgeai/specs/Stories/STORY-189.story.md` - Original QA Lifecycle Hooks story

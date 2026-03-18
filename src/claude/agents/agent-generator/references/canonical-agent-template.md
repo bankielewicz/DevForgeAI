@@ -40,7 +40,7 @@ tools:                           # array, required
 model: opus                      # enum, required
 color: green                     # string, optional
 permissionMode: default          # enum, optional
-skills: devforgeai-qa            # string, optional
+skills: spec-driven-qa            # string, optional
 proactive_triggers:              # array, optional
   - "after code implementation"
   - "when coverage gaps detected"

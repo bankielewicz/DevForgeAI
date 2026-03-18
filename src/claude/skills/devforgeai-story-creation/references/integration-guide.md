@@ -59,7 +59,7 @@ The devforgeai-story-creation skill is a core framework component invoked by mul
 - Input: Data models → Entity/repository creation
 - Flow: Story creation → Development (TDD)
 
-**devforgeai-qa skill**
+**spec-driven-qa skill**
 - Input: Acceptance criteria → Validation targets
 - Input: Technical specification → Compliance checks
 - Input: NFRs → Performance/security validation

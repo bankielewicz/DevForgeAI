@@ -23,7 +23,7 @@ Bash(command="npx eslint src/ --format json --rule 'complexity: [error, 20]'")
 
 **C# Projects:**
 ```
-Bash(command="python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py src/")
+Bash(command="python .claude/skills/spec-driven-qa/scripts/analyze_complexity.py src/")
 ```
 
 ### Aggregate Metrics Calculation
@@ -48,7 +48,7 @@ Filter functions exceeding thresholds:
 
 **Python:**
 ```
-Bash(command="python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py src/")
+Bash(command="python .claude/skills/spec-driven-qa/scripts/detect_duplicates.py src/")
 ```
 
 **Node.js:**

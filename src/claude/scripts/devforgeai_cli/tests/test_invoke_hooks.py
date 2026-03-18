@@ -20,7 +20,7 @@ Technical Specification Coverage:
   COMP-001: invoke_hooks() function with operation, story_id arguments
   COMP-002: Context extraction from TodoWrite, errors, timing data
   COMP-003: Secret sanitization (50+ patterns)
-  COMP-004: devforgeai-feedback skill invocation with context
+  COMP-004: spec-driven-feedback skill invocation with context
   COMP-005: Graceful error handling (no exceptions to caller)
   COMP-006: 30-second timeout with abort mechanism
   COMP-007: Circular invocation detection via DEVFORGEAI_HOOK_ACTIVE
@@ -217,7 +217,7 @@ def mock_context():
 
 @pytest.fixture
 def mock_skill_service():
-    """Fixture: Mock devforgeai-feedback skill service"""
+    """Fixture: Mock spec-driven-feedback skill service"""
     service = MagicMock()
     service.invoke = MagicMock(return_value=True)
     service.start_conversation = MagicMock(return_value=True)
@@ -550,7 +550,7 @@ class TestCircularInvocationGuard:
 
 
 class TestFeedbackSkillInvocation:
-    """Unit tests for devforgeai-feedback skill invocation (AC3, COMP-004)"""
+    """Unit tests for spec-driven-feedback skill invocation (AC3, COMP-004)"""
 
     def test_skill_invocation_with_context(self, mock_context, mock_skill_service):
         """Test: Skill receives pre-populated context metadata (AC3)"""
@@ -1106,11 +1106,11 @@ class TestInvokeFeedbackSkillStructuredOutput:
         self, service, complete_context, capsys
     ):
         """
-        AC#1: Output includes skill name "devforgeai-feedback".
+        AC#1: Output includes skill name "spec-driven-feedback".
 
         Given: A valid context dictionary
         When: invoke_feedback_skill() is called
-        Then: Output references the devforgeai-feedback skill
+        Then: Output references the spec-driven-feedback skill
         """
         # Arrange - context from fixture
 
@@ -1121,8 +1121,8 @@ class TestInvokeFeedbackSkillStructuredOutput:
         captured = capsys.readouterr()
         output = captured.out
 
-        assert "devforgeai-feedback" in output, (
-            "Output must include skill name 'devforgeai-feedback'"
+        assert "spec-driven-feedback" in output, (
+            "Output must include skill name 'spec-driven-feedback'"
         )
 
     def test_invoke_feedback_skill_outputs_invocation_instructions(
@@ -1144,7 +1144,7 @@ class TestInvokeFeedbackSkillStructuredOutput:
         captured = capsys.readouterr()
         output = captured.out
 
-        # Per spec: "Action Required: Invoke devforgeai-feedback skill"
+        # Per spec: "Action Required: Invoke spec-driven-feedback skill"
         assert "Action Required" in output or "Invoke" in output, (
             "Output must include invocation instructions"
         )

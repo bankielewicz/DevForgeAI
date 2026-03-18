@@ -179,7 +179,7 @@ else:
 
 **Provides output to:**
 - spec-driven-dev (UI specs → implementation)
-- devforgeai-qa (UI specs → validation)
+- spec-driven-qa (UI specs → validation)
 
 ---
 

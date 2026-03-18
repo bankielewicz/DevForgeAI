@@ -13,7 +13,7 @@ HALT if story.status != "QA Approved":
 Read(file_path="devforgeai/qa/reports/{story_id}-qa-report.md")
 
 HALT if qa_report NOT exists:
-    "QA report not found. Run devforgeai-qa --mode=deep first"
+    "QA report not found. Run spec-driven-qa --mode=deep first"
 ```
 
 #### Step 2: Validate Release Gates

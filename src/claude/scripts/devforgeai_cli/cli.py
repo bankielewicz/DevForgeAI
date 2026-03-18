@@ -9,7 +9,7 @@ Commands:
   check-git        Check Git repository availability
   validate-context Validate context files exist
   check-hooks      Check if hooks should trigger for an operation
-  invoke-hooks     Invoke devforgeai-feedback skill for operation
+  invoke-hooks     Invoke spec-driven-feedback skill for operation
   phase-init       Initialize phase state file for a story
   phase-check      Check if phase transition is allowed
   phase-complete   Mark a phase as complete
@@ -131,8 +131,8 @@ def main():
     # ======================================================================
     invoke_hooks_parser = subparsers.add_parser(
         'invoke-hooks',
-        help='Invoke devforgeai-feedback skill for operation',
-        description='Extracts operation context and invokes devforgeai-feedback skill for retrospective feedback'
+        help='Invoke spec-driven-feedback skill for operation',
+        description='Extracts operation context and invokes spec-driven-feedback skill for retrospective feedback'
     )
     invoke_hooks_parser.add_argument(
         '--operation',

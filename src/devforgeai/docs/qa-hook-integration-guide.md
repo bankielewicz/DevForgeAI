@@ -214,7 +214,7 @@ hooks:
 
 ### Issue: Hook fails with "skill not found"
 
-**Cause:** devforgeai-feedback skill not available
+**Cause:** spec-driven-feedback skill not available
 
 **Solution:**
 - Verify skill exists: `ls .claude/skills/ | grep feedback`
@@ -350,7 +350,7 @@ fi
 
 - **Implementation:** `.claude/commands/qa.md` (Phase 4 section)
 - **Tests:** `tests/integration/test_qa_hooks_integration.py`
-- **Feedback System:** `.claude/skills/devforgeai-feedback/`
+- **Feedback System:** `.claude/skills/spec-driven-feedback/`
 - **Hook Configuration:** `devforgeai/hooks/hooks.yaml`
 - **CLI Validators:** `devforgeai check-hooks`, `devforgeai invoke-hooks`
 - **Related:** STORY-023 (/dev hook integration pilot)

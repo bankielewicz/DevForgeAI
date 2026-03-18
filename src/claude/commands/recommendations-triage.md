@@ -51,7 +51,7 @@ Display skill result (pre-formatted by skill).
 - ❌ Queue JSON manipulation
 
 All business logic lives in: `src/claude/skills/spec-driven-feedback/phases/phase-03-feedback-execution.md` (triage sub-workflow)
-Reference: `.claude/skills/devforgeai-feedback/references/triage-workflow.md`
+Reference: `.claude/skills/spec-driven-feedback/references/triage-workflow.md`
 
 ## Error Handling
 

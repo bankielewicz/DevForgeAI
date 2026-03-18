@@ -202,7 +202,7 @@ QA-phase diagnosis focuses on understanding why violations were missed during de
 ### Invocation Pseudocode
 
 ```python
-# Inside devforgeai-qa Phase 2 (Deep Analysis)
+# Inside spec-driven-qa Phase 2 (Deep Analysis)
 
 def qa_deep_analysis_with_diagnosis(story_id, violations):
     critical_violations = [v for v in violations if v.severity in ("CRITICAL", "HIGH")]

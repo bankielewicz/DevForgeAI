@@ -72,11 +72,11 @@ When invoked, follow these steps:
 
 **Works with:**
 - spec-driven-dev skill (Phase 3 Refactor)
-- devforgeai-qa skill (Deep validation)
+- spec-driven-qa skill (Deep validation)
 
 **Invoked by:**
 - spec-driven-dev, Phase 3, Step 3 (after refactoring)
-- devforgeai-qa, Phase 2, deep validation mode
+- spec-driven-qa, Phase 2, deep validation mode
 
 ## Tool Usage Protocol
 
@@ -144,7 +144,7 @@ When invoked, follow these steps:
 
 **Framework Integration:**
 - spec-driven-dev (Phase 3 Refactor)
-- devforgeai-qa (Deep validation)
+- spec-driven-qa (Deep validation)
 
 ---
 

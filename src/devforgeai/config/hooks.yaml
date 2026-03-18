@@ -5,7 +5,7 @@
 # automated retrospectives.
 #
 # For complete schema reference, see:
-# .claude/skills/devforgeai-feedback/HOOK-SYSTEM.md
+# .claude/skills/spec-driven-feedback/HOOK-SYSTEM.md
 
 # ============================================================================
 # Global Hook Settings
@@ -363,7 +363,7 @@ post_tool_call:
 # Additional Resources
 # ============================================================================
 
-# - Hook System Architecture: .claude/skills/devforgeai-feedback/HOOK-SYSTEM.md
+# - Hook System Architecture: .claude/skills/spec-driven-feedback/HOOK-SYSTEM.md
 # - Hook API Reference: src/hook_system.py (docstrings)
 # - Example Usage: tests/test_hook_*.py (175 test cases)
 # - Performance Tuning: devforgeai/docs/HOOK-PERFORMANCE.md

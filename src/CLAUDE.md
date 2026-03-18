@@ -172,7 +172,7 @@ bash scripts/build-offline-bundle.sh
 | Framework rules | `.claude/rules/core/critical-rules.md` |
 | Development workflow | `.claude/skills/spec-driven-dev/SKILL.md` |
 | Story template | `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md` |
-| QA validation | `.claude/skills/devforgeai-qa/SKILL.md` |
+| QA validation | `.claude/skills/spec-driven-qa/SKILL.md` |
 | Context constraints | `devforgeai/specs/context/*.md` (6 files) |
 
 ---
@@ -687,7 +687,7 @@ After `/dev` and `/qa` workflows complete, AI architectural analysis is **automa
 
 **Manual trigger (if needed):**
 ```
-Skill(command="devforgeai-feedback", args="--type=ai_analysis")
+Skill(command="spec-driven-feedback", args="--type=ai_analysis")
 ```
 
 **Reference:** `docs/guides/feedback-overview.md` (AI Architectural Analysis section)

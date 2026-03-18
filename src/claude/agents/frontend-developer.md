@@ -87,7 +87,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT implement backend API endpoints (delegates to backend-architect)
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 - Does NOT create design system specifications (uses existing)
 
 ---

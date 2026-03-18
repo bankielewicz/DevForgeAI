@@ -54,7 +54,7 @@ echo "Test 1: invoke-hooks triggers feedback conversation"
 echo "=========================================="
 echo ""
 echo "This test verifies that running invoke-hooks attempts to invoke the feedback skill."
-echo "Note: This is a mock test since devforgeai-feedback skill integration is not yet complete."
+echo "Note: This is a mock test since spec-driven-feedback skill integration is not yet complete."
 echo ""
 
 # Create a mock test that verifies the command runs

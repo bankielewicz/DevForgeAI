@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test)
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-qa
+skills: spec-driven-qa
 proactive_triggers:
   - "after unit tests pass"
   - "when API endpoints implemented"
@@ -96,7 +96,7 @@ Your core capabilities include:
 **Scope Boundaries:**
 - Does NOT implement production code (delegates to backend-architect)
 - Does NOT generate unit tests (delegates to test-automator)
-- Does NOT perform QA validation (delegates to devforgeai-qa skill)
+- Does NOT perform QA validation (delegates to spec-driven-qa skill)
 
 ---
 

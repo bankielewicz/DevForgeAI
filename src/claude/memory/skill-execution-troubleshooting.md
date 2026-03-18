@@ -194,11 +194,11 @@ Skill(command="spec-driven-dev")
 
 **Command executes:**
 ```
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 ```
 
 **✅ Correct action:**
-1. Read devforgeai-qa skill's Phase 0
+1. Read spec-driven-qa skill's Phase 0
 2. Execute validation mode detection
 3. Execute story loading
 4. Execute context validation
@@ -223,7 +223,7 @@ Skill(command="devforgeai-orchestration")
 1. Read orchestration skill's Phase 0
 2. Execute checkpoint detection
 3. Invoke spec-driven-dev skill (if needed)
-4. Invoke devforgeai-qa skill (if needed)
+4. Invoke spec-driven-qa skill (if needed)
 5. Handle QA retry loop (if QA fails)
 6. Invoke devforgeai-release skill (staging, production)
 7. Display orchestration completion report
@@ -297,7 +297,7 @@ Skill(command="devforgeai-orchestration")
 
 ---
 
-**Question 2:** What does the system message "The 'devforgeai-qa' skill is running" mean?
+**Question 2:** What does the system message "The 'spec-driven-qa' skill is running" mean?
 
 **✅ Correct answer:** The skill's SKILL.md content has been loaded into my conversation, and I must now execute its instructions.
 
@@ -331,12 +331,12 @@ Skill(command="devforgeai-orchestration")
 
 **Skills documentation:**
 - `.claude/skills/spec-driven-dev/SKILL.md` - Development workflow
-- `.claude/skills/devforgeai-qa/SKILL.md` - QA validation workflow
+- `.claude/skills/spec-driven-qa/SKILL.md` - QA validation workflow
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration workflow
 
 **Commands documentation:**
 - `.claude/commands/dev.md` - /dev command (invokes spec-driven-dev skill)
-- `.claude/commands/qa.md` - /qa command (invokes devforgeai-qa skill)
+- `.claude/commands/qa.md` - /qa command (invokes spec-driven-qa skill)
 - `.claude/commands/orchestrate.md` - /orchestrate command (invokes orchestration skill)
 
 ---
@@ -465,11 +465,11 @@ Skipped phases:
 #### Step 3: Load Missing Reference Files
 
 ```
-Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/story-update-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/spec-compliance-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/code-quality-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/feedback-hooks-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/story-update-workflow.md")
 ```
 
 #### Step 4: Execute Skipped Phases
@@ -520,7 +520,7 @@ Example:
 **⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
 
 **Step 2.0: Load Workflow Reference (REQUIRED)**
-Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/anti-pattern-detection-workflow.md")
 ```
 
 **If you see a CHECKPOINT:** You MUST load the reference file. No exceptions.
@@ -578,7 +578,7 @@ If done much faster, verify you didn't skip phases.
 | Skill | Reference Files | Risk Level |
 |-------|-----------------|------------|
 | spec-driven-dev | 8 reference files | HIGH (RCA-009, RCA-011) |
-| devforgeai-qa | 19 reference files | HIGH (RCA-016) |
+| spec-driven-qa | 19 reference files | HIGH (RCA-016) |
 | devforgeai-orchestration | 4 reference files | MEDIUM |
 | devforgeai-release | 5 reference files | MEDIUM |
 | spec-driven-architecture | 6 reference files | MEDIUM |
@@ -608,7 +608,7 @@ If done much faster, verify you didn't skip phases.
 - Status: Recommendations pending
 
 **RCA-016: QA Skill Phase Skipping During Deep Validation (2025-12-01)**
-- Skill: devforgeai-qa
+- Skill: spec-driven-qa
 - Symptom: Skipped 5 phases (2, 3, 4, 6, 7), jumped from Phase 1 to Phase 5
 - Root cause: Same pattern - reference files not loaded
 - Status: REC-1 COMPLETE, REC-2 COMPLETE, REC-3 COMPLETE

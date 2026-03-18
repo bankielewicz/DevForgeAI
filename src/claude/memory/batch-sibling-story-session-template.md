@@ -153,7 +153,7 @@ Use these steps to capture observations during batch execution and aggregate the
    - Recurring themes across stories
    - Recommended framework improvements with specific file targets
 
-8. Format the aggregated observations for compatibility with the devforgeai-feedback skill so they can be ingested through the standard feedback pipeline.
+8. Format the aggregated observations for compatibility with the spec-driven-feedback skill so they can be ingested through the standard feedback pipeline.
 
 ---
 

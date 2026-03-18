@@ -6,7 +6,7 @@ This directory contains feedback templates used by the DevForgeAI feedback syste
 
 ### Core Templates
 - `command-template.md` - Template for slash command feedback (e.g., `/dev`, `/qa`, `/release`)
-- `skill-template.md` - Template for skill feedback (e.g., `devforgeai-development`, `devforgeai-qa`)
+- `skill-template.md` - Template for skill feedback (e.g., `devforgeai-development`, `spec-driven-qa`)
 - `subagent-template.md` - Template for subagent feedback (e.g., `backend-architect`, `test-automator`)
 
 ### Context-Aware Variations

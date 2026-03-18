@@ -6,14 +6,14 @@ Automated quality analysis tools for the DevForgeAI framework.
 
 ## Overview
 
-The QA skill includes 6 Python scripts for automated quality analysis in `.claude/skills/devforgeai-qa/scripts/`.
+The QA skill includes 6 Python scripts for automated quality analysis in `.claude/skills/spec-driven-qa/scripts/`.
 
 ---
 
 ## Installation
 
 ```bash
-pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt
+pip install -r .claude/skills/spec-driven-qa/scripts/requirements.txt
 ```
 
 ---
@@ -23,7 +23,7 @@ pip install -r .claude/skills/devforgeai-qa/scripts/requirements.txt
 ### 1. Generate Coverage Report
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
+python .claude/skills/spec-driven-qa/scripts/generate_coverage_report.py \
   --project-path=. \
   --output=devforgeai/qa/coverage/coverage-report.json
 ```
@@ -37,7 +37,7 @@ python .claude/skills/devforgeai-qa/scripts/generate_coverage_report.py \
 ### 2. Detect Code Duplication
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
+python .claude/skills/spec-driven-qa/scripts/detect_duplicates.py \
   --project-path=. \
   --threshold=6 \
   --output=devforgeai/qa/anti-patterns/duplicates-report.json
@@ -52,7 +52,7 @@ python .claude/skills/devforgeai-qa/scripts/detect_duplicates.py \
 ### 3. Analyze Cyclomatic Complexity
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
+python .claude/skills/spec-driven-qa/scripts/analyze_complexity.py \
   --project-path=. \
   --max-complexity=10 \
   --output=devforgeai/qa/anti-patterns/complexity-report.json
@@ -67,7 +67,7 @@ python .claude/skills/devforgeai-qa/scripts/analyze_complexity.py \
 ### 4. Security Scan
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/security_scan.py \
+python .claude/skills/spec-driven-qa/scripts/security_scan.py \
   --project-path=. \
   --output=devforgeai/qa/anti-patterns/security-report.json
 ```
@@ -87,7 +87,7 @@ python .claude/skills/devforgeai-qa/scripts/security_scan.py \
 ### 5. Validate Spec Compliance
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
+python .claude/skills/spec-driven-qa/scripts/validate_spec_compliance.py \
   --story-path=devforgeai/specs/Stories/STORY-001.story.md \
   --project-path=. \
   --output=devforgeai/qa/spec-compliance/STORY-001-compliance-report.json
@@ -106,7 +106,7 @@ python .claude/skills/devforgeai-qa/scripts/validate_spec_compliance.py \
 ### 6. Generate Test Stubs
 
 ```bash
-python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
+python .claude/skills/spec-driven-qa/scripts/generate_test_stubs.py \
   --coverage-report=devforgeai/qa/coverage/coverage-report.json \
   --output-dir=tests/generated/ \
   --framework=pytest
@@ -122,7 +122,7 @@ python .claude/skills/devforgeai-qa/scripts/generate_test_stubs.py \
 
 ### Automatic Invocation
 
-QA automation scripts are invoked automatically by the `devforgeai-qa` skill during:
+QA automation scripts are invoked automatically by the `spec-driven-qa` skill during:
 - **Light Validation** (during development phases)
 - **Deep Validation** (after story completion)
 
@@ -180,7 +180,7 @@ Run scripts manually for:
 
 ## Script Documentation
 
-See `.claude/skills/devforgeai-qa/scripts/README.md` for detailed documentation on:
+See `.claude/skills/spec-driven-qa/scripts/README.md` for detailed documentation on:
 - Script parameters and options
 - Output format specifications
 - Integration patterns

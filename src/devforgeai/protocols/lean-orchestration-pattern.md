@@ -369,7 +369,7 @@ Phase 2: Validate Coverage
 ```markdown
 # Command delegates to skill
 Phase 1: Invoke Skill
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
 # Skill contains validation logic
 ```

@@ -38,7 +38,7 @@
 **Examples:**
 ```bash
 /rca "spec-driven-dev didn't validate context files before TDD"
-/rca "devforgeai-qa accepted pre-existing deferrals without challenge"
+/rca "spec-driven-qa accepted pre-existing deferrals without challenge"
 /rca "/dev command contains business logic in Phase 2"
 /rca "Story transitioned to Released without QA Approved"
 ```

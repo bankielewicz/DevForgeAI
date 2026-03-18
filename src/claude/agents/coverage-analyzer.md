@@ -39,7 +39,7 @@ Your core capabilities include:
 **Proactive triggers:**
 - After test execution during QA validation
 - When coverage reports show gaps below thresholds
-- During Phase 1 of devforgeai-qa skill
+- During Phase 1 of spec-driven-qa skill
 
 **Explicit invocation:**
 - "Analyze test coverage by layer"
@@ -47,7 +47,7 @@ Your core capabilities include:
 - "Identify coverage gaps"
 
 **Automatic:**
-- devforgeai-qa skill Phase 1: Coverage Analysis Workflow
+- spec-driven-qa skill Phase 1: Coverage Analysis Workflow
 
 ## Input/Output Specification
 
@@ -88,7 +88,7 @@ Your core capabilities include:
    ```
    Read(file_path="devforgeai/specs/context/tech-stack.md")
    Read(file_path="devforgeai/specs/context/source-tree.md")
-   Read(file_path=".claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md")
+   Read(file_path=".claude/skills/spec-driven-qa/assets/config/coverage-thresholds.md")
    ```
 
 2. **Execute Coverage Analysis**
@@ -181,7 +181,7 @@ Your core capabilities include:
 
 ### Example 1: QA Skill Coverage Analysis
 
-**Context:** During devforgeai-qa Phase 1.
+**Context:** During spec-driven-qa Phase 1.
 
 ```
 Task(
@@ -210,4 +210,4 @@ Task(
 - `.claude/agents/references/treelint-search-patterns.md` - Treelint AST patterns
 - `.claude/agents/coverage-analyzer/references/treelint-patterns.md` - Function-level mapping
 - `.claude/agents/coverage-analyzer/references/semantic-test-coverage-mapping.md` - Semantic mapping
-- `.claude/skills/devforgeai-qa/assets/config/coverage-thresholds.md` - Threshold configuration
+- `.claude/skills/spec-driven-qa/assets/config/coverage-thresholds.md` - Threshold configuration

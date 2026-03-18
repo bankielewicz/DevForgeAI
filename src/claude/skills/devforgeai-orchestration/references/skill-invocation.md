@@ -7,7 +7,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 **Automate skill execution** throughout the story lifecycle:
 - Invoke spec-driven-architecture when context files needed
 - Invoke spec-driven-dev for implementation
-- Invoke devforgeai-qa for validation
+- Invoke spec-driven-qa for validation
 - Invoke devforgeai-release for deployment
 
 **Key principle:** Orchestration skill acts as workflow coordinator, delegating specialized work to domain-specific skills.
@@ -36,7 +36,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 
 ---
 
-### 3. devforgeai-qa
+### 3. spec-driven-qa
 
 **When invoked:** Story status = "Dev Complete" OR checkpoint resumes from Phase 3
 
@@ -179,12 +179,12 @@ Verify story status updated:
 
 ```
 Display: "🔍 Starting QA Validation Phase..."
-Display: "Invoking devforgeai-qa skill for deep validation"
+Display: "Invoking spec-driven-qa skill for deep validation"
 
 # Set validation mode context
 **Validation Mode:** deep
 
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Story ID already in context from Phase 0/1
 # Mode extracted from context marker above
@@ -379,7 +379,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-048-production-cutover-documentat
 **Environment:** staging
 
 # Step 3: Invoke skill WITHOUT parameters
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Skill extracts parameters from conversation context
 ```
@@ -388,7 +388,7 @@ Skill(command="devforgeai-qa")
 
 ```
 # ❌ WRONG - Skills don't accept parameters
-Skill(command="devforgeai-qa --mode=deep --story=STORY-048")
+Skill(command="spec-driven-qa --mode=deep --story=STORY-048")
 
 # ❌ WRONG - Parameters ignored
 Skill(command="spec-driven-dev --story=STORY-048")
@@ -427,7 +427,7 @@ Validate completion:
 4. **devforgeai-story-creation** - Story generation from features
 5. **devforgeai-ui-generator** - UI specification generation
 6. **spec-driven-dev** - TDD implementation (invoked in Development phase)
-7. **devforgeai-qa** - Quality validation (invoked in QA phase)
+7. **spec-driven-qa** - Quality validation (invoked in QA phase)
 8. **devforgeai-release** - Deployment (invoked in Release phase)
 
 **Orchestration skill invokes:** architecture, development, qa, release (4 of 8 skills)

@@ -29,7 +29,7 @@ Generate comprehensive test suites from acceptance criteria and technical specif
 
 **Automatic:**
 - When spec-driven-dev skill enters Phase 1 (Red - Test First)
-- When devforgeai-qa skill detects coverage < thresholds (95%/85%/80%)
+- When spec-driven-qa skill detects coverage < thresholds (95%/85%/80%)
 
 ## Workflow
 
@@ -74,11 +74,11 @@ When invoked, follow these steps:
 
 **Works with:**
 - spec-driven-dev (Phase 1 Red - generates failing tests)
-- devforgeai-qa (Coverage gap filling)
+- spec-driven-qa (Coverage gap filling)
 
 **Invoked by:**
 - spec-driven-dev, Phase 1, Step 1
-- devforgeai-qa, Phase 3, Step 2 (coverage gaps)
+- spec-driven-qa, Phase 3, Step 2 (coverage gaps)
 
 ## Tool Usage Protocol
 
@@ -141,7 +141,7 @@ When invoked, follow these steps:
 
 **Framework Integration:**
 - spec-driven-dev (Phase 1 Red)
-- devforgeai-qa (Coverage validation)
+- spec-driven-qa (Coverage validation)
 
 ---
 

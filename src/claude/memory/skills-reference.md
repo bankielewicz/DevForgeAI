@@ -619,7 +619,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 
 ---
 
-### devforgeai-qa
+### spec-driven-qa
 
 **Auto-invoked during development, or use manually for:**
 - Deep validation after story completion
@@ -634,11 +634,11 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 
 # Deep validation
 **Validation mode:** deep
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Light validation
 **Validation mode:** light
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 ```
 
 ### User Input Guidance
@@ -782,7 +782,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
    ↓ (Phase 05.5: Post-integration AC verification)
    ↓ (Phase 09: Feedback and observation extraction)
 
-7. devforgeai-qa
+7. spec-driven-qa
    ↓ (validate quality, coverage, compliance)
 
 8. devforgeai-release
@@ -802,7 +802,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 3. spec-driven-dev
    ↓ (implement with TDD)
 
-4. devforgeai-qa
+4. spec-driven-qa
    ↓ (validate)
 
 5. devforgeai-release
@@ -821,7 +821,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 3. spec-driven-dev
    ↓ (implement story with TDD)
 
-4. devforgeai-qa
+4. spec-driven-qa
    ↓ (validate implementation)
 
 5. devforgeai-release
@@ -840,7 +840,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 3. spec-driven-dev
    ↓ (implement UI with tests)
 
-4. devforgeai-qa
+4. spec-driven-qa
    (validate UI implementation)
 ```
 </workflow_sequences>
@@ -857,7 +857,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 
 **❌ WRONG:**
 ```
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
+Skill(command="spec-driven-qa --mode=deep --story=STORY-001")
 Skill(command="spec-driven-dev --story=STORY-001")
 Skill(command="devforgeai-release --env=production")
 ```
@@ -873,7 +873,7 @@ Skill(command="devforgeai-release --env=production")
 **Environment:** staging
 
 # Step 3: Invoke skill WITHOUT arguments
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Skill will extract story ID from YAML frontmatter in loaded story file
 # Skill will extract mode from "Validation Mode: deep" statement
@@ -894,7 +894,7 @@ Skill(command="devforgeai-qa")
 ## Skill Integration
 
 Skills automatically invoke each other when needed:
-- **spec-driven-dev** auto-invokes **devforgeai-qa** (light mode) after each TDD phase
+- **spec-driven-dev** auto-invokes **spec-driven-qa** (light mode) after each TDD phase
 - **spec-driven-ideation** auto-transitions to **spec-driven-architecture**
 - **devforgeai-orchestration** invokes other skills based on workflow state
 </integration_patterns>
@@ -913,12 +913,12 @@ For detailed skill documentation, see:
 - `.claude/skills/cross-ai-collaboration/SKILL.md`
 - `.claude/skills/spec-driven-architecture/SKILL.md`
 - `.claude/skills/devforgeai-documentation/SKILL.md`
-- `.claude/skills/devforgeai-feedback/SKILL.md`
+- `.claude/skills/spec-driven-feedback/SKILL.md`
 - `.claude/skills/devforgeai-github-actions/SKILL.md`
 - `.claude/skills/devforgeai-insights/SKILL.md`
 - `.claude/skills/devforgeai-mcp-cli-converter/SKILL.md`
 - `.claude/skills/devforgeai-orchestration/SKILL.md`
-- `.claude/skills/devforgeai-qa/SKILL.md`
+- `.claude/skills/spec-driven-qa/SKILL.md`
 - `.claude/skills/devforgeai-qa-remediation/SKILL.md`
 - `.claude/skills/devforgeai-rca/SKILL.md`
 - `.claude/skills/devforgeai-release/SKILL.md`
@@ -1125,8 +1125,8 @@ Read(file_path="devforgeai/specs/Stories/STORY-040.story.md")
 
 ---
 
-<skill name="devforgeai-feedback">
-### devforgeai-feedback
+<skill name="spec-driven-feedback">
+### spec-driven-feedback
 
 **Use when:**
 - Capturing retrospective feedback after dev/qa/release operations
@@ -1139,7 +1139,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-040.story.md")
 # Manual feedback
 **Operation:** dev
 **Story ID:** STORY-037
-Skill(command="devforgeai-feedback")
+Skill(command="spec-driven-feedback")
 
 # Auto-invoked via hooks (after /dev, /qa, /release)
 ```
@@ -1578,8 +1578,8 @@ Skill(command="devforgeai-github-actions")
 **Supported Skills:**
 | Skill | Mode | Reference File |
 |-------|------|----------------|
-| devforgeai-qa | light | inline in SKILL.md |
-| devforgeai-qa | deep | `.claude/skills/devforgeai-qa/references/deep-validation-workflow.md` |
+| spec-driven-qa | light | inline in SKILL.md |
+| spec-driven-qa | deep | `.claude/skills/spec-driven-qa/references/deep-validation-workflow.md` |
 | spec-driven-dev | deep | `.claude/skills/spec-driven-dev/references/tdd-deep-workflow.md` |
 | devforgeai-orchestration | any | skill-specific references |
 
@@ -1702,7 +1702,7 @@ Skill(command="validating-epic-coverage")
 ## Skill Count Summary
 
 **Functional Skills: 22**
-- **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, devforgeai-qa, qa-remediation, release, rca, documentation, feedback, research, insights
+- **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, spec-driven-qa, qa-remediation, release, rca, documentation, feedback, research, insights
 - **Workflow - Standalone (5):** assessing-entrepreneur, auditing-w3-compliance, cross-ai-collaboration, root-cause-diagnosis, validating-epic-coverage
 - **Infrastructure (2):** claude-code-terminal-expert, skill-creator
 

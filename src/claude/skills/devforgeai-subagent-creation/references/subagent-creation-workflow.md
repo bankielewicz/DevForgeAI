@@ -111,7 +111,7 @@ qa:
   tools: [Read, Grep, Glob, Bash(pytest:*|npm:test|dotnet:test)]
   model: opus
   context_files: [anti-patterns, coding-standards]
-  integration_skills: [devforgeai-qa, spec-driven-dev]
+  integration_skills: [spec-driven-qa, spec-driven-dev]
 
 [etc for all 7 domains]
 ```

@@ -86,7 +86,7 @@ Your output is used by `spec-driven-dev` skill to:
 **Consumers:**
 1. spec-driven-dev skill → Determines workflow mode
 2. devforgeai-release skill → Validates clean state before deployment
-3. devforgeai-qa skill → Optional verification of commit history
+3. spec-driven-qa skill → Optional verification of commit history
 
 **Quality Criteria:**
 - Valid JSON (always parseable)
@@ -788,7 +788,7 @@ IF story_files > 0:
 ### Invoked By:
 1. **spec-driven-dev skill** (Phase 0 - Pre-Flight Validation)
 2. **devforgeai-release skill** (before deployment - verify Git state)
-3. **devforgeai-qa skill** (optional - check if commits clean)
+3. **spec-driven-qa skill** (optional - check if commits clean)
 
 ### Output Used For:
 1. **Workflow mode selection** (Git-based vs file-based)

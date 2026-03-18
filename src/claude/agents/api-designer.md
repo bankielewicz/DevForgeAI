@@ -68,7 +68,7 @@ Your core capabilities include:
 **Automatic:**
 - spec-driven-architecture skill during technical specification
 - requirements-analyst when generating API specifications
-- devforgeai-qa during spec compliance validation
+- spec-driven-qa during spec compliance validation
 
 ---
 

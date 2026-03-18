@@ -702,7 +702,7 @@ This skill delegates specialized tasks to subagents:
 **Provides output to:**
 - devforgeai-ui-generator (AC → UI requirements)
 - spec-driven-dev (AC → test generation)
-- devforgeai-qa (AC → validation targets)
+- spec-driven-qa (AC → validation targets)
 
 **See `references/integration-guide.md` for complete integration patterns.**
     <!-- FULL READ MANDATORY — do not use offset/limit -->

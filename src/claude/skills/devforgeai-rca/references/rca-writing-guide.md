@@ -710,7 +710,7 @@ Before finalizing RCA document, verify:
 
 **Date:** 2025-11-16
 **Reported By:** User
-**Affected Component:** devforgeai-qa skill
+**Affected Component:** spec-driven-qa skill
 **Severity:** LOW
 
 ---
@@ -744,7 +744,7 @@ When QA validation fails due to missing story file, the error message does not i
 
 ## Evidence Collected
 
-**.claude/skills/devforgeai-qa/SKILL.md**
+**.claude/skills/spec-driven-qa/SKILL.md**
 - **Lines:** 500-520
 - **Finding:** Error template: "Story file not found"
 - **Excerpt:** `Display: "Story file not found"`
@@ -766,7 +766,7 @@ None
 ### LOW Priority
 
 **Recommendation 1: Add Story ID to Error Message**
-- **File:** `.claude/skills/devforgeai-qa/SKILL.md`
+- **File:** `.claude/skills/spec-driven-qa/SKILL.md`
 - **Section:** Phase 0, error handling
 - **Change:** Modify error template
 

@@ -49,7 +49,7 @@ class Color:
 
     Pattern from DevForgeAI framework validation scripts:
     - .claude/skills/spec-driven-architecture/scripts/validate_all_context.py
-    - .claude/skills/devforgeai-qa/scripts/security_scan.py
+    - .claude/skills/spec-driven-qa/scripts/security_scan.py
     """
     RED = '\033[91m'
     GREEN = '\033[92m'

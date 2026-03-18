@@ -170,7 +170,7 @@ Phase 0: Argument Validation (99 lines)
 └─ Story file existence checks
 
 Phase 1: Invoke Skill (39 lines)
-└─ Skill(command="devforgeai-qa")
+└─ Skill(command="spec-driven-qa")
 
 Phase 2: Handle QA Results (72 lines) ← BUSINESS LOGIC
 ├─ Read QA report from disk
@@ -250,7 +250,7 @@ Phase 0: Argument Validation (20 lines)
 
 Phase 1: Invoke Skill (15 lines)
 ├─ Set context markers
-└─ Skill(command="devforgeai-qa")
+└─ Skill(command="spec-driven-qa")
 
 Phase 2: Display Results (10 lines)
 └─ Output: result.display.template
