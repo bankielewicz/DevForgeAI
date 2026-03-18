@@ -486,7 +486,7 @@ IF recovery_strategy CONTAINS "Create follow-up":
       **Story Type:** deferral_tracking
 
       # Invoke story creation skill
-      Skill(command="devforgeai-story-creation")
+      Skill(command="spec-driven-stories")
 
       # Story created, capture ID
       new_story_id = extract from skill result

@@ -287,7 +287,7 @@ AskUserQuestion(
 
 **Defer to follow-up story:**
 - Ask user: create new story or use existing story ID
-- If new: invoke `Skill(command="devforgeai-story-creation")`
+- If new: invoke `Skill(command="spec-driven-stories")`
 - Document deferral record: component, requirements, reason, follow-up story, user approval timestamp
 - Add to Phase 06 tracking
 

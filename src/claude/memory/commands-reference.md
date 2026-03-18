@@ -452,7 +452,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **Purpose:** Generate user story with acceptance criteria, technical specifications, and UI specifications
 
-**Invokes:** `devforgeai-story-creation` skill
+**Invokes:** `spec-driven-stories` skill
 
 **Modes:**
 - **Single Story Mode:** `/create-story [feature-description]` - Create one story from description
@@ -460,7 +460,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **Workflow (Single Story):**
 1. Argument validation (capture feature description)
-2. Invoke devforgeai-story-creation skill (8-phase workflow)
+2. Invoke spec-driven-stories skill (8-phase workflow)
 3. Verify story file created
 4. Brief confirmation
 5. Next steps guidance
@@ -533,7 +533,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 - Phase 4: Brief completion confirmation
 - Phase 5: Next steps guidance (simplified)
 
-**Skill (devforgeai-story-creation - Complete Story Generation):**
+**Skill (spec-driven-stories - Complete Story Generation):**
 - Phase 1: Story Discovery (ID generation, epic/sprint context, metadata via AskUserQuestion)
 - Phase 2: Requirements Analysis (requirements-analyst subagent, AC generation, validation)
 - Phase 3: Technical Specification (api-designer subagent, data models, business rules, dependencies)
@@ -852,7 +852,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 
 **Purpose:** Generate and maintain project documentation automatically
 
-**Invokes:** `devforgeai-documentation` skill
+**Invokes:** `spec-driven-documentation` skill
 
 **Modes:**
 - **Greenfield**: Generate docs from completed stories
@@ -1061,7 +1061,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - Environment: `staging` or `production` (no -- prefix)
 - Default: `staging` if not specified
 
-**Invokes:** `devforgeai-release` skill
+**Invokes:** `spec-driven-release` skill
 
 **Workflow:**
 1. Pre-release validation (QA approved)
@@ -1114,8 +1114,8 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 2. Development phase (invokes spec-driven-dev)
 3. QA validation (invokes spec-driven-qa)
 4. **Phase 3.5: QA Failure Handling** (NEW - RCA-006) - Retry loop with max 3 attempts
-5. Staging release (invokes devforgeai-release --env=staging)
-6. Production release (invokes devforgeai-release --env=production)
+5. Staging release (invokes spec-driven-release --env=staging)
+6. Production release (invokes spec-driven-release --env=production)
 7. Workflow history finalization
 
 **Checkpoint Recovery:**
@@ -1502,7 +1502,7 @@ This command exemplifies lean orchestration for simple tasks:
 - RCA-NNN: RCA document ID (case-insensitive, e.g., RCA-022 or rca-022)
 - --threshold: Optional. Filter recommendations with effort >= N hours
 
-**Invokes:** `devforgeai-story-creation` skill (batch mode)
+**Invokes:** `spec-driven-stories` skill (batch mode)
 
 **Workflow:**
 1. Parse RCA document and extract recommendations (STORY-155)
@@ -2059,7 +2059,7 @@ tags: [tag1, tag2]
 
 **Purpose:** Create stories for all detected coverage gaps in an epic
 
-**Invokes:** `devforgeai-story-creation` skill (batch mode)
+**Invokes:** `spec-driven-stories` skill (batch mode)
 
 **Example:**
 ```bash
@@ -2213,7 +2213,7 @@ Commands integrate with skills using the Skill tool:
 ```
 Skill(command="spec-driven-dev --story=STORY-001")
 Skill(command="spec-driven-qa --mode=deep --story=STORY-001")
-Skill(command="devforgeai-release --story=STORY-001")
+Skill(command="spec-driven-release --story=STORY-001")
 ```
 </example>
 

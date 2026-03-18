@@ -38,7 +38,7 @@ Your core capabilities include:
 - "Find undocumented APIs"
 
 **Automatic:**
-- devforgeai-documentation skill (Phase 1, brownfield mode)
+- spec-driven-documentation skill (Phase 1, brownfield mode)
 - spec-driven-architecture skill (brownfield integration)
 
 ---
@@ -253,7 +253,7 @@ Load references on-demand based on scenario:
 ## Integration
 
 **Invoked by:**
-- devforgeai-documentation skill (brownfield mode)
+- spec-driven-documentation skill (brownfield mode)
 - spec-driven-architecture skill (brownfield integration)
 - Manual invocation for codebase analysis
 

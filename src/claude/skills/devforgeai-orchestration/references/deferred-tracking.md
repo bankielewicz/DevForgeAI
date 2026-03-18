@@ -112,7 +112,7 @@ FOR each deferral with reason_type == "story_split":
       **Parent Story:** {STORY_ID} (deferred work from)
 
       # Invoke story-creation skill
-      Skill(command="devforgeai-story-creation")
+      Skill(command="spec-driven-stories")
 
       # Verify story created
       Glob(pattern="devforgeai/specs/Stories/{referenced_story}*.md")

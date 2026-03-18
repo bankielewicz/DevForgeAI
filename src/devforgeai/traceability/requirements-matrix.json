@@ -472,9 +472,9 @@
     },
     "STORY-056": {
       "epic_ref": "EPIC-011",
-      "file_path": "devforgeai/specs/Stories/STORY-056-devforgeai-story-creation-integration.story.md",
+      "file_path": "devforgeai/specs/Stories/STORY-056-spec-driven-stories-integration.story.md",
       "status": "QA Approved",
-      "title": "devforgeai-story-creation Skill Integration with User Input Guidance"
+      "title": "spec-driven-stories Skill Integration with User Input Guidance"
     },
     "STORY-057": {
       "epic_ref": "EPIC-011",
@@ -522,7 +522,7 @@
       "epic_ref": "EPIC-011",
       "file_path": "devforgeai/specs/Stories/STORY-064-story-creation-integration-validation.story.md",
       "status": "QA Approved",
-      "title": "devforgeai-story-creation Integration Validation and Test Execution"
+      "title": "spec-driven-stories Integration Validation and Test Execution"
     },
     "STORY-065": {
       "epic_ref": "EPIC-011",

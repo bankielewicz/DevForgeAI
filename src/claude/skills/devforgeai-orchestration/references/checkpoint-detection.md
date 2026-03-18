@@ -21,7 +21,7 @@ When the `/orchestrate` command is run, this phase checks for:
 
 **Meaning:** Story successfully deployed to production
 
-**Created by:** devforgeai-release skill (Phase 5: Production Release)
+**Created by:** spec-driven-release skill (Phase 5: Production Release)
 
 **Marker in workflow history:**
 ```
@@ -41,7 +41,7 @@ Timestamp: {ISO 8601}
 
 **Meaning:** Story successfully deployed to staging environment
 
-**Created by:** devforgeai-release skill (Phase 4: Staging Release)
+**Created by:** spec-driven-release skill (Phase 4: Staging Release)
 
 **Marker in workflow history:**
 ```
@@ -347,8 +347,8 @@ Return: orchestration_state to workflow controller
 **Phases executed:** 2 → 3 → 4 → 5
 1. Development (spec-driven-dev)
 2. QA Validation (spec-driven-qa)
-3. Staging Release (devforgeai-release --env=staging)
-4. Production Release (devforgeai-release --env=production)
+3. Staging Release (spec-driven-release --env=staging)
+4. Production Release (spec-driven-release --env=production)
 
 ---
 
@@ -357,8 +357,8 @@ Return: orchestration_state to workflow controller
 **Phases executed:** 3 → 4 → 5
 1. ~~Development~~ (skipped)
 2. QA Validation (spec-driven-qa)
-3. Staging Release (devforgeai-release --env=staging)
-4. Production Release (devforgeai-release --env=production)
+3. Staging Release (spec-driven-release --env=staging)
+4. Production Release (spec-driven-release --env=production)
 
 **Use case:** Development completed, but QA/deployment interrupted.
 
@@ -369,8 +369,8 @@ Return: orchestration_state to workflow controller
 **Phases executed:** 4 → 5
 1. ~~Development~~ (skipped)
 2. ~~QA Validation~~ (skipped)
-3. Staging Release (devforgeai-release --env=staging)
-4. Production Release (devforgeai-release --env=production)
+3. Staging Release (spec-driven-release --env=staging)
+4. Production Release (spec-driven-release --env=production)
 
 **Use case:** QA passed, but deployment interrupted.
 
@@ -382,7 +382,7 @@ Return: orchestration_state to workflow controller
 1. ~~Development~~ (skipped)
 2. ~~QA Validation~~ (skipped)
 3. ~~Staging Release~~ (skipped)
-4. Production Release (devforgeai-release --env=production)
+4. Production Release (spec-driven-release --env=production)
 
 **Use case:** Staging deployed successfully, only production deployment remaining.
 

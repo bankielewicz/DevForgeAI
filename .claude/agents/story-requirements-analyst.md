@@ -1,15 +1,15 @@
 ---
 name: story-requirements-analyst
-description: Requirements analysis subagent specifically for devforgeai-story-creation skill. Returns CONTENT ONLY (no file creation). Enforces single-file story design principle. Use when devforgeai-story-creation invokes requirements analysis in Phase 2.
+description: Requirements analysis subagent specifically for spec-driven-stories skill. Returns CONTENT ONLY (no file creation). Enforces single-file story design principle. Use when spec-driven-stories invokes requirements analysis in Phase 2.
 version: "2.0.0"
-parent_skill: devforgeai-story-creation
+parent_skill: spec-driven-stories
 output_format: content_only
 tools: [Read, Grep, Glob, AskUserQuestion]
 model: opus
-contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
+contract: .claude/skills/spec-driven-stories/contracts/requirements-analyst-contract.yaml
 color: blue
 proactive_triggers:
-  - when: "parent skill (devforgeai-story-creation) enters Phase 2 (Requirements Analysis)"
+  - when: "parent skill (spec-driven-stories) enters Phase 2 (Requirements Analysis)"
     action: "Generate user story, AC, edge cases, NFRs as markdown content"
   - when: "feature description provided with story metadata (STORY-NNN, priority, points)"
     action: "Transform feature description into structured requirements content for assembly"
@@ -19,13 +19,13 @@ proactive_triggers:
 
 Generate user story, acceptance criteria, edge cases, and NFRs as **markdown content** (not files) for assembly into story-template.md by parent skill.
 
-**CRITICAL:** This subagent is a CONTENT GENERATOR, not a DOCUMENT CREATOR. Your output will be assembled by the devforgeai-story-creation skill into a single .story.md file. Do NOT create files yourself.
+**CRITICAL:** This subagent is a CONTENT GENERATOR, not a DOCUMENT CREATOR. Your output will be assembled by the spec-driven-stories skill into a single .story.md file. Do NOT create files yourself.
 
 ## Input/Output Specification
 
 ### Inputs
 
-**From devforgeai-story-creation skill (via conversation context):**
+**From spec-driven-stories skill (via conversation context):**
 - `feature_description` (string, minimum 10 words) - Description of feature to implement
 - `story_id` (string, format STORY-NNN) - Unique story identifier
 - `epic_id` (string, format EPIC-NNN or null) - Parent epic (if part of epic)
@@ -54,7 +54,7 @@ Generate user story, acceptance criteria, edge cases, and NFRs as **markdown con
 
 ## Purpose
 
-Transform feature descriptions into structured requirements content that the devforgeai-story-creation skill will assemble into a complete story document.
+Transform feature descriptions into structured requirements content that the spec-driven-stories skill will assemble into a complete story document.
 
 **Key Difference from General-Purpose requirements-analyst:**
 - **General-purpose:** Creates comprehensive deliverables (may include 6 files: main story + 5 supporting docs)
@@ -75,9 +75,9 @@ Transform feature descriptions into structured requirements content that the dev
 
 **File Creation:** STRICTLY PROHIBITED (no Write/Edit tools available)
 
-**Target Consumer:** devforgeai-story-creation skill Phase 5 (Story File Creation)
+**Target Consumer:** spec-driven-stories skill Phase 5 (Story File Creation)
 
-**Contract Reference:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
+**Contract Reference:** `.claude/skills/spec-driven-stories/contracts/requirements-analyst-contract.yaml`
 
 **Expected output structure:**
 ```markdown
@@ -129,7 +129,7 @@ Transform feature descriptions into structured requirements content that the dev
 
 ## Output Format (RCA-006 Phase 2: Structured Requirements)
 
-**CRITICAL:** This subagent provides CONTENT ONLY (no file creation). Parent skill (devforgeai-story-creation) will assemble your output into v2.0 structured YAML format.
+**CRITICAL:** This subagent provides CONTENT ONLY (no file creation). Parent skill (spec-driven-stories) will assemble your output into v2.0 structured YAML format.
 
 **Your role:** Extract component details from feature description
 
@@ -229,7 +229,7 @@ Use these component types based on feature description:
 ## Pre-Generation Validation
 
 **Note:** This subagent does NOT have Write() or Edit() tools (by design for RCA-007 compliance).
-It returns markdown content for the parent skill (devforgeai-story-creation) to write.
+It returns markdown content for the parent skill (spec-driven-stories) to write.
 
 **Pattern for reference (applies when parent skill writes):**
 
@@ -276,7 +276,7 @@ assert points in [1, 2, 3, 5, 8, 13], "Invalid story points"
 
 **Display context received:**
 ```
-✓ Context Received from devforgeai-story-creation
+✓ Context Received from spec-driven-stories
 
 Story ID: {story_id}
 Epic: {epic_id or 'None'}
@@ -692,7 +692,7 @@ NFRs measurability: {len(vague_found)} vague terms (warning if >0) ⚠️
 Size: {len(output)} chars (< 50,000) ✅
 Tool violations: None ✅
 
-Returning output to parent skill (devforgeai-story-creation)...
+Returning output to parent skill (spec-driven-stories)...
 """
 ```
 
@@ -797,7 +797,7 @@ return """
 ```python
 # ✅ CORRECT
 # Contract is specified in frontmatter:
-# contract: .claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml
+# contract: .claude/skills/spec-driven-stories/contracts/requirements-analyst-contract.yaml
 
 # Parent skill validates output against this contract
 # Ensure output complies with contract specifications
@@ -826,7 +826,7 @@ output += "## Non-Functional Requirements\n" + nfr_content
 ```python
 # ✅ CORRECT
 # You generate CONTENT
-# Parent skill (devforgeai-story-creation Phase 5) creates FILE
+# Parent skill (spec-driven-stories Phase 5) creates FILE
 # You don't control: filename, file location, YAML frontmatter
 # You only provide: markdown sections for story body
 ```
@@ -963,7 +963,7 @@ assert "Then" in ac_section, "AC missing Then clauses"
 
 ---
 
-## Integration with devforgeai-story-creation
+## Integration with spec-driven-stories
 
 **Invocation (from parent skill):**
 ```
@@ -988,7 +988,7 @@ Task(
 # Phase 5: Story File Creation
 
 # Load template
-template = Read(".claude/skills/devforgeai-story-creation/assets/templates/story-template.md")
+template = Read(".claude/skills/spec-driven-stories/assets/templates/story-template.md")
 
 # Insert subagent output
 user_story_section = extract_section(subagent_output, "User Story")
@@ -1020,10 +1020,10 @@ Write(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", content=
 | **Tools** | Read, Write, Edit, Grep, Glob, AskUserQuestion | Read, Grep, Glob, AskUserQuestion (NO Write/Edit) |
 | **Optimization** | Completeness (comprehensive deliverables) | Integration (content for assembly) |
 | **Output** | May create 6 files (story + 5 supporting) | ONLY markdown text (no files) |
-| **Used by** | Multiple skills (story, epic, architecture) | ONLY devforgeai-story-creation |
+| **Used by** | Multiple skills (story, epic, architecture) | ONLY spec-driven-stories |
 | **File creation** | Possible (has Write/Edit tools) | IMPOSSIBLE (no Write/Edit tools) |
 | **Contract** | None (general-purpose) | requirements-analyst-contract.yaml |
-| **Parent skill** | None specified | devforgeai-story-creation (documented) |
+| **Parent skill** | None specified | spec-driven-stories (documented) |
 | **Model** | haiku | sonnet |
 
 **Key architectural difference:** Skill-specific subagent CANNOT create files even if it wanted to (Write/Edit tools not available).
@@ -1061,7 +1061,7 @@ Write(file_path=f"devforgeai/specs/Stories/{story_id}-{slug}.story.md", content=
 ## Success Declaration
 
 **This subagent is successful when:**
-- [ ] Invoked by devforgeai-story-creation Phase 2
+- [ ] Invoked by spec-driven-stories Phase 2
 - [ ] Returns markdown content (text string)
 - [ ] All required sections present (User Story, AC, Edge Cases, NFRs)
 - [ ] Minimum 3 AC (Given/When/Then format)
@@ -1253,11 +1253,11 @@ Task(
 - **Source Tree:** `devforgeai/specs/context/source-tree.md` (file location constraints)
 
 **Related Documents:**
-- **Contract:** `.claude/skills/devforgeai-story-creation/contracts/requirements-analyst-contract.yaml`
-- **Parent Skill:** `.claude/skills/devforgeai-story-creation/SKILL.md`
-- **Invoked From:** `.claude/skills/devforgeai-story-creation/references/requirements-analysis.md` (Step 2.1)
+- **Contract:** `.claude/skills/spec-driven-stories/contracts/requirements-analyst-contract.yaml`
+- **Parent Skill:** `.claude/skills/spec-driven-stories/SKILL.md`
+- **Invoked From:** `.claude/skills/spec-driven-stories/references/requirements-analysis.md` (Step 2.1)
 - **RCA Analysis:** `devforgeai/RCA/RCA-007-multi-file-story-creation.md`
-- **Template:** `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
+- **Template:** `.claude/skills/spec-driven-stories/assets/templates/story-template.md`
 
 ---
 

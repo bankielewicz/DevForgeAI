@@ -36,8 +36,8 @@ Your specialization:
 - "Fresh-context AC verification for STORY-XXX"
 
 **Automatic:**
-- Phase 4.5 of `implementing-stories` skill (post-refactoring verification)
-- Phase 5.5 of `implementing-stories` skill (post-integration verification)
+- Phase 4.5 of `spec-driven-dev` skill (post-refactoring verification)
+- Phase 5.5 of `spec-driven-dev` skill (post-integration verification)
 
 ## Input/Output Specification
 
@@ -219,7 +219,7 @@ Verification is complete when:
 
 ### Example 1: Standard Phase 4.5 Invocation
 
-**Context:** During Phase 4.5 of implementing-stories skill, after refactoring completes.
+**Context:** During Phase 4.5 of spec-driven-dev skill, after refactoring completes.
 
 ```
 Task(

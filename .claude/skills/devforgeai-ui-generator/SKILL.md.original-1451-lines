@@ -1237,7 +1237,7 @@ Include validation_context in formatter prompt (Phase 6 Step 3.5) so formatter k
 - **Invocation:** Orchestration can invoke ui-generator when story has UI requirements
 - **Flow:** orchestration detects UI story → invokes ui-generator → proceeds to development
 
-### devforgeai-qa
+### spec-driven-qa
 - **Validation:** QA validates generated UI against acceptance criteria
 - **Flow:** development → qa (checks UI implementation matches spec)
 

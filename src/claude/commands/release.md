@@ -110,7 +110,7 @@ Skill extracts these values from YAML frontmatter and context markers in convers
 
 **Single orchestration point:**
 ```
-Skill(command="devforgeai-release")
+Skill(command="spec-driven-release")
 ```
 
 **What skill executes:**
@@ -121,7 +121,7 @@ Skill(command="devforgeai-release")
 - Release documentation (notes, audit trail)
 - Monitoring configuration
 
-See devforgeai-release skill for complete 8-phase workflow.
+See spec-driven-release skill for complete 8-phase workflow.
 
 ---
 
@@ -167,7 +167,7 @@ Output skill response containing:
 - devforgeai-orchestration skill (automated progression)
 
 **Invokes:**
-- devforgeai-release skill (8-phase release workflow)
+- spec-driven-release skill (8-phase release workflow)
 
 **Skill executes 6 core phases:**
 1. Pre-release validation (QA approval, tests, config)
@@ -212,7 +212,7 @@ Output skill response containing:
 
 **Retrospective feedback collection after deployments:**
 
-The devforgeai-release skill automatically triggers feedback hooks:
+The spec-driven-release skill automatically triggers feedback hooks:
 
 **Phase 2.5: Post-Staging Hooks**
 - Triggered after staging deployment (success or failure)
@@ -251,12 +251,12 @@ This command follows **lean orchestration** pattern:
 **After refactoring:**
 - Lines: 320
 - Characters: 9,547 (64% of budget, compliant)
-- Business logic: All moved to devforgeai-release skill
+- Business logic: All moved to spec-driven-release skill
 - Token usage: ~2.5K in main conversation (69% savings)
 
 **Business logic location:**
 - Argument validation: Command (minimal, 50 lines)
-- Deployment orchestration: devforgeai-release skill (8 phases)
+- Deployment orchestration: spec-driven-release skill (8 phases)
 - Pre-release checks: Skill Phase 1
 - Staging deployment: Skill Phase 2
 - Production deployment: Skill Phase 3
@@ -285,7 +285,7 @@ This command follows **lean orchestration** pattern:
 
 ---
 
-**Last Updated:** 2025-11-18
-**Status:** Lean Orchestration Compliant
-**Model:** Sonnet
+**Last Updated:** 2026-03-18
+**Status:** Lean Orchestration Compliant (migrated to spec-driven-release)
+**Model:** Opus
 **Character Budget:** 9,547 / 15,000 (64% - WITHIN BUDGET)

@@ -8,7 +8,7 @@ Detailed pseudocode for batch story creation from STORY-157.
 
 ```
 # function map_recommendation_to_batch_markers($1 = recommendation)
-# Maps RCA recommendation fields to devforgeai-story-creation batch context markers
+# Maps RCA recommendation fields to spec-driven-stories batch context markers
 # Returns batch_context object ready for skill invocation
 
 batch_context = {
@@ -85,7 +85,7 @@ RETURN "STORY-${next_id}"
 
 ```
 # function invoke_story_creation_batch($1 = batch_context)
-# Invokes devforgeai-story-creation skill in batch mode
+# Invokes spec-driven-stories skill in batch mode
 # Skips Phase 1 questions, executes Phases 2-7
 
 # Set context markers for skill
@@ -111,7 +111,7 @@ $SOURCE_RECOMMENDATION = batch_context.source_recommendation
 #   Phase 6: Story File Creation
 #   Phase 7: Validation
 
-Skill(command="devforgeai-story-creation", args="--batch")
+Skill(command="spec-driven-stories", args="--batch")
 
 # Skill returns story creation result
 RETURN skill_result
@@ -185,7 +185,7 @@ Display: "Batch creation complete."
 #    - Log: "Validation failed: {reason}"
 #    - Action: Add to failed_stories, continue to next
 #
-# 2. Skill Invocation Error: devforgeai-story-creation fails
+# 2. Skill Invocation Error: spec-driven-stories fails
 #    - Log: "Skill error: {message}"
 #    - Action: Add to failed_stories, continue to next
 #

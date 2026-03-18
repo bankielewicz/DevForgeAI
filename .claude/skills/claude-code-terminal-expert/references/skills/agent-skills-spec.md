@@ -66,7 +66,7 @@ model: claude-opus-4-6   # Preferred model for this skill
 name: code-reviewer
 name: test-automator
 name: claude-code-terminal-expert
-name: implementing-stories
+name: spec-driven-dev
 ```
 
 **Invalid Examples:**
@@ -522,7 +522,7 @@ Expert code review with security, performance, and maintainability analysis.
 
 ```yaml
 ---
-name: devforgeai-qa
+name: spec-driven-qa
 description: |
   Quality assurance validation skill. Use when validating story implementations,
   running QA checks, verifying test coverage, or checking for anti-patterns.

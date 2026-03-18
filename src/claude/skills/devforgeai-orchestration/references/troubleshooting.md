@@ -543,7 +543,7 @@ Fix:
 4. Ensure all dependencies available
 ```
 
-**Reference:** See devforgeai-release skill documentation
+**Reference:** See spec-driven-release skill documentation
 
 ---
 

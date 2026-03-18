@@ -34,7 +34,7 @@ Validate system designs against SOLID, DRY, KISS principles. Recommend appropria
 - "Assess scalability of [design]"
 
 **Automatic:**
-- designing-systems skill after context file creation
+- spec-driven-architecture skill after context file creation
 - When ADRs written but not yet validated
 
 ---
@@ -529,12 +529,12 @@ Example: Task queues, user actions
 ## Integration
 
 **Works with:**
-- designing-systems: Validates architecture decisions and context files
+- spec-driven-architecture: Validates architecture decisions and context files
 - security-auditor: Focuses on architectural security concerns
 - deployment-engineer: Validates deployment architecture
 
 **Invoked by:**
-- designing-systems (after ADR creation)
+- spec-driven-architecture (after ADR creation)
 - devforgeai-orchestration (during technical design review)
 
 **Invokes:**
@@ -571,7 +571,7 @@ Example: Task queues, user actions
 - Cloud Design Patterns (Azure/AWS)
 
 **Framework Integration:**
-- designing-systems skill
+- spec-driven-architecture skill
 
 **Related Subagents:**
 - security-auditor (security architecture)

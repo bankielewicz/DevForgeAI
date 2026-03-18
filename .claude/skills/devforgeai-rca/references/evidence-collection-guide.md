@@ -114,7 +114,7 @@ Read(file_path=".claude/commands/{command}.md")
 **Example: Context file validation missing**
 
 ```
-1. Read implementing-stories SKILL.md
+1. Read spec-driven-dev SKILL.md
 2. Find Phase 0 section (pre-flight validation)
 3. Scan Phase 0 for "context" keyword
 4. Find: No mention of context file validation
@@ -124,7 +124,7 @@ Read(file_path=".claude/commands/{command}.md")
 
 **Evidence to Record:**
 ```
-File: .claude/skills/implementing-stories/SKILL.md
+File: .claude/skills/spec-driven-dev/SKILL.md
 Lines: 50-200 (Phase 0: Pre-Flight Validation)
 Finding: No context file validation step
 Excerpt: [Phase 0 section with missing step highlighted]
@@ -572,7 +572,7 @@ Read(file_path=".claude/skills/devforgeai-rca/assets/evidence-section-template.m
 
 **Files Examined:**
 
-**.claude/skills/implementing-stories/SKILL.md**
+**.claude/skills/spec-driven-dev/SKILL.md**
 - **Lines examined:** 50-200 (Phase 0: Pre-Flight Validation)
 - **Finding:** Phase 0 has Git validation and tech detection, but no context file check
 - **Excerpt:**

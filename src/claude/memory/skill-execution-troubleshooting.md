@@ -225,7 +225,7 @@ Skill(command="devforgeai-orchestration")
 3. Invoke spec-driven-dev skill (if needed)
 4. Invoke spec-driven-qa skill (if needed)
 5. Handle QA retry loop (if QA fails)
-6. Invoke devforgeai-release skill (staging, production)
+6. Invoke spec-driven-release skill (staging, production)
 7. Display orchestration completion report
 
 **❌ Incorrect action:**
@@ -580,11 +580,11 @@ If done much faster, verify you didn't skip phases.
 | spec-driven-dev | 8 reference files | HIGH (RCA-009, RCA-011) |
 | spec-driven-qa | 19 reference files | HIGH (RCA-016) |
 | devforgeai-orchestration | 4 reference files | MEDIUM |
-| devforgeai-release | 5 reference files | MEDIUM |
+| spec-driven-release | 5 reference files | MEDIUM |
 | spec-driven-architecture | 6 reference files | MEDIUM |
 | spec-driven-ideation | 16 reference files | MEDIUM |
-| devforgeai-story-creation | 6 reference files | MEDIUM |
-| devforgeai-documentation | 7 reference files | LOW |
+| spec-driven-stories | 6 reference files | MEDIUM |
+| spec-driven-documentation | 11 reference files + 21 phase files | MEDIUM |
 
 **High-risk indicators:**
 - More reference files = more phases to potentially skip

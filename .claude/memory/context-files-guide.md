@@ -6,7 +6,7 @@ Complete guide to the 6 immutable context files that define architectural bounda
 
 ## Overview
 
-Context files are **immutable constraints** created by the `designing-systems` skill that prevent technical debt by enforcing architectural decisions.
+Context files are **immutable constraints** created by the `spec-driven-architecture` skill that prevent technical debt by enforcing architectural decisions.
 
 **Location:** `devforgeai/specs/context/`
 
@@ -216,9 +216,9 @@ src/
 
 ### Creation
 
-Context files are created by `designing-systems` skill:
+Context files are created by `spec-driven-architecture` skill:
 ```
-Skill(command="designing-systems")
+Skill(command="spec-driven-architecture")
 ```
 
 Or via slash command:
@@ -229,7 +229,7 @@ Or via slash command:
 ### Validation
 
 All 6 context files must exist before development begins. Validated by:
-- `implementing-stories` skill (checks before TDD)
+- `spec-driven-dev` skill (checks before TDD)
 - `context-validator` subagent (fast validation)
 - Quality gates (blocks progression if missing)
 

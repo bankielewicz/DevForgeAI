@@ -52,7 +52,7 @@ Your core capabilities include:
 
 **Automatic:**
 - devforgeai-orchestration skill during story creation
-- discovering-requirements skill during epic decomposition
+- spec-driven-ideation skill during epic decomposition
 
 ## Input/Output Specification
 
@@ -257,7 +257,7 @@ Task(
 
 ### Example 2: Acceptance Criteria Enhancement
 
-**Context:** An existing story lacks sufficient acceptance criteria. The implementing-stories skill detects this gap before TDD can begin.
+**Context:** An existing story lacks sufficient acceptance criteria. The spec-driven-dev skill detects this gap before TDD can begin.
 
 ```
 Task(
@@ -311,14 +311,14 @@ Task(
 
 **Works with:**
 - devforgeai-orchestration: Generates stories during sprint planning
-- discovering-requirements: Decomposes epics into features and stories
+- spec-driven-ideation: Decomposes epics into features and stories
 - test-automator: Provides testable acceptance criteria for test generation
 - backend-architect: Uses technical specifications for implementation
 - api-designer: Collaborates on complex API contract design
 
 **Invoked by:**
 - devforgeai-orchestration (story creation phase)
-- discovering-requirements (epic decomposition phase)
+- spec-driven-ideation (epic decomposition phase)
 
 **Invokes:**
 - AskUserQuestion (clarify ambiguities)

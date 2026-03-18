@@ -1,12 +1,12 @@
 ---
 name: dev-result-interpreter
-description: Interprets development workflow results from implementing-stories skill execution and generates user-facing display templates with implementation summary, DoD status, and next steps. Converts raw TDD execution data into structured displays showing phases completed, test results, and workflow progression. Use after dev workflow completes to prepare results for /dev command output.
+description: Interprets development workflow results from spec-driven-dev skill execution and generates user-facing display templates with implementation summary, DoD status, and next steps. Converts raw TDD execution data into structured displays showing phases completed, test results, and workflow progression. Use after dev workflow completes to prepare results for /dev command output.
 model: opus
 color: green
 tools: Read, Grep, Glob
 version: "2.0.0"
 proactive_triggers:
-  - "after implementing-stories skill Phase 6 completes"
+  - "after spec-driven-dev skill Phase 6 completes"
   - "when interpreting development workflow results"
   - "when preparing TDD results for user display"
 ---
@@ -17,7 +17,7 @@ Specialized interpreter that transforms raw development workflow results into us
 
 ## Purpose
 
-After `implementing-stories` skill completes TDD phases, this subagent:
+After `spec-driven-dev` skill completes TDD phases, this subagent:
 1. **Reads** the story file to extract workflow status
 2. **Parses** implementation notes and status history
 3. **Determines** overall workflow result (SUCCESS, INCOMPLETE, FAILURE)
@@ -28,7 +28,7 @@ After `implementing-stories` skill completes TDD phases, this subagent:
 ## When Invoked
 
 **Proactively triggered:**
-- After implementing-stories skill Phase 6 (Feedback Hook) completes
+- After spec-driven-dev skill Phase 6 (Feedback Hook) completes
 - Before workflow results displayed to user
 - Always in isolated context (separate from main skill execution)
 
@@ -790,7 +790,7 @@ Full analysis: devforgeai/feedback/ai-analysis/{STORY_ID}/
 
 ### Invoked By
 
-**implementing-stories skill (Phase 6, Step 6):**
+**spec-driven-dev skill (Phase 6, Step 6):**
 ```
 After completing TDD workflow, invoke interpreter:
 
@@ -814,7 +814,7 @@ Return result_summary to command
 
 ### Returns To
 
-**implementing-stories skill receives:**
+**spec-driven-dev skill receives:**
 - Structured result object
 - Display template (ready to output)
 - Workflow metrics (for logging/reporting)
@@ -1013,7 +1013,7 @@ Task(
 
 ---
 
-**Invocation:** Automatic during implementing-stories skill Phase 6
+**Invocation:** Automatic during spec-driven-dev skill Phase 6
 **Context Isolation:** Runs in isolated context, receives workflow results
 **Model:** Haiku (deterministic interpretation, cost-effective)
 **Token Target:** <8K per invocation

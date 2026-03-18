@@ -621,7 +621,7 @@ Benefit: Coordinate feature launch, marketing messaging, customer support
 
 **Related Skills:**
 - **devforgeai-orchestration:** Sprint planning coordination
-- **implementing-stories:** Story implementation (after sprint assignment)
+- **spec-driven-dev:** Story implementation (after sprint assignment)
 - **requirements-analyst subagent:** Story decomposition and refinement
 
 ---

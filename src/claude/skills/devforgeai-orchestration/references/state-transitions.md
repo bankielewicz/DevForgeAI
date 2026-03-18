@@ -759,7 +759,7 @@ PASS: Ready for release
    """
 
 3. Invoke release skill:
-   Skill(command="devforgeai-release --story={story_id}")
+   Skill(command="spec-driven-release --story={story_id}")
 
 4. Report:
    "🚀 Starting release to production..."
@@ -775,7 +775,7 @@ PASS: Ready for release
 ### Transition 9: Releasing → Released
 
 **Trigger:**
-- devforgeai-release skill completes successfully
+- spec-driven-release skill completes successfully
 - Deployment verified
 
 **Pre-conditions:**

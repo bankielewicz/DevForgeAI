@@ -528,7 +528,7 @@ grep -A 10 "## Suggestions for Next Time" sessions/*.md > suggestions.txt
 - No examples provided
 
 **Solutions:**
-1. Enhance devforgeai-story-creation with edge case checklist
+1. Enhance spec-driven-stories with edge case checklist
 2. Add requirement: All ACs must have 1+ example
 3. Story template includes "Example Scenario" section
 

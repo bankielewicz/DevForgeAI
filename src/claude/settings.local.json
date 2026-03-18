@@ -37,7 +37,7 @@
       "Bash(done)",
       "Bash(tee:*)",
       "Bash(xargs python3:*)",
-      "Skill(devforgeai-story-creation)",
+      "Skill(spec-driven-stories)",
       "Bash(mkdir:*)",
       "Skill(devforgeai-rca)",
       "Bash(/mnt/c/Projects/DevForgeAI2/tests/user-input-guidance/scripts/test-story-creation-without-guidance.sh:*)",

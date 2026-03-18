@@ -5,7 +5,7 @@ tools: [Read, Write, Edit, "Bash(kubectl:*)", "Bash(docker:*)", "Bash(terraform:
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-release
+skills: spec-driven-release
 version: "2.0.0"
 ---
 
@@ -39,8 +39,8 @@ Your core capabilities include:
 - "Set up CI/CD pipeline for [project]"
 
 **Automatic:**
-- devforgeai-release skill during Phase 1 (Pre-Release Validation)
-- devforgeai-release skill during Phase 2 (Staging Deployment)
+- spec-driven-release skill during Phase 1 (Pre-Release Validation)
+- spec-driven-release skill during Phase 2 (Staging Deployment)
 
 ---
 
@@ -261,12 +261,12 @@ Load references on-demand based on scenario:
 ## Integration
 
 **Works with:**
-- devforgeai-release: Provides deployment configs and executes deployments
+- spec-driven-release: Provides deployment configs and executes deployments
 - backend-architect: Understands service requirements for infrastructure sizing
 - security-auditor: Ensures secure deployment configurations
 
 **Invoked by:**
-- devforgeai-release (Phase 1, Phase 2, Phase 3)
+- spec-driven-release (Phase 1, Phase 2, Phase 3)
 - devforgeai-orchestration (when deployment config updates needed)
 
 ---

@@ -18,7 +18,7 @@ Quick reference for diagnosing and recovering from skill execution errors.
 
 When you see:
 ```
-<command-message>The "implementing-stories" skill is running</command-message>
+<command-message>The "spec-driven-dev" skill is running</command-message>
 ```
 
 **This means:**
@@ -42,7 +42,7 @@ Immediately after skill invocation:
 
 **Action required:** Run the Phase 0 instructions now
 
-Example from implementing-stories skill:
+Example from spec-driven-dev skill:
 ```
 Phase 0: Pre-Flight Validation
 Step 1: Validate Git status
@@ -167,16 +167,16 @@ Skill invocation → Load instructions → Execute instructions → Display your
 
 **Command executes:**
 ```
-Skill(command="implementing-stories")
+Skill(command="spec-driven-dev")
 ```
 
 **System message appears:**
 ```
-<command-message>The "implementing-stories" skill is running</command-message>
+<command-message>The "spec-driven-dev" skill is running</command-message>
 ```
 
 **✅ Correct action:**
-1. Read implementing-stories skill's Phase 0
+1. Read spec-driven-dev skill's Phase 0
 2. Execute Phase 0 Step 1 (git-validator subagent)
 3. Execute Phase 0 Step 2 (adapt workflow)
 4. Continue through all Phase 0 steps
@@ -194,11 +194,11 @@ Skill(command="implementing-stories")
 
 **Command executes:**
 ```
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 ```
 
 **✅ Correct action:**
-1. Read devforgeai-qa skill's Phase 0
+1. Read spec-driven-qa skill's Phase 0
 2. Execute validation mode detection
 3. Execute story loading
 4. Execute context validation
@@ -222,10 +222,10 @@ Skill(command="devforgeai-orchestration")
 **✅ Correct action:**
 1. Read orchestration skill's Phase 0
 2. Execute checkpoint detection
-3. Invoke implementing-stories skill (if needed)
-4. Invoke devforgeai-qa skill (if needed)
+3. Invoke spec-driven-dev skill (if needed)
+4. Invoke spec-driven-qa skill (if needed)
 5. Handle QA retry loop (if QA fails)
-6. Invoke devforgeai-release skill (staging, production)
+6. Invoke spec-driven-release skill (staging, production)
 7. Display orchestration completion report
 
 **❌ Incorrect action:**
@@ -289,15 +289,15 @@ Skill(command="devforgeai-orchestration")
 
 ## Testing Your Understanding
 
-**Question 1:** After `Skill(command="implementing-stories")`, what should you do?
+**Question 1:** After `Skill(command="spec-driven-dev")`, what should you do?
 
-**✅ Correct answer:** Read the implementing-stories skill's Phase 0 instructions and begin executing them immediately.
+**✅ Correct answer:** Read the spec-driven-dev skill's Phase 0 instructions and begin executing them immediately.
 
 **❌ Incorrect answer:** Wait for the skill to complete and monitor progress.
 
 ---
 
-**Question 2:** What does the system message "The 'devforgeai-qa' skill is running" mean?
+**Question 2:** What does the system message "The 'spec-driven-qa' skill is running" mean?
 
 **✅ Correct answer:** The skill's SKILL.md content has been loaded into my conversation, and I must now execute its instructions.
 
@@ -330,13 +330,13 @@ Skill(command="devforgeai-orchestration")
 - `.claude/memory/skills-reference.md` - Skills overview with execution model
 
 **Skills documentation:**
-- `.claude/skills/implementing-stories/SKILL.md` - Development workflow
-- `.claude/skills/devforgeai-qa/SKILL.md` - QA validation workflow
+- `.claude/skills/spec-driven-dev/SKILL.md` - Development workflow
+- `.claude/skills/spec-driven-qa/SKILL.md` - QA validation workflow
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration workflow
 
 **Commands documentation:**
-- `.claude/commands/dev.md` - /dev command (invokes implementing-stories skill)
-- `.claude/commands/qa.md` - /qa command (invokes devforgeai-qa skill)
+- `.claude/commands/dev.md` - /dev command (invokes spec-driven-dev skill)
+- `.claude/commands/qa.md` - /qa command (invokes spec-driven-qa skill)
 - `.claude/commands/orchestrate.md` - /orchestrate command (invokes orchestration skill)
 
 ---
@@ -465,11 +465,11 @@ Skipped phases:
 #### Step 3: Load Missing Reference Files
 
 ```
-Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
-Read(file_path=".claude/skills/devforgeai-qa/references/story-update-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/spec-compliance-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/code-quality-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/feedback-hooks-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/story-update-workflow.md")
 ```
 
 #### Step 4: Execute Skipped Phases
@@ -520,7 +520,7 @@ Example:
 **⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
 
 **Step 2.0: Load Workflow Reference (REQUIRED)**
-Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+Read(file_path=".claude/skills/spec-driven-qa/references/anti-pattern-detection-workflow.md")
 ```
 
 **If you see a CHECKPOINT:** You MUST load the reference file. No exceptions.
@@ -577,14 +577,14 @@ If done much faster, verify you didn't skip phases.
 
 | Skill | Reference Files | Risk Level |
 |-------|-----------------|------------|
-| implementing-stories | 8 reference files | HIGH (RCA-009, RCA-011) |
-| devforgeai-qa | 19 reference files | HIGH (RCA-016) |
+| spec-driven-dev | 8 reference files | HIGH (RCA-009, RCA-011) |
+| spec-driven-qa | 19 reference files | HIGH (RCA-016) |
 | devforgeai-orchestration | 4 reference files | MEDIUM |
-| devforgeai-release | 5 reference files | MEDIUM |
-| designing-systems | 6 reference files | MEDIUM |
-| discovering-requirements | 16 reference files | MEDIUM |
-| devforgeai-story-creation | 6 reference files | MEDIUM |
-| devforgeai-documentation | 7 reference files | LOW |
+| spec-driven-release | 5 reference files | MEDIUM |
+| spec-driven-architecture | 6 reference files | MEDIUM |
+| spec-driven-ideation | 16 reference files | MEDIUM |
+| spec-driven-stories | 6 reference files | MEDIUM |
+| spec-driven-documentation | 11 reference files + 21 phase files | MEDIUM |
 
 **High-risk indicators:**
 - More reference files = more phases to potentially skip
@@ -596,19 +596,19 @@ If done much faster, verify you didn't skip phases.
 ### Related RCAs
 
 **RCA-009: Incomplete Skill Workflow Execution (2025-11-14)**
-- Skill: implementing-stories
+- Skill: spec-driven-dev
 - Symptom: Skipped Tech Spec Coverage step in Phase 2
 - Root cause: Progressive disclosure - reference file not loaded
 - Status: Partially resolved
 
 **RCA-011: Mandatory TDD Phase Skipping (2025-11-19)**
-- Skill: implementing-stories
+- Skill: spec-driven-dev
 - Symptom: Skipped mandatory TDD phases
 - Root cause: Same as RCA-009 - progressive disclosure ambiguity
 - Status: Recommendations pending
 
 **RCA-016: QA Skill Phase Skipping During Deep Validation (2025-12-01)**
-- Skill: devforgeai-qa
+- Skill: spec-driven-qa
 - Symptom: Skipped 5 phases (2, 3, 4, 6, 7), jumped from Phase 1 to Phase 5
 - Root cause: Same pattern - reference files not loaded
 - Status: REC-1 COMPLETE, REC-2 COMPLETE, REC-3 COMPLETE

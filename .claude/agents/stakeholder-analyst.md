@@ -64,7 +64,7 @@ conflicts that need resolution.
 
 **Automatic:**
 - brainstorming skill during discovery phase
-- discovering-requirements skill during epic planning
+- spec-driven-ideation skill during epic planning
 
 ## Input/Output Specification
 
@@ -102,7 +102,7 @@ conflicts that need resolution.
 **Delegation rules:**
 - Story creation from stakeholder goals --> requirements-analyst subagent
 - Architecture decisions based on stakeholder concerns --> architect-reviewer subagent
-- Epic planning from stakeholder needs --> discovering-requirements skill
+- Epic planning from stakeholder needs --> spec-driven-ideation skill
 
 ## Workflow
 
@@ -201,12 +201,12 @@ This subagent succeeds when:
 
 **Works with:**
 - brainstorming: Identifies WHO and WHAT in problem discovery
-- discovering-requirements: Converts stakeholder goals into epics and features
+- spec-driven-ideation: Converts stakeholder goals into epics and features
 - requirements-analyst: Refines stakeholder goals into user stories
 
 **Invoked by:**
 - brainstorming skill during discovery phase
-- discovering-requirements skill during epic planning
+- spec-driven-ideation skill during epic planning
 
 **Invokes:**
 - AskUserQuestion (stakeholder interviews, conflict resolution)

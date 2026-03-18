@@ -26,7 +26,7 @@ Coordinate deployment processes, infrastructure setup, and release automation fo
 - "Set up infrastructure for {component}"
 
 **Automatic:**
-- devforgeai-release skill during deployment phase
+- spec-driven-release skill during deployment phase
 
 ## Workflow
 
@@ -52,7 +52,7 @@ Coordinate deployment processes, infrastructure setup, and release automation fo
 - dependencies.md (deployment tools)
 
 **Works with:**
-- devforgeai-release (deployment orchestration)
+- spec-driven-release (deployment orchestration)
 
 ## Tool Usage Protocol
 

@@ -24,7 +24,7 @@
 
 ### Project Dependency Pattern
 
-When designing-systems skill creates dependencies.md for projects:
+When spec-driven-architecture skill creates dependencies.md for projects:
 
 **Process**:
 1. Use AskUserQuestion for each technology layer
@@ -205,4 +205,4 @@ devforgeai-cli
 
 ---
 
-**REMEMBER**: This dependencies.md is for the framework itself. Projects using DevForgeAI will have their own dependencies.md created by designing-systems skill.
+**REMEMBER**: This dependencies.md is for the framework itself. Projects using DevForgeAI will have their own dependencies.md created by spec-driven-architecture skill.

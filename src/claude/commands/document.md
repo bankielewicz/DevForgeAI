@@ -126,13 +126,13 @@ IF AUDIT_FIX == true:
 **Finding Filter:** ${FINDING_FILTER}
 
 ```
-Skill(command="devforgeai-documentation")
+Skill(command="spec-driven-documentation")
 ```
 
 **Skill handles ALL workflow:**
-- If AUDIT_MODE set → Phase A (audit scoring, findings generation)
-- If AUDIT_FIX set → Phase B (fix classification, execution, verification)
-- Otherwise → Phases 0-7 (existing generation workflow)
+- If AUDIT_MODE set → Audit workflow (Phases 01, 02, A03-A07)
+- If AUDIT_FIX set → Fix workflow (Phases 01, 02, F03-F08)
+- Otherwise → Generation workflow (Phases 01, 02, G03-G10)
 
 ---
 
@@ -153,10 +153,10 @@ Skill(command="devforgeai-documentation")
 
 ## References
 
-- Skill: `.claude/skills/devforgeai-documentation/SKILL.md`
-- Help: `.claude/skills/devforgeai-documentation/references/document-help.md`
-- Audit workflow: `.claude/skills/devforgeai-documentation/references/audit-workflow.md`
-- Fix catalog: `.claude/skills/devforgeai-documentation/references/audit-fix-catalog.md`
+- Skill: `.claude/skills/spec-driven-documentation/SKILL.md`
+- Help: `.claude/skills/spec-driven-documentation/references/document-help.md`
+- Audit workflow: `.claude/skills/spec-driven-documentation/references/audit-workflow.md`
+- Fix catalog: `.claude/skills/spec-driven-documentation/references/audit-fix-catalog.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**

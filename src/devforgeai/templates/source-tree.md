@@ -83,7 +83,7 @@ DevForgeAI2/
 │   │   │   └── assets/                           # EPIC-048 - Template storage
 │   │   │       └── templates/
 │   │   │           └── technical-debt-register-template.md  # v2.0 YAML frontmatter template (STORY-285)
-│   │   ├── devforgeai-story-creation/
+│   │   ├── spec-driven-stories/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── requirements-analysis.md

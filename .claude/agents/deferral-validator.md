@@ -42,8 +42,8 @@ Your core capabilities include:
 - "Verify deferred DoD items"
 
 **Automatic:**
-- implementing-stories skill Phase 6, Step 1.5 (before git commit)
-- devforgeai-qa skill Phase 0, Step 3 (during deferral validation)
+- spec-driven-dev skill Phase 6, Step 1.5 (before git commit)
+- spec-driven-qa skill Phase 0, Step 3 (during deferral validation)
 
 ## Input/Output Specification
 
@@ -153,7 +153,7 @@ Your core capabilities include:
 
 ### Example 1: Development Phase Validation
 
-**Context:** During implementing-stories Phase 6, Step 1.5.
+**Context:** During spec-driven-dev Phase 6, Step 1.5.
 
 ```
 Task(
@@ -169,7 +169,7 @@ Task(
 
 ### Example 2: QA Phase Validation
 
-**Context:** During devforgeai-qa Phase 0, Step 3.
+**Context:** During spec-driven-qa Phase 0, Step 3.
 
 ```
 Task(
@@ -197,5 +197,5 @@ Task(
 ## References
 
 - RCA-007: Multi-level deferral chain detection
-- implementing-stories skill Phase 6 integration
-- devforgeai-qa skill Phase 0 integration
+- spec-driven-dev skill Phase 6 integration
+- spec-driven-qa skill Phase 0 integration

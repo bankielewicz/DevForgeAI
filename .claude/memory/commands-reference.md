@@ -165,11 +165,11 @@ DevForgeAI provides **46 slash commands** organized into **11 categories**:
 
 **Purpose:** Transform business idea into structured requirements
 
-**Invokes:** `discovering-requirements` skill
+**Invokes:** `spec-driven-ideation` skill
 
 **Workflow:**
 1. Argument validation (capture business idea)
-2. Invoke discovering-requirements skill (6-phase discovery)
+2. Invoke spec-driven-ideation skill (6-phase discovery)
 3. Verify artifacts created
 4. Brief completion confirmation
 5. Next steps guidance
@@ -188,11 +188,11 @@ DevForgeAI provides **46 slash commands** organized into **11 categories**:
 
 **For effective ideation input:** Business ideas should describe the problem being solved, target market, and expected benefits. Avoid vague statements like "build an app" - instead, provide specific context.
 
-**File:** `.claude/skills/discovering-requirements/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-ideation/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/discovering-requirements/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ideation/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -215,7 +215,7 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 - Brief completion confirmation
 - Next steps guidance (defers to skill)
 
-**Skill (discovering-requirements - Comprehensive Discovery):**
+**Skill (spec-driven-ideation - Comprehensive Discovery):**
 - Phase 1-5: Complete 6-phase discovery workflow
 - Phase 6.1-6.3: Artifact generation and architecture transition
 - Phase 6.4: Self-Validation (NEW - validates all artifacts)
@@ -240,7 +240,7 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 
 **Purpose:** Generate 6 architectural context files
 
-**Invokes:** `designing-systems` skill
+**Invokes:** `spec-driven-architecture` skill
 
 **Workflow:**
 1. Interactive technology selection (via AskUserQuestion)
@@ -257,11 +257,11 @@ Read(file_path=".claude/skills/discovering-requirements/references/user-input-gu
 
 **For architecture setup:** Context creation is interactive and skill-driven. Provide the project name and be ready to answer questions about technology choices, architecture patterns, and project scope.
 
-**File:** `.claude/skills/designing-systems/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-architecture/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/designing-systems/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -452,7 +452,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **Purpose:** Generate user story with acceptance criteria, technical specifications, and UI specifications
 
-**Invokes:** `devforgeai-story-creation` skill
+**Invokes:** `spec-driven-stories` skill
 
 **Modes:**
 - **Single Story Mode:** `/create-story [feature-description]` - Create one story from description
@@ -460,7 +460,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **Workflow (Single Story):**
 1. Argument validation (capture feature description)
-2. Invoke devforgeai-story-creation skill (8-phase workflow)
+2. Invoke spec-driven-stories skill (8-phase workflow)
 3. Verify story file created
 4. Brief confirmation
 5. Next steps guidance
@@ -533,7 +533,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 - Phase 4: Brief completion confirmation
 - Phase 5: Next steps guidance (simplified)
 
-**Skill (devforgeai-story-creation - Complete Story Generation):**
+**Skill (spec-driven-stories - Complete Story Generation):**
 - Phase 1: Story Discovery (ID generation, epic/sprint context, metadata via AskUserQuestion)
 - Phase 2: Requirements Analysis (requirements-analyst subagent, AC generation, validation)
 - Phase 3: Technical Specification (api-designer subagent, data models, business rules, dependencies)
@@ -773,11 +773,11 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-gui
 
 **Purpose:** Execute TDD development cycle (Red→Green→Refactor)
 
-**Invokes:** `implementing-stories` skill
+**Invokes:** `spec-driven-dev` skill
 
 **Workflow:**
 1. **Phase 0:** Argument validation (story ID format, file exists, status check)
-2. **Phase 1:** Set context markers and invoke `implementing-stories` skill
+2. **Phase 1:** Set context markers and invoke `spec-driven-dev` skill
 3. **Phase 2:** Verify completion (skill updated story status)
 4. **Phase 3:** Report results (success/incomplete/failure)
 
@@ -824,7 +824,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - Skill invocation
 - Results reporting
 
-**Skill (implementing-stories - Comprehensive Implementation):**
+**Skill (spec-driven-dev - Comprehensive Implementation):**
 - Phase 0: Pre-Flight Validation
   - git-validator subagent
   - tech-stack-detector subagent
@@ -852,7 +852,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 
 **Purpose:** Generate and maintain project documentation automatically
 
-**Invokes:** `devforgeai-documentation` skill
+**Invokes:** `spec-driven-documentation` skill
 
 **Modes:**
 - **Greenfield**: Generate docs from completed stories
@@ -969,7 +969,7 @@ Run `/dev STORY-057` to continue development
 - Mode: `deep` or `light` (no -- prefix)
 - Default: Inferred from story status (deep if Dev Complete, light if In Development)
 
-**Invokes:** `devforgeai-qa` skill
+**Invokes:** `spec-driven-qa` skill
 
 **Modes:**
 - **Light (~10K tokens)**: Build/syntax checks, test execution, quick anti-pattern scan
@@ -977,7 +977,7 @@ Run `/dev STORY-057` to continue development
 
 **Workflow:**
 1. Argument validation and story loading
-2. Invoke devforgeai-qa skill
+2. Invoke spec-driven-qa skill
 3. Display results (from qa-result-interpreter subagent)
 4. Update story file (deep mode pass only - Phase 4)
 5. Provide next steps
@@ -996,7 +996,7 @@ Run `/dev STORY-057` to continue development
   - Updates YAML frontmatter timestamp
   - Error handling for file write failures
 
-**Skill (devforgeai-qa - Comprehensive Validation):**
+**Skill (spec-driven-qa - Comprehensive Validation):**
 - Phase 0-4: All validation phases (unchanged)
 - Phase 5: Generate QA report + invoke qa-result-interpreter subagent
   - qa-result-interpreter parses report and generates display template
@@ -1049,7 +1049,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - **Phase 4 Enhancement 2025-11-06**: Automatic story file updates on deep mode pass
   - Closes workflow gap identified in RCA (story status not updated after QA)
   - Maintains lean orchestration pattern (73% of 15K budget)
-  - Post-skill orchestration (no bypass of devforgeai-qa skill)
+  - Post-skill orchestration (no bypass of spec-driven-qa skill)
 
 ---
 
@@ -1061,7 +1061,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - Environment: `staging` or `production` (no -- prefix)
 - Default: `staging` if not specified
 
-**Invokes:** `devforgeai-release` skill
+**Invokes:** `spec-driven-release` skill
 
 **Workflow:**
 1. Pre-release validation (QA approved)
@@ -1111,11 +1111,11 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 
 **Workflow:**
 1. Story validation & checkpoint detection
-2. Development phase (invokes implementing-stories)
-3. QA validation (invokes devforgeai-qa)
+2. Development phase (invokes spec-driven-dev)
+3. QA validation (invokes spec-driven-qa)
 4. **Phase 3.5: QA Failure Handling** (NEW - RCA-006) - Retry loop with max 3 attempts
-5. Staging release (invokes devforgeai-release --env=staging)
-6. Production release (invokes devforgeai-release --env=production)
+5. Staging release (invokes spec-driven-release --env=staging)
+6. Production release (invokes spec-driven-release --env=production)
 7. Workflow history finalization
 
 **Checkpoint Recovery:**
@@ -1224,7 +1224,7 @@ $3 = Third argument (if needed)
 
 **Skill invocations with arguments:**
 ```
-Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
+Skill(command="spec-driven-qa --mode=deep")  ❌ Wrong (Skills don't accept parameters)
 ```
 
 ### Correct Parameter Passing to Skills
@@ -1240,7 +1240,7 @@ Skill(command="devforgeai-qa --mode=deep")  ❌ Wrong (Skills don't accept param
 **Environment:** staging
 
 # Step 3: Invoke skill WITHOUT arguments
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 # Skill extracts parameters from conversation context
 ```
@@ -1434,7 +1434,7 @@ This command exemplifies lean orchestration for simple tasks:
 
 **Example:**
 ```bash
-/rca "implementing-stories didn't validate context files" CRITICAL
+/rca "spec-driven-dev didn't validate context files" CRITICAL
 /rca "QA skill accepted pre-existing deferrals without challenge" HIGH
 /rca "orchestration skipped checkpoint detection"
 /rca "/dev command contains business logic"
@@ -1502,7 +1502,7 @@ This command exemplifies lean orchestration for simple tasks:
 - RCA-NNN: RCA document ID (case-insensitive, e.g., RCA-022 or rca-022)
 - --threshold: Optional. Filter recommendations with effort >= N hours
 
-**Invokes:** `devforgeai-story-creation` skill (batch mode)
+**Invokes:** `spec-driven-stories` skill (batch mode)
 
 **Workflow:**
 1. Parse RCA document and extract recommendations (STORY-155)
@@ -1664,10 +1664,10 @@ This command exemplifies lean orchestration for simple tasks:
 
 **Examples:**
 ```bash
-/prompt-version capture .claude/skills/implementing-stories/SKILL.md --reason "Adding phase markers"
-/prompt-version finalize .claude/skills/implementing-stories/SKILL.md
-/prompt-version rollback .claude/skills/implementing-stories/SKILL.md --version previous
-/prompt-version history .claude/skills/implementing-stories/SKILL.md
+/prompt-version capture .claude/skills/spec-driven-dev/SKILL.md --reason "Adding phase markers"
+/prompt-version finalize .claude/skills/spec-driven-dev/SKILL.md
+/prompt-version rollback .claude/skills/spec-driven-dev/SKILL.md --version previous
+/prompt-version history .claude/skills/spec-driven-dev/SKILL.md
 ```
 
 **Output:**
@@ -1757,6 +1757,7 @@ Session 1:
 
 **By Project:**
 - Current: `/mnt/c/Projects/DevForgeAI2`
+- Other: `/mnt/c/Projects/SQLServer`
 - All: Show all projects
 
 **By Time Range:**
@@ -1984,7 +1985,7 @@ tags: [tag1, tag2]
 
 **Purpose:** Resume TDD workflow from specific phase when previous `/dev` was incomplete
 
-**Invokes:** `implementing-stories` skill with phase override
+**Invokes:** `spec-driven-dev` skill with phase override
 
 **Example:**
 ```bash
@@ -2058,7 +2059,7 @@ tags: [tag1, tag2]
 
 **Purpose:** Create stories for all detected coverage gaps in an epic
 
-**Invokes:** `devforgeai-story-creation` skill (batch mode)
+**Invokes:** `spec-driven-stories` skill (batch mode)
 
 **Example:**
 ```bash
@@ -2210,9 +2211,9 @@ Commands integrate with skills using the Skill tool:
 
 <example>
 ```
-Skill(command="implementing-stories --story=STORY-001")
-Skill(command="devforgeai-qa --mode=deep --story=STORY-001")
-Skill(command="devforgeai-release --story=STORY-001")
+Skill(command="spec-driven-dev --story=STORY-001")
+Skill(command="spec-driven-qa --mode=deep --story=STORY-001")
+Skill(command="spec-driven-release --story=STORY-001")
 ```
 </example>
 

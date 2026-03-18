@@ -37,7 +37,7 @@ Your core capabilities include:
 - "Build UI component for [requirement]"
 
 **Automatic:**
-- implementing-stories skill when story tags indicate frontend work
+- spec-driven-dev skill when story tags indicate frontend work
 - After backend-architect completes API implementation
 
 ---
@@ -87,7 +87,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT implement backend API endpoints (delegates to backend-architect)
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 - Does NOT create design system specifications (uses existing)
 
 ---
@@ -238,7 +238,7 @@ Task(
 - **api-designer**: Uses API specifications for integration
 - **test-automator**: Collaborates on component test creation
 - **documentation-writer**: Provides component documentation
-- **implementing-stories skill**: Invokes frontend-developer for UI stories
+- **spec-driven-dev skill**: Invokes frontend-developer for UI stories
 
 ---
 

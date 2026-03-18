@@ -28,7 +28,7 @@ IF $CREATE_STORIES == true:
         story_epic = $EPIC_ID or null
 
         # Invoke story creation in batch mode
-        Skill(command="devforgeai-story-creation", args="--batch")
+        Skill(command="spec-driven-stories", args="--batch")
 
         # Track created story ID
         $CREATED_STORIES.append({

@@ -18,7 +18,7 @@ Technology and architecture recommendations MUST cite authoritative sources to e
 
 ### 2. Memory File Citations
 **Format:** `(Source: {relative-path}, section {section-identifier})`
-**Example:** The /dev command uses TDD workflow (Source: .claude/memory/skills-reference.md, section implementing-stories)
+**Example:** The /dev command uses TDD workflow (Source: .claude/memory/skills-reference.md, section spec-driven-dev)
 **Rules:** Section identifier matches actual heading in file, use heading text or numbered format (e.g., "3.2"), path follows `.claude/memory/*.md` pattern.
 
 ### 3. Code Example Citations
@@ -75,8 +75,8 @@ Before making technology/architecture recommendations, follow this 4-step workfl
 2. Quote (lines 28-34):
    > **Single Responsibility Principle**:
    > - Each skill handles ONE phase of development lifecycle
-   > - ✅ implementing-stories: TDD implementation only
-   > - ✅ devforgeai-qa: Quality validation only
+   > - ✅ spec-driven-dev: TDD implementation only
+   > - ✅ spec-driven-qa: Quality validation only
 3. Cite: (Source: devforgeai/specs/context/architecture-constraints.md, lines 28-34)
 4. Recommendation: "Split the combined dev-qa skill into separate skills per Single Responsibility Principle."
 

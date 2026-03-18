@@ -42,7 +42,7 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 - api-designer defines API contract standards
 - CLAP alignment auditor validates cross-layer configuration alignment (Phase 5.5 - NEW EPIC-081)
 
-**During devforgeai-release:**
+**During spec-driven-release:**
 - deployment-engineer handles infrastructure and deployment
 - security-auditor performs pre-release security scan
 
@@ -134,7 +134,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **security-auditor** | OWASP Top 10, auth/authz, vulnerability scanning | sonnet | <40K | After auth code, handling sensitive data |
 | **deployment-engineer** | Infrastructure, IaC, CI/CD pipelines | sonnet | <40K | Release phase, deployment configuration |
 | **requirements-analyst** | User story creation, acceptance criteria | sonnet | <30K | Epic decomposition, story planning |
-| **story-requirements-analyst** | Story requirements (content-only, RCA-007 fix) | sonnet | <50K | devforgeai-story-creation Phase 2 (replaces general-purpose) |
+| **story-requirements-analyst** | Story requirements (content-only, RCA-007 fix) | sonnet | <50K | spec-driven-stories Phase 2 (replaces general-purpose) |
 | **documentation-writer** | Technical docs, API specs, user guides | sonnet | <30K | After API implementation, when coverage <80% |
 | **architect-reviewer** | Architecture validation, design patterns | sonnet | <40K | After ADRs, major architectural changes |
 | **refactoring-specialist** | Safe refactoring, code smell removal | inherit | <40K | When complexity >10, code duplication >5% |
@@ -235,7 +235,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 **spec-driven-architecture** uses:
 - architect-reviewer → api-designer
 
-**devforgeai-release** uses:
+**spec-driven-release** uses:
 - security-auditor → deployment-engineer
 
 **devforgeai-orchestration** uses:
@@ -243,7 +243,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - **technical-debt-analyzer** (NEW - Phase 4.5 during sprint planning/retrospectives)
 - **sprint-planner** (NEW - Phase 3 sprint planning workflow)
 
-**devforgeai-story-creation** uses:
+**spec-driven-stories** uses:
 - **story-requirements-analyst** (Phase 2 - Requirements Analysis, RCA-007)
   - Skill-specific subagent for content-only output
   - Replaces general-purpose requirements-analyst

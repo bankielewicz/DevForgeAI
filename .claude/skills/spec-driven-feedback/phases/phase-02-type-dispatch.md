@@ -228,7 +228,7 @@ Build execution_params object by merging:
 
     CASE "triage":
       params.queue_path = "devforgeai/feedback/ai-analysis/aggregated/recommendations-queue.json"
-      params.story_creation_skill = "devforgeai-story-creation"
+      params.story_creation_skill = "spec-driven-stories"
       params.priority_filter = $PRIORITY_FILTER
       params.selected_items = $SELECTED_ITEMS
 

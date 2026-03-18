@@ -77,7 +77,7 @@ Reference files prevent "bull in china shop" behavior by providing explicit fram
 **Determine related skill:**
 ```
 IF subagent integrates primarily with one skill:
-  related_skill = that skill name (e.g., devforgeai-qa for qa-result-interpreter)
+  related_skill = that skill name (e.g., spec-driven-qa for qa-result-interpreter)
 ELSE:
   Use devforgeai-subagent-creation as default location
 ```

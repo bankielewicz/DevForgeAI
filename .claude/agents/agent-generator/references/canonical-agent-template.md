@@ -40,7 +40,7 @@ tools:                           # array, required
 model: opus                      # enum, required
 color: green                     # string, optional
 permissionMode: default          # enum, optional
-skills: devforgeai-qa            # string, optional
+skills: spec-driven-qa            # string, optional
 proactive_triggers:              # array, optional
   - "after code implementation"
   - "when coverage gaps detected"
@@ -277,7 +277,7 @@ You are a [domain] expert specializing in:
 
 ### Example 1: Standard Invocation
 
-**Context:** During Phase 2 of implementing-stories skill.
+**Context:** During Phase 2 of spec-driven-dev skill.
 
 ```
 Task(

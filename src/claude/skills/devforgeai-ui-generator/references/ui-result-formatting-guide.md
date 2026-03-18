@@ -50,7 +50,7 @@ Three critical gates enforce progression:
 
 **Gate 4: Release Readiness** (Releasing → Released)
 - Story approved and ready
-- Enforced by: devforgeai-release skill
+- Enforced by: spec-driven-release skill
 
 ---
 

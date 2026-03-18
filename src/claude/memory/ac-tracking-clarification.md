@@ -60,7 +60,7 @@ QA validation enforces (Phase 0.9):
 
 To update old stories (v2.0) to new format (v2.1):
 ```bash
-bash .claude/skills/devforgeai-story-creation/scripts/migrate-ac-headers.sh <story-file>
+bash .claude/skills/spec-driven-stories/scripts/migrate-ac-headers.sh <story-file>
 ```
 
 ---

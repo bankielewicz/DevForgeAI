@@ -100,7 +100,7 @@ IF category == "all" OR category == "duplicates":
       IF sizes match → severity = MEDIUM (redundant copy)
 
   Template names to specifically check:
-    - story-template.md (canonical: .claude/skills/devforgeai-story-creation/assets/templates/)
+    - story-template.md (canonical: .claude/skills/spec-driven-stories/assets/templates/)
     - epic-template.md (canonical: .claude/skills/spec-driven-architecture/assets/templates/)
     - sprint-template.md (canonical: .claude/skills/devforgeai-orchestration/assets/templates/)
     - rca-document-template.md

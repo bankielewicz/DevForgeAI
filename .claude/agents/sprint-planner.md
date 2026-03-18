@@ -471,7 +471,7 @@ Return structured JSON with sprint planning results:
 
 **Works with:**
 - **devforgeai-orchestration skill** - Called during sprint planning phase
-- **implementing-stories skill** - Uses sprint context for development workflow
+- **spec-driven-dev skill** - Uses sprint context for development workflow
 - **requirements-analyst subagent** - Provides story details for capacity calculation
 
 **Invoked by:**

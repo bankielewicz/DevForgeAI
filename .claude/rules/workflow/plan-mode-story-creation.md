@@ -82,7 +82,7 @@ FOR each referenced_file in story:
 - **RCA-028:** `devforgeai/RCA/RCA-028-manual-story-creation-ground-truth-validation-failure.md`
 - **citation-requirements.md:** `.claude/rules/core/citation-requirements.md` (Read-Quote-Cite-Verify protocol)
 - **source-tree.md:** `devforgeai/specs/context/source-tree.md` (Canonical test path patterns)
-- **create-story skill:** `.claude/skills/devforgeai-story-creation/SKILL.md` (Built-in validation)
+- **create-story skill:** `.claude/skills/spec-driven-stories/SKILL.md` (Built-in validation)
 
 ---
 

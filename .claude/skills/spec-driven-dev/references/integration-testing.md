@@ -68,7 +68,7 @@ IF $STORY_TYPE == "documentation":
 | `bugfix` | Execute | **SKIP** | Execute |
 | `refactor` | **SKIP** | Execute | Execute |
 
-**Reference:** `.claude/skills/devforgeai-story-creation/references/story-type-classification.md`
+**Reference:** `.claude/skills/spec-driven-stories/references/story-type-classification.md`
 
 ---
 

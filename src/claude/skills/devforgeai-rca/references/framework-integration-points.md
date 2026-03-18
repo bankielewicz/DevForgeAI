@@ -101,7 +101,7 @@ Evidence Location: anti-patterns.md + violating file + QA validation
 
 **Gate 4: Release Readiness** (Releasing → Released)
 - Criteria: QA approved, all checkboxes complete, no blocking dependencies
-- Validated by: devforgeai-release skill
+- Validated by: spec-driven-release skill
 - Blocks: Production deployment if not ready
 
 ### Quality Gate Breakdown Patterns
@@ -631,9 +631,9 @@ devforgeai-orchestration:
 ```
 /dev → spec-driven-dev
 /qa → spec-driven-qa
-/release → devforgeai-release
+/release → spec-driven-release
 /orchestrate → devforgeai-orchestration
-/create-story → devforgeai-story-creation
+/create-story → spec-driven-stories
 /create-ui → devforgeai-ui-generator
 /create-context → spec-driven-architecture
 /ideate → spec-driven-ideation

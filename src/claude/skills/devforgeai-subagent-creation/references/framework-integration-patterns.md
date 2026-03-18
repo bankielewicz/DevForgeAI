@@ -163,7 +163,7 @@ test-automator → backend-architect → context-validator → refactoring-speci
 - architect-reviewer (validates decisions)
 - api-designer (defines contracts)
 
-### devforgeai-release Skill
+### spec-driven-release Skill
 
 **Subagents invoked:**
 - security-auditor (pre-release scan)
@@ -176,7 +176,7 @@ test-automator → backend-architect → context-validator → refactoring-speci
 - technical-debt-analyzer (sprint retrospectives)
 - sprint-planner (sprint creation)
 
-### devforgeai-story-creation Skill
+### spec-driven-stories Skill
 
 **Subagents invoked:**
 - story-requirements-analyst (Phase 2 - user story + AC)

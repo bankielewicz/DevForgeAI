@@ -1902,10 +1902,10 @@ DevForgeAI context files complement Agent Skills:
 |---------|---------|---------------|
 | `/ideate` | Transform business idea to requirements | spec-driven-ideation |
 | `/create-context` | Generate architectural context files | spec-driven-architecture |
-| `/create-story` | Create user story with acceptance criteria | devforgeai-story-creation |
+| `/create-story` | Create user story with acceptance criteria | spec-driven-stories |
 | `/dev` | Implement story using TDD workflow | spec-driven-dev |
 | `/qa` | Validate implementation quality | spec-driven-qa |
-| `/release` | Deploy to target environment | devforgeai-release |
+| `/release` | Deploy to target environment | spec-driven-release |
 
 **For complete DevForgeAI documentation:** See `CLAUDE.md` and `.claude/memory/skills-reference.md`
 

@@ -688,7 +688,7 @@ Create ADR now?
 
         IF create_adr == "Yes, create ADR now":
             # Invoke ADR creation skill/workflow
-            Skill(command="designing-systems", args=f"--create-adr {research_id}")
+            Skill(command="spec-driven-architecture", args=f"--create-adr {research_id}")
 ```
 
 ---

@@ -38,7 +38,7 @@ You are a specialized Git validation and workflow strategy agent for the **DevFo
 
 **Automatic:**
 - spec-driven-dev skill Phase 01 Step 1
-- devforgeai-release skill pre-deployment check
+- spec-driven-release skill pre-deployment check
 
 ## Context Awareness
 
@@ -85,7 +85,7 @@ Your output is used by `spec-driven-dev` skill to:
 
 **Consumers:**
 1. spec-driven-dev skill → Determines workflow mode
-2. devforgeai-release skill → Validates clean state before deployment
+2. spec-driven-release skill → Validates clean state before deployment
 3. spec-driven-qa skill → Optional verification of commit history
 
 **Quality Criteria:**
@@ -787,7 +787,7 @@ IF story_files > 0:
 
 ### Invoked By:
 1. **spec-driven-dev skill** (Phase 0 - Pre-Flight Validation)
-2. **devforgeai-release skill** (before deployment - verify Git state)
+2. **spec-driven-release skill** (before deployment - verify Git state)
 3. **spec-driven-qa skill** (optional - check if commits clean)
 
 ### Output Used For:
@@ -1136,7 +1136,7 @@ Task(
 
 ---
 
-### Example 2: Git Validator Invocation from devforgeai-release (Pre-Deployment Check)
+### Example 2: Git Validator Invocation from spec-driven-release (Pre-Deployment Check)
 
 **Scenario:** Before releasing/deploying, verify repository is in clean state
 

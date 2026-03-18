@@ -268,10 +268,10 @@ Counterfactual: If validation existed, would /dev have failed?
 Why #3: Validation step missing from Phase 0
 
 Evidence Check:
-1. Read .claude/skills/implementing-stories/SKILL.md
+1. Read .claude/skills/spec-driven-dev/SKILL.md
 2. Search for "context" in Phase 0
 3. Find: No step mentioning context file validation
-4. Cross-reference: designing-systems creates context files
+4. Cross-reference: spec-driven-architecture creates context files
 5. Conclusion: Gap confirmed, validation missing
 
 ✅ Evidence validates this "why" answer
@@ -545,7 +545,7 @@ Why not updated?
 
 **Why #2:** Why were pre-existing deferrals accepted without challenge?
 **Answer:** Development skill Phase 5 (DoD validation) was designed to skip items that already had justifications
-**Evidence:** implementing-stories SKILL.md Phase 5 logic: "IF justification exists, skip validation"
+**Evidence:** spec-driven-dev SKILL.md Phase 5 logic: "IF justification exists, skip validation"
 
 **Why #3:** Why did Phase 5 skip justified items?
 **Answer:** Workflow assumed justifications meant user had already approved in a previous iteration

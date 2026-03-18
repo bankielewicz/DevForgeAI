@@ -37,7 +37,7 @@ Skill(command="devforgeai-ui-generator --story=STORY-042")
 
 **Requirements:**
 - All 6 DevForgeAI context files must exist (tech-stack, source-tree, dependencies, coding-standards, architecture-constraints, anti-patterns)
-- Halts if context missing → directs user to run `designing-systems` first
+- Halts if context missing → directs user to run `spec-driven-architecture` first
 - Validates technology choices against tech-stack.md
 
 ### Interactive Discovery
@@ -150,15 +150,15 @@ Options:
 
 ## Integration with Other Skills
 
-### designing-systems
+### spec-driven-architecture
 - UI Generator requires context files from architecture skill
 - If missing → HALT and direct user to run architecture first
 
-### implementing-stories
+### spec-driven-dev
 - Generated UI specs serve as input for TDD implementation
 - Development skill reads specs to write tests and implementation
 
-### devforgeai-qa
+### spec-driven-qa
 - QA validates generated UI matches acceptance criteria
 - Checks for accessibility, best practices, anti-patterns
 
@@ -220,13 +220,13 @@ Load these as needed during UI generation:
 ## Workflow Position
 
 **In Development Lifecycle:**
-1. designing-systems (create context files)
+1. spec-driven-architecture (create context files)
    ↓
 2. **devforgeai-ui-generator** (generate UI specs) [OPTIONAL]
    ↓
-3. implementing-stories (implement UI with tests)
+3. spec-driven-dev (implement UI with tests)
    ↓
-4. devforgeai-qa (validate UI implementation)
+4. spec-driven-qa (validate UI implementation)
 
 **When to invoke:**
 - After architecture phase (requires context files)

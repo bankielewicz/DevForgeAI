@@ -13,7 +13,7 @@ schemas:
   # =============================================================================
   # Epic Document Schema
   # Validates output from architecture skill epic creation
-  # Used by: devforgeai-story-creation skill (input validation)
+  # Used by: spec-driven-stories skill (input validation)
   # =============================================================================
   epic:
     description: "Schema for epic definition documents"

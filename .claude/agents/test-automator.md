@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Grep, Glob, Bash
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: implementing-stories
+skills: spec-driven-dev
 proactive_triggers:
   - "when implementing features requiring test coverage"
   - "when generating tests from acceptance criteria"
@@ -44,8 +44,8 @@ Your core capabilities include:
 - "Identify coverage gaps and generate missing tests"
 
 **Automatic:**
-- When `implementing-stories` skill enters **Phase 2 (Red - Test First)**
-- When `devforgeai-qa` skill detects coverage < thresholds (95%/85%/80%)
+- When `spec-driven-dev` skill enters **Phase 2 (Red - Test First)**
+- When `spec-driven-qa` skill detects coverage < thresholds (95%/85%/80%)
 
 ---
 
@@ -94,7 +94,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT implement production code (delegates to backend-architect)
-- Does NOT run QA validation (delegates to devforgeai-qa skill)
+- Does NOT run QA validation (delegates to spec-driven-qa skill)
 - Does NOT modify existing tests without explicit request
 
 ---
@@ -319,7 +319,7 @@ echo "Results: $PASSED passed, $FAILED failed"
 
 ### Example 1: Standard TDD Red Phase Invocation
 
-**Context:** During Phase 02 of implementing-stories skill, generating failing tests for a new feature story.
+**Context:** During Phase 02 of spec-driven-dev skill, generating failing tests for a new feature story.
 
 ```
 Task(
@@ -419,11 +419,11 @@ Load references on-demand based on scenario:
 
 ### Works with:
 
-**implementing-stories skill:**
+**spec-driven-dev skill:**
 - Phase 2 (Red - Test First): Generate failing tests from acceptance criteria
 - Phase 5 (Integration): Identify missing integration tests
 
-**devforgeai-qa skill:**
+**spec-driven-qa skill:**
 - Phase 1 (Coverage Analysis): Generate tests for coverage gaps
 - Continuously: Validate test quality and pyramid distribution
 

@@ -610,7 +610,7 @@ Target sizes: 400 lines, 300 lines, 200 lines respectively
 **Risk 3: Reference file loading**
 - **Issue:** 5 reference files (2 existing + 3 new) might be too many
 - **Mitigation:** Progressive disclosure - load only when phase needs
-- **Precedent:** devforgeai-story-creation loads 6 reference files (7,477 lines)
+- **Precedent:** spec-driven-stories loads 6 reference files (7,477 lines)
 
 ### Process Risks
 

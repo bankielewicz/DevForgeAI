@@ -328,7 +328,7 @@
 
 **Next Phase:**
 - Story status updated to "QA Approved ✅"
-- Ready for `devforgeai-release` skill
+- Ready for `spec-driven-release` skill
 - Can proceed with deployment
 
 **Release Checklist:**

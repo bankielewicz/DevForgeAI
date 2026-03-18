@@ -41,9 +41,9 @@ Your core capabilities include:
 - "Identify project language and framework"
 
 **Automatic:**
-- implementing-stories skill Phase 0 (Pre-Flight Validation)
-- devforgeai-qa skill (validate test framework before running tests)
-- designing-systems skill (validate detected stack during context creation)
+- spec-driven-dev skill Phase 0 (Pre-Flight Validation)
+- spec-driven-qa skill (validate test framework before running tests)
+- spec-driven-architecture skill (validate detected stack during context creation)
 
 ## Input/Output Specification
 
@@ -168,7 +168,7 @@ Your core capabilities include:
 
 ### Example 1: Standard Tech Stack Detection
 
-**Context:** During implementing-stories Pre-Flight Validation.
+**Context:** During spec-driven-dev Pre-Flight Validation.
 
 ```
 Task(
@@ -212,5 +212,5 @@ Task(
 ## References
 
 - `devforgeai/specs/context/tech-stack.md` - Locked technology choices
-- implementing-stories skill Phase 0 integration
-- devforgeai-qa skill test framework validation
+- spec-driven-dev skill Phase 0 integration
+- spec-driven-qa skill test framework validation

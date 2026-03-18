@@ -5,7 +5,7 @@ tools: Read, Write, Edit, WebFetch
 model: opus
 color: green
 permissionMode: plan
-skills: designing-systems
+skills: spec-driven-architecture
 proactive_triggers:
   - "when creating new API endpoints"
   - "during story creation with API requirements"
@@ -20,9 +20,9 @@ Design consistent, well-documented API contracts following REST, GraphQL, or gRP
 
 ## RCA-006 Phase 2: Structured YAML Output (Extension Section)
 
-**LOAD-CRITICAL: This section is consumed by devforgeai-story-creation skill.**
+**LOAD-CRITICAL: This section is consumed by spec-driven-stories skill.**
 
-When invoked by devforgeai-story-creation skill, this subagent generates **structured YAML format** for API components (not freeform markdown).
+When invoked by spec-driven-stories skill, this subagent generates **structured YAML format** for API components (not freeform markdown).
 
 **Output Format:** YAML text for API components matching schema:
 ```yaml
@@ -66,9 +66,9 @@ Your core capabilities include:
 - "Review API consistency"
 
 **Automatic:**
-- designing-systems skill during technical specification
+- spec-driven-architecture skill during technical specification
 - requirements-analyst when generating API specifications
-- devforgeai-qa during spec compliance validation
+- spec-driven-qa during spec compliance validation
 
 ---
 
@@ -275,7 +275,7 @@ Task(
 - **backend-architect**: Provides implementation specification from API design
 - **integration-tester**: Validates API contract compliance
 - **documentation-writer**: Generates API documentation from OpenAPI specs
-- **Invoked by**: designing-systems, requirements-analyst, devforgeai-story-creation (RCA-006)
+- **Invoked by**: spec-driven-architecture, requirements-analyst, spec-driven-stories (RCA-006)
 
 ---
 

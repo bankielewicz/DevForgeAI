@@ -26,7 +26,7 @@ Create comprehensive technical documentation including API specs, user guides, a
 - "Create user guide for {feature}"
 
 **Automatic:**
-- implementing-stories after API implementation
+- spec-driven-dev after API implementation
 - When documentation coverage < 80%
 
 ## Workflow
@@ -54,8 +54,8 @@ Create comprehensive technical documentation including API specs, user guides, a
 - tech-stack.md (framework-specific doc formats)
 
 **Works with:**
-- implementing-stories (after implementation)
-- devforgeai-qa (documentation coverage check)
+- spec-driven-dev (after implementation)
+- spec-driven-qa (documentation coverage check)
 
 ## Tool Usage Protocol
 

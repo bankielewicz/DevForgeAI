@@ -37,11 +37,11 @@ Three critical gates enforce progression:
 
 **Gate 1: Context Validation** (Architecture → Ready for Dev)
 - All 6 context files exist and are non-empty
-- Enforced by: designing-systems skill
+- Enforced by: spec-driven-architecture skill
 
 **Gate 2: Test Passing** (Dev Complete → QA In Progress)
 - Build succeeds, all tests pass
-- Enforced by: implementing-stories skill (light QA)
+- Enforced by: spec-driven-dev skill (light QA)
 
 **Gate 3: QA Approval** (QA In Progress → Releasing)
 - UI implementation matches generated specification
@@ -50,7 +50,7 @@ Three critical gates enforce progression:
 
 **Gate 4: Release Readiness** (Releasing → Released)
 - Story approved and ready
-- Enforced by: devforgeai-release skill
+- Enforced by: spec-driven-release skill
 
 ---
 
@@ -433,7 +433,7 @@ When validating or providing guidance, reference context files:
 Reference when recommending next actions:
 
 **For implementation:**
-- "Begin implementation: `/dev STORY-XXX` (implementing-stories skill will guide TDD)"
+- "Begin implementation: `/dev STORY-XXX` (spec-driven-dev skill will guide TDD)"
 
 **For testing:**
 - "Test scenarios (see above) can be written with test-automator subagent help"

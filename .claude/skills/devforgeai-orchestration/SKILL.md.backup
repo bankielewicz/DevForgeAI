@@ -153,7 +153,7 @@ For test passing gate details: See references/quality-gates.md
 
 #### QA Phase (Dev Complete → QA Approved/Failed)
 ```
-Invoke: Skill(command="devforgeai-qa --mode=deep --story={story_id}")
+Invoke: Skill(command="spec-driven-qa --mode=deep --story={story_id}")
 
 QA skill executes 5 phases:
   - Phase 1: Test Coverage Analysis
@@ -710,7 +710,7 @@ Backlog → Architecture: Invoke devforgeai-architecture
 Architecture → Ready for Dev: Context files created, ready for developer
 Ready for Dev → In Development: Developer starts work
 In Development → Dev Complete: TDD workflow complete
-Dev Complete → QA In Progress: Invoke devforgeai-qa
+Dev Complete → QA In Progress: Invoke spec-driven-qa
 QA Approved → Releasing: Invoke devforgeai-release when ready
 Releasing → Released: Deployment complete
 QA Failed → In Development: Developer fixes violations
@@ -814,10 +814,10 @@ AskUserQuestion:
 **Process:** Executes TDD workflow (6 phases), light QA automatic
 **Result:** Update story status when Phase 6 complete
 
-### devforgeai-qa
+### spec-driven-qa
 **When 1 (Light):** During development (Phases 3, 4, 5) - automatic
 **When 2 (Deep):** After Dev Complete
-**Invocation:** `Skill(command="devforgeai-qa --mode=deep --story={story_id}")`
+**Invocation:** `Skill(command="spec-driven-qa --mode=deep --story={story_id}")`
 **Process:** 5 comprehensive validation phases, generates QA report
 **Result:** Update status to QA Approved or QA Failed
 

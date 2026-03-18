@@ -71,7 +71,7 @@ Loop: ID → Markers → Skill → Track
 **Example (CORRECT):**
 ```
 ### Step 4.3: ⚠️ INVOKE SKILL NOW (MANDATORY)
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 DO NOT proceed with manual analysis. The skill handles all subsequent workflow.
 ```
 
@@ -489,7 +489,7 @@ MODE = $2 or infer from story status
 ### Step 2: Multi-Select Features ← Claude executes this
 ### Step 3: Batch Metadata ← Claude executes this
 ### Step 4.3: INVOKE SKILL ← Then skill ALSO has these phases!
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 **Why This Fails:**
@@ -504,7 +504,7 @@ Skill(command="devforgeai-story-creation")
 # Command invokes skill IMMEDIATELY
 ## Phase 0: Validate Arguments
 ## Phase 1: Set Markers and Invoke Skill
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 # Skill handles all workflow (extraction, selection, creation)
 ```
 

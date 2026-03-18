@@ -40,7 +40,7 @@ Your core capabilities include:
 - "Resolve transitive dependencies"
 
 **Automatic:**
-- implementing-stories skill Phase 01 (pre-flight), Step 0.2.5
+- spec-driven-dev skill Phase 01 (pre-flight), Step 0.2.5
 
 ## Input/Output Specification
 

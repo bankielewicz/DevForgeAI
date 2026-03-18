@@ -1,0 +1,55 @@
+{
+  "skill_name": "spec-driven-release",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to release STORY-042 to staging. The story is QA approved, all tests pass, and deployment config exists at devforgeai/deployment/. This is a Node.js API project using Express. Please walk through the release phases and show me what each phase would do.",
+      "expected_output": "The skill should execute all 8 phases sequentially with Execute-Verify-Record triplets. Phase 01 should detect Node.js/Express as API project type with no phases skipped. Phase 03 should validate QA approval. Phase 04 should invoke deployment-engineer for staging. Each phase should show Entry Gate, step execution, and Exit Gate.",
+      "files": [],
+      "expectations": [
+        "Phase State Initialization is executed first (devforgeai-validate phase-init)",
+        "All 8 phases are referenced in correct order (01 through 08)",
+        "Phase 01 classifies the project as 'api' type",
+        "SKIP_PHASES is empty (no phases skipped for API project)",
+        "Phase 03 validates QA Approved status before deployment",
+        "Phase 04 invokes deployment-engineer subagent for staging",
+        "Phase 05 invokes both deployment-engineer and security-auditor",
+        "Phase 07 updates story status to Released",
+        "Each phase loads its reference file via Read()",
+        "Entry Gate and Exit Gate CLI commands are shown for each phase"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Release STORY-099 to production. This is a Rust library project (has Cargo.toml with [lib] section, no [[bin]] targets). It's QA approved. Show me the release workflow and which phases get skipped.",
+      "expected_output": "The skill should detect this as a 'library' project type and set SKIP_PHASES = [04, 05, 06]. Phases 04 (Staging), 05 (Production), and 06 (Post-Deploy Validation) should be explicitly skipped with documented reasons. Phases 01, 02, 03, 07, 08 should execute normally. Phase 02 should handle cargo build and crates.io publishing.",
+      "files": [],
+      "expectations": [
+        "Phase 01 classifies project as 'library' type",
+        "SKIP_PHASES includes phases 04, 05, and 06",
+        "A phase plan table is displayed showing Active/Skipped status",
+        "Phase 02 executes cargo build --release",
+        "Phase 02 attempts crates.io publishing if registry config exists",
+        "Skipped phases still load their reference files (mandatory even for skips)",
+        "Skip markers are written for each skipped phase",
+        "Phase 07 generates release notes and archives story",
+        "Phase 08 skips monitoring but still runs checkpoint cleanup"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need to resume a release for STORY-150. The workflow was interrupted during Phase 04 (staging deployment). There should be a checkpoint file at devforgeai/workflows/STORY-150-release-phase-state.json. This is a Python CLI project. Resume from where it left off.",
+      "expected_output": "The skill should detect the existing checkpoint, offer to resume via AskUserQuestion, and if user confirms resume, skip to Phase 04 instead of restarting from Phase 01. The resume flow should properly handle the phase-init returning exit code 1 (existing workflow).",
+      "files": [],
+      "expectations": [
+        "Phase State Initialization detects existing workflow (exit code 1)",
+        "AskUserQuestion is used to offer resume vs fresh start",
+        "If resume chosen, execution continues from Phase 04 (not Phase 01)",
+        "Phase 04 loads staging-deployment reference fresh (not from memory)",
+        "The self-check violation boxes are present and none are checked",
+        "Anti-Skip Enforcement Contract with 4 layers is referenced",
+        "Token Optimization Bias prohibition is stated"
+      ]
+    }
+  ]
+}

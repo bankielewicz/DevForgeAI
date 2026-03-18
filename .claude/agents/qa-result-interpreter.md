@@ -17,7 +17,7 @@ Specialized interpreter that transforms raw QA validation reports into user-frie
 
 ## Purpose
 
-After `devforgeai-qa` skill generates a QA report, this subagent:
+After `spec-driven-qa` skill generates a QA report, this subagent:
 1. **Parses** the report into structured data
 2. **Interprets** results in context of DevForgeAI framework
 3. **Generates** appropriate display template (based on mode, result, violations)
@@ -28,7 +28,7 @@ After `devforgeai-qa` skill generates a QA report, this subagent:
 ## When Invoked
 
 **Proactively triggered:**
-- After devforgeai-qa skill Phase 5 (Generate QA Report)
+- After spec-driven-qa skill Phase 5 (Generate QA Report)
 - Before results displayed to user
 - Always in isolated context (separate from main skill execution)
 
@@ -58,7 +58,7 @@ Task(
 
 ### Input
 
-- **QA Report**: `devforgeai/qa/reports/{STORY_ID}-qa-report.md` - Raw validation results from devforgeai-qa skill
+- **QA Report**: `devforgeai/qa/reports/{STORY_ID}-qa-report.md` - Raw validation results from spec-driven-qa skill
 - **Story file**: `devforgeai/specs/Stories/[STORY-ID].story.md` - Story context for next steps
 - **Validation mode**: Light or Deep - determines template selection and severity classification
 - **Story status**: Current workflow state (Dev Complete, In Development, etc.)
@@ -751,7 +751,7 @@ Task(
 
 ### Invoked By
 
-**devforgeai-qa skill (Phase 5, Step 3):**
+**spec-driven-qa skill (Phase 5, Step 3):**
 ```
 After generating QA report, invoke interpreter:
 
@@ -775,7 +775,7 @@ Return result_summary to command
 
 ### Returns To
 
-**devforgeai-qa skill receives:**
+**spec-driven-qa skill receives:**
 - Structured result object
 - Display template (ready to output)
 - Next steps (to communicate to user)
@@ -904,7 +904,7 @@ This subagent respects DevForgeAI constraints:
 
 ---
 
-**Invocation:** Automatic during devforgeai-qa skill Phase 5
+**Invocation:** Automatic during spec-driven-qa skill Phase 5
 **Context Isolation:** Runs in isolated context, receives results
 **Model:** Haiku (deterministic interpretation, cost-effective)
 **Token Target:** <8K per invocation

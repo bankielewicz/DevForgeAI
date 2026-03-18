@@ -296,13 +296,13 @@ AskUserQuestion(
 
 ### 5.1 File Locations
 
-**Master File:** `src/.claude/skills/discovering-requirements/references/user-input-guidance.md`
+**Master File:** `src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md`
 
 **UI-Generator Deployment:**
 - Location: `src/.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
 - Deployment: Copy from master using:
   ```bash
-  cp src/.claude/skills/discovering-requirements/references/user-input-guidance.md \
+  cp src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md \
      src/.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md
   ```
 

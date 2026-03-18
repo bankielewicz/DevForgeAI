@@ -27,14 +27,14 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /ideate
 - **Status:** ⚠️ High Usage (78% budget, within limit)
 - **Structure:** 5 phases (validate → invoke → verify → confirm → next steps)
-- **Business Logic:** Delegated to `discovering-requirements` skill (6-phase discovery)
+- **Business Logic:** Delegated to `spec-driven-ideation` skill (6-phase discovery)
 - **Token Efficiency:** Before: ~3,837 tokens → After: ~2,929 tokens (24% savings)
 - **Refactoring:** ✅ Complete (2025-11-05)
 
 ### /create-context
 - **Status:** ⚠️ High Usage (84% budget, within limit)
 - **Structure:** 4 phases (validate → invoke → verify → guidance)
-- **Business Logic:** Delegated to `designing-systems` skill (5-phase context creation)
+- **Business Logic:** Delegated to `spec-driven-architecture` skill (5-phase context creation)
 - **Token Efficiency:** Command: ~2K tokens, Skill: ~150K tokens (isolated)
 - **Refactoring:** 🟡 Not yet refactored (stable, no violations)
 
@@ -55,7 +55,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /create-story
 - **Status:** ⚠️ High Usage (99% budget, at limit)
 - **Structure:** 5 phases (validate → detect mode → invoke → verify → next steps)
-- **Business Logic:** Delegated to `devforgeai-story-creation` skill (8-phase story generation)
+- **Business Logic:** Delegated to `spec-driven-stories` skill (8-phase story generation)
 - **Token Efficiency:** Before: ~5,752 tokens → After: ~2,500 tokens (56% savings)
 - **Refactoring:** ✅ Complete (2025-11-05 + batch mode 2025-11-07)
 
@@ -76,21 +76,21 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /dev
 - **Status:** ✅ Compliant (25% budget, **BEST IN SUITE**)
 - **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `implementing-stories` skill (7-phase TDD workflow)
+- **Business Logic:** Delegated to `spec-driven-dev` skill (7-phase TDD workflow)
 - **Token Efficiency:** Before: ~15K tokens → After: ~2K tokens (87% savings)
 - **Refactoring:** ✅ Complete (2025-11-18, Case Study 6 - STORY-051)
 
 ### /qa
 - **Status:** ✅ Compliant (56% budget, well under limit)
 - **Structure:** 4 phases (validate → invoke → display → story update)
-- **Business Logic:** Delegated to `devforgeai-qa` skill + `qa-result-interpreter` subagent
+- **Business Logic:** Delegated to `spec-driven-qa` skill + `qa-result-interpreter` subagent
 - **Token Efficiency:** Before: ~8K tokens → After: ~3.5K tokens (56% savings)
 - **Refactoring:** ✅ Complete (2025-11-05 Case Study 2 + 2025-11-06 Phase 4 enhancement)
 
 ### /release
 - **Status:** ❌ Over Budget (121% budget, requires refactoring)
 - **Structure:** 6 phases (validate → staging → smoke → production → validate → document)
-- **Business Logic:** Delegated to `devforgeai-release` skill (deployment workflow)
+- **Business Logic:** Delegated to `spec-driven-release` skill (deployment workflow)
 - **Token Efficiency:** TBD (pending refactoring)
 - **Refactoring:** 🔴 Pending (Priority: HIGH, requires 45% reduction to reach target)
 
@@ -132,7 +132,7 @@ The following 25 commands were added after the original compliance audit:
 | Command | Estimated Status | Notes |
 |---------|------------------|-------|
 | `/dev-status` | ✅ Likely Compliant | Read-only utility, ~6K chars |
-| `/resume-dev` | ⚠️ Unknown | Skill delegation to implementing-stories |
+| `/resume-dev` | ⚠️ Unknown | Skill delegation to spec-driven-dev |
 | `/insights` | ⚠️ Unknown | Skill delegation to devforgeai-insights |
 | `/worktrees` | ✅ Likely Compliant | Utility command, subagent delegation |
 

@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Grep, Glob
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-documentation
+skills: spec-driven-documentation
 proactive_triggers:
   - "after API implementation"
   - "when documentation coverage falls below 80%"
@@ -36,8 +36,8 @@ Generate clear, accurate technical documentation for APIs, codebases, and system
 - "Generate user guide for [feature]"
 
 **Automatic:**
-- devforgeai-qa when documentation coverage < 80%
-- implementing-stories after Phase 4 (Integration)
+- spec-driven-qa when documentation coverage < 80%
+- spec-driven-dev after Phase 4 (Integration)
 
 ## Input/Output Specification
 
@@ -558,13 +558,13 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 ## Integration
 
 **Works with:**
-- implementing-stories: Documents code after implementation
-- devforgeai-qa: Invoked when documentation coverage low
+- spec-driven-dev: Documents code after implementation
+- spec-driven-qa: Invoked when documentation coverage low
 - api-designer: Documents API contracts
 
 **Invoked by:**
-- implementing-stories (Phase 4)
-- devforgeai-qa (when coverage < 80%)
+- spec-driven-dev (Phase 4)
+- spec-driven-qa (when coverage < 80%)
 
 **Invokes:**
 - None (terminal subagent)
@@ -594,8 +594,8 @@ See [Architecture Documentation](docs/architecture.md) for system design.
 - Markdown best practices
 
 **Framework Integration:**
-- implementing-stories skill
-- devforgeai-qa skill
+- spec-driven-dev skill
+- spec-driven-qa skill
 
 **Related Subagents:**
 - api-designer (API specifications)

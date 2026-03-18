@@ -51,7 +51,7 @@ ELSE:
 ## Phase 1: Invoke Skill
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 **Skill handles ALL workflow** including parsing, selection, creation, validation, and linking.
@@ -62,11 +62,11 @@ Skill(command="devforgeai-story-creation")
 |-------|------------|
 | Epic not found | Verify EPIC-NNN format, check devforgeai/specs/Epics/ |
 | Description too brief | Provide 10+ words describing user capability |
-| Skill failed | Check .claude/skills/devforgeai-story-creation/SKILL.md exists |
+| Skill failed | Check .claude/skills/spec-driven-stories/SKILL.md exists |
 
 ## References
 
-- Skill: `.claude/skills/devforgeai-story-creation/SKILL.md`
+- Skill: `.claude/skills/spec-driven-stories/SKILL.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**

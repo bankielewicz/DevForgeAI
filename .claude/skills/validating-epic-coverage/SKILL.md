@@ -188,7 +188,7 @@ WHILE index < gaps.missing_features.length:
     Display: "[${index + 1}/${BATCH_TOTAL}] Creating: ${gap.feature_title}"
 
     # Set batch context markers per story
-    # All markers required by devforgeai-story-creation skill:
+    # All markers required by spec-driven-stories skill:
     **Story ID:** ${next_story_id}
     **Epic ID:** ${EPIC_ID}
     **Feature Number:** ${gap.feature_number}
@@ -203,7 +203,7 @@ WHILE index < gaps.missing_features.length:
     **Created From:** /create-missing-stories
 
     TRY:
-        Skill(command="devforgeai-story-creation")
+        Skill(command="spec-driven-stories")
 
         IF story file exists:
             results.success.append({story_id: next_story_id, feature: gap.feature_title})

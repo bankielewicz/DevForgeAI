@@ -8,7 +8,7 @@ source: Extracted from CLAUDE.md
 # Critical Rules - ALWAYS Follow
 
 ## 1. Technology Decisions
-ALWAYS check tech-stack.md before suggesting technologies. If spec requires tech not in tech-stack.md → HALT, use AskUserQuestion for user approval, then CREATE an ADR before updating tech-stack.md.
+ALWAYS check tech-stack.md before suggesting technologies. If spec requires tech not in tech-stack.md → HALT and use AskUserQuestion.
 
 ## 2. File Operations (CRITICAL for Token Efficiency)
 Use native tools (40-73% token savings): `Read`, `Edit`, `Write`, `Glob`, `Grep`. NEVER use Bash for file operations.

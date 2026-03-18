@@ -127,8 +127,8 @@ Skill(command="devforgeai-orchestration")
 - **Phase 2:** Invoke spec-driven-dev skill (TDD workflow)
 - **Phase 3:** Invoke spec-driven-qa skill (deep validation)
 - **Phase 3.5:** Handle QA failures with intelligent retry (max 3 attempts)
-- **Phase 4:** Invoke devforgeai-release skill (staging deployment)
-- **Phase 5:** Invoke devforgeai-release skill (production deployment)
+- **Phase 4:** Invoke spec-driven-release skill (staging deployment)
+- **Phase 5:** Invoke spec-driven-release skill (production deployment)
 - **Phase 6:** Finalize workflow, update story status, generate summary
 
 **Skill returns:** Structured summary with orchestration results
@@ -277,7 +277,7 @@ Review error above and retry or contact support.
 - spec-driven-dev (Phase 2: TDD implementation)
 - spec-driven-qa (Phase 3: Quality validation)
 - spec-driven-qa retry handling (Phase 3.5: Intelligent retry with loop prevention)
-- devforgeai-release (Phases 4-5: Staging and production deployment)
+- spec-driven-release (Phases 4-5: Staging and production deployment)
 
 **Updates:**
 - Story status (workflow state transitions)

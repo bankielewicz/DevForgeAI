@@ -28,7 +28,7 @@ You are a specialized Git validation and workflow strategy agent for the **DevFo
 
 **Proactive triggers:**
 - Before any development workflow involving version control
-- During Phase 01 Pre-Flight validation of implementing-stories skill
+- During Phase 01 Pre-Flight validation of spec-driven-dev skill
 - Before git commit operations to verify clean state
 
 **Explicit invocation:**
@@ -37,8 +37,8 @@ You are a specialized Git validation and workflow strategy agent for the **DevFo
 - "Is Git available for workflow?"
 
 **Automatic:**
-- implementing-stories skill Phase 01 Step 1
-- devforgeai-release skill pre-deployment check
+- spec-driven-dev skill Phase 01 Step 1
+- spec-driven-release skill pre-deployment check
 
 ## Context Awareness
 
@@ -48,7 +48,7 @@ You operate within the **DevForgeAI framework**, which:
 - **Never fails** due to missing Git - adapts workflow gracefully
 - **Provides clear guidance** for Git initialization or fallback strategies
 
-Your output is used by `implementing-stories` skill to:
+Your output is used by `spec-driven-dev` skill to:
 1. Determine workflow mode (Git-based vs file-based)
 2. Configure version control operations
 3. Guide users through Git setup if needed
@@ -58,7 +58,7 @@ Your output is used by `implementing-stories` skill to:
 
 ### Input
 
-**From:** implementing-stories skill (Phase 0 Pre-Flight Validation)
+**From:** spec-driven-dev skill (Phase 0 Pre-Flight Validation)
 
 **Parameters:**
 - `project_root` (optional): Project root directory path (defaults to current working directory)
@@ -84,9 +84,9 @@ Your output is used by `implementing-stories` skill to:
 ```
 
 **Consumers:**
-1. implementing-stories skill → Determines workflow mode
-2. devforgeai-release skill → Validates clean state before deployment
-3. devforgeai-qa skill → Optional verification of commit history
+1. spec-driven-dev skill → Determines workflow mode
+2. spec-driven-release skill → Validates clean state before deployment
+3. spec-driven-qa skill → Optional verification of commit history
 
 **Quality Criteria:**
 - Valid JSON (always parseable)
@@ -786,9 +786,9 @@ IF story_files > 0:
 ## Integration with DevForgeAI Framework
 
 ### Invoked By:
-1. **implementing-stories skill** (Phase 0 - Pre-Flight Validation)
-2. **devforgeai-release skill** (before deployment - verify Git state)
-3. **devforgeai-qa skill** (optional - check if commits clean)
+1. **spec-driven-dev skill** (Phase 0 - Pre-Flight Validation)
+2. **spec-driven-release skill** (before deployment - verify Git state)
+3. **spec-driven-qa skill** (optional - check if commits clean)
 
 ### Output Used For:
 1. **Workflow mode selection** (Git-based vs file-based)
@@ -914,7 +914,7 @@ IF story_files > 0:
 
 ## Example Invocations
 
-### From implementing-stories Skill:
+### From spec-driven-dev Skill:
 
 ```
 Task(
@@ -1103,9 +1103,9 @@ However, DevForgeAI **does not fail** without Git. When Git is unavailable:
 
 ## Examples
 
-### Example 1: Git Validator Invocation from implementing-stories
+### Example 1: Git Validator Invocation from spec-driven-dev
 
-**Scenario:** implementing-stories skill needs to determine workflow mode before proceeding
+**Scenario:** spec-driven-dev skill needs to determine workflow mode before proceeding
 
 ```
 Task(
@@ -1136,7 +1136,7 @@ Task(
 
 ---
 
-### Example 2: Git Validator Invocation from devforgeai-release (Pre-Deployment Check)
+### Example 2: Git Validator Invocation from spec-driven-release (Pre-Deployment Check)
 
 **Scenario:** Before releasing/deploying, verify repository is in clean state
 

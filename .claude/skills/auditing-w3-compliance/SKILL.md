@@ -158,7 +158,7 @@ IF FIX_HINTS:
     "## Remediation Pattern (STORY-135)"
     ""
     "**BEFORE (W3 Violation):**"
-    "Skill(command=\"designing-systems\")"
+    "Skill(command=\"spec-driven-architecture\")"
     ""
     "**AFTER (W3 Compliant):**"
     "**Recommended Next Action (display-only, no auto-invocation):**"

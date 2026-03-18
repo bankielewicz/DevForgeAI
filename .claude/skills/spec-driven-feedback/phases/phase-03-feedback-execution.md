@@ -822,7 +822,7 @@ Update checkpoint: `phases["03"].steps_completed.append("3.3T")`
 **EXECUTE:**
 ```
 FOR each selected_recommendation:
-  Skill(command="devforgeai-story-creation", args={
+  Skill(command="spec-driven-stories", args={
     title: recommendation.title,
     description: recommendation.description,
     affected_files: recommendation.affected_files,

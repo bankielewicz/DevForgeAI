@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Grep, Glob
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-documentation
+skills: spec-driven-documentation
 proactive_triggers:
   - "after API implementation"
   - "when documentation coverage falls below 80%"

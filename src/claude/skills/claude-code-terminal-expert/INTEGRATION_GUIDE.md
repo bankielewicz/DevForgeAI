@@ -25,7 +25,7 @@ This document describes how the `claude-code-terminal-expert` skill integrates w
 - spec-driven-ideation
 - spec-driven-dev
 - spec-driven-qa
-- devforgeai-release
+- spec-driven-release
 
 ---
 

@@ -61,7 +61,7 @@ Each finding is a table with fields:
 ```
 Read(file_path="references/fix-actions-catalog.md")
 Read(file_path="references/fix-verification-workflow.md")
-Read(file_path=".claude/skills/devforgeai-story-creation/references/context-validation.md")
+Read(file_path=".claude/skills/spec-driven-stories/references/context-validation.md")
 ```
 
 ### Step 0.4: Apply Finding Filter

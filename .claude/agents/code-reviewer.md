@@ -5,7 +5,7 @@ tools: Read, Write, Grep, Glob, Bash(git:*)
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-qa
+skills: spec-driven-qa
 proactive_triggers:
   - "after code implementation"
   - "after refactoring"
@@ -44,8 +44,8 @@ Your core capabilities include:
 - "Provide code review feedback"
 
 **Automatic:**
-- implementing-stories skill after Phase 2 (Implementation)
-- implementing-stories skill after Phase 3 (Refactor)
+- spec-driven-dev skill after Phase 2 (Implementation)
+- spec-driven-dev skill after Phase 3 (Refactor)
 
 ---
 
@@ -93,7 +93,7 @@ Your core capabilities include:
 
 **Scope Boundaries:**
 - Does NOT fix code (provides guidance, delegates fixes to developer)
-- Does NOT run full QA (delegates to devforgeai-qa skill)
+- Does NOT run full QA (delegates to spec-driven-qa skill)
 - Does NOT execute refactoring (delegates to refactoring-specialist)
 
 ---
@@ -337,7 +337,7 @@ Task(
 
 ### Works with:
 
-- **implementing-stories**: Review after Phase 2 (Implementation) and Phase 3 (Refactor)
+- **spec-driven-dev**: Review after Phase 2 (Implementation) and Phase 3 (Refactor)
 - **context-validator**: Code-reviewer checks standards, context-validator checks constraints
 - **security-auditor**: Code-reviewer does general security, security-auditor does deep analysis
 - **refactoring-specialist**: Code-reviewer identifies issues, refactoring-specialist executes fixes

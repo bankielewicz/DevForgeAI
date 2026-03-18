@@ -26,7 +26,7 @@ Analyze requirements and create user stories with acceptance criteria following 
 - "Define acceptance criteria"
 
 **Automatic:**
-- devforgeai-story-creation (Phase 2)
+- spec-driven-stories (Phase 2)
 - devforgeai-orchestration (epic decomposition)
 
 ## Workflow
@@ -50,7 +50,7 @@ Analyze requirements and create user stories with acceptance criteria following 
 - coding-standards.md (story patterns)
 
 **Works with:**
-- devforgeai-story-creation
+- spec-driven-stories
 - devforgeai-orchestration
 
 ## Tool Usage Protocol

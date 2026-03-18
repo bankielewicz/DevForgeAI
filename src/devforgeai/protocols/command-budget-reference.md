@@ -590,7 +590,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 
 **Priority order:**
 1. devforgeai-orchestration (3,249 lines → ~200) - 4-6 hours
-2. devforgeai-story-creation (1,840 lines → ~180) - 3-4 hours
+2. spec-driven-stories (1,840 lines → ~180) - 3-4 hours
 3. devforgeai-development (1,782 lines → ~180) - 3-4 hours
 4. devforgeai-ui-generator (1,451 lines → ~190) - 3-4 hours
 5. spec-driven-ideation (1,416 lines → ~185) - 3 hours
@@ -661,7 +661,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 
 **Skill refactoring plans (NEW):**
 - `devforgeai/specs/analysis/devforgeai-orchestration.md` (2,088 lines)
-- `devforgeai/specs/analysis/devforgeai-story-creation.md` (1,956 lines)
+- `devforgeai/specs/analysis/spec-driven-stories.md` (1,956 lines)
 - `devforgeai/specs/analysis/devforgeai-development.md` (1,923 lines)
 - `devforgeai/specs/analysis/devforgeai-ui-generator.md` (1,875 lines)
 - `devforgeai/specs/analysis/spec-driven-ideation.md` (1,804 lines)

@@ -55,7 +55,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /create-story
 - **Status:** ⚠️ High Usage (99% budget, at limit)
 - **Structure:** 5 phases (validate → detect mode → invoke → verify → next steps)
-- **Business Logic:** Delegated to `devforgeai-story-creation` skill (8-phase story generation)
+- **Business Logic:** Delegated to `spec-driven-stories` skill (8-phase story generation)
 - **Token Efficiency:** Before: ~5,752 tokens → After: ~2,500 tokens (56% savings)
 - **Refactoring:** ✅ Complete (2025-11-05 + batch mode 2025-11-07)
 
@@ -90,7 +90,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /release
 - **Status:** ❌ Over Budget (121% budget, requires refactoring)
 - **Structure:** 6 phases (validate → staging → smoke → production → validate → document)
-- **Business Logic:** Delegated to `devforgeai-release` skill (deployment workflow)
+- **Business Logic:** Delegated to `spec-driven-release` skill (deployment workflow)
 - **Token Efficiency:** TBD (pending refactoring)
 - **Refactoring:** 🔴 Pending (Priority: HIGH, requires 45% reduction to reach target)
 

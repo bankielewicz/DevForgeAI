@@ -205,7 +205,7 @@ Grep(pattern="/home/|/Users/|C:\\\\|/mnt/c/", path="{source_file}")
 {
   "category": "Tool Usage Violations",
   "severity": "CRITICAL",
-  "file_path": ".claude/skills/implementing-stories/SKILL.md",
+  "file_path": ".claude/skills/spec-driven-dev/SKILL.md",
   "line_number": 145,
   "description": "Using Bash(command='cat file.txt') instead of Read() tool",
   "remediation": "Replace with Read(file_path='file.txt')"

@@ -57,7 +57,7 @@ Three critical gates enforce progression:
 **Gate 4: Release Readiness** (Releasing → Released)
 - QA approved
 - All workflow checkboxes complete
-- Enforced by: devforgeai-release skill
+- Enforced by: spec-driven-release skill
 
 ---
 

@@ -25,7 +25,7 @@ Schema validation executes automatically at workflow transition points:
 
 ### 1. Ideation Skill (Brainstorm Input)
 
-**Trigger:** When discovering-requirements skill receives brainstorm document
+**Trigger:** When spec-driven-ideation skill receives brainstorm document
 
 **Validation Steps:**
 ```
@@ -77,7 +77,7 @@ IF validation_status == "PASSED":
 
 ### 3. Story Creation Skill (Epic Input)
 
-**Trigger:** When devforgeai-story-creation skill receives epic document
+**Trigger:** When spec-driven-stories skill receives epic document
 
 **Validation Steps:**
 ```
@@ -193,7 +193,7 @@ FUNCTION validate_document(document_path, document_type):
 
 ### Ideation Skill Integration
 
-Add to `discovering-requirements/SKILL.md` Phase 0:
+Add to `spec-driven-ideation/SKILL.md` Phase 0:
 
 ```markdown
 ## Phase 0: Pre-Flight Validation
@@ -231,7 +231,7 @@ Display on success: "✓ Schema validation passed for ideation"
 
 ### Story Creation Skill Integration
 
-Add to `devforgeai-story-creation/SKILL.md` Phase 0:
+Add to `spec-driven-stories/SKILL.md` Phase 0:
 
 ```markdown
 ## Phase 0: Pre-Flight Validation

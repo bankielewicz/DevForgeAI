@@ -8,7 +8,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 - Invoke spec-driven-architecture when context files needed
 - Invoke spec-driven-dev for implementation
 - Invoke spec-driven-qa for validation
-- Invoke devforgeai-release for deployment
+- Invoke spec-driven-release for deployment
 
 **Key principle:** Orchestration skill acts as workflow coordinator, delegating specialized work to domain-specific skills.
 
@@ -46,7 +46,7 @@ This phase coordinates automatic invocation of other DevForgeAI skills based on 
 
 ---
 
-### 4. devforgeai-release
+### 4. spec-driven-release
 
 **When invoked:** Story status = "QA Approved" OR checkpoint resumes from Phase 4/5
 
@@ -272,7 +272,7 @@ Display: "🚀 Starting Staging Deployment..."
 # Set environment context
 **Environment:** staging
 
-Skill(command="devforgeai-release")
+Skill(command="spec-driven-release")
 
 # Story ID already in context
 # Environment extracted from context marker
@@ -313,7 +313,7 @@ Display: "🚀 Starting Production Deployment..."
 # Set environment context
 **Environment:** production
 
-Skill(command="devforgeai-release")
+Skill(command="spec-driven-release")
 
 # Story ID already in context
 # Environment extracted from context marker
@@ -424,11 +424,11 @@ Validate completion:
 1. **spec-driven-ideation** - Requirements discovery → Architecture transition
 2. **spec-driven-architecture** - Context file generation (invoked in Architecture phase)
 3. **devforgeai-orchestration** - Workflow coordination (this skill)
-4. **devforgeai-story-creation** - Story generation from features
+4. **spec-driven-stories** - Story generation from features
 5. **devforgeai-ui-generator** - UI specification generation
 6. **spec-driven-dev** - TDD implementation (invoked in Development phase)
 7. **spec-driven-qa** - Quality validation (invoked in QA phase)
-8. **devforgeai-release** - Deployment (invoked in Release phase)
+8. **spec-driven-release** - Deployment (invoked in Release phase)
 
 **Orchestration skill invokes:** architecture, development, qa, release (4 of 8 skills)
 

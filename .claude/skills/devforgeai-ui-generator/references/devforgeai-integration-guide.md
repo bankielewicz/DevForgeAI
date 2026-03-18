@@ -208,13 +208,13 @@ src/
 
 ## Workflow Integration
 
-### Integration with designing-systems
+### Integration with spec-driven-architecture
 
 **Dependency:** UI Generator requires context files created by architecture skill.
 
 **Flow:**
 ```
-designing-systems (creates context files)
+spec-driven-architecture (creates context files)
     ↓
 devforgeai-ui-generator (validates context, generates UI)
 ```
@@ -226,9 +226,9 @@ User: "Generate a login form"
 Skill:
 1. Check for context files
 2. If missing → HALT
-3. Message: "Context files missing. Please run designing-systems first."
+3. Message: "Context files missing. Please run spec-driven-architecture first."
 
-User: [runs designing-systems]
+User: [runs spec-driven-architecture]
 
 Skill:
 1. Context files exist ✓
@@ -247,7 +247,7 @@ devforgeai-orchestration (detects UI requirements in story)
     ↓
 devforgeai-ui-generator (generates UI components)
     ↓
-implementing-stories (implements UI with TDD)
+spec-driven-dev (implements UI with TDD)
 ```
 
 **Example:**
@@ -279,7 +279,7 @@ Development:
 
 ---
 
-### Integration with implementing-stories
+### Integration with spec-driven-dev
 
 **Purpose:** UI specs serve as input for TDD implementation.
 
@@ -287,9 +287,9 @@ Development:
 ```
 devforgeai-ui-generator (generates UI spec)
     ↓
-implementing-stories (implements UI with tests)
+spec-driven-dev (implements UI with tests)
     ↓
-devforgeai-qa (validates implementation)
+spec-driven-qa (validates implementation)
 ```
 
 **Example:**
@@ -317,17 +317,17 @@ Development Skill (TDD):
 
 ---
 
-### Integration with devforgeai-qa
+### Integration with spec-driven-qa
 
 **Purpose:** QA validates generated UI meets acceptance criteria.
 
 **Flow:**
 ```
-implementing-stories (implements UI)
+spec-driven-dev (implements UI)
     ↓
-devforgeai-qa (validates implementation)
+spec-driven-qa (validates implementation)
     ↓
-[PASS] → devforgeai-release
+[PASS] → spec-driven-release
 [FAIL] → Back to development
 ```
 
@@ -549,10 +549,10 @@ Glob(pattern="devforgeai/specs/context/*.md")
 ❌ Context files are missing.
 
 Resolution:
-  Please invoke the 'designing-systems' skill to create the required context files.
+  Please invoke the 'spec-driven-architecture' skill to create the required context files.
 
 Command:
-  Skill(command="designing-systems")
+  Skill(command="spec-driven-architecture")
 
 After context files are created, re-run this skill.
 ```

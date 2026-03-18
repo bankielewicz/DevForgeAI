@@ -148,7 +148,7 @@ Example:
 | 2025-12-29 16:00 | .claude/qa-result-interpreter | QA Deep | Passed: Coverage 96%, 0 violations | - |
 ```
 
-### devforgeai-release Skill
+### spec-driven-release Skill
 
 At Phase 5 (Release Documentation), append a changelog entry:
 
@@ -203,7 +203,7 @@ When adding the Change Log section to existing stories, you MUST:
 
 ## References
 
-- Story Template: `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md`
+- Story Template: `.claude/skills/spec-driven-stories/assets/templates/story-template.md`
 - Development Skill: `.claude/skills/spec-driven-dev/SKILL.md`
 - QA Skill: `.claude/skills/spec-driven-qa/SKILL.md`
-- Release Skill: `.claude/skills/devforgeai-release/SKILL.md`
+- Release Skill: `.claude/skills/spec-driven-release/SKILL.md`

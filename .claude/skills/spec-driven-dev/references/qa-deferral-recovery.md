@@ -90,7 +90,7 @@ Action:
 User chose: "Create follow-up story"
 
 Action:
-1. Invoke devforgeai-story-creation skill:
+1. Invoke spec-driven-stories skill:
 
    # Set context markers for minimal user questions
    **Feature Description:** {deferred_work_description}
@@ -100,7 +100,7 @@ Action:
    **Parent Story:** {current_story_id}
    **Story Type:** Deferral Tracking
 
-   Skill(command="devforgeai-story-creation")
+   Skill(command="spec-driven-stories")
 
 2. Skill generates complete follow-up story with:
    - Full acceptance criteria (not minimal placeholders)
@@ -192,7 +192,7 @@ Deferral recovery succeeds when:
 
 ---
 
-## Integration with devforgeai-story-creation
+## Integration with spec-driven-stories
 
 **Why use story-creation skill for follow-up stories:**
 

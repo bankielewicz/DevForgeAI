@@ -153,7 +153,7 @@ else:
 
 ### Cleanup in Release Workflow
 
-Added to `devforgeai-release/SKILL.md`:
+Added to `spec-driven-release/SKILL.md`:
 
 ```python
 from devforgeai_cli.session.checkpoint import delete_checkpoint

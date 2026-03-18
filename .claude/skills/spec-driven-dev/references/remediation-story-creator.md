@@ -72,7 +72,7 @@ Continue to Step 3 (Data Extraction).
 Display: "Story creation skipped - you can create a remediation story later via /create-story or manually update the Follow-up field in the register"
 
 # NO side effects:
-- Do NOT invoke devforgeai-story-creation skill
+- Do NOT invoke spec-driven-stories skill
 - Do NOT modify the technical debt register Follow-up field
 - Continue to parent workflow:
   - If from /dev: Continue to Phase 07 (DoD Update)
@@ -187,10 +187,10 @@ BATCH_MODE = true  # Skip redundant interactive questions in story creation
 
 ## Step 5: Invoke Story Creation Skill [MANDATORY]
 
-**Pre-filled context for devforgeai-story-creation:**
+**Pre-filled context for spec-driven-stories:**
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 
 **Pre-filled Context:**
 - Feature Description: {FEATURE_DESCRIPTION}
@@ -238,7 +238,7 @@ IF skill invocation fails:
         IF user selects "Yes, retry":
             retry_count += 1
             # Retry skill invocation
-            Skill(command="devforgeai-story-creation")
+            Skill(command="spec-driven-stories")
 
             IF success:
                 BREAK  # Exit retry loop
@@ -409,7 +409,7 @@ Before completing this workflow, verify:
 - [ ] User decision captured (Yes or No)
 - [ ] If Yes: All 8 debt fields extracted
 - [ ] If Yes: Story context built with correct mapping
-- [ ] If Yes: devforgeai-story-creation skill invoked
+- [ ] If Yes: spec-driven-stories skill invoked
 - [ ] If Yes: Follow-up field updated in register
 - [ ] If Yes: last_updated field updated in register
 - [ ] If Yes: Confirmation message displayed
@@ -425,5 +425,5 @@ Before completing this workflow, verify:
 - **STORY-285:** Register Format Standardization (v2.0 YAML format)
 - **STORY-286:** /dev Phase 06 Automation (debt confirmation trigger)
 - **STORY-287:** QA Hook Integration (hook completion trigger)
-- **devforgeai-story-creation skill:** Story creation interface
+- **spec-driven-stories skill:** Story creation interface
 - **technical-debt-register.md:** Debt tracking register

@@ -2,7 +2,7 @@
 
 **Purpose:** High-level exploration and feasibility assessment for new ideas, technologies, or market opportunities.
 
-**When to Use:** discovering-requirements Phase 5 (Feasibility & Constraints Analysis), early epic planning, technology evaluation pre-architecture
+**When to Use:** spec-driven-ideation Phase 5 (Feasibility & Constraints Analysis), early epic planning, technology evaluation pre-architecture
 
 **Loaded:** Conditionally (when research_mode = "discovery")
 
@@ -448,7 +448,7 @@ OAuth 2.0 authentication is highly feasible for our multi-tenant SaaS platform (
 
 ---
 
-## Integration with discovering-requirements
+## Integration with spec-driven-ideation
 
 **Invocation Point:** Phase 5 (Feasibility & Constraints Analysis)
 
@@ -516,7 +516,7 @@ Discovery mode research succeeds when:
 - `investigation-mode-methodology.md` - Deep-dive research (narrower scope)
 - `skill-coordination-patterns.md` - Task invocation examples
 - `research-report-template.md` - Standard report structure
-- `.claude/skills/discovering-requirements/SKILL.md` - Ideation integration
+- `.claude/skills/spec-driven-ideation/SKILL.md` - Ideation integration
 
 ---
 

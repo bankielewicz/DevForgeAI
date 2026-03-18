@@ -345,7 +345,7 @@ FOR phase_num in range(CURRENT_PHASE, 7):  # Phases 01-06
 | Phase | Subagent | Enforcement |
 |-------|----------|-------------|
 | 03 | framework-analyst | CONDITIONAL (ai_analysis feedback type only) |
-| 03 | (devforgeai-story-creation via Skill) | CONDITIONAL (triage feedback type only) |
+| 03 | (spec-driven-stories via Skill) | CONDITIONAL (triage feedback type only) |
 
 **All other phases:** No subagents required. Direct tool calls (Read, Write, Glob, Grep, AskUserQuestion).
 

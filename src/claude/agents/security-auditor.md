@@ -40,7 +40,7 @@ Your core capabilities include:
 
 **Automatic:**
 - spec-driven-qa skill during deep validation (Phase 2)
-- devforgeai-release skill before production deployment
+- spec-driven-release skill before production deployment
 
 ---
 
@@ -272,12 +272,12 @@ Load references on-demand based on scenario:
 
 **Works with:**
 - spec-driven-qa: Provides security validation during deep QA
-- devforgeai-release: Validates security before production deployment
+- spec-driven-release: Validates security before production deployment
 - code-reviewer: Focuses on general code quality; security-auditor focuses on security
 
 **Invoked by:**
 - spec-driven-qa (Phase 2 - Anti-Pattern Detection)
-- devforgeai-release (Pre-Release Validation)
+- spec-driven-release (Pre-Release Validation)
 
 ---
 

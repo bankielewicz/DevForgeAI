@@ -133,7 +133,7 @@ bash scripts/build-offline-bundle.sh
 | session-miner | > | Read, Glob, Grep |
 | sprint-planner | Sprint planning and execution specialist. Handles story selection, capacity v... | Read, Write, Edit, Glob, Grep |
 | stakeholder-analyst | Stakeholder analysis specialist for identifying decision makers, users, affec... | (none) |
-| story-requirements-analyst | Requirements analysis subagent specifically for devforgeai-story-creation ski... | [Read, Grep, Glob, AskUserQuestion] |
+| story-requirements-analyst | Requirements analysis subagent specifically for spec-driven-stories ski... | [Read, Grep, Glob, AskUserQuestion] |
 | tech-stack-detector | Technology stack detection and validation specialist. Detects project languag... | Read, Glob, Grep |
 | technical-debt-analyzer | Analyzes accumulated technical debt from deferred DoD items. Generates debt t... | (none) |
 | test-automator | Test generation expert specializing in Test-Driven Development (TDD). Use pro... | Read, Write, Edit, Grep, Glob, Bash |
@@ -171,7 +171,7 @@ bash scripts/build-offline-bundle.sh
 | Framework overview | `README.md` |
 | Framework rules | `.claude/rules/core/critical-rules.md` |
 | Development workflow | `.claude/skills/spec-driven-dev/SKILL.md` |
-| Story template | `.claude/skills/devforgeai-story-creation/assets/templates/story-template.md` |
+| Story template | `.claude/skills/spec-driven-stories/assets/templates/story-template.md` |
 | QA validation | `.claude/skills/spec-driven-qa/SKILL.md` |
 | Context constraints | `devforgeai/specs/context/*.md` (6 files) |
 

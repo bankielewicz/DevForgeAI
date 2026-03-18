@@ -424,7 +424,7 @@ Reference ALL 6 context files (comprehensive awareness)
 ### spec-driven-architecture
 - Phase 2: architect-reviewer, api-designer
 
-### devforgeai-release
+### spec-driven-release
 - Phase 3: deployment-engineer
 
 ### devforgeai-orchestration

@@ -39,9 +39,9 @@ Glob(pattern="**/*.md")
 **Correct**:
 ```
 .claude/skills/
-├── discovering-requirements/
+├── spec-driven-ideation/
 ├── designing-architecture/
-├── implementing-stories/
+├── spec-driven-dev/
 ├── validating-quality/
 └── releasing-stories/
 ```
@@ -94,7 +94,7 @@ For detailed scoring rubric, see references/complexity-assessment-matrix.md
 
 **Wrong**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── scripts/
     └── implement.py    # Python implementation
@@ -102,7 +102,7 @@ For detailed scoring rubric, see references/complexity-assessment-matrix.md
 
 **Correct**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── references/
     └── tdd-workflow-guide.md    # Documentation only
@@ -136,18 +136,18 @@ Check tech-stack.md for ORM choice
 
 **Wrong**:
 ```
-implementing-stories calls validating-quality
+spec-driven-dev calls validating-quality
   ↓
-validating-quality calls implementing-stories
+validating-quality calls spec-driven-dev
   ↓
 Infinite loop
 ```
 
 **Correct**:
 ```
-implementing-stories calls validating-quality (one-way)
+spec-driven-dev calls validating-quality (one-way)
 validating-quality returns results
-implementing-stories continues
+spec-driven-dev continues
 ```
 
 **Rationale**: Prevents infinite loops and context overflow.

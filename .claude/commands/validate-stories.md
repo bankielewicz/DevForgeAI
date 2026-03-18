@@ -191,7 +191,7 @@ circular dependencies, ambiguous acceptance criteria, and stale labels.
 
 2. Load context files and validate each story:
 
-   Reference: .claude/skills/devforgeai-story-creation/references/context-validation.md
+   Reference: .claude/skills/spec-driven-stories/references/context-validation.md
 
    # Load all 6 context files in PARALLEL
    context_files = {
@@ -264,8 +264,8 @@ circular dependencies, ambiguous acceptance criteria, and stale labels.
 
    IF NOT chain_mode: SKIP to Phase 4
 
-   Reference: Load .claude/skills/devforgeai-story-creation/references/custody-chain-workflow.md
-   Reference: .claude/skills/devforgeai-story-creation/references/context-validation.md
+   Reference: Load .claude/skills/spec-driven-stories/references/custody-chain-workflow.md
+   Reference: .claude/skills/spec-driven-stories/references/context-validation.md
    Section: "Custody Chain Validation Functions" (functions #7-10)
 
    findings = []
@@ -286,7 +286,7 @@ circular dependencies, ambiguous acceptance criteria, and stale labels.
    # Reference: custody-chain-workflow.md Sub-Phase 3e + context-validation.md #11-17
 
    IF len(epics_in_scope) > 0:
-     Read("src/claude/skills/devforgeai-story-creation/references/context-validation.md")
+     Read("src/claude/skills/spec-driven-stories/references/context-validation.md")
      # Functions #11-17 define the coherence validation logic
 
      FOR epic_id in epics_in_scope:
@@ -553,9 +553,9 @@ circular dependencies, ambiguous acceptance criteria, and stale labels.
 ## Integration
 
 **Invokes validation logic from:**
-- `.claude/skills/devforgeai-story-creation/references/context-validation.md`
+- `.claude/skills/spec-driven-stories/references/context-validation.md`
   Sections: "Validation Functions" (#1-6) + "Custody Chain Validation Functions" (#7-10)
-- `.claude/skills/devforgeai-story-creation/references/custody-chain-workflow.md`
+- `.claude/skills/spec-driven-stories/references/custody-chain-workflow.md`
   Section: Phase 3 sub-phases (3a-3d) detailed orchestration
 
 **Can be called:**

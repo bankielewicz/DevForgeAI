@@ -17,7 +17,7 @@ Subagents are specialized AI workers with domain expertise that operate in isola
 
 Subagents are automatically invoked by DevForgeAI skills at appropriate workflow phases:
 
-**During implementing-stories:**
+**During spec-driven-dev:**
 - **Phase 0 (Preflight)**: git-worktree-manager creates isolated worktree, dependency-graph-analyzer validates dependencies, file-overlap-detector checks for conflicts
 - **Phase 1 (Red)**: test-automator generates failing tests from acceptance criteria
 - **Phase 2 (Green)**: backend-architect or frontend-developer implements code to pass tests
@@ -28,7 +28,7 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 - **Phase 5.5 (AC Verify)**: ac-compliance-verifier validates post-integration acceptance criteria (NEW - EPIC-046)
 - **Phase 9 (Feedback)**: observation-extractor captures workflow insights, framework-analyst synthesizes recommendations
 
-**During devforgeai-qa:**
+**During spec-driven-qa:**
 - **Phase 0 Step 2.5**: deferral-validator validates deferred DoD items (MANDATORY)
 - **Light Validation**: context-validator checks constraints
 - **Deep Validation**: security-auditor scans for vulnerabilities, test-automator fills coverage gaps
@@ -37,12 +37,12 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 **During devforgeai-ui-generator:**
 - **Phase 6 Step 3.5**: ui-spec-formatter formats and validates generated UI specifications (NEW - UI Refactoring)
 
-**During designing-systems:**
+**During spec-driven-architecture:**
 - architect-reviewer validates architecture decisions
 - api-designer defines API contract standards
 - CLAP alignment auditor validates cross-layer configuration alignment (Phase 5.5 - NEW EPIC-081)
 
-**During devforgeai-release:**
+**During spec-driven-release:**
 - deployment-engineer handles infrastructure and deployment
 - security-auditor performs pre-release security scan
 
@@ -134,7 +134,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **security-auditor** | OWASP Top 10, auth/authz, vulnerability scanning | sonnet | <40K | After auth code, handling sensitive data |
 | **deployment-engineer** | Infrastructure, IaC, CI/CD pipelines | sonnet | <40K | Release phase, deployment configuration |
 | **requirements-analyst** | User story creation, acceptance criteria | sonnet | <30K | Epic decomposition, story planning |
-| **story-requirements-analyst** | Story requirements (content-only, RCA-007 fix) | sonnet | <50K | devforgeai-story-creation Phase 2 (replaces general-purpose) |
+| **story-requirements-analyst** | Story requirements (content-only, RCA-007 fix) | sonnet | <50K | spec-driven-stories Phase 2 (replaces general-purpose) |
 | **documentation-writer** | Technical docs, API specs, user guides | sonnet | <30K | After API implementation, when coverage <80% |
 | **architect-reviewer** | Architecture validation, design patterns | sonnet | <40K | After ADRs, major architectural changes |
 | **refactoring-specialist** | Safe refactoring, code smell removal | inherit | <40K | When complexity >10, code duplication >5% |
@@ -164,7 +164,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **epic-coverage-result-interpreter** | Formats epic coverage validation results for display. Generates four display templates: single-epic breakdown, all-epics summary table, actionable gap list, and batch creation summary. | haiku | <8K | After validating-epic-coverage skill completes, before coverage results display |
 | **file-overlap-detector** | Detect file overlaps between parallel stories | opus | <30K | /dev Phase 0 Step 0.2.6 for file overlap prevention (NEW - EPIC-010) |
 | **git-worktree-manager** | Git worktree lifecycle for parallel development | opus | <30K | /dev Phase 0 Step 0.2 for isolated worktree creation (NEW - EPIC-010) |
-| **ideation-result-interpreter** | Format ideation results for user display | opus | <15K | After discovering-requirements completes, before result display (NEW) |
+| **ideation-result-interpreter** | Format ideation results for user display | opus | <15K | After spec-driven-ideation completes, before result display (NEW) |
 | **context-preservation-validator** | Validate brainstorm→epic→story context linkage | opus | <20K | At workflow transitions, detect context loss (NEW) |
 | **anti-pattern-scanner** | Architecture violation detection across 6 categories | opus | <50K | QA Phase 2 for anti-pattern and security scanning (NEW) |
 | **stakeholder-analyst** | Stakeholder discovery for brainstorming sessions | opus | <30K | brainstorming Phase 1 stakeholder analysis (NEW) |
@@ -207,7 +207,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 
 ## Subagent Integration with Skills
 
-**implementing-stories** uses:
+**spec-driven-dev** uses:
 - **git-worktree-manager** (Phase 0 Step 0.2) - Creates isolated worktree for story development
 - **dependency-graph-analyzer** (Phase 0 Step 0.2.5) - Validates story dependencies
 - **file-overlap-detector** (Phase 0 Step 0.2.6) - Detects file conflicts with parallel stories
@@ -221,7 +221,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - requirements-analyst (when creating follow-up stories for deferrals)
 - architect-reviewer (when creating ADRs for scope changes)
 
-**devforgeai-qa** uses:
+**spec-driven-qa** uses:
 - **deferral-validator** (Phase 0 Step 2.5 - validates deferred DoD items)
 - context-validator → security-auditor → test-automator (coverage gaps)
 - **anti-pattern-scanner** (Phase 2 - architecture violation detection)
@@ -232,10 +232,10 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 **devforgeai-ui-generator** uses:
 - **ui-spec-formatter** (NEW - Phase 6 Step 3.5 - formats and validates UI spec results)
 
-**designing-systems** uses:
+**spec-driven-architecture** uses:
 - architect-reviewer → api-designer
 
-**devforgeai-release** uses:
+**spec-driven-release** uses:
 - security-auditor → deployment-engineer
 
 **devforgeai-orchestration** uses:
@@ -243,7 +243,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - **technical-debt-analyzer** (NEW - Phase 4.5 during sprint planning/retrospectives)
 - **sprint-planner** (NEW - Phase 3 sprint planning workflow)
 
-**devforgeai-story-creation** uses:
+**spec-driven-stories** uses:
 - **story-requirements-analyst** (Phase 2 - Requirements Analysis, RCA-007)
   - Skill-specific subagent for content-only output
   - Replaces general-purpose requirements-analyst
@@ -256,7 +256,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - **stakeholder-analyst** (Phase 1 - stakeholder discovery and mapping)
 - **internet-sleuth** (Phase 3 - market research and competitive analysis)
 
-**discovering-requirements** uses:
+**spec-driven-ideation** uses:
 - **internet-sleuth** (Phase 2 - technology discovery and repository archaeology)
 - **ideation-result-interpreter** (Phase 6.5 - format results for display)
 

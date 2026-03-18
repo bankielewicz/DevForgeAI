@@ -1,7 +1,7 @@
-# Story-064 Test Pipeline: devforgeai-story-creation Integration Validation
+# Story-064 Test Pipeline: spec-driven-stories Integration Validation
 #
 # This pipeline runs 45 automated tests (unit, integration, regression, performance)
-# to validate the integration between devforgeai-story-creation and user-input-guidance.
+# to validate the integration between spec-driven-stories and user-input-guidance.
 #
 # Triggers:
 #   - Push to story-064* or main branches with relevant file changes
@@ -24,7 +24,7 @@ on:
       - story-064*
       - main
     paths:
-      - 'src/.claude/skills/devforgeai-story-creation/**'
+      - 'src/.claude/skills/spec-driven-stories/**'
       - 'src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md'
       - 'tests/unit/test_story_064_unit_suite.py'
       - 'tests/integration/test_story_064_integration_suite.py'
@@ -37,7 +37,7 @@ on:
     branches:
       - main
     paths:
-      - 'src/.claude/skills/devforgeai-story-creation/**'
+      - 'src/.claude/skills/spec-driven-stories/**'
       - 'src/.claude/skills/spec-driven-ideation/references/user-input-guidance.md'
       - 'tests/unit/test_story_064_unit_suite.py'
       - 'tests/integration/test_story_064_integration_suite.py'

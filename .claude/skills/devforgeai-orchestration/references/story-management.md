@@ -49,10 +49,10 @@ Contains:
 
 ## Story Creation
 
-**For creating new story documents, use the devforgeai-story-creation skill:**
+**For creating new story documents, use the spec-driven-stories skill:**
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 **The story-creation skill handles:**
@@ -66,7 +66,7 @@ Skill(command="devforgeai-story-creation")
 - Completion reporting (summary and next actions)
 
 **Complete story creation documentation:**
-`.claude/skills/devforgeai-story-creation/SKILL.md`
+`.claude/skills/spec-driven-stories/SKILL.md`
 
 **Story creation reference files:**
 - story-structure-guide.md - YAML frontmatter fields, required sections
@@ -106,7 +106,7 @@ Every story MUST include these sections:
 ### Story Template Location
 
 ```
-Primary Template: .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
+Primary Template: .claude/skills/spec-driven-stories/assets/templates/story-template.md
 Backup Template: .claude/skills/devforgeai-orchestration/assets/templates/story-template.md
 
 Template contains:
@@ -291,7 +291,7 @@ IF "## Workflow History" NOT in content:
 ### 2025-10-30 14:23:15 - Architecture
 - **Previous Status:** Backlog
 - **Action Taken:** Story assigned to Sprint 1, moving to architecture validation
-- **Result:** designing-systems skill invoked
+- **Result:** spec-driven-architecture skill invoked
 - **Next Steps:** Create/validate all 6 context files
 ```
 
@@ -309,7 +309,7 @@ IF "## Workflow History" NOT in content:
 ### 2025-10-30 15:10:05 - In Development
 - **Previous Status:** Ready for Dev
 - **Action Taken:** Developer John started TDD workflow
-- **Result:** implementing-stories skill invoked
+- **Result:** spec-driven-dev skill invoked
 - **Next Steps:** Execute 6 TDD phases (Context → Test → Implement → Refactor → Integrate → Git)
 ```
 
@@ -456,7 +456,7 @@ Add section to story (before Workflow History):
 
 **Date:** 2025-10-31 17:05:33
 **Status:** ✅ PASS
-**Validator:** devforgeai-qa skill
+**Validator:** spec-driven-qa skill
 
 ### Summary
 - Overall Coverage: 89%
@@ -497,7 +497,7 @@ Full QA Report: `devforgeai/qa/reports/STORY-001-qa-report.md`
 
 **Date:** 2025-10-31 17:05:33
 **Status:** ❌ FAIL
-**Validator:** devforgeai-qa skill
+**Validator:** spec-driven-qa skill
 
 ### Summary
 - Overall Coverage: 78% (below 80% threshold)

@@ -20,9 +20,9 @@ Design consistent, well-documented API contracts following REST, GraphQL, or gRP
 
 ## RCA-006 Phase 2: Structured YAML Output (Extension Section)
 
-**LOAD-CRITICAL: This section is consumed by devforgeai-story-creation skill.**
+**LOAD-CRITICAL: This section is consumed by spec-driven-stories skill.**
 
-When invoked by devforgeai-story-creation skill, this subagent generates **structured YAML format** for API components (not freeform markdown).
+When invoked by spec-driven-stories skill, this subagent generates **structured YAML format** for API components (not freeform markdown).
 
 **Output Format:** YAML text for API components matching schema:
 ```yaml
@@ -275,7 +275,7 @@ Task(
 - **backend-architect**: Provides implementation specification from API design
 - **integration-tester**: Validates API contract compliance
 - **documentation-writer**: Generates API documentation from OpenAPI specs
-- **Invoked by**: spec-driven-architecture, requirements-analyst, devforgeai-story-creation (RCA-006)
+- **Invoked by**: spec-driven-architecture, requirements-analyst, spec-driven-stories (RCA-006)
 
 ---
 

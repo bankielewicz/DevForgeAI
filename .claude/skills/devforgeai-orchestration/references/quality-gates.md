@@ -39,7 +39,7 @@ Ensure architectural foundation exists and is valid before development begins.
 
 ### When Evaluated
 
-- After `designing-systems` skill completes
+- After `spec-driven-architecture` skill completes
 - Before developer can start TDD workflow
 - Automatically during orchestration
 
@@ -162,7 +162,7 @@ IF "src/" not in content AND "source/" not in content:
 1. **BLOCK** transition to Ready for Dev
 2. Report which checks failed
 3. Provide fix guidance
-4. Re-invoke `designing-systems` if needed
+4. Re-invoke `spec-driven-architecture` if needed
 5. Retry validation after fixes
 
 **Example Failure Report:**

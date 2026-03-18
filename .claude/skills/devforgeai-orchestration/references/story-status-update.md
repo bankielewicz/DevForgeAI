@@ -108,7 +108,7 @@ FOR each checkbox associated with completed phase:
 ### 2025-01-06T14:23:45Z - Dev Complete
 
 **Previous Status:** In Development
-**Action Taken:** implementing-stories skill executed TDD workflow (Red → Green → Refactor)
+**Action Taken:** spec-driven-dev skill executed TDD workflow (Red → Green → Refactor)
 **Result:** All tests passing (174/174), coverage 91%, light QA passed
 **Next Steps:** Ready for deep QA validation
 **Checkpoint:** DEV_COMPLETE
@@ -173,7 +173,7 @@ Edit(
 ### 2025-01-06T14:23:45Z - Dev Complete
 
 **Previous Status:** In Development
-**Action Taken:** implementing-stories skill executed TDD workflow
+**Action Taken:** spec-driven-dev skill executed TDD workflow
 **Phases Executed:**
 - Red Phase: 12 failing tests generated from acceptance criteria
 - Green Phase: Implementation written to pass all tests
@@ -202,7 +202,7 @@ Edit(
 ### 2025-01-06T15:45:22Z - QA Approved
 
 **Previous Status:** QA In Progress
-**Action Taken:** devforgeai-qa skill executed deep validation
+**Action Taken:** spec-driven-qa skill executed deep validation
 
 **Validation Results:**
 - Coverage Analysis: 91% (✓ exceeds 85% threshold)
@@ -236,7 +236,7 @@ Edit(
 ### 2025-01-06T16:30:15Z - Released
 
 **Previous Status:** Releasing
-**Action Taken:** devforgeai-release skill deployed to production
+**Action Taken:** spec-driven-release skill deployed to production
 
 **Deployment Summary:**
 - Staging: Deployed 2025-01-06T16:10:32Z (✓ smoke tests passed)

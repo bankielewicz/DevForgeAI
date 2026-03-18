@@ -24,7 +24,7 @@ created: 2025-12-10
 
 ## Gate 3: QA Approval
 **Transition:** QA Approved → Releasing
-**Enforced By:** devforgeai-release skill
+**Enforced By:** spec-driven-release skill
 **Requirements:**
 - Story file has "QA APPROVED" marker
 - All acceptance criteria verified
@@ -33,7 +33,7 @@ created: 2025-12-10
 
 ## Gate 4: Release Readiness
 **Transition:** Releasing → Released
-**Enforced By:** devforgeai-release skill
+**Enforced By:** spec-driven-release skill
 **Requirements:**
 - Smoke tests pass
 - Deployment verification complete

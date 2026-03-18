@@ -77,7 +77,7 @@ IF validation_status == "PASSED":
 
 ### 3. Story Creation Skill (Epic Input)
 
-**Trigger:** When devforgeai-story-creation skill receives epic document
+**Trigger:** When spec-driven-stories skill receives epic document
 
 **Validation Steps:**
 ```
@@ -231,7 +231,7 @@ Display on success: "✓ Schema validation passed for ideation"
 
 ### Story Creation Skill Integration
 
-Add to `devforgeai-story-creation/SKILL.md` Phase 0:
+Add to `spec-driven-stories/SKILL.md` Phase 0:
 
 ```markdown
 ## Phase 0: Pre-Flight Validation

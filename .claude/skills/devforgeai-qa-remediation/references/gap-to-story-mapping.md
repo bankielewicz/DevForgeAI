@@ -7,7 +7,7 @@
 
 ## Context Marker Format
 
-Each gap generates a context marker block for `devforgeai-story-creation` batch mode:
+Each gap generates a context marker block for `spec-driven-stories` batch mode:
 
 ```markdown
 **Story ID:** STORY-{next_available_id}
@@ -284,7 +284,7 @@ Do NOT fill gaps (could conflict with archived stories).
 ### Story Creation Call
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 With context markers in conversation before invocation.

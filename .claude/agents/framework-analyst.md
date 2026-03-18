@@ -6,7 +6,7 @@ model: opus
 color: purple
 permissionMode: readonly
 proactive_triggers:
-  - "during Phase 09 of implementing-stories skill"
+  - "during Phase 09 of spec-driven-dev skill"
   - "after dev workflow phases 01-08 complete"
   - "when observations array contains entries"
 version: "2.0.0"
@@ -27,7 +27,7 @@ Transform terse observation notes captured during /dev workflow phases (01-08) i
 ## When Invoked
 
 **Automatic invocation:**
-- Phase 09 of implementing-stories skill (Feedback Hook)
+- Phase 09 of spec-driven-dev skill (Feedback Hook)
 - After /dev workflow completes phases 01-08
 
 **Input provided:**
@@ -108,7 +108,7 @@ FOR each observation in observations:
   IF observation.note mentions "test" OR observation.files contains "test":
     Read(".claude/agents/test-automator.md")
   IF observation.note mentions "DoD" OR observation.note mentions "deferral":
-    Read(".claude/skills/implementing-stories/references/dod-update-workflow.md")
+    Read(".claude/skills/spec-driven-dev/references/dod-update-workflow.md")
 ```
 
 ### Step 3: Check for Duplicates
@@ -147,7 +147,7 @@ For each observation, expand terse note into full recommendation:
 {
   "title": "Document shell script test naming convention",
   "description": "Add explicit guidance for naming test files when testing shell scripts. Currently unclear whether to use .bats, _test.sh, or test_*.sh pattern.",
-  "affected_files": [".claude/agents/test-automator.md", ".claude/skills/implementing-stories/references/tdd-patterns.md"],
+  "affected_files": [".claude/agents/test-automator.md", ".claude/skills/spec-driven-dev/references/tdd-patterns.md"],
   "implementation_code": "Add '### Shell Script Test Naming' section to tdd-patterns.md with pattern: test_{script_name}.bats for Bats framework or test_{script_name}.sh for shell-based tests.",
   "effort_estimate": "15 min",
   "priority": "MEDIUM",
@@ -313,7 +313,7 @@ interface FrameworkAnalysisOutput {
     {
       "title": "Document shell script test naming convention",
       "description": "Add explicit guidance for shell script test naming with Bats framework pattern and shell-based test pattern examples",
-      "affected_files": [".claude/agents/test-automator.md", ".claude/skills/implementing-stories/references/tdd-patterns.md"],
+      "affected_files": [".claude/agents/test-automator.md", ".claude/skills/spec-driven-dev/references/tdd-patterns.md"],
       "implementation_code": "Add '### Shell Script Testing' section with examples: test_{script_name}.bats for Bats framework or test_{script_name}.sh for pure shell",
       "effort_estimate": "15 min",
       "priority": "MEDIUM",
@@ -381,7 +381,7 @@ Return error JSON:
 ## Integration
 
 **Invoked by:**
-- implementing-stories skill (Phase 09 - Feedback Hook)
+- spec-driven-dev skill (Phase 09 - Feedback Hook)
 
 **Reads:**
 - `devforgeai/workflows/${STORY_ID}-phase-state.json` (observations)

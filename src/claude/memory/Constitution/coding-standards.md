@@ -141,7 +141,7 @@ multiSelect: false
 
 Story types (`feature`, `documentation`, `bugfix`, `refactor`) define TDD phase skipping behavior.
 
-**See:** `.claude/skills/devforgeai-story-creation/references/story-type-classification.md`
+**See:** `.claude/skills/spec-driven-stories/references/story-type-classification.md`
 
 ---
 

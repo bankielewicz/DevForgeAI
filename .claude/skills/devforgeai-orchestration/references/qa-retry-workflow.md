@@ -49,7 +49,7 @@ When QA fails, this phase manages the retry workflow with maximum 3 attempts.
 
 ```
 Phase 3 executes QA skill:
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
 QA skill returns result in conversation context
 
@@ -389,7 +389,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   "🔄 Returning to Phase 2 (Development) to fix {failure_type} issues...
 
   Orchestration will:
-  1. Re-invoke implementing-stories skill
+  1. Re-invoke spec-driven-dev skill
   2. Dev skill will address: {failure_description}
   3. After dev complete, automatically retry QA
   4. If QA passes: Continue to staging release
@@ -402,7 +402,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   **Orchestration Retry:** Attempt {current_qa_attempt}
 
   # Re-invoke development skill
-  Skill(command="implementing-stories")
+  Skill(command="spec-driven-dev")
 
   # Development skill executes TDD workflow to fix issues
   # Uses context markers to understand what to fix
@@ -418,7 +418,7 @@ IF recovery_strategy CONTAINS "Return to dev":
   **Validation Mode:** deep
   **Retry Attempt:** {current_qa_attempt + 1}
 
-  Skill(command="devforgeai-qa")
+  Skill(command="spec-driven-qa")
 
   # QA skill executes comprehensive validation
   # Returns: "PASSED" or "FAILED"
@@ -486,7 +486,7 @@ IF recovery_strategy CONTAINS "Create follow-up":
       **Story Type:** deferral_tracking
 
       # Invoke story creation skill
-      Skill(command="devforgeai-story-creation")
+      Skill(command="spec-driven-stories")
 
       # Story created, capture ID
       new_story_id = extract from skill result

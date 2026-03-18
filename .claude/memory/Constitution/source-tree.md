@@ -1,12 +1,12 @@
 # Source Tree Structure - DevForgeAI Framework
 
 **Status**: LOCKED
-**Last Updated**: 2026-03-04
-**Version**: 5.6 (Added: positioning-strategy.md reference — ADR-035)
+**Last Updated**: 2026-02-12
+**Version**: 3.9 (Added: dead-code-detector, code-smell-catalog, two-stage-filter-patterns paths per STORY-407)
 
 ## CRITICAL RULE: Framework Organization
 
-This file defines WHERE framework components belong in the DevForgeAI repository. Projects using DevForgeAI will have their own source-tree.md files created by the designing-systems skill.
+This file defines WHERE framework components belong in the DevForgeAI repository. Projects using DevForgeAI will have their own source-tree.md files created by the spec-driven-architecture skill.
 
 ---
 
@@ -24,59 +24,44 @@ DevForgeAI2/
 │       └── installer-testing.yml # Installer test workflow
 │
 ├── .claude/                     # Claude Code Terminal configuration (OPERATIONAL - do not modify files)
-│   ├── skills/                  # Framework implementation (21 skills)
-│   │   ├── discovering-requirements/
-│   │   │   ├── SKILL.md         # Main skill (500-800 lines)
-│   │   │   ├── references/      # Deep documentation (loaded on demand)
+│   ├── skills/                  # Framework implementation (18 skills)
+│   │   ├── spec-driven-ideation/       # Requirements discovery (ADR-038 migration)
+│   │   │   ├── SKILL.md                # Main skill with 7-phase orchestration
+│   │   │   ├── phases/                 # Phase execution files
+│   │   │   │   ├── phase-01-preflight.md
+│   │   │   │   ├── phase-02-discovery.md
+│   │   │   │   ├── phase-03-elicitation.md
+│   │   │   │   ├── phase-04-compliance.md
+│   │   │   │   ├── phase-05-artifacts.md
+│   │   │   │   ├── phase-06-validation.md
+│   │   │   │   └── phase-07-handoff.md
+│   │   │   ├── references/             # Deep documentation (loaded on demand)
 │   │   │   │   ├── discovery-workflow.md
 │   │   │   │   ├── requirements-elicitation-workflow.md
-│   │   │   │   ├── complexity-assessment-workflow.md
-│   │   │   │   ├── epic-decomposition-workflow.md
-│   │   │   │   ├── feasibility-analysis-workflow.md
 │   │   │   │   ├── artifact-generation.md
 │   │   │   │   ├── self-validation-workflow.md
 │   │   │   │   ├── completion-handoff.md
 │   │   │   │   ├── user-interaction-patterns.md
 │   │   │   │   ├── error-handling.md
 │   │   │   │   ├── requirements-elicitation-guide.md
-│   │   │   │   ├── complexity-assessment-matrix.md
 │   │   │   │   ├── domain-specific-patterns.md
-│   │   │   │   ├── feasibility-analysis-framework.md
 │   │   │   │   ├── validation-checklists.md
 │   │   │   │   └── output-templates.md
-│   │   │   └── assets/
-│   │   │       └── templates/
-│   │   │           ├── epic-template.md
-│   │   │           ├── requirements-spec-template.md
-│   │   │           ├── feature-prioritization-matrix.md
-│   │   │           └── user-persona-template.md
-│   │   ├── assessing-entrepreneur/        # Guided self-assessment skill (STORY-465, EPIC-072)
-│   │   │   ├── SKILL.md                  # 9-phase assessment workflow (~196 lines)
-│   │   │   └── references/
-│   │   │       ├── adhd-adaptation-framework.md
-│   │   │       ├── confidence-assessment-workflow.md
-│   │   │       ├── work-style-questionnaire.md
-│   │   │       └── plan-calibration-engine.md
-│   │   ├── researching-market/            # Market research skill (EPIC-074, ADR-029)
-│   │   │   ├── SKILL.md                   # Market sizing, competitive analysis, interviews
-│   │   │   └── references/
-│   │   │       ├── market-sizing-methodology.md   # TAM/SAM/SOM estimation (STORY-535)
-│   │   │       ├── fermi-estimation.md            # Fermi estimation guidance (STORY-535)
-│   │   │       ├── competitive-analysis-framework.md  # Competitor positioning (STORY-536)
-│   │   │       └── customer-interview-guide.md    # Interview best practices (STORY-537)
-│   │   ├── auditing-w3-compliance/        # W3 compliance scanning skill (STORY-462, ADR-020)
-│   │   │   └── SKILL.md                  # 4-phase violation scanning (CRITICAL/HIGH/MEDIUM/INFO)
+│   │   │   ├── assets/
+│   │   │   │   └── templates/
+│   │   │   │       ├── requirements-template.md
+│   │   │   │       ├── requirements-schema.yaml
+│   │   │   │       ├── feature-prioritization-matrix.md
+│   │   │   │       └── user-persona-template.md
+│   │   │   └── scripts/
+│   │   │       ├── complexity_scorer.py
+│   │   │       └── requirements_validator.py
 │   │   ├── brainstorming/                # Business Analyst discovery skill
 │   │   │   ├── SKILL.md                  # Main skill (BA discovery phases)
 │   │   │   └── assets/
 │   │   │       └── templates/
 │   │   │           └── brainstorm-template.md
-│   │   ├── coaching-entrepreneur/          # Confidence coaching skill (STORY-469, EPIC-072)
-│   │   │   ├── SKILL.md                    # Main skill (placeholder)
-│   │   │   └── references/
-│   │   │       ├── confidence-building-patterns.md
-│   │   │       └── imposter-syndrome-interventions.md
-│   │   ├── designing-systems/
+│   │   ├── spec-driven-architecture/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── project-context-discovery.md
@@ -84,7 +69,6 @@ DevForgeAI2/
 │   │   │   │   ├── adr-creation.md
 │   │   │   │   ├── spec-validation.md
 │   │   │   │   ├── ambiguity-detection.md
-│   │   │   │   ├── prompt-alignment-workflow.md
 │   │   │   │   └── completion-handoff.md
 │   │   │   └── assets/
 │   │   │       └── templates/
@@ -101,12 +85,11 @@ DevForgeAI2/
 │   │   │   │   ├── skill-invocation.md
 │   │   │   │   ├── workflow-state-machine.md
 │   │   │   │   ├── quality-gates.md
-│   │   │   │   ├── story-lifecycle-management.md
-│   │   │   │   └── sprint-command-workflow.md
+│   │   │   │   └── story-lifecycle-management.md
 │   │   │   └── assets/                           # EPIC-048 - Template storage
 │   │   │       └── templates/
 │   │   │           └── technical-debt-register-template.md  # v2.0 YAML frontmatter template (STORY-285)
-│   │   ├── devforgeai-story-creation/
+│   │   ├── spec-driven-stories/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── requirements-analysis.md
@@ -135,7 +118,7 @@ DevForgeAI2/
 │   │   │           ├── web-component-template.md
 │   │   │           ├── gui-component-template.md
 │   │   │           └── terminal-component-template.md
-│   │   ├── implementing-stories/
+│   │   ├── spec-driven-dev/
 │   │   │   ├── SKILL.md
 │   │   │   ├── phases/              # Phase-specific execution guides (10 phases)
 │   │   │   │   ├── phase-01-preflight.md
@@ -158,26 +141,7 @@ DevForgeAI2/
 │   │   │       ├── dod-update-workflow.md
 │   │   │       ├── ac-checklist-update-workflow.md
 │   │   │       └── git-workflow-conventions.md
-│   │   ├── marketing-business/          # Marketing skill (STORY-539, EPIC-075, ADR-033)
-│   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       ├── go-to-market-framework.md
-│   │   │       ├── channel-selection-matrix.md
-│   │   │       ├── positioning-strategy.md    # STORY-540, ADR-035
-│   │   │       ├── customer-discovery-workflow.md  # STORY-542, ADR-036
-│   │   │       └── content-channel-strategy.md  # STORY-543, ADR-037
-│   │   ├── planning-business/           # Business planning skill (STORY-531/532/533, EPIC-073, ADR-034)
-│   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       ├── lean-canvas-workflow.md
-│   │   │       ├── milestone-generator.md
-│   │   │       ├── business-model-patterns.md
-│   │   │       └── viability-scoring.md
-│   │   ├── validating-epic-coverage/    # STORY-457, ADR-020
-│   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       └── story-quality-gates.md
-│   │   ├── devforgeai-qa/
+│   │   ├── spec-driven-qa/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── coverage-analysis-workflow.md
@@ -186,11 +150,7 @@ DevForgeAI2/
 │   │   │   │   ├── spec-compliance-workflow.md
 │   │   │   │   ├── validation-procedures.md
 │   │   │   │   ├── report-generation.md
-│   │   │   │   ├── dod-protocol.md
-│   │   │   │   ├── phase-0-setup-workflow.md
-│   │   │   │   ├── phase-3-reporting-workflow.md
-│   │   │   │   ├── phase-4-cleanup-workflow.md
-│   │   │   │   └── phase-marker-protocol.md
+│   │   │   │   └── dod-protocol.md
 │   │   │   ├── assets/
 │   │   │   │   ├── config/
 │   │   │   │   │   ├── coverage-thresholds.md
@@ -229,15 +189,14 @@ DevForgeAI2/
 │   │   │           ├── api-doc-template.md
 │   │   │           ├── developer-guide-template.md
 │   │   │           └── architecture-diagram-template.md
-│   │   ├── devforgeai-feedback/
+│   │   ├── spec-driven-feedback/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── session-initialization.md
 │   │   │   │   ├── challenge-detection.md
 │   │   │   │   ├── insight-extraction.md
 │   │   │   │   ├── improvement-recommendation.md
-│   │   │   │   ├── session-finalization.md
-│   │   │   │   └── triage-workflow.md
+│   │   │   │   └── session-finalization.md
 │   │   │   └── assets/
 │   │   │       ├── config/
 │   │   │       │   └── feedback-config.json
@@ -268,10 +227,6 @@ DevForgeAI2/
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
 │   │   │       └── terminal-knowledge-base.md
-│   │   ├── cross-ai-collaboration/          # Cross-AI collaboration document generation (ADR-024)
-│   │   │   ├── SKILL.md                    # 6-phase interactive collaboration workflow
-│   │   │   └── references/
-│   │   │       └── collaboration-prompt-template.md
 │   │   ├── internet-sleuth-integration/
 │   │   │   └── SKILL.md (incomplete - use internet-sleuth subagent instead)
 │   │   ├── skill-creator/
@@ -281,33 +236,13 @@ DevForgeAI2/
 │   │   │   └── references/
 │   │   │       ├── fix-actions-catalog.md
 │   │   │       └── fix-verification-workflow.md
-│   │   ├── advising-legal/                 # Legal guidance skill (EPIC-076, ADR-028)
-│   │   │   ├── SKILL.md                   # Legal assessment orchestrator (< 1,000 lines)
-│   │   │   └── references/
-│   │   │       ├── business-structure-guide.md     # LLC/S-Corp/Sole Prop decision tree (STORY-544)
-│   │   │       ├── ip-protection-checklist.md      # Copyright/trademark/patent guidance (STORY-545)
-│   │   │       └── when-to-hire-professional.md    # Professional referral framework (STORY-547)
-│   │   ├── managing-finances/               # Financial planning skill (EPIC-077, ADR-030)
-│   │   │   ├── SKILL.md                    # Financial planning orchestrator (< 1,000 lines)
-│   │   │   └── references/
-│   │   │       ├── pricing-strategy-framework.md    # Cost-plus/value-based/competitive pricing (STORY-549)
-│   │   │       ├── break-even-analysis.md           # Break-even calculation + ASCII chart (STORY-550)
-│   │   │       ├── funding-options-guide.md          # Funding decision tree (STORY-552)
-│   │   │       └── startup-financial-model.md        # 12-month projection generator (STORY-553)
-│   │   ├── operating-business/              # Operations & launch skill (EPIC-078, ADR-029)
-│   │   │   ├── SKILL.md                    # Operations orchestrator with progressive disclosure menu
-│   │   │   └── references/
-│   │   │       ├── mvp-launch-checklist.md          # 5-domain launch checklist (STORY-554)
-│   │   │       ├── tool-selection-guide.md          # Budget-aware tool recommendations (STORY-555)
-│   │   │       ├── process-design-framework.md      # Core business process templates (STORY-557)
-│   │   │       └── scaling-readiness-assessment.md  # Post-launch scaling criteria (STORY-558)
 │   │   └── devforgeai-github-actions/
 │   │       ├── SKILL.md             # GitHub Actions workflow generation (STORY-097)
 │   │       └── references/          # Loaded on demand
 │   │           ├── workflow-generation.md
 │   │           └── cost-optimization-guide.md
 │   │
-│   ├── agents/                  # Specialized subagents (34 agents)
+│   ├── agents/                  # Specialized subagents (31 agents)
 │   │   ├── agent-generator.md
 │   │   ├── anti-pattern-scanner.md
 │   │   ├── anti-pattern-scanner/
@@ -317,7 +252,6 @@ DevForgeAI2/
 │   │   ├── api-designer.md
 │   │   ├── architect-reviewer.md
 │   │   ├── backend-architect.md
-│   │   ├── business-coach.md                # Confidence detection coaching (STORY-469, EPIC-072)
 │   │   ├── code-analyzer.md
 │   │   ├── code-quality-auditor.md
 │   │   ├── code-reviewer.md
@@ -330,14 +264,11 @@ DevForgeAI2/
 │   │   ├── deferral-validator.md
 │   │   ├── deployment-engineer.md
 │   │   ├── dev-result-interpreter.md
-│   │   ├── epic-coverage-result-interpreter.md  # STORY-457, ADR-020
-│   │   ├── financial-modeler.md             # Financial projections subagent (STORY-551, EPIC-077, ADR-030)
 │   │   ├── documentation-writer.md
 │   │   ├── frontend-developer.md
 │   │   ├── git-validator.md
 │   │   ├── integration-tester.md
 │   │   ├── internet-sleuth.md
-│   │   ├── market-analyst.md              # Research synthesis subagent (STORY-536, EPIC-074, ADR-029)
 │   │   ├── pattern-compliance-auditor.md
 │   │   ├── qa-result-interpreter.md
 │   │   ├── refactoring-specialist.md
@@ -351,13 +282,11 @@ DevForgeAI2/
 │   │   ├── test-automator.md
 │   │   └── ui-spec-formatter.md
 │   │
-│   ├── commands/                # User-facing workflows (28 commands - do not modify files)
-│   │   ├── audit-alignment.md
+│   ├── commands/                # User-facing workflows (24 commands - do not modify files)
 │   │   ├── audit-budget.md
 │   │   ├── audit-deferrals.md
 │   │   ├── audit-hooks.md
 │   │   ├── brainstorm.md            # /brainstorm [topic] | --resume BRAINSTORM-ID
-│   │   ├── collaborate.md           # /collaborate [issue-description] [--target=AI]
 │   │   ├── create-agent.md
 │   │   ├── create-context.md
 │   │   ├── create-epic.md
@@ -371,12 +300,8 @@ DevForgeAI2/
 │   │   ├── feedback-export-data.md
 │   │   ├── feedback-reindex.md
 │   │   ├── feedback-search.md
-│   │   ├── financial-model.md             # /financial-model command (STORY-551, EPIC-077, ADR-030)
 │   │   ├── ideate.md
 │   │   ├── import-feedback.md
-│   │   ├── legal-check.md                 # /legal-check command (STORY-546, EPIC-076, ADR-031)
-│   │   ├── market-research.md             # /market-research command (STORY-538, EPIC-074, ADR-028)
-│   │   ├── ops-plan.md                    # /ops-plan command (STORY-556, EPIC-078, ADR-029)
 │   │   ├── orchestrate.md
 │   │   ├── qa.md
 │   │   ├── rca.md
@@ -407,12 +332,6 @@ DevForgeAI2/
 │   │   ├── devforgeai_cli/
 │   │   │   ├── __init__.py
 │   │   │   ├── cli.py
-│   │   │   ├── commands/                # CLI command modules (ADR-026)
-│   │   │   │   ├── __init__.py
-│   │   │   │   ├── phase_commands.py    # phase-init, phase-complete, phase-ready, phase-status
-│   │   │   │   ├── check_hooks.py       # Hook validation commands
-│   │   │   │   ├── invoke_hooks.py      # Hook invocation commands
-│   │   │   │   └── validate_installation.py  # Installation verification
 │   │   │   ├── validators/
 │   │   │   │   ├── dod_validator.py
 │   │   │   │   ├── git_validator.py
@@ -421,13 +340,11 @@ DevForgeAI2/
 │   │   ├── install_hooks.sh
 │   │   └── setup.py
 │   │
-│   └── hooks/                   # .claude/hooks/ directory for workflow and event hooks
-│       │                        # Workflow hooks (EPIC-048): post-{workflow}-{action}.sh
-│       │                        # Event-driven hooks (EPIC-086): inject-{context}-context.sh (ADR-027)
-│       │                        # Claude Code event hooks registered in .claude/settings.json
+│   └── hooks/                   # .claude/hooks/ directory for workflow event hooks (EPIC-048)
+│       │                        # Naming convention: post-{workflow}-{action}.sh
+│       │                        # Examples: post-dev-debt-detection.sh, post-qa-gap-analysis.sh
 │       ├── pre-tool-use.sh             # Pre-tool execution hook
-│       ├── post-qa-debt-detection.sh   # QA gap detection hook
-│       └── inject-phase-context.sh     # SessionStart hook: workflow state injection (STORY-529)
+│       └── post-qa-debt-detection.sh   # QA gap detection hook
 │
 ├── .treelint/                   # Treelint AST-aware code search working directory (ADR-013)
 │   ├── index.db                 # SQLite AST index (gitignored, regenerable on demand)
@@ -454,11 +371,6 @@ DevForgeAI2/
 │   │   ├── analysis/            # Analysis documents
 │   │   ├── requirements/        # Requirements and analysis deliverables
 │   │   │   └── dev-analysis/    # /dev command conformance analysis outputs
-│   │   ├── business/             # Business planning outputs (EPIC-073, EPIC-074, EPIC-075, EPIC-076)
-│   │   │   ├── market-research/  # Market sizing, competitive analysis, customer interviews
-│   │   │   ├── marketing/        # Go-to-market strategy, positioning, content strategy (EPIC-075)
-│   │   │   ├── legal/            # Legal guidance outputs (EPIC-076)
-│   │   │   └── operations/       # Operations & launch artifacts (EPIC-078)
 │   │   └── implementation-notes/
 │   │
 │   ├── RCA/                     # Root Cause Analysis documents
@@ -475,10 +387,7 @@ DevForgeAI2/
 │   │   │   └── {STORY-ID}-gaps.json
 │   │   ├── verification/        # AC compliance verification reports (EPIC-046)
 │   │   │   └── {STORY-ID}-ac-verification.json
-│   │   ├── resolved/            # Archived gap files
-│   │   └── snapshots/           # Red-phase test integrity snapshots (ADR-025)
-│   │       └── {STORY_ID}/     # Per-story isolation directory
-│   │           └── red-phase-checksums.json  # SHA-256 checksums of test files from Red phase
+│   │   └── resolved/            # Archived gap files
 │   │
 │   ├── protocols/               # Framework protocols and patterns
 │   │   ├── lean-orchestration-pattern.md
@@ -499,12 +408,7 @@ DevForgeAI2/
 │   │   ├── agents/              # All 30 subagents (source copies)
 │   │   ├── commands/            # All 22 commands (source copies)
 │   │   ├──────────── DF/		 # 1 Feedback command
-│   │   ├── rules/               # Framework rules (source copies, ADR-023)
-│   │   │   ├── core/            # Critical rules (always apply)
-│   │   │   ├── workflow/        # TDD and story lifecycle rules
-│   │   │   ├── security/        # Security and compliance rules
-│   │   │   └── conditional/     # Path-specific rules (activate by file type)
-│   │   ├── skills/              # All 18 skills (source copies)
+│   │   ├── skills/              # All 17 skills (source copies)
 │   │   ├── memory/              # Progressive disclosure references
 │   │   └── scripts/             # DevForgeAI CLI tools
 │   │
@@ -666,7 +570,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ✅ ALL skills go in `.claude/skills/[skill-name]/`
 - ✅ ALL subagents go in `.claude/agents/[agent-name].md`
 - ✅ ALL slash commands go in `.claude/commands/[command-name].md`
-- ✅ Contains 19 skills, 31 subagents, 25 commands (as of 2026-02-24)
+- ✅ Contains 18 skills, 31 subagents, 25 commands (as of 2025-12-20)
 - ❌ NO executable code in `.claude/` (Markdown documentation only)
 - ❌ NO language-specific implementations (framework must be agnostic)
 
@@ -677,7 +581,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 **Purpose**: Autonomous, model-invoked capabilities for each development phase.
 
 **Rules**:
-- ✅ Each skill in its own subdirectory (e.g., `implementing-stories/`)
+- ✅ Each skill in its own subdirectory (e.g., `spec-driven-dev/`)
 - ✅ Main skill file MUST be named `SKILL.md`
 - ✅ SKILL.md MUST have YAML frontmatter with `name:` and `description:`
 - ✅ Keep SKILL.md under 1,000 lines (target: 500-800 lines)
@@ -687,11 +591,11 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 - ❌ NO skills in root `.claude/` directory
 - ❌ NO executable scripts in skill directories (documentation only)
 
-**Naming Convention**: `[gerund-phrase]` per ADR-017 (e.g., `implementing-stories`, `designing-systems`)
+**Naming Convention**: `[gerund-phrase]` per ADR-017 (e.g., `spec-driven-dev`, `discovering-requirements`)
 
 **Example** (simple skill):
 ```
-.claude/skills/designing-systems/
+.claude/skills/spec-driven-architecture/
 ├── SKILL.md                 # Main skill (500-800 lines)
 └── references/              # Loaded on demand
     ├── context-file-creation.md
@@ -700,7 +604,7 @@ compatibility with Claude Code's Glob tool, which skips dot-prefixed directories
 
 **Example** (complex skill with phases):
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md                 # Main skill (500-800 lines)
 ├── phases/                  # Phase-specific execution guides
 │   ├── phase-01-preflight.md
@@ -819,15 +723,13 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 
 **Naming Convention**: `[action]` or `[action]-[object]` (e.g., `dev`, `create-context`)
 
-**Current commands (26 total):**
+**Current commands (24 total):**
 ```
 .claude/commands/
-├── audit-alignment.md       # /audit-alignment [--layer=all|claudemd|prompt|context|rules|adrs] [--fix] [--output=console|file]
 ├── audit-budget.md          # /audit-budget
 ├── audit-deferrals.md       # /audit-deferrals
 ├── audit-hooks.md           # /audit-hooks [--validate|--performance|--check-circular]
 ├── brainstorm.md            # /brainstorm [topic] | --resume BRAINSTORM-ID
-├── collaborate.md           # /collaborate [issue-description] [--target=AI]
 ├── create-agent.md          # /create-agent [name] [options]
 ├── create-context.md        # /create-context [project-name]
 ├── create-epic.md           # /create-epic [epic-name]
@@ -846,7 +748,6 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 ├── import-feedback.md       # /import-feedback <archive-path>
 ├── orchestrate.md           # /orchestrate [STORY-ID]
 ├── qa.md                    # /qa [STORY-ID] [mode]
-├── marketing-plan.md        # /marketing-plan [--mode=standalone|project]
 ├── rca.md                   # /rca [issue-description] [severity]
 └── release.md               # /release [STORY-ID] [environment]
 ```
@@ -880,7 +781,7 @@ For reference documentation shared across multiple subagents (e.g., tool integra
 **Why no dot prefix**: Claude Code's Glob tool skips directories starting with `.` (like `devforgeai/`).
 Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other commands.
 
-**Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by designing-systems skill.
+**Rationale**: Projects using DevForgeAI will have their own `devforgeai/specs/context/` files created by spec-driven-architecture skill.
 
 ---
 
@@ -929,7 +830,6 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 - ✅ ADRs go in `devforgeai/specs/adrs/`
 - ✅ Research documentation in `devforgeai/specs/research/`
 - ✅ Prompt version snapshots go in `devforgeai/specs/prompt-versions/` (ADR-015)
-- ✅ Business planning outputs go in `devforgeai/specs/business/` (EPIC-073, EPIC-074, EPIC-075, EPIC-076, EPIC-077)
 - ✅ Stories MUST have YAML frontmatter with id, title, epic, sprint, status, points, priority
 - ❌ NO code in `devforgeai/specs/` (documentation only)
 
@@ -959,13 +859,13 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Pattern**: `[gerund-phrase]` (ADR-017)
 **Examples**:
-- ✅ `implementing-stories`
+- ✅ `spec-driven-dev`
 - ✅ `validating-quality`
 - ✅ `creating-stories`
 - ✅ `designing-architecture`
 - ❌ `IdeationSkill` (no CamelCase)
 - ❌ `dev-skill` (not gerund form)
-- ❌ `implementing-stories` (legacy — prefix removed, use gerund form)
+- ❌ `implementing-stories` (legacy — renamed to spec-driven-dev per ADR-039)
 
 ### Subagents
 
@@ -1032,10 +932,10 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 **Correct**:
 ```
 .claude/skills/
-├── discovering-requirements/
-├── designing-systems/
-├── implementing-stories/
-├── devforgeai-qa/
+├── spec-driven-ideation/
+├── spec-driven-architecture/
+├── spec-driven-dev/
+├── spec-driven-qa/
 └── devforgeai-release/
 ```
 
@@ -1045,7 +945,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Wrong**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── scripts/
     └── implement.py    # Python implementation code
@@ -1053,7 +953,7 @@ Using `devforgeai/` ensures story files can be found by `/qa`, `/dev`, and other
 
 **Correct**:
 ```
-.claude/skills/implementing-stories/
+.claude/skills/spec-driven-dev/
 ├── SKILL.md
 └── references/
     └── tdd-workflow-guide.md    # Documentation only
@@ -1105,17 +1005,20 @@ devforgeai/specs/context/
 
 **Example**:
 ```
-.claude/skills/discovering-requirements/
-├── SKILL.md (500 lines)
-│   # Phase 1: Discovery
-│   # Phase 2: Requirements Elicitation
-│   # For detailed questions by domain, see references/requirements-elicitation-guide.md
-│   # Phase 3: Complexity Assessment
-│   # For scoring rubric, see references/complexity-assessment-matrix.md
+.claude/skills/spec-driven-ideation/
+├── SKILL.md (365 lines)
+│   # Phase 00: Initialization
+│   # Phase 01-07: Orchestration loop
+│   # For detailed workflow, see phases/phase-*.md
+│   # For reference loading, see references/
+│
+├── phases/
+│   ├── phase-01-preflight.md
+│   └── ... (7 phase files)
 │
 └── references/
     ├── requirements-elicitation-guide.md (1,000 lines)
-    ├── complexity-assessment-matrix.md (800 lines)
+    ├── validation-checklists.md (651 lines)
     ├── domain-specific-patterns.md (1,200 lines)
     └── feasibility-analysis-framework.md (600 lines)
 ```
@@ -1126,7 +1029,7 @@ devforgeai/specs/context/
 
 ## Project Context Pattern (For Projects Using DevForgeAI)
 
-When designing-systems skill creates context for a **project** using DevForgeAI:
+When spec-driven-architecture skill creates context for a **project** using DevForgeAI:
 
 ```
 my-project/
@@ -1216,4 +1119,4 @@ from installer.registry_publisher import RegistryConfig as PublisherConfig
 
 ---
 
-**REMEMBER**: This source-tree.md defines the **framework's own structure**. Projects using DevForgeAI will have their own source-tree.md files created by the designing-systems skill based on project architecture patterns.
+**REMEMBER**: This source-tree.md defines the **framework's own structure**. Projects using DevForgeAI will have their own source-tree.md files created by the spec-driven-architecture skill based on project architecture patterns.

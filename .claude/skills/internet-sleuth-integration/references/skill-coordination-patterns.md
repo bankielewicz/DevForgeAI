@@ -2,7 +2,7 @@
 
 **Purpose:** Documentation for DevForgeAI skills on how to invoke internet-sleuth agent, parse results, handle errors, and manage token budgets.
 
-**Audience:** discovering-requirements, designing-systems, other skills needing research capabilities
+**Audience:** spec-driven-ideation, spec-driven-architecture, other skills needing research capabilities
 
 **Loaded:** As reference when skills need to integrate with internet-sleuth
 
@@ -35,7 +35,7 @@ Task(
 )
 ```
 
-**Example (discovering-requirements Phase 5):**
+**Example (spec-driven-ideation Phase 5):**
 ```python
 Task(
   subagent_type="internet-sleuth",
@@ -163,7 +163,7 @@ if discovery_result.technical_feasibility_score >= 7:
   )
 ```
 
-**Example (designing-systems Phase 2):**
+**Example (spec-driven-architecture Phase 2):**
 ```python
 # Phase 2 Step 2.1: Feasibility check
 feasibility = Task(
@@ -507,9 +507,9 @@ db_rec = tech_stack_research.topics["database"].top_recommendation
 
 ## Integration Examples
 
-### Example 1: discovering-requirements Phase 5 Integration
+### Example 1: spec-driven-ideation Phase 5 Integration
 
-**Location:** `.claude/skills/discovering-requirements/SKILL.md` Phase 5
+**Location:** `.claude/skills/spec-driven-ideation/SKILL.md` Phase 5
 
 **Integration Code:**
 ```markdown
@@ -574,9 +574,9 @@ epic.research_references = [result.research_id]
 
 ---
 
-### Example 2: designing-systems Phase 2 Integration
+### Example 2: spec-driven-architecture Phase 2 Integration
 
-**Location:** `.claude/skills/designing-systems/SKILL.md` Phase 2
+**Location:** `.claude/skills/spec-driven-architecture/SKILL.md` Phase 2
 
 **Integration Code:**
 ```markdown
@@ -661,8 +661,8 @@ Skill coordination succeeds when:
 - `repository-archaeology-guide.md` - Repository patterns (architecture Phase 2 primary)
 - `competitive-analysis-patterns.md` - Market analysis (ideation Phase 5 secondary)
 - `research-report-template.md` - Standard report structure
-- `.claude/skills/discovering-requirements/SKILL.md` - Ideation skill
-- `.claude/skills/designing-systems/SKILL.md` - Architecture skill
+- `.claude/skills/spec-driven-ideation/SKILL.md` - Ideation skill
+- `.claude/skills/spec-driven-architecture/SKILL.md` - Architecture skill
 
 ---
 

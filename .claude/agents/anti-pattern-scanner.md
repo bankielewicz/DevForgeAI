@@ -41,7 +41,7 @@ Your core capabilities include:
 - "Run security scan on codebase"
 
 **Automatic:**
-- devforgeai-qa skill Phase 2: Anti-Pattern Detection
+- spec-driven-qa skill Phase 2: Anti-Pattern Detection
 
 ## Input/Output Specification
 
@@ -346,7 +346,7 @@ Your core capabilities include:
 
 ### Example 1: Full QA Scan
 
-**Context:** During devforgeai-qa Phase 2.
+**Context:** During spec-driven-qa Phase 2.
 
 ```
 Task(

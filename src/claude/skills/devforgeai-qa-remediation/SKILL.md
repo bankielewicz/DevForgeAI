@@ -524,7 +524,7 @@ Map gap to story markers:
 #### 5.3.2: Invoke Story Creation
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 With context markers in conversation.
@@ -853,7 +853,7 @@ Next Steps:
 | Component | Relationship |
 |-----------|--------------|
 | `/review-qa-reports` command | Invokes this skill |
-| `devforgeai-story-creation` skill | Batch mode story creation |
+| `spec-driven-stories` skill | Batch mode story creation |
 | `spec-driven-qa` skill | Produces gap files |
 | `technical-debt-analyzer` subagent | Optional debt analysis |
 | `devforgeai/technical-debt-register.md` | Deferred gap tracking |

@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Bash(docker:*), Bash(pytest:*), Bash(npm:test)
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: devforgeai-qa
+skills: spec-driven-qa
 proactive_triggers:
   - "after unit tests pass"
   - "when API endpoints implemented"
@@ -45,7 +45,7 @@ Your core capabilities include:
 - "Validate database transactions for [operation]"
 
 **Automatic:**
-- implementing-stories skill during Phase 4 (Integration)
+- spec-driven-dev skill during Phase 4 (Integration)
 - After backend-architect completes implementation
 
 ---
@@ -96,7 +96,7 @@ Your core capabilities include:
 **Scope Boundaries:**
 - Does NOT implement production code (delegates to backend-architect)
 - Does NOT generate unit tests (delegates to test-automator)
-- Does NOT perform QA validation (delegates to devforgeai-qa skill)
+- Does NOT perform QA validation (delegates to spec-driven-qa skill)
 
 ---
 
@@ -242,7 +242,7 @@ Task(
 
 ## Integration
 
-- **implementing-stories**: Phase 4 (Integration) - creates tests during integration phase
+- **spec-driven-dev**: Phase 4 (Integration) - creates tests during integration phase
 - **backend-architect**: Tests backend integration points after implementation
 - **test-automator**: Collaborates on test strategy (unit vs integration boundary)
 - **api-designer**: Validates API contracts defined during design

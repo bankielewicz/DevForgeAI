@@ -713,4 +713,4 @@ for feature in story_features:
 - `devforgeai/specs/research/parallel-orchestration-research.md` - Full research report
 - `devforgeai/specs/context/architecture-constraints.md` - Updated constraints
 - `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration skill implementation
-- `.claude/skills/implementing-stories/SKILL.md` - Development skill with background tasks
+- `.claude/skills/spec-driven-dev/SKILL.md` - Development skill with background tasks

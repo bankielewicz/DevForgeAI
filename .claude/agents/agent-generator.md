@@ -411,7 +411,7 @@ observations:
 
 ### Example 1: Single Subagent Generation (Implementor Category)
 
-**Context:** Phase 2 of implementing-stories requires a new backend implementation subagent.
+**Context:** Phase 2 of spec-driven-dev requires a new backend implementation subagent.
 
 **Prompt:**
 ```

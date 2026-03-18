@@ -151,12 +151,12 @@ validate_behavioral() {
         fi
     fi
 
-    # Test 2: Check devforgeai-story-creation skill references
-    log_info "  Testing: devforgeai-story-creation references loading..."
-    if [ -d "$PROJECT_ROOT/.claude/skills/devforgeai-story-creation/references" ]; then
-        local ref_count=$(find "$PROJECT_ROOT/.claude/skills/devforgeai-story-creation/references" -type f -name "*.md" | wc -l)
+    # Test 2: Check spec-driven-stories skill references
+    log_info "  Testing: spec-driven-stories references loading..."
+    if [ -d "$PROJECT_ROOT/.claude/skills/spec-driven-stories/references" ]; then
+        local ref_count=$(find "$PROJECT_ROOT/.claude/skills/spec-driven-stories/references" -type f -name "*.md" | wc -l)
         if [ "$ref_count" -gt 0 ]; then
-            log_success "  devforgeai-story-creation: $ref_count reference files available"
+            log_success "  spec-driven-stories: $ref_count reference files available"
             DOCS_VALIDATED=$((DOCS_VALIDATED + ref_count))
         fi
     fi

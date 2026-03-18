@@ -8,7 +8,7 @@
 
 ```bash
 # Perform RCA for framework breakdown
-/rca "implementing-stories didn't validate context files"
+/rca "spec-driven-dev didn't validate context files"
 
 # Specify severity explicitly
 /rca "QA skill created autonomous deferrals" CRITICAL
@@ -37,8 +37,8 @@
 
 **Examples:**
 ```bash
-/rca "implementing-stories didn't validate context files before TDD"
-/rca "devforgeai-qa accepted pre-existing deferrals without challenge"
+/rca "spec-driven-dev didn't validate context files before TDD"
+/rca "spec-driven-qa accepted pre-existing deferrals without challenge"
 /rca "/dev command contains business logic in Phase 2"
 /rca "Story transitioned to Released without QA Approved"
 ```
@@ -142,9 +142,9 @@ Guidance:
 ### Example 1: Skill Breakdown
 
 ```bash
-$ /rca "implementing-stories didn't validate context files before TDD" CRITICAL
+$ /rca "spec-driven-dev didn't validate context files before TDD" CRITICAL
 
-✓ Issue: implementing-stories didn't validate context files before TDD
+✓ Issue: spec-driven-dev didn't validate context files before TDD
 ✓ Severity: CRITICAL
 ✓ Proceeding with RCA analysis...
 

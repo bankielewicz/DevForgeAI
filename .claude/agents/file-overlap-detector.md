@@ -41,7 +41,7 @@ Your core capabilities include:
 - "Validate file declarations against git changes"
 
 **Automatic:**
-- implementing-stories skill Phase 01, Step 0.2.6 (pre-flight)
+- spec-driven-dev skill Phase 01, Step 0.2.6 (pre-flight)
 - Post-implementation validation (post-flight mode)
 
 ## Input/Output Specification

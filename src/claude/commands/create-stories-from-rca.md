@@ -8,7 +8,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep, AskUserQuestion, Skill, TodoWrite
 
 # /create-stories-from-rca - Create Stories from RCA Recommendations
 
-Parse RCA documents, select recommendations interactively, and create stories in batch mode using devforgeai-story-creation Claude skill.
+Parse RCA documents, select recommendations interactively, and create stories in batch mode using spec-driven-stories Claude skill.
 
 **Component Orchestration:** Parse (STORY-155) → Select (STORY-156) → Create (STORY-157) → Link (STORY-158)
 
@@ -61,7 +61,7 @@ IF Glob("devforgeai/RCA/${RCA_ID}*.md") not found:
 ## Phase 1-5: RCA Parsing
 
 IF RCA_ID ISNOT empty:
-    Skill(command="devforgeai-story-creation", args="--RCA")
+    Skill(command="spec-driven-stories", args="--RCA")
 
 **See:** `references/create-stories-from-rca/parsing-workflow.md`
 
@@ -101,7 +101,7 @@ FOR recommendation in selected:
         source_rca: RCA_ID,
         source_recommendation: recommendation.id
     }
-    Skill(command="devforgeai-story-creation", args="--batch")
+    Skill(command="spec-driven-stories", args="--batch")
 ```
 
 ---
@@ -127,7 +127,7 @@ Validation errors, skill errors, and ID conflicts are handled with failure isola
 - [ ] RCA document parsed correctly
 - [ ] Recommendations extracted and displayed
 - [ ] User selection honored
-- [ ] Stories created via devforgeai-story-creation skill
+- [ ] Stories created via spec-driven-stories skill
 - [ ] RCA document updated with story links
 - [ ] Failure isolation: individual failures don't block batch
 
@@ -136,7 +136,7 @@ Validation errors, skill errors, and ID conflicts are handled with failure isola
 ## Integration
 
 **Invoked by:** User via `/create-stories-from-rca RCA-NNN`
-**Invokes:** `devforgeai-story-creation` skill (batch mode)
+**Invokes:** `spec-driven-stories` skill (batch mode)
 **Updates:** RCA document (story links), Story files (created)
 
 **Reference Files:** `references/create-stories-from-rca/` directory contains:

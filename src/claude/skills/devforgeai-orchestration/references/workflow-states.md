@@ -332,7 +332,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 **Description:** Deployment to production in progress
 
 **Characteristics:**
-- devforgeai-release skill executing deployment
+- spec-driven-release skill executing deployment
 - Release pipeline running
 - Deployment to production environment
 - Active deployment process
@@ -359,7 +359,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 - Update release notes
 
 **Who's Responsible:**
-- devforgeai-release skill (automated)
+- spec-driven-release skill (automated)
 - DevOps (monitoring)
 - Infrastructure (deployment pipeline)
 

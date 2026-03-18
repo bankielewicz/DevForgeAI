@@ -44,7 +44,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 
 **Characteristics:**
 - Context files are being created or validated
-- designing-systems skill is invoked
+- spec-driven-architecture skill is invoked
 - Architectural decisions are being documented
 - ADRs (Architecture Decision Records) may be created
 
@@ -74,7 +74,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 - Validate architecture against story requirements
 
 **Who's Responsible:**
-- designing-systems skill (automated)
+- spec-driven-architecture skill (automated)
 - Architect (review and approval)
 - Tech Lead (decision-making)
 
@@ -121,7 +121,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 
 **Characteristics:**
 - Developer executing TDD workflow
-- implementing-stories skill orchestrating 6 phases
+- spec-driven-dev skill orchestrating 6 phases
 - Light QA validation running automatically during phases
 - Active coding, testing, refactoring
 
@@ -154,8 +154,8 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 
 **Who's Responsible:**
 - Developer (primary)
-- implementing-stories skill (orchestration)
-- devforgeai-qa skill (light validation)
+- spec-driven-dev skill (orchestration)
+- spec-driven-qa skill (light validation)
 
 **Typical Duration:** Hours to days (depends on story complexity and points)
 
@@ -203,7 +203,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 **Description:** Comprehensive quality validation running
 
 **Characteristics:**
-- devforgeai-qa skill executing deep validation
+- spec-driven-qa skill executing deep validation
 - 5 comprehensive validation phases running:
   1. Test Coverage Analysis
   2. Anti-Pattern Detection
@@ -231,7 +231,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 - Report generation
 
 **Who's Responsible:**
-- devforgeai-qa skill (automated)
+- spec-driven-qa skill (automated)
 - Quality tools (coverage, complexity, security scanners)
 
 **Typical Duration:** Minutes (automated analysis)
@@ -332,7 +332,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 **Description:** Deployment to production in progress
 
 **Characteristics:**
-- devforgeai-release skill executing deployment
+- spec-driven-release skill executing deployment
 - Release pipeline running
 - Deployment to production environment
 - Active deployment process
@@ -359,7 +359,7 @@ Complete reference for all 11 story workflow states in the DevForgeAI orchestrat
 - Update release notes
 
 **Who's Responsible:**
-- devforgeai-release skill (automated)
+- spec-driven-release skill (automated)
 - DevOps (monitoring)
 - Infrastructure (deployment pipeline)
 

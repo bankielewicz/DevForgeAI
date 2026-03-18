@@ -67,7 +67,7 @@ For each selected recommendation:
    - Source: framework-enhancement
    - Priority: {priority}
 
-2. Invoke: `Skill(command="devforgeai-story-creation")`
+2. Invoke: `Skill(command="spec-driven-stories")`
 
 3. Track: Record recommendation_id, story_id, timestamp, converted_by
 
@@ -121,7 +121,7 @@ Manual fix: Edit queue JSON to move items to implemented array
 1. /dev workflow Phase 09 invokes framework-analyst subagent
 2. Subagent generates recommendations stored in queue
 3. /recommendations-triage reads queue and user selects
-4. Selected items sent to devforgeai-story-creation skill
+4. Selected items sent to spec-driven-stories skill
 5. Stories created with source: framework-enhancement tag
 6. Queue updated (items moved from pending to implemented with timestamp)
 

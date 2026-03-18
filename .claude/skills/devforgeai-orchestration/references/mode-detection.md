@@ -135,18 +135,18 @@ Result: Audit Deferrals Mode detected → Execute Phase 7 workflow
 This is the default orchestration mode for standard story lifecycle management:
 1. Checkpoint Detection - Check for existing checkpoints (DEV_COMPLETE, QA_APPROVED, STAGING_COMPLETE)
 2. Story Validation - Load and validate story file
-3. Skill Invocation - Coordinate designing-systems, development, qa, release skills
+3. Skill Invocation - Coordinate spec-driven-architecture, development, qa, release skills
 4. Status Transitions - Update story status through 11 workflow states
 5. Quality Gate Enforcement - Block transitions when requirements not met
 
 ### Behavior
 
 **Automatic skill coordination** based on story status:
-- Status = "Backlog" → Invoke designing-systems
+- Status = "Backlog" → Invoke spec-driven-architecture
 - Status = "Architecture" → Validate context files
-- Status = "Ready for Dev" → Invoke implementing-stories
-- Status = "Dev Complete" → Invoke devforgeai-qa
-- Status = "QA Approved" → Invoke devforgeai-release
+- Status = "Ready for Dev" → Invoke spec-driven-dev
+- Status = "Dev Complete" → Invoke spec-driven-qa
+- Status = "QA Approved" → Invoke spec-driven-release
 
 **Checkpoint resume:**
 - DEV_COMPLETE checkpoint → Resume from QA phase

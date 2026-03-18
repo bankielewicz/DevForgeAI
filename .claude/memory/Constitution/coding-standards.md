@@ -56,8 +56,8 @@ Bash(command="grep 'LOCKED' **/*.md")
 ### Skill Naming Convention (ADR-017)
 
 **Skills use gerund naming (verb + -ing) without framework prefix**:
-- ✅ `designing-systems` (gerund form, no prefix)
-- ✅ `implementing-stories` (gerund form, no prefix)
+- ✅ `spec-driven-dev` (ADR-039 migration from implementing-stories)
+- ✅ `discovering-requirements` (gerund form, no prefix)
 - ❌ `devforgeai-[name]` (old convention: framework prefix, non-gerund)
 
 ### YAML Frontmatter Standards
@@ -121,7 +121,7 @@ multiSelect: false
 ### Naming Conventions
 
 **Files**: lowercase-with-hyphens.md
-**Skills**: [gerund-phrase] (e.g., `implementing-stories`, `validating-quality`) — see ADR-017
+**Skills**: [gerund-phrase] (e.g., `spec-driven-dev`, `validating-quality`) — see ADR-017
 **Subagents**: [domain]-[role]
 **Commands**: [action] or [action]-[object]
 
@@ -141,7 +141,7 @@ multiSelect: false
 
 Story types (`feature`, `documentation`, `bugfix`, `refactor`) define TDD phase skipping behavior.
 
-**See:** `.claude/skills/devforgeai-story-creation/references/story-type-classification.md`
+**See:** `.claude/skills/spec-driven-stories/references/story-type-classification.md`
 
 ---
 
@@ -182,7 +182,7 @@ Examples:
 - **References:** Use `Phase 01.X` in prose (not "Step 0.X")
 - **TDD Patterns:** RED/GREEN/REFACTOR appear in body text, not headings
 
-**See:** `.claude/skills/implementing-stories/` for workflow implementation
+**See:** `.claude/skills/spec-driven-dev/` for workflow implementation
 
 ---
 

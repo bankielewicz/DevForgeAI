@@ -86,22 +86,22 @@ Evidence Location: anti-patterns.md + violating file + QA validation
 
 **Gate 1: Context Validation** (Architecture → Ready for Dev)
 - Criteria: All 6 context files exist and non-empty
-- Validated by: designing-systems skill
+- Validated by: spec-driven-architecture skill
 - Blocks: Development if files missing
 
 **Gate 2: Test Passing** (Dev Complete → QA In Progress)
 - Criteria: Build succeeds, all tests pass (100% pass rate)
-- Validated by: implementing-stories skill (light QA)
+- Validated by: spec-driven-dev skill (light QA)
 - Blocks: QA if tests failing
 
 **Gate 3: QA Approval** (QA Approved → Releasing)
 - Criteria: Coverage meets thresholds, zero CRITICAL/HIGH violations
-- Validated by: devforgeai-qa skill (deep validation)
+- Validated by: spec-driven-qa skill (deep validation)
 - Blocks: Release if quality insufficient
 
 **Gate 4: Release Readiness** (Releasing → Released)
 - Criteria: QA approved, all checkboxes complete, no blocking dependencies
-- Validated by: devforgeai-release skill
+- Validated by: spec-driven-release skill
 - Blocks: Production deployment if not ready
 
 ### Quality Gate Breakdown Patterns
@@ -417,11 +417,11 @@ Evidence Location: Skill SKILL.md (AskUserQuestion calls) + pattern documentatio
 7. Commands that invoke this skill
 8. Existing RCAs for this skill
 
-**Example: implementing-stories breakdown**
+**Example: spec-driven-dev breakdown**
 ```
 Read:
-1. .claude/skills/implementing-stories/SKILL.md (primary)
-2. .claude/skills/implementing-stories/references/*.md (loaded refs)
+1. .claude/skills/spec-driven-dev/SKILL.md (primary)
+2. .claude/skills/spec-driven-dev/references/*.md (loaded refs)
 3. .claude/agents/test-automator.md (invoked in Phase 1)
 4. .claude/agents/backend-architect.md (invoked in Phase 2)
 5. .claude/commands/dev.md (command that invokes skill)
@@ -446,7 +446,7 @@ Read:
 ```
 Read:
 1. .claude/commands/dev.md (primary)
-2. .claude/skills/implementing-stories/SKILL.md (invoked skill)
+2. .claude/skills/spec-driven-dev/SKILL.md (invoked skill)
 3. devforgeai/protocols/lean-orchestration-pattern.md (pattern)
 4. .claude/commands/qa.md (reference implementation)
 5. .claude/memory/commands-reference.md (command docs)
@@ -470,8 +470,8 @@ Read:
 ```
 Read:
 1. .claude/agents/deferral-validator.md (primary)
-2. .claude/skills/implementing-stories/SKILL.md (invokes in Phase 4.5)
-3. .claude/skills/devforgeai-qa/SKILL.md (invokes in Phase 0)
+2. .claude/skills/spec-driven-dev/SKILL.md (invokes in Phase 4.5)
+3. .claude/skills/spec-driven-qa/SKILL.md (invokes in Phase 0)
 4. devforgeai/RCA/RCA-006-autonomous-deferrals.md (why created)
 ```
 
@@ -495,7 +495,7 @@ Read:
 1. devforgeai/specs/context/tech-stack.md (constraint)
 2. src/components/App.vue (violation - uses Vue, not React)
 3. .claude/agents/context-validator.md (validator)
-4. .claude/skills/implementing-stories/SKILL.md (should invoke validator)
+4. .claude/skills/spec-driven-dev/SKILL.md (should invoke validator)
 ```
 
 ### Quality Gate Bypass → Read These Files
@@ -505,7 +505,7 @@ Read:
 2. Story file showing state before/after gate
 
 **Secondary:**
-3. Skill that validates gate (devforgeai-qa, implementing-stories, etc.)
+3. Skill that validates gate (spec-driven-qa, spec-driven-dev, etc.)
 4. Validation code in skill
 
 **Tertiary:**
@@ -563,7 +563,7 @@ Read:
 ```
 Read:
 1. Story Definition of Done
-2. implementing-stories SKILL.md (TDD phases)
+2. spec-driven-dev SKILL.md (TDD phases)
 3. test-automator subagent
 4. coverage thresholds (from CLAUDE.md)
 ```
@@ -603,7 +603,7 @@ Read:
 
 **Invocation patterns:**
 ```
-implementing-stories:
+spec-driven-dev:
   Phase 0: git-validator, tech-stack-detector
   Phase 1: test-automator
   Phase 2: backend-architect OR frontend-developer
@@ -611,7 +611,7 @@ implementing-stories:
   Phase 4: integration-tester
   Phase 4.5: deferral-validator
 
-devforgeai-qa:
+spec-driven-qa:
   Phase 0: deferral-validator
   Phase 2: context-validator
   Phase 3: security-auditor
@@ -629,14 +629,14 @@ devforgeai-orchestration:
 ### Command → Skill Relationships
 
 ```
-/dev → implementing-stories
-/qa → devforgeai-qa
-/release → devforgeai-release
+/dev → spec-driven-dev
+/qa → spec-driven-qa
+/release → spec-driven-release
 /orchestrate → devforgeai-orchestration
-/create-story → devforgeai-story-creation
+/create-story → spec-driven-stories
 /create-ui → devforgeai-ui-generator
-/create-context → designing-systems
-/ideate → discovering-requirements
+/create-context → spec-driven-architecture
+/ideate → spec-driven-ideation
 /create-epic → devforgeai-orchestration (epic mode)
 /create-sprint → devforgeai-orchestration (sprint mode)
 ```
@@ -646,11 +646,11 @@ devforgeai-orchestration:
 ### Skill → Skill Relationships
 
 ```
-implementing-stories:
-  Auto-invokes: devforgeai-qa (light mode) after each TDD phase
+spec-driven-dev:
+  Auto-invokes: spec-driven-qa (light mode) after each TDD phase
 
-discovering-requirements:
-  Auto-transitions: designing-systems (if context files missing)
+spec-driven-ideation:
+  Auto-transitions: spec-driven-architecture (if context files missing)
 
 devforgeai-orchestration:
   Coordinates: All other skills based on workflow phase

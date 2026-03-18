@@ -61,7 +61,7 @@ QA In Progress → QA Failed:
   Reason: QA found blocking violations
 
 QA Approved → Releasing:
-  Action: Invoke devforgeai-release
+  Action: Invoke spec-driven-release
   Command: Automatic (orchestration handles)
   Reason: Deploy to staging and production
 

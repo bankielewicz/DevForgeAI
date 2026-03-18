@@ -155,7 +155,7 @@ After story creation:
 | Component | Purpose |
 |-----------|---------|
 | `devforgeai-qa-remediation` skill | Main processing workflow |
-| `devforgeai-story-creation` skill | Batch story creation |
+| `spec-driven-stories` skill | Batch story creation |
 | `technical-debt-analyzer` subagent | Optional debt analysis |
 | `devforgeai/qa/reports/` | Local gap file source |
 | `devforgeai/qa/imports/` | External project imports |

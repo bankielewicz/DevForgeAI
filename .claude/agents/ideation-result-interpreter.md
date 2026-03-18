@@ -23,7 +23,7 @@ Specialized interpreter that transforms raw ideation output into user-friendly d
 
 ## Purpose
 
-After `discovering-requirements` skill completes epic generation, this subagent:
+After `spec-driven-ideation` skill completes epic generation, this subagent:
 1. **Reads** ideation output including epic count, complexity score, and metrics
 2. **Determines** result status (SUCCESS, WARNING, FAILURE) and project mode (greenfield/brownfield)
 3. **Generates** display template showing key design decisions and architecture tier
@@ -55,7 +55,7 @@ Task(
 ```
 
 **Automatic:**
-- discovering-requirements skill Phase 6.5 (result interpretation)
+- spec-driven-ideation skill Phase 6.5 (result interpretation)
 - /ideate command during result display generation
 
 **Not invoked:**
@@ -302,7 +302,7 @@ Task(
 
 ## References
 
-- **Ideation Skill**: `.claude/skills/discovering-requirements/SKILL.md` (generates input)
+- **Ideation Skill**: `.claude/skills/spec-driven-ideation/SKILL.md` (generates input)
 - **Context Files**: `devforgeai/specs/context/*.md` (for project mode detection)
 - **Story Files**: `devforgeai/specs/Stories/*.story.md` (project scope reference)
 - **Commands Reference**: `.claude/memory/commands-reference.md` (next steps guidance)

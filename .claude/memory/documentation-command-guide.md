@@ -1,6 +1,6 @@
 # /document Command - Detailed Guide
 
-Complete reference for the `/document` slash command and devforgeai-documentation skill.
+Complete reference for the `/document` slash command and spec-driven-documentation skill.
 
 ---
 
@@ -77,7 +77,7 @@ Generate and maintain project documentation automatically from stories (greenfie
 
 ## Available Templates
 
-**Location:** `.claude/skills/devforgeai-documentation/assets/templates/`
+**Location:** `.claude/skills/spec-driven-documentation/assets/templates/`
 
 1. **readme-template.md** - Project overview, installation, quick start
 2. **developer-guide-template.md** - Architecture, development workflow, conventions
@@ -290,11 +290,11 @@ Dev Complete → QA Validation → Documentation → Release
 ## Reference Documentation
 
 **For comprehensive guides, see:**
-- `.claude/skills/devforgeai-documentation/references/documentation-standards.md` - Style guide
-- `.claude/skills/devforgeai-documentation/references/greenfield-workflow.md` - Story-based docs
-- `.claude/skills/devforgeai-documentation/references/brownfield-analysis.md` - Code analysis
-- `.claude/skills/devforgeai-documentation/references/diagram-generation-guide.md` - Mermaid diagrams
-- `.claude/skills/devforgeai-documentation/references/template-customization.md` - Custom templates
+- `.claude/skills/spec-driven-documentation/references/documentation-standards.md` - Style guide
+- `.claude/skills/spec-driven-documentation/references/greenfield-workflow.md` - Story-based docs
+- `.claude/skills/spec-driven-documentation/references/brownfield-analysis.md` - Code analysis
+- `.claude/skills/spec-driven-documentation/references/diagram-generation-guide.md` - Mermaid diagrams
+- `.claude/skills/spec-driven-documentation/references/template-customization.md` - Custom templates
 
 ---
 

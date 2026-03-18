@@ -633,7 +633,7 @@ Display: violation_list
 
 **Invoke skill:**
 \`\`\`
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 \`\`\`
 
 Skill handles: Metrics calculation, complexity analysis, report generation
@@ -666,7 +666,7 @@ Display: violation_summary
 ```markdown
 ### Phase 1: Invoke Skill
 
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 [Skill generates report AND invokes qa-result-interpreter subagent]
 
@@ -708,7 +708,7 @@ IF mode == "deep" AND status == "FAIL":
 ```markdown
 ### Phase 1: Invoke Skill
 
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 [Skill determines mode/status, invokes qa-result-interpreter subagent]
 [Subagent generates appropriate template based on mode/result/violations]
@@ -801,7 +801,7 @@ Task(
 ```markdown
 ### Phase 1: Invoke Skill
 
-Skill(command="devforgeai-qa")
+Skill(command="spec-driven-qa")
 
 [Skill invokes coverage-validator subagent internally]
 [Skill interprets subagent results]

@@ -832,7 +832,7 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 **Not invoked by:**
 - spec-driven-dev (research happens before implementation)
 - spec-driven-qa (validation, not research)
-- devforgeai-release (deployment, not research)
+- spec-driven-release (deployment, not research)
 
 ## Token Efficiency
 

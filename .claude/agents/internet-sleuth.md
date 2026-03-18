@@ -1,13 +1,13 @@
 ---
 name: internet-sleuth
-description: Expert Research & Competitive Intelligence Specialist for web research automation, competitive analysis, technology monitoring, and repository archaeology. Automatically invoked by discovering-requirements for market research and technology discovery, and by designing-systems for repository pattern mining and technical validation. Specializes in multi-source synthesis with framework-aware technology recommendations.
+description: Expert Research & Competitive Intelligence Specialist for web research automation, competitive analysis, technology monitoring, and repository archaeology. Automatically invoked by spec-driven-ideation for market research and technology discovery, and by spec-driven-architecture for repository pattern mining and technical validation. Specializes in multi-source synthesis with framework-aware technology recommendations.
 tools: Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch
 model: opus
 color: blue
 version: "2.0.0"
 proactive_triggers:
-  - "after discovering-requirements skill completes epic feature decomposition (market research, technology landscape analysis)"
-  - "during designing-systems skill technology selection phase (repository pattern mining, implementation validation)"
+  - "after spec-driven-ideation skill completes epic feature decomposition (market research, technology landscape analysis)"
+  - "during spec-driven-architecture skill technology selection phase (repository pattern mining, implementation validation)"
   - "after requirements-analyst generates features requiring technology evaluation"
   - "when epic scope includes 'research', 'competitive analysis', or 'technology evaluation'"
 ---
@@ -23,8 +23,8 @@ Perform comprehensive research investigations including web research, repository
 ## When Invoked
 
 **Proactive triggers:**
-- After discovering-requirements skill completes epic feature decomposition (market research, technology landscape analysis)
-- During designing-systems skill technology selection phase (repository pattern mining, implementation validation)
+- After spec-driven-ideation skill completes epic feature decomposition (market research, technology landscape analysis)
+- During spec-driven-architecture skill technology selection phase (repository pattern mining, implementation validation)
 - After requirements-analyst generates features requiring technology evaluation
 - When epic scope includes "research", "competitive analysis", or "technology evaluation"
 
@@ -38,8 +38,8 @@ Task(
 ```
 
 **Automatic:**
-- discovering-requirements skill (Phase 5: Feasibility Analysis - technology landscape research)
-- designing-systems skill (Phase 2: Create Context Files - technology validation)
+- spec-driven-ideation skill (Phase 5: Feasibility Analysis - technology landscape research)
+- spec-driven-architecture skill (Phase 2: Create Context Files - technology validation)
 
 ## Input/Output Specification
 
@@ -95,7 +95,7 @@ else:
 ```
 
 **Step 0.4: Load Skill Coordination Patterns (If Invoked by Skill)**
-- If invoked by discovering-requirements or designing-systems: Read `.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md` (~450 lines)
+- If invoked by spec-driven-ideation or spec-driven-architecture: Read `.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md` (~450 lines)
 - Contains: Task invocation patterns, result parsing examples, error handling
 - **Why conditional:** Only needed when coordinating with skills, not for standalone research
 
@@ -652,8 +652,8 @@ AskUserQuestion(
 - Research outputs reference framework compliance explicitly
 
 **Invoked By:**
-- discovering-requirements skill (Phase 5: Feasibility Analysis)
-- designing-systems skill (Phase 2: Create Context Files)
+- spec-driven-ideation skill (Phase 5: Feasibility Analysis)
+- spec-driven-architecture skill (Phase 2: Create Context Files)
 
 **Works With:**
 - requirements-analyst (coordinates on epic feature technology requirements)
@@ -818,21 +818,21 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 ## Integration
 
 **Invoked by:**
-- discovering-requirements skill (market research, technology landscape)
-- designing-systems skill (repository pattern mining, technical validation)
+- spec-driven-ideation skill (market research, technology landscape)
+- spec-driven-architecture skill (repository pattern mining, technical validation)
 
 **Coordinates with:**
 - requirements-analyst (epic feature technology requirements)
 - architect-reviewer (technical feasibility validation)
 
 **Outputs consumed by:**
-- designing-systems skill (uses research to populate tech-stack.md)
-- discovering-requirements skill (uses competitive analysis for epic recommendations)
+- spec-driven-architecture skill (uses research to populate tech-stack.md)
+- spec-driven-ideation skill (uses competitive analysis for epic recommendations)
 
 **Not invoked by:**
-- implementing-stories (research happens before implementation)
-- devforgeai-qa (validation, not research)
-- devforgeai-release (deployment, not research)
+- spec-driven-dev (research happens before implementation)
+- spec-driven-qa (validation, not research)
+- spec-driven-release (deployment, not research)
 
 ## Token Efficiency
 
@@ -1045,8 +1045,8 @@ version: "2.0"                        # Template version
 - `devforgeai/specs/research/logs/` - Research operation logs
 
 **Framework Integration:**
-- discovering-requirements skill (Phase 5: Feasibility Analysis) - Invokes for market research
-- designing-systems skill (Phase 2: Create Context Files) - Invokes for technology validation
+- spec-driven-ideation skill (Phase 5: Feasibility Analysis) - Invokes for market research
+- spec-driven-architecture skill (Phase 2: Create Context Files) - Invokes for technology validation
 
 **Related Subagents:**
 - context-validator (quality gate validation) - NEW Phase 2

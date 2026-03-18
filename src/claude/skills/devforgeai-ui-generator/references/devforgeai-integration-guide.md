@@ -327,7 +327,7 @@ spec-driven-dev (implements UI)
     ↓
 spec-driven-qa (validates implementation)
     ↓
-[PASS] → devforgeai-release
+[PASS] → spec-driven-release
 [FAIL] → Back to development
 ```
 

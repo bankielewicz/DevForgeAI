@@ -37,7 +37,7 @@ status: active                     # Optional: active | deprecated | experimenta
 ```
 
 **Field Constraints:**
-- `name`: Required. Lowercase, hyphenated, no spaces (e.g., `implementing-stories`)
+- `name`: Required. Lowercase, hyphenated, no spaces (e.g., `spec-driven-dev`)
 - `description`: Required. Brief description of WHEN to use this skill
 - `model`: Required. Use `inherit` unless specific model needed for task
 - `allowed-tools`: Optional. Array format with one tool per line (canonical)

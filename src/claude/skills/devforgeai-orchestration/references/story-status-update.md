@@ -236,7 +236,7 @@ Edit(
 ### 2025-01-06T16:30:15Z - Released
 
 **Previous Status:** Releasing
-**Action Taken:** devforgeai-release skill deployed to production
+**Action Taken:** spec-driven-release skill deployed to production
 
 **Deployment Summary:**
 - Staging: Deployed 2025-01-06T16:10:32Z (✓ smoke tests passed)

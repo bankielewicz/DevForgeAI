@@ -99,19 +99,19 @@ backend:
   tools: [Read, Write, Edit, Grep, Glob, Bash(git:*|npm:*|pip:*|dotnet:*)]
   model: opus
   context_files: [all 6]
-  integration_skills: [implementing-stories, designing-systems]
+  integration_skills: [spec-driven-dev, spec-driven-architecture]
 
 frontend:
   tools: [Read, Write, Edit, Grep, Glob, Bash(npm:*)]
   model: opus
   context_files: [tech-stack, source-tree, coding-standards]
-  integration_skills: [implementing-stories, devforgeai-ui-generator]
+  integration_skills: [spec-driven-dev, devforgeai-ui-generator]
 
 qa:
   tools: [Read, Grep, Glob, Bash(pytest:*|npm:test|dotnet:test)]
   model: opus
   context_files: [anti-patterns, coding-standards]
-  integration_skills: [devforgeai-qa, implementing-stories]
+  integration_skills: [spec-driven-qa, spec-driven-dev]
 
 [etc for all 7 domains]
 ```

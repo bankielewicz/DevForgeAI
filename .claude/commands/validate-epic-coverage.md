@@ -50,7 +50,7 @@ Skill runs gap detection, coverage analysis, and formats display via subagent.
 
 After skill returns, if `PROMPT_MODE == "interactive"` and gaps found:
 - **Single gap:** AskUserQuestion "Create story for this gap?" → Yes/No/Later
-  - If Yes: set context markers, invoke Skill(command="devforgeai-story-creation")
+  - If Yes: set context markers, invoke Skill(command="spec-driven-stories")
 - **Multiple gaps:** AskUserQuestion "How to proceed?" → Batch/Select/Skip
   - Batch: "Run /create-missing-stories ${EPIC_ID}"
   - Select: multi-select AskUserQuestion, create via story-creation skill

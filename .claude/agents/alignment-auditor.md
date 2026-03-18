@@ -46,7 +46,7 @@ You use **exact text matching** for pattern names and technology names. You do *
 - "Validate CLAUDE.md against context files"
 
 **Automatic:**
-- designing-systems skill Phase 5.5 (Prompt Alignment)
+- spec-driven-architecture skill Phase 5.5 (Prompt Alignment)
 
 ## Input/Output Specification
 

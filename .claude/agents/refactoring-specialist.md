@@ -5,7 +5,7 @@ tools: Read, Write, Edit, Update, Bash(pytest:*), Bash(npm:test), Bash(dotnet:te
 model: opus
 color: green
 permissionMode: acceptEdits
-skills: implementing-stories
+skills: spec-driven-dev
 proactive_triggers:
   - "when cyclomatic complexity exceeds 10"
   - "when code duplication detected (> 5%)"
@@ -44,8 +44,8 @@ Your core capabilities include:
 - "Improve naming in [component]"
 
 **Automatic:**
-- implementing-stories skill during Phase 3 (Refactor)
-- devforgeai-qa when complexity violations detected
+- spec-driven-dev skill during Phase 3 (Refactor)
+- spec-driven-qa when complexity violations detected
 
 ---
 
@@ -200,7 +200,7 @@ refactoring_report:
 
 ### Example 1: TDD Refactor Phase Invocation
 
-**Context:** During Phase 3 of implementing-stories skill, reducing complexity in a service class.
+**Context:** During Phase 3 of spec-driven-dev skill, reducing complexity in a service class.
 
 ```
 Task(
@@ -226,13 +226,13 @@ Task(
 | Treelint Patterns | `.claude/agents/refactoring-specialist/references/treelint-refactoring-patterns.md` | Code smell detection |
 | Shared Treelint | `.claude/agents/references/treelint-search-patterns.md` | Treelint search queries |
 | Refactoring Catalog | `.claude/agents/refactoring-specialist/references/refactoring-catalog.md` | Selecting pattern |
-| Treelint Deps | `.claude/skills/implementing-stories/references/treelint-dependency-query.md` | Impact analysis |
+| Treelint Deps | `.claude/skills/spec-driven-dev/references/treelint-dependency-query.md` | Impact analysis |
 
 ---
 
 ## Integration
 
-- **implementing-stories**: Phase 3 (Refactor) - execute refactorings during TDD cycle
+- **spec-driven-dev**: Phase 3 (Refactor) - execute refactorings during TDD cycle
 - **code-reviewer**: Identifies refactoring opportunities during review
 - **test-automator**: Ensures tests exist before refactoring begins
 - **backend-architect**: Validates refactored design patterns

@@ -49,10 +49,10 @@ Contains:
 
 ## Story Creation
 
-**For creating new story documents, use the devforgeai-story-creation skill:**
+**For creating new story documents, use the spec-driven-stories skill:**
 
 ```
-Skill(command="devforgeai-story-creation")
+Skill(command="spec-driven-stories")
 ```
 
 **The story-creation skill handles:**
@@ -66,7 +66,7 @@ Skill(command="devforgeai-story-creation")
 - Completion reporting (summary and next actions)
 
 **Complete story creation documentation:**
-`.claude/skills/devforgeai-story-creation/SKILL.md`
+`.claude/skills/spec-driven-stories/SKILL.md`
 
 **Story creation reference files:**
 - story-structure-guide.md - YAML frontmatter fields, required sections
@@ -106,7 +106,7 @@ Every story MUST include these sections:
 ### Story Template Location
 
 ```
-Primary Template: .claude/skills/devforgeai-story-creation/assets/templates/story-template.md
+Primary Template: .claude/skills/spec-driven-stories/assets/templates/story-template.md
 Backup Template: .claude/skills/devforgeai-orchestration/assets/templates/story-template.md
 
 Template contains:

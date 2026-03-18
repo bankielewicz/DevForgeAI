@@ -68,5 +68,5 @@ When git operations are declined or unavailable:
 ## See Also
 
 - `devforgeai/RCA/RCA-008-autonomous-git-stashing.md` (full incident analysis)
-- `.claude/skills/implementing-stories/references/git-workflow-conventions.md`
-- `.claude/skills/implementing-stories/references/preflight/_index.md` (Steps 0.1.5, 0.1.6)
+- `.claude/skills/spec-driven-dev/references/git-workflow-conventions.md`
+- `.claude/skills/spec-driven-dev/references/preflight/_index.md` (Steps 0.1.5, 0.1.6)
