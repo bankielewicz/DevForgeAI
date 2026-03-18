@@ -2,7 +2,7 @@
 
 ## Shared-Reference Strategy
 
-This skill uses the **shared-reference pattern** (same approach as `spec-driven-brainstorming` reading from `brainstorming/`). Phase files in `spec-driven-ideation` load references from `discovering-requirements/references/` via `Read()`.
+This skill uses the **shared-reference pattern** (same approach as `discovering-problems` reading from `brainstorming/`). Phase files in `spec-driven-ideation` load references from `discovering-requirements/references/` via `Read()`.
 
 This prevents content duplication and ensures a single source of truth.
 
@@ -33,4 +33,4 @@ This prevents content duplication and ensures a single source of truth.
 1. **Single source of truth** - No content drift between copies
 2. **Maintenance** - Updates to reference files automatically apply to both skills
 3. **Token efficiency** - No duplicated file storage
-4. **Proven pattern** - Same approach used by spec-driven-brainstorming + brainstorming
+4. **Proven pattern** - Same approach used by discovering-problems + brainstorming

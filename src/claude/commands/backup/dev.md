@@ -64,7 +64,7 @@ Display: "Executing TDD workflow (Red > Green > Refactor > Integration)..."
 **Remediation Mode:** ${REMEDIATION_MODE}
 **Ignore Debt Threshold:** ${IGNORE_DEBT_FLAG}
 
-Skill(command="spec-driven-dev")
+Skill(command="implementing-stories")
 ```
 
 ---

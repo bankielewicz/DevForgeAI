@@ -907,7 +907,8 @@ Skills automatically invoke each other when needed:
 For detailed skill documentation, see:
 - `.claude/skills/assessing-entrepreneur/SKILL.md`
 - `.claude/skills/auditing-w3-compliance/SKILL.md`
-- `.claude/skills/brainstorming/SKILL.md`
+- `.claude/skills/brainstorming/SKILL.md` **(DEPRECATED - use spec-driven-brainstorming)**
+- `.claude/skills/spec-driven-brainstorming/SKILL.md`
 - `.claude/skills/claude-code-terminal-expert/SKILL.md`
 - `.claude/skills/cross-ai-collaboration/SKILL.md`
 - `.claude/skills/designing-systems/SKILL.md`

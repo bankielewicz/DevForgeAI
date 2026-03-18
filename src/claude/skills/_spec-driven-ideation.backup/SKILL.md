@@ -7,7 +7,7 @@ description: >
   to every step of the 7-phase ideation process. Prevents token optimization bias
   through lean orchestration. Use when users say "I have a business idea",
   "help me define requirements", "let's explore what to build", or runs /ideate.
-  Do NOT use when user wants to brainstorm a vague problem (use spec-driven-brainstorming)
+  Do NOT use when user wants to brainstorm a vague problem (use discovering-problems)
   or wants a business plan directly (use planning-business).
 allowed-tools:
   - Read

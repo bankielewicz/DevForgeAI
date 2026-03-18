@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: Business Analyst discovery skill for pre-ideation brainstorming. Transforms vague business problems into structured, AI-consumable documents.
+description: "HALT - do not use. Use discovering-problems instead. This skill has been replaced by discovering-problems which provides structural anti-skip enforcement (Execute-Verify-Gate pattern) to prevent token optimization bias. Reference files in this directory have been migrated to discovering-problems and are no longer shared."
 model: claude-opus-4-6
 version: "1.1.0"
 last-updated: "2026-03-05"

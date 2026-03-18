@@ -11,9 +11,9 @@ execution-mode: immediate
 
 Execute QA validation on story implementation (light during dev, deep after completion).
 
-Do not skip any phases nor skip the spec-driven-qa skill.
+Do not skip any phases nor skip the devforgeai-qa skill.
 
-You MUST execute the spec-driven-qa skill, when called upon: Skill(command="spec-driven-qa")
+You MUST execute the devforgeai-qa skill, when called upon: Skill(command="devforgeai-qa")
 
 ```bash
 /qa STORY-001 light    # Light validation (~1 min)
@@ -24,17 +24,17 @@ You MUST execute the spec-driven-qa skill, when called upon: Skill(command="spec
 ## Lean Orchestration Enforcement
 
 **DO NOT (before skill invocation):**
-- ❌ DO NOT validate CWD (skill Phase 0 handles this)
-- ❌ DO NOT read or parse context files (skill handles context validation)
-- ❌ DO NOT infer mode from story status (skill parameter extraction handles this)
-- ❌ DO NOT generate QA reports or update story files (skill Phases 3-4 handle this)
-- ❌ DO NOT invoke feedback hooks (skill Phase 4 handles this)
+- DO NOT validate CWD (skill Phase 0 handles this)
+- DO NOT read or parse context files (skill handles context validation)
+- DO NOT infer mode from story status (skill parameter extraction handles this)
+- DO NOT generate QA reports or update story files (skill Phases 3-4 handle this)
+- DO NOT invoke feedback hooks (skill Phase 4 handles this)
 
 **DO (command responsibilities only):**
-- ✅ Validate story ID format via AskUserQuestion if invalid
-- ✅ Validate story file exists via Glob
-- ✅ Set context markers (Story ID, Validation Mode)
-- ✅ Invoke skill immediately after validation
+- Validate story ID format via AskUserQuestion if invalid
+- Validate story file exists via Glob
+- Set context markers (Story ID, Validation Mode)
+- Invoke skill immediately after validation
 
 ## Phase 0: Argument Validation
 
@@ -47,7 +47,7 @@ Glob: IF story not found: AskUserQuestion(question="Not found", options=["List",
 IF $2 in ["deep","light"]: MODE=$2
 ELIF $2 "--mode=X": extract; AskUserQuestion if invalid
 ELIF $2 unknown: AskUserQuestion for valid mode
-ELSE: MODE="auto" (Dev Complete→deep, In Development→light, other→AskUserQuestion)
+ELSE: MODE="auto" (Dev Complete->deep, In Development->light, other->AskUserQuestion)
 **Story ID:** ${STORY_ID}  |  **Mode:** ${MODE}
 ```
 
@@ -59,7 +59,7 @@ Agent(subagent_type="qa-executor", prompt="Execute QA validation for ${STORY_ID}
 
 qa-executor handles: CWD validation, tests, coverage, anti-patterns, reports, story updates, hooks.
 
-Skill(command="spec-driven-qa")
+Skill(command="devforgeai-qa")
 
 ## Phase 2: Display Results
 
@@ -81,14 +81,14 @@ Story validated, mode set, skill invoked, results displayed, story updated (deep
 ## Integration
 
 **Invoked by:** Developer, implementing-stories (light), orchestration (deep)
-**Invokes:** qa-executor subagent → spec-driven-qa workflow → specialist subagents
+**Invokes:** qa-executor subagent -> devforgeai-qa workflow -> specialist subagents
 **Gates:** Gate 2 (Test Passing), Gate 3 (QA Approval)
 
 ## Related Commands
 
 - `/dev STORY-ID` - Return to development after QA failure
 - `/release STORY-ID` - Deploy QA-approved story
-- `/orchestrate STORY-ID` - Full lifecycle (dev → qa → release)
+- `/orchestrate STORY-ID` - Full lifecycle (dev -> qa -> release)
 
 ## Performance Targets
 
