@@ -137,7 +137,7 @@ bash scripts/build-offline-bundle.sh
 | tech-stack-detector | Technology stack detection and validation specialist. Detects project languag... | Read, Glob, Grep |
 | technical-debt-analyzer | Analyzes accumulated technical debt from deferred DoD items. Generates debt t... | (none) |
 | test-automator | Test generation expert specializing in Test-Driven Development (TDD). Use pro... | Read, Write, Edit, Grep, Glob, Bash |
-| ui-spec-formatter | Formats UI specification results for display after devforgeai-ui-generator sk... | Read, Grep, Glob |
+| ui-spec-formatter | Formats UI specification results for display after spec-driven-ui sk... | Read, Grep, Glob |
 ### Proactive Trigger Mapping
 
 | Trigger Pattern | Recommended Agent |
@@ -301,7 +301,7 @@ HALT immediately and use AskUserQuestion when ANY of these occur:
 6. **Conflicting requirements** — Do not guess which takes priority
 7. **Security-sensitive decisions** — Authentication, secrets, permissions
 8. **Multiple valid approaches** — Let the user choose direction
-9. **3+ consecutive fix attempts fail** — Invoke root-cause-diagnosis skill first
+9. **3+ consecutive fix attempts fail** — Invoke spec-driven-rca skill first
 
 </halt_triggers>
 

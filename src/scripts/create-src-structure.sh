@@ -90,7 +90,7 @@ SKILLS=(
     "designing-systems"
     "devforgeai-orchestration"
     "spec-driven-stories"
-    "devforgeai-ui-generator"
+    "spec-driven-ui"
     "devforgeai-development"
     "spec-driven-qa"
     "devforgeai-release"

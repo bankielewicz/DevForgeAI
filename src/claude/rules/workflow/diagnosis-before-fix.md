@@ -10,7 +10,7 @@ Enforce systematic root cause diagnosis before applying fixes to persistent fail
 
 **HALT: Diagnosis required before fix attempts.**
 
-When ANY of the following conditions are met, you MUST invoke the root-cause-diagnosis skill before attempting further fixes:
+When ANY of the following conditions are met, you MUST invoke the spec-driven-rca skill before attempting further fixes:
 
 1. **3+ consecutive fix attempts** fail on the same error or test
 2. **Integration tests fail** with non-environment errors
@@ -29,14 +29,14 @@ This rule is MANDATORY. It cannot be skipped, deferred, or overridden without ex
 IF fix_attempt_count >= 3 AND same_error_persists:
     HALT
     Display: "3 fix attempts failed on the same issue. Diagnosis required."
-    Invoke: root-cause-diagnosis skill
+    Invoke: spec-driven-rca skill
     DO NOT proceed with fix attempt #4 without diagnosis
 ```
 
 ### Skill Reference
 
-Invoke the root-cause-diagnosis skill at:
-`.claude/skills/root-cause-diagnosis/SKILL.md`
+Invoke the spec-driven-rca skill at:
+`.claude/skills/spec-driven-rca/SKILL.md`
 
 The skill enforces a 4-phase methodology:
 1. **CAPTURE** - Collect failure artifacts
@@ -52,7 +52,7 @@ The skill enforces a 4-phase methodology:
 |---------|--------|
 | 1 | Normal iterative fix. Apply fix, run tests. |
 | 2 | Normal iterative fix. Apply fix, run tests. |
-| 3 | **HALT.** Invoke root-cause-diagnosis skill. Apply prescribed fix. |
+| 3 | **HALT.** Invoke spec-driven-rca skill. Apply prescribed fix. |
 | 4 | If diagnosis prescription fails, try next hypothesis. |
 | 5 | **HALT.** Escalate to user via AskUserQuestion. |
 
@@ -118,7 +118,7 @@ Violations of this rule are tracked. If a fix is applied after 3+ failed attempt
 
 ## References
 
-- **Skill:** `.claude/skills/root-cause-diagnosis/SKILL.md`
+- **Skill:** `.claude/skills/spec-driven-rca/SKILL.md`
 - **Subagent:** `.claude/agents/diagnostic-analyst.md`
-- **Investigation Patterns:** `.claude/skills/root-cause-diagnosis/references/investigation-patterns.md`
-- **Workflow Integration:** `.claude/skills/root-cause-diagnosis/references/workflow-integration.md`
+- **Investigation Patterns:** `.claude/skills/spec-driven-rca/references/investigation-patterns.md`
+- **Workflow Integration:** `.claude/skills/spec-driven-rca/references/workflow-integration.md`

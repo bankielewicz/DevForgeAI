@@ -39,7 +39,7 @@
       "Bash(xargs python3:*)",
       "Skill(spec-driven-stories)",
       "Bash(mkdir:*)",
-      "Skill(devforgeai-rca)",
+      "Skill(spec-driven-rca)",
       "Bash(/mnt/c/Projects/DevForgeAI2/tests/user-input-guidance/scripts/test-story-creation-without-guidance.sh:*)",
       "SlashCommand(/create-story Operational Sync for User Input Guidance System - Synchronize source files from src/ to operational directories (.claude/, CLAUDE.md) with conflict detection, rollback on failure, and comprehensive validation. Supports 3 files: CLAUDE.md, commands-reference.md, skills-reference.md. Must handle pre-sync conflicts, validate hash integrity, create backups, generate sync reports. Requires --dry-run, --force, --help flags. Exit codes: 0=success, 1=missing source, 2=permission denied, 3=rollback, 4=validation failed, 5=manual merge needed. Maximum 600 lines total for story file.)",
       "Bash(tests/run_story_063_tests.sh)",

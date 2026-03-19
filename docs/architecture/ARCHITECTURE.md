@@ -105,7 +105,7 @@ Skills are **inline prompt expansions**, not background processes. When invoked 
 | **Diagnostics** | root-cause-diagnosis, devforgeai-rca, devforgeai-feedback, devforgeai-insights |
 | **Tooling** | claude-code-terminal-expert, skill-creator, devforgeai-subagent-creation, devforgeai-mcp-cli-converter |
 | **Documentation** | devforgeai-documentation |
-| **Other** | cross-ai-collaboration, devforgeai-github-actions, devforgeai-research, devforgeai-ui-generator, auditing-w3-compliance |
+| **Other** | cross-ai-collaboration, devforgeai-github-actions, spec-driven-research, spec-driven-ui, spec-driven-w3-compliance |
 
 Each skill follows the progressive disclosure pattern:
 - `SKILL.md`: Core instructions (target 500-800 lines)

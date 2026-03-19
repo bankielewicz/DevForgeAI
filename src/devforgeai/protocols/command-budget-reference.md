@@ -58,14 +58,14 @@ This document provides current command budget status, monitoring procedures, and
 - **create-ui** (19K chars, 126% over) - ELEVATED to CRITICAL
   - Requires: 47% reduction to reach 10K target
   - Estimated effort: 3-4 hours
-  - Already uses devforgeai-ui-generator skill
+  - Already uses spec-driven-ui skill
   - Extract: Integration logic to subagent (or further delegation)
 
 **Priority 2: HIGH (Over Budget)**
 - **create-ui** (19K chars, 126% over)
   - Requires: 47% reduction to reach 10K target
   - Estimated effort: 3-4 hours
-  - Already uses devforgeai-ui-generator skill
+  - Already uses spec-driven-ui skill
   - Extract: Integration logic to subagent
 
 - **release** (18K chars, 121% over)
@@ -566,7 +566,7 @@ bash devforgeai/tests/commands/test-[command].sh
 2. **create-ui** (19K chars, 126% over budget) - HIGH
    - Current: 614 lines
    - Target: ~300 lines, ~10K chars
-   - Already uses devforgeai-ui-generator skill ✓
+   - Already uses spec-driven-ui skill ✓
    - Issue: Too much integration logic
    - Extract to: Enhance skill with ui-spec-formatter integration (already done)
    - Estimated: 2-3 hours
@@ -592,7 +592,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 1. devforgeai-orchestration (3,249 lines → ~200) - 4-6 hours
 2. spec-driven-stories (1,840 lines → ~180) - 3-4 hours
 3. devforgeai-development (1,782 lines → ~180) - 3-4 hours
-4. devforgeai-ui-generator (1,451 lines → ~190) - 3-4 hours
+4. spec-driven-ui (1,451 lines → ~190) - 3-4 hours
 5. spec-driven-ideation (1,416 lines → ~185) - 3 hours
 6. spec-driven-qa (1,330 lines → ~190) - 3-4 hours
 7. designing-systems (978 lines → ~195) - 2-3 hours
@@ -663,7 +663,7 @@ All 8 DevForgeAI skills need 200-line entry point refactoring.
 - `devforgeai/specs/analysis/devforgeai-orchestration.md` (2,088 lines)
 - `devforgeai/specs/analysis/spec-driven-stories.md` (1,956 lines)
 - `devforgeai/specs/analysis/devforgeai-development.md` (1,923 lines)
-- `devforgeai/specs/analysis/devforgeai-ui-generator.md` (1,875 lines)
+- `devforgeai/specs/analysis/spec-driven-ui.md` (1,875 lines)
 - `devforgeai/specs/analysis/spec-driven-ideation.md` (1,804 lines)
 - `devforgeai/specs/analysis/spec-driven-qa.md` (1,843 lines)
 - `devforgeai/specs/analysis/designing-systems.md` (1,712 lines)

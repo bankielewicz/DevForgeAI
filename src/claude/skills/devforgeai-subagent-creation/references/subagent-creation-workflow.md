@@ -105,7 +105,7 @@ frontend:
   tools: [Read, Write, Edit, Grep, Glob, Bash(npm:*)]
   model: opus
   context_files: [tech-stack, source-tree, coding-standards]
-  integration_skills: [spec-driven-dev, devforgeai-ui-generator]
+  integration_skills: [spec-driven-dev, spec-driven-ui]
 
 qa:
   tools: [Read, Grep, Glob, Bash(pytest:*|npm:test|dotnet:test)]

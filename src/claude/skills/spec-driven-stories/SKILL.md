@@ -392,7 +392,7 @@ This skill delegates specialized tasks to subagents:
 - spec-driven-dev skill (deferred work tracking)
 
 **Provides output to:**
-- devforgeai-ui-generator (AC to UI requirements)
+- spec-driven-ui (AC to UI requirements)
 - spec-driven-dev (AC to test generation)
 - spec-driven-qa (AC to validation targets)
 

@@ -906,7 +906,7 @@ Message: "Invalid repository URL. Expected GitHub URL format: https://github.com
 
 **Cleanup on Failure:**
 - Use trap EXIT in Bash commands for guaranteed cleanup
-- Example: `trap "rm -rf /tmp/devforgeai-research-$$" EXIT`
+- Example: `trap "rm -rf /tmp/spec-driven-research-$$" EXIT`
 - Ensure temporary directories removed even if analysis fails mid-execution
 
 **Error Structure:**

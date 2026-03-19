@@ -202,7 +202,9 @@ DevForgeAI2/
 │   │   │       │   └── feedback-config.json
 │   │   │       └── templates/
 │   │   │           └── session-template.md
-│   │   ├── devforgeai-rca/
+│   │   ├── _root-cause-diagnosis.archive/  # ARCHIVED - absorbed into spec-driven-rca (2026-03-18)
+│   │   ├── _devforgeai-rca.archive/       # ARCHIVED - absorbed into spec-driven-rca (2026-03-18)
+│   │   ├── spec-driven-rca/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── file-discovery.md

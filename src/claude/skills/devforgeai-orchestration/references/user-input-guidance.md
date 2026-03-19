@@ -17,7 +17,7 @@ related_document: effective-prompting-guide.md (user-facing counterpart)
 - `spec-driven-ideation` (discovery phase, feasibility analysis)
 - `spec-driven-stories` (acceptance criteria specification)
 - `spec-driven-architecture` (context file creation, constraint validation)
-- `devforgeai-ui-generator` (user requirement specification before design)
+- `spec-driven-ui` (user requirement specification before design)
 - `devforgeai-orchestration` (feature decomposition, scope clarification)
 
 **Quick Links:**
@@ -724,7 +724,7 @@ This section documents how each of the 5 target skills should integrate this gui
 
 ---
 
-### 5.4 Integration: devforgeai-ui-generator
+### 5.4 Integration: spec-driven-ui
 
 **Purpose:** Generate UI specifications before coding
 

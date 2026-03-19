@@ -38,7 +38,7 @@ IF not found: Display "❌ Epic not found: ${EPIC_ID}" + valid epics → HALT
 ```
 **Epic ID:** ${EPIC_ID}
 **Mode:** detect
-Skill(command="validating-epic-coverage")
+Skill(command="spec-driven-coverage")
 ```
 After skill returns gap data, collect metadata via AskUserQuestion:
 - **Sprint:** Backlog (default) / Current Sprint / Next Sprint
@@ -56,7 +56,7 @@ Invoke batch creation with context markers:
 **Individual Points:** ${INDIVIDUAL_POINTS}
 **Batch Mode:** true  **Batch Total:** ${gap_count}
 **Created From:** /create-missing-stories
-Skill(command="validating-epic-coverage")
+Skill(command="spec-driven-coverage")
 ```
 
 ## Help Text
@@ -96,5 +96,5 @@ EXIT CODES:
 
 ## References
 
-- Skill: `.claude/skills/validating-epic-coverage/SKILL.md`
+- Skill: `.claude/skills/spec-driven-coverage/SKILL.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`

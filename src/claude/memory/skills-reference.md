@@ -515,7 +515,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 
 ---
 
-### devforgeai-ui-generator
+### spec-driven-ui
 
 **Use when:**
 - Story requires UI components (forms, dashboards, dialogs)
@@ -528,22 +528,22 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 ```
 # Story mode - load story first
 @devforgeai/specs/Stories/STORY-001.story.md
-Skill(command="devforgeai-ui-generator")
+Skill(command="spec-driven-ui")
 
 # Standalone mode - provide description
 **Component description:** Login form with validation
-Skill(command="devforgeai-ui-generator")
+Skill(command="spec-driven-ui")
 ```
 
 ### User Input Guidance
 
 **For UI specification:** Describe components with specific requirements: platform (web/desktop/terminal), interactive elements, validation rules, accessibility level (WCAG AA/AAA), responsive behavior, and design constraints. The skill will ask about design patterns, framework preferences, and styling conventions aligned with your project.
 
-**File:** `.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-ui/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ui/references/user-input-guidance.md")
 ```
 
 **Example:** "Multi-step form wizard with email/password validation, password strength meter, WCAG AA accessibility, responsive grid for mobile/tablet/desktop, client-side validation with error messages below fields"
@@ -775,7 +775,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 4. devforgeai-orchestration
    ↓ (create sprints, generate stories)
 
-5. devforgeai-ui-generator [OPTIONAL]
+5. spec-driven-ui [OPTIONAL]
    ↓ (generate UI specs if story has UI components)
 
 6. spec-driven-dev
@@ -798,7 +798,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
    ↓ (orchestration: create stories from epics)
    ↓ (story-creation: create individual story from feature description)
 
-2. devforgeai-ui-generator [OPTIONAL]
+2. spec-driven-ui [OPTIONAL]
    ↓ (generate UI specs if needed)
 
 3. spec-driven-dev
@@ -817,7 +817,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 1. spec-driven-stories
    ↓ (transform feature description → complete story)
 
-2. devforgeai-ui-generator [OPTIONAL]
+2. spec-driven-ui [OPTIONAL]
    ↓ (add UI specifications if needed)
 
 3. spec-driven-dev
@@ -836,7 +836,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 1. spec-driven-architecture
    ↓ (ensure context files exist)
 
-2. devforgeai-ui-generator
+2. spec-driven-ui
    ↓ (interactive UI spec generation)
 
 3. spec-driven-dev
@@ -908,7 +908,8 @@ Skills automatically invoke each other when needed:
 
 For detailed skill documentation, see:
 - `.claude/skills/assessing-entrepreneur/SKILL.md`
-- `.claude/skills/auditing-w3-compliance/SKILL.md`
+- `.claude/skills/auditing-w3-compliance/SKILL.md` **(ARCHIVED - use spec-driven-w3-compliance)**
+- `.claude/skills/spec-driven-w3-compliance/SKILL.md`
 - `.claude/skills/brainstorming/SKILL.md` **(DEPRECATED - use spec-driven-brainstorming)**
 - `.claude/skills/spec-driven-brainstorming/SKILL.md`
 - `.claude/skills/claude-code-terminal-expert/SKILL.md`
@@ -922,15 +923,15 @@ For detailed skill documentation, see:
 - `.claude/skills/devforgeai-orchestration/SKILL.md`
 - `.claude/skills/spec-driven-qa/SKILL.md`
 - `.claude/skills/devforgeai-qa-remediation/SKILL.md`
-- `.claude/skills/devforgeai-rca/SKILL.md`
+- `.claude/skills/spec-driven-rca/SKILL.md`
 - `.claude/skills/spec-driven-release/SKILL.md`
-- `.claude/skills/devforgeai-research/SKILL.md`
+- `.claude/skills/spec-driven-research/SKILL.md`
 - `.claude/skills/spec-driven-stories/SKILL.md`
 - `.claude/skills/devforgeai-subagent-creation/SKILL.md`
-- `.claude/skills/devforgeai-ui-generator/SKILL.md`
+- `.claude/skills/spec-driven-ui/SKILL.md`
 - `.claude/skills/spec-driven-ideation/SKILL.md`
 - `.claude/skills/spec-driven-dev/SKILL.md`
-- `.claude/skills/root-cause-diagnosis/SKILL.md`
+- `.claude/skills/spec-driven-rca/SKILL.md` **(CONSOLIDATED - replaces root-cause-diagnosis + devforgeai-rca)**
 - `.claude/skills/spec-driven-remediation/SKILL.md`
 - `.claude/skills/validating-epic-coverage/SKILL.md`
 
@@ -942,25 +943,20 @@ For detailed skill documentation, see:
 
 ---
 
-<skill name="devforgeai-rca">
-### devforgeai-rca
+<skill name="spec-driven-rca">
+### spec-driven-rca
 
 **Use when:**
-- User reports framework breakdown or process failure
-- Workflow didn't follow intended process
-- Skill/command violated lean orchestration pattern
-- Quality gate was bypassed unexpectedly
-- Context file constraints were ignored
-- Workflow state transition was invalid
-- User says "Perform RCA: [issue description]"
+- User runs `/rca [issue-description] [severity]` command
+- After 3+ consecutive fix attempts fail during /dev workflow (tactical mode)
+- Framework breakdowns, workflow violations, or quality gate bypass detected
+- diagnosis-before-fix rule triggers
+- **Tactical mode:** Auto-triggered during dev workflow for quick diagnosis
+- **Strategic mode:** Invoked via /rca for full 5 Whys RCA document
 
 **Invocation:**
 ```
-# User reports issue
-**Issue Description:** {description}
-**Severity:** {CRITICAL/HIGH/MEDIUM/LOW}
-
-Skill(command="devforgeai-rca")
+Skill(command="spec-driven-rca")
 ```
 
 ### User Input Guidance
@@ -1274,8 +1270,8 @@ Read(file_path=".claude/memory/skills-reference.md")
 
 ---
 
-<skill name="devforgeai-research">
-### devforgeai-research
+<skill name="spec-driven-research">
+### spec-driven-research
 
 **Use when:**
 - Conducting competitive analysis (AWS Kiro, Cursor, etc.)
@@ -1463,7 +1459,15 @@ Skill(command="assessing-entrepreneur")
 ---
 
 <skill name="auditing-w3-compliance">
-### auditing-w3-compliance
+### auditing-w3-compliance **(ARCHIVED - use spec-driven-w3-compliance)**
+
+**Status:** ARCHIVED -- Absorbed into spec-driven-w3-compliance (2026-03-18)
+</skill>
+
+---
+
+<skill name="spec-driven-w3-compliance">
+### spec-driven-w3-compliance
 
 **Use when:**
 - Auditing codebase for auto-skill chaining violations (W3 violations)
@@ -1474,13 +1478,18 @@ Skill(command="assessing-entrepreneur")
 
 **Invocation:**
 ```
-Skill(command="auditing-w3-compliance")
+Skill(command="spec-driven-w3-compliance")
 ```
 
-**What it does (3 phases):**
-1. **Phase 1: Scan** - Grep for `Skill(command=` patterns in `.claude/agents/` (CRITICAL) and `.claude/skills/` (HIGH + MEDIUM), excluding orchestration and backup files
-2. **Phase 2: Report** - Formatted W3 compliance audit report with CRITICAL/HIGH/MEDIUM/INFO violation counts, file paths, and remediation patterns
-3. **Phase 3: Exit Status** - Returns exit code 1 for CRITICAL violations (CI/CD fail), exit code 0 for warnings only
+**What it does (4 phases with Execute-Verify-Record anti-skip enforcement):**
+1. **Phase 01: Setup** - Validate CWD, extract parameters ($MODE, $QUIET, $FIX_HINTS), verify scan targets
+2. **Phase 02: Scanning** - 4 scan categories: CRITICAL (subagent Skill() calls), HIGH (non-orchestration auto-chaining), MEDIUM (missing W3 docs), INFO (auto-invoke language patterns)
+3. **Phase 03: Reporting** - Formatted W3 compliance audit report with box-drawing header, violation tables, remediation patterns
+4. **Phase 04: Completion** - Exit status determination (CRITICAL=exit 1, else exit 0), final summary
+
+**Anti-skip:** Uses devforgeai-validate CLI gates at every phase boundary. Execute-Verify-Record triplets at every step. Token optimization bias is PROHIBITED.
+
+**Self-contained:** All references local in `references/` (scanning-patterns.md, report-templates.md, w3-rules.md)
 
 **W3 Definition:** Skills/commands that auto-invoke other skills without user approval, causing token overflow and violating lean orchestration principles.
 
@@ -1598,49 +1607,21 @@ Skill(command="devforgeai-github-actions")
 
 ---
 
-<skill name="root-cause-diagnosis">
-### root-cause-diagnosis
+<skill name="spec-driven-rca">
+### spec-driven-rca
 
 **Use when:**
-- TDD Green phase fails after implementation attempt
-- Integration tests fail unexpectedly
-- QA deep analysis finds violations
-- Pre-commit hook blocks commit
-- 2+ consecutive fix attempts fail on same issue
-- Developer suspects systemic issue
-- **Automatically triggered by `diagnosis-before-fix` rule (`.claude/rules/workflow/diagnosis-before-fix.md`) after 3 failed fix attempts**
+- User runs `/rca [issue-description] [severity]` command
+- After 3+ consecutive fix attempts fail during /dev workflow (tactical mode)
+- Framework breakdowns, workflow violations, or quality gate bypass detected
+- diagnosis-before-fix rule triggers
+- **Tactical mode:** Auto-triggered during dev workflow for quick diagnosis
+- **Strategic mode:** Invoked via /rca for full 5 Whys RCA document
 
 **Invocation:**
 ```
-Skill(command="root-cause-diagnosis")
+Skill(command="spec-driven-rca")
 ```
-
-**What it does (4 mandatory phases, strict order):**
-1. **Phase 1: CAPTURE** - Collect error output, stack traces, phase state (`devforgeai/workflows/{STORY_ID}-phase-state.json`), recent git changes (read-only, 2-5 min)
-2. **Phase 2: INVESTIGATE** - Invokes diagnostic-analyst subagent to cross-reference failure against all 6 context files (spec drift detection); performs code-level tracing (read failing test, read implementation, trace gap); produces Investigation Report with Root Location
-3. **Phase 3: HYPOTHESIZE** - Generates 2-5 ranked hypotheses with confidence scores (0.0-1.0) and supporting evidence; validates top hypothesis explains all symptoms
-4. **Phase 4: PRESCRIBE** - Generates fix prescriptions with specific file paths, line numbers, actions, risk assessment, and fix ordering; returns prescription to invoking workflow
-
-**Core Principle:** NO fix attempts permitted until Phase 2 (INVESTIGATE) completes.
-
-**3-Attempt Escalation Rule:**
-- Attempts 1-2: Normal fix-test cycle
-- Attempt 3: HALT → invoke this skill
-- After diagnosis: if prescribed fix fails → AskUserQuestion escalation
-
-**Output:** Structured ROOT CAUSE DIAGNOSIS REPORT with CAPTURE/INVESTIGATION/HYPOTHESES/PRESCRIPTION sections and STATUS: DIAGNOSED | ESCALATED | INCONCLUSIVE
-
-**Subagents Used:**
-- **diagnostic-analyst** (Phase 2 INVESTIGATE) - Read-only spec drift detection against context files
-
-**Reference Files:**
-- `references/investigation-patterns.md` - Failure category taxonomy with investigation steps
-- `references/workflow-integration.md` - Integration hooks for dev/QA workflows
-
-**Integration:**
-- Invoked by: `diagnosis-before-fix` rule, `/rca` command, manually
-- Scope: TDD Green phase, Refactor phase, Integration phase, QA deep analysis
-- Does NOT apply to: TDD Red phase (tests expected to fail), environment setup failures
 </skill>
 
 ---
@@ -1709,8 +1690,8 @@ Skill(command="validating-epic-coverage")
 ## Skill Count Summary
 
 **Functional Skills: 22**
-- **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, spec-driven-qa, qa-remediation, release, rca, documentation, feedback, research, insights
-- **Workflow - Standalone (5):** assessing-entrepreneur, auditing-w3-compliance, cross-ai-collaboration, root-cause-diagnosis, validating-epic-coverage
+- **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, spec-driven-qa, qa-remediation, release, spec-driven-rca, documentation, feedback, research, insights
+- **Workflow - Standalone (5):** assessing-entrepreneur, spec-driven-w3-compliance, cross-ai-collaboration, spec-driven-rca, validating-epic-coverage
 - **Infrastructure (2):** claude-code-terminal-expert, skill-creator
 
 **Utility Modules: 1**
@@ -1723,9 +1704,9 @@ Skill(command="validating-epic-coverage")
 - devforgeai-insights (EPIC-034 - Session Data Mining)
 - devforgeai-github-actions (EPIC-010 - GitHub Actions CI/CD)
 - assessing-entrepreneur (/assess-me command - solo developer work-style assessment)
-- auditing-w3-compliance (/audit-w3 command - auto-skill chaining violation scanner)
+- spec-driven-w3-compliance (/audit-w3 command - W3 compliance with anti-skip enforcement, replaces auditing-w3-compliance)
 - cross-ai-collaboration (/collaborate command - cross-AI package generation)
-- root-cause-diagnosis (diagnosis-before-fix rule - systematic debugging)
+- spec-driven-rca (unified RCA - replaces root-cause-diagnosis + devforgeai-rca)
 - validating-epic-coverage (/validate-epic-coverage, /create-missing-stories commands)
 - devforgeai-shared (utility - standardized Phase 0 reference file loading)
 

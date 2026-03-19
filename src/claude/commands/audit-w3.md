@@ -48,13 +48,13 @@ Display:
 **Quiet:** ${QUIET}
 **Fix Hints:** ${FIX_HINTS}
 
-Delegating to auditing-w3-compliance skill...
+Delegating to spec-driven-w3-compliance skill...
 "
 ```
 
 **Invoke skill:**
 ```
-Skill(command="auditing-w3-compliance")
+Skill(command="spec-driven-w3-compliance")
 ```
 
 **After skill invocation:**
@@ -104,7 +104,8 @@ Try running scan manually:
 ## Integration
 
 **Invoked by:** Manual user command, /release command (Phase 0.5)
-**Invokes:** `auditing-w3-compliance` skill (all scanning logic)
+**Invokes:** `spec-driven-w3-compliance` skill (all scanning logic)
 **Output:** Display report to user, exit code for CI/CD
 
-**Version:** 2.0 - Lean Orchestration | **Pattern:** Command delegates to skill
+**Version:** 3.0 - Spec-Driven with Anti-Skip Enforcement | **Pattern:** Command delegates to skill
+**W3 Compliance:** This command does NOT auto-invoke other skills beyond its designated skill.

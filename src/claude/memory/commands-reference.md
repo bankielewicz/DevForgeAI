@@ -684,11 +684,11 @@ Read(file_path=".claude/memory/skills-reference.md")
 
 **Purpose:** Generate UI component specs (web/GUI/terminal)
 
-**Invokes:** `devforgeai-ui-generator` skill
+**Invokes:** `spec-driven-ui` skill
 
 **Workflow:**
 1. Argument validation and mode detection (story vs standalone)
-2. Invoke devforgeai-ui-generator skill (7-phase workflow)
+2. Invoke spec-driven-ui skill (7-phase workflow)
 3. Display results (from ui-spec-formatter subagent)
 4. Verify critical outputs
 
@@ -707,11 +707,11 @@ Read(file_path=".claude/memory/skills-reference.md")
 
 **For UI specification:** Describe components with specific requirements (web/desktop/terminal), interactive elements, validation rules, accessibility needs, and responsive behavior. The skill will ask clarifying questions about design patterns and framework preferences.
 
-**File:** `.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-ui/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-ui/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -733,7 +733,7 @@ Read(file_path=".claude/skills/devforgeai-ui-generator/references/user-input-gui
 - Skill invocation (15 lines)
 - Result display (10 lines) - outputs subagent-generated template
 
-**Skill (devforgeai-ui-generator - Enhanced with Phase 7):**
+**Skill (spec-driven-ui - Enhanced with Phase 7):**
 - Phase 1-6: All generation phases (unchanged)
 - Phase 6 Step 3.5: Invoke ui-spec-formatter subagent (NEW - 2025-11-05)
   - ui-spec-formatter validates and formats results
@@ -1421,7 +1421,7 @@ This command exemplifies lean orchestration for simple tasks:
 - Issue description: Brief description of framework breakdown (required)
 - Severity: CRITICAL | HIGH | MEDIUM | LOW (optional, defaults to inferred)
 
-**Invokes:** `devforgeai-rca` skill
+**Invokes:** `spec-driven-rca` skill
 
 **Workflow:**
 1. Argument validation (issue description, optional severity)
@@ -1459,7 +1459,7 @@ This command exemplifies lean orchestration for simple tasks:
 - Phase 2: Skill invocation
 - Phase 3: Result display (completion report)
 
-**Skill (devforgeai-rca - Comprehensive RCA Workflow):**
+**Skill (spec-driven-rca - Comprehensive RCA Workflow):**
 - Phase 0: Issue Clarification (extract details, generate RCA number)
 - Phase 1: Auto-Read Files (skills, commands, subagents, context files)
 - Phase 2: 5 Whys Analysis (progressive questioning with evidence)
@@ -1837,7 +1837,7 @@ Session 1:
 
 **Category:** Research
 
-**Invokes:** `devforgeai-research` skill
+**Invokes:** `spec-driven-research` skill
 
 **Modes:**
 - **New Research:** `/research "topic"` - Start new research session
@@ -1925,8 +1925,8 @@ tags: [tag1, tag2]
 - Skill invocation with context markers
 - Result display
 
-**Skill (devforgeai-research - Comprehensive Research):**
-- 6-phase workflow with progressive reference loading
+**Skill (spec-driven-research - Comprehensive Research with Anti-Skip Enforcement):**
+- 7-phase workflow with Execute-Verify-Record enforcement
 - Category-specific search strategies
 - Interactive topic definition
 - Citation standards enforcement

@@ -1,12 +1,12 @@
 # DevForgeAI UI Generator Guide
 
-Complete guide to the `devforgeai-ui-generator` skill for interactive UI specification and code generation.
+Complete guide to the `spec-driven-ui` skill for interactive UI specification and code generation.
 
 ---
 
 ## Overview
 
-The `devforgeai-ui-generator` skill generates front-end UI specifications and code through an interactive, constraint-aware workflow.
+The `spec-driven-ui` skill generates front-end UI specifications and code through an interactive, constraint-aware workflow.
 
 ---
 
@@ -20,8 +20,8 @@ Use this skill when:
 
 **Invocation:**
 ```
-Skill(command="devforgeai-ui-generator")
-Skill(command="devforgeai-ui-generator --story=STORY-042")
+Skill(command="spec-driven-ui")
+Skill(command="spec-driven-ui --story=STORY-042")
 ```
 
 **Or via slash command:**
@@ -171,7 +171,7 @@ Options:
 ## Skill Structure
 
 ```
-.claude/skills/devforgeai-ui-generator/
+.claude/skills/spec-driven-ui/
 ├── SKILL.md                          # Main skill definition
 ├── scripts/
 │   ├── ensure_spec_dir.py            # Create output directory
@@ -210,10 +210,10 @@ Generated UI code must:
 ## Reference Files
 
 Load these as needed during UI generation:
-- `.claude/skills/devforgeai-ui-generator/references/devforgeai-integration-guide.md` - Framework integration and context validation
-- `.claude/skills/devforgeai-ui-generator/references/web_best_practices.md` - Semantic HTML, accessibility, responsive design
-- `.claude/skills/devforgeai-ui-generator/references/gui_best_practices.md` - Layout organization, naming, keyboard navigation
-- `.claude/skills/devforgeai-ui-generator/references/tui_best_practices.md` - Terminal formatting, box-drawing, color usage
+- `.claude/skills/spec-driven-ui/references/devforgeai-integration-guide.md` - Framework integration and context validation
+- `.claude/skills/spec-driven-ui/references/web_best_practices.md` - Semantic HTML, accessibility, responsive design
+- `.claude/skills/spec-driven-ui/references/gui_best_practices.md` - Layout organization, naming, keyboard navigation
+- `.claude/skills/spec-driven-ui/references/tui_best_practices.md` - Terminal formatting, box-drawing, color usage
 
 ---
 
@@ -222,7 +222,7 @@ Load these as needed during UI generation:
 **In Development Lifecycle:**
 1. spec-driven-architecture (create context files)
    ↓
-2. **devforgeai-ui-generator** (generate UI specs) [OPTIONAL]
+2. **spec-driven-ui** (generate UI specs) [OPTIONAL]
    ↓
 3. spec-driven-dev (implement UI with tests)
    ↓

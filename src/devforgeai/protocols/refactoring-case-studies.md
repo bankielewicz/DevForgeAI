@@ -698,7 +698,7 @@ Issues:
 - Added Phase 6: Finalization (174 lines)
 - Added 3 missing skill integrations:
   - spec-driven-ideation (requirements → architecture)
-  - devforgeai-ui-generator (UI spec generation)
+  - spec-driven-ui (UI spec generation)
   - devforgeai-story-creation (story generation)
 - Skill enhancement: +898 lines (2,351 → 3,249)
 

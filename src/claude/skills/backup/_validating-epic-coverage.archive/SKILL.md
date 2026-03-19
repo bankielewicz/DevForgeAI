@@ -1,7 +1,9 @@
 ---
 name: validating-epic-coverage
 description: >
-  Validates epic-to-story coverage, detects gaps, formats display output, and
+  **HALT — do not use. Absorbed into spec-driven-coverage (2026-03-18).**
+  Use Skill(command="spec-driven-coverage") instead.
+  Original: Validates epic-to-story coverage, detects gaps, formats display output, and
   orchestrates batch story creation for coverage gaps. Extracted from
   /validate-epic-coverage and /create-missing-stories commands per lean
   orchestration pattern. Delegates display formatting to

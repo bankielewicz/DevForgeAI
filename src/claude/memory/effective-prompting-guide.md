@@ -568,7 +568,7 @@ Responsive:
 
 **See Also:**
 - `/dev` for implementing the UI
-- Component-specific guidance in devforgeai-ui-generator documentation
+- Component-specific guidance in spec-driven-ui documentation
 
 ---
 
