@@ -422,7 +422,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 ---
 
-### story-remediation
+### spec-driven-remediation
 
 **Use when:**
 - User runs `/fix-story [audit-file | STORY-NNN | EPIC-NNN]` command
@@ -430,12 +430,14 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 - Custody chain validation produces findings requiring correction
 - **Use after /validate-stories, before /dev**
 
+**Anti-skip enforcement:** 6-phase workflow with Execute-Verify-Record pattern. Binary CLI gates at phase boundaries. Checkpoint persistence for session resume.
+
 **Invocation:**
 ```
 # Audit file path in conversation context
 **Audit File:** {path}
 
-Skill(command="story-remediation")
+Skill(command="spec-driven-remediation")
 ```
 
 ---
@@ -929,7 +931,7 @@ For detailed skill documentation, see:
 - `.claude/skills/spec-driven-ideation/SKILL.md`
 - `.claude/skills/spec-driven-dev/SKILL.md`
 - `.claude/skills/root-cause-diagnosis/SKILL.md`
-- `.claude/skills/story-remediation/SKILL.md`
+- `.claude/skills/spec-driven-remediation/SKILL.md`
 - `.claude/skills/validating-epic-coverage/SKILL.md`
 
 **Utility Module (not a standalone skill):**

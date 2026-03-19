@@ -231,11 +231,27 @@ DevForgeAI2/
 │   │   │   └── SKILL.md (incomplete - use internet-sleuth subagent instead)
 │   │   ├── skill-creator/
 │   │   │   └── SKILL.md
-│   │   ├── story-remediation/          # Story/epic fix workflow (post-audit remediation)
+│   │   ├── _story-remediation.archive/  # ARCHIVED - absorbed into spec-driven-remediation (2026-03-18)
+│   │   ├── spec-driven-remediation/     # Audit finding remediation (6-phase, anti-skip enforcement)
 │   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       ├── fix-actions-catalog.md
-│   │   │       └── fix-verification-workflow.md
+│   │   │   ├── phases/
+│   │   │   │   ├── phase-00-context-loading.md
+│   │   │   │   ├── phase-01-triage.md
+│   │   │   │   ├── phase-02-preview.md
+│   │   │   │   ├── phase-03-execution.md
+│   │   │   │   ├── phase-04-verification.md
+│   │   │   │   └── phase-05-reporting.md
+│   │   │   ├── references/
+│   │   │   │   ├── fix-actions-catalog.md
+│   │   │   │   ├── fix-verification-workflow.md
+│   │   │   │   ├── context-validation.md
+│   │   │   │   ├── checkpoint-schema.md
+│   │   │   │   ├── memory-file-operations.md
+│   │   │   │   └── parameter-extraction.md
+│   │   │   └── assets/
+│   │   │       └── templates/
+│   │   │           ├── fix-report-template.md
+│   │   │           └── checkpoint-template.yaml
 │   │   └── devforgeai-github-actions/
 │   │       ├── SKILL.md             # GitHub Actions workflow generation (STORY-097)
 │   │       └── references/          # Loaded on demand

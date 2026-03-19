@@ -10,7 +10,7 @@ execution-mode: immediate
 
 Apply automated and guided fixes to story, epic, and context files based on structured audit findings from `/validate-stories`.
 
-Do not skip any phases nor skip the spec-driven-remediation skill.
+Do not skip any phases nor skip the story-remediation skill.
 
 ---
 
@@ -161,7 +161,7 @@ Display context markers for skill consumption:
 ## Phase 1: Invoke Skill
 
 ```
-Skill(command="spec-driven-remediation")
+Skill(command="story-remediation")
 ```
 
 **Skill handles ALL workflow** including finding parsing, classification, fix execution, verification, and reporting.
@@ -180,7 +180,7 @@ Display the fix report output from the skill. No additional processing.
 |-------|------------|
 | Audit file not found | Run `/validate-stories` first to generate audit file |
 | No findings in audit | Audit file exists but has 0 findings — nothing to fix |
-| Skill not found | Check `.claude/skills/spec-driven-remediation/SKILL.md` exists |
+| Skill not found | Check `.claude/skills/story-remediation/SKILL.md` exists |
 | Finding filter no match | Specified `--finding=F-NNN` not found in audit |
 
 ---
@@ -197,7 +197,7 @@ Display the fix report output from the skill. No additional processing.
 
 ## References
 
-- Skill: `.claude/skills/spec-driven-remediation/SKILL.md`
+- Skill: `.claude/skills/story-remediation/SKILL.md`
 - Audit output: `devforgeai/qa/audit/custody-chain-audit-{scope}.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 

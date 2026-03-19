@@ -7,6 +7,10 @@ model: inherit
 
 # devforgeai-qa-remediation
 
+> **ARCHIVED: 2026-03-18** — This skill has been replaced by `spec-driven-qa-remediation`.
+> Use `Skill(command="spec-driven-qa-remediation")` or `/review-qa-reports` instead.
+> **HALT:** Do not execute this skill. It is archived for reference only.
+
 Process QA gap files and create remediation user stories from findings.
 
 ## Purpose

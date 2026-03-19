@@ -1,3 +1,6 @@
+<!-- ARCHIVED: 2026-03-18 - Original command before spec-driven-qa-remediation migration -->
+<!-- This backup preserves the original /review-qa-reports command that invoked devforgeai-qa-remediation -->
+<!-- Current command now invokes spec-driven-qa-remediation instead -->
 ---
 name: review-qa-reports
 description: Process QA gap files and create remediation stories. Scans local QA reports or imported external project reports, aggregates gaps by severity, and converts selected gaps into actionable user stories.
@@ -70,7 +73,7 @@ Convert QA gap findings (coverage gaps, anti-pattern violations, code quality is
 
 ## Workflow
 
-This command invokes `spec-driven-qa-remediation` skill with the following phases:
+This command invokes `devforgeai-qa-remediation` skill with the following phases:
 
 1. **Phase 01: Pre-Flight Validation** - Validate CWD, load config
 2. **Phase 02: Discovery & Parsing** - Glob and parse gap files
@@ -87,7 +90,7 @@ Parse $ARGUMENTS and invoke the skill:
 ```
 **Arguments:** $ARGUMENTS
 
-Skill(command="spec-driven-qa-remediation", args="$ARGUMENTS")
+Skill(command="devforgeai-qa-remediation", args="$ARGUMENTS")
 ```
 
 ### Argument Parsing
@@ -154,7 +157,7 @@ After story creation:
 
 | Component | Purpose |
 |-----------|---------|
-| `spec-driven-qa-remediation` skill | Main processing workflow (with anti-skip enforcement) |
+| `devforgeai-qa-remediation` skill | Main processing workflow |
 | `spec-driven-stories` skill | Batch story creation |
 | `technical-debt-analyzer` subagent | Optional debt analysis |
 | `devforgeai/qa/reports/` | Local gap file source |
