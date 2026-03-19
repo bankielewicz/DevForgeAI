@@ -56,10 +56,10 @@ ELSE:
 ## Phase 1: Invoke Skill
 
 ```
-Skill(command="devforgeai-ui-generator")
+Skill(command="spec-driven-ui")
 ```
 
-Skill handles: context validation, tech-stack extraction, discovery (5-15 questions), templates, code gen, docs, validation, hooks.
+Skill handles: context validation (Phase 01), tech-stack extraction (Phase 01), interactive discovery (Phase 03), template loading (Phase 04), code generation (Phase 05), documentation (Phase 06), validation (Phase 07), feedback hooks (Phase 08).
 
 ## Phase 2: Display Results
 
@@ -72,7 +72,7 @@ Output `result.display.template` and `result.next_steps` as-is.
 | Story Not Found | `❌ Story Not Found: ${ID}` | `/create-story` or standalone mode |
 | Context Missing | `❌ Context Files Required` (lists 6 files) | `/create-context` |
 | No Frontend Stack | `❌ Frontend Stack Not Defined` | Update tech-stack.md |
-| Skill Failed | `❌ UI Generator Failed` + debug info | Check SKILL.md, tech-stack.md |
+| Skill Failed | `❌ UI Generation Failed` + debug info | Check SKILL.md, tech-stack.md |
 | Validation Failed | `⚠️ Spec Issues` + missing/placeholder/violations | Resolve via prompts |
 
 ## Success Criteria
@@ -81,7 +81,7 @@ UI spec generated, components created per source-tree.md, no placeholders, const
 
 ## Integration
 
-**Invokes:** devforgeai-ui-generator skill
+**Invokes:** spec-driven-ui skill (9-phase workflow with EVR anti-skip enforcement)
 **Prerequisites:** 6 context files, frontend stack in tech-stack.md
 **Related:** `/create-story`, `/create-context`, `/dev`, `/qa`
-**Budget:** ~24K tokens total
+**Budget:** ~40K tokens total

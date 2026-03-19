@@ -47,7 +47,7 @@ The spec-driven-stories skill is a core framework component invoked by multiple 
 
 ### Provides Output To
 
-**devforgeai-ui-generator skill**
+**spec-driven-ui skill**
 - Input: Story acceptance criteria → UI requirements extraction
 - Input: Feature description → Component specification
 - Flow: Story creation → UI generation (optional)

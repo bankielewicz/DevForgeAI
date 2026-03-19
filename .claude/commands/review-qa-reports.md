@@ -70,7 +70,7 @@ Convert QA gap findings (coverage gaps, anti-pattern violations, code quality is
 
 ## Workflow
 
-This command invokes `devforgeai-qa-remediation` skill with the following phases:
+This command invokes `spec-driven-qa-remediation` skill with the following phases:
 
 1. **Phase 01: Pre-Flight Validation** - Validate CWD, load config
 2. **Phase 02: Discovery & Parsing** - Glob and parse gap files
@@ -87,7 +87,7 @@ Parse $ARGUMENTS and invoke the skill:
 ```
 **Arguments:** $ARGUMENTS
 
-Skill(command="devforgeai-qa-remediation", args="$ARGUMENTS")
+Skill(command="spec-driven-qa-remediation", args="$ARGUMENTS")
 ```
 
 ### Argument Parsing
@@ -154,7 +154,7 @@ After story creation:
 
 | Component | Purpose |
 |-----------|---------|
-| `devforgeai-qa-remediation` skill | Main processing workflow |
+| `spec-driven-qa-remediation` skill | Main processing workflow (with anti-skip enforcement) |
 | `spec-driven-stories` skill | Batch story creation |
 | `technical-debt-analyzer` subagent | Optional debt analysis |
 | `devforgeai/qa/reports/` | Local gap file source |

@@ -365,7 +365,7 @@ Story Management, Audit, etc.: 0 tokens (no guidance loaded)
 
 **Same Guidance File:**
 - Architecture uses: `.claude/skills/spec-driven-architecture/references/user-input-guidance.md`
-- UI-Generator uses: `.claude/skills/devforgeai-ui-generator/references/user-input-guidance.md`
+- UI-Generator uses: `.claude/skills/spec-driven-ui/references/user-input-guidance.md`
 - Orchestration uses: `.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
 - All 3 are IDENTICAL copies (checksum validated)
 

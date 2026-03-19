@@ -1,12 +1,12 @@
 ---
 name: ui-spec-formatter
 version: "2.0.0"
-description: Formats UI specification results for display after devforgeai-ui-generator skill completes. Interprets generated UI specifications and creates structured display templates showing component details, file locations, accessibility features, and responsive breakpoints. Use after UI spec generation to prepare results for /create-ui command output.
+description: Formats UI specification results for display after spec-driven-ui skill completes. Interprets generated UI specifications and creates structured display templates showing component details, file locations, accessibility features, and responsive breakpoints. Use after UI spec generation to prepare results for /create-ui command output.
 model: opus
 color: green
 tools: Read, Grep, Glob
 proactive_triggers:
-  - "After devforgeai-ui-generator skill Phase 6 (Documentation)"
+  - "After spec-driven-ui skill Phase 6 (Documentation)"
   - "Before UI spec results displayed to user"
   - "When UI specification formatting required for display"
 ---
@@ -17,7 +17,7 @@ Specialized formatter that transforms generated UI specifications into user-frie
 
 ## Purpose
 
-After `devforgeai-ui-generator` skill generates UI specifications, this subagent:
+After `spec-driven-ui` skill generates UI specifications, this subagent:
 1. **Reads** the generated UI specification file
 2. **Extracts** key component information (type, framework, styling, accessibility)
 3. **Validates** against framework context files (tech-stack.md, source-tree.md)
@@ -28,7 +28,7 @@ After `devforgeai-ui-generator` skill generates UI specifications, this subagent
 ## When Invoked
 
 **Proactively triggered:**
-- After devforgeai-ui-generator skill Phase 6 (Documentation)
+- After spec-driven-ui skill Phase 6 (Documentation)
 - Before UI spec results displayed to user
 - Always in isolated context (separate from main skill execution)
 
@@ -56,9 +56,9 @@ Task(
 
 ### Input
 
-- **UI Specification File:** `devforgeai/specs/ui/{STORY_ID or COMPONENT}-ui-spec.md` - Generated UI spec from devforgeai-ui-generator skill
+- **UI Specification File:** `devforgeai/specs/ui/{STORY_ID or COMPONENT}-ui-spec.md` - Generated UI spec from spec-driven-ui skill
 - **Generation Mode:** Story mode (from story acceptance criteria) or Standalone mode (custom component)
-- **Framework Stack:** From tech-stack.md or devforgeai-ui-generator output
+- **Framework Stack:** From tech-stack.md or spec-driven-ui output
 - **Context Files:** tech-stack.md, source-tree.md, dependencies.md, coding-standards.md, architecture-constraints.md, anti-patterns.md (for validation)
 - **Story ID (if applicable):** From YAML frontmatter or explicit statement
 
@@ -902,7 +902,7 @@ Task(
 
 ### Invoked By
 
-**devforgeai-ui-generator skill (Phase 6, Step 4):**
+**spec-driven-ui skill (Phase 6, Step 4):**
 ```
 After generating UI specification, invoke formatter:
 
@@ -927,7 +927,7 @@ Return result_summary to command
 
 ### Returns To
 
-**devforgeai-ui-generator skill receives:**
+**spec-driven-ui skill receives:**
 - Structured result object
 - Display template (ready to output)
 - Component details (for story file update)
@@ -1058,14 +1058,14 @@ This subagent respects DevForgeAI constraints:
 
 ## Related Subagents
 
-- **devforgeai-ui-generator:** Creates UI specs; formatter displays and validates results
+- **spec-driven-ui:** Creates UI specs; formatter displays and validates results
 - **test-automator:** Generates tests for UI components (referenced in implementation guidance)
 - **context-validator:** Can validate UI code against constraints
 - **code-reviewer:** Reviews final UI implementation
 
 ---
 
-**Invocation:** Automatic during devforgeai-ui-generator skill Phase 6
+**Invocation:** Automatic during spec-driven-ui skill Phase 6
 **Context Isolation:** Runs in isolated context, receives spec results
 **Model:** Haiku (deterministic formatting, cost-effective)
 **Token Target:** <10K per invocation

@@ -74,7 +74,7 @@ Display: "✓ Severity: ${SEVERITY}"
 **Command:** rca
 
 ```
-Skill(command="devforgeai-rca")
+Skill(command="spec-driven-rca")
 ```
 
 **Skill handles ALL workflow** including issue clarification, auto-read files, 5 Whys analysis, evidence collection, recommendation generation, RCA document creation, validation, and completion report.
@@ -94,8 +94,8 @@ Skill(command="devforgeai-rca")
 
 ## References
 
-- Skill: `.claude/skills/devforgeai-rca/SKILL.md`
-- Help: `.claude/skills/devforgeai-rca/references/rca-help.md` (examples, integration guide, framework analysis)
+- Skill: `.claude/skills/spec-driven-rca/SKILL.md`
+- Help: `.claude/skills/spec-driven-rca/references/rca-help.md` (examples, integration guide, framework analysis)
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**

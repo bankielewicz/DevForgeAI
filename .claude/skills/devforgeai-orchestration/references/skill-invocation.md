@@ -425,7 +425,7 @@ Validate completion:
 2. **spec-driven-architecture** - Context file generation (invoked in Architecture phase)
 3. **devforgeai-orchestration** - Workflow coordination (this skill)
 4. **spec-driven-stories** - Story generation from features
-5. **devforgeai-ui-generator** - UI specification generation
+5. **spec-driven-ui** - UI specification generation
 6. **spec-driven-dev** - TDD implementation (invoked in Development phase)
 7. **spec-driven-qa** - Quality validation (invoked in QA phase)
 8. **spec-driven-release** - Deployment (invoked in Release phase)

@@ -106,18 +106,21 @@ DevForgeAI2/
 │   │   │       └── contracts/
 │   │   │           ├── requirements-analyst-contract.yaml
 │   │   │           └── api-designer-contract.yaml
-│   │   ├── devforgeai-ui-generator/
-│   │   │   ├── SKILL.md
-│   │   │   ├── references/
-│   │   │   │   ├── ui-type-detection.md
-│   │   │   │   ├── technology-selection.md
-│   │   │   │   ├── component-generation.md
-│   │   │   │   └── spec-validation.md
-│   │   │   └── assets/
-│   │   │       └── templates/
-│   │   │           ├── web-component-template.md
-│   │   │           ├── gui-component-template.md
-│   │   │           └── terminal-component-template.md
+│   │   ├── spec-driven-ui/                   # UI spec & code generation (ADR-043 migration)
+│   │   │   ├── SKILL.md                      # 9-phase workflow with EVR anti-skip enforcement
+│   │   │   ├── phases/                       # Phase execution files (9 phases)
+│   │   │   │   ├── phase-00-initialization.md
+│   │   │   │   ├── phase-01-context-validation.md
+│   │   │   │   ├── phase-02-story-analysis.md
+│   │   │   │   ├── phase-03-interactive-discovery.md
+│   │   │   │   ├── phase-04-template-loading.md
+│   │   │   │   ├── phase-05-code-generation.md
+│   │   │   │   ├── phase-06-documentation.md
+│   │   │   │   ├── phase-07-specification-validation.md
+│   │   │   │   └── phase-08-feedback-completion.md
+│   │   │   ├── references/                   # Deep documentation (19 files, loaded per-phase)
+│   │   │   ├── assets/                       # Framework templates (7 files)
+│   │   │   └── scripts/                      # Python utilities (2 files)
 │   │   ├── spec-driven-dev/
 │   │   │   ├── SKILL.md
 │   │   │   ├── phases/              # Phase-specific execution guides (10 phases)

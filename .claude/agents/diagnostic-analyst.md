@@ -290,7 +290,7 @@ Compare code patterns against anti-patterns.md:
 
 ## Integration
 
-**Invoked by:** root-cause-diagnosis skill (Phase 2: INVESTIGATE)
+**Invoked by:** spec-driven-rca skill (Phase 2: INVESTIGATE)
 
 **Input:** Failure artifacts (error message, file path, phase, story ID)
 

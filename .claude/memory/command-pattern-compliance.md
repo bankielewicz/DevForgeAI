@@ -69,7 +69,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /create-ui
 - **Status:** ❌ Over Budget (126% budget, requires refactoring)
 - **Structure:** 4 phases (validate → invoke → display → verify)
-- **Business Logic:** Delegated to `devforgeai-ui-generator` skill (7-phase UI generation)
+- **Business Logic:** Delegated to `spec-driven-ui` skill (7-phase UI generation)
 - **Token Efficiency:** Projected: ~3K tokens (62% savings after refactoring)
 - **Refactoring:** 🔴 Pending (Priority: CRITICAL, planned refactoring)
 
@@ -118,7 +118,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /rca
 - **Status:** ✅ Compliant (63% budget, well under limit)
 - **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-rca` skill (8-phase RCA workflow)
+- **Business Logic:** Delegated to `spec-driven-rca` skill (8-phase RCA workflow)
 - **Token Efficiency:** Command: ~3K tokens, Skill: ~50-80K tokens (94% in isolated context)
 - **Refactoring:** ✅ Complete (2025-11-16, lean orchestration pattern)
 

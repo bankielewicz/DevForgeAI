@@ -182,7 +182,7 @@ test-automator → backend-architect → context-validator → refactoring-speci
 - story-requirements-analyst (Phase 2 - user story + AC)
 - api-designer (Phase 3 - if API detected)
 
-### devforgeai-ui-generator Skill
+### spec-driven-ui Skill
 
 **Subagents invoked:**
 - ui-spec-formatter (Phase 6 Step 3.5 - format results)

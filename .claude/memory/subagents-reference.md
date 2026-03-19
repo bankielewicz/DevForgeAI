@@ -34,7 +34,7 @@ Subagents are automatically invoked by DevForgeAI skills at appropriate workflow
 - **Deep Validation**: security-auditor scans for vulnerabilities, test-automator fills coverage gaps
 - **Phase 5 Step 6**: qa-result-interpreter interprets results and generates user-facing display (NEW - QA Refactoring)
 
-**During devforgeai-ui-generator:**
+**During spec-driven-ui:**
 - **Phase 6 Step 3.5**: ui-spec-formatter formats and validates generated UI specifications (NEW - UI Refactoring)
 
 **During spec-driven-architecture:**
@@ -154,7 +154,7 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 | **internet-sleuth** | Research & competitive intelligence, web research automation | haiku | <50K | Market research, technology discovery, repository archaeology (AUTO-INVOKED by ideation) |
 | **pattern-compliance-auditor** | Lean orchestration pattern compliance auditing | haiku | <15K | Command refactoring analysis, budget violation detection (/audit-budget command) |
 | **dev-result-interpreter** | Development workflow result interpretation and display | haiku | <8K | After /dev completes, before result display (similar to qa-result-interpreter) |
-| **diagnostic-analyst** | Read-only diagnostic analysis subagent for spec drift detection and root cause investigation across constitutional context files. Has NO write access — investigates and reports only. | opus | <30K | When root-cause-diagnosis skill is invoked, persistent failures after 3+ fix attempts |
+| **diagnostic-analyst** | Read-only diagnostic analysis subagent for spec drift detection and root cause investigation across constitutional context files. Has NO write access — investigates and reports only. | opus | <30K | When spec-driven-rca skill is invoked, persistent failures after 3+ fix attempts |
 | **ac-compliance-verifier** | Fresh-context AC verification without prior coding knowledge | opus | <40K | Phase 4.5/5.5 of /dev workflow for independent AC verification (NEW - EPIC-046) |
 | **observation-extractor** | Extract structured observations from subagent outputs | haiku | <15K | At phase exit gates, after test-automator/code-reviewer/backend-architect (NEW - STORY-319) |
 | **session-miner** | Parse history.jsonl for session mining and workflow insights | opus | <50K | EPIC-034 session mining, command pattern analysis, workflow metrics (NEW) |
@@ -229,7 +229,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 - **code-quality-auditor** (Phase 2 - complexity, duplication, maintainability)
 - **qa-result-interpreter** (Phase 5 Step 6 - interprets results and generates display)
 
-**devforgeai-ui-generator** uses:
+**spec-driven-ui** uses:
 - **ui-spec-formatter** (NEW - Phase 6 Step 3.5 - formats and validates UI spec results)
 
 **spec-driven-architecture** uses:
@@ -375,7 +375,7 @@ All subagents are defined in `.claude/agents/`:
 
 **NEW - Dead Code & Diagnostics:**
 - **`dead-code-detector.md`** (ADR-016 read-only call-graph analysis. Source: `.claude/agents/dead-code-detector.md`)
-- **`diagnostic-analyst.md`** (root-cause-diagnosis skill investigation. Source: `.claude/agents/diagnostic-analyst.md`)
+- **`diagnostic-analyst.md`** (spec-driven-rca skill investigation. Source: `.claude/agents/diagnostic-analyst.md`)
 
 **NEW - Profile Assessment & Coverage Interpretation:**
 - **`entrepreneur-assessor.md`** (assessing-entrepreneur skill. Source: `.claude/agents/entrepreneur-assessor.md`)

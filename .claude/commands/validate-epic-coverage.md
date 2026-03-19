@@ -41,7 +41,7 @@ EPIC_ID = normalize(ARG) if provided
 **Epic ID:** ${EPIC_ID} (or "all")
 **Mode:** validate
 **Prompt Mode:** ${PROMPT_MODE}
-Skill(command="validating-epic-coverage")
+Skill(command="spec-driven-coverage")
 ```
 
 Skill runs gap detection, coverage analysis, and formats display via subagent.
@@ -106,5 +106,5 @@ EXIT CODES:
 
 ## References
 
-- Skill: `.claude/skills/validating-epic-coverage/SKILL.md`
+- Skill: `.claude/skills/spec-driven-coverage/SKILL.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
