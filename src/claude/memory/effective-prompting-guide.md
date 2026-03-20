@@ -1509,7 +1509,7 @@ This guide complements framework documentation:
 | **effective-prompting-guide.md** (this file) | How to provide effective input to DevForgeAI commands | Users (developers, PMs, stakeholders) |
 | **CLAUDE.md** | Framework rules, quality gates, workflow states | AI agents, advanced users |
 | **user-input-guidance.md** | Framework-internal requirements for AskUserQuestion | Development agents |
-| **claude-code-terminal-expert/SKILL.md** | Claude Code Terminal features + [user input guidance](../skills/claude-code-terminal-expert/SKILL.md#how-devforgeai-skills-work-with-user-input) | Users asking about Claude Code capabilities |
+| **spec-driven-cc-guide/SKILL.md** | Claude Code Terminal features with 4-phase EVG enforcement | Users asking about Claude Code capabilities |
 | **skills/** | Command implementations (how each /command works internally) | AI agents executing commands |
 
 ### Reading This Guide

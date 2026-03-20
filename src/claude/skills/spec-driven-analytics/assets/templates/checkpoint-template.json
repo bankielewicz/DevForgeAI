@@ -1,0 +1,40 @@
+{
+  "checkpoint_version": "1.0",
+  "analytics_id": "ANALYTICS-YYYY-MM-DD-NNN",
+  "workflow": "analytics",
+  "created_at": "ISO 8601",
+  "updated_at": "ISO 8601",
+  "status": "in_progress",
+  "input": {
+    "query_type": "dashboard|workflows|errors|decisions|story|command-patterns",
+    "story_id": null,
+    "force_refresh": false,
+    "days_limit": null,
+    "query_param": null
+  },
+  "progress": {
+    "current_phase": 0,
+    "phases_completed": [],
+    "total_steps_completed": 0
+  },
+  "phases": {
+    "01": { "status": "pending", "steps_completed": [] },
+    "02": { "status": "pending", "steps_completed": [] },
+    "03": { "status": "pending", "steps_completed": [] },
+    "04": { "status": "pending", "steps_completed": [] },
+    "05": { "status": "pending", "steps_completed": [] },
+    "06": { "status": "pending", "steps_completed": [] }
+  },
+  "cache": {
+    "cache_key": null,
+    "cache_hit": false,
+    "cache_path": null
+  },
+  "output": {
+    "raw_entries": null,
+    "aggregated_results": null,
+    "formatted_output": null,
+    "delivery": null,
+    "error": null
+  }
+}

@@ -15,7 +15,18 @@ allowed-tools:
 
 # DevForgeAI GitHub Skill
 
-Generate GitHub Actions workflows for headless DevForgeAI execution with cost optimization.
+## HALT: ARCHIVED
+
+**This skill has been archived.** It was absorbed into `spec-driven-ci` on 2026-03-19.
+
+**Active skill:** `.claude/skills/spec-driven-ci/SKILL.md`
+**Command:** `/setup-github-actions` now invokes `spec-driven-ci`
+
+DO NOT USE THIS SKILL. Use `spec-driven-ci` instead.
+
+---
+
+~~Generate GitHub Actions workflows for headless DevForgeAI execution with cost optimization.~~
 
 ---
 

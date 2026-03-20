@@ -64,7 +64,7 @@ Display: "✓ Target AI: ${TARGET_AI}"
 **Command:** collaborate
 
 ```
-Skill(command="cross-ai-collaboration")
+Skill(command="spec-driven-collaboration")
 ```
 
 **Skill handles ALL workflow** including interactive context gathering, constitution file reading, affected file collection, analysis, template population, document generation, and completion report.
@@ -76,7 +76,7 @@ Skill(command="cross-ai-collaboration")
 | Error | Resolution |
 |-------|------------|
 | No issue description | AskUserQuestion prompts for description |
-| Skill not found | Verify `.claude/skills/cross-ai-collaboration/SKILL.md` exists |
+| Skill not found | Verify `.claude/skills/spec-driven-collaboration/SKILL.md` exists |
 | No affected files identified | Skill asks user to specify file paths |
 | Write fails | Verify `tmp/` directory exists at project root |
 
@@ -84,8 +84,8 @@ Skill(command="cross-ai-collaboration")
 
 ## References
 
-- Skill: `.claude/skills/cross-ai-collaboration/SKILL.md`
-- Template: `.claude/skills/cross-ai-collaboration/references/collaboration-prompt-template.md`
+- Skill: `.claude/skills/spec-driven-collaboration/SKILL.md`
+- Template: `.claude/skills/spec-driven-collaboration/references/collaboration-prompt-template.md`
 - Pattern: `devforgeai/protocols/lean-orchestration-pattern.md`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**

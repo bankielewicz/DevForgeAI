@@ -218,20 +218,43 @@ DevForgeAI2/
 │   │   │   └── assets/
 │   │   │       └── templates/
 │   │   │           └── rca-template.md
-│   │   ├── devforgeai-subagent-creation/
+│   │   ├── spec-driven-agents/                    # ADR-044: Migrated from devforgeai-subagent-creation
 │   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       ├── requirements-gathering.md
-│   │   │       ├── agent-generation.md
-│   │   │       └── validation.md
+│   │   │   ├── phases/
+│   │   │   │   ├── phase-01-framework-context.md
+│   │   │   │   ├── phase-02-requirements-gathering.md
+│   │   │   │   ├── phase-03-specification-assembly.md
+│   │   │   │   ├── phase-04-agent-generation.md
+│   │   │   │   ├── phase-05-validation.md
+│   │   │   │   └── phase-06-result-handoff.md
+│   │   │   ├── references/
+│   │   │   │   ├── framework-integration-patterns.md
+│   │   │   │   ├── validation-checklist.md
+│   │   │   │   ├── reference-file-generation-guide.md
+│   │   │   │   ├── subagent-creation-workflow.md
+│   │   │   │   ├── create-agent-help.md
+│   │   │   │   ├── checkpoint-schema.md
+│   │   │   │   ├── error-handling.md
+│   │   │   │   └── user-interaction-patterns.md
+│   │   │   └── assets/
+│   │   │       └── templates/
+│   │   │           ├── code-reviewer-template.md
+│   │   │           ├── test-automator-template.md
+│   │   │           ├── documentation-writer-template.md
+│   │   │           ├── deployment-coordinator-template.md
+│   │   │           ├── requirements-analyst-template.md
+│   │   │           ├── skill-template.md
+│   │   │           └── command-template-lean-orchestration.md
 │   │   ├── devforgeai-mcp-cli-converter/
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
 │   │   │       └── conversion-workflow.md
-│   │   ├── claude-code-terminal-expert/
+│   │   ├── claude-code-terminal-expert/ **(ARCHIVED - use spec-driven-cc-guide)**
+│   │   ├── spec-driven-cc-guide/
 │   │   │   ├── SKILL.md
-│   │   │   └── references/
-│   │   │       └── terminal-knowledge-base.md
+│   │   │   ├── phases/
+│   │   │   ├── references/
+│   │   │   └── assets/
 │   │   ├── internet-sleuth-integration/
 │   │   │   └── SKILL.md (incomplete - use internet-sleuth subagent instead)
 │   │   ├── skill-creator/

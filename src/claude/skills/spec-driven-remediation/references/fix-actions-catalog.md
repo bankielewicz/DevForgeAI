@@ -534,7 +534,7 @@ Edit(
 
 **Verify:**
 ```
-Glob(pattern=".claude/skills/claude-code-terminal-expert/references/prompt-engineering/use-xml-tags.md")
+Glob(pattern=".claude/skills/spec-driven-cc-guide/references/prompt-engineering/use-xml-tags.md")
 → Match found → PASS ✓
 ```
 </example>

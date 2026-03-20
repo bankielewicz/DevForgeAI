@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevForgeAI - Interactive Demo</title>
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #161b22;
+  --bg-tertiary: #1c2128;
+  --bg-surface: #21262d;
+  --bg-hover: #292e36;
+
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted: #484f58;
+  --text-link: #58a6ff;
+
+  --accent-green: #3fb950;
+  --accent-cyan: #58a6ff;
+  --accent-orange: #d29922;
+  --accent-red: #f85149;
+  --accent-purple: #bc8cff;
+  --accent-teal: #39d2c0;
+
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+
+  --sidebar-width: 220px;
+  --border-color: #30363d;
+  --border: 1px solid var(--border-color);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a { color: var(--text-link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+h2 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+
+code {
+  font-family: var(--font-mono);
+  background: var(--bg-surface);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* ============================================================
+   SIDEBAR NAVIGATION
+   ============================================================ */
+#sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--bg-secondary);
+  border-right: var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo {
+  padding: 20px 16px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: var(--border);
+  font-family: var(--font-mono);
+}
+.sidebar-logo span { color: var(--accent-green); }
+
+.nav-links {
+  list-style: none;
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  border-left: 3px solid transparent;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  text-decoration: none;
+}
+
+.nav-links a.active {
+  color: var(--accent-green);
+  border-left-color: var(--accent-green);
+  background: rgba(63, 185, 80, 0.08);
+}
+
+.nav-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+
+.nav-links a.active .nav-dot,
+.nav-links li.visited .nav-dot {
+  background: var(--accent-green);
+  border-color: var(--accent-green);
+}
+
+.sidebar-footer {
+  padding: 12px 16px;
+  border-top: var(--border);
+  font-size: 0.8rem;
+}
+.sidebar-footer a { color: var(--text-secondary); }
+
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 200;
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+#content {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+}
+
+.section {
+  min-height: 100vh;
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.revealed { opacity: 1; transform: translateY(0); }
+
+.section-intro {
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin-bottom: 32px;
+  font-size: 1.05rem;
+}
+
+.section-divider {
+  text-align: center;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 6px;
+  padding: 20px 0;
+  user-select: none;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+#hero {
+  text-align: center;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(63,185,80,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(88,166,255,0.06) 0%, transparent 50%),
+    var(--bg-primary);
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 12px;
+}
+.hero-title .accent { color: var(--accent-green); }
+
+.hero-tagline {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 12px;
+}
+
+.hero-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 550px;
+  margin: 0 auto 40px;
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 12px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.cta-group {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.cta-button.primary {
+  background: var(--accent-green);
+  color: #0d1117;
+}
+.cta-button.primary:hover { background: #4ac45a; text-decoration: none; }
+
+.cta-button.secondary {
+  background: transparent;
+  color: var(--text-secondary);
+  border: var(--border);
+}
+.cta-button.secondary:hover { color: var(--text-primary); border-color: var(--text-secondary); text-decoration: none; }
+
+/* ============================================================
+   TERMINAL COMPONENT
+   ============================================================ */
+.terminal {
+  background: var(--bg-tertiary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  text-align: left;
+  box-shadow: var(--shadow-md);
+  max-width: 780px;
+  width: 100%;
+}
+
+.terminal-header {
+  background: var(--bg-surface);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-bottom: var(--border);
+}
+
+.terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+.terminal-dot.r { background: #f85149; }
+.terminal-dot.y { background: #d29922; }
+.terminal-dot.g { background: #3fb950; }
+
+.terminal-title {
+  margin-left: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.terminal-body {
+  padding: 16px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.terminal-body::-webkit-scrollbar { width: 6px; }
+.terminal-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+
+.t-line { min-height: 1.7em; white-space: pre-wrap; word-break: break-all; }
+.t-prompt { color: var(--accent-green); }
+.t-cmd { color: var(--text-primary); font-weight: 600; }
+.t-out { color: var(--text-secondary); }
+.t-success { color: var(--accent-green); }
+.t-warn { color: var(--accent-orange); }
+.t-err { color: var(--accent-red); }
+.t-info { color: var(--accent-cyan); }
+.t-dim { color: var(--text-muted); }
+.t-blank { height: 0.85em; }
+
+.cursor {
+  display: inline-block;
+  width: 8px; height: 1.1em;
+  background: var(--accent-green);
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ============================================================
+   QUICK START
+   ============================================================ */
+#quick-start { align-items: center; }
+
+.install-tabs {
+  display: flex;
+  gap: 0;
+  margin-top: 24px;
+  max-width: 780px;
+  width: 100%;
+}
+
+.install-tab {
+  padding: 8px 20px;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: var(--border);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+
+.install-tab:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.install-tab:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.install-tab + .install-tab { border-left: none; }
+
+.install-tab.active {
+  background: var(--accent-green);
+  color: #0d1117;
+  border-color: var(--accent-green);
+  font-weight: 600;
+}
+
+.install-content {
+  max-width: 780px;
+  width: 100%;
+}
+
+.install-panel {
+  display: none;
+  background: var(--bg-tertiary);
+  border: var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.install-panel.active { display: block; }
+
+.prereqs {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.prereq-badge {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   PIPELINE
+   ============================================================ */
+#pipeline { align-items: center; }
+.pipeline-container { width: 100%; max-width: 900px; }
+
+.pipeline-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.pipeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 8px;
+}
+
+.pipeline-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  transition: all 0.3s;
+}
+
+.pipeline-node:hover .pipeline-circle {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.pipeline-node.active .pipeline-circle {
+  border-color: var(--accent-green);
+  color: #0d1117;
+  background: var(--accent-green);
+  box-shadow: 0 0 20px rgba(63,185,80,0.4);
+}
+
+.pipeline-label {
+  margin-top: 6px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 70px;
+  transition: color 0.2s;
+}
+
+.pipeline-node.active .pipeline-label { color: var(--accent-green); }
+
+.pipeline-arrow {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  margin: 0 2px;
+  padding-bottom: 20px;
+  user-select: none;
+}
+
+.pipeline-detail {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  min-height: 200px;
+}
+
+.pipeline-detail h3 {
+  color: var(--accent-green);
+  font-family: var(--font-mono);
+  margin-bottom: 4px;
+}
+
+.pd-desc { color: var(--text-secondary); margin-bottom: 16px; }
+
+.pd-row { display: flex; gap: 32px; flex-wrap: wrap; }
+
+.pd-col h4 {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.pd-col ul { list-style: none; font-size: 0.9rem; }
+.pd-col li { padding: 2px 0; color: var(--text-secondary); }
+
+.pd-cmd {
+  font-family: var(--font-mono);
+  background: var(--bg-tertiary);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--accent-green);
+  display: inline-block;
+}
+
+/* ============================================================
+   COMMAND EXPLORER
+   ============================================================ */
+#commands { align-items: center; }
+.commands-container { max-width: 900px; width: 100%; }
+
+.cmd-tabs {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.cmd-tab {
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: var(--border);
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.cmd-tab:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+.cmd-tab:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.cmd-tab + .cmd-tab { border-left: none; }
+
+.cmd-tab.active {
+  background: var(--accent-cyan);
+  color: #0d1117;
+  border-color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.cmd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.cmd-card {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.cmd-card:hover { border-color: var(--text-muted); }
+
+.cmd-card-header {
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cmd-card-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.cmd-card-purpose {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.cmd-card-arrow {
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.cmd-card.expanded .cmd-card-arrow { transform: rotate(180deg); }
+
+.cmd-card-body {
+  display: none;
+  padding: 0 16px 14px;
+  border-top: var(--border);
+}
+
+.cmd-card.expanded .cmd-card-body { display: block; }
+
+.cmd-example {
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   TDD CYCLE
+   ============================================================ */
+#tdd-cycle { align-items: center; }
+.tdd-container { max-width: 900px; width: 100%; }
+
+.tdd-phases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.tdd-node {
+  width: 90px;
+  padding: 10px 8px;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tdd-node:hover { border-color: var(--text-muted); }
+
+.tdd-node[data-color="red"] { --node-color: var(--accent-red); --node-glow: rgba(248,81,73,0.3); }
+.tdd-node[data-color="green"] { --node-color: var(--accent-green); --node-glow: rgba(63,185,80,0.3); }
+.tdd-node[data-color="cyan"] { --node-color: var(--accent-cyan); --node-glow: rgba(88,166,255,0.3); }
+.tdd-node[data-color="purple"] { --node-color: var(--accent-purple); --node-glow: rgba(188,140,255,0.3); }
+.tdd-node[data-color="orange"] { --node-color: var(--accent-orange); --node-glow: rgba(210,153,34,0.3); }
+
+.tdd-node.active {
+  border-color: var(--node-color);
+  box-shadow: 0 0 16px var(--node-glow);
+}
+.tdd-node.active .tdd-phase-id { color: var(--node-color); }
+
+.tdd-phase-id {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.tdd-phase-name {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+.tdd-controls {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tdd-btn {
+  padding: 6px 18px;
+  border-radius: var(--radius-sm);
+  border: var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: var(--font-ui);
+  transition: all 0.2s;
+}
+
+.tdd-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+.tdd-btn.playing {
+  background: var(--accent-green);
+  color: #0d1117;
+  border-color: var(--accent-green);
+}
+
+.tdd-detail {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  min-height: 150px;
+}
+
+.tdd-detail h3 { font-family: var(--font-mono); margin-bottom: 8px; }
+.td-desc { color: var(--text-secondary); margin-bottom: 12px; }
+.td-meta { display: flex; gap: 24px; flex-wrap: wrap; font-size: 0.85rem; }
+
+.td-meta-label {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.td-meta-value { color: var(--text-secondary); margin-top: 2px; }
+
+.td-badge {
+  display: inline-block;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  margin: 2px;
+}
+
+/* ============================================================
+   QUALITY GATES
+   ============================================================ */
+#quality-gates { align-items: center; }
+.gates-container { max-width: 900px; width: 100%; }
+
+.gates-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gate-card {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  flex: 1;
+  min-width: 180px;
+  max-width: 220px;
+  text-align: center;
+}
+
+.gate-number {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.gate-name {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 4px 0;
+}
+
+.gate-transition {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.gate-reqs {
+  list-style: none;
+  text-align: left;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.gate-reqs li { padding: 3px 0; }
+
+.gate-arrow {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  padding: 0 8px;
+  user-select: none;
+}
+
+.meters { margin-top: 32px; }
+
+.meters h3 {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.meter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meter-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  width: 120px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.meter-track {
+  flex: 1;
+  height: 24px;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.meter-fill {
+  height: 100%;
+  border-radius: 12px;
+  width: 0;
+  transition: width 1.5s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0d1117;
+  font-family: var(--font-mono);
+}
+
+.meter-fill.fill-green { background: var(--accent-green); }
+.meter-fill.fill-cyan { background: var(--accent-cyan); }
+.meter-fill.fill-orange { background: var(--accent-orange); }
+.meter-fill.animated { width: var(--target); }
+
+/* ============================================================
+   CONSTITUTIONAL FILES
+   ============================================================ */
+#constitution { align-items: center; }
+.const-container { max-width: 900px; width: 100%; }
+
+.const-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.const-card {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-left: 3px solid var(--accent-purple);
+}
+
+.const-card:hover { border-color: var(--accent-purple); }
+
+.const-card-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-purple);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.const-card-controls, .const-card-prevents {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.cc-label-controls { color: var(--accent-green); }
+.cc-label-prevents { color: var(--accent-red); }
+
+.const-card-body {
+  display: none;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: var(--border);
+}
+
+.const-card.expanded .const-card-body { display: block; }
+
+.const-snippet {
+  background: var(--bg-tertiary);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.adr-flow {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+}
+
+.adr-flow h3 {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.adr-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.adr-step {
+  background: var(--bg-tertiary);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.adr-arrow { color: var(--text-muted); margin: 0 6px; font-size: 1.1rem; }
+
+/* ============================================================
+   ARCHITECTURE
+   ============================================================ */
+#architecture { align-items: center; }
+.arch-container { max-width: 900px; width: 100%; }
+
+.arch-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 32px;
+}
+
+.arch-layer {
+  padding: 20px 24px;
+  border: var(--border);
+  text-align: center;
+}
+
+.arch-layer:first-child { border-radius: var(--radius-md) var(--radius-md) 0 0; }
+.arch-layer:last-child { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+.arch-layer + .arch-layer { border-top: none; }
+
+.arch-layer-num {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.arch-layer-name { font-size: 1.1rem; font-weight: 600; margin: 4px 0; }
+.arch-layer-count { font-family: var(--font-mono); font-size: 0.85rem; }
+
+.arch-layer.l3 { background: linear-gradient(135deg, rgba(88,166,255,0.1), rgba(88,166,255,0.03)); }
+.arch-layer.l3 .arch-layer-name, .arch-layer.l3 .arch-layer-count { color: var(--accent-cyan); }
+
+.arch-layer.l2 { background: linear-gradient(135deg, rgba(63,185,80,0.1), rgba(63,185,80,0.03)); }
+.arch-layer.l2 .arch-layer-name, .arch-layer.l2 .arch-layer-count { color: var(--accent-green); }
+
+.arch-layer.l1 { background: linear-gradient(135deg, rgba(210,153,34,0.1), rgba(210,153,34,0.03)); }
+.arch-layer.l1 .arch-layer-name, .arch-layer.l1 .arch-layer-count { color: var(--accent-orange); }
+
+.arch-layer.l0 { background: linear-gradient(135deg, rgba(188,140,255,0.1), rgba(188,140,255,0.03)); }
+.arch-layer.l0 .arch-layer-name, .arch-layer.l0 .arch-layer-count { color: var(--accent-purple); }
+
+.agent-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.agent-cat {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.agent-cat:hover { border-color: var(--text-muted); }
+
+.agent-cat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agent-cat-name { font-size: 0.9rem; font-weight: 600; }
+
+.agent-cat-count {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.agent-cat-list {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: var(--border);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-family: var(--font-mono);
+}
+
+.agent-cat.expanded .agent-cat-list { display: block; }
+
+/* ============================================================
+   GET STARTED
+   ============================================================ */
+#get-started { align-items: center; text-align: center; }
+
+.get-started-steps {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.gs-step {
+  background: var(--bg-secondary);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  text-align: center;
+  flex: 1;
+  max-width: 220px;
+  min-width: 160px;
+}
+
+.gs-step-num {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-green);
+}
+
+.gs-step-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.gs-step-cmd {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1023px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  .hamburger { display: block; }
+  #content { margin-left: 0; }
+  .section { padding: 60px 24px; }
+  .hero-title { font-size: 3rem; }
+}
+
+@media (max-width: 767px) {
+  .section { padding: 40px 16px; min-height: auto; padding-top: 60px; }
+  .hero-title { font-size: 2.2rem; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .const-grid { grid-template-columns: 1fr; }
+  .agent-categories { grid-template-columns: 1fr; }
+  .gates-row { flex-direction: column; align-items: center; }
+  .gate-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .pipeline-diagram { flex-direction: column; }
+  .pipeline-arrow { transform: rotate(90deg); padding: 0; }
+  .adr-steps { flex-direction: column; gap: 6px; }
+  .adr-arrow { transform: rotate(90deg); }
+  .tdd-node { width: 75px; }
+  .cmd-grid { grid-template-columns: 1fr; }
+  .get-started-steps { flex-direction: column; align-items: center; }
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 99;
+}
+.overlay.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- HAMBURGER -->
+<button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle navigation">&#9776;</button>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-logo">DevForge<span>AI</span></div>
+  <ul class="nav-links" id="nav-links"></ul>
+  <div class="sidebar-footer">
+    <a href="https://github.com/bankielewicz/DevForgeAI" target="_blank" rel="noopener">GitHub Repository</a>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="content">
+
+  <!-- HERO -->
+  <section id="hero" class="section revealed">
+    <h1 class="hero-title">DevForge<span class="accent">AI</span></h1>
+    <p class="hero-tagline">Spec-driven development framework for Claude Code</p>
+    <p class="hero-sub">Transform vague business ideas into production-ready code with zero technical debt through enforced TDD, quality gates, and immutable architectural constraints.</p>
+    <div class="hero-stats" id="hero-stats"></div>
+    <div class="cta-group">
+      <button class="cta-button primary" onclick="scrollToEl('quick-start')">Start the Tour</button>
+      <a class="cta-button secondary" href="https://github.com/bankielewicz/DevForgeAI" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- QUICK START -->
+  <section id="quick-start" class="section">
+    <h2>Quick Start</h2>
+    <p class="section-intro">From zero to spec-driven development in 8 commands. Each step feeds into the next, building a complete governed workflow.</p>
+    <div class="terminal" id="qs-terminal">
+      <div class="terminal-header">
+        <span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>
+        <span class="terminal-title">claude-code</span>
+      </div>
+      <div class="terminal-body" id="qs-body"></div>
+    </div>
+    <div class="install-tabs" id="install-tabs"></div>
+    <div class="install-content" id="install-content"></div>
+    <div class="prereqs">
+      <span class="prereq-badge">Node.js &gt;= 18</span>
+      <span class="prereq-badge">npm &gt;= 8</span>
+      <span class="prereq-badge">Git</span>
+      <span class="prereq-badge">Claude Code Terminal</span>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- PIPELINE -->
+  <section id="pipeline" class="section">
+    <h2>The Development Pipeline</h2>
+    <p class="section-intro">Click any stage to explore what happens at each step of the spec-driven workflow.</p>
+    <div class="pipeline-container">
+      <div class="pipeline-diagram" id="pipeline-diagram"></div>
+      <div class="pipeline-detail" id="pipeline-detail"></div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- COMMANDS -->
+  <section id="commands" class="section">
+    <h2>Command Explorer</h2>
+    <p class="section-intro">46 slash commands organized by workflow phase. Click any command to see example usage.</p>
+    <div class="commands-container">
+      <div class="cmd-tabs" id="cmd-tabs"></div>
+      <div class="cmd-grid" id="cmd-grid"></div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- TDD CYCLE -->
+  <section id="tdd-cycle" class="section">
+    <h2>10-Phase TDD Development Cycle</h2>
+    <p class="section-intro">The <code>/dev</code> command orchestrates a strict Red-Green-Refactor cycle with AC verification, integration testing, and quality gates.</p>
+    <div class="tdd-container">
+      <div class="tdd-phases" id="tdd-phases"></div>
+      <div class="tdd-controls">
+        <button class="tdd-btn" id="tdd-play-btn" onclick="tddPlay()">Play Through</button>
+        <button class="tdd-btn" onclick="tddStep()">Step</button>
+        <button class="tdd-btn" onclick="tddReset()">Reset</button>
+      </div>
+      <div class="tdd-detail" id="tdd-detail"></div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- QUALITY GATES -->
+  <section id="quality-gates" class="section">
+    <h2>4 Quality Gates</h2>
+    <p class="section-intro">Non-negotiable checkpoints that enforce coverage thresholds, constraint compliance, and release readiness.</p>
+    <div class="gates-container">
+      <div class="gates-row" id="gates-row"></div>
+      <div class="meters" id="meters">
+        <h3>Coverage Thresholds (Gate 2)</h3>
+        <div class="meter-row">
+          <span class="meter-label">Business Logic</span>
+          <div class="meter-track"><div class="meter-fill fill-green" style="--target:95%">95%</div></div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">Application</span>
+          <div class="meter-track"><div class="meter-fill fill-cyan" style="--target:85%">85%</div></div>
+        </div>
+        <div class="meter-row">
+          <span class="meter-label">Infrastructure</span>
+          <div class="meter-track"><div class="meter-fill fill-orange" style="--target:80%">80%</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- CONSTITUTION -->
+  <section id="constitution" class="section">
+    <h2>6 Constitutional Context Files</h2>
+    <p class="section-intro">Immutable constraints that govern all AI agent behavior. Changes require an Architecture Decision Record (ADR) and user approval.</p>
+    <div class="const-container">
+      <div class="const-grid" id="const-grid"></div>
+      <div class="adr-flow">
+        <h3>How to Change a Constitutional File</h3>
+        <div class="adr-steps">
+          <span class="adr-step">Propose Change</span>
+          <span class="adr-arrow">&rarr;</span>
+          <span class="adr-step">Create ADR</span>
+          <span class="adr-arrow">&rarr;</span>
+          <span class="adr-step">User Approval</span>
+          <span class="adr-arrow">&rarr;</span>
+          <span class="adr-step">/create-context</span>
+          <span class="adr-arrow">&rarr;</span>
+          <span class="adr-step">Propagation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" class="section">
+    <h2>Architecture</h2>
+    <p class="section-intro">A layered architecture where slash commands invoke skills, which delegate to specialized subagents, all governed by immutable context files.</p>
+    <div class="arch-container">
+      <div class="arch-layers">
+        <div class="arch-layer l3">
+          <div class="arch-layer-num">Layer 3 &mdash; User Interface</div>
+          <div class="arch-layer-name">Slash Commands</div>
+          <div class="arch-layer-count">46 commands</div>
+        </div>
+        <div class="arch-layer l2">
+          <div class="arch-layer-num">Layer 2 &mdash; Orchestration</div>
+          <div class="arch-layer-name">Skills</div>
+          <div class="arch-layer-count">26 inline prompt expansions</div>
+        </div>
+        <div class="arch-layer l1">
+          <div class="arch-layer-num">Layer 1 &mdash; Execution</div>
+          <div class="arch-layer-name">Subagents</div>
+          <div class="arch-layer-count">44 isolated specialists</div>
+        </div>
+        <div class="arch-layer l0">
+          <div class="arch-layer-num">Foundation &mdash; Governance</div>
+          <div class="arch-layer-name">Constitutional Context Files</div>
+          <div class="arch-layer-count">6 immutable constraint documents</div>
+        </div>
+      </div>
+      <h3 style="margin:24px 0 12px;color:var(--text-secondary)">Subagent Categories</h3>
+      <div class="agent-categories" id="agent-categories"></div>
+    </div>
+  </section>
+
+  <div class="section-divider">- - - - - - - - -</div>
+
+  <!-- GET STARTED -->
+  <section id="get-started" class="section">
+    <h2>Get Started</h2>
+    <p class="section-intro">Three steps to spec-driven development.</p>
+    <div class="get-started-steps">
+      <div class="gs-step"><div class="gs-step-num">1</div><div class="gs-step-text">Install</div><div class="gs-step-cmd">npx devforgeai install</div></div>
+      <div class="gs-step"><div class="gs-step-num">2</div><div class="gs-step-text">Configure</div><div class="gs-step-cmd">/create-context</div></div>
+      <div class="gs-step"><div class="gs-step-num">3</div><div class="gs-step-text">Build</div><div class="gs-step-cmd">/dev STORY-001</div></div>
+    </div>
+    <div class="terminal" style="max-width:600px;margin:0 auto 32px">
+      <div class="terminal-header">
+        <span class="terminal-dot r"></span><span class="terminal-dot y"></span><span class="terminal-dot g"></span>
+        <span class="terminal-title">get started</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$ </span><span class="t-cmd">npx devforgeai install</span></div>
+        <div class="t-line t-success">&nbsp;&nbsp;DevForgeAI installed successfully!</div>
+        <div class="t-line t-out">&nbsp;&nbsp;44 agents, 26 skills, 46 commands ready.</div>
+        <div class="t-line t-blank"></div>
+        <div class="t-line t-dim">&nbsp;&nbsp;Next: run /create-context to set up your project</div>
+      </div>
+    </div>
+    <div class="cta-group">
+      <a class="cta-button primary" href="https://github.com/bankielewicz/DevForgeAI" target="_blank" rel="noopener">View on GitHub</a>
+      <a class="cta-button secondary" href="https://github.com/bankielewicz/DevForgeAI#readme" target="_blank" rel="noopener">Read the Docs</a>
+    </div>
+  </section>
+
+  <div style="padding:40px;text-align:center;color:var(--text-muted);font-size:0.8rem;font-family:var(--font-mono)">
+    DevForgeAI &mdash; Spec-Driven Development for Claude Code
+  </div>
+</main>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+
+var NAV_ITEMS = [
+  {id:'hero',label:'Overview'},{id:'quick-start',label:'Quick Start'},
+  {id:'pipeline',label:'Pipeline'},{id:'commands',label:'Commands'},
+  {id:'tdd-cycle',label:'TDD Cycle'},{id:'quality-gates',label:'Quality Gates'},
+  {id:'constitution',label:'Constitution'},{id:'architecture',label:'Architecture'},
+  {id:'get-started',label:'Get Started'}
+];
+
+var STATS = [
+  {n:44,label:'Subagents'},{n:26,label:'Skills'},{n:46,label:'Commands'},
+  {n:6,label:'Constitutional Files'},{n:4,label:'Quality Gates'},{n:10,label:'Dev Phases'}
+];
+
+var INSTALL_TABS = [
+  {label:'npx (Recommended)',content:'<span class="t-cmd">npx devforgeai install</span><br><span class="t-out">Interactive wizard guides you through setup</span><br><br><span class="t-cmd">npx devforgeai install --yes</span><br><span class="t-out">Accept all defaults for quick setup</span>'},
+  {label:'From Source',content:'<span class="t-cmd">git clone https://github.com/bankielewicz/DevForgeAI.git</span><br><span class="t-cmd">cd DevForgeAI &amp;&amp; npm install</span><br><span class="t-cmd">node bin/devforgeai.js install /path/to/project</span>'},
+  {label:'Global',content:'<span class="t-cmd">npm install -g devforgeai</span><br><span class="t-cmd">devforgeai install</span>'}
+];
+
+var PIPELINE = [
+  {id:'brainstorm',num:'1',label:'Brainstorm',cmd:'/brainstorm [topic]',desc:'Transform a vague business problem into a structured discovery document through a 7-phase guided interview.',artifacts:['BRAINSTORM-NNN.brainstorm.md','Stakeholder map','Problem statement','MoSCoW priorities'],agents:['stakeholder-analyst','internet-sleuth'],example:'/brainstorm "marketplace for local artisans"'},
+  {id:'ideate',num:'2',label:'Ideate',cmd:'/ideate [idea]',desc:'Transform business idea into structured, actionable requirements through 3-phase discovery and elicitation.',artifacts:['requirements.md (F4 schema)','User personas','Functional requirements','Non-functional requirements'],agents:['requirements-analyst','internet-sleuth'],example:'/ideate marketplace-for-artisans'},
+  {id:'context',num:'3',label:'Context',cmd:'/create-context',desc:'Generate the 6 immutable constitutional context files that govern all AI agent behavior throughout the project.',artifacts:['tech-stack.md','source-tree.md','dependencies.md','coding-standards.md','architecture-constraints.md','anti-patterns.md'],agents:['code-analyzer','tech-stack-detector'],example:'/create-context my-project'},
+  {id:'epic',num:'4',label:'Epic',cmd:'/create-epic [name]',desc:'Create an epic with feature decomposition, story point estimation, and sprint assignment.',artifacts:['EPIC-NNN.epic.md','Feature breakdown','Story point estimates'],agents:['requirements-analyst'],example:'/create-epic core-marketplace-features'},
+  {id:'story',num:'5',label:'Story',cmd:'/create-story [feature]',desc:'Generate implementation-ready user stories with acceptance criteria (Given/When/Then), technical specs, and UI specifications.',artifacts:['STORY-NNN.story.md','Acceptance criteria (XML)','Technical specification','Definition of Done'],agents:['story-requirements-analyst','api-designer'],example:'/create-story user-authentication'},
+  {id:'dev',num:'6',label:'Dev',cmd:'/dev STORY-NNN',desc:'Execute the 10-phase TDD development cycle: Red (failing tests) then Green (implementation) then Refactor then Integration then QA gates.',artifacts:['Implementation code','Test suite (95%/85%/80%)','Phase state tracking','Coverage reports'],agents:['test-automator','backend-architect','refactoring-specialist','integration-tester'],example:'/dev STORY-001'},
+  {id:'qa',num:'7',label:'QA',cmd:'/qa STORY-NNN deep',desc:'Comprehensive quality validation: coverage analysis, anti-pattern detection, spec compliance, security scanning.',artifacts:['QA report (pass/fail)','Coverage analysis','Anti-pattern report','Security scan'],agents:['coverage-analyzer','anti-pattern-scanner','security-auditor'],example:'/qa STORY-001 deep'},
+  {id:'document',num:'8',label:'Document',cmd:'/document STORY-NNN',desc:'Auto-generate and maintain project documentation from completed stories: API docs, architecture, developer guides.',artifacts:['API.md','ARCHITECTURE.md','DEVELOPER-GUIDE.md','TROUBLESHOOTING.md'],agents:['documentation-writer','code-analyzer'],example:'/document STORY-001 --type=all'},
+  {id:'release',num:'9',label:'Release',cmd:'/release STORY-NNN',desc:'Deploy to staging and production with smoke tests, deployment verification, and rollback plan.',artifacts:['Deployment verification','Smoke test results','Rollback plan'],agents:['deployment-engineer'],example:'/release STORY-001 production'}
+];
+
+var CMD_DATA = {
+  'Planning':[
+    {cmd:'/brainstorm [topic]',purpose:'Transform vague problems into structured discovery'},
+    {cmd:'/ideate [idea]',purpose:'Business idea to structured requirements'},
+    {cmd:'/create-context',purpose:'Generate 6 constitutional context files'},
+    {cmd:'/create-epic [name]',purpose:'Epic with feature decomposition'},
+    {cmd:'/create-sprint [name]',purpose:'Sprint plan with story selection'},
+    {cmd:'/assess-me',purpose:'Guided self-assessment for coaching'}
+  ],
+  'Development':[
+    {cmd:'/create-story [feature]',purpose:'User story with acceptance criteria'},
+    {cmd:'/create-ui [STORY-ID]',purpose:'UI component specifications'},
+    {cmd:'/dev STORY-NNN',purpose:'10-phase TDD development cycle'},
+    {cmd:'/dev-status STORY-NNN',purpose:'Display progress without running workflow'},
+    {cmd:'/resume-dev STORY-NNN',purpose:'Resume from a specific phase'}
+  ],
+  'Validation':[
+    {cmd:'/qa STORY-NNN [mode]',purpose:'Quality validation (light or deep)'},
+    {cmd:'/validate-stories',purpose:'Validate against context files'},
+    {cmd:'/fix-story',purpose:'Auto-fix story/epic file issues'},
+    {cmd:'/validate-epic-coverage',purpose:'Detect coverage gaps in epics'}
+  ],
+  'Release':[
+    {cmd:'/release STORY-NNN [env]',purpose:'Deploy with smoke tests'},
+    {cmd:'/orchestrate STORY-NNN',purpose:'Full lifecycle: dev + qa + release'},
+    {cmd:'/document STORY-NNN',purpose:'Auto-generate documentation'},
+    {cmd:'/create-missing-stories',purpose:'Create stories for coverage gaps'}
+  ],
+  'Maintenance':[
+    {cmd:'/rca',purpose:'Root Cause Analysis with 5 Whys'},
+    {cmd:'/audit-alignment',purpose:'Cross-layer configuration audit'},
+    {cmd:'/audit-deferrals',purpose:'Audit deferred DoD items'},
+    {cmd:'/audit-w3',purpose:'Detect W3 compliance violations'},
+    {cmd:'/audit-orphans',purpose:'Find orphaned files and duplicates'}
+  ],
+  'Feedback':[
+    {cmd:'/feedback',purpose:'Trigger feedback collection'},
+    {cmd:'/feedback-search [query]',purpose:'Search feedback history'},
+    {cmd:'/insights',purpose:'Session data mining queries'},
+    {cmd:'/research [topic]',purpose:'Capture and query research findings'},
+    {cmd:'/collaborate',purpose:'Cross-AI collaboration document'}
+  ]
+};
+
+var TDD_PHASES = [
+  {id:'01',name:'Pre-Flight',color:'cyan',desc:'Load context files, validate story format, init phase state, verify git status, detect tech stack.',agents:['git-validator','tech-stack-detector'],gate:'Phase init complete'},
+  {id:'02',name:'Test-First (RED)',color:'red',desc:'test-automator writes failing tests from acceptance criteria. All tests must FAIL before proceeding. Integrity snapshot created.',agents:['test-automator'],gate:'All tests fail'},
+  {id:'03',name:'Implementation (GREEN)',color:'green',desc:'backend-architect or frontend-developer implements minimum code to make tests pass. Context files enforced as constraints.',agents:['backend-architect','frontend-developer','context-validator'],gate:'All tests pass'},
+  {id:'04',name:'Refactoring',color:'cyan',desc:'refactoring-specialist improves code quality. code-reviewer validates. Cyclomatic complexity checked.',agents:['refactoring-specialist','code-reviewer'],gate:'Coverage thresholds met'},
+  {id:'04.5',name:'AC Verify (Post-Refactor)',color:'purple',desc:'ac-compliance-verifier checks that no acceptance criteria regressed during refactoring.',agents:['ac-compliance-verifier'],gate:'All ACs pass'},
+  {id:'05',name:'Integration',color:'green',desc:'integration-tester writes integration tests. Coverage validated against 95%/85%/80% thresholds.',agents:['integration-tester'],gate:'Coverage 95/85/80%'},
+  {id:'05.5',name:'AC Verify (Post-Integration)',color:'purple',desc:'ac-compliance-verifier re-checks acceptance criteria after integration testing.',agents:['ac-compliance-verifier'],gate:'All ACs pass'},
+  {id:'06',name:'Deferral Challenge',color:'orange',desc:'deferral-validator reviews any deferred DoD items. Each deferral requires explicit user approval with justification.',agents:['deferral-validator'],gate:'User consent'},
+  {id:'07',name:'DoD Update',color:'cyan',desc:'Mark all Definition of Done items in the story file. Format validated by pre-commit hook.',agents:[],gate:'DoD validator passes'},
+  {id:'08',name:'Git Workflow',color:'cyan',desc:'Stage implementation and test files. Commit with pre-commit validation hooks.',agents:[],gate:'Commit succeeds'},
+  {id:'09',name:'Feedback Hook',color:'cyan',desc:'Collect observations about friction, patterns, and improvements. framework-analyst produces recommendations.',agents:['framework-analyst','observation-extractor'],gate:'Report written'},
+  {id:'10',name:'Result Summary',color:'green',desc:'dev-result-interpreter generates final status report with phases completed, test results, and next steps.',agents:['dev-result-interpreter'],gate:'Status updated'}
+];
+
+var GATES = [
+  {num:1,name:'Context Validation',transition:'Architecture \u2192 Ready',reqs:['All 6 context files present','Valid YAML/Markdown syntax','No conflicting dependencies']},
+  {num:2,name:'Test Passing',transition:'Dev Complete \u2192 QA',reqs:['All tests pass (exit code 0)','Coverage 95%/85%/80%','No Critical/High violations']},
+  {num:3,name:'QA Approval',transition:'QA \u2192 Releasing',reqs:['QA APPROVED marker set','All AC verified','Runtime smoke test passes']},
+  {num:4,name:'Release Readiness',transition:'Releasing \u2192 Released',reqs:['Smoke tests pass','Deployment verified','Rollback plan documented']}
+];
+
+var CONST_FILES = [
+  {name:'tech-stack.md',controls:'Approved technologies and versions',prevents:'Technology sprawl, library substitution',snippet:'# Technology Stack\n\n## Languages\n- TypeScript (primary)\n- Python 3.10+ (CLI tools)\n\n## Frameworks\n- Node.js >= 18\n- Claude Code Terminal\n\n## PROHIBITED\n- No Bash for file operations\n- No unapproved libraries'},
+  {name:'source-tree.md',controls:'Directory structure and file locations',prevents:'Components in wrong directories',snippet:'# Source Tree\n\nsrc/               # Development source\n.claude/           # Operational runtime\ndevforgeai/specs/  # Specifications\ntests/STORY-NNN/   # Story-scoped tests\ndocs/              # Documentation'},
+  {name:'dependencies.md',controls:'Allowed packages and version ranges',prevents:'Dependency bloat, version conflicts',snippet:'# Dependencies\n\n## Approved\n- jest ^29.x (testing)\n- typescript ^5.x\n- eslint ^8.x\n\n## Prohibited\n- No mocha (use jest)\n- No yarn (use npm)'},
+  {name:'coding-standards.md',controls:'Code patterns, naming, formatting',prevents:'Inconsistency, style violations',snippet:'# Coding Standards\n\n## Naming\n- camelCase for variables\n- PascalCase for classes\n- UPPER_SNAKE for constants\n\n## Patterns\n- Dependency injection\n- Single responsibility'},
+  {name:'architecture-constraints.md',controls:'Layer boundaries, coupling rules',prevents:'Circular dependencies, tight coupling',snippet:'# Architecture Constraints\n\n## Single Responsibility\n- Each skill handles ONE phase\n- Each subagent has ONE domain\n\n## Layer Rules\n- Skills invoke subagents\n- Subagents are stateless'},
+  {name:'anti-patterns.md',controls:'Forbidden patterns and practices',prevents:'God objects, hardcoded secrets',snippet:'# Anti-Patterns\n\n## Forbidden\n- God Objects (>500 lines)\n- Direct SQL concatenation\n- Hardcoded secrets\n- Bash for file operations\n- Skipping TDD phases'}
+];
+
+var AGENT_CATS = [
+  {name:'Architecture & Design',count:5,agents:'api-designer, architect-reviewer, backend-architect, frontend-developer, code-analyzer'},
+  {name:'Testing & Quality',count:7,agents:'test-automator, integration-tester, coverage-analyzer, code-quality-auditor, ac-compliance-verifier, code-reviewer, deferral-validator'},
+  {name:'Security',count:1,agents:'security-auditor'},
+  {name:'Analysis & Detection',count:6,agents:'anti-pattern-scanner, dead-code-detector, diagnostic-analyst, refactoring-specialist, context-validator, tech-stack-detector'},
+  {name:'Requirements',count:4,agents:'requirements-analyst, story-requirements-analyst, stakeholder-analyst, entrepreneur-assessor'},
+  {name:'Infrastructure',count:3,agents:'deployment-engineer, git-validator, git-worktree-manager'},
+  {name:'Documentation & Feedback',count:4,agents:'documentation-writer, framework-analyst, observation-extractor, session-miner'},
+  {name:'Workflow Support',count:6,agents:'sprint-planner, dependency-graph-analyzer, file-overlap-detector, dev-result-interpreter, qa-result-interpreter, ideation-result-interpreter'}
+];
+
+var QS_LINES = [
+  {t:'p',x:'/brainstorm "I want to build a task manager"'},
+  {t:'s',x:'  BRAINSTORM-042 created with 7 discovery phases'},
+  {t:'b'},{t:'p',x:'/ideate task-manager-app'},
+  {t:'i',x:'  Generated requirements.md with 12 functional requirements'},
+  {t:'b'},{t:'p',x:'/create-context my-project'},
+  {t:'s',x:'  6/6 constitutional context files generated'},
+  {t:'b'},{t:'p',x:'/create-story user-authentication'},
+  {t:'i',x:'  STORY-001 created with 5 acceptance criteria'},
+  {t:'b'},{t:'p',x:'/dev STORY-001'},
+  {t:'o',x:'  Phase 02: Test-First (RED)... 5 tests written, all failing'},
+  {t:'o',x:'  Phase 03: Implementation (GREEN)... All 5 tests passing'},
+  {t:'o',x:'  Phase 04: Refactoring... Code quality improved'},
+  {t:'o',x:'  Phase 05: Integration... Coverage 97%/89%/85%'},
+  {t:'s',x:'  STORY-001: Development complete'},
+  {t:'b'},{t:'p',x:'/qa STORY-001 deep'},
+  {t:'s',x:'  QA APPROVED - All gates passed'}
+];
+
+/* ============================================================
+   SAFE DOM HELPERS
+   ============================================================ */
+
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function appendTo(parent, child) {
+  if (typeof parent === 'string') parent = document.getElementById(parent);
+  parent.appendChild(child);
+  return child;
+}
+
+/* ============================================================
+   RENDER FUNCTIONS (safe DOM methods, no innerHTML)
+   ============================================================ */
+
+function renderNav() {
+  var ul = document.getElementById('nav-links');
+  NAV_ITEMS.forEach(function(item) {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + item.id;
+    a.dataset.section = item.id;
+    var dot = el('span','nav-dot');
+    a.appendChild(dot);
+    a.appendChild(document.createTextNode(item.label));
+    a.addEventListener('click', function() {
+      if (window.innerWidth < 1024) toggleSidebar();
+    });
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+}
+
+function renderStats() {
+  var container = document.getElementById('hero-stats');
+  STATS.forEach(function(s) {
+    var card = el('div','stat-card');
+    var num = el('span','stat-number','0');
+    num.dataset.target = s.n;
+    var label = el('div','stat-label',s.label);
+    card.appendChild(num);
+    card.appendChild(label);
+    container.appendChild(card);
+  });
+}
+
+function renderInstallTabs() {
+  var tabsEl = document.getElementById('install-tabs');
+  var contentEl = document.getElementById('install-content');
+  INSTALL_TABS.forEach(function(tab, i) {
+    var btn = el('button','install-tab' + (i === 0 ? ' active' : ''), tab.label);
+    btn.addEventListener('click', function() { switchInstall(i); });
+    tabsEl.appendChild(btn);
+
+    var panel = el('div','install-panel' + (i === 0 ? ' active' : ''));
+    // Parse simple content safely
+    var lines = tab.content.split('<br>');
+    lines.forEach(function(line, li) {
+      var cleaned = line.replace(/<[^>]+>/g, '');
+      var span = el('span', line.indexOf('t-cmd') > -1 ? 't-cmd' : 't-out', cleaned);
+      panel.appendChild(span);
+      if (li < lines.length - 1) panel.appendChild(document.createElement('br'));
+    });
+    contentEl.appendChild(panel);
+  });
+}
+
+function renderPipeline() {
+  var container = document.getElementById('pipeline-diagram');
+  PIPELINE.forEach(function(node, i) {
+    if (i > 0) {
+      var arrow = el('span','pipeline-arrow');
+      arrow.textContent = '\u2192';
+      container.appendChild(arrow);
+    }
+    var div = el('div','pipeline-node' + (i === 0 ? ' active' : ''));
+    div.dataset.id = node.id;
+    div.addEventListener('click', function() { selectPipelineNode(node.id); });
+    var circle = el('div','pipeline-circle',node.num);
+    var label = el('div','pipeline-label',node.label);
+    div.appendChild(circle);
+    div.appendChild(label);
+    container.appendChild(div);
+  });
+  selectPipelineNode('brainstorm');
+}
+
+function selectPipelineNode(id) {
+  var node = PIPELINE.find(function(n) { return n.id === id; });
+  if (!node) return;
+  document.querySelectorAll('.pipeline-node').forEach(function(n) {
+    n.classList.toggle('active', n.dataset.id === id);
+  });
+  var detail = document.getElementById('pipeline-detail');
+  detail.textContent = '';
+
+  var h3 = el('h3','',node.cmd);
+  var desc = el('p','pd-desc',node.desc);
+  var row = el('div','pd-row');
+
+  var col1 = el('div','pd-col');
+  col1.appendChild(el('h4','','Artifacts'));
+  var ul1 = document.createElement('ul');
+  node.artifacts.forEach(function(a) { ul1.appendChild(el('li','',a)); });
+  col1.appendChild(ul1);
+
+  var col2 = el('div','pd-col');
+  col2.appendChild(el('h4','','Subagents'));
+  var ul2 = document.createElement('ul');
+  if (node.agents.length) {
+    node.agents.forEach(function(a) { ul2.appendChild(el('li','',a)); });
+  } else {
+    var li = el('li','','None');
+    li.style.color = 'var(--text-muted)';
+    ul2.appendChild(li);
+  }
+  col2.appendChild(ul2);
+
+  row.appendChild(col1);
+  row.appendChild(col2);
+
+  var cmd = el('div','pd-cmd','$ ' + node.example);
+
+  detail.appendChild(h3);
+  detail.appendChild(desc);
+  detail.appendChild(row);
+  detail.appendChild(cmd);
+}
+
+function renderCommandTabs() {
+  var tabsEl = document.getElementById('cmd-tabs');
+  var cats = Object.keys(CMD_DATA);
+  cats.forEach(function(c, i) {
+    var btn = el('button','cmd-tab' + (i === 0 ? ' active' : ''), c);
+    btn.addEventListener('click', function() { switchCmdTab(c); });
+    tabsEl.appendChild(btn);
+  });
+  renderCommandGrid(cats[0]);
+}
+
+function switchCmdTab(cat) {
+  document.querySelectorAll('.cmd-tab').forEach(function(t) {
+    t.classList.toggle('active', t.textContent === cat);
+  });
+  renderCommandGrid(cat);
+}
+
+function renderCommandGrid(cat) {
+  var grid = document.getElementById('cmd-grid');
+  grid.textContent = '';
+  var cmds = CMD_DATA[cat] || [];
+  cmds.forEach(function(c) {
+    var card = el('div','cmd-card');
+    card.addEventListener('click', function() { card.classList.toggle('expanded'); });
+
+    var header = el('div','cmd-card-header');
+    var info = document.createElement('div');
+    info.appendChild(el('div','cmd-card-name',c.cmd));
+    info.appendChild(el('div','cmd-card-purpose',c.purpose));
+    header.appendChild(info);
+    header.appendChild(el('span','cmd-card-arrow','\u25BC'));
+
+    var body = el('div','cmd-card-body');
+    var example = el('div','cmd-example');
+    example.appendChild(el('span','t-prompt','$ '));
+    example.appendChild(el('span','t-cmd',c.cmd));
+    example.appendChild(document.createElement('br'));
+    example.appendChild(el('span','t-success','  Command executed successfully'));
+    body.appendChild(example);
+
+    card.appendChild(header);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+}
+
+function renderTddPhases() {
+  var container = document.getElementById('tdd-phases');
+  TDD_PHASES.forEach(function(p) {
+    var node = el('div','tdd-node');
+    node.dataset.id = p.id;
+    node.dataset.color = p.color;
+    node.addEventListener('click', function() { selectTddPhase(p.id); });
+    node.appendChild(el('div','tdd-phase-id',p.id));
+    node.appendChild(el('div','tdd-phase-name',p.name));
+    container.appendChild(node);
+  });
+  // Set initial state
+  var detail = document.getElementById('tdd-detail');
+  var h3 = el('h3','','Click a phase to explore');
+  h3.style.color = 'var(--text-muted)';
+  detail.appendChild(h3);
+  detail.appendChild(el('p','td-desc','Each phase has specific subagents, quality gates, and output artifacts.'));
+}
+
+function getAccentVar(color) {
+  var map = {red:'var(--accent-red)',green:'var(--accent-green)',purple:'var(--accent-purple)',orange:'var(--accent-orange)',cyan:'var(--accent-cyan)'};
+  return map[color] || 'var(--accent-cyan)';
+}
+
+function selectTddPhase(id) {
+  var phase = TDD_PHASES.find(function(p) { return p.id === id; });
+  if (!phase) return;
+  document.querySelectorAll('.tdd-node').forEach(function(n) {
+    n.classList.toggle('active', n.dataset.id === id);
+  });
+  var detail = document.getElementById('tdd-detail');
+  detail.textContent = '';
+
+  var h3 = el('h3','','Phase ' + phase.id + ': ' + phase.name);
+  h3.style.color = getAccentVar(phase.color);
+  detail.appendChild(h3);
+  detail.appendChild(el('p','td-desc',phase.desc));
+
+  var meta = el('div','td-meta');
+
+  var gateDiv = document.createElement('div');
+  gateDiv.appendChild(el('div','td-meta-label','Gate Requirement'));
+  gateDiv.appendChild(el('div','td-meta-value',phase.gate));
+  meta.appendChild(gateDiv);
+
+  var agentDiv = document.createElement('div');
+  agentDiv.appendChild(el('div','td-meta-label','Subagents'));
+  var agentVal = el('div','td-meta-value');
+  if (phase.agents.length) {
+    phase.agents.forEach(function(a) { agentVal.appendChild(el('span','td-badge',a)); });
+  } else {
+    var none = el('span','','None (orchestrator)');
+    none.style.color = 'var(--text-muted)';
+    agentVal.appendChild(none);
+  }
+  agentDiv.appendChild(agentVal);
+  meta.appendChild(agentDiv);
+
+  detail.appendChild(meta);
+}
+
+var tddInterval = null;
+var tddIdx = 0;
+
+function tddPlay() {
+  var btn = document.getElementById('tdd-play-btn');
+  if (tddInterval) {
+    clearInterval(tddInterval);
+    tddInterval = null;
+    btn.classList.remove('playing');
+    btn.textContent = 'Play Through';
+    return;
+  }
+  tddIdx = 0;
+  btn.classList.add('playing');
+  btn.textContent = 'Pause';
+  selectTddPhase(TDD_PHASES[0].id);
+  tddInterval = setInterval(function() {
+    tddIdx++;
+    if (tddIdx >= TDD_PHASES.length) {
+      clearInterval(tddInterval);
+      tddInterval = null;
+      btn.classList.remove('playing');
+      btn.textContent = 'Play Through';
+      return;
+    }
+    selectTddPhase(TDD_PHASES[tddIdx].id);
+  }, 1800);
+}
+
+function tddStep() {
+  var active = document.querySelector('.tdd-node.active');
+  var idx = 0;
+  if (active) {
+    idx = TDD_PHASES.findIndex(function(p) { return p.id === active.dataset.id; });
+    idx = (idx + 1) % TDD_PHASES.length;
+  }
+  selectTddPhase(TDD_PHASES[idx].id);
+}
+
+function tddReset() {
+  if (tddInterval) { clearInterval(tddInterval); tddInterval = null; }
+  var btn = document.getElementById('tdd-play-btn');
+  btn.classList.remove('playing');
+  btn.textContent = 'Play Through';
+  document.querySelectorAll('.tdd-node').forEach(function(n) { n.classList.remove('active'); });
+  var detail = document.getElementById('tdd-detail');
+  detail.textContent = '';
+  var h3 = el('h3','','Click a phase to explore');
+  h3.style.color = 'var(--text-muted)';
+  detail.appendChild(h3);
+  detail.appendChild(el('p','td-desc','Each phase has specific subagents, quality gates, and output artifacts.'));
+}
+
+function renderGates() {
+  var container = document.getElementById('gates-row');
+  GATES.forEach(function(g, i) {
+    var card = el('div','gate-card');
+    card.appendChild(el('div','gate-number',String(g.num)));
+    card.appendChild(el('div','gate-name',g.name));
+    card.appendChild(el('div','gate-transition',g.transition));
+    var ul = el('ul','gate-reqs');
+    g.reqs.forEach(function(r) { ul.appendChild(el('li','',r)); });
+    card.appendChild(ul);
+    container.appendChild(card);
+    if (i < GATES.length - 1) {
+      var arrow = el('div','gate-arrow');
+      arrow.textContent = '\u2192';
+      container.appendChild(arrow);
+    }
+  });
+}
+
+function renderConstitution() {
+  var grid = document.getElementById('const-grid');
+  CONST_FILES.forEach(function(f) {
+    var card = el('div','const-card');
+    card.addEventListener('click', function() { card.classList.toggle('expanded'); });
+    card.appendChild(el('div','const-card-name',f.name));
+
+    var controls = el('div','const-card-controls');
+    controls.appendChild(el('span','cc-label-controls','Controls: '));
+    controls.appendChild(document.createTextNode(f.controls));
+    card.appendChild(controls);
+
+    var prevents = el('div','const-card-prevents');
+    prevents.appendChild(el('span','cc-label-prevents','Prevents: '));
+    prevents.appendChild(document.createTextNode(f.prevents));
+    card.appendChild(prevents);
+
+    var body = el('div','const-card-body');
+    body.appendChild(el('pre','const-snippet',f.snippet));
+    card.appendChild(body);
+
+    grid.appendChild(card);
+  });
+}
+
+function renderAgentCategories() {
+  var container = document.getElementById('agent-categories');
+  AGENT_CATS.forEach(function(c) {
+    var cat = el('div','agent-cat');
+    cat.addEventListener('click', function() { cat.classList.toggle('expanded'); });
+    var header = el('div','agent-cat-header');
+    header.appendChild(el('span','agent-cat-name',c.name));
+    header.appendChild(el('span','agent-cat-count',c.count + ' agents'));
+    cat.appendChild(header);
+    cat.appendChild(el('div','agent-cat-list',c.agents));
+    container.appendChild(cat);
+  });
+}
+
+/* ============================================================
+   TERMINAL ANIMATION
+   ============================================================ */
+
+function animateTerminal() {
+  var body = document.getElementById('qs-body');
+  body.textContent = '';
+  var i = 0;
+
+  function nextLine() {
+    if (i >= QS_LINES.length) return;
+    var line = QS_LINES[i];
+
+    if (line.t === 'b') {
+      var blank = el('div','t-line t-blank');
+      body.appendChild(blank);
+      i++;
+      setTimeout(nextLine, 200);
+      return;
+    }
+
+    if (line.t === 'p') {
+      var div = el('div','t-line');
+      div.appendChild(el('span','t-prompt','$ '));
+      var cmd = el('span','t-cmd');
+      div.appendChild(cmd);
+      body.appendChild(div);
+      var c = 0;
+      function typeChar() {
+        if (c < line.x.length) {
+          cmd.textContent += line.x[c];
+          c++;
+          body.scrollTop = body.scrollHeight;
+          setTimeout(typeChar, 25);
+        } else {
+          i++;
+          setTimeout(nextLine, 400);
+        }
+      }
+      typeChar();
+      return;
+    }
+
+    var cls = line.t === 's' ? 't-success' : line.t === 'i' ? 't-info' : line.t === 'w' ? 't-warn' : 't-out';
+    var out = el('div','t-line ' + cls, line.x);
+    body.appendChild(out);
+    body.scrollTop = body.scrollHeight;
+    i++;
+    setTimeout(nextLine, 150);
+  }
+
+  nextLine();
+}
+
+/* ============================================================
+   INSTALL TABS
+   ============================================================ */
+
+function switchInstall(idx) {
+  document.querySelectorAll('.install-tab').forEach(function(t, i) {
+    t.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.install-panel').forEach(function(p, i) {
+    p.classList.toggle('active', i === idx);
+  });
+}
+
+/* ============================================================
+   SCROLL OBSERVERS
+   ============================================================ */
+
+function initScrollObserver() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        var id = entry.target.id;
+        document.querySelectorAll('.nav-links a').forEach(function(a) {
+          a.classList.toggle('active', a.dataset.section === id);
+        });
+        var link = document.querySelector('.nav-links a[data-section="' + id + '"]');
+        if (link && link.parentElement) link.parentElement.classList.add('visited');
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.section').forEach(function(s) { observer.observe(s); });
+}
+
+function initMeterObserver() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.meter-fill').forEach(function(f) {
+          f.classList.add('animated');
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+  var meters = document.getElementById('meters');
+  if (meters) observer.observe(meters);
+}
+
+function initTerminalObserver() {
+  var done = false;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !done) {
+        done = true;
+        setTimeout(animateTerminal, 300);
+      }
+    });
+  }, { threshold: 0.3 });
+  var terminal = document.getElementById('qs-terminal');
+  if (terminal) observer.observe(terminal);
+}
+
+function initStatCounters() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.stat-number').forEach(function(numEl) {
+          var target = parseInt(numEl.dataset.target, 10);
+          var current = 0;
+          var step = Math.max(1, Math.floor(target / 30));
+          var iv = setInterval(function() {
+            current += step;
+            if (current >= target) { current = target; clearInterval(iv); }
+            numEl.textContent = current;
+          }, 30);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  var stats = document.getElementById('hero-stats');
+  if (stats) observer.observe(stats);
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('active');
+}
+
+function scrollToEl(id) {
+  var target = document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+}
+
+/* ============================================================
+   KEYBOARD
+   ============================================================ */
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.expanded').forEach(function(x) { x.classList.remove('expanded'); });
+    if (tddInterval) tddReset();
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderNav();
+  renderStats();
+  renderInstallTabs();
+  renderPipeline();
+  renderCommandTabs();
+  renderTddPhases();
+  renderGates();
+  renderConstitution();
+  renderAgentCategories();
+  initScrollObserver();
+  initMeterObserver();
+  initTerminalObserver();
+  initStatCounters();
+});
+</script>
+</body>
+</html>

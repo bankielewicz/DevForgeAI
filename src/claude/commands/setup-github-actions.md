@@ -73,10 +73,10 @@ Display: "Creating workflows for headless DevForgeAI execution..."
 Display: ""
 ```
 
-**Invoke devforgeai-github skill:**
+**Invoke spec-driven-ci skill:**
 
 ```
-Skill(command="devforgeai-github-actions")
+Skill(command="spec-driven-ci")
 ```
 
 ---

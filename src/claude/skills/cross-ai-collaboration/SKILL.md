@@ -377,6 +377,6 @@ Display summary to the user:
 ## References
 
 - Output template: `references/collaboration-prompt-template.md`
-- Prompt engineering: `.claude/skills/claude-code-terminal-expert/references/prompt-engineering/`
+- Prompt engineering: `.claude/skills/spec-driven-cc-guide/references/prompt-engineering/`
 - Constitution files: `devforgeai/specs/context/` (6 files)
 - Prior collaborations: `tmp/gemini-collaboration-*.md` (established patterns)
