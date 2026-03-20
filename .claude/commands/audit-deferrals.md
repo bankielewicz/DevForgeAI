@@ -47,10 +47,10 @@ Proceed to Phase 1
 **Mode:** full-audit
 ```
 
-**Invoke devforgeai-orchestration skill:**
+**Invoke spec-driven-lifecycle skill:**
 
 ```
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 **What the skill does:**
@@ -166,7 +166,7 @@ IF no QA Approved or Released stories found:
 
 ### Skill execution failed
 ```
-IF devforgeai-orchestration skill fails:
+IF spec-driven-lifecycle skill fails:
   Message: Display skill error message
   Recommendation: Check context files exist
   Action: Manual review of story files recommended
@@ -195,7 +195,7 @@ IF deferral-validator subagent fails:
 ## Integration
 
 **Invokes:**
-- devforgeai-orchestration skill (Phases 1-7)
+- spec-driven-lifecycle skill (Phases 1-7)
   - deferral-validator subagent (per story with deferrals)
   - feedback hooks (if eligible, STORY-033)
 
@@ -260,4 +260,4 @@ IF deferral-validator subagent fails:
 - `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
 - `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
 - `.claude/agents/deferral-validator.md` (validation subagent)
-- `.claude/skills/devforgeai-orchestration/SKILL.md` (skill Phase 7 audit workflow)
+- `.claude/skills/spec-driven-lifecycle/SKILL.md` (skill Phase 7 audit workflow)

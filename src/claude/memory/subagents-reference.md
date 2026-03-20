@@ -238,7 +238,7 @@ The **agent-generator** subagent has been significantly enhanced to be DevForgeA
 **spec-driven-release** uses:
 - security-auditor → deployment-engineer
 
-**devforgeai-orchestration** uses:
+**spec-driven-lifecycle** uses:
 - requirements-analyst (epic feature decomposition, sprint planning)
 - **technical-debt-analyzer** (NEW - Phase 4.5 during sprint planning/retrospectives)
 - **sprint-planner** (NEW - Phase 3 sprint planning workflow)

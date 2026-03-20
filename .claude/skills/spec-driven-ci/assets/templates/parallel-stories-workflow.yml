@@ -1,0 +1,58 @@
+name: DevForgeAI Parallel Stories
+
+on:
+  workflow_dispatch:
+    inputs:
+      story_ids:
+        description: 'Story IDs as JSON array (e.g., ["STORY-001", "STORY-002"])'
+        required: true
+        type: string
+
+jobs:
+  develop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        story_id: ${{ fromJSON(inputs.story_ids) }}
+      max-parallel: 5
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate API Key
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "::error::ANTHROPIC_API_KEY secret not configured"
+            echo "Setup: Repository Settings > Secrets > Actions > New repository secret"
+            exit 1
+          fi
+
+      - name: Setup Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Execute Development
+        env:
+          CLAUDE_CODE_CACHE_ENABLED: true
+          CLAUDE_CODE_MODEL: claude-opus-4-6
+        run: |
+          claude -p "/dev ${{ matrix.story_id }}" --output-format json > dev-result.json
+
+      - name: Log Cost Summary
+        if: always()
+        run: |
+          COST=$(jq -r '.total_cost_usd // "unknown"' dev-result.json 2>/dev/null || echo "unknown")
+          echo "### Cost Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- Story: ${{ matrix.story_id }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Cost: \$$COST" >> $GITHUB_STEP_SUMMARY
+          echo "- Model: ${CLAUDE_CODE_MODEL:-default}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dev-results-${{ matrix.story_id }}
+          path: dev-result.json

@@ -1,0 +1,57 @@
+name: DevForgeAI Installer Testing
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'installer/**'
+      - 'src/claude/**'
+  workflow_dispatch:
+
+jobs:
+  test-installer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Installer
+        run: |
+          cd installer
+          python install.py --target /tmp/devforgeai-test --verbose
+
+      - name: Verify Installation
+        run: |
+          # Check core files exist
+          test -f /tmp/devforgeai-test/.claude/skills/spec-driven-dev/SKILL.md
+          test -f /tmp/devforgeai-test/.claude/skills/spec-driven-qa/SKILL.md
+          test -f /tmp/devforgeai-test/CLAUDE.md
+
+          # Check context directory
+          test -d /tmp/devforgeai-test/devforgeai/specs/context
+
+          echo "Installation verification passed"
+
+      - name: Run Smoke Test
+        run: |
+          # Verify CLI is accessible
+          cd /tmp/devforgeai-test
+          if command -v devforgeai-validate &> /dev/null; then
+            devforgeai-validate --help
+            echo "CLI smoke test passed"
+          else
+            echo "CLI not found (may need pip install)"
+          fi
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: installer-test-results
+          path: /tmp/devforgeai-test/.claude/

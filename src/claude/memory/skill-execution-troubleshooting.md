@@ -216,7 +216,7 @@ Skill(command="spec-driven-qa")
 
 **Command executes:**
 ```
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 **✅ Correct action:**
@@ -332,7 +332,7 @@ Skill(command="devforgeai-orchestration")
 **Skills documentation:**
 - `.claude/skills/spec-driven-dev/SKILL.md` - Development workflow
 - `.claude/skills/spec-driven-qa/SKILL.md` - QA validation workflow
-- `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration workflow
+- `.claude/skills/spec-driven-lifecycle/SKILL.md` - Orchestration workflow
 
 **Commands documentation:**
 - `.claude/commands/dev.md` - /dev command (invokes spec-driven-dev skill)
@@ -579,7 +579,7 @@ If done much faster, verify you didn't skip phases.
 |-------|-----------------|------------|
 | spec-driven-dev | 8 reference files | HIGH (RCA-009, RCA-011) |
 | spec-driven-qa | 19 reference files | HIGH (RCA-016) |
-| devforgeai-orchestration | 4 reference files | MEDIUM |
+| spec-driven-lifecycle | 4 reference files | MEDIUM |
 | spec-driven-release | 5 reference files | MEDIUM |
 | spec-driven-architecture | 6 reference files | MEDIUM |
 | spec-driven-ideation | 16 reference files | MEDIUM |

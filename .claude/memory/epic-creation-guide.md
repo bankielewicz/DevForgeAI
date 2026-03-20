@@ -29,7 +29,7 @@ User Input
   ↓
 /create-epic Command (Lean Orchestration)
   ↓
-devforgeai-orchestration Skill (Business Logic)
+spec-driven-lifecycle Skill (Business Logic)
   ↓
 Subagents (Specialized Tasks)
   ├─ requirements-analyst (feature decomposition)
@@ -56,7 +56,7 @@ Subagents (Specialized Tasks)
 - **All stories complete:** Status = "Completed"
 - **No longer relevant:** Status = "Archived"
 
-**Status managed by:** devforgeai-orchestration skill during story lifecycle events
+**Status managed by:** spec-driven-lifecycle skill during story lifecycle events
 
 ---
 
@@ -382,7 +382,7 @@ Features: Registration, Profile, Search, Notifications, Settings
 For detailed epic creation procedures, see:
 
 **Skill documentation:**
-- `.claude/skills/devforgeai-orchestration/SKILL.md` (Phase 4A: Epic Creation Workflow)
+- `.claude/skills/spec-driven-lifecycle/SKILL.md` (Phase 4A: Epic Creation Workflow)
 
 **Reference files (loaded by skill):**
 - `epic-management.md` - Epic planning, ID generation, duplicate handling
@@ -638,7 +638,7 @@ Split into:
 - ✅ Parse arguments (epic name validation)
 - ✅ Load context (N/A - no file to load for epic creation)
 - ✅ Set markers (`**Epic name:**`, `**Command:** create-epic`)
-- ✅ Invoke skill (`Skill(command="devforgeai-orchestration")`)
+- ✅ Invoke skill (`Skill(command="spec-driven-lifecycle")`)
 - ✅ Display results (skill summary output)
 
 **Command does NOT:**
@@ -677,7 +677,7 @@ User → /create-epic command → subagents (NO SKILL LAYER!)
 
 **After refactoring:**
 ```
-User → /create-epic command → devforgeai-orchestration skill → subagents
+User → /create-epic command → spec-driven-lifecycle skill → subagents
 ```
 
 **Benefits:**
@@ -744,4 +744,4 @@ The skill enforces 6 quality gates during epic creation:
 
 ---
 
-**This guide provides educational context for epic creation. For execution instructions, see the /create-epic command and devforgeai-orchestration skill.**
+**This guide provides educational context for epic creation. For execution instructions, see the /create-epic command and spec-driven-lifecycle skill.**

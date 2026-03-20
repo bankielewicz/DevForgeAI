@@ -41,14 +41,14 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /create-epic
 - **Status:** ⚠️ High Usage (76% budget, within limit)
 - **Structure:** 4 phases (validate → set markers → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill (8-phase epic workflow)
+- **Business Logic:** Delegated to `spec-driven-lifecycle` skill (8-phase epic workflow)
 - **Token Efficiency:** Before: ~10K tokens → After: ~2K tokens (80% savings)
 - **Refactoring:** ✅ Complete (2025-11-06, Case Study 4)
 
 ### /create-sprint
 - **Status:** ⚠️ High Usage (89% budget, approaching limit)
 - **Structure:** 4 phases (user interaction → invoke → display → verify)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill + `sprint-planner` subagent
+- **Business Logic:** Delegated to `spec-driven-lifecycle` skill + `sprint-planner` subagent
 - **Token Efficiency:** Before: ~12K tokens → After: ~5K tokens (58% savings)
 - **Refactoring:** ✅ Complete (2025-11-05, Case Study 3)
 
@@ -97,7 +97,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /orchestrate
 - **Status:** ⚠️ High Usage (99% budget, at limit)
 - **Structure:** 3 phases (validate → invoke → display)
-- **Business Logic:** Delegated to `devforgeai-orchestration` skill (6-phase lifecycle coordination)
+- **Business Logic:** Delegated to `spec-driven-lifecycle` skill (6-phase lifecycle coordination)
 - **Token Efficiency:** Before: ~4K tokens → After: ~2.5K tokens (37% savings)
 - **Refactoring:** ✅ Complete (2025-11-06, Case Study 5)
 

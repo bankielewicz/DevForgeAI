@@ -141,7 +141,7 @@ def invoke_parallel_with_fallback(tasks: List[Task]) -> List[Result]:
 
 ### Real-World Example
 
-From **devforgeai-orchestration skill Phase 3 Step 3.2:**
+From **spec-driven-lifecycle skill Phase 3 Step 3.2:**
 
 ```markdown
 ## Step 3.2: Parallel Feature Analysis (NEW)
@@ -684,7 +684,7 @@ Read("devforgeai/specs/context/anti-patterns.md")
 **Optimized:** Parallel Grep searches (all 20 concurrent via tool parallelism)
 
 ```python
-# In devforgeai-orchestration Phase 3 Step 3.1
+# In spec-driven-lifecycle Phase 3 Step 3.1
 
 # Parallelize these Grep operations
 for feature in story_features:
@@ -712,5 +712,5 @@ for feature in story_features:
 
 - `devforgeai/specs/research/parallel-orchestration-research.md` - Full research report
 - `devforgeai/specs/context/architecture-constraints.md` - Updated constraints
-- `.claude/skills/devforgeai-orchestration/SKILL.md` - Orchestration skill implementation
+- `.claude/skills/spec-driven-lifecycle/SKILL.md` - Orchestration skill implementation
 - `.claude/skills/spec-driven-dev/SKILL.md` - Development skill with background tasks

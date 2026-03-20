@@ -284,7 +284,7 @@ Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-gu
 
 **Purpose:** Create epic with feature breakdown
 
-**Invokes:** `devforgeai-orchestration` skill (epic creation mode)
+**Invokes:** `spec-driven-lifecycle` skill (epic creation mode)
 
 **Workflow:**
 1. Argument validation (epic name format)
@@ -307,11 +307,11 @@ Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-gu
 
 **For epic definition:** Epic names should be clear and business-focused. The skill will guide you through feature decomposition and technical assessment with interactive questions. Provide specific requirements about goals, timeline, and stakeholders.
 
-**File:** `.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-lifecycle/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-lifecycle/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -334,7 +334,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 - Skill invocation
 - Results display
 
-**Skill (devforgeai-orchestration - Epic Creation Mode):**
+**Skill (spec-driven-lifecycle - Epic Creation Mode):**
 - Phase 1-8: Complete epic creation workflow
 - Progressive reference loading (5 files, 3,311 lines)
 - Subagent delegation (requirements-analyst, architect-reviewer)
@@ -353,7 +353,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **Purpose:** Plan 2-week sprint with interactive story selection and capacity validation
 
-**Invokes:** `devforgeai-orchestration` skill (Phase 3: Sprint Planning Workflow)
+**Invokes:** `spec-driven-lifecycle` skill (Phase 3: Sprint Planning Workflow)
 
 **Workflow:**
 1. Epic selection (AskUserQuestion)
@@ -370,7 +370,7 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 - Phase 3: Skill invocation with context markers
 - Phase 4: Result display
 
-**Skill (devforgeai-orchestration - Phase 3):**
+**Skill (spec-driven-lifecycle - Phase 3):**
 - Step 1: Extract sprint parameters from conversation
 - Step 2: Invoke sprint-planner subagent
 - Step 3: Process subagent result
@@ -401,11 +401,11 @@ Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-gu
 
 **For sprint planning:** Provide clear sprint names and select stories with realistic capacity (20-40 points recommended). The skill will validate capacity and guide story selection with interactive questions.
 
-**File:** `.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-lifecycle/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-lifecycle/references/user-input-guidance.md")
 ```
 
 **Example effective input:**
@@ -1158,7 +1158,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-042.story.md")
 - Result display from skill
 - Minimal error handling
 
-**Skill (devforgeai-orchestration - Enhanced):**
+**Skill (spec-driven-lifecycle - Enhanced):**
 - Phase 0: Checkpoint detection (NEW - was in command)
 - Phase 1-2: Story validation, development invocation
 - Phase 3: QA invocation

@@ -162,7 +162,7 @@ Options:
 - QA validates generated UI matches acceptance criteria
 - Checks for accessibility, best practices, anti-patterns
 
-### devforgeai-orchestration
+### spec-driven-lifecycle
 - Orchestration can automatically invoke UI Generator when story has UI requirements
 - Workflow: detect UI story → invoke ui-generator → proceed to development
 

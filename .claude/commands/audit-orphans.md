@@ -102,7 +102,7 @@ IF category == "all" OR category == "duplicates":
   Template names to specifically check:
     - story-template.md (canonical: .claude/skills/spec-driven-stories/assets/templates/)
     - epic-template.md (canonical: .claude/skills/spec-driven-architecture/assets/templates/)
-    - sprint-template.md (canonical: .claude/skills/devforgeai-orchestration/assets/templates/)
+    - sprint-template.md (canonical: .claude/skills/spec-driven-lifecycle/assets/templates/)
     - rca-document-template.md
     - brainstorm-template.md
     - requirements-template.md

@@ -56,7 +56,7 @@ AskUserQuestion: "Sprint duration?" | Options: ["2 weeks (standard)", "1 week (s
 **Epic:** ${EPIC_ID}
 ```
 
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 
 ### Phase 2: Display Results
 
@@ -71,7 +71,7 @@ Display skill result (pre-formatted by skill).
 - ❌ Capacity arithmetic or point summation
 - ❌ Sprint file generation
 
-All business logic lives in: `.claude/skills/devforgeai-orchestration/references/sprint-command-workflow.md`
+All business logic lives in: `.claude/skills/spec-driven-lifecycle/references/sprint-command-workflow.md`
 
 ## Error Handling
 
@@ -89,7 +89,7 @@ Sprint file created in devforgeai/specs/Sprints/ | Stories updated to "Ready for
 
 ## Integration
 
-**Prerequisites:** Stories with status=Backlog | **Invokes:** devforgeai-orchestration skill | **Creates:** Sprint file | **Updates:** Story statuses | **Enables:** /dev STORY-ID | **Related:** /create-epic, /create-story, /dev, /orchestrate
+**Prerequisites:** Stories with status=Backlog | **Invokes:** spec-driven-lifecycle skill | **Creates:** Sprint file | **Updates:** Story statuses | **Enables:** /dev STORY-ID | **Related:** /create-epic, /create-story, /dev, /orchestrate
 
 ## Performance
 

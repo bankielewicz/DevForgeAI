@@ -114,7 +114,7 @@ The skill now handles QA failures intelligently:
 
 ## What the Skill Handles
 
-The devforgeai-orchestration skill executes complete workflow coordination:
+The spec-driven-lifecycle skill executes complete workflow coordination:
 
 **Phases:**
 - Phase 0: Checkpoint detection (NEW - was in command)

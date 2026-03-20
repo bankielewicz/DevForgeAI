@@ -106,13 +106,13 @@ Display:
 **Story ID:** ${STORY_ID}
 **Auto-Resume:** Enabled
 
-Delegating to devforgeai-orchestration skill...
+Delegating to spec-driven-lifecycle skill...
 "
 ```
 
 **Invoke skill:**
 ```
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 **After skill invocation:**
@@ -273,7 +273,7 @@ Review error above and retry or contact support.
 
 **Invoked by:** User via `/orchestrate [STORY-ID]` command
 
-**Invokes:** `devforgeai-orchestration` skill which coordinates:
+**Invokes:** `spec-driven-lifecycle` skill which coordinates:
 - spec-driven-dev (Phase 2: TDD implementation)
 - spec-driven-qa (Phase 3: Quality validation)
 - spec-driven-qa retry handling (Phase 3.5: Intelligent retry with loop prevention)

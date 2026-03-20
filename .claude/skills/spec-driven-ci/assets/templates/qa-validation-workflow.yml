@@ -1,0 +1,69 @@
+name: DevForgeAI QA Validation
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate API Key
+        run: |
+          if [ -z "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "::error::ANTHROPIC_API_KEY secret not configured"
+            echo "Setup: Repository Settings > Secrets > Actions > New repository secret"
+            exit 1
+          fi
+
+      - name: Extract Story ID
+        id: story
+        run: |
+          STORY_ID=$(echo "${{ github.event.pull_request.title }}" | grep -oE 'STORY-[0-9]+' | head -1)
+          if [ -z "$STORY_ID" ]; then
+            echo "No story ID found in PR title"
+            echo "found=false" >> $GITHUB_OUTPUT
+          else
+            echo "story_id=$STORY_ID" >> $GITHUB_OUTPUT
+            echo "found=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Claude Code
+        if: steps.story.outputs.found == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Run QA Validation
+        if: steps.story.outputs.found == 'true'
+        env:
+          CLAUDE_CODE_CACHE_ENABLED: true
+        run: |
+          claude -p "/qa ${{ steps.story.outputs.story_id }} deep" --output-format json > qa-result.json
+
+      - name: Post Results
+        if: steps.story.outputs.found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const result = JSON.parse(fs.readFileSync('qa-result.json', 'utf8'));
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## QA Validation Results\n\n${result.summary || 'See artifacts for details'}`
+            });
+
+      - name: Upload QA Artifacts
+        if: always() && steps.story.outputs.found == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results-${{ steps.story.outputs.story_id }}
+          path: qa-result.json

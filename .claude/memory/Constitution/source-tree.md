@@ -79,7 +79,7 @@ DevForgeAI2/
 │   │   │           ├── architecture-constraints-template.md
 │   │   │           ├── anti-patterns-template.md
 │   │   │           └── adr-template.md
-│   │   ├── devforgeai-orchestration/
+│   │   ├── spec-driven-lifecycle/
 │   │   │   ├── SKILL.md
 │   │   │   ├── references/
 │   │   │   │   ├── skill-invocation.md

@@ -305,7 +305,7 @@ Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-gu
 
 ---
 
-### devforgeai-orchestration
+### spec-driven-lifecycle
 
 **Use when:**
 - Starting new epics or sprints
@@ -321,7 +321,7 @@ Read(file_path=".claude/skills/spec-driven-architecture/references/user-input-gu
 # Load story first
 @devforgeai/specs/Stories/STORY-001.story.md
 
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 **Invocation (Epic Creation Mode):**
@@ -330,7 +330,7 @@ Skill(command="devforgeai-orchestration")
 **Epic name:** User Authentication System
 **Command:** create-epic
 
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 **Invocation (Sprint Planning Mode):**
@@ -340,18 +340,18 @@ Skill(command="devforgeai-orchestration")
 **Command:** create-sprint
 **Selected Stories:** STORY-001, STORY-002, STORY-003
 
-Skill(command="devforgeai-orchestration")
+Skill(command="spec-driven-lifecycle")
 ```
 
 ### User Input Guidance
 
 **For story/epic/sprint management:** Provide story IDs, epic names, or sprint metadata as context markers. The skill orchestrates complex workflows including epic decomposition, sprint capacity validation, and technical debt analysis. Answer all interactive questions to ensure proper story linking and dependency management.
 
-**File:** `.claude/skills/devforgeai-orchestration/references/user-input-guidance.md`
+**File:** `.claude/skills/spec-driven-lifecycle/references/user-input-guidance.md`
 
 **Load command:**
 ```
-Read(file_path=".claude/skills/devforgeai-orchestration/references/user-input-guidance.md")
+Read(file_path=".claude/skills/spec-driven-lifecycle/references/user-input-guidance.md")
 ```
 
 **Example (Epic):** "Epic name: Real-Time Notifications (business goal: reduce response time to <100ms, timeline: Q2 2025, stakeholders: platform team + mobile team)"
@@ -772,7 +772,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 3. spec-driven-architecture
    ↓ (create context files, make tech decisions)
 
-4. devforgeai-orchestration
+4. spec-driven-lifecycle
    ↓ (create sprints, generate stories)
 
 5. spec-driven-ui [OPTIONAL]
@@ -794,7 +794,7 @@ Read(file_path="devforgeai/specs/Stories/STORY-001.story.md")
 ### For Existing Projects with Defined Context
 
 ```
-1. devforgeai-orchestration OR spec-driven-stories
+1. spec-driven-lifecycle OR spec-driven-stories
    ↓ (orchestration: create stories from epics)
    ↓ (story-creation: create individual story from feature description)
 
@@ -898,7 +898,7 @@ Skill(command="spec-driven-qa")
 Skills automatically invoke each other when needed:
 - **spec-driven-dev** auto-invokes **spec-driven-qa** (light mode) after each TDD phase
 - **spec-driven-ideation** auto-transitions to **spec-driven-architecture**
-- **devforgeai-orchestration** invokes other skills based on workflow state
+- **spec-driven-lifecycle** invokes other skills based on workflow state
 </integration_patterns>
 
 ---
@@ -920,7 +920,7 @@ For detailed skill documentation, see:
 - `.claude/skills/devforgeai-github-actions/SKILL.md`
 - `.claude/skills/devforgeai-insights/SKILL.md`
 - `.claude/skills/devforgeai-mcp-cli-converter/SKILL.md`
-- `.claude/skills/devforgeai-orchestration/SKILL.md`
+- `.claude/skills/spec-driven-lifecycle/SKILL.md`
 - `.claude/skills/spec-driven-qa/SKILL.md`
 - `.claude/skills/devforgeai-qa-remediation/SKILL.md`
 - `.claude/skills/spec-driven-rca/SKILL.md`
@@ -1498,7 +1498,7 @@ Skill(command="spec-driven-w3-compliance")
 - HIGH: Non-orchestration skills auto-chaining without user consent gate
 - MEDIUM: Files with `Skill()` calls missing W3 compliance documentation
 
-**Exclusions:** `devforgeai-orchestration/*`, `*.backup*`, `*.original-*`, `*.md.bak`
+**Exclusions:** `spec-driven-lifecycle/*`, `*.backup*`, `*.original-*`, `*.md.bak`
 
 **Reference:** BRAINSTORM-001 (line 85), STORY-135
 </skill>
@@ -1597,7 +1597,7 @@ Skill(command="devforgeai-github-actions")
 | spec-driven-qa | light | inline in SKILL.md |
 | spec-driven-qa | deep | `.claude/skills/spec-driven-qa/references/deep-validation-workflow.md` |
 | spec-driven-dev | deep | `.claude/skills/spec-driven-dev/references/tdd-deep-workflow.md` |
-| devforgeai-orchestration | any | skill-specific references |
+| spec-driven-lifecycle | any | skill-specific references |
 
 **Source RCA:** RCA-021 REC-5 (MEDIUM - Reference Document Auto-Load Utility)
 **Implementation Story:** STORY-219
