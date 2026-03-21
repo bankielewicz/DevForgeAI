@@ -361,6 +361,12 @@ Document the origin, decisions, stakeholders, and hypotheses that led to this st
     <quantified_impact>Measurable impact statement</quantified_impact>
   </origin>
 
+  <origin document="UI-MANIFEST-CHECKOUT-WIDGET" section="State Matrix">
+    <quote>"The checkout widget must display a skeleton loader while fetching payment methods."</quote>
+    <line_reference>lines 45-50</line_reference>
+    <quantified_impact>Prevents user from clicking 'Pay' before script loads</quantified_impact>
+  </origin>
+  
   <!-- Decision: Document the approach selected and alternatives rejected -->
   <decision rationale="selected-over-alternatives">
     <selected>Chosen approach description</selected>
@@ -483,6 +489,22 @@ This example shows ALL optional elements for comprehensive verification:
 </acceptance_criteria>
 ```
 
+### AC#5: [Criterion 5 UI]
+
+```xml
+<acceptance_criteria id="AC1" implements="UI-001">
+  <given>The payment widget is in a 'Loading' state</given>
+  <when>The user attempts to interact with the input fields</when>
+  <then>The inputs must be disabled and a skeleton loader must be visible</then>
+  <verification>
+    <source_files>
+      <file hint="Payment Widget Component">src/components/PaymentWidget.tsx</file>
+    </source_files>
+    <test_file>tests/STORY-XXX/test_ac1_loading_state.tsx</test_file>
+    <coverage_threshold>100</coverage_threshold>
+  </verification>
+</acceptance_criteria>
+```
 ---
 
 *Add more criteria as needed (typically 3-7 per story)*
@@ -648,6 +670,27 @@ technical_specification:
           cascade: "Cascade|Restrict|SetNull"
           description: "[Relationship purpose]"
 
+    # UI Component Example
+    - type: "UIComponent"
+      name: "PaymentWidget"
+      file_path: "src/components/PaymentWidget.tsx"
+      props:
+        - name: "isLoading"
+          type: "boolean"
+          required: true
+        - name: "paymentMethods"
+          type: "Array<PaymentMethod>"
+          required: false
+      accessibility:
+        - rule: "aria-busy must be true when isLoading is true"
+        - rule: "Focus must be trapped within the widget if a modal is open"
+      requirements:
+        - id: "UI-001"
+          description: "Must render skeleton loader when isLoading=true"
+          testable: true
+          test_requirement: "Test: Verify skeleton DOM elements exist and inputs are disabled"
+          priority: "Critical"
+		  
   business_rules:
     - id: "BR-001"
       rule: "[Business rule description]"

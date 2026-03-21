@@ -102,6 +102,78 @@ Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --pha
 
 ---
 
+## Step 4.4a: Load Design System Rules (Web + GUI Only)
+
+**EXECUTE:**
+```
+IF UI_TYPE == "web" OR UI_TYPE == "gui":
+    Read(file_path="src/claude/skills/spec-driven-ui/references/design-system-rules.md")
+ELSE:
+    SKIP — design system rules not applicable for Terminal UI
+```
+If Read fails, try fallback path:
+```
+Read(file_path=".claude/skills/spec-driven-ui/references/design-system-rules.md")
+```
+
+**VERIFY:**
+- Web/GUI: File content loaded into context, contains 8-point grid and semantic color tokens
+- TUI: Step marked as skipped (valid)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --phase=04 --step=4.4a --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4b: Load Accessibility Guidelines (All UI Types)
+
+**EXECUTE:**
+```
+Read(file_path="src/claude/skills/spec-driven-ui/references/accessibility-guidelines.md")
+```
+If Read fails, try fallback path:
+```
+Read(file_path=".claude/skills/spec-driven-ui/references/accessibility-guidelines.md")
+```
+
+**VERIFY:**
+- File content loaded into context
+- Content contains WCAG compliance rules and verification checklist
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --phase=04 --step=4.4b --project-root=. 2>&1")
+```
+
+---
+
+## Step 4.4c: Load Component Anatomy Standards (Web + GUI Only)
+
+**EXECUTE:**
+```
+IF UI_TYPE == "web" OR UI_TYPE == "gui":
+    Read(file_path="src/claude/skills/spec-driven-ui/references/component-anatomy.md")
+ELSE:
+    SKIP — component anatomy not applicable for Terminal UI
+```
+If Read fails, try fallback path:
+```
+Read(file_path=".claude/skills/spec-driven-ui/references/component-anatomy.md")
+```
+
+**VERIFY:**
+- Web/GUI: File content loaded into context, contains Smart/Dumb classification and file structure patterns
+- TUI: Step marked as skipped (valid)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --phase=04 --step=4.4c --project-root=. 2>&1")
+```
+
+---
+
 ## Step 4.5: Load Integration Guide
 
 **EXECUTE:**

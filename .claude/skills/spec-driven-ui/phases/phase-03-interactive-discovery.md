@@ -232,6 +232,56 @@ Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --pha
 
 ---
 
+## Step 3.7a: Select Aesthetic Vibe (Web UI Only)
+
+**EXECUTE:**
+```
+IF UI_TYPE == "web":
+    AskUserQuestion:
+      Question: "What aesthetic vibe should the UI convey? This guides the emotional tone of the design while staying within the design system constraints."
+      Header: "Aesthetic Vibe"
+      Options:
+        - label: "Sleek Dark FinTech"
+          description: "Professional dark theme with sharp contrasts, data-dense layouts, and subtle gradients"
+        - label: "Flat Clean Enterprise"
+          description: "Minimalist light theme with ample whitespace, muted colors, and clear hierarchy"
+        - label: "Glassmorphism"
+          description: "Frosted glass effects, translucent layers, and vibrant accent colors"
+        - label: "Soft Minimal SaaS"
+          description: "Rounded corners, pastel accents, friendly typography, and generous spacing"
+        - label: "Custom"
+          description: "Describe your own aesthetic direction"
+      multiSelect: false
+ELSE:
+    SKIP — aesthetic vibe selection not applicable for GUI/TUI
+```
+
+Store result as AESTHETIC_VIBE.
+
+If user selects "Custom":
+```
+AskUserQuestion:
+  Question: "Describe the aesthetic vibe you want (e.g., 'Playful consumer social with bold gradients' or 'Brutalist with heavy borders and monospace type')."
+  Header: "Custom Vibe"
+  Options:
+    - label: "Provide description"
+      description: "I'll describe the vibe in text"
+  multiSelect: false
+```
+
+Store the custom description as AESTHETIC_VIBE.
+
+**VERIFY:**
+- Web: AESTHETIC_VIBE is set and non-empty
+- GUI/TUI: Step marked as skipped (valid)
+
+**RECORD:**
+```
+Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --phase=03 --step=3.7a --project-root=. 2>&1")
+```
+
+---
+
 ## Step 3.8: Define Components
 
 **EXECUTE:**

@@ -284,11 +284,66 @@ final_components = [
 
 **Output:** Complete technology and component specification.
 
+---
+
+## Step 3.3a: Aesthetic Vibe Selection (Web UI Only)
+
+**If Web UI selected**, after theme selection, collect the aesthetic vibe:
+
+```
+AskUserQuestion(
+  questions: [{
+    question: "What aesthetic vibe should the UI convey? This guides the emotional tone of the design while staying within the design system constraints.",
+    header: "Aesthetic Vibe",
+    multiSelect: false,
+    options: [
+      { label: "Sleek Dark FinTech", description: "Professional dark theme with sharp contrasts, data-dense layouts, and subtle gradients" },
+      { label: "Flat Clean Enterprise", description: "Minimalist light theme with ample whitespace, muted colors, and clear hierarchy" },
+      { label: "Glassmorphism", description: "Frosted glass effects, translucent layers, and vibrant accent colors" },
+      { label: "Soft Minimal SaaS", description: "Rounded corners, pastel accents, friendly typography, and generous spacing" },
+      { label: "Custom", description: "Describe your own aesthetic direction" }
+    ]
+  }]
+)
+```
+
+**Capture response:**
+```
+aesthetic_vibe = response["Aesthetic Vibe"]
+```
+
+**If user selects "Custom":**
+```
+AskUserQuestion(
+  questions: [{
+    question: "Describe the aesthetic vibe you want (e.g., 'Playful consumer social with bold gradients' or 'Brutalist with heavy borders and monospace type').",
+    header: "Custom Vibe",
+    multiSelect: false,
+    options: [
+      { label: "Provide description", description: "I'll describe the vibe in text" }
+    ]
+  }]
+)
+
+aesthetic_vibe = user_input  # Free-text from "Other" field
+```
+
+**How AESTHETIC_VIBE flows downstream:**
+- Phase 04: The design-system-rules.md provides hard constraints (8-point grid, semantic tokens)
+- Phase 05: The AESTHETIC_VIBE guides the emotional interpretation within those constraints
+  - "Sleek Dark FinTech" → Use dark semantic tokens, tighter spacing from grid, data-first layouts
+  - "Glassmorphism" → Use backdrop-filter, translucent surface tokens, elevated shadows
+  - "Soft Minimal SaaS" → Use larger border radius, lighter shadows, more generous spacing from grid
+- If vibe conflicts with design system rules, the design system wins (explain via AskUserQuestion)
+
+---
+
 **Summary of Phase 3 Decisions:**
 - UI Type: ${ui_type}
 - Technology: ${selected_tech}
 - Styling: ${styling} (if web)
 - Theme: ${theme} (if web)
+- Aesthetic Vibe: ${aesthetic_vibe} (if web)
 - Format: ${tui_format} (if terminal)
 - Components: ${final_components}
 - Context validation: ${conflicts_resolved ? 'Conflicts resolved' : 'No conflicts'}
