@@ -1,0 +1,64 @@
+{
+  "subagent": "code-reviewer",
+  "phase": "3",
+  "story_id": "STORY-554",
+  "timestamp": "2026-03-21T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-3-001",
+      "category": "warning",
+      "note": "Domain section headers use lowercase ('## legal Domain') which is inconsistent - should use Title Case ('## Legal Domain')",
+      "severity": "low",
+      "files": ["src/claude/skills/operating-business/references/mvp-launch-checklist.md"]
+    },
+    {
+      "id": "obs-3-002",
+      "category": "pattern",
+      "note": "Test suites share identical run_test() helper and color variable boilerplate across 4 files - candidate for shared test-lib extraction",
+      "severity": "medium",
+      "files": [
+        "tests/STORY-554/test-ac1-business-model-adaptation.sh",
+        "tests/STORY-554/test-ac2-five-domain-coverage.sh",
+        "tests/STORY-554/test-ac3-output-format-compliance.sh",
+        "tests/STORY-554/test-ac4-progressive-disclosure.sh"
+      ]
+    },
+    {
+      "id": "obs-3-003",
+      "category": "warning",
+      "note": "Test AC1 test_saas_omits_inventory_management uses grep -P (PCRE) which is not available on all platforms - fragile for portability",
+      "severity": "medium",
+      "files": ["tests/STORY-554/test-ac1-business-model-adaptation.sh"]
+    },
+    {
+      "id": "obs-3-004",
+      "category": "success",
+      "note": "All 44 tests pass across 4 AC test suites. Tests follow AAA pattern. Each test has clear PASS/FAIL output with counters.",
+      "severity": "low",
+      "files": ["tests/STORY-554/run_all_tests.sh"]
+    },
+    {
+      "id": "obs-3-005",
+      "category": "success",
+      "note": "Reference file is 97 lines, well under the 1000-line limit. Good use of progressive disclosure pattern.",
+      "severity": "low",
+      "files": ["src/claude/skills/operating-business/references/mvp-launch-checklist.md"]
+    },
+    {
+      "id": "obs-3-006",
+      "category": "gap",
+      "note": "Checklist items lack explicit model tags (e.g., [SaaS], [marketplace]) - model association is only in prose, making programmatic filtering harder",
+      "severity": "medium",
+      "files": ["src/claude/skills/operating-business/references/mvp-launch-checklist.md"]
+    },
+    {
+      "id": "obs-3-007",
+      "category": "warning",
+      "note": "run_all_tests.sh uses 'set -uo pipefail' (no -e), meaning individual command failures in the script body do not terminate early",
+      "severity": "low",
+      "files": ["tests/STORY-554/run_all_tests.sh"]
+    }
+  ],
+  "metadata": { "version": "1.0", "write_timestamp": "2026-03-21T00:00:00Z" }
+}

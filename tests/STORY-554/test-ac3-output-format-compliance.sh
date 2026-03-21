@@ -198,7 +198,7 @@ test_consistent_checkbox_format() {
 
     # Check for non-standard checkbox formats that would break GFM rendering
     local bad_formats
-    bad_formats=$(grep -cE "^- \[[xX]\]|^\* \[ \]|^[0-9]+\. \[ \]" "$file" 2>/dev/null || echo "0")
+    bad_formats=$(grep -cE "^- \[[xX]\]|^\* \[ \]|^[0-9]+\. \[ \]" "$file" 2>/dev/null) || bad_formats=0
 
     local good_formats
     good_formats=$(grep -c "^- \[ \]" "$file" 2>/dev/null || echo "0")
@@ -254,7 +254,7 @@ test_checklist_items_not_empty() {
 
     # Check for empty checkbox items (just "- [ ]" with no text after)
     local empty_items
-    empty_items=$(grep -cE "^- \[ \]\s*$" "$file" 2>/dev/null || echo "0")
+    empty_items=$(grep -cE "^- \[ \]\s*$" "$file" 2>/dev/null) || empty_items=0
 
     if [ "$empty_items" -eq 0 ]; then
         echo "  All checklist items have meaningful text"

@@ -61,8 +61,8 @@ count_domain_items() {
 
     # Find the domain section and count checkbox items until next section header
     count=$(awk "
-        BEGIN { in_section=0; count=0 }
-        /^##.*${domain_pattern}/i { in_section=1; next }
+        BEGIN { in_section=0; count=0; IGNORECASE=1 }
+        /^##.*${domain_pattern}/ { in_section=1; next }
         in_section && /^##/ { in_section=0 }
         in_section && /^- \[/ { count++ }
         END { print count }
