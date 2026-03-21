@@ -181,6 +181,9 @@ Each phase loads only its required references. No consolidated loading.
 | `references/web-best-practices.md` | Phase 04 | Web UI best practices (conditional on UI type) |
 | `references/gui-best-practices.md` | Phase 04 | Desktop GUI best practices (conditional on UI type) |
 | `references/tui-best-practices.md` | Phase 04 | Terminal UI best practices (conditional on UI type) |
+| `references/design-system-rules.md` | Phase 04 | 8-point grid, semantic tokens, typography, motion (web + gui only) |
+| `references/accessibility-guidelines.md` | Phase 04 | WCAG 2.1 AA compliance, ARIA, keyboard nav (all UI types) |
+| `references/component-anatomy.md` | Phase 04 | Smart/Dumb components, file structure, props (web + gui only) |
 | `references/devforgeai-integration-guide.md` | Phase 04 | Framework integration patterns |
 | `references/code-generation.md` | Phase 05 | Code generation procedures |
 | `references/documentation-update.md` | Phase 06 | Documentation and story update procedures |
@@ -198,6 +201,10 @@ Generated UI code must:
 - Follow coding-standards.md conventions
 - Use technologies from tech-stack.md only
 - Place files per source-tree.md
+- Enforce the 8-point spatial grid and semantic color tokens from `design-system-rules.md`
+- Apply the AESTHETIC_VIBE selected in Phase 03 (within design system constraints)
+- Meet WCAG 2.1 AA accessibility standards from `accessibility-guidelines.md`
+- Structure components per Smart/Dumb patterns from `component-anatomy.md`
 - Include accessibility (ARIA, semantic HTML, keyboard navigation)
 - Match story acceptance criteria (story mode)
 - Apply best practices from type-specific reference files
@@ -243,6 +250,7 @@ Generated UI code must:
 
 | Date | Story | Change |
 |------|-------|--------|
+| 2026-03-20 | — | Added design-system-rules.md, accessibility-guidelines.md, component-anatomy.md references (Phase 04 Steps 4.4a-c). Added Aesthetic Vibe discovery (Phase 03 Step 3.7a). Updated Phase 05 code generation to enforce design system, component anatomy, and accessibility constraints. Merged from spec-driven-ui-stitch. |
 | 2026-03-18 | — | Created — migrated from devforgeai-ui-generator with EVR anti-skip enforcement |
 
 ---

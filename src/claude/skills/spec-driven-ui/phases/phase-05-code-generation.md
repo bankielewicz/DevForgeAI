@@ -58,17 +58,33 @@ Bash(command="devforgeai-validate phase-record ${IDENTIFIER} --workflow=ui --pha
 Using the loaded template (Phase 04), requirements (Phase 02), and technology selections (Phase 03):
 
 1. Start with the loaded template as the base structure
-2. Apply styling choices (STYLING from Phase 03)
-3. Implement component structure from COMPONENTS list
-4. Follow best practices loaded in Phase 04
-5. Respect coding-standards.md conventions
-6. Add accessibility features:
-   - ARIA labels and roles
-   - Semantic HTML elements
-   - Keyboard navigation support
-   - Focus management
-7. Include inline comments explaining key sections
-8. Apply anti-pattern prevention (check anti-patterns.md constraints)
+2. Apply AESTHETIC_VIBE (from Phase 03 Step 3.7a) to guide the emotional tone of the design
+3. Apply styling choices (STYLING from Phase 03)
+4. **Enforce design-system-rules.md constraints** (loaded in Phase 04 Step 4.4a):
+   - All spatial values (margin, padding, gap) must use the 8-point grid scale
+   - All colors must use semantic tokens (no raw hex codes or framework utility colors)
+   - Typography must follow the defined scale hierarchy
+   - Borders, shadows, and radius must use defined elevation tokens
+   - All interactive elements must have transitions and micro-interactions
+5. **Structure components per component-anatomy.md** (loaded in Phase 04 Step 4.4c):
+   - Classify each component as Smart (container) or Dumb (presentational)
+   - Use folder structure for complex components, flat file for simple ones
+   - Define explicit props interfaces for all components
+   - Implement loading/error/success states for data-fetching components
+6. Implement component structure from COMPONENTS list
+7. Follow best practices loaded in Phase 04
+8. Respect coding-standards.md conventions
+9. **Apply accessibility-guidelines.md rules** (loaded in Phase 04 Step 4.4b):
+   - Use semantic HTML elements (never `<div>` when `<button>`, `<nav>`, etc. applies)
+   - ARIA labels, roles, and states for all interactive elements
+   - Keyboard navigation with visible focus-visible states
+   - Focus trapping for modals/drawers, Escape to close
+   - Color contrast ratios: 4.5:1 normal text, 3:1 large text/UI components
+   - Associated labels for all form inputs
+10. Include inline comments explaining key sections
+11. Apply anti-pattern prevention (check anti-patterns.md constraints)
+
+**Note:** If AESTHETIC_VIBE conflicts with design system rules (e.g., a spacing value not on the grid), the design system wins.
 
 Generate the final component code.
 
