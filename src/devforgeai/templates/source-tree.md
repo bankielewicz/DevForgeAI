@@ -223,8 +223,6 @@ DevForgeAI2/
 │   │   │   ├── SKILL.md
 │   │   │   └── references/
 │   │   │       └── terminal-knowledge-base.md
-│   │   ├── internet-sleuth-integration/
-│   │   │   └── SKILL.md (incomplete - use internet-sleuth subagent instead)
 │   │   ├── skill-creator/
 │   │   │   └── SKILL.md
 │   │   ├── _story-remediation.archive/  # ARCHIVED - absorbed into spec-driven-remediation (2026-03-18)

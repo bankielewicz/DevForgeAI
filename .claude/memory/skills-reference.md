@@ -27,9 +27,9 @@ Detailed guidance for working with 22 functional skills (15 devforgeai-* + 5 sta
 
 **Skills breakdown:**
 - 20 DevForgeAI workflow skills (devforgeai-* + standalone workflow skills)
-- 2 Claude Code infrastructure skills (claude-code-terminal-expert, skill-creator)
+- 2 Claude Code infrastructure skills (spec-driven-cc-guide, skill-creator)
 - 1 utility module (devforgeai-shared - not standalone invocable)
-- 1 incomplete (internet-sleuth-integration - use internet-sleuth subagent instead)
+- 0 incomplete (internet-sleuth-integration absorbed into spec-driven-research per ADR-045)
 </overview>
 
 ---
@@ -912,8 +912,10 @@ For detailed skill documentation, see:
 - `.claude/skills/spec-driven-w3-compliance/SKILL.md`
 - `.claude/skills/brainstorming/SKILL.md` **(DEPRECATED - use spec-driven-brainstorming)**
 - `.claude/skills/spec-driven-brainstorming/SKILL.md`
-- `.claude/skills/claude-code-terminal-expert/SKILL.md`
-- `.claude/skills/cross-ai-collaboration/SKILL.md`
+- `.claude/skills/claude-code-terminal-expert/SKILL.md` **(ARCHIVED - use spec-driven-cc-guide)**
+- `.claude/skills/spec-driven-cc-guide/SKILL.md`
+- `.claude/skills/cross-ai-collaboration/SKILL.md` **(ARCHIVED - use spec-driven-collaboration)**
+- `.claude/skills/spec-driven-collaboration/SKILL.md`
 - `.claude/skills/spec-driven-architecture/SKILL.md`
 - `.claude/skills/spec-driven-documentation/SKILL.md`
 - `.claude/skills/spec-driven-feedback/SKILL.md`
@@ -927,7 +929,7 @@ For detailed skill documentation, see:
 - `.claude/skills/spec-driven-release/SKILL.md`
 - `.claude/skills/spec-driven-research/SKILL.md`
 - `.claude/skills/spec-driven-stories/SKILL.md`
-- `.claude/skills/devforgeai-subagent-creation/SKILL.md`
+- `.claude/skills/spec-driven-agents/SKILL.md` **(ADR-044 - replaces devforgeai-subagent-creation)**
 - `.claude/skills/spec-driven-ui/SKILL.md`
 - `.claude/skills/spec-driven-ideation/SKILL.md`
 - `.claude/skills/spec-driven-dev/SKILL.md`
@@ -1020,8 +1022,8 @@ Read(file_path="devforgeai/RCA/")
 
 ---
 
-<skill name="claude-code-terminal-expert" type="infrastructure">
-### claude-code-terminal-expert
+<skill name="spec-driven-cc-guide" type="infrastructure">
+### spec-driven-cc-guide
 
 **Use when:**
 - User asks about Claude Code Terminal features ("Can Claude Code...?" / "Does Claude Code have...?")
@@ -1030,17 +1032,20 @@ Read(file_path="devforgeai/RCA/")
 - Setting up CI/CD integration (GitHub Actions, GitLab)
 - Troubleshooting Claude Code issues (installation, auth, performance)
 - Any questions about Claude Code Terminal capabilities
-- **This is infrastructure support - provides terminal expertise**
+- Prompt engineering guidance (XML tags, chain of thought, roles)
+- Agent Skills specification questions (SKILL.md format, frontmatter)
+- **This is infrastructure support - provides terminal expertise with 4-phase EVG enforcement**
 
 **Invocation:**
 ```
 # Skill automatically triggers on Claude Code Terminal questions
 # No special invocation needed - model-invoked based on question context
+# 4-phase knowledge retrieval: Classify → Load References → Synthesize → Update Check
 ```
 
 ### User Input Guidance
 
-**For Claude Code questions:** Ask questions about Claude Code Terminal features, capabilities, or troubleshooting. The skill will automatically load official documentation and answer with authoritative, up-to-date information. No special preparation needed - ask naturally about subagents, skills, commands, plugins, CI/CD integration, or configuration.
+**For Claude Code questions:** Ask questions about Claude Code Terminal features, capabilities, or troubleshooting. The skill will automatically classify your question, load authoritative reference files, and synthesize an answer with citations. No special preparation needed.
 
 **File:** Official Claude Code documentation (code.claude.com)
 
@@ -1052,19 +1057,24 @@ Read(file_path=".claude/memory/skills-reference.md")
 **Example:** "How do I create a custom subagent with file access?" or "Does Claude Code Terminal support GitHub Actions integration?"
 
 **Key Features:**
-- **Comprehensive knowledge:** 28 topics covering all Claude Code Terminal features
+- **4-phase Execute-Verify-Gate enforcement:** Prevents token optimization bias (reference skipping)
+- **Comprehensive knowledge:** 35+ topics covering all Claude Code Terminal features
 - **Self-updating:** Can fetch latest docs from code.claude.com when needed
-- **Progressive disclosure:** 6 reference files + 2 assets loaded as needed
+- **9 knowledge domains:** Components, Configuration, Integration, Troubleshooting, Advanced, Best Practices, Reference, Prompt Engineering, Skills Spec
+- **Mandatory reference loading:** Cannot answer without loading authoritative content first
 - **100% official:** All content from official Anthropic documentation
-- **Token efficient:** 95% savings vs loading all docs (2,100-6,000 tokens typical)
 
-**Reference Files (Progressive Loading):**
+**Reference Files (Mandatory Per-Phase Loading):**
 - core-features.md (2,428 lines - Subagents, Skills, Commands, Plugins, MCP)
 - configuration-guide.md (1,513 lines - Settings, Models, CLI, Permissions)
 - integration-patterns.md (2,790 lines - CI/CD, Hooks, Headless, Containers)
 - troubleshooting-guide.md (2,128 lines - Installation, Auth, Performance, Errors)
 - advanced-features.md (3,553 lines - Sandboxing, Network, Monitoring, Security)
 - best-practices.md (1,230 lines - Workflows, Efficiency, Prompts, Token Optimization)
+- prompt-engineering/*.md (14 files - Prompt engineering guides)
+- skills/*.md (6 files - Agent Skills specification docs)
+
+**Migrated from:** claude-code-terminal-expert v4.0.0 (2026-03-19)
 
 **Asset Files:**
 - quick-reference.md (726 lines - Command cheat sheet, keyboard shortcuts)
@@ -1208,65 +1218,47 @@ Read(file_path=".claude/memory/skills-reference.md")
 
 ---
 
-<skill name="devforgeai-subagent-creation">
-### devforgeai-subagent-creation
+<skill name="spec-driven-agents">
+### spec-driven-agents
 
 **Use when:**
 - User runs /create-agent command
 - Need custom DevForgeAI-aware subagent
 - Creating domain-specific subagents with framework integration
+- User says "create a subagent" or "generate an agent"
 
 **Invocation:**
 ```
-**Subagent Name:** my-custom-validator
-**Mode:** guided
-Skill(command="devforgeai-subagent-creation")
+Skill(command="spec-driven-agents")
 ```
 
-### User Input Guidance
+**Phases (7 with anti-skip enforcement):**
+- Phase 00: Initialization [inline] — parse args, create checkpoint, handle resume
+- Phase 01: Framework Context Loading — load framework refs + validation checklist
+- Phase 02: Requirements Gathering — mode-specific user interaction (guided/template/domain/custom)
+- Phase 03: Specification Assembly — build complete spec for agent-generator
+- Phase 04: Agent Generation — delegate to agent-generator subagent v2.0 [BLOCKING]
+- Phase 05: Validation — independent 12-point compliance check (6 DevForgeAI + 6 Claude Code)
+- Phase 06: Result Processing — display report, provide next steps, clean up checkpoint
 
-**For custom subagent creation:** Specify subagent name (lowercase-with-hyphens format) and mode (guided/template/domain/custom). The skill will guide you through subagent design ensuring framework compliance and Claude Code Terminal integration. Provide clear purpose, capabilities, and tool requirements.
-
-**File:** Claude Code patterns and DevForgeAI framework constraints
-
-**Load command:**
-```
-Read(file_path=".claude/memory/skills-reference.md")
-```
-
-**Example:** "Name: code-metrics-analyzer, Mode: domain (architecture), Purpose: analyze code complexity and generate quality metrics"
+**Anti-Skip Enforcement:** 4 layers (per-phase refs, checkpoint state, artifact verification, step registry)
+**Resume:** `/create-agent --resume AGENT-NNN`
 
 **Key Features:**
-- **Orchestrates agent-generator v2.0:** Delegates to agent-generator subagent
+- **Execute-Verify-Record** at every mandatory step
+- **Checkpoint persistence** for session resume across context window clears
+- **Orchestrates agent-generator v2.0:** Delegates generation to isolated context
 - **Framework-aware:** Generated subagents reference context files, quality gates
 - **12-point validation:** Ensures Claude Code + DevForgeAI compliance
-- **Reference files:** Auto-generates framework guardrails when needed
+- **7 templates:** code-reviewer, test-automator, documentation-writer, deployment-coordinator, requirements-analyst, skill, command-lean-orchestration
 - **Invoked by:** /create-agent command
+- **ADR:** ADR-044 (migrated from devforgeai-subagent-creation)
 </skill>
 
 ---
 
-<skill name="internet-sleuth-integration" status="incomplete">
-### internet-sleuth-integration
-
-**Status:** ⚠️ INCOMPLETE - Skill directory exists but no SKILL.md file
-
-**Current state:**
-- Has `assets/` directory with research-report-template.md
-- Has `references/` directory with 4 files:
-  - competitive-analysis-patterns.md
-  - discovery-mode-methodology.md
-  - repository-archaeology-guide.md
-  - research-principles.md
-- Missing: SKILL.md entry point
-
-**Functionality:**
-- Research capabilities provided by **internet-sleuth subagent** (in .claude/agents/)
-- Skill integration pending/incomplete
-- References available for future skill completion
-
-**Note:** For research functionality, use the internet-sleuth subagent directly via Task tool, not this incomplete skill.
-</skill>
+<!-- internet-sleuth-integration absorbed into spec-driven-research per ADR-045 (2026-03-20) -->
+<!-- Sleuth methodology references now at: spec-driven-research/references/sleuth-methodology/ -->
 
 ---
 
@@ -1505,8 +1497,8 @@ Skill(command="spec-driven-w3-compliance")
 
 ---
 
-<skill name="cross-ai-collaboration">
-### cross-ai-collaboration
+<skill name="spec-driven-collaboration">
+### spec-driven-collaboration
 
 **Use when:**
 - User wants to collaborate with an external AI (Gemini, ChatGPT, etc.) on a problem
@@ -1514,6 +1506,7 @@ Skill(command="spec-driven-w3-compliance")
 - Getting a fresh perspective on a persistent issue from an external AI
 - Packaging an issue with code context and constitutional constraints for cross-AI review
 - **Invoked by `/collaborate` command**
+- **Replaces:** cross-ai-collaboration (archived)
 
 **Invocation:**
 ```
@@ -1521,16 +1514,22 @@ Skill(command="spec-driven-w3-compliance")
 **Issue Description:** {description}
 **Target AI:** Gemini
 
-Skill(command="cross-ai-collaboration")
+Skill(command="spec-driven-collaboration")
 ```
 
-**What it does (6 phases):**
+**What it does (6 phases with Execute-Verify-Record anti-skip enforcement):**
 1. **Phase 01: Context Gathering** - Interactive collection via AskUserQuestion: affected files, what has been tried, priority, constraints
-2. **Phase 02: Constitution Loading** - Read all 6 context files; extract relevant constraints
+2. **Phase 02: Constitution Loading** - Read all 6 context files; extract relevant constraints with verbatim quotes
 3. **Phase 03: Code Collection** - Read affected files (actual source, not summaries), collect related tests and error output
-4. **Phase 04: Analysis & Population** - Reason through issue, populate 10-section document template
-5. **Phase 05: Document Generation** - Write to `tmp/collaborate-{target-ai}-{issue-slug}-{date}.md`
-6. **Phase 06: Completion Report** - Display summary with next steps
+4. **Phase 04: Analysis & Template Population** - Load template fresh, reason through issue, populate all 10 sections
+5. **Phase 05: Document Generation** - Write to `tmp/collaborate-{target-ai}-{issue-slug}-{date}.md`, verify via read-back
+6. **Phase 06: Completion Report** - Display summary with statistics and next steps
+
+**Anti-Skip Enforcement:**
+- Execute-Verify-Record pattern at every step
+- Per-phase reference loading (no consolidated reads)
+- Phase files loaded fresh from `phases/` directory
+- Token optimization bias explicitly prohibited
 
 **Output:**
 - Self-contained collaboration document in `tmp/` with 10 sections: Executive Summary, Project Context, The Problem, Code Artifacts, What Was Tried, Analysis, Questions for Target AI, Proposed Plan, Files Reference, Compliance Checklist
@@ -1538,7 +1537,11 @@ Skill(command="cross-ai-collaboration")
 - Constitutional constraints quoted with line numbers
 
 **Reference Files:**
+- `phases/phase-01-context-gathering.md` through `phase-06-completion-report.md` (6 phase files)
 - `references/collaboration-prompt-template.md` - 10-section output template (loaded Phase 04)
+- `references/context-gathering-guide.md` - Interactive gathering patterns (loaded Phase 01)
+- `references/code-collection-patterns.md` - File discovery and test finding (loaded Phase 03)
+- `references/analysis-reasoning-guide.md` - Hypothesis ranking and question crafting (loaded Phase 04)
 </skill>
 
 ---
@@ -1691,21 +1694,21 @@ Skill(command="validating-epic-coverage")
 
 **Functional Skills: 22**
 - **Workflow - DevForgeAI branded (15):** brainstorming, spec-driven-ideation, spec-driven-architecture, orchestration, story-creation, ui-generator, spec-driven-dev, spec-driven-qa, qa-remediation, release, spec-driven-rca, documentation, feedback, research, insights
-- **Workflow - Standalone (5):** assessing-entrepreneur, spec-driven-w3-compliance, cross-ai-collaboration, spec-driven-rca, validating-epic-coverage
-- **Infrastructure (2):** claude-code-terminal-expert, skill-creator
+- **Workflow - Standalone (5):** assessing-entrepreneur, spec-driven-w3-compliance, spec-driven-collaboration, spec-driven-rca, validating-epic-coverage
+- **Infrastructure (2):** spec-driven-cc-guide, skill-creator
 
 **Utility Modules: 1**
 - devforgeai-shared (shared-phase-0-loader.md - not directly invocable, consumed by other skills)
 
-**Incomplete Skills: 1**
-- internet-sleuth-integration (missing SKILL.md - use internet-sleuth subagent instead)
+**Incomplete Skills: 0**
+<!-- internet-sleuth-integration absorbed into spec-driven-research per ADR-045 (2026-03-20) -->
 
 **Recent Additions:**
 - devforgeai-insights (EPIC-034 - Session Data Mining)
 - devforgeai-github-actions (EPIC-010 - GitHub Actions CI/CD)
 - assessing-entrepreneur (/assess-me command - solo developer work-style assessment)
 - spec-driven-w3-compliance (/audit-w3 command - W3 compliance with anti-skip enforcement, replaces auditing-w3-compliance)
-- cross-ai-collaboration (/collaborate command - cross-AI package generation)
+- spec-driven-collaboration (/collaborate command - cross-AI collaboration with anti-skip enforcement, replaces cross-ai-collaboration)
 - spec-driven-rca (unified RCA - replaces root-cause-diagnosis + devforgeai-rca)
 - validating-epic-coverage (/validate-epic-coverage, /create-missing-stories commands)
 - devforgeai-shared (utility - standardized Phase 0 reference file loading)

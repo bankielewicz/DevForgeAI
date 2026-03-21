@@ -29,7 +29,7 @@ Detailed guidance for working with 22 functional skills (15 devforgeai-* + 5 sta
 - 20 DevForgeAI workflow skills (devforgeai-* + standalone workflow skills)
 - 2 Claude Code infrastructure skills (spec-driven-cc-guide, skill-creator)
 - 1 utility module (devforgeai-shared - not standalone invocable)
-- 1 incomplete (internet-sleuth-integration - use internet-sleuth subagent instead)
+- 0 incomplete (internet-sleuth-integration absorbed into spec-driven-research per ADR-045)
 </overview>
 
 ---
@@ -1257,27 +1257,8 @@ Skill(command="spec-driven-agents")
 
 ---
 
-<skill name="internet-sleuth-integration" status="incomplete">
-### internet-sleuth-integration
-
-**Status:** ⚠️ INCOMPLETE - Skill directory exists but no SKILL.md file
-
-**Current state:**
-- Has `assets/` directory with research-report-template.md
-- Has `references/` directory with 4 files:
-  - competitive-analysis-patterns.md
-  - discovery-mode-methodology.md
-  - repository-archaeology-guide.md
-  - research-principles.md
-- Missing: SKILL.md entry point
-
-**Functionality:**
-- Research capabilities provided by **internet-sleuth subagent** (in .claude/agents/)
-- Skill integration pending/incomplete
-- References available for future skill completion
-
-**Note:** For research functionality, use the internet-sleuth subagent directly via Task tool, not this incomplete skill.
-</skill>
+<!-- internet-sleuth-integration absorbed into spec-driven-research per ADR-045 (2026-03-20) -->
+<!-- Sleuth methodology references now at: spec-driven-research/references/sleuth-methodology/ -->
 
 ---
 
@@ -1719,8 +1700,8 @@ Skill(command="validating-epic-coverage")
 **Utility Modules: 1**
 - devforgeai-shared (shared-phase-0-loader.md - not directly invocable, consumed by other skills)
 
-**Incomplete Skills: 1**
-- internet-sleuth-integration (missing SKILL.md - use internet-sleuth subagent instead)
+**Incomplete Skills: 0**
+<!-- internet-sleuth-integration absorbed into spec-driven-research per ADR-045 (2026-03-20) -->
 
 **Recent Additions:**
 - devforgeai-insights (EPIC-034 - Session Data Mining)

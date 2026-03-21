@@ -66,7 +66,7 @@ Display: "✓ Name: ${NAME} | Mode: ${MODE}"
 **Creation Mode:** ${MODE}
 
 ```
-Skill(command="spec-driven-agents")
+Skill(command="devforgeai-subagent-creation")
 ```
 
 **Skill handles ALL workflow** including framework references, template selection, agent-generator invocation, validation, and file creation.
@@ -83,10 +83,9 @@ Skill(command="spec-driven-agents")
 
 ## References
 
-- Skill: `src/claude/skills/spec-driven-agents/SKILL.md`
-- Help: `src/claude/skills/spec-driven-agents/references/create-agent-help.md`
+- Skill: `.claude/skills/devforgeai-subagent-creation/SKILL.md`
+- Help: `.claude/skills/devforgeai-subagent-creation/references/create-agent-help.md`
 - Domains: backend, frontend, qa, security, deployment, architecture, documentation
 - Templates: code-reviewer, test-automator, documentation-writer, deployment-coordinator, requirements-analyst
-- Resume: `/create-agent --resume AGENT-NNN`
 
 **Command follows lean orchestration: Validate → Set markers → Invoke skill**

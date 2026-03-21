@@ -72,7 +72,7 @@ Task(
 - Valid modes: discovery, investigation, competitive-analysis, repository-archaeology, market-intelligence
 
 **Step 0.2: Load Base Research Principles (Always)**
-- Read `.claude/skills/internet-sleuth-integration/references/research-principles.md` (~300 lines)
+- Read `.claude/skills/spec-driven-research/references/sleuth-methodology/research-principles.md` (~300 lines)
 - Contains: Core research principles, evidence standards, framework integration guidelines
 - **Why always loaded:** All research modes share these foundational principles
 
@@ -80,11 +80,11 @@ Task(
 
 ```python
 mode_to_reference = {
-    "discovery": ".claude/skills/internet-sleuth-integration/references/discovery-mode-methodology.md",  # ~400 lines
-    "investigation": ".claude/skills/internet-sleuth-integration/references/investigation-mode-methodology.md",  # ~400 lines (future)
-    "competitive-analysis": ".claude/skills/internet-sleuth-integration/references/competitive-analysis-patterns.md",  # ~500 lines
-    "repository-archaeology": ".claude/skills/internet-sleuth-integration/references/repository-archaeology-guide.md",  # ~600 lines
-    "market-intelligence": ".claude/skills/internet-sleuth-integration/references/market-intelligence-guide.md"  # ~450 lines (future)
+    "discovery": ".claude/skills/spec-driven-research/references/sleuth-methodology/discovery-mode-methodology.md",  # ~400 lines
+    "investigation": ".claude/skills/spec-driven-research/references/sleuth-methodology/investigation-mode-methodology.md",  # ~400 lines (future)
+    "competitive-analysis": ".claude/skills/spec-driven-research/references/sleuth-methodology/competitive-analysis-patterns.md",  # ~500 lines
+    "repository-archaeology": ".claude/skills/spec-driven-research/references/sleuth-methodology/repository-archaeology-guide.md",  # ~600 lines
+    "market-intelligence": ".claude/skills/spec-driven-research/references/sleuth-methodology/market-intelligence-guide.md"  # ~450 lines (future)
 }
 
 if research_mode in mode_to_reference:
@@ -95,7 +95,7 @@ else:
 ```
 
 **Step 0.4: Load Skill Coordination Patterns (If Invoked by Skill)**
-- If invoked by spec-driven-ideation or spec-driven-architecture: Read `.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md` (~450 lines)
+- If invoked by spec-driven-ideation or spec-driven-architecture: Read `.claude/skills/spec-driven-research/references/sleuth-methodology/skill-coordination-patterns.md` (~450 lines)
 - Contains: Task invocation patterns, result parsing examples, error handling
 - **Why conditional:** Only needed when coordinating with skills, not for standalone research
 
@@ -400,7 +400,7 @@ if len(low_violations) > 0:
 **Purpose:** Create comprehensive research report following standard template with framework integration.
 
 **Step 3.3.1: Load Research Report Template**
-- Read `.claude/skills/internet-sleuth-integration/assets/research-report-template.md`
+- Read `.claude/skills/spec-driven-research/assets/templates/sleuth-report-template.md`
 - Contains: YAML frontmatter schema + 9 required sections + validation checklist
 
 **Step 3.3.2: Assign Research ID (Gap-Aware)**
@@ -1023,12 +1023,12 @@ version: "2.0"                        # Template version
 - `devforgeai/specs/context/anti-patterns.md` - Forbidden patterns
 
 **Phase 2 Reference Files (Progressive Disclosure):**
-- `.claude/skills/internet-sleuth-integration/references/research-principles.md` (300 lines) - Always loaded
-- `.claude/skills/internet-sleuth-integration/references/discovery-mode-methodology.md` (415 lines) - Conditional
-- `.claude/skills/internet-sleuth-integration/references/repository-archaeology-guide.md` (605 lines) - Conditional
-- `.claude/skills/internet-sleuth-integration/references/competitive-analysis-patterns.md` (515 lines) - Conditional
-- `.claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md` (450 lines) - Conditional
-- `.claude/skills/internet-sleuth-integration/assets/research-report-template.md` - Template
+- `.claude/skills/spec-driven-research/references/sleuth-methodology/research-principles.md` (300 lines) - Always loaded
+- `.claude/skills/spec-driven-research/references/sleuth-methodology/discovery-mode-methodology.md` (415 lines) - Conditional
+- `.claude/skills/spec-driven-research/references/sleuth-methodology/repository-archaeology-guide.md` (605 lines) - Conditional
+- `.claude/skills/spec-driven-research/references/sleuth-methodology/competitive-analysis-patterns.md` (515 lines) - Conditional
+- `.claude/skills/spec-driven-research/references/sleuth-methodology/skill-coordination-patterns.md` (450 lines) - Conditional
+- `.claude/skills/spec-driven-research/assets/templates/sleuth-report-template.md` - Template
 
 **DevForgeAI ADRs:**
 - `devforgeai/specs/adrs/` - Architecture Decision Records

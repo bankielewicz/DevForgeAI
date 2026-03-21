@@ -408,10 +408,20 @@ Load these on-demand during workflow execution:
 - **internet-sleuth-delegation.md** - Subagent contract, category-to-mode mapping, Task() template
 - **search-list-modes.md** - Search and list mode handling (conditional branches in Phase 00)
 
-### Assets (1 template)
-- **assets/templates/research-template.md** - Research document template (YAML + markdown)
+### Assets (2 templates in `assets/templates/`)
+- **research-template.md** - Research document template (YAML + markdown)
+- **sleuth-report-template.md** - Internet-sleuth 9-section report template with YAML frontmatter (absorbed from internet-sleuth-integration per ADR-045)
 
-**Total:** 7 phase files + 6 reference files + 1 template = 14 files + SKILL.md = 15 files
+### Sleuth Methodology References (5 files in `references/sleuth-methodology/`)
+- **research-principles.md** - Core research principles, evidence standards, framework integration (always loaded by internet-sleuth)
+- **discovery-mode-methodology.md** - Discovery mode workflow: feasibility assessment, alternatives identification (conditional)
+- **repository-archaeology-guide.md** - GitHub mining: search strategy, quality scoring, pattern extraction (conditional)
+- **competitive-analysis-patterns.md** - Market analysis: SWOT, positioning maps, pricing analysis (conditional)
+- **skill-coordination-patterns.md** - Task invocation patterns for internet-sleuth coordination by other skills
+
+**Note:** Sleuth methodology files absorbed from `internet-sleuth-integration` per ADR-045. Loaded by the `internet-sleuth` subagent via progressive disclosure.
+
+**Total:** 7 phase files + 6 reference files + 5 sleuth methodology files + 2 templates = 20 files + SKILL.md = 21 files
 
 ---
 

@@ -23,7 +23,7 @@ Update skill specifications, reference files, and documentation with interactive
 
 ```bash
 # Interactive update wizard (recommended)
-/skill:update claude-code-terminal-expert
+/skill:update spec-driven-cc-guide
 
 # Update specific aspects
 /skill:update my-skill --features    # Add new features

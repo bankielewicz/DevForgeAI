@@ -551,8 +551,8 @@ When upgrading projects to new framework version:
 ## References
 
 - [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/)
-- [Native Tools Best Practices](.claude/skills/claude-code-terminal-expert/references/best-practices.md) - Token efficiency guidelines
-- [Claude Code Terminal Expert Skill](.claude/skills/claude-code-terminal-expert/SKILL.md) - Complete terminal feature reference
+- [Native Tools Best Practices](.claude/skills/spec-driven-cc-guide/references/best-practices.md) - Token efficiency guidelines
+- [Spec-Driven CC Guide Skill](.claude/skills/spec-driven-cc-guide/SKILL.md) - Complete terminal feature reference with 4-phase EVG enforcement
 - [Framework Design Rationale](README.md)
 
 ---

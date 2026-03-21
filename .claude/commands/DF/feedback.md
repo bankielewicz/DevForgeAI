@@ -132,7 +132,7 @@ Action: Check directory permissions and retry
 
 ## Integration
 
-**Invoked by:** User manually, spec-driven-lifecycle (after operation completion)
+**Invoked by:** User manually, devforgeai-orchestration (after operation completion)
 
 **Invokes:** spec-driven-feedback skill (captures and stores feedback)
 

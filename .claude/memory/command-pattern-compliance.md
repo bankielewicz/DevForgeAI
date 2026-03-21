@@ -62,7 +62,7 @@ This document tracks lean orchestration pattern compliance for all **39 DevForge
 ### /create-agent
 - **Status:** ✅ Compliant (45% budget, well under limit)
 - **Structure:** 5 phases (validate → load → set markers → invoke → display)
-- **Business Logic:** Delegated to `claude-code-terminal-expert` skill + `agent-generator` subagent
+- **Business Logic:** Delegated to `spec-driven-cc-guide` skill + `agent-generator` subagent
 - **Token Efficiency:** Command: ~4K tokens (92% in isolated contexts)
 - **Refactoring:** ✅ Complete (2025-11-15, agent-generator v2.0 enhancement)
 

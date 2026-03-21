@@ -29,10 +29,10 @@ IF SPRINT_NAME is empty:
     AskUserQuestion: Question: "What is the sprint name or theme?" | Header: "Sprint Name" | Options: ["Sprint [auto-number]", "Custom name"]
 ```
 
-**Epic discovery:** Glob(pattern="devforgeai/specs/Epics/*.epic.md") → Read frontmatter
+**Epic discovery:** Glob(pattern="devforgeai/specs/Epics/*.epic.md") -> Read frontmatter
 AskUserQuestion: "Link this sprint to an epic?" | Header: "Epic" | Options: [each epic, "Multiple epics", "No epic (standalone)"]
 
-**Story selection:** Glob(pattern="devforgeai/specs/Stories/*.story.md") → Filter status=="Backlog"
+**Story selection:** Glob(pattern="devforgeai/specs/Stories/*.story.md") -> Filter status=="Backlog"
 AskUserQuestion: "Select stories for sprint:" | Header: "Story Selection" | multiSelect: true | Options: [stories by id/title/points/priority]
 
 **Capacity validation (20-40 point range):**
@@ -65,11 +65,11 @@ Display skill result (pre-formatted by skill).
 ## Lean Orchestration Enforcement
 
 **DO NOT** add business logic to this command:
-- ❌ Iteration loops over story files
-- ❌ Subagent invocations
-- ❌ File write or edit operations
-- ❌ Capacity arithmetic or point summation
-- ❌ Sprint file generation
+- Iteration loops over story files
+- Subagent invocations
+- File write or edit operations
+- Capacity arithmetic or point summation
+- Sprint file generation
 
 All business logic lives in: `.claude/skills/devforgeai-orchestration/references/sprint-command-workflow.md`
 
@@ -93,4 +93,6 @@ Sprint file created in devforgeai/specs/Sprints/ | Stories updated to "Ready for
 
 ## Performance
 
-**Token:** ~5K (command) | **Character:** ≤12K | **Execution:** 3-6 min
+**Token:** ~5K (command) | **Character:** <=12K | **Execution:** 3-6 min
+
+**BACKUP:** Pre-spec-driven-lifecycle migration backup (2026-03-20)

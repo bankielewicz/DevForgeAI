@@ -166,12 +166,12 @@ Next Steps:
 Display result.summary_message
 
 Example:
-"🎉 Story STORY-042 Orchestration Complete!
+"Story STORY-042 Orchestration Complete!
 
-✅ Development: Code implemented, 45 tests passing
-✅ QA: All quality gates passed
-✅ Staging: Deployed and validated successfully
-✅ Production: Live with green health checks
+Development: Code implemented, 45 tests passing
+QA: All quality gates passed
+Staging: Deployed and validated successfully
+Production: Live with green health checks
 
 Duration: 75 minutes
 Status: Released
@@ -182,7 +182,7 @@ Monitor production metrics for 24 hours."
 **QA Max Retries (status = "max_retries"):**
 ```
 Display:
-"❌ Orchestration Halted - QA Max Retries Exceeded
+"Orchestration Halted - QA Max Retries Exceeded
 
 Story: {result.story_id}
 Status: QA Failed (3 attempts)
@@ -200,7 +200,7 @@ QA Report: devforgeai/qa/reports/{STORY_ID}-qa-report.md"
 **User Halted (status = "halted"):**
 ```
 Display:
-"⏸️  Orchestration Paused - User Intervention
+"Orchestration Paused - User Intervention
 
 Story: {result.story_id}
 Reason: {result.halt_reason}
@@ -293,3 +293,4 @@ Review error above and retry or contact support.
 ---
 
 **Version:** 3.0 - Lean Orchestration | **Pattern:** Command delegates to skill | **Reference:** `references/orchestrate/orchestrate-reference.md`
+**BACKUP:** Pre-spec-driven-lifecycle migration backup (2026-03-20)

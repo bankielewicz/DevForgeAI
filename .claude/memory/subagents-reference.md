@@ -178,13 +178,13 @@ Task(subagent_type="documentation-writer", description="Write API docs", prompt=
 The **agent-generator** subagent has been significantly enhanced to be DevForgeAI framework-aware and Claude Code best practice compliant:
 
 **New Capabilities:**
-- **Phase 0: Framework Reference Loading** - Automatically loads claude-code-terminal-expert skill, CLAUDE.md, and lean-orchestration-pattern.md
+- **Phase 0: Framework Reference Loading** - Automatically loads spec-driven-cc-guide skill, CLAUDE.md, and lean-orchestration-pattern.md
 - **Enhanced System Prompt Generation** - Uses Claude Code official patterns + DevForgeAI context for comprehensive subagent creation
 - **Framework Compliance Validation** - 12-point validation (6 DevForgeAI + 6 Claude Code checks) with auto-fix logic
 - **Reference File Generation** - Automatically creates framework guardrail files for command-related, domain-specific, and decision-making subagents
 
 **Key Features:**
-- **Claude Code Integration:** Leverages claude-code-terminal-expert skill for official subagent patterns
+- **Claude Code Integration:** Leverages spec-driven-cc-guide skill for official subagent patterns
 - **DevForgeAI Awareness:** References context files, quality gates, workflow states
 - **Lean Orchestration Compliance:** Follows protocol for command refactoring subagents
 - **Auto-Fix Logic:** Suggests and applies corrections for validation failures

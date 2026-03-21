@@ -588,7 +588,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 
 **Purpose:** Create DevForgeAI-aware Claude Code subagents following framework patterns and official best practices
 
-**Invokes:** `claude-code-terminal-expert` skill → `agent-generator` subagent v2.0
+**Invokes:** `spec-driven-cc-guide` skill → `agent-generator` subagent v2.0
 
 **Modes:**
 - **Guided Mode:** `/create-agent [name]` - Interactive creation with questions (recommended)
@@ -598,7 +598,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 
 **Workflow:**
 1. Argument validation (name format, mode detection)
-2. Load Claude Code official guidance (claude-code-terminal-expert skill)
+2. Load Claude Code official guidance (spec-driven-cc-guide skill)
 3. Set context markers for agent-generator
 4. Invoke agent-generator subagent (framework-aware generation)
 5. Display results (files, validation, integration)
@@ -612,7 +612,7 @@ Read(file_path=".claude/memory/effective-prompting-guide.md")
 
 **For subagent specification:** Agent names should be descriptive and lowercase with hyphens (e.g., my-code-reviewer). Provide clear domain or template selections. Answer all interactive questions to ensure the subagent aligns with framework patterns and your project constraints.
 
-**File:** `.claude/skills/claude-code-terminal-expert/references/` (official Claude Code patterns and DevForgeAI framework constraints)
+**File:** `.claude/skills/spec-driven-cc-guide/references/` (official Claude Code patterns and DevForgeAI framework constraints)
 
 **Load command:**
 ```
@@ -643,12 +643,12 @@ Read(file_path=".claude/memory/skills-reference.md")
 
 **Command (282 lines, 6,755 chars, 45% budget):**
 - Argument validation and mode detection
-- claude-code-terminal-expert skill invocation
+- spec-driven-cc-guide skill invocation
 - Context markers for agent-generator
 - agent-generator subagent invocation
 - Result display and next steps
 
-**Skill (claude-code-terminal-expert):**
+**Skill (spec-driven-cc-guide):**
 - Loads official Claude Code subagent patterns
 - Section 1: Subagents - Specialized AI Workers
 - Provides: file format, YAML fields, tool selection, model guidelines
@@ -2157,7 +2157,7 @@ tags: [tag1, tag2]
 
 **Description:** Generate cross-AI collaboration document for sharing issues with external LLMs (Gemini, ChatGPT, etc.)
 **Usage:** `/collaborate [issue-description] [--target=AI]`
-**Invokes:** `cross-ai-collaboration` skill
+**Invokes:** `spec-driven-collaboration` skill
 **Category:** Collaboration
 
 **Workflow:**

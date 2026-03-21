@@ -305,7 +305,7 @@ class TestProgressiveDisclosure:
           - Verify total lines <1000
         """
         # Arrange
-        methodology_dir = temp_research_dir.parent / "skills" / "internet-sleuth-integration" / "references"
+        methodology_dir = temp_research_dir.parent / "skills" / "spec-driven-research" / "references" / "sleuth-methodology"
         methodology_dir.mkdir(parents=True, exist_ok=True)
 
         # Create methodology files with distinct content
@@ -360,7 +360,7 @@ class TestProgressiveDisclosure:
           - Verify other modes NOT loaded
         """
         # Arrange
-        methodology_dir = temp_research_dir.parent / "skills" / "internet-sleuth-integration" / "references"
+        methodology_dir = temp_research_dir.parent / "skills" / "spec-driven-research" / "references" / "sleuth-methodology"
         methodology_dir.mkdir(parents=True, exist_ok=True)
 
         principles_content = "# Principles\n" + "x" * 1000
@@ -391,7 +391,7 @@ class TestProgressiveDisclosure:
         (research-principles + competitive-analysis-patterns, not other modes).
         """
         # Arrange
-        methodology_dir = temp_research_dir.parent / "skills" / "internet-sleuth-integration" / "references"
+        methodology_dir = temp_research_dir.parent / "skills" / "spec-driven-research" / "references" / "sleuth-methodology"
         methodology_dir.mkdir(parents=True, exist_ok=True)
 
         principles_lines = 300

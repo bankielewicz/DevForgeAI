@@ -272,8 +272,6 @@ DevForgeAI2/
 │   │   │   ├── SKILL.md                    # 6-phase interactive collaboration workflow
 │   │   │   └── references/
 │   │   │       └── collaboration-prompt-template.md
-│   │   ├── internet-sleuth-integration/
-│   │   │   └── SKILL.md (incomplete - use internet-sleuth subagent instead)
 │   │   ├── skill-creator/
 │   │   │   └── SKILL.md
 │   │   ├── story-remediation/          # Story/epic fix workflow (post-audit remediation)

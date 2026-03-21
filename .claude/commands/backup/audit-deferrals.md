@@ -106,12 +106,10 @@ IF len(open_rcas) > 0:
 
 # Step 4: Display Open RCAs section
 Display:
-"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 "  Open RCAs Dashboard"
-"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 IF len(open_rcas) == 0:
-  Display: "Open RCAs: 0 — All RCAs resolved ✅"
+  Display: "Open RCAs: 0 -- All RCAs resolved"
 ELSE:
   # Display total open RCA count, oldest, and unimplemented recs
   Display: "Open RCAs: {count}"
@@ -149,7 +147,7 @@ IF violations found:
   4. Stale deferrals (>30 days old)
 
 ELSE:
-  "✅ All deferrals validated successfully"
+  "All deferrals validated successfully"
   "No violations detected."
 ```
 
@@ -213,51 +211,12 @@ IF deferral-validator subagent fails:
 
 ---
 
-## Recommended Usage
-
-**After major milestones:**
-- After implementing RCA-007 fixes (audit baseline)
-- After major quality gate changes
-- When investigating technical debt
-
-**Regular cadence:**
-- End of each sprint (retrospective)
-- Quarterly (comprehensive audit)
-- Ad-hoc when needed
-
-**Expected duration:**
-- Small projects (<10 stories): 2-3 minutes
-- Medium projects (10-50 stories): 5-10 minutes
-- Large projects (50+ stories): 15-20 minutes
-
-**Typical output size:**
-- Summary display: ~50 lines in main conversation
-- Full report: 200-400 lines in `devforgeai/qa/deferral-audit-{timestamp}.md`
-- Feedback log entry: 1 line (if hooks enabled)
-
----
-
 ## Notes
-
-**Framework Integration:**
-- Follows lean orchestration pattern (command delegates to skill)
-- Skill coordinates deferral-validator subagent for each story
-- Phase 6 hook integration (STORY-033) is non-blocking
-- Hook failures don't prevent audit completion
-
-**Audit Scope:**
-- 100% coverage of QA Approved stories
-- 100% coverage of Released stories
-- All deferrals validated with consistent criteria
-- Automated validation via subagent (more thorough than manual)
-
-**RCA References:**
-- RCA-006 Phase 2: Blocker validation (resolvable vs valid vs invalid)
-- RCA-007: Multi-level deferral chain detection
-- STORY-033: Feedback hook integration for insights capture
 
 **See also:**
 - `devforgeai/RCA/RCA-006-autonomous-deferrals.md` (deferral validation policy)
 - `devforgeai/RCA/RCA-007-multi-file-story-creation.md` (multi-level chains)
 - `.claude/agents/deferral-validator.md` (validation subagent)
 - `.claude/skills/devforgeai-orchestration/SKILL.md` (skill Phase 7 audit workflow)
+
+**BACKUP:** Pre-spec-driven-lifecycle migration backup (2026-03-20)

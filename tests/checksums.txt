@@ -419,7 +419,7 @@
 6a873c900f584109b13ae0aaf81d6e3cf0a68751a216b03f7b6c68d547057bb4  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/GeistMono-OFL.txt
 6a9da73fe526952dad5ef3bece760979bebf35d2b09308a98575fb4965570b43  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/references/feature-decomposition-patterns.md
 6af10b8eacb949514f4b4e3431bb24b368bf774465c05ffe030258e620d75711  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-documentation/assets/templates/roadmap-template.md
-6af3a03512145b96ff0b8e82eb271254ed637a402795b4fcdb85bc1c9cefbedb  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/references/skill-coordination-patterns.md
+44597c3712eba1a5610962b72dc33591feeac0ec222ecd9a79ccefccb96cdfe9  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/references/sleuth-methodology/skill-coordination-patterns.md
 6b61177697d43be0c15a0a256c49a2d94472e3dff49cdd5c3d16aa7fb091982a  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-ideation/SKILL.md.backup
 6b7f7002e0b0c8b261fe878658ef5551e3e59d9f6b609b04efb90dde1e2c1ada  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/WorkSans-Italic.ttf
 6b849745119bbe85ec01fd080c9cd50234da9f52ac6e48b55d1a424a0c4d7ca9  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt
@@ -780,7 +780,7 @@ c7f889f3406dd49928b3a07507792ae2a0dfd2e05ddebd804638f0f1cd734dd7  /mnt/c/Project
 c891a381df056b2c4dfe85841e911bf45da0890fa21a7b2692cbe5ea1f505e1e  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/Jura-Light.ttf
 c8e980faaf7907e1c89db2670eb806ee711278773f9092e26ebda99a656cc6cc  /mnt/c/Projects/DevForgeAI2/src/claude/commands/export-feedback.md
 c8ebcc420becb7dc9395005e2f9e3fe324560b6aa6d499f3e2c61bcab4f9dd4c  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/references/epic-management.md
-c9125d890423ec33d3d15064eca29bfda8a3b771abad748c4d4141251349dd30  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/references/competitive-analysis-patterns.md
+4ccc8e812d39daaa343b62a43d06f414ee281d237a9b9e844ded0941690ef040  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/references/sleuth-methodology/competitive-analysis-patterns.md
 c9242f2fbec1a2c438d9452e82c05c5e8b0c246c68d5108169fbfd5a3a6beaf4  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/SKILL.md.pre-dod-refactor
 caafcb75ca9f0a55b67ad98232bb8ea46418875f1bf1deeff341587a9d28933d  /mnt/c/Projects/DevForgeAI2/src/claude/skills/.gitignore
 cab80c9be96c54b0d08352c587a19e78c3f9d982a24e57441cb1cbc1f1d952e6  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/references/tdd-refactor-phase.md
@@ -810,7 +810,7 @@ d4849bb47b7e6bc578894d96b7ee10f7dd9334e1f8c31124df87471a5ad88569  /mnt/c/Project
 d55b914d1981e9e2df9055948a2cce06c50f7995e294c429f6311f6a2fe0970e  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/assets/templates/epic-template.md
 d578d38902b3b0306941431b68933e03d281703e4fd2deb71ae52ecef729d7ff  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-architecture/assets/context-templates/anti-patterns.md
 d5d7558b2368ecea9dfeed7d1fbc71ee9e0750bebd1282faa527d528a344c3c7  /mnt/c/Projects/DevForgeAI2/src/claude/skills/mcp-builder/scripts/requirements.txt
-d5e7d5da5e609922b1dc621b3987dc2f4ac21e4b913c4ffd5e4e4470eb191a49  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/references/research-principles.md
+75e5a2dc0799554333650e445565d6242f1a35b6c94334d6451de29aa12f6d94  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/references/sleuth-methodology/research-principles.md
 d5fbe3483afcc4d1992b2c4513d17728bfb2f8a46c0a3a2565f4c222608a4f4c  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/enhancements/PHASE2-WEEK3-EXECUTION-COMPLETE.md
 d6252e2ddb03e3d5d9e610ca4e428145136b45139752ad7c03759844164606c2  /mnt/c/Projects/DevForgeAI2/src/claude/scripts/devforgeai_cli/feedback/models.py
 d63c89604a22f8845d724e95dda45db49b1bf57c25ce0a83afbb7b8da3d402f0  /mnt/c/Projects/DevForgeAI2/src/claude/skills/webapp-testing/examples/element_discovery.py
@@ -843,7 +843,7 @@ dfecd7981b7c3b553228cb6d3b726a38a0e42085c1dfb86f071fc849fa829c63  /mnt/c/Project
 e0580558177332d5822ae7c43aa60659d426180b75dcf49f5201ecbd9615e882  /mnt/c/Projects/DevForgeAI2/src/claude/agents/story-requirements-analyst.md
 e0bd7f67e315c788e053291bd183a2f8799d987d1fbb2967aa13cd14fd3f585a  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-release/references/deployment-strategies.md
 e0de629968b52255548d5fafcf30b24ff9edae0eda362380755a75816404d0fa  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/EricaOne-OFL.txt
-e0f06aa0f846596ba9a1e2108da40de808539549eb656825cfb9806b7c426e42  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/references/repository-archaeology-guide.md
+b9b09a92e8b42b8e718696d8e8a347c64b9b03cada5e49e61848d1c9b914f8e9  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/references/sleuth-methodology/repository-archaeology-guide.md
 e13a6f5bbca22223bd68dbd3cae65f71e1c652dfc7f6c3ebbec0abaf91d8555c  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/enhancements/RCA-009-REC1-IMPLEMENTATION-SUMMARY.md
 e221989e628b23c210f594a0f213ab3cc37a3e96bdf0de8524f75fb29524fdb7  /mnt/c/Projects/DevForgeAI2/src/devforgeai/docs/adaptive-questioning-config.md
 e242546bfd0c285c126b571de162b5e54d3a27cd201f0d38131b9c6db1b23fbd  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/enhancements/PHASE3-IMPLEMENTATION-PLAN.md
@@ -868,7 +868,7 @@ e65d6cda0525866a24cc847b2e883bd2416ae6f87b3f5b9e2784dfbb0ec13093  /mnt/c/Project
 e666b101f494bd42987dd1f03be88460d685ba0b0ff86f278f2eca34e30299f0  /mnt/c/Projects/DevForgeAI2/src/claude/commands/import-feedback.md
 e67985a843df0d3cdee51a3d0f329eb1774a344ad9ff0c9ab923751f1577e2a4  /mnt/c/Projects/DevForgeAI2/src/claude/skills/canvas-design/canvas-fonts/WorkSans-Regular.ttf
 e67a86d55861613e027f189705e226891bdc35c3339a90aaf28578e71f5d8868  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/phase-3-slash-commands-implementation-plan.md
-e6b8b268d362abb54f649e1350a612ab5d61f7165d7ccba389835290c960b716  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/assets/research-report-template.md
+3b30abb2d2fa5f89e28d25a48cc12e356ec35c7022a79e4547c2979eb4d5e89b  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/assets/templates/sleuth-report-template.md
 e6c3ba90443c70ed229bd8ab81813ce4ed126aac04126ab1611bf5ee9d593a19  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-architecture/assets/adr-examples/ADR-EXAMPLE-003-state-management.md
 e7812599f38021baa9372b2dc008645aa960ca3de6d4193f9c2ba7a7f3cf9e2c  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/enhancements/PHASE2-GAP-FIX-SUMMARY.txt
 e8078739e0d7bda6613a4c7f1690d688794483a197011e16177dfc635eb84cfd  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/test-baseline.txt
@@ -878,7 +878,7 @@ e86b4ce66dbd3f1f83eee8db99ec96e0da1128c3f53df0e9b3b7472025dfe960  /mnt/c/Project
 e8d4075cc841dc7d9998d997f24ed7461aec22583b0a2a3f15ad52dec2bd51b4  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/references/tdd-green-phase.md.backup-rec7-20251115-231343
 e9107bf3fdb47f8479a6ec7fedbfec5c26e92c08f1e93ae9a180ce2f8c63529f  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-orchestration/references/sprint-retrospective.md
 e9337a9bf5713189effbcb3c95183ec960026e6a99d3383493c3a7244de633f7  /mnt/c/Projects/DevForgeAI2/src/claude/skills/devforgeai-development/references/tdd-patterns.md
-e9cb9b2fd53df90a575615ff558461bc32d4a7ddcdf6510990c69e63824b85ee  /mnt/c/Projects/DevForgeAI2/src/claude/skills/internet-sleuth-integration/references/discovery-mode-methodology.md
+bb0b6269e4f21634ff727b42349d3e6580fcecfc6d1290076dc04817830e7a97  /mnt/c/Projects/DevForgeAI2/src/claude/skills/spec-driven-research/references/sleuth-methodology/discovery-mode-methodology.md
 ea34c9b072012f66eb66aa92de9fedd5a60e73a14ff3dbd4086c8453d455f9c1  /mnt/c/Projects/DevForgeAI2/src/claude/agents/deployment-engineer.md
 ea46877289acb82da7e7ce59d0bc37c8977cd57e2a006d0c88d7a1c625bf95da  /mnt/c/Projects/DevForgeAI2/src/claude/skills/webapp-testing/examples/console_logging.py
 ea89210cb82839f4e7595023b925ff52603d9b6e23da8e41505f5560d45bd33d  /mnt/c/Projects/DevForgeAI2/src/devforgeai/specs/enhancements/PHASE2-CRITICAL-GAP-FIX-PLAN.md

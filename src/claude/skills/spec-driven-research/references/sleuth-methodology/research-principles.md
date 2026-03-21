@@ -4,6 +4,8 @@
 
 **Loaded:** Always (base reference for all research operations)
 
+**Location:** Absorbed from internet-sleuth-integration per ADR-045
+
 ---
 
 ## Core Principles
@@ -13,16 +15,16 @@
 **Principle:** All research findings must be backed by verifiable evidence with citations.
 
 **Requirements:**
-- Every claim must have ≥1 source URL (HTTPS only, HTTP flagged)
+- Every claim must have >=1 source URL (HTTPS only, HTTP flagged)
 - Primary sources preferred over secondary (official docs > blog posts)
 - Evidence quality scoring: Official docs (10/10), Academic papers (9/10), Community surveys (7/10), Blog posts (5/10), Social media (3/10)
 
 **Anti-Patterns:**
-- ❌ Speculation without evidence
-- ❌ Assumptions presented as facts
-- ❌ Outdated sources (>2 years for technology research)
-- ❌ HTTP URLs (security risk)
-- ❌ Broken/404 links
+- No speculation without evidence
+- No assumptions presented as facts
+- No outdated sources (>2 years for technology research)
+- No HTTP URLs (security risk)
+- No broken/404 links
 
 **Validation:**
 ```python
@@ -89,9 +91,9 @@ def validate_evidence(claim, sources):
 
 **Workflow States (11 Total):**
 ```
-Backlog → Architecture → Ready for Dev → In Development →
-Dev Complete → QA In Progress → QA Approved | QA Failed →
-Releasing → Released
+Backlog -> Architecture -> Ready for Dev -> In Development ->
+Dev Complete -> QA In Progress -> QA Approved | QA Failed ->
+Releasing -> Released
 ```
 
 **Research Focus by State:**
@@ -107,23 +109,7 @@ Releasing → Released
 
 **Stale Research Detection:**
 - **Trigger:** Report >30 days old OR 2+ workflow states behind current story/epic state
-- **Example:** Report from "Backlog" (2025-10-01), current state "In Development" (2025-11-17, 47 days, 2 states ahead)
 - **Action:** Flag as "STALE - Re-research Recommended" in report header
-
-**Implementation:**
-```python
-def detect_staleness(report_date, report_state, current_date, current_state):
-    age_days = (current_date - report_date).days
-    state_distance = workflow_states.index(current_state) - workflow_states.index(report_state)
-
-    if age_days > 30 or state_distance >= 2:
-        return {
-            "status": "STALE",
-            "reason": f"Age: {age_days} days, State distance: {state_distance} states",
-            "recommendation": "Re-research with current workflow focus"
-        }
-    return {"status": "CURRENT"}
-```
 
 ---
 
@@ -133,7 +119,7 @@ def detect_staleness(report_date, report_state, current_date, current_state):
 
 **Quality Gate Workflow:**
 ```
-1. Research completed → Generate report draft
+1. Research completed -> Generate report draft
 2. Validate report structure (9 required sections)
 3. Invoke context-validator subagent
 4. Check recommendations vs 6 context files
@@ -143,7 +129,7 @@ def detect_staleness(report_date, report_state, current_date, current_state):
    - MEDIUM: Conflicts with coding-standards.md
    - LOW: Informational (no blocking issue)
 6. Add "Framework Compliance" section to report
-7. HALT on CRITICAL violations → AskUserQuestion
+7. HALT on CRITICAL violations -> AskUserQuestion
 8. Proceed on HIGH/MEDIUM/LOW (log violations)
 ```
 
@@ -155,26 +141,6 @@ def detect_staleness(report_date, report_state, current_date, current_state):
 | Violates layer boundaries | HIGH | No | Log warning, include in compliance section |
 | Naming convention mismatch | MEDIUM | No | Log info, suggest alignment |
 | Minor style preference | LOW | No | Informational note |
-
-**Compliance Section Template:**
-```markdown
-## Framework Compliance Check
-
-**Validation Date:** 2025-11-17 14:35:22
-**Context Files Checked:** 6/6 ✅
-
-| Context File | Status | Violations |
-|--------------|--------|------------|
-| tech-stack.md | ✅ PASS | 0 |
-| source-tree.md | ✅ PASS | 0 |
-| dependencies.md | ⚠️ WARN | 1 MEDIUM (suggests package not in approved list) |
-| coding-standards.md | ✅ PASS | 0 |
-| architecture-constraints.md | ✅ PASS | 0 |
-| anti-patterns.md | ✅ PASS | 0 |
-
-**Quality Gate Status:** PASS (1 MEDIUM violation logged)
-**Recommendation:** Proceed with research findings, address MEDIUM violation during architecture phase.
-```
 
 ---
 
@@ -193,11 +159,11 @@ def detect_staleness(report_date, report_state, current_date, current_state):
 ```
 Base (Always): research-principles.md (~300 lines)
 Mode-Specific (Conditional):
-  - discovery → discovery-mode-methodology.md (~400 lines)
-  - investigation → investigation-mode-methodology.md (~400 lines)
-  - competitive-analysis → competitive-analysis-patterns.md (~500 lines)
-  - repository-archaeology → repository-archaeology-guide.md (~600 lines)
-  - market-intelligence → market-intelligence-guide.md (~450 lines)
+  - discovery -> discovery-mode-methodology.md (~400 lines)
+  - investigation -> investigation-mode-methodology.md (~400 lines)
+  - competitive-analysis -> competitive-analysis-patterns.md (~500 lines)
+  - repository-archaeology -> repository-archaeology-guide.md (~600 lines)
+  - market-intelligence -> market-intelligence-guide.md (~450 lines)
 
 Total per operation: 700-900 lines (not all 2,500+ lines)
 ```
@@ -206,28 +172,6 @@ Total per operation: 700-900 lines (not all 2,500+ lines)
 - **Without progressive disclosure:** 2,500 lines loaded per operation (~20K tokens)
 - **With progressive disclosure:** 700-900 lines loaded per operation (~7K tokens)
 - **Savings:** 65% token reduction per research operation
-
-**Implementation:**
-```python
-def load_methodology(research_mode):
-    # Always load base
-    base = read_file("research-principles.md")  # 300 lines
-
-    # Conditionally load mode-specific
-    mode_files = {
-        "discovery": "discovery-mode-methodology.md",
-        "investigation": "investigation-mode-methodology.md",
-        "competitive-analysis": "competitive-analysis-patterns.md",
-        "repository-archaeology": "repository-archaeology-guide.md",
-        "market-intelligence": "market-intelligence-guide.md"
-    }
-
-    if research_mode in mode_files:
-        mode_specific = read_file(mode_files[research_mode])
-        return base + mode_specific  # ~700-900 lines total
-
-    return base  # fallback to base only
-```
 
 ---
 
@@ -238,50 +182,11 @@ def load_methodology(research_mode):
 **internet-sleuth is invoked by:**
 - spec-driven-ideation (Phase 5: Feasibility Analysis)
 - spec-driven-architecture (Phase 2: Technology Selection)
-- devforgeai-orchestration (optional: research checkpoints)
 
 **internet-sleuth invokes:**
 - context-validator (quality gate validation)
 - requirements-analyst (optional: requirement synthesis)
 - architect-reviewer (optional: architecture pattern evaluation)
-
-**Invocation Pattern:**
-```
-Task(
-  subagent_type="internet-sleuth",
-  description="Research React ecosystem feasibility",
-  prompt="""
-  Research Mode: discovery
-  Research Scope: React ecosystem for SaaS platform
-  Context: Epic EPIC-007 (User Authentication System), Workflow State: Architecture
-  Required Outputs: Technical feasibility score (0-10), framework alternatives, community health
-  Constraints: Respect tech-stack.md (may specify existing framework), no autonomous tech changes
-  """
-)
-```
-
-**Result Structure:**
-```json
-{
-  "research_id": "RESEARCH-001",
-  "technical_feasibility_score": 8.5,
-  "market_viability": "HIGH",
-  "competitive_landscape": {
-    "alternatives": ["Vue.js", "Angular", "Svelte"],
-    "react_advantages": ["Largest ecosystem", "Corporate backing", "Job market"],
-    "react_disadvantages": ["Learning curve", "Boilerplate overhead"]
-  },
-  "risk_factors": [
-    "Frequent breaking changes in minor versions",
-    "Dependency on third-party libraries for state management"
-  ],
-  "framework_compliance": "PASS",
-  "workflow_state": "Architecture",
-  "report_path": "devforgeai/specs/research/feasibility/EPIC-007-2025-11-17-143022-research.md"
-}
-```
-
----
 
 ### Token Budget Management
 
@@ -290,15 +195,10 @@ Task(
 **Budget Breakdown:**
 - Research principles: ~2.5K tokens (always loaded)
 - Mode-specific methodology: ~5K tokens (conditional)
-- Research execution (Perplexity API calls): ~30K tokens
+- Research execution: ~30K tokens
 - Report generation: ~5K tokens
 - Quality gate validation: ~3K tokens
 - **Total:** ~45K tokens (within budget)
-
-**Exceeding Budget:**
-- If research operation exceeds 50K → flag for optimization
-- Consider: Splitting into multiple focused research tasks
-- Example: "React ecosystem" → "React core feasibility" + "React ecosystem libraries"
 
 ---
 
@@ -311,24 +211,6 @@ Task(
 - No broken/404 links (validation required)
 - No paywalled content (prefer open-access sources)
 - Archive.org snapshots acceptable for historical research
-
-**Example Validation:**
-```python
-def validate_url(url):
-    if not url.startswith("https://"):
-        return {"status": "WARN", "message": "HTTP URL (insecure)"}
-
-    response = requests.head(url, timeout=5)
-    if response.status_code == 404:
-        return {"status": "ERROR", "message": "Broken link (404)"}
-
-    if "paywall" in response.headers.get("Content-Type", ""):
-        return {"status": "WARN", "message": "Paywalled content"}
-
-    return {"status": "VALID"}
-```
-
----
 
 ### Source Quality Scoring
 
@@ -345,11 +227,6 @@ def validate_url(url):
 | Forums/discussions | 4 | Reddit, HackerNews, GitHub Discussions |
 | Social media | 3 | Twitter/X, LinkedIn posts |
 | Unsourced claims | 1 | No verification possible |
-
-**Usage:**
-- Prioritize high-scoring sources (≥7) for critical decisions
-- Use low-scoring sources (≤5) for trend indicators only
-- Always cite source scores in research reports
 
 ---
 
@@ -370,16 +247,14 @@ Research operation succeeds when:
 ## Related Documentation
 
 - `discovery-mode-methodology.md` - Discovery research workflow
-- `investigation-mode-methodology.md` - Deep-dive investigation workflow
 - `competitive-analysis-patterns.md` - Market analysis patterns
 - `repository-archaeology-guide.md` - GitHub mining strategies
-- `market-intelligence-guide.md` - User trend analysis
 - `skill-coordination-patterns.md` - Task invocation examples
-- `research-report-template.md` - Standard report structure
+- `sleuth-report-template.md` - Standard report structure (in assets/templates/)
 
 ---
 
 **Created:** 2025-11-17
-**Version:** 1.0
-**Lines:** 295 (target: 300)
+**Absorbed into spec-driven-research:** 2026-03-20 (ADR-045)
+**Version:** 1.1
 **Purpose:** Shared foundation for all internet-sleuth research operations

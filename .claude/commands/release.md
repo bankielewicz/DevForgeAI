@@ -164,7 +164,7 @@ Output skill response containing:
 
 **Invoked by:**
 - Developer: `/release STORY-ID [environment]`
-- spec-driven-lifecycle skill (automated progression)
+- devforgeai-orchestration skill (automated progression)
 
 **Invokes:**
 - spec-driven-release skill (8-phase release workflow)

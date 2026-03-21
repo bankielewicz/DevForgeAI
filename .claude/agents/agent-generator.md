@@ -146,7 +146,7 @@ Read(file_path=".claude/agents/agent-generator/references/reference-file-templat
 ### Phase 0: Load Framework References
 
 1. **Load Claude Code official guidance** (if available):
-   - Check `.claude/skills/claude-code-terminal-expert/references/core-features.md`
+   - Check `.claude/skills/spec-driven-cc-guide/references/core-features.md`
    - Extract file format requirements, YAML fields, tool selection principles
 
 2. **Load DevForgeAI framework context**:
