@@ -1,0 +1,16 @@
+{
+  "story_id": "STORY-554",
+  "phase": "02-red",
+  "created": "2026-03-21",
+  "algorithm": "sha256",
+  "test_files": {
+    "tests/STORY-554/test-ac1-business-model-adaptation.sh": "2907eaeeb96690eec4725a2993582cc64aa76da9ddf9af33fc38213d8bfbdc23",
+    "tests/STORY-554/test-ac2-five-domain-coverage.sh": "98c8f070ba7e3741c8a814628a066e473f48ca974b9f037535934d0d4e725141",
+    "tests/STORY-554/test-ac3-output-format-compliance.sh": "5714607c646f8230c643d261e58fa9f952118a1ac8f0b3c1c8ba835509c87df6",
+    "tests/STORY-554/test-ac4-progressive-disclosure.sh": "0b244cca90e084dea6e7544e562c6667f49c187b515074495339c407777efa4f"
+  },
+  "total_tests": 44,
+  "red_state_verified": true,
+  "immutability_declared": true,
+  "note": "Test files IMMUTABLE until Phase 05. Do NOT modify during Phases 03 or 04."
+}

@@ -187,10 +187,16 @@
       "Bash(/mnt/c/Projects/DevForgeAI2/bin/devforgeai phase:*)",
       "Read(//home/bryan/.claude/plans/**)",
       "Bash(mkdir -p ~/.claude/plans/)",
-      "Bash(cd /mnt/c/Projects/DevForgeAI-cli && /mnt/c/Projects/DevForgeAI-cli/target/release/devforgeai --version)"
+      "Bash(cd /mnt/c/Projects/DevForgeAI-cli && /mnt/c/Projects/DevForgeAI-cli/target/release/devforgeai --version)",
+      "Skill(spec-driven-dev)",
+      "Skill(spec-driven-qa)"
     ],
     "deny": [],
     "ask": []
+  },
+  "enabledPlugins": {
+    "plugin-dev@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true
   },
   "outputStyle": "default",
   "sandbox": {
