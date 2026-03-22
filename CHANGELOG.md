@@ -1,3 +1,17 @@
+## [v2.0.1] - 2026-03-22
+
+### Features
+- Implement EPIC-072 coaching stories and multi-story dev progress
+
+### Chores
+- remove __pycache__ from git tracking
+- remove duplicate STORY-553 (completed version in archive/)
+- remove tgz build artifacts from repo and gitignore them
+- add NPM-Publish.md to gitignore
+- Add src/devforgeai/specs/business/ artifacts
+- Sync operational folders with src/ tree and update QA/workflow state
+- Checkpoint before STORY-536 development
+- Checkpoint before STORY-536 development WIP state from STORY-468, STORY-469, STORY-471, STORY-535, STORY-544 and related QA/workflow artifacts.
 # Changelog
 
 All notable changes to this project will be documented in this file.
