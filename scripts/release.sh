@@ -312,7 +312,7 @@ check_npm_version_available() {
     local version="$1"
     log_info "Checking npm registry for version $version..."
 
-    if npm view "@devforgeai/framework@${version}" version &> /dev/null; then
+    if npm view "devforgeai@${version}" version &> /dev/null; then
         error_exit "Version $version already published to npm. Choose a different version."
     fi
 }
@@ -935,7 +935,7 @@ publish_to_npm() {
 
     cd "$PROJECT_ROOT" || error_exit "Failed to cd back"
 
-    local npm_url="https://www.npmjs.com/package/@devforgeai/framework/v/${version}"
+    local npm_url="https://www.npmjs.com/package/devforgeai/v/${version}"
     log_success "NPM package: $npm_url"
     echo "$npm_url"
 }
@@ -1003,7 +1003,7 @@ display_success_summary() {
     echo "║  https://github.com/user/repo/releases/tag/v${version}         ║"
     echo "║                                                           ║"
     echo "║  NPM package:                                             ║"
-    echo "║  https://www.npmjs.com/package/@devforgeai/framework      ║"
+    echo "║  https://www.npmjs.com/package/devforgeai                  ║"
     echo "╚═══════════════════════════════════════════════════════════╝"
     echo
 }
@@ -1029,7 +1029,7 @@ phase_finalization() {
 
 revert_uncommitted_changes() {
     if [[ -n "$(git status --porcelain)" ]]; then
-        git reset --hard HEAD
+        git reset --hard HEAD --
         log_success "Reverted uncommitted changes"
         return 0
     fi

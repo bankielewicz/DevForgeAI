@@ -67,8 +67,9 @@ DevForgeAI fixes this with three mechanisms:
 ## Key Features
 
 - **Technology Agnostic** — Works with any stack. Your context files define the rules, not the framework.
-- **44 Specialized Subagents** — Single-responsibility AI agents: test-automator, backend-architect, security-auditor, code-reviewer, and 40 more.
-- **46 Slash Commands** — From `/brainstorm` to `/release`, every workflow step has a dedicated command.
+- **47+ Specialized Subagents** — Single-responsibility AI agents: test-automator, backend-architect, security-auditor, code-reviewer, dead-code-detector, and more.
+- **47+ Slash Commands** — From `/brainstorm` to `/release`, every workflow step has a dedicated command.
+- **34 Skills** — Structured workflow automation from ideation through release, now in the new Claude Code skill format.
 - **Root Cause Analysis** — Built-in `/rca` command with 5 Whys methodology when things go wrong.
 - **Test Integrity Protection** — Only designated agents can write tests during designated phases, preventing implementation agents from weakening assertions.
 - **Cross-AI Collaboration** — `/collaborate` generates portable documents for sharing issues with other LLMs.
@@ -123,7 +124,7 @@ After installing, run `/create-context my-project` in Claude Code to generate yo
 
 | Topic | Location |
 |-------|----------|
-| All 46 commands | [Commands Reference](docs/guides/DEVELOPER-GUIDE.md) |
+| All 47+ commands | [Commands Reference](docs/guides/DEVELOPER-GUIDE.md) |
 | Architecture & subagents | [Architecture Guide](docs/architecture/ARCHITECTURE.md) |
 | API documentation | [API Reference](docs/api/API.md) |
 | Troubleshooting | [Troubleshooting Guide](docs/guides/TROUBLESHOOTING.md) |
@@ -160,5 +161,5 @@ MIT License — see [LICENSE](LICENSE) for details.
 ---
 
 <p align="center">
-  <strong>Built with Claude Code</strong> — Spec-driven development with 44 subagents, 26 skills, and zero tolerance for technical debt.
+  <strong>Built with Claude Code</strong> — Spec-driven development with 47+ subagents, 34 skills, and zero tolerance for technical debt.
 </p>

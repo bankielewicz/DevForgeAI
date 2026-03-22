@@ -1,0 +1,92 @@
+# ============================================================
+# DevForgeAI src/.npmignore
+# ============================================================
+# Controls what gets included when publishing from src/
+#
+# INCLUDED in package:
+#   bin/devforgeai.js        - CLI entry point
+#   lib/cli.js               - CLI logic (Commander router)
+#   cli/                     - Installer wizard code
+#   claude/                  - Framework files (skills, agents, commands, rules)
+#   devforgeai/specs/context/ - Constitutional context file templates
+#   package.json, version.json
+#
+# EXCLUDED from package:
+#   Tests, dev scripts, Python source, large binaries, caches
+# ============================================================
+
+# --- Tests and development ---
+tests/
+*.test.js
+*.spec.js
+jest.config.js
+.coverage
+coverage*.json
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Python source files (not needed in NPM package) ---
+*.py
+__init__.py
+
+# --- Large binaries and tools ---
+bin/act
+bin/treelint/
+
+# --- Development scripts ---
+scripts/
+validators/
+
+# --- Build artifacts and caches ---
+.treelint/
+.venv/
+node_modules/
+*.tgz
+*.tar.gz
+
+# --- Operational artifacts (not templates) ---
+devforgeai/cache/
+devforgeai/ci/
+devforgeai/deployment/
+devforgeai/docs/
+devforgeai/epic-coverage/
+devforgeai/feedback/
+devforgeai/guides/
+devforgeai/hooks/
+devforgeai/metrics/
+devforgeai/onboarding/
+devforgeai/protocols/
+devforgeai/scripts/
+devforgeai/templates/
+devforgeai/traceability/
+devforgeai/workflows/
+devforgeai/config/
+devforgeai/technical-debt-register.md
+devforgeai/version.json
+
+# Keep only devforgeai/specs/context/ (constitutional templates)
+devforgeai/specs/Stories/
+devforgeai/specs/adrs/
+
+# --- Claude operational artifacts ---
+claude/scripts/
+claude/hooks.yaml
+claude/settings.json
+claude/settings.local.json
+claude/plans/
+claude/recovery/
+claude/docs/
+claude/BASH-APPROVAL-QUICK-START.md
+claude/SUBAGENT-DESIGN-GUIDE.md
+claude/README.md
+
+# --- Misc ---
+CLAUDE.md
+checkpoint-cleaner.js
+*.backup*
+*.log
+.DS_Store
+.env
+*.key
