@@ -631,41 +631,41 @@ categorize_commits() {
 build_changelog_section() {
     local version="$1"
     local release_date="$2"
-    local -n feat=$3
-    local -n fix=$4
-    local -n chore=$5
-    local -n docs=$6
+    local -n _feat_arr=$3
+    local -n _fix_arr=$4
+    local -n _chore_arr=$5
+    local -n _docs_arr=$6
 
     local section="## [v${version}] - ${release_date}"$'\n\n'
 
     # Add each category if it has commits
-    if [[ ${#feat[@]} -gt 0 ]]; then
+    if [[ ${#_feat_arr[@]} -gt 0 ]]; then
         section+="### Features"$'\n'
-        for commit in "${feat[@]}"; do
+        for commit in "${_feat_arr[@]}"; do
             section+="- ${commit#feat: }"$'\n'
         done
         section+=$'\n'
     fi
 
-    if [[ ${#fix[@]} -gt 0 ]]; then
+    if [[ ${#_fix_arr[@]} -gt 0 ]]; then
         section+="### Bug Fixes"$'\n'
-        for commit in "${fix[@]}"; do
+        for commit in "${_fix_arr[@]}"; do
             section+="- ${commit#fix: }"$'\n'
         done
         section+=$'\n'
     fi
 
-    if [[ ${#chore[@]} -gt 0 ]]; then
+    if [[ ${#_chore_arr[@]} -gt 0 ]]; then
         section+="### Chores"$'\n'
-        for commit in "${chore[@]}"; do
+        for commit in "${_chore_arr[@]}"; do
             section+="- ${commit#chore: }"$'\n'
         done
         section+=$'\n'
     fi
 
-    if [[ ${#docs[@]} -gt 0 ]]; then
+    if [[ ${#_docs_arr[@]} -gt 0 ]]; then
         section+="### Documentation"$'\n'
-        for commit in "${docs[@]}"; do
+        for commit in "${_docs_arr[@]}"; do
             section+="- ${commit#docs: }"$'\n'
         done
         section+=$'\n'
