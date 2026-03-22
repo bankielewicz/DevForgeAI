@@ -1,20 +1,28 @@
 {
   "name": "devforgeai",
   "version": "1.0.11",
-  "description": "DevForgeAI is a spec-driven development framework designed to enable AI-assisted software development with zero technical debt through automated validation, architectural constraints enforcement, and test-driven development workflows.",
+  "description": "Spec-driven development framework for AI-assisted software development with zero technical debt. Enforces TDD workflows, quality gates, architectural constraints, and anti-pattern prevention across 34 skills, 47+ agents, and 47+ slash commands.",
   "keywords": [
     "ai",
     "development",
     "framework",
     "spec-driven",
     "claude",
+    "claude-code",
     "tdd",
+    "test-driven-development",
     "automation",
     "code-quality",
     "devops",
-    "ci-cd"
+    "ci-cd",
+    "quality-gates",
+    "sdlc",
+    "code-review"
   ],
-  "author": "DevForgeAI Maintainers",
+  "author": {
+    "name": "Bryan Ankielewicz",
+    "email": "bryan.ankielewicz@live.com"
+  },
   "license": "MIT",
   "files": [
     "bin/devforgeai.js",
