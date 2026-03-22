@@ -1,6 +1,6 @@
 {
   "name": "devforgeai",
-  "version": "1.0.11",
+  "version": "2.0.0",
   "description": "Spec-driven development framework for AI-assisted software development with zero technical debt. Enforces TDD workflows, quality gates, architectural constraints, and anti-pattern prevention across 34 skills, 47+ agents, and 47+ slash commands.",
   "keywords": [
     "ai",

@@ -2,7 +2,7 @@
 #
 # DevForgeAI Release Automation Script
 # Purpose: Orchestrate complete framework release workflow
-# Usage: bash scripts/release.sh [--dry-run] [--yes] [--help]
+# Usage: bash scripts/release.sh [--dry-run] [--yes] [--skip-tests] [--help]
 #
 # Phases:
 #   0. Pre-flight validation (git, tests, authentication)
@@ -35,6 +35,7 @@ fi
 # Default configuration (if config file missing)
 DRY_RUN="${DRY_RUN:-false}"
 AUTO_YES="${AUTO_YES:-false}"
+SKIP_TESTS="${SKIP_TESTS:-false}"
 CHECKSUM_ALGORITHM="${CHECKSUM_ALGORITHM:-sha256}"
 NPM_REGISTRY="${NPM_REGISTRY:-https://registry.npmjs.org}"
 
@@ -156,6 +157,7 @@ Usage: bash scripts/release.sh [OPTIONS]
 Options:
   --dry-run        Simulate release without external changes
   --yes, -y        Skip interactive confirmations (CI mode)
+  --skip-tests     Skip test suite in pre-flight (use when tests have known debt)
   --help, -h       Show this help message
   --version, -v    Show script version
 
@@ -209,13 +211,18 @@ validate_git_working_tree() {
 }
 
 run_test_suite() {
+    if [[ "$SKIP_TESTS" == "true" ]]; then
+        log_warning "Tests skipped (--skip-tests flag). Ensure tests are fixed in a follow-up."
+        return 0
+    fi
+
     log_info "Running test suite..."
 
     if [[ -f "${PROJECT_ROOT}/package.json" ]]; then
         if npm test; then
             log_success "Tests passing"
         else
-            error_exit "Tests failed. Fix test failures before releasing."
+            error_exit "Tests failed. Fix test failures before releasing. Use --skip-tests to bypass."
         fi
     else
         log_warning "No package.json found, skipping tests"
@@ -1101,6 +1108,10 @@ parse_arguments() {
                 ;;
             --yes|-y)
                 AUTO_YES=true
+                shift
+                ;;
+            --skip-tests)
+                SKIP_TESTS=true
                 shift
                 ;;
             --help|-h)

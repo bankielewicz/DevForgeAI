@@ -6,6 +6,7 @@ npm-pack-manifest.txt
 tmp/
 .treelint/
 .playwright-mcp/
+.test-extract/
 
 # Backups (generated during development)
 .backups/
@@ -116,7 +117,6 @@ bundled/
 
 */archive/*
 !.npmignore
-jest.config.js
 package-lock.json
 !package.json
 setup.cfg
