@@ -196,15 +196,27 @@ show_version() {
 validate_git_working_tree() {
     log_info "Checking git working tree..."
 
-    local status
-    status=$(git status --porcelain)
+    # Check for staged or unstaged modifications (M, D, A, R, C)
+    # Untracked files (??) are harmless and don't affect the release
+    local modified
+    modified=$(git status --porcelain | grep -v '^??' || true)
 
-    if [[ -n "$status" ]]; then
+    if [[ -n "$modified" ]]; then
         log_error "Uncommitted changes detected:"
-        echo "$status" | while IFS= read -r line; do
+        echo "$modified" | while IFS= read -r line; do
             echo "  $line"
         done
         error_exit "Commit or stash changes before releasing. Run: git status"
+    fi
+
+    # Warn about untracked files but don't block
+    local untracked
+    untracked=$(git status --porcelain | grep '^??' || true)
+    if [[ -n "$untracked" ]]; then
+        log_warning "Untracked files present (not blocking):"
+        echo "$untracked" | while IFS= read -r line; do
+            echo "  $line"
+        done
     fi
 
     log_success "Git working tree clean"
