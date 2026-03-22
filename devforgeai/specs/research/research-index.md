@@ -7,6 +7,7 @@ All research documents produced by the DevForgeAI `/research` command.
 | ID | Title | Category | Date | Status |
 |----|-------|----------|------|--------|
 | [RESEARCH-001](shared/RESEARCH-001-ai-dev-frameworks-competitive-analysis.md) | AI-Driven Development Frameworks Competitive Analysis | Competitive | 2026-03-03 | Complete |
+| [RESEARCH-002](shared/RESEARCH-002-epic-vs-sprint-sdlc-relationship.md) | Epic vs Sprint in the SDLC -- Definitions, Relationships, and Corporate Practices | Discovery | 2026-03-22 | Complete |
 
 ---
 

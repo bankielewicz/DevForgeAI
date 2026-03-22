@@ -1,7 +1,7 @@
 ---
 story_id: STORY-554
 title: MVP Launch Checklist
-status: active
+status: archived
 current_phase: "01"
 started: 2026-03-21
 last_updated: 2026-03-21

@@ -189,7 +189,10 @@
       "Bash(mkdir -p ~/.claude/plans/)",
       "Bash(cd /mnt/c/Projects/DevForgeAI-cli && /mnt/c/Projects/DevForgeAI-cli/target/release/devforgeai --version)",
       "Skill(spec-driven-dev)",
-      "Skill(spec-driven-qa)"
+      "Skill(spec-driven-qa)",
+      "Skill(spec-driven-documentation)",
+      "Skill(spec-driven-research)",
+      "WebFetch(domain:registry.npmjs.org)"
     ],
     "deny": [],
     "ask": []
@@ -223,7 +226,9 @@
         "devforgeai/specs/adrs/",
         "devforgeai/workflows/",
         "devforgeai/RCA/",
-        "~/tmp/"
+        "~/tmp/",
+        "/mnt/c/Projects/devforgeai-plugin",
+        "/mnt/c/Projects/devforgeai-business"
       ]
     },
     "excludedCommands": []

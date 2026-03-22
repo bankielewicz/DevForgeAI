@@ -1,0 +1,43 @@
+{
+  "checkpoint_version": "1.0",
+  "research_id": "RESEARCH-002",
+  "workflow": "research",
+  "created_at": "2026-03-22T00:00:00Z",
+  "updated_at": "2026-03-22T00:09:00Z",
+  "status": "completed",
+  "input": {
+    "mode": "new",
+    "topic": "In the SDLC, how does Sprint differ from Epic & how do they relate to each other, when it comes to SDLC especially in a corporate environment",
+    "category": "architecture",
+    "questions": [
+      "What are the formal definitions of Epic vs Sprint in Agile SDLC?",
+      "How do Epics and Sprints relate hierarchically (Epic > Story > Sprint)?",
+      "How do corporate Agile frameworks (SAFe, LeSS, Scrum@Scale) structure Epic-to-Sprint flow?",
+      "What is the typical lifecycle of an Epic from inception to completion across Sprints?",
+      "How does Sprint planning incorporate Epic decomposition in enterprise environments?",
+      "What are common anti-patterns in managing the Epic-Sprint relationship at scale?"
+    ],
+    "resume_id": null
+  },
+  "progress": {
+    "current_phase": 7,
+    "phases_completed": ["01", "02", "03", "04", "05", "06"],
+    "total_steps_completed": 20
+  },
+  "phases": {
+    "01": { "status": "completed", "steps_completed": ["1.1", "1.2", "1.3", "1.4"] },
+    "02": { "status": "completed", "steps_completed": ["2.1", "2.2", "2.3"] },
+    "03": { "status": "completed", "steps_completed": ["3.1", "3.2", "3.3", "3.4"] },
+    "04": { "status": "completed", "steps_completed": ["4.1", "4.2", "4.3", "4.4", "4.5"] },
+    "05": { "status": "completed", "steps_completed": ["5.1", "5.2"] },
+    "06": { "status": "completed", "steps_completed": ["6.1", "6.2"] }
+  },
+  "output": {
+    "research_file_path": "devforgeai/specs/research/shared/RESEARCH-002-epic-vs-sprint-sdlc-relationship.md",
+    "assets_folder": "devforgeai/specs/research/RESEARCH-002/",
+    "index_updated": true,
+    "epics_linked": [],
+    "adr_created": false,
+    "error": null
+  }
+}
