@@ -1,0 +1,80 @@
+{
+  "story_id": "STORY-280",
+  "current_phase": "10",
+  "workflow_started": "2026-01-19T20:18:38Z",
+  "blocking_status": false,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:20:43Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:27:27Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:32:33Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:35:23Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:38:07Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:38:28Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:39:18Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:41:02Z",
+      "checkpoint_passed": true
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:46:23Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-19T20:47:56Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "observations": []
+}
