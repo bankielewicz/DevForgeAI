@@ -519,6 +519,10 @@ generate_sync_manifest() {
     local timestamp
     timestamp=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
+    # Compute source hash outside heredoc to avoid pipe syntax issues
+    local source_hash
+    source_hash=$(find "${PROJECT_ROOT}/src" -type f -exec md5sum {} \; | md5sum | awk '{print $1}')
+
     cat > "$SYNC_MANIFEST" <<EOF
 {
   "sync_timestamp": "$timestamp",
@@ -530,10 +534,12 @@ generate_sync_manifest() {
     ".DS_Store",
     "backups/",
     "qa/reports/",
-    "feedback/sessions/",
+    "feedback/",
+    "workflows/",
+    "RCA/",
     "*.log"
   ],
-  "source_hash": "$(find "${PROJECT_ROOT}/src" -type f -exec md5sum {} \\; | md5sum | awk '{print $1}')"
+  "source_hash": "$source_hash"
 }
 EOF
 
@@ -543,21 +549,21 @@ EOF
 phase_operational_files_sync() {
     log_phase 2 "Syncing operational files"
 
-    # Sync src/claude → .claude
+    # Sync .claude → src/claude (operational → source for publishing)
     sync_directory \
-        "${PROJECT_ROOT}/src/claude" \
         "${PROJECT_ROOT}/.claude" \
+        "${PROJECT_ROOT}/src/claude" \
         "${CLAUDE_EXCLUDE_PATTERNS[@]}"
 
-    validate_sync "${PROJECT_ROOT}/src/claude" "${PROJECT_ROOT}/.claude"
+    validate_sync "${PROJECT_ROOT}/.claude" "${PROJECT_ROOT}/src/claude"
 
-    # Sync src/devforgeai → devforgeai
+    # Sync devforgeai → src/devforgeai (operational → source for publishing)
     sync_directory \
-        "${PROJECT_ROOT}/src/devforgeai" \
         "${PROJECT_ROOT}/devforgeai" \
+        "${PROJECT_ROOT}/src/devforgeai" \
         "${DEVFORGEAI_EXCLUDE_PATTERNS[@]}"
 
-    validate_sync "${PROJECT_ROOT}/src/devforgeai" "${PROJECT_ROOT}/devforgeai"
+    validate_sync "${PROJECT_ROOT}/devforgeai" "${PROJECT_ROOT}/src/devforgeai"
 
     # Generate sync manifest
     generate_sync_manifest

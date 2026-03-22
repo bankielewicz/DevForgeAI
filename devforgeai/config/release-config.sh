@@ -74,7 +74,17 @@ CLAUDE_EXCLUDE_PATTERNS=(
 DEVFORGEAI_EXCLUDE_PATTERNS=(
     "backups/"           # Backup directory
     "qa/reports/"        # Generated QA reports
-    "feedback/sessions/" # Feedback session data
+    "feedback/"          # All feedback data (sessions, AI analysis, logs, indexes)
+    "workflows/"         # Phase state files (story-specific runtime artifacts)
+    "RCA/"               # Root cause analysis documents (project-specific)
+    "cache/"             # Runtime cache
+    "logs/"              # Log directory
+    "metrics/"           # Project metrics
+    "epic-coverage/"     # Epic coverage reports
+    "traceability/"      # Traceability data
+    "releases/"          # Release logs
+    "specs/Stories/"     # Project-specific stories
+    "specs/adrs/"        # Project-specific ADRs
     "*.log"              # Log files
     "*.backup*"          # Backup files
     ".env"               # Environment files (security)

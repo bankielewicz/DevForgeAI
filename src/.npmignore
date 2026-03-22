@@ -47,26 +47,29 @@ node_modules/
 *.tar.gz
 
 # --- Operational artifacts (not templates) ---
+# Only devforgeai/specs/context/ should ship (constitutional templates)
+devforgeai/RCA/
 devforgeai/cache/
 devforgeai/ci/
+devforgeai/config/
 devforgeai/deployment/
 devforgeai/docs/
 devforgeai/epic-coverage/
 devforgeai/feedback/
 devforgeai/guides/
 devforgeai/hooks/
+devforgeai/logs/
 devforgeai/metrics/
 devforgeai/onboarding/
 devforgeai/protocols/
+devforgeai/qa/
+devforgeai/releases/
 devforgeai/scripts/
 devforgeai/templates/
 devforgeai/traceability/
 devforgeai/workflows/
-devforgeai/config/
 devforgeai/technical-debt-register.md
 devforgeai/version.json
-
-# Keep only devforgeai/specs/context/ (constitutional templates)
 devforgeai/specs/Stories/
 devforgeai/specs/adrs/
 
