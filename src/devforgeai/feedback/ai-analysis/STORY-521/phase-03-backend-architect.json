@@ -1,0 +1,31 @@
+{
+  "subagent": "backend-architect",
+  "phase": "03",
+  "story_id": "STORY-521",
+  "timestamp": "2026-03-01T12:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-03-001",
+      "category": "friction",
+      "note": "WSL Edit tool silently fails on mounted Windows files; Python string replace via Bash was required as workaround",
+      "severity": "high",
+      "files": ["src/claude/scripts/devforgeai_cli/phase_state.py"]
+    },
+    {
+      "id": "obs-03-002",
+      "category": "success",
+      "note": "WORKFLOW_SCHEMAS registry pattern enables extensibility without code changes - release workflow test passes via monkeypatch",
+      "severity": "low",
+      "files": ["src/claude/scripts/devforgeai_cli/phase_state.py"]
+    },
+    {
+      "id": "obs-03-003",
+      "category": "pattern",
+      "note": "complete_workflow_phase bypasses subagent enforcement (complete_phase) - unified path is simpler but less strict",
+      "severity": "medium",
+      "files": ["src/claude/scripts/devforgeai_cli/phase_state.py"]
+    }
+  ],
+  "metadata": { "version": "1.0", "write_timestamp": "2026-03-01T12:00:00Z" }
+}

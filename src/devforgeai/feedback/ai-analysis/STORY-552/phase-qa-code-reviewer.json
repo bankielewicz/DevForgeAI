@@ -1,0 +1,60 @@
+{
+  "subagent": "code-reviewer",
+  "phase": "qa",
+  "story_id": "STORY-552",
+  "timestamp": "2026-03-21T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-qa-001",
+      "category": "pattern",
+      "note": "_extract_section() duplicated 3x across test files (ac2, ac3, integration). Should be in conftest.py.",
+      "severity": "medium",
+      "files": [
+        "tests/STORY-552/test_ac2_equity_funding_path.py",
+        "tests/STORY-552/test_ac3_bootstrapping_grants_path.py",
+        "tests/STORY-552/test_integration_skill_guide_consistency.py"
+      ]
+    },
+    {
+      "id": "obs-qa-002",
+      "category": "pattern",
+      "note": "GUIDE_PATH constant and guide_content fixture duplicated in integration test vs conftest.py",
+      "severity": "medium",
+      "files": [
+        "tests/STORY-552/test_integration_skill_guide_consistency.py",
+        "tests/STORY-552/conftest.py"
+      ]
+    },
+    {
+      "id": "obs-qa-003",
+      "category": "pattern",
+      "note": "TestDualDisclaimer class name used in both test_ac1 and test_ac4 - no collision but ambiguous naming",
+      "severity": "low",
+      "files": [
+        "tests/STORY-552/test_ac1_decision_tree_ranked_shortlist.py",
+        "tests/STORY-552/test_ac4_output_artifact.py"
+      ]
+    },
+    {
+      "id": "obs-qa-004",
+      "category": "success",
+      "note": "Test naming convention follows test_should_X_when_Y pattern consistently. Good AAA docstrings.",
+      "severity": "low",
+      "files": []
+    },
+    {
+      "id": "obs-qa-005",
+      "category": "success",
+      "note": "Guide content is well-structured: dual disclaimer, all 5 funding types, comparison table, educational language.",
+      "severity": "low",
+      "files": [
+        "src/claude/skills/managing-finances/references/funding-options-guide.md"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "write_timestamp": "2026-03-21T00:00:00Z"
+  }
+}

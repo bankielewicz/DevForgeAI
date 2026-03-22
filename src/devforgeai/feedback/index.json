@@ -1,0 +1,2790 @@
+{
+  "version": "2.0",
+  "last-updated": "2026-03-03T15:15:00Z",
+  "feedback-sessions": [
+    {
+      "id": "FB-2026-03-03-STORY-528",
+      "timestamp": "2026-03-03T15:15:00Z",
+      "source_type": "manual",
+      "story-id": "STORY-528",
+      "file-path": "ai-analysis/STORY-528/20260303-remediation-feedback.json",
+      "tags": [
+        "ai-analysis",
+        "remediation",
+        "dev-workflow",
+        "manual-feedback",
+        "stop-hook"
+      ]
+    },
+    {
+      "id": "STORY-501-2026-02-27-qa-lifecycle-analysis",
+      "timestamp": "2026-02-27T20:22:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-501",
+      "file-path": "ai-analysis/STORY-501/20260227-qa-lifecycle-analysis.json",
+      "tags": [
+        "ai-analysis",
+        "qa-lifecycle",
+        "phase-marker-gap",
+        "move-detection-underspecified",
+        "manual-feedback"
+      ]
+    },
+    {
+      "id": "EPIC-081-2026-02-22-epic-creation-ai-analysis",
+      "timestamp": "2026-02-22T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "EPIC-081",
+      "file-path": "ai-analysis/EPIC-081/2026-02-22-epic-creation-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "EPIC-082-2026-02-22-epic-creation-ai-analysis",
+      "timestamp": "2026-02-22T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "EPIC-082",
+      "file-path": "ai-analysis/EPIC-082/2026-02-22-epic-creation-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-code-review-STORY-461",
+      "timestamp": "2026-02-21T20:05:39.262746+00:00",
+      "source_type": "report",
+      "file-path": "code-review-STORY-461.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-461"
+    },
+    {
+      "id": "report-integration-test-report-STORY-461",
+      "timestamp": "2026-02-21T19:53:09.290068+00:00",
+      "source_type": "report",
+      "file-path": "integration-test-report-STORY-461.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-461"
+    },
+    {
+      "id": "STORY-461-phase-4-integration-tester",
+      "timestamp": "2026-02-21T19:52:49.636967+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-461",
+      "file-path": "ai-analysis/STORY-461/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-integration-test-report-STORY-460",
+      "timestamp": "2026-02-21T14:26:22.016046+00:00",
+      "source_type": "report",
+      "file-path": "integration-test-report-STORY-460.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-460"
+    },
+    {
+      "id": "code-review-STORY-459-code-review",
+      "timestamp": "2026-02-21T13:32:39.288960+00:00",
+      "source_type": "code-review",
+      "file-path": "code-review/STORY-459-code-review.md",
+      "tags": [
+        "code-review"
+      ],
+      "story-id": "STORY-459"
+    },
+    {
+      "id": "STORY-464-security-audit",
+      "timestamp": "2026-02-21T13:17:26.064083+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-464",
+      "file-path": "ai-analysis/STORY-464/security-audit.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "code-review-STORY-464-code-review",
+      "timestamp": "2026-02-21T13:15:59.960379+00:00",
+      "source_type": "code-review",
+      "file-path": "code-review/STORY-464-code-review.md",
+      "tags": [
+        "code-review"
+      ],
+      "story-id": "STORY-464"
+    },
+    {
+      "id": "STORY-464-phase-4-integration-tester",
+      "timestamp": "2026-02-21T13:01:30.772879+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-464",
+      "file-path": "ai-analysis/STORY-464/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-integration-test-report-STORY-464",
+      "timestamp": "2026-02-21T13:01:11.287142+00:00",
+      "source_type": "report",
+      "file-path": "integration-test-report-STORY-464.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-464"
+    },
+    {
+      "id": "STORY-459-phase-refactor-code-reviewer",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-459",
+      "file-path": "ai-analysis/STORY-459/phase-refactor-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-460-phase-02-security-auditor",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-460",
+      "file-path": "ai-analysis/STORY-460/phase-02-security-auditor.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-460-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-460",
+      "file-path": "ai-analysis/STORY-460/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-460-phase-03-code-reviewer",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-460",
+      "file-path": "ai-analysis/STORY-460/phase-03-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-461-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-461",
+      "file-path": "ai-analysis/STORY-461/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-462-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-462",
+      "file-path": "ai-analysis/STORY-462/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-463-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-463",
+      "file-path": "ai-analysis/STORY-463/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-464-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-464",
+      "file-path": "ai-analysis/STORY-464/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-465-phase-02-test-automator",
+      "timestamp": "2026-02-21T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-465",
+      "file-path": "ai-analysis/STORY-465/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "code-review-STORY-456-documentation-review",
+      "timestamp": "2026-02-20T12:17:11.307976+00:00",
+      "source_type": "code-review",
+      "file-path": "code-reviews/STORY-456-documentation-review.md",
+      "tags": [
+        "code-review"
+      ],
+      "story-id": "STORY-456"
+    },
+    {
+      "id": "STORY-458-phase-02-test-automator",
+      "timestamp": "2026-02-20T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-458",
+      "file-path": "ai-analysis/STORY-458/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-458-phase-03-code-reviewer",
+      "timestamp": "2026-02-20T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-458",
+      "file-path": "ai-analysis/STORY-458/phase-03-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-459-phase-02-test-automator",
+      "timestamp": "2026-02-20T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-459",
+      "file-path": "ai-analysis/STORY-459/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-456-phase-3-code-reviewer",
+      "timestamp": "2026-02-20T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-456",
+      "file-path": "ai-analysis/STORY-456/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-456-phase-qa-code-reviewer",
+      "timestamp": "2026-02-20T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-456",
+      "file-path": "ai-analysis/STORY-456/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "code-review-STORY-454-code-review",
+      "timestamp": "2026-02-19T21:16:40.283276+00:00",
+      "source_type": "code-review",
+      "file-path": "code-reviews/STORY-454-code-review.md",
+      "tags": [
+        "code-review"
+      ],
+      "story-id": "STORY-454"
+    },
+    {
+      "id": "STORY-452-phase-post-dev-code-reviewer",
+      "timestamp": "2026-02-19T20:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-452",
+      "file-path": "ai-analysis/STORY-452/phase-post-dev-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-452-phase-post-dev-code-reviewer",
+      "timestamp": "2026-02-19T20:22:51.872237+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-452",
+      "file-path": "ai-analysis/STORY-452/phase-post-dev-code-reviewer.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-454-code-reviewer-review",
+      "timestamp": "2026-02-19T16:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-454",
+      "file-path": "ai-analysis/STORY-454/code-reviewer-review.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-450-phase-integration-integration-tester",
+      "timestamp": "2026-02-19T13:49:47.664568+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-450",
+      "file-path": "ai-analysis/STORY-450/phase-integration-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-code-review-STORY-448",
+      "timestamp": "2026-02-19T04:28:47.600708+00:00",
+      "source_type": "report",
+      "file-path": "code-review-STORY-448.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-448"
+    },
+    {
+      "id": "STORY-448-phase-2-code-reviewer",
+      "timestamp": "2026-02-19T04:14:20.772429+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-448",
+      "file-path": "ai-analysis/STORY-448/phase-2-code-reviewer.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-445-phase-05-integration-tester",
+      "timestamp": "2026-02-19T00:25:30Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-445",
+      "file-path": "ai-analysis/STORY-445/phase-05-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-448-phase-refactor-code-reviewer",
+      "timestamp": "2026-02-19T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-448",
+      "file-path": "ai-analysis/STORY-448/phase-refactor-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-450-phase-02-test-automator",
+      "timestamp": "2026-02-19T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-450",
+      "file-path": "ai-analysis/STORY-450/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-451-phase-02-test-automator",
+      "timestamp": "2026-02-19T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-451",
+      "file-path": "ai-analysis/STORY-451/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-453-phase-02-test-automator",
+      "timestamp": "2026-02-19T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-453",
+      "file-path": "ai-analysis/STORY-453/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-456-phase-02-test-automator",
+      "timestamp": "2026-02-19T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-456",
+      "file-path": "ai-analysis/STORY-456/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-code-review-STORY-443",
+      "timestamp": "2026-02-18T21:01:49.611796+00:00",
+      "source_type": "report",
+      "file-path": "code-review-STORY-443.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-443"
+    },
+    {
+      "id": "STORY-443-qa-security-audit",
+      "timestamp": "2026-02-18T21:01:37.991522+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-443",
+      "file-path": "ai-analysis/STORY-443/qa-security-audit.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-440-security-audit",
+      "timestamp": "2026-02-18T17:01:57.070807+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-440",
+      "file-path": "ai-analysis/STORY-440/security-audit.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-443-phase-05-integration-tester",
+      "timestamp": "2026-02-18T15:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-443",
+      "file-path": "ai-analysis/STORY-443/phase-05-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-442-phase-2-code-reviewer",
+      "timestamp": "2026-02-18T14:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-442",
+      "file-path": "ai-analysis/STORY-442/phase-2-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-438-phase-4-integration-tester",
+      "timestamp": "2026-02-18T13:32:59.256516+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-438",
+      "file-path": "ai-analysis/STORY-438/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-436-phase-02-test-automator",
+      "timestamp": "2026-02-18T12:20:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-436",
+      "file-path": "ai-analysis/STORY-436/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "code-review-STORY-435-code-review",
+      "timestamp": "2026-02-18T12:10:41.666722+00:00",
+      "source_type": "code-review",
+      "file-path": "code-review/STORY-435-code-review.md",
+      "tags": [
+        "code-review"
+      ],
+      "story-id": "STORY-435"
+    },
+    {
+      "id": "STORY-440-phase-02-test-automator",
+      "timestamp": "2026-02-18T10:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-440",
+      "file-path": "ai-analysis/STORY-440/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-439-phase-integration-integration-tester",
+      "timestamp": "2026-02-18T10:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-439",
+      "file-path": "ai-analysis/STORY-439/phase-integration-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-438-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-438",
+      "file-path": "ai-analysis/STORY-438/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-439-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-439",
+      "file-path": "ai-analysis/STORY-439/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-439-phase-3-backend-architect",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-439",
+      "file-path": "ai-analysis/STORY-439/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-441-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-441",
+      "file-path": "ai-analysis/STORY-441/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-442-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-442",
+      "file-path": "ai-analysis/STORY-442/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-442-phase-3-code-reviewer",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-442",
+      "file-path": "ai-analysis/STORY-442/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-443-code-reviewer-analysis",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-443",
+      "file-path": "ai-analysis/STORY-443/code-reviewer-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-443-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-443",
+      "file-path": "ai-analysis/STORY-443/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-444-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-444",
+      "file-path": "ai-analysis/STORY-444/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-445-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-445",
+      "file-path": "ai-analysis/STORY-445/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-445-phase-3-code-reviewer",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-445",
+      "file-path": "ai-analysis/STORY-445/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-446-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-446",
+      "file-path": "ai-analysis/STORY-446/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-447-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-447",
+      "file-path": "ai-analysis/STORY-447/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-448-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-448",
+      "file-path": "ai-analysis/STORY-448/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-448-phase-2-backend-architect",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-448",
+      "file-path": "ai-analysis/STORY-448/phase-2-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-448-phase-2-code-reviewer",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-448",
+      "file-path": "ai-analysis/STORY-448/phase-2-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-449-phase-02-test-automator",
+      "timestamp": "2026-02-18T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-449",
+      "file-path": "ai-analysis/STORY-449/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-434-phase-integration-integration-tester",
+      "timestamp": "2026-02-17T14:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-434",
+      "file-path": "ai-analysis/STORY-434/phase-integration-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-432-phase-03-backend-architect",
+      "timestamp": "2026-02-17T12:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-432",
+      "file-path": "ai-analysis/STORY-432/phase-03-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-433-phase-02-test-automator",
+      "timestamp": "2026-02-17T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-433",
+      "file-path": "ai-analysis/STORY-433/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-434-phase-02-test-automator",
+      "timestamp": "2026-02-17T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-434",
+      "file-path": "ai-analysis/STORY-434/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-432-phase-02-test-automator",
+      "timestamp": "2026-02-17T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-432",
+      "file-path": "ai-analysis/STORY-432/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-432-phase-qa-code-reviewer",
+      "timestamp": "2026-02-17T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-432",
+      "file-path": "ai-analysis/STORY-432/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-435-phase-02-test-automator",
+      "timestamp": "2026-02-17T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-435",
+      "file-path": "ai-analysis/STORY-435/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-437-phase-02-test-automator",
+      "timestamp": "2026-02-17T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-437",
+      "file-path": "ai-analysis/STORY-437/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-410-consolidated-analysis",
+      "timestamp": "2026-02-16T22:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-410",
+      "file-path": "ai-analysis/STORY-410/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-409-phase-09-framework-analyst",
+      "timestamp": "2026-02-16T21:20:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-409",
+      "file-path": "ai-analysis/STORY-409/phase-09-framework-analyst.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-408-consolidated-analysis",
+      "timestamp": "2026-02-16T20:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-408",
+      "file-path": "ai-analysis/STORY-408/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-406-consolidated-analysis",
+      "timestamp": "2026-02-16T18:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-406",
+      "file-path": "ai-analysis/STORY-406/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-405-consolidated-analysis",
+      "timestamp": "2026-02-16T16:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-405",
+      "file-path": "ai-analysis/STORY-405/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-405-phase-04-integration-tester",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-405",
+      "file-path": "ai-analysis/STORY-405/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-406-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-406",
+      "file-path": "ai-analysis/STORY-406/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-407-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-407",
+      "file-path": "ai-analysis/STORY-407/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-408-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-408",
+      "file-path": "ai-analysis/STORY-408/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-409-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-409",
+      "file-path": "ai-analysis/STORY-409/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-410-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-410",
+      "file-path": "ai-analysis/STORY-410/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-411-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-411",
+      "file-path": "ai-analysis/STORY-411/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-412-phase-02-test-automator",
+      "timestamp": "2026-02-16T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-412",
+      "file-path": "ai-analysis/STORY-412/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-404-phase-02-test-automator",
+      "timestamp": "2026-02-15T21:20:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-404",
+      "file-path": "ai-analysis/STORY-404/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-405-phase-02-test-automator",
+      "timestamp": "2026-02-15T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-405",
+      "file-path": "ai-analysis/STORY-405/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-403-phase-02-test-automator",
+      "timestamp": "2026-02-15T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-403",
+      "file-path": "ai-analysis/STORY-403/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-404-phase-3-backend-architect",
+      "timestamp": "2026-02-15T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-404",
+      "file-path": "ai-analysis/STORY-404/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-404-phase-4-integration-tester",
+      "timestamp": "2026-02-15T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-404",
+      "file-path": "ai-analysis/STORY-404/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-security-audit",
+      "timestamp": "2026-02-14T16:30:05.641584+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/security-audit.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-STORY-399-coverage-analysis",
+      "timestamp": "2026-02-14T16:28:28.803099+00:00",
+      "source_type": "report",
+      "file-path": "STORY-399-coverage-analysis.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-399"
+    },
+    {
+      "id": "STORY-400-phase-2-backend-architect",
+      "timestamp": "2026-02-14T12:10:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-400",
+      "file-path": "ai-analysis/STORY-400/phase-2-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-402-phase-qa-code-reviewer",
+      "timestamp": "2026-02-14T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-402",
+      "file-path": "ai-analysis/STORY-402/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-rollback-validation",
+      "timestamp": "2026-02-14T02:10:18.010592+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/rollback-validation.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-evaluation-results",
+      "timestamp": "2026-02-14T02:09:59.709635+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/evaluation-results.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-phase-02-test-automator",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-phase-2-code-reviewer",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/phase-2-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-phase-3-backend-architect",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-phase-4-integration-tester",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-400-phase-2-test-automator",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-400",
+      "file-path": "ai-analysis/STORY-400/phase-2-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-401-phase-2-test-automator",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-401",
+      "file-path": "ai-analysis/STORY-401/phase-2-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-401-phase-4-integration-tester",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-401",
+      "file-path": "ai-analysis/STORY-401/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-402-phase-02-test-automator",
+      "timestamp": "2026-02-14T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-402",
+      "file-path": "ai-analysis/STORY-402/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-code-review-STORY-397",
+      "timestamp": "2026-02-13T21:56:35.870991+00:00",
+      "source_type": "report",
+      "file-path": "code-review-STORY-397.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-397"
+    },
+    {
+      "id": "STORY-397-security-audit-summary",
+      "timestamp": "2026-02-13T21:56:11.672769+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/security-audit-summary.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-397-security-audit-findings",
+      "timestamp": "2026-02-13T21:55:52.217250+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/security-audit-findings.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-397-phase-integration-tester",
+      "timestamp": "2026-02-13T21:08:03.198550+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-397-agent-migration-consistency-review",
+      "timestamp": "2026-02-13T20:56:57.344610+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/agent-migration-consistency-review.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-395-phase-02-test-automator",
+      "timestamp": "2026-02-13T16:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-395",
+      "file-path": "ai-analysis/STORY-395/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-394-consolidated-analysis",
+      "timestamp": "2026-02-13T15:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-394",
+      "file-path": "ai-analysis/STORY-394/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-394-phase-integration-tester",
+      "timestamp": "2026-02-13T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-394",
+      "file-path": "ai-analysis/STORY-394/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-394-phase-02-test-automator",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-394",
+      "file-path": "ai-analysis/STORY-394/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-396-phase-02-test-automator",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-396",
+      "file-path": "ai-analysis/STORY-396/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-396-phase-2-backend-architect",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-396",
+      "file-path": "ai-analysis/STORY-396/phase-2-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-396-phase-3-backend-architect",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-396",
+      "file-path": "ai-analysis/STORY-396/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-397-phase-02-test-automator",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-397-phase-review-code-reviewer",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-397",
+      "file-path": "ai-analysis/STORY-397/phase-review-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-phase-02-test-automator",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-phase-2-backend-architect",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/phase-2-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-phase-2-code-reviewer",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/phase-2-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-398-phase-4-integration-tester",
+      "timestamp": "2026-02-13T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-398",
+      "file-path": "ai-analysis/STORY-398/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-391-consolidated-analysis",
+      "timestamp": "2026-02-12T21:40:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-391",
+      "file-path": "ai-analysis/STORY-391/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-392-phase-qa-integration-tester",
+      "timestamp": "2026-02-12T18:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-392",
+      "file-path": "ai-analysis/STORY-392/phase-qa-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-393-consolidated-analysis",
+      "timestamp": "2026-02-12T04:50:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-393",
+      "file-path": "ai-analysis/STORY-393/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-388-consolidated-analysis",
+      "timestamp": "2026-02-12T04:12:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-388",
+      "file-path": "ai-analysis/STORY-388/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-389-phase-qa-test-automator",
+      "timestamp": "2026-02-12T04:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-389",
+      "file-path": "ai-analysis/STORY-389/phase-qa-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-387-consolidated-analysis",
+      "timestamp": "2026-02-12T03:55:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-387",
+      "file-path": "ai-analysis/STORY-387/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-389-consolidated-analysis",
+      "timestamp": "2026-02-12T03:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-389",
+      "file-path": "ai-analysis/STORY-389/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-388-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-388",
+      "file-path": "ai-analysis/STORY-388/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-389-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-389",
+      "file-path": "ai-analysis/STORY-389/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-390-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-390",
+      "file-path": "ai-analysis/STORY-390/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-390-phase-03-backend-architect",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-390",
+      "file-path": "ai-analysis/STORY-390/phase-03-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-391-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-391",
+      "file-path": "ai-analysis/STORY-391/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-391-phase-coverage-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-391",
+      "file-path": "ai-analysis/STORY-391/phase-coverage-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-392-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-392",
+      "file-path": "ai-analysis/STORY-392/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-392-phase-3-code-reviewer",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-392",
+      "file-path": "ai-analysis/STORY-392/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-393-phase-02-test-automator",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-393",
+      "file-path": "ai-analysis/STORY-393/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-393-phase-integration-tester",
+      "timestamp": "2026-02-12T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-393",
+      "file-path": "ai-analysis/STORY-393/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-387-phase-02-test-automator",
+      "timestamp": "2026-02-11T22:10:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-387",
+      "file-path": "ai-analysis/STORY-387/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-386-phase-02-test-automator",
+      "timestamp": "2026-02-11T20:05:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-386",
+      "file-path": "ai-analysis/STORY-386/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-385-consolidated-analysis",
+      "timestamp": "2026-02-11T19:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-385",
+      "file-path": "ai-analysis/STORY-385/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-385-phase-02-test-automator",
+      "timestamp": "2026-02-11T18:14:31Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-385",
+      "file-path": "ai-analysis/STORY-385/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-386-phase-3-backend-architect",
+      "timestamp": "2026-02-11T15:20:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-386",
+      "file-path": "ai-analysis/STORY-386/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-384-phase-04-refactoring-specialist",
+      "timestamp": "2026-02-11T11:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-384",
+      "file-path": "ai-analysis/STORY-384/phase-04-refactoring-specialist.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-384-phase-02-test-automator",
+      "timestamp": "2026-02-11T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-384",
+      "file-path": "ai-analysis/STORY-384/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-385-phase-04-refactoring-specialist",
+      "timestamp": "2026-02-11T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-385",
+      "file-path": "ai-analysis/STORY-385/phase-04-refactoring-specialist.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-386-phase-4-integration-tester",
+      "timestamp": "2026-02-11T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-386",
+      "file-path": "ai-analysis/STORY-386/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-382-phase-02-test-automator",
+      "timestamp": "2026-02-10T15:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-382",
+      "file-path": "ai-analysis/STORY-382/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-380-phase-02-test-automator",
+      "timestamp": "2026-02-10T14:05:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-380",
+      "file-path": "ai-analysis/STORY-380/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-380-phase-qa-code-reviewer",
+      "timestamp": "2026-02-10T14:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-380",
+      "file-path": "ai-analysis/STORY-380/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-381-phase-qa-code-reviewer",
+      "timestamp": "2026-02-10T14:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-381",
+      "file-path": "ai-analysis/STORY-381/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-378-coverage-analysis-test-automator",
+      "timestamp": "2026-02-10T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-378",
+      "file-path": "ai-analysis/STORY-378/coverage-analysis-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-382-phase-qa-code-reviewer",
+      "timestamp": "2026-02-10T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-382",
+      "file-path": "ai-analysis/STORY-382/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-383-phase-qa-code-reviewer",
+      "timestamp": "2026-02-10T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-383",
+      "file-path": "ai-analysis/STORY-383/phase-qa-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-407-phase-qa-integration-tester",
+      "timestamp": "2026-02-10T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-407",
+      "file-path": "ai-analysis/STORY-407/phase-qa-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-404-phase-05-integration-tester",
+      "timestamp": "2026-02-10T03:49:51Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-404",
+      "file-path": "ai-analysis/STORY-404/phase-05-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-379-phase-02-test-automator",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-379",
+      "file-path": "ai-analysis/STORY-379/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-381-phase-02-test-automator",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-381",
+      "file-path": "ai-analysis/STORY-381/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-383-phase-02-test-automator",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-383",
+      "file-path": "ai-analysis/STORY-383/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-383-phase-qa-integration-tester",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-383",
+      "file-path": "ai-analysis/STORY-383/phase-qa-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-406-phase-qa-integration-tester",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-406",
+      "file-path": "ai-analysis/STORY-406/phase-qa-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-407-phase-04-refactoring-specialist",
+      "timestamp": "2026-02-10T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-407",
+      "file-path": "ai-analysis/STORY-407/phase-04-refactoring-specialist.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-coverage-analysis-test-automator",
+      "timestamp": "2026-02-09T21:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/coverage-analysis-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-consolidated-analysis",
+      "timestamp": "2026-02-09T20:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-phase-integration-tester",
+      "timestamp": "2026-02-09T17:51:47Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-phase-04-refactoring-specialist",
+      "timestamp": "2026-02-09T17:46:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/phase-04-refactoring-specialist.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-phase-3-backend-architect",
+      "timestamp": "2026-02-09T17:43:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-376-phase-02-test-automator",
+      "timestamp": "2026-02-09T17:25:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-376",
+      "file-path": "ai-analysis/STORY-376/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "report-STORY-375-dev-complete-summary",
+      "timestamp": "2026-02-09T15:09:41.452832+00:00",
+      "source_type": "report",
+      "file-path": "STORY-375-dev-complete-summary.md",
+      "tags": [
+        "report"
+      ],
+      "story-id": "STORY-375"
+    },
+    {
+      "id": "STORY-375-phase-02-test-automator",
+      "timestamp": "2026-02-09T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-375",
+      "file-path": "ai-analysis/STORY-375/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-377-coverage-analysis-test-automator",
+      "timestamp": "2026-02-09T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-377",
+      "file-path": "ai-analysis/STORY-377/coverage-analysis-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-378-phase-02-test-automator",
+      "timestamp": "2026-02-09T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-378",
+      "file-path": "ai-analysis/STORY-378/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-374-20260209-034930-ai-analysis",
+      "timestamp": "2026-02-09T03:49:30Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-374",
+      "file-path": "ai-analysis/STORY-374/20260209-034930-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-374-consolidated-analysis",
+      "timestamp": "2026-02-09T03:49:30Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-374",
+      "file-path": "ai-analysis/STORY-374/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-372-coverage-analysis",
+      "timestamp": "2026-02-09T01:14:57.910681+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-372",
+      "file-path": "ai-analysis/STORY-372/coverage-analysis.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-364-code-review-report",
+      "timestamp": "2026-02-09T01:11:29.601701+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-364",
+      "file-path": "ai-analysis/STORY-364/code-review-report.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-377-phase-02-test-automator",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-377",
+      "file-path": "ai-analysis/STORY-377/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-377-phase-5-integration-tester",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-377",
+      "file-path": "ai-analysis/STORY-377/phase-5-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-399-phase-integration-tester",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-399",
+      "file-path": "ai-analysis/STORY-399/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-400-phase-02-test-automator",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-400",
+      "file-path": "ai-analysis/STORY-400/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-401-phase-02-test-automator",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-401",
+      "file-path": "ai-analysis/STORY-401/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-401-phase-2-backend-architect",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-401",
+      "file-path": "ai-analysis/STORY-401/phase-2-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-404-phase-3-code-reviewer",
+      "timestamp": "2026-02-09T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-404",
+      "file-path": "ai-analysis/STORY-404/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-374-phase-coverage-test-automator",
+      "timestamp": "2026-02-08T23:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-374",
+      "file-path": "ai-analysis/STORY-374/phase-coverage-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-374-phase-02-test-automator",
+      "timestamp": "2026-02-08T22:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-374",
+      "file-path": "ai-analysis/STORY-374/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-372-phase-02-test-automator",
+      "timestamp": "2026-02-08T21:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-372",
+      "file-path": "ai-analysis/STORY-372/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-373-phase-qa-test-automator",
+      "timestamp": "2026-02-08T21:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-373",
+      "file-path": "ai-analysis/STORY-373/phase-qa-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-371-phase-05-integration-tester",
+      "timestamp": "2026-02-08T18:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-371",
+      "file-path": "ai-analysis/STORY-371/phase-05-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-370-phase-09-framework-analyst",
+      "timestamp": "2026-02-08T15:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-370",
+      "file-path": "ai-analysis/STORY-370/phase-09-framework-analyst.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-370-phase-04-integration-tester",
+      "timestamp": "2026-02-08T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-370",
+      "file-path": "ai-analysis/STORY-370/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-369-phase-09-framework-analyst",
+      "timestamp": "2026-02-08T03:55:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-369",
+      "file-path": "ai-analysis/STORY-369/phase-09-framework-analyst.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-370-coverage-analysis-test-automator",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-370",
+      "file-path": "ai-analysis/STORY-370/coverage-analysis-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-370-phase-02-test-automator",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-370",
+      "file-path": "ai-analysis/STORY-370/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-371-phase-02-test-automator",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-371",
+      "file-path": "ai-analysis/STORY-371/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-372-phase-4-integration-tester",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-372",
+      "file-path": "ai-analysis/STORY-372/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-372-phase-qa-test-automator",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-372",
+      "file-path": "ai-analysis/STORY-372/phase-qa-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-373-phase-02-test-automator",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-373",
+      "file-path": "ai-analysis/STORY-373/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-373-phase-3-backend-architect",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-373",
+      "file-path": "ai-analysis/STORY-373/phase-3-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-373-phase-4-integration-tester",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-373",
+      "file-path": "ai-analysis/STORY-373/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-373-phase-4-refactoring-specialist",
+      "timestamp": "2026-02-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-373",
+      "file-path": "ai-analysis/STORY-373/phase-4-refactoring-specialist.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-368-phase-09-framework-analyst",
+      "timestamp": "2026-02-07T18:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-368",
+      "file-path": "ai-analysis/STORY-368/phase-09-framework-analyst.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-368-phase-02-test-automator",
+      "timestamp": "2026-02-07T16:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-368",
+      "file-path": "ai-analysis/STORY-368/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-367-phase-03-backend-architect",
+      "timestamp": "2026-02-07T10:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-367",
+      "file-path": "ai-analysis/STORY-367/phase-03-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-367-phase-02-test-automator",
+      "timestamp": "2026-02-07T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-367",
+      "file-path": "ai-analysis/STORY-367/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-367-phase-integration-testing-results",
+      "timestamp": "2026-02-07T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-367",
+      "file-path": "ai-analysis/STORY-367/phase-integration-testing-results.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-368-phase-04-integration-tester",
+      "timestamp": "2026-02-07T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-368",
+      "file-path": "ai-analysis/STORY-368/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-369-phase-02-test-automator",
+      "timestamp": "2026-02-07T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-369",
+      "file-path": "ai-analysis/STORY-369/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-369-phase-03-backend-architect",
+      "timestamp": "2026-02-07T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-369",
+      "file-path": "ai-analysis/STORY-369/phase-03-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-365-phase-09-framework-analyst",
+      "timestamp": "2026-02-06T22:42:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-365",
+      "file-path": "ai-analysis/STORY-365/phase-09-framework-analyst.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-365-phase-4-integration-tester",
+      "timestamp": "2026-02-06T19:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-365",
+      "file-path": "ai-analysis/STORY-365/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-363-phase-04-integration-tester",
+      "timestamp": "2026-02-06T13:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-363",
+      "file-path": "ai-analysis/STORY-363/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-364-phase-03-code-reviewer",
+      "timestamp": "2026-02-06T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-364",
+      "file-path": "ai-analysis/STORY-364/phase-03-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-359-phase-02-test-automator",
+      "timestamp": "2026-02-06T03:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-359",
+      "file-path": "ai-analysis/STORY-359/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-360-phase-04-integration-tester",
+      "timestamp": "2026-02-06T00:10:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-360",
+      "file-path": "ai-analysis/STORY-360/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-361-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-361",
+      "file-path": "ai-analysis/STORY-361/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-361-phase-integration-tester",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-361",
+      "file-path": "ai-analysis/STORY-361/phase-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-362-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-362",
+      "file-path": "ai-analysis/STORY-362/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-362-phase-04-integration-tester",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-362",
+      "file-path": "ai-analysis/STORY-362/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-363-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-363",
+      "file-path": "ai-analysis/STORY-363/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-364-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-364",
+      "file-path": "ai-analysis/STORY-364/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-365-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-365",
+      "file-path": "ai-analysis/STORY-365/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-366-phase-02-test-automator",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-366",
+      "file-path": "ai-analysis/STORY-366/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-366-phase-09-integration-tester",
+      "timestamp": "2026-02-06T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-366",
+      "file-path": "ai-analysis/STORY-366/phase-09-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-357-phase-02-test-automator",
+      "timestamp": "2026-02-05T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-357",
+      "file-path": "ai-analysis/STORY-357/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-357-phase-03-backend-architect",
+      "timestamp": "2026-02-05T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-357",
+      "file-path": "ai-analysis/STORY-357/phase-03-backend-architect.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-358-phase-02-test-automator",
+      "timestamp": "2026-02-05T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-358",
+      "file-path": "ai-analysis/STORY-358/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-360-phase-02-test-automator",
+      "timestamp": "2026-02-05T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-360",
+      "file-path": "ai-analysis/STORY-360/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-356-phase-02-test-automator",
+      "timestamp": "2026-02-04T16:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-356",
+      "file-path": "ai-analysis/STORY-356/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-347-INTEGRATION-VALIDATION",
+      "timestamp": "2026-02-04T15:44:14.868557+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-347",
+      "file-path": "ai-analysis/STORY-347/INTEGRATION-VALIDATION.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-347-integration-test-report",
+      "timestamp": "2026-02-04T15:43:34.489032+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-347",
+      "file-path": "ai-analysis/STORY-347/integration-test-report.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-354-phase-02-test-automator",
+      "timestamp": "2026-02-04T14:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-354",
+      "file-path": "ai-analysis/STORY-354/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-346-consolidated-analysis",
+      "timestamp": "2026-02-04T13:52:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-346",
+      "file-path": "ai-analysis/STORY-346/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-346-coverage-analysis",
+      "timestamp": "2026-02-04T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-346",
+      "file-path": "ai-analysis/STORY-346/coverage-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-348-phase-02-test-automator",
+      "timestamp": "2026-02-04T11:24:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-348",
+      "file-path": "ai-analysis/STORY-348/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-347-phase-3-code-reviewer",
+      "timestamp": "2026-02-04T10:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-347",
+      "file-path": "ai-analysis/STORY-347/phase-3-code-reviewer.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-345-consolidated-analysis",
+      "timestamp": "2026-02-04T03:40:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-345",
+      "file-path": "ai-analysis/STORY-345/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-346-phase-02-test-automator",
+      "timestamp": "2026-02-04T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-346",
+      "file-path": "ai-analysis/STORY-346/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-347-phase-4-integration-tester",
+      "timestamp": "2026-02-04T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-347",
+      "file-path": "ai-analysis/STORY-347/phase-4-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-345-phase-02-test-automator",
+      "timestamp": "2026-02-03T20:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-345",
+      "file-path": "ai-analysis/STORY-345/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-343-consolidated-analysis",
+      "timestamp": "2026-02-03T18:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-343",
+      "file-path": "ai-analysis/STORY-343/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-344-phase-02-test-automator",
+      "timestamp": "2026-02-03T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-344",
+      "file-path": "ai-analysis/STORY-344/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-353-consolidated-analysis",
+      "timestamp": "2026-02-02T19:12:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-353",
+      "file-path": "ai-analysis/STORY-353/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-340-consolidated-analysis",
+      "timestamp": "2026-02-02T17:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-340",
+      "file-path": "ai-analysis/STORY-340/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-339-consolidated-analysis",
+      "timestamp": "2026-02-02T14:50:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-339",
+      "file-path": "ai-analysis/STORY-339/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-338-consolidated-analysis",
+      "timestamp": "2026-02-02T14:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-338",
+      "file-path": "ai-analysis/STORY-338/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-343-phase-02-test-automator",
+      "timestamp": "2026-02-02T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-343",
+      "file-path": "ai-analysis/STORY-343/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-352-phase-02-test-automator",
+      "timestamp": "2026-02-02T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-352",
+      "file-path": "ai-analysis/STORY-352/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-338-phase-02-test-automator",
+      "timestamp": "2026-02-02T10:30:00.000Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-338",
+      "file-path": "ai-analysis/STORY-338/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-342-phase-02-test-automator",
+      "timestamp": "2026-02-02T10:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-342",
+      "file-path": "ai-analysis/STORY-342/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-339-phase-02-test-automator",
+      "timestamp": "2026-02-02T09:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-339",
+      "file-path": "ai-analysis/STORY-339/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-338-phase-integration-integration-tester",
+      "timestamp": "2026-02-02T09:00:00.000Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-338",
+      "file-path": "ai-analysis/STORY-338/phase-integration-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-349-phase-02-test-automator",
+      "timestamp": "2026-02-01T12:35:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-349",
+      "file-path": "ai-analysis/STORY-349/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-349-phase-04-integration-tester",
+      "timestamp": "2026-02-01T12:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-349",
+      "file-path": "ai-analysis/STORY-349/phase-04-integration-tester.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-337-phase-02-test-automator",
+      "timestamp": "2026-02-01T00:00:00.000Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-337",
+      "file-path": "ai-analysis/STORY-337/phase-02-test-automator.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-333-consolidated-analysis",
+      "timestamp": "2026-01-30T21:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-333",
+      "file-path": "ai-analysis/STORY-333/consolidated-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-331-20260130-ai-analysis",
+      "timestamp": "2026-01-30T18:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-331",
+      "file-path": "ai-analysis/STORY-331/20260130-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-320-2026-01-26T19-45-00Z-ai-analysis",
+      "timestamp": "2026-01-26T19:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-320",
+      "file-path": "ai-analysis/STORY-320/2026-01-26T19-45-00Z-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-316-2026-01-26T19-30-00Z-ai-analysis",
+      "timestamp": "2026-01-26T19:30:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-316",
+      "file-path": "ai-analysis/STORY-316/2026-01-26T19-30-00Z-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-293-2026-01-22T14-45-00-ai-analysis",
+      "timestamp": "2026-01-22T14:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-293",
+      "file-path": "ai-analysis/STORY-293/2026-01-22T14-45-00-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-286-2026-01-20-qa-advisory-violations",
+      "timestamp": "2026-01-20T22:46:51.404182+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-286",
+      "file-path": "ai-analysis/STORY-286/2026-01-20-qa-advisory-violations.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-200-qa-deep-analysis",
+      "timestamp": "2026-01-18T15:52:48.411364+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-200",
+      "file-path": "ai-analysis/STORY-200/qa-deep-analysis.md",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-200-2026-01-11-qa-analysis",
+      "timestamp": "2026-01-18T15:52:48.401366+00:00",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-200",
+      "file-path": "ai-analysis/STORY-200/2026-01-11-qa-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-268-2026-01-16-ai-analysis",
+      "timestamp": "2026-01-16T23:45:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-268",
+      "file-path": "ai-analysis/STORY-268/2026-01-16-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-262-20260116-phase07-friction-analysis",
+      "timestamp": "2026-01-16T21:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-262",
+      "file-path": "ai-analysis/STORY-262/20260116-phase07-friction-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-267-20260116-ai-analysis",
+      "timestamp": "2026-01-16T19:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-267",
+      "file-path": "ai-analysis/STORY-267/20260116-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "RCA-002-20260115-rca-traceability-recommendations",
+      "timestamp": "2026-01-15T22:21:39Z",
+      "source_type": "ai-analysis",
+      "story-id": "RCA-002",
+      "file-path": "ai-analysis/RCA-002/20260115-rca-traceability-recommendations.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-219-20260114-164000-ai-analysis",
+      "timestamp": "2026-01-14T16:40:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-219",
+      "file-path": "ai-analysis/STORY-219/20260114-164000-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-215-20260114-130500-ai-analysis",
+      "timestamp": "2026-01-14T13:05:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-215",
+      "file-path": "ai-analysis/STORY-215/20260114-130500-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-200-2026-01-11-ai-analysis",
+      "timestamp": "2026-01-11T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-200",
+      "file-path": "ai-analysis/STORY-200/2026-01-11-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-244-2026-01-08-ai-analysis",
+      "timestamp": "2026-01-08T14:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-244",
+      "file-path": "ai-analysis/STORY-244/2026-01-08-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-192-2026-01-08-ai-analysis",
+      "timestamp": "2026-01-08T00:00:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-192",
+      "file-path": "ai-analysis/STORY-192/2026-01-08-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    },
+    {
+      "id": "STORY-154-2025-12-30-ai-analysis",
+      "timestamp": "2025-12-30T04:15:00Z",
+      "source_type": "ai-analysis",
+      "story-id": "STORY-154",
+      "file-path": "ai-analysis/STORY-154/2025-12-30-ai-analysis.json",
+      "tags": [
+        "ai-analysis"
+      ]
+    }
+  ],
+  "source_summary": {
+    "ai-analysis": 261,
+    "session": 0,
+    "code-review": 5,
+    "report": 9
+  }
+}

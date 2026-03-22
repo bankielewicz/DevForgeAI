@@ -1,0 +1,9 @@
+{
+  "story_id": "STORY-508",
+  "phase": "red",
+  "timestamp": "2026-02-28T14:38:55.867887",
+  "test_files": {
+    "test_ac1_checklist_row.sh": "a950b45d7cd0c65d8500982397039f5b063b8251e1c777f957ae51bea6b2d3c6",
+    "test_ac2_count_references.sh": "ca3bbcaeb090cdfe540eea52d06d810dc71a25311d94c7d04a3fcd480de5d89e"
+  }
+}

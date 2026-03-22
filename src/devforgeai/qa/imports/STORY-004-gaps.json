@@ -1,0 +1,145 @@
+{
+  "story_id": "STORY-004",
+  "qa_result": "FAILED",
+  "failure_reason": "Coverage below thresholds per ADR-010 (Business Logic 91.7%<95%, Application 69.2%<85%)",
+  "timestamp": "2026-01-15T09:00:00Z",
+  "coverage_gaps": [
+    {
+      "file": "src/treelint/index/indexer.py",
+      "layer": "Business Logic",
+      "current_coverage": 91.7,
+      "target_coverage": 95.0,
+      "gap_percentage": 3.3,
+      "uncovered_lines": 32,
+      "critical_gaps": [
+        {
+          "lines": "258-259",
+          "description": "Orphan detection edge case handling"
+        },
+        {
+          "lines": "279-288",
+          "description": "Migration path execution"
+        },
+        {
+          "lines": "378-471",
+          "description": "Performance reporting and progress callbacks"
+        }
+      ],
+      "suggested_tests": [
+        "test_orphan_detection_with_empty_database",
+        "test_migration_from_v1_to_v2_schema",
+        "test_progress_callback_invocation_frequency",
+        "test_rebuild_with_callback_exception_handling"
+      ]
+    },
+    {
+      "file": "src/treelint/cli.py",
+      "layer": "Application",
+      "current_coverage": 69.2,
+      "target_coverage": 85.0,
+      "gap_percentage": 15.8,
+      "uncovered_lines": 28,
+      "critical_gaps": [
+        {
+          "lines": "112-124",
+          "description": "--force flag validation and error messaging"
+        },
+        {
+          "lines": "178-190",
+          "description": "Repair command error output formatting"
+        },
+        {
+          "lines": "259-277",
+          "description": "Status command verbose output formatting"
+        }
+      ],
+      "suggested_tests": [
+        "test_rebuild_force_flag_validation",
+        "test_rebuild_json_error_format",
+        "test_repair_human_readable_error_output",
+        "test_status_verbose_mode_formatting",
+        "test_status_empty_index_human_output"
+      ]
+    },
+    {
+      "file": "src/treelint/__main__.py",
+      "layer": "Entry Point",
+      "current_coverage": 0.0,
+      "target_coverage": 90.0,
+      "gap_percentage": 90.0,
+      "uncovered_lines": 3,
+      "critical_gaps": [
+        {
+          "lines": "13, 15-16",
+          "description": "Module entry point execution guard and CLI invocation"
+        }
+      ],
+      "suggested_tests": [
+        "test_module_execution_via_subprocess_python_m_treelint",
+        "test_main_entry_point_invokes_cli_app"
+      ],
+      "note": "__main__.py requires subprocess testing - not reachable via pytest import"
+    }
+  ],
+  "anti_pattern_violations": [],
+  "deferral_issues": [],
+  "remediation_sequence": [
+    {
+      "phase": "02R",
+      "name": "Add Business Logic Coverage Tests (indexer.py)",
+      "target_files": [
+        "tests/unit/index/test_indexer.py"
+      ],
+      "gap_count": 4,
+      "priority": "CRITICAL",
+      "estimated_effort": "2-3 hours",
+      "required_tests": [
+        "test_orphan_detection_with_empty_database",
+        "test_migration_from_v1_to_v2_schema",
+        "test_progress_callback_invocation_frequency",
+        "test_rebuild_with_callback_exception_handling"
+      ]
+    },
+    {
+      "phase": "02R",
+      "name": "Add CLI Integration Coverage Tests (cli.py)",
+      "target_files": [
+        "tests/integration/test_cli.py"
+      ],
+      "gap_count": 5,
+      "priority": "CRITICAL",
+      "estimated_effort": "2-3 hours",
+      "required_tests": [
+        "test_rebuild_force_flag_validation",
+        "test_rebuild_json_error_format",
+        "test_repair_human_readable_error_output",
+        "test_status_verbose_mode_formatting",
+        "test_status_empty_index_human_output"
+      ]
+    },
+    {
+      "phase": "02R",
+      "name": "Add Entry Point Subprocess Tests (__main__.py)",
+      "target_files": [
+        "tests/unit/test_main_entry.py"
+      ],
+      "gap_count": 2,
+      "priority": "HIGH",
+      "estimated_effort": "30-60 minutes",
+      "required_tests": [
+        "test_module_execution_via_subprocess",
+        "test_main_entry_point_exception_handling"
+      ],
+      "note": "Subprocess-based testing required for __main__.py coverage"
+    }
+  ],
+  "blocking_status": true,
+  "adr_reference": "ADR-010",
+  "adr_rule": "Coverage gaps are CRITICAL blockers (95%/85%/80%), no deferral path",
+  "next_steps": [
+    "Run: /dev STORY-004 (enters remediation mode)",
+    "Implement 11 suggested tests to close coverage gaps",
+    "Re-run: /qa STORY-004 deep after fixes",
+    "Target: Business Logic ≥95%, Application ≥85%, Entry Point ≥90%"
+  ]
+}

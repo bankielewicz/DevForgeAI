@@ -1,0 +1,111 @@
+{
+  "story_id": "STORY-162",
+  "workflow_started": "2026-01-01T18:39:02.911307Z",
+  "current_phase": "10",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-01-01T18:40:20.529631Z",
+      "completed_at": "2026-01-01T19:28:48.660107Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-01-01T20:36:01.508242Z",
+      "completed_at": "2026-01-01T20:36:22.786641Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [
+        "context-validator"
+      ],
+      "started_at": "2026-01-01T21:20:56.319557Z",
+      "completed_at": "2026-01-01T21:21:08.416328Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-01-02T02:00:22.120834Z",
+      "completed_at": "2026-01-02T02:02:57.512078Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-01-02T02:13:46.179565Z",
+      "completed_at": "2026-01-02T02:13:53.977142Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:21:28.654201Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:23:08.436140Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:24:15.506805Z",
+      "checkpoint_passed": true
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-01-02T02:24:55.764270Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-01-02T02:26:10.378768Z",
+      "completed_at": "2026-01-02T02:26:17.611161Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "blocking_status": false
+}

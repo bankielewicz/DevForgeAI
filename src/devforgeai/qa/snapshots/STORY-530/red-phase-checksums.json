@@ -1,0 +1,11 @@
+{
+  "story_id": "STORY-530",
+  "phase": "red",
+  "checksums": {
+    "run_all_tests.sh": "91be47acd8c563dfcb46c395ed12ba76bf94d6355bc1160d6ac47ed8e3e0050b",
+    "test_ac1_section_presence.py": "d6655c2e306cd233e5ea37ad3e4e3be4305e65d9ea1263413de643d6dd30892f",
+    "test_ac2_phase_filtering.sh": "0c92d9462a8a65915c3bcad56c38bb16992d5a1e3aaefacf5202c585eea96db7",
+    "test_ac3_taskupdate.sh": "99e7ddd797ec19137547c24fc295b391f184a8b5b5a1a0a14c7be336334fcae8",
+    "test_ac4_error_handling.py": "c487a545b38ce648da352f53b3f6126fced69cd4334ee8eb158f1399ec79bef4"
+  }
+}

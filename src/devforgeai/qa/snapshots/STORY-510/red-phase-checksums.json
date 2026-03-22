@@ -1,0 +1,8 @@
+{
+  "story_id": "STORY-510",
+  "phase": "red",
+  "checksums": {
+    "test_ac1_cross_ref_step.sh": "d34cb6f1e08b54bda26e8ff3631c486ba702b16ba9c8aca353730a2f5eebfb1d",
+    "test_ac2_story_placeholder_preserved.sh": "de93e4c897bd6843ccfeba125291a85a2cc55e8094a233b946a097ec60624dd5"
+  }
+}

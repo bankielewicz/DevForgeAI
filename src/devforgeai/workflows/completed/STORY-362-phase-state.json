@@ -1,0 +1,101 @@
+{
+  "story_id": "STORY-362",
+  "current_phase": "03",
+  "iteration_count": 1,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:00:00Z",
+      "completed_at": "2026-02-06T10:10:00Z",
+      "subagents_invoked": ["git-validator", "tech-stack-detector"]
+    },
+    "02": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:10:00Z",
+      "completed_at": "2026-02-06T10:20:00Z",
+      "subagents_invoked": ["test-automator"],
+      "test_results": {
+        "passed": ["AC#1", "AC#2", "AC#5"],
+        "failed": ["AC#3", "AC#4", "AC#6"],
+        "red_state": true
+      }
+    },
+    "03": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:20:00Z",
+      "completed_at": "2026-02-06T10:35:00Z",
+      "subagents_invoked": ["backend-architect", "context-validator"],
+      "test_results": {
+        "passed": ["AC#1", "AC#2", "AC#3", "AC#4", "AC#5", "AC#6"],
+        "failed": [],
+        "green_state": true
+      }
+    },
+    "04": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:35:00Z",
+      "completed_at": "2026-02-06T10:45:00Z",
+      "subagents_invoked": ["refactoring-specialist", "code-reviewer"],
+      "light_qa": {
+        "result": "PASSED",
+        "tests_passed": 41,
+        "tests_total": 41
+      }
+    },
+    "04.5": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:45:00Z",
+      "completed_at": "2026-02-06T10:50:00Z",
+      "subagents_invoked": ["ac-compliance-verifier"],
+      "ac_verification": {
+        "passed": 6,
+        "failed": 0,
+        "status": "PASS"
+      }
+    },
+    "05": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:50:00Z",
+      "completed_at": "2026-02-06T10:55:00Z",
+      "subagents_invoked": ["integration-tester"],
+      "integration_tests": {
+        "passed": 5,
+        "failed": 0,
+        "status": "PASS"
+      }
+    },
+    "05.5": {
+      "status": "completed",
+      "started_at": "2026-02-06T10:55:00Z",
+      "completed_at": "2026-02-06T10:56:00Z",
+      "subagents_invoked": [],
+      "ac_verification": {
+        "passed": 6,
+        "status": "PASS"
+      }
+    },
+    "06": {
+      "status": "completed",
+      "note": "No deferrals to validate"
+    },
+    "07": {
+      "status": "completed",
+      "dod_items_completed": 20
+    },
+    "08": {
+      "status": "completed",
+      "mode": "file-based",
+      "note": "Changes tracked via file-based tracking (commit pending user approval)"
+    },
+    "09": {
+      "status": "completed",
+      "subagents_invoked": ["framework-analyst"]
+    },
+    "10": {
+      "status": "completed",
+      "subagents_invoked": ["dev-result-interpreter"],
+      "workflow_result": "SUCCESS"
+    }
+  },
+  "observations": []
+}

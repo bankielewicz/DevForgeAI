@@ -1,0 +1,206 @@
+{
+  "story_id": "STORY-271",
+  "title": "Source Code Inspection Workflow for AC Verification",
+  "validation_type": "integration",
+  "timestamp": "2026-01-19T21:00:00Z",
+  "validator": "integration-tester",
+  "mode": "deep",
+
+  "integration_points_verified": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0
+  },
+
+  "integration_analysis": [
+    {
+      "id": "INT-1",
+      "name": "Integration with XML AC Parsing (STORY-270)",
+      "status": "PASS",
+      "description": "Source Code Inspection Workflow receives parsed AC data from XML AC Parsing Protocol",
+      "evidence": {
+        "data_model_compatibility": {
+          "status": "VERIFIED",
+          "details": [
+            "AcceptanceCriterion model (STORY-270) outputs: id, given, when, then, source_files, test_file, coverage_threshold",
+            "Source Code Inspection Workflow (STORY-271) consumes: ac.source_files for file loading (line 198)",
+            "Source Code Inspection Workflow (STORY-271) consumes: ac.given, ac.when, ac.then for keyword extraction (line 206)",
+            "SourceInspectionResult references ac_id which maps to AcceptanceCriterion.id"
+          ],
+          "file_references": [
+            {
+              "file": ".claude/agents/ac-compliance-verifier.md",
+              "lines": "117-131",
+              "content": "AcceptanceCriterion Data Model with all required fields"
+            },
+            {
+              "file": ".claude/agents/ac-compliance-verifier.md",
+              "lines": "287-318",
+              "content": "SourceInspectionResult Data Model consuming AC data"
+            }
+          ]
+        },
+        "data_flow": {
+          "status": "VERIFIED",
+          "sequence": [
+            "Step 1: XML AC Parsing (lines 67-79) detects <acceptance_criteria> blocks",
+            "Step 2: Given/When/Then extraction (lines 81-98) populates AcceptanceCriterion",
+            "Step 3: Source files hints extraction (lines 100-115) adds verification metadata",
+            "Step 4: Build AcceptanceCriterion model (lines 117-131)",
+            "Step 5: Source Code Inspection consumes model (lines 195-220)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "INT-2",
+      "name": "Integration with Verification Workflow",
+      "status": "PASS",
+      "description": "Source Code Inspection Workflow is properly integrated into overall verification workflow",
+      "evidence": {
+        "workflow_sequence": {
+          "status": "VERIFIED",
+          "steps": [
+            "Step 1: Read Story File (line 385) - loads story for parsing",
+            "Step 2: Parse Acceptance Criteria (lines 396-400) - uses XML AC Parsing Protocol",
+            "Step 3: Discover Source Files (lines 403-412) - uses Source Code Inspection discovery",
+            "Step 4: Verify Each AC (lines 415-439) - uses Source Code Inspection patterns",
+            "Step 5: Generate Report (lines 445-473) - outputs SourceInspectionResult"
+          ]
+        },
+        "report_integration": {
+          "status": "VERIFIED",
+          "details": [
+            "SourceInspectionResult feeds into verification report JSON structure",
+            "FileEvidence provides file_path, lines, code_snippet for evidence field",
+            "Confidence levels (HIGH/MEDIUM/LOW) determine overall_status"
+          ],
+          "file_reference": {
+            "file": ".claude/agents/ac-compliance-verifier.md",
+            "lines": "445-473",
+            "content": "Report generation consuming inspection results"
+          }
+        }
+      }
+    },
+    {
+      "id": "INT-3",
+      "name": "Tool Integration (Read, Grep, Glob)",
+      "status": "PASS",
+      "description": "Only allowed tools (Read, Grep, Glob) are used - no forbidden tools (Write, Edit, Bash)",
+      "evidence": {
+        "allowed_tools_usage": {
+          "Read": {
+            "count": 8,
+            "locations": ["line 199", "line 220", "line 385", "line 405", "line 492", "line 499"],
+            "purpose": "Source file loading and content inspection"
+          },
+          "Grep": {
+            "count": 9,
+            "locations": ["line 73", "line 213-214", "line 231", "line 237", "line 243", "line 412", "line 486", "line 505"],
+            "purpose": "Pattern search for AC keywords and implementation"
+          },
+          "Glob": {
+            "count": 5,
+            "locations": ["line 209-211", "line 411", "line 480"],
+            "purpose": "File discovery when hints not provided"
+          }
+        },
+        "forbidden_tools_check": {
+          "status": "VERIFIED",
+          "Write_found": false,
+          "Edit_found": false,
+          "Bash_found": false,
+          "enforcement": {
+            "file": ".claude/agents/ac-compliance-verifier.md",
+            "lines": "509-523",
+            "content": "Tool Restrictions (READ-ONLY) section explicitly forbids Write, Edit, Bash"
+          }
+        },
+        "tool_list_declaration": {
+          "file": ".claude/agents/ac-compliance-verifier.md",
+          "line": 4,
+          "content": "tools: [Read, Grep, Glob]"
+        }
+      }
+    }
+  ],
+
+  "data_flow_verification": {
+    "status": "PASS",
+    "flow_diagram": [
+      "1. Story file parsed by XML AC Parsing Protocol",
+      "2. Each AC passed to Source Code Inspection Workflow",
+      "3. FileEvidence collected per file",
+      "4. SourceInspectionResult aggregated per AC",
+      "5. Results feed into verification report"
+    ],
+    "evidence": {
+      "step_1_to_2": {
+        "source": "AcceptanceCriterion model (lines 117-131)",
+        "target": "FOR each source_file in ac.source_files (line 198)",
+        "verified": true
+      },
+      "step_2_to_3": {
+        "source": "Read(file_path={source_file}) (line 199)",
+        "target": "FileEvidence Data Model (lines 257-276)",
+        "verified": true
+      },
+      "step_3_to_4": {
+        "source": "Create FileEvidence for each file (line 284)",
+        "target": "SourceInspectionResult (lines 287-318)",
+        "verified": true
+      },
+      "step_4_to_5": {
+        "source": "SourceInspectionResult with confidence",
+        "target": "Verification Report JSON (lines 445-473)",
+        "verified": true
+      }
+    }
+  },
+
+  "business_rules_compliance": {
+    "BR-001": {
+      "rule": "All evidence must reference specific file locations",
+      "status": "PASS",
+      "evidence": "FileEvidence requires file_path (line 272), enforcement at line 277"
+    },
+    "BR-002": {
+      "rule": "Discovery fallback when no hints provided",
+      "status": "PASS",
+      "evidence": "Discovery mode sets MEDIUM/LOW confidence (lines 345-358)"
+    },
+    "BR-003": {
+      "rule": "Read-only inspection (no modifications)",
+      "status": "PASS",
+      "evidence": "Tool restrictions enforce Read, Grep, Glob only (lines 509-523)"
+    }
+  },
+
+  "data_model_compatibility": {
+    "AcceptanceCriterion_to_SourceInspectionResult": {
+      "status": "COMPATIBLE",
+      "mapping": {
+        "AcceptanceCriterion.id": "SourceInspectionResult.ac_id",
+        "AcceptanceCriterion.source_files": "Input for file loading loop",
+        "AcceptanceCriterion.given/when/then": "Input for keyword extraction"
+      }
+    },
+    "FileEvidence_aggregation": {
+      "status": "COMPATIBLE",
+      "details": "Multiple FileEvidence objects aggregate into SourceInspectionResult.files_inspected array"
+    }
+  },
+
+  "summary": {
+    "overall_status": "PASS",
+    "integration_points_verified": 3,
+    "data_model_verified": true,
+    "tool_compliance_verified": true,
+    "business_rules_verified": true,
+    "recommendations": [],
+    "blocking_issues": []
+  },
+
+  "conclusion": "STORY-271 Source Code Inspection Workflow is properly integrated with STORY-270 XML AC Parsing Protocol. Data models are compatible, tool usage is compliant with read-only restrictions, and the verification workflow correctly chains parsing -> inspection -> reporting."
+}

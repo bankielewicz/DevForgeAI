@@ -1,0 +1,11 @@
+{
+  "story_id": "STORY-515",
+  "phase": "02-red",
+  "timestamp": "2026-02-28T09:20:55.671440",
+  "test_files": {
+    "tests/STORY-515/run_all_tests.sh": "45b5b048fb18f8b9bdd244ce369b378d4a36b84b4569217c800727e5ef44521f",
+    "tests/STORY-515/test_ac1_numbered_categories.sh": "b1fe5982f741f8c267e4ef20c7ec1293965ba3f1335b2754b2a0433b41143e76",
+    "tests/STORY-515/test_ac2_labels.sh": "94f5d51306838d86de75a6d4908bd636536f5ea23fb21b699d8a5f552222d850",
+    "tests/STORY-515/test_ac3_content_preserved.sh": "ff07ebc946af4584a47d9c57682583ffc58bc5e66959816a46586d3bb05550e2"
+  }
+}

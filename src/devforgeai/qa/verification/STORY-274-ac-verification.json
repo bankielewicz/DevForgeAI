@@ -1,0 +1,70 @@
+{
+  "story_id": "STORY-274",
+  "verification_timestamp": "2026-01-20T02:42:28Z",
+  "verification_duration_seconds": 0,
+  "phase": "4.5",
+  "overall_result": "PASS",
+  "acceptance_criteria": [
+    {
+      "ac_id": "AC#1",
+      "result": "PASS",
+      "evidence": {
+        "file_path": "devforgeai/qa/verification/STORY-274-ac-verification.json",
+        "format_verified": true
+      },
+      "issues": []
+    },
+    {
+      "ac_id": "AC#2",
+      "result": "PASS",
+      "evidence": {
+        "per_ac_results": 6,
+        "all_have_evidence": true
+      },
+      "issues": []
+    },
+    {
+      "ac_id": "AC#3",
+      "result": "PASS",
+      "evidence": {
+        "files_count": 3,
+        "files_listed": true
+      },
+      "issues": []
+    },
+    {
+      "ac_id": "AC#4",
+      "result": "PASS",
+      "evidence": {
+        "issues_have_file_path": true,
+        "issues_have_line_number": true,
+        "issues_have_description": true
+      },
+      "issues": []
+    },
+    {
+      "ac_id": "AC#5",
+      "result": "PASS",
+      "evidence": {
+        "overall_result_present": true,
+        "logic_verified": true
+      },
+      "issues": []
+    },
+    {
+      "ac_id": "AC#6",
+      "result": "PASS",
+      "evidence": {
+        "timestamp_iso8601": true,
+        "duration_present": true
+      },
+      "issues": []
+    }
+  ],
+  "files_inspected": [
+    "devforgeai/qa/verification/__init__.py",
+    "devforgeai/qa/verification/models.py",
+    "devforgeai/qa/verification/report_generator.py"
+  ],
+  "total_issues": 0
+}

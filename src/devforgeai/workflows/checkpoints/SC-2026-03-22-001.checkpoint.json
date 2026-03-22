@@ -1,0 +1,39 @@
+{
+  "checkpoint_version": "1.0",
+  "session_id": "SC-2026-03-22-001",
+  "workflow": "stories",
+  "created_at": "2026-03-22T15:45:00Z",
+  "updated_at": "2026-03-22T15:45:00Z",
+  "status": "in_progress",
+  "input": {
+    "mode": "SINGLE_STORY",
+    "epic_id": "EPIC-088",
+    "feature_description": "Feature 1: Gate 0S ADR acceptance and quality gates reference update. Documentation story (3 pts, HIGH). Create ADR-046, add Gate 0S section to quality-gates.md reference, update quality-gates rule summary.",
+    "story_id": null,
+    "batch_mode": false,
+    "batch_index": null
+  },
+  "progress": {
+    "current_phase": 0,
+    "phases_completed": [],
+    "total_steps_completed": 0
+  },
+  "phases": {
+    "01": { "status": "pending", "steps_completed": [] },
+    "02": { "status": "pending", "steps_completed": [] },
+    "03": { "status": "pending", "steps_completed": [] },
+    "04": { "status": "pending", "steps_completed": [] },
+    "05": { "status": "pending", "steps_completed": [] },
+    "06": { "status": "pending", "steps_completed": [] },
+    "07": { "status": "pending", "steps_completed": [] },
+    "08": { "status": "pending", "steps_completed": [] }
+  },
+  "output": {
+    "story_id": null,
+    "story_file_path": null,
+    "epic_linked": false,
+    "sprint_linked": false,
+    "validation_passed": false,
+    "error": null
+  }
+}

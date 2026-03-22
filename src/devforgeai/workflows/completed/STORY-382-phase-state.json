@@ -1,0 +1,28 @@
+{
+  "story_id": "STORY-382",
+  "current_phase": "08",
+  "status": "in_progress",
+  "iteration_count": 1,
+  "phases": {
+    "01": {"status": "completed", "started": "2026-02-10T00:00:00Z", "completed": "2026-02-10T00:00:00Z"},
+    "02": {"status": "completed", "started": "2026-02-10T00:00:00Z", "completed": "2026-02-10T00:00:00Z"},
+    "03": {"status": "completed", "started": "2026-02-10T00:00:00Z", "completed": "2026-02-10T01:00:00Z"},
+    "04": {"status": "completed", "started": "2026-02-10T01:00:00Z", "completed": "2026-02-10T01:05:00Z"},
+    "4.5": {"status": "completed", "started": "2026-02-10T01:05:00Z", "completed": "2026-02-10T01:10:00Z"},
+    "05": {"status": "skipped", "started": null, "completed": null},
+    "5.5": {"status": "skipped", "started": null, "completed": null},
+    "06": {"status": "completed", "started": "2026-02-10T01:10:00Z", "completed": "2026-02-10T01:10:00Z"},
+    "07": {"status": "completed", "started": "2026-02-10T01:10:00Z", "completed": "2026-02-10T01:15:00Z"},
+    "08": {"status": "in_progress", "started": "2026-02-10T01:15:00Z", "completed": null},
+    "09": {"status": "pending", "started": null, "completed": null},
+    "10": {"status": "pending", "started": null, "completed": null}
+  },
+  "subagents_invoked": ["test-automator", "ac-compliance-verifier", "internet-sleuth"],
+  "observations": [
+    "sed pattern matching issue with section extraction when header text is prefix of another header",
+    "grep -cvE with pipefail returns count 0 with exit 1 causing || echo 0 to append duplicate",
+    "Pattern naming convention C1-C18 required test updates from generic Pattern [0-9] format"
+  ],
+  "created": "2026-02-10T00:00:00Z",
+  "updated": "2026-02-10T01:15:00Z"
+}

@@ -1,0 +1,32 @@
+{
+  "story_id": "STORY-535",
+  "timestamp": "2026-03-04T21:50:34.374970+00:00",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-535/test_ac1_market_sizing_output.py",
+      "sha256": "1f829677f832a4582902802ecbe7d35e7726c845863feb85476d5ee0fb69a638",
+      "size_bytes": 7575
+    },
+    {
+      "path": "tests/STORY-535/test_ac2_internet_sleuth_integration.py",
+      "sha256": "9b1f140f2b8ecaae286861af4ddebd1d9db57e562a81d04c27b192be0bef5245",
+      "size_bytes": 4235
+    },
+    {
+      "path": "tests/STORY-535/test_ac3_adaptive_questions.py",
+      "sha256": "f2fb00fe45f78d0738ba8843ceff993b0fbb52e91bf9f4f23081a955eae1d871",
+      "size_bytes": 4877
+    },
+    {
+      "path": "tests/STORY-535/test_ac4_progressive_disclosure.py",
+      "sha256": "c45058b712c0f275f8443a11b8d8b570c6fee068c99063418c7733af40dbefc8",
+      "size_bytes": 3595
+    },
+    {
+      "path": "tests/STORY-535/test_ac5_skill_structure.py",
+      "sha256": "b2083b4c9e4eb23001283de90e571c05c1afab8c1d6ecaae1e855b548aee092b",
+      "size_bytes": 6451
+    }
+  ]
+}

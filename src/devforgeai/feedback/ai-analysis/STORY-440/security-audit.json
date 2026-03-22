@@ -1,0 +1,112 @@
+{
+  "story_id": "STORY-440",
+  "story_title": "Rename Architecture Skill to designing-systems",
+  "story_type": "refactor",
+  "audit_timestamp": "2026-02-18T00:00:00Z",
+  "audit_mode": "light",
+  "security_status": "PASS",
+  "security_score": 100,
+  "summary": {
+    "status": "PASS - No security vulnerabilities detected",
+    "description": "Directory rename refactor with no functional code changes. No new code implementation, no new dependencies, no configuration changes affecting security.",
+    "blocking_issues": [],
+    "key_findings": [
+      "✅ No hardcoded secrets detected in modified files",
+      "✅ No new dependencies introduced (directory rename only)",
+      "✅ No OWASP Top 10 vulnerabilities present"
+    ]
+  },
+  "owasp_findings": {
+    "a1_injection": "PASS - No SQL injection, NoSQL injection, or OS command injection detected",
+    "a2_broken_auth": "PASS - No authentication/authorization code changes",
+    "a3_sensitive_data_exposure": "PASS - No sensitive data handling changes",
+    "a4_xxe": "PASS - No XML processing changes",
+    "a5_broken_access_control": "PASS - No access control logic changes",
+    "a6_security_misconfiguration": "PASS - No security configuration changes",
+    "a7_xss": "PASS - No user input processing changes",
+    "a8_insecure_deserialization": "PASS - No deserialization changes",
+    "a9_vulnerable_components": "PASS - No new dependencies added",
+    "a10_insufficient_logging": "PASS - No logging configuration changes"
+  },
+  "dependency_scan": {
+    "status": "SKIPPED - No new dependencies introduced",
+    "description": "STORY-440 is a directory rename refactor with no new package additions. Existing dependency vulnerabilities (lodash, tmp) are pre-existing and outside scope of this story."
+  },
+  "hardcoded_secrets": {
+    "status": "PASS - No hardcoded secrets detected",
+    "patterns_checked": [
+      "api_key|api-key patterns",
+      "password patterns",
+      "secret patterns",
+      "AWS credential patterns (AKIA*)",
+      "Private key patterns (BEGIN...PRIVATE KEY)"
+    ],
+    "findings": []
+  },
+  "authentication_review": {
+    "status": "PASS - No auth code changes",
+    "description": "No authentication or authorization code was added or modified in this refactor"
+  },
+  "security_findings": [
+    {
+      "id": "NONE",
+      "severity": "NONE",
+      "description": "No security vulnerabilities detected",
+      "owasp_category": "N/A",
+      "remediation": "N/A"
+    }
+  ],
+  "file_analysis": {
+    "total_files_analyzed": 89,
+    "markdown_files": 67,
+    "script_files": 6,
+    "test_files": 7,
+    "configuration_files": 9,
+    "security_relevant_files": [
+      {
+        "file": "src/claude/skills/designing-systems/scripts/init_context.sh",
+        "status": "SAFE",
+        "analysis": "Shell script performs file copying and placeholder substitution. Uses 'set -e' for error handling. No unsafe commands detected (no eval, exec, or unquoted variables in critical paths). Safe use of sed with date variables.",
+        "risks": "None"
+      },
+      {
+        "file": "src/claude/skills/designing-systems/scripts/detect_anti_patterns.py",
+        "status": "SAFE",
+        "analysis": "Python script contains regex patterns for security anti-pattern detection (hardcoded passwords, secrets, connection strings). These are detection patterns only, not exploits. No actual secrets found in the code.",
+        "risks": "None"
+      }
+    ]
+  },
+  "risk_assessment": {
+    "overall_risk": "VERY LOW",
+    "technical_risk": "NONE - Directory rename only, no functional changes",
+    "dependency_risk": "NONE - No new dependencies added",
+    "configuration_risk": "NONE - No security-related configuration changes",
+    "code_execution_risk": "NONE - No new code executed"
+  },
+  "pass_fail_criteria": {
+    "critical_findings": "PASS (0 critical issues)",
+    "high_findings": "PASS (0 high severity issues)",
+    "dependency_vulnerabilities": "PASS (no new dependencies - pre-existing vulns not in scope)",
+    "hardcoded_secrets": "PASS (0 hardcoded secrets detected)",
+    "auth_validation": "PASS (no auth changes)",
+    "overall_result": "PASS"
+  },
+  "recommendations": [
+    {
+      "type": "INFO",
+      "priority": "LOW",
+      "description": "Pre-existing dependency vulnerabilities exist (lodash, tmp)",
+      "action": "Run 'npm audit fix' to address pre-existing vulnerabilities at project level (outside STORY-440 scope)"
+    }
+  ],
+  "scope_notes": {
+    "story_classification": "REFACTOR - Directory rename only",
+    "functional_changes": "NONE",
+    "code_changes": "NONE - File paths updated only",
+    "security_impact": "NONE",
+    "reason_for_pass": "STORY-440 contains no new code, no new dependencies, and no security-sensitive changes. It is a pure directory rename refactor applying ADR-017 naming conventions to existing files."
+  },
+  "auditor": "security-auditor subagent",
+  "methodology": "OWASP Top 10 pattern scanning, hardcoded secret detection, dependency vulnerability scanning, shell script safety analysis"
+}

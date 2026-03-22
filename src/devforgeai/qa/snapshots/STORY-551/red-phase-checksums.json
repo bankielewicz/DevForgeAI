@@ -1,0 +1,37 @@
+{
+  "story_id": "STORY-551",
+  "timestamp": "2026-03-06T04:21:04Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-551/test_ac1_command_thin_delegator.py",
+      "sha256": "b1211eddfaf052c4db75d7b29290287de1a2c4649643f1e4206b1c1d5778c078",
+      "size_bytes": 4964
+    },
+    {
+      "path": "tests/STORY-551/test_ac2_subagent_constraints.py",
+      "sha256": "0dd03c3bb4cde3c212ccd91fab4e80ad1d48d8533f432aeb59d13751338f6c4b",
+      "size_bytes": 5460
+    },
+    {
+      "path": "tests/STORY-551/test_ac3_profile_integration.py",
+      "sha256": "84d676bc0d333b9a3ca4419ed787d9d1a00b4c9362e202068f781db6191c4d1e",
+      "size_bytes": 4982
+    },
+    {
+      "path": "tests/STORY-551/test_ac4_graceful_degradation.py",
+      "sha256": "e12ec2955c01228b1be630f49f927eac58f8eddd1cd5a664ce6accc723f48841",
+      "size_bytes": 4711
+    },
+    {
+      "path": "tests/STORY-551/test_ac5_project_anchored_mode.py",
+      "sha256": "770bb0aef2ce0bac7e5a0a47e8e4dc0bd065955da5ef6ecc121e17d3a7224580",
+      "size_bytes": 4241
+    },
+    {
+      "path": "tests/STORY-551/conftest.py",
+      "sha256": "0e0c970624f15d0f70a1bd1f4ecab38a807539cbbcc61ced79578ef8eca10758",
+      "size_bytes": 2052
+    }
+  ]
+}

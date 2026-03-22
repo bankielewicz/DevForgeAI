@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "subagent": "integration-tester",
+    "phase": "Integration",
+    "story_id": "STORY-450",
+    "timestamp": "2026-02-19T00:00:00Z",
+    "test_type": "Cross-File Consistency Integration Tests"
+  },
+  "observations": [
+    {
+      "id": "INT-001",
+      "category": "Reference Integrity",
+      "note": "SKILL.md contains correct cross-references to error-handling ecosystem. All 6 error-type files (error-type-1 through error-type-6) are properly listed and documented across lines 319-375. References point to error-handling-index.md as the master decision tree.",
+      "severity": "info",
+      "files": [
+        "src/claude/skills/discovering-requirements/SKILL.md",
+        "src/claude/skills/discovering-requirements/references/error-handling-index.md"
+      ]
+    },
+    {
+      "id": "INT-002",
+      "category": "File Existence",
+      "note": "All 6 error-type reference files verified to exist and be accessible. error-handling.md (2.5 KB) provides redirect to error-handling-index.md (5.8 KB). Both files contain valid references to all 6 specialized error-type files totaling 38.8 KB.",
+      "severity": "info",
+      "files": [
+        "src/claude/skills/discovering-requirements/references/error-handling.md",
+        "src/claude/skills/discovering-requirements/references/error-type-1-incomplete-answers.md",
+        "src/claude/skills/discovering-requirements/references/error-type-2-artifact-failures.md",
+        "src/claude/skills/discovering-requirements/references/error-type-3-complexity-errors.md",
+        "src/claude/skills/discovering-requirements/references/error-type-4-validation-failures.md",
+        "src/claude/skills/discovering-requirements/references/error-type-5-constraint-conflicts.md",
+        "src/claude/skills/discovering-requirements/references/error-type-6-directory-issues.md"
+      ]
+    },
+    {
+      "id": "INT-003",
+      "category": "Phase Reference Accuracy",
+      "note": "self-validation-workflow.md correctly titled 'Phase 3.3: Self-Validation Workflow' with consistent internal references throughout. Phase naming matches parent SKILL.md workflow structure. File references validation-checklists.md which exists and is readable.",
+      "severity": "info",
+      "files": [
+        "src/claude/skills/discovering-requirements/references/self-validation-workflow.md",
+        "src/claude/skills/discovering-requirements/references/validation-checklists.md"
+      ]
+    },
+    {
+      "id": "INT-004",
+      "category": "Documentation Structure",
+      "note": "Three files with table of contents analyzed: brainstorm-data-mapping.md (8/8 sections verified), domain-specific-patterns.md (all primary sections exist), requirements-elicitation-guide.md (5/5 sections verified). Total of 18 TOC anchor links validated with 100% match rate to actual sections.",
+      "severity": "info",
+      "files": [
+        "src/claude/skills/discovering-requirements/references/brainstorm-data-mapping.md",
+        "src/claude/skills/discovering-requirements/references/domain-specific-patterns.md",
+        "src/claude/skills/discovering-requirements/references/requirements-elicitation-guide.md"
+      ]
+    },
+    {
+      "id": "INT-005",
+      "category": "Example Grounding",
+      "note": "user-interaction-patterns.md contains two concrete error recovery examples (lines 392-435) that properly reference error-type-1-incomplete-answers.md (Example 1: vague user answer recovery) and error-type-5-constraint-conflicts.md (Example 2: constraint conflict resolution). Both referenced files exist and contain matching recovery patterns.",
+      "severity": "info",
+      "files": [
+        "src/claude/skills/discovering-requirements/references/user-interaction-patterns.md",
+        "src/claude/skills/discovering-requirements/references/error-type-1-incomplete-answers.md",
+        "src/claude/skills/discovering-requirements/references/error-type-5-constraint-conflicts.md"
+      ]
+    },
+    {
+      "id": "INT-006",
+      "category": "Integration Test Summary",
+      "note": "All 5 integration checks PASSED: (1) SKILL.md cross-references valid, (2) error-handling ecosystem complete with all 6 types, (3) self-validation-workflow phase reference accurate, (4) TOC anchor links valid in 3 files (18/18 sections exist), (5) user-interaction-patterns error recovery examples properly grounded. Zero broken references detected.",
+      "severity": "info",
+      "files": [
+        "tests/results/STORY-450/integration-test-report.md"
+      ]
+    }
+  ],
+  "metadata": {
+    "test_execution": {
+      "total_checks": 5,
+      "passed": 5,
+      "failed": 0,
+      "coverage": "100%"
+    },
+    "files_analyzed": 29,
+    "cross_file_references_verified": 36,
+    "broken_references": 0,
+    "test_duration_seconds": 120,
+    "report_location": "tests/results/STORY-450/integration-test-report.md"
+  }
+}

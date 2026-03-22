@@ -1,0 +1,51 @@
+{
+  "subagent": "test-automator",
+  "phase": "02",
+  "story_id": "STORY-477",
+  "timestamp": "2026-02-23T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-02-001",
+      "category": "success",
+      "note": "All 12 AC test files generated and confirmed FAILING (RED phase). Target file does not exist yet, which is the correct TDD Red state.",
+      "severity": "low",
+      "files": [
+        "tests/STORY-477/test_ac1_four_heuristics.sh",
+        "tests/STORY-477/test_ac2_dh01_trigger.sh",
+        "tests/STORY-477/test_ac3_dh02_trigger.sh",
+        "tests/STORY-477/test_ac4_dh03_trigger.sh",
+        "tests/STORY-477/test_ac5_dh04_trigger.sh",
+        "tests/STORY-477/test_ac6_readonly.sh",
+        "tests/STORY-477/test_ac7_structured_output.sh",
+        "tests/STORY-477/test_ac8_skip_signal.sh",
+        "tests/STORY-477/test_ac9_header.sh",
+        "tests/STORY-477/test_ac10_sections.sh",
+        "tests/STORY-477/test_ac11_derivation_purity.sh",
+        "tests/STORY-477/test_ac12_naming.sh",
+        "tests/STORY-477/run_all_tests.sh"
+      ]
+    },
+    {
+      "id": "obs-02-002",
+      "category": "pattern",
+      "note": "Pure-logic module (Markdown reference file): tests use structural grep validation rather than code execution. 95/5/0 test pyramid ratio applies per pure-logic exception criteria.",
+      "severity": "low",
+      "files": ["src/claude/skills/designing-systems/references/domain-reference-generation.md"]
+    },
+    {
+      "id": "obs-02-003",
+      "category": "pattern",
+      "note": "AC#3 and AC#5 share source file assertions (coding-standards.md). Tests are independent — each script validates the full set of required sources for its respective heuristic.",
+      "severity": "low",
+      "files": [
+        "tests/STORY-477/test_ac3_dh02_trigger.sh",
+        "tests/STORY-477/test_ac5_dh04_trigger.sh"
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "write_timestamp": "2026-02-23T00:00:00Z"
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "subagent": "integration-tester",
+  "phase": "Integration",
+  "story_id": "STORY-512",
+  "timestamp": "2026-02-28T00:00:00Z",
+  "anti_gaming": "PASS",
+  "integration_test_report": {
+    "summary": {
+      "test_suite": "Documentation Structural Integration Tests",
+      "total_tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "coverage": "100%",
+      "status": "PASSED"
+    },
+    "test_results": [
+      {
+        "test_id": 1,
+        "name": "Artifact-generation.md referenced in parent skill",
+        "category": "Cross-Component Reference",
+        "status": "PASS",
+        "details": "artifact-generation.md is properly referenced in designing-systems SKILL.md (line 336)"
+      },
+      {
+        "test_id": 2,
+        "name": "Step 6.1.7 sequence (no conflicts with 6.1, 6.1.5)",
+        "category": "Documentation Sequence",
+        "status": "PASS",
+        "details": "All three steps (6.1, 6.1.5, 6.1.7) exist without duplicates or conflicts"
+      },
+      {
+        "test_id": 3,
+        "name": "Section Compliance Checklist alignment with scorecard",
+        "category": "Data Consistency",
+        "status": "PASS",
+        "details": "Both checklist (lines 27-41) and scorecard (lines 190-204) define 13 constitutional sections"
+      },
+      {
+        "test_id": 4,
+        "name": "Decision Context subsections in scorecard",
+        "category": "Feature Completeness",
+        "status": "PASS",
+        "details": "Decision Context subsections (Design Rationale, Rejected Alternatives) properly included in scorecard"
+      },
+      {
+        "test_id": 5,
+        "name": "Markdown syntax and parsability",
+        "category": "File Integrity",
+        "status": "PASS",
+        "details": "artifact-generation.md is valid Markdown with 45 headers, properly structured"
+      },
+      {
+        "test_id": 6,
+        "name": "Scorecard display format completeness",
+        "category": "Output Validation",
+        "status": "PASS",
+        "details": "Scorecard display format includes status indicators (✅/⚠️) and overall score line"
+      }
+    ],
+    "integration_points_validated": {
+      "parent_skill_reference": {
+        "status": "VERIFIED",
+        "finding": "artifact-generation.md referenced in designing-systems SKILL.md line 336",
+        "component_1": "designing-systems SKILL.md",
+        "component_2": "artifact-generation.md (reference file)",
+        "interaction": "Skill loads reference via Read() at Phase 6 Step 6.1"
+      },
+      "step_sequence_integrity": {
+        "status": "VERIFIED",
+        "finding": "Step 6.1.7 properly positioned between Step 6.1 (main) and before documentation closure",
+        "step_6_1": "Generate Epic Document(s) (line 61)",
+        "step_6_1_5": "Cross-Reference Auto-Update (line 118)",
+        "step_6_1_7": "Epic Completeness Scorecard Display (line 181)",
+        "sequence_comment": "Logical order: create epics (6.1) → update references (6.1.5) → display scorecard (6.1.7)"
+      },
+      "section_compliance_alignment": {
+        "status": "VERIFIED",
+        "checklist_source": "Lines 25-42: Section Compliance Checklist table",
+        "scorecard_source": "Lines 190-204: sections array in Scorecard Procedure",
+        "alignment": "Both define identical 13 sections",
+        "sections": [
+          "YAML Frontmatter",
+          "Business Goal",
+          "Success Metrics",
+          "Scope",
+          "Target Sprints",
+          "User Stories",
+          "Technical Considerations",
+          "Dependencies",
+          "Risks & Mitigation",
+          "Stakeholders",
+          "Timeline",
+          "Progress Tracking",
+          "Decision Context"
+        ]
+      },
+      "decision_context_subsections": {
+        "status": "VERIFIED",
+        "parent_section": "Decision Context (line 203)",
+        "subsections": [
+          "Design Rationale (line 209)",
+          "Rejected Alternatives (line 210)"
+        ],
+        "scoring_detail": "Subsections scored individually (lines 220-225) with nested display format (lines 223-225)"
+      },
+      "file_loadability": {
+        "status": "VERIFIED",
+        "file_path": ".claude/skills/designing-systems/references/artifact-generation.md",
+        "markdown_validation": "Valid - 45 headers, proper structure",
+        "code_blocks": "Properly closed (Python pseudocode examples)",
+        "parseable": true
+      }
+    },
+    "coverage_gaps": [],
+    "cross_component_findings": [
+      {
+        "component_1": "designing-systems SKILL.md",
+        "component_2": "artifact-generation.md",
+        "interaction_type": "Skill-to-Reference Loading",
+        "status": "INTEGRATED",
+        "note": "Step 6.1 explicitly loads artifact-generation.md via Read() at line 336 of SKILL.md"
+      },
+      {
+        "component_1": "artifact-generation.md",
+        "component_2": "epic-template.md",
+        "interaction_type": "Template Integration",
+        "status": "INTEGRATED",
+        "note": "Lines 13-23 reference epic-template.md as canonical source (Section Compliance Checklist)"
+      },
+      {
+        "component_1": "STORY-512 AC#1",
+        "component_2": "Step 6.1.7 Scorecard Display",
+        "interaction_type": "Story-to-Implementation",
+        "status": "INTEGRATED",
+        "note": "AC#1 verification references artifact-generation.md (line 52 of story)"
+      }
+    ],
+    "recommendations": [
+      {
+        "category": "Documentation Quality",
+        "recommendation": "Step 6.1.7 scorecard is feature-complete",
+        "priority": "Low",
+        "status": "No action needed"
+      },
+      {
+        "category": "Integration Testing",
+        "recommendation": "Consider adding automated markdown linter to CI/CD for documentation files",
+        "priority": "Low",
+        "severity": "Informational"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "id": "OBS-001",
+      "category": "INTEGRATION_POINT",
+      "note": "Step 6.1.7 properly inserted in sequence between Step 6.1 and Step 6.1.5 (appears after 6.1.5 in file but positioned logically after epic creation)",
+      "severity": "INFO",
+      "files": [
+        ".claude/skills/designing-systems/references/artifact-generation.md"
+      ]
+    },
+    {
+      "id": "OBS-002",
+      "category": "DATA_CONSISTENCY",
+      "note": "Section Compliance Checklist (lines 25-42) and Step 6.1.7 scorecard (lines 190-204) both define exactly 13 constitutional sections with identical section names",
+      "severity": "INFO",
+      "files": [
+        ".claude/skills/designing-systems/references/artifact-generation.md"
+      ]
+    },
+    {
+      "id": "OBS-003",
+      "category": "FEATURE_COMPLETENESS",
+      "note": "Decision Context subsections (Design Rationale, Rejected Alternatives) from STORY-507 properly integrated into Step 6.1.7 scorecard with individual scoring (lines 207-225)",
+      "severity": "INFO",
+      "files": [
+        ".claude/skills/designing-systems/references/artifact-generation.md"
+      ]
+    },
+    {
+      "id": "OBS-004",
+      "category": "CROSS_COMPONENT_REFERENCE",
+      "note": "artifact-generation.md properly referenced in parent designing-systems SKILL.md (line 336), ensuring skill loads the reference during Phase 6 execution",
+      "severity": "INFO",
+      "files": [
+        ".claude/skills/designing-systems/SKILL.md",
+        ".claude/skills/designing-systems/references/artifact-generation.md"
+      ]
+    },
+    {
+      "id": "OBS-005",
+      "category": "FILE_INTEGRITY",
+      "note": "artifact-generation.md is valid Markdown with 45 headers, proper code block closure, and clear hierarchical structure supporting epic creation workflow documentation",
+      "severity": "INFO",
+      "files": [
+        ".claude/skills/designing-systems/references/artifact-generation.md"
+      ]
+    }
+  ],
+  "metadata": {
+    "test_type": "Integration",
+    "test_mode": "Documentation Structural Analysis",
+    "story_type": "Documentation / Process Workflow",
+    "components_tested": 3,
+    "integration_points_tested": 5,
+    "execution_time_seconds": 2,
+    "token_usage": 8500
+  }
+}

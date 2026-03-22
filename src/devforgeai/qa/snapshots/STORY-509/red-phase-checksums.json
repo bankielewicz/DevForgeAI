@@ -1,0 +1,10 @@
+{
+  "story_id": "STORY-509",
+  "phase": "red",
+  "checksums": {
+    "tests/STORY-509/run_all_tests.sh": "3c60374972fed8741798277631b422cf065beaa48a16960b2f653b02e8c78359",
+    "tests/STORY-509/test_ac1_design_decisions_field.sh": "bc724a7207d78289c517bac8d9f253cd1bfc32ad1422d3e13eaa6951e5f39059",
+    "tests/STORY-509/test_ac2_threat_model_field.sh": "1efa92bf0797a9ae398bfd590169ccf61f39d2839f37c90f76ee307f4e01390c",
+    "tests/STORY-509/test_ac3_epic_extraction.sh": "0adbc80c805e76d826b3445f2caaf5535ee1b927b449f452bbb2c4a429360928"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "story_id": "STORY-002",
+  "qa_result": "FAILED",
+  "qa_date": "2026-01-13",
+  "validation_mode": "deep",
+
+  "summary": {
+    "blocking_issues": 1,
+    "warning_issues": 0,
+    "phases_passed": 4,
+    "phases_failed": 1,
+    "total_phases": 5
+  },
+
+  "coverage_gaps": [
+    {
+      "file": "src/treelint/index/schema.py",
+      "layer": "infrastructure",
+      "current_coverage": 71,
+      "target_coverage": 80,
+      "gap": -9,
+      "severity": "HIGH",
+      "missing_lines": "110, 146-153, 168-192, 273-277, 281-283",
+      "remediation": "Add tests for migration logic: mock get_schema_version() to simulate upgrade scenarios, test migrate() execution, test migration rollback on failure, test get_migration_sql() returns valid SQL per version"
+    }
+  ],
+
+  "anti_pattern_violations": [],
+
+  "code_quality_violations": [],
+
+  "deferral_issues": [],
+
+  "remediation_sequence": [
+    {
+      "phase": "02R",
+      "name": "Coverage Gap Remediation",
+      "priority": 1,
+      "target_files": [
+        "tests/unit/index/test_schema.py"
+      ],
+      "gap_count": 1,
+      "estimated_effort_hours": 1,
+      "specific_tests_needed": [
+        "test_migrate_executes_migration_sql",
+        "test_migrate_updates_version_after_success",
+        "test_migration_failure_triggers_rollback",
+        "test_get_migration_sql_returns_valid_sql_for_each_version",
+        "test_migrate_from_v1_to_v2_scenario",
+        "test_migration_preserves_existing_data"
+      ]
+    }
+  ],
+
+  "blocking_status": true,
+  "blocking_reasons": [
+    "schema.py coverage=71% < 80% (infrastructure layer threshold)"
+  ],
+
+  "environment_notes": {
+    "dependency_issue_resolved": true,
+    "resolution": "pip install -e \".[dev]\"",
+    "all_tests_pass": true,
+    "test_count": 176
+  },
+
+  "next_action": "/dev STORY-002 (remediation mode - add schema coverage tests)"
+}

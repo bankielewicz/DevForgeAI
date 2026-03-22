@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "description": "DevForgeAI Hook System Performance Benchmarks",
+  "created": "2025-12-19",
+  "story_id": "STORY-106",
+  "baseline": {
+    "hook_check_p50": 0,
+    "hook_check_p95": 0,
+    "hook_check_p99": 0,
+    "context_extraction_p50": 0,
+    "context_extraction_p95": 0,
+    "context_extraction_p99": 0,
+    "end_to_end_p50": 0,
+    "end_to_end_p95": 0,
+    "end_to_end_p99": 0
+  },
+  "thresholds": {
+    "hook_check_max": 100,
+    "context_extraction_max": 200,
+    "end_to_end_max": 3000
+  },
+  "regression_history": [],
+  "notes": [
+    "Baseline values populated during STORY-106 implementation",
+    "Thresholds from NFR-P1 requirements",
+    "regression_history tracks performance changes over time"
+  ]
+}

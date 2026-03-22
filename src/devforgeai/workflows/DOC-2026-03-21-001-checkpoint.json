@@ -1,0 +1,19 @@
+{
+  "session_id": "DOC-2026-03-21-001",
+  "workflow_type": "generation",
+  "current_phase": "G10",
+  "story_id": "STORY-552",
+  "doc_type": "all",
+  "mode": "greenfield",
+  "export_format": "markdown",
+  "audit_mode": null,
+  "audit_fix": false,
+  "finding_filter": "all",
+  "started_at": "2026-03-21T13:30:00Z",
+  "completed_at": "2026-03-21T14:00:00Z",
+  "phases_completed": ["01", "02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10"],
+  "status": "COMPLETE",
+  "artifacts": [
+    "docs/stories/STORY-552/STORY-552-documentation.md"
+  ]
+}

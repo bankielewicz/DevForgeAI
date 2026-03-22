@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-469",
+  "phase": "red",
+  "timestamp": "2026-03-04T13:00:34.124960",
+  "test_files": {
+    "tests/STORY-469/test_ac1_confidence_patterns.py": "ab30fd6aeedda7e65fd719d50da472c09c8ffee89c0a008416f6f3258c9b5490",
+    "tests/STORY-469/test_ac2_imposter_syndrome.py": "8b8a72458596ed4daab11bd30344f794dbad1f825658a5e69cf334f7e91399e5",
+    "tests/STORY-469/test_ac3_subagent_confidence.py": "13c813250e98ee3757d4baa168e3aab86e99f641443b45e299316f93ceefe3c8",
+    "tests/STORY-469/test_ac4_evidence_affirmation.py": "c9025a545c4d38105ff6f12df4d9b19f7b5668ecbd214985d172642cac3028b0"
+  },
+  "test_count": 21,
+  "pass_count": 0
+}

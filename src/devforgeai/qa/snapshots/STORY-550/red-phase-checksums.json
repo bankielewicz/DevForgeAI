@@ -1,0 +1,32 @@
+{
+  "story_id": "STORY-550",
+  "timestamp": "2026-03-05T21:07:37Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-550/test_ac1_break_even_calculation.py",
+      "sha256": "039d3295e9977d659abe80292a9943465bcd9a2e6f2af5c3d7c14e7290ec2288",
+      "size_bytes": 8716
+    },
+    {
+      "path": "tests/STORY-550/test_ac2_ascii_chart.py",
+      "sha256": "2e0d672168facde6e51174b7ed93e4b5e4e02c7b029f2d1df2c9b96ff2d6c81e",
+      "size_bytes": 5807
+    },
+    {
+      "path": "tests/STORY-550/test_ac3_projections_output.py",
+      "sha256": "5ea35f59aae9951cdbe4025c55dcbb40e7fcf4784440974d773cd4a83a3d846e",
+      "size_bytes": 6490
+    },
+    {
+      "path": "tests/STORY-550/test_ac4_invalid_input_error.py",
+      "sha256": "bfe018506be4c3e3d411684614dcfc16c62186fd4c9a50f9a0fb06206b19f5fd",
+      "size_bytes": 5795
+    },
+    {
+      "path": "tests/STORY-550/test_ac5_skill_size_disclosure.py",
+      "sha256": "11393f691aa83c014c983039b21a23e89ab1faf6b6e6d55f1b5bb6ac6eac373a",
+      "size_bytes": 5395
+    }
+  ]
+}

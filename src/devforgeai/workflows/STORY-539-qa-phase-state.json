@@ -1,0 +1,60 @@
+{
+  "story_id": "STORY-539",
+  "workflow": "qa",
+  "current_phase": "00",
+  "workflow_started": "2026-03-04T12:00:00Z",
+  "blocking_status": false,
+  "phases": {
+    "00": {
+      "status": "completed",
+      "steps_required": ["setup_validation", "story_file_loading"],
+      "steps_completed": ["setup_validation", "story_file_loading"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-03-04T12:00:01Z"
+    },
+    "01": {
+      "status": "completed",
+      "steps_required": ["traceability_validation", "coverage_analysis"],
+      "steps_completed": ["traceability_validation", "coverage_analysis"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "1.5": {
+      "status": "completed",
+      "steps_required": ["diff_regression_detection", "test_integrity_verification"],
+      "steps_completed": ["diff_regression_detection", "test_integrity_verification"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "02": {
+      "status": "completed",
+      "steps_required": ["anti_pattern_detection", "parallel_validation", "spec_compliance", "code_quality"],
+      "steps_completed": ["anti_pattern_detection", "parallel_validation", "spec_compliance", "code_quality"],
+      "checkpoint_passed": true,
+      "subagents_required": ["anti-pattern-scanner", "test-automator", "code-reviewer", "security-auditor"],
+      "subagents_invoked": []
+    },
+    "03": {
+      "status": "completed",
+      "steps_required": ["result_determination", "report_generation", "story_update"],
+      "steps_completed": ["result_determination", "report_generation", "story_update"],
+      "checkpoint_passed": true,
+      "subagents_required": ["qa-result-interpreter"],
+      "subagents_invoked": []
+    },
+    "04": {
+      "status": "completed",
+      "steps_required": ["cleanup", "feedback_hooks", "summary"],
+      "steps_completed": ["cleanup", "feedback_hooks", "summary"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    }
+  },
+  "validation_errors": [],
+  "observations": []
+}

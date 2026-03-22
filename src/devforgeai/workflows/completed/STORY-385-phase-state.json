@@ -1,0 +1,233 @@
+{
+  "story_id": "STORY-385",
+  "current_phase": "10",
+  "workflow_started": "2026-02-11T18:03:32Z",
+  "blocking_status": false,
+  "phases": {
+    "01": {
+      "status": "completed",
+      "subagents_required": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "subagents_invoked": [
+        "git-validator",
+        "tech-stack-detector"
+      ],
+      "started_at": "2026-02-11T18:09:36Z",
+      "completed_at": "2026-02-11T18:09:39Z",
+      "checkpoint_passed": true
+    },
+    "02": {
+      "status": "completed",
+      "subagents_required": [
+        "test-automator"
+      ],
+      "subagents_invoked": [
+        "test-automator"
+      ],
+      "started_at": "2026-02-11T18:14:31Z",
+      "completed_at": "2026-02-11T18:16:27Z",
+      "checkpoint_passed": true
+    },
+    "03": {
+      "status": "completed",
+      "subagents_required": [
+        [
+          "backend-architect",
+          "frontend-developer"
+        ],
+        "context-validator"
+      ],
+      "subagents_invoked": [
+        "backend-architect",
+        "context-validator"
+      ],
+      "started_at": "2026-02-11T18:28:48Z",
+      "completed_at": "2026-02-11T18:28:48Z",
+      "checkpoint_passed": true
+    },
+    "04": {
+      "status": "completed",
+      "subagents_required": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "subagents_invoked": [
+        "refactoring-specialist",
+        "code-reviewer"
+      ],
+      "started_at": "2026-02-11T18:39:55Z",
+      "completed_at": "2026-02-11T18:39:55Z",
+      "checkpoint_passed": true
+    },
+    "4.5": {
+      "status": "completed",
+      "subagents_required": [
+        "ac-compliance-verifier"
+      ],
+      "subagents_invoked": [
+        "ac-compliance-verifier"
+      ],
+      "started_at": "2026-02-11T18:42:04Z",
+      "completed_at": "2026-02-11T18:42:04Z",
+      "checkpoint_passed": true
+    },
+    "05": {
+      "status": "completed",
+      "subagents_required": [
+        "integration-tester"
+      ],
+      "subagents_invoked": [
+        "integration-tester"
+      ],
+      "started_at": "2026-02-11T18:46:16Z",
+      "completed_at": "2026-02-11T18:46:16Z",
+      "checkpoint_passed": true
+    },
+    "5.5": {
+      "status": "completed",
+      "subagents_required": [
+        "ac-compliance-verifier"
+      ],
+      "subagents_invoked": [
+        "ac-compliance-verifier"
+      ],
+      "started_at": "2026-02-11T18:48:08Z",
+      "completed_at": "2026-02-11T18:48:08Z",
+      "checkpoint_passed": true
+    },
+    "06": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-11T18:48:23Z",
+      "checkpoint_passed": true
+    },
+    "07": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-11T18:48:33Z",
+      "checkpoint_passed": true
+    },
+    "08": {
+      "status": "completed",
+      "subagents_required": [],
+      "subagents_invoked": [],
+      "completed_at": "2026-02-11T18:49:02Z",
+      "checkpoint_passed": true
+    },
+    "09": {
+      "status": "completed",
+      "subagents_required": [
+        "framework-analyst"
+      ],
+      "subagents_invoked": [
+        "framework-analyst"
+      ],
+      "started_at": "2026-02-11T18:50:54Z",
+      "completed_at": "2026-02-11T18:50:54Z",
+      "checkpoint_passed": true
+    },
+    "10": {
+      "status": "completed",
+      "subagents_required": [
+        "dev-result-interpreter"
+      ],
+      "subagents_invoked": [
+        "dev-result-interpreter"
+      ],
+      "started_at": "2026-02-11T19:00:28Z",
+      "completed_at": "2026-02-11T19:00:28Z",
+      "checkpoint_passed": true
+    }
+  },
+  "validation_errors": [],
+  "observations": [
+    {
+      "phase": "02",
+      "source": "test-automator",
+      "type": "success",
+      "content": "Generated 6 failing test files (7 shell scripts) covering all 6 ACs with 48+ test assertions for documentation validation",
+      "timestamp": "2026-02-11T18:15:00Z"
+    },
+    {
+      "phase": "02",
+      "source": "test-automator",
+      "type": "pattern",
+      "content": "Reused STORY-384 test helper pattern (pass/fail/print_results/require_doc) for consistency across EPIC-060 stories",
+      "timestamp": "2026-02-11T18:15:00Z"
+    },
+    {
+      "phase": "07",
+      "source": "self-captured",
+      "type": "success",
+      "content": "All 21 DoD items marked [x] with zero deferrals. 100% completion across Implementation (8), Quality (5), Testing (6), Documentation (2)",
+      "timestamp": "2026-02-11T19:15:00Z"
+    },
+    {
+      "phase": "07",
+      "source": "self-captured",
+      "type": "success",
+      "content": "AC Verification Checklist updated from 0/22 to 22/22 (100%) with quantitative evidence per item",
+      "timestamp": "2026-02-11T19:15:01Z"
+    },
+    {
+      "phase": "07",
+      "source": "self-captured",
+      "type": "success",
+      "content": "devforgeai-validate validate-dod passed first attempt (exit code 0). Flat list format compliance confirmed",
+      "timestamp": "2026-02-11T19:15:02Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "gap",
+      "content": "Implementation Notes duplicates DoD section verbatim (~40 lines redundancy). Spec could reference DoD instead of duplicating",
+      "timestamp": "2026-02-11T19:15:03Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "success",
+      "content": "DoD items placed BEFORE developer info per phase-07-dod-update.md spec. Format matches lines 88-100 of phase file",
+      "timestamp": "2026-02-11T19:15:04Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "gap",
+      "content": "Session memory file still shows placeholder text. Phase 07 spec requires appending observations but was not performed until remediation",
+      "timestamp": "2026-02-11T19:15:05Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "pattern",
+      "content": "Documentation stories concentrate all work in Phase 02 (Green). All 22 AC items satisfied in Phase 2; Phases 04-06 are validation-only",
+      "timestamp": "2026-02-11T19:15:06Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "gap",
+      "content": "Phase-state observations[] had only 2 of 10+ generated observations. AI-analysis JSON observations not merged into phase-state",
+      "timestamp": "2026-02-11T19:15:07Z"
+    },
+    {
+      "phase": "07",
+      "source": "observation-extractor",
+      "type": "idea",
+      "content": "Change Log entries could include standardized completion metrics (DoD count, AC count, deferral count, test results)",
+      "timestamp": "2026-02-11T19:15:08Z"
+    },
+    {
+      "phase": "08",
+      "source": "self-captured",
+      "type": "success",
+      "content": "Git commit f28d693e succeeded first attempt. Pre-commit DoD validator passed. 14 files, 1684 insertions, 46 deletions",
+      "timestamp": "2026-02-11T19:30:00Z"
+    }
+  ]
+}

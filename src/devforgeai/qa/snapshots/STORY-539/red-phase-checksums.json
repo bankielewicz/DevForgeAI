@@ -1,0 +1,32 @@
+{
+  "story_id": "STORY-539",
+  "timestamp": "2026-03-04T21:49:46.966274Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-539/test_ac1_channel_selection.py",
+      "sha256": "404277353aab3fafd1e5fb06d0b211bb0053a9ad391660b1ec3633f2a25094bf",
+      "size_bytes": 5362
+    },
+    {
+      "path": "tests/STORY-539/test_ac2_action_plan.py",
+      "sha256": "28f8c37588eadb46c9b64ca570c2d3bb5d844f02b2e20a3c76075439231569e8",
+      "size_bytes": 4001
+    },
+    {
+      "path": "tests/STORY-539/test_ac3_workflow_completion.py",
+      "sha256": "9e1598b6664373d96bc3d8ad3bfb5778f20cbad4ebfb54efb6a12e17f9779105",
+      "size_bytes": 3243
+    },
+    {
+      "path": "tests/STORY-539/test_ac4_ambiguous_input.py",
+      "sha256": "6ec9a1d09fe55c939c88d19b66b78564770592dde28175d97c3d6b9ea74da13a",
+      "size_bytes": 2914
+    },
+    {
+      "path": "tests/STORY-539/test_ac5_output_structure.py",
+      "sha256": "ce085bbf9cb54a9994061d973ef4efa4b395df222e6e4ec1e3079fd73545fae5",
+      "size_bytes": 4642
+    }
+  ]
+}

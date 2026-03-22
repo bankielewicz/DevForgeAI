@@ -1,0 +1,9 @@
+{
+  "story_id": "STORY-520",
+  "created": "2026-03-01T22:18:12.259913",
+  "test_files": {
+    "tests/STORY-520/test_ac1_checklist_present.sh": "927e5ff28a8a4d6c9d297758667dd3096100ae4dd7fb18e633bf1d1edbc682fd",
+    "tests/STORY-520/test_ac2_checklist_position.sh": "2892c3f12bf7a4df7e3137798fcc6f271a4583ef7702adc814f4d04eb9dbb66d",
+    "tests/STORY-520/test_ac3_steps_alignment.sh": "78a8edcce4274b967df33626fcb500e2621dce65dfa8d254a67d1bf6bb5406b8"
+  }
+}

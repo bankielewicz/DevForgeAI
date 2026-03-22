@@ -1,0 +1,27 @@
+{
+  "subagent": "test-automator",
+  "phase": "02",
+  "story_id": "STORY-451",
+  "timestamp": "2026-02-19T00:00:00Z",
+  "duration_ms": 0,
+  "observations": [
+    {
+      "id": "obs-02-001",
+      "category": "pattern",
+      "note": "grep -qv is unreliable for whole-file 'must not contain' assertions; use ! grep -q instead for deterministic results.",
+      "severity": "high",
+      "files": ["tests/results/STORY-451/test_ac1_yaml_frontmatter.sh", "tests/results/STORY-451/test_ac3_xml_tag_naming.sh"]
+    },
+    {
+      "id": "obs-02-002",
+      "category": "success",
+      "note": "All 4 test scripts confirmed in RED phase: 24 of 27 assertions fail against current file state. 3 non-regression PASSes in AC4 are correct guards.",
+      "severity": "low",
+      "files": ["tests/results/STORY-451/"]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "write_timestamp": "2026-02-19T00:00:00Z"
+  }
+}

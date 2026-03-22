@@ -1,0 +1,37 @@
+{
+  "story_id": "STORY-545",
+  "timestamp": "2026-03-05T20:44:38Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-545/run_all_tests.sh",
+      "sha256": "1128e281497e4284c94bfef1c2ebe68fde0ce9acf43f9d5483df02a064c10d52",
+      "size_bytes": 1610
+    },
+    {
+      "path": "tests/STORY-545/test_ac1_ip_checklist_generated.sh",
+      "sha256": "ec849906f34aad209a89f88b7596cddbb182f13cbacd8c3b1a18253e852ee036",
+      "size_bytes": 2832
+    },
+    {
+      "path": "tests/STORY-545/test_ac2_copyright_section.sh",
+      "sha256": "ab2e11d83640c22b9e63cee980e1ee730369fda69658c2572a9f57ebb252ccd6",
+      "size_bytes": 2153
+    },
+    {
+      "path": "tests/STORY-545/test_ac3_trade_secrets_section.sh",
+      "sha256": "a1f92766fd4eb1703d349e94586f3a9020e3445d0f6f74bf6c92cf7b8e08943a",
+      "size_bytes": 2417
+    },
+    {
+      "path": "tests/STORY-545/test_ac4_disclaimer_presence.sh",
+      "sha256": "b51ac7bb8dd6776345dba7a664184192009e9cfdef3ddc3ebc77c8d7ebf61056",
+      "size_bytes": 2601
+    },
+    {
+      "path": "tests/STORY-545/test_ac5_line_count.sh",
+      "sha256": "f3c0241ad6650f80b990e10f8ffee2a8df03bcec41cbacc24baf70afec2a09c2",
+      "size_bytes": 2373
+    }
+  ]
+}

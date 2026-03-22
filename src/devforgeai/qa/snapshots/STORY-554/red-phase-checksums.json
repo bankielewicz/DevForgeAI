@@ -1,0 +1,20 @@
+{
+  "story_id": "STORY-554",
+  "phase": "02-red",
+  "created": "2026-03-21",
+  "algorithm": "sha256",
+  "test_files": {
+    "tests/STORY-554/test-ac1-business-model-adaptation.sh": "2907eaeeb96690eec4725a2993582cc64aa76da9ddf9af33fc38213d8bfbdc23",
+    "tests/STORY-554/test-ac2-five-domain-coverage.sh": "8f64a903c018df012286ebb06fb391f192a0b92e4b85261f6a149961ce2017c7",
+    "tests/STORY-554/test-ac3-output-format-compliance.sh": "98acde9e42d27522194499ceec6393f1d05366992d209b8c7feb5e479b8bdd51",
+    "tests/STORY-554/test-ac4-progressive-disclosure.sh": "0b244cca90e084dea6e7544e562c6667f49c187b515074495339c407777efa4f"
+  },
+  "total_tests": 44,
+  "red_state_verified": true,
+  "immutability_declared": true,
+  "back_to_red_fixes": [
+    "AC2 test-ac2: Fixed awk IGNORECASE (gawk /pattern/i is invalid, use IGNORECASE=1)",
+    "AC3 test-ac3: Fixed grep -c || echo '0' double-output bug (moved || outside $(...))"
+  ],
+  "note": "Test files IMMUTABLE until Phase 05. Do NOT modify during Phases 03 or 04."
+}

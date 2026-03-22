@@ -1,0 +1,559 @@
+# RCA-016 Implementation Plan: Add Mandatory Reference Loading Checkpoints
+
+**RCA:** RCA-016 - QA Skill Phase Skipping During Deep Validation
+**Recommendation:** REC-1 (CRITICAL) - Add Mandatory Reference Loading Checkpoints
+**Created:** 2025-12-01
+**Status:** COMPLETE (2025-12-01)
+**Estimated Effort:** 2 hours
+**Actual Effort:** ~45 minutes
+
+---
+
+## Objective
+
+Add explicit checkpoints to devforgeai-qa/SKILL.md that **HALT execution** unless reference files are loaded. This prevents Claude from skipping phases by seeing phase names and thinking execution is complete without following documented workflows.
+
+---
+
+## Implementation Checkpoints
+
+### Checkpoint 0: Pre-Implementation Verification
+**Status:** [ ] NOT STARTED
+
+**Tasks:**
+- [ ] Read current devforgeai-qa/SKILL.md to understand structure
+- [ ] Identify exact line numbers for each phase (2, 3, 4, 6, 7)
+- [ ] Verify reference files exist for each phase
+- [ ] Create backup of SKILL.md before changes
+
+**Verification:**
+```bash
+# Run these commands to verify setup:
+cat .claude/skills/devforgeai-qa/SKILL.md | head -100
+ls -la .claude/skills/devforgeai-qa/references/
+cp .claude/skills/devforgeai-qa/SKILL.md .claude/skills/devforgeai-qa/SKILL.md.backup
+```
+
+**Expected Reference Files:**
+- Phase 2: `references/anti-pattern-detection-workflow.md`
+- Phase 3: `references/spec-compliance-workflow.md`
+- Phase 4: `references/code-quality-workflow.md`
+- Phase 6: `references/feedback-hooks-workflow.md`
+- Phase 7: `references/story-update-workflow.md`
+
+---
+
+### Checkpoint 1: Update Phase 2 (Anti-Pattern Detection)
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` lines ~268-274
+
+**Current Text:**
+```markdown
+### Phase 2: Anti-Pattern Detection
+**Ref:** `references/anti-pattern-detection-workflow.md` (6 steps - subagent delegation pattern)
+**Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
+**Model:** claude-opus-4-6 (cost-efficient pattern matching)
+**Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
+**Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
+```
+
+**New Text:**
+```markdown
+### Phase 2: Anti-Pattern Detection
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 2.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/anti-pattern-detection-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 6-step workflow. Execute ALL 6 steps before proceeding to Phase 3.
+
+**Subagent:** anti-pattern-scanner (MANDATORY - detects 6 violation categories)
+**Model:** claude-opus-4-6 (cost-efficient pattern matching)
+**Token Efficiency:** 73% reduction (8K → 3K tokens) vs inline pattern matching
+**Blocks on:** CRITICAL violations (security, library substitution) and HIGH violations (structure, layer)
+
+**Phase 2 Completion Checklist:**
+Before proceeding to Phase 3, verify:
+- [ ] Loaded anti-pattern-detection-workflow.md
+- [ ] Executed all 6 steps from workflow
+- [ ] Invoked anti-pattern-scanner subagent
+- [ ] Categorized violations by severity
+- [ ] Displayed results to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] No syntax errors in markdown
+- [ ] Checkpoint marker visible
+- [ ] Checklist complete
+
+---
+
+### Checkpoint 2: Update Phase 3 (Spec Compliance Validation)
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` lines ~275-280
+
+**Current Text:**
+```markdown
+### Phase 3: Spec Compliance Validation
+**Ref:** `references/spec-compliance-workflow.md` (6 steps, includes Step 2.5)
+**Guides:** `references/spec-validation.md`, `references/deferral-decision-tree.md`, `references/dod-protocol.md`
+**Subagent:** deferral-validator (Step 2.5 - MANDATORY if deferrals exist)
+**Blocks on:** Missing AC tests, API violations, CRITICAL/HIGH deferral violations
+```
+
+**New Text:**
+```markdown
+### Phase 3: Spec Compliance Validation
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 3.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/spec-compliance-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 6-step workflow including Step 2.5 (Deferral Validation). Execute ALL steps before proceeding to Phase 4.
+
+**Subagent:** deferral-validator (Step 2.5 - MANDATORY if deferrals exist in story)
+**Guides:** `references/spec-validation.md`, `references/deferral-decision-tree.md`, `references/dod-protocol.md`
+**Blocks on:** Missing AC tests, API violations, CRITICAL/HIGH deferral violations
+
+**Phase 3 Completion Checklist:**
+Before proceeding to Phase 4, verify:
+- [ ] Loaded spec-compliance-workflow.md
+- [ ] Executed all 6 steps from workflow
+- [ ] Invoked deferral-validator subagent (if deferrals exist)
+- [ ] Validated AC coverage
+- [ ] Displayed compliance results to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] No syntax errors in markdown
+- [ ] Checkpoint marker visible
+- [ ] Checklist complete
+
+---
+
+### Checkpoint 3: Update Phase 4 (Code Quality Metrics)
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` lines ~281-285
+
+**Current Text:**
+```markdown
+### Phase 4: Code Quality Metrics
+**Ref:** `references/code-quality-workflow.md` (5 steps)
+**Guide:** `references/quality-metrics.md`
+**Blocks on:** Extreme violations (duplication >20%, MI <50)
+```
+
+**New Text:**
+```markdown
+### Phase 4: Code Quality Metrics
+
+**⚠️ CHECKPOINT: You MUST load the reference file and execute ALL steps before proceeding**
+
+**Step 4.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/code-quality-workflow.md")
+```
+
+**After loading:** The reference file contains a complete 5-step workflow. Execute ALL steps before proceeding to Phase 5.
+
+**Guide:** `references/quality-metrics.md`
+**Blocks on:** Extreme violations (duplication >20%, MI <50)
+
+**Phase 4 Completion Checklist:**
+Before proceeding to Phase 5, verify:
+- [ ] Loaded code-quality-workflow.md
+- [ ] Executed all 5 steps from workflow
+- [ ] Calculated complexity metrics
+- [ ] Identified quality violations
+- [ ] Displayed metrics to user
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] No syntax errors in markdown
+- [ ] Checkpoint marker visible
+- [ ] Checklist complete
+
+---
+
+### Checkpoint 4: Update Phase 6 (Invoke Feedback Hooks)
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` lines ~292-315
+
+**Current Text:**
+```markdown
+### Phase 6: Invoke Feedback Hooks
+**Ref:** `references/feedback-hooks-workflow.md` (complete implementation details)
+**Purpose:** Trigger retrospective feedback based on QA result
+**Non-blocking:** Hook failures don't affect QA result
+
+**Implementation:**
+```bash
+# Map QA result to hook status
+if [ "$QA_RESULT" = "PASSED" ]; then
+  STATUS="completed"
+elif [ "$QA_RESULT" = "FAILED" ]; then
+  STATUS="failed"
+else
+  STATUS="partial"
+fi
+
+# Check and invoke hooks
+devforgeai-validate check-hooks --operation=qa --status=$STATUS
+if [ $? -eq 0 ]; then
+  devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID || {
+    echo "⚠️ Feedback hook failed, QA result unchanged"
+  }
+fi
+```
+```
+
+**New Text:**
+```markdown
+### Phase 6: Invoke Feedback Hooks
+
+**⚠️ CHECKPOINT: You MUST execute this phase before proceeding to Phase 7**
+
+**Step 6.0: Load Workflow Reference (REQUIRED)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/feedback-hooks-workflow.md")
+```
+
+**After loading:** Execute the feedback hook workflow. This phase is non-blocking (hook failures don't affect QA result).
+
+**Purpose:** Trigger retrospective feedback based on QA result
+
+**Implementation:**
+```bash
+# Map QA result to hook status
+if [ "$QA_RESULT" = "PASSED" ]; then
+  STATUS="success"
+elif [ "$QA_RESULT" = "FAILED" ]; then
+  STATUS="failure"
+else
+  STATUS="partial"
+fi
+
+# Check and invoke hooks
+devforgeai-validate check-hooks --operation=qa --status=$STATUS
+if [ $? -eq 0 ]; then
+  devforgeai-validate invoke-hooks --operation=qa --story=$STORY_ID || {
+    echo "⚠️ Feedback hook failed, QA result unchanged"
+  }
+fi
+```
+
+**Phase 6 Completion Checklist:**
+Before proceeding to Phase 7, verify:
+- [ ] Loaded feedback-hooks-workflow.md (or executed inline implementation)
+- [ ] Checked hook configuration
+- [ ] Invoked hooks (if configured)
+- [ ] Noted hook status (success/failure/disabled)
+
+**IF any checkbox unchecked:** HALT and complete missing steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] No syntax errors in markdown
+- [ ] Checkpoint marker visible
+- [ ] Checklist complete
+
+---
+
+### Checkpoint 5: Update Phase 7 (Update Story File)
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` lines ~317-335
+
+**Current Text:**
+```markdown
+### Phase 7: Update Story File (Deep Mode Pass Only)
+**Ref:** `references/story-update-workflow.md` (complete implementation details)
+**Conditional:** Only executes if mode="deep" AND result="PASSED"
+
+**Implementation:**
+```
+IF mode == "deep" AND result == "PASSED":
+  Read(file_path=story_file)
+
+  Edit(file_path=story_file, old_string="status: Dev Complete", new_string="status: QA Approved")
+
+  Edit(file_path=story_file, old_string="updated: {old_date}", new_string="updated: {current_date}")
+
+  Edit(file_path=story_file, old_string="## Workflow History",
+       new_string="## QA Validation History\n\n{validation_details}\n\n## Workflow History")
+
+  Display: "✅ Story updated to QA Approved"
+```
+```
+
+**New Text:**
+```markdown
+### Phase 7: Update Story File (Deep Mode Pass Only)
+
+**⚠️ CHECKPOINT: You MUST execute this phase to complete deep QA validation**
+
+**Conditional:** Only executes if mode="deep" AND result="PASSED"
+
+**Step 7.0: Load Workflow Reference (REQUIRED if updating story)**
+```
+Read(file_path=".claude/skills/devforgeai-qa/references/story-update-workflow.md")
+```
+
+**After loading:** Execute the story update workflow to mark story as QA Approved.
+
+**Implementation:**
+```
+IF mode == "deep" AND result == "PASSED":
+  Read(file_path=story_file)
+
+  Edit(file_path=story_file, old_string="status: Dev Complete", new_string="status: QA Approved")
+
+  Edit(file_path=story_file, old_string="updated: {old_date}", new_string="updated: {current_date}")
+
+  Edit: Mark "- [ ] QA phase complete" as "- [x] QA phase complete" in Workflow Status
+
+  Display: "✅ Story updated to QA Approved"
+```
+
+**Phase 7 Completion Checklist:**
+Before completing QA workflow, verify:
+- [ ] Loaded story-update-workflow.md (if deep mode pass)
+- [ ] Updated story status to "QA Approved"
+- [ ] Updated story "updated" date
+- [ ] Marked "QA phase complete" checkbox
+- [ ] Displayed confirmation to user
+
+**IF deep mode passed but any checkbox unchecked:** HALT and complete missing steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] No syntax errors in markdown
+- [ ] Checkpoint marker visible
+- [ ] Checklist complete
+
+---
+
+### Checkpoint 6: Update Progressive Disclosure Clarification
+**Status:** [ ] NOT STARTED
+
+**Location:** `.claude/skills/devforgeai-qa/SKILL.md` line ~77
+
+**Current Text:**
+```markdown
+Load workflow references on-demand for implementation details.
+```
+
+**New Text:**
+```markdown
+**Progressive Disclosure:** Workflow references are loaded when each phase executes (not before) to optimize token usage.
+
+**IMPORTANT:** "On-demand" means "load when phase starts" - NOT "loading is optional."
+
+**Execution Pattern:**
+1. Reach phase (e.g., Phase 2: Anti-Pattern Detection)
+2. See "⚠️ CHECKPOINT" marker
+3. Load reference file (REQUIRED)
+4. Execute ALL steps from reference file
+5. Complete phase checklist
+6. Proceed to next phase
+
+**IF you skip loading a reference:** You will execute the phase incorrectly and miss mandatory steps.
+```
+
+**Verification After Change:**
+- [ ] Edit applied successfully
+- [ ] Clarification is clear
+- [ ] Execution pattern documented
+
+---
+
+### Checkpoint 7: Post-Implementation Testing
+**Status:** [ ] NOT STARTED
+
+**Test 1: Light Mode QA**
+```bash
+# Run light QA on a test story
+/qa STORY-001 light
+```
+
+**Verification:**
+- [ ] Phase 0.9 executes (traceability check)
+- [ ] Phase 1 executes (test coverage)
+- [ ] Phase 2 shows checkpoint, loads reference
+- [ ] Phase 3 shows checkpoint, loads reference (if deferrals exist)
+- [ ] Workflow completes successfully
+
+**Test 2: Deep Mode QA**
+```bash
+# Run deep QA on a test story
+/qa STORY-070 deep
+```
+
+**Verification:**
+- [ ] All phases (0.9, 1-7) execute
+- [ ] Each phase shows checkpoint marker
+- [ ] Each phase loads reference file (visible in conversation)
+- [ ] Each phase shows completion checklist
+- [ ] Story status updated to QA Approved
+- [ ] No phase skipping detected
+
+**Test 3: Checkpoint Enforcement**
+```
+# Manually verify Claude cannot skip phases
+1. Invoke /qa STORY-001 deep
+2. Watch for checkpoint markers at each phase
+3. Verify reference files loaded (Read() calls visible)
+4. Verify checklists displayed before phase transitions
+```
+
+---
+
+### Checkpoint 8: Commit Changes
+**Status:** [ ] NOT STARTED
+
+**Tasks:**
+- [ ] Review all changes in SKILL.md
+- [ ] Verify backup exists (SKILL.md.backup)
+- [ ] Commit with descriptive message
+
+**Commit Command:**
+```bash
+git add .claude/skills/devforgeai-qa/SKILL.md
+git commit -m "fix(RCA-016): Add mandatory reference loading checkpoints to devforgeai-qa
+
+- Add ⚠️ CHECKPOINT markers to Phases 2, 3, 4, 6, 7
+- Add Step X.0: Load Workflow Reference (REQUIRED) to each phase
+- Add Phase Completion Checklists before phase transitions
+- Clarify 'on-demand' means 'required when phase starts'
+- Prevents phase skipping by enforcing reference loading
+
+RCA: RCA-016-qa-skill-phase-skipping-during-deep-validation
+Related: RCA-009, RCA-011 (same root cause, different skill)"
+```
+
+**Verification:**
+- [ ] Commit successful
+- [ ] Changes visible in git log
+- [ ] No unintended file changes
+
+---
+
+### Checkpoint 9: Update RCA Status
+**Status:** [ ] NOT STARTED
+
+**Tasks:**
+- [ ] Update RCA-016 status from "IDENTIFIED" to "IMPLEMENTED"
+- [ ] Add implementation date
+- [ ] Note test results
+
+**Edit in RCA-016:**
+```markdown
+**Status:** IMPLEMENTED (2025-12-XX)
+```
+
+**Add Implementation Notes:**
+```markdown
+## Implementation Record
+
+**Implemented:** 2025-12-XX
+**Changes Made:**
+- Added checkpoints to Phases 2, 3, 4, 6, 7 in devforgeai-qa/SKILL.md
+- Added completion checklists to each phase
+- Clarified progressive disclosure language
+
+**Test Results:**
+- Light QA: PASS (checkpoints visible, references loaded)
+- Deep QA: PASS (all phases executed, no skipping)
+
+**Verification Period:** 2 weeks (monitor for recurrence)
+**Review Date:** 2025-12-XX
+```
+
+---
+
+## Resumption Instructions
+
+**To resume this plan in a new session:**
+
+1. **Read this plan:**
+   ```
+   Read(file_path="devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md")
+   ```
+
+2. **Find current checkpoint:**
+   - Scan checkpoints 0-9 for first unchecked `[ ] NOT STARTED`
+   - That is your starting point
+
+3. **Execute from current checkpoint:**
+   - Follow tasks in order
+   - Mark checkboxes as complete: `[ ]` → `[x]`
+   - Update Status from `NOT STARTED` to `COMPLETE`
+
+4. **After each checkpoint:**
+   - Save progress by updating this file
+   - Commit checkpoint progress if appropriate
+
+5. **If errors occur:**
+   - Note error in checkpoint section
+   - Restore from backup if needed: `cp SKILL.md.backup SKILL.md`
+   - Retry with corrections
+
+---
+
+## Quick Reference: Files to Modify
+
+| File | Purpose | Checkpoints |
+|------|---------|-------------|
+| `.claude/skills/devforgeai-qa/SKILL.md` | Add checkpoints | 1-6 |
+| `devforgeai/RCA/RCA-016-*.md` | Update status | 9 |
+| `devforgeai/RCA/RCA-016-IMPLEMENTATION-PLAN.md` | Track progress | All |
+
+---
+
+## Rollback Instructions
+
+If implementation causes issues:
+
+1. **Restore backup:**
+   ```bash
+   cp .claude/skills/devforgeai-qa/SKILL.md.backup .claude/skills/devforgeai-qa/SKILL.md
+   ```
+
+2. **Verify restoration:**
+   ```bash
+   diff .claude/skills/devforgeai-qa/SKILL.md .claude/skills/devforgeai-qa/SKILL.md.backup
+   # Should show no differences
+   ```
+
+3. **Update plan status:**
+   - Mark affected checkpoint as "ROLLED BACK"
+   - Document reason for rollback
+   - Plan corrective action
+
+---
+
+**Plan Created:** 2025-12-01
+**Plan Status:** COMPLETE
+**Completed:** 2025-12-01
+**Commit:** `3654474 fix(RCA-016): Add mandatory reference loading checkpoints to devforgeai-qa`

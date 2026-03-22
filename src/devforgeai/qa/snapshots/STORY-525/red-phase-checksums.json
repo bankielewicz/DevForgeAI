@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-525",
+  "phase": "02-red",
+  "test_count": 47,
+  "checksums": {
+    "conftest.py": "8d6d64f5cc37fb991bb58999cad2673ac78bd17b8f58a9d087bb3862b0bf46c8",
+    "test_ac1_registry_generation.py": "3778f0126dade635a47616d440ccce5a396af89461c06448d9533c097344299f",
+    "test_ac2_record_step.py": "0deb69ed2227656c35b4ecc8c6d33192168c6060d04dcf50bdb70f0cb891b172",
+    "test_ac3_validate_phase_steps.py": "1ecf77c4d7337f15efee00c4a253205553d6bd053179e3962e136c553b747c3a",
+    "test_ac4_cli_command.py": "e87dde7ddc377c817f0b0256cb17bb842fb89844d3541f4af077adcb70a2a7e9",
+    "test_ac5_registry_authoritative.py": "58384b6d64a2a3a527b63e99e256289cd5a5bc006322756ae46f7fa61be74d49"
+  }
+}

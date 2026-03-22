@@ -1,0 +1,65 @@
+{
+  "story_id": "STORY-551",
+  "workflow": "qa",
+  "current_phase": "06",
+  "workflow_started": "2026-03-06T19:38:55Z",
+  "workflow_completed": "2026-03-06T19:57:08Z",
+  "blocking_status": false,
+  "result": "PASSED",
+  "phases": {
+    "01": {
+      "status": "completed",
+      "steps_required": ["setup_validation", "story_file_loading"],
+      "steps_completed": ["setup_validation", "story_file_loading"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "02": {
+      "status": "completed",
+      "steps_required": ["constraint_validation", "anti_pattern_scan", "security_audit"],
+      "steps_completed": ["constraint_validation", "anti_pattern_scan", "security_audit"],
+      "checkpoint_passed": true,
+      "subagents_required": ["anti-pattern-scanner", "security-auditor"],
+      "subagents_invoked": ["anti-pattern-scanner", "security-auditor"]
+    },
+    "03": {
+      "status": "completed",
+      "steps_required": ["diff_regression_detection", "test_integrity_verification"],
+      "steps_completed": ["diff_regression_detection", "test_integrity_verification"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    },
+    "04": {
+      "status": "completed",
+      "steps_required": ["coverage_analysis", "code_quality_metrics"],
+      "steps_completed": ["coverage_analysis", "code_quality_metrics"],
+      "checkpoint_passed": true,
+      "subagents_required": ["coverage-analyzer", "code-quality-auditor"],
+      "subagents_invoked": ["anti-pattern-scanner", "code-reviewer", "security-auditor"]
+    },
+    "05": {
+      "status": "completed",
+      "steps_required": ["report_generation", "result_determination"],
+      "steps_completed": ["report_generation", "result_determination"],
+      "checkpoint_passed": true,
+      "subagents_required": ["qa-result-interpreter"],
+      "subagents_invoked": ["qa-result-interpreter"]
+    },
+    "06": {
+      "status": "completed",
+      "steps_required": ["cleanup", "state_preservation"],
+      "steps_completed": ["cleanup", "state_preservation"],
+      "checkpoint_passed": true,
+      "subagents_required": [],
+      "subagents_invoked": []
+    }
+  },
+  "validation_errors": [],
+  "observations": [
+    "Non-code deliverable type - coverage tooling and code quality metrics skipped",
+    "Test integrity verified via red-phase checksums (6/6 match)",
+    "3 non-blocking recommendations identified by parallel validators"
+  ]
+}

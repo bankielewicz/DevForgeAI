@@ -1,0 +1,13 @@
+{
+  "story_id": "STORY-546",
+  "timestamp": "2026-03-05T00:00:00Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {"path": "tests/STORY-546/test_ac1_command_delegates.sh", "sha256": "17f9e605cf97b6c8debfae2408d52398c64450483daa6d3d84b38e4202a7ea78", "size_bytes": 1468},
+    {"path": "tests/STORY-546/test_ac2_progressive_disclosure.sh", "sha256": "cd49850b2c1469a903ec77056b13d94c15a6ef574ebf1ecf81ac8a91350d984d", "size_bytes": 2371},
+    {"path": "tests/STORY-546/test_ac3_adaptive_pacing.sh", "sha256": "3cd208d7a188f205bf0cef9a65d3d8838fd77f9d5295c87b6290507a6edf8914", "size_bytes": 2045},
+    {"path": "tests/STORY-546/test_ac4_disclaimer_enforcement.sh", "sha256": "27b5702a0dcc5e29ac528e0c8b5cacc55878f695a2c672cfb657737357b2f7e1", "size_bytes": 1971},
+    {"path": "tests/STORY-546/test_ac5_standalone_mode.sh", "sha256": "75892b366a1709367f719acceff1ffc8e8a5986a1a385664acaf47b2f01e79dd", "size_bytes": 1418},
+    {"path": "tests/STORY-546/test_ac6_project_anchored_mode.sh", "sha256": "cb2a6a00497501d5e3e85051fa420fe51cb6c0f4632e6e708c718cd76aa47001", "size_bytes": 1365}
+  ]
+}

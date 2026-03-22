@@ -1,0 +1,27 @@
+{
+  "story_id": "STORY-471",
+  "timestamp": "2026-03-05T01:59:52Z",
+  "snapshot_type": "red-phase",
+  "files": [
+    {
+      "path": "tests/STORY-471/test_ac1_my_business_command.py",
+      "sha256": "845a47fa4abd9eb39754e02d3c38e0eca380495c2b3f6106ce697738ebff5edf",
+      "size_bytes": 3713
+    },
+    {
+      "path": "tests/STORY-471/test_ac2_coach_me_command.py",
+      "sha256": "e1c57a63ca0d4474b97e517c5abc9787142be66637b18b2f92f366e85d2e7f2f",
+      "size_bytes": 3136
+    },
+    {
+      "path": "tests/STORY-471/test_ac3_dashboard_display.py",
+      "sha256": "404ec64ef00991f50a46dd481357458496ea73f9d6ad0198930e1a946fd267ec",
+      "size_bytes": 3084
+    },
+    {
+      "path": "tests/STORY-471/test_ac4_empty_state.py",
+      "sha256": "4b771c0f4929d0220a7690142098ff4e36682ac596b83131b0f42c008d76dc3b",
+      "size_bytes": 1997
+    }
+  ]
+}
