@@ -1,0 +1,30 @@
+{
+  "schema_version": "devforge.skill-run/v1",
+  "run_id": "{{unique-run-id}}",
+  "tier": "{{A/B/C}}",
+  "provider": "{{claude/codex}}",
+  "client_version": null,
+  "model_configuration": null,
+  "installation_mode": "{{project-local/exported-plugin}}",
+  "source_files_sha256": {},
+  "installed_files_sha256": {},
+  "baseline": {
+    "kind": "{{old_skill/without_skill}}",
+    "files_sha256": {}
+  },
+  "specification_files_sha256": {},
+  "case_files_sha256": {},
+  "fixture_files_sha256": {},
+  "execution_ref": null,
+  "context_isolation": "{{actual-observation}}",
+  "sibling_availability": {},
+  "output_directory": "{{assigned-path}}",
+  "transcript": null,
+  "outcome": "NOT_RUN",
+  "cause": null,
+  "metrics": {
+    "total_tokens": null,
+    "duration_ms": null
+  },
+  "grading_evidence": []
+}

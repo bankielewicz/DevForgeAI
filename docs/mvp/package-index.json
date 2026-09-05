@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "status": "draft",
+  "date": "2026-09-05",
+  "purpose": "MVP authoring specifications and templates; not a runtime skill registry.",
+  "shared_contracts": [
+    "artifact-contract.md",
+    "execution-contract.md",
+    "skill-authoring-contract.md"
+  ],
+  "shared_templates": [
+    "templates/shared/handoff.md",
+    "templates/shared/session-record.md"
+  ],
+  "skills": [
+    {
+      "specification_id": "SKILL-001",
+      "name": "devforge-brainstorm",
+      "existing_draft_instructions": true,
+      "specification": "specifications/skill-001-devforge-brainstorm.md",
+      "templates": [
+        {
+          "artifact_type": "idea-ledger",
+          "id_prefix": "IDEAS",
+          "path": "templates/devforge-brainstorm/idea-ledger.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-define-product",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": "providers/claude/plugins/devforgeai/skills/devforge-brainstorm",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": "providers/codex/plugins/devforgeai/skills/devforge-brainstorm",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-002",
+      "name": "devforge-define-product",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-002-devforge-define-product.md",
+      "templates": [
+        {
+          "artifact_type": "product-brief",
+          "id_prefix": "PROD",
+          "path": "templates/devforge-define-product/product-brief.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-design",
+            "devforge-prototype",
+            "devforge-architect",
+            "devforge-plan",
+            "devforge-review",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-003",
+      "name": "devforge-design",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-003-devforge-design.md",
+      "templates": [
+        {
+          "artifact_type": "design-spec",
+          "id_prefix": "UX",
+          "path": "templates/devforge-design/design-spec.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-prototype",
+            "devforge-architect",
+            "devforge-plan",
+            "devforge-review",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-004",
+      "name": "devforge-prototype",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-004-devforge-prototype.md",
+      "templates": [
+        {
+          "artifact_type": "experiment-plan",
+          "id_prefix": "XPLAN",
+          "path": "templates/devforge-prototype/experiment-plan.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-prototype",
+            "devforge-review"
+          ]
+        },
+        {
+          "artifact_type": "prototype-report",
+          "id_prefix": "XREPORT",
+          "path": "templates/devforge-prototype/prototype-report.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-define-product",
+            "devforge-design",
+            "devforge-architect",
+            "devforge-plan",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-005",
+      "name": "devforge-architect",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-005-devforge-architect.md",
+      "templates": [
+        {
+          "artifact_type": "architecture-contract",
+          "id_prefix": "ARCH",
+          "path": "templates/devforge-architect/architecture-contract.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-plan",
+            "devforge-project-expert-creator",
+            "devforge-evaluate-expert",
+            "devforge-develop",
+            "devforge-review",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-006",
+      "name": "devforge-plan",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-006-devforge-plan.md",
+      "templates": [
+        {
+          "artifact_type": "epic",
+          "id_prefix": "EPIC",
+          "path": "templates/devforge-plan/epic.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-plan",
+            "devforge-review",
+            "devforge-release",
+            "devforge-change"
+          ]
+        },
+        {
+          "artifact_type": "story",
+          "id_prefix": "STORY",
+          "path": "templates/devforge-plan/story.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-project-expert-creator",
+            "devforge-evaluate-expert",
+            "devforge-develop",
+            "devforge-review",
+            "devforge-release",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-007",
+      "name": "devforge-project-expert-creator",
+      "existing_draft_instructions": true,
+      "specification": "specifications/skill-007-devforge-project-expert-creator.md",
+      "templates": [
+        {
+          "artifact_type": "expert-spec",
+          "id_prefix": "XSPEC",
+          "path": "templates/devforge-project-expert-creator/expert-spec.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-project-expert-creator",
+            "devforge-evaluate-expert",
+            "devforge-review"
+          ]
+        },
+        {
+          "artifact_type": "expert-package",
+          "id_prefix": "XPKG",
+          "path": "templates/devforge-project-expert-creator/expert-package.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-evaluate-expert",
+            "devforge-develop",
+            "devforge-review",
+            "devforge-change"
+          ]
+        },
+        {
+          "artifact_type": "native skill instructions",
+          "id_prefix": "NATIVE",
+          "path": "templates/devforge-project-expert-creator/expert-skill.md",
+          "native_format": true,
+          "consumers": [
+            "devforge-evaluate-expert",
+            "devforge-develop"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": "providers/claude/plugins/devforgeai/skills/devforge-project-expert-creator",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": "providers/codex/plugins/devforgeai/skills/devforge-project-expert-creator",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-008",
+      "name": "devforge-evaluate-expert",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-008-devforge-evaluate-expert.md",
+      "templates": [
+        {
+          "artifact_type": "expert-evaluation-plan",
+          "id_prefix": "EVPLAN",
+          "path": "templates/devforge-evaluate-expert/expert-evaluation-plan.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-evaluate-expert",
+            "devforge-review"
+          ]
+        },
+        {
+          "artifact_type": "expert-evaluation-report",
+          "id_prefix": "EVREPORT",
+          "path": "templates/devforge-evaluate-expert/expert-evaluation-report.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-project-expert-creator",
+            "devforge-develop",
+            "devforge-review",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-009",
+      "name": "devforge-develop",
+      "existing_draft_instructions": true,
+      "specification": "specifications/skill-009-devforge-develop.md",
+      "templates": [
+        {
+          "artifact_type": "development-record",
+          "id_prefix": "DEV",
+          "path": "templates/devforge-develop/development-record.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-review",
+            "devforge-release",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": "providers/claude/plugins/devforgeai/skills/devforge-develop",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": "providers/codex/plugins/devforgeai/skills/devforge-develop",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-010",
+      "name": "devforge-review",
+      "existing_draft_instructions": true,
+      "specification": "specifications/skill-010-devforge-review.md",
+      "templates": [
+        {
+          "artifact_type": "review-report",
+          "id_prefix": "QA",
+          "path": "templates/devforge-review/review-report.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-develop",
+            "devforge-release",
+            "devforge-change"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": "providers/claude/plugins/devforgeai/skills/devforge-review",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": "providers/codex/plugins/devforgeai/skills/devforge-review",
+          "status": "DRAFT_REFRESH_REQUIRED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-011",
+      "name": "devforge-release",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-011-devforge-release.md",
+      "templates": [
+        {
+          "artifact_type": "release-record",
+          "id_prefix": "REL",
+          "path": "templates/devforge-release/release-record.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-change",
+            "devforge-review"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    },
+    {
+      "specification_id": "SKILL-012",
+      "name": "devforge-change",
+      "existing_draft_instructions": false,
+      "specification": "specifications/skill-012-devforge-change.md",
+      "templates": [
+        {
+          "artifact_type": "change-request",
+          "id_prefix": "CHG",
+          "path": "templates/devforge-change/change-request.md",
+          "native_format": false,
+          "consumers": [
+            "devforge-brainstorm",
+            "devforge-define-product",
+            "devforge-design",
+            "devforge-prototype",
+            "devforge-architect",
+            "devforge-plan",
+            "devforge-project-expert-creator",
+            "devforge-develop",
+            "devforge-review"
+          ]
+        }
+      ],
+      "implementations": {
+        "claude": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        },
+        "codex": {
+          "source": null,
+          "status": "NOT_IMPLEMENTED",
+          "native_behavior": "NOT_EVALUATED"
+        }
+      }
+    }
+  ],
+  "authoring_templates": [
+    "templates/skill-authoring/evals.json",
+    "templates/skill-authoring/evaluation-report.md",
+    "templates/skill-authoring/run-manifest.json",
+    "templates/skill-authoring/trigger-queries.json"
+  ]
+}

@@ -1,0 +1,45 @@
+# DevForgeAI framework POC
+
+Project-agnostic conversational workflows that create and maintain project-specific expertise.
+
+Intended repository: https://github.com/bankielewicz/DevForgeAI
+
+This directory is a new local POC, not a clone or an overwrite of the existing remote repository. The companion [DevForge](../DevForge/README.md) directory owns the Rust CLI, policy, fixed runner, installation tooling, and GitHub workflows.
+
+## Start here
+
+From the sibling DevForge directory:
+
+```bash
+cargo build --locked
+python3 scripts/verify_poc.py --framework ../DevForgeAI
+python3 scripts/demo.py --framework ../DevForgeAI --prepare-only
+```
+
+The report prints the exact prepared project, external policy, and state paths. Continue using the [terminal runbook](../DevForge/docs/POC.md). The subscribed terminal does the AI work; the CLI makes no model calls.
+
+## Included capabilities
+
+| Skill | Purpose |
+| --- | --- |
+| `devforge-brainstorm` | Explore ideas and preserve proposals, assumptions, evidence, and decisions. |
+| `devforge-project-expert-creator` | Specify, author, bind, evaluate, and refresh project-specific expert skills. |
+| `devforge-develop` | Follow a bounded story through external RED/GREEN checks. |
+| `devforge-review` | Review meaning and evidence without confusing structural checks with acceptance. |
+
+Provider packages live separately in `providers/claude/plugins/devforgeai` and `providers/codex/plugins/devforgeai`. Claude agents travel with its plugin; Codex subagent definitions remain under `providers/codex/agents`. Native plugin manifests exist for both providers. The installer can instead place project-local copies in each provider's discovery directories, without changing global configuration.
+
+The SQLite and JSON-file examples have different project expert skills, architecture choices, references, and implementations. Their tiny applications demonstrate a persistence round trip, not a production SaaS application. Their declarations are synthetic fixture decisions, not approved choices for your future application.
+
+## Expertise lifecycle
+
+Project goals and decisions -> expertise gap -> expert specification -> AI-authored skill -> structural provenance -> independent behavioral evaluation -> use -> targeted refresh.
+
+Skills and agent roles do not confer authority to change the external gate. A hash binding proves which inputs a skill refers to; it does not prove that the instructions are correct or useful. The POC reports model behavior as NOT_EVALUATED until actual terminal evaluations are recorded.
+
+See [POC scope](docs/POC.md) and the companion [contract/runbook](../DevForge/docs/POC.md).
+
+The proposed [MVP authoring package](docs/mvp/README.md) contains the 12-skill roster, Mermaid provenance and worktree flows, one specification per skill, standardized output templates, and source notes. These are draft design artifacts; they do not install or certify the proposed skills.
+
+
+The [authoring contract](docs/mvp/skill-authoring-contract.md) defines source ownership and A/B/C evaluation. Runtime installation/export excludes authored eval cases and fixtures. The Claude brainstorm candidate was preserved during migration and requires alignment with the refreshed contract; the Codex brainstorm draft retains the original POC baseline. Neither is behaviorally accepted. The immediate milestone is brainstorm in both terminals, then a product brief consuming its ledger.

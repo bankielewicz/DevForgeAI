@@ -1,0 +1,18 @@
+{
+  "name": "devforgeai",
+  "version": "0.2.0",
+  "description": "Project brainstorming and project-specific expert skills backed by the external DevForge CLI.",
+  "author": {
+    "name": "bankielewicz"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DevForgeAI",
+    "shortDescription": "Build and maintain project expertise.",
+    "longDescription": "Brainstorm ideas, author project-specific expert skills, and prepare work for independent DevForge validation.",
+    "developerName": "bankielewicz",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": "Help me identify and create the expert skills my project needs."
+  }
+}
