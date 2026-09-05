@@ -1,6 +1,8 @@
-# DevForgeAI framework POC
+# DevForgeAI Adaptive Spec-Driven Framework
 
-Project-agnostic conversational workflows that create and maintain project-specific expertise.
+DevForgeAI is an adaptive, spec-driven software engineering framework in development. Its design combines reusable, project-agnostic workflows, project-specific AI expertise, traceable specifications, and independent checks to guide software delivery under human authority.
+
+Current status: local proof of concept. The [adaptive design](docs/mvp/roster.md#adaptive-design) describes how workflow selection, expertise, and affected context and evidence respond to project needs. The complete adaptive lifecycle remains roadmap scope.
 
 Intended repository: https://github.com/bankielewicz/DevForgeAI
 

@@ -1,8 +1,23 @@
 # DevForgeAI MVP skill roster and provenance
 
-Status: DRAFT design, 2026-09-04. Twelve core skills are proposed for the MVP lifecycle. Four have draft instruction files in the current POC; none is promoted to terminal-validated status by this document. Generated project experts are additional project-specific outputs, not mandatory roles in a fixed organization chart.
+Status: DRAFT design, refreshed 2026-09-05. Twelve core skills are proposed for the MVP lifecycle. Four have draft instruction files in the current POC; none is promoted to terminal-validated status by this document. Generated project experts are additional project-specific outputs, not mandatory roles in a fixed organization chart.
 
 The MVP uses explicit native skill invocation, local artifacts, and external DevForge checks. Design and prototype are conditional. Research is performed within the skill that needs it. Sprint scheduling, autonomous deployment, scheduled skill rewriting, and API-backed model CI are deferred.
+
+## Adaptive design
+
+DevForgeAI's adaptive, spec-driven design responds to the task, accepted project decisions, and observed evidence:
+
+| Aspect | Adaptation in the proposed lifecycle |
+| --- | --- |
+| Workflow | Select relevant stages and reuse applicable accepted artifacts. A consequential uncertainty can call for a prototype; an unchanged accepted design can be reused. |
+| Expertise | Reuse suitable current skills, create expertise for a concrete capability gap, and refresh it when relevant inputs or observed failures justify a change. Evaluate each new or changed package for its intended tasks before selecting it as suitable. |
+| Context | Give each task the relevant rules and source references while retaining their exact upstream identities. |
+| Evidence | Identify affected dependents when governing inputs or candidates change, retain historical results, and obtain the relevant new checks or evaluations before relying on them for changed work. |
+
+Adaptation operates within accepted specifications and recorded authority. Governing changes follow the [change workflow](specifications/skill-012-devforge-change.md); affected expertise follows the [creation and refresh](specifications/skill-007-devforge-project-expert-creator.md) and [evaluation](specifications/skill-008-devforge-evaluate-expert.md) workflows. Required acceptance criteria and external DevForge checks continue to govern progression.
+
+This describes the intended architecture. The current POC and draft implementation states below still apply; claims of adaptive behavior require evidence for the exact capability, scope, and provider tested.
 
 ## Roster
 
