@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Builder"
+  short_description: "Specify and author DevForgeAI skills"
+  default_prompt: "Use $skill-builder to discuss my workflow, compare existing skills, and create or enhance its canonical source from a specification, including any validator findings."

@@ -1,0 +1,184 @@
+{
+  "schema_version": "devforge.skill-structure/v1",
+  "created_at_utc": "2026-09-07T15:22:56.264171Z",
+  "skill_root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder",
+  "mode": "source",
+  "specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+    "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+  },
+  "files_sha256": {
+    "SKILL.md": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51",
+    "agents/openai.yaml": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1",
+    "assets/skill-design-spec.md": "7cfecd0a0930862f27b2125945981868c5267d61033d4b8847b30ffb9622a552",
+    "references/contracts/artifact-contract.md": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+    "references/contracts/execution-contract.md": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+    "references/contracts/skill-authoring-contract.md": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa",
+    "references/derivation.json": "34dbc1b5791c3291c3696761f8421506c4898069e53766cb44222ef85fe614cd",
+    "references/existing-skill-selection.md": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+    "references/framework-context.md": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+    "references/interview-guide.md": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+    "references/results-contract.md": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841",
+    "references/sources.md": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113",
+    "references/validator-handoff.md": "a38d6d993a451fbd137bcc6ad9572955695fe9b4f6b574c9da593bc45aa6543f"
+  },
+  "checks": [
+    {
+      "id": "S001",
+      "outcome": "PASS",
+      "reason": "Directory found.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder"
+        }
+      ]
+    },
+    {
+      "id": "S002",
+      "outcome": "PASS",
+      "reason": "Hashed 13 files; read 99901 package bytes. Limits: 4096 entries, depth 32, 16777216 bytes/file, 134217728 total bytes.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder"
+        }
+      ]
+    },
+    {
+      "id": "S003",
+      "outcome": "PASS",
+      "reason": "SKILL.md decoded as UTF-8 (an optional BOM is accepted).",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S004",
+      "outcome": "PASS",
+      "reason": "Parsed with PyYAML 6.0.3; safe loader and duplicate-key rejection.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S005",
+      "outcome": "PASS",
+      "reason": "Additional frontmatter fields are permitted; their semantics are not evaluated.",
+      "evidence": []
+    },
+    {
+      "id": "S006",
+      "outcome": "PASS",
+      "reason": "Name format and exact folder match satisfied.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "S007",
+      "outcome": "PASS",
+      "reason": "Examined 13 local links; ignored 5 external URLs and 0 empty/anchor-only destinations. Anchor existence is not checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md",
+          "line": 18
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md",
+          "line": 30
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md",
+          "line": 31
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/SKILL.md",
+          "line": 45
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/framework-context.md",
+          "line": 54
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/framework-context.md",
+          "line": 55
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/framework-context.md",
+          "line": 56
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/interview-guide.md",
+          "line": 7
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/interview-guide.md",
+          "line": 11
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/sources.md",
+          "line": 3
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/validator-handoff.md",
+          "line": 14
+        }
+      ]
+    },
+    {
+      "id": "S008",
+      "outcome": "PASS",
+      "reason": "Package symlinks are resolvable and remain inside the package.",
+      "evidence": []
+    },
+    {
+      "id": "S009",
+      "outcome": "PASS",
+      "reason": "Source mode permits evals; absent evals is not a structural defect.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder"
+        }
+      ]
+    },
+    {
+      "id": "S010",
+      "outcome": "PASS",
+      "reason": "Parsed 1 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/before/skill-builder/references/derivation.json"
+        }
+      ]
+    },
+    {
+      "id": "S011",
+      "outcome": "PASS",
+      "reason": "Parsed 0 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": []
+    },
+    {
+      "id": "S012",
+      "outcome": "PASS",
+      "reason": "Parsed 0 applicable inventoried files; no schema or runtime behavior checked.",
+      "evidence": []
+    },
+    {
+      "id": "S013",
+      "outcome": "PASS",
+      "reason": "Specification bytes hashed; specification meaning is not evaluated.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md"
+        }
+      ]
+    }
+  ],
+  "overall": "PASS",
+  "behavior": "NOT_EVALUATED"
+}

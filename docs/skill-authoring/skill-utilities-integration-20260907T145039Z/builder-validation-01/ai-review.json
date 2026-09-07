@@ -1,0 +1,885 @@
+{
+  "schema_version": "devforge.skill-ai-review/v1",
+  "run_id": "builder-validation-01-static-review",
+  "candidate_ref": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/manifest.json",
+    "sha256": "6a2a8e755939d4df4a4d9f4dc7679a8915cbc827551af674d1ba5888182d42db",
+    "section": "/candidate and /files_sha256 entries prefixed candidate/skill-builder/"
+  },
+  "reviewer": {
+    "identity": "/root/builder_static_review_01",
+    "role": "independent static AI reviewer",
+    "model": "unknown",
+    "runtime": "Codex subagent tool session; version unknown",
+    "provider": "OpenAI (Codex); exact serving configuration unknown",
+    "configuration": "unknown; no reviewer-applied override",
+    "independence_evidence": "Fresh task context with bounded frozen packet; no prior authorship in this context, no prior report files read.",
+    "limits": [
+      "Fresh reviewer task context was used; the parent authoring conversation and earlier report files were not supplied/read. This is prompt separation, not filesystem, process, history or memory sandboxing.",
+      "Shared filesystem and broad tool access remain available. Only the assigned frozen packet was read; no candidate code or helper was executed. Baseline contents were hashed for custody but not inspected or compared.",
+      "A generic memory summary and skill catalog were supplied by the environment; no memory files, live skill source, earlier verdict files or author conclusion were consulted.",
+      "The required enhancement specification itself names earlier findings and their severity at lines 64-80 and historical outcomes at lines 118-127; this unavoidable specification exposure is disclosed. Those labels were not treated as a current-candidate verdict.",
+      "The raw original user conversation and original full standalone enhanced-builder design are not present; review is limited to the parent task instruction, selected requirements and explicit modernization amendment.",
+      "Actual model identifier, provider/client version, reasoning configuration and start wall-clock timestamp are unknown. No model override was requested or applied by this reviewer."
+    ]
+  },
+  "input_refs": [
+    {
+      "kind": "input_manifest",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/manifest.json",
+      "sha256": "6a2a8e755939d4df4a4d9f4dc7679a8915cbc827551af674d1ba5888182d42db"
+    },
+    {
+      "kind": "selected_input",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    {
+      "kind": "selected_input",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/execution-contract.md",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "kind": "selected_input",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+      "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43"
+    },
+    {
+      "kind": "selected_input",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/shared-handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    {
+      "kind": "selected_input",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+      "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef"
+    },
+    {
+      "kind": "specification",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+      "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+    },
+    {
+      "kind": "rubric",
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/evaluator/ai-review-rubric.md",
+      "sha256": "ac0bc65e1819cfab0874d9a845a101297d58f474d71e5eacb0f1c6cb51cb8b8f"
+    }
+  ],
+  "criteria": [
+    {
+      "id": "R01",
+      "outcome": "PASS",
+      "reason": "Discovery metadata and entrypoint identify Q&A, duplicate selection, canonical authoring and validator remediation; validation and hook activation are excluded.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            1,
+            14
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/agents/openai.yaml",
+          "sha256": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1",
+          "lines": [
+            1,
+            4
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            9,
+            18
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            9,
+            18
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R02",
+      "outcome": "PASS",
+      "reason": "Consequential missing inputs remain unresolved; specification, authoring records and conditional prepared handoff have explicit destinations, fields and completion limits.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            24,
+            35
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            47,
+            63
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            85,
+            93
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/handoff.md",
+          "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
+          "lines": [
+            24,
+            91
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            9,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            94,
+            98
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            9,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            94,
+            98
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R03",
+      "outcome": "PASS",
+      "reason": "Canonical provider ownership, collision reconciliation, accepted decisions and shared-owner exclusions are explicit. Prepared handoff does not grant a lease or receiving invocation.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            20,
+            32
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            73,
+            93
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/managed-authoring.md",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "lines": [
+            23,
+            25
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "lines": [
+            15,
+            29
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            49,
+            60
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/execution-contract.md",
+          "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b",
+          "lines": [
+            15,
+            29
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            49,
+            60
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R04",
+      "outcome": "PASS",
+      "reason": "Unclassified items block dependent design while independent work continues. Selection collisions, remediation drift and missing managed adapters have scoped paths; supplied runtime controls bounds.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/existing-skill-selection.md",
+          "sha256": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+          "lines": [
+            31,
+            48
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            55,
+            75
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/managed-authoring.md",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "lines": [
+            7,
+            17
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            12,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            86,
+            100
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            12,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            86,
+            100
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R05",
+      "outcome": "PASS",
+      "reason": "Required authoring references/templates are packet-local and routed at relevant phases. Installed and consuming-project roots are separate; creator guidance has a direct-authoring fallback; missing adapter is unavailable managed completion.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            18,
+            26
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            34,
+            35
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            49,
+            51
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            77,
+            87
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/managed-authoring.md",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "lines": [
+            3,
+            17
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            48,
+            68
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            48,
+            68
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R06",
+      "outcome": "PASS",
+      "reason": "Selected authority is distinguished from supplied evidence; packaged artifact rules deny instruction authority to file/URL/tool content, and runtime provenance cannot be manufactured from user data.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            22,
+            28
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/contracts/artifact-contract.md",
+          "sha256": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+          "lines": [
+            7,
+            11
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/managed-authoring.md",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "lines": [
+            7,
+            11
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/validator-handoff.md",
+          "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60",
+          "lines": [
+            33,
+            48
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "lines": [
+            101,
+            103
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/artifact-contract.md",
+          "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1",
+          "lines": [
+            101,
+            103
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R07",
+      "outcome": "FAIL",
+      "reason": "Most lineage and receipt boundaries are sound, but the derivation record contains contradictory unqualified selected-source dispositions after the controlled revision-3 refresh. See F-STATIC-001.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/derivation.json",
+          "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+          "lines": [
+            5,
+            20
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/derivation.json",
+          "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+          "lines": [
+            282,
+            288
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/skill-design-spec.md",
+          "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+          "lines": [
+            321,
+            325
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/derivation.json",
+          "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+          "lines": [
+            249,
+            275
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            74,
+            80
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            58,
+            58
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [
+        "F-STATIC-001"
+      ],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            74,
+            80
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            58,
+            58
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R08",
+      "outcome": "PASS",
+      "reason": "Entry instructions route conditional interview, selection, remediation and managed-delivery detail at use; examples retain named-group choices and design-only hooks. No independent organization defect identified.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            30,
+            87
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/interview-guide.md",
+          "sha256": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+          "lines": [
+            24,
+            64
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/skill-design-spec.md",
+          "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+          "lines": [
+            120,
+            146
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            58,
+            60
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            48,
+            48
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            58,
+            60
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-authoring-contract.md",
+          "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef",
+          "lines": [
+            48,
+            48
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R09",
+      "outcome": "PASS",
+      "reason": "Source writing, hashing, old results, runtime receipts, native observations and adoption remain distinct. Builder reports validation not performed; no absent execution becomes PASS.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            12,
+            14
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            89,
+            93
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/handoff.md",
+          "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
+          "lines": [
+            53,
+            63
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/validator-handoff.md",
+          "sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60",
+          "lines": [
+            77,
+            86
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            14,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            108,
+            127
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/requirements.md",
+          "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43",
+          "lines": [
+            14,
+            18
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            108,
+            127
+          ],
+          "kind": "requirement"
+        }
+      ]
+    },
+    {
+      "id": "R10",
+      "outcome": "PASS",
+      "reason": "Every enforced item maps to an evidence-based design proposal; runtime ownership and missing-adapter limits are explicit. Handoff carries exact context, next owner, prerequisites and separate prepared/admitted/invoked observations.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/SKILL.md",
+          "sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8",
+          "lines": [
+            65,
+            71
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/managed-authoring.md",
+          "sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7",
+          "lines": [
+            15,
+            25
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/handoff.md",
+          "sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931",
+          "lines": [
+            24,
+            91
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/assets/skill-design-spec.md",
+          "sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3",
+          "lines": [
+            124,
+            140
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            86,
+            100
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            110,
+            116
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "finding_ids": [],
+      "applicability": "Applicable: DevForgeAI authoring skill; supplied-file, mutation, provenance and proposed-enforcement anchors apply.",
+      "required_behavior_sources": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            86,
+            100
+          ],
+          "kind": "requirement"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            110,
+            116
+          ],
+          "kind": "requirement"
+        }
+      ]
+    }
+  ],
+  "disagreements": [],
+  "additional_reviewer_refs": [],
+  "overall": "FAIL",
+  "findings": [
+    {
+      "id": "F-STATIC-001",
+      "type": "defect",
+      "severity": "MINOR",
+      "criteria": [
+        "R07"
+      ],
+      "requirements": [
+        "CHG-002"
+      ],
+      "title": "Historical source-selection disposition remains unqualified after revision-3 refresh",
+      "trigger": "A maintainer consults concurrent_source_changes to determine the selected authoring-contract bytes or outstanding refresh work.",
+      "observed": "The top-level source_selection explicitly selects SENH revision 3; entries[0] selects authoring-contract SHA-256 eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef (revision 3). Yet concurrent_source_changes for the same governing path calls 1bfe5c1caef1f3df165b9172ebb5b85b743f84ea2c9f46992fa704e8968eed7e selected_sha256, calls 2f5cd33a603009d6118e698443a5358999ed535c723c5cac226499db5124a9fd current_sha256, and instructs retention of that selected source pending explicit refresh, without marking this record historical/superseded.",
+      "impact": "The current maintenance record gives inconsistent source-selection and refresh disposition for the same contract. The explicit top-level revision-3 selection limits the impact; no unauthorized behavior or runtime failure was observed.",
+      "recommendation": "Preserve the old hashes and disposition as explicitly historical observations tied to their prior selection; identify the revision-3 refresh as the current disposition and bind its selected hash. Do not erase prior evidence or alter governing contracts.",
+      "acceptance": "Current selection and historical source observations are unambiguous, and current selection matches the selected preserved revision-3 bytes; refresh affected candidate/report identities separately.",
+      "evidence": [
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/derivation.json",
+          "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+          "lines": [
+            5,
+            20
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/candidate/skill-builder/references/derivation.json",
+          "sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634",
+          "lines": [
+            282,
+            288
+          ],
+          "kind": "candidate"
+        },
+        {
+          "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/selected-inputs/skill-enhancement-spec-v3.md",
+          "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2",
+          "lines": [
+            74,
+            80
+          ],
+          "kind": "requirement"
+        }
+      ],
+      "confidence": "High that fields disagree; narrower consequence is maintenance/provenance ambiguity. No behavioral effect measured."
+    }
+  ],
+  "scope": "Static R01-R10 only; one contained provenance defect. No native, integrated, release, improvement or receiving-execution claim.",
+  "native": {
+    "C": "COULD_NOT_RUN",
+    "B": "COULD_NOT_RUN",
+    "A": "COULD_NOT_RUN",
+    "execution": "NOT_RUN",
+    "cause": "Client/model, subscription authentication arrangement, native budget and verified execution boundaries remain unresolved; this static allocation admits no native execution."
+  },
+  "custody": {
+    "manifest_sha256": "6a2a8e755939d4df4a4d9f4dc7679a8915cbc827551af674d1ba5888182d42db",
+    "frozen_file_count": 39,
+    "before": "PASS: all exact-byte digests verified before substantive review (tool chunk 6012b2).",
+    "after_review": "PASS: all exact-byte digests verified again immediately before report creation.",
+    "output_locator": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/ai-review.json",
+    "report_notes": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/independent-review.md"
+  },
+  "timing": {
+    "start_utc": null,
+    "start_evidence": "First manifest read tool chunk 60cdf0, then pre-review verification chunk 6012b2; no start wall-clock recorded.",
+    "completion_recorded_at_utc": "2026-09-07T15:26:40.415810+00:00"
+  }
+}

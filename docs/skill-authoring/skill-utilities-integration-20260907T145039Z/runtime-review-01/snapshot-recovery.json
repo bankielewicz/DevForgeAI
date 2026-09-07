@@ -1,0 +1,7 @@
+{
+  "scope": "Post-review recovery of exact frozen revision-01 bytes by reversing known remediation edits; every complete byte digest matches the original pre-review manifest",
+  "files": 88,
+  "manifest_sha256": "80f40323103f394b2b7aafc17ebbac83413f0cd915c153791a25539a75ded876",
+  "snapshot_root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/frozen-source",
+  "current_source_mutated": false
+}

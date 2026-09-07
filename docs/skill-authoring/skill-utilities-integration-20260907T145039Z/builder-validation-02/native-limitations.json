@@ -1,0 +1,31 @@
+{
+  "schema_version": "devforge.validation-limitations/v1",
+  "intake": "Frozen candidate/specification/rubric/baseline for static evaluation only",
+  "deterministic_source": "PASS: S001-S013",
+  "independent_ai_review": "Separate pending report; no inferred verdict",
+  "native_cases": [
+    {
+      "tier": "C",
+      "outcome": "COULD_NOT_RUN",
+      "execution": "NOT_RUN",
+      "cause": "Complete native model/authentication/budget/boundary allocation unavailable; protected native launcher and authenticated result importer remain unimplemented"
+    },
+    {
+      "tier": "B",
+      "outcome": "COULD_NOT_RUN",
+      "execution": "NOT_RUN",
+      "cause": "Complete native model/authentication/budget/boundary allocation unavailable; protected native launcher and authenticated result importer remain unimplemented"
+    },
+    {
+      "tier": "A",
+      "outcome": "COULD_NOT_RUN",
+      "execution": "NOT_RUN",
+      "cause": "Complete native model/authentication/budget/boundary allocation unavailable; protected native launcher and authenticated result importer remain unimplemented"
+    }
+  ],
+  "environment": "Implementation worktrees are not test environments; separate fresh-worktree/existing/static choice offered and unanswered",
+  "historical_reports": "Preserved; no retroactive upgrade",
+  "prepared_handoff": "Available; actual builder-to-validator receiving invocation NOT_OBSERVED",
+  "acceptance": "NOT_GRANTED",
+  "framework_structural": "BLOCKED at preserved historical SKILL.md folder-name mismatch; log retained"
+}

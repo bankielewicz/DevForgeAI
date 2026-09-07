@@ -1,0 +1,139 @@
+# Skill authoring, packaging, and evaluation contract
+
+Status: DRAFT MVP contract, revision 3, 2026-09-07 UTC. This defines provider migration and subsequent authoring assignments. It retains revision 2's evaluation isolation, grading and package-derivation clarifications, and adds managed runtime packaging and measurement ownership. Shared/hook source changes are an integration candidate; reviewed provider integration and combined validation remain pending. Native admission is NOT_VALIDATED; native activation and rendered delivery are NOT_OBSERVED. This contract does not certify the existing skills. Read it with the [artifact contract](artifact-contract.md) and [execution contract](execution-contract.md).
+
+Existing assignments retain their selected revision and exact bytes until the integration owner explicitly selects a refresh. Preserve their old inputs and evidence; a change to the main checkout does not silently replace a worktree's governing inputs.
+
+## Scope and sources
+
+This contract applies to the 12 framework skills and to project-specific skills. A native creator or an operator can run this process before devforge-evaluate-expert itself is implemented. That bootstrap does not fabricate an evaluator invocation or add a thirteenth runtime skill.
+
+The [Agent Skills specification](https://agentskills.io/specification) requires a skill directory and SKILL.md with name/description frontmatter. scripts, references, and assets are optional. Additional directories are permitted. Required evaluation evidence below is a DevForgeAI release convention, not an additional requirement of the open standard. Provider extensions and discovery behavior must be checked against the target client's documentation and observed runtime.
+
+## Sources, ownership, and runtime copies
+
+| Purpose | Canonical location |
+| --- | --- |
+| Claude framework skills | providers/claude/plugins/devforgeai/skills/SKILL-NAME/ |
+| Codex framework skills | providers/codex/plugins/devforgeai/skills/SKILL-NAME/ |
+| Claude plugin metadata and subagents | providers/claude/plugins/devforgeai/.claude-plugin/ and agents/ |
+| Codex plugin metadata | providers/codex/plugins/devforgeai/.codex-plugin/ |
+| Codex standalone subagent definitions | providers/codex/agents/*.toml |
+| Per-skill Codex metadata, if needed | SKILL-NAME/agents/openai.yaml; this is not a subagent |
+| Provider hook declarations and runtime requirements | providers/PROVIDER/plugins/devforgeai/hooks/; shared integration-owner scope |
+| Common specifications/templates | docs/mvp/ |
+| Evaluation outputs | .poc/PROVIDER/SKILL-NAME-workspace/RUN-ID/ in the assigned evaluation root |
+
+The old plugins/devforgeai authoring source is retired. The underlying skill format is portable; separate sources give these authors distinct ownership and independently tracked provider behavior. Never infer support from which model authored the text. Shared templates have one governing source; package-local copies must record and refresh their derivation when that source changes.
+
+The companion installer selects the requested provider source without fallback. Normal project-local installation places skills in .agents/skills for Codex or .claude/skills for Claude and subagents in .codex/agents or .claude/agents. A provider source directory by itself is not a discovered installation.
+
+The explicit --include-experts option still supports the two portable POC expert fixtures in project/experts/SKILL-NAME. It does not create provider-specific project experts or establish cross-provider behavioral support. A future project-expert assignment must specify its source/installation mapping; do not infer one from the portable fixtures.
+
+## Per-skill structure and distribution
+
+```text
+SKILL-NAME/
+  SKILL.md                    required; focused instructions and activation description
+  references/                 conditional knowledge, procedures, version-specific examples
+  assets/                     runtime output templates, schemas, images, data
+  scripts/                    deterministic helpers when justified
+  agents/openai.yaml          optional Codex metadata only
+  evals/                      authored cases and fixtures, excluded from runtime export
+    evals.json                output-quality requests and expectations
+    fixtures/                 reproducible input files (files/ is also acceptable)
+    triggers/                 positive/negative queries and fixed train/validation split
+```
+
+Create optional resources only when useful. Link them at the phase that needs them; do not load every reference by default. Keep project-specific expertise grounded in accepted constraints, verified version-specific APIs, real examples, and observed corrections. A newer library release is a proposal for a controlled refresh, not permission to replace an approved stack. Record source URLs, applicable versions, retrieval dates, claims supported, and refresh conditions in the package's provenance record.
+
+**Packaging decision:** evals stays in authored source and is omitted from normal installed copies and runtime-only plugin exports. Fixtures must be reproducible from source, not solely available in an ignored workspace. A skill whose user-facing job is evaluation may need reusable evaluation instructions/templates in assets or references; those runtime resources do ship. They are distinct from the tests of that skill under evals.
+
+Use the companion installer's --export-plugin option for native plugin testing. It builds a new directory named devforgeai containing that provider's manifest, skills/runtime resources, supported agents, and selected hooks component including hooks/runtime-requirements.json. It never overwrites an existing export. Its current POC component support is deliberately limited to these components; it rejects unknown plugin components instead of silently omitting them. Run outputs, history, authoring provenance sidecars, Python caches, and evals are not runtime inputs; the runtime-requirement sidecar is a runtime input. Exports and project-local copies preserve content bytes; this POC does not preserve executable mode bits, so invoke helpers through their documented interpreter.
+
+Delivery-aware packages use the exact six-field devforge.runtime-requirement/v1 schema and four synchronous hook events defined in the [execution contract](execution-contract.md#hooks-and-runtime-compatibility). The provider must match its package, and completion_mode is managed-session. The implemented loader selects the default hooks/hooks.json location when the hooks directory exists; an explicit manifest hooks path is not needed for that loader. Preserve the existing manifest metadata. Native default-location discovery and effective configuration still require separate observation.
+
+Project installation requires an explicit absolute --runtime executable. The companion installer checks delivery capabilities and the selected binary's bytes before writes, records compatibility, and merges only selected hook groups into the provider's project settings with collision checks. Export retains the requirement while leaving the eventual host runtime unverified. Neither compatibility, source validation, installation nor export proves native admission, hook trust/activation, terminal completion, or rendered receipt delivery. Installing runtime system dependencies and authorizing client state are separate owner responsibilities.
+
+Package-local template copies and their derivation records are inside the assigned skill's source fence. A skill author may refresh them from the selected shared template without changing that template's governing meaning. For each copy, record the source path, exact source revision or preserved location and SHA-256, package-relative destination and SHA-256, any transformation, and refresh conditions. One maintenance record such as references/derivation.json is sufficient; it need not alter every asset's frontmatter. Missing derivation metadata is a package correction, not permission to redesign the shared template.
+
+An old managed eval file is removed on refresh only when its recorded digest still matches. Local modifications cause a collision, including modifications to files scheduled for removal. Other retired files are not automatically deleted. A partial installation/export is not a passing result; preserve it for inspection and use a new export directory.
+
+## Resource and script paths
+
+References in SKILL.md are relative to the installed skill root. Shell working directories are not implied by Markdown links. Derive the installed root from the actual loaded SKILL.md path and resolve the consuming project's artifact root separately. Prefer an absolute script path and absolute project input/output paths in tool calls. Never hard-code a developer's home directory or depend on docs/mvp being reachable at runtime.
+
+Helpers declare prerequisites, arguments, exit meanings, and bounded output. Provide --help where a script has a command interface; require no interactive prompts. Use the project's approved runtime and pinned dependencies when needed. A stdlib-only helper does not need a package manager. Report execution failures as failures/unavailability, never as successful structural checks. A placeholder/hash helper proves only those facts, not schema correctness, provenance semantics, or idea quality.
+
+For a selected managed brainstorm task, keep essential behavior in SKILL.md and conditional evidence/waiting/delivery details in an installed package-relative reference. The model performs useful phase work, persists the selected artifacts and writes the runtime-supplied checkpoint shape. The protected runtime owns phase transitions, accepted snapshots, final artifact checks and receipt publication/readback. Do not add a model-owned delivery advance/resume/complete/check/verify sequence or package receipt-helper fallback. Truthful artifact metadata remains required; a model-computed digest does not make the model the final delivery verifier. Preserve shared template meaning, actual human authority and creation-time handoff observations.
+
+## Common authoring workflow
+
+1. Recover the task, actual assignment, selected specification revision, relevant templates, and installed/provider constraints. Preserve the original baseline before edits.
+2. Author only within the assigned skill/provider. Resolve substantive specification ambiguities with the integration owner; do not silently reinterpret accepted rules.
+3. Define cases from requirements, keep fixtures reproducible, and propose separate candidate/baseline environments and measurements. Version expectations before the measured iteration. Diagnostic observations may motivate later tests; do not retroactively change criteria to convert a failed measured run into PASS.
+4. Under a separate execution allocation, export/install the exact candidate and perform tier C first, then tier B, then required tier A. Required C observations must pass before B or A admission for that candidate; a required observation that is COULD_NOT_RUN leaves the gate incomplete. Failed installation blocks dependent runtime claims, while independent static authoring can continue.
+5. Record actual results, limitations, human feedback, and the package identity. A changed candidate, installed copy, source contract, test fixture, baseline, or relevant client configuration invalidates the affected earlier conclusion. Retain prior bytes/results and start a new iteration.
+6. Hand the candidate and evidence to the integration owner. An author's grades support scoped review; they are not external acceptance authority. Recheck integrated bytes before adoption or release.
+
+Record whether the assigned native creator instructions were actually used. Choosing a different evaluation harness does not by itself satisfy or waive an instruction to use the creator for authoring. Preserve any deviation and route its disposition to the integration owner.
+
+An authoring-only assignment, including skill-builder output or a hook proposal, supplies an unvalidated candidate and proposed cases; it does not authorize running validators, installing hooks, launching models, or accepting the result. Shared contracts, provider hook registration, runtime/installer implementation, independent validation, native evaluation and human acceptance retain their allocated owners. A reviewer or evaluator must bind the exact candidate and controls actually examined. Generate semantic judgments after the corresponding outputs and checks exist, bind the exact bytes and fixed criteria, and select the resulting judgment before the next dependent admission. Do not prewrite a PASS decision or use a later judgment to repair an earlier missing admission gate.
+
+## Client state and process ownership
+
+An evaluation assignment covers process control and client state as well as repository files. Give each candidate/baseline arm and each retry a distinct attempt identity, writable output area, and isolated history/memory store. A new conversation or worktree path alone is insufficient. Verify the effective client-state mapping and visible instructions, skills, plugins, tools and settings before relying on clean-context evidence. A retry must not inherit an earlier attempt's writable memory. Retain a contaminated attempt separately and correct any grading text derived from it.
+
+Keep writable client state inside the assigned evaluation/runtime area. Access to a normal terminal does not authorize deletion or modification of the user's global history, memory, configuration or credentials. Preserve contamination evidence; start a new isolated store instead of cleaning an unassigned one. Subscription sign-in and any read-only credential use require an explicit runtime arrangement; do not copy credentials into an evidence bundle or infer permission for global state writes from authentication needs.
+
+Record the processes launched for a run and terminate only those owned processes, using verified process identity and a private process group or PID namespace where available. Broad process-name termination can affect another author's work and is outside a bounded run assignment. Test the filesystem and process boundaries with harmless probes before model execution. If the required boundary cannot be established, preserve the cause and report COULD_NOT_RUN; do not fall back to unconfined execution.
+
+These are required conditions, not a claim that this framework automatically enforces them. A launcher, native setting or harness must supply observed evidence of its actual boundary. Fresh client state may require subscription sign-in before a run can execute.
+
+## Three separately reported evaluation tiers
+
+| Tier | Test conditions | Evidence and limits |
+| --- | --- | --- |
+| A: discovery and activation | Actual installed package in a fresh target terminal. Separate explicit skill invocation, direct domain request, indirect requests, and negative/near-miss queries. | Record discovered/loaded identity and consultation traces. Ordinary implicit-test prompts must not supply the skill path or force its invocation. A direct domain request can say brainstorm without explicitly invoking a skill. |
+| B: output quality and boundaries | Supplying the skill path is allowed. Same underlying raw facts and task for candidate and appropriate baseline, separate clean contexts and writable outputs. | Artifacts and requirement-based grades demonstrate behavior after loading, not implicit activation. Baseline labels are old_skill for a preserved previous version or without_skill for no skill. |
+| C: installed resources and outputs | Actual exported/plugin or project-local installation in a consuming project where source docs are unavailable. | Templates/references/helper resolve inside the installed package; outputs land in the consuming project's map. A changed working directory alone does not prove source files were inaccessible. Record the isolation actually used. |
+
+Do not blend A/B/C into one pass percentage. A source validator, explicit path-based subagent, or --version probe cannot establish tier A. An exported plugin and a project-local skill copy are different installation modes; identify which was tested. Avoid duplicate user/project/plugin installations that could activate a different copy.
+
+Separate a native skill selection request, successful loading of the selected skill, and completed task execution. A detector that stops at a selection request may report that observation, but must not claim the tool returned successfully. For a negative query, require a successful terminal result without target consultation before recording PASS. A timeout, error, truncated stream or premature EOF is COULD_NOT_RUN; observing another skill's selection during an incomplete run does not complete the negative assertion. Detect the exact target identity and actual resource consultation, not a substring in unrelated arguments or a file-discovery pattern. Exercise detector termination and identity cases with deterministic synthetic transcripts before relying on model results.
+
+Grade the named behavior, required artifact delivery and overall case separately. A correctly attributed idea can still have a broken provenance reference. Resolve referenced prior revisions against retained exact bytes, check installed producer identity, and inspect every repeated digest rather than only an output table. Historical authorship does not establish a current exclusive writer; compare actual active assignment evidence before treating an old producer as a collision.
+
+Missing baseline instructions or a missing preferred table column do not make a required behavior unobservable. Judge the actual output for adoption, constraints, provenance and ownership. Use NOT_RUN for an unexecuted baseline arm. Reserve NOT_APPLICABLE for a stated scope exclusion, such as a test of a package helper that the baseline does not contain. A fixture manifest must distinguish source inventory from files actually visible to a worker; operator-only preserved inputs cannot prove that the worker consumed them.
+
+Record auxiliary tools and their observed successful, denied or failed use in each arm. Shared availability does not establish equal effective assistance. Keep measured outcomes scoped to the observed environment; any causal comparison must disclose configuration differences, unobservable assistance and sampling limits.
+
+Use realistic positive and near-miss negative trigger queries. For description optimization, preserve a fixed train/validation split and fresh final queries; do not put held-out expected answers into the author or task worker's context. Repeats and sample size should fit the declared time/subscription budget. A small pilot can report counts and limits without statistical claims. Capture token/time metrics only where actually observable.
+
+Review any native creator harness before using it: record its revision, invocation/authentication mode, installed source selection, and how it observes consultation. A tool named run_loop.py is not automatically proof of native plugin discovery or an acceptable subscription-only execution path. Manual fresh terminal runs are a valid MVP method. No model API key or API-backed CI is required by this process.
+
+Each run manifest records tier, provider, client/version/model, installation mode/path/file manifest, source candidate and baseline manifests, specification/case/fixture identities, context isolation, assignment, observed sibling availability, output/transcript locators, and actual outcomes. Use the [run template](templates/skill-authoring/run-manifest.json) and [report template](templates/skill-authoring/evaluation-report.md). Native evaluation files can use their tool's schema; the report binds those exact files as evidence rather than rewriting historical outputs.
+
+For managed-runtime runs, the independently allocated measurement owner also binds the selected executable and capabilities, session/delivery contracts, phase challenges and accepted evidence, actual Stop/correction/waiting events, artifact checks, receipt publication/complete readback, delivery attempts and transport records. Measure runtime-owned chronology instead of requiring the old model-helper invocation sequence. Retain installed SKILL/workflow/template consultation, source-resource inaccessibility, provider-native stream/EOF/task-completion observations, receipt rendering, process/time caps and owned cleanup. Do not infer model resource loading from runtime telemetry or rendered delivery from a successful socket write. Record native admission, hook activation, behavioral output, mechanical delivery, rendered delivery and human acceptance separately. Synthetic runtime results close only their measured mechanical scope.
+
+Complete deterministic reference coverage remains a required runtime integration condition as well as an evaluation requirement. General reference resolution, repeated receipt claims, raw-field permissions and disclosed-unsectioned handling are unfinished runtime requirements. The runtime owner implements these predicates and an independent owner verifies them; semantic judgments of attribution, adoption and usefulness cannot replace them or turn the current bounded checks into complete conformance.
+
+NOT_RUN means planned but unattempted. COULD_NOT_RUN means a required observation could not be obtained with a recorded cause. NOT_APPLICABLE means excluded from the stated scope with a reason. A Claude-only evaluation can record Codex as NOT_APPLICABLE to its scope while overall Codex support remains NOT_EVALUATED. Preserve earlier reports' original labels and explain any later classification; do not rewrite their history.
+
+## SKILL-001 decisions for the resumed pilot
+
+**Sibling availability:** the migrated bundle contains draft brainstorm, project-expert-creator, develop, and review skills. define-product and change remain specified but absent. Tier-A negatives can pass the non-activation requirement independently of a routing target. Report suggested continuation, target discovery, and actual target invocation separately. If a target is absent, explain the capability gap and give a plain-language next task. Do not install a fake change stub to obtain a routing PASS. Observing an installed develop draft does not certify its implementation quality.
+
+**Adoption:** test the same AI proposal with noncommittal feedback and explicit user adoption. Preserve the original AI attribution in both; only actual adoption supplies a decision reference. User-supplied early stack constraints are recorded faithfully as user decisions or stated preferences, with their scope. Brainstorm must not choose a stack itself, erase a user constraint, or require a later phase before recording what the user actually decided.
+
+**B6 staleness:** an operator supplies preserved source bytes/revision and a newer conflicting file. The worker must identify the mismatch and avoid silently substituting it. Grade retained prior identities and the affected continuation, not a blanket requirement to stop all brainstorming.
+
+The selected-r1/current-mismatch B6 case and B6E drift/control observations retain their separate meanings when measurements become runtime-aware. A matching control does not erase a drift failure or repair a missing delivery observation. Retain earlier Codex C COULD_NOT_RUN/B NOT_RUN records and Claude late-write/budget failures, checker findings and unfinished phase controls until newly allocated, independently observed evidence resolves the affected claim. A new authored candidate or synthetic runtime PASS cannot relabel those historical records.
+
+**B7 ownership:** use an operator-authored session/assignment fixture in a disposable evaluation project that assigns the requested target to another synthetic owner. Give the evaluated worker a distinct identity, the requested write path, and the assignment; do not give it the expected answer. Record fixture provenance in the run manifest and hash the protected tree before/after. Expected result: stop dependent target writes and report the conflict without resetting/deleting work, changing branch, or choosing an unassigned escape path. Saving an evaluation report in an explicitly permitted outbox is allowed. This tests response to ownership evidence; it does not claim to test a live lease service or real simultaneous writers.
+
+The actual Claude author gets a real operator-maintained worktree assignment distinct from the B7 fixture. The absence of a session record does not establish single-writer ownership. Bootstrap discussion can continue without a record; writes require observable assignment/user scope and collision checking. Do not fabricate a session ID or Git base; use null with missing_inputs for genuinely absent facts.
+
+## Completion
+
+The [roster](roster.md) remains the behavioral roadmap. Promote one bounded skill only for the provider, installation mode, and use cases supported by actual evidence. The immediate proof is SKILL-001 in both terminals, then SKILL-002 consuming its ledger. Neither the current migration nor this document completes that proof.

@@ -1,0 +1,121 @@
+{
+  "schema_version": "devforge.integration-status/v1",
+  "recorded_at": "2026-09-07T15:36:03.777181+00:00",
+  "overall": "INCOMPLETE",
+  "completed": [
+    "Authored unvalidated checkpoints committed on both mains",
+    "Scoped builder installation refreshed from merged canonical source with exact 15-file match",
+    "Builder F-STATIC-001 repaired and separately reevaluated",
+    "Protected utility reporting checkpoint implemented, independently reviewed and committed on unmerged runtime branch"
+  ],
+  "repositories": {
+    "DevForgeAI": {
+      "main_at_report_creation": "6bd8cb15feb5e548324f441fa0f1030d767cb47f",
+      "main_status": [
+        "M docs/mvp/execution-contract.md",
+        " M docs/mvp/skill-authoring-contract.md",
+        " M docs/mvp/specifications/skill-001-devforge-brainstorm.md",
+        " M docs/mvp/templates/shared/handoff.md",
+        "?? docs/coordination/20260905-contributor-context-evaluation-plan.md",
+        "?? docs/coordination/20260905-contributor-context-spec.md",
+        "?? docs/coordination/20260905-contributor-context-specification.receipt.json",
+        "?? docs/coordination/20260905-contributor-expertise-proposal.md",
+        "?? docs/coordination/20260905-contributor-expertise-proposal.receipt.json",
+        "?? docs/skill-authoring/history/skill-validator-workspace-allocation-20260907T144910377719Z/",
+        "?? docs/skill-authoring/history/skill-validator-worktree-2026-09-07/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-installation-01.json",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-installation-02.json",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-01/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/builder-validation-02/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/final-skill-identities.json",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/installed-builder-before-02/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/premerge-builder-observation.json",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-01/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/runtime-review-02/",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/validator-current-observation.json",
+        "?? docs/skill-authoring/skill-utilities-integration-20260907T145039Z/validator-owner-integration-request.md",
+        "?? docs/skill-authoring/skill-validator-design.md",
+        "?? docs/skill-authoring/skill-validator-worktree-handoff.md",
+        "?? providers/claude/plugins/devforgeai/hooks/",
+        "?? providers/codex/plugins/devforgeai/hooks/",
+        "?? providers/codex/plugins/devforgeai/skills/skill-validator/"
+      ],
+      "implementation_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-builder-runtime-alignment-20260907",
+      "implementation_branch": "impl/skill-builder-runtime-alignment-20260907",
+      "implementation_head": "6bd8cb15feb5e548324f441fa0f1030d767cb47f",
+      "implementation_status": [],
+      "implementation_head_in_main": true
+    },
+    "DevForge": {
+      "main_at_report_creation": "ddad934f359c108facaca2997bc4fe073df87540",
+      "main_status": [
+        "M runtime/delivery/delivery_core.py",
+        " M scripts/demo.py",
+        " M scripts/validate_framework.py",
+        " M tests/test_delivery_references.py",
+        " M tests/test_validation.py"
+      ],
+      "implementation_worktree": "/home/bryan/Projects/DevForge/worktrees/skill-utilities-runtime-20260907",
+      "implementation_branch": "impl/skill-utilities-runtime-20260907",
+      "implementation_head": "d30186dd277c8a0a0f63e2a32f4907a7fb943bca",
+      "implementation_status": [],
+      "implementation_head_in_main": false
+    }
+  },
+  "checks": {
+    "runtime_regression_tests": {
+      "outcome": "PASS",
+      "count": 415
+    },
+    "rust_format_clippy_build": "PASS",
+    "gate_fixture_demo": "PASS",
+    "builder_source_structure": "PASS",
+    "builder_installed_structure": "PASS",
+    "builder_independent_static_review": "R01-R10 PASS; independence limits disclosed",
+    "runtime_independent_static_review": "No new actionable defect in remediation scope; native scheduler remains incomplete",
+    "framework_structure": "BLOCKED: preserved historical skill-builder-mvp-2026-09-07/SKILL.md folder-name mismatch"
+  },
+  "runtime_capabilities": [
+    "Separate utility schema and fixed phase order",
+    "Mandatory validator external producer and distinct C/B/A missing-observation gates",
+    "Actual artifact/pin checks and protected journal snapshots",
+    "Question-bound waiting without unrelated-answer adoption",
+    "Session deadlines and bounded corrections",
+    "Exclusive final receipt publication/readback/drift detection",
+    "Fail-closed C-only reservation; no client launch"
+  ],
+  "unavailable": {
+    "native_C": "COULD_NOT_RUN",
+    "native_B": "COULD_NOT_RUN",
+    "native_A": "COULD_NOT_RUN",
+    "native_execution": "NOT_RUN",
+    "actual_builder_to_validator_transfer": "NOT_OBSERVED",
+    "acceptance": "NOT_GRANTED"
+  },
+  "blockers": [
+    "Other active session owns validator source/design/install; no source alignment done here",
+    "Native client/model, subscription authentication arrangement and repetition/attempt/time budget unresolved",
+    "Builder phase-group Optional/Enforced classification unresolved in governing specification",
+    "Native launcher, authenticated result importer and C/B/A scheduler unimplemented",
+    "Independent native test environment option offered; selection unanswered",
+    "Framework-wide structural check blocked; companion main additionally has concurrent edits outside this branch"
+  ],
+  "handoff": "Prepared only; continuation-handoff.md and validator-owner-integration-request.md do not invoke a receiver",
+  "remote_actions": "No push or release",
+  "evidence_sha256": {
+    "final-skill-identities.json": "93cfd085f15013376bfdbb6efbfdd832c310f426048a08c5b623f9f5f25c35cb",
+    "validator-current-observation.json": "faf19f51ea5fe1f5250e85aad18ffd74f6b7016c01d1a67b3c2f11b11ece83c0",
+    "builder-installation-02.json": "83185eabc0aa6a0737f039794f65744943f8b03347fc396185fd6b34af991ab1",
+    "builder-validation-02/structure-candidate.json": "1c16357390ec330282bb17befa4096fa06c241b784386f67ab4a7ce17b1f0659",
+    "builder-validation-02/structure-installed.json": "7b8b9a4ed046749fad7a5d4a36ecd029b52a5b961b4856a7ec5f256546a232ba",
+    "builder-validation-02/ai-review.json": "17a2c6df036840fbc9da706fa86a80b29b8ba91b02a36992ab6673d649696561",
+    "builder-validation-02/independent-review.md": "a053a8b47e5f3759b2d366e320a53a79984d9a086af2b5c9409cd4a6992eb30e",
+    "runtime-review-02/manifest.json": "9a7c8e1bbf5114cbe4e75b0d962fd57ed580416894ee667c75544f8e55aa9f2b",
+    "runtime-review-02/independent-review.md": "7de4e82ca53878410fa0c25239e6f0888e0c113e073e14ff666b9941a230f964",
+    "runtime-review-02/unittest.log": "05992ea78657591234ea698d02982d36e4de18dfa770c68d9b3fc181aa61bfbe",
+    "runtime-review-02/rust-checks.log": "a5755857ddf39dee059ed703b4dabe1e957f70b8c0848e020dd04e0a7dd2979a",
+    "runtime-review-02/demo.log": "7fcda4e63cd41fbd998d6f196c2a64a694ad331e8de638596a7a7f64a521a425",
+    "builder-validation-02/framework-validation.log": "a8919f646fd7a0ebced1e7fa118f9c3125c7888965f2c126f2f057beede7d763",
+    "validator-owner-integration-request.md": "9a32adbcff9485ec5d7b30e23ea08b4ea154ef68ba1b4cd5ff82436d15711cb7"
+  }
+}
