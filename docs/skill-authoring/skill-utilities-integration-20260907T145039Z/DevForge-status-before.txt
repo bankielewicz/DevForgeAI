@@ -1,0 +1,26 @@
+ M Cargo.lock
+ M Cargo.toml
+ M scripts/install_framework.py
+ M scripts/validate_framework.py
+ M src/main.rs
+ M tests/test_installer.py
+ M tests/test_validation.py
+?? runtime/delivery/README.md
+?? runtime/delivery/__init__.py
+?? runtime/delivery/controller.py
+?? runtime/delivery/delivery_core.py
+?? runtime/delivery/hook_protocol.py
+?? runtime/delivery/native_terminal.py
+?? runtime/delivery/phase_state.py
+?? runtime/delivery/requirements.txt
+?? runtime/delivery/supervisor.py
+?? scripts/runtime_requirements.py
+?? src/delivery.rs
+?? tests/test_delivery_core.py
+?? tests/test_delivery_references.py
+?? tests/test_delivery_runtime.py
+?? tests/test_managed_delivery.py
+?? tests/test_native_terminal.py
+?? tests/test_phase_references.py
+?? tests/test_phase_state.py
+?? tests/test_supervisor_cancellation.py

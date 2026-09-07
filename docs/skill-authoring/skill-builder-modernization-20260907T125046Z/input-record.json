@@ -1,0 +1,90 @@
+{
+  "authority": "Current user request explicitly selects SENH revision 3 and authorizes skill-owned authoring plus prepared runtime integration specification.",
+  "worktree": "/home/bryan/Projects/DevForge/framework/DevForgeAI",
+  "branch": "main",
+  "base": "c9298bd34ebb73bf598deec6253068d7f8b0ed59",
+  "provider": "codex",
+  "write_fence": [
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-builder",
+    "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z"
+  ],
+  "external_assignment_id": null,
+  "missing_inputs": [
+    "External runtime implementation assignment, named personal integration owner and runtime version/build not supplied.",
+    "Complete original standalone builder design unavailable; preserved SB01-SB10 are recovered requirements."
+  ],
+  "inputs": [
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/artifact-contract.md",
+      "sha256": "e62cba4e843bc60ca06e9b8240c74c49e5f12f2d537f99fdda771180c9928be1"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/execution-contract.md",
+      "sha256": "73bca87bafd43d6b7294bad945c6506b2056d749ca22100ba4272b9a26e4e15b"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/loaded-builder-SKILL.md",
+      "sha256": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/requirements.md",
+      "sha256": "27f87e3cc5ade477cc0d830c2daebb3320b691fcdbc059b7e262372e71c20e43"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/shared-handoff.md",
+      "sha256": "abc7f8e0ca545093d3b1486d1a86cb7e51609aef17c0027b951a47da6eaed206"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-authoring-contract.md",
+      "sha256": "eeb02a873a7c7c44e69d666b0de7ca8045919ee4f29840c741b99bbecdee15ef"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-enhancement-spec-v3.md",
+      "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/validator-design.md",
+      "sha256": "685d9623e55d061112508bc00af4b436f01fa4f9f6c5c5ac24f10b3fc8455cec"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/input-manifest.json",
+      "sha256": "54adeeb27a2abdd3b2448054f1d29ea1732deb1854879a9d5a88ab6d99bbb014"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/verification-results.md",
+      "sha256": "f909371dcb0593af6957405cceb923edfcff341006aba75c9d72c689c664b922"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/ai-review.json",
+      "sha256": "01eb3318c03a9e7b2904524edcda04854f15b0617aa1de86843399b2ebdb1805"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/ai-review-notes.md",
+      "sha256": "0eab41dd920fae326e5a2549558335fbc3b62a878370a1db63b69577320eba52"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/handoff-v2.md",
+      "sha256": "549e51e7c45134c681e86a6aecd5ec14d32eb0f4aaa60a159dcb8015bbf3dc07"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/validation-plan.json",
+      "sha256": "91a019ad04a303822766595403d167087f14e3753ec53e53017d16fcfa901801"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/test-cases.json",
+      "sha256": "8353d99d417cf4762a2568055bcf1b7c72e8cde03376b21abdc2a45f4df8895d"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/validation-results.json",
+      "sha256": "16ecde158c3e73d18e5540c8b61512ab357d360460fe3aaa26db6059c4438831"
+    },
+    {
+      "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/.poc/codex/skill-builder-workspace/skill-builder-20260907T122152Z/modernization-inputs/source-record.json",
+      "sha256": "43889f556f5917a797f9c5e54e31a13ece5d92321120dca51f0c0344394835aa"
+    }
+  ],
+  "collision_observation": "All 13 canonical files matched frozen input-manifest before authoring; former candidate retained. Shared preexisting modifications preserved.",
+  "installed_mapping": "/home/bryan/Projects/DevForge/.agents/skills/skill-builder",
+  "installed_action": "Not regenerated; installed original candidate retained.",
+  "search_decision": "Retain settled enhancement of skill-builder. Reviewed supplied catalog, canonical selected builder and validator handoff/contract resources, frozen search scope in requirements. No global uniqueness claim; no new inventory decision required for bounded remediation."
+}

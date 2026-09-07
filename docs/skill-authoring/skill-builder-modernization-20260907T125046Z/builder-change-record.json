@@ -1,0 +1,123 @@
+{
+  "record_type": "Substantive authoring record; not a protected runtime completion receipt",
+  "created_at_utc": "2026-09-07T12:56:39.810613+00:00",
+  "input_record": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/input-record.json",
+    "sha256": "9e815ba4ead1c12ec8137453a800159108ac0af7a22f9e67d859e956ff85daca"
+  },
+  "selected_specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/selected-inputs/skill-enhancement-spec-v3.md",
+    "sha256": "ccdcf240f75e582e093a91389e70ebe3bf0825309e4d1101ed0107b8186bcaf2"
+  },
+  "before_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before-manifest.json",
+    "sha256": "ec04cd73f91f1a12eeddb486019f17255609b8738c54ed1f9c29f094b60b3d4e"
+  },
+  "new_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/candidate-manifest.json",
+    "sha256": "6bd17fcc81308e723f8e082a4055d14db75d93ae18962a41f3d80bab771ab48b"
+  },
+  "integration_specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/runtime-integration-spec.md",
+    "sha256": "af737fc3f1c7e19270e6a23d6df784f63065cdeb4447ee4a83f308c09e8d2a68"
+  },
+  "changes": [
+    {
+      "path": "SKILL.md",
+      "old_sha256": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51",
+      "new_sha256": "05c3f10b9eb4592bab0bd0934218b94b906140634ee17eca74f35790c02386c8"
+    },
+    {
+      "path": "assets/handoff.md",
+      "old_sha256": null,
+      "new_sha256": "914232b1664ac321fdab6ca3b35f7eb407dc84943b457c6abde7fe086c655931"
+    },
+    {
+      "path": "assets/skill-design-spec.md",
+      "old_sha256": "7cfecd0a0930862f27b2125945981868c5267d61033d4b8847b30ffb9622a552",
+      "new_sha256": "76116c18f987975b9f8cb7d54749f1311f349390e377c8c632a3f1e197acbcd3"
+    },
+    {
+      "path": "references/contracts/execution-contract.md",
+      "old_sha256": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+      "new_sha256": "a48aa2a93a2e8d287c652e4e0a4fb1ceb05c4811f42036596b683b14a7d7255b"
+    },
+    {
+      "path": "references/contracts/skill-authoring-contract.md",
+      "old_sha256": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa",
+      "new_sha256": "962a27b2c538b7033d458bf12900a1fe32a1f161ba6e535f171ae93847b22fe9"
+    },
+    {
+      "path": "references/derivation.json",
+      "old_sha256": "34dbc1b5791c3291c3696761f8421506c4898069e53766cb44222ef85fe614cd",
+      "new_sha256": "bca12ab88a30e595e7a7e3e998a946ea15640a898384fdf9386a5da6a4f5a634"
+    },
+    {
+      "path": "references/framework-context.md",
+      "old_sha256": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+      "new_sha256": "cd04400b9f3cb7e31aaed5974d1edde4fb7cd495b377df3df56a28317fc1de0e"
+    },
+    {
+      "path": "references/managed-authoring.md",
+      "old_sha256": null,
+      "new_sha256": "6e8529cb83aaf47224e6ab1a00f6b472849ef5a958d394821829025c4acc46f7"
+    },
+    {
+      "path": "references/results-contract.md",
+      "old_sha256": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841",
+      "new_sha256": "028a4350910fced221f950003b5eab0c1b80f5b0d2870213112ebb071a565e2b"
+    },
+    {
+      "path": "references/validator-handoff.md",
+      "old_sha256": "a38d6d993a451fbd137bcc6ad9572955695fe9b4f6b574c9da593bc45aa6543f",
+      "new_sha256": "fb3f098a0077e6e7e9a1639a50d00ea1e7b2cbb5aa3da0c251e3883a73d7ab60"
+    }
+  ],
+  "dispositions": [
+    {
+      "change": "CHG-001",
+      "finding": "F-001",
+      "severity": "MINOR",
+      "disposition": "applied to skill-owned text; runtime portion deferred",
+      "result": "Removed containing-spec self-digest field; substantive authoring record and managed final identities separated.",
+      "remaining_owner": "DevForge protected-runtime/integration owner",
+      "remaining": "Implement final checks and authoritative receipt publication/readback."
+    },
+    {
+      "change": "CHG-002",
+      "finding": "F-002",
+      "severity": "MINOR",
+      "disposition": "applied to builder; validator refresh deferred",
+      "result": "Execution label corrected to revision 3; authoring/execution controlled refresh and destination derivations updated; prior bytes retained.",
+      "remaining_owner": "Validator source author coordinated by integration",
+      "remaining": "Refresh validator resources/instructions under its own assignment."
+    },
+    {
+      "change": "CHG-003",
+      "finding": null,
+      "disposition": "applied template and prepared integration design; runtime implementation deferred",
+      "result": "Added reusable derived handoff and managed authoring reference; prepared owner specification.",
+      "remaining_owner": "DevForge protected-runtime/integration owner",
+      "remaining": "Adapter/schema/configuration implementation and independent verification; no admitted transition or receiving invocation."
+    }
+  ],
+  "preserved_requirements": [
+    "SB01",
+    "SB02",
+    "SB03",
+    "SB04",
+    "SB05",
+    "SB06",
+    "SB07",
+    "SB08",
+    "SB09",
+    "SB10",
+    "Validator W1, P1-P6, T01-T12 Enforced; no invented builder group decision"
+  ],
+  "preserved_behavior": "Focused interview, duplicate selection guide, invocation metadata, artifact contract and authoring-only scope retained. Original reports and installed copy unchanged.",
+  "finding_status": "Source changes recorded; reevaluation required. Historical findings/outcomes unchanged.",
+  "validation_status": "Not performed",
+  "hook_status": "Design only",
+  "runtime_transition": "NOT_OBSERVED",
+  "receiving_skill_invocation": "NOT_RUN"
+}

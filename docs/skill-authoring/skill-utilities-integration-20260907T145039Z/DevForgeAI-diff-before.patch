@@ -1,0 +1,289 @@
+diff --git a/docs/mvp/execution-contract.md b/docs/mvp/execution-contract.md
+index 6e21a55..c36c3a7 100644
+--- a/docs/mvp/execution-contract.md
++++ b/docs/mvp/execution-contract.md
+@@ -1,10 +1,10 @@
+ # Terminal, worktree, and external execution contract
+ 
+-Status: DRAFT MVP requirements, revision 2, 2026-09-05 UTC. This contract adds required behavior to the design; it does not claim the existing POC has a worktree registry, general outbox, provider hooks, or full stack adapters.
++Status: DRAFT MVP requirements, revision 3, 2026-09-07 UTC. This revision selects the managed brainstorm runtime interface and thin provider hook sources. The companion runtime has synthetic mechanical evidence; these shared/package sources remain an integration candidate. Native admission is NOT_VALIDATED, native hook activation and rendered receipt delivery are NOT_OBSERVED, and reviewed provider integration and combined install/export validation remain pending. This contract does not claim a worktree registry, general outbox, or full stack adapters.
+ 
+ ## Terminal operating model
+ 
+-The user runs a normal subscribed Codex or Claude Code session. Native skills guide the work. The separate DevForge executable performs supported deterministic checks. Human-operated transitions are a valid MVP path; a background agent service or model API is not required.
++The target operating model is a normal subscribed Codex or Claude Code session. Native skills guide the work. The separate DevForge executable performs supported deterministic checks. Human-operated transitions remain a valid MVP path for existing gates; the managed brainstorm mode below assigns phase transitions and mechanical delivery to the protected runtime. A background agent service or model API is not required. The current production launcher refuses native admission until its launcher/authentication and effective hook-source contracts are established.
+ 
+ Each target terminal must separately demonstrate installation, discovery, activation, supporting-resource loading, and representative output. Native creator and plugin packaging helpers are authoring tools. Successful package validation or a CLI version probe does not establish runtime behavior.
+ 
+@@ -68,11 +68,40 @@ flowchart TD
+ 
+ This describes permitted parallel sessions; it does not automatically launch subagents. A subagent receives only the task-relevant inputs and its declared scope. Read-only review and behavioral evaluation require the actual isolation conditions requested for that task.
+ 
+-## Hooks
++## Managed brainstorm runtime
+ 
+-Hooks may improve context loading, early feedback, and handoff capture. They do not own acceptance. The current Codex documentation says non-managed hooks require trust, matching command hooks may run concurrently, and unavailable MCP hook tools/errors do not necessarily block an operation. [Hook behavior and trust](https://learn.chatgpt.com/docs/hooks).
++An external owner selects a devforge.brainstorm-session/v1 contract before task admission. It binds the task and assignment, immutable inputs, installed resource identities, original deadline, mutable-output baselines and retained archives, exact checkpoint destination, and separately bound external receipt destination. Mutable ledgers are outputs, not immutable inputs; preservation requires retained prior bytes. The runtime executable, selected inputs, state and receipt store must be protected from worker writes. A task contract supplies neither user authority nor permission to launch a model.
+ 
+-Any future adapter must test the installed terminal version's event/tool coverage, trust state, timeout/error behavior, and actual denial behavior. A skipped or failed hook cannot be treated as a completed required check. External acceptance independently rechecks the candidate. This design installs no hooks and does not rely on a hook configuration the worker can edit.
++The ordinary phase order is Recover → Explore → Record → Focus. Only the external owner may select a handoff-only contract, with Recover → Focus and Explore/Record marked NOT_APPLICABLE. The worker cannot switch modes or destinations to escape a collision or a failed requirement. Runtime context supplies the current phase, fresh challenge, task identity, checkpoint destination and evidence shape; [SKILL-001](specifications/skill-001-devforge-brainstorm.md#managed-phase-evidence) defines the observable content. Accepted checkpoints and inspected bytes are preserved in the protected journal. Their acceptance establishes bounded evidence checks, not hidden reasoning, faithful adoption, or semantic quality.
++
++Deterministic runtime coverage is still incomplete. General artifact-reference resolution, repeated receipt claims, raw-field permissions and disclosed-unsectioned handling remain unfinished runtime integration requirements. They require implementation and independent verification before the corresponding conformance claim. Semantic review separately judges attribution, adoption and usefulness; it cannot substitute for those missing deterministic predicates.
++
++A real blocking question produces awaiting_user evidence and preserves WAITING_USER without a new phase or receipt. UserPromptSubmit resumes the pending phase but does not prove the user answered the question or adopted an idea. Each phase allows one bounded correction. Missing, stale, replayed or out-of-order evidence, changed fixed inputs, missing retained archives, exhausted correction, unavailable authority, or deadline expiry prevents dependent completion. Runtime-generated instructions and callbacks retain runtime provenance; no new per-phase human approval is introduced.
++
++The selected completion mode is managed-session. During the qualifying synchronous Stop after Focus reaches READY, the runtime rechecks actual artifact bytes, exclusively publishes the selected receipt, reads its complete bytes back, verifies its current targets, and returns its actual locator and full SHA-256 through systemMessage. This can occur while the owned client remains alive. Every Stop occurrence inspects current bytes; duplicate effective native hook sources must be excluded during admission. The model writes useful artifacts and supplied evidence; it does not invoke delivery advance/resume/complete/check/verify or package receipt helpers as a manual fallback.
++
++Receipt publication, response transport, native turn completion and human delivery are separate observations. Managed mode records a protected task-result, a fresh delivery attempt before each verified response, and transport after the socket write. SOCKET_WRITE_COMPLETED does not establish rendering; rendered delivery remains NOT_OBSERVED without direct evidence. Re-emission rechecks and reuses the historical receipt. Later drift records current inapplicability, and a later process failure remains a failed process outcome while preserving any committed task result. Process-mode synthetic fixtures instead require READY phases and successful owned-process exit; that result cannot stand in for native managed-session completion.
++
++The saved handoff records checks already observed and creation-time NOT_RUN for later receipt, readback and delivery operations. It excludes its own complete-byte digest and is not rewritten to claim the later receipt. The runtime reports its completion separately. Unmanaged discussion and draft artifacts remain possible, but cannot claim runtime-verified completion or manufacture a receipt. Human adoption, behavioral evaluation and acceptance remain separate requirements under the [artifact contract](artifact-contract.md).
++
++## Hooks and runtime compatibility
++
++The former no-hooks implementation choice is superseded for the selected managed brainstorm mode. Each provider package supplies hooks/hooks.json with exactly one unconditional synchronous command handler for each of SessionStart, UserPromptSubmit, Stop and SessionEnd. No async handler or conditional matcher is selected. The thin command is `"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}" delivery hook --provider codex`, with `claude` substituted only for the Claude package. The protected supervisor supplies the selected executable, socket and session-contract digest. Without an active socket the hook returns `{}` without an enforcement claim; with an active socket, malformed or unavailable transport fails explicitly.
++
++Each package also supplies hooks/runtime-requirements.json with exactly these fields. The provider value is specific to that package; extra keys or alternate modes are not part of this version.
++
++| Field | Required value |
++| --- | --- |
++| schema_version | devforge.runtime-requirement/v1 |
++| runtime | devforge.delivery |
++| protocol | devforge.delivery-runtime/v1 |
++| provider | codex or claude, matching the package |
++| completion_mode | managed-session |
++| required_events | SessionStart, UserPromptSubmit, Stop, SessionEnd, in that order |
++
++The companion installer requires an explicit absolute --runtime executable for a delivery-aware project installation. It checks delivery capabilities and binds the executable's bytes before writes; it does not discover a runtime through PATH. It merges owned Codex groups into .codex/hooks.json and Claude groups into .claude/settings.local.json, preserves unrelated settings and identical preexisting groups, and rejects edits to owned groups. Plugin export retains the hook component and runtime requirement while reporting the eventual host runtime as unverified. A compatible capability response or successful install does not prove native admission, trust, activation or rendering.
++
++The target terminal's effective configuration must separately establish event coverage, trust, one managed callback per event occurrence, synchronous response handling, timeout/error behavior, actual continuation/denial, and receipt rendering. Source declarations alone cannot establish these facts. A skipped or failed hook is not a completed required check; a worker-writable hook configuration is not the protected execution boundary. External acceptance independently rechecks the exact candidate. This revision adds source declarations only; actual registration and native observation require their own recorded execution allocation.
+ 
+ ## GitHub CI and the subscription-only boundary
+ 
+diff --git a/docs/mvp/skill-authoring-contract.md b/docs/mvp/skill-authoring-contract.md
+index 24e486c..1e00a11 100644
+--- a/docs/mvp/skill-authoring-contract.md
++++ b/docs/mvp/skill-authoring-contract.md
+@@ -1,6 +1,8 @@
+ # Skill authoring, packaging, and evaluation contract
+ 
+-Status: DRAFT MVP contract, revision 1, 2026-09-05 UTC. This defines the provider migration and subsequent authoring assignments. It does not certify the existing skills. Read it with the [artifact contract](artifact-contract.md) and [execution contract](execution-contract.md).
++Status: DRAFT MVP contract, revision 3, 2026-09-07 UTC. This defines provider migration and subsequent authoring assignments. It retains revision 2's evaluation isolation, grading and package-derivation clarifications, and adds managed runtime packaging and measurement ownership. Shared/hook source changes are an integration candidate; reviewed provider integration and combined validation remain pending. Native admission is NOT_VALIDATED; native activation and rendered delivery are NOT_OBSERVED. This contract does not certify the existing skills. Read it with the [artifact contract](artifact-contract.md) and [execution contract](execution-contract.md).
++
++Existing assignments retain their selected revision and exact bytes until the integration owner explicitly selects a refresh. Preserve their old inputs and evidence; a change to the main checkout does not silently replace a worktree's governing inputs.
+ 
+ ## Scope and sources
+ 
+@@ -18,6 +20,7 @@ The [Agent Skills specification](https://agentskills.io/specification) requires
+ | Codex plugin metadata | providers/codex/plugins/devforgeai/.codex-plugin/ |
+ | Codex standalone subagent definitions | providers/codex/agents/*.toml |
+ | Per-skill Codex metadata, if needed | SKILL-NAME/agents/openai.yaml; this is not a subagent |
++| Provider hook declarations and runtime requirements | providers/PROVIDER/plugins/devforgeai/hooks/; shared integration-owner scope |
+ | Common specifications/templates | docs/mvp/ |
+ | Evaluation outputs | .poc/PROVIDER/SKILL-NAME-workspace/RUN-ID/ in the assigned evaluation root |
+ 
+@@ -46,7 +49,13 @@ Create optional resources only when useful. Link them at the phase that needs th
+ 
+ **Packaging decision:** evals stays in authored source and is omitted from normal installed copies and runtime-only plugin exports. Fixtures must be reproducible from source, not solely available in an ignored workspace. A skill whose user-facing job is evaluation may need reusable evaluation instructions/templates in assets or references; those runtime resources do ship. They are distinct from the tests of that skill under evals.
+ 
+-Use the companion installer's --export-plugin option for native plugin testing. It builds a new directory named devforgeai containing that provider's manifest, skills/runtime resources, and supported agents. It never overwrites an existing export. Its current POC component support is deliberately limited to these components; it rejects unknown plugin components instead of silently omitting them. Run outputs, history, provenance sidecars, Python caches, and evals are not runtime inputs. Exports and project-local copies preserve content bytes; this POC does not preserve executable mode bits, so invoke helpers through their documented interpreter.
++Use the companion installer's --export-plugin option for native plugin testing. It builds a new directory named devforgeai containing that provider's manifest, skills/runtime resources, supported agents, and selected hooks component including hooks/runtime-requirements.json. It never overwrites an existing export. Its current POC component support is deliberately limited to these components; it rejects unknown plugin components instead of silently omitting them. Run outputs, history, authoring provenance sidecars, Python caches, and evals are not runtime inputs; the runtime-requirement sidecar is a runtime input. Exports and project-local copies preserve content bytes; this POC does not preserve executable mode bits, so invoke helpers through their documented interpreter.
++
++Delivery-aware packages use the exact six-field devforge.runtime-requirement/v1 schema and four synchronous hook events defined in the [execution contract](execution-contract.md#hooks-and-runtime-compatibility). The provider must match its package, and completion_mode is managed-session. The implemented loader selects the default hooks/hooks.json location when the hooks directory exists; an explicit manifest hooks path is not needed for that loader. Preserve the existing manifest metadata. Native default-location discovery and effective configuration still require separate observation.
++
++Project installation requires an explicit absolute --runtime executable. The companion installer checks delivery capabilities and the selected binary's bytes before writes, records compatibility, and merges only selected hook groups into the provider's project settings with collision checks. Export retains the requirement while leaving the eventual host runtime unverified. Neither compatibility, source validation, installation nor export proves native admission, hook trust/activation, terminal completion, or rendered receipt delivery. Installing runtime system dependencies and authorizing client state are separate owner responsibilities.
++
++Package-local template copies and their derivation records are inside the assigned skill's source fence. A skill author may refresh them from the selected shared template without changing that template's governing meaning. For each copy, record the source path, exact source revision or preserved location and SHA-256, package-relative destination and SHA-256, any transformation, and refresh conditions. One maintenance record such as references/derivation.json is sufficient; it need not alter every asset's frontmatter. Missing derivation metadata is a package correction, not permission to redesign the shared template.
+ 
+ An old managed eval file is removed on refresh only when its recorded digest still matches. Local modifications cause a collision, including modifications to files scheduled for removal. Other retired files are not automatically deleted. A partial installation/export is not a passing result; preserve it for inspection and use a new export directory.
+ 
+@@ -56,15 +65,31 @@ References in SKILL.md are relative to the installed skill root. Shell working d
+ 
+ Helpers declare prerequisites, arguments, exit meanings, and bounded output. Provide --help where a script has a command interface; require no interactive prompts. Use the project's approved runtime and pinned dependencies when needed. A stdlib-only helper does not need a package manager. Report execution failures as failures/unavailability, never as successful structural checks. A placeholder/hash helper proves only those facts, not schema correctness, provenance semantics, or idea quality.
+ 
++For a selected managed brainstorm task, keep essential behavior in SKILL.md and conditional evidence/waiting/delivery details in an installed package-relative reference. The model performs useful phase work, persists the selected artifacts and writes the runtime-supplied checkpoint shape. The protected runtime owns phase transitions, accepted snapshots, final artifact checks and receipt publication/readback. Do not add a model-owned delivery advance/resume/complete/check/verify sequence or package receipt-helper fallback. Truthful artifact metadata remains required; a model-computed digest does not make the model the final delivery verifier. Preserve shared template meaning, actual human authority and creation-time handoff observations.
++
+ ## Common authoring workflow
+ 
+ 1. Recover the task, actual assignment, selected specification revision, relevant templates, and installed/provider constraints. Preserve the original baseline before edits.
+ 2. Author only within the assigned skill/provider. Resolve substantive specification ambiguities with the integration owner; do not silently reinterpret accepted rules.
+-3. Define cases from requirements, keep fixtures reproducible, and establish separate candidate and baseline environments. Version expectations before the measured iteration. Diagnostic observations may motivate later tests; do not retroactively change criteria to convert a failed measured run into PASS.
+-4. Export/install the exact candidate, perform tier C first, then tier B, then tier A. Failed installation blocks dependent runtime claims, while independent static authoring can continue.
++3. Define cases from requirements, keep fixtures reproducible, and propose separate candidate/baseline environments and measurements. Version expectations before the measured iteration. Diagnostic observations may motivate later tests; do not retroactively change criteria to convert a failed measured run into PASS.
++4. Under a separate execution allocation, export/install the exact candidate and perform tier C first, then tier B, then required tier A. Required C observations must pass before B or A admission for that candidate; a required observation that is COULD_NOT_RUN leaves the gate incomplete. Failed installation blocks dependent runtime claims, while independent static authoring can continue.
+ 5. Record actual results, limitations, human feedback, and the package identity. A changed candidate, installed copy, source contract, test fixture, baseline, or relevant client configuration invalidates the affected earlier conclusion. Retain prior bytes/results and start a new iteration.
+ 6. Hand the candidate and evidence to the integration owner. An author's grades support scoped review; they are not external acceptance authority. Recheck integrated bytes before adoption or release.
+ 
++Record whether the assigned native creator instructions were actually used. Choosing a different evaluation harness does not by itself satisfy or waive an instruction to use the creator for authoring. Preserve any deviation and route its disposition to the integration owner.
++
++An authoring-only assignment, including skill-builder output or a hook proposal, supplies an unvalidated candidate and proposed cases; it does not authorize running validators, installing hooks, launching models, or accepting the result. Shared contracts, provider hook registration, runtime/installer implementation, independent validation, native evaluation and human acceptance retain their allocated owners. A reviewer or evaluator must bind the exact candidate and controls actually examined. Generate semantic judgments after the corresponding outputs and checks exist, bind the exact bytes and fixed criteria, and select the resulting judgment before the next dependent admission. Do not prewrite a PASS decision or use a later judgment to repair an earlier missing admission gate.
++
++## Client state and process ownership
++
++An evaluation assignment covers process control and client state as well as repository files. Give each candidate/baseline arm and each retry a distinct attempt identity, writable output area, and isolated history/memory store. A new conversation or worktree path alone is insufficient. Verify the effective client-state mapping and visible instructions, skills, plugins, tools and settings before relying on clean-context evidence. A retry must not inherit an earlier attempt's writable memory. Retain a contaminated attempt separately and correct any grading text derived from it.
++
++Keep writable client state inside the assigned evaluation/runtime area. Access to a normal terminal does not authorize deletion or modification of the user's global history, memory, configuration or credentials. Preserve contamination evidence; start a new isolated store instead of cleaning an unassigned one. Subscription sign-in and any read-only credential use require an explicit runtime arrangement; do not copy credentials into an evidence bundle or infer permission for global state writes from authentication needs.
++
++Record the processes launched for a run and terminate only those owned processes, using verified process identity and a private process group or PID namespace where available. Broad process-name termination can affect another author's work and is outside a bounded run assignment. Test the filesystem and process boundaries with harmless probes before model execution. If the required boundary cannot be established, preserve the cause and report COULD_NOT_RUN; do not fall back to unconfined execution.
++
++These are required conditions, not a claim that this framework automatically enforces them. A launcher, native setting or harness must supply observed evidence of its actual boundary. Fresh client state may require subscription sign-in before a run can execute.
++
+ ## Three separately reported evaluation tiers
+ 
+ | Tier | Test conditions | Evidence and limits |
+@@ -75,12 +100,24 @@ Helpers declare prerequisites, arguments, exit meanings, and bounded output. Pro
+ 
+ Do not blend A/B/C into one pass percentage. A source validator, explicit path-based subagent, or --version probe cannot establish tier A. An exported plugin and a project-local skill copy are different installation modes; identify which was tested. Avoid duplicate user/project/plugin installations that could activate a different copy.
+ 
++Separate a native skill selection request, successful loading of the selected skill, and completed task execution. A detector that stops at a selection request may report that observation, but must not claim the tool returned successfully. For a negative query, require a successful terminal result without target consultation before recording PASS. A timeout, error, truncated stream or premature EOF is COULD_NOT_RUN; observing another skill's selection during an incomplete run does not complete the negative assertion. Detect the exact target identity and actual resource consultation, not a substring in unrelated arguments or a file-discovery pattern. Exercise detector termination and identity cases with deterministic synthetic transcripts before relying on model results.
++
++Grade the named behavior, required artifact delivery and overall case separately. A correctly attributed idea can still have a broken provenance reference. Resolve referenced prior revisions against retained exact bytes, check installed producer identity, and inspect every repeated digest rather than only an output table. Historical authorship does not establish a current exclusive writer; compare actual active assignment evidence before treating an old producer as a collision.
++
++Missing baseline instructions or a missing preferred table column do not make a required behavior unobservable. Judge the actual output for adoption, constraints, provenance and ownership. Use NOT_RUN for an unexecuted baseline arm. Reserve NOT_APPLICABLE for a stated scope exclusion, such as a test of a package helper that the baseline does not contain. A fixture manifest must distinguish source inventory from files actually visible to a worker; operator-only preserved inputs cannot prove that the worker consumed them.
++
++Record auxiliary tools and their observed successful, denied or failed use in each arm. Shared availability does not establish equal effective assistance. Keep measured outcomes scoped to the observed environment; any causal comparison must disclose configuration differences, unobservable assistance and sampling limits.
++
+ Use realistic positive and near-miss negative trigger queries. For description optimization, preserve a fixed train/validation split and fresh final queries; do not put held-out expected answers into the author or task worker's context. Repeats and sample size should fit the declared time/subscription budget. A small pilot can report counts and limits without statistical claims. Capture token/time metrics only where actually observable.
+ 
+ Review any native creator harness before using it: record its revision, invocation/authentication mode, installed source selection, and how it observes consultation. A tool named run_loop.py is not automatically proof of native plugin discovery or an acceptable subscription-only execution path. Manual fresh terminal runs are a valid MVP method. No model API key or API-backed CI is required by this process.
+ 
+ Each run manifest records tier, provider, client/version/model, installation mode/path/file manifest, source candidate and baseline manifests, specification/case/fixture identities, context isolation, assignment, observed sibling availability, output/transcript locators, and actual outcomes. Use the [run template](templates/skill-authoring/run-manifest.json) and [report template](templates/skill-authoring/evaluation-report.md). Native evaluation files can use their tool's schema; the report binds those exact files as evidence rather than rewriting historical outputs.
+ 
++For managed-runtime runs, the independently allocated measurement owner also binds the selected executable and capabilities, session/delivery contracts, phase challenges and accepted evidence, actual Stop/correction/waiting events, artifact checks, receipt publication/complete readback, delivery attempts and transport records. Measure runtime-owned chronology instead of requiring the old model-helper invocation sequence. Retain installed SKILL/workflow/template consultation, source-resource inaccessibility, provider-native stream/EOF/task-completion observations, receipt rendering, process/time caps and owned cleanup. Do not infer model resource loading from runtime telemetry or rendered delivery from a successful socket write. Record native admission, hook activation, behavioral output, mechanical delivery, rendered delivery and human acceptance separately. Synthetic runtime results close only their measured mechanical scope.
++
++Complete deterministic reference coverage remains a required runtime integration condition as well as an evaluation requirement. General reference resolution, repeated receipt claims, raw-field permissions and disclosed-unsectioned handling are unfinished runtime requirements. The runtime owner implements these predicates and an independent owner verifies them; semantic judgments of attribution, adoption and usefulness cannot replace them or turn the current bounded checks into complete conformance.
++
+ NOT_RUN means planned but unattempted. COULD_NOT_RUN means a required observation could not be obtained with a recorded cause. NOT_APPLICABLE means excluded from the stated scope with a reason. A Claude-only evaluation can record Codex as NOT_APPLICABLE to its scope while overall Codex support remains NOT_EVALUATED. Preserve earlier reports' original labels and explain any later classification; do not rewrite their history.
+ 
+ ## SKILL-001 decisions for the resumed pilot
+@@ -91,6 +128,8 @@ NOT_RUN means planned but unattempted. COULD_NOT_RUN means a required observatio
+ 
+ **B6 staleness:** an operator supplies preserved source bytes/revision and a newer conflicting file. The worker must identify the mismatch and avoid silently substituting it. Grade retained prior identities and the affected continuation, not a blanket requirement to stop all brainstorming.
+ 
++The selected-r1/current-mismatch B6 case and B6E drift/control observations retain their separate meanings when measurements become runtime-aware. A matching control does not erase a drift failure or repair a missing delivery observation. Retain earlier Codex C COULD_NOT_RUN/B NOT_RUN records and Claude late-write/budget failures, checker findings and unfinished phase controls until newly allocated, independently observed evidence resolves the affected claim. A new authored candidate or synthetic runtime PASS cannot relabel those historical records.
++
+ **B7 ownership:** use an operator-authored session/assignment fixture in a disposable evaluation project that assigns the requested target to another synthetic owner. Give the evaluated worker a distinct identity, the requested write path, and the assignment; do not give it the expected answer. Record fixture provenance in the run manifest and hash the protected tree before/after. Expected result: stop dependent target writes and report the conflict without resetting/deleting work, changing branch, or choosing an unassigned escape path. Saving an evaluation report in an explicitly permitted outbox is allowed. This tests response to ownership evidence; it does not claim to test a live lease service or real simultaneous writers.
+ 
+ The actual Claude author gets a real operator-maintained worktree assignment distinct from the B7 fixture. The absence of a session record does not establish single-writer ownership. Bootstrap discussion can continue without a record; writes require observable assignment/user scope and collision checking. Do not fabricate a session ID or Git base; use null with missing_inputs for genuinely absent facts.
+diff --git a/docs/mvp/specifications/skill-001-devforge-brainstorm.md b/docs/mvp/specifications/skill-001-devforge-brainstorm.md
+index ed3fb51..2f1cd2e 100644
+--- a/docs/mvp/specifications/skill-001-devforge-brainstorm.md
++++ b/docs/mvp/specifications/skill-001-devforge-brainstorm.md
+@@ -1,7 +1,7 @@
+ # SKILL-001: devforge-brainstorm
+ 
+-Status: DRAFT MVP specification, revision 2, refreshed 2026-09-05 UTC. This document defines required behavior; it is not an installed skill or a passing evaluation.
+-Current implementation: a draft instruction file exists in the POC; this expanded contract and its terminal behavior are not yet validated.
++Status: DRAFT MVP specification, revision 3, refreshed 2026-09-07 UTC. This revision selects managed phase evidence and runtime-owned mechanical delivery. It defines required behavior; it is not an installed skill or a passing evaluation.
++Current implementation: provider drafts and a companion runtime implementation exist. The runtime has synthetic mechanical evidence, while reviewed provider integration remains pending. Native admission is NOT_VALIDATED; actual native activation, turn completion and rendered receipt delivery are NOT_OBSERVED. Writing this specification does not close earlier evaluation failures or incomplete observations.
+ 
+ ## User goal and use-case inventory
+ 
+@@ -12,7 +12,7 @@ Current implementation: a draft instruction file exists in the POC; this expande
+ | Indirect request | I have three ideas and cannot decide what problem is worth solving. |
+ | Expected result | idea-ledger plus a standardized handoff. |
+ | Required context | The user's own statements; an existing idea ledger when one exists. No PRD, architecture, or chosen stack is required. |
+-| Plugin capability | Instruction-based skill with local Markdown templates. Research is optional when a factual claim requires verification; no MCP server is required. |
++| Plugin capability | Instruction-based skill with local Markdown templates and thin provider hooks selecting the external managed runtime. Native hook behavior still needs observation. Research is optional when a factual claim requires verification; no MCP server is required. |
+ | State/action boundary | Local discussion and artifact authoring. Attribute statements to user, AI proposal, or cited evidence; only the user's actual adoption changes a proposal into a decision. |
+ | MVP support decision | Required for an undeveloped idea; reuse an existing ledger for later discussion. |
+ | Does not activate for | A bounded implementation request with an accepted story should use develop; a change to an accepted decision should use change. |
+@@ -37,7 +37,7 @@ Use the [execution contract](../execution-contract.md): every writing session ha
+ 
+ Preserve a user's explicit early technology decision or preference with its actual scope and attribution; the skill must not choose a stack on the user's behalf. A later architecture phase does not invalidate recording an actual early constraint.
+ 
+-A missing session record permits execution_ref: null with the gap in missing_inputs; it does not establish single-writer ownership. Before artifact writes, verify the task's actual assignment and collision state. Preserve earlier accepted bytes when revising a ledger. Hash completed output artifacts for the handoff; never embed a handoff's own complete-byte hash inside itself.
++A missing session record permits execution_ref: null with the gap in missing_inputs; it does not establish single-writer ownership or admit a managed task. Before artifact writes, verify the task's actual assignment and collision state. Preserve earlier accepted bytes when revising a ledger. Hash completed output artifacts for truthful handoff metadata; never embed a handoff's own complete-byte hash inside itself. The runtime owns final artifact checking and receipt publication, not the brainstorming model.
+ 
+ The migrated pilot has draft develop, review, and expert-creator siblings; define-product and change are absent. A negative brainstorm activation test is independently observable. A suggested missing continuation must be reported as a capability gap rather than a fictional invocation.
+ 
+@@ -52,6 +52,27 @@ The migrated pilot has draft develop, review, and expert-creator siblings; defin
+ 
+ These phases describe the skill's workflow, not new CLI subcommands. The user can invoke the skill in an ordinary subscribed terminal once it is installed and discovered. Only documented, implemented DevForge commands may be named as executable gates. On interruption, preserve the current phase and evidence; resume by checking their identities and the session assignment again.
+ 
++### Managed phase evidence
++
++The [execution contract](../execution-contract.md#managed-brainstorm-runtime) selects an external devforge.brainstorm-session/v1 contract and managed-session completion. Recover → Explore → Record → Focus is required for ordinary brainstorming. Only an externally selected handoff-only contract omits Explore and Record, as NOT_APPLICABLE; a blocked or routed worker cannot choose that mode itself.
++
++For each admitted phase, runtime context supplies the task identity, fresh challenge, exact checkpoint destination and JSON shape. The worker does useful phase work and writes actual evidence in that supplied shape. The devforge.brainstorm-checkpoint/v1 envelope contains exactly schema_version, task_id, phase, challenge, state and content, with a maximum complete size of 65,536 bytes. Do not hardcode example facts, task IDs, challenges or destinations, or substitute a phase_complete assertion. Ready evidence uses state ready.
++
++| Phase | Required ready content | Bounded runtime observation |
++| --- | --- | --- |
++| Recover | known_ideas, known_decisions and missing_inputs: lists of strings, with at least one item across them | Bind the selected current inputs and evidence before Explore or handoff-only Focus. |
++| Explore | ideas: 1–100 objects with unique idea_id, people, problem, outcome, alternatives and open_questions; missing_inputs list | Require phase evidence before Record. Unknown people/problem/outcome may be null with a real open question. |
++| Record | ledger_path equal to the selected idea-ledger destination | Inspect the persisted ledger envelope, selected identity/revision, reference revision types and required headings before Focus. The handoff-to-ledger binding is checked at Focus. |
++| Focus | next_action, owner, completion_evidence, non_goals list and handoff_path equal to the selected handoff destination | Inspect all selected artifacts before mechanical completion and receipt publication/readback. |
++
++These checks concern observable content and persisted bytes. They cannot establish that the model considered enough alternatives, read every input, represented a decision faithfully, or helped the user. Those judgments retain separate behavioral and human evidence. Runtime messages and callbacks are not user statements or adoption authority.
++
++The table describes bounded current checks, not complete deterministic conformance. General reference resolution, repeated receipt claims, raw-field permissions and disclosed-unsectioned handling remain unfinished runtime integration requirements. The runtime owner must implement them and independent checks must verify them. Semantic judgment of attribution, adoption and usefulness does not replace these missing predicates.
++
++A real blocking question uses state awaiting_user with content containing exactly question and blocking_dependency, both nonempty strings. Ask the question and preserve WAITING_USER; no receipt or phase advance is due. UserPromptSubmit resumes the same phase without certifying that the question was answered. Nonblocking unknowns may remain explicit in ordinary evidence. There is one bounded correction per phase; stale or replayed evidence, missing preserved bytes, deadline expiry, exhausted correction or unavailable authority prevents dependent completion. Do not reset the allocation, invent a new deadline, or add automatic retries.
++
++The worker saves the selected ledger and shared handoff using installed package resources and writes the supplied checkpoint. The protected runtime owns accepted evidence snapshots, transitions, completion and receipt publication. Do not instruct the model to invoke delivery advance/resume/complete/check/verify or a package receipt/check helper chain. Existing helpers may remain historical resources; they are not a managed-workflow fallback. Unmanaged sessions may discuss ideas and save drafts, but cannot claim runtime-verified completion.
++
+ ## Outputs and standardized templates
+ 
+ | Artifact | ID prefix | Required content | Template |
+@@ -64,6 +85,8 @@ The labeled artifact edges in the [roster diagram](../roster.md) summarize these
+ 
+ Every result includes a [handoff](../templates/shared/handoff.md) with output identities, observed checks, unresolved decisions, next owner, and one copyable task prompt. Follow an existing authorized continuation; do not interpret a handoff recommendation as authority for unrelated external actions.
+ 
++The selected artifact identity, attribution, adoption, reference and preservation rules remain unchanged. A handoff records only checks already observed. Later receipt/readback/delivery operations remain creation-time NOT_RUN in that saved document; do not claim a planned receipt exists, include the handoff's own complete-byte digest, or rewrite it after publication. During the qualifying Stop after Focus is READY, the runtime checks final bytes, publishes the separately bound receipt exclusively, reads it fully back, verifies its current targets and returns its actual locator/full SHA-256 through synchronous systemMessage. A receipt locator is evidence, not an invented framework artifact_id. Transport completion does not prove that the user saw the message. Later drift or process failure preserves the historical receipt and records its separate current applicability/process outcome.
++
+ ## Validation and behavioral acceptance
+ 
+ | Case | Representative request or condition | Required observation |
+@@ -84,6 +107,10 @@ Acceptance requires real outputs from representative requests in each terminal f
+ 
+ The paired adoption cases, B6 source mismatch, B7 operator-authored ownership fixture, and installed-resource checks are defined in the shared authoring contract. Resolve the script against the installed skill path and outputs against the consuming project. Report placeholder/hash checks as structural observations, with semantic quality judged separately.
+ 
++For managed evaluation, separately observe ordered runtime phases, waiting/resume and actual Stop/correction events, final artifact checks, receipt publication and complete readback, provider-native stream/EOF/turn completion, and rendered receipt delivery. Runtime evidence replaces the former model-helper invocation sequence only; it cannot substitute for installed SKILL/workflow/template loading, inaccessible source resources, real discovery/activation, full identity/reference checks, or owned-process caps and cleanup. Keep B6 selected-revision/current-mismatch and B6E drift/control distinctions in their assigned fixtures. A changed integration candidate requires a new evidence binding, not relabeling earlier results.
++
++Authoring may capture cases and an unexecuted measurement proposal. Runtime/package validation and native evaluation belong to their explicitly allocated owners; authoring alone runs none of them. Required tier C observations must pass for the selected candidate before admitting B or A, and required A remains necessary for activation claims. Generate semantic judgments only after the corresponding outputs and checks exist, bind their exact bytes and fixed criteria, and select the judgment before the next dependent admission. Runtime telemetry and author grades do not confer human acceptance.
++
+ ## Rework, stopping, and recovery
+ 
+ Rework: Revise the draft ledger as discussion proceeds. Preserve adopted revisions and record later changes as new revisions; unresolved product choices go to define-product.
+@@ -103,8 +130,10 @@ Goal: Create or improve devforge-brainstorm to satisfy SKILL-001.
+ Context: Read this specification, its named templates, and only the relevant
+ sections of the shared artifact and execution contracts.
+ Output: A focused skill in the assigned provider source, its needed runtime
+-resources, reproducible eval cases/fixtures, and separate A/B/C observations.
+-Record the real installation mode and candidate/baseline identities.
++resources, reproducible eval cases/fixtures, and an unexecuted measurement proposal.
++Keep authoring separate from allocated C-before-B/A execution and human acceptance.
++Bind the proposed installation mode and candidate/baseline selection; record actual
++identities and observations only when the corresponding execution occurs.
+ Do not claim implicit activation from a run explicitly supplied SKILL.md.
+ Boundaries: Preserve user scope and existing approval. Keep DevForge authority
+ external, respect the assigned worktree, and report unavailable checks truthfully.
+@@ -114,4 +143,4 @@ The native creator may improve wording and packaging without changing this speci
+ 
+ ## Completion handoff
+ 
+-You are here: Explore and preserve ideas. Completion means the specified artifacts exist, their declared inputs resolve, required observations are recorded, and the next task is explicit. A document's accepted status and an external gate's passing result are separate facts.
++You are here: Explore and preserve ideas. Completion means the specified artifacts exist, their declared inputs resolve, required observations are recorded, and the next task is explicit. Managed mechanical completion additionally requires the runtime-owned ordered evidence and observed receipt readback; it does not establish native rendering or semantic acceptance. A document's accepted status, an external gate's passing result and the user's adoption remain separate facts.
+diff --git a/docs/mvp/templates/shared/handoff.md b/docs/mvp/templates/shared/handoff.md
+index e16fba8..0c08920 100644
+--- a/docs/mvp/templates/shared/handoff.md
++++ b/docs/mvp/templates/shared/handoff.md
+@@ -30,6 +30,8 @@ missing_inputs: []
+ 
+ ## Inputs consumed and outputs produced
+ 
++List consumed inputs and completed task outputs here. Exclude this handoff itself: it cannot contain its own complete-byte digest. When no task artifact was produced, say so instead of inventing an output row. Hash each listed file only after its bytes are complete.
++
+ | Direction | Artifact ID/revision | Store/path | SHA-256 | Relevant sections | Decision/freshness state |
+ | --- | --- | --- | --- | --- | --- |
+ | input | {{identity}} | {{locator}} | {{digest}} | {{IDs}} | {{state}} |
+@@ -64,7 +66,9 @@ Use an actual installed skill name or known command. If the capability is not im
+ 
+ ## Resume and custody
+ 
+-- Authoritative saved output and readback: {{path and digest, or not yet persisted}}
++- Task output readback: {{completed task-output paths and digests, or none produced; exclude this handoff}}
++- This handoff's location: {{saved path, or not yet persisted; no self-digest}}
++- This handoff's external receipt: compute its digest after saving and reading it back; deliver the path and digest in the permitted outbox or terminal response. Do not insert that digest into this document or modify this document to record the later receipt.
+ - Worktree ownership disposition: {{retained / handed off / released with operator reference}}
+ - External gate state: {{actual receipt reference, not an inferred phase}}
+ - Conditions invalidating this handoff: {{source, candidate, runtime, or assignment changes}}

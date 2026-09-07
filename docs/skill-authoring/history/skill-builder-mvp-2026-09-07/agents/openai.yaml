@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Builder"
+  short_description: "Interview, specify, and author reusable skills"
+  default_prompt: "Use $skill-builder to discuss my workflow, find related skills, and create or enhance a skill from a specification."

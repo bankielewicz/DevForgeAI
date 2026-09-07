@@ -1,0 +1,1909 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index f0b4ff1..0cffc10 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -58,6 +58,12 @@ version = "1.0.104"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
+ 
++[[package]]
++name = "bitflags"
++version = "2.13.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da"
++
+ [[package]]
+ name = "block-buffer"
+ version = "0.10.4"
+@@ -144,9 +150,11 @@ version = "0.1.0"
+ dependencies = [
+  "anyhow",
+  "clap",
++ "rustix",
+  "serde",
+  "serde_json",
+  "sha2",
++ "signal-hook",
+ ]
+ 
+ [[package]]
+@@ -159,6 +167,16 @@ dependencies = [
+  "crypto-common",
+ ]
+ 
++[[package]]
++name = "errno"
++version = "0.3.14"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
++dependencies = [
++ "libc",
++ "windows-sys",
++]
++
+ [[package]]
+ name = "generic-array"
+ version = "0.14.7"
+@@ -193,6 +211,12 @@ version = "0.2.189"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2"
+ 
++[[package]]
++name = "linux-raw-sys"
++version = "0.12.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53"
++
+ [[package]]
+ name = "memchr"
+ version = "2.8.3"
+@@ -223,6 +247,19 @@ dependencies = [
+  "proc-macro2",
+ ]
+ 
++[[package]]
++name = "rustix"
++version = "1.1.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b6fe4565b9518b83ef4f91bb47ce29620ca828bd32cb7e408f0062e9930ba190"
++dependencies = [
++ "bitflags",
++ "errno",
++ "libc",
++ "linux-raw-sys",
++ "windows-sys",
++]
++
+ [[package]]
+ name = "serde"
+ version = "1.0.229"
+@@ -277,6 +314,26 @@ dependencies = [
+  "digest",
+ ]
+ 
++[[package]]
++name = "signal-hook"
++version = "0.4.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "b2a0c28ca5908dbdbcd52e6fdaa00358ab88637f8ab33e1f188dd510eb44b53d"
++dependencies = [
++ "libc",
++ "signal-hook-registry",
++]
++
++[[package]]
++name = "signal-hook-registry"
++version = "1.4.8"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c4db69cba1110affc0e9f7bcd48bbf87b3f4fc7c61fc9155afd4c469eb3d6c1b"
++dependencies = [
++ "errno",
++ "libc",
++]
++
+ [[package]]
+ name = "strsim"
+ version = "0.11.1"
+diff --git a/Cargo.toml b/Cargo.toml
+index 3a25a5b..324f165 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -11,8 +11,10 @@ publish = false
+ anyhow = "=1.0.104"
+ clap = { version = "=4.6.6", features = ["derive"] }
+ serde = { version = "=1.0.229", features = ["derive"] }
+-serde_json = "=1.0.151"
++serde_json = { version = "=1.0.151", features = ["float_roundtrip"] }
+ sha2 = "=0.10.9"
++signal-hook = { version = "=0.4.4", default-features = false }
++rustix = { version = "=1.1.4", features = ["process"] }
+ 
+ [lints.rust]
+ unsafe_code = "forbid"
+diff --git a/scripts/install_framework.py b/scripts/install_framework.py
+index f5d2c44..f8930de 100644
+--- a/scripts/install_framework.py
++++ b/scripts/install_framework.py
+@@ -1,15 +1,34 @@
+ """Install project-local skills and agents without touching user-global configuration."""
+ import argparse
+ import hashlib
++import importlib.util
+ import json
+ from pathlib import Path
+ import sys
+ 
+ 
++HOOK_DESTINATIONS = {"codex": ".codex/hooks.json", "claude": ".claude/settings.local.json"}
++
++# Load only this trusted framework helper, including when callers use importlib.
++_runtime_spec = importlib.util.spec_from_file_location(
++    "devforge_runtime_requirements", Path(__file__).with_name("runtime_requirements.py"))
++runtime_requirements = importlib.util.module_from_spec(_runtime_spec)
++_runtime_spec.loader.exec_module(runtime_requirements)
++json_object = runtime_requirements.json_object
++read_json = runtime_requirements.read_json
++validate_hook_groups = runtime_requirements.validate_hook_groups
++load_plugin_hooks = runtime_requirements.load_plugin_hooks
++
++
+ def digest(data):
+     return hashlib.sha256(data).hexdigest()
+ 
+ 
++def group_digest(group):
++    return digest(json.dumps(group, sort_keys=True, separators=(",", ":"),
++                             ensure_ascii=False, allow_nan=False).encode("utf-8"))
++
++
+ def regular_files(root):
+     if root.is_symlink() or not root.is_dir():
+         raise ValueError(f"missing or symlink source directory: {root}")
+@@ -57,28 +76,38 @@ def export_plugin(framework, provider, output):
+     for parent in output.parents:
+         if parent.is_symlink():
+             raise ValueError(f"symlink export parent: {parent}")
++        if parent.exists() and not parent.is_dir():
++            raise ValueError(f"non-directory export parent: {parent}")
+     if output.resolve().is_relative_to(plugin):
+         raise ValueError("export must be outside the source plugin")
++    load_plugin_hooks(plugin, provider)
++    requirement = runtime_requirements.load_requirement(plugin, provider)
+     planned = {}
+     for path, relative in regular_files(plugin):
+-        if relative.parts[0] not in (f".{provider}-plugin", "skills", "agents"):
++        if "__pycache__" in relative.parts or relative.suffix == ".pyc":
++            continue
++        if relative.parts[0] not in (f".{provider}-plugin", "skills", "agents", "hooks"):
+             raise ValueError(f"unsupported plugin component for this POC export: {relative}")
+         if len(relative.parts) >= 3 and relative.parts[0] == "skills":
+             if authoring_only(Path(*relative.parts[2:])):
+                 continue
+-        if "__pycache__" not in relative.parts and relative.suffix != ".pyc":
+-            planned[relative.as_posix()] = path.read_bytes()
++        if relative.parts[0] == "hooks" and authoring_only(Path(*relative.parts[1:])):
++            continue
++        planned[relative.as_posix()] = path.read_bytes()
+     manifest = f".{provider}-plugin/plugin.json"
+-    if json.loads(planned.get(manifest, b"{}"))["name"] != "devforgeai":
++    if read_json(plugin / manifest).get("name") != "devforgeai":
+         raise ValueError("plugin manifest name must be devforgeai")
+     output.mkdir(parents=True, exist_ok=False)
+     for relative, data in planned.items():
+         dest = output / relative
+         dest.parent.mkdir(parents=True, exist_ok=True)
+         dest.write_bytes(data)
+-    return {"status": "EXPORTED", "provider": provider, "output": str(output.resolve()),
+-            "files_sha256": {rel: digest(data) for rel, data in planned.items()},
+-            "behavior": "NOT_EVALUATED"}
++    result = {"status": "EXPORTED", "provider": provider, "output": str(output.resolve()),
++              "files_sha256": {rel: digest(data) for rel, data in planned.items()},
++              "behavior": "NOT_EVALUATED"}
++    if requirement is not None:
++        result.update(runtime_requirements={provider: requirement}, runtime_host="NOT_VERIFIED")
++    return result
+ 
+ 
+ def safe_destination(project, relative):
+@@ -88,19 +117,110 @@ def safe_destination(project, relative):
+             break
+         if parent.is_symlink():
+             raise ValueError(f"symlink destination: {parent}")
+-    if not path.resolve().is_relative_to(project):
++        if parent != path and parent.exists() and not parent.is_dir():
++            raise ValueError(f"non-directory destination parent: {parent}")
++    if path.resolve() == project or not path.resolve().is_relative_to(project):
+         raise ValueError(f"destination escapes project: {relative}")
++    if path.exists() and not path.is_file():
++        raise ValueError(f"destination is not a regular file: {path}")
+     return path
+ 
+ 
+-def install(framework, project, provider, include_experts=False):
++def hook_record(event, definition):
++    return {"event": event, "definition": definition, "sha256": group_digest(definition)}
++
++
++def validate_hook_registry(entry, relative):
++    if not isinstance(entry, dict) or set(entry) != {"path", "owned", "reused"} or entry["path"] != relative:
++        raise ValueError("invalid managed hook registry entry")
++    identities = set()
++    for category in ("owned", "reused"):
++        if not isinstance(entry[category], list):
++            raise ValueError("managed hook records must be lists")
++        for row in entry[category]:
++            if not isinstance(row, dict) or set(row) != {"event", "definition", "sha256"}:
++                raise ValueError("invalid managed hook group record")
++            if not isinstance(row["event"], str) or not isinstance(row["sha256"], str):
++                raise ValueError("invalid managed hook group identity")
++            validate_hook_groups({row["event"]: [row["definition"]]}, command_only=True)
++            if row["sha256"] != group_digest(row["definition"]):
++                raise ValueError("managed hook definition digest mismatch")
++            identity = (row["event"], row["sha256"])
++            if identity in identities:
++                raise ValueError("duplicate managed hook group identity")
++            identities.add(identity)
++
++
++def plan_hook_merge(project, provider, source, previous):
++    """Plan group-level ownership; never claim a complete shared settings file."""
++    relative = HOOK_DESTINATIONS[provider]
++    old = previous if previous is not None else {"path": relative, "owned": [], "reused": []}
++    validate_hook_registry(old, relative)
++    if source is None and previous is None:
++        return None, None
++    destination = safe_destination(project, relative)
++    exists = destination.exists()
++    document = read_json(destination) if exists else {}
++    if not isinstance(document, dict):
++        raise ValueError(f"hook settings must be an object: {relative}")
++    hooks = document.setdefault("hooks", {})
++    validate_hook_groups(hooks, command_only=False)
++    desired = []
++    wanted = set()
++    for event, groups in (source or {"hooks": {}})["hooks"].items():
++        for group in groups:
++            row = hook_record(event, group)
++            identity = (event, row["sha256"])
++            if identity not in wanted:
++                wanted.add(identity)
++                desired.append(row)
++    retained = set()
++    # Verify all prior ownership before deciding whether to replace or retire it.
++    if exists:
++        for row in old["owned"]:
++            matches = [group for group in hooks.get(row["event"], []) if group_digest(group) == row["sha256"]]
++            if len(matches) != 1:
++                raise ValueError(f"local edit/collision in owned {provider} hook: {row['event']}")
++        for row in old["owned"]:
++            identity = (row["event"], row["sha256"])
++            if identity in wanted:
++                retained.add(identity)
++            else:
++                hooks[row["event"]] = [group for group in hooks[row["event"]]
++                                       if group_digest(group) != row["sha256"]]
++    entry = {"path": relative, "owned": [], "reused": []}
++    for row in desired:
++        groups = hooks.setdefault(row["event"], [])
++        if (row["event"], row["sha256"]) in retained:
++            entry["owned"].append(row)
++        elif any(group_digest(group) == row["sha256"] for group in groups):
++            entry["reused"].append(row)
++        else:
++            groups.append(row["definition"])
++            entry["owned"].append(row)
++    # Missing settings can be rebuilt from selected groups, not lost unrelated data.
++    payload = None
++    if exists or desired:
++        payload = (json.dumps(document, indent=2, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8")
++        if exists and group_digest(read_json(destination)) == group_digest(document):
++            payload = None  # Preserve formatting on a semantically identical install.
++    return payload, entry
++
++
++def install(framework, project, provider, include_experts=False, runtime=None):
+     framework, project = framework.resolve(), project.resolve()
+     if not project.is_dir():
+         raise ValueError("project must already exist")
+     planned = {}
++    hook_sources = {}
++    requirements = {}
+     providers = ("codex", "claude") if provider == "both" else (provider,)
+     for target in providers:
+         plugin = provider_plugin(framework, target)
++        hook_sources[target] = load_plugin_hooks(plugin, target)
++        requirement = runtime_requirements.load_requirement(plugin, target)
++        if requirement is not None:
++            requirements[target] = requirement
+         skills = [p for p in sorted((plugin / "skills").iterdir()) if p.is_dir()]
+         if include_experts and (project / "experts").is_dir():
+             # Explicit portable POC experts, not a fallback for provider framework sources.
+@@ -116,8 +236,23 @@ def install(framework, project, provider, include_experts=False):
+         dest = ".codex/agents" if target == "codex" else ".claude/agents"
+         for path, rel in regular_files(agents):
+             planned[f"{dest}/{rel.as_posix()}"] = path.read_bytes()
++    runtime_evidence = runtime_requirements.probe_runtime(runtime, requirements) if requirements else None
+     record_path = safe_destination(project, ".devforge-install.json")
+-    previous = json.loads(record_path.read_text()) if record_path.exists() else {"files": {}}
++    previous = read_json(record_path) if record_path.exists() else {"schema": 1, "files": {}}
++    if (not isinstance(previous, dict) or previous.get("schema", 1) != 1
++            or not isinstance(previous.get("files"), dict)
++            or not all(isinstance(k, str) and isinstance(v, str) for k, v in previous["files"].items())
++            or not isinstance(previous.get("managed_hooks", {}), dict)
++            or not isinstance(previous.get("runtime_evidence", {}), dict)):
++        raise ValueError("invalid installation inventory")
++    managed_hooks = dict(previous.get("managed_hooks", {}))
++    hook_writes = {}
++    for target in providers:
++        payload, entry = plan_hook_merge(project, target, hook_sources[target], managed_hooks.get(target))
++        if entry is not None:
++            managed_hooks[target] = entry
++        if payload is not None:
++            hook_writes[HOOK_DESTINATIONS[target]] = payload
+     retired = []
+     selected_roots = {".agents" if target == "codex" else ".claude" for target in providers}
+     for rel, old_digest in previous["files"].items():
+@@ -135,20 +270,46 @@ def install(framework, project, provider, include_experts=False):
+             old = dest.read_bytes()
+             if old != data and previous["files"].get(rel) != digest(old):
+                 raise ValueError(f"local edit/collision; refusing replacement: {rel}")
++    evidence = dict(previous.get("runtime_evidence", {}))
++    for target in providers:
++        evidence.pop(target, None)
++        if target in requirements:
++            evidence[target] = {**runtime_evidence, "requirement": requirements[target]}
+     # Preflight every destination before writes. Existing identical installs are idempotent.
+     tracked = dict(previous["files"])
++    for target in providers:
++        tracked.pop(HOOK_DESTINATIONS[target], None)
+     for rel in retired:
+-        safe_destination(project, rel).unlink(missing_ok=True)
+         tracked.pop(rel, None)
++    tracked.update({rel: digest(data) for rel, data in planned.items()})
++    updated = {**previous, "schema": 1, "files": tracked, "managed_hooks": managed_hooks}
++    if evidence or "runtime_evidence" in previous:
++        updated["runtime_evidence"] = evidence
++    record_bytes = (json.dumps(updated, indent=2, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8")
++    if runtime_evidence is not None:
++        write_paths = set(planned) | set(hook_writes) | set(retired) | {".devforge-install.json"}
++        if any(project / relative == Path(runtime) for relative in write_paths):
++            raise ValueError("selected runtime binary overlaps an installation destination")
++        if runtime_requirements.runtime_digest(runtime) != runtime_evidence["sha256_after"]:
++            raise ValueError("selected runtime binary changed before installation writes")
++    for rel in retired:
++        safe_destination(project, rel).unlink(missing_ok=True)
+     for rel, data in planned.items():
+         dest = safe_destination(project, rel)
+         dest.parent.mkdir(parents=True, exist_ok=True)
+         dest.write_bytes(data)
+-        tracked[rel] = digest(data)
+-    record_path.write_text(json.dumps({"schema": 1, "files": tracked}, indent=2) + "\n")
+-    return {"status": "INSTALLED", "project": str(project), "providers": providers,
+-            "files": len(planned), "removed_authoring_files": retired,
+-            "scope": "project-local; no global configuration changed"}
++    for rel, data in hook_writes.items():
++        dest = safe_destination(project, rel)
++        dest.parent.mkdir(parents=True, exist_ok=True)
++        dest.write_bytes(data)
++    record_path.write_bytes(record_bytes)
++    result = {"status": "INSTALLED", "project": str(project), "providers": providers,
++              "files": len(planned), "removed_authoring_files": retired,
++              "scope": "project-local; no global configuration changed"}
++    if requirements:
++        result.update(runtime_requirements=requirements,
++                      runtime_compatibility="VERIFIED", native_activation="NOT_VERIFIED")
++    return result
+ 
+ 
+ def main():
+@@ -160,6 +321,8 @@ def main():
+                              help="Build a new runtime-only devforgeai plugin for one provider")
+     parser.add_argument("--provider", choices=["codex", "claude", "both"], default="both")
+     parser.add_argument("--include-experts", action="store_true")
++    parser.add_argument("--runtime", type=Path,
++                        help="Explicit absolute devforge executable required by delivery-aware project installs")
+     args = parser.parse_args()
+     try:
+         if args.export_plugin:
+@@ -167,7 +330,7 @@ def main():
+                 raise ValueError("export requires one provider and excludes project experts")
+             result = export_plugin(args.framework, args.provider, args.export_plugin)
+         else:
+-            result = install(args.framework, args.project, args.provider, args.include_experts)
++            result = install(args.framework, args.project, args.provider, args.include_experts, args.runtime)
+         print(json.dumps(result, indent=2))
+     except (ValueError, OSError, KeyError) as error:
+         print(json.dumps({"status": "BLOCKED", "reason": str(error)}))
+diff --git a/scripts/validate_framework.py b/scripts/validate_framework.py
+index 5c2ae1d..abdcce2 100644
+--- a/scripts/validate_framework.py
++++ b/scripts/validate_framework.py
+@@ -1,27 +1,184 @@
+ """Read-only structural validation; never execute code from the framework candidate."""
+ import argparse
+ import ast
++import importlib.util
+ import json
+ from pathlib import Path
+ import re
+ import tomllib
+ 
+ 
++# This is framework-owned validation code, never a candidate-provided module.
++_runtime_spec = importlib.util.spec_from_file_location(
++    "devforge_runtime_requirements", Path(__file__).with_name("runtime_requirements.py"))
++runtime_requirements = importlib.util.module_from_spec(_runtime_spec)
++_runtime_spec.loader.exec_module(runtime_requirements)
++
++
+ def require(condition, message):
+     if not condition:
+         raise ValueError(message)
+ 
+ 
++def eval_object(value, required, optional, label):
++    require(isinstance(value, dict), f"{label}: expected an object")
++    require(required <= set(value) <= required | optional, f"{label}: unsupported fields")
++
++
++def eval_text(value, label):
++    require(isinstance(value, str) and bool(value.strip()), f"{label}: expected nonempty text")
++
++
++def eval_text_list(value, label):
++    require(isinstance(value, list) and bool(value), f"{label}: expected a nonempty list")
++    for item in value:
++        eval_text(item, label)
++
++
++def inline_fixture_path(value, label):
++    eval_text(value, label)
++    require(not value.startswith("/") and not re.match(r"^[A-Za-z]:", value)
++            and "\\" not in value and "\x00" not in value
++            and all(part not in ("", ".", "..") for part in value.split("/")),
++            f"{label}: unsafe inline fixture path {value!r}")
++
++
++def validate_self_evals(data, skill, provider, label):
++    """Check declarations and path relationships only; inline bytes stay inert."""
++    fields = {"schema_version", "skill_under_test", "provider", "purpose", "authoring_status",
++              "last_authored_date", "execution_status", "execution_boundary",
++              "fixture_materialization", "fixture_sets", "common_grading", "cases"}
++    eval_object(data, fields, set(), label)
++    require(data["skill_under_test"] == skill, f"wrong eval skill: {label}")
++    require(data["provider"] == provider, f"wrong eval provider: {label}")
++    for key in ("purpose", "authoring_status", "last_authored_date", "execution_status"):
++        eval_text(data[key], f"{label}: {key}")
++    text_objects = {
++        "execution_boundary": {"instruction", "target_write_policy", "required_runtime", "output_root",
++                               "source_export_policy", "missing_prerequisite_result"},
++        "fixture_materialization": {"format", "path_rule", "operator_record", "workers", "comparison",
++                                    "control_bundle", "synthetic_limit", "artifact_case_facts",
++                                    "protected_file_observation"},
++        "common_grading": {"schema", "pass_rule", "fail_rule", "unavailable_rule", "preserve_targets",
++                           "no_auto_repair", "expected_result_distinction"},
++    }
++    for key, text_fields in text_objects.items():
++        extra = {"run_now"} if key == "execution_boundary" else set()
++        eval_object(data[key], text_fields | extra, set(), f"{label}: {key}")
++        for field in text_fields:
++            eval_text(data[key][field], f"{label}: {key}.{field}")
++    require(type(data["execution_boundary"]["run_now"]) is bool,
++            f"{label}: run_now must be a boolean declaration")
++
++    fixtures = data["fixture_sets"]
++    require(isinstance(fixtures, dict) and bool(fixtures), f"{label}: fixture_sets must be a nonempty object")
++    operations = ("files", "replace_files", "append_files")
++    for name, fixture in fixtures.items():
++        eval_text(name, f"{label}: fixture identity")
++        detail = f"{label}: fixture {name}"
++        eval_object(fixture, set(), {"base", *operations, "absent_files", "authority_note"}, detail)
++        if "base" in fixture:
++            eval_text(fixture["base"], f"{detail}: base")
++            require(fixture["base"] in fixtures, f"{detail}: unknown fixture base")
++        if "authority_note" in fixture:
++            eval_text(fixture["authority_note"], f"{detail}: authority_note")
++        for operation in operations:
++            values = fixture.get(operation, {})
++            require(isinstance(values, dict), f"{detail}: {operation} must be an object")
++            for relative, content in values.items():
++                inline_fixture_path(relative, detail)
++                require(isinstance(content, str), f"{detail}: inline content must be a string")
++                try:
++                    content.encode("utf-8")
++                except UnicodeError as error:
++                    raise ValueError(f"{detail}: inline content must encode as UTF-8") from error
++        absent = fixture.get("absent_files", [])
++        require(isinstance(absent, list), f"{detail}: absent_files must be a list")
++        for relative in absent:
++            inline_fixture_path(relative, detail)
++
++    # Resolve only path sets, never payloads or filesystem writes. Iteration avoids
++    # recursing through candidate-controlled inheritance chains.
++    resolved = {}
++    pending = set(fixtures)
++    while pending:
++        ready = [name for name in sorted(pending)
++                 if "base" not in fixtures[name] or fixtures[name]["base"] in resolved]
++        require(ready, f"{label}: fixture base cycle")
++        for name in ready:
++            fixture = fixtures[name]
++            paths = set(resolved.get(fixture.get("base"), set())) | set(fixture.get("files", {}))
++            for operation in ("replace_files", "append_files"):
++                require(set(fixture.get(operation, {})) <= paths,
++                        f"{label}: fixture {name}: unresolved {operation} target")
++            require(not set(fixture.get("absent_files", [])) & paths,
++                    f"{label}: fixture {name}: declared absent file is present")
++            resolved[name] = paths
++            pending.remove(name)
++
++    cases = data["cases"]
++    require(isinstance(cases, list) and bool(cases), f"{label}: cases must be a nonempty list")
++    identities = set()
++    required = {"id", "title", "tier", "status", "fixture_set", "validator_request",
++                "operator_setup", "required_observations"}
++    for case in cases:
++        eval_object(case, required, {"requires_real_control_bundle"}, f"{label}: case")
++        for key in ("id", "title", "tier", "status", "fixture_set", "validator_request"):
++            eval_text(case[key], f"{label}: case {key}")
++        require(case["id"] not in identities, f"{label}: duplicate case ID {case['id']}")
++        identities.add(case["id"])
++        require(case["tier"] in ("A", "B", "C"), f"{label}: unsupported case tier")
++        require(case["fixture_set"] in fixtures, f"{label}: unknown case fixture_set")
++        for key in ("operator_setup", "required_observations"):
++            eval_text_list(case[key], f"{label}: {key}")
++        if "requires_real_control_bundle" in case:
++            require(type(case["requires_real_control_bundle"]) is bool,
++                    f"{label}: requires_real_control_bundle must be boolean")
++
++
++def validate_evals(path, provider):
++    data = runtime_requirements.read_json(path)
++    require(isinstance(data, dict), f"{path}: eval declaration must be an object")
++    if "schema_version" in data:
++        require(data["schema_version"] == "devforge.skill-validator-self-evals/v1",
++                f"{path}: unsupported eval schema")
++        validate_self_evals(data, path.parents[1].name, provider, str(path))
++        return
++    require(data.get("skill_name") == path.parents[1].name, f"wrong eval skill: {path}")
++    require(isinstance(data.get("evals"), list), f"{path}: evals must be a list")
++    for case in data["evals"]:
++        require(isinstance(case, dict), f"{path}: legacy eval case must be an object")
++        files = case.get("files", [])
++        require(isinstance(files, list), f"{path}: legacy files must be a list")
++        for relative in files:
++            eval_text(relative, f"{path}: fixture path")
++            fixture = path.parent / relative
++            require(not Path(relative).is_absolute() and ".." not in Path(relative).parts,
++                    f"fixture path escapes eval root: {relative}")
++            require(fixture.is_file(), f"missing fixture: {fixture}")
++
++
++def source_files(root):
++    pending = [root]
++    while pending:
++        for path in pending.pop().iterdir():
++            if path.name in (".git", ".poc", "__pycache__"):
++                continue
++            rel = path.relative_to(root)
++            if path.is_symlink():
++                raise ValueError(f"symlink not accepted: {rel}")
++            if path.is_dir():
++                # Only the real root operational directory is outside source scope.
++                if rel != Path(".devforge-runtime"):
++                    pending.append(path)
++            elif path.is_file():
++                yield path
++
++
+ def validate(root):
+     count = 0
+-    for path in root.rglob("*"):
++    for path in source_files(root):
+         rel = path.relative_to(root)
+-        if any(part in (".git", ".poc", "__pycache__") for part in rel.parts):
+-            continue
+-        if path.is_symlink():
+-            raise ValueError(f"symlink not accepted: {rel}")
+-        if not path.is_file():
+-            continue
+         if ".github" in rel.parts and "workflows" in rel.parts:
+             raise ValueError("GitHub workflows belong in DevForge")
+         if path.suffix == ".json":
+@@ -37,27 +194,34 @@ def validate(root):
+             require(text.startswith("---\n"), str(rel))
+             front = text.split("---\n", 2)[1]
+             name = re.search(r"^name: ([a-z0-9-]+)$", front, re.M)
+-            require(name and name.group(1) == path.parent.name, str(rel))
++            # A directly retained original entrypoint is documentation inside a
++            # dated evidence container, not an installed package directory.
++            # Still inspect its metadata and every descendant source file.
++            archived_entrypoint = (len(rel.parts) == 5 and
++                                   rel.parts[:3] == ("docs", "skill-authoring", "history"))
++            require(name and (archived_entrypoint or name.group(1) == path.parent.name), str(rel))
+             require(re.search(r"^description: .+", front, re.M), str(rel))
+-            count += 1
++            if not archived_entrypoint:
++                count += 1
+     require(not (root / "plugins/devforgeai").exists(), "retired shared plugin source still exists")
+     core = ("devforge-brainstorm", "devforge-project-expert-creator", "devforge-develop", "devforge-review")
++    requirements = {}
+     for provider in ("claude", "codex"):
+         plugin = root / f"providers/{provider}/plugins/devforgeai"
+         manifest = plugin / f".{provider}-plugin/plugin.json"
+         require(json.loads(manifest.read_text())["name"] == "devforgeai", str(manifest))
+         require(all((plugin / "skills" / name / "SKILL.md").is_file() for name in core),
+                 f"{provider} core skill missing")
++        requirement = runtime_requirements.load_requirement(plugin, provider)
++        if requirement is not None:
++            runtime_requirements.load_plugin_hooks(plugin, provider)
++            requirements[provider] = requirement
+         for cases in (plugin / "skills").glob("*/evals/evals.json"):
+-            data = json.loads(cases.read_text())
+-            require(data.get("skill_name") == cases.parents[1].name, f"wrong eval skill: {cases}")
+-            for case in data["evals"]:
+-                for relative in case.get("files", []):
+-                    fixture = cases.parent / relative
+-                    require(not Path(relative).is_absolute() and ".." not in Path(relative).parts,
+-                            f"fixture path escapes eval root: {relative}")
+-                    require(fixture.is_file(), f"missing fixture: {fixture}")
+-    return {"status": "PASS", "skills": count, "scope": "structure only", "behavior": "NOT_EVALUATED"}
++            validate_evals(cases, provider)
++    result = {"status": "PASS", "skills": count, "scope": "structure only", "behavior": "NOT_EVALUATED"}
++    if requirements:
++        result.update(runtime_requirements=requirements, runtime_host="NOT_VERIFIED")
++    return result
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/src/main.rs b/src/main.rs
+index 5c7bbfa..0ad139b 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -13,6 +13,8 @@ use std::process::{Command, Stdio};
+ use std::sync::atomic::{AtomicU64, Ordering};
+ use std::time::{Duration, Instant};
+ 
++mod delivery;
++
+ const RUNNER: &str = include_str!("../runners/unittest_runner.py");
+ static COUNTER: AtomicU64 = AtomicU64::new(0);
+ 
+@@ -35,6 +37,11 @@ struct Cli {
+ }
+ #[derive(Subcommand)]
+ enum Action {
++    /// Manage external mechanical delivery state and protected worker sessions.
++    Delivery {
++        #[command(subcommand)]
++        action: delivery::Action,
++    },
+     /// Prepare expertise context, inspect freshness, or bind an AI-authored skill.
+     Expert {
+         #[command(subcommand)]
+@@ -971,11 +978,15 @@ fn execute(cli: Cli) -> Result<Value> {
+                 json!({"status":status,"candidate_sha256":tree_hash(&tree)?,"state":dir,"runner_isolation":"filesystem; network not isolated","scope":"local POC acceptance; semantic review still required"}),
+             )
+         }
+-        Action::Isolate { .. } => unreachable!(),
++        Action::Isolate { .. } | Action::Delivery { .. } => unreachable!(),
+     }
+ }
+ fn main() {
+     let cli = Cli::parse();
++    if let Action::Delivery { action } = &cli.command {
++        delivery::main(action, cli.state.as_deref());
++        return;
++    }
+     match execute(cli) {
+         Ok(value) => println!(
+             "{}",
+diff --git a/tests/test_installer.py b/tests/test_installer.py
+index 964952c..cde0198 100644
+--- a/tests/test_installer.py
++++ b/tests/test_installer.py
+@@ -1,8 +1,11 @@
+ import importlib.util
++import hashlib
+ import json
+ from pathlib import Path
++import sys
+ import tempfile
+ import unittest
++from unittest import mock
+ 
+ spec = importlib.util.spec_from_file_location("installer", Path(__file__).parents[1] / "scripts/install_framework.py")
+ installer = importlib.util.module_from_spec(spec)
+@@ -117,6 +120,521 @@ class InstallerTest(unittest.TestCase):
+         with self.assertRaises(ValueError):
+             self.install()
+ 
++    def hook_group(self, command="devforge delivery hook --provider codex"):
++        return {"hooks": [{"type": "command", "command": command, "timeout": 3}],
++                "matcher": "", "custom_group_metadata": {"retained": True}}
++
++    def hook_source(self, provider="codex", group=None, declared=False):
++        plugin = self.framework / f"providers/{provider}/plugins/devforgeai"
++        path = plugin / "hooks/hooks.json"
++        path.parent.mkdir(exist_ok=True)
++        document = {"description": "framework delivery hooks",
++                    "hooks": {"Stop": [group if group is not None else self.hook_group()]}}
++        path.write_text(json.dumps(document))
++        if declared:
++            (plugin / f".{provider}-plugin/plugin.json").write_text(json.dumps(
++                {"name": "devforgeai", "hooks": "./hooks/hooks.json"}))
++        return path
++
++    def settings_path(self, provider="codex"):
++        relative = ".codex/hooks.json" if provider == "codex" else ".claude/settings.local.json"
++        return self.project / relative
++
++    def settings(self, document, provider="codex"):
++        path = self.settings_path(provider)
++        path.parent.mkdir(exist_ok=True)
++        path.write_text(json.dumps(document))
++        return path
++
++    def inventory(self):
++        return json.loads((self.project / ".devforge-install.json").read_text())
++
++    def snapshot(self):
++        return {str(p.relative_to(self.project)): p.read_bytes()
++                for p in self.project.rglob("*") if p.is_file() and not p.is_symlink()}
++
++    def test_hook_sources_install_for_both_providers_and_repeat_without_duplicates(self):
++        codex = self.hook_group()
++        claude = self.hook_group("devforge delivery hook --provider claude")
++        self.hook_source("codex", codex)
++        self.hook_source("claude", claude, declared=True)
++        self.install()
++        before = self.snapshot()
++        self.install()
++        self.assertEqual(self.snapshot(), before)
++        for provider, group in (("codex", codex), ("claude", claude)):
++            self.assertEqual(json.loads(self.settings_path(provider).read_text()), {"hooks": {"Stop": [group]}})
++            record = self.inventory()["managed_hooks"][provider]
++            self.assertEqual(record["owned"][0]["definition"], group)
++            canonical = json.dumps(group, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
++            self.assertEqual(record["owned"][0]["sha256"], hashlib.sha256(canonical).hexdigest())
++            self.assertEqual(record["reused"], [])
++            self.assertNotIn(record["path"], self.inventory()["files"])
++
++    def test_hook_merge_preserves_settings_and_noncommand_user_groups(self):
++        user = {"hooks": [{"type": "prompt", "prompt": "user check", "timeout": 12}]}
++        unrelated = {"hooks": [{"type": "mcp_tool", "server": "existing", "tool": "inspect"}]}
++        before = {"description": "user description", "permissions": {"allow": ["Read"]},
++                  "hooks": {"Stop": [user], "SessionStart": [unrelated]}}
++        self.settings(before)
++        wanted = self.hook_group()
++        self.hook_source(group=wanted)
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text()),
++                         {**before, "hooks": {"Stop": [user, wanted], "SessionStart": [unrelated]}})
++
++    def test_owned_group_updates_and_retires_without_losing_unrelated_group(self):
++        user = self.hook_group("user-check")
++        self.settings({"hooks": {"Stop": [user]}})
++        source = self.hook_source()
++        self.install()
++        changed = self.hook_group("new-delivery-command")
++        self.hook_source(group=changed)
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text())["hooks"]["Stop"], [user, changed])
++        source.unlink()
++        source.parent.rmdir()
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text())["hooks"]["Stop"], [user])
++        self.assertEqual(self.inventory()["managed_hooks"]["codex"]["owned"], [])
++
++    def test_identical_unowned_group_is_reused_and_never_removed_on_source_update(self):
++        user = self.hook_group()
++        self.settings({"description": "mine", "hooks": {"Stop": [user]}})
++        self.hook_source(group=user)
++        self.install()
++        record = self.inventory()["managed_hooks"]["codex"]
++        self.assertEqual(record["owned"], [])
++        self.assertEqual(record["reused"][0]["definition"], user)
++        changed = self.hook_group("changed-upstream")
++        self.hook_source(group=changed)
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text())["hooks"]["Stop"], [user, changed])
++        self.hook_source(group=user)
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text())["hooks"]["Stop"], [user])
++        self.assertEqual(self.inventory()["managed_hooks"]["codex"]["owned"], [])
++
++    def test_removed_edited_or_duplicated_owned_group_blocks_all_writes(self):
++        self.hook_source()
++        self.install()
++        original = self.settings_path().read_bytes()
++        group = self.hook_group()
++        for groups in ([], [self.hook_group("local edit")], [group, group]):
++            with self.subTest(groups=groups):
++                self.settings({"hooks": {"Stop": groups}})
++                before = self.snapshot()
++                self.skill.write_text("upstream skill update")
++                with self.assertRaises(ValueError):
++                    self.install()
++                self.assertEqual(self.snapshot(), before)
++                self.settings_path().write_bytes(original)
++
++    def test_owned_definition_digest_distinguishes_json_boolean_from_integer(self):
++        group = self.hook_group()
++        group["extra"] = 1
++        self.hook_source(group=group)
++        self.install()
++        changed = {**group, "extra": True}
++        self.settings({"hooks": {"Stop": [changed]}})
++        with self.assertRaises(ValueError):
++            self.install()
++
++    def test_missing_settings_rebuilds_current_groups_only(self):
++        self.settings({"description": "lost user setting", "hooks": {"Stop": [self.hook_group("user")]}})
++        group = self.hook_group()
++        self.hook_source(group=group)
++        self.install()
++        self.settings_path().unlink()
++        self.install()
++        self.assertEqual(json.loads(self.settings_path().read_text()), {"hooks": {"Stop": [group]}})
++
++    def test_selected_provider_preserves_unselected_hook_inventory_and_settings(self):
++        self.hook_source("codex")
++        self.hook_source("claude", self.hook_group("claude"))
++        self.install()
++        claude_settings = self.settings_path("claude").read_bytes()
++        claude_record = self.inventory()["managed_hooks"]["claude"]
++        self.hook_source("codex", self.hook_group("new codex"))
++        installer.install(self.framework, self.project, "codex")
++        self.assertEqual(self.settings_path("claude").read_bytes(), claude_settings)
++        self.assertEqual(self.inventory()["managed_hooks"]["claude"], claude_record)
++
++    def test_malformed_or_duplicate_settings_preserve_all_existing_bytes(self):
++        self.hook_source()
++        path = self.settings({})
++        for text in ('{', '[]', '{"hooks": [], "description": "user"}',
++                     '{"hooks":{},"hooks":{}}', '{"hooks":{"Stop":{}}}',
++                     '{"hooks":{"Stop":[{"hooks":[]}]}}', '{"bad":NaN}'):
++            with self.subTest(text=text):
++                path.write_text(text)
++                before = self.snapshot()
++                with self.assertRaises(ValueError):
++                    self.install()
++                self.assertEqual(self.snapshot(), before)
++
++    def test_symlink_settings_preserves_target_and_does_not_install_skills(self):
++        self.hook_source()
++        outside = self.root / "outside-settings.json"
++        outside.write_text('{"hooks":{}}')
++        self.settings_path().parent.mkdir()
++        self.settings_path().symlink_to(outside)
++        with self.assertRaises(ValueError):
++            self.install()
++        self.assertEqual(outside.read_text(), '{"hooks":{}}')
++        self.assertFalse((self.project / ".agents").exists())
++
++    def test_skill_collision_does_not_update_hooks(self):
++        self.hook_source()
++        self.install()
++        (self.project / ".agents/skills/demo/SKILL.md").write_text("local edit")
++        self.skill.write_text("upstream edit")
++        self.hook_source(group=self.hook_group("updated hook"))
++        before = self.snapshot()
++        with self.assertRaises(ValueError):
++            self.install()
++        self.assertEqual(self.snapshot(), before)
++
++    def test_parent_file_collision_preflights_before_other_writes(self):
++        self.hook_source("claude")
++        (self.project / ".claude").write_text("not a directory")
++        before = self.snapshot()
++        with self.assertRaises(ValueError):
++            self.install()
++        self.assertEqual(self.snapshot(), before)
++
++    def test_hook_default_and_exact_declarations_export_runtime_only(self):
++        source = self.hook_source()
++        for relative in ("history/old.json", "evals/case.json", "__pycache__/hook.pyc"):
++            path = source.parent / relative
++            path.parent.mkdir(exist_ok=True)
++            path.write_text("excluded")
++        plugin = source.parent.parent
++        manifest = plugin / ".codex-plugin/plugin.json"
++        for index, declaration in enumerate((None, "hooks/hooks.json", "./hooks/hooks.json")):
++            with self.subTest(declaration=declaration):
++                document = {"name": "devforgeai"}
++                if declaration is not None:
++                    document["hooks"] = declaration
++                manifest.write_text(json.dumps(document))
++                self.assertEqual(installer.load_plugin_hooks(plugin, "codex")["hooks"]["Stop"], [self.hook_group()])
++                output = self.root / f"export-{index}/devforgeai"
++                installer.export_plugin(self.framework, "codex", output)
++                self.assertEqual((output / "hooks/hooks.json").read_bytes(), source.read_bytes())
++                self.assertEqual((output / ".codex-plugin/plugin.json").read_bytes(), manifest.read_bytes())
++                self.assertFalse((output / "hooks/evals").exists())
++                self.assertFalse((output / "hooks/history").exists())
++                self.assertFalse((output / "hooks/__pycache__").exists())
++
++    def test_unsupported_hook_declarations_fail_install_and_export_before_writes(self):
++        source = self.hook_source()
++        manifest = source.parent.parent / ".codex-plugin/plugin.json"
++        for value in (None, [], {}, ["./hooks/hooks.json"], "../hooks/hooks.json", "./other.json", 1):
++            with self.subTest(value=value):
++                manifest.write_text(json.dumps({"name": "devforgeai", "hooks": value}))
++                with self.assertRaises(ValueError):
++                    self.install()
++                output = self.root / "bad-export/devforgeai"
++                with self.assertRaises(ValueError):
++                    installer.export_plugin(self.framework, "codex", output)
++                self.assertFalse(output.exists())
++                self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_missing_malformed_duplicate_or_symlink_hook_source_is_rejected(self):
++        source = self.hook_source(declared=True)
++        valid = source.read_bytes()
++        for text in ('[]', '{"hooks":[]}', '{"hooks":{},"hooks":{}}',
++                     '{"hooks":{"Stop":[{"hooks":[{"type":"command","command":""}]}]}}',
++                     '{"hooks":{"Stop":[{"hooks":[{"type":"prompt","prompt":"x"}]}]}}'):
++            with self.subTest(text=text):
++                source.write_text(text)
++                with self.assertRaises(ValueError):
++                    self.install()
++                with self.assertRaises(ValueError):
++                    installer.export_plugin(self.framework, "codex", self.root / "bad/devforgeai")
++                self.assertFalse((self.root / "bad").exists())
++                self.assertEqual(list(self.project.iterdir()), [])
++        source.unlink()
++        with self.assertRaises(ValueError):
++            self.install()
++        outside = self.root / "source.json"
++        outside.write_bytes(valid)
++        source.symlink_to(outside)
++        with self.assertRaises(ValueError):
++            self.install()
++
++    def test_empty_default_hook_directory_and_duplicate_manifest_are_rejected(self):
++        source = self.hook_source()
++        source.unlink()
++        with self.assertRaises(ValueError):
++            self.install()
++        self.hook_source()
++        (source.parent.parent / ".codex-plugin/plugin.json").write_text(
++            '{"name":"devforgeai","hooks":"hooks/hooks.json","hooks":"hooks/hooks.json"}')
++        with self.assertRaises(ValueError):
++            self.install()
++
++    def delivery_requirement(self, provider="codex"):
++        plugin = self.framework / f"providers/{provider}/plugins/devforgeai"
++        path = plugin / "hooks/runtime-requirements.json"
++        path.parent.mkdir(exist_ok=True)
++        requirement = {"schema_version": "devforge.runtime-requirement/v1",
++                       "runtime": "devforge.delivery", "protocol": "devforge.delivery-runtime/v1",
++                       "provider": provider, "completion_mode": "managed-session",
++                       "required_events": ["SessionStart", "UserPromptSubmit", "Stop", "SessionEnd"]}
++        path.write_text(json.dumps(requirement))
++        command = f'"${{DEVFORGE_DELIVERY_EXECUTABLE:-devforge}}" delivery hook --provider {provider}'
++        source = {"hooks": {event: [{"hooks": [{"type": "command", "command": command}]}]
++                            for event in requirement["required_events"]}}
++        (path.parent / "hooks.json").write_text(json.dumps(source))
++        return path, requirement
++
++    def capabilities(self):
++        return {"schema_version": "devforge.delivery-capabilities/v1",
++                "protocol": "devforge.delivery-runtime/v1", "supported_providers": ["codex", "claude"],
++                "completion_modes": ["managed-session"], "io_modes": ["inherited", "interactive-tty"],
++                "hook_events": ["SessionStart", "UserPromptSubmit", "Stop", "SessionEnd"],
++                "native_admission": "NOT_VALIDATED",
++                "mechanical_scope": "phase evidence and persisted artifact verification; no semantic acceptance"}
++
++    def explicit_runtime(self, text=None, prefix=""):
++        path = self.root / "devforge-standin"
++        text = json.dumps(self.capabilities()) if text is None else text
++        path.write_text(f"#!{sys.executable}\nimport sys\n"
++                        "assert sys.argv[1:] == ['delivery', 'capabilities']\n"
++                        + prefix + f"print({text!r})\n")
++        path.chmod(0o700)
++        return path
++
++    def install_delivery(self, runtime=None, provider="codex"):
++        return installer.install(self.framework, self.project, provider, runtime=runtime)
++
++    def test_legacy_absence_never_probes_a_runtime(self):
++        self.hook_source()
++        with mock.patch.object(installer.runtime_requirements, "probe_runtime",
++                               side_effect=AssertionError("legacy install must not probe")):
++            self.install_delivery(runtime=Path("ignored-relative-runtime"))
++        self.assertNotIn("runtime_evidence", self.inventory())
++
++    def test_delivery_install_requires_explicit_runtime_even_with_path_and_environment(self):
++        self.delivery_requirement()
++        runtime = self.explicit_runtime()
++        with mock.patch.dict("os.environ", {"PATH": str(self.root),
++                                            "DEVFORGE_DELIVERY_EXECUTABLE": str(runtime)}):
++            with self.assertRaisesRegex(ValueError, "requires --runtime"):
++                self.install_delivery()
++        self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_sidecar_rejects_malformed_duplicate_unknown_and_unsupported_values(self):
++        path, requirement = self.delivery_requirement()
++        cases = ['{', '[]', '{"runtime": "x", "runtime": "x"}',
++                 json.dumps({**requirement, "extra": True}),
++                 json.dumps({**requirement, "protocol": "devforge.delivery-runtime/v999"}),
++                 json.dumps({**requirement, "provider": "claude"}),
++                 json.dumps({**requirement, "required_events": "SessionStart"}),
++                 json.dumps({**requirement, "completion_mode": True})]
++        for raw in cases:
++            with self.subTest(raw=raw):
++                path.write_text(raw)
++                with mock.patch.object(installer.runtime_requirements, "probe_runtime",
++                                       side_effect=AssertionError("malformed dependency must precede probe")):
++                    with self.assertRaises(ValueError):
++                        self.install_delivery()
++                    output = self.root / "bad-dependency/devforgeai"
++                    with self.assertRaises(ValueError):
++                        installer.export_plugin(self.framework, "codex", output)
++                self.assertFalse(output.exists())
++                self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_requires_complete_unique_synchronous_hook_selection(self):
++        path, _ = self.delivery_requirement()
++        source = path.parent / "hooks.json"
++        valid = json.loads(source.read_text())
++        cases = [{"hooks": {}}, {"hooks": {"Stop": []}}]
++        for event in valid["hooks"]:
++            missing = json.loads(json.dumps(valid))
++            del missing["hooks"][event]
++            cases.append(missing)
++        for alteration in ("empty", "groups", "handlers", "provider", "matcher", "async", "timeout"):
++            changed = json.loads(json.dumps(valid))
++            group = changed["hooks"]["Stop"][0]
++            if alteration == "empty":
++                group["hooks"] = []
++            elif alteration == "groups":
++                changed["hooks"]["Stop"].append(group)
++            elif alteration == "handlers":
++                group["hooks"].append(group["hooks"][0])
++            elif alteration == "provider":
++                group["hooks"][0]["command"] = group["hooks"][0]["command"].replace("codex", "claude")
++            elif alteration == "matcher":
++                group["matcher"] = "sometimes"
++            elif alteration == "async":
++                group["hooks"][0]["async"] = True
++            elif alteration == "timeout":
++                group["hooks"][0]["timeout"] = True
++            cases.append(changed)
++        extra = json.loads(json.dumps(valid))
++        extra["hooks"]["PreToolUse"] = extra["hooks"]["Stop"]
++        cases.append(extra)
++        for document in cases:
++            with self.subTest(document=document):
++                source.write_text(json.dumps(document))
++                with mock.patch.object(installer.runtime_requirements, "probe_runtime",
++                                       side_effect=AssertionError("invalid hooks must precede probe")):
++                    with self.assertRaises(ValueError):
++                        self.install_delivery()
++                self.assertEqual(list(self.project.iterdir()), [])
++        source.unlink()
++        with self.assertRaisesRegex(ValueError, "missing framework hook component"):
++            self.install_delivery()
++        self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_runtime_must_be_absolute_canonical_regular_and_executable(self):
++        self.delivery_requirement()
++        runtime = self.explicit_runtime()
++        link = self.root / "runtime-link"
++        link.symlink_to(runtime)
++        parent_link = self.root / "runtime-parent-link"
++        parent_link.symlink_to(self.root, target_is_directory=True)
++        folder = self.root / "folder"
++        folder.mkdir()
++        no_execute = self.root / "not-executable"
++        no_execute.write_bytes(runtime.read_bytes())
++        for path in (Path("devforge"), link, parent_link / runtime.name, folder,
++                     no_execute, self.root / "folder/../devforge-standin", self.root / "missing"):
++            with self.subTest(path=path):
++                with self.assertRaises((ValueError, OSError)):
++                    self.install_delivery(runtime=path)
++                self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_incompatible_capabilities_block_all_installation_writes(self):
++        self.delivery_requirement()
++        valid = self.capabilities()
++        cases = ["{", "[]", '{"schema_version":"x","schema_version":"x"}']
++        for key, value in (("schema_version", "devforge.delivery-capabilities/v2"),
++                           ("protocol", "other"), ("supported_providers", ["claude"]),
++                           ("completion_modes", ["unmanaged"]), ("hook_events", ["Stop"]),
++                           ("io_modes", "inherited"), ("native_admission", True),
++                           ("mechanical_scope", None), ("mechanical_scope", "\ud800"),
++                           ("extra", "unknown")):
++            cases.append(json.dumps({**valid, key: value}))
++        missing = dict(valid)
++        del missing["native_admission"]
++        cases.append(json.dumps(missing))
++        for raw in cases:
++            with self.subTest(raw=raw):
++                with self.assertRaises(ValueError):
++                    self.install_delivery(runtime=self.explicit_runtime(raw))
++                self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_compatible_explicit_runtime_records_exact_evidence_and_preserves_user_hooks(self):
++        _, codex = self.delivery_requirement()
++        _, claude = self.delivery_requirement("claude")
++        user = self.hook_group("user-only")
++        self.settings({"permissions": {"allow": ["Read"]}, "hooks": {"Stop": [user], "PreToolUse": [user]}})
++        runtime = self.explicit_runtime()
++        expected_hash = hashlib.sha256(runtime.read_bytes()).hexdigest()
++        result = self.install_delivery(runtime=runtime, provider="both")
++        evidence = self.inventory()["runtime_evidence"]
++        for provider, requirement in (("codex", codex), ("claude", claude)):
++            self.assertEqual(evidence[provider], {
++                "path": str(runtime), "sha256_before": expected_hash, "sha256_after": expected_hash,
++                "capabilities": self.capabilities(), "native_activation": "NOT_VERIFIED",
++                "requirement": requirement})
++        self.assertEqual(result["runtime_compatibility"], "VERIFIED")
++        self.assertEqual(result["native_activation"], "NOT_VERIFIED")
++        settings = json.loads(self.settings_path().read_text())
++        self.assertEqual(settings["hooks"]["PreToolUse"], [user])
++        self.assertEqual(settings["hooks"]["Stop"][0], user)
++        self.assertEqual(settings["permissions"], {"allow": ["Read"]})
++        self.assertEqual(len(settings["hooks"]["Stop"]), 2)
++        before = self.snapshot()
++        self.install_delivery(runtime=runtime, provider="both")
++        self.assertEqual(self.snapshot(), before)
++
++    def test_delivery_binary_mutation_during_probe_blocks_all_installation_writes(self):
++        self.delivery_requirement()
++        runtime = self.explicit_runtime(prefix="with open(__file__, 'a') as stream: stream.write('# changed\\n')\n")
++        with self.assertRaisesRegex(ValueError, "binary changed"):
++            self.install_delivery(runtime=runtime)
++        self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_selected_runtime_cannot_be_overwritten_by_installation(self):
++        self.delivery_requirement()
++        standin = self.explicit_runtime()
++        self.skill.write_bytes(standin.read_bytes())
++        runtime = self.project / ".agents/skills/demo/SKILL.md"
++        runtime.parent.mkdir(parents=True)
++        runtime.write_bytes(standin.read_bytes())
++        runtime.chmod(0o700)
++        before = self.snapshot()
++        with self.assertRaisesRegex(ValueError, "runtime binary overlaps"):
++            self.install_delivery(runtime=runtime)
++        self.assertEqual(self.snapshot(), before)
++
++    def test_delivery_binary_mutation_after_probe_blocks_all_installation_writes(self):
++        self.delivery_requirement()
++        runtime = self.explicit_runtime()
++        original = installer.plan_hook_merge
++
++        def mutate_after_probe(*args, **kwargs):
++            result = original(*args, **kwargs)
++            runtime.write_bytes(runtime.read_bytes() + b"# changed during preflight\n")
++            return result
++
++        with mock.patch.object(installer, "plan_hook_merge", side_effect=mutate_after_probe):
++            with self.assertRaisesRegex(ValueError, "binary changed before installation writes"):
++                self.install_delivery(runtime=runtime)
++        self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_runtime_hardlink_to_managed_destination_blocks_before_probe(self):
++        runtime = self.explicit_runtime()
++        self.skill.write_bytes(runtime.read_bytes())
++        self.install()
++        destination = self.project / ".agents/skills/demo/SKILL.md"
++        destination.chmod(0o700)
++        runtime.unlink()
++        runtime.hardlink_to(destination)
++        self.assertTrue(runtime.samefile(destination))
++        self.delivery_requirement()
++        self.skill.write_bytes(self.skill.read_bytes() + b"# updated candidate\n")
++        before = self.snapshot()
++        runtime_before = runtime.read_bytes()
++        with mock.patch.object(installer.runtime_requirements, "capability_output") as probe:
++            with self.assertRaisesRegex(ValueError, "exactly one hard link"):
++                self.install_delivery(runtime=runtime)
++            probe.assert_not_called()
++        self.assertEqual(self.snapshot(), before)
++        self.assertEqual(runtime.read_bytes(), runtime_before)
++
++    def test_delivery_capability_probe_limits_time_output_and_exit_status(self):
++        self.delivery_requirement()
++        prefixes = [("import time\ntime.sleep(10)\n", "timed out"),
++                    ("sys.stdout.write('x' * (1024 * 1024 + 1))\n", "exceeds 1 MiB"),
++                    ("sys.stderr.write('x' * (1024 * 1024 + 1))\n", "exceeds 1 MiB"),
++                    ("sys.exit(7)\n", "status 7")]
++        for prefix, error in prefixes:
++            with self.subTest(error=error, prefix=prefix):
++                runtime = self.explicit_runtime(prefix=prefix)
++                timeout = 0.1 if "sleep" in prefix else 5
++                with mock.patch.object(installer.runtime_requirements, "PROBE_TIMEOUT", timeout):
++                    with self.assertRaisesRegex(ValueError, error):
++                        self.install_delivery(runtime=runtime)
++                self.assertEqual(list(self.project.iterdir()), [])
++
++    def test_delivery_export_retains_dependency_without_executing_runtime(self):
++        path, requirement = self.delivery_requirement()
++        output = self.root / "delivery-export/devforgeai"
++        with mock.patch.object(installer.runtime_requirements, "probe_runtime",
++                               side_effect=AssertionError("export must not probe")):
++            result = installer.export_plugin(self.framework, "codex", output)
++        self.assertEqual((output / "hooks/runtime-requirements.json").read_bytes(), path.read_bytes())
++        self.assertEqual(result["runtime_requirements"], {"codex": requirement})
++        self.assertEqual(result["runtime_host"], "NOT_VERIFIED")
++        self.assertEqual(result["files_sha256"]["hooks/runtime-requirements.json"],
++                         hashlib.sha256(path.read_bytes()).hexdigest())
++        self.assertEqual(result["behavior"], "NOT_EVALUATED")
++
+ 
+ if __name__ == "__main__":
+     unittest.main(verbosity=2)
+diff --git a/tests/test_validation.py b/tests/test_validation.py
+index 71be636..1ec16f2 100644
+--- a/tests/test_validation.py
++++ b/tests/test_validation.py
+@@ -1,9 +1,666 @@
++import importlib.util
+ import json
+ import os
+ from pathlib import Path
++import shutil
+ import subprocess
+ import tempfile
+ import unittest
++from unittest import mock
++
++
++spec = importlib.util.spec_from_file_location("validator", Path(__file__).parents[1] / "scripts/validate_framework.py")
++validator = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(validator)
++
++
++class FrameworkTraversalTest(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name) / "framework"
++        for provider in ("codex", "claude"):
++            plugin = self.root / f"providers/{provider}/plugins/devforgeai"
++            for name in ("devforge-brainstorm", "devforge-project-expert-creator", "devforge-develop", "devforge-review"):
++                skill = plugin / "skills" / name / "SKILL.md"
++                skill.parent.mkdir(parents=True)
++                skill.write_text(f"---\nname: {name}\ndescription: Synthetic test skill.\n---\n")
++            manifest = plugin / f".{provider}-plugin/plugin.json"
++            manifest.parent.mkdir()
++            manifest.write_text(json.dumps({"name": "devforgeai"}))
++        self.expected = {"status": "PASS", "skills": 8, "scope": "structure only", "behavior": "NOT_EVALUATED"}
++
++    def test_source_only_passes(self):
++        self.assertEqual(validator.validate(self.root), self.expected)
++
++    def test_retained_entrypoint_keeps_original_name_in_evidence_container(self):
++        archive = self.root / "docs/skill-authoring/history/previous-builder-revision/SKILL.md"
++        archive.parent.mkdir(parents=True)
++        original = "---\nname: skill-builder\ndescription: Preserved original entrypoint.\n---\n"
++        archive.write_text(original)
++        self.assertEqual(validator.validate(self.root), self.expected)
++        self.assertEqual(archive.read_text(), original)
++
++    def test_retained_entrypoint_still_requires_valid_name_and_description(self):
++        archive = self.root / "docs/skill-authoring/history/previous-builder-revision/SKILL.md"
++        archive.parent.mkdir(parents=True)
++        for content in ("---\nname: INVALID_NAME\ndescription: Original.\n---\n",
++                        "---\nname: skill-builder\n---\n"):
++            with self.subTest(content=content):
++                archive.write_text(content)
++                with self.assertRaisesRegex(ValueError, "previous-builder-revision/SKILL.md"):
++                    validator.validate(self.root)
++
++    def test_archive_does_not_exempt_deeper_or_lookalike_skill_directories(self):
++        for relative in ("docs/skill-authoring/history/retained/authored/SKILL.md",
++                         "docs/skill-authoring/history-lookalike/retained/SKILL.md",
++                         "authored/docs/skill-authoring/history/retained/SKILL.md",
++                         "providers/codex/plugins/devforgeai/skills/wrong-name/SKILL.md"):
++            with self.subTest(relative=relative):
++                path = self.root / relative
++                path.parent.mkdir(parents=True, exist_ok=True)
++                path.write_text("---\nname: skill-builder\ndescription: Synthetic mismatched package.\n---\n")
++                try:
++                    with self.assertRaisesRegex(ValueError, "SKILL.md"):
++                        validator.validate(self.root)
++                finally:
++                    path.unlink()
++
++    def test_retained_tree_json_and_python_are_still_inspected(self):
++        for filename, content, exception in (("bad.json", "{malformed", json.JSONDecodeError),
++                                             ("bad.py", "def broken(:\n", SyntaxError)):
++            with self.subTest(filename=filename):
++                path = self.root / "docs/skill-authoring/history/retained/references" / filename
++                path.parent.mkdir(parents=True, exist_ok=True)
++                path.write_text(content)
++                try:
++                    with self.assertRaises(exception):
++                        validator.validate(self.root)
++                finally:
++                    path.unlink()
++
++    def test_retained_entrypoint_symlink_is_rejected(self):
++        archive = self.root / "docs/skill-authoring/history/retained/SKILL.md"
++        archive.parent.mkdir(parents=True)
++        target = Path(self.temp.name) / "original-SKILL.md"
++        target.write_text("---\nname: skill-builder\ndescription: Synthetic original.\n---\n")
++        archive.symlink_to(target)
++        with self.assertRaisesRegex(ValueError, "symlink not accepted"):
++            validator.validate(self.root)
++
++    def test_root_runtime_is_pruned_before_enumeration(self):
++        runtime = self.root / ".devforge-runtime"
++        launcher = runtime / "codex/home/tmp/arg0/synthetic/codex-execve-wrapper"
++        launcher.parent.mkdir(parents=True)
++        target = Path(self.temp.name) / "benign-target"
++        target.write_text("synthetic launcher target; never executed\n")
++        launcher.symlink_to(target)
++        (runtime / "non-source.json").write_text("{malformed runtime JSON")
++        authored = self.root / "authored/nested"
++        authored.mkdir(parents=True)
++        (authored / "valid.json").write_text("{}")
++        visited = []
++
++        def observe(original):
++            def enumerate_directory(path):
++                directory = Path(path)
++                visited.append(directory)
++                self.assertFalse(directory == runtime or runtime in directory.parents,
++                                 f"enumerated private runtime: {directory}")
++                return original(path)
++            return enumerate_directory
++
++        # Observe filesystem enumeration, including both pathlib and os traversal.
++        with mock.patch("os.scandir", side_effect=observe(os.scandir)), \
++                mock.patch("os.listdir", side_effect=observe(os.listdir)):
++            self.assertEqual(validator.validate(self.root), self.expected)
++        self.assertIn(self.root, visited)
++        self.assertIn(authored, visited)
++
++    def test_root_runtime_symlinks_are_rejected(self):
++        directory = Path(self.temp.name) / "target-directory"
++        directory.mkdir()
++        file = Path(self.temp.name) / "target-file"
++        file.write_text("synthetic target\n")
++        link = self.root / ".devforge-runtime"
++        for target in (directory, file, Path(self.temp.name) / "missing-target"):
++            with self.subTest(target=target.name):
++                link.symlink_to(target)
++                try:
++                    with self.assertRaisesRegex(ValueError, r"symlink not accepted: \.devforge-runtime$"):
++                        validator.validate(self.root)
++                finally:
++                    link.unlink()
++
++    def test_authored_symlinks_are_rejected_including_nested_runtime(self):
++        target_file = Path(self.temp.name) / "target-file"
++        target_file.write_text("synthetic target\n")
++        target_directory = Path(self.temp.name) / "target-directory"
++        target_directory.mkdir()
++        for relative, target in (("authored/link", target_file),
++                                 ("authored/directory-link", target_directory),
++                                 ("authored/.devforge-runtime/link", target_file)):
++            with self.subTest(relative=relative):
++                link = self.root / relative
++                link.parent.mkdir(parents=True, exist_ok=True)
++                link.symlink_to(target)
++                try:
++                    with self.assertRaisesRegex(ValueError, "symlink not accepted:") as raised:
++                        validator.validate(self.root)
++                    self.assertEqual(str(raised.exception), f"symlink not accepted: {relative}")
++                finally:
++                    link.unlink()
++
++    def test_authored_json_is_checked_including_nested_runtime(self):
++        for relative in ("authored/invalid.json", "authored/.devforge-runtime/invalid.json"):
++            with self.subTest(relative=relative):
++                path = self.root / relative
++                path.parent.mkdir(parents=True, exist_ok=True)
++                path.write_text("{malformed authored JSON")
++                try:
++                    with self.assertRaises(json.JSONDecodeError):
++                        validator.validate(self.root)
++                finally:
++                    path.unlink()
++
++    def test_existing_exclusions_retain_root_and_nested_scope(self):
++        for prefix in ("", "authored/"):
++            for name in (".git", ".poc", "__pycache__"):
++                ignored = self.root / prefix / name
++                ignored.mkdir(parents=True)
++                (ignored / "invalid.json").write_text("{malformed excluded JSON")
++                (ignored / "link").symlink_to(Path(self.temp.name) / "missing-target")
++        self.assertEqual(validator.validate(self.root), self.expected)
++
++    def test_existing_excluded_symlink_entries_remain_excluded(self):
++        for prefix in ("", "authored/"):
++            for name in (".git", ".poc", "__pycache__"):
++                link = self.root / prefix / name
++                link.parent.mkdir(parents=True, exist_ok=True)
++                link.symlink_to(Path(self.temp.name) / "missing-target")
++        self.assertEqual(validator.validate(self.root), self.expected)
++
++    def test_required_structure_checks_remain_active(self):
++        plugin = "providers/codex/plugins/devforgeai"
++        cases = (
++            (f"{plugin}/skills/devforge-review/SKILL.md", None, ValueError, "codex core skill missing"),
++            (f"{plugin}/.codex-plugin/plugin.json", '{"name": "wrong"}', ValueError, "plugin.json"),
++            (f"{plugin}/.codex-plugin/plugin.json", None, FileNotFoundError, "plugin.json"),
++            ("plugins/devforgeai/retired.txt", "retired", ValueError, "retired shared plugin"),
++            (f"{plugin}/skills/devforge-review/evals/evals.json",
++             '{"skill_name": "wrong", "evals": []}', ValueError, "wrong eval skill"),
++            (f"{plugin}/skills/devforge-review/evals/evals.json",
++             '{"skill_name": "devforge-review", "evals": [{"files": ["missing.txt"]}]}',
++             ValueError, "missing fixture"),
++        )
++        for index, (relative, content, error, message) in enumerate(cases):
++            with self.subTest(relative=relative, message=message):
++                root = Path(self.temp.name) / f"invalid-framework-{index}"
++                shutil.copytree(self.root, root)
++                path = root / relative
++                if content is None:
++                    path.unlink()
++                else:
++                    path.parent.mkdir(parents=True, exist_ok=True)
++                    path.write_text(content)
++                with self.assertRaisesRegex(error, message):
++                    validator.validate(root)
++
++
++class RuntimeRequirementsTest(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name) / "framework"
++        for provider in ("codex", "claude"):
++            plugin = self.plugin(provider)
++            for name in ("devforge-brainstorm", "devforge-project-expert-creator", "devforge-develop", "devforge-review"):
++                skill = plugin / "skills" / name / "SKILL.md"
++                skill.parent.mkdir(parents=True)
++                skill.write_text(f"---\nname: {name}\ndescription: Synthetic test skill.\n---\n")
++            manifest = plugin / f".{provider}-plugin/plugin.json"
++            manifest.parent.mkdir()
++            manifest.write_text(json.dumps({"name": "devforgeai"}))
++        self.expected = {"status": "PASS", "skills": 8, "scope": "structure only", "behavior": "NOT_EVALUATED"}
++
++    def plugin(self, provider="codex"):
++        return self.root / f"providers/{provider}/plugins/devforgeai"
++
++    def requirement(self, provider="codex"):
++        return {
++            "schema_version": "devforge.runtime-requirement/v1",
++            "runtime": "devforge.delivery",
++            "protocol": "devforge.delivery-runtime/v1",
++            "provider": provider,
++            "completion_mode": "managed-session",
++            "required_events": ["SessionStart", "UserPromptSubmit", "Stop", "SessionEnd"],
++        }
++
++    def hooks(self, provider="codex"):
++        command = '"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}" delivery hook --provider ' + provider
++        return {"hooks": {
++            event: [{"hooks": [{"type": "command", "command": command}]}]
++            for event in ("SessionStart", "UserPromptSubmit", "Stop", "SessionEnd")
++        }}
++
++    def write_delivery(self, provider="codex"):
++        directory = self.plugin(provider) / "hooks"
++        directory.mkdir(exist_ok=True)
++        (directory / "runtime-requirements.json").write_text(json.dumps(self.requirement(provider)))
++        (directory / "hooks.json").write_text(json.dumps(self.hooks(provider)))
++        return directory
++
++    def validate(self):
++        # Structural checks must not launch a host, including for invalid input.
++        with mock.patch("subprocess.Popen", side_effect=AssertionError("runtime execution is forbidden")), \
++                mock.patch("subprocess.run", side_effect=AssertionError("runtime execution is forbidden")):
++            return validator.validate(self.root)
++
++    def test_legacy_result_omits_runtime_claims(self):
++        # Existing validation only parses hook JSON when no runtime sidecar exists.
++        directory = self.plugin() / "hooks"
++        directory.mkdir()
++        (directory / "hooks.json").write_text('{"hooks": []}')
++        self.assertEqual(self.validate(), self.expected)
++
++    def test_valid_sidecars_report_only_declared_providers_without_executing_host(self):
++        for providers in (("codex",), ("claude",), ("codex", "claude")):
++            with self.subTest(providers=providers):
++                for provider in ("codex", "claude"):
++                    directory = self.plugin(provider) / "hooks"
++                    if directory.exists():
++                        shutil.rmtree(directory)
++                for provider in providers:
++                    self.write_delivery(provider)
++                with mock.patch.dict(os.environ, {"DEVFORGE_DELIVERY_EXECUTABLE": "/missing/synthetic-devforge"}):
++                    self.assertEqual(self.validate(), {
++                        **self.expected,
++                        "runtime_requirements": {provider: self.requirement(provider) for provider in providers},
++                        "runtime_host": "NOT_VERIFIED",
++                    })
++
++    def test_invalid_json_and_duplicate_requirement_keys_are_rejected(self):
++        directory = self.write_delivery()
++        valid = json.dumps(self.requirement())
++        cases = (
++            "{",
++            '{"schema_version":"devforge.runtime-requirement/v1",' + valid[1:],
++            valid[:-1] + ',"protocol":"devforge.delivery-runtime/v1"}',
++            valid.replace('"managed-session"', "NaN"),
++        )
++        for document in cases:
++            with self.subTest(document=document):
++                (directory / "runtime-requirements.json").write_text(document)
++                with self.assertRaises(ValueError):
++                    self.validate()
++
++    def test_requirement_must_be_an_object_with_exact_keys(self):
++        directory = self.write_delivery()
++        cases = [None, [], "requirement", 1, True, {}]
++        cases.append({**self.requirement(), "unknown": "unsupported"})
++        for key in self.requirement():
++            document = self.requirement()
++            del document[key]
++            cases.append(document)
++        for document in cases:
++            with self.subTest(document=document):
++                (directory / "runtime-requirements.json").write_text(json.dumps(document))
++                with self.assertRaises(ValueError):
++                    self.validate()
++
++    def test_requirement_literals_and_scalar_types_are_strict(self):
++        directory = self.write_delivery()
++        unsupported = {
++            "schema_version": "devforge.runtime-requirement/v2",
++            "runtime": "other.runtime",
++            "protocol": "devforge.delivery-runtime/v2",
++            "provider": "unsupported",
++            "completion_mode": "unmanaged-session",
++        }
++        for key, value in unsupported.items():
++            for invalid in (value, None, True, 1, [], {}, ""):
++                with self.subTest(key=key, value=invalid):
++                    document = {**self.requirement(), key: invalid}
++                    (directory / "runtime-requirements.json").write_text(json.dumps(document))
++                    with self.assertRaises(ValueError):
++                        self.validate()
++
++    def test_requirement_provider_must_match_its_plugin(self):
++        for provider, wrong in (("codex", "claude"), ("claude", "codex")):
++            with self.subTest(provider=provider):
++                directory = self.write_delivery(provider)
++                document = {**self.requirement(provider), "provider": wrong}
++                (directory / "runtime-requirements.json").write_text(json.dumps(document))
++                with self.assertRaises(ValueError):
++                    self.validate()
++                (directory / "runtime-requirements.json").write_text(json.dumps(self.requirement(provider)))
++
++    def test_required_events_are_exact_ordered_literals(self):
++        directory = self.write_delivery()
++        events = self.requirement()["required_events"]
++        invalid_events = (None, True, 4, "Stop", {}, [], events[:-1],
++                          list(reversed(events)), events + ["Stop"], events + ["Interrupt"],
++                          ["SessionStart", "UserPromptSubmit", "stop", "SessionEnd"],
++                          ["SessionStart", "UserPromptSubmit", 1, "SessionEnd"])
++        for invalid in invalid_events:
++            with self.subTest(events=invalid):
++                document = {**self.requirement(), "required_events": invalid}
++                (directory / "runtime-requirements.json").write_text(json.dumps(document))
++                with self.assertRaises(ValueError):
++                    self.validate()
++
++    def test_runtime_requirement_needs_a_hook_source(self):
++        directory = self.write_delivery()
++        (directory / "hooks.json").unlink()
++        with self.assertRaises(ValueError):
++            self.validate()
++
++    def test_hook_source_requires_each_event_once_and_no_extra_events(self):
++        directory = self.write_delivery()
++        cases = ({"hooks": {}}, {"hooks": []}, {})
++        documents = list(cases)
++        for event in self.requirement()["required_events"]:
++            for replacement in (None, [], {}, "command"):
++                document = self.hooks()
++                if replacement is None:
++                    del document["hooks"][event]
++                else:
++                    document["hooks"][event] = replacement
++                documents.append(document)
++            document = self.hooks()
++            document["hooks"][event] *= 2
++            documents.append(document)
++        document = self.hooks()
++        document["hooks"]["Interrupt"] = document["hooks"]["Stop"]
++        documents.append(document)
++        for document in documents:
++            with self.subTest(document=document):
++                (directory / "hooks.json").write_text(json.dumps(document))
++                with self.assertRaises(ValueError):
++                    self.validate()
++
++    def test_hook_source_requires_one_correct_command_handler_per_event(self):
++        directory = self.write_delivery()
++        wrong_commands = (
++            "", None, 1,
++            '"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}" delivery hook --provider claude',
++            "${DEVFORGE_DELIVERY_EXECUTABLE:-devforge} delivery hook --provider codex",
++            "devforge delivery hook --provider codex",
++            '"${DEVFORGE_DELIVERY_EXECUTABLE:-devforge}" delivery status --provider codex',
++        )
++        for event in self.requirement()["required_events"]:
++            valid = self.hooks()["hooks"][event][0]["hooks"][0]
++            handlers = ([], [valid, valid], [{"type": "prompt", "prompt": "continue"}],
++                        [{"command": valid["command"]}], [{"type": "command"}], [None])
++            handlers += tuple([{**valid, "command": command}] for command in wrong_commands)
++            for invalid in handlers:
++                with self.subTest(event=event, handlers=invalid):
++                    document = self.hooks()
++                    document["hooks"][event][0]["hooks"] = invalid
++                    (directory / "hooks.json").write_text(json.dumps(document))
++                    with self.assertRaises(ValueError):
++                        self.validate()
++
++    def test_duplicate_hook_event_keys_are_rejected(self):
++        directory = self.write_delivery()
++        groups = json.dumps(self.hooks()["hooks"]["Stop"])
++        document = json.dumps(self.hooks())
++        (directory / "hooks.json").write_text(document[:-2] + ',"Stop":' + groups + "}}")
++        with self.assertRaises(ValueError):
++            self.validate()
++
++
++class EvalDeclarationTest(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name) / "framework"
++        for provider in ("codex", "claude"):
++            plugin = self.root / f"providers/{provider}/plugins/devforgeai"
++            for name in ("devforge-brainstorm", "devforge-project-expert-creator", "devforge-develop", "devforge-review"):
++                skill = plugin / "skills" / name / "SKILL.md"
++                skill.parent.mkdir(parents=True)
++                skill.write_text(f"---\nname: {name}\ndescription: Synthetic test skill.\n---\n")
++            manifest = plugin / f".{provider}-plugin/plugin.json"
++            manifest.parent.mkdir()
++            manifest.write_text(json.dumps({"name": "devforgeai"}))
++        self.path = self.root / "providers/codex/plugins/devforgeai/skills/devforge-review/evals/evals.json"
++        self.path.parent.mkdir()
++        self.expected = {"status": "PASS", "skills": 8, "scope": "structure only", "behavior": "NOT_EVALUATED"}
++
++    def document(self):
++        # Synthetic identifiers and every native tier prevent a fixture-specific
++        # pass rule. Intentionally invalid payloads must remain opaque strings.
++        return {
++            "schema_version": "devforge.skill-validator-self-evals/v1",
++            "skill_under_test": "devforge-review", "provider": "codex",
++            "purpose": "Synthetic authored cases, never executed by structural validation.",
++            "authoring_status": "AUTHORED_NOT_EXECUTED", "last_authored_date": "2025-01-02",
++            "execution_status": "NOT_RUN",
++            "execution_boundary": {
++                "run_now": False, "instruction": "Retain as data.", "target_write_policy": "Read only.",
++                "required_runtime": "Separately assigned.", "output_root": "Separately assigned.",
++                "source_export_policy": "Source only.", "missing_prerequisite_result": "Report unavailable.",
++            },
++            "fixture_materialization": {
++                "format": "Inline UTF-8.", "path_rule": "Contained relative paths.",
++                "operator_record": "Freeze actual inputs.", "workers": "Isolated workers.",
++                "comparison": "Separate outcomes.", "control_bundle": "Real evidence if required.",
++                "synthetic_limit": "Not native evidence.", "artifact_case_facts": "Synthetic facts.",
++                "protected_file_observation": "Read-only source.",
++            },
++            "common_grading": {
++                "schema": "Separate grading.", "pass_rule": "Evidence required.",
++                "fail_rule": "Observed contradiction.", "unavailable_rule": "Missing observation.",
++                "preserve_targets": "Do not edit.", "no_auto_repair": "Author owns repair.",
++                "expected_result_distinction": "Target and evaluator outcomes differ.",
++            },
++            "fixture_sets": {
++                "origin": {"files": {
++                    "target/SKILL.md": "---\nname: [deliberately malformed\n",
++                    "target/data.json": "{deliberately malformed JSON",
++                    "target/never.py": "raise AssertionError('inline code must never execute')\n",
++                }, "authority_note": "Synthetic source fixture."},
++                "variant": {"base": "origin", "append_files": {"target/SKILL.md": "Opaque appendix.\n"},
++                            "replace_files": {"target/data.json": "still not JSON"},
++                            "absent_files": ["target/missing.md"]},
++            },
++            "cases": [{
++                "id": f"case-{tier.lower()}", "title": "Synthetic case", "tier": tier,
++                "status": "NOT_RUN", "fixture_set": "variant", "validator_request": "Read only.",
++                "operator_setup": ["Use the frozen fixture."],
++                "required_observations": ["Preserve separate outcomes."],
++                "requires_real_control_bundle": tier == "A",
++            } for tier in ("A", "B", "C")],
++        }
++
++    def validate(self, document):
++        self.path.write_text(json.dumps(document))
++        with mock.patch("subprocess.Popen", side_effect=AssertionError("host execution forbidden")), \
++                mock.patch("subprocess.run", side_effect=AssertionError("host execution forbidden")):
++            return validator.validate(self.root)
++
++    def test_explicit_schema_checks_all_tiers_without_executing_or_materializing_payloads(self):
++        document = self.document()
++        self.path.write_text(json.dumps(document))
++        before = {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
++        self.assertEqual(self.validate(document), self.expected)
++        after = {str(p.relative_to(self.root)): p.read_bytes() for p in self.root.rglob("*") if p.is_file()}
++        self.assertEqual(after, before)
++        self.assertFalse((self.path.parent / "target").exists())
++
++    def test_unknown_schema_and_unversioned_self_evals_do_not_fall_back(self):
++        for schema in (None, "devforge.skill-validator-self-evals/v2", "arbitrary/v1"):
++            with self.subTest(schema=schema):
++                document = self.document()
++                document["schema_version"] = schema
++                with self.assertRaisesRegex(ValueError, "unsupported eval schema"):
++                    self.validate(document)
++        document = self.document()
++        del document["schema_version"]
++        with self.assertRaisesRegex(ValueError, "wrong eval skill"):
++            self.validate(document)
++
++    def test_identity_and_provider_must_match_with_other_fields_valid(self):
++        for field, value, message in (("skill_under_test", "different-skill", "wrong eval skill"),
++                                      ("skill_under_test", None, "wrong eval skill"),
++                                      ("provider", "claude", "wrong eval provider"),
++                                      ("provider", True, "wrong eval provider")):
++            with self.subTest(field=field, value=value):
++                document = self.document()
++                document[field] = value
++                with self.assertRaisesRegex(ValueError, message):
++                    self.validate(document)
++
++    def test_envelope_and_metadata_shapes_are_required(self):
++        for document in (None, [], "evals"):
++            with self.subTest(document=document):
++                with self.assertRaisesRegex(ValueError, "eval declaration must be an object"):
++                    self.validate(document)
++        for key in self.document():
++            if key == "schema_version":
++                continue
++            with self.subTest(missing=key):
++                document = self.document()
++                del document[key]
++                with self.assertRaisesRegex(ValueError, "unsupported fields"):
++                    self.validate(document)
++        for field, value in (("purpose", ""), ("execution_status", False),
++                             ("execution_boundary", []), ("fixture_materialization", {}),
++                             ("common_grading", None)):
++            with self.subTest(field=field):
++                document = self.document()
++                document[field] = value
++                with self.assertRaises(ValueError):
++                    self.validate(document)
++        document = self.document()
++        document["execution_boundary"]["run_now"] = 0
++        with self.assertRaisesRegex(ValueError, "run_now must be a boolean"):
++            self.validate(document)
++
++    def test_cases_must_be_a_nonempty_array_and_ids_unique(self):
++        for cases in (None, {}, "cases", True, []):
++            with self.subTest(cases=cases):
++                document = self.document()
++                document["cases"] = cases
++                with self.assertRaisesRegex(ValueError, "cases must be a nonempty list"):
++                    self.validate(document)
++        document = self.document()
++        document["cases"][1]["id"] = document["cases"][0]["id"]
++        with self.assertRaisesRegex(ValueError, "duplicate case ID"):
++            self.validate(document)
++
++    def test_case_fields_and_optional_boolean_are_checked(self):
++        for field, value in (("id", " "), ("title", 3), ("tier", "unknown"),
++                             ("status", None), ("validator_request", []),
++                             ("operator_setup", "setup"), ("operator_setup", []),
++                             ("required_observations", [False]),
++                             ("requires_real_control_bundle", "true")):
++            with self.subTest(field=field, value=value):
++                document = self.document()
++                document["cases"][0][field] = value
++                with self.assertRaises(ValueError):
++                    self.validate(document)
++        for replacement in (None, {"id": "incomplete"}):
++            document = self.document()
++            document["cases"][0] = replacement
++            with self.assertRaises(ValueError):
++                self.validate(document)
++
++    def test_case_fixture_and_base_references_must_resolve(self):
++        document = self.document()
++        document["cases"][0]["fixture_set"] = "undefined"
++        with self.assertRaisesRegex(ValueError, "unknown case fixture_set"):
++            self.validate(document)
++        document = self.document()
++        document["fixture_sets"]["variant"]["base"] = "undefined"
++        with self.assertRaisesRegex(ValueError, "unknown fixture base"):
++            self.validate(document)
++
++    def test_self_and_multi_node_fixture_cycles_are_rejected(self):
++        for base in ("origin", "variant"):
++            with self.subTest(base=base):
++                document = self.document()
++                document["fixture_sets"]["origin"]["base"] = base
++                with self.assertRaisesRegex(ValueError, "fixture base cycle"):
++                    self.validate(document)
++
++    def test_every_inline_path_operation_rejects_escaping_or_nonportable_paths(self):
++        paths = ("../escape", "/absolute", "C:/absolute", "C:drive-relative", "folder\\escape",
++                 "folder/../escape", "folder//alias", "./alias", "nul\x00name")
++        for operation in ("files", "replace_files", "append_files", "absent_files"):
++            for relative in paths:
++                with self.subTest(operation=operation, relative=relative):
++                    document = self.document()
++                    fixture = document["fixture_sets"]["variant"]
++                    fixture[operation] = [relative] if operation == "absent_files" else {relative: "opaque"}
++                    with self.assertRaisesRegex(ValueError, "unsafe inline fixture path"):
++                        self.validate(document)
++
++    def test_inline_content_must_be_utf8_text_in_every_map(self):
++        for operation in ("files", "replace_files", "append_files"):
++            for content in (None, True, 7, [], {}, "\ud800"):
++                with self.subTest(operation=operation, content=repr(content)):
++                    document = self.document()
++                    document["fixture_sets"]["variant"][operation] = {"target/data.json": content}
++                    with self.assertRaisesRegex(ValueError, "inline content"):
++                        self.validate(document)
++
++    def test_fixture_objects_and_operations_have_declared_shapes(self):
++        for fixtures in (None, [], {}):
++            document = self.document()
++            document["fixture_sets"] = fixtures
++            with self.assertRaisesRegex(ValueError, "fixture_sets must be a nonempty object"):
++                self.validate(document)
++        for field, value in (("base", None), ("files", []), ("replace_files", "text"),
++                             ("append_files", None), ("absent_files", {}),
++                             ("authority_note", False), ("unsupported_operation", {})):
++            with self.subTest(field=field):
++                document = self.document()
++                document["fixture_sets"]["variant"][field] = value
++                with self.assertRaises(ValueError):
++                    self.validate(document)
++
++    def test_patch_targets_resolve_and_declared_absence_stays_absent(self):
++        for operation in ("replace_files", "append_files"):
++            with self.subTest(operation=operation):
++                document = self.document()
++                document["fixture_sets"]["variant"][operation] = {"target/undefined.txt": "opaque"}
++                with self.assertRaisesRegex(ValueError, f"unresolved {operation} target"):
++                    self.validate(document)
++        document = self.document()
++        document["fixture_sets"]["variant"]["absent_files"] = ["target/SKILL.md"]
++        with self.assertRaisesRegex(ValueError, "declared absent file is present"):
++            self.validate(document)
++
++    def test_duplicate_keys_and_nonfinite_json_are_rejected(self):
++        original = json.dumps(self.document())
++        documents = ('{"schema_version":"devforge.skill-validator-self-evals/v1",' + original[1:],
++                     original.replace('"requires_real_control_bundle": true',
++                                      '"requires_real_control_bundle": NaN'))
++        for raw in documents:
++            with self.subTest(raw=raw[:80]):
++                self.path.write_text(raw)
++                with self.assertRaises(ValueError):
++                    validator.validate(self.root)
++
++    def test_legacy_eval_format_keeps_existing_file_checks(self):
++        fixture = self.path.parent / "fixtures/input.txt"
++        fixture.parent.mkdir()
++        fixture.write_text("Synthetic fixture bytes.")
++        valid = {"skill_name": "devforge-review", "evals": [{"id": 1, "files": ["fixtures/input.txt"]}]}
++        self.assertEqual(self.validate(valid), self.expected)
++        for document, message in (
++            ({"skill_name": "wrong", "evals": []}, "wrong eval skill"),
++            ({"skill_name": "devforge-review", "evals": [{"files": ["../outside"]}]}, "escapes eval root"),
++            ({"skill_name": "devforge-review", "evals": [{"files": ["missing.txt"]}]}, "missing fixture"),
++            ({"skill_name": "devforge-review", "evals": None}, "evals must be a list"),
++            ({"skill_name": "devforge-review", "evals": [None]}, "legacy eval case must be an object"),
++            ({"skill_name": "devforge-review", "evals": [{"files": "input.txt"}]}, "legacy files must be a list"),
++        ):
++            with self.subTest(message=message):
++                with self.assertRaisesRegex(ValueError, message):
++                    self.validate(document)
+ 
+ 
+ class StructuralGateTest(unittest.TestCase):

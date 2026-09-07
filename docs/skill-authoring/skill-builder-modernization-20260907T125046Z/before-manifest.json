@@ -1,0 +1,19 @@
+{
+  "root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/providers/codex/plugins/devforgeai/skills/skill-builder",
+  "retained_root": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/before/skill-builder",
+  "files_sha256": {
+    "SKILL.md": "feb18f7e07a2de070b320e414a8857c9bbf43fb9062c528d77acfb156ccd0a51",
+    "agents/openai.yaml": "1dcfb205948df1c9df079b32f85b042568bd4c51fdc8eaa7e4c63e71cf1c5bb1",
+    "references/derivation.json": "34dbc1b5791c3291c3696761f8421506c4898069e53766cb44222ef85fe614cd",
+    "references/validator-handoff.md": "a38d6d993a451fbd137bcc6ad9572955695fe9b4f6b574c9da593bc45aa6543f",
+    "references/interview-guide.md": "6316a3e601d5640638b3ddc6cf71dc33ac501afdffa488830337ca0f6884f19e",
+    "references/framework-context.md": "1d0a17c64c56fa7b1a3d7b4adbdc7f5e0c2e9c805a799aa2a26abeca0aea479f",
+    "references/results-contract.md": "bf33f727b346d59c7e4bf94b2a62eda5ec3f599d848b8b690761bcfcad312841",
+    "references/existing-skill-selection.md": "632144293db485e1adc47c06f6f13933cc5f77660cdf1d95ced82fb52f7b1464",
+    "references/sources.md": "80859a9eb971b5e27b1406ec2dd3133f685bdf1e0f1b1f63c670e7f84f26d113",
+    "assets/skill-design-spec.md": "7cfecd0a0930862f27b2125945981868c5267d61033d4b8847b30ffb9622a552",
+    "references/contracts/execution-contract.md": "db728ed13e704b7a3467707703d1df146913869e3f628867ab08bea57eefeac3",
+    "references/contracts/artifact-contract.md": "fafbb9f64c9f19e796107000c5c93b28f3c7bf60b7283c99e80d480893e36a53",
+    "references/contracts/skill-authoring-contract.md": "fbba6f9fda1e969cf3187c79232373aee06c629902cc3b9b07fea91b3670b2fa"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "Author-observed file identities only; not a runtime receipt",
+  "handoff": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/prepared-handoff.md",
+    "sha256": "3332184859213f8fc35417bcf0a2a675e33ec2c4f46a4ec75e1e49f834495fa2"
+  },
+  "candidate_manifest": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/candidate-manifest.json",
+    "sha256": "6bd17fcc81308e723f8e082a4055d14db75d93ae18962a41f3d80bab771ab48b"
+  },
+  "builder_change_record": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/builder-change-record.json",
+    "sha256": "cea2a32e5b9b65bf1ed29235e8c9f39039a499308a23304e2d2d82b5bb016f00"
+  },
+  "runtime_integration_specification": {
+    "path": "/home/bryan/Projects/DevForge/framework/DevForgeAI/docs/skill-authoring/skill-builder-modernization-20260907T125046Z/runtime-integration-spec.md",
+    "sha256": "af737fc3f1c7e19270e6a23d6df784f63065cdeb4447ee4a83f308c09e8d2a68"
+  },
+  "runtime_receipt": null,
+  "runtime_transition_admitted": false,
+  "receiving_skill_invoked": false,
+  "validation_status": "Not performed"
+}
